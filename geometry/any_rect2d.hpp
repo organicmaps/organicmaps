@@ -7,6 +7,7 @@
 
 #include "base/math.hpp"
 
+#include <array>
 #include <string>
 
 namespace m2
@@ -41,18 +42,18 @@ public:
 
   Point<T> const & LocalZero() const { return m_zero; }
 
-  Point<T> const GlobalZero() const
+  Point<T> GlobalZero() const
   {
-    return Convert(m_zero, i(), j(), m2::Point<T>(1, 0), m2::Point<T>(0, 1));
+    return Convert(m_zero, i(), j(), Point<T>(1, 0), Point<T>(0, 1));
   }
 
-  Point<T> const i() const { return Point<T>(m_angle.cos(), m_angle.sin()); }
+  Point<T> i() const { return Point<T>(m_angle.cos(), m_angle.sin()); }
 
-  Point<T> const j() const { return Point<T>(-m_angle.sin(), m_angle.cos()); }
+  Point<T> j() const { return Point<T>(-m_angle.sin(), m_angle.cos()); }
 
   void SetAngle(ang::Angle<T> const & a)
   {
-    m2::Point<T> glbZero = GlobalZero();
+    Point<T> glbZero = GlobalZero();
 
     m_angle = a;
     m_zero = Convert(glbZero, Point<T>(1, 0), Point<T>(0, 1), i(), j());
@@ -60,25 +61,27 @@ public:
 
   ang::Angle<T> const & Angle() const { return m_angle; }
 
-  Point<T> const GlobalCenter() const { return ConvertFrom(m_rect.Center()); }
+  Point<T> GlobalCenter() const { return ConvertFrom(m_rect.Center()); }
 
-  Point<T> const LocalCenter() const { return m_rect.Center(); }
+  Point<T> LocalCenter() const { return m_rect.Center(); }
 
   T GetMaxSize() const { return max(m_rect.SizeX(), m_rect.SizeY()); }
 
   bool EqualDxDy(AnyRect<T> const & r, T eps) const
   {
-    m2::Point<T> arr1[4];
+    std::array<Point<T>, 4> arr1;
     GetGlobalPoints(arr1);
     sort(arr1, arr1 + 4);
 
-    m2::Point<T> arr2[4];
+    std::array<Point<T>, 4> arr2;
     r.GetGlobalPoints(arr2);
     sort(arr2, arr2 + 4);
 
     for (size_t i = 0; i < 4; ++i)
+    {
       if (!arr1[i].EqualDxDy(arr2[i], eps))
         return false;
+    }
 
     return true;
   }
@@ -87,28 +90,29 @@ public:
 
   bool IsRectInside(AnyRect<T> const & r) const
   {
-    m2::Point<T> pts[4];
+    std::array<Point<T>, 4> pts;
     r.GetGlobalPoints(pts);
-    ConvertTo(pts, 4);
+    ConvertTo(pts);
     return m_rect.IsPointInside(pts[0]) && m_rect.IsPointInside(pts[1]) &&
            m_rect.IsPointInside(pts[2]) && m_rect.IsPointInside(pts[3]);
   }
 
   bool IsIntersect(AnyRect<T> const & r) const
   {
-    m2::Point<T> pts[4];
     if (r.GetLocalRect() == Rect<T>())
       return false;
+    std::array<Point<T>, 4> pts;
     r.GetGlobalPoints(pts);
-    ConvertTo(pts, 4);
+    ConvertTo(pts);
 
-    m2::Rect<T> r1(pts[0], pts[0]);
-    r1.Add(pts[1]);
-    r1.Add(pts[2]);
-    r1.Add(pts[3]);
+    {
+      Rect<T> r1;
+      for (auto const & p : pts)
+        r1.Add(p);
 
-    if (!GetLocalRect().IsIntersect(r1))
-      return false;
+      if (!GetLocalRect().IsIntersect(r1))
+        return false;
+    }
 
     if (r.IsRectInside(*this))
       return true;
@@ -121,51 +125,44 @@ public:
   }
 
   /// Convert into coordinate system of this AnyRect
-  Point<T> const ConvertTo(Point<T> const & p) const
+  Point<T> ConvertTo(Point<T> const & p) const
   {
-    m2::Point<T> i1(1, 0);
-    m2::Point<T> j1(0, 1);
+    Point<T> i1(1, 0);
+    Point<T> j1(0, 1);
     return Convert(p - Convert(m_zero, i(), j(), i1, j1), i1, j1, i(), j());
   }
 
-  void ConvertTo(Point<T> * pts, size_t count) const
+  void ConvertTo(std::array<Point<T>, 4> & pts) const
   {
-    for (size_t i = 0; i < count; ++i)
-      pts[i] = ConvertTo(pts[i]);
+    for (auto & p : pts)
+      p = ConvertTo(p);
   }
 
   /// Convert into global coordinates from the local coordinates of this AnyRect
-  Point<T> const ConvertFrom(Point<T> const & p) const
+  Point<T> ConvertFrom(Point<T> const & p) const
   {
-    return Convert(p + m_zero, i(), j(), m2::Point<T>(1, 0), m2::Point<T>(0, 1));
-  }
-
-  void ConvertFrom(Point<T> * pts, size_t count) const
-  {
-    for (size_t i = 0; i < count; ++i)
-      pts[i] = ConvertFrom(pts[i]);
+    return Convert(p + m_zero, i(), j(), Point<T>(1, 0), Point<T>(0, 1));
   }
 
   Rect<T> const & GetLocalRect() const { return m_rect; }
 
-  Rect<T> const GetGlobalRect() const
+  Rect<T> GetGlobalRect() const
   {
-    Point<T> pts[4];
+    std::array<Point<T>, 4> pts;
     GetGlobalPoints(pts);
 
-    Rect<T> res(pts[0], pts[1]);
-    res.Add(pts[2]);
-    res.Add(pts[3]);
-
+    Rect<T> res;
+    for (auto const & p : pts)
+      res.Add(p);
     return res;
   }
 
-  void GetGlobalPoints(Point<T> * pts) const
+  void GetGlobalPoints(std::array<Point<T>, 4> & pts) const
   {
-    pts[0] = Point<T>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY())));
-    pts[1] = Point<T>(ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY())));
-    pts[2] = Point<T>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY())));
-    pts[3] = Point<T>(ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY())));
+    pts[0] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY()));
+    pts[1] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY()));
+    pts[2] = ConvertFrom(Point<T>(m_rect.maxX(), m_rect.maxY()));
+    pts[3] = ConvertFrom(Point<T>(m_rect.maxX(), m_rect.minY()));
   }
 
   template <typename U>
@@ -176,13 +173,11 @@ public:
 
   void Add(AnyRect<T> const & r)
   {
-    Point<T> pts[4];
+    std::array<Point<T>, 4> pts;
     r.GetGlobalPoints(pts);
-    ConvertTo(pts, 4);
-    m_rect.Add(pts[0]);
-    m_rect.Add(pts[1]);
-    m_rect.Add(pts[2]);
-    m_rect.Add(pts[3]);
+    ConvertTo(pts);
+    for (auto const & p : pts)
+      m_rect.Add(p);
   }
 
   void Offset(Point<T> const & p) { m_zero = ConvertTo(ConvertFrom(m_zero) + p); }
@@ -191,15 +186,15 @@ public:
 
   void SetSizesToIncludePoint(Point<T> const & p) { m_rect.SetSizesToIncludePoint(ConvertTo(p)); }
 
-  friend std::string DebugPrint(m2::AnyRect<T> const & r)
+  friend std::string DebugPrint(AnyRect<T> const & r)
   {
     return "{ Zero = " + DebugPrint(r.m_zero) + ", Rect = " + DebugPrint(r.m_rect) +
            ", Ang = " + DebugPrint(r.m_angle) + " }";
   }
 
 private:
-  static Point<T> const Convert(Point<T> const & p, Point<T> const & fromI, Point<T> const & fromJ,
-                                Point<T> const & toI, Point<T> const & toJ)
+  static Point<T> Convert(Point<T> const & p, Point<T> const & fromI, Point<T> const & fromJ,
+                          Point<T> const & toI, Point<T> const & toJ)
   {
     Point<T> res;
 
