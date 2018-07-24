@@ -1,6 +1,7 @@
 #pragma once
-#include "feature.hpp"
-#include "feature_loader_base.hpp"
+
+#include "indexer/feature.hpp"
+#include "indexer/shared_load_info.hpp"
 
 #include "coding/var_record_reader.hpp"
 
@@ -30,7 +31,7 @@ public:
     m_RecordReader.ForEachRecord([&] (uint32_t pos, char const * data, uint32_t /*size*/)
     {
       FeatureType ft;
-      ft.Deserialize(m_LoadInfo.GetLoader(), data);
+      ft.Deserialize(&m_LoadInfo, data);
 
       // We can't properly set MwmId here, because FeaturesVector
       // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.

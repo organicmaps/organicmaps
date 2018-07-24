@@ -9,6 +9,7 @@
 #include "generator/tesselator.hpp"
 
 #include "indexer/data_header.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/feature_visibility.hpp"

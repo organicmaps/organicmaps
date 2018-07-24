@@ -162,10 +162,8 @@
 		675341191A3F540F00A0A8C3 /* feature_decl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340C51A3F540F00A0A8C3 /* feature_decl.hpp */; };
 		6753411A1A3F540F00A0A8C3 /* feature_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C61A3F540F00A0A8C3 /* feature_impl.cpp */; };
 		6753411B1A3F540F00A0A8C3 /* feature_impl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340C71A3F540F00A0A8C3 /* feature_impl.hpp */; };
-		6753411C1A3F540F00A0A8C3 /* feature_loader_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C81A3F540F00A0A8C3 /* feature_loader_base.cpp */; };
-		6753411D1A3F540F00A0A8C3 /* feature_loader_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340C91A3F540F00A0A8C3 /* feature_loader_base.hpp */; };
-		6753411E1A3F540F00A0A8C3 /* feature_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340CA1A3F540F00A0A8C3 /* feature_loader.cpp */; };
-		6753411F1A3F540F00A0A8C3 /* feature_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340CB1A3F540F00A0A8C3 /* feature_loader.hpp */; };
+		6753411C1A3F540F00A0A8C3 /* shared_load_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C81A3F540F00A0A8C3 /* shared_load_info.cpp */; };
+		6753411D1A3F540F00A0A8C3 /* shared_load_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340C91A3F540F00A0A8C3 /* shared_load_info.hpp */; };
 		675341201A3F540F00A0A8C3 /* feature_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340CC1A3F540F00A0A8C3 /* feature_processor.hpp */; };
 		675341211A3F540F00A0A8C3 /* feature_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340CD1A3F540F00A0A8C3 /* feature_utils.cpp */; };
 		675341221A3F540F00A0A8C3 /* feature_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340CE1A3F540F00A0A8C3 /* feature_utils.hpp */; };
@@ -385,10 +383,8 @@
 		675340C51A3F540F00A0A8C3 /* feature_decl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_decl.hpp; sourceTree = "<group>"; };
 		675340C61A3F540F00A0A8C3 /* feature_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_impl.cpp; sourceTree = "<group>"; };
 		675340C71A3F540F00A0A8C3 /* feature_impl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_impl.hpp; sourceTree = "<group>"; };
-		675340C81A3F540F00A0A8C3 /* feature_loader_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_loader_base.cpp; sourceTree = "<group>"; };
-		675340C91A3F540F00A0A8C3 /* feature_loader_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_loader_base.hpp; sourceTree = "<group>"; };
-		675340CA1A3F540F00A0A8C3 /* feature_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_loader.cpp; sourceTree = "<group>"; };
-		675340CB1A3F540F00A0A8C3 /* feature_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_loader.hpp; sourceTree = "<group>"; };
+		675340C81A3F540F00A0A8C3 /* shared_load_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shared_load_info.cpp; sourceTree = "<group>"; };
+		675340C91A3F540F00A0A8C3 /* shared_load_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shared_load_info.hpp; sourceTree = "<group>"; };
 		675340CC1A3F540F00A0A8C3 /* feature_processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_processor.hpp; sourceTree = "<group>"; };
 		675340CD1A3F540F00A0A8C3 /* feature_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_utils.cpp; sourceTree = "<group>"; };
 		675340CE1A3F540F00A0A8C3 /* feature_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_utils.hpp; sourceTree = "<group>"; };
@@ -678,10 +674,8 @@
 				675340C51A3F540F00A0A8C3 /* feature_decl.hpp */,
 				675340C61A3F540F00A0A8C3 /* feature_impl.cpp */,
 				675340C71A3F540F00A0A8C3 /* feature_impl.hpp */,
-				675340C81A3F540F00A0A8C3 /* feature_loader_base.cpp */,
-				675340C91A3F540F00A0A8C3 /* feature_loader_base.hpp */,
-				675340CA1A3F540F00A0A8C3 /* feature_loader.cpp */,
-				675340CB1A3F540F00A0A8C3 /* feature_loader.hpp */,
+				675340C81A3F540F00A0A8C3 /* shared_load_info.cpp */,
+				675340C91A3F540F00A0A8C3 /* shared_load_info.hpp */,
 				6726C1CF1A49DAAC005EEA39 /* feature_meta.cpp */,
 				6726C1D01A49DAAC005EEA39 /* feature_meta.hpp */,
 				675340CC1A3F540F00A0A8C3 /* feature_processor.hpp */,
@@ -770,7 +764,6 @@
 				E906DE3C1CF44934004C4F5E /* postcodes_matcher.hpp in Headers */,
 				6753414E1A3F540F00A0A8C3 /* types_mapping.hpp in Headers */,
 				67BC92F31D21476500A4A378 /* string_set.hpp in Headers */,
-				6753411F1A3F540F00A0A8C3 /* feature_loader.hpp in Headers */,
 				675341151A3F540F00A0A8C3 /* feature_covering.hpp in Headers */,
 				34583BC81C88552100F94664 /* cuisines.hpp in Headers */,
 				674125151B4C02F100A3E828 /* map_style.hpp in Headers */,
@@ -780,8 +773,8 @@
 				675341341A3F540F00A0A8C3 /* interval_index.hpp in Headers */,
 				34664CF51D49FEC1003D7096 /* feature_altitude.hpp in Headers */,
 				675341241A3F540F00A0A8C3 /* feature_visibility.hpp in Headers */,
-				6753411D1A3F540F00A0A8C3 /* feature_loader_base.hpp in Headers */,
-				56C74C231C749E4700B71B9F /* search_delimiters.hpp in Headers */,
+				6753411D1A3F540F00A0A8C3 /* shared_load_info.hpp in Headers */,
+				56C74C231C749E4700B71B9F /* shared_load_info.hpp in Headers */,
 				675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */,
 				40009064201F5CB000963E18 /* locality_index_builder.hpp in Headers */,
 				6726C1D21A49DAAC005EEA39 /* feature_meta.hpp in Headers */,
@@ -1009,7 +1002,6 @@
 				675341031A3F540F00A0A8C3 /* classificator.cpp in Sources */,
 				40009063201F5CB000963E18 /* locality_object.cpp in Sources */,
 				675341401A3F540F00A0A8C3 /* scales.cpp in Sources */,
-				6753411E1A3F540F00A0A8C3 /* feature_loader.cpp in Sources */,
 				675341251A3F540F00A0A8C3 /* feature.cpp in Sources */,
 				675341091A3F540F00A0A8C3 /* data_header.cpp in Sources */,
 				F61F83061E4B187500B37B7A /* road_shields_parser.cpp in Sources */,
@@ -1018,7 +1010,7 @@
 				3D452AFC1EE6D9F5009EAB9B /* centers_table_test.cpp in Sources */,
 				34664CF31D49FEC1003D7096 /* altitude_loader.cpp in Sources */,
 				6726C1D11A49DAAC005EEA39 /* feature_meta.cpp in Sources */,
-				6753411C1A3F540F00A0A8C3 /* feature_loader_base.cpp in Sources */,
+				6753411C1A3F540F00A0A8C3 /* shared_load_info.cpp in Sources */,
 				67BC92F41D21476500A4A378 /* string_slice.cpp in Sources */,
 				675341071A3F540F00A0A8C3 /* data_factory.cpp in Sources */,
 				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,

@@ -11,7 +11,7 @@ void FeaturesVector::GetByIndex(uint32_t index, FeatureType & ft) const
   uint32_t offset = 0, size = 0;
   auto const ftOffset = m_table ? m_table->GetFeatureOffset(index) : index;
   m_RecordReader.ReadRecord(ftOffset, m_buffer, offset, size);
-  ft.Deserialize(m_LoadInfo.GetLoader(), &m_buffer[offset]);
+  ft.Deserialize(&m_LoadInfo, &m_buffer[offset]);
 }
 
 size_t FeaturesVector::GetNumFeatures() const

@@ -60,10 +60,6 @@ set(
   feature_decl.hpp
   feature_impl.cpp
   feature_impl.hpp
-  feature_loader_base.cpp
-  feature_loader_base.hpp
-  feature_loader.cpp
-  feature_loader.hpp
   feature_meta.cpp
   feature_meta.hpp
   feature_processor.hpp
@@ -116,6 +112,8 @@ set(
   search_delimiters.hpp       # it's in indexer because of CategoriesHolder dependency.
   search_string_utils.cpp   # it's in indexer because of CategoriesHolder dependency.
   search_string_utils.hpp     # it's in indexer because of CategoriesHolder dependency.
+  shared_load_info.cpp
+  shared_load_info.hpp
   string_set.hpp
   string_slice.cpp
   string_slice.hpp

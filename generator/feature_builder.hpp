@@ -1,6 +1,5 @@
 #pragma once
 
-#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
 
 #include "coding/file_reader.hpp"

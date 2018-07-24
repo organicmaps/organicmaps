@@ -17,8 +17,7 @@
 
 namespace feature
 {
-class LoaderBase;
-class LoaderCurrent;
+class SharedLoadInfo;
 }
 
 namespace osm
@@ -31,6 +30,9 @@ class FeatureType
 {
 public:
   using Buffer = char const *;
+  using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
+
+  void Deserialize(const feature::SharedLoadInfo * loadInfo, Buffer buffer);
 
   feature::EGeomType GetFeatureType() const;
   FeatureParamsBase & GetParams() { return m_params; }
@@ -41,17 +43,10 @@ public:
 
   void SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count);
 
-  void Deserialize(feature::LoaderBase * loader, Buffer buffer);
-
   void ParseTypes();
   void ParseCommon();
 
-  m2::PointD GetCenter()
-  {
-    ASSERT_EQUAL(GetFeatureType(), feature::GEOM_POINT, ());
-    ParseCommon();
-    return m_center;
-  }
+  m2::PointD GetCenter();
 
   template <class T>
   bool ForEachName(T && fn)
@@ -74,14 +69,7 @@ public:
       f(m_types[i]);
   }
 
-  int8_t GetLayer()
-  {
-    if (!(m_header & feature::HEADER_HAS_LAYER))
-      return 0;
-
-    ParseCommon();
-    return m_params.layer;
-  }
+  int8_t GetLayer();
 
   /// @name Editor methods.
   //@{
@@ -120,7 +108,7 @@ public:
 
   /// @name Geometry.
   //@{
-  /// This constant values should be equal with feature::LoaderBase implementation.
+  /// This constant values should be equal with feature::FeatureLoader implementation.
   enum { BEST_GEOMETRY = -1, WORST_GEOMETRY = -2 };
 
   m2::RectD GetLimitRect(int scale);
@@ -145,18 +133,9 @@ public:
     }
   }
 
-  size_t GetPointsCount() const
-  {
-    ASSERT(m_parsed.m_points, ());
-    return m_points.size();
-  }
+  size_t GetPointsCount() const;
 
-  m2::PointD const & GetPoint(size_t i) const
-  {
-    ASSERT_LESS(i, m_points.size(), ());
-    ASSERT(m_parsed.m_points, ());
-    return m_points[i];
-  }
+  m2::PointD const & GetPoint(size_t i) const;
 
   template <typename TFunctor>
   void ForEachTriangle(TFunctor && f, int scale)
@@ -170,11 +149,7 @@ public:
     }
   }
 
-  std::vector<m2::PointD> GetTriangesAsPoints(int scale)
-  {
-    ParseTriangles(scale);
-    return {std::begin(m_triangles), std::end(m_triangles)};
-  }
+  std::vector<m2::PointD> GetTriangesAsPoints(int scale);
 
   template <typename Functor>
   void ForEachTriangleEx(Functor && f, int scale) const
@@ -255,22 +230,29 @@ private:
     bool m_points = false;
     bool m_triangles = false;
     bool m_metadata = false;
+
+    void Reset() { m_types = m_common = m_header2 = m_points = m_triangles = m_metadata = false; }
   };
 
   struct Offsets
   {
     static uint32_t const m_types = 1;
-    uint32_t m_common;
-    uint32_t m_header2;
+    uint32_t m_common = 0;
+    uint32_t m_header2 = 0;
+    GeometryOffsets m_pts;
+    GeometryOffsets m_trg;
+
+    void Reset()
+    {
+      m_common = m_header2 = 0;
+      m_pts.clear();
+      m_trg.clear();
+    }
   };
 
   void ParseGeometryAndTriangles(int scale);
 
-  feature::LoaderBase * m_loader;
-  Buffer m_data = 0;
-
   uint8_t m_header = 0;
-
   uint32_t m_types[feature::kMaxTypesCount];
 
   FeatureID m_id;
@@ -286,30 +268,12 @@ private:
   Points m_points, m_triangles;
   feature::Metadata m_metadata;
 
+  const feature::SharedLoadInfo * m_loadInfo;
+  Buffer m_data = 0;
+
   ParsedFlags m_parsed;
   Offsets m_offsets;
   uint32_t m_ptsSimpMask;
-  using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
-  GeometryOffsets m_ptsOffsets, m_trgOffsets;
 
   InnerGeomStat m_innerStats;
-
-  friend class feature::LoaderCurrent;
-  friend class feature::LoaderBase;
 };
-
-namespace feature
-{
-template <class Iter>
-void CalcRect(Iter b, Iter e, m2::RectD & rect)
-{
-  while (b != e)
-    rect.Add(*b++);
-}
-
-template <class Cont>
-void CalcRect(Cont const & points, m2::RectD & rect)
-{
-  CalcRect(points.begin(), points.end(), rect);
-}
-}

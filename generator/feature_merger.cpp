@@ -1,8 +1,8 @@
 #include "generator/feature_merger.hpp"
 
-#include "indexer/feature.hpp"
-#include "indexer/feature_visibility.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/feature_algo.hpp"
+#include "indexer/feature_visibility.hpp"
 
 #include "coding/point_to_integer.hpp"
 
