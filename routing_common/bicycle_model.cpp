@@ -472,7 +472,7 @@ bool BicycleModel::IsBicycleBidir(feature::TypesHolder const & types) const
   return types.Has(m_bidirBicycleType);
 }
 
-bool BicycleModel::IsOneWay(FeatureType const & f) const
+bool BicycleModel::IsOneWay(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
 

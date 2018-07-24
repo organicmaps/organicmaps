@@ -54,7 +54,7 @@ void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & 
   bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
 }
 
-NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params,
+NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
                          TokenRange const & range, Model::Type type)
 {
   NameScores bestScores;
@@ -80,7 +80,7 @@ NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params
   return bestScores;
 }
 
-ErrorsMade GetErrorsMade(FeatureType const & ft, Geocoder::Params const & params,
+ErrorsMade GetErrorsMade(FeatureType & ft, Geocoder::Params const & params,
                          TokenRange const & range, Model::Type type)
 {
   auto errorsMade = GetNameScores(ft, params, range, type).m_errorsMade;
@@ -250,8 +250,8 @@ class RankerResultMaker
     return true;
   }
 
-  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
-                       PreRankerResult const & res, search::RankingInfo & info)
+  void InitRankingInfo(FeatureType & ft, m2::PointD const & center, PreRankerResult const & res,
+                       search::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
 
@@ -563,7 +563,7 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
   };
 }
 
-void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
+void Ranker::GetBestMatchName(FeatureType & f, string & name) const
 {
   KeywordLangMatcher::Score bestScore;
   auto updateScore = [&](int8_t lang, string const & s, bool force) {

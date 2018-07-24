@@ -38,12 +38,8 @@ public:
 
 struct CaptionDescription
 {
-  void Init(FeatureType const & f,
-            int8_t deviceLang,
-            int const zoomLevel,
-            feature::EGeomType const type,
-            drule::text_type_t const mainTextType,
-            bool const auxCaptionExists);
+  void Init(FeatureType & f, int8_t deviceLang, int const zoomLevel, feature::EGeomType const type,
+            drule::text_type_t const mainTextType, bool const auxCaptionExists);
 
   string const & GetMainText() const;
   string const & GetAuxText() const;
@@ -83,10 +79,7 @@ public:
   bool IsEmpty() const;
 
 private:
-  friend bool InitStylist(FeatureType const & f,
-                          int8_t deviceLang,
-                          int const zoomLevel,
-                          bool buildings3d,
+  friend bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                           Stylist & s);
 
   void RaiseCoastlineFlag();
@@ -104,12 +97,9 @@ private:
   CaptionDescription m_captionDescriptor;
 };
 
-bool InitStylist(FeatureType const & f,
-                 int8_t deviceLang,
-                 int const zoomLevel,
-                 bool buildings3d,
+bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d,
                  Stylist & s);
 
-double GetFeaturePriority(FeatureType const & f, int const zoomLevel);
+double GetFeaturePriority(FeatureType & f, int const zoomLevel);
 
 } // namespace df

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
@@ -108,7 +109,7 @@ public:
   bool FormatFullAddress(std::string & res) const;
 
   /// Get common parameters of feature.
-  FeatureBase GetFeatureBase() const;
+  feature::TypesHolder GetTypesHolder() const;
 
   bool IsGeometryClosed() const;
   m2::PointD GetGeometryCenter() const;

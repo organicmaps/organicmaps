@@ -38,19 +38,19 @@ namespace
 
     bool IsEmpty() const { return m_count == 0; }
 
-    void operator() (FeatureType const & ft)
+    void operator()(FeatureType & ft)
     {
       ++m_count;
 
       m_timer.Reset();
 
       drule::KeysT keys;
-      (void)feature::GetDrawRule(ft, m_scale, keys);
+      UNUSED_VALUE(feature::GetDrawRule(feature::TypesHolder(ft), m_scale, keys));
 
       if (!keys.empty())
       {
         // Call this function to load feature's inner data and geometry.
-        (void)ft.IsEmptyGeometry(m_scale);
+        UNUSED_VALUE(ft.IsEmptyGeometry(m_scale));
       }
 
       m_res.Add(m_timer.ElapsedSeconds());

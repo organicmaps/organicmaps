@@ -47,8 +47,7 @@ FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
 {
 }
 
-VehicleModelInterface::SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(
-    FeatureType const & f) const
+VehicleModelInterface::SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(FeatureType & f) const
 {
   return GetVehicleModel(f.GetID())->GetSpeed(f);
 }
@@ -58,17 +57,17 @@ double FeaturesRoadGraph::CrossCountryVehicleModel::GetOffroadSpeed() const
   return m_offroadSpeedKMpH;
 }
 
-bool FeaturesRoadGraph::CrossCountryVehicleModel::IsOneWay(FeatureType const & f) const
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsOneWay(FeatureType & f) const
 {
   return GetVehicleModel(f.GetID())->IsOneWay(f);
 }
 
-bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType const & f) const
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType & f) const
 {
   return GetVehicleModel(f.GetID())->IsRoad(f);
 }
 
-bool FeaturesRoadGraph::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType const & f) const
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType & f) const
 {
   return GetVehicleModel(f.GetID())->IsPassThroughAllowed(f);
 }
@@ -212,8 +211,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
 
   m2::PointD const & cross = junction.GetPoint();
 
-  auto const f = [&types, &cross](FeatureType const & ft)
-  {
+  auto const f = [&types, &cross](FeatureType & ft) {
     if (!types.Empty())
       return;
 
@@ -244,19 +242,16 @@ void FeaturesRoadGraph::ClearState()
   m_mwmLocks.clear();
 }
 
-bool FeaturesRoadGraph::IsRoad(FeatureType const & ft) const { return m_vehicleModel.IsRoad(ft); }
+bool FeaturesRoadGraph::IsRoad(FeatureType & ft) const { return m_vehicleModel.IsRoad(ft); }
 
-bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
-{
-  return m_vehicleModel.IsOneWay(ft);
-}
+bool FeaturesRoadGraph::IsOneWay(FeatureType & ft) const { return m_vehicleModel.IsOneWay(ft); }
 
-double FeaturesRoadGraph::GetSpeedKMpHFromFt(FeatureType const & ft) const
+double FeaturesRoadGraph::GetSpeedKMpHFromFt(FeatureType & ft) const
 {
   return m_vehicleModel.GetSpeed(ft).m_weight;
 }
 
-void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType const & ft,
+void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType & ft,
                                         double speedKMpH, RoadInfo & ri) const
 {
   Value const & value = LockMwm(featureId.m_mwmId);
@@ -311,7 +306,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 }
 
 IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId,
-                                                                  FeatureType const & ft,
+                                                                  FeatureType & ft,
                                                                   double speedKMPH) const
 {
   bool found = false;

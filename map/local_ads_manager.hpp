@@ -37,7 +37,7 @@ class LocalAdsManager final
 public:
   using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
   using GetMwmIdByNameFn = std::function<MwmSet::MwmId(std::string const &)>;
-  using ReadFeatureTypeFn = std::function<void(FeatureType const &)>;
+  using ReadFeatureTypeFn = std::function<void(FeatureType &)>;
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
                                             std::vector<FeatureID> const & features)>;
   using GetFeatureByIdFn = std::function<bool(FeatureID const &, FeatureType &)>;

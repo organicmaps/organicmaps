@@ -28,8 +28,7 @@ typedef std::pair<int64_t, int64_t> Interval;
 typedef std::vector<Interval> Intervals;
 
 // Cover feature with RectIds and return their integer representations.
-std::vector<int64_t> CoverFeature(FeatureType const & feature, int cellDepth,
-                                  uint64_t cellPenaltyArea);
+std::vector<int64_t> CoverFeature(FeatureType & feature, int cellDepth, uint64_t cellPenaltyArea);
 
 std::vector<int64_t> CoverGeoObject(indexer::LocalityObject const & o, int cellDepth);
 

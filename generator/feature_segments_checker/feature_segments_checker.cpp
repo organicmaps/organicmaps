@@ -159,7 +159,7 @@ public:
   {
   }
 
-  void operator()(FeatureType const & f, uint32_t const & id)
+  void operator()(FeatureType & f, uint32_t const & id)
   {
     f.ParseBeforeStatistic();
     if (!GetBicycleModel().IsRoad(f))

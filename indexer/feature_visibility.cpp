@@ -1,6 +1,9 @@
 #include "indexer/feature_visibility.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
+#include "indexer/feature.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -114,7 +117,7 @@ void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
     (void)c.ProcessObjects(t, doRules);
 }
 
-void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys)
+void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys)
 {
   keys.erase_if([&f, zoomLevel](drule::Key const & key)->bool
   {
@@ -279,33 +282,39 @@ bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType)
   return false;
 }
 
-bool IsDrawableForIndex(FeatureBase const & f, int level)
+bool IsDrawableForIndex(FeatureType & ft, int level)
 {
-  return IsDrawableForIndexGeometryOnly(f, level) && IsDrawableForIndexClassifOnly(f, level);
+  return IsDrawableForIndexGeometryOnly(ft, level) &&
+         IsDrawableForIndexClassifOnly(TypesHolder(ft), level);
 }
 
-bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level)
+bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level)
+{
+  return IsDrawableForIndexGeometryOnly(types, limitRect, level) &&
+         IsDrawableForIndexClassifOnly(types, level);
+}
+
+bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level)
+{
+  return IsDrawableForIndexGeometryOnly(TypesHolder(ft),
+                                        ft.GetLimitRect(FeatureType::BEST_GEOMETRY), level);
+}
+bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRect, int level)
 {
   Classificator const & c = classif();
 
   static uint32_t const buildingPartType = c.GetTypeByPath({"building:part"});
 
-  TypesHolder const types(f);
-
-  if (types.GetGeoType() == GEOM_AREA
-      && !types.Has(c.GetCoastType()) && !types.Has(buildingPartType)
-      && !scales::IsGoodForLevel(level, f.GetLimitRect()))
+  if (types.GetGeoType() == GEOM_AREA && !types.Has(c.GetCoastType()) &&
+      !types.Has(buildingPartType) && !scales::IsGoodForLevel(level, limitRect))
     return false;
 
   return true;
 }
 
-bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level)
+bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
 {
   Classificator const & c = classif();
-
-  TypesHolder const types(f);
-
   IsDrawableChecker doCheck(level);
   for (uint32_t t : types)
   {
@@ -344,23 +353,28 @@ bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType geomType, bool em
   return !types.empty();
 }
 
-int GetMinDrawableScale(FeatureBase const & f)
+int GetMinDrawableScale(FeatureType & ft)
+{
+  return GetMinDrawableScale(TypesHolder(ft), ft.GetLimitRect(FeatureType::BEST_GEOMETRY));
+}
+
+int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect)
 {
   int const upBound = scales::GetUpperStyleScale();
 
   for (int level = 0; level <= upBound; ++level)
-    if (IsDrawableForIndex(f, level))
+    if (IsDrawableForIndex(types, limitRect, level))
       return level;
 
   return -1;
 }
 
-int GetMinDrawableScaleClassifOnly(FeatureBase const & f)
+int GetMinDrawableScaleClassifOnly(TypesHolder const & types)
 {
   int const upBound = scales::GetUpperStyleScale();
 
   for (int level = 0; level <= upBound; ++level)
-    if (IsDrawableForIndexClassifOnly(f, level))
+    if (IsDrawableForIndexClassifOnly(types, level))
       return level;
 
   return -1;
@@ -480,11 +494,6 @@ pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rule
   }
 
   return make_pair(lowL, highL);
-}
-
-pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules)
-{
-  return GetDrawableScaleRangeForRules(TypesHolder(f), rules);
 }
 
 TypeSetChecker::TypeSetChecker(initializer_list<char const *> const & lst)

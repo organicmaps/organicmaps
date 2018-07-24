@@ -70,21 +70,21 @@ public:
     CHECK(m_carModel, ());
   }
 
-  VehicleMask CalcRoadMask(FeatureType const & f) const
+  VehicleMask CalcRoadMask(FeatureType & f) const
   {
     return CalcMask(
-        f, [&](VehicleModelInterface const & model, FeatureType const & f) { return model.IsRoad(f); });
+        f, [&](VehicleModelInterface const & model, FeatureType & f) { return model.IsRoad(f); });
   }
 
-  VehicleMask CalcOneWayMask(FeatureType const & f) const
+  VehicleMask CalcOneWayMask(FeatureType & f) const
   {
     return CalcMask(
-        f, [&](VehicleModelInterface const & model, FeatureType const & f) { return model.IsOneWay(f); });
+        f, [&](VehicleModelInterface const & model, FeatureType & f) { return model.IsOneWay(f); });
   }
 
 private:
   template <class Fn>
-  VehicleMask CalcMask(FeatureType const & f, Fn && fn) const
+  VehicleMask CalcMask(FeatureType & f, Fn && fn) const
   {
     VehicleMask mask = 0;
     if (fn(*m_pedestrianModel, f))
@@ -131,7 +131,7 @@ public:
   unordered_map<uint32_t, VehicleMask> const & GetMasks() const { return m_masks; }
 
 private:
-  void ProcessFeature(FeatureType const & f, uint32_t id)
+  void ProcessFeature(FeatureType & f, uint32_t id)
   {
     VehicleMask const mask = m_maskBuilder.CalcRoadMask(f);
     if (mask == 0)
@@ -231,7 +231,7 @@ void CalcCrossMwmTransitions(
   CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
-  ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
+  ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
     VehicleMask const roadMask = maskMaker.CalcRoadMask(f);
     if (roadMask == 0)
       return;

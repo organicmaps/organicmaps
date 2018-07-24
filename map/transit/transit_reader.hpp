@@ -25,7 +25,7 @@
 
 class DataSource;
 
-using FeatureCallback = std::function<void (FeatureType const &)>;
+using FeatureCallback = std::function<void(FeatureType &)>;
 using TReadFeaturesFn = std::function<void (FeatureCallback const & , std::vector<FeatureID> const &)>;
 
 class ReadTransitTask: public threads::IRoutine

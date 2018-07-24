@@ -12,13 +12,13 @@
 
 #include <iomanip>
 #include <iostream>
-
+#include <iterator>
 
 using namespace feature;
 
 namespace stats
 {
-  void FileContainerStatistic(std::string const & fPath)
+  void FileContainerStatistic(string const & fPath)
   {
     try
     {
@@ -40,8 +40,8 @@ namespace stats
   size_t GetAreaIndex(double s)
   {
     double const sInKm2 = s / 1000000;
-    auto i = lower_bound(begin(arrAreas), end(arrAreas), sInKm2);
-    ASSERT(i != end(arrAreas), ());
+    auto i = lower_bound(std::begin(arrAreas), std::end(arrAreas), sInKm2);
+    ASSERT(i != std::end(arrAreas), ());
     return distance(arrAreas, i);
   }
 
@@ -52,19 +52,19 @@ namespace stats
   public:
     AccumulateStatistic(MapInfo & info) : m_info(info) {}
 
-    void operator() (FeatureType const & f, uint32_t)
+    void operator() (FeatureType & f, uint32_t)
     {
       f.ParseBeforeStatistic();
 
-      FeatureType::inner_geom_stat_t const innerStats = f.GetInnerStatistic();
+      FeatureType::InnerGeomStat const innerStats = f.GetInnerStatistic();
 
       m_info.m_inner[0].Add(innerStats.m_points);
       m_info.m_inner[1].Add(innerStats.m_strips);
       m_info.m_inner[2].Add(innerStats.m_size);
 
       // get geometry size for the best geometry
-      FeatureType::geom_stat_t const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
-      FeatureType::geom_stat_t const trg = f.GetTrianglesSize(FeatureType::BEST_GEOMETRY);
+      FeatureType::GeomStat const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
+      FeatureType::GeomStat const trg = f.GetTrianglesSize(FeatureType::BEST_GEOMETRY);
 
       m_info.m_byPointsCount[CountType(geom.m_count)].Add(geom.m_size);
       m_info.m_byTrgCount[CountType(trg.m_count / 3)].Add(trg.m_size);

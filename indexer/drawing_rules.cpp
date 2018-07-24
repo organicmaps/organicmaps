@@ -100,7 +100,7 @@ ShieldRuleProto const * BaseRule::GetShield() const
   return nullptr;
 }
 
-bool BaseRule::TestFeature(FeatureType const & ft, int /* zoom */) const
+bool BaseRule::TestFeature(FeatureType & ft, int /* zoom */) const
 {
   if (nullptr == m_selector)
     return true;

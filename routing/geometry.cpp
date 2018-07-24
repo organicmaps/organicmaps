@@ -116,7 +116,7 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
     m_junctions.emplace_back(point, feature::kDefaultAltitudeMeters);
 }
 
-void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType const & feature,
+void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
                         feature::TAltitudes const * altitudes)
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());

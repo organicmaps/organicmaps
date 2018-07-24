@@ -1087,7 +1087,7 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
 }
 
 template <typename ProjectionCalculator>
-void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalculator & calc)
+void HouseDetector::ReadHouse(FeatureType & f, Street * st, ProjectionCalculator & calc)
 {
   string const houseNumber = f.GetHouseNumber();
 

@@ -122,8 +122,7 @@ private:
   bool TransitCrossMwmSectionExists(NumMwmId numMwmId) const;
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
-  void GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
-                         std::vector<Segment> & twinCandidates);
+  void GetTwinCandidates(FeatureType & ft, bool isOutgoing, std::vector<Segment> & twinCandidates);
 
   /// \brief Fills structure |twins| or for feature |ft| if |ft| contains transition segment(s).
   /// \param sMwmId mwm id of a segment which twins are looked for
@@ -135,8 +134,8 @@ private:
   /// \note If the method finds twin segment with a point which is very close to |point| the twin segment is
   /// added to |twins| anyway. If there's no such segment in mwm it tries find the closet one and adds it
   /// to |minDistSegs|.
-  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft,
-                     m2::PointD const & point, std::map<NumMwmId, ClosestSegment> & minDistSegs,
+  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType & ft, m2::PointD const & point,
+                     std::map<NumMwmId, ClosestSegment> & minDistSegs,
                      std::vector<Segment> & twins);
 
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and

@@ -52,7 +52,7 @@ public:
     return inst;
   }
 
-  bool operator()(FeatureType const & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
+  bool operator()(FeatureType & ft) const { return m_oneLevel(ft) || m_twoLevel(ft); }
 
 private:
   OneLevelPOIChecker const m_oneLevel;
@@ -68,7 +68,7 @@ public:
     return inst;
   }
 
-  bool operator()(FeatureType const & ft) const
+  bool operator()(FeatureType & ft) const
   {
     return !ft.GetHouseNumber().empty() || IsBuildingChecker::Instance()(ft);
   }
@@ -78,7 +78,7 @@ private:
 };
 }  // namespace
 
-Model::Type Model::GetType(FeatureType const & feature) const
+Model::Type Model::GetType(FeatureType & feature) const
 {
   static auto const & buildingChecker = CustomIsBuildingChecker::Instance();
   static auto const & streetChecker = IsStreetChecker::Instance();

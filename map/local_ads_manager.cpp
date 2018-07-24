@@ -186,15 +186,16 @@ df::CustomFeatures ReadCampaignFeatures(LocalAdsManager::ReadFeaturesFn const & 
   }
 
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  reader([&campaignData, deviceLang](FeatureType const & ft)
-  {
-    auto it = campaignData.find(ft.GetID());
-    CHECK(it != campaignData.end(), ());
-    CHECK(it->second != nullptr, ());
-    it->second->m_position = feature::GetCenter(ft, scales::GetUpperScale());
-    ft.GetPreferredNames(true /* allowTranslit */, deviceLang,
-                         it->second->m_mainText, it->second->m_auxText);
-  }, features);
+  reader(
+      [&campaignData, deviceLang](FeatureType & ft) {
+        auto it = campaignData.find(ft.GetID());
+        CHECK(it != campaignData.end(), ());
+        CHECK(it->second != nullptr, ());
+        it->second->m_position = feature::GetCenter(ft, scales::GetUpperScale());
+        ft.GetPreferredNames(true /* allowTranslit */, deviceLang, it->second->m_mainText,
+                             it->second->m_auxText);
+      },
+      features);
 
   return customFeatures;
 }

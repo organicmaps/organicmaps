@@ -60,7 +60,7 @@ namespace drule
 
     // Test feature by runtime feature style selector
     // Returns true if rule is applicable for feature, otherwise it returns false
-    bool TestFeature(FeatureType const & ft, int zoom) const;
+    bool TestFeature(FeatureType & ft, int zoom) const;
 
     // Set runtime feature style selector
     void SetSelector(unique_ptr<ISelector> && selector);

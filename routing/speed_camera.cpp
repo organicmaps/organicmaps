@@ -45,7 +45,7 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, DataSource const & dataSour
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
-    feature::TypesHolder hl = ft;
+    feature::TypesHolder hl(ft);
     if (!ftypes::IsSpeedCamChecker::Instance()(hl))
       return;
 

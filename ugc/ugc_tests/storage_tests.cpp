@@ -144,8 +144,7 @@ private:
   {
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, 0.2 /* rect width */);
     FeatureID id;
-    auto const fn = [&id, &checker](FeatureType const & featureType)
-    {
+    auto const fn = [&id, &checker](FeatureType & featureType) {
       if (checker(featureType))
         id = featureType.GetID();
     };

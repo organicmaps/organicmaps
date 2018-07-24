@@ -1,4 +1,5 @@
 #include "indexer/feature_loader_base.hpp"
+
 #include "indexer/feature_loader.hpp"
 #include "indexer/feature_impl.hpp"
 
@@ -65,35 +66,20 @@ void SharedLoadInfo::CreateLoader()
 // LoaderBase implementation.
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-LoaderBase::LoaderBase(SharedLoadInfo const & info)
-  : m_Info(info), m_pF(0), m_Data(0)
+LoaderBase::LoaderBase(SharedLoadInfo const & info) : m_Info(info) {}
+
+uint32_t LoaderBase::GetTypesSize(FeatureType const & ft) const
 {
+  return ft.m_offsets.m_common - ft.m_offsets.m_types;
 }
 
-void LoaderBase::Init(TBuffer data)
+uint32_t LoaderBase::CalcOffset(ArrayByteSource const & source, Buffer const data) const
 {
-  m_Data = data;
-  m_pF = 0;
-
-  m_CommonOffset = m_Header2Offset = 0;
-
-  ResetGeometry();
+  return static_cast<uint32_t>(source.PtrC() - data);
 }
 
-void LoaderBase::ResetGeometry()
-{
-  m_ptsSimpMask = 0;
-
-  m_ptsOffsets.clear();
-  m_trgOffsets.clear();
-}
-
-uint32_t LoaderBase::CalcOffset(ArrayByteSource const & source) const
-{
-  return static_cast<uint32_t>(source.PtrC() - DataPtr());
-}
-
-void LoaderBase::ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const
+void LoaderBase::ReadOffsets(ArrayByteSource & src, uint8_t mask,
+                             FeatureType::GeometryOffsets & offsets) const
 {
   ASSERT ( offsets.empty(), () );
   ASSERT_GREATER ( mask, 0, () );

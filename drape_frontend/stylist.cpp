@@ -72,9 +72,7 @@ bool IsMiddleTunnel(int const layer, double const depth)
 class Aggregator
 {
 public:
-  Aggregator(FeatureType const & f,
-             feature::EGeomType const type,
-             int const zoomLevel,
+  Aggregator(FeatureType & f, feature::EGeomType const type, int const zoomLevel,
              int const keyCount)
     : m_pointStyleFound(false)
     , m_lineStyleFound(false)
@@ -152,7 +150,7 @@ private:
     }
   }
 
-  FeatureType const & m_f;
+  FeatureType & m_f;
   feature::EGeomType m_geomType;
   int const m_zoomLevel;
   double m_priorityModifier;
@@ -186,11 +184,8 @@ IsHatchingTerritoryChecker::IsHatchingTerritoryChecker()
     m_types.push_back(c.GetTypeByPath({p[0], p[1]}));
 }
 
-void CaptionDescription::Init(FeatureType const & f,
-                              int8_t deviceLang,
-                              int const zoomLevel,
-                              feature::EGeomType const type,
-                              drule::text_type_t const mainTextType,
+void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int const zoomLevel,
+                              feature::EGeomType const type, drule::text_type_t const mainTextType,
                               bool const auxCaptionExists)
 {
   if (auxCaptionExists || type == feature::GEOM_LINE)
@@ -329,7 +324,7 @@ CaptionDescription & Stylist::GetCaptionDescriptionImpl()
   return m_captionDescriptor;
 }
 
-bool InitStylist(FeatureType const & f, int8_t deviceLang, int const zoomLevel, bool buildings3d, Stylist & s)
+bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool buildings3d, Stylist & s)
 {
   feature::TypesHolder const types(f);
 
@@ -386,10 +381,10 @@ bool InitStylist(FeatureType const & f, int8_t deviceLang, int const zoomLevel, 
   return true;
 }
 
-double GetFeaturePriority(FeatureType const & f, int const zoomLevel)
+double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 {
   drule::KeysT keys;
-  pair<int, bool> const geomType = feature::GetDrawRule(f, zoomLevel, keys);
+  pair<int, bool> const geomType = feature::GetDrawRule(feature::TypesHolder(f), zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 

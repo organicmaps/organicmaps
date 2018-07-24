@@ -135,7 +135,7 @@ public:
   /// @returns false if a feature was uploaded.
   bool RollBackChanges(FeatureID const & fid);
 
-  EditableProperties GetEditableProperties(FeatureType const & feature) const;
+  EditableProperties GetEditableProperties(FeatureType & feature) const;
 
   bool HaveMapEditsOrNotesToUpload() const;
   bool HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const;
@@ -173,7 +173,7 @@ public:
     size_t m_uploadedCount = 0;
     time_t m_lastUploadTimestamp = my::INVALID_TIME_STAMP;
   };
-  Stats GetStats() const;
+  Stats GetStats();
 
   // Don't use this function to determine if a feature in editor was created.
   // Use GetFeatureStatus(fid) instead. This function is used when a feature is
@@ -183,7 +183,7 @@ public:
 private:
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   /// @returns false if fails.
-  bool Save() const;
+  bool Save();
   void RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index);
   void RemoveFeatureFromStorageIfExists(FeatureID const & fid);
   /// Notify framework that something has changed and should be redisplayed.

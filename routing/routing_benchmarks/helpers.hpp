@@ -70,7 +70,7 @@ public:
     // max speed.
     using SpeedKMpH = typename Model::SpeedKMpH;
 
-    SpeedKMpH GetSpeed(FeatureType const & f) const override
+    SpeedKMpH GetSpeed(FeatureType & f) const override
     {
       auto const speed = Model::GetSpeed(f);
       if (speed.m_weight <= 0.0)

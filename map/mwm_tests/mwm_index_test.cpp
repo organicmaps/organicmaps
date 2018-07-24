@@ -20,13 +20,13 @@ public:
     m_ids.push_back(id);
   }
 
-  void operator() (FeatureType const & ft)
+  void operator()(FeatureType & ft)
   {
     bool res = false;
     ft.ForEachPoint([&res] (m2::PointD const &) { res = true; }, m_scale);
     ft.ForEachTriangle([&res] (m2::PointD const &, m2::PointD const &, m2::PointD const &) { res = true; }, m_scale);
 
-    TEST(res, (ft, "Scale =", m_scale));
+    TEST(res, (ft.DebugString(m_scale), "Scale =", m_scale));
   }
 
   void SetScale(int scale)

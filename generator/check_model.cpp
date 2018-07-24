@@ -17,8 +17,7 @@ namespace check_model
   {
     Classificator const & c = classif();
 
-    FeaturesVectorTest(fName).GetVector().ForEach([&] (FeatureType const & ft, uint32_t)
-    {
+    FeaturesVectorTest(fName).GetVector().ForEach([&](FeatureType & ft, uint32_t) {
       TypesHolder types(ft);
 
       vector<uint32_t> vTypes;

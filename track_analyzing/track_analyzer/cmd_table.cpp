@@ -55,7 +55,7 @@ public:
     }
   }
 
-  uint32_t GetType(FeatureType const & feature) const
+  uint32_t GetType(FeatureType & feature) const
   {
     feature::TypesHolder holder(feature);
     for (uint32_t type : m_tags)

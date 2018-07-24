@@ -17,7 +17,7 @@
 
 namespace
 {
-search::Result MakeResultFromFeatureType(FeatureType const & ft)
+search::Result MakeResultFromFeatureType(FeatureType & ft)
 {
   std::string name;
   ft.GetReadableName(name);
@@ -63,7 +63,7 @@ FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet
 class GreaterRating
 {
 public:
-  bool operator()(FeatureType const & lhs, FeatureType const & rhs) const
+  bool operator()(FeatureType & lhs, FeatureType & rhs) const
   {
     double constexpr kPenaltyRating = -1.0;
     double lhsRating = kPenaltyRating;
@@ -225,7 +225,7 @@ void SearchPopularPlaces::ProcessAccumulated()
     return MakeFeatureTypeWithCachedGuard(GetDataSource(), mwmId, guard, id);
   };
 
-  auto const appendResult = [this](uint8_t popularity, FeatureType const & ft)
+  auto const appendResult = [this](uint8_t popularity, FeatureType & ft)
   {
     auto result = MakeResultFromFeatureType(ft);
 
@@ -245,7 +245,7 @@ void SearchPopularPlaces::ProcessAccumulated()
       break;
 
     auto const popularity = item.first;
-    auto const ft = makeFeatureType(item.second);
+    auto ft = makeFeatureType(item.second);
 
     if (popularity > 0)
     {
@@ -268,7 +268,8 @@ void SearchPopularPlaces::ProcessAccumulated()
   {
     for (auto const & featureId : featuresWithoutNames)
     {
-      appendResult(0, makeFeatureType(featureId));
+      auto ft = makeFeatureType(featureId);
+      appendResult(0, ft);
 
       if (GetResults().GetCount() >= itemsCount)
         break;

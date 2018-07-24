@@ -210,7 +210,7 @@ public:
   storage::TCountriesVec const & GetTopmostCountryIds() const { return m_topmostCountryIds; }
 
   /// MapObject
-  void SetFromFeatureType(FeatureType const & ft);
+  void SetFromFeatureType(FeatureType & ft);
 
   void SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }

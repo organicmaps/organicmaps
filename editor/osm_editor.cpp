@@ -120,7 +120,7 @@ bool NeedsUpload(string const & uploadStatus)
 }
 
 /// Compares editable fields connected with feature ignoring street.
-bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
+bool AreFeaturesEqualButStreet(FeatureType & a, FeatureType & b)
 {
   feature::TypesHolder const aTypes(a);
   feature::TypesHolder const bTypes(b);
@@ -140,7 +140,7 @@ bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
   return true;
 }
 
-XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, FeatureType const & ft)
+XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, FeatureType & ft)
 {
   ASSERT_NOT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE,
                    ("Line features are not supported yet."));
@@ -233,7 +233,7 @@ void Editor::LoadEdits()
     Save();
 }
 
-bool Editor::Save() const
+bool Editor::Save()
 {
   // TODO(AlexZ): Improve synchronization in Editor code.
   static mutex saveMutex;
@@ -249,7 +249,7 @@ bool Editor::Save() const
   xml_node root = doc.append_child(kXmlRootNode);
   // Use format_version for possible future format changes.
   root.append_attribute("format_version") = 1;
-  for (auto const & mwm : m_features)
+  for (auto & mwm : m_features)
   {
     xml_node mwmNode = root.append_child(kXmlMwmNode);
     mwmNode.append_attribute("name") = mwm.first.GetInfo()->GetCountryName().c_str();
@@ -258,9 +258,9 @@ bool Editor::Save() const
     xml_node modified = mwmNode.append_child(kModifySection);
     xml_node created = mwmNode.append_child(kCreateSection);
     xml_node obsolete = mwmNode.append_child(kObsoleteSection);
-    for (auto const & index : mwm.second)
+    for (auto & index : mwm.second)
     {
-      FeatureTypeInfo const & fti = index.second;
+      FeatureTypeInfo & fti = index.second;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID
       // and meta fields are enough.
       XMLFeature xf =
@@ -399,7 +399,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 
     if (featureStatus == FeatureStatus::Created)
     {
-      auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
+      auto & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
       if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
@@ -428,7 +428,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     if (featureStatus != FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
-      auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
+      auto & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
       if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
@@ -492,9 +492,9 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
 
   // TODO(AlexZ): Check that features are visible at this scale.
   // Process only new (created) features.
-  for (auto const & index : mwmFound->second)
+  for (auto & index : mwmFound->second)
   {
-    FeatureTypeInfo const & ftInfo = index.second;
+    FeatureTypeInfo & ftInfo = index.second;
     if (ftInfo.m_status == FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(index.first);
@@ -543,7 +543,7 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
   return features;
 }
 
-EditableProperties Editor::GetEditableProperties(FeatureType const & feature) const
+EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
 {
   ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
          ("Edit mode should be available only on new data"));
@@ -960,15 +960,15 @@ bool Editor::RemoveFeature(FeatureID const & fid)
   return Save();
 }
 
-Editor::Stats Editor::GetStats() const
+Editor::Stats Editor::GetStats()
 {
   Stats stats;
   LOG(LDEBUG, ("Edited features status:"));
-  for (auto const & id : m_features)
+  for (auto & id : m_features)
   {
-    for (auto const & index : id.second)
+    for (auto & index : id.second)
     {
-      Editor::FeatureTypeInfo const & fti = index.second;
+      Editor::FeatureTypeInfo & fti = index.second;
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
       LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == my::INVALID_TIME_STAMP

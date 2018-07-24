@@ -103,7 +103,7 @@ void ReadTransitTask::Do()
     features.push_back(id.first);
   sort(features.begin(), features.end());
 
-  m_readFeaturesFn([this](FeatureType const & ft)
+  m_readFeaturesFn([this](FeatureType & ft)
   {
     auto & featureInfo = m_transitInfo->m_features[ft.GetID()];
     ft.GetReadableName(featureInfo.m_title);

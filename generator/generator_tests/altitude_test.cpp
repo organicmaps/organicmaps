@@ -138,8 +138,7 @@ void TestAltitudes(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
   AltitudeLoader loader(dataSource, mwmId);
   TEST_EQUAL(loader.HasAltitudes(), hasAltitudeExpected, ());
 
-  auto processor = [&expectedAltitudes, &loader](FeatureType const & f, uint32_t const & id)
-  {
+  auto processor = [&expectedAltitudes, &loader](FeatureType & f, uint32_t const & id) {
     f.ParseGeometry(FeatureType::BEST_GEOMETRY);
     size_t const pointsCount = f.GetPointsCount();
     TAltitudes const altitudes = loader.GetAltitudes(id, pointsCount);

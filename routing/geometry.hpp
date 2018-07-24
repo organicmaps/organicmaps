@@ -28,7 +28,7 @@ public:
   RoadGeometry() = default;
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
-  void Load(VehicleModelInterface const & vehicleModel, FeatureType const & feature,
+  void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
             feature::TAltitudes const * altitudes);
 
   bool IsOneWay() const { return m_isOneWay; }

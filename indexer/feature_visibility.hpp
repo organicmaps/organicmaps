@@ -11,22 +11,23 @@
 #include "std/utility.hpp"
 #include "std/initializer_list.hpp"
 
-
-class FeatureBase;
+class FeatureType;
 
 namespace feature
 {
   class TypesHolder;
 
   bool IsDrawableAny(uint32_t type);
-  bool IsDrawableForIndex(FeatureBase const & f, int level);
+  bool IsDrawableForIndex(FeatureType & ft, int level);
+  bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level);
 
   // The separation into ClassifOnly and GeometryOnly versions is needed to speed up
   // the geometrical index (see indexer/scale_index_builder.hpp).
   // Technically, the GeometryOnly version uses the classificator, but it only does
   // so when checking against coastlines.
-  bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level);
-  bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level);
+  bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level);
+  bool IsDrawableForIndexGeometryOnly(FeatureType & ft, int level);
+  bool IsDrawableForIndexGeometryOnly(TypesHolder const & types, m2::RectD limitRect, int level);
 
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType);
@@ -34,8 +35,9 @@ namespace feature
   bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName = false);
   //@}
 
-  int GetMinDrawableScale(FeatureBase const & f);
-  int GetMinDrawableScaleClassifOnly(FeatureBase const & f);
+  int GetMinDrawableScale(FeatureType & ft);
+  int GetMinDrawableScale(TypesHolder const & types, m2::RectD limitRect);
+  int GetMinDrawableScaleClassifOnly(TypesHolder const & types);
 
   /// @return [-1, -1] if range is not drawable
   //@{
@@ -54,7 +56,6 @@ namespace feature
   };
 
   pair<int, int> GetDrawableScaleRangeForRules(TypesHolder const & types, int rules);
-  pair<int, int> GetDrawableScaleRangeForRules(FeatureBase const & f, int rules);
   //@}
 
   /// @return (geometry type, is coastline)
@@ -62,7 +63,7 @@ namespace feature
                               drule::KeysT & keys);
   void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
                    drule::KeysT & keys);
-  void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys);
+  void FilterRulesByRuntimeSelector(FeatureType & f, int zoomLevel, drule::KeysT & keys);
 
   /// Used to check whether user types belong to particular classificator set.
   class TypeSetChecker

@@ -63,8 +63,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   auto const someFeaturePoint = geometry[0];
 
   forEach(
-      [&feature, &geometry, &count, &bestScore](FeatureType const & ft)
-      {
+      [&feature, &geometry, &count, &bestScore](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::GEOM_AREA)
           return;
         ++count;

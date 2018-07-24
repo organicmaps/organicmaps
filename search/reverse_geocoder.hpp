@@ -94,7 +94,7 @@ public:
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
   /// @param addr (out) the exact address of a feature.
   /// @returns false if  can't extruct address or ft have no house number.
-  bool GetExactAddress(FeatureType const & ft, Address & addr) const;
+  bool GetExactAddress(FeatureType & ft, Address & addr) const;
 
 private:
 
@@ -114,7 +114,7 @@ private:
   /// @return Sorted by distance houses vector with valid house number.
   void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
 
-  static Building FromFeature(FeatureType const & ft, double distMeters);
+  static Building FromFeature(FeatureType & ft, double distMeters);
   static m2::RectD GetLookupRect(m2::PointD const & center, double radiusM);
 };
 

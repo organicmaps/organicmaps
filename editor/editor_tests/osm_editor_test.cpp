@@ -69,14 +69,14 @@ void ForEachCafeAtPoint(DataSource & dataSource, m2::PointD const & mercator, TF
   dataSource.ForEachInRect(f, rect, scales::GetUpperScale());
 }
 
-void FillEditableMapObject(osm::Editor const & editor, FeatureType const & ft, osm::EditableMapObject & emo)
+void FillEditableMapObject(osm::Editor const & editor, FeatureType & ft, osm::EditableMapObject & emo)
 {
   emo.SetFromFeatureType(ft);
   emo.SetHouseNumber(ft.GetHouseNumber());
   emo.SetEditableProperties(editor.GetEditableProperties(ft));
 }
 
-void SetBuildingLevelsToOne(FeatureType const & ft)
+void SetBuildingLevelsToOne(FeatureType & ft)
 {
   EditFeature(ft, [](osm::EditableMapObject & emo)
   {

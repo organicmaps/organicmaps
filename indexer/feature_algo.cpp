@@ -13,7 +13,7 @@ namespace feature
 /// @returns point on a feature that is the closest to f.GetLimitRect().Center().
 /// It is used by many ednities in the core of mapsme. Do not modify it's
 /// logic if you really-really know what you are doing.
-m2::PointD GetCenter(FeatureType const & f, int scale)
+m2::PointD GetCenter(FeatureType & f, int scale)
 {
   EGeomType const type = f.GetFeatureType();
   switch (type)
@@ -38,12 +38,9 @@ m2::PointD GetCenter(FeatureType const & f, int scale)
   }
 }
 
-m2::PointD GetCenter(FeatureType const & f)
-{
-  return GetCenter(f, FeatureType::BEST_GEOMETRY);
-}
+m2::PointD GetCenter(FeatureType & f) { return GetCenter(f, FeatureType::BEST_GEOMETRY); }
 
-double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt, int scale)
+double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
 {
   double res = numeric_limits<double>::max();
   auto updateDistanceFn = [&] (m2::PointD const & p)
@@ -104,7 +101,7 @@ double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt, int s
   return res;
 }
 
-double GetMinDistanceMeters(FeatureType const & ft, m2::PointD const & pt)
+double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt)
 {
   return GetMinDistanceMeters(ft, pt, FeatureType::BEST_GEOMETRY);
 }

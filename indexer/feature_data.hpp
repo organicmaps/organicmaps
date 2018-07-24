@@ -14,7 +14,7 @@
 #include "std/utility.hpp"
 
 struct FeatureParamsBase;
-class FeatureBase;
+class FeatureType;
 
 namespace feature
 {
@@ -50,14 +50,10 @@ namespace feature
 
   class TypesHolder
   {
-    uint32_t m_types[kMaxTypesCount];
-    size_t m_size;
-
-    EGeomType m_geoType;
-
   public:
-    TypesHolder(EGeomType geoType = GEOM_UNDEFINED) : m_size(0), m_geoType(geoType) {}
-    TypesHolder(FeatureBase const & f);
+    TypesHolder() = default;
+    explicit TypesHolder(EGeomType geoType) : m_geoType(geoType) {}
+    explicit TypesHolder(FeatureType & f);
 
     void Assign(uint32_t type)
     {
@@ -119,6 +115,12 @@ namespace feature
     bool Equals(TypesHolder const & other) const;
 
     vector<string> ToObjectNames() const;
+
+  private:
+    uint32_t m_types[kMaxTypesCount];
+    size_t m_size = 0;
+
+    EGeomType m_geoType = GEOM_UNDEFINED;
   };
 
   string DebugPrint(TypesHolder const & holder);

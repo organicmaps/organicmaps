@@ -90,7 +90,7 @@ string SerializeIndexes(ugc::UpdateIndexes const & indexes)
 
 template <typename UGCUpdate>
 ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
-                                                FeatureType const & featureType,
+                                                FeatureType & featureType,
                                                 ugc::UpdateIndexes & indexes,
                                                 size_t & numberOfDeleted,
                                                 ugc::Version const version)

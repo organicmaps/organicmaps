@@ -46,7 +46,7 @@ std::vector<size_t> const kAverageSegmentsCount =
   10000, 5000, 10000, 5000, 2500, 5000, 2000, 1000, 500, 500
 };
 
-double GetBuildingHeightInMeters(FeatureType const & f)
+double GetBuildingHeightInMeters(FeatureType & f)
 {
   double constexpr kDefaultHeightInMeters = 3.0;
   double constexpr kMetersPerLevel = 3.0;
@@ -72,7 +72,7 @@ double GetBuildingHeightInMeters(FeatureType const & f)
   return heightInMeters;
 }
 
-double GetBuildingMinHeightInMeters(FeatureType const & f)
+double GetBuildingMinHeightInMeters(FeatureType & f)
 {
   feature::Metadata const & md = f.GetMetadata();
   std::string value = md.Get(feature::Metadata::FMD_MIN_HEIGHT);
@@ -86,7 +86,7 @@ double GetBuildingMinHeightInMeters(FeatureType const & f)
   return minHeightInMeters;
 }
 
-df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType const & f)
+df::BaseApplyFeature::HotelData ExtractHotelData(FeatureType & f)
 {
   df::BaseApplyFeature::HotelData result;
   if (ftypes::IsBookingChecker::Instance()(f))
@@ -162,7 +162,7 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   }
 }
 
-bool UsePreciseFeatureCenter(FeatureType const & f)
+bool UsePreciseFeatureCenter(FeatureType & f)
 {
   // Add here types for which we want to calculate precise feature center (by best geometry).
   // Warning! Large amount of such objects can reduce performance.
@@ -232,7 +232,7 @@ bool RuleDrawer::CheckCancelled()
   return m_wasCancelled;
 }
 
-bool RuleDrawer::CheckCoastlines(FeatureType const & f, Stylist const & s)
+bool RuleDrawer::CheckCoastlines(FeatureType & f, Stylist const & s)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
@@ -256,9 +256,8 @@ bool RuleDrawer::CheckCoastlines(FeatureType const & f, Stylist const & s)
   return true;
 }
 
-void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape,
-                                  int & minVisibleScale)
+void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
+                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   bool isBuilding = false;
   bool is3dBuilding = false;
@@ -343,9 +342,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
     apply.Finish(m_context->GetTextureManager());
 }
 
-void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
-                                  TInsertShapeFn const & insertShape,
-                                  int & minVisibleScale)
+void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s,
+                                  TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;
 
@@ -412,7 +410,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
     };
 
     bool const oneWay = ftypes::IsOneWayChecker::Instance()(f);
-    auto const highwayClass = ftypes::GetHighwayClass(f);
+    auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(f));
     for (size_t i = 0; i < ARRAY_SIZE(checkers); ++i)
     {
       auto const & classes = checkers[i].m_highwayClasses;
@@ -432,8 +430,8 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
   }
 }
 
-void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
-                                   int & minVisibleScale)
+void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
+                                   TInsertShapeFn const & insertShape, int & minVisibleScale)
 {
   if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
     return;
@@ -462,7 +460,7 @@ void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TIn
   apply.Finish(m_context->GetTextureManager());
 }
 
-void RuleDrawer::operator()(FeatureType const & f)
+void RuleDrawer::operator()(FeatureType & f)
 {
   if (CheckCancelled())
     return;

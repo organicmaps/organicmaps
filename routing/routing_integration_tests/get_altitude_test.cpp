@@ -59,8 +59,7 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
   classificator::Load();
   classif().SortClassificator();
 
-  ForEachFromDat(country.GetPath(MapOptions::Map), [&](FeatureType const & f, uint32_t const & id)
-  {
+  ForEachFromDat(country.GetPath(MapOptions::Map), [&](FeatureType & f, uint32_t const & id) {
     if (!routing::IsRoad(TypesHolder(f)))
       return;
 

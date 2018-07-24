@@ -393,7 +393,7 @@ public:
   vector<MwmSet::MwmId> GetMwmsByRect(m2::RectD const & rect, bool rough) const;
   MwmSet::MwmId GetMwmIdByName(string const & name) const;
 
-  void ReadFeatures(function<void(FeatureType const &)> const & reader,
+  void ReadFeatures(function<void(FeatureType &)> const & reader,
                     vector<FeatureID> const & features);
 
 private:
@@ -653,7 +653,7 @@ private:
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
   /// @param customTitle, if not empty, overrides any other calculated name.
   void FillPointInfo(m2::PointD const & mercator, string const & customTitle, place_page::Info & info) const;
-  void FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const;
+  void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
   void FillApiMarkInfo(ApiMarkPoint const & api, place_page::Info & info) const;
   void FillSearchResultInfo(SearchMarkPoint const & smp, place_page::Info & info) const;
   void FillMyPositionInfo(place_page::Info & info, df::TapInfo const & tapInfo) const;
@@ -673,7 +673,7 @@ public:
   search::AddressInfo GetFeatureAddressInfo(FeatureID const & fid) const;
   //@}
 
-  vector<string> GetPrintableFeatureTypes(FeatureType const & ft) const;
+  vector<string> GetPrintableFeatureTypes(FeatureType & ft) const;
   /// Get "best for the user" feature at given point even if it's invisible on the screen.
   /// Ignores coastlines and prefers buildings over other area features.
   /// @returns nullptr if no feature was found at the given mercator point.
@@ -848,7 +848,7 @@ private:
   /// Find feature with viator near point, provided in |info|, and inject viator data into |info|.
   void InjectViator(place_page::Info & info);
 
-  void FillLocalExperts(FeatureType const & ft, place_page::Info & info) const;
+  void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
 
 public:
   // UGC.

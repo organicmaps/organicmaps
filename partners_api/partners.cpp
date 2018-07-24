@@ -63,7 +63,7 @@ PartnerChecker::PartnerChecker()
     m_types.push_back(c.GetTypeByPath({"sponsored", p.m_type}));
 }
 
-int PartnerChecker::GetPartnerIndex(FeatureType const & ft) const
+int PartnerChecker::GetPartnerIndex(FeatureType & ft) const
 {
   auto const types = feature::TypesHolder(ft);
   int index = 0;

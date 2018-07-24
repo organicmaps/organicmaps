@@ -71,7 +71,7 @@ public:
 
   /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
   template <typename Feature>
-  void Add(vector<int64_t> const & cells, uint32_t bucket, Feature const & ft, uint32_t index)
+  void Add(vector<int64_t> const & cells, uint32_t bucket, Feature & ft, uint32_t index)
   {
     // Add to displaceable storage if we need to displace POI.
     if (bucket != scales::GetUpperScale() && IsDisplaceable(ft))
@@ -152,7 +152,7 @@ private:
     DisplaceableNode() : m_index(0), m_minScale(0), m_maxScale(0), m_priority(0) {}
 
     template <typename Feature>
-    DisplaceableNode(vector<int64_t> const & cells, Feature const & ft, uint32_t index,
+    DisplaceableNode(vector<int64_t> const & cells, Feature & ft, uint32_t index,
                      int zoomLevel)
       : m_index(index)
       , m_fID(ft.GetID())
@@ -166,7 +166,7 @@ private:
 
       // Calculate depth field
       drule::KeysT keys;
-      feature::GetDrawRule(ft, zoomLevel, keys);
+      feature::GetDrawRule(feature::TypesHolder(ft), zoomLevel, keys);
       // While the function has "runtime" in its name, it merely filters by metadata-based rules.
       feature::FilterRulesByRuntimeSelector(ft, zoomLevel, keys);
       drule::MakeUnique(keys);
@@ -195,7 +195,7 @@ private:
   };
 
   template <typename Feature>
-  static bool IsDisplaceable(Feature const & ft)
+  static bool IsDisplaceable(Feature & ft)
   {
     feature::TypesHolder const types(ft);
     return types.GetGeoType() == feature::GEOM_POINT;

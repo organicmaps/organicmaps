@@ -53,7 +53,7 @@ public:
     return type >= TYPE_VILLAGE && type <= TYPE_COUNTRY;
   }
 
-  Type GetType(FeatureType const & feature) const;
+  Type GetType(FeatureType & feature) const;
 };
 
 string DebugPrint(Model::Type type);

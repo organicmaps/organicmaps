@@ -148,7 +148,7 @@ public:
     auto const pushFeaturePoints = [&pushPoint](FeatureType & ft) {
       if (ft.GetFeatureType() != feature::GEOM_LINE)
         return;
-      auto const roadClass = ftypes::GetHighwayClass(ft);
+      auto const roadClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
       if (roadClass == ftypes::HighwayClass::Error ||
           roadClass == ftypes::HighwayClass::Pedestrian)
       {

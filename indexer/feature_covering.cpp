@@ -111,7 +111,7 @@ public:
 };
 
 template <int DEPTH_LEVELS>
-void GetIntersection(FeatureType const & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
+void GetIntersection(FeatureType & f, FeatureIntersector<DEPTH_LEVELS> & fIsect)
 {
   // We need to cover feature for the best geometry, because it's indexed once for the
   // first top level scale. Do reset current cached geometry first.
@@ -161,7 +161,7 @@ vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth)
 
 namespace covering
 {
-vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cellPenaltyArea)
+vector<int64_t> CoverFeature(FeatureType & f, int cellDepth, uint64_t cellPenaltyArea)
 {
   FeatureIntersector<RectId::DEPTH_LEVELS> fIsect;
   GetIntersection(f, fIsect);

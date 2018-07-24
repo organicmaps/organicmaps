@@ -79,7 +79,7 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   }
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType const & f) const
+VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
 
@@ -129,7 +129,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
   return ret;
 }
 
-bool VehicleModel::IsOneWay(FeatureType const & f) const
+bool VehicleModel::IsOneWay(FeatureType & f) const
 {
   // It's a hotfix for release and this code shouldn't be merge to master.
   // According to osm documentation on roundabout it's implied that roundabout is one way
@@ -149,7 +149,7 @@ bool VehicleModel::HasOneWayType(feature::TypesHolder const & types) const
   return types.Has(m_onewayType);
 }
 
-bool VehicleModel::IsRoad(FeatureType const & f) const
+bool VehicleModel::IsRoad(FeatureType & f) const
 {
   if (f.GetFeatureType() != feature::GEOM_LINE)
     return false;
@@ -161,7 +161,7 @@ bool VehicleModel::IsRoad(FeatureType const & f) const
   return HasRoadType(types);
 }
 
-bool VehicleModel::IsPassThroughAllowed(FeatureType const & f) const
+bool VehicleModel::IsPassThroughAllowed(FeatureType & f) const
 {
   feature::TypesHolder const types(f);
   // Allow pass through additional road types e.g. peer, ferry.

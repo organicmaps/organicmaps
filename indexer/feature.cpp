@@ -21,81 +21,9 @@
 using namespace feature;
 using namespace std;
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// FeatureBase implementation
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-void FeatureBase::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
+feature::EGeomType FeatureType::GetFeatureType() const
 {
-  m_pLoader = pLoader;
-  m_pLoader->Init(buffer);
-
-  m_limitRect = m2::RectD::GetEmptyRect();
-  m_typesParsed = m_commonParsed = false;
-  m_header = m_pLoader->GetHeader();
-}
-
-void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
-{
-  uint8_t geoType;
-  if (emo.IsPointType())
-  {
-    // We are here for existing point features and for newly created point features.
-    m_center = emo.GetMercator();
-    m_limitRect.MakeEmpty();
-    m_limitRect.Add(m_center);
-    m_pointsParsed = m_trianglesParsed = true;
-    geoType = feature::GEOM_POINT;
-  }
-  else
-  {
-    geoType = Header() & HEADER_GEOTYPE_MASK;
-  }
-
-  m_params.name = emo.GetName();
-  string const & house = emo.GetHouseNumber();
-  if (house.empty())
-    m_params.house.Clear();
-  else
-    m_params.house.Set(house);
-  m_commonParsed = true;
-
-  m_metadata = emo.GetMetadata();
-  m_metadataParsed = true;
-
-  uint32_t typesCount = 0;
-  for (uint32_t const type : emo.GetTypes())
-    m_types[typesCount++] = type;
-  m_typesParsed = true;
-  m_header = CalculateHeader(typesCount, geoType, m_params);
-  m_header2Parsed = true;
-
-  m_id = emo.GetID();
-}
-
-void FeatureBase::ParseTypes() const
-{
-  if (!m_typesParsed)
-  {
-    m_pLoader->ParseTypes();
-    m_typesParsed = true;
-  }
-}
-
-void FeatureBase::ParseCommon() const
-{
-  if (!m_commonParsed)
-  {
-    ParseTypes();
-
-    m_pLoader->ParseCommon();
-    m_commonParsed = true;
-  }
-}
-
-feature::EGeomType FeatureBase::GetFeatureType() const
-{
-  switch (Header() & HEADER_GEOTYPE_MASK)
+  switch (m_header & HEADER_GEOTYPE_MASK)
   {
   case HEADER_GEOM_LINE: return GEOM_LINE;
   case HEADER_GEOM_AREA: return GEOM_AREA;
@@ -103,7 +31,7 @@ feature::EGeomType FeatureBase::GetFeatureType() const
   }
 }
 
-void FeatureBase::SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count)
+void FeatureType::SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count)
 {
   ASSERT_GREATER_OR_EQUAL(count, 1, ("Must be one type at least."));
   ASSERT_LESS(count, feature::kMaxTypesCount, ("Too many types for feature"));
@@ -115,37 +43,82 @@ void FeatureBase::SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uin
   m_header = (m_header & (~feature::HEADER_TYPE_MASK)) | value;
 }
 
-string FeatureBase::DebugString() const
+void FeatureType::Deserialize(feature::LoaderBase * loader, Buffer buffer)
 {
-  ParseCommon();
+  m_loader = loader;
+  m_data = buffer;
+  m_offsets.m_common = m_offsets.m_header2 = 0;
+  m_ptsSimpMask = 0;
+  m_ptsOffsets.clear();
+  m_trgOffsets.clear();
 
-  Classificator const & c = classif();
+  m_limitRect = m2::RectD::GetEmptyRect();
+  m_header = m_loader->GetHeader(*this);
 
-  string res = "Types";
-  for (size_t i = 0; i < GetTypesCount(); ++i)
-    res += (" : " + c.GetReadableObjectName(m_types[i]));
-  res += "\n";
-
-  return (res + m_params.DebugString());
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// FeatureType implementation
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-void FeatureType::Deserialize(feature::LoaderBase * pLoader, TBuffer buffer)
-{
-  base_type::Deserialize(pLoader, buffer);
-
-  m_pLoader->InitFeature(this);
-
-  m_header2Parsed = m_pointsParsed = m_trianglesParsed = m_metadataParsed = false;
+  m_parsed = {};
 
   m_innerStats.MakeZero();
 }
 
-void FeatureType::ParseEverything() const
+void FeatureType::ParseTypes()
+{
+  if (!m_parsed.m_types)
+  {
+    m_loader->ParseTypes(*this);
+    m_parsed.m_types = true;
+  }
+}
+
+void FeatureType::ParseCommon()
+{
+  if (!m_parsed.m_common)
+  {
+    ParseTypes();
+
+    m_loader->ParseCommon(*this);
+    m_parsed.m_common = true;
+  }
+}
+
+void FeatureType::ReplaceBy(osm::EditableMapObject const & emo)
+{
+  uint8_t geoType;
+  if (emo.IsPointType())
+  {
+    // We are here for existing point features and for newly created point features.
+    m_center = emo.GetMercator();
+    m_limitRect.MakeEmpty();
+    m_limitRect.Add(m_center);
+    m_parsed.m_points = m_parsed.m_triangles = true;
+    geoType = feature::GEOM_POINT;
+  }
+  else
+  {
+    geoType = m_header & HEADER_GEOTYPE_MASK;
+  }
+
+  m_params.name = emo.GetName();
+  string const & house = emo.GetHouseNumber();
+  if (house.empty())
+    m_params.house.Clear();
+  else
+    m_params.house.Set(house);
+  m_parsed.m_common = true;
+
+  m_metadata = emo.GetMetadata();
+  m_parsed.m_metadata = true;
+
+  uint32_t typesCount = 0;
+  for (uint32_t const type : emo.GetTypes())
+    m_types[typesCount++] = type;
+  m_parsed.m_types = true;
+  m_header = CalculateHeader(typesCount, geoType, m_params);
+  m_parsed.m_header2 = true;
+
+  m_id = emo.GetID();
+}
+
+void FeatureType::ParseEverything()
 {
   // Also calls ParseCommon() and ParseTypes().
   ParseHeader2();
@@ -154,18 +127,18 @@ void FeatureType::ParseEverything() const
   ParseMetadata();
 }
 
-void FeatureType::ParseHeader2() const
+void FeatureType::ParseHeader2()
 {
-  if (!m_header2Parsed)
+  if (!m_parsed.m_header2)
   {
     ParseCommon();
 
-    m_pLoader->ParseHeader2();
-    m_header2Parsed = true;
+    m_loader->ParseHeader2(*this);
+    m_parsed.m_header2 = true;
   }
 }
 
-void FeatureType::ResetGeometry() const
+void FeatureType::ResetGeometry()
 {
   m_points.clear();
   m_triangles.clear();
@@ -173,47 +146,50 @@ void FeatureType::ResetGeometry() const
   if (GetFeatureType() != GEOM_POINT)
     m_limitRect = m2::RectD();
 
-  m_header2Parsed = m_pointsParsed = m_trianglesParsed = false;
+  m_parsed.m_header2 = m_parsed.m_points = m_parsed.m_triangles = false;
+  m_ptsSimpMask = 0;
 
-  m_pLoader->ResetGeometry();
+  m_ptsOffsets.clear();
+  m_trgOffsets.clear();
 }
 
-uint32_t FeatureType::ParseGeometry(int scale) const
+uint32_t FeatureType::ParseGeometry(int scale)
 {
   uint32_t sz = 0;
-  if (!m_pointsParsed)
+  if (!m_parsed.m_points)
   {
     ParseHeader2();
 
-    sz = m_pLoader->ParseGeometry(scale);
-    m_pointsParsed = true;
+    sz = m_loader->ParseGeometry(scale, *this);
+    m_parsed.m_points = true;
   }
   return sz;
 }
 
-uint32_t FeatureType::ParseTriangles(int scale) const
+uint32_t FeatureType::ParseTriangles(int scale)
 {
   uint32_t sz = 0;
-  if (!m_trianglesParsed)
+  if (!m_parsed.m_triangles)
   {
     ParseHeader2();
 
-    sz = m_pLoader->ParseTriangles(scale);
-    m_trianglesParsed = true;
+    sz = m_loader->ParseTriangles(scale, *this);
+    m_parsed.m_triangles = true;
   }
   return sz;
 }
 
-void FeatureType::ParseMetadata() const
+void FeatureType::ParseMetadata()
 {
-  if (m_metadataParsed) return;
+  if (m_parsed.m_metadata)
+    return;
 
-  m_pLoader->ParseMetadata();
+  m_loader->ParseMetadata(*this);
 
-  m_metadataParsed = true;
+  m_parsed.m_metadata = true;
 }
 
-StringUtf8Multilang const & FeatureType::GetNames() const
+StringUtf8Multilang const & FeatureType::GetNames()
 {
   ParseCommon();
   return m_params.name;
@@ -229,21 +205,21 @@ void FeatureType::SetNames(StringUtf8Multilang const & newNames)
   });
 
   if (m_params.name.IsEmpty())
-    SetHeader(~feature::HEADER_HAS_NAME & Header());
+    m_header = ~feature::HEADER_HAS_NAME & m_header;
   else
-    SetHeader(feature::HEADER_HAS_NAME | Header());
+    m_header = feature::HEADER_HAS_NAME | m_header;
 }
 
 void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
 {
-  m_metadataParsed = true;
+  m_parsed.m_metadata = true;
   m_metadata = newMetadata;
 }
 
 void FeatureType::UpdateHeader(bool commonParsed, bool metadataParsed)
 {
   feature::EHeaderTypeMask geomType =
-      static_cast<feature::EHeaderTypeMask>(Header() & feature::HEADER_GEOTYPE_MASK);
+      static_cast<feature::EHeaderTypeMask>(m_header & feature::HEADER_GEOTYPE_MASK);
   if (!geomType)
   {
     geomType = m_params.house.IsEmpty() && !m_params.ref.empty() ? feature::HEADER_GEOM_POINT
@@ -251,11 +227,11 @@ void FeatureType::UpdateHeader(bool commonParsed, bool metadataParsed)
   }
 
   m_header = feature::CalculateHeader(GetTypesCount(), geomType, m_params);
-  m_header2Parsed = true;
-  m_typesParsed = true;
+  m_parsed.m_header2 = true;
+  m_parsed.m_types = true;
 
-  m_commonParsed = commonParsed;
-  m_metadataParsed = metadataParsed;
+  m_parsed.m_common = commonParsed;
+  m_parsed.m_metadata = metadataParsed;
 }
 
 bool FeatureType::UpdateMetadataValue(string const & key, string const & value)
@@ -284,7 +260,7 @@ void FeatureType::SetCenter(m2::PointD const & pt)
   ASSERT_EQUAL(GetFeatureType(), GEOM_POINT, ("Only for point feature."));
   m_center = pt;
   m_limitRect.Add(m_center);
-  m_pointsParsed = m_trianglesParsed = true;
+  m_parsed.m_points = m_parsed.m_triangles = true;
 }
 
 namespace
@@ -297,26 +273,32 @@ namespace
   }
 }
 
-string FeatureType::DebugString(int scale) const
+string FeatureType::DebugString(int scale)
 {
+  ParseCommon();
+
+  Classificator const & c = classif();
+
+  string res = "Types";
+  for (size_t i = 0; i < GetTypesCount(); ++i)
+    res += (" : " + c.GetReadableObjectName(m_types[i]));
+  res += "\n";
+
+  res += m_params.DebugString();
+
   ParseGeometryAndTriangles(scale);
-
-  string s = base_type::DebugString();
-
   switch (GetFeatureType())
   {
-  case GEOM_POINT:
-    s += (" Center:" + DebugPrint(m_center));
-    break;
+  case GEOM_POINT: res += (" Center:" + DebugPrint(m_center)); break;
 
   case GEOM_LINE:
-    s += " Points:";
-    Points2String(s, m_points);
+    res += " Points:";
+    Points2String(res, m_points);
     break;
 
   case GEOM_AREA:
-    s += " Triangles:";
-    Points2String(s, m_triangles);
+    res += " Triangles:";
+    Points2String(res, m_triangles);
     break;
 
   case GEOM_UNDEFINED:
@@ -324,15 +306,10 @@ string FeatureType::DebugString(int scale) const
     break;
   }
 
-  return s;
+  return res;
 }
 
-string DebugPrint(FeatureType const & ft)
-{
-  return ft.DebugString(FeatureType::BEST_GEOMETRY);
-}
-
-bool FeatureType::IsEmptyGeometry(int scale) const
+bool FeatureType::IsEmptyGeometry(int scale)
 {
   ParseGeometryAndTriangles(scale);
 
@@ -344,7 +321,7 @@ bool FeatureType::IsEmptyGeometry(int scale) const
   }
 }
 
-m2::RectD FeatureType::GetLimitRect(int scale) const
+m2::RectD FeatureType::GetLimitRect(int scale)
 {
   ParseGeometryAndTriangles(scale);
 
@@ -359,31 +336,31 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
   return m_limitRect;
 }
 
-void FeatureType::ParseGeometryAndTriangles(int scale) const
+void FeatureType::ParseGeometryAndTriangles(int scale)
 {
   ParseGeometry(scale);
   ParseTriangles(scale);
 }
 
-FeatureType::geom_stat_t FeatureType::GetGeometrySize(int scale) const
+FeatureType::GeomStat FeatureType::GetGeometrySize(int scale)
 {
   uint32_t sz = ParseGeometry(scale);
   if (sz == 0 && !m_points.empty())
     sz = m_innerStats.m_points;
 
-  return geom_stat_t(sz, m_points.size());
+  return GeomStat(sz, m_points.size());
 }
 
-FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
+FeatureType::GeomStat FeatureType::GetTrianglesSize(int scale)
 {
   uint32_t sz = ParseTriangles(scale);
   if (sz == 0 && !m_triangles.empty())
     sz = m_innerStats.m_strips;
 
-  return geom_stat_t(sz, m_triangles.size());
+  return GeomStat(sz, m_triangles.size());
 }
 
-void FeatureType::GetPreferredNames(string & primary, string & secondary) const
+void FeatureType::GetPreferredNames(string & primary, string & secondary)
 {
   if (!HasName())
     return;
@@ -400,7 +377,8 @@ void FeatureType::GetPreferredNames(string & primary, string & secondary) const
                       primary, secondary);
 }
 
-void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary, string & secondary) const
+void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & primary,
+                                    string & secondary)
 {
   if (!HasName())
     return;
@@ -416,7 +394,7 @@ void FeatureType::GetPreferredNames(bool allowTranslit, int8_t deviceLang, strin
                       primary, secondary);
 }
 
-void FeatureType::GetReadableName(string & name) const
+void FeatureType::GetReadableName(string & name)
 {
   if (!HasName())
     return;
@@ -433,7 +411,7 @@ void FeatureType::GetReadableName(string & name) const
                     name);
 }
 
-void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name) const
+void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string & name)
 {
   if (!HasName())
     return;
@@ -448,7 +426,7 @@ void FeatureType::GetReadableName(bool allowTranslit, int8_t deviceLang, string 
   ::GetReadableName(mwmInfo->GetRegionData(), GetNames(), deviceLang, allowTranslit, name);
 }
 
-string FeatureType::GetHouseNumber() const
+string FeatureType::GetHouseNumber()
 {
   ParseCommon();
   return m_params.house.Get();
@@ -462,7 +440,7 @@ void FeatureType::SetHouseNumber(string const & number)
     m_params.house.Set(number);
 }
 
-bool FeatureType::GetName(int8_t lang, string & name) const
+bool FeatureType::GetName(int8_t lang, string & name)
 {
   if (!HasName())
     return false;
@@ -471,31 +449,16 @@ bool FeatureType::GetName(int8_t lang, string & name) const
   return m_params.name.GetString(lang, name);
 }
 
-uint8_t FeatureType::GetRank() const
+uint8_t FeatureType::GetRank()
 {
   ParseCommon();
   return m_params.rank;
 }
 
-uint64_t FeatureType::GetPopulation() const
-{
-  return feature::RankToPopulation(GetRank());
-}
+uint64_t FeatureType::GetPopulation() { return feature::RankToPopulation(GetRank()); }
 
-string FeatureType::GetRoadNumber() const
+string FeatureType::GetRoadNumber()
 {
   ParseCommon();
   return m_params.ref;
-}
-
-void FeatureType::SwapGeometry(FeatureType & r)
-{
-  ASSERT_EQUAL(m_pointsParsed, r.m_pointsParsed, ());
-  ASSERT_EQUAL(m_trianglesParsed, r.m_trianglesParsed, ());
-
-  if (m_pointsParsed)
-    m_points.swap(r.m_points);
-
-  if (m_trianglesParsed)
-    m_triangles.swap(r.m_triangles);
 }

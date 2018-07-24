@@ -266,8 +266,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   }
 }
 
-void DataSource::ReadFeatures(FeatureConstCallback const & fn,
-                              vector<FeatureID> const & features) const
+void DataSource::ReadFeatures(FeatureCallback const & fn, vector<FeatureID> const & features) const
 {
   ASSERT(is_sorted(features.begin(), features.end()), ());
 

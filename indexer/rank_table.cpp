@@ -220,7 +220,7 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
   return unique_ptr<RankTable>();
 }
 
-uint8_t CalcEventRank(FeatureType const & ft)
+uint8_t CalcEventRank(FeatureType & ft)
 {
   // |fc2018Rank| value was adjusted for cases:
   // - fc2018 objects should be in thetop for "stadium" query iff fc2018 mwm is in viewport.
@@ -242,7 +242,7 @@ uint8_t CalcEventRank(FeatureType const & ft)
 }
 
 // Calculates search rank for a feature.
-uint8_t CalcSearchRank(FeatureType const & ft)
+uint8_t CalcSearchRank(FeatureType & ft)
 {
   auto const eventRank = CalcEventRank(ft);
   auto const populationRank = feature::PopulationToRank(ftypes::GetPopulation(ft));
@@ -313,10 +313,8 @@ void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uin
   feature::DataHeader header(rcont);
   FeaturesVector featuresVector(rcont, header, nullptr /* features offsets table */);
 
-  featuresVector.ForEach([&ranks](FeatureType const & ft, uint32_t /* index */)
-                         {
-                           ranks.push_back(CalcSearchRank(ft));
-                         });
+  featuresVector.ForEach(
+      [&ranks](FeatureType & ft, uint32_t /* index */) { ranks.push_back(CalcSearchRank(ft)); });
 }
 
 // static

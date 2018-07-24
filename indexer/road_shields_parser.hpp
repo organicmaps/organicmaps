@@ -52,7 +52,7 @@ struct RoadShield
   }
 };
 
-std::set<RoadShield> GetRoadShields(FeatureType const & f);
+std::set<RoadShield> GetRoadShields(FeatureType & f);
 std::string DebugPrint(RoadShieldType shieldType);
 std::string DebugPrint(RoadShield const & shield);
 }  // namespace ftypes

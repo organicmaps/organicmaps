@@ -72,7 +72,7 @@ std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & mo
   std::sort(features.begin(), features.end());
 
   std::map<FeatureID, std::vector<m2::PointD>> result;
-  model.ReadFeatures([&metaline, &failed, &result](FeatureType const & ft)
+  model.ReadFeatures([&metaline, &failed, &result](FeatureType & ft)
   {
     if (failed)
       return;

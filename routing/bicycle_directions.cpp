@@ -227,7 +227,7 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
   if(!GetLoader(featureId.m_mwmId).GetFeatureByIndex(featureId.m_index, ft))
     return;
 
-  auto const highwayClass = ftypes::GetHighwayClass(ft);
+  auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
   ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
 
@@ -259,7 +259,7 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
     if (!GetLoader(outFeatureId.m_mwmId).GetFeatureByIndex(outFeatureId.m_index, ft))
       continue;
 
-    auto const highwayClass = ftypes::GetHighwayClass(ft);
+    auto const highwayClass = ftypes::GetHighwayClass(feature::TypesHolder(ft));
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Error, ());
     ASSERT_NOT_EQUAL(highwayClass, ftypes::HighwayClass::Undefined, ());
 

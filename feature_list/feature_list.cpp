@@ -52,7 +52,7 @@ public:
   }
 };
 
-m2::PointD FindCenter(FeatureType const & f)
+m2::PointD FindCenter(FeatureType & f)
 {
   ClosestPoint closest(f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center());
   if (f.GetFeatureType() == feature::GEOM_AREA)
@@ -74,7 +74,7 @@ set<string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "
                                "craft",    "place",   "man_made", "emergency", "office",
                                "historic", "railway", "highway",  "aeroway"};
 
-string GetReadableType(FeatureType const & f)
+string GetReadableType(FeatureType & f)
 {
   uint32_t result = 0;
   f.ForEachType([&result](uint32_t type) {
@@ -88,7 +88,7 @@ string GetReadableType(FeatureType const & f)
   return result == 0 ? string() : classif().GetReadableObjectName(result);
 }
 
-string GetWheelchairType(FeatureType const & f)
+string GetWheelchairType(FeatureType & f)
 {
   static const uint32_t wheelchair = classif().GetTypeByPath({"wheelchair"});
   string result;
@@ -106,7 +106,7 @@ string GetWheelchairType(FeatureType const & f)
   return result;
 }
 
-bool HasAtm(FeatureType const & f)
+bool HasAtm(FeatureType & f)
 {
   static const uint32_t atm = classif().GetTypeByPath({"amenity", "atm"});
   bool result = false;
@@ -128,7 +128,7 @@ string BuildUniqueId(ms::LatLon const & coords, string const & name)
   return strings::to_string(hash);
 }
 
-void AppendNames(FeatureType const & f, vector<string> & columns)
+void AppendNames(FeatureType & f, vector<string> & columns)
 {
   vector<string> names(kLangCount);
   f.GetNames().ForEach([&names](int8_t code, string const & name) { names[code] = name; });
@@ -189,12 +189,9 @@ public:
 
   void ClearCache() { m_villagesCache.Clear(); }
 
-  void operator()(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm)
-  {
-    Process(f, ft2osm);
-  }
+  void operator()(FeatureType & f, map<uint32_t, osm::Id> const & ft2osm) { Process(f, ft2osm); }
 
-  void Process(FeatureType const & f, map<uint32_t, osm::Id> const & ft2osm)
+  void Process(FeatureType & f, map<uint32_t, osm::Id> const & ft2osm)
   {
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);

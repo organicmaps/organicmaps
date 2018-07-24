@@ -37,8 +37,8 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
 
   std::vector<IndexUGC> content;
 
-  feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
-    auto const optItem = ftraits::UGC::GetValue({f});
+  feature::ForEachFromDat(mwmFile, [&](FeatureType & f, uint32_t featureId) {
+    auto const optItem = ftraits::UGC::GetValue(feature::TypesHolder(f));
     if (!optItem)
       return;
 

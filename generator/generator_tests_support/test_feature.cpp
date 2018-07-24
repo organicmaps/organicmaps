@@ -63,7 +63,7 @@ void TestFeature::Init()
   m_metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
 }
 
-bool TestFeature::Matches(FeatureType const & feature) const
+bool TestFeature::Matches(FeatureType & feature) const
 {
   istringstream is(feature.GetMetadata().Get(feature::Metadata::FMD_TEST_ID));
   uint64_t id;

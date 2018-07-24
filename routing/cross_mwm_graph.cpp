@@ -77,8 +77,10 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
                                              : false;
 }
 
-void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType const & ft, m2::PointD const & point,
-                                  map<NumMwmId, ClosestSegment> & minDistSegs, vector<Segment> & twins)
+void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType & ft,
+                                  m2::PointD const & point,
+                                  map<NumMwmId, ClosestSegment> & minDistSegs,
+                                  vector<Segment> & twins)
 {
   if (!ft.GetID().IsValid())
     return;
@@ -195,8 +197,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
       // Node. The map below is necessary because twin segments could belong to several mwm.
       // It happens when a segment crosses more than one feature.
       map<NumMwmId, ClosestSegment> minDistSegs;
-      auto const findBestTwins = [&](FeatureType const & ft)
-      {
+      auto const findBestTwins = [&](FeatureType & ft) {
         FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
       };
 
@@ -299,7 +300,7 @@ bool CrossMwmGraph::TransitCrossMwmSectionExists(NumMwmId numMwmId) const
   return status == MwmStatus::SectionExists;
 }
 
-void CrossMwmGraph::GetTwinCandidates(FeatureType const & ft, bool isOutgoing,
+void CrossMwmGraph::GetTwinCandidates(FeatureType & ft, bool isOutgoing,
                                       vector<Segment> & twinCandidates)
 {
   NumMwmId const numMwmId =

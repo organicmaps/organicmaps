@@ -51,7 +51,7 @@ public:
 
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
-  virtual SpeedKMpH GetSpeed(FeatureType const & f) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureType & f) const = 0;
 
   /// @returns Max weight and ETA speed in KMpH for this model
   virtual SpeedKMpH GetMaxSpeed() const = 0;
@@ -60,10 +60,10 @@ public:
   /// e.g. to connect start point to nearest feature.
   virtual double GetOffroadSpeed() const = 0;
 
-  virtual bool IsOneWay(FeatureType const & f) const = 0;
+  virtual bool IsOneWay(FeatureType & f) const = 0;
 
   /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
-  virtual bool IsRoad(FeatureType const & f) const = 0;
+  virtual bool IsRoad(FeatureType & f) const = 0;
 
   /// @returns true iff feature |f| can be used for through passage with corresponding vehicle model.
   /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
@@ -71,7 +71,7 @@ public:
   /// point of the route.
   /// Roads with additional types e.g. "path = ferry", "vehicle_type = yes" considered as allowed
   /// to pass through.
-  virtual bool IsPassThroughAllowed(FeatureType const & f) const = 0;
+  virtual bool IsPassThroughAllowed(FeatureType & f) const = 0;
 };
 
 class VehicleModelFactoryInterface
@@ -128,11 +128,11 @@ public:
                SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType const & f) const override;
+  SpeedKMpH GetSpeed(FeatureType & f) const override;
   SpeedKMpH GetMaxSpeed() const override { return m_maxSpeed; }
-  bool IsOneWay(FeatureType const & f) const override;
-  bool IsRoad(FeatureType const & f) const override;
-  bool IsPassThroughAllowed(FeatureType const & f) const override;
+  bool IsOneWay(FeatureType & f) const override;
+  bool IsRoad(FeatureType & f) const override;
+  bool IsPassThroughAllowed(FeatureType & f) const override;
 
 public:
   /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.

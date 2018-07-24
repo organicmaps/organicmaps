@@ -401,7 +401,7 @@ void ApplyPatch(XMLFeature const & xml, FeatureType & feature)
   feature.UpdateHeader(true /* commonParsed */, true /* metadataParsed */);
 }
 
-XMLFeature ToXML(FeatureType const & fromFeature, bool serializeType)
+XMLFeature ToXML(FeatureType & fromFeature, bool serializeType)
 {
   bool const isPoint = fromFeature.GetFeatureType() == feature::GEOM_POINT;
   XMLFeature toFeature(isPoint ? XMLFeature::Type::Node : XMLFeature::Type::Way);

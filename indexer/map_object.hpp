@@ -54,7 +54,7 @@ string DebugPrint(Props props);
 class MapObject
 {
 public:
-  void SetFromFeatureType(FeatureType const & ft);
+  void SetFromFeatureType(FeatureType & ft);
 
   FeatureID const & GetID() const;
 

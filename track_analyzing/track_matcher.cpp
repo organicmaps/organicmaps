@@ -136,7 +136,7 @@ void TrackMatcher::Step::FillCandidatesWithNearbySegments(
     VehicleModelInterface const & vehicleModel, NumMwmId mwmId)
 {
   dataSource.ForEachInRect(
-      [&](FeatureType const & ft) {
+      [&](FeatureType & ft) {
         if (!ft.GetID().IsValid())
           return;
 

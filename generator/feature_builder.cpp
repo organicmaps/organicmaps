@@ -175,20 +175,15 @@ bool FeatureBuilder1::FormatFullAddress(string & res) const
   return m_params.FormatFullAddress(m_limitRect.Center(), res);
 }
 
-FeatureBase FeatureBuilder1::GetFeatureBase() const
+TypesHolder FeatureBuilder1::GetTypesHolder() const
 {
   CHECK ( CheckValid(), (*this) );
 
-  FeatureBase f;
-  f.SetHeader(m_params.GetHeader());
+  TypesHolder holder(m_params.GetGeomType());
+  for (auto const t : m_params.m_Types)
+    holder.Add(t);
 
-  f.m_params = m_params;
-  memcpy(f.m_types, &m_params.m_Types[0], sizeof(uint32_t) * m_params.m_Types.size());
-  f.m_limitRect = m_limitRect;
-
-  f.m_typesParsed = f.m_commonParsed = true;
-
-  return f;
+  return holder;
 }
 
 namespace
@@ -300,7 +295,7 @@ void FeatureBuilder1::RemoveUselessNames()
       return checkBoundary.IsEqual(type);
     };
 
-    TypesHolder types(GetFeatureBase());
+    auto types = GetTypesHolder();
     if (types.RemoveIf(typeRemover))
     {
       pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
@@ -314,7 +309,7 @@ void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
 {
   if (!m_params.name.IsEmpty() && !IsCoastCell())
   {
-    pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_ANY_TEXT);
+    pair<int, int> const range = GetDrawableScaleRangeForRules(GetTypesHolder(), RULE_ANY_TEXT);
     if (range.first > maxS || range.second < minS)
       m_params.name.Clear();
   }
@@ -524,7 +519,7 @@ bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
 
 int FeatureBuilder1::GetMinFeatureDrawScale() const
 {
-  int const minScale = feature::GetMinDrawableScale(GetFeatureBase());
+  int const minScale = feature::GetMinDrawableScale(GetTypesHolder(), m_limitRect);
 
   // some features become invisible after merge processing, so -1 is possible
   return (minScale == -1 ? 1000 : minScale);
@@ -570,11 +565,10 @@ bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
 {
   if (!GetOuterGeometry().empty())
   {
-    FeatureBase const fb = GetFeatureBase();
-
+    auto const types = GetTypesHolder();
     while (lowScale <= highScale)
     {
-      if (feature::IsDrawableForIndex(fb, lowScale++))
+      if (feature::IsDrawableForIndex(types, m_limitRect, lowScale++))
         return true;
     }
   }

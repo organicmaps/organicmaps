@@ -90,9 +90,8 @@ bool PreRankerResult::LessDistance(PreRankerResult const & r1, PreRankerResult c
 }
 
 // RankerResult ------------------------------------------------------------------------------------
-RankerResult::RankerResult(FeatureType const & f, m2::PointD const & center,
-                           m2::PointD const & pivot, string const & displayName,
-                           string const & fileName)
+RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
+                           string const & displayName, string const & fileName)
   : m_id(f.GetID())
   , m_types(f)
   , m_str(displayName)
@@ -171,7 +170,7 @@ bool RankerResult::RegionInfo::GetCountryId(storage::CountryInfoGetter const & i
 }
 
 // Functions ---------------------------------------------------------------------------------------
-void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
+void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
 {
   if (meta.m_isInitialized)
     return;

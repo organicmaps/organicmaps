@@ -2,8 +2,9 @@
 
 #include "indexer/feature.hpp"
 
+#include <cstdint>
 #include <map>
-
+#include <string>
 
 namespace stats
 {

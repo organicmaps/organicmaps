@@ -134,7 +134,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   }
 }
 
-bool ReverseGeocoder::GetExactAddress(FeatureType const & ft, Address & addr) const
+bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr) const
 {
   if (ft.GetHouseNumber().empty())
     return false;
@@ -187,7 +187,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
 }
 
 // static
-ReverseGeocoder::Building ReverseGeocoder::FromFeature(FeatureType const & ft, double distMeters)
+ReverseGeocoder::Building ReverseGeocoder::FromFeature(FeatureType & ft, double distMeters)
 {
   return { ft.GetID(), distMeters, ft.GetHouseNumber(), feature::GetCenter(ft) };
 }

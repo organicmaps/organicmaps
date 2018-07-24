@@ -16,7 +16,7 @@ void SetUpEditorForTesting(unique_ptr<osm::Editor::Delegate> delegate);
 void TearDownEditorForTesting();
 
 template <typename TFn>
-void EditFeature(FeatureType const & ft, TFn && fn)
+void EditFeature(FeatureType & ft, TFn && fn)
 {
   auto & editor = osm::Editor::Instance();
 

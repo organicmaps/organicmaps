@@ -25,7 +25,6 @@
 class DataSource : public MwmSet
 {
 public:
-  using FeatureConstCallback = std::function<void(FeatureType const &)>;
   using FeatureCallback = std::function<void(FeatureType &)>;
   using FeatureIdCallback = std::function<void(FeatureID const &)>;
 
@@ -47,9 +46,9 @@ public:
   void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale,
                            MwmId const & id) const;
   // "features" must be sorted using FeatureID::operator< as predicate.
-  void ReadFeatures(FeatureConstCallback const & fn, std::vector<FeatureID> const & features) const;
+  void ReadFeatures(FeatureCallback const & fn, std::vector<FeatureID> const & features) const;
 
-  void ReadFeature(FeatureConstCallback const & fn, FeatureID const & feature) const
+  void ReadFeature(FeatureCallback const & fn, FeatureID const & feature) const
   {
     return ReadFeatures(fn, {feature});
   }

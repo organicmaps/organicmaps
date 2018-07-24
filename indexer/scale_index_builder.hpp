@@ -4,6 +4,7 @@
 #include "indexer/displacement_manager.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_covering.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/interval_index_builder.hpp"
 
@@ -45,12 +46,12 @@ public:
     m_cellsInBucket.resize(m_bucketsCount);
   }
 
-  template <class TFeature>
-  void operator() (TFeature const & ft, uint32_t index) const
+  template <class Feature>
+  void operator()(Feature & ft, uint32_t index) const
   {
     m_scalesIdx = 0;
-    uint32_t const minScaleClassif = min(scales::GetUpperScale(),
-                                         feature::GetMinDrawableScaleClassifOnly(ft));
+    uint32_t const minScaleClassif = min(
+        scales::GetUpperScale(), feature::GetMinDrawableScaleClassifOnly(feature::TypesHolder(ft)));
     // The classificator won't allow this feature to be drawable for smaller
     // scales so the first buckets can be safely skipped.
     // todo(@pimenov) Parallelizing this loop may be helpful.
@@ -81,8 +82,8 @@ private:
   //   -- it is visible;
   //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
-  template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & ft, int scale, bool needReset) const
+  template <class Feature>
+  bool FeatureShouldBeIndexed(Feature & ft, int scale, bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -98,8 +99,6 @@ private:
       return false;
 
     // This function assumes that geometry rect for the needed scale is already initialized.
-    // Note: it works with FeatureBase so in fact it does not use the information about
-    // the feature's geometry except for the type and the LimitRect.
     return feature::IsDrawableForIndexGeometryOnly(ft, scale);
   }
 
@@ -120,9 +119,9 @@ private:
   vector<uint32_t> & m_cellsInBucket;
 };
 
-template <class TFeaturesVector, class TWriter>
-void IndexScales(feature::DataHeader const & header, TFeaturesVector const & features,
-                 TWriter & writer, string const & tmpFilePrefix)
+template <class FeaturesVector, class Writer>
+void IndexScales(feature::DataHeader const & header, FeaturesVector const & features,
+                 Writer & writer, string const & tmpFilePrefix)
 {
   // TODO: Make scale bucketing dynamic.
 
@@ -164,7 +163,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
   FileReader reader(cellsToFeatureAllBucketsFile);
   DDVector<CellFeatureBucketTuple, FileReader, uint64_t> cellsToFeaturesAllBuckets(reader);
 
-  VarSerialVectorWriter<TWriter> recordWriter(writer, bucketsCount);
+  VarSerialVectorWriter<Writer> recordWriter(writer, bucketsCount);
   auto it = cellsToFeaturesAllBuckets.begin();
 
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
@@ -185,7 +184,7 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
       FileReader reader(cellsToFeatureFile);
       DDVector<CellFeatureBucketTuple::CellFeaturePair, FileReader, uint64_t> cellsToFeatures(
           reader);
-      SubWriter<TWriter> subWriter(writer);
+      SubWriter<Writer> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));
       BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,
                          RectId::DEPTH_LEVELS * 2 + 1);

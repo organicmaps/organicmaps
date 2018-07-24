@@ -27,7 +27,7 @@ public:
   }
 
   // ISelector overrides:
-  bool Test(FeatureType const & ft) const override
+  bool Test(FeatureType & ft) const override
   {
     for (auto const & selector : m_selectors)
       if (!selector->Test(ft))
@@ -45,7 +45,7 @@ class Selector : public ISelector
 {
 public:
   // Signature of function which takes a property from a feature
-  typedef bool (*TGetFeatureTagValueFn)(FeatureType const &, TType & value);
+  typedef bool (*TGetFeatureTagValueFn)(FeatureType &, TType & value);
 
   Selector(TGetFeatureTagValueFn fn, SelectorOperatorType op, TType const & value)
     : m_getFeatureValueFn(fn), m_evalFn(nullptr), m_value(value)
@@ -71,7 +71,7 @@ public:
   }
 
   // ISelector overrides:
-  bool Test(FeatureType const & ft) const override
+  bool Test(FeatureType & ft) const override
   {
     TType tagValue;
     if (!m_getFeatureValueFn(ft, tagValue))
@@ -112,7 +112,7 @@ public:
     m_equals = op == SelectorOperatorEqual;
   }
 
-  bool Test(FeatureType const & ft) const override
+  bool Test(FeatureType & ft) const override
   {
     bool found = false;
     ft.ForEachType([&found, this](uint32_t type)
@@ -130,21 +130,21 @@ private:
 };
 
 // Feature tag value evaluator for tag 'population'
-bool GetPopulation(FeatureType const & ft, uint64_t & population)
+bool GetPopulation(FeatureType & ft, uint64_t & population)
 {
   population = ftypes::GetPopulation(ft);
   return true;
 }
 
 // Feature tag value evaluator for tag 'name'
-bool GetName(FeatureType const & ft, string & name)
+bool GetName(FeatureType & ft, string & name)
 {
   ft.GetReadableName(name);
   return true;
 }
 
 // Feature tag value evaluator for tag 'bbox_area' (bounding box area in sq.meters)
-bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
+bool GetBoundingBoxArea(FeatureType & ft, double & sqM)
 {
   if (feature::GEOM_AREA != ft.GetFeatureType())
     return false;
@@ -157,7 +157,7 @@ bool GetBoundingBoxArea(FeatureType const & ft, double & sqM)
 }
 
 // Feature tag value evaluator for tag 'rating'
-bool GetRating(FeatureType const & ft, double & rating)
+bool GetRating(FeatureType & ft, double & rating)
 {
   double constexpr kDefaultRating = 0.0;
 

@@ -35,7 +35,7 @@ protected:
   PartnerChecker();
 
 public:
-  int GetPartnerIndex(FeatureType const & ft) const;
+  int GetPartnerIndex(FeatureType & ft) const;
 
   DECLARE_CHECKER_INSTANCE(PartnerChecker);
 };

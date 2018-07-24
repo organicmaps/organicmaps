@@ -25,7 +25,7 @@ namespace
 
 typedef vector<uint32_t> feature_cont_t;
 
-bool IsDrawable(FeatureType const & f, int scale)
+bool IsDrawable(FeatureType & f, int scale)
 {
   // Feature that doesn't have any geometry for m_scale returns empty DebugString().
   return (!f.IsEmptyGeometry(scale) && feature::IsDrawableForIndex(f, scale));
@@ -38,7 +38,7 @@ class AccumulatorBase
 protected:
   int m_scale;
 
-  bool is_drawable(FeatureType const & f) const
+  bool is_drawable(FeatureType & f) const
   {
     // Looks strange, but it checks consistency.
     TEST_EQUAL(f.DebugString(m_scale), f.DebugString(m_scale), ());
@@ -63,9 +63,9 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f) const
+  void operator()(FeatureType & f) const
   {
-    TEST(is_drawable(f), (m_scale, f));
+    TEST(is_drawable(f), (m_scale, f.DebugString(FeatureType::BEST_GEOMETRY)));
     add(f);
   }
 };
@@ -144,7 +144,7 @@ class AccumulatorEtalon : public AccumulatorBase
 
   m2::RectD m_rect;
 
-  bool is_intersect(FeatureType const & f) const
+  bool is_intersect(FeatureType & f) const
   {
     IntersectCheck check(m_rect);
 
@@ -167,7 +167,7 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint32_t index) const
+  void operator()(FeatureType & f, uint32_t index) const
   {
     if (is_drawable(f) && is_intersect(f))
       add(f, index);
@@ -235,14 +235,14 @@ public:
     : m_level(level), m_index(index)
   {}
 
-  void operator() (FeatureType const & ft, uint32_t index)
+  void operator()(FeatureType & ft, uint32_t index)
   {
     if (index == m_index)
     {
       TEST(IsDrawable(ft, m_level), ());
 
       LOG(LINFO, ("Feature index:", index));
-      LOG(LINFO, ("Feature:", ft));
+      LOG(LINFO, ("Feature:", ft.DebugString(FeatureType::BEST_GEOMETRY)));
     }
   }
 };

@@ -17,7 +17,7 @@
 
 namespace
 {
-bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType const & ft,
+bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType & ft,
                                   std::string & name)
 {
   int8_t const langIndices[] = {StringUtf8Multilang::kEnglishCode,

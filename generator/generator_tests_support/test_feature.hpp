@@ -29,7 +29,7 @@ class TestFeature
 public:
   virtual ~TestFeature() = default;
 
-  bool Matches(FeatureType const & feature) const;
+  bool Matches(FeatureType & feature) const;
   inline void SetPostcode(std::string const & postcode) { m_postcode = postcode; }
   inline uint64_t GetId() const { return m_id; }
   inline std::string const & GetName() const { return m_name; }

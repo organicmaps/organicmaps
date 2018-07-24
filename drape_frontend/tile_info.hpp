@@ -37,7 +37,7 @@ public:
 
 private:
   void ReadFeatureIndex(MapDataProvider const & model);
-  void InitStylist(int8_t deviceLang, FeatureType const & f, Stylist & s);
+  void InitStylist(int8_t deviceLang, FeatureType & f, Stylist & s);
   void CheckCanceled() const;
   bool DoNeedReadIndex() const;
 

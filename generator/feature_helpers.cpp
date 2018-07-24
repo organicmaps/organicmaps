@@ -25,7 +25,7 @@ void CalculateMidPoints::operator()(FeatureBuilder1 const & ft, uint64_t pos)
   m_midLoc = m_midLoc / m_locCount;
 
   uint64_t const pointAsInt64 = PointToInt64Obsolete(m_midLoc, m_coordBits);
-  int const minScale = feature::GetMinDrawableScale(ft.GetFeatureBase());
+  int const minScale = feature::GetMinDrawableScale(ft.GetTypesHolder(), ft.GetLimitRect());
 
   /// May be invisible if it's small area object with [0-9] scales.
   /// @todo Probably, we need to keep that objects if 9 scale (as we do in 17 scale).

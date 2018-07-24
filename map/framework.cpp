@@ -164,7 +164,7 @@ bool ParseSetGpsTrackMinAccuracyCommand(string const & query)
 }
 
 string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder & cityFinder,
-                            FeatureType const & ft)
+                            FeatureType & ft)
 {
   string name;
   auto const & info = ft.GetID().m_mwmId.GetInfo();
@@ -805,7 +805,7 @@ void Framework::FillPointInfo(m2::PointD const & mercator, string const & custom
   info.SetMercator(mercator);
 }
 
-void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info & info) const
+void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const
 {
   using place_page::SponsoredType;
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
@@ -1695,11 +1695,9 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params)
 {
-  auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID> const & fn,
-                         m2::RectD const & r, int scale) -> void
-  {
-    m_model.ForEachFeatureID(r, fn, scale);
-  };
+  auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID const> const & fn,
+                         m2::RectD const & r,
+                         int scale) -> void { m_model.ForEachFeatureID(r, fn, scale); };
 
   auto featureReadFn = [this](df::MapDataProvider::TReadCallback<FeatureType> const & fn,
                               vector<FeatureID> const & ids) -> void
@@ -2657,14 +2655,8 @@ void Framework::BlockTapEvents(bool block)
 
 namespace feature
 {
-string GetPrintableTypes(FeatureType const & ft)
-{
-  return DebugPrint(feature::TypesHolder(ft));
-}
-uint32_t GetBestType(FeatureType const & ft)
-{
-  return feature::TypesHolder(ft).GetBestType();
-}
+string GetPrintableTypes(FeatureType & ft) { return DebugPrint(feature::TypesHolder(ft)); }
+uint32_t GetBestType(FeatureType & ft) { return feature::TypesHolder(ft).GetBestType(); }
 }
 
 bool Framework::ParseDrapeDebugCommand(string const & query)
@@ -3380,7 +3372,7 @@ MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
   return m_model.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
-void Framework::ReadFeatures(function<void(FeatureType const &)> const & reader,
+void Framework::ReadFeatures(function<void(FeatureType &)> const & reader,
                              vector<FeatureID> const & features)
 {
   m_model.ReadFeatures(reader, features);
@@ -3485,7 +3477,7 @@ void Framework::InjectViator(place_page::Info & info)
       rect, scales::GetUpperScale(), mwmId);
 }
 
-void Framework::FillLocalExperts(FeatureType const & ft, place_page::Info & info) const
+void Framework::FillLocalExperts(FeatureType & ft, place_page::Info & info) const
 {
   if (GetDrawScale() > scales::GetUpperWorldScale() ||
       !ftypes::IsCityChecker::Instance()(ft))

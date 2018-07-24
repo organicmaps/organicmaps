@@ -30,7 +30,7 @@ class MatchingRule
 public:
   virtual ~MatchingRule() = default;
 
-  virtual bool Matches(FeatureType const & feature) const = 0;
+  virtual bool Matches(FeatureType & feature) const = 0;
   virtual std::string ToString() const = 0;
 };
 
@@ -41,7 +41,7 @@ public:
                     generator::tests_support::TestFeature const & feature);
 
   // MatchingRule overrides:
-  bool Matches(FeatureType const & feature) const override;
+  bool Matches(FeatureType & feature) const override;
   std::string ToString() const override;
 
 private:
@@ -55,7 +55,7 @@ public:
   AlternativesMatchingRule(std::initializer_list<std::shared_ptr<MatchingRule>> rules);
 
   // MatchingRule overrides:
-  bool Matches(FeatureType const & feature) const override;
+  bool Matches(FeatureType & feature) const override;
   std::string ToString() const override;
 
 private:

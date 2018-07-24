@@ -46,7 +46,7 @@ bool Info::ShouldShowUGC() const
           m_featureStatus == FeatureStatus::Modified);
 }
 
-void Info::SetFromFeatureType(FeatureType const & ft)
+void Info::SetFromFeatureType(FeatureType & ft)
 {
   MapObject::SetFromFeatureType(ft);
   std::string primaryName;

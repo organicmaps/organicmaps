@@ -135,7 +135,7 @@ bool BaseChecker::operator()(feature::TypesHolder const & types) const
   return false;
 }
 
-bool BaseChecker::operator()(FeatureType const & ft) const
+bool BaseChecker::operator()(FeatureType & ft) const
 {
   return this->operator()(feature::TypesHolder(ft));
 }
@@ -292,7 +292,7 @@ IsHotelChecker::IsHotelChecker()
   sort(m_sortedTypes.begin(), m_sortedTypes.end());
 }
 
-unsigned IsHotelChecker::GetHotelTypesMask(FeatureType const & ft) const
+unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
 {
   feature::TypesHolder types(ft);
   buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
@@ -322,7 +322,7 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType const & ft) const
   return mask;
 }
 
-boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType const & ft) const
+boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
 {
   feature::TypesHolder types(ft);
   buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
@@ -435,13 +435,13 @@ Type IsLocalityChecker::GetType(feature::TypesHolder const & types) const
   return NONE;
 }
 
-Type IsLocalityChecker::GetType(FeatureType const & f) const
+Type IsLocalityChecker::GetType(FeatureType & f) const
 {
   feature::TypesHolder types(f);
   return GetType(types);
 }
 
-uint64_t GetPopulation(FeatureType const & ft)
+uint64_t GetPopulation(FeatureType & ft)
 {
   uint64_t population = ft.GetPopulation();
 

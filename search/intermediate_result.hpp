@@ -63,7 +63,7 @@ public:
   };
 
   /// For RESULT_FEATURE and RESULT_BUILDING.
-  RankerResult(FeatureType const & f, m2::PointD const & center, m2::PointD const & pivot,
+  RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
                std::string const & displayName, std::string const & fileName);
 
   /// For RESULT_LATLON.
@@ -127,7 +127,7 @@ private:
   Result::Metadata m_metadata;
 };
 
-void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
+void ProcessMetadata(FeatureType & ft, Result::Metadata & meta);
 
 std::string DebugPrint(RankerResult const & r);
 }  // namespace search

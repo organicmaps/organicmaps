@@ -470,7 +470,7 @@ public:
 
 namespace ftypes
 {
-std::set<RoadShield> GetRoadShields(FeatureType const & f)
+std::set<RoadShield> GetRoadShields(FeatureType & f)
 {
   std::string const roadNumber = f.GetRoadNumber();
   if (roadNumber.empty())

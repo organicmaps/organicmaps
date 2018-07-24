@@ -92,7 +92,7 @@ bool TileInfo::IsCancelled() const
   return m_isCanceled;
 }
 
-void TileInfo::InitStylist(int8_t deviceLang, FeatureType const & f, Stylist & s)
+void TileInfo::InitStylist(int8_t deviceLang, FeatureType & f, Stylist & s)
 {
   CheckCanceled();
   df::InitStylist(f, deviceLang, m_context->GetTileKey().m_zoomLevel,

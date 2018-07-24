@@ -1,13 +1,13 @@
 #pragma once
 
 #include "indexer/data_header.hpp"
+#include "indexer/feature.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/geometry_coding.hpp"
 
 #include "std/noncopyable.hpp"
 
-class FeatureType;
 class ArrayByteSource;
 
 namespace feature
@@ -38,82 +38,60 @@ namespace feature
 
     LoaderBase * GetLoader() const { return m_loader; }
 
-    inline version::Format GetMWMFormat() const { return m_header.GetFormat(); }
+    version::Format GetMWMFormat() const { return m_header.GetFormat(); }
 
-    inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
+    serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
       return m_header.GetDefGeometryCodingParams();
     }
-    inline serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
+    serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
     {
       return m_header.GetGeometryCodingParams(scaleIndex);
     }
 
-    inline int GetScalesCount() const { return static_cast<int>(m_header.GetScalesCount()); }
-    inline int GetScale(int i) const { return m_header.GetScale(i); }
-    inline int GetLastScale() const { return m_header.GetLastScale(); }
+    int GetScalesCount() const { return static_cast<int>(m_header.GetScalesCount()); }
+    int GetScale(int i) const { return m_header.GetScale(i); }
+    int GetLastScale() const { return m_header.GetLastScale(); }
   };
 
   class LoaderBase
   {
   public:
     LoaderBase(SharedLoadInfo const & info);
-    virtual ~LoaderBase() {}
+    virtual ~LoaderBase() = default;
 
     // It seems like no need to store a copy of buffer (see FeaturesVector).
-    using TBuffer = char const * ;
+    using Buffer = char const *;
 
-    /// @name Initialize functions.
-    //@{
-    void Init(TBuffer data);
-    inline void InitFeature(FeatureType * p) { m_pF = p; }
+    virtual uint8_t GetHeader(FeatureType const & ft) const = 0;
 
-    void ResetGeometry();
-    //@}
+    virtual void ParseTypes(FeatureType & ft) const = 0;
+    virtual void ParseCommon(FeatureType & ft) const = 0;
+    virtual void ParseHeader2(FeatureType & ft) const = 0;
+    virtual uint32_t ParseGeometry(int scale, FeatureType & ft) const = 0;
+    virtual uint32_t ParseTriangles(int scale, FeatureType & ft) const = 0;
+    virtual void ParseMetadata(FeatureType & ft) const = 0;
 
-    virtual uint8_t GetHeader() = 0;
-
-    virtual void ParseTypes() = 0;
-    virtual void ParseCommon() = 0;
-    virtual void ParseHeader2() = 0;
-    virtual uint32_t ParseGeometry(int scale) = 0;
-    virtual uint32_t ParseTriangles(int scale) = 0;
-    virtual void ParseMetadata() = 0;
-
-    inline uint32_t GetTypesSize() const { return m_CommonOffset - m_TypesOffset; }
+    uint32_t GetTypesSize(FeatureType const & ft) const;
 
   protected:
-    inline char const * DataPtr() const { return m_Data; }
+    uint32_t CalcOffset(ArrayByteSource const & source, Buffer const data) const;
 
-    uint32_t CalcOffset(ArrayByteSource const & source) const;
-
-    inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
+    serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
       return m_Info.GetDefGeometryCodingParams();
     }
-    inline serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
+    serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
     {
       return m_Info.GetGeometryCodingParams(scaleIndex);
     }
 
-    uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }
+    uint8_t Header(Buffer const data) const { return static_cast<uint8_t>(*data); }
 
-  protected:
+    void ReadOffsets(ArrayByteSource & src, uint8_t mask,
+                     FeatureType::GeometryOffsets & offsets) const;
+
     SharedLoadInfo const & m_Info;
-    FeatureType * m_pF;
-
-    TBuffer m_Data;
-
-    static uint32_t const m_TypesOffset = 1;
-    uint32_t m_CommonOffset, m_Header2Offset;
-
-    uint32_t m_ptsSimpMask;
-
-    typedef buffer_vector<uint32_t, DataHeader::MAX_SCALES_COUNT> offsets_t;
-    offsets_t m_ptsOffsets, m_trgOffsets;
-
     static uint32_t const s_InvalidOffset = uint32_t(-1);
-
-    void ReadOffsets(ArrayByteSource & src, uint8_t mask, offsets_t & offsets) const;
   };
 }

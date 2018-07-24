@@ -6,14 +6,16 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <functional>
+#include <vector>
 
 using namespace feature;
+using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////////
 // TypesHolder implementation
@@ -32,8 +34,7 @@ string DebugPrint(TypesHolder const & holder)
   return s;
 }
 
-TypesHolder::TypesHolder(FeatureBase const & f)
-: m_size(0), m_geoType(f.GetFeatureType())
+TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geoType(f.GetFeatureType())
 {
   f.ForEachType([this](uint32_t type)
   {
@@ -171,7 +172,7 @@ void TypesHolder::SortBySpec()
 
   // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
-  (void) RemoveIfKeepValid(m_types, m_types + m_size, bind<bool>(cref(checker), _1));
+  UNUSED_VALUE(RemoveIfKeepValid(m_types, m_types + m_size, [](uint32_t t) { return checker(t); }));
 }
 
 vector<string> TypesHolder::ToObjectNames() const

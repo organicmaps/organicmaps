@@ -153,7 +153,7 @@ bool MatchesByType(feature::TypesHolder const & types, vector<DFA> const & dfas)
 }
 
 template <typename DFA>
-bool MatchFeatureByNameAndType(FeatureType const & ft, SearchTrieRequest<DFA> const & request)
+bool MatchFeatureByNameAndType(FeatureType & ft, SearchTrieRequest<DFA> const & request)
 {
   feature::TypesHolder th(ft);
 
@@ -174,7 +174,7 @@ bool MatchFeatureByNameAndType(FeatureType const & ft, SearchTrieRequest<DFA> co
   return matched;
 }
 
-bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
+bool MatchFeatureByPostcode(FeatureType & ft, TokenSlice const & slice)
 {
   string const postcode = ft.GetMetadata().Get(feature::Metadata::FMD_POSTCODE);
   vector<UniString> tokens;

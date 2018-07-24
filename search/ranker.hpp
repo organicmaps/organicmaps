@@ -116,7 +116,7 @@ private:
 
   void MakeRankerResults(Geocoder::Params const & params, std::vector<RankerResult> & results);
 
-  void GetBestMatchName(FeatureType const & f, std::string & name) const;
+  void GetBestMatchName(FeatureType & f, std::string & name) const;
   void MatchForSuggestions(strings::UniString const & token, int8_t locale,
                            std::string const & prolog);
   void ProcessSuggestions(std::vector<RankerResult> & vec) const;

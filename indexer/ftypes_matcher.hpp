@@ -39,7 +39,7 @@ public:
   virtual bool IsMatched(uint32_t type) const;
 
   bool operator() (feature::TypesHolder const & types) const;
-  bool operator() (FeatureType const & ft) const;
+  bool operator()(FeatureType & ft) const;
   bool operator() (std::vector<uint32_t> const & types) const;
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
@@ -178,9 +178,9 @@ public:
 
   static char const * GetHotelTypeTag(Type type);
 
-  unsigned GetHotelTypesMask(FeatureType const & ft) const;
+  unsigned GetHotelTypesMask(FeatureType & ft) const;
 
-  boost::optional<Type> GetHotelType(FeatureType const & ft) const;
+  boost::optional<Type> GetHotelType(FeatureType & ft) const;
 
   DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 private:
@@ -229,7 +229,7 @@ class IsLocalityChecker : public BaseChecker
 public:
   Type GetType(uint32_t t) const;
   Type GetType(feature::TypesHolder const & types) const;
-  Type GetType(FeatureType const & f) const;
+  Type GetType(FeatureType & f) const;
 
   DECLARE_CHECKER_INSTANCE(IsLocalityChecker);
 };
@@ -247,7 +247,7 @@ bool IsTownOrCity(Types const & types)
 /// @name Get city radius and population.
 /// @param r Radius in meters.
 //@{
-uint64_t GetPopulation(FeatureType const & ft);
+uint64_t GetPopulation(FeatureType & ft);
 double GetRadiusByPopulation(uint64_t p);
 uint64_t GetPopulationByRadius(double r);
 //@}

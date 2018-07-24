@@ -232,7 +232,7 @@ private:
   void MergeStreets(Street * st);
 
   template <typename ProjectionCalculator>
-  void ReadHouse(FeatureType const & f, Street * st, ProjectionCalculator & calc);
+  void ReadHouse(FeatureType & f, Street * st, ProjectionCalculator & calc);
 
   void ReadHouses(Street * st);
 

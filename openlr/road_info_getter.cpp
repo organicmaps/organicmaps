@@ -26,8 +26,8 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
 
   RoadInfo info;
-  info.m_frc = GetFunctionalRoadClass(ft);
-  info.m_fow = GetFormOfWay(ft);
+  info.m_frc = GetFunctionalRoadClass(feature::TypesHolder(ft));
+  info.m_fow = GetFormOfWay(feature::TypesHolder(ft));
   it = m_cache.emplace(fid, info).first;
 
   return it->second;

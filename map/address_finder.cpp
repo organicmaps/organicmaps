@@ -509,7 +509,7 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
   return info;
 }
 
-vector<string> Framework::GetPrintableFeatureTypes(FeatureType const & ft) const
+vector<string> Framework::GetPrintableFeatureTypes(FeatureType & ft) const
 {
   vector<string> results;
   int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());

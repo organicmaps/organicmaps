@@ -21,7 +21,7 @@ constexpr char const * kWired = "wired";
 constexpr char const * kYes = "yes";
 constexpr char const * kNo = "no";
 
-void SetInetIfNeeded(FeatureType const & ft, feature::Metadata & metadata)
+void SetInetIfNeeded(FeatureType & ft, feature::Metadata & metadata)
 {
   if (!ftypes::IsWifiChecker::Instance()(ft) || metadata.Has(feature::Metadata::FMD_INTERNET))
     return;
@@ -66,7 +66,7 @@ string DebugPrint(Props props)
   return k;
 }
 
-void MapObject::SetFromFeatureType(FeatureType const & ft)
+void MapObject::SetFromFeatureType(FeatureType & ft)
 {
   m_mercator = feature::GetCenter(ft);
   m_name = ft.GetNames();

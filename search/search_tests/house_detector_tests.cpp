@@ -30,7 +30,7 @@ class StreetIDsByName
 public:
   vector<string> streetNames;
 
-  void operator() (FeatureType const & f)
+  void operator()(FeatureType & f)
   {
     if (f.GetFeatureType() == feature::GEOM_LINE)
     {
@@ -72,7 +72,7 @@ class CollectStreetIDs
   vector<FeatureID> m_empty;
 
 public:
-  void operator() (FeatureType const & f)
+  void operator()(FeatureType & f)
   {
     if (f.GetFeatureType() == feature::GEOM_LINE)
     {

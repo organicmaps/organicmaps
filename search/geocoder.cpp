@@ -223,7 +223,7 @@ void JoinQueryTokens(QueryParams const & params, TokenRange const & range, UniSt
   }
 }
 
-WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType const & ft, string & affiliation)
+WARN_UNUSED_RESULT bool GetAffiliationName(FeatureType & ft, string & affiliation)
 {
   affiliation.clear();
 

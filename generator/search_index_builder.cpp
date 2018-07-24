@@ -206,7 +206,7 @@ struct ValueBuilder<FeatureWithRankAndCenter>
 {
   ValueBuilder() = default;
 
-  void MakeValue(FeatureType const & ft, uint32_t index, FeatureWithRankAndCenter & v) const
+  void MakeValue(FeatureType & ft, uint32_t index, FeatureWithRankAndCenter & v) const
   {
     v.m_featureId = index;
 
@@ -251,7 +251,7 @@ public:
   {
   }
 
-  void operator() (FeatureType const & f, uint32_t index) const
+  void operator()(FeatureType & f, uint32_t index) const
   {
     using namespace search;
 
