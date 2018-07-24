@@ -1466,6 +1466,21 @@ void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
   RenderUserMarksLayer(modelView, RenderState::SearchMarkLayer);
 }
 
+void FrontendRenderer::RenderEmptyFrame(dp::OGLContext * context)
+{
+  if (!context->validate())
+    return;
+
+  context->setDefaultFramebuffer();
+
+  auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 0);
+  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  m_viewport.Apply();
+  GLFunctions::glClear(gl_const::GLColorBit);
+
+  context->present();
+}
+
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
   static std::vector<RenderState::DepthLayer> layers = {RenderState::OverlayLayer,
@@ -1932,6 +1947,9 @@ void FrontendRenderer::OnContextCreate()
   context->makeCurrent();
 
   GLFunctions::Init(m_apiVersion);
+
+  // Render empty frame here to avoid black initialization screen.
+  RenderEmptyFrame(context);
 
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
