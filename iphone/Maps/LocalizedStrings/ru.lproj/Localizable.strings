@@ -2098,44 +2098,6 @@
 
 "quality" = "Качество";
 
-"sponsored_partner1_action" = "Кешбэк";
-
-"sponsored_partner3_action" = "Купон";
-
-"sponsored_partner4_action" = "Магазин";
-
-"sponsored_partner5_action" = "Билеты";
-
-"sponsored_partner6_action" = "Магазин";
-
-"sponsored_partner7_action" = "Магазин";
-
-"sponsored_partner8_action" = "Акция";
-
-"sponsored_partner9_action" = "Акция";
-
-"sponsored_partner10_action" = "Магазин";
-
-"sponsored_partner11_action" = "-";
-
-"sponsored_partner12_action" = "Магазин";
-
-"sponsored_partner13_action" = "-";
-
-"sponsored_partner14_action" = "-";
-
-"sponsored_partner15_action" = "-";
-
-"sponsored_partner16_action" = "-";
-
-"sponsored_partner17_action" = "-";
-
-"sponsored_partner18_action" = "Лайфхак";
-
-"sponsored_partner19_action" = "Лайфхак";
-
-"sponsored_partner20_action" = "Лайфхак";
-
 "whats_new_ugc_title" = "Оценки и отзывы";
 
 "whats_new_ugc_message" = "Теперь вы можете оставлять оценки и отзывы даже офлайн! Не забудьте обновить карты, чтобы увидеть изменения.";
@@ -2427,3 +2389,40 @@
 "error_already_downloaded" = "Этот список уже был загружен";
 
 "popular_place" = "Популярно";
+
+
+/**********  Partners  **********/
+
+"sponsored_partner3_action" = "Купон";
+
+"sponsored_partner4_action" = "Магазин";
+
+"sponsored_partner6_action" = "Магазин";
+
+"sponsored_partner7_action" = "Магазин";
+
+"sponsored_partner8_action" = "Акция";
+
+"sponsored_partner9_action" = "Акция";
+
+"sponsored_partner10_action" = "Магазин";
+
+"sponsored_partner11_action" = "-";
+
+"sponsored_partner12_action" = "Магазин";
+
+"sponsored_partner13_action" = "-";
+
+"sponsored_partner14_action" = "-";
+
+"sponsored_partner15_action" = "-";
+
+"sponsored_partner16_action" = "-";
+
+"sponsored_partner17_action" = "-";
+
+"sponsored_partner18_action" = "Лайфхак";
+
+"sponsored_partner19_action" = "Лайфхак";
+
+"sponsored_partner20_action" = "Лайфхак";
