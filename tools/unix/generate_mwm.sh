@@ -66,7 +66,7 @@ GENERATOR_TOOL="${GENERATOR_TOOL-$SCRIPT_PATH/bin/generator_tool}"
 [ ! -x "${GENERATOR_TOOL-}" ] && fail "Cannot find generator tool"
 
 if [ "$(uname)" == "Darwin" ]; then
-  INTDIR=$(mktemp -d -t mwmgen)
+  INTDIR=$(mktemp -d -t mwmgen.XXXXXXXX)
 else
   INTDIR=$(mktemp -d)
 fi
