@@ -70,6 +70,7 @@
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:paddingLeft="@dimen/margin_double_and_half"
         android:paddingRight="@dimen/margin_double_and_half"
         android:paddingTop="@dimen/placeholder_margin_top"
