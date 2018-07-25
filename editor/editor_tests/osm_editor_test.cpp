@@ -12,6 +12,7 @@
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/feature_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/scales.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
@@ -124,6 +125,15 @@ uint32_t CountFeaturesInRect(MwmSet::MwmId const & mwmId, m2::RectD const & rect
   uint32_t counter = 0;
   editor.ForEachFeatureInMwmRectAndScale(mwmId, [&counter](uint32_t index) { ++counter; }, rect,
                                          unused);
+
+  return counter;
+}
+
+uint32_t CountFeatureTypeInRectByDataSource(DataSource const & dataSource, m2::RectD const & rect)
+{
+  auto const scale = scales::GetUpperScale();
+  uint32_t counter = 0;
+  dataSource.ForEachInRect([&counter](FeatureType const &) { ++counter; }, rect, scale);
 
   return counter;
 }
@@ -748,27 +758,58 @@ void EditorTest::ForEachFeatureInMwmRectAndScaleTest()
 {
   auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
   {
-    builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en"));
+    builder.Add(TestCafe(m2::PointD(1.0, 1.0), "Untouched Cafe", "en"));
+    builder.Add(TestCafe(m2::PointD(3.0, 3.0), "Cafe to modify", "en"));
+    builder.Add(TestCafe(m2::PointD(5.0, 5.0), "Cafe to delete", "en"));
 
-    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));
+    builder.Add(TestPOI(m2::PointD(100.0, 100.0), "Corner Post", "default"));
+  });
+
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(3.0, 3.0), [](FeatureType & ft)
+  {
+    auto & editor = osm::Editor::Instance();
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Untouched, ());
+
+    osm::EditableMapObject emo;
+    FillEditableMapObject(editor, ft, emo);
+    emo.SetBuildingLevels("1");
+    TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Modified, ());
+  });
+
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(5.0, 5.0), [](FeatureType & ft)
+  {
+    auto & editor = osm::Editor::Instance();
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Untouched, ());
+    editor.DeleteFeature(ft.GetID());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), FeatureStatus::Deleted, ());
   });
 
   {
     osm::EditableMapObject emo;
-    CreateCafeAtPoint({10.0, 10.0}, mwmId, emo);
-  }
-  {
-    osm::EditableMapObject emo;
-    CreateCafeAtPoint({20.0, 20.0}, mwmId, emo);
-  }
-  {
-    osm::EditableMapObject emo;
-    CreateCafeAtPoint({22.0, 22.0}, mwmId, emo);
+    CreateCafeAtPoint({7.0, 7.0}, mwmId, emo);
   }
 
+  {
+    osm::EditableMapObject emo;
+    CreateCafeAtPoint({9.0, 9.0}, mwmId, emo);
+  }
+
+  // Finds created features only.
   TEST_EQUAL(CountFeaturesInRect(mwmId, {0.0, 0.0, 2.0, 2.0}), 0, ());
-  TEST_EQUAL(CountFeaturesInRect(mwmId, {9.0, 9.0, 21.0, 21.0}), 2, ());
-  TEST_EQUAL(CountFeaturesInRect(mwmId, {9.0, 9.0, 23.0, 23.0}), 3, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {2.0, 2.0, 4.0, 4.0}), 0, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {4.0, 4.0, 6.0, 6.0}), 0, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {6.0, 6.0, 8.0, 8.0}), 1, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {8.0, 8.0, 10.0, 10.0}), 1, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {0.0, 0.0, 10.0, 10.0}), 2, ());
+
+  // Finds all features except deleted.
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {0.0, 0.0, 2.0, 2.0}), 1, ());
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {2.0, 2.0, 4.0, 4.0}), 1, ());
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {4.0, 4.0, 6.0, 6.0}), 0, ());
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {6.0, 6.0, 8.0, 8.0}), 1, ());
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {8.0, 8.0, 10.0, 10.0}), 1, ());
+  TEST_EQUAL(CountFeatureTypeInRectByDataSource(m_dataSource, {0.0, 0.0, 10.0, 10.0}), 4, ());
 }
 
 void EditorTest::CreateNoteTest()
