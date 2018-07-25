@@ -6,6 +6,8 @@
 
 #include "platform/local_country_file.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "std/algorithm.hpp"
@@ -43,7 +45,7 @@ UNIT_TEST(Framework_ForEachFeatureAtPoint_And_Others)
     // Restaurant in the building.
     auto const feature = frm.GetFeatureAtPoint(MercatorBounds::FromLatLon(53.89395, 27.567365));
     string name;
-    TEST(feature->GetName(FeatureType::DEFAULT_LANG, name), ());
+    TEST(feature->GetName(StringUtf8Multilang::kDefaultCode, name), ());
     TEST_EQUAL("Родны Кут", name, ());
     TEST(!isBuilding(*feature), ());
   }

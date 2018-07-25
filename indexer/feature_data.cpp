@@ -27,7 +27,7 @@ string DebugPrint(TypesHolder const & holder)
 {
   Classificator const & c = classif();
   string s;
-  for (uint32_t type : holder)
+  for (uint32_t const type : holder)
     s += c.GetReadableObjectName(type) + " ";
   if (!s.empty())
     s.pop_back();
@@ -172,13 +172,13 @@ void TypesHolder::SortBySpec()
 
   // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
-  UNUSED_VALUE(RemoveIfKeepValid(m_types, m_types + m_size, [](uint32_t t) { return checker(t); }));
+  UNUSED_VALUE(RemoveIfKeepValid(begin(), end(), [](uint32_t t) { return checker(t); }));
 }
 
 vector<string> TypesHolder::ToObjectNames() const
 {
   vector<string> result;
-  for (auto type : *this)
+  for (auto const type : *this)
     result.push_back(classif().GetReadableObjectName(type));
   return result;
 }

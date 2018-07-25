@@ -33,7 +33,7 @@ using namespace std;
 
 namespace
 {
-uint32_t constexpr kInvalidOffset = static_cast<uint32_t>(-1);
+uint32_t constexpr kInvalidOffset = numeric_limits<uint32_t>::max();
 
 // Get the index for geometry serialization.
 // @param[in]  scale:
@@ -55,8 +55,10 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale)
   case FeatureType::BEST_GEOMETRY: return count - 1;
   default:
     for (int i = 0; i < count; ++i)
+    {
       if (scale <= loadInfo.GetScale(i))
         return i;
+    }
     return -1;
   }
 }
@@ -101,15 +103,14 @@ int GetScaleIndex(SharedLoadInfo const & loadInfo, int scale,
 
   if (ind >= 0 && ind < count)
     return ind;
-  else
-  {
-    ASSERT(false, ("Feature should have any geometry ..."));
-    return -1;
-  }
+
+  ASSERT(false, ("Feature should have any geometry ..."));
+  return -1;
 }
 
 uint32_t CalcOffset(ArrayByteSource const & source, FeatureType::Buffer const data)
 {
+  ASSERT_GREATER_OR_EQUAL(source.PtrC(), data, ());
   return static_cast<uint32_t>(source.PtrC() - data);
 }
 
@@ -179,8 +180,9 @@ uint8_t ReadByte(TSource & src)
 }
 }  // namespace
 
-void FeatureType::Deserialize(const SharedLoadInfo * loadInfo, Buffer buffer)
+void FeatureType::Deserialize(SharedLoadInfo const * loadInfo, Buffer buffer)
 {
+  CHECK(loadInfo, ());
   m_loadInfo = loadInfo;
   m_data = buffer;
   m_header = Header(m_data);
@@ -202,13 +204,12 @@ feature::EGeomType FeatureType::GetFeatureType() const
   }
 }
 
-void FeatureType::SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count)
+void FeatureType::SetTypes(array<uint32_t, feature::kMaxTypesCount> const & types, uint32_t count)
 {
   ASSERT_GREATER_OR_EQUAL(count, 1, ("Must be one type at least."));
   ASSERT_LESS(count, feature::kMaxTypesCount, ("Too many types for feature"));
-  if (count >= feature::kMaxTypesCount)
-    count = feature::kMaxTypesCount - 1;
-  fill(begin(m_types), end(m_types), 0);
+  count = min(count, static_cast<uint32_t>(feature::kMaxTypesCount - 1));
+  m_types.fill(0);
   copy_n(begin(types), count, begin(m_types));
   auto value = static_cast<uint8_t>((count - 1) & feature::HEADER_TYPE_MASK);
   m_header = (m_header & (~feature::HEADER_TYPE_MASK)) | value;
@@ -216,54 +217,55 @@ void FeatureType::SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uin
 
 void FeatureType::ParseTypes()
 {
-  if (!m_parsed.m_types)
+  if (m_parsed.m_types)
+    return;
+
+  auto const typesOffset = sizeof(m_header);
+  Classificator & c = classif();
+  ArrayByteSource source(m_data + typesOffset);
+
+  size_t const count = GetTypesCount();
+  uint32_t index = 0;
+  try
   {
-    Classificator & c = classif();
-    ArrayByteSource source(m_data + m_offsets.m_types);
-
-    size_t const count = GetTypesCount();
-    uint32_t index = 0;
-    try
+    for (size_t i = 0; i < count; ++i)
     {
-      for (size_t i = 0; i < count; ++i)
-      {
-        index = ReadVarUint<uint32_t>(source);
-        m_types[i] = c.GetTypeForIndex(index);
-      }
+      index = ReadVarUint<uint32_t>(source);
+      m_types[i] = c.GetTypeForIndex(index);
     }
-    catch (std::out_of_range const & ex)
-    {
-      LOG(LERROR, ("Incorrect type index for feature.FeatureID:", m_id, ". Incorrect index:", index,
-                   ". Loaded feature types:", m_types, ". Total count of types:", count,
-                   ". Header:", m_header, ". Exception:", ex.what()));
-      throw;
-    }
-    m_offsets.m_common = CalcOffset(source, m_data);
-
-    m_parsed.m_types = true;
   }
+  catch (std::out_of_range const & ex)
+  {
+    LOG(LERROR, ("Incorrect type index for feature.FeatureID:", m_id, ". Incorrect index:", index,
+                 ". Loaded feature types:", m_types, ". Total count of types:", count,
+                 ". Header:", m_header));
+    throw;
+  }
+
+  m_offsets.m_common = CalcOffset(source, m_data);
+  m_parsed.m_types = true;
 }
 
 void FeatureType::ParseCommon()
 {
-  if (!m_parsed.m_common)
+  if (m_parsed.m_common)
+    return;
+
+  CHECK(m_loadInfo, ());
+  ParseTypes();
+
+  ArrayByteSource source(m_data + m_offsets.m_common);
+  uint8_t const h = Header(m_data);
+  m_params.Read(source, h);
+
+  if (GetFeatureType() == GEOM_POINT)
   {
-    ParseTypes();
-
-    ArrayByteSource source(m_data + m_offsets.m_common);
-
-    uint8_t const h = Header(m_data);
-    m_params.Read(source, h);
-
-    if (GetFeatureType() == GEOM_POINT)
-    {
-      m_center = serial::LoadPoint(source, m_loadInfo->GetDefGeometryCodingParams());
-      m_limitRect.Add(m_center);
-    }
-    m_offsets.m_header2 = CalcOffset(source, m_data);
-
-    m_parsed.m_common = true;
+    m_center = serial::LoadPoint(source, m_loadInfo->GetDefGeometryCodingParams());
+    m_limitRect.Add(m_center);
   }
+
+  m_offsets.m_header2 = CalcOffset(source, m_data);
+  m_parsed.m_common = true;
 }
 
 m2::PointD FeatureType::GetCenter()
@@ -275,7 +277,7 @@ m2::PointD FeatureType::GetCenter()
 
 int8_t FeatureType::GetLayer()
 {
-  if (!(m_header & feature::HEADER_HAS_LAYER))
+  if ((m_header & feature::HEADER_HAS_LAYER) == 0)
     return 0;
 
   ParseCommon();
@@ -331,79 +333,74 @@ void FeatureType::ParseEverything()
 
 void FeatureType::ParseHeader2()
 {
-  if (!m_parsed.m_header2)
+  if (m_parsed.m_header2)
+    return;
+
+  CHECK(m_loadInfo, ());
+  ParseCommon();
+
+  uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
+  BitSource bitSource(m_data + m_offsets.m_header2);
+  uint8_t const typeMask = Header(m_data) & HEADER_GEOTYPE_MASK;
+
+  if (typeMask == HEADER_GEOM_LINE)
   {
-    ParseCommon();
-
-    uint8_t ptsCount = 0, ptsMask = 0, trgCount = 0, trgMask = 0;
-
-    BitSource bitSource(m_data + m_offsets.m_header2);
-
-    uint8_t const typeMask = Header(m_data) & HEADER_GEOTYPE_MASK;
-    if (typeMask == HEADER_GEOM_LINE)
-    {
-      ptsCount = bitSource.Read(4);
-      if (ptsCount == 0)
-        ptsMask = bitSource.Read(4);
-      else
-        ASSERT_GREATER(ptsCount, 1, ());
-    }
-    else if (typeMask == HEADER_GEOM_AREA)
-    {
-      trgCount = bitSource.Read(4);
-      if (trgCount == 0)
-        trgMask = bitSource.Read(4);
-    }
-
-    ArrayByteSource src(bitSource.RoundPtr());
-
-    serial::GeometryCodingParams const & cp = m_loadInfo->GetDefGeometryCodingParams();
-
-    if (typeMask == HEADER_GEOM_LINE)
-    {
-      if (ptsCount > 0)
-      {
-        int const count = (ptsCount - 2 + 3) / 4;
-        ASSERT_LESS(count, 4, ());
-
-        for (int i = 0; i < count; ++i)
-        {
-          uint32_t mask = ReadByte(src);
-          m_ptsSimpMask += (mask << (i << 3));
-        }
-
-        char const * start = src.PtrC();
-
-        src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
-
-        m_innerStats.m_points = static_cast<uint32_t>(src.PtrC() - start);
-      }
-      else
-      {
-        m_points.push_back(serial::LoadPoint(src, cp));
-
-        ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
-      }
-    }
-    else if (typeMask == HEADER_GEOM_AREA)
-    {
-      if (trgCount > 0)
-      {
-        trgCount += 2;
-
-        char const * start = static_cast<char const *>(src.PtrC());
-        src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_triangles));
-        m_innerStats.m_strips = static_cast<uint32_t>(src.PtrC() - start);
-      }
-      else
-      {
-        ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
-      }
-    }
-    m_innerStats.m_size = static_cast<uint32_t>(src.PtrC() - m_data);
-
-    m_parsed.m_header2 = true;
+    ptsCount = bitSource.Read(4);
+    if (ptsCount == 0)
+      ptsMask = bitSource.Read(4);
+    else
+      ASSERT_GREATER(ptsCount, 1, ());
   }
+  else if (typeMask == HEADER_GEOM_AREA)
+  {
+    trgCount = bitSource.Read(4);
+    if (trgCount == 0)
+      trgMask = bitSource.Read(4);
+  }
+
+  ArrayByteSource src(bitSource.RoundPtr());
+  serial::GeometryCodingParams const & cp = m_loadInfo->GetDefGeometryCodingParams();
+
+  if (typeMask == HEADER_GEOM_LINE)
+  {
+    if (ptsCount > 0)
+    {
+      int const count = ((ptsCount - 2) + 4 - 1) / 4;
+      ASSERT_LESS(count, 4, ());
+
+      for (int i = 0; i < count; ++i)
+      {
+        uint32_t mask = ReadByte(src);
+        m_ptsSimpMask += (mask << (i << 3));
+      }
+
+      char const * start = src.PtrC();
+      src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_points));
+      m_innerStats.m_points = static_cast<uint32_t>(src.PtrC() - start);
+    }
+    else
+    {
+      m_points.emplace_back(serial::LoadPoint(src, cp));
+      ReadOffsets(*m_loadInfo, src, ptsMask, m_offsets.m_pts);
+    }
+  }
+  else if (typeMask == HEADER_GEOM_AREA)
+  {
+    if (trgCount > 0)
+    {
+      trgCount += 2;
+
+      char const * start = static_cast<char const *>(src.PtrC());
+      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_triangles));
+      m_innerStats.m_strips = CalcOffset(src, start);
+    }
+    else
+    {
+      ReadOffsets(*m_loadInfo, src, trgMask, m_offsets.m_trg);
+    }
+  }
+  m_innerStats.m_size = CalcOffset(src, m_data);
+  m_parsed.m_header2 = true;
 }
 
 void FeatureType::ResetGeometry()
@@ -425,6 +422,7 @@ uint32_t FeatureType::ParseGeometry(int scale)
   uint32_t sz = 0;
   if (!m_parsed.m_points)
   {
+    CHECK(m_loadInfo, ());
     ParseHeader2();
 
     if ((Header(m_data) & HEADER_GEOTYPE_MASK) == HEADER_GEOM_LINE)
@@ -458,14 +456,14 @@ uint32_t FeatureType::ParseGeometry(int scale)
         int const scaleIndex = GetScaleIndex(*m_loadInfo, scale);
         ASSERT_LESS(scaleIndex, m_loadInfo->GetScalesCount(), ());
 
-        points.push_back(m_points.front());
+        points.emplace_back(m_points.front());
         for (size_t i = 1; i + 1 < count; ++i)
         {
           // check for point visibility in needed scaleIndex
           if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
-            points.push_back(m_points[i]);
+            points.emplace_back(m_points[i]);
         }
-        points.push_back(m_points.back());
+        points.emplace_back(m_points.back());
 
         m_points.swap(points);
       }
@@ -482,6 +480,7 @@ uint32_t FeatureType::ParseTriangles(int scale)
   uint32_t sz = 0;
   if (!m_parsed.m_triangles)
   {
+    CHECK(m_loadInfo, ());
     ParseHeader2();
 
     if ((Header(m_data) & HEADER_GEOTYPE_MASK) == HEADER_GEOM_AREA)
@@ -511,6 +510,7 @@ void FeatureType::ParseMetadata()
   if (m_parsed.m_metadata)
     return;
 
+  CHECK(m_loadInfo, ());
   try
   {
     struct TMetadataIndexEntry
@@ -561,9 +561,9 @@ void FeatureType::SetNames(StringUtf8Multilang const & newNames)
   });
 
   if (m_params.name.IsEmpty())
-    m_header = ~feature::HEADER_HAS_NAME & m_header;
+    m_header = m_header & ~feature::HEADER_HAS_NAME;
   else
-    m_header = feature::HEADER_HAS_NAME | m_header;
+    m_header = m_header | feature::HEADER_HAS_NAME;
 }
 
 void FeatureType::SetMetadata(feature::Metadata const & newMetadata)
@@ -708,7 +708,7 @@ m2::PointD const & FeatureType::GetPoint(size_t i) const
 vector<m2::PointD> FeatureType::GetTriangesAsPoints(int scale)
 {
   ParseTriangles(scale);
-  return {std::begin(m_triangles), std::end(m_triangles)};
+  return {m_triangles.begin(), m_triangles.end()};
 }
 
 void FeatureType::ParseGeometryAndTriangles(int scale)
@@ -836,4 +836,10 @@ string FeatureType::GetRoadNumber()
 {
   ParseCommon();
   return m_params.ref;
+}
+
+feature::Metadata & FeatureType::GetMetadata()
+{
+  ParseMetadata();
+  return m_metadata;
 }

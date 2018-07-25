@@ -9,6 +9,8 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "geometry/angles.hpp"
 #include "geometry/distance.hpp"
 
@@ -896,7 +898,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     {
       // Use default name as a primary compare key for merging.
       string name;
-      if (!f.GetName(FeatureType::DEFAULT_LANG, name))
+      if (!f.GetName(StringUtf8Multilang::kDefaultCode, name))
         continue;
       ASSERT(!name.empty(), ());
 

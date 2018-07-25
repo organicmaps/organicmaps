@@ -10,6 +10,7 @@
 
 #include "geometry/latlon.hpp"
 
+#include <array>
 #include <sstream>
 #include <string>
 
@@ -476,7 +477,7 @@ bool FromXML(XMLFeature const & xml, FeatureType & feature)
     feature.GetParams().house.Set(house);
 
   uint32_t typesCount = 0;
-  uint32_t types[feature::kMaxTypesCount];
+  array<uint32_t, feature::kMaxTypesCount> types;
   xml.ForEachTag([&feature, &types, &typesCount](string const & k, string const & v) {
     if (feature.UpdateMetadataValue(k, v))
       return;

@@ -86,8 +86,8 @@ public:
     NoData,
   };
 
-  using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
-  using TransitStateChangedFn = function<void(TransitSchemeState)>;
+  using GetMwmsByRectFn = std::function<vector<MwmSet::MwmId>(m2::RectD const &)>;
+  using TransitStateChangedFn = std::function<void(TransitSchemeState)>;
 
   TransitReadManager(DataSource & dataSource, TReadFeaturesFn const & readFeaturesFn,
                      GetMwmsByRectFn const & getMwmsByRectFn);

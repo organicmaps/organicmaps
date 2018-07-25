@@ -13,6 +13,8 @@
 
 #include "base/macros.hpp"
 
+#include <functional>
+
 namespace model
 {
 //#define USE_BUFFER_READER
@@ -21,19 +23,19 @@ class FeaturesFetcher : public MwmSet::Observer
   {
   public:
 #ifdef USE_BUFFER_READER
-    typedef BufferReader ReaderT;
+    using Reader = BufferReader;
 #else
-    typedef ModelReaderPtr ReaderT;
+    using Reader = ModelReaderPtr;
 #endif
 
-    typedef function<void(platform::LocalCountryFile const &)> TMapDeregisteredCallback;
+    using MapDeregisteredCallback = std::function<void(platform::LocalCountryFile const &)>;
 
   private:
     m2::RectD m_rect;
 
     EditableDataSource m_dataSource;
 
-    TMapDeregisteredCallback m_onMapDeregistered;
+    MapDeregisteredCallback m_onMapDeregistered;
 
   public:
     FeaturesFetcher();
@@ -42,7 +44,7 @@ class FeaturesFetcher : public MwmSet::Observer
 
     void InitClassificator();
 
-    inline void SetOnMapDeregisteredCallback(TMapDeregisteredCallback const & callback)
+    inline void SetOnMapDeregisteredCallback(MapDeregisteredCallback const & callback)
     {
       m_onMapDeregistered = callback;
     }

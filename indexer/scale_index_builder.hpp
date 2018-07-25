@@ -20,6 +20,7 @@
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/string.hpp"
 #include "std/type_traits.hpp"
 #include "std/utility.hpp"

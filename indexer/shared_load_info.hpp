@@ -9,7 +9,7 @@
 
 namespace feature
 {
-/// This info is created once.
+// This info is created once per FeaturesVector.
 class SharedLoadInfo
 {
 public:
@@ -31,6 +31,7 @@ public:
   {
     return m_header.GetDefGeometryCodingParams();
   }
+
   serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
   {
     return m_header.GetGeometryCodingParams(scaleIndex);

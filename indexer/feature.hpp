@@ -8,6 +8,7 @@
 
 #include "base/buffer_vector.hpp"
 
+#include <array>
 #include <cstdint>
 #include <functional>
 #include <iterator>
@@ -32,7 +33,7 @@ public:
   using Buffer = char const *;
   using GeometryOffsets = buffer_vector<uint32_t, feature::DataHeader::MAX_SCALES_COUNT>;
 
-  void Deserialize(const feature::SharedLoadInfo * loadInfo, Buffer buffer);
+  void Deserialize(feature::SharedLoadInfo const * loadInfo, Buffer buffer);
 
   feature::EGeomType GetFeatureType() const;
   FeatureParamsBase & GetParams() { return m_params; }
@@ -40,8 +41,7 @@ public:
   uint8_t GetTypesCount() const { return (m_header & feature::HEADER_TYPE_MASK) + 1; }
 
   bool HasName() const { return (m_header & feature::HEADER_HAS_NAME) != 0; }
-
-  void SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count);
+  StringUtf8Multilang const & GetNames();
 
   m2::PointD GetCenter();
 
@@ -52,7 +52,7 @@ public:
       return false;
 
     ParseCommon();
-    m_params.name.ForEach(forward<T>(fn));
+    m_params.name.ForEach(std::forward<T>(fn));
     return true;
   }
 
@@ -72,10 +72,12 @@ public:
   //@{
   /// Apply changes from UI for edited or newly created features.
   /// Replaces all FeatureType's components.
+  std::vector<m2::PointD> GetTriangesAsPoints(int scale);
+
   void ReplaceBy(osm::EditableMapObject const & ef);
 
-  StringUtf8Multilang const & GetNames();
   void SetNames(StringUtf8Multilang const & newNames);
+  void SetTypes(std::array<uint32_t, feature::kMaxTypesCount> const & types, uint32_t count);
   void SetMetadata(feature::Metadata const & newMetadata);
 
   void UpdateHeader(bool commonParsed, bool metadataParsed);
@@ -90,7 +92,7 @@ public:
   void SetID(FeatureID const & id) { m_id = id; }
   FeatureID const & GetID() const { return m_id; }
 
-  /// @name Parse functions. Do simple dispatching to m_loader.
+  /// @name Parse functions.
   //@{
   /// Super-method to call all possible Parse* methods.
   void ParseEverything();
@@ -143,13 +145,11 @@ public:
     }
   }
 
-  std::vector<m2::PointD> GetTriangesAsPoints(int scale);
-
   template <typename Functor>
   void ForEachTriangleEx(Functor && f, int scale) const
   {
     f.StartPrimitive(m_triangles.size());
-    ForEachTriangle(forward<Functor>(f), scale);
+    ForEachTriangle(std::forward<Functor>(f), scale);
     f.EndPrimitive();
   }
   //@}
@@ -172,7 +172,6 @@ public:
   void GetReadableName(std::string & name);
   void GetReadableName(bool allowTranslit, int8_t deviceLang, std::string & name);
 
-  static int8_t const DEFAULT_LANG = StringUtf8Multilang::kDefaultCode;
   bool GetName(int8_t lang, std::string & name);
   //@}
 
@@ -180,11 +179,7 @@ public:
   uint64_t GetPopulation();
   std::string GetRoadNumber();
 
-  feature::Metadata & GetMetadata()
-  {
-    ParseMetadata();
-    return m_metadata;
-  }
+  feature::Metadata & GetMetadata();
 
   /// @name Statistic functions.
   //@{
@@ -192,7 +187,7 @@ public:
 
   struct InnerGeomStat
   {
-    uint32_t m_points, m_strips, m_size;
+    uint32_t m_points = 0, m_strips = 0, m_size = 0;
 
     void MakeZero()
     {
@@ -204,11 +199,9 @@ public:
 
   struct GeomStat
   {
-    uint32_t m_size, m_count;
+    uint32_t m_size = 0, m_count = 0;
 
     GeomStat(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
-
-    GeomStat() : m_size(0), m_count(0) {}
   };
 
   GeomStat GetGeometrySize(int scale);
@@ -230,7 +223,6 @@ private:
 
   struct Offsets
   {
-    static uint32_t const m_types = 1;
     uint32_t m_common = 0;
     uint32_t m_header2 = 0;
     GeometryOffsets m_pts;
@@ -251,7 +243,7 @@ private:
   void ParseGeometryAndTriangles(int scale);
 
   uint8_t m_header = 0;
-  uint32_t m_types[feature::kMaxTypesCount];
+  std::array<uint32_t, feature::kMaxTypesCount> m_types;
 
   FeatureID m_id;
   FeatureParamsBase m_params;
@@ -261,17 +253,19 @@ private:
 
   // For better result this value should be greater than 17
   // (number of points in inner triangle-strips).
-  static const size_t static_buffer = 32;
-  using Points = buffer_vector<m2::PointD, static_buffer>;
+  static const size_t kStaticBufferSize = 32;
+  using Points = buffer_vector<m2::PointD, kStaticBufferSize>;
   Points m_points, m_triangles;
   feature::Metadata m_metadata;
 
-  const feature::SharedLoadInfo * m_loadInfo;
-  Buffer m_data = 0;
+  // Non-owning pointer to shared load info. SharedLoadInfo created once per FeaturesVector.
+  feature::SharedLoadInfo const * m_loadInfo = nullptr;
+  // Raw pointer to data buffer.
+  Buffer m_data = nullptr;
 
   ParsedFlags m_parsed;
   Offsets m_offsets;
-  uint32_t m_ptsSimpMask;
+  uint32_t m_ptsSimpMask = 0;
 
   InnerGeomStat m_innerStats;
 };

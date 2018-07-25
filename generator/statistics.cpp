@@ -15,6 +15,7 @@
 #include <iterator>
 
 using namespace feature;
+using namespace std;
 
 namespace stats
 {

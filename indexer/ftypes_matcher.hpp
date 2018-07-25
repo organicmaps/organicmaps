@@ -38,9 +38,9 @@ protected:
 public:
   virtual bool IsMatched(uint32_t type) const;
 
-  bool operator() (feature::TypesHolder const & types) const;
+  bool operator()(feature::TypesHolder const & types) const;
   bool operator()(FeatureType & ft) const;
-  bool operator() (std::vector<uint32_t> const & types) const;
+  bool operator()(std::vector<uint32_t> const & types) const;
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 

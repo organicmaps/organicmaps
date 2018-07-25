@@ -73,6 +73,7 @@
 #include "platform/socket.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/multilang_utf8_string.hpp"
 #include "coding/transliteration.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/zip_reader.hpp"
@@ -3226,7 +3227,7 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
     if (loader.GetFeatureByIndex(fid, ft))
     {
       string name;
-      ft.GetName(FeatureType::DEFAULT_LANG, name);
+      ft.GetName(StringUtf8Multilang::kDefaultCode, name);
       id += ", name:" + name;
     }
 

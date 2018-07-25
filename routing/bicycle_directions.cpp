@@ -17,6 +17,8 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/multilang_utf8_string.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
@@ -233,7 +235,7 @@ void BicycleDirectionsEngine::LoadPathAttributes(FeatureID const & featureId, Lo
 
   pathSegment.m_highwayClass = highwayClass;
   pathSegment.m_isLink = ftypes::IsLinkChecker::Instance()(ft);
-  ft.GetName(FeatureType::DEFAULT_LANG, pathSegment.m_name);
+  ft.GetName(StringUtf8Multilang::kDefaultCode, pathSegment.m_name);
   pathSegment.m_onRoundabout = ftypes::IsRoundAboutChecker::Instance()(ft);
 }
 

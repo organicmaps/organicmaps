@@ -9,9 +9,10 @@
 #include "coding/value_opt_string.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/array.hpp"
 #include "std/string.hpp"
-#include "std/vector.hpp"
 #include "std/utility.hpp"
+#include "std/vector.hpp"
 
 struct FeatureParamsBase;
 class FeatureType;
@@ -51,6 +52,8 @@ namespace feature
   class TypesHolder
   {
   public:
+    using Types = array<uint32_t, kMaxTypesCount>;
+
     TypesHolder() = default;
     explicit TypesHolder(EGeomType geoType) : m_geoType(geoType) {}
     explicit TypesHolder(FeatureType & f);
@@ -71,38 +74,33 @@ namespace feature
 
     /// @name Selectors.
     //@{
-    inline EGeomType GetGeoType() const { return m_geoType; }
+    EGeomType GetGeoType() const { return m_geoType; }
 
-    inline size_t Size() const { return m_size; }
-    inline bool Empty() const { return (m_size == 0); }
-    inline uint32_t const * begin() const { return m_types; }
-    inline uint32_t const * end() const { return m_types + m_size; }
+    size_t Size() const { return m_size; }
+    bool Empty() const { return (m_size == 0); }
+    Types::const_iterator begin() const { return m_types.cbegin(); }
+    Types::const_iterator end() const { return m_types.cbegin() + m_size; }
+    Types::iterator begin() { return m_types.begin(); }
+    Types::iterator end() { return m_types.begin() + m_size; }
 
     /// Assume that m_types is already sorted by SortBySpec function.
-    inline uint32_t GetBestType() const
+    uint32_t GetBestType() const
     {
       // 0 - is an empty type.
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    inline bool Has(uint32_t t) const
-    {
-      return (find(begin(), end(), t) != end());
-    }
+    bool Has(uint32_t t) const { return (find(begin(), end(), t) != end()); }
     //@}
 
     template <class TFn> bool RemoveIf(TFn && fn)
     {
-      if (m_size > 0)
-      {
-        size_t const oldSize = m_size;
+      size_t const oldSize = m_size;
 
-        uint32_t * e = remove_if(m_types, m_types + m_size, forward<TFn>(fn));
-        m_size = distance(m_types, e);
+      auto const e = remove_if(begin(), end(), forward<TFn>(fn));
+      m_size = distance(begin(), e);
 
-        return (m_size != oldSize);
-      }
-      return false;
+      return (m_size != oldSize);
     }
 
     void Remove(uint32_t type);
@@ -117,7 +115,7 @@ namespace feature
     vector<string> ToObjectNames() const;
 
   private:
-    uint32_t m_types[kMaxTypesCount];
+    Types m_types;
     size_t m_size = 0;
 
     EGeomType m_geoType = GEOM_UNDEFINED;
@@ -248,7 +246,7 @@ public:
 
   /// Assign parameters except geometry type.
   /// Geometry is independent state and it's set by FeatureType's geometry functions.
-  inline void SetParams(FeatureParams const & rhs)
+  void SetParams(FeatureParams const & rhs)
   {
     BaseT::operator=(rhs);
 
@@ -257,13 +255,13 @@ public:
     m_metadata = rhs.m_metadata;
   }
 
-  inline bool IsValid() const { return !m_Types.empty(); }
+  bool IsValid() const { return !m_Types.empty(); }
 
   void SetGeomType(feature::EGeomType t);
   void SetGeomTypePointEx();
   feature::EGeomType GetGeomType() const;
 
-  inline void AddType(uint32_t t) { m_Types.push_back(t); }
+  void AddType(uint32_t t) { m_Types.push_back(t); }
 
   /// Special function to replace a regular railway station type with
   /// the special subway type for the correspondent city.

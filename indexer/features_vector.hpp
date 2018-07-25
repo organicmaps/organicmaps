@@ -17,7 +17,7 @@ class FeaturesVector
 public:
   FeaturesVector(FilesContainerR const & cont, feature::DataHeader const & header,
                  feature::FeaturesOffsetsTable const * table)
-    : m_LoadInfo(cont, header), m_RecordReader(m_LoadInfo.GetDataReader(), 256), m_table(table)
+    : m_loadInfo(cont, header), m_recordReader(m_loadInfo.GetDataReader(), 256), m_table(table)
   {
   }
 
@@ -28,10 +28,9 @@ public:
   template <class ToDo> void ForEach(ToDo && toDo) const
   {
     uint32_t index = 0;
-    m_RecordReader.ForEachRecord([&] (uint32_t pos, char const * data, uint32_t /*size*/)
-    {
+    m_recordReader.ForEachRecord([&](uint32_t pos, char const * data, uint32_t /*size*/) {
       FeatureType ft;
-      ft.Deserialize(&m_LoadInfo, data);
+      ft.Deserialize(&m_loadInfo, data);
 
       // We can't properly set MwmId here, because FeaturesVector
       // works with FileContainerR, not with MwmId/MwmHandle/MwmValue.
@@ -54,8 +53,8 @@ public:
 private:
   friend class FeaturesVectorTest;
 
-  feature::SharedLoadInfo m_LoadInfo;
-  VarRecordReader<FilesContainerR::TReader, &VarRecordSizeReaderVarint> m_RecordReader;
+  feature::SharedLoadInfo m_loadInfo;
+  VarRecordReader<FilesContainerR::TReader, &VarRecordSizeReaderVarint> m_recordReader;
   mutable vector<char> m_buffer;
   feature::FeaturesOffsetsTable const * m_table;
 };
