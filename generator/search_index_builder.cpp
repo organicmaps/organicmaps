@@ -48,7 +48,6 @@ using namespace std;
 
 #define SYNONYMS_FILE "synonyms.txt"
 
-
 namespace
 {
 class SynonymsHolder
@@ -319,8 +318,8 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
       synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange(), valueBuilder));
 }
 
-pair<uint32_t, bool> GetStreetIndex(search::MwmContext & ctx, uint32_t featureID,
-                                    string const & streetName)
+bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
+                    uint32_t & result)
 {
   size_t streetIndex = 0;
   strings::UniString const street = search::GetStreetNameAsKey(streetName);
@@ -337,13 +336,17 @@ pair<uint32_t, bool> GetStreetIndex(search::MwmContext & ctx, uint32_t featureID
 
     streetIndex = search::ReverseGeocoder::GetMatchedStreetIndex(street, streets);
     if (streetIndex < streets.size())
-      return { base::checked_cast<uint32_t>(streetIndex), true };
+    {
+      result = base::checked_cast<uint32_t>(streetIndex);
+      return true;
+    }
   }
 
-  return { hasStreet ? 1 : 0, false };
+  result = hasStreet ? 1 : 0;
+  return false;
 }
 
-void BuildAddressTable(uint32_t threadsCount, FilesContainerR & container, Writer & writer)
+void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t threadsCount)
 {
   // Read all street names to memory.
   ReaderSource<ModelReaderPtr> src(container.GetReader(SEARCH_TOKENS_FILE_TAG));
@@ -357,8 +360,13 @@ void BuildAddressTable(uint32_t threadsCount, FilesContainerR & container, Write
 
   // Initialize temporary source for the current mwm file.
   FrozenDataSource dataSource;
-  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
-  ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
+  MwmSet::MwmId mwmId;
+  {
+    auto const regResult =
+        dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
+    ASSERT_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
+    mwmId = regResult.first;
+  }
 
   vector<unique_ptr<search::MwmContext>> contexts(threadsCount);
 
@@ -371,28 +379,29 @@ void BuildAddressTable(uint32_t threadsCount, FilesContainerR & container, Write
   mutex resMutex;
 
   // Thread working function.
-  auto const fn = [&](uint32_t threadIdx)
-  {
-    uint64_t const fc = featuresCount;
+  auto const fn = [&](uint32_t threadIdx) {
+    uint64_t const fc = static_cast<uint64_t>(featuresCount);
     uint32_t const beg = static_cast<uint32_t>(fc * threadIdx / threadsCount);
     uint32_t const end = static_cast<uint32_t>(fc * (threadIdx + 1) / threadsCount);
 
     for (uint32_t i = beg; i < end; ++i)
     {
-      auto const res = GetStreetIndex(*(contexts[threadIdx]), i, addrs[i].Get(feature::AddressData::STREET));
+      uint32_t streetIndex;
+      bool const found = GetStreetIndex(*(contexts[threadIdx]), i,
+                                        addrs[i].Get(feature::AddressData::STREET), streetIndex);
 
       lock_guard<mutex> guard(resMutex);
 
-      if (res.second)
+      if (found)
       {
-        results[i] = res.first;
-        ++bounds[res.first];
+        results[i] = streetIndex;
+        ++bounds[streetIndex];
         ++address;
       }
-      else if (res.first > 0)
+      else if (streetIndex > 0)
       {
-          ++missing;
-          ++address;
+        ++missing;
+        ++address;
       }
     }
   };
@@ -401,7 +410,7 @@ void BuildAddressTable(uint32_t threadsCount, FilesContainerR & container, Write
   vector<thread> threads;
   for (size_t i = 0; i < threadsCount; ++i)
   {
-    auto handle = dataSource.GetMwmHandleById(res.first);
+    auto handle = dataSource.GetMwmHandleById(mwmId);
     contexts[i] = make_unique<search::MwmContext>(move(handle));
     threads.emplace_back(fn, i);
   }
@@ -434,7 +443,7 @@ void BuildAddressTable(uint32_t threadsCount, FilesContainerR & container, Write
 
 namespace indexer
 {
-bool BuildSearchIndexFromDataFile(uint32_t threadsCount, string const & filename, bool forceRebuild)
+bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild, uint32_t threadsCount)
 {
   Platform & platform = GetPlatform();
 
@@ -457,7 +466,7 @@ bool BuildSearchIndexFromDataFile(uint32_t threadsCount, string const & filename
     if (filename != WORLD_FILE_NAME && filename != WORLD_COASTS_FILE_NAME)
     {
       FileWriter writer(addrFilePath);
-      BuildAddressTable(threadsCount, readContainer, writer);
+      BuildAddressTable(readContainer, writer, threadsCount);
       LOG(LINFO, ("Search address table size =", writer.Size()));
     }
     {
