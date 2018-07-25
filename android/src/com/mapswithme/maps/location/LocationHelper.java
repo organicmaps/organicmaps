@@ -643,18 +643,12 @@ public enum LocationHelper
    * @return {@code null} on failure.
    */
   @Nullable
-  public Location getLastKnownLocation(long expirationMillis)
+  public Location getLastKnownLocation()
   {
     if (mSavedLocation != null)
       return mSavedLocation;
 
-    return AndroidNativeProvider.findBestNotExpiredLocation(expirationMillis);
-  }
-
-  @Nullable
-  public Location getLastKnownLocation()
-  {
-    return getLastKnownLocation(LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG);
+    return AndroidNativeProvider.findBestLocation();
   }
 
   @Nullable

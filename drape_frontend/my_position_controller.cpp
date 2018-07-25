@@ -148,7 +148,6 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
   , m_positionYOffset(kPositionOffsetY)
-  , m_isVisible(false)
   , m_isDirtyViewport(false)
   , m_isDirtyAutoZoom(false)
   , m_isPendingAnimation(false)
@@ -156,6 +155,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_isDirectionAssigned(false)
   , m_isCompassAvailable(false)
   , m_positionIsObsolete(false)
+  , m_allowToFollowAfterObsoletePosition(true)
   , m_needBlockAutoZoom(false)
   , m_notFollowAfterPending(false)
   , m_locationWaitingNotifyId(DrapeNotifier::kInvalidId)
@@ -166,7 +166,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   if (m_hints.m_isFirstLaunch)
   {
     m_mode = location::NotFollowNoPosition;
-    m_desiredInitMode = location::NotFollowNoPosition;
+    m_desiredInitMode = location::Follow;
   }
   else if (m_hints.m_isLaunchByDeepLink)
   {
@@ -232,6 +232,10 @@ bool MyPositionController::IsModeHasPosition() const
 void MyPositionController::DragStarted()
 {
   m_needBlockAnimation = true;
+
+  m_allowToFollowAfterObsoletePosition = false;
+  if (m_mode == location::PendingPosition)
+    m_notFollowAfterPending = true;
 }
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
@@ -248,6 +252,10 @@ void MyPositionController::ScaleStarted()
 {
   m_needBlockAnimation = true;
   ResetBlockAutoZoomTimer();
+
+  m_allowToFollowAfterObsoletePosition = false;
+  if (m_mode == location::PendingPosition)
+    m_notFollowAfterPending = true;
 }
 
 void MyPositionController::ScaleEnded()
@@ -265,7 +273,11 @@ void MyPositionController::ScaleEnded()
 
 void MyPositionController::Rotated()
 {
-  if (m_mode == location::FollowAndRotate)
+  m_allowToFollowAfterObsoletePosition = false;
+
+  if (m_mode == location::PendingPosition)
+    m_notFollowAfterPending = true;
+  else if (m_mode == location::FollowAndRotate)
     m_wasRotationInScaling = true;
 }
 
@@ -419,15 +431,44 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  if (m_notFollowAfterPending && m_mode == location::PendingPosition)
+  auto const previousPositionIsObsolete = m_positionIsObsolete;
+  using namespace std::chrono;
+  auto const delta =
+    duration_cast<seconds>(system_clock::now().time_since_epoch()).count() - info.m_timestamp;
+  if (delta >= kMaxUpdateLocationInvervalSec)
   {
-    ChangeMode(location::NotFollow);
-    ResetRoutingNotFollowTimer();
-    m_notFollowAfterPending = false;
+    m_positionIsObsolete = true;
+    m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
   }
-  else if (!m_isPositionAssigned)
+  else
   {
-    ChangeMode(m_hints.m_isFirstLaunch ? location::Follow : m_desiredInitMode);
+    m_positionIsObsolete = false;
+  }
+
+  // If we are on the start, the first known location is obsolete, the new one has come and
+  // we didn't touch the map. In this case we allow to go from NotFollow to Follow.
+  bool canChangeNotFollowMode = false;
+  if (m_allowToFollowAfterObsoletePosition && !m_notFollowAfterPending &&
+      previousPositionIsObsolete && !m_positionIsObsolete)
+  {
+    canChangeNotFollowMode = true;
+    m_allowToFollowAfterObsoletePosition = false;
+  }
+
+  if (!m_isPositionAssigned)
+  {
+    // If the position was never assigned, the new mode will be desired one except the case when
+    // we touch the map during the pending of position. In this case the new mode will be NotFollow to
+    // prevent spontaneous map snapping.
+    location::EMyPositionMode newMode = m_desiredInitMode;
+    if (m_notFollowAfterPending && m_mode == location::PendingPosition)
+    {
+      ResetRoutingNotFollowTimer();
+      m_notFollowAfterPending = false;
+      newMode = location::NotFollow;
+    }
+    ChangeMode(newMode);
+
     if (!m_hints.m_isFirstLaunch || !AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
     {
       if (m_mode == location::Follow)
@@ -442,7 +483,8 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
       }
     }
   }
-  else if (m_mode == location::PendingPosition || m_mode == location::NotFollowNoPosition)
+  else if (m_mode == location::PendingPosition ||
+          (m_mode == location::NotFollow && canChangeNotFollowMode))
   {
     if (m_isInRouting)
     {
@@ -451,8 +493,18 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     }
     else
     {
-      ChangeMode(location::Follow);
-      if (!m_hints.m_isFirstLaunch)
+      // Here we prevent to go to Follow mode in the case when we touch the map
+      // during the pending of position.
+      location::EMyPositionMode newMode = location::Follow;
+      if (m_notFollowAfterPending && m_mode == location::PendingPosition)
+      {
+        ResetRoutingNotFollowTimer();
+        m_notFollowAfterPending = false;
+        newMode = location::NotFollow;
+      }
+      ChangeMode(newMode);
+
+      if (!m_hints.m_isFirstLaunch && m_mode == location::Follow)
       {
         if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
         {
@@ -471,10 +523,13 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
       }
     }
   }
+  else if (m_mode == location::NotFollowNoPosition)
+  {
+    // Here we silently get the position and go to NotFollow mode.
+    ChangeMode(location::NotFollow);
+  }
 
   m_isPositionAssigned = true;
-  m_positionIsObsolete = false;
-  SetIsVisible(true);
 
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), IsModeHasPosition());
@@ -490,13 +545,22 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
 void MyPositionController::LoseLocation()
 {
-  if (m_mode != location::NotFollowNoPosition)
+  if (!IsModeHasPosition())
+    return;
+
+  if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
+  {
+    m_pendingTimer.Reset();
+    m_locationWaitingNotifyId = DrapeNotifier::kInvalidId;
+    ChangeMode(location::PendingPosition);
+  }
+  else
   {
     ChangeMode(location::NotFollowNoPosition);
-    SetIsVisible(false);
-    if (m_listener != nullptr)
-      m_listener->PositionChanged(Position(), false /* hasPosition */);
   }
+
+  if (m_listener != nullptr)
+    m_listener->PositionChanged(Position(), false /* hasPosition */);
 }
 
 void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen)
@@ -515,12 +579,6 @@ void MyPositionController::OnCompassUpdate(location::CompassInfo const & info, S
     CreateAnim(GetDrawablePosition(), oldAzimut, screen);
     m_isDirtyViewport = true;
   }
-}
-
-bool MyPositionController::IsInStateWithPosition() const
-{
-  return m_mode == location::NotFollow || m_mode == location::Follow ||
-         m_mode == location::FollowAndRotate;
 }
 
 bool MyPositionController::UpdateViewportWithAutoZoom()
@@ -542,7 +600,7 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
   CheckIsWaitingForLocation();
   CheckNotFollowRouting();
 
-  if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
+  if (m_shape != nullptr && IsModeHasPosition())
   {
     CheckBlockAutoZoom();
     CheckUpdateLocation();

@@ -133,11 +133,6 @@ public:
 private:
   void ChangeMode(location::EMyPositionMode newMode);
   void SetDirection(double bearing);
-  
-  bool IsInStateWithPosition() const;
-
-  bool IsVisible() const { return m_isVisible; }
-  void SetIsVisible(bool isVisible) { m_isVisible = isVisible; }
 
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
@@ -201,7 +196,6 @@ private:
   m2::RectD m_visiblePixelRect;
   double m_positionYOffset;
 
-  bool m_isVisible;
   bool m_isDirtyViewport;
   bool m_isDirtyAutoZoom;
   bool m_isPendingAnimation;
@@ -213,6 +207,7 @@ private:
   bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;
+  bool m_allowToFollowAfterObsoletePosition;
   bool m_needBlockAutoZoom;
 
   bool m_notFollowAfterPending;

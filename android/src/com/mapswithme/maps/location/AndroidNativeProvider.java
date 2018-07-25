@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.util.LocationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,17 +59,9 @@ class AndroidNativeProvider extends BaseLocationProvider
 
     LocationHelper.INSTANCE.startSensors();
 
-    Location location = findBestNotExpiredLocation(mLocationManager, providers,
-                                                   LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT);
+    Location location = findBestLocation(mLocationManager, providers);
     if (location != null && !getLocationFixChecker().isLocationBetterThanLast(location))
-    {
       location = LocationHelper.INSTANCE.getSavedLocation();
-      if (location == null || LocationUtils.isExpired(location, LocationHelper.INSTANCE.getSavedLocationTime(),
-                                                      LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
-      {
-        return;
-      }
-    }
 
     if (location != null)
       onLocationChanged(location);
@@ -101,16 +92,14 @@ class AndroidNativeProvider extends BaseLocationProvider
   }
 
   @Nullable
-  static Location findBestNotExpiredLocation(long expirationMillis)
+  static Location findBestLocation()
   {
     final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
-    return findBestNotExpiredLocation(manager,
-                                      getAvailableProviders(manager),
-                                      expirationMillis);
+    return findBestLocation(manager, getAvailableProviders(manager));
   }
 
   @Nullable
-  private static Location findBestNotExpiredLocation(LocationManager manager, List<String> providers, long expirationMillis)
+  private static Location findBestLocation(LocationManager manager, List<String> providers)
   {
     Location res = null;
     try
@@ -118,7 +107,7 @@ class AndroidNativeProvider extends BaseLocationProvider
       for (final String pr : providers)
       {
         final Location last = manager.getLastKnownLocation(pr);
-        if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
+        if (last == null)
           continue;
 
         if (res == null || res.getAccuracy() > last.getAccuracy())

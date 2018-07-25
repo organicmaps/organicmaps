@@ -22,8 +22,6 @@ public class LocationUtils
 {
   private LocationUtils() {}
 
-  public static final long LOCATION_EXPIRATION_TIME_MILLIS_SHORT = 60 * 1000; // 1 minute
-  public static final long LOCATION_EXPIRATION_TIME_MILLIS_LONG = 6 * 60 * 60 * 1000; // 6 hours
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.LOCATION);
   private static final String TAG = LocationUtils.class.getSimpleName();
 
