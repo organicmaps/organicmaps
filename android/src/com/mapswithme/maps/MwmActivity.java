@@ -173,7 +173,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private MapFragment mMapFragment;
 
-  @Nullable
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private PlacePageView mPlacePage;
 
   @SuppressWarnings("NullableProblems")
@@ -291,7 +292,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                int oldLeft, int oldTop, int oldRight, int oldBottom)
     {
       mScreenFullRect = new Rect(left, top, right, bottom);
-      if (mPlacePageVisible && (mPlacePage == null || UiUtils.isHidden(mPlacePage.GetPreview())))
+      if (mPlacePageVisible && UiUtils.isHidden(mPlacePage.GetPreview()))
         mPlacePageVisible = false;
       recalculateVisibleRect(mScreenFullRect);
     }
@@ -304,7 +305,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       int orientation = MwmActivity.this.getResources().getConfiguration().orientation;
 
       Rect rect = new Rect(r.left, r.top, r.right, r.bottom);
-      if (mPlacePage != null && mPlacePageVisible)
+      if (mPlacePageVisible)
       {
         int[] loc = new int[2];
         mPlacePage.GetPreview().getLocationOnScreen(loc);
@@ -578,12 +579,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initNavigationButtons();
 
     mPlacePage = (PlacePageView) findViewById(R.id.info_box);
-    if (mPlacePage != null)
-    {
-      mPlacePage.setOnVisibilityChangedListener(this);
-      mPlacePage.setOnAnimationListener(this);
-      mPlacePageTracker = new PlacePageTracker(mPlacePage);
-    }
+    mPlacePage.setOnVisibilityChangedListener(this);
+    mPlacePage.setOnAnimationListener(this);
+    mPlacePageTracker = new PlacePageTracker(mPlacePage);
 
     if (!mIsTabletLayout)
     {
@@ -751,7 +749,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public boolean closePlacePage()
   {
-    if (mPlacePage == null || mPlacePage.isHidden())
+    if (mPlacePage.isHidden())
       return false;
 
     mPlacePage.hide();
@@ -811,7 +809,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeMenu(() -> {
       RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
 
-      if (mPlacePage != null && (mPlacePage.isDocked() || !mPlacePage.isFloating()))
+      if (mPlacePage.isDocked() || !mPlacePage.isFloating())
         closePlacePage();
     });
   }
@@ -841,7 +839,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case TOGGLE:
         if (!mMainMenu.isOpen())
         {
-          if (mPlacePage == null || (mPlacePage.isDocked() && closePlacePage()))
+          if (mPlacePage.isDocked() && closePlacePage())
             return;
 
           if (closeSidePanel())
@@ -911,7 +909,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (mPlacePage != null && mPlacePage.isDocked())
+    if (mPlacePage.isDocked())
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
   }
 
@@ -937,23 +935,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onDestroy()
-  {
-    if (!isInitializationCompleted())
-    {
-      super.onDestroy();
-      return;
-    }
-
-    SearchEngine.INSTANCE.removeListener(this);
-
-    super.onDestroy();
-  }
-
-  @Override
   protected void onSaveInstanceState(Bundle outState)
   {
-    if (mPlacePage != null && !mPlacePage.isHidden())
+    if (!mPlacePage.isHidden())
     {
       outState.putInt(STATE_PP, mPlacePage.getState().ordinal());
       outState.putParcelable(STATE_MAP_OBJECT, mPlacePage.getMapObject());
@@ -1001,7 +985,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onRestoreInstanceState(savedInstanceState);
 
     final State state = State.values()[savedInstanceState.getInt(STATE_PP, 0)];
-    if (mPlacePage != null && state != State.HIDDEN)
+    if (state != State.HIDDEN)
     {
       mPlacePageRestored = true;
       MapObject mapObject = (MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT);
@@ -1255,7 +1239,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
-    mPlacePageRestored = mPlacePage != null && mPlacePage.getState() != State.HIDDEN;
+    mPlacePageRestored = mPlacePage.getState() != State.HIDDEN;
     mSearchController.refreshToolbar();
     mMainMenu.onResume(new Runnable()
     {
@@ -1292,8 +1276,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onResumeFragments();
     RoutingController.get().restore();
-    if (mPlacePage != null)
-      mPlacePage.restore();
+    mPlacePage.restore();
 
     if (!LikesManager.INSTANCE.isNewUser() && Counters.isShowReviewForOldUser())
     {
@@ -1313,8 +1296,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LikesManager.INSTANCE.cancelDialogs();
     if (mOnmapDownloader != null)
       mOnmapDownloader.onPause();
-    if (mPlacePage != null)
-      mPlacePage.onActivityPause();
+    mPlacePage.onActivityPause();
     super.onPause();
   }
 
@@ -1460,27 +1442,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     setFullscreen(false);
 
-    if (mPlacePage != null)
-    {
-      mPlacePage.setMapObject(object, true, new PlacePageView.SetMapObjectListener()
+    mPlacePage.setMapObject(object, true, () -> {
+      if (!mPlacePageRestored)
       {
-        @Override
-        public void onSetMapObjectComplete()
+        if (object != null)
         {
-          if (!mPlacePageRestored)
-          {
-            if (object != null)
-            {
-              mPlacePage.setState(object.isExtendedView() ? State.DETAILS : State.PREVIEW);
-              Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
-            }
-          }
-          mPlacePageRestored = false;
+          mPlacePage.setState(object.isExtendedView() ? State.DETAILS : State.PREVIEW);
+          Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
         }
-      });
-      if (mPlacePageTracker != null)
-        mPlacePageTracker.setMapObject(object);
-    }
+      }
+      mPlacePageRestored = false;
+    });
+    if (mPlacePageTracker != null)
+      mPlacePageTracker.setMapObject(object);
 
     if (UiUtils.isVisible(mFadeView))
       mFadeView.fadeOut();
@@ -1499,8 +1473,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      if (mPlacePage != null)
-        mPlacePage.hide();
+      mPlacePage.hide();
     }
   }
 
@@ -1550,7 +1523,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     else
     {
-      if (mPlacePage != null && mPlacePage.isHidden() && mNavAnimationController != null)
+      if (mPlacePage.isHidden() && mNavAnimationController != null)
         mNavAnimationController.appearZoomButtons();
       if (!mIsFullscreenAnimating)
         appearMenu(menu);
@@ -1606,8 +1579,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     else
     {
       Framework.nativeDeactivatePopup();
-      if (mPlacePage != null)
-        mPlacePage.setMapObject(null, false, null);
+      mPlacePage.setMapObject(null, false, null);
       if (mPlacePageTracker != null)
         mPlacePageTracker.onHidden();
     }
@@ -1659,8 +1631,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
-    return (mPlacePage != null && mPlacePage.hideOnTouch()) ||
-           (mMapFragment != null && mMapFragment.onTouch(view, event));
+    return mPlacePage.hideOnTouch() || (mMapFragment != null && mMapFragment.onTouch(view, event));
   }
 
   @Override
@@ -2072,8 +2043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       updateSearchBar();
     }
 
-    if (mPlacePage != null)
-      mPlacePage.refreshViews();
+    mPlacePage.refreshViews();
   }
 
   private void adjustCompassAndTraffic(final int offsetY)
@@ -2132,8 +2102,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void showNavigation(boolean show)
   {
-    if (mPlacePage != null)
-      mPlacePage.refreshViews();
+    mPlacePage.refreshViews();
     if (mNavigationController != null)
       mNavigationController.show(show);
     refreshFade();
@@ -2256,7 +2225,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
-    if (mPlacePage != null && !mPlacePage.isHidden())
+    if (!mPlacePage.isHidden())
       mPlacePage.refreshLocation(location);
 
     if (!RoutingController.get().isNavigating())
@@ -2272,8 +2241,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onCompassUpdated(@NonNull CompassData compass)
   {
     MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), false);
-    if (mPlacePage != null)
-      mPlacePage.refreshAzimuth(compass.getNorth());
+    mPlacePage.refreshAzimuth(compass.getNorth());
     if (mNavigationController != null)
       mNavigationController.updateNorth(compass.getNorth());
   }
