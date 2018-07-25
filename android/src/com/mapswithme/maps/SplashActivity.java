@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -35,9 +34,8 @@ import com.my.tracker.MyTracker;
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener, BaseActivity
 {
-  public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
-  private static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
+  public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
   private static final long FIRST_START_DELAY = 1000;
   private static final long DELAY = 100;
@@ -346,10 +344,10 @@ public class SplashActivity extends AppCompatActivity
                             (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START));
       }
 
-      Intent extraIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
+      Intent initialIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
                            input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
                            input;
-      result.putExtra(EXTRA_INTENT, extraIntent);
+      result.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
     }
     startActivity(result);
     finish();

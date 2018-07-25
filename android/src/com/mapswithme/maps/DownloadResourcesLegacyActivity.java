@@ -497,12 +497,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
-    final Intent extra = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
-    if (extra == null)
-      return false;
-
     for (final IntentProcessor ip : mIntentProcessors)
-      if (ip.isSupported(extra) && ip.process(extra))
+      if (ip.isSupported(intent) && ip.process(intent))
         return true;
 
     return false;

@@ -553,7 +553,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.setVisibilityListener(this);
-    SearchEngine.INSTANCE.addListener(this);
 
     SharingHelper.INSTANCE.initialize();
 
@@ -1178,9 +1177,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
-    if (intent.hasExtra(SplashActivity.EXTRA_INTENT))
-      intent = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
-
     Notifier.processNotificationExtras(intent);
 
     if (intent.hasExtra(EXTRA_TASK))
@@ -1304,6 +1300,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
+    SearchEngine.INSTANCE.addListener(this);
     Framework.nativeSetMapObjectListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
@@ -1319,6 +1316,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
+    SearchEngine.INSTANCE.removeListener(this);
     Framework.nativeRemoveMapObjectListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.detach(!isFinishing());

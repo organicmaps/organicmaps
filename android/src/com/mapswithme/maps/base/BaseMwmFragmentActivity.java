@@ -29,8 +29,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 {
   private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
 
-  private boolean mInitializationCompleted = false;
-
   @Override
   @NonNull
   public Activity get()
@@ -61,6 +59,13 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
+    // An intent that was skipped due to core wasn't initialized has to be used
+    // as a target intent for this activity, otherwise all input extras will be lost
+    // in a splash activity loop.
+    Intent initialIntent = getIntent().getParcelableExtra(SplashActivity.EXTRA_INITIAL_INTENT);
+    if (initialIntent != null)
+      setIntent(initialIntent);
+
     if (!MwmApplication.get().arePlatformAndCoreInitialized()
         || !PermissionsUtils.isExternalStorageGranted())
     {
@@ -68,7 +73,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       goToSplashScreen(getIntent());
       return;
     }
-    mInitializationCompleted = true;
 
     mBaseDelegate.onCreate();
     super.onCreate(savedInstanceState);
@@ -101,11 +105,6 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     attachDefaultFragment();
-  }
-
-  protected boolean isInitializationCompleted()
-  {
-    return mInitializationCompleted;
   }
 
   @ColorRes
