@@ -9,9 +9,10 @@
 
 #include "std/limits.hpp"
 
+#include <algorithm>
+
 namespace df
 {
-
 namespace
 {
 
@@ -124,12 +125,16 @@ private:
     if (dRule == nullptr)
       return;
 
-    m_rules.emplace_back(make_pair(dRule, depth));
-
     if (dRule->GetCaption(0) != nullptr)
       m_mainTextType = dRule->GetCaptionTextType(0);
 
     m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
+
+    // Skip lines with zero width.
+    if (dRule->GetLine() != nullptr && dRule->GetLine()->width() < 1e-5)
+      return;
+
+    m_rules.emplace_back(make_pair(dRule, depth));
   }
 
   void Init()
@@ -402,5 +407,4 @@ double GetFeaturePriority(FeatureType const & f, int const zoomLevel)
 
   return maxPriority;
 }
-
-} // namespace df
+}  // namespace df
