@@ -331,6 +331,7 @@ public:
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(Track const & track);
   void ShowFeatureByMercator(m2::PointD const & pt);
+  void ShowBookmarkCategory(kml::MarkGroupId categoryId);
 
   void AddBookmarksFile(string const & filePath, bool isTemporaryFile);
 

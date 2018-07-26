@@ -254,10 +254,10 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onImportFinished(@NonNull String id, boolean successful)
+  public void onImportFinished(@NonNull String id, long catId, boolean successful)
   {
     for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onImportFinished(id, successful);
+      listener.onImportFinished(id, catId, successful);
   }
 
   public boolean isVisible(long catId)
@@ -726,9 +726,10 @@ public enum BookmarkManager
      * The method is called when the importing of a file from the catalog is finished.
      *
      * @param serverId is server identifier of the file.
+     * @param catId is client identifier of the created bookmarks category.
      * @param successful is result of the importing.
      */
-    void onImportFinished(@NonNull String serverId, boolean successful);
+    void onImportFinished(@NonNull String serverId, long catId, boolean successful);
   }
 
   public static class DefaultBookmarksCatalogListener implements BookmarksCatalogListener
@@ -741,7 +742,7 @@ public enum BookmarkManager
     }
 
     @Override
-    public void onImportFinished(@NonNull String serverId, boolean successful)
+    public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
     {
       /* do noting by default */
     }

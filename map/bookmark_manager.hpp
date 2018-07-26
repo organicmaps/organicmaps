@@ -287,6 +287,7 @@ public:
                                                                        platform::RemoteFile::Result const &)>;
   using OnCatalogImportStartedHandler = platform::SafeCallback<void(std::string const & id)>;
   using OnCatalogImportFinishedHandler = platform::SafeCallback<void(std::string const & id,
+                                                                     kml::MarkGroupId categoryId,
                                                                      bool successful)>;
   void SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
                           OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,

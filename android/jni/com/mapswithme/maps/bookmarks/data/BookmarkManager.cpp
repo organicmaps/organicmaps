@@ -67,7 +67,7 @@ void PrepareClassRefs(JNIEnv * env)
   g_onImportStartedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onImportStarted", "(Ljava/lang/String;)V");
   g_onImportFinishedMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onImportFinished", "(Ljava/lang/String;Z)V");
+    jni::GetMethodID(env, bookmarkManagerInstance, "onImportFinished", "(Ljava/lang/String;JZ)V");
   g_bookmarkCategoryClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkCategory");
 //public BookmarkCategory(long id,
@@ -213,13 +213,15 @@ void OnImportStarted(JNIEnv * env, std::string const & serverId)
   jni::HandleJavaException(env);
 }
 
-void OnImportFinished(JNIEnv * env, std::string const & serverId, bool successful)
+void OnImportFinished(JNIEnv * env, std::string const & serverId, kml::MarkGroupId categoryId,
+                      bool successful)
 {
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onImportFinishedMethod,
-                      jni::ToJavaString(env, serverId), static_cast<jboolean>(successful));
+                      jni::ToJavaString(env, serverId), static_cast<jlong>(categoryId),
+                      static_cast<jboolean>(successful));
   jni::HandleJavaException(env);
 }
 }  // namespace
@@ -254,7 +256,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIE
 
   frm()->GetBookmarkManager().SetCatalogHandlers(nullptr, nullptr,
                                                  std::bind(&OnImportStarted, env, _1),
-                                                 std::bind(&OnImportFinished, env, _1, _2));
+                                                 std::bind(&OnImportFinished, env, _1, _2, _3));
   frm()->LoadBookmarks();
 }
 

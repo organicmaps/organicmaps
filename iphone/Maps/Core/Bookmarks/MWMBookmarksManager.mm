@@ -467,15 +467,15 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     [MWMBookmarksManager manager].catalogObservers = [NSMutableDictionary dictionary];
-    auto onDownloadStarted = [](std::string const & catId)
+    auto onDownloadStarted = [](std::string const & serverCatId)
     {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
         [observer onDownloadStart];
     };
-    auto onDownloadFinished = [](std::string const & catId, platform::RemoteFile::Result const & result)
+    auto onDownloadFinished = [](std::string const & serverCatId, platform::RemoteFile::Result const & result)
     {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
       {
         [observer onDownloadComplete:result.m_status];
@@ -484,15 +484,15 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
         }
       }
     };
-    auto onImportStarted = [](std::string const & catId)
+    auto onImportStarted = [](std::string const & serverCatId)
     {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
         [observer onImportStart];
     };
-    auto onImportFinished = [](std::string const & catId, bool successful)
+    auto onImportFinished = [](std::string const & serverCatId, kml::MarkGroupId categoryId, bool successful)
     {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
       {
         [observer onImportCompleteSuccessful:successful];

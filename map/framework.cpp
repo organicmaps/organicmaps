@@ -994,6 +994,32 @@ void Framework::ShowTrack(Track const & track)
   ShowRect(rect);
 }
 
+void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId)
+{
+  auto const & bm = GetBookmarkManager();
+  if (bm.IsCategoryEmpty(categoryId))
+    return;
+
+  m2::RectD rect;
+  for (auto const id : bm.GetUserMarkIds(categoryId))
+  {
+    auto const bookmark = bm.GetBookmark(id);
+    rect.Add(bookmark->GetPivot());
+  }
+  for (auto const id : bm.GetTrackIds(categoryId))
+  {
+    auto const track = bm.GetTrack(id);
+    rect.Add(track->GetLimitRect());
+  }
+  if (!rect.IsValid())
+    return;
+
+  double const kPaddingScale = 1.2;
+  StopLocationFollow();
+  rect.Scale(kPaddingScale);
+  ShowRect(rect);
+}
+
 void Framework::ShowFeatureByMercator(m2::PointD const & pt)
 {
   StopLocationFollow();

@@ -152,7 +152,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  public void onImportFinished(@NonNull String serverId, boolean successful)
+  public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
   {
     if (successful)
     {

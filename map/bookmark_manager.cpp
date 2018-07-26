@@ -2117,8 +2117,18 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
 
         CreateCategories(std::move(*collection));
 
+        kml::MarkGroupId newCategoryId = kml::kInvalidMarkGroupId;
+        for (auto const & group : m_categories)
+        {
+          if (id == group.second->GetServerId())
+          {
+            newCategoryId = group.first;
+            break;
+          }
+        }
+
         if (m_onCatalogImportFinished)
-          m_onCatalogImportFinished(id, true /* successful */);
+          m_onCatalogImportFinished(id, newCategoryId, true /* successful */);
       });
     }
     else
@@ -2127,7 +2137,7 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
       {
         m_bookmarkCatalog.UnregisterDownloadedId(id);
         if (m_onCatalogImportFinished)
-          m_onCatalogImportFinished(id, false /* successful */);
+          m_onCatalogImportFinished(id, kml::kInvalidMarkGroupId, false /* successful */);
       });
     }
   });

@@ -1667,6 +1667,12 @@ Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclas
   frm()->ShowFeatureByMercator(MercatorBounds::FromLatLon(ms::LatLon(lat, lon)));
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeShowBookmarkCategory(JNIEnv * env, jclass, jlong cat)
+{
+  frm()->ShowBookmarkCategory(static_cast<kml::MarkGroupId>(cat));
+}
+
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetFilterRating(JNIEnv * env, jclass, jfloat rawRating)
 {
