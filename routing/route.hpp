@@ -145,7 +145,7 @@ public:
     size_t m_endSegmentIdx = 0;
   };
 
-  /// \brief For every subroute some attributes are kept the following structure.
+  /// \brief For every subroute some attributes are kept in the following structure.
   struct SubrouteSettings final
   {
     SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router,
