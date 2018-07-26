@@ -8,11 +8,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.nativeads.BaseNativeAd;
+import com.mopub.nativeads.GooglePlayServicesNative;
 import com.mopub.nativeads.MoPubAdRenderer;
 import com.mopub.nativeads.MoPubNative;
 import com.mopub.nativeads.MopubNativeAdFactory;
@@ -21,7 +23,9 @@ import com.mopub.nativeads.NativeErrorCode;
 import com.mopub.nativeads.RequestParameters;
 import com.mopub.nativeads.StaticNativeAd;
 
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Map;
 
 class MopubNativeDownloader extends CachingNativeAdLoader
     implements MoPubNative.MoPubNativeNetworkListener, NativeAd.MoPubNativeEventListener
@@ -66,6 +70,11 @@ class MopubNativeDownloader extends CachingNativeAdLoader
 
     String locale = Language.nativeNormalize(Language.getDefaultLocale());
     requestParameters.keywords("user_lang:" + locale);
+
+    Map<String, Object> extras
+        = Collections.singletonMap(GooglePlayServicesNative.KEY_EXTRA_AD_CHOICES_PLACEMENT,
+                                   NativeAdOptions.ADCHOICES_TOP_LEFT);
+    nativeAd.setLocalExtras(extras);
 
     nativeAd.makeRequest(requestParameters.build());
   }

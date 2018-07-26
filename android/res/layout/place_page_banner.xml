@@ -2,7 +2,6 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/banner"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/placepage_banner_height"
@@ -12,115 +11,5 @@
   android:background="?bannerBackground"
   android:clipToPadding="false"
   tools:layout_height="wrap_content">
-
-  <TextView
-    android:id="@+id/tv__action_small"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_centerVertical="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_half"
-    android:textSize="@dimen/text_size_body_4"
-    android:textColor="?android:textColorSecondary"
-    android:textAllCaps="true"
-    android:background="?adsActionBackground"
-    android:foreground="?clickableBackground"
-    android:visibility="gone"
-    tools:text="Заказать"
-    tools:visibility="visible"
-    android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
-
-  <RelativeLayout
-    android:id="@+id/data_frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_toLeftOf="@id/tv__action_small"
-    android:layout_toStartOf="@id/tv__action_small"
-    android:layout_marginBottom="@dimen/margin_half">
-    <ImageView
-      android:id="@+id/iv__banner_icon"
-      android:layout_width="@dimen/placepage_banner_icon_size"
-      android:layout_height="@dimen/placepage_banner_icon_size"
-      android:layout_marginRight="@dimen/margin_half"
-      android:layout_marginEnd="@dimen/margin_half"
-      android:scaleType="centerCrop"
-      android:visibility="gone"
-      tools:src="@drawable/about_logo"
-      tools:visibility="visible"/>
-
-    <LinearLayout
-      android:id="@+id/banner_title"
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_toEndOf="@id/iv__banner_icon"
-      android:layout_toRightOf="@id/iv__banner_icon"
-      android:gravity="center_vertical">
-      <ImageView
-        android:id="@+id/ad_choices_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_ads_fb"
-        android:layout_marginRight="@dimen/margin_quarter"
-        android:layout_marginEnd="@dimen/margin_quarter"
-        android:visibility="gone"/>
-      <ImageView
-        android:id="@+id/ad_choices_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="?adChoicesIcon"
-        android:layout_marginRight="@dimen/margin_quarter"
-        android:layout_marginEnd="@dimen/margin_quarter"
-        android:visibility="gone"/>
-      <TextView
-        android:id="@+id/tv__banner_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:minLines="1"
-        android:textAppearance="@style/MwmTextAppearance.Body4"
-        android:textColor="?textBannerTitle"
-        android:fontFamily="@string/robotoMedium"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        tools:text="Закажи одежду в интернет-магазине Wildberries."
-        tools:targetApi="jelly_bean"/>
-    </LinearLayout>
-
-    <TextView
-      android:id="@+id/tv__banner_message"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body4"
-      android:maxLines="3"
-      android:ellipsize="end"
-      tools:text="Бесплатная курьерская доставка по России!\n\nКоллекции женской, мужской и детской одежды, обуви,
-  а также товары для дома и спорта. Цены."
-      tools:maxLines="5"
-      android:layout_below="@+id/banner_title"
-      android:layout_toRightOf="@+id/iv__banner_icon"
-      android:layout_toEndOf="@+id/iv__banner_icon"/>
-  </RelativeLayout>
-
-  <TextView
-    android:id="@+id/tv__action_large"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="@dimen/placepage_banner_button_height"
-    android:layout_below="@id/data_frame"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textAllCaps="true"
-    android:background="?bannerButtonBackground"
-    android:foreground="?clickableBackground"
-    android:gravity="center"
-    android:visibility="gone"
-    tools:text="Заказать"
-    tools:visibility="visible"
-    android:layout_marginBottom="@dimen/margin_half"
-    android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
+  <include layout="@layout/place_page_banner_layout"/>
 </RelativeLayout>

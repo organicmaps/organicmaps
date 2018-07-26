@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.gms.ads.formats.NativeContentAdView
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/banner"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/placepage_banner_height">
-
-  <include layout="@layout/place_page_banner"/>
-
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/placepage_banner_height"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_half_plus"
+    android:paddingEnd="@dimen/margin_half_plus"
+    android:paddingTop="@dimen/margin_half"
+    android:background="?bannerBackground"
+    android:clipToPadding="false">
+    <include layout="@layout/place_page_banner_layout"/>
+  </RelativeLayout>
 </com.google.android.gms.ads.formats.NativeContentAdView>
