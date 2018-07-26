@@ -1,7 +1,5 @@
 #import "MapsAppDelegate.h"
-#import <CoreSpotlight/CoreSpotlight.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+
 #import "EAGLView.h"
 #import "LocalNotificationManager.h"
 #import "MWMAuthorizationCommon.h"
@@ -19,16 +17,11 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "Framework.h"
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#include "map/gps_tracker.hpp"
-
-#include "platform/http_thread_apple.h"
-#include "platform/local_country_file_utils.hpp"
-
-// If you have a "missing header error" here, then please run configure.sh script in the root repo
-// folder.
-#import "private.h"
+#import <CoreSpotlight/CoreSpotlight.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <UserNotifications/UserNotifications.h>
 
 #ifdef OMIM_PRODUCTION
 
@@ -37,6 +30,17 @@
 #import <Fabric/Fabric.h>
 
 #endif
+
+#include "Framework.h"
+
+#include "map/gps_tracker.hpp"
+
+#include "platform/http_thread_apple.h"
+#include "platform/local_country_file_utils.hpp"
+
+#include "private.h"
+// If you have a "missing header error" here, then please run configure.sh script in the root repo
+// folder.
 
 extern NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 // Alert keys.
@@ -122,7 +126,7 @@ void TrackMarketingAppLaunch()
 
 using namespace osm_auth_ios;
 
-@interface MapsAppDelegate ()<MWMFrameworkStorageObserver>
+@interface MapsAppDelegate ()<MWMFrameworkStorageObserver, UNUserNotificationCenterDelegate>
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
@@ -355,9 +359,10 @@ using namespace osm_auth_ios;
 
   LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
-    [notificationManager
-        processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]
-                   onLaunch:YES];
+  {
+    NSNotification * notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    [notificationManager processNotification:notification.userInfo onLaunch:YES];
+  }
 
   if ([Alohalytics isFirstSession])
   {
@@ -380,6 +385,9 @@ using namespace osm_auth_ios;
 
   [GIDSignIn sharedInstance].clientID =
       [[NSBundle mainBundle] loadWithPlist:@"GoogleService-Info"][@"CLIENT_ID"];
+
+  if (@available(iOS 10, *))
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
   return returnValue;
 }
@@ -698,10 +706,29 @@ using namespace osm_auth_ios;
   };
 }
 
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+{
+  completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void(^)(void))completionHandler
+{
+  if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier])
+  {
+    auto userInfo = response.notification.request.content.userInfo;
+    [[LocalNotificationManager sharedManager] processNotification:userInfo onLaunch:NO];
+  }
+  completionHandler();
+}
+
 - (void)application:(UIApplication *)application
     didReceiveLocalNotification:(UILocalNotification *)notification
 {
-  [[LocalNotificationManager sharedManager] processNotification:notification onLaunch:NO];
+  [[LocalNotificationManager sharedManager] processNotification:notification.userInfo onLaunch:NO];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
