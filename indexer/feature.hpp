@@ -43,9 +43,6 @@ public:
 
   void SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count);
 
-  void ParseTypes();
-  void ParseCommon();
-
   m2::PointD GetCenter();
 
   template <class T>
@@ -97,13 +94,10 @@ public:
   //@{
   /// Super-method to call all possible Parse* methods.
   void ParseEverything();
-  void ParseHeader2();
 
   void ResetGeometry();
   uint32_t ParseGeometry(int scale);
   uint32_t ParseTriangles(int scale);
-
-  void ParseMetadata();
   //@}
 
   /// @name Geometry.
@@ -250,6 +244,10 @@ private:
     }
   };
 
+  void ParseTypes();
+  void ParseCommon();
+  void ParseHeader2();
+  void ParseMetadata();
   void ParseGeometryAndTriangles(int scale);
 
   uint8_t m_header = 0;
