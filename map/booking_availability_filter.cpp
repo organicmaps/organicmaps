@@ -69,7 +69,6 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
     case Cache::HotelStatus::NotReady:
     {
       auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
-      CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
 
       if (hotelStatus == Cache::HotelStatus::Available)
         results.AddResult(std::move(hotelToResult.m_result));
