@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <utility>
 
+#include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
 
 #include <boost/optional/optional.hpp>
@@ -212,7 +213,13 @@ void Storage::Load()
     return;
   }
 
-  CHECK(!data.empty(), ());
+  if (data.empty())
+  {
+    ASSERT(false, ());
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", {{"error", "empty index file"}});
+    return;
+  }
+
   DeserializeIndexes(data, m_indexes);
   if (m_indexes.empty())
     return;
@@ -398,6 +405,7 @@ size_t Storage::GetNumberOfUnsynchronized() const
     if (!i.m_deleted && !i.m_synchronized)
       ++numberOfUnsynchronized;
   }
+
   return numberOfUnsynchronized;
 }
 

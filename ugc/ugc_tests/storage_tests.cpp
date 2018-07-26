@@ -478,3 +478,14 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
   my::DeleteFileX(indexFilePath);
   my::DeleteFileX(v0IndexFilePath);
 }
+
+UNIT_TEST(UGC_NoReviews)
+{
+  auto & builder = MwmBuilder::Builder();
+  Storage s(builder.GetDataSource());
+  s.Load();
+  s.SaveIndex();
+  // When we didn't write any reviews there should be no index file and no ugc file.
+  TEST(!DeleteIndexFile(), ());
+  TEST(!DeleteUGCFile(), ());
+}
