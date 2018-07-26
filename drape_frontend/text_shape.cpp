@@ -317,6 +317,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   bool const isNonSdfText = layout.GetFixedHeight() > 0;
   auto state = CreateGLState(isNonSdfText ? gpu::Program::TextFixed : gpu::Program::Text, m_params.m_depthLayer);
   state.SetProgram3d(isNonSdfText ? gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
 
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
@@ -382,6 +383,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
 
   auto state = CreateGLState(gpu::Program::TextOutlined, m_params.m_depthLayer);
   state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());

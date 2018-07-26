@@ -532,6 +532,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_tileCenter = m_tileRect.Center();
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     params.m_depthLayer = m_depthLayer;
+    params.m_depthTestEnabled = m_depthLayer != RenderState::NavigationLayer &&
+      m_depthLayer != RenderState::OverlayLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
@@ -578,6 +580,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   {
     PoiSymbolViewParams params(m_id);
     params.m_tileCenter = m_tileRect.Center();
+    params.m_depthTestEnabled = m_depthLayer != RenderState::NavigationLayer &&
+      m_depthLayer != RenderState::OverlayLayer;
     params.m_depth = static_cast<float>(m_symbolDepth);
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
@@ -633,6 +637,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
+    params.m_depthTestEnabled = true;
     params.m_depth = static_cast<float>(m_symbolDepth);
 
     auto coloredShape = make_unique_dp<ColoredSymbolShape>(m2::PointD(m_centerPoint), params,
@@ -1008,6 +1013,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   ShieldRuleProtoToFontDecl(m_shieldRule, baseFont);
   dp::FontDecl font = GetRoadShieldTextFont(baseFont, shield);
   textParams.m_tileCenter = m_tileRect.Center();
+  textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
   textParams.m_depthLayer = RenderState::OverlayLayer;
   textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
@@ -1038,6 +1044,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     // Generated symbol properties.
     symbolParams.m_featureID = m_id;
     symbolParams.m_tileCenter = m_tileRect.Center();
+    symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_depth;
     symbolParams.m_depthLayer = RenderState::OverlayLayer;
     symbolParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
@@ -1066,6 +1073,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     std::string symbolName = GetRoadShieldSymbolName(shield, fontScale);
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_depth;
+    poiParams.m_depthTestEnabled = false;
     poiParams.m_depthLayer = RenderState::OverlayLayer;
     poiParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     poiParams.m_rank = m_rank;

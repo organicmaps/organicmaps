@@ -125,6 +125,7 @@ void GenerateColoredSymbolShapes(UserMarkRenderParams const & renderInfo, TileKe
 
       params.m_featureID = renderInfo.m_featureId;
       params.m_tileCenter = tileCenter;
+      params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
       params.m_depth = renderInfo.m_depth;
       params.m_depthLayer = renderInfo.m_depthLayer;
       params.m_minVisibleScale = renderInfo.m_minZoom;
@@ -155,6 +156,7 @@ void GeneratePoiSymbolShape(UserMarkRenderParams const & renderInfo, TileKey con
 {
   PoiSymbolViewParams params(renderInfo.m_featureId);
   params.m_tileCenter = tileCenter;
+  params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
   params.m_depth = renderInfo.m_depth;
   params.m_depthLayer = renderInfo.m_depthLayer;
   params.m_minVisibleScale = renderInfo.m_minZoom;
@@ -211,6 +213,7 @@ void GenerateTextShapes(UserMarkRenderParams const & renderInfo, TileKey const &
     params.m_titleDecl.m_secondaryTextFont.m_isSdf =
       params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
 
+    params.m_depthTestEnabled = renderInfo.m_depthTestEnabled;
     params.m_depth = renderInfo.m_depth;
     params.m_depthLayer = renderInfo.m_depthLayer;
     params.m_minVisibleScale = renderInfo.m_minZoom;
@@ -298,6 +301,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   dp::TextureManager::SymbolRegion region;
   dp::TextureManager::SymbolRegion backgroundRegion;
   RenderState::DepthLayer depthLayer = RenderState::UserMarkLayer;
+  bool depthTestEnabled = true;
   for (auto const id : marksId)
   {
     auto const it = renderParams.find(id);
@@ -310,6 +314,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
     depthLayer = renderInfo.m_depthLayer;
+    depthTestEnabled = renderInfo.m_depthTestEnabled;
 
     m2::PointF symbolSize(0.0f, 0.0f);
     m2::PointF symbolOffset(0.0f, 0.0f);
@@ -410,6 +415,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                                   : gpu::Program::BookmarkBillboard);
     state.SetColorTexture(region.GetTexture());
     state.SetTextureFilter(gl_const::GLNearest);
+    state.SetDepthTestEnabled(depthTestEnabled);
 
     dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
     attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
@@ -505,6 +511,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_cap = dp::RoundCap;
         params.m_join = dp::RoundJoin;
         params.m_color = layer.m_color;
+        params.m_depthTestEnabled = true;
         params.m_depth = layer.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;
         params.m_width = static_cast<float>(layer.m_width * vs *

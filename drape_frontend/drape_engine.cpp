@@ -833,6 +833,7 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
 {
   auto renderInfo = make_unique_dp<UserMarkRenderParams>();
   renderInfo->m_anchor = mark->GetAnchor();
+  renderInfo->m_depthTestEnabled = mark->GetDepthTestEnabled();
   renderInfo->m_depth = mark->GetDepth();
   renderInfo->m_depthLayer = mark->GetDepthLayer();
   renderInfo->m_minZoom = mark->GetMinZoom();

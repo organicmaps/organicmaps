@@ -175,7 +175,6 @@ void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::v
 void TransitSchemeRenderer::RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                             FrameValues const & frameValues, float pixelHalfWidth)
 {
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
   for (auto & renderData : m_linesCapsRenderData)
   {
@@ -198,7 +197,6 @@ void TransitSchemeRenderer::RenderLinesCaps(ScreenBase const & screen, ref_ptr<g
 void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                         FrameValues const & frameValues, float pixelHalfWidth)
 {
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   for (auto & renderData : m_linesRenderData)
   {
     ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
@@ -219,7 +217,6 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::
 void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                           FrameValues const & frameValues, float pixelHalfWidth)
 {
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
   for (auto & renderData : m_markersRenderData)
   {
@@ -243,7 +240,6 @@ void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu
 void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                        FrameValues const & frameValues)
 {
-  GLFunctions::glDisable(gl_const::GLDepthTest);
   auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto & renderData : m_textRenderData)
   {
@@ -286,7 +282,6 @@ void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<gpu::
     params.m_modelView = glsl::make_mat4(mv.m_data);
     mng->GetParamsSetter()->Apply(program, params);
 
-    GLFunctions::glEnable(gl_const::GLDepthTest);
     renderData.m_bucket->Render(false /* draw as line */);
 
     renderData.m_bucket->RenderDebug(screen);

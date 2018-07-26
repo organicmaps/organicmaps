@@ -215,6 +215,7 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
 
   auto state = df::CreateGLState(gpu::Program::Ruler, df::RenderState::GuiLayer);
   state.SetColorTexture(reg.GetTexture());
+  state.SetDepthTestEnabled(false);
 
   dp::AttributeProvider provider(1, 4);
   provider.InitStream(0, GetBindingInfo(), make_ref(data.data()));

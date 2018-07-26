@@ -42,6 +42,7 @@ public:
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
+  bool GetDepthTestEnabled() const override { return false; }
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);

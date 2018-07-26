@@ -64,7 +64,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
       m2::SharedSpline spline(data.m_points);
       LineViewParams lvp;
       lvp.m_tileCenter = property->m_center;
-      lvp.m_depth = 0.0f;
+      lvp.m_depthTestEnabled = false;
       lvp.m_minVisibleScale = 1;
       lvp.m_cap = dp::RoundCap;
       lvp.m_color = data.m_color;
@@ -76,7 +76,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
       {
         ColoredSymbolViewParams cvp;
         cvp.m_tileCenter = property->m_center;
-        cvp.m_depth = 0.0f;
+        cvp.m_depthTestEnabled = false;
         cvp.m_minVisibleScale = 1;
         cvp.m_shape = ColoredSymbolViewParams::Shape::Circle;
         cvp.m_color = data.m_color;

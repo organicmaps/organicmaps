@@ -55,6 +55,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
 
   auto state = CreateGLState(gpu::Program::PathSymbol, RenderState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));

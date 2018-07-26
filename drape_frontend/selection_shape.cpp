@@ -85,6 +85,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
 
   auto state = CreateGLState(gpu::Program::Accuracy, RenderState::OverlayLayer);
   state.SetColorTexture(color.GetTexture());
+  state.SetDepthTestEnabled(false);
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);

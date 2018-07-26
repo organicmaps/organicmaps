@@ -69,6 +69,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
   auto state = df::CreateGLState(gpu::Program::Texturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::TexturingBillboard);
+  state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
 
@@ -102,6 +103,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
   auto state = df::CreateGLState(gpu::Program::MaskedTexturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::MaskedTexturingBillboard);
+  state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
   state.SetTextureFilter(gl_const::GLNearest);

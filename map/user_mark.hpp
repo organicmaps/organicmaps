@@ -59,6 +59,7 @@ public:
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
+  bool GetDepthTestEnabled() const override { return true; }
   float GetDepth() const override { return 0.0f; }
   df::RenderState::DepthLayer GetDepthLayer() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }

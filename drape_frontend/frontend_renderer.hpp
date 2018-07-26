@@ -163,8 +163,7 @@ private:
   void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
-  void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId,
-                            bool enableDepthTest = true);
+  void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);

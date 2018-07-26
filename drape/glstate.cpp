@@ -43,6 +43,16 @@ void GLState::SetDepthFunction(glConst functionName)
   m_depthFunction = functionName;
 }
 
+bool GLState::GetDepthTestEnabled() const
+{
+  return m_depthTestEnabled;
+}
+
+void GLState::SetDepthTestEnabled(bool enabled)
+{
+  m_depthTestEnabled = enabled;
+}
+
 glConst GLState::GetTextureFilter() const
 {
   return m_textureFilter;
@@ -159,7 +169,15 @@ void ApplyState(GLState const & state, ref_ptr<GpuProgram> program)
 {
   TextureState::ApplyTextures(state, program);
   ApplyBlending(state);
-  GLFunctions::glDepthFunc(state.GetDepthFunction());
+  if (state.GetDepthTestEnabled())
+  {
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+    GLFunctions::glDepthFunc(state.GetDepthFunction());
+  }
+  else
+  {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+  }
   ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
   GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
 }

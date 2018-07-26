@@ -730,7 +730,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_titleDecl = titleDecl;
     textParams.m_titleDecl.m_primaryText = title.m_text;
     textParams.m_titleDecl.m_anchor = title.m_anchor;
-    textParams.m_depth = kBaseTitleDepth;
+    textParams.m_depthTestEnabled = false;
     textParams.m_depthLayer = RenderState::TransitSchemeLayer;
     textParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
     textParams.m_specialPriority = priority;
@@ -746,7 +746,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
   colorParams.m_color = dp::Color::Transparent();
   colorParams.m_featureID = featureId;
   colorParams.m_tileCenter = pivot;
-  colorParams.m_depth = kBaseTitleDepth;
+  colorParams.m_depthTestEnabled = false;
   colorParams.m_depthLayer = RenderState::TransitSchemeLayer;
   colorParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);

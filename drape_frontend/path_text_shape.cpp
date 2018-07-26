@@ -87,6 +87,7 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                              RenderState::OverlayLayer);
   state.SetProgram3d(layout->GetFixedHeight() > 0 ?
                      gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());
 
@@ -125,6 +126,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
 
   auto state = CreateGLState(gpu::Program::TextOutlined, RenderState::OverlayLayer);
   state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout->GetMaskTexture());
 

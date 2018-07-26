@@ -107,7 +107,9 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 
 StaticLabel::LabelResult::LabelResult()
   : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
-{}
+{
+  m_state.SetDepthTestEnabled(false);
+}
 
 char const * StaticLabel::DefaultDelim = "\n";
 
@@ -286,7 +288,9 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 
 MutableLabel::PrecacheResult::PrecacheResult()
   : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
-{}
+{
+  m_state.SetDepthTestEnabled(false);
+}
 
 MutableLabel::MutableLabel(dp::Anchor anchor)
   : m_anchor(anchor)

@@ -1225,7 +1225,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
   if (m_postprocessRenderer->BeginFrame(activeFrame))
   {
-    GLFunctions::glEnable(gl_const::GLDepthTest);
     m_viewport.Apply();
     RefreshBgColor();
     GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit | gl_const::GLStencilBit);
@@ -1248,7 +1247,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
         RenderRouteLayer(modelView);
     }
 
-    GLFunctions::glDisable(gl_const::GLDepthTest);
     GLFunctions::glClear(gl_const::GLDepthBit);
 
     if (m_selectionShape != nullptr)
@@ -1307,7 +1305,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (!m_postprocessRenderer->EndFrame(make_ref(m_gpuProgramManager)))
     return;
 
-  GLFunctions::glDisable(gl_const::GLDepthTest);
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
                                  m_frameValues);
 
@@ -1351,8 +1348,6 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   {
     GLFunctions::glClear(gl_const::GLDepthBit);
   }
-
-  GLFunctions::glEnable(gl_const::GLDepthTest);
 
   layer.Sort(make_ref(m_overlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
@@ -1401,26 +1396,22 @@ bool FrontendRenderer::HasRouteData() const
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
   GLFunctions::glClear(gl_const::GLDepthBit);
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(modelView, make_ref(m_gpuProgramManager),
                                            make_ref(m_postprocessRenderer), m_frameValues);
   }
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
   GLFunctions::glClear(gl_const::GLDepthBit);
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   if (m_trafficRenderer->HasRenderData())
   {
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
                                      make_ref(m_gpuProgramManager), m_frameValues);
   }
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderTransitBackground()
@@ -1447,34 +1438,20 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
     RenderTransitBackground();
 
   GLFunctions::glClear(gl_const::GLDepthBit);
-  GLFunctions::glEnable(gl_const::GLDepthTest);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
                                make_ref(m_gpuProgramManager), m_frameValues);
-  GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
-void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId,
-                                            bool enableDepthTest)
+void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId)
 {
   auto & renderGroups = m_layers[layerId].m_renderGroups;
   if (renderGroups.empty())
     return;
 
-  if (enableDepthTest)
-  {
-    GLFunctions::glEnable(gl_const::GLDepthTest);
-    GLFunctions::glClear(gl_const::GLDepthBit);
-  }
-  else
-  {
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-  }
+  GLFunctions::glClear(gl_const::GLDepthBit);
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
-
-  if (enableDepthTest)
-    GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
 void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
@@ -1486,7 +1463,7 @@ void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
     group->SetOverlayVisibility(true);
     group->Update(modelView);
   }
-  RenderUserMarksLayer(modelView, RenderState::SearchMarkLayer, false /* enableDepthTest */);
+  RenderUserMarksLayer(modelView, RenderState::SearchMarkLayer);
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)

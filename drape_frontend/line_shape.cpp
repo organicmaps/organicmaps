@@ -59,6 +59,7 @@ struct BaseBuilderParams
   dp::TextureManager::ColorRegion m_color;
   float m_pxHalfWidth;
   float m_depth;
+  bool m_depthTestEnabled;
   RenderState::DepthLayer m_depthLayer;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
@@ -178,6 +179,7 @@ public:
   {
     auto state = CreateGLState(gpu::Program::Line, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     return state;
   }
 
@@ -206,6 +208,7 @@ public:
       return TBase::GetCapState();
 
     auto state = CreateGLState(gpu::Program::CapJoin, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDepthFunction(gl_const::GLLess);
     return state;
@@ -277,6 +280,7 @@ public:
   dp::GLState GetState() override
   {
     auto state = CreateGLState(gpu::Program::AreaOutline, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDrawAsLine(true);
     state.SetLineWidth(m_lineWidth);
@@ -320,6 +324,7 @@ public:
   dp::GLState GetState() override
   {
     auto state = CreateGLState(gpu::Program::DashedLine, m_params.m_depthLayer);
+    state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
     return state;
@@ -488,6 +493,7 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   {
     p.m_cap = m_params.m_cap;
     p.m_color = colorRegion;
+    p.m_depthTestEnabled = m_params.m_depthTestEnabled;
     p.m_depth = m_params.m_depth;
     p.m_depthLayer = m_params.m_depthLayer;
     p.m_join = m_params.m_join;

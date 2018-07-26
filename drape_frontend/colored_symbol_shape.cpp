@@ -300,6 +300,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
   }
   auto state = CreateGLState(gpu::Program::ColoredSymbol, m_params.m_depthLayer);
   state.SetProgram3d(gpu::Program::ColoredSymbolBillboard);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(colorRegion.GetTexture());
   state.SetDepthFunction(gl_const::GLLess);
 

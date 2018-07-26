@@ -61,6 +61,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   });
 
   auto state = CreateGLState(gpu::Program::Area, RenderState::GeometryLayer);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
@@ -82,6 +83,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
     }
 
     auto outlineState = CreateGLState(gpu::Program::AreaOutline, RenderState::GeometryLayer);
+    outlineState.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     outlineState.SetColorTexture(texture);
     outlineState.SetDrawAsLine(true);
 
@@ -115,6 +117,7 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const 
   }
 
   auto state = CreateGLState(gpu::Program::HatchingArea, RenderState::GeometryLayer);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
   state.SetMaskTexture(hatchingTexture);
   state.SetTextureFilter(gl_const::GLLinear);
@@ -163,6 +166,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
   }
 
   auto state = CreateGLState(gpu::Program::Area3d, RenderState::Geometry3dLayer);
+  state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
   state.SetBlending(dp::Blending(false /* isEnabled */));
 
@@ -176,6 +180,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
     auto outlineState = CreateGLState(gpu::Program::Area3dOutline, RenderState::Geometry3dLayer);
+    outlineState.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     outlineState.SetColorTexture(texture);
     outlineState.SetBlending(dp::Blending(false /* isEnabled */));
     outlineState.SetDrawAsLine(true);

@@ -84,15 +84,6 @@ void RenderGroup::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager>
   auto const program = m_state.GetProgram<gpu::Program>();
   auto const program3d = m_state.GetProgram3d<gpu::Program>();
 
-  // TODO: hide GLDepthTest under the state.
-  if (IsOverlay())
-  {
-    if (program == gpu::Program::ColoredSymbol || program3d == gpu::Program::ColoredSymbolBillboard)
-      GLFunctions::glEnable(gl_const::GLDepthTest);
-    else
-      GLFunctions::glDisable(gl_const::GLDepthTest);
-  }
-
   // Set frame values to group's params.
   frameValues.SetTo(m_params);
 

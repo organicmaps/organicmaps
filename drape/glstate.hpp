@@ -82,6 +82,9 @@ public:
   glConst GetDepthFunction() const;
   void SetDepthFunction(glConst functionName);
 
+  bool GetDepthTestEnabled() const;
+  void SetDepthTestEnabled(bool enabled);
+
   glConst GetTextureFilter() const;
   void SetTextureFilter(glConst filter);
 
@@ -99,7 +102,10 @@ private:
   size_t m_gpuProgram;
   size_t m_gpuProgram3d;
   Blending m_blending;
+
+  bool m_depthTestEnabled = true;
   glConst m_depthFunction = gl_const::GLLessOrEqual;
+
   glConst m_textureFilter = gl_const::GLLinear;
 
   ref_ptr<Texture> m_colorTexture;

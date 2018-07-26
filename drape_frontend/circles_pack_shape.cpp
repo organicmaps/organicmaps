@@ -28,6 +28,7 @@ dp::GLState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
 {
   auto state = CreateGLState(gpu::Program::CirclePoint, RenderState::OverlayLayer);
   state.SetColorTexture(texMng->GetSymbolsTexture());
+  state.SetDepthTestEnabled(false);
   return state;
 }
 
