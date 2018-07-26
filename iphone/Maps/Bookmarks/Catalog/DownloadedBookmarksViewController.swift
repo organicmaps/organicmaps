@@ -69,8 +69,9 @@ class DownloadedBookmarksViewController: MWMViewController {
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
     dataSource.setCategory(visible: visible, at: index)
-    let categoriesHeader = tableView.headerView(forSection: 0) as! BMCCategoriesHeader
-    categoriesHeader.isShowAll = dataSource.allCategoriesHidden
+    if let categoriesHeader = tableView.headerView(forSection: 0) as? BMCCategoriesHeader {
+      categoriesHeader.isShowAll = dataSource.allCategoriesHidden
+    }
   }
 
   private func shareCategory(at index: Int) {
