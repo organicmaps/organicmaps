@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.MathUtils;
 import com.mapswithme.util.UiUtils;
 
 public class PlaceholderView extends LinearLayout
@@ -152,19 +153,38 @@ public class PlaceholderView extends LinearLayout
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
-    UiUtils.show(mImage);
-    int childrenTotalHeight = calcTotalTextChildrenHeight(widthMeasureSpec, heightMeasureSpec);
+    int childrenTextTotalHeight = calcTotalTextChildrenHeight(widthMeasureSpec, heightMeasureSpec);
 
     final int defHeight = getDefaultSize(getSuggestedMinimumWidth(), heightMeasureSpec);
     final int defWidth = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
-    boolean isImageSpaceAllowed = defHeight > childrenTotalHeight + mImgMaxHeight;
+
+    MarginLayoutParams imgParams = (MarginLayoutParams) mImage.getLayoutParams();
+    int potentialHeight =
+        defHeight - getPaddingBottom() - getPaddingTop() - childrenTextTotalHeight -
+        imgParams.bottomMargin - imgParams.topMargin;
+
+
+    int imgSpaceRaw = Math.min(mImgMaxHeight, potentialHeight);
+    imgParams.height = imgSpaceRaw;
+    imgParams.width = imgSpaceRaw;
+    measureChildWithMargins(mImage, widthMeasureSpec, 0, heightMeasureSpec, 0);
+
+    boolean isImageSpaceAllowed = imgSpaceRaw > mImgMinHeight;
     UiUtils.showIf(isImageSpaceAllowed, mImage);
 
-    measureChildWithMargins(mImage, widthMeasureSpec, 0, heightMeasureSpec, childrenTotalHeight);
-    childrenTotalHeight += isImageSpaceAllowed ? calcHeightWithMargins(mImage) : 0;
+    int childrenTotalHeight = childrenTextTotalHeight + calcImageSpace(isImageSpaceAllowed,
+                                                                       imgParams, imgSpaceRaw);
 
-    final int height = childrenTotalHeight + getPaddingTop() + getPaddingBottom();
+    final int height = childrenTotalHeight  + getPaddingTop() + getPaddingBottom();
     setMeasuredDimension(defWidth, height);
+  }
+
+  private int calcImageSpace(boolean isImageSpaceAllowed, @NonNull MarginLayoutParams imgParams,
+                             int imgSpaceRaw)
+  {
+    return isImageSpaceAllowed
+           ? MathUtils.sum(imgSpaceRaw, imgParams.bottomMargin, imgParams.topMargin)
+           : 0;
   }
 
   private int calcTotalTextChildrenHeight(int widthMeasureSpec, int heightMeasureSpec)
@@ -175,7 +195,7 @@ public class PlaceholderView extends LinearLayout
       View child = getChildAt(index);
       if (child.getVisibility() == VISIBLE && child != mImage)
       {
-        measureChildWithMargins(child, widthMeasureSpec , 0, heightMeasureSpec, totalHeight);
+        measureChildWithMargins(child, widthMeasureSpec , 0, heightMeasureSpec, 0);
         totalHeight += calcHeightWithMargins(child);
       }
     }

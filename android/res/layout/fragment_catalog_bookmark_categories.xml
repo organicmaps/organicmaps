@@ -74,18 +74,18 @@
         android:paddingLeft="@dimen/margin_double_and_half"
         android:paddingRight="@dimen/margin_double_and_half"
         android:paddingTop="@dimen/placeholder_margin_top"
+        android:paddingBottom="@dimen/placeholder_margin_top"
         mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
         mapsme:titleDefault="@string/cached_bookmarks_placeholder_title"
-        mapsme:subTitleDefault="@string/cached_bookmarks_placeholder_subtitle"/>
-      <Button
-        android:id="@+id/download_routers_btn"
-        style="@style/MwmWidget.Button.Accent"
-        android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/downloader_download_routers"
-        mapsme:layout_constraintLeft_toLeftOf="parent"
-        mapsme:layout_constraintRight_toRightOf="parent"
-        mapsme:layout_constraintTop_toBottomOf="@id/placeholder"
-        android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+        mapsme:subTitleDefault="@string/cached_bookmarks_placeholder_subtitle">
+        <Button
+          android:id="@+id/download_routers_btn"
+          style="@style/MwmWidget.Button.Accent"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/downloader_download_routers"
+          android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+      </com.mapswithme.maps.widget.PlaceholderView>
+
     </android.support.constraint.ConstraintLayout>
     <LinearLayout
       android:id="@+id/placeholder_loading"

@@ -45,6 +45,7 @@
     android:paddingLeft="@dimen/margin_double_and_half"
     android:paddingRight="@dimen/margin_double_and_half"
     android:paddingTop="@dimen/placeholder_margin_top"
+    android:gravity="center_horizontal"
     android:visibility="gone"
     tools:visibility="visible"/>
 </RelativeLayout>
