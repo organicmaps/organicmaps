@@ -97,6 +97,14 @@ class TabView: UIView {
     }
   }
 
+  var contentFrame: CGRect {
+    if #available(iOS 11.0, *) {
+      return safeAreaLayoutGuide.layoutFrame
+    } else {
+      return bounds
+    }
+  }
+
   override var tintColor: UIColor! {
     didSet {
       slidingView.backgroundColor = tintColor
@@ -172,33 +180,53 @@ class TabView: UIView {
     headerView.translatesAutoresizingMaskIntoConstraints = false
     slidingView.translatesAutoresizingMaskIntoConstraints = false
 
-    let views = ["header": headerView, "content": tabsContentCollectionView]
-    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[header]|",
-                                                  options: [], metrics: [:], views: views))
-    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[content]|",
-                                                  options: [], metrics: [:], views: views))
-    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[header(46)][content]|",
-                                                  options: [], metrics: [:], views: views))
+    let top: NSLayoutYAxisAnchor
+    let bottom: NSLayoutYAxisAnchor
+    let left: NSLayoutXAxisAnchor
+    let right: NSLayoutXAxisAnchor
+    if #available(iOS 11.0  , *) {
+      top = safeAreaLayoutGuide.topAnchor
+      bottom = safeAreaLayoutGuide.bottomAnchor
+      left = safeAreaLayoutGuide.leftAnchor
+      right = safeAreaLayoutGuide.rightAnchor
+    } else {
+      top = topAnchor
+      bottom = bottomAnchor
+      left = leftAnchor
+      right = rightAnchor
+    }
 
-    let headerViews = ["tabs": tabsCollectionView, "slider": slidingView]
-    headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tabs]|",
-                                                             options: [], metrics: [:], views: headerViews))
-    headerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tabs][slider(3)]|",
-                                                             options: [], metrics: [:], views: headerViews))
+    headerView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    headerView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+    headerView.topAnchor.constraint(equalTo: top).isActive = true
+    headerView.heightAnchor.constraint(equalToConstant: 46).isActive = true
 
-    slidingViewLeft = NSLayoutConstraint(item: slidingView, attribute: .left, relatedBy: .equal,
-                                         toItem: headerView, attribute: .left, multiplier: 1, constant: 0)
-    headerView.addConstraint(slidingViewLeft)
-    slidingViewWidth = NSLayoutConstraint(item: slidingView, attribute: .width, relatedBy: .equal,
-                                          toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-    slidingView.addConstraint(slidingViewWidth)
+    tabsContentCollectionView.leftAnchor.constraint(equalTo: left).isActive = true
+    tabsContentCollectionView.rightAnchor.constraint(equalTo: right).isActive = true
+    tabsContentCollectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+    tabsContentCollectionView.bottomAnchor.constraint(equalTo: bottom).isActive = true
+
+    tabsCollectionView.leftAnchor.constraint(equalTo: headerView.leftAnchor).isActive = true
+    tabsCollectionView.rightAnchor.constraint(equalTo: headerView.rightAnchor).isActive = true
+    tabsCollectionView.topAnchor.constraint(equalTo: headerView.topAnchor).isActive = true
+    tabsCollectionView.bottomAnchor.constraint(equalTo: slidingView.topAnchor).isActive = true
+
+    slidingView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+    slidingView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+
+    slidingViewLeft = slidingView.leftAnchor.constraint(equalTo: left)
+    slidingViewLeft.isActive = true
+    slidingViewWidth = slidingView.widthAnchor.constraint(equalToConstant: 0)
+    slidingViewWidth.isActive = true
   }
 
   override func layoutSubviews() {
     tabsLayout.invalidateLayout()
     tabsContentLayout.invalidateLayout()
     super.layoutSubviews()
-    slidingViewWidth.constant = pageCount > 0 ? bounds.width / CGFloat(pageCount) : 0
+    assert(pageCount > 0)
+    slidingViewWidth.constant = pageCount > 0 ? contentFrame.width / CGFloat(pageCount) : 0
+    slidingViewLeft.constant = pageCount > 0 ? contentFrame.width / CGFloat(pageCount) * CGFloat(selectedIndex ?? 0) : 0
     tabsContentCollectionView.layoutIfNeeded()
     if let selectedIndex = selectedIndex {
       tabsContentCollectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0),
@@ -238,7 +266,7 @@ extension TabView : UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     if scrollView.contentSize.width > 0 {
       let scrollOffset = scrollView.contentOffset.x / scrollView.contentSize.width
-      slidingViewLeft.constant = scrollOffset * bounds.width
+      slidingViewLeft.constant = scrollOffset * contentFrame.width
     }
   }
 
@@ -266,11 +294,16 @@ extension TabView : UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
+    var bounds = collectionView.bounds
+    if #available(iOS 11.0, *) {
+      bounds = UIEdgeInsetsInsetRect(bounds, collectionView.adjustedContentInset)
+    }
+
     if collectionView == tabsContentCollectionView {
-      return collectionView.bounds.size
+      return bounds.size
     } else {
-      return CGSize(width: collectionView.bounds.width / CGFloat(pageCount),
-                    height: collectionView.bounds.height)
+      return CGSize(width: bounds.width / CGFloat(pageCount),
+                    height: bounds.height)
     }
   }
 }
