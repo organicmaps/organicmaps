@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -65,13 +65,12 @@ public:
   double CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
     double res = std::numeric_limits<double>::max();
-    m2::DistanceToLineSquare<m2::Point<T>> d;
 
     Iter i = Begin();
     for (Iter j = i + 1; j != End(); ++i, ++j)
     {
-      d.SetBounds(*i, *j);
-      res = min(res, d(point));
+      m2::ParametrizedSegment<m2::Point<T>> seg(*i, *j);
+      res = min(res, seg.SquaredDistanceToPoint(point));
     }
 
     return res;

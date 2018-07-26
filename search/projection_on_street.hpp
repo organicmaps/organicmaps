@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
 #include "std/vector.hpp"
@@ -38,6 +38,6 @@ public:
   bool GetProjection(m2::PointD const & point, ProjectionOnStreet & proj) const;
 
 private:
-  vector<m2::ProjectionToSection<m2::PointD>> m_segProjs;
+  vector<m2::ParametrizedSegment<m2::PointD>> m_segments;
 };
 }  // namespace search

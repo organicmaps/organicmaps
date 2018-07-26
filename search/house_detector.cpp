@@ -12,7 +12,7 @@
 #include "coding/multilang_utf8_string.hpp"
 
 #include "geometry/angles.hpp"
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 
 #include "base/limited_priority_queue.hpp"
 #include "base/logging.hpp"

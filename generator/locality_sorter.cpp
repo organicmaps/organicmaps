@@ -1,6 +1,7 @@
 #include "generator/locality_sorter.hpp"
 
 #include "generator/geometry_holder.hpp"
+#include "generator/utils.hpp"
 
 #include "indexer/data_header.hpp"
 #include "indexer/scales.hpp"
@@ -109,9 +110,9 @@ public:
 
     // Simplify and serialize geometry.
     vector<m2::PointD> points;
-    m2::DistanceToLineSquare<m2::PointD> dist;
+    generator::ParametrizedSegmentFact<m2::PointD> distFact;
 
-    SimplifyPoints(dist, scales::GetUpperScale(), holder.GetSourcePoints(), points);
+    SimplifyPoints(distFact, scales::GetUpperScale(), holder.GetSourcePoints(), points);
 
     // For areas we save outer geometry only.
     if (fb2.IsArea() && holder.NeedProcessTriangles())

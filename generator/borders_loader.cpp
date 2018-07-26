@@ -1,5 +1,7 @@
 #include "generator/borders_loader.hpp"
+
 #include "generator/borders_generator.hpp"
+#include "generator/utils.hpp"
 
 #include "defines.hpp"
 
@@ -13,8 +15,8 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/read_write_utils.hpp"
 
-#include "geometry/distance.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/simplification.hpp"
 
 #include "base/exception.hpp"
@@ -128,17 +130,17 @@ public:
     WriteVarUint(w, borders.size());
     for (m2::RegionD const & border : borders)
     {
-      typedef vector<m2::PointD> VectorT;
-      typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
+      using VectorT = vector<m2::PointD>;
+      using DistanceFact = generator::ParametrizedSegmentFact<m2::PointD>;
 
       VectorT const & in = border.Data();
       VectorT out;
 
       /// @todo Choose scale level for simplification.
       double const eps = pow(scales::GetEpsilonForSimplify(10), 2);
-      DistanceT dist;
-      SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
-                          AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
+      DistanceFact distFact;
+      SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFact,
+                          AccumulateSkipSmallTrg<DistanceFact, m2::PointD>(distFact, out, eps));
 
       serial::SaveOuterPath(out, cp, w);
     }

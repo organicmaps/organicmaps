@@ -114,7 +114,9 @@ public:
 
   Point<T> Normalize() const
   {
-    ASSERT(!IsAlmostZero(), ());
+    if (IsAlmostZero())
+      return Zero();
+
     double const length = this->Length();
     return Point<T>(x / length, y / length);
   }

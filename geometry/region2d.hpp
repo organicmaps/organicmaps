@@ -1,6 +1,6 @@
 #pragma once
 
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -273,11 +273,11 @@ public:
     if (!m_rect.IsPointInside(pt))
       return false;
 
-    const double squareDelta = delta * delta;
+    const double squaredDelta = delta * delta;
     size_t const numPoints = m_points.size();
 
     Point prev = m_points[numPoints - 1];
-    DistanceToLineSquare<Point> distance;
+
     for (size_t i = 0; i < numPoints; ++i)
     {
       Point const curr = m_points[i];
@@ -286,8 +286,8 @@ public:
       if (equalF.EqualPoints(m_points[i], pt))
         return true;
 
-      distance.SetBounds(prev, curr);
-      if (distance(pt) < squareDelta)
+      ParametrizedSegment<Point> segment(prev, curr);
+      if (segment.SquaredDistanceToPoint(pt) < squaredDelta)
         return true;
 
       prev = curr;

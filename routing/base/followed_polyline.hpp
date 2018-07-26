@@ -98,7 +98,7 @@ public:
 
     for (size_t i = startIdx; i < endIdx; ++i)
     {
-      m2::PointD const pt = m_segProj[i](currPos);
+      m2::PointD const pt = m_segProj[i].ClosestPointTo(currPos);
 
       if (!posRect.IsPointInside(pt))
         continue;
@@ -131,7 +131,7 @@ private:
   Iter m_current;
   size_t m_nextCheckpointIndex;
   /// Precalculated info for fast projection finding.
-  std::vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
+  std::vector<m2::ParametrizedSegment<m2::PointD>> m_segProj;
   /// Accumulated cache of segments length in meters.
   std::vector<double> m_segDistance;
 };

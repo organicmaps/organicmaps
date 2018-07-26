@@ -2,7 +2,7 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/algorithm.hpp"
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/triangle2d.hpp"
 
 #include "base/logging.hpp"
@@ -63,9 +63,8 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
     size_t const count = ft.GetPointsCount();
     for (size_t i = 1; i < count; ++i)
     {
-      m2::ProjectionToSection<m2::PointD> calc;
-      calc.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
-      updateDistanceFn(calc(pt));
+      m2::ParametrizedSegment<m2::PointD> segment(ft.GetPoint(i - 1), ft.GetPoint(i));
+      updateDistanceFn(segment.ClosestPointTo(pt));
     }
     break;
   }
@@ -83,11 +82,9 @@ double GetMinDistanceMeters(FeatureType & ft, m2::PointD const & pt, int scale)
         return;
       }
 
-      auto fn = [&](m2::PointD const & x1, m2::PointD const & x2)
-      {
-        m2::ProjectionToSection<m2::PointD> calc;
-        calc.SetBounds(x1, x2);
-        updateDistanceFn(calc(pt));
+      auto fn = [&](m2::PointD const & x1, m2::PointD const & x2) {
+        m2::ParametrizedSegment<m2::PointD> const segment(x1, x2);
+        updateDistanceFn(segment.ClosestPointTo(pt));
       };
 
       fn(p1, p2);

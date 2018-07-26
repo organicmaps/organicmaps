@@ -8,9 +8,9 @@
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
-#include "geometry/distance.hpp"
 #include "geometry/geometry_tests/large_polygon.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/simplification.hpp"
 
 #include "base/logging.hpp"
@@ -67,10 +67,14 @@ void TestPolylineEncode(string testName, vector<m2::PointU> const & points,
 vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
 {
   vector<m2::PointU> simpPoints;
-  typedef m2::DistanceToLineSquare<m2::PointD> DistanceF;
-  DistanceF dist;
-  SimplifyNearOptimal(20, points.begin(), points.end(), eps, dist,
-                      AccumulateSkipSmallTrg<DistanceF, m2::PointU>(dist, simpPoints, eps));
+
+  auto distFact = [](m2::PointD const & p0, m2::PointD const & p1) {
+    return m2::ParametrizedSegment<m2::PointD>(p0, p1);
+  };
+
+  SimplifyNearOptimal(
+      20, points.begin(), points.end(), eps, distFact,
+      AccumulateSkipSmallTrg<decltype(distFact), m2::PointU>(distFact, simpPoints, eps));
   return simpPoints;
 }
 

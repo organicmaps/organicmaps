@@ -6,12 +6,15 @@
 
 #include "base/logging.hpp"
 
+#include <vector>
+
+using namespace std;
 
 namespace
 {
-  typedef m2::PointI P;
-  typedef m2::RegionI R;
-}
+using P = m2::PointI;
+using R = m2::RegionI;
+}  // namespace
 
 UNIT_TEST(RegionIntersect_Smoke)
 {

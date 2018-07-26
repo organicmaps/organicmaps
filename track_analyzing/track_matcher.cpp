@@ -8,7 +8,7 @@
 
 #include <indexer/scales.hpp>
 
-#include <geometry/distance.hpp>
+#include <geometry/parametrized_segment.hpp>
 
 #include <base/stl_helpers.hpp>
 
@@ -25,9 +25,8 @@ double constexpr kMatchingRange = 20.0;
 double DistanceToSegment(m2::PointD const & segmentBegin, m2::PointD const & segmentEnd,
                          m2::PointD const & point)
 {
-  m2::ProjectionToSection<m2::PointD> projection;
-  projection.SetBounds(segmentBegin, segmentEnd);
-  m2::PointD const projectionPoint = projection(point);
+  m2::ParametrizedSegment<m2::PointD> const segment(segmentBegin, segmentEnd);
+  m2::PointD const projectionPoint = segment.ClosestPointTo(point);
   return MercatorBounds::DistanceOnEarth(point, projectionPoint);
 }
 

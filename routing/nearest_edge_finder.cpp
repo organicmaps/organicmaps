@@ -1,6 +1,6 @@
 #include "routing/nearest_edge_finder.hpp"
 
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 
 #include "indexer/feature.hpp"
 
@@ -24,10 +24,10 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
   for (size_t i = 1; i < count; ++i)
   {
     /// @todo Probably, we need to get exact projection distance in meters.
-    m2::ProjectionToSection<m2::PointD> segProj;
-    segProj.SetBounds(roadInfo.m_junctions[i - 1].GetPoint(), roadInfo.m_junctions[i].GetPoint());
+    m2::ParametrizedSegment<m2::PointD> segment(roadInfo.m_junctions[i - 1].GetPoint(),
+                                                roadInfo.m_junctions[i].GetPoint());
 
-    m2::PointD const pt = segProj(m_point);
+    m2::PointD const pt = segment.ClosestPointTo(m_point);
     double const d = m_point.SquaredLength(pt);
     if (d < res.m_dist)
     {

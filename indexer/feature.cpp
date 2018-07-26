@@ -11,7 +11,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include "geometry/distance.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/robust_orientation.hpp"
 
 #include "coding/byte_stream.hpp"

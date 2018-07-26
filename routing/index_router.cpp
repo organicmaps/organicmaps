@@ -29,8 +29,8 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
 
-#include "geometry/distance.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
 #include "platform/country_file.hpp"
@@ -267,9 +267,9 @@ bool IndexRouter::BestEdgeComparator::IsAlmostCodirectional(Edge const & edge) c
 
 double IndexRouter::BestEdgeComparator::GetSquaredDist(Edge const & edge) const
 {
-  m2::DistanceToLineSquare<m2::PointD> squaredDistance;
-  squaredDistance.SetBounds(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint());
-  return squaredDistance(m_point);
+  m2::ParametrizedSegment<m2::PointD> const segment(edge.GetStartJunction().GetPoint(),
+                                                    edge.GetEndJunction().GetPoint());
+  return segment.SquaredDistanceToPoint(m_point);
 }
 
 // IndexRouter ------------------------------------------------------------------------------------

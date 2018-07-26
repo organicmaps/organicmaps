@@ -263,19 +263,27 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
     return 0.0;
 
   double distance = numeric_limits<double>::max();
-  m2::ProjectionToSection<m2::PointD> proj;
 
-  proj.SetBounds(rect.LeftTop(), rect.RightTop());
-  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+  // todo(@m) Replace with rect.ForEachSide().
+  {
+    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftTop(), rect.RightTop());
+    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+  }
 
-  proj.SetBounds(rect.LeftBottom(), rect.RightBottom());
-  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+  {
+    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftBottom(), rect.RightBottom());
+    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+  }
 
-  proj.SetBounds(rect.LeftTop(), rect.LeftBottom());
-  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+  {
+    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftTop(), rect.LeftBottom());
+    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+  }
 
-  proj.SetBounds(rect.RightTop(), rect.RightBottom());
-  distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, proj(pivot)));
+  {
+    m2::ParametrizedSegment<m2::PointD> segment(rect.RightTop(), rect.RightBottom());
+    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
+  }
 
   return distance;
 }

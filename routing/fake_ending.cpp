@@ -3,8 +3,8 @@
 #include "routing/index_graph.hpp"
 #include "routing/world_graph.hpp"
 
-#include "geometry/distance.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 
 #include "base/math.hpp"
 
@@ -18,10 +18,9 @@ namespace
 Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
                                  m2::PointD const & point)
 {
-  m2::ProjectionToSection<m2::PointD> projection;
+  m2::ParametrizedSegment<m2::PointD> segment(begin.GetPoint(), end.GetPoint());
 
-  projection.SetBounds(begin.GetPoint(), end.GetPoint());
-  auto const projectedPoint = projection(point);
+  auto const projectedPoint = segment.ClosestPointTo(point);
   auto const distBeginToEnd = MercatorBounds::DistanceOnEarth(begin.GetPoint(), end.GetPoint());
 
   double constexpr kEpsMeters = 2.0;

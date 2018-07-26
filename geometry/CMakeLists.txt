@@ -21,7 +21,6 @@ set(
   covering_utils.hpp
   diamond_box.cpp
   diamond_box.hpp
-  distance.hpp
   distance_on_sphere.cpp
   distance_on_sphere.hpp
   latlon.cpp
@@ -34,6 +33,7 @@ set(
   nearby_points_sweeper.hpp
   packer.cpp
   packer.hpp
+  parametrized_segment.hpp
   point2d.hpp
   polygon.hpp
   polyline2d.hpp

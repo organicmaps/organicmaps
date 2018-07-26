@@ -87,8 +87,10 @@ void FollowedPolyline::Update()
   ASSERT_GREATER(n, 1, ());
   --n;
 
-  m_segDistance.resize(n);
-  m_segProj.resize(n);
+  m_segDistance.clear();
+  m_segDistance.reserve(n);
+  m_segProj.clear();
+  m_segProj.reserve(n);
 
   double dist = 0.0;
   for (size_t i = 0; i < n; ++i)
@@ -98,8 +100,8 @@ void FollowedPolyline::Update()
 
     dist += MercatorBounds::DistanceOnEarth(p1, p2);
 
-    m_segDistance[i] = dist;
-    m_segProj[i].SetBounds(p1, p2);
+    m_segDistance.emplace_back(dist);
+    m_segProj.emplace_back(p1, p2);
   }
 
   m_current = Iter(m_poly.Front(), 0);
