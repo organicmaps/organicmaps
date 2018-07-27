@@ -51,6 +51,7 @@
 		45B5B5A31CA422EE00D93E36 /* resources-hdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */; };
 		45B5B5A51CA422EE00D93E36 /* resources-xhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */; };
 		45B5B5A61CA422EE00D93E36 /* resources-xxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */; };
+		45D7ADA4210B519300160DE3 /* bookmark_dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */; };
 		670D05931B0CBD320013A7AC /* about.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 6753456D1A404CB200A0A8C3 /* about.hpp */; };
 		670D05941B0CBD320013A7AC /* info_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345731A404CB200A0A8C3 /* info_dialog.hpp */; };
 		670D05951B0CBD320013A7AC /* preferences_dialog.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 675345781A404CB200A0A8C3 /* preferences_dialog.hpp */; };
@@ -274,6 +275,8 @@
 		45B5B59E1CA422EE00D93E36 /* resources-hdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-hdpi_dark"; sourceTree = "<group>"; };
 		45B5B5A01CA422EE00D93E36 /* resources-xhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xhdpi_dark"; sourceTree = "<group>"; };
 		45B5B5A11CA422EE00D93E36 /* resources-xxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-xxhdpi_dark"; sourceTree = "<group>"; };
+		45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_dialog.cpp; sourceTree = "<group>"; };
+		45D7ADA3210B519300160DE3 /* bookmark_dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_dialog.hpp; sourceTree = "<group>"; };
 		671182D81C7F0D8C00CB8177 /* countries_obsolete.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = countries_obsolete.txt; sourceTree = "<group>"; };
 		671182D91C7F0D8C00CB8177 /* packed_polygons_obsolete.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = packed_polygons_obsolete.bin; sourceTree = "<group>"; };
 		671182DA1C7F0D8C00CB8177 /* WorldCoasts_obsolete.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; path = WorldCoasts_obsolete.mwm; sourceTree = "<group>"; };
@@ -618,33 +621,35 @@
 		6753454B1A404C6100A0A8C3 /* qtMapsMe */ = {
 			isa = PBXGroup;
 			children = (
-				456B3F9D1EDEEAE5009B3D1F /* build_style */,
-				34FFD2ED1E9CEEA20010AD12 /* qt_common */,
-				45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */,
-				45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */,
-				45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */,
-				45B5B5891CA4216B00D93E36 /* place_page_dialog.hpp */,
-				6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */,
-				6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */,
-				6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */,
-				6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */,
-				670D055E1B0C9A900013A7AC /* res */,
 				6753456C1A404CB200A0A8C3 /* about.cpp */,
 				6753456D1A404CB200A0A8C3 /* about.hpp */,
+				45D7ADA2210B519300160DE3 /* bookmark_dialog.cpp */,
+				45D7ADA3210B519300160DE3 /* bookmark_dialog.hpp */,
+				456B3F9D1EDEEAE5009B3D1F /* build_style */,
+				45B5B5861CA4216B00D93E36 /* create_feature_dialog.cpp */,
+				45B5B5871CA4216B00D93E36 /* create_feature_dialog.hpp */,
 				675345701A404CB200A0A8C3 /* draw_widget.cpp */,
 				675345711A404CB200A0A8C3 /* draw_widget.hpp */,
+				6753409B1C5289E0002CF0D9 /* editor_dialog.cpp */,
+				6753409C1C5289E0002CF0D9 /* editor_dialog.hpp */,
 				675345721A404CB200A0A8C3 /* info_dialog.cpp */,
 				675345731A404CB200A0A8C3 /* info_dialog.hpp */,
 				675345741A404CB200A0A8C3 /* main.cpp */,
 				675345751A404CB200A0A8C3 /* mainwindow.cpp */,
 				675345761A404CB200A0A8C3 /* mainwindow.hpp */,
+				6753409D1C5289E0002CF0D9 /* osm_auth_dialog.cpp */,
+				6753409E1C5289E0002CF0D9 /* osm_auth_dialog.hpp */,
+				45B5B5881CA4216B00D93E36 /* place_page_dialog.cpp */,
+				45B5B5891CA4216B00D93E36 /* place_page_dialog.hpp */,
 				675345771A404CB200A0A8C3 /* preferences_dialog.cpp */,
 				675345781A404CB200A0A8C3 /* preferences_dialog.hpp */,
+				34FFD2ED1E9CEEA20010AD12 /* qt_common */,
+				670D055E1B0C9A900013A7AC /* res */,
 				6753457F1A404CB200A0A8C3 /* search_panel.cpp */,
 				675345801A404CB200A0A8C3 /* search_panel.hpp */,
+				6753454C1A404C6100A0A8C3 /* Supporting Files */,
 				675345831A404CB200A0A8C3 /* update_dialog.cpp */,
 				675345841A404CB200A0A8C3 /* update_dialog.hpp */,
-				6753454C1A404C6100A0A8C3 /* Supporting Files */,
 			);
 			name = qtMapsMe;
 			path = ../../qt;
@@ -806,6 +811,7 @@
 				675345921A404CB200A0A8C3 /* update_dialog.cpp in Sources */,
 				6753458B1A404CB200A0A8C3 /* mainwindow.cpp in Sources */,
 				675345881A404CB200A0A8C3 /* draw_widget.cpp in Sources */,
+				45D7ADA4210B519300160DE3 /* bookmark_dialog.cpp in Sources */,
 				675340A01C5289E0002CF0D9 /* osm_auth_dialog.cpp in Sources */,
 				6753458C1A404CB200A0A8C3 /* preferences_dialog.cpp in Sources */,
 				6753458A1A404CB200A0A8C3 /* main.cpp in Sources */,

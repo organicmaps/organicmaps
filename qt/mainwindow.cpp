@@ -1,4 +1,5 @@
 #include "qt/about.hpp"
+#include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
 #include "qt/mainwindow.hpp"
 #include "qt/osm_auth_dialog.hpp"
@@ -268,6 +269,10 @@ void MainWindow::CreateNavigationBar()
     m_trafficEnableAction->setChecked(m_pDrawWidget->GetFramework().LoadTrafficEnabled());
     pToolBar->addSeparator();
 
+    m_bookmarksAction = pToolBar->addAction(QIcon(":/navig64/bookmark.png"), tr("Show bookmarks and tracks"),
+                                            this, SLOT(OnBookmarksAction()));
+    pToolBar->addSeparator();
+
 #ifndef BUILD_DESIGNER
     m_selectStartRoutePoint = new QAction(QIcon(":/navig64/point-start.png"),
                                           tr("Start point"), this);
@@ -309,7 +314,6 @@ void MainWindow::CreateNavigationBar()
     clearAction->setToolTip(tr("Clear route"));
     pToolBar->addSeparator();
 
-    // TODO(AlexZ): Replace icon.
     m_pCreateFeatureAction = pToolBar->addAction(QIcon(":/navig64/select.png"), tr("Create Feature"),
                                                  this, SLOT(OnCreateFeatureClicked()));
     m_pCreateFeatureAction->setCheckable(true);
@@ -863,6 +867,13 @@ void MainWindow::OnFollowRoute()
 void MainWindow::OnClearRoute()
 {
   m_pDrawWidget->ClearRoute();
+}
+
+void MainWindow::OnBookmarksAction()
+{
+  BookmarkDialog dlg(this, m_pDrawWidget->GetFramework());
+  dlg.ShowModal();
+  m_pDrawWidget->update();
 }
 
 // static

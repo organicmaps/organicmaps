@@ -17,6 +17,8 @@ set(
   SRC
   about.cpp
   about.hpp
+  bookmark_dialog.cpp
+  bookmark_dialog.hpp
   build_style/build_common.cpp
   build_style/build_common.h
   build_style/build_drules.cpp
