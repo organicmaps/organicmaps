@@ -156,6 +156,7 @@ class Parser:
                 if not self.test_info:
                     self.test_info = TestInfo()
                     self.test_info.set_exe_name(end_exe)
+                    self.test_info.set_name("SOME_TESTS_FAILED")
                 self.test_info.set_test_result(TestInfo.FAILED)
 
             self.append_to_xml()
