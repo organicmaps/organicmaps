@@ -1,7 +1,6 @@
 #include "generator/borders_loader.hpp"
 
 #include "generator/borders_generator.hpp"
-#include "generator/utils.hpp"
 
 #include "defines.hpp"
 
@@ -130,17 +129,14 @@ public:
     WriteVarUint(w, borders.size());
     for (m2::RegionD const & border : borders)
     {
-      using VectorT = vector<m2::PointD>;
-      using DistanceFact = generator::ParametrizedSegmentFact<m2::PointD>;
-
-      VectorT const & in = border.Data();
-      VectorT out;
+      vector<m2::PointD> const & in = border.Data();
+      vector<m2::PointD> out;
 
       /// @todo Choose scale level for simplification.
       double const eps = pow(scales::GetEpsilonForSimplify(10), 2);
-      DistanceFact distFact;
-      SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFact,
-                          AccumulateSkipSmallTrg<DistanceFact, m2::PointD>(distFact, out, eps));
+      m2::SquaredDistanceFromSegmentToPoint<m2::PointD> distFn;
+      SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
+                          AccumulateSkipSmallTrg<decltype(distFn), m2::PointD>(distFn, out, eps));
 
       serial::SaveOuterPath(out, cp, w);
     }

@@ -57,16 +57,14 @@ inline bool ArePointsEqual<m2::PointD>(m2::PointD const & p1, m2::PointD const &
   return AlmostEqualULPs(p1, p2);
 }
 
-class SegmentWithRectBounds
+class DistanceToSegmentWithRectBounds
 {
 public:
-  SegmentWithRectBounds(m2::RectD const & rect, double eps, m2::PointD const & p0,
-                        m2::PointD const & p1)
-    : m_rect(rect), m_eps(eps), m_segment(p0, p1)
-  {
-  }
+  DistanceToSegmentWithRectBounds(m2::RectD const & rect) : m_rect(rect) {}
 
-  double SquaredDistanceToPoint(m2::PointD const & p) const
+  // Returns squared distance from the segment [a, b] to the point p unless
+  // p is close to the borders of |m_rect|, in which case returns a very large number.
+  double operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & p) const
   {
     if (my::AlmostEqualAbs(p.x, m_rect.minX(), m_eps) ||
         my::AlmostEqualAbs(p.x, m_rect.maxX(), m_eps) ||
@@ -77,45 +75,29 @@ public:
       return std::numeric_limits<double>::max();
     }
 
-    return m_segment.SquaredDistanceToPoint(p);
-  }
-
-private:
-  m2::RectD const & m_rect;
-  double m_eps;
-  m2::ParametrizedSegment<m2::PointD> m_segment;
-};
-
-class SegmentWithRectBoundsFactory
-{
-public:
-  explicit SegmentWithRectBoundsFactory(m2::RectD const & rect) : m_rect(rect) {}
-
-  SegmentWithRectBounds operator()(m2::PointD const & p0, m2::PointD const & p1)
-  {
-    return SegmentWithRectBounds(m_rect, m_eps, p0, p1);
+    return m2::SquaredDistanceFromSegmentToPoint<m2::PointD>()(a, b, p);
   }
 
   double GetEpsilon() const { return m_eps; }
 
 private:
   m2::RectD const & m_rect;
+
   // 5.0E-7 is near with minimal epsilon when integer points are different
   // PointDToPointU(x, y) != PointDToPointU(x + m_eps, y + m_eps)
   double m_eps = 5.0E-7;
 };
 
-template <class DistanceFact, class PointsContainer>
-void SimplifyPoints(DistanceFact distFact, int level, PointsContainer const & in,
-                    PointsContainer & out)
+template <class DistanceFn, class PointsContainer>
+void SimplifyPoints(DistanceFn distFn, int level, PointsContainer const & in, PointsContainer & out)
 {
   if (in.size() < 2)
     return;
 
   double const eps = std::pow(scales::GetEpsilonForSimplify(level), 2);
 
-  SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFact,
-                      AccumulateSkipSmallTrg<DistanceFact, m2::PointD>(distFact, out, eps));
+  SimplifyNearOptimal(20, in.begin(), in.end(), eps, distFn,
+                      AccumulateSkipSmallTrg<DistanceFn, m2::PointD>(distFn, out, eps));
 
   CHECK_GREATER(out.size(), 1, ());
   CHECK(ArePointsEqual(in.front(), out.front()), ());

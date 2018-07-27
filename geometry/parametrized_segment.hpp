@@ -1,5 +1,3 @@
-// todo(@m) Do we need helpers like ClosestPointTo(p0, p1)?
-
 #pragma once
 
 #include "geometry/point2d.hpp"
@@ -16,12 +14,12 @@ namespace m2
 // The parametrization is of the form
 //   p(t) = p0 + t * dir.
 // Other conditions:
-//   dir is normalized (p1 - p0)
+//   dir is the normalized (p1 - p0) vector.
 //   length(dir) = 1.
 //   p(0) = p0.
 //   p(T) = p1 with T = length(p1 - p0).
 //
-// The points with t in [0, T] correspond to the points of the segment.
+// The points with t in [0, T] are the points of the segment.
 template <typename Point>
 class ParametrizedSegment
 {
@@ -77,5 +75,20 @@ public:
   Point m_p1;
   m2::PointD m_d;
   double m_length;
+};
+
+// This functor is here only for backward compatibility. It is not obvious
+// when looking at a call site whether x should be the first or the last parameter to the fuction.
+// For readability, consider creating a parametrized segment and using its methods instead
+// of using this functor.
+template <typename Point>
+struct SquaredDistanceFromSegmentToPoint
+{
+  // Returns squared distance from the segment [a, b] to the point x.
+  double operator()(Point const & a, Point const & b, Point const & x) const
+  {
+    ParametrizedSegment<Point> segment(a, b);
+    return segment.SquaredDistanceToPoint(x);
+  }
 };
 }  // namespace m2

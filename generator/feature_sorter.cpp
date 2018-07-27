@@ -7,7 +7,6 @@
 #include "generator/geometry_holder.hpp"
 #include "generator/region_meta.hpp"
 #include "generator/tesselator.hpp"
-#include "generator/utils.hpp"
 
 #include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
@@ -274,13 +273,12 @@ private:
   {
     if (isCoast)
     {
-      SegmentWithRectBoundsFactory segFact(rect);
-      feature::SimplifyPoints(segFact, level, in, out);
+      DistanceToSegmentWithRectBounds fn(rect);
+      feature::SimplifyPoints(fn, level, in, out);
     }
     else
     {
-      generator::ParametrizedSegmentFact<m2::PointD> segFact;
-      feature::SimplifyPoints(segFact, level, in, out);
+      feature::SimplifyPoints(m2::SquaredDistanceFromSegmentToPoint<m2::PointD>(), level, in, out);
     }
   }
 

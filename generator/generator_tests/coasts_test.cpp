@@ -60,8 +60,8 @@ public:
       LOG(LINFO, ("ID = ", fb1.GetName(), "Rect = ", rect, "Polygons = ", fb2.GetGeometry()));
 
       // Make bound rect inflated a little.
-      feature::SegmentWithRectBoundsFactory segFact(rect);
-      m2::RectD const boundRect = m2::Inflate(rect, segFact.GetEpsilon(), segFact.GetEpsilon());
+      feature::DistanceToSegmentWithRectBounds distFn(rect);
+      m2::RectD const boundRect = m2::Inflate(rect, distFn.GetEpsilon(), distFn.GetEpsilon());
 
       typedef vector<m2::PointD> PointsT;
       typedef list<PointsT> PolygonsT;
@@ -76,7 +76,7 @@ public:
         for (PolygonsT::const_iterator i = poly.begin(); i != poly.end(); ++i)
         {
           PointsT pts;
-          feature::SimplifyPoints(segFact, level, *i, pts);
+          feature::SimplifyPoints(distFn, level, *i, pts);
 
           LOG(LINFO, ("Simplified. Level = ", level, "Points = ", pts));
 

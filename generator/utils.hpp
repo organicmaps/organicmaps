@@ -10,7 +10,6 @@
 #include "coding/file_reader.hpp"
 #include "coding/reader.hpp"
 
-#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/logging.hpp"
@@ -60,13 +59,4 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
 
   return true;
 }
-
-template <typename Point>
-struct ParametrizedSegmentFact
-{
-  m2::ParametrizedSegment<Point> operator()(Point const & p0, Point const & p1) const
-  {
-    return m2::ParametrizedSegment<Point>(p0, p1);
-  }
-};
 }  // namespace generator

@@ -110,9 +110,9 @@ public:
 
     // Simplify and serialize geometry.
     vector<m2::PointD> points;
-    generator::ParametrizedSegmentFact<m2::PointD> distFact;
+    m2::SquaredDistanceFromSegmentToPoint<m2::PointD> distFn;
 
-    SimplifyPoints(distFact, scales::GetUpperScale(), holder.GetSourcePoints(), points);
+    SimplifyPoints(distFn, scales::GetUpperScale(), holder.GetSourcePoints(), points);
 
     // For areas we save outer geometry only.
     if (fb2.IsArea() && holder.NeedProcessTriangles())

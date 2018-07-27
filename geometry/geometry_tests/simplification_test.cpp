@@ -19,18 +19,10 @@ using namespace std;
 
 namespace
 {
-struct DistanceFact
-{
-  m2::ParametrizedSegment<m2::PointD> operator()(m2::PointD const & p0, m2::PointD const & p1) const
-  {
-    return m2::ParametrizedSegment<m2::PointD>(p0, p1);
-  }
-};
-
 using P = m2::PointD;
+using DistanceFn = m2::SquaredDistanceFromSegmentToPoint<P>;
 using PointOutput = BackInsertFunctor<vector<m2::PointD>>;
-typedef void (*SimplifyFn)(m2::PointD const *, m2::PointD const *, double, DistanceFact,
-                           PointOutput);
+typedef void (*SimplifyFn)(m2::PointD const *, m2::PointD const *, double, DistanceFn, PointOutput);
 
 struct LargePolylineTestData
 {
@@ -46,7 +38,7 @@ void TestSimplificationSmoke(SimplifyFn simplifyFn)
   m2::PointD const points[] = {P(0.0, 1.0), P(2.2, 3.6), P(3.2, 3.6)};
   double const epsilon = 0.1;
   vector<m2::PointD> result, expectedResult(points, points + 3);
-  simplifyFn(points, points + 3, epsilon, DistanceFact(), MakeBackInsertFunctor(result));
+  simplifyFn(points, points + 3, epsilon, DistanceFn(), MakeBackInsertFunctor(result));
   TEST_EQUAL(result, expectedResult, (epsilon));
 }
 
@@ -56,7 +48,7 @@ void TestSimplificationOfLine(SimplifyFn simplifyFn)
   for (double epsilon = numeric_limits<double>::denorm_min(); epsilon < 1000; epsilon *= 2)
   {
     vector<m2::PointD> result, expectedResult(points, points + 2);
-    simplifyFn(points, points + 2, epsilon, DistanceFact(), MakeBackInsertFunctor(result));
+    simplifyFn(points, points + 2, epsilon, DistanceFn(), MakeBackInsertFunctor(result));
     TEST_EQUAL(result, expectedResult, (epsilon));
   }
 }
@@ -66,7 +58,7 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
   for (double epsilon = 0.00001; epsilon < 0.11; epsilon *= 10)
   {
     vector<m2::PointD> result;
-    simplifyFn(points, points + count, epsilon, DistanceFact(), MakeBackInsertFunctor(result));
+    simplifyFn(points, points + count, epsilon, DistanceFn(), MakeBackInsertFunctor(result));
     // LOG(LINFO, ("eps:", epsilon, "size:", result.size()));
 
     TEST_GREATER(result.size(), 1, ());
@@ -76,24 +68,23 @@ void TestSimplificationOfPoly(m2::PointD const * points, size_t count, SimplifyF
   }
 }
 
-void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e,
-                           DistanceFact distFact, PointOutput out)
+void SimplifyNearOptimal10(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn,
+                           PointOutput out)
 {
-  SimplifyNearOptimal(10, f, l, e, distFact, out);
+  SimplifyNearOptimal(10, f, l, e, distFn, out);
 }
 
-void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e,
-                           DistanceFact distFact, PointOutput out)
+void SimplifyNearOptimal20(m2::PointD const * f, m2::PointD const * l, double e, DistanceFn distFn,
+                           PointOutput out)
 {
-  SimplifyNearOptimal(20, f, l, e, distFact, out);
+  SimplifyNearOptimal(20, f, l, e, distFn, out);
 }
 
 void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
 {
   vector<P> vec;
-  DistanceFact distFact;
-  SimplifyDP(arr, arr + n, eps, distFact,
-             AccumulateSkipSmallTrg<DistanceFact, P>(distFact, vec, eps));
+  DistanceFn distFn;
+  SimplifyDP(arr, arr + n, eps, distFn, AccumulateSkipSmallTrg<DistanceFn, P>(distFn, vec, eps));
 
   TEST_GREATER(vec.size(), 1, ());
   TEST_EQUAL(arr[0], vec.front(), ());
@@ -106,8 +97,8 @@ void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
 
   for (size_t i = 2; i < vec.size(); ++i)
   {
-    auto const d = DistanceFact()(vec[i - 2], vec[i]);
-    TEST_GREATER_OR_EQUAL(d.SquaredDistanceToPoint(vec[i - 1]), eps, ());
+    auto const d = DistanceFn();
+    TEST_GREATER_OR_EQUAL(d(vec[i - 2], vec[i], vec[i - 1]), eps, ());
   }
 }
 }  // namespace
@@ -118,14 +109,14 @@ UNIT_TEST(Simplification_TestDataIsCorrect)
   // LOG(LINFO, ("Polyline test size:", LargePolylineTestData::m_Size));
 }
 
-UNIT_TEST(Simplification_DP_Smoke) { TestSimplificationSmoke(&SimplifyDP<DistanceFact>); }
+UNIT_TEST(Simplification_DP_Smoke) { TestSimplificationSmoke(&SimplifyDP<DistanceFn>); }
 
-UNIT_TEST(Simplification_DP_Line) { TestSimplificationOfLine(&SimplifyDP<DistanceFact>); }
+UNIT_TEST(Simplification_DP_Line) { TestSimplificationOfLine(&SimplifyDP<DistanceFn>); }
 
 UNIT_TEST(Simplification_DP_Polyline)
 {
   TestSimplificationOfPoly(LargePolylineTestData::m_Data, LargePolylineTestData::m_Size,
-                           &SimplifyDP<DistanceFact>);
+                           &SimplifyDP<DistanceFn>);
 }
 
 UNIT_TEST(Simplification_Opt_Smoke) { TestSimplificationSmoke(&SimplifyNearOptimal10); }

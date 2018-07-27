@@ -20,17 +20,16 @@ namespace impl
 {
 ///@name This functions take input range NOT like STL does: [first, last].
 //@{
-template <typename SegmentFact, typename Iter>
-std::pair<double, Iter> MaxDistance(Iter first, Iter last, SegmentFact & segFact)
+template <typename DistanceFn, typename Iter>
+std::pair<double, Iter> MaxDistance(Iter first, Iter last, DistanceFn & distFn)
 {
   std::pair<double, Iter> res(0.0, last);
   if (std::distance(first, last) <= 1)
     return res;
 
-  auto const segment = segFact(m2::PointD(*first), m2::PointD(*last));
   for (Iter i = first + 1; i != last; ++i)
   {
-    double const d = segment.SquaredDistanceToPoint(m2::PointD(*i));
+    double const d = distFn(m2::PointD(*first), m2::PointD(*last), m2::PointD(*i));
     if (res.first < d)
     {
       res.first = d;
@@ -42,18 +41,18 @@ std::pair<double, Iter> MaxDistance(Iter first, Iter last, SegmentFact & segFact
 }
 
 // Actual SimplifyDP implementation.
-template <typename SegmentFact, typename Iter, typename Out>
-void SimplifyDP(Iter first, Iter last, double epsilon, SegmentFact & segFact, Out & out)
+template <typename DistanceFn, typename Iter, typename Out>
+void SimplifyDP(Iter first, Iter last, double epsilon, DistanceFn & distFn, Out & out)
 {
-  std::pair<double, Iter> maxDist = impl::MaxDistance(first, last, segFact);
+  std::pair<double, Iter> maxDist = impl::MaxDistance(first, last, distFn);
   if (maxDist.second == last || maxDist.first < epsilon)
   {
     out(*last);
   }
   else
   {
-    impl::SimplifyDP(first, maxDist.second, epsilon, segFact, out);
-    impl::SimplifyDP(maxDist.second, last, epsilon, segFact, out);
+    impl::SimplifyDP(first, maxDist.second, epsilon, distFn, out);
+    impl::SimplifyDP(maxDist.second, last, epsilon, distFn, out);
   }
 }
 //@}
@@ -72,13 +71,13 @@ struct SimplifyOptimalRes
 // Douglas-Peucker algorithm for STL-like range [beg, end).
 // Iteratively includes the point with max distance from the current simplification.
 // Average O(n log n), worst case O(n^2).
-template <typename SegmentFact, typename Iter, typename Out>
-void SimplifyDP(Iter beg, Iter end, double epsilon, SegmentFact segFact, Out out)
+template <typename DistanceFn, typename Iter, typename Out>
+void SimplifyDP(Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
 {
   if (beg != end)
   {
     out(*beg);
-    impl::SimplifyDP(beg, end - 1, epsilon, segFact, out);
+    impl::SimplifyDP(beg, end - 1, epsilon, distFn, out);
   }
 }
 
@@ -88,9 +87,9 @@ void SimplifyDP(Iter beg, Iter end, double epsilon, SegmentFact segFact, Out out
 // which limits the number of points to try, that produce error > epsilon.
 // Essentially, it's a trade-off between optimality and performance.
 // Values around 20 - 200 are reasonable.
-template <typename SegmentFact, typename Iter, typename Out>
+template <typename DistanceFn, typename Iter, typename Out>
 void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsilon,
-                         SegmentFact segFact, Out out)
+                         DistanceFn distFn, Out out)
 {
   int32_t const n = static_cast<int32_t>(end - beg);
   if (n <= 2)
@@ -109,7 +108,7 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsi
       uint32_t const newPointCount = F[j].m_PointCount + 1;
       if (newPointCount < F[i].m_PointCount)
       {
-        if (impl::MaxDistance(beg + i, beg + j, segFact).first < epsilon)
+        if (impl::MaxDistance(beg + i, beg + j, distFn).first < epsilon)
         {
           F[i].m_NextPoint = j;
           F[i].m_PointCount = newPointCount;
@@ -128,12 +127,12 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsi
 
 // Additional points filter to use in simplification.
 // SimplifyDP can produce points that define degenerate triangle.
-template <class SegmentFact, class Point>
+template <class DistanceFn, class Point>
 class AccumulateSkipSmallTrg
 {
 public:
-  AccumulateSkipSmallTrg(SegmentFact & segFact, std::vector<Point> & vec, double eps)
-    : m_segFact(segFact), m_vec(vec), m_eps(eps)
+  AccumulateSkipSmallTrg(DistanceFn & distFn, std::vector<Point> & vec, double eps)
+    : m_distFn(distFn), m_vec(vec), m_eps(eps)
   {
   }
 
@@ -143,8 +142,8 @@ public:
     size_t count;
     while ((count = m_vec.size()) >= 2)
     {
-      auto const segment = m_segFact(m2::PointD(m_vec[count - 2]), m2::PointD(p));
-      if (segment.SquaredDistanceToPoint(m2::PointD(m_vec[count - 1])) < m_eps)
+      if (m_distFn(m2::PointD(m_vec[count - 2]), m2::PointD(p), m2::PointD(m_vec[count - 1])) <
+          m_eps)
         m_vec.pop_back();
       else
         break;
@@ -154,7 +153,7 @@ public:
   }
 
 private:
-  SegmentFact & m_segFact;
+  DistanceFn & m_distFn;
   std::vector<Point> & m_vec;
   double m_eps;
 };
