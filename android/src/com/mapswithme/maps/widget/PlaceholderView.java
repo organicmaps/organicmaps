@@ -9,18 +9,14 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.util.MathUtils;
 import com.mapswithme.util.UiUtils;
 
 public class PlaceholderView extends LinearLayout
@@ -115,23 +111,11 @@ public class PlaceholderView extends LinearLayout
   {
     super.onFinishInflate();
 
-    checkParent();
     mImage = findViewById(R.id.image);
     mTitle = findViewById(R.id.title);
     mSubtitle = findViewById(R.id.subtitle);
 
     setupDefaultContent();
-  }
-
-  private void checkParent()
-  {
-    ViewParent current = getParent();
-    while (current != null)
-    {
-      if (current instanceof NestedScrollView || current instanceof ScrollView)
-        throw new IllegalStateException("PlaceholderView can not be attached to NestedScrollView or ScrollView");
-      current = current.getParent();
-    }
   }
 
   private void setupDefaultContent()
@@ -160,7 +144,7 @@ public class PlaceholderView extends LinearLayout
   {
     int childrenTextTotalHeight = calcTotalTextChildrenHeight(widthMeasureSpec, heightMeasureSpec);
 
-    final int defHeight = getDefaultSize(getSuggestedMinimumWidth(), heightMeasureSpec);
+    final int defHeight = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
     final int defWidth = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
 
     MarginLayoutParams imgParams = (MarginLayoutParams) mImage.getLayoutParams();
@@ -169,27 +153,19 @@ public class PlaceholderView extends LinearLayout
         imgParams.bottomMargin - imgParams.topMargin;
 
 
-    int imgSpaceRaw = Math.min(mImgMaxHeight, potentialHeight);
+    int imgSpaceRaw = Math.min(potentialHeight, mImgMaxHeight);
     imgParams.height = imgSpaceRaw;
     imgParams.width = imgSpaceRaw;
     measureChildWithMargins(mImage, widthMeasureSpec, 0, heightMeasureSpec, 0);
 
     boolean isImageSpaceAllowed = imgSpaceRaw > mImgMinHeight;
+    int childrenTotalHeight = childrenTextTotalHeight;
+    if (isImageSpaceAllowed)
+      childrenTotalHeight += calcHeightWithMargins(mImage);
+
     UiUtils.showIf(isImageSpaceAllowed, mImage);
-
-    int childrenTotalHeight = childrenTextTotalHeight + calcImageSpace(isImageSpaceAllowed,
-                                                                       imgParams, imgSpaceRaw);
-
     final int height = childrenTotalHeight  + getPaddingTop() + getPaddingBottom();
     setMeasuredDimension(defWidth, height);
-  }
-
-  private int calcImageSpace(boolean isImageSpaceAllowed, @NonNull MarginLayoutParams imgParams,
-                             int imgSpaceRaw)
-  {
-    return isImageSpaceAllowed
-           ? MathUtils.sum(imgSpaceRaw, imgParams.bottomMargin, imgParams.topMargin)
-           : 0;
   }
 
   private int calcTotalTextChildrenHeight(int widthMeasureSpec, int heightMeasureSpec)
@@ -207,7 +183,7 @@ public class PlaceholderView extends LinearLayout
     return totalHeight;
   }
 
-  private int calcHeightWithMargins(@NonNull View view) {
+  private static int calcHeightWithMargins(@NonNull View view) {
     MarginLayoutParams params = (MarginLayoutParams) view.getLayoutParams();
     return view.getMeasuredHeight() + params.bottomMargin + params.topMargin;
   }

@@ -1,38 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:fillViewport="true"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
   <LinearLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
       style="@style/MwmWidget.ToolbarStyle"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:theme="@style/MwmWidget.ToolbarTheme"/>
-    <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="wrap_content"
-      android:gravity="center"
-      android:layout_height="wrap_content">
-      <com.mapswithme.maps.widget.PlaceholderView
-        android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:paddingLeft="@dimen/margin_double_and_half"
-        android:paddingRight="@dimen/margin_double_and_half"
-        android:paddingTop="@dimen/placeholder_margin_top"
-        android:paddingBottom="@dimen/placeholder_margin_top"
-        android:visibility="gone"
-        tools:visibility="visible"/>
-    </LinearLayout>
-
-    <android.support.v4.widget.NestedScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
     <LinearLayout
       android:id="@+id/galleriesLayout"
       android:layout_width="match_parent"
@@ -109,6 +91,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    <com.mapswithme.maps.widget.PlaceholderView
+      android:id="@+id/placeholder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:paddingLeft="@dimen/margin_double_and_half"
+      android:paddingRight="@dimen/margin_double_and_half"
+      android:paddingTop="@dimen/placeholder_margin_top"
+      android:paddingBottom="@dimen/placeholder_margin_top"
+      android:visibility="gone"
+      tools:visibility="visible"/>
   </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
 

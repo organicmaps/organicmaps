@@ -11,13 +11,4 @@ public class MathUtils
     return sum / vals.length;
   }
 
-  public static int sum(int... values)
-  {
-    int total = 0;
-    for (int each : values)
-    {
-      total += each;
-    }
-    return total;
-  }
 }
