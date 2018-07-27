@@ -264,26 +264,10 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 
   double distance = numeric_limits<double>::max();
 
-  // todo(@m) Replace with rect.ForEachSide().
-  {
-    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftTop(), rect.RightTop());
+  rect.ForEachSide([&](m2::PointD const & a, m2::PointD const & b) {
+    m2::ParametrizedSegment<m2::PointD> segment(a, b);
     distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
-  }
-
-  {
-    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftBottom(), rect.RightBottom());
-    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
-  }
-
-  {
-    m2::ParametrizedSegment<m2::PointD> segment(rect.LeftTop(), rect.LeftBottom());
-    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
-  }
-
-  {
-    m2::ParametrizedSegment<m2::PointD> segment(rect.RightTop(), rect.RightBottom());
-    distance = min(distance, MercatorBounds::DistanceOnEarth(pivot, segment.ClosestPointTo(pivot)));
-  }
+  });
 
   return distance;
 }

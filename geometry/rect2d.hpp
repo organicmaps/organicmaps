@@ -122,6 +122,24 @@ public:
   Point<T> RightBottom() const { return Point<T>(m_maxX, m_minY); }
   Point<T> LeftBottom() const { return Point<T>(m_minX, m_minY); }
 
+  template <typename Fn>
+  void ForEachCorner(Fn && fn) const
+  {
+    fn(LeftTop());
+    fn(LeftBottom());
+    fn(RightBottom());
+    fn(RightTop());
+  }
+
+  template <typename Fn>
+  void ForEachSide(Fn && fn) const
+  {
+    fn(LeftTop(), LeftBottom());
+    fn(LeftBottom(), RightBottom());
+    fn(RightBottom(), RightTop());
+    fn(RightTop(), LeftTop());
+  }
+
   bool IsIntersect(Rect const & r) const
   {
     return !((m_maxX < r.m_minX) || (m_minX > r.m_maxX) || (m_maxY < r.m_minY) ||
