@@ -444,6 +444,27 @@ BOOL gIsFirstMyPositionMode = YES;
       [[MWMToast toastWithText:L(@"bookmarks_webview_success_toast")] show];
 }
 
+- (void)openCatalogAnimated:(BOOL)animated
+{
+  [self openCatalogDeeplink:nil animated:animated];
+}
+
+- (void)openCatalogDeeplink:(NSURL *)deeplinkUrl animated:(BOOL)animated
+{
+  [self.navigationController popToRootViewControllerAnimated:NO];
+  auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
+  bookmarks.activeTab = ActiveTabCatalog;
+  MWMCatalogWebViewController *catalog;
+  if (deeplinkUrl)
+    catalog = [[MWMCatalogWebViewController alloc] init:deeplinkUrl];
+  else
+    catalog = [[MWMCatalogWebViewController alloc] init];
+
+  NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
+  [controllers addObjectsFromArray:@[bookmarks, catalog]];
+  [self.navigationController setViewControllers:controllers animated:animated];
+}
+
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   [MWMLocationManager setMyPositionMode:mode];

@@ -27,7 +27,8 @@ CGFloat constexpr kLayoutThreshold = 420.0;
 
 typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   MWMBottomMenuViewCellAddPlace,
-  MWMBottomMenuViewCellDownload,
+  MWMBottomMenuViewCellDownloadRoutes,
+  MWMBottomMenuViewCellDownloadMaps,
   MWMBottomMenuViewCellSettings,
   MWMBottomMenuViewCellShare,
   MWMBottomMenuViewCellCount
@@ -175,14 +176,15 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
                        isEnabled:isEnabled];
     break;
   }
-  case MWMBottomMenuViewCellDownload:
-  {
+  case MWMBottomMenuViewCellDownloadRoutes:
+    [cell configurePromoWithImageName:@"ic_menu_routes" label:L(@"download_routes")];
+    break;
+  case MWMBottomMenuViewCellDownloadMaps:
     [cell configureWithImageName:@"ic_menu_download"
                            label:L(@"download_maps")
                       badgeCount:[[MapsAppDelegate theApp] badgeNumber]
                        isEnabled:YES];
-  }
-  break;
+    break;
   case MWMBottomMenuViewCellSettings:
     [cell configureWithImageName:@"ic_menu_settings"
                            label:L(@"settings")
@@ -211,7 +213,8 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   switch (indexPath.item)
   {
   case MWMBottomMenuViewCellAddPlace: [self menuActionAddPlace]; break;
-  case MWMBottomMenuViewCellDownload: [self menuActionDownloadMaps]; break;
+  case MWMBottomMenuViewCellDownloadRoutes: [self menuActionDownloadRoutes]; break;
+  case MWMBottomMenuViewCellDownloadMaps: [self menuActionDownloadMaps]; break;
   case MWMBottomMenuViewCellSettings: [self menuActionOpenSettings]; break;
   case MWMBottomMenuViewCellShare: [self menuActionShareLocation]; break;
   }
@@ -225,6 +228,13 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorAddDiscovered);
   self.state = self.restoreState;
   [self.delegate addPlace:NO hasPoint:NO point:m2::PointD()];
+}
+
+- (void)menuActionDownloadRoutes
+{
+  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadRoute}];
+  self.state = self.restoreState;
+  [self.mapViewController openCatalogAnimated:YES];
 }
 
 - (void)menuActionDownloadMaps

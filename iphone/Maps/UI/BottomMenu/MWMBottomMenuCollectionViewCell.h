@@ -8,6 +8,9 @@
                     badgeCount:(NSUInteger)badgeCount
                      isEnabled:(BOOL)isEnabled;
 
+- (void)configurePromoWithImageName:(NSString *)imageName
+                              label:(NSString *)label;
+
 @end
 
 @interface MWMBottomMenuCollectionViewPortraitCell : MWMBottomMenuCollectionViewCell
