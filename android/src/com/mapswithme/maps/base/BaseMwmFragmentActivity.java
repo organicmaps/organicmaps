@@ -175,10 +175,15 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     if (item.getItemId() == android.R.id.home)
     {
-      onBackPressed();
+      onHomeOptionItemSelected();
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  protected void onHomeOptionItemSelected()
+  {
+    onBackPressed();
   }
 
   @CallSuper

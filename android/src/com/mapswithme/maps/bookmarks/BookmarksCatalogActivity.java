@@ -20,4 +20,10 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
   {
     return Utils.<OnBackPressListener>castTo(currentFragment).onBackPressed();
   }
+
+  @Override
+  protected void onHomeOptionItemSelected()
+  {
+    finish();
+  }
 }
