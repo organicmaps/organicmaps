@@ -145,8 +145,6 @@ public class PlaceholderView extends LinearLayout
     int childrenTextTotalHeight = calcTotalTextChildrenHeight(widthMeasureSpec, heightMeasureSpec);
 
     final int defHeight = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
-    final int defWidth = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
-
     MarginLayoutParams imgParams = (MarginLayoutParams) mImage.getLayoutParams();
     int potentialHeight =
         defHeight - getPaddingBottom() - getPaddingTop() - childrenTextTotalHeight -
@@ -165,7 +163,8 @@ public class PlaceholderView extends LinearLayout
 
     UiUtils.showIf(isImageSpaceAllowed, mImage);
     final int height = childrenTotalHeight  + getPaddingTop() + getPaddingBottom();
-    setMeasuredDimension(defWidth, height);
+    final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+    setMeasuredDimension(width, height);
   }
 
   private int calcTotalTextChildrenHeight(int widthMeasureSpec, int heightMeasureSpec)
