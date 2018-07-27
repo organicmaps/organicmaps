@@ -1,6 +1,8 @@
 #include "geometry/region2d/binary_operators.hpp"
 #include "geometry/region2d/boost_concept.hpp"
 
+#include <cstddef>
+
 using namespace std;
 
 namespace m2

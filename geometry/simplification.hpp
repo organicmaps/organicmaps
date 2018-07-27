@@ -7,6 +7,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <iterator>
 #include <utility>
 #include <vector>
@@ -83,12 +84,12 @@ void SimplifyDP(Iter beg, Iter end, double epsilon, DistanceFn distFn, Out out)
 
 // Dynamic programming near-optimal simplification.
 // Uses O(n) additional memory.
-// Worst case O(n^3) performance, average O(n*k^2), where k is kMaxFalseLookAhead - parameter,
+// Worst case O(n^3) performance, average O(n*k^2), where k is maxFalseLookAhead - parameter,
 // which limits the number of points to try, that produce error > epsilon.
 // Essentially, it's a trade-off between optimality and performance.
 // Values around 20 - 200 are reasonable.
 template <typename DistanceFn, typename Iter, typename Out>
-void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsilon,
+void SimplifyNearOptimal(int maxFalseLookAhead, Iter beg, Iter end, double epsilon,
                          DistanceFn distFn, Out out)
 {
   int32_t const n = static_cast<int32_t>(end - beg);
@@ -103,7 +104,7 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsi
   F[n - 1] = impl::SimplifyOptimalRes(n, 1);
   for (int32_t i = n - 2; i >= 0; --i)
   {
-    for (int32_t falseCount = 0, j = i + 1; j < n && falseCount < kMaxFalseLookAhead; ++j)
+    for (int32_t falseCount = 0, j = i + 1; j < n && falseCount < maxFalseLookAhead; ++j)
     {
       uint32_t const newPointCount = F[j].m_PointCount + 1;
       if (newPointCount < F[i].m_PointCount)
@@ -127,7 +128,7 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, Iter beg, Iter end, double epsi
 
 // Additional points filter to use in simplification.
 // SimplifyDP can produce points that define degenerate triangle.
-template <class DistanceFn, class Point>
+template <typename DistanceFn, typename Point>
 class AccumulateSkipSmallTrg
 {
 public:
@@ -142,8 +143,10 @@ public:
     size_t count;
     while ((count = m_vec.size()) >= 2)
     {
-      if (m_distFn(m2::PointD(m_vec[count - 2]), m2::PointD(p), m2::PointD(m_vec[count - 1])) <
-          m_eps)
+      auto const a = m2::PointD(m_vec[count - 2]);
+      auto const b = m2::PointD(p);
+      auto const c = m2::PointD(m_vec[count - 1]);
+      if (m_distFn(a, b, c) < m_eps)
         m_vec.pop_back();
       else
         break;

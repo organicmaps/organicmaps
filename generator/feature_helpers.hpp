@@ -45,7 +45,7 @@ private:
   std::vector<CellAndOffset> m_vec;
 };
 
-template <class Point>
+template <typename Point>
 inline bool ArePointsEqual(Point const & p1, Point const & p2)
 {
   return p1 == p2;
@@ -60,7 +60,7 @@ inline bool ArePointsEqual<m2::PointD>(m2::PointD const & p1, m2::PointD const &
 class DistanceToSegmentWithRectBounds
 {
 public:
-  DistanceToSegmentWithRectBounds(m2::RectD const & rect) : m_rect(rect) {}
+  explicit DistanceToSegmentWithRectBounds(m2::RectD const & rect) : m_rect(rect) {}
 
   // Returns squared distance from the segment [a, b] to the point p unless
   // p is close to the borders of |m_rect|, in which case returns a very large number.
@@ -88,7 +88,7 @@ private:
   double m_eps = 5.0E-7;
 };
 
-template <class DistanceFn, class PointsContainer>
+template <typename DistanceFn, typename PointsContainer>
 void SimplifyPoints(DistanceFn distFn, int level, PointsContainer const & in, PointsContainer & out)
 {
   if (in.size() < 2)

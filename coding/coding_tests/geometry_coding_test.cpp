@@ -71,7 +71,7 @@ vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
   m2::SquaredDistanceFromSegmentToPoint<m2::PointD> const distFn;
 
   SimplifyNearOptimal(
-      20, points.begin(), points.end(), eps, distFn,
+      20 /* maxFalseLookAhead */, points.begin(), points.end(), eps, distFn,
       AccumulateSkipSmallTrg<decltype(distFn), m2::PointU>(distFn, simpPoints, eps));
   return simpPoints;
 }

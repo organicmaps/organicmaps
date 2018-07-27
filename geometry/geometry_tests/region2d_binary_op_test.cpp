@@ -1,10 +1,9 @@
-#include "geometry/geometry_tests/test_regions.hpp"
-
 #include "testing/testing.hpp"
 
+#include "geometry/geometry_tests/test_regions.hpp"
 #include "geometry/region2d/binary_operators.hpp"
 
-#include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #include <vector>
 

@@ -6,6 +6,7 @@
 
 #include "base/internal/message.hpp"
 
+#include <algorithm>
 #include <cstddef>
 #include <initializer_list>
 #include <limits>
@@ -57,7 +58,7 @@ public:
   double GetLength(size_t pointIndex) const
   {
     double dist = 0;
-    for (size_t i = 0; i < min(pointIndex, m_points.size() - 1); ++i)
+    for (size_t i = 0; i < std::min(pointIndex, m_points.size() - 1); ++i)
       dist += m_points[i].Length(m_points[i + 1]);
     return dist;
   }
@@ -70,7 +71,7 @@ public:
     for (Iter j = i + 1; j != End(); ++i, ++j)
     {
       m2::ParametrizedSegment<m2::Point<T>> seg(*i, *j);
-      res = min(res, seg.SquaredDistanceToPoint(point));
+      res = std::min(res, seg.SquaredDistanceToPoint(point));
     }
 
     return res;

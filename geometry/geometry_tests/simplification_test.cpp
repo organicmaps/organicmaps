@@ -12,6 +12,7 @@
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
+#include <cstdint>
 #include <limits>
 #include <vector>
 
@@ -22,7 +23,8 @@ namespace
 using P = m2::PointD;
 using DistanceFn = m2::SquaredDistanceFromSegmentToPoint<P>;
 using PointOutput = BackInsertFunctor<vector<m2::PointD>>;
-typedef void (*SimplifyFn)(m2::PointD const *, m2::PointD const *, double, DistanceFn, PointOutput);
+using SimplifyFn = void (*)(m2::PointD const *, m2::PointD const *, double, DistanceFn,
+                            PointOutput);
 
 struct LargePolylineTestData
 {
@@ -91,9 +93,7 @@ void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
   TEST_EQUAL(arr[n - 1], vec.back(), ());
 
   if (expectedCount > 0)
-  {
     TEST_EQUAL(expectedCount, vec.size(), ());
-  }
 
   for (size_t i = 2; i < vec.size(); ++i)
   {
@@ -106,7 +106,8 @@ void CheckDPStrict(P const * arr, size_t n, double eps, size_t expectedCount)
 UNIT_TEST(Simplification_TestDataIsCorrect)
 {
   TEST_GREATER_OR_EQUAL(LargePolylineTestData::m_Size, 3, ());
-  // LOG(LINFO, ("Polyline test size:", LargePolylineTestData::m_Size));
+  // This test provides information about the data set size.
+  TEST_EQUAL(LargePolylineTestData::m_Size, 5539, ());
 }
 
 UNIT_TEST(Simplification_DP_Smoke) { TestSimplificationSmoke(&SimplifyDP<DistanceFn>); }

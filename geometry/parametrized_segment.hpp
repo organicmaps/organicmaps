@@ -37,6 +37,7 @@ public:
       m_d = m_d / m_length;
   }
 
+  // Returns the squared (euclidean) distance from the segment to |p|.
   double SquaredDistanceToPoint(Point const & p) const
   {
     Point const diff = p - m_p0;
@@ -53,6 +54,7 @@ public:
     return std::pow(CrossProduct(diffD, m_d), 2.0);
   }
 
+  // Returns the point of the segment that is closest to |p|.
   m2::PointD ClosestPointTo(Point const & p) const
   {
     Point const diff = p - m_p0;
@@ -71,6 +73,7 @@ public:
   Point const & GetP0() const { return m_p0; }
   Point const & GetP1() const { return m_p1; }
 
+private:
   Point m_p0;
   Point m_p1;
   m2::PointD m_d;

@@ -98,7 +98,7 @@ public:
 
     for (size_t i = startIdx; i < endIdx; ++i)
     {
-      m2::PointD const pt = m_segProj[i].ClosestPointTo(currPos);
+      m2::PointD const & pt = m_segProj[i].ClosestPointTo(currPos);
 
       if (!posRect.IsPointInside(pt))
         continue;

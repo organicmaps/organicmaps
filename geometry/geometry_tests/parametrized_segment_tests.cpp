@@ -1,8 +1,12 @@
-#include "geometry/parametrized_segment.hpp"
-#include "geometry/point2d.hpp"
 #include "testing/testing.hpp"
 
-template <class Point>
+#include "geometry/parametrized_segment.hpp"
+#include "geometry/point2d.hpp"
+
+#include "base/macros.hpp"
+#include "base/math.hpp"
+
+template <typename Point>
 void FloatingPointsTest()
 {
   m2::ParametrizedSegment<Point> d(Point(-1, 3), Point(2, 1));
