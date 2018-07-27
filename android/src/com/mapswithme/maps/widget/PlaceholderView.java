@@ -25,11 +25,16 @@ import com.mapswithme.util.UiUtils;
 
 public class PlaceholderView extends LinearLayout
 {
-  @Nullable
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private ImageView mImage;
-  @Nullable
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private TextView mTitle;
-  @Nullable
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private TextView mSubtitle;
 
   private int mImgMaxHeight;
@@ -131,23 +136,23 @@ public class PlaceholderView extends LinearLayout
 
   private void setupDefaultContent()
   {
-    if (isDefaultValueValid(mImage, mImgSrcDefault))
+    if (isDefaultValueValid(mImgSrcDefault))
     {
       mImage.setImageResource(mImgSrcDefault);
     }
-    if (isDefaultValueValid(mTitle, mTitleResIdDefault))
+    if (isDefaultValueValid(mTitleResIdDefault))
     {
       mTitle.setText(mTitleResIdDefault);
     }
-    if (isDefaultValueValid(mSubtitle, mSubtitleResIdDefault))
+    if (isDefaultValueValid(mSubtitleResIdDefault))
     {
       mSubtitle.setText(mSubtitleResIdDefault);
     }
   }
 
-  private static boolean isDefaultValueValid(View view, int defaultResId)
+  private static boolean isDefaultValueValid(int defaultResId)
   {
-    return view != null && defaultResId != UiUtils.NO_ID;
+    return defaultResId != UiUtils.NO_ID;
   }
 
   @Override
@@ -210,11 +215,8 @@ public class PlaceholderView extends LinearLayout
   public void setContent(@DrawableRes int imageRes, @StringRes int titleRes,
                          @StringRes int subtitleRes)
   {
-    if (mImage != null)
-      mImage.setImageResource(imageRes);
-    if (mTitle != null)
-      mTitle.setText(titleRes);
-    if (mSubtitle != null)
-      mSubtitle.setText(subtitleRes);
+    mImage.setImageResource(imageRes);
+    mTitle.setText(titleRes);
+    mSubtitle.setText(subtitleRes);
   }
 }
