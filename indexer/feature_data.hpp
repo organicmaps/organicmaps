@@ -217,8 +217,8 @@ class FeatureParams : public FeatureParamsBase
   feature::AddressData m_addrTags;
 
 public:
-  using TTypes = vector<uint32_t>;
-  TTypes m_Types;
+  using Types = vector<uint32_t>;
+  Types m_Types;
 
   bool m_reverseGeometry;
 

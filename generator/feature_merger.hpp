@@ -11,7 +11,7 @@ class MergedFeatureBuilder1 : public FeatureBuilder1
 {
   bool m_isRound;
 
-  TPointSeq m_roundBounds[2];
+  PointSeq m_roundBounds[2];
 
 public:
   MergedFeatureBuilder1() : m_isRound(false) {}
@@ -41,7 +41,7 @@ public:
 
   template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const
   {
-    TPointSeq const & poly = GetOuterGeometry();
+    PointSeq const & poly = GetOuterGeometry();
     for (size_t i = 1; i < poly.size()-1; ++i)
       toDo(poly[i]);
   }

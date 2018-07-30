@@ -102,7 +102,7 @@ public:
     double constexpr kExtension = 0.01;
     ProcessState state = ProcessState::Initial;
 
-    FeatureBuilder1::TPointSeq points;
+    FeatureBuilder1::PointSeq points;
 
     for (size_t i = 0; i < line.size(); ++i)
     {

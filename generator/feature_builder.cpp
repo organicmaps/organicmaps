@@ -33,22 +33,22 @@ using namespace std;
 FeatureBuilder1::FeatureBuilder1()
 : m_coastCell(-1)
 {
-  m_polygons.push_back(TPointSeq());
+  m_polygons.push_back(PointSeq());
 }
 
 bool FeatureBuilder1::IsGeometryClosed() const
 {
-  TPointSeq const & poly = GetOuterGeometry();
+  PointSeq const & poly = GetOuterGeometry();
   return (poly.size() > 2 && poly.front() == poly.back());
 }
 
 m2::PointD FeatureBuilder1::GetGeometryCenter() const
 {
-  //TODO(govako): Check requirements in this assert
+  //TODO(vng): Check requirements in this assert
   //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 
-  TPointSeq const & poly = GetOuterGeometry();
+  PointSeq const & poly = GetOuterGeometry();
   size_t const count = poly.size();
   for (size_t i = 0; i < count; ++i)
     ret += poly[i];
@@ -112,17 +112,17 @@ void FeatureBuilder1::SetLinear(bool reverseGeometry)
   }
 }
 
-void FeatureBuilder1::SetAreaAddHoles(FeatureBuilder1::TGeometry const & holes)
+void FeatureBuilder1::SetAreaAddHoles(FeatureBuilder1::Geometry const & holes)
 {
   m_params.SetGeomType(GEOM_AREA);
   m_polygons.resize(1);
 
   if (holes.empty()) return;
 
-  TPointSeq const & poly = GetOuterGeometry();
+  PointSeq const & poly = GetOuterGeometry();
   m2::Region<m2::PointD> rgn(poly.begin(), poly.end());
 
-  for (TPointSeq const & points : holes)
+  for (PointSeq const & points : holes)
   {
     ASSERT ( !points.empty(), (*this) );
 
@@ -149,7 +149,7 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   CalcRect(poly, m_limitRect);
 
   if (!m_polygons.back().empty())
-    m_polygons.push_back(TPointSeq());
+    m_polygons.push_back(PointSeq());
 
   m_polygons.back().swap(poly);
 }
@@ -157,7 +157,7 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
 void FeatureBuilder1::ResetGeometry()
 {
   m_polygons.clear();
-  m_polygons.push_back(TPointSeq());
+  m_polygons.push_back(PointSeq());
   m_limitRect.MakeEmpty();
 }
 
@@ -353,16 +353,16 @@ bool FeatureBuilder1::CheckValid() const
     CHECK(GetOuterGeometry().size() >= 2, (*this));
 
   if (type == GEOM_AREA)
-    for (TPointSeq const & points : m_polygons)
+    for (PointSeq const & points : m_polygons)
       CHECK(points.size() >= 3, (*this));
 
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
+void FeatureBuilder1::SerializeBase(Buffer & data, serial::GeometryCodingParams const & params,
                                     bool saveAddInfo) const
 {
-  PushBackByteSink<TBuffer> sink(data);
+  PushBackByteSink<Buffer> sink(data);
 
   m_params.Write(sink, saveAddInfo);
 
@@ -370,7 +370,7 @@ void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams
     serial::SavePoint(sink, m_center, params);
 }
 
-void FeatureBuilder1::Serialize(TBuffer & data) const
+void FeatureBuilder1::Serialize(Buffer & data) const
 {
   CHECK ( CheckValid(), (*this) );
 
@@ -380,13 +380,13 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 
   SerializeBase(data, cp, true /* store additional info from FeatureParams */);
 
-  PushBackByteSink<TBuffer> sink(data);
+  PushBackByteSink<Buffer> sink(data);
 
   if (m_params.GetGeomType() != GEOM_POINT)
   {
     WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
 
-    for (TPointSeq const & points : m_polygons)
+    for (PointSeq const & points : m_polygons)
       serial::SaveOuterPath(points, cp, sink);
 
     WriteVarInt(sink, m_coastCell);
@@ -397,7 +397,7 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 
   // check for correct serialization
 #ifdef DEBUG
-  TBuffer tmp(data);
+  Buffer tmp(data);
   FeatureBuilder1 fb;
   fb.Deserialize(tmp);
   ASSERT ( fb == *this, ("Source feature: ", *this, "Deserialized feature: ", fb) );
@@ -405,11 +405,11 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 }
 
 void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & params,
-                                      TBuffer & data) const
+                                      Buffer & data) const
 {
   data.clear();
 
-  PushBackByteSink<TBuffer> sink(data);
+  PushBackByteSink<Buffer> sink(data);
   WriteToSink(sink, GetMostGenericOsmId().GetEncodedId());
 
   CHECK_GREATER(m_polygons.size(), 0, ());
@@ -430,7 +430,7 @@ void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & param
   }
 }
 
-void FeatureBuilder1::Deserialize(TBuffer & data)
+void FeatureBuilder1::Deserialize(Buffer & data)
 {
   serial::GeometryCodingParams cp;
 
@@ -453,7 +453,7 @@ void FeatureBuilder1::Deserialize(TBuffer & data)
 
     for (uint32_t i = 0; i < count; ++i)
     {
-      m_polygons.push_back(TPointSeq());
+      m_polygons.push_back(PointSeq());
       serial::LoadOuterPath(source, cp, m_polygons.back());
       CalcRect(m_polygons.back(), m_limitRect);
     }
@@ -605,7 +605,7 @@ bool FeatureBuilder2::PreSerialize(SupportingData const & data)
   }
 
   // we don't need empty features without geometry
-  return TBase::PreSerialize();
+  return Base::PreSerialize();
 }
 
 bool FeatureBuilder2::IsLocalityObject() const
@@ -619,7 +619,7 @@ void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const
 {
   data.m_buffer.clear();
 
-  PushBackByteSink<TBuffer> sink(data.m_buffer);
+  PushBackByteSink<Buffer> sink(data.m_buffer);
   WriteToSink(sink, GetMostGenericOsmId().GetEncodedId());
 
   auto const type = m_params.GetGeomType();
@@ -649,7 +649,7 @@ void FeatureBuilder2::Serialize(SupportingData & data,
   // header data serialization
   SerializeBase(data.m_buffer, params, false /* don't store additional info from FeatureParams*/);
 
-  PushBackByteSink<TBuffer> sink(data.m_buffer);
+  PushBackByteSink<Buffer> sink(data.m_buffer);
 
   uint8_t const ptsCount = base::asserted_cast<uint8_t>(data.m_innerPts.size());
   uint8_t trgCount = base::asserted_cast<uint8_t>(data.m_innerTrg.size());
@@ -662,7 +662,7 @@ void FeatureBuilder2::Serialize(SupportingData & data,
   EGeomType const type = m_params.GetGeomType();
 
   {
-    BitWriter<PushBackByteSink<TBuffer>> bitSink(sink);
+    BitWriter<PushBackByteSink<Buffer>> bitSink(sink);
 
     if (type == GEOM_LINE)
     {

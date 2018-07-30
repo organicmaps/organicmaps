@@ -620,7 +620,7 @@ namespace ftype
     bool noOneway = false;
 
     // Get a copy of source types, because we will modify params in the loop;
-    FeatureParams::TTypes const vTypes = params.m_Types;
+    FeatureParams::Types const vTypes = params.m_Types;
     for (size_t i = 0; i < vTypes.size(); ++i)
     {
       if (!highwayDone && types.IsHighway(vTypes[i]))

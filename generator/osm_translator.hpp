@@ -249,19 +249,19 @@ class OsmToFeatureTranslator
   class HolesAccumulator
   {
     AreaWayMerger<TCache> m_merger;
-    FeatureBuilder1::TGeometry m_holes;
+    FeatureBuilder1::Geometry m_holes;
 
   public:
     HolesAccumulator(OsmToFeatureTranslator * pMain) : m_merger(pMain->m_holder) {}
 
     void operator() (uint64_t id) { m_merger.AddWay(id); }
 
-    FeatureBuilder1::TGeometry & GetHoles()
+    FeatureBuilder1::Geometry & GetHoles()
     {
       ASSERT(m_holes.empty(), ("Can call only once"));
-      m_merger.ForEachArea(false, [this](FeatureBuilder1::TPointSeq & v, std::vector<uint64_t> const &)
+      m_merger.ForEachArea(false, [this](FeatureBuilder1::PointSeq & v, std::vector<uint64_t> const &)
       {
-        m_holes.push_back(FeatureBuilder1::TPointSeq());
+        m_holes.push_back(FeatureBuilder1::PointSeq());
         m_holes.back().swap(v);
       });
       return m_holes;
@@ -299,7 +299,7 @@ class OsmToFeatureTranslator
         m_holes(id);
     }
 
-    FeatureBuilder1::TGeometry & GetHoles() { return m_holes.GetHoles(); }
+    FeatureBuilder1::Geometry & GetHoles() { return m_holes.GetHoles(); }
   };
 
   bool ParseType(OsmElement * p, FeatureParams & params)
@@ -519,7 +519,7 @@ public:
         }
 
         auto const & holesGeometry = holes.GetHoles();
-        outer.ForEachArea(true, [&] (FeatureBuilder1::TPointSeq const & pts, std::vector<uint64_t> const & ids)
+        outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts, std::vector<uint64_t> const & ids)
         {
           FeatureBuilder1 ft;
 
