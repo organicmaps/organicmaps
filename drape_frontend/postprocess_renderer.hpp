@@ -61,28 +61,28 @@ private:
   bool CanRenderAntialiasing() const;
 
   dp::ApiVersion m_apiVersion;
-  uint32_t m_effects;
+  uint32_t m_effects = 0;
 
   drape_ptr<ScreenQuadRenderer> m_screenQuadRenderer;
   dp::FramebufferFallback m_framebufferFallback;
   drape_ptr<PostprocessStaticTextures> m_staticTextures;
-  uint32_t m_width;
-  uint32_t m_height;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
 
   drape_ptr<dp::Framebuffer> m_mainFramebuffer;
-  bool m_isMainFramebufferRendered;
+  bool m_isMainFramebufferRendered = false;
   drape_ptr<dp::Framebuffer> m_edgesFramebuffer;
   drape_ptr<dp::Framebuffer> m_blendingWeightFramebuffer;
   drape_ptr<dp::Framebuffer> m_smaaFramebuffer;
-  bool m_isSmaaFramebufferRendered;
+  bool m_isSmaaFramebufferRendered = false;
 
   drape_ptr<RendererContext> m_edgesRendererContext;
   drape_ptr<RendererContext> m_bwRendererContext;
   drape_ptr<RendererContext> m_smaaFinalRendererContext;
   drape_ptr<RendererContext> m_defaultScreenQuadContext;
 
-  bool m_frameStarted;
-  bool m_isRouteFollowingActive;
+  bool m_frameStarted = false;
+  bool m_isRouteFollowingActive = false;
 };
 
 class StencilWriterGuard

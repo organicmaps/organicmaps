@@ -15,13 +15,14 @@ public:
   class DepthStencil
   {
   public:
-    DepthStencil(bool stencilEnabled);
+    DepthStencil(bool depthEnabled, bool stencilEnabled);
     ~DepthStencil();
     void SetSize(uint32_t width, uint32_t height);
     void Destroy();
     uint32_t GetDepthAttachmentId() const;
     uint32_t GetStencilAttachmentId() const;
   private:
+    bool const m_depthEnabled = false;
     bool const m_stencilEnabled = false;
     uint32_t m_layout = 0;
     uint32_t m_pixelType = 0;
@@ -29,8 +30,8 @@ public:
   };
 
   Framebuffer();
-  Framebuffer(uint32_t colorFormat);
-  Framebuffer(uint32_t colorFormat, bool stencilEnabled);
+  explicit Framebuffer(uint32_t colorFormat);
+  Framebuffer(uint32_t colorFormat, bool depthEnabled, bool stencilEnabled);
   ~Framebuffer();
 
   void SetFramebufferFallback(FramebufferFallback && fallback);

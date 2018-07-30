@@ -178,10 +178,11 @@ private:
   gpu::ScreenQuadProgramParams m_params;
 };
 
-void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t width, uint32_t height)
+void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t width, uint32_t height,
+                     bool depthEnabled, bool stencilEnabled)
 {
   if (framebuffer == nullptr)
-    framebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, true /* stencilEnabled */);
+    framebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, depthEnabled, stencilEnabled);
   framebuffer->SetSize(width, height);
 }
 
@@ -202,17 +203,10 @@ bool IsSupported(drape_ptr<dp::Framebuffer> const & framebuffer)
 }  // namespace
 
 PostprocessRenderer::PostprocessRenderer()
-  : m_effects(0)
-  , m_width(0)
-  , m_height(0)
-  , m_isMainFramebufferRendered(false)
-  , m_isSmaaFramebufferRendered(false)
-  , m_edgesRendererContext(make_unique_dp<EdgesRendererContext>())
+  : m_edgesRendererContext(make_unique_dp<EdgesRendererContext>())
   , m_bwRendererContext(make_unique_dp<BlendingWeightRendererContext>())
   , m_smaaFinalRendererContext(make_unique_dp<SMAAFinalRendererContext>())
   , m_defaultScreenQuadContext(make_unique_dp<DefaultScreenQuadContext>())
-  , m_frameStarted(false)
-  , m_isRouteFollowingActive(false)
 {}
 
 PostprocessRenderer::~PostprocessRenderer()
@@ -427,19 +421,25 @@ void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
   ASSERT_NOT_EQUAL(width, 0, ());
   ASSERT_NOT_EQUAL(height, 0, ());
 
-  InitFramebuffer(m_mainFramebuffer, width, height);
+  InitFramebuffer(m_mainFramebuffer, width, height,
+                  true /* depthEnabled */,
+                  m_apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
   m_isMainFramebufferRendered = false;
 
   m_isSmaaFramebufferRendered = false;
   if (IsEffectEnabled(Effect::Antialiasing))
   {
+    CHECK(m_apiVersion != dp::ApiVersion::OpenGLES2, ());
+
     InitFramebuffer(m_edgesFramebuffer, gl_const::GLRedGreen,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
     InitFramebuffer(m_blendingWeightFramebuffer, gl_const::GLRGBA,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
-    InitFramebuffer(m_smaaFramebuffer, width, height);
+    InitFramebuffer(m_smaaFramebuffer, gl_const::GLRGBA,
+                    m_mainFramebuffer->GetDepthStencilRef(),
+                    width, height);
   }
   else
   {

@@ -7,18 +7,26 @@
 
 namespace dp
 {
-Framebuffer::DepthStencil::DepthStencil(bool stencilEnabled)
-  : m_stencilEnabled(stencilEnabled)
+Framebuffer::DepthStencil::DepthStencil(bool depthEnabled, bool stencilEnabled)
+  : m_depthEnabled(depthEnabled)
+  , m_stencilEnabled(stencilEnabled)
 {
-  if (m_stencilEnabled)
+  if (m_depthEnabled && m_stencilEnabled)
   {
+    // OpenGLES2 does not support texture-based depth-stencil.
+    CHECK(GLFunctions::CurrentApiVersion != dp::ApiVersion::OpenGLES2, ());
+
     m_layout = gl_const::GLDepthStencil;
     m_pixelType = gl_const::GLUnsignedInt24_8Type;
   }
-  else
+  else if (m_depthEnabled)
   {
     m_layout = gl_const::GLDepthComponent;
     m_pixelType = gl_const::GLUnsignedIntType;
+  }
+  else
+  {
+    CHECK(false, ("Unsupported depth-stencil combination."));
   }
 }
 
@@ -74,14 +82,17 @@ Framebuffer::Framebuffer(uint32_t colorFormat)
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::Framebuffer(uint32_t colorFormat, bool stencilEnabled)
-  : m_depthStencil(make_unique_dp<dp::Framebuffer::DepthStencil>(stencilEnabled))
+Framebuffer::Framebuffer(uint32_t colorFormat, bool depthEnabled, bool stencilEnabled)
+  : m_depthStencil(make_unique_dp<dp::Framebuffer::DepthStencil>(depthEnabled, stencilEnabled))
   , m_colorFormat(colorFormat)
 {
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::~Framebuffer() { Destroy(); }
+Framebuffer::~Framebuffer()
+{
+  Destroy();
+}
 
 void Framebuffer::Destroy()
 {
@@ -189,7 +200,10 @@ void Framebuffer::Disable()
     m_framebufferFallback();
 }
 
-uint32_t Framebuffer::GetTextureId() const { return m_colorTextureId; }
+uint32_t Framebuffer::GetTextureId() const
+{
+  return m_colorTextureId;
+}
 
 ref_ptr<Framebuffer::DepthStencil> Framebuffer::GetDepthStencilRef() const
 {

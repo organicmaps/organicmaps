@@ -1999,7 +1999,9 @@ void FrontendRenderer::OnContextCreate()
     m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
 #endif
 
-  m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, false /* stencilEnabled */);
+  m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA,
+                                                           true /* depthEnabled */,
+                                                           false /* stencilEnabled */);
   m_buildingsFramebuffer->SetFramebufferFallback([this]()
   {
     return m_postprocessRenderer->OnFramebufferFallback();
