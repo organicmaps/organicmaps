@@ -11,6 +11,11 @@ dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::OpenGLES2;
 
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
 
+void GLFunctions::Init(dp::ApiVersion apiVersion)
+{
+  MOCK_CALL(Init(apiVersion));
+}
+
 void GLFunctions::glFlush()
 {
 }
@@ -325,4 +330,34 @@ void GLFunctions::glStencilFuncSeparate(glConst face, glConst func, int ref, uin
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
 {
   return MOCK_CALL(glGetBufferParameter(target, name));
+}
+
+void GLFunctions::glCullFace(glConst face)
+{
+  MOCK_CALL(glCullFace(face));
+}
+
+void GLFunctions::glFrontFace(glConst mode)
+{
+  MOCK_CALL(glFrontFace(mode));
+}
+
+void GLFunctions::glDepthMask(bool needWriteToDepthBuffer)
+{
+  MOCK_CALL(glDepthMask(needWriteToDepthBuffer));
+}
+
+void GLFunctions::glClear(uint32_t clearBits)
+{
+  MOCK_CALL(glClear(clearBits));
+}
+
+void GLFunctions::glClearColor(float r, float g, float b, float a)
+{
+  MOCK_CALL(glClearColor(r, g, b, a));
+}
+
+void GLFunctions::glClearDepthValue(double depth)
+{
+  MOCK_CALL(glClearDepthValue(depth));
 }

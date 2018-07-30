@@ -577,15 +577,15 @@ void BackendRenderer::ReleaseResources()
   m_trafficGenerator.reset();
 
   m_texMng->Release();
-  m_contextFactory->getResourcesUploadContext()->doneCurrent();
+  m_contextFactory->GetResourcesUploadContext()->DoneCurrent();
 }
 
 void BackendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
-  dp::OGLContext * context = m_contextFactory->getResourcesUploadContext();
-  m_contextFactory->waitForInitialization(context);
-  context->makeCurrent();
+  auto context = m_contextFactory->GetResourcesUploadContext();
+  m_contextFactory->WaitForInitialization(context);
+  context->MakeCurrent();
 
   GLFunctions::Init(m_apiVersion);
 
@@ -603,7 +603,7 @@ void BackendRenderer::OnContextDestroy()
   m_overlays.clear();
   m_trafficGenerator->ClearGLDependentResources();
 
-  m_contextFactory->getResourcesUploadContext()->doneCurrent();
+  m_contextFactory->GetResourcesUploadContext()->DoneCurrent();
 }
 
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
@@ -612,10 +612,10 @@ void BackendRenderer::Routine::Do()
 {
   LOG(LINFO, ("Start routine."));
   m_renderer.OnContextCreate();
-  dp::OGLContext * context = m_renderer.m_contextFactory->getResourcesUploadContext();
+  dp::GraphicContext * context = m_renderer.m_contextFactory->GetResourcesUploadContext();
   while (!IsCancelled())
   {
-    if (context->validate())
+    if (context->Validate())
       m_renderer.ProcessSingleMessage();
     m_renderer.CheckRenderingEnabled();
   }

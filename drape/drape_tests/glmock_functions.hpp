@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
 #include "drape/glconstants.hpp"
 #include "std/string.hpp"
 
@@ -15,6 +16,8 @@ public:
   static void Teardown();
   static GLMockFunctions & Instance();
   static void ValidateAndClear();
+
+  MOCK_METHOD1(Init, void(dp::ApiVersion));
 
   // VAO
   MOCK_METHOD0(glGenVertexArray, uint32_t());
@@ -94,6 +97,15 @@ public:
   MOCK_METHOD1(glDeleteFramebuffer, void(uint32_t * fbo));
   MOCK_METHOD2(glFramebufferTexture2D, void(glConst attachment, glConst texture));
   MOCK_METHOD0(glCheckFramebufferStatus, uint32_t());
+
+  MOCK_METHOD1(glCullFace, void(glConst));
+  MOCK_METHOD1(glFrontFace, void(glConst));
+
+  MOCK_METHOD1(glDepthMask, void(bool));
+
+  MOCK_METHOD1(glClear, void(uint32_t));
+  MOCK_METHOD4(glClearColor, void(float, float, float, float));
+  MOCK_METHOD1(glClearDepthValue, void(double));
 
 private:
   static GLMockFunctions * m_mock;

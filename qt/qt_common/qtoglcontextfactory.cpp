@@ -32,29 +32,29 @@ bool QtOGLContextFactory::LockFrame()
   if (m_preparedToShutdown || !m_drawContext)
     return false;
 
-  m_drawContext->lockFrame();
+  m_drawContext->LockFrame();
   return true;
 }
 
 QRectF const & QtOGLContextFactory::GetTexRect() const
 {
   ASSERT(m_drawContext != nullptr, ());
-  return m_drawContext->getTexRect();
+  return m_drawContext->GetTexRect();
 }
 
 GLuint QtOGLContextFactory::GetTextureHandle() const
 {
   ASSERT(m_drawContext != nullptr, ());
-  return m_drawContext->getTextureHandle();
+  return m_drawContext->GetTextureHandle();
 }
 
 void QtOGLContextFactory::UnlockFrame()
 {
   ASSERT(m_drawContext != nullptr, ());
-  m_drawContext->unlockFrame();
+  m_drawContext->UnlockFrame();
 }
 
-dp::OGLContext * QtOGLContextFactory::getDrawContext()
+dp::GraphicContext * QtOGLContextFactory::GetDrawContext()
 {
   if (!m_drawContext)
     m_drawContext = my::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
@@ -62,7 +62,7 @@ dp::OGLContext * QtOGLContextFactory::getDrawContext()
   return m_drawContext.get();
 }
 
-dp::OGLContext * QtOGLContextFactory::getResourcesUploadContext()
+dp::GraphicContext * QtOGLContextFactory::GetResourcesUploadContext()
 {
   if (!m_uploadContext)
     m_uploadContext = my::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());

@@ -4,7 +4,7 @@
 #include "drape_frontend/threads_commutator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "drape/oglcontextfactory.hpp"
+#include "drape/graphic_context_factory.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/thread.hpp"
@@ -25,7 +25,7 @@ public:
   {
     Params(dp::ApiVersion apiVersion,
            ref_ptr<ThreadsCommutator> commutator,
-           ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<dp::GraphicContextFactory> factory,
            ref_ptr<dp::TextureManager> texMng)
       : m_apiVersion(apiVersion)
       , m_commutator(commutator)
@@ -36,7 +36,7 @@ public:
 
     dp::ApiVersion m_apiVersion;
     ref_ptr<ThreadsCommutator> m_commutator;
-    ref_ptr<dp::OGLContextFactory> m_oglContextFactory;
+    ref_ptr<dp::GraphicContextFactory> m_oglContextFactory;
     ref_ptr<dp::TextureManager> m_texMng;
   };
 
@@ -44,7 +44,7 @@ public:
 
   bool CanReceiveMessages();
 
-  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory);
+  void SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory);
   void SetRenderingDisabled(bool const destroyContext);
 
   bool IsRenderingEnabled() const;
@@ -52,7 +52,7 @@ public:
 protected:
   dp::ApiVersion m_apiVersion;
   ref_ptr<ThreadsCommutator> m_commutator;
-  ref_ptr<dp::OGLContextFactory> m_contextFactory;
+  ref_ptr<dp::GraphicContextFactory> m_contextFactory;
   ref_ptr<dp::TextureManager> m_texMng;
 
   void StartThread();

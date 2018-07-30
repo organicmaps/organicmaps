@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/oglcontextfactory.hpp"
+#include "drape/graphic_context_factory.hpp"
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include <QtGui/QOpenGLContext>
@@ -12,7 +12,7 @@ namespace qt
 {
 namespace common
 {
-class QtOGLContextFactory : public dp::OGLContextFactory
+class QtOGLContextFactory : public dp::GraphicContextFactory
 {
 public:
   QtOGLContextFactory(QOpenGLContext * rootContext);
@@ -25,11 +25,11 @@ public:
   QRectF const & GetTexRect() const;
   void UnlockFrame();
 
-  // dp::OGLContextFactory overrides:
-  dp::OGLContext * getDrawContext() override;
-  dp::OGLContext * getResourcesUploadContext() override;
-  bool isDrawContextCreated() const override { return m_drawContext != nullptr; }
-  bool isUploadContextCreated() const override { return m_uploadContext != nullptr; }
+  // dp::GraphicContextFactory overrides:
+  dp::GraphicContext * GetDrawContext() override;
+  dp::GraphicContext * GetResourcesUploadContext() override;
+  bool IsDrawContextCreated() const override { return m_drawContext != nullptr; }
+  bool IsUploadContextCreated() const override { return m_uploadContext != nullptr; }
 
 private:
   std::unique_ptr<QOffscreenSurface> CreateSurface();

@@ -63,6 +63,9 @@ set(
   ${DRAPE_ROOT}/gpu_buffer.hpp
   ${DRAPE_ROOT}/gpu_program.cpp
   ${DRAPE_ROOT}/gpu_program.hpp
+  ${DRAPE_ROOT}/graphic_context.hpp
+  ${DRAPE_ROOT}/graphic_context_factory.cpp
+  ${DRAPE_ROOT}/graphic_context_factory.hpp
   ${DRAPE_ROOT}/hw_texture.cpp
   ${DRAPE_ROOT}/hw_texture.hpp
   ${DRAPE_ROOT}/index_buffer.cpp
@@ -72,9 +75,8 @@ set(
   ${DRAPE_ROOT}/index_storage.cpp
   ${DRAPE_ROOT}/index_storage.hpp
   ${DRAPE_ROOT}/object_pool.hpp
+  ${DRAPE_ROOT}/oglcontext.cpp
   ${DRAPE_ROOT}/oglcontext.hpp
-  ${DRAPE_ROOT}/oglcontextfactory.cpp
-  ${DRAPE_ROOT}/oglcontextfactory.hpp
   ${DRAPE_ROOT}/overlay_handle.cpp
   ${DRAPE_ROOT}/overlay_handle.hpp
   ${DRAPE_ROOT}/overlay_tree.cpp

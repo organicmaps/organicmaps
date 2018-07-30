@@ -1038,7 +1038,7 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
 
   if (viewportChanged || m_needRestoreSize)
   {
-    m_contextFactory->getDrawContext()->resize(sx, sy);
+    m_contextFactory->GetDrawContext()->Resize(sx, sy);
     m_buildingsFramebuffer->SetSize(sx, sy);
     m_postprocessRenderer->Resize(sx, sy);
     m_needRestoreSize = false;
@@ -1223,11 +1223,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   DrapeMeasurer::Instance().BeforeRenderFrame();
 #endif
 
+  auto context = m_contextFactory->GetDrawContext();
+
   if (m_postprocessRenderer->BeginFrame(activeFrame))
   {
     m_viewport.Apply();
     RefreshBgColor();
-    GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit | gl_const::GLStencilBit);
+    context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit | dp::ClearBits::StencilBit);
 
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, RenderState::UserLineLayer);
@@ -1247,7 +1249,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
         RenderRouteLayer(modelView);
     }
 
-    GLFunctions::glClear(gl_const::GLDepthBit);
+    context->Clear(dp::ClearBits::DepthBit);
 
     if (m_selectionShape != nullptr)
     {
@@ -1336,17 +1338,18 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   if (layer.m_renderGroups.empty())
     return;
 
+  auto context = m_contextFactory->GetDrawContext();
   float const kOpacity = 0.7f;
   if (useFramebuffer)
   {
     ASSERT(m_buildingsFramebuffer->IsSupported(), ());
     m_buildingsFramebuffer->Enable();
-    GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    GLFunctions::glClear(gl_const::GLColorBit | gl_const::GLDepthBit);
+    context->SetClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit);
   }
   else
   {
-    GLFunctions::glClear(gl_const::GLDepthBit);
+    context->Clear(dp::ClearBits::DepthBit);
   }
 
   layer.Sort(make_ref(m_overlayTree));
@@ -1395,7 +1398,7 @@ bool FrontendRenderer::HasRouteData() const
 
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
@@ -1406,7 +1409,7 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
   if (m_trafficRenderer->HasRenderData())
   {
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
@@ -1438,7 +1441,7 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   if (HasTransitRouteData())
     RenderTransitBackground();
 
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
                                make_ref(m_gpuProgramManager), m_frameValues);
 }
@@ -1449,7 +1452,7 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, Render
   if (renderGroups.empty())
     return;
 
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
@@ -1467,19 +1470,20 @@ void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
   RenderUserMarksLayer(modelView, RenderState::SearchMarkLayer);
 }
 
-void FrontendRenderer::RenderEmptyFrame(dp::OGLContext * context)
+void FrontendRenderer::RenderEmptyFrame()
 {
-  if (!context->validate())
+  auto context = m_contextFactory->GetDrawContext();
+  if (!context->Validate())
     return;
 
-  context->setDefaultFramebuffer();
+  context->SetDefaultFramebuffer();
 
   auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 0);
-  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  context->SetClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
   m_viewport.Apply();
-  GLFunctions::glClear(gl_const::GLColorBit);
+  context->Clear(dp::ClearBits::ColorBit);
 
-  context->present();
+  context->Present();
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -1617,7 +1621,7 @@ void FrontendRenderer::RefreshBgColor()
                               scales::GetUpperStyleScale());
   auto const color = drule::rules().GetBgColor(scale);
   auto const c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
-  GLFunctions::glClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  m_contextFactory->GetDrawContext()->SetClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
 }
 
 void FrontendRenderer::DisablePerspective()
@@ -1929,7 +1933,8 @@ void FrontendRenderer::OnContextDestroy()
   dp::DebugRectRenderer::Instance().Destroy();
 
   m_gpuProgramManager.reset();
-  m_contextFactory->getDrawContext()->doneCurrent();
+
+  m_contextFactory->GetDrawContext()->DoneCurrent();
 
   m_needRestoreSize = true;
   m_firstTilesReady = false;
@@ -1942,26 +1947,17 @@ void FrontendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
 
-  dp::OGLContext * context = m_contextFactory->getDrawContext();
-  m_contextFactory->waitForInitialization(context);
+  auto context = m_contextFactory->GetDrawContext();
+  m_contextFactory->WaitForInitialization(context);
 
-  context->makeCurrent();
+  context->MakeCurrent();
 
-  GLFunctions::Init(m_apiVersion);
+  context->SetApiVersion(m_apiVersion);
 
   // Render empty frame here to avoid black initialization screen.
-  RenderEmptyFrame(context);
+  RenderEmptyFrame();
 
-  GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
-
-  GLFunctions::glClearDepthValue(1.0);
-  GLFunctions::glDepthFunc(gl_const::GLLessOrEqual);
-  GLFunctions::glDepthMask(true);
-
-  GLFunctions::glFrontFace(gl_const::GLClockwise);
-  GLFunctions::glCullFace(gl_const::GLBack);
-  GLFunctions::glEnable(gl_const::GLCullFace);
-  GLFunctions::glEnable(gl_const::GLScissorTest);
+  context->Init();
 
   dp::SupportManager::Instance().Init();
 
@@ -1989,9 +1985,9 @@ void FrontendRenderer::OnContextCreate()
 
   m_postprocessRenderer->Init(m_apiVersion, [context]()
   {
-    if (!context->validate())
+    if (!context->Validate())
       return false;
-    context->setDefaultFramebuffer();
+    context->SetDefaultFramebuffer();
     return true;
   });
 #ifndef OMIM_OS_IPHONE_SIMULATOR
@@ -2030,7 +2026,7 @@ void FrontendRenderer::Routine::Do()
   bool forceFullRedrawNextFrame = false;
   uint32_t constexpr kMaxInactiveFrames = 2;
 
-  dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
+  auto context = m_renderer.m_contextFactory->GetDrawContext();
 
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
 #ifdef DEBUG
@@ -2052,7 +2048,7 @@ void FrontendRenderer::Routine::Do()
 
   while (!IsCancelled())
   {
-    if (context->validate())
+    if (context->Validate())
     {
       timer.Reset();
 
@@ -2133,7 +2129,7 @@ void FrontendRenderer::Routine::Do()
         while (availableTime > 0.0);
       }
 
-      context->present();
+      context->Present();
 
       // Limit fps in following mode.
       double constexpr kFrameTime = 1.0 / 30.0;
@@ -2177,7 +2173,7 @@ void FrontendRenderer::ReleaseResources()
   m_transitBackground.reset();
 
   m_gpuProgramManager.reset();
-  m_contextFactory->getDrawContext()->doneCurrent();
+  m_contextFactory->GetDrawContext()->DoneCurrent();
 }
 
 void FrontendRenderer::AddUserEvent(drape_ptr<UserEvent> && event)

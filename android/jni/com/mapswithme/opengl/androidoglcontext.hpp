@@ -14,18 +14,18 @@ public:
                     EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 
-  void makeCurrent() override;
-  void doneCurrent() override;
-  void present() override;
-  void setDefaultFramebuffer() override;
-  void setRenderingEnabled(bool enabled) override;
-  void setPresentAvailable(bool available) override;
-  bool validate() override;
+  void MakeCurrent() override;
+  void DoneCurrent() override;
+  void Present() override;
+  void SetDefaultFramebuffer() override;
+  void SetRenderingEnabled(bool enabled) override;
+  void SetPresentAvailable(bool available) override;
+  bool Validate() override;
 
-  void setSurface(EGLSurface surface);
-  void resetSurface();
+  void SetSurface(EGLSurface surface);
+  void ResetSurface();
 
-  void clearCurrent();
+  void ClearCurrent();
 
 private:
   // {@ Owned by Context

@@ -198,7 +198,7 @@ void Framework::DetachSurface(bool destroyContext)
 {
   LOG(LINFO, ("Detach surface started. destroyContext =", destroyContext));
   ASSERT(m_contextFactory != nullptr, ());
-  m_contextFactory->setPresentAvailable(false);
+  m_contextFactory->SetPresentAvailable(false);
 
   if (destroyContext)
   {
@@ -230,7 +230,7 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
 
-  m_contextFactory->setPresentAvailable(true);
+  m_contextFactory->SetPresentAvailable(true);
   m_work.SetRenderingEnabled(factory);
 
   if (m_isContextDestroyed)
@@ -252,7 +252,7 @@ void Framework::PauseSurfaceRendering()
   if (m_contextFactory == nullptr)
     return;
   LOG(LINFO, ("Pause surface rendering."));
-  m_contextFactory->setPresentAvailable(false);
+  m_contextFactory->SetPresentAvailable(false);
 }
 
 void Framework::ResumeSurfaceRendering()
@@ -262,7 +262,7 @@ void Framework::ResumeSurfaceRendering()
   LOG(LINFO, ("Resume surface rendering."));
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   if (factory->IsValid())
-    m_contextFactory->setPresentAvailable(true);
+    m_contextFactory->SetPresentAvailable(true);
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)

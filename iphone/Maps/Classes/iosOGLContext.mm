@@ -35,24 +35,24 @@ iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
 
 iosOGLContext::~iosOGLContext()
 {
-  destroyBuffers();
+  DestroyBuffers();
 }
 
-void iosOGLContext::makeCurrent()
+void iosOGLContext::MakeCurrent()
 {
   ASSERT(m_nativeContext != NULL, ());
   [EAGLContext setCurrentContext: m_nativeContext];
 
   if (m_needBuffers && !m_hasBuffers)
-    initBuffers();
+    InitBuffers();
 }
 
-void iosOGLContext::setPresentAvailable(bool available)
+void iosOGLContext::SetPresentAvailable(bool available)
 {
   m_presentAvailable = available;
 }
 
-void iosOGLContext::present()
+void iosOGLContext::Present()
 {
   ASSERT(m_nativeContext != NULL, ());
   ASSERT(m_renderBufferId, ());
@@ -73,13 +73,13 @@ void iosOGLContext::present()
     GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards + 1));
 }
 
-void iosOGLContext::setDefaultFramebuffer()
+void iosOGLContext::SetDefaultFramebuffer()
 {
   ASSERT(m_frameBufferId, ());
   glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
 }
 
-void iosOGLContext::resize(int w, int h)
+void iosOGLContext::Resize(int w, int h)
 {
   if (m_needBuffers && m_hasBuffers)
   {
@@ -90,12 +90,12 @@ void iosOGLContext::resize(int w, int h)
     if (width == w && height == h)
       return;
 
-    destroyBuffers();
-    initBuffers();
+    DestroyBuffers();
+    InitBuffers();
   }
 }
 
-void iosOGLContext::initBuffers()
+void iosOGLContext::InitBuffers()
 {
   ASSERT(m_needBuffers, ());
 
@@ -134,7 +134,7 @@ void iosOGLContext::initBuffers()
   }
 }
 
-void iosOGLContext::destroyBuffers()
+void iosOGLContext::DestroyBuffers()
 {
   if (m_needBuffers && m_hasBuffers)
   {

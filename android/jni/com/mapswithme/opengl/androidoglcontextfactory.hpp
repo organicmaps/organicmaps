@@ -2,7 +2,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
-#include "drape/oglcontextfactory.hpp"
+#include "drape/graphic_context_factory.hpp"
 
 #include "base/src_point.hpp"
 
@@ -11,7 +11,7 @@
 
 namespace android
 {
-class AndroidOGLContextFactory : public dp::OGLContextFactory
+class AndroidOGLContextFactory : public dp::GraphicContextFactory
 {
 public:
   AndroidOGLContextFactory(JNIEnv * env, jobject jsurface);
@@ -19,12 +19,12 @@ public:
 
   bool IsValid() const;
 
-  dp::OGLContext * getDrawContext() override;
-  dp::OGLContext * getResourcesUploadContext() override;
-  bool isDrawContextCreated() const override;
-  bool isUploadContextCreated() const override;
-  void waitForInitialization(dp::OGLContext * context) override;
-  void setPresentAvailable(bool available) override;
+  dp::GraphicContext * GetDrawContext() override;
+  dp::GraphicContext * GetResourcesUploadContext() override;
+  bool IsDrawContextCreated() const override;
+  bool IsUploadContextCreated() const override;
+  void WaitForInitialization(dp::GraphicContext * context) override;
+  void SetPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);
   void ResetSurface();
@@ -39,8 +39,8 @@ private:
   bool QuerySurfaceSize();
 
 private:
-  bool createWindowSurface();
-  bool createPixelbufferSurface();
+  bool CreateWindowSurface();
+  bool CreatePixelbufferSurface();
 
   AndroidOGLContext * m_drawContext;
   AndroidOGLContext * m_uploadContext;

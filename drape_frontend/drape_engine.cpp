@@ -344,7 +344,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
   }
 }
 
-void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
+void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory)
 {
   m_backend->SetRenderingEnabled(contextFactory);
   m_frontend->SetRenderingEnabled(contextFactory);

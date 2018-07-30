@@ -18,37 +18,37 @@ iosOGLContextFactory::~iosOGLContextFactory()
   delete m_uploadContext;
 }
 
-dp::OGLContext * iosOGLContextFactory::getDrawContext()
+dp::GraphicContext * iosOGLContextFactory::GetDrawContext()
 {
   if (m_drawContext == nullptr)
     m_drawContext = new iosOGLContext(m_layer, m_apiVersion, m_uploadContext, true);
   return m_drawContext;
 }
 
-dp::OGLContext * iosOGLContextFactory::getResourcesUploadContext()
+dp::GraphicContext * iosOGLContextFactory::GetResourcesUploadContext()
 {
   if (m_uploadContext == nullptr)
     m_uploadContext = new iosOGLContext(m_layer, m_apiVersion, m_drawContext, false);
   return m_uploadContext;
 }
 
-bool iosOGLContextFactory::isDrawContextCreated() const
+bool iosOGLContextFactory::IsDrawContextCreated() const
 {
   return m_drawContext != nullptr;
 }
 
-bool iosOGLContextFactory::isUploadContextCreated() const
+bool iosOGLContextFactory::IsUploadContextCreated() const
 {
   return m_uploadContext != nullptr;
 }
 
-void iosOGLContextFactory::setPresentAvailable(bool available)
+void iosOGLContextFactory::SetPresentAvailable(bool available)
 {
   lock_guard<mutex> lock(m_initializationMutex);
   m_presentAvailable = available;
   if (m_isInitialized)
   {
-    m_drawContext->setPresentAvailable(m_presentAvailable);
+    m_drawContext->SetPresentAvailable(m_presentAvailable);
   }
   else if (m_initializationCounter >= kGLThreadsCount && m_presentAvailable)
   {
@@ -57,7 +57,7 @@ void iosOGLContextFactory::setPresentAvailable(bool available)
   }
 }
 
-void iosOGLContextFactory::waitForInitialization(dp::OGLContext * context)
+void iosOGLContextFactory::WaitForInitialization(dp::GraphicContext * context)
 {
   unique_lock<mutex> lock(m_initializationMutex);
   if (!m_isInitialized)
@@ -74,6 +74,6 @@ void iosOGLContextFactory::waitForInitialization(dp::OGLContext * context)
     }
   }
 
-  if (m_drawContext == context)
-    m_drawContext->setPresentAvailable(m_presentAvailable);
+  if (static_cast<dp::GraphicContext*>(m_drawContext) == context)
+    m_drawContext->SetPresentAvailable(m_presentAvailable);
 }

@@ -40,7 +40,7 @@ void BaseRenderer::StopThread()
   m_selfThread.Join();
 }
 
-void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
+void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory)
 {
   if (m_wasContextReset && contextFactory != nullptr)
     m_contextFactory = contextFactory;
@@ -107,7 +107,7 @@ void BaseRenderer::CheckRenderingEnabled()
 {
   if (!m_isEnabled)
   {
-    dp::OGLContext * context = nullptr;
+    dp::GraphicContext * context = nullptr;
 
     if (m_wasContextReset)
     {
@@ -118,9 +118,9 @@ void BaseRenderer::CheckRenderingEnabled()
     else
     {
       bool const isDrawContext = m_threadName == ThreadsCommutator::RenderThread;
-      context = isDrawContext ? m_contextFactory->getDrawContext() :
-                                m_contextFactory->getResourcesUploadContext();
-      context->setRenderingEnabled(false);
+      context = isDrawContext ? m_contextFactory->GetDrawContext() :
+                                m_contextFactory->GetResourcesUploadContext();
+      context->SetRenderingEnabled(false);
     }
 
     // notify initiator-thread about rendering disabling
@@ -145,7 +145,7 @@ void BaseRenderer::CheckRenderingEnabled()
       }
       else
       {
-        context->setRenderingEnabled(true);
+        context->SetRenderingEnabled(true);
       }
     }
     // notify initiator-thread about rendering enabling

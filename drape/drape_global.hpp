@@ -1,6 +1,6 @@
 #pragma once
 
-#include "color.hpp"
+#include "drape/color.hpp"
 
 #include "geometry/point2d.hpp"
 

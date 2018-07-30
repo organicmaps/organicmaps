@@ -37,7 +37,7 @@
 namespace dp
 {
 class GlyphGenerator;
-class OGLContextFactory;
+class GraphicContextFactory;
 }  // namespace dp
 
 namespace df
@@ -51,7 +51,7 @@ public:
   struct Params
   {
     Params(dp::ApiVersion apiVersion,
-           ref_ptr<dp::OGLContextFactory> factory,
+           ref_ptr<dp::GraphicContextFactory> factory,
            dp::Viewport const & viewport,
            MapDataProvider const & model,
            Hints const & hints,
@@ -93,7 +93,7 @@ public:
     {}
 
     dp::ApiVersion m_apiVersion;
-    ref_ptr<dp::OGLContextFactory> m_factory;
+    ref_ptr<dp::GraphicContextFactory> m_factory;
     dp::Viewport m_viewport;
     MapDataProvider m_model;
     Hints m_hints;
@@ -141,7 +141,7 @@ public:
   void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
   void InvalidateUserMarks();
 
-  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
+  void SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool const destroyContext);
   void InvalidateRect(m2::RectD const & rect);
   void UpdateMapStyle();

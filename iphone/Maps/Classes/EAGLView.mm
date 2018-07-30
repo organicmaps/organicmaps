@@ -174,7 +174,7 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)setPresentAvailable:(BOOL)available
 {
-  m_factory->setPresentAvailable(available);
+  m_factory->SetPresentAvailable(available);
 }
 
 - (MWMMapWidgets *)widgetsManager

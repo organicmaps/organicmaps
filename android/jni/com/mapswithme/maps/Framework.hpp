@@ -12,7 +12,7 @@
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape/pointers.hpp"
-#include "drape/oglcontextfactory.hpp"
+#include "drape/graphic_context_factory.hpp"
 
 #include "local_ads/event.hpp"
 

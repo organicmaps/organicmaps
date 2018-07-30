@@ -1698,7 +1698,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
   return (d < 25000.0);
 }
 
-void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params)
+void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](df::MapDataProvider::TReadCallback<FeatureID const> const & fn,
                          m2::RectD const & r,
@@ -1862,7 +1862,7 @@ void Framework::DestroyDrapeEngine()
   }
 }
 
-void Framework::SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory)
+void Framework::SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory)
 {
   m_isRenderingEnabled = true;
   if (m_drapeEngine)

@@ -19,16 +19,16 @@ public:
   QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
 
   // dp::OGLContext overrides:
-  void present() override;
-  void makeCurrent() override;
-  void doneCurrent() override;
-  void setDefaultFramebuffer() override;
-  void resize(int w, int h) override;
+  void Present() override;
+  void MakeCurrent() override;
+  void DoneCurrent() override;
+  void SetDefaultFramebuffer() override;
+  void Resize(int w, int h) override;
 
-  void lockFrame();
-  GLuint getTextureHandle() const;
-  QRectF const & getTexRect() const;
-  void unlockFrame();
+  void LockFrame();
+  GLuint GetTextureHandle() const;
+  QRectF const & GetTexRect() const;
+  void UnlockFrame();
 
 private:
   QOffscreenSurface * m_surface = nullptr;
@@ -48,10 +48,10 @@ public:
   QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
 
   // dp::OGLContext overrides:
-  void present() override;
-  void makeCurrent() override;
-  void doneCurrent() override;
-  void setDefaultFramebuffer() override;
+  void Present() override;
+  void MakeCurrent() override;
+  void DoneCurrent() override;
+  void SetDefaultFramebuffer() override;
 
 private:
   QOffscreenSurface * m_surface = nullptr;  // non-owning ptr

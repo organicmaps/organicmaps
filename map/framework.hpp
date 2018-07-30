@@ -25,7 +25,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "drape/oglcontextfactory.hpp"
+#include "drape/graphic_context_factory.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -471,12 +471,12 @@ public:
     df::Hints m_hints;
   };
 
-  void CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory, DrapeCreationParams && params);
+  void CreateDrapeEngine(ref_ptr<dp::GraphicContextFactory> contextFactory, DrapeCreationParams && params);
   ref_ptr<df::DrapeEngine> GetDrapeEngine();
   bool IsDrapeEngineCreated() const { return m_drapeEngine != nullptr; }
   void DestroyDrapeEngine();
   /// Called when graphics engine should be temporarily paused and then resumed.
-  void SetRenderingEnabled(ref_ptr<dp::OGLContextFactory> contextFactory = nullptr);
+  void SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool destroyContext);
 
   void OnRecoverGLContext(int width, int height);

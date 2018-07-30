@@ -15,19 +15,19 @@ public:
                 iosOGLContext * contextToShareWith, bool needBuffers = false);
   ~iosOGLContext();
 
-  void makeCurrent() override;
-  void present() override;
-  void setDefaultFramebuffer() override;
-  void resize(int w, int h) override;
-  void setPresentAvailable(bool available) override;
+  void MakeCurrent() override;
+  void Present() override;
+  void SetDefaultFramebuffer() override;
+  void Resize(int w, int h) override;
+  void SetPresentAvailable(bool available) override;
 
 private:
   dp::ApiVersion m_apiVersion;
   CAEAGLLayer * m_layer;
   EAGLContext * m_nativeContext;
 
-  void initBuffers();
-  void destroyBuffers();
+  void InitBuffers();
+  void DestroyBuffers();
 
   //{@ Buffers
   bool m_needBuffers;
