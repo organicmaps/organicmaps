@@ -13,6 +13,8 @@
     android:layout_alignParentEnd="true"
     android:layout_marginLeft="@dimen/margin_half"
     android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginRight="@dimen/margin_half_plus"
+    android:layout_marginEnd="@dimen/margin_half_plus"
     android:textSize="@dimen/text_size_body_4"
     android:textColor="?android:textColorSecondary"
     android:textAllCaps="true"
@@ -29,6 +31,9 @@
     android:layout_height="wrap_content"
     android:layout_toLeftOf="@id/tv__action_small"
     android:layout_toStartOf="@id/tv__action_small"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginRight="@dimen/margin_half_plus"
+    android:layout_marginTop="@dimen/margin_half"
     android:layout_marginBottom="@dimen/margin_half">
     <ImageView
       android:id="@+id/iv__banner_icon"
@@ -97,6 +102,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/placepage_banner_button_height"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginRight="@dimen/margin_half_plus"
     android:layout_below="@id/data_frame"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textAllCaps="true"

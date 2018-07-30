@@ -8,11 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/placepage_banner_height"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingStart="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_half_plus"
-    android:paddingEnd="@dimen/margin_half_plus"
-    android:paddingTop="@dimen/margin_half"
+    android:paddingLeft="@dimen/margin_quarter"
+    android:paddingStart="@dimen/margin_quarter"
     android:background="?bannerBackground"
     android:clipToPadding="false">
     <include layout="@layout/place_page_banner_layout"/>

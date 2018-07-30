@@ -5,9 +5,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/placepage_banner_height"
-  android:paddingLeft="@dimen/margin_half_plus"
-  android:paddingRight="@dimen/margin_half_plus"
-  android:paddingTop="@dimen/margin_half"
   android:background="?bannerBackground"
   android:clipToPadding="false"
   tools:layout_height="wrap_content">
