@@ -20,6 +20,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <map>
 #include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
@@ -216,7 +217,8 @@ void Storage::Load()
   if (data.empty())
   {
     ASSERT(false, ());
-    alohalytics::Stats::Instance().LogEvent("UGC_File_error", {{"error", "empty index file"}});
+    map<string, string> const stat = {{"error", "empty index file"}};
+    alohalytics::Stats::Instance().LogEvent("UGC_File_error", stat);
     return;
   }
 
