@@ -6,11 +6,12 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "std/map.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <map>
+#include <string>
+#include <vector>
 
 using namespace platform;
+using namespace std;
 
 namespace
 {

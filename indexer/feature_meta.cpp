@@ -1,11 +1,11 @@
 #include "indexer/feature_meta.hpp"
 
-#include "std/algorithm.hpp"
 #include "std/target_os.hpp"
+
+using namespace std;
 
 namespace feature
 {
-
 namespace
 {
 char constexpr const * kBaseWikiUrl =

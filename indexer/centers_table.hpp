@@ -4,9 +4,9 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 class FilesContainerR;
 class Reader;
@@ -53,8 +53,8 @@ public:
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // CentersTable can't be loaded.
-  static unique_ptr<CentersTable> Load(Reader & reader,
-                                       serial::GeometryCodingParams const & codingParams);
+  static std::unique_ptr<CentersTable> Load(Reader & reader,
+                                            serial::GeometryCodingParams const & codingParams);
 
 private:
   virtual bool Init() = 0;
@@ -74,7 +74,7 @@ public:
 private:
   serial::GeometryCodingParams m_codingParams;
 
-  vector<m2::PointU> m_centers;
-  vector<uint32_t> m_ids;
+  std::vector<m2::PointU> m_centers;
+  std::vector<uint32_t> m_ids;
 };
 }  // namespace search

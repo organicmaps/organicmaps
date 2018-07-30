@@ -7,6 +7,7 @@
 #include "base/string_utils.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <map>
 #include <set>
 #include <string>
@@ -18,7 +19,7 @@ class WaysParserHelper
 public:
   WaysParserHelper(std::map<uint64_t, std::string> & ways) : m_ways(ways) {}
 
-  void ParseStream(istream & input)
+  void ParseStream(std::istream & input)
   {
     std::string oneLine;
     while (std::getline(input, oneLine, '\n'))
@@ -43,7 +44,7 @@ class CapitalsParserHelper
 public:
   CapitalsParserHelper(std::set<uint64_t> & capitals) : m_capitals(capitals) {}
 
-  void ParseStream(istream & input)
+  void ParseStream(std::istream & input)
   {
     std::string oneLine;
     while (std::getline(input, oneLine, '\n'))

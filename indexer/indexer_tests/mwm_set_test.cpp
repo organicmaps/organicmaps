@@ -6,18 +6,19 @@
 
 #include "base/macros.hpp"
 
-#include "std/initializer_list.hpp"
-#include "std/unordered_map.hpp"
+#include <initializer_list>
+#include <unordered_map>
 
+using namespace std;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 using tests::TestMwmSet;
 
-using TMwmsInfo = unordered_map<string, shared_ptr<MwmInfo>>;
+using MwmsInfo = unordered_map<string, shared_ptr<MwmInfo>>;
 
 namespace
 {
-void GetMwmsInfo(MwmSet const & mwmSet, TMwmsInfo & mwmsInfo)
+void GetMwmsInfo(MwmSet const & mwmSet, MwmsInfo & mwmsInfo)
 {
   vector<shared_ptr<MwmInfo>> mwmsInfoList;
   mwmSet.GetMwmsInfo(mwmsInfoList);
@@ -27,7 +28,7 @@ void GetMwmsInfo(MwmSet const & mwmSet, TMwmsInfo & mwmsInfo)
     mwmsInfo[info->GetCountryName()] = info;
 }
 
-void TestFilesPresence(TMwmsInfo const & mwmsInfo, initializer_list<string> const & expectedNames)
+void TestFilesPresence(MwmsInfo const & mwmsInfo, initializer_list<string> const & expectedNames)
 {
   TEST_EQUAL(expectedNames.size(), mwmsInfo.size(), ());
   for (string const & countryFileName : expectedNames)
@@ -38,7 +39,7 @@ void TestFilesPresence(TMwmsInfo const & mwmsInfo, initializer_list<string> cons
 UNIT_TEST(MwmSetSmokeTest)
 {
   TestMwmSet mwmSet;
-  TMwmsInfo mwmsInfo;
+  MwmsInfo mwmsInfo;
 
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("0")));
   UNUSED_VALUE(mwmSet.Register(LocalCountryFile::MakeForTesting("1")));

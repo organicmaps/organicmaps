@@ -12,10 +12,8 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/string.hpp"
-
-
 using namespace platform;
+using namespace std;
 
 namespace feature
 {

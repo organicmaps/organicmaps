@@ -13,11 +13,11 @@
 #include "geometry/screenbase.hpp"
 #include "geometry/tree4d.hpp"
 
-#include "std/functional.hpp"
-#include "std/map.hpp"
-#include "std/queue.hpp"
 #include "std/target_os.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
+#include <functional>
+#include <vector>
 
 namespace
 {
@@ -71,7 +71,7 @@ public:
 
   /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
   template <typename Feature>
-  void Add(vector<int64_t> const & cells, uint32_t bucket, Feature & ft, uint32_t index)
+  void Add(std::vector<int64_t> const & cells, uint32_t bucket, Feature & ft, uint32_t index)
   {
     // Add to displaceable storage if we need to displace POI.
     if (bucket != scales::GetUpperScale() && IsDisplaceable(ft))
@@ -94,7 +94,7 @@ public:
     m4::Tree<DisplaceableNode> acceptedNodes;
 
     // Sort in priority descend mode.
-    sort(m_storage.begin(), m_storage.end(), greater<DisplaceableNode>());
+    std::sort(m_storage.begin(), m_storage.end(), std::greater<DisplaceableNode>());
 
     for (auto const & node : m_storage)
     {
@@ -143,7 +143,7 @@ private:
     uint32_t m_index;
     FeatureID m_fID;
     m2::PointD m_center;
-    vector<int64_t> m_cells;
+    std::vector<int64_t> m_cells;
 
     int m_minScale;
     int m_maxScale;
@@ -152,7 +152,7 @@ private:
     DisplaceableNode() : m_index(0), m_minScale(0), m_maxScale(0), m_priority(0) {}
 
     template <typename Feature>
-    DisplaceableNode(vector<int64_t> const & cells, Feature & ft, uint32_t index,
+    DisplaceableNode(std::vector<int64_t> const & cells, Feature & ft, uint32_t index,
                      int zoomLevel)
       : m_index(index)
       , m_fID(ft.GetID())
@@ -215,6 +215,6 @@ private:
   }
 
   Sorter & m_sorter;
-  vector<DisplaceableNode> m_storage;
+  std::vector<DisplaceableNode> m_storage;
 };
 }  // namespace indexer

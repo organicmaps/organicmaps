@@ -14,6 +14,7 @@
 #include "defines.hpp"
 
 #include <cstdint>
+#include <map>
 
 namespace
 {
@@ -190,7 +191,7 @@ void MetalinesBuilder::Flush()
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
-  map<osm::Id, uint32_t> osmIdToFeatureId;
+  std::map<osm::Id, uint32_t> osmIdToFeatureId;
   if (!routing::ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
     return false;
 

@@ -13,6 +13,12 @@
 
 #include "base/logging.hpp"
 
+#include <cstdint>
+#include <map>
+#include <sstream>
+#include <string>
+#include <vector>
+
 #include "defines.hpp"
 
 namespace
@@ -68,7 +74,7 @@ public:
         uint64_t numPoints = 0;
         file.Read(&numPoints, sizeof(numPoints));
 
-        vector<m2::PointD> points(numPoints);
+        std::vector<m2::PointD> points(numPoints);
         file.Read(points.data(), sizeof(m2::PointD) * numPoints);
         m_tree.Add(m2::RegionD(move(points)));
       }
@@ -95,7 +101,7 @@ public:
     Earth
   };
 
-  void ProcessBoundary(FeatureBuilder1 const & boundary, vector<FeatureBuilder1> & parts)
+  void ProcessBoundary(FeatureBuilder1 const & boundary, std::vector<FeatureBuilder1> & parts)
   {
     auto const & line = boundary.GetGeometry().front();
 
@@ -191,7 +197,7 @@ class WorldMapGenerator
   class EmitterImpl : public FeatureEmitterIFace
   {
     FeatureOutT m_output;
-    map<uint32_t, size_t> m_mapTypes;
+    std::map<uint32_t, size_t> m_mapTypes;
 
   public:
     explicit EmitterImpl(feature::GenerateInfo const & info)
@@ -204,8 +210,8 @@ class WorldMapGenerator
     {
       Classificator const & c = classif();
       
-      stringstream ss;
-      ss << endl;
+      std::stringstream ss;
+      ss << std::endl;
       for (auto const & p : m_mapTypes)
         ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << endl;
       LOG_SHORT(LINFO, ("World types:", ss.str()));
@@ -272,7 +278,7 @@ public:
       return;
     }
 
-    vector<FeatureBuilder1> boundaryParts;
+    std::vector<FeatureBuilder1> boundaryParts;
     m_boundaryChecker.ProcessBoundary(fb, boundaryParts);
     for (auto & f : boundaryParts)
       PushFeature(f);

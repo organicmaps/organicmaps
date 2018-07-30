@@ -11,8 +11,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

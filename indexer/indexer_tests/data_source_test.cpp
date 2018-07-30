@@ -17,10 +17,10 @@
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/string.hpp"
+#include <algorithm>
+#include <string>
 
+using namespace std;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 

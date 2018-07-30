@@ -3,12 +3,13 @@
 #include "platform/get_text_by_id.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace osm
 {
-using TAllCuisines = vector<pair<string, string>>;
+using AllCuisines = std::vector<std::pair<std::string, std::string>>;
 
 class Cuisines
 {
@@ -17,17 +18,17 @@ class Cuisines
 public:
   static Cuisines & Instance();
   /// @param[out] outCuisines contains list of parsed cuisines (not localized).
-  void Parse(string const & osmRawCuisinesTagValue, vector<string> & outCuisines);
+  void Parse(std::string const & osmRawCuisinesTagValue, std::vector<std::string> & outCuisines);
   /// @param[in] lang should be in our twine strings.txt/cuisines.txt format.
   /// @param[out] outCuisines contains list of parsed cuisines (localized).
-  void ParseAndLocalize(string const & osmRawCuisinesTagValue, vector<string> & outCuisines,
-                        string const & lang = languages::GetCurrentTwine());
+  void ParseAndLocalize(std::string const & osmRawCuisinesTagValue, std::vector<std::string> & outCuisines,
+                        std::string const & lang = languages::GetCurrentTwine());
   /// @param[in] lang should be in our twine strings.txt/cuisines.txt format.
   /// @returns translated cuisine (can be empty, if we can't translate key).
-  string Translate(string const & singleOsmCuisine,
-                   string const & lang = languages::GetCurrentTwine());
+  std::string Translate(std::string const & singleOsmCuisine,
+                        std::string const & lang = languages::GetCurrentTwine());
   /// @returns list of osm cuisines in cuisines.txt (not localized).
-  TAllCuisines AllSupportedCuisines();
+  AllCuisines AllSupportedCuisines();
 
 private:
   platform::TGetTextByIdPtr m_translations;

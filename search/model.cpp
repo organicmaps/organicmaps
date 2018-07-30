@@ -4,6 +4,7 @@
 #include "indexer/feature.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_add.hpp"
 
 using namespace ftypes;
 
@@ -12,14 +13,14 @@ namespace search
 TwoLevelPOIChecker::TwoLevelPOIChecker() : ftypes::BaseChecker(2 /* level */)
 {
   Classificator const & c = classif();
-  StringIL arr[] = {{"highway", "bus_stop"},
-                    {"highway", "speed_camera"},
-                    {"waterway", "waterfall"},
-                    {"natural", "volcano"},
-                    {"natural", "cave_entrance"},
-                    {"natural", "beach"},
-                    {"emergency", "defibrillator"},
-                    {"emergency", "fire_hydrant"}};
+  my::StringIL arr[] = {{"highway", "bus_stop"},
+                        {"highway", "speed_camera"},
+                        {"waterway", "waterfall"},
+                        {"natural", "volcano"},
+                        {"natural", "cave_entrance"},
+                        {"natural", "beach"},
+                        {"emergency", "defibrillator"},
+                        {"emergency", "fire_hydrant"}};
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(arr[i]));

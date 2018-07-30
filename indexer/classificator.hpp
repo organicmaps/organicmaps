@@ -6,12 +6,13 @@
 #include "indexer/scales.hpp"
 #include "indexer/types_mapping.hpp"
 
-#include "std/bitset.hpp"
-#include "std/initializer_list.hpp"
-#include "std/iostream.hpp"
-#include "std/noncopyable.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include "base/macros.hpp"
+
+#include <bitset>
+#include <initializer_list>
+#include <iostream>
+#include <string>
+#include <vector>
 
 class ClassifObject;
 
@@ -54,34 +55,34 @@ class ClassifObject
 
 public:
   ClassifObject() {}  // for serialization only
-  ClassifObject(string const & s) : m_name(s) {}
+  ClassifObject(std::string const & s) : m_name(s) {}
 
   /// @name Fill from osm draw rule files.
   //@{
 private:
-  ClassifObject * AddImpl(string const & s);
+  ClassifObject * AddImpl(std::string const & s);
 public:
-  ClassifObject * Add(string const & s);
-  ClassifObject * Find(string const & s);
+  ClassifObject * Add(std::string const & s);
+  ClassifObject * Find(std::string const & s);
 
   void AddDrawRule(drule::Key const & k);
   //@}
 
   /// @name Find substitution when reading osm features.
   //@{
-  ClassifObjectPtr BinaryFind(string const & s) const;
+  ClassifObjectPtr BinaryFind(std::string const & s) const;
   //@}
 
   void Sort();
   void Swap(ClassifObject & r);
 
-  string const & GetName() const { return m_name; }
+  std::string const & GetName() const { return m_name; }
   ClassifObject const * GetObject(size_t i) const;
 
-  void ConcatChildNames(string & s) const;
+  void ConcatChildNames(std::string & s) const;
 
   void GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const;
-  inline vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
+  inline std::vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
@@ -111,7 +112,7 @@ public:
     }
   }
 
-  typedef bitset<scales::UPPER_STYLE_SCALE+1> TVisibleMask;
+  using VisibleMask = std::bitset<scales::UPPER_STYLE_SCALE+1>;
   void SetVisibilityOnScale(bool isVisible, int scale) { m_visibility[scale] = isVisible; }
 
   /// @name Policies for classificator tree serialization.
@@ -119,7 +120,7 @@ public:
   class BasePolicy
   {
   protected:
-    vector<ClassifObject *> m_stack;
+    std::vector<ClassifObject *> m_stack;
     ClassifObject * Current() const { return m_stack.back(); }
 
   public:
@@ -135,17 +136,17 @@ public:
   public:
     LoadPolicy(ClassifObject * pRoot) : base_type(pRoot) {}
 
-    void Name(string const & name) { Current()->m_name = name; }
+    void Name(std::string const & name) { Current()->m_name = name; }
     void Start(size_t i);
     void EndChilds();
   };
   //@}
 
 private:
-  string m_name;
-  vector<drule::Key> m_drawRule;
-  vector<ClassifObject> m_objs;
-  TVisibleMask m_visibility;
+  std::string m_name;
+  std::vector<drule::Key> m_drawRule;
+  std::vector<ClassifObject> m_objs;
+  VisibleMask m_visibility;
 };
 
 inline void swap(ClassifObject & r1, ClassifObject & r2)
@@ -153,25 +154,27 @@ inline void swap(ClassifObject & r1, ClassifObject & r2)
   r1.Swap(r2);
 }
 
-class Classificator : private noncopyable
+class Classificator
 {
+  DISALLOW_COPY_AND_MOVE(Classificator);
+
   ClassifObject m_root;
 
   IndexAndTypeMapping m_mapping;
 
   uint32_t m_coastType;
 
-  static ClassifObject * AddV(ClassifObject * parent, string const & key, string const & value);
+  static ClassifObject * AddV(ClassifObject * parent, std::string const & key, std::string const & value);
 
 public:
   Classificator() : m_root("world") {}
 
-  ClassifObject * Add(ClassifObject * parent, string const & key, string const & value);
+  ClassifObject * Add(ClassifObject * parent, std::string const & key, std::string const & value);
 
   /// @name Serialization-like functions.
   //@{
-  void ReadClassificator(istream & s);
-  void ReadTypesMapping(istream & s);
+  void ReadClassificator(std::istream & s);
+  void ReadTypesMapping(std::istream & s);
 
   void SortClassificator();
   //@}
@@ -187,13 +190,13 @@ private:
   template <class IterT> uint32_t GetTypeByPathImpl(IterT beg, IterT end) const;
 public:
   /// @return 0 in case of nonexisting type
-  uint32_t GetTypeByPathSafe(vector<string> const & path) const;
+  uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
-  uint32_t GetTypeByPath(vector<string> const & path) const;
-  uint32_t GetTypeByPath(initializer_list<char const *> const & lst) const;
+  uint32_t GetTypeByPath(std::vector<std::string> const & path) const;
+  uint32_t GetTypeByPath(std::initializer_list<char const *> const & lst) const;
   /// @see GetReadableObjectName().
   /// @returns 0 in case of nonexisting type.
-  uint32_t GetTypeByReadableObjectName(string const & name) const;
+  uint32_t GetTypeByReadableObjectName(std::string const & name) const;
   //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
@@ -222,11 +225,11 @@ public:
   ProcessObjects(uint32_t type, ToDo & toDo) const;
 
   ClassifObject const * GetObject(uint32_t type) const;
-  string GetFullObjectName(uint32_t type) const;
+  std::string GetFullObjectName(uint32_t type) const;
   //@}
 
   /// @return Object name to show in UI (not for debug purposes).
-  string GetReadableObjectName(uint32_t type) const;
+  std::string GetReadableObjectName(uint32_t type) const;
 };
 
 Classificator & classif();

@@ -5,6 +5,7 @@
 #include "base/string_utils.hpp"
 
 #include <array>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -22,7 +23,7 @@ public:
 
   private:
     friend class KeywordLangMatcher;
-    friend string DebugPrint(Score const & score);
+    friend std::string DebugPrint(Score const & score);
 
     Score(KeywordMatcher::Score const & score, int langScore);
 
@@ -58,7 +59,7 @@ public:
   }
 
   // Returns the Score of the name (greater is better).
-  Score CalcScore(int8_t lang, string const & name) const;
+  Score CalcScore(int8_t lang, std::string const & name) const;
   Score CalcScore(int8_t lang, strings::UniString const & name) const;
   Score CalcScore(int8_t lang, strings::UniString const * tokens, size_t count) const;
 

@@ -10,9 +10,9 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <utility>
+#include <vector>
 
 #include "3party/succinct/rs_bit_vector.hpp"
 
@@ -84,7 +84,7 @@ private:
     m_numNodes = ReadVarUint<uint32_t, ReaderSource<TReader>>(src);
 
     BitReader<ReaderSource<TReader>> bitReader(src);
-    vector<bool> bv(2 * m_numNodes + 1);
+    std::vector<bool> bv(2 * m_numNodes + 1);
     // Convert the level order representation into the external node representation.
     bv[0] = 1;
     for (size_t i = 0; i < 2 * m_numNodes; ++i)
@@ -121,8 +121,8 @@ private:
   // m_finalNodeIndex[i] is the 0-based index of the i'th
   // node in the list of all final nodes, or -1 if the
   // node is not final.
-  vector<int> m_finalNodeIndex;
-  vector<uint32_t> m_offsetTable;
+  std::vector<int> m_finalNodeIndex;
+  std::vector<uint32_t> m_offsetTable;
 };
 
 template <class TReader, class TValueReader>
@@ -138,12 +138,12 @@ public:
   {
   }
 
-  unique_ptr<SuccinctTrieIterator> Clone() const
+  std::unique_ptr<SuccinctTrieIterator> Clone() const
   {
-    return make_unique<SuccinctTrieIterator>(m_reader, m_common, m_nodeBitPosition);
+    return std::make_unique<SuccinctTrieIterator>(m_reader, m_common, m_nodeBitPosition);
   }
 
-  unique_ptr<SuccinctTrieIterator> GoToEdge(size_t i) const
+  std::unique_ptr<SuccinctTrieIterator> GoToEdge(size_t i) const
   {
     ASSERT_LESS(i, 2, ("Bad edge id of a binary trie."));
     ASSERT_EQUAL(m_common->GetTopology()[m_nodeBitPosition - 1], 1, (m_nodeBitPosition));
@@ -158,11 +158,11 @@ public:
     {
       return nullptr;
     }
-    return make_unique<SuccinctTrieIterator>(m_reader, m_common, childBitPosition);
+    return std::make_unique<SuccinctTrieIterator>(m_reader, m_common, childBitPosition);
   }
 
   template <typename TEncodingReader>
-  unique_ptr<SuccinctTrieIterator> GoToString(TEncodingReader & bitEncoding, uint32_t numBits)
+  std::unique_ptr<SuccinctTrieIterator> GoToString(TEncodingReader & bitEncoding, uint32_t numBits)
   {
     ReaderSource<TEncodingReader> src(bitEncoding);
 
@@ -184,12 +184,12 @@ public:
     return ret;
   }
 
-  unique_ptr<SuccinctTrieIterator> GoToString(strings::UniString const & s)
+  std::unique_ptr<SuccinctTrieIterator> GoToString(strings::UniString const & s)
   {
-    vector<uint8_t> buf;
+    std::vector<uint8_t> buf;
     uint32_t numBits;
     {
-      MemWriter<vector<uint8_t>> writer(buf);
+      MemWriter<std::vector<uint8_t>> writer(buf);
       numBits = m_common->GetEncoding().EncodeAndWrite(writer, s);
     }
     MemReader reader(&buf[0], buf.size());
@@ -224,7 +224,7 @@ private:
       return;
     uint32_t offset = m_common->Offset(m_nodeId);
     uint32_t size = m_common->ValueListSize(m_nodeId);
-    ReaderPtr<TReader> subReaderPtr(unique_ptr<TReader>(static_cast<TReader*>(m_reader.CreateSubReader(offset, size).release())));
+    ReaderPtr<TReader> subReaderPtr(std::unique_ptr<TReader>(static_cast<TReader*>(m_reader.CreateSubReader(offset, size).release())));
     ReaderSource<ReaderPtr<TReader>> src(subReaderPtr);
     while (src.Size() > 0)
     {
@@ -241,19 +241,19 @@ private:
   // in the external node representation of binary trie.
   uint32_t m_nodeBitPosition;
 
-  vector<TValue> m_values;
+  std::vector<TValue> m_values;
   bool m_valuesRead;
 };
 
 template <typename TReader, typename TValueReader>
-unique_ptr<SuccinctTrieIterator<TReader, TValueReader>> ReadSuccinctTrie(
+std::unique_ptr<SuccinctTrieIterator<TReader, TValueReader>> ReadSuccinctTrie(
     TReader const & reader, TValueReader valueReader = TValueReader())
 {
   using TCommonData = TopologyAndOffsets<TReader, TValueReader>;
   using TIter = SuccinctTrieIterator<TReader, TValueReader>;
 
-  shared_ptr<TCommonData> common(new TCommonData(reader, valueReader));
-  return make_unique<TIter>(common->GetReader(), common, 1 /* bitPosition */);
+  std::shared_ptr<TCommonData> common(new TCommonData(reader, valueReader));
+  return std::make_unique<TIter>(common->GetReader(), common, 1 /* bitPosition */);
 }
 
 }  // namespace trie

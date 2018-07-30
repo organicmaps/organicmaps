@@ -2,33 +2,33 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace search
 {
 class StringSliceBase
 {
 public:
-  using TString = strings::UniString;
+  using String = strings::UniString;
 
   virtual ~StringSliceBase() = default;
 
-  virtual TString const & Get(size_t i) const = 0;
+  virtual String const & Get(size_t i) const = 0;
   virtual size_t Size() const = 0;
 };
 
 class StringSlice : public StringSliceBase
 {
 public:
-  StringSlice(vector<TString> const & strings) : m_strings(strings) {}
+  StringSlice(std::vector<String> const & strings) : m_strings(strings) {}
 
-  virtual TString const & Get(size_t i) const override { return m_strings[i]; }
+  virtual String const & Get(size_t i) const override { return m_strings[i]; }
   virtual size_t Size() const override { return m_strings.size(); }
 
 private:
-  vector<TString> const & m_strings;
+  std::vector<String> const & m_strings;
 };
 
 // Allows to iterate over space-separated strings in StringSliceBase.
@@ -44,14 +44,14 @@ public:
   static JoinIterator Begin(StringSliceBase const & slice);
   static JoinIterator End(StringSliceBase const & slice);
 
-  inline bool operator==(JoinIterator const & rhs) const
+  bool operator==(JoinIterator const & rhs) const
   {
     return &m_slice == &rhs.m_slice && m_string == rhs.m_string && m_offset == rhs.m_offset;
   }
 
-  inline bool operator!=(JoinIterator const & rhs) const { return !(*this == rhs); }
+  bool operator!=(JoinIterator const & rhs) const { return !(*this == rhs); }
 
-  inline value_type operator*() const { return GetChar(m_string, m_offset); }
+  value_type operator*() const { return GetChar(m_string, m_offset); }
 
   JoinIterator & operator++();
 
@@ -71,7 +71,7 @@ private:
 
   size_t GetSize(size_t string) const;
 
-  inline size_t GetMaxSize() const { return m_slice.Size() == 0 ? 0 : m_slice.Size() * 2 - 1; }
+  size_t GetMaxSize() const { return m_slice.Size() == 0 ? 0 : m_slice.Size() * 2 - 1; }
 
   value_type GetChar(size_t string, size_t offset) const;
 

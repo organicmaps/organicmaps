@@ -13,9 +13,11 @@
 #include "base/base.hpp"
 #include "base/control_flow.hpp"
 
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {

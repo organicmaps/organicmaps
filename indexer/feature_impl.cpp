@@ -4,7 +4,9 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
 
 namespace feature
 {

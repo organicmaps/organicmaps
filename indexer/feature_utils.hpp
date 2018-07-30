@@ -4,8 +4,6 @@
 
 #include "base/base.hpp"
 
-#include <vector>
-
 struct FeatureID;
 class StringUtf8Multilang;
 

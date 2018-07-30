@@ -166,7 +166,7 @@ bool FeatureBuilder1::RemoveInvalidTypes()
   if (!m_params.FinishAddingTypes())
     return false;
 
-  return feature::RemoveNoDrawableTypes(m_params.m_Types,
+  return feature::RemoveNoDrawableTypes(m_params.m_types,
                                         m_params.GetGeomType(),
                                         m_params.IsEmptyNames());
 }
@@ -181,7 +181,7 @@ TypesHolder FeatureBuilder1::GetTypesHolder() const
   CHECK ( CheckValid(), (*this) );
 
   TypesHolder holder(m_params.GetGeomType());
-  for (auto const t : m_params.m_Types)
+  for (auto const t : m_params.m_types)
     holder.Add(t);
 
   return holder;
@@ -223,7 +223,7 @@ namespace
 
 bool FeatureBuilder1::IsRoad() const
 {
-  return routing::IsRoad(m_params.m_Types);
+  return routing::IsRoad(m_params.m_types);
 }
 
 bool FeatureBuilder1::PreSerialize()

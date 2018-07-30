@@ -1,6 +1,6 @@
 #pragma once
 
-#include "std/string.hpp"
+#include <string>
 
 namespace drule
 {
@@ -37,12 +37,12 @@ enum SelectorOperatorType
 struct SelectorExpression
 {
   SelectorOperatorType m_operator;
-  string m_tag;
-  string m_value;
+  std::string m_tag;
+  std::string m_value;
 
   SelectorExpression() : m_operator(SelectorOperatorUnknown) {}
 };
 
-bool ParseSelector(string const & str, SelectorExpression & e);
+bool ParseSelector(std::string const & str, SelectorExpression & e);
 
 }  // namespace drule

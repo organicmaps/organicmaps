@@ -8,11 +8,11 @@
 #include "coding/reader.hpp"
 #include "coding/value_opt_string.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/array.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <array>
+#include <string>
+#include <utility>
+#include <vector>
 
 struct FeatureParamsBase;
 class FeatureType;
@@ -52,7 +52,7 @@ namespace feature
   class TypesHolder
   {
   public:
-    using Types = array<uint32_t, kMaxTypesCount>;
+    using Types = std::array<uint32_t, kMaxTypesCount>;
 
     TypesHolder() = default;
     explicit TypesHolder(EGeomType geoType) : m_geoType(geoType) {}
@@ -112,7 +112,7 @@ namespace feature
     /// in any order. Works in O(n log n).
     bool Equals(TypesHolder const & other) const;
 
-    vector<string> ToObjectNames() const;
+    std::vector<std::string> ToObjectNames() const;
 
   private:
     Types m_types;
@@ -121,7 +121,7 @@ namespace feature
     EGeomType m_geoType = GEOM_UNDEFINED;
   };
 
-  string DebugPrint(TypesHolder const & holder);
+  std::string DebugPrint(TypesHolder const & holder);
 
   uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
                           FeatureParamsBase const & params);
@@ -132,7 +132,7 @@ struct FeatureParamsBase
 {
   StringUtf8Multilang name;
   StringNumericOptimal house;
-  string ref;
+  std::string ref;
   int8_t layer;
   uint8_t rank;
 
@@ -143,7 +143,7 @@ struct FeatureParamsBase
   bool operator == (FeatureParamsBase const & rhs) const;
 
   bool CheckValid() const;
-  string DebugString() const;
+  std::string DebugString() const;
 
   /// @return true if feature doesn't have any drawable strings (names, houses, etc).
   bool IsEmptyNames() const;
@@ -217,8 +217,8 @@ class FeatureParams : public FeatureParamsBase
   feature::AddressData m_addrTags;
 
 public:
-  using Types = vector<uint32_t>;
-  Types m_Types;
+  using Types = std::vector<uint32_t>;
+  Types m_types;
 
   bool m_reverseGeometry;
 
@@ -226,22 +226,22 @@ public:
 
   void ClearName();
 
-  bool AddName(string const & lang, string const & s);
-  bool AddHouseName(string const & s);
-  bool AddHouseNumber(string houseNumber);
+  bool AddName(std::string const & lang, std::string const & s);
+  bool AddHouseName(std::string const & s);
+  bool AddHouseNumber(std::string houseNumber);
 
   /// @name Used in storing full street address only.
   //@{
-  void AddStreet(string s);
-  void AddPlace(string const & s);
-  void AddPostcode(string const & s);
-  void AddAddress(string const & s);
+  void AddStreet(std::string s);
+  void AddPlace(std::string const & s);
+  void AddPostcode(std::string const & s);
+  void AddAddress(std::string const & s);
 
-  bool FormatFullAddress(m2::PointD const & pt, string & res) const;
+  bool FormatFullAddress(m2::PointD const & pt, std::string & res) const;
   //@}
 
   /// Used for testing purposes now.
-  string GetStreet() const;
+  std::string GetStreet() const;
   feature::AddressData const & GetAddressData() const { return m_addrTags; }
 
   /// Assign parameters except geometry type.
@@ -250,18 +250,18 @@ public:
   {
     BaseT::operator=(rhs);
 
-    m_Types = rhs.m_Types;
+    m_types = rhs.m_types;
     m_addrTags = rhs.m_addrTags;
     m_metadata = rhs.m_metadata;
   }
 
-  bool IsValid() const { return !m_Types.empty(); }
+  bool IsValid() const { return !m_types.empty(); }
 
   void SetGeomType(feature::EGeomType t);
   void SetGeomTypePointEx();
   feature::EGeomType GetGeomType() const;
 
-  void AddType(uint32_t t) { m_Types.push_back(t); }
+  void AddType(uint32_t t) { m_types.push_back(t); }
 
   /// Special function to replace a regular railway station type with
   /// the special subway type for the correspondent city.
@@ -297,8 +297,8 @@ public:
 
     WriteToSink(sink, header);
 
-    for (size_t i = 0; i < m_Types.size(); ++i)
-      WriteVarUint(sink, GetIndexForType(m_Types[i]));
+    for (size_t i = 0; i < m_types.size(); ++i)
+      WriteVarUint(sink, GetIndexForType(m_types[i]));
 
     if (fullStoring)
     {
@@ -318,7 +318,7 @@ public:
 
     size_t const count = (header & HEADER_TYPE_MASK) + 1;
     for (size_t i = 0; i < count; ++i)
-      m_Types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
+      m_types.push_back(GetTypeForIndex(ReadVarUint<uint32_t>(src)));
 
     m_metadata.Deserialize(src);
     m_addrTags.Deserialize(src);
@@ -333,4 +333,4 @@ private:
   static uint32_t GetTypeForIndex(uint32_t i);
 };
 
-string DebugPrint(FeatureParams const & p);
+std::string DebugPrint(FeatureParams const & p);

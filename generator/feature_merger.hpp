@@ -35,7 +35,7 @@ public:
 
   template <class ToDo> void ForEachChangeTypes(ToDo toDo)
   {
-    for_each(m_params.m_Types.begin(), m_params.m_Types.end(), toDo);
+    for_each(m_params.m_types.begin(), m_params.m_types.end(), toDo);
     m_params.FinishAddingTypes();
   }
 

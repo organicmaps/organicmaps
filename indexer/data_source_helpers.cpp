@@ -4,6 +4,8 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/scales.hpp"
 
+using namespace std;
+
 namespace indexer
 {
 void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureType &)> && fn,

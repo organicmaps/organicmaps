@@ -6,6 +6,7 @@
 #include "coding/read_write_utils.hpp"
 
 #include "base/osm_id.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <functional>
 #include <list>
@@ -74,7 +75,7 @@ public:
   bool PopExactType(uint32_t type) { return m_params.PopExactType(type); }
   void SetType(uint32_t type) { m_params.SetType(type); }
   uint32_t FindType(uint32_t comp, uint8_t level) const { return m_params.FindType(comp, level); }
-  FeatureParams::Types const & GetTypes() const  { return m_params.m_Types; }
+  FeatureParams::Types const & GetTypes() const { return m_params.m_types; }
 
   /// Check classificator types for their compatibility with feature geometry type.
   /// Need to call when using any classificator types manipulating.
@@ -87,9 +88,8 @@ public:
 
   template <class FnT> bool RemoveTypesIf(FnT fn)
   {
-    m_params.m_Types.erase(remove_if(m_params.m_Types.begin(), m_params.m_Types.end(), fn),
-                           m_params.m_Types.end());
-    return m_params.m_Types.empty();
+    my::EraseIf(m_params.m_types, fn);
+    return m_params.m_types.empty();
   }
 
   /// @name Serialization.
@@ -117,7 +117,7 @@ public:
 
   size_t GetPointsCount() const;
   size_t GetPolygonsCount() const { return m_polygons.size(); }
-  size_t GetTypesCount() const { return m_params.m_Types.size(); }
+  size_t GetTypesCount() const { return m_params.m_types.size(); }
   //@}
 
   /// @name Iterate through polygons points.

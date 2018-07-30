@@ -10,14 +10,16 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-#include "std/string.hpp"
-#include "std/type_traits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstring>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include <boost/utility/binary.hpp>
+
+using namespace std;
 
 namespace
 {

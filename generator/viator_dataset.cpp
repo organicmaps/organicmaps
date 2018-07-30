@@ -45,7 +45,7 @@ ViatorCity::ViatorCity(std::string const & src)
   m_name = rec[FieldIndex(TsvFields::Name)];
 }
 
-ostream & operator<<(ostream & s, ViatorCity const & h)
+std::ostream & operator<<(std::ostream & s, ViatorCity const & h)
 {
   s << std::fixed << std::setprecision(7);
   return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t lat: " << h.m_latLon.lat

@@ -11,9 +11,11 @@
 
 #include "defines.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 #include "3party/succinct/mapper.hpp"
+
+using namespace std;
 
 namespace
 {

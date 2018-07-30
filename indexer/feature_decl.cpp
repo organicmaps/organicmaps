@@ -1,6 +1,8 @@
 #include "indexer/feature_decl.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+
+using namespace std;
 
 string DebugPrint(FeatureID const & id)
 {

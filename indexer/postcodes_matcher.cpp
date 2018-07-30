@@ -8,12 +8,15 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/transform_iterator.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <memory>
+#include <utility>
+#include <vector>
 
+#include <boost/iterator/transform_iterator.hpp>
+
+using boost::make_transform_iterator;
+using namespace std;
 using namespace strings;
 
 namespace search

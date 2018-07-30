@@ -331,7 +331,7 @@ class OsmToFeatureTranslator
     if (ft.PreSerialize())
     {
       std::string addr;
-      if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types) &&
+      if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_types) &&
           ft.FormatFullAddress(addr))
       {
         m_addrWriter->Write(addr.c_str(), addr.size());
@@ -345,7 +345,7 @@ class OsmToFeatureTranslator
   //@{
   void EmitPoint(m2::PointD const & pt, FeatureParams params, osm::Id id) const
   {
-    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_POINT))
+    if (feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
     {
       FeatureBuilder1 ft;
       ft.SetCenter(pt);
@@ -356,7 +356,7 @@ class OsmToFeatureTranslator
 
   void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const
   {
-    if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
+    if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
       EmitFeatureBase(ft, params);
@@ -372,7 +372,7 @@ class OsmToFeatureTranslator
     if (!ft.IsGeometryClosed())
       return;
 
-    if (ftypes::IsTownOrCity(params.m_Types))
+    if (ftypes::IsTownOrCity(params.m_types))
     {
       auto fb = ft;
       makeFn(fb);
@@ -381,10 +381,10 @@ class OsmToFeatureTranslator
 
     // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
     // work a bit different for GEOM_AREA.
-    if (IsDrawableLike(params.m_Types, GEOM_AREA))
+    if (IsDrawableLike(params.m_types, GEOM_AREA))
     {
       // Make the area feature if it has unique area styles.
-      VERIFY(RemoveNoDrawableTypes(params.m_Types, GEOM_AREA), (params));
+      VERIFY(RemoveNoDrawableTypes(params.m_types, GEOM_AREA), (params));
 
       makeFn(ft);
 
@@ -548,7 +548,7 @@ public:
 //      static char const * const stateText[] = {"U", "Ok", "ET", "HNT", "BR", "SG", "IT"};
 //      stringstream ss;
 //      ss << p->id << " [" << stateText[static_cast<typename underlying_type<FeatureState>::type>(state)] << "]";
-//      for (auto const & p : params.m_Types)
+//      for (auto const & p : params.m_types)
 //        ss << " " << c.GetReadableObjectName(p);
 //      ss << endl;
 //      std::ofstream file("feature_types_new2.txt", ios::app);

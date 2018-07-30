@@ -10,6 +10,7 @@
 
 #include "base/newtype.hpp"
 
+#include <iostream>
 #include <limits>
 #include <memory>
 #include <string>
@@ -34,7 +35,7 @@ struct ViatorCity
   std::string m_name;
 };
 
-ostream & operator<<(ostream & s, ViatorCity const & r);
+std::ostream & operator<<(std::ostream & s, ViatorCity const & r);
 
 NEWTYPE_SIMPLE_OUTPUT(ViatorCity::ObjectId);
 

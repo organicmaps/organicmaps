@@ -10,6 +10,7 @@
 #include "base/string_utils.hpp"
 
 #include <iomanip>
+#include <iostream>
 
 #include "boost/algorithm/string/replace.hpp"
 
@@ -32,7 +33,7 @@ OpentableRestaurant::OpentableRestaurant(std::string const & src)
   m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 }
 
-ostream & operator<<(ostream & s, OpentableRestaurant const & h)
+std::ostream & operator<<(std::ostream & s, OpentableRestaurant const & h)
 {
   s << std::fixed << std::setprecision(7);
   return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address

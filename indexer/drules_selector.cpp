@@ -7,6 +7,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+using namespace std;
+
 namespace drule
 {
 

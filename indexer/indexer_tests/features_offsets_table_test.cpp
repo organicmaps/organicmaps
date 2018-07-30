@@ -13,11 +13,12 @@
 
 #include "defines.hpp"
 
-#include "std/bind.hpp"
-#include "std/string.hpp"
-
+#include <functional>
+#include <memory>
+#include <string>
 
 using namespace platform;
+using namespace std;
 
 namespace feature
 {

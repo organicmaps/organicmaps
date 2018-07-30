@@ -76,7 +76,7 @@ template <typename Cont>
 class QuerySliceOnRawStrings : public StringSliceBase
 {
 public:
-  QuerySliceOnRawStrings(Cont const & tokens, TString const & prefix)
+  QuerySliceOnRawStrings(Cont const & tokens, String const & prefix)
     : m_tokens(tokens), m_prefix(prefix)
   {
   }

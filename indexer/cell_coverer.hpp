@@ -6,11 +6,11 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/array.hpp"
-#include "std/cstdint.hpp"
-#include "std/queue.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <array>
+#include <cstdint>
+#include <queue>
+#include <utility>
+#include <vector>
 
 // TODO: Move neccessary functions to geometry/covering_utils.hpp and delete this file.
 
@@ -18,7 +18,7 @@ constexpr int SPLIT_RECT_CELLS_COUNT = 512;
 
 template <typename Bounds, typename CellId>
 inline size_t SplitRectCell(CellId const & id, m2::RectD const & rect,
-                            array<pair<CellId, m2::RectD>, 4> & result)
+                            std::array<std::pair<CellId, m2::RectD>, 4> & result)
 {
   size_t index = 0;
   for (int8_t i = 0; i < 4; ++i)
@@ -35,7 +35,7 @@ inline size_t SplitRectCell(CellId const & id, m2::RectD const & rect,
 }
 
 template <typename Bounds, typename CellId>
-inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<CellId> & result)
+inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, std::vector<CellId> & result)
 {
   ASSERT(result.empty(), ());
   {
@@ -48,8 +48,8 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<Ce
   auto const commonCell = CellIdConverter<Bounds, CellId>::Cover2PointsWithCell(
       rect.minX(), rect.minY(), rect.maxX(), rect.maxY());
 
-  priority_queue<CellId, buffer_vector<CellId, SPLIT_RECT_CELLS_COUNT>,
-                 typename CellId::GreaterLevelOrder>
+  std::priority_queue<CellId, buffer_vector<CellId, SPLIT_RECT_CELLS_COUNT>,
+                      typename CellId::GreaterLevelOrder>
       cellQueue;
   cellQueue.push(commonCell);
 
@@ -69,7 +69,7 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<Ce
       break;
     }
 
-    array<pair<CellId, m2::RectD>, 4> arr;
+    std::array<std::pair<CellId, m2::RectD>, 4> arr;
     size_t const count = SplitRectCell<Bounds>(id, rect, arr);
 
     if (cellQueue.size() + result.size() + count <= cellsCount)
@@ -93,7 +93,7 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<Ce
     auto id = cellQueue.top();
     while (id.Level() < maxDepth)
     {
-      array<pair<CellId, m2::RectD>, 4> arr;
+      std::array<std::pair<CellId, m2::RectD>, 4> arr;
       size_t const count = SplitRectCell<Bounds>(id, rect, arr);
       ASSERT_GREATER(count, 0, ());
       if (count > 1)
@@ -106,7 +106,7 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, vector<Ce
 
 // Covers rect with cells using spiral order starting from the rect center.
 template <typename Bounds, typename CellId>
-void CoverSpiral(m2::RectD rect, int maxDepth, vector<CellId> & result)
+void CoverSpiral(m2::RectD rect, int maxDepth, std::vector<CellId> & result)
 {
   using Converter = CellIdConverter<Bounds, CellId>;
 
@@ -156,7 +156,7 @@ void CoverSpiral(m2::RectD rect, int maxDepth, vector<CellId> & result)
     return static_cast<Direction>((static_cast<uint8_t>(direction) + 1) % 4);
   };
 
-  auto const nextCoords = [](pair<int32_t, int32_t> const & xy, Direction direction, uint32_t step) {
+  auto const nextCoords = [](std::pair<int32_t, int32_t> const & xy, Direction direction, uint32_t step) {
     auto res = xy;
     switch (direction)
     {
@@ -168,7 +168,7 @@ void CoverSpiral(m2::RectD rect, int maxDepth, vector<CellId> & result)
     return res;
   };
 
-  auto const coordsAreValid = [](pair<int32_t, int32_t> const & xy) {
+  auto const coordsAreValid = [](std::pair<int32_t, int32_t> const & xy) {
     return xy.first >= 0 && xy.second >= 0 &&
            static_cast<decltype(CellId::MAX_COORD)>(xy.first) <= CellId::MAX_COORD &&
            static_cast<decltype(CellId::MAX_COORD)>(xy.second) <= CellId::MAX_COORD;
@@ -182,7 +182,7 @@ void CoverSpiral(m2::RectD rect, int maxDepth, vector<CellId> & result)
     auto const centerXY = centralCell.XY();
     // We support negative coordinates while covering and check coordinates validity before pushing
     // cell to |result|.
-    pair<int32_t, int32_t> xy{centerXY.first, centerXY.second};
+    std::pair<int32_t, int32_t> xy{centerXY.first, centerXY.second};
     auto direction = Direction::Right;
     int sideLength = 1;
     // Indicates whether it is the first pass with current |sideLength|. We use spiral cells order and

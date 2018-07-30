@@ -2,9 +2,9 @@
 
 #include "indexer/feature.hpp"
 
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace drule
 {
@@ -21,9 +21,9 @@ public:
 };
 
 // Factory method which builds ISelector from a string.
-unique_ptr<ISelector> ParseSelector(string const & str);
+std::unique_ptr<ISelector> ParseSelector(std::string const & str);
 
 // Factory method which builds composite ISelector from a set of string.
-unique_ptr<ISelector> ParseSelector(vector<string> const & strs);
+std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs);
 
 }  // namespace drule

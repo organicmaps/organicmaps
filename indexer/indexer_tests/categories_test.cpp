@@ -8,18 +8,14 @@
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/map.hpp"
-#include "std/set.hpp"
-#include "std/sstream.hpp"
-#include "std/vector.hpp"
-#include "std/transform_iterator.hpp"
-
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <memory>
+#include <vector>
+
 using namespace indexer;
+using namespace std;
 
 char const g_testCategoriesTxt[] =
     "amenity-bench\n"

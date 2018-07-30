@@ -1,23 +1,17 @@
 #pragma once
 #include "base/assert.hpp"
 
-#include "std/vector.hpp"
-#include "std/map.hpp"
-#include "std/iostream.hpp"
+#include <cstdint>
+#include <iostream>
+#include <map>
+#include <vector>
 
 
 class IndexAndTypeMapping
 {
-  vector<uint32_t> m_types;
-
-  typedef map<uint32_t, uint32_t> MapT;
-  MapT m_map;
-
-  void Add(uint32_t ind, uint32_t type);
-
 public:
   void Clear();
-  void Load(istream & s);
+  void Load(std::istream & s);
   bool IsLoaded() const { return !m_types.empty(); }
 
   // Throws std::out_of_range exception.
@@ -31,4 +25,11 @@ public:
 
   /// For Debug purposes only.
   bool HasIndex(uint32_t t) const { return (m_map.find(t) != m_map.end()); }
+
+private:
+  using Map = std::map<uint32_t, uint32_t>;
+  void Add(uint32_t ind, uint32_t type);
+
+  std::vector<uint32_t> m_types;
+  Map m_map;
 };

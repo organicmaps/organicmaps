@@ -4,8 +4,8 @@
 
 #include "base/mem_trie.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
+#include <vector>
 
 namespace indexer
 {
@@ -18,7 +18,7 @@ namespace indexer
 class CategoriesIndex
 {
 public:
-  using TCategory = CategoriesHolder::Category;
+  using Category = CategoriesHolder::Category;
 
   CategoriesIndex() : m_catHolder(&GetDefaultCategories()) {}
 
@@ -53,12 +53,12 @@ public:
   // value even if only one language was used when adding this
   // category's name to index.
   // Beware weird results when query is a malformed UTF-8 string.
-  void GetCategories(string const & query, vector<TCategory> & result) const;
+  void GetCategories(std::string const & query, std::vector<Category> & result) const;
 
   // Returns all types that match to categories that have |query| as substring.
   // Beware weird results when query is a malformed UTF-8 string.
   // Note: no types are returned if the query is empty.
-  void GetAssociatedTypes(string const & query, vector<uint32_t> & result) const;
+  void GetAssociatedTypes(std::string const & query, std::vector<uint32_t> & result) const;
 
 #ifdef DEBUG
   inline size_t GetNumTrieNodes() const { return m_trie.GetNumNodes(); }
@@ -69,6 +69,6 @@ private:
   // here because this class may be used from Objectvie-C
   // so a default constructor is needed.
   CategoriesHolder const * m_catHolder = nullptr;
-  base::MemTrie<string, base::VectorValues<uint32_t>> m_trie;
+  base::MemTrie<std::string, base::VectorValues<uint32_t>> m_trie;
 };
 }  // namespace indexer

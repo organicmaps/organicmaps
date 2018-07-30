@@ -2,14 +2,13 @@
 
 #include "base/base.hpp"
 
-#include "std/unordered_set.hpp"
-#include "std/vector.hpp"
-
+#include <unordered_set>
+#include <vector>
 
 class CheckUniqueIndexes
 {
-  unordered_set<uint32_t> m_s;
-  vector<bool> m_v;
+  std::unordered_set<uint32_t> m_s;
+  std::vector<bool> m_v;
   bool m_useBits;
 
   /// Add index to the set.

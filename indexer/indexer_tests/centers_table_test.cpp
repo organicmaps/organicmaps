@@ -15,12 +15,13 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace search;
+using namespace std;
 
 namespace
 {

@@ -9,6 +9,9 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_add.hpp"
+
+using namespace std;
 
 namespace
 {
@@ -167,7 +170,7 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types, drule::rule_
   return res;
 }
 
-string CombineArrT(StringIL const & arrT)
+string CombineArrT(my::StringIL const & arrT)
 {
   string result;
   for (auto it = arrT.begin(); it != arrT.end(); ++it)
@@ -179,7 +182,7 @@ string CombineArrT(StringIL const & arrT)
   return result;
 }
 
-void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, drule::rule_type_t ruleType)
+void CheckPriority(vector<my::StringIL> const & arrT, vector<size_t> const & arrI, drule::rule_type_t ruleType)
 {
   UnitTestInitPlatform();
   Classificator const & c = classif();
@@ -237,7 +240,7 @@ void CheckPriority(vector<StringIL> const & arrT, vector<size_t> const & arrI, d
 
 UNIT_TEST(Classificator_AreaPriority)
 {
-  vector<StringIL> types =
+  vector<my::StringIL> types =
   {
     // 0
     {"natural", "coastline"},
@@ -258,7 +261,7 @@ UNIT_TEST(Classificator_AreaPriority)
 UNIT_TEST(Classificator_PoiPriority)
 {
   {
-    vector<StringIL> types =
+    vector<my::StringIL> types =
     {
       // 1
       {"amenity", "atm"},
@@ -270,7 +273,7 @@ UNIT_TEST(Classificator_PoiPriority)
   }
 
   {
-    vector<StringIL> types =
+    vector<my::StringIL> types =
     {
       // 1
       {"amenity", "bench"}, {"amenity", "shelter"},

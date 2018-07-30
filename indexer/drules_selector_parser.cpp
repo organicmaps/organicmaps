@@ -2,7 +2,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
+
+using namespace std;
 
 namespace drule
 {

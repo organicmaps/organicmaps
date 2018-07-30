@@ -69,7 +69,7 @@ void CollapseMultipleConsecutiveCharsIntoOne(char c, string & str)
 
 string MetadataTagProcessorImpl::ValidateAndFormat_maxspeed(string const & v) const
 {
-  if (!ftypes::IsSpeedCamChecker::Instance()(m_params.m_Types))
+  if (!ftypes::IsSpeedCamChecker::Instance()(m_params.m_types))
     return string();
 
   return v;
@@ -108,7 +108,7 @@ string MetadataTagProcessorImpl::ValidateAndFormat_operator(string const & v) co
   auto const & isATM = ftypes::IsATMChecker::Instance();
   auto const & isFuelStation = ftypes::IsFuelStationChecker::Instance();
 
-  if (!(isATM(m_params.m_Types) || isFuelStation(m_params.m_Types)))
+  if (!(isATM(m_params.m_types) || isFuelStation(m_params.m_types)))
     return string();
 
   return v;

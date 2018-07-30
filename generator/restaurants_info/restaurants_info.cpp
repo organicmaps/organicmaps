@@ -37,7 +37,7 @@ public:
   // EmitterBase overrides:
   void operator()(FeatureBuilder1 & fb) override
   {
-    if (!ftypes::IsFoodChecker::Instance()(fb.GetParams().m_Types) || fb.GetParams().name.IsEmpty())
+    if (!ftypes::IsFoodChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
     {
       ++m_stats.m_unexpectedFeatures;
       return;

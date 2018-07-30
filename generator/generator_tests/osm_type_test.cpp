@@ -35,8 +35,8 @@ UNIT_TEST(OsmType_SkipDummy)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL ( params.m_Types.size(), 1, (params) );
-  TEST_EQUAL ( params.m_Types[0], GetType(arr[1]), () );
+  TEST_EQUAL ( params.m_types.size(), 1, (params) );
+  TEST_EQUAL ( params.m_types[0], GetType(arr[1]), () );
 }
 
 
@@ -57,7 +57,7 @@ namespace
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    DumpTypes(params.m_Types);
+    DumpTypes(params.m_types);
   }
 
   void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
@@ -72,10 +72,10 @@ namespace
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
     std::string psurface;
-    for (auto type : params.m_Types)
+    for (auto type : params.m_types)
     {
       std::string const rtype = classif().GetReadableObjectName(type);
       if (rtype.substr(0, 9) == "psurface-")
@@ -138,7 +138,7 @@ UNIT_TEST(OsmType_Combined)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 2, (params));
+  TEST_EQUAL(params.m_types.size(), 2, (params));
   TEST(params.IsTypeExist(GetType(arr[3])), ());
   TEST(params.IsTypeExist(GetType({"building"})), ());
 
@@ -167,7 +167,7 @@ UNIT_TEST(OsmType_Address)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"building", "address"})), ());
 
   TEST_EQUAL(params.house.Get(), "223/5", ());
@@ -193,7 +193,7 @@ UNIT_TEST(OsmType_PlaceState)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
 
   std::string s;
@@ -243,7 +243,7 @@ UNIT_TEST(OsmType_AlabamaRiver)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"waterway", "river"})), ());
 }
 
@@ -275,7 +275,7 @@ UNIT_TEST(OsmType_Synonyms)
     char const * arrT4[] = { "amenity", "restaurant" };
     char const * arrT5[] = { "tourism", "hotel" };
     char const * arrT6[] = { "amenity", "toilets" };
-    TEST_EQUAL(params.m_Types.size(), 6, (params));
+    TEST_EQUAL(params.m_types.size(), 6, (params));
 
     TEST(params.IsTypeExist(GetType(arrT1)), ());
     TEST(params.IsTypeExist(GetType(arrT2)), ());
@@ -298,7 +298,7 @@ UNIT_TEST(OsmType_Synonyms)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "atm"})), ());
   }
 
@@ -316,7 +316,7 @@ UNIT_TEST(OsmType_Synonyms)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"building"})), ());
   }
 }
@@ -336,7 +336,7 @@ UNIT_TEST(OsmType_Capital)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "6"})), ());
   }
 
@@ -353,7 +353,7 @@ UNIT_TEST(OsmType_Capital)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city"})), ());
   }
 
@@ -372,7 +372,7 @@ UNIT_TEST(OsmType_Capital)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), ());
     TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
   }
@@ -392,7 +392,7 @@ UNIT_TEST(OsmType_Route)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
     TEST_EQUAL(params.ref, arr[1][1], ());
   }
@@ -413,7 +413,7 @@ UNIT_TEST(OsmType_Layer)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "motorway", "bridge"})), ());
     TEST_EQUAL(params.layer, 2, ());
   }
@@ -431,7 +431,7 @@ UNIT_TEST(OsmType_Layer)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "trunk", "tunnel"})), ());
     TEST_EQUAL(params.layer, -1, ());
   }
@@ -448,7 +448,7 @@ UNIT_TEST(OsmType_Layer)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "secondary", "bridge"})), ());
     TEST_EQUAL(params.layer, 1, ());
   }
@@ -465,7 +465,7 @@ UNIT_TEST(OsmType_Layer)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"highway", "primary", "tunnel"})), ());
     TEST_EQUAL(params.layer, -1, ());
   }
@@ -481,7 +481,7 @@ UNIT_TEST(OsmType_Layer)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
     TEST_EQUAL(params.layer, 0, ());
   }
@@ -501,7 +501,7 @@ UNIT_TEST(OsmType_Amenity)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
   }
 }
@@ -526,7 +526,7 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
   }
 
@@ -547,7 +547,7 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 6, (params));
+    TEST_EQUAL(params.m_types.size(), 6, (params));
     TEST(params.IsTypeExist(GetType(arr[1])), ());
     TEST(params.IsTypeExist(GetType(tags[0])), ());
     TEST(params.IsTypeExist(GetType(tags[1])), ());
@@ -567,7 +567,7 @@ UNIT_TEST(OsmType_Hwtag)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 3, (params));
+    TEST_EQUAL(params.m_types.size(), 3, (params));
     TEST(params.IsTypeExist(GetType(arr[2])), ());
     TEST(params.IsTypeExist(GetType(tags[4])), ());
     TEST(params.IsTypeExist(GetType(tags[5])), ());
@@ -611,7 +611,7 @@ UNIT_TEST(OsmType_Ferry)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 3, (params));
+  TEST_EQUAL(params.m_types.size(), 3, (params));
 
   uint32_t type = GetType({"highway", "primary", "bridge"});
   TEST(params.IsTypeExist(type), ());
@@ -644,7 +644,7 @@ UNIT_TEST(OsmType_Boundary)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 2, (params));
+  TEST_EQUAL(params.m_types.size(), 2, (params));
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "2"})), ());
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
 }
@@ -669,7 +669,7 @@ UNIT_TEST(OsmType_Dibrugarh)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
   std::string name;
   TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
@@ -693,7 +693,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "moscow"})), (params));
   }
 
@@ -712,7 +712,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "newyork"})), (params));
   }
 
@@ -732,7 +732,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "light_rail"})), (params));
   }
 
@@ -754,7 +754,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "monorail"})), (params));
   }
 
@@ -773,7 +773,7 @@ UNIT_TEST(OsmType_Subway)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"railway", "station", "subway", "london"})), (params));
   }
 }
@@ -791,7 +791,7 @@ UNIT_TEST(OsmType_Hospital)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"building"})), (params));
   }
 
@@ -807,7 +807,7 @@ UNIT_TEST(OsmType_Hospital)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"building"})), (params));
     TEST(params.IsTypeExist(GetType({"amenity", "hospital"})), (params));
   }
@@ -830,7 +830,7 @@ UNIT_TEST(OsmType_Entrance)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 2, (params));
+    TEST_EQUAL(params.m_types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"entrance"})), (params));
     TEST(params.IsTypeExist(GetType({"barrier", "entrance"})), (params));
   }
@@ -866,7 +866,7 @@ UNIT_TEST(OsmType_Moscow)
     FeatureParams params;
     ftype::GetNameAndType(&e, params);
 
-    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"place", "city", "capital", "2"})), (params));
     TEST(170 <= params.rank && params.rank <= 180, (params));
     TEST(!params.name.IsEmpty(), (params));
@@ -891,7 +891,7 @@ UNIT_TEST(OsmType_Translations)
   FeatureParams params;
   ftype::GetNameAndType(&e, params);
 
-  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST_EQUAL(params.m_types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), ());
 
   std::string name;

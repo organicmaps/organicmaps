@@ -8,8 +8,9 @@
 
 #include "base/assert.hpp"
 
-#include "std/array.hpp"
+#include <array>
 
+using namespace std;
 
 template <class ToDo> typename ToDo::ResultType
 Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const

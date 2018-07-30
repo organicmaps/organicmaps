@@ -8,11 +8,16 @@
 
 #include "base/logging.hpp"
 
-#include "std/set.hpp"
+#include <cstdint>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
-
 class DoGetMaxLowMinHighZoom
 {
   Classificator const & m_classif;

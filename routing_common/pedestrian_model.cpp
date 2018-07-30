@@ -8,6 +8,7 @@
 #include "indexer/feature.hpp"
 
 using namespace routing;
+using namespace std;
 
 namespace
 {

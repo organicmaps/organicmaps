@@ -10,11 +10,13 @@
 
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-#include "std/iterator_facade.hpp"
-#include "std/unordered_map.hpp"
+#include <functional>
+
+#include <boost/iterator/iterator_facade.hpp>
 
 #include <google/protobuf/text_format.h>
+
+using namespace std;
 
 namespace
 {
@@ -125,7 +127,7 @@ void RulesHolder::Clean()
 {
   for (size_t i = 0; i < m_container.size(); ++i)
   {
-    rule_vec_t & v = m_container[i];
+    RuleVec & v = m_container[i];
     for (size_t j = 0; j < v.size(); ++j)
       delete v[j];
     v.clear();
@@ -153,7 +155,7 @@ Key RulesHolder::AddRule(int scale, rule_type_t type, BaseRule * p)
 
 BaseRule const * RulesHolder::Find(Key const & k) const
 {
-  rules_map_t::const_iterator i = m_rules.find(k.m_scale);
+  RulesMap::const_iterator i = m_rules.find(k.m_scale);
   if (i == m_rules.end()) return 0;
 
   vector<uint32_t> const & v = (i->second)[k.m_type];
@@ -185,12 +187,12 @@ uint32_t RulesHolder::GetColor(std::string const & name) const
 
 void RulesHolder::ClearCaches()
 {
-  ForEachRule(bind(static_cast<void (BaseRule::*)()>(&BaseRule::MakeEmptyID), _4));
+  ForEachRule(bind(static_cast<void (BaseRule::*)()>(&BaseRule::MakeEmptyID), placeholders::_4));
 }
 
 void RulesHolder::ResizeCaches(size_t s)
 {
-  ForEachRule(bind(&BaseRule::CheckCacheSize, _4, s));
+  ForEachRule(bind(&BaseRule::CheckCacheSize, placeholders::_4, s));
 }
 
 namespace
@@ -319,10 +321,10 @@ namespace
 
     typedef ClassifElementProto ElementT;
 
-    class RandI : public iterator_facade<
+    class RandI : public boost::iterator_facade<
         RandI,
         ElementT const,
-        random_access_traversal_tag>
+        boost::random_access_traversal_tag>
     {
       ContainerProto const * m_cont;
     public:

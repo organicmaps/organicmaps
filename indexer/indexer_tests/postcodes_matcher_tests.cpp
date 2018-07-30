@@ -7,9 +7,6 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
-
 using namespace strings;
 
 namespace search

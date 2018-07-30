@@ -5,9 +5,13 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "std/map.hpp"
 #include "std/target_os.hpp"
 
+#include <map>
+#include <string>
+#include <vector>
+
+using namespace std;
 using feature::Metadata;
 
 namespace

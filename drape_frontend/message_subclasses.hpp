@@ -35,6 +35,7 @@
 
 #include "std/condition_variable.hpp"
 #include "std/function.hpp"
+#include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/utility.hpp"

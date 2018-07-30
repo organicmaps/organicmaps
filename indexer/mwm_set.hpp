@@ -12,16 +12,14 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/features_offsets_table.hpp"
 
-#include "std/atomic.hpp"
-#include "std/deque.hpp"
-#include "std/map.hpp"
-#include "std/mutex.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
-#include "std/weak_ptr.hpp"
+#include <atomic>
+#include <deque>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "base/observer_list.hpp"
 
@@ -63,7 +61,7 @@ public:
 
   platform::LocalCountryFile const & GetLocalFile() const { return m_file; }
 
-  string const & GetCountryName() const { return m_file.GetCountryName(); }
+  std::string const & GetCountryName() const { return m_file.GetCountryName(); }
 
   int64_t GetVersion() const { return m_file.GetVersion(); }
 
@@ -85,7 +83,7 @@ protected:
   feature::RegionData m_data;
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
-  atomic<Status> m_status;            ///< Current country status.
+  std::atomic<Status> m_status;       ///< Current country status.
   uint32_t m_numRefs;                 ///< Number of active handles.
 };
 
@@ -103,7 +101,7 @@ private:
   // only in MwmValue::SetTable() method, which, in turn, is called
   // only in the MwmSet critical section, protected by a lock.  So,
   // there's an implicit synchronization on this field.
-  weak_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::weak_ptr<feature::FeaturesOffsetsTable> m_table;
 };
 
 class MwmSet
@@ -115,23 +113,23 @@ public:
     friend class MwmSet;
 
     MwmId() = default;
-    MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
+    MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
 
-    shared_ptr<MwmInfo> & GetInfo() { return m_info; }
-    shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
+    std::shared_ptr<MwmInfo> & GetInfo() { return m_info; }
+    std::shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
     bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
     bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
     bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
 
-    friend string DebugPrint(MwmId const & id);
+    friend std::string DebugPrint(MwmId const & id);
 
   private:
-    shared_ptr<MwmInfo> m_info;
+    std::shared_ptr<MwmInfo> m_info;
   };
 
 public:
@@ -162,7 +160,7 @@ public:
 
     bool IsAlive() const { return m_value.get() != nullptr; }
     MwmId const & GetId() const { return m_mwmId; }
-    shared_ptr<MwmInfo> const & GetInfo() const;
+    std::shared_ptr<MwmInfo> const & GetInfo() const;
 
     MwmHandle & operator=(MwmHandle && handle);
 
@@ -172,10 +170,10 @@ public:
   private:
     friend class MwmSet;
 
-    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, unique_ptr<MwmValueBase> && value);
+    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, std::unique_ptr<MwmValueBase> && value);
 
     MwmSet * m_mwmSet;
-    unique_ptr<MwmValueBase> m_value;
+    std::unique_ptr<MwmValueBase> m_value;
 
     DISALLOW_COPY(MwmHandle);
   };
@@ -224,10 +222,10 @@ public:
       m_events.insert(m_events.end(), events.m_events.begin(), events.m_events.end());
     }
 
-    vector<Event> const & Get() const { return m_events; }
+    std::vector<Event> const & Get() const { return m_events; }
 
   private:
-    vector<Event> m_events;
+    std::vector<Event> m_events;
 
     DISALLOW_COPY_AND_MOVE(EventList);
   };
@@ -304,7 +302,7 @@ public:
 
   /// Get ids of all mwms. Some of them may be with not active status.
   /// In that case, LockValue returns NULL.
-  void GetMwmsInfo(vector<shared_ptr<MwmInfo>> & info) const;
+  void GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const;
 
   // Clears caches and mwm's registry. All known mwms won't be marked as DEREGISTERED.
   void Clear();
@@ -326,11 +324,11 @@ public:
   }
 
 protected:
-  virtual unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
-  virtual unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const = 0;
+  virtual std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
+  virtual std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const = 0;
 
 private:
-  typedef deque<pair<MwmId, unique_ptr<MwmValueBase>>> CacheType;
+  using Cache = std::deque<std::pair<MwmId, std::unique_ptr<MwmValueBase>>>;
 
   // This is the only valid way to take |m_lock| and use *Impl()
   // functions. The reason is that event processing requires
@@ -344,7 +342,7 @@ private:
   {
     EventList events;
     {
-      lock_guard<mutex> lock(m_lock);
+      std::lock_guard<std::mutex> lock(m_lock);
       fn(events);
     }
     ProcessEventList(events);
@@ -359,16 +357,16 @@ private:
   /// @precondition This function is always called under mutex m_lock.
   MwmHandle GetMwmHandleByIdImpl(MwmId const & id, EventList & events);
 
-  unique_ptr<MwmValueBase> LockValue(MwmId const & id);
-  unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id, EventList & events);
-  void UnlockValue(MwmId const & id, unique_ptr<MwmValueBase> p);
-  void UnlockValueImpl(MwmId const & id, unique_ptr<MwmValueBase> p, EventList & events);
+  std::unique_ptr<MwmValueBase> LockValue(MwmId const & id);
+  std::unique_ptr<MwmValueBase> LockValueImpl(MwmId const & id, EventList & events);
+  void UnlockValue(MwmId const & id, std::unique_ptr<MwmValueBase> p);
+  void UnlockValueImpl(MwmId const & id, std::unique_ptr<MwmValueBase> p, EventList & events);
 
   /// Do the cleaning for [beg, end) without acquiring the mutex.
   /// @precondition This function is always called under mutex m_lock.
-  void ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end);
+  void ClearCacheImpl(Cache::iterator beg, Cache::iterator end);
 
-  CacheType m_cache;
+  Cache m_cache;
   size_t const m_cacheSize;
 
 protected:
@@ -379,9 +377,9 @@ protected:
   /// @precondition This function is always called under mutex m_lock.
   MwmId GetMwmIdByCountryFileImpl(platform::CountryFile const & countryFile) const;
 
-  map<string, vector<shared_ptr<MwmInfo>>> m_info;
+  std::map<std::string, std::vector<std::shared_ptr<MwmInfo>>> m_info;
 
-  mutable mutex m_lock;
+  mutable std::mutex m_lock;
 
 private:
   base::ObserverListSafe<Observer> m_observers;
@@ -394,7 +392,7 @@ public:
   IndexFactory m_factory;
   platform::LocalCountryFile const m_file;
 
-  shared_ptr<feature::FeaturesOffsetsTable> m_table;
+  std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
 
   explicit MwmValue(platform::LocalCountryFile const & localFile);
   void SetTable(MwmInfoEx & info);
@@ -402,13 +400,13 @@ public:
   feature::DataHeader const & GetHeader() const  { return m_factory.GetHeader(); }
   feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
   version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
-  string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
+  std::string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
 
   bool HasSearchIndex() { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
   bool HasGeometryIndex() { return m_cont.IsExist(INDEX_FILE_TAG); }
 }; // class MwmValue
 
 
-string DebugPrint(MwmSet::RegResult result);
-string DebugPrint(MwmSet::Event::Type type);
-string DebugPrint(MwmSet::Event const & event);
+std::string DebugPrint(MwmSet::RegResult result);
+std::string DebugPrint(MwmSet::Event::Type type);
+std::string DebugPrint(MwmSet::Event const & event);

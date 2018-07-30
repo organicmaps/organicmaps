@@ -10,12 +10,13 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/exception.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <exception>
+#include <sstream>
 
 #include "defines.hpp"
 
+using namespace std;
 using platform::CountryFile;
 using platform::LocalCountryFile;
 
@@ -400,10 +401,7 @@ MwmSet::MwmHandle MwmSet::GetMwmHandleByIdImpl(MwmId const & id, EventList & eve
   return MwmHandle(*this, id, move(value));
 }
 
-void MwmSet::ClearCacheImpl(CacheType::iterator beg, CacheType::iterator end)
-{
-  m_cache.erase(beg, end);
-}
+void MwmSet::ClearCacheImpl(Cache::iterator beg, Cache::iterator end) { m_cache.erase(beg, end); }
 
 void MwmSet::ClearCache(MwmId const & id)
 {

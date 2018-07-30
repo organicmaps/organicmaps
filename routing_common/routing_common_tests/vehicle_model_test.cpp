@@ -8,6 +8,8 @@
 
 #include "base/macros.hpp"
 
+using namespace std;
+
 namespace
 {
 routing::VehicleModel::LimitsInitList const s_testLimits = {

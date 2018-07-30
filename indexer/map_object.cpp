@@ -12,6 +12,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+using namespace std;
+
 namespace osm
 {
 namespace

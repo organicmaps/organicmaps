@@ -6,9 +6,11 @@
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/iterator.hpp"
+#include <algorithm>
+#include <functional>
+#include <iterator>
+
+using namespace std;
 
 namespace
 {
@@ -84,7 +86,7 @@ void ClassifObject::Sort()
 {
   sort(m_drawRule.begin(), m_drawRule.end(), less_scales());
   sort(m_objs.begin(), m_objs.end(), less_name_t());
-  for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, _1));
+  for_each(m_objs.begin(), m_objs.end(), bind(&ClassifObject::Sort, placeholders::_1));
 }
 
 void ClassifObject::Swap(ClassifObject & r)
@@ -301,7 +303,7 @@ bool ClassifObject::IsDrawable(int scale) const
 
 bool ClassifObject::IsDrawableAny() const
 {
-  return (m_visibility != TVisibleMask() && !m_drawRule.empty());
+  return (m_visibility != VisibleMask() && !m_drawRule.empty());
 }
 
 bool ClassifObject::IsDrawableLike(feature::EGeomType ft, bool emptyName) const

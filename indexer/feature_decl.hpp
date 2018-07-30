@@ -2,9 +2,8 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <string>
 
 namespace feature
 {
@@ -18,7 +17,7 @@ enum EGeomType
 };
 }  // namespace feature
 
-string DebugPrint(feature::EGeomType type);
+std::string DebugPrint(feature::EGeomType type);
 
 struct FeatureID
 {
@@ -48,8 +47,8 @@ struct FeatureID
 
   inline bool operator!=(FeatureID const & r) const { return !(*this == r); }
 
-  string GetMwmName() const;
+  std::string GetMwmName() const;
   int64_t GetMwmVersion() const;
 
-  friend string DebugPrint(FeatureID const & id);
+  friend std::string DebugPrint(FeatureID const & id);
 };

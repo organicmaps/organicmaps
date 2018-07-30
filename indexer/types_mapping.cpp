@@ -4,6 +4,7 @@
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
 
+using namespace std;
 
 void IndexAndTypeMapping::Clear()
 {
@@ -44,7 +45,7 @@ void IndexAndTypeMapping::Add(uint32_t ind, uint32_t type)
 
 uint32_t IndexAndTypeMapping::GetIndex(uint32_t t) const
 {
-  MapT::const_iterator i = m_map.find(t);
+  Map::const_iterator i = m_map.find(t);
   CHECK ( i != m_map.end(), (t, classif().GetFullObjectName(t)) );
   return i->second;
 }

@@ -9,6 +9,8 @@
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 
+using namespace std;
+
 namespace
 {
 enum State

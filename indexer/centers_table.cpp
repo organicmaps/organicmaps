@@ -17,10 +17,12 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
-#include "std/unordered_map.hpp"
+#include <unordered_map>
 
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/rs_bit_vector.hpp"
+
+using namespace std;
 
 namespace search
 {

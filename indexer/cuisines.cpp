@@ -3,7 +3,7 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/utility.hpp"
+using namespace std;
 
 namespace osm
 {
@@ -56,5 +56,5 @@ string Cuisines::Translate(string const & singleOsmCuisine, string const & lang)
   return TranslateImpl(m_translations, singleOsmCuisine);
 }
 
-TAllCuisines Cuisines::AllSupportedCuisines() { return m_translations->GetAllSortedTranslations(); }
+AllCuisines Cuisines::AllSupportedCuisines() { return m_translations->GetAllSortedTranslations(); }
 }  // namespace osm

@@ -3,11 +3,10 @@
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/map.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <map>
+#include <string>
+#include <vector>
 
 
 namespace feature
@@ -16,7 +15,7 @@ class MetadataBase
 {
 protected:
   // TODO: Change uint8_t to appropriate type when FMD_COUNT reaches 256.
-  void Set(uint8_t type, string const & value)
+  void Set(uint8_t type, std::string const & value)
   {
     auto found = m_metadata.find(type);
     if (found == m_metadata.end())
@@ -40,15 +39,15 @@ public:
     return it != m_metadata.end();
   }
 
-  string Get(uint8_t type) const
+  std::string Get(uint8_t type) const
   {
     auto const it = m_metadata.find(type);
-    return (it == m_metadata.end()) ? string() : it->second;
+    return (it == m_metadata.end()) ? std::string() : it->second;
   }
 
-  vector<uint8_t> GetPresentTypes() const
+  std::vector<uint8_t> GetPresentTypes() const
   {
-    vector<uint8_t> types;
+    std::vector<uint8_t> types;
     types.reserve(m_metadata.size());
 
     for (auto const & item : m_metadata)
@@ -89,7 +88,7 @@ public:
   }
 
 protected:
-  map<uint8_t, string> m_metadata;
+  std::map<uint8_t, std::string> m_metadata;
 };
 
 class Metadata : public MetadataBase
@@ -132,12 +131,12 @@ public:
   };
 
   /// Used to normalize tags like "contact:phone" and "phone" to a common metadata enum value.
-  static bool TypeFromString(string const & osmTagKey, EType & outType);
+  static bool TypeFromString(std::string const & osmTagKey, EType & outType);
   static bool IsSponsoredType(EType const & type);
 
-  void Set(EType type, string const & value) { MetadataBase::Set(type, value); }
-  void Drop(EType type) { Set(type, string()); }
-  string GetWikiURL() const;
+  void Set(EType type, std::string const & value) { MetadataBase::Set(type, value); }
+  void Drop(EType type) { Set(type, std::string()); }
+  std::string GetWikiURL() const;
 
   // TODO: Commented code below is now longer neded, but I leave it here
   // as a hint to what is going on in DeserializeFromMWMv7OrLower.
@@ -178,7 +177,7 @@ class AddressData : public MetadataBase
 public:
   enum Type { PLACE, STREET, POSTCODE };
 
-  void Add(Type type, string const & s)
+  void Add(Type type, std::string const & s)
   {
     /// @todo Probably, we need to add separator here and store multiple values.
     MetadataBase::Set(type, s);
@@ -209,14 +208,14 @@ public:
     PH_CANADA_DAY = 23
   };
 
-  void Set(Type type, string const & s)
+  void Set(Type type, std::string const & s)
   {
     CHECK_NOT_EQUAL(type, Type::RD_LANGUAGES, ("Please use RegionData::SetLanguages method"));
     MetadataBase::Set(type, s);
   }
 
-  void SetLanguages(vector<string> const & codes);
-  void GetLanguages(vector<int8_t> & langs) const;
+  void SetLanguages(std::vector<std::string> const & codes);
+  void GetLanguages(std::vector<int8_t> & langs) const;
   bool HasLanguage(int8_t const lang) const;
   bool IsSingleLanguage(int8_t const lang) const;
 
@@ -226,5 +225,5 @@ public:
 }  // namespace feature
 
 // Prints types in osm-friendly format.
-string ToString(feature::Metadata::EType type);
-inline string DebugPrint(feature::Metadata::EType type) { return ToString(type); }
+std::string ToString(feature::Metadata::EType type);
+inline std::string DebugPrint(feature::Metadata::EType type) { return ToString(type); }
