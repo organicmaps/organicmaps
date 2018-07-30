@@ -1423,6 +1423,7 @@ void FrontendRenderer::RenderTransitBackground()
 
   dp::TextureManager::ColorRegion region;
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
+  CHECK(region.GetTexture() != nullptr, ("Texture manager is not initialized"));
   if (!m_transitBackground->IsInitialized())
   {
     auto prg = m_gpuProgramManager->GetProgram(gpu::Program::ScreenQuad);

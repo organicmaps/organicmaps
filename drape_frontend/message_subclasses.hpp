@@ -1251,6 +1251,7 @@ private:
 class FinishTexturesInitializationMessage : public Message
 {
 public:
+  bool IsGLContextDependent() const override { return true; }
   Type GetType() const override { return Message::FinishTexturesInitialization; }
 };
 
