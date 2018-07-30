@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.DialogUtils;
@@ -263,16 +265,35 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
     {
       if (mFragment == null)
-      {
         return;
-      }
 
       if (successful)
-      {
-        Toast.makeText(mFragment.getContext(), R.string.bookmarks_webview_success_toast,
-                       Toast.LENGTH_SHORT).show();
+        onSuccess(catId);
+      else
+        onError();
+    }
+
+    private void onSuccess(long catId)
+    {
+      if (mFragment == null)
         return;
-      }
+
+      BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(catId);
+      FragmentManager fm = mFragment.getActivity().getSupportFragmentManager();
+      ShowOnMapCatalogCategoryFragment frag =
+          (ShowOnMapCatalogCategoryFragment) fm.findFragmentByTag(ShowOnMapCatalogCategoryFragment.TAG);
+      if (frag == null)
+        ShowOnMapCatalogCategoryFragment.newInstance(category)
+                                        .show(fm, ShowOnMapCatalogCategoryFragment.TAG);
+      else
+        frag.setCategory(category);
+    }
+
+    private void onError()
+    {
+      if (mFragment == null)
+        return;
+
       DialogUtils.showAlertDialog(mFragment.getActivity(),
                                   R.string.title_error_downloading_bookmarks,
                                   R.string.subtitle_error_downloading_bookmarks);

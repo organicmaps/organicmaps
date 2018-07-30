@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <item name="match_parent" type="dimen">-1</item>
-
+  <dimen name="show_on_map_dialog_padding">30.5dp</dimen>
   <dimen name="track_circle_size">40dp</dimen>
 
   <!-- margins -->

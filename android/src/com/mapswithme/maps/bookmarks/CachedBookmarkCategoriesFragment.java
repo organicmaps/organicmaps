@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -127,8 +128,18 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     Intent intent = new Intent(getActivity(), BookmarksCatalogActivity.class)
         .putExtra(BookmarksCatalogFragment.EXTRA_BOOKMARKS_CATALOG_URL,
                   getCatalogUrl());
-    getActivity().startActivity(intent);
+    startActivityForResult(intent, BookmarksCatalogActivity.REQ_CODE_CATALOG);
     Statistics.INSTANCE.trackOpenCatalogScreen();
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    if (requestCode == BookmarksCatalogActivity.REQ_CODE_CATALOG && resultCode == Activity.RESULT_OK)
+    {
+      getActivity().setResult(Activity.RESULT_OK, data);
+      getActivity().finish();
+    }
   }
 
   @NonNull

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:paddingTop="@dimen/hotels_filter_margin_top"
+              android:paddingBottom="@dimen/hotels_filter_margin_top"
+              android:paddingRight="@dimen/show_on_map_dialog_padding"
+              android:paddingEnd="@dimen/show_on_map_dialog_padding"
+              android:paddingStart="@dimen/show_on_map_dialog_padding"
+              android:paddingLeft="@dimen/show_on_map_dialog_padding">
+  <!--FIXME text-->
+  <TextView
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textSize="@dimen/text_size_body_0"
+    android:text="@string/search_show_on_map"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+  <!--FIXME text-->
+  <TextView
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/search_show_on_map"
+    android:layout_marginTop="@dimen/margin_half"/>
+
+  <Button
+    android:id="@+id/show_on_map_accept_btn"
+    android:text="@string/search_show_on_map"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    style="@style/MwmWidget.Button.Primary"/>
+
+  <TextView
+    android:id="@+id/show_on_map_decline_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:text="@string/not_now"
+    android:background="?attr/selectableItemBackground"/>
+</LinearLayout>
+

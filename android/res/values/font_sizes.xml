@@ -9,6 +9,7 @@
   <dimen name="text_size_headline">28sp</dimen>
   <dimen name="text_size_title">24sp</dimen>
   <dimen name="text_size_toolbar">20sp</dimen>
+  <dimen name="text_size_body_0">18sp</dimen>
   <dimen name="text_size_body_1">16sp</dimen>
   <dimen name="text_size_body_2">16sp</dimen>
   <dimen name="text_size_body_3">14sp</dimen>

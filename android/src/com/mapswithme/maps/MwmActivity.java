@@ -42,8 +42,10 @@ import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
+import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
 import com.mapswithme.maps.bookmarks.BookmarksDownloadManager;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -1052,7 +1054,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
         onFilterResultReceived(data);
         break;
+      case BookmarkCategoriesActivity.REQ_CODE_BOOKMARK_CATEGORIES:
+        onBookmarkCategoriesResult(data);
+
     }
+  }
+
+  private void onBookmarkCategoriesResult(@NonNull Intent data)
+  {
+    BookmarkCategory category = data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_CATEGORY);
+    if (category == null)
+      throw new IllegalArgumentException("Category not found in bundle");
+
+    Framework.nativeShowBookmarkCategory(category.getId());
   }
 
   private void handleDiscoveryResult(@NonNull Intent data)
@@ -1665,7 +1679,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       try
       {
         BookmarksDownloadManager.from(target).enqueueRequest(mUrl);
-        BookmarkCategoriesActivity.start(target, BookmarksPageFactory.CATALOG.ordinal());
+        BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.CATALOG.ordinal());
       }
       catch (BookmarksDownloadManager.UnprocessedUrlException e)
       {
