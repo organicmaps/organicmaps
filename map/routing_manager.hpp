@@ -176,15 +176,13 @@ public:
   {
     return m_routingSession.GetTurnNotificationsLocale();
   }
-  /// \brief When an end user is going to a turn he gets sound turn instructions.
-  /// If C++ part wants the client to pronounce an instruction GenerateTurnNotifications (in
-  /// turnNotifications) returns
-  /// an array of one of more strings. C++ part assumes that all these strings shall be pronounced
-  /// by the client's TTS.
-  /// For example if C++ part wants the client to pronounce "Make a right turn." this method returns
-  /// an array with one string "Make a right turn.". The next call of the method returns nothing.
-  /// GenerateTurnNotifications shall be called by the client when a new position is available.
-  void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
+  /// \brief Adds to @param notifications strings - notifications, which are ready to be
+  /// pronounced to end user right now.
+  /// Adds notifications about turns and speed camera on the road.
+  ///
+  /// \note Current notifications will be deleted after call and second call
+  /// will not return previous data, only newer.
+  void GenerateNotifications(std::vector<std::string> & notifications);
 
   void AddRoutePoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;

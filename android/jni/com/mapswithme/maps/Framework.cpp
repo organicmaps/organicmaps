@@ -44,6 +44,7 @@
 #include "base/sunrise_sunset.hpp"
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -1031,18 +1032,18 @@ Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_Framework_nativeGenerateTurnNotifications(JNIEnv * env, jclass)
+Java_com_mapswithme_maps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass)
 {
   ::Framework * fr = frm();
   if (!fr->GetRoutingManager().IsRoutingActive())
     return nullptr;
 
-  vector<string> turnNotifications;
-  fr->GetRoutingManager().GenerateTurnNotifications(turnNotifications);
-  if (turnNotifications.empty())
+  vector<string> notifications;
+  fr->GetRoutingManager().GenerateNotifications(notifications);
+  if (notifications.empty())
     return nullptr;
 
-  return jni::ToJavaStringArray(env, turnNotifications);
+  return jni::ToJavaStringArray(env, notifications);
 }
 
 JNIEXPORT jobject JNICALL

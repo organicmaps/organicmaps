@@ -294,7 +294,8 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
   NSMutableArray<NSString *> * turnNotifications = [@[] mutableCopy];
   vector<string> notifications;
-  GetFramework().GetRoutingManager().GenerateTurnNotifications(notifications);
+  GetFramework().GetRoutingManager().GenerateNotifications(notifications);
+
   for (auto const & text : notifications)
     [turnNotifications addObject:@(text.c_str())];
   return [turnNotifications copy];

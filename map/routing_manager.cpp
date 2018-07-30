@@ -788,12 +788,12 @@ void RoutingManager::ReorderIntermediatePoints()
     prevPoints[i]->SetIntermediateIndex(i < insertIndex ? i : i + 1);
 }
 
-void RoutingManager::GenerateTurnNotifications(vector<string> & turnNotifications)
+void RoutingManager::GenerateNotifications(vector<string> & turnNotifications)
 {
   if (m_currentRouterType == RouterType::Taxi)
     return;
 
-  return m_routingSession.GenerateTurnNotifications(turnNotifications);
+  m_routingSession.GenerateNotifications(turnNotifications);
 }
 
 void RoutingManager::BuildRoute(uint32_t timeoutSec)

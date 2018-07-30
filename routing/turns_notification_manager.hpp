@@ -6,7 +6,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
-#include "std/string.hpp"
+#include <cstdint>
+#include <string>
 
 namespace location
 {
@@ -28,7 +29,7 @@ enum class PronouncedNotification
   Second /** The second notification just before the turn was pronounced. */
 };
 
-string DebugPrint(PronouncedNotification const notificationProgress);
+std::string DebugPrint(PronouncedNotification const notificationProgress);
 
 /// \brief The TurnsSound class is responsible for all route turn sound notifications functionality.
 /// To be able to generate turn sound notification the class needs to have correct Settings
@@ -41,7 +42,7 @@ class NotificationManager
   friend void UnitTest_TurnsSoundComposedTurnTest();
   friend void UnitTest_TurnsSoundRoundaboutTurnTest();
 
-  /// \brief The private contructor is used only for testing.
+  /// \brief The private constructor is used only for testing.
   NotificationManager(uint32_t startBeforeSeconds, uint32_t minStartBeforeMeters,
                       uint32_t maxStartBeforeMeters, uint32_t minDistToSayNotificationMeters)
     : m_enabled(false)
@@ -58,6 +59,7 @@ class NotificationManager
   /// m_enabled == true when tts is turned on.
   /// Important! Clients (iOS/Android) implies that m_enabled is false by default.
   bool m_enabled;
+
   /// In m_speedMetersPerSecond is intended for some speed which will be used for
   /// convertion a distance in seconds to distance in meters. It could be a current
   /// an end user speed or an average speed for last several seconds.
@@ -66,6 +68,7 @@ class NotificationManager
   double m_speedMetersPerSecond;
 
   Settings m_settings;
+
   /// m_nextTurnNotificationProgress keeps a status which is being changing while
   /// an end user is coming to the closest (the next) turn along the route.
   /// When an end user is far from the next turn
@@ -75,6 +78,7 @@ class NotificationManager
   /// After the second notification has been pronounced
   /// m_nextTurnNotificationProgress == Second.
   PronouncedNotification m_nextTurnNotificationProgress;
+
   /// The flag is set to true if notification about the second turn was pronounced.
   /// It could happen in expressions like "Turn right. Then turn left."
   /// This flag is used to pass the information if second turn notification was pronounced
@@ -82,15 +86,18 @@ class NotificationManager
   bool m_turnNotificationWithThen;
 
   uint32_t m_nextTurnIndex;
+
   /// getTtsText is a convector form turn notification information and locale to
   /// notification string.
   GetTtsText m_getTtsText;
+
   /// if m_secondTurnNotification == true it's time to display the second turn notification
   /// visual informer, and false otherwise.
   /// m_secondTurnNotification is a direction of the turn after the closest one
   /// if an end user shall be informed about it. If not, m_secondTurnNotification ==
   /// TurnDirection::NoTurn
   CarDirection m_secondTurnNotification;
+
   /// m_secondTurnNotificationIndex is an index of the closest turn on the route polyline
   /// where m_secondTurnNotification was set to true last time for a turn.
   /// If the closest turn is changed m_secondTurnNotification is set to 0.
@@ -100,13 +107,16 @@ class NotificationManager
   /// the turn after the next one.
   uint32_t m_secondTurnNotificationIndex;
 
-  string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                          CarDirection turnDir, measurement_utils::Units lengthUnits) const;
+  std::string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+                               CarDirection turnDir, measurement_utils::Units lengthUnits) const;
+
   /// Generates turn sound notification for the nearest to the current position turn.
-  string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
-  /// Changes the state of the class to emulate that first turn notification is pronouned
+  std::string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
+
+  /// Changes the state of the class to emulate that first turn notification is pronounced
   /// without pronunciation.
   void FastForwardFirstTurnNotification();
+
   /// \param turns contains information about the next turns staring from closest turn.
   /// That means turns[0] is the closest turn (if available).
   /// @return the second closest turn or TurnDirection::NoTurn.
@@ -133,9 +143,12 @@ public:
   void Enable(bool enable);
   void SetLengthUnits(measurement_utils::Units units);
   inline measurement_utils::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
-  inline void SetLocale(string const & locale) { m_getTtsText.SetLocale(locale); }
-  inline string GetLocale() const { return m_getTtsText.GetLocale(); }
+  inline void SetLocale(std::string const & locale) { m_getTtsText.SetLocale(locale); }
+  inline std::string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);
+
+  /// \brief Generate text of speed camera notification.
+  std::string GenerateSpeedCameraText() const;
 
   /// \brief GenerateTurnNotifications updates information about the next turn notification.
   /// It also fills turnNotifications when it's necessary.
@@ -146,10 +159,12 @@ public:
   /// \param turnNotifications is a parameter to fill it if it's necessary.
   /// \note The client implies turnNotifications does not contain empty strings.
   void GenerateTurnNotifications(vector<TurnItemDist> const & turns,
-                                 vector<string> & turnNotifications);
+                                 vector<std::string> & turnNotifications);
+
   /// Reset states which reflects current route position.
   /// The method shall be called after creating a new route or after rerouting.
   void Reset();
+
   /// \brief The method was implemented to display the second turn notification
   /// in an appropriate moment.
   /// @return the second closest turn.

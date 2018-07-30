@@ -31,8 +31,10 @@ struct GenerateInfo
 
   // Directory for .mwm.tmp files.
   std::string m_tmpDir;
+
   // Directory for result .mwm files.
   std::string m_targetDir;
+
   // Directory for all intermediate files.
   std::string m_intermediateDir;
 

@@ -36,7 +36,12 @@ string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exi
 {
   Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir,
                                   lengthUnits);
-  return m_getTtsText(notification);
+  return m_getTtsText.GetTurnNotification(notification);
+}
+
+string NotificationManager::GenerateSpeedCameraText() const
+{
+  return m_getTtsText.GetSpeedCameraNotification();
 }
 
 void NotificationManager::GenerateTurnNotifications(vector<TurnItemDist> const & turns,
@@ -209,7 +214,7 @@ CarDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnItem
   TurnItemDist const & secondTurn = turns[1];
 
   if (firstTurn.m_turnItem.m_index != m_secondTurnNotificationIndex)
-    m_secondTurnNotificationIndex = 0;  // It's a new closest(fisrt) turn.
+    m_secondTurnNotificationIndex = 0;  // It's a new closest (first) turn.
   else if (m_secondTurnNotificationIndex != 0)
     return secondTurn.m_turnItem.m_turn;  // m_secondTurnNotificationIndex was set to true before.
 
@@ -222,11 +227,13 @@ CarDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnItem
   uint32_t const startPronounceDistMeters =
       m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) +
       m_settings.ComputeDistToPronounceDistM(m_speedMetersPerSecond);
+
   if (firstTurn.m_distMeters <= startPronounceDistMeters)
   {
     m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;
     return secondTurn.m_turnItem.m_turn;  // It's time to inform about the turn after the next one.
   }
+
   return CarDirection::None;
 }
 

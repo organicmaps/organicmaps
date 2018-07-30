@@ -164,7 +164,7 @@ public:
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(std::string const & locale);
   std::string GetTurnNotificationsLocale() const;
-  void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
+  void GenerateNotifications(std::vector<std::string> & notifications);
 
   void EmitCloseRoutingEvent() const;
 

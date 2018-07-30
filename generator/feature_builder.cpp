@@ -44,7 +44,7 @@ bool FeatureBuilder1::IsGeometryClosed() const
 
 m2::PointD FeatureBuilder1::GetGeometryCenter() const
 {
-  //TODO(govako): Check reqirements in this assert
+  //TODO(govako): Check requirements in this assert
   //ASSERT ( IsGeometryClosed(), () );
   m2::PointD ret(0.0, 0.0);
 

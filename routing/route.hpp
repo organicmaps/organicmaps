@@ -127,20 +127,25 @@ public:
 
     Junction const & GetStart() const { return m_start; }
     Junction const & GetFinish() const { return m_finish; }
+
     size_t GetBeginSegmentIdx() const { return m_beginSegmentIdx; }
     size_t GetEndSegmentIdx() const { return m_endSegmentIdx; }
+
     size_t GetSize() const { return m_endSegmentIdx - m_beginSegmentIdx; }
 
   private:
+
     Junction m_start;
     Junction m_finish;
+
     // Index of the first subroute segment in the whole route.
     size_t m_beginSegmentIdx = 0;
+
     // Non inclusive index of the last subroute segment in the whole route.
     size_t m_endSegmentIdx = 0;
   };
 
-  /// \brief For every subroute some attributes are kept the following stucture.
+  /// \brief For every subroute some attributes are kept the following structure.
   struct SubrouteSettings final
   {
     SubrouteSettings(RoutingSettings const & routingSettings, std::string const & router,
@@ -229,6 +234,7 @@ public:
 
   /// \returns estimated time for the whole route.
   double GetTotalTimeSec() const;
+
   /// \returns estimated time to reach the route end.
   double GetCurrentTimeToEndSec() const;
 

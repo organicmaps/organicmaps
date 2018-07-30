@@ -132,7 +132,6 @@ namespace location
           m_exitNum(0),
           m_time(0),
           m_completionPercent(0),
-          m_speedWarningSignal(false),
           m_pedestrianTurn(routing::turns::PedestrianDirection::None),
           m_pedestrianDirectionPos(0., 0.)
     {
@@ -189,9 +188,6 @@ namespace location
 
     // Percentage of the route completion.
     double m_completionPercent;
-
-    // Speed cam warning signal.
-    bool m_speedWarningSignal;
 
     /// @name Pedestrian direction information
     //@{

@@ -108,6 +108,7 @@ UNIT_TEST(GetDirectionTextIdTest)
 
 UNIT_TEST(GetTtsTextTest)
 {
+  // TODO (@gmoryes) add here message about speed_camera, when it will be coined
   string const engShortJson =
       "\
       {\
@@ -143,16 +144,16 @@ UNIT_TEST(GetTtsTextTest)
                                    measurement_utils::Units::Metric);
 
   getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
-  TEST_EQUAL(getTtsText(notification1), "In 500 meters. Make a right turn.", ());
-  TEST_EQUAL(getTtsText(notification2), "In 300 meters. Make a left turn.", ());
-  TEST_EQUAL(getTtsText(notification3), "You have reached the destination.", ());
-  TEST_EQUAL(getTtsText(notification4), "Then. Make a left turn.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "In 500 meters. Make a right turn.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "In 300 meters. Make a left turn.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "You have reached the destination.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Then. Make a left turn.", ());
 
   getTtsText.ForTestingSetLocaleWithJson(rusShortJson, "ru");
-  TEST_EQUAL(getTtsText(notification1), "Через 500 метров. Поворот направо.", ());
-  TEST_EQUAL(getTtsText(notification2), "Через 300 метров. Поворот налево.", ());
-  TEST_EQUAL(getTtsText(notification3), "Вы достигли конца маршрута.", ());
-  TEST_EQUAL(getTtsText(notification4), "Затем. Поворот налево.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Через 500 метров. Поворот направо.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Через 300 метров. Поворот налево.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Вы достигли конца маршрута.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Затем. Поворот налево.", ());
 }
 
 UNIT_TEST(GetAllSoundedDistMetersTest)

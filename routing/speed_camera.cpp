@@ -12,7 +12,7 @@
 #include "base/string_utils.hpp"
 #include "base/math.hpp"
 
-#include "std/limits.hpp"
+#include <limits>
 
 namespace
 {
@@ -22,24 +22,25 @@ double constexpr kCoordinateEqualityDelta = 0.000001;
 
 namespace routing
 {
-uint8_t const kNoSpeedCamera = numeric_limits<uint8_t>::max();
+uint8_t constexpr kNoSpeedCamera = std::numeric_limits<uint8_t>::max();
 
 uint8_t ReadCameraRestriction(FeatureType & ft)
 {
-  using feature::Metadata;
-  feature::Metadata const & md = ft.GetMetadata();
-  string const & speed = md.Get(Metadata::FMD_MAXSPEED);
+  string const & speed = ft.GetMetadata().Get(feature::Metadata::FMD_MAXSPEED);
+
   if (speed.empty())
     return 0;
+
   int result;
   if (strings::to_int(speed, result))
     return result;
+
   return 0;
 }
 
 uint8_t CheckCameraInPoint(m2::PointD const & point, DataSource const & dataSource)
 {
-  uint32_t speedLimit = kNoSpeedCamera;
+  uint8_t speedLimit = kNoSpeedCamera;
 
   auto const f = [&point, &speedLimit](FeatureType & ft) {
     if (ft.GetFeatureType() != feature::GEOM_POINT)

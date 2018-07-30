@@ -25,6 +25,8 @@ data/drules_proto_design.bin
 data/colors_design.txt
 data/patterns_design.txt
 data/route_points.dat
+data/bookmarks/
+data/bookmarks_backup/
 
 # Compiled Python
 *.pyc
@@ -174,3 +176,4 @@ designer_version.h
 
 # Vim files
 tags
+*.sw*

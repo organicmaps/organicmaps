@@ -10,6 +10,7 @@
 #include <functional>
 #include <list>
 #include <string>
+#include <vector>
 
 namespace serial
 {
@@ -23,10 +24,10 @@ class FeatureBuilder1
   friend std::string DebugPrint(FeatureBuilder1 const & f);
 
 public:
-  using TPointSeq = vector<m2::PointD>;
+  using TPointSeq = std::vector<m2::PointD>;
   using TGeometry = std::list<TPointSeq>;
 
-  using TBuffer = vector<char>;
+  using TBuffer = std::vector<char>;
 
   FeatureBuilder1();
 
@@ -56,7 +57,7 @@ public:
   inline bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
   inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
 
-  void AddPolygon(vector<m2::PointD> & poly);
+  void AddPolygon(std::vector<m2::PointD> & poly);
 
   void ResetGeometry();
   //@}
@@ -176,7 +177,7 @@ public:
   /// area's one if there is no relation, and relation id otherwise.
   osm::Id GetMostGenericOsmId() const;
   bool HasOsmId(osm::Id const & id) const;
-  vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
+  std::vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
   //@}
 
   uint64_t GetWayIDForRouting() const;
@@ -203,7 +204,7 @@ public:
 
 protected:
   /// Used for features debugging
-  vector<osm::Id> m_osmIds;
+  std::vector<osm::Id> m_osmIds;
 
   FeatureParams m_params;
 
@@ -226,7 +227,7 @@ protected:
 class FeatureBuilder2 : public FeatureBuilder1
 {
   using TBase = FeatureBuilder1;
-  using TOffsets = vector<uint32_t>;
+  using TOffsets = std::vector<uint32_t>;
 
   static void SerializeOffsets(uint32_t mask, TOffsets const & offsets, TBuffer & buffer);
 

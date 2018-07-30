@@ -237,6 +237,7 @@ void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect
   auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
     ReadFeatureType(f, src, index);
   };
+
   ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
 }

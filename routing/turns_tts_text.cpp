@@ -45,10 +45,11 @@ void GetTtsText::ForTestingSetLocaleWithJson(string const & jsonBuffer, string c
   m_getCurLang = platform::ForTestingGetTextByIdFactory(jsonBuffer, locale);
 }
 
-string GetTtsText::operator()(Notification const & notification) const
+string GetTtsText::GetTurnNotification(Notification const & notification) const
 {
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance)
     return GetTextById(GetDirectionTextId(notification));
+
   if (notification.m_useThenInsteadOfDistance && notification.m_turnDir == CarDirection::None)
     return string();
 
@@ -58,6 +59,12 @@ string GetTtsText::operator()(Notification const & notification) const
 
   string const distStr = GetTextById(GetDistanceTextId(notification));
   return distStr + " " + dirStr;
+}
+
+string GetTtsText::GetSpeedCameraNotification() const
+{
+  // TODO (@gmoryes) add this tag to sound.txt
+  return GetTextById("speed_camera");
 }
 
 string GetTtsText::GetLocale() const
