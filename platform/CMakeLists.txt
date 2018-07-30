@@ -24,6 +24,8 @@ set(
   http_request.hpp
   http_thread_callback.hpp
   http_uploader.hpp
+  http_user_agent.cpp
+  http_user_agent.hpp
   local_country_file.cpp
   local_country_file.hpp
   local_country_file_utils.cpp
@@ -61,6 +63,7 @@ if(${PLATFORM_IPHONE})
     http_thread_apple.mm
     http_client_apple.mm
     http_uploader_apple.mm
+    http_user_agent_ios.mm
     marketing_service_ios.mm
     network_policy_ios.h
     network_policy_ios.mm
@@ -80,6 +83,7 @@ elseif(${PLATFORM_ANDROID})
 else() # neither iPhone nor Android
   append(
     SRC
+    http_user_agent_dummy.cpp
     location_service.cpp
     location_service.hpp
     marketing_service_dummy.cpp
@@ -93,6 +97,7 @@ else() # neither iPhone nor Android
     append(
       SRC
       http_client_curl.cpp
+      http_user_agent_dummy.cpp
       http_thread_qt.cpp
       http_thread_qt.hpp
       http_uploader_dummy.cpp
@@ -110,6 +115,7 @@ else() # neither iPhone nor Android
       http_thread_apple.h
       http_thread_apple.mm
       http_uploader_apple.mm
+      http_user_agent_dummy.cpp
       marketing_service_dummy.cpp
       platform_mac.mm
       platform_unix_impl.cpp
@@ -125,6 +131,7 @@ else() # neither iPhone nor Android
       http_thread_qt.cpp
       http_thread_qt.hpp
       http_uploader_dummy.cpp
+      http_user_agent_dummy.cpp
       marketing_service_dummy.cpp
       platform_linux.cpp
       platform_unix_impl.cpp

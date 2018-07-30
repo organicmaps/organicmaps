@@ -565,6 +565,7 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
 
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", kApplicationJson);
+  request.SetUserAgent(GetPlatform().GetAppUserAgent());
   if (onBuildRequest)
     onBuildRequest(request);
 

@@ -119,6 +119,7 @@ NameDiffInfoMap Checker::Check(LocalMapsInfo const & info)
   ASSERT(!body.empty(), ());
   request.SetBodyData(body, "application/json");
   request.SetTimeout(kTimeoutInSeconds);
+  request.SetUserAgent(GetPlatform().GetAppUserAgent());
   NameDiffInfoMap diffs;
   if (request.RunHttpRequest() && !request.WasRedirected() && request.ErrorCode() == 200)
   {

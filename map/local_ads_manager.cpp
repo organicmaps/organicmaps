@@ -414,6 +414,7 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
 
   platform::HttpClient request(url);
   request.SetTimeout(5); // timeout in seconds
+  request.SetUserAgent(GetPlatform().GetAppUserAgent());
   bool const success = request.RunHttpRequest() && request.ErrorCode() == 200;
 
   std::lock_guard<std::mutex> lock(m_campaignsMutex);

@@ -95,6 +95,11 @@ void HttpClient::SetTimeout(double timeoutSec)
   m_timeoutSec = timeoutSec;
 }
 
+void HttpClient::SetUserAgent(HttpUserAgent const & userAgent)
+{
+  m_headers.emplace(userAgent.Key(), userAgent.Value());
+}
+
 string const & HttpClient::UrlRequested() const
 {
   return m_urlRequested;

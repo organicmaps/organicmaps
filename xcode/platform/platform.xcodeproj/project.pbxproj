@@ -28,6 +28,9 @@
 		4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4564FA7C2094978C0043CCFB /* remote_file.hpp */; };
 		4564FA7F2094978D0043CCFB /* remote_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4564FA7D2094978D0043CCFB /* remote_file.cpp */; };
 		5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */; };
+		45D7ADBA210F48E500160DE3 /* http_user_agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */; };
+		45D7ADBB210F48E500160DE3 /* http_user_agent_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */; };
+		45D7ADBC210F48E500160DE3 /* http_user_agent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -143,6 +146,9 @@
 		4564FA7C2094978C0043CCFB /* remote_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = remote_file.hpp; sourceTree = "<group>"; };
 		4564FA7D2094978D0043CCFB /* remote_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remote_file.cpp; sourceTree = "<group>"; };
 		5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
+		45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_user_agent.cpp; sourceTree = "<group>"; };
+		45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_user_agent_ios.mm; sourceTree = "<group>"; };
+		45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_user_agent.hpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -380,6 +386,9 @@
 				6753438F1A3F5D5A00A0A8C3 /* http_thread_callback.hpp */,
 				3D318A042021DD8A007B2607 /* http_uploader_apple.mm */,
 				3D318A052021DD8B007B2607 /* http_uploader.hpp */,
+				45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */,
+				45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */,
+				45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */,
 				674125041B4C00CC00A3E828 /* local_country_file_utils.cpp */,
 				674125051B4C00CC00A3E828 /* local_country_file_utils.hpp */,
 				674125061B4C00CC00A3E828 /* local_country_file.cpp */,
@@ -496,6 +505,7 @@
 				4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */,
 				3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */,
 				451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */,
+				45D7ADBC210F48E500160DE3 /* http_user_agent.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
@@ -657,6 +667,7 @@
 				3D318A062021DD8B007B2607 /* http_uploader_apple.mm in Sources */,
 				3D78156E1F3A14090068B6AC /* gui_thread_apple.mm in Sources */,
 				67247FFD1C60BD6500EDE56A /* writable_dir_changer.cpp in Sources */,
+				45D7ADBA210F48E500160DE3 /* http_user_agent.cpp in Sources */,
 				34513AFB1DCB37C100471BDA /* marketing_service.cpp in Sources */,
 				6741250C1B4C00CC00A3E828 /* local_country_file_utils.cpp in Sources */,
 				3D97F64B1D9C05E800380945 /* http_client.cpp in Sources */,
@@ -673,6 +684,7 @@
 				675343B31A3F5D5A00A0A8C3 /* chunks_download_strategy.cpp in Sources */,
 				34513AFA1DCB37C100471BDA /* marketing_service_ios.mm in Sources */,
 				675343C01A3F5D5A00A0A8C3 /* location_service.cpp in Sources */,
+				45D7ADBB210F48E500160DE3 /* http_user_agent_ios.mm in Sources */,
 				675343D31A3F5D5A00A0A8C3 /* settings.cpp in Sources */,
 				675343CE1A3F5D5A00A0A8C3 /* preferred_languages.cpp in Sources */,
 				675343B91A3F5D5A00A0A8C3 /* http_thread_apple.mm in Sources */,

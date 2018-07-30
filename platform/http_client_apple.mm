@@ -105,16 +105,21 @@ bool HttpClient::RunHttpRequest()
   request.HTTPShouldHandleCookies = NO;
 
   request.HTTPMethod = @(m_httpMethod.c_str());
+  NSString * userAgentStr = @"User-Agent";
+  BOOL hasUserAgentHeader = NO;
   for (auto const & header : m_headers)
   {
-    [request setValue:@(header.second.c_str()) forHTTPHeaderField:@(header.first.c_str())];
+    NSString * field = @(header.first.c_str());
+    if ([field compare:userAgentStr] == NSOrderedSame)
+      hasUserAgentHeader = YES;
+    [request setValue:@(header.second.c_str()) forHTTPHeaderField:field];
   }
 
   if (!m_cookies.empty())
     [request setValue:[NSString stringWithUTF8String:m_cookies.c_str()] forHTTPHeaderField:@"Cookie"];
 #if (TARGET_OS_IPHONE > 0)
-  else if (gBrowserUserAgent)
-    [request setValue:gBrowserUserAgent forHTTPHeaderField:@"User-Agent"];
+  else if (!hasUserAgentHeader && gBrowserUserAgent)
+    [request setValue:gBrowserUserAgent forHTTPHeaderField:userAgentStr];
 #endif // TARGET_OS_IPHONE
 
   if (!m_bodyData.empty())
