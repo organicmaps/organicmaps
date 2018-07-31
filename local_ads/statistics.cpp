@@ -423,7 +423,7 @@ void Statistics::SendFileWithMetadata(MetadataKey && metadataKey, Metadata && me
 #endif
   request.SetBodyData(std::string(bytes.begin(), bytes.end()), contentType, "POST",
                       contentEncoding);
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   if (request.RunHttpRequest() && request.ErrorCode() == 200)
   {
     GetPlatform().RunTask(Platform::Thread::File, [this, metadataKey = std::move(metadataKey),

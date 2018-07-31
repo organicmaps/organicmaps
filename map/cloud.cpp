@@ -231,7 +231,7 @@ Cloud::RequestResult CloudRequestWithResult(std::string const & url,
   request.SetTimeout(kRequestTimeoutInSec);
   request.SetRawHeader("Accept", kApplicationJson);
   request.SetRawHeader("Authorization", BuildAuthenticationToken(accessToken));
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   request.SetBodyData(SerializeToJson(RequestDataType(args...)), kApplicationJson);
 
   if (request.RunHttpRequest() && !request.WasRedirected())

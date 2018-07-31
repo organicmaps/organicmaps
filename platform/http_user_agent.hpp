@@ -8,8 +8,9 @@ class HttpUserAgent
 {
 public:
   HttpUserAgent();
-  std::string Key() const;
-  std::string Value() const;
+  std::string Get() const;
+
+  operator std::string() const { return Get(); }
 
 private:
   std::string ExtractAppVersion() const;

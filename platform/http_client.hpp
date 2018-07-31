@@ -23,8 +23,6 @@ SOFTWARE.
 *******************************************************************************/
 #pragma once
 
-#include "platform/http_user_agent.hpp"
-
 #include "base/macros.hpp"
 
 #include "std/string.hpp"
@@ -85,7 +83,6 @@ public:
   HttpClient & SetHandleRedirects(bool handle_redirects);
   HttpClient & SetRawHeader(string const & key, string const & value);
   void SetTimeout(double timeoutSec);
-  void SetUserAgent(HttpUserAgent const & userAgent);
 
   string const & UrlRequested() const;
   // @returns empty string in the case of error

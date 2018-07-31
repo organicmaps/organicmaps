@@ -26,7 +26,7 @@ RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
 
   platform::HttpClient request(m_url);
   request.SetTimeout(kRequestTimeoutInSec);
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   if (request.RunHttpRequest())
   {
     if (!m_allowRedirection && request.WasRedirected())

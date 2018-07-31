@@ -9,12 +9,7 @@ HttpUserAgent::HttpUserAgent()
   m_appVersion = ExtractAppVersion();
 }
 
-std::string HttpUserAgent::Key() const
-{
-  return "User-Agent";
-}
-
-std::string HttpUserAgent::Value() const
+std::string HttpUserAgent::Get() const
 {
   std::stringstream ss;
   ss << "MAPS.ME/";

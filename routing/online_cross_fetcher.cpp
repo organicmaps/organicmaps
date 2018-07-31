@@ -77,7 +77,7 @@ void OnlineCrossFetcher::Do()
     string const url = GenerateOnlineRequest(m_serverURL, MercatorBounds::ToLatLon(pointFrom),
                                              MercatorBounds::ToLatLon(pointTo));
     platform::HttpClient request(url);
-    request.SetUserAgent(GetPlatform().GetAppUserAgent());
+    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
     LOG(LINFO, ("Check mwms by URL: ", url));
 
     if (request.RunHttpRequest() && request.ErrorCode() == 200 && !request.WasRedirected())

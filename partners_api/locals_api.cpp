@@ -84,7 +84,7 @@ bool RawApi::Get(double lat, double lon, std::string const & lang, size_t result
 
   platform::HttpClient request(ostream.str());
   request.SetHttpMethod("GET");
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   if (request.RunHttpRequest())
   {
     result = request.ServerResponse();

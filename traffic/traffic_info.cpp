@@ -41,7 +41,7 @@ namespace
 bool ReadRemoteFile(string const & url, vector<uint8_t> & contents, int & errorCode)
 {
   platform::HttpClient request(url);
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   if (!request.RunHttpRequest())
   {
     errorCode = request.ErrorCode();
@@ -453,7 +453,7 @@ TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, v
 
   platform::HttpClient request(url);
   request.LoadHeaders(true);
-  request.SetUserAgent(GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   request.SetRawHeader("If-None-Match", etag);
 
   if (!request.RunHttpRequest() || request.ErrorCode() != 200)

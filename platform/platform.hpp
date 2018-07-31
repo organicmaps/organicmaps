@@ -284,6 +284,7 @@ public:
   MarketingService & GetMarketingService() { return m_marketingService; }
   platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
   platform::HttpUserAgent & GetAppUserAgent() { return m_appUserAgent; }
+  platform::HttpUserAgent const & GetAppUserAgent() const { return m_appUserAgent; }
 
   /// \brief Placing an executable object |task| on a queue of |thread|. Then the object will be
   /// executed on |thread|.
