@@ -247,6 +247,24 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
   return true;
 }
 
+void Framework::PauseSurfaceRendering()
+{
+  if (m_contextFactory == nullptr)
+    return;
+  LOG(LINFO, ("Pause surface rendering."));
+  m_contextFactory->setPresentAvailable(false);
+}
+
+void Framework::ResumeSurfaceRendering()
+{
+  if (m_contextFactory == nullptr)
+    return;
+  LOG(LINFO, ("Resume surface rendering."));
+  AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
+  if (factory->IsValid())
+    m_contextFactory->setPresentAvailable(true);
+}
+
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
   m_work.SetMapStyle(mapStyle);

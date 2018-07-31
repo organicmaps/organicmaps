@@ -92,14 +92,14 @@ namespace android
     void OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw);
     void UpdateCompassSensor(int ind, float * arr);
 
-    void Invalidate();
-
     bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
                            bool launchByDeepLink);
     bool IsDrapeEngineCreated();
 
     void DetachSurface(bool destroyContext);
     bool AttachSurface(JNIEnv * env, jobject jSurface);
+    void PauseSurfaceRendering();
+    void ResumeSurfaceRendering();
 
     void SetMapStyle(MapStyle mapStyle);
     void MarkMapStyle(MapStyle mapStyle);

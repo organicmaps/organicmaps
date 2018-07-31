@@ -85,6 +85,18 @@ Java_com_mapswithme_maps_MapFragment_nativeDetachSurface(JNIEnv * env, jclass cl
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MapFragment_nativePauseSurfaceRendering(JNIEnv *, jclass)
+{
+  g_framework->PauseSurfaceRendering();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_MapFragment_nativeResumeSurfaceRendering(JNIEnv *, jclass)
+{
+  g_framework->ResumeSurfaceRendering();
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_MapFragment_nativeSurfaceChanged(JNIEnv * env, jclass clazz, jint w, jint h)
 {
   g_framework->Resize(w, h);
