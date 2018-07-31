@@ -474,7 +474,7 @@ public final class UiUtils
     view.setBackgroundResource(getStyledResourceId(view.getContext(), res));
   }
 
-  public static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
+  private static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
   {
     final View parent = (View) view.getParent();
     parent.post(() ->
@@ -487,6 +487,12 @@ public final class UiUtils
                   rect.bottom += extraArea;
                   parent.setTouchDelegate(new TouchDelegate(rect, view));
                 });
+  }
+
+  public static void expandTouchAreaForViews(int extraArea, @NonNull View... views)
+  {
+    for (View view : views)
+      expandTouchAreaForView(view, extraArea);
   }
 
   public static void expandTouchAreaForView(@NonNull final View view, final int top, final int left,

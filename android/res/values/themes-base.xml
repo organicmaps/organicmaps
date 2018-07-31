@@ -92,6 +92,7 @@
     <item name="bannerText">@color/text_banner_color</item>
     <item name="bannerBackground">@drawable/bg_pp_banner</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button</item>
+    <item name="bannerButtonBackgroundColor">@color/bg_banner_button</item>
     <item name="adsBackground">@drawable/bg_ads</item>
     <item name="adsText">@color/text_ads_color</item>
     <item name="adsActionBackground">@drawable/bg_ads_action</item>
@@ -227,6 +228,7 @@
     <item name="bannerText">@color/text_banner_color_night</item>
     <item name="bannerBackground">@drawable/bg_pp_banner_night</item>
     <item name="bannerButtonBackground">@drawable/bg_pp_banner_large_button_night</item>
+    <item name="bannerButtonBackgroundColor">@color/bg_banner_button_night</item>
     <item name="adsBackground">@drawable/bg_ads_night</item>
     <item name="adsText">@color/text_ads_color_night</item>
     <item name="adsActionBackground">@drawable/bg_ads_action_night</item>

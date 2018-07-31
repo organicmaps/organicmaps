@@ -95,6 +95,9 @@ final class BannerController
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ImageView mAdChoicesLabel;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mAdRemovalButton;
 
   private final float mCloseFrameHeight;
 
@@ -137,8 +140,11 @@ final class BannerController
     mAdChoices = mBannerView.findViewById(R.id.ad_choices_icon);
     mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
     mAdChoicesLabel = mBannerView.findViewById(R.id.ad_choices_label);
-    UiUtils.expandTouchAreaForView(mAdChoices, (int) mBannerView.getResources()
-                                                                .getDimension(R.dimen.margin_quarter_plus));
+    mAdRemovalButton = mBannerView.findViewById(R.id.remove_btn);
+    mAdRemovalButton.setOnClickListener(v -> handleAdsRemoval());
+    Resources res = mBannerView.getResources();
+    final int tapArea = res.getDimensionPixelSize(R.dimen.margin_quarter_plus);
+    UiUtils.expandTouchAreaForViews(tapArea, mAdChoices, mAdRemovalButton);
   }
 
   private void handlePrivacyInfoUrl()
@@ -151,6 +157,10 @@ final class BannerController
       return;
 
     Utils.openUrl(mBannerView.getContext(), privacyUrl);
+  }
+
+  private void handleAdsRemoval()
+  {
   }
 
   private void setErrorStatus(boolean value)
@@ -172,12 +182,14 @@ final class BannerController
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices, mAdChoicesLabel);
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices, mAdChoicesLabel,
+                   mAdRemovalButton);
     }
     else if (mCurrentAd != null)
     {
       UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel,
+                   mAdRemovalButton);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else

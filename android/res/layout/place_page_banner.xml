@@ -8,5 +8,5 @@
   android:background="?bannerBackground"
   android:clipToPadding="false"
   tools:layout_height="wrap_content">
-  <include layout="@layout/place_page_banner_layout"/>
+  <include layout="@layout/place_page_banner_content"/>
 </RelativeLayout>

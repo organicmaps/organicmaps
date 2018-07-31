@@ -188,6 +188,7 @@
   <dimen name="placepage_banner_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="placepage_banner_button_margin_top">5dp</dimen>
   <dimen name="placepage_banner_small_action_corner">20dp</dimen>
+  <dimen name="placepage_banner_remove_button_size">14dp</dimen>
   <dimen name="megafon_button_min_height">28dp</dimen>
   <dimen name="megafon_button_corner_radius">@dimen/megafon_button_min_height</dimen>
 

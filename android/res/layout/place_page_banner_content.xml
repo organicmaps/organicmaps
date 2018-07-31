@@ -116,4 +116,15 @@
     android:layout_marginBottom="@dimen/margin_half"
     android:fontFamily="@string/robotoMedium"
     tools:targetApi="jelly_bean"/>
+  <ImageButton
+    android:id="@+id/remove_btn"
+    android:layout_width="@dimen/placepage_banner_remove_button_size"
+    android:layout_height="@dimen/placepage_banner_remove_button_size"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:scaleType="centerCrop"
+    android:src="@drawable/ic_clear"
+    android:tint="?android:textColorSecondary"
+    android:background="?attr/bannerButtonBackgroundColor"/>
 </merge>

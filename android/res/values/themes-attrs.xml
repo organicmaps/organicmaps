@@ -73,6 +73,7 @@
     <attr name="bannerText" format="color"/>
     <attr name="bannerBackground" format="reference"/>
     <attr name="bannerButtonBackground" format="reference"/>
+    <attr name="bannerButtonBackgroundColor" format="color"/>
     <attr name="adsBackground" format="reference"/>
     <attr name="adsText" format="color"/>
     <attr name="adsActionBackground" format="reference"/>

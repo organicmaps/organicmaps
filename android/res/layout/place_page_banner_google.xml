@@ -12,6 +12,6 @@
     android:paddingStart="@dimen/margin_quarter"
     android:background="?bannerBackground"
     android:clipToPadding="false">
-    <include layout="@layout/place_page_banner_layout"/>
+    <include layout="@layout/place_page_banner_content"/>
   </RelativeLayout>
 </com.google.android.gms.ads.formats.NativeContentAdView>
