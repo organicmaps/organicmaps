@@ -9,6 +9,7 @@
 #include "indexer/rank_table.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/nearby_points_sweeper.hpp"
 
 #include "base/random.hpp"
@@ -190,14 +191,29 @@ void PreRanker::Filter(bool viewportSearch)
 
   set<PreRankerResult, LessFeatureID> filtered;
 
-  filtered.insert(m_results.begin(), m_results.begin() + min(m_results.size(), BatchSize()));
+  auto const numResults = min(m_results.size(), BatchSize());
+  filtered.insert(m_results.begin(), m_results.begin() + numResults);
 
   if (!viewportSearch)
   {
-    size_t n = min(m_results.size(), BatchSize());
-    nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
-                &PreRankerResult::LessRankAndPopularity);
-    filtered.insert(m_results.begin(), m_results.begin() + n);
+    if (!m_params.m_categorialRequest)
+    {
+      nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(),
+                  &PreRankerResult::LessRankAndPopularity);
+    }
+    else
+    {
+      double const kPedestrianRadiusMeters = 2500.0;
+      PreRankerResult::CategoriesComparator comparator;
+      comparator.m_positionIsInsideViewport = m_params.m_viewport.IsPointInside(m_params.m_position);
+      comparator.m_detailedScale = MercatorBounds::DistanceOnEarth(
+                                       m_params.m_viewport.LeftTop(),
+                                       m_params.m_viewport.RightBottom()) < 2 * kPedestrianRadiusMeters;
+      comparator.m_viewport = m_params.m_viewport;
+      nth_element(m_results.begin(), m_results.begin() + numResults, m_results.end(), comparator);
+    }
+
+    filtered.insert(m_results.begin(), m_results.begin() + numResults);
   }
 
   m_results.assign(filtered.begin(), filtered.end());

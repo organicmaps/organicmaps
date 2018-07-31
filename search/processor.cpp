@@ -560,15 +560,15 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
   PreRanker::Params params;
 
   if (viewportSearch)
-  {
-    params.m_viewport = GetViewport();
-    params.m_minDistanceOnMapBetweenResults =
-        searchParams.m_minDistanceOnMapBetweenResults;
-  }
+    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
+
+  params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
+  params.m_position = GetPosition();
   params.m_scale = geocoderParams.GetScale();
   params.m_limit = max(kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
+  params.m_categorialRequest = geocoderParams.IsCategorialRequest();
 
   m_preRanker.Init(params);
 }

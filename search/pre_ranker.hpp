@@ -26,8 +26,6 @@ class PreRanker
 public:
   struct Params
   {
-    m2::RectD m_viewport;
-
     // Minimal distance between search results in mercators, needed for
     // filtering of viewport search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
@@ -39,7 +37,11 @@ public:
     // fast filtering of features outside of the rectangle, while
     // |m_accuratePivotCenter| should be used when it's needed to
     // compute the distance from a feature to the pivot.
-    m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
+    m2::PointD m_accuratePivotCenter;
+
+    m2::PointD m_position;
+    m2::RectD m_viewport;
+
     int m_scale = 0;
 
     size_t m_batchSize = 100;
@@ -48,6 +50,7 @@ public:
     size_t m_limit = 0;
 
     bool m_viewportSearch = false;
+    bool m_categorialRequest = false;
   };
 
   PreRanker(DataSource const & dataSource, Ranker & ranker);

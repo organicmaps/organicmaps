@@ -89,6 +89,24 @@ bool PreRankerResult::LessDistance(PreRankerResult const & r1, PreRankerResult c
   return r1.m_info.m_rank > r2.m_info.m_rank;
 }
 
+bool PreRankerResult::CategoriesComparator::operator()(PreRankerResult const & lhs,
+                                                       PreRankerResult const & rhs) const
+{
+  if (m_positionIsInsideViewport)
+    return lhs.GetDistance() < rhs.GetDistance();
+
+  if (m_detailedScale)
+  {
+    bool const lhsInside = m_viewport.IsPointInside(lhs.GetInfo().m_center);
+    bool const rhsInside = m_viewport.IsPointInside(rhs.GetInfo().m_center);
+    if (lhsInside && !rhsInside)
+      return true;
+    if (rhsInside && !lhsInside)
+      return false;
+  }
+  return lhs.GetPopularity() > rhs.GetPopularity();
+}
+
 // RankerResult ------------------------------------------------------------------------------------
 RankerResult::RankerResult(FeatureType & f, m2::PointD const & center, m2::PointD const & pivot,
                            string const & displayName, string const & fileName)

@@ -15,7 +15,7 @@ namespace
 double const kDistanceToPivot = -1.0000000;
 double const kRank = 1.0000000;
 // todo: (@t.yan) Adjust.
-double const kPopularity = 1.0000000;
+double const kPopularity = 0.0500000;
 double const kFalseCats = -0.0839847;
 double const kErrorsMade = 0.0066984;
 double const kAllTokensUsed = 0.0000000;

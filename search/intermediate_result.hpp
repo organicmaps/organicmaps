@@ -36,6 +36,15 @@ public:
   static bool LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2);
   static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
 
+  struct CategoriesComparator
+  {
+    bool operator()(PreRankerResult const & lhs, PreRankerResult const & rhs) const;
+
+    m2::RectD m_viewport;
+    bool m_positionIsInsideViewport = false;
+    bool m_detailedScale = false;
+  };
+
   FeatureID const & GetId() const { return m_id; }
   double GetDistance() const { return m_info.m_distanceToPivot; }
   uint8_t GetRank() const { return m_info.m_rank; }
@@ -76,7 +85,7 @@ public:
   template <typename TInfo>
   inline void SetRankingInfo(TInfo && info)
   {
-    m_info = forward<TInfo>(info);
+    m_info = std::forward<TInfo>(info);
   }
 
   FeatureID const & GetID() const { return m_id; }
