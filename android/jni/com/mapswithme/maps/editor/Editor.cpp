@@ -487,7 +487,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeSearchFeatureCategories(JNIEnv * en
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCuisines(JNIEnv * env, jclass clazz)
 {
-  osm::TAllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
+  osm::AllCuisines const & cuisines = osm::Cuisines::Instance().AllSupportedCuisines();
   std::vector<std::string> keys;
   keys.reserve(cuisines.size());
   for (TCuisine const & cuisine : cuisines)

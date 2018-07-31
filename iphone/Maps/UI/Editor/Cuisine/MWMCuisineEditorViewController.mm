@@ -24,7 +24,7 @@ vector<string> SliceKeys(vector<pair<string, string>> const & v)
 
 @interface MWMCuisineEditorViewController ()<UISearchBarDelegate, MWMKeyboardObserver>
 {
-  osm::TAllCuisines m_allCuisines;
+  osm::AllCuisines m_allCuisines;
   vector<string> m_selectedCuisines;
   vector<string> m_displayedKeys;
   vector<string> m_untranslatedKeys;
