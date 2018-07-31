@@ -32935,3 +32935,14 @@ fa = دوباره نپرس
     en = Popular
     ru = Популярно
 
+  [download_routes]
+    en = Download routes
+    ru = Загрузить маршруты
+
+  [bookmarks_downloaded_title]
+    en = Bookmarks have been downloaded successfully
+    ru = Метки были успешно загружены
+
+  [bookmarks_downloaded_subtitle]
+    en = Press ‘View on map’ to explore new places from the list
+    ru = Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка
