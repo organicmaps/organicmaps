@@ -9,12 +9,18 @@
 
 #include "Framework.h"
 
+#include "partners_api/booking_availability_params.hpp"
 #include "partners_api/ads_engine.hpp"
 
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include "map/booking_filter_params.hpp"
+
+#include "platform/network_policy.hpp"
+
 #include <chrono>
+#include <memory>
 #include <utility>
 
 extern NSString * const kLuggageCategory;
@@ -23,6 +29,36 @@ namespace
 {
 using Observer = id<MWMSearchObserver>;
 using Observers = NSHashTable<Observer>;
+
+booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availabilityParams)
+{
+  booking::filter::Tasks tasks;
+  if (availabilityParams.IsEmpty())
+  {
+    if (!platform::GetCurrentNetworkPolicy().CanUse())
+      return {};
+    
+    auto params = GetFramework().GetLastBookingAvailabilityParams();
+    if (params.IsEmpty())
+      params = booking::AvailabilityParams::MakeDefault();
+    params.m_dealsOnly = true;
+    
+    booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});
+    tasks.EmplaceBack(booking::filter::Type::Deals, move(dp));
+  }
+  else
+  {
+    booking::AvailabilityParams dp;
+    dp.Set(*(availabilityParams.m_apiParams));
+    dp.m_dealsOnly = true;
+    booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
+    
+    tasks.EmplaceBack(booking::filter::Type::Availability, std::move(availabilityParams));
+    tasks.EmplaceBack(booking::filter::Type::Deals, std::move(dealsParams));
+  }
+  
+  return tasks;
+}
 }  // namespace
 
 @interface MWMSearch ()<MWMFrameworkDrapeObserver>
@@ -152,31 +188,12 @@ using Observers = NSHashTable<Observer>;
   shared_ptr<search::hotels_filter::Rule> const hotelsRules = self.filter ? [self.filter rules] : nullptr;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
-
-  auto availabilityParams =
-      self.filter ? [self.filter availabilityParams] : booking::filter::Params();
-  booking::filter::Tasks tasks;
-  if (availabilityParams.IsEmpty())
-  {
-    auto params = GetFramework().GetLastBookingAvailabilityParams();
-    if (params.IsEmpty())
-      params = booking::AvailabilityParams::MakeDefault();
-    params.m_dealsOnly = true;
-    
-    booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});
-    tasks.EmplaceBack(booking::filter::Type::Deals, move(dp));
-  }
-  else
-  {
-    booking::AvailabilityParams dp;
-    dp.Set(*(availabilityParams.m_apiParams));
-    dp.m_dealsOnly = true;
-    booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
-    
-    tasks.EmplaceBack(booking::filter::Type::Availability, std::move(availabilityParams));
-    tasks.EmplaceBack(booking::filter::Type::Deals, std::move(dealsParams));
-  }
   
+  auto availabilityParams =
+    self.filter ? [self.filter availabilityParams] : booking::filter::Params();
+
+  auto const tasks = MakeBookingFilterTasks(std::move(availabilityParams));
+
   m_viewportParams.m_bookingFilterTasks = tasks;
   m_everywhereParams.m_bookingFilterTasks = tasks;
 }

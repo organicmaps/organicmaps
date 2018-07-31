@@ -12,6 +12,8 @@
 #include "search/mode.hpp"
 #include "search/result.hpp"
 
+#include "platform/network_policy.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
@@ -532,7 +534,7 @@ public:
     {
       result = BuildAvailability(env, bookingFilterParams);
     }
-    else
+    else if (platform::GetCurrentNetworkPolicy().CanUse())
     {
       result = g_framework->NativeFramework()->GetLastBookingAvailabilityParams();
       if (result.IsEmpty())
