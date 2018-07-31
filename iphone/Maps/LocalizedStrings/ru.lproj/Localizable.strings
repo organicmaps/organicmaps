@@ -2390,6 +2390,12 @@
 
 "popular_place" = "Популярно";
 
+"download_routes" = "Загрузить маршруты";
+
+"bookmarks_downloaded_title" = "Метки были успешно загружены";
+
+"bookmarks_downloaded_subtitle" = "Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка";
+
 
 /**********  Partners  **********/
 

@@ -1392,6 +1392,9 @@
 	<string name="whats_new_hot_offers_message">Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.</string>
 	<string name="error_already_downloaded">Этот список уже был загружен</string>
 	<string name="popular_place">Популярно</string>
+	<string name="download_routes">Загрузить маршруты</string>
+	<string name="bookmarks_downloaded_title">Метки были успешно загружены</string>
+	<string name="bookmarks_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner3_action">Купон</string>
