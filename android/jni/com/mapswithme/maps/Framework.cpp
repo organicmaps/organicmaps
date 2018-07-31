@@ -1694,4 +1694,10 @@ Java_com_mapswithme_maps_Framework_nativeGetMegafonDownloaderBannerUrl(JNIEnv * 
 {
   return jni::ToJavaString(env, ads::GetMegafonDownloaderBannerUrl());
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
+{
+  CHECK(false, ("Diagnostic native crash!"));
+}
 }  // extern "C"

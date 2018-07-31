@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.ads.search.SearchAdView;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -43,6 +45,7 @@ import com.mapswithme.util.statistics.Statistics;
 import ru.mail.libnotify.debug.NotifyDebugActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,6 +73,8 @@ public class SearchFragment extends BaseMwmFragment
   private final Runnable mResultsShowingTask = this::refreshSearchResults;
   @NonNull
   private final Runnable mSearchEndTask = this::onSearchEnd;
+  @NonNull
+  private final List<HiddenCommand> mHiddenCommands = new ArrayList<>();
 
   private static class LastPosition
   {
@@ -116,7 +121,7 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      if (tryRecognizeLoggingCommand(query))
+      if (tryRecognizeHiddenCommand(query))
       {
         mSearchAdapter.clear();
         stopSearch();
@@ -504,21 +509,29 @@ public class SearchFragment extends BaseMwmFragment
     mInitialFilterParams = arguments.getParcelable(FilterActivity.EXTRA_FILTER_PARAMS);
   }
 
-  private boolean tryRecognizeLoggingCommand(@NonNull String str)
+  private boolean tryRecognizeHiddenCommand(@NonNull String query)
   {
-    if (str.equals("?emulateBadStorage"))
+    for(HiddenCommand command: getHiddenCommands())
     {
-      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
-      return true;
-    }
-
-    if (str.equals("?libnotifyId"))
-    {
-      startActivity(new Intent(getContext(), NotifyDebugActivity.class));
-      return true;
+      if (command.execute(query))
+        return true;
     }
 
     return false;
+  }
+
+  @NonNull
+  private List<HiddenCommand> getHiddenCommands()
+  {
+    if (mHiddenCommands.isEmpty())
+    {
+      mHiddenCommands.addAll(Arrays.asList(new BadStorageCommand("?emulateBadStorage"),
+                                           new LibnotifyIdCommand(getActivity(), "?libnotifyId"),
+                                           new JavaCrashCommand("?emulateJavaCrash"),
+                                           new NativeCrashCommand("?emulateNativeCrash")));
+    }
+
+    return mHiddenCommands;
   }
 
   private void processSelected(@NonNull SearchResult result)
@@ -826,5 +839,65 @@ public class SearchFragment extends BaseMwmFragment
 
     mAdsLoader.cancelAdsLoading();
     mAdsRequested = false;
+  }
+
+  private static class BadStorageCommand extends HiddenCommand.BaseHiddenCommand
+  {
+    protected BadStorageCommand(@NonNull String command)
+    {
+      super(command);
+    }
+
+    @Override
+    void executeInternal()
+    {
+      SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
+    }
+  }
+
+  private static class LibnotifyIdCommand extends HiddenCommand.BaseHiddenCommand
+  {
+    @NonNull
+    private final Context mContext;
+
+    protected LibnotifyIdCommand(@NonNull Context context, @NonNull String command)
+    {
+      super(command);
+      mContext = context;
+    }
+
+    @Override
+    void executeInternal()
+    {
+      mContext.startActivity(new Intent(mContext, NotifyDebugActivity.class));
+    }
+  }
+
+  private static class JavaCrashCommand extends HiddenCommand.BaseHiddenCommand
+  {
+    protected JavaCrashCommand(@NonNull String command)
+    {
+      super(command);
+    }
+
+    @Override
+    void executeInternal()
+    {
+      throw new RuntimeException("Diagnostic java crash!");
+    }
+  }
+
+  private static class NativeCrashCommand extends HiddenCommand.BaseHiddenCommand
+  {
+    protected NativeCrashCommand(@NonNull String command)
+    {
+      super(command);
+    }
+
+    @Override
+    void executeInternal()
+    {
+      Framework.nativeMakeCrash();
+    }
   }
 }
