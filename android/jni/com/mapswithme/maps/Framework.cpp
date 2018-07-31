@@ -431,12 +431,6 @@ string Framework::GetOutdatedCountriesString()
   return res;
 }
 
-void Framework::ShowTrack(kml::TrackId track)
-{
-  Track const * nTrack = NativeFramework()->GetBookmarkManager().GetTrack(track);
-  NativeFramework()->ShowTrack(*nTrack);
-}
-
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
   m_onTrafficStateChangedFn = fn;
@@ -939,7 +933,7 @@ Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclas
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong track)
 {
-  g_framework->ShowTrack(static_cast<kml::TrackId>(track));
+  frm()->ShowTrack(static_cast<kml::TrackId>(track));
 }
 
 JNIEXPORT jstring JNICALL

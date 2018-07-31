@@ -984,12 +984,16 @@ void Framework::ShowBookmark(Bookmark const * mark)
   m_lastTapEvent = MakeTapEvent(info.GetMercator(), info.GetID(), TapEvent::Source::Other);
 }
 
-void Framework::ShowTrack(Track const & track)
+void Framework::ShowTrack(kml::TrackId trackId)
 {
   double const kPaddingScale = 1.2;
 
+  auto const track = GetBookmarkManager().GetTrack(trackId);
+  if (track == nullptr)
+    return;
+
   StopLocationFollow();
-  auto rect = track.GetLimitRect();
+  auto rect = track->GetLimitRect();
   rect.Scale(kPaddingScale);
 
   ShowRect(rect);

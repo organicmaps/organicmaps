@@ -206,21 +206,17 @@ CGFloat const kPinDiameter = 18.0f;
   case Section::Track:
   {
     kml::TrackId const trackId = [self getTrackIdByRow:indexPath.row];
-    Track const * tr = bm.GetTrack(trackId);
-    CHECK(tr, ("NULL track"));
-    f.ShowTrack(*tr);
+    f.ShowTrack(trackId);
     [self.navigationController popToRootViewControllerAnimated:YES];
     break;
   }
   case Section::Bookmark:
   {
     kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
-    Bookmark const * bookmark = bm.GetBookmark(bmId);
-    CHECK(bookmark, ("NULL bookmark"));
     [Statistics logEvent:kStatEventName(kStatBookmarks, kStatShowOnMap)];
     // Same as "Close".
     [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
-    f.ShowBookmark(bookmark);
+    f.ShowBookmark(bmId);
     [self.navigationController popToRootViewControllerAnimated:YES];
     break;
   }

@@ -329,7 +329,7 @@ public:
 
   void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);
-  void ShowTrack(Track const & track);
+  void ShowTrack(kml::TrackId trackId);
   void ShowFeatureByMercator(m2::PointD const & pt);
   void ShowBookmarkCategory(kml::MarkGroupId categoryId);
 

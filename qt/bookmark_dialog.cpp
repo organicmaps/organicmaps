@@ -100,8 +100,8 @@ void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
   auto const categoryIt = m_categories.find(item);
   if (categoryIt != m_categories.cend())
   {
-    m_framework.ShowBookmarkCategory(categoryIt->second);
     done(0);
+    m_framework.ShowBookmarkCategory(categoryIt->second);
     return;
   }
 
@@ -116,12 +116,8 @@ void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
   auto const trackIt = m_tracks.find(item);
   if (trackIt != m_tracks.cend())
   {
-    auto const track = m_framework.GetBookmarkManager().GetTrack(trackIt->second);
-    if (track != nullptr)
-    {
-      done(0);
-      m_framework.ShowTrack(*track);
-    }
+    done(0);
+    m_framework.ShowTrack(trackIt->second);
     return;
   }
 }
@@ -148,7 +144,7 @@ void BookmarkDialog::OnExportClick()
   {
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Information);
-    ask.setText(tr("Select one of bookmarks category to export."));
+    ask.setText(tr("Select one of the bookmark categories to export."));
     ask.addButton(tr("OK"), QMessageBox::NoRole);
     ask.exec();
     return;
@@ -159,7 +155,7 @@ void BookmarkDialog::OnExportClick()
   {
     QMessageBox ask(this);
     ask.setIcon(QMessageBox::Warning);
-    ask.setText(tr("Selected item is not a bookmarks category."));
+    ask.setText(tr("Selected item is not a bookmark category."));
     ask.addButton(tr("OK"), QMessageBox::NoRole);
     ask.exec();
     return;
@@ -316,10 +312,7 @@ void BookmarkDialog::FillTree()
 
 void BookmarkDialog::ShowModal()
 {
-  // If called for first time.
-  if (!m_tree->topLevelItemCount())
-    FillTree();
-
+  FillTree();
   exec();
 }
 }  // namespace qt

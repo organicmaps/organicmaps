@@ -39,7 +39,6 @@ namespace
 float constexpr kBaseLineDepth = 0.0f;
 float constexpr kDepthPerLine = 1.0f;
 float constexpr kBaseMarkerDepth = 300.0f;
-float constexpr kBaseTitleDepth = 400.0f;
 int constexpr kFinalStationMinZoomLevel = 10;
 int constexpr kTransferMinZoomLevel = 11;
 int constexpr kStopMinZoomLevel = 12;

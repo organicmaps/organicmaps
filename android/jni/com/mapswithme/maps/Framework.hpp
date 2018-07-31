@@ -159,8 +159,6 @@ namespace android
 
     std::string GetOutdatedCountriesString();
 
-    void ShowTrack(kml::TrackId track);
-
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode();
     void OnMyPositionModeChanged(location::EMyPositionMode mode);
