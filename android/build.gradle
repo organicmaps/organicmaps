@@ -60,8 +60,8 @@ dependencies {
   // statistics
   implementation 'com.flurry.android:analytics:11.0.0@aar'
   // crash reporting
-  implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') { transitive = true }
-  implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.0@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.4@aar') { transitive = true }
   // 3-party
   implementation ('com.facebook.android:facebook-android-sdk:4.26.0') {
     exclude group: 'com.google.android.gms'
