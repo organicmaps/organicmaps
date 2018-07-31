@@ -217,6 +217,9 @@ public:
 
   boost::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
 
+  void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
+  uint8_t GetPopularity() const { return m_popularity; }
+
 private:
   std::string FormatSubtitle(bool withType) const;
   void GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const;
@@ -303,6 +306,8 @@ private:
   feature::TypesHolder m_sortedTypes;
 
   boost::optional<ftypes::IsHotelChecker::Type> m_hotelType;
+
+  uint8_t m_popularity = 0;
 };
 
 namespace rating

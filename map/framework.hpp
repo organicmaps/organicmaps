@@ -38,6 +38,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/data_source_helpers.hpp"
 #include "indexer/map_style.hpp"
+#include "indexer/popularity_loader.hpp"
 
 #include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"
@@ -521,6 +522,8 @@ private:
 
   void OnUpdateGpsTrackPointsCallback(vector<pair<size_t, location::GpsTrackInfo>> && toAdd,
                                       pair<size_t, size_t> const & toRemove);
+
+  CachingPopularityLoader m_popularityLoader;
 
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;

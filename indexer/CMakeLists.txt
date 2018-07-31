@@ -97,6 +97,8 @@ set(
   map_style.hpp
   mwm_set.cpp
   mwm_set.hpp
+  popularity_loader.cpp
+  popularity_loader.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   postcodes_matcher.hpp    # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp
