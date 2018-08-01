@@ -1,16 +1,14 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -42,19 +40,16 @@ public class ShowOnMapCatalogCategoryFragment extends DialogFragment
     return category;
   }
 
-  @NonNull
+  @Nullable
   @Override
-  @SuppressLint("InflateParams")
-  public Dialog onCreateDialog(Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+      Bundle savedInstanceState)
   {
-    LayoutInflater inflater = getActivity().getLayoutInflater();
-    View root = inflater.inflate(R.layout.fragment_show_on_map_catalog_category, null, false);
+    View root = inflater.inflate(R.layout.fragment_show_on_map_catalog_category, container, false);
     View acceptBtn = root.findViewById(R.id.show_on_map_accept_btn);
     acceptBtn.setOnClickListener(v -> onAccepted());
     root.setOnClickListener(view -> onDeclined());
-    Dialog dialog = new AppCompatDialog(getActivity());
-    dialog.setContentView(root);
-    return dialog;
+    return root;
   }
 
   private void onDeclined()
