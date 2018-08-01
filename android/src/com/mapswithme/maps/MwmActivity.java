@@ -426,7 +426,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showBookmarks()
   {
-    startActivity(new Intent(this, BookmarkCategoriesActivity.class));
+    BookmarkCategoriesActivity.startForResult(this, BookmarksPageFactory.PRIVATE.ordinal());
   }
 
   private void showTabletSearch(@Nullable Intent data, @NonNull String query)
@@ -1054,19 +1054,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
         onFilterResultReceived(data);
         break;
-      case BookmarkCategoriesActivity.REQ_CODE_BOOKMARK_CATEGORIES:
+      case BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY:
         onBookmarkCategoriesResult(data);
-
+        break;
     }
   }
 
   private void onBookmarkCategoriesResult(@NonNull Intent data)
   {
-    BookmarkCategory category = data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_CATEGORY);
+    BookmarkCategory category = data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY);
     if (category == null)
       throw new IllegalArgumentException("Category not found in bundle");
 
-    Framework.nativeShowBookmarkCategory(category.getId());
+    addTask((MapTask) target -> {
+      Framework.nativeShowBookmarkCategory(category.getId());
+      return true;
+    });
   }
 
   private void handleDiscoveryResult(@NonNull Intent data)

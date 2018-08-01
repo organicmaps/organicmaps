@@ -1,12 +1,12 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
@@ -15,15 +15,15 @@ import com.mapswithme.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
-  public static final int REQ_CODE_BOOKMARK_CATEGORIES = 121;
+  public static final int REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY = 102;
 
-  public static void startForResult(@NonNull FragmentActivity context, int initialPage)
+  public static void startForResult(@NonNull Activity context, int initialPage)
   {
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
     Bundle args = new Bundle();
     args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
     intent.putExtras(args);
-    context.startActivityForResult(intent, REQ_CODE_BOOKMARK_CATEGORIES);
+    context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
   }
 
   @CallSuper

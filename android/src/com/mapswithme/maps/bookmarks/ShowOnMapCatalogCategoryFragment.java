@@ -64,7 +64,8 @@ public class ShowOnMapCatalogCategoryFragment extends DialogFragment
 
   private void onAccepted()
   {
-    Intent result = new Intent().putExtra(BookmarksCatalogActivity.EXTRA_CATEGORY, mCategory);
+    Intent result = new Intent().putExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY,
+                                          mCategory);
     getActivity().setResult(Activity.RESULT_OK, result);
     dismissAllowingStateLoss();
     getActivity().finish();
