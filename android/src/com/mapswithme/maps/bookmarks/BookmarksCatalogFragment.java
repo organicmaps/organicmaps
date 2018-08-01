@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -254,9 +255,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   private static class ImportCategoryListener extends BookmarkManager.DefaultBookmarksCatalogListener
   {
     @Nullable
-    private BookmarksCatalogFragment mFragment;
+    private Fragment mFragment;
 
-    ImportCategoryListener(@NonNull BookmarksCatalogFragment fragment)
+    ImportCategoryListener(@NonNull Fragment fragment)
     {
       mFragment = fragment;
     }
@@ -268,33 +269,30 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         return;
 
       if (successful)
-        onSuccess(catId);
+        onSuccess(mFragment, catId);
       else
-        onError();
+        onError(mFragment);
     }
 
-    private void onSuccess(long catId)
+    private static void onSuccess(@NonNull Fragment fragment, long catId)
     {
-      if (mFragment == null)
-        return;
-
       BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(catId);
-      FragmentManager fm = mFragment.getActivity().getSupportFragmentManager();
+      FragmentManager fm = fragment.getActivity().getSupportFragmentManager();
       ShowOnMapCatalogCategoryFragment frag =
           (ShowOnMapCatalogCategoryFragment) fm.findFragmentByTag(ShowOnMapCatalogCategoryFragment.TAG);
       if (frag == null)
+      {
         ShowOnMapCatalogCategoryFragment.newInstance(category)
                                         .show(fm, ShowOnMapCatalogCategoryFragment.TAG);
-      else
-        frag.setCategory(category);
+        return;
+      }
+
+      frag.setCategory(category);
     }
 
-    private void onError()
+    private static void onError(@NonNull Fragment fragment)
     {
-      if (mFragment == null)
-        return;
-
-      DialogUtils.showAlertDialog(mFragment.getActivity(),
+      DialogUtils.showAlertDialog(fragment.getActivity(),
                                   R.string.title_error_downloading_bookmarks,
                                   R.string.subtitle_error_downloading_bookmarks);
     }
