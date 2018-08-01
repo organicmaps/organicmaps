@@ -233,6 +233,7 @@ namespace
     static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
     static const uint32_t wheelchair = classif().GetTypeByPath({ "wheelchair" });
     static const uint32_t sponsored = classif().GetTypeByPath({ "sponsored" });
+    // Reserved for custom event processing, i.e. fc2018.
     //static const uint32_t event = classif().GetTypeByPath({ "event" });
     static const uint32_t internet = classif().GetTypeByPath({ "internet_access" });
 
@@ -259,8 +260,12 @@ namespace
 
     if (g != GEOM_LINE)
     {
-      if (sponsored == type || internet == type)// || event == type)
+      if (sponsored == type || internet == type)
         return true;
+
+      // Reserved for custom event processing, i.e. fc2018.
+      //if (event == type)
+      //  return true;
     }
 
     return false;
