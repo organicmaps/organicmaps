@@ -8,7 +8,7 @@ class OGLContext: public GraphicsContext
 {
 public:
   void Init(ApiVersion apiVersion) override;
-  void SetClearColor(float r, float g, float b, float a) override;
+  void SetClearColor(dp::Color const & color) override;
   void Clear(uint32_t clearBits) override;
   void Flush() override;
 };

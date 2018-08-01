@@ -1324,7 +1324,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   {
     ASSERT(m_buildingsFramebuffer->IsSupported(), ());
     m_buildingsFramebuffer->Enable();
-    context->SetClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    context->SetClearColor(dp::Color::Transparent());
     context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit);
   }
   else
@@ -1460,8 +1460,8 @@ void FrontendRenderer::RenderEmptyFrame()
 
   context->SetDefaultFramebuffer();
 
-  auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 0);
-  context->SetClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
+  context->SetClearColor(c);
   m_viewport.Apply();
   context->Clear(dp::ClearBits::ColorBit);
 
@@ -1544,8 +1544,8 @@ void FrontendRenderer::RefreshBgColor()
   auto const scale = std::min(df::GetDrawTileScale(m_userEventStream.GetCurrentScreen()),
                               scales::GetUpperStyleScale());
   auto const color = drule::rules().GetBgColor(scale);
-  auto const c = dp::Extract(color, 0 /*255 - (color >> 24)*/);
-  m_contextFactory->GetDrawContext()->SetClearColor(c.GetRedF(), c.GetGreenF(), c.GetBlueF(), 1.0f);
+  auto const c = dp::Extract(color, 255);
+  m_contextFactory->GetDrawContext()->SetClearColor(c);
 }
 
 void FrontendRenderer::DisablePerspective()

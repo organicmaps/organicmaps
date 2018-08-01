@@ -19,9 +19,9 @@ void OGLContext::Init(ApiVersion apiVersion)
   GLFunctions::glEnable(gl_const::GLScissorTest);
 }
 
-void OGLContext::SetClearColor(float r, float g, float b, float a)
+void OGLContext::SetClearColor(dp::Color const & color)
 {
-  GLFunctions::glClearColor(r, g, b, a);
+  GLFunctions::glClearColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
 }
 
 void OGLContext::Clear(uint32_t clearBits)
