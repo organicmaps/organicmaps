@@ -214,10 +214,6 @@ world  +
         phone  -
         {}
     entrance  -
-    event  +
-        fc2018  -
-        fc2018_city  -
-        {}
     highway  +
         bridleway  +
             bridge  -
