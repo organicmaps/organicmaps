@@ -697,7 +697,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [activeAlertController presentRoutingMigrationAlertWithOkBlock:^{
       [Statistics logEvent:kStatDownloaderMigrationDialogue
             withParameters:@{kStatFrom : kStatRouting}];
-      [[MapViewController controller] openMigration];
+      [[MapViewController sharedController] openMigration];
     }];
   }
   else if (!countries.empty())

@@ -16,7 +16,7 @@
 
 + (MWMMapWidgets *)widgetsManager
 {
-  return ((EAGLView *)[MapViewController controller].view).widgetsManager;
+  return ((EAGLView *)[MapViewController sharedController].view).widgetsManager;
 }
 
 - (void)setupWidgets:(Framework::DrapeCreationParams &)p
@@ -46,8 +46,8 @@
     return;
   gui::TWidgetsLayoutInfo layout;
   auto const vs = self.visualScale;
-  auto const viewHeight = [MapViewController controller].view.height;
-  auto const viewWidth = [MapViewController controller].view.width;
+  auto const viewHeight = [MapViewController sharedController].view.height;
+  auto const viewWidth = [MapViewController sharedController].view.width;
   auto const rulerOffset =
       m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs);
   auto const compassOffset =

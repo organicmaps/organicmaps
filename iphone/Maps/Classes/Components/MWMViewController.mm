@@ -34,7 +34,7 @@
   [self.navigationController.navigationBar mwm_refreshUI];
   [self.view mwm_refreshUI];
   if (![self isKindOfClass:[MapViewController class]])
-    [[MapViewController controller] mwm_refreshUI];
+    [[MapViewController sharedController] mwm_refreshUI];
 }
 
 - (void)viewDidLoad

@@ -11,6 +11,6 @@
 - (void)onDownloadStart;
 - (void)onDownloadComplete:(platform::RemoteFile::Status)status;
 - (void)onImportStart;
-- (void)onImportCompleteSuccessful:(BOOL)success;
+- (void)onImportCompleteSuccessful:(BOOL)success forCategoryId:(UInt64)categoryId;
 
 @end

@@ -193,7 +193,7 @@ using Observers = NSHashTable<Observer>;
     return;
   if (!Platform::IsConnected())
   {
-    [[MapViewController controller].alertController presentNoConnectionAlert];
+    [[MapViewController sharedController].alertController presentNoConnectionAlert];
     [self onRouteError:L(@"dialog_taxi_offline")];
     return;
   }
@@ -267,7 +267,7 @@ using Observers = NSHashTable<Observer>;
     self.routeManagerTransitioningManager = [[MWMRouteManagerTransitioningManager alloc] init];
   }
   routeManager.transitioningDelegate = self.routeManagerTransitioningManager;
-  [[MapViewController controller] presentViewController:routeManager animated:YES completion:nil];
+  [[MapViewController sharedController] presentViewController:routeManager animated:YES completion:nil];
 }
 
 #pragma mark - MWMNavigationControlView
@@ -290,7 +290,7 @@ using Observers = NSHashTable<Observer>;
 {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
-  [[MapViewController controller] performSegueWithIdentifier:@"Map2Settings" sender:nil];
+  [[MapViewController sharedController] performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
 - (IBAction)stopRoutingButtonAction
@@ -383,7 +383,7 @@ using Observers = NSHashTable<Observer>;
   case MWMNavigationDashboardStateNavigation: [self stateNavigation]; break;
   }
   _state = state;
-  [[MapViewController controller] updateStatusBarStyle];
+  [[MapViewController sharedController] updateStatusBarStyle];
   [self onNavigationDashboardStateChanged];
 }
 

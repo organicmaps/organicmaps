@@ -1,4 +1,5 @@
 final class LayersViewController: MWMViewController {
+  private let transitioning = CoverVerticalModalTransitioning(presentationHeight: 150)
 
   @IBOutlet weak var trafficButton: VerticallyAlignedButton! {
     didSet {
@@ -21,7 +22,12 @@ final class LayersViewController: MWMViewController {
   }
 
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-    get { return ModalTransitioning() }
+    get { return transitioning }
+    set { }
+  }
+
+  override var modalPresentationStyle: UIModalPresentationStyle {
+    get { return .custom }
     set { }
   }
 

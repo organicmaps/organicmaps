@@ -241,7 +241,7 @@
   NSString * title = isTitleNotEmpty ? [data title] : [data subtitle];
   NSString * subtitle = isTitleNotEmpty ? [data subtitle] : nil;
 
-  UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
+  UIViewController * vc = static_cast<UIViewController *>([MapViewController sharedController]);
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {

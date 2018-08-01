@@ -47,7 +47,7 @@ map<NavigationSearchState, NSString *> const kSearchButtonRequest{
 
 BOOL defaultOrientation(CGSize const & size)
 {
-  CGSize const & mapViewSize = [MapViewController controller].view.frame.size;
+  CGSize const & mapViewSize = [MapViewController sharedController].view.frame.size;
   CGFloat const minWidth = MIN(mapViewSize.width, mapViewSize.height);
   return IPAD || (size.height > size.width && size.width >= minWidth);
 }
@@ -235,7 +235,7 @@ BOOL defaultOrientation(CGSize const & size)
         withParameters:@{
           kStatMode: (isOnRoute ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
         }];
-  [[MapViewController controller] openBookmarks];
+  [[MapViewController sharedController] openBookmarks];
 }
 
 - (void)collapseSearchOnTimer

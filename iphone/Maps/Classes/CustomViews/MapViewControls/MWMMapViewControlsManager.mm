@@ -45,7 +45,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @implementation MWMMapViewControlsManager
 
-+ (MWMMapViewControlsManager *)manager { return [MapViewController controller].controlsManager; }
++ (MWMMapViewControlsManager *)manager { return [MapViewController sharedController].controlsManager; }
 - (instancetype)initWithParentController:(MapViewController *)controller
 {
   if (!controller)

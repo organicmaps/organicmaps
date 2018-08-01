@@ -352,7 +352,16 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
-		4788739420EE350E00F6826B /* ModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739320EE350E00F6826B /* ModalTransitioning.swift */; };
+		47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */; };
+		47E3C72221108E9F008B3B27 /* BookmarksLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */; };
+		47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */; };
+		47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */; };
+		47E3C7292111E614008B3B27 /* AlertPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */; };
+		47E3C72B2111E62A008B3B27 /* AlertDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */; };
+		47E3C72D2111E6A2008B3B27 /* AlertTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */; };
+		47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */; };
+		47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */; };
+		47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */; };
 		47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86CFE20C936FC00FEE291 /* TabView.swift */; };
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
@@ -1304,7 +1313,16 @@
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
-		4788739320EE350E00F6826B /* ModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransitioning.swift; sourceTree = "<group>"; };
+		47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLoadedViewController.swift; sourceTree = "<group>"; };
+		47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksLoadedViewController.xib; sourceTree = "<group>"; };
+		47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedModalPresentationController.swift; sourceTree = "<group>"; };
+		47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentationController.swift; sourceTree = "<group>"; };
+		47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentationAnimator.swift; sourceTree = "<group>"; };
+		47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDismissalAnimator.swift; sourceTree = "<group>"; };
+		47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTransitioning.swift; sourceTree = "<group>"; };
+		47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalModalTransitioning.swift; sourceTree = "<group>"; };
+		47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationAnimator.swift; sourceTree = "<group>"; };
+		47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalDismissalAnimator.swift; sourceTree = "<group>"; };
 		47F86CFE20C936FC00FEE291 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		47F86D0020C93D8D00FEE291 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
@@ -2586,6 +2604,7 @@
 		346EDAD81B9F0E15004F8DB5 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				47E3C7232111E2F8008B3B27 /* Modal */,
 				47F86CFD20C936B300FEE291 /* TabView */,
 				F653CE131C71F5DC00A453F1 /* AddPlace NavigationBar */,
 				3470402E1EA6470700038379 /* BorderedButton.swift */,
@@ -3110,9 +3129,23 @@
 			children = (
 				4788738D20EE30B300F6826B /* LayersViewController.swift */,
 				4788738E20EE30B300F6826B /* LayersViewController.xib */,
-				4788739320EE350E00F6826B /* ModalTransitioning.swift */,
 			);
 			path = Layers;
+			sourceTree = "<group>";
+		};
+		47E3C7232111E2F8008B3B27 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
+				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
+				47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */,
+				47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */,
+				47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */,
+				47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */,
+				47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */,
+				47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 		47F86CFD20C936B300FEE291 /* TabView */ = {
@@ -3152,6 +3185,8 @@
 				B366130620D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm */,
 				B366130820D5E2E000E7DC3E /* CatalogCategoryCell.swift */,
 				B366130920D5E2E000E7DC3E /* CatalogCategoryCell.xib */,
+				47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */,
+				47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -4355,6 +4390,7 @@
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE941E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
+				47E3C72221108E9F008B3B27 /* BookmarksLoadedViewController.xib in Resources */,
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
 				6741A9601BF340DE002C974C /* MWMRoutingDisclaimerAlert.xib in Resources */,
 				B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */,
@@ -4584,8 +4620,10 @@
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.mm in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
+				47E3C7292111E614008B3B27 /* AlertPresentationAnimator.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
+				47E3C72D2111E6A2008B3B27 /* AlertTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
@@ -4737,7 +4775,9 @@
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				340FDC092031C39E00F140AD /* BMCPermissionsPendingCell.swift in Sources */,
 				F6E2FD6B1E097BA00083EBEC /* MWMMapDownloaderSubplaceTableViewCell.mm in Sources */,
+				47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */,
 				3409D50B1FC6D8D2000F9B3E /* FilterCheckCell.swift in Sources */,
+				47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */,
 				3472B5CB200F43EF00DC6CD5 /* BackgroundFetchScheduler.swift in Sources */,
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
@@ -4759,13 +4799,13 @@
 				F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */,
 				3404755C1E081A4600C92850 /* MWMLocationManager.mm in Sources */,
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
+				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD891E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
-				4788739420EE350E00F6826B /* ModalTransitioning.swift in Sources */,
 				F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */,
 				34AB66321FC5AA330078E451 /* RouteManagerHeaderView.swift in Sources */,
 				347040301EA6470700038379 /* BorderedButton.swift in Sources */,
@@ -4807,6 +4847,7 @@
 				F6E2FD921E097BA00083EBEC /* MWMBookmarkColorViewController.mm in Sources */,
 				F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */,
 				347752881F725002000D46A3 /* UGCAddReviewRatingCell.swift in Sources */,
+				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				34AB661A1FC5AA330078E451 /* MWMTaxiCollectionLayout.mm in Sources */,
 				345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
@@ -4845,6 +4886,7 @@
 				34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */,
 				3430291D1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */,
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
+				47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */,
 				F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
@@ -4857,6 +4899,7 @@
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				F6E2FF181E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.mm in Sources */,
+				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
 				346DB83D1E5C4F6700E3123E /* GalleryModel.swift in Sources */,
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
@@ -4890,6 +4933,7 @@
 				34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
 				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
+				47E3C72B2111E62A008B3B27 /* AlertDismissalAnimator.swift in Sources */,
 				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);

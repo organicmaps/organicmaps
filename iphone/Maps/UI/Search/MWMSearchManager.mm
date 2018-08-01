@@ -485,7 +485,7 @@ using Observers = NSHashTable<Observer>;
   }
   [self onSearchManagerStateChanged];
   [self.changeModeView updateForState:state];
-  [[MapViewController controller] updateStatusBarStyle];
+  [[MapViewController sharedController] updateStatusBarStyle];
 }
 
 - (void)viewHidden:(BOOL)hidden
@@ -560,5 +560,5 @@ using Observers = NSHashTable<Observer>;
   }
 }
 
-- (UIViewController *)ownerController { return [MapViewController controller]; }
+- (UIViewController *)ownerController { return [MapViewController sharedController]; }
 @end

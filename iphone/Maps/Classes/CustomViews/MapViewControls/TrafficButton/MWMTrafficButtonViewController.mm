@@ -52,7 +52,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   self = [super init];
   if (self)
   {
-    MapViewController * ovc = [MapViewController controller];
+    MapViewController * ovc = [MapViewController sharedController];
     [ovc addChildViewController:self];
     [ovc.view addSubview:self.view];
     [self configLayout];
@@ -161,8 +161,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   else
   {
     auto layersVC = [[LayersViewController alloc] init];
-    layersVC.modalPresentationStyle = UIModalPresentationCustom;
-    [[MapViewController controller] presentViewController:layersVC animated:YES completion:nil];
+    [[MapViewController sharedController] presentViewController:layersVC animated:YES completion:nil];
   }
 }
 

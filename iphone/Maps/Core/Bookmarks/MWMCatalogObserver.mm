@@ -31,9 +31,9 @@
       break;
   }
   if (self.completionBlock)
-    self.completionBlock([[NSError alloc] initWithDomain:kCatalogErrorDomain
-                                                    code:kCategoryDownloadFailedCode
-                                                userInfo:@{kCategoryDownloadStatusKey : @(downloadStatus)}]);
+    self.completionBlock(0, [[NSError alloc] initWithDomain:kCatalogErrorDomain
+                                                       code:kCategoryDownloadFailedCode
+                                                   userInfo:@{kCategoryDownloadStatusKey : @(downloadStatus)}]);
 }
 
 - (void)onImportStart
@@ -42,13 +42,13 @@
     self.progressBlock(MWMCategoryProgressImportStarted);
 }
 
-- (void)onImportCompleteSuccessful:(BOOL)success
+- (void)onImportCompleteSuccessful:(BOOL)success forCategoryId:(UInt64)categoryId
 {
   if (self.completionBlock) {
     NSError * error = success ? nil : [[NSError alloc] initWithDomain:kCatalogErrorDomain
                                                                  code:kCategoryImportFailedCode
                                                              userInfo:nil];
-    self.completionBlock(error);
+    self.completionBlock(categoryId, error);
   }
 }
 

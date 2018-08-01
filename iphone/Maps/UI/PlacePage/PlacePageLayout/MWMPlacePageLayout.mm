@@ -603,7 +603,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     if (!cell)
       return;
     auto taxiBottom = CGPointMake(cell.width / 2, cell.height);
-    auto mainView = [MapViewController controller].view;
+    auto mainView = [MapViewController sharedController].view;
     auto actionBar = self.actionBar;
     BOOL const isInMainView =
         [mainView pointInside:[cell convertPoint:taxiBottom toView:mainView] withEvent:nil];

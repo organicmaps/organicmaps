@@ -100,7 +100,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @implementation MapViewController
 
-+ (MapViewController *)controller { return [MapsAppDelegate theApp].mapViewController; }
++ (MapViewController *)sharedController { return [MapsAppDelegate theApp].mapViewController; }
 #pragma mark - Map Navigation
 
 - (void)dismissPlacePage { [self.controlsManager dismissPlacePage]; }
@@ -419,6 +419,29 @@ BOOL gIsFirstMyPositionMode = YES;
                          completionHandler:nil];
 
   [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)showBookmarksLoadedAlert:(UInt64)categoryId
+{
+  for (UIViewController * vc in self.navigationController.viewControllers)
+  {
+    if ([vc isMemberOfClass:MWMBookmarksTabViewController.class])
+    {
+      auto alert = [[BookmarksLoadedViewController alloc] init];
+      alert.onViewBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        GetFramework().ShowBookmarkCategory(categoryId);
+      };
+      alert.onCancelBlock = ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+      };
+      [self presentViewController:alert animated:YES completion:nil];
+      return;
+    }
+  }
+  if (![MWMRouter isOnRoute])
+      [[MWMToast toastWithText:L(@"bookmarks_webview_success_toast")] show];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode

@@ -20,7 +20,7 @@
 
 + (void)setVisibleViewport:(CGRect)rect
 {
-  CGFloat const scale = [MapViewController controller].view.contentScaleFactor;
+  CGFloat const scale = [MapViewController sharedController].view.contentScaleFactor;
   CGFloat const x0 = rect.origin.x * scale;
   CGFloat const y0 = rect.origin.y * scale;
   CGFloat const x1 = x0 + rect.size.width * scale;

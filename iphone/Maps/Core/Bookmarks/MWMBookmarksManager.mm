@@ -495,7 +495,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
       {
-        [observer onImportCompleteSuccessful:successful];
+        [observer onImportCompleteSuccessful:successful forCategoryId:categoryId];
         [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
       }
     };

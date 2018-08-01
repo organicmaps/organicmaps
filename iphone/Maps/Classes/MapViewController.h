@@ -8,7 +8,7 @@
 
 @interface MapViewController : MWMViewController
 
-+ (MapViewController *)controller;
++ (MapViewController *)sharedController;
 
 // called when app is terminated by system
 - (void)onTerminate;
@@ -25,6 +25,7 @@
 - (void)openHotelFacilities;
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
 - (void)showUGCAuth;
+- (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 
 - (void)setPlacePageTopBound:(CGFloat)bound;
 

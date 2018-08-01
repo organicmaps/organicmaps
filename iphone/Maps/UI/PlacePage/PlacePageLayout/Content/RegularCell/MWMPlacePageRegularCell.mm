@@ -125,7 +125,7 @@
   NSString * scheme = URL.scheme;
   if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"])
   {
-    [[MapViewController controller] openUrl:URL];
+    [[MapViewController sharedController] openUrl:URL];
     return NO;
   }
   return YES;

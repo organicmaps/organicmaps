@@ -138,7 +138,7 @@ final class CatalogWebViewController: WebViewController {
 
     MWMBookmarksManager.downloadItem(withId: id, name: name, progress: { [weak self] (progress) in
       self?.updateProgress()
-    }) { [weak self] (error) in
+    }) { [weak self] (categoryId, error) in
       if let error = error as NSError? {
         if error.code == kCategoryDownloadFailedCode {
           guard let statusCode = error.userInfo[kCategoryDownloadStatusKey] as? NSNumber else {
@@ -166,7 +166,9 @@ final class CatalogWebViewController: WebViewController {
           self?.showImportError()
         }
       } else {
-        Toast.toast(withText: L("bookmarks_webview_success_toast")).show()
+        if MWMBookmarksManager.getCatalogDownloadsCount() == 0 {
+          MapViewController.shared().showBookmarksLoadedAlert(categoryId)
+        }
       }
       self?.updateProgress()
     }

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksLoadedViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05b-mP-kFB">
+                    <rect key="frame" x="28" y="28" width="204" height="43"/>
+                    <string key="text">Bookmarks were 
+succesfully downloaded</string>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                    <color key="textColor" white="0.0" alpha="0.86124785958904104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmarks_downloaded_title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MR-ae-0PS">
+                    <rect key="frame" x="28" y="79" width="204" height="51"/>
+                    <string key="text">Press ‘View on map’ to explore 
+new places from the list</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.0" alpha="0.54045376712328763" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmarks_downloaded_subtitle"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBj-dl-R2V">
+                    <rect key="frame" x="35" y="154" width="190" height="45"/>
+                    <color key="backgroundColor" red="0.11767578125" green="0.58980089430000004" blue="0.94108072916666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="EAx-L2-t3K"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <state key="normal" title="View on map"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="search_show_on_map"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onViewMap:" destination="-1" eventType="touchUpInside" id="XDB-72-rMm"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azM-lz-wDm">
+                    <rect key="frame" x="35" y="207" width="190" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="LMT-F8-gcD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <state key="normal" title="Not now">
+                        <color key="titleColor" white="0.0" alpha="0.37976241438356162" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium16"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="not_now"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="blackHintText"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onNotNow:" destination="-1" eventType="touchUpInside" id="YAU-5T-vzd"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rBj-dl-R2V" secondAttribute="trailing" constant="35" id="08C-xb-KOi"/>
+                <constraint firstItem="rBj-dl-R2V" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="31r-32-KLm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="azM-lz-wDm" secondAttribute="trailing" constant="35" id="86N-0a-3m4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2MR-ae-0PS" secondAttribute="trailing" constant="28" id="AqE-HU-M7I"/>
+                <constraint firstItem="05b-mP-kFB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="MPt-49-wRT"/>
+                <constraint firstItem="2MR-ae-0PS" firstAttribute="top" secondItem="05b-mP-kFB" secondAttribute="bottom" constant="8" id="P0v-Ra-Imd"/>
+                <constraint firstItem="rBj-dl-R2V" firstAttribute="top" secondItem="2MR-ae-0PS" secondAttribute="bottom" constant="24" id="Rp4-4q-aUZ"/>
+                <constraint firstItem="2MR-ae-0PS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="d8E-z5-Lrq"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="azM-lz-wDm" secondAttribute="bottom" constant="8" id="gcg-uo-A1D"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="05b-mP-kFB" secondAttribute="trailing" constant="28" id="iPe-VG-L5O"/>
+                <constraint firstItem="azM-lz-wDm" firstAttribute="top" secondItem="rBj-dl-R2V" secondAttribute="bottom" constant="8" id="laD-0o-w4h"/>
+                <constraint firstItem="05b-mP-kFB" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="28" id="mWe-UG-NkH"/>
+                <constraint firstItem="azM-lz-wDm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="uOR-0e-lei"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="-24" y="148"/>
+        </view>
+    </objects>
+</document>

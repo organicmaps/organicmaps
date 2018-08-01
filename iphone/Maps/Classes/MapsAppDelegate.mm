@@ -416,7 +416,7 @@ using namespace osm_auth_ios;
     performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   auto onTap = ^{
-    MapViewController * mapViewController = [MapViewController controller];
+    MapViewController * mapViewController = [MapViewController sharedController];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
     [mapViewController showUGCAuth];
   };

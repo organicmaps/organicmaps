@@ -563,7 +563,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return referenceViewWhenDismissingHandler([galleryModel.items indexOfObject:photo]);
   };
 
-  [[MapViewController controller] presentViewController:photoVC animated:YES completion:nil];
+  [[MapViewController sharedController] presentViewController:photoVC animated:YES completion:nil];
 }
 
 - (void)showGallery
@@ -574,7 +574,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   logSponsoredEvent(self.data, kStatPlacePageHotelGallery);
   auto galleryModel = [[MWMGalleryModel alloc] initWithTitle:self.hotelName items:data.photos];
   auto galleryVc = [MWMGalleryViewController instanceWithModel:galleryModel];
-  [[MapViewController controller].navigationController pushViewController:galleryVc animated:YES];
+  [[MapViewController sharedController].navigationController pushViewController:galleryVc animated:YES];
 }
 
 - (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview
@@ -610,7 +610,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
                                                        }
                                                        [data setUGCUpdateFrom:model];
                                                      }];
-  [[MapViewController controller].navigationController pushViewController:ugcVC animated:YES];
+  [[MapViewController sharedController].navigationController pushViewController:ugcVC animated:YES];
 }
 
 - (void)searchSimilar
@@ -683,7 +683,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 - (void)openReviews:(id<MWMReviewsViewModelProtocol> _Nonnull)reviewsViewModel
 {
   auto reviewsVC = [[MWMReviewsViewController alloc] initWithViewModel:reviewsViewModel];
-  [[MapViewController controller].navigationController pushViewController:reviewsVC animated:YES];
+  [[MapViewController sharedController].navigationController pushViewController:reviewsVC animated:YES];
 }
 
 #pragma mark - AvailableArea / PlacePageArea
@@ -705,6 +705,6 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 #pragma mark - Ownerfacilities
 
-- (MapViewController *)ownerViewController { return [MapViewController controller]; }
+- (MapViewController *)ownerViewController { return [MapViewController sharedController]; }
 
 @end

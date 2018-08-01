@@ -92,7 +92,7 @@ using namespace storage;
   if ([userInfo[kDownloadMapActionKey] isEqualToString:kDownloadMapActionName])
   {
     [Statistics logEvent:@"'Download Map' Notification Clicked"];
-    MapViewController * mapViewController = [MapViewController controller];
+    MapViewController * mapViewController = [MapViewController sharedController];
     [mapViewController.navigationController popToRootViewControllerAnimated:NO];
 
     NSString * notificationCountryId = userInfo[kDownloadMapCountryId];
