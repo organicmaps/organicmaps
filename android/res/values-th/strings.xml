@@ -1261,7 +1261,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">ชื่อนี้ยาวเกินไป</string>
 	<string name="bookmarks_error_message_list_name_too_long">โปรดเลือกชื่ออื่น</string>
 	<string name="please_wait">โปรดรอสักครู่ ...</string>
-	<string name="fc2018">ฟุตบอลโลก 2018</string>
 	<string name="phone_number">หมายเลขโทรศัพท์</string>
 	<string name="notification_unsent_reviews_title">คุณมีรีวิวที่ยังไม่ได้อ่านหลายฉบับ</string>
 	<string name="notification_unsent_reviews_message">โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น</string>

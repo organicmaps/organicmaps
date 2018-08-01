@@ -1261,7 +1261,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Bu isim çok uzun</string>
 	<string name="bookmarks_error_message_list_name_too_long">Lütfen başka bir isim seçiniz</string>
 	<string name="please_wait">Lütfen bekle...</string>
-	<string name="fc2018">Futbol Dünya Kupası 2018</string>
 	<string name="phone_number">Telefon numarası</string>
 	<string name="notification_unsent_reviews_title">Birkaç onaylanmamış yorumunuz var</string>
 	<string name="notification_unsent_reviews_message">Diğer gezginlerle yorum paylaşmak için lütfen giriş yapın</string>

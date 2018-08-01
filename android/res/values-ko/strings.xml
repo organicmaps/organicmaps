@@ -1251,7 +1251,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">이 이름이 너무 깁니다.</string>
 	<string name="bookmarks_error_message_list_name_too_long">다른 이름을 선택하십시오.</string>
 	<string name="please_wait">잠시만 기다려주십시오...</string>
-	<string name="fc2018">2018 축구 월드컵</string>
 	<string name="phone_number">전화 번호</string>
 	<string name="notification_unsent_reviews_title">보내지 않은 리뷰가 여러 개 있습니다.</string>
 	<string name="notification_unsent_reviews_message">다른 여행자와 리뷰를 공유하려면 로그인하십시오.</string>

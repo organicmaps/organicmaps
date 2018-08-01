@@ -1259,7 +1259,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Це ім\'я задовге</string>
 	<string name="bookmarks_error_message_list_name_too_long">Виберіть інше ім\'я</string>
 	<string name="please_wait">Будь ласка, зачекайте...</string>
-	<string name="fc2018">Чемпіонат світу з футболу 2018 року</string>
 	<string name="phone_number">Номер телефону</string>
 	<string name="notification_unsent_reviews_title">У вас є невідправлені відгуки</string>
 	<string name="notification_unsent_reviews_message">Будь ласка, увійдіть, щоб поділитися своїми відгуками з іншими мандрівниками</string>

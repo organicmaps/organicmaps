@@ -1258,7 +1258,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Tento názov je príliš dlhý</string>
 	<string name="bookmarks_error_message_list_name_too_long">Vyberte iné meno</string>
 	<string name="please_wait">Prosím čakajte...</string>
-	<string name="fc2018">Majstrovstvá sveta vo futbale 2018</string>
 	<string name="phone_number">Telefónne číslo</string>
 	<string name="notification_unsent_reviews_title">Máte niekoľko neoslaných recenzií</string>
 	<string name="notification_unsent_reviews_message">Prihláste sa a zdieľajte recenzie s ostatnými cestujúcimi</string>

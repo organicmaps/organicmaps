@@ -1265,7 +1265,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">這個名字太長了</string>
 	<string name="bookmarks_error_message_list_name_too_long">請選擇其他名稱</string>
 	<string name="please_wait">請稍候...</string>
-	<string name="fc2018">2018年世界杯足球賽</string>
 	<string name="phone_number">電話號碼</string>
 	<string name="notification_unsent_reviews_title">你有幾個未發表的評論</string>
 	<string name="notification_unsent_reviews_message">請登錄與其他旅客分享評論</string>

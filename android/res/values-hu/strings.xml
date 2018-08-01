@@ -1255,7 +1255,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Ez a név túl hosszú</string>
 	<string name="bookmarks_error_message_list_name_too_long">Kérjük, válasszon másik nevet</string>
 	<string name="please_wait">Kérlek várj...</string>
-	<string name="fc2018">Futball Világkupa 2018</string>
 	<string name="phone_number">Telefonszám</string>
 	<string name="notification_unsent_reviews_title">Több elküldött véleménye is van</string>
 	<string name="notification_unsent_reviews_message">Kérjük, jelentkezzen be, hogy megoszthassa véleményét más utazókkal</string>

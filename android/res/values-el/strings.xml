@@ -1019,7 +1019,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Αυτό το όνομα είναι πολύ μεγάλο</string>
 	<string name="bookmarks_error_message_list_name_too_long">Επιλέξτε άλλο όνομα</string>
 	<string name="please_wait">Παρακαλώ περιμένετε...</string>
-	<string name="fc2018">Παγκόσμιο Κύπελλο Ποδόσφαιρου 2018</string>
 	<string name="phone_number">Τηλεφωνικό νούμερο</string>
 	<string name="notification_unsent_reviews_title">Έχετε αρκετές κριτικές</string>
 	<string name="notification_unsent_reviews_message">Παρακαλώ συνδεθείτε για να μοιραστείτε κριτικές με άλλους ταξιδιώτες</string>

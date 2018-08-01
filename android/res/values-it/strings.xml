@@ -1254,7 +1254,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Questo nome è troppo lungo</string>
 	<string name="bookmarks_error_message_list_name_too_long">Si prega di scegliere un altro nome</string>
 	<string name="please_wait">Attendere prego...</string>
-	<string name="fc2018">Mondiali di calcio 2018</string>
 	<string name="phone_number">Numero di telefono</string>
 	<string name="notification_unsent_reviews_title">Hai diverse recensioni non inviate</string>
 	<string name="notification_unsent_reviews_message">Accedi per condividere recensioni con altri viaggiatori</string>

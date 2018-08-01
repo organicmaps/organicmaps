@@ -1259,7 +1259,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Dette navn er for langt</string>
 	<string name="bookmarks_error_message_list_name_too_long">Vælg venligst et andet navn</string>
 	<string name="please_wait">Vent venligst...</string>
-	<string name="fc2018">Fodbold VM 2018</string>
 	<string name="phone_number">Telefonnummer</string>
 	<string name="notification_unsent_reviews_title">Du har flere usendte anmeldelser</string>
 	<string name="notification_unsent_reviews_message">Venligst log ind for at dele anmeldelser med andre rejsende</string>

@@ -1261,7 +1261,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">هذا الاسم طويل للغاية</string>
 	<string name="bookmarks_error_message_list_name_too_long">يرجى اختيار اسم آخر</string>
 	<string name="please_wait">أرجو الإنتظار...</string>
-	<string name="fc2018">كأس العالم لكرة القدم 2018</string>
 	<string name="phone_number">رقم الهاتف</string>
 	<string name="notification_unsent_reviews_title">لديك عدة تعليقات غير مرغوب فيها</string>
 	<string name="notification_unsent_reviews_message">الرجاء تسجيل الدخول لمشاركة التعليقات مع المسافرين الآخرين</string>

@@ -1254,7 +1254,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">この名前は長すぎます</string>
 	<string name="bookmarks_error_message_list_name_too_long">別の名前を選んでください</string>
 	<string name="please_wait">お待ちください...</string>
-	<string name="fc2018">サッカーワールドカップ2018</string>
 	<string name="phone_number">電話番号</string>
 	<string name="notification_unsent_reviews_title">あなたはいくつかの未送信のレビューを持っています</string>
 	<string name="notification_unsent_reviews_message">他の旅行者とレビューを共有するにはログインしてください</string>

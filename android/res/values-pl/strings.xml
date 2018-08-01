@@ -1258,7 +1258,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Ta nazwa jest za długa</string>
 	<string name="bookmarks_error_message_list_name_too_long">Wybierz inną nazwę</string>
 	<string name="please_wait">Proszę czekać...</string>
-	<string name="fc2018">Puchar Świata w Piłce Nożnej 2018</string>
 	<string name="phone_number">Numer telefonu</string>
 	<string name="notification_unsent_reviews_title">Masz kilka niewysłanych recenzji</string>
 	<string name="notification_unsent_reviews_message">Zaloguj się, aby udostępniać recenzje innym podróżnym</string>

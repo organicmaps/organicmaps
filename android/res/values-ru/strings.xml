@@ -1288,7 +1288,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Слишком длинное название</string>
 	<string name="bookmarks_error_message_list_name_too_long">Выберите, пожалуйста, другое имя</string>
 	<string name="please_wait">Пожалуйста, подождите...</string>
-	<string name="fc2018">ЧМ по футболу 2018</string>
 	<string name="phone_number">Номер телефона</string>
 	<string name="notification_unsent_reviews_title">У вас есть неотправленные отзывы</string>
 	<string name="notification_unsent_reviews_message">Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками</string>

@@ -1255,7 +1255,6 @@
 	<string name="bookmarks_error_title_list_name_too_long">Tên này quá dài</string>
 	<string name="bookmarks_error_message_list_name_too_long">Vui lòng chọn một tên khác</string>
 	<string name="please_wait">Vui lòng chờ...</string>
-	<string name="fc2018">World Cup bóng đá 2018</string>
 	<string name="phone_number">Số điện thoại</string>
 	<string name="notification_unsent_reviews_title">Bạn có một số bài đánh giá chưa được đánh giá</string>
 	<string name="notification_unsent_reviews_message">Vui lòng đăng nhập để chia sẻ bài đánh giá với các khách du lịch khác</string>
