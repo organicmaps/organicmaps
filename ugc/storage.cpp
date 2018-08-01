@@ -229,39 +229,64 @@ void Storage::Load()
   boost::optional<IndexVersion> version;
   for (auto const & i : m_indexes)
   {
+    if (i.m_deleted)
+    {
+      ++m_numberOfDeleted;
+      continue;
+    }
+
     if (!version)
       version = i.m_version;
     else
-      CHECK_EQUAL(static_cast<uint8_t>(*version), static_cast<uint8_t>(i.m_version), ("Inconsistent index"));
-
-    if (i.m_deleted)
-      ++m_numberOfDeleted;
+      CHECK_EQUAL(static_cast<uint8_t>(*version), static_cast<uint8_t>(i.m_version), ("Inconsistent index:", data));
   }
 
-  Migrate(indexFilePath);
+  if (version && *version != IndexVersion::Latest)
+    Migrate(indexFilePath);
 }
 
 void Storage::Migrate(string const & indexFilePath)
 {
-  if (m_indexes.empty())
+  CHECK(!m_indexes.empty(), ());
+
+  string const suffix = ".v0";
+  auto const ugcFilePath = GetUGCFilePath();
+
+  // Backup existing files
+  auto const v0IndexFilePath = indexFilePath + suffix;
+  auto const v0UGCFilePath = ugcFilePath + suffix;
+  if (!my::CopyFileX(indexFilePath, v0IndexFilePath))
+  {
+    LOG(LERROR, ("Can't backup UGC index file"));
     return;
+  }
+
+  if (!my::CopyFileX(ugcFilePath, v0UGCFilePath))
+  {
+    my::DeleteFileX(v0IndexFilePath);
+    LOG(LERROR, ("Can't backup UGC update file"));
+    return;
+  }
 
   switch (migration::Migrate(m_indexes))
   {
-  case migration::Result::UpToDate:
-     break;
-  case migration::Result::Failure:
-    LOG(LWARNING, ("Index migration failed"));
-    break;
+  case migration::Result::NeedDefragmentation:
+    LOG(LINFO, ("Need defragmentation after successful UGC index migration"));
+    DefragmentationImpl(true /* force */);
+    // fallthrough
   case migration::Result::Success:
-    LOG(LINFO, ("Index migration successful"));
-    auto const newPath = indexFilePath + ".v0";
-    my::RenameFileX(indexFilePath, newPath);
     if (!SaveIndex(indexFilePath))
     {
-      my::RenameFileX(newPath, indexFilePath);
-      LOG(LWARNING, ("Saving index file after indexes migration failed"));
+      my::DeleteFileX(indexFilePath);
+      my::DeleteFileX(ugcFilePath);
+      my::RenameFileX(v0UGCFilePath, ugcFilePath);
+      my::RenameFileX(v0IndexFilePath, indexFilePath);
+      m_indexes.clear();
+      LOG(LERROR, ("Can't save UGC index after migration"));
+      return;
     }
+
+    LOG(LINFO, ("UGC index migration successful"));
     break;
   }
 }
@@ -281,6 +306,7 @@ bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
   catch (FileWriter::Exception const & exception)
   {
     LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
+    my::DeleteFileX(indexFilePath);
     return false;
   }
 
@@ -289,8 +315,13 @@ bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
 
 void Storage::Defragmentation()
 {
+  DefragmentationImpl(false /* force */);
+}
+
+void Storage::DefragmentationImpl(bool force)
+{
   auto const indexesSize = m_indexes.size();
-  if (m_numberOfDeleted < indexesSize / 2)
+  if (!force && m_numberOfDeleted < indexesSize / 2)
     return;
 
   auto const ugcFilePath = GetUGCFilePath();
@@ -486,7 +517,9 @@ void Storage::LoadForTesting(std::string const & testIndexFilePath)
 
   CHECK(!data.empty(), ());
   DeserializeIndexes(data, m_indexes);
-  Migrate(testIndexFilePath);
+
+  if (m_indexes.front().m_version != IndexVersion::Latest)
+    Migrate(testIndexFilePath);
 }
 }  // namespace ugc
 

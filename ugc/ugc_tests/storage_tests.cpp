@@ -24,6 +24,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include <chrono>
 #include <functional>
@@ -39,16 +40,47 @@ using namespace ugc;
 
 namespace
 {
+int64_t constexpr kMinVersionForMigration = 171020;
+
 string const kTestMwmName = "ugc storage test";
 
-bool DeleteIndexFile()
+bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
-  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "index.json"));
+  if (v == ugc::IndexVersion::Latest)
+    return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "index.json"));
+
+  string version;
+  switch (v)
+  {
+  case ugc::IndexVersion::V0:
+    version = "v0";
+    break;
+  case ugc::IndexVersion::V1:
+    version = "v1";
+    break;
+  }
+
+  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "index.json." + version));
 }
 
-bool DeleteUGCFile()
+bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
-  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin"));
+  if (v == ugc::IndexVersion::Latest)
+    return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin"));
+
+
+  string version;
+  switch (v)
+  {
+    case ugc::IndexVersion::V0:
+      version = "v0";
+      break;
+    case ugc::IndexVersion::V1:
+      version = "v1";
+      break;
+  }
+
+  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin." + version));
 }
 }  // namespace
 
@@ -120,7 +152,7 @@ private:
 
     m_testMwm = platform::LocalCountryFile(GetPlatform().WritableDir(),
                                            platform::CountryFile(kTestMwmName),
-                                           0 /* version */);
+                                           kMinVersionForMigration);
     {
       generator::tests_support::TestMwmBuilder builder(m_testMwm, feature::DataHeader::country);
       fn(builder);
@@ -438,6 +470,9 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
 
 UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
 {
+  platform::tests_support::ScopedFile dummyUgcUpdate("ugc.update.bin", "some test content");
+  LOG(LINFO, ("Created dummy ugc update", dummyUgcUpdate));
+
   auto & p = GetPlatform();
   auto const version = "v0";
   auto const indexFileName = "index.json";
@@ -457,21 +492,37 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
 
   auto & builder = MwmBuilder::Builder();
   builder.Build({});
-
   auto const v0IndexFilePath = indexFilePath + "." + version;
-  Storage s(builder.GetDataSource());
-  s.LoadForTesting(indexFilePath);
-  uint64_t migratedIndexFileSize = 0;
-  uint64_t v0IndexFileSize = 0;
-  TEST(my::GetFileSize(indexFilePath, migratedIndexFileSize), ());
-  TEST(my::GetFileSize(v0IndexFilePath, v0IndexFileSize), ());
-  TEST_GREATER(migratedIndexFileSize, 0, ());
-  TEST_GREATER(v0IndexFileSize, 0, ());
-  auto const & indexes = s.GetIndexesForTesting();
-  for (auto const & i : indexes)
+
   {
-    TEST_EQUAL(static_cast<uint8_t>(i.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
-    TEST(!i.m_synchronized, ());
+    Storage s(builder.GetDataSource());
+    s.LoadForTesting(indexFilePath);
+    uint64_t migratedIndexFileSize = 0;
+    uint64_t v0IndexFileSize = 0;
+    TEST(my::GetFileSize(indexFilePath, migratedIndexFileSize), ());
+    TEST(my::GetFileSize(v0IndexFilePath, v0IndexFileSize), ());
+    TEST_GREATER(migratedIndexFileSize, 0, ());
+    TEST_GREATER(v0IndexFileSize, 0, ());
+    auto const & indexes = s.GetIndexesForTesting();
+    for (auto const & i : indexes)
+    {
+      TEST_EQUAL(static_cast<uint8_t>(i.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
+      TEST(!i.m_synchronized, ());
+    }
+
+    TEST(s.SaveIndex(indexFilePath), ());
+  }
+
+  {
+    Storage s(builder.GetDataSource());
+    s.LoadForTesting(indexFilePath);
+    auto const & indexes = s.GetIndexesForTesting();
+    TEST_NOT_EQUAL(indexes.size(), 0, ());
+    for (auto const & i : indexes)
+    {
+      TEST_EQUAL(static_cast<uint8_t>(i.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
+      TEST(!i.m_synchronized, ());
+    }
   }
 
   my::DeleteFileX(indexFilePath);
@@ -488,3 +539,68 @@ UNIT_TEST(UGC_NoReviews)
   TEST(!DeleteIndexFile(), ());
   TEST(!DeleteUGCFile(), ());
 }
+
+UNIT_TEST(UGC_TooOldDataVersionsForMigration)
+{
+  auto & builder = MwmBuilder::Builder();
+  m2::PointD const cafePoint(1.0, 1.0);
+  m2::PointD const railwayPoint(2.0, 2.0);
+  builder.Build({TestCafe(cafePoint), TestRailway(railwayPoint)});
+  auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
+  auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
+
+  auto const railwayId = builder.FeatureIdForRailwayAtPoint(railwayPoint);
+  auto const railwayUGC = MakeTestUGCUpdate(Time(chrono::hours(48 * 10)));
+
+  {
+    Storage s(builder.GetDataSource());
+    s.Load();
+    s.SetUGCUpdate(cafeId, cafeUGC);
+    s.SetUGCUpdate(railwayId, railwayUGC);
+    auto & indexes = s.GetIndexesForTesting();
+    TEST_EQUAL(indexes.size(), 2, ());
+
+    auto & cafeIndex = indexes.front();
+    cafeIndex.m_dataVersion = kMinVersionForMigration - 1;
+    cafeIndex.m_version = IndexVersion::V0;
+
+    auto & railwayIndex = indexes.back();
+    railwayIndex.m_dataVersion = kMinVersionForMigration;
+    railwayIndex.m_version = IndexVersion::V0;
+    railwayIndex.m_synchronized = true;
+
+    s.SaveIndex();
+  }
+
+  {
+    Storage s(builder.GetDataSource());
+    s.Load();
+    // Migration should pass successfully even there are indexes with a data version lower than minimal.
+    // Such indexes should be marked as deleted and should be removed after the defragmentation process.
+    auto const & indexes = s.GetIndexesForTesting();
+    TEST_EQUAL(indexes.size(), 1, ());
+
+    auto const & railwayIndex = indexes.back();
+    TEST_EQUAL(static_cast<uint8_t>(railwayIndex.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
+    TEST(!railwayIndex.m_synchronized, ());
+    TEST_EQUAL(railwayIndex.m_dataVersion, kMinVersionForMigration, ());
+    s.SaveIndex();
+  }
+
+  {
+    Storage s(builder.GetDataSource());
+    s.Load();
+    auto const & indexes = s.GetIndexesForTesting();
+    TEST_EQUAL(indexes.size(), 1, ());
+    auto const & railwayIndex = indexes.back();
+    TEST_EQUAL(static_cast<uint8_t>(railwayIndex.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
+    TEST(!railwayIndex.m_synchronized, ());
+    TEST_EQUAL(railwayIndex.m_dataVersion, kMinVersionForMigration, ());
+  }
+
+  TEST(DeleteIndexFile(), ());
+  TEST(DeleteIndexFile(IndexVersion::V0), ());
+  TEST(DeleteUGCFile(), ());
+  TEST(DeleteUGCFile(IndexVersion::V0), ());
+}
+

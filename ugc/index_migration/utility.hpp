@@ -8,8 +8,7 @@ namespace migration
 {
 enum class Result
 {
-  UpToDate,
-  Failure,
+  NeedDefragmentation,
   Success
 };
 

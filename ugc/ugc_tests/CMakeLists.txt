@@ -37,6 +37,7 @@ omim_link_libraries(
   indexer
   storage
   platform
+  platform_tests_support
   coding
   geometry
   base

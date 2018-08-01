@@ -36,12 +36,13 @@ public:
   size_t GetNumberOfUnsynchronized() const;
 
   /// Testing
-  UpdateIndexes const & GetIndexesForTesting() const { return m_indexes; }
+  UpdateIndexes & GetIndexesForTesting() { return m_indexes; }
   size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
   SettingResult SetUGCUpdateForTesting(FeatureID const & id, v0::UGCUpdate const & ugc);
   void LoadForTesting(std::string const & testIndexFilePath);
 
 private:
+  void DefragmentationImpl(bool force);
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
   void Migrate(std::string const & indexFilePath);

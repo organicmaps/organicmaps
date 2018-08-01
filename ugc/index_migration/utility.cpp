@@ -49,9 +49,13 @@ bool GetMigrationTable(int64_t tableVersion, MigrationTable & t)
   return true;
 }
 
-bool MigrateFromV0ToV1(ugc::UpdateIndexes & source)
+ugc::migration::Result MigrateFromV0ToV1(ugc::UpdateIndexes & source)
 {
+  using ugc::migration::Result;
+
   MigrationTables tables;
+
+  bool needDefragmentation = false;
   for (auto & index : source)
   {
     auto const version = index.m_dataVersion;
@@ -59,7 +63,12 @@ bool MigrateFromV0ToV1(ugc::UpdateIndexes & source)
     {
       MigrationTable t;
       if (!GetMigrationTable(version, t))
-        return false;
+      {
+        LOG(LINFO, ("Can't find migration table for version", version));
+        index.m_deleted = true;
+        needDefragmentation = true;
+        continue;
+      }
 
       tables.emplace(version, move(t));
     }
@@ -71,7 +80,7 @@ bool MigrateFromV0ToV1(ugc::UpdateIndexes & source)
     index.m_version = ugc::IndexVersion::Latest;
   }
 
-  return true;
+  return needDefragmentation ? Result::NeedDefragmentation : Result::Success;
 }
 }  // namespace
 
@@ -82,11 +91,7 @@ namespace migration
 Result Migrate(UpdateIndexes & source)
 {
   CHECK(!source.empty(), ());
-  if (source.front().m_version == IndexVersion::Latest)
-    return Result::UpToDate;
-
-  auto const result = MigrateFromV0ToV1(source);
-  return result ? Result::Success : Result::Failure;
+  return MigrateFromV0ToV1(source);
 }
 }  // namespace migration
 }  // namespace ugc
