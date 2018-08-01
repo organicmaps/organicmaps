@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,19 +31,18 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   private View mProgressContainer;
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    View root = super.onCreateView(inflater, container, savedInstanceState);
-    mProgressContainer = root.findViewById(R.id.placeholder_loading);
-    mEmptyViewContainer = root.findViewById(R.id.placeholder_container);
-    mPayloadContainer = root.findViewById(R.id.cached_bookmarks_payload_container);
+    super.onViewCreated(view, savedInstanceState);
+    mProgressContainer = view.findViewById(R.id.placeholder_loading);
+    mEmptyViewContainer = view.findViewById(R.id.placeholder_container);
+    mPayloadContainer = view.findViewById(R.id.cached_bookmarks_payload_container);
     View downloadBtn = mEmptyViewContainer.findViewById(R.id.download_routers_btn);
     downloadBtn.setOnClickListener(new DownloadRoutesClickListener());
-    View closeHeaderBtn = root.findViewById(R.id.header_close);
+    View closeHeaderBtn = view.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
     boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(getContext());
     UiUtils.showIf(!isClosed, closeHeaderBtn);
-    return root;
   }
 
   @Override
