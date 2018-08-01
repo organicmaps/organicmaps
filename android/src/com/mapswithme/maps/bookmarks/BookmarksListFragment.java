@@ -48,6 +48,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @NonNull
   private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
   @CallSuper
   @Override
@@ -57,6 +60,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     Crashlytics.log("onCreate");
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
+    mCatalogListener = new CatalogListenerDecorator(this);
   }
 
   @NonNull
@@ -113,6 +117,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStart();
     Crashlytics.log("onStart");
     BookmarkManager.INSTANCE.addSharingListener(this);
+    BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
   @Override
@@ -138,6 +143,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     super.onStop();
     Crashlytics.log("onStop");
     BookmarkManager.INSTANCE.removeSharingListener(this);
+    BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
   private void configureAdapter()

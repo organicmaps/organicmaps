@@ -20,6 +20,7 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   public static void startForResult(@NonNull Activity context, int initialPage)
   {
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     Bundle args = new Bundle();
     args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
     intent.putExtras(args);

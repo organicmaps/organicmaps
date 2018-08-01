@@ -7,8 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +20,8 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
-import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -60,30 +56,28 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private ImportCategoryListener mImportCategoryListener;
+  private CatalogListenerDecorator mCatalogListener;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mCatalogUrl = getCatalogUrlOrThrow();
-    mImportCategoryListener = new ImportCategoryListener(this);
+    mCatalogListener = new CatalogListenerDecorator(this);
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    mImportCategoryListener.attach(this);
-    BookmarkManager.INSTANCE.addCatalogListener(mImportCategoryListener);
+    BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    mImportCategoryListener.detach();
-    BookmarkManager.INSTANCE.removeCatalogListener(mImportCategoryListener);
+    BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
   @Override
@@ -249,62 +243,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void clear()
     {
       mReference.clear();
-    }
-  }
-
-  private static class ImportCategoryListener extends BookmarkManager.DefaultBookmarksCatalogListener
-  {
-    @Nullable
-    private Fragment mFragment;
-
-    ImportCategoryListener(@NonNull Fragment fragment)
-    {
-      mFragment = fragment;
-    }
-
-    @Override
-    public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
-    {
-      if (mFragment == null)
-        return;
-
-      if (successful)
-        onSuccess(mFragment, catId);
-      else
-        onError(mFragment);
-    }
-
-    private static void onSuccess(@NonNull Fragment fragment, long catId)
-    {
-      BookmarkCategory category = BookmarkManager.INSTANCE.getCategoryById(catId);
-      FragmentManager fm = fragment.getActivity().getSupportFragmentManager();
-      ShowOnMapCatalogCategoryFragment frag =
-          (ShowOnMapCatalogCategoryFragment) fm.findFragmentByTag(ShowOnMapCatalogCategoryFragment.TAG);
-      if (frag == null)
-      {
-        ShowOnMapCatalogCategoryFragment.newInstance(category)
-                                        .show(fm, ShowOnMapCatalogCategoryFragment.TAG);
-        return;
-      }
-
-      frag.setCategory(category);
-    }
-
-    private static void onError(@NonNull Fragment fragment)
-    {
-      DialogUtils.showAlertDialog(fragment.getActivity(),
-                                  R.string.title_error_downloading_bookmarks,
-                                  R.string.subtitle_error_downloading_bookmarks);
-    }
-
-    public void detach()
-    {
-      mFragment = null;
-    }
-
-    public void attach(@NonNull BookmarksCatalogFragment fragment)
-    {
-      mFragment = fragment;
     }
   }
 }

@@ -44,6 +44,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   private KmlImportController mKmlImportController;
   @NonNull
   private Runnable mImportKmlTask = new ImportKmlTask();
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
   @Override
   @LayoutRes
@@ -77,6 +80,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     RecyclerView.ItemDecoration decor = ItemDecoratorFactory
         .createVerticalDefaultDecorator(getContext());
     rw.addItemDecoration(decor);
+    mCatalogListener = new CatalogListenerDecorator(createCatalogListener(), this);
   }
 
   protected void onPrepareControllers(@NonNull View view)
@@ -101,6 +105,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     super.onStart();
     BookmarkManager.INSTANCE.addLoadingListener(this);
     BookmarkManager.INSTANCE.addSharingListener(this);
+    BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
     if (mKmlImportController != null)
       mKmlImportController.onStart();
   }
@@ -111,6 +116,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     super.onStop();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     BookmarkManager.INSTANCE.removeSharingListener(this);
+    BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
     if (mKmlImportController != null)
       mKmlImportController.onStop();
   }
@@ -293,6 +299,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       mCategoryEditor.commit(text);
 
     getAdapter().notifyDataSetChanged();
+  }
+
+  @NonNull
+  BookmarkManager.BookmarksCatalogListener createCatalogListener()
+  {
+    return new BookmarkManager.DefaultBookmarksCatalogListener();
   }
 
   interface CategoryEditor

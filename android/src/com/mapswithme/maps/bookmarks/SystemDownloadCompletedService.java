@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.mapswithme.maps.MwmApplication;
@@ -133,9 +134,11 @@ public class SystemDownloadCompletedService extends IntentService
     @Override
     public void run()
     {
-      if (mStatus.isOk())
+      Result result = mStatus.getResult();
+      if (mStatus.isOk() && result != null && !TextUtils.isEmpty(result.getArchiveId())
+          && !TextUtils.isEmpty(result.getFilePath()))
       {
-        Result result = mStatus.getResult();
+
         BookmarkManager.INSTANCE.importFromCatalog(result.getArchiveId(), result.getFilePath());
       }
       else

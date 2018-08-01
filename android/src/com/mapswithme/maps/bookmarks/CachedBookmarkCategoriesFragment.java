@@ -17,8 +17,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment implements
-                                                                                     BookmarkManager.BookmarksCatalogListener
+public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -103,20 +102,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  public void onStart()
-  {
-    super.onStart();
-    BookmarkManager.INSTANCE.addCatalogListener(this);
-  }
-
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-    BookmarkManager.INSTANCE.removeCatalogListener(this);
-  }
-
-  @Override
   protected int getCategoryMenuResId()
   {
     return R.menu.menu_catalog_bookmark_categories;
@@ -153,31 +138,37 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     showBottomMenu(item);
   }
 
+  @NonNull
   @Override
-  public void onImportStarted(@NonNull String serverId)
+  BookmarkManager.BookmarksCatalogListener createCatalogListener()
   {
-    mProgressContainer.setVisibility(View.VISIBLE);
-    mEmptyViewContainer.setVisibility(View.GONE);
-    mPayloadContainer.setVisibility(View.GONE);
-  }
+    return new BookmarkManager.BookmarksCatalogListener()
+    {
+      @Override
+      public void onImportStarted(@NonNull String serverId)
+      {
+        UiUtils.show(mProgressContainer);
+        UiUtils.hide(mEmptyViewContainer, mPayloadContainer);
+      }
 
-  @Override
-  public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
-  {
-    if (successful)
-    {
-      mPayloadContainer.setVisibility(View.VISIBLE);
-      mProgressContainer.setVisibility(View.GONE);
-      mEmptyViewContainer.setVisibility(View.GONE);
-      getAdapter().notifyDataSetChanged();
-    }
-    else
-    {
-      boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
-      mProgressContainer.setVisibility(View.GONE);
-      UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
-      mPayloadContainer.setVisibility(isEmptyAdapter ? View.GONE : View.VISIBLE);
-    }
+      @Override
+      public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
+      {
+        if (successful)
+        {
+          UiUtils.show(mPayloadContainer);
+          UiUtils.hide(mProgressContainer, mEmptyViewContainer);
+          getAdapter().notifyDataSetChanged();
+        }
+        else
+        {
+          boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
+          UiUtils.hide(mProgressContainer);
+          UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
+          UiUtils.hideIf(isEmptyAdapter, mPayloadContainer);
+        }
+      }
+    };
   }
 
   @Override
