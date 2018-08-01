@@ -9203,11 +9203,3 @@ el:^Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
 
 sponsored-partner2
 en:^Luggage Storage|Luggage Hero|3luggagehero
-
-event-fc2018
-en:3^Football Cup 2018|2FIFA|championship|fc2018
-ru:2^ЧМ 2018 по футболу|1ФИФА|футбол|кубок
-
-event-fc2018_city
-en:^Football City 2018
-ru:^Город ЧМ 2018 по футболу

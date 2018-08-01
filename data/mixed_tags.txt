@@ -2,85 +2,6 @@
 # Format: type,id,key1=value1,key2=value2,...
 # Example: way,34306743,olympics=stadium
 
-# FC2018: city, stadium, other amenities
-
-# Moscow
-node,1686293227,event=fc2018,event=fc2018_city
-relation,162802,event=fc2018,name:ru=Стадион Лужники,int_name=Stadion Luzniki,name:en=Luzhniki Stadium,name:de=Luzhniki-Stadion,name:fr=Stade Loujniki,name:es=Estadio Luzhniki
-relation,4006864,event=fc2018,name:ru=Открытие Арена / Стадион Спартак,int_name=Otkrytie Arena / Stadion Spartac,name:en=Spartak Stadium,name:de=Spartak-Stadion,name:fr=Stade du Spartak,name:es=Estadio Spartak
-node,5518180725,event=fc2018
-node,5614227995,event=fc2018
-node,5602026526,event=fc2018
-node,5202107560,event=fc2018,olympics=transport_bus
-node,4379061181,event=fc2018,olympics=transport_bus
-node,297335182,event=fc2018,olympics=transport_bus
-
-# Saint-Petersburg
-node,27490597,event=fc2018,event=fc2018_city
-way,217387802,event=fc2018,name:ru=Стадион Санкт-Петербург,int_name=Sankt Peterburg Stadion,name:en=Saint Petersburg Stadium,name:de=Sankt-Petersburg-Stadion,name:fr=Stade de Saint-Pétersbourg,name:es=Estadio de San Petersburgo
-node,5510340721,event=fc2018
-node,5602106621,event=fc2018
-node,5602054321,event=fc2018
-node,5614907439,event=fc2018,olympics=transport_bus
-
-# Kazan
-node,27504067,event=fc2018,event=fc2018_city
-relation,3840572,event=fc2018,name:ru=Казань Арена,name:en=Kazan Arena,name:de=Kasan-Arena,name:fr=Kazan Arena,name:es=Kazan Arena
-node,5516316021,event=fc2018
-node,5614238413,event=fc2018
-node,1931215209,event=fc2018,olympics=transport_bus
-
-# Ekaterinburg
-node,27503892,event=fc2018,event=fc2018_city
-relation,55833,event=fc2018,name:ru=Екатеринбург Арена,name:en=Ekaterinburg Arena,name:de=Jekaterinburg-Arena,name:fr=Iekaterinbourg Arena,name:es=Ekaterimburgo Arena
-node,5514737722,event=fc2018
-node,456774510,event=fc2018,olympics=transport_bus
-node,1794063609,event=fc2018,olympics=transport_bus
-
-# Saransk
-node,191651581,event=fc2018,event=fc2018_city
-# under construction,name:ru=Мордовия Арена,name:en=Mordovia Arena,name:de=Mordwinien-Arena,name:fr=Stade de Mordovie,name:es=Mordovia Arena
-node,5510340621,event=fc2018
-
-# Samara
-node,27503945,event=fc2018,event=fc2018_city
-way,572625474,event=fc2018,name:ru=Самара Арена,name:en=Samara Arena,name:de=Samara-Arena,name:fr=Samara Arena,name:es=Samara Arena
-node,5516328322,event=fc2018
-way,585482626,event=fc2018,olympics=transport_bus
-
-# Sochi
-node,34043670,event=fc2018,event=fc2018_city
-relation,3405854,event=fc2018,name:ru=Стадион Фишт,name:en=Fisht Stadium,name:de=Fischt-Stadion,name:fr=Stade Ficht,name:es=Estadio Fisht
-node,5510340722,event=fc2018
-node,5614242996,event=fc2018
-node,2195050637,event=fc2018,olympics=transport_bus
-
-# Volgograd
-node,27504363,event=fc2018,event=fc2018_city
-relation,7718662,event=fc2018,name:ru=Волгоград Арена,name:en=Volgograd Arena,name:de=Wolgograd-Arena,name:fr=Volgograd Arena,name:es=Volgogrado Arena
-node,5516328122,event=fc2018
-node,5505648416,event=fc2018,olympics=transport_bus
-
-# Rostov-on-Don
-node,160569651,event=fc2018,event=fc2018_city
-way,137831707,event=fc2018,name:ru=Ростов Арена,name:en=Rostov Arena,name:de=Rostow-Arena,name:fr=Rostov Arena,name:es=Rostov Arena
-node,5516316121,event=fc2018
-node,5602066021,event=fc2018
-node,4743644020,event=fc2018,olympics=transport_bus
-node,4743644018,event=fc2018,olympics=transport_bus
-
-# Kaliningrad
-node,27048976,event=fc2018,event=fc2018_city
-# under construction,name:ru=Стадион Калининград,name:en=Kaliningrad Stadium,name:de=Kaliningrad-Stadion,name:fr=Stade de Kaliningrad,name:es=Estadio de Kaliningrado
-# node,5514732428,event=fc2018
-node,5602066024,event=fc2018
-
-# Nizhny Novgorod
-node,27505889,event=fc2018,event=fc2018_city
-relation,7718680,event=fc2018,name:ru=Стадион Нижний Новгород,name:en=Nizhny Novgorod Stadium,name:de=Nischni-Nowgorod-Stadion,name:fr=Stade de Nijni-Novgorod,name:es=Estadio de Nizhni Nóvgorod
-node,5514732429,event=fc2018
-node,5602104122,event=fc2018
-
 
 # Adidas
 
@@ -112,7 +33,7 @@ node,5614185076,sponsored=partner4,banner_url=http://www.adidas.ru
 node,5614185080,sponsored=partner6,banner_url=http://www.adidas.ru/originals
 node,5614185081,sponsored=partner4,banner_url=http://www.adidas.ru
 node,4412830395,sponsored=partner6,banner_url=http://www.adidas.ru/originals
-node,5614216502,sponsored=partner4,event=fc2018,banner_url=http://www.adidas.ru
+node,5614216502,sponsored=partner4,banner_url=http://www.adidas.ru
 
 
 # Costa Coffee
@@ -565,22 +486,22 @@ node,2385981189,sponsored=partner10,banner_url=https://localads.maps.me/redirect
 node,4547834618,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
 node,5643849580,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
 
-node,5643698784,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,5643698791,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,1966643409,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-way,46913679,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-way,352852107,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-way,49437015,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,5404100729,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,2747713074,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,3651057153,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,1314992093,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,5149427896,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,3772956357,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,2420686038,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,1502822096,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,3713955240,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
-node,3395051436,sponsored=partner10,event=fc2018,banner_url=https://localads.maps.me/redirects/sportmaster
+node,5643698784,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,5643698791,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,1966643409,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+way,46913679,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+way,352852107,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+way,49437015,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,5404100729,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,2747713074,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,3651057153,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,1314992093,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,5149427896,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,3772956357,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,2420686038,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,1502822096,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,3713955240,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
+node,3395051436,sponsored=partner10,banner_url=https://localads.maps.me/redirects/sportmaster
 
 
 # Burger King

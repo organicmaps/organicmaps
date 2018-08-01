@@ -202,10 +202,6 @@ area[amenity=parking],
 node[railway=station][transport=subway],
 {z-index: 3100;}
 
-node[event=fc2018],
-area[event=fc2018]
-{z-index: 3200;}
-
 node[amenity=fuel],
 area[amenity=fuel],
 node[amenity=charging_station],
@@ -1163,35 +1159,3 @@ area|z14-[sponsored=partner19]
 node|z15-[sponsored=partner20],
 area|z15-[sponsored=partner20]
 {icon-image: partner20-l.svg;text: none;}
-
-/* Fifa */
-
-node|z13-[event=fc2018],
-area|z13-[event=fc2018]
-{font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
-
-node|z13-14[event=fc2018][leisure=stadium],
-area|z13-14[event=fc2018][leisure=stadium]
-{icon-image: wfc_stadium.svg;icon-min-distance: 16;}
-
-node|z15-16[event=fc2018][leisure=stadium],
-area|z15-16[event=fc2018][leisure=stadium]
-{icon-image: wfc_stadium.svg;icon-min-distance: 12;}
-
-node|z17-[event=fc2018][leisure=stadium],
-area|z17-[event=fc2018][leisure=stadium]
-{icon-image: wfc_stadium.svg;icon-min-distance: 10;}
-
-node|z15-[event=fc2018][shop=ticket],
-area|z15-[event=fc2018][shop=ticket],
-node|z15-[event=fc2018][olympics=official_building],
-area|z15-[event=fc2018][olympics=official_building],
-{icon-image: wfc_ticket.svg;icon-min-distance: 10;}
-
-node|z15-[event=fc2018][olympics=live_site],
-area|z15-[event=fc2018][olympics=live_site]
-{icon-image: wfc_fanzone.svg;icon-min-distance: 10;}
-
-node|z15-[event=fc2018][shop=gift],
-area|z15-[event=fc2018][shop=gift]
-{icon-image: wfc_shop.svg;icon-min-distance: 10;}
