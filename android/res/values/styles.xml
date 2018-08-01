@@ -29,8 +29,8 @@
   </style>
 
   <style name="MwmWidget.Button">
-    <item name="android:layout_width">@dimen/button_width</item>
-    <item name="android:layout_height">@dimen/height_block_base</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
     <item name="android:background">?buttonBackground</item>
     <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
@@ -80,8 +80,6 @@
     <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
     <item name="android:paddingRight">@dimen/margin_base</item>
     <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
-    <item name="android:paddingTop">@dimen/margin_half_plus</item>
-    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
     <item name="textAllCaps">true</item>
     <item name="android:gravity">center</item>
   </style>

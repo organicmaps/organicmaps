@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <item name="match_parent" type="dimen">-1</item>
-  <dimen name="show_on_map_dialog_padding">30.5dp</dimen>
   <dimen name="track_circle_size">40dp</dimen>
 
   <!-- margins -->
@@ -248,6 +247,7 @@
   <!-- Bookmarks-->
   <dimen name="bookmark_hide_btn_padding_top">22dp</dimen>
   <dimen name="bookmark_recycler_view_bottom_margin">80dp</dimen>
+  <dimen name="show_on_map_dialog_padding">30dp</dimen>
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
 </resources>
