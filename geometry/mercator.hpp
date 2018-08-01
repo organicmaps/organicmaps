@@ -101,9 +101,9 @@ struct MercatorBounds
                      YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX()));
   }
 
-  /// Calculates distance on Earth by two points in mercator
+  /// Calculates distance on Earth in meters between two mercator points.
   static double DistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2);
 
-  /// Calculates area of a triangle on Earth in m² by three points
+  /// Calculates area of a triangle on Earth in m² by three mercator points.
   static double AreaOnEarth(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
 };
