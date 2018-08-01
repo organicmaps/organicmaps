@@ -63,9 +63,9 @@ set(
   ${DRAPE_ROOT}/gpu_buffer.hpp
   ${DRAPE_ROOT}/gpu_program.cpp
   ${DRAPE_ROOT}/gpu_program.hpp
-  ${DRAPE_ROOT}/graphic_context.hpp
-  ${DRAPE_ROOT}/graphic_context_factory.cpp
-  ${DRAPE_ROOT}/graphic_context_factory.hpp
+  ${DRAPE_ROOT}/graphics_context.hpp
+  ${DRAPE_ROOT}/graphics_context_factory.cpp
+  ${DRAPE_ROOT}/graphics_context_factory.hpp
   ${DRAPE_ROOT}/hw_texture.cpp
   ${DRAPE_ROOT}/hw_texture.hpp
   ${DRAPE_ROOT}/index_buffer.cpp

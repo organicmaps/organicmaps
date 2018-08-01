@@ -4,6 +4,7 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape/graphics_context.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
@@ -129,6 +130,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, 
 
 void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                           ref_ptr<PostprocessRenderer> postprocessRenderer,
+                                          ref_ptr<dp::GraphicsContext> context,
                                           FrameValues const & frameValues)
 {
   auto const zoomLevel = GetDrawTileScale(screen);
@@ -137,9 +139,9 @@ void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, ref_ptr<gpu
 
   float const pixelHalfWidth = CalculateHalfWidth(screen);
 
-  RenderLinesCaps(screen, mng, frameValues, pixelHalfWidth);
+  RenderLinesCaps(screen, mng, context, frameValues, pixelHalfWidth);
   RenderLines(screen, mng, frameValues, pixelHalfWidth);
-  RenderMarkers(screen, mng, frameValues, pixelHalfWidth);
+  RenderMarkers(screen, mng, context, frameValues, pixelHalfWidth);
   {
     StencilWriterGuard guard(postprocessRenderer);
     RenderText(screen, mng, frameValues);
@@ -173,9 +175,10 @@ void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::v
 }
 
 void TransitSchemeRenderer::RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                                            ref_ptr<dp::GraphicsContext> context,
                                             FrameValues const & frameValues, float pixelHalfWidth)
 {
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  context->Clear(dp::ClearBits::DepthBit);
   for (auto & renderData : m_linesCapsRenderData)
   {
     ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
@@ -215,9 +218,10 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::
 }
 
 void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                                          ref_ptr<dp::GraphicsContext> context,
                                           FrameValues const & frameValues, float pixelHalfWidth)
 {
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  context->Clear(dp::ClearBits::DepthBit);
   for (auto & renderData : m_markersRenderData)
   {
     auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());

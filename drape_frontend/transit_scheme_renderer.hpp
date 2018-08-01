@@ -11,6 +11,11 @@
 
 #include <functional>
 
+namespace dp
+{
+  class GraphicsContext;
+}  // namespace dp
+
 namespace df
 {
 class PostprocessRenderer;
@@ -25,6 +30,7 @@ public:
 
   void RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                      ref_ptr<PostprocessRenderer> postprocessRenderer,
+                     ref_ptr<dp::GraphicsContext> context,
                      FrameValues const & frameValues);
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
@@ -52,9 +58,9 @@ private:
   void RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                    FrameValues const & frameValues, float pixelHalfWidth);
   void RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                       FrameValues const & frameValues, float pixelHalfWidth);
+                       ref_ptr<dp::GraphicsContext> context, FrameValues const & frameValues, float pixelHalfWidth);
   void RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                     FrameValues const & frameValues, float pixelHalfWidth);
+                     ref_ptr<dp::GraphicsContext> context, FrameValues const & frameValues, float pixelHalfWidth);
   void RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                   FrameValues const & frameValues);
   void RenderStubs(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,

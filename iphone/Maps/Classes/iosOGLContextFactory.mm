@@ -18,14 +18,14 @@ iosOGLContextFactory::~iosOGLContextFactory()
   delete m_uploadContext;
 }
 
-dp::GraphicContext * iosOGLContextFactory::GetDrawContext()
+dp::GraphicsContext * iosOGLContextFactory::GetDrawContext()
 {
   if (m_drawContext == nullptr)
     m_drawContext = new iosOGLContext(m_layer, m_apiVersion, m_uploadContext, true);
   return m_drawContext;
 }
 
-dp::GraphicContext * iosOGLContextFactory::GetResourcesUploadContext()
+dp::GraphicsContext * iosOGLContextFactory::GetResourcesUploadContext()
 {
   if (m_uploadContext == nullptr)
     m_uploadContext = new iosOGLContext(m_layer, m_apiVersion, m_drawContext, false);
@@ -57,7 +57,7 @@ void iosOGLContextFactory::SetPresentAvailable(bool available)
   }
 }
 
-void iosOGLContextFactory::WaitForInitialization(dp::GraphicContext * context)
+void iosOGLContextFactory::WaitForInitialization(dp::GraphicsContext * context)
 {
   unique_lock<mutex> lock(m_initializationMutex);
   if (!m_isInitialized)
@@ -74,6 +74,6 @@ void iosOGLContextFactory::WaitForInitialization(dp::GraphicContext * context)
     }
   }
 
-  if (static_cast<dp::GraphicContext*>(m_drawContext) == context)
+  if (static_cast<dp::GraphicsContext*>(m_drawContext) == context)
     m_drawContext->SetPresentAvailable(m_presentAvailable);
 }

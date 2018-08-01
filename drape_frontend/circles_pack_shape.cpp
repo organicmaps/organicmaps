@@ -6,6 +6,7 @@
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/texture_manager.hpp"
 
 namespace df
@@ -135,7 +136,8 @@ size_t CirclesPackHandle::GetPointsCount() const
   return m_buffer.size() / dp::Batcher::VertexPerQuad;
 }
 
-void CirclesPackShape::Draw(ref_ptr<dp::TextureManager> texMng, CirclesPackRenderData & data)
+void CirclesPackShape::Draw(ref_ptr<dp::TextureManager> texMng, ref_ptr<dp::GraphicsContext> context,
+                            CirclesPackRenderData & data)
 {
   ASSERT_NOT_EQUAL(data.m_pointsCount, 0, ());
 
@@ -172,6 +174,6 @@ void CirclesPackShape::Draw(ref_ptr<dp::TextureManager> texMng, CirclesPackRende
   batcher.InsertListOfStrip(GetCirclesPackState(texMng), make_ref(&provider), std::move(handle),
                             kVerticesInPoint);
 
-  GLFunctions::glFlush();
+  context->Flush();
 }
 }  // namespace df

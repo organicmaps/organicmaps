@@ -1,8 +1,8 @@
-#include "drape/graphic_context_factory.hpp"
+#include "drape/graphics_context_factory.hpp"
 
 namespace dp
 {
-ThreadSafeFactory::ThreadSafeFactory(GraphicContextFactory * factory, bool enableSharing)
+ThreadSafeFactory::ThreadSafeFactory(GraphicsContextFactory * factory, bool enableSharing)
   : m_factory(factory)
   , m_enableSharing(enableSharing)
 {}
@@ -12,22 +12,22 @@ ThreadSafeFactory::~ThreadSafeFactory()
   delete m_factory;
 }
 
-GraphicContext * ThreadSafeFactory::GetDrawContext()
+GraphicsContext * ThreadSafeFactory::GetDrawContext()
 {
   return CreateContext([this](){ return m_factory->GetDrawContext(); },
                        [this](){ return m_factory->IsUploadContextCreated(); });
 }
 
-GraphicContext * ThreadSafeFactory::GetResourcesUploadContext()
+GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
 {
   return CreateContext([this](){ return m_factory->GetResourcesUploadContext(); },
                        [this](){ return m_factory->IsDrawContextCreated(); });
 }
 
-GraphicContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const checkFn)
+GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const checkFn)
 {
   threads::ConditionGuard g(m_contidion);
-  GraphicContext * ctx = createFn();
+  GraphicsContext * ctx = createFn();
   if (m_enableSharing)
   {
     if (!checkFn())
@@ -39,7 +39,7 @@ GraphicContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn,
   return ctx;
 }
 
-void ThreadSafeFactory::WaitForInitialization(GraphicContext * context)
+void ThreadSafeFactory::WaitForInitialization(GraphicsContext * context)
 {
   m_factory->WaitForInitialization(context);
 }

@@ -3,13 +3,10 @@
 
 namespace dp
 {
-void OGLContext::SetApiVersion(ApiVersion apiVersion)
+void OGLContext::Init(ApiVersion apiVersion)
 {
   GLFunctions::Init(apiVersion);
-}
 
-void OGLContext::Init()
-{
   GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
 
   GLFunctions::glClearDepthValue(1.0);
@@ -27,7 +24,7 @@ void OGLContext::SetClearColor(float r, float g, float b, float a)
   GLFunctions::glClearColor(r, g, b, a);
 }
 
-void OGLContext::Clear(ContextConst clearBits)
+void OGLContext::Clear(uint32_t clearBits)
 {
   glConst glBits = 0;
   if (clearBits & ClearBits::ColorBit)
@@ -38,5 +35,10 @@ void OGLContext::Clear(ContextConst clearBits)
     glBits |= gl_const::GLStencilBit;
 
   GLFunctions::glClear(glBits);
+}
+
+void OGLContext::Flush()
+{
+  GLFunctions::glFlush();
 }
 }  // namespace dp

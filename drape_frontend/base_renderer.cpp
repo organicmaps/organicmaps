@@ -40,7 +40,7 @@ void BaseRenderer::StopThread()
   m_selfThread.Join();
 }
 
-void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicContextFactory> contextFactory)
+void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory)
 {
   if (m_wasContextReset && contextFactory != nullptr)
     m_contextFactory = contextFactory;
@@ -107,7 +107,7 @@ void BaseRenderer::CheckRenderingEnabled()
 {
   if (!m_isEnabled)
   {
-    dp::GraphicContext * context = nullptr;
+    dp::GraphicsContext * context = nullptr;
 
     if (m_wasContextReset)
     {

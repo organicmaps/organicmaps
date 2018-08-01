@@ -1398,12 +1398,13 @@ bool FrontendRenderer::HasRouteData() const
 
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
-  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
+  auto context = m_contextFactory->GetDrawContext();
+  context->Clear(dp::ClearBits::DepthBit);
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(modelView, make_ref(m_gpuProgramManager),
-                                           make_ref(m_postprocessRenderer), m_frameValues);
+                                           make_ref(m_postprocessRenderer), make_ref(context), m_frameValues);
   }
 }
 
@@ -1422,6 +1423,7 @@ void FrontendRenderer::RenderTransitBackground()
   if (!m_finishTexturesInitialization)
     return;
 
+  // TODO: Delete after refactoring of ScreenQuadRenderer.
   GLFunctions::glDisable(gl_const::GLDepthTest);
 
   dp::TextureManager::ColorRegion region;
@@ -1952,12 +1954,10 @@ void FrontendRenderer::OnContextCreate()
 
   context->MakeCurrent();
 
-  context->SetApiVersion(m_apiVersion);
+  context->Init(m_apiVersion);
 
   // Render empty frame here to avoid black initialization screen.
   RenderEmptyFrame();
-
-  context->Init();
 
   dp::SupportManager::Instance().Init();
 

@@ -13,6 +13,11 @@
 
 #include <map>
 
+namespace dp
+{
+  class GraphicsContext;
+}  // namespace dp
+
 namespace gui
 {
 class LayerRenderer
@@ -53,11 +58,14 @@ class LayerCacher
 {
 public:
   drape_ptr<LayerRenderer> RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                          ref_ptr<dp::TextureManager> textures);
-  drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures);
+                                          ref_ptr<dp::TextureManager> textures,
+                                          ref_ptr<dp::GraphicsContext> context);
+  drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures,
+                                                     ref_ptr<dp::GraphicsContext> context);
 
 #ifdef RENDER_DEBUG_INFO_LABELS
-  drape_ptr<LayerRenderer> RecacheDebugLabels(ref_ptr<dp::TextureManager> textures);
+  drape_ptr<LayerRenderer> RecacheDebugLabels(ref_ptr<dp::TextureManager> textures,
+                                              ref_ptr<dp::GraphicsContext> context);
 #endif
 
 private:

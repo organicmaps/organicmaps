@@ -78,7 +78,7 @@ public:
   struct Params : BaseRenderer::Params
   {
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
-           ref_ptr<dp::GraphicContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
+           ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MyPositionController::Params && myPositionParams, dp::Viewport viewport,
            TModelViewChanged const & modelViewChangedFn, TTapEventInfoFn const & tapEventFn,
            TUserPositionChangedFn const & positionChangedFn, ref_ptr<RequestedTiles> requestedTiles,

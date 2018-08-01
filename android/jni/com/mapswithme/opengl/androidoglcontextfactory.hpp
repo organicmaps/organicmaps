@@ -2,7 +2,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
-#include "drape/graphic_context_factory.hpp"
+#include "drape/graphics_context_factory.hpp"
 
 #include "base/src_point.hpp"
 
@@ -11,7 +11,7 @@
 
 namespace android
 {
-class AndroidOGLContextFactory : public dp::GraphicContextFactory
+class AndroidOGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
   AndroidOGLContextFactory(JNIEnv * env, jobject jsurface);
@@ -19,11 +19,11 @@ public:
 
   bool IsValid() const;
 
-  dp::GraphicContext * GetDrawContext() override;
-  dp::GraphicContext * GetResourcesUploadContext() override;
+  dp::GraphicsContext * GetDrawContext() override;
+  dp::GraphicsContext * GetResourcesUploadContext() override;
   bool IsDrawContextCreated() const override;
   bool IsUploadContextCreated() const override;
-  void WaitForInitialization(dp::GraphicContext * context) override;
+  void WaitForInitialization(dp::GraphicsContext * context) override;
   void SetPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);

@@ -17,7 +17,7 @@
 
 namespace dp
 {
-class GraphicContextFactory;
+class GraphicsContextFactory;
 class TextureManager;
 }  // namespace dp
 
@@ -38,7 +38,7 @@ public:
   struct Params : BaseRenderer::Params
   {
     Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
-           ref_ptr<dp::GraphicContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
+           ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled,
            bool simplifiedTrafficColors, TIsUGCFn && isUGCFn)

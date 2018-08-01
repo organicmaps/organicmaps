@@ -22,6 +22,11 @@
 #include <unordered_map>
 #include <vector>
 
+namespace dp
+{
+  class GraphicsContext;
+}  // namespace dp
+
 namespace df
 {
 enum class RoadClass : uint8_t
@@ -166,7 +171,7 @@ public:
   void ClearGLDependentResources();
 
   void FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
-                             ref_ptr<dp::TextureManager> textures);
+                             ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context);
   void UpdateColoring(TrafficSegmentsColoring const & coloring);
 
   void ClearCache();

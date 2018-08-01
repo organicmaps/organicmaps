@@ -11,7 +11,7 @@
 
 #include "drape/attribute_provider.hpp"
 #include "drape/glsl_func.hpp"
-#include "drape/texture_manager.hpp"
+#include "drape/graphics_context.hpp"
 
 #include "indexer/map_style_reader.hpp"
 
@@ -228,7 +228,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
 }
 
 void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
-                                             ref_ptr<dp::TextureManager> textures)
+                                             ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context)
 {
   FillColorsCache(textures);
 
@@ -259,7 +259,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
     m_circlesBatcher->EndSession();
   }
 
-  GLFunctions::glFlush();
+  context->Flush();
 }
 
 void TrafficGenerator::UpdateColoring(TrafficSegmentsColoring const & coloring)

@@ -4,19 +4,17 @@
 
 namespace dp
 {
-using ContextConst = uint32_t;
-
-enum ClearBits: ContextConst
+enum ClearBits: uint32_t
 {
   ColorBit = 1,
   DepthBit = 1 << 1,
   StencilBit = 1 << 2
 };
 
-class GraphicContext
+class GraphicsContext
 {
 public:
-  virtual ~GraphicContext() {}
+  virtual ~GraphicsContext() = default;
   virtual void Present() = 0;
   virtual void MakeCurrent() = 0;
   virtual void DoneCurrent() {}
@@ -27,9 +25,9 @@ public:
   virtual void SetPresentAvailable(bool /*available*/) {}
   virtual bool Validate() { return true; }
 
-  virtual void SetApiVersion(ApiVersion apiVersion) = 0;
-  virtual void Init() = 0;
+  virtual void Init(ApiVersion apiVersion) = 0;
   virtual void SetClearColor(float r, float g, float b, float a) = 0;
-  virtual void Clear(ContextConst clearBits) = 0;
+  virtual void Clear(uint32_t clearBits) = 0;
+  virtual void Flush() = 0;
 };
 }  // namespace dp

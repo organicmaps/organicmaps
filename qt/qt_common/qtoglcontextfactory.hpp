@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/graphic_context_factory.hpp"
+#include "drape/graphics_context_factory.hpp"
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include <QtGui/QOpenGLContext>
@@ -12,7 +12,7 @@ namespace qt
 {
 namespace common
 {
-class QtOGLContextFactory : public dp::GraphicContextFactory
+class QtOGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
   QtOGLContextFactory(QOpenGLContext * rootContext);
@@ -25,9 +25,9 @@ public:
   QRectF const & GetTexRect() const;
   void UnlockFrame();
 
-  // dp::GraphicContextFactory overrides:
-  dp::GraphicContext * GetDrawContext() override;
-  dp::GraphicContext * GetResourcesUploadContext() override;
+  // dp::GraphicsContextFactory overrides:
+  dp::GraphicsContext * GetDrawContext() override;
+  dp::GraphicsContext * GetResourcesUploadContext() override;
   bool IsDrawContextCreated() const override { return m_drawContext != nullptr; }
   bool IsUploadContextCreated() const override { return m_uploadContext != nullptr; }
 

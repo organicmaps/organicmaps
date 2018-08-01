@@ -264,7 +264,7 @@ bool AndroidOGLContextFactory::QuerySurfaceSize()
   return true;
 }
 
-dp::GraphicContext * AndroidOGLContextFactory::GetDrawContext()
+dp::GraphicsContext * AndroidOGLContextFactory::GetDrawContext()
 {
   ASSERT(IsValid(), ());
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
@@ -276,7 +276,7 @@ dp::GraphicContext * AndroidOGLContextFactory::GetDrawContext()
   return m_drawContext;
 }
 
-dp::GraphicContext * AndroidOGLContextFactory::GetResourcesUploadContext()
+dp::GraphicsContext * AndroidOGLContextFactory::GetResourcesUploadContext()
 {
   ASSERT(IsValid(), ());
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
@@ -298,7 +298,7 @@ bool AndroidOGLContextFactory::IsUploadContextCreated() const
   return m_uploadContext != nullptr;
 }
 
-void AndroidOGLContextFactory::WaitForInitialization(dp::GraphicContext *)
+void AndroidOGLContextFactory::WaitForInitialization(dp::GraphicsContext *)
 {
   std::unique_lock<std::mutex> lock(m_initializationMutex);
   if (m_isInitialized)

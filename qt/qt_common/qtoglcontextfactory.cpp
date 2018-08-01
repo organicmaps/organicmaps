@@ -54,7 +54,7 @@ void QtOGLContextFactory::UnlockFrame()
   m_drawContext->UnlockFrame();
 }
 
-dp::GraphicContext * QtOGLContextFactory::GetDrawContext()
+dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
 {
   if (!m_drawContext)
     m_drawContext = my::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
@@ -62,7 +62,7 @@ dp::GraphicContext * QtOGLContextFactory::GetDrawContext()
   return m_drawContext.get();
 }
 
-dp::GraphicContext * QtOGLContextFactory::GetResourcesUploadContext()
+dp::GraphicsContext * QtOGLContextFactory::GetResourcesUploadContext()
 {
   if (!m_uploadContext)
     m_uploadContext = my::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());

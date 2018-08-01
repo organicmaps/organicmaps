@@ -12,6 +12,7 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include "drape/batcher.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/render_bucket.hpp"
 
 #include "geometry/mercator.hpp"
@@ -197,7 +198,8 @@ private:
 }  // namespace
 
 drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                                     ref_ptr<dp::TextureManager> textures)
+                                                     ref_ptr<dp::TextureManager> textures,
+                                                     ref_ptr<dp::GraphicsContext> context)
 {
   using TCacheShape = std::function<m2::PointF(Position anchor, ref_ptr<LayerRenderer> renderer,
                                                ref_ptr<dp::TextureManager> textures)>;
@@ -217,12 +219,13 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
   }
 
   // Flush gui geometry.
-  GLFunctions::glFlush();
+  context->Flush();
 
   return renderer;
 }
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures)
+drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures,
+                                                                ref_ptr<dp::GraphicsContext> context)
 {
   m2::PointF const surfSize = DrapeGui::Instance().GetSurfaceSize();
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -231,13 +234,14 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::Text
   renderer->AddShapeRenderer(WIDGET_CHOOSE_POSITION_MARK, positionMark.Draw(textures));
 
   // Flush gui geometry.
-  GLFunctions::glFlush();
+  context->Flush();
 
   return renderer;
 }
 
 #ifdef RENDER_DEBUG_INFO_LABELS
-drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureManager> textures)
+drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureManager> textures,
+                                                         ref_ptr<dp::GraphicsContext> context)
 {
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
@@ -325,7 +329,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureMana
   renderer->AddShapeRenderer(WIDGET_DEBUG_INFO, debugLabels.Draw(textures));
 
   // Flush gui geometry.
-  GLFunctions::glFlush();
+  context->Flush();
 
   return renderer;
 }

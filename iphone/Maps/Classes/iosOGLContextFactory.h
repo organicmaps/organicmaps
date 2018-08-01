@@ -2,25 +2,25 @@
 
 #import "iosOGLContext.h"
 
-#include "drape/graphic_context_factory.hpp"
+#include "drape/graphics_context_factory.hpp"
 #include "drape/drape_global.hpp"
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
 
-class iosOGLContextFactory: public dp::GraphicContextFactory
+class iosOGLContextFactory: public dp::GraphicsContextFactory
 {
 public:
   iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion);
   ~iosOGLContextFactory();
 
-  dp::GraphicContext * GetDrawContext() override;
-  dp::GraphicContext * GetResourcesUploadContext() override;
+  dp::GraphicsContext * GetDrawContext() override;
+  dp::GraphicsContext * GetResourcesUploadContext() override;
 
   bool IsDrawContextCreated() const override;
   bool IsUploadContextCreated() const override;
   
-  void WaitForInitialization(dp::GraphicContext * context) override;
+  void WaitForInitialization(dp::GraphicsContext * context) override;
   
   void SetPresentAvailable(bool available) override;
 
