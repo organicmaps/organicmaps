@@ -18,10 +18,11 @@ class CachingPopularityLoader
 public:
   explicit CachingPopularityLoader(DataSource const & dataSource);
   uint8_t Get(FeatureID const & featureId) const;
+  void OnMwmDeregistered(platform::LocalCountryFile const & localFile);
 
 private:
   DataSource const & m_dataSource;
-  mutable std::map<MwmSet::MwmId, const std::unique_ptr<const search::RankTable>> m_deserializers;
+  mutable std::map<MwmSet::MwmId, std::unique_ptr<search::RankTable const> const> m_deserializers;
 
   DISALLOW_COPY(CachingPopularityLoader);
 };

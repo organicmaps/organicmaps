@@ -622,6 +622,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   m_localAdsManager.OnMwmDeregistered(localFile);
   m_transitManager.OnMwmDeregistered(localFile);
   m_trafficManager.OnMwmDeregistered(localFile);
+  m_popularityLoader.OnMwmDeregistered(localFile);
 
   auto action = [this, localFile]
   {
