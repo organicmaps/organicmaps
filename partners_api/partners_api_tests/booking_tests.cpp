@@ -65,7 +65,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
     auto price = BlockInfo::kIncorrectPrice;
     string currency;
     string hotelId;
-    api.GetBlockAvailability(std::move(params), [&hotelId, &price, &currency](std::string const & id,
+    auto copy = params;
+    api.GetBlockAvailability(std::move(copy), [&hotelId, &price, &currency](std::string const & id,
                                                                               Blocks const & blocks)
     {
       hotelId = id;
@@ -88,7 +89,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
     double price = std::numeric_limits<double>::max();
     string currency;
     string hotelId;
-    api.GetBlockAvailability(std::move(params), [&hotelId, &price, &currency](std::string const & id,
+    auto copy = params;
+    api.GetBlockAvailability(std::move(copy), [&hotelId, &price, &currency](std::string const & id,
                                                                               Blocks const & blocks)
     {
       hotelId = id;

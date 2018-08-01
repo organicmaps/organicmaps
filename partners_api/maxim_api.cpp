@@ -129,7 +129,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
     return;
 
   auto const price = json_object_get(root.get(), "Price");
-  if (price == nullptr)
+  if (price == nullptr || json_is_null(price))
     return;
 
   double p = 0.0;
