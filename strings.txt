@@ -30271,39 +30271,6 @@ fa = دوباره نپرس
     zh-Hans = 请稍候...
     zh-Hant = 請稍候...
 
-  [fc2018]
-    en = Football World Cup 2018
-    ru = ЧМ по футболу 2018
-    ar = كأس العالم لكرة القدم 2018
-    cs = Mistrovství světa ve fotbale 2018
-    da = Fodbold VM 2018
-    nl = Wereldkampioenschap voetbal 2018
-    fi = Jalkapallomaajoukkue 2018
-    fr = Coupe du monde de football 2018
-    de = Fußballweltmeisterschaft 2018
-    hu = Futball Világkupa 2018
-    id = Piala Dunia Sepakbola 2018
-    it = Mondiali di calcio 2018
-    ja = サッカーワールドカップ2018
-    ko = 2018 축구 월드컵
-    nb = Fotball VM 2018
-    pl = Puchar Świata w Piłce Nożnej 2018
-    pt = Copa do mundo de futebol 2018
-    pt-BR = Copa do mundo de futebol de 2018
-    ro = Campionatul Mondial de Fotbal 2018
-    es = Copa Mundial de Fútbol 2018
-    es_MX = Copa Mundial de Fútbol 2018
-    sv = Fotbolls VM 2018
-    th = ฟุตบอลโลก 2018
-    tr = Futbol Dünya Kupası 2018
-    uk = Чемпіонат світу з футболу 2018 року
-    vi = World Cup bóng đá 2018
-    el = Παγκόσμιο Κύπελλο Ποδόσφαιρου 2018
-    sk = Majstrovstvá sveta vo futbale 2018
-    sw = Kombe la Dunia ya Kandanda 2018
-    zh-Hans = 2018年世界杯足球赛
-    zh-Hant = 2018年世界杯足球賽
-
   [phone_number]
     en = Phone number
     ru = Номер телефона
