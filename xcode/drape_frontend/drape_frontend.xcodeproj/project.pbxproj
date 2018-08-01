@@ -172,8 +172,6 @@
 		6709484E1BDF9C48005014C0 /* shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948361BDF9C48005014C0 /* shape.hpp */; };
 		6709484F1BDF9C48005014C0 /* skin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670948371BDF9C48005014C0 /* skin.cpp */; };
 		670948501BDF9C48005014C0 /* skin.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670948381BDF9C48005014C0 /* skin.hpp */; };
-		670E393A1C46C59000E9C0A6 /* batch_merge_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39361C46C59000E9C0A6 /* batch_merge_helper.cpp */; };
-		670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39371C46C59000E9C0A6 /* batch_merge_helper.hpp */; };
 		670E393C1C46C59000E9C0A6 /* color_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E39381C46C59000E9C0A6 /* color_constants.cpp */; };
 		670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E39391C46C59000E9C0A6 /* color_constants.hpp */; };
 		672D249A1E892768004BB7B1 /* overlays_tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 672D24981E892768004BB7B1 /* overlays_tracker.cpp */; };
@@ -453,8 +451,6 @@
 		670948361BDF9C48005014C0 /* shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shape.hpp; sourceTree = "<group>"; };
 		670948371BDF9C48005014C0 /* skin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skin.cpp; sourceTree = "<group>"; };
 		670948381BDF9C48005014C0 /* skin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = skin.hpp; sourceTree = "<group>"; };
-		670E39361C46C59000E9C0A6 /* batch_merge_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = batch_merge_helper.cpp; sourceTree = "<group>"; };
-		670E39371C46C59000E9C0A6 /* batch_merge_helper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = batch_merge_helper.hpp; sourceTree = "<group>"; };
 		670E39381C46C59000E9C0A6 /* color_constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color_constants.cpp; sourceTree = "<group>"; };
 		670E39391C46C59000E9C0A6 /* color_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color_constants.hpp; sourceTree = "<group>"; };
 		672D24981E892768004BB7B1 /* overlays_tracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlays_tracker.cpp; sourceTree = "<group>"; };
@@ -605,8 +601,6 @@
 				670947ED1BDF9BF5005014C0 /* backend_renderer.hpp */,
 				670947EE1BDF9BF5005014C0 /* base_renderer.cpp */,
 				670947EF1BDF9BF5005014C0 /* base_renderer.hpp */,
-				670E39361C46C59000E9C0A6 /* batch_merge_helper.cpp */,
-				670E39371C46C59000E9C0A6 /* batch_merge_helper.hpp */,
 				670947F11BDF9BF5005014C0 /* batchers_pool.hpp */,
 				451A2A801EE8464E003E05A4 /* circles_pack_shape.cpp */,
 				451A2A811EE8464E003E05A4 /* circles_pack_shape.hpp */,
@@ -889,7 +883,6 @@
 				452C9EDD1CEDCF3200A55E57 /* linear_animation.hpp in Headers */,
 				454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */,
 				6709481F1BDF9C39005014C0 /* show_hide_animation.hpp in Headers */,
-				670E393B1C46C59000E9C0A6 /* batch_merge_helper.hpp in Headers */,
 				670947931BDF9BE1005014C0 /* kinetic_scroller.hpp in Headers */,
 				670947E71BDF9BEC005014C0 /* frontend_renderer.hpp in Headers */,
 				45B241AE20EF9D0500A759D6 /* scale_fps_helper.hpp in Headers */,
@@ -989,7 +982,6 @@
 				56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */,
 				6743D36D1C3A9F090095054B /* arrow3d.cpp in Sources */,
 				BBD9E2D31F009D9E00DF189A /* user_mark_generator.cpp in Sources */,
-				670E393A1C46C59000E9C0A6 /* batch_merge_helper.cpp in Sources */,
 				452C9EDA1CEDCF3200A55E57 /* interpolators.cpp in Sources */,
 				451A2A821EE8464E003E05A4 /* circles_pack_shape.cpp in Sources */,
 				67E91C781BDFC85E005CEE88 /* area_shape.cpp in Sources */,

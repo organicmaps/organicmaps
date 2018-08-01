@@ -1,7 +1,6 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/animation_system.hpp"
-#include "drape_frontend/batch_merge_helper.hpp"
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/drape_notifier.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
@@ -53,23 +52,6 @@ double const kVSyncInterval = 0.06;
 //double const kVSyncInterval = 0.014;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
-
-struct MergedGroupKey
-{
-  dp::GLState m_state;
-  TileKey m_key;
-
-  MergedGroupKey(dp::GLState const & state, TileKey const & tileKey)
-    : m_state(state), m_key(tileKey)
-  {}
-
-  bool operator <(MergedGroupKey const & other) const
-  {
-    if (!(m_state == other.m_state))
-      return m_state < other.m_state;
-    return m_key.LessStrict(other.m_key);
-  }
-};
 
 template <typename ToDo>
 bool RemoveGroups(ToDo & filter, std::vector<drape_ptr<RenderGroup>> & groups,
@@ -1319,8 +1301,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 #if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
   DrapeMeasurer::Instance().AfterRenderFrame();
 #endif
-
-  MergeBuckets();
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -1518,64 +1498,6 @@ void FrontendRenderer::PrepareBucket(dp::GLState const & state, drape_ptr<dp::Re
   else
     program->Bind();
   bucket->GetBuffer()->Build(isPerspective ? program3d : program);
-}
-
-void FrontendRenderer::MergeBuckets()
-{
-  if (!BatchMergeHelper::IsMergeSupported())
-    return;
-
-  ++m_mergeBucketsCounter;
-  if (m_mergeBucketsCounter < 60)
-    return;
-
-  m_mergeBucketsCounter = 0;
-
-  auto mergeFn = [this](RenderLayer & layer, bool isPerspective)
-  {
-    if (layer.m_renderGroups.empty())
-      return;
-
-    using TGroupMap = std::map<MergedGroupKey, std::vector<drape_ptr<RenderGroup>>>;
-    TGroupMap forMerge;
-
-    std::vector<drape_ptr<RenderGroup>> newGroups;
-    newGroups.reserve(layer.m_renderGroups.size());
-
-    size_t groupsCount = layer.m_renderGroups.size();
-    for (size_t i = 0; i < groupsCount; ++i)
-    {
-      ref_ptr<RenderGroup> group = make_ref(layer.m_renderGroups[i]);
-      if (!group->IsPendingOnDelete())
-      {
-        dp::GLState const state = group->GetState();
-        auto const depthLayer = GetDepthLayer(state);
-        if (depthLayer != RenderState::GeometryLayer && depthLayer != RenderState::Geometry3dLayer)
-          ASSERT(false, ("Invalid depth layer for merging buckets"));
-        MergedGroupKey const k(state, group->GetTileKey());
-        forMerge[k].push_back(std::move(layer.m_renderGroups[i]));
-      }
-      else
-      {
-        newGroups.push_back(std::move(layer.m_renderGroups[i]));
-      }
-    }
-
-    for (auto & node : forMerge)
-    {
-      if (node.second.size() < 2)
-        newGroups.emplace_back(std::move(node.second.front()));
-      else
-        BatchMergeHelper::MergeBatches(make_ref(m_gpuProgramManager), isPerspective, node.second, newGroups);
-    }
-
-    layer.m_renderGroups = std::move(newGroups);
-    layer.m_isDirty = true;
-  };
-
-  bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
-  mergeFn(m_layers[RenderState::GeometryLayer], isPerspective);
-  mergeFn(m_layers[RenderState::Geometry3dLayer], isPerspective);
 }
 
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)

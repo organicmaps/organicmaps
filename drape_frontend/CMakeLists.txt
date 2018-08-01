@@ -53,8 +53,6 @@ set(
   backend_renderer.hpp
   base_renderer.cpp
   base_renderer.hpp
-  batch_merge_helper.cpp
-  batch_merge_helper.hpp
   batchers_pool.hpp
   circles_pack_shape.cpp
   circles_pack_shape.hpp
