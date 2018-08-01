@@ -20,6 +20,8 @@ void EverywhereSearchCallback::operator()(Results const & results)
   auto const prevSize = m_productInfo.size();
   ASSERT_LESS_OR_EQUAL(prevSize, results.GetCount(), ());
 
+  LOG(LINFO, ("Emitted", results.GetCount() - prevSize, "search results."));
+
   for (size_t i = prevSize; i < results.GetCount(); ++i)
   {
     m_productInfo.push_back(m_productInfoDelegate.GetProductInfo(results[i]));
