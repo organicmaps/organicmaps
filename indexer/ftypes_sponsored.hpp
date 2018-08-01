@@ -24,11 +24,4 @@ SPONSORED_CHECKER(IsViatorChecker, "viator");
 SPONSORED_CHECKER(IsHolidayChecker, "holiday");
 
 #undef SPONSORED_CHECKER
-
-class Fc2018Checker : public BaseChecker
-{
-  Fc2018Checker();
-public:
-  DECLARE_CHECKER_INSTANCE(Fc2018Checker);
-};
 }  // namespace ftypes

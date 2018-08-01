@@ -23,7 +23,6 @@ enum class SearchMarkType
   LocalAds,
   LocalAdsBooking,
   UGC,
-  Fc2018,
   NotFound, // Service value used in developer tools.
   Count
 };

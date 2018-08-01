@@ -31,28 +31,6 @@ public enum PromoCategory
         {
           return Statistics.ParamValue.LUGGAGE_HERO;
         }
-      },
-  FIFA
-      {
-        @NonNull
-        @Override
-        String getKey()
-        {
-          return "fc2018";
-        }
-
-        @Override
-        int getStringId()
-        {
-          return R.string.fc2018;
-        }
-
-        @NonNull
-        @Override
-        String getStatisticValue()
-        {
-          return Statistics.ParamValue.FIFA;
-        }
       };
 
   @NonNull

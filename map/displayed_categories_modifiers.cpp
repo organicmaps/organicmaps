@@ -10,14 +10,9 @@ namespace
 std::unordered_set<std::string> const kLuggageHeroesSupportedCities{"London", "New York",
                                                                     "Copenhagen"};
 
-std::unordered_set<std::string> const kFc2018SupportedCities{
-    "Moscow", "Saint Petersburg", "Kazan",         "Yekaterinburg", "Saransk",        "Samara",
-    "Sochi",  "Volgograd",        "Rostov-on-Don", "Kaliningrad",   "Nizhny Novgorod"};
-  
 std::string const kLuggageHeroCategory = "luggagehero";
-std::string const kFc2018Category = "fc2018";
 
-std::vector<std::string> const kSponsoredCategories = {kLuggageHeroCategory, kFc2018Category};
+std::vector<std::string> const kSponsoredCategories = {kLuggageHeroCategory};
 
 search::DisplayedCategories::Keys::const_iterator FindInsertionPlace(
     search::DisplayedCategories::Keys & keys, uint32_t position)
@@ -64,8 +59,4 @@ void SponsoredCategoryModifier::Modify(search::DisplayedCategories::Keys & keys)
 LuggageHeroModifier::LuggageHeroModifier(std::string const & currentCity)
   : SponsoredCategoryModifier(currentCity, kLuggageHeroesSupportedCities, kLuggageHeroCategory,
                               4 /* position */)
-{}
-
-Fc2018Modifier::Fc2018Modifier(std::string const & currentCity)
-  : SponsoredCategoryModifier(currentCity, kFc2018SupportedCities, kFc2018Category, 3 /* position */)
 {}

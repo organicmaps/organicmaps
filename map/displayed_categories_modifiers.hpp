@@ -30,9 +30,3 @@ class LuggageHeroModifier : public SponsoredCategoryModifier
 public:
   explicit LuggageHeroModifier(std::string const & currentCity);
 };
-
-class Fc2018Modifier : public SponsoredCategoryModifier
-{
-public:
-  explicit Fc2018Modifier(std::string const & currentCity);
-};

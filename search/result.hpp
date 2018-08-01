@@ -53,9 +53,6 @@ public:
     bool m_isSponsoredHotel = false;
     bool m_isHotel = false;
 
-    // TODO: Remove after FC2018 finishing.
-    bool m_isFootballCupObject = false;
-
     // Valid for any result.
     osm::YesNoUnknown m_isOpenNow = osm::Unknown;
 

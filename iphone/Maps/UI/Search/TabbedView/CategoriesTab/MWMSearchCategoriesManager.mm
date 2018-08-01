@@ -8,8 +8,6 @@
 
 extern NSString * const kLuggageCategory = @"luggagehero";
 
-static NSString * const kFifa18Category = @"fc2018";
-
 @implementation MWMSearchCategoriesManager
 {
   vector<string> m_categories;
@@ -61,17 +59,12 @@ static NSString * const kFifa18Category = @"fc2018";
     [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_LuggageHero"];
     [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatLuggageHero}];
   }
-  else if ([string isEqualToString:kFifa18Category])
-  {
-    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatFifa18}];
-  }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
-  auto query = [[string isEqualToString:kFifa18Category] ? kFifa18Category : L(string)
-                                                           stringByAppendingString:@" "];
+  auto query = [L(string) stringByAppendingString:@" "];
 
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
         withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
@@ -89,8 +82,6 @@ static NSString * const kFifa18Category = @"fc2018";
 
   if ([string isEqualToString:kLuggageCategory])
     doWork(kStatLuggageHero);
-  else if ([string isEqualToString:kFifa18Category])
-    doWork(kStatFifa18);
 }
 
 @end

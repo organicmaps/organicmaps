@@ -1487,7 +1487,7 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
   // Apply sponsored modifiers.
-  std::tuple<LuggageHeroModifier, Fc2018Modifier> modifiers(city, city);
+  std::tuple<LuggageHeroModifier> modifiers(city);
   my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
   {
     m_displayedCategories->Modify(modifier);
@@ -1631,10 +1631,6 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
       mark->SetFoundFeature(r.GetFeatureID());
 
     mark->SetMatchedName(r.GetString());
-
-    // TODO: Remove after FC2018 finishing.
-    if (r.m_metadata.m_isFootballCupObject)
-      mark->SetMarkType(SearchMarkType::Fc2018);
 
     if (r.m_metadata.m_isSponsoredHotel)
     {

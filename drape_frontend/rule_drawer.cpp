@@ -166,7 +166,8 @@ bool UsePreciseFeatureCenter(FeatureType & f)
 {
   // Add here types for which we want to calculate precise feature center (by best geometry).
   // Warning! Large amount of such objects can reduce performance.
-  return ftypes::Fc2018Checker::Instance()(f);
+  UNUSED_VALUE(f);
+  return false;
 }
 }  // namespace
 

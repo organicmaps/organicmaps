@@ -222,22 +222,7 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
 
 uint8_t CalcEventRank(FeatureType & ft)
 {
-  // |fc2018Rank| value was adjusted for cases:
-  // - fc2018 objects should be in thetop for "stadium" query iff fc2018 mwm is in viewport.
-  // - fc2018 objects should be above apartments and other objects with same name.
-  // - fc2018 objects should be in the top for object name query at any viewport.
-  uint8_t const fc2018Rank = 16;
-  Classificator const & c = classif();
-  auto const types = feature::TypesHolder(ft);
-  auto const fcType =
-      ftypes::BaseChecker::PrepareToMatch(c.GetTypeByPath({"event", "fc2018"}), 2 /* level */);
-  auto const fcCityType =
-      ftypes::BaseChecker::PrepareToMatch(c.GetTypeByPath({"event", "fc2018_city"}), 2 /* level */);
-  if (find(types.begin(), types.end(), fcType) != types.end() ||
-      find(types.begin(), types.end(), fcCityType) != types.end())
-  {
-    return fc2018Rank;
-  }
+  //TODO: add custom event processing, i.e. fc2018.
   return 0;
 }
 

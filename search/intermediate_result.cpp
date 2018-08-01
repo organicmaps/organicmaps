@@ -217,9 +217,6 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
   meta.m_isSponsoredHotel = isSponsoredHotel;
   meta.m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
 
-  // TODO: Remove after FC2018 finishing.
-  meta.m_isFootballCupObject = ftypes::Fc2018Checker::Instance()(ft);
-
   if (isSponsoredHotel)
   {
     auto const r = src.Get(feature::Metadata::FMD_RATING);

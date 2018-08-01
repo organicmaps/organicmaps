@@ -10,9 +10,4 @@ BaseSponsoredChecker::BaseSponsoredChecker(std::string const & sponsoredType)
 {
   m_types.push_back(classif().GetTypeByPath({"sponsored", sponsoredType}));
 }
-
-Fc2018Checker::Fc2018Checker()
-{
-  m_types.push_back(classif().GetTypeByPath({"event", "fc2018"}));
-}
 }  // namespace ftypes
