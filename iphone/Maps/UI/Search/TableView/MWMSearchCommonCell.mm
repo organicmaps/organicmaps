@@ -4,11 +4,21 @@
 
 #include "map/place_page_info.hpp"
 
+#include "search/result.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "platform/measurement_utils.hpp"
 
 #include "defines.hpp"
+
+namespace
+{
+bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
+{
+  return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
+}
+}  // namespace
 
 @interface MWMSearchCommonCell ()
 
@@ -74,19 +84,24 @@
     [self clearInfo];
 
   self.closedView.hidden = (result.IsOpenNow() != osm::No);
-  if (result.HasPoint())
+  
+  CLLocation * lastLocation = [MWMLocationManager lastLocation];
+  double distanceInMeters = 0.0;
+  if (lastLocation)
   {
-    string distanceStr;
-    CLLocation * lastLocation = [MWMLocationManager lastLocation];
-    if (lastLocation)
+    if (result.HasPoint())
     {
-      double const dist =
+      distanceInMeters =
           MercatorBounds::DistanceOnEarth(lastLocation.mercator, result.GetFeatureCenter());
-      measurement_utils::FormatDistance(dist, distanceStr);
+      string distanceStr;
+      measurement_utils::FormatDistance(distanceInMeters, distanceStr);
+
+      self.distanceLabel.text = @(distanceStr.c_str());
     }
-    self.distanceLabel.text = @(distanceStr.c_str());
   }
 
+  bool popularityHasHigherPriority = PopularityHasHigherPriority(lastLocation, distanceInMeters);
+  
   if (productInfo.m_isLocalAdsCustomer)
     self.backgroundColor = [UIColor bannerBackground];
   else if (isAvailable)

@@ -34,9 +34,11 @@ public class SearchResult implements SearchData
     public final float rating;
     public final int stars;
     public final int openNow;
+    public final boolean popularityHasHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
-                       String cuisine, String pricing, float rating, int stars, int openNow)
+                       String cuisine, String pricing, float rating, int stars, int openNow,
+                       boolean popularityHasHigherPriority)
     {
       this.featureId = featureId;
       this.featureType = featureType;
@@ -47,6 +49,7 @@ public class SearchResult implements SearchData
       this.rating = rating;
       this.stars = stars;
       this.openNow = openNow;
+      this.popularityHasHigherPriority = popularityHasHigherPriority;
     }
   }
 

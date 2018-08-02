@@ -14,6 +14,8 @@
 
 #include "platform/network_policy.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
@@ -280,6 +282,11 @@ jmethodID g_endBookmarksResultsId;
 
 booking::filter::Tasks g_lastBookingFilterTasks;
 
+bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
+{
+  return !hasPosition || distanceInMeters > search::Result::kPopularityHighPriorityMinDistance;
+}
+
 jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, bool hasPosition,
                      double lat, double lon)
 {
@@ -298,15 +305,22 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
 
   ms::LatLon ll = ms::LatLon::Zero();
   string distance;
-  if (result.HasPoint())
+  double distanceInMeters = 0.0;
+  if (hasPosition)
   {
-    ll = MercatorBounds::ToLatLon(result.GetFeatureCenter());
-    if (hasPosition)
+    if (result.HasPoint())
     {
-      double dummy;
-      (void) fr->GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, 0, distance, dummy);
+      auto const center = result.GetFeatureCenter();
+      ll = MercatorBounds::ToLatLon(center);
+
+      distanceInMeters = ms::DistanceOnEarth(lat, lon,
+                                             MercatorBounds::YToLat(center.y),
+                                             MercatorBounds::XToLon(center.x));
+      measurement_utils::FormatDistance(distanceInMeters, distance);
     }
   }
+
+  bool popularityHasHigherPriority = PopularityHasHigherPriority(hasPosition, distanceInMeters);
 
   if (result.IsSuggest())
   {
@@ -338,7 +352,8 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
                                                 dist.get(), cuisine.get(),
                                                 pricing.get(), rating,
                                                 result.GetStarsCount(),
-                                                static_cast<jint>(result.IsOpenNow())));
+                                                static_cast<jint>(result.IsOpenNow()),
+                                                static_cast<jboolean>(popularityHasHigherPriority)));
 
   jni::TScopedLocalRef name(env, jni::ToJavaString(env, result.GetString()));
   jobject ret =
@@ -624,7 +639,7 @@ extern "C"
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;Ljava/lang/String;FII)V");
+                                                     "Ljava/lang/String;Ljava/lang/String;FIIZ)V");
 
     g_mapResultsMethod = jni::GetMethodID(env, g_javaListener, "onMapSearchResults",
                                           "([Lcom/mapswithme/maps/search/NativeMapSearchListener$Result;JZ)V");

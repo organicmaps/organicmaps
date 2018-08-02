@@ -59,6 +59,9 @@ public:
     bool m_isInitialized = false;
   };
 
+  // Min distance to search result when popularity label has a higher priority (in meters).
+  static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
+
   // For Type::Feature.
   Result(FeatureID const & id, m2::PointD const & pt, std::string const & str,
          std::string const & address, std::string const & featureTypeName, uint32_t featureType,
