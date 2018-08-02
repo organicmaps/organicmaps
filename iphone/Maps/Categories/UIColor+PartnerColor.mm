@@ -3,6 +3,14 @@
 #import "UIColor+PartnerColor.h"
 
 @implementation UIColor (PartnerColor)
++ (UIColor *)partner1Background
+{
+  return [UIColor colorWithRed:scaled(48) green:scaled(52) blue:scaled(56) alpha:alpha100];
+}
++ (UIColor *)partner1TextColor
+{
+  return UIColor.whiteColor;
+}
 + (UIColor *)partner3Background
 {
   return [UIColor colorWithRed:scaled(230) green:scaled(23) blue:scaled(23) alpha:100];

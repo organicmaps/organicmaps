@@ -2,6 +2,8 @@
 <resources>
   <!-- Partner colors -->
 
+  <color name="bg_brand_partner1">#FF303438</color>
+  <color name="bg_brand_partner1_pressed">#FF303438</color>
   <color name="bg_brand_partner3">#FFE61717</color>
   <color name="bg_brand_partner3_pressed">#FFB31212</color>
   <color name="bg_brand_partner4">#FF000000</color>
