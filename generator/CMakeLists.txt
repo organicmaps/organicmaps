@@ -49,6 +49,8 @@ set(SRC
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp
+  holes.cpp
+  holes.hpp
   intermediate_data.cpp
   intermediate_data.hpp
   intermediate_elements.hpp
@@ -69,14 +71,14 @@ set(SRC
   osm_element.hpp
   osm_o5m_source.hpp
   osm_source.cpp
-  osm_translator.hpp
-  osm_translator.cpp
   osm_xml_source.hpp
   polygonizer.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
   place.hpp
   place.cpp
+  relation_tags.cpp
+  relation_tags.hpp
   region_meta.cpp
   region_meta.hpp
   restriction_collector.cpp
@@ -112,6 +114,12 @@ set(SRC
   traffic_generator.hpp
   transit_generator.cpp
   transit_generator.hpp
+  translator_factory.hpp
+  translator_interface.hpp
+  translator_planet.cpp
+  translator_planet.hpp
+  translator_region.cpp
+  translator_region.hpp
   ugc_db.cpp
   ugc_db.hpp
   ugc_section_builder.cpp

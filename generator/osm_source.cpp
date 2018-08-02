@@ -8,11 +8,12 @@
 #include "generator/node_mixer.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_o5m_source.hpp"
-#include "generator/osm_translator.hpp"
 #include "generator/osm_xml_source.hpp"
 #include "generator/polygonizer.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/towns_dumper.hpp"
+#include "generator/translator_factory.hpp"
+#include "generator/translator_interface.hpp"
 #include "generator/world_map_generator.hpp"
 
 #include "generator/booking_dataset.hpp"
@@ -219,13 +220,13 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 using PreEmit = std::function<bool(OsmElement *)>;
 
 static bool GenerateRaw(feature::GenerateInfo & info, std::shared_ptr<EmitterInterface> emitter,
-                        PreEmit const & preEmit, std::unique_ptr<OsmToFeatureTranslatorInterface> parser)
+                        PreEmit const & preEmit, std::shared_ptr<TranslatorInterface> translator)
 {
   try
   {
     auto const fn = [&](OsmElement * e) {
       if (preEmit(e))
-        parser->EmitElement(e);
+        translator->EmitElement(e);
     };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -282,16 +283,16 @@ bool GenerateFeatures(feature::GenerateInfo & info, std::shared_ptr<EmitterInter
   };
 
   auto cache = LoadCache(info);
-  auto parser = std::make_unique<OsmToFeatureTranslator>(emitter, cache, info);
-  return GenerateRaw(info, emitter, preEmit, std::move(parser));
+  auto translator = CreateTranslator(TranslatorType::PLANET, emitter, cache, info);
+  return GenerateRaw(info, emitter, preEmit, translator);
 }
 
 bool GenerateRegionFeatures(feature::GenerateInfo & info, std::shared_ptr<EmitterInterface> emitter)
 {
   auto preEmit = [](OsmElement * e) { return true; };
   auto cache = LoadCache(info);
-  auto parser = std::make_unique<OsmToFeatureTranslatorRegion>(emitter, cache);
-  return GenerateRaw(info, emitter, preEmit, std::move(parser));
+  auto translator = CreateTranslator(TranslatorType::REGION, emitter, cache);
+  return GenerateRaw(info, emitter, preEmit, translator);
 }
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
