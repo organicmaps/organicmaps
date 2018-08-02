@@ -4,11 +4,20 @@ final class CatalogWebViewController: WebViewController {
   let progressView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
   let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
   let numberOfTasksLabel = UILabel()
+  let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
   var deeplink: URL?
   var statSent = false
+  var backButton: UIBarButtonItem!
+  var fwdButton: UIBarButtonItem!
 
   @objc init() {
     super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("routes_and_bookmarks"))!
+    backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
+    fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
+    backButton.tintColor = .blackSecondaryText()
+    fwdButton.tintColor = .blackSecondaryText()
+    backButton.isEnabled = false
+    fwdButton.isEnabled = false
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -26,6 +35,7 @@ final class CatalogWebViewController: WebViewController {
     numberOfTasksLabel.translatesAutoresizingMaskIntoConstraints = false
     progressImageView.translatesAutoresizingMaskIntoConstraints = false
     progressView.translatesAutoresizingMaskIntoConstraints = false
+    loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
     numberOfTasksLabel.font = UIFont.medium14()
     numberOfTasksLabel.textColor = UIColor.white
     numberOfTasksLabel.text = "0"
@@ -34,46 +44,36 @@ final class CatalogWebViewController: WebViewController {
     progressView.contentView.addSubview(progressImageView)
     progressView.contentView.addSubview(numberOfTasksLabel)
     view.addSubview(progressView)
+    loadingIndicator.startAnimating()
+    view.addSubview(loadingIndicator)
 
-    progressView.contentView.addConstraint(NSLayoutConstraint(item: numberOfTasksLabel,
-                                                              attribute: .centerX,
-                                                              relatedBy: .equal,
-                                                              toItem: progressView.contentView,
-                                                              attribute: .centerX,
-                                                              multiplier: 1,
-                                                              constant: 0))
-    progressView.contentView.addConstraint(NSLayoutConstraint(item: numberOfTasksLabel,
-                                                              attribute: .centerY,
-                                                              relatedBy: .equal,
-                                                              toItem: progressView.contentView,
-                                                              attribute: .centerY,
-                                                              multiplier: 1,
-                                                              constant: 0))
-    progressView.contentView.addConstraint(NSLayoutConstraint(item: progressImageView,
-                                                              attribute: .centerX,
-                                                              relatedBy: .equal,
-                                                              toItem: progressView.contentView,
-                                                              attribute: .centerX,
-                                                              multiplier: 1,
-                                                              constant: 0))
-    progressView.contentView.addConstraint(NSLayoutConstraint(item: progressImageView,
-                                                              attribute: .centerY,
-                                                              relatedBy: .equal,
-                                                              toItem: progressView.contentView,
-                                                              attribute: .centerY,
-                                                              multiplier: 1,
-                                                              constant: 0))
-    let views = ["pv": progressView]
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[pv(48)]",
-                                                       options: .directionLeftToRight,
-                                                       metrics: [:],
-                                                       views: views))
-    view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[pv(48)]-8-|",
-                                                       options: .directionLeftToRight,
-                                                       metrics: [:],
-                                                       views: views))
+    loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    numberOfTasksLabel.centerXAnchor.constraint(equalTo: progressView.centerXAnchor).isActive = true
+    numberOfTasksLabel.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
+    progressImageView.centerXAnchor.constraint(equalTo: progressView.centerXAnchor).isActive = true
+    progressImageView.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
+    progressView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+    progressView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    if #available(iOS 11, *) {
+      progressView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
+      progressView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+    } else {
+      progressView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+      progressView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+    }
+
     rotateProgress()
     updateProgress()
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_close"), style: .plain, target: self, action: #selector(goBack))
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    fixedSpace.width = 20
+    self.setToolbarItems([backButton, fixedSpace, fwdButton], animated: true)
+    self.navigationController?.setToolbarHidden(false, animated: animated)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -81,6 +81,11 @@ final class CatalogWebViewController: WebViewController {
     if let deeplink = deeplink {
       processDeeplink(deeplink)
     }
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.navigationController?.setToolbarHidden(true, animated: animated)
   }
 
   override func webView(_ webView: WKWebView,
@@ -95,16 +100,20 @@ final class CatalogWebViewController: WebViewController {
     decisionHandler(.cancel);
   }
 
-  override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+  override func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
     if !statSent {
       Statistics.logEvent("Bookmarks_Downloaded_Catalogue_open")
       statSent = true
     }
+    loadingIndicator.stopAnimating()
+    backButton.isEnabled = webView.canGoBack
+    fwdButton.isEnabled = webView.canGoForward
   }
 
   override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
+    loadingIndicator.stopAnimating()
   }
 
   override func webView(_ webView: WKWebView,
@@ -112,6 +121,7 @@ final class CatalogWebViewController: WebViewController {
                         withError error: Error) {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
+    loadingIndicator.stopAnimating()
   }
 
   func processDeeplink(_ url: URL) {
@@ -210,5 +220,13 @@ final class CatalogWebViewController: WebViewController {
     rotationAnimation.repeatCount = Float(Int.max)
 
     progressImageView.layer.add(rotationAnimation, forKey:"rotationAnimation");
+  }
+
+  @objc private func onBack() {
+    back()
+  }
+
+  @objc private func onFwd() {
+    forward()
   }
 }

@@ -16,5 +16,7 @@
 - (instancetype _Nullable)initWithAuthURL:(NSURL * _Nonnull)url
                             onSuccessAuth:(MWMStringBlock _Nullable)success
                                 onFailure:(MWMVoidBlock _Nullable)failure;
+- (void)forward;
+- (void)back;
 
 @end
