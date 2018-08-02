@@ -20,6 +20,7 @@ namespace my
     Cache() = default;
     Cache(Cache && r) = default;
 
+    /// @param[in] logCacheSize is pow of two for number of elements in cache.
     explicit Cache(uint32_t logCacheSize)
     {
       Init(logCacheSize);

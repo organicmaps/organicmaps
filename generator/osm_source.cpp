@@ -217,10 +217,10 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 // Generate functions implementations.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-using PreEmit = std::function<bool(OsmElement *)>;
+using PreEmit = function<bool(OsmElement *)>;
 
-static bool GenerateRaw(feature::GenerateInfo & info, std::shared_ptr<EmitterInterface> emitter,
-                        PreEmit const & preEmit, std::shared_ptr<TranslatorInterface> translator)
+static bool GenerateRaw(feature::GenerateInfo & info, shared_ptr<EmitterInterface> emitter,
+                        PreEmit const & preEmit, shared_ptr<TranslatorInterface> translator)
 {
   try
   {
@@ -267,7 +267,7 @@ static cache::IntermediateDataReader LoadCache(feature::GenerateInfo & info)
   return cache;
 }
 
-bool GenerateFeatures(feature::GenerateInfo & info, std::shared_ptr<EmitterInterface> emitter)
+bool GenerateFeatures(feature::GenerateInfo & info, shared_ptr<EmitterInterface> emitter)
 {
   TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
                         info.GetIntermediateFileName("towns", ".csv"));
@@ -283,15 +283,15 @@ bool GenerateFeatures(feature::GenerateInfo & info, std::shared_ptr<EmitterInter
   };
 
   auto cache = LoadCache(info);
-  auto translator = CreateTranslator(TranslatorType::PLANET, emitter, cache, info);
+  auto translator = CreateTranslator(TranslatorType::Planet, emitter, cache, info);
   return GenerateRaw(info, emitter, preEmit, translator);
 }
 
-bool GenerateRegionFeatures(feature::GenerateInfo & info, std::shared_ptr<EmitterInterface> emitter)
+bool GenerateRegionFeatures(feature::GenerateInfo & info, shared_ptr<EmitterInterface> emitter)
 {
   auto preEmit = [](OsmElement * e) { return true; };
   auto cache = LoadCache(info);
-  auto translator = CreateTranslator(TranslatorType::REGION, emitter, cache);
+  auto translator = CreateTranslator(TranslatorType::Region, emitter, cache);
   return GenerateRaw(info, emitter, preEmit, translator);
 }
 

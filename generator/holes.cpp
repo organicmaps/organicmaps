@@ -3,9 +3,10 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 
+#include <utility>
+
 namespace generator
 {
-// HolesAccumulator
 HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & holder) :
   m_merger(holder)
 {
@@ -13,36 +14,35 @@ HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & holder) :
 
 FeatureBuilder1::Geometry & HolesAccumulator::GetHoles()
 {
-  ASSERT(m_holes.empty(), ("Can call only once"));
+  ASSERT(m_holes.empty(), ("It is allowed to call only once."));
   m_merger.ForEachArea(false, [this](FeatureBuilder1::PointSeq const & v,
-                       std::vector<uint64_t> const &)
+                       std::vector<uint64_t> const & /* way osm ids */)
   {
     m_holes.push_back(std::move(v));
   });
   return m_holes;
 }
 
-// HolesProcessor
 HolesProcessor::HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder) :
   m_id(id),
   m_holes(holder)
 {
 }
 
-bool HolesProcessor::operator() (uint64_t /*id*/, RelationElement const & e)
+base::ControlFlow HolesProcessor::operator() (uint64_t /* id */, RelationElement const & e)
 {
   std::string const type = e.GetType();
   if (!(type == "multipolygon" || type == "boundary"))
-    return false;
+    return base::ControlFlow::Continue;
 
   std::string role;
   if (e.FindWay(m_id, role) && role == "outer")
   {
     e.ForEachWay(*this);
-    // stop processing (??? assume that "outer way" exists in one relation only ???)
-    return true;
+    // Stop processing. Assume that "outer way" exists in one relation only.
+    return base::ControlFlow::Break;
   }
-  return false;
+  return base::ControlFlow::Continue;
 }
 
 void HolesProcessor::operator() (uint64_t id, std::string const & role)
@@ -50,7 +50,6 @@ void HolesProcessor::operator() (uint64_t id, std::string const & role)
   if (id != m_id && role == "inner")
     m_holes(id);
 }
-
 
 HolesRelation::HolesRelation(cache::IntermediateDataReader & holder) :
   m_holes(holder),

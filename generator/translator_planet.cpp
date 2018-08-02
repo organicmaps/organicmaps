@@ -49,7 +49,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
   CHECK(p, ("Tried to emit a null OsmElement"));
 
   FeatureParams params;
-  switch(p->type)
+  switch (p->type)
   {
   case OsmElement::EntityType::Node:
   {
@@ -85,23 +85,24 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
       break;
 
     ft.SetOsmId(osm::Id::Way(p->id));
-    bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
+    bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
     EmitArea(ft, params, [&] (FeatureBuilder1 & ft)
     {
-      isCoastLine = false;  // emit coastline feature only once
+      // Emit coastline feature only once.
+      isCoastline = false;
       HolesProcessor processor(p->id, m_holder);
       m_holder.ForEachRelationByWay(p->id, processor);
       ft.SetAreaAddHoles(processor.GetHoles());
     });
 
     m_metalinesBuilder(*p, params);
-    EmitLine(ft, params, isCoastLine);
+    EmitLine(ft, params, isCoastline);
     break;
   }
   case OsmElement::EntityType::Relation:
   {
-    // 1. Check, if this is our processable relation. Here we process only polygon relations.
+    // Check if this is our processable relation. Here we process only polygon relations.
     if (!p->HasTagValue("type", "multipolygon"))
       break;
 
@@ -114,7 +115,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
     auto const & holesGeometry = helper.GetHoles();
     auto & outer = helper.GetOuter();
 
-    outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts,
+    outer.ForEachArea(true /* collectID */, [&] (FeatureBuilder1::PointSeq const & pts,
                       std::vector<uint64_t> const & ids)
     {
       FeatureBuilder1 ft;
@@ -163,22 +164,22 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
 void TranslatorPlanet::EmitPoint(m2::PointD const & pt,
                                  FeatureParams params, osm::Id id) const
 {
-  if (feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
-  {
-    FeatureBuilder1 ft;
-    ft.SetCenter(pt);
-    ft.SetOsmId(id);
-    EmitFeatureBase(ft, params);
-  }
+  if (!feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
+    return;
+
+  FeatureBuilder1 ft;
+  ft.SetCenter(pt);
+  ft.SetOsmId(id);
+  EmitFeatureBase(ft, params);
 }
 
 void TranslatorPlanet::EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const
 {
-  if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_LINE))
-  {
-    ft.SetLinear(params.m_reverseGeometry);
-    EmitFeatureBase(ft, params);
-  }
+  if (!isCoastLine && !feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_LINE))
+    return;
+
+  ft.SetLinear(params.m_reverseGeometry);
+  EmitFeatureBase(ft, params);
 }
 
 void TranslatorPlanet::EmitArea(FeatureBuilder1 & ft, FeatureParams params,
@@ -203,9 +204,7 @@ void TranslatorPlanet::EmitArea(FeatureBuilder1 & ft, FeatureParams params,
   {
     // Make the area feature if it has unique area styles.
     VERIFY(RemoveNoDrawableTypes(params.m_types, GEOM_AREA), (params));
-
     fn(ft);
-
     EmitFeatureBase(ft, params);
   }
   else
@@ -219,16 +218,17 @@ void TranslatorPlanet::EmitFeatureBase(FeatureBuilder1 & ft,
                                        FeatureParams const & params) const
 {
   ft.SetParams(params);
-  if (ft.PreSerialize())
-  {
-    std::string addr;
-    if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_types) &&
-        ft.FormatFullAddress(addr))
-    {
-      m_addrWriter->Write(addr.c_str(), addr.size());
-    }
+  if (!ft.PreSerialize())
+    return;
 
-    (*m_emitter)(ft);
+  std::string addr;
+  if (m_addrWriter &&
+      ftypes::IsBuildingChecker::Instance()(params.m_types) &&
+      ft.FormatFullAddress(addr))
+  {
+    m_addrWriter->Write(addr.c_str(), addr.size());
   }
+
+  (*m_emitter)(ft);
 }
 }  // namespace generator

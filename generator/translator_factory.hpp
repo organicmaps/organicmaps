@@ -14,8 +14,8 @@ namespace generator
 {
 enum class TranslatorType
 {
-  PLANET,
-  REGION
+  Planet,
+  Region
 };
 
 template <class... Args>
@@ -23,9 +23,9 @@ std::shared_ptr<TranslatorInterface> CreateTranslator(TranslatorType type, Args&
 {
   switch (type)
   {
-  case TranslatorType::PLANET:
+  case TranslatorType::Planet:
     return create<TranslatorPlanet>(std::forward<Args>(args)...);
-  case TranslatorType::REGION:
+  case TranslatorType::Region:
     return create<TranslatorRegion>(std::forward<Args>(args)...);
   }
   CHECK_SWITCH();

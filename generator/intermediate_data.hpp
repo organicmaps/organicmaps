@@ -9,6 +9,7 @@
 #include "coding/mmap_reader.hpp"
 
 #include "base/assert.hpp"
+#include "base/control_flow.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
@@ -83,8 +84,8 @@ public:
     auto range = std::equal_range(m_elements.begin(), m_elements.end(), k, ElementComparator());
     for (; range.first != range.second; ++range.first)
     {
-      if (toDo((*range.first).second))
-        return;
+      if (toDo((*range.first).second) == base::ControlFlow::Break)
+        break;
     }
   }
 
@@ -233,10 +234,10 @@ private:
   public:
     ElementProcessorBase(CacheReader & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
 
-    bool operator()(uint64_t id)
+    base::ControlFlow operator()(uint64_t id)
     {
       Element e;
-      return m_reader.Read(id, e) ? m_toDo(id, e) : false;
+      return m_reader.Read(id, e) ? m_toDo(id, e) : base::ControlFlow::Break;
     }
 
   protected:
@@ -258,7 +259,7 @@ private:
     using Base = RelationProcessor<ToDo>;
 
     CachedRelationProcessor(CacheReader & reader, ToDo & toDo) : Base(reader, toDo) {}
-    bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
+    base::ControlFlow operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
 
   std::shared_ptr<PointStorageReaderInterface> m_nodes;

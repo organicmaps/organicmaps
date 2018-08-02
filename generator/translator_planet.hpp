@@ -9,6 +9,7 @@
 
 #include "base/osm_id.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <memory>
 

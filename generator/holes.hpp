@@ -3,6 +3,8 @@
 #include "generator/feature_builder.hpp"
 #include "generator/ways_merger.hpp"
 
+#include "base/control_flow.hpp"
+
 #include <cstdint>
 
 struct OsmElement;
@@ -31,10 +33,10 @@ private:
 class HolesProcessor
 {
 public:
-  HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder);
+  explicit HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder);
 
   /// 1. relations process function
-  bool operator() (uint64_t /*id*/, RelationElement const & e);
+  base::ControlFlow operator() (uint64_t /* id */, RelationElement const & e);
   /// 2. "ways in relation" process function
   void operator() (uint64_t id, std::string const & role);
   FeatureBuilder1::Geometry & GetHoles() { return m_holes.GetHoles(); }
@@ -47,7 +49,7 @@ private:
 class HolesRelation
 {
 public:
-  HolesRelation(cache::IntermediateDataReader & holder);
+  explicit HolesRelation(cache::IntermediateDataReader & holder);
 
   void Build(OsmElement const * p);
   FeatureBuilder1::Geometry & GetHoles() { return m_holes.GetHoles(); }

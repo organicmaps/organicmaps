@@ -29,7 +29,7 @@ void TranslatorRegion::EmitElement(OsmElement * p)
 {
   CHECK(p, ("Tried to emit a null OsmElement"));
 
-  switch(p->type)
+  switch (p->type)
   {
   case OsmElement::EntityType::Relation:
   {

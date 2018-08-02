@@ -1,5 +1,6 @@
-#include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
+
+#include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"

@@ -4,7 +4,6 @@
 
 namespace generator
 {
-// RelationTagsBase
 RelationTagsBase::RelationTagsBase(routing::TagsProcessor & tagsProcessor) :
   m_routingTagsProcessor(tagsProcessor),
   m_cache(14 /* logCacheSize */)
@@ -20,7 +19,7 @@ void RelationTagsBase::Reset(uint64_t fID, OsmElement * p)
 bool RelationTagsBase::IsSkipRelation(std::string const & type)
 {
   /// @todo Skip special relation types.
-  return (type == "multipolygon" || type == "bridge");
+  return type == "multipolygon" || type == "bridge";
 }
 
 bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
@@ -36,7 +35,6 @@ void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & 
   m_current->AddTag(p.first, p.second);
 }
 
-// RelationTagsNode
 RelationTagsNode::RelationTagsNode(routing::TagsProcessor & tagsProcessor) :
   RelationTagsBase(tagsProcessor)
 {
@@ -45,7 +43,7 @@ RelationTagsNode::RelationTagsNode(routing::TagsProcessor & tagsProcessor) :
 void RelationTagsNode::Process(RelationElement const & e)
 {
   std::string const & type = e.GetType();
-  if (TBase::IsSkipRelation(type))
+  if (Base::IsSkipRelation(type))
     return;
 
   if (type == "restriction")
@@ -55,8 +53,8 @@ void RelationTagsNode::Process(RelationElement const & e)
   }
 
   bool const processAssociatedStreet = type == "associatedStreet" &&
-                                       TBase::IsKeyTagExists("addr:housenumber") &&
-                                       !TBase::IsKeyTagExists("addr:street");
+                                       Base::IsKeyTagExists("addr:housenumber") &&
+                                       !Base::IsKeyTagExists("addr:street");
   for (auto const & p : e.tags)
   {
     // - used in railway station processing
@@ -66,29 +64,28 @@ void RelationTagsNode::Process(RelationElement const & e)
         p.first == "maxspeed" ||
         strings::StartsWith(p.first, "addr:"))
     {
-      if (!TBase::IsKeyTagExists(p.first))
-        TBase::AddCustomTag(p);
+      if (!Base::IsKeyTagExists(p.first))
+        Base::AddCustomTag(p);
     }
     // Convert associatedStreet relation name to addr:street tag if we don't have one.
     else if (p.first == "name" && processAssociatedStreet)
-      TBase::AddCustomTag({"addr:street", p.second});
+      Base::AddCustomTag({"addr:street", p.second});
   }
 }
 
-// RelationTagsWay
-RelationTagsWay::RelationTagsWay(routing::TagsProcessor & routingTagsProcessor)
-  : RelationTagsBase(routingTagsProcessor)
+RelationTagsWay::RelationTagsWay(routing::TagsProcessor & routingTagsProcessor) :
+  RelationTagsBase(routingTagsProcessor)
 {
 }
 
 bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 {
   std::string role;
-  CHECK(e.FindWay(TBase::m_featureID, role), (TBase::m_featureID));
+  CHECK(e.FindWay(Base::m_featureID, role), (Base::m_featureID));
 
   // Do not accumulate boundary types (boundary=administrative) for inner polygons.
   // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
-  return (role != "inner");
+  return role != "inner";
 }
 
 void RelationTagsWay::Process(RelationElement const & e)
@@ -96,7 +93,7 @@ void RelationTagsWay::Process(RelationElement const & e)
   /// @todo Review route relations in future.
   /// Actually, now they give a lot of dummy tags.
   std::string const & type = e.GetType();
-  if (TBase::IsSkipRelation(type))
+  if (Base::IsSkipRelation(type))
     return;
 
   if (type == "route")
@@ -114,7 +111,7 @@ void RelationTagsWay::Process(RelationElement const & e)
         std::string const & refBase = m_current->GetTag("ref");
         if (!refBase.empty())
           ref = refBase + ';' + ref;
-        TBase::AddCustomTag({"ref", std::move(ref)});
+        Base::AddCustomTag({"ref", std::move(ref)});
       }
     }
     return;
@@ -130,15 +127,15 @@ void RelationTagsWay::Process(RelationElement const & e)
   {
     // If this way has "outline" role, add [building=has_parts] type.
     if (e.GetWayRole(m_current->id) == "outline")
-      TBase::AddCustomTag({"building", "has_parts"});
+      Base::AddCustomTag({"building", "has_parts"});
     return;
   }
 
   bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
   bool const processAssociatedStreet = type == "associatedStreet" &&
-                                       TBase::IsKeyTagExists("addr:housenumber") &&
-                                       !TBase::IsKeyTagExists("addr:street");
-  bool const isHighway = TBase::IsKeyTagExists("highway");
+                                       Base::IsKeyTagExists("addr:housenumber") &&
+                                       !Base::IsKeyTagExists("addr:street");
+  bool const isHighway = Base::IsKeyTagExists("highway");
 
   for (auto const & p : e.tags)
   {
@@ -148,9 +145,9 @@ void RelationTagsWay::Process(RelationElement const & e)
 
     // Convert associatedStreet relation name to addr:street tag if we don't have one.
     if (p.first == "name" && processAssociatedStreet)
-      TBase::AddCustomTag({"addr:street", p.second});
+      Base::AddCustomTag({"addr:street", p.second});
 
-    // Important! Skip all "name" tags.
+    // All "name" tags should be skipped.
     if (strings::StartsWith(p.first, "name") || p.first == "int_name")
       continue;
 
@@ -164,7 +161,7 @@ void RelationTagsWay::Process(RelationElement const & e)
     if (p.first == "ref" && isHighway)
       continue;
 
-    TBase::AddCustomTag(p);
+    Base::AddCustomTag(p);
   }
 }
 }  // namespace generator

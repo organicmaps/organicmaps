@@ -5,9 +5,11 @@
 
 #include "base/assert.hpp"
 #include "base/cache.hpp"
+#include "base/control_flow.hpp"
 
 #include <cstdint>
 #include <string>
+#include <utility>
 
 class OsmElement;
 
@@ -24,8 +26,8 @@ public:
 
   void Reset(uint64_t fID, OsmElement * p);
 
-  template <class TReader>
-  bool operator() (uint64_t id, TReader & reader)
+  template <class Reader>
+  base::ControlFlow operator() (uint64_t id, Reader & reader)
   {
     bool exists = false;
     RelationElement & e = m_cache.Find(id, exists);
@@ -33,7 +35,7 @@ public:
       CHECK(reader.Read(id, e), (id));
 
     Process(e);
-    return false;
+    return base::ControlFlow::Continue;
   }
 
 protected:
@@ -52,15 +54,15 @@ private:
 
 class RelationTagsNode : public RelationTagsBase
 {
-  using TBase = RelationTagsBase;
-
 public:
   explicit RelationTagsNode(routing::TagsProcessor & tagsProcessor);
 
 protected:
   void Process(RelationElement const & e) override;
-};
 
+private:
+    using Base = RelationTagsBase;
+};
 
 class RelationTagsWay : public RelationTagsBase
 {
@@ -68,8 +70,8 @@ public:
   explicit RelationTagsWay(routing::TagsProcessor & routingTagsProcessor);
 
 private:
-  using TBase = RelationTagsBase;
-  using TNameKeys = std::unordered_set<std::string>;
+  using Base = RelationTagsBase;
+  using NameKeys = std::unordered_set<std::string>;
 
   bool IsAcceptBoundary(RelationElement const & e) const;
 
