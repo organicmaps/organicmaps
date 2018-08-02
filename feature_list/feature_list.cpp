@@ -224,7 +224,7 @@ public:
       name = primary;
     if (name.empty())
       name = operatr;
-    string osmId = osmIt != ft2osm.cend() ? strings::to_string(osmIt->second.EncodedId()) : "";
+    string osmId = osmIt != ft2osm.cend() ? strings::to_string(osmIt->second.GetEncodedId()) : "";
     if (osmId.empty())
     {
       // For sponsored types, adding invented sponsored ids (booking = 00) to the id tail.
