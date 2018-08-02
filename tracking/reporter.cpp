@@ -19,6 +19,8 @@ double constexpr kRequiredHorizontalAccuracy = 10.0;
 double constexpr kMinDelaySeconds = 1.0;
 double constexpr kReconnectDelaySeconds = 40.0;
 double constexpr kNotChargingEventPeriod = 5 * 60.0;
+
+static_assert(kMinDelaySeconds != 0, "");
 } // namespace
 
 namespace tracking
@@ -28,18 +30,15 @@ const char Reporter::kEnableTrackingKey[] = "StatisticsEnabled";
 // static
 milliseconds const Reporter::kPushDelayMs = milliseconds(20000);
 
+// Set m_points size to be enough to keep all points even if one reconnect attempt failed.
 Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uint16_t port,
                    milliseconds pushDelay)
   : m_allowSendingPoints(true)
   , m_realtimeSender(move(socket), host, port, false)
   , m_pushDelay(pushDelay)
+  , m_points(ceil(duration_cast<seconds>(pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds)
   , m_thread([this] { Run(); })
 {
-  CHECK_NOT_EQUAL(kMinDelaySeconds, 0.0, ());
-  // Set buffer size to be enough to keep all points even if one reconnect attempt failed.
-  auto const realTimeBufferSize =
-      (duration_cast<seconds>(m_pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds;
-  m_points.set_capacity(ceil(realTimeBufferSize));
 }
 
 Reporter::~Reporter()
