@@ -124,6 +124,7 @@ public class MainMenu extends BaseMenu
   {
     TOGGLE(R.id.toggle),
     ADD_PLACE(R.id.add_place),
+    DOWNLOAD_GUIDES(R.id.download_guides),
     SEARCH(R.id.search),
     P2P(R.id.p2p),
     DISCOVERY(R.id.discovery),
@@ -216,6 +217,7 @@ public class MainMenu extends BaseMenu
   private void init()
   {
     mapItem(Item.ADD_PLACE);
+    mapItem(Item.DOWNLOAD_GUIDES);
     mapItem(Item.SEARCH);
     mapItem(Item.P2P);
     mapItem(Item.DISCOVERY);

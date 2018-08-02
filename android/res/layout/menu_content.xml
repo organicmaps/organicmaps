@@ -16,6 +16,16 @@
     tools:background="#40FF00FF"/>
 
   <TextView
+    android:id="@+id/download_guides"
+    style="@style/MwmTheme.Menu.Content.ListItem"
+    android:drawableLeft="@drawable/ic_menu_download_guides"
+    android:drawableTint="?attr/colorAccent"
+    android:textColor="?attr/colorAccent"
+    android:text="@string/download_routes"
+    tools:background="#403033FF"
+    tools:targetApi="m"/>
+
+  <TextView
     android:id="@+id/search"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_search"

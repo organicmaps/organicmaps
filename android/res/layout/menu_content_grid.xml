@@ -13,6 +13,15 @@
     android:drawableTop="@drawable/ic_plus"
     android:text="@string/placepage_add_place_button"
     tools:background="#200000FF"/>
+  
+  <TextView
+    android:id="@+id/download_guides"
+    style="@style/MwmTheme.Menu.Content.GridItem.Text"
+    android:drawableTop="@drawable/ic_menu_download_guides"
+    android:drawableTint="?colorAccent"
+    android:text="@string/download_routes"
+    android:textColor="?attr/colorAccent"
+    tools:targetApi="m"/>
 
   <TextView
     android:id="@+id/search"

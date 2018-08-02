@@ -52,6 +52,12 @@
     style="@style/MwmTheme.Menu.Line.Button"
     android:src="@drawable/ic_plus"/>
 
+  <ImageView
+    android:id="@+id/download_guides"
+    style="@style/MwmTheme.Menu.Line.Button"
+    android:tint="?attr/colorAccent"
+    android:src="@drawable/ic_menu_download_guides"/>
+
   <FrameLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
