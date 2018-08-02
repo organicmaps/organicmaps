@@ -889,6 +889,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         Intent intent = new Intent(MwmActivity.this, SettingsActivity.class);
         closeMenu(() -> startActivity(intent));
         break;
+
+      case DOWNLOAD_GUIDES:
+        int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
+        closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
+        break;
       }
     });
 

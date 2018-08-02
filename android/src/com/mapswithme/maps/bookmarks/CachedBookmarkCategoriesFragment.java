@@ -109,10 +109,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
   private void openBookmarksCatalogScreen()
   {
-    Intent intent = new Intent(getActivity(), BookmarksCatalogActivity.class)
-        .putExtra(BookmarksCatalogFragment.EXTRA_BOOKMARKS_CATALOG_URL,
-                  getCatalogUrl());
-    startActivityForResult(intent, BookmarksCatalogActivity.REQ_CODE_CATALOG);
+    BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG);
     Statistics.INSTANCE.trackOpenCatalogScreen();
   }
 
@@ -124,12 +121,6 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
       getActivity().setResult(Activity.RESULT_OK, data);
       getActivity().finish();
     }
-  }
-
-  @NonNull
-  private String getCatalogUrl()
-  {
-    return BookmarkManager.INSTANCE.getCatalogFrontendUrl();
   }
 
   @Override
