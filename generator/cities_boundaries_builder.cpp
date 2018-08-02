@@ -65,13 +65,14 @@ bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uin
   return success;
 }
 
-CBV GetLocalities(string const & dataPath, ::base::Cancellable const & cancellable)
+CBV GetLocalities(string const & dataPath)
 {
   FrozenDataSource dataSource;
   auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 
   search::MwmContext context(dataSource.GetMwmHandleById(result.first));
+  ::base::Cancellable const cancellable;
   return search::CategoriesCache(LocalitiesSource{}, cancellable).Get(context);
 }
 
@@ -79,8 +80,7 @@ template <typename BoundariesTable, typename MappingReader>
 bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
                            MappingReader && reader)
 {
-  ::base::Cancellable const cancellable;
-  auto const localities = GetLocalities(dataPath, cancellable);
+  auto const localities = GetLocalities(dataPath);
   auto mapping = reader();
 
   if (!mapping)
