@@ -1,5 +1,9 @@
 [[ Partners ]]
 
+  [sponsored_partner1_action]
+    en = Outlets
+    ru = Аутлеты
+    
   [sponsored_partner3_action]
     en = Coupon
     ru = Купон
