@@ -94,6 +94,9 @@ std::string GetCustomIcon(FeatureType & featureType)
     return "0_burger-king";
 
   auto const bannerUrl = metadata.Get(feature::Metadata::FMD_BANNER_URL);
+  if (bannerUrl.find("mcarthurglen") != std::string::npos)
+    return "partner1-l";
+
   if (bannerUrl.find("adidas") != std::string::npos)
   {
     if (bannerUrl.find("originals") != std::string::npos)

@@ -20,7 +20,7 @@ PartnerInfo const kFakePartner(kFakePartnerIndex, {});
 }  // namespace
 
 PartnerInfo::PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
-                         std::string && defaultBannerUrl,
+                         std::string && defaultBannerUrl, uint64_t minMapVersion,
                          std::string && iosBannerPlacementId,
                          std::string && androidBannerPlacementId)
   : m_partnerIndex(partnerIndex)
@@ -28,21 +28,31 @@ PartnerInfo::PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
   , m_name(std::move(name))
   , m_hasButton(hasButton)
   , m_defaultBannerUrl(std::move(defaultBannerUrl))
+  , m_minMapVersion(minMapVersion)
   , m_iosBannerPlacementId(std::move(iosBannerPlacementId))
   , m_androidBannerPlacementId(std::move(androidBannerPlacementId))
 {}
 
 PartnerInfo::PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
+                         std::string && defaultBannerUrl, uint64_t minMapVersion)
+  : PartnerInfo(partnerIndex, std::move(name), hasButton,
+                std::move(defaultBannerUrl), minMapVersion,
+                {} /* m_iosBannerPlacementId */,
+                {} /* m_androidBannerPlacementId */)
+{}
+
+PartnerInfo::PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
                          std::string && defaultBannerUrl)
-  : PartnerInfo(partnerIndex, std::move(name), hasButton, std::move(defaultBannerUrl), {}, {})
+  : PartnerInfo(partnerIndex, std::move(name), hasButton, std::move(defaultBannerUrl),
+                0 /* m_minMapVersion */)
 {}
 
 PartnerInfo::PartnerInfo(int partnerIndex, std::string && name, bool hasButton)
-  : PartnerInfo(partnerIndex, std::move(name), hasButton, {}, {}, {})
+  : PartnerInfo(partnerIndex, std::move(name), hasButton, {} /* m_defaultBannerUrl */)
 {}
 
 PartnerInfo::PartnerInfo(int partnerIndex, std::string && name)
-  : PartnerInfo(partnerIndex, std::move(name), false /* hasButton */, {})
+  : PartnerInfo(partnerIndex, std::move(name), false /* hasButton */)
 {}
 
 std::string const & PartnerInfo::GetBannerPlacementId() const

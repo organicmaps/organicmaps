@@ -872,7 +872,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     auto const partnerIndex = PartnerChecker::Instance().GetPartnerIndex(ft);
     info.SetPartnerIndex(partnerIndex);
     auto const & partnerInfo = GetPartnerByIndex(partnerIndex);
-    if (partnerInfo.m_hasButton)
+    if (partnerInfo.m_hasButton && ft.GetID().GetMwmVersion() >= partnerInfo.m_minMapVersion)
     {
       auto url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
       if (url.empty())
