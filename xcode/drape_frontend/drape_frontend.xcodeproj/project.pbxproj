@@ -41,8 +41,6 @@
 		452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */; };
 		453EEA6D1E3A28F400505E09 /* colored_symbol_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */; };
 		453EEA6E1E3A28F400505E09 /* colored_symbol_shape.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */; };
-		453FEDAC1F34C257005C1BB4 /* render_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 453FEDAA1F34C257005C1BB4 /* render_state.cpp */; };
-		453FEDAD1F34C257005C1BB4 /* render_state.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453FEDAB1F34C257005C1BB4 /* render_state.hpp */; };
 		454B9A3A1F4591AD003FAE7A /* drape_engine_safe_ptr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454B9A391F4591AC003FAE7A /* drape_engine_safe_ptr.hpp */; };
 		454C19BB1CCE3EC0002A2C86 /* animation_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */; };
 		454C19BC1CCE3EC0002A2C86 /* animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454C19B91CCE3EC0002A2C86 /* animation_system.cpp */; };
@@ -61,6 +59,8 @@
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
 		45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8CA1CF5C16B00A54761 /* screen_operations.hpp */; };
 		45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BE604D20E504FC00A456AE /* frame_values.hpp */; };
+		45D7ADDE2113532700160DE3 /* render_state_extension.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADDC2113532700160DE3 /* render_state_extension.hpp */; };
+		45D7ADDF2113532700160DE3 /* render_state_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADDD2113532700160DE3 /* render_state_extension.cpp */; };
 		45F1DA8420F3B274006E8CB3 /* drape_notifier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F1DA8220F3B274006E8CB3 /* drape_notifier.hpp */; };
 		45F1DA8520F3B274006E8CB3 /* drape_notifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F1DA8320F3B274006E8CB3 /* drape_notifier.cpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
@@ -250,8 +250,6 @@
 		453C5E8A2065599D00C78952 /* route_marker.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_marker.fsh.glsl; path = shaders/route_marker.fsh.glsl; sourceTree = "<group>"; };
 		453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colored_symbol_shape.cpp; sourceTree = "<group>"; };
 		453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = colored_symbol_shape.hpp; sourceTree = "<group>"; };
-		453FEDAA1F34C257005C1BB4 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
-		453FEDAB1F34C257005C1BB4 /* render_state.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_state.hpp; sourceTree = "<group>"; };
 		454B9A391F4591AC003FAE7A /* drape_engine_safe_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_engine_safe_ptr.hpp; sourceTree = "<group>"; };
 		454C19B81CCE3EC0002A2C86 /* animation_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animation_constants.hpp; sourceTree = "<group>"; };
 		454C19B91CCE3EC0002A2C86 /* animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animation_system.cpp; sourceTree = "<group>"; };
@@ -331,6 +329,8 @@
 		45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark_billboard.vsh.glsl; path = shaders/user_mark_billboard.vsh.glsl; sourceTree = "<group>"; };
 		45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.vsh.glsl; path = shaders/user_mark.vsh.glsl; sourceTree = "<group>"; };
 		45BE604D20E504FC00A456AE /* frame_values.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = frame_values.hpp; sourceTree = "<group>"; };
+		45D7ADDC2113532700160DE3 /* render_state_extension.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_state_extension.hpp; sourceTree = "<group>"; };
+		45D7ADDD2113532700160DE3 /* render_state_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state_extension.cpp; sourceTree = "<group>"; };
 		45F1DA8220F3B274006E8CB3 /* drape_notifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_notifier.hpp; sourceTree = "<group>"; };
 		45F1DA8320F3B274006E8CB3 /* drape_notifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drape_notifier.cpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
@@ -678,8 +678,8 @@
 				670947641BDF9BE0005014C0 /* render_group.cpp */,
 				670947651BDF9BE0005014C0 /* render_group.hpp */,
 				670947671BDF9BE0005014C0 /* render_node.hpp */,
-				453FEDAA1F34C257005C1BB4 /* render_state.cpp */,
-				453FEDAB1F34C257005C1BB4 /* render_state.hpp */,
+				45D7ADDD2113532700160DE3 /* render_state_extension.cpp */,
+				45D7ADDC2113532700160DE3 /* render_state_extension.hpp */,
 				677A2DE31C0DD55D00635A00 /* requested_tiles.cpp */,
 				677A2DE41C0DD55D00635A00 /* requested_tiles.hpp */,
 				670947681BDF9BE0005014C0 /* route_builder.cpp */,
@@ -844,6 +844,7 @@
 				670E393D1C46C59000E9C0A6 /* color_constants.hpp in Headers */,
 				34C624C41DABDB0400510300 /* traffic_generator.hpp in Headers */,
 				347F520E1DC2334A0064B273 /* drape_api_builder.hpp in Headers */,
+				45D7ADDE2113532700160DE3 /* render_state_extension.hpp in Headers */,
 				6709484E1BDF9C48005014C0 /* shape.hpp in Headers */,
 				452C9EE31CEDCF3200A55E57 /* scale_animation.hpp in Headers */,
 				F6B283101C1B04680081957A /* gps_track_point.hpp in Headers */,
@@ -909,7 +910,6 @@
 				670947D71BDF9BE1005014C0 /* user_event_stream.hpp in Headers */,
 				6709479E1BDF9BE1005014C0 /* message_acceptor.hpp in Headers */,
 				6709484A1BDF9C48005014C0 /* ruler_helper.hpp in Headers */,
-				453FEDAD1F34C257005C1BB4 /* render_state.hpp in Headers */,
 				6743D36E1C3A9F090095054B /* arrow3d.hpp in Headers */,
 				670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */,
 				45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */,
@@ -1006,6 +1006,7 @@
 				6709483B1BDF9C48005014C0 /* compass.cpp in Sources */,
 				453EEA6D1E3A28F400505E09 /* colored_symbol_shape.cpp in Sources */,
 				670947921BDF9BE1005014C0 /* kinetic_scroller.cpp in Sources */,
+				45D7ADDF2113532700160DE3 /* render_state_extension.cpp in Sources */,
 				6709484D1BDF9C48005014C0 /* shape.cpp in Sources */,
 				670948431BDF9C48005014C0 /* drape_gui.cpp in Sources */,
 				670947D61BDF9BE1005014C0 /* user_event_stream.cpp in Sources */,
@@ -1048,7 +1049,6 @@
 				670947B91BDF9BE1005014C0 /* route_renderer.cpp in Sources */,
 				670E393C1C46C59000E9C0A6 /* color_constants.cpp in Sources */,
 				677A2DE51C0DD55D00635A00 /* requested_tiles.cpp in Sources */,
-				453FEDAC1F34C257005C1BB4 /* render_state.cpp in Sources */,
 				45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */,
 				670947B31BDF9BE1005014C0 /* render_group.cpp in Sources */,
 				347F52111DC2334A0064B273 /* drape_api.cpp in Sources */,

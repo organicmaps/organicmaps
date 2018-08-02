@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/drape_global.hpp"
@@ -57,7 +57,7 @@ public:
   virtual dp::Anchor GetAnchor() const = 0;
   virtual bool GetDepthTestEnabled() const = 0;
   virtual float GetDepth() const = 0;
-  virtual RenderState::DepthLayer GetDepthLayer() const = 0;
+  virtual DepthLayer GetDepthLayer() const = 0;
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
@@ -91,7 +91,7 @@ public:
   virtual kml::TrackId GetId() const { return m_id; }
 
   virtual int GetMinZoom() const = 0;
-  virtual RenderState::DepthLayer GetDepthLayer() const = 0;
+  virtual DepthLayer GetDepthLayer() const = 0;
   virtual size_t GetLayerCount() const = 0;
   virtual dp::Color GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;

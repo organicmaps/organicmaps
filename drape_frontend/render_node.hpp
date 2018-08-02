@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -12,7 +12,7 @@ namespace df
 class RenderNode
 {
 public:
-  RenderNode(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
+  RenderNode(dp::RenderState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
     : m_state(state)
     , m_buffer(std::move(buffer))
   {}
@@ -48,7 +48,7 @@ private:
     mng->GetParamsSetter()->Apply(prg, params);
   }
 
-  dp::GLState m_state;
+  dp::RenderState m_state;
   drape_ptr<dp::VertexArrayBuffer> m_buffer;
   bool m_isBuilt = false;
 };

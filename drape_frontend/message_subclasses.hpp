@@ -12,7 +12,7 @@
 #include "drape_frontend/my_position.hpp"
 #include "drape_frontend/overlay_batcher.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -125,7 +125,7 @@ private:
 class FlushRenderBucketMessage : public BaseTileMessage
 {
 public:
-  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state,
+  FlushRenderBucketMessage(TileKey const & key, dp::RenderState const & state,
                            drape_ptr<dp::RenderBucket> && buffer)
     : BaseTileMessage(key)
     , m_state(state)
@@ -135,11 +135,11 @@ public:
   Type GetType() const override { return Message::FlushTile; }
   bool IsGLContextDependent() const override { return true; }
 
-  dp::GLState const & GetState() const { return m_state; }
+  dp::RenderState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
 
 private:
-  dp::GLState m_state;
+  dp::RenderState m_state;
   drape_ptr<dp::RenderBucket> m_buffer;
 };
 

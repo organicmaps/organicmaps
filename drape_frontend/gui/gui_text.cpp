@@ -106,7 +106,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 }
 
 StaticLabel::LabelResult::LabelResult()
-  : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
+  : m_state(df::CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
 {
   m_state.SetDepthTestEnabled(false);
 }
@@ -287,7 +287,7 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 }
 
 MutableLabel::PrecacheResult::PrecacheResult()
-  : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
+  : m_state(df::CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
 {
   m_state.SetDepthTestEnabled(false);
 }

@@ -20,7 +20,7 @@ public:
   double GetLengthMeters() const;
 
   int GetMinZoom() const override { return 1; }
-  df::RenderState::DepthLayer GetDepthLayer() const override;
+  df::DepthLayer GetDepthLayer() const override;
   size_t GetLayerCount() const override;
   dp::Color GetColor(size_t layerIndex) const override;
   float GetWidth(size_t layerIndex) const override;

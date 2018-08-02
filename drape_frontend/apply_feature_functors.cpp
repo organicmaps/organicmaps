@@ -484,7 +484,7 @@ void BaseApplyFeature::SetHotelData(HotelData && hotelData)
 ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                                      FeatureID const & id, int minVisibleScale, uint8_t rank,
                                      CaptionDescription const & captions, float posZ,
-                                     int displacementMode, RenderState::DepthLayer depthLayer)
+                                     int displacementMode, DepthLayer depthLayer)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions)
   , m_posZ(posZ)
   , m_hasPoint(false)
@@ -532,8 +532,8 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     params.m_tileCenter = m_tileRect.Center();
     ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     params.m_depthLayer = m_depthLayer;
-    params.m_depthTestEnabled = m_depthLayer != RenderState::NavigationLayer &&
-      m_depthLayer != RenderState::OverlayLayer;
+    params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
+      m_depthLayer != DepthLayer::OverlayLayer;
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_posZ = m_posZ;
@@ -568,7 +568,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     specialDisplacementMode = true;
     specialModePriority = CalculateHotelOverlayPriority(m_hotelData);
   }
-  else if (m_depthLayer == RenderState::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
+  else if (m_depthLayer == DepthLayer::NavigationLayer && GetStyleReader().IsCarNavigationStyle())
   {
     specialDisplacementMode = true;
     specialModePriority = CalculateNavigationPoiPriority();
@@ -580,8 +580,8 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   {
     PoiSymbolViewParams params(m_id);
     params.m_tileCenter = m_tileRect.Center();
-    params.m_depthTestEnabled = m_depthLayer != RenderState::NavigationLayer &&
-      m_depthLayer != RenderState::OverlayLayer;
+    params.m_depthTestEnabled = m_depthLayer != DepthLayer::NavigationLayer &&
+      m_depthLayer != DepthLayer::OverlayLayer;
     params.m_depth = static_cast<float>(m_symbolDepth);
     params.m_depthLayer = m_depthLayer;
     params.m_minVisibleScale = m_minVisibleScale;
@@ -651,7 +651,7 @@ ApplyAreaFeature::ApplyAreaFeature(TileKey const & tileKey, TInsertShapeFn const
                                    bool skipAreaGeometry, float minPosZ, float posZ, int minVisibleScale,
                                    uint8_t rank, CaptionDescription const & captions, bool hatchingArea)
   : TBase(tileKey, insertShape, id, minVisibleScale, rank, captions, posZ,
-          dp::displacement::kDefaultMode, RenderState::OverlayLayer)
+          dp::displacement::kDefaultMode, DepthLayer::OverlayLayer)
   , m_minPosZ(minPosZ)
   , m_isBuilding(isBuilding)
   , m_skipAreaGeometry(skipAreaGeometry)
@@ -1015,7 +1015,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
   textParams.m_tileCenter = m_tileRect.Center();
   textParams.m_depthTestEnabled = false;
   textParams.m_depth = m_depth;
-  textParams.m_depthLayer = RenderState::OverlayLayer;
+  textParams.m_depthLayer = DepthLayer::OverlayLayer;
   textParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
   textParams.m_rank = m_rank;
   textParams.m_featureID = m_id;
@@ -1046,7 +1046,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     symbolParams.m_tileCenter = m_tileRect.Center();
     symbolParams.m_depthTestEnabled = true;
     symbolParams.m_depth = m_depth;
-    symbolParams.m_depthLayer = RenderState::OverlayLayer;
+    symbolParams.m_depthLayer = DepthLayer::OverlayLayer;
     symbolParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     symbolParams.m_rank = m_rank;
     symbolParams.m_anchor = anchor;
@@ -1074,7 +1074,7 @@ void ApplyLineFeatureAdditional::GetRoadShieldsViewParams(ref_ptr<dp::TextureMan
     poiParams.m_tileCenter = m_tileRect.Center();
     poiParams.m_depth = m_depth;
     poiParams.m_depthTestEnabled = false;
-    poiParams.m_depthLayer = RenderState::OverlayLayer;
+    poiParams.m_depthLayer = DepthLayer::OverlayLayer;
     poiParams.m_minVisibleScale = kShieldMinVisibleZoomLevel;
     poiParams.m_rank = m_rank;
     poiParams.m_symbolName = symbolName;

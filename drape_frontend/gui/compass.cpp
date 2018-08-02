@@ -106,7 +106,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
     CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  auto state = df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer);
+  auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
   state.SetDepthTestEnabled(false);
 

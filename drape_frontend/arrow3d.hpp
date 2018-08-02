@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/pointers.hpp"
 
@@ -56,7 +56,7 @@ private:
   std::vector<float> m_vertices;
   std::vector<float> m_normals;
 
-  dp::GLState m_state;
+  dp::RenderState m_state;
 
   bool m_isInitialized = false;
 };

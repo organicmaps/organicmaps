@@ -79,7 +79,7 @@ public:
   ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn const & insertShape,
                     FeatureID const & id, int minVisibleScale, uint8_t rank,
                     CaptionDescription const & captions, float posZ,
-                    int displacementMode, RenderState::DepthLayer depthLayer);
+                    int displacementMode, DepthLayer depthLayer);
 
   void operator()(m2::PointD const & point, bool hasArea, bool isUGC);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
@@ -94,7 +94,7 @@ private:
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
   bool m_isUGC;
-  RenderState::DepthLayer m_depthLayer;
+  DepthLayer m_depthLayer;
   double m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;
   m2::PointF m_centerPoint;

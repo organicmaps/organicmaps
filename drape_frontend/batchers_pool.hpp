@@ -15,7 +15,7 @@ template <typename TKey, typename TKeyComparator>
 class BatchersPool final
 {
 public:
-  using TFlushFn = std::function<void (TKey const & key, dp::GLState const & state,
+  using TFlushFn = std::function<void (TKey const & key, dp::RenderState const & state,
                                        drape_ptr<dp::RenderBucket> && buffer)>;
 
   BatchersPool(int initBatchersCount, TFlushFn const & flushFn,

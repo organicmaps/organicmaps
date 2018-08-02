@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape/batcher.hpp"
-#include "drape/glstate.hpp"
 #include "drape/render_bucket.hpp"
+#include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "transit/transit_display_info.hpp"
@@ -30,13 +30,13 @@ struct TransitRenderData
   };
 
   Type m_type;
-  dp::GLState m_state;
+  dp::RenderState m_state;
   uint32_t m_recacheId;
   MwmSet::MwmId m_mwmId;
   m2::PointD m_pivot;
   drape_ptr<dp::RenderBucket> m_bucket;
 
-  TransitRenderData(Type type, dp::GLState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId,
+  TransitRenderData(Type type, dp::RenderState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId,
                     m2::PointD const pivot, drape_ptr<dp::RenderBucket> && bucket)
     : m_type(type)
     , m_state(state)

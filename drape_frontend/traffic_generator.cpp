@@ -147,15 +147,15 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
   ASSERT(m_colorsCacheValid, ());
   auto const colorTexture = m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture();
 
-  auto state = CreateGLState(gpu::Program::Traffic, RenderState::GeometryLayer);
+  auto state = CreateRenderState(gpu::Program::Traffic, DepthLayer::GeometryLayer);
   state.SetColorTexture(colorTexture);
   state.SetMaskTexture(texturesMgr->GetTrafficArrowTexture());
 
-  auto lineState = CreateGLState(gpu::Program::TrafficLine, RenderState::GeometryLayer);
+  auto lineState = CreateRenderState(gpu::Program::TrafficLine, DepthLayer::GeometryLayer);
   lineState.SetColorTexture(colorTexture);
   lineState.SetDrawAsLine(true);
 
-  auto circleState = CreateGLState(gpu::Program::TrafficCircle, RenderState::GeometryLayer);
+  auto circleState = CreateRenderState(gpu::Program::TrafficCircle, DepthLayer::GeometryLayer);
   circleState.SetColorTexture(colorTexture);
 
   bool isLeftHand = false;
@@ -196,7 +196,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
       m_providerLines.Reset(static_cast<uint32_t>(staticGeometry.size()));
       m_providerLines.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
 
-      dp::GLState curLineState = lineState;
+      dp::RenderState curLineState = lineState;
       curLineState.SetLineWidth(width);
       batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines));
     }
@@ -244,7 +244,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
     for (auto const & roadClass : kRoadClasses)
       m_batchersPool->ReserveBatcher(TrafficBatcherKey(mwmId, tileKey, roadClass));
 
-    m_circlesBatcher->StartSession([this, mwmId, tileKey](dp::GLState const & state,
+    m_circlesBatcher->StartSession([this, mwmId, tileKey](dp::RenderState const & state,
                                                           drape_ptr<dp::RenderBucket> && renderBucket)
     {
       FlushGeometry(TrafficBatcherKey(mwmId, tileKey, RoadClass::Class0), state,
@@ -284,7 +284,7 @@ void TrafficGenerator::InvalidateTexturesCache()
   m_colorsCacheValid = false;
 }
 
-void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
+void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::RenderState const & state,
                                      drape_ptr<dp::RenderBucket> && buffer)
 {
   TrafficRenderData renderData(state);

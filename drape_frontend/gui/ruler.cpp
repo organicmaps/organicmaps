@@ -213,7 +213,7 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
   data.push_back(RulerVertex(glsl::vec2(0.0, h), normals[1], texCoord));
   data.push_back(RulerVertex(glsl::vec2(0.0, -h), normals[1], texCoord));
 
-  auto state = df::CreateGLState(gpu::Program::Ruler, df::RenderState::GuiLayer);
+  auto state = df::CreateRenderState(gpu::Program::Ruler, df::DepthLayer::GuiLayer);
   state.SetColorTexture(reg.GetTexture());
   state.SetDepthTestEnabled(false);
 

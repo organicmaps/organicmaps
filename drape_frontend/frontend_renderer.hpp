@@ -13,7 +13,7 @@
 #include "drape_frontend/navigator.hpp"
 #include "drape_frontend/overlays_tracker.hpp"
 #include "drape_frontend/render_group.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/requested_tiles.hpp"
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/postprocess_renderer.hpp"
@@ -143,7 +143,7 @@ protected:
 private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView, bool activeFrame);
-  void PrepareBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> & bucket);
+  void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
   void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
   void RefreshProjection(ScreenBase const & screen);
   void RefreshZScale(ScreenBase const & screen);
@@ -162,7 +162,7 @@ private:
   void Render3dLayer(ScreenBase const & modelView, bool useFramebuffer);
   void RenderOverlayLayer(ScreenBase const & modelView);
   void RenderNavigationOverlayLayer(ScreenBase const & modelView);
-  void RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId);
+  void RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId);
   void RenderTransitSchemeLayer(ScreenBase const & modelView);
   void RenderTrafficLayer(ScreenBase const & modelView);
   void RenderRouteLayer(ScreenBase const & modelView);
@@ -224,7 +224,7 @@ private:
   void EndUpdateOverlayTree();
 
   template<typename TRenderGroup>
-  void AddToRenderGroup(dp::GLState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
+  void AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                         TileKey const & newTile);
 
   using TRenderGroupRemovePredicate = std::function<bool(drape_ptr<RenderGroup> const &)>;
@@ -256,7 +256,7 @@ private:
 
   drape_ptr<gpu::ProgramManager> m_gpuProgramManager;
 
-  std::array<RenderLayer, RenderState::LayersCount> m_layers;
+  std::array<RenderLayer, static_cast<size_t>(DepthLayer::LayersCount)> m_layers;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   gui::TWidgetsLayoutInfo m_lastWidgetsLayout;
@@ -296,7 +296,6 @@ private:
   ref_ptr<RequestedTiles> m_requestedTiles;
   uint64_t m_maxGeneration;
   uint64_t m_maxUserMarksGeneration;
-  int m_mergeBucketsCounter = 0;
 
   int m_lastRecacheRouteId = 0;
 

@@ -34,31 +34,31 @@ struct Blending
   bool m_isEnabled;
 };
 
-class BaseRenderState
+class BaseRenderStateExtension
 {
 public:
-  virtual ~BaseRenderState() = default;
-  virtual bool Less(ref_ptr<dp::BaseRenderState> other) const = 0;
-  virtual bool Equal(ref_ptr<dp::BaseRenderState> other) const = 0;
+  virtual ~BaseRenderStateExtension() = default;
+  virtual bool Less(ref_ptr<dp::BaseRenderStateExtension> other) const = 0;
+  virtual bool Equal(ref_ptr<dp::BaseRenderStateExtension> other) const = 0;
 };
 
-class GLState
+class RenderState
 {
 public:
   template<typename ProgramType>
-  GLState(ProgramType gpuProgram, ref_ptr<BaseRenderState> renderState)
-    : m_renderState(std::move(renderState))
+  RenderState(ProgramType gpuProgram, ref_ptr<BaseRenderStateExtension> renderStateExtension)
+    : m_renderStateExtension(std::move(renderStateExtension))
     , m_gpuProgram(static_cast<size_t>(gpuProgram))
     , m_gpuProgram3d(static_cast<size_t>(gpuProgram))
   {
-    ASSERT(m_renderState != nullptr, ());
+    ASSERT(m_renderStateExtension != nullptr, ());
   }
 
-  template<typename RenderStateType>
-  ref_ptr<RenderStateType> GetRenderState() const
+  template<typename RenderStateExtensionType>
+  ref_ptr<RenderStateExtensionType> GetRenderStateExtension() const
   {
-    ASSERT(dynamic_cast<RenderStateType *>(m_renderState.get()) != nullptr, ());
-    return make_ref(static_cast<RenderStateType *>(m_renderState.get()));
+    ASSERT(dynamic_cast<RenderStateExtensionType *>(m_renderStateExtension.get()) != nullptr, ());
+    return make_ref(static_cast<RenderStateExtensionType *>(m_renderStateExtension.get()));
   }
 
   void SetColorTexture(ref_ptr<Texture> tex) { m_colorTexture = tex; }
@@ -93,12 +93,12 @@ public:
   int GetLineWidth() const;
   void SetLineWidth(int width);
 
-  bool operator<(GLState const & other) const;
-  bool operator==(GLState const & other) const;
-  bool operator!=(GLState const & other) const;
+  bool operator<(RenderState const & other) const;
+  bool operator==(RenderState const & other) const;
+  bool operator!=(RenderState const & other) const;
 
 private:
-  ref_ptr<BaseRenderState> m_renderState;
+  ref_ptr<BaseRenderStateExtension> m_renderStateExtension;
   size_t m_gpuProgram;
   size_t m_gpuProgram3d;
   Blending m_blending;
@@ -118,13 +118,13 @@ private:
 class TextureState
 {
 public:
-  static void ApplyTextures(GLState const & state, ref_ptr<GpuProgram> program);
+  static void ApplyTextures(RenderState const & state, ref_ptr<GpuProgram> program);
   static uint8_t GetLastUsedSlots();
 
 private:
   static uint8_t m_usedSlots;
 };
 
-void ApplyState(GLState const & state, ref_ptr<GpuProgram> program);
-void ApplyBlending(GLState const & state);
+void ApplyState(RenderState const & state, ref_ptr<GpuProgram> program);
+void ApplyBlending(RenderState const & state);
 }  // namespace dp

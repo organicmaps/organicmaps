@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/gui/shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/binding_info.hpp"
 #include "drape/drape_global.hpp"
@@ -48,7 +48,7 @@ public:
   {
     LabelResult();
 
-    dp::GLState m_state;
+    dp::RenderState m_state;
     buffer_vector<Vertex, 128> m_buffer;
     m2::RectF m_boundRect;
     TAlphabet m_alphabet;
@@ -106,7 +106,7 @@ public:
   {
     PrecacheResult();
 
-    dp::GLState m_state;
+    dp::RenderState m_state;
     buffer_vector<StaticVertex, 128> m_buffer;
     m2::PointF m_maxPixelSize;
   };

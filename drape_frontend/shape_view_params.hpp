@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/color.hpp"
 #include "drape/drape_global.hpp"
@@ -21,7 +21,7 @@ uint32_t constexpr kStartUserMarkOverlayIndex = 1000;
 
 struct CommonViewParams
 {
-  RenderState::DepthLayer m_depthLayer = RenderState::GeometryLayer;
+  DepthLayer m_depthLayer = DepthLayer::GeometryLayer;
   float m_depth = 0.0f;
   bool m_depthTestEnabled = true;
   int m_minVisibleScale = 0;

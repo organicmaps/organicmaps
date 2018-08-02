@@ -198,9 +198,9 @@ int SearchMarkPoint::GetMinTitleZoom() const
   return 1;
 }
 
-df::RenderState::DepthLayer SearchMarkPoint::GetDepthLayer() const
+df::DepthLayer SearchMarkPoint::GetDepthLayer() const
 {
-  return df::RenderState::SearchMarkLayer;
+  return df::DepthLayer::SearchMarkLayer;
 }
 
 void SearchMarkPoint::SetFoundFeature(FeatureID const & feature)

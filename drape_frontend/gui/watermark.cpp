@@ -82,7 +82,7 @@ drape_ptr<ShapeRenderer> Watermark::Draw(m2::PointF & size, ref_ptr<dp::TextureM
     WatermarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  auto state = df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer);
+  auto state = df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer);
   state.SetColorTexture(region.GetTexture());
   state.SetDepthTestEnabled(false);
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/gui/skin.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -65,18 +65,18 @@ struct ShapeControl
 
   struct ShapeInfo
   {
-    ShapeInfo() : m_state(df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer)) {}
-    ShapeInfo(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
+    ShapeInfo() : m_state(df::CreateRenderState(gpu::Program::TexturingGui, df::DepthLayer::GuiLayer)) {}
+    ShapeInfo(dp::RenderState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
               drape_ptr<Handle> && handle);
 
     void Destroy();
 
-    dp::GLState m_state;
+    dp::RenderState m_state;
     drape_ptr<dp::VertexArrayBuffer> m_buffer;
     drape_ptr<Handle> m_handle;
   };
 
-  void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
+  void AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket);
 
   std::vector<ShapeInfo> m_shapesInfo;
 };
@@ -90,7 +90,7 @@ public:
 
   void Build(ref_ptr<gpu::ProgramManager> mng);
   void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng);
-  void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
+  void AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 
   void SetPivot(m2::PointF const & pivot);

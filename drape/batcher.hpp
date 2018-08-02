@@ -1,10 +1,10 @@
 #pragma once
 
 #include "drape/attribute_provider.hpp"
-#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
+#include "drape/render_state.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/macros.hpp"
@@ -28,32 +28,32 @@ public:
   Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize);
   ~Batcher();
 
-  void InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params,
                                   drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                    drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle);
 
-  void InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
-  IndicesRange InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
 
-  void InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params);
+  IndicesRange InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                drape_ptr<OverlayHandle> && handle);
 
-  void InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+  void InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
                      vector<int> const & indices);
-  IndicesRange InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+  IndicesRange InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
                              vector<int> const & indices, drape_ptr<OverlayHandle> && handle);
 
-  typedef function<void (GLState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
+  typedef function<void (RenderState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
   void ResetSession();
@@ -62,20 +62,20 @@ public:
 
 private:
   template<typename TBatcher, typename ... TArgs>
-  IndicesRange InsertPrimitives(GLState const & state, ref_ptr<AttributeProvider> params,
+  IndicesRange InsertPrimitives(RenderState const & state, ref_ptr<AttributeProvider> params,
                                 drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
                                 TArgs ... batcherArgs);
 
   class CallbacksWrapper;
   void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper);
-  ref_ptr<RenderBucket> GetBucket(GLState const & state);
+  ref_ptr<RenderBucket> GetBucket(RenderState const & state);
 
-  void FinalizeBucket(GLState const & state);
+  void FinalizeBucket(RenderState const & state);
   void Flush();
 
   TFlushFn m_flushInterface;
 
-  using TBuckets = map<GLState, drape_ptr<RenderBucket>>;
+  using TBuckets = map<RenderState, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
 
   uint32_t m_indexBufferSize;

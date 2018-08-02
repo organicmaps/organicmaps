@@ -1,6 +1,6 @@
 #include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/path_text_handle.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -82,9 +82,9 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
   dp::TextureManager::ColorRegion color;
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
 
-  auto state = CreateGLState(layout->GetFixedHeight() > 0 ?
-                             gpu::Program::TextFixed : gpu::Program::Text,
-                             RenderState::OverlayLayer);
+  auto state = CreateRenderState(layout->GetFixedHeight() > 0 ?
+                                 gpu::Program::TextFixed : gpu::Program::Text,
+                                 DepthLayer::OverlayLayer);
   state.SetProgram3d(layout->GetFixedHeight() > 0 ?
                      gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
@@ -124,7 +124,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
   textures->GetColorRegion(m_params.m_textFont.m_color, color);
   textures->GetColorRegion(m_params.m_textFont.m_outlineColor, outline);
 
-  auto state = CreateGLState(gpu::Program::TextOutlined, RenderState::OverlayLayer);
+  auto state = CreateRenderState(gpu::Program::TextOutlined, DepthLayer::OverlayLayer);
   state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(color.GetTexture());

@@ -1,5 +1,5 @@
 #include "drape_frontend/path_symbol_shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
@@ -53,7 +53,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   if (buffer.empty())
     return;
 
-  auto state = CreateGLState(gpu::Program::PathSymbol, RenderState::GeometryLayer);
+  auto state = CreateRenderState(gpu::Program::PathSymbol, DepthLayer::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
 

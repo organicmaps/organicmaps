@@ -83,13 +83,13 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
     buffer.emplace_back(nextNormal, colorCoord);
   }
 
-  auto state = CreateGLState(gpu::Program::Accuracy, RenderState::OverlayLayer);
+  auto state = CreateRenderState(gpu::Program::Accuracy, DepthLayer::OverlayLayer);
   state.SetColorTexture(color.GetTexture());
   state.SetDepthTestEnabled(false);
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
-    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());

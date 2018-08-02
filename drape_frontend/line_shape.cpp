@@ -60,7 +60,7 @@ struct BaseBuilderParams
   float m_pxHalfWidth;
   float m_depth;
   bool m_depthTestEnabled;
-  RenderState::DepthLayer m_depthLayer;
+  DepthLayer m_depthLayer;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
 };
@@ -112,7 +112,7 @@ public:
     return GetBindingInfo();
   }
 
-  dp::GLState GetCapState() override
+  dp::RenderState GetCapState() override
   {
     return GetState();
   }
@@ -175,9 +175,9 @@ public:
     : TBase(params, pointsInSpline * 2, (pointsInSpline - 2) * 8)
   {}
 
-  dp::GLState GetState() override
+  dp::RenderState GetState() override
   {
-    auto state = CreateGLState(gpu::Program::Line, m_params.m_depthLayer);
+    auto state = CreateRenderState(gpu::Program::Line, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     return state;
@@ -202,12 +202,12 @@ public:
     return *s_capInfo;
   }
 
-  dp::GLState GetCapState() override
+  dp::RenderState GetCapState() override
   {
     if (m_params.m_cap == dp::ButtCap)
       return TBase::GetCapState();
 
-    auto state = CreateGLState(gpu::Program::CapJoin, m_params.m_depthLayer);
+    auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDepthFunction(gl_const::GLLess);
@@ -277,9 +277,9 @@ public:
     , m_lineWidth(lineWidth)
   {}
 
-  dp::GLState GetState() override
+  dp::RenderState GetState() override
   {
-    auto state = CreateGLState(gpu::Program::AreaOutline, m_params.m_depthLayer);
+    auto state = CreateRenderState(gpu::Program::AreaOutline, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDrawAsLine(true);
@@ -321,9 +321,9 @@ public:
     return static_cast<int>((pixelLen + m_texCoordGen.GetMaskLength() - 1) / m_texCoordGen.GetMaskLength());
   }
 
-  dp::GLState GetState() override
+  dp::RenderState GetState() override
   {
-    auto state = CreateGLState(gpu::Program::DashedLine, m_params.m_depthLayer);
+    auto state = CreateRenderState(gpu::Program::DashedLine, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
@@ -545,7 +545,7 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     Prepare(textures);
 
   ASSERT(m_lineShapeInfo != nullptr, ());
-  dp::GLState state = m_lineShapeInfo->GetState();
+  dp::RenderState state = m_lineShapeInfo->GetState();
   dp::AttributeProvider provider(1, m_lineShapeInfo->GetLineSize());
   provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
   if (!m_isSimple)

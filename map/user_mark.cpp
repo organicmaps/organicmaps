@@ -36,9 +36,9 @@ dp::Anchor UserMark::GetAnchor() const
   return dp::Center;
 }
 
-df::RenderState::DepthLayer UserMark::GetDepthLayer() const
+df::DepthLayer UserMark::GetDepthLayer() const
 {
-  return df::RenderState::UserMarkLayer;
+  return df::DepthLayer::UserMarkLayer;
 }
 
 ms::LatLon UserMark::GetLatLon() const

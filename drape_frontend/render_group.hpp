@@ -3,7 +3,7 @@
 #include "drape_frontend/animation/opacity_animation.hpp"
 #include "drape_frontend/animation/value_mapping.hpp"
 #include "drape_frontend/frame_values.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "shaders/program_params.hpp"
@@ -24,14 +24,14 @@ namespace df
 class BaseRenderGroup
 {
 public:
-  BaseRenderGroup(dp::GLState const & state, TileKey const & tileKey)
+  BaseRenderGroup(dp::RenderState const & state, TileKey const & tileKey)
     : m_state(state)
     , m_tileKey(tileKey)
   {}
 
   virtual ~BaseRenderGroup() = default;
 
-  dp::GLState const & GetState() const { return m_state; }
+  dp::RenderState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
 
   virtual void UpdateAnimation();
@@ -39,7 +39,7 @@ public:
                       FrameValues const & frameValues) = 0;
 
 protected:
-  dp::GLState m_state;
+  dp::RenderState m_state;
   gpu::MapProgramParams m_params;
 
 private:
@@ -51,7 +51,7 @@ class RenderGroup : public BaseRenderGroup
   using TBase = BaseRenderGroup;
   friend class BatchMergeHelper;
 public:
-  RenderGroup(dp::GLState const & state, TileKey const & tileKey);
+  RenderGroup(dp::RenderState const & state, TileKey const & tileKey);
   ~RenderGroup() override;
 
   void Update(ScreenBase const & modelView);
@@ -97,7 +97,7 @@ class UserMarkRenderGroup : public RenderGroup
   using TBase = RenderGroup;
 
 public:
-  UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey);
+  UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey);
   ~UserMarkRenderGroup() override {}
 
   void UpdateAnimation() override;

@@ -1,6 +1,6 @@
 #include "drape/gpu_program.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/glstate.hpp"
+#include "drape/render_state.hpp"
 #include "drape/support_manager.hpp"
 
 #include "base/logging.hpp"

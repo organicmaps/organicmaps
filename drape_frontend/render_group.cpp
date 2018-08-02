@@ -21,7 +21,7 @@ void BaseRenderGroup::UpdateAnimation()
   m_params.m_opacity = 1.0f;
 }
 
-RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
+RenderGroup::RenderGroup(dp::RenderState const & state, df::TileKey const & tileKey)
   : TBase(state, tileKey)
   , m_pendingOnDelete(false)
   , m_canBeDeleted(false)
@@ -137,19 +137,19 @@ void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)
 bool RenderGroup::IsOverlay() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
-  return (depthLayer == RenderState::OverlayLayer) ||
-         (depthLayer == RenderState::NavigationLayer && HasOverlayHandles());
+  return (depthLayer == DepthLayer::OverlayLayer) ||
+         (depthLayer == DepthLayer::NavigationLayer && HasOverlayHandles());
 }
 
 bool RenderGroup::IsUserMark() const
 {
   auto const depthLayer = GetDepthLayer(m_state);
-  return depthLayer == RenderState::UserLineLayer ||
-         depthLayer == RenderState::UserMarkLayer ||
-         depthLayer == RenderState::TransitMarkLayer ||
-         depthLayer == RenderState::RoutingMarkLayer ||
-         depthLayer == RenderState::LocalAdsMarkLayer ||
-         depthLayer == RenderState::SearchMarkLayer;
+  return depthLayer == DepthLayer::UserLineLayer ||
+         depthLayer == DepthLayer::UserMarkLayer ||
+         depthLayer == DepthLayer::TransitMarkLayer ||
+         depthLayer == DepthLayer::RoutingMarkLayer ||
+         depthLayer == DepthLayer::LocalAdsMarkLayer ||
+         depthLayer == DepthLayer::SearchMarkLayer;
 }
 
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
@@ -195,7 +195,7 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
   return rCanBeDeleted;
 }
 
-UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
+UserMarkRenderGroup::UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey)
   : TBase(state, tileKey)
 {
   auto const program = state.GetProgram<gpu::Program>();

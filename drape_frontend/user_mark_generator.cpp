@@ -230,7 +230,7 @@ void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_p
   dp::Batcher batcher(kMaxSize, kMaxSize);
   TUserMarksRenderData renderData;
   {
-    dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::GLState const & state,
+    dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::RenderState const & state,
                                                            drape_ptr<dp::RenderBucket> && b)
     {
       renderData.emplace_back(state, std::move(b), tileKey);

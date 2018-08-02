@@ -1,5 +1,5 @@
 #include "drape_frontend/postprocess_renderer.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/screen_quad_renderer.hpp"
 
 #include "shaders/program_manager.hpp"

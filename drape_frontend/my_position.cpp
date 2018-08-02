@@ -167,13 +167,13 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
     buffer.emplace_back(nextNormal, colorCoord);
   }
 
-  auto state = CreateGLState(gpu::Program::Accuracy, RenderState::OverlayLayer);
+  auto state = CreateRenderState(gpu::Program::Accuracy, DepthLayer::OverlayLayer);
   state.SetDepthTestEnabled(false);
   state.SetColorTexture(color.GetTexture());
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
-    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -191,7 +191,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
 }
 
 void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
-                             dp::GLState const & state, dp::Batcher & batcher,
+                             dp::RenderState const & state, dp::Batcher & batcher,
                              EMyPositionPart part)
 {
   m2::RectF const & texRect = symbol.GetTexRect();
@@ -219,7 +219,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 
   m_arrow3d.SetTexture(mng);
 
-  auto state = CreateGLState(gpu::Program::MyPosition, RenderState::OverlayLayer);
+  auto state = CreateRenderState(gpu::Program::MyPosition, DepthLayer::OverlayLayer);
   state.SetDepthTestEnabled(false);
   state.SetColorTexture(pointSymbol.GetTexture());
 
@@ -227,7 +227,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());

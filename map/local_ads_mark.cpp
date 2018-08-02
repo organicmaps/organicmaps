@@ -36,9 +36,9 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> LocalAdsMark::GetSymbolNames() 
   return symbol;
 }
 
-df::RenderState::DepthLayer LocalAdsMark::GetDepthLayer() const
+df::DepthLayer LocalAdsMark::GetDepthLayer() const
 {
-  return df::RenderState::LocalAdsMarkLayer;
+  return df::DepthLayer::LocalAdsMarkLayer;
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> LocalAdsMark::GetTitleDecl() const

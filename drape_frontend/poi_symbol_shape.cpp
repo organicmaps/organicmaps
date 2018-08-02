@@ -67,7 +67,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()) },
   };
 
-  auto state = df::CreateGLState(gpu::Program::Texturing, params.m_depthLayer);
+  auto state = df::CreateRenderState(gpu::Program::Texturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::TexturingBillboard);
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
@@ -101,7 +101,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
   };
 
-  auto state = df::CreateGLState(gpu::Program::MaskedTexturing, params.m_depthLayer);
+  auto state = df::CreateRenderState(gpu::Program::MaskedTexturing, params.m_depthLayer);
   state.SetProgram3d(gpu::Program::MaskedTexturingBillboard);
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());

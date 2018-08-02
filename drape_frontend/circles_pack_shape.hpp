@@ -2,7 +2,7 @@
 
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
@@ -23,11 +23,11 @@ struct CirclesPackRenderData
 {
   uint32_t m_pointsCount;
 
-  dp::GLState m_state;
+  dp::RenderState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   CirclesPackRenderData()
     : m_pointsCount(0)
-    , m_state(CreateGLState(gpu::Program::CirclePoint, RenderState::OverlayLayer))
+    , m_state(CreateRenderState(gpu::Program::CirclePoint, DepthLayer::OverlayLayer))
   {}
 };
 

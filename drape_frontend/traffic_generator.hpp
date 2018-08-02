@@ -2,7 +2,7 @@
 
 #include "drape_frontend/batchers_pool.hpp"
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "drape/color.hpp"
@@ -84,13 +84,13 @@ using TrafficSegmentsColoring = std::map<MwmSet::MwmId, traffic::TrafficInfo::Co
 
 struct TrafficRenderData
 {
-  dp::GLState m_state;
+  dp::RenderState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   TileKey m_tileKey;
   MwmSet::MwmId m_mwmId;
   RoadClass m_roadClass = RoadClass::Class0;
 
-  explicit TrafficRenderData(dp::GLState const & state) : m_state(state) {}
+  explicit TrafficRenderData(dp::RenderState const & state) : m_state(state) {}
 
   bool operator<(TrafficRenderData const & renderData) const
   {
@@ -221,7 +221,7 @@ private:
                            std::vector<TrafficLineStaticVertex> & staticGeometry);
   void FillColorsCache(ref_ptr<dp::TextureManager> textures);
 
-  void FlushGeometry(TrafficBatcherKey const & key, dp::GLState const & state,
+  void FlushGeometry(TrafficBatcherKey const & key, dp::RenderState const & state,
                      drape_ptr<dp::RenderBucket> && buffer);
   void GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, TileKey const & tileKey,
                                 TrafficSegmentsGeometryValue const & geometry,

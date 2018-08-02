@@ -25,9 +25,9 @@ struct CirclesPackStaticVertex
   TNormal m_normal;
 };
 
-dp::GLState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
+dp::RenderState GetCirclesPackState(ref_ptr<dp::TextureManager> texMng)
 {
-  auto state = CreateGLState(gpu::Program::CirclePoint, RenderState::OverlayLayer);
+  auto state = CreateRenderState(gpu::Program::CirclePoint, DepthLayer::OverlayLayer);
   state.SetColorTexture(texMng->GetSymbolsTexture());
   state.SetDepthTestEnabled(false);
   return state;
@@ -157,7 +157,7 @@ void CirclesPackShape::Draw(ref_ptr<dp::TextureManager> texMng, ref_ptr<dp::Grap
   dynamicVertexData.resize(data.m_pointsCount * kVerticesInPoint);
 
   dp::Batcher batcher(data.m_pointsCount * kIndicesInPoint, data.m_pointsCount * kVerticesInPoint);
-  dp::SessionGuard guard(batcher, [&data](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+  dp::SessionGuard guard(batcher, [&data](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
   {
     data.m_bucket = std::move(b);
     data.m_state = state;

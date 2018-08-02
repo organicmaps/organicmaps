@@ -61,7 +61,7 @@ public:
   dp::Anchor GetAnchor() const override;
   bool GetDepthTestEnabled() const override { return true; }
   float GetDepth() const override { return 0.0f; }
-  df::RenderState::DepthLayer GetDepthLayer() const override;
+  df::DepthLayer GetDepthLayer() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
   drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
   drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override { return nullptr; }

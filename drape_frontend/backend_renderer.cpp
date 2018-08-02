@@ -678,7 +678,7 @@ void BackendRenderer::RecacheMapShapes()
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
 }
 
-void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state,
+void BackendRenderer::FlushGeometry(TileKey const & key, dp::RenderState const & state,
                                     drape_ptr<dp::RenderBucket> && buffer)
 {
   m_contextFactory->GetResourcesUploadContext()->Flush();

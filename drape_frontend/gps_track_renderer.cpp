@@ -309,7 +309,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   program->Bind();
 
   ASSERT_GREATER(m_renderData.size(), 0, ());
-  dp::GLState const & state = m_renderData.front()->m_state;
+  dp::RenderState const & state = m_renderData.front()->m_state;
   dp::ApplyState(state, program);
   mng->GetParamsSetter()->Apply(program, params);
 

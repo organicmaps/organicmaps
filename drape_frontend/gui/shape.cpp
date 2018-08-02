@@ -123,7 +123,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManage
   });
 }
 
-void ShapeRenderer::AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+void ShapeRenderer::AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
   m_shapes.emplace_back(ShapeControl());
   m_shapes.back().AddShape(state, std::move(bucket));
@@ -180,7 +180,7 @@ ref_ptr<Handle> ShapeRenderer::FindHandle(FeatureID const & id)
   return resultHandle;
 }
 
-ShapeControl::ShapeInfo::ShapeInfo(dp::GLState const & state,
+ShapeControl::ShapeInfo::ShapeInfo(dp::RenderState const & state,
                                    drape_ptr<dp::VertexArrayBuffer> && buffer,
                                    drape_ptr<Handle> && handle)
   : m_state(state)
@@ -194,7 +194,7 @@ void ShapeControl::ShapeInfo::Destroy()
   m_buffer.reset();
 }
 
-void ShapeControl::AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+void ShapeControl::AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
   ASSERT(bucket->GetOverlayHandlesCount() == 1, ());
 

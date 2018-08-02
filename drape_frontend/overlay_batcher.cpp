@@ -18,7 +18,7 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
   int const kAverageRenderDataCount = 5;
   m_data.reserve(kAverageRenderDataCount);
 
-  m_batcher.StartSession([this, key](dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+  m_batcher.StartSession([this, key](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
   {
     FlushGeometry(key, state, move(bucket));
   });
@@ -36,7 +36,7 @@ void OverlayBatcher::Finish(TOverlaysRenderData & data)
   data.swap(m_data);
 }
 
-void OverlayBatcher::FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
+void OverlayBatcher::FlushGeometry(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
   m_data.emplace_back(key, state, move(bucket));
 }

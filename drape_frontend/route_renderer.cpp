@@ -403,7 +403,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
     dist = static_cast<float>(m_distanceFromBegin - distanceOffset);
   }
 
-  dp::GLState const & state = subrouteData->m_renderProperty.m_state;
+  dp::RenderState const & state = subrouteData->m_renderProperty.m_state;
   size_t const styleIndex = subrouteData->m_styleIndex;
   ASSERT_LESS(styleIndex, subrouteInfo.m_subroute->m_style.size(), ());
   auto const & style = subrouteInfo.m_subroute->m_style[styleIndex];
@@ -451,7 +451,7 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
     return;
   }
 
-  dp::GLState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
+  dp::RenderState const & state = subrouteInfo.m_arrowsData->m_renderProperty.m_state;
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
   // Set up parameters.
@@ -490,7 +490,7 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
   if (m_followingEnabled)
     dist = static_cast<float>(m_distanceFromBegin - subrouteInfo.m_subroute->m_baseDistance);
 
-  dp::GLState const & state = subrouteInfo.m_markersData->m_renderProperty.m_state;
+  dp::RenderState const & state = subrouteInfo.m_markersData->m_renderProperty.m_state;
   float const currentHalfWidth = GetCurrentHalfWidth(subrouteInfo);
 
   // Set up parameters.
@@ -528,7 +528,7 @@ void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<gpu::Pr
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
 
-  dp::GLState const & state = m_previewRenderData.front()->m_state;
+  dp::RenderState const & state = m_previewRenderData.front()->m_state;
   dp::ApplyState(state, program);
   mng->GetParamsSetter()->Apply(program, params);
 

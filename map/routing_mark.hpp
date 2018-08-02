@@ -34,7 +34,7 @@ public:
   void SetIsVisible(bool isVisible) { m_markData.m_isVisible = isVisible; }
 
   dp::Anchor GetAnchor() const override;
-  df::RenderState::DepthLayer GetDepthLayer() const override;
+  df::DepthLayer GetDepthLayer() const override;
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   bool IsAvailableForSearch() const override { return !IsPassed(); }
@@ -105,10 +105,9 @@ private:
 class TransitMark : public UserMark
 {
 public:
-  TransitMark(m2::PointD const & ptOrg);
-  virtual ~TransitMark() {}
+  explicit TransitMark(m2::PointD const & ptOrg);
 
-  df::RenderState::DepthLayer GetDepthLayer() const override { return df::RenderState::TransitMarkLayer; }
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::TransitMarkLayer; }
 
   bool HasSymbolPriority() const override { return !m_symbolNames.empty() || !m_coloredSymbols.empty(); }
   bool HasTitlePriority() const override { return true; }

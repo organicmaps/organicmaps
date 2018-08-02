@@ -2,7 +2,7 @@
 
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/render_bucket.hpp"
@@ -157,10 +157,10 @@ using SubrouteConstPtr = std::shared_ptr<Subroute const>;
 
 struct RouteRenderProperty
 {
-  dp::GLState m_state;
+  dp::RenderState m_state;
   std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
   RouteRenderProperty()
-    : m_state(CreateGLState(gpu::Program::Route, RenderState::GeometryLayer))
+    : m_state(CreateRenderState(gpu::Program::Route, DepthLayer::GeometryLayer))
   {}
 };
 
@@ -226,7 +226,7 @@ private:
                                      m2::PointD const & pivot, float baseDepth,
                                      TMarkersGeometryBuffer & geometry);
 
-  static void BatchGeometry(dp::GLState const & state, ref_ptr<void> geometry, uint32_t geomSize,
+  static void BatchGeometry(dp::RenderState const & state, ref_ptr<void> geometry, uint32_t geomSize,
                             ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                             dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
 };

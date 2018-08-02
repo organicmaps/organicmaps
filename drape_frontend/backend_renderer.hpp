@@ -98,7 +98,7 @@ private:
   void ReleaseResources();
 
   void InitGLDependentResource();
-  void FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer);
+  void FlushGeometry(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && buffer);
 
   void FlushTransitRenderData(TransitRenderData && renderData);
   void FlushTrafficRenderData(TrafficRenderData && renderData);

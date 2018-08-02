@@ -34,7 +34,7 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : m_state(CreateGLState(gpu::Program::Arrow3d, RenderState::OverlayLayer))
+  : m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
   m_vertices = {

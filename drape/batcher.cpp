@@ -16,7 +16,7 @@ namespace dp
 class Batcher::CallbacksWrapper : public BatchCallbacks
 {
 public:
-  CallbacksWrapper(GLState const & state, ref_ptr<OverlayHandle> overlay, ref_ptr<Batcher> batcher)
+  CallbacksWrapper(RenderState const & state, ref_ptr<OverlayHandle> overlay, ref_ptr<Batcher> batcher)
     : m_state(state)
     , m_overlay(overlay)
     , m_batcher(batcher)
@@ -79,7 +79,7 @@ public:
     m_batcher->ChangeBuffer(make_ref(this));
   }
 
-  GLState const & GetState() const
+  RenderState const & GetState() const
   {
     return m_state;
   }
@@ -95,7 +95,7 @@ public:
   }
 
 private:
-  GLState const & m_state;
+  RenderState const & m_state;
   ref_ptr<OverlayHandle> m_overlay;
   ref_ptr<Batcher> m_batcher;
   ref_ptr<VertexArrayBuffer> m_buffer;
@@ -114,69 +114,69 @@ Batcher::~Batcher()
   m_buckets.clear();
 }
 
-void Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params)
 {
   InsertTriangleList(state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertTriangleList(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params,
                                          drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<TriangleListBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
-void Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params)
 {
   InsertTriangleStrip(state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertTriangleStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                           drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<TriangleStripBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
-void Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params)
 {
   InsertTriangleFan(state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertTriangleFan(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params,
                                         drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<TriangleFanBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
-void Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+void Batcher::InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                 uint8_t vertexStride)
 {
   InsertListOfStrip(state, params, nullptr, vertexStride);
 }
 
-IndicesRange Batcher::InsertListOfStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                         drape_ptr<OverlayHandle> && handle, uint8_t vertexStride)
 {
   return InsertPrimitives<TriangleListOfStripBatch>(state, params, move(handle), vertexStride);
 }
 
-void Batcher::InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params)
+void Batcher::InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params)
 {
   InsertLineStrip(state, params, nullptr);
 }
 
-IndicesRange Batcher::InsertLineStrip(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
                                       drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<LineStripBatch>(state, params, move(handle), 0 /* vertexStride */);
 }
 
-void Batcher::InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+void Batcher::InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
                             vector<int> const & indices)
 {
   InsertLineRaw(state, params, indices, nullptr);
 }
 
-IndicesRange Batcher::InsertLineRaw(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
                                     vector<int> const & indices, drape_ptr<OverlayHandle> && handle)
 {
   return InsertPrimitives<LineRawBatch>(state, params, move(handle), 0 /* vertexStride */, indices);
@@ -209,14 +209,14 @@ void Batcher::SetFeatureMinZoom(int minZoom)
 
 void Batcher::ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper)
 {
-  GLState const & state = wrapper->GetState();
+  RenderState const & state = wrapper->GetState();
   FinalizeBucket(state);
 
   ref_ptr<RenderBucket> bucket = GetBucket(state);
   wrapper->SetVAO(bucket->GetBuffer());
 }
 
-ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
+ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
 {
   TBuckets::iterator it = m_buckets.find(state);
   if (it != m_buckets.end())
@@ -232,7 +232,7 @@ ref_ptr<RenderBucket> Batcher::GetBucket(GLState const & state)
   return result;
 }
 
-void Batcher::FinalizeBucket(GLState const & state)
+void Batcher::FinalizeBucket(RenderState const & state)
 {
   TBuckets::iterator it = m_buckets.find(state);
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
@@ -257,7 +257,7 @@ void Batcher::Flush()
 }
 
 template <typename TBatcher, typename ... TArgs>
-IndicesRange Batcher::InsertPrimitives(GLState const & state, ref_ptr<AttributeProvider> params,
+IndicesRange Batcher::InsertPrimitives(RenderState const & state, ref_ptr<AttributeProvider> params,
                                        drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
                                        TArgs ... batcherArgs)
 {

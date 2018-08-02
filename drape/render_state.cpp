@@ -1,4 +1,4 @@
-#include "drape/glstate.hpp"
+#include "drape/render_state.hpp"
 #include "drape/glfunctions.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -33,60 +33,60 @@ bool Blending::operator<(Blending const & other) const { return m_isEnabled < ot
 
 bool Blending::operator==(Blending const & other) const { return m_isEnabled == other.m_isEnabled; }
 
-glConst GLState::GetDepthFunction() const
+glConst RenderState::GetDepthFunction() const
 {
   return m_depthFunction;
 }
 
-void GLState::SetDepthFunction(glConst functionName)
+void RenderState::SetDepthFunction(glConst functionName)
 {
   m_depthFunction = functionName;
 }
 
-bool GLState::GetDepthTestEnabled() const
+bool RenderState::GetDepthTestEnabled() const
 {
   return m_depthTestEnabled;
 }
 
-void GLState::SetDepthTestEnabled(bool enabled)
+void RenderState::SetDepthTestEnabled(bool enabled)
 {
   m_depthTestEnabled = enabled;
 }
 
-glConst GLState::GetTextureFilter() const
+glConst RenderState::GetTextureFilter() const
 {
   return m_textureFilter;
 }
 
-void GLState::SetTextureFilter(glConst filter)
+void RenderState::SetTextureFilter(glConst filter)
 {
   m_textureFilter = filter;
 }
 
-bool GLState::GetDrawAsLine() const
+bool RenderState::GetDrawAsLine() const
 {
   return m_drawAsLine;
 }
 
-void GLState::SetDrawAsLine(bool drawAsLine)
+void RenderState::SetDrawAsLine(bool drawAsLine)
 {
   m_drawAsLine = drawAsLine;
 }
 
-int GLState::GetLineWidth() const
+int RenderState::GetLineWidth() const
 {
   return m_lineWidth;
 }
 
-void GLState::SetLineWidth(int width)
+void RenderState::SetLineWidth(int width)
 {
   m_lineWidth = width;
 }
 
-bool GLState::operator<(GLState const & other) const
+bool RenderState::operator<(RenderState const & other) const
 {
-  if (!m_renderState->Equal(other.m_renderState))
-    return m_renderState->Less(other.m_renderState);
+  if (!m_renderStateExtension->Equal(other.m_renderStateExtension))
+    return m_renderStateExtension->Less(other.m_renderStateExtension);
   if (!(m_blending == other.m_blending))
     return m_blending < other.m_blending;
   if (m_gpuProgram != other.m_gpuProgram)
@@ -107,9 +107,9 @@ bool GLState::operator<(GLState const & other) const
   return m_lineWidth < other.m_lineWidth;
 }
 
-bool GLState::operator==(GLState const & other) const
+bool RenderState::operator==(RenderState const & other) const
 {
-  return m_renderState->Equal(other.m_renderState) &&
+  return m_renderStateExtension->Equal(other.m_renderStateExtension) &&
          m_gpuProgram == other.m_gpuProgram &&
          m_gpuProgram3d == other.m_gpuProgram3d &&
          m_blending == other.m_blending &&
@@ -121,14 +121,14 @@ bool GLState::operator==(GLState const & other) const
          m_lineWidth == other.m_lineWidth;
 }
 
-bool GLState::operator!=(GLState const & other) const
+bool RenderState::operator!=(RenderState const & other) const
 {
   return !operator==(other);
 }
 
 uint8_t TextureState::m_usedSlots = 0;
 
-void TextureState::ApplyTextures(GLState const & state, ref_ptr<GpuProgram> program)
+void TextureState::ApplyTextures(RenderState const & state, ref_ptr<GpuProgram> program)
 {
   m_usedSlots = 0;
 
@@ -160,12 +160,12 @@ uint8_t TextureState::GetLastUsedSlots()
   return m_usedSlots;
 }
 
-void ApplyBlending(GLState const & state)
+void ApplyBlending(RenderState const & state)
 {
   state.GetBlending().Apply();
 }
 
-void ApplyState(GLState const & state, ref_ptr<GpuProgram> program)
+void ApplyState(RenderState const & state, ref_ptr<GpuProgram> program)
 {
   TextureState::ApplyTextures(state, program);
   ApplyBlending(state);

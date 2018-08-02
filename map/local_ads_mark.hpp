@@ -19,10 +19,9 @@ struct LocalAdsMarkData
 class LocalAdsMark : public UserMark
 {
 public:
-  LocalAdsMark(m2::PointD const & ptOrg);
-  virtual ~LocalAdsMark() {}
+  explicit LocalAdsMark(m2::PointD const & ptOrg);
 
-  df::RenderState::DepthLayer GetDepthLayer() const override;
+  df::DepthLayer GetDepthLayer() const override;
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 

@@ -55,7 +55,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
     auto property = make_unique_dp<DrapeApiRenderProperty>();
     property->m_center = rect.Center();
     {
-      dp::SessionGuard guard(batcher, [&property, id](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+      dp::SessionGuard guard(batcher, [&property, id](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
       {
         property->m_id = id;
         property->m_buckets.push_back(make_pair(state, move(b)));

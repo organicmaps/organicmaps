@@ -53,8 +53,6 @@ set(
   ${DRAPE_ROOT}/glIncludes.hpp
   ${DRAPE_ROOT}/glsl_func.hpp
   ${DRAPE_ROOT}/glsl_types.hpp
-  ${DRAPE_ROOT}/glstate.cpp
-  ${DRAPE_ROOT}/glstate.hpp
   ${DRAPE_ROOT}/glyph_generator.cpp
   ${DRAPE_ROOT}/glyph_generator.hpp
   ${DRAPE_ROOT}/glyph_manager.cpp
@@ -85,6 +83,8 @@ set(
   ${DRAPE_ROOT}/pointers.hpp
   ${DRAPE_ROOT}/render_bucket.cpp
   ${DRAPE_ROOT}/render_bucket.hpp
+  ${DRAPE_ROOT}/render_state.cpp
+  ${DRAPE_ROOT}/render_state.hpp
   ${DRAPE_ROOT}/shader.cpp
   ${DRAPE_ROOT}/shader.hpp
   ${DRAPE_ROOT}/static_texture.cpp

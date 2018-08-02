@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/binding_info.hpp"
@@ -19,7 +19,7 @@ public:
   virtual ~ILineShapeInfo() {}
 
   virtual dp::BindingInfo const & GetBindingInfo() = 0;
-  virtual dp::GLState GetState() = 0;
+  virtual dp::RenderState GetState() = 0;
 
   virtual ref_ptr<void> GetLineData() = 0;
   virtual uint32_t GetLineSize() = 0;
@@ -28,7 +28,7 @@ public:
   virtual uint32_t GetJoinSize() = 0;
 
   virtual dp::BindingInfo const & GetCapBindingInfo() = 0;
-  virtual dp::GLState GetCapState() = 0;
+  virtual dp::RenderState GetCapState() = 0;
   virtual ref_ptr<void> GetCapData() = 0;
   virtual uint32_t GetCapSize() = 0;
 };

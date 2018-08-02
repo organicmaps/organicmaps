@@ -33,7 +33,7 @@ struct UserMarkRenderParams
   uint32_t m_index = 0;
   bool m_depthTestEnabled = true;
   float m_depth = 0.0;
-  RenderState::DepthLayer m_depthLayer = RenderState::UserMarkLayer;
+  DepthLayer m_depthLayer = DepthLayer::UserMarkLayer;
   bool m_hasCreationAnimation = false;
   bool m_justCreated = false;
   bool m_isVisible = true;
@@ -57,7 +57,7 @@ struct LineLayer
 struct UserLineRenderParams
 {
   int m_minZoom = 1;
-  RenderState::DepthLayer m_depthLayer = RenderState::UserLineLayer;
+  DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
   m2::SharedSpline m_spline;
 };
@@ -67,13 +67,13 @@ using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<User
 
 struct UserMarkRenderData
 {
-  UserMarkRenderData(dp::GLState const & state,
+  UserMarkRenderData(dp::RenderState const & state,
                      drape_ptr<dp::RenderBucket> && bucket,
                      TileKey const & tileKey)
     : m_state(state), m_bucket(move(bucket)), m_tileKey(tileKey)
   {}
 
-  dp::GLState m_state;
+  dp::RenderState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   TileKey m_tileKey;
 };

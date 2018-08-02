@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape_frontend/drape_api.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/render_bucket.hpp"
 #include "drape/texture_manager.hpp"
@@ -17,7 +17,7 @@ struct DrapeApiRenderProperty
 {
   string m_id;
   m2::PointD m_center;
-  vector<pair<dp::GLState, drape_ptr<dp::RenderBucket>>> m_buckets;
+  vector<pair<dp::RenderState, drape_ptr<dp::RenderBucket>>> m_buckets;
 };
 
 class DrapeApiBuilder

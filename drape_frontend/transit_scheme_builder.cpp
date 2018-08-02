@@ -4,7 +4,7 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -123,7 +123,7 @@ void GenerateLineCaps(std::vector<SchemeSegment> const & segments, glsl::vec4 co
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
-  auto state = CreateGLState(gpu::Program::TransitCircle, RenderState::TransitSchemeLayer);
+  auto state = CreateRenderState(gpu::Program::TransitCircle, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
 }
 
@@ -540,7 +540,7 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
-    dp::SessionGuard guard(batcher, [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       TransitRenderData::Type type = TransitRenderData::Type::Lines;
       if (state.GetProgram<gpu::Program>() == gpu::Program::TransitCircle)
@@ -587,7 +587,7 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
-  auto const flusher = [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+  auto const flusher = [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
   {
     TransitRenderData::Type type = TransitRenderData::Type::Stubs;
     if (state.GetProgram<gpu::Program>() == gpu::Program::TransitMarker)
@@ -730,7 +730,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_titleDecl.m_primaryText = title.m_text;
     textParams.m_titleDecl.m_anchor = title.m_anchor;
     textParams.m_depthTestEnabled = false;
-    textParams.m_depthLayer = RenderState::TransitSchemeLayer;
+    textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
     textParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
     textParams.m_specialPriority = priority;
     textParams.m_startOverlayRank = dp::OverlayRank0;
@@ -746,7 +746,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
   colorParams.m_featureID = featureId;
   colorParams.m_tileCenter = pivot;
   colorParams.m_depthTestEnabled = false;
-  colorParams.m_depthLayer = RenderState::TransitSchemeLayer;
+  colorParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
   colorParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
@@ -787,7 +787,7 @@ void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widt
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
-  auto state = CreateGLState(gpu::Program::TransitMarker, RenderState::TransitSchemeLayer);
+  auto state = CreateRenderState(gpu::Program::TransitMarker, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
 }
 
@@ -833,7 +833,7 @@ void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
-  auto state = CreateGLState(gpu::Program::Transit, RenderState::TransitSchemeLayer);
+  auto state = CreateRenderState(gpu::Program::Transit, DepthLayer::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
 
   GenerateLineCaps(segments, color, lineOffset, halfWidth, depth, batcher);

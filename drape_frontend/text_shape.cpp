@@ -1,5 +1,5 @@
 #include "drape_frontend/text_shape.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -315,7 +315,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   layout.CacheStaticGeometry(color, staticBuffer);
 
   bool const isNonSdfText = layout.GetFixedHeight() > 0;
-  auto state = CreateGLState(isNonSdfText ? gpu::Program::TextFixed : gpu::Program::Text, m_params.m_depthLayer);
+  auto state = CreateRenderState(isNonSdfText ? gpu::Program::TextFixed : gpu::Program::Text, m_params.m_depthLayer);
   state.SetProgram3d(isNonSdfText ? gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
 
@@ -381,7 +381,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
   layout.CacheStaticGeometry(color, outline, staticBuffer);
 
-  auto state = CreateGLState(gpu::Program::TextOutlined, m_params.m_depthLayer);
+  auto state = CreateRenderState(gpu::Program::TextOutlined, m_params.m_depthLayer);
   state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());

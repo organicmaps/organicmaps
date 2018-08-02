@@ -44,9 +44,9 @@ dp::Anchor RouteMarkPoint::GetAnchor() const
   return dp::Center;
 }
 
-df::RenderState::DepthLayer RouteMarkPoint::GetDepthLayer() const
+df::DepthLayer RouteMarkPoint::GetDepthLayer() const
 {
-  return df::RenderState::RoutingMarkLayer;
+  return df::DepthLayer::RoutingMarkLayer;
 }
 
 void RouteMarkPoint::SetRoutePointType(RouteMarkType type)

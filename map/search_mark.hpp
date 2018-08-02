@@ -39,7 +39,7 @@ public:
   df::ColorConstant GetColorConstant() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
   int GetMinTitleZoom() const override;
-  df::RenderState::DepthLayer GetDepthLayer() const override;
+  df::DepthLayer GetDepthLayer() const override;
   drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }

@@ -154,8 +154,8 @@ set(
   render_group.cpp
   render_group.hpp
   render_node.hpp
-  render_state.cpp
-  render_state.hpp
+  render_state_extension.cpp
+  render_state_extension.hpp
   requested_tiles.cpp
   requested_tiles.hpp
   route_builder.cpp

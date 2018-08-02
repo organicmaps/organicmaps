@@ -3,7 +3,7 @@
 #include "drape_frontend/arrow3d.hpp"
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_node.hpp"
-#include "drape_frontend/render_state.hpp"
+#include "drape_frontend/render_state_extension.hpp"
 
 #include "shaders/program_manager.hpp"
 
@@ -55,7 +55,7 @@ private:
                   EMyPositionPart part);
 
   void CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
-                   dp::GLState const & state, dp::Batcher & batcher,
+                   dp::RenderState const & state, dp::Batcher & batcher,
                    EMyPositionPart part);
 
   m2::PointF m_position;
