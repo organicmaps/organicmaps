@@ -3220,13 +3220,13 @@ void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
   vector<uint32_t> featureIds;
   GetCityBoundariesInRectForTesting(table, rect, featureIds);
 
+  FeaturesLoaderGuard loader(GetDataSource(), GetDataSource().GetMwmIdByCountryFile(CountryFile("World")));
   for (auto const fid : featureIds)
   {
     search::CitiesBoundariesTable::Boundaries boundaries;
     table.Get(fid, boundaries);
 
     string id = "fid:" + strings::to_string(fid);
-    FeaturesLoaderGuard loader(GetDataSource(), GetDataSource().GetMwmIdByCountryFile(CountryFile("World")));
     FeatureType ft;
     if (loader.GetFeatureByIndex(fid, ft))
     {
