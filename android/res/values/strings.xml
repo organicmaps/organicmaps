@@ -1401,6 +1401,7 @@
 	<string name="bookmarks_downloaded_subtitle">Press ‘View on map’ to explore new places from the list</string>
 
 	<!-- SECTION:  Partners  -->
+	<string name="sponsored_partner1_action">Outlets</string>
 	<string name="sponsored_partner3_action">Coupon</string>
 	<string name="sponsored_partner4_action">Store</string>
 	<string name="sponsored_partner6_action">Store</string>

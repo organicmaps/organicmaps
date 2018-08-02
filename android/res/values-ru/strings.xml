@@ -1396,6 +1396,7 @@
 	<string name="bookmarks_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка</string>
 
 	<!-- SECTION:  Partners  -->
+	<string name="sponsored_partner1_action">Аутлеты</string>
 	<string name="sponsored_partner3_action">Купон</string>
 	<string name="sponsored_partner4_action">Магазин</string>
 	<string name="sponsored_partner6_action">Магазин</string>
