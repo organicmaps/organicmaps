@@ -143,7 +143,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  DiscoveryFragment.DiscoveryListener,
                                  FloatingSearchToolbarController.SearchToolbarListener,
                                  OnTrafficLayerToggleListener,
-                                 OnSubwayLayerToggleListener
+                                 OnSubwayLayerToggleListener,
+                                 BookmarkManager.BookmarksCatalogListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -230,18 +231,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
-
-  @Override
-  public void onSubwayLayerSelected()
-  {
-    mToggleMapLayerController.toggleMode(Mode.SUBWAY);
-  }
-
-  @Override
-  public void onTrafficLayerSelected()
-  {
-    mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
-  }
 
   public interface LeftAnimationTrackListener
   {
@@ -1052,15 +1041,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
           showTabletSearch(data, getString(R.string.hotel));
           return;
         }
-        onFilterResultReceived(data);
+        handleFilterResult(data);
         break;
       case BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY:
-        onBookmarkCategoriesResult(data);
+        handleDownloadedCategoryResult(data);
         break;
     }
   }
 
-  private void onBookmarkCategoriesResult(@NonNull Intent data)
+  private void handleDownloadedCategoryResult(@NonNull Intent data)
   {
     BookmarkCategory category = data.getParcelableExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY);
     if (category == null)
@@ -1097,12 +1086,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
 
       case DiscoveryActivity.ACTION_SHOW_FILTER_RESULTS:
-        onFilterResultReceived(data);
+        handleFilterResult(data);
         break;
     }
   }
 
-  private void onFilterResultReceived(@Nullable Intent data)
+  private void handleFilterResult(@Nullable Intent data)
   {
     if (data == null || mFilterController == null)
       return;
@@ -1179,6 +1168,30 @@ public class MwmActivity extends BaseMwmFragmentActivity
     PermissionsResult result = PermissionsUtils.computePermissionsResult(permissions, grantResults);
     if (result.isLocationGranted())
       myPositionClick();
+  }
+
+  @Override
+  public void onSubwayLayerSelected()
+  {
+    mToggleMapLayerController.toggleMode(Mode.SUBWAY);
+  }
+
+  @Override
+  public void onTrafficLayerSelected()
+  {
+    mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
+  }
+
+  @Override
+  public void onImportStarted(@NonNull String serverId)
+  {
+    // Do nothing by default.
+  }
+
+  @Override
+  public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
+  {
+    Toast.makeText(this, R.string.bookmarks_downloaded_title, Toast.LENGTH_LONG).show();
   }
 
   @Override
@@ -1320,6 +1333,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     SearchEngine.INSTANCE.addListener(this);
     Framework.nativeSetMapObjectListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
+    BookmarkManager.INSTANCE.addCatalogListener(this);
     RoutingController.get().attach(this);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1336,6 +1350,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     SearchEngine.INSTANCE.removeListener(this);
     Framework.nativeRemoveMapObjectListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
+    BookmarkManager.INSTANCE.removeCatalogListener(this);
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();

@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -25,6 +26,11 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
     intent.putExtras(args);
     context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
+  }
+
+  public static void start(@NonNull Context context, int initialPage)
+  {
+    context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
   }
 
   @CallSuper
