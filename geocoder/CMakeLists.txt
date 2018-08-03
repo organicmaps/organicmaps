@@ -16,4 +16,5 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
+add_subdirectory(geocoder_cli)
 omim_add_test_subdirectory(geocoder_tests)

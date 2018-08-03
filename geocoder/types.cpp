@@ -10,14 +10,14 @@ string ToString(Type type)
 {
   switch (type)
   {
-  case Type::Country: return "country"; break;
-  case Type::Region: return "region"; break;
-  case Type::Subregion: return "subregion"; break;
-  case Type::Locality: return "locality"; break;
-  case Type::Sublocality: return "sublocality"; break;
-  case Type::Suburb: return "suburb"; break;
-  case Type::Building: return "building"; break;
-  case Type::Count: return "count"; break;
+  case Type::Country: return "country";
+  case Type::Region: return "region";
+  case Type::Subregion: return "subregion";
+  case Type::Locality: return "locality";
+  case Type::Sublocality: return "sublocality";
+  case Type::Suburb: return "suburb";
+  case Type::Building: return "building";
+  case Type::Count: return "count";
   }
   CHECK_SWITCH();
 }

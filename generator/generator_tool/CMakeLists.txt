@@ -1,6 +1,6 @@
 project(generator_tool)
 
-include_directories(${OMIM_PATH}/3party/gflags/src)
+include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(SRC generator_tool.cpp)
 

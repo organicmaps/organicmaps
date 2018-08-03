@@ -22,6 +22,9 @@ class Hierarchy
 public:
   struct ParsingStats
   {
+    // Number of entries that the hierarchy was constructed from.
+    uint64_t m_numLoaded = 0;
+
     // Number of corrupted json lines.
     uint64_t m_badJsons = 0;
 

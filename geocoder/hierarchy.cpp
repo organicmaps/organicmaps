@@ -118,12 +118,14 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     // todo(@m) Index it by name too.
     if (entry.m_type != Type::Count)
     {
+      ++stats.m_numLoaded;
       size_t const t = static_cast<size_t>(entry.m_type);
       m_entries[entry.m_address[t]].emplace_back(entry);
     }
   }
 
   LOG(LINFO, ("Finished reading the hierarchy. Stats:"));
+  LOG(LINFO, ("Entries indexed:", stats.m_numLoaded));
   LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
   LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
   LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
