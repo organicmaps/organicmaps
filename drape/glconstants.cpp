@@ -166,8 +166,8 @@ const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
 const glConst GLWrapS               = GL_TEXTURE_WRAP_S;
 const glConst GLWrapT               = GL_TEXTURE_WRAP_T;
 
-const glConst GLRepeate             = GL_REPEAT;
-const glConst GLMirroredRepeate     = GL_MIRRORED_REPEAT;
+const glConst GLRepeat              = GL_REPEAT;
+const glConst GLMirroredRepeat      = GL_MIRRORED_REPEAT;
 const glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
 
 const glConst GLLinear              = GL_LINEAR;
@@ -204,10 +204,10 @@ const glConst GLSrcColor            = GL_SRC_COLOR;
 const glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
 const glConst GLDstColor            = GL_DST_COLOR;
 const glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
-const glConst GLSrcAlfa             = GL_SRC_ALPHA;
-const glConst GLOneMinusSrcAlfa     = GL_ONE_MINUS_SRC_ALPHA;
-const glConst GLDstAlfa             = GL_DST_ALPHA;
-const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
+const glConst GLSrcAlpha            = GL_SRC_ALPHA;
+const glConst GLOneMinusSrcAlpha    = GL_ONE_MINUS_SRC_ALPHA;
+const glConst GLDstAlpha            = GL_DST_ALPHA;
+const glConst GLOneMinusDstAlpha    = GL_ONE_MINUS_DST_ALPHA;
 
 const glConst GLDepthTest           = GL_DEPTH_TEST;
 const glConst GLBlending            = GL_BLEND;

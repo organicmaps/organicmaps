@@ -1,8 +1,8 @@
 #pragma once
 
-#include "glconstants.hpp"
-#include "pointers.hpp"
-#include "drape_global.hpp"
+#include "drape/glconstants.hpp"
+#include "drape/pointers.hpp"
+#include "drape/texture_types.hpp"
 
 #include <cstdint>
 
@@ -13,26 +13,17 @@ class HWTextureAllocator;
 class HWTexture
 {
 public:
-  HWTexture();
   virtual ~HWTexture();
 
   struct Params
   {
-    Params()
-      : m_filter(gl_const::GLLinear)
-      , m_wrapSMode(gl_const::GLClampToEdge)
-      , m_wrapTMode(gl_const::GLClampToEdge)
-      , m_format(UNSPECIFIED)
-      , m_usePixelBuffer(false)
-    {}
-
-    uint32_t m_width;
-    uint32_t m_height;
-    glConst m_filter;
-    glConst m_wrapSMode;
-    glConst m_wrapTMode;
-    TextureFormat m_format;
-    bool m_usePixelBuffer;
+    uint32_t m_width = 0;
+    uint32_t m_height = 0;
+    TextureFilter m_filter = TextureFilter::Linear;
+    TextureWrapping m_wrapSMode = TextureWrapping::ClampToEdge;
+    TextureWrapping m_wrapTMode = TextureWrapping::ClampToEdge;
+    TextureFormat m_format = TextureFormat::Unspecified;
+    bool m_usePixelBuffer = false;
 
     ref_ptr<HWTextureAllocator> m_allocator;
   };
@@ -45,7 +36,7 @@ public:
   void Bind() const;
 
   // Texture must be bound before calling this method.
-  void SetFilter(glConst filter);
+  void SetFilter(TextureFilter filter);
 
   TextureFormat GetFormat() const;
   uint32_t GetWidth() const;
@@ -56,22 +47,20 @@ public:
   uint32_t GetID() const;
 
 protected:
-  void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
-
-  uint32_t m_width;
-  uint32_t m_height;
-  TextureFormat m_format;
-  uint32_t m_textureID;
-  glConst m_filter;
-  uint32_t m_pixelBufferID;
-  uint32_t m_pixelBufferSize;
-  uint32_t m_pixelBufferElementSize;
+  uint32_t m_width = 0;
+  uint32_t m_height = 0;
+  TextureFormat m_format = TextureFormat::Unspecified;
+  uint32_t m_textureID = 0;
+  TextureFilter m_filter = TextureFilter::Linear;
+  uint32_t m_pixelBufferID = 0;
+  uint32_t m_pixelBufferSize = 0;
+  uint32_t m_pixelBufferElementSize = 0;
 };
 
 class HWTextureAllocator
 {
 public:
-  virtual ~HWTextureAllocator() {}
+  virtual ~HWTextureAllocator() = default;
 
   virtual drape_ptr<HWTexture> CreateTexture() = 0;
   virtual void Flush() = 0;
@@ -82,7 +71,7 @@ class OpenGLHWTexture : public HWTexture
   using TBase = HWTexture;
 
 public:
-  ~OpenGLHWTexture();
+  ~OpenGLHWTexture() override;
   void Create(Params const & params, ref_ptr<void> data) override;
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
                   ref_ptr<void> data) override;
@@ -97,4 +86,8 @@ public:
 
 ref_ptr<HWTextureAllocator> GetDefaultAllocator();
 drape_ptr<HWTextureAllocator> CreateAllocator();
+
+void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
+glConst DecodeTextureFilter(TextureFilter filter);
+glConst DecodeTextureWrapping(TextureWrapping wrapping);
 }  // namespace dp

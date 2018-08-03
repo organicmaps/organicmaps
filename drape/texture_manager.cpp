@@ -199,37 +199,37 @@ TextureManager::GlyphRegion::GlyphRegion()
 
 float TextureManager::GlyphRegion::GetOffsetX() const
 {
-  ASSERT(m_info->GetType() == Texture::Glyph, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_xOffset;
 }
 
 float TextureManager::GlyphRegion::GetOffsetY() const
 {
-  ASSERT(m_info->GetType() == Texture::Glyph, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yOffset;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceX() const
 {
-  ASSERT(m_info->GetType() == Texture::Glyph, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_xAdvance;
 }
 
 float TextureManager::GlyphRegion::GetAdvanceY() const
 {
-  ASSERT(m_info->GetType() == Texture::Glyph, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::Glyph, ());
   return ref_ptr<GlyphInfo>(m_info)->GetMetrics().m_yAdvance;
 }
 
 uint32_t TextureManager::StippleRegion::GetMaskPixelLength() const
 {
-  ASSERT(m_info->GetType() == Texture::StipplePen, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
   return ref_ptr<StipplePenResourceInfo>(m_info)->GetMaskPixelLength();
 }
 
 uint32_t TextureManager::StippleRegion::GetPatternPixelLength() const
 {
-  ASSERT(m_info->GetType() == Texture::StipplePen, ());
+  ASSERT(m_info->GetType() == Texture::ResourceType::StipplePen, ());
   return ref_ptr<StipplePenResourceInfo>(m_info)->GetPatternPixelLength();
 }
 
@@ -480,16 +480,16 @@ void TextureManager::Init(Params const & params)
 
   // Initialize static textures.
   m_trafficArrowTexture = make_unique_dp<StaticTexture>("traffic-arrow", m_resPostfix,
-                                                        dp::RGBA8, make_ref(m_textureAllocator));
+                                                        dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
   m_hatchingTexture = make_unique_dp<StaticTexture>("area-hatching", m_resPostfix,
-                                                    dp::RGBA8, make_ref(m_textureAllocator));
+                                                    dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
 
   if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
   {
     m_smaaAreaTexture = make_unique_dp<StaticTexture>("smaa-area", StaticTexture::kDefaultResource,
-                                                      dp::RED_GREEN, make_ref(m_textureAllocator));
+                                                      dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
     m_smaaSearchTexture = make_unique_dp<StaticTexture>("smaa-search", StaticTexture::kDefaultResource,
-                                                        dp::ALPHA, make_ref(m_textureAllocator));
+                                                        dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
   }
 
   // Initialize patterns.

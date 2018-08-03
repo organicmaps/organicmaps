@@ -17,6 +17,7 @@
 		4513BF0D1EC2F0760066565C /* viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4513BF091EC2F0760066565C /* viewport.cpp */; };
 		4513BF0E1EC2F0760066565C /* viewport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4513BF0A1EC2F0760066565C /* viewport.hpp */; };
 		45201E951CE605B1008A4842 /* constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45201E941CE605B1008A4842 /* constants.hpp */; };
+		45447109211462A300D28C28 /* texture_types.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45447108211462A300D28C28 /* texture_types.hpp */; };
 		457B536620358F7E00E4E752 /* drape_routine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536320358F7D00E4E752 /* drape_routine.hpp */; };
 		457B536720358F7E00E4E752 /* glyph_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 457B536420358F7D00E4E752 /* glyph_generator.cpp */; };
 		457B536820358F7E00E4E752 /* glyph_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 457B536520358F7E00E4E752 /* glyph_generator.hpp */; };
@@ -124,6 +125,7 @@
 		4513BF091EC2F0760066565C /* viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport.cpp; sourceTree = "<group>"; };
 		4513BF0A1EC2F0760066565C /* viewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport.hpp; sourceTree = "<group>"; };
 		45201E941CE605B1008A4842 /* constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constants.hpp; sourceTree = "<group>"; };
+		45447108211462A300D28C28 /* texture_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = texture_types.hpp; sourceTree = "<group>"; };
 		457B536320358F7D00E4E752 /* drape_routine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_routine.hpp; sourceTree = "<group>"; };
 		457B536420358F7D00E4E752 /* glyph_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = glyph_generator.cpp; sourceTree = "<group>"; };
 		457B536520358F7E00E4E752 /* glyph_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = glyph_generator.hpp; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				6729A5531A69213A007D5872 /* texture_manager.hpp */,
 				6729A5541A69213A007D5872 /* texture_of_colors.cpp */,
 				6729A5551A69213A007D5872 /* texture_of_colors.hpp */,
+				45447108211462A300D28C28 /* texture_types.hpp */,
 				6729A5561A69213A007D5872 /* texture.cpp */,
 				6729A5571A69213A007D5872 /* texture.hpp */,
 				6729A5581A69213A007D5872 /* uniform_value.cpp */,
@@ -391,6 +394,7 @@
 				45D7ADE22113535600160DE3 /* render_state.hpp in Headers */,
 				6729A5681A69213A007D5872 /* batcher_helpers.hpp in Headers */,
 				6729A56A1A69213A007D5872 /* batcher.hpp in Headers */,
+				45447109211462A300D28C28 /* texture_types.hpp in Headers */,
 				675D219A1BFB876E00717E4F /* projection.hpp in Headers */,
 				670947291BDF9A4F005014C0 /* hw_texture_ios.hpp in Headers */,
 				670947281BDF9A4F005014C0 /* glyph_manager.hpp in Headers */,

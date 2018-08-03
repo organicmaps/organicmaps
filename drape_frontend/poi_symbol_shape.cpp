@@ -71,7 +71,7 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
   state.SetProgram3d(gpu::Program::TexturingBillboard);
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
-  state.SetTextureFilter(gl_const::GLNearest);
+  state.SetTextureFilter(dp::TextureFilter::Nearest);
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes));
@@ -106,7 +106,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
   state.SetDepthTestEnabled(params.m_depthTestEnabled);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
-  state.SetTextureFilter(gl_const::GLNearest);
+  state.SetTextureFilter(dp::TextureFilter::Nearest);
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes));

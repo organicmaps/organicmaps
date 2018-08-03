@@ -22,7 +22,7 @@ class StipplePenKey : public Texture::Key
 public:
   StipplePenKey() = default;
   StipplePenKey(buffer_vector<uint8_t, 8> const & pattern) : m_pattern(pattern) {}
-  virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
+  virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
 
   buffer_vector<uint8_t, 8> m_pattern;
 };
@@ -72,7 +72,7 @@ public:
   {
   }
 
-  virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
+  virtual Texture::ResourceType GetType() const { return Texture::ResourceType::StipplePen; }
   uint32_t GetMaskPixelLength() const { return m_pixelLength; }
   uint32_t GetPatternPixelLength() const { return m_patternLength; }
 
@@ -118,18 +118,18 @@ private:
 
 std::string DebugPrint(StipplePenHandle const & key);
 
-class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen>
+class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>
 {
-  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TBase;
+  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen> TBase;
 public:
   StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
-    TBase::TextureParams params{size, TextureFormat::ALPHA, gl_const::GLNearest, false /* m_usePixelBuffer */};
+    TBase::TextureParams params{size, TextureFormat::Alpha, TextureFilter::Nearest, false /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_index), params);
   }
 
-  ~StipplePenTexture() { TBase::Reset(); }
+  ~StipplePenTexture() override { TBase::Reset(); }
 
   void ReservePattern(buffer_vector<uint8_t, 8> const & pattern);
 

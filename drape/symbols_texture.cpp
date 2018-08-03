@@ -16,10 +16,8 @@
 
 namespace dp
 {
-
 namespace
 {
-
 using TDefinitionInserter = function<void(string const &, m2::RectF const &)>;
 using TSymbolsLoadingCompletion = function<void(unsigned char *, uint32_t, uint32_t)>;
 using TSymbolsLoadingFailure = function<void(string const &)>;
@@ -32,10 +30,9 @@ public:
     , m_convertToUV(convertToUV)
     , m_width(0)
     , m_height(0)
-  {
-  }
+  {}
 
-  bool Push(string const & /*element*/) { return true;}
+  bool Push(string const & /*element*/) { return true; }
 
   void Pop(string const & element)
   {
@@ -171,17 +168,15 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
 
   stbi_image_free(data);
 }
-
-}
+}  // namespace
 
 SymbolsTexture::SymbolKey::SymbolKey(string const & symbolName)
   : m_symbolName(symbolName)
-{
-}
+{}
 
 Texture::ResourceType SymbolsTexture::SymbolKey::GetType() const
 {
-  return Texture::Symbol;
+  return Texture::ResourceType::Symbol;
 }
 
 string const & SymbolsTexture::SymbolKey::GetSymbolName() const
@@ -191,12 +186,11 @@ string const & SymbolsTexture::SymbolKey::GetSymbolName() const
 
 SymbolsTexture::SymbolInfo::SymbolInfo(const m2::RectF & texRect)
   : ResourceInfo(texRect)
-{
-}
+{}
 
 Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
 {
-  return Symbol;
+  return Texture::ResourceType::Symbol;
 }
 
 SymbolsTexture::SymbolsTexture(std::string const & skinPathName, std::string const & textureName,
@@ -217,7 +211,7 @@ void SymbolsTexture::Load(std::string const & skinPathName, ref_ptr<HWTextureAll
   {
     Texture::Params p;
     p.m_allocator = allocator;
-    p.m_format = dp::RGBA8;
+    p.m_format = dp::TextureFormat::RGBA8;
     p.m_width = width;
     p.m_height = height;
 
@@ -245,12 +239,12 @@ void SymbolsTexture::Invalidate(string const & skinPathName, ref_ptr<HWTextureAl
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
 {
   newResource = false;
-  if (key.GetType() != Texture::Symbol)
+  if (key.GetType() != Texture::ResourceType::Symbol)
     return nullptr;
 
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
-  TSymDefinition::iterator it = m_definition.find(symbolName);
+  auto it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), (symbolName));
   return make_ref(&it->second);
 }
@@ -261,7 +255,7 @@ void SymbolsTexture::Fail()
   int32_t alfaTexture = 0;
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::RGBA8;
+  p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = 1;
   p.m_height = 1;
 
@@ -305,5 +299,4 @@ bool SymbolsTexture::DecodeToMemory(std::string const & skinPathName, std::strin
               definitionInserter, completionHandler, failureHandler);
   return result;
 }
-
-} // namespace dp
+}  // namespace dp

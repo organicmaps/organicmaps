@@ -120,7 +120,7 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const 
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(texture);
   state.SetMaskTexture(hatchingTexture);
-  state.SetTextureFilter(gl_const::GLLinear);
+  state.SetTextureFilter(dp::TextureFilter::Linear);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));

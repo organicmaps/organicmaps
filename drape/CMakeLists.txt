@@ -101,6 +101,7 @@ set(
   ${DRAPE_ROOT}/texture_manager.hpp
   ${DRAPE_ROOT}/texture_of_colors.cpp
   ${DRAPE_ROOT}/texture_of_colors.hpp
+  ${DRAPE_ROOT}/texture_types.hpp
   ${DRAPE_ROOT}/uniform_value.cpp
   ${DRAPE_ROOT}/uniform_value.hpp
   ${DRAPE_ROOT}/utils/glyph_usage_tracker.cpp

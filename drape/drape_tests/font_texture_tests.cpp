@@ -103,7 +103,7 @@ UNIT_TEST(UploadingGlyphs)
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::ALPHA;
+  p.m_format = dp::TextureFormat::Alpha;
   p.m_width = p.m_height = 128;
 
   DummyTexture tex;

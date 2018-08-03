@@ -3,55 +3,42 @@
 #include "drape/drape_tests/memory_comparer.hpp"
 #include "drape/drape_tests/dummy_texture.hpp"
 
-#include "drape/glconstants.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture.hpp"
 
-
-#include "drape/drape_tests/glmock_functions.hpp"
-
-#include <gmock/gmock.h>
-
-using testing::_;
-using testing::Return;
-using testing::InSequence;
-using testing::Invoke;
-using testing::IgnoreResult;
-using testing::AnyOf;
 using namespace dp;
 
 namespace
 {
-  void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & expect)
-  {
-    m2::RectU rect = packer.PackResource(width);
-    TEST_EQUAL(rect, expect, ());
-  }
-
-  bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
-  {
-    return my::AlmostEqualULPs(r1.minX(), r2.minX()) &&
-           my::AlmostEqualULPs(r1.minY(), r2.minY()) &&
-           my::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
-           my::AlmostEqualULPs(r1.maxY(), r2.maxY());
-  }
-
-  class DummyStipplePenIndex : public StipplePenIndex
-  {
-    typedef StipplePenIndex TBase;
-  public:
-    DummyStipplePenIndex(m2::PointU const & size)
-      : TBase(size)
-    {
-    }
-
-    ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
-    {
-      bool dummy = false;
-      return TBase::MapResource(key, dummy);
-    }
-  };
+void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & expect)
+{
+  m2::RectU rect = packer.PackResource(width);
+  TEST_EQUAL(rect, expect, ());
 }
+
+bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
+{
+  return my::AlmostEqualULPs(r1.minX(), r2.minX()) &&
+         my::AlmostEqualULPs(r1.minY(), r2.minY()) &&
+         my::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
+         my::AlmostEqualULPs(r1.maxY(), r2.maxY());
+}
+
+class DummyStipplePenIndex : public StipplePenIndex
+{
+  using Base = StipplePenIndex;
+public:
+  explicit DummyStipplePenIndex(m2::PointU const & size)
+    : Base(size)
+  {}
+
+  ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key)
+  {
+    bool dummy = false;
+    return Base::MapResource(key, dummy);
+  }
+};
+}  // namespace
 
 UNIT_TEST(SimpleStipplePackTest)
 {

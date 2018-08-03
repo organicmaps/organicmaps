@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape/texture.hpp"
-#include "drape/glconstants.hpp"
 
 #include <atomic>
 #include <vector>
@@ -78,7 +77,7 @@ public:
       Texture::Bind();
   }
 
-  void SetFilter(glConst filter) override
+  void SetFilter(TextureFilter filter) override
   {
     if (m_isInitialized)
       Texture::SetFilter(filter);
@@ -93,7 +92,7 @@ protected:
   {
     m2::PointU m_size;
     dp::TextureFormat m_format;
-    glConst m_filter;
+    TextureFilter m_filter;
     bool m_usePixelBuffer;
   };
 

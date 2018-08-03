@@ -324,7 +324,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   state.SetMaskTexture(layout.GetMaskTexture());
 
   if (isNonSdfText)
-    state.SetTextureFilter(gl_const::GLNearest);
+    state.SetTextureFilter(dp::TextureFilter::Nearest);
 
   gpu::TTextDynamicVertexBuffer initialDynBuffer(dynamicBuffer.size());
 

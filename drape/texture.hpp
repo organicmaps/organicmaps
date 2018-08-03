@@ -1,9 +1,8 @@
 #pragma once
 
-#include "drape/drape_global.hpp"
-#include "drape/glconstants.hpp"
 #include "drape/hw_texture.hpp"
 #include "drape/pointers.hpp"
+#include "drape/texture_types.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -17,7 +16,7 @@ namespace dp
 class Texture
 {
 public:
-  enum ResourceType
+  enum class ResourceType : uint8_t
   {
     Symbol,
     Glyph,
@@ -29,15 +28,15 @@ public:
   class Key
   {
   public:
-    virtual ~Key() {}
+    virtual ~Key() = default;
     virtual ResourceType GetType() const = 0;
   };
 
   class ResourceInfo
   {
   public:
-    ResourceInfo(m2::RectF const & texRect);
-    virtual ~ResourceInfo() {}
+    explicit ResourceInfo(m2::RectF const & texRect);
+    virtual ~ResourceInfo() = default;
     virtual ResourceType GetType() const = 0;
     m2::RectF const & GetTexRect() const;
 
@@ -50,7 +49,7 @@ public:
 
   virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
   virtual void UpdateState() {}
-  virtual bool HasEnoughSpace(uint32_t /*newKeysCount*/) const { return true; }
+  virtual bool HasEnoughSpace(uint32_t /* newKeysCount */) const { return true; }
   using Params = HWTexture::Params;
 
   virtual TextureFormat GetFormat() const;
@@ -63,7 +62,7 @@ public:
   virtual void Bind() const;
 
   // Texture must be bound before calling this method.
-  virtual void SetFilter(glConst filter);
+  virtual void SetFilter(TextureFilter filter);
 
   void Create(Params const & params);
   void Create(Params const & params, ref_ptr<void> data);

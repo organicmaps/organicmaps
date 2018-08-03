@@ -66,9 +66,9 @@ UNIT_TEST(ColorPalleteMappingTests)
 {
   DummyColorPallete cp(m2::PointU(32, 16));
 
-  ref_ptr<Texture::ResourceInfo> info1 = cp.MapResource(dp::Color(0, 0, 0, 0));
-  ref_ptr<Texture::ResourceInfo> info2 = cp.MapResource(dp::Color(1, 1, 1, 1));
-  ref_ptr<Texture::ResourceInfo> info3 = cp.MapResource(dp::Color(0, 0, 0, 0));
+  ref_ptr<Texture::ResourceInfo> info1 = cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0, 0)));
+  ref_ptr<Texture::ResourceInfo> info2 = cp.MapResource(dp::ColorKey(dp::Color(1, 1, 1, 1)));
+  ref_ptr<Texture::ResourceInfo> info3 = cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0, 0)));
 
   TEST_NOT_EQUAL(info1, info2, ());
   TEST_EQUAL(info1, info3, ());
@@ -81,10 +81,10 @@ UNIT_TEST(ColorPalleteMappingTests)
                                            1.0f / 32.0f, 1.0f / 16));
 
   for (int i = 2; i < 100; ++i)
-    cp.MapResource(dp::Color(i, i, i, i));
+    cp.MapResource(dp::ColorKey(dp::Color(i, i, i, i)));
 
-  TestRects(cp.MapResource(dp::Color(54, 54, 54, 54))->GetTexRect(), m2::RectF(13.0f / 32.0f, 7.0f / 16.0f,
-                                                                               13.0f / 32.0f, 7.0f / 16.0f));
+  TestRects(cp.MapResource(dp::ColorKey(dp::Color(54, 54, 54, 54)))->GetTexRect(),
+                           m2::RectF(13.0f / 32.0f, 7.0f / 16.0f, 13.0f / 32.0f, 7.0f / 16.0f));
 }
 
 UNIT_TEST(ColorPalleteUploadingSingleRow)
@@ -95,7 +95,7 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::RGBA8;
+  p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = width;
   p.m_height = height;
 
@@ -105,11 +105,11 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   cp.UploadResources(make_ref(&texture));
 
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
-    cp.MapResource(dp::Color(0, 0xFF, 0, 0));
-    cp.MapResource(dp::Color(0, 0, 0xFF, 0));
-    cp.MapResource(dp::Color(0, 0, 0, 0xFF));
-    cp.MapResource(dp::Color(0xAA, 0xBB, 0xCC, 0xDD));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0, 0xFF, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0xFF, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0, 0, 0, 0xFF)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xBB, 0xCC, 0xDD)));
 
     uint8_t memoryEtalon[] =
     {
@@ -144,11 +144,11 @@ UNIT_TEST(ColorPalleteUploadingSingleRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xFF, 0xAA, 0, 0));
-    cp.MapResource(dp::Color(0xAA, 0xFF, 0, 0));
-    cp.MapResource(dp::Color(0xAA, 0, 0xFF, 0));
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0xFF));
-    cp.MapResource(dp::Color(0x00, 0xBB, 0xCC, 0xDD));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xAA, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xFF, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0xFF, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0xFF)));
+    cp.MapResource(dp::ColorKey(dp::Color(0x00, 0xBB, 0xCC, 0xDD)));
 
     uint8_t memoryEtalon[] =
     {
@@ -193,7 +193,7 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::RGBA8;
+  p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = width;
   p.m_height = height;
 
@@ -203,8 +203,8 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
   DummyColorPallete cp(m2::PointU(width, height));
 
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0, 0)));
 
     uint8_t memoryEtalon[] =
     {
@@ -227,10 +227,10 @@ UNIT_TEST(ColorPalleteUploadingPartialyRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0));
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0, 0));
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0));
-    cp.MapResource(dp::Color(0xAA, 0xAA, 0xAA, 0xAA));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0xAA, 0xAA, 0xAA)));
 
     uint8_t memoryEtalon1[] =
     {
@@ -281,7 +281,7 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::RGBA8;
+  p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = width;
   p.m_height = height;
 
@@ -292,8 +292,8 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
   cp.SetIsDebug(true);
 
   {
-    cp.MapResource(dp::Color(0xFF, 0, 0, 0));
-    cp.MapResource(dp::Color(0xAA, 0, 0, 0));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xAA, 0, 0, 0)));
 
     uint8_t memoryEtalon[] =
     {
@@ -316,10 +316,10 @@ UNIT_TEST(ColorPalleteUploadingMultiplyRow)
   }
 
   {
-    cp.MapResource(dp::Color(0xCC, 0, 0, 0));
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0, 0));
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0));
-    cp.MapResource(dp::Color(0xFF, 0xFF, 0xFF, 0xFF));
+    cp.MapResource(dp::ColorKey(dp::Color(0xCC, 0, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0)));
+    cp.MapResource(dp::ColorKey(dp::Color(0xFF, 0xFF, 0xFF, 0xFF)));
 
     uint8_t memoryEtalon1[] =
     {

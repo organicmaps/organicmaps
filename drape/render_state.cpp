@@ -5,16 +5,30 @@
 
 namespace dp
 {
-BlendingParams::BlendingParams()
-  : m_blendFunction(gl_const::GLAddBlend)
-  , m_blendSrcFactor(gl_const::GLSrcAlfa)
-  , m_blendDstFactor(gl_const::GLOneMinusSrcAlfa)
-{}
-
-void BlendingParams::Apply() const
+namespace
 {
-  GLFunctions::glBlendEquation(m_blendFunction);
-  GLFunctions::glBlendFunc(m_blendSrcFactor, m_blendDstFactor);
+glConst DecodeDepthFunction(DepthFunction depthFunction)
+{
+  switch (depthFunction)
+  {
+  case DepthFunction::Never: return gl_const::GLNever;
+  case DepthFunction::Less: return gl_const::GLLess;
+  case DepthFunction::Equal: return gl_const::GLEqual;
+  case DepthFunction::LessOrEqual: return gl_const::GLLessOrEqual;
+  case DepthFunction::Great: return gl_const::GLGreat;
+  case DepthFunction::NotEqual: return gl_const::GLNotEqual;
+  case DepthFunction::GreatOrEqual: return gl_const::GLGreatOrEqual;
+  case DepthFunction::Always: return gl_const::GLAlways;
+  }
+  ASSERT(false, ());
+}
+}  // namespace
+
+// static
+void AlphaBlendingState::Apply()
+{
+  GLFunctions::glBlendEquation(gl_const::GLAddBlend);
+  GLFunctions::glBlendFunc(gl_const::GLSrcAlpha, gl_const::GLOneMinusSrcAlpha);
 }
 
 Blending::Blending(bool isEnabled)
@@ -33,14 +47,14 @@ bool Blending::operator<(Blending const & other) const { return m_isEnabled < ot
 
 bool Blending::operator==(Blending const & other) const { return m_isEnabled == other.m_isEnabled; }
 
-glConst RenderState::GetDepthFunction() const
+DepthFunction RenderState::GetDepthFunction() const
 {
   return m_depthFunction;
 }
 
-void RenderState::SetDepthFunction(glConst functionName)
+void RenderState::SetDepthFunction(DepthFunction depthFunction)
 {
-  m_depthFunction = functionName;
+  m_depthFunction = depthFunction;
 }
 
 bool RenderState::GetDepthTestEnabled() const
@@ -53,12 +67,12 @@ void RenderState::SetDepthTestEnabled(bool enabled)
   m_depthTestEnabled = enabled;
 }
 
-glConst RenderState::GetTextureFilter() const
+TextureFilter RenderState::GetTextureFilter() const
 {
   return m_textureFilter;
 }
 
-void RenderState::SetTextureFilter(glConst filter)
+void RenderState::SetTextureFilter(TextureFilter filter)
 {
   m_textureFilter = filter;
 }
@@ -172,7 +186,7 @@ void ApplyState(RenderState const & state, ref_ptr<GpuProgram> program)
   if (state.GetDepthTestEnabled())
   {
     GLFunctions::glEnable(gl_const::GLDepthTest);
-    GLFunctions::glDepthFunc(state.GetDepthFunction());
+    GLFunctions::glDepthFunc(DecodeDepthFunction(state.GetDepthFunction()));
   }
   else
   {

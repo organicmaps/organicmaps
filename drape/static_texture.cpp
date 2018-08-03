@@ -86,7 +86,7 @@ class StaticResourceInfo : public Texture::ResourceInfo
 public:
   StaticResourceInfo() : Texture::ResourceInfo(m2::RectF(0.0f, 0.0f, 1.0f, 1.0f)) {}
   virtual ~StaticResourceInfo() {}
-  Texture::ResourceType GetType() const override { return Texture::Static; }
+  Texture::ResourceType GetType() const override { return Texture::ResourceType::Static; }
 };
 }  // namespace
 
@@ -110,8 +110,8 @@ bool StaticTexture::Load(ref_ptr<HWTextureAllocator> allocator)
     p.m_format = m_format;
     p.m_width = width;
     p.m_height = height;
-    p.m_wrapSMode = gl_const::GLRepeate;
-    p.m_wrapTMode = gl_const::GLRepeate;
+    p.m_wrapSMode = TextureWrapping::Repeat;
+    p.m_wrapTMode = TextureWrapping::Repeat;
 
     Create(p, make_ref(data));
   };
@@ -137,7 +137,7 @@ ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & 
                                                            bool & newResource)
 {
   newResource = false;
-  if (key.GetType() != Texture::Static)
+  if (key.GetType() != Texture::ResourceType::Static)
     return nullptr;
   return make_ref(m_info);
 }
@@ -147,7 +147,7 @@ void StaticTexture::Fail()
   int32_t alphaTexture = 0;
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
-  p.m_format = dp::RGBA8;
+  p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = 1;
   p.m_height = 1;
   Create(p, make_ref(&alphaTexture));

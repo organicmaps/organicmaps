@@ -39,7 +39,7 @@ public:
     , m_fixedSize(fixedSize)
   {}
 
-  Texture::ResourceType GetType() const { return Texture::Glyph; }
+  Texture::ResourceType GetType() const { return Texture::ResourceType::Glyph; }
   strings::UniChar GetUnicodePoint() const { return m_unicodePoint; }
   int GetFixedSize() const { return m_fixedSize; }
 
@@ -66,7 +66,7 @@ public:
   {}
   ~GlyphInfo() override = default;
 
-  Texture::ResourceType GetType() const override { return Texture::Glyph; }
+  Texture::ResourceType GetType() const override { return Texture::ResourceType::Glyph; }
   GlyphManager::GlyphMetrics const & GetMetrics() const { return m_metrics; }
 
 private:
@@ -111,16 +111,16 @@ private:
   std::mutex m_mutex;
 };
 
-class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>
+class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::ResourceType::Glyph>
 {
-  using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::Glyph>;
+  using TBase = DynamicTexture<GlyphIndex, GlyphKey, Texture::ResourceType::Glyph>;
 public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
               ref_ptr<GlyphGenerator> glyphGenerator, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size, glyphMng, glyphGenerator)
   {
-    TBase::TextureParams params{size, TextureFormat::ALPHA,
-                                gl_const::GLLinear, true /* m_usePixelBuffer */};
+    TBase::TextureParams params{size, TextureFormat::Alpha,
+                                TextureFilter::Linear, true /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_index), params);
   }
 

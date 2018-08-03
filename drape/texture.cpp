@@ -77,7 +77,7 @@ void Texture::Bind() const
   m_hwTexture->Bind();
 }
 
-void Texture::SetFilter(glConst filter)
+void Texture::SetFilter(TextureFilter filter)
 {
   ASSERT(m_hwTexture != nullptr, ());
   m_hwTexture->SetFilter(filter);

@@ -414,7 +414,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     state.SetProgram3d(isAnimated ? gpu::Program::BookmarkAnimBillboard
                                   : gpu::Program::BookmarkBillboard);
     state.SetColorTexture(region.GetTexture());
-    state.SetTextureFilter(gl_const::GLNearest);
+    state.SetTextureFilter(dp::TextureFilter::Nearest);
     state.SetDepthTestEnabled(depthTestEnabled);
 
     dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));

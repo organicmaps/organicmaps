@@ -1886,8 +1886,7 @@ void FrontendRenderer::OnContextCreate()
   m_gpuProgramManager = make_unique_dp<gpu::ProgramManager>();
   m_gpuProgramManager->Init(m_apiVersion);
 
-  dp::BlendingParams blendingParams;
-  blendingParams.Apply();
+  dp::AlphaBlendingState::Apply();
 
   // TODO: think on redesigning DebugRectRenderer to eliminate functor.
   dp::DebugRectRenderer::Instance().Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),

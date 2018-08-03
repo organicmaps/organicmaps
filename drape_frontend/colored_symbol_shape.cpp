@@ -302,7 +302,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
   state.SetProgram3d(gpu::Program::ColoredSymbolBillboard);
   state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
   state.SetColorTexture(colorRegion.GetTexture());
-  state.SetDepthFunction(gl_const::GLLess);
+  state.SetDepthFunction(dp::DepthFunction::Less);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::ColoredSymbolVertex::GetBindingInfo(), make_ref(buffer.data()));

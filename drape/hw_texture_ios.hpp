@@ -1,9 +1,10 @@
 #pragma once
 
-#import "hw_texture.hpp"
+#include "drape/glconstants.hpp"
+#include "drape/hw_texture.hpp"
 
 #ifndef OMIM_OS_IPHONE
-  #error Only for ios
+  #error Only for iOS
 #endif
 
 #import <CoreVideo/CVPixelBuffer.h>
@@ -12,18 +13,17 @@
 
 namespace dp
 {
-
 class HWTextureAllocatorApple : public HWTextureAllocator
 {
 public:
   HWTextureAllocatorApple();
   ~HWTextureAllocatorApple();
 
-  CVPixelBufferRef CVCreatePixelBuffer(uint32_t width, uint32_t height, int format);
+  CVPixelBufferRef CVCreatePixelBuffer(uint32_t width, uint32_t height, dp::TextureFormat format);
   void CVDestroyPixelBuffer(CVPixelBufferRef buffer);
 
   CVOpenGLESTextureRef CVCreateTexture(CVPixelBufferRef buffer, uint32_t width, uint32_t height,
-                                   glConst layout, glConst pixelType);
+                                       glConst layout, glConst pixelType);
   void CVDestroyTexture(CVOpenGLESTextureRef texture);
 
   void RiseFlushFlag();
@@ -51,12 +51,10 @@ private:
   void Lock();
   void Unlock();
 
-private:
   CVPixelBufferRef m_directBuffer;
   CVOpenGLESTextureRef m_texture;
   ref_ptr<HWTextureAllocatorApple> m_allocator;
 
   void * m_directPointer;
 };
-
-}
+}  // namespace dp

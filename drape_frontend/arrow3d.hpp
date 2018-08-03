@@ -2,6 +2,7 @@
 
 #include "drape_frontend/render_state_extension.hpp"
 
+#include "drape/color.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"

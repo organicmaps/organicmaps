@@ -1,6 +1,5 @@
 #pragma once
 
-#include "drape/glconstants.hpp"
 #include "drape/gpu_program.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
@@ -11,15 +10,9 @@
 
 namespace dp
 {
-struct BlendingParams
+struct AlphaBlendingState
 {
-  BlendingParams();
-
-  void Apply() const;
-
-  glConst m_blendFunction;
-  glConst m_blendSrcFactor;
-  glConst m_blendDstFactor;
+  static void Apply();
 };
 
 struct Blending
@@ -32,6 +25,18 @@ struct Blending
   bool operator==(Blending const & other) const;
 
   bool m_isEnabled;
+};
+
+enum class DepthFunction : uint8_t
+{
+  Never,
+  Less,
+  Equal,
+  LessOrEqual,
+  Great,
+  NotEqual,
+  GreatOrEqual,
+  Always
 };
 
 class BaseRenderStateExtension
@@ -79,14 +84,14 @@ public:
   template<typename ProgramType>
   ProgramType GetProgram3d() const { return static_cast<ProgramType>(m_gpuProgram3d); }
 
-  glConst GetDepthFunction() const;
-  void SetDepthFunction(glConst functionName);
+  DepthFunction GetDepthFunction() const;
+  void SetDepthFunction(DepthFunction depthFunction);
 
   bool GetDepthTestEnabled() const;
   void SetDepthTestEnabled(bool enabled);
 
-  glConst GetTextureFilter() const;
-  void SetTextureFilter(glConst filter);
+  TextureFilter GetTextureFilter() const;
+  void SetTextureFilter(TextureFilter filter);
 
   bool GetDrawAsLine() const;
   void SetDrawAsLine(bool drawAsLine);
@@ -104,9 +109,9 @@ private:
   Blending m_blending;
 
   bool m_depthTestEnabled = true;
-  glConst m_depthFunction = gl_const::GLLessOrEqual;
+  DepthFunction m_depthFunction = DepthFunction::LessOrEqual;
 
-  glConst m_textureFilter = gl_const::GLLinear;
+  TextureFilter m_textureFilter = TextureFilter::Linear;
 
   ref_ptr<Texture> m_colorTexture;
   ref_ptr<Texture> m_maskTexture;
