@@ -415,7 +415,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void showBookmarks()
   {
-    BookmarkCategoriesActivity.startForResult(this, BookmarksPageFactory.PRIVATE.ordinal());
+    BookmarkCategoriesActivity.startForResult(this);
   }
 
   private void showTabletSearch(@Nullable Intent data, @NonNull String query)
@@ -1055,10 +1055,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (category == null)
       throw new IllegalArgumentException("Category not found in bundle");
 
-    addTask((MapTask) target -> {
-      Framework.nativeShowBookmarkCategory(category.getId());
-      return true;
-    });
+    MapTask mapTask = target -> showBookmarkCategory(category);
+    addTask(mapTask);
+  }
+
+  private boolean showBookmarkCategory(BookmarkCategory category)
+  {
+    Framework.nativeShowBookmarkCategory(category.getId());
+    return true;
   }
 
   private void handleDiscoveryResult(@NonNull Intent data)

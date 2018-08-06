@@ -28,10 +28,10 @@ public class ShowOnMapCatalogCategoryFragment extends DialogFragment
   {
     super.onCreate(savedInstanceState);
     Bundle args = getArguments();
-    mCategory = getArgsOrThrow(args);
+    mCategory = getCategoryOrThrow(args);
   }
 
-  private BookmarkCategory getArgsOrThrow(@Nullable Bundle args)
+  private BookmarkCategory getCategoryOrThrow(@Nullable Bundle args)
   {
     BookmarkCategory category;
     if (args == null || ((category = args.getParcelable(ARGS_CATEGORY)) == null))

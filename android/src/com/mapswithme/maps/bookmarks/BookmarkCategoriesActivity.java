@@ -12,21 +12,12 @@ import android.support.v4.app.Fragment;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
   public static final int REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY = 102;
-
-  public static void startForResult(@NonNull Activity context, int initialPage)
-  {
-    Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    Bundle args = new Bundle();
-    args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
-    intent.putExtras(args);
-    context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
-  }
 
   public static void start(@NonNull Context context, int initialPage)
   {
@@ -72,5 +63,20 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   protected int getContentLayoutResId()
   {
     return R.layout.bookmarks_activity;
+  }
+
+  public static void startForResult(@NonNull Activity context, int initialPage)
+  {
+    Bundle args = new Bundle();
+    args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
+    Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtras(args);
+    context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
+  }
+
+  public static void startForResult(@NonNull Activity context)
+  {
+    int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
+    startForResult(context, initialPage);
   }
 }

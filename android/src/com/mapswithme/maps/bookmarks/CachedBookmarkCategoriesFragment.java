@@ -142,33 +142,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   @Override
   BookmarkManager.BookmarksCatalogListener createCatalogListener()
   {
-    return new BookmarkManager.BookmarksCatalogListener()
-    {
-      @Override
-      public void onImportStarted(@NonNull String serverId)
-      {
-        UiUtils.show(mProgressContainer);
-        UiUtils.hide(mEmptyViewContainer, mPayloadContainer);
-      }
-
-      @Override
-      public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
-      {
-        if (successful)
-        {
-          UiUtils.show(mPayloadContainer);
-          UiUtils.hide(mProgressContainer, mEmptyViewContainer);
-          getAdapter().notifyDataSetChanged();
-        }
-        else
-        {
-          boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
-          UiUtils.hide(mProgressContainer);
-          UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
-          UiUtils.hideIf(isEmptyAdapter, mPayloadContainer);
-        }
-      }
-    };
+    return new BookmarkCategoriesCatalogListener();
   }
 
   @Override
@@ -195,6 +169,34 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     public void onClick(View v)
     {
       openBookmarksCatalogScreen();
+    }
+  }
+
+  private class BookmarkCategoriesCatalogListener implements BookmarkManager.BookmarksCatalogListener
+  {
+    @Override
+    public void onImportStarted(@NonNull String serverId)
+    {
+      UiUtils.show(mProgressContainer);
+      UiUtils.hide(mEmptyViewContainer, mPayloadContainer);
+    }
+
+    @Override
+    public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
+    {
+      if (successful)
+      {
+        UiUtils.show(mPayloadContainer);
+        UiUtils.hide(mProgressContainer, mEmptyViewContainer);
+        getAdapter().notifyDataSetChanged();
+      }
+      else
+      {
+        boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
+        UiUtils.hide(mProgressContainer);
+        UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
+        UiUtils.hideIf(isEmptyAdapter, mPayloadContainer);
+      }
     }
   }
 }
