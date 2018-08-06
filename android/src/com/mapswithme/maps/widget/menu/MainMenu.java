@@ -122,15 +122,15 @@ public class MainMenu extends BaseMenu
 
   public enum Item implements BaseMenu.Item
   {
-    TOGGLE(R.id.toggle),
+    MENU(R.id.toggle),
     ADD_PLACE(R.id.add_place),
     DOWNLOAD_GUIDES(R.id.download_guides),
     SEARCH(R.id.search),
-    P2P(R.id.p2p),
+    POINT_TO_POINT(R.id.p2p),
     DISCOVERY(R.id.discovery),
     BOOKMARKS(R.id.bookmarks),
-    SHARE(R.id.share),
-    DOWNLOADER(R.id.download_maps),
+    SHARE_MY_LOCATION(R.id.share),
+    DOWNLOAD_MAPS(R.id.download_maps),
     SETTINGS(R.id.settings);
 
     private final int mViewId;
@@ -219,11 +219,11 @@ public class MainMenu extends BaseMenu
     mapItem(Item.ADD_PLACE);
     mapItem(Item.DOWNLOAD_GUIDES);
     mapItem(Item.SEARCH);
-    mapItem(Item.P2P);
+    mapItem(Item.POINT_TO_POINT);
     mapItem(Item.DISCOVERY);
     mapItem(Item.BOOKMARKS);
-    mapItem(Item.SHARE);
-    mapItem(Item.DOWNLOADER);
+    mapItem(Item.SHARE_MY_LOCATION);
+    mapItem(Item.DOWNLOAD_MAPS);
     mapItem(Item.SETTINGS);
 
     adjustCollapsedItems();
@@ -241,7 +241,7 @@ public class MainMenu extends BaseMenu
     mAnimationSymmetricalGap = mButtonsFrame.findViewById(R.id.symmetrical_gap);
 
     mToggle = new MenuToggle(mLineFrame, getHeightResId());
-    mapItem(Item.TOGGLE, mLineFrame);
+    mapItem(Item.MENU, mLineFrame);
 
     mNewsMarker = mButtonsFrame.findViewById(R.id.marker);
     mNewsCounter = (TextView) mContentFrame.findViewById(R.id.counter);

@@ -792,10 +792,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void startLocationToPoint(String statisticsEvent, final @Nullable MapObject endPoint,
+  public void startLocationToPoint(final @Nullable MapObject endPoint,
                                    final boolean canUseMyPositionAsStart)
   {
-    Statistics.INSTANCE.trackEvent(statisticsEvent);
     closeMenu(() -> {
       RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
 
@@ -826,71 +825,69 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       switch (item)
       {
-      case TOGGLE:
+      case MENU:
         if (!mMainMenu.isOpen())
         {
-          if (mPlacePage.isDocked() && closePlacePage())
+          Statistics.INSTANCE.trackToolbarClick(item);
+          if (mPlacePage == null || (mPlacePage.isDocked() && closePlacePage()))
             return;
 
           if (closeSidePanel())
             return;
         }
-
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MENU);
-        AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
         toggleMenu();
         break;
 
       case ADD_PLACE:
+        Statistics.INSTANCE.trackToolbarMenu(item);
         closePlacePage();
         if (mIsTabletLayout)
           closeSidePanel();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_ADD_PLACE);
         closeMenu(() -> {
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
-                                         Statistics.params()
-                                                   .add(Statistics.EventParam.FROM, "main_menu"));
           showPositionChooser(false, false);
         });
         break;
 
       case SEARCH:
+        Statistics.INSTANCE.trackToolbarClick(item);
         RoutingController.get().cancel();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_SEARCH);
         closeMenu(() -> showSearch(mSearchController.getQuery()));
         break;
 
-      case P2P:
-        startLocationToPoint(Statistics.EventName.MENU_P2P, null, false);
+      case POINT_TO_POINT:
+        Statistics.INSTANCE.trackToolbarClick(item);
+        startLocationToPoint(null, false);
         break;
 
       case DISCOVERY:
+        Statistics.INSTANCE.trackToolbarClick(item);
         showDiscovery();
         break;
 
       case BOOKMARKS:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_BOOKMARKS);
+        Statistics.INSTANCE.trackToolbarClick(item);
         closeMenu(this::showBookmarks);
         break;
 
-      case SHARE:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_SHARE);
+      case SHARE_MY_LOCATION:
+        Statistics.INSTANCE.trackToolbarMenu(item);
         closeMenu(this::shareMyLocation);
         break;
 
-      case DOWNLOADER:
+      case DOWNLOAD_MAPS:
+        Statistics.INSTANCE.trackToolbarMenu(item);
         RoutingController.get().cancel();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_DOWNLOADER);
         closeMenu(() -> showDownloader(false));
         break;
 
       case SETTINGS:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_SETTINGS);
+        Statistics.INSTANCE.trackToolbarMenu(item);
         Intent intent = new Intent(MwmActivity.this, SettingsActivity.class);
         closeMenu(() -> startActivity(intent));
         break;
 
       case DOWNLOAD_GUIDES:
+        Statistics.INSTANCE.trackToolbarMenu(item);
         int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
         closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
         break;
@@ -919,7 +916,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Intent i = new Intent(MwmActivity.this, DiscoveryActivity.class);
       startActivityForResult(i, REQ_CODE_DISCOVERY);
     }
-    Statistics.INSTANCE.trackDiscoveryOpen();
   }
 
   private void initOnmapDownloader()
@@ -1854,7 +1850,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
         if (mIsTabletLayout)
         {
-          mMainMenu.setEnabled(MainMenu.Item.P2P, !RoutingController.get().isPlanning());
+          mMainMenu.setEnabled(MainMenu.Item.POINT_TO_POINT, !RoutingController.get().isPlanning());
           mMainMenu.setEnabled(MainMenu.Item.SEARCH, !RoutingController.get().isWaitingPoiPick());
         }
         else if (RoutingController.get().isPlanning())

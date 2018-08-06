@@ -612,8 +612,7 @@ public class PlacePageView extends RelativeLayout
           }
           else
           {
-            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, getMapObject(), 
-                                               true);
+            getActivity().startLocationToPoint(getMapObject(), true);
           }
           break;
 
