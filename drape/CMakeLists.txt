@@ -72,6 +72,8 @@ set(
   ${DRAPE_ROOT}/index_buffer_mutator.hpp
   ${DRAPE_ROOT}/index_storage.cpp
   ${DRAPE_ROOT}/index_storage.hpp
+  ${DRAPE_ROOT}/mesh_object.cpp
+  ${DRAPE_ROOT}/mesh_object.hpp
   ${DRAPE_ROOT}/object_pool.hpp
   ${DRAPE_ROOT}/oglcontext.cpp
   ${DRAPE_ROOT}/oglcontext.hpp

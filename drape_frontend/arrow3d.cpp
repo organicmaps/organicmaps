@@ -27,6 +27,7 @@ double const kArrow3dMinZoom = 16;
 float const kOutlineScale = 1.2f;
 
 int constexpr kComponentsInVertex = 4;
+int constexpr kComponentsInNormal = 3;
 
 df::ColorConstant const kArrow3DShadowColor = "Arrow3DShadow";
 df::ColorConstant const kArrow3DObsoleteColor = "Arrow3DObsolete";
@@ -34,10 +35,11 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
+  : TBase(DrawPrimitive::Triangles)
+  , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
-  m_vertices = {
+  std::vector<float> vertices = {
     0.0f, 0.0f, -1.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, 2.0f, 0.0f, 1.0f,
     0.0f, 0.0f, -1.0f, 1.0f,    0.0f,  2.0f, 0.0f, 1.0f,    1.2f, -1.0f, 0.0f, 1.0f,
     0.0f, 0.0f, -1.0f, 1.0f,    0.0f, -0.5f, 0.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,
@@ -55,15 +57,16 @@ Arrow3d::Arrow3d()
   };
 
   int constexpr kVerticesInRow = 12;
-  m_normals.reserve(m_vertices.size());
-  for (size_t triangle = 0; triangle < m_vertices.size() / kVerticesInRow; ++triangle)
+  std::vector<float> normals;
+  normals.reserve(vertices.size());
+  for (size_t triangle = 0; triangle < vertices.size() / kVerticesInRow; ++triangle)
   {
     glsl::vec4 v[3];
     for (size_t vertex = 0; vertex < 3; ++vertex)
     {
       size_t const offset = triangle * kVerticesInRow + vertex * kComponentsInVertex;
-      v[vertex] = glsl::vec4(m_vertices[offset], m_vertices[offset + 1],
-                             m_vertices[offset + 2], m_vertices[offset + 3]);
+      v[vertex] = glsl::vec4(vertices[offset], vertices[offset + 1],
+                             vertices[offset + 2], vertices[offset + 3]);
     }
 
     glsl::vec3 normal = glsl::cross(glsl::vec3(v[1].x - v[0].x, v[1].y - v[0].y, v[1].z - v[0].z),
@@ -72,23 +75,19 @@ Arrow3d::Arrow3d()
 
     for (size_t vertex = 0; vertex < 3; ++vertex)
     {
-      m_normals.push_back(normal.x);
-      m_normals.push_back(normal.y);
-      m_normals.push_back(normal.z);
+      normals.push_back(normal.x);
+      normals.push_back(normal.y);
+      normals.push_back(normal.z);
     }
   }
-}
 
-Arrow3d::~Arrow3d()
-{
-  if (m_bufferId != 0)
-    GLFunctions::glDeleteBuffer(m_bufferId);
+  auto const verticesBufferInd = 0;
+  SetBuffer(verticesBufferInd, std::move(vertices), sizeof(float) * kComponentsInVertex);
+  SetAttribute("a_pos", verticesBufferInd, 0 /* offset */, kComponentsInVertex);
 
-  if (m_bufferNormalsId != 0)
-    GLFunctions::glDeleteBuffer(m_bufferNormalsId);
-
-  if (m_VAO != 0)
-    GLFunctions::glDeleteVertexArray(m_VAO);
+  auto const normalsBufferInd = 1;
+  SetBuffer(normalsBufferInd, std::move(normals), sizeof(float) * kComponentsInNormal);
+  SetAttribute("a_normal", normalsBufferInd, 0 /* offset */, kComponentsInNormal);
 }
 
 void Arrow3d::SetPosition(const m2::PointD & position)
@@ -106,28 +105,6 @@ void Arrow3d::SetTexture(ref_ptr<dp::TextureManager> texMng)
   m_state.SetColorTexture(texMng->GetSymbolsTexture());
 }
 
-void Arrow3d::Build()
-{
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-  {
-    m_VAO = GLFunctions::glGenVertexArray();
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
-  m_bufferId = GLFunctions::glGenBuffer();
-  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_vertices.size()) * sizeof(m_vertices[0]),
-                            m_vertices.data(), gl_const::GLStaticDraw);
-
-  m_bufferNormalsId = GLFunctions::glGenBuffer();
-  GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer, static_cast<uint32_t>(m_normals.size()) * sizeof(m_normals[0]),
-                            m_normals.data(), gl_const::GLStaticDraw);
-
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
-}
-
 void Arrow3d::SetPositionObsolete(bool obsolete)
 {
   m_obsoletePosition = obsolete;
@@ -135,12 +112,6 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
 
 void Arrow3d::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng, bool routingMode)
 {
-  if (!m_isInitialized)
-  {
-    Build();
-    m_isInitialized = true;
-  }
-
   // Render shadow.
   if (screen.isPerspective())
   {
@@ -164,49 +135,25 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng
   // Render arrow.
   RenderArrow(screen, mng, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
               true /* hasNormals */);
-
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
 void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                           gpu::Program program, dp::Color const & color, float dz,
                           float scaleFactor, bool hasNormals)
 {
-  auto prg = mng->GetProgram(program);
-
-  prg->Bind();
-
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(m_VAO);
-
-  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  int8_t const attributePosition = prg->GetAttributeLocation("a_pos");
-  ASSERT_NOT_EQUAL(attributePosition, -1, ());
-  GLFunctions::glEnableVertexAttribute(attributePosition);
-  GLFunctions::glVertexAttributePointer(attributePosition, kComponentsInVertex,
-                                        gl_const::GLFloatType, false, 0, 0);
-
-  if (hasNormals)
-  {
-    GLFunctions::glBindBuffer(m_bufferNormalsId, gl_const::GLArrayBuffer);
-    int8_t const attributeNormal = prg->GetAttributeLocation("a_normal");
-    ASSERT_NOT_EQUAL(attributeNormal, -1, ());
-    GLFunctions::glEnableVertexAttribute(attributeNormal);
-    GLFunctions::glVertexAttributePointer(attributeNormal, 3, gl_const::GLFloatType, false, 0, 0);
-  }
-
   gpu::Arrow3dProgramParams params;
   math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor);
   params.m_transform = glsl::make_mat4(modelTransform.m_data);
   params.m_color = glsl::ToVec4(color);
-  dp::ApplyState(m_state, prg);
-  mng->GetParamsSetter()->Apply(prg, params);
-  GLFunctions::glDrawArrays(gl_const::GLTriangles, 0,
-                            static_cast<uint32_t>(m_vertices.size()) / kComponentsInVertex);
 
-  prg->Unbind();
+  auto gpuProgram = mng->GetProgram(program);
+  TBase::Render(gpuProgram,
+                [this, mng, gpuProgram, &params]()
+                {
+                  dp::ApplyState(m_state, gpuProgram);
+                  mng->GetParamsSetter()->Apply(gpuProgram, params);
+                },
+                nullptr);
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor) const

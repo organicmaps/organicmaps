@@ -1409,11 +1409,8 @@ void FrontendRenderer::RenderTransitBackground()
   dp::TextureManager::ColorRegion region;
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
   CHECK(region.GetTexture() != nullptr, ("Texture manager is not initialized"));
-  if (!m_transitBackground->IsInitialized())
-  {
-    auto prg = m_gpuProgramManager->GetProgram(gpu::Program::ScreenQuad);
-    m_transitBackground->SetTextureRect(region.GetTexRect(), prg);
-  }
+  //if (!m_transitBackground->IsInitialized())
+    m_transitBackground->SetTextureRect(region.GetTexRect());
   m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
                                      static_cast<uint32_t>(region.GetTexture()->GetID()), 1.0f);
 }

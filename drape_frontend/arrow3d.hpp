@@ -3,7 +3,7 @@
 #include "drape_frontend/render_state_extension.hpp"
 
 #include "drape/color.hpp"
-#include "drape/pointers.hpp"
+#include "drape/mesh_object.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -24,11 +24,11 @@ class ScreenBase;
 
 namespace df
 {
-class Arrow3d
+class Arrow3d: public dp::MeshObject
 {
+  using TBase = dp::MeshObject;
 public:
   Arrow3d();
-  ~Arrow3d();
 
   void SetPosition(m2::PointD const & position);
   void SetAzimuth(double azimuth);
@@ -39,7 +39,6 @@ public:
               bool routingMode);
 
 private:
-  void Build();
   math::Matrix<float, 4, 4> CalculateTransform(ScreenBase const & screen, float dz,
                                                float scaleFactor) const;
   void RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
@@ -50,15 +49,6 @@ private:
   double m_azimuth = 0.0;
   bool m_obsoletePosition = false;
 
-  uint32_t m_VAO = 0;
-  uint32_t m_bufferId = 0;
-  uint32_t m_bufferNormalsId = 0;
-
-  std::vector<float> m_vertices;
-  std::vector<float> m_normals;
-
   dp::RenderState m_state;
-
-  bool m_isInitialized = false;
 };
 }  // namespace df

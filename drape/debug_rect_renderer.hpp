@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape/gpu_program.hpp"
+#include "drape/mesh_object.hpp"
 #include "drape/overlay_tree.hpp"
-#include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -15,8 +15,9 @@
 
 namespace dp
 {
-class DebugRectRenderer
+class DebugRectRenderer: public dp::MeshObject
 {
+  using TBase = dp::MeshObject;
 public:
   static DebugRectRenderer & Instance();
 
@@ -28,18 +29,20 @@ public:
   bool IsEnabled() const;
   void SetEnabled(bool enabled);
 
-  void DrawRect(ScreenBase const & screen, m2::RectF const & rect, dp::Color const & color) const;
-  void DrawArrow(ScreenBase const & screen, OverlayTree::DisplacementData const & data) const;
+  void DrawRect(ScreenBase const & screen, m2::RectF const & rect, dp::Color const & color);
+  void DrawArrow(ScreenBase const & screen, OverlayTree::DisplacementData const & data);
 
 private:
   DebugRectRenderer();
-  ~DebugRectRenderer();
+  ~DebugRectRenderer() override;
+
+  void SetArrow(m2::PointF const & arrowStart, m2::PointF const & arrowEnd, dp::Color const & arrowColor,
+                ScreenBase const & screen);
+  void SetRect(m2::RectF const & rect, ScreenBase const & screen);
 
   ParamsSetter m_paramsSetter;
-  uint32_t m_VAO;
-  uint32_t m_vertexBuffer;
   ref_ptr<dp::GpuProgram> m_program;
-  bool m_isEnabled;
+  bool m_isEnabled = false;
 };
 }  // namespace dp
 

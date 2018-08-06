@@ -69,75 +69,28 @@ void RendererContext::BindTexture(uint32_t textureId, ref_ptr<dp::GpuProgram> pr
 }
 
 ScreenQuadRenderer::ScreenQuadRenderer()
-  : m_textureRendererContext(make_unique_dp<TextureRendererContext>())
-{}
-
-ScreenQuadRenderer::~ScreenQuadRenderer()
+  : TBase(DrawPrimitive::TriangleStrip)
+  , m_textureRendererContext(make_unique_dp<TextureRendererContext>())
 {
-  if (m_bufferId != 0)
-    GLFunctions::glDeleteBuffer(m_bufferId);
-
-  if (m_VAO != 0)
-    GLFunctions::glDeleteVertexArray(m_VAO);
+  Rebuild();
 }
 
-void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
+void ScreenQuadRenderer::Rebuild()
 {
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-  {
-    m_VAO = GLFunctions::glGenVertexArray();
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
-  m_attributePosition = prg->GetAttributeLocation("a_pos");
-  ASSERT_NOT_EQUAL(m_attributePosition, -1, ());
-
-  m_attributeTexCoord = prg->GetAttributeLocation("a_tcoord");
-  ASSERT_NOT_EQUAL(m_attributeTexCoord, -1, ());
-  
   std::vector<float> vertices = {-1.0f, 1.0f,  m_textureRect.minX(), m_textureRect.maxY(),
                                  1.0f,  1.0f,  m_textureRect.maxX(), m_textureRect.maxY(),
                                  -1.0f, -1.0f, m_textureRect.minX(), m_textureRect.minY(),
                                  1.0f,  -1.0f, m_textureRect.maxX(), m_textureRect.minY()};
-
-  m_bufferId = GLFunctions::glGenBuffer();
-  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                            static_cast<uint32_t>(vertices.size()) * sizeof(vertices[0]),
-                            vertices.data(), gl_const::GLStaticDraw);
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  auto const bufferIndex = 0;
+  SetBuffer(bufferIndex, std::move(vertices), sizeof(float) * 4 /* stride */);
+  SetAttribute("a_pos", bufferIndex, 0 /* offset */, 2 /* componentsCount */);
+  SetAttribute("a_tcoord", bufferIndex, sizeof(float) * 2 /* offset */, 2 /* componentsCount */);
 }
 
 void ScreenQuadRenderer::Render(ref_ptr<gpu::ProgramManager> mng, ref_ptr<RendererContext> context)
 {
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(context->GetGpuProgram());
-  prg->Bind();
-
-  if (m_bufferId == 0)
-    Build(prg);
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(m_VAO);
-
-  GLFunctions::glBindBuffer(m_bufferId, gl_const::GLArrayBuffer);
-
-  GLFunctions::glEnableVertexAttribute(m_attributePosition);
-  GLFunctions::glVertexAttributePointer(m_attributePosition, 2, gl_const::GLFloatType, false,
-                                        sizeof(float) * 4, 0);
-  GLFunctions::glEnableVertexAttribute(m_attributeTexCoord);
-  GLFunctions::glVertexAttributePointer(m_attributeTexCoord, 2, gl_const::GLFloatType, false,
-                                        sizeof(float) * 4, sizeof(float) * 2);
-
-  context->PreRender(mng);
-  GLFunctions::glDrawArrays(gl_const::GLTriangleStrip, 0, 4);
-  context->PostRender();
-
-  prg->Unbind();
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(0);
+  TBase::Render(prg, [context, mng](){ context->PreRender(mng); }, [context](){ context->PostRender(); });
 }
 
 void ScreenQuadRenderer::RenderTexture(ref_ptr<gpu::ProgramManager> mng, uint32_t textureId,
@@ -151,19 +104,9 @@ void ScreenQuadRenderer::RenderTexture(ref_ptr<gpu::ProgramManager> mng, uint32_
   Render(mng, make_ref(m_textureRendererContext));
 }
 
-void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect, ref_ptr<dp::GpuProgram> prg)
+void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect)
 {
   m_textureRect = rect;
-  Rebuild(prg);
-}
-
-void ScreenQuadRenderer::Rebuild(ref_ptr<dp::GpuProgram> prg)
-{
-  if (m_bufferId != 0)
-    GLFunctions::glDeleteBuffer(m_bufferId);
-
-  prg->Bind();
-  Build(prg);
-  prg->Unbind();
+  Rebuild();
 }
 }  // namespace df

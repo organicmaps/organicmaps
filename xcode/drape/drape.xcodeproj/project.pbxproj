@@ -110,6 +110,8 @@
 		BBB72E9A2111CE9100249D4F /* graphics_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E972111CE9100249D4F /* graphics_context.hpp */; };
 		BBB72E9B2111CE9100249D4F /* graphics_context_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E982111CE9100249D4F /* graphics_context_factory.hpp */; };
 		BBB72E9C2111CE9100249D4F /* graphics_context_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E992111CE9100249D4F /* graphics_context_factory.cpp */; };
+		BBB72E9F2118A45800249D4F /* mesh_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E9D2118A45700249D4F /* mesh_object.cpp */; };
+		BBB72EA02118A45800249D4F /* mesh_object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E9E2118A45800249D4F /* mesh_object.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -219,6 +221,8 @@
 		BBB72E972111CE9100249D4F /* graphics_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graphics_context.hpp; sourceTree = "<group>"; };
 		BBB72E982111CE9100249D4F /* graphics_context_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graphics_context_factory.hpp; sourceTree = "<group>"; };
 		BBB72E992111CE9100249D4F /* graphics_context_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_context_factory.cpp; sourceTree = "<group>"; };
+		BBB72E9D2118A45700249D4F /* mesh_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_object.cpp; sourceTree = "<group>"; };
+		BBB72E9E2118A45800249D4F /* mesh_object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh_object.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +319,8 @@
 				6729A52B1A69213A007D5872 /* index_buffer.hpp */,
 				6709471F1BDF9A4F005014C0 /* index_storage.cpp */,
 				670947201BDF9A4F005014C0 /* index_storage.hpp */,
+				BBB72E9D2118A45700249D4F /* mesh_object.cpp */,
+				BBB72E9E2118A45800249D4F /* mesh_object.hpp */,
 				6729A52C1A69213A007D5872 /* object_pool.hpp */,
 				BBB72E8F2110AF0F00249D4F /* oglcontext.cpp */,
 				6729A52D1A69213A007D5872 /* oglcontext.hpp */,
@@ -395,6 +401,7 @@
 				6729A5681A69213A007D5872 /* batcher_helpers.hpp in Headers */,
 				6729A56A1A69213A007D5872 /* batcher.hpp in Headers */,
 				45447109211462A300D28C28 /* texture_types.hpp in Headers */,
+				BBB72EA02118A45800249D4F /* mesh_object.hpp in Headers */,
 				675D219A1BFB876E00717E4F /* projection.hpp in Headers */,
 				670947291BDF9A4F005014C0 /* hw_texture_ios.hpp in Headers */,
 				670947281BDF9A4F005014C0 /* glyph_manager.hpp in Headers */,
@@ -496,6 +503,7 @@
 				6729A5711A69213A007D5872 /* cpu_buffer.cpp in Sources */,
 				6729A5631A69213A007D5872 /* attribute_buffer_mutator.cpp in Sources */,
 				6729A56B1A69213A007D5872 /* binding_info.cpp in Sources */,
+				BBB72E9F2118A45800249D4F /* mesh_object.cpp in Sources */,
 				6729A5791A69213A007D5872 /* glconstants.cpp in Sources */,
 				6729A5941A69213A007D5872 /* overlay_handle.cpp in Sources */,
 				6709472D1BDF9A4F005014C0 /* index_storage.cpp in Sources */,

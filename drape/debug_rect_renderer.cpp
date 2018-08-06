@@ -3,17 +3,19 @@
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
 
-#include <array>
+#include <vector>
 
 namespace dp
 {
 namespace
 {
-m2::PointF PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt)
+void PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt, std::vector<float> & buffer)
 {
   auto const szX = static_cast<float>(screen.PixelRectIn3d().SizeX());
   auto const szY = static_cast<float>(screen.PixelRectIn3d().SizeY());
-  return m2::PointF(pt.x / szX - 0.5f, -pt.y / szY + 0.5f) * 2.0f;
+
+  buffer.push_back(2.0f * (pt.x / szX - 0.5f));
+  buffer.push_back(2.0f * (-pt.y / szY + 0.5f));
 }
 }  // namespace
 
@@ -24,56 +26,26 @@ DebugRectRenderer & DebugRectRenderer::Instance()
 }
 
 DebugRectRenderer::DebugRectRenderer()
-  : m_VAO(0)
-  , m_vertexBuffer(0)
-  , m_isEnabled(false)
-{}
+  : TBase(DrawPrimitive::LineStrip)
+{
+  SetBuffer(0 /*bufferInd*/, {} /* vertices */, static_cast<uint32_t>(sizeof(float) * 2));
+  SetAttribute("a_position", 0 /* bufferInd*/, 0.0f /* offset */, 2 /* componentsCount */);
+}
 
 DebugRectRenderer::~DebugRectRenderer()
 {
-  ASSERT_EQUAL(m_VAO, 0, ());
-  ASSERT_EQUAL(m_vertexBuffer, 0, ());
+  ASSERT(!IsInitialized(), ());
 }
 
 void DebugRectRenderer::Init(ref_ptr<dp::GpuProgram> program, ParamsSetter && paramsSetter)
 {
-  m_paramsSetter = std::move(paramsSetter);
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-  {
-    m_VAO = GLFunctions::glGenVertexArray();
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
-
-  m_vertexBuffer = GLFunctions::glGenBuffer();
-  GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
   m_program = program;
-  int8_t attributeLocation = m_program->GetAttributeLocation("a_position");
-  ASSERT_NOT_EQUAL(attributeLocation, -1, ());
-  GLFunctions::glEnableVertexAttribute(attributeLocation);
-  GLFunctions::glVertexAttributePointer(attributeLocation, 2, gl_const::GLFloatType, false,
-                                        sizeof(float) * 2, 0);
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(0);
-
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  m_paramsSetter = std::move(paramsSetter);
 }
 
 void DebugRectRenderer::Destroy()
 {
-  if (m_vertexBuffer != 0)
-  {
-    GLFunctions::glDeleteBuffer(m_vertexBuffer);
-    m_vertexBuffer = 0;
-  }
-
-  if (m_VAO != 0)
-  {
-    GLFunctions::glDeleteVertexArray(m_VAO);
-    m_VAO = 0;
-  }
-
-  m_program = nullptr;
+  Reset();
 }
 
 bool DebugRectRenderer::IsEnabled() const
@@ -86,46 +58,51 @@ void DebugRectRenderer::SetEnabled(bool enabled)
   m_isEnabled = enabled;
 }
 
+void DebugRectRenderer::SetArrow(m2::PointF const & arrowStart, m2::PointF const & arrowEnd,
+                                 dp::Color const & arrowColor, ScreenBase const & screen)
+{
+  std::vector<float> vertices;
+  m2::PointF const dir = (arrowEnd - arrowStart).Normalize();
+  m2::PointF const side = m2::PointF(-dir.y, dir.x);
+  PixelPointToScreenSpace(screen, arrowStart, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd - dir * 20 + side * 10, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd, vertices);
+  PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
+
+  UpdateBuffer(0 /* bufferInd */, std::move(vertices));
+}
+
+void DebugRectRenderer::SetRect(m2::RectF const & rect, ScreenBase const & screen)
+{
+  std::vector<float> vertices;
+  PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
+  PixelPointToScreenSpace(screen, rect.LeftTop(), vertices);
+  PixelPointToScreenSpace(screen, rect.RightTop(), vertices);
+  PixelPointToScreenSpace(screen, rect.RightBottom(), vertices);
+  PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
+
+  UpdateBuffer(0 /* bufferInd */, std::move(vertices));
+}
+
 void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & rect,
-                                 dp::Color const & color) const
+                                 dp::Color const & color)
 {
   if (!m_isEnabled)
     return;
 
-  ASSERT(m_program != nullptr, ());
-  m_program->Bind();
+  SetRect(rect, screen);
 
-  GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(m_VAO);
-
-  std::array<m2::PointF, 5> vertices;
-  vertices[0] = PixelPointToScreenSpace(screen, rect.LeftBottom());
-  vertices[1] = PixelPointToScreenSpace(screen, rect.LeftTop());
-  vertices[2] = PixelPointToScreenSpace(screen, rect.RightTop());
-  vertices[3] = PixelPointToScreenSpace(screen, rect.RightBottom());
-  vertices[4] = vertices[0];
-
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                            static_cast<uint32_t>(vertices.size() * sizeof(vertices[0])),
-                            vertices.data(), gl_const::GLStaticDraw);
-
-  if (m_paramsSetter)
-    m_paramsSetter(m_program, color);
-
-  GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(0);
-
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
-
-  m_program->Unbind();
+  auto const preRenderFn = [this, color]()
+  {
+    if (m_paramsSetter)
+      m_paramsSetter(m_program, color);
+  };
+  Render(m_program, preRenderFn, nullptr);
 }
 
 void DebugRectRenderer::DrawArrow(ScreenBase const & screen,
-                                  OverlayTree::DisplacementData const & data) const
+                                  OverlayTree::DisplacementData const & data)
 {
   if (!m_isEnabled)
     return;
@@ -133,37 +110,13 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen,
   if (data.m_arrowStart.EqualDxDy(data.m_arrowEnd, 1e-5))
     return;
 
-  ASSERT(m_program != nullptr, ());
-  m_program->Bind();
+  SetArrow(data.m_arrowStart, data.m_arrowEnd, data.m_arrowColor, screen);
 
-  GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(m_VAO);
-
-  std::array<m2::PointF, 5> vertices;
-  m2::PointF const dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
-  m2::PointF const side = m2::PointF(-dir.y, dir.x);
-  vertices[0] = PixelPointToScreenSpace(screen, data.m_arrowStart);
-  vertices[1] = PixelPointToScreenSpace(screen, data.m_arrowEnd);
-  vertices[2] = PixelPointToScreenSpace(screen, data.m_arrowEnd - dir * 20 + side * 10);
-  vertices[3] = vertices[1];
-  vertices[4] = PixelPointToScreenSpace(screen, data.m_arrowEnd - dir * 20 - side * 10);
-
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                            static_cast<uint32_t>(vertices.size() * sizeof(vertices[0])),
-                            vertices.data(), gl_const::GLStaticDraw);
-
-  if (m_paramsSetter)
-    m_paramsSetter(m_program, data.m_arrowColor);
-
-  GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
-
-  if (m_VAO != 0)
-    GLFunctions::glBindVertexArray(0);
-
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
-
-  m_program->Unbind();
+  auto const preRenderFn = [this, data]()
+  {
+    if (m_paramsSetter)
+      m_paramsSetter(m_program, data.m_arrowColor);
+  };
+  Render(m_program, preRenderFn, nullptr);
 }
 }  // namespace dp
