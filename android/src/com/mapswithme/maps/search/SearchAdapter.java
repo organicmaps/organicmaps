@@ -180,6 +180,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     @NonNull
     final View mClosedMarker;
     @NonNull
+    final View mPopularity;
+    @NonNull
     final TextView mDescription;
     @NonNull
     final TextView mRegion;
@@ -255,6 +257,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       mFrame = view;
       mName = view.findViewById(R.id.title);
       mClosedMarker = view.findViewById(R.id.closed);
+      mPopularity = view.findViewById(R.id.popular);
       mDescription =  view.findViewById(R.id.description);
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
@@ -276,10 +279,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super.bind(result, order);
       setBackground();
       // TODO: Support also "Open Now" mark.
-      UiUtils.showIf(mResult.description.openNow == SearchResult.OPEN_NOW_NO, mClosedMarker);
+      boolean isCloseMarkerVisible = mResult.description.openNow == SearchResult.OPEN_NOW_NO
+                                     && !mResult.description.popularityHasHigherPriority;
+      UiUtils.showIf(isCloseMarkerVisible, mClosedMarker);
       boolean isHotelAvailable = mResult.isHotel &&
                                  mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
                                                             mResult.description.featureId);
+      UiUtils.showIf(mResult.description.popularityHasHigherPriority, mPopularity);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
