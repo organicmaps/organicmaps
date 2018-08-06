@@ -31,6 +31,7 @@ public class ShowOnMapCatalogCategoryFragment extends DialogFragment
     mCategory = getCategoryOrThrow(args);
   }
 
+  @NonNull
   private BookmarkCategory getCategoryOrThrow(@Nullable Bundle args)
   {
     BookmarkCategory category;

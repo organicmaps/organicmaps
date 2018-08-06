@@ -56,7 +56,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private CatalogListenerDecorator mCatalogListener;
+  private BookmarkManager.BookmarksCatalogListener mCatalogListener;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
