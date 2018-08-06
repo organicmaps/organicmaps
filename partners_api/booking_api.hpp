@@ -51,7 +51,7 @@ struct HotelInfo
 
 struct Deals
 {
-  enum Type
+  enum class Type
   {
     /// Good price.
     Smart,
@@ -88,6 +88,11 @@ struct Blocks
       m_totalMinPrice = block.m_minPrice;
       m_currency = block.m_currency;
     }
+    if (!m_hasSmartDeal)
+    {
+      auto const & types = block.m_deals.m_types;
+      m_hasSmartDeal = std::find(types.cbegin(), types.cend(), Deals::Type::Smart) != types.cend();
+    }
     if (block.m_deals.m_discount > m_maxDiscount)
       m_maxDiscount = block.m_deals.m_discount;
 
@@ -98,6 +103,7 @@ struct Blocks
   std::string m_currency;
 
   uint8_t m_maxDiscount = 0;
+  bool m_hasSmartDeal = false;
 
   std::vector<BlockInfo> m_blocks;
 };

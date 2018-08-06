@@ -150,7 +150,10 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @property(copy, nonatomic) MWMVoidBlock refreshPreviewCallback;
 @property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
 @property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
+@property(copy, nonatomic) MWMVoidBlock bookingDataUpdatedCallback;
 @property(nonatomic, readonly) MWMUGCViewModel * ugc;
+@property(nonatomic, readonly) NSInteger bookingDiscount;
+@property(nonatomic, readonly) BOOL isSmartDeal;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
@@ -174,13 +177,12 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 // Booking
 - (void)fillOnlineBookingSections;
 - (MWMUGCRatingValueType *)bookingRating;
-- (NSString *)bookingApproximatePricing;
+- (NSString *)bookingPricing;
 - (NSURL *)sponsoredURL;
 - (NSURL *)deepLink;
 - (NSURL *)sponsoredDescriptionURL;
 - (NSURL *)bookingSearchURL;
 - (NSString *)sponsoredId;
-- (void)assignOnlinePriceToLabel:(UILabel *)label;
 - (NSString *)hotelDescription;
 - (vector<booking::HotelFacility> const &)facilities;
 - (vector<booking::HotelReview> const &)hotelReviews;

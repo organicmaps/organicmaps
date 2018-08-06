@@ -23,10 +23,35 @@ final class PPPReview: MWMTableViewCell {
     }
   }
 
-  private var onAddReview: (() -> Void)!
+  @IBOutlet private weak var discountView: UIView!
+  @IBOutlet private weak var discountLabel: UILabel!
+  @IBOutlet private weak var priceConstraint: NSLayoutConstraint!
 
-  @objc func config(rating: UGCRatingValueType, canAddReview: Bool, reviewsCount: UInt, priceSetter: (UILabel) -> Void, onAddReview: @escaping () -> Void) {
+  typealias OnAddReview = () -> ()
+  private var onAddReview: OnAddReview?
+
+  @objc func config(rating: UGCRatingValueType,
+                    canAddReview: Bool,
+                    reviewsCount: UInt,
+                    price: String,
+                    discount: Int,
+                    smartDeal: Bool,
+                    onAddReview: OnAddReview?) {
     self.onAddReview = onAddReview
+    pricingLabel.text = price
+    if discount > 0 {
+      priceConstraint.priority = .defaultLow
+      discountView.isHidden = false
+      discountLabel.text = "-\(discount)%"
+    } else if smartDeal {
+      priceConstraint.priority = .defaultLow
+      discountView.isHidden = false
+      discountLabel.text = "%"
+    } else {
+      priceConstraint.priority = .defaultHigh
+      discountView.isHidden = true
+    }
+    
     ratingSummaryView.textFont = UIFont.bold12()
     ratingSummaryView.value = rating.value
     ratingSummaryView.type = rating.type
@@ -49,7 +74,6 @@ final class PPPReview: MWMTableViewCell {
         ratingSummaryView.noValueColor = UIColor.linkBlue()
         reviewsLabel.text = L("placepage_reviewed")
         pricingLabel.isHidden = false
-        priceSetter(pricingLabel)
       }
     } else {
       ratingSummaryView.defaultConfig()
@@ -62,12 +86,11 @@ final class PPPReview: MWMTableViewCell {
         reviewsLabel.isHidden = true
       }
       pricingLabel.isHidden = false
-      priceSetter(pricingLabel)
     }
   }
 
   @IBAction private func addReview() {
-    onAddReview()
+    onAddReview?()
   }
 
   override func layoutSubviews() {

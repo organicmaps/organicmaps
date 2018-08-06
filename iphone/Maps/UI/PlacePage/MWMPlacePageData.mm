@@ -38,6 +38,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 @property(copy, nonatomic) NSArray<MWMViatorItemModel *> * viatorItems;
 @property(nonatomic) NSNumberFormatter * currencyFormatter;
 @property(nonatomic, readwrite) MWMUGCViewModel * ugc;
+@property(nonatomic) NSInteger bookingDiscount;
+@property(nonatomic) BOOL isSmartDeal;
 
 @end
 
@@ -176,6 +178,51 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
       });
 }
 
+- (void)requestBookingData
+{
+  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
+    auto const api = GetFramework().GetBookingApi(canUseNetwork);
+    if (!api)
+      return;
+
+    std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
+
+    auto const func = [self, currency](std::string const & hotelId,
+                                       booking::Blocks const & blocks) {
+      if (currency != blocks.m_currency)
+        return;
+
+      NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
+      decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+
+      auto const price = blocks.m_totalMinPrice == booking::BlockInfo::kIncorrectPrice
+                              ? ""
+                              : std::to_string(blocks.m_totalMinPrice);
+
+      NSNumber * currencyNumber = [decimalFormatter
+                                   numberFromString:[@(price.c_str())
+                                                     stringByReplacingOccurrencesOfString:@"."
+                                                     withString:decimalFormatter
+                                                     .decimalSeparator]];
+      NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
+
+      dispatch_async(dispatch_get_main_queue(), ^{
+        self.cachedMinPrice = [NSString stringWithCoreFormat:L(@"place_page_starting_from")
+                                                   arguments:@[currencyString]];
+        self.bookingDiscount = blocks.m_maxDiscount;
+        self.isSmartDeal = blocks.m_hasSmartDeal;
+        if (self.bookingDataUpdatedCallback)
+          self.bookingDataUpdatedCallback();
+      });
+    };
+
+    auto params = booking::BlockParams::MakeDefault();
+    params.m_hotelId = self.sponsoredId.UTF8String;
+    params.m_currency = currency;
+    api->GetBlockAvailability(std::move(params), func);
+  });
+}
+
 - (void)fillPreviewSection
 {
   if (self.title.length) m_previewRows.push_back(PreviewRows::Title);
@@ -183,7 +230,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (self.subtitle.length || self.isMyPosition) m_previewRows.push_back(PreviewRows::Subtitle);
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
   if (self.isBooking)
+  {
     m_previewRows.push_back(PreviewRows::Review);
+    [self requestBookingData];
+  }
 
   if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
   if (self.hotelType)
@@ -522,7 +572,13 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
       initWithValue:@(rating::GetRatingFormatted(ratingRaw).c_str())
                type:[MWMPlacePageData ratingValueType:rating::GetImpress(ratingRaw)]];
 }
-- (NSString *)bookingApproximatePricing { return self.isBooking ? @(m_info.GetApproximatePricing().c_str()) : nil; }
+
+- (NSString *)bookingPricing
+{
+  ASSERT(self.isBooking, ("Only for booking.com hotels"));
+  return self.cachedMinPrice.length ? self.cachedMinPrice : @(m_info.GetApproximatePricing().c_str());
+}
+
 - (NSURL *)sponsoredURL
 {
   // There are sponsors without URL. For such psrtners we do not show special button.
@@ -564,55 +620,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.IsSponsored()
              ? @(m_info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID).c_str())
              : nil;
-}
-
-- (void)assignOnlinePriceToLabel:(UILabel *)label
-{
-  NSAssert(self.isBooking, @"Online price must be assigned to booking object!");
-  if (self.cachedMinPrice.length)
-  {
-    label.text = self.cachedMinPrice;
-    return;
-  }
-
-  network_policy::CallPartnersApi([self, label](auto const & canUseNetwork) {
-    auto const api = GetFramework().GetBookingApi(canUseNetwork);
-    if (!api)
-      return;
-
-    std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
-
-    auto const func = [self, label, currency](std::string const & hotelId,
-                                              booking::Blocks const & blocks) {
-      if (currency != blocks.m_currency)
-        return;
-
-      NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
-      decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-
-      auto const price = blocks.m_totalMinPrice == booking::BlockInfo::kIncorrectPrice
-                             ? ""
-                             : std::to_string(blocks.m_totalMinPrice);
-
-      NSNumber * currencyNumber = [decimalFormatter
-          numberFromString:[@(price.c_str())
-                               stringByReplacingOccurrencesOfString:@"."
-                                                         withString:decimalFormatter
-                                                                        .decimalSeparator]];
-      NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
-
-      self.cachedMinPrice = [NSString stringWithCoreFormat:L(@"place_page_starting_from")
-                                                 arguments:@[currencyString]];
-      dispatch_async(dispatch_get_main_queue(), ^{
-        label.text = self.cachedMinPrice;
-      });
-    };
-
-    auto params = booking::BlockParams::MakeDefault();
-    params.m_hotelId = self.sponsoredId.UTF8String;
-    params.m_currency = currency;
-    api->GetBlockAvailability(std::move(params), func);
-  });
 }
 
 - (NSNumberFormatter *)currencyFormatter
