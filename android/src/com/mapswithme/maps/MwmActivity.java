@@ -1196,7 +1196,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
   {
+    if (!successful)
+      return;
+
     Toast.makeText(this, R.string.bookmarks_downloaded_title, Toast.LENGTH_LONG).show();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
   }
 
   @Override

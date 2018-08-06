@@ -53,6 +53,7 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_GUIDES_DOWNLOADDIALOGUE_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_SUCCESS;
@@ -82,6 +83,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_REVIEW_START;
+import static com.mapswithme.util.statistics.Statistics.EventParam.ACTION;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BUTTON;
@@ -191,6 +193,8 @@ public enum Statistics
     static final String BM_TAB_CLICK = "Bookmarks_Tab_click";
     private static final String BM_DOWNLOADED_CATALOGUE_OPEN = "Bookmarks_Downloaded_Catalogue_open";
     private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
+    public static final String BM_GUIDEDOWNLOADTOAST_SHOWN = "Bookmarks_GuideDownloadToast_shown";
+    public static final String BM_GUIDES_DOWNLOADDIALOGUE_CLICK = "Bookmarks_Guides_DownloadDialogue_click";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -456,6 +460,9 @@ public enum Statistics
     static final String BICYCLE = "bicycle";
     static final String TAXI = "taxi";
     static final String TRANSIT = "transit";
+    public final static String VIEW_ON_MAP = "view on map";
+    public final static String NOT_NOW = "not now";
+    public final static String CLICK_OUTSIDE = "click outside pop-up";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1274,6 +1281,11 @@ public enum Statistics
   public void trackToolbarMenu(@NonNull MainMenu.Item button)
   {
     trackEvent(TOOLBAR_MENU_CLICK, getToolbarParams(button));
+  }
+
+  public void trackDownloadBookmarkDialog(@NonNull String button)
+  {
+    trackEvent(BM_GUIDES_DOWNLOADDIALOGUE_CLICK, params().add(ACTION, button));
   }
 
   @NonNull
