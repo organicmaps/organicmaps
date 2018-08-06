@@ -391,7 +391,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   }
 
   @Override
-  public void onNoData(boolean notify)
+  public void onNoData()
   {
     // no op
   }
@@ -403,13 +403,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   }
 
   @Override
-  public void onExpiredData(boolean notify)
+  public void onExpiredData()
   {
     // no op
   }
 
   @Override
-  public void onExpiredApp(boolean notify)
+  public void onExpiredApp()
   {
     // no op
   }

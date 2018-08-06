@@ -13,7 +13,7 @@ import java.util.List;
 public enum TrafficManager
 {
   INSTANCE;
-  private final String mTag = TrafficManager.class.getSimpleName();
+  private final static String TAG = TrafficManager.class.getSimpleName();
   @NonNull
   private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRAFFIC);
 
@@ -30,7 +30,7 @@ public enum TrafficManager
 
   public void initialize()
   {
-    mLogger.d(mTag, "Initialization of traffic manager and setting the listener for traffic state changes");
+    mLogger.d(TAG, "Initialization of traffic manager and setting the listener for traffic state changes");
     TrafficState.nativeSetListener(mStateChangeListener);
     mInitialized = true;
   }
@@ -47,7 +47,7 @@ public enum TrafficManager
 
   private void enable()
   {
-    mLogger.d(mTag, "Enable traffic");
+    mLogger.d(TAG, "Enable traffic");
     TrafficState.nativeEnable();
   }
 
@@ -55,7 +55,7 @@ public enum TrafficManager
   {
     checkInitialization();
 
-    mLogger.d(mTag, "Disable traffic");
+    mLogger.d(TAG, "Disable traffic");
     TrafficState.nativeDisable();
   }
   
@@ -74,7 +74,7 @@ public enum TrafficManager
       throw new IllegalStateException("A callback '" + callback
                                       + "' is already attached. Check that the 'detachAll' method was called.");
     }
-    mLogger.d(mTag, "Attach callback '" + callback + "'");
+    mLogger.d(TAG, "Attach callback '" + callback + "'");
     mCallbacks.add(callback);
     postPendingState();
   }
@@ -90,13 +90,13 @@ public enum TrafficManager
 
     if (mCallbacks.isEmpty())
     {
-      mLogger.w(mTag, "There are no attached callbacks. Invoke the 'detachAll' method " +
-                                      "only when it's really needed!", new Throwable());
+      mLogger.w(TAG, "There are no attached callbacks. Invoke the 'detachAll' method " +
+                     "only when it's really needed!", new Throwable());
       return;
     }
 
     for (TrafficCallback callback : mCallbacks)
-      mLogger.d(mTag, "Detach callback '" + callback + "'");
+      mLogger.d(TAG, "Detach callback '" + callback + "'");
     mCallbacks.clear();
   }
 
@@ -126,11 +126,14 @@ public enum TrafficManager
     public void onTrafficStateChanged(int index)
     {
       TrafficState newTrafficState = TrafficState.values()[index];
-      mLogger.d(mTag, "onTrafficStateChanged current state = " + mState
-                      + " new value = " + newTrafficState);
+      mLogger.d(TAG, "onTrafficStateChanged current state = " + mState
+                     + " new value = " + newTrafficState);
 
-      newTrafficState.activate(mCallbacks, mState);
+      if (mState == newTrafficState)
+        return;
+
       mState = newTrafficState;
+      mState.activate(mCallbacks);
     }
   }
 
@@ -141,8 +144,8 @@ public enum TrafficManager
     void onWaitingData();
     void onOutdated();
     void onNetworkError();
-    void onNoData(boolean notify);
-    void onExpiredData(boolean notify);
-    void onExpiredApp(boolean notify);
+    void onNoData();
+    void onExpiredData();
+    void onExpiredApp();
   }
 }

@@ -107,11 +107,10 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback, 
   }
 
   @Override
-  public void onNoData(boolean notify)
+  public void onNoData()
   {
     turnOn();
-    if (notify)
-      Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
   }
 
   @Override
@@ -149,18 +148,16 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback, 
   }
 
   @Override
-  public void onExpiredData(boolean notify)
+  public void onExpiredData()
   {
     turnOn();
-    if (notify)
-      Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
   }
 
   @Override
-  public void onExpiredApp(boolean notify)
+  public void onExpiredApp()
   {
     turnOn();
-    if (notify)
-      Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
+    Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
   }
 }

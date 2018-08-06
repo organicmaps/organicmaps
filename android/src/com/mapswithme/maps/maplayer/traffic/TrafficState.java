@@ -12,8 +12,7 @@ enum TrafficState
   DISABLED
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
           callback.onDisabled();
         }
@@ -22,8 +21,7 @@ enum TrafficState
   ENABLED(Statistics.ParamValue.SUCCESS)
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
           callback.onEnabled();
         }
@@ -32,8 +30,7 @@ enum TrafficState
   WAITING_DATA
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
           callback.onWaitingData();
         }
@@ -42,8 +39,7 @@ enum TrafficState
   OUTDATED
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
           callback.onOutdated();
         }
@@ -52,18 +48,16 @@ enum TrafficState
   NO_DATA(Statistics.ParamValue.UNAVAILABLE)
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
-          callback.onNoData(lastPostedState != NO_DATA);
+          callback.onNoData();
         }
       },
 
   NETWORK_ERROR(Statistics.EventParam.ERROR)
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
           callback.onNetworkError();
         }
@@ -72,20 +66,18 @@ enum TrafficState
   EXPIRED_DATA
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
-          callback.onExpiredData(lastPostedState != EXPIRED_DATA);
+          callback.onExpiredData();
         }
       },
 
   EXPIRED_APP
       {
         @Override
-        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                        @NonNull TrafficState lastPostedState)
+        protected void activateInternal(@NonNull TrafficManager.TrafficCallback callback)
         {
-          callback.onExpiredApp(lastPostedState != EXPIRED_APP);
+          callback.onExpiredApp();
         }
       };
 
@@ -108,18 +100,16 @@ enum TrafficState
     return mAnalyticsParamName;
   }
 
-  public void activate(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks,
-                       @NonNull TrafficState lastPostedState)
+  public void activate(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks)
   {
     for (TrafficManager.TrafficCallback callback : trafficCallbacks)
     {
-      activateInternal(callback, lastPostedState);
-      Statistics.INSTANCE.trackTrafficEvent(getAnalyticsParamName());
+      activateInternal(callback);
     }
+    Statistics.INSTANCE.trackTrafficEvent(getAnalyticsParamName());
   }
 
-  protected abstract void activateInternal(@NonNull TrafficManager.TrafficCallback callback,
-                                           @NonNull TrafficState lastPostedState);
+  protected abstract void activateInternal(@NonNull TrafficManager.TrafficCallback callback);
 
   interface StateChangeListener
   {
