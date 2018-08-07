@@ -224,7 +224,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)menuActionAddPlace
 {
-  [Statistics logEvent:kStatEditorAddClick withParameters:@{kStatValue : kStatMenu}];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatAddPlace}];
   GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kEditorAddDiscovered);
   self.state = self.restoreState;
   [self.delegate addPlace:NO hasPoint:NO point:m2::PointD()];
@@ -232,30 +232,28 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (void)menuActionDownloadRoutes
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadRoute}];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatDownloadGuides}];
   self.state = self.restoreState;
   [self.mapViewController openCatalogAnimated:YES];
 }
 
 - (void)menuActionDownloadMaps
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatDownloadMaps}];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatDownloadMaps}];
   self.state = self.restoreState;
   [self.delegate actionDownloadMaps:MWMMapDownloaderModeDownloaded];
 }
 
 - (IBAction)menuActionOpenSettings
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatSettings}];
   self.state = self.restoreState;
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
   [self.mapViewController performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
 - (void)menuActionShareLocation
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatShare}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"share@"];
+  [Statistics logEvent:kStatToolbarMenuClick withParameters:@{kStatItem : kStatShareMyLocation}];
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
   {
@@ -277,7 +275,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatPointToPoint}];
+  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatPointToPoint}];
   BOOL const isSelected = !sender.isSelected;
   [MWMRouter enableAutoAddLastLocation:NO];
   if (isSelected)
@@ -288,8 +286,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)searchButtonTouchUpInside
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSearch}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"search"];
+  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatSearch}];
   self.state = MWMBottomMenuStateInactive;
   auto searchManager = [MWMSearchManager manager];
   if (searchManager.state == MWMSearchManagerStateHidden)
@@ -300,8 +297,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)discoveryTap
 {
-  [Statistics logEvent:kStatDiscoveryButtonOpen
-        withParameters:@{kStatNetwork: [Statistics connectionTypeString]}];
+  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatDiscovery}];
 
   self.state = self.restoreState;
 
@@ -313,8 +309,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 - (IBAction)bookmarksButtonTouchUpInside
 {
-  [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
-  [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
+  [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatBookmarks}];
   self.state = MWMBottomMenuStateInactive;
   [self.mapViewController openBookmarks];
 }
@@ -327,7 +322,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   case MWMBottomMenuStateInactive:
     if ([self.menuView isCompact])
     {
-      [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatRegular}];
+      [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatMenu}];
       if (IPAD)
       {
         [MWMSearchManager manager].state = MWMSearchManagerStateHidden;
@@ -336,12 +331,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     }
     else
     {
-      [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatExpand}];
+      [Statistics logEvent:kStatToolbarClick withParameters:@{kStatButton : kStatMenu}];
       self.state = MWMBottomMenuStateActive;
     }
     break;
   case MWMBottomMenuStateActive:
-    [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatCollapse}];
     self.state = MWMBottomMenuStateInactive;
     break;
   }
