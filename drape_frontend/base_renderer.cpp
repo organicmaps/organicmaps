@@ -76,7 +76,7 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   };
 
   {
-    std::lock_guard<mutex> lock(m_completionHandlerMutex);
+    std::lock_guard<std::mutex> lock(m_completionHandlerMutex);
     m_renderingEnablingCompletionHandler = std::move(handler);
   }
 

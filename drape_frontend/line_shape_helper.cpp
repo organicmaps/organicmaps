@@ -6,10 +6,8 @@
 
 namespace df
 {
-
 namespace
 {
-
 void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
 {
   ASSERT(segment1 != nullptr && segment2 != nullptr, ());
@@ -75,8 +73,7 @@ void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
     }
   }
 }
-
-} // namespace
+}  // namespace
 
 void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
                                 glsl::vec2 & tangent, glsl::vec2 & leftNormal,
@@ -87,8 +84,8 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
   rightNormal = -leftNormal;
 }
 
-void ConstructLineSegments(vector<m2::PointD> const & path, vector<glsl::vec4> const & segmentsColors,
-                           vector<LineSegment> & segments)
+void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<glsl::vec4> const & segmentsColors,
+                           std::vector<LineSegment> & segments)
 {
   ASSERT_LESS(1, path.size(), ());
 
@@ -132,8 +129,8 @@ void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment
 }
 
 void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals,
-                         vector<glsl::vec2> * uv)
+                         float halfWidth, bool isLeft, float widthScalar, std::vector<glsl::vec2> & normals,
+                         std::vector<glsl::vec2> * uv)
 {
   float const eps = 1e-5;
   if (fabs(glsl::dot(normal1, normal2) - 1.0f) < eps)
@@ -213,8 +210,8 @@ void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl
 }
 
 void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals,
-                        int segmentsCount)
+                        glsl::vec2 const & direction, float halfWidth, bool isStart,
+                        std::vector<glsl::vec2> & normals, int segmentsCount)
 {
   if (capType == dp::ButtCap)
     return;
@@ -271,6 +268,5 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
   float const proj = glsl::dot(v1, v2) / squareLen;
   return sqrt(squareLen) * my::clamp(proj, 0.0f, 1.0f);
 }
-
-} // namespace df
+}  // namespace df
 

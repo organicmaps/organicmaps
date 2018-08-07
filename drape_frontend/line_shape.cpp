@@ -16,6 +16,8 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
+
 namespace df
 {
 namespace
@@ -66,7 +68,7 @@ struct BaseBuilderParams
 };
 
 template <typename TVertex>
-class BaseLineBuilder : public ILineShapeInfo
+class BaseLineBuilder : public LineShapeInfo
 {
 public:
   BaseLineBuilder(BaseBuilderParams const & params, size_t geomsSize, size_t joinsSize)
@@ -341,7 +343,6 @@ private:
   TextureCoordGenerator m_texCoordGen;
   float const m_baseGtoPScale;
 };
-
 }  // namespace
 
 LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
@@ -378,7 +379,7 @@ void LineShape::Construct<DashedLineBuilder>(DashedLineBuilder & builder) const
 
     // calculate number of steps to cover line segment
     float const initialGlobalLength = static_cast<float>((path[i] - path[i - 1]).Length());
-    int const steps = max(1, builder.GetDashesCount(initialGlobalLength));
+    int const steps = std::max(1, builder.GetDashesCount(initialGlobalLength));
     float const maskSize = glsl::length(p2 - p1) / steps;
     float const offsetSize = initialGlobalLength / steps;
 
@@ -471,10 +472,10 @@ bool LineShape::CanBeSimplified(int & lineWidth) const
   if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
     return false;
 
-  static float width = min(2.5f, static_cast<float>(dp::SupportManager::Instance().GetMaxLineWidth()));
+  static float width = std::min(2.5f, static_cast<float>(dp::SupportManager::Instance().GetMaxLineWidth()));
   if (m_params.m_width <= width)
   {
-    lineWidth = max(1, static_cast<int>(m_params.m_width));
+    lineWidth = std::max(1, static_cast<int>(m_params.m_width));
     return true;
   }
 

@@ -393,7 +393,7 @@ public:
   static char const * DOUBLE_TAP_AND_HOLD;
   static char const * END_DOUBLE_TAP_AND_HOLD;
 
-  using TTestBridge = function<void (char const * action)>;
+  using TTestBridge = std::function<void (char const * action)>;
   void SetTestBridge(TTestBridge const & fn) { m_testFn = fn; }
 #endif
 

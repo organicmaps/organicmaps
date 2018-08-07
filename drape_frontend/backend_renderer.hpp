@@ -15,6 +15,8 @@
 #include "drape/pointers.hpp"
 #include "drape/viewport.hpp"
 
+#include <functional>
+
 namespace dp
 {
 class GraphicsContextFactory;
@@ -28,7 +30,7 @@ class ReadManager;
 class RouteBuilder;
 class MetalineManager;
 
-using TIsUGCFn = function<bool (FeatureID const &)>;
+using TIsUGCFn = std::function<bool(FeatureID const &)>;
 
 class BackendRenderer : public BaseRenderer
 {
@@ -50,8 +52,7 @@ public:
       , m_trafficEnabled(trafficEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
       , m_isUGCFn(std::move(isUGCFn))
-    {
-    }
+    {}
 
     MapDataProvider const & m_model;
     TUpdateCurrentCountryFn m_updateCurrentCountryFn;
@@ -62,7 +63,7 @@ public:
     TIsUGCFn m_isUGCFn;
   };
 
-  BackendRenderer(Params && params);
+  explicit BackendRenderer(Params && params);
   ~BackendRenderer() override;
 
   void Teardown();
@@ -87,7 +88,7 @@ private:
   class Routine : public threads::IRoutine
   {
   public:
-    Routine(BackendRenderer & renderer);
+    explicit Routine(BackendRenderer & renderer);
 
     void Do() override;
 

@@ -8,15 +8,14 @@
 
 #include "geometry/spline.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
 
 namespace df
 {
-
-class ILineShapeInfo
+class LineShapeInfo
 {
 public:
-  virtual ~ILineShapeInfo() {}
+  virtual ~LineShapeInfo() = default;
 
   virtual dp::BindingInfo const & GetBindingInfo() = 0;
   virtual dp::RenderState GetState() = 0;
@@ -49,9 +48,8 @@ private:
 
   LineViewParams m_params;
   m2::SharedSpline m_spline;
-  mutable unique_ptr<ILineShapeInfo> m_lineShapeInfo;
+  mutable std::unique_ptr<LineShapeInfo> m_lineShapeInfo;
   mutable bool m_isSimple;
 };
-
-} // namespace df
+}  // namespace df
 

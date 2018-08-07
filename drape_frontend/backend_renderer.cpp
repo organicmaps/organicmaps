@@ -21,20 +21,25 @@
 
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
+#include <algorithm>
+#include <utility>
+
+using namespace std::placeholders;
 
 namespace df
 {
-
 BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
                                               params.m_allow3dBuildings, params.m_trafficEnabled,
                                               std::move(params.m_isUGCFn)))
-  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
-  , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
-  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
+  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(
+        std::bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
+  , m_trafficGenerator(make_unique_dp<TrafficGenerator>(
+        std::bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
+  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(
+        std::bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
   , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
@@ -89,16 +94,16 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
 {
   auto context = m_contextFactory->GetResourcesUploadContext();
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, m_texMng, make_ref(context));
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), needResetOldGui);
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), needResetOldGui);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
 
 #ifdef RENDER_DEBUG_INFO_LABELS
 void BackendRenderer::RecacheDebugLabels()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_texMng);
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
 #endif
 
@@ -106,8 +111,8 @@ void BackendRenderer::RecacheChoosePositionMark()
 {
   auto context = m_contextFactory->GetResourcesUploadContext();
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_texMng, make_ref(context));
-  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(move(layerRenderer), false);
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
+  drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
@@ -201,7 +206,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       TOverlaysRenderData overlays;
       overlays.swap(m_overlays);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FlushOverlaysMessage>(move(overlays)),
+                                make_unique_dp<FlushOverlaysMessage>(std::move(overlays)),
                                 MessagePriority::Normal);
       break;
     }
@@ -254,7 +259,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         if (!renderData.empty())
         {
           m_overlays.reserve(m_overlays.size() + renderData.size());
-          move(renderData.begin(), renderData.end(), back_inserter(m_overlays));
+          std::move(renderData.begin(), renderData.end(), back_inserter(m_overlays));
         }
 
 #if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
@@ -493,7 +498,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       vector<drape_ptr<DrapeApiRenderProperty>> properties;
       m_drapeApiBuilder->BuildLines(msg->GetLines(), m_texMng, properties);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<DrapeApiFlushMessage>(move(properties)),
+                                make_unique_dp<DrapeApiFlushMessage>(std::move(properties)),
                                 MessagePriority::Normal);
       break;
     }
@@ -634,7 +639,7 @@ void BackendRenderer::InitGLDependentResource()
 {
   uint32_t constexpr kBatchSize = 5000;
   m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(kReadingThreadsCount,
-                                               bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3),
+                                               std::bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3),
                                                kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
 
@@ -683,7 +688,7 @@ void BackendRenderer::FlushGeometry(TileKey const & key, dp::RenderState const &
 {
   m_contextFactory->GetResourcesUploadContext()->Flush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushRenderBucketMessage>(key, state, move(buffer)),
+                            make_unique_dp<FlushRenderBucketMessage>(key, state, std::move(buffer)),
                             MessagePriority::Normal);
 }
 
@@ -714,7 +719,6 @@ void BackendRenderer::CleanupOverlays(TileKey const & tileKey)
   {
     return data.m_tileKey == tileKey && data.m_tileKey.m_generation < tileKey.m_generation;
   };
-  m_overlays.erase(remove_if(m_overlays.begin(), m_overlays.end(), functor), m_overlays.end());
+  m_overlays.erase(std::remove_if(m_overlays.begin(), m_overlays.end(), functor), m_overlays.end());
 }
-
-} // namespace df
+}  // namespace df

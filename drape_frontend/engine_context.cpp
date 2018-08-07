@@ -3,11 +3,10 @@
 #include "drape_frontend/message_subclasses.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "std/algorithm.hpp"
+#include <utility>
 
 namespace df
 {
-
 EngineContext::EngineContext(TileKey tileKey,
                              ref_ptr<ThreadsCommutator> commutator,
                              ref_ptr<dp::TextureManager> texMng,
@@ -45,18 +44,18 @@ void EngineContext::BeginReadTile()
 
 void EngineContext::Flush(TMapShapes && shapes)
 {
-  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, move(shapes)));
+  PostMessage(make_unique_dp<MapShapeReadedMessage>(m_tileKey, std::move(shapes)));
 }
 
 void EngineContext::FlushOverlays(TMapShapes && shapes)
 {
-  PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, move(shapes)));
+  PostMessage(make_unique_dp<OverlayMapShapeReadedMessage>(m_tileKey, std::move(shapes)));
 }
 
 void EngineContext::FlushTrafficGeometry(TrafficSegmentsGeometry && geometry)
 {
   m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                            make_unique_dp<FlushTrafficGeometryMessage>(m_tileKey, move(geometry)),
+                            make_unique_dp<FlushTrafficGeometryMessage>(m_tileKey, std::move(geometry)),
                             MessagePriority::Low);
 }
 
@@ -67,7 +66,7 @@ void EngineContext::EndReadTile()
 
 void EngineContext::PostMessage(drape_ptr<Message> && message)
 {
-  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, move(message),
+  m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(message),
                             MessagePriority::Normal);
 }
 }  // namespace df

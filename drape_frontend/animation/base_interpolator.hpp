@@ -2,11 +2,10 @@
 
 namespace df
 {
-
 class BaseInterpolator
 {
 public:
-  BaseInterpolator(double duration, double delay = 0);
+  explicit BaseInterpolator(double duration, double delay = 0);
   virtual ~BaseInterpolator();
 
   bool IsFinished() const;
@@ -22,5 +21,4 @@ private:
   double m_duration;
   double m_delay;
 };
-
-}
+}  // namespace df

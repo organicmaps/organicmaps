@@ -2,11 +2,10 @@
 
 #include "drape/pointers.hpp"
 
-#include "std/array.hpp"
+#include <array>
 
 namespace df
 {
-
 class ShowHideAnimation
 {
 public:
@@ -18,7 +17,7 @@ public:
     STATE_HIDE_DIRECTION
   };
 
-  ShowHideAnimation(bool isInitialVisible, double fullDuraction);
+  ShowHideAnimation(bool isInitialVisible, double fullDuration);
   ~ShowHideAnimation();
 
   void Show();
@@ -30,12 +29,11 @@ public:
   bool IsFinished() const;
 
 private:
-  void RefreshInterpolator(array<EState, 2> validStates, double endValue);
+  void RefreshInterpolator(std::array<EState, 2> validStates, double endValue);
   class ShowHideInterpolator;
 
   drape_ptr<ShowHideInterpolator> m_interpolator;
   ShowHideAnimation::EState m_state;
   double m_fullDuration;
 };
-
-} // namespace df
+}  // namespace df

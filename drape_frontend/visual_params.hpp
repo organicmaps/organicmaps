@@ -3,15 +3,16 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "std/atomic.hpp"
-#include "std/cstdint.hpp"
-#include "std/noncopyable.hpp"
-#include "std/string.hpp"
+#include "base/macros.hpp"
+
+#include <atomic>
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace df
 {
-
-class VisualParams : private noncopyable
+class VisualParams
 {
 public:
   static double const kMdpiScale;
@@ -26,8 +27,8 @@ public:
 
   VisualParams();
 
-  static string const & GetResourcePostfix(double visualScale);
-  string const & GetResourcePostfix() const;
+  static std::string const & GetResourcePostfix(double visualScale);
+  std::string const & GetResourcePostfix() const;
 
   double GetVisualScale() const;
   uint32_t GetTileSize() const;
@@ -56,10 +57,12 @@ public:
   void SetFontScale(double fontScale);
 
 private:
-  int m_tileSize;
+  uint32_t m_tileSize;
   double m_visualScale;
   GlyphVisualParams m_glyphVisualParams;
-  atomic<double> m_fontScale;
+  std::atomic<double> m_fontScale;
+
+  DISALLOW_COPY_AND_MOVE(VisualParams);
 };
 
 m2::RectD const & GetWorldRect();
@@ -69,8 +72,8 @@ int GetTileScaleBase(ScreenBase const & s);
 int GetTileScaleBase(m2::RectD const & r);
 double GetTileScaleBase(double drawScale);
 
-/// @return Adjusting base tile scale to look the same across devices with different
-/// tile size and visual scale values.
+// @return Adjusting base tile scale to look the same across devices with different
+// tile size and visual scale values.
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale);
 int GetTileScaleIncrement();
 
@@ -95,4 +98,4 @@ m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::Po
 double GetNormalizedZoomLevel(double screenScale, int minZoom = 1);
 double GetScreenScale(double zoomLevel);
 double GetZoomLevel(double screenScale);
-} // namespace df
+}  // namespace df

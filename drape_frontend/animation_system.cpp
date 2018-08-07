@@ -8,10 +8,8 @@ using namespace std::placeholders;
 
 namespace df
 {
-
 namespace
 {
-
 class PropertyBlender
 {
 public:
@@ -65,8 +63,7 @@ private:
   Animation::PropertyValue m_value;
   uint32_t m_counter = 0;
 };
-
-} // namespace
+}  // namespace
 
 void AnimationSystem::UpdateLastScreen(ScreenBase const & currentScreen)
 {
@@ -506,5 +503,4 @@ void AnimationSystem::StartNextAnimations()
     }
   }
 }
-
-} // namespace df
+}  // namespace df

@@ -6,20 +6,22 @@
 #include "indexer/feature.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/function.hpp"
+#include <functional>
+#include <vector>
 
 namespace df
 {
-
 class MapDataProvider
 {
 public:
-  template <typename T> using TReadCallback = function<void(T &)>;
-  using TReadFeaturesFn = function<void (TReadCallback<FeatureType> const & , vector<FeatureID> const &)>;
-  using TReadIDsFn = function<void(TReadCallback<FeatureID const> const &, m2::RectD const &, int)>;
-  using TIsCountryLoadedFn = function<bool (m2::PointD const &)>;
-  using TIsCountryLoadedByNameFn = function<bool (string const &)>;
-  using TUpdateCurrentCountryFn = function<void (m2::PointD const &, int)>;
+  template <typename T> using TReadCallback = std::function<void(T &)>;
+  using TReadFeaturesFn = std::function<void(TReadCallback<FeatureType> const &,
+                                             std::vector<FeatureID> const &)>;
+  using TReadIDsFn = std::function<void(TReadCallback<FeatureID const> const &,
+                                        m2::RectD const &, int)>;
+  using TIsCountryLoadedFn = std::function<bool(m2::PointD const &)>;
+  using TIsCountryLoadedByNameFn = std::function<bool(string const &)>;
+  using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
 
   MapDataProvider(TReadIDsFn const & idsReader,
                   TReadFeaturesFn const & featureReader,
@@ -28,17 +30,15 @@ public:
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r,
                       int scale) const;
-  void ReadFeatures(TReadCallback<FeatureType> const & fn, vector<FeatureID> const & ids) const;
+  void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
 
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
+
+  TIsCountryLoadedByNameFn m_isCountryLoadedByName;
 
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
-
-public:
-  TIsCountryLoadedByNameFn m_isCountryLoadedByName;
 };
-
-} // namespace df
+}  // namespace df

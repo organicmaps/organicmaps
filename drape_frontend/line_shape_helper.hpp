@@ -5,11 +5,10 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace df
 {
-
 enum EPointType
 {
   StartPoint = 0,
@@ -54,22 +53,21 @@ void CalculateTangentAndNormals(glsl::vec2 const & pt0, glsl::vec2 const & pt1,
                                 glsl::vec2 & tangent, glsl::vec2 & leftNormal,
                                 glsl::vec2 & rightNormal);
 
-void ConstructLineSegments(vector<m2::PointD> const & path, vector<glsl::vec4> const & segmentsColors,
-                           vector<LineSegment> & segments);
+void ConstructLineSegments(std::vector<m2::PointD> const & path, std::vector<glsl::vec4> const & segmentsColors,
+                           std::vector<LineSegment> & segments);
 
 void UpdateNormals(LineSegment * segment, LineSegment * prevSegment, LineSegment * nextSegment);
 
 void GenerateJoinNormals(dp::LineJoin joinType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                         float halfWidth, bool isLeft, float widthScalar, vector<glsl::vec2> & normals,
-                         vector<glsl::vec2> * uv = nullptr);
+                         float halfWidth, bool isLeft, float widthScalar, std::vector<glsl::vec2> & normals,
+                         std::vector<glsl::vec2> * uv = nullptr);
 
 void GenerateCapNormals(dp::LineCap capType, glsl::vec2 const & normal1, glsl::vec2 const & normal2,
-                        glsl::vec2 const & direction, float halfWidth, bool isStart, vector<glsl::vec2> & normals,
+                        glsl::vec2 const & direction, float halfWidth, bool isStart, std::vector<glsl::vec2> & normals,
                         int segmentsCount = 8);
 
 glsl::vec2 GetNormal(LineSegment const & segment, bool isLeft, ENormalType normalType);
 
 float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startPoint, glsl::vec2 const & endPoint);
-
-} // namespace df
+}  // namespace df
 

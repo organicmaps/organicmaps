@@ -7,17 +7,16 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace dp
 {
-  class Batcher;
-  class TextureManager;
-}
+class Batcher;
+class TextureManager;
+}  // namespace dp
 
 namespace df
 {
-
 enum MapShapeType
 {
   GeometryType = 0,
@@ -29,7 +28,7 @@ enum MapShapeType
 class MapShape
 {
 public:
-  virtual ~MapShape(){}
+  virtual ~MapShape() = default;
   virtual void Prepare(ref_ptr<dp::TextureManager> /*textures*/) const {}
   virtual void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const = 0;
   virtual MapShapeType GetType() const { return MapShapeType::GeometryType; }
@@ -46,12 +45,12 @@ private:
   int m_minZoom = 0;
 };
 
-using TMapShapes = vector<drape_ptr<MapShape>>;
+using TMapShapes = std::vector<drape_ptr<MapShape>>;
 
 class MapShapeMessage : public Message
 {
 public:
-  MapShapeMessage(TileKey const & key)
+  explicit MapShapeMessage(TileKey const & key)
     : m_tileKey(key)
   {}
 
@@ -64,7 +63,7 @@ private:
 class TileReadStartMessage : public MapShapeMessage
 {
 public:
-  TileReadStartMessage(TileKey const & key) : MapShapeMessage(key) {}
+  explicit TileReadStartMessage(TileKey const & key) : MapShapeMessage(key) {}
   Type GetType() const override { return Message::TileReadStarted; }
   bool IsGLContextDependent() const override { return true; }
 };
@@ -72,7 +71,7 @@ public:
 class TileReadEndMessage : public MapShapeMessage
 {
 public:
-  TileReadEndMessage(TileKey const & key) : MapShapeMessage(key) {}
+  explicit TileReadEndMessage(TileKey const & key) : MapShapeMessage(key) {}
   Type GetType() const override { return Message::TileReadEnded; }
   bool IsGLContextDependent() const override { return true; }
 };
@@ -101,5 +100,4 @@ public:
 
   Type GetType() const override { return Message::OverlayMapShapeReaded; }
 };
-
-} // namespace df
+}  // namespace df

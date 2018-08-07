@@ -1,10 +1,10 @@
 #pragma once
 
-#include "animation/animation.hpp"
+#include "drape_frontend/animation/animation.hpp"
 
 #include "geometry/screenbase.hpp"
 
-#include "std/noncopyable.hpp"
+#include "base/macros.hpp"
 
 #include <cstring>
 #include <deque>
@@ -18,8 +18,7 @@
 
 namespace df
 {
-
-class AnimationSystem : private noncopyable
+class AnimationSystem
 {
 public:
   static AnimationSystem & Instance();
@@ -94,6 +93,7 @@ private:
   mutable TPropertyCache m_propertyCache;
 
   ScreenBase m_lastScreen;
-};
 
-}
+  DISALLOW_COPY_AND_MOVE(AnimationSystem);
+};
+}  // namespace df

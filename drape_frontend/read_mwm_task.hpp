@@ -4,26 +4,24 @@
 
 #include "base/thread.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/weak_ptr.hpp"
+#include <memory>
 
 namespace df
 {
-
 class ReadMWMTask : public threads::IRoutine
 {
 public:
-  ReadMWMTask(MapDataProvider & model);
+  explicit ReadMWMTask(MapDataProvider & model);
 
   void Do() override;
 
-  void Init(shared_ptr<TileInfo> const & tileInfo);
+  void Init(std::shared_ptr<TileInfo> const & tileInfo);
   void Reset() override;
   bool IsCancelled() const override;
   TileKey const & GetTileKey() const { return m_tileKey; }
 
 private:
-  weak_ptr<TileInfo> m_tileInfo;
+  std::weak_ptr<TileInfo> m_tileInfo;
   TileKey m_tileKey;
   MapDataProvider & m_model;
 
@@ -35,10 +33,11 @@ private:
 class ReadMWMTaskFactory
 {
 public:
-  ReadMWMTaskFactory(MapDataProvider & model)
-    : m_model(model) {}
+  explicit ReadMWMTaskFactory(MapDataProvider & model)
+    : m_model(model)
+  {}
 
-  /// Caller must handle object life cycle
+  // Caller must handle object life cycle.
   ReadMWMTask * GetNew() const
   {
     return new ReadMWMTask(m_model);
@@ -47,5 +46,4 @@ public:
 private:
   MapDataProvider & m_model;
 };
-
-} // namespace df
+}  // namespace df

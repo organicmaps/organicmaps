@@ -6,30 +6,28 @@
 
 namespace df
 {
-
 class ShowHideAnimation::ShowHideInterpolator : public BaseInterpolator
 {
 public:
-  ShowHideInterpolator(ShowHideAnimation::EState & state, double startT, double endT, double duration)
-    : BaseInterpolator(duration)
-    , m_state(state)
-    , m_startT(startT)
-    , m_endT(endT)
+  ShowHideInterpolator(ShowHideAnimation::EState & state, double startT, double endT,
+                       double duration)
+    : BaseInterpolator(duration), m_state(state), m_startT(startT), m_endT(endT)
   {
-    m_state = m_endT > m_startT ? ShowHideAnimation::STATE_SHOW_DIRECTION : ShowHideAnimation::STATE_HIDE_DIRECTION;
+    m_state = m_endT > m_startT ? ShowHideAnimation::STATE_SHOW_DIRECTION
+                                : ShowHideAnimation::STATE_HIDE_DIRECTION;
   }
 
   void Advance(double elapsedSeconds) override
   {
     BaseInterpolator::Advance(elapsedSeconds);
     if (IsFinished())
-      m_state = m_endT > m_startT ? ShowHideAnimation::STATE_VISIBLE : ShowHideAnimation::STATE_INVISIBLE;
+    {
+      m_state = m_endT > m_startT ? ShowHideAnimation::STATE_VISIBLE
+                                  : ShowHideAnimation::STATE_INVISIBLE;
+    }
   }
 
-  double GetCurrentT() const
-  {
-    return m_startT + (m_endT - m_startT) * GetT();
-  }
+  double GetCurrentT() const { return m_startT + (m_endT - m_startT) * GetT(); }
 
 private:
   ShowHideAnimation::EState & m_state;
@@ -37,11 +35,10 @@ private:
   double m_endT;
 };
 
-ShowHideAnimation::ShowHideAnimation(bool isInitialVisible, double fullDuraction)
+ShowHideAnimation::ShowHideAnimation(bool isInitialVisible, double fullDuration)
   : m_state(isInitialVisible ? STATE_VISIBLE : STATE_INVISIBLE)
-  , m_fullDuration(fullDuraction)
-{
-}
+  , m_fullDuration(fullDuration)
+{}
 
 ShowHideAnimation::~ShowHideAnimation()
 {
@@ -99,7 +96,7 @@ bool ShowHideAnimation::IsFinished() const
   return m_interpolator == nullptr || m_interpolator->IsFinished();
 }
 
-void ShowHideAnimation::RefreshInterpolator(array<EState, 2> validStates, double endValue)
+void ShowHideAnimation::RefreshInterpolator(std::array<EState, 2> validStates, double endValue)
 {
   EState state = GetState();
   if (state == validStates[0] || state == validStates[1])
@@ -110,5 +107,4 @@ void ShowHideAnimation::RefreshInterpolator(array<EState, 2> validStates, double
   double duration = fabs(end - start) * m_fullDuration;
   m_interpolator.reset(new ShowHideInterpolator(m_state, start, end, duration));
 }
-
-} // namespace df
+}  // namespace df

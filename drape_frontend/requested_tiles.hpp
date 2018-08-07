@@ -4,11 +4,10 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "std/mutex.hpp"
+#include <mutex>
 
 namespace df
 {
-
 class RequestedTiles
 {
 public:
@@ -26,7 +25,6 @@ private:
   bool m_have3dBuildings = false;
   bool m_forceRequest = false;
   bool m_forceUserMarksRequest = false;
-  mutable mutex m_mutex;
+  mutable std::mutex m_mutex;
 };
-
-} // namespace df
+}  // namespace df

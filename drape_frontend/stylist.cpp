@@ -7,15 +7,13 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/scales.hpp"
 
-#include "std/limits.hpp"
-
 #include <algorithm>
+#include <limits>
 
 namespace df
 {
 namespace
 {
-
 enum Type
 {
   Line      =               1,
@@ -46,8 +44,7 @@ inline drule::rule_type_t Convert(Type t)
   }
 }
 
-double constexpr kMinPriority = numeric_limits<double>::lowest();
-
+double constexpr kMinPriority = std::numeric_limits<double>::lowest();
 
 inline bool IsTypeOf(drule::Key const & key, int flags)
 {
@@ -157,12 +154,11 @@ private:
   int m_depthLayer;
 };
 
-const uint8_t CoastlineFlag  = 1;
-const uint8_t AreaStyleFlag  = 1 << 1;
-const uint8_t LineStyleFlag  = 1 << 2;
-const uint8_t PointStyleFlag = 1 << 3;
-
-} // namespace
+uint8_t const CoastlineFlag  = 1;
+uint8_t const AreaStyleFlag  = 1 << 1;
+uint8_t const LineStyleFlag  = 1 << 2;
+uint8_t const PointStyleFlag = 1 << 3;
+}  // namespace
 
 IsBuildingHasPartsChecker::IsBuildingHasPartsChecker()
 {
@@ -255,12 +251,9 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
   }
 }
 
-// ==================================== //
-
 Stylist::Stylist()
   : m_state(0)
-{
-}
+{}
 
 bool Stylist::IsCoastLine() const
 {
@@ -333,7 +326,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
     return false;
 
   drule::KeysT keys;
-  pair<int, bool> const geomType = feature::GetDrawRule(types, zoomLevel, keys);
+  auto const geomType = feature::GetDrawRule(types, zoomLevel, keys);
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
@@ -345,7 +338,7 @@ bool InitStylist(FeatureType & f, int8_t deviceLang, int const zoomLevel, bool b
   if (geomType.second)
     s.RaiseCoastlineFlag();
 
-  feature::EGeomType mainGeomType = feature::EGeomType(geomType.first);
+  auto const mainGeomType = feature::EGeomType(geomType.first);
 
   switch (mainGeomType)
   {
@@ -388,7 +381,7 @@ double GetFeaturePriority(FeatureType & f, int const zoomLevel)
 
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, keys);
 
-  feature::EGeomType const mainGeomType = feature::EGeomType(geomType.first);
+  auto const mainGeomType = feature::EGeomType(geomType.first);
 
   Aggregator aggregator(f, mainGeomType, zoomLevel, static_cast<int>(keys.size()));
   aggregator.AggregateKeys(keys);

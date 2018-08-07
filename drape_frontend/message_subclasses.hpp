@@ -33,12 +33,12 @@
 
 #include "platform/location.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/function.hpp"
-#include "std/mutex.hpp"
-#include "std/set.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/utility.hpp"
+#include <condition_variable>
+#include <functional>
+#include <map>
+#include <mutex>
+#include <utility>
+#include <vector>
 
 namespace df
 {
@@ -49,7 +49,7 @@ public:
   {
     void Wait()
     {
-      unique_lock<mutex> lock(m_lock);
+      std::unique_lock<std::mutex> lock(m_lock);
       m_signal.wait(lock, [this]{return !m_blocked;} );
     }
 
@@ -58,23 +58,22 @@ public:
 
     void Signal()
     {
-      lock_guard<mutex> lock(m_lock);
+      std::lock_guard<std::mutex> lock(m_lock);
       m_blocked = false;
       m_signal.notify_one();
     }
 
   private:
-    mutex m_lock;
-    condition_variable m_signal;
+    std::mutex m_lock;
+    std::condition_variable m_signal;
     bool m_blocked = true;
   };
 
-  BaseBlockingMessage(Blocker & blocker)
+  explicit BaseBlockingMessage(Blocker & blocker)
     : m_blocker(blocker)
-  {
-  }
+  {}
 
-  ~BaseBlockingMessage()
+  ~BaseBlockingMessage() override
   {
     m_blocker.Signal();
   }
@@ -86,8 +85,9 @@ private:
 class BaseTileMessage : public Message
 {
 public:
-  BaseTileMessage(TileKey const & key)
-    : m_tileKey(key) {}
+  explicit BaseTileMessage(TileKey const & key)
+    : m_tileKey(key)
+  {}
 
   TileKey const & GetKey() const { return m_tileKey; }
 
@@ -98,8 +98,6 @@ private:
 class FinishReadingMessage : public Message
 {
 public:
-  FinishReadingMessage() = default;
-
   Type GetType() const override { return Message::FinishReading; }
 };
 
@@ -107,14 +105,14 @@ class FinishTileReadMessage : public Message
 {
 public:
   template<typename T> FinishTileReadMessage(T && tiles, bool forceUpdateUserMarks)
-    : m_tiles(forward<T>(tiles))
+    : m_tiles(std::forward<T>(tiles))
     , m_forceUpdateUserMarks(forceUpdateUserMarks)
   {}
 
   Type GetType() const override { return Message::FinishTileRead; }
 
   TTilesCollection const & GetTiles() const { return m_tiles; }
-  TTilesCollection && MoveTiles() { return move(m_tiles); }
+  TTilesCollection && MoveTiles() { return std::move(m_tiles); }
   bool NeedForceUpdateUserMarks() const { return m_forceUpdateUserMarks; }
 
 private:
@@ -129,14 +127,14 @@ public:
                            drape_ptr<dp::RenderBucket> && buffer)
     : BaseTileMessage(key)
     , m_state(state)
-    , m_buffer(move(buffer))
+    , m_buffer(std::move(buffer))
   {}
 
   Type GetType() const override { return Message::FlushTile; }
   bool IsGLContextDependent() const override { return true; }
 
   dp::RenderState const & GetState() const { return m_state; }
-  drape_ptr<dp::RenderBucket> && AcceptBuffer() { return move(m_buffer); }
+  drape_ptr<dp::RenderBucket> && AcceptBuffer() { return std::move(m_buffer); }
 
 private:
   dp::RenderState m_state;
@@ -164,7 +162,7 @@ using FlushOverlaysMessage = FlushRenderDataMessage<TOverlaysRenderData,
 class InvalidateRectMessage : public Message
 {
 public:
-  InvalidateRectMessage(m2::RectD const & rect)
+  explicit InvalidateRectMessage(m2::RectD const & rect)
     : m_rect(rect) {}
 
   Type GetType() const override { return Message::InvalidateRect; }
@@ -178,8 +176,6 @@ private:
 class UpdateReadManagerMessage : public Message
 {
 public:
-  UpdateReadManagerMessage(){}
-
   Type GetType() const override { return Message::UpdateReadManager; }
 };
 
@@ -192,7 +188,7 @@ public:
     , m_needRestartReading(false)
   {}
 
-  InvalidateReadManagerRectMessage(Blocker & blocker)
+  explicit InvalidateReadManagerRectMessage(Blocker & blocker)
     : BaseBlockingMessage(blocker)
     , m_needRestartReading(true)
   {}
@@ -210,7 +206,7 @@ private:
 class ClearUserMarkGroupMessage : public Message
 {
 public:
-  ClearUserMarkGroupMessage(kml::MarkGroupId groupId)
+  explicit ClearUserMarkGroupMessage(kml::MarkGroupId groupId)
     : m_groupId(groupId)
   {}
 
@@ -300,14 +296,14 @@ class GuiLayerRecachedMessage : public Message
 {
 public:
   GuiLayerRecachedMessage(drape_ptr<gui::LayerRenderer> && renderer, bool needResetOldGui)
-    : m_renderer(move(renderer))
+    : m_renderer(std::move(renderer))
     , m_needResetOldGui(needResetOldGui)
   {}
 
   Type GetType() const override { return Message::GuiLayerRecached; }
   bool IsGLContextDependent() const override { return true; }
 
-  drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return move(m_renderer); }
+  drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return std::move(m_renderer); }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
 
 private:
@@ -346,7 +342,7 @@ public:
 class GuiLayerLayoutMessage : public Message
 {
 public:
-  GuiLayerLayoutMessage(gui::TWidgetsLayoutInfo const & info)
+  explicit GuiLayerLayoutMessage(gui::TWidgetsLayoutInfo const & info)
     : m_layoutInfo(info)
   {}
 
@@ -354,7 +350,7 @@ public:
   bool IsGLContextDependent() const override { return true; }
 
   gui::TWidgetsLayoutInfo const & GetLayoutInfo() const { return m_layoutInfo; }
-  gui::TWidgetsLayoutInfo AcceptLayoutInfo() { return move(m_layoutInfo); }
+  gui::TWidgetsLayoutInfo AcceptLayoutInfo() { return std::move(m_layoutInfo); }
 
 private:
   gui::TWidgetsLayoutInfo m_layoutInfo;
@@ -370,7 +366,7 @@ public:
 class SetKineticScrollEnabledMessage : public Message
 {
 public:
-  SetKineticScrollEnabledMessage(bool enabled)
+  explicit SetKineticScrollEnabledMessage(bool enabled)
     : m_enabled(enabled)
   {}
 
@@ -385,10 +381,10 @@ private:
 class SetAddNewPlaceModeMessage : public Message
 {
 public:
-  SetAddNewPlaceModeMessage(bool enable, vector<m2::TriangleD> && boundArea, bool enableKineticScroll,
-                            bool hasPosition, m2::PointD const & position)
+  SetAddNewPlaceModeMessage(bool enable, std::vector<m2::TriangleD> && boundArea,
+                            bool enableKineticScroll, bool hasPosition, m2::PointD const & position)
     : m_enable(enable)
-    , m_boundArea(move(boundArea))
+    , m_boundArea(std::move(boundArea))
     , m_enableKineticScroll(enableKineticScroll)
     , m_hasPosition(hasPosition)
     , m_position(position)
@@ -396,7 +392,7 @@ public:
 
   Type GetType() const override { return Message::SetAddNewPlaceMode; }
 
-  vector<m2::TriangleD> && AcceptBoundArea() { return move(m_boundArea); }
+  std::vector<m2::TriangleD> && AcceptBoundArea() { return std::move(m_boundArea); }
   bool IsEnabled() const { return m_enable; }
   bool IsKineticScrollEnabled() const { return m_enableKineticScroll; }
   bool HasPosition() const { return m_hasPosition; }
@@ -404,7 +400,7 @@ public:
 
 private:
   bool m_enable;
-  vector<m2::TriangleD> m_boundArea;
+  std::vector<m2::TriangleD> m_boundArea;
   bool m_enableKineticScroll;
   bool m_hasPosition;
   m2::PointD m_position;
@@ -413,7 +409,7 @@ private:
 class BlockTapEventsMessage : public Message
 {
 public:
-  BlockTapEventsMessage(bool block)
+  explicit BlockTapEventsMessage(bool block)
     : m_needBlock(block)
   {}
 
@@ -429,15 +425,15 @@ class MapShapesMessage : public Message
 {
 public:
   MapShapesMessage(drape_ptr<MyPosition> && shape, drape_ptr<SelectionShape> && selection)
-    : m_shape(move(shape))
-    , m_selection(move(selection))
+    : m_shape(std::move(shape))
+    , m_selection(std::move(selection))
   {}
 
   Type GetType() const override { return Message::MapShapes; }
   bool IsGLContextDependent() const override { return true; }
 
-  drape_ptr<MyPosition> && AcceptShape() { return move(m_shape); }
-  drape_ptr<SelectionShape> AcceptSelection() { return move(m_selection); }
+  drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
+  drape_ptr<SelectionShape> AcceptSelection() { return std::move(m_selection); }
 
 private:
   drape_ptr<MyPosition> m_shape;
@@ -468,7 +464,7 @@ private:
 class CompassInfoMessage : public Message
 {
 public:
-  CompassInfoMessage(location::CompassInfo const & info)
+  explicit CompassInfoMessage(location::CompassInfo const & info)
     : m_info(info)
   {}
 
@@ -507,7 +503,7 @@ class SelectObjectMessage : public Message
 public:
   struct DismissTag {};
 
-  SelectObjectMessage(DismissTag)
+  explicit SelectObjectMessage(DismissTag)
     : m_selected(SelectionShape::OBJECT_EMPTY)
     , m_glbPoint(m2::PointD::Zero())
     , m_isAnim(false)
@@ -637,9 +633,7 @@ private:
 class RemoveRoutePreviewSegmentMessage : public Message
 {
 public:
-  RemoveRoutePreviewSegmentMessage()
-    : m_needRemoveAll(true)
-  {}
+  RemoveRoutePreviewSegmentMessage() = default;
 
   explicit RemoveRoutePreviewSegmentMessage(dp::DrapeID segmentId)
     : m_segmentId(segmentId)
@@ -652,8 +646,8 @@ public:
   bool NeedRemoveAll() const { return m_needRemoveAll; }
 
 private:
-  dp::DrapeID m_segmentId;
-  bool m_needRemoveAll;
+  dp::DrapeID m_segmentId = 0;
+  bool m_needRemoveAll = true;
 };
 
 class SetSubrouteVisibilityMessage : public Message
@@ -704,7 +698,7 @@ private:
 class SwitchMapStyleMessage : public BaseBlockingMessage
 {
 public:
-  SwitchMapStyleMessage(Blocker & blocker)
+  explicit SwitchMapStyleMessage(Blocker & blocker)
     : BaseBlockingMessage(blocker)
   {}
 
@@ -714,16 +708,12 @@ public:
 class InvalidateMessage : public Message
 {
 public:
-  InvalidateMessage(){}
-
   Type GetType() const override { return Message::Invalidate; }
 };
 
 class RecoverGLResourcesMessage : public Message
 {
 public:
-  RecoverGLResourcesMessage(){}
-
   Type GetType() const override { return Message::RecoverGLResources; }
   bool IsGLContextDependent() const override { return true; }
 };
@@ -731,13 +721,13 @@ public:
 class SetVisibleViewportMessage : public Message
 {
 public:
-  SetVisibleViewportMessage(m2::RectD const & rect)
+  explicit SetVisibleViewportMessage(m2::RectD const & rect)
     : m_rect(rect)
   {}
 
   Type GetType() const override { return Message::SetVisibleViewport;  }
 
-  m2::RectD const &  GetRect() const { return m_rect; }
+  m2::RectD const & GetRect() const { return m_rect; }
 
 private:
   m2::RectD m_rect;
@@ -746,8 +736,6 @@ private:
 class DeactivateRouteFollowingMessage : public Message
 {
 public:
-  DeactivateRouteFollowingMessage(){}
-
   Type GetType() const override { return Message::DeactivateRouteFollowing; }
 };
 
@@ -772,7 +760,7 @@ private:
 class AllowAutoZoomMessage : public Message
 {
 public:
-  AllowAutoZoomMessage(bool allowAutoZoom)
+  explicit AllowAutoZoomMessage(bool allowAutoZoom)
     : m_allowAutoZoom(allowAutoZoom)
   {}
 
@@ -787,7 +775,7 @@ private:
 class Allow3dBuildingsMessage : public Message
 {
 public:
-  Allow3dBuildingsMessage(bool allow3dBuildings)
+  explicit Allow3dBuildingsMessage(bool allow3dBuildings)
     : m_allow3dBuildings(allow3dBuildings)
   {}
 
@@ -870,8 +858,6 @@ private:
 class ClearGpsTrackPointsMessage : public Message
 {
 public:
-  ClearGpsTrackPointsMessage() = default;
-
   Type GetType() const override { return Message::ClearGpsTrackPoints; }
 };
 
@@ -952,7 +938,7 @@ class FlushTrafficGeometryMessage : public BaseTileMessage
 public:
   FlushTrafficGeometryMessage(TileKey const & tileKey, TrafficSegmentsGeometry && segments)
     : BaseTileMessage(tileKey)
-    , m_segments(move(segments))
+    , m_segments(std::move(segments))
   {}
 
   Type GetType() const override { return Message::FlushTrafficGeometry; }
@@ -973,7 +959,7 @@ class UpdateTrafficMessage : public Message
 {
 public:
   explicit UpdateTrafficMessage(TrafficSegmentsColoring && segmentsColoring)
-    : m_segmentsColoring(move(segmentsColoring))
+    : m_segmentsColoring(std::move(segmentsColoring))
   {}
 
   Type GetType() const override { return Message::UpdateTraffic; }
@@ -1057,7 +1043,7 @@ class UpdateTransitSchemeMessage : public Message
 {
 public:
   UpdateTransitSchemeMessage(TransitDisplayInfos && transitInfos)
-    : m_transitInfos(move(transitInfos))
+    : m_transitInfos(std::move(transitInfos))
   {}
 
   Type GetType() const override { return Message::UpdateTransitScheme; }
@@ -1113,15 +1099,15 @@ private:
 class DrapeApiFlushMessage : public Message
 {
 public:
-  using TProperties = vector<drape_ptr<DrapeApiRenderProperty>>;
+  using TProperties = std::vector<drape_ptr<DrapeApiRenderProperty>>;
 
   explicit DrapeApiFlushMessage(TProperties && properties)
-    : m_properties(move(properties))
+    : m_properties(std::move(properties))
   {}
 
   Type GetType() const override { return Message::DrapeApiFlush; }
 
-  TProperties && AcceptProperties() { return move(m_properties); }
+  TProperties && AcceptProperties() { return std::move(m_properties); }
 
 private:
   TProperties m_properties;
@@ -1210,7 +1196,7 @@ private:
 class EnableUGCRenderingMessage : public Message
 {
 public:
-  EnableUGCRenderingMessage(bool enabled)
+  explicit EnableUGCRenderingMessage(bool enabled)
     : m_enabled(enabled)
   {}
 
@@ -1236,7 +1222,7 @@ public:
 class PostUserEventMessage : public Message
 {
 public:
-  PostUserEventMessage(drape_ptr<UserEvent> && event)
+  explicit PostUserEventMessage(drape_ptr<UserEvent> && event)
     : m_event(std::move(event))
   {}
 

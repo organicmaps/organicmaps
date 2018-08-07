@@ -4,19 +4,15 @@
 
 #include "base/matrix.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/function.hpp"
-
 namespace df
 {
-
 extern double const kDefault3dScale;
 
-/// Calculates screen parameters in navigation (dragging, scaling, etc.).
+// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
 {
 public:
-  Navigator();
+  Navigator() = default;
 
   void SetFromRect(m2::AnyRectD const & r);
   void SetFromRect(m2::AnyRectD const & r, uint32_t tileSize, double visualScale);
@@ -66,11 +62,11 @@ private:
   // Second Last point for scaling.
   m2::PointD m_LastPt2;
   // Flag, which indicates, whether we are in the middle of some action.
-  bool m_InAction;
+  bool m_InAction = false;
   // Should we check for threshold while scaling by two fingers.
-  bool m_DoCheckRotationThreshold;
+  bool m_DoCheckRotationThreshold = false;
   // Do screen rotates during the two fingers scaling.
-  bool m_IsRotatingDuringScale;
+  bool m_IsRotatingDuringScale = false;
   // Used in DoScale and ScaleByPoint
   bool ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                  m2::PointD const & oldPt1, m2::PointD const & oldPt2,
@@ -82,7 +78,7 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect);
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
 void CheckMinGlobalRect(m2::RectD & rect, double scale3d = kDefault3dScale);
 
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, uint32_t tileSize, double visualScale, double scale3d = kDefault3dScale);
-void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/, double scale3d = kDefault3dScale);
-
-}
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1 */, uint32_t tileSize, double visualScale,
+                             double scale3d = kDefault3dScale);
+void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1 */, double scale3d = kDefault3dScale);
+}  // namespace df

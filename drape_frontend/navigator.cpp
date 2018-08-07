@@ -13,18 +13,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/function.hpp"
-#include "std/bind.hpp"
-
 namespace df
 {
-
 double const kDefault3dScale = 1.0;
-
-Navigator::Navigator()
-  : m_InAction(false)
-{
-}
 
 void Navigator::SetFromScreen(ScreenBase const & screen)
 {
@@ -348,5 +339,4 @@ void CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale, double scale3d)
   VisualParams const & p = VisualParams::Instance();
   CheckMinMaxVisibleScale(rect, maxScale, p.GetTileSize(), p.GetVisualScale(), scale3d);
 }
-
-} // namespace df
+}  // namespace df
