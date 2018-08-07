@@ -1291,7 +1291,7 @@ public enum Statistics
   @NonNull
   private static ParameterBuilder getToolbarParams(@NonNull MainMenu.Item button)
   {
-    return params().add(BUTTON, button.toString().toLowerCase());
+    return params().add(BUTTON, button.name().toLowerCase());
   }
 
   public static ParameterBuilder params()

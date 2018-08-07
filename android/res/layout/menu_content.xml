@@ -12,6 +12,7 @@
     android:id="@+id/add_place"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_plus"
+    android:drawableStart="@drawable/ic_plus"
     android:text="@string/placepage_add_place_button"
     tools:background="#40FF00FF"/>
 
@@ -19,6 +20,7 @@
     android:id="@+id/download_guides"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_download_guides"
+    android:drawableStart="@drawable/ic_menu_download_guides"
     android:drawableTint="?attr/colorAccent"
     android:textColor="?attr/colorAccent"
     android:text="@string/download_routes"
@@ -29,6 +31,7 @@
     android:id="@+id/search"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_search"
+    android:drawableStart="@drawable/ic_menu_search"
     android:text="@string/search"
     tools:background="#200000FF"/>
 
@@ -36,6 +39,7 @@
     android:id="@+id/bookmarks"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_bookmarks"
+    android:drawableStart="@drawable/ic_menu_bookmarks"
     android:text="@string/bookmarks"
     tools:background="#40FF00FF"/>
 
@@ -46,14 +50,16 @@
       android:id="@+id/download_maps"
       style="@style/MwmTheme.Menu.Content.ListItem"
       android:drawableLeft="@drawable/ic_menu_download"
+      android:drawableStart="@drawable/ic_menu_download"
       android:text="@string/download_maps"
       tools:background="#2000FF00"/>
 
     <TextView
       android:id="@+id/counter"
       style="@style/MwmWidget.Counter"
-      android:layout_gravity="right|center_vertical"
+      android:layout_gravity="end|center_vertical"
       android:layout_marginRight="@dimen/margin_base"
+      android:layout_marginEnd="@dimen/margin_base"
       android:visibility="gone"
       tools:text="9999"
       tools:visibility="visible"/>
@@ -63,6 +69,7 @@
     android:id="@+id/settings"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_settings"
+    android:drawableStart="@drawable/ic_menu_settings"
     android:text="@string/settings"
     tools:background="#20FF0000"/>
 
@@ -70,6 +77,7 @@
     android:id="@+id/share"
     style="@style/MwmTheme.Menu.Content.ListItem"
     android:drawableLeft="@drawable/ic_menu_share"
+    android:drawableStart="@drawable/ic_menu_share"
     android:text="@string/share_my_location"
     tools:background="#400FF000"/>
 </LinearLayout>
