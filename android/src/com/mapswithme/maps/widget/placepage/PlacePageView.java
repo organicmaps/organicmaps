@@ -136,6 +136,8 @@ public class PlacePageView extends RelativeLayout
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
   private static final String PREF_USE_DMS = "use_dms";
+  private static final String DISCOUNT_PREFIX = "-";
+  private static final String DISCOUNT_SUFFIX = "%";
 
   private boolean mIsDocked;
   private boolean mIsFloating;
@@ -230,6 +232,8 @@ public class PlacePageView extends RelativeLayout
   // Data
   @Nullable
   private MapObject mMapObject;
+  @Nullable
+  private HotelPriceInfo mPriceInfo;
   @Nullable
   private Sponsored mSponsored;
   private String mSponsoredPrice;
@@ -790,13 +794,12 @@ public class PlacePageView extends RelativeLayout
   }
 
   @Override
-  public void onPriceReceived(@NonNull String id, @NonNull String price,
-                              @NonNull String currencyCode)
+  public void onPriceReceived(@NonNull HotelPriceInfo priceInfo)
   {
-    if (mSponsored == null || !TextUtils.equals(id, mSponsored.getId()))
+    if (mSponsored == null || !TextUtils.equals(priceInfo.getId(), mSponsored.getId()))
       return;
 
-    String text = Utils.formatCurrencyString(price, currencyCode);
+    String text = Utils.formatCurrencyString(priceInfo.getPrice(), priceInfo.getCurrency());
 
     mSponsoredPrice = getContext().getString(R.string.place_page_starting_from, text);
     if (mMapObject == null)
@@ -804,6 +807,7 @@ public class PlacePageView extends RelativeLayout
       LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!", new Throwable());
       return;
     }
+    mPriceInfo = priceInfo;
     refreshPreview(mMapObject, NetworkPolicy.newInstance(true));
   }
 
@@ -1442,23 +1446,39 @@ public class PlacePageView extends RelativeLayout
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
     boolean sponsored = isSponsored();
     UiUtils.showIf(sponsored, mPreviewRatingInfo);
-    if (sponsored)
-    {
-      boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
-      @SuppressWarnings("ConstantConditions")
-      boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
-      Impress impress = Impress.values()[mSponsored.getImpress()];
-      mRatingView.setRating(impress, mSponsored.getRating());
-      UiUtils.showIf(!isRatingEmpty, mRatingView);
-      mTvSponsoredPrice.setText(mSponsoredPrice);
-      UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-      boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
-                          mSponsored.getType() == Sponsored.TYPE_BOOKING;
-      UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
-      UiUtils.showIf(true, mHotelDiscount);
-      mHotelDiscount.setRating(Impress.DISCOUNT, "-20%" );
-    }
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
+    if (sponsored)
+      initSponsoredViews();
+  }
+
+  private void initSponsoredViews()
+  {
+    boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
+    @SuppressWarnings("ConstantConditions")
+    boolean isRatingEmpty = TextUtils.isEmpty(mSponsored.getRating());
+    Impress impress = Impress.values()[mSponsored.getImpress()];
+    mRatingView.setRating(impress, mSponsored.getRating());
+    UiUtils.showIf(!isRatingEmpty, mRatingView);
+    mTvSponsoredPrice.setText(mSponsoredPrice);
+    UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
+    boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
+                                 mSponsored.getType() == Sponsored.TYPE_BOOKING;
+    UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
+    UiUtils.showIf(true, mHotelDiscount);
+
+    String discount = getHotelDiscount();
+    UiUtils.hideIf(TextUtils.isEmpty(discount), mHotelDiscount);
+    mHotelDiscount.setRating(Impress.DISCOUNT, discount);
+  }
+
+  @Nullable
+  private String getHotelDiscount()
+  {
+    boolean hasDiscount = mPriceInfo != null && mPriceInfo.getDiscount() > 0;
+    return hasDiscount ? new StringBuilder().append(DISCOUNT_PREFIX)
+                                            .append(mPriceInfo.getDiscount())
+                                            .append(DISCOUNT_SUFFIX).toString()
+                       : null;
   }
 
   private boolean isSponsored()
