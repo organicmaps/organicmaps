@@ -5,12 +5,11 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.discovery.Popularity;
+import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.search.SearchResult;
 
 import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
 import static com.mapswithme.maps.gallery.Constants.TYPE_PRODUCT;
-
 import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 public class Items

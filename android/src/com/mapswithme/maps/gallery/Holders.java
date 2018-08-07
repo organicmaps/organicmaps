@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.discovery.Popularity;
+import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.RatingView;
@@ -250,7 +250,7 @@ public class Holders
       UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
       UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
-      UiUtils.showIf(item.getPopularity() == Popularity.POPULAR, mPopularTagRating);
+      UiUtils.showIf(item.getPopularity().getType() == Popularity.Type.POPULAR, mPopularTagRating);
 
       float rating = item.getRating();
       Impress impress = Impress.values()[UGC.nativeToImpress(rating)];

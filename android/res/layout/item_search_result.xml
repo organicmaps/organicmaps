@@ -30,7 +30,7 @@
     <com.mapswithme.maps.widget.RatingView
       android:id="@+id/popular"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/rating_view_height_small"
+      android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_eighth"
       android:layout_marginBottom="@dimen/margin_half"
       android:layout_marginStart="@dimen/margin_half"
@@ -41,7 +41,6 @@
       android:paddingEnd="@dimen/margin_quarter_plus"
       android:paddingTop="@dimen/margin_quarter"
       android:paddingBottom="@dimen/margin_quarter"
-
       android:gravity="center"
       android:layout_gravity="center_horizontal|start"
       android:textSize="@dimen/text_size_body_4"
@@ -130,7 +129,7 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignBaseline="@id/region"
-    android:layout_below="@id/closed"
+    android:layout_below="@id/metadata_container"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textColor="?colorAccent"
     tools:text="500 km"/>

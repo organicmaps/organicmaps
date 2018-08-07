@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:gravity="center_vertical"
   android:paddingTop="@dimen/margin_base">
 
@@ -18,39 +19,59 @@
     android:visibility="gone"
     tools:visibility="visible"/>
 
-  <TextView
-    android:id="@+id/tv__title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
+  <LinearLayout
+    android:id="@+id/title_container"
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toRightOf="@id/downloader_status_frame"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginLeft="@dimen/margin_base"
-    android:layout_toEndOf="@id/downloader_status_frame"
-    android:layout_toRightOf="@id/downloader_status_frame"
-    android:layout_toLeftOf="@+id/direction_frame"
-    android:layout_toStartOf="@+id/direction_frame"
-    android:ellipsize="end"
-    android:fontFamily="@string/robotoMedium"
-    android:maxLines="@integer/pp_title_lines"
-    android:textAppearance="@style/MwmTextAppearance.Title"
-    tools:background="#C0800000"
-    tools:ignore="UnusedAttribute"
-    tools:text="Title"/>
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:id="@+id/tv__title"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:fontFamily="@string/robotoMedium"
+      android:maxLines="@integer/pp_title_lines"
+      android:textAppearance="@style/MwmTextAppearance.Title"
+      tools:background="#C0800000"
+      tools:ignore="UnusedAttribute"
+      tools:text="Title"/>
+
+    <com.mapswithme.maps.widget.RatingView
+      android:id="@+id/popular_rating_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingLeft="@dimen/margin_quarter_plus"
+      android:paddingStart="@dimen/margin_quarter_plus"
+      android:paddingRight="@dimen/margin_quarter_plus"
+      android:paddingEnd="@dimen/margin_quarter_plus"
+      android:paddingTop="@dimen/margin_quarter"
+      android:paddingBottom="@dimen/margin_quarter"
+      android:layout_gravity="center"
+      android:textSize="@dimen/text_size_body_4"
+      android:text="@string/popular_place"
+      android:visibility="gone"
+      app:rating="popular"/>
+  </LinearLayout>
 
   <TextView
     android:id="@+id/tv__secondary_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/tv__title"
+    android:layout_below="@id/title_container"
     android:layout_alignWithParentIfMissing="true"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
-    android:layout_alignLeft="@id/tv__title"
-    android:layout_alignStart="@id/tv__title"
+    android:layout_alignLeft="@id/title_container"
+    android:layout_alignStart="@id/title_container"
     android:layout_toLeftOf="@id/direction_frame"
     android:layout_toStartOf="@id/direction_frame"
     android:ellipsize="end"
@@ -81,11 +102,13 @@
     tools:text="Subtitle, very very very very very very very long"/>
 
   <LinearLayout
-    android:id="@id/direction_frame"
+    android:id="@+id/direction_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
+    android:layout_below="@id/title_container"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignWithParentIfMissing="true"

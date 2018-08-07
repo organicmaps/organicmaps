@@ -3,7 +3,6 @@ package com.mapswithme.maps.search;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.bookmarks.data.FeatureId;
-import com.mapswithme.maps.discovery.Popularity;
 
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_LOCAL_ADS_CUSTOMER;
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_RESULT;
@@ -13,7 +12,7 @@ import static com.mapswithme.maps.search.SearchResultTypes.TYPE_SUGGEST;
  * Class instances are created from native code.
  */
 @SuppressWarnings("unused")
-public class SearchResult implements SearchData
+public class SearchResult implements SearchData, PopularityProvider
 {
   // Values should match osm::YesNoUnknown enum.
   public static final int OPEN_NOW_UNKNOWN = 0;
@@ -77,23 +76,22 @@ public class SearchResult implements SearchData
     this.isHotel = false;
     this.description = null;
     this.type = TYPE_SUGGEST;
-
     this.highlightRanges = highlightRanges;
-    mPopularity = Popularity.NOT_POPULAR;
+    mPopularity = Popularity.defaultInstance();
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      boolean isHotel, boolean isLocalAdsCustomer, int popularity)
+                      boolean isHotel, boolean isLocalAdsCustomer, @NonNull Popularity popularity)
   {
     this.type = isLocalAdsCustomer ? TYPE_LOCAL_ADS_CUSTOMER : TYPE_RESULT;
     this.name = name;
     this.isHotel = isHotel;
+    mPopularity = popularity;
     this.suggestion = null;
     this.lat = lat;
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
-    mPopularity = Popularity.makeInstance(popularity);
   }
 
   @Override
@@ -103,6 +101,7 @@ public class SearchResult implements SearchData
   }
 
   @NonNull
+  @Override
   public Popularity getPopularity()
   {
     return mPopularity;
