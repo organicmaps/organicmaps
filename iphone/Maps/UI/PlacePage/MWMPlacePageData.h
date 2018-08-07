@@ -154,6 +154,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 @property(nonatomic, readonly) MWMUGCViewModel * ugc;
 @property(nonatomic, readonly) NSInteger bookingDiscount;
 @property(nonatomic, readonly) BOOL isSmartDeal;
+@property(nonatomic, readonly) BOOL isPopular;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;

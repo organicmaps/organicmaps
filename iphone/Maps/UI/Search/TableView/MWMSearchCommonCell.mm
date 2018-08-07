@@ -37,6 +37,7 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 @property(weak, nonatomic) IBOutlet UIView * sideAvailableMarker;
 @property(weak, nonatomic) IBOutlet UIImageView * hotOfferImageView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * priceOffset;
+@property(weak, nonatomic) IBOutlet UIView * popularView;
 
 @end
 
@@ -83,8 +84,6 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   else
     [self clearInfo];
 
-  self.closedView.hidden = (result.IsOpenNow() != osm::No);
-  
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   double distanceInMeters = 0.0;
   if (lastLocation)
@@ -101,7 +100,20 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   }
 
   bool popularityHasHigherPriority = PopularityHasHigherPriority(lastLocation, distanceInMeters);
-  
+  bool showClosed = result.IsOpenNow() == osm::No;
+  bool showPopular = result.GetRankingInfo().m_popularity > 0;
+
+  if (showClosed && showPopular)
+  {
+    self.closedView.hidden = popularityHasHigherPriority;
+    self.popularView.hidden = !popularityHasHigherPriority;
+  }
+  else
+  {
+    self.closedView.hidden = !showClosed;
+    self.popularView.hidden = !showPopular;
+  }
+
   if (productInfo.m_isLocalAdsCustomer)
     self.backgroundColor = [UIColor bannerBackground];
   else if (isAvailable)
