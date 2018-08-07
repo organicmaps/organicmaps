@@ -14,7 +14,8 @@ public enum Impress
   GOOD(R.drawable.ic_24px_rating_good, R.color.rating_good),
   EXCELLENT(R.drawable.ic_24px_rating_excellent, R.color.rating_excellent),
   COMING_SOON(R.drawable.ic_24px_rating_coming_soon, R.color.rating_coming_soon),
-  POPULAR(R.drawable.ic_thumb_up, R.color.rating_coming_soon);
+  POPULAR(R.drawable.ic_thumb_up, R.color.rating_coming_soon),
+  DISCOUNT(R.drawable.ic_thumb_up, R.color.rating_coming_soon);
 
   @DrawableRes
   private final int mDrawableId;

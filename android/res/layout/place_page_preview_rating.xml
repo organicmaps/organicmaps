@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="horizontal"
   tools:background="#8000FFFF"
   tools:showIn="@layout/place_page_preview">
@@ -41,6 +42,23 @@
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textStyle="bold"
     tools:text="$$$"/>
+  <com.mapswithme.maps.widget.RatingView
+    android:id="@+id/discount_in_percents"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_quarter_plus"
+    android:paddingStart="@dimen/margin_quarter_plus"
+    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingRight="@dimen/margin_quarter_plus"
+    android:paddingTop="@dimen/margin_quarter"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:layout_marginLeft="@dimen/margin_quarter"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_gravity="center_vertical"
+    android:textSize="@dimen/text_size_body_4"
+    tools:text="-20%"
+    app:drawSmile="false"
+    app:rating="discount"/>
   <Button
     android:id="@+id/leaveReview"
     style="@style/MwmWidget.Button.LeaveReview"

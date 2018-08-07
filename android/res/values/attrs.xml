@@ -38,6 +38,7 @@
       <enum name="excellent" value="5"/>
       <enum name="coming_soon" value="6"/>
       <enum name="popular" value="7"/>
+      <enum name="discount" value="8"/>
     </attr>
     <attr name="drawSmile" format="boolean"/>
     <attr name="forceDrawBg" format="boolean"/>

@@ -152,6 +152,9 @@ public class PlacePageView extends RelativeLayout
   private View mPreviewRatingInfo;
   private RatingView mRatingView;
   private TextView mTvSponsoredPrice;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private RatingView mHotelDiscount;
   // Details.
   private NestedScrollView mDetails;
   private View mPhone;
@@ -408,6 +411,7 @@ public class PlacePageView extends RelativeLayout
     mPreviewRatingInfo = mPreview.findViewById(R.id.preview_rating_info);
     mRatingView = mPreviewRatingInfo.findViewById(R.id.rating_view);
     mTvSponsoredPrice = mPreviewRatingInfo.findViewById(R.id.tv__hotel_price);
+    mHotelDiscount = mPreviewRatingInfo.findViewById(R.id.discount_in_percents);
 
     mDetails = findViewById(R.id.pp__details);
     RelativeLayout address = mDetails.findViewById(R.id.ll__place_name);
@@ -1448,8 +1452,11 @@ public class PlacePageView extends RelativeLayout
       UiUtils.showIf(!isRatingEmpty, mRatingView);
       mTvSponsoredPrice.setText(mSponsoredPrice);
       UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
-      UiUtils.showIf((!isRatingEmpty || !isPriceEmpty) &&
-                     mSponsored.getType() == Sponsored.TYPE_BOOKING, mPreviewRatingInfo);
+      boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
+                          mSponsored.getType() == Sponsored.TYPE_BOOKING;
+      UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
+      UiUtils.showIf(true, mHotelDiscount);
+      mHotelDiscount.setRating(Impress.DISCOUNT, "-20%" );
     }
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
   }
