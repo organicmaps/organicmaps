@@ -21,34 +21,40 @@ public class Popularity implements Parcelable
   }
 
   @NonNull
-  public static Popularity defaultInstance() {
+  public static Popularity defaultInstance()
+  {
     return new Popularity(Type.NOT_POPULAR.ordinal());
   }
 
-
   @Override
-  public int describeContents() {
+  public int describeContents()
+  {
     return 0;
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags) {
+  public void writeToParcel(Parcel dest, int flags)
+  {
     dest.writeInt(this.mType.ordinal());
   }
 
-  protected Popularity(Parcel in) {
+  protected Popularity(Parcel in)
+  {
     int tmpMPopularity = in.readInt();
     this.mType = Type.values()[tmpMPopularity];
   }
 
-  public static final Creator<Popularity> CREATOR = new Creator<Popularity>() {
+  public static final Creator<Popularity> CREATOR = new Creator<Popularity>()
+  {
     @Override
-    public Popularity createFromParcel(Parcel source) {
+    public Popularity createFromParcel(Parcel source)
+    {
       return new Popularity(source);
     }
 
     @Override
-    public Popularity[] newArray(int size) {
+    public Popularity[] newArray(int size)
+    {
       return new Popularity[size];
     }
   };

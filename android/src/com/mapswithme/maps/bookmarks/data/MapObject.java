@@ -452,7 +452,7 @@ public class MapObject implements Parcelable, PopularityProvider
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
     dest.writeTypedList(mRatings);
-    dest.writeParcelable(mPopularity,0);
+    dest.writeParcelable(mPopularity, 0);
   }
 
   @Override

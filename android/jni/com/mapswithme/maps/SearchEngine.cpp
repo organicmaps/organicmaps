@@ -638,7 +638,8 @@ extern "C"
     g_resultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult");
     g_resultConstructor = jni::GetConstructorID(
         env, g_resultClass,
-        "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[IZZLcom/mapswithme/maps/search/Popularity;)V");
+        "(Ljava/lang/String;Lcom/mapswithme/maps/search/SearchResult$Description;DD[IZZ"
+          "Lcom/mapswithme/maps/search/Popularity;)V");
     g_suggestConstructor = jni::GetConstructorID(env, g_resultClass, "(Ljava/lang/String;Ljava/lang/String;DD[I)V");
     g_descriptionClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/SearchResult$Description");
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,

@@ -28,7 +28,7 @@
       android:text="@string/closed"/>
 
     <com.mapswithme.maps.widget.RatingView
-      android:id="@+id/popular"
+      android:id="@+id/popular_rating_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/margin_eighth"
@@ -47,7 +47,6 @@
       android:text="@string/popular_place"
       app:rating="popular"/>
   </FrameLayout>
-
 
   <TextView
       android:id="@+id/title"

@@ -257,7 +257,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       mFrame = view;
       mName = view.findViewById(R.id.title);
       mClosedMarker = view.findViewById(R.id.closed);
-      mPopularity = view.findViewById(R.id.popular);
+      mPopularity = view.findViewById(R.id.popular_rating_view);
       mDescription =  view.findViewById(R.id.description);
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
@@ -279,13 +279,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super.bind(result, order);
       setBackground();
       // TODO: Support also "Open Now" mark.
-      boolean isCloseMarkerVisible = mResult.description.openNow == SearchResult.OPEN_NOW_NO
-                                     && !mResult.description.popularityHasHigherPriority;
-      UiUtils.showIf(isCloseMarkerVisible, mClosedMarker);
+
+      UiUtils.showIf(isClosedVisible(), mClosedMarker);
       boolean isHotelAvailable = mResult.isHotel &&
                                  mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
                                                             mResult.description.featureId);
-      UiUtils.showIf(mResult.description.popularityHasHigherPriority, mPopularity);
+
+      UiUtils.showIf(isPopularVisible(), mPopularity);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
@@ -295,6 +295,28 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
                         mFilteredHotelIds.contains(BookingFilter.TYPE_DEALS,
                                                    mResult.description.featureId);
       UiUtils.showIf(hasDeal, mSale);
+    }
+
+    private boolean isClosedVisible()
+    {
+      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
+      if (!isClosed)
+        return false;
+
+      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
+
+      return isNotPopular || !mResult.description.popularityHasHigherPriority;
+    }
+
+    private boolean isPopularVisible()
+    {
+      boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
+      if (isNotPopular)
+        return false;
+
+      boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
+
+      return !isClosed || mResult.description.popularityHasHigherPriority;
     }
 
     private void setBackground()

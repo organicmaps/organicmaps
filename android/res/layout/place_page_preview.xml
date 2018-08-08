@@ -19,59 +19,39 @@
     android:visibility="gone"
     tools:visibility="visible"/>
 
-  <LinearLayout
-    android:id="@+id/title_container"
-    android:layout_toEndOf="@id/downloader_status_frame"
-    android:layout_toRightOf="@id/downloader_status_frame"
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignWithParentIfMissing="true"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginLeft="@dimen/margin_base"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-      android:id="@+id/tv__title"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:fontFamily="@string/robotoMedium"
-      android:maxLines="@integer/pp_title_lines"
-      android:textAppearance="@style/MwmTextAppearance.Title"
-      tools:background="#C0800000"
-      tools:ignore="UnusedAttribute"
-      tools:text="Title"/>
-
-    <com.mapswithme.maps.widget.RatingView
-      android:id="@+id/popular_rating_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:paddingLeft="@dimen/margin_quarter_plus"
-      android:paddingStart="@dimen/margin_quarter_plus"
-      android:paddingRight="@dimen/margin_quarter_plus"
-      android:paddingEnd="@dimen/margin_quarter_plus"
-      android:paddingTop="@dimen/margin_quarter"
-      android:paddingBottom="@dimen/margin_quarter"
-      android:layout_gravity="center"
-      android:textSize="@dimen/text_size_body_4"
-      android:text="@string/popular_place"
-      android:visibility="gone"
-      app:rating="popular"/>
-  </LinearLayout>
+    android:layout_toEndOf="@id/downloader_status_frame"
+    android:layout_toRightOf="@id/downloader_status_frame"
+    android:layout_toLeftOf="@+id/direction_frame"
+    android:layout_toStartOf="@+id/direction_frame"
+    android:ellipsize="end"
+    android:fontFamily="@string/robotoMedium"
+    android:maxLines="@integer/pp_title_lines"
+    android:textAppearance="@style/MwmTextAppearance.Title"
+    tools:background="#C0800000"
+    tools:ignore="UnusedAttribute"
+    tools:text="Title"/>
 
   <TextView
     android:id="@+id/tv__secondary_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/title_container"
+    android:layout_below="@id/tv__title"
     android:layout_alignWithParentIfMissing="true"
     android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
-    android:layout_alignLeft="@id/title_container"
-    android:layout_alignStart="@id/title_container"
+    android:layout_alignLeft="@id/tv__title"
+    android:layout_alignStart="@id/tv__title"
     android:layout_toLeftOf="@id/direction_frame"
     android:layout_toStartOf="@id/direction_frame"
     android:ellipsize="end"
@@ -101,21 +81,40 @@
     tools:background="#300000F0"
     tools:text="Subtitle, very very very very very very very long"/>
 
+  <com.mapswithme.maps.widget.RatingView
+    android:id="@+id/popular_rating_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_quarter_plus"
+    android:paddingStart="@dimen/margin_quarter_plus"
+    android:paddingRight="@dimen/margin_quarter_plus"
+    android:paddingEnd="@dimen/margin_quarter_plus"
+    android:paddingTop="@dimen/margin_quarter"
+    android:paddingBottom="@dimen/margin_quarter"
+    android:textSize="@dimen/text_size_body_4"
+    android:text="@string/popular_place"
+    android:visibility="gone"
+    app:rating="popular"/>
+
   <LinearLayout
     android:id="@+id/direction_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/margin_quarter"
     android:layout_marginEnd="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
-    android:layout_below="@id/title_container"
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignWithParentIfMissing="true"
     android:layout_alignBottom="@id/tv__subtitle"
     android:background="?selectableItemBackground"
+    android:layout_below="@id/popular_rating_view"
     android:gravity="bottom"
-    android:minHeight="@dimen/direction_frame_min_height"
     android:orientation="horizontal"
     tools:background="#111111F0">
 
@@ -157,30 +156,12 @@
     tools:text="2.4 GB  •  Maps: 1"
     tools:visibility="visible"/>
 
-  <!-- TODO set correct color when that block will be handled (now its hidden always) -->
-  <TextView
-    android:id="@+id/tv__opened_till"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__downloader_details"
-    android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-    android:visibility="gone"
-    tools:background="#80FFF000"
-    tools:text="Till 9 PM"
-    tools:visibility="visible"/>
-
   <include
     android:id="@+id/preview_rating_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/tv__opened_till"
+    android:layout_below="@id/direction_frame"
     android:layout_marginTop="@dimen/margin_quarter_plus"
     android:layout_marginEnd="@dimen/margin_half_double_plus"
     android:layout_marginRight="@dimen/margin_half_double_plus"

@@ -206,10 +206,10 @@ public class PlacePageView extends RelativeLayout
   private RecyclerView mRvSponsoredProducts;
   private TextView mTvSponsoredTitle;
   private ImageView mIvSponsoredLogo;
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPopularityView;
-
 
   @Nullable
   UGCController mUgcController;
@@ -749,12 +749,14 @@ public class PlacePageView extends RelativeLayout
   private void initHotelGalleryView()
   {
     mHotelGallery = findViewById(R.id.ll__place_hotel_gallery);
-    mRvHotelGallery = findViewById(
-        R.id.rv__place_hotel_gallery);
-    mRvHotelGallery.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                             LinearLayoutManager.HORIZONTAL, false));
-    mRvHotelGallery.addItemDecoration(
-        ItemDecoratorFactory.createHotelGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
+    mRvHotelGallery = findViewById(R.id.rv__place_hotel_gallery);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                                                                LinearLayoutManager.HORIZONTAL,
+                                                                false);
+    mRvHotelGallery.setLayoutManager(layoutManager);
+    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
+        .createHotelGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL);
+    mRvHotelGallery.addItemDecoration(decor);
     mGalleryAdapter.setListener(this);
     mRvHotelGallery.setAdapter(mGalleryAdapter);
   }

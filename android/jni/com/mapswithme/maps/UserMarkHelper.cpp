@@ -47,10 +47,10 @@ jobject CreatePopularity(JNIEnv * env, place_page::Info const & info)
 {
   static jclass const popularityClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/Popularity");
-  static jmethodID const popularity =
+  static jmethodID const popularityConstructor =
     jni::GetConstructorID(env, popularityClass, "(I)V");
   auto const popularityValue = info.GetPopularity();
-  return env->NewObject(popularityClass, popularity, static_cast<jint>(popularityValue));
+  return env->NewObject(popularityClass, popularityConstructor, static_cast<jint>(popularityValue));
 }
 
 jobject CreateHotelType(JNIEnv * env, place_page::Info const & info)
