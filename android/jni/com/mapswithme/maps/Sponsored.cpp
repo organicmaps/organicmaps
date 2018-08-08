@@ -165,15 +165,15 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
         auto const price = blocks.m_totalMinPrice == BlockInfo::kIncorrectPrice
                            ? ""
                            : std::to_string(blocks.m_totalMinPrice);
-        jni::TScopedLocalRef hotelPriceInfo(env, env->NewObject(g_priceInfoClass,
-                                                                g_priceInfoConstructor,
-                                                                jni::ToJavaString(env, hotelId),
-                                                                jni::ToJavaString(env, price),
-                                                                jni::ToJavaString(env, blocks.m_currency),
-                                                                static_cast<jint>(env, blocks.m_maxDiscount),
-                                                                static_cast<jboolean>(env, false)));
+        auto const hotelPriceInfo = env->NewObject(g_priceInfoClass,
+                                                   g_priceInfoConstructor,
+                                                   jni::ToJavaString(env, hotelId),
+                                                   jni::ToJavaString(env, price),
+                                                   jni::ToJavaString(env, blocks.m_currency),
+                                                   static_cast<jint>(env, blocks.m_maxDiscount),
+                                                   static_cast<jboolean>(env, false));
 
-        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, hotelPriceInfo.get());
+        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, hotelPriceInfo);
       });
 }
 

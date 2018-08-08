@@ -33,7 +33,7 @@ public class SearchResult implements SearchData, PopularityProvider
     public final float rating;
     public final int stars;
     public final int openNow;
-    private final boolean mHasPopularityHigherPriority;
+    public final boolean hasPopularityHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
                        String cuisine, String pricing, float rating, int stars, int openNow,
@@ -48,12 +48,7 @@ public class SearchResult implements SearchData, PopularityProvider
       this.rating = rating;
       this.stars = stars;
       this.openNow = openNow;
-      mHasPopularityHigherPriority = hasPopularityHigherPriority;
-    }
-
-    public boolean hasPopularityHigherPriority()
-    {
-      return mHasPopularityHigherPriority;
+      this.hasPopularityHigherPriority = hasPopularityHigherPriority;
     }
   }
 

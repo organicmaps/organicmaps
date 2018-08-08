@@ -305,7 +305,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       boolean isNotPopular = mResult.getPopularity().getType() == Popularity.Type.NOT_POPULAR;
 
-      return isNotPopular || !mResult.description.popularityHasHigherPriority;
+      return isNotPopular || !mResult.description.hasPopularityHigherPriority;
     }
 
     private boolean isPopularVisible()
@@ -316,7 +316,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
       boolean isClosed = mResult.description.openNow == SearchResult.OPEN_NOW_NO;
 
-      return !isClosed || mResult.description.popularityHasHigherPriority;
+      return !isClosed || mResult.description.hasPopularityHigherPriority;
     }
 
     private void setBackground()
