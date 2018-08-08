@@ -100,6 +100,7 @@
     android:textSize="@dimen/text_size_body_4"
     android:text="@string/popular_place"
     android:visibility="gone"
+    app:drawSmile="false"
     app:rating="popular"/>
 
   <LinearLayout
