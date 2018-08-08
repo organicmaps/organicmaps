@@ -214,10 +214,7 @@ using namespace osm_auth_ios;
     switch (parsingType)
     {
     case ParsedMapApi::ParsingResult::Incorrect:
-      if ([m_mwmURL rangeOfString:@"catalog"].location != NSNotFound)
-        [self.mapViewController openCatalogDeeplink:[[NSURL alloc] initWithString:m_mwmURL] animated:NO];
-      else
-        LOG(LWARNING, ("Incorrect parsing result for url:", url));
+      LOG(LWARNING, ("Incorrect parsing result for url:", url));
       break;
     case ParsedMapApi::ParsingResult::Route:
     {
@@ -270,6 +267,9 @@ using namespace osm_auth_ios;
 
       break;
     }
+    case ParsedMapApi::ParsingResult::Catalogue:
+      [self.mapViewController openCatalogDeeplink:[[NSURL alloc] initWithString:m_mwmURL] animated:NO];
+      break;
     case ParsedMapApi::ParsingResult::Lead: break;
     }
   }
@@ -327,17 +327,11 @@ using namespace osm_auth_ios;
   InitMarketingTrackers();
 
   // Initialize all 3party engines.
-  BOOL returnValue = [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
+  [self initStatistics:application didFinishLaunchingWithOptions:launchOptions];
 
   // We send Alohalytics installation id to Fabric.
   // To make sure id is created, ConfigCrashTrackers must be called after Statistics initialization.
   ConfigCrashTrackers();
-
-  NSURL * urlUsedToLaunchMaps = launchOptions[UIApplicationLaunchOptionsURLKey];
-  if (urlUsedToLaunchMaps != nil)
-    returnValue |= [self checkLaunchURL:urlUsedToLaunchMaps];
-  else
-    returnValue = YES;
 
   [HttpThread setDownloadIndicatorProtocol:self];
 
@@ -378,7 +372,7 @@ using namespace osm_auth_ios;
   if (@available(iOS 10, *))
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
-  return returnValue;
+  return YES;
 }
 
 - (void)application:(UIApplication *)application
@@ -522,7 +516,6 @@ using namespace osm_auth_ios;
   auto & f = GetFramework();
   f.EnterForeground();
   [self.mapViewController onGetFocus:YES];
-  [self handleURLs];
   [[Statistics instance] applicationDidBecomeActive];
   f.SetRenderingEnabled();
   // On some devices we have to free all belong-to-graphics memory

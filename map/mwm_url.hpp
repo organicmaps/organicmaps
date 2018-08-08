@@ -37,6 +37,11 @@ struct SearchRequest
   bool m_isSearchOnMap = false;
 };
 
+struct CatalogItem
+{
+  string m_id;
+  string m_name;
+};
 
 namespace lead
 {
@@ -55,7 +60,8 @@ public:
     Map,
     Route,
     Search,
-    Lead
+    Lead,
+    Catalogue
   };
 
   ParsedMapApi() = default;
@@ -76,16 +82,19 @@ public:
   vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   string const & GetRoutingType() const { return m_routingType; }
   SearchRequest const & GetSearchRequest() const { return m_request; }
+  CatalogItem const & GetCatalogItem() const { return m_catalogItem; }
 private:
   ParsingResult Parse(Uri const & uri);
   bool AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points);
   bool RouteKeyValue(string const & key, string const & value, vector<string> & pattern);
   bool SearchKeyValue(string const & key, string const & value, SearchRequest & request) const;
   bool LeadKeyValue(string const & key, string const & value, lead::CampaignDescription & description) const;
+  bool CatalogKeyValue(string const & key, string const & value, CatalogItem & item) const;
 
   BookmarkManager * m_bmManager = nullptr;
   vector<RoutePoint> m_routePoints;
   SearchRequest m_request;
+  CatalogItem m_catalogItem;
   string m_globalBackUrl;
   string m_appTitle;
   string m_routingType;

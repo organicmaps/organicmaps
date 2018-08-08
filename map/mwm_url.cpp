@@ -95,7 +95,13 @@ char const * kCenterLatLon = "cll";
 char const * kLocale = "locale";
 char const * kSearchOnMap = "map";
 }  // namespace search
-  
+
+namespace catalogue
+{
+char const * kId = "id";
+char const * kName = "name";
+}
+
 namespace
 {
 enum class ApiURLType
@@ -104,7 +110,8 @@ enum class ApiURLType
   Map,
   Route,
   Search,
-  Lead
+  Lead,
+  Catalogue
 };
 
 std::array<std::string, 3> const kAvailableSchemes = {{"mapswithme", "mwm", "mapsme"}};
@@ -123,6 +130,8 @@ ApiURLType URLType(Uri const & uri)
     return ApiURLType::Search;
   if (path == "lead")
     return ApiURLType::Lead;
+  if (path == "catalogue")
+    return ApiURLType::Catalogue;
 
   return ApiURLType::Incorrect;
 }
@@ -257,6 +266,20 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
 
       description.Write();
       return ParsingResult::Lead;
+    }
+    case ApiURLType::Catalogue:
+    {
+      CatalogItem item;
+      auto const result = uri.ForEachKeyValue([&item, this](string const & key, string const & value)
+                                              {
+                                                return CatalogKeyValue(key, value, item);
+                                              });
+
+      if (!result)
+        return ParsingResult::Incorrect;
+
+      m_catalogItem = item;
+      return ParsingResult::Catalogue;
     }
   }
   CHECK_SWITCH();
@@ -432,6 +455,18 @@ bool ParsedMapApi::LeadKeyValue(string const & key, string const & value, lead::
   /*
    We have to support parsing the uri which contains unregistred parameters.
    */
+  return true;
+}
+
+bool ParsedMapApi::CatalogKeyValue(string const & key, string const & value, CatalogItem & item) const
+{
+  using namespace catalogue;
+
+  if (key == kName)
+    item.m_name = value;
+  else if (key == kId)
+    item.m_id = value;
+
   return true;
 }
 
