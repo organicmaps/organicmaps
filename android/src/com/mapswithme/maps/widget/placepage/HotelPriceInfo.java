@@ -43,7 +43,7 @@ public class HotelPriceInfo
 
   public int getDiscount()
   {
-    return 20;
+    return mDiscount;
   }
 
   public boolean hasSmartDeal()
