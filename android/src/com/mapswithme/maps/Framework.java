@@ -293,6 +293,8 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
+  public static native String nativeGetUserAgent();
+
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 

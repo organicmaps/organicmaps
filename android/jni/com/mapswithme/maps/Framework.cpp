@@ -1043,6 +1043,12 @@ Java_com_mapswithme_maps_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
   frm()->GetRoutingManager().DisableFollowMode();
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetUserAgent(JNIEnv * env, jclass)
+{
+  return static_cast<jstring>(GetPlatform().GetAppUserAgent());
+}
+
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGenerateNotifications(JNIEnv * env, jclass)
 {
