@@ -233,8 +233,6 @@ public class PlacePageView extends RelativeLayout
   @Nullable
   private MapObject mMapObject;
   @Nullable
-  private HotelPriceInfo mPriceInfo;
-  @Nullable
   private Sponsored mSponsored;
   private String mSponsoredPrice;
   private boolean mIsLatLonDms;
@@ -807,8 +805,7 @@ public class PlacePageView extends RelativeLayout
       LOGGER.e(TAG, "A sponsored info cannot be updated, mMapObject is null!", new Throwable());
       return;
     }
-    mPriceInfo = priceInfo;
-    refreshPreview(mMapObject, NetworkPolicy.newInstance(true));
+    refreshPreview(mMapObject, NetworkPolicy.newInstance(true), priceInfo);
   }
 
   @Override
@@ -1344,7 +1341,7 @@ public class PlacePageView extends RelativeLayout
       return;
     }
 
-    refreshPreview(mMapObject, policy);
+    refreshPreview(mMapObject, policy, null);
     refreshViewsInternal(mMapObject);
   }
 
@@ -1356,7 +1353,7 @@ public class PlacePageView extends RelativeLayout
       return;
     }
 
-    refreshPreview(mMapObject);
+    refreshPreview(mMapObject, null);
     refreshViewsInternal(mMapObject);
   }
 
@@ -1420,7 +1417,8 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private void refreshPreview(@NonNull MapObject mapObject, @NonNull NetworkPolicy policy)
+  private void refreshPreview(@NonNull MapObject mapObject, @NonNull NetworkPolicy policy,
+                              @Nullable HotelPriceInfo priceInfo)
   {
     if (mBannerController != null)
     {
@@ -1429,10 +1427,10 @@ public class PlacePageView extends RelativeLayout
       mBannerController.updateData(canShow ? mapObject.getBanners() : null);
     }
 
-    refreshPreview(mapObject);
+    refreshPreview(mapObject, priceInfo);
   }
 
-  private void refreshPreview(@NonNull MapObject mapObject)
+  private void refreshPreview(@NonNull MapObject mapObject, @Nullable HotelPriceInfo priceInfo)
   {
     UiUtils.setTextAndHideIfEmpty(mTvTitle, mapObject.getTitle());
     UiUtils.setTextAndHideIfEmpty(mTvSecondaryTitle, mapObject.getSecondaryTitle());
@@ -1448,10 +1446,10 @@ public class PlacePageView extends RelativeLayout
     UiUtils.showIf(sponsored, mPreviewRatingInfo);
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
     if (sponsored)
-      initSponsoredViews();
+      initSponsoredViews(priceInfo);
   }
 
-  private void initSponsoredViews()
+  private void initSponsoredViews(@Nullable HotelPriceInfo priceInfo)
   {
     boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
     @SuppressWarnings("ConstantConditions")
@@ -1464,19 +1462,19 @@ public class PlacePageView extends RelativeLayout
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
                                  mSponsored.getType() == Sponsored.TYPE_BOOKING;
     UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
-    String discount = getHotelDiscount();
+    String discount = getHotelDiscount(priceInfo);
     UiUtils.hideIf(TextUtils.isEmpty(discount), mHotelDiscount);
     mHotelDiscount.setRating(Impress.DISCOUNT, discount);
   }
 
   @Nullable
-  private String getHotelDiscount()
+  private String getHotelDiscount(@Nullable HotelPriceInfo priceInfo)
   {
-    boolean hasPercentsDiscount = mPriceInfo != null && mPriceInfo.getDiscount() > 0;
+    boolean hasPercentsDiscount = priceInfo != null && priceInfo.getDiscount() > 0;
     if (hasPercentsDiscount)
-      return DISCOUNT_PREFIX + mPriceInfo.getDiscount() + DISCOUNT_SUFFIX;
+      return DISCOUNT_PREFIX + priceInfo.getDiscount() + DISCOUNT_SUFFIX;
 
-    return mPriceInfo != null && mPriceInfo.hasSmartDeal() ? DISCOUNT_SUFFIX : null;
+    return priceInfo != null && priceInfo.hasSmartDeal() ? DISCOUNT_SUFFIX : null;
   }
 
   private boolean isSponsored()
