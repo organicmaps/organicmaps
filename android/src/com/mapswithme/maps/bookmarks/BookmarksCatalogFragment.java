@@ -18,6 +18,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -118,6 +119,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     final WebSettings webSettings = webView.getSettings();
     webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     webSettings.setJavaScriptEnabled(true);
+    webSettings.setUserAgentString(Framework.nativeGetUserAgent());
   }
 
   @NonNull
