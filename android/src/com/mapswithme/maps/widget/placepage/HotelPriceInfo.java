@@ -46,6 +46,11 @@ public class HotelPriceInfo
     return 20;
   }
 
+  public boolean hasSmartDeal()
+  {
+    return mHasSmartDeal;
+  }
+
   @Override
   public String toString()
   {

@@ -1474,11 +1474,13 @@ public class PlacePageView extends RelativeLayout
   @Nullable
   private String getHotelDiscount()
   {
-    boolean hasDiscount = mPriceInfo != null && mPriceInfo.getDiscount() > 0;
-    return hasDiscount ? new StringBuilder().append(DISCOUNT_PREFIX)
-                                            .append(mPriceInfo.getDiscount())
-                                            .append(DISCOUNT_SUFFIX).toString()
-                       : null;
+    boolean hasPercentsDiscount = mPriceInfo != null && mPriceInfo.getDiscount() > 0;
+    if (hasPercentsDiscount)
+      return new StringBuilder().append(DISCOUNT_PREFIX)
+                                .append(mPriceInfo.getDiscount())
+                                .append(DISCOUNT_SUFFIX).toString();
+
+    return mPriceInfo != null && mPriceInfo.hasSmartDeal() ? DISCOUNT_SUFFIX : null;
   }
 
   private boolean isSponsored()
