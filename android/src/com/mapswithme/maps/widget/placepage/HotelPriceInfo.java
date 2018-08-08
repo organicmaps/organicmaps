@@ -11,16 +11,16 @@ public class HotelPriceInfo
   @NonNull
   private final String mCurrency;
   private final int mDiscount;
-  private final boolean mHasSmartDeal;
+  private final boolean mSmartDeal;
 
   public HotelPriceInfo(@NonNull String id, @NonNull String price, @NonNull String currency,
-                        int discount, boolean hasSmartDeal)
+                        int discount, boolean smartDeal)
   {
     mId = id;
     mPrice = price;
     mCurrency = currency;
     mDiscount = discount;
-    mHasSmartDeal = hasSmartDeal;
+    mSmartDeal = smartDeal;
   }
 
   @NonNull
@@ -48,7 +48,7 @@ public class HotelPriceInfo
 
   public boolean hasSmartDeal()
   {
-    return mHasSmartDeal;
+    return mSmartDeal;
   }
 
   @Override
@@ -59,7 +59,7 @@ public class HotelPriceInfo
     sb.append(", mPrice='").append(mPrice).append('\'');
     sb.append(", mCurrency='").append(mCurrency).append('\'');
     sb.append(", mDiscount=").append(mDiscount);
-    sb.append(", mHasSmartDeal=").append(mHasSmartDeal);
+    sb.append(", mSmartDeal=").append(mSmartDeal);
     sb.append('}');
     return sb.toString();
   }

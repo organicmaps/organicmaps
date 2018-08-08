@@ -1464,8 +1464,6 @@ public class PlacePageView extends RelativeLayout
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
                                  mSponsored.getType() == Sponsored.TYPE_BOOKING;
     UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
-    UiUtils.showIf(true, mHotelDiscount);
-
     String discount = getHotelDiscount();
     UiUtils.hideIf(TextUtils.isEmpty(discount), mHotelDiscount);
     mHotelDiscount.setRating(Impress.DISCOUNT, discount);
@@ -1476,9 +1474,7 @@ public class PlacePageView extends RelativeLayout
   {
     boolean hasPercentsDiscount = mPriceInfo != null && mPriceInfo.getDiscount() > 0;
     if (hasPercentsDiscount)
-      return new StringBuilder().append(DISCOUNT_PREFIX)
-                                .append(mPriceInfo.getDiscount())
-                                .append(DISCOUNT_SUFFIX).toString();
+      return DISCOUNT_PREFIX + mPriceInfo.getDiscount() + DISCOUNT_SUFFIX;
 
     return mPriceInfo != null && mPriceInfo.hasSmartDeal() ? DISCOUNT_SUFFIX : null;
   }

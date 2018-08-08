@@ -15,28 +15,42 @@ public enum Impress
   EXCELLENT(R.drawable.ic_24px_rating_excellent, R.color.rating_excellent),
   COMING_SOON(R.drawable.ic_24px_rating_coming_soon, R.color.rating_coming_soon),
   POPULAR(R.drawable.ic_thumb_up, R.color.rating_coming_soon),
-  DISCOUNT(R.drawable.ic_thumb_up, R.color.rating_coming_soon);
+  DISCOUNT(R.drawable.ic_thumb_up, android.R.color.white, R.color.rating_coming_soon);
 
   @DrawableRes
   private final int mDrawableId;
   @ColorRes
-  private final int mColorId;
+  private final int mTextColor;
+  @ColorRes
+  private final int mBgColor;
 
   Impress(@DrawableRes int smile, @ColorRes int color)
   {
+    this(smile, color, color);
+  }
+
+  Impress(@DrawableRes int smile, @ColorRes int color, @ColorRes int bgColor)
+  {
     mDrawableId = smile;
-    mColorId = color;
+    mTextColor = color;
+    mBgColor = bgColor;
   }
 
   @ColorRes
-  public int getColorId()
+  public int getTextColor()
   {
-    return mColorId;
+    return mTextColor;
   }
 
   @DrawableRes
   public int getDrawableId()
   {
     return mDrawableId;
+  }
+
+  @ColorRes
+  public int getBgColor()
+  {
+    return mBgColor;
   }
 }

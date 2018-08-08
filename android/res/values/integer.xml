@@ -8,4 +8,5 @@
 
   <integer name="search_fade_in_anim_time">200</integer>
   <integer name="search_fade_out_anim_time">150</integer>
+  <integer name="opaque">255</integer>
 </resources>

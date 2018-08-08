@@ -23,6 +23,7 @@ import com.mapswithme.maps.ugc.Impress;
 
 public class RatingView extends View
 {
+  private static final int DEF_ALPHA = 31/* 12% */;
   @Nullable
   private Drawable mDrawable;
   @NonNull
@@ -38,12 +39,15 @@ public class RatingView extends View
   @Nullable
   private String mRating;
   @ColorInt
-  private int mRatingColor;
+  private int mTextColor;
   private boolean mDrawSmile;
   private int mBackgroundCornerRadius;
   private boolean mForceDrawBg;
+  private int mAlpha;
   @NonNull
   private TextUtils.TruncateAt mTruncate = TextUtils.TruncateAt.END;
+  @ColorInt
+  private int mBgColor;
 
   public RatingView(Context context, @Nullable AttributeSet attrs)
   {
@@ -69,7 +73,7 @@ public class RatingView extends View
     mRating = a.getString(R.styleable.RatingView_android_text);
     mDrawSmile = a.getBoolean(R.styleable.RatingView_drawSmile, true);
     mForceDrawBg = a.getBoolean(R.styleable.RatingView_forceDrawBg, true);
-
+    mAlpha = a.getInteger(R.styleable.RatingView_android_alpha, DEF_ALPHA);
     int rating = a.getInteger(R.styleable.RatingView_rating, 0);
     int index = a.getInteger(R.styleable.RatingView_android_ellipsize,
                              TextUtils.TruncateAt.END.ordinal());
@@ -84,12 +88,14 @@ public class RatingView extends View
   {
     mRating = rating;
     Resources res = getContext().getResources();
-    mRatingColor = res.getColor(impress.getColorId());
-    mBackgroundPaint.setColor(mRatingColor);
-    mBackgroundPaint.setAlpha(31 /* 12% */);
+    mTextColor = res.getColor(impress.getTextColor());
+    mBgColor = res.getColor(impress.getBgColor());
+
+    mBackgroundPaint.setColor(mBgColor);
+    mBackgroundPaint.setAlpha(mAlpha);
     if (mDrawSmile)
       mDrawable = DrawableCompat.wrap(res.getDrawable(impress.getDrawableId()));
-    mTextPaint.setColor(mRatingColor);
+    mTextPaint.setColor(mTextColor);
     invalidate();
     requestLayout();
   }
@@ -148,7 +154,7 @@ public class RatingView extends View
     if (mDrawable != null)
     {
       mDrawable.mutate();
-      DrawableCompat.setTint(mDrawable, mRatingColor);
+      DrawableCompat.setTint(mDrawable, mTextColor);
       mDrawable.setBounds(mDrawableBounds);
       mDrawable.draw(canvas);
     }

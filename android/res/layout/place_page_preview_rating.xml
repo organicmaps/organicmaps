@@ -56,6 +56,7 @@
     android:layout_marginStart="@dimen/margin_quarter"
     android:layout_gravity="center_vertical"
     android:textSize="@dimen/text_size_body_4"
+    android:alpha="@integer/opaque"
     tools:text="-20%"
     app:drawSmile="false"
     app:rating="discount"/>
