@@ -57,6 +57,8 @@ public final class HttpClient
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
+  public static final String USER_AGENT = "User-Agent";
+
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
   {

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Base64;
 
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -146,7 +147,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);
 
       // Set user agent with unique client id
-      urlConnection.setRequestProperty("User-Agent", mUserAgent);
+      urlConnection.setRequestProperty(HttpClient.USER_AGENT, mUserAgent);
 
       // Provide authorization credentials
       String creds = url.getUserInfo();
