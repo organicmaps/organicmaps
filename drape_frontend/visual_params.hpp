@@ -25,8 +25,6 @@ public:
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();
 
-  VisualParams();
-
   static std::string const & GetResourcePostfix(double visualScale);
   std::string const & GetResourcePostfix() const;
 
@@ -57,6 +55,8 @@ public:
   void SetFontScale(double fontScale);
 
 private:
+  VisualParams();
+
   uint32_t m_tileSize;
   double m_visualScale;
   GlyphVisualParams m_glyphVisualParams;

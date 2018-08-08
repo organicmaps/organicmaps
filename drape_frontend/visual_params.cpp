@@ -15,11 +15,7 @@
 
 namespace df
 {
-namespace
-{
-static VisualParams VizParams;
 using VisualScale = std::pair<std::string, double>;
-}  // namespace
 
 #ifdef DEBUG
 static bool g_isInited = false;
@@ -37,53 +33,66 @@ double const VisualParams::k6plusScale = 2.4;
 double const VisualParams::kXxhdpiScale = 3.0;
 double const VisualParams::kXxxhdpiScale = 3.5;
 
+VisualParams::VisualParams()
+  : m_tileSize(0)
+  , m_visualScale(0.0)
+  , m_fontScale(1.0)
+{}
+
+VisualParams & VisualParams::Instance()
+{
+  static VisualParams vizParams;
+  return vizParams;
+}
+
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
-  VizParams.m_tileSize = tileSize;
-  VizParams.m_visualScale = vs;
+  VisualParams & vizParams = Instance();
+  vizParams.m_tileSize = tileSize;
+  vizParams.m_visualScale = vs;
 
   // Here we set up glyphs rendering parameters separately for high-res and low-res screens.
   if (vs <= 1.0)
-    VizParams.m_glyphVisualParams = { 0.48f, 0.08f, 0.2f, 0.01f, 0.49f, 0.04f };
+    vizParams.m_glyphVisualParams = { 0.48f, 0.08f, 0.2f, 0.01f, 0.49f, 0.04f };
   else
-    VizParams.m_glyphVisualParams = { 0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f };
+    vizParams.m_glyphVisualParams = { 0.5f, 0.06f, 0.2f, 0.01f, 0.49f, 0.04f };
 
   RISE_INITED;
 }
 
 uint32_t VisualParams::GetGlyphSdfScale() const
 {
+  ASSERT_INITED;
   return (m_visualScale <= 1.0) ? 3 : 4;
 }
 
 bool VisualParams::IsSdfPrefered() const
 {
+  ASSERT_INITED;
   return m_visualScale >= kHdpiScale;
 }
 
 uint32_t VisualParams::GetGlyphBaseSize() const
 {
+  ASSERT_INITED;
   return 22;
 }
 
 double VisualParams::GetFontScale() const
 {
+  ASSERT_INITED;
   return m_fontScale;
 }
 
 void VisualParams::SetFontScale(double fontScale)
 {
-  m_fontScale = fontScale;
-}
-
-VisualParams & VisualParams::Instance()
-{
   ASSERT_INITED;
-  return VizParams;
+  m_fontScale = fontScale;
 }
 
 std::string const & VisualParams::GetResourcePostfix(double visualScale)
 {
+  ASSERT_INITED;
   static VisualScale postfixes[] =
   {
     std::make_pair("mdpi", kMdpiScale),
@@ -113,47 +122,48 @@ std::string const & VisualParams::GetResourcePostfix(double visualScale)
 
 std::string const & VisualParams::GetResourcePostfix() const
 {
+  ASSERT_INITED;
   return VisualParams::GetResourcePostfix(m_visualScale);
 }
 
 double VisualParams::GetVisualScale() const
 {
+  ASSERT_INITED;
   return m_visualScale;
 }
 
 uint32_t VisualParams::GetTileSize() const
 {
+  ASSERT_INITED;
   return m_tileSize;
 }
 
 uint32_t VisualParams::GetTouchRectRadius() const
 {
+  ASSERT_INITED;
   float const kRadiusInPixels = 20.0f;
   return static_cast<uint32_t>(kRadiusInPixels * GetVisualScale());
 }
 
 double VisualParams::GetDragThreshold() const
 {
+  ASSERT_INITED;
   double const kDragThresholdInPixels = 10.0;
   return kDragThresholdInPixels * GetVisualScale();
 }
 
 double VisualParams::GetScaleThreshold() const
 {
+  ASSERT_INITED;
   double const kScaleThresholdInPixels = 2.0;
   return kScaleThresholdInPixels * GetVisualScale();
 }
 
 VisualParams::GlyphVisualParams const & VisualParams::GetGlyphVisualParams() const
 {
+  ASSERT_INITED;
   return m_glyphVisualParams;
 }
-
-VisualParams::VisualParams()
-  : m_tileSize(0)
-  , m_visualScale(0.0)
-  , m_fontScale(1.0)
-{}
 
 m2::RectD const & GetWorldRect()
 {
