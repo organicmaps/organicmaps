@@ -171,7 +171,7 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
                                                    jni::ToJavaString(env, price),
                                                    jni::ToJavaString(env, blocks.m_currency),
                                                    static_cast<jint>(env, blocks.m_maxDiscount),
-                                                   static_cast<jboolean>(env, false));
+                                                   static_cast<jboolean>(env, blocks.m_hasSmartDeal));
 
         env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, hotelPriceInfo);
       });
