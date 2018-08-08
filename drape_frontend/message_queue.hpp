@@ -2,6 +2,7 @@
 
 #include "drape_frontend/message.hpp"
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
 #include "base/condition.hpp"
@@ -13,15 +14,13 @@
 
 namespace df
 {
-//#define DEBUG_MESSAGE_QUEUE
-
 class MessageQueue
 {
 public:
   MessageQueue();
   ~MessageQueue();
 
-  /// if queue is empty then return NULL
+  // If the queue is empty then it returns nullptr or wait for a message.
   drape_ptr<Message> PopMessage(bool waitForMessage);
   void PushMessage(drape_ptr<Message> && message, MessagePriority priority);
   void CancelWait();

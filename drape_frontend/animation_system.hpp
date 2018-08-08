@@ -2,6 +2,8 @@
 
 #include "drape_frontend/animation/animation.hpp"
 
+#include "drape/drape_diagnostics.hpp"
+
 #include "geometry/screenbase.hpp"
 
 #include "base/macros.hpp"
@@ -13,8 +15,6 @@
 #include <memory>
 #include <string>
 #include <utility>
-
-//#define DEBUG_ANIMATIONS
 
 namespace df
 {

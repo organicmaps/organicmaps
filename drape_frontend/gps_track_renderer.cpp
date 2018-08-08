@@ -6,6 +6,7 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
@@ -20,8 +21,6 @@ namespace df
 {
 namespace
 {
-//#define SHOW_RAW_POINTS
-
 df::ColorConstant const kTrackUnknownDistanceColor = "TrackUnknownDistance";
 df::ColorConstant const kTrackCarSpeedColor = "TrackCarSpeed";
 df::ColorConstant const kTrackPlaneSpeedColor = "TrackPlaneSpeed";
@@ -273,7 +272,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
         it.Advance(diameterMercator + kDistanceScalar * diameterMercator);
       }
 
-#ifdef SHOW_RAW_POINTS
+#ifdef GPS_TRACK_SHOW_RAW_POINTS
       for (size_t i = 0; i < m_points.size(); i++)
       {
         m2::PointD const convertedPt = MapShape::ConvertToLocal(m_points[i].m_point, m_pivot, kShapeCoordScalar);

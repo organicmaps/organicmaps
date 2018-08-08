@@ -4,6 +4,7 @@
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
@@ -13,13 +14,12 @@
 #include "geometry/polyline2d.hpp"
 #include "geometry/spline.hpp"
 
+#include <functional>
 #include <vector>
 
 class CaptionDefProto;
 class ShieldRuleProto;
 class SymbolRuleProto;
-
-//#define CALC_FILTERED_POINTS
 
 namespace dp
 {
@@ -33,7 +33,7 @@ struct TextViewParams;
 class MapShape;
 struct BuildingOutline;
 
-using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
+using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
 
 class BaseApplyFeature
 {
@@ -42,7 +42,7 @@ public:
                    FeatureID const & id, int minVisibleScale, uint8_t rank,
                    CaptionDescription const & captions);
 
-  virtual ~BaseApplyFeature() {}
+  virtual ~BaseApplyFeature() = default;
 
   struct HotelData
   {
@@ -165,8 +165,8 @@ private:
   bool m_simplify;
   size_t m_initialPointsCount;
 
-#ifdef CALC_FILTERED_POINTS
-  int m_readedCount;
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  int m_readCount;
 #endif
 };
 

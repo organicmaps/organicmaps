@@ -2,17 +2,17 @@
 
 #include "drape/drape_diagnostics.hpp"
 
-#include "base/mutex.hpp"
+#include "base/macros.hpp"
 
-#include "std/map.hpp"
-#include "std/noncopyable.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <map>
+#include <mutex>
+#include <string>
+#include <utility>
 
 namespace dp
 {
-
-class GPUMemTracker : private noncopyable
+class GPUMemTracker
 {
 public:
   struct TagMemorySnapshot
@@ -24,30 +24,30 @@ public:
 
   struct GPUMemorySnapshot
   {
-    string ToString() const;
+    std::string ToString() const;
 
     uint32_t m_summaryAllocatedInMb = 0;
     uint32_t m_summaryUsedInMb = 0;
-    map<string, TagMemorySnapshot> m_tagStats;
+    std::map<std::string, TagMemorySnapshot> m_tagStats;
   };
 
   static GPUMemTracker & Inst();
 
   GPUMemorySnapshot GetMemorySnapshot();
 
-  void AddAllocated(string const & tag, uint32_t id, uint32_t size);
-  void SetUsed(string const & tag, uint32_t id, uint32_t size);
-  void RemoveDeallocated(string const & tag, uint32_t id);
+  void AddAllocated(std::string const & tag, uint32_t id, uint32_t size);
+  void SetUsed(std::string const & tag, uint32_t id, uint32_t size);
+  void RemoveDeallocated(std::string const & tag, uint32_t id);
 
 private:
   GPUMemTracker() = default;
 
-private:
-  typedef pair<uint32_t, uint32_t> TAlocUsedMem;
-  typedef pair<string, uint32_t> TMemTag;
-  map<TMemTag, TAlocUsedMem> m_memTracker;
+  using TAlocUsedMem = std::pair<uint32_t, uint32_t>;
+  using TMemTag = std::pair<std::string, uint32_t>;
+  std::map<TMemTag, TAlocUsedMem> m_memTracker;
 
-  threads::Mutex m_mutex;
+  std::mutex m_mutex;
+
+  DISALLOW_COPY_AND_MOVE(GPUMemTracker);
 };
-
-} // namespace dp
+}  // namespace dp

@@ -126,19 +126,17 @@ void MessageQueue::DisableMessageFiltering()
 }
 
 #ifdef DEBUG_MESSAGE_QUEUE
-
 bool MessageQueue::IsEmpty() const
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_messages.empty() && m_lowPriorityMessages.empty();
 }
 
 size_t MessageQueue::GetSize() const
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_messages.size() + m_lowPriorityMessages.size();
 }
-
 #endif
 
 void MessageQueue::CancelWait()

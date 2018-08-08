@@ -68,7 +68,7 @@ uint32_t const kPathTextBaseTextIndex = 128;
 uint32_t const kShieldBaseTextIndex = 0;
 int const kShieldMinVisibleZoomLevel = 10;
 
-#ifdef CALC_FILTERED_POINTS
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
 class LinesStat
 {
 public:
@@ -858,15 +858,15 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(TileKey const & tileKey,
   , m_simplify(tileKey.m_zoomLevel >= kLineSimplifyLevelStart &&
                tileKey.m_zoomLevel <= kLineSimplifyLevelEnd)
   , m_initialPointsCount(pointsCount)
-#ifdef CALC_FILTERED_POINTS
-  , m_readedCount(0)
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  , m_readCount(0)
 #endif
 {}
 
 void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
 {
-#ifdef CALC_FILTERED_POINTS
-  ++m_readedCount;
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  ++m_readCount;
 #endif
 
   if (m_spline.IsNull())
@@ -948,8 +948,8 @@ void ApplyLineFeatureGeometry::ProcessLineRule(Stylist::TRuleWrapper const & rul
 
 void ApplyLineFeatureGeometry::Finish()
 {
-#ifdef CALC_FILTERED_POINTS
-  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readedCount, m_spline->GetSize());
+#ifdef LINES_GENERATION_CALC_FILTERED_POINTS
+  LinesStat::Get().InsertLine(m_id, m_currentScaleGtoP, m_readCount, static_cast<int>(m_spline->GetSize()));
 #endif
 }
 

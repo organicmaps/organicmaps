@@ -32,9 +32,12 @@ void DpPointerTracker::DestroyPtr(void * p)
   auto it = m_alivePointers.find(p);
   if (it != m_alivePointers.end())
   {
-    ASSERT(it->second.first == 0, ("Drape pointer [", it->second.second, p,
-                                   "] was destroyed, but had references, ref count = ",
-                                   it->second.first));
+    if (it->second.first != 0)
+    {
+      LOG(LWARNING, ("Drape pointer [", it->second.second, p,
+                     "] was destroyed, but had references, ref count = ",
+                     it->second.first));
+    }
     m_alivePointers.erase(it);
   }
 }

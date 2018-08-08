@@ -2,6 +2,7 @@
 
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
+#include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "platform/platform.hpp"
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/drape_diagnostics.hpp"
+
 #include "base/assert.hpp"
 #include "base/mutex.hpp"
 
@@ -11,9 +13,7 @@
 #include <typeinfo>
 #include <utility>
 
-//#define TRACK_POINTERS
-
-/// This class tracks usage of drape_ptr's and ref_ptr's
+// This class tracks usage of drape_ptr's and ref_ptr's
 class DpPointerTracker
 {
 public:
@@ -56,7 +56,7 @@ public:
 };
 
 #if defined(TRACK_POINTERS)
-template<typename T> using drape_ptr = unique_ptr<T, DpPointerDeleter>;
+template<typename T> using drape_ptr = std::unique_ptr<T, DpPointerDeleter>;
 #else
 template <typename T>
 using drape_ptr = std::unique_ptr<T>;

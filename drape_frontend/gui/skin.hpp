@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/drape_global.hpp"
 
 #include "geometry/point2d.hpp"
@@ -8,8 +9,6 @@
 
 #include <map>
 #include <string>
-
-//#define RENDER_DEBUG_INFO_LABELS
 
 namespace gui
 {
@@ -20,7 +19,7 @@ enum EWidget
   WIDGET_COPYRIGHT = 0x4,
   WIDGET_SCALE_FPS_LABEL = 0x8,
   WIDGET_WATERMARK = 0x10,
-  /// Following widgets controlled by rendering kernel. Don't use them in platform code
+  // The following widgets are controlled by the engine. Don't use them in platform code.
   WIDGET_CHOOSE_POSITION_MARK = 0x8000,
 #ifdef RENDER_DEBUG_INFO_LABELS
   WIDGET_DEBUG_INFO

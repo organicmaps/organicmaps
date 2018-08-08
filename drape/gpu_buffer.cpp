@@ -1,4 +1,5 @@
 #include "drape/gpu_buffer.hpp"
+#include "drape/drape_diagnostics.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
@@ -6,8 +7,6 @@
 #include "base/assert.hpp"
 
 #include <cstring>
-
-//#define CHECK_VBO_BOUNDS
 
 namespace dp
 {

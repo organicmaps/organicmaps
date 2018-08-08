@@ -4,6 +4,8 @@
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/scenario_manager.hpp"
 
+#include "storage/country_info_getter.hpp"
+
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
@@ -17,7 +19,6 @@
 
 namespace
 {
-
 struct BenchmarkHandle
 {
   std::vector<df::ScenarioManager::ScenarioData> m_scenariosToRun;
@@ -69,7 +70,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
     });
   });
 }
-} //  namespace
+}  // namespace
 
 namespace benchmark
 {
@@ -187,4 +188,4 @@ void RunGraphicsBenchmark(Framework * framework)
   RunScenario(framework, handle);
 #endif
 }
-} //  namespace benchmark
+}  // namespace benchmark
