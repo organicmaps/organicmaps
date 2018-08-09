@@ -1402,6 +1402,7 @@
 	<string name="subtitle_error_downloading_guide">Путеводитель не был загружен</string>
 	<string name="error_already_downloaded_guide">Этот путеводитель уже был загружен</string>
 	<string name="guide_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы открыть путеводитель</string>
+	<string name="bookmarks_guides">Метки и путеводители</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

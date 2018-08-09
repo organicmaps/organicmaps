@@ -1407,6 +1407,7 @@
 	<string name="subtitle_error_downloading_guide">The guide was not downloaded</string>
 	<string name="error_already_downloaded_guide">This guide has already been downloaded</string>
 	<string name="guide_downloaded_subtitle">Press ‘View on map’ to explore the guide</string>
+	<string name="bookmarks_guides">Bookmarks and guides</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
