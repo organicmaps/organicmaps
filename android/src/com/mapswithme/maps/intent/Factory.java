@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
@@ -347,7 +348,7 @@ public class Factory
     @NonNull
     private final DownloadResourcesLegacyActivity mActivity;
 
-    public KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
+    KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
     {
       mActivity = activity;
     }
@@ -359,17 +360,15 @@ public class Factory
       return mData != null;
     }
 
-    @NonNull
+    @Nullable
     @Override
     public MwmActivity.MapTask process(@NonNull Intent intent)
     {
-       return (MwmActivity.MapTask) target -> {
-         ThreadPool.getStorage().execute(() -> {
-           readKmzFromIntent();
-           mActivity.runOnUiThread(mActivity::showMap);
-         });
-         return true;
-       };
+      ThreadPool.getStorage().execute(() -> {
+        readKmzFromIntent();
+        mActivity.runOnUiThread(mActivity::showMap);
+      });
+      return null;
     }
 
     private void readKmzFromIntent()

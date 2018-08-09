@@ -494,11 +494,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     for (IntentProcessor ip : mIntentProcessors)
     {
-      if (ip.isSupported(extra))
-      {
-        mMapTaskToForward = ip.process(intent);
+      if (ip.isSupported(extra) && (mMapTaskToForward = ip.process(extra)) != null)
         break;
-      }
     }
   }
 
