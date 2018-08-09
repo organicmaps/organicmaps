@@ -101,6 +101,12 @@ public class Factory
     return new GeoIntentProcessor();
   }
 
+  @NonNull
+  public static IntentProcessor createMapsmeProcessor()
+  {
+    return new MapsmeProcessor();
+  }
+
   private static abstract class LogIntentProcessor implements IntentProcessor
   {
     private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -148,6 +154,15 @@ public class Factory
     public boolean isSupported(@NonNull Intent intent)
     {
       return (intent.getData() != null && "ge0".equals(intent.getScheme()));
+    }
+  }
+
+  private static class MapsmeProcessor extends BaseOpenUrlProcessor
+  {
+    @Override
+    public boolean isSupported(@NonNull Intent intent)
+    {
+      return "mapsme".equals(intent.getScheme());
     }
   }
 

@@ -95,6 +95,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       Factory.createBookmarkCatalogueProcessor(),
       Factory.createOldCoreLinkAdapterProcessor(),
       Factory.createOpenCountryTaskProcessor(),
+      Factory.createMapsmeProcessor(),
       Factory.createKmzKmlProcessor(this),
       Factory.createShowOnMapProcessor(),
       Factory.createBuildRouteProcessor()
