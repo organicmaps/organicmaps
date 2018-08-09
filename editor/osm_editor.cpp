@@ -198,13 +198,17 @@ void Editor::LoadEdits()
   }
 
   xml_document doc;
-  if (!m_storage->Load(doc))
-    return;
-
   bool needRewriteEdits = false;
 
-  // TODO(mgsergio): synchronize access to m_features.
-  m_features.clear();
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+
+    if (!m_storage->Load(doc))
+      return;
+
+    m_features.clear();
+  }
+
   for (auto const & mwm : doc.child(kXmlRootNode).children(kXmlMwmNode))
   {
     string const mapName = mwm.attribute("name").as_string("");
@@ -225,20 +229,20 @@ void Editor::LoadEdits()
     auto const needMigrateEdits = mapVersion != mwmId.GetInfo()->GetVersion();
     needRewriteEdits = needRewriteEdits || needMigrateEdits;
 
+    // Synchronize access to m_features into LoadMwmEdits separately to prevent
+    // recursive lock from Delegate::ForEachFeatureAtPoint.
     LoadMwmEdits(mwm, mwmId, needMigrateEdits);
-  }  // for mwms
-
+  }
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
   if (needRewriteEdits)
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
     Save();
+  }
 }
 
-bool Editor::Save()
+bool Editor::Save() const
 {
-  // TODO(AlexZ): Improve synchronization in Editor code.
-  static mutex saveMutex;
-  lock_guard<mutex> lock(saveMutex);
-
   if (m_features.empty())
   {
     m_storage->Reset();
@@ -260,11 +264,14 @@ bool Editor::Save()
     xml_node obsolete = mwmNode.append_child(kObsoleteSection);
     for (auto & index : mwm.second)
     {
-      FeatureTypeInfo & fti = index.second;
+      FeatureTypeInfo const & fti = index.second;
+      // Temporary solution because of FeatureType does not have constant getters.
+      // TODO(a): Use constant reference instead of copy.
+      auto feature = fti.m_feature;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID
       // and meta fields are enough.
       XMLFeature xf =
-          editor::ToXML(fti.m_feature, true /*type serializing helps during migration*/);
+          editor::ToXML(feature, true /*type serializing helps during migration*/);
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
@@ -294,6 +301,8 @@ bool Editor::Save()
 
 void Editor::ClearAllLocalEdits()
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   m_features.clear();
   Save();
   Invalidate();
@@ -301,10 +310,9 @@ void Editor::ClearAllLocalEdits()
 
 void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
-  // TODO: to add some synchronization mechanism for whole Editor class
-  lock_guard<mutex> g(m_mapDeregisteredMutex);
-
   using TFeaturePair = decltype(m_features)::value_type;
+
+  std::lock_guard<std::mutex> lock(m_mutex);
   // Cannot search by MwmId because country already removed. So, search by country name.
   auto const matchedMwm =
       find_if(begin(m_features), end(m_features), [&localFile](TFeaturePair const & item) {
@@ -320,30 +328,28 @@ void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
 FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
-  // Most popular case optimization.
-  if (m_features.empty())
-    return FeatureStatus::Untouched;
+  std::lock_guard<std::mutex> lock(m_mutex);
 
-  auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
-  if (featureInfo == nullptr)
-    return FeatureStatus::Untouched;
-
-  return featureInfo->m_status;
+  return GetFeatureStatusImpl(mwmId, index);
 }
 
 FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
 {
-  return GetFeatureStatus(fid.m_mwmId, fid.m_index);
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  return GetFeatureStatusImpl(fid.m_mwmId, fid.m_index);
 }
 
 bool Editor::IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
-  auto const * info = GetFeatureTypeInfo(mwmId, index);
-  return info && info->m_uploadStatus == kUploaded;
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return IsFeatureUploadedImpl(mwmId, index);
 }
 
 void Editor::DeleteFeature(FeatureID const & fid)
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   auto const mwm = m_features.find(fid.m_mwmId);
   if (mwm != m_features.end())
   {
@@ -386,9 +392,10 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   FeatureID const & fid = emo.GetID();
   FeatureTypeInfo fti;
 
-  auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete,
-                   ("Obsolete feature cannot be modified."));
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  auto const featureStatus = GetFeatureStatusImpl(fid);
+  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
@@ -476,7 +483,9 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
 
 bool Editor::RollBackChanges(FeatureID const & fid)
 {
-  if (IsFeatureUploaded(fid.m_mwmId, fid.m_index))
+  std::lock_guard<std::mutex> lock(m_mutex);
+
+  if (IsFeatureUploadedImpl(fid.m_mwmId, fid.m_index))
     return false;
 
   return RemoveFeature(fid);
@@ -484,26 +493,36 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
                                              FeatureIndexFunctor const & f, m2::RectD const & rect,
-                                             int /*scale*/)
+                                             int /*scale*/) const
 {
+  std::unique_lock<std::mutex> lock(m_mutex);
+
   auto const mwmFound = m_features.find(id);
   if (mwmFound == m_features.end())
     return;
 
-  // TODO(AlexZ): Check that features are visible at this scale.
   // Process only new (created) features.
-  for (auto & index : mwmFound->second)
+  for (auto const & index : mwmFound->second)
   {
-    FeatureTypeInfo & ftInfo = index.second;
-    if (ftInfo.m_status == FeatureStatus::Created &&
-        rect.IsPointInside(ftInfo.m_feature.GetCenter()))
-      f(index.first);
+    FeatureTypeInfo const & ftInfo = index.second;
+    if (ftInfo.m_status == FeatureStatus::Created)
+    {
+      // Temporary solution because of FeatureType does not have constant getters.
+      // TODO(a): Use constant reference instead of copy.
+      auto feature = ftInfo.m_feature;
+      lock.unlock();
+      if(rect.IsPointInside(feature.GetCenter()))
+        f(index.first);
+      lock.lock();
+    }
   }
 }
 
 bool Editor::GetEditedFeature(MwmSet::MwmId const & mwmId, uint32_t index,
                               FeatureType & outFeature) const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
   if (featureInfo == nullptr)
     return false;
@@ -519,6 +538,8 @@ bool Editor::GetEditedFeature(FeatureID const & fid, FeatureType & outFeature) c
 
 bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   auto const * featureInfo = GetFeatureTypeInfo(fid.m_mwmId, fid.m_index);
   if (featureInfo == nullptr)
     return false;
@@ -530,6 +551,8 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
 vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
                                              FeatureStatus status) const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   vector<uint32_t> features;
   auto const matchedMwm = m_features.find(mwmId);
   if (matchedMwm == m_features.end())
@@ -545,17 +568,19 @@ vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
 
 EditableProperties Editor::GetEditableProperties(FeatureType & feature) const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
          ("Edit mode should be available only on new data"));
 
-  ASSERT(GetFeatureStatus(feature.GetID()) != FeatureStatus::Obsolete,
+  ASSERT(GetFeatureStatusImpl(feature.GetID()) != FeatureStatus::Obsolete,
          ("Edit mode should not be available on obsolete features"));
 
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
   auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));
 
   // Disable opening hours editing if opening hours cannot be parsed.
-  if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
+  if (GetFeatureStatusImpl(feature.GetID()) != FeatureStatus::Created)
   {
     auto const originalFeaturePtr = GetOriginalFeature(feature.GetID());
     if (!originalFeaturePtr)
@@ -588,29 +613,20 @@ EditableProperties Editor::GetEditablePropertiesForTypes(feature::TypesHolder co
   return {};
 }
 
-bool Editor::HaveMapEditsToUpload() const
-{
-  for (auto const & id : m_features)
-  {
-    for (auto const & index : id.second)
-    {
-      if (NeedsUpload(index.second.m_uploadStatus))
-        return true;
-    }
-  }
-  return false;
-}
-
 bool Editor::HaveMapEditsOrNotesToUpload() const
 {
   if (m_notes->NotUploadedNotesCount() != 0)
     return true;
+
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   return HaveMapEditsToUpload();
 }
 
 bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   auto const found = m_features.find(mwmId);
   if (found != m_features.end())
   {
@@ -624,30 +640,35 @@ bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
 }
 
 void Editor::UploadChanges(string const & key, string const & secret, ChangesetTags tags,
-                           FinishUploadCallback callBack)
+                           FinishUploadCallback callback)
 {
   if (m_notes->NotUploadedNotesCount())
-    UploadNotes(key, secret);
-
-  if (!HaveMapEditsToUpload())
   {
-    LOG(LDEBUG, ("There are no local edits to upload."));
-    return;
+    alohalytics::LogEvent("Editor_UploadNotes", strings::to_string(m_notes->NotUploadedNotesCount()));
+    m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
+  }
+
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+
+    if (!HaveMapEditsToUpload())
+    {
+      LOG(LDEBUG, ("There are no local edits to upload."));
+      return;
+    }
   }
 
   alohalytics::LogEvent("Editor_DataSync_started");
 
-  // TODO(AlexZ): features access should be synchronized.
-  auto const upload = [this](string key, string secret, ChangesetTags tags,
-                             FinishUploadCallback callBack) {
-    // This lambda was designed to start after app goes into background. But for cases when user is
-    // immediately coming back to the app we work with a copy, because 'for' loops below can take a
-    // significant amount of time.
-    auto features = m_features;
-
+  auto const upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callback)
+  {
     int uploadedFeaturesCount = 0, errorsCount = 0;
     ChangesetWrapper changeset({key, secret}, tags);
-    for (auto & id : features)
+
+    {
+    std::unique_lock<std::mutex> guard(m_mutex);
+
+    for (auto & id : m_features)
     {
       for (auto & index : id.second)
       {
@@ -676,36 +697,43 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
                          ("Linear and area features creation is not supported yet."));
             try
             {
-              XMLFeature osmFeature =
-                  changeset.GetMatchingNodeFeatureFromOSM(fti.m_feature.GetCenter());
+              auto const center = fti.m_feature.GetCenter();
+
+              guard.unlock();
+              XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(center);
+              guard.lock();
               // If we are here, it means that object already exists at the given point.
-              // To avoid nodes duplication, merge and apply changes to it instead of creating an
-              // new one.
+              // To avoid nodes duplication, merge and apply changes to it instead of creating an new one.
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.
               if (osmFeature == osmFeatureCopy)
               {
-                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.",
-                               osmFeatureCopy));
+                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
                 // Don't delete this local change right now for user to see it in profile.
                 // It will be automatically deleted by migration code on the next maps update.
               }
               else
               {
                 LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
+                guard.unlock();
                 changeset.Modify(osmFeature);
+                guard.lock();
               }
             }
             catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
             {
               // Object was never created by anyone else - it's safe to create it.
+              guard.unlock();
               changeset.Create(feature);
+              guard.lock();
             }
             catch (ChangesetWrapper::EmptyFeatureException const &)
             {
               // There is another node nearby, but it should be safe to create a new one.
+              guard.unlock();
               changeset.Create(feature);
+              guard.lock();
             }
             catch (...)
             {
@@ -718,8 +746,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           case FeatureStatus::Modified:
           {
             // Do not serialize feature's type to avoid breaking OSM data.
-            // TODO: Implement correct types matching when we support modifying existing feature
-            // types.
+            // TODO: Implement correct types matching when we support modifying existing feature types.
             XMLFeature feature = editor::ToXML(fti.m_feature, false);
             if (!fti.m_street.empty())
               feature.SetTagValue(kAddrStreetTag, fti.m_street);
@@ -730,11 +757,13 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             {
               LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
               alohalytics::LogEvent("Editor_MissingFeature_Error");
-              RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
+              RemoveFeatureIfExists(fti.m_feature.GetID());
               continue;
             }
 
+            guard.unlock();
             XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr);
+            guard.lock();
             XMLFeature const osmFeatureCopy = osmFeature;
             osmFeature.ApplyPatch(feature);
             // Check to avoid uploading duplicates into OSM.
@@ -748,7 +777,9 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             else
             {
               LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+              guard.unlock();
               changeset.Modify(osmFeature);
+              guard.lock();
             }
           }
           break;
@@ -759,10 +790,12 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
             {
               LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
               alohalytics::LogEvent("Editor_MissingFeature_Error");
-              RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
+              RemoveFeatureIfExists(fti.m_feature.GetID());
               continue;
             }
+            guard.unlock();
             changeset.Delete(GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr));
+            guard.lock();
             break;
           }
           fti.m_uploadStatus = kUploaded;
@@ -808,33 +841,33 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
         // Call Save every time we modify each feature's information.
         SaveUploadedInformation(fti);
       }
-    }
+    }  // loop scope
+    }  // unique_lock scope
 
     alohalytics::LogEvent("Editor_DataSync_finished",
                           {{"errors", strings::to_string(errorsCount)},
                            {"uploaded", strings::to_string(uploadedFeaturesCount)},
                            {"changeset", strings::to_string(changeset.GetChangesetId())}});
-    if (callBack)
+    if (callback)
     {
       UploadResult result = UploadResult::NothingToUpload;
       if (uploadedFeaturesCount)
         result = UploadResult::Success;
       else if (errorsCount)
         result = UploadResult::Error;
-      callBack(result);
+      callback(result);
     }
   };
 
   // Do not run more than one upload thread at a time.
-  static auto future = async(launch::async, upload, key, secret, tags, callBack);
+  static auto future = async(launch::async, upload, key, secret, tags, callback);
   auto const status = future.wait_for(milliseconds(0));
   if (status == future_status::ready)
-    future = async(launch::async, upload, key, secret, tags, callBack);
+    future = async(launch::async, upload, key, secret, tags, callback);
 }
 
 void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
 {
-  // TODO(AlexZ): Correctly synchronize this call and Save() at the end.
   FeatureID const & fid = fromUploader.m_feature.GetID();
   auto id = m_features.find(fid.m_mwmId);
   if (id == m_features.end())
@@ -913,23 +946,18 @@ Editor::FeatureTypeInfo * Editor::GetFeatureTypeInfo(MwmSet::MwmId const & mwmId
 
 #undef GET_FEATURE_TYPE_INFO_BODY
 
-void Editor::RemoveFeatureFromStorageIfExists(MwmSet::MwmId const & mwmId, uint32_t index)
+void Editor::RemoveFeatureIfExists(FeatureID const & fid)
 {
-  auto matchedMwm = m_features.find(mwmId);
+  auto matchedMwm = m_features.find(fid.m_mwmId);
   if (matchedMwm == m_features.end())
     return;
 
-  auto matchedIndex = matchedMwm->second.find(index);
+  auto matchedIndex = matchedMwm->second.find(fid.m_index);
   if (matchedIndex != matchedMwm->second.end())
     matchedMwm->second.erase(matchedIndex);
 
   if (matchedMwm->second.empty())
     m_features.erase(matchedMwm);
-}
-
-void Editor::RemoveFeatureFromStorageIfExists(FeatureID const & fid)
-{
-  return RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
 }
 
 void Editor::Invalidate()
@@ -940,7 +968,7 @@ void Editor::Invalidate()
 
 bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
-  auto const featureStatus = GetFeatureStatus(fid);
+  auto const featureStatus = GetFeatureStatusImpl(fid);
   if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
   {
     ASSERT(false, ("Only untouched and modified features can be made obsolete"));
@@ -955,27 +983,32 @@ bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 
 bool Editor::RemoveFeature(FeatureID const & fid)
 {
-  RemoveFeatureFromStorageIfExists(fid.m_mwmId, fid.m_index);
+  RemoveFeatureIfExists(fid);
   Invalidate();
   return Save();
 }
 
-Editor::Stats Editor::GetStats()
+Editor::Stats Editor::GetStats() const
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   Stats stats;
   LOG(LDEBUG, ("Edited features status:"));
   for (auto & id : m_features)
   {
     for (auto & index : id.second)
     {
-      Editor::FeatureTypeInfo & fti = index.second;
+      auto const & fti = index.second;
+      // Temporary solution because of FeatureType does not have constant getters.
+      // TODO(a): Use constant reference instead of copy.
+      auto feature = fti.m_feature;
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
       LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == my::INVALID_TIME_STAMP
                        ? "NOT_UPLOADED_YET"
                        : my::TimestampToString(fti.m_uploadAttemptTimestamp),
-                   fti.m_uploadStatus, fti.m_uploadError, fti.m_feature.GetFeatureType(),
-                   feature::GetCenter(fti.m_feature)));
+                   fti.m_uploadStatus, fti.m_uploadError, feature.GetFeatureType(),
+                   feature::GetCenter(feature)));
       if (fti.m_uploadStatus == kUploaded)
       {
         ++stats.m_uploadedCount;
@@ -1013,7 +1046,7 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id) const
 }
 
 bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id,
-                         EditableMapObject & outFeature)
+                         EditableMapObject & outFeature) const
 {
   ASSERT(id.IsAlive(),
          ("Please check that feature is created in valid MWM file before calling this method."));
@@ -1022,6 +1055,9 @@ bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::Mwm
     LOG(LERROR, ("Attempt to create a feature outside of the MWM's bounding box."));
     return false;
   }
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+
   outFeature.SetMercator(mercator);
   outFeature.SetID(GenerateNewFeatureId(id));
   outFeature.SetType(type);
@@ -1047,9 +1083,12 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   {
   case NoteProblemType::PlaceDoesNotExist:
   {
+    std::lock_guard<std::mutex> lock(m_mutex);
+
     sstr << kPlaceDoesNotExistMessage << endl;
-    auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
-    auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
+    auto const isCreated = GetFeatureStatusImpl(fid) == FeatureStatus::Created;
+    auto const createdAndUploaded =
+        (isCreated && IsFeatureUploadedImpl(fid.m_mwmId, fid.m_index));
     CHECK(!isCreated || createdAndUploaded, ());
 
     if (createdAndUploaded)
@@ -1078,12 +1117,6 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 
   if (canCreate)
     m_notes->CreateNote(latLon, sstr.str());
-}
-
-void Editor::UploadNotes(string const & key, string const & secret)
-{
-  alohalytics::LogEvent("Editor_UploadNotes", strings::to_string(m_notes->NotUploadedNotesCount()));
-  m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
 }
 
 void Editor::MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status)
@@ -1155,7 +1188,11 @@ FeatureID Editor::GetFeatureIdByXmlFeature(XMLFeature const & xml, MwmSet::MwmId
   if (needMigrate)
   {
     return editor::MigrateFeatureIndex(forEach, xml, status,
-                                       [this, &mwmId] { return GenerateNewFeatureId(mwmId); });
+                                       [this, &mwmId]
+                                       {
+                                         std::lock_guard<std::mutex> lock(m_mutex);
+                                         return GenerateNewFeatureId(mwmId);
+                                       });
   }
 
   return FeatureID(mwmId, xml.GetMWMFeatureIndex());
@@ -1185,7 +1222,10 @@ void Editor::LoadMwmEdits(xml_node const & mwm, MwmSet::MwmId const & mwmId, boo
 
         logHelper.OnStatus(section.m_status);
 
-        m_features[fid.m_mwmId].emplace(fid.m_index, move(fti));
+        {
+          std::lock_guard<std::mutex> lock(m_mutex);
+          m_features[fid.m_mwmId].emplace(fid.m_index, move(fti));
+        }
       }
       catch (editor::XMLFeatureError const & ex)
       {
@@ -1199,6 +1239,43 @@ void Editor::LoadMwmEdits(xml_node const & mwm, MwmSet::MwmId const & mwmId, boo
       }
     }
   }
+}
+
+FeatureStatus Editor::GetFeatureStatusImpl(MwmSet::MwmId const & mwmId, uint32_t index) const
+{
+  // Most popular case optimization.
+  if (m_features.empty())
+    return FeatureStatus::Untouched;
+
+  auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
+  if (featureInfo == nullptr)
+    return FeatureStatus::Untouched;
+
+  return featureInfo->m_status;
+}
+
+FeatureStatus Editor::GetFeatureStatusImpl(FeatureID const & fid) const
+{
+  return GetFeatureStatusImpl(fid.m_mwmId, fid.m_index);
+}
+
+bool Editor::IsFeatureUploadedImpl(MwmSet::MwmId const & mwmId, uint32_t index) const
+{
+  auto const * info = GetFeatureTypeInfo(mwmId, index);
+  return info && info->m_uploadStatus == kUploaded;
+}
+
+bool Editor::HaveMapEditsToUpload() const
+{
+  for (auto const & id : m_features)
+  {
+    for (auto const & index : id.second)
+    {
+      if (NeedsUpload(index.second.m_uploadStatus))
+        return true;
+    }
+  }
+  return false;
 }
 
 const char * const Editor::kPlaceDoesNotExistMessage =

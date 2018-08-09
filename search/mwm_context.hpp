@@ -59,20 +59,29 @@ public:
   template <typename TFn>
   void ForEachFeature(m2::RectD const & rect, TFn && fn) const
   {
-    uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::Intervals intervals;
-    CoverRect(rect, scale, intervals);
-
-    ForEachIndexImpl(intervals, scale, [&](uint32_t index)
-                     {
-                       FeatureType ft;
-                       if (GetFeature(index, ft))
-                         fn(ft);
-                     });
+    ForEachFeatureImpl(rect, [&](uint32_t index)
+    {
+      FeatureType ft;
+      if (GetFeature(index, ft))
+       fn(ft);
+    });
   }
 
-  // @returns false if feature was deleted by user.
+  template <typename TFn>
+  void ForEachOriginalFeature(m2::RectD const & rect, TFn && fn) const
+  {
+    ForEachFeatureImpl(rect, [&](uint32_t index)
+    {
+      FeatureType ft;
+      if (GetOriginalFeature(index, ft))
+        fn(ft);
+    });
+  }
+
+  // Returns false if feature was deleted by user.
   WARN_UNUSED_RESULT bool GetFeature(uint32_t index, FeatureType & ft) const;
+  // Returns false if feature was created by user.
+  WARN_UNUSED_RESULT bool GetOriginalFeature(uint32_t index, FeatureType & ft) const;
 
   WARN_UNUSED_RESULT bool GetStreetIndex(uint32_t houseId, uint32_t & streetId);
 
@@ -88,6 +97,16 @@ private:
   FeatureStatus GetEditedStatus(uint32_t index) const
   {
     return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
+  }
+
+  template <typename TFn>
+  void ForEachFeatureImpl(m2::RectD const & rect, TFn && fn) const
+  {
+    uint32_t const scale = m_value.GetHeader().GetLastScale();
+    covering::Intervals intervals;
+    CoverRect(rect, scale, intervals);
+
+    ForEachIndexImpl(intervals, scale, fn);
   }
 
   template <class TFn>

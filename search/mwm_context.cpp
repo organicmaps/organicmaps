@@ -1,6 +1,7 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/cell_id.hpp"
+#include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_source.hpp"
 
 namespace search
@@ -38,6 +39,16 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
     return true;
   }
   CHECK_SWITCH();
+}
+
+bool MwmContext::GetOriginalFeature(uint32_t index, FeatureType & ft) const
+{
+  if (feature::FakeFeatureIds::IsEditorCreatedFeature(index))
+    return false;
+
+  m_vector.GetByIndex(index, ft);
+  ft.SetID(FeatureID(GetId(), index));
+  return true;
 }
 
 bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)
