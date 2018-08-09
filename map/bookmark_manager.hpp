@@ -28,6 +28,8 @@
 
 #include <boost/optional.hpp>
 
+class User;
+
 class BookmarkManager final
 {
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkLayer>>;
@@ -78,7 +80,7 @@ public:
   class EditSession
   {
   public:
-    EditSession(BookmarkManager & bmManager);
+    explicit EditSession(BookmarkManager & bmManager);
     ~EditSession();
 
     template <typename UserMarkT>
@@ -131,7 +133,7 @@ public:
     BookmarkManager & m_bmManager;
   };
 
-  explicit BookmarkManager(Callbacks && callbacks);
+  BookmarkManager(User & user, Callbacks && callbacks);
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
@@ -207,7 +209,6 @@ public:
   bool IsCloudEnabled() const;
   uint64_t GetLastSynchronizationTimestampInMs() const;
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
-  void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
   enum class CategoryFilterType
   {
@@ -483,6 +484,7 @@ private:
   bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
   ThreadChecker m_threadChecker;
 
+  User & m_user;
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;

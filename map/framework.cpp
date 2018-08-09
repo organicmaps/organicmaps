@@ -428,7 +428,7 @@ Framework::Framework(FrameworkParams const & params)
   InitSearchAPI();
   LOG(LDEBUG, ("Search API initialized"));
 
-  m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
+  m_bmManager = make_unique<BookmarkManager>(m_user, BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
       [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksCreated(marks);
@@ -442,7 +442,6 @@ Framework::Framework(FrameworkParams const & params)
   m_routingManager.SetBookmarkManager(m_bmManager.get());
   m_searchMarks.SetBookmarkManager(m_bmManager.get());
 
-  m_bmManager->SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
   m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
 
   m_routingManager.SetTransitManager(&m_transitManager);
@@ -513,9 +512,9 @@ Framework::~Framework()
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 
-  m_bmManager->SetInvalidTokenHandler(nullptr);
-
   m_user.ClearSubscribers();
+  // Must be destroyed implicitly since it stores reference to m_user.
+  m_bmManager.reset();
 }
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)

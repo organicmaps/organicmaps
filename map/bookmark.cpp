@@ -266,6 +266,16 @@ std::string BookmarkCategory::GetCatalogDeeplink() const
   return ss.str();
 }
 
+void BookmarkCategory::SetAuthor(std::string const & name, std::string const & id)
+{
+  if (m_data.m_authorName == name && m_data.m_authorId == id)
+    return;
+
+  SetDirty();
+  m_data.m_authorName = name;
+  m_data.m_authorId = id;
+}
+
 // static
 kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 {

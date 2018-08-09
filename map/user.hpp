@@ -60,6 +60,8 @@ public:
   void ClearSubscribers();
 
   std::string GetAccessToken() const;
+  std::string GetUserName() const;
+  std::string GetUserId() const;
   Details GetDetails() const;
 
   void UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchronized,
@@ -87,6 +89,8 @@ private:
   void FinishAuthentication();
 
   std::string m_accessToken;
+  std::string m_userName;
+  std::string m_userId;
   mutable std::mutex m_mutex;
   bool m_authenticationInProgress = false;
   Details m_details;

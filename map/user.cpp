@@ -30,6 +30,9 @@ namespace
 {
 std::string const kMapsMeTokenKey = "MapsMeToken";
 std::string const kReviewIdsKey = "UserReviewIds";
+std::string const kUserNameKey = "MapsMeUserName";
+std::string const kUserIdKey = "MapsMeUserId";
+std::string const kDefaultUserName = "Anonymous Traveller";
 std::string const kPassportServerUrl = PASSPORT_URL;
 std::string const kAppName = PASSPORT_APP_NAME;
 std::string const kUGCServerUrl = UGC_URL;
@@ -72,6 +75,13 @@ std::string AuthenticationUrl(std::string const & socialToken,
 }
 
 std::string UserDetailsUrl()
+{
+  if (kPassportServerUrl.empty())
+    return {};
+  return kPassportServerUrl + "/user_details";
+}
+
+std::string UserReviewsUrl()
 {
   if (kUGCServerUrl.empty())
     return {};
@@ -165,6 +175,17 @@ struct SocialNetworkAuthRequestData
                   visitor(m_promoAccepted, "promo_accepted"))
 };
 
+struct UserDetailsResponseData
+{
+  std::string m_firstName;
+  std::string m_lastName;
+  std::string m_userId;
+
+  DECLARE_VISITOR(visitor(m_firstName, "first_name"),
+                  visitor(m_lastName, "last_name"),
+                  visitor(m_userId, "keyid"))
+};
+
 template<typename DataType>
 std::string SerializeToJson(DataType const & data)
 {
@@ -174,6 +195,13 @@ std::string SerializeToJson(DataType const & data)
   coding::SerializerJson<Sink> serializer(sink);
   serializer(data);
   return jsonStr;
+}
+
+template<typename DataType>
+void DeserializeFromJson(std::string const & jsonStr, DataType & result)
+{
+  coding::DeserializerJson des(jsonStr);
+  des(result);
 }
 }  // namespace
 
@@ -186,14 +214,24 @@ void User::Init()
 {
   std::lock_guard<std::mutex> lock(m_mutex);
 
+  auto & secureStorage = GetPlatform().GetSecureStorage();
+
   std::string token;
-  if (GetPlatform().GetSecureStorage().Load(kMapsMeTokenKey, token))
+  if (secureStorage.Load(kMapsMeTokenKey, token))
     m_accessToken = token;
+
+  std::string userName;
+  if (secureStorage.Load(kUserNameKey, userName))
+    m_userName = userName;
+
+  std::string userId;
+  if (secureStorage.Load(kUserIdKey, userId))
+    m_userId = userId;
 
   NotifySubscribersImpl();
 
   std::string reviewIds;
-  if (GetPlatform().GetSecureStorage().Load(kReviewIdsKey, reviewIds))
+  if (secureStorage.Load(kReviewIdsKey, reviewIds))
   {
     m_details.m_reviewIds = DeserializeReviewIds(reviewIds);
     std::sort(m_details.m_reviewIds.begin(), m_details.m_reviewIds.end());
@@ -232,6 +270,18 @@ std::string User::GetAccessToken() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_accessToken;
+}
+
+std::string User::GetUserName() const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return m_userName;
+}
+
+std::string User::GetUserId() const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  return m_userId;
 }
 
 User::Details User::GetDetails() const
@@ -363,19 +413,53 @@ void User::ClearSubscribersImpl()
 
 void User::RequestUserDetails()
 {
-  std::string const url = UserDetailsUrl();
-  if (url.empty())
+  std::string const detailsUrl = UserDetailsUrl();
+  if (detailsUrl.empty())
   {
     LOG(LWARNING, ("User details service is unavailable."));
+    return;
+  }
+
+  std::string const reviewsUrl = UserReviewsUrl();
+  if (reviewsUrl.empty())
+  {
+    LOG(LWARNING, ("User reviews service is unavailable."));
     return;
   }
 
   if (m_accessToken.empty())
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, url]()
+  GetPlatform().RunTask(Platform::Thread::Network, [this, detailsUrl, reviewsUrl]()
   {
-    Request(url, [this](platform::HttpClient & request)
+    // Request user details.
+    Request(detailsUrl, [this](platform::HttpClient & request)
+    {
+      request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
+    },
+    [this](std::string const & response)
+    {
+      UserDetailsResponseData userDetails;
+      DeserializeFromJson(response, userDetails);
+
+      auto userName = kDefaultUserName;
+      if (!userDetails.m_firstName.empty() && !userDetails.m_lastName.empty())
+        userName = userDetails.m_firstName + " " + userDetails.m_lastName;
+      else if (!userDetails.m_firstName.empty())
+        userName = userDetails.m_firstName;
+      else if (!userDetails.m_lastName.empty())
+        userName = userDetails.m_lastName;
+
+      GetPlatform().GetSecureStorage().Save(kUserNameKey, userName);
+      GetPlatform().GetSecureStorage().Save(kUserIdKey, userDetails.m_userId);
+
+      std::lock_guard<std::mutex> lock(m_mutex);
+      m_userName = userName;
+      m_userId = userDetails.m_userId;
+    });
+
+    // Request user's reviews.
+    Request(reviewsUrl, [this](platform::HttpClient & request)
     {
       request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
     },

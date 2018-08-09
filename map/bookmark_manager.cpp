@@ -3,6 +3,7 @@
 #include "map/local_ads_mark.hpp"
 #include "map/routing_mark.hpp"
 #include "map/search_mark.hpp"
+#include "map/user.hpp"
 #include "map/user_mark.hpp"
 #include "map/user_mark_id_storage.hpp"
 
@@ -473,8 +474,9 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
 
 using namespace std::placeholders;
 
-BookmarkManager::BookmarkManager(Callbacks && callbacks)
-  : m_callbacks(std::move(callbacks))
+BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
+  : m_user(user)
+  , m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
   , m_needTeardown(false)
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", std::string(kBookmarkCloudSettingsParam),
@@ -498,6 +500,8 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
       std::bind(&BookmarkManager::OnSynchronizationFinished, this, _1, _2, _3),
       std::bind(&BookmarkManager::OnRestoreRequested, this, _1, _2, _3),
       std::bind(&BookmarkManager::OnRestoredFilesPrepared, this));
+
+  m_bookmarkCloud.SetInvalidTokenHandler([this] { m_user.ResetAccessToken(); });
 }
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()
@@ -1346,11 +1350,8 @@ void BookmarkManager::UpdateBmGroupIdList()
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-
   if (data.m_id == kml::kInvalidMarkGroupId)
-  {
     data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
-  }
   auto groupId = data.m_id;
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
@@ -1365,6 +1366,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
+  m_categories[groupId]->SetAuthor(m_user.GetUserName(), m_user.GetUserId());
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -1730,11 +1732,6 @@ uint64_t BookmarkManager::GetLastSynchronizationTimestampInMs() const
 std::unique_ptr<User::Subscriber> BookmarkManager::GetUserSubscriber()
 {
   return m_bookmarkCloud.GetUserSubscriber();
-}
-
-void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken)
-{
-  m_bookmarkCloud.SetInvalidTokenHandler(std::move(onInvalidToken));
 }
 
 void BookmarkManager::PrepareFileForSharing(kml::MarkGroupId categoryId, SharingHandler && handler)

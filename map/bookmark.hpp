@@ -88,6 +88,8 @@ public:
   bool IsCategoryFromCatalog() const;
   std::string GetCatalogDeeplink() const;
 
+  void SetAuthor(std::string const & name, std::string const & id);
+
 private:
   void SetDirty() override;
 
