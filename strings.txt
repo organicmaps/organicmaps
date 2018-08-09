@@ -32945,3 +32945,8 @@ fa = دوباره نپرس
   [guide_downloaded_subtitle]
     en = Press ‘View on map’ to explore the guide
     ru = Нажмите «Посмотреть на карте» чтобы открыть путеводитель
+
+  [bookmarks_guides]
+    en = Bookmarks and guides
+    ru = Метки и путеводители
+
