@@ -230,7 +230,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    dispatchIntent();
+    mMapTaskToForward = processIntent();
     showMap();
   }
 
@@ -482,21 +482,25 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void dispatchIntent()
+  @Nullable
+  private MapTask processIntent()
   {
     final Intent intent = getIntent();
     if (intent == null)
-      return;
+      return null;
 
     final Intent extra = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
     if (extra == null)
-      return;
+      return null;
 
+    MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {
-      if (ip.isSupported(extra) && (mMapTaskToForward = ip.process(extra)) != null)
-        break;
+      if (ip.isSupported(extra) && (mapTaskToForward = ip.process(extra)) != null)
+        return mapTaskToForward;
     }
+
+    return null;
   }
 
   private static native int nativeGetBytesToDownload();
