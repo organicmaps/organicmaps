@@ -1,4 +1,5 @@
 #import "WebViewController.h"
+#import "Framework.h"
 
 #include "base/assert.hpp"
 
@@ -87,9 +88,15 @@
   self.webView.backgroundColor = UIColor.whiteColor;
 
   if (self.m_htmlText)
+  {
     [self.webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
+  }
   else
-    [self.webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
+  {
+    auto request = [NSMutableURLRequest requestWithURL:self.m_url];
+    [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
+    [self.webView loadRequest:request];
+  }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
