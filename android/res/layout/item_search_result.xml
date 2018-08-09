@@ -45,7 +45,8 @@
       android:layout_gravity="center_horizontal|start"
       android:textSize="@dimen/text_size_body_4"
       android:text="@string/popular_place"
-      app:rating="popular"/>
+      app:rating="popular"
+      app:drawSmile="false"/>
   </FrameLayout>
 
   <TextView
