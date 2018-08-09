@@ -1695,7 +1695,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @NonNull
     private final String mUrl;
 
-    ImportBookmarkCatalogueTask(@NonNull String url)
+    public ImportBookmarkCatalogueTask(@NonNull String url)
     {
       mUrl = url;
     }
@@ -1721,7 +1721,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     private static final long serialVersionUID = 1L;
     private final String mUrl;
 
-    OpenUrlTask(String url)
+    public OpenUrlTask(String url)
     {
       Utils.checkNotNull(url);
       mUrl = url;
@@ -2531,12 +2531,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  static class ShowPointTask implements MapTask
+  public static class ShowPointTask implements MapTask
   {
     private final double mLat;
     private final double mLon;
 
-    ShowPointTask(double lat, double lon)
+    public ShowPointTask(double lat, double lon)
     {
       mLat = lat;
       mLon = lon;
@@ -2551,7 +2551,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  static class BuildRouteTask implements MapTask
+  public static class BuildRouteTask implements MapTask
   {
     private final double mLatTo;
     private final double mLonTo;
@@ -2572,18 +2572,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                        TextUtils.isEmpty(addr) ? "" : addr, "", lat, lon);
     }
 
-    BuildRouteTask(double latTo, double lonTo, @Nullable String router)
+    public BuildRouteTask(double latTo, double lonTo, @Nullable String router)
     {
       this(latTo, lonTo, null, null, null, null, router);
     }
 
-    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+    public BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
                    @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr)
     {
       this(latTo, lonTo, saddr, latFrom, lonFrom, daddr, null);
     }
 
-    BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
+    public BuildRouteTask(double latTo, double lonTo, @Nullable String saddr,
                    @Nullable Double latFrom, @Nullable Double lonFrom, @Nullable String daddr,
                    @Nullable String router)
     {

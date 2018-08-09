@@ -1,11 +1,9 @@
 package com.mapswithme.maps;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -21,30 +19,21 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.MwmActivity.MapTask;
 import com.mapswithme.maps.MwmActivity.OpenUrlTask;
-import com.mapswithme.maps.api.Const;
-import com.mapswithme.maps.api.ParsedMwmRequest;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
+import com.mapswithme.maps.intent.Factory;
+import com.mapswithme.maps.intent.IntentProcessor;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationListener;
-import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
-import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.Statistics;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 @SuppressLint("StringFormatMatches")
@@ -53,7 +42,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
 
-  static final String EXTRA_COUNTRY = "country";
+  public static final String EXTRA_COUNTRY = "country";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -97,18 +86,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @NonNull
   private final IntentProcessor[] mIntentProcessors = {
-      new GeoIntentProcessor(),
-      new HttpGe0IntentProcessor(),
-      new Ge0IntentProcessor(),
-      new MapsWithMeIntentProcessor(),
-      new GoogleMapsIntentProcessor(),
-      new OldLeadUrlIntentProcessor(),
-      new BookmarkCatalogueIntentProcessor(),
-      new OldCoreLinkAdapterProcessor(),
-      new OpenCountryTaskProcessor(),
-      new KmzKmlProcessor(this),
-      new ShowOnMapProcessor(),
-      new BuildRouteProcessor()
+      Factory.createGeoIntentProcessor(),
+      Factory.createHttpGe0IntentProcessor(),
+      Factory.createGe0IntentProcessor(),
+      Factory.createMapsWithMeIntentProcessor(),
+      Factory.createGoogleMapsIntentProcessor(),
+      Factory.createOldLeadUrlProcessor(),
+      Factory.createBookmarkCatalogueProcessor(),
+      Factory.createOldCoreLinkAdapterProcessor(),
+      Factory.createOpenCountryTaskProcessor(),
+      Factory.createKmzKmlProcessor(this),
+      Factory.createShowOnMapProcessor(),
+      Factory.createBuildRouteProcessor()
   };
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
@@ -433,7 +422,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private void showMap()
+  public void showMap()
   {
     if (!mAreResourcesDownloaded)
       return;
@@ -510,450 +499,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         break;
       }
     }
-  }
-
-  private static class GeoIntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return (intent.getData() != null && "geo".equals(intent.getScheme()));
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      final String url = intent.getData().toString();
-      LOGGER.i(TAG, "Query = " + url);
-      org.alohalytics.Statistics.logEvent("GeoIntentProcessor::process", url);
-      return new OpenUrlTask(url);
-    }
-  }
-
-  private static class Ge0IntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return (intent.getData() != null && "ge0".equals(intent.getScheme()));
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      final String url = intent.getData().toString();
-      LOGGER.i(TAG, "URL = " + url);
-      org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::process", url);
-      return new OpenUrlTask(url);
-    }
-  }
-
-  private static class HttpGe0IntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      if ("http".equalsIgnoreCase(intent.getScheme()))
-      {
-        final Uri data = intent.getData();
-        if (data != null)
-          return "ge0.me".equals(data.getHost());
-      }
-
-      return false;
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-      LOGGER.i(TAG, "URL = " + data.toString());
-
-      final String ge0Url = "ge0:/" + data.getPath();
-      org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
-      return new OpenUrlTask(ge0Url);
-    }
-  }
-
-  /**
-   * Use this to invoke API task.
-   */
-  private static class MapsWithMeIntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull final Intent intent)
-    {
-      final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
-      org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
-      if (apiUrl != null)
-      {
-        SearchEngine.INSTANCE.cancelInteractiveSearch();
-
-        final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
-        ParsedMwmRequest.setCurrentRequest(request);
-        Statistics.INSTANCE.trackApiCall(request);
-
-        if (!ParsedMwmRequest.isPickPointMode())
-          return new OpenUrlTask(apiUrl);
-      }
-
-      throw new AssertionError("Url must be provided!");
-    }
-  }
-
-  private static class GoogleMapsIntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-      return (data != null && "maps.google.com".equals(data.getHost()));
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      final String url = intent.getData().toString();
-      LOGGER.i(TAG, "URL = " + url);
-      org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::process", url);
-      return new OpenUrlTask(url);
-    }
-  }
-
-  private static class OldLeadUrlIntentProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-
-      if (data == null)
-        return false;
-
-      String scheme = intent.getScheme();
-      String host = data.getHost();
-      if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
-        return false;
-
-      return (scheme.equals("mapsme") || scheme.equals("mapswithme")) && "lead".equals(host);
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      final String url = intent.getData().toString();
-      LOGGER.i(TAG, "URL = " + url);
-      org.alohalytics.Statistics.logEvent("OldLeadUrlIntentProcessor::process", url);
-      return new OpenUrlTask(url);
-    }
-  }
-
-  private static class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
-  {
-    private static final String PATH = "/catalogue";
-
-    @Override
-    boolean isLinkSupported(@NonNull Uri data)
-    {
-      return PATH.equals(data.getPath());
-    }
-
-    @NonNull
-    @Override
-    MapTask createMapTask(@NonNull String url)
-    {
-      return new MwmActivity.ImportBookmarkCatalogueTask(url);
-    }
-  }
-
-  private static class OldCoreLinkAdapterProcessor extends DlinkIntentProcessor
-  {
-    private static final String SCHEME_CORE = "mapsme";
-
-    @Override
-    protected boolean isLinkSupported(@NonNull Uri data)
-    {
-      return true;
-    }
-
-    @NonNull
-    @Override
-    protected MapTask createMapTask(@NonNull String url)
-    {
-      // Transform deeplink to the core expected format,
-      // i.e https://host/path?query -> mapsme:///path?query.
-      Uri uri = Uri.parse(url);
-      Uri coreUri = uri.buildUpon()
-                       .scheme(SCHEME_CORE)
-                       .authority("").build();
-      LOGGER.i(TAG, "MAPSME URL = " + coreUri);
-      return new OpenUrlTask(coreUri.toString());
-    }
-  }
-
-  private static abstract class DlinkIntentProcessor implements IntentProcessor
-  {
-    static final String SCHEME_HTTPS = "https";
-    static final String HOST = "dlink.maps.me";
-
-    @Override
-    public final boolean isSupported(@NonNull Intent intent)
-    {
-      final Uri data = intent.getData();
-
-      if (data == null)
-        return false;
-
-      String scheme = intent.getScheme();
-      String host = data.getHost();
-
-      return SCHEME_HTTPS.equals(scheme) && HOST.equals(host) && isLinkSupported(data);
-    }
-
-    abstract boolean isLinkSupported(@NonNull Uri data);
-
-    @NonNull
-    @Override
-    public final MapTask process(@NonNull Intent intent)
-    {
-      String url = intent.getData().toString();
-      LOGGER.i(TAG, "HTTP deeplink = " + url);
-
-      org.alohalytics.Statistics.logEvent(this.getClass().getSimpleName() + "::process", url);
-      return createMapTask(url);
-    }
-
-    @NonNull
-    abstract MapTask createMapTask(@NonNull String url);
-  }
-
-  private static class OpenCountryTaskProcessor implements IntentProcessor
-  {
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return intent.hasExtra(EXTRA_COUNTRY);
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      String countryId = intent.getStringExtra(EXTRA_COUNTRY);
-
-      org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
-                                          new String[] { "autoDownload", "false" },
-                                          LocationHelper.INSTANCE.getSavedLocation());
-      return new MwmActivity.ShowCountryTask(countryId);
-    }
-  }
-
-  private static class KmzKmlProcessor implements IntentProcessor
-  {
-    private Uri mData;
-    @NonNull
-    private final DownloadResourcesLegacyActivity mActivity;
-
-    private KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
-    {
-      mActivity = activity;
-    }
-
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      mData = intent.getData();
-      return mData != null;
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-       return (MapTask) target -> {
-         ThreadPool.getStorage().execute(() -> {
-           readKmzFromIntent();
-           mActivity.runOnUiThread(mActivity::showMap);
-         });
-         return true;
-       };
-    }
-
-    private void readKmzFromIntent()
-    {
-      String path = null;
-      boolean isTemporaryFile = false;
-      final String scheme = mData.getScheme();
-      if (scheme != null && !scheme.equalsIgnoreCase(ContentResolver.SCHEME_FILE))
-      {
-        // scheme is "content" or "http" - need to download or read file first
-        InputStream input = null;
-        OutputStream output = null;
-
-        try
-        {
-          final ContentResolver resolver = mActivity.getContentResolver();
-          final String ext = getExtensionFromMime(resolver.getType(mData));
-          if (ext != null)
-          {
-            final String filePath = StorageUtils.getTempPath() + "Attachment" + ext;
-
-            File tmpFile = new File(filePath);
-            output = new FileOutputStream(tmpFile);
-            input = resolver.openInputStream(mData);
-
-            final byte buffer[] = new byte[Constants.MB / 2];
-            int read;
-            while ((read = input.read(buffer)) != -1)
-              output.write(buffer, 0, read);
-            output.flush();
-
-            path = filePath;
-            isTemporaryFile = true;
-          }
-        } catch (final Exception ex)
-        {
-          LOGGER.w(TAG, "Attachment not found or io error: " + ex, ex);
-        } finally
-        {
-          Utils.closeSafely(input);
-          Utils.closeSafely(output);
-        }
-      }
-      else
-        path = mData.getPath();
-
-      if (!TextUtils.isEmpty(path))
-      {
-        LOGGER.d(TAG, "Loading bookmarks file from: " + path);
-        loadKmzFile(path, isTemporaryFile);
-      }
-      else
-        LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);
-    }
-
-    private void loadKmzFile(final @NonNull String path, final boolean isTemporaryFile)
-    {
-      mActivity.runOnUiThread(() -> BookmarkManager.INSTANCE.loadKmzFile(path, isTemporaryFile));
-    }
-
-    private String getExtensionFromMime(String mime)
-    {
-      final int i = mime.lastIndexOf('.');
-      if (i == -1)
-        return null;
-
-      mime = mime.substring(i + 1);
-      if (mime.equalsIgnoreCase("kmz"))
-        return ".kmz";
-      else if (mime.equalsIgnoreCase("kml+xml"))
-        return ".kml";
-      else
-        return null;
-    }
-  }
-
-  private static class ShowOnMapProcessor implements IntentProcessor
-  {
-    private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
-    private static final String EXTRA_LAT = "lat";
-    private static final String EXTRA_LON = "lon";
-
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return ACTION_SHOW_ON_MAP.equals(intent.getAction());
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
-        throw new AssertionError("Extra lat/lon must be provided!");
-
-      double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
-      double lon = getCoordinateFromIntent(intent, EXTRA_LON);
-
-      return  new MwmActivity.ShowPointTask(lat, lon);
-    }
-  }
-
-  private static class BuildRouteProcessor implements IntentProcessor
-  {
-    private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
-    private static final String EXTRA_LAT_TO = "lat_to";
-    private static final String EXTRA_LON_TO = "lon_to";
-    private static final String EXTRA_LAT_FROM = "lat_from";
-    private static final String EXTRA_LON_FROM = "lon_from";
-    private static final String EXTRA_SADDR = "saddr";
-    private static final String EXTRA_DADDR = "daddr";
-    private static final String EXTRA_ROUTER = "router";
-
-    @Override
-    public boolean isSupported(@NonNull Intent intent)
-    {
-      return ACTION_BUILD_ROUTE.equals(intent.getAction());
-    }
-
-    @NonNull
-    @Override
-    public MapTask process(@NonNull Intent intent)
-    {
-      if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
-        throw new AssertionError("Extra lat/lon must be provided!");
-
-      String saddr = intent.getStringExtra(EXTRA_SADDR);
-      String daddr = intent.getStringExtra(EXTRA_DADDR);
-      double latTo = getCoordinateFromIntent(intent, EXTRA_LAT_TO);
-      double lonTo = getCoordinateFromIntent(intent, EXTRA_LON_TO);
-      boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
-      boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
-
-      MapTask mapTaskToForward;
-      if (hasFrom && hasRouter)
-      {
-        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
-                                                           daddr, intent.getStringExtra(EXTRA_ROUTER));
-      }
-      else if (hasFrom)
-      {
-        double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
-        double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr,
-                                                           latFrom,lonFrom, daddr);
-      }
-      else
-      {
-        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
-                                                           intent.getStringExtra(EXTRA_ROUTER));
-      }
-
-      return mapTaskToForward;
-    }
-  }
-
-  private static double getCoordinateFromIntent(@NonNull Intent intent, @NonNull String key)
-  {
-    double value = intent.getDoubleExtra(key, 0.0);
-    if (Double.compare(value, 0.0) == 0)
-      value = intent.getFloatExtra(key, 0.0f);
-
-    return value;
   }
 
   private static native int nativeGetBytesToDownload();
