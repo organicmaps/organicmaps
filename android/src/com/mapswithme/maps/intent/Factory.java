@@ -61,9 +61,9 @@ public class Factory
   }
 
   @NonNull
-  public static IntentProcessor createBookmarkCatalogueProcessor()
+  public static IntentProcessor createDlinkBookmarkCatalogueProcessor()
   {
-    return new BookmarkCatalogueIntentProcessor();
+    return new DlinkBookmarkCatalogueIntentProcessor();
   }
 
   @NonNull
@@ -94,6 +94,12 @@ public class Factory
   public static IntentProcessor createHttpGe0IntentProcessor()
   {
     return new HttpGe0IntentProcessor();
+  }
+
+  @NonNull
+  public static IntentProcessor createMapsmeBookmarkCatalogueProcessor()
+  {
+    return new MapsmeBookmarkCatalogueProcessor();
   }
 
   @NonNull
@@ -255,14 +261,14 @@ public class Factory
     }
   }
 
-  private static class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
+  private static class DlinkBookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
   {
-    private static final String PATH = "/catalogue";
+    static final String CATALOGUE = "catalogue";
 
     @Override
     boolean isLinkSupported(@NonNull Uri data)
     {
-      return PATH.equals(data.getPath());
+      return (File.separator + CATALOGUE).equals(data.getPath());
     }
 
     @NonNull
@@ -270,6 +276,35 @@ public class Factory
     MwmActivity.MapTask createMapTask(@NonNull String url)
     {
       return new MwmActivity.ImportBookmarkCatalogueTask(url);
+    }
+  }
+
+  private static class MapsmeBookmarkCatalogueProcessor extends MapsmeProcessor
+  {
+    @NonNull
+    @Override
+    MwmActivity.MapTask createMapTask(@NonNull String uri)
+    {
+      String url = Uri.parse(uri).buildUpon()
+                      .scheme(DlinkIntentProcessor.SCHEME_HTTPS)
+                      .authority(DlinkIntentProcessor.HOST)
+                      .path(DlinkBookmarkCatalogueIntentProcessor.CATALOGUE)
+                      .build().toString();
+      return new MwmActivity.ImportBookmarkCatalogueTask(url);
+    }
+
+    @Override
+    public boolean isSupported(@NonNull Intent intent)
+    {
+      if (!super.isSupported(intent))
+        return false;
+
+      Uri data = intent.getData();
+      if (data == null)
+        return false;
+
+      String host = data.getHost();
+      return DlinkBookmarkCatalogueIntentProcessor.CATALOGUE.equals(host);
     }
   }
 
