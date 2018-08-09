@@ -106,35 +106,6 @@
           android:textAppearance="@style/MwmTextAppearance.Body3.Light"
           android:textColor="@color/text_light"/>
 
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:clipChildren="false"
-          android:clipToPadding="false"
-          android:orientation="horizontal"
-          tools:ignore="ButtonStyle">
-
-          <Button
-            android:id="@+id/login_facebook"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editor_auth_btn_height"
-            android:layout_marginBottom="@dimen/margin_half_plus"
-            android:layout_weight="1"
-            android:background="@drawable/com_facebook_button_background"
-            android:drawableLeft="@drawable/ic_login_fb"
-            android:drawableStart="@drawable/ic_login_fb"
-            android:fontFamily="@string/robotoMedium"
-            android:paddingLeft="@dimen/margin_half"
-            android:paddingStart="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_double"
-            android:paddingEnd="@dimen/margin_double"
-            android:text="@string/facebook"
-            android:textAppearance="@style/MwmTextAppearance.Body1.Light"
-            android:textColor="@color/text_light"
-            tools:targetApi="jelly_bean"/>
-
-        </LinearLayout>
-
         <Button
           android:id="@+id/login_osm"
           style="@style/MwmWidget.Button.Accent"

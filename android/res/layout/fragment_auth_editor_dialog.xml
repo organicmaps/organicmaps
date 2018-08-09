@@ -32,20 +32,6 @@
       android:textSize="@dimen/text_size_toolbar"
       tools:ignore="UnusedAttribute"/>
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/margin_half_plus"
-      android:orientation="horizontal"
-      tools:ignore="ButtonStyle">
-      <ImageButton
-        android:id="@+id/login_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/editor_auth_btn_height"
-        android:background="@drawable/com_facebook_button_background"
-        android:src="@drawable/ic_login_fb"/>
-    </LinearLayout>
-
     <Button
       android:id="@+id/login_osm"
       style="@style/MwmWidget.Button.Accent"
