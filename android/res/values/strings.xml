@@ -1399,6 +1399,14 @@
 	<string name="download_routes">Download routes</string>
 	<string name="bookmarks_downloaded_title">Bookmarks have been downloaded successfully</string>
 	<string name="bookmarks_downloaded_subtitle">Press ‘View on map’ to explore new places from the list</string>
+	<string name="guides">Guides</string>
+	<string name="guide_downloaded_title">The guide has been downloaded successfully</string>
+	<string name="download_guides">Download guides</string>
+	<string name="cached_guides_placeholder_subtitle">Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.</string>
+	<string name="guides_groups_cached">Downloaded guides</string>
+	<string name="subtitle_error_downloading_guide">The guide was not downloaded</string>
+	<string name="error_already_downloaded_guide">This guide has already been downloaded</string>
+	<string name="guide_downloaded_subtitle">Press ‘View on map’ to explore the guide</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

@@ -1394,6 +1394,14 @@
 	<string name="download_routes">Загрузить маршруты</string>
 	<string name="bookmarks_downloaded_title">Метки были успешно загружены</string>
 	<string name="bookmarks_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка</string>
+	<string name="guides">Путеводители</string>
+	<string name="guide_downloaded_title">Путеводитель был успешно загружен</string>
+	<string name="download_guides">Загрузите путеводители</string>
+	<string name="cached_guides_placeholder_subtitle">Мы собрали каталог с подробными оффлайн маршрутами по городам мира! Теперь каждый путешественник сможет найти маршрут по своему вкусу и загрузить в MAPS.ME. Все загруженные маршруты автоматически отобразятся на карте. Для загрузки маршрута необходимо подключение к интернету.</string>
+	<string name="guides_groups_cached">Загруженные путеводители</string>
+	<string name="subtitle_error_downloading_guide">Путеводитель не был загружен</string>
+	<string name="error_already_downloaded_guide">Этот путеводитель уже был загружен</string>
+	<string name="guide_downloaded_subtitle">Нажмите «Посмотреть на карте» чтобы открыть путеводитель</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

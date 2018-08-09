@@ -2394,6 +2394,22 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
+"guides" = "Guides";
+
+"guide_downloaded_title" = "The guide has been downloaded successfully";
+
+"download_guides" = "Download guides";
+
+"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+
+"guides_groups_cached" = "Downloaded guides";
+
+"subtitle_error_downloading_guide" = "The guide was not downloaded";
+
+"error_already_downloaded_guide" = "This guide has already been downloaded";
+
+"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+
 
 /**********  Partners  **********/
 
