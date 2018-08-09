@@ -69,6 +69,6 @@ class CatalogListenerDecorator extends BookmarkManager.DefaultBookmarksCatalogLi
   {
     DialogUtils.showAlertDialog(fragment.getActivity(),
                                 R.string.title_error_downloading_bookmarks,
-                                R.string.subtitle_error_downloading_bookmarks);
+                                R.string.subtitle_error_downloading_guide);
   }
 }

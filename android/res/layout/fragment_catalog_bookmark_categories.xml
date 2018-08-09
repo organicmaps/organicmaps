@@ -27,7 +27,7 @@
         android:layout_height="wrap_content">
         <TextView
           android:id="@+id/header_title"
-          android:text="@string/cached_bookmarks_placeholder_title"
+          android:text="@string/download_guides"
           android:textAppearance="@style/MwmTextAppearance.Body1"
           android:gravity="start|center_vertical"
           android:paddingTop="@dimen/margin_half_plus"
@@ -36,7 +36,7 @@
           mapsme:layout_constraintLeft_toLeftOf="parent"/>
         <TextView
           android:id="@+id/header_description"
-          android:text="@string/cached_bookmarks_placeholder_subtitle"
+          android:text="@string/cached_guides_placeholder_subtitle"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           android:paddingTop="@dimen/margin_half_plus"
           android:paddingBottom="@dimen/margin_half_plus"
@@ -89,7 +89,7 @@
         style="@style/MwmWidget.Button.Accent"
         android:layout_weight="0"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/downloader_download_routers"
+        android:text="@string/download_guides"
         android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
     </LinearLayout>
     <LinearLayout

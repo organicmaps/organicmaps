@@ -23,7 +23,7 @@
     android:drawableStart="@drawable/ic_menu_download_guides"
     android:drawableTint="?attr/colorAccent"
     android:textColor="?attr/colorAccent"
-    android:text="@string/download_routes"
+    android:text="@string/download_guides"
     tools:background="#403033FF"
     tools:targetApi="m"/>
 

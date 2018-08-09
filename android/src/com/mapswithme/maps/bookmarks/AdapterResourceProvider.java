@@ -66,7 +66,7 @@ public interface AdapterResourceProvider
     @Override
     public int getHeaderText()
     {
-      return R.string.bookmarks_groups_cached;
+      return R.string.guides_groups_cached;
     }
 
     @Override
@@ -78,7 +78,7 @@ public interface AdapterResourceProvider
     @Override
     public int getFooterText()
     {
-      return R.string.downloader_download_routers;
+      return R.string.download_guides;
     }
   }
 

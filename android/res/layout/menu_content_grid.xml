@@ -19,7 +19,7 @@
     style="@style/MwmTheme.Menu.Content.GridItem.Text"
     android:drawableTop="@drawable/ic_menu_download_guides"
     android:drawableTint="?colorAccent"
-    android:text="@string/download_routes"
+    android:text="@string/download_guides"
     android:textColor="?attr/colorAccent"
     tools:targetApi="m"/>
 

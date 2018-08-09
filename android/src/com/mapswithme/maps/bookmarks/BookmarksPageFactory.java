@@ -22,7 +22,7 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.bookmarks_page_my;
+          return R.string.bookmarks;
         }
       },
   CATALOG(new Analytics(Statistics.ParamValue.DOWNLOADED), new AdapterResourceProvider.Catalog())
@@ -37,7 +37,7 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.bookmarks_page_downloaded;
+          return R.string.guides;
         }
       };
 

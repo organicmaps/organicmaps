@@ -1199,7 +1199,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!successful)
       return;
 
-    Toast.makeText(this, R.string.bookmarks_downloaded_title, Toast.LENGTH_LONG).show();
+    Toast.makeText(this, R.string.guide_downloaded_title, Toast.LENGTH_LONG).show();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
   }
 
