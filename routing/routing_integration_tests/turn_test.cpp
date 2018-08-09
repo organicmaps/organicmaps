@@ -946,8 +946,7 @@ UNIT_TEST(RussiaMoscowMinskia1TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
 
 UNIT_TEST(RussiaMoscowMinskia2TurnTest)
@@ -961,8 +960,9 @@ UNIT_TEST(RussiaMoscowMinskia2TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 // This test on getting correct (far enough) outgoing turn point (result of method GetPointForTurn())

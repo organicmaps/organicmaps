@@ -52,7 +52,7 @@ UNIT_TEST(RussiaTulskayaToPaveletskayaStreetNamesTest)
   MoveRoute(route, ms::LatLon(55.73034, 37.63099));
 
   integration::TestCurrentStreetName(route, "Валовая улица");
-  integration::TestNextStreetName(route, "Валовая улица");
+  integration::TestNextStreetName(route, "");
 
   MoveRoute(route, ms::LatLon(55.730912, 37.636191));
 
