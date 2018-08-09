@@ -62,7 +62,7 @@ struct GenerateInfo
   bool m_genAddresses = false;
   bool m_failOnCoasts = false;
   bool m_preloadCache = false;
-
+  bool m_verbose = false;
 
   GenerateInfo() = default;
 

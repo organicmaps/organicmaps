@@ -15,10 +15,10 @@ namespace generator
 {
 enum class EmitterType
 {
-  PLANET,
-  REGION,
-  RESTAURANTS,
-//  BOOKING
+  Planet,
+  Region,
+  Restaurants,
+//  Booking
 };
 
 template <class... Args>
@@ -26,11 +26,11 @@ std::shared_ptr<EmitterInterface> CreateEmitter(EmitterType type, Args&&... args
 {
   switch (type)
   {
-  case EmitterType::PLANET:
+  case EmitterType::Planet:
     return create<EmitterPlanet>(std::forward<Args>(args)...);
-  case EmitterType::REGION:
+  case EmitterType::Region:
     return create<EmitterRegion>(std::forward<Args>(args)...);
-  case EmitterType::RESTAURANTS:
+  case EmitterType::Restaurants:
     return create<EmitterRestaurants>(std::forward<Args>(args)...);
   }
   CHECK_SWITCH();

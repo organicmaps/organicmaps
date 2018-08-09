@@ -87,7 +87,7 @@ int main(int argc, char * argv[])
 
   LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
   std::vector<FeatureBuilder1> features;
-  auto emitter = generator::CreateEmitter(generator::EmitterType::RESTAURANTS, features);
+  auto emitter = generator::CreateEmitter(generator::EmitterType::Restaurants, features);
   generator::GenerateFeatures(info, emitter);
 
   {

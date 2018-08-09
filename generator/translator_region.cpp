@@ -7,6 +7,7 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/region_info_collector.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -20,9 +21,11 @@
 namespace generator
 {
 TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
-                                   cache::IntermediateDataReader & holder) :
+                                   cache::IntermediateDataReader & holder,
+                                   RegionInfoCollector & regionInfoCollector) :
   m_emitter(emitter),
-  m_holder(holder)
+  m_holder(holder),
+  m_regionInfoCollector(regionInfoCollector)
 {
 }
 
@@ -74,9 +77,9 @@ bool TranslatorRegion::IsSuitableElement(OsmElement const * p) const
   return false;
 }
 
-void TranslatorRegion::AddInfoAboutRegion(OsmElement const * p,
-                                          FeatureBuilder1 & ft) const
+void TranslatorRegion::AddInfoAboutRegion(OsmElement const * p) const
 {
+  m_regionInfoCollector.Add(*p);
 }
 
 bool TranslatorRegion::ParseParams(OsmElement * p, FeatureParams & params) const
@@ -109,7 +112,7 @@ void TranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, FeatureParams &
 
     ft.SetAreaAddHoles(holesGeometry);
     ft.SetParams(params);
-    AddInfoAboutRegion(p, ft);
+    AddInfoAboutRegion(p);
     (*m_emitter)(ft);
   });
 }

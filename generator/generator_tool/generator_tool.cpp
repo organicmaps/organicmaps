@@ -13,6 +13,7 @@
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/popular_places_section_builder.hpp"
+#include "generator/regions.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
@@ -98,7 +99,9 @@ DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 DEFINE_bool(generate_geo_objects_index, false,
             "Generate objects and index for server-side reverse geocoder.");
 DEFINE_bool(generate_regions, false,
-            "Generate regiond index and borders for server-side reverse geocoder.");
+            "Generate regions index and borders for server-side reverse geocoder.");
+DEFINE_bool(generate_regions_kv, false,
+            "Generate regions key-value for server-side reverse geocoder.");
 
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
@@ -150,12 +153,15 @@ DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output'
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
 
+// Common.
+DEFINE_bool(verbose, false, "Provide more detailed output.");
+
 using namespace generator;
 
 int main(int argc, char ** argv)
 {
   google::SetUsageMessage(
-      "Takes OSM XML data from stdin and creates data and index files in several passes.");
+        "Takes OSM XML data from stdin and creates data and index files in several passes.");
 
   google::ParseCommandLineFlags(&argc, &argv, true);
 
@@ -174,8 +180,11 @@ int main(int argc, char ** argv)
   pl.SetWritableDirForTests(path);
 
   feature::GenerateInfo genInfo;
-  genInfo.m_intermediateDir = FLAGS_intermediate_data_path.empty() ? path
-                            : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+  genInfo.m_verbose = FLAGS_verbose;
+
+  genInfo.m_intermediateDir =
+      FLAGS_intermediate_data_path.empty() ?
+        path : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
@@ -247,7 +256,7 @@ int main(int argc, char ** argv)
     genInfo.m_fileName = FLAGS_output;
     genInfo.m_genAddresses = FLAGS_generate_addresses_file;
 
-    auto emitter = CreateEmitter(EmitterType::PLANET, genInfo);
+    auto emitter = CreateEmitter(EmitterType::Planet, genInfo);
     if (!GenerateFeatures(genInfo, emitter))
       return -1;
 
@@ -277,7 +286,7 @@ int main(int argc, char ** argv)
 
     genInfo.m_fileName = FLAGS_output;
 
-    auto emitter = CreateEmitter(EmitterType::REGION, genInfo);
+    auto emitter = CreateEmitter(EmitterType::Region, genInfo);
     if (!GenerateRegionFeatures(genInfo, emitter))
       return -1;
   }
@@ -371,6 +380,17 @@ int main(int argc, char ** argv)
         LOG(LINFO, ("Processing metalines from", metalinesFilename));
         if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
           LOG(LCRITICAL, ("Error generating metalines section."));
+      }
+    }
+
+    if (FLAGS_generate_regions_kv)
+    {
+      CHECK(FLAGS_generate_region_features, ("Option --generate_regions_kv can be used only "
+                                             "together with option --generate_region_features."));
+      if (!GenerateRegions(genInfo))
+      {
+        LOG(LCRITICAL, ("Error generating regions kv."));
+        return EXIT_FAILURE;
       }
     }
 
