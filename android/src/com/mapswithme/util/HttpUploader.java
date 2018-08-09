@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -29,7 +30,6 @@ public final class HttpUploader
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
   private static final String TAG = HttpUploader.class.getSimpleName();
-  private static final String USER_AGENT = "Mapsme Android";
   private static final String LINE_FEED = "\r\n";
   private static final String CHARSET = "UTF-8";
   private static final int BUFFER = 8192;
@@ -187,7 +187,7 @@ public final class HttpUploader
 
   private void setHeaders(@NonNull URLConnection connection, long bodyLength)
   {
-    mHeaders.add(new KeyValue(HttpClient.USER_AGENT, USER_AGENT));
+    mHeaders.add(new KeyValue(HttpClient.USER_AGENT, Framework.nativeGetUserAgent()));
     mHeaders.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
     mHeaders.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
     mHeaders.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));
