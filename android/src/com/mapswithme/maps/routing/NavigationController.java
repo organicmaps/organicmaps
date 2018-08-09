@@ -147,35 +147,39 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   private NavMenu createNavMenu()
   {
-    return new NavMenu(mBottomFrame, item -> {
-      final MwmActivity parent = ((MwmActivity) mFrame.getContext());
-      switch (item)
-      {
-      case STOP:
-        mNavMenu.close(false /* animate */);
-        Statistics.INSTANCE.trackRoutingFinish(true,
-                                               RoutingController.get().getLastRouterType(),
-                                               TrafficManager.INSTANCE.isEnabled());
-        RoutingController.get().cancel();
-        break;
-      case SETTINGS:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SETTINGS);
-        parent.closeMenu(() -> parent.startActivity(new Intent(parent, SettingsActivity.class)));
-        break;
-      case TTS_VOLUME:
-        TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-        mNavMenu.refreshTts();
-        break;
-      case TRAFFIC:
-        TrafficManager.INSTANCE.toggle();
-        mNavMenu.refreshTraffic();
-        //TODO: Add statistics reporting (in separate task)
-        break;
-      case TOGGLE:
-        mNavMenu.toggle(true);
-        parent.refreshFade();
-      }
-    });
+    return new NavMenu(mBottomFrame, this::onMenuItemClicked);
+  }
+
+  private void onMenuItemClicked(NavMenu.Item item)
+  {
+    final MwmActivity parent = ((MwmActivity) mFrame.getContext());
+    switch (item)
+    {
+    case STOP:
+      mNavMenu.close(false);
+      Statistics.INSTANCE.trackRoutingFinish(true,
+                                             RoutingController.get().getLastRouterType(),
+                                             TrafficManager.INSTANCE.isEnabled());
+      RoutingController.get().cancel();
+      break;
+    case SETTINGS:
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SETTINGS);
+      parent.closeMenu(() -> parent.startActivity(new Intent(parent, SettingsActivity.class)));
+      break;
+    case TTS_VOLUME:
+      TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+      mNavMenu.refreshTts();
+      break;
+    case TRAFFIC:
+      TrafficManager.INSTANCE.toggle();
+      parent.onTrafficLayerSelected();
+      mNavMenu.refreshTraffic();
+      //TODO: Add statistics reporting (in separate task)
+      break;
+    case TOGGLE:
+      mNavMenu.toggle(true);
+      parent.refreshFade();
+    }
   }
 
   public void stop(MwmActivity parent)
