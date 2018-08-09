@@ -71,6 +71,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private CheckBox mChbDownloadCountry;
 
   private String mCurrentCountry;
+  @Nullable
   private MapTask mMapTaskToForward;
 
   private boolean mAreResourcesDownloaded;
@@ -105,7 +106,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       new BookmarkCatalogueIntentProcessor(),
       new OldCoreLinkAdapterProcessor(),
       new OpenCountryTaskProcessor(),
-      new KmzKmlProcessor(),
+      new KmzKmlProcessor(this),
       new ShowOnMapProcessor(),
       new BuildRouteProcessor()
   };
@@ -491,20 +492,27 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private boolean dispatchIntent()
+  private void dispatchIntent()
   {
     final Intent intent = getIntent();
     if (intent == null)
-      return false;
+      return;
 
-    for (final IntentProcessor ip : mIntentProcessors)
-      if (ip.isSupported(intent) && ip.process(intent))
-        return true;
+    final Intent extra = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
+    if (extra == null)
+      return;
 
-    return false;
+    for (IntentProcessor ip : mIntentProcessors)
+    {
+      if (ip.isSupported(extra))
+      {
+        mMapTaskToForward = ip.process(intent);
+        break;
+      }
+    }
   }
 
-  private class GeoIntentProcessor implements IntentProcessor
+  private static class GeoIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -512,18 +520,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return (intent.getData() != null && "geo".equals(intent.getScheme()));
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "Query = " + url);
-      mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("GeoIntentProcessor::process", url);
-      return true;
+      return new OpenUrlTask(url);
     }
   }
 
-  private class Ge0IntentProcessor implements IntentProcessor
+  private static class Ge0IntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -531,18 +539,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return (intent.getData() != null && "ge0".equals(intent.getScheme()));
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
-      mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("Ge0IntentProcessor::process", url);
-      return true;
+      return new OpenUrlTask(url);
     }
   }
 
-  private class HttpGe0IntentProcessor implements IntentProcessor
+  private static class HttpGe0IntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -557,23 +565,23 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return false;
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
       LOGGER.i(TAG, "URL = " + data.toString());
 
       final String ge0Url = "ge0:/" + data.getPath();
-      mMapTaskToForward = new OpenUrlTask(ge0Url);
       org.alohalytics.Statistics.logEvent("HttpGe0IntentProcessor::process", ge0Url);
-      return true;
+      return new OpenUrlTask(ge0Url);
     }
   }
 
   /**
    * Use this to invoke API task.
    */
-  private class MapsWithMeIntentProcessor implements IntentProcessor
+  private static class MapsWithMeIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -581,8 +589,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull final Intent intent)
+    public MapTask process(@NonNull final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
@@ -595,15 +604,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         Statistics.INSTANCE.trackApiCall(request);
 
         if (!ParsedMwmRequest.isPickPointMode())
-          mMapTaskToForward = new OpenUrlTask(apiUrl);
-        return true;
+          return new OpenUrlTask(apiUrl);
       }
 
-      return false;
+      throw new AssertionError("Url must be provided!");
     }
   }
 
-  private class GoogleMapsIntentProcessor implements IntentProcessor
+  private static class GoogleMapsIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -612,18 +620,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return (data != null && "maps.google.com".equals(data.getHost()));
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
-      mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("GoogleMapsIntentProcessor::process", url);
-      return true;
+      return new OpenUrlTask(url);
     }
   }
 
-  private class OldLeadUrlIntentProcessor implements IntentProcessor
+  private static class OldLeadUrlIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -641,18 +649,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return (scheme.equals("mapsme") || scheme.equals("mapswithme")) && "lead".equals(host);
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
-      mMapTaskToForward = new OpenUrlTask(url);
       org.alohalytics.Statistics.logEvent("OldLeadUrlIntentProcessor::process", url);
-      return true;
+      return new OpenUrlTask(url);
     }
   }
 
-  private class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
+  private static class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
   {
     private static final String PATH = "/catalogue";
 
@@ -670,7 +678,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private class OldCoreLinkAdapterProcessor extends DlinkIntentProcessor
+  private static class OldCoreLinkAdapterProcessor extends DlinkIntentProcessor
   {
     private static final String SCHEME_CORE = "mapsme";
 
@@ -695,7 +703,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private abstract class DlinkIntentProcessor implements IntentProcessor
+  private static abstract class DlinkIntentProcessor implements IntentProcessor
   {
     static final String SCHEME_HTTPS = "https";
     static final String HOST = "dlink.maps.me";
@@ -716,26 +724,22 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     abstract boolean isLinkSupported(@NonNull Uri data);
 
+    @NonNull
     @Override
-    public final boolean process(@NonNull Intent intent)
+    public final MapTask process(@NonNull Intent intent)
     {
-      final Uri data = intent.getData();
-      if (data == null)
-        return false;
-
       String url = intent.getData().toString();
       LOGGER.i(TAG, "HTTP deeplink = " + url);
 
-      mMapTaskToForward = createMapTask(url);
       org.alohalytics.Statistics.logEvent(this.getClass().getSimpleName() + "::process", url);
-      return true;
+      return createMapTask(url);
     }
 
     @NonNull
     abstract MapTask createMapTask(@NonNull String url);
   }
 
-  private class OpenCountryTaskProcessor implements IntentProcessor
+  private static class OpenCountryTaskProcessor implements IntentProcessor
   {
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -743,22 +747,29 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return intent.hasExtra(EXTRA_COUNTRY);
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       String countryId = intent.getStringExtra(EXTRA_COUNTRY);
 
-      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId);
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
                                           new String[] { "autoDownload", "false" },
                                           LocationHelper.INSTANCE.getSavedLocation());
-      return true;
+      return new MwmActivity.ShowCountryTask(countryId);
     }
   }
 
-  private class KmzKmlProcessor implements IntentProcessor
+  private static class KmzKmlProcessor implements IntentProcessor
   {
     private Uri mData;
+    @NonNull
+    private final DownloadResourcesLegacyActivity mActivity;
+
+    private KmzKmlProcessor(@NonNull DownloadResourcesLegacyActivity activity)
+    {
+      mActivity = activity;
+    }
 
     @Override
     public boolean isSupported(@NonNull Intent intent)
@@ -767,26 +778,17 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return mData != null;
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
-      ThreadPool.getStorage().execute(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          readKmzFromIntent();
-          runOnUiThread(new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              showMap();
-            }
-          });
-        }
-      });
-      return true;
+       return (MapTask) target -> {
+         ThreadPool.getStorage().execute(() -> {
+           readKmzFromIntent();
+           mActivity.runOnUiThread(mActivity::showMap);
+         });
+         return true;
+       };
     }
 
     private void readKmzFromIntent()
@@ -802,7 +804,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
         try
         {
-          final ContentResolver resolver = getContentResolver();
+          final ContentResolver resolver = mActivity.getContentResolver();
           final String ext = getExtensionFromMime(resolver.getType(mData));
           if (ext != null)
           {
@@ -844,7 +846,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     private void loadKmzFile(final @NonNull String path, final boolean isTemporaryFile)
     {
-      runOnUiThread(() -> BookmarkManager.INSTANCE.loadKmzFile(path, isTemporaryFile));
+      mActivity.runOnUiThread(() -> BookmarkManager.INSTANCE.loadKmzFile(path, isTemporaryFile));
     }
 
     private String getExtensionFromMime(String mime)
@@ -863,7 +865,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private class ShowOnMapProcessor implements IntentProcessor
+  private static class ShowOnMapProcessor implements IntentProcessor
   {
     private static final String ACTION_SHOW_ON_MAP = "com.mapswithme.maps.pro.action.SHOW_ON_MAP";
     private static final String EXTRA_LAT = "lat";
@@ -875,21 +877,21 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return ACTION_SHOW_ON_MAP.equals(intent.getAction());
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
-        return false;
+        throw new AssertionError("Extra lat/lon must be provided!");
 
       double lat = getCoordinateFromIntent(intent, EXTRA_LAT);
       double lon = getCoordinateFromIntent(intent, EXTRA_LON);
-      mMapTaskToForward = new MwmActivity.ShowPointTask(lat, lon);
 
-      return true;
+      return  new MwmActivity.ShowPointTask(lat, lon);
     }
   }
 
-  private class BuildRouteProcessor implements IntentProcessor
+  private static class BuildRouteProcessor implements IntentProcessor
   {
     private static final String ACTION_BUILD_ROUTE = "com.mapswithme.maps.pro.action.BUILD_ROUTE";
     private static final String EXTRA_LAT_TO = "lat_to";
@@ -906,11 +908,12 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       return ACTION_BUILD_ROUTE.equals(intent.getAction());
     }
 
+    @NonNull
     @Override
-    public boolean process(@NonNull Intent intent)
+    public MapTask process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
-        return false;
+        throw new AssertionError("Extra lat/lon must be provided!");
 
       String saddr = intent.getStringExtra(EXTRA_SADDR);
       String daddr = intent.getStringExtra(EXTRA_DADDR);
@@ -919,27 +922,28 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       boolean hasFrom = intent.hasExtra(EXTRA_LAT_FROM) && intent.hasExtra(EXTRA_LON_FROM);
       boolean hasRouter = intent.hasExtra(EXTRA_ROUTER);
 
+      MapTask mapTaskToForward;
       if (hasFrom && hasRouter)
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
+        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr, latFrom,lonFrom,
                                                            daddr, intent.getStringExtra(EXTRA_ROUTER));
       }
       else if (hasFrom)
       {
         double latFrom = getCoordinateFromIntent(intent, EXTRA_LAT_FROM);
         double lonFrom = getCoordinateFromIntent(intent, EXTRA_LON_FROM);
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr,
+        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo, saddr,
                                                            latFrom,lonFrom, daddr);
       }
       else
       {
-        mMapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
+        mapTaskToForward = new MwmActivity.BuildRouteTask(latTo, lonTo,
                                                            intent.getStringExtra(EXTRA_ROUTER));
       }
 
-      return true;
+      return mapTaskToForward;
     }
   }
 

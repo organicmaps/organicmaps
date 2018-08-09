@@ -7,6 +7,7 @@ public interface IntentProcessor
 {
   boolean isSupported(@NonNull Intent intent);
 
-  boolean process(@NonNull Intent intent);
+  @NonNull
+  MwmActivity.MapTask process(@NonNull Intent intent);
 }
 
