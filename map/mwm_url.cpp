@@ -278,6 +278,9 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       if (!result)
         return ParsingResult::Incorrect;
 
+      if (item.m_id.empty())
+        return ParsingResult::Incorrect;
+
       m_catalogItem = item;
       return ParsingResult::Catalogue;
     }

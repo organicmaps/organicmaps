@@ -93,6 +93,7 @@
 		45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9A1FB1C77500019892 /* search_api.hpp */; };
 		45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */; };
 		45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45F6EE9C1FB1C77500019892 /* search_api.cpp */; };
+		475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 475BD61A211C5FDC00E298C6 /* libshaders.a */; };
 		47A9D82220A19E9E00E4671B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82120A19E9E00E4671B /* libopen_location_code.a */; };
 		47A9D82420A19EC300E4671B /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A9D82320A19EC300E4671B /* libkml.a */; };
 		56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56C1165E2090E5670068BBC0 /* extrapolator.cpp */; };
@@ -309,6 +310,7 @@
 		45F6EE9A1FB1C77500019892 /* search_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_api.hpp; sourceTree = "<group>"; };
 		45F6EE9B1FB1C77500019892 /* mwm_tree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_tree.hpp; sourceTree = "<group>"; };
 		45F6EE9C1FB1C77500019892 /* search_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_api.cpp; sourceTree = "<group>"; };
+		475BD61A211C5FDC00E298C6 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A9D82120A19E9E00E4671B /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A9D82320A19EC300E4671B /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56C1165E2090E5670068BBC0 /* extrapolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extrapolator.cpp; path = extrapolation/extrapolator.cpp; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */,
 				671ED39120D4046D00D4317E /* libeditor_tests_support.a in Frameworks */,
 				47A9D82420A19EC300E4671B /* libkml.a in Frameworks */,
 				47A9D82220A19E9E00E4671B /* libopen_location_code.a in Frameworks */,
@@ -542,6 +545,7 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				475BD61A211C5FDC00E298C6 /* libshaders.a */,
 				3DA5721D20C194B8007BDE27 /* libgenerator.a */,
 				3DA5721F20C194B8007BDE27 /* libopen_location_code.a */,
 				3DA5722120C194B8007BDE27 /* libopening_hours.a */,
