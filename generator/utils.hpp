@@ -14,6 +14,7 @@
 
 #include "base/logging.hpp"
 
+#include <cstdint>
 #include <string>
 
 namespace generator

@@ -168,7 +168,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   uint64_t osmIdNum;
   CHECK(strings::to_uint64(osmIdStr, osmIdNum),
         ("Cann't convert osm id string:", osmIdStr, "to a number."));
-  osm::Id const osmId(osmIdNum);
+  base::GeoObjectId const osmId(osmIdNum);
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
   {

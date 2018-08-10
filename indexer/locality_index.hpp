@@ -8,7 +8,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -17,14 +17,14 @@
 
 namespace indexer
 {
-// Geometry index which stores osm::Id as object identifier.
+// Geometry index which stores base::GeoObjectId as object identifier.
 // Used for geocoder server, stores only POIs and buildings which have address information.
 // Based on IntervalIndex.
 template <typename Reader, int DEPTH_LEVELS>
 class LocalityIndex
 {
 public:
-  using ProcessObject = std::function<void(osm::Id const &)>;
+  using ProcessObject = std::function<void(base::GeoObjectId const &)>;
 
   explicit LocalityIndex(Reader const & reader)
   {

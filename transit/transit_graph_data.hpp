@@ -9,7 +9,7 @@
 #include "coding/writer.hpp"
 
 #include "base/exception.hpp"
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/visitor.hpp"
 
 #include "3party/jansson/myjansson.hpp"
@@ -25,7 +25,7 @@ namespace routing
 {
 namespace transit
 {
-using OsmIdToFeatureIdsMap = std::map<osm::Id, std::vector<FeatureId>>;
+using OsmIdToFeatureIdsMap = std::map<base::GeoObjectId, std::vector<FeatureId>>;
 
 class DeserializerFromJson
 {

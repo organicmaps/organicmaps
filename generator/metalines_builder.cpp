@@ -1,4 +1,5 @@
 #include "generator/metalines_builder.hpp"
+
 #include "generator/routing_helpers.hpp"
 
 #include "indexer/classificator.hpp"
@@ -191,7 +192,7 @@ void MetalinesBuilder::Flush()
 bool WriteMetalinesSection(std::string const & mwmPath, std::string const & metalinesPath,
                            std::string const & osmIdsToFeatureIdsPath)
 {
-  std::map<osm::Id, uint32_t> osmIdToFeatureId;
+  std::map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
   if (!routing::ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
     return false;
 
@@ -210,7 +211,7 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
     for (auto const wayId : ways)
     {
       // We get a negative wayId when a feature direction should be reversed.
-      auto fid = osmIdToFeatureId.find(osm::Id::Way(std::abs(wayId)));
+      auto fid = osmIdToFeatureId.find(base::MakeOsmWay(std::abs(wayId)));
       if (fid == osmIdToFeatureId.cend())
         break;
 

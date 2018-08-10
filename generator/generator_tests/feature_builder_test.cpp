@@ -8,7 +8,7 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_visibility.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 using namespace tests;
 
@@ -128,17 +128,17 @@ UNIT_TEST(FBbuilder_GetMostGeneralOsmId)
 {
   FeatureBuilder1 fb;
 
-  fb.AddOsmId(osm::Id::Node(1));
-  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Node(1), ());
+  fb.AddOsmId(base::MakeOsmNode(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmNode(1), ());
 
-  fb.AddOsmId(osm::Id::Node(2));
-  fb.AddOsmId(osm::Id::Way(1));
-  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Way(1), ());
+  fb.AddOsmId(base::MakeOsmNode(2));
+  fb.AddOsmId(base::MakeOsmWay(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmWay(1), ());
 
-  fb.AddOsmId(osm::Id::Node(3));
-  fb.AddOsmId(osm::Id::Way(2));
-  fb.AddOsmId(osm::Id::Relation(1));
-  TEST_EQUAL(fb.GetMostGenericOsmId(), osm::Id::Relation(1), ());
+  fb.AddOsmId(base::MakeOsmNode(3));
+  fb.AddOsmId(base::MakeOsmWay(2));
+  fb.AddOsmId(base::MakeOsmRelation(1));
+  TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmRelation(1), ());
 }
 
 UNIT_TEST(FVisibility_RemoveNoDrawableTypes)

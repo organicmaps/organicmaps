@@ -109,7 +109,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
 
     Entry entry;
     // todo(@m) We should really write uints as uints.
-    entry.m_osmId = osm::Id(static_cast<uint64_t>(encodedId));
+    entry.m_osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
 
     if (!entry.DeserializeFromJSON(line, stats))
       continue;
@@ -125,7 +125,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
 
   LOG(LINFO, ("Finished reading the hierarchy. Stats:"));
   LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
-  LOG(LINFO, ("Unreadable osm::Ids:", stats.m_badOsmIds));
+  LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
   LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
   LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
   LOG(LINFO, ("Entries without names:", stats.m_emptyNames));

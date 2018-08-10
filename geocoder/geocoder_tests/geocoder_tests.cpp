@@ -6,8 +6,8 @@
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/math.hpp"
-#include "base/osm_id.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -57,8 +57,8 @@ UNIT_TEST(Geocoder_Smoke)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  osm::Id const florenciaId(0xc00000000059d6b5);
-  osm::Id const cubaId(0xc00000000004b279);
+  base::GeoObjectId const florenciaId(0xc00000000059d6b5);
+  base::GeoObjectId const cubaId(0xc00000000004b279);
 
   TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
   TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.5}});

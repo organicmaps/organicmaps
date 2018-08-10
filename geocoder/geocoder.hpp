@@ -4,7 +4,7 @@
 #include "geocoder/result.hpp"
 #include "geocoder/types.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <string>
@@ -63,7 +63,7 @@ public:
     // Returns true iff all tokens are used.
     bool AllTokensUsed() const;
 
-    void AddResult(osm::Id const & osmId, double certainty);
+    void AddResult(base::GeoObjectId const & osmId, double certainty);
 
     void FillResults(std::vector<Result> & results) const;
 
@@ -79,7 +79,7 @@ public:
     size_t m_numUsedTokens = 0;
 
     // The highest value of certainty for each retrieved osm id.
-    std::unordered_map<osm::Id, double, osm::HashId> m_results;
+    std::unordered_map<base::GeoObjectId, double, base::HashGeoObjectId> m_results;
 
     std::vector<Layer> m_layers;
   };

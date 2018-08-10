@@ -11,6 +11,7 @@
 #include "indexer/classificator.hpp"
 
 #include "base/assert.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <set>
 #include <string>
@@ -97,12 +98,12 @@ void TranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, FeatureParams &
   {
     FeatureBuilder1 ft;
     for (uint64_t id : ids)
-      ft.AddOsmId(osm::Id::Way(id));
+      ft.AddOsmId(base::MakeOsmWay(id));
 
     for (auto const & pt : pts)
       ft.AddPoint(pt);
 
-    ft.AddOsmId(osm::Id::Relation(p->id));
+    ft.AddOsmId(base::MakeOsmRelation(p->id));
     if (!ft.IsGeometryClosed())
       return;
 

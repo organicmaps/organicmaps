@@ -4,7 +4,7 @@
 
 #include "ugc/types.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 namespace generator
 {
@@ -14,7 +14,7 @@ public:
   UGCTranslator();
   UGCTranslator(std::string const & dbFilename);
 
-  bool TranslateUGC(osm::Id const & id, ugc::UGC & ugc);
+  bool TranslateUGC(base::GeoObjectId const & id, ugc::UGC & ugc);
 
   // For testing only
   void CreateDb(std::string const & data);

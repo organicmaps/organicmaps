@@ -269,13 +269,13 @@ unique_ptr<GraphData> CreateGraphFromJson()
   auto graph = my::make_unique<GraphData>();
 
   OsmIdToFeatureIdsMap mapping;
-  mapping[osm::Id(100)] = vector<FeatureId>({10});
-  mapping[osm::Id(101)] = vector<FeatureId>({11});
-  mapping[osm::Id(102)] = vector<FeatureId>({12});
-  mapping[osm::Id(103)] = vector<FeatureId>({13});
-  mapping[osm::Id(104)] = vector<FeatureId>({14});
-  mapping[osm::Id(105)] = vector<FeatureId>({15});
-  mapping[osm::Id(106)] = vector<FeatureId>({16});
+  mapping[base::GeoObjectId(100)] = vector<FeatureId>({10});
+  mapping[base::GeoObjectId(101)] = vector<FeatureId>({11});
+  mapping[base::GeoObjectId(102)] = vector<FeatureId>({12});
+  mapping[base::GeoObjectId(103)] = vector<FeatureId>({13});
+  mapping[base::GeoObjectId(104)] = vector<FeatureId>({14});
+  mapping[base::GeoObjectId(105)] = vector<FeatureId>({15});
+  mapping[base::GeoObjectId(106)] = vector<FeatureId>({16});
 
   my::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));

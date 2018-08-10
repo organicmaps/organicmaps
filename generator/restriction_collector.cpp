@@ -3,6 +3,7 @@
 #include "generator/routing_helpers.hpp"
 
 #include "base/assert.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -17,14 +18,14 @@ char const kNo[] = "No";
 char const kOnly[] = "Only";
 char const kDelim[] = ", \t\r\n";
 
-bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<osm::Id> & numbers)
+bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<base::GeoObjectId> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
   {
     if (!strings::to_uint64(*iter, number))
       return false;
-    numbers.push_back(osm::Id::Way(number));
+    numbers.push_back(base::MakeOsmWay(number));
   }
   return true;
 }
@@ -88,7 +89,7 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
     }
 
     ++iter;
-    std::vector<osm::Id> osmIds;
+    std::vector<base::GeoObjectId> osmIds;
     if (!ParseLineOfWayIds(iter, osmIds))
     {
       LOG(LWARNING, ("Cannot parse osm ids from", path));
@@ -100,7 +101,8 @@ bool RestrictionCollector::ParseRestrictions(std::string const & path)
   return true;
 }
 
-bool RestrictionCollector::AddRestriction(Restriction::Type type, std::vector<osm::Id> const & osmIds)
+bool RestrictionCollector::AddRestriction(Restriction::Type type,
+                                          std::vector<base::GeoObjectId> const & osmIds)
 {
   std::vector<uint32_t> featureIds(osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
@@ -121,7 +123,7 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, std::vector<os
   return true;
 }
 
-void RestrictionCollector::AddFeatureId(uint32_t featureId, osm::Id osmId)
+void RestrictionCollector::AddFeatureId(uint32_t featureId, base::GeoObjectId osmId)
 {
   ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureId);
 }

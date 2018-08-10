@@ -3,7 +3,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <cstdint>
 #include <vector>
@@ -15,7 +15,10 @@ class LocalityObject
 {
 public:
   // Decodes id stored in LocalityIndex. See GetStoredId().
-  static osm::Id FromStoredId(uint64_t storedId) { return osm::Id(storedId >> 2 | storedId << 62); }
+  static base::GeoObjectId FromStoredId(uint64_t storedId)
+  {
+    return base::GeoObjectId(storedId >> 2 | storedId << 62);
+  }
 
   // We need LocalityIndex object id to be at most numeric_limits<int64_t>::max().
   // We use incremental encoding for ids and need to keep ids of close object close if it is possible.

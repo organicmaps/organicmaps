@@ -226,7 +226,7 @@ public:
 
       if (!fb.GetOsmIds().empty())
       {
-        osm::Id const osmId = fb.GetMostGenericOsmId();
+        base::GeoObjectId const osmId = fb.GetMostGenericOsmId();
         m_osm2ft.Add(make_pair(osmId, featureId));
       }
     };

@@ -34,8 +34,8 @@
 #include "geometry/point2d.hpp"
 
 #include "base/checked_cast.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
-#include "base/osm_id.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
@@ -224,10 +224,10 @@ double CalcDistanceAlongTheBorders(vector<m2::RegionD> const & borders,
 void CalcCrossMwmTransitions(
     string const & mwmFile, string const & mappingFile, vector<m2::RegionD> const & borders,
     string const & country, CountryParentNameGetterFn const & countryParentNameGetterFn,
-    vector<CrossMwmConnectorSerializer::Transition<osm::Id>> & transitions)
+    vector<CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> & transitions)
 {
   VehicleMaskBuilder const maskMaker(country, countryParentNameGetterFn);
-  map<uint32_t, osm::Id> featureIdToOsmId;
+  map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(mappingFile, featureIdToOsmId),
         ("Can't parse feature id to osm id mapping. File:", mappingFile));
 
@@ -244,7 +244,7 @@ void CalcCrossMwmTransitions(
     auto const it = featureIdToOsmId.find(featureId);
     CHECK(it != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
     auto const osmId = it->second;
-    CHECK(osmId.GetType() == osm::Id::Type::Way, ());
+    CHECK(osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay, ());
 
     bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
 
@@ -511,7 +511,7 @@ void BuildRoutingCrossMwmSection(string const & path, string const & mwmFile,
                                  string const & osmToFeatureFile, bool disableCrossMwmProgress)
 {
   LOG(LINFO, ("Building cross mwm section for", country));
-  using CrossMwmId = osm::Id;
+  using CrossMwmId = base::GeoObjectId;
   CrossMwmConnectorPerVehicleType<CrossMwmId> connectors;
   vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> transitions;
 

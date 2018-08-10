@@ -24,6 +24,8 @@ set(
   exception.cpp
   exception.hpp
   fifo_cache.hpp
+  geo_object_id.cpp
+  geo_object_id.hpp
   get_time.hpp
   gmtime.cpp
   gmtime.hpp
@@ -45,8 +47,6 @@ set(
   newtype.hpp
   normalize_unicode.cpp
   observer_list.hpp
-  osm_id.cpp
-  osm_id.hpp
   pprof.cpp
   pprof.hpp
   random.cpp

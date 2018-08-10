@@ -15,17 +15,18 @@ namespace
 template <class ToDo>
 bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 {
-  return generator::ForEachOsmId2FeatureId(filename,
-                                           [&](osm::Id const & osmId, uint32_t const featureId) {
-                                             if (osmId.GetType() == osm::Id::Type::Way)
-                                               toDo(featureId, osmId);
-                                           });
+  return generator::ForEachOsmId2FeatureId(
+      filename, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
+        if (osmId.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
+          toDo(featureId, osmId);
+      });
 }
 }  // namespace
 
 namespace routing
 {
-void AddFeatureId(osm::Id osmId, uint32_t featureId, map<osm::Id, uint32_t> &osmIdToFeatureId)
+void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
+                  map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
 {
   // Failing to insert here usually means that two features were created
   // from one osm id, for example an area and its boundary.
@@ -33,21 +34,22 @@ void AddFeatureId(osm::Id osmId, uint32_t featureId, map<osm::Id, uint32_t> &osm
 }
 
 bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<osm::Id, uint32_t> & osmIdToFeatureId)
+                                  map<base::GeoObjectId, uint32_t> & osmIdToFeatureId)
 {
-  return ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id osmId) {
-    AddFeatureId(osmId, featureId, osmIdToFeatureId);
-  });
+  return ForEachRoadFromFile(osmIdsToFeatureIdPath,
+                             [&](uint32_t featureId, base::GeoObjectId osmId) {
+                               AddFeatureId(osmId, featureId, osmIdToFeatureId);
+                             });
 }
 
 bool ParseFeatureIdToOsmIdMapping(string const & osmIdsToFeatureIdPath,
-                                  map<uint32_t, osm::Id> & featureIdToOsmId)
+                                  map<uint32_t, base::GeoObjectId> & featureIdToOsmId)
 {
   featureIdToOsmId.clear();
   bool idsAreOk = true;
 
-  bool const readSuccess =
-      ForEachRoadFromFile(osmIdsToFeatureIdPath, [&](uint32_t featureId, osm::Id const & osmId) {
+  bool const readSuccess = ForEachRoadFromFile(
+      osmIdsToFeatureIdPath, [&](uint32_t featureId, base::GeoObjectId const & osmId) {
         auto const emplaced = featureIdToOsmId.emplace(featureId, osmId);
         if (emplaced.second)
           return;

@@ -2,7 +2,7 @@
 
 #include "geocoder/types.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <array>
@@ -25,7 +25,7 @@ public:
     // Number of corrupted json lines.
     uint64_t m_badJsons = 0;
 
-    // Number of entries with unreadable osm::Ids.
+    // Number of entries with unreadable base::GeoObjectIds.
     uint64_t m_badOsmIds = 0;
 
     // Number of entries with duplicate subfields in the address field.
@@ -54,7 +54,7 @@ public:
     void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
                                  ParsingStats & stats);
 
-    osm::Id m_osmId = osm::Id(osm::Id::kInvalid);
+    base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
 
     // Original name of the entry. Useful for debugging.
     std::string m_name;

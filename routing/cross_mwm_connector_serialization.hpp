@@ -15,7 +15,7 @@
 #include "coding/writer.hpp"
 
 #include "base/checked_cast.hpp"
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <algorithm>
 #include <array>
@@ -74,7 +74,7 @@ public:
     }
 
     template <class Sink>
-    void WriteCrossMwmId(osm::Id const & id, uint8_t bits, BitWriter<Sink> & w) const
+    void WriteCrossMwmId(base::GeoObjectId const & id, uint8_t bits, BitWriter<Sink> & w) const
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
       w.WriteAtMost64Bits(id.GetEncodedId(), bits);
@@ -116,12 +116,12 @@ public:
     };
 
     template <class Source>
-    void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, osm::Id & osmId)
+    void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, base::GeoObjectId & osmId)
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
-      // We lost data about transition type after compression (look at CalcBitsPerCrossMwmId method),
-      // but we used Way in routing, so suggest, that it is Way.
-      osmId = osm::Id::Way(reader.ReadAtMost64Bits(bits));
+      // We lost data about transition type after compression (look at CalcBitsPerCrossMwmId method)
+      // but we used Way in routing, so suggest that it is Osm Way.
+      osmId = base::MakeOsmWay(reader.ReadAtMost64Bits(bits));
     }
 
     template <class Source>
@@ -435,15 +435,15 @@ private:
   };
 
   static uint32_t CalcBitsPerCrossMwmId(
-      std::vector<Transition<osm::Id>> const & transitions)
+      std::vector<Transition<base::GeoObjectId>> const & transitions)
   {
-    osm::Id osmId(0ULL);
+    base::GeoObjectId osmId(0ULL);
     for (auto const & transition : transitions)
       osmId = std::max(osmId, transition.GetCrossMwmId());
 
-    // Note, that we lose osm::Id::Type bits here, remember about
+    // Note that we lose base::GeoObjectId::Type bits here, remember about
     // it in ReadCrossMwmId method.
-    return bits::NumUsedBits(osmId.GetOsmId());
+    return bits::NumUsedBits(osmId.GetSerialId());
   }
 
   static uint32_t CalcBitsPerCrossMwmId(

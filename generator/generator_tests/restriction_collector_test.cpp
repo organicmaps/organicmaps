@@ -13,7 +13,7 @@
 
 #include "coding/file_name_utils.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <string>
@@ -32,16 +32,22 @@ UNIT_TEST(RestrictionTest_ValidCase)
 {
   RestrictionCollector restrictionCollector;
   // Adding feature ids.
-  restrictionCollector.AddFeatureId(30 /* featureId */, osm::Id::Way(3));
-  restrictionCollector.AddFeatureId(10 /* featureId */, osm::Id::Way(1));
-  restrictionCollector.AddFeatureId(50 /* featureId */, osm::Id::Way(5));
-  restrictionCollector.AddFeatureId(70 /* featureId */, osm::Id::Way(7));
-  restrictionCollector.AddFeatureId(20 /* featureId */, osm::Id::Way(2));
+  restrictionCollector.AddFeatureId(30 /* featureId */, base::MakeOsmWay(3));
+  restrictionCollector.AddFeatureId(10 /* featureId */, base::MakeOsmWay(1));
+  restrictionCollector.AddFeatureId(50 /* featureId */, base::MakeOsmWay(5));
+  restrictionCollector.AddFeatureId(70 /* featureId */, base::MakeOsmWay(7));
+  restrictionCollector.AddFeatureId(20 /* featureId */, base::MakeOsmWay(2));
 
   // Adding restrictions.
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(1), osm::Id::Way(2)}), ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(2), osm::Id::Way(3)}), ());
-  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only, {osm::Id::Way(5), osm::Id::Way(7)}), ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No,
+                                           {base::MakeOsmWay(1), base::MakeOsmWay(2)}),
+       ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::No,
+                                           {base::MakeOsmWay(2), base::MakeOsmWay(3)}),
+       ());
+  TEST(restrictionCollector.AddRestriction(Restriction::Type::Only,
+                                           {base::MakeOsmWay(5), base::MakeOsmWay(7)}),
+       ());
   my::SortUnique(restrictionCollector.m_restrictions);
 
   // Checking the result.
@@ -56,10 +62,12 @@ UNIT_TEST(RestrictionTest_ValidCase)
 UNIT_TEST(RestrictionTest_InvalidCase)
 {
   RestrictionCollector restrictionCollector;
-  restrictionCollector.AddFeatureId(0 /* featureId */, osm::Id::Way(0));
-  restrictionCollector.AddFeatureId(20 /* featureId */, osm::Id::Way(2));
+  restrictionCollector.AddFeatureId(0 /* featureId */, base::MakeOsmWay(0));
+  restrictionCollector.AddFeatureId(20 /* featureId */, base::MakeOsmWay(2));
 
-  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No, {osm::Id::Way(0), osm::Id::Way(1)}), ());
+  TEST(!restrictionCollector.AddRestriction(Restriction::Type::No,
+                                            {base::MakeOsmWay(0), base::MakeOsmWay(1)}),
+       ());
 
   TEST(!restrictionCollector.HasRestrictions(), ());
   TEST(restrictionCollector.IsValid(), ());

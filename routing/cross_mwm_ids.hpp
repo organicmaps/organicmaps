@@ -2,8 +2,8 @@
 
 #include "transit/transit_types.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/newtype.hpp"
-#include "base/osm_id.hpp"
 #include "base/visitor.hpp"
 
 #include <cstdint>
@@ -53,10 +53,7 @@ struct TransitId
 
 struct HashKey
 {
-  size_t operator()(osm::Id const & key) const
-  {
-    return osm::HashId()(key);
-  }
+  size_t operator()(base::GeoObjectId const & key) const { return base::HashGeoObjectId()(key); }
 
   size_t operator()(TransitId const & key) const
   {

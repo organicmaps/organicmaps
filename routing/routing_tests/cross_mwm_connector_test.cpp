@@ -5,7 +5,7 @@
 
 #include "coding/writer.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 using namespace routing;
 using namespace routing::connector;
@@ -242,7 +242,10 @@ void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId
                       RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
-void GetCrossMwmId(uint32_t i, osm::Id & id) { id = osm::Id::Way(10 * i); }
+void GetCrossMwmId(uint32_t i, base::GeoObjectId & id)
+{
+  id = base::GeoObjectId(base::MakeOsmWay(10 * i));
+}
 
 void GetCrossMwmId(uint32_t i, TransitId & id)
 {
@@ -331,37 +334,39 @@ namespace routing_test
 {
 UNIT_TEST(OneWayEnter)
 {
-  TestOneWayEnter(osm::Id::Way(1ULL));
+  TestOneWayEnter(base::MakeOsmWay(1ULL));
   TestOneWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(OneWayExit)
 {
-  TestOneWayExit(osm::Id::Way(1ULL));
+  TestOneWayExit(base::MakeOsmWay(1ULL));
   TestOneWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(TwoWayEnter)
 {
-  TestTwoWayEnter(osm::Id::Way(1ULL));
+  TestTwoWayEnter(base::MakeOsmWay(1ULL));
   TestTwoWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(TwoWayExit)
 {
-  TestTwoWayExit(osm::Id::Way(1ULL));
+  TestTwoWayExit(base::MakeOsmWay(1ULL));
   TestTwoWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(Serialization)
 {
   {
-    vector<CrossMwmConnectorSerializer::Transition<osm::Id>> const transitions = {
-        /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
-        {osm::Id::Way(100ULL), 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2),
+    vector<CrossMwmConnectorSerializer::Transition<base::GeoObjectId>> const transitions = {
+        /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter,
+           backPoint, frontPoint */
+        {base::MakeOsmWay(100ULL), 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2),
          m2::PointD(1.3, 1.4)},
-        {osm::Id::Way(200ULL), 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
-        {osm::Id::Way(300ULL), 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2),
+        {base::MakeOsmWay(200ULL), 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2),
+         m2::PointD(2.3, 2.4)},
+        {base::MakeOsmWay(300ULL), 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2),
          m2::PointD(3.3, 3.4)}};
     TestSerialization(transitions);
   }
@@ -380,7 +385,7 @@ UNIT_TEST(Serialization)
 
 UNIT_TEST(WeightsSerialization)
 {
-  TestWeightsSerialization<osm::Id>();
+  TestWeightsSerialization<base::GeoObjectId>();
   TestWeightsSerialization<TransitId>();
 }
 }  // namespace routing_test

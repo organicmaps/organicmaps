@@ -101,8 +101,8 @@ UNIT_TEST(DeserializerFromJson_Stops)
            {TitleAnchor(12 /* min zoom */, 0 /* anchor */), TitleAnchor(15, 9)})};
 
   OsmIdToFeatureIdsMap mapping;
-  mapping[osm::Id(1234)] = vector<FeatureId>({1});
-  mapping[osm::Id(2345)] = vector<FeatureId>({2});
+  mapping[base::GeoObjectId(1234)] = vector<FeatureId>({1});
+  mapping[base::GeoObjectId(2345)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "stops", expected);
 }
 
@@ -144,9 +144,9 @@ UNIT_TEST(DeserializerFromJson_Gates)
            {43.9290544, 68.41120791512581} /* point */)};
 
   OsmIdToFeatureIdsMap mapping;
-  mapping[osm::Id(46116860)] = vector<FeatureId>({0});
+  mapping[base::GeoObjectId(46116860)] = vector<FeatureId>({0});
   // Note. std::numeric_limits<uint64_t>::max() == 18446744073709551615
-  mapping[osm::Id(18446744073709551615ULL)] = vector<FeatureId>({2});
+  mapping[base::GeoObjectId(18446744073709551615ULL)] = vector<FeatureId>({2});
   TestDeserializerFromJson(jsonBuffer, mapping, "gates", expected);
 }
 

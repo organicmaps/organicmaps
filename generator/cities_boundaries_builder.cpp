@@ -40,11 +40,13 @@ namespace generator
 {
 namespace
 {
-bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, vector<osm::Id>> & mapping)
+bool ParseFeatureIdToOsmIdMapping(string const & path,
+                                  map<uint32_t, vector<base::GeoObjectId>> & mapping)
 {
-  return ForEachOsmId2FeatureId(path, [&](osm::Id const & osmId, uint32_t const featureId) {
-    mapping[featureId].push_back(osmId);
-  });
+  return ForEachOsmId2FeatureId(path,
+                                [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
+                                  mapping[featureId].push_back(osmId);
+                                });
 }
 
 bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uint64_t>> & mapping)
@@ -114,7 +116,7 @@ bool BuildCitiesBoundaries(string const & dataPath, BoundariesTable & table,
 bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeaturePath,
                            OsmIdToBoundariesTable & table)
 {
-  using Mapping = map<uint32_t, vector<osm::Id>>;
+  using Mapping = map<uint32_t, vector<base::GeoObjectId>>;
 
   return BuildCitiesBoundaries(dataPath, table, [&]() -> unique_ptr<Mapping> {
     Mapping mapping;
@@ -144,12 +146,13 @@ bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundaries
 
 bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table)
 {
-  vector<vector<osm::Id>> allIds;
+  vector<vector<base::GeoObjectId>> allIds;
   vector<vector<CityBoundary>> allBoundaries;
-  table.ForEachCluster([&](vector<osm::Id> const & ids, vector<CityBoundary> const & boundaries) {
-    allIds.push_back(ids);
-    allBoundaries.push_back(boundaries);
-  });
+  table.ForEachCluster(
+      [&](vector<base::GeoObjectId> const & ids, vector<CityBoundary> const & boundaries) {
+        allIds.push_back(ids);
+        allBoundaries.push_back(boundaries);
+      });
 
   CHECK_EQUAL(allIds.size(), allBoundaries.size(), ());
 
@@ -177,7 +180,7 @@ bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable &
 
 bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable & table)
 {
-  vector<vector<osm::Id>> allIds;
+  vector<vector<base::GeoObjectId>> allIds;
   vector<vector<CityBoundary>> allBoundaries;
 
   try
@@ -200,7 +203,7 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
       for (auto & id : ids)
       {
         auto const encodedId = ReadPrimitiveFromSource<uint64_t>(source);
-        id = osm::Id(encodedId);
+        id = base::GeoObjectId(encodedId);
       }
     }
   }

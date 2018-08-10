@@ -51,7 +51,7 @@ UGCDB::~UGCDB()
     sqlite3_close(m_db);
 }
 
-bool UGCDB::Get(osm::Id const & id, std::vector<uint8_t> & blob)
+bool UGCDB::Get(base::GeoObjectId const & id, std::vector<uint8_t> & blob)
 {
   if (!m_db)
     return false;

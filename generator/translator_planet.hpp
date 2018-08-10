@@ -7,7 +7,7 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -42,7 +42,7 @@ private:
   bool ParseType(OsmElement * p, FeatureParams & params);
   void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const;
   /// @param[in]  params  Pass by value because it can be modified.
-  void EmitPoint(m2::PointD const & pt, FeatureParams params, osm::Id id) const;
+  void EmitPoint(m2::PointD const & pt, FeatureParams params, base::GeoObjectId id) const;
   void EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const;
   void EmitArea(FeatureBuilder1 & ft, FeatureParams params, std::function<void(FeatureBuilder1 &)> fn);
 

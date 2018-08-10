@@ -53,7 +53,7 @@ void LoadBorders(string const & dir, TCountryId const & countryId, vector<m2::Re
 void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
 {
   CHECK(ForEachOsmId2FeatureId(osmIdToFeatureIdsPath,
-                               [&map](osm::Id const & osmId, uint32_t featureId) {
+                               [&map](base::GeoObjectId const & osmId, uint32_t featureId) {
                                  map[osmId].push_back(featureId);
                                }),
         (osmIdToFeatureIdsPath));

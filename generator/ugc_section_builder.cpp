@@ -10,7 +10,7 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/ftraits.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <unordered_map>
 #include <utility>
@@ -28,7 +28,7 @@ bool BuildUgcMwmSection(std::string const & srcDbFilename, std::string const & m
   if (!osmIdsToFeatureIds.ReadFromFile(osmToFeatureFilename))
     return false;
 
-  std::unordered_map<uint32_t, osm::Id> featureToOsmId;
+  std::unordered_map<uint32_t, base::GeoObjectId> featureToOsmId;
   osmIdsToFeatureIds.ForEach([&featureToOsmId](gen::OsmID2FeatureID::ValueT const & p) {
     featureToOsmId.emplace(p.second /* feature id */, p.first /* osm id */);
   });

@@ -13,9 +13,9 @@
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-#include "base/osm_id.hpp"
 
 #include <initializer_list>
 
@@ -104,7 +104,8 @@ TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
 };
 
-bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const & osmIdToFeatureId,
+bool ParseRoadAccess(string const & roadAccessPath,
+                     map<base::GeoObjectId, uint32_t> const & osmIdToFeatureId,
                      FeaturesVector const & featuresVector,
                      RoadAccessCollector::RoadAccessByVehicleType & roadAccessByVehicleType)
 {
@@ -184,7 +185,7 @@ bool ParseRoadAccess(string const & roadAccessPath, map<osm::Id, uint32_t> const
     }
     ++iter;
 
-    auto const it = osmIdToFeatureId.find(osm::Id::Way(osmId));
+    auto const it = osmIdToFeatureId.find(base::MakeOsmWay(osmId));
     // Even though this osm element has a tag that is interesting for us,
     // we have not created a feature from it. Possible reasons:
     // no primary tag, unsupported type, etc.
@@ -339,7 +340,7 @@ bool RoadAccessWriter::IsOpened() const { return m_stream && m_stream.is_open();
 RoadAccessCollector::RoadAccessCollector(string const & dataFilePath, string const & roadAccessPath,
                                          string const & osmIdsToFeatureIdsPath)
 {
-  map<osm::Id, uint32_t> osmIdToFeatureId;
+  map<base::GeoObjectId, uint32_t> osmIdToFeatureId;
   if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",

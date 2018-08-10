@@ -112,14 +112,14 @@ namespace
         m_rMain.AddRegionToTree(fb);
       else
       {
-        osm::Id const firstWay = fb.GetFirstOsmId();
-        osm::Id const lastWay = fb.GetLastOsmId();
+        base::GeoObjectId const firstWay = fb.GetFirstOsmId();
+        base::GeoObjectId const lastWay = fb.GetLastOsmId();
         if (firstWay == lastWay)
-          LOG(LINFO, ("Not merged coastline, way", firstWay.GetOsmId(), "(", fb.GetPointsCount(),
+          LOG(LINFO, ("Not merged coastline, way", firstWay.GetSerialId(), "(", fb.GetPointsCount(),
                       "points)"));
         else
-          LOG(LINFO, ("Not merged coastline, ways", firstWay.GetOsmId(), "to", lastWay.GetOsmId(),
-                      "(", fb.GetPointsCount(), "points)"));
+          LOG(LINFO, ("Not merged coastline, ways", firstWay.GetSerialId(), "to",
+                      lastWay.GetSerialId(), "(", fb.GetPointsCount(), "points)"));
         ++m_notMergedCoastsCount;
         m_totalNotMergedCoastsPoints += fb.GetPointsCount();
       }

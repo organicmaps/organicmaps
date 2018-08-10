@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <string>
 
@@ -8,10 +8,12 @@ namespace geocoder
 {
 struct Result
 {
-  Result(osm::Id const & osmId, double certainty) : m_osmId(osmId), m_certainty(certainty) {}
+  Result(base::GeoObjectId const & osmId, double certainty) : m_osmId(osmId), m_certainty(certainty)
+  {
+  }
 
   // The encoded osm id of a node, way or relation.
-  osm::Id m_osmId = osm::Id(osm::Id::kInvalid);
+  base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
 
   // A floating point number in the range [0.0, 1.0]
   // describing the extent to which the result matches

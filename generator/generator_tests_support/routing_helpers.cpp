@@ -6,7 +6,7 @@
 
 #include "coding/file_writer.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <utility>
@@ -17,7 +17,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
 {
   strings::SimpleTokenizer lineIter(mappingContent, "\n\r" /* line delimiters */);
 
-  gen::Accumulator<std::pair<osm::Id, uint32_t>> osmIdsToFeatureIds;
+  gen::Accumulator<std::pair<base::GeoObjectId, uint32_t>> osmIdsToFeatureIds;
   for (; lineIter; ++lineIter)
   {
     strings::SimpleTokenizer idIter(*lineIter, ", \t" /* id delimiters */);
@@ -30,7 +30,7 @@ void ReEncodeOsmIdsToFeatureIdsMapping(std::string const & mappingContent, std::
     uint32_t featureId = 0;
     TEST(idIter, ());
     TEST(strings::to_uint(*idIter, featureId), ("Cannot convert to uint:", *idIter));
-    osmIdsToFeatureIds.Add(std::make_pair(osm::Id::Way(osmId), featureId));
+    osmIdsToFeatureIds.Add(std::make_pair(base::MakeOsmWay(osmId), featureId));
     ++idIter;
     TEST(!idIter, ());
   }

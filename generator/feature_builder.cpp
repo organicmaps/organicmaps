@@ -466,41 +466,36 @@ void FeatureBuilder1::Deserialize(Buffer & data)
   CHECK ( CheckValid(), (*this) );
 }
 
-void FeatureBuilder1::AddOsmId(osm::Id id)
-{
-  m_osmIds.push_back(id);
-}
+void FeatureBuilder1::AddOsmId(base::GeoObjectId id) { m_osmIds.push_back(id); }
 
-void FeatureBuilder1::SetOsmId(osm::Id id)
-{
-  m_osmIds.assign(1, id);
-}
+void FeatureBuilder1::SetOsmId(base::GeoObjectId id) { m_osmIds.assign(1, id); }
 
-osm::Id FeatureBuilder1::GetFirstOsmId() const
+base::GeoObjectId FeatureBuilder1::GetFirstOsmId() const
 {
   ASSERT(!m_osmIds.empty(), ());
   return m_osmIds.front();
 }
 
-osm::Id FeatureBuilder1::GetLastOsmId() const
+base::GeoObjectId FeatureBuilder1::GetLastOsmId() const
 {
   ASSERT(!m_osmIds.empty(), ());
   return m_osmIds.back();
 }
 
-osm::Id FeatureBuilder1::GetMostGenericOsmId() const
+base::GeoObjectId FeatureBuilder1::GetMostGenericOsmId() const
 {
   ASSERT(!m_osmIds.empty(), ());
   auto result = m_osmIds.front();
   for (auto const & id : m_osmIds)
   {
     auto const t = id.GetType();
-    if (t == osm::Id::Type::Relation)
+    if (t == base::GeoObjectId::Type::ObsoleteOsmRelation)
     {
       result = id;
       break;
     }
-    else if (t == osm::Id::Type::Way && result.GetType() == osm::Id::Type::Node)
+    else if (t == base::GeoObjectId::Type::ObsoleteOsmWay &&
+             result.GetType() == base::GeoObjectId::Type::ObsoleteOsmNode)
     {
       result = id;
     }
@@ -508,7 +503,7 @@ osm::Id FeatureBuilder1::GetMostGenericOsmId() const
   return result;
 }
 
-bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
+bool FeatureBuilder1::HasOsmId(base::GeoObjectId const & id) const
 {
   for (auto const & cid : m_osmIds)
   {
@@ -579,8 +574,9 @@ bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
 
 uint64_t FeatureBuilder1::GetWayIDForRouting() const
 {
-  if (m_osmIds.size() == 1 && m_osmIds[0].GetType() == osm::Id::Type::Way && IsLine() && IsRoad())
-    return m_osmIds[0].GetOsmId();
+  if (m_osmIds.size() == 1 && m_osmIds[0].GetType() == base::GeoObjectId::Type::ObsoleteOsmWay &&
+      IsLine() && IsRoad())
+    return m_osmIds[0].GetSerialId();
   return 0;
 }
 

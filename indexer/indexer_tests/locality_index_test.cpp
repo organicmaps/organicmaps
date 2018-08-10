@@ -11,7 +11,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -53,7 +53,8 @@ template <typename LocalityIndex>
 Ids GetIds(LocalityIndex const & index, m2::RectD const & rect)
 {
   Ids ids;
-  index.ForEachInRect([&ids](osm::Id const & id) { ids.insert(id.GetEncodedId()); }, rect);
+  index.ForEachInRect([&ids](base::GeoObjectId const & id) { ids.insert(id.GetEncodedId()); },
+                      rect);
   return ids;
 };
 
@@ -62,8 +63,9 @@ RankedIds GetRankedIds(LocalityIndex const & index, m2::PointD const & center,
                        m2::PointD const & border, uint32_t topSize)
 {
   RankedIds ids;
-  index.ForClosestToPoint([&ids](osm::Id const & id) { ids.push_back(id.GetEncodedId()); }, center,
-                          MercatorBounds::DistanceOnEarth(center, border), topSize);
+  index.ForClosestToPoint(
+      [&ids](base::GeoObjectId const & id) { ids.push_back(id.GetEncodedId()); }, center,
+      MercatorBounds::DistanceOnEarth(center, border), topSize);
   return ids;
 };
 

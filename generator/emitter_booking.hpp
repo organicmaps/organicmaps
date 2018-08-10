@@ -6,8 +6,8 @@
 
 #include "indexer/feature_data.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
-#include "base/osm_id.hpp"
 
 #include <map>
 
@@ -19,9 +19,8 @@ template <typename Dataset>
 class EmitterBooking : public EmitterInterface
 {
 public:
-  EmitterBooking(Dataset const & dataset, map<osm::Id, FeatureBuilder1> & features)
-    : m_dataset(dataset)
-    , m_features(features)
+  EmitterBooking(Dataset const & dataset, map<base::GeoObjectId, FeatureBuilder1> & features)
+    : m_dataset(dataset), m_features(features)
   {
   }
 
@@ -45,6 +44,6 @@ public:
 
 private:
   Dataset const & m_dataset;
-  map<osm::Id, FeatureBuilder1> & m_features;
+  map<base::GeoObjectId, FeatureBuilder1> & m_features;
 };
 }  // namespace generator

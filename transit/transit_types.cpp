@@ -204,7 +204,7 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 
 bool Gate::IsValid() const
 {
-  return m_featureIdentifiers.GetOsmId() != kInvalidOsmId && m_weight != kInvalidWeight &&
+  return m_featureIdentifiers.GetSerialId() != kInvalidOsmId && m_weight != kInvalidWeight &&
          (m_entrance || m_exit) && !m_stopIds.empty();
 }
 

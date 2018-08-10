@@ -5,8 +5,8 @@
 
 #include "routing/restrictions_serialization.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
-#include "base/osm_id.hpp"
 
 #include <algorithm>
 #include <fstream>

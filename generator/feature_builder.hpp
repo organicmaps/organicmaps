@@ -5,7 +5,7 @@
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <functional>
@@ -169,15 +169,15 @@ public:
 
   /// @name For OSM debugging and osm objects replacement, store original OSM id
   //@{
-  void AddOsmId(osm::Id id);
-  void SetOsmId(osm::Id id);
-  osm::Id GetFirstOsmId() const;
-  osm::Id GetLastOsmId() const;
+  void AddOsmId(base::GeoObjectId id);
+  void SetOsmId(base::GeoObjectId id);
+  base::GeoObjectId GetFirstOsmId() const;
+  base::GeoObjectId GetLastOsmId() const;
   /// @returns an id of the most general element: node's one if there is no area or relation,
   /// area's one if there is no relation, and relation id otherwise.
-  osm::Id GetMostGenericOsmId() const;
-  bool HasOsmId(osm::Id const & id) const;
-  std::vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
+  base::GeoObjectId GetMostGenericOsmId() const;
+  bool HasOsmId(base::GeoObjectId const & id) const;
+  std::vector<base::GeoObjectId> const & GetOsmIds() const { return m_osmIds; }
   //@}
 
   uint64_t GetWayIDForRouting() const;
@@ -204,7 +204,7 @@ public:
 
 protected:
   /// Used for features debugging
-  std::vector<osm::Id> m_osmIds;
+  std::vector<base::GeoObjectId> m_osmIds;
 
   FeatureParams m_params;
 

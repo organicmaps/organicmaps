@@ -12,7 +12,7 @@
 #include "indexer/ftraits.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "base/osm_id.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -24,7 +24,7 @@
 namespace
 {
 using PopularityIndex = uint8_t;
-using PopularPlaces = std::unordered_map<osm::Id, PopularityIndex, osm::HashId>;
+using PopularPlaces = std::unordered_map<base::GeoObjectId, PopularityIndex, base::HashGeoObjectId>;
 
 void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 {
@@ -58,7 +58,7 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
       return;
     }
 
-    osm::Id id(osmId);
+    base::GeoObjectId id(osmId);
     auto const result = places.emplace(std::move(id), static_cast<PopularityIndex>(popularityIndex));
 
     if (!result.second)
@@ -79,10 +79,9 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
 
   LOG(LINFO, ("Build Popular Places section"));
 
-  std::unordered_map<uint32_t, osm::Id> featureIdToOsmId;
+  std::unordered_map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   ForEachOsmId2FeatureId(osmToFeatureFilename,
-                         [&featureIdToOsmId](osm::Id const & osmId, uint32_t fId)
-                         {
+                         [&featureIdToOsmId](base::GeoObjectId const & osmId, uint32_t fId) {
                            featureIdToOsmId.emplace(fId, osmId);
                          });
 

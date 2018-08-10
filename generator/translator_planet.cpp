@@ -60,7 +60,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
       break;
 
     m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
-    EmitPoint(pt, params, osm::Id::Node(p->id));
+    EmitPoint(pt, params, base::MakeOsmNode(p->id));
     break;
   }
   case OsmElement::EntityType::Way:
@@ -84,7 +84,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
     if (!ParseType(p, params))
       break;
 
-    ft.SetOsmId(osm::Id::Way(p->id));
+    ft.SetOsmId(base::MakeOsmWay(p->id));
     bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
     EmitArea(ft, params, [&] (FeatureBuilder1 & ft)
@@ -120,12 +120,12 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
       FeatureBuilder1 ft;
 
       for (uint64_t id : ids)
-        ft.AddOsmId(osm::Id::Way(id));
+        ft.AddOsmId(base::MakeOsmWay(id));
 
       for (auto const & pt : pts)
         ft.AddPoint(pt);
 
-      ft.AddOsmId(osm::Id::Relation(p->id));
+      ft.AddOsmId(base::MakeOsmRelation(p->id));
       EmitArea(ft, params, [&holesGeometry] (FeatureBuilder1 & ft) {
         ft.SetAreaAddHoles(holesGeometry);
       });
@@ -160,8 +160,8 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
   return true;
 }
 
-void TranslatorPlanet::EmitPoint(m2::PointD const & pt,
-                                 FeatureParams params, osm::Id id) const
+void TranslatorPlanet::EmitPoint(m2::PointD const & pt, FeatureParams params,
+                                 base::GeoObjectId id) const
 {
   if (!feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
     return;

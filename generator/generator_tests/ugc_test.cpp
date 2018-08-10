@@ -5,8 +5,8 @@
 
 #include "ugc/types.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/math.hpp"
-#include "base/osm_id.hpp"
 
 namespace
 {
@@ -25,7 +25,7 @@ ugc::UGC GetUgcForId(uint32_t id)
 {
   generator::UGCTranslator tr;
   tr.CreateDb(g_database);
-  osm::Id osmId(id);
+  base::GeoObjectId osmId(id);
 
   ugc::UGC ugc;
   bool rc = tr.TranslateUGC(osmId, ugc);
@@ -39,7 +39,7 @@ UNIT_TEST(UGC_SmokeTest)
   generator::UGCDB db(":memory:");
   bool create = db.Exec(g_database);
   TEST(create, ("Can't open database"));
-  osm::Id id = osm::Id(9826353);
+  base::GeoObjectId id = base::GeoObjectId(9826353);
   std::vector<uint8_t> blob;
   bool rc = db.Get(id, blob);
   TEST(rc, ("Can't load data for", id));

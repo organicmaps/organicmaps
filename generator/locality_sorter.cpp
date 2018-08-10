@@ -136,7 +136,7 @@ public:
           holder.SetInner();
           auto const id = fb2.GetMostGenericOsmId();
           CHECK(holder.TryToMakeStrip(hullPoints),
-                ("Error while building tringles for object with OSM Id:", id.GetOsmId(),
+                ("Error while building tringles for object with OSM Id:", id.GetSerialId(),
                  "Type:", id.GetType(), "points:", points, "hull:", hull.Points()));
         }
       }

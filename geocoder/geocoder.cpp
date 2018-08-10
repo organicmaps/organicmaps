@@ -114,7 +114,7 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
-void Geocoder::Context::AddResult(osm::Id const & osmId, double certainty)
+void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty)
 {
   m_results[osmId] = max(m_results[osmId], certainty);
 }

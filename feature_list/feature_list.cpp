@@ -190,9 +190,12 @@ public:
 
   void ClearCache() { m_villagesCache.Clear(); }
 
-  void operator()(FeatureType & f, map<uint32_t, osm::Id> const & ft2osm) { Process(f, ft2osm); }
+  void operator()(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm)
+  {
+    Process(f, ft2osm);
+  }
 
-  void Process(FeatureType & f, map<uint32_t, osm::Id> const & ft2osm)
+  void Process(FeatureType & f, map<uint32_t, base::GeoObjectId> const & ft2osm)
   {
     f.ParseBeforeStatistic();
     string const & category = GetReadableType(f);
@@ -288,10 +291,12 @@ void PrintHeader()
   PrintAsCSV(columns, ';', cout);
 }
 
-bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, osm::Id> & mapping)
+bool ParseFeatureIdToOsmIdMapping(string const & path, map<uint32_t, base::GeoObjectId> & mapping)
 {
   return generator::ForEachOsmId2FeatureId(
-      path, [&](osm::Id const & osmId, uint32_t const featureId) { mapping[featureId] = osmId; });
+      path, [&](base::GeoObjectId const & osmId, uint32_t const featureId) {
+        mapping[featureId] = osmId;
+      });
 }
 
 void DidDownload(storage::TCountryId const & /* countryId */,
@@ -360,7 +365,7 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
     string osmToFeatureFile = my::JoinPath(
         argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
-    map<uint32_t, osm::Id> featureIdToOsmId;
+    map<uint32_t, base::GeoObjectId> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
     FeaturesLoaderGuard loader(dataSource, mwmId);

@@ -4,8 +4,8 @@
 #include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
-#include "base/osm_id.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -34,15 +34,15 @@ public:
   }
 };
 
-class OsmID2FeatureID : public Accumulator<std::pair<osm::Id, uint32_t /* feature id */>>
+class OsmID2FeatureID : public Accumulator<std::pair<base::GeoObjectId, uint32_t /* feature id */>>
 {
   typedef Accumulator<ValueT> BaseT;
 
   struct LessID
   {
     bool operator() (ValueT const & r1, ValueT const & r2) const { return r1.first < r2.first; }
-    bool operator() (osm::Id const & r1, ValueT const & r2) const { return r1 < r2.first; }
-    bool operator() (ValueT const & r1, osm::Id const & r2) const { return r1.first < r2; }
+    bool operator()(base::GeoObjectId const & r1, ValueT const & r2) const { return r1 < r2.first; }
+    bool operator()(ValueT const & r1, base::GeoObjectId const & r2) const { return r1.first < r2; }
   };
 
 public:
@@ -53,7 +53,7 @@ public:
   }
 
   /// Find a feature id for an OSM id.
-  bool GetFeatureID(osm::Id const & id, uint32_t & result) const
+  bool GetFeatureID(base::GeoObjectId const & id, uint32_t & result) const
   {
     auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
     if (it == m_data.end() || it->first != id)

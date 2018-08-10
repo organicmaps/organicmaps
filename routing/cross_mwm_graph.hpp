@@ -11,8 +11,8 @@
 
 #include "geometry/tree4d.hpp"
 
+#include "base/geo_object_id.hpp"
 #include "base/math.hpp"
-#include "base/osm_id.hpp"
 
 #include <map>
 #include <memory>
@@ -153,7 +153,7 @@ private:
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   CourntryRectFn const & m_countryRectFn;
-  CrossMwmIndexGraph<osm::Id> m_crossMwmIndexGraph;
+  CrossMwmIndexGraph<base::GeoObjectId> m_crossMwmIndexGraph;
   CrossMwmIndexGraph<connector::TransitId> m_crossMwmTransitGraph;
 };
 
