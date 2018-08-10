@@ -295,6 +295,24 @@ using namespace osm_auth_ios;
   m_fileURL = nil;
 }
 
+- (NSURL *)convertUniversalLink:(NSURL *)universalLink
+{
+  auto deeplink = [NSString stringWithFormat:@"mapsme://%@?%@", universalLink.path, universalLink.query];
+  return [NSURL URLWithString:deeplink];
+}
+
+- (void)searchText:(NSString *)searchString
+{
+  if (!self.isDrapeEngineCreated)
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{ [self searchText:searchString]; });
+    return;
+  }
+
+  [[MWMMapViewControlsManager manager] searchText:[searchString stringByAppendingString:@" "]
+                                   forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
+}
+
 - (void)incrementSessionsCountAndCheckForAlert
 {
   [self incrementSessionCount];
@@ -536,28 +554,27 @@ using namespace osm_auth_ios;
     continueUserActivity:(NSUserActivity *)userActivity
       restorationHandler:(void (^)(NSArray * restorableObjects))restorationHandler
 {
-  if (![userActivity.activityType isEqualToString:CSSearchableItemActionType])
-    return NO;
-  NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
-  NSString * searchString = L(searchStringKey);
-  if (!searchString)
-    return NO;
-
-  if (!self.isDrapeEngineCreated)
+  if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
   {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self application:application
-          continueUserActivity:userActivity
-            restorationHandler:restorationHandler];
-    });
+    NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
+    NSString * searchString = L(searchStringKey);
+    if (searchString)
+    {
+      [self searchText:searchString];
+      return YES;
+    }
   }
-  else
+  else if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb])
   {
-    [[MWMMapViewControlsManager manager] searchText:[searchString stringByAppendingString:@" "]
-                                     forInputLocale:[MWMSettings spotlightLocaleLanguageId]];
+    auto link = userActivity.webpageURL;
+    if ([self checkLaunchURL:[self convertUniversalLink:link]])
+    {
+      [self handleURLs];
+      return YES;
+    }
   }
 
-  return YES;
+  return NO;
 }
 
 - (BOOL)initStatistics:(UIApplication *)application
