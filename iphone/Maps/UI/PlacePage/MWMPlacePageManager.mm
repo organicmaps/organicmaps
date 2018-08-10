@@ -488,7 +488,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   NSURL * url = isDescription ? data.sponsoredDescriptionURL : data.sponsoredURL;
   NSAssert(url, @"Sponsored url can't be nil!");
   
-  [self.ownerViewController openUrl:url];
+  [UIApplication.sharedApplication openURL:url];
 }
 
 - (void)searchBookingHotels
@@ -499,7 +499,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   logSponsoredEvent(data, kStatPlacePageHotelSearch);
   NSURL * url = data.bookingSearchURL;
   NSAssert(url, @"Search url can't be nil!");
-  [self.ownerViewController openUrl:url];
+  [UIApplication.sharedApplication openURL:url];
 }
 
 - (void)openPartner
@@ -510,7 +510,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   logSponsoredEvent(data, kStatPlacePageSponsoredActionButtonClick);
   NSURL * url = data.sponsoredURL;
   NSAssert(url, @"Partner url can't be nil!");
-  [self.ownerViewController openUrl:url];
+  [UIApplication.sharedApplication openURL:url];
 }
 
 - (void)call
@@ -542,7 +542,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   if (!data)
     return;
   logSponsoredEvent(data, kStatPlacePageHotelReviews);
-  [self.ownerViewController openUrl:data.URLToAllReviews];
+  [UIApplication.sharedApplication openURL:data.URLToAllReviews];
 }
 
 - (void)showPhotoAtIndex:(NSInteger)index
