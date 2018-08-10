@@ -124,6 +124,11 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
   return zoom / vs;
 }
+
+void ResetNotification(uint64_t & notifyId)
+{
+  notifyId = DrapeNotifier::kInvalidId;
+}
 }  // namespace
 
 MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier)
@@ -287,7 +292,7 @@ void MyPositionController::ResetRoutingNotFollowTimer(bool blockTimer)
   {
     m_routingNotFollowTimer.Reset();
     m_blockRoutingNotFollowTimer = blockTimer;
-    m_routingNotFollowNotifyId = DrapeNotifier::kInvalidId;
+    ResetNotification(m_routingNotFollowNotifyId);
   }
 }
 
@@ -297,7 +302,7 @@ void MyPositionController::ResetBlockAutoZoomTimer()
   {
     m_needBlockAutoZoom = true;
     m_blockAutoZoomTimer.Reset();
-    m_blockAutoZoomNotifyId = DrapeNotifier::kInvalidId;
+    ResetNotification(m_blockAutoZoomNotifyId);
   }
 }
 
@@ -351,7 +356,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (m_mode == location::NotFollowNoPosition)
   {
     m_pendingTimer.Reset();
-    m_locationWaitingNotifyId = DrapeNotifier::kInvalidId;
+    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
     return;
   }
@@ -493,40 +498,49 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     }
     else
     {
-      // Here we prevent to go to Follow mode in the case when we touch the map
-      // during the pending of position.
-      location::EMyPositionMode newMode = location::Follow;
       if (m_notFollowAfterPending && m_mode == location::PendingPosition)
       {
+        // Here we prevent to go to Follow mode in the case when we touch the map
+        // during the pending of position.
         ResetRoutingNotFollowTimer();
         m_notFollowAfterPending = false;
-        newMode = location::NotFollow;
-      }
-      ChangeMode(newMode);
-
-      if (!m_hints.m_isFirstLaunch && m_mode == location::Follow)
-      {
-        if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
-        {
-          m2::PointD const size(m_errorRadius, m_errorRadius);
-          ChangeModelView(m2::RectD(m_position - size, m_position + size));
-        }
-        else
-        {
-          ChangeModelView(m_position, kMaxScaleZoomLevel);
-        }
+        ChangeMode(location::NotFollow);
       }
       else
       {
-        if (!AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
-          ChangeModelView(m_position, kDoNotChangeZoom);
+        ChangeMode(location::Follow);
+        if (m_hints.m_isFirstLaunch)
+        {
+          if (!AnimationSystem::Instance().AnimationExists(Animation::Object::MapPlane))
+            ChangeModelView(m_position, kDoNotChangeZoom);
+        }
+        else
+        {
+          if (GetZoomLevel(screen, m_position, m_errorRadius) <= kMaxScaleZoomLevel)
+          {
+            m2::PointD const size(m_errorRadius, m_errorRadius);
+            ChangeModelView(m2::RectD(m_position - size, m_position + size));
+          }
+          else
+          {
+            ChangeModelView(m_position, kMaxScaleZoomLevel);
+          }
+        }
       }
     }
   }
   else if (m_mode == location::NotFollowNoPosition)
   {
-    // Here we silently get the position and go to NotFollow mode.
-    ChangeMode(location::NotFollow);
+    if (m_isInRouting)
+    {
+      ChangeMode(location::FollowAndRotate);
+      UpdateViewport(kMaxScaleZoomLevel);
+    }
+    else
+    {
+      // Here we silently get the position and go to NotFollow mode.
+      ChangeMode(location::NotFollow);
+    }
   }
 
   m_isPositionAssigned = true;
@@ -539,7 +553,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
-    m_updateLocationNotifyId = DrapeNotifier::kInvalidId;
+    ResetNotification(m_updateLocationNotifyId);
   }
 }
 
@@ -551,7 +565,7 @@ void MyPositionController::LoseLocation()
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
   {
     m_pendingTimer.Reset();
-    m_locationWaitingNotifyId = DrapeNotifier::kInvalidId;
+    ResetNotification(m_locationWaitingNotifyId);
     ChangeMode(location::PendingPosition);
   }
   else
