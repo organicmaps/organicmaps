@@ -19,11 +19,11 @@ final class BookmarksTabViewController: TabViewController {
 
     let bookmarks = BMCViewController()
     let catalog = DownloadedBookmarksViewController()
-    bookmarks.title = L("bookmarks_page_my")
-    catalog.title = L("bookmarks_page_downloaded")
+    bookmarks.title = L("bookmarks")
+    catalog.title = L("guides")
     viewControllers = [bookmarks, catalog]
 
-    title = L("bookmarks");
+    title = L("bookmarks_guides");
     tabView.backgroundColor = .pressBackground()
     tabView.barTintColor = .primary()
     tabView.tintColor = .white()

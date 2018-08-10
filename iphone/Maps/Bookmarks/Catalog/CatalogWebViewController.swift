@@ -11,7 +11,7 @@ final class CatalogWebViewController: WebViewController {
   var fwdButton: UIBarButtonItem!
 
   @objc init() {
-    super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("routes_and_bookmarks"))!
+    super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("guides"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
     fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
     backButton.tintColor = .blackSecondaryText()
@@ -138,7 +138,7 @@ final class CatalogWebViewController: WebViewController {
     }
 
     if MWMBookmarksManager.isCategoryDownloading(id) || MWMBookmarksManager.hasCategoryDownloaded(id) {
-      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded"),
+      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded_guide"),
                                                                message: nil,
                                                                rightButtonTitle: L("ok"),
                                                                leftButtonTitle: nil,
@@ -203,7 +203,7 @@ final class CatalogWebViewController: WebViewController {
 
   private func showImportError() {
     MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
-                                                          text: L("subtitle_error_downloading_bookmarks"))
+                                                          text: L("subtitle_error_downloading_guide"))
   }
 
   private func updateProgress() {

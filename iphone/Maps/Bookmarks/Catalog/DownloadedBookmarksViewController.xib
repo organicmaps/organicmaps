@@ -69,7 +69,7 @@
                     <color key="textColor" white="0.0" alpha="0.54010595034246578" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_bookmarks_placeholder_subtitle"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_guides_placeholder_subtitle"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                     </userDefinedRuntimeAttributes>
@@ -119,7 +119,7 @@
                             <color key="textColor" white="0.0" alpha="0.87371575342465757" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_bookmarks_placeholder_title"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="download_guides"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular18"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                             </userDefinedRuntimeAttributes>
@@ -131,7 +131,7 @@
                             <color key="textColor" white="0.0" alpha="0.53735017123287676" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_bookmarks_placeholder_subtitle"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_guides_placeholder_subtitle"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                                 <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                             </userDefinedRuntimeAttributes>

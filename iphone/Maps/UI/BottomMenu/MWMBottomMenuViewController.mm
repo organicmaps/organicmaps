@@ -177,7 +177,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
     break;
   }
   case MWMBottomMenuViewCellDownloadRoutes:
-    [cell configurePromoWithImageName:@"ic_menu_routes" label:L(@"download_routes")];
+    [cell configurePromoWithImageName:@"ic_menu_routes" label:L(@"download_guides")];
     break;
   case MWMBottomMenuViewCellDownloadMaps:
     [cell configureWithImageName:@"ic_menu_download"

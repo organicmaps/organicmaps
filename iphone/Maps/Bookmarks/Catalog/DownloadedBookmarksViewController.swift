@@ -5,19 +5,19 @@ class DownloadedBookmarksViewController: MWMViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var bottomViewTitleLabel: UILabel! {
     didSet {
-      bottomViewTitleLabel.text = L("cached_bookmarks_placeholder_title").uppercased()
+      bottomViewTitleLabel.text = L("download_guides").uppercased()
     }
   }
 
   @IBOutlet weak var bottomViewDownloadButton: UIButton! {
     didSet {
-      bottomViewDownloadButton.setTitle(L("downloader_download_routers").uppercased(), for: .normal)
+      bottomViewDownloadButton.setTitle(L("download_guides").uppercased(), for: .normal)
     }
   }
 
   @IBOutlet weak var noDataViewDownloadButton: UIButton! {
     didSet {
-      noDataViewDownloadButton.setTitle(L("downloader_download_routers").uppercased(), for: .normal)
+      noDataViewDownloadButton.setTitle(L("download_guides").uppercased(), for: .normal)
     }
   }
 

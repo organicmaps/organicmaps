@@ -441,7 +441,7 @@ BOOL gIsFirstMyPositionMode = YES;
     }
   }
   if (![MWMRouter isOnRoute])
-      [[MWMToast toastWithText:L(@"bookmarks_webview_success_toast")] show];
+      [[MWMToast toastWithText:L(@"guide_downloaded_title")] show];
 }
 
 - (void)openCatalogAnimated:(BOOL)animated
