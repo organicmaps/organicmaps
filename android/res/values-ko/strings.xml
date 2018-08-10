@@ -1339,4 +1339,13 @@
 	<string name="whats_new_hot_offers_title">호텔에서의 매혹적인 오퍼</string>
 	<string name="whats_new_hot_offers_message">검색에서 호텔 범주를 사용하여 검색할 수 있습니다. 오퍼는 맵과 검색 결과에서 퍼센트 기호로 표시됩니다.</string>
 	<string name="error_already_downloaded">해당 목록을 이미 다운로드 하였습니다.</string>
+	<string name="guides">안내</string>
+	<string name="guide_downloaded_title">안내를 성공적으로 다운로드 하였습니다.</string>
+	<string name="download_guides">안내 다운로드</string>
+	<string name="cached_guides_placeholder_subtitle">모든 여행을 위한 자세한 오프라인 안내. 여러분에게 가장 적합한 것을 골라 지도로 직접 다운로드하세요. 안내를 다운로드하려면 인터넷을 연결해야 합니다.</string>
+	<string name="guides_groups_cached">다운로드한 안내</string>
+	<string name="subtitle_error_downloading_guide">안내를 다운로드하지 않았습니다.</string>
+	<string name="error_already_downloaded_guide">안내를 이미 다운로드하였습니다.</string>
+	<string name="guide_downloaded_subtitle">안내를 이용하려면 \'지도 보기\'를 누르세요</string>
+	<string name="bookmarks_guides">북마크 및 안내</string>
 </resources>

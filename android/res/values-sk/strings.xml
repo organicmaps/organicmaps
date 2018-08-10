@@ -1348,4 +1348,13 @@
 	<string name="whats_new_hot_offers_title">Atraktívne ponuky hotelov</string>
 	<string name="whats_new_hot_offers_message">Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.</string>
 	<string name="error_already_downloaded">Tento zoznam už bol stiahnutý</string>
+	<string name="guides">Príručky</string>
+	<string name="guide_downloaded_title">Príručka bola úspešne stiahnutá</string>
+	<string name="download_guides">Stiahnite si príručky</string>
+	<string name="cached_guides_placeholder_subtitle">Podrobné offline príručky pre akúkoľvek cestu. Vyberte si tú, ktorá vám najviac vyhovuje a stiahnite si ju priamo k mape. Na načítanie príručiek budete potrebovať internetové pripojenie.</string>
+	<string name="guides_groups_cached">Stiahnuté príručky</string>
+	<string name="subtitle_error_downloading_guide">Príručka nebola stiahnutá</string>
+	<string name="error_already_downloaded_guide">Táto príručka už bola stiahnutá</string>
+	<string name="guide_downloaded_subtitle">Stlačením tlačidla ,Zobraziť na mape\' si spustíte príručku</string>
+	<string name="bookmarks_guides">Záložky a príručky</string>
 </resources>

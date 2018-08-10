@@ -1343,4 +1343,13 @@
 	<string name="whats_new_hot_offers_title">Offerte interessanti dagli hotel</string>
 	<string name="whats_new_hot_offers_message">Puoi cercarli utilizzando la categoria Alberghi nella ricerca. Le offerte saranno contrassegnate dal simbolo percentuale sulla mappa e nei risultati della ricerca.</string>
 	<string name="error_already_downloaded">Questa lista è già stata scaricata</string>
+	<string name="guides">Guide</string>
+	<string name="guide_downloaded_title">La guida è stata scaricata correttamente</string>
+	<string name="download_guides">Scarica le guide</string>
+	<string name="cached_guides_placeholder_subtitle">Guide dettagliate offline per qualsiasi tipo di viaggio. Scegli quella che preferisci e scaricala direttamente sulla mappa. Per scaricare le guide, è necessaria una connessione a Internet.</string>
+	<string name="guides_groups_cached">Guide scaricate</string>
+	<string name="subtitle_error_downloading_guide">La guida non è stata scaricata</string>
+	<string name="error_already_downloaded_guide">La guida è già stata scaricata</string>
+	<string name="guide_downloaded_subtitle">Premi \"Visualizza sulla mappa\" per esplorare la guida</string>
+	<string name="bookmarks_guides">Segnalibri e guide</string>
 </resources>

@@ -1349,4 +1349,13 @@
 	<string name="whats_new_hot_offers_title">İlgi çekici otel teklifleri</string>
 	<string name="whats_new_hot_offers_message">Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.</string>
 	<string name="error_already_downloaded">Bu liste zaten indirildi</string>
+	<string name="guides">El kitapları</string>
+	<string name="guide_downloaded_title">El kitabı başarılı bir şekilde indirildi</string>
+	<string name="download_guides">El kitaplarını indir</string>
+	<string name="cached_guides_placeholder_subtitle">Her çeşit yolculuk için ayrıntılı çevrimdışı el kitapları. Sana en uygun olanı seç ve doğrudan haritaya indir. El kitaplarını indirmek için internet bağlantısına ihtiyacın olacak.</string>
+	<string name="guides_groups_cached">İndirilen el kitapları</string>
+	<string name="subtitle_error_downloading_guide">El kitabı indirilmedi</string>
+	<string name="error_already_downloaded_guide">Bu el kitabı zaten indirildi</string>
+	<string name="guide_downloaded_subtitle">El kitabını keşfetmek için ‘Haritada görüntüle’ düğmesine bas</string>
+	<string name="bookmarks_guides">Yer imleri ve el kitapları</string>
 </resources>

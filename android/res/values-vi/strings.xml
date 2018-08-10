@@ -1340,4 +1340,13 @@
 	<string name="whats_new_hot_offers_title">Ưu đãi hấp dẫn từ các khách sạn</string>
 	<string name="whats_new_hot_offers_message">Bạn có thể tìm kiếm chúng bằng cách sử dụng danh mục Khách sạn trong tìm kiếm. Phiếu mua hàng sẽ được đánh dấu bằng ký hiệu phần trăm trong bản đồ và trong kết quả tìm kiếm.</string>
 	<string name="error_already_downloaded">Danh sách này đã được tải về</string>
+	<string name="guides">Hướng dẫn</string>
+	<string name="guide_downloaded_title">Hướng dẫn đã được tải xuống thành công</string>
+	<string name="download_guides">Tải xuống hướng dẫn</string>
+	<string name="cached_guides_placeholder_subtitle">Hướng dẫn ngoại tuyến chi tiết cho mọi cuộc hành trình. Chọn hướng dẫn phù hợp với bạn nhất và tải xuống trực tiếp vào bản đồ. Bạn sẽ cần kết nối internet để tải xuống các hướng dẫn.</string>
+	<string name="guides_groups_cached">Đã tải xuống hướng dẫn</string>
+	<string name="subtitle_error_downloading_guide">Hướng dẫn đã không được tải xuống</string>
+	<string name="error_already_downloaded_guide">Hướng dẫn này đã được tải xuống</string>
+	<string name="guide_downloaded_subtitle">Nhấn “Xem trên bản đồ” để khám phá chỉ dẫn.</string>
+	<string name="bookmarks_guides">Đánh dấu trang và Hướng dẫn</string>
 </resources>

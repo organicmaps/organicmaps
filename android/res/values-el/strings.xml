@@ -1108,4 +1108,13 @@
 	<string name="whats_new_hot_offers_title">Ελκυστικές προσφορές από ξενοδοχεία</string>
 	<string name="whats_new_hot_offers_message">Μπορείτε να τα ψάξετε χρησιμοποιώντας την κατηγορία Ξενοδοχεία στην αναζήτηση. Οι προσφορές θα σημειώνονται με το σύμβολο επί τοις εκατό στο χάρτη και στα αποτελέσματα της αναζήτησης.</string>
 	<string name="error_already_downloaded">Έχει γίνει ήδη λήψη αυτής της λίστας</string>
+	<string name="guides">Εγχειρίδια</string>
+	<string name="guide_downloaded_title">Η λήψη του εγχειριδίου πραγματοποιήθηκε με επιτυχία</string>
+	<string name="download_guides">Κατεβάστε τα εγχειρίδια</string>
+	<string name="cached_guides_placeholder_subtitle">Λεπτομερή εγχειρίδια εκτός σύνδεσης για κάθε είδους ταξίδι. Επιλέξτε αυτό που σας ταιριάζει καλύτερα και μεταφορτώστε το απευθείας στον χάρτη. Θα χρειαστείτε τη σύνδεση στο διαδίκτυο για να κατεβάσετε τα εγχειρίδια.</string>
+	<string name="guides_groups_cached">Κατεβασμένα εγχειρίδια</string>
+	<string name="subtitle_error_downloading_guide">Το εγχειρίδιο δεν έχει ληφθεί</string>
+	<string name="error_already_downloaded_guide">Αυτό το εγχειρίδιο έχει ήδη ληφθεί</string>
+	<string name="guide_downloaded_subtitle">Πατήστε ‘Προβολή στο χάρτη’ για να δείτε το εγχειρίδιο</string>
+	<string name="bookmarks_guides">Αγαπημένα και εγχειρίδια</string>
 </resources>

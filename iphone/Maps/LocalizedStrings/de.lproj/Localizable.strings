@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Leitfaden";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Der Leitfaden wurde erfolgreich heruntergeladen";
 
-"download_guides" = "Download guides";
+"download_guides" = "Leitfäden herunterladen";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Detaillierte Offline-Leitfäden für jede Art von Reise. Wählen Sie den für Sie am besten geeigneten aus und laden Sie ihn direkt auf die Karte herunter. Sie benötigen eine Internetverbindung, um Leitfäden herunterzuladen.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Heruntergeladene Leitfäden";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Der Leitfaden wurde nicht heruntergeladen";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Dieser Leitfaden wurde bereits heruntergeladen";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Drücken Sie ‚Auf der Karte ansehen‘, um den Leitfaden zu erkunden";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Lesezeichengruppen und Leitfäden";
 
 
 /**********  Partners  **********/

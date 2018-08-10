@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Útmutatók";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Az útmutató sikeresen letöltésre került";
 
-"download_guides" = "Download guides";
+"download_guides" = "Útmutatók letöltése";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Részletes offline útmutatók mindenfajta utazáshoz. Válaszd ki a te utazásodhoz legjobban illőt, és töltsd le közvetlenül a térképre. Az útmutatók letöltéséhez internetkapcsolatra van szükséged.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Letöltött útmutatók";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Az útmutató nem került letöltésre";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Ez az útmutató már letöltésre került";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Könyvjelzők és útmutatók";
 
 
 /**********  Partners  **********/

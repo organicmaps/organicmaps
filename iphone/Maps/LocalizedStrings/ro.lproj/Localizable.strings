@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Ghiduri";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Ghidul a fost descărcat cu succes";
 
-"download_guides" = "Download guides";
+"download_guides" = "Descarcă ghiduri";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Ghiduri offline detaliate pentru orice tip de călătorie. Alege-l pe cel care ți se potrivește cel mai bine și descarcă-l direct pe hartă. Vei avea nevoie de conexiune la internet pentru a descărca ghidurile.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Ghiduri descărcate";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Ghidul nu a fost descărcat";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Acest ghid a fost deja descărcat";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Marcaje și ghiduri";
 
 
 /**********  Partners  **********/

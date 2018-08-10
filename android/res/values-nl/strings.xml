@@ -1344,4 +1344,13 @@
 	<string name="whats_new_hot_offers_title">Aantrekkelijke aanbiedingen van hotels</string>
 	<string name="whats_new_hot_offers_message">U kunt deze vinden door te zoeken in de categorie Hotels. De aanbiedingen worden aangegeven door het percentage-symbool op de kaart en in de zoekresultaten.</string>
 	<string name="error_already_downloaded">Deze lijst is al gedownload</string>
+	<string name="guides">Handleidingen</string>
+	<string name="guide_downloaded_title">De handleiding is met succes gedownload</string>
+	<string name="download_guides">Handleidingen downloaden</string>
+	<string name="cached_guides_placeholder_subtitle">Gedetailleerde offline handleidingen voor elk type reis. Kies de handleiding die het beste bij je past en download hem direct naar de kaart. Je hebt een internetverbinding nodig om handleidingen te downloaden.</string>
+	<string name="guides_groups_cached">Gedownloade handleidingen</string>
+	<string name="subtitle_error_downloading_guide">De handleiding is niet gedownload</string>
+	<string name="error_already_downloaded_guide">De handleiding is reeds gedownload</string>
+	<string name="guide_downloaded_subtitle">Druk op ‘Op kaart bekijken’ om de handleiding te verkennen</string>
+	<string name="bookmarks_guides">Bladwijzers en handleidingen</string>
 </resources>

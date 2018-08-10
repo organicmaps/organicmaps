@@ -1349,4 +1349,13 @@
 	<string name="whats_new_hot_offers_title">Вигідні пропозиції готелів</string>
 	<string name="whats_new_hot_offers_message">Шукайте їх за допомогою категорії «Готелі» в пошуку. Пропозиції будуть позначені значком відсотка на карті й у списку.</string>
 	<string name="error_already_downloaded">Цей список вже завантажений</string>
+	<string name="guides">Путівники</string>
+	<string name="guide_downloaded_title">Путівник успішно завантажено</string>
+	<string name="download_guides">Завантажити путівники</string>
+	<string name="cached_guides_placeholder_subtitle">Детальні офлайн путівники для подорожей будь-якого типу. Виберіть путівник, що підходить вам найбільше і завантажте його прямо на карту. Для завантаження путівників вам знадобиться підключення до Інтернету.</string>
+	<string name="guides_groups_cached">Завантажені путівники</string>
+	<string name="subtitle_error_downloading_guide">Путівник не завантажено</string>
+	<string name="error_already_downloaded_guide">Цей путівник вже було завантажено</string>
+	<string name="guide_downloaded_subtitle">Натисніть на \"Подивитись на карті\", щоб дослідити путівник</string>
+	<string name="bookmarks_guides">Мітки та путівники</string>
 </resources>

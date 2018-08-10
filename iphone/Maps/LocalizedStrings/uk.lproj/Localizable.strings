@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Путівники";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Путівник успішно завантажено";
 
-"download_guides" = "Download guides";
+"download_guides" = "Завантажити путівники";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Детальні офлайн путівники для подорожей будь-якого типу. Виберіть путівник, що підходить вам найбільше і завантажте його прямо на карту. Для завантаження путівників вам знадобиться підключення до Інтернету.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Завантажені путівники";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Путівник не завантажено";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Цей путівник вже було завантажено";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Натисніть на \"Подивитись на карті\", щоб дослідити путівник";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Мітки та путівники";
 
 
 /**********  Partners  **********/

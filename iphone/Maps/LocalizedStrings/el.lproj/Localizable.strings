@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Εγχειρίδια";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Η λήψη του εγχειριδίου πραγματοποιήθηκε με επιτυχία";
 
-"download_guides" = "Download guides";
+"download_guides" = "Κατεβάστε τα εγχειρίδια";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Λεπτομερή εγχειρίδια εκτός σύνδεσης για κάθε είδους ταξίδι. Επιλέξτε αυτό που σας ταιριάζει καλύτερα και μεταφορτώστε το απευθείας στον χάρτη. Θα χρειαστείτε τη σύνδεση στο διαδίκτυο για να κατεβάσετε τα εγχειρίδια.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Κατεβασμένα εγχειρίδια";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Το εγχειρίδιο δεν έχει ληφθεί";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Αυτό το εγχειρίδιο έχει ήδη ληφθεί";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Πατήστε ‘Προβολή στο χάρτη’ για να δείτε το εγχειρίδιο";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Αγαπημένα και εγχειρίδια";
 
 
 /**********  Partners  **********/

@@ -1348,4 +1348,13 @@
 	<string name="whats_new_hot_offers_title">Attraktive hoteltilbud</string>
 	<string name="whats_new_hot_offers_message">Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.</string>
 	<string name="error_already_downloaded">Denne liste er allerede blevet downloadet</string>
+	<string name="guides">Vejledninger</string>
+	<string name="guide_downloaded_title">Vejledningen er blevet downloadet</string>
+	<string name="download_guides">Download vejledninger</string>
+	<string name="cached_guides_placeholder_subtitle">Detaljerede offline vejledninger til alle slags rejser. Vælg den der passer dig bedst og download den direkte til dit kort. Du skal bruge en internetforbindelse til at downloade vejledninger.</string>
+	<string name="guides_groups_cached">Downloadede vejledninger</string>
+	<string name="subtitle_error_downloading_guide">Vejledningen blev ikke downloadet</string>
+	<string name="error_already_downloaded_guide">Denne vejledning er allerede blevet downloadet</string>
+	<string name="guide_downloaded_subtitle">Tryk på \'Se på kort\' for at udforske vejledningen</string>
+	<string name="bookmarks_guides">Bogmærker og vejledninger</string>
 </resources>

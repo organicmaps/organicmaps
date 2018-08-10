@@ -1348,4 +1348,13 @@
 	<string name="whats_new_hot_offers_title">Atrakcyjne oferty hoteli</string>
 	<string name="whats_new_hot_offers_message">Możesz je odszukać, używając kategorii Hotele podczas wyszukiwania. Oferty będą oznaczone symbolem procentu na mapie i w wynikach wyszukiwania.</string>
 	<string name="error_already_downloaded">Ta lista została już pobrana</string>
+	<string name="guides">Przewodniki</string>
+	<string name="guide_downloaded_title">Przewodnik został pomyślnie pobrany</string>
+	<string name="download_guides">Pobierz przewodniki</string>
+	<string name="cached_guides_placeholder_subtitle">Szczegółowe przewodniki offline na każdy rodzaj podróży. Wybierz najlepiej Ci odpowiadający i pobierz go bezpośrednio na mapę. Do pobrania przewodników wymagane jest połączenie internetowe.</string>
+	<string name="guides_groups_cached">Pobrane przewodniki</string>
+	<string name="subtitle_error_downloading_guide">Przewodnik nie został pobrany</string>
+	<string name="error_already_downloaded_guide">Ten przewodnik został już pobrany</string>
+	<string name="guide_downloaded_subtitle">Naciśnij „Wyświetl na mapie”, by zapoznać się z przewodnikiem</string>
+	<string name="bookmarks_guides">Zakładki i przewodniki</string>
 </resources>

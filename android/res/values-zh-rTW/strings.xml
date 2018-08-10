@@ -1352,4 +1352,13 @@
 	<string name="whats_new_hot_offers_title">酒店的優惠報價</string>
 	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。</string>
 	<string name="error_already_downloaded">這個列表已被下載</string>
+	<string name="guides">指南</string>
+	<string name="guide_downloaded_title">指南已被成功下載</string>
+	<string name="download_guides">下載指南</string>
+	<string name="cached_guides_placeholder_subtitle">適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。</string>
+	<string name="guides_groups_cached">已下載的指南</string>
+	<string name="subtitle_error_downloading_guide">該指南沒有被下載</string>
+	<string name="error_already_downloaded_guide">這個指南已被下載過了</string>
+	<string name="guide_downloaded_subtitle">按下‘在地圖上查看’探索指南</string>
+	<string name="bookmarks_guides">書籤和指南</string>
 </resources>

@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "안내";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "안내를 성공적으로 다운로드 하였습니다.";
 
-"download_guides" = "Download guides";
+"download_guides" = "안내 다운로드";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "모든 여행을 위한 자세한 오프라인 안내. 여러분에게 가장 적합한 것을 골라 지도로 직접 다운로드하세요. 안내를 다운로드하려면 인터넷을 연결해야 합니다.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "다운로드한 안내";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "안내를 다운로드하지 않았습니다.";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "안내를 이미 다운로드하였습니다.";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "안내를 이용하려면 '지도 보기'를 누르세요";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "북마크 및 안내";
 
 
 /**********  Partners  **********/

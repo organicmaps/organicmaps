@@ -1348,4 +1348,13 @@
 	<string name="whats_new_hot_offers_title">优惠的酒店建议</string>
 	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。</string>
 	<string name="error_already_downloaded">这个列表已被下载</string>
+	<string name="guides">导览</string>
+	<string name="guide_downloaded_title">导览已被成功下载</string>
+	<string name="download_guides">下载导览</string>
+	<string name="cached_guides_placeholder_subtitle">适合任何旅行种类的详细的离线导览。选择最适合您的那个，直接下载到地图上。您需要网络连接来下载导览。</string>
+	<string name="guides_groups_cached">已下载的导览</string>
+	<string name="subtitle_error_downloading_guide">该导览没有被下载</string>
+	<string name="error_already_downloaded_guide">这个导览已被下载过了</string>
+	<string name="guide_downloaded_subtitle">按‘在地图上查看’探索导览</string>
+	<string name="bookmarks_guides">书签和导览</string>
 </resources>

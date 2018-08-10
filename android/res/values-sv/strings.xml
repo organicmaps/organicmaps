@@ -1348,4 +1348,13 @@
 	<string name="whats_new_hot_offers_title">Attraktiva hotellerbjudanden</string>
 	<string name="whats_new_hot_offers_message">Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.</string>
 	<string name="error_already_downloaded">Den här listan har redan laddats ned</string>
+	<string name="guides">Guider</string>
+	<string name="guide_downloaded_title">Guiden har laddats ned framgångsrikt</string>
+	<string name="download_guides">Ladda ned guider</string>
+	<string name="cached_guides_placeholder_subtitle">Detaljerade offline-guider för alla former av resor. Välj den som passar dig bäst och ladda ned den direkt till kartan. Du behöver internetanslutningen för att ladda ned guider.</string>
+	<string name="guides_groups_cached">Nedladdade guider</string>
+	<string name="subtitle_error_downloading_guide">Guiden laddades inte ned</string>
+	<string name="error_already_downloaded_guide">Denna guide har redan laddats ned</string>
+	<string name="guide_downloaded_subtitle">Tryck på ‘Visa på kartan’ för att utforska guiden</string>
+	<string name="bookmarks_guides">Bokmärken och guider</string>
 </resources>

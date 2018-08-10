@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "指南";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "指南已被成功下載";
 
-"download_guides" = "Download guides";
+"download_guides" = "下載指南";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "已下載的指南";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "該指南沒有被下載";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "這個指南已被下載過了";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "按下‘在地圖上查看’探索指南";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "書籤和指南";
 
 
 /**********  Partners  **********/

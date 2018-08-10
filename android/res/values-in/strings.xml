@@ -1343,4 +1343,13 @@
 	<string name="whats_new_hot_offers_title">Penawaran menarik dari hotel</string>
 	<string name="whats_new_hot_offers_message">Anda dapat mencarinya menggunakan kategori Hotel di pencarian. Penawaran akan ditandai dengan simbol persentase di peta dan di hasil pencarian.</string>
 	<string name="error_already_downloaded">Daftar ini sudah diunduh</string>
+	<string name="guides">Panduan</string>
+	<string name="guide_downloaded_title">Panduan telah berhasil diunduh</string>
+	<string name="download_guides">Unduh panduan</string>
+	<string name="cached_guides_placeholder_subtitle">Panduan offline (luring) terperinci untuk segala jenis perjalanan. Pilih yang paling sesuai untuk Anda dan unduh langsung ke peta. Anda akan memerlukan koneksi internet untuk mengunduh panduan.</string>
+	<string name="guides_groups_cached">Panduan yang diunduh</string>
+	<string name="subtitle_error_downloading_guide">Panduan itu tidak diunduh</string>
+	<string name="error_already_downloaded_guide">Panduan ini telah diunduh</string>
+	<string name="guide_downloaded_subtitle">Tekan ‘Tampilkan pada peta’ untuk menjelajahi panduan</string>
+	<string name="bookmarks_guides">Penanda dan panduan</string>
 </resources>

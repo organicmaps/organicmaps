@@ -1340,4 +1340,13 @@
 	<string name="whats_new_hot_offers_title">Oferte avantajoase de hoteluri</string>
 	<string name="whats_new_hot_offers_message">Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.</string>
 	<string name="error_already_downloaded">Lista aceasta a fost descărcată deja</string>
+	<string name="guides">Ghiduri</string>
+	<string name="guide_downloaded_title">Ghidul a fost descărcat cu succes</string>
+	<string name="download_guides">Descarcă ghiduri</string>
+	<string name="cached_guides_placeholder_subtitle">Ghiduri offline detaliate pentru orice tip de călătorie. Alege-l pe cel care ți se potrivește cel mai bine și descarcă-l direct pe hartă. Vei avea nevoie de conexiune la internet pentru a descărca ghidurile.</string>
+	<string name="guides_groups_cached">Ghiduri descărcate</string>
+	<string name="subtitle_error_downloading_guide">Ghidul nu a fost descărcat</string>
+	<string name="error_already_downloaded_guide">Acest ghid a fost deja descărcat</string>
+	<string name="guide_downloaded_subtitle">Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul</string>
+	<string name="bookmarks_guides">Marcaje și ghiduri</string>
 </resources>

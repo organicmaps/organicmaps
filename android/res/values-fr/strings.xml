@@ -1358,4 +1358,13 @@
 	<string name="whats_new_hot_offers_title">Des offres attractives d\'hôtels</string>
 	<string name="whats_new_hot_offers_message">Vous pouvez les rechercher en utilisant la catégorie «Hôtels» dans la recherche. Les offres seront marquées par le symbole du pourcentage sur la carte et dans les résultats de la recherche.</string>
 	<string name="error_already_downloaded">Cette liste a déjà été téléchargée</string>
+	<string name="guides">Guides</string>
+	<string name="guide_downloaded_title">Le guide a été téléchargé avec succès</string>
+	<string name="download_guides">Télécharger les guides</string>
+	<string name="cached_guides_placeholder_subtitle">Guides détaillés disponibles hors ligne pour tout type de voyage. Choisissez celui qui vous convient le mieux et téléchargez-le directement sur la carte. Vous aurez besoin d\'une connexion Internet pour télécharger les guides.</string>
+	<string name="guides_groups_cached">Guides téléchargés</string>
+	<string name="subtitle_error_downloading_guide">Le guide n\'a pas été téléchargé</string>
+	<string name="error_already_downloaded_guide">Ce guide a déjà été téléchargé</string>
+	<string name="guide_downloaded_subtitle">Cliquez sur « Voir sur la carte » pour explorer le guide.</string>
+	<string name="bookmarks_guides">Signets et guides</string>
 </resources>

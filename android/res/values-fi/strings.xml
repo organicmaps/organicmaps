@@ -1344,4 +1344,13 @@
 	<string name="whats_new_hot_offers_title">Houkuttelevia tarjouksia hotelleilta</string>
 	<string name="whats_new_hot_offers_message">Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.</string>
 	<string name="error_already_downloaded">Tämä lista on jo ladattu</string>
+	<string name="guides">Oppaat</string>
+	<string name="guide_downloaded_title">Opas on onnistuneesti ladattu</string>
+	<string name="download_guides">Lataa oppaat</string>
+	<string name="cached_guides_placeholder_subtitle">Yksityiskohtaiset offline-oppaat kaikenlaisille matkoille. Valitse se, joka sopii sinulle parhaiten, ja lataa se suoraan kartalle. Tarvitset internetyhteyden oppaiden lataamiseksi.</string>
+	<string name="guides_groups_cached">Ladatut oppaat</string>
+	<string name="subtitle_error_downloading_guide">Opasta ei ladattu</string>
+	<string name="error_already_downloaded_guide">Tämä opas on jo ladattu</string>
+	<string name="guide_downloaded_subtitle">Paina \'Näytä kartalla\' tutkiaksesi opasta</string>
+	<string name="bookmarks_guides">Kirjanmerkit ja oppaat</string>
 </resources>

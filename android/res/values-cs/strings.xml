@@ -1352,4 +1352,13 @@
 	<string name="whats_new_hot_offers_title">Výhodné nabídky hotelů</string>
 	<string name="whats_new_hot_offers_message">Hledejte je ve vyhledávání s pomocí kategorie „Hotely“. Nabídky budou označeny symbolem procenta na mapě i v seznamu.</string>
 	<string name="error_already_downloaded">Tento seznam byl již stažen</string>
+	<string name="guides">Průvodci</string>
+	<string name="guide_downloaded_title">Průvodce byl úspěšně stažen.</string>
+	<string name="download_guides">Stáhnout průvodce</string>
+	<string name="cached_guides_placeholder_subtitle">Podrobní offline průvodci pro každý druh cesty. Zvolte si ten, který vám nejlépe vyhovuje, a stáhněte si jej přímo na mapu. Ke stažení průvodců budete potřebovat připojení k internetu.</string>
+	<string name="guides_groups_cached">Stažení průvodci</string>
+	<string name="subtitle_error_downloading_guide">Průvodce nebyl stažen</string>
+	<string name="error_already_downloaded_guide">Tento průvodce byl již stažen</string>
+	<string name="guide_downloaded_subtitle">Stiskněte „Zobrazit na mapě“ a prozkoumejte průvodce</string>
+	<string name="bookmarks_guides">Záložky a průvodci</string>
 </resources>

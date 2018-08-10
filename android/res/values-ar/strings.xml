@@ -1349,4 +1349,13 @@
 	<string name="whats_new_hot_offers_title">عروض مغرية من الفنادق</string>
 	<string name="whats_new_hot_offers_message">يمكنك البحث عن العروض باستخدام فئة الفنادق في البحث. سيتم تمييز العروض بالنسبة المئوية في الخريطة وفي نتائج البحث.</string>
 	<string name="error_already_downloaded">تم بالفعل تنزيل هذه القائمة</string>
+	<string name="guides">الأدلّة</string>
+	<string name="guide_downloaded_title">تم تنزيل الدليل بنجاح</string>
+	<string name="download_guides">تنزيل الأدلة</string>
+	<string name="cached_guides_placeholder_subtitle">أدلة مفصلة بدون اتصال بالإنترنت لأي نوع من الرحلات. اختر النوع الذي يناسبك وقم بتنزيله مباشرة على الخريطة. ستحتاج إلى الاتصال بالإنترنت لتنزيل الأدلة.</string>
+	<string name="guides_groups_cached">الأدلة التي تم تنزيلها</string>
+	<string name="subtitle_error_downloading_guide">لم يتم تنزيل الدليل</string>
+	<string name="error_already_downloaded_guide">تم بالفعل تنزيل هذا الدليل</string>
+	<string name="guide_downloaded_subtitle">اضغط \"العرض على الخريطة\" لاستكشاف الدليل</string>
+	<string name="bookmarks_guides">العلامات المرجعية والأدلة</string>
 </resources>

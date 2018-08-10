@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Oppaat";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Opas on onnistuneesti ladattu";
 
-"download_guides" = "Download guides";
+"download_guides" = "Lataa oppaat";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Yksityiskohtaiset offline-oppaat kaikenlaisille matkoille. Valitse se, joka sopii sinulle parhaiten, ja lataa se suoraan kartalle. Tarvitset internetyhteyden oppaiden lataamiseksi.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Ladatut oppaat";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Opasta ei ladattu";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Tämä opas on jo ladattu";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Paina 'Näytä kartalla' tutkiaksesi opasta";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Kirjanmerkit ja oppaat";
 
 
 /**********  Partners  **********/

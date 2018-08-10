@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Handleidingen";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "De handleiding is met succes gedownload";
 
-"download_guides" = "Download guides";
+"download_guides" = "Handleidingen downloaden";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Gedetailleerde offline handleidingen voor elk type reis. Kies de handleiding die het beste bij je past en download hem direct naar de kaart. Je hebt een internetverbinding nodig om handleidingen te downloaden.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Gedownloade handleidingen";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "De handleiding is niet gedownload";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "De handleiding is reeds gedownload";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Druk op ‘Op kaart bekijken’ om de handleiding te verkennen";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Bladwijzers en handleidingen";
 
 
 /**********  Partners  **********/

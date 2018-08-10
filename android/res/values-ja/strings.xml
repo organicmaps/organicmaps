@@ -1342,4 +1342,13 @@
 	<string name="whats_new_hot_offers_title">ホテルからの魅力的な提案</string>
 	<string name="whats_new_hot_offers_message">これを、検索のホテルカテゴリを使用して、探すことができます。提案は地図上および検索結果の%記号でマークされています。</string>
 	<string name="error_already_downloaded">このリストは既にダウンロード済みです</string>
+	<string name="guides">ガイド</string>
+	<string name="guide_downloaded_title">ガイドが正常にダウンロードされました</string>
+	<string name="download_guides">ガイドをダウンロード</string>
+	<string name="cached_guides_placeholder_subtitle">どんな旅にも使える詳細なオフラインガイド。最適なものを選び、マップに直接ダウンロードしてください。ガイドをダウンロードするにはインターネット接続が必要です。</string>
+	<string name="guides_groups_cached">ガイドをダウンロード</string>
+	<string name="subtitle_error_downloading_guide">ガイドがダウンロードされませんでした</string>
+	<string name="error_already_downloaded_guide">このガイドはすでにダウンロードされています</string>
+	<string name="guide_downloaded_subtitle">[地図に表示]を押して、ガイドをご覧ください。</string>
+	<string name="bookmarks_guides">ブックマークとガイド</string>
 </resources>

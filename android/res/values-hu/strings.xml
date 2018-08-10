@@ -1344,4 +1344,13 @@
 	<string name="whats_new_hot_offers_title">Hotelek vonzó ajánlatai</string>
 	<string name="whats_new_hot_offers_message">Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.</string>
 	<string name="error_already_downloaded">Ezt a listát már letöltötték</string>
+	<string name="guides">Útmutatók</string>
+	<string name="guide_downloaded_title">Az útmutató sikeresen letöltésre került</string>
+	<string name="download_guides">Útmutatók letöltése</string>
+	<string name="cached_guides_placeholder_subtitle">Részletes offline útmutatók mindenfajta utazáshoz. Válaszd ki a te utazásodhoz legjobban illőt, és töltsd le közvetlenül a térképre. Az útmutatók letöltéséhez internetkapcsolatra van szükséged.</string>
+	<string name="guides_groups_cached">Letöltött útmutatók</string>
+	<string name="subtitle_error_downloading_guide">Az útmutató nem került letöltésre</string>
+	<string name="error_already_downloaded_guide">Ez az útmutató már letöltésre került</string>
+	<string name="guide_downloaded_subtitle">Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget</string>
+	<string name="bookmarks_guides">Könyvjelzők és útmutatók</string>
 </resources>

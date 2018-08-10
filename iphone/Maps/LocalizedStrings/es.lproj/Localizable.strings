@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Guías";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Se ha descargado la guía correctamente";
 
-"download_guides" = "Download guides";
+"download_guides" = "Descargar guías";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Guías descargadas";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "No se ha descargado la guía";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Ya se ha descargado esta guía";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Pulsa \"Ver en el mapa\" para explorar la guía";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Marcadores y guías";
 
 
 /**********  Partners  **********/

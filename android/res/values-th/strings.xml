@@ -1349,4 +1349,13 @@
 	<string name="whats_new_hot_offers_title">ข้อเสนอที่น่าสนใจจากโรงแรมต่าง ๆ</string>
 	<string name="whats_new_hot_offers_message">คุณสามารถค้นหาได้โดยใช้หมวดหมู่ โรงแรม ในการค้นหา ข้อเสนอพิเศษจะถูกทำเครื่องหมายด้วยสัญลักษณ์เปอร์เซ็นต์ในแผนที่ และในผลการค้นหา</string>
 	<string name="error_already_downloaded">มีการดาวน์โหลดรายการนี้แล้ว</string>
+	<string name="guides">คู่มือใช้งาน</string>
+	<string name="guide_downloaded_title">ดาวน์โหลดคู่มือใช้งานนี้สำเร็จ</string>
+	<string name="download_guides">ดาวน์โหลดคู่มือใช้งาน</string>
+	<string name="cached_guides_placeholder_subtitle">คู่มือใช้งานแบบออฟไลน์อย่างละเอียดสำหรับการเดินทางไม่ว่าจะในแบบใด เลือกคู่มือใช้งานที่เข้ากับคุณมากที่สุดแล้วดาวน์โหลดโดยตรงไปยังแผนที่ คุณจะต้องมีการเชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดคู่มือใช้งาน</string>
+	<string name="guides_groups_cached">ดาวน์โหลดคู่มือใช้งานแล้ว</string>
+	<string name="subtitle_error_downloading_guide">ไม่มีการดาวน์โหลดคู่มือใช้งาน</string>
+	<string name="error_already_downloaded_guide">มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว</string>
+	<string name="guide_downloaded_subtitle">กด \'ดูบนแผนที่\' เพื่อสำรวจคู่มือใช้งาน</string>
+	<string name="bookmarks_guides">บุ๊กมาร์กและคู่มือใช้งาน</string>
 </resources>

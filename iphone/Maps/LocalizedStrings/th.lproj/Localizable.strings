@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "คู่มือใช้งาน";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "ดาวน์โหลดคู่มือใช้งานนี้สำเร็จ";
 
-"download_guides" = "Download guides";
+"download_guides" = "ดาวน์โหลดคู่มือใช้งาน";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "คู่มือใช้งานแบบออฟไลน์อย่างละเอียดสำหรับการเดินทางไม่ว่าจะในแบบใด เลือกคู่มือใช้งานที่เข้ากับคุณมากที่สุดแล้วดาวน์โหลดโดยตรงไปยังแผนที่ คุณจะต้องมีการเชื่อมต่ออินเทอร์เน็ตเพื่อดาวน์โหลดคู่มือใช้งาน";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "ดาวน์โหลดคู่มือใช้งานแล้ว";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "ไม่มีการดาวน์โหลดคู่มือใช้งาน";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "กด 'ดูบนแผนที่' เพื่อสำรวจคู่มือใช้งาน";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "บุ๊กมาร์กและคู่มือใช้งาน";
 
 
 /**********  Partners  **********/

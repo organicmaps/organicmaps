@@ -1358,4 +1358,13 @@
 	<string name="whats_new_hot_offers_title">Vorteilhafte Hotelangebote</string>
 	<string name="whats_new_hot_offers_message">Suchen Sie nach ihnen mithilfe der Kategorie „Hotels\"\" in der Suche. Die Angebote werden mit einem auf der Karte und in der Liste Prozentzeichen gekennzeichnet sein.</string>
 	<string name="error_already_downloaded">Diese Liste wurde bereits heruntergeladen</string>
+	<string name="guides">Leitfaden</string>
+	<string name="guide_downloaded_title">Der Leitfaden wurde erfolgreich heruntergeladen</string>
+	<string name="download_guides">Leitfäden herunterladen</string>
+	<string name="cached_guides_placeholder_subtitle">Detaillierte Offline-Leitfäden für jede Art von Reise. Wählen Sie den für Sie am besten geeigneten aus und laden Sie ihn direkt auf die Karte herunter. Sie benötigen eine Internetverbindung, um Leitfäden herunterzuladen.</string>
+	<string name="guides_groups_cached">Heruntergeladene Leitfäden</string>
+	<string name="subtitle_error_downloading_guide">Der Leitfaden wurde nicht heruntergeladen</string>
+	<string name="error_already_downloaded_guide">Dieser Leitfaden wurde bereits heruntergeladen</string>
+	<string name="guide_downloaded_subtitle">Drücken Sie ‚Auf der Karte ansehen‘, um den Leitfaden zu erkunden</string>
+	<string name="bookmarks_guides">Lesezeichengruppen und Leitfäden</string>
 </resources>

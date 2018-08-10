@@ -2394,23 +2394,23 @@
 
 "bookmarks_downloaded_subtitle" = "Press ‘View on map’ to explore new places from the list";
 
-"guides" = "Guides";
+"guides" = "Hướng dẫn";
 
-"guide_downloaded_title" = "The guide has been downloaded successfully";
+"guide_downloaded_title" = "Hướng dẫn đã được tải xuống thành công";
 
-"download_guides" = "Download guides";
+"download_guides" = "Tải xuống hướng dẫn";
 
-"cached_guides_placeholder_subtitle" = "Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.";
+"cached_guides_placeholder_subtitle" = "Hướng dẫn ngoại tuyến chi tiết cho mọi cuộc hành trình. Chọn hướng dẫn phù hợp với bạn nhất và tải xuống trực tiếp vào bản đồ. Bạn sẽ cần kết nối internet để tải xuống các hướng dẫn.";
 
-"guides_groups_cached" = "Downloaded guides";
+"guides_groups_cached" = "Đã tải xuống hướng dẫn";
 
-"subtitle_error_downloading_guide" = "The guide was not downloaded";
+"subtitle_error_downloading_guide" = "Hướng dẫn đã không được tải xuống";
 
-"error_already_downloaded_guide" = "This guide has already been downloaded";
+"error_already_downloaded_guide" = "Hướng dẫn này đã được tải xuống";
 
-"guide_downloaded_subtitle" = "Press ‘View on map’ to explore the guide";
+"guide_downloaded_subtitle" = "Nhấn “Xem trên bản đồ” để khám phá chỉ dẫn.";
 
-"bookmarks_guides" = "Bookmarks and guides";
+"bookmarks_guides" = "Đánh dấu trang và Hướng dẫn";
 
 
 /**********  Partners  **********/

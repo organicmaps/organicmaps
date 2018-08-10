@@ -1337,4 +1337,13 @@
 	<string name="whats_new_hot_offers_title">Atractivas ofertas de hoteles</string>
 	<string name="whats_new_hot_offers_message">Puede buscarlas utilizando la categoría «Hoteles» en la búsqueda. Las ofertas estarán marcadas por el símbolo de porcentaje en el mapa y en los resultados de la búsqueda.</string>
 	<string name="error_already_downloaded">Esta lista ya se ha descargado</string>
+	<string name="guides">Guías</string>
+	<string name="guide_downloaded_title">Se ha descargado la guía correctamente</string>
+	<string name="download_guides">Descargar guías</string>
+	<string name="cached_guides_placeholder_subtitle">Guías detallas fuera de línea para cualquier tipo de viaje. Elija la que mejor se adapta a sus necesidades y descárguela directamente en el mapa. Necesitará conexión a Internet para descargar las guías.</string>
+	<string name="guides_groups_cached">Guías descargadas</string>
+	<string name="subtitle_error_downloading_guide">No se ha descargado la guía</string>
+	<string name="error_already_downloaded_guide">Ya se ha descargado esta guía</string>
+	<string name="guide_downloaded_subtitle">Pulsa \"Ver en el mapa\" para explorar la guía</string>
+	<string name="bookmarks_guides">Marcadores y guías</string>
 </resources>
