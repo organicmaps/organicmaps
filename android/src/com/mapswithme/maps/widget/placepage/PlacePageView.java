@@ -1443,7 +1443,7 @@ public class PlacePageView extends RelativeLayout
     UiUtils.hide(mAvDirection);
     UiUtils.setTextAndHideIfEmpty(mTvAddress, mapObject.getAddress());
     boolean sponsored = isSponsored();
-    UiUtils.showIf(sponsored, mPreviewRatingInfo);
+    UiUtils.showIf(sponsored, mPreviewRatingInfo, mHotelDiscount);
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
     if (sponsored)
       initSponsoredViews(priceInfo);
