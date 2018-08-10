@@ -1,1 +1,6 @@
-<svg height="32" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle cx="16" cy="16" fill="#fff" fill-opacity=".4" r="16"/><circle cx="16" cy="16" fill="#00873f" r="15"/></g></svg>
+<svg width="32" height="32" viewBox="0 0 32 32">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="16" cy="16" r="16" fill="#fff" fill-opacity=".4"/>
+    <circle cx="16" cy="16" r="15" fill="#00873f"/>
+  </g>
+</svg>

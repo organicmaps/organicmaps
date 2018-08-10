@@ -3,7 +3,7 @@
   <!-- Partner colors -->
 
   <color name="bg_brand_partner1">#FF303438</color>
-  <color name="bg_brand_partner1_pressed">#FF303438</color>
+  <color name="bg_brand_partner1_pressed">#FF25282B</color>
   <color name="bg_brand_partner3">#FFE61717</color>
   <color name="bg_brand_partner3_pressed">#FFB31212</color>
   <color name="bg_brand_partner4">#FF000000</color>
@@ -14,8 +14,8 @@
   <color name="bg_brand_partner7_pressed">#FFE24307</color>
   <color name="bg_brand_partner8">#FF8D1B2F</color>
   <color name="bg_brand_partner8_pressed">#FF8D1B2F</color>
-  <color name="bg_brand_partner9">#FFDC0039</color>
-  <color name="bg_brand_partner9_pressed">#FFDC0039</color>
+  <color name="bg_brand_partner9">#FF000000</color>
+  <color name="bg_brand_partner9_pressed">#FF000000</color>
   <color name="bg_brand_partner10">#FF025198</color>
   <color name="bg_brand_partner10_pressed">#FF025198</color>
   <color name="bg_brand_partner11">#FFA50300</color>
