@@ -9,6 +9,7 @@ final class CatalogWebViewController: WebViewController {
   var statSent = false
   var backButton: UIBarButtonItem!
   var fwdButton: UIBarButtonItem!
+  var toolbar = UIToolbar()
 
   @objc init() {
     super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("guides"))!
@@ -55,13 +56,21 @@ final class CatalogWebViewController: WebViewController {
     progressImageView.centerYAnchor.constraint(equalTo: progressView.centerYAnchor).isActive = true
     progressView.widthAnchor.constraint(equalToConstant: 48).isActive = true
     progressView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+
+    view.addSubview(toolbar)
+    toolbar.translatesAutoresizingMaskIntoConstraints = false
+    toolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+    toolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    toolbar.topAnchor.constraint(equalTo: progressView.bottomAnchor, constant: 8).isActive = true
+
     if #available(iOS 11, *) {
+      toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
       progressView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
-      progressView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
     } else {
+      toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
       progressView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
-      progressView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
     }
+
 
     rotateProgress()
     updateProgress()
@@ -72,8 +81,7 @@ final class CatalogWebViewController: WebViewController {
     super.viewWillAppear(animated)
     let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
     fixedSpace.width = 20
-    self.setToolbarItems([backButton, fixedSpace, fwdButton], animated: true)
-    self.navigationController?.setToolbarHidden(false, animated: animated)
+    toolbar.setItems([backButton, fixedSpace, fwdButton], animated: true)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -81,11 +89,6 @@ final class CatalogWebViewController: WebViewController {
     if let deeplink = deeplink {
       processDeeplink(deeplink)
     }
-  }
-
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    self.navigationController?.setToolbarHidden(true, animated: animated)
   }
 
   override func webView(_ webView: WKWebView,

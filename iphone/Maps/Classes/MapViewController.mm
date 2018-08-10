@@ -434,9 +434,9 @@ BOOL gIsFirstMyPositionMode = YES;
         GetFramework().ShowBookmarkCategory(categoryId);
       };
       alert.onCancelBlock = ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
       };
-      [self presentViewController:alert animated:YES completion:nil];
+      [self.navigationController presentViewController:alert animated:YES completion:nil];
       return;
     }
   }

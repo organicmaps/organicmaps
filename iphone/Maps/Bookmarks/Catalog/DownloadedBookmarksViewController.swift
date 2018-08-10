@@ -47,6 +47,7 @@ class DownloadedBookmarksViewController: MWMViewController {
                                                verticalFittingPriority: .defaultLow)
     f.size = s
     bottomView.frame = f
+    tableView.refresh()
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {

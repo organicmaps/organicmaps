@@ -28,7 +28,7 @@ succesfully downloaded</string>
                     <color key="textColor" white="0.0" alpha="0.86124785958904104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="guide_downloaded_title"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmarks_downloaded_title"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium18"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                     </userDefinedRuntimeAttributes>
@@ -41,7 +41,7 @@ new places from the list</string>
                     <color key="textColor" white="0.0" alpha="0.54045376712328763" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="guide_downloaded_subtitle"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="bookmarks_downloaded_subtitle"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                     </userDefinedRuntimeAttributes>
@@ -51,6 +51,7 @@ new places from the list</string>
                     <color key="backgroundColor" red="0.11767578125" green="0.58980089430000004" blue="0.94108072916666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="EAx-L2-t3K"/>
+                        <constraint firstAttribute="width" constant="190" id="PZ2-T2-ELY"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <state key="normal" title="View on map"/>
@@ -72,6 +73,7 @@ new places from the list</string>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azM-lz-wDm">
                     <rect key="frame" x="35" y="207" width="190" height="45"/>
                     <constraints>
+                        <constraint firstAttribute="width" constant="190" id="K10-vw-dM5"/>
                         <constraint firstAttribute="height" constant="45" id="LMT-F8-gcD"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
