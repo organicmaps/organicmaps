@@ -345,6 +345,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
   {
+    m_notFollowAfterPending = false;
+
     alohalytics::LogEvent(kAlohalyticsClickEvent,
                           LocationModeStatisticsName(location::PendingPosition));
     return;
