@@ -71,6 +71,17 @@
       android:ellipsize="end"
       tools:background="#300000F0"
       tools:text="Subtitle, very very very very very very very long"/>
+
+    <TextView
+      android:id="@+id/tv__downloader_details"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_quarter"
+      android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+      android:visibility="gone"
+      tools:background="#8000F000"
+      tools:text="2.4 GB  •  Maps: 1"
+      tools:visibility="visible"/>
   </LinearLayout>
 
   <com.mapswithme.maps.widget.RatingView
@@ -129,25 +140,6 @@
       android:textSize="@dimen/text_size_body_3"
       tools:text="2000 km"/>
   </LinearLayout>
-
-  <TextView
-    android:id="@+id/tv__downloader_details"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignWithParentIfMissing="true"
-    android:layout_below="@id/title_container"
-    android:layout_marginTop="@dimen/margin_quarter"
-    android:layout_marginEnd="@dimen/margin_base"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_toEndOf="@id/downloader_status_frame"
-    android:layout_toRightOf="@id/downloader_status_frame"
-    android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-    android:visibility="gone"
-    tools:background="#8000F000"
-    tools:text="2.4 GB  •  Maps: 1"
-    tools:visibility="visible"/>
 
   <include
     android:id="@+id/preview_rating_info"
