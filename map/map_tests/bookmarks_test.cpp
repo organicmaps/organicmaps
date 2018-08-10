@@ -6,6 +6,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
+#include "map/user.hpp"
 
 #include "search/result.hpp"
 
@@ -185,7 +186,8 @@ KmlFileType GetActiveKmlFileType()
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 {
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -210,7 +212,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   string const ext = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
   string const fileName = my::JoinPath(dir, "UnitTestBookmarks" + ext);
 
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection1;
@@ -604,7 +607,8 @@ char const * kmlString2 =
 
 UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 {
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -619,7 +623,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 
 UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
 {
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   auto const catId = bmManager.CreateBookmarkCategory("", false /* autoSave */);
@@ -675,7 +680,8 @@ char const * kmlString3 =
 
 UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 {
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection1;
@@ -734,7 +740,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -769,7 +776,8 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   BookmarkManager::KMLDataCollection kmlDataCollection;
@@ -836,7 +844,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     onUpdate,
     onDelete);
 
-  BookmarkManager bmManager(std::move(callbacks));
+  User user;
+  BookmarkManager bmManager(user, std::move(callbacks));
   bmManager.EnableTestMode(true);
 
   auto const catId = bmManager.CreateBookmarkCategory("Default", false /* autoSave */);
@@ -884,7 +893,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
-  BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  User user;
+  BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
   bmManager.EnableTestMode(true);
 
   kml::MarkId bmId0;
