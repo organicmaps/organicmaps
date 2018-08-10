@@ -490,14 +490,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return null;
 
-    final Intent extra = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
-    if (extra == null)
-      return null;
-
     MapTask mapTaskToForward;
     for (IntentProcessor ip : mIntentProcessors)
     {
-      if (ip.isSupported(extra) && (mapTaskToForward = ip.process(extra)) != null)
+      if (ip.isSupported(intent) && (mapTaskToForward = ip.process(intent)) != null)
         return mapTaskToForward;
     }
 
