@@ -53,7 +53,7 @@ glConst DecodeTextureFilter(TextureFilter filter)
   case TextureFilter::Linear: return gl_const::GLLinear;
   case TextureFilter::Nearest: return gl_const::GLNearest;
   }
-  ASSERT(false, ());
+  CHECK_SWITCH();
 }
 
 glConst DecodeTextureWrapping(TextureWrapping wrapping)
@@ -63,7 +63,7 @@ glConst DecodeTextureWrapping(TextureWrapping wrapping)
   case TextureWrapping::ClampToEdge: return gl_const::GLClampToEdge;
   case TextureWrapping::Repeat: return gl_const::GLRepeat;
   }
-  ASSERT(false, ());
+  CHECK_SWITCH();
 }
 
 HWTexture::~HWTexture()

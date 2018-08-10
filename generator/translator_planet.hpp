@@ -13,7 +13,7 @@
 #include <functional>
 #include <memory>
 
-class OsmElement;
+struct OsmElement;
 class FeatureBuilder1;
 namespace feature
 {

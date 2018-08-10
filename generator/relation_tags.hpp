@@ -11,7 +11,7 @@
 #include <string>
 #include <utility>
 
-class OsmElement;
+struct OsmElement;
 
 namespace generator
 {

@@ -20,7 +20,7 @@ glConst DecodeDepthFunction(DepthFunction depthFunction)
   case DepthFunction::GreatOrEqual: return gl_const::GLGreatOrEqual;
   case DepthFunction::Always: return gl_const::GLAlways;
   }
-  ASSERT(false, ());
+  CHECK_SWITCH();
 }
 }  // namespace
 

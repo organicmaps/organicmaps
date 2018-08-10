@@ -1,6 +1,6 @@
 #pragma once
 
-class OsmElement;
+struct OsmElement;
 
 namespace generator
 {
