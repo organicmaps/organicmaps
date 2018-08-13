@@ -1,4 +1,5 @@
 #include "map/bookmark_helpers.hpp"
+#include "map/user.hpp"
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
@@ -479,5 +480,15 @@ bool FromCatalog(kml::FileData const & kmlData)
 
 bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId)
 {
-  return !serverId.empty() && categoryData.m_accessRules == kml::AccessRules::Public;
+  return !serverId.empty() && categoryData.m_accessRules != kml::AccessRules::Local;
+}
+
+bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData)
+{
+  return userId == categoryData.m_authorId;
+}
+
+bool IsMyCategory(User const & user, kml::CategoryData const & categoryData)
+{
+  return IsMyCategory(user.GetUserId(), categoryData);
 }

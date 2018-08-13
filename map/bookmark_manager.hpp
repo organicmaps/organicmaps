@@ -300,6 +300,8 @@ public:
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
   BookmarkCatalog const & GetCatalog() const;
 
+  bool IsMyCategory(kml::MarkGroupId categoryId) const;
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);

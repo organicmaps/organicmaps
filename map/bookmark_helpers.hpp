@@ -13,6 +13,8 @@ extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
 
+class User;
+
 enum class KmlFileType
 {
   Text,
@@ -48,3 +50,5 @@ std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types);
 
 bool FromCatalog(kml::FileData const & kmlData);
 bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId);
+bool IsMyCategory(std::string const & userId, kml::CategoryData const & categoryData);
+bool IsMyCategory(User const & user, kml::CategoryData const & categoryData);
