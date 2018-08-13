@@ -806,7 +806,16 @@ void KmlParser::CharData(std::string value)
       }
       else if (currTag == "mwm:accessRules")
       {
-        if (value == "Public")
+        // 'Private' is here for back-compatibility.
+        if (value == "Private" || value == "Local")
+          m_data.m_categoryData.m_accessRules = AccessRules::Local;
+        else if (value == "DirectLink")
+          m_data.m_categoryData.m_accessRules = AccessRules::DirectLink;
+        else if (value == "P2P")
+          m_data.m_categoryData.m_accessRules = AccessRules::P2P;
+        else if (value == "Paid")
+          m_data.m_categoryData.m_accessRules = AccessRules::Paid;
+        else if (value == "Public")
           m_data.m_categoryData.m_accessRules = AccessRules::Public;
       }
       else if (currTag == "mwm:imageUrl")

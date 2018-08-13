@@ -290,18 +290,16 @@ std::string PredefinedColorToString(PredefinedColor c)
 {
   switch (c)
   {
-    case PredefinedColor::None: return "NONE";
-    case PredefinedColor::Red: return "RED";
-    case PredefinedColor::Blue: return "BLUE";
-    case PredefinedColor::Purple: return "PURPLE";
-    case PredefinedColor::Yellow: return "YELLOW";
-    case PredefinedColor::Pink: return "PINK";
-    case PredefinedColor::Brown: return "BROWN";
-    case PredefinedColor::Green: return "GREEN";
-    case PredefinedColor::Orange: return "ORANGE";
-    case PredefinedColor::Count:
-      CHECK(false, ("Unknown predefined color"));
-      return {};
+  case PredefinedColor::None: return "NONE";
+  case PredefinedColor::Red: return "RED";
+  case PredefinedColor::Blue: return "BLUE";
+  case PredefinedColor::Purple: return "PURPLE";
+  case PredefinedColor::Yellow: return "YELLOW";
+  case PredefinedColor::Pink: return "PINK";
+  case PredefinedColor::Brown: return "BROWN";
+  case PredefinedColor::Green: return "GREEN";
+  case PredefinedColor::Orange: return "ORANGE";
+  case PredefinedColor::Count: CHECK(false, ("Unknown predefined color")); return {};
   }
 }
 
@@ -309,11 +307,12 @@ std::string AccessRulesToString(AccessRules accessRules)
 {
   switch (accessRules)
   {
-    case AccessRules::Private: return "PRIVATE";
-    case AccessRules::Public: return "PUBLIC";
-    case AccessRules::Count:
-      CHECK(false, ("Unknown access rules"));
-      return {};
+  case AccessRules::Local: return "LOCAL";
+  case AccessRules::DirectLink: return "DIRECT_LINK";
+  case AccessRules::P2P: return "P2P";
+  case AccessRules::Paid: return "PAID";
+  case AccessRules::Public: return "PUBLIC";
+  case AccessRules::Count: CHECK(false, ("Unknown access rules")); return {};
   }
 }
 
@@ -321,30 +320,28 @@ std::string BookmarkIconToString(BookmarkIcon icon)
 {
   switch (icon)
   {
-    case BookmarkIcon::None: return "NONE";
-    case BookmarkIcon::Hotel: return "HOTEL";
-    case BookmarkIcon::Animals: return "ANIMALS";
-    case BookmarkIcon::Buddhism: return "BUDDHISM";
-    case BookmarkIcon::Building: return "BUILDING";
-    case BookmarkIcon::Christianity: return "CHRISTIANITY";
-    case BookmarkIcon::Entertainment: return "ENTERTAINMENT";
-    case BookmarkIcon::Exchange: return "EXCHANGE";
-    case BookmarkIcon::Food: return "FOOD";
-    case BookmarkIcon::Gas: return "GAS";
-    case BookmarkIcon::Judaism: return "JUDAISM";
-    case BookmarkIcon::Medicine: return "MEDICINE";
-    case BookmarkIcon::Mountain: return "MOUNTAIN";
-    case BookmarkIcon::Museum: return "MUSEUM";
-    case BookmarkIcon::Islam: return "ISLAM";
-    case BookmarkIcon::Park: return "PARK";
-    case BookmarkIcon::Parking: return "PARKING";
-    case BookmarkIcon::Shop: return "SHOP";
-    case BookmarkIcon::Sights: return "SIGHTS";
-    case BookmarkIcon::Swim: return "SWIM";
-    case BookmarkIcon::Water: return "WATER";
-    case BookmarkIcon::Count:
-      CHECK(false, ("Unknown bookmark icon"));
-      return {};
+  case BookmarkIcon::None: return "NONE";
+  case BookmarkIcon::Hotel: return "HOTEL";
+  case BookmarkIcon::Animals: return "ANIMALS";
+  case BookmarkIcon::Buddhism: return "BUDDHISM";
+  case BookmarkIcon::Building: return "BUILDING";
+  case BookmarkIcon::Christianity: return "CHRISTIANITY";
+  case BookmarkIcon::Entertainment: return "ENTERTAINMENT";
+  case BookmarkIcon::Exchange: return "EXCHANGE";
+  case BookmarkIcon::Food: return "FOOD";
+  case BookmarkIcon::Gas: return "GAS";
+  case BookmarkIcon::Judaism: return "JUDAISM";
+  case BookmarkIcon::Medicine: return "MEDICINE";
+  case BookmarkIcon::Mountain: return "MOUNTAIN";
+  case BookmarkIcon::Museum: return "MUSEUM";
+  case BookmarkIcon::Islam: return "ISLAM";
+  case BookmarkIcon::Park: return "PARK";
+  case BookmarkIcon::Parking: return "PARKING";
+  case BookmarkIcon::Shop: return "SHOP";
+  case BookmarkIcon::Sights: return "SIGHTS";
+  case BookmarkIcon::Swim: return "SWIM";
+  case BookmarkIcon::Water: return "WATER";
+  case BookmarkIcon::Count: CHECK(false, ("Unknown bookmark icon")); return {};
   }
 }
 
@@ -662,7 +659,10 @@ BOOST_PYTHON_MODULE(pykmlib)
     .export_values();
 
   enum_<AccessRules>("AccessRules")
-    .value(AccessRulesToString(AccessRules::Private).c_str(), AccessRules::Private)
+    .value(AccessRulesToString(AccessRules::Local).c_str(), AccessRules::Local)
+    .value(AccessRulesToString(AccessRules::DirectLink).c_str(), AccessRules::DirectLink)
+    .value(AccessRulesToString(AccessRules::P2P).c_str(), AccessRules::P2P)
+    .value(AccessRulesToString(AccessRules::Paid).c_str(), AccessRules::Paid)
     .value(AccessRulesToString(AccessRules::Public).c_str(), AccessRules::Public)
     .export_values();
 

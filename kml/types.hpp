@@ -32,23 +32,26 @@ inline std::string DebugPrint(PredefinedColor color)
 {
   switch (color)
   {
-    case PredefinedColor::None: return "None";
-    case PredefinedColor::Red: return "Red";
-    case PredefinedColor::Blue: return "Blue";
-    case PredefinedColor::Purple: return "Purple";
-    case PredefinedColor::Yellow: return "Yellow";
-    case PredefinedColor::Pink: return "Pink";
-    case PredefinedColor::Brown: return "Brown";
-    case PredefinedColor::Green: return "Green";
-    case PredefinedColor::Orange: return "Orange";
-    case PredefinedColor::Count: return {};
+  case PredefinedColor::None: return "None";
+  case PredefinedColor::Red: return "Red";
+  case PredefinedColor::Blue: return "Blue";
+  case PredefinedColor::Purple: return "Purple";
+  case PredefinedColor::Yellow: return "Yellow";
+  case PredefinedColor::Pink: return "Pink";
+  case PredefinedColor::Brown: return "Brown";
+  case PredefinedColor::Green: return "Green";
+  case PredefinedColor::Orange: return "Orange";
+  case PredefinedColor::Count: return {};
   }
   CHECK_SWITCH();
 }
 
 enum class AccessRules : uint8_t
 {
-  Private = 0,
+  Local = 0,
+  DirectLink,
+  P2P,
+  Paid,
   Public,
 
   Count
@@ -58,9 +61,12 @@ inline std::string DebugPrint(AccessRules accessRules)
 {
   switch (accessRules)
   {
-    case AccessRules::Private: return "Private";
-    case AccessRules::Public: return "Public";
-    case AccessRules::Count: return {};
+  case AccessRules::Local: return "Local";
+  case AccessRules::DirectLink: return "DirectLink";
+  case AccessRules::P2P: return "P2P";
+  case AccessRules::Paid: return "Paid";
+  case AccessRules::Public: return "Public";
+  case AccessRules::Count: return {};
   }
   CHECK_SWITCH();
 }
@@ -95,28 +101,28 @@ inline std::string DebugPrint(BookmarkIcon icon)
 {
   switch (icon)
   {
-    case BookmarkIcon::None: return "None";
-    case BookmarkIcon::Hotel: return "Hotel";
-    case BookmarkIcon::Animals: return "Animals";
-    case BookmarkIcon::Buddhism: return "Buddhism";
-    case BookmarkIcon::Building: return "Building";
-    case BookmarkIcon::Christianity: return "Christianity";
-    case BookmarkIcon::Entertainment: return "Entertainment";
-    case BookmarkIcon::Exchange: return "Exchange";
-    case BookmarkIcon::Food: return "Food";
-    case BookmarkIcon::Gas: return "Gas";
-    case BookmarkIcon::Judaism: return "Judaism";
-    case BookmarkIcon::Medicine: return "Medicine";
-    case BookmarkIcon::Mountain: return "Mountain";
-    case BookmarkIcon::Museum: return "Museum";
-    case BookmarkIcon::Islam: return "Islam";
-    case BookmarkIcon::Park: return "Park";
-    case BookmarkIcon::Parking: return "Parking";
-    case BookmarkIcon::Shop: return "Shop";
-    case BookmarkIcon::Sights: return "Sights";
-    case BookmarkIcon::Swim: return "Swim";
-    case BookmarkIcon::Water: return "Water";
-    case BookmarkIcon::Count: return {};
+  case BookmarkIcon::None: return "None";
+  case BookmarkIcon::Hotel: return "Hotel";
+  case BookmarkIcon::Animals: return "Animals";
+  case BookmarkIcon::Buddhism: return "Buddhism";
+  case BookmarkIcon::Building: return "Building";
+  case BookmarkIcon::Christianity: return "Christianity";
+  case BookmarkIcon::Entertainment: return "Entertainment";
+  case BookmarkIcon::Exchange: return "Exchange";
+  case BookmarkIcon::Food: return "Food";
+  case BookmarkIcon::Gas: return "Gas";
+  case BookmarkIcon::Judaism: return "Judaism";
+  case BookmarkIcon::Medicine: return "Medicine";
+  case BookmarkIcon::Mountain: return "Mountain";
+  case BookmarkIcon::Museum: return "Museum";
+  case BookmarkIcon::Islam: return "Islam";
+  case BookmarkIcon::Park: return "Park";
+  case BookmarkIcon::Parking: return "Parking";
+  case BookmarkIcon::Shop: return "Shop";
+  case BookmarkIcon::Sights: return "Sights";
+  case BookmarkIcon::Swim: return "Swim";
+  case BookmarkIcon::Water: return "Water";
+  case BookmarkIcon::Count: return {};
   }
   CHECK_SWITCH();
 }
@@ -314,7 +320,7 @@ struct CategoryData
   // Number of reviews.
   uint32_t m_reviewsNumber = 0;
   // Access rules.
-  AccessRules m_accessRules = AccessRules::Private;
+  AccessRules m_accessRules = AccessRules::Local;
   // Collection of tags.
   std::vector<std::string> m_tags;
   // Collection of cities coordinates.
