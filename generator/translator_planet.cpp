@@ -102,7 +102,6 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
   }
   case OsmElement::EntityType::Relation:
   {
-    // Check if this is our processable relation. Here we process only polygon relations.
     if (!p->HasTagValue("type", "multipolygon") && !p->HasTagValue("type", "boundary"))
       break;
 
