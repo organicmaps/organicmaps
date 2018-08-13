@@ -50,11 +50,11 @@ void LoadBorders(string const & dir, TCountryId const & countryId, vector<m2::Re
   osm::LoadBorders(polyFile, borders);
 }
 
-void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & map)
+void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatureIdsMap & mapping)
 {
   CHECK(ForEachOsmId2FeatureId(osmIdToFeatureIdsPath,
-                               [&map](base::GeoObjectId const & osmId, uint32_t featureId) {
-                                 map[osmId].push_back(featureId);
+                               [&mapping](base::GeoObjectId const & osmId, uint32_t featureId) {
+                                 mapping[osmId].push_back(featureId);
                                }),
         (osmIdToFeatureIdsPath));
 }

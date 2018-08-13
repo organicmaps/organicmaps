@@ -93,7 +93,7 @@ public:
   void SetOsmId(OsmId osmId) { m_osmId = osmId; }
   void SetFeatureId(FeatureId featureId) { m_featureId = featureId; }
 
-  OsmId GetSerialId() const { return m_osmId; }
+  OsmId GetOsmId() const { return m_osmId; }
   FeatureId GetFeatureId() const { return m_featureId; }
   bool IsSerializeFeatureIdOnly() const { return m_serializeFeatureIdOnly; }
 
@@ -206,7 +206,7 @@ public:
   void SetBestPedestrianSegment(SingleMwmSegment const & s) { m_bestPedestrianSegment = s; };
 
   FeatureId GetFeatureId() const { return m_featureIdentifiers.GetFeatureId(); }
-  OsmId GetSerialId() const { return m_featureIdentifiers.GetSerialId(); }
+  OsmId GetOsmId() const { return m_featureIdentifiers.GetOsmId(); }
   SingleMwmSegment const & GetBestPedestrianSegment() const { return m_bestPedestrianSegment; }
   bool GetEntrance() const { return m_entrance; }
   bool GetExit() const { return m_exit; }

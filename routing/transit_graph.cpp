@@ -161,7 +161,7 @@ void TransitGraph::Fill(transit::GraphData const & transitData, GateEndings cons
     CHECK_NOT_EQUAL(gate.GetWeight(), transit::kInvalidWeight, ("Gate should have valid weight."));
 
     // Gate ending may have empty projections vector. It means gate is not connected to roads
-    auto const it = gateEndings.find(gate.GetSerialId());
+    auto const it = gateEndings.find(gate.GetOsmId());
     if (it != gateEndings.cend())
     {
       if (gate.GetEntrance())
@@ -319,7 +319,7 @@ void MakeGateEndings(vector<transit::Gate> const & gates, NumMwmId mwmId,
 
     Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(),
                        gateSegment.GetForward());
-    gateEndings.emplace(gate.GetSerialId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
+    gateEndings.emplace(gate.GetOsmId(), MakeFakeEnding(real, gate.GetPoint(), indexGraph));
   }
 }
 }  // namespace routing

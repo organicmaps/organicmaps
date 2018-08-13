@@ -6,7 +6,7 @@
 
 namespace
 {
-// todo(@m) Uncomment when the transition from osm::id to base::GeoObjectId is complete
+// todo(@m) Uncomment when the transition from osm::Id to base::GeoObjectId is complete
 //          and add assertions about the highest bit.
 //          The old scheme used the highest bit and the new one does not.
 // uint64_t const kTypeMask = 0x7F00000000000000;

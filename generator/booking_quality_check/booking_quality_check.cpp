@@ -127,7 +127,7 @@ struct SampleItem
   SampleItem() = default;
 
   SampleItem(base::GeoObjectId const & osmId, ObjectId const sponsoredId,
-             MatchStatus const match = Uninitialized)
+             MatchStatus match = Uninitialized)
     : m_osmId(osmId), m_sponsoredId(sponsoredId), m_match(match)
   {
   }
