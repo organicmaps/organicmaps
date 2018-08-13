@@ -79,10 +79,11 @@ void PrepareClassRefs(JNIEnv * env)
 //                          int tracksCount,
 //                          int bookmarksCount,
 //                          boolean fromCatalog,
+//                          boolean isMyCategory,
 //                          boolean isVisible)
   g_bookmarkCategoryConstructor =
     jni::GetConstructorID(env, g_bookmarkCategoryClass, "(JLjava/lang/String;Ljava/lang/String;"
-      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZ)V");
+      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZ)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -687,6 +688,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                        auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
                        auto const tracksCount = manager.GetTrackIds(data.m_id).size();
                        auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
+                       auto const isMyCategory = manager.IsMyCategory(item);
                        auto const isVisible = manager.IsVisible(data.m_id);
 
                        return env->NewObject(g_bookmarkCategoryClass,
@@ -700,6 +702,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                                              static_cast<jint>(tracksCount),
                                              static_cast<jint>(bookmarksCount),
                                              static_cast<jboolean>(isFromCatalog),
+                                             static_cast<jboolean>(isMyCategory),
                                              static_cast<jboolean>(isVisible));
                      });
 }

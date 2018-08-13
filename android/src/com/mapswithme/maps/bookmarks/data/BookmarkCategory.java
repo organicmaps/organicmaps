@@ -27,12 +27,13 @@ public class BookmarkCategory implements Parcelable
   private final int mTracksCount;
   private final int mBookmarksCount;
   private final int mTypeIndex;
+  private final boolean mIsMyCategory;
   private final boolean mIsVisible;
 
   public BookmarkCategory(long id, @NonNull String name, @NonNull String authorId,
                           @NonNull String authorName, @NonNull String annotation,
                           @NonNull String description, int tracksCount, int bookmarksCount,
-                          boolean fromCatalog, boolean isVisible)
+                          boolean fromCatalog, boolean isMyCategory, boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -41,6 +42,7 @@ public class BookmarkCategory implements Parcelable
     mTracksCount = tracksCount;
     mBookmarksCount = bookmarksCount;
     mTypeIndex = fromCatalog ? Type.CATALOG.ordinal() : Type.PRIVATE.ordinal();
+    mIsMyCategory = isMyCategory;
     mIsVisible = isVisible;
     mAuthor = TextUtils.isEmpty(authorId) || TextUtils.isEmpty(authorName)
               ? null
@@ -102,6 +104,11 @@ public class BookmarkCategory implements Parcelable
   public boolean isVisible()
   {
     return mIsVisible;
+  }
+
+  public boolean isMyCategory()
+  {
+    return mIsMyCategory;
   }
 
   public int size()
@@ -261,6 +268,7 @@ public class BookmarkCategory implements Parcelable
     sb.append(", mTracksCount=").append(mTracksCount);
     sb.append(", mBookmarksCount=").append(mBookmarksCount);
     sb.append(", mType=").append(Type.values()[mTypeIndex]);
+    sb.append(", mIsMyCategory=").append(mIsMyCategory);
     sb.append(", mIsVisible=").append(mIsVisible);
     sb.append('}');
     return sb.toString();
@@ -321,6 +329,7 @@ public class BookmarkCategory implements Parcelable
     dest.writeInt(this.mTracksCount);
     dest.writeInt(this.mBookmarksCount);
     dest.writeInt(this.mTypeIndex);
+    dest.writeByte(this.mIsMyCategory ? (byte) 1 : (byte) 0);
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
   }
 
@@ -334,6 +343,7 @@ public class BookmarkCategory implements Parcelable
     this.mTracksCount = in.readInt();
     this.mBookmarksCount = in.readInt();
     this.mTypeIndex = in.readInt();
+    this.mIsMyCategory = in.readByte() != 0;
     this.mIsVisible = in.readByte() != 0;
   }
 
