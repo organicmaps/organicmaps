@@ -763,16 +763,20 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
     return;
   }
 
-  // Send stastics to Push Woosh.
-  if (success)
+  // Send statistics to PushWoosh. We send these statistics only for the newly downloaded
+  // mwms, not for updated ones.
+  if (success && queuedCountry.GetInitOptions() != MapOptions::Diff)
   {
-    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloaded, countryId);
-    char nowStr[18]{};
-    auto const tp = std::chrono::system_clock::from_time_t(time(nullptr));
-    tm now = my::GmTime(std::chrono::system_clock::to_time_t(tp));
-    strftime(nowStr, sizeof(nowStr), "%Y-%m-%d %H:%M", &now);
-    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloadedTimestamp,
-                                                         std::string(nowStr));
+    auto const it = m_localFiles.find(countryId);
+    if (it == m_localFiles.end())
+    {
+      GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloaded, countryId);
+      char nowStr[18]{};
+      tm now = my::GmTime(time(nullptr));
+      strftime(nowStr, sizeof(nowStr), "%Y-%m-%d %H:%M", &now);
+      GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloadedTimestamp,
+                                                           std::string(nowStr));
+    }
   }
 
   OnMapDownloadFinished(countryId, status, queuedCountry.GetInitOptions());
