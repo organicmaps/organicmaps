@@ -181,6 +181,10 @@ namespace qt
       st.DeleteNode(countryId);
       break;
 
+    case NodeStatus::Applying:
+      // Do nothing.
+      break;
+
     default:
       ASSERT(false, ("We shouldn't be here"));
       break;
@@ -258,6 +262,11 @@ namespace qt
 
     case NodeStatus::Downloading:
       statusString = tr("Downloading ...");
+      rowColor = COLOR_INPROGRESS;
+      break;
+
+    case NodeStatus::Applying:
+      statusString = tr("Applying ...");
       rowColor = COLOR_INPROGRESS;
       break;
 
