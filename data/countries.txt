@@ -4,7 +4,7 @@
  "g": [
   {
    "id": "Abkhazia", 
-   "s": 6108865, 
+   "s": 6112142, 
    "affiliations": [
     "\u0410\u0431\u0445\u0430\u0437\u0438\u044f - \u0410\u04a7\u0441\u043d\u044b", 
     "\u10d0\u10e4\u10ee\u10d0\u10d6\u10d4\u10d7\u10d8\u10e1 \u10d0\u10d5\u10e2\u10dd\u10dc\u10dd\u10db\u10d8\u10e3\u10e0\u10d8 \u10e0\u10d4\u10e1\u10de\u10e3\u10d1\u10da\u10d8\u10d9\u10d0 - \u0410\u04a7\u0441\u043d\u044b \u0410\u0432\u0442\u043e\u043d\u043e\u043c\u0442\u04d9 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430", 
@@ -60,7 +60,7 @@
   }, 
   {
    "id": "Albania", 
-   "s": 21137624, 
+   "s": 21141738, 
    "affiliations": [
     "Shqip\u00ebria"
    ], 
@@ -100,7 +100,7 @@
     }, 
     {
      "id": "Algeria_Coast", 
-     "s": 50733091, 
+     "s": 50734627, 
      "affiliations": [
       "Alger - \u0627\u0644\u062c\u0632\u0627\u0626\u0631", 
       "Alg\u00e9rie \u2d4d\u2d63\u2d63\u2d30\u2d62\u2d3b\u2d54 \u0627\u0644\u062c\u0632\u0627\u0626\u0631", 
@@ -191,7 +191,7 @@
   }, 
   {
    "id": "Antigua and Barbuda", 
-   "s": 1873728, 
+   "s": 1874458, 
    "affiliations": [
     "Antigua and Barbuda", 
     "Montserrat"
@@ -222,7 +222,7 @@
   }, 
   {
    "id": "Caribisch Nederland", 
-   "s": 4366849, 
+   "s": 4371040, 
    "affiliations": [
     "Caribisch Nederland", 
     "Nederland", 
@@ -236,7 +236,7 @@
   }, 
   {
    "id": "Dominica", 
-   "s": 1862063, 
+   "s": 1862865, 
    "affiliations": [
     "Dominica", 
     "Saint Andrew Parish", 
@@ -256,7 +256,7 @@
   }, 
   {
    "id": "Grenada", 
-   "s": 1338342, 
+   "s": 1338612, 
    "affiliations": [
     "Grenada"
    ], 
@@ -278,7 +278,7 @@
   }, 
   {
    "id": "Martinique", 
-   "s": 10014400, 
+   "s": 10014845, 
    "affiliations": [
     "France", 
     "Martinique", 
@@ -320,7 +320,7 @@
   }, 
   {
    "id": "Saint Lucia", 
-   "s": 1557334, 
+   "s": 1558346, 
    "affiliations": [
     "Saint Lucia", 
     "Saint Vincent and the Grenadines"
@@ -388,7 +388,7 @@
     }, 
     {
      "id": "Argentina_Buenos Aires_Buenos Aires", 
-     "s": 27097030, 
+     "s": 27099480, 
      "affiliations": [
       "Argentina", 
       "Ciudad Aut\u00f3noma de Buenos Aires", 
@@ -422,7 +422,7 @@
     }, 
     {
      "id": "Argentina_Patagonia", 
-     "s": 35006993, 
+     "s": 35012066, 
      "affiliations": [
       "Argentina", 
       "Chubut", 
@@ -451,7 +451,7 @@
     }, 
     {
      "id": "Argentina_Mesopotamia", 
-     "s": 30111385, 
+     "s": 30112001, 
      "affiliations": [
       "Argentina", 
       "Corrientes", 
@@ -472,7 +472,7 @@
     }, 
     {
      "id": "Argentina_Northwest", 
-     "s": 23336352, 
+     "s": 23338257, 
      "affiliations": [
       "Chaco", 
       "Argentina", 
@@ -489,7 +489,7 @@
     }, 
     {
      "id": "Argentina_Pampas", 
-     "s": 17747055, 
+     "s": 17747614, 
      "affiliations": [
       "Argentina", 
       "C\u00f3rdoba", 
@@ -514,7 +514,7 @@
   }, 
   {
    "id": "Armenia", 
-   "s": 18841012, 
+   "s": 18844106, 
    "affiliations": [
     "Border Azerbaijan - Armenia (Enclave AZE)", 
     "Qazax rayonu", 
@@ -551,7 +551,7 @@
     }, 
     {
      "id": "Austria_Carinthia", 
-     "s": 38961931, 
+     "s": 38962681, 
      "affiliations": [
       "K\u00e4rnten", 
       "\u00d6sterreich"
@@ -562,7 +562,7 @@
     }, 
     {
      "id": "Austria_Lower Austria_Wien", 
-     "s": 66767271, 
+     "s": 66774140, 
      "affiliations": [
       "\u00d6sterreich", 
       "Nieder\u00f6sterreich", 
@@ -574,7 +574,7 @@
     }, 
     {
      "id": "Austria_Styria_Graz", 
-     "s": 57921686, 
+     "s": 57922264, 
      "affiliations": [
       "\u00d6sterreich", 
       "Steiermark"
@@ -607,7 +607,7 @@
     }, 
     {
      "id": "Austria_Upper Austria_Wels", 
-     "s": 43410107, 
+     "s": 43410592, 
      "affiliations": [
       "\u00d6sterreich", 
       "Ober\u00f6sterreich"
@@ -618,7 +618,7 @@
     }, 
     {
      "id": "Austria_Lower Austria_West", 
-     "s": 52603652, 
+     "s": 52604470, 
      "affiliations": [
       "\u00d6sterreich", 
       "Nieder\u00f6sterreich"
@@ -629,7 +629,7 @@
     }, 
     {
      "id": "Austria_Tyrol", 
-     "s": 53097605, 
+     "s": 53099153, 
      "affiliations": [
       "\u00d6sterreich", 
       "Tirol"
@@ -640,7 +640,7 @@
     }, 
     {
      "id": "Austria_Salzburg", 
-     "s": 35617691, 
+     "s": 35618652, 
      "affiliations": [
       "\u00d6sterreich", 
       "Salzburg"
@@ -676,7 +676,7 @@
     }, 
     {
      "id": "Australia_Melbourne", 
-     "s": 40724491, 
+     "s": 40725637, 
      "affiliations": [
       "Australia", 
       "Victoria"
@@ -712,7 +712,7 @@
     }, 
     {
      "id": "Australia_Queensland", 
-     "s": 23771600, 
+     "s": 23773723, 
      "affiliations": [
       "Australia", 
       "Coral Sea Islands Territory", 
@@ -724,7 +724,7 @@
     }, 
     {
      "id": "Australia_South Australia", 
-     "s": 31311706, 
+     "s": 31312190, 
      "affiliations": [
       "Australia", 
       "South Australia"
@@ -735,7 +735,7 @@
     }, 
     {
      "id": "Australia_Tasmania", 
-     "s": 23213734, 
+     "s": 23215424, 
      "affiliations": [
       "Australia", 
       "Tasmania"
@@ -746,7 +746,7 @@
     }, 
     {
      "id": "Australia_Victoria", 
-     "s": 33879938, 
+     "s": 33881027, 
      "affiliations": [
       "Australia", 
       "Victoria"
@@ -757,7 +757,7 @@
     }, 
     {
      "id": "Australia_Western Australia", 
-     "s": 43525380, 
+     "s": 43528652, 
      "affiliations": [
       "Ashmore and Cartier Islands", 
       "Christmas Island", 
@@ -773,7 +773,7 @@
     }, 
     {
      "id": "Australia_Brisbane", 
-     "s": 35202842, 
+     "s": 35203901, 
      "affiliations": [
       "Australia", 
       "Coral Sea Islands Territory", 
@@ -786,7 +786,7 @@
     }, 
     {
      "id": "Australia_Sydney", 
-     "s": 54437109, 
+     "s": 54439196, 
      "affiliations": [
       "Australia", 
       "Australian Capital Territory", 
@@ -822,7 +822,7 @@
     }, 
     {
      "id": "Azerbaijan", 
-     "s": 15496338, 
+     "s": 15498250, 
      "affiliations": [
       "Ab\u015feron rayonu", 
       "A\u011fcab\u0259di rayonu", 
@@ -919,7 +919,7 @@
   }, 
   {
    "id": "Bangladesh", 
-   "s": 172661565, 
+   "s": 172661893, 
    "affiliations": [
     "Border India - Bangladesh", 
     "\u09b0\u09be\u099c\u09b6\u09be\u09b9\u09c0 \u09ac\u09bf\u09ad\u09be\u0997", 
@@ -940,7 +940,7 @@
    "g": [
     {
      "id": "Belarus_Vitebsk Region", 
-     "s": 38476403, 
+     "s": 38478837, 
      "affiliations": [
       "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c", 
       "\u0412\u0438\u0442\u0435\u0431\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -951,7 +951,7 @@
     }, 
     {
      "id": "Belarus_Hrodna Region", 
-     "s": 25255689, 
+     "s": 25259928, 
      "affiliations": [
       "\u0413\u0440\u043e\u0434\u043d\u0435\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c"
@@ -962,7 +962,7 @@
     }, 
     {
      "id": "Belarus_Brest Region", 
-     "s": 20256311, 
+     "s": 20259110, 
      "affiliations": [
       "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c", 
       "\u0411\u0440\u0435\u0441\u0442\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -973,7 +973,7 @@
     }, 
     {
      "id": "Belarus_Homiel Region", 
-     "s": 24119687, 
+     "s": 24121103, 
      "affiliations": [
       "\u0413\u043e\u043c\u0435\u043b\u044c\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c"
@@ -984,7 +984,7 @@
     }, 
     {
      "id": "Belarus_Maglieu Region", 
-     "s": 19542397, 
+     "s": 19543201, 
      "affiliations": [
       "\u041c\u043e\u0433\u0438\u043b\u0451\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0411\u0435\u043b\u0430\u0440\u0443\u0441\u044c"
@@ -995,7 +995,7 @@
     }, 
     {
      "id": "Belarus_Minsk Region", 
-     "s": 47453571, 
+     "s": 47457500, 
      "affiliations": [
       "\u0413\u043e\u043b\u044c\u0444-\u043a\u043b\u0443\u0431", 
       "\u041c\u0438\u043d\u0441\u043a", 
@@ -1015,7 +1015,7 @@
    "g": [
     {
      "id": "Belgium_West Flanders", 
-     "s": 30772737, 
+     "s": 30773848, 
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien", 
       "Vlaanderen"
@@ -1027,7 +1027,7 @@
     }, 
     {
      "id": "Belgium_Antwerp", 
-     "s": 47549715, 
+     "s": 47549876, 
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien", 
       "Nederland - Belgique / Belgi\u00eb / Belgien", 
@@ -1039,7 +1039,7 @@
     }, 
     {
      "id": "Belgium_East Flanders", 
-     "s": 32192305, 
+     "s": 32193014, 
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien", 
       "Vlaanderen"
@@ -1105,7 +1105,7 @@
     }, 
     {
      "id": "Belgium_Flemish Brabant", 
-     "s": 46387930, 
+     "s": 46391022, 
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien", 
       "R\u00e9gion de Bruxelles-Capitale - Brussels Hoofdstedelijk Gewest", 
@@ -1117,7 +1117,7 @@
     }, 
     {
      "id": "Belgium_Liege", 
-     "s": 28737177, 
+     "s": 28737623, 
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien", 
       "Wallonie"
@@ -1130,7 +1130,7 @@
   }, 
   {
    "id": "Belize", 
-   "s": 4602857, 
+   "s": 4604237, 
    "affiliations": [
     "Belize District", 
     "Belize", 
@@ -1148,7 +1148,7 @@
   }, 
   {
    "id": "Benin", 
-   "s": 19530362, 
+   "s": 19531831, 
    "affiliations": [
     "Alibori", 
     "Atakora", 
@@ -1180,7 +1180,7 @@
   }, 
   {
    "id": "Bhutan", 
-   "s": 4421936, 
+   "s": 4422481, 
    "affiliations": [
     "\u0f60\u0f56\u0fb2\u0f74\u0f42\u0f61\u0f74\u0f63\u0f0b", 
     "\u0f58\u0f42\u0f62\u0f0b\u0f66\u0f0b\u0f62\u0fab\u0f7c\u0f44\u0f0b\u0f41\u0f42\u0f0b", 
@@ -1213,7 +1213,7 @@
    "g": [
     {
      "id": "Bolivia_North", 
-     "s": 33790738, 
+     "s": 33795446, 
      "affiliations": [
       "Bolivia", 
       "Beni", 
@@ -1227,7 +1227,7 @@
     }, 
     {
      "id": "Bolivia_South", 
-     "s": 37618274, 
+     "s": 37624604, 
      "affiliations": [
       "Bolivia", 
       "Chuquisaca", 
@@ -1247,7 +1247,7 @@
    "g": [
     {
      "id": "Bosnia and Herzegovina_Entity Federation of Bosnia and Herzegovina", 
-     "s": 36896584, 
+     "s": 36898673, 
      "affiliations": [
       "Bosna i Hercegovina", 
       "Federacija Bosne i Hercegovine"
@@ -1283,7 +1283,7 @@
   }, 
   {
    "id": "Botswana", 
-   "s": 29951079, 
+   "s": 29951542, 
    "affiliations": [
     "Botswana", 
     "Central District", 
@@ -1305,7 +1305,7 @@
    "g": [
     {
      "id": "Brazil_Bahia", 
-     "s": 28920230, 
+     "s": 28921525, 
      "affiliations": [
       "Bahia", 
       "Brasil"
@@ -1374,7 +1374,7 @@
     }, 
     {
      "id": "Brazil_North Region_West", 
-     "s": 23047354, 
+     "s": 23048024, 
      "affiliations": [
       "Acre", 
       "Amazonas", 
@@ -1401,7 +1401,7 @@
     }, 
     {
      "id": "Brazil_Northeast Region_West", 
-     "s": 40387170, 
+     "s": 40387438, 
      "affiliations": [
       "Brasil", 
       "Cear\u00e1", 
@@ -1426,7 +1426,7 @@
     }, 
     {
      "id": "Brazil_Parana_East", 
-     "s": 19695937, 
+     "s": 19696735, 
      "affiliations": [
       "Brasil", 
       "Paran\u00e1"
@@ -1437,7 +1437,7 @@
     }, 
     {
      "id": "Brazil_Parana_West", 
-     "s": 30273017, 
+     "s": 30273774, 
      "affiliations": [
       "Brasil", 
       "Paran\u00e1"
@@ -1482,7 +1482,7 @@
     }, 
     {
      "id": "Brazil_South Region_West", 
-     "s": 32343706, 
+     "s": 32343888, 
      "affiliations": [
       "Brasil", 
       "Rio Grande do Sul"
@@ -1493,7 +1493,7 @@
     }, 
     {
      "id": "Brazil_Southeast Region_Espirito Santo", 
-     "s": 19323404, 
+     "s": 19323768, 
      "affiliations": [
       "Brasil", 
       "Esp\u00edrito Santo"
@@ -1526,7 +1526,7 @@
     }, 
     {
      "id": "Brazil_Southeast Region_Rio de Janeiro", 
-     "s": 31210993, 
+     "s": 31211729, 
      "affiliations": [
       "Brasil", 
       "Rio de Janeiro"
@@ -1548,7 +1548,7 @@
     }, 
     {
      "id": "Brazil_Southeast Region_Sao Paulo_City", 
-     "s": 57739997, 
+     "s": 57740637, 
      "affiliations": [
       "Brasil", 
       "S\u00e3o Paulo"
@@ -1572,7 +1572,7 @@
   }, 
   {
    "id": "Brunei", 
-   "s": 2788721, 
+   "s": 2789176, 
    "affiliations": [
     "Brunei Darussalam"
    ], 
@@ -1585,7 +1585,7 @@
    "g": [
     {
      "id": "Bulgaria_East", 
-     "s": 30709202, 
+     "s": 30710219, 
      "affiliations": [
       "\u0411\u044a\u043b\u0433\u0430\u0440\u0438\u044f"
      ], 
@@ -1595,7 +1595,7 @@
     }, 
     {
      "id": "Bulgaria_West", 
-     "s": 52102466, 
+     "s": 52103757, 
      "affiliations": [
       "\u0411\u044a\u043b\u0433\u0430\u0440\u0438\u044f"
      ], 
@@ -1607,7 +1607,7 @@
   }, 
   {
    "id": "Burkina Faso", 
-   "s": 27729380, 
+   "s": 27730089, 
    "affiliations": [
     "Boucle du Mouhoun", 
     "Burkina Faso", 
@@ -1657,7 +1657,7 @@
   }, 
   {
    "id": "Cambodia", 
-   "s": 18602468, 
+   "s": 18622037, 
    "affiliations": [
     "Bantey Meanchey", 
     "Battambang", 
@@ -1733,7 +1733,7 @@
      "g": [
       {
        "id": "Canada_Alberta_Edmonton", 
-       "s": 60107349, 
+       "s": 60107887, 
        "affiliations": [
         "Alberta", 
         "Canada"
@@ -1755,7 +1755,7 @@
       }, 
       {
        "id": "Canada_Alberta_South", 
-       "s": 27059545, 
+       "s": 27059795, 
        "affiliations": [
         "Alberta", 
         "Canada"
@@ -1793,7 +1793,7 @@
       }, 
       {
        "id": "Canada_British Columbia_Islands", 
-       "s": 41375768, 
+       "s": 41376257, 
        "affiliations": [
         "British Columbia", 
         "Canada"
@@ -1826,7 +1826,7 @@
       }, 
       {
        "id": "Canada_British Columbia_Southeast", 
-       "s": 54668659, 
+       "s": 54669041, 
        "affiliations": [
         "British Columbia", 
         "Canada"
@@ -1837,7 +1837,7 @@
       }, 
       {
        "id": "Canada_British Columbia_Vancouver", 
-       "s": 46270322, 
+       "s": 46273517, 
        "affiliations": [
         "British Columbia", 
         "Canada"
@@ -2227,7 +2227,7 @@
       }, 
       {
        "id": "Canada_Ontario_Toronto", 
-       "s": 56577388, 
+       "s": 56578143, 
        "affiliations": [
         "Canada", 
         "Ontario"
@@ -2279,7 +2279,7 @@
       }, 
       {
        "id": "Canada_Quebek_Montreal", 
-       "s": 32083744, 
+       "s": 32084091, 
        "affiliations": [
         "Canada", 
         "Qu\u00e9bec"
@@ -2290,7 +2290,7 @@
       }, 
       {
        "id": "Canada_Quebek_Lachute", 
-       "s": 39575378, 
+       "s": 39575671, 
        "affiliations": [
         "Canada", 
         "Qu\u00e9bec"
@@ -2383,7 +2383,7 @@
       }, 
       {
        "id": "Canada_Saskatchewan_Regina", 
-       "s": 32607796, 
+       "s": 32608163, 
        "affiliations": [
         "Canada", 
         "Saskatchewan"
@@ -2425,7 +2425,7 @@
   }, 
   {
    "id": "Cape Verde", 
-   "s": 4216164, 
+   "s": 4217297, 
    "affiliations": [
     "Cabo Verde"
    ], 
@@ -2506,7 +2506,7 @@
    "g": [
     {
      "id": "Colombia_North", 
-     "s": 46386954, 
+     "s": 46392070, 
      "affiliations": [
       "Bol\u00edvar", 
       "Antioquia", 
@@ -2528,7 +2528,7 @@
     }, 
     {
      "id": "Colombia_West", 
-     "s": 50481758, 
+     "s": 50485611, 
      "affiliations": [
       "Cauca", 
       "Bogot\u00e1", 
@@ -2669,7 +2669,7 @@
   }, 
   {
    "id": "Costa Rica", 
-   "s": 17056776, 
+   "s": 17060595, 
    "affiliations": [
     "Alajuela", 
     "Cartago", 
@@ -2691,7 +2691,7 @@
    "g": [
     {
      "id": "Croatia_Central", 
-     "s": 40274939, 
+     "s": 40275520, 
      "affiliations": [
       "Hrvatska"
      ], 
@@ -2701,7 +2701,7 @@
     }, 
     {
      "id": "Croatia_West", 
-     "s": 63392381, 
+     "s": 63396685, 
      "affiliations": [
       "Hrvatska", 
       "Italia"
@@ -2714,7 +2714,7 @@
   }, 
   {
    "id": "Cuba", 
-   "s": 30353159, 
+   "s": 30407440, 
    "affiliations": [
     "Artemisa", 
     "Ciego de \u00c1vila", 
@@ -2738,7 +2738,7 @@
   }, 
   {
    "id": "Cyprus", 
-   "s": 12192507, 
+   "s": 12206710, 
    "affiliations": [
     "British Sovereign Base Areas", 
     "\u039a\u03cd\u03c0\u03c1\u03bf\u03c2 - K\u0131br\u0131s"
@@ -2752,7 +2752,7 @@
    "g": [
     {
      "id": "Czech_Praha", 
-     "s": 25024399, 
+     "s": 25041858, 
      "affiliations": [
       "Praha", 
       "\u010cesko"
@@ -2774,7 +2774,7 @@
     }, 
     {
      "id": "Czech_Karlovasky kraj", 
-     "s": 17639206, 
+     "s": 17639878, 
      "affiliations": [
       "Severoz\u00e1pad", 
       "\u010cesko"
@@ -2785,7 +2785,7 @@
     }, 
     {
      "id": "Czech_Ustecky kraj", 
-     "s": 39302860, 
+     "s": 39304903, 
      "affiliations": [
       "Severoz\u00e1pad", 
       "\u010cesko"
@@ -2818,7 +2818,7 @@
     }, 
     {
      "id": "Czech_Olomoucky kraj", 
-     "s": 34801298, 
+     "s": 34801483, 
      "affiliations": [
       "St\u0159edn\u00ed Morava", 
       "\u010cesko"
@@ -2840,7 +2840,7 @@
     }, 
     {
      "id": "Czech_Stredni Cechy_East", 
-     "s": 49287100, 
+     "s": 49287685, 
      "affiliations": [
       "St\u0159edn\u00ed \u010cechy", 
       "\u010cesko"
@@ -2851,7 +2851,7 @@
     }, 
     {
      "id": "Czech_Jihozapad_Jihocesky kraj", 
-     "s": 58271429, 
+     "s": 58272181, 
      "affiliations": [
       "Jihoz\u00e1pad", 
       "\u010cesko"
@@ -2884,7 +2884,7 @@
     }, 
     {
      "id": "Czech_Stredni Cechy_West", 
-     "s": 38671194, 
+     "s": 38671805, 
      "affiliations": [
       "St\u0159edn\u00ed \u010cechy", 
       "\u010cesko"
@@ -2895,7 +2895,7 @@
     }, 
     {
      "id": "Czech_Moravskoslezsko", 
-     "s": 48996854, 
+     "s": 48997136, 
      "affiliations": [
       "Moravskoslezsko", 
       "\u010cesko"
@@ -2906,7 +2906,7 @@
     }, 
     {
      "id": "Czech_Jihovychod_Jihomoravsky kraj", 
-     "s": 56863654, 
+     "s": 56867681, 
      "affiliations": [
       "Jihov\u00fdchod", 
       "\u010cesko"
@@ -2919,7 +2919,7 @@
   }, 
   {
    "id": "Cote dIvoire", 
-   "s": 20872183, 
+   "s": 20873038, 
    "affiliations": [
     "Abidjan", 
     "Bas-Sassandra", 
@@ -2968,7 +2968,7 @@
     }, 
     {
      "id": "Denmark_Capital Region of Denmark", 
-     "s": 48885922, 
+     "s": 48886734, 
      "affiliations": [
       "Danmark", 
       "Region Hovedstaden", 
@@ -3062,7 +3062,7 @@
   }, 
   {
    "id": "East Timor", 
-   "s": 3640653, 
+   "s": 3641940, 
    "affiliations": [
     "Aileu", 
     "Ainaro", 
@@ -3098,7 +3098,7 @@
     }, 
     {
      "id": "Chile_Central", 
-     "s": 44103977, 
+     "s": 44105610, 
      "affiliations": [
       "Chile", 
       "Islote Gaviota", 
@@ -3115,7 +3115,7 @@
     }, 
     {
      "id": "Chile_North", 
-     "s": 15896503, 
+     "s": 15899480, 
      "affiliations": [
       "Chile", 
       "I Regi\u00f3n de Tarapac\u00e1", 
@@ -3131,7 +3131,7 @@
     }, 
     {
      "id": "Chile_South", 
-     "s": 70127298, 
+     "s": 70137333, 
      "affiliations": [
       "Chile", 
       "IX Regi\u00f3n de la Araucan\u00eda", 
@@ -3152,7 +3152,7 @@
    "g": [
     {
      "id": "Ecuador_East", 
-     "s": 25715160, 
+     "s": 25717612, 
      "affiliations": [
       "Azuay", 
       "Carchi", 
@@ -3177,7 +3177,7 @@
     }, 
     {
      "id": "Ecuador_West", 
-     "s": 31995993, 
+     "s": 31997927, 
      "affiliations": [
       "Bol\u00edvar", 
       "Azuay", 
@@ -3206,7 +3206,7 @@
   }, 
   {
    "id": "Egypt", 
-   "s": 46604282, 
+   "s": 46605524, 
    "affiliations": [
     "\u062f\u0645\u064a\u0627\u0637\u200e\u200e", 
     "\u200f\u0645\u062d\u0627\u0641\u0638\u0629 \u0628\u0646\u0649 \u0633\u0648\u064a\u0641", 
@@ -3242,7 +3242,7 @@
   }, 
   {
    "id": "El Salvador", 
-   "s": 10330733, 
+   "s": 10330894, 
    "affiliations": [
     "Departamento de Cuscatl\u00e1n", 
     "Departamento de La Libertad", 
@@ -3266,7 +3266,7 @@
   }, 
   {
    "id": "Equatorial Guinea", 
-   "s": 1344038, 
+   "s": 1344315, 
    "affiliations": [
     "Centro Sur", 
     "Annob\u00f3n", 
@@ -3302,7 +3302,7 @@
    "g": [
     {
      "id": "Estonia_West", 
-     "s": 31172889, 
+     "s": 31176828, 
      "affiliations": [
       "Eesti"
      ], 
@@ -3324,7 +3324,7 @@
   }, 
   {
    "id": "Ethiopia", 
-   "s": 36874847, 
+   "s": 36878987, 
    "affiliations": [
     "Addis Abeba", 
     "Afar", 
@@ -3347,7 +3347,7 @@
   }, 
   {
    "id": "Faroe Islands", 
-   "s": 2288603, 
+   "s": 2289286, 
    "affiliations": [
     "Eysturoyar s\u00fdsla", 
     "F\u00f8royar", 
@@ -3379,7 +3379,7 @@
   }, 
   {
    "id": "Fiji", 
-   "s": 6515345, 
+   "s": 6515666, 
    "affiliations": [
     "Central", 
     "Eastern", 
@@ -3395,7 +3395,7 @@
    "g": [
     {
      "id": "Finland_Western Finland_Jyvaskyla", 
-     "s": 22785616, 
+     "s": 22786127, 
      "affiliations": [
       "L\u00e4nsi-Suomi", 
       "Suomi"
@@ -3406,7 +3406,7 @@
     }, 
     {
      "id": "Finland_Western Finland_Tampere", 
-     "s": 46916971, 
+     "s": 46917514, 
      "affiliations": [
       "L\u00e4nsi-Suomi", 
       "Suomi"
@@ -3417,7 +3417,7 @@
     }, 
     {
      "id": "Finland_Northern Finland", 
-     "s": 53693461, 
+     "s": 53694171, 
      "affiliations": [
       "Pohjois-Suomi", 
       "Suomi"
@@ -3439,7 +3439,7 @@
     }, 
     {
      "id": "Finland_Eastern Finland_South", 
-     "s": 37475809, 
+     "s": 37476574, 
      "affiliations": [
       "It\u00e4-Suomi", 
       "Suomi"
@@ -3450,7 +3450,7 @@
     }, 
     {
      "id": "Finland_Southern Finland_West", 
-     "s": 31921514, 
+     "s": 31922122, 
      "affiliations": [
       "Etel\u00e4-Suomi", 
       "Suomi", 
@@ -3462,7 +3462,7 @@
     }, 
     {
      "id": "Finland_Southern Finland_Helsinki", 
-     "s": 63088860, 
+     "s": 63089588, 
      "affiliations": [
       "Etel\u00e4-Suomi", 
       "Suomi"
@@ -3492,7 +3492,7 @@
      "g": [
       {
        "id": "France_Alsace_Bas-Rhin", 
-       "s": 42736035, 
+       "s": 42736242, 
        "affiliations": [
         "Alsace-Champagne-Ardenne-Lorraine", 
         "France"
@@ -3530,7 +3530,7 @@
       }, 
       {
        "id": "France_Aquitaine_Gironde", 
-       "s": 55508147, 
+       "s": 55508471, 
        "affiliations": [
         "Aquitaine-Limousin-Poitou-Charentes", 
         "France"
@@ -3541,7 +3541,7 @@
       }, 
       {
        "id": "France_Aquitaine_Landes", 
-       "s": 26669760, 
+       "s": 26670193, 
        "affiliations": [
         "Aquitaine-Limousin-Poitou-Charentes", 
         "France"
@@ -3563,7 +3563,7 @@
       }, 
       {
        "id": "France_Aquitaine_Pyrenees-Atlantiques", 
-       "s": 34499889, 
+       "s": 34500267, 
        "affiliations": [
         "Aquitaine-Limousin-Poitou-Charentes", 
         "France"
@@ -3579,7 +3579,7 @@
      "g": [
       {
        "id": "France_Auvergne_Allier", 
-       "s": 22933395, 
+       "s": 22933713, 
        "affiliations": [
         "Auvergne-Rh\u00f4ne-Alpes", 
         "France"
@@ -3628,7 +3628,7 @@
      "g": [
       {
        "id": "France_Brittany_Cotes-dArmor", 
-       "s": 37223329, 
+       "s": 37224857, 
        "affiliations": [
         "Bretagne", 
         "France", 
@@ -3641,7 +3641,7 @@
       }, 
       {
        "id": "France_Brittany_Finistere", 
-       "s": 53849892, 
+       "s": 53850339, 
        "affiliations": [
         "Bretagne", 
         "France"
@@ -3652,7 +3652,7 @@
       }, 
       {
        "id": "France_Brittany_Ille-et-Vilaine", 
-       "s": 46183233, 
+       "s": 46183630, 
        "affiliations": [
         "Bretagne", 
         "France", 
@@ -3664,7 +3664,7 @@
       }, 
       {
        "id": "France_Brittany_Morbihan", 
-       "s": 39410866, 
+       "s": 39411159, 
        "affiliations": [
         "Bretagne", 
         "France"
@@ -3797,7 +3797,7 @@
     }, 
     {
      "id": "France_Champagne-Ardenne", 
-     "s": 53599614, 
+     "s": 53599980, 
      "affiliations": [
       "Alsace-Champagne-Ardenne-Lorraine", 
       "France"
@@ -3808,7 +3808,7 @@
     }, 
     {
      "id": "France_Corsica", 
-     "s": 14268973, 
+     "s": 14269906, 
      "affiliations": [
       "Corse - Mer M\u00e9diterran\u00e9e", 
       "Corse", 
@@ -3844,7 +3844,7 @@
     }, 
     {
      "id": "France_French Guiana", 
-     "s": 7157407, 
+     "s": 7158685, 
      "affiliations": [
       "France", 
       "Guyane"
@@ -3858,7 +3858,7 @@
      "g": [
       {
        "id": "France_Ile-de-France_Essonne", 
-       "s": 26592816, 
+       "s": 26593123, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3869,7 +3869,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Hauts-de-Seine", 
-       "s": 13361378, 
+       "s": 13361749, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3880,7 +3880,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Paris", 
-       "s": 16737340, 
+       "s": 16748216, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3891,7 +3891,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Seine-Saint-Denis", 
-       "s": 14467426, 
+       "s": 14467690, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3902,7 +3902,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Seine-et-Marne", 
-       "s": 35510449, 
+       "s": 35511578, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3913,7 +3913,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Val-dOise", 
-       "s": 19253701, 
+       "s": 19253862, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3924,7 +3924,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Val-de-Marne", 
-       "s": 14238266, 
+       "s": 14238704, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3935,7 +3935,7 @@
       }, 
       {
        "id": "France_Ile-de-France_Yvelines", 
-       "s": 26113721, 
+       "s": 26116541, 
        "affiliations": [
         "France", 
         "\u00cele-de-France"
@@ -3951,7 +3951,7 @@
      "g": [
       {
        "id": "France_Languedoc-Roussillon_Aude", 
-       "s": 25711368, 
+       "s": 25711897, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -3962,7 +3962,7 @@
       }, 
       {
        "id": "France_Languedoc-Roussillon_Gard", 
-       "s": 29889169, 
+       "s": 29889934, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -3973,7 +3973,7 @@
       }, 
       {
        "id": "France_Languedoc-Roussillon_Herault", 
-       "s": 45613196, 
+       "s": 45613722, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -3995,7 +3995,7 @@
       }, 
       {
        "id": "France_Languedoc-Roussillon_Pyrenees-Orientales", 
-       "s": 23580456, 
+       "s": 23580741, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -4044,7 +4044,7 @@
       }, 
       {
        "id": "France_Lorraine_Moselle", 
-       "s": 36261946, 
+       "s": 36262301, 
        "affiliations": [
         "Alsace-Champagne-Ardenne-Lorraine", 
         "France"
@@ -4055,7 +4055,7 @@
       }, 
       {
        "id": "France_Lorraine_Vosges", 
-       "s": 23803823, 
+       "s": 23804168, 
        "affiliations": [
         "Alsace-Champagne-Ardenne-Lorraine", 
         "France"
@@ -4071,7 +4071,7 @@
      "g": [
       {
        "id": "France_Lower Normandy_Calvados", 
-       "s": 27544016, 
+       "s": 27544247, 
        "affiliations": [
         "France", 
         "Normandie"
@@ -4082,7 +4082,7 @@
       }, 
       {
        "id": "France_Lower Normandy_Manche", 
-       "s": 26480992, 
+       "s": 26481498, 
        "affiliations": [
         "France", 
         "Jersey", 
@@ -4121,7 +4121,7 @@
       }, 
       {
        "id": "France_Midi-Pyrenees_Aveyron", 
-       "s": 29206149, 
+       "s": 29206609, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -4143,7 +4143,7 @@
       }, 
       {
        "id": "France_Midi-Pyrenees_Haute-Garonne", 
-       "s": 46432338, 
+       "s": 46433375, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -4165,7 +4165,7 @@
       }, 
       {
        "id": "France_Midi-Pyrenees_Lot", 
-       "s": 15086452, 
+       "s": 15086908, 
        "affiliations": [
         "France", 
         "Languedoc-Roussillon-Midi-Pyr\u00e9n\u00e9es"
@@ -4200,7 +4200,7 @@
     }, 
     {
      "id": "France_New Caledonia", 
-     "s": 6798807, 
+     "s": 6799303, 
      "affiliations": [
       "France", 
       "France, Nouvelle-Cal\u00e9donie, Grande Terre et r\u00e9cifs d'Entrecasteaux (eaux territoriales)", 
@@ -4233,7 +4233,7 @@
       }, 
       {
        "id": "France_Nord-Pas-de-Calais_Lille", 
-       "s": 36664865, 
+       "s": 36665053, 
        "affiliations": [
         "France", 
         "Nord-Pas-de-Calais-Picardie"
@@ -4273,7 +4273,7 @@
       }, 
       {
        "id": "France_Pays de la Loire_Loire-Atlantique_Saint-Nazaire", 
-       "s": 21880831, 
+       "s": 21881288, 
        "affiliations": [
         "France", 
         "Pays de la Loire"
@@ -4284,7 +4284,7 @@
       }, 
       {
        "id": "France_Pays de la Loire_Maine-et-Loire", 
-       "s": 37374042, 
+       "s": 37374350, 
        "affiliations": [
         "France", 
         "Pays de la Loire"
@@ -4355,7 +4355,7 @@
       }, 
       {
        "id": "France_Picardy_Somme", 
-       "s": 28835927, 
+       "s": 28836569, 
        "affiliations": [
         "France", 
         "Nord-Pas-de-Calais-Picardie"
@@ -4382,7 +4382,7 @@
       }, 
       {
        "id": "France_Poitou-Charentes_Charente-Maritime", 
-       "s": 43859427, 
+       "s": 43859609, 
        "affiliations": [
         "Aquitaine-Limousin-Poitou-Charentes", 
         "France"
@@ -4453,7 +4453,7 @@
       }, 
       {
        "id": "France_Provence-Alpes-Cote dAzur_Maritime Alps", 
-       "s": 28245970, 
+       "s": 28247083, 
        "affiliations": [
         "France", 
         "Provence-Alpes-C\u00f4te d'Azur"
@@ -4476,7 +4476,7 @@
       }, 
       {
        "id": "France_Provence-Alpes-Cote dAzur_Vaucluse", 
-       "s": 27769961, 
+       "s": 27770430, 
        "affiliations": [
         "France", 
         "Provence-Alpes-C\u00f4te d'Azur"
@@ -4492,7 +4492,7 @@
      "g": [
       {
        "id": "France_Rhone-Alpes_Ain", 
-       "s": 34362922, 
+       "s": 34363157, 
        "affiliations": [
         "Auvergne-Rh\u00f4ne-Alpes", 
         "France"
@@ -4514,7 +4514,7 @@
       }, 
       {
        "id": "France_Rhone-Alpes_Drome", 
-       "s": 28328396, 
+       "s": 28328697, 
        "affiliations": [
         "Auvergne-Rh\u00f4ne-Alpes", 
         "France", 
@@ -4526,7 +4526,7 @@
       }, 
       {
        "id": "France_Rhone-Alpes_Haute-Savoie", 
-       "s": 31625435, 
+       "s": 31625974, 
        "affiliations": [
         "Auvergne-Rh\u00f4ne-Alpes", 
         "France"
@@ -4583,7 +4583,7 @@
     }, 
     {
      "id": "France_Southern Islands", 
-     "s": 24084013, 
+     "s": 24084814, 
      "affiliations": [
       "France", 
       "France, Mayotte (eaux territoriales)", 
@@ -4605,7 +4605,7 @@
     }, 
     {
      "id": "France_Upper Normandy", 
-     "s": 54915651, 
+     "s": 54916027, 
      "affiliations": [
       "France", 
       "Normandie"
@@ -4616,7 +4616,7 @@
     }, 
     {
      "id": "French Polynesia", 
-     "s": 2915971, 
+     "s": 2916750, 
      "affiliations": [
       "France", 
       "France, Polyn\u00e9sie fran\u00e7aise, \u00celes Gambier (eaux territoriales)", 
@@ -4669,7 +4669,7 @@
    "g": [
     {
      "id": "Georgia", 
-     "s": 34550055, 
+     "s": 34566276, 
      "affiliations": [
       "\u10d7\u10d1\u10d8\u10da\u10d8\u10e1\u10d8", 
       "\u10d8\u10db\u10d4\u10e0\u10d4\u10d7\u10d8", 
@@ -4690,7 +4690,7 @@
     }, 
     {
      "id": "Abkhazia", 
-     "s": 6108865, 
+     "s": 6112142, 
      "affiliations": [
       "\u0410\u0431\u0445\u0430\u0437\u0438\u044f - \u0410\u04a7\u0441\u043d\u044b", 
       "\u10d0\u10e4\u10ee\u10d0\u10d6\u10d4\u10d7\u10d8\u10e1 \u10d0\u10d5\u10e2\u10dd\u10dc\u10dd\u10db\u10d8\u10e3\u10e0\u10d8 \u10e0\u10d4\u10e1\u10de\u10e3\u10d1\u10da\u10d8\u10d9\u10d0 - \u0410\u04a7\u0441\u043d\u044b \u0410\u0432\u0442\u043e\u043d\u043e\u043c\u0442\u04d9 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430", 
@@ -4722,7 +4722,7 @@
      "g": [
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Freiburg", 
-       "s": 92262776, 
+       "s": 92265785, 
        "affiliations": [
         "Baden-W\u00fcrttemberg", 
         "Deutschland", 
@@ -4735,7 +4735,7 @@
       }, 
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Karlsruhe", 
-       "s": 88745344, 
+       "s": 88746717, 
        "affiliations": [
         "Baden-W\u00fcrttemberg", 
         "Deutschland"
@@ -4757,7 +4757,7 @@
       }, 
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Stuttgart_Stuttgart", 
-       "s": 89968879, 
+       "s": 89970232, 
        "affiliations": [
         "Baden-W\u00fcrttemberg", 
         "Deutschland"
@@ -4768,7 +4768,7 @@
       }, 
       {
        "id": "Germany_Baden-Wurttemberg_Regierungsbezirk Tubingen", 
-       "s": 64110006, 
+       "s": 64111809, 
        "affiliations": [
         "Baden-W\u00fcrttemberg", 
         "Deutschland"
@@ -4781,7 +4781,7 @@
     }, 
     {
      "id": "Germany_Berlin", 
-     "s": 49688004, 
+     "s": 49694832, 
      "affiliations": [
       "Berlin", 
       "Deutschland"
@@ -4792,7 +4792,7 @@
     }, 
     {
      "id": "Germany_Brandenburg_North", 
-     "s": 47524531, 
+     "s": 47525842, 
      "affiliations": [
       "Brandenburg", 
       "Deutschland"
@@ -4803,7 +4803,7 @@
     }, 
     {
      "id": "Germany_Brandenburg_South", 
-     "s": 46285828, 
+     "s": 46289430, 
      "affiliations": [
       "Brandenburg", 
       "Deutschland"
@@ -4817,7 +4817,7 @@
      "g": [
       {
        "id": "Germany_Free State of Bavaria_Lower Bavaria", 
-       "s": 47656517, 
+       "s": 47657052, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4828,7 +4828,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Lower Franconia", 
-       "s": 46440852, 
+       "s": 46440964, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4839,7 +4839,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Middle Franconia", 
-       "s": 51537012, 
+       "s": 51538088, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4850,7 +4850,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Swabia", 
-       "s": 70009968, 
+       "s": 70011227, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4861,7 +4861,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_East", 
-       "s": 46739315, 
+       "s": 46740103, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4872,7 +4872,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_Ingolstadt", 
-       "s": 24141007, 
+       "s": 24141452, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4883,7 +4883,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_Munchen", 
-       "s": 43877613, 
+       "s": 43880728, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4894,7 +4894,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Bavaria_South", 
-       "s": 19766943, 
+       "s": 19767258, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4905,7 +4905,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Franconia", 
-       "s": 46678209, 
+       "s": 46678912, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4916,7 +4916,7 @@
       }, 
       {
        "id": "Germany_Free State of Bavaria_Upper Palatinate", 
-       "s": 44990194, 
+       "s": 44990665, 
        "affiliations": [
         "Bayern", 
         "Deutschland"
@@ -4929,7 +4929,7 @@
     }, 
     {
      "id": "Germany_Hamburg_main", 
-     "s": 26664688, 
+     "s": 26665780, 
      "affiliations": [
       "Deutschland", 
       "Hamburg"
@@ -4943,7 +4943,7 @@
      "g": [
       {
        "id": "Germany_Hesse_Regierungsbezirk Darmstadt", 
-       "s": 90669263, 
+       "s": 90672073, 
        "affiliations": [
         "Deutschland", 
         "Hessen"
@@ -4954,7 +4954,7 @@
       }, 
       {
        "id": "Germany_Hesse_Regierungsbezirk Giessen", 
-       "s": 35723730, 
+       "s": 35724408, 
        "affiliations": [
         "Deutschland", 
         "Hessen"
@@ -4965,7 +4965,7 @@
       }, 
       {
        "id": "Germany_Hesse_Regierungsbezirk Kassel", 
-       "s": 51416069, 
+       "s": 51417345, 
        "affiliations": [
         "Deutschland", 
         "Hessen"
@@ -4981,7 +4981,7 @@
      "g": [
       {
        "id": "Germany_Lower Saxony_Bremen_Bremen", 
-       "s": 48398181, 
+       "s": 48399145, 
        "affiliations": [
         "Bremen", 
         "Deutschland", 
@@ -5017,7 +5017,7 @@
       }, 
       {
        "id": "Germany_Lower Saxony_Braunschweig", 
-       "s": 54318181, 
+       "s": 54318919, 
        "affiliations": [
         "Deutschland", 
         "Niedersachsen"
@@ -5028,7 +5028,7 @@
       }, 
       {
        "id": "Germany_Lower Saxony_Oldenburg", 
-       "s": 70816039, 
+       "s": 70816695, 
        "affiliations": [
         "Bremen", 
         "Deutschland", 
@@ -5042,7 +5042,7 @@
     }, 
     {
      "id": "Germany_Mecklenburg-Vorpommern", 
-     "s": 75351583, 
+     "s": 75353322, 
      "affiliations": [
       "Deutschland", 
       "Mecklenburg-Vorpommern"
@@ -5067,7 +5067,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Arnsberg_Dortmund", 
-       "s": 72100125, 
+       "s": 72100308, 
        "affiliations": [
         "Deutschland", 
         "Nordrhein-Westfalen"
@@ -5078,7 +5078,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Detmold", 
-       "s": 78554022, 
+       "s": 78554936, 
        "affiliations": [
         "Deutschland", 
         "Nordrhein-Westfalen"
@@ -5089,7 +5089,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Dusseldorf", 
-       "s": 61941165, 
+       "s": 61942788, 
        "affiliations": [
         "Deutschland", 
         "Nordrhein-Westfalen"
@@ -5100,7 +5100,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Dusseldorf_Mulheim", 
-       "s": 54495133, 
+       "s": 54495529, 
        "affiliations": [
         "Deutschland", 
         "Nordrhein-Westfalen"
@@ -5122,7 +5122,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Aachen", 
-       "s": 61434533, 
+       "s": 61434873, 
        "affiliations": [
         "Deutschland", 
         "Deutschland - Belgique / Belgi\u00eb / Belgien", 
@@ -5134,7 +5134,7 @@
       }, 
       {
        "id": "Germany_North Rhine-Westphalia_Regierungsbezirk Koln_Koln", 
-       "s": 76704493, 
+       "s": 76705056, 
        "affiliations": [
         "Deutschland", 
         "Nordrhein-Westfalen"
@@ -5169,7 +5169,7 @@
     }, 
     {
      "id": "Germany_Rhineland-Palatinate_Koblenz", 
-     "s": 65947463, 
+     "s": 65948748, 
      "affiliations": [
       "Deutschland", 
       "Rheinland-Pfalz"
@@ -5180,7 +5180,7 @@
     }, 
     {
      "id": "Germany_Rhineland-Palatinate_South", 
-     "s": 60113446, 
+     "s": 60114351, 
      "affiliations": [
       "Deutschland", 
       "Rheinland-Pfalz"
@@ -5202,7 +5202,7 @@
     }, 
     {
      "id": "Germany_Saxony-Anhalt_Magdeburg", 
-     "s": 39805330, 
+     "s": 39806673, 
      "affiliations": [
       "Deutschland", 
       "Sachsen-Anhalt"
@@ -5224,7 +5224,7 @@
     }, 
     {
      "id": "Germany_Saxony_Dresden", 
-     "s": 54455077, 
+     "s": 54457536, 
      "affiliations": [
       "Deutschland", 
       "Sachsen"
@@ -5235,7 +5235,7 @@
     }, 
     {
      "id": "Germany_Saxony_Leipzig", 
-     "s": 86860720, 
+     "s": 86863204, 
      "affiliations": [
       "Deutschland", 
       "Sachsen"
@@ -5246,7 +5246,7 @@
     }, 
     {
      "id": "Germany_Schleswig-Holstein_Kiel", 
-     "s": 45973163, 
+     "s": 45974937, 
      "affiliations": [
       "Danmark", 
       "Deutschland", 
@@ -5269,7 +5269,7 @@
     }, 
     {
      "id": "Germany_Thuringia", 
-     "s": 78240047, 
+     "s": 78240781, 
      "affiliations": [
       "Deutschland", 
       "Th\u00fcringen"
@@ -5302,7 +5302,7 @@
   }, 
   {
    "id": "Gibraltar", 
-   "s": 349841, 
+   "s": 350469, 
    "affiliations": [
     "Espa\u00f1a", 
     "Gibraltar"
@@ -5317,7 +5317,7 @@
    "g": [
     {
      "id": "Greece_Decentralized Administration of Crete", 
-     "s": 10632059, 
+     "s": 10641575, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "Territorial waters of Greece - Gavdos and Gavdopoula", 
@@ -5329,7 +5329,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of West Greece", 
-     "s": 26452337, 
+     "s": 26454956, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "Territorial waters of Greece - Strofades", 
@@ -5342,7 +5342,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of Aegean", 
-     "s": 19217174, 
+     "s": 19224623, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "\u0391\u03c0\u03bf\u03ba\u03b5\u03bd\u03c4\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u0394\u03b9\u03bf\u03af\u03ba\u03b7\u03c3\u03b7 \u0391\u03b9\u03b3\u03b1\u03af\u03bf\u03c5"
@@ -5353,7 +5353,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of Epirus - Western Macedonia", 
-     "s": 14813559, 
+     "s": 14814189, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "\u0391\u03c0\u03bf\u03ba\u03b5\u03bd\u03c4\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u0394\u03b9\u03bf\u03af\u03ba\u03b7\u03c3\u03b7 \u0397\u03c0\u03b5\u03af\u03c1\u03bf\u03c5 - \u0394\u03c5\u03c4\u03b9\u03ba\u03ae\u03c2 \u039c\u03b1\u03ba\u03b5\u03b4\u03bf\u03bd\u03af\u03b1\u03c2"
@@ -5364,7 +5364,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of Macedonia and Thrace", 
-     "s": 27454129, 
+     "s": 27457471, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "\u0391\u03c0\u03bf\u03ba\u03b5\u03bd\u03c4\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u0394\u03b9\u03bf\u03af\u03ba\u03b7\u03c3\u03b7 \u039c\u03b1\u03ba\u03b5\u03b4\u03bf\u03bd\u03af\u03b1\u03c2 - \u0398\u03c1\u03ac\u03ba\u03b7\u03c2"
@@ -5375,7 +5375,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of Thessaly - Central Greece", 
-     "s": 28400153, 
+     "s": 28400588, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "\u0391\u03c0\u03bf\u03ba\u03b5\u03bd\u03c4\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u0394\u03b9\u03bf\u03af\u03ba\u03b7\u03c3\u03b7 \u0391\u03c4\u03c4\u03b9\u03ba\u03ae\u03c2", 
@@ -5387,7 +5387,7 @@
     }, 
     {
      "id": "Greece_Decentralized Administration of Attica", 
-     "s": 24575599, 
+     "s": 24577359, 
      "affiliations": [
       "\u0395\u03bb\u03bb\u03ac\u03b4\u03b1", 
       "\u0391\u03c0\u03bf\u03ba\u03b5\u03bd\u03c4\u03c1\u03c9\u03bc\u03ad\u03bd\u03b7 \u0394\u03b9\u03bf\u03af\u03ba\u03b7\u03c3\u03b7 \u0391\u03c4\u03c4\u03b9\u03ba\u03ae\u03c2"
@@ -5400,7 +5400,7 @@
   }, 
   {
    "id": "Greenland", 
-   "s": 24245549, 
+   "s": 24245963, 
    "affiliations": [
     "Kalaallit Nunaat"
    ], 
@@ -5410,7 +5410,7 @@
   }, 
   {
    "id": "Guatemala", 
-   "s": 27382864, 
+   "s": 27386361, 
    "affiliations": [
     "Alta Verapaz", 
     "Baja Verapaz", 
@@ -5475,7 +5475,7 @@
   }, 
   {
    "id": "Guinea", 
-   "s": 36000354, 
+   "s": 36000757, 
    "affiliations": [
     "Conakry", 
     "Faranah", 
@@ -5521,7 +5521,7 @@
   }, 
   {
    "id": "Haiti", 
-   "s": 34468798, 
+   "s": 34469979, 
    "affiliations": [
     "Ayiti", 
     "D\u00e9partement de l'Artibonite", 
@@ -5541,7 +5541,7 @@
   }, 
   {
    "id": "Honduras", 
-   "s": 16406885, 
+   "s": 16407139, 
    "affiliations": [
     "Atl\u00e1ntida", 
     "Chinandega", 
@@ -5573,7 +5573,7 @@
    "g": [
     {
      "id": "Hungary_Northern Great Plain", 
-     "s": 51471406, 
+     "s": 51473396, 
      "affiliations": [
       "Alf\u00f6ld \u00e9s \u00c9szak", 
       "Magyarorsz\u00e1g"
@@ -5584,7 +5584,7 @@
     }, 
     {
      "id": "Hungary_Transdanubia", 
-     "s": 61652078, 
+     "s": 61654671, 
      "affiliations": [
       "Dun\u00e1nt\u00fal", 
       "Magyarorsz\u00e1g"
@@ -5595,7 +5595,7 @@
     }, 
     {
      "id": "Hungary_Kozep-Magyarorszag", 
-     "s": 35243435, 
+     "s": 35250443, 
      "affiliations": [
       "K\u00f6z\u00e9p-Magyarorsz\u00e1g", 
       "Magyarorsz\u00e1g"
@@ -5608,7 +5608,7 @@
   }, 
   {
    "id": "Iceland", 
-   "s": 30848462, 
+   "s": 30856426, 
    "affiliations": [
     "\u00cdsland"
    ], 
@@ -5668,7 +5668,7 @@
     }, 
     {
      "id": "India_Kerala", 
-     "s": 14062291, 
+     "s": 14063119, 
      "affiliations": [
       "India", 
       "Kerala"
@@ -5679,7 +5679,7 @@
     }, 
     {
      "id": "India_Madhya Pradesh", 
-     "s": 22793685, 
+     "s": 22794059, 
      "affiliations": [
       "India", 
       "Madhya Pradesh"
@@ -5690,7 +5690,7 @@
     }, 
     {
      "id": "India_Rajasthan", 
-     "s": 22366916, 
+     "s": 22368279, 
      "affiliations": [
       "India", 
       "Rajasthan"
@@ -5701,7 +5701,7 @@
     }, 
     {
      "id": "India_Tamil Nadu", 
-     "s": 34876152, 
+     "s": 34877351, 
      "affiliations": [
       "Cuddalore-Puducherry Administrative Boundary", 
       "India", 
@@ -5729,7 +5729,7 @@
     }, 
     {
      "id": "India_Goa", 
-     "s": 2935463, 
+     "s": 2942079, 
      "affiliations": [
       "Goa", 
       "India"
@@ -5740,7 +5740,7 @@
     }, 
     {
      "id": "India_Karnataka_North", 
-     "s": 18297557, 
+     "s": 18298163, 
      "affiliations": [
       "India", 
       "Karnataka"
@@ -5751,7 +5751,7 @@
     }, 
     {
      "id": "India_Karnataka_South", 
-     "s": 33130904, 
+     "s": 33131408, 
      "affiliations": [
       "India", 
       "Karnataka"
@@ -5762,7 +5762,7 @@
     }, 
     {
      "id": "India_Maharashtra", 
-     "s": 54680003, 
+     "s": 54680534, 
      "affiliations": [
       "Ankisha", 
       "Ganjiramannapeta", 
@@ -5789,7 +5789,7 @@
     }, 
     {
      "id": "India_Delhi", 
-     "s": 10406025, 
+     "s": 10407370, 
      "affiliations": [
       "Delhi", 
       "India"
@@ -5800,7 +5800,7 @@
     }, 
     {
      "id": "India_Uttar Pradesh", 
-     "s": 23573037, 
+     "s": 23576129, 
      "affiliations": [
       "Uttar Pradesh", 
       "India"
@@ -5866,7 +5866,7 @@
     }, 
     {
      "id": "India_West Bengal", 
-     "s": 37493902, 
+     "s": 37495111, 
      "affiliations": [
       "Border India - Bangladesh", 
       "Dist. Judges Court", 
@@ -5967,7 +5967,7 @@
     }, 
     {
      "id": "India_Himachal Pradesh", 
-     "s": 5640759, 
+     "s": 5641528, 
      "affiliations": [
       "Himachal Pradesh", 
       "India"
@@ -5978,7 +5978,7 @@
     }, 
     {
      "id": "India_Jammu and Kashmir", 
-     "s": 9624405, 
+     "s": 9625669, 
      "affiliations": [
       "India", 
       "Jammu and Kashmir"
@@ -6000,7 +6000,7 @@
     }, 
     {
      "id": "India_Punjab", 
-     "s": 7980235, 
+     "s": 7980506, 
      "affiliations": [
       "India", 
       "Punjab"
@@ -6016,7 +6016,7 @@
    "g": [
     {
      "id": "Indonesia_Central", 
-     "s": 177500815, 
+     "s": 177501277, 
      "affiliations": [
       "Gorontalo", 
       "Indonesia", 
@@ -6037,7 +6037,7 @@
     }, 
     {
      "id": "Indonesia_West", 
-     "s": 61875562, 
+     "s": 61875798, 
      "affiliations": [
       "Aceh", 
       "Banten", 
@@ -6059,7 +6059,7 @@
     }, 
     {
      "id": "Indonesia_Jawa Tengah", 
-     "s": 58397008, 
+     "s": 58397550, 
      "affiliations": [
       "Daerah Istimewa Yogyakarta", 
       "Indonesia", 
@@ -6084,7 +6084,7 @@
     }, 
     {
      "id": "Indonesia_Nusa Tenggara", 
-     "s": 110212123, 
+     "s": 110250397, 
      "affiliations": [
       "Bali", 
       "Batas Dusun Muntigunung Induk", 
@@ -6099,7 +6099,7 @@
     }, 
     {
      "id": "Indonesia_Jawa Timur", 
-     "s": 58520889, 
+     "s": 58527460, 
      "affiliations": [
       "Indonesia", 
       "Jawa Timur"
@@ -6110,7 +6110,7 @@
     }, 
     {
      "id": "Indonesia_East", 
-     "s": 31148039, 
+     "s": 31148791, 
      "affiliations": [
       "Indonesia", 
       "Maluku", 
@@ -6129,7 +6129,7 @@
    "g": [
     {
      "id": "Iran_East", 
-     "s": 19845934, 
+     "s": 19848811, 
      "affiliations": [
       "\u06cc\u0632\u062f\u200e", 
       "\u06a9\u0631\u0645\u0627\u0646", 
@@ -6145,7 +6145,7 @@
     }, 
     {
      "id": "Iran_South", 
-     "s": 48811994, 
+     "s": 48812763, 
      "affiliations": [
       "\u0644\u0631\u0633\u062a\u0627\u0646\u200e", 
       "\u0641\u0627\u0631\u0633\u200e", 
@@ -6168,7 +6168,7 @@
     }, 
     {
      "id": "Iran_North", 
-     "s": 47082522, 
+     "s": 47083936, 
      "affiliations": [
       "\u0642\u0645\u200e", 
       "\u0627\u0644\u0628\u0631\u0632", 
@@ -6197,7 +6197,7 @@
    "g": [
     {
      "id": "Iraq_North", 
-     "s": 27587991, 
+     "s": 27589860, 
      "affiliations": [
       "\u062c\u0645\u0647\u0648\u0631\u064a\u0629 \u0627\u0644\u0639\u0631\u0627\u0642", 
       "garaki handren", 
@@ -6217,7 +6217,7 @@
     }, 
     {
      "id": "Iraq_South", 
-     "s": 21575174, 
+     "s": 21575705, 
      "affiliations": [
       "\u062c\u0645\u0647\u0648\u0631\u064a\u0629 \u0627\u0644\u0639\u0631\u0627\u0642", 
       "\u0630\u064a \u0642\u0627\u0631", 
@@ -6257,7 +6257,7 @@
    "g": [
     {
      "id": "Jerusalem", 
-     "s": 4337071, 
+     "s": 4337770, 
      "affiliations": [
       "\u05de\u05d7\u05d5\u05d6 \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd", 
       "\u05de\u05d3\u05d9\u05e0\u05ea \u05d9\u05e9\u05e8\u05d0\u05dc"
@@ -6269,7 +6269,7 @@
     }, 
     {
      "id": "Israel", 
-     "s": 46112579, 
+     "s": 46115000, 
      "affiliations": [
       "\u05de\u05d7\u05d5\u05d6 \u05d7\u05d9\u05e4\u05d4", 
       "\u05de\u05d7\u05d5\u05d6 \u05ea\u05dc \u05d0\u05d1\u05d9\u05d1", 
@@ -6291,7 +6291,7 @@
    "g": [
     {
      "id": "Italy_Abruzzo", 
-     "s": 14556683, 
+     "s": 14556846, 
      "affiliations": [
       "Abruzzo", 
       "Italia"
@@ -6302,7 +6302,7 @@
     }, 
     {
      "id": "Italy_Aosta Valley", 
-     "s": 9986397, 
+     "s": 9986766, 
      "affiliations": [
       "Italia", 
       "Valle d'Aosta/Vall\u00e9e d'Aoste"
@@ -6313,7 +6313,7 @@
     }, 
     {
      "id": "Italy_Apulia", 
-     "s": 79938436, 
+     "s": 79940241, 
      "affiliations": [
       "Isola della Chianca", 
       "Isola della Malva", 
@@ -6340,7 +6340,7 @@
     }, 
     {
      "id": "Italy_Calabria", 
-     "s": 22963513, 
+     "s": 22963770, 
      "affiliations": [
       "Calabria", 
       "Isola di Cirella", 
@@ -6353,7 +6353,7 @@
     }, 
     {
      "id": "Italy_Campania", 
-     "s": 28449376, 
+     "s": 28450821, 
      "affiliations": [
       "Campania", 
       "Isola Licosa", 
@@ -6373,7 +6373,7 @@
      "g": [
       {
        "id": "Italy_Emilia-Romagna_Bologna", 
-       "s": 25402679, 
+       "s": 25403350, 
        "affiliations": [
         "Emilia-Romagna", 
         "Italia"
@@ -6384,7 +6384,7 @@
       }, 
       {
        "id": "Italy_Emilia-Romagna_Ferrara", 
-       "s": 11851916, 
+       "s": 11852280, 
        "affiliations": [
         "Emilia-Romagna", 
         "Italia"
@@ -6417,7 +6417,7 @@
       }, 
       {
        "id": "Italy_Emilia-Romagna_Parma", 
-       "s": 15727775, 
+       "s": 15728045, 
        "affiliations": [
         "Emilia-Romagna", 
         "Italia"
@@ -6439,7 +6439,7 @@
       }, 
       {
        "id": "Italy_Emilia-Romagna_Ravenna", 
-       "s": 10896724, 
+       "s": 10897045, 
        "affiliations": [
         "Emilia-Romagna", 
         "Italia"
@@ -6461,7 +6461,7 @@
       }, 
       {
        "id": "Italy_Emilia-Romagna_Rimini", 
-       "s": 8520747, 
+       "s": 8521580, 
        "affiliations": [
         "Emilia-Romagna", 
         "Italia"
@@ -6523,7 +6523,7 @@
     }, 
     {
      "id": "Italy_Lazio", 
-     "s": 51353666, 
+     "s": 51359223, 
      "affiliations": [
       "Civitatis Vatican\u00e6", 
       "Gavi", 
@@ -6540,7 +6540,7 @@
     }, 
     {
      "id": "Italy_Liguria", 
-     "s": 44792953, 
+     "s": 44794350, 
      "affiliations": [
       "Italia", 
       "Liguria"
@@ -6554,7 +6554,7 @@
      "g": [
       {
        "id": "Italy_Lombardy_Bergamo", 
-       "s": 13945823, 
+       "s": 13946348, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6565,7 +6565,7 @@
       }, 
       {
        "id": "Italy_Lombardy_Brescia", 
-       "s": 22509415, 
+       "s": 22510323, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6576,7 +6576,7 @@
       }, 
       {
        "id": "Italy_Lombardy_Como", 
-       "s": 10510085, 
+       "s": 10510930, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6598,7 +6598,7 @@
       }, 
       {
        "id": "Italy_Lombardy_Lecco", 
-       "s": 8011956, 
+       "s": 8012401, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6631,7 +6631,7 @@
       }, 
       {
        "id": "Italy_Lombardy_Milan", 
-       "s": 25733767, 
+       "s": 25735796, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6675,7 +6675,7 @@
       }, 
       {
        "id": "Italy_Lombardy_Varese", 
-       "s": 12675157, 
+       "s": 12675543, 
        "affiliations": [
         "Italia", 
         "Lombardia"
@@ -6688,7 +6688,7 @@
     }, 
     {
      "id": "Italy_Marche", 
-     "s": 22916458, 
+     "s": 22916725, 
      "affiliations": [
       "Italia", 
       "Marche"
@@ -6735,7 +6735,7 @@
       }, 
       {
        "id": "Italy_Piemont_Biella", 
-       "s": 7340767, 
+       "s": 7341235, 
        "affiliations": [
         "Italia", 
         "Piemonte"
@@ -6768,7 +6768,7 @@
       }, 
       {
        "id": "Italy_Piemont_Torino", 
-       "s": 29733632, 
+       "s": 29734499, 
        "affiliations": [
         "Italia", 
         "Piemonte"
@@ -6779,7 +6779,7 @@
       }, 
       {
        "id": "Italy_Piemont_Verbano-Cusio-Ossola", 
-       "s": 7188506, 
+       "s": 7188960, 
        "affiliations": [
         "Italia", 
         "Piemonte"
@@ -6803,7 +6803,7 @@
     }, 
     {
      "id": "Italy_Sardinia", 
-     "s": 69548358, 
+     "s": 69549334, 
      "affiliations": [
       "Isola Tuaredda", 
       "Isola de Sa tonnara", 
@@ -6824,7 +6824,7 @@
     }, 
     {
      "id": "Italy_Sicily", 
-     "s": 61116787, 
+     "s": 61117717, 
      "affiliations": [
       "Isola dei Cani", 
       "Isola delle Correnti", 
@@ -6872,7 +6872,7 @@
     }, 
     {
      "id": "Italy_Trentino-Alto Adige Sudtirol", 
-     "s": 59923206, 
+     "s": 59923493, 
      "affiliations": [
       "Italia", 
       "Trentino-Alto Adige/S\u00fcdtirol"
@@ -6883,7 +6883,7 @@
     }, 
     {
      "id": "Italy_Tuscany_Grosseto", 
-     "s": 22817002, 
+     "s": 22817474, 
      "affiliations": [
       "Formica Piccola", 
       "Formica Grande", 
@@ -6900,7 +6900,7 @@
     }, 
     {
      "id": "Italy_Tuscany_Massa e Carrara", 
-     "s": 55145102, 
+     "s": 55147323, 
      "affiliations": [
       "Cerboli", 
       "Isola della Peraiola", 
@@ -6918,7 +6918,7 @@
     }, 
     {
      "id": "Italy_Umbria", 
-     "s": 20574248, 
+     "s": 20574838, 
      "affiliations": [
       "Italia", 
       "Umbria"
@@ -6965,7 +6965,7 @@
       }, 
       {
        "id": "Italy_Veneto_Treviso", 
-       "s": 29812312, 
+       "s": 29812672, 
        "affiliations": [
         "Italia", 
         "Veneto"
@@ -6976,7 +6976,7 @@
       }, 
       {
        "id": "Italy_Veneto_Venezia", 
-       "s": 19652783, 
+       "s": 19654594, 
        "affiliations": [
         "Italia", 
         "Veneto"
@@ -6998,7 +6998,7 @@
       }, 
       {
        "id": "Italy_Veneto_Vicenza", 
-       "s": 26652631, 
+       "s": 26652792, 
        "affiliations": [
         "Italia", 
         "Veneto"
@@ -7013,7 +7013,7 @@
   }, 
   {
    "id": "Jamaica", 
-   "s": 6525305, 
+   "s": 6526163, 
    "affiliations": [
     "Jamaica"
    ], 
@@ -7074,7 +7074,7 @@
       }, 
       {
        "id": "Japan_Chubu Region_Ishikawa", 
-       "s": 11185764, 
+       "s": 11186474, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u77f3\u5ddd\u770c"
@@ -7096,7 +7096,7 @@
       }, 
       {
        "id": "Japan_Chubu Region_Niigata", 
-       "s": 23937102, 
+       "s": 23937528, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u65b0\u6f5f\u770c", 
@@ -7207,7 +7207,7 @@
      "g": [
       {
        "id": "Japan_Hokkaido Region_East", 
-       "s": 23398646, 
+       "s": 23399151, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5317\u6d77\u9053"
@@ -7229,7 +7229,7 @@
       }, 
       {
        "id": "Japan_Hokkaido Region_West", 
-       "s": 17691829, 
+       "s": 17693166, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5317\u6d77\u9053"
@@ -7240,7 +7240,7 @@
       }, 
       {
        "id": "Japan_Hokkaido Region_Sapporo", 
-       "s": 36178879, 
+       "s": 36179061, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5317\u6d77\u9053"
@@ -7293,7 +7293,7 @@
       }, 
       {
        "id": "Japan_Kanto_Kanagawa", 
-       "s": 36557561, 
+       "s": 36557915, 
        "affiliations": [
         "\u9759\u5ca1\u770c", 
         "\u65e5\u672c", 
@@ -7329,7 +7329,7 @@
       }, 
       {
        "id": "Japan_Kanto_Tokyo", 
-       "s": 43940513, 
+       "s": 43941854, 
        "affiliations": [
         "\u9759\u5ca1\u770c", 
         "\u65e5\u672c", 
@@ -7346,7 +7346,7 @@
      "g": [
       {
        "id": "Japan_Shikoku Region_Kyoto", 
-       "s": 32949216, 
+       "s": 32949718, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u4eac\u90fd\u5e9c", 
@@ -7370,7 +7370,7 @@
       }, 
       {
        "id": "Japan_Kinki Region_Nara", 
-       "s": 10728692, 
+       "s": 10730062, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5948\u826f\u770c", 
@@ -7432,7 +7432,7 @@
       }, 
       {
        "id": "Japan_Kyushu Region_Kagoshima", 
-       "s": 19799063, 
+       "s": 19799422, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u9e7f\u5150\u5cf6\u770c"
@@ -7443,7 +7443,7 @@
       }, 
       {
        "id": "Japan_Kyushu Region_Kumamoto", 
-       "s": 22313479, 
+       "s": 22313787, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u718a\u672c\u770c"
@@ -7454,7 +7454,7 @@
       }, 
       {
        "id": "Japan_Kyushu Region_Miyazaki", 
-       "s": 12517293, 
+       "s": 12517670, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5bae\u5d0e\u770c"
@@ -7487,7 +7487,7 @@
       }, 
       {
        "id": "Japan_Kyushu Region_Okinawa", 
-       "s": 8211513, 
+       "s": 8212672, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u6c96\u7e04\u770c"
@@ -7619,7 +7619,7 @@
       }, 
       {
        "id": "Japan_Tohoku_Yamagata", 
-       "s": 13354741, 
+       "s": 13355033, 
        "affiliations": [
         "\u65e5\u672c", 
         "\u5c71\u5f62\u770c"
@@ -7678,7 +7678,7 @@
    "g": [
     {
      "id": "Kazakhstan_North", 
-     "s": 40683355, 
+     "s": 40684886, 
      "affiliations": [
       "\u0410\u0441\u0442\u0430\u043d\u0430", 
       "\u0421\u0435\u0432\u0435\u0440\u043e-\u041a\u0430\u0437\u0430\u0445\u0441\u0442\u0430\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
@@ -7694,7 +7694,7 @@
     }, 
     {
      "id": "Kazakhstan_South", 
-     "s": 47805449, 
+     "s": 47808288, 
      "affiliations": [
       "\u0410\u043b\u043c\u0430\u0442\u044b", 
       "\u0410\u0442\u044b\u0440\u0430\u0443\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
@@ -7716,7 +7716,7 @@
   }, 
   {
    "id": "Kenya", 
-   "s": 46863986, 
+   "s": 46864532, 
    "affiliations": [
     "Baringo", 
     "Bungoma", 
@@ -7809,7 +7809,7 @@
   }, 
   {
    "id": "Kyrgyzstan", 
-   "s": 22557982, 
+   "s": 22561118, 
    "affiliations": [
     "\u041d\u0430\u0440\u044b\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
     "\u0422\u0430\u043b\u0430\u0441\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
@@ -7830,7 +7830,7 @@
   }, 
   {
    "id": "Laos", 
-   "s": 23097581, 
+   "s": 23139444, 
    "affiliations": [
     "\u0e84\u0ecd\u0eb2\u0ea1\u0ec8\u0ea7\u0e99", 
     "\u0e88\u0eb3\u0e9b\u0eb2\u0eaa\u0eb1\u0e81", 
@@ -7857,7 +7857,7 @@
   }, 
   {
    "id": "Latvia", 
-   "s": 54046198, 
+   "s": 54051410, 
    "affiliations": [
     "Latgale", 
     "Latvija", 
@@ -7906,7 +7906,7 @@
   }, 
   {
    "id": "Liberia", 
-   "s": 19150775, 
+   "s": 19151174, 
    "affiliations": [
     "Bomi County", 
     "Bong County", 
@@ -7931,7 +7931,7 @@
   }, 
   {
    "id": "Libya", 
-   "s": 12806194, 
+   "s": 12806648, 
    "affiliations": [
     "Libya \u2d4d\u2d49\u2d31\u2d62\u2d30 \u0644\u064a\u0628\u064a\u0627", 
     "\u0633\u0631\u062a", 
@@ -7976,7 +7976,7 @@
    "g": [
     {
      "id": "Lithuania_East", 
-     "s": 48176845, 
+     "s": 48179241, 
      "affiliations": [
       "Alytaus apskritis", 
       "Kauno apskritis", 
@@ -7990,7 +7990,7 @@
     }, 
     {
      "id": "Lithuania_West", 
-     "s": 48320844, 
+     "s": 48321331, 
      "affiliations": [
       "Klaip\u0117dos apskritis", 
       "Lietuva", 
@@ -8008,7 +8008,7 @@
   }, 
   {
    "id": "Luxembourg", 
-   "s": 17374832, 
+   "s": 17375807, 
    "affiliations": [
     "L\u00ebtzebuerg"
    ], 
@@ -8018,7 +8018,7 @@
   }, 
   {
    "id": "Macedonia", 
-   "s": 15402736, 
+   "s": 15402897, 
    "affiliations": [
     "\u0418\u0441\u0442\u043e\u0447\u0435\u043d \u0420\u0435\u0433\u0438\u043e\u043d", 
     "\u041f\u043e\u043b\u043e\u0448\u043a\u0438 \u0420\u0435\u0433\u0438\u043e\u043d", 
@@ -8036,7 +8036,7 @@
   }, 
   {
    "id": "Madagascar", 
-   "s": 45940873, 
+   "s": 45942412, 
    "affiliations": [
     "Madagasikara", 
     "Region de Anosy", 
@@ -8050,7 +8050,7 @@
   }, 
   {
    "id": "Malawi", 
-   "s": 56937168, 
+   "s": 56938623, 
    "affiliations": [
     "Border Malawi - Mozambique", 
     "Central", 
@@ -8066,7 +8066,7 @@
   }, 
   {
    "id": "Malaysia", 
-   "s": 59469141, 
+   "s": 59480992, 
    "affiliations": [
     "Terengganu / \u062a\u0631\u06a0\u06ac\u0627\u0646\u0648", 
     "Johor", 
@@ -8150,7 +8150,7 @@
   }, 
   {
    "id": "Malta", 
-   "s": 3831228, 
+   "s": 3832412, 
    "affiliations": [
     "Comino", 
     "Cominotto", 
@@ -8200,7 +8200,7 @@
   }, 
   {
    "id": "Mauritius", 
-   "s": 4894119, 
+   "s": 4896579, 
    "affiliations": [
     "Black River", 
     "Mauritius", 
@@ -8254,7 +8254,7 @@
     }, 
     {
      "id": "Mexico_Central_East", 
-     "s": 18200613, 
+     "s": 18200990, 
      "affiliations": [
       "Coahuila de Zaragoza", 
       "Estados Unidos Mexicanos", 
@@ -8268,7 +8268,7 @@
     }, 
     {
      "id": "Mexico_Central_West", 
-     "s": 29784073, 
+     "s": 29784708, 
      "affiliations": [
       "Aguascalientes", 
       "Colima", 
@@ -8285,7 +8285,7 @@
     }, 
     {
      "id": "Mexico_East", 
-     "s": 30922281, 
+     "s": 30925321, 
      "affiliations": [
       "Campeche", 
       "Chiapas", 
@@ -8303,7 +8303,7 @@
     }, 
     {
      "id": "Mexico_Mexico", 
-     "s": 44658899, 
+     "s": 44660889, 
      "affiliations": [
       "Distrito Federal", 
       "Estados Unidos Mexicanos", 
@@ -8349,7 +8349,7 @@
     }, 
     {
      "id": "Mexico_South", 
-     "s": 34403097, 
+     "s": 34404258, 
      "affiliations": [
       "Estados Unidos Mexicanos", 
       "Guerrero", 
@@ -8367,7 +8367,7 @@
   }, 
   {
    "id": "Moldova", 
-   "s": 25709184, 
+   "s": 25709953, 
    "affiliations": [
     "G\u0103g\u0103uzia - Gagauz Yeri - \u0413\u0430\u0433\u0430\u0443\u0437\u0438\u044f", 
     "Moldova", 
@@ -8390,7 +8390,7 @@
   }, 
   {
    "id": "Mongolia", 
-   "s": 20927590, 
+   "s": 20928372, 
    "affiliations": [
     "Border Darkhan-Uul - Selenge", 
     "\u0423\u0432\u0441 \u0430\u0439\u043c\u0430\u0433", 
@@ -8425,7 +8425,7 @@
   }, 
   {
    "id": "Montenegro", 
-   "s": 18390383, 
+   "s": 18398695, 
    "affiliations": [
     "Crna Gora"
    ], 
@@ -8438,7 +8438,7 @@
    "g": [
     {
      "id": "Morocco_Western Sahara", 
-     "s": 6470100, 
+     "s": 6470613, 
      "affiliations": [
       "Dakhla-Oued Ed-Dahab \u2d37\u2d30\u2d45\u2d4d\u2d30-\u2d61\u2d30\u2d37 \u2d37\u2d30\u2d40\u2d30\u2d31 \u0627\u0644\u062f\u0627\u062e\u0644\u0629-\u0648\u0627\u062f\u064a \u0627\u0644\u0630\u0647\u0628", 
       "Guelmim-Oued Noun \u2d33\u2d4d\u2d4e\u2d49\u2d4e-\u2d61\u2d30\u2d37 \u2d4f\u2d53\u2d4f \u06af\u0644\u0645\u064a\u0645 - \u0648\u0627\u062f \u0646\u0648\u0646", 
@@ -8453,7 +8453,7 @@
     }, 
     {
      "id": "Morocco_Southern", 
-     "s": 30585985, 
+     "s": 30589006, 
      "affiliations": [
       "B\u00e9ni Mellal-Kh\u00e9nifra \u2d30\u2d62\u2d5c \u2d4e\u2d4d\u2d4d\u2d30\u2d4d-\u2d45\u2d4f\u2d49\u2d3c\u2d55\u2d30 \u0628\u0646\u064a \u0645\u0644\u0627\u0644-\u062e\u0646\u064a\u0641\u0631\u0629", 
       "Dr\u00e2a-Tafilalet \u2d37\u2d30\u2d54\u2d44\u2d30-\u2d5c\u2d30\u2d3c\u2d49\u2d4d\u2d30\u2d4d\u2d5c \u062f\u0631\u0639\u0629-\u062a\u0627\u0641\u064a\u0644\u0627\u0644\u062a", 
@@ -8469,7 +8469,7 @@
     }, 
     {
      "id": "Morocco_Doukkala-Abda", 
-     "s": 19089384, 
+     "s": 19090831, 
      "affiliations": [
       "B\u00e9ni Mellal-Kh\u00e9nifra \u2d30\u2d62\u2d5c \u2d4e\u2d4d\u2d4d\u2d30\u2d4d-\u2d45\u2d4f\u2d49\u2d3c\u2d55\u2d30 \u0628\u0646\u064a \u0645\u0644\u0627\u0644-\u062e\u0646\u064a\u0641\u0631\u0629", 
       "Casablanca-Settat \u2d5c\u2d49\u2d33\u2d4e\u2d49 \u2d5c\u2d53\u2d4e\u2d4d\u2d49\u2d4d\u2d5c-\u2d59\u2d5f\u2d5f\u2d30\u2d5c \u0627\u0644\u062f\u0627\u0631 \u0627\u0644\u0628\u064a\u0636\u0627\u0621-\u0633\u0637\u0627\u062a", 
@@ -8482,7 +8482,7 @@
     }, 
     {
      "id": "Morocco_Rabat-Sale-Zemmour-Zaer", 
-     "s": 16128439, 
+     "s": 16130238, 
      "affiliations": [
       "F\u00e8s-Mekn\u00e8s \u2d3c\u2d30\u2d59-\u2d4e\u2d3d\u2d4f\u2d30\u2d59 \u0641\u0627\u0633-\u0645\u0643\u0646\u0627\u0633", 
       "Maroc \u2d4d\u2d4e\u2d56\u2d54\u2d49\u2d31 \u0627\u0644\u0645\u063a\u0631\u0628", 
@@ -8518,7 +8518,7 @@
   }, 
   {
    "id": "Myanmar", 
-   "s": 72960037, 
+   "s": 72996424, 
    "affiliations": [
     "Ayeyarwady", 
     "Bago Region", 
@@ -8543,7 +8543,7 @@
   }, 
   {
    "id": "Namibia", 
-   "s": 16322830, 
+   "s": 16326625, 
    "affiliations": [
     "Arandis", 
     "Aranos7", 
@@ -8588,7 +8588,7 @@
    "g": [
     {
      "id": "Nepal_West", 
-     "s": 72514972, 
+     "s": 72518846, 
      "affiliations": [
       "\u092e\u0927\u094d\u092f-\u092a\u0936\u094d\u091a\u093f\u092e\u093e\u091e\u094d\u091a\u0932 \u0935\u093f\u0915\u093e\u0938 \u0915\u094d\u0937\u0947\u0924\u094d\u0930", 
       "\u0928\u0947\u092a\u093e\u0932", 
@@ -8601,7 +8601,7 @@
     }, 
     {
      "id": "Nepal_Kathmandu", 
-     "s": 28230637, 
+     "s": 28234458, 
      "affiliations": [
       "\u092e\u0927\u094d\u092f\u092e\u093e\u091e\u094d\u091a\u0932 \u0935\u093f\u0915\u093e\u0938 \u0915\u094d\u0937\u0947\u0924\u094d\u0930", 
       "\u0928\u0947\u092a\u093e\u0932"
@@ -8612,7 +8612,7 @@
     }, 
     {
      "id": "Nepal_Madhyamanchal", 
-     "s": 29363469, 
+     "s": 29364035, 
      "affiliations": [
       "\u092e\u0927\u094d\u092f\u092e\u093e\u091e\u094d\u091a\u0932 \u0935\u093f\u0915\u093e\u0938 \u0915\u094d\u0937\u0947\u0924\u094d\u0930", 
       "\u0928\u0947\u092a\u093e\u0932"
@@ -8636,7 +8636,7 @@
   }, 
   {
    "id": "Nicaragua", 
-   "s": 15026918, 
+   "s": 15030640, 
    "affiliations": [
     "Boaco", 
     "Carazo", 
@@ -8685,7 +8685,7 @@
    "g": [
     {
      "id": "Nigeria_South", 
-     "s": 90782623, 
+     "s": 90783110, 
      "affiliations": [
       "Abia", 
       "Adamawa", 
@@ -8780,7 +8780,7 @@
    "g": [
     {
      "id": "Norway_Northern", 
-     "s": 80662280, 
+     "s": 80663203, 
      "affiliations": [
       "Finnmark", 
       "Norge", 
@@ -8792,7 +8792,7 @@
     }, 
     {
      "id": "Norway_Hordaland", 
-     "s": 46959761, 
+     "s": 46961933, 
      "affiliations": [
       "Hordaland", 
       "Norge"
@@ -8803,7 +8803,7 @@
     }, 
     {
      "id": "Norway_Nordland", 
-     "s": 73288791, 
+     "s": 73289110, 
      "affiliations": [
       "Nordland", 
       "Norge", 
@@ -8867,7 +8867,7 @@
     }, 
     {
      "id": "Norway_North Trondelag", 
-     "s": 52224515, 
+     "s": 52224683, 
      "affiliations": [
       "Nord-Tr\u00f8ndelag", 
       "Norge", 
@@ -8890,7 +8890,7 @@
     }, 
     {
      "id": "Norway_Southern", 
-     "s": 90803321, 
+     "s": 90803482, 
      "affiliations": [
       "Aust-Agder", 
       "\u00d8stfold", 
@@ -8917,7 +8917,7 @@
     }, 
     {
      "id": "Norway_Central", 
-     "s": 62211902, 
+     "s": 62228112, 
      "affiliations": [
       "Akershus", 
       "Buskerud", 
@@ -8943,7 +8943,7 @@
   }, 
   {
    "id": "Oman", 
-   "s": 11906691, 
+   "s": 11908276, 
    "affiliations": [
     "\u0645\u0646\u0637\u0642\u0629 \u0627\u0644\u0638\u0627\u0647\u0631\u0629", 
     "\u0645\u0646\u0637\u0642\u0629 \u0627\u0644\u062f\u0627\u062e\u0644\u064a\u0629", 
@@ -8963,7 +8963,7 @@
   }, 
   {
    "id": "Pakistan", 
-   "s": 44336573, 
+   "s": 44336787, 
    "affiliations": [
     "\u0633\u0646\u068c", 
     "\u0622\u0632\u0627\u062f \u062c\u0645\u0648\u06ba \u0648 \u06a9\u0634\u0645\u06cc\u0631", 
@@ -8992,7 +8992,7 @@
   }, 
   {
    "id": "Panama", 
-   "s": 10679611, 
+   "s": 10681584, 
    "affiliations": [
     "Bocas del Toro", 
     "Chiriqu\u00ed", 
@@ -9052,7 +9052,7 @@
   }, 
   {
    "id": "Paraguay", 
-   "s": 30754264, 
+   "s": 30755240, 
    "affiliations": [
     "Alto Paraguay", 
     "Alto Paran\u00e1", 
@@ -9085,7 +9085,7 @@
    "g": [
     {
      "id": "China_Anhui", 
-     "s": 15135045, 
+     "s": 15135939, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u5b89\u5fbd\u7701"
@@ -9096,7 +9096,7 @@
     }, 
     {
      "id": "China_Chongqing", 
-     "s": 8665447, 
+     "s": 8666452, 
      "affiliations": [
       "\u91cd\u5e86\u5e02", 
       "\u4e2d\u56fd"
@@ -9118,7 +9118,7 @@
     }, 
     {
      "id": "China_Gansu", 
-     "s": 16139350, 
+     "s": 16139816, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u7518\u8083\u7701"
@@ -9129,7 +9129,7 @@
     }, 
     {
      "id": "China_Guangdong", 
-     "s": 63350437, 
+     "s": 63364069, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u5e7f\u4e1c\u7701", 
@@ -9141,7 +9141,7 @@
     }, 
     {
      "id": "China_Guangxi", 
-     "s": 13476069, 
+     "s": 13476837, 
      "affiliations": [
       "\u5e7f\u897f\u58ee\u65cf\u81ea\u6cbb\u533a", 
       "\u4e2d\u56fd"
@@ -9163,7 +9163,7 @@
     }, 
     {
      "id": "China_Hebei", 
-     "s": 30683350, 
+     "s": 30685018, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u5317\u4eac\u5e02", 
@@ -9288,7 +9288,7 @@
     }, 
     {
      "id": "China_Qinghai", 
-     "s": 7820791, 
+     "s": 7821806, 
      "affiliations": [
       "\u9752\u6d77\u7701", 
       "\u4e2d\u56fd"
@@ -9299,7 +9299,7 @@
     }, 
     {
      "id": "China_Shaanxi", 
-     "s": 13535533, 
+     "s": 13535821, 
      "affiliations": [
       "\u9655\u897f\u7701", 
       "\u4e2d\u56fd"
@@ -9321,7 +9321,7 @@
     }, 
     {
      "id": "China_Shanghai", 
-     "s": 10698724, 
+     "s": 10699544, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u4e0a\u6d77\u5e02", 
@@ -9333,7 +9333,7 @@
     }, 
     {
      "id": "China_Shanxi", 
-     "s": 9057454, 
+     "s": 9057615, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u5c71\u897f\u7701"
@@ -9344,7 +9344,7 @@
     }, 
     {
      "id": "China_Sichuan", 
-     "s": 30443232, 
+     "s": 30445093, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u56db\u5ddd\u7701"
@@ -9366,7 +9366,7 @@
     }, 
     {
      "id": "China_Xinjiang", 
-     "s": 15691237, 
+     "s": 15692120, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u65b0\u7586\u7ef4\u543e\u5c14\u81ea\u6cbb\u533a"
@@ -9377,7 +9377,7 @@
     }, 
     {
      "id": "China_Yunnan", 
-     "s": 19455430, 
+     "s": 19457510, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u4e91\u5357\u7701"
@@ -9404,7 +9404,7 @@
    "g": [
     {
      "id": "Taiwan_North", 
-     "s": 36391071, 
+     "s": 36391183, 
      "affiliations": [
       "\u4e2d\u56fd", 
       "\u65b0\u5317\u5e02", 
@@ -9421,7 +9421,7 @@
     }, 
     {
      "id": "Taiwan_South", 
-     "s": 28818728, 
+     "s": 28819393, 
      "affiliations": [
       "\u9ad8\u96c4\u5e02", 
       "\u53f0\u5357\u5e02", 
@@ -9439,7 +9439,7 @@
    "g": [
     {
      "id": "Peru_North", 
-     "s": 33639560, 
+     "s": 33641555, 
      "affiliations": [
       "Amazonas", 
       "Ancash", 
@@ -9461,7 +9461,7 @@
     }, 
     {
      "id": "Peru_Lima", 
-     "s": 28648830, 
+     "s": 28652924, 
      "affiliations": [
       "Callao", 
       "Huancavelica", 
@@ -9476,7 +9476,7 @@
     }, 
     {
      "id": "Peru_South", 
-     "s": 31345665, 
+     "s": 31349854, 
      "affiliations": [
       "Apur\u00edmac", 
       "Arequipa", 
@@ -9499,7 +9499,7 @@
    "g": [
     {
      "id": "Philippines_Mindanao", 
-     "s": 32776223, 
+     "s": 32777431, 
      "affiliations": [
       "Agusan Del Sur", 
       "Agusan del Norte", 
@@ -9540,7 +9540,7 @@
     }, 
     {
      "id": "Philippines_Visayas", 
-     "s": 50537658, 
+     "s": 50546040, 
      "affiliations": [
       "Aklan", 
       "Bohol", 
@@ -9571,7 +9571,7 @@
     }, 
     {
      "id": "Philippines_Luzon_South", 
-     "s": 8220323, 
+     "s": 8225617, 
      "affiliations": [
       "Antique", 
       "Ban Than (Zhongzhou) Reef", 
@@ -9594,7 +9594,7 @@
     }, 
     {
      "id": "Philippines_Luzon_Manila", 
-     "s": 89017949, 
+     "s": 89019786, 
      "affiliations": [
       "Catanduanes", 
       "Cavite", 
@@ -9667,7 +9667,7 @@
    "g": [
     {
      "id": "Poland_West Pomeranian Voivodeship", 
-     "s": 57231031, 
+     "s": 57231738, 
      "affiliations": [
       "Polska", 
       "Territorial waters of Bornholm", 
@@ -9679,7 +9679,7 @@
     }, 
     {
      "id": "Poland_Pomeranian Voivodeship", 
-     "s": 59260311, 
+     "s": 59262276, 
      "affiliations": [
       "Polska", 
       "Territorial waters of Bornholm", 
@@ -9691,7 +9691,7 @@
     }, 
     {
      "id": "Poland_Podlaskie Voivodeship", 
-     "s": 41245188, 
+     "s": 41245685, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo podlaskie"
@@ -9702,7 +9702,7 @@
     }, 
     {
      "id": "Poland_Masovian Voivodeship", 
-     "s": 123317320, 
+     "s": 123319509, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo mazowieckie"
@@ -9724,7 +9724,7 @@
     }, 
     {
      "id": "Poland_Lublin Voivodeship", 
-     "s": 74514095, 
+     "s": 74514627, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo lubelskie"
@@ -9735,7 +9735,7 @@
     }, 
     {
      "id": "Poland_Lower Silesian Voivodeship", 
-     "s": 88323623, 
+     "s": 88324157, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo dolno\u015bl\u0105skie"
@@ -9746,7 +9746,7 @@
     }, 
     {
      "id": "Poland_Warmian-Masurian Voivodeship", 
-     "s": 47727389, 
+     "s": 47728594, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo warmi\u0144sko-mazurskie"
@@ -9768,7 +9768,7 @@
     }, 
     {
      "id": "Poland_Subcarpathian Voivodeship", 
-     "s": 82807367, 
+     "s": 82807760, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo podkarpackie"
@@ -9779,7 +9779,7 @@
     }, 
     {
      "id": "Poland_Lesser Poland Voivodeship", 
-     "s": 93145711, 
+     "s": 93147511, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo ma\u0142opolskie"
@@ -9790,7 +9790,7 @@
     }, 
     {
      "id": "Poland_Silesian Voivodeship", 
-     "s": 102313784, 
+     "s": 102314582, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo \u015bl\u0105skie"
@@ -9812,7 +9812,7 @@
     }, 
     {
      "id": "Poland_Greater Poland Voivodeship", 
-     "s": 89635696, 
+     "s": 89636881, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo wielkopolskie"
@@ -9834,7 +9834,7 @@
     }, 
     {
      "id": "Poland_Swietokrzyskie Voivodeship", 
-     "s": 45022685, 
+     "s": 45023018, 
      "affiliations": [
       "Polska", 
       "wojew\u00f3dztwo \u015bwi\u0119tokrzyskie"
@@ -9850,7 +9850,7 @@
    "g": [
     {
      "id": "Portugal_Porto", 
-     "s": 42767988, 
+     "s": 42769123, 
      "affiliations": [
       "Centro", 
       "Norte", 
@@ -9862,7 +9862,7 @@
     }, 
     {
      "id": "Portugal_South", 
-     "s": 59130110, 
+     "s": 59132598, 
      "affiliations": [
       "Centro", 
       "Alentejo", 
@@ -9876,7 +9876,7 @@
     }, 
     {
      "id": "Portugal_Islands", 
-     "s": 11742293, 
+     "s": 11746040, 
      "affiliations": [
       "Ilh\u00e9u dos Rosais", 
       "Ilh\u00e9us dos Rosais", 
@@ -9932,7 +9932,7 @@
   }, 
   {
    "id": "Qatar", 
-   "s": 6531890, 
+   "s": 6532938, 
    "affiliations": [
     "Ad Dawhah", 
     "Al Ghuwariyah", 
@@ -9952,7 +9952,7 @@
   }, 
   {
    "id": "Republic of Kosovo", 
-   "s": 9782085, 
+   "s": 9784015, 
    "affiliations": [
     "Republika e Kosov\u00ebs"
    ], 
@@ -9965,7 +9965,7 @@
    "g": [
     {
      "id": "Romania_South_East", 
-     "s": 18392784, 
+     "s": 18393290, 
      "affiliations": [
       "Br\u0103ila", 
       "Buz\u0103u", 
@@ -9981,7 +9981,7 @@
     }, 
     {
      "id": "Romania_Centre", 
-     "s": 39881562, 
+     "s": 39882184, 
      "affiliations": [
       "Alba", 
       "Bra\u0219ov", 
@@ -9997,7 +9997,7 @@
     }, 
     {
      "id": "Romania_West", 
-     "s": 26266041, 
+     "s": 26266315, 
      "affiliations": [
       "Arad", 
       "Cara\u0219 Severin", 
@@ -10011,7 +10011,7 @@
     }, 
     {
      "id": "Romania_North_West", 
-     "s": 39009226, 
+     "s": 39009745, 
      "affiliations": [
       "Bihor", 
       "Bistri\u021ba-N\u0103s\u0103ud", 
@@ -10058,7 +10058,7 @@
     }, 
     {
      "id": "Romania_South", 
-     "s": 31591129, 
+     "s": 31591357, 
      "affiliations": [
       "Arge\u0219", 
       "Bucure\u0219ti", 
@@ -10083,7 +10083,7 @@
    "g": [
     {
      "id": "Crimea", 
-     "s": 25130471, 
+     "s": 25143442, 
      "affiliations": [
       "\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0456\u043a\u0430 \u041a\u0440\u0438\u043c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10098,7 +10098,7 @@
     }, 
     {
      "id": "Russia_Altai Krai", 
-     "s": 49151017, 
+     "s": 49153204, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10110,7 +10110,7 @@
     }, 
     {
      "id": "Russia_Altai Republic", 
-     "s": 11260684, 
+     "s": 11262861, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10122,7 +10122,7 @@
     }, 
     {
      "id": "Russia_Amur Oblast", 
-     "s": 7165238, 
+     "s": 7166212, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10172,7 +10172,7 @@
     }, 
     {
      "id": "Russia_Bashkortostan", 
-     "s": 34055825, 
+     "s": 34056852, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10184,7 +10184,7 @@
     }, 
     {
      "id": "Russia_Belgorod Oblast", 
-     "s": 19797246, 
+     "s": 19798466, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10196,7 +10196,7 @@
     }, 
     {
      "id": "Russia_Bryansk Oblast", 
-     "s": 13432302, 
+     "s": 13434413, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10232,7 +10232,7 @@
     }, 
     {
      "id": "Russia_Chelyabinsk Oblast", 
-     "s": 47985533, 
+     "s": 47987513, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10256,7 +10256,7 @@
     }, 
     {
      "id": "Russia_Chuvashia", 
-     "s": 10276853, 
+     "s": 10277826, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10280,7 +10280,7 @@
     }, 
     {
      "id": "Russia_Irkutsk Oblast", 
-     "s": 33003152, 
+     "s": 33005352, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10292,7 +10292,7 @@
     }, 
     {
      "id": "Russia_Ivanovo Oblast", 
-     "s": 13411926, 
+     "s": 13413115, 
      "affiliations": [
       "\u0418\u0432\u0430\u043d\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10304,7 +10304,7 @@
     }, 
     {
      "id": "Russia_Jewish Autonomous Oblast", 
-     "s": 5469751, 
+     "s": 5470074, 
      "affiliations": [
       "\u0415\u0432\u0440\u0435\u0439\u0441\u043a\u0430\u044f \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10316,7 +10316,7 @@
     }, 
     {
      "id": "Russia_Kabardino-Balkaria", 
-     "s": 4721496, 
+     "s": 4722677, 
      "affiliations": [
       "\u041a\u0430\u0431\u0430\u0440\u0434\u0438\u043d\u043e-\u0411\u0430\u043b\u043a\u0430\u0440\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10328,7 +10328,7 @@
     }, 
     {
      "id": "Russia_Kaliningrad Oblast", 
-     "s": 9901957, 
+     "s": 9904386, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10340,7 +10340,7 @@
     }, 
     {
      "id": "Russia_Kaluga Oblast", 
-     "s": 21033992, 
+     "s": 21034975, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10352,7 +10352,7 @@
     }, 
     {
      "id": "Russia_Kamchatka Krai", 
-     "s": 13248094, 
+     "s": 13248957, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10364,7 +10364,7 @@
     }, 
     {
      "id": "Russia_Karachay-Cherkessia", 
-     "s": 12238407, 
+     "s": 12238932, 
      "affiliations": [
       "\u041a\u0430\u0440\u0430\u0447\u0430\u0435\u0432\u043e-\u0427\u0435\u0440\u043a\u0435\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10376,7 +10376,7 @@
     }, 
     {
      "id": "Russia_Kemerov Oblast", 
-     "s": 21220638, 
+     "s": 21221356, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10388,7 +10388,7 @@
     }, 
     {
      "id": "Russia_Khabarovsk Krai", 
-     "s": 44610945, 
+     "s": 44611365, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10448,7 +10448,7 @@
     }, 
     {
      "id": "Russia_Krasnodar Krai", 
-     "s": 49076140, 
+     "s": 49078819, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10460,7 +10460,7 @@
     }, 
     {
      "id": "Russia_Krasnodar Krai_Adygeya", 
-     "s": 40658587, 
+     "s": 40666984, 
      "affiliations": [
       "\u0410\u0434\u044b\u0433\u0435\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10497,7 +10497,7 @@
     }, 
     {
      "id": "Russia_Kurgan Oblast", 
-     "s": 12321149, 
+     "s": 12321455, 
      "affiliations": [
       "\u041a\u0443\u0440\u0433\u0430\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10509,7 +10509,7 @@
     }, 
     {
      "id": "Russia_Kursk Oblast", 
-     "s": 34795031, 
+     "s": 34796308, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10521,7 +10521,7 @@
     }, 
     {
      "id": "Russia_Leningradskaya Oblast_Karelsky", 
-     "s": 26132606, 
+     "s": 26133506, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10533,7 +10533,7 @@
     }, 
     {
      "id": "Russia_Leningradskaya Oblast_Southeast", 
-     "s": 45663762, 
+     "s": 45665544, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10545,7 +10545,7 @@
     }, 
     {
      "id": "Russia_Lipetsk Oblast", 
-     "s": 20704623, 
+     "s": 20705019, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10581,7 +10581,7 @@
     }, 
     {
      "id": "Russia_Moscow Oblast_East", 
-     "s": 57404811, 
+     "s": 57411837, 
      "affiliations": [
       "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10593,7 +10593,7 @@
     }, 
     {
      "id": "Russia_Moscow Oblast_West", 
-     "s": 31811984, 
+     "s": 31814441, 
      "affiliations": [
       "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10606,7 +10606,7 @@
     }, 
     {
      "id": "Russia_Moscow", 
-     "s": 42443516, 
+     "s": 42515600, 
      "affiliations": [
       "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10619,7 +10619,7 @@
     }, 
     {
      "id": "Russia_Murmansk Oblast", 
-     "s": 36366895, 
+     "s": 36368704, 
      "affiliations": [
       "\u041c\u0443\u0440\u043c\u0430\u043d\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10643,7 +10643,7 @@
     }, 
     {
      "id": "Russia_Nizhny Novgorod Oblast", 
-     "s": 45956619, 
+     "s": 45958155, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10667,7 +10667,7 @@
     }, 
     {
      "id": "Russia_Novgorod Oblast", 
-     "s": 15455422, 
+     "s": 15455672, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10691,7 +10691,7 @@
     }, 
     {
      "id": "Russia_Omsk Oblast", 
-     "s": 32474176, 
+     "s": 32480214, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10751,7 +10751,7 @@
     }, 
     {
      "id": "Russia_Perm Krai_South", 
-     "s": 31219016, 
+     "s": 31220140, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10763,7 +10763,7 @@
     }, 
     {
      "id": "Russia_Primorsky Krai", 
-     "s": 31885113, 
+     "s": 31886905, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10775,7 +10775,7 @@
     }, 
     {
      "id": "Russia_Pskov Oblast", 
-     "s": 27451159, 
+     "s": 27452075, 
      "affiliations": [
       "\u041f\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10799,7 +10799,7 @@
     }, 
     {
      "id": "Russia_Republic of Kalmykia", 
-     "s": 4517385, 
+     "s": 4518057, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10824,7 +10824,7 @@
     }, 
     {
      "id": "Russia_Republic of Karelia_South", 
-     "s": 30812871, 
+     "s": 30813367, 
      "affiliations": [
       "\u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0438\u043a\u0430 \u041a\u0430\u0440\u0435\u043b\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10836,7 +10836,7 @@
     }, 
     {
      "id": "Russia_Republic of Mordovia", 
-     "s": 13587414, 
+     "s": 13587763, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10848,7 +10848,7 @@
     }, 
     {
      "id": "Russia_Rostov Oblast", 
-     "s": 35695258, 
+     "s": 35696481, 
      "affiliations": [
       "\u0420\u043e\u0441\u0442\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10872,7 +10872,7 @@
     }, 
     {
      "id": "Russia_Saint Petersburg", 
-     "s": 30587465, 
+     "s": 30598971, 
      "affiliations": [
       "\u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10897,7 +10897,7 @@
     }, 
     {
      "id": "Russia_Sakhalin Oblast", 
-     "s": 34815007, 
+     "s": 34815325, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10909,7 +10909,7 @@
     }, 
     {
      "id": "Russia_Samara Oblast", 
-     "s": 28773614, 
+     "s": 28774681, 
      "affiliations": [
       "\u0421\u0430\u043c\u0430\u0440\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10921,7 +10921,7 @@
     }, 
     {
      "id": "Russia_Saratov Oblast", 
-     "s": 21257782, 
+     "s": 21258127, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10945,7 +10945,7 @@
     }, 
     {
      "id": "Russia_Stavropol Krai", 
-     "s": 21946246, 
+     "s": 21947055, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10957,7 +10957,7 @@
     }, 
     {
      "id": "Russia_Sverdlovsk Oblast_Ekaterinburg", 
-     "s": 34053919, 
+     "s": 34055570, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -10981,7 +10981,7 @@
     }, 
     {
      "id": "Russia_Tambov Oblast", 
-     "s": 18457214, 
+     "s": 18457855, 
      "affiliations": [
       "\u0422\u0430\u043c\u0431\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -10993,7 +10993,7 @@
     }, 
     {
      "id": "Russia_Tatarstan", 
-     "s": 33091568, 
+     "s": 33092928, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11005,7 +11005,7 @@
     }, 
     {
      "id": "Russia_Tomsk Oblast", 
-     "s": 16104101, 
+     "s": 16104568, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11017,7 +11017,7 @@
     }, 
     {
      "id": "Russia_Tula Oblast", 
-     "s": 17028918, 
+     "s": 17030513, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11041,7 +11041,7 @@
     }, 
     {
      "id": "Russia_Tver Oblast", 
-     "s": 38385994, 
+     "s": 38386382, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11089,7 +11089,7 @@
     }, 
     {
      "id": "Russia_Vladimir Oblast", 
-     "s": 36197393, 
+     "s": 36197607, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11101,7 +11101,7 @@
     }, 
     {
      "id": "Russia_Volgograd Oblast", 
-     "s": 27769934, 
+     "s": 27770707, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11113,7 +11113,7 @@
     }, 
     {
      "id": "Russia_Vologda Oblast", 
-     "s": 27714433, 
+     "s": 27714619, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11125,7 +11125,7 @@
     }, 
     {
      "id": "Russia_Voronezh Oblast", 
-     "s": 33531257, 
+     "s": 33533441, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11137,7 +11137,7 @@
     }, 
     {
      "id": "Russia_Yamalo-Nenets Autonomous Okrug", 
-     "s": 18876182, 
+     "s": 18876348, 
      "affiliations": [
       "\u042f\u043c\u0430\u043b\u043e-\u041d\u0435\u043d\u0435\u0446\u043a\u0438\u0439 \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0439 \u043e\u043a\u0440\u0443\u0433", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -11149,7 +11149,7 @@
     }, 
     {
      "id": "Russia_Yaroslavl Oblast", 
-     "s": 26636593, 
+     "s": 26637814, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11173,7 +11173,7 @@
     }, 
     {
      "id": "Russia_Yugra_Surgut", 
-     "s": 30830984, 
+     "s": 30831906, 
      "affiliations": [
       "\u0425\u0430\u043d\u0442\u044b-\u041c\u0430\u043d\u0441\u0438\u0439\u0441\u043a\u0438\u0439 \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0439 \u043e\u043a\u0440\u0443\u0433 - \u042e\u0433\u0440\u0430", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -11185,7 +11185,7 @@
     }, 
     {
      "id": "Russia_Zabaykalsky Krai", 
-     "s": 18686575, 
+     "s": 18687189, 
      "affiliations": [
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
       "\u0420\u043e\u0441\u0441\u0438\u0439\u0441\u043a\u0430\u044f \u0424\u0435\u0434\u0435\u0440\u0430\u0446\u0438\u044f", 
@@ -11199,7 +11199,7 @@
   }, 
   {
    "id": "Rwanda", 
-   "s": 9780721, 
+   "s": 9782519, 
    "affiliations": [
     "Amajvepfo", 
     "Iburasirasuba", 
@@ -11240,7 +11240,7 @@
   }, 
   {
    "id": "Samoa", 
-   "s": 2392710, 
+   "s": 2393670, 
    "affiliations": [
     "American Samoa", 
     "AS", 
@@ -11304,7 +11304,7 @@
   }, 
   {
    "id": "Senegal", 
-   "s": 30816438, 
+   "s": 30817832, 
    "affiliations": [
     "Basse", 
     "Janjanbureh", 
@@ -11318,7 +11318,7 @@
   }, 
   {
    "id": "Serbia", 
-   "s": 58029236, 
+   "s": 58030064, 
    "affiliations": [
     "\u0421\u0440\u0431\u0438\u0458\u0430", 
     "\u0412\u043e\u0458\u0432\u043e\u0434\u0438\u043d\u0430", 
@@ -11330,7 +11330,7 @@
   }, 
   {
    "id": "Seychelles", 
-   "s": 858435, 
+   "s": 859072, 
    "affiliations": [
     "Sesel"
    ], 
@@ -11340,7 +11340,7 @@
   }, 
   {
    "id": "Sierra Leone", 
-   "s": 25569004, 
+   "s": 25569427, 
    "affiliations": [
     "Eastern Province", 
     "Northern Province", 
@@ -11354,7 +11354,7 @@
   }, 
   {
    "id": "Singapore", 
-   "s": 12440381, 
+   "s": 12441662, 
    "affiliations": [
     "Johor", 
     "Malaysia", 
@@ -11369,7 +11369,7 @@
    "g": [
     {
      "id": "Slovakia_Region of Presov", 
-     "s": 21822078, 
+     "s": 21822369, 
      "affiliations": [
       "Pre\u0161ovsk\u00fd kraj", 
       "Slovensko"
@@ -11391,7 +11391,7 @@
     }, 
     {
      "id": "Slovakia_Region of Banska Bystrica", 
-     "s": 24852583, 
+     "s": 24853364, 
      "affiliations": [
       "Banskobystrick\u00fd kraj", 
       "Slovensko"
@@ -11402,7 +11402,7 @@
     }, 
     {
      "id": "Slovakia_Region of Trnava", 
-     "s": 13799484, 
+     "s": 13800649, 
      "affiliations": [
       "Slovensko", 
       "Trnavsk\u00fd kraj"
@@ -11435,7 +11435,7 @@
     }, 
     {
      "id": "Slovakia_Region of Bratislava", 
-     "s": 13424102, 
+     "s": 13425616, 
      "affiliations": [
       "Bratislavsk\u00fd kraj", 
       "Slovensko"
@@ -11446,7 +11446,7 @@
     }, 
     {
      "id": "Slovakia_Region of Zilina", 
-     "s": 23414334, 
+     "s": 23416265, 
      "affiliations": [
       "Slovensko", 
       "\u017dilinsk\u00fd kraj"
@@ -11473,7 +11473,7 @@
     }, 
     {
      "id": "Slovenia_West", 
-     "s": 89135602, 
+     "s": 89137505, 
      "affiliations": [
       "Slovenija"
      ], 
@@ -11536,7 +11536,7 @@
    "g": [
     {
      "id": "South Africa_Western Cape", 
-     "s": 23766185, 
+     "s": 23768234, 
      "affiliations": [
       "Prince Edward Islands", 
       "South Africa", 
@@ -11548,7 +11548,7 @@
     }, 
     {
      "id": "South Africa_Gauteng", 
-     "s": 13188790, 
+     "s": 13189230, 
      "affiliations": [
       "Gauteng", 
       "South Africa"
@@ -11592,7 +11592,7 @@
     }, 
     {
      "id": "South Africa_Northern Cape", 
-     "s": 8821901, 
+     "s": 8822491, 
      "affiliations": [
       "Northern Cape", 
       "South Africa"
@@ -11685,7 +11685,7 @@
    "g": [
     {
      "id": "Spain_Andalusia_Granada", 
-     "s": 32066920, 
+     "s": 32067413, 
      "affiliations": [
       "Andaluc\u00eda", 
       "Espa\u00f1a (mare territorial)", 
@@ -11697,7 +11697,7 @@
     }, 
     {
      "id": "Spain_Andalusia_Sevilla", 
-     "s": 45938771, 
+     "s": 45941062, 
      "affiliations": [
       "Andaluc\u00eda", 
       "Espa\u00f1a"
@@ -11708,7 +11708,7 @@
     }, 
     {
      "id": "Spain_Aragon", 
-     "s": 40158602, 
+     "s": 40158922, 
      "affiliations": [
       "Arag\u00f3n", 
       "Espa\u00f1a"
@@ -11719,7 +11719,7 @@
     }, 
     {
      "id": "Spain_Balearic Islands", 
-     "s": 20407302, 
+     "s": 20411131, 
      "affiliations": [
       "Illes Balears", 
       "Espa\u00f1a"
@@ -11730,7 +11730,7 @@
     }, 
     {
      "id": "Spain_Basque Country", 
-     "s": 38087793, 
+     "s": 38088476, 
      "affiliations": [
       "Castilla y Le\u00f3n", 
       "Espa\u00f1a", 
@@ -11742,7 +11742,7 @@
     }, 
     {
      "id": "Spain_Canary Islands", 
-     "s": 33762817, 
+     "s": 33765124, 
      "affiliations": [
       "Canarias", 
       "Espa\u00f1a"
@@ -11753,7 +11753,7 @@
     }, 
     {
      "id": "Spain_Cantabria", 
-     "s": 15266791, 
+     "s": 15267237, 
      "affiliations": [
       "Cantabria", 
       "Espa\u00f1a"
@@ -11764,7 +11764,7 @@
     }, 
     {
      "id": "Spain_Castile and Leon_West", 
-     "s": 44012036, 
+     "s": 44012221, 
      "affiliations": [
       "Castilla y Le\u00f3n", 
       "Espa\u00f1a"
@@ -11775,7 +11775,7 @@
     }, 
     {
      "id": "Spain_Castile and Leon_East", 
-     "s": 36241019, 
+     "s": 36241362, 
      "affiliations": [
       "Castilla y Le\u00f3n", 
       "Espa\u00f1a"
@@ -11797,7 +11797,7 @@
     }, 
     {
      "id": "Spain_Catalonia_Provincia de Barcelona", 
-     "s": 47525961, 
+     "s": 47527554, 
      "affiliations": [
       "Catalunya", 
       "Espa\u00f1a"
@@ -11808,7 +11808,7 @@
     }, 
     {
      "id": "Spain_Catalonia_Provincia de Girona", 
-     "s": 23199506, 
+     "s": 23200038, 
      "affiliations": [
       "Catalunya", 
       "Espa\u00f1a"
@@ -11853,7 +11853,7 @@
     }, 
     {
      "id": "Spain_Community of Madrid", 
-     "s": 42611306, 
+     "s": 42612003, 
      "affiliations": [
       "Comunidad de Madrid", 
       "Espa\u00f1a"
@@ -11875,7 +11875,7 @@
     }, 
     {
      "id": "Spain_Extremadura", 
-     "s": 20400928, 
+     "s": 20401449, 
      "affiliations": [
       "Espa\u00f1a", 
       "Extremadura"
@@ -11886,7 +11886,7 @@
     }, 
     {
      "id": "Spain_Galicia_North", 
-     "s": 33084513, 
+     "s": 33084869, 
      "affiliations": [
       "Espa\u00f1a", 
       "Galicia"
@@ -11897,7 +11897,7 @@
     }, 
     {
      "id": "Spain_Galicia_South", 
-     "s": 21904496, 
+     "s": 21904662, 
      "affiliations": [
       "Espa\u00f1a", 
       "Galicia"
@@ -11932,7 +11932,7 @@
     }, 
     {
      "id": "Spain_Principado de Asturias", 
-     "s": 20759353, 
+     "s": 20760022, 
      "affiliations": [
       "Espa\u00f1a", 
       "Principado de Asturias"
@@ -11954,7 +11954,7 @@
     }, 
     {
      "id": "Spain_Valencian Community", 
-     "s": 51293483, 
+     "s": 51295494, 
      "affiliations": [
       "Comunitat Valenciana", 
       "Espa\u00f1a"
@@ -11970,7 +11970,7 @@
    "g": [
     {
      "id": "Jerusalem", 
-     "s": 4337071, 
+     "s": 4337770, 
      "affiliations": [
       "\u05de\u05d7\u05d5\u05d6 \u05d9\u05e8\u05d5\u05e9\u05dc\u05d9\u05dd", 
       "\u05de\u05d3\u05d9\u05e0\u05ea \u05d9\u05e9\u05e8\u05d0\u05dc"
@@ -11982,7 +11982,7 @@
     }, 
     {
      "id": "Palestine", 
-     "s": 16501364, 
+     "s": 16501949, 
      "affiliations": [
       "Area A", 
       "Area B", 
@@ -11996,7 +11996,7 @@
   }, 
   {
    "id": "Sri Lanka", 
-   "s": 66113066, 
+   "s": 66122196, 
    "affiliations": [
     "Central Province", 
     "Eastern Province", 
@@ -12065,7 +12065,7 @@
   }, 
   {
    "id": "Suriname", 
-   "s": 5172570, 
+   "s": 5173658, 
    "affiliations": [
     "Brokopondo", 
     "Commewijne", 
@@ -12115,7 +12115,7 @@
     }, 
     {
      "id": "Sweden_Stockholm", 
-     "s": 45114338, 
+     "s": 45117253, 
      "affiliations": [
       "Stockholms l\u00e4n", 
       "Sverige"
@@ -12126,7 +12126,7 @@
     }, 
     {
      "id": "Sweden_Ostra Gotaland", 
-     "s": 58776150, 
+     "s": 58776557, 
      "affiliations": [
       "Gotlands l\u00e4n", 
       "J\u00f6nk\u00f6pings l\u00e4n", 
@@ -12181,7 +12181,7 @@
     }, 
     {
      "id": "Sweden_Vastra Gotaland", 
-     "s": 67664638, 
+     "s": 67664799, 
      "affiliations": [
       "Danmark", 
       "Hallands l\u00e4n", 
@@ -12194,7 +12194,7 @@
     }, 
     {
      "id": "Sweden_Sodra Gotaland", 
-     "s": 37492571, 
+     "s": 37493476, 
      "affiliations": [
       "Blekinge l\u00e4n", 
       "Danmark", 
@@ -12213,7 +12213,7 @@
    "g": [
     {
      "id": "Switzerland_Eastern", 
-     "s": 41206443, 
+     "s": 41206816, 
      "affiliations": [
       "Appenzell Ausserrhoden", 
       "Appenzell Innerrhoden", 
@@ -12230,7 +12230,7 @@
     }, 
     {
      "id": "Switzerland_Central", 
-     "s": 20211336, 
+     "s": 20211878, 
      "affiliations": [
       "Luzern", 
       "Nidwalden", 
@@ -12246,7 +12246,7 @@
     }, 
     {
      "id": "Switzerland_Espace Mittelland_Bern", 
-     "s": 43258996, 
+     "s": 43260114, 
      "affiliations": [
       "Basel-Landschaft", 
       "Bern - Berne", 
@@ -12263,7 +12263,7 @@
     }, 
     {
      "id": "Switzerland_Espace Mittelland_East", 
-     "s": 24500344, 
+     "s": 24500505, 
      "affiliations": [
       "Bern - Berne", 
       "Schweiz, Suisse, Svizzera, Svizra"
@@ -12285,7 +12285,7 @@
     }, 
     {
      "id": "Switzerland_Northwestern", 
-     "s": 28753257, 
+     "s": 28754285, 
      "affiliations": [
       "Aargau", 
       "Basel-Landschaft", 
@@ -12298,7 +12298,7 @@
     }, 
     {
      "id": "Switzerland_Lake Geneva region", 
-     "s": 47484002, 
+     "s": 47485109, 
      "affiliations": [
       "Fribourg - Freiburg", 
       "Gen\u00e8ve", 
@@ -12312,7 +12312,7 @@
     }, 
     {
      "id": "Switzerland_Zurich", 
-     "s": 30017761, 
+     "s": 30019359, 
      "affiliations": [
       "Schweiz, Suisse, Svizzera, Svizra", 
       "Z\u00fcrich"
@@ -12325,7 +12325,7 @@
   }, 
   {
    "id": "Syria", 
-   "s": 26779453, 
+   "s": 26779660, 
    "affiliations": [
     "Al-Hasakah", 
     "Aleppo", 
@@ -12349,7 +12349,7 @@
   }, 
   {
    "id": "Sao Tome and Principe", 
-   "s": 521467, 
+   "s": 522775, 
    "affiliations": [
     "Pr\u00edncipe Province", 
     "S\u00e3o Tom\u00e9 Province", 
@@ -12361,7 +12361,7 @@
   }, 
   {
    "id": "Tajikistan", 
-   "s": 12942894, 
+   "s": 12944846, 
    "affiliations": [
     "\u0412\u0438\u043b\u043e\u044f\u0442\u0438 \u0421\u0443\u0493\u0434", 
     "\u0412\u0438\u043b\u043e\u044f\u0442\u0438 \u0425\u0430\u0442\u043b\u043e\u043d", 
@@ -12375,7 +12375,7 @@
   }, 
   {
    "id": "Tanzania", 
-   "s": 288326111, 
+   "s": 288327817, 
    "affiliations": [
     "Arusha", 
     "Dar es Salaam", 
@@ -12413,7 +12413,7 @@
    "g": [
     {
      "id": "Thailand_North", 
-     "s": 30701409, 
+     "s": 30723315, 
      "affiliations": [
       "\u0e08\u0e31\u0e07\u0e2b\u0e27\u0e31\u0e14\u0e1e\u0e30\u0e40\u0e22\u0e32", 
       "\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22", 
@@ -12436,7 +12436,7 @@
     }, 
     {
      "id": "Thailand_Central", 
-     "s": 67821927, 
+     "s": 67826317, 
      "affiliations": [
       "\u0e08\u0e31\u0e07\u0e2b\u0e27\u0e31\u0e14\u0e2d\u0e48\u0e32\u0e07\u0e17\u0e2d\u0e07", 
       "\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22", 
@@ -12482,7 +12482,7 @@
     }, 
     {
      "id": "Thailand_South", 
-     "s": 51827588, 
+     "s": 51903398, 
      "affiliations": [
       "\u0e08\u0e31\u0e07\u0e2b\u0e27\u0e31\u0e14\u0e0a\u0e38\u0e21\u0e1e\u0e23", 
       "\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22", 
@@ -12537,7 +12537,7 @@
   }, 
   {
    "id": "The Gambia", 
-   "s": 3862014, 
+   "s": 3862792, 
    "affiliations": [
     "Brikama", 
     "Banjul", 
@@ -12603,7 +12603,7 @@
     }, 
     {
      "id": "Netherlands_Gelderland_North", 
-     "s": 62192678, 
+     "s": 62193197, 
      "affiliations": [
       "Gelderland", 
       "Nederland"
@@ -12625,7 +12625,7 @@
     }, 
     {
      "id": "Netherlands_Groningen", 
-     "s": 38362202, 
+     "s": 38362369, 
      "affiliations": [
       "Deutschland", 
       "Groningen", 
@@ -12638,7 +12638,7 @@
     }, 
     {
      "id": "Netherlands_Limburg", 
-     "s": 69444901, 
+     "s": 69445169, 
      "affiliations": [
       "Limburg", 
       "Nederland"
@@ -12649,7 +12649,7 @@
     }, 
     {
      "id": "Netherlands_North Brabant_Eindhoven", 
-     "s": 59705067, 
+     "s": 59705565, 
      "affiliations": [
       "Nederland", 
       "Noord-Brabant"
@@ -12705,7 +12705,7 @@
     }, 
     {
      "id": "Netherlands_North Holland_Amsterdam", 
-     "s": 78416779, 
+     "s": 78419061, 
      "affiliations": [
       "Nederland", 
       "Noord-Holland"
@@ -12716,7 +12716,7 @@
     }, 
     {
      "id": "Netherlands_North Holland_Zaandam", 
-     "s": 27600511, 
+     "s": 27600779, 
      "affiliations": [
       "Nederland", 
       "Noord-Holland"
@@ -12760,7 +12760,7 @@
     }, 
     {
      "id": "Netherlands_South Holland_Den Haag", 
-     "s": 61794353, 
+     "s": 61794852, 
      "affiliations": [
       "Nederland", 
       "Zuid-Holland"
@@ -12782,7 +12782,7 @@
     }, 
     {
      "id": "Netherlands_South Holland_Rotterdam", 
-     "s": 64071146, 
+     "s": 64071614, 
      "affiliations": [
       "Nederland", 
       "Zuid-Holland"
@@ -12804,7 +12804,7 @@
     }, 
     {
      "id": "Netherlands_Utrecht_Utrecht", 
-     "s": 34933721, 
+     "s": 34934025, 
      "affiliations": [
       "Utrecht", 
       "Nederland"
@@ -12815,7 +12815,7 @@
     }, 
     {
      "id": "Netherlands_Zeeland", 
-     "s": 31654879, 
+     "s": 31655535, 
      "affiliations": [
       "Nederland", 
       "Zeeland"
@@ -12828,7 +12828,7 @@
   }, 
   {
    "id": "Togo", 
-   "s": 22580891, 
+   "s": 22581082, 
    "affiliations": [
     "R\u00e9gion Centrale", 
     "R\u00e9gion Maritime", 
@@ -12863,7 +12863,7 @@
   }, 
   {
    "id": "Tunisia", 
-   "s": 24035296, 
+   "s": 24035706, 
    "affiliations": [
     "Tunisie \u2d5c\u2d53\u2d4f\u2d59 \u062a\u0648\u0646\u0633", 
     "\u0628\u0627\u062c\u0629", 
@@ -12900,7 +12900,7 @@
    "g": [
     {
      "id": "Turkey_Mediterranean Region", 
-     "s": 26081470, 
+     "s": 26085177, 
      "affiliations": [
       "Adana", 
       "Antalya", 
@@ -12938,7 +12938,7 @@
     }, 
     {
      "id": "Turkey_Marmara Region_Istanbul", 
-     "s": 30080454, 
+     "s": 30083076, 
      "affiliations": [
       "Edirne", 
       "Kocaeli", 
@@ -12955,7 +12955,7 @@
     }, 
     {
      "id": "Turkey_Marmara Region_Bursa", 
-     "s": 20649046, 
+     "s": 20649379, 
      "affiliations": [
       "Bal\u0131kesir", 
       "Bilecik", 
@@ -13061,7 +13061,7 @@
     }, 
     {
      "id": "Turkey_Aegean Region", 
-     "s": 27521638, 
+     "s": 27525166, 
      "affiliations": [
       "Afyonkarahisar", 
       "Ayd\u0131n", 
@@ -13081,7 +13081,7 @@
   }, 
   {
    "id": "Turkmenistan", 
-   "s": 8349075, 
+   "s": 8349515, 
    "affiliations": [
     "Ahal", 
     "Balkan", 
@@ -13118,7 +13118,7 @@
   }, 
   {
    "id": "Uganda", 
-   "s": 74077148, 
+   "s": 74078685, 
    "affiliations": [
     "Abim", 
     "Agago", 
@@ -13181,7 +13181,7 @@
     }, 
     {
      "id": "Ukraine_Chernihiv Oblast", 
-     "s": 14249910, 
+     "s": 14251046, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13203,7 +13203,7 @@
     }, 
     {
      "id": "Ukraine_Dnipropetrovsk Oblast", 
-     "s": 30604223, 
+     "s": 30605232, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0414\u043d\u0456\u043f\u0440\u043e\u043f\u0435\u0442\u0440\u043e\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13214,7 +13214,7 @@
     }, 
     {
      "id": "Ukraine_Donetsk Oblast", 
-     "s": 32298520, 
+     "s": 32301163, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0414\u043e\u043d\u0435\u0446\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13225,7 +13225,7 @@
     }, 
     {
      "id": "Ukraine_Ivano-Frankivsk Oblast", 
-     "s": 17584278, 
+     "s": 17586540, 
      "affiliations": [
       "\u0406\u0432\u0430\u043d\u043e-\u0424\u0440\u0430\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13269,7 +13269,7 @@
     }, 
     {
      "id": "Ukraine_Kirovohrad Oblast", 
-     "s": 13245214, 
+     "s": 13245947, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u041a\u0456\u0440\u043e\u0432\u043e\u0433\u0440\u0430\u0434\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13280,7 +13280,7 @@
     }, 
     {
      "id": "Ukraine_Kyiv Oblast", 
-     "s": 37000681, 
+     "s": 37001534, 
      "affiliations": [
       "\u041a\u0438\u0457\u0432", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
@@ -13303,7 +13303,7 @@
     }, 
     {
      "id": "Ukraine_Lviv Oblast", 
-     "s": 27639488, 
+     "s": 27641405, 
      "affiliations": [
       "\u041b\u044c\u0432\u0456\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13325,7 +13325,7 @@
     }, 
     {
      "id": "Ukraine_Odessa Oblast", 
-     "s": 22033647, 
+     "s": 22033963, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u041e\u0434\u0435\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13347,7 +13347,7 @@
     }, 
     {
      "id": "Ukraine_Rivne Oblast", 
-     "s": 8426693, 
+     "s": 8427485, 
      "affiliations": [
       "\u0420\u0456\u0432\u043d\u0435\u043d\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13358,7 +13358,7 @@
     }, 
     {
      "id": "Ukraine_Sumy Oblast", 
-     "s": 16875906, 
+     "s": 16876452, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0421\u0443\u043c\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13380,7 +13380,7 @@
     }, 
     {
      "id": "Ukraine_Vinnytsia Oblast", 
-     "s": 14229653, 
+     "s": 14230379, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0412\u0456\u043d\u043d\u0438\u0446\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13391,7 +13391,7 @@
     }, 
     {
      "id": "Ukraine_Volyn Oblast", 
-     "s": 11105053, 
+     "s": 11105817, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0412\u043e\u043b\u0438\u043d\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13402,7 +13402,7 @@
     }, 
     {
      "id": "Ukraine_Zakarpattia Oblast", 
-     "s": 15293214, 
+     "s": 15293692, 
      "affiliations": [
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430", 
       "\u0417\u0430\u043a\u0430\u0440\u043f\u0430\u0442\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c"
@@ -13413,7 +13413,7 @@
     }, 
     {
      "id": "Ukraine_Zaporizhia Oblast", 
-     "s": 11323060, 
+     "s": 11324082, 
      "affiliations": [
       "\u0417\u0430\u043f\u043e\u0440\u0456\u0437\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13424,7 +13424,7 @@
     }, 
     {
      "id": "Ukraine_Zhytomyr Oblast", 
-     "s": 9788629, 
+     "s": 9789314, 
      "affiliations": [
       "\u0416\u0438\u0442\u043e\u043c\u0438\u0440\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c", 
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13435,7 +13435,7 @@
     }, 
     {
      "id": "Crimea", 
-     "s": 25130471, 
+     "s": 25143442, 
      "affiliations": [
       "\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0456\u043a\u0430 \u041a\u0440\u0438\u043c", 
       "\u0420\u043e\u0441\u0441\u0438\u044f", 
@@ -13452,7 +13452,7 @@
   }, 
   {
    "id": "United Arab Emirates", 
-   "s": 28565271, 
+   "s": 28569960, 
    "affiliations": [
     "\u0623\u0628\u0648 \u0638\u0628\u064a", 
     "\u200f\u0623\u0645 \u0627\u0644\u0642\u064a\u0648\u064a\u0646\u200e", 
@@ -13504,7 +13504,7 @@
     }, 
     {
      "id": "UK_England_East of England_Essex", 
-     "s": 38791824, 
+     "s": 38792439, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13526,7 +13526,7 @@
     }, 
     {
      "id": "UK_England_Greater London", 
-     "s": 44537706, 
+     "s": 44540948, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13537,7 +13537,7 @@
     }, 
     {
      "id": "UK_England_North East England", 
-     "s": 29169568, 
+     "s": 29169913, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13559,7 +13559,7 @@
     }, 
     {
      "id": "UK_England_North West England_Lancaster", 
-     "s": 22215793, 
+     "s": 22216381, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13570,7 +13570,7 @@
     }, 
     {
      "id": "UK_England_South East_Brighton", 
-     "s": 49196380, 
+     "s": 49197663, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13581,7 +13581,7 @@
     }, 
     {
      "id": "UK_England_South East_Oxford", 
-     "s": 54338947, 
+     "s": 54339315, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13592,7 +13592,7 @@
     }, 
     {
      "id": "UK_England_South West England_Bristol", 
-     "s": 56172548, 
+     "s": 56172822, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13603,7 +13603,7 @@
     }, 
     {
      "id": "UK_England_South West England_Cornwall", 
-     "s": 30592946, 
+     "s": 30593442, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13614,7 +13614,7 @@
     }, 
     {
      "id": "UK_England_West Midlands", 
-     "s": 80690814, 
+     "s": 80691302, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13625,7 +13625,7 @@
     }, 
     {
      "id": "UK_England_Yorkshire and the Humber", 
-     "s": 75725550, 
+     "s": 75726353, 
      "affiliations": [
       "England", 
       "United Kingdom"
@@ -13636,7 +13636,7 @@
     }, 
     {
      "id": "UK_Northern Ireland", 
-     "s": 16633496, 
+     "s": 16633965, 
      "affiliations": [
       "Northern Ireland", 
       "Scotland", 
@@ -13648,7 +13648,7 @@
     }, 
     {
      "id": "UK_Scotland_North", 
-     "s": 60664757, 
+     "s": 60665899, 
      "affiliations": [
       "Scotland", 
       "United Kingdom"
@@ -13659,7 +13659,7 @@
     }, 
     {
      "id": "UK_Scotland_South", 
-     "s": 55017299, 
+     "s": 55019117, 
      "affiliations": [
       "Isle of Man", 
       "Scotland", 
@@ -13671,7 +13671,7 @@
     }, 
     {
      "id": "UK_Wales", 
-     "s": 52175597, 
+     "s": 52175923, 
      "affiliations": [
       "United Kingdom", 
       "Wales"
@@ -13687,7 +13687,7 @@
    "g": [
     {
      "id": "Ireland_Connacht", 
-     "s": 20289208, 
+     "s": 20289536, 
      "affiliations": [
       "Ireland"
      ], 
@@ -13697,7 +13697,7 @@
     }, 
     {
      "id": "Ireland_Leinster", 
-     "s": 37388467, 
+     "s": 37389924, 
      "affiliations": [
       "Ireland"
      ], 
@@ -13707,7 +13707,7 @@
     }, 
     {
      "id": "Ireland_Munster", 
-     "s": 24810953, 
+     "s": 24812116, 
      "affiliations": [
       "Ireland"
      ], 
@@ -13717,7 +13717,7 @@
     }, 
     {
      "id": "Ireland_Northern Counties", 
-     "s": 7753726, 
+     "s": 7754955, 
      "affiliations": [
       "Ireland"
      ], 
@@ -13776,7 +13776,7 @@
      "g": [
       {
        "id": "US_Arizona_Flagstaff", 
-       "s": 31207930, 
+       "s": 31209240, 
        "affiliations": [
         "Arizona", 
         "AZ", 
@@ -13788,7 +13788,7 @@
       }, 
       {
        "id": "US_Arizona_Phoenix", 
-       "s": 42578307, 
+       "s": 42578645, 
        "affiliations": [
         "Arizona", 
         "AZ", 
@@ -13800,7 +13800,7 @@
       }, 
       {
        "id": "US_Arizona_Tucson", 
-       "s": 17226631, 
+       "s": 17226981, 
        "affiliations": [
         "Arizona", 
         "AZ", 
@@ -13882,7 +13882,7 @@
       }, 
       {
        "id": "US_California_LA", 
-       "s": 170006519, 
+       "s": 170006909, 
        "affiliations": [
         "California", 
         "CA", 
@@ -13919,7 +13919,7 @@
       }, 
       {
        "id": "US_California_Sacramento_Sacramento", 
-       "s": 21804658, 
+       "s": 21804903, 
        "affiliations": [
         "California", 
         "CA", 
@@ -13979,7 +13979,7 @@
       }, 
       {
        "id": "US_California_Santa_Clara_Palo Alto", 
-       "s": 80078846, 
+       "s": 80080369, 
        "affiliations": [
         "California", 
         "CA", 
@@ -14034,7 +14034,7 @@
     }, 
     {
      "id": "US_Connecticut", 
-     "s": 21859862, 
+     "s": 21860695, 
      "affiliations": [
       "Connecticut", 
       "CT", 
@@ -14073,7 +14073,7 @@
       }, 
       {
        "id": "US_Florida_Miami", 
-       "s": 55435489, 
+       "s": 55436318, 
        "affiliations": [
         "Florida", 
         "FL", 
@@ -14097,7 +14097,7 @@
       }, 
       {
        "id": "US_Florida_Tampa", 
-       "s": 50936989, 
+       "s": 50937927, 
        "affiliations": [
         "Florida", 
         "FL", 
@@ -14191,7 +14191,7 @@
     }, 
     {
      "id": "US_Hawaii", 
-     "s": 9737891, 
+     "s": 9738300, 
      "affiliations": [
       "Hawaii", 
       "HI", 
@@ -14247,7 +14247,7 @@
       }, 
       {
        "id": "US_Illinois_Chickago", 
-       "s": 52580132, 
+       "s": 52580735, 
        "affiliations": [
         "Illinois", 
         "IL", 
@@ -14283,7 +14283,7 @@
       }, 
       {
        "id": "US_Illinois_Springfield", 
-       "s": 32127994, 
+       "s": 32128338, 
        "affiliations": [
         "Illinois", 
         "IL", 
@@ -14300,7 +14300,7 @@
      "g": [
       {
        "id": "US_Indiana_North", 
-       "s": 28371741, 
+       "s": 28372173, 
        "affiliations": [
         "Indiana", 
         "IN", 
@@ -14573,7 +14573,7 @@
       }, 
       {
        "id": "US_Massachusetts_Southeastern", 
-       "s": 13517735, 
+       "s": 13518136, 
        "affiliations": [
         "Massachusetts", 
         "MA", 
@@ -14675,7 +14675,7 @@
       }, 
       {
        "id": "US_Minnesota_Minneapolis", 
-       "s": 32717170, 
+       "s": 32717816, 
        "affiliations": [
         "Minnesota", 
         "MN", 
@@ -14757,7 +14757,7 @@
       }, 
       {
        "id": "US_Missouri_Springfield", 
-       "s": 22224852, 
+       "s": 22225264, 
        "affiliations": [
         "Missouri", 
         "MO", 
@@ -14781,7 +14781,7 @@
       }, 
       {
        "id": "US_Missouri_St Louis", 
-       "s": 26406874, 
+       "s": 26407473, 
        "affiliations": [
         "Missouri", 
         "MO", 
@@ -14853,7 +14853,7 @@
     }, 
     {
      "id": "US_Nevada", 
-     "s": 32749330, 
+     "s": 32749548, 
      "affiliations": [
       "Nevada", 
       "NV", 
@@ -14909,7 +14909,7 @@
      "g": [
       {
        "id": "US_New Mexico_Albuquerque", 
-       "s": 30294801, 
+       "s": 30295483, 
        "affiliations": [
         "New Mexico", 
         "NM", 
@@ -14951,7 +14951,7 @@
       }, 
       {
        "id": "US_New York_New York", 
-       "s": 74176490, 
+       "s": 74180901, 
        "affiliations": [
         "Ellis Island (historical)", 
         "Liberty Island", 
@@ -15042,7 +15042,7 @@
       }, 
       {
        "id": "US_North Carolina_Raleigh", 
-       "s": 37889983, 
+       "s": 37890916, 
        "affiliations": [
         "North Carolina", 
         "NC", 
@@ -15201,7 +15201,7 @@
       }, 
       {
        "id": "US_Oklahoma_Oklahoma", 
-       "s": 22295784, 
+       "s": 22296018, 
        "affiliations": [
         "Oklahoma", 
         "OK", 
@@ -15230,7 +15230,7 @@
       }, 
       {
        "id": "US_Oregon_Portland", 
-       "s": 68980950, 
+       "s": 68981387, 
        "affiliations": [
         "Oregon", 
         "OR", 
@@ -15242,7 +15242,7 @@
       }, 
       {
        "id": "US_Oregon_West", 
-       "s": 30961280, 
+       "s": 30961795, 
        "affiliations": [
         "Oregon", 
         "OR", 
@@ -15468,7 +15468,7 @@
       }, 
       {
        "id": "US_Texas_Amarillo", 
-       "s": 11033797, 
+       "s": 11034711, 
        "affiliations": [
         "Texas", 
         "TX", 
@@ -15492,7 +15492,7 @@
       }, 
       {
        "id": "US_Texas_San Antonio", 
-       "s": 24856970, 
+       "s": 24857136, 
        "affiliations": [
         "Texas", 
         "TX", 
@@ -15565,7 +15565,7 @@
      "g": [
       {
        "id": "US_Utah_South", 
-       "s": 18338511, 
+       "s": 18339526, 
        "affiliations": [
         "United States of America", 
         "Utah", 
@@ -15577,7 +15577,7 @@
       }, 
       {
        "id": "US_Utah_North", 
-       "s": 29792610, 
+       "s": 29792879, 
        "affiliations": [
         "United States of America", 
         "Utah", 
@@ -15654,7 +15654,7 @@
       }, 
       {
        "id": "US_Virginia_Alexandria", 
-       "s": 30955825, 
+       "s": 30956651, 
        "affiliations": [
         "Virginia", 
         "VA", 
@@ -15671,7 +15671,7 @@
      "g": [
       {
        "id": "US_Washington_Coast", 
-       "s": 41466403, 
+       "s": 41467028, 
        "affiliations": [
         "Puyallup Tribe", 
         "Puyallup Tribe Reservation", 
@@ -15685,7 +15685,7 @@
       }, 
       {
        "id": "US_Washington_Seattle", 
-       "s": 42181972, 
+       "s": 42182903, 
        "affiliations": [
         "United States of America", 
         "Washington", 
@@ -15776,7 +15776,7 @@
     }, 
     {
      "id": "US_Wyoming", 
-     "s": 32042866, 
+     "s": 32043526, 
      "affiliations": [
       "United States of America", 
       "Wyoming", 
@@ -15790,7 +15790,7 @@
   }, 
   {
    "id": "Uruguay", 
-   "s": 21549767, 
+   "s": 21550602, 
    "affiliations": [
     "Cerro Largo", 
     "Artigas", 
@@ -15820,7 +15820,7 @@
   }, 
   {
    "id": "Uzbekistan", 
-   "s": 34637439, 
+   "s": 34643678, 
    "affiliations": [
     "Andijon Viloyati", 
     "Border Kyrgyzstan - Uzbekistan", 
@@ -15864,7 +15864,7 @@
    "g": [
     {
      "id": "Venezuela_North", 
-     "s": 20397642, 
+     "s": 20398450, 
      "affiliations": [
       "Barinas", 
       "Carabobo", 
@@ -15896,7 +15896,7 @@
     }, 
     {
      "id": "Venezuela_South", 
-     "s": 16476966, 
+     "s": 16477313, 
      "affiliations": [
       "Amazonas", 
       "Apure", 
@@ -15919,7 +15919,7 @@
   }, 
   {
    "id": "Vietnam", 
-   "s": 58549693, 
+   "s": 58594064, 
    "affiliations": [
     "T\u1ec9nh H\u00e0 Nam", 
     "T\u1ec9nh H\u00e0 T\u0129nh", 
@@ -16023,7 +16023,7 @@
   }, 
   {
    "id": "Zambia", 
-   "s": 70056518, 
+   "s": 70056813, 
    "affiliations": [
     "Central Province", 
     "Copperbelt Province", 
@@ -16083,7 +16083,7 @@
     }, 
     {
      "id": "New Zealand North_Auckland", 
-     "s": 72610549, 
+     "s": 72611428, 
      "affiliations": [
       "Auckland", 
       "Bay of Plenty", 
@@ -16097,7 +16097,7 @@
     }, 
     {
      "id": "New Zealand North_Wellington", 
-     "s": 47885012, 
+     "s": 47885765, 
      "affiliations": [
       "Gisborne", 
       "Hawke's Bay", 
@@ -16112,7 +16112,7 @@
     }, 
     {
      "id": "New Zealand South_Canterbury", 
-     "s": 48343083, 
+     "s": 48344063, 
      "affiliations": [
       "Canterbury", 
       "Chatham Islands", 
@@ -16128,7 +16128,7 @@
     }, 
     {
      "id": "New Zealand South_Southland", 
-     "s": 32431992, 
+     "s": 32432781, 
      "affiliations": [
       "New Zealand/Aotearoa", 
       "Otago", 
@@ -16146,7 +16146,7 @@
    "g": [
     {
      "id": "South Korea_North", 
-     "s": 65867923, 
+     "s": 65871501, 
      "affiliations": [
       "\uac15\uc6d0\ub3c4", 
       "\uacbd\uae30\ub3c4", 
@@ -16165,7 +16165,7 @@
     }, 
     {
      "id": "South Korea_South", 
-     "s": 57246809, 
+     "s": 57247517, 
      "affiliations": [
       "\uc81c\uc8fc\ub3c4", 
       "Gyeongnam-Busan Border", 
