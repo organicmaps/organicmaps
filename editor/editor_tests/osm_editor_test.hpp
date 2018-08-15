@@ -42,6 +42,7 @@ public:
   void CreateNoteTest();
   void LoadMapEditsTest();
   void SaveEditedFeatureTest();
+  void SaveTransactionTest();
 
 private:
   template <typename TBuildFn>

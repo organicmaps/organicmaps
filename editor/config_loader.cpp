@@ -61,7 +61,7 @@ void Waiter::Interrupt()
   m_event.notify_all();
 }
 
-ConfigLoader::ConfigLoader(EditorConfigWrapper & config) : m_config(config)
+ConfigLoader::ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config) : m_config(config)
 {
   pugi::xml_document doc;
   LoadFromLocal(doc);

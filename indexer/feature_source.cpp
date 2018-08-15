@@ -52,7 +52,7 @@ bool FeatureSource::GetModifiedFeature(uint32_t index, FeatureType & feature) co
   return false;
 }
 
-void FeatureSource::ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                                          function<void(uint32_t)> const & fn) const
+void FeatureSource::ForEachAdditionalFeature(m2::RectD const & rect, int scale,
+                                             function<void(uint32_t)> const & fn) const
 {
 }

@@ -392,6 +392,9 @@ Framework::Framework(FrameworkParams const & params)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
+  // Editor should be initialized before search to use correct thread for write operations.
+  osm::Editor & editor = osm::Editor::Instance();
+
   // Restore map style before classificator loading
   MapStyle mapStyle = kDefaultMapStyle;
   string mapStyleStr;
@@ -481,8 +484,6 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
-
-  osm::Editor & editor = osm::Editor::Instance();
 
   editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });

@@ -18,8 +18,8 @@ public:
   // FeatureSource overrides:
   FeatureStatus GetFeatureStatus(uint32_t index) const override;
   bool GetModifiedFeature(uint32_t index, FeatureType & feature) const override;
-  void ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                             std::function<void(uint32_t)> const & fn) const override;
+  void ForEachAdditionalFeature(m2::RectD const & rect, int scale,
+                                std::function<void(uint32_t)> const & fn) const override;
 };
 
 class EditableFeatureSourceFactory : public FeatureSourceFactory

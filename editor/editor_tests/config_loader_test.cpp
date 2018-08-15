@@ -5,6 +5,8 @@
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "base/atomic_shared_ptr.hpp"
+
 #include "3party/pugixml/src/pugixml.hpp"
 
 namespace
@@ -24,7 +26,7 @@ void CheckGeneralTags(pugi::xml_document const & doc)
 
 UNIT_TEST(ConfigLoader_Base)
 {
-  EditorConfigWrapper config;
+  base::AtomicSharedPtr<EditorConfig> config;
   ConfigLoader loader(config);
 
   TEST(!config.Get()->GetTypesThatCanBeAdded().empty(), ());

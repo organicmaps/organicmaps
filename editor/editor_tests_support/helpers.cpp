@@ -12,12 +12,14 @@ void SetUpEditorForTesting(unique_ptr<osm::Editor::Delegate> delegate)
   editor.SetDelegate(move(delegate));
   editor.SetStorageForTesting(make_unique<editor::InMemoryStorage>());
   editor.ClearAllLocalEdits();
+  editor.ResetNotes();
 }
 
 void TearDownEditorForTesting()
 {
   auto & editor = osm::Editor::Instance();
   editor.ClearAllLocalEdits();
+  editor.ResetNotes();
   editor.SetDelegate({});
   editor.SetDefaultStorage();
 }

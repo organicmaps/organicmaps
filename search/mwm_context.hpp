@@ -63,7 +63,7 @@ public:
     {
       FeatureType ft;
       if (GetFeature(index, ft))
-       fn(ft);
+        fn(ft);
     });
   }
 

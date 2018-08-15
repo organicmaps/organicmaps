@@ -59,7 +59,7 @@ public:
     // Need to do it on a per-mwm basis, because Drape relies on features in a sorted order.
     // Touched (created, edited) features reading.
     auto f = [&](uint32_t i) { m_fn(i, *src); };
-    src->ForEachInRectAndScale(cov.GetRect(), scale, f);
+    src->ForEachAdditionalFeature(cov.GetRect(), scale, f);
   }
 
 private:

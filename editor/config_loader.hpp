@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/atomic_shared_ptr.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 
@@ -17,7 +18,7 @@ class xml_document;
 
 namespace editor
 {
-class EditorConfigWrapper;
+class EditorConfig;
 
 // Class for multithreaded interruptable waiting.
 class Waiter
@@ -49,7 +50,7 @@ private:
 class ConfigLoader
 {
 public:
-  explicit ConfigLoader(EditorConfigWrapper & config);
+  explicit ConfigLoader(base::AtomicSharedPtr<EditorConfig> & config);
   ~ConfigLoader();
 
   // Static methods for production and testing.
@@ -64,7 +65,7 @@ private:
   bool SaveAndReload(pugi::xml_document const & doc);
   void ResetConfig(pugi::xml_document const & doc);
 
-  EditorConfigWrapper & m_config;
+  base::AtomicSharedPtr<EditorConfig> & m_config;
 
   Waiter m_waiter;
   thread m_loaderThread;
