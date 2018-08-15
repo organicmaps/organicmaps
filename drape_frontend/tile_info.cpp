@@ -73,8 +73,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
     std::sort(m_featureInfo.begin(), m_featureInfo.end());
     auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
     RuleDrawer drawer(std::bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
-                      std::bind(&TileInfo::IsCancelled, this),
-                      model.m_isCountryLoadedByName, make_ref(m_context));
+                      std::bind(&TileInfo::IsCancelled, this), model.m_isCountryLoadedByName,
+                      model.GetFilter(), make_ref(m_context));
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
   }
 #if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)

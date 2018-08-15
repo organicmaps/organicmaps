@@ -11,6 +11,7 @@
 #include "3party/liboauthcpp/src/base64.h"
 
 #include <algorithm>
+#include <vector>
 
 namespace coding
 {
@@ -50,7 +51,28 @@ SHA1::Hash SHA1::Calculate(std::string const & filePath)
 // static
 std::string SHA1::CalculateBase64(std::string const & filePath)
 {
-  auto sha1 = Calculate(filePath);
+  auto const sha1 = Calculate(filePath);
+  return base64_encode(sha1.data(), sha1.size());
+}
+
+// static
+SHA1::Hash SHA1::CalculateForString(std::string const & str)
+{
+  CSHA1 sha1;
+  std::vector<unsigned char> dat(str.begin(), str.end());
+  sha1.Update(dat.data(), static_cast<uint32_t>(dat.size()));
+  sha1.Final();
+
+  Hash result;
+  ASSERT_EQUAL(result.size(), ARRAY_SIZE(sha1.m_digest), ());
+  std::copy(std::begin(sha1.m_digest), std::end(sha1.m_digest), std::begin(result));
+  return result;
+}
+
+// static
+std::string SHA1::CalculateBase64ForString(std::string const & str)
+{
+  auto const sha1 = CalculateForString(str);
   return base64_encode(sha1.data(), sha1.size());
 }
 }  // coding

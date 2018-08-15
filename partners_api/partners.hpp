@@ -41,6 +41,7 @@ protected:
 
 public:
   int GetPartnerIndex(FeatureType & ft) const;
+  bool IsFakeObject(FeatureType & ft) const;
 
   DECLARE_CHECKER_INSTANCE(PartnerChecker);
 };

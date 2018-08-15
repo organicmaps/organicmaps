@@ -90,6 +90,8 @@ set(
   search_mark.cpp
   search_mark.hpp
   search_product_info.hpp
+  subscription.cpp
+  subscription.hpp
   taxi_delegate.cpp
   taxi_delegate.hpp
   track.cpp

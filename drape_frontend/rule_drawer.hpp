@@ -33,10 +33,12 @@ public:
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string const &)>;
   using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
+  using TFilterFeatureFn = std::function<bool(FeatureType &)>;
 
   RuleDrawer(TDrawerCallback const & drawerFn,
              TCheckCancelledCallback const & checkCancelled,
              TIsCountryLoadedByNameFn const & isLoadedFn,
+             TFilterFeatureFn const & filterFn,
              ref_ptr<EngineContext> engineContext);
   ~RuleDrawer();
 
@@ -61,6 +63,7 @@ private:
   TDrawerCallback m_callback;
   TCheckCancelledCallback m_checkCancelled;
   TIsCountryLoadedByNameFn m_isLoadedFn;
+  TFilterFeatureFn m_filter;
 
   ref_ptr<EngineContext> m_context;
   CustomFeaturesContextPtr m_customFeaturesContext;

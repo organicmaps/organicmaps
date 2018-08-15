@@ -173,20 +173,22 @@ bool UsePreciseFeatureCenter(FeatureType & f)
 
 namespace df
 {
-
 RuleDrawer::RuleDrawer(TDrawerCallback const & drawerFn,
                        TCheckCancelledCallback const & checkCancelled,
                        TIsCountryLoadedByNameFn const & isLoadedFn,
+                       TFilterFeatureFn const & filterFn,
                        ref_ptr<EngineContext> engineContext)
   : m_callback(drawerFn)
   , m_checkCancelled(checkCancelled)
   , m_isLoadedFn(isLoadedFn)
+  , m_filter(filterFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_wasCancelled(false)
 {
   ASSERT(m_callback != nullptr, ());
   ASSERT(m_checkCancelled != nullptr, ());
+  ASSERT(m_filter != nullptr, ());
 
   m_globalRect = m_context->GetTileKey().GetGlobalRect();
 
@@ -464,6 +466,9 @@ void RuleDrawer::ProcessPointStyle(FeatureType & f, Stylist const & s,
 void RuleDrawer::operator()(FeatureType & f)
 {
   if (CheckCancelled())
+    return;
+
+  if (m_filter(f))
     return;
 
   Stylist s;

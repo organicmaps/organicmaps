@@ -87,6 +87,18 @@ int PartnerChecker::GetPartnerIndex(FeatureType & ft) const
   return kFakePartnerIndex;
 }
 
+bool PartnerChecker::IsFakeObject(FeatureType & ft) const
+{
+  // An object is fake one if it contains only sponsored-partnerX types.
+  auto const types = feature::TypesHolder(ft);
+  for (auto t : types)
+  {
+    if (std::find(m_types.begin(), m_types.end(), PrepareToMatch(t, 2 /* level */)) == m_types.end())
+      return false;
+  }
+  return true;
+}
+
 std::vector<PartnerInfo> const & GetPartners()
 {
   return kPartners;

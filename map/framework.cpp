@@ -388,6 +388,7 @@ Framework::Framework(FrameworkParams const & params)
   })
   , m_lastReportedCountry(kInvalidCountryId)
   , m_popularityLoader(m_model.GetDataSource())
+  , m_subscription(std::make_unique<Subscription>())
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
@@ -468,7 +469,10 @@ Framework::Framework(FrameworkParams const & params)
 
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
-    m_localAdsManager.Startup(m_bmManager.get());
+  {
+    m_localAdsManager.Startup(m_bmManager.get(), m_subscription->IsActive());
+    m_subscription->Register(&m_localAdsManager);
+  }
 
   m_routingManager.SetRouterImpl(RouterType::Vehicle);
 
@@ -496,11 +500,17 @@ Framework::Framework(FrameworkParams const & params)
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
+
+  m_subscription->Validate();
 }
 
 Framework::~Framework()
 {
   m_threadRunner.reset();
+
+  // Must be destroyed implicitly at the start of destruction,
+  // since it stores raw pointers to other subsystems.
+  m_subscription.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
 
@@ -513,7 +523,7 @@ Framework::~Framework()
   m_model.SetOnMapDeregisteredCallback(nullptr);
 
   m_user.ClearSubscribers();
-  // Must be destroyed implicitly since it stores reference to m_user.
+  // Must be destroyed implicitly, since it stores reference to m_user.
   m_bmManager.reset();
 }
 
@@ -865,7 +875,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
     info.SetBookingSearchUrl(url);
     LOG(LINFO, (url));
   }
-  else if (PartnerChecker::Instance()(ft))
+  else if (m_subscription && !m_subscription->IsActive() && PartnerChecker::Instance()(ft))
   {
     info.SetSponsoredType(place_page::SponsoredType::Partner);
     auto const partnerIndex = PartnerChecker::Instance().GetPartnerIndex(ft);
@@ -1489,11 +1499,14 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
   // Apply sponsored modifiers.
-  std::tuple<LuggageHeroModifier> modifiers(city);
-  my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
+  if (m_subscription && !m_subscription->IsActive())
   {
-    m_displayedCategories->Modify(modifier);
-  });
+    std::tuple<LuggageHeroModifier> modifiers(city);
+    my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
+    {
+      m_displayedCategories->Modify(modifier);
+    });
+  }
 
   return *m_displayedCategories;
 }
@@ -1519,7 +1532,9 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
   case Result::Type::PureSuggest: ASSERT(false, ("Suggests should not be here.")); return;
   }
 
-  info.SetAdsEngine(m_adsEngine.get());
+  if (m_subscription && !m_subscription->IsActive())
+    info.SetAdsEngine(m_adsEngine.get());
+
   SetPlacePageLocation(info);
   m2::PointD const center = info.GetMercator();
   if (m_drapeEngine != nullptr)
@@ -1721,6 +1736,13 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
     });
   };
 
+  auto filterFeatureFn = [this](FeatureType & ft) -> bool
+  {
+    if (m_subscription && !m_subscription->IsActive())
+      return false;
+    return PartnerChecker::Instance().IsFakeObject(ft);
+  };
+
   auto overlaysShowStatsFn = [this](list<df::OverlayShowEvent> && events)
   {
     if (events.empty())
@@ -1763,7 +1785,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   df::DrapeEngine::Params p(
       params.m_apiVersion, contextFactory,
       dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
-      df::MapDataProvider(idReadFn, featureReadFn, isCountryLoadedByNameFn, updateCurrentCountryFn),
+      df::MapDataProvider(move(idReadFn), move(featureReadFn), move(filterFeatureFn),
+                          move(isCountryLoadedByNameFn), move(updateCurrentCountryFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, move(params.m_widgetsInitInfo),
       make_pair(params.m_initialMyPositionState, params.m_hasMyPositionState),
       move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled,
@@ -2315,7 +2338,8 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     return df::SelectionShape::OBJECT_MY_POSITION;
   }
 
-  outInfo.SetAdsEngine(m_adsEngine.get());
+  if (m_subscription && !m_subscription->IsActive())
+    outInfo.SetAdsEngine(m_adsEngine.get());
 
   UserMark const * mark = FindUserMarkInTapPosition(tapInfo);
   if (mark != nullptr)

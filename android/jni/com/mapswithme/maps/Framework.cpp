@@ -1620,6 +1620,9 @@ Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 {
+  auto const & subscription = frm()->GetSubscription();
+  if (subscription && subscription->IsActive())
+    return nullptr;
   return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
 
@@ -1708,6 +1711,9 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env, jclass,
                                                                     jstring mwmId)
 {
+  auto const & subscription = frm()->GetSubscription();
+  if (subscription && subscription->IsActive())
+    return static_cast<jboolean>(false);
   return static_cast<jboolean>(ads::HasMegafonDownloaderBanner(frm()->GetStorage(),
                                                                jni::ToNativeString(env, mwmId),
                                                                languages::GetCurrentNorm()));

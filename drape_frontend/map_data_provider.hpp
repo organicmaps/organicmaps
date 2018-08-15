@@ -22,15 +22,19 @@ public:
   using TIsCountryLoadedFn = std::function<bool(m2::PointD const &)>;
   using TIsCountryLoadedByNameFn = std::function<bool(string const &)>;
   using TUpdateCurrentCountryFn = std::function<void(m2::PointD const &, int)>;
+  using TFilterFeatureFn = std::function<bool(FeatureType &)>;
 
-  MapDataProvider(TReadIDsFn const & idsReader,
-                  TReadFeaturesFn const & featureReader,
-                  TIsCountryLoadedByNameFn const & isCountryLoadedByNameFn,
-                  TUpdateCurrentCountryFn const & updateCurrentCountryFn);
+  MapDataProvider(TReadIDsFn && idsReader,
+                  TReadFeaturesFn && featureReader,
+                  TFilterFeatureFn && filterFeatureFn,
+                  TIsCountryLoadedByNameFn && isCountryLoadedByNameFn,
+                  TUpdateCurrentCountryFn && updateCurrentCountryFn);
 
   void ReadFeaturesID(TReadCallback<FeatureID const> const & fn, m2::RectD const & r,
                       int scale) const;
   void ReadFeatures(TReadCallback<FeatureType> const & fn, std::vector<FeatureID> const & ids) const;
+
+  TFilterFeatureFn const & GetFilter() const;
 
   TUpdateCurrentCountryFn const & UpdateCurrentCountryFn() const;
 
@@ -39,6 +43,7 @@ public:
 private:
   TReadFeaturesFn m_featureReader;
   TReadIDsFn m_idsReader;
+  TFilterFeatureFn m_filterFeature;
   TUpdateCurrentCountryFn m_updateCurrentCountry;
 };
 }  // namespace df

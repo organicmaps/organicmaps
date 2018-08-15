@@ -13,5 +13,8 @@ public:
 
   static Hash Calculate(std::string const & filePath);
   static std::string CalculateBase64(std::string const & filePath);
+
+  static Hash CalculateForString(std::string const & str);
+  static std::string CalculateBase64ForString(std::string const & str);
 };
 }  // coding

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "map/subscription.hpp"
+
 #include "local_ads/statistics.hpp"
 
 #include "drape_frontend/custom_features_context.hpp"
@@ -32,7 +34,7 @@ class TypesHolder;
 
 class BookmarkManager;
 
-class LocalAdsManager final
+class LocalAdsManager : public SubscriptionListener
 {
 public:
   using GetMwmsByRectFn = std::function<std::vector<MwmSet::MwmId>(m2::RectD const &)>;
@@ -47,7 +49,7 @@ public:
                   ReadFeaturesFn && readFeaturesFn, GetFeatureByIdFn && getFeatureByIDFn);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
 
-  void Startup(BookmarkManager * bmManager);
+  void Startup(BookmarkManager * bmManager, bool isEnabled);
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
   void UpdateViewport(ScreenBase const & screen);
 
@@ -64,6 +66,8 @@ public:
 
   std::string GetCompanyUrl(FeatureID const & featureId) const;
 
+  void OnSubscriptionChanged(bool isActive) override;
+
 private:
   enum class RequestType
   {
@@ -71,6 +75,8 @@ private:
     Delete
   };
   using Request = std::pair<MwmSet::MwmId, RequestType>;
+
+  void Start();
 
   void ProcessRequests(std::set<Request> && campaignMwms);
 
@@ -92,6 +98,8 @@ private:
   GetMwmIdByNameFn const m_getMwmIdByNameFn;
   ReadFeaturesFn const m_readFeaturesFn;
   GetFeatureByIdFn const m_getFeatureByIdFn;
+
+  std::atomic<bool> m_isStarted;
 
   std::atomic<BookmarkManager *> m_bmManager;
 
@@ -134,4 +142,5 @@ private:
   std::set<MwmSet::MwmId> m_downloadingMwms;
   
   local_ads::Statistics m_statistics;
+  std::atomic<bool> m_isEnabled;
 };

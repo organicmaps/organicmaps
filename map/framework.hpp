@@ -15,6 +15,7 @@
 #include "map/routing_mark.hpp"
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
+#include "map/subscription.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
@@ -871,4 +872,11 @@ public:
 private:
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
   unique_ptr<discovery::Manager> m_discoveryManager;
+
+public:
+  std::unique_ptr<Subscription> const & GetSubscription() const { return m_subscription; }
+  std::unique_ptr<Subscription> & GetSubscription() { return m_subscription; }
+
+private:
+  std::unique_ptr<Subscription> m_subscription;
 };

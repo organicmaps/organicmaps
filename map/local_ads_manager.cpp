@@ -282,6 +282,7 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
   , m_getMwmIdByNameFn(std::move(getMwmIdByName))
   , m_readFeaturesFn(std::move(readFeaturesFn))
   , m_getFeatureByIdFn(std::move(getFeatureByIDFn))
+  , m_isStarted(false)
   , m_bmManager(nullptr)
 {
   CHECK(m_getMwmsByRectFn != nullptr, ());
@@ -290,14 +291,21 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
   CHECK(m_getFeatureByIdFn != nullptr, ());
 }
 
-void LocalAdsManager::Startup(BookmarkManager * bmManager)
+void LocalAdsManager::Startup(BookmarkManager * bmManager, bool isEnabled)
 {
+  m_isEnabled = isEnabled;
   FillSupportedTypes();
+  m_bmManager = bmManager;
 
-  GetPlatform().RunTask(Platform::Thread::File, [this, bmManager]
+  if (isEnabled)
+    Start();
+}
+
+void LocalAdsManager::Start()
+{
+  m_isStarted = true;
+  GetPlatform().RunTask(Platform::Thread::File, [this]
   {
-    m_bmManager = bmManager;
-
     local_ads::IconsInfo::Instance().SetSourceFile(kLocalAdsSymbolsFile);
 
     std::string const campaignFile = GetPath(kCampaignFile);
@@ -319,8 +327,9 @@ void LocalAdsManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const connectionStatus = GetPlatform().ConnectionStatus();
-  if (kServerUrl.empty() || connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
-    df::GetZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
+  if (!m_isStarted || !m_isEnabled || kServerUrl.empty() ||
+      connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
+      df::GetZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
   {
     return;
   }
@@ -644,6 +653,49 @@ bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
 std::string LocalAdsManager::GetCompanyUrl(FeatureID const & featureId) const
 {
   return MakeCampaignPageURL(featureId);
+}
+
+void LocalAdsManager::OnSubscriptionChanged(bool isActive)
+{
+  bool enabled = !isActive;
+  if (m_isEnabled == enabled)
+    return;
+
+  m_isEnabled = enabled;
+  if (enabled)
+  {
+    if (!m_isStarted)
+      Start();
+    else
+      Invalidate();
+  }
+  else
+  {
+    GetPlatform().RunTask(Platform::Thread::File, [this]
+    {
+      // Clear campaigns data.
+      {
+        std::lock_guard<std::mutex> lock(m_campaignsMutex);
+        m_campaigns.clear();
+        m_info.clear();
+        m_failedDownloads.clear();
+        m_downloadingMwms.clear();
+      }
+
+      // Clear features cache.
+      {
+        std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+        m_featuresCache.clear();
+      }
+
+      // Clear all graphics.
+      DeleteAllLocalAdsMarks(m_bmManager);
+      m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
+    });
+
+    // Disable statistics collection.
+    m_statistics.SetEnabled(false);
+  }
 }
 
 bool LocalAdsManager::BackoffStats::CanRetry() const

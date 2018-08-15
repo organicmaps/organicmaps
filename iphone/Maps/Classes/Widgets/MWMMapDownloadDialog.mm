@@ -43,6 +43,8 @@ BOOL canAutoDownload(storage::TCountryId const & countryId)
 
 BOOL shouldShowBanner(std::string const & mwmId)
 {
+  if (GetFramework().GetSubscription()->IsActive())
+    return NO;
   return ads::HasMegafonDownloaderBanner(GetFramework().GetStorage(), mwmId, languages::GetCurrentNorm());
 }
 

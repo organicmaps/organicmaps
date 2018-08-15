@@ -245,6 +245,7 @@ Statistics::Statistics()
   
 void Statistics::Startup()
 {
+  m_isEnabled = true;
   GetPlatform().RunTask(Platform::Thread::File, [this]
   {
     IndexMetadata();
@@ -254,13 +255,23 @@ void Statistics::Startup()
 
 void Statistics::RegisterEvent(Event && event)
 {
+  if (!m_isEnabled)
+    return;
+
   RegisterEvents({std::move(event)});
 }
 
 void Statistics::RegisterEvents(std::list<Event> && events)
 {
+  if (!m_isEnabled)
+    return;
   GetPlatform().RunTask(Platform::Thread::File,
                         std::bind(&Statistics::ProcessEvents, this, std::move(events)));
+}
+
+void Statistics::SetEnabled(bool isEnabled)
+{
+  m_isEnabled = isEnabled;
 }
 
 std::list<Event> Statistics::WriteEvents(std::list<Event> & events, std::string & fileNameToRebuild)
@@ -379,6 +390,9 @@ void Statistics::ProcessEvents(std::list<Event> & events)
 
 void Statistics::SendToServer()
 {
+  if (!m_isEnabled)
+    return;
+
   if (CanUpload())
   {
     for (auto it = m_metadataCache.begin(); it != m_metadataCache.end(); ++it)

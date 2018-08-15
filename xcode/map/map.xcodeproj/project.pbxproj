@@ -75,6 +75,8 @@
 		3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */; };
 		3DA5723220C195ED007BDE27 /* everywhere_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */; };
 		3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */; };
+		4503559A21245A4100FDFEA5 /* subscription.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4503559821245A4000FDFEA5 /* subscription.hpp */; };
+		4503559B21245A4100FDFEA5 /* subscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4503559921245A4000FDFEA5 /* subscription.cpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
 		454523A9202A0068009275C1 /* cloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454523A7202A0067009275C1 /* cloud.cpp */; };
 		454523AA202A0068009275C1 /* cloud.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523A8202A0067009275C1 /* cloud.hpp */; };
@@ -292,6 +294,8 @@
 		3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_callback.hpp; sourceTree = "<group>"; };
 		3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = everywhere_search_callback.cpp; sourceTree = "<group>"; };
 		3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport_search_callback.cpp; sourceTree = "<group>"; };
+		4503559821245A4000FDFEA5 /* subscription.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = subscription.hpp; sourceTree = "<group>"; };
+		4503559921245A4000FDFEA5 /* subscription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = subscription.cpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
 		454523A7202A0067009275C1 /* cloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cloud.cpp; sourceTree = "<group>"; };
 		454523A8202A0067009275C1 /* cloud.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cloud.hpp; sourceTree = "<group>"; };
@@ -708,9 +712,6 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
-				3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */,
-				56C1165E2090E5670068BBC0 /* extrapolator.cpp */,
-				56C1165F2090E5670068BBC0 /* extrapolator.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
@@ -745,6 +746,8 @@
 				3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */,
 				3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */,
 				3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */,
+				56C1165E2090E5670068BBC0 /* extrapolator.cpp */,
+				56C1165F2090E5670068BBC0 /* extrapolator.hpp */,
 				675345F31A4054E800A0A8C3 /* feature_vec_model.cpp */,
 				675345F41A4054E800A0A8C3 /* feature_vec_model.hpp */,
 				F6D67CE22063F4980032FD38 /* framework_light.hpp */,
@@ -785,6 +788,9 @@
 				45F6EE9A1FB1C77500019892 /* search_api.hpp */,
 				456E1B381F9A3C29009C32E1 /* search_mark.cpp */,
 				456E1B391F9A3C2A009C32E1 /* search_mark.hpp */,
+				3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */,
+				4503559921245A4000FDFEA5 /* subscription.cpp */,
+				4503559821245A4000FDFEA5 /* subscription.hpp */,
 				3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */,
 				3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */,
 				6753462C1A4054E800A0A8C3 /* track.cpp */,
@@ -852,6 +858,7 @@
 				3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */,
 				F69687C8201B4A3600457650 /* discovery_search_params.hpp in Headers */,
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
+				4503559A21245A4100FDFEA5 /* subscription.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
 				34921F661BFA0A6900737D6E /* api_mark_point.hpp in Headers */,
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
@@ -1089,6 +1096,7 @@
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
 				45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */,
+				4503559B21245A4100FDFEA5 /* subscription.cpp in Sources */,
 				3DA5723220C195ED007BDE27 /* everywhere_search_callback.cpp in Sources */,
 				BBD9E2C61EE9D01900DF189A /* routing_mark.cpp in Sources */,
 			);

@@ -4,6 +4,7 @@
 
 #include "base/thread.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <condition_variable>
 #include <functional>
@@ -36,6 +37,7 @@ public:
   void Startup();
   void RegisterEvent(Event && event);
   void RegisterEvents(std::list<Event> && events);
+  void SetEnabled(bool isEnabled);
 
   std::list<Event> WriteEventsForTesting(std::list<Event> const & events,
                                          std::string & fileNameToRebuild);
@@ -67,6 +69,7 @@ private:
   void SendFileWithMetadata(MetadataKey && metadataKey, Metadata && metadata);
 
   std::string const m_userId;
+  bool m_isEnabled = false;
   std::map<MetadataKey, Metadata> m_metadataCache;
 };
 }  // namespace local_ads
