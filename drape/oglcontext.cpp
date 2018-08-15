@@ -3,6 +3,52 @@
 
 namespace dp
 {
+namespace
+{
+glConst DecodeTestFunction(TestFunction depthFunction)
+{
+  switch (depthFunction)
+  {
+    case TestFunction::Never: return gl_const::GLNever;
+    case TestFunction::Less: return gl_const::GLLess;
+    case TestFunction::Equal: return gl_const::GLEqual;
+    case TestFunction::LessOrEqual: return gl_const::GLLessOrEqual;
+    case TestFunction::Greater: return gl_const::GLGreat;
+    case TestFunction::NotEqual: return gl_const::GLNotEqual;
+    case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
+    case TestFunction::Always: return gl_const::GLAlways;
+  }
+  ASSERT(false, ());
+}
+
+glConst DecodeStencilFace(StencilFace stencilFace)
+{
+  switch (stencilFace)
+  {
+    case StencilFace::Front: return gl_const::GLFront;
+    case StencilFace::Back: return gl_const::GLBack;
+    case StencilFace::FrontAndBack: return gl_const::GLFrontAndBack;
+  }
+  ASSERT(false, ());
+}
+
+glConst DecodeStencilAction(StencilAction stencilAction)
+{
+  switch (stencilAction)
+  {
+    case StencilAction::Keep: return gl_const::GLKeep;
+    case StencilAction::Zero: return gl_const::GLZero;
+    case StencilAction::Replace: return gl_const::GLReplace;
+    case StencilAction::Incr: return gl_const::GLIncr;
+    case StencilAction::IncrWrap: return gl_const::GLIncrWrap;
+    case StencilAction::Decr: return gl_const::GLDecr;
+    case StencilAction::DecrWrap: return gl_const::GLDecrWrap;
+    case StencilAction::Invert: return gl_const::GLInvert;
+  }
+  ASSERT(false, ());
+}
+}  // namespace
+
 void OGLContext::Init(ApiVersion apiVersion)
 {
   GLFunctions::Init(apiVersion);
@@ -40,5 +86,40 @@ void OGLContext::Clear(uint32_t clearBits)
 void OGLContext::Flush()
 {
   GLFunctions::glFlush();
+}
+
+void OGLContext::SetDepthTestEnabled(bool enabled)
+{
+  if (enabled)
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+  else
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+}
+
+void OGLContext::SetDepthTestFunction(TestFunction depthFunction)
+{
+  GLFunctions::glDepthFunc(DecodeTestFunction(depthFunction));
+};
+
+void OGLContext::SetStencilTestEnabled(bool enabled)
+{
+  if (enabled)
+    GLFunctions::glEnable(gl_const::GLStencilTest);
+  else
+    GLFunctions::glDisable(gl_const::GLStencilTest);
+}
+
+void OGLContext::SetStencilFunction(StencilFace face, TestFunction stencilFunction)
+{
+  GLFunctions::glStencilFuncSeparate(DecodeStencilFace(face), DecodeTestFunction(stencilFunction), 1, 1);
+}
+
+void OGLContext::SetStencilActions(StencilFace face, StencilAction stencilFailAction, StencilAction depthFailAction,
+                                   StencilAction passAction)
+{
+  GLFunctions::glStencilOpSeparate(DecodeStencilFace(face),
+                                   DecodeStencilAction(stencilFailAction),
+                                   DecodeStencilAction(depthFailAction),
+                                   DecodeStencilAction(passAction));
 }
 }  // namespace dp

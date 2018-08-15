@@ -3,11 +3,16 @@
 #include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/pointers.hpp"
+#include "drape/render_state.hpp"
+
+#include "shaders/program_params.hpp"
 
 #include <cstdint>
 
 namespace dp
 {
+class GraphicsContext;
+class RenderParamsHolder;
 class Texture;
 }  // namespace dp
 
@@ -19,7 +24,6 @@ class ProgramManager;
 namespace df
 {
 class ScreenQuadRenderer;
-class RendererContext;
 
 struct PostprocessStaticTextures
 {
@@ -35,7 +39,7 @@ public:
     Antialiasing = 1
   };
 
-  PostprocessRenderer();
+  PostprocessRenderer() = default;
   ~PostprocessRenderer();
 
   void Init(dp::ApiVersion apiVersion, dp::FramebufferFallback && fallback);
@@ -50,11 +54,11 @@ public:
   bool OnFramebufferFallback();
   void OnChangedRouteFollowingMode(bool isRouteFollowingActive);
 
-  bool BeginFrame(bool activeFrame);
-  bool EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
+  bool BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame);
+  bool EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> gpuProgramManager);
 
-  void EnableWritingToStencil() const;
-  void DisableWritingToStencil() const;
+  void EnableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const;
+  void DisableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const;
 
 private:
   void UpdateFramebuffers(uint32_t width, uint32_t height);
@@ -76,11 +80,6 @@ private:
   drape_ptr<dp::Framebuffer> m_smaaFramebuffer;
   bool m_isSmaaFramebufferRendered = false;
 
-  drape_ptr<RendererContext> m_edgesRendererContext;
-  drape_ptr<RendererContext> m_bwRendererContext;
-  drape_ptr<RendererContext> m_smaaFinalRendererContext;
-  drape_ptr<RendererContext> m_defaultScreenQuadContext;
-
   bool m_frameStarted = false;
   bool m_isRouteFollowingActive = false;
 };
@@ -88,9 +87,11 @@ private:
 class StencilWriterGuard
 {
 public:
-  explicit StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer);
+  explicit StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer,
+                              ref_ptr<dp::GraphicsContext> context);
   ~StencilWriterGuard();
 private:
   ref_ptr<PostprocessRenderer> const m_renderer;
+  ref_ptr<dp::GraphicsContext> const m_context;
 };
 }  // namespace df

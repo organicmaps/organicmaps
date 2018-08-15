@@ -119,8 +119,8 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
-              FrameValues const & frameValues);
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GraphicsContext> context,
+              ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }

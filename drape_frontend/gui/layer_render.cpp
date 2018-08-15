@@ -40,7 +40,7 @@ void LayerRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
     r.second->Build(mng);
 }
 
-void LayerRenderer::Render(ref_ptr<gpu::ProgramManager> mng, bool routingActive,
+void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, bool routingActive,
                            ScreenBase const & screen)
 {
   if (HasWidget(gui::WIDGET_RULER))
@@ -54,7 +54,7 @@ void LayerRenderer::Render(ref_ptr<gpu::ProgramManager> mng, bool routingActive,
     if (routingActive && (r.first == gui::WIDGET_COMPASS || r.first == gui::WIDGET_RULER))
       continue;
 
-    r.second->Render(screen, mng);
+    r.second->Render(screen, context, mng);
   }
 }
 

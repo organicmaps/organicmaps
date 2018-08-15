@@ -49,6 +49,8 @@ struct OverlayHasher
 };
 }  // namespace detail
 
+class IDebugRenderer;
+
 using TOverlayContainer = buffer_vector<ref_ptr<OverlayHandle>, 8>;
 
 class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTraits>
@@ -93,6 +95,8 @@ public:
   using TDisplacementInfo = std::vector<DisplacementData>;
   TDisplacementInfo const & GetDisplacementInfo() const;
 
+  void SetDebugRectRenderer(ref_ptr<IDebugRenderer> debugRectRenderer);
+
 private:
   ScreenBase const & GetModelView() const { return m_traits.GetModelView(); }
   void InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
@@ -115,6 +119,7 @@ private:
   FeatureID m_selectedFeatureID;
 
   TDisplacementInfo m_displacementInfo;
+  ref_ptr<IDebugRenderer> m_debugRectRenderer;
 
   HandlesCache m_displacers;
   uint32_t m_frameUpdatePeriod;

@@ -11,6 +11,8 @@ enum class TextureFormat : uint8_t
   RGBA8,
   Alpha,
   RedGreen,
+  DepthStencil,
+  Depth,
   Unspecified
 };
 
@@ -34,6 +36,8 @@ inline uint8_t GetBytesPerPixel(TextureFormat format)
   case TextureFormat::RGBA8: result = 4; break;
   case TextureFormat::Alpha: result = 1; break;
   case TextureFormat::RedGreen: result = 2; break;
+  case TextureFormat::DepthStencil: result = 4; break;
+  case TextureFormat::Depth: result = 4; break;
   default: ASSERT(false, ()); break;
   }
   return result;

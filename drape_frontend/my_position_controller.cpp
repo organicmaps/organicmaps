@@ -610,6 +610,7 @@ bool MyPositionController::UpdateViewportWithAutoZoom()
 }
 
 void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
+                                  ref_ptr<dp::GraphicsContext> context,
                                   ref_ptr<gpu::ProgramManager> mng,
                                   FrameValues const & frameValues)
 {
@@ -639,8 +640,8 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
     m_shape->SetAccuracy(static_cast<float>(m_errorRadius));
     m_shape->SetRoutingMode(IsInRouting());
 
-    m_shape->RenderAccuracy(screen, zoomLevel, mng, frameValues);
-    m_shape->RenderMyPosition(screen, zoomLevel, mng, frameValues);
+    m_shape->RenderAccuracy(screen, zoomLevel, context, mng, frameValues);
+    m_shape->RenderMyPosition(screen, zoomLevel, context, mng, frameValues);
   }
 }
 

@@ -1,7 +1,7 @@
 #include "drape/render_bucket.hpp"
 
 #include "drape/attribute_buffer_mutator.hpp"
-#include "drape/debug_rect_renderer.hpp"
+#include "drape/debug_renderer.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -133,9 +133,10 @@ void RenderBucket::SetFeatureMinZoom(int minZoom)
     m_featuresMinZoom = minZoom;
 }
 
-void RenderBucket::RenderDebug(ScreenBase const & screen) const
+void RenderBucket::RenderDebug(ScreenBase const & screen, ref_ptr<GraphicsContext> context,
+                               ref_ptr<IDebugRenderer> debugRectRenderer) const
 {
-  if (!DebugRectRenderer::Instance().IsEnabled() || m_overlay.empty())
+  if (!debugRectRenderer || !debugRectRenderer->IsEnabled() || m_overlay.empty())
     return;
 
   for (auto const & handle : m_overlay)
@@ -149,10 +150,11 @@ void RenderBucket::RenderDebug(ScreenBase const & screen) const
       if (screen.isPerspective() && !screen.PixelRectIn3d().IsIntersect(m2::RectD(rect)))
         continue;
 
-      DebugRectRenderer::Instance().DrawRect(screen, rect, handle->IsVisible() ?
-                                             dp::Color::Green() :
-                                             (handle->IsReady() ? dp::Color::Red() :
-                                                                  dp::Color::Yellow()));
+      auto color = dp::Color::Green();
+      if (!handle->IsVisible())
+        color = handle->IsReady() ? dp::Color::Red() : dp::Color::Yellow();
+
+      debugRectRenderer->DrawRect(context, screen, rect, color);
     }
   }
 }

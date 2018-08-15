@@ -98,6 +98,7 @@ void MyPosition::SetPositionObsolete(bool obsolete)
 }
 
 void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
+                                ref_ptr<dp::GraphicsContext> context,
                                 ref_ptr<gpu::ProgramManager> mng,
                                 FrameValues const & frameValues)
 {
@@ -115,10 +116,11 @@ void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
     MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
   params.m_position = glsl::vec3(pos.x, pos.y, 0.0f);
   params.m_accuracy = pixelAccuracy;
-  RenderPart(mng, params, MyPositionAccuracy);
+  RenderPart(context, mng, params, MyPositionAccuracy);
 }
 
 void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
+                                  ref_ptr<dp::GraphicsContext> context,
                                   ref_ptr<gpu::ProgramManager> mng,
                                   FrameValues const & frameValues)
 {
@@ -126,7 +128,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
   {
     m_arrow3d.SetPosition(m2::PointD(m_position));
     m_arrow3d.SetAzimuth(m_azimuth);
-    m_arrow3d.Render(screen, mng, m_isRoutingMode);
+    m_arrow3d.Render(screen, context, mng, m_isRoutingMode);
   }
   else
   {
@@ -140,7 +142,7 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
       MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
     params.m_position = glsl::vec3(pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
     params.m_azimut = -(m_azimuth + static_cast<float>(screen.GetAngle()));
-    RenderPart(mng, params, MyPositionPoint);
+    RenderPart(context, mng, params, MyPositionPoint);
   }
 }
 
@@ -244,11 +246,11 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   }
 }
 
-void MyPosition::RenderPart(ref_ptr<gpu::ProgramManager> mng,
+void MyPosition::RenderPart(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                             gpu::ShapesProgramParams const & params,
                             EMyPositionPart part)
 {
   TPart const & p = m_parts[part];
-  m_nodes[p.second].Render(mng, params, p.first);
+  m_nodes[p.second].Render(context, mng, params, p.first);
 }
 }  // namespace df

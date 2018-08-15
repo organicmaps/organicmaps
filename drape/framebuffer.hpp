@@ -1,12 +1,19 @@
 #pragma once
 
 #include "drape/pointers.hpp"
+#include "drape/texture.hpp"
 
 #include <cstdint>
 #include <functional>
 
 namespace dp
 {
+class FramebufferTexture: public Texture
+{
+public:
+  ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override { return nullptr; }
+};
+
 using FramebufferFallback = std::function<bool()>;
 
 class Framebuffer
@@ -26,12 +33,12 @@ public:
     bool const m_stencilEnabled = false;
     uint32_t m_layout = 0;
     uint32_t m_pixelType = 0;
-    uint32_t m_textureId = 0;
+    drape_ptr<FramebufferTexture> m_texture;
   };
 
   Framebuffer();
-  explicit Framebuffer(uint32_t colorFormat);
-  Framebuffer(uint32_t colorFormat, bool depthEnabled, bool stencilEnabled);
+  explicit Framebuffer(TextureFormat colorFormat);
+  Framebuffer(TextureFormat colorFormat, bool depthEnabled, bool stencilEnabled);
   ~Framebuffer();
 
   void SetFramebufferFallback(FramebufferFallback && fallback);
@@ -42,7 +49,7 @@ public:
   void Enable();
   void Disable();
 
-  uint32_t GetTextureId() const;
+  ref_ptr<Texture> GetTexture() const;
   ref_ptr<DepthStencil> GetDepthStencilRef() const;
 
   bool IsSupported() const { return m_isSupported; }
@@ -51,11 +58,11 @@ private:
 
   drape_ptr<DepthStencil> m_depthStencil;
   ref_ptr<DepthStencil> m_depthStencilRef;
+  drape_ptr<FramebufferTexture> m_colorTexture;
   uint32_t m_width = 0;
   uint32_t m_height = 0;
-  uint32_t m_colorTextureId = 0;
   uint32_t m_framebufferId = 0;
-  uint32_t m_colorFormat;
+  TextureFormat m_colorFormat;
   FramebufferFallback m_framebufferFallback;
   bool m_isSupported = true;
 };

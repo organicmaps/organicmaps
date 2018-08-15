@@ -35,13 +35,13 @@ public:
   void SetTexture(ref_ptr<dp::TextureManager> texMng);
   void SetPositionObsolete(bool obsolete);
 
-  void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+  void Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
               bool routingMode);
 
 private:
   math::Matrix<float, 4, 4> CalculateTransform(ScreenBase const & screen, float dz,
                                                float scaleFactor) const;
-  void RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+  void RenderArrow(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                    gpu::Program program, dp::Color const & color, float dz, float scaleFactor,
                    bool hasNormals);
 

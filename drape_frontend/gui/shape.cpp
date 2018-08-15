@@ -87,7 +87,8 @@ void ShapeRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
   });
 }
 
-void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng)
+void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
+                           ref_ptr<gpu::ProgramManager> mng)
 {
   std::array<float, 16> m = {};
   m2::RectD const & pxRect = screen.PixelRectIn3d();
@@ -95,7 +96,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManage
                      static_cast<float>(pxRect.SizeY()), 0.0f);
   glsl::mat4 const projection = glsl::make_mat4(m.data());
 
-  ForEachShapeInfo([&projection, &screen, mng](ShapeControl::ShapeInfo & info) mutable
+  ForEachShapeInfo([&projection, &screen, context, mng](ShapeControl::ShapeInfo & info) mutable
   {
     if (!info.m_handle->Update(screen))
       return;
@@ -105,7 +106,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManage
 
     ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgram<gpu::Program>());
     prg->Bind();
-    dp::ApplyState(info.m_state, prg);
+    dp::ApplyState(info.m_state, context, prg);
 
     auto params = info.m_handle->GetParams();
     params.m_projection = projection;

@@ -4,8 +4,11 @@
 
 #include "shaders/program_manager.hpp"
 
-#include "drape/glfunctions.hpp"
+#include "drape/glsl_types.hpp"
+#include "drape/graphics_context.hpp"
+#include "drape/mesh_object.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/render_state.hpp"
 
 #include "base/assert.hpp"
 
@@ -13,168 +16,97 @@ namespace df
 {
 namespace
 {
-class SMAABaseRendererContext : public RendererContext
+class SMAABaseRenderParams
 {
-protected:
-  void ApplyParameters(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::GpuProgram> prg)
+public:
+  SMAABaseRenderParams(gpu::Program program)
+    : m_state(CreateRenderState(program, DepthLayer::GeometryLayer))
   {
-    mng->GetParamsSetter()->Apply(prg, m_params);
+    m_state.SetDepthTestEnabled(false);
+    m_state.SetBlending(dp::Blending(false));
   }
 
+  dp::RenderState const & GetRenderState() const { return m_state; }
+  gpu::SMAAProgramParams const & GetProgramParams() const { return m_params; }
+
+protected:
+  dp::RenderState m_state;
   gpu::SMAAProgramParams m_params;
 };
 
-class EdgesRendererContext : public SMAABaseRendererContext
+class EdgesRenderParams : public SMAABaseRenderParams
 {
+  using TBase = SMAABaseRenderParams;
 public:
-  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaEdges; }
+  EdgesRenderParams(): TBase(gpu::Program::SmaaEdges) {}
 
-  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
+  void SetParams(ref_ptr<dp::Texture> texture, uint32_t width, uint32_t height)
   {
-    auto prg = mng->GetProgram(GetGpuProgram());
+    m_state.SetTexture("u_colorTex", texture);
 
-    GLFunctions::glClear(gl_const::GLColorBit);
-
-    BindTexture(m_textureId, prg, "u_colorTex", 0 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyParameters(mng, prg);
-
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    GLFunctions::glDisable(gl_const::GLBlending);
-  }
-
-  void SetParams(uint32_t textureId, uint32_t width, uint32_t height)
-  {
-    m_textureId = textureId;
     m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
                                                static_cast<float>(width),
                                                static_cast<float>(height));
   }
-
-protected:
-  uint32_t m_textureId = 0;
 };
 
-class BlendingWeightRendererContext : public SMAABaseRendererContext
+class BlendingWeightRenderParams : public SMAABaseRenderParams
 {
+  using TBase = SMAABaseRenderParams;
 public:
-  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaBlendingWeight; }
+  BlendingWeightRenderParams() : TBase(gpu::Program::SmaaBlendingWeight) {}
 
-  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
+  void SetParams(ref_ptr<dp::Texture> edgesTexture, ref_ptr<dp::Texture> areaTexture,
+                 ref_ptr<dp::Texture> searchTexture, uint32_t width, uint32_t height)
   {
-    auto prg = mng->GetProgram(GetGpuProgram());
+    m_state.SetTexture("u_colorTex", edgesTexture);
+    m_state.SetTexture("u_smaaArea", areaTexture);
+    m_state.SetTexture("u_smaaSearch", searchTexture);
 
-    GLFunctions::glClear(gl_const::GLColorBit);
-
-    BindTexture(m_edgesTextureId, prg, "u_colorTex", 0 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    BindTexture(m_areaTextureId, prg, "u_smaaArea", 1 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    BindTexture(m_searchTextureId, prg, "u_smaaSearch", 2 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyParameters(mng, prg);
-
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    GLFunctions::glDisable(gl_const::GLBlending);
+    m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
+                                               static_cast<float>(width),
+                                               static_cast<float>(height));
   }
+};
 
-  void PostRender() override
-  {
-    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 2);
-    GLFunctions::glBindTexture(0);
-  }
+class SMAAFinalRendeParams : public SMAABaseRenderParams
+{
+  using TBase = SMAABaseRenderParams;
+public:
+  SMAAFinalRendeParams(): TBase(gpu::Program::SmaaFinal) {}
 
-  void SetParams(uint32_t edgesTextureId, uint32_t areaTextureId, uint32_t searchTextureId,
+  void SetParams(ref_ptr<dp::Texture> colorTexture, ref_ptr<dp::Texture> blendingWeightTexture,
                  uint32_t width, uint32_t height)
   {
-    m_edgesTextureId = edgesTextureId;
-    m_areaTextureId = areaTextureId;
-    m_searchTextureId = searchTextureId;
+    m_state.SetTexture("u_colorTex", colorTexture);
+    m_state.SetTexture("u_blendingWeightTex", blendingWeightTexture);
+
     m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
                                                static_cast<float>(width),
                                                static_cast<float>(height));
   }
-
-private:
-  uint32_t m_edgesTextureId = 0;
-  uint32_t m_areaTextureId = 0;
-  uint32_t m_searchTextureId = 0;
 };
 
-class SMAAFinalRendererContext : public SMAABaseRendererContext
+class DefaultScreenQuadRenderParams
 {
 public:
-  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaFinal; }
-
-  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
+  DefaultScreenQuadRenderParams()
+    : m_state(CreateRenderState(gpu::Program::ScreenQuad, DepthLayer::GeometryLayer))
   {
-    auto prg = mng->GetProgram(GetGpuProgram());
-
-    GLFunctions::glClear(gl_const::GLColorBit);
-
-    BindTexture(m_colorTextureId, prg, "u_colorTex", 0 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    BindTexture(m_blendingWeightTextureId, prg, "u_blendingWeightTex", 1 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyParameters(mng, prg);
-
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    GLFunctions::glDisable(gl_const::GLBlending);
+    m_state.SetDepthTestEnabled(false);
+    m_state.SetBlending(dp::Blending(false));
   }
 
-  void PostRender() override
+  void SetParams(ref_ptr<dp::Texture> texture)
   {
-    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
-    GLFunctions::glBindTexture(0);
-    GLFunctions::glActiveTexture(gl_const::GLTexture0);
-    GLFunctions::glBindTexture(0);
+    m_state.SetTexture("u_colorTex", texture);
   }
 
-  void SetParams(uint32_t colorTextureId, uint32_t blendingWeightTextureId, uint32_t width,
-                 uint32_t height)
-  {
-    m_colorTextureId = colorTextureId;
-    m_blendingWeightTextureId = blendingWeightTextureId;
-    m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
-                                               static_cast<float>(width),
-                                               static_cast<float>(height));
-  }
+  dp::RenderState const & GetRenderState() const { return m_state; }
+  gpu::ScreenQuadProgramParams const & GetProgramParams() const { return m_params; }
 
 private:
-  uint32_t m_colorTextureId = 0;
-  uint32_t m_blendingWeightTextureId = 0;
-};
-
-class DefaultScreenQuadContext : public RendererContext
-{
-public:
-  gpu::Program GetGpuProgram() const override { return gpu::Program::ScreenQuad; }
-
-  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
-  {
-    auto prg = mng->GetProgram(GetGpuProgram());
-
-    BindTexture(m_textureId, prg, "u_colorTex", 0 /* slotIndex */,
-                gl_const::GLLinear, gl_const::GLClampToEdge);
-
-    mng->GetParamsSetter()->Apply(prg, m_params);
-
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-    GLFunctions::glDisable(gl_const::GLBlending);
-  }
-
-  void PostRender() override
-  {
-    GLFunctions::glBindTexture(0);
-  }
-
-  void SetParams(uint32_t textureId)
-  {
-    m_textureId = textureId;
-  }
-
-private:
-  uint32_t m_textureId = 0;
+  dp::RenderState m_state;
   gpu::ScreenQuadProgramParams m_params;
 };
 
@@ -182,11 +114,11 @@ void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t width, u
                      bool depthEnabled, bool stencilEnabled)
 {
   if (framebuffer == nullptr)
-    framebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, depthEnabled, stencilEnabled);
+    framebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8, depthEnabled, stencilEnabled);
   framebuffer->SetSize(width, height);
 }
 
-void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t colorFormat,
+void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, dp::TextureFormat colorFormat,
                      ref_ptr<dp::Framebuffer::DepthStencil> depthStencilRef,
                      uint32_t width, uint32_t height)
 {
@@ -201,13 +133,6 @@ bool IsSupported(drape_ptr<dp::Framebuffer> const & framebuffer)
   return framebuffer != nullptr && framebuffer->IsSupported();
 }
 }  // namespace
-
-PostprocessRenderer::PostprocessRenderer()
-  : m_edgesRendererContext(make_unique_dp<EdgesRendererContext>())
-  , m_bwRendererContext(make_unique_dp<BlendingWeightRendererContext>())
-  , m_smaaFinalRendererContext(make_unique_dp<SMAAFinalRendererContext>())
-  , m_defaultScreenQuadContext(make_unique_dp<DefaultScreenQuadContext>())
-{}
 
 PostprocessRenderer::~PostprocessRenderer()
 {
@@ -297,7 +222,7 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
          m_staticTextures->m_smaaSearchTexture->GetID() != 0;
 }
 
-bool PostprocessRenderer::BeginFrame(bool activeFrame)
+bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame)
 {
   if (!IsEnabled())
   {
@@ -310,13 +235,13 @@ bool PostprocessRenderer::BeginFrame(bool activeFrame)
     m_mainFramebuffer->Enable();
 
   if (m_frameStarted && CanRenderAntialiasing())
-    GLFunctions::glDisable(gl_const::GLStencilTest);
+    context->SetStencilTestEnabled(false);
 
   m_isMainFramebufferRendered = true;
   return m_frameStarted;
 }
 
-bool PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager)
+bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> gpuProgramManager)
 {
   if (!IsEnabled())
     return true;
@@ -330,51 +255,64 @@ bool PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManage
     ASSERT(m_staticTextures->m_smaaSearchTexture != nullptr, ());
     ASSERT_GREATER(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
 
-    GLFunctions::glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    GLFunctions::glEnable(gl_const::GLStencilTest);
+    context->SetClearColor(dp::Color::Transparent());
+    context->SetStencilTestEnabled(true);
 
     // Render edges to texture.
     {
       m_edgesFramebuffer->Enable();
 
-      GLFunctions::glStencilFuncSeparate(gl_const::GLFrontAndBack, gl_const::GLNotEqual, 1, 1);
-      GLFunctions::glStencilOpSeparate(gl_const::GLFrontAndBack, gl_const::GLZero,
-                                       gl_const::GLZero, gl_const::GLReplace);
+      context->Clear(dp::ClearBits::ColorBit);
 
-      ASSERT(dynamic_cast<EdgesRendererContext *>(m_edgesRendererContext.get()) != nullptr, ());
-      auto context = static_cast<EdgesRendererContext *>(m_edgesRendererContext.get());
-      context->SetParams(m_mainFramebuffer->GetTextureId(), m_width, m_height);
-      m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_edgesRendererContext));
+      context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::NotEqual);
+      context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Zero,
+                                 dp::StencilAction::Zero, dp::StencilAction::Replace);
+
+      EdgesRenderParams params;
+      params.SetParams(m_mainFramebuffer->GetTexture(), m_width, m_height);
+
+      auto program = gpuProgramManager->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
+      m_screenQuadRenderer->Render(context, program, params.GetRenderState(), gpuProgramManager->GetParamsSetter(),
+                                   params.GetProgramParams());
     }
 
     // Render blending weight to texture.
     {
       m_blendingWeightFramebuffer->Enable();
 
-      GLFunctions::glStencilFuncSeparate(gl_const::GLFrontAndBack, gl_const::GLEqual, 1, 1);
-      GLFunctions::glStencilOpSeparate(gl_const::GLFrontAndBack, gl_const::GLKeep,
-                                       gl_const::GLKeep, gl_const::GLKeep);
+      context->Clear(dp::ClearBits::ColorBit);
 
-      ASSERT(dynamic_cast<BlendingWeightRendererContext *>(m_bwRendererContext.get()) != nullptr, ());
-      auto context = static_cast<BlendingWeightRendererContext *>(m_bwRendererContext.get());
-      context->SetParams(m_edgesFramebuffer->GetTextureId(),
-                         m_staticTextures->m_smaaAreaTexture->GetID(),
-                         m_staticTextures->m_smaaSearchTexture->GetID(),
-                         m_width, m_height);
-      m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_bwRendererContext));
+      context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Equal);
+      context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Keep,
+                                 dp::StencilAction::Keep, dp::StencilAction::Keep);
+
+      BlendingWeightRenderParams params;
+      params.SetParams(m_edgesFramebuffer->GetTexture(),
+                       m_staticTextures->m_smaaAreaTexture,
+                       m_staticTextures->m_smaaSearchTexture,
+                       m_width, m_height);
+
+      auto program = gpuProgramManager->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
+      m_screenQuadRenderer->Render(context, program, params.GetRenderState(), gpuProgramManager->GetParamsSetter(),
+                                   params.GetProgramParams());
     }
 
     // SMAA final pass.
-    GLFunctions::glDisable(gl_const::GLStencilTest);
+    context->SetStencilTestEnabled(false);
     {
       m_smaaFramebuffer->Enable();
 
-      ASSERT(dynamic_cast<SMAAFinalRendererContext *>(m_smaaFinalRendererContext.get()) != nullptr, ());
-      auto context = static_cast<SMAAFinalRendererContext *>(m_smaaFinalRendererContext.get());
-      context->SetParams(m_mainFramebuffer->GetTextureId(),
-                         m_blendingWeightFramebuffer->GetTextureId(),
-                         m_width, m_height);
-      m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_smaaFinalRendererContext));
+      context->Clear(dp::ClearBits::ColorBit);
+
+      SMAAFinalRendeParams params;
+      params.SetParams(m_mainFramebuffer->GetTexture(),
+                       m_blendingWeightFramebuffer->GetTexture(),
+                       m_width, m_height);
+
+      auto program = gpuProgramManager->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
+      m_screenQuadRenderer->Render(context, program, params.GetRenderState(), gpuProgramManager->GetParamsSetter(),
+                                   params.GetProgramParams());
+
       m_isSmaaFramebufferRendered = true;
     }
   }
@@ -389,31 +327,34 @@ bool PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManage
   bool m_wasRendered = false;
   if (m_framebufferFallback())
   {
-    ASSERT(dynamic_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get()) != nullptr, ());
-    auto context = static_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get());
-    context->SetParams(finalFramebuffer->GetTextureId());
-    m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_defaultScreenQuadContext));
+    DefaultScreenQuadRenderParams params;
+    params.SetParams(finalFramebuffer->GetTexture());
+
+    auto program = gpuProgramManager->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
+    m_screenQuadRenderer->Render(context, program, params.GetRenderState(), gpuProgramManager->GetParamsSetter(),
+                                 params.GetProgramParams());
+
     m_wasRendered = true;
   }
   m_frameStarted = false;
   return m_wasRendered;
 }
 
-void PostprocessRenderer::EnableWritingToStencil() const
+void PostprocessRenderer::EnableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const
 {
   if (!m_frameStarted || !CanRenderAntialiasing())
     return;
-  GLFunctions::glEnable(gl_const::GLStencilTest);
-  GLFunctions::glStencilFuncSeparate(gl_const::GLFrontAndBack, gl_const::GLAlways, 1, 1);
-  GLFunctions::glStencilOpSeparate(gl_const::GLFrontAndBack, gl_const::GLKeep,
-                                   gl_const::GLKeep, gl_const::GLReplace);
+  context->SetStencilTestEnabled(true);
+  context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Always);
+  context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Keep,
+                             dp::StencilAction::Keep, dp::StencilAction::Replace);
 }
 
-void PostprocessRenderer::DisableWritingToStencil() const
+void PostprocessRenderer::DisableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const
 {
   if (!m_frameStarted || !CanRenderAntialiasing())
     return;
-  GLFunctions::glDisable(gl_const::GLStencilTest);
+  context->SetStencilTestEnabled(false);
 }
 
 void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
@@ -431,13 +372,13 @@ void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
   {
     CHECK(m_apiVersion != dp::ApiVersion::OpenGLES2, ());
 
-    InitFramebuffer(m_edgesFramebuffer, gl_const::GLRedGreen,
+    InitFramebuffer(m_edgesFramebuffer, dp::TextureFormat::RedGreen,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
-    InitFramebuffer(m_blendingWeightFramebuffer, gl_const::GLRGBA,
+    InitFramebuffer(m_blendingWeightFramebuffer, dp::TextureFormat::RGBA8,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
-    InitFramebuffer(m_smaaFramebuffer, gl_const::GLRGBA,
+    InitFramebuffer(m_smaaFramebuffer, dp::TextureFormat::RGBA8,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
   }
@@ -481,15 +422,16 @@ void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActiv
   }
 }
 
-StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer)
+StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer, ref_ptr<dp::GraphicsContext> context)
   : m_renderer(renderer)
+  , m_context(context)
 {
   ASSERT(m_renderer != nullptr, ());
-  m_renderer->EnableWritingToStencil();
+  m_renderer->EnableWritingToStencil(m_context);
 }
 
 StencilWriterGuard::~StencilWriterGuard()
 {
-  m_renderer->DisableWritingToStencil();
+  m_renderer->DisableWritingToStencil(m_context);
 }
 }  // namespace df

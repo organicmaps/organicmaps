@@ -4,6 +4,7 @@
 
 #include "shaders/program_manager.hpp"
 
+#include "drape/graphics_context.hpp"
 #include "drape/vertex_array_buffer.hpp"
 #include "drape/pointers.hpp"
 
@@ -18,23 +19,23 @@ public:
   {}
 
   template <typename ParamsType>
-  void Render(ref_ptr<gpu::ProgramManager> mng, ParamsType const & params,
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params,
               dp::IndicesRange const & range)
   {
-    Apply(mng, params);
+    Apply(context, mng, params);
     m_buffer->RenderRange(m_state.GetDrawAsLine(), range);
   }
 
   template <typename ParamsType>
-  void Render(ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
   {
-    Apply(mng, params);
+    Apply(context, mng, params);
     m_buffer->Render(m_state.GetDrawAsLine());
   }
 
 private:
   template <typename ParamsType>
-  void Apply(ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
+  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
   {
     auto prg = mng->GetProgram(m_state.GetProgram<gpu::Program>());
     prg->Bind();
@@ -44,7 +45,7 @@ private:
       m_isBuilt = true;
     }
 
-    dp::ApplyState(m_state, prg);
+    dp::ApplyState(m_state, context, prg);
     mng->GetParamsSetter()->Apply(prg, params);
   }
 

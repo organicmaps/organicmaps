@@ -1,5 +1,6 @@
 #include "drape/framebuffer.hpp"
 #include "drape/glfunctions.hpp"
+#include "drape/texture.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -39,50 +40,49 @@ void Framebuffer::DepthStencil::SetSize(uint32_t width, uint32_t height)
 {
   Destroy();
 
-  m_textureId = GLFunctions::glGenTexture();
-  GLFunctions::glBindTexture(m_textureId);
-  GLFunctions::glTexImage2D(width, height, m_layout, m_pixelType, nullptr);
-  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
-  {
-    GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLNearest);
-    GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLNearest);
-    GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
-    GLFunctions::glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge);
-  }
+  Texture::Params params;
+  params.m_width = width;
+  params.m_height = height;
+  if (m_depthEnabled && m_stencilEnabled)
+    params.m_format = TextureFormat::DepthStencil;
+  else if (m_depthEnabled)
+    params.m_format = TextureFormat::Depth;
+  params.m_allocator = GetDefaultAllocator();
+
+  m_texture = make_unique_dp<FramebufferTexture>();
+  m_texture->Create(params);
 }
 
 void Framebuffer::DepthStencil::Destroy()
 {
-  if (m_textureId != 0)
-  {
-    GLFunctions::glDeleteTexture(m_textureId);
-    m_textureId = 0;
-  }
+  m_texture.reset();
 }
 
 uint32_t Framebuffer::DepthStencil::GetDepthAttachmentId() const
 {
-  return m_textureId;
+  ASSERT(m_texture != nullptr, ());
+  return m_texture->GetID();
 }
 
 uint32_t Framebuffer::DepthStencil::GetStencilAttachmentId() const
 {
-  return m_stencilEnabled ? m_textureId : 0;
+  ASSERT(m_stencilEnabled ? m_texture != nullptr : true, ());
+  return m_stencilEnabled ? m_texture->GetID() : 0;
 }
 
 Framebuffer::Framebuffer()
-  : m_colorFormat(gl_const::GLRGBA)
+  : m_colorFormat(TextureFormat::RGBA8)
 {
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::Framebuffer(uint32_t colorFormat)
+Framebuffer::Framebuffer(TextureFormat colorFormat)
   : m_colorFormat(colorFormat)
 {
   ApplyOwnDepthStencil();
 }
 
-Framebuffer::Framebuffer(uint32_t colorFormat, bool depthEnabled, bool stencilEnabled)
+Framebuffer::Framebuffer(TextureFormat colorFormat, bool depthEnabled, bool stencilEnabled)
   : m_depthStencil(make_unique_dp<dp::Framebuffer::DepthStencil>(depthEnabled, stencilEnabled))
   , m_colorFormat(colorFormat)
 {
@@ -96,11 +96,7 @@ Framebuffer::~Framebuffer()
 
 void Framebuffer::Destroy()
 {
-  if (m_colorTextureId != 0)
-  {
-    GLFunctions::glDeleteTexture(m_colorTextureId);
-    m_colorTextureId = 0;
-  }
+  m_colorTexture.reset();
 
   if (m_depthStencil != nullptr)
     m_depthStencil->Destroy();
@@ -130,14 +126,14 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
 
   Destroy();
 
-  m_colorTextureId = GLFunctions::glGenTexture();
-  GLFunctions::glBindTexture(m_colorTextureId);
-  GLFunctions::glTexImage2D(m_width, m_height, m_colorFormat, gl_const::GLUnsignedByteType,
-                            nullptr);
-  GLFunctions::glTexParameter(gl_const::GLMagFilter, gl_const::GLLinear);
-  GLFunctions::glTexParameter(gl_const::GLMinFilter, gl_const::GLLinear);
-  GLFunctions::glTexParameter(gl_const::GLWrapT, gl_const::GLClampToEdge);
-  GLFunctions::glTexParameter(gl_const::GLWrapS, gl_const::GLClampToEdge);
+  Texture::Params params;
+  params.m_width = width;
+  params.m_height = height;
+  params.m_format = m_colorFormat;
+  params.m_allocator = GetDefaultAllocator();
+
+  m_colorTexture = make_unique_dp<FramebufferTexture>();
+  m_colorTexture->Create(params);
 
   glConst depthAttachmentId = 0;
   glConst stencilAttachmentId = 0;
@@ -149,12 +145,10 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
     stencilAttachmentId = m_depthStencilRef->GetStencilAttachmentId();
   }
 
-  GLFunctions::glBindTexture(0);
-
   GLFunctions::glGenFramebuffer(&m_framebufferId);
   GLFunctions::glBindFramebuffer(m_framebufferId);
 
-  GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTextureId);
+  GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTexture->GetID());
   if (depthAttachmentId != stencilAttachmentId)
   {
     GLFunctions::glFramebufferTexture2D(gl_const::GLDepthAttachment, depthAttachmentId);
@@ -200,9 +194,9 @@ void Framebuffer::Disable()
     m_framebufferFallback();
 }
 
-uint32_t Framebuffer::GetTextureId() const
+ref_ptr<Texture> Framebuffer::GetTexture() const
 {
-  return m_colorTextureId;
+  return make_ref(m_colorTexture);
 }
 
 ref_ptr<Framebuffer::DepthStencil> Framebuffer::GetDepthStencilRef() const

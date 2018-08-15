@@ -23,7 +23,7 @@ public:
   void AddRenderData(ref_ptr<gpu::ProgramManager> mng,
                      TrafficRenderData && renderData);
 
-  void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
+  void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity, ref_ptr<dp::GraphicsContext> context,
                      ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
 
   bool HasRenderData() const { return !m_renderData.empty(); }

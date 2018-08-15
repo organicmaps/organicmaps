@@ -61,6 +61,8 @@ set(
   colored_symbol_shape.cpp
   colored_symbol_shape.hpp
   custom_features_context.hpp
+  debug_rect_renderer.cpp
+  debug_rect_renderer.hpp
   drape_api.cpp
   drape_api.hpp
   drape_api_builder.cpp

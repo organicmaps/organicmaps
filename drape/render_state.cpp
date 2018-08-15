@@ -7,18 +7,21 @@ namespace dp
 {
 namespace
 {
-glConst DecodeDepthFunction(DepthFunction depthFunction)
+std::string const kColorTextureName = "u_colorTex";
+std::string const kMaskTextureName = "u_maskTex";
+
+glConst DecodeTestFunction(TestFunction depthFunction)
 {
   switch (depthFunction)
   {
-  case DepthFunction::Never: return gl_const::GLNever;
-  case DepthFunction::Less: return gl_const::GLLess;
-  case DepthFunction::Equal: return gl_const::GLEqual;
-  case DepthFunction::LessOrEqual: return gl_const::GLLessOrEqual;
-  case DepthFunction::Great: return gl_const::GLGreat;
-  case DepthFunction::NotEqual: return gl_const::GLNotEqual;
-  case DepthFunction::GreatOrEqual: return gl_const::GLGreatOrEqual;
-  case DepthFunction::Always: return gl_const::GLAlways;
+    case TestFunction::Never: return gl_const::GLNever;
+    case TestFunction::Less: return gl_const::GLLess;
+    case TestFunction::Equal: return gl_const::GLEqual;
+    case TestFunction::LessOrEqual: return gl_const::GLLessOrEqual;
+    case TestFunction::Greater: return gl_const::GLGreat;
+    case TestFunction::NotEqual: return gl_const::GLNotEqual;
+    case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
+    case TestFunction::Always: return gl_const::GLAlways;
   }
   CHECK_SWITCH();
 }
@@ -47,12 +50,56 @@ bool Blending::operator<(Blending const & other) const { return m_isEnabled < ot
 
 bool Blending::operator==(Blending const & other) const { return m_isEnabled == other.m_isEnabled; }
 
-DepthFunction RenderState::GetDepthFunction() const
+void RenderState::SetColorTexture(ref_ptr<Texture> tex)
+{
+  m_textures[kColorTextureName] = tex;
+}
+
+ref_ptr<Texture> RenderState::GetColorTexture() const
+{
+  auto const it = m_textures.find(kColorTextureName);
+  if (it != m_textures.end())
+    return it->second;
+  return nullptr;
+}
+
+void RenderState::SetMaskTexture(ref_ptr<Texture> tex)
+{
+  m_textures[kMaskTextureName] = tex;
+}
+
+ref_ptr<Texture> RenderState::GetMaskTexture() const
+{
+  auto const it = m_textures.find(kMaskTextureName);
+  if (it != m_textures.end())
+    return it->second;
+  return nullptr;
+}
+
+void RenderState::SetTexture(std::string const & name, ref_ptr<Texture> tex)
+{
+  m_textures[name] = tex;
+}
+
+ref_ptr<Texture> RenderState::GetTexture(std::string const & name) const
+{
+  auto const it = m_textures.find(name);
+  if (it != m_textures.end())
+    return it->second;
+  return nullptr;
+}
+
+std::map<std::string, ref_ptr<Texture>> const & RenderState::GetTextures() const
+{
+  return m_textures;
+}
+
+TestFunction RenderState::GetDepthFunction() const
 {
   return m_depthFunction;
 }
 
-void RenderState::SetDepthFunction(DepthFunction depthFunction)
+void RenderState::SetDepthFunction(TestFunction depthFunction)
 {
   m_depthFunction = depthFunction;
 }
@@ -109,10 +156,8 @@ bool RenderState::operator<(RenderState const & other) const
     return m_gpuProgram3d < other.m_gpuProgram3d;
   if (m_depthFunction != other.m_depthFunction)
     return m_depthFunction < other.m_depthFunction;
-  if (m_colorTexture != other.m_colorTexture)
-    return m_colorTexture < other.m_colorTexture;
-  if (m_maskTexture != other.m_maskTexture)
-    return m_maskTexture < other.m_maskTexture;
+  if (m_textures != other.m_textures)
+    return m_textures < other.m_textures;
   if (m_textureFilter != other.m_textureFilter)
     return m_textureFilter < other.m_textureFilter;
   if (m_drawAsLine != other.m_drawAsLine)
@@ -127,8 +172,7 @@ bool RenderState::operator==(RenderState const & other) const
          m_gpuProgram == other.m_gpuProgram &&
          m_gpuProgram3d == other.m_gpuProgram3d &&
          m_blending == other.m_blending &&
-         m_colorTexture == other.m_colorTexture &&
-         m_maskTexture == other.m_maskTexture &&
+         m_textures == other.m_textures &&
          m_textureFilter == other.m_textureFilter &&
          m_depthFunction == other.m_depthFunction &&
          m_drawAsLine == other.m_drawAsLine &&
@@ -146,26 +190,18 @@ void TextureState::ApplyTextures(RenderState const & state, ref_ptr<GpuProgram> 
 {
   m_usedSlots = 0;
 
-  ref_ptr<Texture> tex = state.GetColorTexture();
-  int8_t colorTexLoc = -1;
-  if (tex != nullptr && (colorTexLoc = program->GetUniformLocation("u_colorTex")) >= 0)
+  for (auto const & texture : state.GetTextures())
   {
-    GLFunctions::glActiveTexture(gl_const::GLTexture0);
-    tex->Bind();
-    GLFunctions::glUniformValuei(colorTexLoc, 0);
-    tex->SetFilter(state.GetTextureFilter());
-    m_usedSlots++;
-  }
-
-  tex = state.GetMaskTexture();
-  int8_t maskTexLoc = -1;
-  if (tex != nullptr && (maskTexLoc = program->GetUniformLocation("u_maskTex")) >= 0)
-  {
-    GLFunctions::glActiveTexture(gl_const::GLTexture0 + 1);
-    tex->Bind();
-    GLFunctions::glUniformValuei(maskTexLoc, 1);
-    tex->SetFilter(state.GetTextureFilter());
-    m_usedSlots++;
+    auto const tex = texture.second;
+    int8_t texLoc = -1;
+    if (tex != nullptr && (texLoc = program->GetUniformLocation(texture.first)) >= 0)
+    {
+      GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
+      tex->Bind();
+      GLFunctions::glUniformValuei(texLoc, m_usedSlots);
+      tex->SetFilter(state.GetTextureFilter());
+      m_usedSlots++;
+    }
   }
 }
 
@@ -179,19 +215,14 @@ void ApplyBlending(RenderState const & state)
   state.GetBlending().Apply();
 }
 
-void ApplyState(RenderState const & state, ref_ptr<GpuProgram> program)
+void ApplyState(RenderState const & state, ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program)
 {
   TextureState::ApplyTextures(state, program);
   ApplyBlending(state);
+  context->SetDepthTestEnabled(state.GetDepthTestEnabled());
   if (state.GetDepthTestEnabled())
-  {
-    GLFunctions::glEnable(gl_const::GLDepthTest);
-    GLFunctions::glDepthFunc(DecodeDepthFunction(state.GetDepthFunction()));
-  }
-  else
-  {
-    GLFunctions::glDisable(gl_const::GLDepthTest);
-  }
+    context->SetDepthTestFunction(state.GetDepthFunction());
+
   ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
   GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
 }

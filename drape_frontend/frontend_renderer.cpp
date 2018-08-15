@@ -15,7 +15,7 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape/debug_rect_renderer.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -1205,9 +1205,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   DrapeMeasurer::Instance().BeforeRenderFrame();
 #endif
 
-  auto context = m_contextFactory->GetDrawContext();
+  auto context = make_ref(m_contextFactory->GetDrawContext());
 
-  if (m_postprocessRenderer->BeginFrame(activeFrame))
+  if (m_postprocessRenderer->BeginFrame(context, activeFrame))
   {
     m_viewport.Apply();
     RefreshBgColor();
@@ -1240,29 +1240,29 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       {
         ASSERT(m_myPositionController->IsModeHasPosition(), ());
         m_selectionShape->SetPosition(m_myPositionController->Position());
-        m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+        m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
                                  m_frameValues);
       }
       else if (selectedObject == SelectionShape::OBJECT_POI)
       {
-        m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+        m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
                                  m_frameValues);
       }
     }
 
     {
-      StencilWriterGuard guard(make_ref(m_postprocessRenderer));
+      StencilWriterGuard guard(make_ref(m_postprocessRenderer), context);
       RenderOverlayLayer(modelView);
       RenderUserMarksLayer(modelView, DepthLayer::LocalAdsMarkLayer);
     }
 
-    m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+    m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
                                     m_frameValues);
 
     if (m_selectionShape != nullptr &&
         m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
     {
-      m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+      m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
                                m_frameValues);
     }
 
@@ -1270,7 +1270,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderRouteLayer(modelView);
 
     {
-      StencilWriterGuard guard(make_ref(m_postprocessRenderer));
+      StencilWriterGuard guard(make_ref(m_postprocessRenderer), context);
       RenderUserMarksLayer(modelView, DepthLayer::UserMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::TransitMarkLayer);
       RenderUserMarksLayer(modelView, DepthLayer::RoutingMarkLayer);
@@ -1280,21 +1280,21 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     if (!HasRouteData())
       RenderTransitSchemeLayer(modelView);
 
-    m_drapeApiRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_frameValues);
+    m_drapeApiRenderer->Render(modelView, context, make_ref(m_gpuProgramManager), m_frameValues);
 
     for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
-      dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
+      DebugRectRenderer::Instance()->DrawArrow(context, modelView, arrow);
   }
 
-  if (!m_postprocessRenderer->EndFrame(make_ref(m_gpuProgramManager)))
+  if (!m_postprocessRenderer->EndFrame(context, make_ref(m_gpuProgramManager)))
     return;
 
-  m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+  m_myPositionController->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
                                  m_frameValues);
 
   if (m_guiRenderer != nullptr)
   {
-    m_guiRenderer->Render(make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
+    m_guiRenderer->Render(context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
                           modelView);
   }
 
@@ -1308,8 +1308,9 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
   RenderLayer & layer2d = m_layers[static_cast<size_t>(DepthLayer::GeometryLayer)];
   layer2d.Sort(make_ref(m_overlayTree));
 
+  auto context = make_ref(m_contextFactory->GetDrawContext());
   for (drape_ptr<RenderGroup> const & group : layer2d.m_renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
+    RenderSingleGroup(context, modelView, make_ref(group));
 }
 
 void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFramebuffer)
@@ -1318,7 +1319,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   if (layer.m_renderGroups.empty())
     return;
 
-  auto context = m_contextFactory->GetDrawContext();
+  auto context = make_ref(m_contextFactory->GetDrawContext());
   float const kOpacity = 0.7f;
   if (useFramebuffer)
   {
@@ -1334,23 +1335,24 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
 
   layer.Sort(make_ref(m_overlayTree));
   for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
+    RenderSingleGroup(context, modelView, make_ref(group));
 
   if (useFramebuffer)
   {
     m_buildingsFramebuffer->Disable();
-    m_screenQuadRenderer->RenderTexture(make_ref(m_gpuProgramManager),
-                                        m_buildingsFramebuffer->GetTextureId(),
+    m_screenQuadRenderer->RenderTexture(context, make_ref(m_gpuProgramManager),
+                                        m_buildingsFramebuffer->GetTexture(),
                                         kOpacity);
   }
 }
 
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
+  auto context = make_ref(m_contextFactory->GetDrawContext());
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
+    RenderSingleGroup(context, modelView, make_ref(group));
 
   if (GetStyleReader().IsCarNavigationStyle())
     RenderNavigationOverlayLayer(modelView);
@@ -1358,11 +1360,12 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 
 void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
 {
+  auto context = make_ref(m_contextFactory->GetDrawContext());
   RenderLayer & navOverlayLayer = m_layers[static_cast<size_t>(DepthLayer::NavigationLayer)];
   for (auto & group : navOverlayLayer.m_renderGroups)
   {
     if (group->HasOverlayHandles())
-      RenderSingleGroup(modelView, make_ref(group));
+      RenderSingleGroup(context, modelView, make_ref(group));
   }
 }
 
@@ -1378,23 +1381,24 @@ bool FrontendRenderer::HasRouteData() const
 
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
-  auto context = m_contextFactory->GetDrawContext();
+  auto context = make_ref(m_contextFactory->GetDrawContext());
   context->Clear(dp::ClearBits::DepthBit);
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
-    m_transitSchemeRenderer->RenderTransit(modelView, make_ref(m_gpuProgramManager),
-                                           make_ref(m_postprocessRenderer), make_ref(context), m_frameValues);
+    m_transitSchemeRenderer->RenderTransit(modelView, context, make_ref(m_gpuProgramManager),
+                                           make_ref(m_postprocessRenderer), m_frameValues);
   }
 }
 
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
-  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
+  auto context = make_ref(m_contextFactory->GetDrawContext());
+  context->Clear(dp::ClearBits::DepthBit);
   if (m_trafficRenderer->HasRenderData())
   {
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
-                                     make_ref(m_gpuProgramManager), m_frameValues);
+                                     context, make_ref(m_gpuProgramManager), m_frameValues);
   }
 }
 
@@ -1403,16 +1407,14 @@ void FrontendRenderer::RenderTransitBackground()
   if (!m_finishTexturesInitialization)
     return;
 
-  // TODO: Delete after refactoring of ScreenQuadRenderer.
-  GLFunctions::glDisable(gl_const::GLDepthTest);
-
   dp::TextureManager::ColorRegion region;
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
   CHECK(region.GetTexture() != nullptr, ("Texture manager is not initialized"));
-  //if (!m_transitBackground->IsInitialized())
+  if (!m_transitBackground->IsInitialized())
     m_transitBackground->SetTextureRect(region.GetTexRect());
-  m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
-                                     static_cast<uint32_t>(region.GetTexture()->GetID()), 1.0f);
+
+  auto context = make_ref(m_contextFactory->GetDrawContext());
+  m_transitBackground->RenderTexture(context, make_ref(m_gpuProgramManager), region.GetTexture(), 1.0f);
 }
 
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
@@ -1420,9 +1422,10 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   if (HasTransitRouteData())
     RenderTransitBackground();
 
-  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
+  auto context = make_ref(m_contextFactory->GetDrawContext());
+  context->Clear(dp::ClearBits::DepthBit);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
-                               make_ref(m_gpuProgramManager), m_frameValues);
+                               context, make_ref(m_gpuProgramManager), m_frameValues);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
@@ -1431,10 +1434,11 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
   if (renderGroups.empty())
     return;
 
-  m_contextFactory->GetDrawContext()->Clear(dp::ClearBits::DepthBit);
+  auto context = make_ref(m_contextFactory->GetDrawContext());
+  context->Clear(dp::ClearBits::DepthBit);
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
-    RenderSingleGroup(modelView, make_ref(group));
+    RenderSingleGroup(context, modelView, make_ref(group));
 }
 
 void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
@@ -1497,10 +1501,11 @@ void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp
   bucket->GetBuffer()->Build(isPerspective ? program3d : program);
 }
 
-void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
+void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
+                                         ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-  group->Render(modelView, make_ref(m_gpuProgramManager), m_frameValues);
+  group->Render(modelView, context, make_ref(m_gpuProgramManager), m_frameValues);
 }
 
 void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
@@ -1834,6 +1839,7 @@ void FrontendRenderer::OnContextDestroy()
 
   m_selectObjectMessage.reset();
   m_overlayTree->SetSelectedFeature(FeatureID());
+  m_overlayTree->SetDebugRectRenderer(nullptr);
   m_overlayTree->Clear();
 
   m_guiRenderer.reset();
@@ -1851,7 +1857,7 @@ void FrontendRenderer::OnContextDestroy()
 
   m_transitBackground.reset();
 
-  dp::DebugRectRenderer::Instance().Destroy();
+  DebugRectRenderer::Instance()->Destroy();
 
   m_gpuProgramManager.reset();
 
@@ -1868,8 +1874,8 @@ void FrontendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
 
-  auto context = m_contextFactory->GetDrawContext();
-  m_contextFactory->WaitForInitialization(context);
+  auto context = make_ref(m_contextFactory->GetDrawContext());
+  m_contextFactory->WaitForInitialization(context.get());
 
   context->MakeCurrent();
 
@@ -1885,17 +1891,12 @@ void FrontendRenderer::OnContextCreate()
 
   dp::AlphaBlendingState::Apply();
 
-  // TODO: think on redesigning DebugRectRenderer to eliminate functor.
-  dp::DebugRectRenderer::Instance().Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
-    [this](ref_ptr<dp::GpuProgram> program, dp::Color const & color)
-  {
-    gpu::DebugRectProgramParams params;
-    params.m_color = glsl::ToVec4(color);
-    m_gpuProgramManager->GetParamsSetter()->Apply(program, params);
-  });
+  DebugRectRenderer::Instance()->Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
+                                      m_gpuProgramManager->GetParamsSetter());
+  m_overlayTree->SetDebugRectRenderer(DebugRectRenderer::Instance());
 
 #ifdef RENDER_DEBUG_DISPLACEMENT
-  dp::DebugRectRenderer::Instance().SetEnabled(true);
+  DebugRectRenderer::Instance()->SetEnabled(true);
 #endif
 
   // Resources recovering.
@@ -1913,7 +1914,7 @@ void FrontendRenderer::OnContextCreate()
     m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
 #endif
 
-  m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA,
+  m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8,
                                                            true /* depthEnabled */,
                                                            false /* stencilEnabled */);
   m_buildingsFramebuffer->SetFramebufferFallback([this]()

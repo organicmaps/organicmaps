@@ -35,7 +35,7 @@ public:
   TileKey const & GetTileKey() const { return m_tileKey; }
 
   virtual void UpdateAnimation();
-  virtual void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+  virtual void Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                       FrameValues const & frameValues) = 0;
 
 protected:
@@ -59,7 +59,7 @@ public:
   bool HasOverlayHandles() const;
   void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
   void SetOverlayVisibility(bool isVisible);
-  void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+  void Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
               FrameValues const & frameValues) override;
 
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);

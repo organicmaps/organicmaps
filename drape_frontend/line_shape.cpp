@@ -212,7 +212,7 @@ public:
     auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
     state.SetColorTexture(m_params.m_color.GetTexture());
-    state.SetDepthFunction(dp::DepthFunction::Less);
+    state.SetDepthFunction(dp::TestFunction::Less);
     return state;
   }
 

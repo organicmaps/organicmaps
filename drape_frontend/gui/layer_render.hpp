@@ -27,7 +27,7 @@ public:
   ~LayerRenderer();
 
   void Build(ref_ptr<gpu::ProgramManager> mng);
-  void Render(ref_ptr<gpu::ProgramManager> mng, bool routingActive,
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, bool routingActive,
               ScreenBase const & screen);
   void Merge(ref_ptr<LayerRenderer> other);
   void SetLayout(gui::TWidgetsLayoutInfo const & info);

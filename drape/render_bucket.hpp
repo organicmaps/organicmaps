@@ -16,6 +16,8 @@ class BatchMergeHelper;
 namespace dp
 {
 
+class GraphicsContext;
+class IDebugRenderer;
 class OverlayHandle;
 class OverlayTree;
 class VertexArrayBuffer;
@@ -43,7 +45,8 @@ public:
   void Render(bool drawAsLine);
 
   // Only for testing! Don't use this function in production code!
-  void RenderDebug(ScreenBase const & screen) const;
+  void RenderDebug(ScreenBase const & screen, ref_ptr<GraphicsContext> context,
+                   ref_ptr<IDebugRenderer> debugRectRenderer) const;
 
   // Only for testing! Don't use this function in production code!
   template <typename ToDo>

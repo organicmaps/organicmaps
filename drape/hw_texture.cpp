@@ -23,22 +23,39 @@ namespace dp
 {
 void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
 {
-  // Now we support only 1-byte-per-channel textures.
-  pixelType = gl_const::GL8BitOnChannel;
-
   switch (format)
   {
-  case TextureFormat::RGBA8: layout = gl_const::GLRGBA; return;
+  case TextureFormat::RGBA8:
+    layout = gl_const::GLRGBA;
+    pixelType = gl_const::GL8BitOnChannel;
+    return;
+
   case TextureFormat::Alpha:
     // On OpenGL ES3 GLAlpha is not supported, we use GLRed instead.
     layout = GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLAlpha
                                                                          : gl_const::GLRed;
+    pixelType = gl_const::GL8BitOnChannel;
     return;
+
   case TextureFormat::RedGreen:
     // On OpenGL ES2 2-channel textures are not supported.
     layout = GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES2 ? gl_const::GLRGBA
                                                                          : gl_const::GLRedGreen;
+    pixelType = gl_const::GL8BitOnChannel;
     return;
+
+  case TextureFormat::DepthStencil:
+    // OpenGLES2 does not support texture-based depth-stencil.
+    CHECK(GLFunctions::CurrentApiVersion != dp::ApiVersion::OpenGLES2, ());
+    layout = gl_const::GLDepthStencil;
+    pixelType = gl_const::GLUnsignedInt24_8Type;
+    return;
+
+  case TextureFormat::Depth:
+    layout = gl_const::GLDepthComponent;
+    pixelType = gl_const::GLUnsignedIntType;
+    return;
+
   case TextureFormat::Unspecified:
     CHECK(false, ());
     return;
@@ -163,8 +180,8 @@ void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
 {
   TBase::Create(params, data);
 
-  ASSERT(glm::isPowerOfTwo(static_cast<int>(m_width)), (m_width));
-  ASSERT(glm::isPowerOfTwo(static_cast<int>(m_height)), (m_height));
+  //ASSERT(glm::isPowerOfTwo(static_cast<int>(m_width)), (m_width));
+  //ASSERT(glm::isPowerOfTwo(static_cast<int>(m_height)), (m_height));
 
   m_textureID = GLFunctions::glGenTexture();
   Bind();

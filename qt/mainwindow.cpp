@@ -24,7 +24,7 @@
 #include "build_style/build_statistics.h"
 #include "build_style/run_tests.h"
 
-#include "drape/debug_rect_renderer.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 #endif // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
@@ -387,7 +387,7 @@ void MainWindow::CreateNavigationBar()
     m_pDrawDebugRectAction->setCheckable(true);
     m_pDrawDebugRectAction->setChecked(false);
     m_pDrawDebugRectAction->setToolTip(tr("Debug style"));
-    dp::DebugRectRenderer::Instance().SetEnabled(false);
+    df::DebugRectRenderer::Instance()->SetEnabled(false);
 
     // Add "Get statistics" button
     m_pGetStatisticsAction = pToolBar->addAction(QIcon(":/navig64/chart.png"),
@@ -691,7 +691,7 @@ void MainWindow::OnRecalculateGeomIndex()
 void MainWindow::OnDebugStyle()
 {
   bool const checked = m_pDrawDebugRectAction->isChecked();
-  dp::DebugRectRenderer::Instance().SetEnabled(checked);
+  df::DebugRectRenderer::Instance()->SetEnabled(checked);
   m_pDrawWidget->RefreshDrawingRules();
 }
 

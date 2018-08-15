@@ -1,7 +1,7 @@
 #include "drape/overlay_tree.hpp"
 
 #include "drape/constants.hpp"
-#include "drape/debug_rect_renderer.hpp"
+#include "drape/debug_renderer.hpp"
 
 #include <algorithm>
 
@@ -453,6 +453,11 @@ OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
   return m_displacementInfo;
 }
 
+void OverlayTree::SetDebugRectRenderer(ref_ptr<IDebugRenderer> debugRectRenderer)
+{
+  m_debugRectRenderer = debugRectRenderer;
+}
+
 void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> displacerHandle,
                                         ref_ptr<OverlayHandle> displacedHandle)
 {
@@ -468,7 +473,7 @@ void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> di
   UNUSED_VALUE(caseIndex);
 #endif
 
-  if (!dp::DebugRectRenderer::Instance().IsEnabled())
+  if (!m_debugRectRenderer || !m_debugRectRenderer->IsEnabled())
     return;
   m_displacementInfo.emplace_back(m2::PointF(displacerHandle->GetExtendedPixelRect(modelView).Center()),
                                   m2::PointF(displacedHandle->GetExtendedPixelRect(modelView).Center()),

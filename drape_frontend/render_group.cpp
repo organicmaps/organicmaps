@@ -3,7 +3,7 @@
 
 #include "shaders/program_manager.hpp"
 
-#include "drape/debug_rect_renderer.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -69,14 +69,14 @@ void RenderGroup::SetOverlayVisibility(bool isVisible)
     renderBucket->SetOverlayVisibility(isVisible);
 }
 
-void RenderGroup::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                         FrameValues const & frameValues)
+void RenderGroup::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
+                         ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues)
 {
   auto programPtr = mng->GetProgram(screen.isPerspective() ? m_state.GetProgram3d<gpu::Program>()
                                                            : m_state.GetProgram<gpu::Program>());
   ASSERT(programPtr != nullptr, ());
   programPtr->Bind();
-  dp::ApplyState(m_state, programPtr);
+  dp::ApplyState(m_state, context, programPtr);
 
   for(auto & renderBucket : m_renderBuckets)
     renderBucket->GetBuffer()->Build(programPtr);
@@ -126,7 +126,7 @@ void RenderGroup::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager>
   }
 
   for(auto const & renderBucket : m_renderBuckets)
-    renderBucket->RenderDebug(screen);
+    renderBucket->RenderDebug(screen, context, DebugRectRenderer::Instance());
 }
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)

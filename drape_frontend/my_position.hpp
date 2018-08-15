@@ -32,10 +32,12 @@ public:
   void SetPositionObsolete(bool obsolete);
 
   void RenderAccuracy(ScreenBase const & screen, int zoomLevel,
+                      ref_ptr<dp::GraphicsContext> context,
                       ref_ptr<gpu::ProgramManager> mng,
                       FrameValues const & frameValues);
 
   void RenderMyPosition(ScreenBase const & screen, int zoomLevel,
+                        ref_ptr<dp::GraphicsContext> context,
                         ref_ptr<gpu::ProgramManager> mng,
                         FrameValues const & frameValues);
 
@@ -50,7 +52,7 @@ private:
     MyPositionPoint = 1,
   };
 
-  void RenderPart(ref_ptr<gpu::ProgramManager> mng,
+  void RenderPart(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                   gpu::ShapesProgramParams const & params,
                   EMyPositionPart part);
 

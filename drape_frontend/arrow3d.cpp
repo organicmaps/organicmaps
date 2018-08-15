@@ -5,11 +5,6 @@
 
 #include "shaders/program_manager.hpp"
 
-#include "drape/glconstants.hpp"
-#include "drape/glextensions_list.hpp"
-#include "drape/glfunctions.hpp"
-#include "drape/glsl_func.hpp"
-#include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "indexer/map_style_reader.hpp"
@@ -56,30 +51,9 @@ Arrow3d::Arrow3d()
     0.0f, -0.5f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,   -1.2f, -1.0f, 0.0f, 1.0f,
   };
 
-  int constexpr kVerticesInRow = 12;
   std::vector<float> normals;
+  GenerateNormalsForTriangles(vertices, kComponentsInVertex, normals);
   normals.reserve(vertices.size());
-  for (size_t triangle = 0; triangle < vertices.size() / kVerticesInRow; ++triangle)
-  {
-    glsl::vec4 v[3];
-    for (size_t vertex = 0; vertex < 3; ++vertex)
-    {
-      size_t const offset = triangle * kVerticesInRow + vertex * kComponentsInVertex;
-      v[vertex] = glsl::vec4(vertices[offset], vertices[offset + 1],
-                             vertices[offset + 2], vertices[offset + 3]);
-    }
-
-    glsl::vec3 normal = glsl::cross(glsl::vec3(v[1].x - v[0].x, v[1].y - v[0].y, v[1].z - v[0].z),
-                                    glsl::vec3(v[2].x - v[0].x, v[2].y - v[0].y, v[2].z - v[0].z));
-    normal = glsl::normalize(normal);
-
-    for (size_t vertex = 0; vertex < 3; ++vertex)
-    {
-      normals.push_back(normal.x);
-      normals.push_back(normal.y);
-      normals.push_back(normal.z);
-    }
-  }
 
   auto const verticesBufferInd = 0;
   SetBuffer(verticesBufferInd, std::move(vertices), sizeof(float) * kComponentsInVertex);
@@ -110,12 +84,13 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
-void Arrow3d::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng, bool routingMode)
+void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                     bool routingMode)
 {
   // Render shadow.
   if (screen.isPerspective())
   {
-    RenderArrow(screen, mng, gpu::Program::Arrow3dShadow,
+    RenderArrow(screen, context, mng, gpu::Program::Arrow3dShadow,
                 df::GetColorConstant(df::kArrow3DShadowColor), 0.05f /* dz */,
                 routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
   }
@@ -127,18 +102,18 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng
   if (routingMode)
   {
     dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
-    RenderArrow(screen, mng, gpu::Program::Arrow3dOutline,
+    RenderArrow(screen, context, mng, gpu::Program::Arrow3dOutline,
                 dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlpha()),
                 0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 
   // Render arrow.
-  RenderArrow(screen, mng, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
+  RenderArrow(screen, context, mng, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
               true /* hasNormals */);
 }
 
-void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                          gpu::Program program, dp::Color const & color, float dz,
+void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
+                          ref_ptr<gpu::ProgramManager> mng, gpu::Program program, dp::Color const & color, float dz,
                           float scaleFactor, bool hasNormals)
 {
   gpu::Arrow3dProgramParams params;
@@ -147,13 +122,7 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
-  TBase::Render(gpuProgram,
-                [this, mng, gpuProgram, &params]()
-                {
-                  dp::ApplyState(m_state, gpuProgram);
-                  mng->GetParamsSetter()->Apply(gpuProgram, params);
-                },
-                nullptr);
+  TBase::Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor) const

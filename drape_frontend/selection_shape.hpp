@@ -5,6 +5,8 @@
 #include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_node.hpp"
 
+#include "drape/graphics_context.hpp"
+
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -37,8 +39,8 @@ public:
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
-              FrameValues const & frameValues);
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GraphicsContext> context,
+              ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
 
   bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
   double GetRadius() const { return m_radius; }

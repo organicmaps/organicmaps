@@ -144,7 +144,8 @@ private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView, bool activeFrame);
   void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
-  void RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group);
+  void RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
+                         ref_ptr<BaseRenderGroup> group);
   void RefreshProjection(ScreenBase const & screen);
   void RefreshZScale(ScreenBase const & screen);
   void RefreshPivotTransform(ScreenBase const & screen);

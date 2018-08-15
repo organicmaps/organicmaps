@@ -1,13 +1,21 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
 #include "drape/render_state.hpp"
 #include "drape/pointers.hpp"
 
 #include <functional>
+#include <vector>
 
 namespace dp
 {
 class GpuProgram;
+
+class RenderParamsHolder
+{
+public:
+  virtual void ApplyProgramParams() = 0;
+};
 
 class MeshObject
 {
@@ -19,9 +27,6 @@ public:
     LineStrip
   };
 
-  using PreRenderFn = std::function<void()>;
-  using PostRenderFn = std::function<void()>;
-
   MeshObject(DrawPrimitive drawPrimitive);
   virtual ~MeshObject();
 
@@ -30,14 +35,28 @@ public:
 
   void UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices);
 
-  void Render(ref_ptr<dp::GpuProgram> program,
-              PreRenderFn const & preRenderFn, PostRenderFn const & postRenderFn);
+  template<typename TParamsSetter, typename TParams>
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program, dp::RenderState const & state,
+              ref_ptr<TParamsSetter> paramsSetter, TParams const & params)
+  {
+    Bind(program);
+
+    ApplyState(state, context, program);
+    paramsSetter->Apply(program, params);
+
+    DrawPrimitives();
+
+    Unbind(program);
+  };
 
   uint32_t GetNextBufferIndex() const { return static_cast<uint32_t>(m_buffers.size()); }
 
   bool IsInitialized() const { return m_initialized; }
-  void Build();
+  void Build(ref_ptr<dp::GpuProgram> program);
   void Reset();
+
+  static void GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount,
+                                          std::vector<float> & normals);
 
 private:
   struct AttributeMapping
@@ -70,6 +89,10 @@ private:
 
     std::vector<AttributeMapping> m_attributes;
   };
+
+  void Bind(ref_ptr<dp::GpuProgram> program);
+  void Unbind(ref_ptr<dp::GpuProgram> program);
+  void DrawPrimitives();
 
   std::vector<VertexBuffer> m_buffers;
   DrawPrimitive m_drawPrimitive = DrawPrimitive::Triangles;

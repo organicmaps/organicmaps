@@ -73,11 +73,10 @@ void MeshObject::Reset()
 
 void MeshObject::UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices)
 {
-  if (!m_initialized)
-    Build();
-
+  CHECK(m_initialized, ());
   CHECK_LESS(bufferInd, static_cast<uint32_t>(m_buffers.size()), ());
   CHECK(m_buffers[bufferInd].m_bufferId != 0, ());
+  CHECK(!vertices.empty(), ());
 
   auto & buffer = m_buffers[bufferInd];
   buffer.m_data = std::move(vertices);
@@ -88,11 +87,12 @@ void MeshObject::UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
-void MeshObject::Build()
+void MeshObject::Build(ref_ptr<dp::GpuProgram> program)
 {
   Reset();
 
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  bool const isVAOSupported = dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject);
+  if (isVAOSupported)
   {
     m_VAO = GLFunctions::glGenVertexArray();
     GLFunctions::glBindVertexArray(m_VAO);
@@ -102,60 +102,111 @@ void MeshObject::Build()
   {
     buffer.m_bufferId = GLFunctions::glGenBuffer();
     GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
-    if (buffer.m_data.empty())
-      continue;
-    GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                              static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
-                              buffer.m_data.data(), gl_const::GLStaticDraw);
+
+    if (!buffer.m_data.empty())
+    {
+      GLFunctions::glBufferData(gl_const::GLArrayBuffer,
+                                static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
+                                buffer.m_data.data(), gl_const::GLStaticDraw);
+    }
+
+    if (isVAOSupported)
+    {
+      for (auto const & attribute : buffer.m_attributes)
+      {
+        int8_t const attributePosition = program->GetAttributeLocation(attribute.m_attributeName);
+        ASSERT_NOT_EQUAL(attributePosition, -1, ());
+        GLFunctions::glEnableVertexAttribute(attributePosition);
+        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
+                                              gl_const::GLFloatType, false,
+                                              buffer.m_stride, attribute.m_offset);
+      }
+    }
   }
 
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  if (isVAOSupported)
     GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 
   m_initialized = true;
 }
 
-void MeshObject::Render(ref_ptr<dp::GpuProgram> program, PreRenderFn const & preRenderFn,
-                        PostRenderFn const & postRenderFn)
+void MeshObject::Bind(ref_ptr<dp::GpuProgram> program)
 {
   program->Bind();
 
   if (!m_initialized)
-    Build();
+    Build(program);
 
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(m_VAO);
-
-  uint32_t verticesCount = 0;
-  for (auto const & buffer : m_buffers)
   {
-    verticesCount = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]) / buffer.m_stride);
-    GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
-    for (auto const & attribute : buffer.m_attributes)
+    GLFunctions::glBindVertexArray(m_VAO);
+  }
+  else
+  {
+    for (auto const & buffer : m_buffers)
     {
-      int8_t const attributePosition = program->GetAttributeLocation(attribute.m_attributeName);
-      ASSERT_NOT_EQUAL(attributePosition, -1, ());
-      GLFunctions::glEnableVertexAttribute(attributePosition);
-      GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
-                                            gl_const::GLFloatType, false,
-                                            buffer.m_stride, attribute.m_offset);
+      GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
+      for (auto const & attribute : buffer.m_attributes)
+      {
+        int8_t const attributePosition = program->GetAttributeLocation(attribute.m_attributeName);
+        ASSERT_NOT_EQUAL(attributePosition, -1, ());
+        GLFunctions::glEnableVertexAttribute(attributePosition);
+        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
+                                              gl_const::GLFloatType, false,
+                                              buffer.m_stride, attribute.m_offset);
+      }
     }
   }
+}
 
-  if (preRenderFn)
-    preRenderFn();
+void MeshObject::DrawPrimitives()
+{
+  if (m_buffers.empty())
+    return;
+
+  auto const & buffer = m_buffers[0];
+  auto const verticesCount = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]) / buffer.m_stride);
 
   GLFunctions::glDrawArrays(GetGLDrawPrimitive(m_drawPrimitive), 0, verticesCount);
+}
 
-  if (postRenderFn)
-    postRenderFn();
-
+void MeshObject::Unbind(ref_ptr<dp::GpuProgram> program)
+{
   program->Unbind();
 
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
     GLFunctions::glBindVertexArray(0);
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+}
+
+// static
+void MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount,
+                                             std::vector<float> & normals)
+{
+  auto const trianglesCount = vertices.size() / (3 * componentsCount);
+  normals.clear();
+  normals.reserve(trianglesCount * 9);
+  for (size_t triangle = 0; triangle < trianglesCount; ++triangle)
+  {
+    glsl::vec3 v[3];
+    for (size_t vertex = 0; vertex < 3; ++vertex)
+    {
+      size_t const offset = triangle * componentsCount * 3 + vertex * componentsCount;
+      v[vertex] = glsl::vec3(vertices[offset], vertices[offset + 1], vertices[offset + 2]);
+    }
+
+    glsl::vec3 normal = glsl::cross(glsl::vec3(v[1].x - v[0].x, v[1].y - v[0].y, v[1].z - v[0].z),
+                                    glsl::vec3(v[2].x - v[0].x, v[2].y - v[0].y, v[2].z - v[0].z));
+    normal = glsl::normalize(normal);
+
+    for (size_t vertex = 0; vertex < 3; ++vertex)
+    {
+      normals.push_back(normal.x);
+      normals.push_back(normal.y);
+      normals.push_back(normal.z);
+    }
+  }
 }
 }  // namespace dp
 
