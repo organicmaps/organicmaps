@@ -15,6 +15,7 @@ namespace kml
 {
 enum class PredefinedColor : uint8_t
 {
+  // Do not change the order because of binary serialization.
   None = 0,
   Red,
   Blue,
@@ -48,11 +49,12 @@ inline std::string DebugPrint(PredefinedColor color)
 
 enum class AccessRules : uint8_t
 {
+  // Do not change the order because of binary serialization.
   Local = 0,
+  Public,
   DirectLink,
   P2P,
   Paid,
-  Public,
 
   Count
 };
@@ -73,6 +75,7 @@ inline std::string DebugPrint(AccessRules accessRules)
 
 enum class BookmarkIcon : uint16_t
 {
+  // Do not change the order because of binary serialization.
   None = 0,
   Hotel,
   Animals,
