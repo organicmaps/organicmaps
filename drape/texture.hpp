@@ -64,11 +64,12 @@ public:
   // Texture must be bound before calling this method.
   virtual void SetFilter(TextureFilter filter);
 
-  void Create(Params const & params);
-  void Create(Params const & params, ref_ptr<void> data);
+  virtual void Create(Params const & params);
+  virtual void Create(Params const & params, ref_ptr<void> data);
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
 
   static uint32_t GetMaxTextureSize();
+  static bool IsPowerOfTwo(uint32_t width, uint32_t height);
 
 protected:
   void Destroy();

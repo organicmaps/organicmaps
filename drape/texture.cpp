@@ -2,9 +2,12 @@
 
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
+#include "drape/glsl_func.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "base/math.hpp"
+
+#include "3party/glm/glm/gtx/bit.hpp"
 
 namespace dp
 {
@@ -83,9 +86,16 @@ void Texture::SetFilter(TextureFilter filter)
   m_hwTexture->SetFilter(filter);
 }
 
+// static
 uint32_t Texture::GetMaxTextureSize()
 {
   return static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
+}
+
+// static
+bool Texture::IsPowerOfTwo(uint32_t width, uint32_t height)
+{
+  return glm::isPowerOfTwo(static_cast<int>(width)) && glm::isPowerOfTwo(static_cast<int>(height));
 }
 
 void Texture::Destroy() { m_hwTexture.reset(); }

@@ -1,18 +1,17 @@
 #pragma once
 
+#include "shaders/program_params.hpp"
+
 #include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_state.hpp"
-
-#include "shaders/program_params.hpp"
 
 #include <cstdint>
 
 namespace dp
 {
 class GraphicsContext;
-class RenderParamsHolder;
 class Texture;
 }  // namespace dp
 
@@ -87,8 +86,7 @@ private:
 class StencilWriterGuard
 {
 public:
-  explicit StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer,
-                              ref_ptr<dp::GraphicsContext> context);
+  StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer, ref_ptr<dp::GraphicsContext> context);
   ~StencilWriterGuard();
 private:
   ref_ptr<PostprocessRenderer> const m_renderer;

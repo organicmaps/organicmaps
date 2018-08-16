@@ -41,8 +41,8 @@ void DrapeApiRenderer::Clear()
   m_properties.clear();
 }
 
-void DrapeApiRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-                              ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues)
+void DrapeApiRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                              ScreenBase const & screen, FrameValues const & frameValues)
 {
   if (m_properties.empty())
     return;
@@ -55,7 +55,7 @@ void DrapeApiRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsCon
     {
       auto program = mng->GetProgram(bucket.first.GetProgram<gpu::Program>());
       program->Bind();
-      dp::ApplyState(bucket.first, context, program);
+      dp::ApplyState(context, program, bucket.first);
 
       if (bucket.first.GetProgram<gpu::Program>() == gpu::Program::TextOutlinedGui)
       {

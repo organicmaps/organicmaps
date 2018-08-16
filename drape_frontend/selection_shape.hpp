@@ -39,8 +39,8 @@ public:
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GraphicsContext> context,
-              ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+              int zoomLevel, FrameValues const & frameValues);
 
   bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
   double GetRadius() const { return m_radius; }

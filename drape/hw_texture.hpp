@@ -68,7 +68,7 @@ public:
 
 class OpenGLHWTexture : public HWTexture
 {
-  using TBase = HWTexture;
+  using Base = HWTexture;
 
 public:
   ~OpenGLHWTexture() override;

@@ -45,7 +45,7 @@ private:
       m_isBuilt = true;
     }
 
-    dp::ApplyState(m_state, context, prg);
+    dp::ApplyState(context, prg, m_state);
     mng->GetParamsSetter()->Apply(prg, params);
   }
 

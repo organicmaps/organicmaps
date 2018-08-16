@@ -28,9 +28,8 @@ public:
 
   bool IsSchemeVisible(int zoomLevel) const;
 
-  void RenderTransit(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                     ref_ptr<PostprocessRenderer> postprocessRenderer,
-                     FrameValues const & frameValues);
+  void RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                     ref_ptr<PostprocessRenderer> postprocessRenderer, FrameValues const & frameValues);
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
 
@@ -54,15 +53,15 @@ private:
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView,
                        std::vector<TransitRenderData> & renderData);
 
-  void RenderLines(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderLines(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                    FrameValues const & frameValues, float pixelHalfWidth);
-  void RenderLinesCaps(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                       FrameValues const & frameValues, float pixelHalfWidth);
-  void RenderMarkers(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderLinesCaps(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                       ScreenBase const & screen, FrameValues const & frameValues, float pixelHalfWidth);
+  void RenderMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                      FrameValues const & frameValues, float pixelHalfWidth);
-  void RenderText(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderText(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                   FrameValues const & frameValues);
-  void RenderStubs(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderStubs(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                    FrameValues const & frameValues);
 
   bool HasRenderData() const;

@@ -14,9 +14,9 @@ glConst GetGLDrawPrimitive(dp::MeshObject::DrawPrimitive drawPrimitive)
 {
   switch (drawPrimitive)
   {
-    case dp::MeshObject::DrawPrimitive::Triangles: return gl_const::GLTriangles;
-    case dp::MeshObject::DrawPrimitive::TriangleStrip: return gl_const::GLTriangleStrip;
-    case dp::MeshObject::DrawPrimitive::LineStrip: return gl_const::GLLineStrip;
+  case dp::MeshObject::DrawPrimitive::Triangles: return gl_const::GLTriangles;
+  case dp::MeshObject::DrawPrimitive::TriangleStrip: return gl_const::GLTriangleStrip;
+  case dp::MeshObject::DrawPrimitive::LineStrip: return gl_const::GLLineStrip;
   }
 }
 }  // namespace
@@ -181,11 +181,11 @@ void MeshObject::Unbind(ref_ptr<dp::GpuProgram> program)
 }
 
 // static
-void MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount,
-                                             std::vector<float> & normals)
+std::vector<float> MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices,
+                                                              size_t componentsCount)
 {
   auto const trianglesCount = vertices.size() / (3 * componentsCount);
-  normals.clear();
+  std::vector<float> normals;
   normals.reserve(trianglesCount * 9);
   for (size_t triangle = 0; triangle < trianglesCount; ++triangle)
   {
@@ -207,6 +207,7 @@ void MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices
       normals.push_back(normal.z);
     }
   }
+  return normals;
 }
 }  // namespace dp
 

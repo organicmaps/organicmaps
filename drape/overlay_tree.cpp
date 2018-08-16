@@ -453,7 +453,7 @@ OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
   return m_displacementInfo;
 }
 
-void OverlayTree::SetDebugRectRenderer(ref_ptr<IDebugRenderer> debugRectRenderer)
+void OverlayTree::SetDebugRectRenderer(ref_ptr<DebugRenderer> debugRectRenderer)
 {
   m_debugRectRenderer = debugRectRenderer;
 }

@@ -1,6 +1,7 @@
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/animation/interpolation_holder.hpp"
 #include "drape_frontend/animation_system.hpp"
+#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape_frontend/drape_measurer.hpp"
 #include "drape_frontend/drape_notifier.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
@@ -15,7 +16,6 @@
 
 #include "shaders/programs.hpp"
 
-#include "drape_frontend/debug_rect_renderer.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -1240,13 +1240,11 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       {
         ASSERT(m_myPositionController->IsModeHasPosition(), ());
         m_selectionShape->SetPosition(m_myPositionController->Position());
-        m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
-                                 m_frameValues);
+        m_selectionShape->Render(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel, m_frameValues);
       }
       else if (selectedObject == SelectionShape::OBJECT_POI)
       {
-        m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
-                                 m_frameValues);
+        m_selectionShape->Render(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel, m_frameValues);
       }
     }
 
@@ -1256,13 +1254,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderUserMarksLayer(modelView, DepthLayer::LocalAdsMarkLayer);
     }
 
-    m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
+    m_gpsTrackRenderer->RenderTrack(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
                                     m_frameValues);
 
     if (m_selectionShape != nullptr &&
         m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
     {
-      m_selectionShape->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
+      m_selectionShape->Render(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
                                m_frameValues);
     }
 
@@ -1280,7 +1278,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     if (!HasRouteData())
       RenderTransitSchemeLayer(modelView);
 
-    m_drapeApiRenderer->Render(modelView, context, make_ref(m_gpuProgramManager), m_frameValues);
+    m_drapeApiRenderer->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 
     for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
       DebugRectRenderer::Instance()->DrawArrow(context, modelView, arrow);
@@ -1289,7 +1287,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   if (!m_postprocessRenderer->EndFrame(context, make_ref(m_gpuProgramManager)))
     return;
 
-  m_myPositionController->Render(modelView, m_currentZoomLevel, context, make_ref(m_gpuProgramManager),
+  m_myPositionController->Render(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
                                  m_frameValues);
 
   if (m_guiRenderer != nullptr)
@@ -1386,7 +1384,7 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
-    m_transitSchemeRenderer->RenderTransit(modelView, context, make_ref(m_gpuProgramManager),
+    m_transitSchemeRenderer->RenderTransit(context, make_ref(m_gpuProgramManager), modelView,
                                            make_ref(m_postprocessRenderer), m_frameValues);
   }
 }
@@ -1397,8 +1395,8 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
   context->Clear(dp::ClearBits::DepthBit);
   if (m_trafficRenderer->HasRenderData())
   {
-    m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
-                                     context, make_ref(m_gpuProgramManager), m_frameValues);
+    m_trafficRenderer->RenderTraffic(context, make_ref(m_gpuProgramManager), modelView,
+                                     m_currentZoomLevel, 1.0f /* opacity */, m_frameValues);
   }
 }
 
@@ -1424,8 +1422,8 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 
   auto context = make_ref(m_contextFactory->GetDrawContext());
   context->Clear(dp::ClearBits::DepthBit);
-  m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
-                               context, make_ref(m_gpuProgramManager), m_frameValues);
+  m_routeRenderer->RenderRoute(context, make_ref(m_gpuProgramManager), modelView, m_trafficRenderer->HasRenderData(),
+                               m_frameValues);
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
@@ -1505,7 +1503,7 @@ void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, S
                                          ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-  group->Render(modelView, context, make_ref(m_gpuProgramManager), m_frameValues);
+  group->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 }
 
 void FrontendRenderer::RefreshProjection(ScreenBase const & screen)

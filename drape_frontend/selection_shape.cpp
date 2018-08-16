@@ -140,8 +140,8 @@ bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) co
   return false;
 }
 
-void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GraphicsContext> context,
-                            ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues)
+void SelectionShape::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                            ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
   ShowHideAnimation::EState state = m_animation.GetState();
   if (state == ShowHideAnimation::STATE_VISIBLE ||

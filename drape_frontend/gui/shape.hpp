@@ -89,7 +89,7 @@ public:
   ~ShapeRenderer();
 
   void Build(ref_ptr<gpu::ProgramManager> mng);
-  void Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen);
   void AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 

@@ -31,15 +31,11 @@ public:
   void SetRoutingMode(bool routingMode);
   void SetPositionObsolete(bool obsolete);
 
-  void RenderAccuracy(ScreenBase const & screen, int zoomLevel,
-                      ref_ptr<dp::GraphicsContext> context,
-                      ref_ptr<gpu::ProgramManager> mng,
-                      FrameValues const & frameValues);
+  void RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                      ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
 
-  void RenderMyPosition(ScreenBase const & screen, int zoomLevel,
-                        ref_ptr<dp::GraphicsContext> context,
-                        ref_ptr<gpu::ProgramManager> mng,
-                        FrameValues const & frameValues);
+  void RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                        ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
 
 private:
   void CacheAccuracySector(ref_ptr<dp::TextureManager> mng);

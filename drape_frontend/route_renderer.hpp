@@ -57,8 +57,8 @@ public:
 
   void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
-  void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GraphicsContext> context,
-                   ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
+  void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                   bool trafficShown, FrameValues const & frameValues);
 
   void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
   Subroutes const & GetSubroutes() const;
@@ -93,17 +93,17 @@ public:
   bool HasData() const;
 
 private:
-  void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
-                      ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GraphicsContext> context,
-                      ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
-  void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                            ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                      SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
+                      ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues);
+  void RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                            SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                             FrameValues const & frameValues);
-  void RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                             ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+  void RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                             SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                              FrameValues const & frameValues);
-  void RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-                         ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
+  void RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                         ScreenBase const & screen, FrameValues const & frameValues);
   void ClearPreviewHandles();
   CirclesPackHandle * GetPreviewHandle(size_t & index);
   dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;

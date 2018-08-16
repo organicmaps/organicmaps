@@ -123,6 +123,6 @@ private:
   static uint8_t m_usedSlots;
 };
 
-void ApplyState(RenderState const & state, ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program);
+void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state);
 void ApplyBlending(RenderState const & state);
 }  // namespace dp

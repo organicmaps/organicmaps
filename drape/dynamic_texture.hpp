@@ -10,6 +10,7 @@ namespace dp
 template<typename TIndexer, typename TResourceKey, Texture::ResourceType TResourceType>
 class DynamicTexture : public Texture
 {
+  using Base = Texture;
 public:
   ~DynamicTexture() override
   {
@@ -23,6 +24,18 @@ public:
       return nullptr;
 
     return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
+  }
+
+  void Create(Params const & params) override
+  {
+    ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
+    Base::Create(params);
+  }
+
+  void Create(Params const & params, ref_ptr<void> data) override
+  {
+    ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
+    Base::Create(params, data);
   }
 
   void UpdateState() override

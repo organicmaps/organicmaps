@@ -35,10 +35,10 @@ enum class StencilAction : uint8_t
   Keep,
   Zero,
   Replace,
-  Incr,
-  IncrWrap,
-  Decr,
-  DecrWrap,
+  Increment,
+  IncrementWrap,
+  Decrement,
+  DecrementWrap,
   Invert
 };
 

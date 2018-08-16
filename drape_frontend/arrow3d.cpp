@@ -30,7 +30,7 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : TBase(DrawPrimitive::Triangles)
+  : Base(DrawPrimitive::Triangles)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
@@ -51,9 +51,7 @@ Arrow3d::Arrow3d()
     0.0f, -0.5f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,   -1.2f, -1.0f, 0.0f, 1.0f,
   };
 
-  std::vector<float> normals;
-  GenerateNormalsForTriangles(vertices, kComponentsInVertex, normals);
-  normals.reserve(vertices.size());
+  std::vector<float> normals = GenerateNormalsForTriangles(vertices, kComponentsInVertex);
 
   auto const verticesBufferInd = 0;
   SetBuffer(verticesBufferInd, std::move(vertices), sizeof(float) * kComponentsInVertex);
@@ -84,13 +82,13 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
-void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                     bool routingMode)
+void Arrow3d::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                     ScreenBase const & screen, bool routingMode)
 {
   // Render shadow.
   if (screen.isPerspective())
   {
-    RenderArrow(screen, context, mng, gpu::Program::Arrow3dShadow,
+    RenderArrow(context, mng, screen, gpu::Program::Arrow3dShadow,
                 df::GetColorConstant(df::kArrow3DShadowColor), 0.05f /* dz */,
                 routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
   }
@@ -102,18 +100,18 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> con
   if (routingMode)
   {
     dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
-    RenderArrow(screen, context, mng, gpu::Program::Arrow3dOutline,
+    RenderArrow(context, mng, screen, gpu::Program::Arrow3dOutline,
                 dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlpha()),
                 0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 
   // Render arrow.
-  RenderArrow(screen, context, mng, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
+  RenderArrow(context, mng, screen, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
               true /* hasNormals */);
 }
 
-void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-                          ref_ptr<gpu::ProgramManager> mng, gpu::Program program, dp::Color const & color, float dz,
+void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                          ScreenBase const & screen, gpu::Program program, dp::Color const & color, float dz,
                           float scaleFactor, bool hasNormals)
 {
   gpu::Arrow3dProgramParams params;
@@ -122,7 +120,7 @@ void Arrow3d::RenderArrow(ScreenBase const & screen, ref_ptr<dp::GraphicsContext
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
-  TBase::Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
+  Base::Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor) const

@@ -57,15 +57,15 @@ private:
 class LayerCacher
 {
 public:
-  drape_ptr<LayerRenderer> RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                          ref_ptr<dp::TextureManager> textures,
-                                          ref_ptr<dp::GraphicsContext> context);
-  drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures,
-                                                     ref_ptr<dp::GraphicsContext> context);
+  drape_ptr<LayerRenderer> RecacheWidgets(ref_ptr<dp::GraphicsContext> context,
+                                          TWidgetsInitInfo const & initInfo,
+                                          ref_ptr<dp::TextureManager> textures);
+  drape_ptr<LayerRenderer> RecacheChoosePositionMark(ref_ptr<dp::GraphicsContext> context,
+                                                     ref_ptr<dp::TextureManager> textures);
 
 #ifdef RENDER_DEBUG_INFO_LABELS
-  drape_ptr<LayerRenderer> RecacheDebugLabels(ref_ptr<dp::TextureManager> textures,
-                                              ref_ptr<dp::GraphicsContext> context);
+  drape_ptr<LayerRenderer> RecacheDebugLabels(ref_ptr<dp::GraphicsContext> context,
+                                              ref_ptr<dp::TextureManager> textures);
 #endif
 
 private:

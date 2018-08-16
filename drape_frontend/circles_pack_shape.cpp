@@ -136,7 +136,7 @@ size_t CirclesPackHandle::GetPointsCount() const
   return m_buffer.size() / dp::Batcher::VertexPerQuad;
 }
 
-void CirclesPackShape::Draw(ref_ptr<dp::TextureManager> texMng, ref_ptr<dp::GraphicsContext> context,
+void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
                             CirclesPackRenderData & data)
 {
   ASSERT_NOT_EQUAL(data.m_pointsCount, 0, ());

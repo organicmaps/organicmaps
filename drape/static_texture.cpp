@@ -142,6 +142,20 @@ ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & 
   return make_ref(m_info);
 }
 
+void StaticTexture::Create(Params const & params)
+{
+  ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
+
+  Base::Create(params);
+}
+
+void StaticTexture::Create(Params const & params, ref_ptr<void> data)
+{
+  ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
+
+  Base::Create(params, data);
+}
+
 void StaticTexture::Fail()
 {
   int32_t alphaTexture = 0;

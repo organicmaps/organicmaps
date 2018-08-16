@@ -22,8 +22,8 @@ public:
   void RemoveRenderProperty(string const & id);
   void Clear();
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-              ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+              FrameValues const & frameValues);
 
 private:
   std::vector<drape_ptr<DrapeApiRenderProperty>> m_properties;

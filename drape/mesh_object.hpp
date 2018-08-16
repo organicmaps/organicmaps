@@ -1,26 +1,21 @@
 #pragma once
 
-#include "drape/graphics_context.hpp"
 #include "drape/render_state.hpp"
 #include "drape/pointers.hpp"
 
 #include <functional>
+#include <string>
 #include <vector>
 
 namespace dp
 {
 class GpuProgram;
-
-class RenderParamsHolder
-{
-public:
-  virtual void ApplyProgramParams() = 0;
-};
+class GraphicsContext;
 
 class MeshObject
 {
 public:
-  enum class DrawPrimitive: uint32_t
+  enum class DrawPrimitive: uint8_t
   {
     Triangles,
     TriangleStrip,
@@ -41,7 +36,7 @@ public:
   {
     Bind(program);
 
-    ApplyState(state, context, program);
+    ApplyState(context, program, state);
     paramsSetter->Apply(program, params);
 
     DrawPrimitives();
@@ -55,8 +50,7 @@ public:
   void Build(ref_ptr<dp::GpuProgram> program);
   void Reset();
 
-  static void GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount,
-                                          std::vector<float> & normals);
+  static std::vector<float> GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount);
 
 private:
   struct AttributeMapping

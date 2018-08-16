@@ -7,9 +7,10 @@ namespace dp
 {
 class GraphicsContext;
 
-class IDebugRenderer
+class DebugRenderer
 {
 public:
+  virtual ~DebugRenderer() = default;
   virtual bool IsEnabled() const = 0;
   virtual void DrawRect(ref_ptr<GraphicsContext> context, ScreenBase const & screen,
                         m2::RectF const & rect, Color const & color) = 0;

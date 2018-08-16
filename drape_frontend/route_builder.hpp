@@ -31,11 +31,11 @@ public:
   RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
                FlushMarkersFn && flushMarkersFn);
 
-  void Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-             ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context, int recacheId);
+  void Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+             ref_ptr<dp::TextureManager> textures, int recacheId);
 
-  void BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
-                   ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context, int recacheId);
+  void BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
+                   std::vector<ArrowBorders> const & borders, ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void ClearRouteCache();
 

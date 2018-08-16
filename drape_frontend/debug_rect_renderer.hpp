@@ -10,15 +10,11 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#ifdef BUILD_DESIGNER
-#define RENDER_DEBUG_RECTS
-#endif // BUILD_DESIGNER
-
 namespace df
 {
-class DebugRectRenderer: public dp::MeshObject, public dp::IDebugRenderer
+class DebugRectRenderer: public dp::MeshObject, public dp::DebugRenderer
 {
-  using TBase = dp::MeshObject;
+  using Base = dp::MeshObject;
 public:
   static ref_ptr<DebugRectRenderer> Instance();
 

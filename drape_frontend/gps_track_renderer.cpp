@@ -189,10 +189,8 @@ dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
   return df::GetColorConstant(df::kTrackHumanSpeedColor);
 }
 
-void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
-                                   ref_ptr<dp::GraphicsContext> context,
-                                   ref_ptr<gpu::ProgramManager> mng,
-                                   FrameValues const & frameValues)
+void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                   ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
   if (zoomLevel < kMinVisibleZoomLevel)
     return;
@@ -310,7 +308,7 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
 
   ASSERT_GREATER(m_renderData.size(), 0, ());
   dp::RenderState const & state = m_renderData.front()->m_state;
-  dp::ApplyState(state, context, program);
+  dp::ApplyState(context, program, state);
   mng->GetParamsSetter()->Apply(program, params);
 
   for (size_t i = 0; i < m_renderData.size(); i++)

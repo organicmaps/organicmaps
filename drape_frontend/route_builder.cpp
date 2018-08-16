@@ -14,8 +14,8 @@ RouteBuilder::RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
   , m_flushMarkersFn(std::move(flushMarkersFn))
 {}
 
-void RouteBuilder::Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
-                         ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context, int recacheId)
+void RouteBuilder::Build(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+                         ref_ptr<dp::TextureManager> textures, int recacheId)
 {
   RouteCacheData cacheData;
   cacheData.m_polyline = subroute->m_polyline;
@@ -52,8 +52,8 @@ void RouteBuilder::ClearRouteCache()
   m_routeCache.clear();
 }
 
-void RouteBuilder::BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
-                               ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context,
+void RouteBuilder::BuildArrows(ref_ptr<dp::GraphicsContext> context, dp::DrapeID subrouteId,
+                               std::vector<ArrowBorders> const & borders, ref_ptr<dp::TextureManager> textures,
                                int recacheId)
 {
   auto it = m_routeCache.find(subrouteId);

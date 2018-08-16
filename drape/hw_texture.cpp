@@ -9,10 +9,6 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#ifdef DEBUG
-#include "3party/glm/glm/gtx/bit.hpp"
-#endif
-
 #if defined(OMIM_OS_IPHONE)
 #include "drape/hw_texture_ios.hpp"
 #endif
@@ -178,10 +174,7 @@ OpenGLHWTexture::~OpenGLHWTexture()
 
 void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
 {
-  TBase::Create(params, data);
-
-  //ASSERT(glm::isPowerOfTwo(static_cast<int>(m_width)), (m_width));
-  //ASSERT(glm::isPowerOfTwo(static_cast<int>(m_height)), (m_height));
+  Base::Create(params, data);
 
   m_textureID = GLFunctions::glGenTexture();
   Bind();

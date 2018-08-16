@@ -8,6 +8,7 @@ namespace dp
 {
 class StaticTexture : public Texture
 {
+  using Base = Texture;
 public:
   class StaticKey : public Key
   {
@@ -21,6 +22,8 @@ public:
                 dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator);
 
   ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) override;
+  void Create(Params const & params) override;
+  void Create(Params const & params, ref_ptr<void> data) override;
 
   void Invalidate(ref_ptr<HWTextureAllocator> allocator);
 

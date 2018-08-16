@@ -87,8 +87,8 @@ void ShapeRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
   });
 }
 
-void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-                           ref_ptr<gpu::ProgramManager> mng)
+void ShapeRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                           ScreenBase const & screen)
 {
   std::array<float, 16> m = {};
   m2::RectD const & pxRect = screen.PixelRectIn3d();
@@ -106,7 +106,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GraphicsContex
 
     ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgram<gpu::Program>());
     prg->Bind();
-    dp::ApplyState(info.m_state, context, prg);
+    dp::ApplyState(context, prg, info.m_state);
 
     auto params = info.m_handle->GetParams();
     params.m_projection = projection;

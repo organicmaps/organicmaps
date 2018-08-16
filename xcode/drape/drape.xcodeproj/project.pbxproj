@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		347F32F91C45383E009758CC /* debug_rect_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F32F71C45383E009758CC /* debug_rect_renderer.cpp */; };
-		347F32FA1C45383E009758CC /* debug_rect_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F32F81C45383E009758CC /* debug_rect_renderer.hpp */; };
 		3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */; };
 		34C624C91DABDB2000510300 /* static_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C624C71DABDB2000510300 /* static_texture.cpp */; };
 		34C624CA1DABDB2000510300 /* static_texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624C81DABDB2000510300 /* static_texture.hpp */; };
@@ -106,6 +104,7 @@
 		675D21991BFB876E00717E4F /* projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675D21971BFB876E00717E4F /* projection.cpp */; };
 		675D219A1BFB876E00717E4F /* projection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675D21981BFB876E00717E4F /* projection.hpp */; };
 		BB035F6C1E3A2A5C00519962 /* drape_diagnostics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */; };
+		BBAD59F821258812005543FC /* debug_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBAD59F721258812005543FC /* debug_renderer.hpp */; };
 		BBB72E902110AF0F00249D4F /* oglcontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E8F2110AF0F00249D4F /* oglcontext.cpp */; };
 		BBB72E9A2111CE9100249D4F /* graphics_context.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E972111CE9100249D4F /* graphics_context.hpp */; };
 		BBB72E9B2111CE9100249D4F /* graphics_context_factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E982111CE9100249D4F /* graphics_context_factory.hpp */; };
@@ -115,8 +114,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		347F32F71C45383E009758CC /* debug_rect_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_rect_renderer.cpp; sourceTree = "<group>"; };
-		347F32F81C45383E009758CC /* debug_rect_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_rect_renderer.hpp; sourceTree = "<group>"; };
 		3492DA0A1CA2D91C00C1F3B3 /* visual_scale.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = visual_scale.hpp; sourceTree = "<group>"; };
 		34AF87C91DBE4F4900E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -217,6 +214,7 @@
 		675D21971BFB876E00717E4F /* projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = projection.cpp; sourceTree = "<group>"; };
 		675D21981BFB876E00717E4F /* projection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = projection.hpp; sourceTree = "<group>"; };
 		BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drape_diagnostics.hpp; sourceTree = "<group>"; };
+		BBAD59F721258812005543FC /* debug_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_renderer.hpp; sourceTree = "<group>"; };
 		BBB72E8F2110AF0F00249D4F /* oglcontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = oglcontext.cpp; sourceTree = "<group>"; };
 		BBB72E972111CE9100249D4F /* graphics_context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graphics_context.hpp; sourceTree = "<group>"; };
 		BBB72E982111CE9100249D4F /* graphics_context_factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = graphics_context_factory.hpp; sourceTree = "<group>"; };
@@ -279,8 +277,7 @@
 				670947151BDF9A4F005014C0 /* data_buffer_impl.hpp */,
 				6729A50F1A69213A007D5872 /* data_buffer.cpp */,
 				6729A5101A69213A007D5872 /* data_buffer.hpp */,
-				347F32F71C45383E009758CC /* debug_rect_renderer.cpp */,
-				347F32F81C45383E009758CC /* debug_rect_renderer.hpp */,
+				BBAD59F721258812005543FC /* debug_renderer.hpp */,
 				BB035F6B1E3A2A5C00519962 /* drape_diagnostics.hpp */,
 				6729A5111A69213A007D5872 /* drape_global.hpp */,
 				457B536320358F7D00E4E752 /* drape_routine.hpp */,
@@ -393,13 +390,13 @@
 				3492DA0B1CA2D91C00C1F3B3 /* visual_scale.hpp in Headers */,
 				6729A5971A69213A007D5872 /* overlay_tree.hpp in Headers */,
 				6729A5751A69213A007D5872 /* drape_global.hpp in Headers */,
-				347F32FA1C45383E009758CC /* debug_rect_renderer.hpp in Headers */,
 				6729A5701A69213A007D5872 /* color.hpp in Headers */,
 				6729A5801A69213A007D5872 /* glsl_func.hpp in Headers */,
 				6729A5761A69213A007D5872 /* dynamic_texture.hpp in Headers */,
 				45D7ADE22113535600160DE3 /* render_state.hpp in Headers */,
 				6729A5681A69213A007D5872 /* batcher_helpers.hpp in Headers */,
 				6729A56A1A69213A007D5872 /* batcher.hpp in Headers */,
+				BBAD59F821258812005543FC /* debug_renderer.hpp in Headers */,
 				45447109211462A300D28C28 /* texture_types.hpp in Headers */,
 				BBB72EA02118A45800249D4F /* mesh_object.hpp in Headers */,
 				675D219A1BFB876E00717E4F /* projection.hpp in Headers */,
@@ -534,7 +531,6 @@
 				BBB72E9C2111CE9100249D4F /* graphics_context_factory.cpp in Sources */,
 				6729A5771A69213A007D5872 /* font_texture.cpp in Sources */,
 				45D7ADE32113535600160DE3 /* render_state.cpp in Sources */,
-				347F32F91C45383E009758CC /* debug_rect_renderer.cpp in Sources */,
 				6729A58E1A69213A007D5872 /* index_buffer.cpp in Sources */,
 				6729A5A61A69213A007D5872 /* texture_manager.cpp in Sources */,
 				670947271BDF9A4F005014C0 /* glyph_manager.cpp in Sources */,

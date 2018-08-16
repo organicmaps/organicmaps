@@ -30,10 +30,8 @@ public:
   void UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
                     std::vector<uint32_t> const & toRemove);
 
-  void RenderTrack(ScreenBase const & screen, int zoomLevel,
-                   ref_ptr<dp::GraphicsContext> context,
-                   ref_ptr<gpu::ProgramManager> mng,
-                   FrameValues const & frameValues);
+  void RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                   int zoomLevel, FrameValues const & frameValues);
 
   void Update();
   void Clear();

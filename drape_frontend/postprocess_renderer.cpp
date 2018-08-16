@@ -25,6 +25,7 @@ public:
     m_state.SetDepthTestEnabled(false);
     m_state.SetBlending(dp::Blending(false));
   }
+  virtual ~SMAABaseRenderParams() = default;
 
   dp::RenderState const & GetRenderState() const { return m_state; }
   gpu::SMAAProgramParams const & GetProgramParams() const { return m_params; }
@@ -69,11 +70,11 @@ public:
   }
 };
 
-class SMAAFinalRendeParams : public SMAABaseRenderParams
+class SMAAFinalRenderParams : public SMAABaseRenderParams
 {
   using TBase = SMAABaseRenderParams;
 public:
-  SMAAFinalRendeParams(): TBase(gpu::Program::SmaaFinal) {}
+  SMAAFinalRenderParams(): TBase(gpu::Program::SmaaFinal) {}
 
   void SetParams(ref_ptr<dp::Texture> colorTexture, ref_ptr<dp::Texture> blendingWeightTexture,
                  uint32_t width, uint32_t height)
@@ -304,7 +305,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
       context->Clear(dp::ClearBits::ColorBit);
 
-      SMAAFinalRendeParams params;
+      SMAAFinalRenderParams params;
       params.SetParams(m_mainFramebuffer->GetTexture(),
                        m_blendingWeightFramebuffer->GetTexture(),
                        m_width, m_height);

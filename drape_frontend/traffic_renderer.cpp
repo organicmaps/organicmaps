@@ -134,8 +134,8 @@ void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
   }), m_renderData.end());
 }
 
-void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                                    ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                    ScreenBase const & screen, int zoomLevel, float opacity,
                                     FrameValues const & frameValues)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
@@ -151,7 +151,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
     {
       auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
       program->Bind();
-      dp::ApplyState(renderData.m_state, context, program);
+      dp::ApplyState(context, program, renderData.m_state);
 
       gpu::TrafficProgramParams params;
       frameValues.SetTo(params);
@@ -168,7 +168,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       {
         ref_ptr<dp::GpuProgram> programPtr = mng->GetProgram(program);
         programPtr->Bind();
-        dp::ApplyState(renderData.m_state, context, programPtr);
+        dp::ApplyState(context, programPtr, renderData.m_state);
 
         gpu::TrafficProgramParams params;
         frameValues.SetTo(params);
@@ -221,7 +221,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
 
       ref_ptr<dp::GpuProgram> programPtr = mng->GetProgram(program);
       programPtr->Bind();
-      dp::ApplyState(renderData.m_state, context, programPtr);
+      dp::ApplyState(context, programPtr, renderData.m_state);
 
       gpu::TrafficProgramParams params;
       frameValues.SetTo(params);

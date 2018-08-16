@@ -92,8 +92,8 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 
 void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui)
 {
-  auto context = m_contextFactory->GetResourcesUploadContext();
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(initInfo, m_texMng, make_ref(context));
+  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(context, initInfo, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), needResetOldGui);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -101,8 +101,8 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
 #ifdef RENDER_DEBUG_INFO_LABELS
 void BackendRenderer::RecacheDebugLabels()
 {
-  auto context = m_contextFactory->GetResourcesUploadContext();
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_texMng, make_ref(context));
+  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(context, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -110,8 +110,8 @@ void BackendRenderer::RecacheDebugLabels()
 
 void BackendRenderer::RecacheChoosePositionMark()
 {
-  auto context = m_contextFactory->GetResourcesUploadContext();
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_texMng, make_ref(context));
+  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(context, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -313,8 +313,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::AddSubroute:
     {
       ref_ptr<AddSubrouteMessage> msg = message;
-      auto context = m_contextFactory->GetResourcesUploadContext();
-      m_routeBuilder->Build(msg->GetSubrouteId(), msg->GetSubroute(), m_texMng, make_ref(context),
+      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+      m_routeBuilder->Build(context, msg->GetSubrouteId(), msg->GetSubroute(), m_texMng,
                             msg->GetRecacheId());
       break;
     }
@@ -322,8 +322,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::CacheSubrouteArrows:
     {
       ref_ptr<CacheSubrouteArrowsMessage> msg = message;
-      auto context = m_contextFactory->GetResourcesUploadContext();
-      m_routeBuilder->BuildArrows(msg->GetSubrouteId(), msg->GetBorders(), m_texMng, make_ref(context),
+      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+      m_routeBuilder->BuildArrows(context, msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
                                   msg->GetRecacheId());
       break;
     }
@@ -359,8 +359,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<CacheCirclesPackMessage> msg = message;
       drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
-      auto context = m_contextFactory->GetResourcesUploadContext();
-      CirclesPackShape::Draw(m_texMng, make_ref(context), *data.get());
+      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+      CirclesPackShape::Draw(context, m_texMng, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FlushCirclesPackMessage>(
                                   std::move(data), msg->GetDestination()),
@@ -410,8 +410,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
-        auto context = m_contextFactory->GetResourcesUploadContext();
-        m_trafficGenerator->FlushSegmentsGeometry(tileKey, msg->GetSegments(), m_texMng, make_ref(context));
+        auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
+        m_trafficGenerator->FlushSegmentsGeometry(context, tileKey, msg->GetSegments(), m_texMng);
       }
       break;
     }

@@ -97,10 +97,8 @@ void MyPosition::SetPositionObsolete(bool obsolete)
   m_arrow3d.SetPositionObsolete(obsolete);
 }
 
-void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
-                                ref_ptr<dp::GraphicsContext> context,
-                                ref_ptr<gpu::ProgramManager> mng,
-                                FrameValues const & frameValues)
+void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
   auto const pixelAccuracy =
@@ -119,16 +117,14 @@ void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
   RenderPart(context, mng, params, MyPositionAccuracy);
 }
 
-void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
-                                  ref_ptr<dp::GraphicsContext> context,
-                                  ref_ptr<gpu::ProgramManager> mng,
-                                  FrameValues const & frameValues)
+void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                  ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues)
 {
   if (m_showAzimuth)
   {
     m_arrow3d.SetPosition(m2::PointD(m_position));
     m_arrow3d.SetAzimuth(m_azimuth);
-    m_arrow3d.Render(screen, context, mng, m_isRoutingMode);
+    m_arrow3d.Render(context, mng, screen, m_isRoutingMode);
   }
   else
   {
@@ -247,8 +243,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 }
 
 void MyPosition::RenderPart(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                            gpu::ShapesProgramParams const & params,
-                            EMyPositionPart part)
+                            gpu::ShapesProgramParams const & params, EMyPositionPart part)
 {
   TPart const & p = m_parts[part];
   m_nodes[p.second].Render(context, mng, params, p.first);

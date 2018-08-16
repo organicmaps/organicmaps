@@ -13,7 +13,7 @@ namespace df
 {
 class ScreenQuadRenderer: public dp::MeshObject
 {
-  using TBase = dp::MeshObject;
+  using Base = dp::MeshObject;
 public:
   ScreenQuadRenderer();
 

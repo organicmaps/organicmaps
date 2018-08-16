@@ -227,8 +227,8 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
   }
 }
 
-void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
-                                             ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context)
+void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                             TrafficSegmentsGeometry const & geom, ref_ptr<dp::TextureManager> textures)
 {
   FillColorsCache(textures);
 

@@ -54,7 +54,7 @@ void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pr
     if (routingActive && (r.first == gui::WIDGET_COMPASS || r.first == gui::WIDGET_RULER))
       continue;
 
-    r.second->Render(screen, context, mng);
+    r.second->Render(context, mng, screen);
   }
 }
 
@@ -197,9 +197,9 @@ private:
 };
 }  // namespace
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & initInfo,
-                                                     ref_ptr<dp::TextureManager> textures,
-                                                     ref_ptr<dp::GraphicsContext> context)
+drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext> context,
+                                                     TWidgetsInitInfo const & initInfo,
+                                                     ref_ptr<dp::TextureManager> textures)
 {
   using TCacheShape = std::function<m2::PointF(Position anchor, ref_ptr<LayerRenderer> renderer,
                                                ref_ptr<dp::TextureManager> textures)>;
@@ -224,8 +224,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
   return renderer;
 }
 
-drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::TextureManager> textures,
-                                                                ref_ptr<dp::GraphicsContext> context)
+drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::GraphicsContext> context,
+                                                                ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF const surfSize = DrapeGui::Instance().GetSurfaceSize();
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -240,8 +240,8 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::Text
 }
 
 #ifdef RENDER_DEBUG_INFO_LABELS
-drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureManager> textures,
-                                                         ref_ptr<dp::GraphicsContext> context)
+drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsContext> context,
+                                                         ref_ptr<dp::TextureManager> textures)
 {
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 

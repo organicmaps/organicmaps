@@ -379,11 +379,9 @@ dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
   return {0, 0, 0, 0};
 }
 
-void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
-                                   ScreenBase const & screen, bool trafficShown,
-                                   ref_ptr<dp::GraphicsContext> context,
-                                   ref_ptr<gpu::ProgramManager> mng,
-                                   FrameValues const & frameValues)
+void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                   SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
+                                   ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues)
 {
   ASSERT_LESS(subrouteDataIndex, subrouteInfo.m_subrouteData.size(), ());
   if (subrouteInfo.m_subrouteData[subrouteDataIndex]->m_renderProperty.m_buckets.empty())
@@ -432,7 +430,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(style.m_pattern.m_isDashed ?
                                                 gpu::Program::RouteDash : gpu::Program::Route);
   prg->Bind();
-  dp::ApplyState(state, context, prg);
+  dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(prg, params);
 
   // Render buckets.
@@ -440,10 +438,8 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
     bucket->Render(state.GetDrawAsLine());
 }
 
-void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
-                                         ScreenBase const & screen,
-                                         ref_ptr<dp::GraphicsContext> context,
-                                         ref_ptr<gpu::ProgramManager> mng,
+void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                         SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                          FrameValues const & frameValues)
 {
   if (subrouteInfo.m_arrowsData == nullptr ||
@@ -471,15 +467,14 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteArrow);
   prg->Bind();
-  dp::ApplyState(state, context, prg);
+  dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(prg, params);
   for (auto const & bucket : subrouteInfo.m_arrowsData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
 
-void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                                          ref_ptr<dp::GraphicsContext> context,
-                                          ref_ptr<gpu::ProgramManager> mng,
+void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                          SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                                           FrameValues const & frameValues)
 {
   if (subrouteInfo.m_markersData == nullptr ||
@@ -512,14 +507,14 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteMarker);
   prg->Bind();
-  dp::ApplyState(state, context, prg);
+  dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(prg, params);
   for (auto const & bucket : subrouteInfo.m_markersData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
 
-void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GraphicsContext> context,
-                                      ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues)
+void RouteRenderer::RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                      ScreenBase const & screen, FrameValues const & frameValues)
 {
   if (m_waitForPreviewRenderData || m_previewSegments.empty() || m_previewRenderData.empty())
     return;
@@ -532,7 +527,7 @@ void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::Gra
   program->Bind();
 
   dp::RenderState const & state = m_previewRenderData.front()->m_state;
-  dp::ApplyState(state, context, program);
+  dp::ApplyState(context, program, state);
   mng->GetParamsSetter()->Apply(program, params);
 
   ASSERT_EQUAL(m_previewRenderData.size(), m_previewHandlesCache.size(), ());
@@ -543,26 +538,24 @@ void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::Gra
   }
 }
 
-void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
-                                ref_ptr<dp::GraphicsContext> context,
-                                ref_ptr<gpu::ProgramManager> mng,
-                                FrameValues const & frameValues)
+void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                                ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues)
 {
   for (auto const & subroute : m_subroutes)
   {
     // Render subroutes.
     for (size_t i = 0; i < subroute.m_subrouteData.size(); ++i)
-      RenderSubroute(subroute, i, screen, trafficShown, context, mng, frameValues);
+      RenderSubroute(context, mng, subroute, i, screen, trafficShown, frameValues);
 
     // Render markers.
-    RenderSubrouteMarkers(subroute, screen, context, mng, frameValues);
+    RenderSubrouteMarkers(context, mng, subroute, screen, frameValues);
 
     // Render arrows.
-    RenderSubrouteArrows(subroute, screen, context, mng, frameValues);
+    RenderSubrouteArrows(context, mng, subroute, screen, frameValues);
   }
 
   // Render preview.
-  RenderPreviewData(screen, context, mng, frameValues);
+  RenderPreviewData(context, mng, screen, frameValues);
 }
 
 void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,

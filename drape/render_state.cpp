@@ -14,14 +14,14 @@ glConst DecodeTestFunction(TestFunction depthFunction)
 {
   switch (depthFunction)
   {
-    case TestFunction::Never: return gl_const::GLNever;
-    case TestFunction::Less: return gl_const::GLLess;
-    case TestFunction::Equal: return gl_const::GLEqual;
-    case TestFunction::LessOrEqual: return gl_const::GLLessOrEqual;
-    case TestFunction::Greater: return gl_const::GLGreat;
-    case TestFunction::NotEqual: return gl_const::GLNotEqual;
-    case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
-    case TestFunction::Always: return gl_const::GLAlways;
+  case TestFunction::Never: return gl_const::GLNever;
+  case TestFunction::Less: return gl_const::GLLess;
+  case TestFunction::Equal: return gl_const::GLEqual;
+  case TestFunction::LessOrEqual: return gl_const::GLLessOrEqual;
+  case TestFunction::Greater: return gl_const::GLGreat;
+  case TestFunction::NotEqual: return gl_const::GLNotEqual;
+  case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
+  case TestFunction::Always: return gl_const::GLAlways;
   }
   CHECK_SWITCH();
 }
@@ -215,7 +215,7 @@ void ApplyBlending(RenderState const & state)
   state.GetBlending().Apply();
 }
 
-void ApplyState(RenderState const & state, ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program)
+void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
 {
   TextureState::ApplyTextures(state, program);
   ApplyBlending(state);

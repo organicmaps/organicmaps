@@ -69,7 +69,7 @@ private:
 class CirclesPackShape
 {
 public:
-  static void Draw(ref_ptr<dp::TextureManager> texMng, ref_ptr<dp::GraphicsContext> context,
+  static void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
                    CirclesPackRenderData & data);
 };
 }  // namespace df

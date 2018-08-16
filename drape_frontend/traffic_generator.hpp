@@ -170,8 +170,8 @@ public:
   void Init();
   void ClearGLDependentResources();
 
-  void FlushSegmentsGeometry(TileKey const & tileKey, TrafficSegmentsGeometry const & geom,
-                             ref_ptr<dp::TextureManager> textures, ref_ptr<dp::GraphicsContext> context);
+  void FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                             TrafficSegmentsGeometry const & geom, ref_ptr<dp::TextureManager> textures);
   void UpdateColoring(TrafficSegmentsColoring const & coloring);
 
   void ClearCache();

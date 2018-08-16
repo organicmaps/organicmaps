@@ -49,7 +49,7 @@ struct OverlayHasher
 };
 }  // namespace detail
 
-class IDebugRenderer;
+class DebugRenderer;
 
 using TOverlayContainer = buffer_vector<ref_ptr<OverlayHandle>, 8>;
 
@@ -95,7 +95,7 @@ public:
   using TDisplacementInfo = std::vector<DisplacementData>;
   TDisplacementInfo const & GetDisplacementInfo() const;
 
-  void SetDebugRectRenderer(ref_ptr<IDebugRenderer> debugRectRenderer);
+  void SetDebugRectRenderer(ref_ptr<DebugRenderer> debugRectRenderer);
 
 private:
   ScreenBase const & GetModelView() const { return m_traits.GetModelView(); }
@@ -119,7 +119,7 @@ private:
   FeatureID m_selectedFeatureID;
 
   TDisplacementInfo m_displacementInfo;
-  ref_ptr<IDebugRenderer> m_debugRectRenderer;
+  ref_ptr<DebugRenderer> m_debugRectRenderer;
 
   HandlesCache m_displacers;
   uint32_t m_frameUpdatePeriod;
