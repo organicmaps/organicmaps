@@ -483,7 +483,6 @@ BookmarkManager::BookmarkManager(User & user, Callbacks && callbacks)
                                        GetBookmarksDirectory(), std::string(kKmbExtension),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
-  , m_bookmarkCatalog(GetPrivateBookmarksDirectory())
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
 
@@ -1405,7 +1404,7 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
   m_changesTracker.OnDeleteGroup(groupId);
 
   FileWriter::DeleteFileX(it->second->GetFileName());
-  m_bookmarkCatalog.UnregisterDownloadedId(it->second->GetServerId());
+  m_bookmarkCatalog.UnregisterByServerId(it->second->GetServerId());
 
   m_categories.erase(it);
   UpdateBmGroupIdList();
@@ -1497,7 +1496,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     auto & categoryData = fileData.m_categoryData;
 
     if (FromCatalog(fileData))
-      m_bookmarkCatalog.RegisterDownloadedId(fileData.m_serverId);
+      m_bookmarkCatalog.RegisterByServerId(fileData.m_serverId);
 
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
@@ -2130,9 +2129,18 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
     }
     else
     {
+      if (!kmlData)
+      {
+        LOG(LERROR, ("Malformed KML from the catalog"));
+      }
+      else
+      {
+        LOG(LERROR, ("KML from the catalog is invalid. Server ID =", kmlData->m_serverId,
+            "Expected server ID =", id, "Access Rules =", kmlData->m_categoryData.m_accessRules));
+      }
+
       GetPlatform().RunTask(Platform::Thread::Gui, [this, id]
       {
-        m_bookmarkCatalog.UnregisterDownloadedId(id);
         if (m_onCatalogImportFinished)
           m_onCatalogImportFinished(id, kml::kInvalidMarkGroupId, false /* successful */);
       });

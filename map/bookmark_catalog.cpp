@@ -5,6 +5,7 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
 #include <sstream>
@@ -26,29 +27,20 @@ std::string BuildCatalogDownloadUrl(std::string const & serverId)
 }
 }  // namespace
 
-BookmarkCatalog::BookmarkCatalog(std::string const & catalogDir)
-{
-  Platform::FilesList files;
-  Platform::GetFilesRecursively(catalogDir, files);
-  for (auto const & f : files)
-    m_downloadedIds.insert(my::GetNameFromFullPathWithoutExt(f));
-}
-
-void BookmarkCatalog::RegisterDownloadedId(std::string const & id)
+void BookmarkCatalog::RegisterByServerId(std::string const & id)
 {
   if (id.empty())
     return;
 
-  m_downloadedIds.insert(id);
-  m_downloadingIds.erase(id);
+  m_registeredInCatalog.insert(id);
 }
 
-void BookmarkCatalog::UnregisterDownloadedId(std::string const & id)
+void BookmarkCatalog::UnregisterByServerId(std::string const & id)
 {
   if (id.empty())
     return;
 
-  m_downloadedIds.erase(id);
+  m_registeredInCatalog.erase(id);
 }
 
 bool BookmarkCatalog::IsDownloading(std::string const & id) const
@@ -58,7 +50,7 @@ bool BookmarkCatalog::IsDownloading(std::string const & id) const
 
 bool BookmarkCatalog::HasDownloaded(std::string const & id) const
 {
-  return m_downloadedIds.find(id) != m_downloadedIds.cend();
+  return m_registeredInCatalog.find(id) != m_registeredInCatalog.cend();
 }
 
 std::vector<std::string> BookmarkCatalog::GetDownloadingNames() const
@@ -93,10 +85,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
     GetPlatform().RunTask(Platform::Thread::Gui, [this, id, result = std::move(result), filePath,
                                                   finishHandler = std::move(finishHandler)]() mutable
     {
-      if (result.m_status == platform::RemoteFile::Status::Ok)
-        RegisterDownloadedId(id);
-      else
-        m_downloadingIds.erase(id);
+      m_downloadingIds.erase(id);
 
       if (finishHandler)
         finishHandler(std::move(result), filePath);
