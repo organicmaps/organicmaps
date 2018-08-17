@@ -30,7 +30,7 @@ public class MapLayerCompositeController implements MapLayerController
     mActivity = activity;
     mChildrenEntries = createEntries(traffic, subway, activity, listener);
     mMasterEntry = getCurrentLayer();
-    toggleMode(mMasterEntry.mMode);
+    toggleMode(mMasterEntry.getMode());
   }
 
   @NonNull
@@ -58,7 +58,7 @@ public class MapLayerCompositeController implements MapLayerController
     toggleMode(mode, false);
   }
 
-  public void toggleMode(@NonNull Mode mode, boolean animate)
+  private void toggleMode(@NonNull Mode mode, boolean animate)
   {
     setMasterController(mode);
     showMasterController(animate);
@@ -77,14 +77,14 @@ public class MapLayerCompositeController implements MapLayerController
 
   private void turnInitialMode()
   {
-    mMasterEntry.mController.hideImmediately();
+    mMasterEntry.getController().hideImmediately();
     mMasterEntry = mChildrenEntries.iterator().next();
-    mMasterEntry.mController.showImmediately();
+    mMasterEntry.getController().showImmediately();
   }
 
   public void applyLastActiveMode()
   {
-    toggleMode(mMasterEntry.mMode, true);
+    toggleMode(mMasterEntry.getMode(), true);
   }
 
   @Override
@@ -92,7 +92,7 @@ public class MapLayerCompositeController implements MapLayerController
   {
     for (ControllerAndMode each : mChildrenEntries)
     {
-      each.mController.attachCore();
+      each.getController().attachCore();
     }
   }
 
@@ -101,7 +101,7 @@ public class MapLayerCompositeController implements MapLayerController
   {
     for (ControllerAndMode each : mChildrenEntries)
     {
-      each.mController.detachCore();
+      each.getController().detachCore();
     }
   }
 
@@ -109,14 +109,14 @@ public class MapLayerCompositeController implements MapLayerController
   {
     for (ControllerAndMode each : mChildrenEntries)
     {
-      if (each.mMode == mode)
+      if (each.getMode() == mode)
       {
         mMasterEntry = each;
       }
       else
       {
-        each.mController.hideImmediately();
-        each.mMode.setEnabled(mActivity, false);
+        each.getController().hideImmediately();
+        each.getMode().setEnabled(mActivity, false);
       }
     }
   }
@@ -124,9 +124,9 @@ public class MapLayerCompositeController implements MapLayerController
   private void showMasterController(boolean animate)
   {
     if (animate)
-      mMasterEntry.mController.show();
+      mMasterEntry.getController().show();
     else
-      mMasterEntry.mController.showImmediately();
+      mMasterEntry.getController().showImmediately();
   }
 
   @NonNull
@@ -134,7 +134,7 @@ public class MapLayerCompositeController implements MapLayerController
   {
     for (ControllerAndMode each : mChildrenEntries)
     {
-      if (each.mMode.isEnabled(mActivity))
+      if (each.getMode().isEnabled(mActivity))
         return each;
     }
 
@@ -144,39 +144,39 @@ public class MapLayerCompositeController implements MapLayerController
   @Override
   public void turnOn()
   {
-    mMasterEntry.mController.turnOn();
-    mMasterEntry.mMode.setEnabled(mActivity, true);
+    mMasterEntry.getController().turnOn();
+    mMasterEntry.getMode().setEnabled(mActivity, true);
   }
 
   @Override
   public void turnOff()
   {
-    mMasterEntry.mController.turnOff();
-    mMasterEntry.mMode.setEnabled(mActivity, false);
+    mMasterEntry.getController().turnOff();
+    mMasterEntry.getMode().setEnabled(mActivity, false);
   }
 
   @Override
   public void show()
   {
-    mMasterEntry.mController.show();
+    mMasterEntry.getController().show();
   }
 
   @Override
   public void showImmediately()
   {
-    mMasterEntry.mController.showImmediately();
+    mMasterEntry.getController().showImmediately();
   }
 
   @Override
   public void hide()
   {
-    mMasterEntry.mController.hide();
+    mMasterEntry.getController().hide();
   }
 
   @Override
   public void hideImmediately()
   {
-    mMasterEntry.mController.hideImmediately();
+    mMasterEntry.getController().hideImmediately();
   }
 
   @Override
@@ -194,17 +194,17 @@ public class MapLayerCompositeController implements MapLayerController
   public void turnOn(@NonNull Mode mode)
   {
     ControllerAndMode entry = findModeMapLayerController(mode);
-    entry.mMode.setEnabled(mActivity, true);
-    entry.mController.turnOn();
-    entry.mController.showImmediately();
+    entry.getMode().setEnabled(mActivity, true);
+    entry.getController().turnOn();
+    entry.getController().showImmediately();
   }
 
   public void turnOff(@NonNull Mode mode)
   {
     ControllerAndMode entry = findModeMapLayerController(mode);
-    entry.mMode.setEnabled(mActivity, false);
-    entry.mController.turnOff();
-    entry.mController.hideImmediately();
+    entry.getMode().setEnabled(mActivity, false);
+    entry.getController().turnOff();
+    entry.getController().hideImmediately();
     turnInitialMode();
   }
 
@@ -213,7 +213,7 @@ public class MapLayerCompositeController implements MapLayerController
   {
     for (ControllerAndMode each : mChildrenEntries)
     {
-      if (each.mMode == mode)
+      if (each.getMode() == mode)
         return each;
     }
 
@@ -239,13 +239,25 @@ public class MapLayerCompositeController implements MapLayerController
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
       ControllerAndMode that = (ControllerAndMode) o;
-      return mMode == that.mMode;
+      return mMode == that.getMode();
     }
 
     @Override
     public int hashCode()
     {
       return mMode.hashCode();
+    }
+
+    @NonNull
+    MapLayerController getController()
+    {
+      return mController;
+    }
+
+    @NonNull
+    Mode getMode()
+    {
+      return mMode;
     }
   }
 
@@ -254,10 +266,10 @@ public class MapLayerCompositeController implements MapLayerController
     @Override
     public void onClick(View v)
     {
-      if (mMasterEntry.mMode.isEnabled(mActivity))
+      if (mMasterEntry.getMode().isEnabled(mActivity))
       {
         turnOff();
-        toggleMode(getCurrentLayer().mMode);
+        toggleMode(getCurrentLayer().getMode());
       }
       else
       {
