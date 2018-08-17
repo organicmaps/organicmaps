@@ -387,7 +387,7 @@ void MainWindow::CreateNavigationBar()
     m_pDrawDebugRectAction->setCheckable(true);
     m_pDrawDebugRectAction->setChecked(false);
     m_pDrawDebugRectAction->setToolTip(tr("Debug style"));
-    df::DebugRectRenderer::Instance()->SetEnabled(false);
+    m_pDrawWidget->GetFramework().EnableDebugRectRendering(false);
 
     // Add "Get statistics" button
     m_pGetStatisticsAction = pToolBar->addAction(QIcon(":/navig64/chart.png"),
@@ -691,7 +691,7 @@ void MainWindow::OnRecalculateGeomIndex()
 void MainWindow::OnDebugStyle()
 {
   bool const checked = m_pDrawDebugRectAction->isChecked();
-  df::DebugRectRenderer::Instance()->SetEnabled(checked);
+  m_pDrawWidget->GetFramework().EnableDebugRectRendering(checked);
   m_pDrawWidget->RefreshDrawingRules();
 }
 

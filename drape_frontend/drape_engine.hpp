@@ -222,6 +222,7 @@ public:
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
   void EnableUGCRendering(bool enabled);
+  void EnableDebugRectRendering(bool enabled);
 
   void RunFirstLaunchAnimation();
 

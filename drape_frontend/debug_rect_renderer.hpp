@@ -16,10 +16,8 @@ class DebugRectRenderer: public dp::MeshObject, public dp::DebugRenderer
 {
   using Base = dp::MeshObject;
 public:
-  static ref_ptr<DebugRectRenderer> Instance();
+  DebugRectRenderer(ref_ptr<dp::GpuProgram> program, ref_ptr<gpu::ProgramParamsSetter> paramsSetter);
 
-  void Init(ref_ptr<dp::GpuProgram> program, ref_ptr<gpu::ProgramParamsSetter> paramsSetter);
-  void Destroy();
   void SetEnabled(bool enabled);
 
   bool IsEnabled() const override;
@@ -29,9 +27,6 @@ public:
                  dp::OverlayTree::DisplacementData const & data) override;
 
 private:
-  DebugRectRenderer();
-  ~DebugRectRenderer() override;
-
   void SetArrow(m2::PointF const & arrowStart, m2::PointF const & arrowEnd, ScreenBase const & screen);
   void SetRect(m2::RectF const & rect, ScreenBase const & screen);
 

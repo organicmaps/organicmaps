@@ -789,6 +789,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::EnableDebugRectRendering:
+    {
+      ref_ptr<EnableDebugRectRenderingMessage> msg = message;
+      m_isDebugRectRenderingEnabled = msg->IsEnabled();
+      m_debugRectRenderer->SetEnabled(msg->IsEnabled());
+    }
+    break;
+
   case Message::InvalidateUserMarks:
     {
       m_forceUpdateUserMarks = true;
@@ -1281,7 +1289,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     m_drapeApiRenderer->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
 
     for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
-      DebugRectRenderer::Instance()->DrawArrow(context, modelView, arrow);
+      m_debugRectRenderer->DrawArrow(context, modelView, arrow);
   }
 
   if (!m_postprocessRenderer->EndFrame(context, make_ref(m_gpuProgramManager)))
@@ -1385,7 +1393,8 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
   {
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(context, make_ref(m_gpuProgramManager), modelView,
-                                           make_ref(m_postprocessRenderer), m_frameValues);
+                                           make_ref(m_postprocessRenderer), m_frameValues,
+                                           make_ref(m_debugRectRenderer));
   }
 }
 
@@ -1503,7 +1512,7 @@ void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, S
                                          ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-  group->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues);
+  group->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues, make_ref(m_debugRectRenderer));
 }
 
 void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
@@ -1854,9 +1863,7 @@ void FrontendRenderer::OnContextDestroy()
   m_transitSchemeRenderer->ClearGLDependentResources(nullptr /* overlayTree */);
 
   m_transitBackground.reset();
-
-  DebugRectRenderer::Instance()->Destroy();
-
+  m_debugRectRenderer.reset();
   m_gpuProgramManager.reset();
 
   m_contextFactory->GetDrawContext()->DoneCurrent();
@@ -1889,13 +1896,11 @@ void FrontendRenderer::OnContextCreate()
 
   dp::AlphaBlendingState::Apply();
 
-  DebugRectRenderer::Instance()->Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
-                                      m_gpuProgramManager->GetParamsSetter());
-  m_overlayTree->SetDebugRectRenderer(DebugRectRenderer::Instance());
+  m_debugRectRenderer = make_unique<DebugRectRenderer>(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
+                                                       m_gpuProgramManager->GetParamsSetter());
+  m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
-#ifdef RENDER_DEBUG_DISPLACEMENT
-  DebugRectRenderer::Instance()->SetEnabled(true);
-#endif
+  m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
 
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>();

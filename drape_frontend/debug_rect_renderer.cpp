@@ -17,38 +17,16 @@ void PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt, s
 }
 }  // namespace
 
-ref_ptr<DebugRectRenderer> DebugRectRenderer::Instance()
-{
-  static DebugRectRenderer renderer;
-  return make_ref(&renderer);
-}
-
-DebugRectRenderer::DebugRectRenderer()
+DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GpuProgram> program, ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
   : Base(DrawPrimitive::LineStrip)
+  , m_program(program)
+  , m_paramsSetter(paramsSetter)
   , m_state(CreateRenderState(gpu::Program::DebugRect, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
 
   Base::SetBuffer(0 /* bufferInd */, {} /* vertices */, static_cast<uint32_t>(sizeof(float) * 2));
   Base::SetAttribute("a_position", 0 /* bufferInd */, 0.0f /* offset */, 2 /* componentsCount */);
-}
-
-DebugRectRenderer::~DebugRectRenderer()
-{
-  ASSERT(!IsInitialized(), ());
-}
-
-void DebugRectRenderer::Init(ref_ptr<dp::GpuProgram> program, ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
-{
-  m_program = program;
-  m_paramsSetter = paramsSetter;
-}
-
-void DebugRectRenderer::Destroy()
-{
-  m_program = nullptr;
-  m_paramsSetter = nullptr;
-  Base::Reset();
 }
 
 bool DebugRectRenderer::IsEnabled() const

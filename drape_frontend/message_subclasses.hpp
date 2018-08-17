@@ -1207,6 +1207,20 @@ private:
   bool const m_enabled;
 };
 
+class EnableDebugRectRenderingMessage : public Message
+{
+public:
+  explicit EnableDebugRectRenderingMessage(bool enabled)
+    : m_enabled(enabled)
+  {}
+
+  Type GetType() const override { return Message::EnableDebugRectRendering; }
+  bool IsEnabled() const { return m_enabled; }
+
+private:
+  bool const m_enabled;
+};
+
 class RunFirstLaunchAnimationMessage : public Message
 {
 public:

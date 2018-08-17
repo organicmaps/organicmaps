@@ -70,7 +70,8 @@ void RenderGroup::SetOverlayVisibility(bool isVisible)
 }
 
 void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                         ScreenBase const & screen, FrameValues const & frameValues)
+                         ScreenBase const & screen, FrameValues const & frameValues,
+                         ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   auto programPtr = mng->GetProgram(screen.isPerspective() ? m_state.GetProgram3d<gpu::Program>()
                                                            : m_state.GetProgram<gpu::Program>());
@@ -126,7 +127,7 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
   }
 
   for(auto const & renderBucket : m_renderBuckets)
-    renderBucket->RenderDebug(context, screen, DebugRectRenderer::Instance());
+    renderBucket->RenderDebug(context, screen, debugRectRenderer);
 }
 
 void RenderGroup::AddBucket(drape_ptr<dp::RenderBucket> && bucket)

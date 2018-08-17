@@ -1897,6 +1897,12 @@ void Framework::SetRenderingDisabled(bool destroyContext)
     m_drapeEngine->SetRenderingDisabled(destroyContext);
 }
 
+void Framework::EnableDebugRectRendering(bool enabled)
+{
+  if (m_drapeEngine)
+    m_drapeEngine->EnableDebugRectRendering(enabled);
+}
+
 void Framework::ConnectToGpsTracker()
 {
   m_connectToGpsTrack = true;
@@ -2595,11 +2601,6 @@ void Framework::SaveAutoZoom(bool allowAutoZoom)
   settings::Set(kAllowAutoZoom, allowAutoZoom);
 }
 
-void Framework::EnableTransitScheme(bool enable)
-{
-  m_transitManager.EnableTransitSchemeMode(enable);
-}
-
 bool Framework::LoadTransitSchemeEnabled()
 {
   bool enabled;
@@ -2732,12 +2733,12 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   }
   if (query == "?scheme")
   {
-    EnableTransitScheme(true /* enable */);
+    m_transitManager.EnableTransitSchemeMode(true /* enable */);
     return true;
   }
   if (query == "?no-scheme")
   {
-    EnableTransitScheme(false /* enable */);
+    m_transitManager.EnableTransitSchemeMode(false /* enable */);
     return true;
   }
   if (query == "?debug-info")
@@ -2748,6 +2749,16 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   if (query == "?no-debug-info")
   {
     m_drapeEngine->ShowDebugInfo(false /* shown */);
+    return true;
+  }
+  if (query == "?debug-rect")
+  {
+    m_drapeEngine->EnableDebugRectRendering(true /* shown */);
+    return true;
+  }
+  if (query == "?no-debug-rect")
+  {
+    m_drapeEngine->EnableDebugRectRendering(false /* shown */);
     return true;
   }
   return false;

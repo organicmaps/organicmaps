@@ -383,6 +383,7 @@ public:
   void ResetLastTapEvent();
 
   void InvalidateRendering();
+  void EnableDebugRectRendering(bool enabled);
 
   void EnableChoosePositionMode(bool enable, bool enableBounds, bool applyPosition, m2::PointD const & position);
   void BlockTapEvents(bool block);
@@ -732,7 +733,6 @@ public:
   //@}
 
 public:
-
   void AllowTransliteration(bool allowTranslit);
   bool LoadTransliteration();
   void SaveTransliteration(bool allowTranslit);
@@ -760,9 +760,6 @@ public:
 
   bool LoadTrafficSimplifiedColors();
   void SaveTrafficSimplifiedColors(bool simplified);
-
-  // TODO: Enable transit scheme via transit manager.
-  void EnableTransitScheme(bool enable);
 
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);

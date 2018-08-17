@@ -131,7 +131,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, 
 
 void TransitSchemeRenderer::RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                                           ScreenBase const & screen, ref_ptr<PostprocessRenderer> postprocessRenderer,
-                                          FrameValues const & frameValues)
+                                          FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   auto const zoomLevel = GetDrawTileScale(screen);
   if (!IsSchemeVisible(zoomLevel) || !HasRenderData())
@@ -144,10 +144,10 @@ void TransitSchemeRenderer::RenderTransit(ref_ptr<dp::GraphicsContext> context, 
   RenderMarkers(context, mng, screen, frameValues, pixelHalfWidth);
   {
     StencilWriterGuard guard(postprocessRenderer, context);
-    RenderText(context, mng, screen, frameValues);
+    RenderText(context, mng, screen, frameValues, debugRectRenderer);
   }
   // Render only for debug purpose.
-  //RenderStubs(context, mng, screen, frameValues);
+  //RenderStubs(context, mng, screen, frameValues, debugRectRenderer);
 }
 
 void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView)
@@ -243,7 +243,8 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, 
 }
 
 void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                       ScreenBase const & screen, FrameValues const & frameValues)
+                                       ScreenBase const & screen, FrameValues const & frameValues,
+                                       ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto & renderData : m_textRenderData)
@@ -268,12 +269,13 @@ void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref
 
     renderData.m_bucket->Render(false /* draw as line */);
 
-    renderData.m_bucket->RenderDebug(context, screen, DebugRectRenderer::Instance());
+    renderData.m_bucket->RenderDebug(context, screen, debugRectRenderer);
   }
 }
 
 void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                        ScreenBase const & screen, FrameValues const & frameValues)
+                                        ScreenBase const & screen, FrameValues const & frameValues,
+                                        ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   for (auto & renderData : m_colorSymbolRenderData)
   {
@@ -289,7 +291,7 @@ void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, re
 
     renderData.m_bucket->Render(false /* draw as line */);
 
-    renderData.m_bucket->RenderDebug(context, screen, DebugRectRenderer::Instance());
+    renderData.m_bucket->RenderDebug(context, screen, debugRectRenderer);
   }
 }
 }  // namespace df

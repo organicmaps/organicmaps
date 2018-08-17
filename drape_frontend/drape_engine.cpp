@@ -829,6 +829,13 @@ void DrapeEngine::ShowDebugInfo(bool shown)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::EnableDebugRectRendering(bool enabled)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<EnableDebugRectRenderingMessage>(enabled),
+                                  MessagePriority::Normal);
+}
+
 drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMark const * mark)
 {
   auto renderInfo = make_unique_dp<UserMarkRenderParams>();

@@ -18,8 +18,9 @@ namespace dp
 
 namespace df
 {
-class PostprocessRenderer;
+class DebugRectRenderer;
 class OverlayTree;
+class PostprocessRenderer;
 
 class TransitSchemeRenderer
 {
@@ -29,7 +30,8 @@ public:
   bool IsSchemeVisible(int zoomLevel) const;
 
   void RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                     ref_ptr<PostprocessRenderer> postprocessRenderer, FrameValues const & frameValues);
+                     ref_ptr<PostprocessRenderer> postprocessRenderer, FrameValues const & frameValues,
+                     ref_ptr<DebugRectRenderer> debugRectRenderer);
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
 
@@ -60,9 +62,9 @@ private:
   void RenderMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
                      FrameValues const & frameValues, float pixelHalfWidth);
   void RenderText(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                  FrameValues const & frameValues);
+                  FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer);
   void RenderStubs(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                   FrameValues const & frameValues);
+                   FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer);
 
   bool HasRenderData() const;
 

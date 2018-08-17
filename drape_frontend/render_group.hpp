@@ -21,6 +21,8 @@ namespace gpu { class ProgramManager; }
 
 namespace df
 {
+class DebugRectRenderer;
+
 class BaseRenderGroup
 {
 public:
@@ -36,7 +38,7 @@ public:
 
   virtual void UpdateAnimation();
   virtual void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                      FrameValues const & frameValues) = 0;
+                      FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer) = 0;
 
 protected:
   dp::RenderState m_state;
@@ -60,7 +62,7 @@ public:
   void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
   void SetOverlayVisibility(bool isVisible);
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-              FrameValues const & frameValues) override;
+              FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer) override;
 
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
 

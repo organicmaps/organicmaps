@@ -85,6 +85,7 @@ public:
     PostUserEvent,
     FinishTexturesInitialization,
     EnableUGCRendering,
+    EnableDebugRectRendering,
     EnableTransitScheme,
     UpdateTransitScheme,
     ClearTransitSchemeData,

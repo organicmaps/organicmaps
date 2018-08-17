@@ -48,6 +48,7 @@ class RenderBucket;
 
 namespace df
 {
+class DebugRectRenderer;
 class DrapeNotifier;
 class ScenarioManager;
 class ScreenQuadRenderer;
@@ -332,6 +333,9 @@ private:
 
   bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
+
+  bool m_isDebugRectRenderingEnabled = false;
+  drape_ptr<DebugRectRenderer> m_debugRectRenderer;
 
   drape_ptr<ScenarioManager> m_scenarioManager;
 
