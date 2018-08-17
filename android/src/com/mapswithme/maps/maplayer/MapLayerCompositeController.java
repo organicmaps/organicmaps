@@ -182,7 +182,8 @@ public class MapLayerCompositeController implements MapLayerController
   @Override
   public void adjust(int offsetX, int offsetY)
   {
-    mMasterEntry.mController.adjust(offsetX, offsetY);
+    for(ControllerAndMode controllerAndMode: mChildrenEntries)
+      controllerAndMode.getController().adjust(offsetX, offsetY);
   }
 
   private void showDialog()
