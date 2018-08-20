@@ -7,7 +7,6 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
     didSet {
       label.font = .medium14()
       label.textColor = .blackSecondaryText()
-      label.text = L("bookmarks_groups").uppercased()
     }
   }
 
@@ -24,6 +23,13 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
         button.setTitle(title, for: .normal)
         button.layoutIfNeeded()
       }
+    }
+  }
+
+  var title: String? {
+    didSet {
+      title = title?.uppercased()
+      label.text = title
     }
   }
 

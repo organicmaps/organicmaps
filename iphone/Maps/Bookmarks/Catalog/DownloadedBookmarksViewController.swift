@@ -122,6 +122,7 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
     headerView.isShowAll = dataSource.allCategoriesHidden
+    headerView.title = L("guides_groups_cached")
     headerView.delegate = self
     return headerView
   }

@@ -246,6 +246,7 @@ extension BMCViewController: UITableViewDelegate {
     case .categories:
       let categoriesHeader = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
       categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
+      categoriesHeader.title = L("bookmarks_groups")
       categoriesHeader.delegate = self
       return categoriesHeader
     case .actions: return actionsHeader
