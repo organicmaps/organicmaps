@@ -14,7 +14,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 import com.google.android.gms.gcm.GcmReceiver;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.pushwoosh.GCMListenerService;
+import com.pushwoosh.PushGcmIntentService;
 import ru.mail.libnotify.api.NotificationFactory;
 
 // It's temporary class, it may be deleted along with Pushwoosh sdk.
@@ -23,6 +23,7 @@ public class GCMListenerRouterService extends GcmListenerService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
   private static final String TAG = GCMListenerRouterService.class.getSimpleName();
+
   @Override
   public void onMessageReceived(@Nullable String from, @Nullable Bundle data) {
     LOGGER.i(TAG, "Gcm router service received message: "
@@ -37,7 +38,7 @@ public class GCMListenerRouterService extends GcmListenerService
 
     String pwProjectId = getPWProjectId(getApplicationContext());
     if (!TextUtils.isEmpty(pwProjectId) && pwProjectId.contains(from)) {
-      dispatchMessage(GCMListenerService.class.getName(), data);
+      dispatchMessage(PushGcmIntentService.class.getName(), data);
       return;
     }
 

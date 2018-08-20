@@ -1,11 +1,10 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 
 import com.mapswithme.maps.background.AbstractLogBroadcastReceiver;
 
@@ -25,6 +24,7 @@ public class SystemDownloadCompletedReceiver extends AbstractLogBroadcastReceive
     if (manager == null)
       return;
     intent.setClass(context, SystemDownloadCompletedService.class);
-    context.startService(intent);
+    int jobId = SystemDownloadCompletedService.class.hashCode();
+    JobIntentService.enqueueWork(context, SystemDownloadCompletedService.class, jobId, intent);
   }
 }

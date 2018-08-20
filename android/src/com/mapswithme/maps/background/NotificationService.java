@@ -1,9 +1,9 @@
 package com.mapswithme.maps.background;
 
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.LightFramework;
@@ -14,16 +14,18 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static com.mapswithme.maps.MwmApplication.prefs;
 
-public class NotificationService extends IntentService
+public class NotificationService extends JobIntentService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = NotificationService.class.getSimpleName();
   private static final String LAST_AUTH_NOTIFICATION_TIMESTAMP = "DownloadOrUpdateTimestamp";
   private static final int MIN_COUNT_UNSENT_UGC = 2;
-  private static final long MIN_AUTH_EVENT_DELTA_MILLIS = 5 * 24 * 60 * 60 * 1000; // 5 days
+  private static final long MIN_AUTH_EVENT_DELTA_MILLIS = TimeUnit.DAYS.toMillis(5);
 
   private interface NotificationExecutor
   {
@@ -32,9 +34,11 @@ public class NotificationService extends IntentService
 
   static void startOnConnectivityChanged(Context context)
   {
-    final Intent intent = new Intent(context, NotificationService.class);
-    intent.setAction(CONNECTIVITY_ACTION);
-    context.startService(intent);
+    final Intent intent = new Intent(context, NotificationService.class)
+        .setAction(CONNECTIVITY_ACTION);
+
+    final int jobId = NotificationService.class.hashCode();
+    JobIntentService.enqueueWork(context, NotificationService.class, jobId, intent);
   }
 
   private static boolean notifyIsNotAuthenticated()
@@ -79,17 +83,9 @@ public class NotificationService extends IntentService
     return false;
   }
 
-  public NotificationService()
-  {
-    super(NotificationService.class.getSimpleName());
-  }
-
   @Override
-  protected void onHandleIntent(@Nullable Intent intent)
+  protected void onHandleWork(@NonNull Intent intent)
   {
-    if (intent == null)
-      return;
-
     final String action = intent.getAction();
 
     if (TextUtils.isEmpty(action))

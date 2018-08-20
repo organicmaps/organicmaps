@@ -1,13 +1,13 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.app.DownloadManager;
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -21,13 +21,8 @@ import com.mapswithme.util.concurrency.UiThread;
 
 import java.io.IOException;
 
-public class SystemDownloadCompletedService extends IntentService
+public class SystemDownloadCompletedService extends JobIntentService
 {
-  public SystemDownloadCompletedService()
-  {
-    super("GetFileMetaDataService");
-  }
-
   @Override
   public void onCreate()
   {
@@ -39,7 +34,7 @@ public class SystemDownloadCompletedService extends IntentService
   }
 
   @Override
-  protected void onHandleIntent(@Nullable Intent intent)
+  protected void onHandleWork(@NonNull Intent intent)
   {
     DownloadManager manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
     if (manager == null)

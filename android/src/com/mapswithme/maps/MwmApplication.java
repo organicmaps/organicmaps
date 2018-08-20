@@ -44,8 +44,9 @@ import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
-import com.pushwoosh.PushManager;
+import com.pushwoosh.Pushwoosh;
 import io.fabric.sdk.android.Fabric;
+import ru.mail.libnotify.api.NotificationApi;
 import ru.mail.libnotify.api.NotificationFactory;
 import ru.mail.notify.core.api.BackgroundAwakeMode;
 import ru.mail.notify.core.api.NetworkSyncMode;
@@ -66,6 +67,9 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private SubwayManager mSubwayManager;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private PushwooshHelper mPushwooshHelper;
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
@@ -269,8 +273,8 @@ public class MwmApplication extends Application
 
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
-    Editor.init();
-    UGC.init();
+    Editor.init(this);
+    UGC.init(this);
     mPlatformInitialized = true;
   }
 
@@ -370,13 +374,12 @@ public class MwmApplication extends Application
       if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
         return;
 
-      PushManager pushManager = PushManager.getInstance(this);
 
-      pushManager.onStartup(this);
+      Pushwoosh pushManager = Pushwoosh.getInstance();
       pushManager.registerForPushNotifications();
 
-      PushwooshHelper.get().setContext(this);
-      PushwooshHelper.get().synchronize();
+      NotificationApi api = NotificationFactory.get(this);
+      mPushwooshHelper = new PushwooshHelper(api);
     }
     catch(Exception e)
     {
@@ -425,10 +428,7 @@ public class MwmApplication extends Application
   {
     try
     {
-      if (values.length == 1)
-        PushwooshHelper.get().sendTag(tag, values[0]);
-      else
-        PushwooshHelper.get().sendTag(tag, values);
+      mPushwooshHelper.sendTags(tag, values);
     }
     catch(Exception e)
     {

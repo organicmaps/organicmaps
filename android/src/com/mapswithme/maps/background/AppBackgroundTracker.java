@@ -26,7 +26,7 @@ public final class AppBackgroundTracker
   private final Listeners<OnTransitionListener> mTransitionListeners = new Listeners<>();
   private final Listeners<OnVisibleAppLaunchListener> mVisibleAppLaunchListeners = new Listeners<>();
   private SparseArray<WeakReference<Activity>> mActivities = new SparseArray<>();
-  private boolean mForeground;
+  private volatile boolean mForeground;
 
   private final Runnable mTransitionProc = new Runnable()
   {

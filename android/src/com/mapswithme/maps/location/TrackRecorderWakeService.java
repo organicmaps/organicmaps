@@ -1,8 +1,9 @@
 package com.mapswithme.maps.location;
 
-import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
@@ -13,7 +14,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class TrackRecorderWakeService extends IntentService
+public class TrackRecorderWakeService extends JobIntentService
 {
   private static final String TAG = TrackRecorderWakeService.class.getSimpleName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRACK_RECORDER);
@@ -21,13 +22,8 @@ public class TrackRecorderWakeService extends IntentService
   private static TrackRecorderWakeService sService;
   private final CountDownLatch mWaitMonitor = new CountDownLatch(1);
 
-  public TrackRecorderWakeService()
-  {
-    super("TrackRecorderWakeService");
-  }
-
   @Override
-  protected final void onHandleIntent(Intent intent)
+  protected void onHandleWork(@NonNull Intent intent)
   {
     String msg = "onHandleIntent: " + intent + " app in background = "
                  + !MwmApplication.backgroundTracker().isForeground();
@@ -58,20 +54,14 @@ public class TrackRecorderWakeService extends IntentService
     }
 
     TrackRecorder.onServiceStopped();
-    WakefulBroadcastReceiver.completeWakefulIntent(intent);
   }
 
-  public static void start()
+  public static void start(@NonNull Context context)
   {
-    LOGGER.d(TAG, "SVC.start()");
-
-    synchronized (sLock)
-    {
-      if (sService == null)
-        WakefulBroadcastReceiver.startWakefulService(MwmApplication.get(), new Intent(MwmApplication.get(), TrackRecorderWakeService.class));
-      else
-        LOGGER.d(TAG, "SVC.start() SKIPPED because (sService != null)");
-    }
+    Context app = context.getApplicationContext();
+    Intent intent = new Intent(app, TrackRecorderWakeService.class);
+    final int jobId = TrackRecorderWakeService.class.hashCode();
+    JobIntentService.enqueueWork(app, TrackRecorderWakeService.class, jobId, intent);
   }
 
   public static void stop()

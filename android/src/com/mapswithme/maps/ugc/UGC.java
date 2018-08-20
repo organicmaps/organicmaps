@@ -1,5 +1,6 @@
 package com.mapswithme.maps.ugc;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
@@ -33,17 +34,6 @@ public class UGC
   static final int RATING_EXCELLENT = 5;
   static final int RATING_COMING_SOON = 6;
 
-  private static final AppBackgroundTracker.OnTransitionListener UPLOADER =
-      new AppBackgroundTracker.OnTransitionListener()
-  {
-    @Override
-    public void onTransit(boolean foreground)
-    {
-      if (!foreground)
-        WorkerService.startActionUploadUGC();
-    }
-  };
-
   @NonNull
   private final Rating[] mRatings;
   @Nullable
@@ -53,9 +43,10 @@ public class UGC
   @Nullable
   private static UGCListener mListener;
 
-  public static void init()
+  public static void init(final @NonNull Context context)
   {
-    MwmApplication.backgroundTracker().addListener(UPLOADER);
+    final AppBackgroundTracker.OnTransitionListener listener = new UploadUgcTransitionListener(context);
+    MwmApplication.backgroundTracker().addListener(listener);
   }
 
   private UGC(@NonNull Rating[] ratings, float averageRating, @Nullable Review[] reviews,
@@ -271,5 +262,24 @@ public class UGC
   {
     void onUGCReceived(@Nullable UGC ugc, @Nullable UGCUpdate ugcUpdate, @Impress int impress,
                        @NonNull String rating);
+  }
+
+  private static class UploadUgcTransitionListener implements AppBackgroundTracker.OnTransitionListener
+  {
+    @NonNull
+    private final Context mContext;
+
+    UploadUgcTransitionListener(@NonNull Context context)
+    {
+      mContext = context;
+    }
+
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (foreground)
+        return;
+      WorkerService.startActionUploadUGC(mContext);
+    }
   }
 }

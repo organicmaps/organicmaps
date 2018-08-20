@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.AppBackgroundTracker;
@@ -35,8 +35,7 @@ public final class TrackRecorder
     }
   };
 
-  private static Boolean sEnableLogging;
-  @Nullable
+  @NonNull
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRACK_RECORDER);
 
   private static final LocationListener sLocationListener = new LocationListener.Simple()
@@ -135,14 +134,14 @@ public final class TrackRecorder
     nativeSetDuration(hours);
   }
 
-  static void onWakeAlarm()
+  static void onWakeAlarm(@NonNull Context context)
   {
     LOGGER.d(TAG, "onWakeAlarm(). Enabled: " + nativeIsEnabled());
 
     UiThread.cancelDelayedTasks(sStartupAwaitProc);
 
     if (nativeIsEnabled() && !MwmApplication.backgroundTracker().isForeground())
-      TrackRecorderWakeService.start();
+      TrackRecorderWakeService.start(context);
     else
       stop();
   }

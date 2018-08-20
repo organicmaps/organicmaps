@@ -1,5 +1,6 @@
 package com.mapswithme.maps.editor;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Size;
@@ -36,16 +37,6 @@ public final class Editor
   public static final int MODIFIED = 3;
   public static final int CREATED = 4;
 
-  private static final AppBackgroundTracker.OnTransitionListener sOsmUploader = new AppBackgroundTracker.OnTransitionListener()
-  {
-    @Override
-    public void onTransit(boolean foreground)
-    {
-      if (!foreground)
-        WorkerService.startActionUploadOsmChanges();
-    }
-  };
-
   private Editor() {}
 
   static
@@ -55,9 +46,9 @@ public final class Editor
 
   private static native void nativeInit();
 
-  public static void init()
+  public static void init(@NonNull Context context)
   {
-    MwmApplication.backgroundTracker().addListener(sOsmUploader);
+    MwmApplication.backgroundTracker().addListener(new OsmUploadListener(context));
   }
 
   @WorkerThread
@@ -189,4 +180,24 @@ public final class Editor
   @FeatureStatus
   public static native int nativeGetMapObjectStatus();
   public static native boolean nativeIsMapObjectUploaded();
+
+  private static class OsmUploadListener implements AppBackgroundTracker.OnTransitionListener
+  {
+    @NonNull
+    private final Context mContext;
+
+    OsmUploadListener(@NonNull Context context)
+    {
+      mContext = context.getApplicationContext();
+    }
+
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (foreground)
+        return;
+
+      WorkerService.startActionUploadOsmChanges(mContext);
+    }
+  }
 }
