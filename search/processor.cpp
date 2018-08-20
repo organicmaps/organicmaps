@@ -275,8 +275,12 @@ void Processor::SetQuery(string const & query)
 
   // Get preferred types to show in results.
   m_preferredTypes.clear();
-  ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
-                      [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
+  auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
+  m_isCategorialRequest = FillCategories(tokenSlice, GetCategoryLocales(), m_categories, m_preferredTypes);
+
+  if (!m_isCategorialRequest)
+    ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
+
   my::SortUnique(m_preferredTypes);
 }
 
@@ -501,13 +505,10 @@ void Processor::InitParams(QueryParams & params) const
     params.GetTypeIndices(i).push_back(index);
   };
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-  vector<uint32_t> types;
-  bool const isCategorialRequest =
-      FillCategories(tokenSlice, GetCategoryLocales(), m_categories, types);
-  params.SetCategorialRequest(isCategorialRequest);
-  if (isCategorialRequest)
+  params.SetCategorialRequest(m_isCategorialRequest);
+  if (m_isCategorialRequest)
   {
-    for (auto const type : types)
+    for (auto const type : m_preferredTypes)
     {
       uint32_t const index = c.GetIndexForType(type);
       for (size_t i = 0; i < tokenSlice.Size(); ++i)

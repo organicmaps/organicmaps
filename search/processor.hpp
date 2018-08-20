@@ -122,6 +122,7 @@ protected:
   std::string m_query;
   QueryTokens m_tokens;
   strings::UniString m_prefix;
+  bool m_isCategorialRequest;
   std::vector<uint32_t> m_preferredTypes;
 
   m2::RectD m_viewport;
