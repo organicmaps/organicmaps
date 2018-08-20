@@ -89,6 +89,7 @@ public:
   std::string GetCatalogDeeplink() const;
 
   void SetAuthor(std::string const & name, std::string const & id);
+  void SetAccessRules(kml::AccessRules accessRules);
 
 private:
   void SetDirty() override;

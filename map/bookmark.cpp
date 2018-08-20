@@ -276,6 +276,15 @@ void BookmarkCategory::SetAuthor(std::string const & name, std::string const & i
   m_data.m_authorId = id;
 }
 
+void BookmarkCategory::SetAccessRules(kml::AccessRules accessRules)
+{
+  if (m_data.m_accessRules == accessRules)
+    return;
+
+  SetDirty();
+  m_data.m_accessRules = accessRules;
+}
+
 // static
 kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 {

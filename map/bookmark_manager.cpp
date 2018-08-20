@@ -1536,6 +1536,17 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     group->SetFileName(fileName);
     group->SetServerId(fileData.m_serverId);
 
+    // Restore sensitive info from the cache.
+    auto const cacheIt = m_restoringCache.find(fileName);
+    if (cacheIt != m_restoringCache.end() &&
+        (group->GetServerId().empty() || group->GetServerId() == cacheIt->second.m_serverId) &&
+        cacheIt->second.m_accessRules != group->GetCategoryData().m_accessRules)
+    {
+      group->SetServerId(cacheIt->second.m_serverId);
+      group->SetAccessRules(cacheIt->second.m_accessRules);
+      group->EnableAutoSave(autoSave);
+    }
+
     for (auto & bmData : fileData.m_bookmarksData)
     {
       auto * bm = CreateBookmark(std::move(bmData));
@@ -1552,6 +1563,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 
     UserMarkIdStorage::Instance().EnableSaving(true);
   }
+  m_restoringCache.clear();
 
   NotifyChanges();
 
@@ -2010,7 +2022,23 @@ void BookmarkManager::OnRestoreRequested(Cloud::RestoringRequestResult result,
 
 void BookmarkManager::OnRestoredFilesPrepared()
 {
-  // This method is always called from UI-thread.
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  // Here we save some sensitive info, which must not be lost after restoring.
+  for (auto groupId : m_bmGroupsIdList)
+  {
+    auto * group = GetBmCategory(groupId);
+    auto const & data = group->GetCategoryData();
+    if (m_user.GetUserId() == data.m_authorId && !group->GetServerId().empty() &&
+        data.m_accessRules != kml::AccessRules::Local)
+    {
+      RestoringCache cache;
+      cache.m_serverId = group->GetServerId();
+      cache.m_accessRules = data.m_accessRules;
+      m_restoringCache.insert({group->GetFileName(), std::move(cache)});
+    }
+  }
+
   ClearCategories();
   CheckAndResetLastIds();
 

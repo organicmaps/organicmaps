@@ -541,6 +541,13 @@ private:
   OnCatalogImportStartedHandler m_onCatalogImportStarted;
   OnCatalogImportFinishedHandler m_onCatalogImportFinished;
 
+  struct RestoringCache
+  {
+    std::string m_serverId;
+    kml::AccessRules m_accessRules;
+  };
+  std::map<std::string, RestoringCache> m_restoringCache;
+
   bool m_testModeEnabled = false;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
