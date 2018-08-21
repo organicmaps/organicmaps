@@ -450,11 +450,12 @@
     </receiver>
 
     <service
-        android:name="com.mapswithme.maps.background.WorkerService"
-        android:exported="false"/>
-
+      android:name="com.mapswithme.maps.background.WorkerService"
+      android:permission="android.permission.BIND_JOB_SERVICE"
+      android:exported="false"/>
     <service
       android:name="com.mapswithme.maps.background.NotificationService"
+      android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="false"/>
 
     <receiver android:name="com.mapswithme.maps.location.TrackRecorderWakeReceiver">
@@ -464,6 +465,7 @@
     </receiver>
 
     <service android:name="com.mapswithme.maps.location.TrackRecorderWakeService"
+             android:permission="android.permission.BIND_JOB_SERVICE"
              android:exported="false"/>
 
     <receiver
@@ -517,6 +519,7 @@
 
     <service
       android:name="com.mapswithme.maps.bookmarks.SystemDownloadCompletedService"
+      android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="false">
     </service>
 
