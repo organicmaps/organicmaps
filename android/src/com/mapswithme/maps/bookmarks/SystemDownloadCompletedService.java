@@ -89,7 +89,8 @@ public class SystemDownloadCompletedService extends JobIntentService
   @Nullable
   private static String getFilePath(@NonNull Cursor cursor) throws IOException
   {
-    return getColumnValue(cursor, DownloadManager.COLUMN_LOCAL_FILENAME);
+    String localUri = getColumnValue(cursor, DownloadManager.COLUMN_LOCAL_URI);
+    return localUri == null ? null : Uri.parse(localUri).getPath();
   }
 
   @Nullable
