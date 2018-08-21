@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Pair;
+
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.HttpClient;

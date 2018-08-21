@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.android.gms.gcm.GcmReceiver;
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.pushwoosh.PushGcmIntentService;
@@ -46,7 +47,7 @@ public class GCMListenerRouterService extends GcmListenerService
   }
 
   @Nullable
-  private static String getPWProjectId(@NonNull Context context)
+  public static String getPWProjectId(@NonNull Context context)
   {
     PackageManager pMngr = context.getPackageManager();
     try
@@ -56,7 +57,7 @@ public class GCMListenerRouterService extends GcmListenerService
       Bundle metaData = ai.metaData;
       if (metaData == null)
         return null;
-      return metaData.getString("PW_PROJECT_ID");
+      return metaData.getString(BuildConfig.PW_PROJECT_ID);
     }
     catch (PackageManager.NameNotFoundException e)
     {

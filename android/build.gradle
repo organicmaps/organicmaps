@@ -151,7 +151,11 @@ android {
     pwProps.load(new FileInputStream("${projectDir}/pushwoosh.properties"));
     manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
-    manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
+    def pwProjectIdKey = 'PW_PROJECT_ID'
+    manifestPlaceholders += [pwProjectId : pwProps['pwProjectId']]
+    manifestPlaceholders += ['PW_PROJECT_ID_KEY' : pwProjectIdKey]
+    resValue 'string', 'pw_project_id', pwProps['pwProjectId']
+    buildConfigField "String", 'PW_PROJECT_ID',  "\"" + pwProjectIdKey + "\""
 
     // Libnotify keys
     Properties lnProps = new Properties()

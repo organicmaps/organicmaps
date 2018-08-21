@@ -83,8 +83,8 @@
         android:value="${PW_APPID}"/>
 
     <meta-data
-        android:name="PW_PROJECT_ID"
-        android:value="${PW_PROJECT_ID}"/>
+        android:name="${PW_PROJECT_ID_KEY}"
+        android:value="@string/pw_project_id"/>
 
     <meta-data
       android:name="ru.mail.libnotify.application_name"
