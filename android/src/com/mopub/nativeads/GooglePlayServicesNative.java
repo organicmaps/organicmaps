@@ -3,6 +3,7 @@ package com.mopub.nativeads;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -96,6 +97,7 @@ public class GooglePlayServicesNative extends CustomEventNative {
         private String mTitle;
         private String mText;
         private String mMainImageUrl;
+        @Nullable
         private String mIconImageUrl;
         private String mCallToAction;
         private Double mStarRating;
@@ -151,8 +153,9 @@ public class GooglePlayServicesNative extends CustomEventNative {
         }
 
         /**
-         * @return the icon image URL associated with the native ad.
+         * @return the icon image URL associated with the native ad or null.
          */
+        @Nullable
         public String getIconImageUrl() {
             return mIconImageUrl;
         }
@@ -216,7 +219,7 @@ public class GooglePlayServicesNative extends CustomEventNative {
         /**
          * @param iconImageUrl the icon image URL to be set.
          */
-        public void setIconImageUrl(String iconImageUrl) {
+        public void setIconImageUrl(@Nullable String iconImageUrl) {
             this.mIconImageUrl = iconImageUrl;
         }
 
@@ -359,8 +362,10 @@ public class GooglePlayServicesNative extends CustomEventNative {
 
                       com.google.android.gms.ads.formats.NativeAd.Image logoImage =
                         nativeContentAd.getLogo();
-                      // Assuming that the URI provided is an URL.
-                      imageUrls.add(logoImage.getUri().toString());
+                      if (logoImage != null) {
+                          // Assuming that the URI provided is an URL.
+                          imageUrls.add(logoImage.getUri().toString());
+                      }
                       preCacheImages(context, imageUrls);
                   }
               }).forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
@@ -497,10 +502,13 @@ public class GooglePlayServicesNative extends CustomEventNative {
          * create a {@link GooglePlayServicesNativeAd}, {@code false} otherwise.
          */
         private boolean isValidContentAd(NativeContentAd contentAd) {
+            // No need to check the logo in this method, because it is optional according to AdMob
+            // policies. Please see https://support.google.com/admob/answer/6240809?hl=en&ref_topic=7384666.
+            // That's why Mopub code should also treat this parameter as optional, otherwise
+            // we will be losing impressions. (it's official answer from the Google)
             return (contentAd.getHeadline() != null && contentAd.getBody() != null
                     && contentAd.getImages() != null && contentAd.getImages().size() > 0
-                    && contentAd.getImages().get(0) != null && contentAd.getLogo() != null
-                    && contentAd.getCallToAction() != null);
+                    && contentAd.getImages().get(0) != null && contentAd.getCallToAction() != null);
         }
 
         /**
@@ -583,8 +591,9 @@ public class GooglePlayServicesNative extends CustomEventNative {
             setMainImageUrl(images.get(0).getUri().toString());
 
             com.google.android.gms.ads.formats.NativeAd.Image logo = contentAd.getLogo();
-            setIconImageUrl(logo.getUri().toString());
-
+            if (logo != null) {
+                setIconImageUrl(logo.getUri().toString());
+            }
             setCallToAction(contentAd.getCallToAction().toString());
 
             setTitle(contentAd.getHeadline().toString());
