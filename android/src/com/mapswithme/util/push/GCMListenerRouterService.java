@@ -1,19 +1,18 @@
 package com.mapswithme.util.push;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.JobIntentService;
 import android.text.TextUtils;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.pushwoosh.internal.utils.NotificationRegistrarHelper;
 import ru.mail.libnotify.api.NotificationFactory;
 
 // It's temporary class, it may be deleted along with Pushwoosh sdk.
@@ -37,7 +36,7 @@ public class GCMListenerRouterService extends GcmListenerService
 
     String pwProjectId = getPWProjectId(getApplicationContext());
     if (!TextUtils.isEmpty(pwProjectId) && pwProjectId.contains(from)) {
-      dispatchMessage(data);
+      NotificationRegistrarHelper.handleMessage(data);
       return;
     }
 
@@ -62,13 +61,5 @@ public class GCMListenerRouterService extends GcmListenerService
       LOGGER.e(TAG, "Failed to get push woosh projectId: ", e);
     }
     return null;
-  }
-
-  private void dispatchMessage(@NonNull Bundle data) {
-    Intent intent = new Intent();
-    intent.putExtras(data);
-    intent.setAction("com.google.android.c2dm.intent.RECEIVE");
-    int jobId = GcmRouterJobIntentService.class.hashCode();
-    JobIntentService.enqueueWork(this, GcmRouterJobIntentService.class, jobId, intent);
   }
 }

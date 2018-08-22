@@ -29,7 +29,7 @@ public class GcmInstanceIDRouterListenerService extends InstanceIDListenerServic
     }
     catch (IOException e)
     {
-      LOGGER.d(TAG, String.valueOf(e));
+      LOGGER.e(TAG, "Failed to obtained refreshed token: ", e);
     }
   }
 

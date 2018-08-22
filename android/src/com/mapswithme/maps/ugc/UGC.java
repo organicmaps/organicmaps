@@ -279,6 +279,7 @@ public class UGC
     {
       if (foreground)
         return;
+
       WorkerService.startActionUploadUGC(mContext);
     }
   }

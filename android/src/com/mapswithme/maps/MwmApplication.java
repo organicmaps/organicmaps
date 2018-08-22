@@ -374,7 +374,6 @@ public class MwmApplication extends Application
       if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
         return;
 
-
       Pushwoosh pushManager = Pushwoosh.getInstance();
       pushManager.registerForPushNotifications();
 
