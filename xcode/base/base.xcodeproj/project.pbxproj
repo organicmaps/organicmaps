@@ -62,6 +62,7 @@
 		39FD27381CC65AD000AFF551 /* timegm_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E21CC65A0E00AFF551 /* timegm_test.cpp */; };
 		39FD27391CC65AD000AFF551 /* timer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26E31CC65A0E00AFF551 /* timer_test.cpp */; };
 		39FD273B1CC65B1000AFF551 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675341771A3F57BF00A0A8C3 /* libbase.a */; };
+		3D1BE646212D775500ACD94A /* atomic_shared_ptr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */; };
 		3D3731FE1F9A445500D2121B /* url_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D3731FC1F9A445400D2121B /* url_helpers.cpp */; };
 		3D3731FF1F9A445500D2121B /* url_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D3731FD1F9A445500D2121B /* url_helpers.hpp */; };
 		3D74EF101F8B902C0081202C /* move_to_front.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF0A1F8B902A0081202C /* move_to_front.hpp */; };
@@ -206,6 +207,7 @@
 		39FD273D1CC65B1000AFF551 /* libplatform.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplatform.a; path = "../../../omim-xcode-build/Debug/libplatform.a"; sourceTree = "<group>"; };
 		39FD27401CC65B2800AFF551 /* libindexer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindexer.a; path = "../../../omim-xcode-build/Debug/libindexer.a"; sourceTree = "<group>"; };
 		39FD27421CC65B4800AFF551 /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcoding.a; path = "../../../omim-xcode-build/Debug/libcoding.a"; sourceTree = "<group>"; };
+		3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = atomic_shared_ptr.hpp; sourceTree = "<group>"; };
 		3D3731FC1F9A445400D2121B /* url_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = url_helpers.cpp; sourceTree = "<group>"; };
 		3D3731FD1F9A445500D2121B /* url_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = url_helpers.hpp; sourceTree = "<group>"; };
 		3D74EF0A1F8B902A0081202C /* move_to_front.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = move_to_front.hpp; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 		675341791A3F57BF00A0A8C3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */,
 				3917FA5E211E00C300937DF4 /* suffix_array.hpp */,
 				3917FA5A211E00BA00937DF4 /* pprof.cpp */,
 				3917FA5B211E00BB00937DF4 /* pprof.hpp */,
@@ -532,6 +535,7 @@
 				3D7815731F3A145F0068B6AC /* task_loop.hpp in Headers */,
 				675341F51A3F57E400A0A8C3 /* set_operations.hpp in Headers */,
 				675342041A3F57E400A0A8C3 /* strings_bundle.hpp in Headers */,
+				3D1BE646212D775500ACD94A /* atomic_shared_ptr.hpp in Headers */,
 				672DD4C81E0425600078E13C /* stl_helpers.hpp in Headers */,
 				675341CE1A3F57E400A0A8C3 /* base.hpp in Headers */,
 				3D74EF101F8B902C0081202C /* move_to_front.hpp in Headers */,

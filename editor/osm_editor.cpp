@@ -422,7 +422,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
       if (AreFeaturesEqualButStreet(fti.m_feature, feature) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
-        return NothingWasChanged;
+        return SaveResult::NothingWasChanged;
       }
     }
   }
@@ -454,7 +454,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
       if (AreFeaturesEqualButStreet(fti.m_feature, feature) &&
           emo.GetStreet().m_defaultName == editedFeatureInfo.m_street)
       {
-        return NothingWasChanged;
+        return SaveResult::NothingWasChanged;
       }
 
       // A feature was modified and equals to the one in mwm (changes are rolled back).
@@ -464,9 +464,9 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         if (editedFeatureInfo.m_uploadStatus != kUploaded)
         {
           if (!RemoveFeature(fid))
-            return SavingError;
+            return SaveResult::SavingError;
 
-          return SavedSuccessfully;
+          return SaveResult::SavedSuccessfully;
         }
       }
 
@@ -476,7 +476,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     // A feature was NOT edited before and current changes are useless.
     else if (sameAsInMWM)
     {
-      return NothingWasChanged;
+      return SaveResult::NothingWasChanged;
     }
 
     fti.m_status = FeatureStatus::Modified;
@@ -495,7 +495,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   bool const savedSuccessfully = SaveTransaction(editableFeatures);
 
   Invalidate();
-  return savedSuccessfully ? SavedSuccessfully : NoFreeSpaceError;
+  return savedSuccessfully ? SaveResult::SavedSuccessfully : SaveResult::NoFreeSpaceError;
 }
 
 bool Editor::RollBackChanges(FeatureID const & fid)
@@ -881,12 +881,14 @@ void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & u
   auto editableFeatures = make_shared<FeaturesContainer>(*features);
 
   auto id = editableFeatures->find(fid.m_mwmId);
+  // Rare case: feature was deleted at the time of changes uploading.
   if (id == editableFeatures->end())
-    return;  // rare case: feature was deleted at the time of changes uploading
+    return;
 
   auto index = id->second.find(fid.m_index);
+  // Rare case: feature was deleted at the time of changes uploading.
   if (index == id->second.end())
-    return;  // rare case: feature was deleted at the time of changes uploading
+    return;
 
   auto & fti = index->second;
   fti.m_uploadAttemptTimestamp = uploadInfo.m_uploadAttemptTimestamp;
@@ -1300,4 +1302,16 @@ const char * const Editor::kPlaceDoesNotExistMessage =
     "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: "
     "a user reports a POI that is visible on a map (which can be outdated), but cannot be found on "
     "the ground.";
+
+string DebugPrint(Editor::SaveResult const saveResult)
+{
+  switch (saveResult)
+  {
+    case Editor::SaveResult::NothingWasChanged: return "NothingWasChanged";
+    case Editor::SaveResult::SavedSuccessfully: return "SavedSuccessfully";
+    case Editor::SaveResult::NoFreeSpaceError: return "NoFreeSpaceError";
+    case Editor::SaveResult::NoUnderlyingMapError: return "NoUnderlyingMapError";
+    case Editor::SaveResult::SavingError: return "SavingError";
+  }
+}
 }  // namespace osm

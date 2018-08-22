@@ -100,7 +100,7 @@ void ReverseGeocoder::GetNearbyStreets(FeatureType & ft, vector<Street> & street
   GetNearbyStreets(ft.GetID().m_mwmId, feature::GetCenter(ft), streets);
 }
 
-void ReverseGeocoder::GetOriginalNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
+void ReverseGeocoder::GetNearbyOriginalStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                                                vector<Street> & streets) const
 {
   auto const fillStreets = [](MwmSet::MwmHandle && handle, m2::RectD const & rect,
@@ -160,12 +160,12 @@ ReverseGeocoder::GetNearbyFeatureStreets(FeatureType & ft) const
 }
 
 pair<vector<ReverseGeocoder::Street>, uint32_t>
-ReverseGeocoder::GetOriginalNearbyFeatureStreets(FeatureType & ft) const
+ReverseGeocoder::GetNearbyOriginalFeatureStreets(FeatureType & ft) const
 {
   pair<vector<ReverseGeocoder::Street>, uint32_t> result;
 
   ASSERT(ft.GetID().IsValid(), ());
-  GetOriginalNearbyStreets(ft.GetID().m_mwmId, feature::GetCenter(ft), result.first);
+  GetNearbyOriginalStreets(ft.GetID().m_mwmId, feature::GetCenter(ft), result.first);
 
   HouseTable table(m_dataSource);
   if (!table.Get(ft.GetID(), result.second))

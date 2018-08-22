@@ -60,21 +60,22 @@ public:
   {
     m_allowSave = allow;
   }
+
   // StorageBase overrides:
   bool Save(pugi::xml_document const & doc) override
   {
-    if (m_allowSave)
-      return InMemoryStorage::Save(doc);
+    if (!m_allowSave)
+      return false;
 
-    return false;
+    return InMemoryStorage::Save(doc);
   }
 
   bool Reset() override
   {
-    if (m_allowSave)
-      return InMemoryStorage::Reset();
+    if (!m_allowSave)
+      return false;
 
-    return false;
+    return InMemoryStorage::Reset();
   }
 
 private:
@@ -90,15 +91,15 @@ public:
     editor.SetStorageForTesting(unique_ptr<OptionalSaveStorage>(m_storage));
   }
 
-  void AllowSave(bool allow)
-  {
-    m_storage->AllowSave(allow);
-  }
-
   ~ScopedOptionalSaveStorage()
   {
     auto & editor = osm::Editor::Instance();
     editor.SetStorageForTesting(make_unique<editor::InMemoryStorage>());
+  }
+
+  void AllowSave(bool allow)
+  {
+    m_storage->AllowSave(allow);
   }
 
 private:

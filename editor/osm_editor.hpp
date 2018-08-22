@@ -70,7 +70,7 @@ public:
 
   using FinishUploadCallback = function<void(UploadResult)>;
 
-  enum SaveResult
+  enum class SaveResult
   {
     NothingWasChanged,
     SavedSuccessfully,
@@ -270,4 +270,6 @@ private:
 
   DECLARE_THREAD_CHECKER(MainThreadChecker);
 };  // class Editor
+
+string DebugPrint(Editor::SaveResult const saveResult);
 }  // namespace osm

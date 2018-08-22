@@ -4,6 +4,7 @@ set(
   SRC
   array_adapters.hpp
   assert.hpp
+  atomic_shared_ptr.hpp
   base.cpp
   base.hpp
   bits.hpp

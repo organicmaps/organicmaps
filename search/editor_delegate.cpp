@@ -29,7 +29,7 @@ unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid
 string EditorDelegate::GetOriginalFeatureStreet(FeatureType & ft) const
 {
   search::ReverseGeocoder const coder(m_dataSource);
-  auto const streets = coder.GetOriginalNearbyFeatureStreets(ft);
+  auto const streets = coder.GetNearbyOriginalFeatureStreets(ft);
   if (streets.second < streets.first.size())
     return streets.first[streets.second].m_name;
   return {};

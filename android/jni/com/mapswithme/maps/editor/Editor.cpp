@@ -245,12 +245,12 @@ Java_com_mapswithme_maps_editor_Editor_nativeSaveEditedFeature(JNIEnv *, jclass)
 {
   switch (g_framework->NativeFramework()->SaveEditedMapObject(g_editableMapObject))
   {
-  case osm::Editor::NothingWasChanged:
-  case osm::Editor::SavedSuccessfully:
+  case osm::Editor::SaveResult::NothingWasChanged:
+  case osm::Editor::SaveResult::SavedSuccessfully:
     return true;
-  case osm::Editor::NoFreeSpaceError:
-  case osm::Editor::NoUnderlyingMapError:
-  case osm::Editor::SavingError:
+  case osm::Editor::SaveResult::NoFreeSpaceError:
+  case osm::Editor::SaveResult::NoUnderlyingMapError:
+  case osm::Editor::SaveResult::SavingError:
     return false;
   }
 }

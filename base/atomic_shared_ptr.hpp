@@ -8,7 +8,7 @@ namespace base
 {
 // Template which provides methods for concurrently using shared pointers.
 template <typename T>
-class AtomicSharedPtr
+class AtomicSharedPtr final
 {
 public:
   AtomicSharedPtr() = default;

@@ -18,6 +18,7 @@ public:
 };
 
 // Class which saves/loads edits to/from local file.
+// Note: this class IS thread-safe.
 class LocalStorage : public StorageBase
 {
 public:
@@ -31,6 +32,7 @@ private:
 };
 
 // Class which saves/loads edits to/from xml_document class instance.
+// Note: this class is NOT thread-safe.
 class InMemoryStorage : public StorageBase
 {
 public:

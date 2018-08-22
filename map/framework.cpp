@@ -392,7 +392,9 @@ Framework::Framework(FrameworkParams const & params)
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
-  // Editor should be initialized before search to use correct thread for write operations.
+  // Editor should be initialized from the main thread to set its ThreadChecker.
+  // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
+  // to a wrong thread. So editor should be initialiazed before serach.
   osm::Editor & editor = osm::Editor::Instance();
 
   // Restore map style before classificator loading
@@ -3025,7 +3027,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     if (!isCreatedFeature)
     {
       if (!g.GetOriginalFeatureByIndex(emo.GetID().m_index, originalFeature))
-        return osm::Editor::NoUnderlyingMapError;
+        return osm::Editor::SaveResult::NoUnderlyingMapError;
     }
     else
     {

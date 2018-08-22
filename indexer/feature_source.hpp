@@ -41,6 +41,7 @@ public:
 
   virtual bool GetModifiedFeature(uint32_t index, FeatureType & feature) const;
 
+  // Runs |fn| for each feature, that is not present in the mwm. 
   virtual void ForEachAdditionalFeature(m2::RectD const & rect, int scale,
                                         std::function<void(uint32_t)> const & fn) const;
 
