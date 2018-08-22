@@ -709,19 +709,33 @@ using namespace osm_auth_ios;
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
 {
-  completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+  if ([LocalNotificationManager isLocalNotification:notification])
+    completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+  else
+    [MWMPushNotifications userNotificationCenter:center
+                         willPresentNotification:notification
+                           withCompletionHandler:completionHandler];
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)(void))completionHandler
 {
-  if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier])
+  if ([LocalNotificationManager isLocalNotification:response.notification])
   {
-    auto userInfo = response.notification.request.content.userInfo;
-    [[LocalNotificationManager sharedManager] processNotification:userInfo onLaunch:NO];
+    if ([response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier])
+    {
+      auto userInfo = response.notification.request.content.userInfo;
+      [[LocalNotificationManager sharedManager] processNotification:userInfo onLaunch:NO];
+    }
+    completionHandler();
   }
-  completionHandler();
+  else
+  {
+    [MWMPushNotifications userNotificationCenter:center
+                  didReceiveNotificationResponse:response
+                           withCompletionHandler:completionHandler];
+  }
 }
 
 - (void)application:(UIApplication *)application

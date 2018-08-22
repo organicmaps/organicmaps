@@ -18,6 +18,7 @@ namespace
 {
 NSString * const kLocalNotificationNameKey = @"LocalNotificationName";
 NSString * const kUGCNotificationValue = @"UGC";
+NSString * const kDownloadNotificationValue = @"Download";
 NSString * const kDownloadMapActionKey = @"DownloadMapActionKey";
 NSString * const kDownloadMapActionName = @"DownloadMapActionName";
 NSString * const kDownloadMapCountryId = @"DownloadMapCountryId";
@@ -50,6 +51,12 @@ using namespace storage;
     manager = [[self alloc] init];
   });
   return manager;
+}
+
++ (BOOL)isLocalNotification:(UNNotification *)notification
+{
+  auto userInfo = notification.request.content.userInfo;
+  return userInfo[kLocalNotificationNameKey] != nil;
 }
 
 + (BOOL)shouldShowUGCNotification
@@ -257,7 +264,9 @@ using namespace storage;
         notification.alertBody = L(@"download_map_notification");
         notification.soundName = UILocalNotificationDefaultSoundName;
         notification.userInfo =
-            @{kDownloadMapActionKey : kDownloadMapActionName, kDownloadMapCountryId : countryId};
+            @{kLocalNotificationNameKey : kDownloadNotificationValue,
+              kDownloadMapActionKey : kDownloadMapActionName,
+              kDownloadMapCountryId : countryId};
 
         UIApplication * application = UIApplication.sharedApplication;
         [application presentLocalNotificationNow:notification];

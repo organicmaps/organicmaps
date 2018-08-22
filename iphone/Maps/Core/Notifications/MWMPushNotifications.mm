@@ -24,9 +24,6 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 {
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
 
-  if (!isIOSVersionLessThan(10))
-    [UNUserNotificationCenter currentNotificationCenter].delegate = pushManager.notificationCenterDelegate;
-
   [pushManager handlePushReceived:launchOptions];
 
   // make sure we count app open in Pushwoosh stats
@@ -75,6 +72,24 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
   NSURL * url = [NSURL URLWithString:openLink];
   [app openURL:url];
   return YES;
+}
+
++ (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+{
+  [[PushNotificationManager pushManager].notificationCenterDelegate userNotificationCenter:center
+                                                                   willPresentNotification:notification
+                                                                     withCompletionHandler:completionHandler];
+}
+
++ (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void(^)(void))completionHandler
+{
+  [[PushNotificationManager pushManager].notificationCenterDelegate userNotificationCenter:center
+                                                            didReceiveNotificationResponse:response
+                                                                     withCompletionHandler:completionHandler];
 }
 
 @end
