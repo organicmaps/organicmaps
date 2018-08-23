@@ -5,9 +5,10 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/reader.hpp"
-#include "coding/write_to_sink.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #include <map>
 
@@ -37,6 +38,24 @@ PlaceType EncodePlaceType(std::string const & place)
   return it == m.end() ? PlaceType::Unknown : it->second;
 }
 
+void RegionInfoCollector::IsoCode::SetAlpha2(std::string const & alpha2)
+{
+  CHECK_LESS_OR_EQUAL(alpha2.size() + 1, ARRAY_SIZE(m_alpha2), ());
+  std::strcpy(m_alpha2, alpha2.data());
+}
+
+void RegionInfoCollector::IsoCode::SetAlpha3(std::string const & alpha3)
+{
+  CHECK_LESS_OR_EQUAL(alpha3.size() + 1, ARRAY_SIZE(m_alpha3), ());
+  std::strcpy(m_alpha3, alpha3.data());
+}
+
+void RegionInfoCollector::IsoCode::SetNumeric(std::string const & numeric)
+{
+  CHECK_LESS_OR_EQUAL(numeric.size() + 1, ARRAY_SIZE(m_numeric), ());
+  std::strcpy(m_numeric, numeric.data());
+}
+
 RegionInfoCollector::RegionInfoCollector(std::string const & filename)
 {
   ParseFile(filename);
@@ -57,14 +76,8 @@ void RegionInfoCollector::ParseFile(std::string const & filename)
     uint8_t version;
     ReadPrimitiveFromSource(src, version);
     CHECK_EQUAL(version, kVersion, ("Versions do not match."));
-    uint32_t size;
-    ReadPrimitiveFromSource(src, size);
-    RegionData regionData;
-    for (uint32_t i = 0; i < size; ++i)
-    {
-      ReadPrimitiveFromSource(src, regionData);
-      m_map.emplace(regionData.m_osmId, regionData);
-    }
+    ReadMap(src, m_mapRegionData);
+    ReadMap(src, m_mapIsoCode);
   }
   catch (FileReader::Exception const & e)
   {
@@ -75,8 +88,16 @@ void RegionInfoCollector::ParseFile(std::string const & filename)
 void RegionInfoCollector::Add(OsmElement const & el)
 {
   RegionData regionData;
-  Fill(el, regionData);
-  m_map.emplace(el.id, regionData);
+  FillRegionData(el, regionData);
+  m_mapRegionData.emplace(el.id, regionData);
+
+  // If the region is a country.
+  if (regionData.m_adminLevel == AdminLevel::Two)
+  {
+    IsoCode isoCode;
+    FillIsoCode(el, isoCode);
+    m_mapIsoCode.emplace(el.id, isoCode);
+  }
 }
 
 void RegionInfoCollector::Save(std::string const & filename)
@@ -85,10 +106,8 @@ void RegionInfoCollector::Save(std::string const & filename)
   {
     FileWriter writer(filename);
     WriteToSink(writer, kVersion);
-    uint32_t const size = static_cast<uint32_t>(m_map.size());
-    WriteToSink(writer, size);
-    for (auto const & el : m_map)
-      writer.Write(&el.second, sizeof(el.second));
+    WriteMap(writer, m_mapRegionData);
+    WriteMap(writer, m_mapIsoCode);
   }
   catch (FileWriter::Exception const & e)
   {
@@ -96,26 +115,20 @@ void RegionInfoCollector::Save(std::string const & filename)
   }
 }
 
-RegionData & RegionInfoCollector::Get(uint64_t osmId)
+RegionDataProxy RegionInfoCollector::Get(uint64_t osmId) const
 {
-  return m_map.at(osmId);
+  return RegionDataProxy(*this, osmId);
 }
 
-RegionData const & RegionInfoCollector::Get(uint64_t osmId) const
-{
-  return m_map.at(osmId);
-}
-
-bool RegionInfoCollector::Exists(uint64_t osmId) const
-{
-  return m_map.count(osmId) != 0;
-}
-
-void RegionInfoCollector::Fill(OsmElement const & el, RegionData & rd)
+void RegionInfoCollector::FillRegionData(OsmElement const & el, RegionData & rd)
 {
   rd.m_osmId = el.id;
   rd.m_place = EncodePlaceType(el.GetTag("place"));
   auto const al = el.GetTag("admin_level");
+
+  if (al.empty())
+    return;
+
   try
   {
     auto const adminLevel = std::stoi(al);
@@ -129,5 +142,96 @@ void RegionInfoCollector::Fill(OsmElement const & el, RegionData & rd)
     LOG(::my::LWARNING, (e.what()));
     rd.m_adminLevel = AdminLevel::Unknown;
   }
+}
+
+void RegionInfoCollector::FillIsoCode(OsmElement const & el, IsoCode & rd)
+{
+  rd.m_osmId = el.id;
+  rd.SetAlpha2(el.GetTag("ISO3166-1:alpha2"));
+  rd.SetAlpha3(el.GetTag("ISO3166-1:alpha3"));
+  rd.SetNumeric(el.GetTag("ISO3166-1:numeric"));
+}
+
+RegionDataProxy::RegionDataProxy(RegionInfoCollector const & regionInfoCollector, uint64_t osmId)
+  : m_regionInfoCollector(regionInfoCollector),
+    m_osmId(osmId)
+{
+}
+
+RegionInfoCollector const & RegionDataProxy::GetCollector() const
+{
+  return m_regionInfoCollector;
+}
+
+RegionInfoCollector::MapRegionData const & RegionDataProxy::GetMapRegionData() const
+{
+  return GetCollector().m_mapRegionData;
+}
+
+RegionInfoCollector::MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
+{
+  return GetCollector().m_mapIsoCode;
+}
+
+uint64_t RegionDataProxy::GetOsmId() const
+{
+  return m_osmId;
+}
+
+AdminLevel RegionDataProxy::GetAdminLevel() const
+{
+  return GetMapRegionData().at(m_osmId).m_adminLevel;
+}
+
+PlaceType RegionDataProxy::GetPlaceType() const
+{
+  return GetMapRegionData().at(m_osmId).m_place;
+}
+
+bool RegionDataProxy::HasAdminLevel() const
+{
+  return (GetMapRegionData().count(m_osmId) != 0) &&
+      (GetMapRegionData().at(m_osmId).m_adminLevel != AdminLevel::Unknown);
+}
+
+bool RegionDataProxy::HasPlaceType() const
+{
+  return (GetMapRegionData().count(m_osmId) != 0) &&
+      (GetMapRegionData().at(m_osmId).m_place != PlaceType::Unknown);
+}
+
+bool RegionDataProxy::HasIsoCode() const
+{
+  return GetMapIsoCode().count(m_osmId) != 0;
+}
+
+bool RegionDataProxy::HasIsoCodeAlpha2() const
+{
+  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha2();
+}
+
+bool RegionDataProxy::HasIsoCodeAlpha3() const
+{
+  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha3();
+}
+
+bool RegionDataProxy::HasIsoCodeAlphaNumeric() const
+{
+  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasNumeric();
+}
+
+std::string RegionDataProxy::GetIsoCodeAlpha2() const
+{
+  return GetMapIsoCode().at(m_osmId).GetAlpha2();
+}
+
+std::string RegionDataProxy::GetIsoCodeAlpha3() const
+{
+  return GetMapIsoCode().at(m_osmId).GetAlpha3();
+}
+
+std::string RegionDataProxy::GetIsoCodeAlphaNumeric() const
+{
+  return GetMapIsoCode().at(m_osmId).GetNumeric();
 }
 }  // namespace generator

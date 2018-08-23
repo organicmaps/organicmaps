@@ -34,11 +34,13 @@ struct Region
   using BoostPolygon = boost::geometry::model::polygon<BoostPoint>;
   using BoostRect = boost::geometry::model::box<BoostPoint>;
 
-  explicit Region(FeatureBuilder1 const & fb, RegionData const & rd);
+  explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
 
   void DeletePolygon();
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   bool IsCountry() const;
+  bool HasIsoCode() const;
+  std::string GetIsoCode() const;
   bool Contains(Region const & smaller) const;
   bool ContainsRect(Region const & smaller) const;
   double CalculateOverlapPercentage(Region const & other) const;
@@ -56,7 +58,7 @@ private:
   void FillPolygon(FeatureBuilder1 const & fb);
 
   StringUtf8Multilang m_name;
-  RegionData m_regionData;
+  RegionDataProxy m_regionData;
   std::shared_ptr<BoostPolygon> m_polygon;
   BoostRect m_rect;
   double m_area;

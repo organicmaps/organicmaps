@@ -46,6 +46,7 @@ public:
   std::string ToString(Node::PtrList const & nodePtrList) override
   {
     auto const & main = nodePtrList.front()->GetData();
+    auto const & country = nodePtrList.back()->GetData();
 
     auto geometry = my::NewJSONObject();
     ToJSONObject(*geometry, "type", "Point");
@@ -72,6 +73,8 @@ public:
     ToJSONObject(*properties, "name", main.GetName());
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
+    if (country.HasIsoCode())
+      ToJSONObject(*properties, "code", country.GetIsoCode());
 
     auto feature = my::NewJSONObject();
     ToJSONObject(*feature, "type", "Feature");
@@ -171,7 +174,6 @@ RegionsBuilder::Regions ReadRegionsFromTmpMwm(feature::GenerateInfo const & genI
       return;
 
     auto const id = fb.GetMostGenericOsmId().GetSerialId();
-    CHECK(regionsInfoCollector.Exists(id), ());
     auto region = Region(fb, regionsInfoCollector.Get(id));
 
     auto const & label = region.GetLabel();
@@ -277,7 +279,7 @@ void NormalizeTree(Node::Ptr tree)
 }
 }  // namespace
 
-Region::Region(FeatureBuilder1 const & fb, RegionData const & rd)
+Region::Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
   : m_name(fb.GetParams().name),
     m_regionData(rd),
     m_polygon(std::make_shared<BoostPolygon>())
@@ -320,7 +322,17 @@ void Region::FillPolygon(FeatureBuilder1 const & fb)
 bool Region::IsCountry() const
 {
   static auto const kAdminLevelCountry = AdminLevel::Two;
-  return m_regionData.m_adminLevel == kAdminLevelCountry;
+  return m_regionData.GetAdminLevel() == kAdminLevelCountry;
+}
+
+bool Region::HasIsoCode() const
+{
+  return m_regionData.HasIsoCodeAlpha2();
+}
+
+std::string Region::GetIsoCode() const
+{
+  return m_regionData.GetIsoCodeAlpha2();
 }
 
 bool Region::Contains(Region const & smaller) const
@@ -354,35 +366,36 @@ bool Region::ContainsRect(Region const & smaller) const
 // This is used when calculating the rank.
 uint8_t Region::GetRank() const
 {
-
-  switch (m_regionData.m_adminLevel)
+  auto const adminLevel = m_regionData.GetAdminLevel();
+  auto const placeType = m_regionData.GetPlaceType();
+  switch (adminLevel)
   {
   case AdminLevel::Two:
-  case AdminLevel::Four: return static_cast<uint8_t>(m_regionData.m_adminLevel);
+  case AdminLevel::Four: return static_cast<uint8_t>(adminLevel);
   default: break;
   }
 
-  switch (m_regionData.m_place)
+  switch (placeType)
   {
   case PlaceType::City:
   case PlaceType::Town:
   case PlaceType::Village:
-  case PlaceType::Hamlet: return static_cast<uint8_t>(m_regionData.m_place);
+  case PlaceType::Hamlet: return static_cast<uint8_t>(placeType);
   default: break;
   }
 
-  switch (m_regionData.m_adminLevel)
+  switch (adminLevel)
   {
-  case AdminLevel::Six: return static_cast<uint8_t>(m_regionData.m_adminLevel);
+  case AdminLevel::Six: return static_cast<uint8_t>(adminLevel);
   default: break;
   }
 
-  switch (m_regionData.m_place)
+  switch (placeType)
   {
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood:
   case PlaceType::Locality:
-  case PlaceType::IsolatedDwelling: return static_cast<uint8_t>(m_regionData.m_place);
+  case PlaceType::IsolatedDwelling: return static_cast<uint8_t>(placeType);
   default: break;
   }
 
@@ -391,14 +404,16 @@ uint8_t Region::GetRank() const
 
 std::string Region::GetLabel() const
 {
-  switch (m_regionData.m_adminLevel)
+  auto const adminLevel = m_regionData.GetAdminLevel();
+  auto const placeType = m_regionData.GetPlaceType();
+  switch (adminLevel)
   {
   case AdminLevel::Two: return "country";
   case AdminLevel::Four: return "region";
   default: break;
   }
 
-  switch (m_regionData.m_place)
+  switch (placeType)
   {
   case PlaceType::City:
   case PlaceType::Town:
@@ -407,13 +422,13 @@ std::string Region::GetLabel() const
   default: break;
   }
 
-  switch (m_regionData.m_adminLevel)
+  switch (adminLevel)
   {
   case AdminLevel::Six: return "subregion";
   default: break;
   }
 
-  switch (m_regionData.m_place)
+  switch (placeType)
   {
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood: return "suburb";
@@ -449,7 +464,7 @@ double Region::GetArea() const
 
 uint64_t Region::GetId() const
 {
-  return m_regionData.m_osmId;
+  return m_regionData.GetOsmId();
 }
 
 RegionsBuilder::RegionsBuilder(Regions && regions)

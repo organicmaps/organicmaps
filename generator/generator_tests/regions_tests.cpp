@@ -22,7 +22,20 @@ using namespace generator::regions;
 
 namespace
 {
-RegionsBuilder::Regions MakeTestDataSet1()
+using Tags = std::vector<std::pair<std::string, std::string>>;
+
+OsmElement MakeOsmElement(uint64_t id, std::string const & adminLevel,
+                          std::string const & place = "")
+{
+  OsmElement el;
+  el.id = id;
+  el.AddTag("place", place);
+  el.AddTag("admin_level", adminLevel);
+
+  return el;
+}
+
+RegionsBuilder::Regions MakeTestDataSet1(RegionInfoCollector & collector)
 {
   RegionsBuilder::Regions regions;
   {
@@ -33,11 +46,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     fb1.AddPolygon(poly);
     fb1.SetAreaAddHoles({{{5, 8}, {7, 10}, {10, 10}, {11, 7}, {10, 4}, {7, 5}, {5, 8}}});
 
-    RegionData data;
-    data.m_osmId = 1;
-    data.m_adminLevel = AdminLevel::Two;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 1;
+    collector.Add(MakeOsmElement(id, "2"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -47,11 +58,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{5, 8}, {7, 10}, {10, 10}, {11, 7}, {10, 4}, {7, 5}, {5, 8}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 2;
-    data.m_adminLevel = AdminLevel::Two;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 2;
+    collector.Add(MakeOsmElement(id, "2"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -61,11 +70,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{0, 0}, {0, 2}, {2, 2}, {2, 0}, {0, 0}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 2;
-    data.m_adminLevel = AdminLevel::Two;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 2;
+    collector.Add(MakeOsmElement(id, "2"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -75,11 +82,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{4, 4}, {7, 5}, {10, 4}, {12, 9}, {15, 7}, {11, 2}, {4, 4}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 3;
-    data.m_adminLevel = AdminLevel::Four;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 3;
+    collector.Add(MakeOsmElement(id, "4"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -90,11 +95,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
                                {11, 7}, {10, 10}, {7, 10}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 4;
-    data.m_adminLevel = AdminLevel::Four;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 4;
+    collector.Add(MakeOsmElement(id, "4"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -105,11 +108,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
                                {7, 5}, {4, 4}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 5;
-    data.m_adminLevel = AdminLevel::Four;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 5;
+    collector.Add(MakeOsmElement(id, "4"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -119,11 +120,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{4, 4}, {2, 8}, {3, 12}, {4, 10}, {5, 10}, {5, 8}, {7, 5}, {4, 4}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 6;
-    data.m_adminLevel = AdminLevel::Six;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 6;
+    collector.Add(MakeOsmElement(id, "6"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -133,11 +132,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{3, 12}, {8, 15}, {9, 12}, {7, 10}, {5, 8}, {5, 10}, {4, 10}, {3, 12}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 7;
-    data.m_adminLevel = AdminLevel::Six;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 7;
+    collector.Add(MakeOsmElement(id, "6"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   {
@@ -147,11 +144,9 @@ RegionsBuilder::Regions MakeTestDataSet1()
     vector<m2::PointD> poly = {{0, 0}, {0, 1}, {1, 1}, {1, 0}, {0, 0}};
     fb1.AddPolygon(poly);
 
-    RegionData data;
-    data.m_osmId = 8;
-    data.m_adminLevel = AdminLevel::Four;
-
-    regions.emplace_back(Region(fb1, data));
+    uint64_t const id  = 8;
+    collector.Add(MakeOsmElement(id, "4"));
+    regions.emplace_back(Region(fb1, collector.Get(id)));
   }
 
   return regions;
@@ -187,7 +182,8 @@ bool ExistsName(std::vector<std::string> const & coll, std::string const name)
 
 UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 {
-  RegionsBuilder builder(MakeTestDataSet1());
+  RegionInfoCollector collector;
+  RegionsBuilder builder(MakeTestDataSet1(collector));
   auto const countryNames = builder.GetCountryNames();
   TEST_EQUAL(countryNames.size(), 2, ());
   TEST(std::count(std::begin(countryNames), std::end(countryNames), "Country_1"), ());
@@ -196,7 +192,8 @@ UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 
 UNIT_TEST(RegionsBuilderTest_GetCountries)
 {
-  RegionsBuilder builder(MakeTestDataSet1());
+  RegionInfoCollector collector;
+  RegionsBuilder builder(MakeTestDataSet1(collector));
   auto const countries = builder.GetCountries();
   TEST_EQUAL(countries.size(), 3, ());
   TEST_EQUAL(std::count_if(std::begin(countries), std::end(countries),
@@ -207,8 +204,9 @@ UNIT_TEST(RegionsBuilderTest_GetCountries)
 
 UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
 {
+  RegionInfoCollector collector;
   std::vector<std::string> bankOfNames;
-  RegionsBuilder builder(MakeTestDataSet1(), std::make_unique<Helper>(bankOfNames));
+  RegionsBuilder builder(MakeTestDataSet1(collector), std::make_unique<Helper>(bankOfNames));
 
   auto const countryTrees = builder.GetCountryTrees();
   for (auto const & countryName : builder.GetCountryNames())
