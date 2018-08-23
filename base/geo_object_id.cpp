@@ -1,6 +1,7 @@
 #include "base/geo_object_id.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
 #include <sstream>
 
@@ -70,6 +71,7 @@ GeoObjectId MakeOsmRelation(uint64_t id)
 
 std::string DebugPrint(GeoObjectId::Type const & t)
 {
+  UNUSED_VALUE(kReservedMask);
   switch (t)
   {
   case GeoObjectId::Type::Invalid: return "Invalid";
