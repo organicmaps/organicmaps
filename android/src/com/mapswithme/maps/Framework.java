@@ -100,6 +100,17 @@ public class Framework
   //TODO(@alexzatsepin): remove TOKEN_MAPSME from this list.
   public static final int TOKEN_MAPSME = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ SUBSCRIPTION_ACTIVE, SUBSCRIPTION_NOT_ACTIVE, SUBSCRIPTION_VALIDATION_FAILURE })
+  public @interface SubscriptionValidationCode {}
+
+  // Subscription is active.
+  public static final int SUBSCRIPTION_ACTIVE = 0;
+  // Subscription is not active.
+  public static final int SUBSCRIPTION_NOT_ACTIVE = 1;
+  // Validation failed, real subscription status is unknown, current one acts.
+  public static final int SUBSCRIPTION_VALIDATION_FAILURE = 2;
+
   @SuppressWarnings("unused")
   public interface MapObjectListener
   {
@@ -132,6 +143,12 @@ public class Framework
   public interface RoutingLoadPointsListener
   {
     void onRoutePointsLoaded(boolean success);
+  }
+
+  @SuppressWarnings("unused")
+  public interface SubscriptionValidationListener
+  {
+    void onValidateSubscription(@SubscriptionValidationCode int code);
   }
 
   public static class Params3dMode
@@ -455,4 +472,9 @@ public class Framework
   public static native String nativeGetMegafonDownloaderBannerUrl();
 
   public static native void nativeMakeCrash();
+
+  public static native void nativeValidateSubscription(@NonNull String receiptData);
+  public static native void nativeSetSubscriptionValidationListener(
+      @Nullable SubscriptionValidationListener listener);
+  public static native boolean nativeHasActiveSubscription();
 }

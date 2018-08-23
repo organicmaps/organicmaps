@@ -714,6 +714,14 @@ void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success
 
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
+void CallSubscriptionValidationListener(shared_ptr<jobject> listener,
+                                        Subscription::ValidationCode code)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onValidateSubscription", "(I)V");
+  env->CallVoidMethod(*listener, methodId, static_cast<jint>(code));
+}
+
 /// @name JNI EXPORTS
 //@{
 JNIEXPORT jstring JNICALL
@@ -1729,5 +1737,45 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 {
   CHECK(false, ("Diagnostic native crash!"));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeValidateSubscription(JNIEnv * env, jclass,
+                                                              jstring receiptData)
+{
+  auto const & subscription = frm()->GetSubscription();
+  if (subscription == nullptr)
+    return;
+
+  subscription->Validate(jni::ToNativeString(env, receiptData), frm()->GetUser().GetAccessToken());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetSubscriptionValidationListener(JNIEnv *, jclass,
+                                                                           jobject listener)
+{
+  auto const & subscription = frm()->GetSubscription();
+  if (subscription == nullptr)
+    return;
+
+  if (listener != nullptr)
+  {
+    subscription->SetValidationCallback(bind(&CallSubscriptionValidationListener,
+                                        jni::make_global_ref(listener), _1));
+  }
+  else
+  {
+    subscription->SetValidationCallback(nullptr);
+  }
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass)
+{
+  auto const & subscription = frm()->GetSubscription();
+  if (subscription == nullptr)
+    return static_cast<jboolean>(false);
+
+  return static_cast<jboolean>(subscription->IsActive());
 }
 }  // extern "C"

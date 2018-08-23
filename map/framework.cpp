@@ -503,8 +503,6 @@ Framework::Framework(FrameworkParams const & params)
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
-
-  m_subscription->Validate();
 }
 
 Framework::~Framework()
