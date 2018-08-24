@@ -279,23 +279,23 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 
   switch (f.SaveEditedMapObject(m_mapObject))
   {
-  case osm::Editor::NoUnderlyingMapError:
-  case osm::Editor::SavingError:
+  case osm::Editor::SaveResult::NoUnderlyingMapError:
+  case osm::Editor::SaveResult::SavingError:
     [self.navigationController popToRootViewControllerAnimated:YES];
     break;
-  case osm::Editor::NothingWasChanged:
+  case osm::Editor::SaveResult::NothingWasChanged:
     [self.navigationController popToRootViewControllerAnimated:YES];
     if (haveNote)
       [self showDropDown];
     break;
-  case osm::Editor::SavedSuccessfully:
+  case osm::Editor::SaveResult::SavedSuccessfully:
     [Statistics logEvent:(self.isCreating ? kStatEditorAddSuccess : kStatEditorEditSuccess)
           withParameters:info];
     osm_auth_ios::AuthorizationSetNeedCheck(YES);
     f.UpdatePlacePageInfoForCurrentSelection();
     [self.navigationController popToRootViewControllerAnimated:YES];
     break;
-  case osm::Editor::NoFreeSpaceError:
+  case osm::Editor::SaveResult::NoFreeSpaceError:
     [Statistics logEvent:(self.isCreating ? kStatEditorAddError : kStatEditorEditError)
           withParameters:info];
     [self.alertController presentNotEnoughSpaceAlert];
