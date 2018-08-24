@@ -4,15 +4,15 @@
   <item android:state_pressed="true">
     <shape
       android:shape="rectangle">
-      <solid android:color="@color/black_24"/>
-      <corners android:radius="@dimen/button_small_corner_radius"/>
+      <solid android:color="@color/black_20"/>
+      <corners android:radius="@dimen/cardview_default_radius"/>
     </shape>
   </item>
   <item>
     <shape
       android:shape="rectangle">
-      <solid android:color="@color/black_12"/>
-      <corners android:radius="@dimen/button_small_corner_radius"/>
+      <solid android:color="@color/black_8"/>
+      <corners android:radius="@dimen/cardview_default_radius"/>
     </shape>
   </item>
 </selector>

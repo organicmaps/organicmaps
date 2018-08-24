@@ -97,25 +97,52 @@
       android:layout_toRightOf="@+id/iv__banner_icon"
       android:layout_toEndOf="@+id/iv__banner_icon"/>
   </RelativeLayout>
-  <TextView
-    android:id="@+id/tv__action_large"
+  <LinearLayout
+    android:id="@+id/action_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/placepage_banner_button_height"
+    android:orientation="horizontal"
     android:layout_marginLeft="@dimen/margin_half_plus"
     android:layout_marginRight="@dimen/margin_half_plus"
-    android:layout_below="@id/data_frame"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:textAllCaps="true"
-    android:background="?bannerButtonBackground"
-    android:foreground="?clickableBackground"
-    android:gravity="center"
-    android:visibility="gone"
-    tools:text="Заказать"
-    tools:visibility="visible"
     android:layout_marginBottom="@dimen/margin_half"
-    android:fontFamily="@string/robotoMedium"
-    tools:targetApi="jelly_bean"/>
+    android:layout_below="@id/data_frame">
+    <TextView
+      android:id="@+id/tv__action_remove"
+      android:layout_width="@dimen/dp_0"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginRight="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:minHeight="@dimen/placepage_banner_button_height"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textAllCaps="true"
+      android:background="?bannerRemoveButtonBackground"
+      android:gravity="center"
+      android:visibility="visible"
+      android:text="String is needed"
+      android:ellipsize="end"
+      android:singleLine="true"
+      tools:visibility="visible"
+      android:fontFamily="@string/robotoMedium"
+      tools:targetApi="jelly_bean"/>
+    <TextView
+      android:id="@+id/tv__action_large"
+      android:layout_width="@dimen/dp_0"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:minHeight="@dimen/placepage_banner_button_height"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:textAllCaps="true"
+      android:background="?bannerButtonBackground"
+      android:gravity="center"
+      android:visibility="visible"
+      android:ellipsize="end"
+      android:singleLine="true"
+      tools:text="Заказать"
+      tools:visibility="visible"
+      android:fontFamily="@string/robotoMedium"
+      tools:targetApi="jelly_bean"/>
+  </LinearLayout>
   <ImageButton
     android:id="@+id/remove_btn"
     android:layout_width="@dimen/placepage_banner_remove_button_size"

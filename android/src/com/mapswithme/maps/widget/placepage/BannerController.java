@@ -88,6 +88,9 @@ final class BannerController
   private TextView mActionSmall;
   @SuppressWarnings("NullableProblems")
   @NonNull
+  private View mActionContainer;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private TextView mActionLarge;
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -136,7 +139,10 @@ final class BannerController
     mTitle = mBannerView.findViewById(R.id.tv__banner_title);
     mMessage = mBannerView.findViewById(R.id.tv__banner_message);
     mActionSmall = mBannerView.findViewById(R.id.tv__action_small);
-    mActionLarge = mBannerView.findViewById(R.id.tv__action_large);
+    mActionContainer = mBannerView.findViewById(R.id.action_container);
+    mActionLarge = mActionContainer.findViewById(R.id.tv__action_large);
+    View actionRemove = mActionContainer.findViewById(R.id.tv__action_remove);
+    actionRemove.setOnClickListener(v -> handleAdsRemoval());
     mAdChoices = mBannerView.findViewById(R.id.ad_choices_icon);
     mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
     mAdChoicesLabel = mBannerView.findViewById(R.id.ad_choices_label);
@@ -182,18 +188,18 @@ final class BannerController
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices, mAdChoicesLabel,
-                   mAdRemovalButton);
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoices,
+                   mAdChoicesLabel, mAdRemovalButton);
     }
     else if (mCurrentAd != null)
     {
       UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel,
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoicesLabel,
                    mAdRemovalButton);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
-        UiUtils.hide(mActionLarge, mIcon);
+        UiUtils.hide(mActionContainer, mIcon);
     }
   }
 
@@ -351,17 +357,16 @@ final class BannerController
 
   private void animateActionButton()
   {
-    View view = mOpened ? mBannerView.findViewById(R.id.tv__action_large)
-                        : mBannerView.findViewById(R.id.tv__action_small);
+    View view = mOpened ? mActionLarge : mActionSmall;
     ObjectAnimator animator;
     if (mOpened)
     {
       Context context = mBannerView.getContext();
       Resources res = context.getResources();
-      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_start_anim_night)
-                                                : res.getColor(R.color.bg_banner_button);
-      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_end_anim_night)
-                                              : res.getColor(R.color.banner_action_btn_end_anim);
+      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.white_12)
+                                                : res.getColor(R.color.black_12);
+      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.white_24)
+                                              : res.getColor(R.color.black_24);
       animator = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(),
                                          colorFrom, colorTo, colorFrom);
     }

@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="rectangle">
   <corners android:radius="@dimen/placepage_banner_small_action_corner"/>
-  <solid android:color="@color/bg_banner_button"/>
+  <solid android:color="@color/black_12"/>
   <padding
     android:left="@dimen/margin_half"
     android:right="@dimen/margin_half"
