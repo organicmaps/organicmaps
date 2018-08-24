@@ -1,7 +1,6 @@
 #include "base/geo_object_id.hpp"
 
 #include "base/assert.hpp"
-#include "base/macros.hpp"
 
 #include <sstream>
 
@@ -27,8 +26,8 @@ GeoObjectId::GeoObjectId(GeoObjectId::Type type, uint64_t id)
 
 uint64_t GeoObjectId::GetSerialId() const
 {
-  ASSERT_NOT_EQUAL(m_encodedId & kTypeMask, 0, ());
-  ASSERT_EQUAL(m_encodedId & kReservedMask, 0, ());
+  CHECK_NOT_EQUAL(m_encodedId & kTypeMask, 0, ());
+  CHECK_EQUAL(m_encodedId & kReservedMask, 0, ());
   return m_encodedId & kSerialMask;
 }
 
@@ -36,7 +35,7 @@ uint64_t GeoObjectId::GetEncodedId() const { return m_encodedId; }
 
 GeoObjectId::Type GeoObjectId::GetType() const
 {
-  ASSERT_EQUAL(m_encodedId & kReservedMask, 0, ());
+  CHECK_EQUAL(m_encodedId & kReservedMask, 0, ());
   uint64_t const typeBits = (m_encodedId & kTypeMask) >> 56;
   switch (typeBits)
   {
@@ -71,7 +70,6 @@ GeoObjectId MakeOsmRelation(uint64_t id)
 
 std::string DebugPrint(GeoObjectId::Type const & t)
 {
-  UNUSED_VALUE(kReservedMask);
   switch (t)
   {
   case GeoObjectId::Type::Invalid: return "Invalid";
