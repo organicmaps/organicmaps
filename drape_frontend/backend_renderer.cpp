@@ -118,6 +118,10 @@ void BackendRenderer::RecacheChoosePositionMark()
 
 void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
+  // TODO: Temporary code.
+  if (m_apiVersion == dp::ApiVersion::Metal)
+    return;
+
   switch (message->GetType())
   {
   case Message::Type::UpdateReadManager:
@@ -601,6 +605,10 @@ void BackendRenderer::OnContextCreate()
   m_contextFactory->WaitForInitialization(context);
   context->MakeCurrent();
   context->Init(m_apiVersion);
+
+  // TODO: Temporary code.
+  if (m_apiVersion == dp::ApiVersion::Metal)
+    return;
 
   m_readManager->Start();
   InitGLDependentResource();

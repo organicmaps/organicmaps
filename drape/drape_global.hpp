@@ -13,7 +13,8 @@ namespace dp
 enum ApiVersion
 {
   OpenGLES2 = 0,
-  OpenGLES3
+  OpenGLES3,
+  Metal
 };
 
 enum Anchor

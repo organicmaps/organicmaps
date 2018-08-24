@@ -57,7 +57,7 @@ public:
   virtual bool Validate() { return true; }
 
   virtual void Init(ApiVersion apiVersion) = 0;
-  virtual void SetClearColor(dp::Color const & color) = 0;
+  virtual void SetClearColor(Color const & color) = 0;
   virtual void Clear(uint32_t clearBits) = 0;
   virtual void Flush() = 0;
   virtual void SetDepthTestEnabled(bool enabled) = 0;

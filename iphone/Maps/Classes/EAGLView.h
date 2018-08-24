@@ -1,10 +1,12 @@
 #include "drape/pointers.hpp"
 #include "drape/drape_global.hpp"
 
+@class MetalView;
 @class MWMMapWidgets;
+
 namespace dp
 {
-  class ThreadSafeFactory;
+  class GraphicsContextFactory;
 }
 
 // This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView subclass.
@@ -13,17 +15,17 @@ namespace dp
 @interface EAGLView : UIView
 {
   dp::ApiVersion m_apiVersion;
-  drape_ptr<dp::ThreadSafeFactory> m_factory;
+  drape_ptr<dp::GraphicsContextFactory> m_factory;
   // Do not call onSize from layoutSubViews when real size wasn't changed.
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
   CGRect lastViewSize;
 }
 
 @property(nonatomic) MWMMapWidgets * widgetsManager;
+@property(weak, nonatomic) IBOutlet MetalView * metalView;
 
 @property(nonatomic, readonly) BOOL drapeEngineCreated;
 @property(nonatomic) BOOL isLaunchByDeepLink;
-
 @property(nonatomic, readonly) m2::PointU pixelSize;
 
 - (void)deallocateNative;

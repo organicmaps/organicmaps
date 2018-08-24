@@ -1,8 +1,11 @@
 #import "EAGLView.h"
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+#import "iosOGLContextFactory.h"
+#import "MetalContextFactory.h"
+#import "MetalView.h"
 #import "MWMDirectionView.h"
 #import "MWMMapWidgets.h"
-#import "iosOGLContextFactory.h"
+
+#import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
@@ -53,14 +56,18 @@ double getExactDPI(double contentScaleFactor)
 
 - (dp::ApiVersion)getSupportedApiVersion
 {
-  dp::ApiVersion apiVersion = dp::ApiVersion::OpenGLES2;
+  id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
+  if (tempDevice)
+    return dp::ApiVersion::Metal;
+  
   EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
   if (tempContext != nil)
   {
     tempContext = nil;
-    apiVersion = dp::ApiVersion::OpenGLES3;
+    return dp::ApiVersion::OpenGLES3;
   }
-  return apiVersion;
+  
+  return dp::ApiVersion::OpenGLES2;;
 }
 
 - (void)initialize
@@ -68,17 +75,24 @@ double getExactDPI(double contentScaleFactor)
   lastViewSize = CGRectZero;
   m_apiVersion = [self getSupportedApiVersion];
 
-  // Setup Layer Properties
-  CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
+  if (m_apiVersion == dp::ApiVersion::Metal)
+  {
+    m_factory = make_unique_dp<MetalContextFactory>(self.metalView);
+  }
+  else
+  {
+    // Setup Layer Properties
+    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
 
-  eaglLayer.opaque = YES;
-  eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
-                                   kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
+    eaglLayer.opaque = YES;
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
 
-  // Correct retina display support in opengl renderbuffer
-  self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
+    // Correct retina display support in opengl renderbuffer
+    self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
 
-  m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer, m_apiVersion));
+    m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer, m_apiVersion));
+  }
 }
 
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height

@@ -16,11 +16,16 @@
         <!--Map View Controller-->
         <scene sceneID="Wq1-a3-f7n">
             <objects>
-                <viewController id="xTf-lf-yxN" customClass="MapViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController id="xTf-lf-yxN" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="USG-6L-Uhw" customClass="EAGLView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mtkView contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" translatesAutoresizingMaskIntoConstraints="NO" id="MSN-qF-aIb" customClass="MetalView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="clearColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                            </mtkView>
                             <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65S-M4-TnM" customClass="NavigationInfoArea" customModule="maps_me" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
@@ -59,11 +64,13 @@
                             <constraint firstItem="FFY-Dy-Wou" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" priority="100" id="AW8-cN-xzE"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="65S-M4-TnM" secondAttribute="trailing" priority="100" id="Bjn-UL-ALa"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xJx-UU-IdV" secondAttribute="bottom" id="BqM-vp-EnJ"/>
+                            <constraint firstAttribute="trailing" secondItem="MSN-qF-aIb" secondAttribute="trailing" id="CY7-PF-9xC"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="65S-M4-TnM" secondAttribute="bottom" priority="100" id="FU7-Pa-O3P"/>
                             <constraint firstItem="QKu-4A-UgP" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" priority="100" id="Gw4-fq-sLY"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="NI8-tV-i2B" secondAttribute="bottom" priority="100" id="HW4-dR-LNu"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="awj-9E-eBS" secondAttribute="bottom" priority="100" id="Kf4-GM-1aY"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="xJx-UU-IdV" secondAttribute="trailing" priority="100" id="KfO-hH-S7R"/>
+                            <constraint firstAttribute="bottom" secondItem="MSN-qF-aIb" secondAttribute="bottom" id="NJd-U5-NA4"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="FFY-Dy-Wou" secondAttribute="bottom" id="QQc-TF-hhE"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="QKu-4A-UgP" secondAttribute="trailing" priority="100" id="SNy-Ck-trF"/>
                             <constraint firstItem="NI8-tV-i2B" firstAttribute="leading" secondItem="utd-Jy-pE5" secondAttribute="leading" priority="100" id="Uf3-sL-39L"/>
@@ -81,10 +88,15 @@
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="NI8-tV-i2B" secondAttribute="top" priority="100" id="kvw-Gs-ady"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="bottom" secondItem="xJx-UU-IdV" secondAttribute="bottom" priority="100" id="pur-5a-SQA"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="trailing" secondItem="FFY-Dy-Wou" secondAttribute="trailing" priority="100" id="qdF-Ru-TYd"/>
+                            <constraint firstItem="MSN-qF-aIb" firstAttribute="leading" secondItem="USG-6L-Uhw" secondAttribute="leading" id="qqd-bW-3Yv"/>
+                            <constraint firstAttribute="top" secondItem="MSN-qF-aIb" secondAttribute="top" id="sw9-hi-4De"/>
                             <constraint firstItem="xJx-UU-IdV" firstAttribute="top" secondItem="utd-Jy-pE5" secondAttribute="top" priority="100" id="w8f-5v-bHr"/>
                             <constraint firstItem="utd-Jy-pE5" firstAttribute="top" secondItem="awj-9E-eBS" secondAttribute="top" priority="100" constant="20" id="xFF-Ic-RDu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="utd-Jy-pE5"/>
+                        <connections>
+                            <outlet property="metalView" destination="MSN-qF-aIb" id="hkg-ia-EVY"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="8E8-0f-UV9"/>
                     <connections>
@@ -113,7 +125,7 @@
         <!--Facilities Controller-->
         <scene sceneID="2px-7m-UAf">
             <objects>
-                <tableViewController id="A8t-Zn-AGP" customClass="MWMFacilitiesController" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="A8t-Zn-AGP" customClass="MWMFacilitiesController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="kNh-ar-yQv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,7 +143,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lCi-qJ-2rn">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Wns-nH-AQU" customClass="MWMNavigationController" propertyAccessControl="all" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Wns-nH-AQU" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OK2-RC-YDq">
                         <autoresizingMask key="autoresizingMask"/>
@@ -148,7 +160,7 @@
         <!--Edit Bookmark Controller-->
         <scene sceneID="jjY-Mo-EIt">
             <objects>
-                <tableViewController id="lFr-lA-JTW" customClass="MWMEditBookmarkController" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="lFr-lA-JTW" customClass="MWMEditBookmarkController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Rb3-ea-7LJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,7 +179,7 @@
         <!--Navigation Controller-->
         <scene sceneID="XH4-1R-J7J">
             <objects>
-                <navigationController id="Psz-BY-Fy4" customClass="MWMNavigationController" propertyAccessControl="all" sceneMemberID="viewController">
+                <navigationController id="Psz-BY-Fy4" customClass="MWMNavigationController" sceneMemberID="viewController">
                     <value key="contentSizeForViewInPopover" type="size" width="600" height="600"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SUN-3A-xgM">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -184,7 +196,7 @@
         <!--Editor View Controller-->
         <scene sceneID="XbW-Wc-ZB3">
             <objects>
-                <tableViewController id="Lfa-Zp-orR" customClass="MWMEditorViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="Lfa-Zp-orR" customClass="MWMEditorViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="HU6-ak-Eu1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -210,7 +222,7 @@
         <!--Opening Hours Editor View Controller-->
         <scene sceneID="UAI-uc-U5w">
             <objects>
-                <viewController id="Ld6-gM-2hk" customClass="MWMOpeningHoursEditorViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController id="Ld6-gM-2hk" customClass="MWMOpeningHoursEditorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U1f-hD-9rl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -490,7 +502,7 @@
         <!--Editor Additional Names Table View Controller-->
         <scene sceneID="86k-hJ-Anq">
             <objects>
-                <tableViewController id="ocL-kj-jxR" customClass="MWMEditorAdditionalNamesTableViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="ocL-kj-jxR" customClass="MWMEditorAdditionalNamesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tQ2-XI-QWd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -534,7 +546,7 @@
         <!--Street Editor View Controller-->
         <scene sceneID="hgU-jB-a3C">
             <objects>
-                <tableViewController id="Heu-QR-M0N" customClass="MWMStreetEditorViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <tableViewController id="Heu-QR-M0N" customClass="MWMStreetEditorViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rJJ-UB-6u2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -553,7 +565,7 @@
         <!--Objects Category Selector Controller-->
         <scene sceneID="hWY-Fu-EcX">
             <objects>
-                <viewController id="QlF-CJ-cEG" customClass="MWMObjectsCategorySelectorController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController id="QlF-CJ-cEG" customClass="MWMObjectsCategorySelectorController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MIY-NW-Joh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -636,7 +648,7 @@
         <!--Cuisine Editor View Controller-->
         <scene sceneID="HdR-KQ-HeR">
             <objects>
-                <viewController id="da4-KT-kzF" customClass="MWMCuisineEditorViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController id="da4-KT-kzF" customClass="MWMCuisineEditorViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iTG-qE-svw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -718,7 +730,7 @@
         <!--Map Downloader View Controller-->
         <scene sceneID="1ZZ-fS-lza">
             <objects>
-                <viewController storyboardIdentifier="MWMMapDownloaderViewController" id="h4a-ne-bSJ" customClass="MWMMapDownloaderViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MWMMapDownloaderViewController" id="h4a-ne-bSJ" customClass="MWMMapDownloaderViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XQZ-0V-SyR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -896,7 +908,7 @@
         <!--Base Map Downloader View Controller-->
         <scene sceneID="Gej-SE-BmY">
             <objects>
-                <viewController storyboardIdentifier="MWMBaseMapDownloaderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ccD-FK-8j5" customClass="MWMBaseMapDownloaderViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MWMBaseMapDownloaderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ccD-FK-8j5" customClass="MWMBaseMapDownloaderViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uK4-o2-eLJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1009,7 +1021,7 @@
         <!--No Maps View Controller-->
         <scene sceneID="bz6-ac-EbZ">
             <objects>
-                <viewController storyboardIdentifier="MWMNoMapsViewController" id="3el-Zi-2E4" customClass="MWMNoMapsViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MWMNoMapsViewController" id="3el-Zi-2E4" customClass="MWMNoMapsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4WP-vj-Alg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1160,7 +1172,7 @@
         <!--Search No Results View Controller-->
         <scene sceneID="LUt-iU-iyq">
             <objects>
-                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchNoResultsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0VQ-EO-9Sv" customClass="SearchNoResultsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9jm-RW-DZK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1198,7 +1210,7 @@
         <!--Migration View Controller-->
         <scene sceneID="DZc-Ih-aae">
             <objects>
-                <viewController storyboardIdentifier="MWMMigrationViewController" id="ZNV-s3-dag" customClass="MWMMigrationViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MWMMigrationViewController" id="ZNV-s3-dag" customClass="MWMMigrationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C6V-Ws-Uzs" customClass="MWMMigrationView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1408,7 +1420,7 @@
         <!--UIViewController-4R7-Vk-fQr-->
         <scene sceneID="HgW-7T-FIK">
             <objects>
-                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="UIViewController-4R7-Vk-fQr" id="5Wc-fy-NOW" propertyAccessControl="all" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="UIViewController-4R7-Vk-fQr" id="5Wc-fy-NOW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOe-gE-2W7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2705" y="4393"/>
@@ -1416,7 +1428,7 @@
         <!--UIViewController-anB-7S-ebY-->
         <scene sceneID="Tlf-p1-TIV">
             <objects>
-                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="UIViewController-anB-7S-ebY" id="2Nx-b7-VGe" propertyAccessControl="all" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Authorization" referencedIdentifier="UIViewController-anB-7S-ebY" id="2Nx-b7-VGe" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zha-LO-7Vm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2705" y="5187"/>
@@ -1424,7 +1436,7 @@
         <!--MWMSettingsViewController-->
         <scene sceneID="ecD-Uc-PMs">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MWMSettingsViewController" storyboardName="Settings" referencedIdentifier="MWMSettingsViewController" id="DdR-kk-MnB" propertyAccessControl="all" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="MWMSettingsViewController" storyboardName="Settings" referencedIdentifier="MWMSettingsViewController" id="DdR-kk-MnB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hlm-dO-yBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1818" y="-190"/>
@@ -1432,7 +1444,7 @@
         <!--Downloader No Results Embed View Controller-->
         <scene sceneID="Bce-Yn-A6n">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="b8o-rZ-x0k" customClass="MWMDownloaderNoResultsEmbedViewController" propertyAccessControl="all" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="b8o-rZ-x0k" customClass="MWMDownloaderNoResultsEmbedViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iNT-L2-ifB">
                         <autoresizingMask key="autoresizingMask"/>
