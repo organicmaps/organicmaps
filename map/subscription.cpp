@@ -47,13 +47,13 @@ std::string ValidationUrl()
 
 struct ReceiptData
 {
-  std::string m_data;
-  std::string m_type;
-
   ReceiptData(std::string const & data, std::string const & type)
     : m_data(data)
     , m_type(type)
   {}
+
+  std::string m_data;
+  std::string m_type;
 
   DECLARE_VISITOR(visitor(m_data, "data"),
                   visitor(m_type, "type"))
@@ -61,14 +61,14 @@ struct ReceiptData
 
 struct ValidationData
 {
-  std::string m_productId;
-  ReceiptData m_receipt;
-
   ValidationData(std::string const & productId, std::string const & receiptData,
                  std::string const & receiptType)
     : m_productId(productId)
     , m_receipt(receiptData, receiptType)
   {}
+
+  std::string m_productId;
+  ReceiptData m_receipt;
 
   DECLARE_VISITOR(visitor(m_productId, "product_id"),
                   visitor(m_receipt, "receipt"))
@@ -122,8 +122,20 @@ void Subscription::Validate(std::string const & receiptData, std::string const &
     return;
   }
 
+  // If we validate the subscription immediately after purchasing, we believe that
+  // the subscription is valid and apply it before the validation. If the result of
+  // validation will be different, we return everything back.
+  if (m_subscriptionId.empty() && !receiptData.empty())
+  {
+    m_isActive = true;
+    m_subscriptionId = GetSubscriptionId();
+    GetPlatform().GetSecureStorage().Save(kSubscriptionId, m_subscriptionId);
+    for (auto & listener : m_listeners)
+      listener->OnSubscriptionChanged(true /* isActive */);
+  }
+
   auto const status = GetPlatform().ConnectionStatus();
-  if (status == Platform::EConnectionType::CONNECTION_NONE)
+  if (status == Platform::EConnectionType::CONNECTION_NONE || receiptData.empty())
   {
     ApplyValidation(ValidationCode::Failure);
     return;
@@ -154,8 +166,8 @@ void Subscription::Validate(std::string const & receiptData, std::string const &
       {
         ValidationResult result;
         {
-          coding::DeserializerJson des(request.ServerResponse());
-          des(result);
+          coding::DeserializerJson deserializer(request.ServerResponse());
+          deserializer(result);
         }
 
         code = result.m_isValid ? ValidationCode::Active : ValidationCode::NotActive;

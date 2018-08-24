@@ -1741,13 +1741,13 @@ Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeValidateSubscription(JNIEnv * env, jclass,
-                                                              jstring receiptData)
+                                                              jstring purchaseToken)
 {
   auto const & subscription = frm()->GetSubscription();
   if (subscription == nullptr)
     return;
 
-  subscription->Validate(jni::ToNativeString(env, receiptData), frm()->GetUser().GetAccessToken());
+  subscription->Validate(jni::ToNativeString(env, purchaseToken), frm()->GetUser().GetAccessToken());
 }
 
 JNIEXPORT void JNICALL
@@ -1773,9 +1773,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass)
 {
   auto const & subscription = frm()->GetSubscription();
-  if (subscription == nullptr)
-    return static_cast<jboolean>(false);
-
-  return static_cast<jboolean>(subscription->IsActive());
+  return subscription != nullptr ? static_cast<jboolean>(subscription->IsActive())
+                                 : static_cast<jboolean>(false);
 }
 }  // extern "C"

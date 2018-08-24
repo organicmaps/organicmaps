@@ -19,6 +19,7 @@ class Subscription
 public:
   enum class ValidationCode
   {
+    // Do not change the order.
     Active,    // Subscription is active.
     NotActive, // Subscription is not active.
     Failure,   // Validation failed, real subscription status is unknown, current one acts.
