@@ -9,22 +9,6 @@ namespace
 {
 std::string const kColorTextureName = "u_colorTex";
 std::string const kMaskTextureName = "u_maskTex";
-
-glConst DecodeTestFunction(TestFunction depthFunction)
-{
-  switch (depthFunction)
-  {
-  case TestFunction::Never: return gl_const::GLNever;
-  case TestFunction::Less: return gl_const::GLLess;
-  case TestFunction::Equal: return gl_const::GLEqual;
-  case TestFunction::LessOrEqual: return gl_const::GLLessOrEqual;
-  case TestFunction::Greater: return gl_const::GLGreat;
-  case TestFunction::NotEqual: return gl_const::GLNotEqual;
-  case TestFunction::GreaterOrEqual: return gl_const::GLGreatOrEqual;
-  case TestFunction::Always: return gl_const::GLAlways;
-  }
-  CHECK_SWITCH();
-}
 }  // namespace
 
 // static
