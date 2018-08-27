@@ -4,6 +4,8 @@ set(
   SRC
   altitude_test.cpp
   check_mwms.cpp
+  cities_boundaries_checker_tests.cpp
+  city_roads_tests.cpp
   coasts_test.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp

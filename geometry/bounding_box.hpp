@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/visitor.hpp"
 
@@ -26,6 +27,8 @@ public:
 
   PointD Min() const { return m_min; }
   PointD Max() const { return m_max; }
+
+  m2::RectD ToRect() const { return {Min(), Max()}; }
 
   std::vector<m2::PointD> Points() const
   {

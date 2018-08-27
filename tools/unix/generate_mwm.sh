@@ -71,10 +71,11 @@ else
   INTDIR=$(mktemp -d)
 fi
 trap "rm -rf \"${INTDIR}\"" EXIT SIGINT SIGTERM
+CITIES_BOUNDARIES_DATA="${CITIES_BOUNDARIES_DATA:-$INTDIR/cities_boundaries.bin}"
 
 # Create MWM file
 INTDIR_FLAG="--intermediate_data_path=$INTDIR/ --node_storage=map"
-GENERATE_EVERYTHING='--generate_features=true --generate_geometry=true --generate_index=true --generate_search_index=true'
+GENERATE_EVERYTHING="--generate_features --generate_geometry --generate_index --generate_search_index --dump_cities_boundaries --cities_boundaries_data=$CITIES_BOUNDARIES_DATA"
 [ -n "${HOTELS-}" ] && GENERATE_EVERYTHING="$GENERATE_EVERYTHING --booking_data=$HOTELS"
 COASTS="${COASTS-WorldCoasts.geom}"
 if [ -f "$COASTS" ]; then
@@ -110,6 +111,7 @@ if [ "$SOURCE_TYPE" == "o5m" ]; then
 
   $GENERATOR_TOOL $INTDIR_FLAG --osm_file_type=o5m --osm_file_name="$SOURCE_FILE" --preprocess=true || fail "Preprocessing failed"
   $GENERATOR_TOOL $INTDIR_FLAG --osm_file_type=o5m --osm_file_name="$SOURCE_FILE" --data_path="$TARGET" --user_resource_path="$DATA_PATH" $GENERATE_EVERYTHING --output="$BASE_NAME"
+  $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" --cities_boundaries_data="$CITIES_BOUNDARIES_DATA" --make_city_roads --output="$BASE_NAME"
   $GENERATOR_TOOL $INTDIR_FLAG --data_path="$TARGET" --user_resource_path="$DATA_PATH" ${CROSS_MWM-} ${GENERATE_CAMERA_SECTION-} --make_routing_index --generate_traffic_keys --output="$BASE_NAME"
 else
   echo "Unsupported source type: $SOURCE_TYPE" >&2

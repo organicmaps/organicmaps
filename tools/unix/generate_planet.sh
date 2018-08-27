@@ -511,7 +511,7 @@ if [ "$MODE" == "mwm" ]; then
   fi
 
   if [ -z "$NO_REGIONS" ]; then
-    PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
+    PARAMS_WITH_SEARCH="$PARAMS --generate_search_index --cities_boundaries_data=$CITIES_BOUNDARIES_DATA --make_city_roads"
     [ -n "${SRTM_PATH-}" -a -d "${SRTM_PATH-}" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --srtm_path=$SRTM_PATH"
     [ -f "$UGC_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --ugc_data=$UGC_FILE"
     [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --popular_places_data=$POPULAR_PLACES_FILE"

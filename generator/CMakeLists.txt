@@ -25,6 +25,10 @@ set(SRC
   check_model.hpp
   cities_boundaries_builder.cpp
   cities_boundaries_builder.hpp
+  cities_boundaries_checker.cpp
+  cities_boundaries_checker.hpp
+  city_roads_generator.cpp
+  city_roads_generator.hpp
   coastlines_generator.cpp
   coastlines_generator.hpp
   dumper.cpp

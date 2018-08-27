@@ -35,6 +35,8 @@
 		562147291F6AA37E002D2214 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562147281F6AA37E002D2214 /* libmwm_diff.a */; };
 		562D42941FD8460500A995F3 /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562D42951FD8460500A995F3 /* libugc.a */; };
 		562D42961FD8463700A995F3 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BC61EF992F600A8E9ED /* libsqlite3.tbd */; };
+		56829A4C2134238800A09A28 /* cities_boundaries_checker_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56829A4A2134238700A09A28 /* cities_boundaries_checker_tests.cpp */; };
+		56829A4D2134238800A09A28 /* city_roads_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56829A4B2134238800A09A28 /* city_roads_tests.cpp */; };
 		56EE14CD1FE803EA0036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14CE1FE803EA0036F20C /* libtransit.a */; };
 		56EE14CF1FE803FE0036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D01FE803FE0036F20C /* libtransit.a */; };
 		670E7BBC1EF9832200A8E9ED /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BBB1EF9832200A8E9ED /* libicu.a */; };
@@ -218,6 +220,8 @@
 		562147261F6AA36A002D2214 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		562147281F6AA37E002D2214 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gsfdicnjgjjbizhdmwedavcucpok/Build/Products/Debug/libmwm_diff.a"; sourceTree = "<group>"; };
 		562D42951FD8460500A995F3 /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56829A4A2134238700A09A28 /* cities_boundaries_checker_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_checker_tests.cpp; sourceTree = "<group>"; };
+		56829A4B2134238800A09A28 /* city_roads_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city_roads_tests.cpp; sourceTree = "<group>"; };
 		56EE14CE1FE803EA0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14D01FE803FE0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670E7BBB1EF9832200A8E9ED /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
@@ -488,6 +492,8 @@
 			isa = PBXGroup;
 			children = (
 				4491F490213D46380011834F /* speed_cameras_test.cpp */,
+				56829A4A2134238700A09A28 /* cities_boundaries_checker_tests.cpp */,
+				56829A4B2134238800A09A28 /* city_roads_tests.cpp */,
 				671ED3BC20D4098100D4317E /* altitude_test.cpp */,
 				679624B31D102D3300AE4E3C /* booking_test.cpp */,
 				6726C1E31A4C28D5005EEA39 /* check_mwms.cpp */,
@@ -729,9 +735,11 @@
 				67AB92D01B75156400AB5194 /* coasts_test.cpp in Sources */,
 				670F291B1BA6CE4F00F2ABF4 /* check_mwms.cpp in Sources */,
 				67AB92D91B75158300AB5194 /* osm_o5m_source_test.cpp in Sources */,
+				56829A4D2134238800A09A28 /* city_roads_tests.cpp in Sources */,
 				67AB92D61B75157700AB5194 /* tesselator_test.cpp in Sources */,
 				671ED3C420D4098100D4317E /* road_access_test.cpp in Sources */,
 				4491F494213D6B470011834F /* speed_cameras_test.cpp in Sources */,
+				56829A4C2134238800A09A28 /* cities_boundaries_checker_tests.cpp in Sources */,
 				6726C2411A4C2D9F005EEA39 /* testingmain.cpp in Sources */,
 				670E7BC51EF9860100A8E9ED /* ugc_test.cpp in Sources */,
 				4491F495213D6B7C0011834F /* booking_test.cpp in Sources */,

@@ -5,6 +5,7 @@
 #include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
+#include "generator/city_roads_generator.hpp"
 #include "generator/dumper.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_generator.hpp"
@@ -128,6 +129,9 @@ DEFINE_string(srtm_path, "",
               "about roads.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
 DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
+DEFINE_bool(
+    make_city_roads, false,
+    "Calculates which features lie inside cities and makes a section with ids of these features.");
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
@@ -233,8 +237,8 @@ int main(int argc, char ** argv)
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-      FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "" ||
-      FLAGS_popular_places_data != "")
+      FLAGS_make_city_roads || FLAGS_generate_traffic_keys || FLAGS_transit_path != "" ||
+      FLAGS_ugc_data != "" || FLAGS_popular_places_data != "")
   {
     classificator::Load();
     classif().SortClassificator();
@@ -466,6 +470,17 @@ int main(int argc, char ** argv)
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
       routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
       routing::BuildRoutingIndex(datFile, country, *countryParentGetter);
+    }
+
+    if (FLAGS_make_city_roads)
+    {
+      CHECK(!FLAGS_cities_boundaries_data.empty(), ());
+      LOG(LINFO, ("Generating cities boundaries roads for", datFile));
+      generator::OsmIdToBoundariesTable table;
+      if (!generator::DeserializeBoundariesTable(FLAGS_cities_boundaries_data, table))
+        LOG(LCRITICAL, ("Deserializing boundaries table error."));
+      if (!routing::BuildCityRoads(datFile, table))
+        LOG(LCRITICAL, ("Generating city roads error."));
     }
 
     if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)

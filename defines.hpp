@@ -53,6 +53,7 @@
 #define TRANSIT_CROSS_MWM_FILE_TAG "transit_cross_mwm"
 #define TRANSIT_FILE_TAG "transit"
 #define UGC_FILE_TAG "ugc"
+#define CITY_ROADS_FILE_TAG "city_roads"
 
 #define LOCALITY_DATA_FILE_TAG "locdata"
 #define GEO_OBJECTS_INDEX_FILE_TAG "locidx"
