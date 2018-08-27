@@ -26,26 +26,27 @@ public:
     return m_indexer->MapResource(static_cast<TResourceKey const &>(key), newResource);
   }
 
-  void Create(Params const & params) override
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
-    Base::Create(params);
+    Base::Create(std::move(context), params);
   }
 
-  void Create(Params const & params, ref_ptr<void> data) override
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
+              ref_ptr<void> data) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
-    Base::Create(params, data);
+    Base::Create(std::move(context), params, data);
   }
 
-  void UpdateState() override
+  void UpdateState(ref_ptr<dp::GraphicsContext> context) override
   {
     // Create texture before first uploading.
     if (!m_isInitialized)
     {
       std::vector<uint8_t> initData(m_params.m_width * m_params.m_height *
                                     GetBytesPerPixel(m_params.m_format), 0);
-      Create(m_params, initData.data());
+      Create(std::move(context), m_params, initData.data());
       m_isInitialized = true;
     }
 
@@ -101,16 +102,16 @@ protected:
     : m_isInitialized(false)
   {}
 
-  struct TextureParams
+  struct DynamicTextureParams
   {
     m2::PointU m_size;
-    dp::TextureFormat m_format;
-    TextureFilter m_filter;
-    bool m_usePixelBuffer;
+    dp::TextureFormat m_format = dp::TextureFormat::Unspecified;
+    TextureFilter m_filter = dp::TextureFilter::Nearest;
+    bool m_usePixelBuffer = false;
   };
 
   void Init(ref_ptr<HWTextureAllocator> allocator, ref_ptr<TIndexer> indexer,
-            TextureParams const & params)
+            DynamicTextureParams const & params)
   {
     m_indexer = indexer;
     m_params.m_allocator = allocator;
@@ -119,6 +120,7 @@ protected:
     m_params.m_format = params.m_format;
     m_params.m_filter = params.m_filter;
     m_params.m_usePixelBuffer = params.m_usePixelBuffer;
+    m_params.m_isMutable = true;
   }
 
   void Reset()

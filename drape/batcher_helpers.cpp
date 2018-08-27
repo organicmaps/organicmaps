@@ -2,7 +2,7 @@
 #include "drape/attribute_provider.hpp"
 #include "drape/cpu_buffer.hpp"
 #include "drape/index_storage.hpp"
-#include "drape/glextensions_list.hpp"
+#include "drape/gl_extensions_list.hpp"
 
 #include "base/assert.hpp"
 #include "base/math.hpp"

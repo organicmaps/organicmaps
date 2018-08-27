@@ -1,18 +1,14 @@
 #include "drape/batcher.hpp"
 #include "drape/batcher_helpers.hpp"
 #include "drape/cpu_buffer.hpp"
-#include "drape/glextensions_list.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/bind.hpp"
-
 namespace dp
 {
-
 class Batcher::CallbacksWrapper : public BatchCallbacks
 {
 public:
@@ -20,13 +16,12 @@ public:
     : m_state(state)
     , m_overlay(overlay)
     , m_batcher(batcher)
-  {
-  }
+  {}
 
   void SetVAO(ref_ptr<VertexArrayBuffer> buffer)
   {
-    // invocation with non-null VAO will cause to invalid range of indices.
-    // It means that VAO has been changed during batching
+    // Invocation with non-null VAO will cause to invalid range of indices.
+    // It means that VAO has been changed during batching.
     if (m_buffer != nullptr)
       m_vaoChanged = true;
 
@@ -299,5 +294,4 @@ SessionGuard::~SessionGuard()
 {
   m_batcher.EndSession();
 }
-
-} // namespace dp
+}  // namespace dp

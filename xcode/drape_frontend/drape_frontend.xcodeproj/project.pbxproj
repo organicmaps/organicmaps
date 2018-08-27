@@ -952,7 +952,7 @@
 /* Begin XCBuildConfiguration section */
 		6709473C1BDF9B82005014C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34AF87CC1DBE508400E5E7DC /* common-release.xcconfig */;
+			baseConfigurationReference = 34AF87CB1DBE508400E5E7DC /* common-debug.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;

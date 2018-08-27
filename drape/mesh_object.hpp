@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
 #include "drape/render_state.hpp"
 #include "drape/pointers.hpp"
 
@@ -11,9 +12,20 @@ namespace dp
 {
 class GpuProgram;
 class GraphicsContext;
+class MeshObjectImpl;
+namespace metal
+{
+class MetalMeshObjectImpl;
+}  // namespace metal
 
+// This class implement simple mesh object which does not use an index buffer.
+// Use this class only for simple geometry.
 class MeshObject
 {
+  friend class MeshObjectImpl;
+  friend class GLMeshObjectImpl;
+  friend class metal::MetalMeshObjectImpl;
+
 public:
   enum class DrawPrimitive: uint8_t
   {
@@ -22,7 +34,7 @@ public:
     LineStrip
   };
 
-  MeshObject(DrawPrimitive drawPrimitive);
+  MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive);
   virtual ~MeshObject();
 
   void SetBuffer(uint32_t bufferInd, std::vector<float> && vertices, uint32_t stride);
@@ -30,16 +42,17 @@ public:
 
   void UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices);
 
-  template<typename TParamsSetter, typename TParams>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program, dp::RenderState const & state,
-              ref_ptr<TParamsSetter> paramsSetter, TParams const & params)
+  template <typename TParamsSetter, typename TParams>
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+              dp::RenderState const & state, ref_ptr<TParamsSetter> paramsSetter,
+              TParams const & params)
   {
-    Bind(program);
+    Bind(context, program);
 
     ApplyState(context, program, state);
     paramsSetter->Apply(program, params);
 
-    DrawPrimitives();
+    DrawPrimitives(context);
 
     Unbind(program);
   };
@@ -47,7 +60,7 @@ public:
   uint32_t GetNextBufferIndex() const { return static_cast<uint32_t>(m_buffers.size()); }
 
   bool IsInitialized() const { return m_initialized; }
-  void Build(ref_ptr<dp::GpuProgram> program);
+  void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program);
   void Reset();
 
   static std::vector<float> GenerateNormalsForTriangles(std::vector<float> const & vertices, size_t componentsCount);
@@ -84,14 +97,30 @@ private:
     std::vector<AttributeMapping> m_attributes;
   };
 
-  void Bind(ref_ptr<dp::GpuProgram> program);
+  void InitForOpenGL();
+  // Definition of this method is in separate .mm-file.
+  void InitForMetal();
+
+  void Bind(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program);
   void Unbind(ref_ptr<dp::GpuProgram> program);
-  void DrawPrimitives();
+  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context);
 
   std::vector<VertexBuffer> m_buffers;
   DrawPrimitive m_drawPrimitive = DrawPrimitive::Triangles;
 
-  uint32_t m_VAO = 0;
+  drape_ptr<MeshObjectImpl> m_impl;
   bool m_initialized = false;
+};
+
+class MeshObjectImpl
+{
+public:
+  virtual ~MeshObjectImpl() = default;
+  virtual void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) = 0;
+  virtual void Reset() = 0;
+  virtual void UpdateBuffer(uint32_t bufferInd) = 0;
+  virtual void Bind(ref_ptr<dp::GpuProgram> program) = 0;
+  virtual void Unbind(ref_ptr<dp::GpuProgram> program) = 0;
+  virtual void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) = 0;
 };
 }  // namespace dp

@@ -23,7 +23,9 @@ class MyPosition
 public:
   explicit MyPosition(ref_ptr<dp::TextureManager> mng);
 
-  // pt - mercator point
+  void InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
+
+  // pt - mercator point.
   void SetPosition(m2::PointF const & pt);
   void SetAzimuth(float azimut);
   void SetIsValidAzimuth(bool isValid);
@@ -68,6 +70,6 @@ private:
   std::vector<TPart> m_parts;
   std::vector<RenderNode> m_nodes;
 
-  Arrow3d m_arrow3d;
+  drape_ptr<Arrow3d> m_arrow3d;
 };
 }  // namespace df

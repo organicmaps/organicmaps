@@ -12,7 +12,6 @@
 
 namespace dp
 {
-
 struct MutateRegion
 {
   MutateRegion() : m_offset(0), m_count(0) {}
@@ -30,10 +29,10 @@ struct MutateNode
 
 class AttributeBufferMutator
 {
-  typedef std::pair<SharedBufferManager::shared_buffer_ptr_t, size_t> TBufferNode;
-  typedef std::vector<TBufferNode> TBufferArray;
-  typedef std::vector<MutateNode> TMutateNodes;
-  typedef std::map<BindingInfo, TMutateNodes> TMutateData;
+  using TBufferNode = std::pair<SharedBufferManager::shared_buffer_ptr_t, size_t>;
+  using TBufferArray = std::vector<TBufferNode>;
+  using TMutateNodes = std::vector<MutateNode>;
+  using TMutateData = std::map<BindingInfo, TMutateNodes>;
 
 public:
   ~AttributeBufferMutator();
@@ -44,9 +43,7 @@ private:
   friend class VertexArrayBuffer;
   TMutateData const & GetMutateData() const { return m_data; }
 
-private:
   TMutateData m_data;
   TBufferArray m_array;
 };
-
-} // namespace dp
+}  // namespace dp

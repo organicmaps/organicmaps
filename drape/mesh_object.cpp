@@ -1,8 +1,9 @@
 #include "drape/mesh_object.hpp"
 
-#include "drape/glconstants.hpp"
-#include "drape/glextensions_list.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_constants.hpp"
+#include "drape/gl_gpu_program.hpp"
+#include "drape/gl_extensions_list.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/gpu_program.hpp"
@@ -23,13 +24,152 @@ glConst GetGLDrawPrimitive(dp::MeshObject::DrawPrimitive drawPrimitive)
 
 namespace dp
 {
-MeshObject::MeshObject(DrawPrimitive drawPrimitive)
+class GLMeshObjectImpl : public MeshObjectImpl
+{
+public:
+  explicit GLMeshObjectImpl(ref_ptr<dp::MeshObject> mesh)
+    : m_mesh(std::move(mesh))
+  {}
+
+  void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program) override
+  {
+    UNUSED_VALUE(context);
+
+    bool const isVAOSupported =
+        dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject);
+    if (isVAOSupported)
+    {
+      m_VAO = GLFunctions::glGenVertexArray();
+      GLFunctions::glBindVertexArray(m_VAO);
+    }
+
+    for (auto & buffer : m_mesh->m_buffers)
+    {
+      buffer.m_bufferId = GLFunctions::glGenBuffer();
+      GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
+
+      if (!buffer.m_data.empty())
+      {
+        GLFunctions::glBufferData(gl_const::GLArrayBuffer,
+                                  static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
+                                  buffer.m_data.data(), gl_const::GLStaticDraw);
+      }
+
+      if (isVAOSupported)
+      {
+        ref_ptr<dp::GLGpuProgram> p = program;
+        for (auto const & attribute : buffer.m_attributes)
+        {
+          int8_t const attributePosition = p->GetAttributeLocation(attribute.m_attributeName);
+          ASSERT_NOT_EQUAL(attributePosition, -1, ());
+          GLFunctions::glEnableVertexAttribute(attributePosition);
+          GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
+                                                gl_const::GLFloatType, false,
+                                                buffer.m_stride, attribute.m_offset);
+        }
+      }
+    }
+
+    if (isVAOSupported)
+      GLFunctions::glBindVertexArray(0);
+    GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  }
+
+  void Reset() override
+  {
+    for (auto & buffer : m_mesh->m_buffers)
+    {
+      if (buffer.m_bufferId != 0)
+      {
+        GLFunctions::glDeleteBuffer(buffer.m_bufferId);
+        buffer.m_bufferId = 0;
+      }
+    }
+
+    if (m_VAO != 0)
+      GLFunctions::glDeleteVertexArray(m_VAO);
+
+    m_VAO = 0;
+  }
+
+  void UpdateBuffer(uint32_t bufferInd) override
+  {
+    auto & buffer = m_mesh->m_buffers[bufferInd];
+    GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
+    GLFunctions::glBufferData(gl_const::GLArrayBuffer,
+                              static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
+                              buffer.m_data.data(), gl_const::GLStaticDraw);
+    GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  }
+
+  void Bind(ref_ptr<dp::GpuProgram> program) override
+  {
+    if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+    {
+      GLFunctions::glBindVertexArray(m_VAO);
+      return;
+    }
+
+    ref_ptr<dp::GLGpuProgram> p = program;
+    for (auto const & buffer : m_mesh->m_buffers)
+    {
+      GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
+      for (auto const & attribute : buffer.m_attributes)
+      {
+        int8_t const attributePosition = p->GetAttributeLocation(attribute.m_attributeName);
+        ASSERT_NOT_EQUAL(attributePosition, -1, ());
+        GLFunctions::glEnableVertexAttribute(attributePosition);
+        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
+                                              gl_const::GLFloatType, false,
+                                              buffer.m_stride, attribute.m_offset);
+      }
+    }
+  }
+
+  void Unbind(ref_ptr<dp::GpuProgram> program) override
+  {
+    if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+      GLFunctions::glBindVertexArray(0);
+    GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  }
+
+  void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) override
+  {
+    UNUSED_VALUE(context);
+
+    GLFunctions::glDrawArrays(GetGLDrawPrimitive(m_mesh->m_drawPrimitive), 0, verticesCount);
+  }
+
+private:
+  ref_ptr<dp::MeshObject> m_mesh;
+  uint32_t m_VAO = 0;
+};
+
+MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawPrimitive)
   : m_drawPrimitive(drawPrimitive)
-{}
+{
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    InitForOpenGL();
+  }
+  else if (apiVersion == dp::ApiVersion::Metal)
+  {
+#if defined(OMIM_OS_IPHONE)
+    InitForMetal();
+#endif
+  }
+  CHECK(m_impl != nullptr, ());
+}
 
 MeshObject::~MeshObject()
 {
   Reset();
+}
+
+void MeshObject::InitForOpenGL()
+{
+  m_impl = make_unique_dp<GLMeshObjectImpl>(make_ref(this));
 }
 
 void MeshObject::SetBuffer(uint32_t bufferInd, std::vector<float> && vertices, uint32_t stride)
@@ -55,19 +195,9 @@ void MeshObject::SetAttribute(std::string const & attributeName, uint32_t buffer
 
 void MeshObject::Reset()
 {
-  for (auto & buffer : m_buffers)
-  {
-    if (buffer.m_bufferId != 0)
-    {
-      GLFunctions::glDeleteBuffer(buffer.m_bufferId);
-      buffer.m_bufferId = 0;
-    }
-  }
+  CHECK(m_impl != nullptr, ());
+  m_impl->Reset();
 
-  if (m_VAO != 0)
-    GLFunctions::glDeleteVertexArray(m_VAO);
-
-  m_VAO = 0;
   m_initialized = false;
 }
 
@@ -80,109 +210,63 @@ void MeshObject::UpdateBuffer(uint32_t bufferInd, std::vector<float> && vertices
 
   auto & buffer = m_buffers[bufferInd];
   buffer.m_data = std::move(vertices);
-  GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
-  GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                            static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
-                            buffer.m_data.data(), gl_const::GLStaticDraw);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+
+  CHECK(m_impl != nullptr, ());
+  m_impl->UpdateBuffer(bufferInd);
 }
 
-void MeshObject::Build(ref_ptr<dp::GpuProgram> program)
+void MeshObject::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program)
 {
   Reset();
 
-  bool const isVAOSupported = dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject);
-  if (isVAOSupported)
-  {
-    m_VAO = GLFunctions::glGenVertexArray();
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
-
-  for (auto & buffer : m_buffers)
-  {
-    buffer.m_bufferId = GLFunctions::glGenBuffer();
-    GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
-
-    if (!buffer.m_data.empty())
-    {
-      GLFunctions::glBufferData(gl_const::GLArrayBuffer,
-                                static_cast<uint32_t>(buffer.m_data.size()) * sizeof(buffer.m_data[0]),
-                                buffer.m_data.data(), gl_const::GLStaticDraw);
-    }
-
-    if (isVAOSupported)
-    {
-      for (auto const & attribute : buffer.m_attributes)
-      {
-        int8_t const attributePosition = program->GetAttributeLocation(attribute.m_attributeName);
-        ASSERT_NOT_EQUAL(attributePosition, -1, ());
-        GLFunctions::glEnableVertexAttribute(attributePosition);
-        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
-                                              gl_const::GLFloatType, false,
-                                              buffer.m_stride, attribute.m_offset);
-      }
-    }
-  }
-
-  if (isVAOSupported)
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  CHECK(m_impl != nullptr, ());
+  m_impl->Build(std::move(context), std::move(program));
 
   m_initialized = true;
 }
 
-void MeshObject::Bind(ref_ptr<dp::GpuProgram> program)
+void MeshObject::Bind(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program)
 {
   program->Bind();
 
   if (!m_initialized)
-    Build(program);
+    Build(context, program);
 
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-  {
-    GLFunctions::glBindVertexArray(m_VAO);
-  }
-  else
-  {
-    for (auto const & buffer : m_buffers)
-    {
-      GLFunctions::glBindBuffer(buffer.m_bufferId, gl_const::GLArrayBuffer);
-      for (auto const & attribute : buffer.m_attributes)
-      {
-        int8_t const attributePosition = program->GetAttributeLocation(attribute.m_attributeName);
-        ASSERT_NOT_EQUAL(attributePosition, -1, ());
-        GLFunctions::glEnableVertexAttribute(attributePosition);
-        GLFunctions::glVertexAttributePointer(attributePosition, attribute.m_componentsCount,
-                                              gl_const::GLFloatType, false,
-                                              buffer.m_stride, attribute.m_offset);
-      }
-    }
-  }
+  CHECK(m_impl != nullptr, ());
+  m_impl->Bind(program);
 }
 
-void MeshObject::DrawPrimitives()
+void MeshObject::DrawPrimitives(ref_ptr<dp::GraphicsContext> context)
 {
   if (m_buffers.empty())
     return;
 
   auto const & buffer = m_buffers[0];
-  auto const verticesCount = static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]) / buffer.m_stride);
+#ifdef DEBUG
+  for (size_t i = 1; i < m_buffers.size(); i++)
+  {
+    ASSERT_EQUAL(m_buffers[i].m_data.size() / m_buffers[i].m_stride,
+                 buffer.m_data.size() / buffer.m_stride, ());
+  }
+#endif
+  auto const verticesCount =
+      static_cast<uint32_t>(buffer.m_data.size() * sizeof(buffer.m_data[0]) / buffer.m_stride);
 
-  GLFunctions::glDrawArrays(GetGLDrawPrimitive(m_drawPrimitive), 0, verticesCount);
+  CHECK(m_impl != nullptr, ());
+  m_impl->DrawPrimitives(std::move(context), verticesCount);
 }
 
 void MeshObject::Unbind(ref_ptr<dp::GpuProgram> program)
 {
   program->Unbind();
 
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
-    GLFunctions::glBindVertexArray(0);
-  GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
+  CHECK(m_impl != nullptr, ());
+  m_impl->Unbind(program);
 }
 
 // static
 std::vector<float> MeshObject::GenerateNormalsForTriangles(std::vector<float> const & vertices,
-                                                              size_t componentsCount)
+                                                           size_t componentsCount)
 {
   auto const trianglesCount = vertices.size() / (3 * componentsCount);
   std::vector<float> normals;

@@ -1,5 +1,5 @@
-#include "drape/glconstants.hpp"
-#include "drape/glIncludes.hpp"
+#include "drape/gl_constants.hpp"
+#include "drape/gl_includes.hpp"
 
 #if !defined(GL_RGBA8_OES)
   #define GL_RGBA8_OES 0x8058

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "base/logging.hpp"
-#include "drape/glconstants.hpp"
+#include "drape/gl_constants.hpp"
 #include "testing/testing.hpp"
 
 #include <cstring>

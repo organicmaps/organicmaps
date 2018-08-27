@@ -9,8 +9,8 @@
 
 #include "base/macros.hpp"
 
-#include "std/map.hpp"
-#include "std/function.hpp"
+#include <functional>
+#include <map>
 
 namespace dp
 {
@@ -53,7 +53,7 @@ public:
   IndicesRange InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
                              vector<int> const & indices, drape_ptr<OverlayHandle> && handle);
 
-  typedef function<void (RenderState const &, drape_ptr<RenderBucket> &&)> TFlushFn;
+  using TFlushFn = std::function<void (RenderState const &, drape_ptr<RenderBucket> &&)>;
   void StartSession(TFlushFn const & flusher);
   void EndSession();
   void ResetSession();
@@ -75,7 +75,7 @@ private:
 
   TFlushFn m_flushInterface;
 
-  using TBuckets = map<RenderState, drape_ptr<RenderBucket>>;
+  using TBuckets = std::map<RenderState, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
 
   uint32_t m_indexBufferSize;

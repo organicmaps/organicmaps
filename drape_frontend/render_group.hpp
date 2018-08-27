@@ -51,7 +51,6 @@ private:
 class RenderGroup : public BaseRenderGroup
 {
   using TBase = BaseRenderGroup;
-  friend class BatchMergeHelper;
 public:
   RenderGroup(dp::RenderState const & state, TileKey const & tileKey);
   ~RenderGroup() override;
@@ -97,10 +96,8 @@ public:
 class UserMarkRenderGroup : public RenderGroup
 {
   using TBase = RenderGroup;
-
 public:
   UserMarkRenderGroup(dp::RenderState const & state, TileKey const & tileKey);
-  ~UserMarkRenderGroup() override {}
 
   void UpdateAnimation() override;
 

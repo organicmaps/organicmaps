@@ -5,7 +5,7 @@
 #include "shaders/gl_program_pool.hpp"
 
 #include "drape/drape_global.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 
 #include <functional>
 

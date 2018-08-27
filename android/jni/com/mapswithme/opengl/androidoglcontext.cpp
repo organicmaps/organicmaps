@@ -43,9 +43,12 @@ AndroidOGLContext::~AndroidOGLContext()
     CHECK_EGL_CALL();
 }
 
-void AndroidOGLContext::SetDefaultFramebuffer()
+void AndroidOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  if (framebuffer)
+    framebuffer->Bind();
+  else
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void AndroidOGLContext::MakeCurrent()

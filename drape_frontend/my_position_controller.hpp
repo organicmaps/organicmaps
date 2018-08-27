@@ -100,7 +100,8 @@ public:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
   void CorrectGlobalScalePoint(m2::PointD & pt) const;
 
-  void SetRenderShape(drape_ptr<MyPosition> && shape);
+  void SetRenderShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> texMng,
+                      drape_ptr<MyPosition> && shape);
   void ResetRenderShape();
 
   void ActivateRouting(int zoomLevel, bool enableAutoZoom);

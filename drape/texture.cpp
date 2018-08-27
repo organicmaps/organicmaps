@@ -1,7 +1,7 @@
 #include "drape/texture.hpp"
 
-#include "drape/glextensions_list.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_extensions_list.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
@@ -15,20 +15,19 @@ Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect) : m_texRect(texRe
 
 m2::RectF const & Texture::ResourceInfo::GetTexRect() const { return m_texRect; }
 
-Texture::Texture() {}
-
 Texture::~Texture() { Destroy(); }
 
-void Texture::Create(Params const & params)
+void Texture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
-  if (AllocateTexture(params.m_allocator))
-    m_hwTexture->Create(params);
+  if (AllocateTexture(context, params.m_allocator))
+    m_hwTexture->Create(context, params);
 }
 
-void Texture::Create(Params const & params, ref_ptr<void> data)
+void Texture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
+                     ref_ptr<void> data)
 {
-  if (AllocateTexture(params.m_allocator))
-    m_hwTexture->Create(params, data);
+  if (AllocateTexture(context, params.m_allocator))
+    m_hwTexture->Create(context, params, data);
 }
 
 void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
@@ -100,14 +99,19 @@ bool Texture::IsPowerOfTwo(uint32_t width, uint32_t height)
 
 void Texture::Destroy() { m_hwTexture.reset(); }
 
-bool Texture::AllocateTexture(ref_ptr<HWTextureAllocator> allocator)
+bool Texture::AllocateTexture(ref_ptr<dp::GraphicsContext> context,
+                              ref_ptr<HWTextureAllocator> allocator)
 {
   if (allocator != nullptr)
   {
-    m_hwTexture = allocator->CreateTexture();
+    m_hwTexture = allocator->CreateTexture(std::move(context));
     return true;
   }
-
   return false;
+}
+  
+ref_ptr<HWTexture> Texture::GetHardwareTexture() const
+{
+  return make_ref(m_hwTexture);
 }
 }  // namespace dp

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
+
 #include "geometry/point2d.hpp"
 
 namespace dp
@@ -22,7 +24,7 @@ public:
   uint32_t GetHeight() const;
 
   // Apply viewport to graphics pipeline with convert start point and size to physical pixels.
-  void Apply() const;
+  void Apply(ref_ptr<dp::GraphicsContext> context) const;
 
 private:
   m2::PointU m_zero;

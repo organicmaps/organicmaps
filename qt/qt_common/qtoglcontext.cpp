@@ -5,7 +5,7 @@
 #include "base/macros.hpp"
 #include "base/math.hpp"
 
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 
 #include <memory>
 
@@ -13,7 +13,6 @@ namespace qt
 {
 namespace common
 {
-// QtRenderOGLContext ------------------------------------------------------------------------------
 QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface)
   , m_ctx(std::make_unique<QOpenGLContext>())
@@ -46,12 +45,12 @@ void QtRenderOGLContext::DoneCurrent()
   m_ctx->doneCurrent();
 }
 
-void QtRenderOGLContext::SetDefaultFramebuffer()
+void QtRenderOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
-  if (m_backFrame == nullptr)
-    return;
-
-  m_backFrame->bind();
+  if (framebuffer)
+    framebuffer->Bind();
+  else if (m_backFrame != nullptr)
+    m_backFrame->bind();
 }
 
 void QtRenderOGLContext::Resize(int w, int h)
@@ -90,7 +89,6 @@ void QtRenderOGLContext::UnlockFrame()
   m_lock.unlock();
 }
 
-// QtUploadOGLContext ------------------------------------------------------------------------------
 QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface), m_ctx(std::make_unique<QOpenGLContext>())
 {
@@ -112,12 +110,12 @@ void QtUploadOGLContext::DoneCurrent()
 
 void QtUploadOGLContext::Present()
 {
-  ASSERT(false, ());
+  CHECK(false, ());
 }
 
-void QtUploadOGLContext::SetDefaultFramebuffer()
+void QtUploadOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer>)
 {
-  ASSERT(false, ());
+  CHECK(false, ());
 }
 }  // namespace common
 }  // namespace qt

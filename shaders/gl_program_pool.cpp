@@ -2,6 +2,9 @@
 #include "shaders/program_params.hpp"
 #include "shaders/gl_shaders.hpp"
 
+#include "drape/gl_gpu_program.hpp"
+#include "drape/gl_functions.hpp"
+
 namespace gpu
 {
 GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion)
@@ -21,6 +24,7 @@ GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion)
 
 GLProgramPool::~GLProgramPool()
 {
+  GLFunctions::glUseProgram(0);
   ProgramParams::Destroy();
 }
 
@@ -33,7 +37,7 @@ drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)
                                   dp::Shader::Type::FragmentShader);
 
   auto const name = DebugPrint(program);
-  return make_unique_dp<dp::GpuProgram>(name, vertexShader, fragmentShader);
+  return make_unique_dp<dp::GLGpuProgram>(name, vertexShader, fragmentShader);
 }
 
 void GLProgramPool::SetDefines(std::string const & defines)

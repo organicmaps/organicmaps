@@ -1,5 +1,7 @@
 #include "drape/oglcontext.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
+
+#include "base/macros.hpp"
 
 namespace dp
 {
@@ -65,6 +67,21 @@ void OGLContext::Init(ApiVersion apiVersion)
   GLFunctions::glEnable(gl_const::GLScissorTest);
 }
 
+ApiVersion OGLContext::GetApiVersion() const
+{
+  return GLFunctions::CurrentApiVersion;
+}
+
+std::string OGLContext::GetRendererName() const
+{
+  return GLFunctions::glGetString(gl_const::GLRenderer);
+}
+
+std::string OGLContext::GetRendererVersion() const
+{
+  return GLFunctions::glGetString(gl_const::GLVersion);
+}
+
 void OGLContext::SetClearColor(dp::Color const & color)
 {
   GLFunctions::glClearColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
@@ -86,6 +103,12 @@ void OGLContext::Clear(uint32_t clearBits)
 void OGLContext::Flush()
 {
   GLFunctions::glFlush();
+}
+
+void OGLContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  GLCHECK(GLFunctions::glViewport(x, y, w, h));
+  GLCHECK(GLFunctions::glScissor(x, y, w, h));
 }
 
 void OGLContext::SetDepthTestEnabled(bool enabled)

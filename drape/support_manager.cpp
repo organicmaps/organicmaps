@@ -1,5 +1,5 @@
 #include "drape/support_manager.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 
 #include "platform/settings.hpp"
 
@@ -15,11 +15,11 @@ namespace dp
 {
 char const * kSupportedAntialiasing = "Antialiasing";
 
-void SupportManager::Init()
+void SupportManager::Init(ref_ptr<GraphicsContext> context)
 {
-  std::string const renderer = GLFunctions::glGetString(gl_const::GLRenderer);
-  std::string const version = GLFunctions::glGetString(gl_const::GLVersion);
-  LOG(LINFO, ("Renderer =", renderer, "Api =", GLFunctions::CurrentApiVersion, "Driver version =", version));
+  std::string const renderer = context->GetRendererName();
+  std::string const version = context->GetRendererVersion();
+  LOG(LINFO, ("Renderer =", renderer, "| Api =", context->GetApiVersion(), "| Version =", version));
 
   // On Android the engine may be recreated. Here we guarantee that GPU info is sent once per session.
   static bool gpuInfoSent = false;
@@ -51,8 +51,12 @@ void SupportManager::Init()
   if (m_isTegra)
     LOG(LINFO, ("NVidia Tegra device detected."));
 
-  m_maxLineWidth = std::max(1, GLFunctions::glGetMaxLineWidth());
-  LOG(LINFO, ("Max line width =", m_maxLineWidth));
+  // Metal does not support thick lines.
+  if (context->GetApiVersion() != dp::ApiVersion::Metal)
+  {
+    m_maxLineWidth = std::max(1, GLFunctions::glGetMaxLineWidth());
+    LOG(LINFO, ("Max line width =", m_maxLineWidth));
+  }
 
   // Set up default antialiasing value.
   // Turn off AA for a while by energy-saving issues.

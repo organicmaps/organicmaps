@@ -29,9 +29,9 @@ df::ColorConstant const kArrow3DObsoleteColor = "Arrow3DObsolete";
 df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
-Arrow3d::Arrow3d()
-  : m_arrowMesh(dp::MeshObject::DrawPrimitive::Triangles)
-  , m_shadowMesh(dp::MeshObject::DrawPrimitive::Triangles)
+Arrow3d::Arrow3d(ref_ptr<dp::GraphicsContext> context)
+  : m_arrowMesh(context, dp::MeshObject::DrawPrimitive::Triangles)
+  , m_shadowMesh(context, dp::MeshObject::DrawPrimitive::Triangles)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
@@ -126,6 +126,7 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
+
   mesh.Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 

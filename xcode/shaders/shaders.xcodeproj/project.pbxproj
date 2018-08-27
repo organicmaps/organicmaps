@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4560F58A213D57D600CC736C /* debug_rect.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDC21342BDE009955CC /* debug_rect.metal */; };
+		4560F58B213D57D600CC736C /* screen_quad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F582213D44CE00CC736C /* screen_quad.metal */; };
 		4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4561ADF320E378CB0096BC12 /* program_manager.cpp */; };
 		4561ADF920E37A6F0096BC12 /* shaders_compiler in Resources */ = {isa = PBXBuildFile; fileRef = 4561ADF820E37A6F0096BC12 /* shaders_compiler */; };
 		4566608A20E256240085E8C1 /* program_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566608020E256230085E8C1 /* program_params.cpp */; };
@@ -28,7 +30,20 @@
 		4566610520E25EF70085E8C1 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566610420E25EF70085E8C1 /* libplatform.a */; };
 		4566610720E25F560085E8C1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4566610620E25F560085E8C1 /* libz.tbd */; };
 		4566610A20E25F790085E8C1 /* test_main_loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566610920E25F790085E8C1 /* test_main_loop.cpp */; };
+		45789EE021343F70009955CC /* metal_program_pool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDE21343F70009955CC /* metal_program_pool.mm */; };
+		45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE321353CA3009955CC /* program_manager_metal.mm */; };
+		45789EE72135464D009955CC /* metal_program_params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE62135464D009955CC /* metal_program_params.mm */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4560F58C213D57F900CC736C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4566606620E254060085E8C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4598437B21394BE000F8CAB2;
+			remoteInfo = shaders_metal;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4566606C20E254060085E8C1 /* CopyFiles */ = {
@@ -43,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4560F582213D44CE00CC736C /* screen_quad.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = screen_quad.metal; sourceTree = "<group>"; };
 		4561ADF320E378CB0096BC12 /* program_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_manager.cpp; sourceTree = "<group>"; };
 		4561ADF420E378CB0096BC12 /* program_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = program_manager.hpp; sourceTree = "<group>"; };
 		4561ADF820E37A6F0096BC12 /* shaders_compiler */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders_compiler; path = ../../tools/shaders_compiler; sourceTree = "<group>"; };
@@ -146,6 +162,13 @@
 		4566610620E25F560085E8C1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4566610820E25F790085E8C1 /* test_main_loop.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = test_main_loop.hpp; path = ../../qt_tstfrm/test_main_loop.hpp; sourceTree = "<group>"; };
 		4566610920E25F790085E8C1 /* test_main_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_main_loop.cpp; path = ../../qt_tstfrm/test_main_loop.cpp; sourceTree = "<group>"; };
+		45789EDC21342BDE009955CC /* debug_rect.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = debug_rect.metal; sourceTree = "<group>"; };
+		45789EDE21343F70009955CC /* metal_program_pool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_pool.mm; sourceTree = "<group>"; };
+		45789EDF21343F70009955CC /* metal_program_pool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_pool.hpp; sourceTree = "<group>"; };
+		45789EE321353CA3009955CC /* program_manager_metal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = program_manager_metal.mm; sourceTree = "<group>"; };
+		45789EE52135464D009955CC /* metal_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_params.hpp; sourceTree = "<group>"; };
+		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
+		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +217,7 @@
 			children = (
 				4566606E20E254060085E8C1 /* libshaders.a */,
 				456660DA20E25A380085E8C1 /* shaders_tests.app */,
+				4598437C21394BE000F8CAB2 /* shaders_metal.metallib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -209,6 +233,12 @@
 				4566608520E256230085E8C1 /* gl_program_pool.hpp */,
 				4566608220E256230085E8C1 /* gl_shaders.cpp */,
 				4566608820E256230085E8C1 /* gl_shaders.hpp */,
+				45789EDB21342AC4009955CC /* Metal */,
+				45789EE52135464D009955CC /* metal_program_params.hpp */,
+				45789EE62135464D009955CC /* metal_program_params.mm */,
+				45789EDF21343F70009955CC /* metal_program_pool.hpp */,
+				45789EDE21343F70009955CC /* metal_program_pool.mm */,
+				45789EE321353CA3009955CC /* program_manager_metal.mm */,
 				4561ADF320E378CB0096BC12 /* program_manager.cpp */,
 				4561ADF420E378CB0096BC12 /* program_manager.hpp */,
 				4566608020E256230085E8C1 /* program_params.cpp */,
@@ -335,6 +365,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		45789EDB21342AC4009955CC /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				45789EDC21342BDE009955CC /* debug_rect.metal */,
+				4560F582213D44CE00CC736C /* screen_quad.metal */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -350,6 +389,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4560F58D213D57F900CC736C /* PBXTargetDependency */,
 			);
 			name = shaders;
 			productName = shaders;
@@ -373,6 +413,21 @@
 			productReference = 456660DA20E25A380085E8C1 /* shaders_tests.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4598437B21394BE000F8CAB2 /* shaders_metal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4598438321394BE000F8CAB2 /* Build configuration list for PBXNativeTarget "shaders_metal" */;
+			buildPhases = (
+				4598437A21394BE000F8CAB2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = shaders_metal;
+			productName = shaders_metal;
+			productReference = 4598437C21394BE000F8CAB2 /* shaders_metal.metallib */;
+			productType = "com.apple.product-type.metal-library";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -387,6 +442,9 @@
 					};
 					456660D920E25A380085E8C1 = {
 						CreatedOnToolsVersion = 9.4;
+					};
+					4598437B21394BE000F8CAB2 = {
+						CreatedOnToolsVersion = 9.4.1;
 					};
 				};
 			};
@@ -405,6 +463,7 @@
 			targets = (
 				4566606D20E254060085E8C1 /* shaders */,
 				456660D920E25A380085E8C1 /* shaders_tests */,
+				4598437B21394BE000F8CAB2 /* shaders_metal */,
 			);
 		};
 /* End PBXProject section */
@@ -441,8 +500,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45789EE72135464D009955CC /* metal_program_params.mm in Sources */,
 				4566608A20E256240085E8C1 /* program_params.cpp in Sources */,
+				45789EE021343F70009955CC /* metal_program_pool.mm in Sources */,
 				4566608B20E256240085E8C1 /* gl_shaders.cpp in Sources */,
+				45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */,
 				4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */,
 				4566608C20E256240085E8C1 /* gl_program_params.cpp in Sources */,
 				4566608D20E256240085E8C1 /* gl_program_pool.cpp in Sources */,
@@ -461,7 +523,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4598437A21394BE000F8CAB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
+				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4560F58D213D57F900CC736C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4598437B21394BE000F8CAB2 /* shaders_metal */;
+			targetProxy = 4560F58C213D57F900CC736C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		4566607520E254060085E8C1 /* Debug */ = {
@@ -566,6 +645,24 @@
 			};
 			name = "Production Full";
 		};
+		4598438021394BE000F8CAB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4598438121394BE000F8CAB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		4598438221394BE000F8CAB2 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -595,6 +692,16 @@
 				456660E920E25A3A0085E8C1 /* Debug */,
 				456660EA20E25A3A0085E8C1 /* Release */,
 				456660EB20E25A3A0085E8C1 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4598438321394BE000F8CAB2 /* Build configuration list for PBXNativeTarget "shaders_metal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4598438021394BE000F8CAB2 /* Debug */,
+				4598438121394BE000F8CAB2 /* Release */,
+				4598438221394BE000F8CAB2 /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

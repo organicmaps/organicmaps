@@ -1,14 +1,12 @@
 #include "drape/binding_info.hpp"
+#include "drape/gl_includes.hpp"
 
 #include "base/assert.hpp"
 
 namespace dp
 {
-
 namespace
 {
-
-#include "drape/glIncludes.hpp"
 uint16_t sizeOfType(glConst type)
 {
   if (type == gl_const::GLByteType || type == gl_const::GLUnsignedByteType)
@@ -23,16 +21,15 @@ uint16_t sizeOfType(glConst type)
   ASSERT(false, ());
   return 0;
 }
-
-} // namespace
+}  // namespace
 
 bool BindingDecl::operator!=(BindingDecl const & other) const
 {
   return m_attributeName != other.m_attributeName ||
-      m_componentCount != other.m_componentCount  ||
-      m_componentType != other.m_componentType    ||
-      m_stride != other.m_stride                  ||
-      m_offset != other.m_offset;
+         m_componentCount != other.m_componentCount ||
+         m_componentType != other.m_componentType ||
+         m_stride != other.m_stride ||
+         m_offset != other.m_offset;
 }
 
 bool BindingDecl::operator<(BindingDecl const & other) const
@@ -50,17 +47,12 @@ bool BindingDecl::operator<(BindingDecl const & other) const
 
 BindingInfo::BindingInfo()
   : m_info(0)
-{
-}
+{}
 
 BindingInfo::BindingInfo(uint8_t count, uint8_t id)
   : m_info(((uint16_t)count << 8) | id)
 {
   m_bindings.reset(new BindingDecl[count]);
-}
-
-BindingInfo::~BindingInfo()
-{
 }
 
 uint8_t BindingInfo::GetCount() const
@@ -118,8 +110,6 @@ bool BindingInfo::operator<(BindingInfo const & other) const
     if (thisDecl != otherDecl)
       return thisDecl < otherDecl;
   }
-
   return false;
 }
-
-} // namespace dp
+}  // namespace dp

@@ -1,14 +1,12 @@
 #pragma once
 
 #include "drape/drape_global.hpp"
-#include "drape/glconstants.hpp"
-#include "std/string.hpp"
+#include "drape/gl_constants.hpp"
 
 #include <gmock/gmock.h>
 
 namespace emul
 {
-
 class GLMockFunctions
 {
 public:
@@ -110,7 +108,6 @@ public:
 private:
   static GLMockFunctions * m_mock;
 };
-
-} // namespace emul
+}  // namespace emul
 
 #define EXPECTGL(x) EXPECT_CALL(emul::GLMockFunctions::Instance(), x)

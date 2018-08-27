@@ -1,5 +1,6 @@
 #include "drape/render_state.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
+#include "drape/gl_gpu_program.hpp"
 
 #include "base/buffer_vector.hpp"
 
@@ -11,23 +12,43 @@ std::string const kColorTextureName = "u_colorTex";
 std::string const kMaskTextureName = "u_maskTex";
 }  // namespace
 
+#if defined(OMIM_OS_IPHONE)
+extern void ApplyDepthStencilStateForMetal(ref_ptr<GraphicsContext> context);
+extern void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,
+                                       bool blendingEnabled);
+#endif
+
 // static
-void AlphaBlendingState::Apply()
+void AlphaBlendingState::Apply(ref_ptr<GraphicsContext> context)
 {
-  GLFunctions::glBlendEquation(gl_const::GLAddBlend);
-  GLFunctions::glBlendFunc(gl_const::GLSrcAlpha, gl_const::GLOneMinusSrcAlpha);
+  // For Metal Rendering these settings must be set in the pipeline state.
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    GLFunctions::glBlendEquation(gl_const::GLAddBlend);
+    GLFunctions::glBlendFunc(gl_const::GLSrcAlpha, gl_const::GLOneMinusSrcAlpha);
+  }
 }
 
 Blending::Blending(bool isEnabled)
   : m_isEnabled(isEnabled)
 {}
 
-void Blending::Apply() const
+void Blending::Apply(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program) const
 {
-  if (m_isEnabled)
-    GLFunctions::glEnable(gl_const::GLBlending);
+  // For Metal Rendering these settings must be set in the pipeline state.
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    if (m_isEnabled)
+      GLFunctions::glEnable(gl_const::GLBlending);
+    else
+      GLFunctions::glDisable(gl_const::GLBlending);
+  }
   else
-    GLFunctions::glDisable(gl_const::GLBlending);
+  {
+    CHECK(false, ("Unsupported API version."));
+  }
 }
 
 bool Blending::operator<(Blending const & other) const { return m_isEnabled < other.m_isEnabled; }
@@ -36,7 +57,7 @@ bool Blending::operator==(Blending const & other) const { return m_isEnabled == 
 
 void RenderState::SetColorTexture(ref_ptr<Texture> tex)
 {
-  m_textures[kColorTextureName] = tex;
+  m_textures[kColorTextureName] = std::move(tex);
 }
 
 ref_ptr<Texture> RenderState::GetColorTexture() const
@@ -49,7 +70,7 @@ ref_ptr<Texture> RenderState::GetColorTexture() const
 
 void RenderState::SetMaskTexture(ref_ptr<Texture> tex)
 {
-  m_textures[kMaskTextureName] = tex;
+  m_textures[kMaskTextureName] = std::move(tex);
 }
 
 ref_ptr<Texture> RenderState::GetMaskTexture() const
@@ -62,7 +83,7 @@ ref_ptr<Texture> RenderState::GetMaskTexture() const
 
 void RenderState::SetTexture(std::string const & name, ref_ptr<Texture> tex)
 {
-  m_textures[name] = tex;
+  m_textures[name] = std::move(tex);
 }
 
 ref_ptr<Texture> RenderState::GetTexture(std::string const & name) const
@@ -170,23 +191,29 @@ bool RenderState::operator!=(RenderState const & other) const
 
 uint8_t TextureState::m_usedSlots = 0;
 
-void TextureState::ApplyTextures(RenderState const & state, ref_ptr<GpuProgram> program)
+void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                 ref_ptr<GpuProgram> program)
 {
   m_usedSlots = 0;
-
-  for (auto const & texture : state.GetTextures())
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
-    auto const tex = texture.second;
-    int8_t texLoc = -1;
-    if (tex != nullptr && (texLoc = program->GetUniformLocation(texture.first)) >= 0)
+    ref_ptr<dp::GLGpuProgram> p = program;
+    for (auto const & texture : state.GetTextures())
     {
-      GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
-      tex->Bind();
-      GLFunctions::glUniformValuei(texLoc, m_usedSlots);
-      tex->SetFilter(state.GetTextureFilter());
-      m_usedSlots++;
+      auto const tex = texture.second;
+      int8_t texLoc = -1;
+      if (tex != nullptr && (texLoc = p->GetUniformLocation(texture.first)) >= 0)
+      {
+        GLFunctions::glActiveTexture(gl_const::GLTexture0 + m_usedSlots);
+        tex->Bind();
+        GLFunctions::glUniformValuei(texLoc, m_usedSlots);
+        tex->SetFilter(state.GetTextureFilter());
+        m_usedSlots++;
+      }
     }
   }
+  //TODO(@rokuz,@darina): Metal?
 }
 
 uint8_t TextureState::GetLastUsedSlots()
@@ -194,20 +221,42 @@ uint8_t TextureState::GetLastUsedSlots()
   return m_usedSlots;
 }
 
-void ApplyBlending(RenderState const & state)
-{
-  state.GetBlending().Apply();
-}
-
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state)
 {
-  TextureState::ApplyTextures(state, program);
-  ApplyBlending(state);
+  auto const apiVersion = context->GetApiVersion();
+  
+  TextureState::ApplyTextures(context, state, program);
+  
+  // Apply blending state.
+  if (apiVersion == dp::ApiVersion::Metal)
+  {
+    // For Metal rendering blending state is a part of the pipeline state.
+#if defined(OMIM_OS_IPHONE)
+    ApplyPipelineStateForMetal(context, program, state.GetBlending().m_isEnabled);
+#endif
+  }
+  else
+  {
+    state.GetBlending().Apply(context, program);
+  }
+  
+  // Apply depth state.
   context->SetDepthTestEnabled(state.GetDepthTestEnabled());
   if (state.GetDepthTestEnabled())
     context->SetDepthTestFunction(state.GetDepthFunction());
+  if (apiVersion == dp::ApiVersion::Metal)
+  {
+    // For Metal rendering we have to apply depth-stencil state after SetX functions calls.
+#if defined(OMIM_OS_IPHONE)
+    ApplyDepthStencilStateForMetal(context);
+#endif
+  }
 
-  ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
-  GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
+  // Metal does not support line width.
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
+    GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
+  }
 }
 }  // namespace dp

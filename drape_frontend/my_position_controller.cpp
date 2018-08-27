@@ -328,9 +328,12 @@ void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
     pt = m_position;
 }
 
-void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
+void MyPositionController::SetRenderShape(ref_ptr<dp::GraphicsContext> context,
+                                          ref_ptr<dp::TextureManager> texMng,
+                                          drape_ptr<MyPosition> && shape)
 {
   m_shape = std::move(shape);
+  m_shape->InitArrow(context, texMng);
 }
 
 void MyPositionController::ResetRenderShape()

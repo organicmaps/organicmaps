@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/glconstants.hpp"
+#include "drape/gl_constants.hpp"
 #include "drape/hw_texture.hpp"
 
 #ifndef OMIM_OS_IPHONE
@@ -28,7 +28,7 @@ public:
 
   void RiseFlushFlag();
 
-  drape_ptr<HWTexture> CreateTexture() override;
+  drape_ptr<HWTexture> CreateTexture(ref_ptr<dp::GraphicsContext> context) override;
   void Flush() override;
 
 private:
@@ -41,12 +41,15 @@ class HWTextureApple : public HWTexture
   using TBase = HWTexture;
 
 public:
-  HWTextureApple(ref_ptr<HWTextureAllocatorApple> allocator);
+  explicit HWTextureApple(ref_ptr<HWTextureAllocatorApple> allocator);
   ~HWTextureApple();
 
-  void Create(Params const & params, ref_ptr<void> data);
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
-
+  void Create(ref_ptr<dp::GraphicsContext> context, Params const & params, ref_ptr<void> data) override;
+  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data) override;
+  void Bind() const override;
+  void SetFilter(TextureFilter filter) override;
+  bool Validate() const override;
+  
 private:
   void Lock();
   void Unlock();

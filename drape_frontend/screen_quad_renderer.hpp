@@ -11,11 +11,11 @@ class ProgramManager;
 
 namespace df
 {
-class ScreenQuadRenderer: public dp::MeshObject
+class ScreenQuadRenderer : public dp::MeshObject
 {
   using Base = dp::MeshObject;
 public:
-  ScreenQuadRenderer();
+  explicit ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context);
 
   void SetTextureRect(m2::RectF const & rect);
   m2::RectF const & GetTextureRect() const { return m_textureRect; }

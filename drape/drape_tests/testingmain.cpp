@@ -11,8 +11,7 @@
 #include "std/target_os.hpp"
 #include "std/bind.hpp"
 
-#include "drape/drape_tests/glmock_functions.hpp"
-
+#include "drape/drape_tests/gl_mock_functions.hpp"
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
   #include <Qt>

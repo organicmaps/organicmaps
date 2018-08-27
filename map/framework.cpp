@@ -408,7 +408,7 @@ Framework::Framework(FrameworkParams const & params)
   df::LoadTransitColors();
 
   m_connectToGpsTrack = GpsTracker::Instance().IsEnabled();
-
+  
   // Init strings bundle.
   // @TODO. There are hardcoded strings below which are defined in strings.txt as well.
   // It's better to use strings from strings.txt instead of hardcoding them here.

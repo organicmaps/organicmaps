@@ -1,5 +1,5 @@
 #include "drape/shader.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 
 #include "base/assert.hpp"
 

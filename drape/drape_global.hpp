@@ -10,8 +10,9 @@
 
 namespace dp
 {
-enum ApiVersion
+enum class ApiVersion
 {
+  Invalid = -1,
   OpenGLES2 = 0,
   OpenGLES3,
   Metal
@@ -73,12 +74,22 @@ struct TitleDecl
   bool m_secondaryOptional = false;
 };
 
+class BaseFramebuffer
+{
+public:
+  virtual ~BaseFramebuffer() = default;
+  virtual void Bind() = 0;
+};
+
 inline std::string DebugPrint(dp::ApiVersion apiVersion)
 {
-  if (apiVersion == dp::OpenGLES2)
-    return "OpenGLES2";
-  else if (apiVersion == dp::OpenGLES3)
-    return "OpenGLES3";
+  switch (apiVersion)
+  {
+  case dp::ApiVersion::Invalid: return "Invalid";
+  case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
+  case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
+  case dp::ApiVersion::Metal: return "Metal";
+  }
   return "Unknown";
 }
 }  // namespace dp

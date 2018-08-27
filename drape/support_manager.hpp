@@ -1,5 +1,8 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
+#include "drape/pointers.hpp"
+
 #include "base/macros.hpp"
 
 namespace dp
@@ -12,8 +15,8 @@ public:
   // This singleton must be available only from rendering threads.
   static SupportManager & Instance();
 
-  // Initialization must be called only when OpenGL context is created.
-  void Init();
+  // Initialization must be called only when graphics context is created.
+  void Init(ref_ptr<GraphicsContext> context);
 
   bool IsSamsungGoogleNexus() const { return m_isSamsungGoogleNexus; }
   bool IsAdreno200Device() const { return m_isAdreno200; }

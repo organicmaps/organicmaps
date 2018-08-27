@@ -1,7 +1,7 @@
 #include "drape/vertex_array_buffer.hpp"
 
-#include "drape/glextensions_list.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_extensions_list.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/support_manager.hpp"
 
@@ -34,7 +34,6 @@ std::pair<uint32_t, uint32_t> CalculateMappingPart(std::vector<dp::MutateNode> c
 VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize)
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
-  , m_program()
   , m_isPreflushed(false)
   , m_moveToGpuOnBuild(false)
   , m_isChanged(false)
@@ -97,7 +96,7 @@ void VertexArrayBuffer::RenderRange(bool drawAsLine, IndicesRange const & range)
 {
   if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()) && GetIndexCount() > 0)
   {
-    ASSERT(m_program != nullptr, ("Somebody not call Build. It's very bad. Very very bad"));
+    ASSERT(m_program != nullptr, ("Build must be called before RenderRange"));
     // If OES_vertex_array_object is supported than all bindings have already saved in VAO
     // and we need only bind VAO.
     if (!Bind())
@@ -118,7 +117,7 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
   if (m_moveToGpuOnBuild && !m_isPreflushed)
     PreflushImpl();
 
-  if (m_VAO != 0 && m_program == program)
+  if (m_VAO != 0 && m_program.get() == program.get())
     return;
 
   m_program = program;

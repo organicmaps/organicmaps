@@ -5,7 +5,6 @@
 
 namespace df
 {
-
 class MapLinearAnimation : public Animation
 {
 public:
@@ -14,7 +13,7 @@ public:
                      double startScale, double endScale, ScreenBase const & convertor);
   MapLinearAnimation();
 
-  void Init(const ScreenBase &screen, const TPropertyCache &properties) override;
+  void Init(ScreenBase const & screen, TPropertyCache const & properties) override;
 
   void SetMove(m2::PointD const & startPos, m2::PointD const & endPos, ScreenBase const & convertor);
   void SetMove(m2::PointD const & startPos, m2::PointD const & endPos, m2::RectD const & viewportRect, double scale);
@@ -60,5 +59,4 @@ private:
   TObjectProperties m_properties;
   TAnimObjects m_objects;
 };
-
-} // namespace df
+}  // namespace df

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
 #include "drape/hw_texture.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_types.hpp"
@@ -44,11 +45,11 @@ public:
     m2::RectF m_texRect;
   };
 
-  Texture();
+  Texture() = default;
   virtual ~Texture();
 
   virtual ref_ptr<ResourceInfo> FindResource(Key const & key, bool & newResource) = 0;
-  virtual void UpdateState() {}
+  virtual void UpdateState(ref_ptr<dp::GraphicsContext> context) {}
   virtual bool HasEnoughSpace(uint32_t /* newKeysCount */) const { return true; }
   using Params = HWTexture::Params;
 
@@ -64,16 +65,21 @@ public:
   // Texture must be bound before calling this method.
   virtual void SetFilter(TextureFilter filter);
 
-  virtual void Create(Params const & params);
-  virtual void Create(Params const & params, ref_ptr<void> data);
-  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data);
+  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params);
+  virtual void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
+                      ref_ptr<void> data);
+  void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                  ref_ptr<void> data);
+  
+  ref_ptr<HWTexture> GetHardwareTexture() const;
 
   static uint32_t GetMaxTextureSize();
   static bool IsPowerOfTwo(uint32_t width, uint32_t height);
 
 protected:
   void Destroy();
-  bool AllocateTexture(ref_ptr<HWTextureAllocator> allocator);
+  bool AllocateTexture(ref_ptr<dp::GraphicsContext> context,
+                       ref_ptr<HWTextureAllocator> allocator);
 
   drape_ptr<HWTexture> m_hwTexture;
 

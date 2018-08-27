@@ -66,6 +66,12 @@ MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   CachePointPosition(mng);
 }
 
+void MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
+{
+  m_arrow3d = make_unique_dp<Arrow3d>(context);
+  m_arrow3d->SetTexture(mng);
+}
+
 void MyPosition::SetPosition(m2::PointF const & pt)
 {
   m_position = pt;
@@ -94,7 +100,8 @@ void MyPosition::SetRoutingMode(bool routingMode)
 void MyPosition::SetPositionObsolete(bool obsolete)
 {
   m_obsoletePosition = obsolete;
-  m_arrow3d.SetPositionObsolete(obsolete);
+  CHECK(m_arrow3d != nullptr, ());
+  m_arrow3d->SetPositionObsolete(obsolete);
 }
 
 void MyPosition::RenderAccuracy(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -122,9 +129,10 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 {
   if (m_showAzimuth)
   {
-    m_arrow3d.SetPosition(m2::PointD(m_position));
-    m_arrow3d.SetAzimuth(m_azimuth);
-    m_arrow3d.Render(context, mng, screen, m_isRoutingMode);
+    CHECK(m_arrow3d != nullptr, ());
+    m_arrow3d->SetPosition(m2::PointD(m_position));
+    m_arrow3d->SetAzimuth(m_azimuth);
+    m_arrow3d->Render(context, mng, screen, m_isRoutingMode);
   }
   else
   {
@@ -214,8 +222,6 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   int const kSymbolsCount = 1;
   dp::TextureManager::SymbolRegion pointSymbol;
   mng->GetSymbolRegion("current-position", pointSymbol);
-
-  m_arrow3d.SetTexture(mng);
 
   auto state = CreateRenderState(gpu::Program::MyPosition, DepthLayer::OverlayLayer);
   state.SetDepthTestEnabled(false);

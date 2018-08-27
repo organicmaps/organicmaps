@@ -2,7 +2,6 @@
 
 namespace dp
 {
-
 AttributeBufferMutator::~AttributeBufferMutator()
 {
   SharedBufferManager & mng = SharedBufferManager::instance();
@@ -23,5 +22,4 @@ void * AttributeBufferMutator::AllocateMutationBuffer(uint32_t byteCount)
   m_array.push_back(make_pair(SharedBufferManager::instance().reserveSharedBuffer(byteCount), byteCount));
   return &((*m_array.back().first)[0]);
 }
-
-} // namespace dp
+}  // namespace dp

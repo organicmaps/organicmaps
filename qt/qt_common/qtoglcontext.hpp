@@ -18,11 +18,10 @@ class QtRenderOGLContext : public dp::OGLContext
 public:
   QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
 
-  // dp::OGLContext overrides:
   void Present() override;
   void MakeCurrent() override;
   void DoneCurrent() override;
-  void SetDefaultFramebuffer() override;
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void Resize(int w, int h) override;
 
   void LockFrame();
@@ -47,11 +46,10 @@ class QtUploadOGLContext: public dp::OGLContext
 public:
   QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
 
-  // dp::OGLContext overrides:
   void Present() override;
   void MakeCurrent() override;
   void DoneCurrent() override;
-  void SetDefaultFramebuffer() override;
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
 
 private:
   QOffscreenSurface * m_surface = nullptr;  // non-owning ptr

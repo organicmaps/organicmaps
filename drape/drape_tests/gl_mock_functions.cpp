@@ -1,8 +1,7 @@
-#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 
 namespace emul
 {
-
 void GLMockFunctions::Init(int * argc, char **argv)
 {
   ::testing::InitGoogleMock(argc, argv);
@@ -26,5 +25,4 @@ void GLMockFunctions::ValidateAndClear()
 }
 
 GLMockFunctions * GLMockFunctions::m_mock;
-
-} // namespace emul
+}  // namespace emul

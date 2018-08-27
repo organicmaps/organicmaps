@@ -1,5 +1,5 @@
-#include "drape/gpu_program.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_gpu_program.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/render_state.hpp"
 #include "drape/support_manager.hpp"
 
@@ -9,11 +9,11 @@
 
 namespace dp
 {
-GpuProgram::GpuProgram(std::string const & programName,
-                       ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
-  : m_programName(programName)
-  , m_vertexShader(vertexShader)
-  , m_fragmentShader(fragmentShader)
+GLGpuProgram::GLGpuProgram(std::string const & programName,
+                           ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+  : GpuProgram(programName)
+  , m_vertexShader(std::move(vertexShader))
+  , m_fragmentShader(std::move(fragmentShader))
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
@@ -35,10 +35,8 @@ GpuProgram::GpuProgram(std::string const & programName,
   }
 }
 
-GpuProgram::~GpuProgram()
+GLGpuProgram::~GLGpuProgram()
 {
-  Unbind();
-
   if (SupportManager::Instance().IsTegraDevice())
   {
     GLFunctions::glDetachShader(m_programID, m_vertexShader->GetID());
@@ -48,7 +46,7 @@ GpuProgram::~GpuProgram()
   GLFunctions::glDeleteProgram(m_programID);
 }
 
-void GpuProgram::Bind()
+void GLGpuProgram::Bind()
 {
   // Deactivate all unused textures.
   uint8_t const usedSlots = TextureState::GetLastUsedSlots();
@@ -61,17 +59,17 @@ void GpuProgram::Bind()
   GLFunctions::glUseProgram(m_programID);
 }
 
-void GpuProgram::Unbind()
+void GLGpuProgram::Unbind()
 {
   GLFunctions::glUseProgram(0);
 }
 
-int8_t GpuProgram::GetAttributeLocation(std::string const & attributeName) const
+int8_t GLGpuProgram::GetAttributeLocation(std::string const & attributeName) const
 {
   return GLFunctions::glGetAttribLocation(m_programID, attributeName);
 }
 
-int8_t GpuProgram::GetUniformLocation(std::string const & uniformName) const
+int8_t GLGpuProgram::GetUniformLocation(std::string const & uniformName) const
 {
   auto const it = m_uniforms.find(uniformName);
   if (it == m_uniforms.end())
@@ -80,7 +78,7 @@ int8_t GpuProgram::GetUniformLocation(std::string const & uniformName) const
   return it->second.m_location;
 }
 
-glConst GpuProgram::GetUniformType(std::string const & uniformName) const
+glConst GLGpuProgram::GetUniformType(std::string const & uniformName) const
 {
   auto const it = m_uniforms.find(uniformName);
   if (it == m_uniforms.end())
@@ -89,12 +87,12 @@ glConst GpuProgram::GetUniformType(std::string const & uniformName) const
   return it->second.m_type;
 }
 
-GpuProgram::UniformsInfo const & GpuProgram::GetUniformsInfo() const
+GLGpuProgram::UniformsInfo const & GLGpuProgram::GetUniformsInfo() const
 {
   return m_uniforms;
 }
 
-void GpuProgram::LoadUniformLocations()
+void GLGpuProgram::LoadUniformLocations()
 {
   static std::set<glConst> const kSupportedTypes = {
       gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4,
@@ -118,7 +116,7 @@ void GpuProgram::LoadUniformLocations()
   m_textureSlotsCount = static_cast<uint8_t>(m_uniforms.size() - m_numericUniformsCount);
 }
 
-uint32_t GpuProgram::CalculateNumericUniformsCount() const
+uint32_t GLGpuProgram::CalculateNumericUniformsCount() const
 {
   uint32_t counter = 0;
   for (auto const & u : m_uniforms)

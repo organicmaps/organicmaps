@@ -72,35 +72,47 @@ template<typename T>
 class ref_ptr
 {
 public:
-  ref_ptr()
-    : m_ptr(nullptr), m_isOwnerUnique(false)
-  {}
-
-  ref_ptr(T * ptr, bool isOwnerUnique = false)
-    : m_ptr(ptr), m_isOwnerUnique(isOwnerUnique)
+  ref_ptr() noexcept
+    : m_ptr(nullptr)
   {
 #if defined(TRACK_POINTERS)
+    m_isOwnerUnique = false;
+#endif
+  }
+
+#if defined(TRACK_POINTERS)
+  ref_ptr(T * ptr, bool isOwnerUnique = false) noexcept
+#else
+  ref_ptr(T * ptr) noexcept
+#endif
+    : m_ptr(ptr)
+  {
+#if defined(TRACK_POINTERS)
+    m_isOwnerUnique = isOwnerUnique;
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
 #endif
   }
 
-  ref_ptr(ref_ptr const & rhs)
-    : m_ptr(rhs.m_ptr), m_isOwnerUnique(rhs.m_isOwnerUnique)
+  ref_ptr(ref_ptr const & rhs) noexcept
+    : m_ptr(rhs.m_ptr)
   {
 #if defined(TRACK_POINTERS)
+    m_isOwnerUnique = rhs.m_isOwnerUnique;
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
 #endif
   }
 
-  ref_ptr(ref_ptr && rhs)
+  ref_ptr(ref_ptr && rhs) noexcept
   {
     m_ptr = rhs.m_ptr;
     rhs.m_ptr = nullptr;
 
+#if defined(TRACK_POINTERS)
     m_isOwnerUnique = rhs.m_isOwnerUnique;
     rhs.m_isOwnerUnique = false;
+#endif
   }
 
   ~ref_ptr()
@@ -120,17 +132,26 @@ public:
     static_assert(std::is_base_of<TResult, T>::value || std::is_base_of<T, TResult>::value ||
                   std::is_void<T>::value || std::is_void<TResult>::value, "");
 
+#if defined(TRACK_POINTERS)
     return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+#else
+    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr));
+#endif
   }
 
   template<typename TResult>
   ref_ptr<TResult> downcast() const
   {
     ASSERT(dynamic_cast<TResult *>(m_ptr) != nullptr, ());
+
+#if defined(TRACK_POINTERS)
     return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
+#else
+    return ref_ptr<TResult>(static_cast<TResult *>(m_ptr));
+#endif
   }
 
-  operator bool() const { return m_ptr != nullptr; }
+  explicit operator bool() const { return m_ptr != nullptr; }
 
   bool operator==(ref_ptr const & rhs) const { return m_ptr == rhs.m_ptr; }
 
@@ -148,7 +169,7 @@ public:
     return *m_ptr;
   }
 
-  ref_ptr & operator=(ref_ptr const & rhs)
+  ref_ptr & operator=(ref_ptr const & rhs) noexcept
   {
     if (this == &rhs)
       return *this;
@@ -159,9 +180,9 @@ public:
 #endif
 
     m_ptr = rhs.m_ptr;
-    m_isOwnerUnique = rhs.m_isOwnerUnique;
 
 #if defined(TRACK_POINTERS)
+    m_isOwnerUnique = rhs.m_isOwnerUnique;
     if (m_isOwnerUnique)
       DpPointerTracker::Instance().RefPtr(m_ptr);
 #endif
@@ -169,7 +190,7 @@ public:
     return *this;
   }
 
-  ref_ptr & operator=(ref_ptr && rhs)
+  ref_ptr & operator=(ref_ptr && rhs) noexcept
   {
     if (this == &rhs)
       return *this;
@@ -182,8 +203,10 @@ public:
     m_ptr = rhs.m_ptr;
     rhs.m_ptr = nullptr;
 
+#if defined(TRACK_POINTERS)
     m_isOwnerUnique = rhs.m_isOwnerUnique;
     rhs.m_isOwnerUnique = false;
+#endif
 
     return *this;
   }
@@ -192,7 +215,9 @@ public:
 
 private:
   T* m_ptr;
+#if defined(TRACK_POINTERS)
   bool m_isOwnerUnique;
+#endif
 
   template <typename TResult>
   friend inline std::string DebugPrint(ref_ptr<TResult> const & v);
@@ -207,11 +232,19 @@ inline std::string DebugPrint(ref_ptr<T> const & v)
 template <typename T>
 ref_ptr<T> make_ref(drape_ptr<T> const & drapePtr)
 {
-  return ref_ptr<T>(drapePtr.get(), true);
+#if defined(TRACK_POINTERS)
+  return ref_ptr<T>(drapePtr.get(), true /* isOwnerUnique */);
+#else
+  return ref_ptr<T>(drapePtr.get());
+#endif
 }
 
 template <typename T>
 ref_ptr<T> make_ref(T* ptr)
 {
-  return ref_ptr<T>(ptr, false);
+#if defined(TRACK_POINTERS)
+  return ref_ptr<T>(ptr, false /* isOwnerUnique */);
+#else
+  return ref_ptr<T>(ptr);
+#endif
 }

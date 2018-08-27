@@ -4,13 +4,19 @@
 
 namespace dp
 {
-class OGLContext: public GraphicsContext
+class OGLContext : public GraphicsContext
 {
 public:
   void Init(ApiVersion apiVersion) override;
+  ApiVersion GetApiVersion() const override;
+  std::string GetRendererName() const override;
+  std::string GetRendererVersion() const override;
+  void ApplyFramebuffer(std::string const & framebufferLabel) override {}
+
   void SetClearColor(dp::Color const & color) override;
   void Clear(uint32_t clearBits) override;
   void Flush() override;
+  void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
   void SetDepthTestEnabled(bool enabled) override;
   void SetDepthTestFunction(TestFunction depthFunction) override;
   void SetStencilTestEnabled(bool enabled) override;

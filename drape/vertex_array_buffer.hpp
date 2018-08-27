@@ -3,17 +3,12 @@
 #include "drape/attribute_buffer_mutator.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/data_buffer.hpp"
-#include "drape/gpu_program.hpp"
+#include "drape/gl_gpu_program.hpp"
 #include "drape/index_buffer.hpp"
 #include "drape/index_buffer_mutator.hpp"
 #include "drape/pointers.hpp"
 
 #include <map>
-
-namespace df
-{
-class BatchMergeHelper;
-}
 
 namespace dp
 {
@@ -30,13 +25,11 @@ struct IndicesRange
 class VertexArrayBuffer
 {
   using BuffersMap = std::map<BindingInfo, drape_ptr<DataBuffer>>;
-  friend class df::BatchMergeHelper;
-
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
 
-  // This method must be call on reading thread, before VAO will be transfered on render thread.
+  // This method must be called on a reading thread, before VAO will be transferred to the render thread.
   void Preflush();
 
   // OES_vertex_array_object create OpenGL resource that belong only one GL context (which was
@@ -60,6 +53,7 @@ public:
 
   void ResetChangingTracking() { m_isChanged = false; }
   bool IsChanged() const { return m_isChanged; }
+
 private:
   ref_ptr<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);
   ref_ptr<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
@@ -77,8 +71,6 @@ private:
 
   void PreflushImpl();
 
-private:
-  // m_VAO - VertexArrayObject name/identifier.
   int m_VAO;
   BuffersMap m_staticBuffers;
   BuffersMap m_dynamicBuffers;
@@ -86,7 +78,7 @@ private:
   drape_ptr<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;
 
-  ref_ptr<GpuProgram> m_program;
+  ref_ptr<GLGpuProgram> m_program;
 
   bool m_isPreflushed;
   bool m_moveToGpuOnBuild;

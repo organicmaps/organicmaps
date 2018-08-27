@@ -1,15 +1,14 @@
 #pragma once
 
-#include "drape/glIncludes.hpp"
+#include "drape/gl_includes.hpp"
 
 namespace base
 {
 class SrcPoint;
-}
+}  // namespace base
 
 namespace android
 {
-
 class ConfigComparator
 {
 public:
@@ -24,7 +23,6 @@ private:
 };
 
 void CheckEGL(base::SrcPoint const & src);
-
 }  // namespace android
 
 #define CHECK_EGL(x) do { (x); android::CheckEGL(SRC());} while(false);

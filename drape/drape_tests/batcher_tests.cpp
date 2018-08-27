@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
 #include "drape/batcher.hpp"
-#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 #include "drape/drape_tests/memory_comparer.hpp"
-#include "drape/glconstants.hpp"
+#include "drape/gl_constants.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 

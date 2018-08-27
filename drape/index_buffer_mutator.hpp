@@ -3,17 +3,16 @@
 #include "drape/index_storage.hpp"
 #include "drape/pointers.hpp"
 
-#include "std/cstdint.hpp"
+#include <cstdint>
 
 namespace dp
 {
-
 class VertexArrayBuffer;
 
 class IndexBufferMutator
 {
 public:
-  IndexBufferMutator(uint32_t baseSize);
+  explicit IndexBufferMutator(uint32_t baseSize);
 
   void AppendIndexes(void const * indexes, uint32_t count);
 
@@ -26,7 +25,6 @@ private:
 
 private:
   IndexStorage m_buffer;
-  uint32_t m_activeSize;
+  uint32_t m_activeSize = 0;
 };
-
-} // namespace dp
+}  // namespace dp

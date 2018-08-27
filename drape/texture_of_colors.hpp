@@ -39,7 +39,7 @@ public:
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
 
 private:
-  typedef std::map<Color, ColorResourceInfo> TPalette;
+  using TPalette = std::map<Color, ColorResourceInfo>;
 
   struct PendingColor
   {
@@ -59,18 +59,19 @@ private:
 
 class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::ResourceType::Color>
 {
-  typedef DynamicTexture<ColorPalette, ColorKey, Texture::ResourceType::Color> TBase;
+  using TBase = DynamicTexture<ColorPalette, ColorKey, Texture::ResourceType::Color>;
 public:
   ColorTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_palette(size)
   {
-    TBase::TextureParams params{size, TextureFormat::RGBA8, TextureFilter::Nearest, false /* m_usePixelBuffer */};
+    TBase::DynamicTextureParams params{size, TextureFormat::RGBA8, TextureFilter::Nearest,
+                                       false /* m_usePixelBuffer */};
     TBase::Init(allocator, make_ref(&m_palette), params);
   }
 
   void ReserveColor(dp::Color const & color);
 
-  ~ColorTexture() { TBase::Reset(); }
+  ~ColorTexture() override { TBase::Reset(); }
 
   static int GetColorSizeInPixels();
 

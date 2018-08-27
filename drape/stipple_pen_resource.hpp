@@ -98,7 +98,8 @@ class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key, bool & newResource);
+  ref_ptr<Texture::ResourceInfo> ReserveResource(bool predefined, StipplePenKey const & key,
+                                                 bool & newResource);
   ref_ptr<Texture::ResourceInfo> MapResource(StipplePenKey const & key, bool & newResource);
   void UploadResources(ref_ptr<Texture> texture);
 
@@ -118,15 +119,17 @@ private:
 
 std::string DebugPrint(StipplePenHandle const & key);
 
-class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>
+class StipplePenTexture : public DynamicTexture<StipplePenIndex, StipplePenKey,
+                                                Texture::ResourceType::StipplePen>
 {
-  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen> TBase;
+  using TBase = DynamicTexture<StipplePenIndex, StipplePenKey, Texture::ResourceType::StipplePen>;
 public:
   StipplePenTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
     : m_index(size)
   {
-    TBase::TextureParams params{size, TextureFormat::Alpha, TextureFilter::Nearest, false /* m_usePixelBuffer */};
-    TBase::Init(allocator, make_ref(&m_index), params);
+    TBase::DynamicTextureParams params{size, TextureFormat::Alpha, TextureFilter::Nearest,
+                                       false /* m_usePixelBuffer */};
+    TBase::Init(std::move(allocator), make_ref(&m_index), params);
   }
 
   ~StipplePenTexture() override { TBase::Reset(); }

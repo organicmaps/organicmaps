@@ -1,5 +1,5 @@
 #include "drape/framebuffer.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/texture.hpp"
 
 #include "base/assert.hpp"
@@ -11,32 +11,15 @@ namespace dp
 Framebuffer::DepthStencil::DepthStencil(bool depthEnabled, bool stencilEnabled)
   : m_depthEnabled(depthEnabled)
   , m_stencilEnabled(stencilEnabled)
-{
-  if (m_depthEnabled && m_stencilEnabled)
-  {
-    // OpenGLES2 does not support texture-based depth-stencil.
-    CHECK(GLFunctions::CurrentApiVersion != dp::ApiVersion::OpenGLES2, ());
-
-    m_layout = gl_const::GLDepthStencil;
-    m_pixelType = gl_const::GLUnsignedInt24_8Type;
-  }
-  else if (m_depthEnabled)
-  {
-    m_layout = gl_const::GLDepthComponent;
-    m_pixelType = gl_const::GLUnsignedIntType;
-  }
-  else
-  {
-    CHECK(false, ("Unsupported depth-stencil combination."));
-  }
-}
+{}
 
 Framebuffer::DepthStencil::~DepthStencil()
 {
   Destroy();
 }
 
-void Framebuffer::DepthStencil::SetSize(uint32_t width, uint32_t height)
+void Framebuffer::DepthStencil::SetSize(ref_ptr<dp::GraphicsContext> context,
+                                        uint32_t width, uint32_t height)
 {
   Destroy();
 
@@ -47,10 +30,13 @@ void Framebuffer::DepthStencil::SetSize(uint32_t width, uint32_t height)
     params.m_format = TextureFormat::DepthStencil;
   else if (m_depthEnabled)
     params.m_format = TextureFormat::Depth;
-  params.m_allocator = GetDefaultAllocator();
+  else
+    CHECK(false, ("Unsupported depth-stencil combination."));
+  params.m_allocator = GetDefaultAllocator(context);
+  params.m_isRenderTarget = true;
 
   m_texture = make_unique_dp<FramebufferTexture>();
-  m_texture->Create(params);
+  m_texture->Create(context, params);
 }
 
 void Framebuffer::DepthStencil::Destroy()
@@ -68,6 +54,11 @@ uint32_t Framebuffer::DepthStencil::GetStencilAttachmentId() const
 {
   ASSERT(m_stencilEnabled ? m_texture != nullptr : true, ());
   return m_stencilEnabled ? m_texture->GetID() : 0;
+}
+
+ref_ptr<FramebufferTexture> Framebuffer::DepthStencil::GetTexture() const
+{
+  return make_ref(m_texture);
 }
 
 Framebuffer::Framebuffer()
@@ -113,7 +104,7 @@ void Framebuffer::SetFramebufferFallback(FramebufferFallback && fallback)
   m_framebufferFallback = std::move(fallback);
 }
 
-void Framebuffer::SetSize(uint32_t width, uint32_t height)
+void Framebuffer::SetSize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height)
 {
   if (!m_isSupported)
     return;
@@ -130,50 +121,56 @@ void Framebuffer::SetSize(uint32_t width, uint32_t height)
   params.m_width = width;
   params.m_height = height;
   params.m_format = m_colorFormat;
-  params.m_allocator = GetDefaultAllocator();
+  params.m_allocator = GetDefaultAllocator(context);
+  params.m_isRenderTarget = true;
 
   m_colorTexture = make_unique_dp<FramebufferTexture>();
-  m_colorTexture->Create(params);
+  m_colorTexture->Create(context, params);
 
-  glConst depthAttachmentId = 0;
-  glConst stencilAttachmentId = 0;
-  if (m_depthStencilRef != nullptr)
+  if (m_depthStencilRef != nullptr && m_depthStencilRef == m_depthStencil.get())
+    m_depthStencilRef->SetSize(context, m_width, m_height);
+
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
-    if (m_depthStencilRef == m_depthStencil.get())
-      m_depthStencilRef->SetSize(m_width, m_height);
-    depthAttachmentId = m_depthStencilRef->GetDepthAttachmentId();
-    stencilAttachmentId = m_depthStencilRef->GetStencilAttachmentId();
-  }
+    glConst depthAttachmentId = 0;
+    glConst stencilAttachmentId = 0;
+    if (m_depthStencilRef != nullptr)
+    {
+      depthAttachmentId = m_depthStencilRef->GetDepthAttachmentId();
+      stencilAttachmentId = m_depthStencilRef->GetStencilAttachmentId();
+    }
 
-  GLFunctions::glGenFramebuffer(&m_framebufferId);
-  GLFunctions::glBindFramebuffer(m_framebufferId);
+    GLFunctions::glGenFramebuffer(&m_framebufferId);
+    GLFunctions::glBindFramebuffer(m_framebufferId);
 
-  GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTexture->GetID());
-  if (depthAttachmentId != stencilAttachmentId)
-  {
-    GLFunctions::glFramebufferTexture2D(gl_const::GLDepthAttachment, depthAttachmentId);
-    GLFunctions::glFramebufferTexture2D(gl_const::GLStencilAttachment, stencilAttachmentId);
-  }
-  else
-  {
-    GLFunctions::glFramebufferTexture2D(gl_const::GLDepthStencilAttachment, depthAttachmentId);
-  }
+    GLFunctions::glFramebufferTexture2D(gl_const::GLColorAttachment, m_colorTexture->GetID());
+    if (depthAttachmentId != stencilAttachmentId)
+    {
+      GLFunctions::glFramebufferTexture2D(gl_const::GLDepthAttachment, depthAttachmentId);
+      GLFunctions::glFramebufferTexture2D(gl_const::GLStencilAttachment, stencilAttachmentId);
+    }
+    else
+    {
+      GLFunctions::glFramebufferTexture2D(gl_const::GLDepthStencilAttachment, depthAttachmentId);
+    }
 
-  uint32_t const status = GLFunctions::glCheckFramebufferStatus();
-  if (status != gl_const::GLFramebufferComplete)
-  {
-    m_isSupported = false;
-    Destroy();
-    LOG(LWARNING, ("Framebuffer is unsupported. Framebuffer status =", status));
-  }
+    uint32_t const status = GLFunctions::glCheckFramebufferStatus();
+    if (status != gl_const::GLFramebufferComplete)
+    {
+      m_isSupported = false;
+      Destroy();
+      LOG(LWARNING, ("Framebuffer is unsupported. Framebuffer status =", status));
+    }
 
-  if (m_framebufferFallback != nullptr)
-    m_framebufferFallback();
+    if (m_framebufferFallback != nullptr)
+      m_framebufferFallback();
+  }
 }
 
 void Framebuffer::SetDepthStencilRef(ref_ptr<DepthStencil> depthStencilRef)
 {
-  m_depthStencilRef = depthStencilRef;
+  m_depthStencilRef = std::move(depthStencilRef);
 }
 
 void Framebuffer::ApplyOwnDepthStencil()
@@ -181,13 +178,14 @@ void Framebuffer::ApplyOwnDepthStencil()
   m_depthStencilRef = make_ref(m_depthStencil);
 }
 
-void Framebuffer::Enable()
+void Framebuffer::Bind()
 {
   ASSERT(m_isSupported, ());
+  ASSERT_NOT_EQUAL(m_framebufferId, 0, ());
   GLFunctions::glBindFramebuffer(m_framebufferId);
 }
 
-void Framebuffer::Disable()
+void Framebuffer::ApplyFallback()
 {
   ASSERT(m_isSupported, ());
   if (m_framebufferFallback != nullptr)

@@ -44,12 +44,14 @@ set(
   ${DRAPE_ROOT}/font_texture.hpp
   ${DRAPE_ROOT}/framebuffer.cpp
   ${DRAPE_ROOT}/framebuffer.hpp
-  ${DRAPE_ROOT}/glconstants.cpp
-  ${DRAPE_ROOT}/glconstants.hpp
-  ${DRAPE_ROOT}/glextensions_list.cpp
-  ${DRAPE_ROOT}/glextensions_list.hpp
-  ${DRAPE_ROOT}/glfunctions.hpp
-  ${DRAPE_ROOT}/glIncludes.hpp
+  ${DRAPE_ROOT}/gl_constants.cpp
+  ${DRAPE_ROOT}/gl_constants.hpp
+  ${DRAPE_ROOT}/gl_gpu_program.cpp
+  ${DRAPE_ROOT}/gl_gpu_program.hpp
+  ${DRAPE_ROOT}/gl_extensions_list.cpp
+  ${DRAPE_ROOT}/gl_extensions_list.hpp
+  ${DRAPE_ROOT}/gl_functions.hpp
+  ${DRAPE_ROOT}/gl_includes.hpp
   ${DRAPE_ROOT}/glsl_func.hpp
   ${DRAPE_ROOT}/glsl_types.hpp
   ${DRAPE_ROOT}/glyph_generator.cpp
@@ -58,7 +60,6 @@ set(
   ${DRAPE_ROOT}/glyph_manager.hpp
   ${DRAPE_ROOT}/gpu_buffer.cpp
   ${DRAPE_ROOT}/gpu_buffer.hpp
-  ${DRAPE_ROOT}/gpu_program.cpp
   ${DRAPE_ROOT}/gpu_program.hpp
   ${DRAPE_ROOT}/graphics_context.hpp
   ${DRAPE_ROOT}/graphics_context_factory.cpp
@@ -122,15 +123,24 @@ set(
 
 set(
   SRC
-  glfunctions.cpp
+  gl_functions.cpp
 )
 
 if (PLATFORM_IPHONE)
-  append(
-    SRC
-    hw_texture_ios.hpp
-    hw_texture_ios.mm
-  )
+append(
+  SRC
+  hw_texture_ios.hpp
+  hw_texture_ios.mm
+  metal/metal_base_context.hpp
+  metal/metal_base_context.mm
+  metal/metal_gpu_program.hpp
+  metal/metal_mesh_object_impl.mm
+  metal/metal_states.hpp
+  metal/metal_states.mm
+  metal/metal_texture.hpp
+  metal/metal_texture.mm
+  metal/render_state_metal.mm
+)
 endif()
 
 omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})

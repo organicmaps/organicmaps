@@ -11,7 +11,7 @@
 class iosOGLContextFactory: public dp::GraphicsContextFactory
 {
 public:
-  iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion);
+  iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion, bool presentAvailable);
   ~iosOGLContextFactory();
 
   dp::GraphicsContext * GetDrawContext() override;

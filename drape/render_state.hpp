@@ -14,14 +14,14 @@ namespace dp
 {
 struct AlphaBlendingState
 {
-  static void Apply();
+  static void Apply(ref_ptr<GraphicsContext> context);
 };
 
 struct Blending
 {
   explicit Blending(bool isEnabled = true);
 
-  void Apply() const;
+  void Apply(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program) const;
 
   bool operator<(Blending const & other) const;
   bool operator==(Blending const & other) const;
@@ -116,7 +116,8 @@ private:
 class TextureState
 {
 public:
-  static void ApplyTextures(RenderState const & state, ref_ptr<GpuProgram> program);
+  static void ApplyTextures(ref_ptr<GraphicsContext> context, RenderState const & state,
+                            ref_ptr<GpuProgram> program);
   static uint8_t GetLastUsedSlots();
 
 private:
@@ -124,5 +125,4 @@ private:
 };
 
 void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, RenderState const & state);
-void ApplyBlending(RenderState const & state);
 }  // namespace dp

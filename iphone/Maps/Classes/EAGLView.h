@@ -18,7 +18,8 @@ namespace dp
   drape_ptr<dp::GraphicsContextFactory> m_factory;
   // Do not call onSize from layoutSubViews when real size wasn't changed.
   // It's possible when we add/remove subviews (bookmark balloons) and it hangs the map without this check
-  CGRect lastViewSize;
+  CGRect m_lastViewSize;
+  bool m_presentAvailable;
 }
 
 @property(nonatomic) MWMMapWidgets * widgetsManager;
@@ -28,10 +29,10 @@ namespace dp
 @property(nonatomic) BOOL isLaunchByDeepLink;
 @property(nonatomic, readonly) m2::PointU pixelSize;
 
+- (void)createDrapeEngine;
 - (void)deallocateNative;
+- (void)setPresentAvailable:(BOOL)available;
 - (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt;
 - (CGPoint)globalPoint2ViewPoint:(CGPoint)pt;
-- (void)initialize;
-- (void)setPresentAvailable:(BOOL)available;
 
 @end

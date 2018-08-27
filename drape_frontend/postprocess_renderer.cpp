@@ -111,22 +111,29 @@ private:
   gpu::ScreenQuadProgramParams m_params;
 };
 
-void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t width, uint32_t height,
+void InitFramebuffer(ref_ptr<dp::GraphicsContext> context,
+                     drape_ptr<dp::Framebuffer> & framebuffer,
+                     uint32_t width, uint32_t height,
                      bool depthEnabled, bool stencilEnabled)
 {
   if (framebuffer == nullptr)
-    framebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8, depthEnabled, stencilEnabled);
-  framebuffer->SetSize(width, height);
+  {
+    framebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8, depthEnabled,
+                                                  stencilEnabled);
+  }
+  framebuffer->SetSize(std::move(context), width, height);
 }
 
-void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, dp::TextureFormat colorFormat,
+void InitFramebuffer(ref_ptr<dp::GraphicsContext> context,
+                     drape_ptr<dp::Framebuffer> & framebuffer,
+                     dp::TextureFormat colorFormat,
                      ref_ptr<dp::Framebuffer::DepthStencil> depthStencilRef,
                      uint32_t width, uint32_t height)
 {
   if (framebuffer == nullptr)
     framebuffer = make_unique_dp<dp::Framebuffer>(colorFormat);
-  framebuffer->SetDepthStencilRef(depthStencilRef);
-  framebuffer->SetSize(width, height);
+  framebuffer->SetDepthStencilRef(std::move(depthStencilRef));
+  framebuffer->SetSize(std::move(context), width, height);
 }
 
 bool IsSupported(drape_ptr<dp::Framebuffer> const & framebuffer)
@@ -140,10 +147,10 @@ PostprocessRenderer::~PostprocessRenderer()
   ClearGLDependentResources();
 }
 
-void PostprocessRenderer::Init(dp::ApiVersion apiVersion, dp::FramebufferFallback && fallback)
+void PostprocessRenderer::Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback)
 {
-  m_apiVersion = apiVersion;
-  m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>();
+  m_apiVersion = context->GetApiVersion();
+  m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(context);
   m_framebufferFallback = std::move(fallback);
   ASSERT(m_framebufferFallback != nullptr, ());
 }
@@ -162,12 +169,12 @@ void PostprocessRenderer::ClearGLDependentResources()
   m_isSmaaFramebufferRendered = false;
 }
 
-void PostprocessRenderer::Resize(uint32_t width, uint32_t height)
+void PostprocessRenderer::Resize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height)
 {
   m_width = width;
   m_height = height;
 
-  UpdateFramebuffers(m_width, m_height);
+  UpdateFramebuffers(std::move(context), m_width, m_height);
 }
 
 void PostprocessRenderer::SetStaticTextures(drape_ptr<PostprocessStaticTextures> && textures)
@@ -184,10 +191,11 @@ bool PostprocessRenderer::IsEnabled() const
   return IsSupported(m_mainFramebuffer);
 }
 
-void PostprocessRenderer::SetEffectEnabled(Effect effect, bool enabled)
+void PostprocessRenderer::SetEffectEnabled(ref_ptr<dp::GraphicsContext> context,
+                                           Effect effect, bool enabled)
 {
   // Do not support AA for OpenGLES 2.0.
-  if (m_apiVersion == dp::ApiVersion::OpenGLES2 && effect == Effect::Antialiasing)
+  if (context->GetApiVersion() == dp::ApiVersion::OpenGLES2 && effect == Effect::Antialiasing)
     return;
 
   auto const oldValue = m_effects;
@@ -195,7 +203,7 @@ void PostprocessRenderer::SetEffectEnabled(Effect effect, bool enabled)
   m_effects = (m_effects & ~effectMask) | (enabled ? effectMask : 0);
 
   if (m_width != 0 && m_height != 0 && oldValue != m_effects)
-    UpdateFramebuffers(m_width, m_height);
+    UpdateFramebuffers(context, m_width, m_height);
 }
 
 bool PostprocessRenderer::IsEffectEnabled(Effect effect) const
@@ -233,7 +241,7 @@ bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool 
 
   m_frameStarted = activeFrame || !m_isMainFramebufferRendered;
   if (m_frameStarted)
-    m_mainFramebuffer->Enable();
+    context->SetFramebuffer(make_ref(m_mainFramebuffer));
 
   if (m_frameStarted && CanRenderAntialiasing())
     context->SetStencilTestEnabled(false);
@@ -242,7 +250,9 @@ bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool 
   return m_frameStarted;
 }
 
-bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> gpuProgramManager)
+bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
+                                   ref_ptr<gpu::ProgramManager> gpuProgramManager,
+                                   dp::Viewport const & viewport)
 {
   if (!IsEnabled())
     return true;
@@ -261,13 +271,13 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
     // Render edges to texture.
     {
-      m_edgesFramebuffer->Enable();
-
+      context->SetFramebuffer(make_ref(m_edgesFramebuffer));
       context->Clear(dp::ClearBits::ColorBit);
-
       context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::NotEqual);
       context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Zero,
                                  dp::StencilAction::Zero, dp::StencilAction::Replace);
+      context->ApplyFramebuffer("SMAA edges");
+      viewport.Apply(context);
 
       EdgesRenderParams params;
       params.SetParams(m_mainFramebuffer->GetTexture(), m_width, m_height);
@@ -279,13 +289,13 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
     // Render blending weight to texture.
     {
-      m_blendingWeightFramebuffer->Enable();
-
+      context->SetFramebuffer(make_ref(m_blendingWeightFramebuffer));
       context->Clear(dp::ClearBits::ColorBit);
-
       context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Equal);
       context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Keep,
                                  dp::StencilAction::Keep, dp::StencilAction::Keep);
+      context->ApplyFramebuffer("SMAA blending");
+      viewport.Apply(context);
 
       BlendingWeightRenderParams params;
       params.SetParams(m_edgesFramebuffer->GetTexture(),
@@ -301,9 +311,10 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr
     // SMAA final pass.
     context->SetStencilTestEnabled(false);
     {
-      m_smaaFramebuffer->Enable();
-
+      context->SetFramebuffer(make_ref(m_smaaFramebuffer));
       context->Clear(dp::ClearBits::ColorBit);
+      context->ApplyFramebuffer("SMAA final");
+      viewport.Apply(context);
 
       SMAAFinalRenderParams params;
       params.SetParams(m_mainFramebuffer->GetTexture(),
@@ -328,6 +339,10 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr
   bool m_wasRendered = false;
   if (m_framebufferFallback())
   {
+    context->Clear(dp::ClearBits::ColorBit);
+    context->ApplyFramebuffer("Dynamic frame");
+    viewport.Apply(context);
+    
     DefaultScreenQuadRenderParams params;
     params.SetParams(finalFramebuffer->GetTexture());
 
@@ -358,28 +373,29 @@ void PostprocessRenderer::DisableWritingToStencil(ref_ptr<dp::GraphicsContext> c
   context->SetStencilTestEnabled(false);
 }
 
-void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
+void PostprocessRenderer::UpdateFramebuffers(ref_ptr<dp::GraphicsContext> context,
+                                             uint32_t width, uint32_t height)
 {
   ASSERT_NOT_EQUAL(width, 0, ());
   ASSERT_NOT_EQUAL(height, 0, ());
 
-  InitFramebuffer(m_mainFramebuffer, width, height,
-                  true /* depthEnabled */,
-                  m_apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
+  auto const apiVersion = context->GetApiVersion();
+  InitFramebuffer(context, m_mainFramebuffer, width, height, true /* depthEnabled */,
+                  apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
   m_isMainFramebufferRendered = false;
 
   m_isSmaaFramebufferRendered = false;
   if (!m_isRouteFollowingActive && IsEffectEnabled(Effect::Antialiasing))
   {
-    CHECK(m_apiVersion != dp::ApiVersion::OpenGLES2, ());
+    CHECK_NOT_EQUAL(apiVersion, dp::ApiVersion::OpenGLES2, ());
 
-    InitFramebuffer(m_edgesFramebuffer, dp::TextureFormat::RedGreen,
+    InitFramebuffer(context, m_edgesFramebuffer, dp::TextureFormat::RedGreen,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
-    InitFramebuffer(m_blendingWeightFramebuffer, dp::TextureFormat::RGBA8,
+    InitFramebuffer(context, m_blendingWeightFramebuffer, dp::TextureFormat::RGBA8,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
-    InitFramebuffer(m_smaaFramebuffer, dp::TextureFormat::RGBA8,
+    InitFramebuffer(context, m_smaaFramebuffer, dp::TextureFormat::RGBA8,
                     m_mainFramebuffer->GetDepthStencilRef(),
                     width, height);
   }
@@ -391,30 +407,32 @@ void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
   }
 }
 
-bool PostprocessRenderer::OnFramebufferFallback()
+bool PostprocessRenderer::OnFramebufferFallback(ref_ptr<dp::GraphicsContext> context)
 {
   if (m_frameStarted)
   {
-    m_mainFramebuffer->Enable();
+    context->SetFramebuffer(make_ref(m_mainFramebuffer));
     return true;
   }
 
   return m_framebufferFallback();
 }
 
-void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActive)
+void PostprocessRenderer::OnChangedRouteFollowingMode(ref_ptr<dp::GraphicsContext> context,
+                                                      bool isRouteFollowingActive)
 {
   if (m_isRouteFollowingActive == isRouteFollowingActive)
     return;
 
   m_isRouteFollowingActive = isRouteFollowingActive;
   if (m_width != 0 && m_height != 0)
-    UpdateFramebuffers(m_width, m_height);
+    UpdateFramebuffers(std::move(context), m_width, m_height);
 }
 
-StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer, ref_ptr<dp::GraphicsContext> context)
-  : m_renderer(renderer)
-  , m_context(context)
+StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer,
+                                       ref_ptr<dp::GraphicsContext> context)
+  : m_renderer(std::move(renderer))
+  , m_context(std::move(context))
 {
   ASSERT(m_renderer != nullptr, ());
   m_renderer->EnableWritingToStencil(m_context);

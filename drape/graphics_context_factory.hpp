@@ -12,7 +12,7 @@ namespace dp
 class GraphicsContextFactory
 {
 public:
-  virtual ~GraphicsContextFactory() {}
+  virtual ~GraphicsContextFactory() = default;
   virtual GraphicsContext * GetDrawContext() = 0;
   virtual GraphicsContext * GetResourcesUploadContext() = 0;
   virtual bool IsDrawContextCreated() const { return false; }
@@ -46,7 +46,7 @@ protected:
 
 private:
   GraphicsContextFactory * m_factory;
-  threads::Condition m_contidion;
+  threads::Condition m_condition;
   bool m_enableSharing;
 };
 }  // namespace dp

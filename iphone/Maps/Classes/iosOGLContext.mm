@@ -1,8 +1,9 @@
 #import "iosOGLContext.h"
-#import "base/assert.hpp"
-#import "base/logging.cpp"
 
-#import "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.cpp"
 
 iosOGLContext::iosOGLContext(CAEAGLLayer * layer, dp::ApiVersion apiVersion,
                              iosOGLContext * contextToShareWith, bool needBuffers)
@@ -73,10 +74,17 @@ void iosOGLContext::Present()
     GLCHECK(glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discards + 1));
 }
 
-void iosOGLContext::SetDefaultFramebuffer()
+void iosOGLContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
-  ASSERT(m_frameBufferId, ());
-  glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
+  if (framebuffer)
+  {
+    framebuffer->Bind();
+  }
+  else
+  {
+    ASSERT(m_frameBufferId, ());
+    glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferId);
+  }
 }
 
 void iosOGLContext::Resize(int w, int h)

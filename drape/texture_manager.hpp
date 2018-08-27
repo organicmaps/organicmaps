@@ -83,8 +83,8 @@ public:
   explicit TextureManager(ref_ptr<GlyphGenerator> glyphGenerator);
   void Release();
 
-  void Init(Params const & params);
-  void OnSwitchMapStyle();
+  void Init(ref_ptr<dp::GraphicsContext> context, Params const & params);
+  void OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context);
 
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
   bool HasSymbolRegion(std::string const & symbolName) const;
@@ -106,7 +106,8 @@ public:
   // and use this texture to render on another thread. By this we move UpdateDynamicTextures call
   // into render thread. If you implement some kind of dynamic texture, you must synchronize UploadData
   // and index creation operations.
-  bool UpdateDynamicTextures();
+  // The result of the method shows if there are some changes in texture manager.
+  bool UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context);
 
   ref_ptr<Texture> GetSymbolsTexture() const;
   ref_ptr<Texture> GetTrafficArrowTexture() const;
@@ -227,7 +228,7 @@ private:
   uint32_t GetAbsentGlyphsCount(ref_ptr<Texture> texture, TMultilineText const & text,
                                 int fixedHeight) const;
 
-  void UpdateGlyphTextures();
+  void UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context);
   bool HasAsyncRoutines() const;
 
   static constexpr size_t GetInvalidGlyphGroup();

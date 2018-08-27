@@ -31,7 +31,8 @@
 
 - (void)resize:(CGSize)size
 {
-  m_skin->Resize(size.width, size.height);
+  if (m_skin != nullptr)
+    m_skin->Resize(size.width, size.height);
   dispatch_async(dispatch_get_main_queue(), ^{
     [self updateAvailableArea:self.availableArea];
   });

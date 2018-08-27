@@ -24,7 +24,8 @@ public:
   void SetParams(ref_ptr<gpu::ProgramManager> gpuProgramManager,
                  ref_ptr<dp::Texture> texture, float opacity)
   {
-    m_state.SetTexture("u_colorTex", texture);
+    UNUSED_VALUE(gpuProgramManager);
+    m_state.SetTexture("u_colorTex", std::move(texture));
     m_params.m_opacity = opacity;
   }
 
@@ -37,8 +38,8 @@ private:
 };
 }  // namespace
 
-ScreenQuadRenderer::ScreenQuadRenderer()
-  : Base(DrawPrimitive::TriangleStrip)
+ScreenQuadRenderer::ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context)
+  : Base(std::move(context), DrawPrimitive::TriangleStrip)
 {
   Rebuild();
 }
@@ -55,14 +56,16 @@ void ScreenQuadRenderer::Rebuild()
   SetAttribute("a_tcoord", bufferIndex, sizeof(float) * 2 /* offset */, 2 /* componentsCount */);
 }
 
-void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context,
+                                       ref_ptr<gpu::ProgramManager> mng,
                                        ref_ptr<dp::Texture> texture, float opacity)
 {
   TextureRenderParams params;
-  params.SetParams(mng, texture, opacity);
+  params.SetParams(mng, std::move(texture), opacity);
 
   auto program = mng->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
-  Base::Render(context, program, params.GetRenderState(), mng->GetParamsSetter(), params.GetProgramParams());
+  Base::Render(std::move(context), program, params.GetRenderState(), mng->GetParamsSetter(),
+               params.GetProgramParams());
 }
 
 void ScreenQuadRenderer::SetTextureRect(m2::RectF const & rect)

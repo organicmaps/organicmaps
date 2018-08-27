@@ -1,5 +1,5 @@
 #include "drape/uniform_value.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 
 namespace dp
 {

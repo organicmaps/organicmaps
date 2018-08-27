@@ -17,16 +17,17 @@ void PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt, s
 }
 }  // namespace
 
-DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GpuProgram> program, ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
-  : Base(DrawPrimitive::LineStrip)
-  , m_program(program)
-  , m_paramsSetter(paramsSetter)
+DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
+                                     ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
+  : Base(std::move(context), DrawPrimitive::LineStrip)
+  , m_program(std::move(program))
+  , m_paramsSetter(std::move(paramsSetter))
   , m_state(CreateRenderState(gpu::Program::DebugRect, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
 
   Base::SetBuffer(0 /* bufferInd */, {} /* vertices */, static_cast<uint32_t>(sizeof(float) * 2));
-  Base::SetAttribute("a_position", 0 /* bufferInd */, 0.0f /* offset */, 2 /* componentsCount */);
+  Base::SetAttribute("a_position", 0 /* bufferInd */, 0 /* offset */, 2 /* componentsCount */);
 }
 
 bool DebugRectRenderer::IsEnabled() const
@@ -39,8 +40,8 @@ void DebugRectRenderer::SetEnabled(bool enabled)
   m_isEnabled = enabled;
 }
 
-void DebugRectRenderer::SetArrow(m2::PointF const & arrowStart, m2::PointF const & arrowEnd,
-                                 ScreenBase const & screen)
+void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::PointF const & arrowStart,
+                                 m2::PointF const & arrowEnd, ScreenBase const & screen)
 {
   std::vector<float> vertices;
   m2::PointF const dir = (arrowEnd - arrowStart).Normalize();
@@ -52,11 +53,12 @@ void DebugRectRenderer::SetArrow(m2::PointF const & arrowStart, m2::PointF const
   PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
 
   if (!Base::IsInitialized())
-    Base::Build(m_program);
+    Base::Build(std::move(context), m_program);
   Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
 }
 
-void DebugRectRenderer::SetRect(m2::RectF const & rect, ScreenBase const & screen)
+void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF const & rect,
+                                ScreenBase const & screen)
 {
   std::vector<float> vertices;
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
@@ -66,7 +68,7 @@ void DebugRectRenderer::SetRect(m2::RectF const & rect, ScreenBase const & scree
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
 
   if (!Base::IsInitialized())
-    Base::Build(m_program);
+    Base::Build(std::move(context), m_program);
   Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
 }
 
@@ -76,7 +78,7 @@ void DebugRectRenderer::DrawRect(ref_ptr<dp::GraphicsContext> context, ScreenBas
   if (!m_isEnabled)
     return;
 
-  SetRect(rect, screen);
+  SetRect(context, rect, screen);
 
   gpu::DebugRectProgramParams params;
   params.m_color = glsl::ToVec4(color);
@@ -93,7 +95,7 @@ void DebugRectRenderer::DrawArrow(ref_ptr<dp::GraphicsContext> context, ScreenBa
   if (data.m_arrowStart.EqualDxDy(data.m_arrowEnd, 1e-5f))
     return;
 
-  SetArrow(data.m_arrowStart, data.m_arrowEnd, screen);
+  SetArrow(context, data.m_arrowStart, data.m_arrowEnd, screen);
 
   gpu::DebugRectProgramParams params;
   params.m_color = glsl::ToVec4(data.m_arrowColor);

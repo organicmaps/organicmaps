@@ -21,9 +21,9 @@ set(
   dummy_texture.hpp
   failure_reporter.cpp
   font_texture_tests.cpp
-  glfunctions.cpp
-  glmock_functions.cpp
-  glmock_functions.hpp
+  gl_functions.cpp
+  gl_mock_functions.cpp
+  gl_mock_functions.hpp
   glyph_mng_tests.cpp
   glyph_packer_test.cpp
   img.cpp

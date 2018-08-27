@@ -14,13 +14,16 @@
 #include "3party/glm/glm/gtx/bit.hpp"
 #endif
 
+#include <functional>
+#include <utility>
+
 namespace dp
 {
 namespace
 {
-using TDefinitionInserter = function<void(string const &, m2::RectF const &)>;
-using TSymbolsLoadingCompletion = function<void(unsigned char *, uint32_t, uint32_t)>;
-using TSymbolsLoadingFailure = function<void(string const &)>;
+using TDefinitionInserter = std::function<void(std::string const &, m2::RectF const &)>;
+using TSymbolsLoadingCompletion = std::function<void(unsigned char *, uint32_t, uint32_t)>;
+using TSymbolsLoadingFailure = std::function<void(std::string const &)>;
 
 class DefinitionLoader
 {
@@ -32,9 +35,9 @@ public:
     , m_height(0)
   {}
 
-  bool Push(string const & /*element*/) { return true; }
+  bool Push(std::string const & /*element*/) { return true; }
 
-  void Pop(string const & element)
+  void Pop(std::string const & element)
   {
     if (element == "symbol")
     {
@@ -48,7 +51,7 @@ public:
     }
   }
 
-  void AddAttr(string const & attribute, string const & value)
+  void AddAttr(std::string const & attribute, std::string const & value)
   {
     if (attribute == "name")
       m_name = value;
@@ -93,7 +96,7 @@ public:
     }
   }
 
-  void CharData(string const &) {}
+  void CharData(std::string const &) {}
 
   uint32_t GetWidth() const { return m_width; }
   uint32_t GetHeight() const { return m_height; }
@@ -105,7 +108,7 @@ private:
   uint32_t m_width;
   uint32_t m_height;
 
-  string m_name;
+  std::string m_name;
   m2::RectF m_rect;
 };
 
@@ -126,8 +129,9 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     DefinitionLoader loader(definitionInserter, convertToUV);
 
     {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
-      ReaderSource<ReaderPtr<Reader> > source(reader);
+      ReaderPtr<Reader> reader =
+          GetStyleReader().GetResourceReader(textureName + ".sdf", skinPathName);
+      ReaderSource<ReaderPtr<Reader>> source(reader);
       if (!ParseXML(source, loader))
       {
         failureHandler("Error parsing skin");
@@ -139,7 +143,8 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
     }
 
     {
-      ReaderPtr<Reader> reader = GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
+      ReaderPtr<Reader> reader =
+          GetStyleReader().GetResourceReader(textureName + ".png", skinPathName);
       size_t const size = static_cast<size_t>(reader.Size());
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);
@@ -152,7 +157,8 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
   }
 
   int w, h, bpp;
-  unsigned char * data = stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
+  unsigned char * data =
+      stbi_load_from_memory(&rawData[0], static_cast<int>(rawData.size()), &w, &h, &bpp, 0);
   ASSERT_EQUAL(bpp, 4, ("Incorrect symbols texture format"));
   ASSERT(glm::isPowerOfTwo(w), (w));
   ASSERT(glm::isPowerOfTwo(h), (h));
@@ -170,7 +176,7 @@ void LoadSymbols(std::string const & skinPathName, std::string const & textureNa
 }
 }  // namespace
 
-SymbolsTexture::SymbolKey::SymbolKey(string const & symbolName)
+SymbolsTexture::SymbolKey::SymbolKey(std::string const & symbolName)
   : m_symbolName(symbolName)
 {}
 
@@ -179,7 +185,7 @@ Texture::ResourceType SymbolsTexture::SymbolKey::GetType() const
   return Texture::ResourceType::Symbol;
 }
 
-string const & SymbolsTexture::SymbolKey::GetSymbolName() const
+std::string const & SymbolsTexture::SymbolKey::GetSymbolName() const
 {
   return m_symbolName;
 }
@@ -193,21 +199,22 @@ Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
   return Texture::ResourceType::Symbol;
 }
 
-SymbolsTexture::SymbolsTexture(std::string const & skinPathName, std::string const & textureName,
-                               ref_ptr<HWTextureAllocator> allocator)
+SymbolsTexture::SymbolsTexture(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
+                               std::string const & textureName, ref_ptr<HWTextureAllocator> allocator)
   : m_name(textureName)
 {
-  Load(skinPathName, allocator);
+  Load(std::move(context), skinPathName, std::move(allocator));
 }
 
-void SymbolsTexture::Load(std::string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
+void SymbolsTexture::Load(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
+                          ref_ptr<HWTextureAllocator> allocator)
 {
-  auto definitionInserter = [this](string const & name, m2::RectF const & rect)
+  auto definitionInserter = [this](std::string const & name, m2::RectF const & rect)
   {
     m_definition.insert(std::make_pair(name, SymbolsTexture::SymbolInfo(rect)));
   };
 
-  auto completionHandler = [this, &allocator](unsigned char * data, uint32_t width, uint32_t height)
+  auto completionHandler = [this, &allocator, context](unsigned char * data, uint32_t width, uint32_t height)
   {
     Texture::Params p;
     p.m_allocator = allocator;
@@ -215,25 +222,26 @@ void SymbolsTexture::Load(std::string const & skinPathName, ref_ptr<HWTextureAll
     p.m_width = width;
     p.m_height = height;
 
-    Create(p, make_ref(data));
+    Create(std::move(context), p, make_ref(data));
   };
 
-  auto failureHandler = [this](string const & reason)
+  auto failureHandler = [this, context](std::string const & reason)
   {
     LOG(LERROR, (reason));
-    Fail();
+    Fail(std::move(context));
   };
 
   LoadSymbols(skinPathName, m_name, true /* convertToUV */, definitionInserter,
               completionHandler, failureHandler);
 }
 
-void SymbolsTexture::Invalidate(string const & skinPathName, ref_ptr<HWTextureAllocator> allocator)
+void SymbolsTexture::Invalidate(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
+                                ref_ptr<HWTextureAllocator> allocator)
 {
   Destroy();
   m_definition.clear();
 
-  Load(skinPathName, allocator);
+  Load(std::move(context), skinPathName, std::move(allocator));
 }
 
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)
@@ -242,24 +250,24 @@ ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const &
   if (key.GetType() != Texture::ResourceType::Symbol)
     return nullptr;
 
-  string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
+  std::string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
   auto it = m_definition.find(symbolName);
   ASSERT(it != m_definition.end(), (symbolName));
   return make_ref(&it->second);
 }
 
-void SymbolsTexture::Fail()
+void SymbolsTexture::Fail(ref_ptr<dp::GraphicsContext> context)
 {
   m_definition.clear();
-  int32_t alfaTexture = 0;
+  int32_t alphaTexture = 0;
   Texture::Params p;
-  p.m_allocator = GetDefaultAllocator();
+  p.m_allocator = GetDefaultAllocator(context);
   p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = 1;
   p.m_height = 1;
 
-  Create(p, make_ref(&alfaTexture));
+  Create(context, p, make_ref(&alphaTexture));
 }
 
 bool SymbolsTexture::IsSymbolContained(std::string const & symbolName) const
@@ -269,10 +277,10 @@ bool SymbolsTexture::IsSymbolContained(std::string const & symbolName) const
 
 bool SymbolsTexture::DecodeToMemory(std::string const & skinPathName, std::string const & textureName,
                                     vector<uint8_t> & symbolsSkin,
-                                    std::map<string, m2::RectU> & symbolsIndex,
+                                    std::map<std::string, m2::RectU> & symbolsIndex,
                                     uint32_t & skinWidth, uint32_t & skinHeight)
 {
-  auto definitionInserter = [&symbolsIndex](string const & name, m2::RectF const & rect)
+  auto definitionInserter = [&symbolsIndex](std::string const & name, m2::RectF const & rect)
   {
     symbolsIndex.insert(make_pair(name, m2::RectU(rect)));
   };
@@ -289,7 +297,7 @@ bool SymbolsTexture::DecodeToMemory(std::string const & skinPathName, std::strin
     result = true;
   };
 
-  auto failureHandler = [&result](string const & reason)
+  auto failureHandler = [&result](std::string const & reason)
   {
     LOG(LERROR, (reason));
     result = false;

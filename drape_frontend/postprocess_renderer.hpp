@@ -6,6 +6,7 @@
 #include "drape/framebuffer.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_state.hpp"
+#include "drape/viewport.hpp"
 
 #include <cstdint>
 
@@ -41,26 +42,27 @@ public:
   PostprocessRenderer() = default;
   ~PostprocessRenderer();
 
-  void Init(dp::ApiVersion apiVersion, dp::FramebufferFallback && fallback);
+  void Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback);
   void ClearGLDependentResources();
-  void Resize(uint32_t width, uint32_t height);
+  void Resize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height);
   void SetStaticTextures(drape_ptr<PostprocessStaticTextures> && textures);
 
   bool IsEnabled() const;
-  void SetEffectEnabled(Effect effect, bool enabled);
+  void SetEffectEnabled(ref_ptr<dp::GraphicsContext> context, Effect effect, bool enabled);
   bool IsEffectEnabled(Effect effect) const;
 
-  bool OnFramebufferFallback();
-  void OnChangedRouteFollowingMode(bool isRouteFollowingActive);
+  bool OnFramebufferFallback(ref_ptr<dp::GraphicsContext> context);
+  void OnChangedRouteFollowingMode(ref_ptr<dp::GraphicsContext> context, bool isRouteFollowingActive);
 
   bool BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame);
-  bool EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> gpuProgramManager);
+  bool EndFrame(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> gpuProgramManager,
+                dp::Viewport const & viewport);
 
   void EnableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const;
   void DisableWritingToStencil(ref_ptr<dp::GraphicsContext> context) const;
 
 private:
-  void UpdateFramebuffers(uint32_t width, uint32_t height);
+  void UpdateFramebuffers(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height);
   bool CanRenderAntialiasing() const;
 
   dp::ApiVersion m_apiVersion;

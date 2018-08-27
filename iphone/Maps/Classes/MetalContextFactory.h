@@ -1,24 +1,22 @@
 #pragma once
+#import "MetalView.h"
 
 #include "drape/graphics_context_factory.hpp"
+#include "drape/metal/metal_base_context.hpp"
 #include "drape/pointers.hpp"
-
-#import "MetalContext.h"
-#import "MetalView.h"
 
 class MetalContextFactory: public dp::GraphicsContextFactory
 {
 public:
-  MetalContextFactory(MetalView * view);
-  ~MetalContextFactory() override;
+  explicit MetalContextFactory(MetalView * metalView);
   dp::GraphicsContext * GetDrawContext() override;
   dp::GraphicsContext * GetResourcesUploadContext() override;
-  bool IsDrawContextCreated() const override;
-  bool IsUploadContextCreated() const override;
-  void WaitForInitialization(dp::GraphicsContext * context) override;
+  bool IsDrawContextCreated() const override { return true; }
+  bool IsUploadContextCreated() const override { return true; }
+  void WaitForInitialization(dp::GraphicsContext * context) override {}
   void SetPresentAvailable(bool available) override;
   
 private:
-  MetalView * m_view;
-  drape_ptr<MetalContext> m_context;
+  drape_ptr<dp::metal::MetalBaseContext> m_drawContext;
+  drape_ptr<dp::metal::MetalBaseContext> m_uploadContext;
 };

@@ -1,5 +1,5 @@
-#include "drape/glfunctions.hpp"
-#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/gl_functions.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 
 #include "base/assert.hpp"
 
@@ -118,7 +118,7 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
 {}
 
-/// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
+// Enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation.
 void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
 {
   MOCK_CALL(glEnableVertexAttribute(attributeLocation));

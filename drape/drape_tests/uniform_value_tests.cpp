@@ -1,10 +1,10 @@
 #include "testing/testing.hpp"
 
 #include "drape/drape_global.hpp"
-#include "drape/gpu_program.hpp"
+#include "drape/gl_gpu_program.hpp"
 #include "drape/uniform_value.hpp"
 
-#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 
 #include <cstring>
 #include <string>
@@ -151,7 +151,7 @@ UNIT_TEST(UniformValueTest)
   drape_ptr<Shader> fs = make_unique_dp<Shader>("", "void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }",
                                                 "", Shader::Type::FragmentShader);
 
-  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>("", make_ref(vs), make_ref(fs));
+  drape_ptr<GLGpuProgram> program = make_unique_dp<GLGpuProgram>("", make_ref(vs), make_ref(fs));
 
   program->Bind();
 
@@ -172,4 +172,10 @@ UNIT_TEST(UniformValueTest)
   UniformValue::ApplyRaw(positionLoc, glsl::vec4(1.0f, 2.0f, 3.0f, 4.0f));
 
   UniformValue::ApplyRaw(modelViewLoc, glsl::make_mat4(matrix));
+
+  program->Unbind();
+
+  program.reset();
+  vs.reset();
+  fs.reset();
 }

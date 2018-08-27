@@ -339,9 +339,11 @@
 		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
 		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
+		4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 4598438921394D7700F8CAB2 /* shaders_metal.metallib */; };
 		4563158920E264C20076E9DB /* libshaders.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4563158820E264C20076E9DB /* libshaders.a */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
+		4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */; };
 		45A37B9E20B33F5E005FBDBB /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */; };
 		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
@@ -507,7 +509,6 @@
 		BB8123CC212C25FA00ADE512 /* MetalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123CB212C25FA00ADE512 /* MetalView.mm */; };
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; };
-		BB8123D3212C754C00ADE512 /* MetalContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D2212C754C00ADE512 /* MetalContext.mm */; };
 		BB8123D62130427E00ADE512 /* MetalContextFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB8123D52130427E00ADE512 /* MetalContextFactory.mm */; };
 		EBDA7B7820B370B40054165B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */; };
 		F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BD2ED6E94925472A9901B4 /* DiscoverySearchCell.swift */; };
@@ -1315,6 +1316,8 @@
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		4586D0C31F48121A00DF9CE5 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../../xcode/bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
+		4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
+		4598438921394D7700F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A37B9D20B33F5D005FBDBB /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBAudienceNetwork.framework; path = MoPubSDK/AdNetworkSupport/FacebookAudienceNetwork/SDK/FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		45CBCCBB20590AAB006B55C2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
@@ -1462,8 +1465,6 @@
 		BB8123CB212C25FA00ADE512 /* MetalView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalView.mm; sourceTree = "<group>"; };
 		BB8123CD212C264700ADE512 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		BB8123D1212C754C00ADE512 /* MetalContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContext.h; sourceTree = "<group>"; };
-		BB8123D2212C754C00ADE512 /* MetalContext.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContext.mm; sourceTree = "<group>"; };
 		BB8123D42130427E00ADE512 /* MetalContextFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalContextFactory.h; sourceTree = "<group>"; };
 		BB8123D52130427E00ADE512 /* MetalContextFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalContextFactory.mm; sourceTree = "<group>"; };
 		EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = MoPubSDK/AdNetworkSupport/AdMob/SDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -1875,6 +1876,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
+				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
 				BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */,
 				BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */,
 				47800D2520C05E3200072F42 /* libFlurry_8.6.1.a in Frameworks */,
@@ -1971,8 +1973,6 @@
 				3404757C1E081B3300C92850 /* iosOGLContextFactory.mm */,
 				F6DF5F321CD1136800A87154 /* LocaleTranslator.h */,
 				F6381BF41CD12045004CA943 /* LocaleTranslator.mm */,
-				BB8123D1212C754C00ADE512 /* MetalContext.h */,
-				BB8123D2212C754C00ADE512 /* MetalContext.mm */,
 				BB8123D42130427E00ADE512 /* MetalContextFactory.h */,
 				BB8123D52130427E00ADE512 /* MetalContextFactory.mm */,
 				BB8123CA212C25FA00ADE512 /* MetalView.h */,
@@ -2051,6 +2051,7 @@
 			isa = PBXGroup;
 			children = (
 				3D1958EA213804B6009A83EC /* libmetrics.a */,
+				4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */,
 				BB8123CD212C264700ADE512 /* Metal.framework */,
 				BB8123CE212C264700ADE512 /* MetalKit.framework */,
 				4563158820E264C20076E9DB /* libshaders.a */,
@@ -2096,6 +2097,7 @@
 				34201E0B1DC0E33100D24118 /* libtracking.a */,
 				3446C6761DDCA9A200146687 /* libtraffic.a */,
 				3462FD8A1DC1DF3A00906FD7 /* SDK */,
+				4598438921394D7700F8CAB2 /* shaders_metal.metallib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4323,6 +4325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34E50DFB1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
 				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
@@ -4979,7 +4982,6 @@
 				34AB661D1FC5AA330078E451 /* MWMTaxiPreviewDataSource.mm in Sources */,
 				F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
-				BB8123D3212C754C00ADE512 /* MetalContext.mm in Sources */,
 				3445324E1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
 				34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,

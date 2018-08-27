@@ -347,7 +347,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::SwitchMapStyle:
     {
-      m_texMng->OnSwitchMapStyle();
+      m_texMng->OnSwitchMapStyle(make_ref(m_contextFactory->GetResourcesUploadContext()));
       RecacheMapShapes();
       RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
 #ifdef RENDER_DEBUG_INFO_LABELS
@@ -606,10 +606,6 @@ void BackendRenderer::OnContextCreate()
   context->MakeCurrent();
   context->Init(m_apiVersion);
 
-  // TODO: Temporary code.
-  if (m_apiVersion == dp::ApiVersion::Metal)
-    return;
-
   m_readManager->Start();
   InitGLDependentResource();
 }
@@ -669,7 +665,7 @@ void BackendRenderer::InitGLDependentResource()
   params.m_glyphMngParams.m_baseGlyphHeight = VisualParams::Instance().GetGlyphBaseSize();
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
-  m_texMng->Init(params);
+  m_texMng->Init(make_ref(m_contextFactory->GetResourcesUploadContext()), params);
 
   // Send some textures to frontend renderer.
   drape_ptr<PostprocessStaticTextures> textures = make_unique_dp<PostprocessStaticTextures>();

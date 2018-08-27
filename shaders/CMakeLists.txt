@@ -31,6 +31,18 @@ set(
   programs.hpp
 )
 
+if (PLATFORM_IPHONE)
+append(
+  SRC
+  metal_program_params.hpp
+  metal_program_params.mm
+  metal_program_pool.hpp
+  metal_program_pool.mm
+  metal/debug_rect.metal
+  program_manager_metal.mm
+)
+endif()
+
 add_library(${PROJECT_NAME} ${SRC})
 
 set(

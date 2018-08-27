@@ -4,7 +4,7 @@
 #include "drape/static_texture.hpp"
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_of_colors.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
 
 #include "platform/platform.hpp"
@@ -255,32 +255,42 @@ void TextureManager::Release()
   m_nothingToUpload.test_and_set();
 }
 
-bool TextureManager::UpdateDynamicTextures()
+bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
 {
-  // For some reasons OpenGL can not update textures immediately.
-  // Here we use some timeout to allow to do it.
-  double const kUploadTimeoutInSeconds = 2.0;
-
   if (!HasAsyncRoutines() && m_nothingToUpload.test_and_set())
-    return m_uploadTimer.ElapsedSeconds() < kUploadTimeoutInSeconds;
+  {
+    auto const apiVersion = context->GetApiVersion();
+    if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+    {
+      // For some reasons OpenGL can not update textures immediately.
+      // Here we use some timeout to prevent rendering frozening.
+      double const kUploadTimeoutInSeconds = 2.0;
+      return m_uploadTimer.ElapsedSeconds() < kUploadTimeoutInSeconds;
+    }
+
+    if (apiVersion == dp::ApiVersion::Metal)
+      return false;
+
+    CHECK(false, ("Unsupported API version."));
+  }
 
   m_uploadTimer.Reset();
 
-  m_colorTexture->UpdateState();
-  m_stipplePenTexture->UpdateState();
+  m_colorTexture->UpdateState(context);
+  m_stipplePenTexture->UpdateState(context);
 
-  UpdateGlyphTextures();
+  UpdateGlyphTextures(context);
 
   m_textureAllocator->Flush();
 
   return true;
 }
 
-void TextureManager::UpdateGlyphTextures()
+void TextureManager::UpdateGlyphTextures(ref_ptr<dp::GraphicsContext> context)
 {
   std::lock_guard<std::mutex> lock(m_glyphTexturesMutex);
   for (auto & texture : m_glyphTextures)
-    texture->UpdateState();
+    texture->UpdateState(context);
 }
 
 bool TextureManager::HasAsyncRoutines() const
@@ -461,34 +471,42 @@ size_t TextureManager::FindHybridGlyphsGroup(TMultilineText const & text, int fi
   return FindHybridGlyphsGroup(combinedString, fixedHeight);
 }
 
-void TextureManager::Init(Params const & params)
+void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
   m_resPostfix = params.m_resPostfix;
-  m_textureAllocator = CreateAllocator();
+  m_textureAllocator = CreateAllocator(context);
 
-  m_maxTextureSize = std::min(kMaxTextureSize,
-    static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize)));
-
-  GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    m_maxTextureSize = std::min(kMaxTextureSize,
+                                static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize)));
+    GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
+  }
+  else
+  {
+    m_maxTextureSize = kMaxTextureSize;
+  }
 
   // Initialize symbols.
   for (size_t i = 0; i < ARRAY_SIZE(kSymbolTextures); ++i)
   {
-    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(m_resPostfix, kSymbolTextures[i],
+    m_symbolTextures.push_back(make_unique_dp<SymbolsTexture>(context, m_resPostfix, kSymbolTextures[i],
                                                               make_ref(m_textureAllocator)));
   }
 
   // Initialize static textures.
-  m_trafficArrowTexture = make_unique_dp<StaticTexture>("traffic-arrow", m_resPostfix,
+  m_trafficArrowTexture = make_unique_dp<StaticTexture>(context, "traffic-arrow", m_resPostfix,
                                                         dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
-  m_hatchingTexture = make_unique_dp<StaticTexture>("area-hatching", m_resPostfix,
+  m_hatchingTexture = make_unique_dp<StaticTexture>(context, "area-hatching", m_resPostfix,
                                                     dp::TextureFormat::RGBA8, make_ref(m_textureAllocator));
 
-  if (GLFunctions::CurrentApiVersion == dp::ApiVersion::OpenGLES3)
+  // SMAA is not supported on OpenGL ES2.
+  if (apiVersion != dp::ApiVersion::OpenGLES2)
   {
-    m_smaaAreaTexture = make_unique_dp<StaticTexture>("smaa-area", StaticTexture::kDefaultResource,
+    m_smaaAreaTexture = make_unique_dp<StaticTexture>(context, "smaa-area", StaticTexture::kDefaultResource,
                                                       dp::TextureFormat::RedGreen, make_ref(m_textureAllocator));
-    m_smaaSearchTexture = make_unique_dp<StaticTexture>("smaa-search", StaticTexture::kDefaultResource,
+    m_smaaSearchTexture = make_unique_dp<StaticTexture>(context, "smaa-search", StaticTexture::kDefaultResource,
                                                         dp::TextureFormat::Alpha, make_ref(m_textureAllocator));
   }
 
@@ -554,7 +572,7 @@ void TextureManager::Init(Params const & params)
   m_nothingToUpload.clear();
 }
 
-void TextureManager::OnSwitchMapStyle()
+void TextureManager::OnSwitchMapStyle(ref_ptr<dp::GraphicsContext> context)
 {
   // Here we need invalidate only textures which can be changed in map style switch.
   for (size_t i = 0; i < m_symbolTextures.size(); ++i)
@@ -562,7 +580,7 @@ void TextureManager::OnSwitchMapStyle()
     ASSERT(m_symbolTextures[i] != nullptr, ());
     ASSERT(dynamic_cast<SymbolsTexture *>(m_symbolTextures[i].get()) != nullptr, ());
     ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
-    symbolsTexture->Invalidate(m_resPostfix, make_ref(m_textureAllocator));
+    symbolsTexture->Invalidate(context, m_resPostfix, make_ref(m_textureAllocator));
   }
 
   // Uncomment if static textures can be changed.
@@ -573,7 +591,7 @@ void TextureManager::OnSwitchMapStyle()
   //  ASSERT(staticTextures[i] != nullptr, ());
   //  ASSERT(dynamic_cast<StaticTexture *>(staticTextures[i].get()) != nullptr, ());
   //  ref_ptr<StaticTexture> t = staticTextures[i];
-  //  t->Invalidate(make_ref(m_textureAllocator));
+  //  t->Invalidate(context, make_ref(m_textureAllocator));
   //}
 }
 

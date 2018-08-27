@@ -90,20 +90,21 @@ public:
 };
 }  // namespace
 
-StaticTexture::StaticTexture(std::string const & textureName, std::string const & skinPathName,
+StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
+                             std::string const & textureName, std::string const & skinPathName,
                              dp::TextureFormat format, ref_ptr<HWTextureAllocator> allocator)
   : m_textureName(textureName)
   , m_skinPathName(skinPathName)
   , m_format(format)
   , m_info(make_unique_dp<StaticResourceInfo>())
 {
-  m_isLoadingCorrect = Load(allocator);
+  m_isLoadingCorrect = Load(std::move(context), allocator);
 }
 
-bool StaticTexture::Load(ref_ptr<HWTextureAllocator> allocator)
+bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTextureAllocator> allocator)
 {
-  auto completionHandler = [this, &allocator](unsigned char * data, uint32_t width,
-                                              uint32_t height)
+  auto completionHandler = [this, &allocator, context](unsigned char * data, uint32_t width,
+                                                       uint32_t height)
   {
     Texture::Params p;
     p.m_allocator = allocator;
@@ -113,13 +114,13 @@ bool StaticTexture::Load(ref_ptr<HWTextureAllocator> allocator)
     p.m_wrapSMode = TextureWrapping::Repeat;
     p.m_wrapTMode = TextureWrapping::Repeat;
 
-    Create(p, make_ref(data));
+    Create(std::move(context), p, make_ref(data));
   };
 
-  auto failureHandler = [this](std::string const & reason)
+  auto failureHandler = [this, context](std::string const & reason)
   {
     LOG(LERROR, (reason));
-    Fail();
+    Fail(std::move(context));
   };
 
   uint8_t const bytesPerPixel = GetBytesPerPixel(m_format);
@@ -127,10 +128,11 @@ bool StaticTexture::Load(ref_ptr<HWTextureAllocator> allocator)
                   completionHandler, failureHandler);
 }
 
-void StaticTexture::Invalidate(ref_ptr<HWTextureAllocator> allocator)
+void StaticTexture::Invalidate(ref_ptr<dp::GraphicsContext> context,
+                               ref_ptr<HWTextureAllocator> allocator)
 {
   Destroy();
-  m_isLoadingCorrect = Load(allocator);
+  m_isLoadingCorrect = Load(std::move(context), std::move(allocator));
 }
 
 ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key,
@@ -142,28 +144,29 @@ ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & 
   return make_ref(m_info);
 }
 
-void StaticTexture::Create(Params const & params)
+void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
   ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
 
-  Base::Create(params);
+  Base::Create(std::move(context), params);
 }
 
-void StaticTexture::Create(Params const & params, ref_ptr<void> data)
+void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
+                           ref_ptr<void> data)
 {
   ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
 
-  Base::Create(params, data);
+  Base::Create(std::move(context), params, data);
 }
 
-void StaticTexture::Fail()
+void StaticTexture::Fail(ref_ptr<dp::GraphicsContext> context)
 {
   int32_t alphaTexture = 0;
   Texture::Params p;
-  p.m_allocator = GetDefaultAllocator();
+  p.m_allocator = GetDefaultAllocator(context);
   p.m_format = dp::TextureFormat::RGBA8;
   p.m_width = 1;
   p.m_height = 1;
-  Create(p, make_ref(&alphaTexture));
+  Create(context, p, make_ref(&alphaTexture));
 }
 }  // namespace dp

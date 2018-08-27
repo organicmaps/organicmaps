@@ -128,6 +128,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
   , m_forceUpdateScene(false)
   , m_forceUpdateUserMarks(false)
   , m_postprocessRenderer(new PostprocessRenderer())
+  , m_enabledOnStartEffects(params.m_enabledEffects)
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
 #endif
@@ -158,11 +159,6 @@ FrontendRenderer::FrontendRenderer(Params && params)
 
   m_myPositionController = make_unique_dp<MyPositionController>(
       std::move(params.m_myPositionParams), make_ref(m_notifier));
-
-#ifndef OMIM_OS_IPHONE_SIMULATOR
-  for (auto const & effect : params.m_enabledEffects)
-    m_postprocessRenderer->SetEffectEnabled(effect, true /* enabled */);
-#endif
 
   StartThread();
 }
@@ -212,10 +208,6 @@ void FrontendRenderer::UpdateCanBeDeletedStatus()
 
 void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
-  // TODO: Temporary code.
-  if (m_apiVersion == dp::ApiVersion::Metal)
-    return;
-
   switch (message->GetType())
   {
   case Message::Type::FlushTile:
@@ -351,7 +343,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::MapShapes:
     {
       ref_ptr<MapShapesMessage> msg = message;
-      m_myPositionController->SetRenderShape(msg->AcceptShape());
+      m_myPositionController->SetRenderShape(make_ref(m_contextFactory->GetDrawContext()),
+                                             m_texMng, msg->AcceptShape());
       m_selectionShape = msg->AcceptSelection();
       if (m_selectObjectMessage != nullptr)
       {
@@ -502,7 +495,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_routeRenderer->Clear();
         ++m_lastRecacheRouteId;
         m_myPositionController->DeactivateRouting();
-        m_postprocessRenderer->OnChangedRouteFollowingMode(false /* active */);
+        m_postprocessRenderer->OnChangedRouteFollowingMode(make_ref(m_contextFactory->GetDrawContext()),
+                                                           false /* active */);
         if (m_enablePerspectiveInNavigation)
           DisablePerspective();
       }
@@ -534,7 +528,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::DeactivateRouteFollowing:
     {
       m_myPositionController->DeactivateRouting();
-      m_postprocessRenderer->OnChangedRouteFollowingMode(false /* active */);
+      m_postprocessRenderer->OnChangedRouteFollowingMode(make_ref(m_contextFactory->GetDrawContext()),
+                                                         false /* active */);
       if (m_enablePerspectiveInNavigation)
         DisablePerspective();
       break;
@@ -587,7 +582,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       }
 
       // Must be recreated on map style changing.
-      m_transitBackground.reset(new ScreenQuadRenderer());
+      m_transitBackground =
+          make_unique_dp<ScreenQuadRenderer>(make_ref(m_contextFactory->GetDrawContext()));
 
       // Invalidate read manager.
       {
@@ -752,7 +748,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<EnableTransitSchemeMessage > msg = message;
       m_transitSchemeEnabled = msg->IsEnabled();
 #ifndef OMIM_OS_IPHONE_SIMULATOR
-      m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Effect::Antialiasing,
+      m_postprocessRenderer->SetEffectEnabled(make_ref(m_contextFactory->GetDrawContext()),
+                                              PostprocessRenderer::Effect::Antialiasing,
                                               msg->IsEnabled() ? true : m_isAntialiasingEnabled);
 #endif
       if (!msg->IsEnabled())
@@ -862,7 +859,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (msg->GetEffect() == PostprocessRenderer::Effect::Antialiasing)
         m_isAntialiasingEnabled = msg->IsEnabled();
 #ifndef OMIM_OS_IPHONE_SIMULATOR
-      m_postprocessRenderer->SetEffectEnabled(msg->GetEffect(), msg->IsEnabled());
+      m_postprocessRenderer->SetEffectEnabled(make_ref(m_contextFactory->GetDrawContext()),
+                                              msg->GetEffect(), msg->IsEnabled());
 #endif
       break;
     }
@@ -961,7 +959,8 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
 
   m_routeRenderer->SetFollowingEnabled(true);
-  m_postprocessRenderer->OnChangedRouteFollowingMode(true /* active */);
+  m_postprocessRenderer->OnChangedRouteFollowingMode(make_ref(m_contextFactory->GetDrawContext()),
+                                                     true /* active */);
 }
 
 bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData)
@@ -1033,9 +1032,10 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
 
   if (viewportChanged || m_needRestoreSize)
   {
-    m_contextFactory->GetDrawContext()->Resize(sx, sy);
-    m_buildingsFramebuffer->SetSize(sx, sy);
-    m_postprocessRenderer->Resize(sx, sy);
+    auto context = make_ref(m_contextFactory->GetDrawContext());
+    context->Resize(sx, sy);
+    m_buildingsFramebuffer->SetSize(context, sx, sy);
+    m_postprocessRenderer->Resize(context, sx, sy);
     m_needRestoreSize = false;
   }
 
@@ -1214,9 +1214,6 @@ void FrontendRenderer::EndUpdateOverlayTree()
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
-  // TODO: Temporary code.
-  if (m_apiVersion == dp::ApiVersion::Metal)
-    return;
 #if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
   DrapeMeasurer::Instance().BeforeRenderFrame();
 #endif
@@ -1225,9 +1222,10 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
   if (m_postprocessRenderer->BeginFrame(context, activeFrame))
   {
-    m_viewport.Apply();
     RefreshBgColor();
     context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit | dp::ClearBits::StencilBit);
+    context->ApplyFramebuffer("Static frame");
+    m_viewport.Apply(context);
 
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
@@ -1300,7 +1298,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       m_debugRectRenderer->DrawArrow(context, modelView, arrow);
   }
 
-  if (!m_postprocessRenderer->EndFrame(context, make_ref(m_gpuProgramManager)))
+  if (!m_postprocessRenderer->EndFrame(context, make_ref(m_gpuProgramManager), m_viewport))
     return;
 
   m_myPositionController->Render(context, make_ref(m_gpuProgramManager), modelView, m_currentZoomLevel,
@@ -1338,9 +1336,11 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   if (useFramebuffer)
   {
     ASSERT(m_buildingsFramebuffer->IsSupported(), ());
-    m_buildingsFramebuffer->Enable();
+    context->SetFramebuffer(make_ref(m_buildingsFramebuffer));
     context->SetClearColor(dp::Color::Transparent());
     context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit);
+    context->ApplyFramebuffer("Buildings");
+    m_viewport.Apply(context);
   }
   else
   {
@@ -1353,7 +1353,7 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
 
   if (useFramebuffer)
   {
-    m_buildingsFramebuffer->Disable();
+    m_buildingsFramebuffer->ApplyFallback();
     m_screenQuadRenderer->RenderTexture(context, make_ref(m_gpuProgramManager),
                                         m_buildingsFramebuffer->GetTexture(),
                                         kOpacity);
@@ -1474,12 +1474,12 @@ void FrontendRenderer::RenderEmptyFrame()
   if (!context->Validate())
     return;
 
-  context->SetDefaultFramebuffer();
-
+  context->SetFramebuffer(nullptr /* default */);
   auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
   context->SetClearColor(c);
-  m_viewport.Apply();
   context->Clear(dp::ClearBits::ColorBit);
+  context->ApplyFramebuffer("Empty frame");
+  m_viewport.Apply(context);
 
   context->Present();
 }
@@ -1897,47 +1897,49 @@ void FrontendRenderer::OnContextCreate()
   // Render empty frame here to avoid black initialization screen.
   RenderEmptyFrame();
 
-  // TODO: Temporary code.
-  if (m_apiVersion == dp::ApiVersion::Metal)
-    return;
-
-  dp::SupportManager::Instance().Init();
+  dp::SupportManager::Instance().Init(context);
 
   m_gpuProgramManager = make_unique_dp<gpu::ProgramManager>();
-  m_gpuProgramManager->Init(m_apiVersion);
+  m_gpuProgramManager->Init(context);
 
-  dp::AlphaBlendingState::Apply();
+  dp::AlphaBlendingState::Apply(context);
 
-  m_debugRectRenderer = make_unique<DebugRectRenderer>(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
-                                                       m_gpuProgramManager->GetParamsSetter());
+  m_debugRectRenderer = make_unique<DebugRectRenderer>(
+    context, m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
+    m_gpuProgramManager->GetParamsSetter());
   m_debugRectRenderer->SetEnabled(m_isDebugRectRenderingEnabled);
 
   m_overlayTree->SetDebugRectRenderer(make_ref(m_debugRectRenderer));
 
   // Resources recovering.
-  m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>();
+  m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>(context);
 
-  m_postprocessRenderer->Init(m_apiVersion, [context]()
+  m_postprocessRenderer->Init(context, [context]()
   {
     if (!context->Validate())
       return false;
-    context->SetDefaultFramebuffer();
+    context->SetFramebuffer(nullptr /* default */);
     return true;
   });
+
 #ifndef OMIM_OS_IPHONE_SIMULATOR
+  for (auto const & effect : m_enabledOnStartEffects)
+    m_postprocessRenderer->SetEffectEnabled(context, effect, true /* enabled */);
+  m_enabledOnStartEffects.clear();
+
   if (dp::SupportManager::Instance().IsAntialiasingEnabledByDefault())
-    m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
+    m_postprocessRenderer->SetEffectEnabled(context, PostprocessRenderer::Antialiasing, true);
 #endif
 
   m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8,
                                                            true /* depthEnabled */,
                                                            false /* stencilEnabled */);
-  m_buildingsFramebuffer->SetFramebufferFallback([this]()
+  m_buildingsFramebuffer->SetFramebufferFallback([this, context]()
   {
-    return m_postprocessRenderer->OnFramebufferFallback();
+    return m_postprocessRenderer->OnFramebufferFallback(context);
   });
 
-  m_transitBackground = make_unique_dp<ScreenQuadRenderer>();
+  m_transitBackground = make_unique_dp<ScreenQuadRenderer>(context);
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
@@ -1996,7 +1998,7 @@ void FrontendRenderer::Routine::Do()
       if (isActiveFrame)
         m_renderer.PrepareScene(modelView);
 
-      isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
+      isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures(context);
       isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
       isActiveFrame |= InterpolationHolder::Instance().IsActive();
 

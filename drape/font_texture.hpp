@@ -117,11 +117,11 @@ class FontTexture : public DynamicTexture<GlyphIndex, GlyphKey, Texture::Resourc
 public:
   FontTexture(m2::PointU const & size, ref_ptr<GlyphManager> glyphMng,
               ref_ptr<GlyphGenerator> glyphGenerator, ref_ptr<HWTextureAllocator> allocator)
-    : m_index(size, glyphMng, glyphGenerator)
+    : m_index(size, std::move(glyphMng), std::move(glyphGenerator))
   {
-    TBase::TextureParams params{size, TextureFormat::Alpha,
-                                TextureFilter::Linear, true /* m_usePixelBuffer */};
-    TBase::Init(allocator, make_ref(&m_index), params);
+    TBase::DynamicTextureParams params{size, TextureFormat::Alpha,
+                                       TextureFilter::Linear, true /* m_usePixelBuffer */};
+    TBase::Init(std::move(allocator), make_ref(&m_index), params);
   }
 
   ~FontTexture() override { TBase::Reset(); }

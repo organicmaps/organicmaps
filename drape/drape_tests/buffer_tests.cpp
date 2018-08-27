@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/drape_tests/gl_mock_functions.hpp"
 
 #include "drape/data_buffer.hpp"
 #include "drape/gpu_buffer.hpp"

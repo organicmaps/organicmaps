@@ -333,6 +333,7 @@ private:
 
   bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
+  std::vector<PostprocessRenderer::Effect> m_enabledOnStartEffects;
 
   bool m_isDebugRectRenderingEnabled = false;
   drape_ptr<DebugRectRenderer> m_debugRectRenderer;

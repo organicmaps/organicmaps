@@ -28,7 +28,7 @@ class Arrow3d
 {
   using Base = dp::MeshObject;
 public:
-  Arrow3d();
+  explicit Arrow3d(ref_ptr<dp::GraphicsContext> context);
 
   void SetPosition(m2::PointD const & position);
   void SetAzimuth(double azimuth);

@@ -26,7 +26,7 @@ GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
 
 GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const checkFn)
 {
-  threads::ConditionGuard g(m_contidion);
+  threads::ConditionGuard g(m_condition);
   GraphicsContext * ctx = createFn();
   if (m_enableSharing)
   {

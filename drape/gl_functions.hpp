@@ -1,7 +1,7 @@
 #pragma once
 
 #include "drape/drape_global.hpp"
-#include "drape/glconstants.hpp"
+#include "drape/gl_constants.hpp"
 
 #include "base/src_point.hpp"
 
@@ -10,8 +10,6 @@
 
 class GLFunctions
 {
-  friend class GLFunctionsCache;
-
 public:
   static dp::ApiVersion CurrentApiVersion;
 

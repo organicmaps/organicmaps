@@ -1,5 +1,5 @@
 #include "drape/index_storage.hpp"
-#include "drape/glextensions_list.hpp"
+#include "drape/gl_extensions_list.hpp"
 
 #include "std/utility.hpp"
 

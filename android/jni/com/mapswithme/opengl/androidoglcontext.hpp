@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/glIncludes.hpp"
+#include "drape/gl_includes.hpp"
 #include "drape/oglcontext.hpp"
 
 #include <atomic>
@@ -17,7 +17,7 @@ public:
   void MakeCurrent() override;
   void DoneCurrent() override;
   void Present() override;
-  void SetDefaultFramebuffer() override;
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void SetRenderingEnabled(bool enabled) override;
   void SetPresentAvailable(bool available) override;
   bool Validate() override;

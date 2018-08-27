@@ -11,6 +11,7 @@
 
 #include "drape/visual_scale.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 @implementation EAGLView
@@ -62,42 +63,54 @@ double getExactDPI(double contentScaleFactor)
   
   EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
   if (tempContext != nil)
-  {
-    tempContext = nil;
     return dp::ApiVersion::OpenGLES3;
-  }
   
   return dp::ApiVersion::OpenGLES2;;
 }
 
 - (void)initialize
 {
-  lastViewSize = CGRectZero;
+  m_presentAvailable = false;
+  m_lastViewSize = CGRectZero;
   m_apiVersion = [self getSupportedApiVersion];
 
+  // Correct retina display support in renderbuffer.
+  self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
+  
+  if (m_apiVersion != dp::ApiVersion::Metal)
+  {
+    // Setup Layer Properties
+    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
+    eaglLayer.opaque = YES;
+    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
+  }
+}
+
+- (void)createDrapeEngine
+{
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
+    CHECK(self.metalView != nil, ());
+    CHECK_EQUAL(self.bounds.size.width, self.metalView.bounds.size.width, ());
+    CHECK_EQUAL(self.bounds.size.height, self.metalView.bounds.size.height, ());
     m_factory = make_unique_dp<MetalContextFactory>(self.metalView);
   }
   else
   {
-    // Setup Layer Properties
     CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
-
-    eaglLayer.opaque = YES;
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
-                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
-
-    // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
-
-    m_factory = make_unique_dp<dp::ThreadSafeFactory>(new iosOGLContextFactory(eaglLayer, m_apiVersion));
+    m_factory = make_unique_dp<dp::ThreadSafeFactory>(
+                  new iosOGLContextFactory(eaglLayer, m_apiVersion, m_presentAvailable));
   }
+  
+  m2::PointU const s = [self pixelSize];
+  [self createDrapeEngineWithWidth:s.x height:s.y];
 }
 
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
-  LOG(LINFO, ("EAGLView createDrapeEngine Started"));
+  LOG(LINFO, ("CreateDrapeEngine Started", width, height));
+  CHECK(m_factory != nullptr, ());
   
   Framework::DrapeCreationParams p;
   p.m_apiVersion = m_apiVersion;
@@ -110,7 +123,8 @@ double getExactDPI(double contentScaleFactor)
   [self.widgetsManager setupWidgets:p];
   GetFramework().CreateDrapeEngine(make_ref(m_factory), move(p));
 
-  LOG(LINFO, ("EAGLView createDrapeEngine Ended"));
+  self->_drapeEngineCreated = YES;
+  LOG(LINFO, ("CreateDrapeEngine Finished"));
 }
 
 - (void)addSubview:(UIView *)view
@@ -126,16 +140,6 @@ double getExactDPI(double contentScaleFactor)
   }
 }
 
-- (void)applyOnSize:(int)width withHeight:(int)height
-{
-  dispatch_async(dispatch_get_main_queue(), ^
-  {
-    GetFramework().OnSize(width, height);
-    [self.widgetsManager resize:CGSizeMake(width, height)];
-    self->_drapeEngineCreated = YES;
-  });
-}
-
 - (m2::PointU)pixelSize
 {
   CGSize const s = self.bounds.size;
@@ -144,24 +148,14 @@ double getExactDPI(double contentScaleFactor)
   return m2::PointU(w, h);
 }
 
-- (void)onSize:(int)width withHeight:(int)height
-{
-  int w = width * self.contentScaleFactor;
-  int h = height * self.contentScaleFactor;
-
-  if (GetFramework().GetDrapeEngine() == nullptr)
-    [self createDrapeEngineWithWidth:w height:h];
-
-  [self applyOnSize:w withHeight:h];
-}
-
 - (void)layoutSubviews
 {
-  if (!CGRectEqualToRect(lastViewSize, self.frame))
+  if (!CGRectEqualToRect(m_lastViewSize, self.frame))
   {
-    lastViewSize = self.frame;
-    CGSize const s = self.bounds.size;
-    [self onSize:s.width withHeight:s.height];
+    m_lastViewSize = self.frame;
+    m2::PointU const s = [self pixelSize];
+    GetFramework().OnSize(s.x, s.y);
+    [self.widgetsManager resize:CGSizeMake(s.x, s.y)];
   }
   [super layoutSubviews];
 }
@@ -188,7 +182,9 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)setPresentAvailable:(BOOL)available
 {
-  m_factory->SetPresentAvailable(available);
+  m_presentAvailable = available;
+  if (m_factory != nullptr)
+    m_factory->SetPresentAvailable(m_presentAvailable);
 }
 
 - (MWMMapWidgets *)widgetsManager

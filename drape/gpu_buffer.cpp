@@ -1,7 +1,7 @@
 #include "drape/gpu_buffer.hpp"
 #include "drape/drape_diagnostics.hpp"
-#include "drape/glextensions_list.hpp"
-#include "drape/glfunctions.hpp"
+#include "drape/gl_extensions_list.hpp"
+#include "drape/gl_functions.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "base/assert.hpp"

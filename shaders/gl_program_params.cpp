@@ -1,5 +1,6 @@
 #include "shaders/gl_program_params.hpp"
 
+#include "drape/gl_gpu_program.hpp"
 #include "drape/uniform_value.hpp"
 
 #include "base/assert.hpp"
@@ -13,7 +14,7 @@ namespace
 struct UniformsGuard
 {
   template <typename ParamsType>
-  UniformsGuard(ref_ptr<dp::GpuProgram> program, ParamsType const &)
+  UniformsGuard(ref_ptr<dp::GLGpuProgram> program, ParamsType const &)
     : m_program(program)
     , m_paramsName(ParamsType::GetName())
   {
@@ -27,7 +28,7 @@ struct UniformsGuard
     CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up", m_program->GetName(), m_paramsName));
   }
 
-  ref_ptr<dp::GpuProgram> m_program;
+  ref_ptr<dp::GLGpuProgram> m_program;
   std::string const m_paramsName;
   uint32_t m_counter = 0;
 };
@@ -63,7 +64,7 @@ public:
 
 private:
   template<typename ParamType>
-  static bool Apply(ref_ptr<dp::GpuProgram> program, std::string const & name, ParamType const & p)
+  static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name, ParamType const & p)
   {
     auto const location = program->GetUniformLocation(name);
     if (location < 0)

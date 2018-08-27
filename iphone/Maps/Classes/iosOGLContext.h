@@ -2,7 +2,7 @@
 
 #include "drape/drape_global.hpp"
 #include "drape/oglcontext.hpp"
-#include "drape/glIncludes.hpp"
+#include "drape/gl_includes.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
 
@@ -17,7 +17,7 @@ public:
 
   void MakeCurrent() override;
   void Present() override;
-  void SetDefaultFramebuffer() override;
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void Resize(int w, int h) override;
   void SetPresentAvailable(bool available) override;
 
