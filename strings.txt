@@ -33211,4 +33211,50 @@ fa = دوباره نپرس
     zh-Hans = 书签和导览
     zh-Hant = 書籤和指南
 
+  [remove_ads]
+    en = Remove ads
+    ru = Отключить рекламу
 
+  [remove_ads_title]
+    en = Remove all ads and support MAPS.ME
+    ru = Отключите всю рекламу и поддержите MAPS.ME
+
+  [paybtn_title]
+    en = Pay %s/year
+    ru = Заплатить %s/год
+
+  [paybtn_subtitle]
+    en = Save %s/year
+    ru = Экономия %s/год
+
+  [options_dropdown_title]
+    en = More options
+    ru = Другие варианты
+
+  [why_support]
+    en = Why support MAPS.ME?
+    ru = Зачем поддерживать MAPS.ME?
+
+  [options_dropdown_item1]
+    en = %s/month (save %s/year)
+    ru = %s/месяц (экономия %s/год)
+
+  [options_dropdown_item2]
+    en =  %s/week (no savings)
+    ru = %s/неделя (экономии нет)
+
+  [why_support_item1]
+    en = We will remove all ads for you
+    ru = Мы отключим для вас всю рекламу
+
+  [why_support_item2]
+    en = You help us to improve MAPS.ME
+    ru = Вы помогаете нам улучшать MAPS.ME
+
+  [why_support_item3]
+    en = You help us improve open maps OpenStreetMap.org
+    ru = Вы помогаете нам улучшать карты OpenStreetMaps.org
+
+  [purchase_processing]
+    en = Your purchase is being processed…
+    ru = Ваша покупка обрабатывается…
