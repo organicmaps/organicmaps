@@ -546,7 +546,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.setVisibilityListener(this);
 
     SharingHelper.INSTANCE.initialize();
-
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
     //  @Override
