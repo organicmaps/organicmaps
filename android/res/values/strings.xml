@@ -1408,6 +1408,18 @@
 	<string name="error_already_downloaded_guide">This guide has already been downloaded</string>
 	<string name="guide_downloaded_subtitle">Press ‘View on map’ to explore the guide</string>
 	<string name="bookmarks_guides">Bookmarks and guides</string>
+	<string name="remove_ads">Remove ads</string>
+	<string name="remove_ads_title">Remove all ads and support MAPS.ME</string>
+	<string name="paybtn_title">Pay %s/year</string>
+	<string name="paybtn_subtitle">Save %s/year</string>
+	<string name="options_dropdown_title">More options</string>
+	<string name="why_support">Why support MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/month (save %2$s/year)</string>
+	<string name="options_dropdown_item2">%s/week (no savings)</string>
+	<string name="why_support_item1">We will remove all ads for you</string>
+	<string name="why_support_item2">You help us to improve MAPS.ME</string>
+	<string name="why_support_item3">You help us improve open maps OpenStreetMap.org</string>
+	<string name="purchase_processing">Your purchase is being processed…</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

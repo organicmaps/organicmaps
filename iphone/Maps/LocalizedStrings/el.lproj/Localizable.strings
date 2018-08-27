@@ -2412,6 +2412,30 @@
 
 "bookmarks_guides" = "Αγαπημένα και εγχειρίδια";
 
+"remove_ads" = "Remove ads";
+
+"remove_ads_title" = "Remove all ads and support MAPS.ME";
+
+"paybtn_title" = "Pay %s/year";
+
+"paybtn_subtitle" = "Save %s/year";
+
+"options_dropdown_title" = "More options";
+
+"why_support" = "Why support MAPS.ME?";
+
+"options_dropdown_item1" = "%s/month (save %s/year)";
+
+"options_dropdown_item2" = "%s/week (no savings)";
+
+"why_support_item1" = "We will remove all ads for you";
+
+"why_support_item2" = "You help us to improve MAPS.ME";
+
+"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+
+"purchase_processing" = "Your purchase is being processed…";
+
 
 /**********  Partners  **********/
 

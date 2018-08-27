@@ -2412,6 +2412,30 @@
 
 "bookmarks_guides" = "Метки и путеводители";
 
+"remove_ads" = "Отключить рекламу";
+
+"remove_ads_title" = "Отключите всю рекламу и поддержите MAPS.ME";
+
+"paybtn_title" = "Заплатить %s/год";
+
+"paybtn_subtitle" = "Экономия %s/год";
+
+"options_dropdown_title" = "Другие варианты";
+
+"why_support" = "Зачем поддерживать MAPS.ME?";
+
+"options_dropdown_item1" = "%s/месяц (экономия %s/год)";
+
+"options_dropdown_item2" = "%s/неделя (экономии нет)";
+
+"why_support_item1" = "Мы отключим для вас всю рекламу";
+
+"why_support_item2" = "Вы помогаете нам улучшать MAPS.ME";
+
+"why_support_item3" = "Вы помогаете нам улучшать карты OpenStreetMaps.org";
+
+"purchase_processing" = "Ваша покупка обрабатывается…";
+
 
 /**********  Partners  **********/
 
