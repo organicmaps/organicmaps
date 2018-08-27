@@ -28,6 +28,8 @@ import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.purchase.Factory;
 import com.mapswithme.maps.purchase.PurchaseValidator;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.scheduling.JobDispatcher;
+import com.mapswithme.maps.scheduling.JobDispatcherComposite;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
@@ -81,54 +83,15 @@ public class MwmApplication extends Application
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
-
-  private final MapManager.StorageCallback mStorageCallbacks = new MapManager.StorageCallback()
-  {
-    @Override
-    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
-    {
-      for (MapManager.StorageCallbackData item : data)
-        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
-        {
-          if (MapManager.nativeIsAutoretryFailed())
-          {
-            Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
-            MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
-          }
-
-          return;
-        }
-    }
-
-    @Override
-    public void onProgress(String countryId, long localSize, long remoteSize) {}
-  };
-
   @NonNull
-  private final AppBackgroundTracker.OnTransitionListener mBackgroundListener =
-      new AppBackgroundTracker.OnTransitionListener()
-      {
-        @Override
-        public void onTransit(boolean foreground)
-        {
-          if (!foreground && LoggerFactory.INSTANCE.isFileLoggingEnabled())
-          {
-            Log.i(TAG, "The app goes to background. All logs are going to be zipped.");
-            LoggerFactory.INSTANCE.zipLogs(null);
-          }
-        }
-      };
-
+  private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener = new VisibleAppLaunchListener();
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener =
-      new AppBackgroundTracker.OnVisibleAppLaunchListener()
-      {
-        @Override
-        public void onVisibleAppLaunch()
-        {
-          Statistics.INSTANCE.trackColdStartupInfo();
-        }
-      };
+  private JobDispatcher mJobDispatcher;
+  @NonNull
+  private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
+  @NonNull
+  private final AppBackgroundTracker.OnTransitionListener mBackgroundListener = new TransitionListener();
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -205,6 +168,8 @@ public class MwmApplication extends Application
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
+    mJobDispatcher = new JobDispatcherComposite(this);
+    mJobDispatcher.dispatch();
   }
 
   private void initCoreIndependentSdks()
@@ -476,6 +441,12 @@ public class MwmApplication extends Application
     mMainLoopHandler.sendMessage(m);
   }
 
+  @NonNull
+  public JobDispatcher getJobDispatcher()
+  {
+    return mJobDispatcher;
+  }
+
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
                                          String tmpPath, String obbGooglePath, String flavorName,
                                          String buildType, boolean isTablet);
@@ -486,4 +457,48 @@ public class MwmApplication extends Application
 
   @UiThread
   private static native void nativeInitCrashlytics();
+
+  private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
+  {
+    @Override
+    public void onVisibleAppLaunch()
+    {
+      Statistics.INSTANCE.trackColdStartupInfo();
+    }
+  }
+
+  private static class StorageCallbackImpl implements MapManager.StorageCallback
+  {
+    @Override
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    {
+      for (MapManager.StorageCallbackData item : data)
+        if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+        {
+          if (MapManager.nativeIsAutoretryFailed())
+          {
+            Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
+            MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
+          }
+
+          return;
+        }
+    }
+
+    @Override
+    public void onProgress(String countryId, long localSize, long remoteSize) {}
+  }
+
+  private static class TransitionListener implements AppBackgroundTracker.OnTransitionListener
+  {
+    @Override
+    public void onTransit(boolean foreground)
+    {
+      if (!foreground && LoggerFactory.INSTANCE.isFileLoggingEnabled())
+      {
+        Log.i(TAG, "The app goes to background. All logs are going to be zipped.");
+        LoggerFactory.INSTANCE.zipLogs(null);
+      }
+    }
+  }
 }

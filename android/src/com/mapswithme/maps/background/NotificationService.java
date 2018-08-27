@@ -2,9 +2,9 @@ package com.mapswithme.maps.background;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
-import android.text.TextUtils;
 
 import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
@@ -32,7 +32,7 @@ public class NotificationService extends JobIntentService
     boolean tryToNotify();
   }
 
-  static void startOnConnectivityChanged(Context context)
+  public static void startOnConnectivityChanged(Context context)
   {
     final Intent intent = new Intent(context, NotificationService.class)
         .setAction(CONNECTIVITY_ACTION);
@@ -88,15 +88,8 @@ public class NotificationService extends JobIntentService
   {
     final String action = intent.getAction();
 
-    if (TextUtils.isEmpty(action))
-      return;
-
-    switch(action)
-    {
-      case CONNECTIVITY_ACTION:
-        onConnectivityChanged();
-        break;
-    }
+    if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
+      onConnectivityChanged();
   }
 
   private static void onConnectivityChanged()

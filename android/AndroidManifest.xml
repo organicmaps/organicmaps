@@ -440,23 +440,21 @@
       android:label="@string/subtittle_opt_out"
       android:configChanges="keyboardHidden|orientation|screenSize">
     </activity>
-    <receiver
-        android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
-        android:enabled="true"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-      </intent-filter>
-    </receiver>
 
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="false"/>
+
     <service
       android:name="com.mapswithme.maps.background.NotificationService"
       android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="false"/>
+
+    <service android:name="com.mapswithme.maps.scheduling.NativeJobService"
+             android:enabled="true"
+             android:exported="false"
+             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     <receiver android:name="com.mapswithme.maps.location.TrackRecorderWakeReceiver">
       <intent-filter>
@@ -488,16 +486,6 @@
          IMPORTANT : we DON'T declare myTracker's broadcast receiver for INSTALL_REFERRER intent, cause we catch it in our custom
          MultipleTrackerReferrerReceiver and then pass it manually to myTracker's one. -->
     <service android:name="com.my.tracker.campaign.CampaignService"/>
-
-    <!-- Alohalytics -->
-    <receiver
-        android:name="org.alohalytics.ConnectivityChangedReceiver"
-        android:enabled="true"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-      </intent-filter>
-    </receiver>
 
     <receiver
         android:name="com.google.android.gms.gcm.GcmReceiver"

@@ -89,7 +89,8 @@ public final class TrackRecorder
 
   private static PendingIntent getAlarmIntent()
   {
-    return PendingIntent.getBroadcast(MwmApplication.get(), 0, sAlarmIntent, 0);
+    Intent intent = new Intent(MwmApplication.get(), TrackRecorderWakeReceiver.class);
+    return PendingIntent.getBroadcast(MwmApplication.get(), 0, intent, 0);
   }
 
   private static void restartAlarmIfEnabled()
