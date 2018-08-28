@@ -246,6 +246,7 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.welcomePageController show];
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
+  [self.controlsManager showTutorial];
 }
 
 - (void)viewDidLoad
@@ -463,6 +464,10 @@ BOOL gIsFirstMyPositionMode = YES;
   NSMutableArray<UIViewController *> * controllers = [self.navigationController.viewControllers mutableCopy];
   [controllers addObjectsFromArray:@[bookmarks, catalog]];
   [self.navigationController setViewControllers:controllers animated:animated];
+}
+
+- (void)searchText:(NSString *)text {
+  [self.controlsManager searchText:text forInputLocale:[[AppInfo sharedInfo] languageId]];
 }
 
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode

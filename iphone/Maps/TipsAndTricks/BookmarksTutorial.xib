@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMTutorialViewController">
+            <connections>
+                <outlet property="view" destination="NKX-HM-ocV" id="48y-M2-AOX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="NKX-HM-ocV" customClass="MWMTutorialView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkE-Vd-KIG">
+                    <rect key="frame" x="40" y="521" width="88" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="0.20344606160000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="88" id="Ddj-kC-2wc"/>
+                        <constraint firstAttribute="height" constant="36" id="sef-4X-cWo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                    <state key="normal" title="Понятно"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="statusBarBackground"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onCancel:" destination="-1" eventType="touchUpInside" id="3Xc-3F-kxH"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Скачайте и постройте туристические маршруты по интересным местам в разных городах мира." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gYC-Tz-PO0">
+                    <rect key="frame" x="40" y="446.5" width="295" height="50.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="0.70269691779999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="whiteSecondaryText"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сложно придумать маршрут по интересным местам?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="no2-Lc-0nV">
+                    <rect key="frame" x="40" y="386.5" width="295" height="48"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.71642230308219179" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="gYC-Tz-PO0" firstAttribute="top" secondItem="no2-Lc-0nV" secondAttribute="bottom" constant="12" id="3SP-oS-yEe"/>
+                <constraint firstItem="no2-Lc-0nV" firstAttribute="leading" secondItem="q48-yh-Kzh" secondAttribute="leading" constant="40" id="BOH-qV-bgP"/>
+                <constraint firstItem="q48-yh-Kzh" firstAttribute="bottom" secondItem="bkE-Vd-KIG" secondAttribute="bottom" constant="110" id="Blv-HC-beZ"/>
+                <constraint firstItem="bkE-Vd-KIG" firstAttribute="top" secondItem="gYC-Tz-PO0" secondAttribute="bottom" constant="24" id="Nbo-Bu-LKI"/>
+                <constraint firstItem="q48-yh-Kzh" firstAttribute="trailing" secondItem="no2-Lc-0nV" secondAttribute="trailing" constant="40" id="RHv-P3-l9R"/>
+                <constraint firstItem="bkE-Vd-KIG" firstAttribute="leading" secondItem="q48-yh-Kzh" secondAttribute="leading" constant="40" id="RO0-Lt-gQl"/>
+                <constraint firstItem="q48-yh-Kzh" firstAttribute="trailing" secondItem="gYC-Tz-PO0" secondAttribute="trailing" constant="40" id="s2w-rU-OfI"/>
+                <constraint firstItem="gYC-Tz-PO0" firstAttribute="leading" secondItem="q48-yh-Kzh" secondAttribute="leading" constant="40" id="vUK-2o-Gd2"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="q48-yh-Kzh"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackPrimaryText"/>
+            </userDefinedRuntimeAttributes>
+        </view>
+    </objects>
+</document>

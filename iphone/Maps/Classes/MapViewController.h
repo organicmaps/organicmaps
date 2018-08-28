@@ -28,6 +28,7 @@
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 - (void)openCatalogAnimated:(BOOL)animated;
 - (void)openCatalogDeeplink:(NSURL * _Nullable)deeplinkUrl animated:(BOOL)animated;
+- (void)searchText:(NSString *)text;
 
 - (void)setPlacePageTopBound:(CGFloat)bound;
 

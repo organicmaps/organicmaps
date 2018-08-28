@@ -46,6 +46,10 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 @property(nonatomic) MWMBottomMenuState restoreState;
 @property(nonatomic) MWMDimBackground * dimBackground;
 @property(weak, nonatomic) IBOutlet MWMButton * searchButton;
+@property(weak, nonatomic) IBOutlet MWMButton * routeButton;
+@property(weak, nonatomic) IBOutlet MWMButton * discoveryButton;
+@property(weak, nonatomic) IBOutlet MWMButton * bookmarksButton;
+@property(weak, nonatomic) IBOutlet MWMButton * moreButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;

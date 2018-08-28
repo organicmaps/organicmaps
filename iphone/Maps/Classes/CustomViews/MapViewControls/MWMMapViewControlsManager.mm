@@ -28,7 +28,7 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMMapViewControlsManager ()<MWMBottomMenuControllerProtocol, MWMSearchManagerObserver>
+@interface MWMMapViewControlsManager ()<MWMBottomMenuControllerProtocol, MWMSearchManagerObserver, MWMTutorialViewControllerDelegate>
 
 @property(nonatomic) MWMSideButtons * sideButtons;
 @property(nonatomic) MWMTrafficButtonViewController * trafficButton;
@@ -369,5 +369,62 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - MWMBookingInfoHolder
 - (id<MWMBookingInfoHolder>)bookingInfoHolder { return self.placePageManager; }
+
+- (MWMTutorialViewController *)randomTutorial {
+  MWMTutorialViewController * tutorial;
+  auto tutorialType = (MWMTutorialType)(arc4random() % 4);
+  switch (tutorialType) {
+    case MWMTutorialTypeSearch:
+      tutorial = [MWMTutorialViewController tutorial:tutorialType
+                                              target:self.menuController.searchButton
+                                            delegate:self];
+      break;
+    case MWMTutorialTypeDiscovery:
+      tutorial = [MWMTutorialViewController tutorial:tutorialType
+                                              target:self.menuController.discoveryButton
+                                            delegate:self];
+      break;
+    case MWMTutorialTypeBookmarks:
+      tutorial = [MWMTutorialViewController tutorial:tutorialType
+                                              target:self.menuController.bookmarksButton
+                                            delegate:self];
+      break;
+    case MWMTutorialTypeSubway:
+      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSubway
+                                              target:self.trafficButton.view
+                                            delegate:self];
+      break;
+  }
+  return tutorial;
+}
+
+- (void)showTutorial {
+//  static bool show = true;
+//  if (!show) return;
+
+  auto tutorial = [self randomTutorial];
+  [self.ownerController addChildViewController:tutorial];
+  tutorial.view.frame = self.ownerController.view.bounds;
+  tutorial.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [self.ownerController.view addSubview:tutorial.view];
+  [tutorial didMoveToParentViewController:self.ownerController];
+//  show = false;
+}
+
+- (void)didPressCancel:(MWMTutorialViewController *)viewController {
+  [viewController fadeOutWithCompletion:^{
+    [viewController willMoveToParentViewController:nil];
+    [viewController.view removeFromSuperview];
+    [viewController removeFromParentViewController];
+  }];
+}
+
+- (void)didPressTarget:(MWMTutorialViewController *)viewController {
+  [viewController fadeOutWithCompletion:^{
+    [viewController willMoveToParentViewController:nil];
+    [viewController.view removeFromSuperview];
+    [viewController removeFromParentViewController];
+  }];
+}
 
 @end
