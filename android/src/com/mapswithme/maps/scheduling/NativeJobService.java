@@ -10,14 +10,16 @@ import android.os.Build;
 
 import com.mapswithme.maps.background.NotificationService;
 
+import java.util.Objects;
+
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class NativeJobService extends JobService
 {
   @Override
   public boolean onStartJob(JobParameters params)
   {
-    JobDispatcherComposite jobDispatcher = JobDispatcherComposite.from(this);
-    JobDispatcherComposite.NetworkStatus status = jobDispatcher.getNetworkStatus();
+    ConnectivityJobScheduler jobDispatcher = ConnectivityJobScheduler.from(this);
+    ConnectivityJobScheduler.NetworkStatus status = jobDispatcher.getNetworkStatus();
     if (status.isNetworkStateChanged())
       NotificationService.startOnConnectivityChanged(this);
 
@@ -32,12 +34,11 @@ public class NativeJobService extends JobService
     JobScheduler service = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
     ComponentName component = new ComponentName(getApplicationContext(), NativeJobService.class);
     int jobId = NativeJobService.class.hashCode();
-    /*FIXME*/
     JobInfo jobInfo = new JobInfo.Builder(jobId, component)
-        .setMinimumLatency(4000)
+        .setMinimumLatency(ConnectivityJobScheduler.PERIODIC_IN_MILLIS)
         .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
         .build();
-    service.schedule(jobInfo);
+    Objects.requireNonNull(service).schedule(jobInfo);
   }
 
   @Override

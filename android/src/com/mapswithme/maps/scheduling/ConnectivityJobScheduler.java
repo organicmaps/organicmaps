@@ -7,117 +7,72 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.background.ConnectivityChangedReceiver;
+import com.mapswithme.util.ConnectionState;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class JobDispatcherComposite implements JobDispatcher
+public class ConnectivityJobScheduler implements ConnectivityListener
 {
-  @NonNull
-  private final JobDispatcher mMasterJobDispatcher;
+  public static final int PERIODIC_IN_MILLIS = 4000;
 
   @NonNull
-  private final MwmApplication mContext;
+  private final ConnectivityListener mMasterConnectivityListener;
 
   @NonNull
   private final AtomicInteger mCurrentNetworkType;
 
-  public JobDispatcherComposite(@NonNull MwmApplication context)
+  public ConnectivityJobScheduler(@NonNull MwmApplication context)
   {
-    mContext = context;
-    mMasterJobDispatcher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                           ? new NativeJobDispatcher(mContext)
-                           : new LegacyJobDispatcher(mContext);
+    mMasterConnectivityListener = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                           ? new NativeConnectivityListener(context)
+                           : new LegacyConnectivityListener(context);
 
     mCurrentNetworkType = new AtomicInteger(getCurrentNetworkType().ordinal());
   }
 
   @Override
-  public void dispatch()
+  public void listen()
   {
-    mMasterJobDispatcher.dispatch();
-  }
-
-  @Override
-  public void cancelAll()
-  {
-    mMasterJobDispatcher.cancelAll();
+    mMasterConnectivityListener.listen();
   }
 
   @NonNull
   public NetworkStatus getNetworkStatus()
   {
-    NetworkType currentNetworkType = getCurrentNetworkType();
-    int prevTypeIndex = mCurrentNetworkType.getAndSet(currentNetworkType.mType);
-    NetworkType prevNetworkType = NetworkType.getInstance(prevTypeIndex);
+    ConnectionState.Type currentNetworkType = getCurrentNetworkType();
+    int prevTypeIndex = mCurrentNetworkType.getAndSet(currentNetworkType.ordinal());
+    ConnectionState.Type prevNetworkType = ConnectionState.Type.values()[prevTypeIndex];
     boolean isNetworkChanged = prevNetworkType != currentNetworkType;
     return new NetworkStatus(isNetworkChanged, currentNetworkType);
   }
 
-  private NetworkType getCurrentNetworkType()
+  @NonNull
+  private ConnectionState.Type getCurrentNetworkType()
   {
-    ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetwork;
-    if (cm == null || (activeNetwork = cm.getActiveNetworkInfo()) == null)
-      return NetworkType.UNDEFINED;
-
-    return NetworkType.getInstance(activeNetwork.getType());
+    return ConnectionState.requestCurrentType();
   }
 
-  public enum NetworkType
-  {
-    WIFI(ConnectivityManager.TYPE_WIFI),
-    MOBILE(ConnectivityManager.TYPE_MOBILE),
-    UNDEFINED;
-
-    private final int mType;
-
-    NetworkType(int type)
-    {
-
-      mType = type;
-    }
-
-    NetworkType()
-    {
-      this(-1);
-    }
-
-    @NonNull
-    public static NetworkType getInstance(int type)
-    {
-      for (NetworkType each : values())
-      {
-        if (each.mType == type)
-          return each;
-      }
-
-      return NetworkType.UNDEFINED;
-    }
-  }
-
-  public static JobDispatcherComposite from(@NonNull Context context)
+  public static ConnectivityJobScheduler from(@NonNull Context context)
   {
     MwmApplication application = (MwmApplication) context.getApplicationContext();
-    return (JobDispatcherComposite) application.getJobDispatcher();
+    return (ConnectivityJobScheduler) application.getConnectivityListener();
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  private static class NativeJobDispatcher implements JobDispatcher
+  private static class NativeConnectivityListener implements ConnectivityListener
   {
-    private static final int PERIODIC_IN_MILLIS = 4000;
     @NonNull
     private final JobScheduler mJobScheduler;
     @NonNull
     private final Context mContext;
 
-    NativeJobDispatcher(@NonNull Context context)
+    NativeConnectivityListener(@NonNull Context context)
     {
       mContext = context;
       JobScheduler jobScheduler = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
@@ -126,7 +81,7 @@ public class JobDispatcherComposite implements JobDispatcher
     }
 
     @Override
-    public void dispatch()
+    public void listen()
     {
       ComponentName component = new ComponentName(mContext, NativeJobService.class);
       int jobId = NativeJobService.class.hashCode();
@@ -137,22 +92,16 @@ public class JobDispatcherComposite implements JobDispatcher
           .build();
       mJobScheduler.schedule(jobInfo);
     }
-
-    @Override
-    public void cancelAll()
-    {
-      mJobScheduler.cancelAll();
-    }
   }
 
   public static class NetworkStatus
   {
     private final boolean mNetworkStateChanged;
     @NonNull
-    private final NetworkType mCurrentNetworkType;
+    private final ConnectionState.Type mCurrentNetworkType;
 
     NetworkStatus(boolean networkStateChanged,
-                  @NonNull NetworkType currentNetworkType)
+                  @NonNull ConnectionState.Type currentNetworkType)
     {
       mNetworkStateChanged = networkStateChanged;
       mCurrentNetworkType = currentNetworkType;
@@ -164,36 +113,30 @@ public class JobDispatcherComposite implements JobDispatcher
     }
 
     @NonNull
-    public NetworkType getCurrentNetworkType()
+    public ConnectionState.Type getCurrentNetworkType()
     {
       return mCurrentNetworkType;
     }
   }
 
-  private static class LegacyJobDispatcher implements JobDispatcher
+  private static class LegacyConnectivityListener implements ConnectivityListener
   {
     @NonNull
     private final MwmApplication mContext;
     @NonNull
     private final ConnectivityChangedReceiver mReceiver;
 
-    LegacyJobDispatcher(@NonNull MwmApplication context)
+    LegacyConnectivityListener(@NonNull MwmApplication context)
     {
       mContext = context;
       mReceiver = new ConnectivityChangedReceiver();
     }
 
     @Override
-    public void dispatch()
+    public void listen()
     {
       IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
       mContext.registerReceiver(mReceiver, filter);
-    }
-
-    @Override
-    public void cancelAll()
-    {
-      mContext.unregisterReceiver(mReceiver);
     }
   }
 }

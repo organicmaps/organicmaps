@@ -18,7 +18,7 @@ public final class TrackRecorder
 {
   private static final String TAG = TrackRecorder.class.getSimpleName();
   private static final AlarmManager sAlarmManager = (AlarmManager)MwmApplication.get().getSystemService(Context.ALARM_SERVICE);
-  private static final Intent sAlarmIntent = new Intent("com.mapswithme.maps.TRACK_RECORDER_ALARM");
+
   private static final long WAKEUP_INTERVAL_MS = 20000;
   private static final long STARTUP_AWAIT_INTERVAL_MS = 5000;
 

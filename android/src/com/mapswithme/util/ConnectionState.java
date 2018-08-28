@@ -9,12 +9,40 @@ import android.telephony.TelephonyManager;
 
 import com.mapswithme.maps.MwmApplication;
 
+import static com.mapswithme.util.ConnectionState.Type.NONE;
+
 public class ConnectionState
 {
   // values should correspond to ones from enum class EConnectionType (in platform/platform.hpp)
   private static final byte CONNECTION_NONE = 0;
   private static final byte CONNECTION_WIFI = 1;
   private static final byte CONNECTION_WWAN = 2;
+
+  public enum Type
+  {
+    NONE(CONNECTION_NONE, -1),
+    WIFI(CONNECTION_WIFI, ConnectivityManager.TYPE_WIFI),
+    WWAN(CONNECTION_WWAN, ConnectivityManager.TYPE_MOBILE);
+
+    private final byte mValue;
+    private final int mNetwork;
+
+    Type(byte value, int network)
+    {
+      mValue = value;
+      mNetwork = network;
+    }
+
+    public byte getValue()
+    {
+      return mValue;
+    }
+
+    public int getNetwork()
+    {
+      return mNetwork;
+    }
+  }
 
   private static boolean isNetworkConnected(int networkType)
   {
@@ -92,11 +120,17 @@ public class ConnectionState
 
   public static byte getConnectionState()
   {
-    if (isWifiConnected())
-      return CONNECTION_WIFI;
-    else if (isMobileConnected())
-      return CONNECTION_WWAN;
+    return requestCurrentType().getValue();
+  }
 
-    return CONNECTION_NONE;
+  @NonNull
+  public static Type requestCurrentType()
+  {
+    for (ConnectionState.Type each : ConnectionState.Type.values())
+    {
+      if (isNetworkConnected(each.getNetwork()))
+        return each;
+    }
+    return NONE;
   }
 }

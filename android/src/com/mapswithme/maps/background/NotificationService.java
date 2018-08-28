@@ -32,7 +32,7 @@ public class NotificationService extends JobIntentService
     boolean tryToNotify();
   }
 
-  public static void startOnConnectivityChanged(Context context)
+  public static void startOnConnectivityChanged(@NonNull Context context)
   {
     final Intent intent = new Intent(context, NotificationService.class)
         .setAction(CONNECTIVITY_ACTION);

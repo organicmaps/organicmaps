@@ -28,8 +28,8 @@ import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.purchase.Factory;
 import com.mapswithme.maps.purchase.PurchaseValidator;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.scheduling.JobDispatcher;
-import com.mapswithme.maps.scheduling.JobDispatcherComposite;
+import com.mapswithme.maps.scheduling.ConnectivityListener;
+import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
@@ -87,7 +87,7 @@ public class MwmApplication extends Application
   private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener = new VisibleAppLaunchListener();
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private JobDispatcher mJobDispatcher;
+  private ConnectivityListener mConnectivityListener;
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   @NonNull
@@ -168,8 +168,8 @@ public class MwmApplication extends Application
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
-    mJobDispatcher = new JobDispatcherComposite(this);
-    mJobDispatcher.dispatch();
+    mConnectivityListener = new ConnectivityJobScheduler(this);
+    mConnectivityListener.listen();
   }
 
   private void initCoreIndependentSdks()
@@ -442,9 +442,9 @@ public class MwmApplication extends Application
   }
 
   @NonNull
-  public JobDispatcher getJobDispatcher()
+  public ConnectivityListener getConnectivityListener()
   {
-    return mJobDispatcher;
+    return mConnectivityListener;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,

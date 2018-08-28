@@ -452,7 +452,6 @@
       android:exported="false"/>
 
     <service android:name="com.mapswithme.maps.scheduling.NativeJobService"
-             android:enabled="true"
              android:exported="false"
              android:permission="android.permission.BIND_JOB_SERVICE"/>
 
