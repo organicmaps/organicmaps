@@ -2,9 +2,9 @@
 
 #include "map/tips_api.hpp"
 
-#include "eye/eye_tests_support/eye_for_testing.hpp"
+#include "metrics/metrics_tests_support/eye_for_testing.hpp"
 
-#include "eye/eye.hpp"
+#include "metrics/eye.hpp"
 
 #include <algorithm>
 

@@ -117,7 +117,7 @@ target_link_libraries(
   kml
   editor
   indexer
-  eye
+  metrics
   platform
   partners_api
   local_ads

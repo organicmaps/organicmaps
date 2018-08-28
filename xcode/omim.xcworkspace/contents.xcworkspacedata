@@ -266,9 +266,6 @@
       location = "container:editor/editor.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:eye/eye.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:geometry/geometry.xcodeproj">
    </FileRef>
    <FileRef
@@ -291,6 +288,9 @@
    </FileRef>
    <FileRef
       location = "container:mapshot/mapshot.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/a.milchakov/projects/omim/xcode/eye/metrics.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:openlr/openlr.xcodeproj">

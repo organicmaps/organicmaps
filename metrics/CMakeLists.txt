@@ -1,4 +1,4 @@
-project(eye)
+project(metrics)
 
 include_directories(${OMIM_ROOT}/3party/jansson/src)
 
@@ -15,5 +15,5 @@ set(
 
 omim_add_library(${PROJECT_NAME} ${SRC})
 
-omim_add_test_subdirectory(eye_tests)
-omim_add_test_subdirectory(eye_tests_support)
+omim_add_test_subdirectory(metrics_tests)
+omim_add_test_subdirectory(metrics_tests_support)

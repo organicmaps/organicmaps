@@ -1,6 +1,6 @@
 #pragma once
 
-#include "eye/eye_info.hpp"
+#include "metrics/eye_info.hpp"
 
 #include "base/atomic_shared_ptr.hpp"
 #include "base/macros.hpp"

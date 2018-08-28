@@ -1,6 +1,6 @@
 #include "map/tips_api.hpp"
 
-#include "eye/eye.hpp"
+#include "metrics/eye.hpp"
 
 #include "platform/platform.hpp"
 

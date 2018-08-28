@@ -34,8 +34,6 @@
 		3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99A11FB4A6410025B48C /* booking_filter.hpp */; };
 		3D4F44BB21345D270005E765 /* tips_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4F44B921345D270005E765 /* tips_api.hpp */; };
 		3D4F44BC21345D270005E765 /* tips_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F44BA21345D270005E765 /* tips_api.cpp */; };
-		3D4F457E21354F720005E765 /* libeye_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457D21354F720005E765 /* libeye_tests_support.a */; };
-		3D4F458021354F720005E765 /* libeye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457F21354F720005E765 /* libeye.a */; };
 		3D4F4582213552AD0005E765 /* tips_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F4581213552AD0005E765 /* tips_tests.cpp */; };
 		3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */; };
 		3D62CBD920FF6C8B00E7BB6E /* discovery_search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D62CBD720FF6C8B00E7BB6E /* discovery_search.cpp */; };
@@ -80,6 +78,8 @@
 		3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */; };
 		3DA5723220C195ED007BDE27 /* everywhere_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */; };
 		3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */; };
+		3DD122BB2135708900EDFB53 /* libmetrics_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */; };
+		3DD122BD2135708900EDFB53 /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD122BC2135708900EDFB53 /* libmetrics.a */; };
 		4503559A21245A4100FDFEA5 /* subscription.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4503559821245A4000FDFEA5 /* subscription.hpp */; };
 		4503559B21245A4100FDFEA5 /* subscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4503559921245A4000FDFEA5 /* subscription.cpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
@@ -304,6 +304,8 @@
 		3DA5722D20C195EC007BDE27 /* everywhere_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_callback.hpp; sourceTree = "<group>"; };
 		3DA5722E20C195EC007BDE27 /* everywhere_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = everywhere_search_callback.cpp; sourceTree = "<group>"; };
 		3DA5722F20C195EC007BDE27 /* viewport_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viewport_search_callback.cpp; sourceTree = "<group>"; };
+		3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DD122BC2135708900EDFB53 /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4503559821245A4000FDFEA5 /* subscription.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = subscription.hpp; sourceTree = "<group>"; };
 		4503559921245A4000FDFEA5 /* subscription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = subscription.cpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
@@ -496,8 +498,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4F457E21354F720005E765 /* libeye_tests_support.a in Frameworks */,
-				3D4F458021354F720005E765 /* libeye.a in Frameworks */,
+				3DD122BB2135708900EDFB53 /* libmetrics_tests_support.a in Frameworks */,
+				3DD122BD2135708900EDFB53 /* libmetrics.a in Frameworks */,
 				475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */,
 				671ED39120D4046D00D4317E /* libeditor_tests_support.a in Frameworks */,
 				47A9D82420A19EC300E4671B /* libkml.a in Frameworks */,
@@ -561,6 +563,8 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */,
+				3DD122BC2135708900EDFB53 /* libmetrics.a */,
 				3D4F457D21354F720005E765 /* libeye_tests_support.a */,
 				3D4F457F21354F720005E765 /* libeye.a */,
 				475BD61A211C5FDC00E298C6 /* libshaders.a */,

@@ -1,6 +1,6 @@
-#include "eye/eye.hpp"
-#include "eye/eye_serdes.hpp"
-#include "eye/eye_storage.hpp"
+#include "metrics/eye.hpp"
+#include "metrics/eye_serdes.hpp"
+#include "metrics/eye_storage.hpp"
 
 #include "platform/platform.hpp"
 

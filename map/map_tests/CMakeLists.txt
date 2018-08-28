@@ -30,7 +30,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  eye_tests_support
+  metrics_tests_support
   search_tests_support
   editor_tests_support
   generator_tests_support
@@ -46,7 +46,7 @@ omim_link_libraries(
   routing_common
   search
   storage
-  eye
+  metrics
   mwm_diff
   bsdiff
   ugc

@@ -1,11 +1,11 @@
 #include "testing/testing.hpp"
 
-#include "eye/eye.hpp"
-#include "eye/eye_info.hpp"
-#include "eye/eye_serdes.hpp"
-#include "eye/eye_storage.hpp"
+#include "metrics/eye.hpp"
+#include "metrics/eye_info.hpp"
+#include "metrics/eye_serdes.hpp"
+#include "metrics/eye_storage.hpp"
 
-#include "eye/eye_tests_support/eye_for_testing.hpp"
+#include "metrics/metrics_tests_support/eye_for_testing.hpp"
 
 using namespace eye;
 

@@ -1,4 +1,4 @@
-project(eye_tests_support)
+project(metrics_tests_support)
 
 set(
   SRC

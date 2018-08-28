@@ -17,8 +17,8 @@
 		3D4F457221354E3A0005E765 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457121354E3A0005E765 /* libbase.a */; };
 		3D4F457421354E430005E765 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457321354E430005E765 /* libcoding.a */; };
 		3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457521354E4B0005E765 /* libplatform.a */; };
-		3D4F457721354E530005E765 /* libeye_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F4564213542130005E765 /* libeye_tests_support.a */; };
-		3D4F457821354E530005E765 /* libeye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F44FB21345FC50005E765 /* libeye.a */; };
+		3D4F457721354E530005E765 /* libmetrics_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F4564213542130005E765 /* libmetrics_tests_support.a */; };
+		3D4F457821354E530005E765 /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F44FB21345FC50005E765 /* libmetrics.a */; };
 		3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457921354EB70005E765 /* libalohalitics.a */; };
 		3D4F457C21354F150005E765 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457B21354F150005E765 /* libz.tbd */; };
 /* End PBXBuildFile section */
@@ -45,7 +45,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3D4F44FB21345FC50005E765 /* libeye.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeye.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F44FB21345FC50005E765 /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F450E2134606B0005E765 /* eye_serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_serdes.cpp; sourceTree = "<group>"; };
 		3D4F450F2134606B0005E765 /* eye_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_storage.cpp; sourceTree = "<group>"; };
 		3D4F45152134606B0005E765 /* eye_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_info.hpp; sourceTree = "<group>"; };
@@ -55,10 +55,10 @@
 		3D4F45202134606B0005E765 /* eye_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_serdes.hpp; sourceTree = "<group>"; };
 		3D4F453621353F290005E765 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		3D4F453721353F290005E765 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
-		3D4F4541213540F50005E765 /* eye_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eye_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F4541213540F50005E765 /* metrics_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = metrics_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F4553213541280005E765 /* eye_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_tests.cpp; sourceTree = "<group>"; };
 		3D4F4555213541460005E765 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
-		3D4F4564213542130005E765 /* libeye_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeye_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F4564213542130005E765 /* libmetrics_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmetrics_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4F4566213542700005E765 /* eye_for_testing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_for_testing.cpp; sourceTree = "<group>"; };
 		3D4F4567213542700005E765 /* eye_for_testing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_for_testing.hpp; sourceTree = "<group>"; };
 		3D4F456F21354E0C0005E765 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,8 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4F457721354E530005E765 /* libeye_tests_support.a in Frameworks */,
-				3D4F457821354E530005E765 /* libeye.a in Frameworks */,
+				3D4F457721354E530005E765 /* libmetrics_tests_support.a in Frameworks */,
+				3D4F457821354E530005E765 /* libmetrics.a in Frameworks */,
 				3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */,
 				3D4F457421354E430005E765 /* libcoding.a in Frameworks */,
 				3D4F457221354E3A0005E765 /* libbase.a in Frameworks */,
@@ -105,11 +105,11 @@
 		3D4F44F221345FC50005E765 = {
 			isa = PBXGroup;
 			children = (
-				3D4F4565213542480005E765 /* eye_tests_support */,
 				3D4F453621353F290005E765 /* common-debug.xcconfig */,
 				3D4F453721353F290005E765 /* common-release.xcconfig */,
-				3D4F450D2134606B0005E765 /* eye */,
-				3D4F4542213540F50005E765 /* eye_tests */,
+				3D4F450D2134606B0005E765 /* metrics */,
+				3D4F4542213540F50005E765 /* metrics_tests */,
+				3D4F4565213542480005E765 /* metrics_tests_support */,
 				3D4F44FC21345FC50005E765 /* Products */,
 				3D4F456E21354E0C0005E765 /* Frameworks */,
 			);
@@ -118,14 +118,14 @@
 		3D4F44FC21345FC50005E765 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D4F44FB21345FC50005E765 /* libeye.a */,
-				3D4F4541213540F50005E765 /* eye_tests.app */,
-				3D4F4564213542130005E765 /* libeye_tests_support.a */,
+				3D4F44FB21345FC50005E765 /* libmetrics.a */,
+				3D4F4541213540F50005E765 /* metrics_tests.app */,
+				3D4F4564213542130005E765 /* libmetrics_tests_support.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3D4F450D2134606B0005E765 /* eye */ = {
+		3D4F450D2134606B0005E765 /* metrics */ = {
 			isa = PBXGroup;
 			children = (
 				3D4F450E2134606B0005E765 /* eye_serdes.cpp */,
@@ -136,28 +136,28 @@
 				3D4F451F2134606B0005E765 /* eye_storage.hpp */,
 				3D4F45202134606B0005E765 /* eye_serdes.hpp */,
 			);
-			name = eye;
-			path = ../../eye;
+			name = metrics;
+			path = ../../metrics;
 			sourceTree = "<group>";
 		};
-		3D4F4542213540F50005E765 /* eye_tests */ = {
+		3D4F4542213540F50005E765 /* metrics_tests */ = {
 			isa = PBXGroup;
 			children = (
 				3D4F4555213541460005E765 /* testingmain.cpp */,
 				3D4F4553213541280005E765 /* eye_tests.cpp */,
 			);
-			name = eye_tests;
-			path = ../../eye/eye_tests;
+			name = metrics_tests;
+			path = ../../metrics/metrics_tests;
 			sourceTree = "<group>";
 		};
-		3D4F4565213542480005E765 /* eye_tests_support */ = {
+		3D4F4565213542480005E765 /* metrics_tests_support */ = {
 			isa = PBXGroup;
 			children = (
 				3D4F4566213542700005E765 /* eye_for_testing.cpp */,
 				3D4F4567213542700005E765 /* eye_for_testing.hpp */,
 			);
-			name = eye_tests_support;
-			path = ../../eye/eye_tests_support;
+			name = metrics_tests_support;
+			path = ../../metrics/metrics_tests_support;
 			sourceTree = "<group>";
 		};
 		3D4F456E21354E0C0005E765 /* Frameworks */ = {
@@ -176,9 +176,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3D4F44FA21345FC50005E765 /* eye */ = {
+		3D4F44FA21345FC50005E765 /* metrics */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "eye" */;
+			buildConfigurationList = 3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "metrics" */;
 			buildPhases = (
 				3D4F44F721345FC50005E765 /* Sources */,
 				3D4F44F821345FC50005E765 /* Frameworks */,
@@ -188,14 +188,14 @@
 			);
 			dependencies = (
 			);
-			name = eye;
+			name = metrics;
 			productName = eye;
-			productReference = 3D4F44FB21345FC50005E765 /* libeye.a */;
+			productReference = 3D4F44FB21345FC50005E765 /* libmetrics.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		3D4F4540213540F50005E765 /* eye_tests */ = {
+		3D4F4540213540F50005E765 /* metrics_tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "eye_tests" */;
+			buildConfigurationList = 3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "metrics_tests" */;
 			buildPhases = (
 				3D4F453D213540F50005E765 /* Sources */,
 				3D4F453E213540F50005E765 /* Frameworks */,
@@ -205,14 +205,14 @@
 			);
 			dependencies = (
 			);
-			name = eye_tests;
+			name = metrics_tests;
 			productName = eye_tests;
-			productReference = 3D4F4541213540F50005E765 /* eye_tests.app */;
+			productReference = 3D4F4541213540F50005E765 /* metrics_tests.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3D4F4557213542130005E765 /* eye_tests_support */ = {
+		3D4F4557213542130005E765 /* metrics_tests_support */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "eye_tests_support" */;
+			buildConfigurationList = 3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "metrics_tests_support" */;
 			buildPhases = (
 				3D4F4558213542130005E765 /* Sources */,
 				3D4F455E213542130005E765 /* Frameworks */,
@@ -222,9 +222,9 @@
 			);
 			dependencies = (
 			);
-			name = eye_tests_support;
+			name = metrics_tests_support;
 			productName = eye;
-			productReference = 3D4F4564213542130005E765 /* libeye_tests_support.a */;
+			productReference = 3D4F4564213542130005E765 /* libmetrics_tests_support.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -244,7 +244,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "eye" */;
+			buildConfigurationList = 3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "metrics" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -257,9 +257,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3D4F44FA21345FC50005E765 /* eye */,
-				3D4F4540213540F50005E765 /* eye_tests */,
-				3D4F4557213542130005E765 /* eye_tests_support */,
+				3D4F44FA21345FC50005E765 /* metrics */,
+				3D4F4540213540F50005E765 /* metrics_tests */,
+				3D4F4557213542130005E765 /* metrics_tests_support */,
 			);
 		};
 /* End PBXProject section */
@@ -581,7 +581,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "eye" */ = {
+		3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "metrics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D4F450221345FC60005E765 /* Debug */,
@@ -591,7 +591,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "eye" */ = {
+		3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "metrics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D4F450521345FC60005E765 /* Debug */,
@@ -601,7 +601,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "eye_tests" */ = {
+		3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "metrics_tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D4F4550213540F70005E765 /* Debug */,
@@ -611,7 +611,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "eye_tests_support" */ = {
+		3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "metrics_tests_support" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D4F4561213542130005E765 /* Debug */,

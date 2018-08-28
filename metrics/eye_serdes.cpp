@@ -1,4 +1,4 @@
-#include "eye/eye_serdes.hpp"
+#include "metrics/eye_serdes.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/serdes_json.hpp"

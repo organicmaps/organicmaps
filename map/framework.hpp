@@ -58,7 +58,7 @@
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/viator_api.hpp"
 
-#include "eye/eye_info.hpp"
+#include "metrics/eye_info.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"

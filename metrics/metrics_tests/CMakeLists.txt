@@ -1,4 +1,4 @@
-project(eye_tests)
+project(metrics_tests)
 
 set(
   SRC
@@ -8,8 +8,8 @@ set(
 omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
-  eye_tests_support
-  eye
+  metrics_tests_support
+  metrics
   platform
   coding
   base
