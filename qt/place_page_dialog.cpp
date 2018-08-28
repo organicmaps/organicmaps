@@ -29,7 +29,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     grid->addWidget(new QLabel("lat lon"), row, 0);
     ms::LatLon const ll = info.GetLatLon();
     string const llstr =
-        strings::to_string_dac(ll.lat, 7) + " " + strings::to_string_dac(ll.lon, 7);
+        strings::to_string_dac(ll.lat, 7) + ", " + strings::to_string_dac(ll.lon, 7);
     QLabel * label = new QLabel(llstr.c_str());
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
