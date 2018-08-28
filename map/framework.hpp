@@ -16,6 +16,7 @@
 #include "map/search_api.hpp"
 #include "map/search_mark.hpp"
 #include "map/subscription.hpp"
+#include "map/tips_api.hpp"
 #include "map/track.hpp"
 #include "map/traffic_manager.hpp"
 #include "map/transit/transit_reader.hpp"
@@ -56,6 +57,8 @@
 #include "partners_api/locals_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/viator_api.hpp"
+
+#include "eye/eye_info.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -129,7 +132,9 @@ struct FrameworkParams
   {}
 };
 
-class Framework : public SearchAPI::Delegate, public RoutingManager::Delegate
+class Framework : public SearchAPI::Delegate,
+                  public RoutingManager::Delegate,
+                  public TipsApi::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -283,7 +288,7 @@ public:
   void ShowNode(storage::TCountryId const & countryId);
 
   /// Checks, whether the country which contains the specified point is loaded.
-  bool IsCountryLoaded(m2::PointD const & pt) const;
+  bool IsCountryLoaded(m2::PointD const & pt) const override;
   /// Checks, whether the country is loaded.
   bool IsCountryLoadedByName(string const & name) const;
   //@}
@@ -876,4 +881,10 @@ public:
 
 private:
   std::unique_ptr<Subscription> m_subscription;
+  TipsApi m_tipsApi;
+
+public:
+  TipsApi const & GetTipsApi() const;
+
+  bool HaveTransit(m2::PointD const & pt) const override;
 };

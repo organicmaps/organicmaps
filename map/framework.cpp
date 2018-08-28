@@ -3660,3 +3660,21 @@ booking::AvailabilityParams Framework::GetLastBookingAvailabilityParams() const
 {
   return m_bookingAvailabilityParams;
 }
+
+TipsApi const & Framework::GetTipsApi() const
+{
+  return m_tipsApi;
+}
+
+bool Framework::HaveTransit(m2::PointD const & pt) const
+{
+  auto const & dataSource = m_model.GetDataSource();
+  MwmSet::MwmId const mwmId =
+      dataSource.GetMwmIdByCountryFile(platform::CountryFile(m_infoGetter->GetRegionCountryId(pt)));
+
+  MwmSet::MwmHandle handle = m_model.GetDataSource().GetMwmHandleById(mwmId);
+  if (!handle.IsAlive())
+    return false;
+
+  return handle.GetValue<MwmValue>()->m_cont.IsExist(TRANSIT_FILE_TAG);
+}

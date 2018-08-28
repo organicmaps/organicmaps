@@ -94,6 +94,8 @@ set(
   subscription.hpp
   taxi_delegate.cpp
   taxi_delegate.hpp
+  tips_api.cpp
+  tips_api.hpp
   track.cpp
   track.hpp
   traffic_manager.cpp
