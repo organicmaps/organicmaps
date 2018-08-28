@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
@@ -392,15 +391,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_FAILED:
-        final Notifier notifier = new Notifier(mActivity.getApplication());
-        MapManager.warn3gAndRetry(mActivity, mItem.id, new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
-          }
-        });
+        RetryFailedDownloadConfirmationListener listener =
+            new RetryFailedDownloadConfirmationListener(mActivity.getApplication());
+        MapManager.warn3gAndRetry(mActivity, mItem.id, listener);
         break;
 
       case CountryItem.STATUS_UPDATABLE:

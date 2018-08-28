@@ -1,6 +1,7 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -117,7 +117,6 @@ public final class MapManager
       throw new IllegalArgumentException("Given error can not be displayed: " + errorData.errorCode);
     }
 
-    final Notifier notifier = new Notifier(activity.getApplication());
     AlertDialog dlg = new AlertDialog.Builder(activity)
                                      .setTitle(R.string.country_status_download_failed)
                                      .setMessage(text)
@@ -136,17 +135,10 @@ public final class MapManager
                                        @Override
                                        public void onClick(DialogInterface dialog, int which)
                                        {
-                                         warn3gAndRetry(activity, errorData.countryId, new Runnable()
-                                         {
-                                           @Override
-                                           public void run()
-                                           {
-                                             notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
-
-                                             if (dialogClickListener != null)
-                                               dialogClickListener.invoke(true);
-                                           }
-                                         });
+                                         Application app = activity.getApplication();
+                                         RetryFailedDownloadConfirmationListener listener
+                                             = new ExpandRetryConfirmationListener(app, dialogClickListener);
+                                         warn3gAndRetry(activity, errorData.countryId, listener);
                                        }
                                      }).create();
     dlg.setCanceledOnTouchOutside(false);

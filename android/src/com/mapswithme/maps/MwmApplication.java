@@ -16,6 +16,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
+import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -169,18 +170,18 @@ public class MwmApplication extends Application
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     initCoreIndependentSdks();
+    initNotificationChannels();
 
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
     mSubwayManager = new SubwayManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
-    initNotificationChannels();
   }
 
   private void initNotificationChannels()
   {
-    NotificationChannelProvider channelProvider = NotificationChannelProvider.from(this);
+    NotificationChannelProvider channelProvider = NotificationChannelFactory.createProvider(this);
     channelProvider.setAuthChannel();
     channelProvider.setDownloadingChannel();
   }
@@ -485,7 +486,7 @@ public class MwmApplication extends Application
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
-      Notifier notifier = new Notifier(MwmApplication.this);
+      Notifier notifier = Notifier.from(MwmApplication.this);
       for (MapManager.StorageCallbackData item : data)
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {

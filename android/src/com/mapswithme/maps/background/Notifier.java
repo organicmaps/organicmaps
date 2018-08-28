@@ -36,7 +36,7 @@ public final class Notifier
   {
   }
 
-  public Notifier(@NonNull Application context)
+  private Notifier(@NonNull Application context)
   {
     mContext = context;
   }
@@ -51,7 +51,7 @@ public final class Notifier
     PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent,
                                                  PendingIntent.FLAG_UPDATE_CURRENT);
 
-    String channel = NotificationChannelProvider.from(mContext).getDownloadingChannel();
+    String channel = NotificationChannelFactory.createProvider(mContext).getDownloadingChannel();
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED, channel);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
@@ -66,7 +66,7 @@ public final class Notifier
     PendingIntent pi = PendingIntent.getActivity(mContext, 0, authIntent,
                                                  PendingIntent.FLAG_UPDATE_CURRENT);
 
-    String channel = NotificationChannelProvider.from(mContext).getAuthChannel();
+    String channel = NotificationChannelFactory.createProvider(mContext).getAuthChannel();
     NotificationCompat.Builder builder =
         getBuilder(mContext.getString(R.string.notification_unsent_reviews_title),
                    mContext.getString(R.string.notification_unsent_reviews_message),
@@ -114,6 +114,7 @@ public final class Notifier
     getNotificationManager().notify(notificationId, notification);
   }
 
+  @NonNull
   private NotificationCompat.Builder getBuilder(String title, String content,
                                                 PendingIntent pendingIntent, @NonNull String channel)
   {
@@ -128,6 +129,7 @@ public final class Notifier
         .setContentIntent(pendingIntent);
   }
 
+  @NonNull
   private CharSequence getTicker(String title, String content)
   {
     int templateResId = StringUtils.isRtl() ? R.string.notification_ticker_rtl
@@ -135,8 +137,16 @@ public final class Notifier
     return mContext.getString(templateResId, title, content);
   }
 
+  @SuppressWarnings("ConstantConditions")
+  @NonNull
   private NotificationManager getNotificationManager()
   {
     return (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+  }
+
+  @NonNull
+  public static Notifier from(Application application)
+  {
+    return new Notifier(application);
   }
 }

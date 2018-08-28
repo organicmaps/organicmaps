@@ -73,7 +73,7 @@ public class BaseMwmDialogFragment extends DialogFragment
   {
     Context context = getContext();
     if (context == null)
-      throw new IllegalStateException("Before call this method make sure that getContext() object exist");
+      throw new IllegalStateException("Before call this method make sure that the context exist");
     return (Application) context.getApplicationContext();
   }
 }

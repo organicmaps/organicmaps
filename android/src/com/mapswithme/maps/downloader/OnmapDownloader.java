@@ -197,7 +197,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         setAutodownloadLocked(true);
       }
     });
-    final Notifier notifier = new Notifier(activity.getApplication());
+    final Notifier notifier = Notifier.from(activity.getApplication());
     mButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
