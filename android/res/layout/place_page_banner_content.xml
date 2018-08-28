@@ -119,7 +119,7 @@
       android:background="?bannerRemoveButtonBackground"
       android:gravity="center"
       android:visibility="visible"
-      android:text="String is needed"
+      android:text="@string/remove_ads"
       android:ellipsize="end"
       android:singleLine="true"
       tools:visibility="visible"
