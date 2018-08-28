@@ -392,12 +392,13 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_FAILED:
+        final Notifier notifier = new Notifier(mActivity.getApplication());
         MapManager.warn3gAndRetry(mActivity, mItem.id, new Runnable()
         {
           @Override
           public void run()
           {
-            Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+            notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
           }
         });
         break;

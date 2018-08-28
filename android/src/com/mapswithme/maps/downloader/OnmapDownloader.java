@@ -197,7 +197,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         setAutodownloadLocked(true);
       }
     });
-
+    final Notifier notifier = new Notifier(activity.getApplication());
     mButton.setOnClickListener(new View.OnClickListener()
     {
       @Override
@@ -220,7 +220,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
             boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
             if (retry)
             {
-              Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+              notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
               MapManager.nativeRetry(mCurrentCountry.id);
             }
             else

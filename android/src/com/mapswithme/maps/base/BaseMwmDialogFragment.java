@@ -1,6 +1,9 @@
 package com.mapswithme.maps.base;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
@@ -63,5 +66,14 @@ public class BaseMwmDialogFragment extends DialogFragment
   protected int getFullscreenDarkTheme()
   {
     return R.style.MwmTheme_DialogFragment_Fullscreen_Night;
+  }
+
+  @NonNull
+  protected Application getAppContextOrThrow()
+  {
+    Context context = getContext();
+    if (context == null)
+      throw new IllegalStateException("Before call this method make sure that getContext() object exist");
+    return (Application) context.getApplicationContext();
   }
 }

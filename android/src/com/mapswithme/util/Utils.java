@@ -65,6 +65,11 @@ public class Utils
     return isTargetOrLater(Build.VERSION_CODES.LOLLIPOP);
   }
 
+  public static boolean isOreoOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.O);
+  }
+
   public static boolean isMarshmallowOrLater()
   {
     return isTargetOrLater(Build.VERSION_CODES.M);

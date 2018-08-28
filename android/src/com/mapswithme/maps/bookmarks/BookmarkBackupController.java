@@ -225,7 +225,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
     LOGGER.d(TAG, "onAuthorizationFinish, success: " + success);
     if (success)
     {
-      Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+      final Notifier notifier = new Notifier(mContext.getApplication());
+      notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
       BookmarkManager.INSTANCE.setCloudEnabled(true);
       Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_PROPOSAL_ENABLED);
     }

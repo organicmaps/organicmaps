@@ -16,6 +16,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
+import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
@@ -174,6 +175,14 @@ public class MwmApplication extends Application
     mSubwayManager = new SubwayManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
+    initNotificationChannels();
+  }
+
+  private void initNotificationChannels()
+  {
+    NotificationChannelProvider channelProvider = NotificationChannelProvider.from(this);
+    channelProvider.setAuthChannel();
+    channelProvider.setDownloadingChannel();
   }
 
   private void initCoreIndependentSdks()
@@ -471,17 +480,18 @@ public class MwmApplication extends Application
     }
   }
 
-  private static class StorageCallbackImpl implements MapManager.StorageCallback
+  private class StorageCallbackImpl implements MapManager.StorageCallback
   {
     @Override
     public void onStatusChanged(List<MapManager.StorageCallbackData> data)
     {
+      Notifier notifier = new Notifier(MwmApplication.this);
       for (MapManager.StorageCallbackData item : data)
         if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
         {
           if (MapManager.nativeIsAutoretryFailed())
           {
-            Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
+            notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
             MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
           }
 

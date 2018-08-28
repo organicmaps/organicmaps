@@ -1216,7 +1216,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
-    Notifier.processNotificationExtras(intent);
+    final Notifier notifier = new Notifier(getApplication());
+    notifier.processNotificationExtras(intent);
 
     if (intent.hasExtra(EXTRA_TASK))
     {

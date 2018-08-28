@@ -108,7 +108,10 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   public void onAuthorizationFinish(boolean success)
   {
     if (success)
-      Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+    {
+      final Notifier notifier = new Notifier(getActivity().getApplication());
+      notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+    }
 
     finishActivity();
   }

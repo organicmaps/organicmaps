@@ -16,8 +16,11 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
 {
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
+
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final AuthCallback mAuthCallback = new AuthCallback();
+  private AuthCallback mAuthCallback;
+
   @Nullable
   private Bundle mSavedInstanceState;
 
@@ -25,6 +28,8 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    Notifier notifier = new Notifier(getAppContextOrThrow());
+    mAuthCallback = new AuthCallback(notifier);
     mSavedInstanceState = savedInstanceState;
   }
 
@@ -61,13 +66,21 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
 
   private class AuthCallback implements Authorizer.Callback
   {
+    @NonNull
+    private final Notifier mNotifier;
+
+    AuthCallback(@NonNull Notifier notifier)
+    {
+      mNotifier = notifier;
+    }
+
     @Override
     public void onAuthorizationFinish(boolean success)
     {
       dismiss();
 
       if (success)
-        Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+        mNotifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
     }
 
     @Override

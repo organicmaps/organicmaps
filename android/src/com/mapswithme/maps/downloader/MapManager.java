@@ -117,6 +117,7 @@ public final class MapManager
       throw new IllegalArgumentException("Given error can not be displayed: " + errorData.errorCode);
     }
 
+    final Notifier notifier = new Notifier(activity.getApplication());
     AlertDialog dlg = new AlertDialog.Builder(activity)
                                      .setTitle(R.string.country_status_download_failed)
                                      .setMessage(text)
@@ -140,7 +141,7 @@ public final class MapManager
                                            @Override
                                            public void run()
                                            {
-                                             Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
+                                             notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
 
                                              if (dialogClickListener != null)
                                                dialogClickListener.invoke(true);

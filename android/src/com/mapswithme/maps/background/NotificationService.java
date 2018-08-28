@@ -1,5 +1,6 @@
 package com.mapswithme.maps.background;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -25,7 +26,8 @@ public class NotificationService extends JobIntentService
   private static final String TAG = NotificationService.class.getSimpleName();
   private static final String LAST_AUTH_NOTIFICATION_TIMESTAMP = "DownloadOrUpdateTimestamp";
   private static final int MIN_COUNT_UNSENT_UGC = 2;
-  private static final long MIN_AUTH_EVENT_DELTA_MILLIS = TimeUnit.DAYS.toMillis(5);
+  private static final int DAYS_COUNT = 5;
+  private static final long MIN_AUTH_EVENT_DELTA_MILLIS = TimeUnit.DAYS.toMillis(DAYS_COUNT);
 
   private interface NotificationExecutor
   {
@@ -41,7 +43,7 @@ public class NotificationService extends JobIntentService
     JobIntentService.enqueueWork(context, NotificationService.class, jobId, intent);
   }
 
-  private static boolean notifyIsNotAuthenticated()
+  private static boolean notifyIsNotAuthenticated(@NonNull Application application)
   {
     if (!PermissionsUtils.isExternalStorageGranted() ||
         !NetworkPolicy.getCurrentNetworkUsageStatus() ||
@@ -74,7 +76,8 @@ public class NotificationService extends JobIntentService
              .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
              .apply();
 
-      Notifier.notifyAuthentication();
+      Notifier notifier = new Notifier(application);
+      notifier.notifyAuthentication();
 
       return true;
     }
@@ -92,11 +95,11 @@ public class NotificationService extends JobIntentService
       onConnectivityChanged();
   }
 
-  private static void onConnectivityChanged()
+  private void onConnectivityChanged()
   {
     final NotificationExecutor notifyOrder[] =
     {
-        NotificationService::notifyIsNotAuthenticated,
+        () -> notifyIsNotAuthenticated(getApplication())
     };
 
     // Only one notification should be shown at a time.
