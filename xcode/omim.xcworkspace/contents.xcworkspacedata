@@ -266,6 +266,9 @@
       location = "container:editor/editor.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:eye/eye.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:geometry/geometry.xcodeproj">
    </FileRef>
    <FileRef

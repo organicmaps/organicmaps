@@ -32,6 +32,11 @@
 		3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */; };
 		3D4E99A31FB4A6410025B48C /* booking_filter_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */; };
 		3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99A11FB4A6410025B48C /* booking_filter.hpp */; };
+		3D4F44BB21345D270005E765 /* tips_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4F44B921345D270005E765 /* tips_api.hpp */; };
+		3D4F44BC21345D270005E765 /* tips_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F44BA21345D270005E765 /* tips_api.cpp */; };
+		3D4F457E21354F720005E765 /* libeye_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457D21354F720005E765 /* libeye_tests_support.a */; };
+		3D4F458021354F720005E765 /* libeye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457F21354F720005E765 /* libeye.a */; };
+		3D4F4582213552AD0005E765 /* tips_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F4581213552AD0005E765 /* tips_tests.cpp */; };
 		3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */; };
 		3D62CBD920FF6C8B00E7BB6E /* discovery_search.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D62CBD720FF6C8B00E7BB6E /* discovery_search.cpp */; };
 		3D62CBDA20FF6C8B00E7BB6E /* discovery_search.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBD820FF6C8B00E7BB6E /* discovery_search.hpp */; };
@@ -253,6 +258,11 @@
 		3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_cache.hpp; sourceTree = "<group>"; };
 		3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_filter_cache.cpp; sourceTree = "<group>"; };
 		3D4E99A11FB4A6410025B48C /* booking_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter.hpp; sourceTree = "<group>"; };
+		3D4F44B921345D270005E765 /* tips_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tips_api.hpp; sourceTree = "<group>"; };
+		3D4F44BA21345D270005E765 /* tips_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tips_api.cpp; sourceTree = "<group>"; };
+		3D4F457D21354F720005E765 /* libeye_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeye_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457F21354F720005E765 /* libeye.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeye.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F4581213552AD0005E765 /* tips_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tips_tests.cpp; sourceTree = "<group>"; };
 		3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_product_info.hpp; sourceTree = "<group>"; };
 		3D62CBD720FF6C8B00E7BB6E /* discovery_search.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = discovery_search.cpp; sourceTree = "<group>"; };
 		3D62CBD820FF6C8B00E7BB6E /* discovery_search.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = discovery_search.hpp; sourceTree = "<group>"; };
@@ -486,6 +496,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D4F457E21354F720005E765 /* libeye_tests_support.a in Frameworks */,
+				3D4F458021354F720005E765 /* libeye.a in Frameworks */,
 				475BD61B211C5FDC00E298C6 /* libshaders.a in Frameworks */,
 				671ED39120D4046D00D4317E /* libeditor_tests_support.a in Frameworks */,
 				47A9D82420A19EC300E4671B /* libkml.a in Frameworks */,
@@ -549,6 +561,8 @@
 		34DDA17E1DBE5DF40088A609 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D4F457D21354F720005E765 /* libeye_tests_support.a */,
+				3D4F457F21354F720005E765 /* libeye.a */,
 				475BD61A211C5FDC00E298C6 /* libshaders.a */,
 				3DA5721D20C194B8007BDE27 /* libgenerator.a */,
 				3DA5721F20C194B8007BDE27 /* libopen_location_code.a */,
@@ -608,6 +622,7 @@
 		674A29CA1B26FCC0001A525C /* map_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3D4F4581213552AD0005E765 /* tips_tests.cpp */,
 				56D1C15D20A0AB9D005C689E /* extrapolator_tests.cpp */,
 				679624A01D1017C200AE4E3C /* address_tests.cpp */,
 				671ED38620D403B200D4317E /* booking_availability_cache_test.cpp */,
@@ -712,6 +727,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D4F44BA21345D270005E765 /* tips_api.cpp */,
+				3D4F44B921345D270005E765 /* tips_api.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
@@ -850,6 +867,7 @@
 				45F6EE9E1FB1C77600019892 /* mwm_tree.hpp in Headers */,
 				6753466B1A4054E800A0A8C3 /* geourl_process.hpp in Headers */,
 				F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */,
+				3D4F44BB21345D270005E765 /* tips_api.hpp in Headers */,
 				675346671A4054E800A0A8C3 /* ge0_parser.hpp in Headers */,
 				675346A21A4054E800A0A8C3 /* user_mark.hpp in Headers */,
 				454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */,
@@ -1029,6 +1047,7 @@
 				BB421D6C1E8C0031005BFA4D /* transliteration_test.cpp in Sources */,
 				67F183771BD5045700AB1840 /* ge0_parser_tests.cpp in Sources */,
 				679624B21D1017DB00AE4E3C /* mwm_set_test.cpp in Sources */,
+				3D4F4582213552AD0005E765 /* tips_tests.cpp in Sources */,
 				67F183781BD5045700AB1840 /* geourl_test.cpp in Sources */,
 				454523AD202A00C3009275C1 /* cloud_tests.cpp in Sources */,
 				679624AD1D1017DB00AE4E3C /* address_tests.cpp in Sources */,
@@ -1086,6 +1105,7 @@
 				675346661A4054E800A0A8C3 /* ge0_parser.cpp in Sources */,
 				3D62CBD920FF6C8B00E7BB6E /* discovery_search.cpp in Sources */,
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,
+				3D4F44BC21345D270005E765 /* tips_api.cpp in Sources */,
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */,
 				45A2D9D51F7556EB003310A0 /* user.cpp in Sources */,

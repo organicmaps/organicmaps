@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D4F45212134606C0005E765 /* eye_serdes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F450E2134606B0005E765 /* eye_serdes.cpp */; };
+		3D4F45222134606C0005E765 /* eye_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F450F2134606B0005E765 /* eye_storage.cpp */; };
+		3D4F45252134606C0005E765 /* eye.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F45192134606B0005E765 /* eye.cpp */; };
+		3D4F4568213542700005E765 /* eye_for_testing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F4566213542700005E765 /* eye_for_testing.cpp */; };
+		3D4F45692135427C0005E765 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F4555213541460005E765 /* testingmain.cpp */; };
+		3D4F456B213542830005E765 /* eye_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4F4553213541280005E765 /* eye_tests.cpp */; };
+		3D4F457021354E0C0005E765 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F456F21354E0C0005E765 /* libjansson.a */; };
+		3D4F457221354E3A0005E765 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457121354E3A0005E765 /* libbase.a */; };
+		3D4F457421354E430005E765 /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457321354E430005E765 /* libcoding.a */; };
+		3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457521354E4B0005E765 /* libplatform.a */; };
+		3D4F457721354E530005E765 /* libeye_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F4564213542130005E765 /* libeye_tests_support.a */; };
+		3D4F457821354E530005E765 /* libeye.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F44FB21345FC50005E765 /* libeye.a */; };
+		3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457921354EB70005E765 /* libalohalitics.a */; };
+		3D4F457C21354F150005E765 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4F457B21354F150005E765 /* libz.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3D4F44F921345FC50005E765 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4F455F213542130005E765 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3D4F44FB21345FC50005E765 /* libeye.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeye.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F450E2134606B0005E765 /* eye_serdes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_serdes.cpp; sourceTree = "<group>"; };
+		3D4F450F2134606B0005E765 /* eye_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_storage.cpp; sourceTree = "<group>"; };
+		3D4F45152134606B0005E765 /* eye_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_info.hpp; sourceTree = "<group>"; };
+		3D4F45192134606B0005E765 /* eye.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye.cpp; sourceTree = "<group>"; };
+		3D4F451A2134606B0005E765 /* eye.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye.hpp; sourceTree = "<group>"; };
+		3D4F451F2134606B0005E765 /* eye_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_storage.hpp; sourceTree = "<group>"; };
+		3D4F45202134606B0005E765 /* eye_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_serdes.hpp; sourceTree = "<group>"; };
+		3D4F453621353F290005E765 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		3D4F453721353F290005E765 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		3D4F4541213540F50005E765 /* eye_tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eye_tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F4553213541280005E765 /* eye_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_tests.cpp; sourceTree = "<group>"; };
+		3D4F4555213541460005E765 /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		3D4F4564213542130005E765 /* libeye_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeye_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F4566213542700005E765 /* eye_for_testing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eye_for_testing.cpp; sourceTree = "<group>"; };
+		3D4F4567213542700005E765 /* eye_for_testing.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = eye_for_testing.hpp; sourceTree = "<group>"; };
+		3D4F456F21354E0C0005E765 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457121354E3A0005E765 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457321354E430005E765 /* libcoding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libcoding.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457521354E4B0005E765 /* libplatform.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libplatform.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457921354EB70005E765 /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4F457B21354F150005E765 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D4F44F821345FC50005E765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4F453E213540F50005E765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D4F457721354E530005E765 /* libeye_tests_support.a in Frameworks */,
+				3D4F457821354E530005E765 /* libeye.a in Frameworks */,
+				3D4F457621354E4B0005E765 /* libplatform.a in Frameworks */,
+				3D4F457421354E430005E765 /* libcoding.a in Frameworks */,
+				3D4F457221354E3A0005E765 /* libbase.a in Frameworks */,
+				3D4F457A21354EB70005E765 /* libalohalitics.a in Frameworks */,
+				3D4F457021354E0C0005E765 /* libjansson.a in Frameworks */,
+				3D4F457C21354F150005E765 /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4F455E213542130005E765 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3D4F44F221345FC50005E765 = {
+			isa = PBXGroup;
+			children = (
+				3D4F4565213542480005E765 /* eye_tests_support */,
+				3D4F453621353F290005E765 /* common-debug.xcconfig */,
+				3D4F453721353F290005E765 /* common-release.xcconfig */,
+				3D4F450D2134606B0005E765 /* eye */,
+				3D4F4542213540F50005E765 /* eye_tests */,
+				3D4F44FC21345FC50005E765 /* Products */,
+				3D4F456E21354E0C0005E765 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3D4F44FC21345FC50005E765 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F44FB21345FC50005E765 /* libeye.a */,
+				3D4F4541213540F50005E765 /* eye_tests.app */,
+				3D4F4564213542130005E765 /* libeye_tests_support.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3D4F450D2134606B0005E765 /* eye */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F450E2134606B0005E765 /* eye_serdes.cpp */,
+				3D4F450F2134606B0005E765 /* eye_storage.cpp */,
+				3D4F45152134606B0005E765 /* eye_info.hpp */,
+				3D4F45192134606B0005E765 /* eye.cpp */,
+				3D4F451A2134606B0005E765 /* eye.hpp */,
+				3D4F451F2134606B0005E765 /* eye_storage.hpp */,
+				3D4F45202134606B0005E765 /* eye_serdes.hpp */,
+			);
+			name = eye;
+			path = ../../eye;
+			sourceTree = "<group>";
+		};
+		3D4F4542213540F50005E765 /* eye_tests */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F4555213541460005E765 /* testingmain.cpp */,
+				3D4F4553213541280005E765 /* eye_tests.cpp */,
+			);
+			name = eye_tests;
+			path = ../../eye/eye_tests;
+			sourceTree = "<group>";
+		};
+		3D4F4565213542480005E765 /* eye_tests_support */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F4566213542700005E765 /* eye_for_testing.cpp */,
+				3D4F4567213542700005E765 /* eye_for_testing.hpp */,
+			);
+			name = eye_tests_support;
+			path = ../../eye/eye_tests_support;
+			sourceTree = "<group>";
+		};
+		3D4F456E21354E0C0005E765 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D4F457B21354F150005E765 /* libz.tbd */,
+				3D4F457921354EB70005E765 /* libalohalitics.a */,
+				3D4F457521354E4B0005E765 /* libplatform.a */,
+				3D4F457321354E430005E765 /* libcoding.a */,
+				3D4F457121354E3A0005E765 /* libbase.a */,
+				3D4F456F21354E0C0005E765 /* libjansson.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3D4F44FA21345FC50005E765 /* eye */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "eye" */;
+			buildPhases = (
+				3D4F44F721345FC50005E765 /* Sources */,
+				3D4F44F821345FC50005E765 /* Frameworks */,
+				3D4F44F921345FC50005E765 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eye;
+			productName = eye;
+			productReference = 3D4F44FB21345FC50005E765 /* libeye.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3D4F4540213540F50005E765 /* eye_tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "eye_tests" */;
+			buildPhases = (
+				3D4F453D213540F50005E765 /* Sources */,
+				3D4F453E213540F50005E765 /* Frameworks */,
+				3D4F453F213540F50005E765 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eye_tests;
+			productName = eye_tests;
+			productReference = 3D4F4541213540F50005E765 /* eye_tests.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3D4F4557213542130005E765 /* eye_tests_support */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "eye_tests_support" */;
+			buildPhases = (
+				3D4F4558213542130005E765 /* Sources */,
+				3D4F455E213542130005E765 /* Frameworks */,
+				3D4F455F213542130005E765 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eye_tests_support;
+			productName = eye;
+			productReference = 3D4F4564213542130005E765 /* libeye_tests_support.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3D4F44F321345FC50005E765 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = a.milchakov;
+				TargetAttributes = {
+					3D4F44FA21345FC50005E765 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					3D4F4540213540F50005E765 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "eye" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3D4F44F221345FC50005E765;
+			productRefGroup = 3D4F44FC21345FC50005E765 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D4F44FA21345FC50005E765 /* eye */,
+				3D4F4540213540F50005E765 /* eye_tests */,
+				3D4F4557213542130005E765 /* eye_tests_support */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3D4F453F213540F50005E765 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3D4F44F721345FC50005E765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D4F45212134606C0005E765 /* eye_serdes.cpp in Sources */,
+				3D4F45222134606C0005E765 /* eye_storage.cpp in Sources */,
+				3D4F45252134606C0005E765 /* eye.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4F453D213540F50005E765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D4F45692135427C0005E765 /* testingmain.cpp in Sources */,
+				3D4F456B213542830005E765 /* eye_tests.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4F4558213542130005E765 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D4F4568213542700005E765 /* eye_for_testing.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3D4F450221345FC60005E765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D4F453621353F290005E765 /* common-debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = Debug;
+		};
+		3D4F450321345FC60005E765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D4F453721353F290005E765 /* common-release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = Release;
+		};
+		3D4F450521345FC60005E765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3D4F450621345FC60005E765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3D4F4539213540710005E765 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D4F453721353F290005E765 /* common-release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)",
+					"$(BOOST_ROOT)",
+					"$(OMIM_ROOT)/3party/jansson/src",
+				);
+			};
+			name = "Production Full";
+		};
+		3D4F453A213540710005E765 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		3D4F4550213540F70005E765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = eye_tests/eye_tests.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.eye-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3D4F4551213540F70005E765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = eye_tests/eye_tests.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.eye-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3D4F4552213540F70005E765 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = eye_tests/eye_tests.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(OMIM_ROOT)/iphone/Maps/MAPSME.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "maps.me.eye-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		3D4F4561213542130005E765 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3D4F4562213542130005E765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		3D4F4563213542130005E765 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D4F44F621345FC50005E765 /* Build configuration list for PBXProject "eye" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4F450221345FC60005E765 /* Debug */,
+				3D4F450321345FC60005E765 /* Release */,
+				3D4F4539213540710005E765 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D4F450421345FC60005E765 /* Build configuration list for PBXNativeTarget "eye" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4F450521345FC60005E765 /* Debug */,
+				3D4F450621345FC60005E765 /* Release */,
+				3D4F453A213540710005E765 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D4F454F213540F70005E765 /* Build configuration list for PBXNativeTarget "eye_tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4F4550213540F70005E765 /* Debug */,
+				3D4F4551213540F70005E765 /* Release */,
+				3D4F4552213540F70005E765 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D4F4560213542130005E765 /* Build configuration list for PBXNativeTarget "eye_tests_support" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4F4561213542130005E765 /* Debug */,
+				3D4F4562213542130005E765 /* Release */,
+				3D4F4563213542130005E765 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3D4F44F321345FC50005E765 /* Project object */;
+}
