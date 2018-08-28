@@ -6,14 +6,47 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <chrono>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <memory>
+#include <type_traits>
 #include <vector>
 
 namespace coding
 {
+namespace traits
+{
+namespace impl
+{
+template <typename T>
+auto is_iterable_checker(int) -> decltype(
+  std::begin(std::declval<T &>()),
+  std::end(std::declval<T &>()),
+  ++std::declval<decltype(begin(std::declval<T &>())) &>(),
+  std::true_type {});
+
+template <typename T>
+std::false_type is_iterable_checker(...);
+}  // namespace impl
+
+template <typename T>
+using is_iterable = decltype(impl::is_iterable_checker<T>(0));
+}  // namespace traits
+
+template <typename T>
+using EnableIfIterable = std::enable_if_t<traits::is_iterable<T>::value>;
+
+template <typename T>
+using EnableIfNotIterable = std::enable_if_t<!traits::is_iterable<T>::value>;
+
+template <typename T>
+using EnableIfEnum = std::enable_if_t<std::is_enum<T>::value>;
+
+template <typename T>
+using EnableIfNotEnum = std::enable_if_t<!std::is_enum<T>::value>;
+
 template<typename Sink>
 class SerializerJson
 {
@@ -52,28 +85,19 @@ public:
   void operator()(double const d, char const * name = nullptr) { ToJsonObjectOrValue(d, name); }
   void operator()(std::string const & s, char const * name = nullptr) { ToJsonObjectOrValue(s, name); }
 
-  template <typename T>
-  void operator()(std::vector<T> const & vs, char const * name = nullptr)
-  {
-    NewScopeWith(my::NewJSONArray(), name, [this, &vs] {
-      for (auto const & v : vs)
-        (*this)(v);
-    });
-  }
-
-  template <typename T>
-  void operator()(std::unordered_set<T> const & dest, char const * name = nullptr)
-  {
-    NewScopeWith(my::NewJSONArray(), name, [this, &dest] {
-      for (auto const & v : dest)
-        (*this)(v);
-    });
-  }
-
-  template <typename R>
+  template <typename R, EnableIfNotIterable<R> * = nullptr, EnableIfNotEnum<R> * = nullptr>
   void operator()(R const & r, char const * name = nullptr)
   {
     NewScopeWith(my::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
+  }
+
+  template <typename T, EnableIfIterable<T> * = nullptr>
+  void operator()(T const & src, char const * name = nullptr)
+  {
+    NewScopeWith(my::NewJSONArray(), name, [this, &src] {
+      for (auto const & v : src)
+        (*this)(v);
+    });
   }
 
   template <typename R>
@@ -92,6 +116,17 @@ public:
       CHECK(r, ());
       r->Visit(*this);
     });
+  }
+
+  void operator()(std::chrono::system_clock::time_point const & t, char const * name = nullptr)
+  {
+    (*this)(static_cast<uint64_t>(t.time_since_epoch().count()), name);
+  }
+
+  template <typename T, EnableIfEnum<T> * = nullptr>
+  void operator()(T const & t, char const * name = nullptr)
+  {
+    (*this)(static_cast<std::underlying_type_t<T>>(t), name);
   }
 
 protected:
@@ -205,7 +240,33 @@ public:
     RestoreContext(outerContext);
   }
 
-  template <typename R>
+  template <typename T, size_t N>
+  void operator()(std::array<T, N> & dst, char const * name = nullptr)
+  {
+    json_t * outerContext = SaveContext(name);
+
+    if (!json_is_array(m_json))
+      MYTHROW(my::Json::Exception,
+              ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
+
+    if (N != json_array_size(m_json))
+    {
+      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array of size", N,
+                                    "but size is", json_array_size(m_json)));
+    }
+
+    for (size_t index = 0; index < N; ++index)
+    {
+      json_t * context = SaveContext();
+      m_json = json_array_get(context, index);
+      (*this)(dst[index]);
+      RestoreContext(context);
+    }
+
+    RestoreContext(outerContext);
+  }
+
+  template <typename R, EnableIfNotEnum<R> * = nullptr>
   void operator()(R & r, char const * name = nullptr)
   {
     json_t * context = SaveContext(name);
@@ -231,6 +292,25 @@ public:
       r = std::make_shared<R>();
     r->Visit(*this);
     RestoreContext(context);
+  }
+
+  void operator()(std::chrono::system_clock::time_point & dst, char const * name = nullptr)
+  {
+    uint64_t t = 0;
+    FromJSONObject(m_json, name, t);
+
+    std::chrono::system_clock::time_point::duration d(t);
+
+    dst = std::chrono::system_clock::time_point(d);
+  }
+
+  template <typename T, EnableIfEnum<T> * = nullptr>
+  void operator()(T & t, char const * name = nullptr)
+  {
+    using UnderlyingType = std::underlying_type_t<T>;
+    UnderlyingType res;
+    FromJSONObject(m_json, name, res);
+    t = static_cast<T>(res);
   }
 
 protected:
