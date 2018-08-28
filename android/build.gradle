@@ -108,6 +108,7 @@ dependencies {
     exclude group: 'com.google.android.gms'
   }
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+  implementation 'com.android.billingclient:billing:1.1'
 }
 
 def getDate() {

@@ -23,10 +23,12 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
-import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.maps.purchase.Factory;
+import com.mapswithme.maps.purchase.PurchaseValidator;
+import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
@@ -70,6 +72,8 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PushwooshHelper mPushwooshHelper;
+  @NonNull
+  private final PurchaseValidator mPurchaseValidator = Factory.ADS_REMOVAL.createPurchaseManager();
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
@@ -306,6 +310,7 @@ public class MwmApplication extends Application
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
+    mPurchaseValidator.initialize();
     mFrameworkInitialized = true;
   }
 
@@ -443,6 +448,12 @@ public class MwmApplication extends Application
     if (myParams != null)
       myParams.setDefaultVendorAppPackage();
     MyTracker.initTracker();
+  }
+
+  @NonNull
+  public PurchaseValidator getPurchaseValidator()
+  {
+    return mPurchaseValidator;
   }
 
   public static void onUpgrade()
