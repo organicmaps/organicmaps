@@ -319,7 +319,7 @@ pl:5^Bankomat
 pt:3^Multibanco
 pt-BR:3^Caixa eletrônico
 ro:3^Bancomat
-es:^Cajero
+es:^Cajero|cajero automático
 sv:3^Bankomat
 th:2^เอทีเอ็ม
 tr:3^Bankamatik
@@ -353,7 +353,7 @@ pl:pieniądze
 pt:dinheiro
 pt-BR:caixa automático|banco 24 horas|saque|dinheiro
 ro:bani
-es:3Cajero automático|dinero
+es:dinero
 sv:pengar
 th:เงิน|atm
 tr:atm|3para
@@ -390,7 +390,7 @@ sv:3^Bank
 th:3^ธนาคาร
 tr:3^Banka
 uk:3^Банк
-vi:3^Ngânhàng
+vi:3^Ngân hàng
 zh-Hans:1^银行
 zh-Hant:1^銀行
 el:^Τράπεζα
@@ -422,7 +422,7 @@ sv:pengar
 th:เงิน
 tr:3para
 uk:гроші
-vi:3Ngân hàng|tiền
+vi:tiền
 zh-Hans:钱
 zh-Hant:錢
 el:χρήματα
@@ -3168,7 +3168,7 @@ vi:^Bệnhviện|Bệnh viện
 zh-Hans:^医院
 zh-Hant:1^醫院
 el:^Νοσοκομείο
-he:^ביתחולים
+he:^בית חולים
 sk:4^Nemocnica
 sw:^Hospitali
 fa:بیمارستان
@@ -3439,11 +3439,11 @@ sv:3^Apotek
 th:3^ร้านขายยา
 tr:3^Eczane
 uk:3^Аптека
-vi:^Hiệuthuốc
+vi:^3Hiệu thuốc
 zh-Hans:1^药店
 zh-Hant:1^藥局
 el:^Φαρμακείο
-he:^ביתמרקחת
+he:^בית מרקחת
 sk:3^Lekáreň
 sw:^Duka la dawa
 fa:داروخانه
@@ -3462,7 +3462,6 @@ es:3Farmacia
 sv:apotekare
 th:เภสัชกร
 uk:3ліки
-vi:3Hiệu thuốc
 zh-Hans:药店|药剂师
 zh-Hant:成藥
 el:φαρμακείο|φαρμακοποιός|χορήγηση φαρμάκων
@@ -3526,7 +3525,7 @@ sv:3^Post
 th:3^ไปรษณีย์
 tr:^Posta
 uk:3^Пошта
-vi:^Bưuđiện
+vi:^Bưu điện
 zh-Hans:1^邮政
 zh-Hant:1^郵局
 el:^Ταχυδρομείο
@@ -3744,7 +3743,7 @@ sv:3^Toalett
 th:3^ห้องน้ำ
 tr:3^Tuvalet
 uk:3^Туалет
-vi:^Nhàvệsinh
+vi:^Nhà vệ sinh
 zh-Hans:1^厕所
 zh-Hant:1^廁所
 el:^Τουαλέτα
@@ -3767,7 +3766,6 @@ pl:wc|ubikacja|wychodek
 pt-BR:toalete|wc|sanitários
 es:3Baños|aseos|3lavabo|inodoro|baño|wc
 sv:WC|toalett
-vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
@@ -5176,7 +5174,7 @@ sv:4^Polis
 th:4^ตำรวจ
 tr:3^Polis
 uk:4^Міліція
-vi:^Cảnhsát
+vi:^Cảnh sát
 zh-Hans:2^警察
 zh-Hant:1^警察局
 el:^Αστυνομία
@@ -5198,7 +5196,6 @@ pl:komisariat
 pt-BR:Polícia
 sv:Polisstation
 uk:4Поліція
-vi:Cảnh sát
 zh-Hant:警察|警員
 sk:3policajná stanica
 fa:^کلانتری|اگاهی
@@ -6001,7 +5998,7 @@ fa:اقیانوس
 @wifi
 en:WiFi|Wi-Fi
 ru:WiFi|Wi-Fi
-ar:وايفاي
+ar:وايفاي|واي-فاي
 cs:WiFi|Wi-Fi
 da:WiFi|Wi-Fi
 nl:WiFi|Wi-Fi
@@ -7337,7 +7334,6 @@ sv:^Stuga
 th:^ชาเลต์
 tr:^Chalet
 uk:^Шале
-vi:^Nhà vệ sinh công cộng
 zh-Hans:^木屋
 zh-Hant:^木屋
 el:^Σαλέ
