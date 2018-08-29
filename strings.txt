@@ -3962,7 +3962,7 @@ fa = دوباره نپرس
     tags = ios,android,tizen
     en = Police
     ru = Полиция
-    ar =  شرطة
+    ar = شرطة
     cs = Policie
     da = Politi
     nl = Politie
@@ -33258,3 +33258,43 @@ fa = دوباره نپرس
   [purchase_processing]
     en = Your purchase is being processed…
     ru = Ваша покупка обрабатывается…
+
+  [tips_bookmarks_catalog_title]
+    en = Can't plan a route over interesting locations?
+    ru = Сложно придумать маршрут по интересным местам?
+
+  [tips_bookmarks_catalog_message]
+    en = Download and plan tourist routes over interesting locations in different cities of the world.
+    ru = Скачивайте и прокладывайте туристические маршруты по интересным местам в разных городах мира.
+
+  [tips_discover_button_title]
+    en = Want to find popular locations nearby?
+    ru = Хотите найти популярые заведения в округе?
+
+  [tips_discover_button_message]
+    en = The "Discover nearby" section contains the best restaurants, hotels, and sights.
+    ru = В разделе «Чем заняться» собраны лучшие ближайшие рестораны, отели и достопримечательности.
+
+  [tips_book_hotel_title]
+    en = Book the cosiest hotels for your journeys
+    ru = Бронируйте самые комфортные отели для вашего отдыха
+
+  [tips_book_hotel_message]
+    en = Use the search and filters to find the best hotels for you. Use the "Book" button in the location placepage to book a hotel instantly.
+    ru = С помощью поиска и фильтров вы найдете лучшие гостиницы. Нажмите кнопку «Забронировать» в карточке места для моментальной брони отеля.
+
+  [tips_map_layers_title]
+    en = Don't know at which station to make a connection?
+    ru = Не знаете на какой станции метро пересесть?
+
+  [tips_map_layers_message]
+    en = Turn on the subway layer to display the subway map, and you will always find your way in a new city.
+    ru = Включите слой метро на карте для отображения схемы метро и вы всегда будете ориентироваться в новом городе.
+
+  [channels_map_update]
+    en = Map updates
+    ru = Обновления карт
+
+   [channels_reviews]
+     en = Unsent reviews
+     ru = Неотправленные отзывы
