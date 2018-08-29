@@ -49,6 +49,8 @@ struct GenerateInfo
   std::string m_opentableDatafileName;
   std::string m_viatorDatafileName;
 
+  std::string m_popularPlacesFilename;
+
   std::shared_ptr<generator::OsmIdToBoundariesTable> m_boundariesTable;
 
   uint32_t m_versionDate = 0;

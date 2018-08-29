@@ -12,20 +12,15 @@
 #include "indexer/ftraits.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
 #include <limits>
-#include <unordered_map>
 #include <utility>
 #include <vector>
 
-namespace
+namespace generator
 {
-using PopularityIndex = uint8_t;
-using PopularPlaces = std::unordered_map<base::GeoObjectId, PopularityIndex>;
-
 void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 {
   coding::CSVReader reader;
@@ -68,10 +63,7 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
     }
   });
 }
-}  // namespace
 
-namespace generator
-{
 bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string const & mwmFile,
                                   std::string const & osmToFeatureFilename)
 {

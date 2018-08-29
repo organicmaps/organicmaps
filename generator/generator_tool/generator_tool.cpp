@@ -139,8 +139,13 @@ DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
-DEFINE_string(ugc_data, "", "Input UGC source database file name");
-DEFINE_string(popular_places_data, "", "Input Popular Places source file name");
+DEFINE_string(ugc_data, "", "Input UGC source database file name.");
+
+DEFINE_bool(generate_popular_places, false, "Generate popular places section.");
+DEFINE_string(popular_places_data, "",
+              "Input Popular Places source file name. Needed both for World intermediate features "
+              "generation (2nd pass for World) and popular places section generation (5th pass for "
+              "countries).");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -211,6 +216,7 @@ int main(int argc, char ** argv)
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
+  genInfo.m_popularPlacesFilename = FLAGS_popular_places_data;
   genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
@@ -514,9 +520,10 @@ int main(int argc, char ** argv)
       }
     }
 
-    if (!FLAGS_popular_places_data.empty())
+    if (FLAGS_generate_popular_places)
     {
-      if (!BuildPopularPlacesMwmSection(FLAGS_popular_places_data, datFile, osmToFeatureFilename))
+      if (!BuildPopularPlacesMwmSection(genInfo.m_popularPlacesFilename, datFile,
+                                        osmToFeatureFilename))
       {
         LOG(LCRITICAL, ("Error generating popular places mwm section."));
       }

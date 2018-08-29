@@ -2,6 +2,9 @@
 
 #include "generator/feature_merger.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/popular_places_section_builder.hpp"
+
+#include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
@@ -14,6 +17,7 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <map>
 #include <sstream>
@@ -246,6 +250,7 @@ class WorldMapGenerator
   FeatureTypesProcessor m_typesCorrector;
   FeatureMergeProcessor m_merger;
   WaterBoundaryChecker m_boundaryChecker;
+  generator::PopularPlaces m_popularPlaces;
 
 public:
   explicit WorldMapGenerator(feature::GenerateInfo const & info)
@@ -264,18 +269,37 @@ public:
 
     char const * arr2[] = {"boundary", "administrative", "4", "state"};
     m_typesCorrector.SetDontNormalizeType(arr2);
+
+    if (!info.m_popularPlacesFilename.empty())
+      generator::LoadPopularPlaces(info.m_popularPlacesFilename, m_popularPlaces);
+    else
+      LOG(LWARNING, ("popular_places_data option not set. Popular atractions will not be added to World.mwm"));
   }
 
   void operator()(FeatureBuilder1 fb)
   {
-    if (!m_worldBucket.NeedPushToWorld(fb))
+    auto const isPopularAttraction = IsPopularAttraction(fb);
+
+    if (!m_worldBucket.NeedPushToWorld(fb) && !isPopularAttraction)
       return;
 
     m_worldBucket.CalcStatistics(fb);
 
     if (!m_boundaryChecker.IsBoundaries(fb))
     {
-      PushFeature(fb);
+      // Save original feature iff it is a popular attraction before PushFeature(fb) modifies fb.
+      auto originalFeature = isPopularAttraction ? fb : FeatureBuilder1();
+
+      if (PushFeature(fb) || !isPopularAttraction)
+        return;
+
+      // We push GEOM_POINT with all the same tags, names and center instead of GEOM_WAY/GEOM_AREA
+      // because we do not need geometry for attractions (just search index and placepage data)
+      // and want to avoid size checks applied to areas.
+      if (originalFeature.GetGeomType() != feature::GEOM_POINT)
+        originalFeature.SetCenter(originalFeature.GetGeometryCenter());
+
+      m_worldBucket.PushSure(originalFeature);
       return;
     }
 
@@ -285,7 +309,7 @@ public:
       PushFeature(f);
   }
 
-  void PushFeature(FeatureBuilder1 & fb)
+  bool PushFeature(FeatureBuilder1 & fb)
   {
     switch (fb.GetGeomType())
     {
@@ -294,7 +318,7 @@ public:
       MergedFeatureBuilder1 * p = m_typesCorrector(fb);
       if (p)
         m_merger(p);
-      return;
+      return false;
     }
     case feature::GEOM_AREA:
     {
@@ -302,17 +326,52 @@ public:
       // Added approx 4Mb of data to the World.mwm
       auto const & geometry = fb.GetOuterGeometry();
       if (GetPolygonArea(geometry.begin(), geometry.end()) < 0.01)
-        return;
+        return false;
     }
     default:
       break;
     }
 
     if (feature::PreprocessForWorldMap(fb))
+    {
       m_worldBucket.PushSure(fb);
+      return true;
+    }
+
+    return false;
   }
 
   void DoMerge() { m_merger.DoMerge(m_worldBucket); }
+
+private:
+  bool IsPopularAttraction(FeatureBuilder1 const & fb) const
+  {
+    if (fb.GetName().empty())
+      return false;
+
+    auto const attractionTypes =
+        search::GetCategoryTypes("attractions", "en", GetDefaultCategories());
+    ASSERT(is_sorted(attractionTypes.begin(), attractionTypes.end()), ());
+    auto const & featureTypes = fb.GetTypes();
+    if (!std::any_of(featureTypes.begin(), featureTypes.end(), [&attractionTypes](uint32_t t) {
+          return binary_search(attractionTypes.begin(), attractionTypes.end(), t);
+        }))
+    {
+      return false;
+    }
+
+    auto const it = m_popularPlaces.find(fb.GetMostGenericOsmId());
+    if (it == m_popularPlaces.end())
+      return false;
+
+    // todo(@t.yan): adjust
+    uint8_t const kPopularityThreshold = 40;
+    if (it->second < kPopularityThreshold)
+      return false;
+
+    // todo(@t.yan): maybe check place has wikipedia link.
+    return true;
+  }
 };
 
 template <class FeatureOut>

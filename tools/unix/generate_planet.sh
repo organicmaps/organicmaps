@@ -466,6 +466,8 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
+  # Add popular_places_data to add popular attractions to World.mwm and World.mwm search index.
+  # [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --popular_places_data=$POPULAR_PLACES_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
                     --node_storage=$NODE_STORAGE \
                     --osm_file_type=o5m \
@@ -514,7 +516,7 @@ if [ "$MODE" == "mwm" ]; then
     PARAMS_WITH_SEARCH="$PARAMS --generate_search_index --cities_boundaries_data=$CITIES_BOUNDARIES_DATA --make_city_roads"
     [ -n "${SRTM_PATH-}" -a -d "${SRTM_PATH-}" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --srtm_path=$SRTM_PATH"
     [ -f "$UGC_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --ugc_data=$UGC_FILE"
-    [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --popular_places_data=$POPULAR_PLACES_FILE"
+    [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --popular_places_data=$POPULAR_PLACES_FILE --generate_popular_places"
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
