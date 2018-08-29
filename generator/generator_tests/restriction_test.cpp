@@ -62,7 +62,7 @@ void LoadRestrictions(string const & mwmFilePath, RestrictionVec & restrictions)
   }
   catch (Reader::OpenException const & e)
   {
-    TEST(false, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
+    TEST(false, ("Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
   }
 }
 
