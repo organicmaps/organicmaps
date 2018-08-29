@@ -17,6 +17,7 @@ namespace
 // See road types here:
 //   https://wiki.openstreetmap.org/wiki/Key:highway
 
+// Speed of road features located outside cities and towns polygons in km per hour.
 double constexpr kOutCitySpeedMotorwayKMpH = 115.37;
 double constexpr kOutCitySpeedMotorwayLinkKMpH = 75.0;
 double constexpr kOutCitySpeedTrunkKMpH = 93.89;
@@ -39,6 +40,30 @@ double constexpr kOutCitySpeedRailMotorcarVehicleKMpH = 25.0;
 double constexpr kOutCitySpeedShuttleTrainKMpH = 25.0;
 double constexpr kOutCitySpeedPierKMpH = 10.0;
 double constexpr kOutCitySpeedOffroadKMpH = 10.0;
+
+// Speed of road features located inside cities and towns polygons in km per hour.
+double constexpr kInCitySpeedMotorwayKMpH = kOutCitySpeedMotorwayKMpH;
+double constexpr kInCitySpeedMotorwayLinkKMpH = kOutCitySpeedMotorwayLinkKMpH;
+double constexpr kInCitySpeedTrunkKMpH = 70.0;
+double constexpr kInCitySpeedTrunkLinkKMpH = 50.0;
+double constexpr kInCitySpeedPrimaryKMpH = 65.0;
+double constexpr kInCitySpeedPrimaryLinkKMpH = 55.0;
+double constexpr kInCitySpeedSecondaryKMpH = 45.0;
+double constexpr kInCitySpeedSecondaryLinkKMpH = 40.0;
+double constexpr kInCitySpeedTertiaryKMpH = 40.0;
+double constexpr kInCitySpeedTertiaryLinkKMpH = 30.0;
+double constexpr kInCitySpeedResidentialKMpH = 25.0;
+double constexpr kInCitySpeedUnclassifiedKMpH = 25.0;
+double constexpr kInCitySpeedServiceKMpH = kOutCitySpeedServiceKMpH;
+double constexpr kInCitySpeedLivingStreetKMpH = kOutCitySpeedLivingStreetKMpH;
+double constexpr kInCitySpeedRoadKMpH = kOutCitySpeedRoadKMpH;
+double constexpr kInCitySpeedTrackKMpH = kOutCitySpeedTrackKMpH;
+double constexpr kInCitySpeedFerryMotorcarKMpH = kOutCitySpeedFerryMotorcarKMpH;
+double constexpr kInCitySpeedFerryMotorcarVehicleKMpH = kOutCitySpeedFerryMotorcarVehicleKMpH;
+double constexpr kInCitySpeedRailMotorcarVehicleKMpH = kOutCitySpeedRailMotorcarVehicleKMpH;
+double constexpr kInCitySpeedShuttleTrainKMpH = kOutCitySpeedShuttleTrainKMpH;
+double constexpr kInCitySpeedPierKMpH = kOutCitySpeedPierKMpH;
+double constexpr kInCitySpeedOffroadKMpH = kOutCitySpeedOffroadKMpH;
 
 VehicleModel::LimitsInitList const g_carLimitsDefault =
 {

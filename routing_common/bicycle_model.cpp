@@ -28,21 +28,22 @@ namespace
 // less bicycle. As result of such heuristic road is not totally the shortest, but it avoids non bicycle roads, which were
 // not marked as "hwtag=nobicycle" in OSM.
 
+// Speed of road features located outside cities and towns polygons in km per hour.
 double constexpr kOutCitySpeedTrunkKMpH = 3.0;
 double constexpr kOutCitySpeedTrunkLinkKMpH = 3.0;
 double constexpr kOutCitySpeedPrimaryKMpH = 5.0;
 double constexpr kOutCitySpeedPrimaryLinkKMpH = 5.0;
-double constexpr kOutCitySpeedSecondaryKMpH = 15.0;
-double constexpr kOutCitySpeedSecondaryLinkKMpH = 15.0;
-double constexpr kOutCitySpeedTertiaryKMpH = 15.0;
-double constexpr kOutCitySpeedTertiaryLinkKMpH = 15.0;
+double constexpr kOutCitySpeedSecondaryKMpH = 20.0;
+double constexpr kOutCitySpeedSecondaryLinkKMpH = 20.0;
+double constexpr kOutCitySpeedTertiaryKMpH = 20.0;
+double constexpr kOutCitySpeedTertiaryLinkKMpH = 20.0;
 double constexpr kOutCitySpeedServiceKMpH = 12.0;
 double constexpr kOutCitySpeedUnclassifiedKMpH = 12.0;
 double constexpr kOutCitySpeedRoadKMpH = 10.0;
 double constexpr kOutCitySpeedTrackKMpH = 8.0;
 double constexpr kOutCitySpeedPathKMpH = 6.0;
 double constexpr kOutCitySpeedBridlewayKMpH = 4.0;
-double constexpr kOutCitySpeedCyclewayKMpH = 15.0;
+double constexpr kOutCitySpeedCyclewayKMpH = 20.0;
 double constexpr kOutCitySpeedResidentialKMpH = 8.0;
 double constexpr kOutCitySpeedLivingStreetKMpH = 7.0;
 double constexpr kOutCitySpeedStepsKMpH = 1.0;
@@ -52,6 +53,32 @@ double constexpr kOutCitySpeedPlatformKMpH = 3.0;
 double constexpr kOutCitySpeedPierKMpH = 7.0;
 double constexpr kOutCitySpeedOffroadKMpH = 3.0;
 double constexpr kOutCitySpeedFerryKMpH = 3.0;
+
+// Speed of road features located inside cities and towns polygons in km per hour.
+double constexpr kInCitySpeedTrunkKMpH = kOutCitySpeedTrunkKMpH;
+double constexpr kInCitySpeedTrunkLinkKMpH = kOutCitySpeedTrunkLinkKMpH;
+double constexpr kInCitySpeedPrimaryKMpH = 10.0;
+double constexpr kInCitySpeedPrimaryLinkKMpH = 10.0;
+double constexpr kInCitySpeedSecondaryKMpH = 15.0;
+double constexpr kInCitySpeedSecondaryLinkKMpH = 15.0;
+double constexpr kInCitySpeedTertiaryKMpH = 15.0;
+double constexpr kInCitySpeedTertiaryLinkKMpH = 15.0;
+double constexpr kInCitySpeedServiceKMpH = kOutCitySpeedServiceKMpH;
+double constexpr kInCitySpeedUnclassifiedKMpH = kOutCitySpeedUnclassifiedKMpH;
+double constexpr kInCitySpeedRoadKMpH = kOutCitySpeedRoadKMpH;
+double constexpr kInCitySpeedTrackKMpH = kOutCitySpeedTrackKMpH;
+double constexpr kInCitySpeedPathKMpH = kOutCitySpeedPathKMpH;
+double constexpr kInCitySpeedBridlewayKMpH = kOutCitySpeedBridlewayKMpH;
+double constexpr kInCitySpeedCyclewayKMpH = kOutCitySpeedCyclewayKMpH;
+double constexpr kInCitySpeedResidentialKMpH = kOutCitySpeedResidentialKMpH;
+double constexpr kInCitySpeedLivingStreetKMpH = kOutCitySpeedLivingStreetKMpH;
+double constexpr kInCitySpeedStepsKMpH = kOutCitySpeedStepsKMpH;
+double constexpr kInCitySpeedPedestrianKMpH = kOutCitySpeedPedestrianKMpH;
+double constexpr kInCitySpeedFootwayKMpH = kOutCitySpeedFootwayKMpH;
+double constexpr kInCitySpeedPlatformKMpH = kOutCitySpeedPlatformKMpH;
+double constexpr kInCitySpeedPierKMpH = kOutCitySpeedPierKMpH;
+double constexpr kInCitySpeedOffroadKMpH = kOutCitySpeedOffroadKMpH;
+double constexpr kInCitySpeedFerryKMpH = kOutCitySpeedFerryKMpH;
 
 // Default
 VehicleModel::LimitsInitList const g_bicycleLimitsDefault =
