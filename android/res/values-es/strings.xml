@@ -184,7 +184,7 @@
 	<!-- Search Suggestion -->
 	<string name="fuel">Gasolinera</string>
 	<!-- Search Suggestion -->
-	<string name="parking">Estacionamiento</string>
+	<string name="parking">Aparcamiento</string>
 	<!-- Search Suggestion -->
 	<string name="shop">Tienda</string>
 	<!-- Search Suggestion -->
@@ -194,7 +194,7 @@
 	<!-- Search Suggestion -->
 	<string name="entertainment">Entretenimiento</string>
 	<!-- Search Suggestion -->
-	<string name="atm">ATM</string>
+	<string name="atm">Cajero automático</string>
 	<!-- Search Suggestion -->
 	<string name="bank">Banco</string>
 	<!-- Search Suggestion -->
@@ -202,7 +202,7 @@
 	<!-- Search Suggestion -->
 	<string name="hospital">Hospital</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">Servicios sanitario</string>
+	<string name="toilet">WC</string>
 	<!-- Search Suggestion -->
 	<string name="post">Oficina de correos</string>
 	<!-- Search Suggestion -->

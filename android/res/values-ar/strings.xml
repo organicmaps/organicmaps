@@ -189,17 +189,17 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">على الشاشة</string>
 	<!-- Search Suggestion -->
-	<string name="food">الطعام</string>
+	<string name="food">طعام</string>
 	<!-- Search Suggestion -->
-	<string name="transport">النقل</string>
+	<string name="transport">نقل</string>
 	<!-- Search Suggestion -->
-	<string name="fuel">الغاز</string>
+	<string name="fuel">غاز</string>
 	<!-- Search Suggestion -->
 	<string name="parking">الاصطفاف</string>
 	<!-- Search Suggestion -->
-	<string name="shop">المتجر</string>
+	<string name="shop">متجر</string>
 	<!-- Search Suggestion -->
-	<string name="hotel">الفندق</string>
+	<string name="hotel">فندق</string>
 	<!-- Search Suggestion -->
 	<string name="tourism">سياحة</string>
 	<!-- Search Suggestion -->
@@ -207,17 +207,17 @@
 	<!-- Search Suggestion -->
 	<string name="atm">ماكينة الصراف الآلي</string>
 	<!-- Search Suggestion -->
-	<string name="bank">البنك</string>
+	<string name="bank">بنك</string>
 	<!-- Search Suggestion -->
-	<string name="pharmacy">الصيدلية</string>
+	<string name="pharmacy">صيدلية</string>
 	<!-- Search Suggestion -->
-	<string name="hospital">المستشفى</string>
+	<string name="hospital">مستشفى</string>
 	<!-- Search Suggestion -->
-	<string name="toilet">الحمام</string>
+	<string name="toilet">حمام</string>
 	<!-- Search Suggestion -->
-	<string name="post">البريد</string>
+	<string name="post">بريد</string>
 	<!-- Search Suggestion -->
-	<string name="police">الشرطة</string>
+	<string name="police">شرطة</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">لم يتم العثور على أي نتائج</string>
 	<!-- Notes field in Bookmarks view -->
@@ -409,7 +409,7 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">واي فاي</string>
+	<string name="wifi">واي-فاي</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">يرجى تحديث الخريطة لإنشاء مسار.</string>
 	<!-- Update maps suggestion -->

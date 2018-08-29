@@ -299,22 +299,22 @@
 "search_mode_viewport" = "على الشاشة";
 
 /* Search Suggestion */
-"food" = "الطعام";
+"food" = "طعام";
 
 /* Search Suggestion */
-"transport" = "النقل";
+"transport" = "نقل";
 
 /* Search Suggestion */
-"fuel" = "الغاز";
+"fuel" = "غاز";
 
 /* Search Suggestion */
 "parking" = "الاصطفاف";
 
 /* Search Suggestion */
-"shop" = "المتجر";
+"shop" = "متجر";
 
 /* Search Suggestion */
-"hotel" = "الفندق";
+"hotel" = "فندق";
 
 /* Search Suggestion */
 "tourism" = "سياحة";
@@ -326,22 +326,22 @@
 "atm" = "ماكينة الصراف الآلي";
 
 /* Search Suggestion */
-"bank" = "البنك";
+"bank" = "بنك";
 
 /* Search Suggestion */
-"pharmacy" = "الصيدلية";
+"pharmacy" = "صيدلية";
 
 /* Search Suggestion */
-"hospital" = "المستشفى";
+"hospital" = "مستشفى";
 
 /* Search Suggestion */
-"toilet" = "الحمام";
+"toilet" = "حمام";
 
 /* Search Suggestion */
-"post" = "البريد";
+"post" = "بريد";
 
 /* Search Suggestion */
-"police" = "الشرطة";
+"police" = "شرطة";
 
 /* String in search result list, when nothing found */
 "no_search_results_found" = "لم يتم العثور على أي نتائج";
@@ -659,7 +659,7 @@
 "pref_calibration_title" = "معايرة البوصلة";
 
 /* Search Suggestion */
-"wifi" = "واي فاي";
+"wifi" = "واي-فاي";
 
 /* Update map suggestion */
 "routing_map_outdated" = "يرجى تحديث الخريطة لإنشاء مسار.";
@@ -2436,8 +2436,25 @@
 
 "purchase_processing" = "Your purchase is being processed…";
 
+"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
 
-/**********  Partners  **********/
+"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+
+"tips_discover_button_title" = "Want to find popular locations nearby?";
+
+"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+
+"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+
+"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+
+"tips_map_layers_title" = "Don't know at which station to make a connection?";
+
+"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+
+"channels_map_update" = "Map updates";
+
+"channels_reviews" = "Unsent reviews";
 
 "sponsored_partner1_action" = "Outlets";
 

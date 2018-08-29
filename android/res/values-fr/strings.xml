@@ -216,7 +216,7 @@
 	<!-- Search Suggestion -->
 	<string name="post">Poste</string>
 	<!-- Search Suggestion -->
-	<string name="police">Police/gendarmerie</string>
+	<string name="police">Police</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Aucun résultat trouvé</string>
 	<!-- Notes field in Bookmarks view -->

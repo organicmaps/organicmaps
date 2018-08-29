@@ -1420,8 +1420,16 @@
 	<string name="why_support_item2">You help us to improve MAPS.ME</string>
 	<string name="why_support_item3">You help us improve open maps OpenStreetMap.org</string>
 	<string name="purchase_processing">Your purchase is being processed…</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="tips_bookmarks_catalog_title">Can\'t plan a route over interesting locations?</string>
+	<string name="tips_bookmarks_catalog_message">Download and plan tourist routes over interesting locations in different cities of the world.</string>
+	<string name="tips_discover_button_title">Want to find popular locations nearby?</string>
+	<string name="tips_discover_button_message">The \"Discover nearby\" section contains the best restaurants, hotels, and sights.</string>
+	<string name="tips_book_hotel_title">Book the cosiest hotels for your journeys</string>
+	<string name="tips_book_hotel_message">Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.</string>
+	<string name="tips_map_layers_title">Don\'t know at which station to make a connection?</string>
+	<string name="tips_map_layers_message">Turn on the subway layer to display the subway map, and you will always find your way in a new city.</string>
+	<string name="channels_map_update">Map updates</string>
+	<string name="channels_reviews">Unsent reviews</string>
 	<string name="sponsored_partner1_action">Outlets</string>
 	<string name="sponsored_partner3_action">Coupon</string>
 	<string name="sponsored_partner4_action">Store</string>

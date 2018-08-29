@@ -1415,8 +1415,16 @@
 	<string name="why_support_item2">Вы помогаете нам улучшать MAPS.ME</string>
 	<string name="why_support_item3">Вы помогаете нам улучшать карты OpenStreetMaps.org</string>
 	<string name="purchase_processing">Ваша покупка обрабатывается…</string>
-
-	<!-- SECTION:  Partners  -->
+	<string name="tips_bookmarks_catalog_title">Сложно придумать маршрут по интересным местам?</string>
+	<string name="tips_bookmarks_catalog_message">Скачивайте и прокладывайте туристические маршруты по интересным местам в разных городах мира.</string>
+	<string name="tips_discover_button_title">Хотите найти популярые заведения в округе?</string>
+	<string name="tips_discover_button_message">В разделе «Чем заняться» собраны лучшие ближайшие рестораны, отели и достопримечательности.</string>
+	<string name="tips_book_hotel_title">Бронируйте самые комфортные отели для вашего отдыха</string>
+	<string name="tips_book_hotel_message">С помощью поиска и фильтров вы найдете лучшие гостиницы. Нажмите кнопку «Забронировать» в карточке места для моментальной брони отеля.</string>
+	<string name="tips_map_layers_title">Не знаете на какой станции метро пересесть?</string>
+	<string name="tips_map_layers_message">Включите слой метро на карте для отображения схемы метро и вы всегда будете ориентироваться в новом городе.</string>
+	<string name="channels_map_update">Обновления карт</string>
+	<string name="channels_reviews">Неотправленные отзывы[[ Partners ]]</string>
 	<string name="sponsored_partner1_action">Аутлеты</string>
 	<string name="sponsored_partner3_action">Купон</string>
 	<string name="sponsored_partner4_action">Магазин</string>
