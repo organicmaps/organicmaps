@@ -11,7 +11,7 @@ public enum Factory
         @Override
         public PurchaseValidator createPurchaseManager()
         {
-          return new AdRemovalPurchaseValidator();
+          return new AdSubscriptionValidator();
         }
 
         @NonNull

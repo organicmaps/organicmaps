@@ -4,12 +4,12 @@ import android.support.annotation.NonNull;
 
 /**
  * Represents a purchase validator. The main of purpose is to validate existing purchase and inform
- * the client code through {@link ValidationCallback#onValidate(Status)}.<br><br>
+ * the client code through typed callback {@link T}.<br><br>
  * <b>Important note: </b> one validator can serve only one purchase, i.e. logical link is
  * <b>one-to-one</b>. If you need to validate different purchases you have to create different
  * implementations of this interface.
  */
-public interface PurchaseValidator
+public interface PurchaseValidator<T>
 {
   /**
    * Initializes validator for further work.
@@ -31,22 +31,10 @@ public interface PurchaseValidator
   /**
    * Ads observer of validation.
    */
-  void addCallback(@NonNull ValidationCallback callback);
+  void addCallback(@NonNull T callback);
 
   /**
    * Removes observer of validation.
    */
-  void removeCallback(@NonNull ValidationCallback callback);
-
-  interface ValidationCallback
-  {
-    void onValidate(@NonNull Status status);
-  }
-
-  public enum Status
-  {
-    ACTIVE,
-    NOT_ACTIVE,
-    FAILURE;
-  }
+  void removeCallback(@NonNull T callback);
 }

@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 
-public class AdRemovalPurchaseValidator implements PurchaseValidator,
-                                                   Framework.SubscriptionValidationListener
+class AdSubscriptionValidator implements PurchaseValidator<AdValidationCallback>,
+                                                Framework.SubscriptionValidationListener
 {
   @Override
   public void initialize()
@@ -26,13 +26,13 @@ public class AdRemovalPurchaseValidator implements PurchaseValidator,
   }
 
   @Override
-  public void addCallback(@NonNull ValidationCallback callback)
+  public void addCallback(@NonNull AdValidationCallback callback)
   {
     // Coming soon.
   }
 
   @Override
-  public void removeCallback(@NonNull ValidationCallback callback)
+  public void removeCallback(@NonNull AdValidationCallback callback)
   {
     // Coming soon.
   }
