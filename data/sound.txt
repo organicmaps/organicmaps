@@ -2111,3 +2111,7 @@
     fa = در دو مایلی
     vi = Trong hai dặm nữa
     uk = Через дві милі
+
+  [unknown_camera]
+    en = Speed camera ahead
+    ru = Впереди камера
