@@ -99,9 +99,19 @@ public:
 
   struct FeatureTypeLimits final
   {
-    char const * m_types[2];      // 2-arity road type
-    SpeedKMpH m_speed;            // max allowed speed on this road type
-    bool m_isPassThroughAllowed;  // pass through this road type is allowed
+    FeatureTypeLimits(std::vector<std::string> const & types, SpeedKMpH const & outCitySpeed,
+                      SpeedKMpH const & inCitySpeed, bool isPassThroughAllowed)
+      : m_types(types)
+      , m_outCitySpeed(outCitySpeed)
+      , m_inCitySpeed(inCitySpeed)
+      , m_isPassThroughAllowed(isPassThroughAllowed)
+    {
+    }
+
+    std::vector<std::string> m_types;
+    SpeedKMpH m_outCitySpeed;     // Average speed on this road type out of cities.
+    SpeedKMpH m_inCitySpeed;      // Average speed on this road type in cities.
+    bool m_isPassThroughAllowed;  // Pass through this road type is allowed.
   };
 
   // Structure for keeping surface tags: psurface|paved_good, psurface|paved_bad,
@@ -116,13 +126,15 @@ public:
   {
     AdditionalRoadTags() = default;
 
-    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag, SpeedKMpH const & speed)
-      : m_hwtag(hwtag), m_speed(speed)
+    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag,
+                       SpeedKMpH const & outCitySpeed, SpeedKMpH const & inCitySpeed)
+      : m_hwtag(hwtag), m_outCitySpeed(outCitySpeed), m_inCitySpeed(inCitySpeed)
     {
     }
 
     std::initializer_list<char const *> m_hwtag;
-    SpeedKMpH m_speed;
+    SpeedKMpH m_outCitySpeed;
+    SpeedKMpH m_inCitySpeed;
   };
 
   using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
@@ -186,8 +198,10 @@ private:
     AdditionalRoadType(Classificator const & c, AdditionalRoadTags const & tag);
 
     bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
+
     uint32_t const m_type;
-    SpeedKMpH const m_speed;
+    SpeedKMpH m_outCitySpeed;
+    SpeedKMpH m_inCitySpeed;
   };
 
   class RoadLimits final

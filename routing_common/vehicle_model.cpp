@@ -25,7 +25,9 @@ namespace routing
 {
 VehicleModel::AdditionalRoadType::AdditionalRoadType(Classificator const & c,
                                                      AdditionalRoadTags const & tag)
-  : m_type(c.GetTypeByPath(tag.m_hwtag)), m_speed(tag.m_speed)
+  : m_type(c.GetTypeByPath(tag.m_hwtag))
+  , m_outCitySpeed(tag.m_outCitySpeed)
+  , m_inCitySpeed(tag.m_inCitySpeed)
 {
 }
 
@@ -48,9 +50,9 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
 
   for (auto const & v : featureTypeLimits)
   {
-    m_maxSpeed = Pick<max>(m_maxSpeed, v.m_speed);
-    m_highwayTypes.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                           RoadLimits(v.m_speed, v.m_isPassThroughAllowed));
+    m_maxSpeed = Pick<max>(m_maxSpeed, Pick<max>(v.m_outCitySpeed, v.m_inCitySpeed));
+    m_highwayTypes.emplace(c.GetTypeByPath(v.m_types),
+                           RoadLimits(v.m_inCitySpeed, v.m_isPassThroughAllowed));
   }
 
   size_t i = 0;
@@ -75,7 +77,7 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   for (auto const & tag : additionalTags)
   {
     m_addRoadTypes.emplace_back(c, tag);
-    m_maxSpeed = Pick<max>(m_maxSpeed, tag.m_speed);
+    m_maxSpeed = Pick<max>(m_maxSpeed, Pick<max>(tag.m_outCitySpeed, tag.m_inCitySpeed));
   }
 }
 
@@ -99,6 +101,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
   VehicleModel::SpeedFactor factor;
   for (uint32_t t : types)
   {
+    // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto const itHighway = m_highwayTypes.find(type);
     if (itHighway != m_highwayTypes.cend())
@@ -106,7 +109,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
 
     auto const addRoadInfoIter = FindRoadType(t);
     if (addRoadInfoIter != m_addRoadTypes.cend())
-      speed = Pick<min>(speed, addRoadInfoIter->m_speed);
+      speed = Pick<min>(speed, addRoadInfoIter->m_outCitySpeed);
 
     auto const itFactor = find_if(m_surfaceFactors.cbegin(), m_surfaceFactors.cend(),
                                   [t](TypeFactor const & v) { return v.m_type == t; });

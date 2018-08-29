@@ -39,7 +39,6 @@ double constexpr kOutCitySpeedFerryMotorcarVehicleKMpH = 15.0;
 double constexpr kOutCitySpeedRailMotorcarVehicleKMpH = 25.0;
 double constexpr kOutCitySpeedShuttleTrainKMpH = 25.0;
 double constexpr kOutCitySpeedPierKMpH = 10.0;
-double constexpr kOutCitySpeedOffroadKMpH = 10.0;
 
 // Speed of road features located inside cities and towns polygons in km per hour.
 double constexpr kInCitySpeedMotorwayKMpH = kOutCitySpeedMotorwayKMpH;
@@ -63,27 +62,28 @@ double constexpr kInCitySpeedFerryMotorcarVehicleKMpH = kOutCitySpeedFerryMotorc
 double constexpr kInCitySpeedRailMotorcarVehicleKMpH = kOutCitySpeedRailMotorcarVehicleKMpH;
 double constexpr kInCitySpeedShuttleTrainKMpH = kOutCitySpeedShuttleTrainKMpH;
 double constexpr kInCitySpeedPierKMpH = kOutCitySpeedPierKMpH;
-double constexpr kInCitySpeedOffroadKMpH = kOutCitySpeedOffroadKMpH;
+
+double constexpr kSpeedOffroadKMpH = 10.0;
 
 VehicleModel::LimitsInitList const g_carLimitsDefault =
 {
   // {{roadType, roadType}        {weightSpeedKMpH, etSpeedKMpH}    passThroughAllowed}
-  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      true},
-  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  true},
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true}
+  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      kInCitySpeedMotorwayKMpH,      true},
+  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  kInCitySpeedMotorwayLinkKMpH,  true},
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true}
   /// @todo: Add to classificator
   //{ {"highway", "shuttle_train"},  10 },
   //{ {"highway", "ferry"},          5  },
@@ -94,42 +94,42 @@ VehicleModel::LimitsInitList const g_carLimitsDefault =
 
 VehicleModel::LimitsInitList const g_carLimitsNoPassThroughLivingStreet =
 {
-  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      true},
-  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  true},
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  false},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true}
+  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      kInCitySpeedMotorwayKMpH,      true},
+  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  kInCitySpeedMotorwayLinkKMpH,  true},
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  false},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true}
 };
 
 VehicleModel::LimitsInitList const g_carLimitsNoPassThroughLivingStreetAndService =
 {
-  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      true},
-  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  true},
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       false},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  false},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true}
+  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      kInCitySpeedMotorwayKMpH,      true},
+  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  kInCitySpeedMotorwayLinkKMpH,  true},
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       false},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  false},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true}
 };
 
 VehicleModel::LimitsInitList const g_carLimitsAustralia = g_carLimitsDefault;
@@ -145,21 +145,21 @@ VehicleModel::LimitsInitList const g_carLimitsBrazil = g_carLimitsDefault;
 VehicleModel::LimitsInitList const g_carLimitsDenmark =
 {
   // No track
-  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,       true},
-  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  true},
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true}
+  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      kInCitySpeedMotorwayKMpH,       true},
+  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  kInCitySpeedMotorwayLinkKMpH,  true},
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true}
 };
 
 VehicleModel::LimitsInitList const g_carLimitsFrance = g_carLimitsDefault;
@@ -169,22 +169,22 @@ VehicleModel::LimitsInitList const g_carLimitsFinland = g_carLimitsDefault;
 VehicleModel::LimitsInitList const g_carLimitsGermany =
 {
   // No pass through track
-  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      true},
-  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  true},
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         false}
+  {{"highway", "motorway"},       kOutCitySpeedMotorwayKMpH,      kInCitySpeedMotorwayKMpH,      true},
+  {{"highway", "motorway_link"},  kOutCitySpeedMotorwayLinkKMpH,  kInCitySpeedMotorwayLinkKMpH,  true},
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         false}
 };
 
 VehicleModel::LimitsInitList const g_carLimitsHungary = g_carLimitsNoPassThroughLivingStreet;
@@ -219,12 +219,12 @@ VehicleModel::LimitsInitList const g_carLimitsUS = g_carLimitsDefault;
 
 vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
   // {{highway tags}, {weightSpeed, etaSpeed}}
-  {{"route", "ferry", "motorcar"}, kOutCitySpeedFerryMotorcarKMpH},
-  {{"route", "ferry", "motor_vehicle"}, kOutCitySpeedFerryMotorcarVehicleKMpH},
-  {{"railway", "rail", "motor_vehicle"}, kOutCitySpeedRailMotorcarVehicleKMpH},
-  {{"route", "shuttle_train"}, kOutCitySpeedShuttleTrainKMpH},
-  {{"route", "ferry"}, kOutCitySpeedFerryMotorcarKMpH},
-  {{"man_made", "pier"}, kOutCitySpeedPierKMpH}
+  {{"route", "ferry", "motorcar"}, kOutCitySpeedFerryMotorcarKMpH, kInCitySpeedFerryMotorcarKMpH},
+  {{"route", "ferry", "motor_vehicle"}, kOutCitySpeedFerryMotorcarVehicleKMpH, kInCitySpeedFerryMotorcarVehicleKMpH},
+  {{"railway", "rail", "motor_vehicle"}, kOutCitySpeedRailMotorcarVehicleKMpH, kInCitySpeedRailMotorcarVehicleKMpH},
+  {{"route", "shuttle_train"}, kOutCitySpeedShuttleTrainKMpH, kInCitySpeedShuttleTrainKMpH},
+  {{"route", "ferry"}, kOutCitySpeedFerryMotorcarKMpH, kInCitySpeedFerryMotorcarKMpH},
+  {{"man_made", "pier"}, kOutCitySpeedPierKMpH, kInCitySpeedPierKMpH}
 };
 
 VehicleModel::SurfaceInitList const g_carSurface = {
@@ -251,7 +251,7 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   InitAdditionalRoadTypes();
 }
 
-double CarModel::GetOffroadSpeed() const { return kOutCitySpeedOffroadKMpH; }
+double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void CarModel::InitAdditionalRoadTypes()
 {

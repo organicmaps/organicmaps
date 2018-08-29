@@ -51,7 +51,6 @@ double constexpr kOutCitySpeedPedestrianKMpH = 5.0;
 double constexpr kOutCitySpeedFootwayKMpH = 5.0;
 double constexpr kOutCitySpeedPlatformKMpH = 5.0;
 double constexpr kOutCitySpeedPierKMpH = 4.0;
-double constexpr kOutCitySpeedOffroadKMpH = 3.0;
 double constexpr kOutCitySpeedFerryKMpH = 1.0;
 
 // Speed of road features located inside cities and towns polygons in km per hour.
@@ -77,129 +76,130 @@ double constexpr kInCitySpeedPedestrianKMpH = kOutCitySpeedPedestrianKMpH;
 double constexpr kInCitySpeedFootwayKMpH = kOutCitySpeedFootwayKMpH;
 double constexpr kInCitySpeedPlatformKMpH = kOutCitySpeedPlatformKMpH;
 double constexpr kInCitySpeedPierKMpH = kOutCitySpeedPierKMpH;
-double constexpr kInCitySpeedOffroadKMpH = kOutCitySpeedOffroadKMpH;
 double constexpr kInCitySpeedFerryKMpH = kOutCitySpeedFerryKMpH;
+
+double constexpr kSpeedOffroadKMpH = 3.0;
 
 // Default
 VehicleModel::LimitsInitList const g_pedestrianLimitsDefault =
 {
   // {{roadType, roadType}        {weightSpeedKMpH, etSpeedKMpH}              passThroughAllowed}
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,          true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      true}
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,          kInCitySpeedPathKMpH,          true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         kInCitySpeedStepsKMpH,         true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    kInCitySpeedPedestrianKMpH,    true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       kInCitySpeedFootwayKMpH,       true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      kInCitySpeedPlatformKMpH,      true}
 };
 
 // All options available.
 VehicleModel::LimitsInitList const g_pedestrianLimitsAll =
 {
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,          true},
-  {{"highway", "bridleway"},      kOutCitySpeedBridlewayKMpH,     true},
-  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      true}
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,          kInCitySpeedPathKMpH,          true},
+  {{"highway", "bridleway"},      kOutCitySpeedBridlewayKMpH,     kInCitySpeedBridlewayKMpH,     true},
+  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      kInCitySpeedCyclewayKMpH,      true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         kInCitySpeedStepsKMpH,         true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    kInCitySpeedPedestrianKMpH,    true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       kInCitySpeedFootwayKMpH,       true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      kInCitySpeedPlatformKMpH,      true}
 };
 
 // Same as defaults except trunk and trunk link are not allowed.
 VehicleModel::LimitsInitList const g_pedestrianLimitsNoTrunk =
 {
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,          true},
-  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      true}
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,          kInCitySpeedPathKMpH,          true},
+  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      kInCitySpeedCyclewayKMpH,      true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         kInCitySpeedStepsKMpH,         true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    kInCitySpeedPedestrianKMpH,    true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       kInCitySpeedFootwayKMpH,       true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      kInCitySpeedPlatformKMpH,      true}
 };
 
 // Same as defaults except cycleway is allowed.
 VehicleModel::LimitsInitList const g_pedestrianLimitsCyclewayAllowed =
 {
-  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         true},
-  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     true},
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,          true},
-  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      true}
+  {{"highway", "trunk"},          kOutCitySpeedTrunkKMpH,         kInCitySpeedTrunkKMpH,         true},
+  {{"highway", "trunk_link"},     kOutCitySpeedTrunkLinkKMpH,     kInCitySpeedTrunkLinkKMpH,     true},
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,          kInCitySpeedPathKMpH,          true},
+  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      kInCitySpeedCyclewayKMpH,      true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         kInCitySpeedStepsKMpH,         true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    kInCitySpeedPedestrianKMpH,    true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       kInCitySpeedFootwayKMpH,       true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      kInCitySpeedPlatformKMpH,      true}
 };
 
 // Same as defaults except cycleway is allowed and trunk and trunk_link are not allowed.
 VehicleModel::LimitsInitList const g_pedestrianLimitsCyclewayAllowedNoTrunk =
 {
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,        true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,    true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,      true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH,  true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,       true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,   true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,        true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,   true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,           true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,          true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,           true},
-  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,       true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,    true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,   true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,          true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,     true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,        true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,       true}
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,        kInCitySpeedPrimaryKMpH,        true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,    kInCitySpeedPrimaryLinkKMpH,    true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,      kInCitySpeedSecondaryKMpH,      true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH,  kInCitySpeedSecondaryLinkKMpH,  true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,       kInCitySpeedTertiaryKMpH,       true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,   kInCitySpeedTertiaryLinkKMpH,   true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,        kInCitySpeedServiceKMpH,        true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,   kInCitySpeedUnclassifiedKMpH,   true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,           kInCitySpeedRoadKMpH,           true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,          kInCitySpeedTrackKMpH,          true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,           kInCitySpeedPathKMpH,           true},
+  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,       kInCitySpeedCyclewayKMpH,       true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,    kInCitySpeedResidentialKMpH,    true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,   kInCitySpeedLivingStreetKMpH,   true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,          kInCitySpeedStepsKMpH,          true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,     kInCitySpeedPedestrianKMpH,     true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,        kInCitySpeedFootwayKMpH,        true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,       kInCitySpeedPlatformKMpH,       true}
 };
 
 // Australia
@@ -216,25 +216,25 @@ VehicleModel::LimitsInitList const g_pedestrianLimitsBelgium =
 {
   // Trunk and trunk_link are not allowed
   // Bridleway and cycleway are allowed
-  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       true},
-  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   true},
-  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     true},
-  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, true},
-  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      true},
-  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  true},
-  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       true},
-  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  true},
-  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          true},
-  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         true},
-  {{"highway", "path"},           kOutCitySpeedPathKMpH,          true},
-  {{"highway", "bridleway"},      kOutCitySpeedBridlewayKMpH,     true},
-  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      true},
-  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   true},
-  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  true},
-  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         true},
-  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    true},
-  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       true},
-  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      true}
+  {{"highway", "primary"},        kOutCitySpeedPrimaryKMpH,       kInCitySpeedPrimaryKMpH,       true},
+  {{"highway", "primary_link"},   kOutCitySpeedPrimaryLinkKMpH,   kInCitySpeedPrimaryLinkKMpH,   true},
+  {{"highway", "secondary"},      kOutCitySpeedSecondaryKMpH,     kInCitySpeedSecondaryKMpH,     true},
+  {{"highway", "secondary_link"}, kOutCitySpeedSecondaryLinkKMpH, kInCitySpeedSecondaryLinkKMpH, true},
+  {{"highway", "tertiary"},       kOutCitySpeedTertiaryKMpH,      kInCitySpeedTertiaryKMpH,      true},
+  {{"highway", "tertiary_link"},  kOutCitySpeedTertiaryLinkKMpH,  kInCitySpeedTertiaryLinkKMpH,  true},
+  {{"highway", "service"},        kOutCitySpeedServiceKMpH,       kInCitySpeedServiceKMpH,       true},
+  {{"highway", "unclassified"},   kOutCitySpeedUnclassifiedKMpH,  kInCitySpeedUnclassifiedKMpH,  true},
+  {{"highway", "road"},           kOutCitySpeedRoadKMpH,          kInCitySpeedRoadKMpH,          true},
+  {{"highway", "track"},          kOutCitySpeedTrackKMpH,         kInCitySpeedTrackKMpH,         true},
+  {{"highway", "path"},           kOutCitySpeedPathKMpH,          kInCitySpeedPathKMpH,          true},
+  {{"highway", "bridleway"},      kOutCitySpeedBridlewayKMpH,     kInCitySpeedBridlewayKMpH,     true},
+  {{"highway", "cycleway"},       kOutCitySpeedCyclewayKMpH,      kInCitySpeedCyclewayKMpH,      true},
+  {{"highway", "residential"},    kOutCitySpeedResidentialKMpH,   kInCitySpeedResidentialKMpH,   true},
+  {{"highway", "living_street"},  kOutCitySpeedLivingStreetKMpH,  kInCitySpeedLivingStreetKMpH,  true},
+  {{"highway", "steps"},          kOutCitySpeedStepsKMpH,         kInCitySpeedStepsKMpH,         true},
+  {{"highway", "pedestrian"},     kOutCitySpeedPedestrianKMpH,    kInCitySpeedPedestrianKMpH,    true},
+  {{"highway", "footway"},        kOutCitySpeedFootwayKMpH,       kInCitySpeedFootwayKMpH,       true},
+  {{"highway", "platform"},       kOutCitySpeedPlatformKMpH,      kInCitySpeedPlatformKMpH,      true}
 };
 
 // Brazil
@@ -320,7 +320,7 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimit
   Init();
 }
 
-double PedestrianModel::GetOffroadSpeed() const { return kOutCitySpeedOffroadKMpH; }
+double PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
 
 void PedestrianModel::Init()
 {
@@ -330,9 +330,9 @@ void PedestrianModel::Init()
   m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
   vector<AdditionalRoadTags> const additionalTags = {
-    {hwtagYesFoot, m_maxSpeed},
-    {{"route", "ferry"}, kOutCitySpeedFerryKMpH},
-    {{"man_made", "pier"}, kOutCitySpeedPierKMpH}
+    {hwtagYesFoot, m_maxSpeed, m_maxSpeed},
+    {{"route", "ferry"}, kOutCitySpeedFerryKMpH, kInCitySpeedFerryKMpH},
+    {{"man_made", "pier"}, kOutCitySpeedPierKMpH, kInCitySpeedPierKMpH}
   };
 
   SetAdditionalRoadTypes(classif(), additionalTags);
