@@ -35,6 +35,7 @@ using TagMapping = routing::RoadAccessTagProcessor::TagMapping;
 
 TagMapping const kMotorCarTagMapping = {
     {OsmElement::Tag("motorcar", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motorcar", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("motorcar", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("motorcar", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("motorcar", "destination"), RoadAccess::Type::Destination},
@@ -42,6 +43,7 @@ TagMapping const kMotorCarTagMapping = {
 
 TagMapping const kMotorVehicleTagMapping = {
     {OsmElement::Tag("motor_vehicle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("motor_vehicle", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("motor_vehicle", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("motor_vehicle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("motor_vehicle", "destination"), RoadAccess::Type::Destination},
@@ -49,6 +51,7 @@ TagMapping const kMotorVehicleTagMapping = {
 
 TagMapping const kVehicleTagMapping = {
     {OsmElement::Tag("vehicle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("vehicle", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("vehicle", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("vehicle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("vehicle", "destination"), RoadAccess::Type::Destination},
@@ -69,6 +72,7 @@ TagMapping const kCarBarriersTagMapping = {
 
 TagMapping const kPedestrianTagMapping = {
     {OsmElement::Tag("foot", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("foot", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("foot", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("foot", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("foot", "destination"), RoadAccess::Type::Destination},
@@ -76,6 +80,7 @@ TagMapping const kPedestrianTagMapping = {
 
 TagMapping const kBicycleTagMapping = {
     {OsmElement::Tag("bicycle", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("bicycle", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("bicycle", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("bicycle", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("bicycle", "destination"), RoadAccess::Type::Destination},
@@ -92,6 +97,7 @@ TagMapping const kBicycleBarriersTagMapping = {
 // transit + pedestrian combination.
 TagMapping const kTransitTagMapping = {
     {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("access", "no"), RoadAccess::Type::Yes},
     {OsmElement::Tag("access", "private"), RoadAccess::Type::Yes},
     {OsmElement::Tag("access", "destination"), RoadAccess::Type::Yes},
@@ -99,6 +105,7 @@ TagMapping const kTransitTagMapping = {
 
 TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
+    {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
     {OsmElement::Tag("access", "no"), RoadAccess::Type::No},
     {OsmElement::Tag("access", "private"), RoadAccess::Type::Private},
     {OsmElement::Tag("access", "destination"), RoadAccess::Type::Destination},
