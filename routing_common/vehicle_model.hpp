@@ -30,6 +30,10 @@ public:
   /// Speeds which are used for edge weight and ETA estimations.
   struct SpeedKMpH
   {
+    SpeedKMpH() = default;
+    SpeedKMpH(double weight) noexcept : m_weight(weight), m_eta(weight) {}
+    SpeedKMpH(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
+
     double m_weight = 0.0; // KMpH
     double m_eta = 0.0;    // KMpH
 
