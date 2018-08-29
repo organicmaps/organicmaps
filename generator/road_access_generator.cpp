@@ -95,13 +95,8 @@ TagMapping const kBicycleBarriersTagMapping = {
 
 // Allow everything to keep transit section empty. We'll use pedestrian section for
 // transit + pedestrian combination.
-TagMapping const kTransitTagMapping = {
-    {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "permissive"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "no"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "private"), RoadAccess::Type::Yes},
-    {OsmElement::Tag("access", "destination"), RoadAccess::Type::Yes},
-};
+// Empty mapping leads to default RoadAccess::Type::Yes access type for all roads.
+TagMapping const kTransitTagMapping = {};
 
 TagMapping const kDefaultTagMapping = {
     {OsmElement::Tag("access", "yes"), RoadAccess::Type::Yes},
