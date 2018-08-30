@@ -1,20 +1,18 @@
-project(routing_quality)
+project(routing_quality_tool)
+
+include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(
   SRC
-  mapbox/api.cpp
-  mapbox/api.hpp
-  mapbox/types.hpp
-  utils.cpp
-  utils.hpp
-  waypoints.cpp
-  waypoints.hpp
+  parse_input_params.hpp
+  routing_quality_tool.cpp
 )
 
-omim_add_library(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  routing_quality
   generator
   routing
   traffic
@@ -32,12 +30,9 @@ omim_link_libraries(
   jansson
   protobuf
   stats_client
+  gflags
   ${LIBZ}
 )
-
-add_subdirectory(routing_quality_tool)
-
-omim_add_test_subdirectory(routing_quality_tests)
 
 link_qt5_core(${PROJECT_NAME})
 link_qt5_network(${PROJECT_NAME})
