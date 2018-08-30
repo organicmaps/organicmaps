@@ -104,7 +104,7 @@ void Eye::AppendTip(Tip::Type type, Tip::Event event)
 // static
 void Eye::Event::TipShown(Tip::Type type, Tip::Event event)
 {
-  Platform().RunTask(Platform::Thread::File, [type, event]
+  GetPlatform().RunTask(Platform::Thread::File, [type, event]
   {
     Instance().AppendTip(type, event);
   });
