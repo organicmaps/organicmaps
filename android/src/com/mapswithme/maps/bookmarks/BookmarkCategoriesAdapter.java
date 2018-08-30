@@ -23,7 +23,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   private final static int TYPE_ACTION_HEADER = 2;
   private final static int HEADER_POSITION = 0;
   @NonNull
-  private final AdapterResourceProvider mResProvider;
+  private final BookmarkCategoriesPageResProvider mResProvider;
   @Nullable
   private OnItemLongClickListener<BookmarkCategory> mLongClickListener;
   @Nullable
@@ -168,7 +168,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   {
     if (position == 0)
       return TYPE_ACTION_HEADER;
-    return (position == getItemCount() - 1) ? TYPE_ACTION_FOOTER : TYPE_CATEGORY_ITEM;
+
+    return (position == getItemCount() - 1) && mType.getFactory().hasAdapterFooter() ? TYPE_ACTION_FOOTER
+                                                                                     : TYPE_CATEGORY_ITEM;
   }
 
   private int toCategoryPosition(int adapterPosition)
@@ -186,7 +188,13 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public int getItemCount()
   {
     int count = super.getItemCount();
-    return count > 0 ? count + 2 /* header + add category btn */ : 0;
+    return count > 0 ? count + 1 /* header */ + (mType.getFactory().hasAdapterFooter() ? 1 : 0) /* add category btn */ : 0;
+  }
+
+  @NonNull
+  public BookmarksPageFactory getFactory()
+  {
+    return mType.getFactory();
   }
 
   private class LongClickListener implements View.OnLongClickListener

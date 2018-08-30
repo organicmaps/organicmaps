@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -36,12 +38,30 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     mProgressContainer = view.findViewById(R.id.placeholder_loading);
     mEmptyViewContainer = view.findViewById(R.id.placeholder_container);
     mPayloadContainer = view.findViewById(R.id.cached_bookmarks_payload_container);
-    View downloadBtn = mEmptyViewContainer.findViewById(R.id.download_routers_btn);
-    downloadBtn.setOnClickListener(new DownloadRoutesClickListener());
+    initHeader(view);
+    initPlaceholder();
+  }
+
+  private void initPlaceholder()
+  {
+    View downloadRoutesPlaceHolderBtn = mEmptyViewContainer.findViewById(R.id.download_routers_btn);
+    downloadRoutesPlaceHolderBtn.setOnClickListener(new DownloadRoutesClickListener());
+  }
+
+  private void initHeader(@NonNull View view)
+  {
+    View downloadRoutesBtn = view.findViewById(R.id.download_routes_layout);
+    downloadRoutesBtn.setOnClickListener(btn -> openBookmarksCatalogScreen());
     View closeHeaderBtn = view.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
     boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(getContext());
-    UiUtils.showIf(!isClosed, closeHeaderBtn);
+    View header = view.findViewById(R.id.header);
+    UiUtils.hideIf(isClosed, header);
+    ImageView imageView = downloadRoutesBtn.findViewById(R.id.image);
+    BookmarkCategoriesPageResProvider resProvider = getAdapter().getFactory().getResProvider();
+    imageView.setImageResource(resProvider.getFooterImage());
+    TextView textView = downloadRoutesBtn.findViewById(R.id.text);
+    textView.setText(resProvider.getFooterText());
   }
 
   @Override

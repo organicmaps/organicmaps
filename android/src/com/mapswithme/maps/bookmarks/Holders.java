@@ -20,7 +20,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
@@ -89,7 +88,8 @@ public class Holders
       return mButton;
     }
 
-    void setAction(@NonNull HeaderAction action, @NonNull AdapterResourceProvider resProvider,
+    void setAction(@NonNull HeaderAction action,
+                   @NonNull BookmarkCategoriesPageResProvider resProvider,
                    final boolean showAll)
     {
       mButton.setText(showAll

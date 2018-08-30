@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 
 import com.mapswithme.maps.R;
 
-public interface AdapterResourceProvider
+public interface BookmarkCategoriesPageResProvider
 {
   @StringRes
   int getHeaderText();
@@ -20,7 +20,7 @@ public interface AdapterResourceProvider
   @NonNull
   Button getHeaderBtn();
 
-  class Default implements AdapterResourceProvider
+  class Default implements BookmarkCategoriesPageResProvider
   {
     @NonNull
     private final Button mBtn;

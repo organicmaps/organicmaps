@@ -10,7 +10,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 public enum BookmarksPageFactory
 {
-  PRIVATE(new Analytics(Statistics.ParamValue.MY))
+  PRIVATE(new Analytics(Statistics.ParamValue.MY), true)
       {
         @NonNull
         @Override
@@ -25,7 +25,7 @@ public enum BookmarksPageFactory
           return R.string.bookmarks;
         }
       },
-  CATALOG(new Analytics(Statistics.ParamValue.DOWNLOADED), new AdapterResourceProvider.Catalog())
+  CATALOG(new Analytics(Statistics.ParamValue.DOWNLOADED), new BookmarkCategoriesPageResProvider.Catalog(), false)
       {
         @NonNull
         @Override
@@ -42,23 +42,27 @@ public enum BookmarksPageFactory
       };
 
   @NonNull
-  private final AdapterResourceProvider mResProvider;
+  private final BookmarkCategoriesPageResProvider mResProvider;
   @NonNull
   private final Analytics mAnalytics;
+  private final boolean mAdapterFooterAvailable;
 
-  BookmarksPageFactory(@NonNull Analytics analytics, @NonNull AdapterResourceProvider provider)
+  BookmarksPageFactory(@NonNull Analytics analytics,
+                       @NonNull BookmarkCategoriesPageResProvider provider,
+                       boolean hasAdapterFooter)
   {
     mAnalytics = analytics;
     mResProvider = provider;
+    mAdapterFooterAvailable = hasAdapterFooter;
   }
 
-  BookmarksPageFactory(Analytics analytics)
+  BookmarksPageFactory(Analytics analytics, boolean hasAdapterFooter)
   {
-    this(analytics, new AdapterResourceProvider.Default());
+    this(analytics, new BookmarkCategoriesPageResProvider.Default(), hasAdapterFooter);
   }
 
   @NonNull
-  public AdapterResourceProvider getResProvider()
+  public BookmarkCategoriesPageResProvider getResProvider()
   {
     return mResProvider;
   }
@@ -89,4 +93,8 @@ public enum BookmarksPageFactory
 
   public abstract int getTitle();
 
+  public boolean hasAdapterFooter()
+  {
+    return mAdapterFooterAvailable;
+  }
 }

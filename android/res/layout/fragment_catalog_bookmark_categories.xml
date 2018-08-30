@@ -17,9 +17,13 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
+      <LinearLayout
+        android:orientation="vertical"
+        android:background="?cardBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
       <android.support.constraint.ConstraintLayout
         android:id="@+id/header"
-        android:background="?cardBackground"
         android:paddingLeft="@dimen/margin_base"
         android:paddingRight="@dimen/margin_base"
         android:paddingBottom="@dimen/margin_half_plus"
@@ -54,6 +58,21 @@
           android:layout_width="@dimen/margin_half_double_plus"
           android:layout_height="@dimen/margin_half_double_plus"/>
       </android.support.constraint.ConstraintLayout>
+        <View
+          android:background="?android:attr/listDivider"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/divider_height"/>
+        <include
+          android:id="@+id/download_routes_layout"
+          layout="@layout/item_bookmark_create_group"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        </include>
+        <View
+          android:background="?android:attr/listDivider"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/divider_height"/>
+      </LinearLayout>
       <include
         layout="@layout/recycler_default"
         android:id="@+id/recycler"
