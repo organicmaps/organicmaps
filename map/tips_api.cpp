@@ -104,7 +104,8 @@ size_t TipsApi::GetGotitClicksCountToDisable()
   return kGotitClicksCountToDisable;
 }
 
-TipsApi::TipsApi()
+TipsApi::TipsApi(Delegate const & delegate)
+  : m_delegate(delegate)
 {
   m_conditions =
   {{
@@ -115,27 +116,22 @@ TipsApi::TipsApi()
     // Condition for Tips::Type::DiscoverButton type.
     [this]
     {
-      auto const pos = m_delegate->GetCurrentPosition();
+      auto const pos = m_delegate.GetCurrentPosition();
       if (!pos.is_initialized())
         return false;
 
-      return m_delegate->IsCountryLoaded(pos.get());
+      return m_delegate.IsCountryLoaded(pos.get());
     },
     // Condition for Tips::Type::MapsLayers type.
     [this]
     {
-      auto const pos = m_delegate->GetCurrentPosition();
+      auto const pos = m_delegate.GetCurrentPosition();
       if (!pos.is_initialized())
         return false;
 
-      return m_delegate->HaveTransit(pos.get());
+      return m_delegate.HaveTransit(pos.get());
     }
   }};
-}
-
-void TipsApi::SetDelegate(std::unique_ptr<Delegate> delegate)
-{
-  m_delegate = std::move(delegate);
 }
 
 boost::optional<eye::Tip::Type> TipsApi::GetTip() const

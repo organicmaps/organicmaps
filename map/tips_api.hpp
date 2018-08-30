@@ -34,9 +34,8 @@ public:
   static size_t GetActionClicksCountToDisable();
   static size_t GetGotitClicksCountToDisable();
 
-  TipsApi();
+  explicit TipsApi(Delegate const & delegate);
 
-  void SetDelegate(std::unique_ptr<Delegate> delegate);
   boost::optional<eye::Tip::Type> GetTip() const;
 
   static boost::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
@@ -44,6 +43,6 @@ public:
                                                           Conditions const & triggers);
 
 private:
-  std::unique_ptr<Delegate> m_delegate;
+  Delegate const & m_delegate;
   Conditions m_conditions;
 };

@@ -389,6 +389,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_lastReportedCountry(kInvalidCountryId)
   , m_popularityLoader(m_model.GetDataSource())
   , m_subscription(std::make_unique<Subscription>())
+  , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
 {
   m_startBackgroundTime = my::Timer::LocalTime();
 
