@@ -21,6 +21,7 @@ omim_link_libraries(
   stats_client
   editor
   indexer
+  metrics
   platform
   mwm_diff
   bsdiff

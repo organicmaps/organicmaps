@@ -16,8 +16,9 @@ omim_link_libraries(
   ${PROJECT_NAME}
   map
   routing
-  geometry
+  metrics
   platform
+  geometry
   coding
   base
   stats_client

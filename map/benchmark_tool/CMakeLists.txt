@@ -20,6 +20,7 @@ omim_link_libraries(
   map
   editor
   indexer
+  metrics
   geometry
   platform
   coding
