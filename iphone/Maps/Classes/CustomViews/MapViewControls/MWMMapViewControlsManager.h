@@ -68,6 +68,6 @@ class Info;
 
 - (id<MWMBookingInfoHolder>)bookingInfoHolder;
 
-- (void)showTutorial;
+- (void)showTutorialIfNeeded;
 
 @end

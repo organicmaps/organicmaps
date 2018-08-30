@@ -146,9 +146,9 @@ extension TutorialViewController {
 
   private static func subwayTutorialBlur() -> TutorialViewController {
     let result = TutorialViewController(nibName: "SubwayTutorialBlur", bundle: nil)
-//    result.customAction = {
-//      MapViewController.shared().openCatalog(animated: true)
-//    }
+    result.customAction = {
+      MWMTrafficManager.setTransitEnabled(true)
+    }
     return result
   }
 }

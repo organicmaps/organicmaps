@@ -246,7 +246,6 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.welcomePageController show];
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
-  [self.controlsManager showTutorial];
 }
 
 - (void)viewDidLoad
@@ -256,6 +255,19 @@ BOOL gIsFirstMyPositionMode = YES;
   [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
+  if (!self.welcomePageController)
+    [self.controlsManager showTutorialIfNeeded];
+
+  [NSNotificationCenter.defaultCenter addObserver:self
+                                         selector:@selector(willBecomeActive)
+                                             name:UIApplicationWillEnterForegroundNotification
+                                           object:nil];
+}
+
+- (void)willBecomeActive
+{
+  if (!self.welcomePageController)
+      [self.controlsManager showTutorialIfNeeded];
 }
 
 - (void)mwm_refreshUI
