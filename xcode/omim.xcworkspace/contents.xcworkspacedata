@@ -290,7 +290,7 @@
       location = "container:mapshot/mapshot.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/a.milchakov/projects/omim/xcode/eye/metrics.xcodeproj">
+      location = "group:metrics/metrics.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:openlr/openlr.xcodeproj">

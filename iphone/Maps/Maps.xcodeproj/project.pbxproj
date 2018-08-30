@@ -331,6 +331,7 @@
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
 		4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */; };
 		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
@@ -1283,6 +1284,7 @@
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
+		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		3DF9C22A207CC14A00DA0793 /* taxi_places */ = {isa = PBXFileReference; lastKnownFileType = folder; name = taxi_places; path = ../../data/taxi_places; sourceTree = "<group>"; };
 		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
@@ -1839,6 +1841,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
 				47800D2520C05E3200072F42 /* libFlurry_8.6.1.a in Frameworks */,
 				1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */,
 				45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */,
@@ -2005,6 +2008,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D1958EA213804B6009A83EC /* libmetrics.a */,
 				4563158820E264C20076E9DB /* libshaders.a */,
 				1DA7908920762CEB008BDD6B /* libopen_location_code.a */,
 				1DA7908720762B6F008BDD6B /* libopen_location_code.a */,
