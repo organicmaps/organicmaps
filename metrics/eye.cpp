@@ -9,6 +9,9 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <memory>
+#include <utility>
+#include <vector>
 
 using namespace eye;
 
@@ -17,9 +20,7 @@ namespace
 void Load(Info & info)
 {
   std::vector<int8_t> fileData;
-  Storage::Load(Storage::GetEyeFilePath(), fileData);
-
-  if (fileData.empty())
+  if (!Storage::Load(Storage::GetEyeFilePath(), fileData))
   {
     info = {};
     return;
@@ -70,34 +71,30 @@ void Eye::Save(InfoType const & info)
     m_info.Set(info);
 }
 
-void Eye::AppendTip(Tips::Type type, Tips::Event event)
+void Eye::AppendTip(Tip::Type type, Tip::Event event)
 {
   auto const info = m_info.Get();
-  auto editableInfo = make_shared<Info>(*info);
+  auto editableInfo = std::make_shared<Info>(*info);
   auto & editableTips = editableInfo->m_tips;
 
-  auto & shownTips = editableTips.m_shownTips;
-
-  ++(editableTips.m_totalShownTipsCount);
-  editableTips.m_lastShown = Clock::now();
-
-  auto it = std::find_if(shownTips.begin(), shownTips.end(), [type](Tips::Info const & tipsInfo)
+  auto it = std::find_if(editableTips.begin(), editableTips.end(), [type](Tip const & tip)
   {
-    return tipsInfo.m_type == type;
+    return tip.m_type == type;
   });
 
-  if (it != shownTips.cend())
+  auto const now = Clock::now();
+  if (it != editableTips.cend())
   {
     it->m_eventCounters.Increment(event);
-    it->m_lastShown = editableTips.m_lastShown;
+    it->m_lastShownTime = now;
   }
   else
   {
-    Tips::Info tipInfo;
-    tipInfo.m_type = type;
-    tipInfo.m_eventCounters.Increment(event);
-    tipInfo.m_lastShown = editableTips.m_lastShown;
-    shownTips.emplace_back(std::move(tipInfo));
+    Tip tip;
+    tip.m_type = type;
+    tip.m_eventCounters.Increment(event);
+    tip.m_lastShownTime = now;
+    editableTips.emplace_back(std::move(tip));
   }
 
   Save(editableInfo);
@@ -105,7 +102,7 @@ void Eye::AppendTip(Tips::Type type, Tips::Event event)
 
 // Eye::Event methods ------------------------------------------------------------------------------
 // static
-void Eye::Event::TipShown(Tips::Type type, Tips::Event event)
+void Eye::Event::TipShown(Tip::Type type, Tip::Event event)
 {
   Platform().RunTask(Platform::Thread::File, [type, event]
   {

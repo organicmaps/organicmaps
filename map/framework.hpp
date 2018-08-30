@@ -287,6 +287,7 @@ public:
   /// Shows group or leaf mwm on the map.
   void ShowNode(storage::TCountryId const & countryId);
 
+  // TipsApi::Delegate override.
   /// Checks, whether the country which contains the specified point is loaded.
   bool IsCountryLoaded(m2::PointD const & pt) const override;
   /// Checks, whether the country is loaded.
@@ -361,6 +362,7 @@ public:
                                  search::Results::ConstIter end, bool clear,
                                  booking::filter::Types types) override;
   void ClearViewportSearchResults() override;
+  // SearchApi::Delegate and TipsApi::Delegate override.
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
@@ -886,5 +888,6 @@ private:
 public:
   TipsApi const & GetTipsApi() const;
 
+  // TipsApi::Delegate override.
   bool HaveTransit(m2::PointD const & pt) const override;
 };

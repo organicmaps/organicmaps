@@ -20,7 +20,7 @@ public:
   class Event
   {
   public:
-    static void TipShown(Tips::Type type, Tips::Event event);
+    static void TipShown(Tip::Type type, Tip::Event event);
   };
 
   static Eye & Instance();
@@ -33,7 +33,7 @@ private:
   void Save(InfoType const & info);
 
   // Event processing:
-  void AppendTip(Tips::Type type, Tips::Event event);
+  void AppendTip(Tip::Type type, Tip::Event event);
 
   base::AtomicSharedPtr<Info> m_info;
 

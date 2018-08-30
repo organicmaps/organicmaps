@@ -8,7 +8,7 @@ class EyeForTesting
 {
 public:
   static void ResetEye();
-  static void AppendTip(Tips::Type type, Tips::Event event);
+  static void AppendTip(Tip::Type type, Tip::Event event);
   static void SetInfo(Info const & info);
 };
 

@@ -5,6 +5,8 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include <memory>
+
 namespace eye
 {
 // static
@@ -19,7 +21,7 @@ void EyeForTesting::ResetEye()
 }
 
 // static
-void EyeForTesting::AppendTip(Tips::Type type, Tips::Event event)
+void EyeForTesting::AppendTip(Tip::Type type, Tip::Event event)
 {
   Eye::Instance().AppendTip(type, event);
 }
@@ -27,6 +29,6 @@ void EyeForTesting::AppendTip(Tips::Type type, Tips::Event event)
 // static
 void EyeForTesting::SetInfo(Info const & info)
 {
-  Eye::Instance().m_info.Set(make_shared<Info>(info));
+  Eye::Instance().m_info.Set(std::make_shared<Info>(info));
 }
 }  // namespace eye

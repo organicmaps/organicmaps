@@ -6,6 +6,7 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <array>
 #include <chrono>
 #include <cstdint>
 #include <cstdlib>
@@ -22,9 +23,9 @@ namespace impl
 {
 template <typename T>
 auto is_iterable_checker(int) -> decltype(
-  std::begin(std::declval<T &>()),
-  std::end(std::declval<T &>()),
-  ++std::declval<decltype(begin(std::declval<T &>())) &>(),
+  std::begin(std::declval<T>()),
+  std::end(std::declval<T>()),
+  ++std::declval<decltype(std::begin(std::declval<T>())) &>(),
   std::true_type {});
 
 template <typename T>

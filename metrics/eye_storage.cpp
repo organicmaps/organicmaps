@@ -9,6 +9,8 @@
 
 #include "base/logging.hpp"
 
+#include <type_traits>
+
 namespace eye
 {
 // static
@@ -37,7 +39,7 @@ bool Storage::Save(std::string const & filePath, std::vector<int8_t> const & src
 }
 
 // static
-void Storage::Load(std::string const & filePath, std::vector<int8_t> & dst)
+bool Storage::Load(std::string const & filePath, std::vector<int8_t> & dst)
 {
   try
   {
@@ -51,6 +53,9 @@ void Storage::Load(std::string const & filePath, std::vector<int8_t> & dst)
   catch (FileReader::Exception const &)
   {
     dst.clear();
+    return false;
   }
+
+  return true;
 }
 }  // namespace eye

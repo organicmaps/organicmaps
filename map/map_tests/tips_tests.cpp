@@ -7,6 +7,9 @@
 #include "metrics/eye.hpp"
 
 #include <algorithm>
+#include <vector>
+
+#include <boost/optional.hpp>
 
 using namespace eye;
 
@@ -17,45 +20,54 @@ void MakeLastShownTipAvailableByTime()
   auto const info = Eye::Instance().GetInfo();
   auto editableInfo = *info;
   auto & tips = editableInfo.m_tips;
-  tips.m_lastShown = Time(TipsApi::GetShowAnyTipPeriod() + std::chrono::seconds(1));
-  tips.m_shownTips.back().m_lastShown =
+  tips.back().m_lastShownTime =
       Time(TipsApi::GetShowSameTipPeriod() + std::chrono::seconds(1));
   EyeForTesting::SetInfo(editableInfo);
 }
 
-TipsApi::Tip GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
-                              TipsApi::Duration showSameTipPeriod)
+boost::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPeriod,
+                                                 TipsApi::Duration showSameTipPeriod)
 {
-  TipsApi::Conditions conditions = {
-      {[] { return true; }, [] { return true; }, [] { return true; }, [] { return true; }}};
+  // Do not use additional conditions for testing.
+  TipsApi::Conditions conditions =
+  {{
+     // Condition for Tips::Type::BookmarksCatalog type.
+    [] { return true; },
+    // Condition for Tips::Type::BookingHotels type.
+    [] { return true; },
+    // Condition for Tips::Type::DiscoverButton type.
+    [] { return true; },
+     // Condition for Tips::Type::MapsLayers type.
+    [] { return true; }
+  }};
   return TipsApi::GetTipForTesting(showAnyTipPeriod, showSameTipPeriod, conditions);
 }
 
-TipsApi::Tip GetTipForTesting()
+boost::optional<eye::Tip::Type> GetTipForTesting()
 {
   return GetTipForTesting(TipsApi::GetShowAnyTipPeriod(), TipsApi::GetShowSameTipPeriod());
 }
 
-void ShowTipWithClickCountTest(Tips::Event eventType, size_t maxClickCount)
+void ShowTipWithClickCountTest(Tip::Event eventType, size_t maxClickCount)
 {
-  std::vector<Tips::Type> usedTips;
+  std::vector<Tip::Type> usedTips;
   auto previousTip = GetTipForTesting();
 
   TEST(previousTip.is_initialized(), ());
-  TEST_NOT_EQUAL(previousTip.get(), Tips::Type::Count, ());
+  TEST_NOT_EQUAL(previousTip.get(), Tip::Type::Count, ());
 
-  auto const totalTipsCount = static_cast<size_t>(Tips::Type::Count);
+  auto const totalTipsCount = static_cast<size_t>(Tip::Type::Count);
 
   for (size_t i = 0; i < totalTipsCount; ++i)
   {
     auto tip = GetTipForTesting();
 
     TEST(tip.is_initialized(), ());
-    TEST_NOT_EQUAL(tip.get(), Tips::Type::Count, ());
+    TEST_NOT_EQUAL(tip.get(), Tip::Type::Count, ());
 
     EyeForTesting::AppendTip(tip.get(), eventType);
 
-    boost::optional<Tips::Type> secondTip;
+    boost::optional<Tip::Type> secondTip;
     for (size_t j = 1; j < maxClickCount; ++j)
     {
       MakeLastShownTipAvailableByTime();
@@ -81,9 +93,9 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, ShowAnyTipPeriod_Test)
   auto firstTip = GetTipForTesting();
 
   TEST(firstTip.is_initialized(), ());
-  TEST_NOT_EQUAL(firstTip.get(), Tips::Type::Count, ());
+  TEST_NOT_EQUAL(firstTip.get(), Tip::Type::Count, ());
 
-  EyeForTesting::AppendTip(firstTip.get(), Tips::Event::GotitClicked);
+  EyeForTesting::AppendTip(firstTip.get(), Tip::Event::GotitClicked);
 
   auto secondTip = GetTipForTesting();
 
@@ -92,28 +104,28 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, ShowAnyTipPeriod_Test)
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, ShowFirstTip_Test)
 {
-  std::vector<Tips::Type> usedTips;
+  std::vector<Tip::Type> usedTips;
   auto previousTip = GetTipForTesting();
 
   TEST(previousTip.is_initialized(), ());
-  TEST_NOT_EQUAL(previousTip.get(), Tips::Type::Count, ());
+  TEST_NOT_EQUAL(previousTip.get(), Tip::Type::Count, ());
 
-  auto const totalTipsCount = static_cast<size_t>(Tips::Type::Count);
+  auto const totalTipsCount = static_cast<size_t>(Tip::Type::Count);
 
   for (size_t i = 0; i < totalTipsCount; ++i)
   {
     auto tip = GetTipForTesting({}, TipsApi::GetShowSameTipPeriod());
 
     TEST(tip.is_initialized(), ());
-    TEST_NOT_EQUAL(tip.get(), Tips::Type::Count, ());
+    TEST_NOT_EQUAL(tip.get(), Tip::Type::Count, ());
 
     auto const it = std::find(usedTips.cbegin(), usedTips.cend(), tip.get());
     TEST(it == usedTips.cend(), ());
 
     if (i % 2 == 0)
-      EyeForTesting::AppendTip(tip.get(), Tips::Event::ActionClicked);
+      EyeForTesting::AppendTip(tip.get(), Tip::Event::ActionClicked);
     else
-      EyeForTesting::AppendTip(tip.get(), Tips::Event::GotitClicked);
+      EyeForTesting::AppendTip(tip.get(), Tip::Event::GotitClicked);
 
     TEST(!GetTipForTesting().is_initialized(), ());
 
@@ -126,11 +138,11 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, ShowFirstTip_Test)
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAndActionClicked_Test)
 {
-  ShowTipWithClickCountTest(Tips::Event::ActionClicked, TipsApi::GetActionClicksCountToDisable());
+  ShowTipWithClickCountTest(Tip::Event::ActionClicked, TipsApi::GetActionClicksCountToDisable());
 }
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAndGotitClicked_Test)
 {
-  ShowTipWithClickCountTest(Tips::Event::GotitClicked, TipsApi::GetGotitClicksCountToDisable());
+  ShowTipWithClickCountTest(Tip::Event::GotitClicked, TipsApi::GetGotitClicksCountToDisable());
 }
 }  // namespace

@@ -8,6 +8,7 @@
 
 #include <array>
 #include <chrono>
+#include <string>
 #include <tuple>
 #include <vector>
 
@@ -66,7 +67,7 @@ enum class Version : int8_t
 using Clock = std::chrono::system_clock;
 using Time = Clock::time_point;
 
-struct Tips
+struct Tip
 {
   // The order is important.
   // New types must be added before Type::Count item.
@@ -88,24 +89,15 @@ struct Tips
     Count
   };
 
-  struct Info
-  {
-    DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_eventCounters, "event_counters"),
-                    visitor(m_lastShown, "last_shown"))
+  DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_eventCounters, "event_counters"),
+                  visitor(m_lastShownTime, "last_shown_time"))
 
-    Type m_type;
-    Counters<Event, uint32_t> m_eventCounters;
-    Time m_lastShown;
-  };
-
-  DECLARE_VISITOR(visitor(m_shownTips, "last_shown_tips"),
-                  visitor(m_totalShownTipsCount, "total_shown_tips_count"),
-                  visitor(m_lastShown, "last_shown"))
-
-  std::vector<Info> m_shownTips;
-  uint32_t m_totalShownTipsCount = 0;
-  Time m_lastShown;
+  Type m_type;
+  Counters<Event, uint32_t> m_eventCounters;
+  Time m_lastShownTime;
 };
+
+using Tips = std::vector<Tip>;
 
 struct InfoV0
 {
@@ -117,25 +109,25 @@ struct InfoV0
 
 using Info = InfoV0;
 
-inline std::string DebugPrint(Tips::Type const & type)
+inline std::string DebugPrint(Tip::Type const & type)
 {
   switch (type)
   {
-  case Tips::Type::BookmarksCatalog: return "BookmarksCatalog";
-  case Tips::Type::BookingHotels: return "BookingHotels";
-  case Tips::Type::DiscoverButton: return "DiscoverButton";
-  case Tips::Type::MapsLayers: return "MapsLayers";
-  case Tips::Type::Count: return "Count";
+  case Tip::Type::BookmarksCatalog: return "BookmarksCatalog";
+  case Tip::Type::BookingHotels: return "BookingHotels";
+  case Tip::Type::DiscoverButton: return "DiscoverButton";
+  case Tip::Type::MapsLayers: return "MapsLayers";
+  case Tip::Type::Count: return "Count";
   }
 }
 
-inline std::string DebugPrint(Tips::Event const & type)
+inline std::string DebugPrint(Tip::Event const & type)
 {
   switch (type)
   {
-  case Tips::Event::ActionClicked: return "ActionClicked";
-  case Tips::Event::GotitClicked: return "GotitClicked";
-  case Tips::Event::Count: return "Count";
+  case Tip::Event::ActionClicked: return "ActionClicked";
+  case Tip::Event::GotitClicked: return "GotitClicked";
+  case Tip::Event::Count: return "Count";
   }
 }
 }  // namespace eye

@@ -22,6 +22,6 @@ public:
 private:
   ValueType m_wrapped = std::make_shared<ContentType>();
 
-  DISALLOW_COPY(AtomicSharedPtr);
+  DISALLOW_COPY_AND_MOVE(AtomicSharedPtr);
 };
 }  // namespace base

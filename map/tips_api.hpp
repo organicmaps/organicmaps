@@ -2,7 +2,10 @@
 
 #include "metrics/eye_info.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <array>
+#include <cstdint>
 #include <chrono>
 #include <functional>
 #include <memory>
@@ -12,14 +15,15 @@
 class TipsApi
 {
 public:
-  using Tip = boost::optional<eye::Tips::Type>;
   using Duration = std::chrono::duration<uint64_t>;
   using Condition = std::function<bool()>;
-  using Conditions = std::array<Condition, static_cast<size_t>(eye::Tips::Type::Count)>;
+  using Conditions = std::array<Condition, static_cast<size_t>(eye::Tip::Type::Count)>;
 
   class Delegate
   {
   public:
+    virtual ~Delegate() = default;
+
     virtual boost::optional<m2::PointD> GetCurrentPosition() const = 0;
     virtual bool IsCountryLoaded(m2::PointD const & pt) const = 0;
     virtual bool HaveTransit(m2::PointD const & pt) const = 0;
@@ -33,10 +37,11 @@ public:
   TipsApi();
 
   void SetDelegate(std::unique_ptr<Delegate> delegate);
-  Tip GetTip() const;
+  boost::optional<eye::Tip::Type> GetTip() const;
 
-  static Tip GetTipForTesting(Duration showAnyTipPeriod, Duration showSameTipPeriod,
-                              Conditions const & triggers);
+  static boost::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
+                                                          Duration showSameTipPeriod,
+                                                          Conditions const & triggers);
 
 private:
   std::unique_ptr<Delegate> m_delegate;

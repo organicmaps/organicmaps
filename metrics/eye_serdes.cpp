@@ -31,10 +31,9 @@ void Serdes::Deserialize(std::vector<int8_t> const & bytes, Info & result)
   MemReader reader(bytes.data(), bytes.size());
   NonOwningReaderSource source(reader);
 
-  using VersionType = std::underlying_type_t<Version>;
-  VersionType version = static_cast<VersionType>(Version::Unknown);
+  auto version = static_cast<int8_t>(Version::Unknown);
   ReadPrimitiveFromSource(source, version);
-  if (version == static_cast<VersionType>(Version::V0))
+  if (version == static_cast<int8_t>(Version::V0))
   {
     try
     {
