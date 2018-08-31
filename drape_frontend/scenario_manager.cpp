@@ -2,6 +2,8 @@
 
 #include "drape_frontend/user_event_stream.hpp"
 
+#include <memory>
+
 namespace df
 {
 
@@ -43,7 +45,7 @@ bool ScenarioManager::RunScenario(ScenarioData && scenarioData, ScenarioCallback
   std::swap(m_scenarioData, scenarioData);
   m_onStartHandler = onStartFn;
   m_onFinishHandler = onFinishFn;
-  m_thread = my::make_unique<threads::SimpleThread>(&ScenarioManager::ThreadRoutine, this);
+  m_thread = std::make_unique<threads::SimpleThread>(&ScenarioManager::ThreadRoutine, this);
 #ifdef DEBUG
   m_threadId = m_thread->get_id();
 #endif

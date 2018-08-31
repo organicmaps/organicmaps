@@ -3,8 +3,7 @@
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
-#include "base/stl_add.hpp"
-
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -65,7 +64,7 @@ ResultView::ResultView(search::Sample::Result const & result, QWidget & parent)
 
 void ResultView::SetEditor(Edits::Editor && editor)
 {
-  m_editor = my::make_unique<Edits::Editor>(std::move(editor));
+  m_editor = make_unique<Edits::Editor>(std::move(editor));
 
   UpdateRelevanceRadioButtons();
 

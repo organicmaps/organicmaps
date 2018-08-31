@@ -2,7 +2,6 @@
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -45,7 +44,7 @@ public:
     auto & node = m_subtrees[c];
     if (!node)
     {
-      node = my::make_unique<Subtree>();
+      node = std::make_unique<Subtree>();
       created = true;
     }
     else
@@ -100,7 +99,7 @@ public:
     }
 
     created = true;
-    m_subtrees.emplace_back(c, my::make_unique<Subtree>());
+    m_subtrees.emplace_back(c, std::make_unique<Subtree>());
     return *m_subtrees.back().second;
   }
 
@@ -266,7 +265,7 @@ public:
       }
 
       // We need to split the edge to |curr|.
-      auto node = my::make_unique<Node>();
+      auto node = std::make_unique<Node>();
 
       ASSERT_LESS(i, edge.Size(), ());
       node->m_edge = edge.DropFirst(i);

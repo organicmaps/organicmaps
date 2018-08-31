@@ -5,8 +5,6 @@
 
 #include "platform/platform.hpp"
 
-#include "base/stl_add.hpp"
-
 #include <QtGui/QPainter>
 
 #include "qt_tstfrm/test_main_loop.hpp"
@@ -31,7 +29,7 @@ public:
     args.m_blacklist = "fonts_blacklist.txt";
     GetPlatform().GetFontNames(args.m_fonts);
 
-    m_mng = my::make_unique<dp::GlyphManager>(args);
+    m_mng = std::make_unique<dp::GlyphManager>(args);
   }
 
   void RenderGlyphs(QPaintDevice * device)

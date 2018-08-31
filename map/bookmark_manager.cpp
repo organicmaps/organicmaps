@@ -28,7 +28,6 @@
 #include "geometry/transformations.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -40,6 +39,7 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <memory>
 #include <sstream>
 
 using namespace std::placeholders;
@@ -1355,7 +1355,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
     data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
   auto groupId = data.m_id;
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
-  m_categories[groupId] = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
+  m_categories[groupId] = std::make_unique<BookmarkCategory>(std::move(data), autoSave);
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -1366,7 +1366,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
-  m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
+  m_categories[groupId] = std::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_categories[groupId]->SetAuthor(m_user.GetUserName(), m_user.GetUserId());
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);

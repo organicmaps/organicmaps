@@ -20,10 +20,10 @@
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
 #include "base/timer.hpp"
 
 #include <limits>
+#include <memory>
 
 using namespace std;
 
@@ -61,7 +61,7 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 }  // namespace
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
-  : m_mode(mode) , m_neededMaps(neededMaps) , m_numMwmIds(my::make_unique<routing::NumMwmIds>())
+  : m_mode(mode) , m_neededMaps(neededMaps) , m_numMwmIds(make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 

@@ -3,8 +3,9 @@
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
-#include "base/stl_add.hpp"
 #include "base/worker_thread.hpp"
+
+#include <memory>
 
 namespace platform
 {
@@ -15,12 +16,12 @@ class AsyncGuiThread
 public:
   AsyncGuiThread()
   {
-    GetPlatform().SetGuiThread(my::make_unique<base::WorkerThread>());
+    GetPlatform().SetGuiThread(std::make_unique<base::WorkerThread>());
   }
 
   virtual ~AsyncGuiThread()
   {
-    GetPlatform().SetGuiThread(my::make_unique<platform::GuiThread>());
+    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
   }
 
 private:

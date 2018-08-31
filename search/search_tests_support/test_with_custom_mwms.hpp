@@ -10,8 +10,8 @@
 #include "indexer/feature.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
 
+#include <memory>
 #include <utility>
 
 namespace search
@@ -23,7 +23,7 @@ class TestWithCustomMwms : public generator::tests_support::TestWithCustomMwms
 public:
   TestWithCustomMwms()
   {
-    editor::tests_support::SetUpEditorForTesting(my::make_unique<EditorDelegate>(m_dataSource));
+    editor::tests_support::SetUpEditorForTesting(std::make_unique<EditorDelegate>(m_dataSource));
   }
 
   ~TestWithCustomMwms() override { editor::tests_support::TearDownEditorForTesting(); }

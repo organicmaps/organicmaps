@@ -1,4 +1,5 @@
 #pragma once
+
 #include "indexer/trie.hpp"
 
 #include "coding/reader.hpp"
@@ -7,7 +8,6 @@
 #include "base/assert.hpp"
 #include "base/bits.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
 
 #include <cstddef>
 #include <cstdint>
@@ -35,7 +35,7 @@ public:
   // trie::Iterator overrides:
   std::unique_ptr<Iterator<ValueList>> Clone() const override
   {
-    return my::make_unique<LeafIterator0<ValueList, Serializer>>(*this);
+    return std::make_unique<LeafIterator0<ValueList, Serializer>>(*this);
   }
 
   std::unique_ptr<Iterator<ValueList>> GoToEdge(size_t /* i */) const override
@@ -64,7 +64,7 @@ public:
   // trie::Iterator overrides:
   std::unique_ptr<Iterator<ValueList>> Clone() const override
   {
-    return my::make_unique<Iterator0<Reader, ValueList, Serializer>>(*this);
+    return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(*this);
   }
 
   std::unique_ptr<Iterator<ValueList>> GoToEdge(size_t i) const override
@@ -75,11 +75,11 @@ public:
 
     if (m_edgeInfo[i].m_isLeaf)
     {
-      return my::make_unique<LeafIterator0<ValueList, Serializer>>(m_reader.SubReader(offset, size),
-                                                                   m_serializer);
+      return std::make_unique<LeafIterator0<ValueList, Serializer>>(m_reader.SubReader(offset, size),
+                                                                    m_serializer);
     }
 
-    return my::make_unique<Iterator0<Reader, ValueList, Serializer>>(
+    return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(
         m_reader.SubReader(offset, size), this->m_edges[i].m_label.back(), m_serializer);
   }
 
@@ -161,7 +161,7 @@ private:
 template <class Reader, class ValueList, class Serializer>
 std::unique_ptr<Iterator<ValueList>> ReadTrie(Reader const & reader, Serializer const & serializer)
 {
-  return my::make_unique<Iterator0<Reader, ValueList, Serializer>>(reader, kDefaultChar,
-                                                                   serializer);
+  return std::make_unique<Iterator0<Reader, ValueList, Serializer>>(reader, kDefaultChar,
+                                                                    serializer);
 }
 }  // namespace trie

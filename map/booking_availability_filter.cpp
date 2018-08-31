@@ -12,6 +12,7 @@
 #include "platform/platform.hpp"
 
 #include <algorithm>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -109,7 +110,7 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<FeaturesLoaderGuard>(dataSource, featureId.m_mwmId);
+      guard = std::make_unique<FeaturesLoaderGuard>(dataSource, featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 
@@ -226,7 +227,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<FeaturesLoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId);
+      guard = std::make_unique<FeaturesLoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 

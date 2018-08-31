@@ -4,7 +4,7 @@
 
 #include "indexer/feature_decl.hpp"
 
-#include "base/stl_add.hpp"
+#include <memory>
 
 namespace search
 {
@@ -16,7 +16,7 @@ bool FeatureLoader::Load(FeatureID const & id, FeatureType & ft)
 
   auto const & mwmId = id.m_mwmId;
   if (!m_guard || m_guard->GetId() != mwmId)
-    m_guard = my::make_unique<FeaturesLoaderGuard>(m_dataSource, mwmId);
+    m_guard = std::make_unique<FeaturesLoaderGuard>(m_dataSource, mwmId);
   return m_guard->GetFeatureByIndex(id.m_index, ft);
 }
 

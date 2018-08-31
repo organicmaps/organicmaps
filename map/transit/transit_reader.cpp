@@ -13,10 +13,9 @@
 #include "drape_frontend/stylist.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "base/stl_add.hpp"
-
 #include <algorithm>
 #include <chrono>
+#include <memory>
 
 using namespace routing;
 using namespace std;
@@ -46,7 +45,7 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
   if (transitInfo == nullptr)
   {
     m_loadSubset = false;
-    m_transitInfo = my::make_unique<TransitDisplayInfo>();
+    m_transitInfo = make_unique<TransitDisplayInfo>();
   }
   else
   {
@@ -157,7 +156,7 @@ void TransitReadManager::Start()
 
   using namespace placeholders;
   uint8_t constexpr kThreadsCount = 1;
-  m_threadsPool = my::make_unique<threads::ThreadPool>(
+  m_threadsPool = make_unique<threads::ThreadPool>(
       kThreadsCount, bind(&TransitReadManager::OnTaskCompleted, this, _1));
 }
 
@@ -361,7 +360,7 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   for (auto & mwmTransitPair : transitDisplayInfos)
   {
     auto const & mwmId = mwmTransitPair.first;
-    auto task = my::make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
+    auto task = make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
     task->Init(groupId, mwmId, move(mwmTransitPair.second));
     transitTasks[mwmId] = move(task);
   }

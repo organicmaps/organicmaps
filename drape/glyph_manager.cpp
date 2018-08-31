@@ -410,8 +410,8 @@ GlyphManager::GlyphManager(GlyphManager::Params const & params)
     std::vector<FT_ULong> charCodes;
     try
     {
-      m_impl->m_fonts.emplace_back(my::make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName),
-                                                         m_impl->m_library));
+      m_impl->m_fonts.emplace_back(std::make_unique<Font>(params.m_sdfScale, GetPlatform().GetReader(fontName),
+                                                          m_impl->m_library));
       m_impl->m_fonts.back()->GetCharcodes(charCodes);
     }
     catch(RootException const & e)

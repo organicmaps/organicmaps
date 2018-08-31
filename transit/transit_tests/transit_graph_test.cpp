@@ -5,8 +5,6 @@
 #include "transit/transit_graph_data.hpp"
 #include "transit/transit_types.hpp"
 
-#include "base/stl_add.hpp"
-
 #include <memory>
 #include <string>
 #include <utility>
@@ -266,7 +264,7 @@ unique_ptr<GraphData> CreateGraphFromJson()
     }
   ]})";
 
-  auto graph = my::make_unique<GraphData>();
+  auto graph = make_unique<GraphData>();
 
   OsmIdToFeatureIdsMap mapping;
   mapping[base::GeoObjectId(100)] = vector<FeatureId>({10});
@@ -285,7 +283,7 @@ unique_ptr<GraphData> CreateGraphFromJson()
 
 unique_ptr<Graph> MakeFullGraph()
 {
-  auto graph = my::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
   graph->m_stops = {{0 /* stop id */, 100 /* osm id */, 10 /* feature id */,
                      kInvalidTransferId, {1} /* line ids */,
                      m2::PointD(-2.0, 1.0), {}},
@@ -368,7 +366,7 @@ unique_ptr<Graph> MakeFullGraph()
 
 unique_ptr<Graph> MakeOneLineGraph()
 {
-  auto graph = my::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
 
   graph->m_stops = {
       {0 /* stop id */, 100 /* osm id */, 10 /* feature id */, kInvalidTransferId,
@@ -429,7 +427,7 @@ unique_ptr<Graph> MakeOneLineGraph()
 
 unique_ptr<Graph> MakeTwoLinesGraph()
 {
-  auto graph = my::make_unique<Graph>();
+  auto graph = make_unique<Graph>();
 
   graph->m_stops = {
       {1 /* stop id */, 101 /* osm id */, 11 /* feature id */, kInvalidTransferId,

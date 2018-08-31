@@ -4,9 +4,10 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
 
 #include "drape/glfunctions.hpp"
+
+#include <memory>
 
 namespace qt
 {
@@ -15,7 +16,7 @@ namespace common
 // QtRenderOGLContext ------------------------------------------------------------------------------
 QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
   : m_surface(surface)
-  , m_ctx(my::make_unique<QOpenGLContext>())
+  , m_ctx(std::make_unique<QOpenGLContext>())
 {
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);
@@ -62,8 +63,8 @@ void QtRenderOGLContext::Resize(int w, int h)
   m_texRect =
       QRectF(0.0, 0.0, w / static_cast<float>(size.width()), h / static_cast<float>(size.height()));
 
-  m_frontFrame = my::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
-  m_backFrame = my::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
+  m_frontFrame = std::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
+  m_backFrame = std::make_unique<QOpenGLFramebufferObject>(size, QOpenGLFramebufferObject::Depth);
 }
 
 void QtRenderOGLContext::LockFrame()
@@ -91,7 +92,7 @@ void QtRenderOGLContext::UnlockFrame()
 
 // QtUploadOGLContext ------------------------------------------------------------------------------
 QtUploadOGLContext::QtUploadOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
-  : m_surface(surface), m_ctx(my::make_unique<QOpenGLContext>())
+  : m_surface(surface), m_ctx(std::make_unique<QOpenGLContext>())
 {
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);

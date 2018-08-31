@@ -2,7 +2,6 @@
 
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
 
 #include "3party/jansson/myjansson.hpp"
 
@@ -280,7 +279,7 @@ public:
   {
     json_t * context = SaveContext(name);
     if (!r)
-      r = my::make_unique<R>();
+      r = std::make_unique<R>();
     r->Visit(*this);
     RestoreContext(context);
   }

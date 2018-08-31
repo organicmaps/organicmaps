@@ -6,6 +6,7 @@
 #include "base/macros.hpp"
 
 #include <fstream>
+#include <memory>
 
 using namespace std;
 
@@ -47,7 +48,7 @@ EmitterPlanet::EmitterPlanet(feature::GenerateInfo const & info) :
           new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
   if (info.m_splitByPolygons || !info.m_fileName.empty())
-    m_countries = my::make_unique<CountriesGenerator>(info);
+    m_countries = make_unique<CountriesGenerator>(info);
 
   if (info.m_createWorld)
     m_world.reset(new WorldGenerator(info));

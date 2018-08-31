@@ -3,8 +3,7 @@
 #include "routing/index_graph.hpp"
 #include "routing/transit_graph.hpp"
 
-#include "base/stl_add.hpp"
-
+#include <memory>
 #include <utility>
 
 namespace routing
@@ -167,10 +166,10 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
 
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
   if (transitGraph.IsGate(segment))
-    return my::make_unique<TransitInfo>(transitGraph.GetGate(segment));
+    return make_unique<TransitInfo>(transitGraph.GetGate(segment));
 
   if (transitGraph.IsEdge(segment))
-    return my::make_unique<TransitInfo>(transitGraph.GetEdge(segment));
+    return make_unique<TransitInfo>(transitGraph.GetEdge(segment));
 
   // Fake segment between pedestrian feature and gate.
   return {};

@@ -38,6 +38,7 @@
 #include <chrono>
 #include <cmath>
 #include <functional>
+#include <memory>
 #include <thread>
 #include <utility>
 
@@ -516,9 +517,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       // receive FollowRoute message before FlushSubroute message, so we need to postpone its processing.
       if (m_routeRenderer->GetSubroutes().empty())
       {
-        m_pendingFollowRoute = my::make_unique<FollowRouteData>(msg->GetPreferredZoomLevel(),
-                                                                msg->GetPreferredZoomLevelIn3d(),
-                                                                msg->EnableAutoZoom());
+        m_pendingFollowRoute = std::make_unique<FollowRouteData>(msg->GetPreferredZoomLevel(),
+                                                                 msg->GetPreferredZoomLevelIn3d(),
+                                                                 msg->EnableAutoZoom());
         break;
       }
 

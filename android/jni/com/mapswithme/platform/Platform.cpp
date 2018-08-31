@@ -10,10 +10,10 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <memory>
 #include <utility>
 
 #include <sys/system_properties.h>
@@ -155,7 +155,7 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent",
       "(Ljava/lang/String;)Z");
 
-  m_guiThread = my::make_unique<GuiThread>(m_functorProcessObject);
+  m_guiThread = std::make_unique<GuiThread>(m_functorProcessObject);
 
   std::string const flavor = jni::ToNativeString(env, flavorName);
   std::string const build = jni::ToNativeString(env, buildType);

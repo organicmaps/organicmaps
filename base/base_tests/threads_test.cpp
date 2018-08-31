@@ -1,12 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "base/thread.hpp"
-#include "base/stl_add.hpp"
 
 #include <vector>
+#include <memory>
 
-
-typedef std::vector<int> Vector;
+using Vector = std::vector<int>;
 
 static size_t summ = 0;
 static size_t checkSumm = 0;
@@ -45,13 +44,13 @@ UNIT_TEST(Simple_Threads)
   Vector vec;
 
   threads::Thread reader;
-  bool ok = reader.Create(my::make_unique<GeneratorThread>(vec));
+  bool ok = reader.Create(std::make_unique<GeneratorThread>(vec));
   TEST( ok, ("Create Generator thread") );
 
   reader.Join();
 
   threads::Thread writer;
-  ok = writer.Create(my::make_unique<ReaderThread>(vec));
+  ok = writer.Create(std::make_unique<ReaderThread>(vec));
   TEST( ok, ("Create Reader thread") );
 
   writer.Join();

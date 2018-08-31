@@ -8,11 +8,11 @@
 #include "geometry/mercator.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
 
 #include <algorithm>
 #include <initializer_list>
 #include <iterator>
+#include <memory>
 #include <utility>
 
 namespace
@@ -237,8 +237,8 @@ void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type)
   });
 
   if (it != urls.cend())
-    m_apis.emplace_back(type, my::make_unique<ApiType>(it->m_url));
+    m_apis.emplace_back(type, std::make_unique<ApiType>(it->m_url));
   else
-    m_apis.emplace_back(type, my::make_unique<ApiType>());
+    m_apis.emplace_back(type, std::make_unique<ApiType>());
 }
 }  // namespace taxi

@@ -17,7 +17,7 @@ struct OsmElement;
 class FeatureBuilder1;
 namespace feature
 {
-class GenerateInfo;
+struct GenerateInfo;
 }  // namespace feature
 
 namespace generator

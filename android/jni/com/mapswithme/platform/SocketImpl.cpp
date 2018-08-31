@@ -3,7 +3,8 @@
 #include "platform/socket.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+
+#include <memory>
 
 namespace platform
 {
@@ -86,5 +87,5 @@ private:
   jobject m_self;
 };
 
-std::unique_ptr<Socket> CreateSocket() { return my::make_unique<SocketImpl>(); }
+std::unique_ptr<Socket> CreateSocket() { return std::make_unique<SocketImpl>(); }
 }

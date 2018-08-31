@@ -15,6 +15,8 @@
 
 #include "private.h"
 
+#include <memory>
+
 using namespace platform;
 
 namespace
@@ -215,11 +217,11 @@ void ProductMaker::MakeProducts(uint64_t const requestId, ProductsCallback const
         MakeFromJson(m_times->c_str(), m_prices->c_str(), products);
 
       if (products.empty())
-        m_error = my::make_unique<taxi::ErrorCode>(ErrorCode::NoProducts);
+        m_error = std::make_unique<taxi::ErrorCode>(ErrorCode::NoProducts);
     }
 
     if (m_error)
-      error = my::make_unique<taxi::ErrorCode>(*m_error);
+      error = std::make_unique<taxi::ErrorCode>(*m_error);
 
     // Reset m_times and m_prices because we need to call callback only once.
     m_times.reset();

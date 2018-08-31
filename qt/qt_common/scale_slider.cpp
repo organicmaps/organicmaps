@@ -9,7 +9,7 @@
 
 #include <QtWidgets/QToolBar>
 
-#include "base/stl_add.hpp"
+#include <memory>
 
 namespace qt
 {
@@ -45,7 +45,7 @@ void ScaleSlider::Embed(Qt::Orientation orient, QToolBar & toolBar, MapWidget & 
 {
   toolBar.addAction(QIcon(":/common/plus.png"), tr("Scale +"), &mapWidget, SLOT(ScalePlus()));
   {
-    auto slider = my::make_unique<ScaleSlider>(orient, &toolBar);
+    auto slider = std::make_unique<ScaleSlider>(orient, &toolBar);
     mapWidget.BindSlider(*slider);
     toolBar.addWidget(slider.release());
   }

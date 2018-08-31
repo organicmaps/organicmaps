@@ -14,9 +14,9 @@
 
 #include "coding/file_container.hpp"
 
-#include "base/stl_add.hpp"
 #include "base/timer.hpp"
 
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
@@ -74,7 +74,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   my::Timer timer;
-  auto graph = my::make_unique<TransitGraph>(numMwmId, m_estimator);
+  auto graph = make_unique<TransitGraph>(numMwmId, m_estimator);
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))
     return graph;
@@ -106,7 +106,7 @@ unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSource & dataSourc
                                                           shared_ptr<NumMwmIds> numMwmIds,
                                                           shared_ptr<EdgeEstimator> estimator)
 {
-  return my::make_unique<TransitGraphLoaderImpl>(dataSource, numMwmIds, estimator);
+  return make_unique<TransitGraphLoaderImpl>(dataSource, numMwmIds, estimator);
 }
 
 }  // namespace routing

@@ -1,10 +1,10 @@
 #include "base/thread_pool.hpp"
 
-#include "base/stl_add.hpp"
 #include "base/thread.hpp"
 #include "base/threaded_list.hpp"
 
 #include <functional>
+#include <memory>
 #include <utility>
 #include <vector>
 
@@ -54,7 +54,7 @@ namespace threads
       for (auto & thread : m_threads)
       {
         thread.reset(new threads::Thread());
-        thread->Create(my::make_unique<PoolRoutine>(std::bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
+        thread->Create(std::make_unique<PoolRoutine>(std::bind(&ThreadPool::Impl::PopFront, this), m_finishFn));
       }
     }
 

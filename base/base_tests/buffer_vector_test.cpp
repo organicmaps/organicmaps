@@ -1,7 +1,6 @@
 #include "testing/testing.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include <memory>
@@ -358,7 +357,7 @@ UNIT_TEST(BufferVector_OnlyMoveableItems)
   buffer_vector<std::unique_ptr<size_t>, 4> v;
 
   for (size_t i = 0; i < 10; ++i)
-    v.emplace_back(my::make_unique<size_t>(i));
+    v.emplace_back(std::make_unique<size_t>(i));
 
   TEST_EQUAL(v.size(), 10, ());
   for (size_t i = 0; i < 10; ++i)

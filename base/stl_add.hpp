@@ -9,14 +9,6 @@
 namespace my
 {
 using StringIL = std::initializer_list<char const *>;
-
-/// @todo(y): replace this hand-written helper function by
-/// std::make_unique when it will be available in C++14
-template <typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args &&... args)
-{
-  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-}
 }  // namespace my
 
 template <class ContainerT> class BackInsertFunctor

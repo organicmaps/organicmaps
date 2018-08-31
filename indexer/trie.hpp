@@ -4,7 +4,6 @@
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
 #include "base/mem_trie.hpp"
-#include "base/stl_add.hpp"
 
 #include <cstddef>
 #include <memory>
@@ -71,12 +70,12 @@ public:
   ~MemTrieIterator() override = default;
 
   // Iterator<ValueList> overrides:
-  std::unique_ptr<Base> Clone() const override { return my::make_unique<MemTrieIterator>(*this); }
+  std::unique_ptr<Base> Clone() const override { return std::make_unique<MemTrieIterator>(*this); }
 
   std::unique_ptr<Base> GoToEdge(size_t i) const override
   {
     ASSERT_LESS(i, m_moves.size(), ());
-    return my::make_unique<MemTrieIterator>(m_moves[i]);
+    return std::make_unique<MemTrieIterator>(m_moves[i]);
   }
 
 private:

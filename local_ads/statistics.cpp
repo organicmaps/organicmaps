@@ -24,6 +24,7 @@
 #include "3party/jansson/myjansson.hpp"
 
 #include <functional>
+#include <memory>
 #include <sstream>
 #include <utility>
 
@@ -309,7 +310,7 @@ std::list<Event> Statistics::WriteEvents(std::list<Event> & events, std::string 
       }
 
       if (writer == nullptr || writer->GetName() != metadata.m_fileName)
-        writer = my::make_unique<FileWriter>(metadata.m_fileName, FileWriter::OP_APPEND);
+        writer = std::make_unique<FileWriter>(metadata.m_fileName, FileWriter::OP_APPEND);
 
       if (needWriteMetadata)
         WriteMetadata(*writer, event.m_countryId, event.m_mwmVersion, metadata.m_timestamp);

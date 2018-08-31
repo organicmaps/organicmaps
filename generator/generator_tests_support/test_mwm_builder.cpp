@@ -24,6 +24,8 @@
 
 #include "defines.hpp"
 
+#include <memory>
+
 using namespace std;
 
 namespace
@@ -54,8 +56,8 @@ namespace tests_support
 TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type)
   : m_file(file)
   , m_type(type)
-  , m_collector(my::make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) +
-                                                            EXTENSION_TMP))
+  , m_collector(make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) +
+                                                        EXTENSION_TMP))
 {
 }
 

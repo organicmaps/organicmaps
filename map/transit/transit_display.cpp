@@ -5,6 +5,8 @@
 
 #include "routing/routing_session.hpp"
 
+#include <memory>
+
 using namespace std;
 using namespace routing;
 
@@ -420,7 +422,7 @@ void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const &
 
     auto & mwmTransit = transitDisplayInfos[mwmId];
     if (mwmTransit == nullptr)
-      mwmTransit = my::make_unique<TransitDisplayInfo>();
+      mwmTransit = make_unique<TransitDisplayInfo>();
 
     TransitInfo const & transitInfo = s.GetTransitInfo();
     switch (transitInfo.GetType())

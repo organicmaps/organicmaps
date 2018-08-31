@@ -110,7 +110,7 @@ public:
   explicit TransitInfoWrapper(TransitInfoWrapper const & rhs)
   {
     if (rhs.m_ptr)
-      m_ptr = my::make_unique<TransitInfo>(*rhs.m_ptr);
+      m_ptr = std::make_unique<TransitInfo>(*rhs.m_ptr);
   }
 
   TransitInfoWrapper & operator=(TransitInfoWrapper && rhs)
@@ -123,7 +123,7 @@ public:
   {
     m_ptr.reset();
     if (rhs.m_ptr)
-      m_ptr = my::make_unique<TransitInfo>(*rhs.m_ptr);
+      m_ptr = std::make_unique<TransitInfo>(*rhs.m_ptr);
     return *this;
   }
 

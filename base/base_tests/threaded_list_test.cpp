@@ -3,8 +3,8 @@
 #include "base/threaded_list.hpp"
 #include "base/thread.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
 
+#include <memory>
 #include <mutex>
 
 struct ThreadedListProcessor : public threads::IRoutine
@@ -45,13 +45,13 @@ UNIT_TEST(ThreadedList)
   ThreadedList<int> p;
 
   threads::Thread t0;
-  t0.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 0));
+  t0.Create(std::make_unique<ThreadedListProcessor>(p, resMutex, res, 0));
 
   threads::Thread t1;
-  t1.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 1));
+  t1.Create(std::make_unique<ThreadedListProcessor>(p, resMutex, res, 1));
 
   threads::Thread t2;
-  t2.Create(my::make_unique<ThreadedListProcessor>(p, resMutex, res, 2));
+  t2.Create(std::make_unique<ThreadedListProcessor>(p, resMutex, res, 2));
 
   p.PushBack(0);
   threads::Sleep(200);

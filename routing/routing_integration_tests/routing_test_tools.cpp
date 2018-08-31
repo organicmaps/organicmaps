@@ -28,13 +28,13 @@
 #include "geometry/latlon.hpp"
 
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"
 
 #include "private.h"
 
+#include <memory>
 #include <sys/resource.h>
 
 using namespace routing;
@@ -109,7 +109,7 @@ namespace integration
         numMwmIds->RegisterFile(countryFile);
     }
 
-    auto countryParentGetter = my::make_unique<storage::CountryParentGetter>();
+    auto countryParentGetter = std::make_unique<storage::CountryParentGetter>();
     CHECK(countryParentGetter, ());
 
     auto indexRouter = make_unique<IndexRouter>(vehicleType, false /* load altitudes*/,

@@ -22,7 +22,6 @@
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
 #include <map>
@@ -125,7 +124,7 @@ bool BuildCitiesBoundaries(string const & dataPath, string const & osmToFeatureP
       LOG(LERROR, ("Can't parse feature id to osm id mapping."));
       return {};
     }
-    return my::make_unique<Mapping>(move(mapping));
+    return make_unique<Mapping>(move(mapping));
   });
 }
 
@@ -140,7 +139,7 @@ bool BuildCitiesBoundariesForTesting(string const & dataPath, TestIdToBoundaries
       LOG(LERROR, ("Can't parse feature id to test id mapping."));
       return {};
     }
-    return my::make_unique<Mapping>(move(mapping));
+    return make_unique<Mapping>(move(mapping));
   });
 }
 

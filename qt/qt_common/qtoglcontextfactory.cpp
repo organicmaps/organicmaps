@@ -1,7 +1,8 @@
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+
+#include <memory>
 
 namespace qt
 {
@@ -57,7 +58,7 @@ void QtOGLContextFactory::UnlockFrame()
 dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
 {
   if (!m_drawContext)
-    m_drawContext = my::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
+    m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
 
   return m_drawContext.get();
 }
@@ -65,7 +66,7 @@ dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
 dp::GraphicsContext * QtOGLContextFactory::GetResourcesUploadContext()
 {
   if (!m_uploadContext)
-    m_uploadContext = my::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());
+    m_uploadContext = std::make_unique<QtUploadOGLContext>(m_rootContext, m_uploadSurface.get());
 
   return m_uploadContext.get();
 }
@@ -73,7 +74,7 @@ dp::GraphicsContext * QtOGLContextFactory::GetResourcesUploadContext()
 std::unique_ptr<QOffscreenSurface> QtOGLContextFactory::CreateSurface()
 {
   QSurfaceFormat format = m_rootContext->format();
-  auto result = my::make_unique<QOffscreenSurface>(m_rootContext->screen());
+  auto result = std::make_unique<QOffscreenSurface>(m_rootContext->screen());
   result->setFormat(format);
   result->create();
   ASSERT(result->isValid(), ());

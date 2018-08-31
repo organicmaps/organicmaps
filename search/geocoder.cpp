@@ -38,7 +38,6 @@
 #include "base/pprof.hpp"
 #include "base/random.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
@@ -54,6 +53,8 @@
 #if defined(DEBUG)
 #include "base/timer.hpp"
 #endif
+
+#include <memory>
 
 using namespace strings;
 
@@ -515,7 +516,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     {
       it = m_matchersCache
                .insert(make_pair(m_context->GetId(),
-                                 my::make_unique<FeaturesLayerMatcher>(m_dataSource, m_cancellable)))
+                                 std::make_unique<FeaturesLayerMatcher>(m_dataSource, m_cancellable)))
                .first;
     }
     m_matcher = it->second.get();

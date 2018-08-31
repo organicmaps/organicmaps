@@ -6,19 +6,18 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "base/stl_add.hpp"
-
 #include <algorithm>
+#include <memory>
 
 namespace ads
 {
 Engine::Engine()
 {
   // The banner systems are placed by priority. First has a top priority.
-  m_banners.emplace_back(Banner::Type::RB, my::make_unique<Rb>());
-  m_banners.emplace_back(Banner::Type::Mopub, my::make_unique<Mopub>());
+  m_banners.emplace_back(Banner::Type::RB, std::make_unique<Rb>());
+  m_banners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
 
-  m_searchBanners.emplace_back(Banner::Type::Facebook, my::make_unique<Facebook>());
+  m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
 }
 
 bool Engine::HasBanner(feature::TypesHolder const & types,

@@ -94,7 +94,6 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
@@ -106,6 +105,8 @@
 #include "api/src/c/api-client.h"
 
 #include "3party/Alohalytics/src/alohalytics.h"
+
+#include <memory>
 
 using namespace storage;
 using namespace routing;
@@ -3460,10 +3461,10 @@ void Framework::InitTaxiEngine()
   ASSERT(m_infoGetter, ());
   ASSERT(m_cityFinder, ());
 
-  m_taxiEngine = my::make_unique<taxi::Engine>();
+  m_taxiEngine = std::make_unique<taxi::Engine>();
 
   m_taxiEngine->SetDelegate(
-      my::make_unique<TaxiDelegate>(GetStorage(), *m_infoGetter, *m_cityFinder));
+      std::make_unique<TaxiDelegate>(GetStorage(), *m_infoGetter, *m_cityFinder));
 }
 
 void Framework::SetPlacePageLocation(place_page::Info & info)

@@ -12,6 +12,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <memory>
 #include <set>
 #include <utility>
 
@@ -40,7 +41,7 @@ FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet
 {
   if (mwmId != id.m_mwmId)
   {
-    guard = my::make_unique<FeaturesLoaderGuard>(dataSource, id.m_mwmId);
+    guard = std::make_unique<FeaturesLoaderGuard>(dataSource, id.m_mwmId);
     mwmId = id.m_mwmId;
   }
 

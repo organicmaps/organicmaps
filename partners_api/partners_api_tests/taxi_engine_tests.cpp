@@ -12,8 +12,9 @@
 #include "geometry/latlon.hpp"
 
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
 #include "base/worker_thread.hpp"
+
+#include <memory>
 
 using namespace platform::tests_support;
 
@@ -392,7 +393,7 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
                        {taxi::Provider::Type::Yandex, kTesturl},
                        {taxi::Provider::Type::Maxim, kTesturl}});
 
-  engine.SetDelegate(my::make_unique<BelarusMinskDelegate>());
+  engine.SetDelegate(std::make_unique<BelarusMinskDelegate>());
 
   taxi::ProvidersContainer const synchronousProviders =
       GetProvidersSynchronous(engine, from, to, kTesturl);
@@ -437,32 +438,32 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   ms::LatLon latlon(0.0, 0.0);
   std::vector<taxi::Provider::Type> providers;
 
-  engine.SetDelegate(my::make_unique<BelarusMinskDelegate>());
+  engine.SetDelegate(std::make_unique<BelarusMinskDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
 
-  engine.SetDelegate(my::make_unique<UkraineOdessaDelegate>());
+  engine.SetDelegate(std::make_unique<UkraineOdessaDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Yandex, ());
 
-  engine.SetDelegate(my::make_unique<UkraineMariupolDelegate>());
+  engine.SetDelegate(std::make_unique<UkraineMariupolDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Maxim, ());
 
-  engine.SetDelegate(my::make_unique<BulgariaSofiaDelegate>());
+  engine.SetDelegate(std::make_unique<BulgariaSofiaDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Maxim, ());
 
-  engine.SetDelegate(my::make_unique<UsaDelegate>());
+  engine.SetDelegate(std::make_unique<UsaDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Uber, ());
 
-  engine.SetDelegate(my::make_unique<RussiaKonetsDelegate>());
+  engine.SetDelegate(std::make_unique<RussiaKonetsDelegate>());
   providers = engine.GetProvidersAtPos(latlon);
   TEST(providers.empty(), (providers));
 }

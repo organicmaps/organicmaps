@@ -19,7 +19,6 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
 
 #include <boost/python.hpp>
 
@@ -75,7 +74,7 @@ void Init(string const & resource_path, string const & mwm_path)
 
   classificator::Load();
 
-  g_affiliations = my::make_unique<storage::TMappingAffiliations>();
+  g_affiliations = make_unique<storage::TMappingAffiliations>();
   storage::TCountryTree countries;
   auto const rv = storage::LoadCountriesFromFile(countriesFile, countries, *g_affiliations);
   CHECK(rv != -1, ("Can't load countries from:", countriesFile));
