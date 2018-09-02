@@ -24,23 +24,23 @@ public class ConnectionState
     WIFI(CONNECTION_WIFI, ConnectivityManager.TYPE_WIFI),
     WWAN(CONNECTION_WWAN, ConnectivityManager.TYPE_MOBILE);
 
-    private final byte mValue;
-    private final int mNetwork;
+    private final byte mNativeRepresentation;
+    private final int mPlatformRepresentation;
 
-    Type(byte value, int network)
+    Type(byte nativeRepresentation, int platformRepresentation)
     {
-      mValue = value;
-      mNetwork = network;
+      mNativeRepresentation = nativeRepresentation;
+      mPlatformRepresentation = platformRepresentation;
     }
 
-    public byte getValue()
+    public byte getNativeRepresentation()
     {
-      return mValue;
+      return mNativeRepresentation;
     }
 
-    public int getNetwork()
+    public int getPlatformRepresentation()
     {
-      return mNetwork;
+      return mPlatformRepresentation;
     }
   }
 
@@ -118,9 +118,11 @@ public class ConnectionState
     return info != null && info.isRoaming();
   }
 
+  /*jni call*/
+  @SuppressWarnings("unused")
   public static byte getConnectionState()
   {
-    return requestCurrentType().getValue();
+    return requestCurrentType().getNativeRepresentation();
   }
 
   @NonNull
@@ -128,7 +130,7 @@ public class ConnectionState
   {
     for (ConnectionState.Type each : ConnectionState.Type.values())
     {
-      if (isNetworkConnected(each.getNetwork()))
+      if (isNetworkConnected(each.getPlatformRepresentation()))
         return each;
     }
     return NONE;

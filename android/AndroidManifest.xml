@@ -32,7 +32,7 @@
   <uses-feature
       android:name="android.hardware.location.gps"
       android:required="false"/>
-
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -454,6 +454,14 @@
     <service android:name="com.mapswithme.maps.scheduling.NativeJobService"
              android:exported="false"
              android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <service
+      android:exported="false"
+      android:name="com.mapswithme.maps.scheduling.FirebaseJobService">
+      <intent-filter>
+        <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+      </intent-filter>
+    </service>
 
     <receiver android:name="com.mapswithme.maps.location.TrackRecorderWakeReceiver">
       <intent-filter>

@@ -5,57 +5,56 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
+import com.crashlytics.android.Crashlytics;
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.Trigger;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.background.ConnectivityChangedReceiver;
-import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Utils;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 
 public class ConnectivityJobScheduler implements ConnectivityListener
 {
-  public static final int PERIODIC_IN_MILLIS = 4000;
+  private static final int SCHEDULE_PERIOD_IN_HOURS = 1;
 
   @NonNull
   private final ConnectivityListener mMasterConnectivityListener;
 
-  @NonNull
-  private final AtomicInteger mCurrentNetworkType;
-
   public ConnectivityJobScheduler(@NonNull MwmApplication context)
   {
-    mMasterConnectivityListener = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                           ? new NativeConnectivityListener(context)
-                           : new LegacyConnectivityListener(context);
+    mMasterConnectivityListener = Utils.isLollipopOrLater()
+                                  ? createNativeJobScheduler(context)
+                                  : createCompatJobScheduler(context);
+  }
 
-    mCurrentNetworkType = new AtomicInteger(getCurrentNetworkType().ordinal());
+  @NonNull
+  private ConnectivityListener createCompatJobScheduler(@NonNull MwmApplication context)
+  {
+    int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
+    boolean isAvailable = status == ConnectionResult.SUCCESS;
+    return isAvailable ? new ConnectivityListenerCompat(context) : new ConnectivityListenerStub();
+  }
+
+  @NonNull
+  private NativeConnectivityListener createNativeJobScheduler(@NonNull MwmApplication context)
+  {
+    return new NativeConnectivityListener(context);
   }
 
   @Override
   public void listen()
   {
     mMasterConnectivityListener.listen();
-  }
-
-  @NonNull
-  public NetworkStatus getNetworkStatus()
-  {
-    ConnectionState.Type currentNetworkType = getCurrentNetworkType();
-    int prevTypeIndex = mCurrentNetworkType.getAndSet(currentNetworkType.ordinal());
-    ConnectionState.Type prevNetworkType = ConnectionState.Type.values()[prevTypeIndex];
-    boolean isNetworkChanged = prevNetworkType != currentNetworkType;
-    return new NetworkStatus(isNetworkChanged, currentNetworkType);
-  }
-
-  @NonNull
-  private ConnectionState.Type getCurrentNetworkType()
-  {
-    return ConnectionState.requestCurrentType();
   }
 
   public static ConnectivityJobScheduler from(@NonNull Context context)
@@ -88,55 +87,53 @@ public class ConnectivityJobScheduler implements ConnectivityListener
       JobInfo jobInfo = new JobInfo
           .Builder(jobId, component)
           .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-          .setPeriodic(PERIODIC_IN_MILLIS)
+          .setPersisted(true)
+          .setMinimumLatency(TimeUnit.HOURS.toMillis(SCHEDULE_PERIOD_IN_HOURS))
           .build();
       mJobScheduler.schedule(jobInfo);
     }
   }
 
-  public static class NetworkStatus
-  {
-    private final boolean mNetworkStateChanged;
-    @NonNull
-    private final ConnectionState.Type mCurrentNetworkType;
-
-    NetworkStatus(boolean networkStateChanged,
-                  @NonNull ConnectionState.Type currentNetworkType)
-    {
-      mNetworkStateChanged = networkStateChanged;
-      mCurrentNetworkType = currentNetworkType;
-    }
-
-    public boolean isNetworkStateChanged()
-    {
-      return mNetworkStateChanged;
-    }
-
-    @NonNull
-    public ConnectionState.Type getCurrentNetworkType()
-    {
-      return mCurrentNetworkType;
-    }
-  }
-
-  private static class LegacyConnectivityListener implements ConnectivityListener
+  private static class ConnectivityListenerCompat implements ConnectivityListener
   {
     @NonNull
-    private final MwmApplication mContext;
-    @NonNull
-    private final ConnectivityChangedReceiver mReceiver;
+    private final FirebaseJobDispatcher mJobDispatcher;
 
-    LegacyConnectivityListener(@NonNull MwmApplication context)
+    ConnectivityListenerCompat(@NonNull MwmApplication context)
     {
-      mContext = context;
-      mReceiver = new ConnectivityChangedReceiver();
+      mJobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
     }
 
     @Override
     public void listen()
     {
-      IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-      mContext.registerReceiver(mReceiver, filter);
+      String tag = String.valueOf(FirebaseJobService.class.hashCode());
+      int executionWindowStart = (int) TimeUnit.HOURS.toSeconds(SCHEDULE_PERIOD_IN_HOURS);
+      Job job = mJobDispatcher.newJobBuilder()
+                              .setTag(tag)
+                              .setService(FirebaseJobService.class)
+                              .setConstraints(Constraint.ON_ANY_NETWORK)
+                              .setLifetime(Lifetime.FOREVER)
+                              .setTrigger(Trigger.executionWindow(executionWindowStart, ++executionWindowStart))
+                              .build();
+      mJobDispatcher.mustSchedule(job);
     }
   }
+
+  private static class ConnectivityListenerStub implements ConnectivityListener
+  {
+    ConnectivityListenerStub()
+    {
+      IllegalStateException exception = new IllegalStateException("Play services doesn't exist on" +
+                                                                  " the device");
+      Crashlytics.logException(exception);
+    }
+
+    @Override
+    public void listen()
+    {
+      /* Do nothing */
+    }
+  }
+
 }
