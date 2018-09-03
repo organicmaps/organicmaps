@@ -3,6 +3,8 @@ package com.mapswithme.maps.purchase;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import com.android.billingclient.api.BillingClient;
+
 public enum Factory
 {
   ADS_REMOVAL
@@ -16,9 +18,9 @@ public enum Factory
 
         @NonNull
         @Override
-        BillingManager createBillingManager(@NonNull Activity activity)
+        public BillingManager createBillingManager(@NonNull Activity activity, @NonNull String productId)
         {
-          return new PlayStoreBillingManager(activity);
+          return new PlayStoreBillingManager(activity, productId, BillingClient.SkuType.SUBS);
         }
       };
 
@@ -26,5 +28,5 @@ public enum Factory
   public abstract PurchaseValidator createPurchaseManager();
 
   @NonNull
-  abstract BillingManager createBillingManager(@NonNull Activity activity);
+  public abstract BillingManager createBillingManager(@NonNull Activity activity, @NonNull String productId);
 }
