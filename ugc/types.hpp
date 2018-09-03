@@ -337,7 +337,8 @@ struct UGC
 
   bool IsEmpty() const
   {
-    return !((!m_ratings.empty() || !m_reviews.empty()) && m_totalRating >= 0 && m_basedOn > 0);
+    return m_reviews.empty() &&
+           (m_ratings.empty() || m_totalRating <= kInvalidRatingValue || m_basedOn == 0);
   }
 
   Ratings m_ratings;

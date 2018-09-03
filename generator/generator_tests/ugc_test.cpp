@@ -16,7 +16,11 @@ std::string g_database(R"LLL(
                        CREATE TABLE ratings (key bigint, value blob);
                        INSERT INTO "ratings" VALUES(9826352,'{"osm_id":9826352,"total_rating":10.34,"based_on":721,"ratings":[{"key":"2","value":3.4},{"key":"2","value":6.0001}],"reviews":[{"id":7864532, "text":{"text":"The best service on the Earth","lang":"en"},"author":"Robert","rating":8.5,"date":1234567}]}');
                        INSERT INTO "ratings" VALUES(9826353,'{"osm_id":9826353,"total_rating":0.34,"based_on":1,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[{"id":78645323924,"text":{"text":"Изумительно!","lang":"ru"},"author":"Вася","rating":10,"date":1234569}]}');
-                       INSERT INTO "ratings" VALUES(9826354,'{"osm_id":9826354,"total_rating":-1.0,"based_on":1,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[{"id":78645323924,"text":{"text":"Изумительно!","lang":"ru"},"author":"Вася","rating":10,"date":1234569}]}');
+                       INSERT INTO "ratings" VALUES(9826354,'{"osm_id":9826354,"total_rating":-1.0,"based_on":1,"ratings":[],"reviews":[{"id":78645323924,"text":{"text":"Изумительно!","lang":"ru"},"author":"Вася","rating":10,"date":1234569}]}');
+                       INSERT INTO "ratings" VALUES(9826355,'{"osm_id":9826355,"total_rating":4.6,"based_on":1,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[]}');
+                       INSERT INTO "ratings" VALUES(9826356,'{"osm_id":9826356,"total_rating":-1.0,"based_on":1,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[]}');
+                       INSERT INTO "ratings" VALUES(9826357,'{"osm_id":9826357,"total_rating":3.7,"based_on":0,"ratings":[{"key":"2","value":3.4},{"key":"3","value":6.0001},{"key":"6","value":0.0001}],"reviews":[]}');
+                       INSERT INTO "ratings" VALUES(9826358,'{"osm_id":9826358,"total_rating":3.8,"based_on":1,"ratings":[],"reviews":[]}');
                        CREATE INDEX key_index ON ratings (key);
                        COMMIT;
 )LLL");
@@ -56,7 +60,25 @@ UNIT_TEST(UGC_TranslateRatingTest)
 
 UNIT_TEST(UGC_TranslateEmptyUgcTest)
 {
-  auto const ugc = GetUgcForId(9826354);
-  TEST(ugc.IsEmpty(), ());
+  {
+    auto const ugc = GetUgcForId(9826354);
+    TEST(!ugc.IsEmpty(), ());
+  }
+  {
+    auto const ugc = GetUgcForId(9826355);
+    TEST(!ugc.IsEmpty(), ());
+  }
+  {
+    auto const ugc = GetUgcForId(9826356);
+    TEST(ugc.IsEmpty(), ());
+  }
+  {
+    auto const ugc = GetUgcForId(9826357);
+    TEST(ugc.IsEmpty(), ());
+  }
+  {
+    auto const ugc = GetUgcForId(9826358);
+    TEST(ugc.IsEmpty(), ());
+  }
 }
 }  // namespace

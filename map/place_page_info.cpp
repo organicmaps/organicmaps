@@ -357,7 +357,7 @@ Impress GetImpress(float const rawRating)
   CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
   CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
 
-  if (rawRating <= 0.0f)
+  if (rawRating == kIncorrectRating)
     return Impress::None;
   if (rawRating < 0.2f * kTopRatingBound)
     return Impress::Horrible;
@@ -376,7 +376,7 @@ std::string GetRatingFormatted(float const rawRating)
   CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
   CHECK_GREATER_OR_EQUAL(rawRating, kIncorrectRating, ());
 
-  if (rawRating <= 0.0f)
+  if (rawRating == kIncorrectRating)
     return kEmptyRatingSymbol;
 
   std::ostringstream oss;

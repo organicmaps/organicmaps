@@ -59,9 +59,7 @@ void ParseLocals(std::string const & src, std::vector<LocalExpert> & locals,
     FromJSONObject(item, "i_will_show_you", local.m_offerDescription);
 
     // Rescale rating to (0.0; 10.0] range. Rating 0.0 is invalid.
-    if (local.m_rating == 0.0)
-      local.m_rating = kInvalidRatingValue;
-    else
+    if (local.m_rating != kInvalidRatingValue)
       local.m_rating *= 2.0;
 
     locals.push_back(std::move(local));
