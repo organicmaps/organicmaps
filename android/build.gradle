@@ -325,9 +325,10 @@ android {
 
   variantFilter { variant ->
     if (!variant.getFlavors().get(0).name.equals("web")
-            && !variant.getFlavors().get(0).name.equals("google")) {
+            && !variant.getFlavors().get(0).name.equals("google")
+            && !project.hasProperty("anyVariant")) {
       println("Variant '" + variant.name + "' is ignored. If you want to build it please " +
-              "add variant's flavor to the variantFilter condition")
+              "add gradle parameter '-PanyVariant'")
       variant.setIgnore(true)
     }
   }
