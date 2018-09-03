@@ -118,7 +118,7 @@ public class ConnectionState
     return info != null && info.isRoaming();
   }
 
-  /*jni call*/
+  // Called from JNI.
   @SuppressWarnings("unused")
   public static byte getConnectionState()
   {

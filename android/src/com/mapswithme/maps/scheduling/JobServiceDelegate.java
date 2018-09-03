@@ -16,18 +16,23 @@ class JobServiceDelegate
     mApp = app;
   }
 
-  public void onStartJob()
+  public boolean onStartJob()
   {
     ConnectionState.Type type = ConnectionState.requestCurrentType();
     if (type == ConnectionState.Type.WIFI)
       NotificationService.startOnConnectivityChanged(mApp);
 
     retryJob();
+    return true;
   }
-
 
   private void retryJob()
   {
     ConnectivityJobScheduler.from(mApp).listen();
+  }
+
+  public boolean onStopJob()
+  {
+    return false;
   }
 }

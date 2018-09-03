@@ -46,7 +46,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
   }
 
   @NonNull
-  private NativeConnectivityListener createNativeJobScheduler(@NonNull MwmApplication context)
+  private ConnectivityListener createNativeJobScheduler(@NonNull MwmApplication context)
   {
     return new NativeConnectivityListener(context);
   }
@@ -57,6 +57,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
     mMasterConnectivityListener.listen();
   }
 
+  @NonNull
   public static ConnectivityJobScheduler from(@NonNull Context context)
   {
     MwmApplication application = (MwmApplication) context.getApplicationContext();

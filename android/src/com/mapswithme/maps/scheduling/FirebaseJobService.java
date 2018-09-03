@@ -1,5 +1,7 @@
 package com.mapswithme.maps.scheduling;
 
+import android.support.annotation.NonNull;
+
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.mapswithme.util.log.Logger;
@@ -9,19 +11,27 @@ public class FirebaseJobService extends JobService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = NativeJobService.class.getSimpleName();
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private JobServiceDelegate mDelegate;
+
+  @Override
+  public void onCreate()
+  {
+    super.onCreate();
+    mDelegate = new JobServiceDelegate(getApplication());
+  }
 
   @Override
   public boolean onStartJob(JobParameters job)
   {
     LOGGER.d(TAG, "onStartJob FirebaseJobService");
-    JobServiceDelegate delegate = new JobServiceDelegate(getApplication());
-    delegate.onStartJob();
-    return true;
+    return mDelegate.onStartJob();
   }
 
   @Override
   public boolean onStopJob(JobParameters job)
   {
-    return false;
+    return mDelegate.onStopJob();
   }
 }
