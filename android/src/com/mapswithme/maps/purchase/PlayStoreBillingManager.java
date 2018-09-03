@@ -159,8 +159,23 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     private void onSkuDetailsResponseInternal(@BillingResponse int responseCode,
                                               @Nullable List<SkuDetails> skuDetails)
     {
-      LOGGER.i(TAG, "Product details response, code: " + responseCode + ", " +
-                    "details: " + skuDetails);
+      LOGGER.i(TAG, "Purchase details response code: " + responseCode
+                    + ". Type: " + mProductType);
+      if (responseCode != BillingResponse.OK)
+      {
+        LOGGER.w(TAG, "Unsuccessful request");
+        return;
+      }
+
+      if (skuDetails == null || skuDetails.isEmpty())
+      {
+        LOGGER.w(TAG, "Purchase details not found");
+        return;
+      }
+
+      LOGGER.i(TAG, "Purchase details obtained: " + skuDetails);
+      if (mCallback != null)
+        mCallback.onPurchaseDetailsLoaded(Factory.createPurchaseDetailsFrom(skuDetails));
     }
   }
 }

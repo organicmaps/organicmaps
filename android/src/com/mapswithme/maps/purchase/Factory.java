@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.SkuDetails;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Factory
 {
@@ -29,4 +33,13 @@ public enum Factory
 
   @NonNull
   public abstract BillingManager createBillingManager(@NonNull Activity activity, @NonNull String productId);
+
+  @NonNull
+  static List<PurchaseDetails> createPurchaseDetailsFrom(@NonNull List<SkuDetails> skuDetails)
+  {
+    List<PurchaseDetails> details = new ArrayList<>(skuDetails.size());
+    for (SkuDetails skuDetail : skuDetails)
+      details.add(new PurchaseDetails(skuDetail));
+    return details;
+  }
 }
