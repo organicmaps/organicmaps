@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClient.BillingResponse;
+import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
@@ -14,6 +15,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @Nullable
   private PlayStoreBillingCallback mCallback;
   @NonNull
-  private final String mProductId;
+  private final List<String> mProductIds;
   @NonNull
   @BillingClient.SkuType
   private final String mProductType;
@@ -40,11 +42,12 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @NonNull
   private final List<Runnable> mPendingRequests = new ArrayList<>();
   
-  PlayStoreBillingManager(@NonNull Activity activity, @NonNull String productId,
-                          @NonNull @BillingClient.SkuType String productType)
+  PlayStoreBillingManager(@NonNull Activity activity,
+                          @NonNull @BillingClient.SkuType String productType,
+                          @NonNull String... productIds)
   {
     mActivity = activity;
-    mProductId = productId;
+    mProductIds = Collections.unmodifiableList(Arrays.asList(productIds));
     mProductType = productType;
   }
 
@@ -67,10 +70,10 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @Override
   public void queryProductDetails()
   {
-    executeServiceRequest(new QueryProductDetailsRequest());
+    executeBillingRequest(new QueryProductDetailsRequest());
   }
 
-  private void executeServiceRequest(@NonNull Runnable task)
+  private void executeBillingRequest(@NonNull Runnable task)
   {
     switch (mConnection.getState())
     {
@@ -90,17 +93,23 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   }
 
   @Override
-  public void launchBillingFlow()
+  public void launchBillingFlowForProduct(@NonNull String productId)
   {
-    @BillingResponse
-    int result = getClientOrThrow().isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS);
-    if (result == BillingResponse.FEATURE_NOT_SUPPORTED)
+    if (!isBillingSupported())
     {
       LOGGER.w(TAG, "Subscription is not supported by this device!");
       return;
     }
 
-    // Coming soon.
+    executeBillingRequest(new LaunchBillingFlowRequest(productId));
+  }
+
+  @Override
+  public boolean isBillingSupported()
+  {
+    @BillingResponse
+    int result = getClientOrThrow().isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS);
+    return result != BillingResponse.FEATURE_NOT_SUPPORTED;
   }
 
   @Nullable
@@ -125,7 +134,14 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @Override
   public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases)
   {
-    // Coming soon.
+    if (responseCode != BillingResponse.OK || purchases == null || purchases.isEmpty())
+    {
+      LOGGER.e(TAG, "Billing failed. Response code: " + responseCode);
+      return;
+    }
+
+    if (mCallback != null)
+      mCallback.onPurchaseSuccessful(purchases);
   }
 
   @NonNull
@@ -152,7 +168,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     public void run()
     {
       SkuDetailsParams.Builder builder = SkuDetailsParams.newBuilder();
-      builder.setSkusList(Collections.singletonList(mProductId))
+      builder.setSkusList(mProductIds)
              .setType(mProductType);
       getClientOrThrow().querySkuDetailsAsync(builder.build(), this::onSkuDetailsResponseInternal);
     }
@@ -176,7 +192,30 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
 
       LOGGER.i(TAG, "Purchase details obtained: " + skuDetails);
       if (mCallback != null)
-        mCallback.onPurchaseDetailsLoaded(BillingFactory.createPurchaseDetailsFrom(skuDetails));
+        mCallback.onPurchaseDetailsLoaded(skuDetails);
+    }
+  }
+
+  private class LaunchBillingFlowRequest implements Runnable
+  {
+    @NonNull
+    private final String mProductId;
+
+    private LaunchBillingFlowRequest(@NonNull String productId)
+    {
+      mProductId = productId;
+    }
+
+    @Override
+    public void run()
+    {
+      BillingFlowParams params = BillingFlowParams.newBuilder()
+                                                  .setSku(mProductId)
+                                                  .setType(mProductType)
+                                                  .build();
+
+      int responseCode = getClientOrThrow().launchBillingFlow(mActivity, params);
+      LOGGER.i(TAG, "Launch billing flow response: " + responseCode);
     }
   }
 }

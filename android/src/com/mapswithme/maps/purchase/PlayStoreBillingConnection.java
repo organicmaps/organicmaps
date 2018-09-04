@@ -30,7 +30,7 @@ class PlayStoreBillingConnection implements BillingConnection,
   @Override
   public void open()
   {
-    LOGGER.d(TAG, "Opening billing connection...");
+    LOGGER.i(TAG, "Opening billing connection...");
     mState = State.CONNECTING;
     mBillingClient.startConnection(this);
   }
@@ -38,7 +38,7 @@ class PlayStoreBillingConnection implements BillingConnection,
   @Override
   public void close()
   {
-    LOGGER.d(TAG, "Closing billing connection...");
+    LOGGER.i(TAG, "Closing billing connection...");
     mBillingClient.endConnection();
     mState = State.CLOSED;
   }
