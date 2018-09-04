@@ -1,6 +1,7 @@
 #include "generator/altitude_generator.hpp"
 #include "generator/borders_generator.hpp"
 #include "generator/borders_loader.hpp"
+#include "generator/camera_info_collector.hpp"
 #include "generator/centers_table_builder.hpp"
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
@@ -125,6 +126,7 @@ DEFINE_string(srtm_path, "",
               "Path to srtm directory. If set, generates a section with altitude information "
               "about roads.");
 DEFINE_string(transit_path, "", "Path to directory with transit graphs in json.");
+DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
@@ -262,8 +264,8 @@ int main(int argc, char ** argv)
 
     if (FLAGS_generate_world)
     {
-      genInfo.m_bucketNames.push_back(WORLD_FILE_NAME);
-      genInfo.m_bucketNames.push_back(WORLD_COASTS_FILE_NAME);
+      genInfo.m_bucketNames.emplace_back(WORLD_FILE_NAME);
+      genInfo.m_bucketNames.emplace_back(WORLD_COASTS_FILE_NAME);
     }
 
     if (FLAGS_dump_cities_boundaries)
@@ -436,6 +438,14 @@ int main(int argc, char ** argv)
 
     if (!FLAGS_transit_path.empty())
       routing::transit::BuildTransit(path, country, osmToFeatureFilename, FLAGS_transit_path);
+
+    if (FLAGS_generate_cameras)
+    {
+      string const camerasFilename =
+        genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+
+      BuildCamerasInfo(datFile, camerasFilename, osmToFeatureFilename);
+    }
 
     if (FLAGS_make_routing_index)
     {

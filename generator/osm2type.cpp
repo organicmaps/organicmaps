@@ -313,14 +313,15 @@ namespace ftype
 
         // Next objects trying to find by value first.
         // Prevent merging different tags (e.g. shop=pet from shop=abandoned, was:shop=pet).
-       ClassifObjectPtr pObj =
-           path.size() == 1 ? ClassifObjectPtr()
-                            : ForEachTagEx<ClassifObjectPtr>(
-                                  p, skipRows, [&current](string const & k, string const & v) {
-                                    if (!NeedMatchValue(k, v))
-                                      return ClassifObjectPtr();
-                                    return current->BinaryFind(v);
-                                  });
+
+        ClassifObjectPtr pObj;
+        if (path.size() != 1)
+        {
+          pObj = ForEachTagEx<ClassifObjectPtr>(
+                   p, skipRows, [&current](string const & k, string const & v) {
+                     return NeedMatchValue(k, v) ? current->BinaryFind(v) : ClassifObjectPtr();
+                   });
+        }
 
         if (pObj)
         {
@@ -769,7 +770,7 @@ namespace ftype
 
     params.FinishAddingTypes();
 
-    // Stage6: Collect addidtional information about feature such as
+    // Stage6: Collect additional information about feature such as
     // hotel stars, opening hours, cuisine, ...
     ForEachTag<bool>(p, MetadataTagProcessor(params));
   }

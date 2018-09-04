@@ -86,7 +86,7 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
   classificator::Load();
 
   Platform & platform = GetPlatform();
-  string const writableDir = platform.WritableDir();
+  string const & writableDir = platform.WritableDir();
 
   // Building empty mwm.
   LocalCountryFile country(my::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),

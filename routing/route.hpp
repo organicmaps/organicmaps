@@ -39,6 +39,25 @@ SubrouteUid constexpr kInvalidSubrouteId = std::numeric_limits<uint64_t>::max();
 class RouteSegment final
 {
 public:
+  // Store coefficient where camera placed at the segment (number from 0 to 1)
+  // and it's max speed.
+  struct SpeedCamera
+  {
+    SpeedCamera() = default;
+    SpeedCamera(double coef, uint8_t maxSpeedKmPH): m_coef(coef), m_maxSpeedKmPH(maxSpeedKmPH) {}
+
+    friend bool operator<(SpeedCamera const & lhs, SpeedCamera const & rhs)
+    {
+      if (lhs.m_coef != rhs.m_coef)
+        return lhs.m_coef < rhs.m_coef;
+
+      return lhs.m_maxSpeedKmPH < rhs.m_maxSpeedKmPH;
+    }
+
+    double m_coef = 0.0;
+    uint8_t m_maxSpeedKmPH = 0;
+  };
+
   RouteSegment(Segment const & segment, turns::TurnItem const & turn, Junction const & junction,
                std::string const & street, double distFromBeginningMeters,
                double distFromBeginningMerc, double timeFromBeginningS, traffic::SpeedGroup traffic,
@@ -61,36 +80,53 @@ public:
   }
 
   Segment const & GetSegment() const { return m_segment; }
-  turns::TurnItem const & GetTurn() const { return m_turn; }
   Junction const & GetJunction() const { return m_junction; }
   std::string const & GetStreet() const { return m_street; }
+  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
+  turns::TurnItem const & GetTurn() const { return m_turn; }
+
   double GetDistFromBeginningMeters() const { return m_distFromBeginningMeters; }
   double GetDistFromBeginningMerc() const { return m_distFromBeginningMerc; }
   double GetTimeFromBeginningSec() const { return m_timeFromBeginningS; }
-  traffic::SpeedGroup GetTraffic() const { return m_traffic; }
 
   bool HasTransitInfo() const { return m_transitInfo.HasTransitInfo(); }
   TransitInfo const & GetTransitInfo() const { return m_transitInfo.Get(); }
 
+  void SetSpeedCameraInfo(std::vector<SpeedCamera> && data) { m_speedCameras = std::move(data); }
+  bool IsRealSegment() const { return m_segment.IsRealSegment(); }
+  std::vector<SpeedCamera> const & GetSpeedCams() const { return m_speedCameras; }
+
 private:
   Segment m_segment;
+
   /// Turn (maneuver) information for the turn next to the |m_segment| if any.
   /// If not |m_turn::m_turn| is equal to TurnDirection::NoTurn.
   turns::TurnItem m_turn;
+
   /// The furthest point of the segment from the beginning of the route along the route.
   Junction m_junction;
+
   /// Street name of |m_segment| if any. Otherwise |m_street| is empty.
   std::string m_street;
+
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in meters.
   double m_distFromBeginningMeters = 0.0;
+
   /// Distance from the route (not the subroute) beginning to the farthest end of |m_segment| in mercator.
   double m_distFromBeginningMerc = 0.0;
+
   /// ETA from the route beginning (not the subroute) in seconds to reach the farthest from the route beginning
   /// end of |m_segment|.
   double m_timeFromBeginningS = 0.0;
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
+
   /// Information needed to display transit segments properly.
   TransitInfoWrapper m_transitInfo;
+
+  // List of speed cameras, sorted by segment direction (from start to end).
+  // Stored coefficients where they placed at the segment (numbers from 0 to 1)
+  // and theirs' max speed.
+  std::vector<SpeedCamera> m_speedCameras;
 };
 
 class Route
@@ -214,6 +250,7 @@ public:
   }
 
   std::vector<RouteSegment> & GetRouteSegments() { return m_routeSegments; }
+  std::vector<RouteSegment> const & GetRouteSegments() const { return m_routeSegments; }
 
   void SetCurrentSubrouteIdx(size_t currentSubrouteIdx) { m_currentSubrouteIdx = currentSubrouteIdx; }
 

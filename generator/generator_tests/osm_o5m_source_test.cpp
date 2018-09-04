@@ -33,7 +33,7 @@ UNIT_TEST(OSM_O5M_Source_Node_read_test)
   TEST(my::AlmostEqualAbs(em.lon, 38.7666704, 1e-7), ());
   TEST(my::AlmostEqualAbs(em.lat, 55.0927062, 1e-7), ());
 
-  auto const & tags = em.Tags();
+  auto const tags = em.Tags();
   auto tagIterator = tags.begin();
   auto const & tag = *tagIterator;
   TEST_EQUAL(tag.key, string("amenity"), ());

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/fake_feature_ids.hpp"
 #include "routing/road_point.hpp"
 #include "routing/route_weight.hpp"
 
@@ -70,6 +71,11 @@ public:
   {
     return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx &&
            m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
+  }
+
+  bool IsRealSegment() const
+  {
+    return m_mwmId != kFakeNumMwmId && !FakeFeatureIds::IsTransitFeature(m_featureId);
   }
 
 private:

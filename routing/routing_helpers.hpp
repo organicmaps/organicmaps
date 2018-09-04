@@ -21,13 +21,19 @@
 namespace routing
 {
 inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
+inline double MilesPH2KMPH(double mph) { return mph / 0.621371192237334; }
+
+template <typename Types>
+bool IsCarRoad(Types const & types)
+{
+  return CarModel::AllLimitsInstance().HasRoadType(types);
+}
 
 /// \returns true when there exists a routing mode where the feature with |types| can be used.
-template <class TTypes>
-bool IsRoad(TTypes const & types)
+template <typename Types>
+bool IsRoad(Types const & types)
 {
-  return CarModel::AllLimitsInstance().HasRoadType(types) ||
-         PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
+  return IsCarRoad(types) || PedestrianModel::AllLimitsInstance().HasRoadType(types) ||
          BicycleModel::AllLimitsInstance().HasRoadType(types);
 }
 

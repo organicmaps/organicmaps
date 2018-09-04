@@ -1,6 +1,9 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include <vector>
+
+using namespace std;
 
 FileWriter::FileWriter(FileWriter && rhs)
 : m_pFileData(move(rhs.m_pFileData)), m_bTruncOnClose(rhs.m_bTruncOnClose)
@@ -8,7 +11,8 @@ FileWriter::FileWriter(FileWriter && rhs)
 }
 
 FileWriter::FileWriter(string const & fileName, FileWriter::Op op, bool bTruncOnClose)
-: m_pFileData(new fdata_t(fileName, static_cast<fdata_t::Op>(op))), m_bTruncOnClose(bTruncOnClose)
+  : m_pFileData(make_unique<my::FileData>(fileName, static_cast<my::FileData::Op>(op)))
+  , m_bTruncOnClose(bTruncOnClose)
 {
 }
 

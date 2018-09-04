@@ -200,25 +200,26 @@ class IntermediateDataReader
 {
 public:
   IntermediateDataReader(shared_ptr<PointStorageReaderInterface> nodes, feature::GenerateInfo & info);
+
   bool GetNode(Key id, double & lat, double & lon) const { return m_nodes->GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
   void LoadIndex();
 
-  template <class ToDo>
+  template <typename ToDo>
   void ForEachRelationByWay(Key id, ToDo && toDo)
   {
     RelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_wayToRelations.ForEachByKey(id, processor);
   }
 
-  template <class ToDo>
+  template <typename ToDo>
   void ForEachRelationByWayCached(Key id, ToDo && toDo)
   {
     CachedRelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_wayToRelations.ForEachByKey(id, processor);
   }
 
-  template <class ToDo>
+  template <typename ToDo>
   void ForEachRelationByNodeCached(Key id, ToDo && toDo)
   {
     CachedRelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
@@ -228,7 +229,7 @@ public:
 private:
   using CacheReader = cache::OSMElementCacheReader;
 
-  template <class Element, class ToDo>
+  template <typename Element, typename ToDo>
   class ElementProcessorBase
   {
   public:
@@ -245,7 +246,7 @@ private:
     ToDo & m_toDo;
   };
 
-  template <class ToDo>
+  template <typename ToDo>
   struct RelationProcessor : public ElementProcessorBase<RelationElement, ToDo>
   {
     using Base = ElementProcessorBase<RelationElement, ToDo>;
@@ -253,7 +254,7 @@ private:
     RelationProcessor(CacheReader & reader, ToDo & toDo) : Base(reader, toDo) {}
   };
 
-  template <class ToDo>
+  template <typename ToDo>
   struct CachedRelationProcessor : public RelationProcessor<ToDo>
   {
     using Base = RelationProcessor<ToDo>;
@@ -273,12 +274,27 @@ class IntermediateDataWriter
 {
 public:
   IntermediateDataWriter(std::shared_ptr<PointStorageWriterInterface> nodes, feature::GenerateInfo & info);
+
   void AddNode(Key id, double lat, double lon) { m_nodes->AddPoint(id, lat, lon); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
+
   void AddRelation(Key id, RelationElement const & e);
   void SaveIndex();
 
+  static void AddToIndex(cache::IndexFileWriter & index, Key relationId, std::vector<uint64_t> const & values)
+  {
+    for (auto const v : values)
+      index.Add(v, relationId);
+  }
+
 private:
+  template <typename Container>
+  static void AddToIndex(cache::IndexFileWriter & index, Key relationId, Container const & values)
+  {
+    for (auto const & v : values)
+      index.Add(v.first, relationId);
+  }
+
   std::shared_ptr<PointStorageWriterInterface> m_nodes;
   cache::OSMElementCacheWriter m_ways;
   cache::OSMElementCacheWriter m_relations;

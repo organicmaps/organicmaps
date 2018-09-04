@@ -264,7 +264,7 @@ RoadAccessTagProcessor::RoadAccessTagProcessor(VehicleType vehicleType)
 
 void RoadAccessTagProcessor::Process(OsmElement const & elem, ofstream & oss)
 {
-  // We will proccess all nodes before ways because of o5m format:
+  // We will process all nodes before ways because of o5m format:
   // all nodes are first, then all ways, then all relations.
   if (elem.type == OsmElement::EntityType::Node)
   {

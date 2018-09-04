@@ -51,6 +51,10 @@
 		40492BCA2021DC53008E093A /* feature_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC52021DC53008E093A /* feature_helpers.hpp */; };
 		40492BCB2021DC53008E093A /* locality_sorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40492BC62021DC53008E093A /* locality_sorter.cpp */; };
 		40492BCC2021DC53008E093A /* geometry_holder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40492BC72021DC53008E093A /* geometry_holder.hpp */; };
+		441DB3FC2119D72300D2F324 /* camera_node_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 441DB3F92119D72200D2F324 /* camera_node_processor.hpp */; };
+		441DB3FD2119D72300D2F324 /* camera_info_collector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 441DB3FA2119D72300D2F324 /* camera_info_collector.hpp */; };
+		441DB3FE2119D72300D2F324 /* camera_info_collector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 441DB3FB2119D72300D2F324 /* camera_info_collector.cpp */; };
+		44AA0AEB2133EA7800F72321 /* camera_node_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AA0AEA2133EA7700F72321 /* camera_node_processor.cpp */; };
 		568762601F6A9B18002C22A6 /* transit_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5687625E1F6A9B18002C22A6 /* transit_generator.cpp */; };
 		568762611F6A9B18002C22A6 /* transit_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5687625F1F6A9B18002C22A6 /* transit_generator.hpp */; };
 		670B84BC1A8CDB0000CE4492 /* osm_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670B84BA1A8CDB0000CE4492 /* osm_source.cpp */; };
@@ -208,6 +212,10 @@
 		40492BC52021DC53008E093A /* feature_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_helpers.hpp; sourceTree = "<group>"; };
 		40492BC62021DC53008E093A /* locality_sorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_sorter.cpp; sourceTree = "<group>"; };
 		40492BC72021DC53008E093A /* geometry_holder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = geometry_holder.hpp; sourceTree = "<group>"; };
+		441DB3F92119D72200D2F324 /* camera_node_processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = camera_node_processor.hpp; sourceTree = "<group>"; };
+		441DB3FA2119D72300D2F324 /* camera_info_collector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = camera_info_collector.hpp; sourceTree = "<group>"; };
+		441DB3FB2119D72300D2F324 /* camera_info_collector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera_info_collector.cpp; sourceTree = "<group>"; };
+		44AA0AEA2133EA7700F72321 /* camera_node_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera_node_processor.cpp; sourceTree = "<group>"; };
 		5687625E1F6A9B18002C22A6 /* transit_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transit_generator.cpp; sourceTree = "<group>"; };
 		5687625F1F6A9B18002C22A6 /* transit_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_generator.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
@@ -380,6 +388,10 @@
 				E162BD1F213E8F08007ADEF1 /* region_info_collector.hpp */,
 				E162BD20213E8F09007ADEF1 /* regions.cpp */,
 				E162BD21213E8F09007ADEF1 /* regions.hpp */,
+				44AA0AEA2133EA7700F72321 /* camera_node_processor.cpp */,
+				441DB3FB2119D72300D2F324 /* camera_info_collector.cpp */,
+				441DB3FA2119D72300D2F324 /* camera_info_collector.hpp */,
+				441DB3F92119D72200D2F324 /* camera_node_processor.hpp */,
 				E1EC1469211C5FE000B53061 /* sponsored_object_base.hpp */,
 				E1EC1465211C5FC800B53061 /* holes.cpp */,
 				E1EC1466211C5FC900B53061 /* holes.hpp */,
@@ -586,8 +598,10 @@
 				6753405F1A3F2A7400A0A8C3 /* borders_loader.hpp in Headers */,
 				675340801A3F2A7400A0A8C3 /* polygonizer.hpp in Headers */,
 				E1EC1457211C5F9100B53061 /* emitter_booking.hpp in Headers */,
+				441DB3FD2119D72300D2F324 /* camera_info_collector.hpp in Headers */,
 				670E7BB41EF9812B00A8E9ED /* metalines_builder.hpp in Headers */,
 				670E7BBA1EF9812B00A8E9ED /* ugc_db.hpp in Headers */,
+				441DB3FC2119D72300D2F324 /* camera_node_processor.hpp in Headers */,
 				0C5FEC711DDE19E50017688C /* routing_index_generator.hpp in Headers */,
 				67C79BB01E2CEEAB00C40034 /* restriction_collector.hpp in Headers */,
 				40492BCC2021DC53008E093A /* geometry_holder.hpp in Headers */,
@@ -739,6 +753,7 @@
 				67C79BB31E2CEEAB00C40034 /* restriction_writer.cpp in Sources */,
 				E162BD24213E8F09007ADEF1 /* regions.cpp in Sources */,
 				67A0FEBE1CEB467F008F2A61 /* booking_dataset.cpp in Sources */,
+				441DB3FE2119D72300D2F324 /* camera_info_collector.cpp in Sources */,
 				3DFEBF7D1EF2D58900317D5C /* utils.cpp in Sources */,
 				6753408D1A3F2A7400A0A8C3 /* osm_element.cpp in Sources */,
 				6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */,
@@ -775,6 +790,7 @@
 				675340601A3F2A7400A0A8C3 /* check_model.cpp in Sources */,
 				675340851A3F2A7400A0A8C3 /* tesselator.cpp in Sources */,
 				9D1B3F1C2034624A00278AC8 /* node_mixer.cpp in Sources */,
+				44AA0AEB2133EA7800F72321 /* camera_node_processor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

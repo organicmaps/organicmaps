@@ -115,7 +115,7 @@ public:
     FMD_EMAIL = 14,
     FMD_POSTCODE = 15,
     FMD_WIKIPEDIA = 16,
-    FMD_MAXSPEED = 17,
+    // FMD_MAXSPEED used to be 17 but now it is stored in a section of its own.
     FMD_FLATS = 18,
     FMD_HEIGHT = 19,
     FMD_MIN_HEIGHT = 20,

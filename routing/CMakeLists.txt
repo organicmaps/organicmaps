@@ -106,6 +106,8 @@ set(
   single_vehicle_world_graph.hpp
   speed_camera.cpp
   speed_camera.hpp
+  speed_camera_ser_des.cpp
+  speed_camera_ser_des.hpp
   traffic_stash.cpp
   traffic_stash.hpp
   transit_graph.cpp

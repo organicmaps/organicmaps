@@ -25,7 +25,7 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
                                    cache::IntermediateDataReader & holder,
                                    feature::GenerateInfo const & info) :
   m_emitter(emitter),
-  m_holder(holder),
+  m_cache(holder),
   m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0),
   m_nodeRelations(m_routingTagsProcessor),
   m_wayRelations(m_routingTagsProcessor),
@@ -42,6 +42,16 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
   auto const roadAccessFilePath = info.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
   if (!roadAccessFilePath.empty())
     m_routingTagsProcessor.m_roadAccessWriter.Open(roadAccessFilePath);
+
+  auto const camerasToWaysFilePath = info.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+  auto const camerasNodesToWaysFilePath = info.GetIntermediateFileName(CAMERAS_NODES_TO_WAYS_FILE);
+  auto const camerasMaxSpeedFilePath = info.GetIntermediateFileName(CAMERAS_MAXSPEED_FILE);
+  if (!camerasToWaysFilePath.empty() && !camerasNodesToWaysFilePath.empty() &&
+      !camerasMaxSpeedFilePath.empty())
+  {
+    m_routingTagsProcessor.m_cameraNodeWriter.Open(camerasToWaysFilePath, camerasNodesToWaysFilePath,
+                                                   camerasMaxSpeedFilePath);
+  }
 }
 
 void TranslatorPlanet::EmitElement(OsmElement * p)
@@ -70,7 +80,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
     // Parse geometry.
     for (uint64_t ref : p->Nodes())
     {
-      if (!m_holder.GetNode(ref, pt.y, pt.x))
+      if (!m_cache.GetNode(ref, pt.y, pt.x))
         break;
       ft.AddPoint(pt);
     }
@@ -91,8 +101,8 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
     {
       // Emit coastline feature only once.
       isCoastline = false;
-      HolesProcessor processor(p->id, m_holder);
-      m_holder.ForEachRelationByWay(p->id, processor);
+      HolesProcessor processor(p->id, m_cache);
+      m_cache.ForEachRelationByWay(p->id, processor);
       ft.SetAreaAddHoles(processor.GetHoles());
     });
 
@@ -108,7 +118,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
     if (!ParseType(p, params))
       break;
 
-    HolesRelation helper(m_holder);
+    HolesRelation helper(m_cache);
     helper.Build(p);
 
     auto const & holesGeometry = helper.GetHoles();
@@ -143,12 +153,12 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
   if (p->IsNode())
   {
     m_nodeRelations.Reset(p->id, p);
-    m_holder.ForEachRelationByNodeCached(p->id, m_nodeRelations);
+    m_cache.ForEachRelationByNodeCached(p->id, m_nodeRelations);
   }
   else if (p->IsWay())
   {
     m_wayRelations.Reset(p->id, p);
-    m_holder.ForEachRelationByWayCached(p->id, m_wayRelations);
+    m_cache.ForEachRelationByWayCached(p->id, m_wayRelations);
   }
 
   // Get params from element tags.
@@ -156,6 +166,7 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
   if (!params.IsValid())
     return false;
 
+  m_routingTagsProcessor.m_cameraNodeWriter.Process(*p, params, m_cache);
   m_routingTagsProcessor.m_roadAccessWriter.Process(*p);
   return true;
 }

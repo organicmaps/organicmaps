@@ -449,6 +449,7 @@ std::string to_string_unsigned(T i)
 }
 }
 
+inline std::string to_string(int32_t i) { return impl::to_string_signed(i); }
 inline std::string to_string(int64_t i) { return impl::to_string_signed(i); }
 inline std::string to_string(uint64_t i) { return impl::to_string_unsigned(i); }
 /// Use this function to get string with fixed count of

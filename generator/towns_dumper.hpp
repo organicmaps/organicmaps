@@ -4,6 +4,8 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "generator/osm_element.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <limits>
@@ -16,7 +18,7 @@ public:
   TownsDumper();
 
   template <typename TElement>
-  void CheckElement(TElement const & em)
+  void CheckElement(TElement const & em, std::vector<OsmElement::Tag> const & tags)
   {
     if (em.type != TElement::EntityType::Node)
       return;
@@ -24,7 +26,7 @@ public:
     bool town = false;
     bool capital = false;
     int admin_level = std::numeric_limits<int>::max();
-    for (auto const & tag : em.Tags())
+    for (auto const & tag : tags)
     {
       std::string key(tag.key), value(tag.value);
       if (key == "population")

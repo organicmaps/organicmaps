@@ -76,8 +76,6 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_POSTCODE;
   else if (k == "wikipedia")
     outType = Metadata::FMD_WIKIPEDIA;
-  else if (k == "maxspeed")
-    outType = Metadata::FMD_MAXSPEED;
   else if (k == "addr:flats")
     outType = Metadata::FMD_FLATS;
   else if (k == "height")
@@ -186,7 +184,6 @@ string ToString(feature::Metadata::EType type)
   case Metadata::FMD_EMAIL: return "email";
   case Metadata::FMD_POSTCODE: return "addr:postcode";
   case Metadata::FMD_WIKIPEDIA: return "wikipedia";
-  case Metadata::FMD_MAXSPEED: return "maxspeed";
   case Metadata::FMD_FLATS: return "addr:flats";
   case Metadata::FMD_HEIGHT: return "height";
   case Metadata::FMD_MIN_HEIGHT: return "min_height";

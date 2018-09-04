@@ -145,7 +145,6 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
     case Metadata::FMD_TURN_LANES_BACKWARD:
     // Postcode should be processed separately, in the address.
     case Metadata::FMD_POSTCODE:
-    case Metadata::FMD_MAXSPEED:
     case Metadata::FMD_HEIGHT:
     case Metadata::FMD_MIN_HEIGHT:
     case Metadata::FMD_DENOMINATION:

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_meta.hpp"
 
@@ -10,6 +11,7 @@
 
 #include <algorithm>
 #include <array>
+#include <iterator>
 #include <string>
 #include <utility>
 #include <vector>
@@ -90,14 +92,15 @@ namespace feature
       return (m_size > 0 ? m_types[0] : 0);
     }
 
-    bool Has(uint32_t t) const { return (find(begin(), end(), t) != end()); }
+    bool Has(uint32_t t) const { return std::find(begin(), end(), t) != end(); }
     //@}
 
-    template <class TFn> bool RemoveIf(TFn && fn)
+    template <typename Fn>
+    bool RemoveIf(Fn && fn)
     {
       size_t const oldSize = m_size;
 
-      auto const e = remove_if(begin(), end(), forward<TFn>(fn));
+      auto const e = std::remove_if(begin(), end(), std::forward<Fn>(fn));
       m_size = distance(begin(), e);
 
       return (m_size != oldSize);
@@ -209,7 +212,7 @@ struct FeatureParamsBase
 
 class FeatureParams : public FeatureParamsBase
 {
-  typedef FeatureParamsBase BaseT;
+  using Base = FeatureParamsBase;
 
   uint8_t m_geomType;
 
@@ -248,7 +251,7 @@ public:
   /// Geometry is independent state and it's set by FeatureType's geometry functions.
   void SetParams(FeatureParams const & rhs)
   {
-    BaseT::operator=(rhs);
+    Base::operator=(rhs);
 
     m_types = rhs.m_types;
     m_addrTags = rhs.m_addrTags;
@@ -305,7 +308,7 @@ public:
       m_addrTags.Serialize(sink);
     }
 
-    BaseT::Write(sink, header);
+    Base::Write(sink, header);
   }
 
   template <class TSource> void Read(TSource & src)
@@ -322,7 +325,7 @@ public:
     m_metadata.Deserialize(src);
     m_addrTags.Deserialize(src);
 
-    BaseT::Read(src, header);
+    Base::Read(src, header);
   }
 
 private:

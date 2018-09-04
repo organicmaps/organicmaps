@@ -193,6 +193,7 @@ LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
 TEST_LOG="$LOG_PATH/test_planet.log"
+GENERATE_CAMERA_SECTION="--generate_cameras"
 [ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed at $(hostname)\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start ${DESC-}"
@@ -541,7 +542,7 @@ if [ "$MODE" == "routing" ]; then
       BASENAME="$(basename "$file" .mwm)"
       (
         "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
-        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
+        --make_cross_mwm --disable_cross_mwm_progress  ${GENERATE_CAMERA_SECTION-} --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
         "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
         --make_transit_cross_mwm --transit_path="$DATA_PATH" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
         ) &

@@ -26,15 +26,7 @@ uint8_t constexpr kNoSpeedCamera = std::numeric_limits<uint8_t>::max();
 
 uint8_t ReadCameraRestriction(FeatureType & ft)
 {
-  string const & speed = ft.GetMetadata().Get(feature::Metadata::FMD_MAXSPEED);
-
-  if (speed.empty())
-    return 0;
-
-  int result;
-  if (strings::to_int(speed, result))
-    return result;
-
+  // TODO (@gmoryes) remove this file and .hpp too
   return 0;
 }
 

@@ -46,7 +46,7 @@ class MetadataTagProcessor : private MetadataTagProcessorImpl
 public:
   /// Make base class constructor public.
   using MetadataTagProcessorImpl::MetadataTagProcessorImpl;
-  /// Since it is used as a functor wich stops iteration in ftype::ForEachTag
+  /// Since it is used as a functor which stops iteration in ftype::ForEachTag
   /// and the is no need for interrupting it always returns false.
   /// TODO(mgsergio): Move to cpp after merge with https://github.com/mapsme/omim/pull/1314
   bool operator() (std::string const & k, std::string const & v)
@@ -89,7 +89,6 @@ public:
     case Metadata::FMD_EMAIL: valid = ValidateAndFormat_email(v); break;
     case Metadata::FMD_POSTCODE: valid = ValidateAndFormat_postcode(v); break;
     case Metadata::FMD_WIKIPEDIA: valid = ValidateAndFormat_wikipedia(v); break;
-    case Metadata::FMD_MAXSPEED: valid = ValidateAndFormat_maxspeed(v); break;
     case Metadata::FMD_FLATS: valid = ValidateAndFormat_flats(v); break;
     case Metadata::FMD_MIN_HEIGHT:  // The same validator as for height.
     case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
@@ -100,7 +99,6 @@ public:
     case Metadata::FMD_RATING: valid = ValidateAndFormat_rating(v); break;
     case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
-
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
     }

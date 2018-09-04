@@ -30,7 +30,7 @@ void AddFeatureId(base::GeoObjectId osmId, uint32_t featureId,
 {
   // Failing to insert here usually means that two features were created
   // from one osm id, for example an area and its boundary.
-  osmIdToFeatureId.insert(make_pair(osmId, featureId));
+  osmIdToFeatureId.emplace(osmId, featureId);
 }
 
 bool ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath,

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "generator/road_access_generator.hpp"
+#include "generator/camera_node_processor.hpp"
 #include "generator/restriction_writer.hpp"
+#include "generator/road_access_generator.hpp"
 
 #include "routing/cross_mwm_ids.hpp"
 
@@ -17,6 +18,7 @@ struct TagsProcessor
 {
   RoadAccessWriter m_roadAccessWriter;
   RestrictionWriter m_restrictionWriter;
+  CameraNodeProcessor m_cameraNodeWriter;
 };
 
 // Adds feature id and corresponding |osmId| to |osmIdToFeatureId|.

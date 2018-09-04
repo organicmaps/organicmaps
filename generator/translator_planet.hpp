@@ -1,5 +1,6 @@
 #pragma once
 
+#include "generator/camera_info_collector.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/relation_tags.hpp"
 #include "generator/routing_helpers.hpp"
@@ -48,7 +49,7 @@ private:
 
 private:
   std::shared_ptr<EmitterInterface> m_emitter;
-  cache::IntermediateDataReader & m_holder;
+  cache::IntermediateDataReader & m_cache;
   uint32_t m_coastType;
   std::unique_ptr<FileWriter> m_addrWriter;
   routing::TagsProcessor m_routingTagsProcessor;

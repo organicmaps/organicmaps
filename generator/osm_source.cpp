@@ -1,5 +1,6 @@
 #include "generator/osm_source.hpp"
 
+#include "generator/camera_node_processor.hpp"
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_generator.hpp"
@@ -69,18 +70,21 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-template <typename TElement, typename TCache>
-void AddElementToCache(TCache & cache, TElement const & em)
+template <typename Element>
+void AddElementToCache(cache::IntermediateDataWriter & cache,
+                       CameraNodeIntermediateDataProcessor & cameras, Element & em,
+                       vector<OsmElement::Tag> const & tags)
 {
   switch (em.type)
   {
-  case TElement::EntityType::Node:
+  case Element::EntityType::Node:
   {
     auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
     cache.AddNode(em.id, pt.y, pt.x);
+    cameras.ProcessNode(em, tags);
     break;
   }
-  case TElement::EntityType::Way:
+  case Element::EntityType::Way:
   {
     // Store way.
     WayElement way(em.id);
@@ -88,23 +92,26 @@ void AddElementToCache(TCache & cache, TElement const & em)
       way.nodes.push_back(nd);
 
     if (way.IsValid())
+    {
       cache.AddWay(em.id, way);
+      cameras.ProcessWay(em.id, way);
+    }
     break;
   }
-  case TElement::EntityType::Relation:
+  case Element::EntityType::Relation:
   {
     // store relation
     RelationElement relation;
     for (auto const & member : em.Members())
     {
       switch (member.type) {
-      case TElement::EntityType::Node:
+      case Element::EntityType::Node:
         relation.nodes.emplace_back(member.ref, string(member.role));
         break;
-      case TElement::EntityType::Way:
+      case Element::EntityType::Way:
         relation.ways.emplace_back(member.ref, string(member.role));
         break;
-      case TElement::EntityType::Relation:
+      case Element::EntityType::Relation:
         // we just ignore type == "relation"
         break;
       default:
@@ -112,7 +119,7 @@ void AddElementToCache(TCache & cache, TElement const & em)
       }
     }
 
-    for (auto const & tag : em.Tags())
+    for (auto const & tag : tags)
       relation.tags.emplace(tag.key, tag.value);
 
     if (relation.IsValid())
@@ -125,13 +132,13 @@ void AddElementToCache(TCache & cache, TElement const & em)
   }
 }
 
-template <typename TCache>
-void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache, TownsDumper & towns)
+void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateDataWriter & cache,
+                                  TownsDumper & towns, CameraNodeIntermediateDataProcessor & cameras)
 {
   XMLSource parser([&](OsmElement * e)
   {
-    towns.CheckElement(*e);
-    AddElementToCache(cache, *e);
+    towns.CheckElement(*e, e->Tags());
+    AddElementToCache(cache, cameras, *e, e->Tags());
   });
   ParseXMLSequence(stream, parser);
 }
@@ -142,18 +149,22 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
   ParseXMLSequence(stream, parser);
 }
 
-template <typename TCache>
-void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache, TownsDumper & towns)
+void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
+                                  TownsDumper & towns, CameraNodeIntermediateDataProcessor & cameras)
 {
   osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
   {
     return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
 
-  for (auto const & e : dataset)
+  for (auto const & em : dataset)
   {
-    towns.CheckElement(e);
-    AddElementToCache(cache, e);
+    vector<OsmElement::Tag> tags;
+    for (auto const & tag : em.Tags())
+      tags.emplace_back(tag.key, tag.value);
+
+    towns.CheckElement(em, tags);
+    AddElementToCache(cache, cameras, em, tags);
   }
 }
 
@@ -311,6 +322,8 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
                                                  info.GetIntermediateFileName(NODES_FILE));
     cache::IntermediateDataWriter cache(nodes, info);
     TownsDumper towns;
+    CameraNodeIntermediateDataProcessor cameras(info.GetIntermediateFileName(CAMERAS_NODES_TO_WAYS_FILE),
+                                                info.GetIntermediateFileName(CAMERAS_MAXSPEED_FILE));
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
 
@@ -319,14 +332,15 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
     switch (info.m_osmFileType)
     {
     case feature::GenerateInfo::OsmSourceType::XML:
-      BuildIntermediateDataFromXML(reader, cache, towns);
+      BuildIntermediateDataFromXML(reader, cache, towns, cameras);
       break;
     case feature::GenerateInfo::OsmSourceType::O5M:
-      BuildIntermediateDataFromO5M(reader, cache, towns);
+      BuildIntermediateDataFromO5M(reader, cache, towns, cameras);
       break;
     }
 
     cache.SaveIndex();
+    cameras.SaveIndex();
     towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
     LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   }

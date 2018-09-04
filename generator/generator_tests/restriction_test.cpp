@@ -95,7 +95,7 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
 
   // Adding restriction section to mwm.
   string const restrictionFullPath = my::JoinPath(writableDir, restrictionRelativePath);
-  string const mwmFullPath = my::JoinPath(writableDir, mwmRelativePath);
+  string const & mwmFullPath = scopedMwm.GetFullPath();
   BuildRoadRestrictions(mwmFullPath, restrictionFullPath, mappingFullPath);
 
   // Reading from mwm section and testing restrictions.

@@ -7,19 +7,22 @@ set(
   coasts_test.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp
+  intermediate_data_test.cpp
   metadata_parser_test.cpp
   node_mixer_test.cpp
   osm2meta_test.cpp
   osm_o5m_source_test.cpp
   osm_type_test.cpp
-  road_access_test.cpp
   region_info_collector_tests.cpp
   regions_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp
+  road_access_test.cpp
+  road_access_test.cpp
   source_data.cpp
   source_data.hpp
   source_to_element_test.cpp
+  speed_cameras_test.cpp
   sponsored_storage_tests.cpp
   srtm_parser_test.cpp
   tag_admixer_test.cpp
