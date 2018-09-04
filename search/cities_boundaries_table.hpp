@@ -53,14 +53,8 @@ public:
       m2::RectD rect;
       for (auto const & boundary : m_boundaries)
       {
-        for (auto const & p : boundary.m_bbox.Points())
-          rect.Add(p);
-
-        for (auto const & p : boundary.m_cbox.Points())
-          rect.Add(p);
-
-        for (auto const & p : boundary.m_dbox.Points())
-          rect.Add(p);
+        rect.Add(boundary.m_bbox.Min());
+        rect.Add(boundary.m_bbox.Max());
       }
       return rect;
     }

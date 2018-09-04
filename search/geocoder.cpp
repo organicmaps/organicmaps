@@ -673,7 +673,7 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
 
         CitiesBoundariesTable::Boundaries boundaries;
         bool haveBoundary = false;
-        if (m_citiesBoundaries.Has(ft.GetID()) && m_citiesBoundaries.Get(ft.GetID(), boundaries))
+        if (m_citiesBoundaries.Get(ft.GetID(), boundaries))
         {
           city.m_rect = boundaries.GetLimitRect();
           haveBoundary = true;

@@ -11,6 +11,8 @@
 
 namespace indexer
 {
+// Approximates city boundary.
+// City points are inside the intersection of boxes.
 struct CityBoundary
 {
   CityBoundary() = default;
