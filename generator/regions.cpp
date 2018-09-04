@@ -603,7 +603,7 @@ void RegionsBuilder::MakeCountryTrees(Regions const & regions)
   for (auto & r : results)
   {
     auto tree = r.get();
-    m_countryTrees.emplace({tree->GetData().GetName(), std::move(tree)});
+    m_countryTrees.emplace(tree->GetData().GetName(), std::move(tree));
   }
 }
 }  // namespace regions
