@@ -39,9 +39,9 @@ enum class PlaceType: uint8_t
   City = 9,
   Town = 10,
   Village = 11,
-  Suburb = 12,
-  Neighbourhood = 13,
-  Hamlet = 14,
+  Hamlet = 12,
+  Suburb = 13,
+  Neighbourhood = 14,
   Locality = 15,
   IsolatedDwelling = 16,
 };

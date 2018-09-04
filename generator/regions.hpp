@@ -36,7 +36,6 @@ struct Region
 
   explicit Region(FeatureBuilder1 const & fb, RegionData const & rd);
 
-  void FillPolygon(FeatureBuilder1 const & fb);
   void DeletePolygon();
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   bool IsCountry() const;
@@ -54,6 +53,8 @@ struct Region
   uint64_t GetId() const;
 
 private:
+  void FillPolygon(FeatureBuilder1 const & fb);
+
   StringUtf8Multilang m_name;
   RegionData m_regionData;
   std::shared_ptr<BoostPolygon> m_polygon;

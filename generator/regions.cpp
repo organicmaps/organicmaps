@@ -25,6 +25,7 @@
 #include "3party/jansson/myjansson.hpp"
 #include "3party/ThreadPool/ThreadPool.h"
 #include "3party/boost/boost/math/special_functions/relative_difference.hpp"
+#include "3party/boost/boost/range/adaptor/reversed.hpp"
 
 namespace generator
 {
@@ -37,6 +38,11 @@ using MergeFunc = std::function<Node::Ptr(Node::Ptr, Node::Ptr)>;
 class JsonPolicy : public ToStringPolicyInterface
 {
 public:
+  JsonPolicy(bool extendedOutput = false)
+    : m_extendedOutput(extendedOutput)
+  {
+  }
+
   std::string ToString(Node::PtrList const & nodePtrList) override
   {
     auto const & main = nodePtrList.front()->GetData();
@@ -50,13 +56,21 @@ public:
     ToJSONObject(*geometry, "coordinates", coordinates);
 
     auto address = my::NewJSONObject();
-    for (auto const & p : nodePtrList)
-      ToJSONObject(*address, p->GetData().GetLabel(), p->GetData().GetName());
+    for (auto const & p : boost::adaptors::reverse(nodePtrList))
+    {
+      auto const label = p->GetData().GetLabel();
+      ToJSONObject(*address, label, p->GetData().GetName());
+      if (m_extendedOutput)
+      {
+        ToJSONObject(*address, label + "_i", p->GetData().GetId());
+        ToJSONObject(*address, label + "_a", p->GetData().GetArea());
+        ToJSONObject(*address, label + "_r", p->GetData().GetRank());
+      }
+    }
 
     auto properties = my::NewJSONObject();
     ToJSONObject(*properties, "name", main.GetName());
     ToJSONObject(*properties, "rank", main.GetRank());
-    ToJSONObject(*properties, "depth", nodePtrList.size());
     ToJSONObject(*properties, "address", address);
 
     auto feature = my::NewJSONObject();
@@ -68,22 +82,10 @@ public:
     std::unique_ptr<char, JSONFreeDeleter> buffer(cstr);
     return buffer.get();
   }
-};
 
-inline void DebugDumpRegions(std::string const & name, RegionsBuilder::Regions const & regions)
-{
-  std::ofstream ofs(name, std::ofstream::out);
-  for (auto const & region : regions)
-  {
-    ofs << region.GetName() << "; " << region.GetArea() << "; [("
-        << region.GetRect().min_corner().get<0>() << ","
-        << region.GetRect().min_corner().get<1>() << "), ("
-        << region.GetRect().max_corner().get<0>() << ","
-        << region.GetRect().max_corner().get<0>() << ")]; "
-        << region.GetPolygon()->outer().size()
-        << std::endl;
-  }
-}
+private:
+  bool m_extendedOutput;
+};
 
 // This function is for debugging only and can be used for statistics collection.
 size_t TreeSize(Node::Ptr node)
@@ -280,10 +282,10 @@ Region::Region(FeatureBuilder1 const & fb, RegionData const & rd)
     m_regionData(rd),
     m_polygon(std::make_shared<BoostPolygon>())
 {
+  FillPolygon(fb);
   auto rect = fb.GetLimitRect();
   m_rect = BoostRect({{rect.minX(), rect.minY()}, {rect.maxX(), rect.maxY()}});
-  m_area = boost::geometry::area(m_rect);
-  FillPolygon(fb);
+  m_area = boost::geometry::area(*m_polygon);
 }
 
 std::string Region::GetName(int8_t lang) const
@@ -352,10 +354,10 @@ bool Region::ContainsRect(Region const & smaller) const
 // This is used when calculating the rank.
 uint8_t Region::GetRank() const
 {
+
   switch (m_regionData.m_adminLevel)
   {
   case AdminLevel::Two:
-  case AdminLevel::Three:
   case AdminLevel::Four: return static_cast<uint8_t>(m_regionData.m_adminLevel);
   default: break;
   }
@@ -364,16 +366,14 @@ uint8_t Region::GetRank() const
   {
   case PlaceType::City:
   case PlaceType::Town:
-  case PlaceType::Village: return static_cast<uint8_t>(m_regionData.m_place);
+  case PlaceType::Village:
+  case PlaceType::Hamlet: return static_cast<uint8_t>(m_regionData.m_place);
   default: break;
   }
 
   switch (m_regionData.m_adminLevel)
   {
-  case AdminLevel::Five:
-  case AdminLevel::Six:
-  case AdminLevel::Seven:
-  case AdminLevel::Eight: return static_cast<uint8_t>(m_regionData.m_adminLevel);
+  case AdminLevel::Six: return static_cast<uint8_t>(m_regionData.m_adminLevel);
   default: break;
   }
 
@@ -381,7 +381,6 @@ uint8_t Region::GetRank() const
   {
   case PlaceType::Suburb:
   case PlaceType::Neighbourhood:
-  case PlaceType::Hamlet:
   case PlaceType::Locality:
   case PlaceType::IsolatedDwelling: return static_cast<uint8_t>(m_regionData.m_place);
   default: break;
@@ -537,7 +536,7 @@ Node::PtrList RegionsBuilder::MakeSelectedRegionsByCountry(Region const & countr
   auto const comp = [](const Region & l, const Region & r)
   {
     auto const lArea = l.GetArea();
-    auto const rArea = l.GetArea();
+    auto const rArea = r.GetArea();
     return lArea != rArea ? lArea > rArea : l.GetRank() < r.GetRank();
   };
   std::sort(std::begin(regionsInCountry), std::end(regionsInCountry), comp);
@@ -570,8 +569,18 @@ Node::Ptr RegionsBuilder::BuildCountryRegionTree(Region const & country,
           (currRegion.Contains(firstRegion) ||
            currRegion.CalculateOverlapPercentage(firstRegion) > kAvaliableOverlapPercentage))
       {
-        (*itFirstNode)->SetParent(*itCurr);
-        (*itCurr)->AddChild(*itFirstNode);
+        // In general, we assume that a region with the larger rank has the larger area.
+        // But sometimes it does not. In this case, we will make an inversion.
+        if (firstRegion.GetRank() < currRegion.GetRank())
+        {
+          (*itCurr)->SetParent(*itFirstNode);
+          (*itFirstNode)->AddChild(*itCurr);
+        }
+        else
+        {
+          (*itFirstNode)->SetParent(*itCurr);
+          (*itCurr)->AddChild(*itFirstNode);
+        }
         // We want to free up memory.
         firstRegion.DeletePolygon();
         nodes.pop_back();
@@ -620,11 +629,14 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
   RegionInfoCollector regionsInfoCollector(collectorFilename);
 
   auto regions = ReadRegionsFromTmpMwm(genInfo, regionsInfoCollector);
-  auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions));
+  auto jsonPolicy = std::make_unique<JsonPolicy>(genInfo.m_verbose);
+  auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions), std::move(jsonPolicy));
   auto const countryTrees = kvBuilder->GetCountryTrees();
 
   auto const jsonlName = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
   std::ofstream ofs(jsonlName, std::ofstream::out);
+  std::set<uint64_t> setIds;
+  size_t countIds = 0;
   for (auto const & countryName : kvBuilder->GetCountryNames())
   {
     auto const keyRange = countryTrees.equal_range(countryName);
@@ -641,11 +653,15 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
     auto const idStringList = kvBuilder->ToIdStringList(mergedTree);
     for (auto const & s : idStringList)
     {
-      ofs << base::GeoObjectId(base::GeoObjectId::Type::OsmRelation, s.first).GetEncodedId()
-          << " " << s.second << std::endl;
+      auto const id = base::GeoObjectId(base::GeoObjectId::Type::OsmRelation, s.first).GetEncodedId();
+      ofs << id << " " << s.second << std::endl;
+      ++countIds;
+      if (!setIds.insert(id).second)
+        LOG(LWARNING, ("Id alredy exists:", id, s.first));
     }
   }
 
+  LOG(LINFO, (countIds, "total ids.", setIds.size(), "unique ids."));
   LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
   return true;
 }
