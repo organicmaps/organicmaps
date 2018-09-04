@@ -72,6 +72,7 @@
 #include "platform/settings.hpp"
 #include "platform/socket.hpp"
 
+#include "coding/endianness.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/multilang_utf8_string.hpp"
 #include "coding/transliteration.hpp"
@@ -391,6 +392,10 @@ Framework::Framework(FrameworkParams const & params)
   , m_purchase(std::make_unique<Purchase>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
 {
+  CHECK(IsLittleEndian(), ("Only little endian architecture is supported."));
+
+  m_startBackgroundTime = my::Timer::LocalTime();
+
   // Editor should be initialized from the main thread to set its ThreadChecker.
   // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
   // to a wrong thread. So editor should be initialiazed before serach.
