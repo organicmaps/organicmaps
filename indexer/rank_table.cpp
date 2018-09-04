@@ -226,13 +226,27 @@ uint8_t CalcEventRank(FeatureType & ft)
   return 0;
 }
 
+uint8_t CalcTransportRank(FeatureType & ft)
+{
+  uint8_t const kTransportRank = 2;
+  if (ftypes::IsRailwayStationChecker::Instance()(ft) ||
+      ftypes::IsSubwayStationChecker::Instance()(ft) || ftypes::IsAirportChecker::Instance()(ft))
+  {
+    return kTransportRank;
+  }
+
+  return 0;
+}
+
 // Calculates search rank for a feature.
 uint8_t CalcSearchRank(FeatureType & ft)
 {
   auto const eventRank = CalcEventRank(ft);
+  auto const transportRank = CalcTransportRank(ft);
   auto const populationRank = feature::PopulationToRank(ftypes::GetPopulation(ft));
 
-  return my::clamp(eventRank + populationRank, 0, static_cast<int>(numeric_limits<uint8_t>::max()));
+  return my::clamp(eventRank + transportRank + populationRank, 0,
+                   static_cast<int>(numeric_limits<uint8_t>::max()));
 }
 
 // Creates rank table if it does not exists in |rcont| or has wrong

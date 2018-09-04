@@ -179,6 +179,19 @@ IsRailwayStationChecker::IsRailwayStationChecker()
 {
   Classificator const & c = classif();
   m_types.push_back(c.GetTypeByPath({"railway", "station"}));
+  m_types.push_back(c.GetTypeByPath({"building", "train_station"}));
+}
+
+IsSubwayStationChecker::IsSubwayStationChecker() : BaseChecker(3 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"railway", "station", "subway"}));
+}
+
+IsAirportChecker::IsAirportChecker()
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"aeroway", "aerodrome"}));
 }
 
 IsStreetChecker::IsStreetChecker()

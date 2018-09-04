@@ -86,6 +86,22 @@ public:
   DECLARE_CHECKER_INSTANCE(IsRailwayStationChecker);
 };
 
+class IsSubwayStationChecker : public BaseChecker
+{
+  IsSubwayStationChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsSubwayStationChecker);
+};
+
+class IsAirportChecker : public BaseChecker
+{
+  IsAirportChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsAirportChecker);
+};
+
 class IsStreetChecker : public BaseChecker
 {
   IsStreetChecker();
