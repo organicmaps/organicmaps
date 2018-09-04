@@ -28,10 +28,19 @@ class PlayStoreBillingConnection implements BillingConnection,
   }
 
   @Override
-  public void connect()
+  public void open()
   {
+    LOGGER.d(TAG, "Opening billing connection...");
     mState = State.CONNECTING;
     mBillingClient.startConnection(this);
+  }
+
+  @Override
+  public void close()
+  {
+    LOGGER.d(TAG, "Closing billing connection...");
+    mBillingClient.endConnection();
+    mState = State.CLOSED;
   }
 
   @NonNull
@@ -44,7 +53,7 @@ class PlayStoreBillingConnection implements BillingConnection,
   @Override
   public void onBillingSetupFinished(int responseCode)
   {
-    LOGGER.i(TAG, "Setup finished. Response code: " + responseCode);
+    LOGGER.i(TAG, "Connection established to billing client. Response code: " + responseCode);
     if (responseCode == BillingClient.BillingResponse.OK)
     {
       mState = State.CONNECTED;
@@ -59,6 +68,7 @@ class PlayStoreBillingConnection implements BillingConnection,
   @Override
   public void onBillingServiceDisconnected()
   {
+    LOGGER.i(TAG, "Billing client is disconnected.");
     mState = State.DISCONNECTED;
   }
 

@@ -54,13 +54,14 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     LOGGER.i(TAG, "Creating play store billing client...");
     mBillingClient = BillingClient.newBuilder(mActivity).setListener(this).build();
     mConnection = new PlayStoreBillingConnection(mBillingClient, this);
-    mConnection.connect();
+    mConnection.open();
   }
 
   @Override
   public void destroy()
   {
-    // Coming soon.
+    mConnection.close();
+    mPendingRequests.clear();
   }
 
   @Override
@@ -80,7 +81,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
         task.run();
         break;
       case DISCONNECTED:
-        mConnection.connect();
+        mConnection.open();
         break;
       case CLOSED:
         throw new IllegalStateException("Billing service connection already closed, " +
@@ -175,7 +176,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
 
       LOGGER.i(TAG, "Purchase details obtained: " + skuDetails);
       if (mCallback != null)
-        mCallback.onPurchaseDetailsLoaded(Factory.createPurchaseDetailsFrom(skuDetails));
+        mCallback.onPurchaseDetailsLoaded(BillingFactory.createPurchaseDetailsFrom(skuDetails));
     }
   }
 }

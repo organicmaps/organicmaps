@@ -8,9 +8,14 @@ import android.support.annotation.NonNull;
 public interface BillingConnection
 {
   /**
-   * Connects to the billing manager.
+   * Opens a connection to the billing manager.
    */
-  void connect();
+  void open();
+
+  /**
+   * Closes the connection to the billing manager.
+   */
+  void close();
 
   /**
    * @return the connection state of the billing manager.

@@ -27,11 +27,11 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.purchase.Factory;
+import com.mapswithme.maps.purchase.BillingFactory;
 import com.mapswithme.maps.purchase.PurchaseValidator;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.scheduling.ConnectivityListener;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
+import com.mapswithme.maps.scheduling.ConnectivityListener;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
@@ -77,7 +77,7 @@ public class MwmApplication extends Application
   @NonNull
   private PushwooshHelper mPushwooshHelper;
   @NonNull
-  private final PurchaseValidator mPurchaseValidator = Factory.ADS_REMOVAL.createPurchaseManager();
+  private final PurchaseValidator mPurchaseValidator = BillingFactory.ADS_REMOVAL.createPurchaseManager();
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;

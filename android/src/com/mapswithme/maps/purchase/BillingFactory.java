@@ -9,7 +9,7 @@ import com.android.billingclient.api.SkuDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Factory
+public enum BillingFactory
 {
   ADS_REMOVAL
       {

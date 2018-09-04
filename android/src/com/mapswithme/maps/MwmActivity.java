@@ -72,6 +72,8 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.purchase.BillingFactory;
+import com.mapswithme.maps.purchase.BillingManager;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -228,7 +230,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Bundle mSavedForTabletState;
   @Nullable
   private PlacePageTracker mPlacePageTracker;
-
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BillingManager mBillingManager;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -546,6 +550,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.setVisibilityListener(this);
 
     SharingHelper.INSTANCE.initialize();
+
+    mBillingManager = BillingFactory.ADS_REMOVAL.createBillingManager(this, "android.test.purchased");
 
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
@@ -1340,6 +1346,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
+    mBillingManager.initialize();
     SearchEngine.INSTANCE.addListener(this);
     Framework.nativeSetMapObjectListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
@@ -1357,6 +1364,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStop()
   {
     super.onStop();
+    mBillingManager.destroy();
     SearchEngine.INSTANCE.removeListener(this);
     Framework.nativeRemoveMapObjectListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
