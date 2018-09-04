@@ -676,9 +676,11 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
         if (m_citiesBoundaries.Get(ft.GetID(), boundaries))
         {
           city.m_rect = boundaries.GetLimitRect();
-          haveBoundary = true;
+          if (city.m_rect.IsValid())
+            haveBoundary = true;
         }
-        else
+
+        if (!haveBoundary)
         {
           auto const center = feature::GetCenter(ft);
           auto const population = ftypes::GetPopulation(ft);
