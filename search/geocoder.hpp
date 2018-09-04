@@ -3,6 +3,7 @@
 #include "search/cancel_exception.hpp"
 #include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
+#include "search/cities_boundaries_table.hpp"
 #include "search/feature_offset_match.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
@@ -87,8 +88,9 @@ public:
   };
 
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
-           CategoriesHolder const & categories, PreRanker & preRanker,
-           VillagesCache & villagesCache, ::base::Cancellable const & cancellable);
+           CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries,
+           PreRanker & preRanker, VillagesCache & villagesCache,
+           ::base::Cancellable const & cancellable);
   ~Geocoder();
 
   // Sets search query params.
@@ -268,6 +270,7 @@ private:
   // and small villages and hamlets that are not.
   LocalitiesCache<City> m_cities;
   LocalitiesCache<Region> m_regions[Region::TYPE_COUNT];
+  CitiesBoundariesTable const & m_citiesBoundaries;
 
   // Caches of features in rects. These caches are separated from
   // TLocalitiesCache because the latter are quite lightweight and not

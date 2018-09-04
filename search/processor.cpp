@@ -153,7 +153,7 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
   , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<::base::Cancellable const &>(*this))
   , m_preRanker(dataSource, m_ranker)
-  , m_geocoder(dataSource, infoGetter, categories, m_preRanker, m_villagesCache,
+  , m_geocoder(dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_villagesCache,
                static_cast<::base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<::base::Cancellable const &>(*this))
 {

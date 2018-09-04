@@ -48,6 +48,23 @@ public:
     // |*this|.
     bool HasPoint(m2::PointD const & p) const;
 
+    m2::RectD GetLimitRect() const
+    {
+      m2::RectD rect;
+      for (auto const & boundary : m_boundaries)
+      {
+        for (auto const & p : boundary.m_bbox.Points())
+          rect.Add(p);
+
+        for (auto const & p : boundary.m_cbox.Points())
+          rect.Add(p);
+
+        for (auto const & p : boundary.m_dbox.Points())
+          rect.Add(p);
+      }
+      return rect;
+    }
+
     std::vector<indexer::CityBoundary> const & GetBoundariesForTesting() const { return m_boundaries; }
 
     friend std::string DebugPrint(Boundaries const & boundaries)

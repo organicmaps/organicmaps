@@ -329,7 +329,8 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
-                   CategoriesHolder const & categories, PreRanker & preRanker,
+                   CategoriesHolder const & categories,
+                   CitiesBoundariesTable const & citiesBoundaries, PreRanker & preRanker,
                    VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
   : m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
@@ -339,6 +340,7 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_hotelsCache(cancellable)
   , m_hotelsFilter(m_hotelsCache)
   , m_cancellable(cancellable)
+  , m_citiesBoundaries(citiesBoundaries)
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_filter(nullptr)
@@ -667,16 +669,31 @@ void Geocoder::FillLocalitiesTable(BaseContext const & ctx)
       {
         ++numCities;
 
-        auto const center = feature::GetCenter(ft);
-        auto const population = ftypes::GetPopulation(ft);
-        auto const radius = ftypes::GetRadiusByPopulation(population);
-
         City city(l, Model::TYPE_CITY);
-        city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
+
+        CitiesBoundariesTable::Boundaries boundaries;
+        bool haveBoundary = false;
+        if (m_citiesBoundaries.Has(ft.GetID()) && m_citiesBoundaries.Get(ft.GetID(), boundaries))
+        {
+          city.m_rect = boundaries.GetLimitRect();
+          haveBoundary = true;
+        }
+        else
+        {
+          auto const center = feature::GetCenter(ft);
+          auto const population = ftypes::GetPopulation(ft);
+          auto const radius = ftypes::GetRadiusByPopulation(population);
+          city.m_rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, radius);
+        }
 
 #if defined(DEBUG)
         ft.GetName(StringUtf8Multilang::kDefaultCode, city.m_defaultName);
-        LOG(LINFO, ("City =", city.m_defaultName, "radius =", radius));
+        LOG(LINFO,
+            ("City =", city.m_defaultName, "rect =", city.m_rect, "rect source:", haveBoundary ? "table" : "population",
+             "sizeX =",
+             MercatorBounds::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.RightTop()),
+             "sizeY =",
+             MercatorBounds::DistanceOnEarth(city.m_rect.LeftTop(), city.m_rect.LeftBottom())));
 #endif
 
         m_cities[city.m_tokenRange].push_back(city);
