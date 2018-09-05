@@ -201,11 +201,11 @@ def raw_output(features, ws):
 
 
 def print_const(name, value):
-    print('double const k{} = {:.7f};'.format(name, value))
+    print('double constexpr k{} = {:.7f};'.format(name, value))
 
 
 def print_array(name, size, values):
-    print('double const {}[{}] = {{'.format(name, size))
+    print('double constexpr {}[{}] = {{'.format(name, size))
     print(',\n'.join('  {:.7f} /* {} */'.format(w, f) for (f, w) in values))
     print('};')
 
