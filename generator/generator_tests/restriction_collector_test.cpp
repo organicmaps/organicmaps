@@ -88,7 +88,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
 
   RestrictionCollector restrictionCollector;
 
-  Platform const & platform = Platform();
+  Platform const & platform = GetPlatform();
 
   TEST(restrictionCollector.ParseRestrictions(
            my::JoinPath(platform.WritableDir(), kRestrictionPath)),
@@ -114,7 +114,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
                                                20, 2,
                                                30, 3,
                                                40, 4)";
-  Platform const & platform = Platform();
+  Platform const & platform = GetPlatform();
   ScopedFile mappingScopedFile(osmIdsToFeatureIdsPath, ScopedFile::Mode::Create);
   std::string const osmIdsToFeatureIdsFullPath = mappingScopedFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);

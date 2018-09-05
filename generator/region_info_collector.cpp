@@ -126,7 +126,7 @@ void RegionInfoCollector::Fill(OsmElement const & el, RegionData & rd)
   }
   catch (std::exception const & e)  // std::invalid_argument, std::out_of_range
   {
-    LOG(::my::LERROR, (e.what()));
+    LOG(::my::LWARNING, (e.what()));
     rd.m_adminLevel = AdminLevel::Unknown;
   }
 }
