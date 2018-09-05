@@ -118,7 +118,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)
 
   Time prevShowTime;
   {
-    EyeForTesting::AppendTip(Tip::Type::MapsLayers, Tip::Event::ActionClicked);
+    EyeForTesting::AppendTip(Tip::Type::PublicTransport, Tip::Event::ActionClicked);
 
     auto const info = Eye::Instance().GetInfo();
     auto const & tips = info->m_tips;
@@ -126,7 +126,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)
 
     TEST_EQUAL(tips.size(), 2, ());
     TEST_NOT_EQUAL(tips[1].m_lastShownTime.time_since_epoch().count(), 0, ());
-    TEST_EQUAL(tips[1].m_type, Tip::Type::MapsLayers, ());
+    TEST_EQUAL(tips[1].m_type, Tip::Type::PublicTransport, ());
     TEST_EQUAL(tips[1].m_eventCounters.Get(Tip::Event::GotitClicked), 0, ());
     TEST_EQUAL(tips[1].m_eventCounters.Get(Tip::Event::ActionClicked), 1, ());
     TEST_NOT_EQUAL(lastShownTipTime.time_since_epoch().count(), 0, ());
@@ -135,7 +135,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)
     prevShowTime = lastShownTipTime;
   }
   {
-    EyeForTesting::AppendTip(Tip::Type::MapsLayers, Tip::Event::GotitClicked);
+    EyeForTesting::AppendTip(Tip::Type::PublicTransport, Tip::Event::GotitClicked);
 
     auto const info = Eye::Instance().GetInfo();
     auto const & tips = info->m_tips;
@@ -143,7 +143,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)
 
     TEST_EQUAL(tips.size(), 2, ());
     TEST_NOT_EQUAL(tips[1].m_lastShownTime.time_since_epoch().count(), 0, ());
-    TEST_EQUAL(tips[1].m_type, Tip::Type::MapsLayers, ());
+    TEST_EQUAL(tips[1].m_type, Tip::Type::PublicTransport, ());
     TEST_EQUAL(tips[1].m_eventCounters.Get(Tip::Event::GotitClicked), 1, ());
     TEST_EQUAL(tips[1].m_eventCounters.Get(Tip::Event::ActionClicked), 1, ());
     TEST_NOT_EQUAL(lastShownTipTime.time_since_epoch().count(), 0, ());

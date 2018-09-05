@@ -29,7 +29,7 @@ public:
   // TipsApi::Delegate overrides:
   boost::optional<m2::PointD> GetCurrentPosition() const override
   {
-    return boost::optional<m2::PointD>();
+    return {};
   }
 
   bool IsCountryLoaded(m2::PointD const & pt) const override { return false; }
@@ -65,7 +65,7 @@ boost::optional<eye::Tip::Type> GetTipForTesting(TipsApi::Duration showAnyTipPer
     [] (eye::Info const & info) { return true; },
     // Condition for Tips::Type::DiscoverButton type.
     [] (eye::Info const & info) { return true; },
-     // Condition for Tips::Type::MapsLayers type.
+     // Condition for Tips::Type::PublicTransport type.
     [] (eye::Info const & info) { return true; }
   }};
   return TipsApi::GetTipForTesting(showAnyTipPeriod, showSameTipPeriod, delegate, conditions);

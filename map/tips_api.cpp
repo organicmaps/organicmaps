@@ -159,12 +159,12 @@ TipsApi::TipsApi(Delegate const & delegate)
 
       return m_delegate.IsCountryLoaded(pos.get());
     },
-    // Condition for Tips::Type::MapsLayers type.
+    // Condition for Tips::Type::PublicTransport type.
     [this] (eye::Info const & info)
     {
       for (auto const & layer : info.m_layers)
       {
-        if (layer.m_type == Layer::PublicTransport &&
+        if (layer.m_type == Layer::Type::PublicTransport &&
             layer.m_lastTimeUsed.time_since_epoch().count() != 0)
         {
           return false;

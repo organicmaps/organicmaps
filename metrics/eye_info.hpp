@@ -110,7 +110,7 @@ struct Discovery
 
 struct Layer
 {
-  enum Type
+  enum class Type : uint8_t
   {
     TrafficJams,
     PublicTransport
@@ -135,7 +135,7 @@ struct Tip
     BookmarksCatalog,
     BookingHotels,
     DiscoverButton,
-    MapsLayers,
+    PublicTransport,
 
     Count
   };
@@ -181,7 +181,7 @@ inline std::string DebugPrint(Tip::Type const & type)
   case Tip::Type::BookmarksCatalog: return "BookmarksCatalog";
   case Tip::Type::BookingHotels: return "BookingHotels";
   case Tip::Type::DiscoverButton: return "DiscoverButton";
-  case Tip::Type::MapsLayers: return "MapsLayers";
+  case Tip::Type::PublicTransport: return "PublicTransport";
   case Tip::Type::Count: return "Count";
   }
 }
