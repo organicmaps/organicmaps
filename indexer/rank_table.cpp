@@ -56,7 +56,7 @@ CheckResult CheckEndianness(TReader && reader)
     return CheckResult::CorruptedHeader;
   uint8_t flags;
   reader.Read(kFlagsOffset, &flags, sizeof(flags));
-  bool const isHostBigEndian = IsBigEndian();
+  bool const isHostBigEndian = IsBigEndianMacroBased();
   bool const isDataBigEndian = flags & 1;
   if (isHostBigEndian != isDataBigEndian)
     return CheckResult::EndiannessMismatch;
@@ -110,7 +110,7 @@ public:
     static uint64_t const padding = 0;
 
     uint8_t const version = GetVersion();
-    uint8_t const flags = preserveHostEndianness ? IsBigEndian() : !IsBigEndian();
+    uint8_t const flags = preserveHostEndianness ? IsBigEndianMacroBased() : !IsBigEndianMacroBased();
     writer.Write(&version, sizeof(version));
     writer.Write(&flags, sizeof(flags));
     writer.Write(&padding, 6);

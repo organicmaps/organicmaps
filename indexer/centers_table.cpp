@@ -189,7 +189,7 @@ private:
     if (!m_header.IsValid())
       return false;
 
-    bool const isHostBigEndian = IsBigEndian();
+    bool const isHostBigEndian = IsBigEndianMacroBased();
     bool const isDataBigEndian = m_header.m_base.m_endianness == 1;
     bool const endiannesMismatch = isHostBigEndian != isDataBigEndian;
 
@@ -332,6 +332,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
   auto const endOffset = writer.Pos();
 
   writer.Seek(startOffset);
+  CHECK_EQUAL(header.m_base.m_endianness, 0, ("|m_endianness| should be set to little-endian."));
   header.Write(writer);
   writer.Seek(endOffset);
 }

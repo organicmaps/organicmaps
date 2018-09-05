@@ -168,7 +168,7 @@ using namespace generator;
 
 int main(int argc, char ** argv)
 {
-  CHECK(IsLittleEndian(), ("Only little endian architecture is supported."));
+  CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
   google::SetUsageMessage(
         "Takes OSM XML data from stdin and creates data and index files in several passes.");

@@ -230,7 +230,7 @@ public:
         prevValue = 0;
         prevPos = writer.Pos();
       }
-      uint64_t const keySerial = SwapIfBigEndian(key);
+      uint64_t const keySerial = SwapIfBigEndianMacroBased(key);
       writer.Write(&keySerial, m_LeafBytes);
       WriteVarInt(writer, static_cast<int64_t>(value) - static_cast<int64_t>(prevValue));
       prevKey = key;

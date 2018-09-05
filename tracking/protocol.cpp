@@ -79,7 +79,7 @@ pair<Protocol::PacketType, size_t> Protocol::DecodeHeader(vector<uint8_t> const 
   ASSERT_GREATER_OR_EQUAL(data.size(), sizeof(uint32_t /* header */), ());
 
   uint32_t size = (*reinterpret_cast<uint32_t const *>(data.data())) & 0xFFFFFF00;
-  if (!IsBigEndian())
+  if (!IsBigEndianMacroBased())
     size = ReverseByteOrder(size);
 
   return make_pair(PacketType(static_cast<uint8_t>(data[0])), size);
@@ -125,7 +125,7 @@ void Protocol::InitHeader(vector<uint8_t> & packet, PacketType type, uint32_t pa
 
   ASSERT_LESS(size, 0x00FFFFFF, ());
 
-  if (!IsBigEndian())
+  if (!IsBigEndianMacroBased())
     size = ReverseByteOrder(size);
 
   packet[0] = static_cast<uint8_t>(type);

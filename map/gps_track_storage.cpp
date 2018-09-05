@@ -31,7 +31,7 @@ size_t constexpr kPointSize = 8 * sizeof(double) + sizeof(uint8_t);
 template <typename T>
 void MemWrite(void * ptr, T value)
 {
-  value = SwapIfBigEndian(value);
+  value = SwapIfBigEndianMacroBased(value);
   memcpy(ptr, &value, sizeof(T));
 }
 
@@ -41,7 +41,7 @@ T MemRead(void const * ptr)
 {
   T value;
   memcpy(&value, ptr, sizeof(T));
-  return SwapIfBigEndian(value);
+  return SwapIfBigEndianMacroBased(value);
 }
 
 void Pack(char * p, location::GpsInfo const & info)
@@ -87,7 +87,7 @@ inline size_t GetItemCount(size_t fileSize)
 inline bool WriteVersion(fstream & f, uint32_t version)
 {
   static_assert(kHeaderSize == sizeof(version), "");
-  version = SwapIfBigEndian(version);
+  version = SwapIfBigEndianMacroBased(version);
   f.write(reinterpret_cast<char const *>(&version), kHeaderSize);
   return f.good();
 }
@@ -96,7 +96,7 @@ inline bool ReadVersion(fstream & f, uint32_t & version)
 {
   static_assert(kHeaderSize == sizeof(version), "");
   f.read(reinterpret_cast<char *>(&version), kHeaderSize);
-  version = SwapIfBigEndian(version);
+  version = SwapIfBigEndianMacroBased(version);
   return f.good();
 }
 

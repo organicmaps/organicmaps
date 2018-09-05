@@ -9,7 +9,7 @@ template <class Sink, typename T>
 std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> WriteToSink(
     Sink & sink, T const & v)
 {
-  T const t = SwapIfBigEndian(v);
+  T const t = SwapIfBigEndianMacroBased(v);
   sink.Write(&t, sizeof(T));
 }
 

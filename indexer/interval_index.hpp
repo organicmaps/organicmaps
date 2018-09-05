@@ -88,7 +88,7 @@ private:
     {
       uint32_t key = 0;
       src.Read(&key, m_Header.m_LeafBytes);
-      key = SwapIfBigEndian(key);
+      key = SwapIfBigEndianMacroBased(key);
       if (key > end)
         break;
       value += ReadVarInt<int64_t>(src);

@@ -8,11 +8,14 @@
 
 // #define ENDIAN_IS_BIG
 
-// @TODO(bykoianko) This method returns false since 05.12.2010. That means only little endian
-// architecture is supported. Now checks are added to generator and to app that only
-// little endian architecture is supported. All the usage of IsBigEndian(), ReverseByteOrder()
-// and SwapIfBigEndian() should be removed.
-inline bool IsBigEndian()
+// @TODO(bykoianko) This method returns false since 05.12.2010. That means only little-endian
+// architectures are supported. When it's necessary to support a big-endian system:
+// * method IsBigEndianMacroBased() should be implemented based on IsLittleEndian() function
+// * method SwapIfBigEndianMacroBased() should be implemented based on IsLittleEndian() function
+// * all serialization and deserialization of rs_bit_vector and the other rank-select structures
+//   should be implemented taking endianness into account
+
+inline bool IsBigEndianMacroBased()
 {
 #ifdef ENDIAN_IS_BIG
   return true;
@@ -33,7 +36,7 @@ template <typename T> T ReverseByteOrder(T t)
   return res;
 }
 
-template <typename T> inline T SwapIfBigEndian(T t)
+template <typename T> inline T SwapIfBigEndianMacroBased(T t)
 {
 #ifdef ENDIAN_IS_BIG
   return ReverseByteOrder(t);
@@ -45,6 +48,6 @@ template <typename T> inline T SwapIfBigEndian(T t)
 inline bool IsLittleEndian()
 {
   uint16_t const word = 0x0001;
-  char const * const b = reinterpret_cast<char const * const>(&word);
-  return b[0] == 0x1;
+  uint8_t const * const b = reinterpret_cast<uint8_t const * const>(&word);
+  return b[0] != 0x0;
 }
