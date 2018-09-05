@@ -50,6 +50,18 @@ Time GetLastShownTipTime(Tips const & tips)
 
   return lastShownTime;
 }
+
+Time GetLastShownLayerTime(Layers const & layers)
+{
+  Time lastUsedTime;
+  for (auto const & layer : layers)
+  {
+    if (lastUsedTime < layer.m_lastTimeUsed)
+      lastUsedTime = layer.m_lastTimeUsed;
+  }
+
+  return lastUsedTime;
+}
 }  // namespace
 
 UNIT_TEST(Eye_SerdesTest)
@@ -137,5 +149,177 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)
     TEST_NOT_EQUAL(lastShownTipTime.time_since_epoch().count(), 0, ());
     TEST_EQUAL(tips[1].m_lastShownTime, lastShownTipTime, ());
     TEST_NOT_EQUAL(prevShowTime, lastShownTipTime, ());
+  }
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, UpdateBookingFilterUsedTimeTest)
+{
+  auto const initialInfo = Eye::Instance().GetInfo();
+  auto const & initialBooking = initialInfo->m_booking;
+
+  TEST_EQUAL(initialBooking.m_lastFilterUsedTime, Time(), ());
+
+  EyeForTesting::UpdateBookingFilterUsedTime();
+
+  auto const info = Eye::Instance().GetInfo();
+  auto const & booking = info->m_booking;
+
+  TEST_NOT_EQUAL(initialBooking.m_lastFilterUsedTime, booking.m_lastFilterUsedTime, ());
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, UpdateBoomarksCatalogShownTimeTest)
+{
+  auto const initialInfo = Eye::Instance().GetInfo();
+  auto const & initialBookmarks = initialInfo->m_bookmarks;
+
+  TEST_EQUAL(initialBookmarks.m_lastOpenedTime, Time(), ());
+
+  EyeForTesting::UpdateBoomarksCatalogShownTime();
+
+  auto const info = Eye::Instance().GetInfo();
+  auto const & bookmarks = info->m_bookmarks;
+
+  TEST_NOT_EQUAL(initialBookmarks.m_lastOpenedTime, bookmarks.m_lastOpenedTime, ());
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, UpdateDiscoveryShownTimeTest)
+{
+  auto const initialInfo = Eye::Instance().GetInfo();
+  auto const & initialDiscovery = initialInfo->m_discovery;
+
+  TEST_EQUAL(initialDiscovery.m_lastOpenedTime, Time(), ());
+
+  EyeForTesting::UpdateDiscoveryShownTime();
+
+  auto const info = Eye::Instance().GetInfo();
+  auto const & discovery = info->m_discovery;
+
+  TEST_NOT_EQUAL(initialDiscovery.m_lastOpenedTime, discovery.m_lastOpenedTime, ());
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, IncrementDiscoveryItemTest)
+{
+  auto const initialInfo = Eye::Instance().GetInfo();
+  auto const & initialDiscovery = initialInfo->m_discovery;
+
+  TEST_EQUAL(initialDiscovery.m_lastClickedTime, Time(), ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::AttractionsClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::CafesClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::HotelsClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::LocalsClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::MoreCafesClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::MoreHotelsClicked), 0, ());
+  TEST_EQUAL(initialDiscovery.m_eventCounters.Get(Discovery::Event::MoreLocalsClicked), 0, ());
+
+  {
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::CafesClicked);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & discovery = info->m_discovery;
+
+    TEST_NOT_EQUAL(initialDiscovery.m_lastClickedTime, discovery.m_lastClickedTime, ());
+
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::AttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::CafesClicked), 1, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::HotelsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::LocalsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreCafesClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreHotelsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreLocalsClicked), 0, ());
+  }
+
+  {
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::CafesClicked);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & discovery = info->m_discovery;
+
+    TEST_NOT_EQUAL(initialDiscovery.m_lastClickedTime, discovery.m_lastClickedTime, ());
+
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::AttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::CafesClicked), 2, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::HotelsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::LocalsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreCafesClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreHotelsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreLocalsClicked), 0, ());
+  }
+
+  {
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::CafesClicked);
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::HotelsClicked);
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::MoreLocalsClicked);
+    EyeForTesting::IncrementDiscoveryItem(Discovery::Event::MoreHotelsClicked);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & discovery = info->m_discovery;
+
+    TEST_NOT_EQUAL(initialDiscovery.m_lastClickedTime, discovery.m_lastClickedTime, ());
+
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::AttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::CafesClicked), 3, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::HotelsClicked), 1, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::LocalsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreCafesClicked), 0, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreHotelsClicked), 1, ());
+    TEST_EQUAL(discovery.m_eventCounters.Get(Discovery::Event::MoreLocalsClicked), 1, ());
+  }
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, AppendLayerTest)
+{
+  {
+    auto const initialInfo = Eye::Instance().GetInfo();
+    auto const & initialLayers = initialInfo->m_layers;
+
+    TEST(initialLayers.empty(), ());
+    TEST_EQUAL(GetLastShownLayerTime(initialLayers), Time(), ());
+  }
+  Time prevShowTime;
+  {
+    EyeForTesting::AppendLayer(Layer::Type::PublicTransport);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & layers = info->m_layers;
+    auto const prevShowTime = GetLastShownLayerTime(layers);
+
+    TEST_EQUAL(layers.size(), 1, ());
+    TEST_NOT_EQUAL(layers[0].m_lastTimeUsed, Time(), ());
+    TEST_EQUAL(layers[0].m_type, Layer::Type::PublicTransport, ());
+    TEST_EQUAL(layers[0].m_useCount, 1, ());
+    TEST_NOT_EQUAL(prevShowTime, Time(), ());
+  }
+  {
+    EyeForTesting::AppendLayer(Layer::Type::TrafficJams);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & layers = info->m_layers;
+    auto const lastShownLayerTime = GetLastShownLayerTime(layers);
+
+    TEST_EQUAL(layers.size(), 2, ());
+    TEST_NOT_EQUAL(layers[1].m_lastTimeUsed, Time(), ());
+    TEST_EQUAL(layers[1].m_type, Layer::Type::TrafficJams, ());
+    TEST_EQUAL(layers[1].m_useCount, 1, ());
+    TEST_EQUAL(layers[1].m_lastTimeUsed, lastShownLayerTime, ());
+    TEST_NOT_EQUAL(prevShowTime, lastShownLayerTime, ());
+    prevShowTime = lastShownLayerTime;
+  }
+  {
+    EyeForTesting::AppendLayer(Layer::Type::TrafficJams);
+
+    auto const info = Eye::Instance().GetInfo();
+    auto const & layers = info->m_layers;
+    auto const lastShownLayerTime = GetLastShownLayerTime(layers);
+
+    TEST_EQUAL(layers.size(), 2, ());
+    TEST_NOT_EQUAL(layers[1].m_lastTimeUsed, Time(), ());
+    TEST_EQUAL(layers[1].m_type, Layer::Type::TrafficJams, ());
+    TEST_EQUAL(layers[1].m_useCount, 2, ());
+    TEST_EQUAL(layers[1].m_lastTimeUsed, lastShownLayerTime, ());
+    TEST_NOT_EQUAL(prevShowTime, lastShownLayerTime, ());
   }
 }

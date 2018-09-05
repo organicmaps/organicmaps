@@ -363,7 +363,6 @@ Framework::Framework(FrameworkParams const & params)
                       bind(&Framework::GetMwmIdByName, this, _1),
                       bind(&Framework::ReadFeatures, this, _1, _2),
                       bind(&Framework::GetFeatureByID, this, _1, _2))
-  , m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
@@ -392,8 +391,6 @@ Framework::Framework(FrameworkParams const & params)
   , m_subscription(std::make_unique<Subscription>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
 {
-  m_startBackgroundTime = my::Timer::LocalTime();
-
   // Editor should be initialized from the main thread to set its ThreadChecker.
   // However, search calls editor upon initialization thus setting the lazy editor's ThreadChecker
   // to a wrong thread. So editor should be initialiazed before serach.
@@ -1353,7 +1350,7 @@ void Framework::EnterBackground()
 void Framework::EnterForeground()
 {
   m_startForegroundTime = my::Timer::LocalTime();
-  if (m_drapeEngine != nullptr)
+  if (m_drapeEngine != nullptr && m_startBackgroundTime != 0.0)
   {
     auto const timeInBackground = m_startForegroundTime - m_startBackgroundTime;
     m_drapeEngine->SetTimeInBackground(timeInBackground);
@@ -3679,4 +3676,9 @@ bool Framework::HaveTransit(m2::PointD const & pt) const
     return false;
 
   return handle.GetValue<MwmValue>()->m_cont.IsExist(TRANSIT_FILE_TAG);
+}
+
+double Framework::GetLastBackgroundTime() const
+{
+  return m_startBackgroundTime;
 }

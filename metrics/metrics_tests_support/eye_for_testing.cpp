@@ -21,14 +21,44 @@ void EyeForTesting::ResetEye()
 }
 
 // static
+void EyeForTesting::SetInfo(Info const & info)
+{
+  Eye::Instance().m_info.Set(std::make_shared<Info>(info));
+}
+
+// static
 void EyeForTesting::AppendTip(Tip::Type type, Tip::Event event)
 {
   Eye::Instance().AppendTip(type, event);
 }
 
 // static
-void EyeForTesting::SetInfo(Info const & info)
+void EyeForTesting::UpdateBookingFilterUsedTime()
 {
-  Eye::Instance().m_info.Set(std::make_shared<Info>(info));
+  Eye::Instance().UpdateBookingFilterUsedTime();
+}
+
+// static
+void EyeForTesting::UpdateBoomarksCatalogShownTime()
+{
+  Eye::Instance().UpdateBoomarksCatalogShownTime();
+}
+
+// static
+void EyeForTesting::UpdateDiscoveryShownTime()
+{
+  Eye::Instance().UpdateDiscoveryShownTime();
+}
+
+// static
+void EyeForTesting::IncrementDiscoveryItem(Discovery::Event event)
+{
+  Eye::Instance().IncrementDiscoveryItem(event);
+}
+
+// static
+void EyeForTesting::AppendLayer(Layer::Type type)
+{
+  Eye::Instance().AppendLayer(type);
 }
 }  // namespace eye

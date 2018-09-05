@@ -8,8 +8,13 @@ class EyeForTesting
 {
 public:
   static void ResetEye();
-  static void AppendTip(Tip::Type type, Tip::Event event);
   static void SetInfo(Info const & info);
+  static void AppendTip(Tip::Type type, Tip::Event event);
+  static void UpdateBookingFilterUsedTime();
+  static void UpdateBoomarksCatalogShownTime();
+  static void UpdateDiscoveryShownTime();
+  static void IncrementDiscoveryItem(Discovery::Event event);
+  static void AppendLayer(Layer::Type type);
 };
 
 class ScopedEyeForTesting

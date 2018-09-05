@@ -4,6 +4,9 @@
 
 #include "platform/platform.hpp"
 
+#include "base/timer.hpp"
+
+#include <type_traits>
 #include <utility>
 
 using namespace eye;
@@ -14,21 +17,35 @@ namespace
 auto constexpr kShowAnyTipPeriod = std::chrono::hours(24) * 3;
 // The app shouldn't show the same screen more frequently than 1 month.
 auto constexpr kShowSameTipPeriod = std::chrono::hours(24) * 30;
+// Every current trigger for a tips screen can be activated at the start of the application by
+// default and if the app was inactive more then 12 hours.
+auto constexpr kShowTipAfterCollapsingPeriod = std::chrono::seconds(12 * 60 * 60);
 // If a user clicks on the action areas (highlighted or blue button)
 // the appropriate screen will never be shown again.
 size_t constexpr kActionClicksCountToDisable = 1;
 // If a user clicks 3 times on the button GOT IT the appropriate screen will never be shown again.
 size_t constexpr kGotitClicksCountToDisable = 3;
 
-size_t ToIndex(Tip::Type type)
+template <typename T, std::enable_if_t<std::is_enum<T>::value> * = nullptr>
+size_t ToIndex(T type)
 {
   return static_cast<size_t>(type);
 }
 
 boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
                                            TipsApi::Duration showSameTipPeriod,
-                                           TipsApi::Conditions const & triggers)
+                                           TipsApi::Delegate const & delegate,
+                                           TipsApi::Conditions const & conditions)
 {
+  auto const lastBackgroundTime = delegate.GetLastBackgroundTime();
+  if (lastBackgroundTime != 0.0)
+  {
+    auto const timeInBackground =
+        static_cast<uint64_t>(my::Timer::LocalTime() - lastBackgroundTime);
+    if (timeInBackground < kShowTipAfterCollapsingPeriod.count())
+      return {};
+  }
+
   auto const info = Eye::Instance().GetInfo();
   auto const & tips = info->m_tips;
   auto constexpr totalTipsCount = static_cast<size_t>(Tip::Type::Count);
@@ -60,7 +77,7 @@ boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
 
     for (auto const & c : candidates)
     {
-      if (c.second && triggers[ToIndex(c.first)]())
+      if (c.second && conditions[ToIndex(c.first)](*info))
         return c.first;
     }
   }
@@ -70,7 +87,7 @@ boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
     if (shownTip.m_eventCounters.Get(Tip::Event::ActionClicked) < kActionClicksCountToDisable &&
         shownTip.m_eventCounters.Get(Tip::Event::GotitClicked) < kGotitClicksCountToDisable &&
         Clock::now() - shownTip.m_lastShownTime > showSameTipPeriod &&
-        triggers[ToIndex(shownTip.m_type)]())
+        conditions[ToIndex(shownTip.m_type)](*info))
     {
       return shownTip.m_type;
     }
@@ -93,6 +110,12 @@ TipsApi::Duration TipsApi::GetShowSameTipPeriod()
 }
 
 // static
+TipsApi::Duration TipsApi::ShowTipAfterCollapsingPeriod()
+{
+  return kShowTipAfterCollapsingPeriod;
+};
+
+// static
 size_t TipsApi::GetActionClicksCountToDisable()
 {
  return kActionClicksCountToDisable;
@@ -110,12 +133,26 @@ TipsApi::TipsApi(Delegate const & delegate)
   m_conditions =
   {{
     // Condition for Tips::Type::BookmarksCatalog type.
-    [] { return GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE; },
-    // Condition for Tips::Type::BookingHotels type.
-    [] { return true; },
-    // Condition for Tips::Type::DiscoverButton type.
-    [this]
+    [] (eye::Info const & info)
     {
+      return info.m_bookmarks.m_lastOpenedTime.time_since_epoch().count() == 0 &&
+        GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE;
+    },
+    // Condition for Tips::Type::BookingHotels type.
+    [] (eye::Info const & info)
+    {
+      return info.m_booking.m_lastFilterUsedTime.time_since_epoch().count() == 0;
+    },
+    // Condition for Tips::Type::DiscoverButton type.
+    [this] (eye::Info const & info)
+    {
+      auto const eventsCount = ToIndex(Discovery::Event::Count);
+      for (size_t i = 0; i < eventsCount; ++i)
+      {
+        if (info.m_discovery.m_eventCounters.Get(static_cast<Discovery::Event>(i)) != 0)
+          return false;
+      }
+
       auto const pos = m_delegate.GetCurrentPosition();
       if (!pos.is_initialized())
         return false;
@@ -123,8 +160,17 @@ TipsApi::TipsApi(Delegate const & delegate)
       return m_delegate.IsCountryLoaded(pos.get());
     },
     // Condition for Tips::Type::MapsLayers type.
-    [this]
+    [this] (eye::Info const & info)
     {
+      for (auto const & layer : info.m_layers)
+      {
+        if (layer.m_type == Layer::PublicTransport &&
+            layer.m_lastTimeUsed.time_since_epoch().count() != 0)
+        {
+          return false;
+        }
+      }
+
       auto const pos = m_delegate.GetCurrentPosition();
       if (!pos.is_initialized())
         return false;
@@ -136,13 +182,14 @@ TipsApi::TipsApi(Delegate const & delegate)
 
 boost::optional<eye::Tip::Type> TipsApi::GetTip() const
 {
-  return GetTipImpl(GetShowAnyTipPeriod(), GetShowSameTipPeriod(), m_conditions);
+  return GetTipImpl(GetShowAnyTipPeriod(), GetShowSameTipPeriod(), m_delegate, m_conditions);
 }
 
 // static
 boost::optional<eye::Tip::Type> TipsApi::GetTipForTesting(Duration showAnyTipPeriod,
                                                           Duration showSameTipPeriod,
+                                                          TipsApi::Delegate const & delegate,
                                                           Conditions const & triggers)
 {
-  return GetTipImpl(showAnyTipPeriod, showSameTipPeriod, triggers);
+  return GetTipImpl(showAnyTipPeriod, showSameTipPeriod, delegate, triggers);
 }

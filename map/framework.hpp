@@ -193,8 +193,8 @@ protected:
 
   drape_ptr<df::DrapeEngine> m_drapeEngine;
 
-  double m_startForegroundTime;
-  double m_startBackgroundTime;
+  double m_startForegroundTime = 0.0;
+  double m_startBackgroundTime = 0.0;
 
   StorageDownloadingPolicy m_storageDownloadingPolicy;
   storage::Storage m_storage;
@@ -890,4 +890,5 @@ public:
 
   // TipsApi::Delegate override.
   bool HaveTransit(m2::PointD const & pt) const override;
+  double GetLastBackgroundTime() const override;
 };

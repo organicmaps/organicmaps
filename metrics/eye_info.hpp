@@ -7,9 +7,10 @@
 #include "base/visitor.hpp"
 
 #include <array>
+#include <cstdint>
 #include <chrono>
 #include <string>
-#include <tuple>
+#include <type_traits>
 #include <vector>
 
 namespace eye
@@ -67,6 +68,64 @@ enum class Version : int8_t
 using Clock = std::chrono::system_clock;
 using Time = Clock::time_point;
 
+struct Booking
+{
+  DECLARE_VISITOR(visitor(m_lastFilterUsedTime, "last_filter_used_time"))
+
+  Time m_lastFilterUsedTime;
+};
+
+struct Bookmarks
+{
+  DECLARE_VISITOR(visitor(m_lastOpenedTime, "last_use_time"))
+
+  Time m_lastOpenedTime;
+};
+
+struct Discovery
+{
+  enum class Event
+  {
+    HotelsClicked,
+    AttractionsClicked,
+    CafesClicked,
+    LocalsClicked,
+
+    MoreHotelsClicked,
+    MoreAttractionsClicked,
+    MoreCafesClicked,
+    MoreLocalsClicked,
+
+    Count
+  };
+
+  DECLARE_VISITOR(visitor(m_eventCounters, "event_counters"),
+                  visitor(m_lastOpenedTime, "last_opened_time"),
+                  visitor(m_lastClickedTime, "last_clicked_time"))
+
+  Counters<Event, uint32_t> m_eventCounters;
+  Time m_lastOpenedTime;
+  Time m_lastClickedTime;
+};
+
+struct Layer
+{
+  enum Type
+  {
+    TrafficJams,
+    PublicTransport
+  };
+
+  DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_useCount, "use_count"),
+                  visitor(m_lastTimeUsed, "last_time_used"))
+
+  Type m_type;
+  uint64_t m_useCount = 0;
+  Time m_lastTimeUsed;
+};
+
+using Layers = std::vector<Layer>;
+
 struct Tip
 {
   // The order is important.
@@ -102,8 +161,14 @@ using Tips = std::vector<Tip>;
 struct InfoV0
 {
   static Version GetVersion() { return Version::V0; }
-  DECLARE_VISITOR(visitor(m_tips, "tips"))
+  DECLARE_VISITOR(visitor(m_booking, "booking"), visitor(m_bookmarks, "bookmarks"),
+                  visitor(m_discovery, "discovery"), visitor(m_layers, "layers"),
+                  visitor(m_tips, "tips"))
 
+  Booking m_booking;
+  Bookmarks m_bookmarks;
+  Discovery m_discovery;
+  Layers m_layers;
   Tips m_tips;
 };
 

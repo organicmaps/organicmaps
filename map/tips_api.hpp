@@ -16,7 +16,7 @@ class TipsApi
 {
 public:
   using Duration = std::chrono::duration<uint64_t>;
-  using Condition = std::function<bool()>;
+  using Condition = std::function<bool(eye::Info const & info)>;
   using Conditions = std::array<Condition, static_cast<size_t>(eye::Tip::Type::Count)>;
 
   class Delegate
@@ -27,10 +27,12 @@ public:
     virtual boost::optional<m2::PointD> GetCurrentPosition() const = 0;
     virtual bool IsCountryLoaded(m2::PointD const & pt) const = 0;
     virtual bool HaveTransit(m2::PointD const & pt) const = 0;
+    virtual double GetLastBackgroundTime() const = 0;
   };
 
   static Duration GetShowAnyTipPeriod();
   static Duration GetShowSameTipPeriod();
+  static Duration ShowTipAfterCollapsingPeriod();
   static size_t GetActionClicksCountToDisable();
   static size_t GetGotitClicksCountToDisable();
 
@@ -40,6 +42,7 @@ public:
 
   static boost::optional<eye::Tip::Type> GetTipForTesting(Duration showAnyTipPeriod,
                                                           Duration showSameTipPeriod,
+                                                          TipsApi::Delegate const & delegate,
                                                           Conditions const & triggers);
 
 private:

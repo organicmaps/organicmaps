@@ -21,6 +21,11 @@ public:
   {
   public:
     static void TipShown(Tip::Type type, Tip::Event event);
+    static void BookingFilterUsed();
+    static void BoomarksCatalogShown();
+    static void DiscoveryShown();
+    static void DiscoveryItemClicked(Discovery::Event event);
+    static void LayerUsed(Layer::Type type);
   };
 
   static Eye & Instance();
@@ -34,6 +39,11 @@ private:
 
   // Event processing:
   void AppendTip(Tip::Type type, Tip::Event event);
+  void UpdateBookingFilterUsedTime();
+  void UpdateBoomarksCatalogShownTime();
+  void UpdateDiscoveryShownTime();
+  void IncrementDiscoveryItem(Discovery::Event event);
+  void AppendLayer(Layer::Type type);
 
   base::AtomicSharedPtr<Info> m_info;
 

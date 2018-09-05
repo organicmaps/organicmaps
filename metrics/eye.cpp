@@ -100,6 +100,76 @@ void Eye::AppendTip(Tip::Type type, Tip::Event event)
   Save(editableInfo);
 }
 
+void Eye::UpdateBookingFilterUsedTime()
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+
+  editableInfo->m_booking.m_lastFilterUsedTime = Clock::now();
+
+  Save(editableInfo);
+}
+
+void Eye::UpdateBoomarksCatalogShownTime()
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+
+  editableInfo->m_bookmarks.m_lastOpenedTime = Clock::now();
+
+  Save(editableInfo);
+}
+
+void Eye::UpdateDiscoveryShownTime()
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+
+  editableInfo->m_discovery.m_lastOpenedTime = Clock::now();
+
+  Save(editableInfo);
+}
+
+void Eye::IncrementDiscoveryItem(Discovery::Event event)
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+
+  editableInfo->m_discovery.m_lastClickedTime = Clock::now();
+  editableInfo->m_discovery.m_eventCounters.Increment(event);
+
+  Save(editableInfo);
+}
+
+void Eye::AppendLayer(Layer::Type type)
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+  auto & editableLayers = editableInfo->m_layers;
+
+  auto it = std::find_if(editableLayers.begin(), editableLayers.end(), [type](Layer const & layer)
+  {
+    return layer.m_type == type;
+  });
+
+  if (it != editableLayers.end())
+  {
+    ++it->m_useCount;
+    it->m_lastTimeUsed = Clock::now();
+  }
+  else
+  {
+    Layer layer;
+    layer.m_type = type;
+
+    ++layer.m_useCount;
+    layer.m_lastTimeUsed = Clock::now();
+    editableLayers.emplace_back(std::move(layer));
+  }
+
+  Save(editableInfo);
+}
+
 // Eye::Event methods ------------------------------------------------------------------------------
 // static
 void Eye::Event::TipShown(Tip::Type type, Tip::Event event)
@@ -107,6 +177,51 @@ void Eye::Event::TipShown(Tip::Type type, Tip::Event event)
   GetPlatform().RunTask(Platform::Thread::File, [type, event]
   {
     Instance().AppendTip(type, event);
+  });
+}
+
+// static
+void Eye::Event::BookingFilterUsed()
+{
+  GetPlatform().RunTask(Platform::Thread::File, []
+  {
+    Instance().UpdateBookingFilterUsedTime();
+  });
+}
+
+// static
+void Eye::Event::BoomarksCatalogShown()
+{
+  GetPlatform().RunTask(Platform::Thread::File, []
+  {
+    Instance().UpdateBoomarksCatalogShownTime();
+  });
+}
+
+// static
+void Eye::Event::DiscoveryShown()
+{
+  GetPlatform().RunTask(Platform::Thread::File, []
+  {
+    Instance().UpdateDiscoveryShownTime();
+  });
+}
+
+// static
+void Eye::Event::DiscoveryItemClicked(Discovery::Event event)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [event]
+  {
+    Instance().IncrementDiscoveryItem(event);
+  });
+}
+
+// static
+void Eye::Event::LayerUsed(Layer::Type type)
+{
+  GetPlatform().RunTask(Platform::Thread::File, [type]
+  {
+    Instance().AppendLayer(type);
   });
 }
 }  // namespace eye
