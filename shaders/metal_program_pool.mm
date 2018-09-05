@@ -17,7 +17,7 @@ struct ProgramInfo
 {
   std::string m_vertexShaderName;
   std::string m_fragmentShaderName;
-  ProgramInfo(std::string && vertexShaderName, std::string fragmentShaderName)
+  ProgramInfo(std::string && vertexShaderName, std::string && fragmentShaderName)
     : m_vertexShaderName(std::move(vertexShaderName))
     , m_fragmentShaderName(std::move(fragmentShaderName))
   {}
@@ -77,12 +77,13 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
 }  // namespace
 
 MetalProgramPool::MetalProgramPool(id<MTLDevice> device)
+  : m_device(device)
 {
   ProgramParams::Init();
   
   NSString * libPath = [[NSBundle mainBundle] pathForResource:@"shaders_metal" ofType:@"metallib"];
-  NSError * error;
-  m_library = [device newLibraryWithFile:libPath error:&error];
+  NSError * error = nil;
+  m_library = [m_device newLibraryWithFile:libPath error:&error];
   if (error)
   {
     NSLog(@"%@", error);
@@ -102,9 +103,69 @@ drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
   CHECK(!info.m_vertexShaderName.empty(), ());
   CHECK(!info.m_fragmentShaderName.empty(), ());
 
+  id<MTLFunction> vertexShader = GetFunction(info.m_vertexShaderName);
+  id<MTLFunction> fragmentShader = GetFunction(info.m_fragmentShaderName);
+  
+  MTLRenderPipelineDescriptor * desc = [[MTLRenderPipelineDescriptor alloc] init];
+  desc.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
+  desc.vertexFunction = vertexShader;
+  desc.fragmentFunction = fragmentShader;
+  NSError * error = nil;
+  MTLRenderPipelineReflection * reflectionObj = nil;
+  MTLPipelineOption option = MTLPipelineOptionBufferTypeInfo | MTLPipelineOptionArgumentInfo;
+  id <MTLRenderPipelineState> pso = [m_device newRenderPipelineStateWithDescriptor:desc
+                                                                           options:option
+                                                                        reflection:&reflectionObj
+                                                                             error:&error];
+  if (error != nil || pso == nil)
+  {
+    NSLog(@"%@", error);
+    CHECK(false, ("Failed to create reflection pipeline state."));
+  }
+  
+  // Uniforms buffer must have the name "uniforms".
+  NSString * kUniformsName = @"uniforms";
+  
+  int8_t vsUniformsBindingIndex = dp::metal::MetalGpuProgram::kInvalidBindingIndex;
+  for (MTLArgument * arg in reflectionObj.vertexArguments)
+  {
+    if ([arg.name compare:kUniformsName] == NSOrderedSame && arg.active && arg.type == MTLArgumentTypeBuffer)
+    {
+      vsUniformsBindingIndex = static_cast<int8_t>(arg.index);
+      break;
+    }
+  }
+  
+  int8_t fsUniformsBindingIndex = dp::metal::MetalGpuProgram::kInvalidBindingIndex;
+  dp::metal::MetalGpuProgram::TexturesBindingInfo textureBindingInfo;
+  for (MTLArgument * arg in reflectionObj.fragmentArguments)
+  {
+    if ([arg.name compare:kUniformsName] == NSOrderedSame && arg.active && arg.type == MTLArgumentTypeBuffer)
+    {
+      fsUniformsBindingIndex = static_cast<int8_t>(arg.index);
+    }
+    else if (arg.type == MTLArgumentTypeTexture)
+    {
+      std::string const name([arg.name UTF8String]);
+      textureBindingInfo[name].m_textureBindingIndex = static_cast<int8_t>(arg.index);
+    }
+    else if (arg.type == MTLArgumentTypeSampler)
+    {
+      std::string const name([arg.name UTF8String]);
+      // Sampler name must be constructed as concatenation of texture name and kSamplerSuffix.
+      static std::string const kSamplerSuffix = "Sampler";
+      auto const pos = name.find(kSamplerSuffix);
+      if (pos == std::string::npos)
+        continue;
+      std::string const textureName = name.substr(0, pos);
+      textureBindingInfo[textureName].m_samplerBindingIndex = static_cast<int8_t>(arg.index);
+    }
+  }
+  
   auto const name = DebugPrint(program);
-  return make_unique_dp<dp::metal::MetalGpuProgram>(name, GetFunction(info.m_vertexShaderName),
-                                                    GetFunction(info.m_fragmentShaderName));
+  return make_unique_dp<dp::metal::MetalGpuProgram>(name, vertexShader, fragmentShader,
+                                                    vsUniformsBindingIndex, fsUniformsBindingIndex,
+                                                    std::move(textureBindingInfo));
 }
   
 id<MTLFunction> MetalProgramPool::GetFunction(std::string const & name)

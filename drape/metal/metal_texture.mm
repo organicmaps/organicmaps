@@ -86,7 +86,7 @@ void MetalTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t h
 
 void MetalTexture::SetFilter(TextureFilter filter)
 {
-  //TODO(@rokuz,@darina)
+  m_params.m_filter = filter;
 }
 
 bool MetalTexture::Validate() const

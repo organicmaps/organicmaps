@@ -122,7 +122,7 @@ void VertexArrayBuffer::Build(ref_ptr<GpuProgram> program)
 
   m_program = program;
   // If OES_vertex_array_object not supported, than buffers will be bound on each render call.
-  if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+  if (!GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
     return;
 
   if (m_staticBuffers.empty())
@@ -301,7 +301,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
 
 bool VertexArrayBuffer::Bind() const
 {
-  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+  if (GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
   {
     ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
     GLFunctions::glBindVertexArray(m_VAO);
@@ -312,7 +312,7 @@ bool VertexArrayBuffer::Bind() const
 
 void VertexArrayBuffer::Unbind() const
 {
-  if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
+  if (GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::VertexArrayObject))
     GLFunctions::glBindVertexArray(0);
 }
 

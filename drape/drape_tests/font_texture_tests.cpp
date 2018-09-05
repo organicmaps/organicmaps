@@ -1,6 +1,7 @@
 #include "drape/drape_tests/dummy_texture.hpp"
 #include "drape/drape_tests/gl_mock_functions.hpp"
 #include "drape/drape_tests/img.hpp"
+#include "drape/drape_tests/testing_graphics_context.hpp"
 
 #include "platform/platform.hpp"
 #include "qt_tstfrm/test_main_loop.hpp"
@@ -30,7 +31,7 @@ namespace
 class UploadedRender
 {
 public:
-  UploadedRender(QPoint const & pen) : m_pen(pen) {}
+  explicit UploadedRender(QPoint const & pen) : m_pen(pen) {}
 
   void glMemoryToQImage(int x, int y, int w, int h, glConst f, glConst t, void const * memory)
   {
@@ -101,13 +102,14 @@ UNIT_TEST(UploadingGlyphs)
   while (index.GetPendingNodesCount() < count)
     ;
 
+  TestingGraphicsContext context;
   Texture::Params p;
-  p.m_allocator = GetDefaultAllocator(nullptr /* context */);
+  p.m_allocator = GetDefaultAllocator(make_ref(&context));
   p.m_format = dp::TextureFormat::Alpha;
   p.m_width = p.m_height = 128;
 
   DummyTexture tex;
-  tex.Create(nullptr /* context */, p);
+  tex.Create(make_ref(&context), p);
   EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _))
       .WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));

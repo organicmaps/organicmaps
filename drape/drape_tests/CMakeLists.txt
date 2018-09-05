@@ -34,6 +34,7 @@ set(
   static_texture_tests.cpp
   stipple_pen_tests.cpp
   texture_of_colors_tests.cpp
+  testing_graphics_context.hpp
   testingmain.cpp
   uniform_value_tests.cpp
 )

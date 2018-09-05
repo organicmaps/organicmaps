@@ -121,7 +121,7 @@ void InitFramebuffer(ref_ptr<dp::GraphicsContext> context,
     framebuffer = make_unique_dp<dp::Framebuffer>(dp::TextureFormat::RGBA8, depthEnabled,
                                                   stencilEnabled);
   }
-  framebuffer->SetSize(std::move(context), width, height);
+  framebuffer->SetSize(context, width, height);
 }
 
 void InitFramebuffer(ref_ptr<dp::GraphicsContext> context,
@@ -133,7 +133,7 @@ void InitFramebuffer(ref_ptr<dp::GraphicsContext> context,
   if (framebuffer == nullptr)
     framebuffer = make_unique_dp<dp::Framebuffer>(colorFormat);
   framebuffer->SetDepthStencilRef(std::move(depthStencilRef));
-  framebuffer->SetSize(std::move(context), width, height);
+  framebuffer->SetSize(context, width, height);
 }
 
 bool IsSupported(drape_ptr<dp::Framebuffer> const & framebuffer)
@@ -174,7 +174,7 @@ void PostprocessRenderer::Resize(ref_ptr<dp::GraphicsContext> context, uint32_t 
   m_width = width;
   m_height = height;
 
-  UpdateFramebuffers(std::move(context), m_width, m_height);
+  UpdateFramebuffers(context, m_width, m_height);
 }
 
 void PostprocessRenderer::SetStaticTextures(drape_ptr<PostprocessStaticTextures> && textures)
@@ -426,7 +426,7 @@ void PostprocessRenderer::OnChangedRouteFollowingMode(ref_ptr<dp::GraphicsContex
 
   m_isRouteFollowingActive = isRouteFollowingActive;
   if (m_width != 0 && m_height != 0)
-    UpdateFramebuffers(std::move(context), m_width, m_height);
+    UpdateFramebuffers(context, m_width, m_height);
 }
 
 StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer,

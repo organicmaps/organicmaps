@@ -7,7 +7,7 @@
 
 namespace dp
 {
-GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
+void GLExtensionsList::Init(dp::ApiVersion apiVersion)
 {
 #if defined(OMIM_OS_MOBILE)
   if (apiVersion == dp::ApiVersion::OpenGLES2)
@@ -64,13 +64,6 @@ GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
     SetExtension(MapBufferRange, true);
   }
 #endif
-}
-
-// static
-GLExtensionsList & GLExtensionsList::Instance()
-{
-  static GLExtensionsList extList(GLFunctions::CurrentApiVersion);
-  return extList;
 }
 
 bool GLExtensionsList::IsSupported(ExtensionName extName) const

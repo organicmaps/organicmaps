@@ -16,6 +16,8 @@ std::string const kMaskTextureName = "u_maskTex";
 extern void ApplyDepthStencilStateForMetal(ref_ptr<GraphicsContext> context);
 extern void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,
                                        bool blendingEnabled);
+extern void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,
+                                  RenderState const & state);
 #endif
 
 // static
@@ -213,7 +215,16 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
       }
     }
   }
-  //TODO(@rokuz,@darina): Metal?
+  else if (apiVersion == dp::ApiVersion::Metal)
+  {
+#if defined(OMIM_OS_IPHONE)
+    ApplyTexturesForMetal(context, program, state);
+#endif
+  }
+  else
+  {
+    CHECK(false, ("Unsupported API version."));
+  }
 }
 
 uint8_t TextureState::GetLastUsedSlots()

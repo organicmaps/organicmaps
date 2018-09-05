@@ -129,7 +129,7 @@ public:
   {
     TBase::DynamicTextureParams params{size, TextureFormat::Alpha, TextureFilter::Nearest,
                                        false /* m_usePixelBuffer */};
-    TBase::Init(std::move(allocator), make_ref(&m_index), params);
+    TBase::Init(allocator, make_ref(&m_index), params);
   }
 
   ~StipplePenTexture() override { TBase::Reset(); }

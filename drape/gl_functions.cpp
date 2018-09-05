@@ -23,6 +23,9 @@
 // static
 dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::Invalid;
 
+// static
+dp::GLExtensionsList GLFunctions::ExtensionsList;
+
 namespace
 {
 #ifdef DEBUG
@@ -222,6 +225,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     return;
 
   CurrentApiVersion = apiVersion;
+  ExtensionsList.Init(apiVersion);
   s_inited = true;
 
 /// VAO
@@ -306,7 +310,7 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
     ASSERT(false, ("Unknown Graphics API"));
   }
 #elif defined(OMIM_OS_WINDOWS)
-  if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
+  if (ExtensionsList.IsSupported(dp::GLExtensionsList::VertexArrayObject))
   {
     glGenVertexArraysFn = LOAD_GL_FUNC(TglGenVertexArraysFn, glGenVertexArrays);
     glBindVertexArrayFn = LOAD_GL_FUNC(TglBindVertexArrayFn, glBindVertexArray);

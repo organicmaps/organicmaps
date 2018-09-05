@@ -151,7 +151,7 @@ void HWTextureApple::Create(ref_ptr<dp::GraphicsContext> context, Params const &
   m_directBuffer = m_allocator->CVCreatePixelBuffer(m_params.m_width, m_params.m_height, params.m_format);
 
   glConst layout, pixelType;
-  UnpackFormat(params.m_format, layout, pixelType);
+  UnpackFormat(context, params.m_format, layout, pixelType);
   m_texture = m_allocator->CVCreateTexture(m_directBuffer, params.m_width, params.m_height,
                                          layout, pixelType);
 

@@ -20,12 +20,12 @@ public:
     MapBufferRange
   };
 
-  static GLExtensionsList & Instance();
-
+  GLExtensionsList() = default;
+  void Init(dp::ApiVersion apiVersion);
   bool IsSupported(ExtensionName extName) const;
 
 private:
-  GLExtensionsList(dp::ApiVersion apiVersion);
+
   void CheckExtension(ExtensionName enumName, std::string const & extName);
   void SetExtension(ExtensionName enumName, bool isSupported);
 

@@ -29,14 +29,14 @@ public:
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
-    Base::Create(std::move(context), params);
+    Base::Create(context, params);
   }
 
   void Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
               ref_ptr<void> data) override
   {
     ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
-    Base::Create(std::move(context), params, data);
+    Base::Create(context, params, data);
   }
 
   void UpdateState(ref_ptr<dp::GraphicsContext> context) override
@@ -46,7 +46,7 @@ public:
     {
       std::vector<uint8_t> initData(m_params.m_width * m_params.m_height *
                                     GetBytesPerPixel(m_params.m_format), 0);
-      Create(std::move(context), m_params, initData.data());
+      Create(context, m_params, initData.data());
       m_isInitialized = true;
     }
 

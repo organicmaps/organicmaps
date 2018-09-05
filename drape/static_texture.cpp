@@ -98,7 +98,7 @@ StaticTexture::StaticTexture(ref_ptr<dp::GraphicsContext> context,
   , m_format(format)
   , m_info(make_unique_dp<StaticResourceInfo>())
 {
-  m_isLoadingCorrect = Load(std::move(context), allocator);
+  m_isLoadingCorrect = Load(context, allocator);
 }
 
 bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTextureAllocator> allocator)
@@ -114,13 +114,13 @@ bool StaticTexture::Load(ref_ptr<dp::GraphicsContext> context, ref_ptr<HWTexture
     p.m_wrapSMode = TextureWrapping::Repeat;
     p.m_wrapTMode = TextureWrapping::Repeat;
 
-    Create(std::move(context), p, make_ref(data));
+    Create(context, p, make_ref(data));
   };
 
   auto failureHandler = [this, context](std::string const & reason)
   {
     LOG(LERROR, (reason));
-    Fail(std::move(context));
+    Fail(context);
   };
 
   uint8_t const bytesPerPixel = GetBytesPerPixel(m_format);
@@ -132,7 +132,7 @@ void StaticTexture::Invalidate(ref_ptr<dp::GraphicsContext> context,
                                ref_ptr<HWTextureAllocator> allocator)
 {
   Destroy();
-  m_isLoadingCorrect = Load(std::move(context), std::move(allocator));
+  m_isLoadingCorrect = Load(context, allocator);
 }
 
 ref_ptr<Texture::ResourceInfo> StaticTexture::FindResource(Texture::Key const & key,
@@ -148,7 +148,7 @@ void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
 {
   ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
 
-  Base::Create(std::move(context), params);
+  Base::Create(context, params);
 }
 
 void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
@@ -156,7 +156,7 @@ void StaticTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & 
 {
   ASSERT(Base::IsPowerOfTwo(params.m_width, params.m_height), (params.m_width, params.m_height));
 
-  Base::Create(std::move(context), params, data);
+  Base::Create(context, params, data);
 }
 
 void StaticTexture::Fail(ref_ptr<dp::GraphicsContext> context)

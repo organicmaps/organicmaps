@@ -2,6 +2,7 @@
 
 #include "drape/drape_global.hpp"
 #include "drape/gl_constants.hpp"
+#include "drape/gl_extensions_list.hpp"
 
 #include "base/src_point.hpp"
 
@@ -12,6 +13,7 @@ class GLFunctions
 {
 public:
   static dp::ApiVersion CurrentApiVersion;
+  static dp::GLExtensionsList ExtensionsList;
 
   static void Init(dp::ApiVersion apiVersion);
 

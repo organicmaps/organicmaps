@@ -104,7 +104,7 @@ bool Texture::AllocateTexture(ref_ptr<dp::GraphicsContext> context,
 {
   if (allocator != nullptr)
   {
-    m_hwTexture = allocator->CreateTexture(std::move(context));
+    m_hwTexture = allocator->CreateTexture(context);
     return true;
   }
   return false;

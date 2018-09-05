@@ -4,8 +4,8 @@ using namespace metal;
 
 typedef struct
 {
-  float2 a_position [[attribute(0)]];
-  float2 a_texCoords [[attribute(1)]];
+  packed_float2 a_position;
+  packed_float2 a_texCoords;
 } Vertex_T;
 
 typedef struct
@@ -19,8 +19,10 @@ typedef struct
   float u_opacity;
 } Uniforms_T;
 
-vertex Fragment_T vsScreenQuad(const Vertex_T in [[stage_in]])
+vertex Fragment_T vsScreenQuad(device const Vertex_T * vertices [[buffer(0)]],
+                               uint vid [[vertex_id]])
 {
+  Vertex_T const in = vertices[vid];
   Fragment_T out;
   out.position = float4(in.a_position, 0.0, 1.0);
   out.texCoords = in.a_texCoords;

@@ -18,9 +18,11 @@ extern ref_ptr<dp::HWTextureAllocator> GetDefaultMetalAllocator();
 
 namespace dp
 {
-void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
+void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
+                  glConst & layout, glConst & pixelType)
 {
-  auto const apiVersion = GLFunctions::CurrentApiVersion;
+  CHECK(context != nullptr, ());
+  auto const apiVersion = context->GetApiVersion();
   CHECK(apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3, ());
 
   switch (format)
@@ -58,14 +60,11 @@ void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
     CHECK(false, ());
     return;
   }
-  ASSERT(false, ());
+  CHECK_SWITCH();
 }
 
 glConst DecodeTextureFilter(TextureFilter filter)
 {
-  auto const apiVersion = GLFunctions::CurrentApiVersion;
-  CHECK(apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3, ());
-
   switch (filter)
   {
   case TextureFilter::Linear: return gl_const::GLLinear;
@@ -76,9 +75,6 @@ glConst DecodeTextureFilter(TextureFilter filter)
 
 glConst DecodeTextureWrapping(TextureWrapping wrapping)
 {
-  auto const apiVersion = GLFunctions::CurrentApiVersion;
-  CHECK(apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3, ());
-
   switch (wrapping)
   {
   case TextureWrapping::ClampToEdge: return gl_const::GLClampToEdge;
@@ -97,7 +93,7 @@ HWTexture::~HWTexture()
 
 void HWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params)
 {
-  Create(std::move(context), params, nullptr);
+  Create(context, params, nullptr);
 }
 
 void HWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
@@ -168,17 +164,16 @@ OpenGLHWTexture::~OpenGLHWTexture()
 void OpenGLHWTexture::Create(ref_ptr<dp::GraphicsContext> context, Params const & params,
                              ref_ptr<void> data)
 {
-  Base::Create(std::move(context), params, data);
+  Base::Create(context, params, data);
 
   m_textureID = GLFunctions::glGenTexture();
   Bind();
 
-  glConst layout;
-  glConst pixelType;
-  UnpackFormat(m_params.m_format, layout, pixelType);
+  UnpackFormat(context, m_params.m_format, m_unpackedLayout, m_unpackedPixelType);
 
   auto const f = DecodeTextureFilter(m_params.m_filter);
-  GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height, layout, pixelType, data.get());
+  GLFunctions::glTexImage2D(m_params.m_width, m_params.m_height,
+                            m_unpackedLayout, m_unpackedPixelType, data.get());
   GLFunctions::glTexParameter(gl_const::GLMinFilter, f);
   GLFunctions::glTexParameter(gl_const::GLMagFilter, f);
   GLFunctions::glTexParameter(gl_const::GLWrapS, DecodeTextureWrapping(m_params.m_wrapSMode));
@@ -201,22 +196,18 @@ void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_
                                  ref_ptr<void> data)
 {
   ASSERT(Validate(), ());
-  glConst layout;
-  glConst pixelType;
-  UnpackFormat(m_params.m_format, layout, pixelType);
-
   uint32_t const mappingSize = height * width * m_pixelBufferElementSize;
   if (m_pixelBufferID != 0 && m_pixelBufferSize != 0 && m_pixelBufferSize >= mappingSize)
   {
     ASSERT_GREATER(m_pixelBufferElementSize, 0, ());
     GLFunctions::glBindBuffer(m_pixelBufferID, gl_const::GLPixelBufferWrite);
     GLFunctions::glBufferSubData(gl_const::GLPixelBufferWrite, mappingSize, data.get(), 0);
-    GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, nullptr);
+    GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, nullptr);
     GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
   }
   else
   {
-    GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.get());
+    GLFunctions::glTexSubImage2D(x, y, width, height, m_unpackedLayout, m_unpackedPixelType, data.get());
   }
 }
 
@@ -257,10 +248,7 @@ void OpenGLHWTextureAllocator::Flush()
 
 drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> context)
 {
-  // Context can be nullptr in unit tests.
-  if (!context)
-    return make_unique_dp<OpenGLHWTextureAllocator>();
-
+  CHECK(context != nullptr, ());
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::Metal)
   {
@@ -283,8 +271,8 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
 
 ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> context)
 {
-  // Context can be nullptr in unit tests.
-  if (context && context->GetApiVersion() == dp::ApiVersion::Metal)
+  CHECK(context != nullptr, ());
+  if (context->GetApiVersion() == dp::ApiVersion::Metal)
   {
 #if defined(OMIM_OS_IPHONE)
     return GetDefaultMetalAllocator();

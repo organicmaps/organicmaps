@@ -50,6 +50,8 @@ public:
   uint32_t GetHeight() const;
   float GetS(uint32_t x) const;
   float GetT(uint32_t y) const;
+  
+  Params const & GetParams() const { return m_params; }
 
   uint32_t GetID() const;
 
@@ -83,6 +85,10 @@ public:
   void Bind() const override;
   void SetFilter(TextureFilter filter) override;
   bool Validate() const override;
+
+private:
+  glConst m_unpackedLayout = 0;
+  glConst m_unpackedPixelType = 0;
 };
 
 class OpenGLHWTextureAllocator : public HWTextureAllocator
@@ -95,7 +101,8 @@ public:
 ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> context);
 drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> context);
 
-void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
+void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
+                  glConst & layout, glConst & pixelType);
 glConst DecodeTextureFilter(TextureFilter filter);
 glConst DecodeTextureWrapping(TextureWrapping wrapping);
 }  // namespace dp

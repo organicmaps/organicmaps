@@ -13,8 +13,7 @@ namespace metal
 {
 namespace
 {
-// Bytes 7-4: [back function][back stencil fail action][back depth fail action][back pass action]
-// Bytes 3-0: [front function][front stencil fail action][front depth fail action][front pass action]
+// Stencil package.
 uint8_t constexpr kStencilBackFunctionByte = 7;
 uint8_t constexpr kStencilBackFailActionByte = 6;
 uint8_t constexpr kStencilBackDepthFailActionByte = 5;
@@ -23,6 +22,26 @@ uint8_t constexpr kStencilFrontFunctionByte = 3;
 uint8_t constexpr kStencilFrontFailActionByte = 2;
 uint8_t constexpr kStencilFrontDepthFailActionByte = 1;
 uint8_t constexpr kStencilFrontPassActionByte = 0;
+
+// Stencil package.
+uint8_t constexpr kWrapSModeByte = 3;
+uint8_t constexpr kWrapTModeByte = 2;
+uint8_t constexpr kMagFilterByte = 1;
+uint8_t constexpr kMinFilterByte = 0;
+
+template<typename T>
+void SetStateByte(T & state, uint8_t value, uint8_t byteNumber)
+{
+  auto const shift = byteNumber * 8;
+  auto const mask = ~(static_cast<T>(0xFF) << shift);
+  state = (state & mask) | (static_cast<T>(value) << shift);
+}
+
+template<typename T>
+uint8_t GetStateByte(T & state, uint8_t byteNumber)
+{
+  return static_cast<uint8_t>((state >> byteNumber * 8) & 0xFF);
+}
   
 MTLCompareFunction DecodeTestFunction(uint8_t testFunctionByte)
 {
@@ -56,6 +75,26 @@ MTLStencilOperation DecodeStencilAction(uint8_t stencilActionByte)
   ASSERT(false, ());
 }
   
+MTLSamplerMinMagFilter DecodeTextureFilter(uint8_t textureFilterByte)
+{
+  switch (static_cast<TextureFilter>(textureFilterByte))
+  {
+  case TextureFilter::Nearest: return MTLSamplerMinMagFilterNearest;
+  case TextureFilter::Linear: return MTLSamplerMinMagFilterLinear;
+  }
+  ASSERT(false, ());
+}
+  
+MTLSamplerAddressMode DecodeTextureWrapping(uint8_t textureWrappingByte)
+{
+  switch (static_cast<TextureWrapping>(textureWrappingByte))
+  {
+  case TextureWrapping::ClampToEdge: return MTLSamplerAddressModeClampToEdge;
+  case TextureWrapping::Repeat: return MTLSamplerAddressModeRepeat;
+  }
+  ASSERT(false, ());
+}
+  
 bool IsStencilFormat(MTLPixelFormat format)
 {
   return format == MTLPixelFormatDepth32Float_Stencil8 ||
@@ -82,7 +121,7 @@ id<MTLRenderPipelineState> MetalStates::GetPipelineState(id<MTLDevice> device, P
   if (it != m_pipelineCache.end())
     return it->second;
   
-  NSError * error = NULL;
+  NSError * error = nil;
   id<MTLRenderPipelineState> pipelineState = [device newRenderPipelineStateWithDescriptor:key.BuildDescriptor()
                                                                                     error:&error];
   if (pipelineState == nil || error != nil)
@@ -92,6 +131,18 @@ id<MTLRenderPipelineState> MetalStates::GetPipelineState(id<MTLDevice> device, P
   }
   m_pipelineCache.insert(std::make_pair(key, pipelineState));
   return pipelineState;
+}
+  
+id<MTLSamplerState> MetalStates::GetSamplerState(id<MTLDevice> device, SamplerKey const & key)
+{
+  auto const it = m_samplerCache.find(key);
+  if (it != m_samplerCache.end())
+    return it->second;
+  
+  id<MTLSamplerState> samplerState = [device newSamplerStateWithDescriptor:key.BuildDescriptor()];
+  CHECK(samplerState != nil, ());
+  m_samplerCache.insert(std::make_pair(key, samplerState));
+  return samplerState;
 }
   
 void MetalStates::DepthStencilKey::SetDepthTestEnabled(bool enabled)
@@ -108,32 +159,20 @@ void MetalStates::DepthStencilKey::SetStencilTestEnabled(bool enabled)
 {
   m_stencilEnabled = enabled;
 }
-
-void MetalStates::DepthStencilKey::SetStencilByte(uint8_t value, uint8_t byteNumber)
-{
-  auto const shift = byteNumber * 8;
-  uint64_t const mask = ~(static_cast<uint64_t>(0xFF) << shift);
-  m_stencil = (m_stencil & mask) | (static_cast<uint64_t>(value) << shift);
-}
-  
-uint8_t MetalStates::DepthStencilKey::GetStencilByte(uint8_t byteNumber) const
-{
-  return static_cast<uint8_t>((m_stencil >> byteNumber * 8) & 0xFF);
-}
   
 void MetalStates::DepthStencilKey::SetStencilFunction(StencilFace face, TestFunction stencilFunction)
 {
   switch (face)
   {
   case StencilFace::Front:
-    SetStencilByte(static_cast<uint8_t>(stencilFunction), kStencilFrontFunctionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFunction), kStencilFrontFunctionByte);
     break;
   case StencilFace::Back:
-    SetStencilByte(static_cast<uint8_t>(stencilFunction), kStencilBackFunctionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFunction), kStencilBackFunctionByte);
     break;
   case StencilFace::FrontAndBack:
-    SetStencilByte(static_cast<uint8_t>(stencilFunction), kStencilFrontFunctionByte);
-    SetStencilByte(static_cast<uint8_t>(stencilFunction), kStencilBackFunctionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFunction), kStencilFrontFunctionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFunction), kStencilBackFunctionByte);
     break;
   }
 }
@@ -144,22 +183,22 @@ void MetalStates::DepthStencilKey::SetStencilActions(StencilFace face, StencilAc
   switch (face)
   {
   case StencilFace::Front:
-    SetStencilByte(static_cast<uint8_t>(stencilFailAction), kStencilFrontFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(depthFailAction), kStencilFrontDepthFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(passAction), kStencilFrontPassActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFailAction), kStencilFrontFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(depthFailAction), kStencilFrontDepthFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(passAction), kStencilFrontPassActionByte);
     break;
   case StencilFace::Back:
-    SetStencilByte(static_cast<uint8_t>(stencilFailAction), kStencilBackFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(depthFailAction), kStencilBackDepthFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(passAction), kStencilBackPassActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFailAction), kStencilBackFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(depthFailAction), kStencilBackDepthFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(passAction), kStencilBackPassActionByte);
     break;
   case StencilFace::FrontAndBack:
-    SetStencilByte(static_cast<uint8_t>(stencilFailAction), kStencilFrontFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(depthFailAction), kStencilFrontDepthFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(passAction), kStencilFrontPassActionByte);
-    SetStencilByte(static_cast<uint8_t>(stencilFailAction), kStencilBackFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(depthFailAction), kStencilBackDepthFailActionByte);
-    SetStencilByte(static_cast<uint8_t>(passAction), kStencilBackPassActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFailAction), kStencilFrontFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(depthFailAction), kStencilFrontDepthFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(passAction), kStencilFrontPassActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(stencilFailAction), kStencilBackFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(depthFailAction), kStencilBackDepthFailActionByte);
+    SetStateByte(m_stencil, static_cast<uint8_t>(passAction), kStencilBackPassActionByte);
     break;
   }
 }
@@ -194,17 +233,17 @@ MTLDepthStencilDescriptor * MetalStates::DepthStencilKey::BuildDescriptor() cons
   if (m_stencilEnabled)
   {
     MTLStencilDescriptor * frontDesc = [[MTLStencilDescriptor alloc] init];
-    frontDesc.stencilCompareFunction = DecodeTestFunction(GetStencilByte(kStencilFrontFunctionByte));
-    frontDesc.stencilFailureOperation = DecodeStencilAction(GetStencilByte(kStencilFrontFailActionByte));
-    frontDesc.depthFailureOperation = DecodeStencilAction(GetStencilByte(kStencilFrontDepthFailActionByte));
-    frontDesc.depthStencilPassOperation = DecodeStencilAction(GetStencilByte(kStencilFrontPassActionByte));
+    frontDesc.stencilCompareFunction = DecodeTestFunction(GetStateByte(m_stencil, kStencilFrontFunctionByte));
+    frontDesc.stencilFailureOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilFrontFailActionByte));
+    frontDesc.depthFailureOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilFrontDepthFailActionByte));
+    frontDesc.depthStencilPassOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilFrontPassActionByte));
     desc.frontFaceStencil = frontDesc;
     
     MTLStencilDescriptor * backDesc = [[MTLStencilDescriptor alloc] init];
-    backDesc.stencilCompareFunction = DecodeTestFunction(GetStencilByte(kStencilBackFunctionByte));
-    backDesc.stencilFailureOperation = DecodeStencilAction(GetStencilByte(kStencilBackFailActionByte));
-    backDesc.depthFailureOperation = DecodeStencilAction(GetStencilByte(kStencilBackDepthFailActionByte));
-    backDesc.depthStencilPassOperation = DecodeStencilAction(GetStencilByte(kStencilBackPassActionByte));
+    backDesc.stencilCompareFunction = DecodeTestFunction(GetStateByte(m_stencil, kStencilBackFunctionByte));
+    backDesc.stencilFailureOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilBackFailActionByte));
+    backDesc.depthFailureOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilBackDepthFailActionByte));
+    backDesc.depthStencilPassOperation = DecodeStencilAction(GetStateByte(m_stencil, kStencilBackPassActionByte));
     desc.backFaceStencil = backDesc;
   }
   else
@@ -258,6 +297,34 @@ MTLRenderPipelineDescriptor * MetalStates::PipelineKey::BuildDescriptor() const
   colorAttachment.sourceAlphaBlendFactor = MTLBlendFactorSourceAlpha;
   colorAttachment.destinationRGBBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
   colorAttachment.destinationAlphaBlendFactor = MTLBlendFactorOneMinusSourceAlpha;
+  return desc;
+}
+  
+MetalStates::SamplerKey::SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+{
+  Set(filter, wrapSMode, wrapTMode);
+}
+  
+void MetalStates::SamplerKey::Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode)
+{
+  SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMinFilterByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(filter), kMagFilterByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(wrapSMode), kWrapSModeByte);
+  SetStateByte(m_sampler, static_cast<uint8_t>(wrapTMode), kWrapTModeByte);
+}
+  
+bool MetalStates::SamplerKey::operator<(SamplerKey const & rhs) const
+{
+  return m_sampler < rhs.m_sampler;
+}
+  
+MTLSamplerDescriptor * MetalStates::SamplerKey::BuildDescriptor() const
+{
+  MTLSamplerDescriptor * desc = [[MTLSamplerDescriptor alloc] init];
+  desc.minFilter = DecodeTextureFilter(GetStateByte(m_sampler, kMinFilterByte));
+  desc.magFilter = DecodeTextureFilter(GetStateByte(m_sampler, kMagFilterByte));
+  desc.sAddressMode = DecodeTextureWrapping(GetStateByte(m_sampler, kWrapSModeByte));
+  desc.tAddressMode = DecodeTextureWrapping(GetStateByte(m_sampler, kWrapTModeByte));
   return desc;
 }
 }  // namespace metal

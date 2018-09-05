@@ -19,9 +19,9 @@ void PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt, s
 
 DebugRectRenderer::DebugRectRenderer(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program,
                                      ref_ptr<gpu::ProgramParamsSetter> paramsSetter)
-  : Base(std::move(context), DrawPrimitive::LineStrip)
-  , m_program(std::move(program))
-  , m_paramsSetter(std::move(paramsSetter))
+  : Base(context, DrawPrimitive::LineStrip)
+  , m_program(program)
+  , m_paramsSetter(paramsSetter)
   , m_state(CreateRenderState(gpu::Program::DebugRect, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
@@ -53,7 +53,7 @@ void DebugRectRenderer::SetArrow(ref_ptr<dp::GraphicsContext> context, m2::Point
   PixelPointToScreenSpace(screen, arrowEnd - dir * 20 - side * 10, vertices);
 
   if (!Base::IsInitialized())
-    Base::Build(std::move(context), m_program);
+    Base::Build(context, m_program);
   Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
 }
 
@@ -68,7 +68,7 @@ void DebugRectRenderer::SetRect(ref_ptr<dp::GraphicsContext> context, m2::RectF 
   PixelPointToScreenSpace(screen, rect.LeftBottom(), vertices);
 
   if (!Base::IsInitialized())
-    Base::Build(std::move(context), m_program);
+    Base::Build(context, m_program);
   Base::UpdateBuffer(0 /* bufferInd */, std::move(vertices));
 }
 

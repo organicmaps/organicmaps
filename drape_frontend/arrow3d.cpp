@@ -126,7 +126,6 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
-
   mesh.Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 

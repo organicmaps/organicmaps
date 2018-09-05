@@ -4,6 +4,7 @@
 #include "drape/graphics_context.hpp"
 #include "drape/metal/metal_gpu_program.hpp"
 #include "drape/pointers.hpp"
+#include "drape/texture_types.hpp"
 
 #include <cstdint>
 #include <map>
@@ -30,10 +31,6 @@ public:
     bool m_stencilEnabled = false;
     TestFunction m_depthFunction = TestFunction::Always;
     uint64_t m_stencil = 0;
-    
-  private:
-    void SetStencilByte(uint8_t value, uint8_t byteNumber);
-    uint8_t GetStencilByte(uint8_t byteNumber) const;
   };
   
   struct PipelineKey
@@ -51,8 +48,20 @@ public:
     bool m_blendingEnabled = false;
   };
   
+  struct SamplerKey
+  {
+    SamplerKey() = default;
+    SamplerKey(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+    void Set(TextureFilter filter, TextureWrapping wrapSMode, TextureWrapping wrapTMode);
+    bool operator<(SamplerKey const & rhs) const;
+    MTLSamplerDescriptor * BuildDescriptor() const;
+    
+    uint32_t m_sampler = 0;
+  };
+  
   id<MTLDepthStencilState> GetDepthStencilState(id<MTLDevice> device, DepthStencilKey const & key);
   id<MTLRenderPipelineState> GetPipelineState(id<MTLDevice> device, PipelineKey const & key);
+  id<MTLSamplerState> GetSamplerState(id<MTLDevice> device, SamplerKey const & key);
   
 private:
   using DepthStencilCache = std::map<DepthStencilKey, id<MTLDepthStencilState>>;
@@ -60,6 +69,9 @@ private:
   
   using PipelineCache = std::map<PipelineKey, id<MTLRenderPipelineState>>;
   PipelineCache m_pipelineCache;
+  
+  using SamplerCache = std::map<SamplerKey, id<MTLSamplerState>>;
+  SamplerCache m_samplerCache;
 };
 }  // namespace metal
 }  // namespace dp

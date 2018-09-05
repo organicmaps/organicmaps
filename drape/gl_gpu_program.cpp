@@ -12,8 +12,8 @@ namespace dp
 GLGpuProgram::GLGpuProgram(std::string const & programName,
                            ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
   : GpuProgram(programName)
-  , m_vertexShader(std::move(vertexShader))
-  , m_fragmentShader(std::move(fragmentShader))
+  , m_vertexShader(vertexShader)
+  , m_fragmentShader(fragmentShader)
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());

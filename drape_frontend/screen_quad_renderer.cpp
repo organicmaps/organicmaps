@@ -39,7 +39,7 @@ private:
 }  // namespace
 
 ScreenQuadRenderer::ScreenQuadRenderer(ref_ptr<dp::GraphicsContext> context)
-  : Base(std::move(context), DrawPrimitive::TriangleStrip)
+  : Base(context, DrawPrimitive::TriangleStrip)
 {
   Rebuild();
 }
@@ -64,7 +64,7 @@ void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context,
   params.SetParams(mng, std::move(texture), opacity);
 
   auto program = mng->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
-  Base::Render(std::move(context), program, params.GetRenderState(), mng->GetParamsSetter(),
+  Base::Render(context, program, params.GetRenderState(), mng->GetParamsSetter(),
                params.GetProgramParams());
 }
 

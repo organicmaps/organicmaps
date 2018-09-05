@@ -22,6 +22,7 @@ public:
 
 private:
   id<MTLFunction> GetFunction(std::string const & name);
+  id<MTLDevice> m_device;
   id<MTLLibrary> m_library;
   std::map<std::string, id<MTLFunction>> m_functions;
 };

@@ -203,7 +203,7 @@ SymbolsTexture::SymbolsTexture(ref_ptr<dp::GraphicsContext> context, std::string
                                std::string const & textureName, ref_ptr<HWTextureAllocator> allocator)
   : m_name(textureName)
 {
-  Load(std::move(context), skinPathName, std::move(allocator));
+  Load(context, skinPathName, allocator);
 }
 
 void SymbolsTexture::Load(ref_ptr<dp::GraphicsContext> context, std::string const & skinPathName,
@@ -222,13 +222,13 @@ void SymbolsTexture::Load(ref_ptr<dp::GraphicsContext> context, std::string cons
     p.m_width = width;
     p.m_height = height;
 
-    Create(std::move(context), p, make_ref(data));
+    Create(context, p, make_ref(data));
   };
 
   auto failureHandler = [this, context](std::string const & reason)
   {
     LOG(LERROR, (reason));
-    Fail(std::move(context));
+    Fail(context);
   };
 
   LoadSymbols(skinPathName, m_name, true /* convertToUV */, definitionInserter,
@@ -241,7 +241,7 @@ void SymbolsTexture::Invalidate(ref_ptr<dp::GraphicsContext> context, std::strin
   Destroy();
   m_definition.clear();
 
-  Load(std::move(context), skinPathName, std::move(allocator));
+  Load(context, skinPathName, allocator);
 }
 
 ref_ptr<Texture::ResourceInfo> SymbolsTexture::FindResource(Texture::Key const & key, bool & newResource)

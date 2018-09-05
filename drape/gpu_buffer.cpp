@@ -15,7 +15,7 @@ namespace
 bool IsMapBufferSupported()
 {
   static bool const isSupported =
-      GLExtensionsList::Instance().IsSupported(GLExtensionsList::MapBuffer);
+    GLFunctions::ExtensionsList.IsSupported(GLExtensionsList::MapBuffer);
   return isSupported;
 }
 

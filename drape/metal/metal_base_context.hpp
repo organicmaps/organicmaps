@@ -5,6 +5,7 @@
 #include "drape/gpu_program.hpp"
 #include "drape/metal/metal_states.hpp"
 #include "drape/pointers.hpp"
+#include "drape/texture_types.hpp"
 
 #include <cstdint>
 
@@ -42,6 +43,8 @@ public:
   id<MTLRenderCommandEncoder> GetCommandEncoder() const;
   id<MTLDepthStencilState> GetDepthStencilState();
   id<MTLRenderPipelineState> GetPipelineState(ref_ptr<GpuProgram> program, bool blendingEnabled);
+  id<MTLSamplerState> GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode,
+                                      TextureWrapping wrapTMode);
   
 protected:
   void SetFrameDrawable(id<CAMetalDrawable> drawable);

@@ -237,6 +237,13 @@ id<MTLRenderPipelineState> MetalBaseContext::GetPipelineState(ref_ptr<GpuProgram
   MetalStates::PipelineKey const key(program, colorTexture.pixelFormat, depthStencilFormat, blendingEnabled);
   return m_metalStates.GetPipelineState(m_device, key);
 }
+  
+id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode,
+                                                      TextureWrapping wrapTMode)
+{
+  MetalStates::SamplerKey const key(filter, wrapSMode, wrapTMode);
+  return m_metalStates.GetSamplerState(m_device, key);
+}
 
 void MetalBaseContext::Present()
 {
