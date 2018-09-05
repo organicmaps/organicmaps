@@ -72,8 +72,9 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
-import com.mapswithme.maps.purchase.BillingFactory;
-import com.mapswithme.maps.purchase.BillingManager;
+import com.mapswithme.maps.purchase.PurchaseFactory;
+import com.mapswithme.maps.purchase.PurchaseController;
+import com.mapswithme.maps.purchase.PurchaseControllerProvider;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -146,7 +147,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  FloatingSearchToolbarController.SearchToolbarListener,
                                  OnTrafficLayerToggleListener,
                                  OnSubwayLayerToggleListener,
-                                 BookmarkManager.BookmarksCatalogListener
+                                 BookmarkManager.BookmarksCatalogListener,
+                                 PurchaseControllerProvider
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -232,7 +234,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private PlacePageTracker mPlacePageTracker;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private BillingManager mBillingManager;
+  private PurchaseController mPurchaseController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -551,7 +553,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize();
 
-    mBillingManager = BillingFactory.ADS_REMOVAL.createBillingManager(this, "android.test.purchased");
+    mPurchaseController = PurchaseFactory.ADS_REMOVAL.createPurchaseController(this, "ads.removal.monthly.test");
 
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
@@ -1346,7 +1348,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onStart()
   {
     super.onStart();
-    mBillingManager.initialize();
     SearchEngine.INSTANCE.addListener(this);
     Framework.nativeSetMapObjectListener(this);
     BookmarkManager.INSTANCE.addLoadingListener(this);
@@ -1358,13 +1359,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavigationController != null)
       TrafficManager.INSTANCE.attach(mNavigationController);
     mPlacePage.onActivityStarted();
+    mPurchaseController.start(this);
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
-    mBillingManager.destroy();
     SearchEngine.INSTANCE.removeListener(this);
     Framework.nativeRemoveMapObjectListener();
     BookmarkManager.INSTANCE.removeLoadingListener(this);
@@ -1374,6 +1375,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     TrafficManager.INSTANCE.detachAll();
     mToggleMapLayerController.detachCore();
     mPlacePage.onActivityStopped();
+    mPurchaseController.stop();
   }
 
   @Override
@@ -1875,6 +1877,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mMainMenu.setState(MainMenu.State.MENU, false, mIsFullscreen);
       }
     });
+  }
+
+  @NonNull
+  @Override
+  public PurchaseController getPurchaseController()
+  {
+    return mPurchaseController;
   }
 
   private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)

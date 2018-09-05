@@ -25,8 +25,8 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private final static String TAG = PlayStoreBillingManager.class.getSimpleName();
-  @NonNull
-  private final Activity mActivity;
+  @Nullable
+  private Activity mActivity;
   @Nullable
   private BillingClient mBillingClient;
   @Nullable
@@ -42,19 +42,18 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @NonNull
   private final List<Runnable> mPendingRequests = new ArrayList<>();
   
-  PlayStoreBillingManager(@NonNull Activity activity,
-                          @NonNull @BillingClient.SkuType String productType,
+  PlayStoreBillingManager(@NonNull @BillingClient.SkuType String productType,
                           @NonNull String... productIds)
   {
-    mActivity = activity;
     mProductIds = Collections.unmodifiableList(Arrays.asList(productIds));
     mProductType = productType;
   }
 
   @Override
-  public void initialize()
+  public void initialize(@NonNull Activity context)
   {
     LOGGER.i(TAG, "Creating play store billing client...");
+    mActivity = context;
     mBillingClient = BillingClient.newBuilder(mActivity).setListener(this).build();
     mConnection = new PlayStoreBillingConnection(mBillingClient, this);
     mConnection.open();
@@ -63,6 +62,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @Override
   public void destroy()
   {
+    mActivity = null;
     mConnection.close();
     mPendingRequests.clear();
   }
@@ -153,6 +153,15 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     return mBillingClient;
   }
 
+  @NonNull
+  private Activity getActivityOrThrow()
+  {
+    if (mActivity == null)
+      throw new IllegalStateException("Manager must be initialized! Call 'initialize' method first.");
+
+    return mActivity;
+  }
+
   @Override
   public void onConnected()
   {
@@ -214,7 +223,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
                                                   .setType(mProductType)
                                                   .build();
 
-      int responseCode = getClientOrThrow().launchBillingFlow(mActivity, params);
+      int responseCode = getClientOrThrow().launchBillingFlow(getActivityOrThrow(), params);
       LOGGER.i(TAG, "Launch billing flow response: " + responseCode);
     }
   }

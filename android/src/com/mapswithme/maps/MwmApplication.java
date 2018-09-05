@@ -27,8 +27,6 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.purchase.BillingFactory;
-import com.mapswithme.maps.purchase.PurchaseValidator;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
@@ -76,8 +74,6 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PushwooshHelper mPushwooshHelper;
-  @NonNull
-  private final PurchaseValidator mPurchaseValidator = BillingFactory.ADS_REMOVAL.createPurchaseManager();
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
@@ -285,7 +281,6 @@ public class MwmApplication extends Application
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
-    mPurchaseValidator.initialize();
     mFrameworkInitialized = true;
   }
 
@@ -423,12 +418,6 @@ public class MwmApplication extends Application
     if (myParams != null)
       myParams.setDefaultVendorAppPackage();
     MyTracker.initTracker();
-  }
-
-  @NonNull
-  public PurchaseValidator getPurchaseValidator()
-  {
-    return mPurchaseValidator;
   }
 
   public static void onUpgrade()

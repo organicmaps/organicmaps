@@ -9,12 +9,17 @@ import android.support.annotation.NonNull;
  * <b>one-to-one</b>. If you need to validate different purchases you have to create different
  * implementations of this interface.
  */
-public interface PurchaseValidator<T>
+interface PurchaseValidator<T>
 {
   /**
-   * Initializes validator for further work.
+   * Initializes the validator for further work.
    */
   void initialize();
+
+  /**
+   * Destroys this validator.
+   */
+  void destroy();
 
   /**
    * Validates the purchase with specified token.
@@ -26,7 +31,7 @@ public interface PurchaseValidator<T>
   /**
    * Indicates whether the app has active purchase or not.
    */
-  void hasActivePurchase();
+  boolean hasActivePurchase();
 
   /**
    * Ads observer of validation.

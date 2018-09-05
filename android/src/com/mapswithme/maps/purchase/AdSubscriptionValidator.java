@@ -14,15 +14,21 @@ class AdSubscriptionValidator implements PurchaseValidator<AdValidationCallback>
   }
 
   @Override
+  public void destroy()
+  {
+    Framework.nativeSetSubscriptionValidationListener(null);
+  }
+
+  @Override
   public void validate(@NonNull String purchaseToken)
   {
     Framework.nativeValidateSubscription(purchaseToken);
   }
 
   @Override
-  public void hasActivePurchase()
+  public boolean hasActivePurchase()
   {
-    Framework.nativeHasActiveSubscription();
+    return Framework.nativeHasActiveSubscription();
   }
 
   @Override
