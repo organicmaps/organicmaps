@@ -58,7 +58,8 @@ void WorkerThread::ProcessTasks()
         // while we are waiting.
         auto const when = m_delayed.top().m_when;
         m_cv.wait_until(lk, when, [this, when]() {
-          return m_shutdown || !m_immediate.empty() || m_delayed.top().m_when < when;
+          return m_shutdown || !m_immediate.empty() || m_delayed.empty() ||
+                 (!m_delayed.empty() && m_delayed.top().m_when < when);
         });
       }
       else
