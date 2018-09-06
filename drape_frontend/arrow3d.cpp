@@ -14,12 +14,12 @@
 
 namespace df
 {
-double const kArrowSize = 12.0;
-double const kArrow3dScaleMin = 1.0;
-double const kArrow3dScaleMax = 2.2;
-double const kArrow3dMinZoom = 16;
+double constexpr kArrowSize = 12.0;
+double constexpr kArrow3dScaleMin = 1.0;
+double constexpr kArrow3dScaleMax = 2.2;
+int constexpr kArrow3dMinZoom = 16;
 
-float const kOutlineScale = 1.2f;
+float constexpr kOutlineScale = 1.2f;
 
 int constexpr kComponentsInVertex = 4;
 int constexpr kComponentsInNormal = 3;
@@ -30,7 +30,8 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : Base(DrawPrimitive::Triangles)
+  : m_arrowMesh(dp::MeshObject::DrawPrimitive::Triangles)
+  , m_shadowMesh(dp::MeshObject::DrawPrimitive::Triangles)
   , m_state(CreateRenderState(gpu::Program::Arrow3d, DepthLayer::OverlayLayer))
 {
   m_state.SetDepthTestEnabled(false);
@@ -51,15 +52,22 @@ Arrow3d::Arrow3d()
     0.0f, -0.5f, 0.0f, 1.0f,    0.0f, -0.67f, 0.0f, 0.0f,   -1.2f, -1.0f, 0.0f, 1.0f,
   };
 
-  std::vector<float> normals = GenerateNormalsForTriangles(vertices, kComponentsInVertex);
+  std::vector<float> normals =
+      dp::MeshObject::GenerateNormalsForTriangles(vertices, kComponentsInVertex);
 
-  auto const verticesBufferInd = 0;
-  SetBuffer(verticesBufferInd, std::move(vertices), sizeof(float) * kComponentsInVertex);
-  SetAttribute("a_pos", verticesBufferInd, 0 /* offset */, kComponentsInVertex);
+  auto constexpr kVerticesBufferInd = 0;
+  auto copiedVertices = vertices;
+  m_arrowMesh.SetBuffer(kVerticesBufferInd, std::move(copiedVertices),
+                        sizeof(float) * kComponentsInVertex);
+  m_arrowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */, kComponentsInVertex);
 
-  auto const normalsBufferInd = 1;
-  SetBuffer(normalsBufferInd, std::move(normals), sizeof(float) * kComponentsInNormal);
-  SetAttribute("a_normal", normalsBufferInd, 0 /* offset */, kComponentsInNormal);
+  auto constexpr kNormalsBufferInd = 1;
+  m_arrowMesh.SetBuffer(kNormalsBufferInd, std::move(normals), sizeof(float) * kComponentsInNormal);
+  m_arrowMesh.SetAttribute("a_normal", kNormalsBufferInd, 0 /* offset */, kComponentsInNormal);
+
+  m_shadowMesh.SetBuffer(kVerticesBufferInd, std::move(vertices),
+                         sizeof(float) * kComponentsInVertex);
+  m_shadowMesh.SetAttribute("a_pos", kVerticesBufferInd, 0 /* offset */, kComponentsInVertex);
 }
 
 void Arrow3d::SetPosition(const m2::PointD & position)
@@ -88,31 +96,29 @@ void Arrow3d::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramM
   // Render shadow.
   if (screen.isPerspective())
   {
-    RenderArrow(context, mng, screen, gpu::Program::Arrow3dShadow,
+    RenderArrow(context, mng, m_shadowMesh, screen, gpu::Program::Arrow3dShadow,
                 df::GetColorConstant(df::kArrow3DShadowColor), 0.05f /* dz */,
-                routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
+                routingMode ? kOutlineScale : 1.0f /* scaleFactor */);
   }
-
-  dp::Color const color =
-      df::GetColorConstant(m_obsoletePosition ? df::kArrow3DObsoleteColor : df::kArrow3DColor);
 
   // Render outline.
   if (routingMode)
   {
     dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
-    RenderArrow(context, mng, screen, gpu::Program::Arrow3dOutline,
-                dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlpha()),
-                0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
+    RenderArrow(context, mng, m_shadowMesh, screen, gpu::Program::Arrow3dOutline,
+                outlineColor, 0.0f /* dz */, kOutlineScale /* scaleFactor */);
   }
 
   // Render arrow.
-  RenderArrow(context, mng, screen, gpu::Program::Arrow3d, color, 0.0f /* dz */, 1.0f /* scaleFactor */,
-              true /* hasNormals */);
+  dp::Color const color =
+    df::GetColorConstant(m_obsoletePosition ? df::kArrow3DObsoleteColor : df::kArrow3DColor);
+  RenderArrow(context, mng, m_arrowMesh, screen, gpu::Program::Arrow3d, color, 0.0f /* dz */,
+              1.0f /* scaleFactor */);
 }
 
 void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                          ScreenBase const & screen, gpu::Program program, dp::Color const & color, float dz,
-                          float scaleFactor, bool hasNormals)
+                          dp::MeshObject & mesh, ScreenBase const & screen, gpu::Program program,
+                          dp::Color const & color, float dz, float scaleFactor)
 {
   gpu::Arrow3dProgramParams params;
   math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor);
@@ -120,10 +126,11 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
   params.m_color = glsl::ToVec4(color);
 
   auto gpuProgram = mng->GetProgram(program);
-  Base::Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
+  mesh.Render(context, gpuProgram, m_state, mng->GetParamsSetter(), params);
 }
 
-math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz, float scaleFactor) const
+math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz,
+                                                      float scaleFactor) const
 {
   double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize * scaleFactor;
   if (screen.isPerspective())
@@ -132,13 +139,13 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
     arrowScale *= (kArrow3dScaleMin * (1.0 - t) + kArrow3dScaleMax * t);
   }
 
-  double const scaleX = arrowScale * 2.0 / screen.PixelRect().SizeX();
-  double const scaleY = arrowScale * 2.0 / screen.PixelRect().SizeY();
-  double const scaleZ = screen.isPerspective() ? (0.002 * screen.GetDepth3d()) : 1.0;
+  auto const scaleX = static_cast<float>(arrowScale * 2.0 / screen.PixelRect().SizeX());
+  auto const scaleY = static_cast<float>(arrowScale * 2.0 / screen.PixelRect().SizeY());
+  auto const scaleZ = static_cast<float>(screen.isPerspective() ? (0.002 * screen.GetDepth3d()) : 1.0);
 
   m2::PointD const pos = screen.GtoP(m_position);
-  double const dX = 2.0 * pos.x / screen.PixelRect().SizeX() - 1.0;
-  double const dY = 2.0 * pos.y / screen.PixelRect().SizeY() - 1.0;
+  auto const dX = static_cast<float>(2.0 * pos.x / screen.PixelRect().SizeX() - 1.0);
+  auto const dY = static_cast<float>(2.0 * pos.y / screen.PixelRect().SizeY() - 1.0);
 
   math::Matrix<float, 4, 4> scaleM = math::Identity<float, 4>();
   scaleM(0, 0) = scaleX;
@@ -146,8 +153,8 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
   scaleM(2, 2) = scaleZ;
 
   math::Matrix<float, 4, 4> rotateM = math::Identity<float, 4>();
-  rotateM(0, 0) = cos(m_azimuth + screen.GetAngle());
-  rotateM(0, 1) = -sin(m_azimuth + screen.GetAngle());
+  rotateM(0, 0) = static_cast<float>(cos(m_azimuth + screen.GetAngle()));
+  rotateM(0, 1) = static_cast<float>(-sin(m_azimuth + screen.GetAngle()));
   rotateM(1, 0) = -rotateM(0, 1);
   rotateM(1, 1) = rotateM(0, 0);
 
