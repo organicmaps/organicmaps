@@ -33262,6 +33262,14 @@ fa = دوباره نپرس
     en = Map updates
     ru = Обновления карт
 
-   [channels_reviews]
-     en = Unsent reviews
-     ru = Неотправленные отзывы
+  [channels_reviews]
+    en = Unsent reviews
+    ru = Неотправленные отзывы
+
+  [purchase_loading]
+    en = Purchase information is loading…
+    ru = Загружаем информацию о покупках…
+
+  [purchase_error_subtitle]
+    en = An error occurred while processing your purchase
+    ru = Во время обработки вашей покупки произошла ошибка
