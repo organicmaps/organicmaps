@@ -17,8 +17,8 @@ enum class Type
   Region,
   Subregion,
   Locality,
-  Sublocality,
   Suburb,
+  Sublocality,
   Building,
 
   Count
