@@ -125,8 +125,10 @@ private:
 
     m_auxCaptionFound |= (dRule->GetCaption(1) != nullptr);
 
-    // Skip lines with zero width.
-    if (dRule->GetLine() != nullptr && dRule->GetLine()->width() < 1e-5)
+    // Skip lines with zero width. Lines can have zero width only if they have
+    // path symbols along.
+    auto const lineRule = dRule->GetLine();
+    if (lineRule != nullptr && (lineRule->width() < 1e-5 && !lineRule->has_pathsym()))
       return;
 
     m_rules.emplace_back(make_pair(dRule, depth));
