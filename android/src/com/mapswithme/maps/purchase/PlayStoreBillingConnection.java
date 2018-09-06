@@ -63,6 +63,8 @@ class PlayStoreBillingConnection implements BillingConnection,
     }
 
     mState = State.DISCONNECTED;
+    if (mListener != null)
+      mListener.onDisconnected();
   }
 
   @Override
@@ -75,5 +77,6 @@ class PlayStoreBillingConnection implements BillingConnection,
   interface ConnectionListener
   {
     void onConnected();
+    void onDisconnected();
   }
 }

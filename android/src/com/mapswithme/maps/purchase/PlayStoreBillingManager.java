@@ -84,6 +84,7 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
         task.run();
         break;
       case DISCONNECTED:
+        mPendingRequests.add(task);
         mConnection.open();
         break;
       case CLOSED:
@@ -137,9 +138,12 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     if (responseCode != BillingResponse.OK || purchases == null || purchases.isEmpty())
     {
       LOGGER.e(TAG, "Billing failed. Response code: " + responseCode);
+      if (mCallback != null)
+        mCallback.onPurchaseFailure();
       return;
     }
 
+    LOGGER.i(TAG, "Purchase process successful. Count of purchases: " + purchases.size());
     if (mCallback != null)
       mCallback.onPurchaseSuccessful(purchases);
   }
@@ -171,6 +175,17 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     mPendingRequests.clear();
   }
 
+  @Override
+  public void onDisconnected()
+  {
+    if (mPendingRequests.isEmpty())
+      return;
+
+    mPendingRequests.clear();
+    if (mCallback != null)
+      mCallback.onPurchaseFailure();
+  }
+
   private class QueryProductDetailsRequest implements Runnable
   {
     @Override
@@ -190,12 +205,16 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
       if (responseCode != BillingResponse.OK)
       {
         LOGGER.w(TAG, "Unsuccessful request");
+        if (mCallback != null)
+          mCallback.onPurchaseFailure();
         return;
       }
 
       if (skuDetails == null || skuDetails.isEmpty())
       {
         LOGGER.w(TAG, "Purchase details not found");
+        if (mCallback != null)
+          mCallback.onPurchaseFailure();
         return;
       }
 
