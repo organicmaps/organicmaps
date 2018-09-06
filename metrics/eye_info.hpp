@@ -195,4 +195,13 @@ inline std::string DebugPrint(Tip::Event const & type)
   case Tip::Event::Count: return "Count";
   }
 }
+
+inline std::string DebugPrint(Layer::Type const & type)
+{
+  switch (type)
+  {
+  case Layer::Type::TrafficJams: return "TrafficJams";
+  case Layer::Type::PublicTransport: return "PublicTransport";
+  }
+}
 }  // namespace eye
