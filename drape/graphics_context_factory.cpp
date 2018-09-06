@@ -24,7 +24,8 @@ GraphicsContext * ThreadSafeFactory::GetResourcesUploadContext()
                        [this](){ return m_factory->IsDrawContextCreated(); });
 }
 
-GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const checkFn)
+GraphicsContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn,
+                                                   TIsSeparateCreatedFn const & checkFn)
 {
   threads::ConditionGuard g(m_condition);
   GraphicsContext * ctx = createFn();

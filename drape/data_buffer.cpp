@@ -5,8 +5,7 @@ namespace dp
 {
 DataBuffer::DataBuffer(uint8_t elementSize, uint32_t capacity)
   : m_impl(make_unique_dp<CpuBufferImpl>(elementSize, capacity))
-{
-}
+{}
 
 ref_ptr<DataBufferBase> DataBuffer::GetBuffer() const
 {
@@ -39,6 +38,7 @@ DataBufferMapper::DataBufferMapper(ref_ptr<DataBuffer> buffer, uint32_t elementO
 }
 
 DataBufferMapper::~DataBufferMapper() { m_buffer->GetBuffer()->Unmap(); }
+
 void DataBufferMapper::UpdateData(void const * data, uint32_t elementOffset, uint32_t elementCount)
 {
   m_buffer->GetBuffer()->UpdateData(m_ptr, data, elementOffset, elementCount);

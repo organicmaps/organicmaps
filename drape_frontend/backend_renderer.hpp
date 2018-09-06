@@ -35,7 +35,7 @@ using TIsUGCFn = std::function<bool(FeatureID const &)>;
 class BackendRenderer : public BaseRenderer
 {
 public:
-  using TUpdateCurrentCountryFn = function<void (m2::PointD const &, int)>;
+  using TUpdateCurrentCountryFn = std::function<void (m2::PointD const &, int)>;
 
   struct Params : BaseRenderer::Params
   {

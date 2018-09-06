@@ -7,6 +7,7 @@
 
 #include "transit/transit_display_info.hpp"
 
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
@@ -104,7 +105,7 @@ public:
     TransferMax = 60
   };
 
-  using TFlushRenderDataFn = function<void (TransitRenderData && renderData)>;
+  using TFlushRenderDataFn = std::function<void (TransitRenderData && renderData)>;
 
   TransitSchemeBuilder(TFlushRenderDataFn const & flushFn)
     : m_flushRenderDataFn(flushFn)

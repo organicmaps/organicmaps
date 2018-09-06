@@ -1,6 +1,5 @@
 #include "drape/vertex_array_buffer.hpp"
 
-#include "drape/gl_extensions_list.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/support_manager.hpp"

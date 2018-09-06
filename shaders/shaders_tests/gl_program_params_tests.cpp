@@ -5,6 +5,7 @@
 #include "shaders/gl_program_pool.hpp"
 
 #include "drape/drape_global.hpp"
+#include "drape/drape_tests/testing_graphics_context.hpp"
 #include "drape/gl_functions.hpp"
 
 #include <functional>
@@ -15,6 +16,7 @@ template <typename ProgramParams>
 void TestProgramParams(bool apiOpenGLES3)
 {
   auto const api = apiOpenGLES3 ? dp::ApiVersion::OpenGLES3 : dp::ApiVersion::OpenGLES2;
+  TestingGraphicsContext context(api);
   GLFunctions::Init(api);
   gpu::GLProgramPool pool(api);
   gpu::GLProgramParamsSetter paramsSetter;
@@ -24,7 +26,7 @@ void TestProgramParams(bool apiOpenGLES3)
   {
     auto const program = pool.Get(p);
     program->Bind();
-    paramsSetter.Apply(make_ref(program), params);
+    paramsSetter.Apply(make_ref(&context), make_ref(program), params);
     program->Unbind();
   }
 }

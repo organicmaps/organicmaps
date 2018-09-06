@@ -1,6 +1,5 @@
 #include "drape/texture.hpp"
 
-#include "drape/gl_extensions_list.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"

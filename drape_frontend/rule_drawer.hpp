@@ -32,7 +32,7 @@ public:
   using TDrawerCallback = std::function<void(FeatureType &, Stylist &)>;
   using TCheckCancelledCallback = std::function<bool()>;
   using TIsCountryLoadedByNameFn = std::function<bool(std::string const &)>;
-  using TInsertShapeFn = function<void(drape_ptr<MapShape> && shape)>;
+  using TInsertShapeFn = std::function<void(drape_ptr<MapShape> && shape)>;
   using TFilterFeatureFn = std::function<bool(FeatureType &)>;
 
   RuleDrawer(TDrawerCallback const & drawerFn,

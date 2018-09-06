@@ -2,18 +2,17 @@
 
 #include "drape/pointers.hpp"
 
-#include "std/function.hpp"
-#include "std/vector.hpp"
+#include <vector>
 
 namespace dp
 {
-
 class AttributeProvider;
 class BindingInfo;
 
 class BatchCallbacks
 {
 public:
+  virtual ~BatchCallbacks() = default;
   virtual void FlushData(BindingInfo const & binding, void const * data, uint32_t count) = 0;
   virtual void * GetIndexStorage(uint32_t indexCount, uint32_t & startIndex) = 0;
   virtual void SubmitIndices() = 0;
@@ -26,10 +25,10 @@ class UniversalBatch
 {
 public:
   UniversalBatch(BatchCallbacks & callbacks, uint8_t minVerticesCount, uint8_t minIndicesCount);
-  virtual ~UniversalBatch(){}
+  virtual ~UniversalBatch() = default;
 
   virtual void BatchData(ref_ptr<AttributeProvider> streams) = 0;
-  void SetCanDevideStreams(bool canDevide);
+  void SetCanDivideStreams(bool canDivide);
   bool CanDevideStreams() const;
   void SetVertexStride(uint8_t vertexStride);
 
@@ -47,7 +46,7 @@ protected:
 
 private:
   BatchCallbacks & m_callbacks;
-  bool m_canDevideStreams;
+  bool m_canDivideStreams;
   uint8_t m_vertexStride;
   uint8_t const m_minVerticesCount;
   uint8_t const m_minIndicesCount;
@@ -58,7 +57,7 @@ class TriangleListBatch : public UniversalBatch
   using TBase = UniversalBatch;
 
 public:
-  TriangleListBatch(BatchCallbacks & callbacks);
+  explicit TriangleListBatch(BatchCallbacks & callbacks);
 
   void BatchData(ref_ptr<AttributeProvider> streams) override;
 };
@@ -68,7 +67,7 @@ class LineStripBatch : public UniversalBatch
   using TBase = UniversalBatch;
 
 public:
-  LineStripBatch(BatchCallbacks & callbacks);
+  explicit LineStripBatch(BatchCallbacks & callbacks);
 
   void BatchData(ref_ptr<AttributeProvider> streams) override;
 };
@@ -78,12 +77,12 @@ class LineRawBatch : public UniversalBatch
   using TBase = UniversalBatch;
 
 public:
-  LineRawBatch(BatchCallbacks & callbacks, vector<int> const & indices);
+  LineRawBatch(BatchCallbacks & callbacks, std::vector<int> const & indices);
 
   void BatchData(ref_ptr<AttributeProvider> streams) override;
 
 private:
-  vector<int> const & m_indices;
+  std::vector<int> const & m_indices;
 };
 
 class FanStripHelper : public UniversalBatch
@@ -91,7 +90,7 @@ class FanStripHelper : public UniversalBatch
   using TBase = UniversalBatch;
 
 public:
-  FanStripHelper(BatchCallbacks & callbacks);
+  explicit FanStripHelper(BatchCallbacks & callbacks);
 
 protected:
   uint32_t BatchIndexes(uint32_t vertexCount);
@@ -114,11 +113,11 @@ class TriangleStripBatch : public FanStripHelper
   using TBase = FanStripHelper;
 
 public:
-  TriangleStripBatch(BatchCallbacks & callbacks);
+  explicit TriangleStripBatch(BatchCallbacks & callbacks);
 
-  virtual void BatchData(ref_ptr<AttributeProvider> streams);
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
 protected:
-  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
+  void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
 };
 
 class TriangleFanBatch : public FanStripHelper
@@ -126,11 +125,11 @@ class TriangleFanBatch : public FanStripHelper
   using TBase = FanStripHelper;
 
 public:
-  TriangleFanBatch(BatchCallbacks & callbacks);
+  explicit TriangleFanBatch(BatchCallbacks & callbacks);
 
-  virtual void BatchData(ref_ptr<AttributeProvider> streams);
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
 protected:
-  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
+  void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
 };
 
 class TriangleListOfStripBatch : public FanStripHelper
@@ -138,17 +137,16 @@ class TriangleListOfStripBatch : public FanStripHelper
   using TBase = FanStripHelper;
 
 public:
-  TriangleListOfStripBatch(BatchCallbacks & callbacks);
+  explicit TriangleListOfStripBatch(BatchCallbacks & callbacks);
 
-  virtual void BatchData(ref_ptr<AttributeProvider> streams);
+  void BatchData(ref_ptr<AttributeProvider> streams) override;
 
 protected:
-  virtual bool IsBufferFilled(uint32_t availableVerticesCount, uint32_t availableIndicesCount) const;
-  virtual uint32_t VtoICount(uint32_t vCount) const;
-  virtual uint32_t ItoVCount(uint32_t iCount) const;
-  virtual uint32_t AlignVCount(uint32_t vCount) const;
-  virtual uint32_t AlignICount(uint32_t iCount) const;
-  virtual void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const;
+  bool IsBufferFilled(uint32_t availableVerticesCount, uint32_t availableIndicesCount) const override;
+  uint32_t VtoICount(uint32_t vCount) const override;
+  uint32_t ItoVCount(uint32_t iCount) const override;
+  uint32_t AlignVCount(uint32_t vCount) const override;
+  uint32_t AlignICount(uint32_t iCount) const override;
+  void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
 };
-
-} // namespace dp
+}  // namespace dp

@@ -3,6 +3,8 @@
 #include "drape/gl_constants.hpp"
 #include "drape/hw_texture.hpp"
 
+#include "std/target_os.hpp"
+
 #ifndef OMIM_OS_IPHONE
   #error Only for iOS
 #endif

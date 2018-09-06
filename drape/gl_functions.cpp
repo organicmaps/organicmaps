@@ -8,6 +8,8 @@
 #include "base/mutex.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 #include <limits>
 #include <map>

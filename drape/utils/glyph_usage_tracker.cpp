@@ -4,14 +4,13 @@
 
 #include "base/assert.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
 namespace dp
 {
-
 string GlyphUsageTracker::GlyphUsageStatistic::ToString() const
 {
-  ostringstream ss;
+  std::ostringstream ss;
   ss << " ----- Glyphs usage report ----- \n";
   ss << " Current language = " << languages::GetCurrentOrig() << "\n";
   ss << " Invalid glyphs count = " << m_invalidGlyphs.size() << "\n";
@@ -45,13 +44,13 @@ GlyphUsageTracker & GlyphUsageTracker::Instance()
 
 GlyphUsageTracker::GlyphUsageStatistic GlyphUsageTracker::Report()
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   return m_glyphStat;
 }
 
 void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings::UniChar const & c)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
@@ -64,7 +63,7 @@ void GlyphUsageTracker::AddInvalidGlyph(strings::UniString const & str, strings:
 void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniString const & str, strings::UniChar const & c,
                                            size_t const group, size_t const expectedGroup)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   if (m_processedStrings.find(strings::ToUtf8(str)) != m_processedStrings.end())
     return;
@@ -76,5 +75,4 @@ void GlyphUsageTracker::AddUnexpectedGlyph(strings::UniString const & str, strin
 
   m_processedStrings.insert(strings::ToUtf8(str));
 }
-
-} // namespace dp
+}  // namespace dp

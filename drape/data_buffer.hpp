@@ -8,7 +8,7 @@ namespace dp
 class DataBufferBase
 {
 public:
-  virtual ~DataBufferBase() {}
+  virtual ~DataBufferBase() = default;
   virtual uint32_t GetCapacity() const = 0;
   virtual uint32_t GetCurrentSize() const = 0;
   virtual uint32_t GetAvailableSize() const = 0;

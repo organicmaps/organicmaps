@@ -1,26 +1,25 @@
 #include "drape/index_storage.hpp"
-#include "drape/gl_extensions_list.hpp"
+#include "drape/gl_functions.hpp"
 
-#include "std/utility.hpp"
+#include <utility>
 
 namespace dp
 {
-
 IndexStorage::IndexStorage()
   : m_size(0)
 {}
 
-IndexStorage::IndexStorage(vector<uint32_t> && initial)
+IndexStorage::IndexStorage(std::vector<uint32_t> && initial)
 {
   m_size = (uint32_t)initial.size();
   if (IsSupported32bit())
   {
-    m_storage = move(initial);
+    m_storage = std::move(initial);
   }
   else
   {
-    /// we pack 2 uint16_t indices into single m_storage element
-    /// every element of "initial" vector is single index
+    // We pack 2 uint16_t indices into single m_storage element.
+    // Every element of "initial" vector is a single index.
     m_storage.resize(GetStorageSize(m_size));
     for (size_t i = 0; i < initial.size(); i++)
     {
@@ -70,5 +69,4 @@ uint32_t IndexStorage::GetStorageSize(uint32_t elementsCount) const
 {
   return IsSupported32bit() ? elementsCount : (elementsCount / 2 + 1);
 }
-
-}
+}  // namespace dp

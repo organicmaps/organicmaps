@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <string>
-#include <vector>
 #include <utility>
 
 namespace dp
@@ -23,7 +22,7 @@ uint8_t constexpr kStencilFrontFailActionByte = 2;
 uint8_t constexpr kStencilFrontDepthFailActionByte = 1;
 uint8_t constexpr kStencilFrontPassActionByte = 0;
 
-// Stencil package.
+// Sampler package.
 uint8_t constexpr kWrapSModeByte = 3;
 uint8_t constexpr kWrapTModeByte = 2;
 uint8_t constexpr kMagFilterByte = 1;

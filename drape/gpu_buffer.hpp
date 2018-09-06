@@ -18,7 +18,7 @@ public:
 
 public:
   GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity);
-  ~GPUBuffer();
+  ~GPUBuffer() override;
 
   void UploadData(void const * data, uint32_t elementCount);
   void Bind();
@@ -32,7 +32,6 @@ protected:
   void Resize(void const * data, uint32_t elementCount);
 
 private:
-  friend class GPUBufferMapper;
   Target m_t;
   uint32_t m_bufferID;
   uint32_t m_mappingOffset;

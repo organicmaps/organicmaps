@@ -4,7 +4,8 @@
 #include "drape/data_buffer.hpp"
 #include "drape/gpu_buffer.hpp"
 
-#include "std/utility.hpp"
+#include <cstdint>
+#include <utility>
 
 namespace dp
 {
@@ -14,7 +15,8 @@ class DataBufferImpl : public DataBufferBase
 {
 public:
   template <typename... Args>
-  DataBufferImpl(Args &&... params) : m_buffer(make_unique_dp<TBuffer>(forward<Args>(params)...))
+  DataBufferImpl(Args &&... params)
+    : m_buffer(make_unique_dp<TBuffer>(std::forward<Args>(params)...))
   {}
 
   uint32_t GetCapacity() const override { return m_buffer->GetCapacity(); }
@@ -22,6 +24,7 @@ public:
   uint32_t GetAvailableSize() const override { return m_buffer->GetAvailableSize(); }
   uint8_t GetElementSize() const override { return m_buffer->GetElementSize(); }
   void Seek(uint32_t elementNumber) override { m_buffer->Seek(elementNumber); }
+
 protected:
   drape_ptr<TBuffer> m_buffer;
 };
@@ -31,10 +34,12 @@ class CpuBufferImpl : public DataBufferImpl<CPUBuffer>
 {
 public:
   template <typename... Args>
-  CpuBufferImpl(Args &&... params) : DataBufferImpl(forward<Args>(params)...)
+  CpuBufferImpl(Args &&... params)
+    : DataBufferImpl(std::forward<Args>(params)...)
   {}
 
   void const * Data() const override { return m_buffer->Data(); }
+
   void UploadData(void const * data, uint32_t elementCount) override
   {
     m_buffer->UploadData(data, elementCount);
@@ -49,6 +54,7 @@ public:
   }
 
   void Bind() override { ASSERT(false, ("Binding is unavailable for CPU buffer")); }
+
   void * Map(uint32_t elementOffset, uint32_t elementCount) override
   {
     ASSERT(false, ("Mapping is unavailable for CPU buffer"));
@@ -63,7 +69,8 @@ class GpuBufferImpl : public DataBufferImpl<GPUBuffer>
 {
 public:
   template <typename... Args>
-  GpuBufferImpl(Args &&... params) : DataBufferImpl(forward<Args>(params)...)
+  GpuBufferImpl(Args &&... params)
+    : DataBufferImpl(std::forward<Args>(params)...)
   {}
 
   void const * Data() const override
@@ -84,10 +91,12 @@ public:
   }
 
   void Bind() override { m_buffer->Bind(); }
+
   void * Map(uint32_t elementOffset, uint32_t elementCount) override
   {
     return m_buffer->Map(elementOffset, elementCount);
   }
+
   void Unmap() override { return m_buffer->Unmap(); }
 };
 }  // namespace dp

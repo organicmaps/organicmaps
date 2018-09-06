@@ -11,6 +11,8 @@
 #include "drape/font_texture.hpp"
 #include "drape/glyph_manager.hpp"
 
+#include "std/target_os.hpp"
+
 #include <functional>
 
 #include <QtCore/QPoint>

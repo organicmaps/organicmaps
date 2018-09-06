@@ -1,9 +1,8 @@
-#include "projection.hpp"
+#include "drape/utils/projection.hpp"
 
 namespace dp
 {
-
-void MakeProjection(array<float, 16> & result, float left, float right, float bottom, float top)
+void MakeProjection(std::array<float, 16> & result, float left, float right, float bottom, float top)
 {
   result.fill(0.0f);
 
@@ -19,5 +18,4 @@ void MakeProjection(array<float, 16> & result, float left, float right, float bo
   result[11] = -(maxDepth + minDepth) / depth;
   result[15] = 1.0;
 }
-
-} // namespace dp
+}  // namespace dp

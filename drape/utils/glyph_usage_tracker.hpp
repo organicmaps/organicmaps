@@ -4,16 +4,15 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/map.hpp"
-#include "std/set.hpp"
-#include "std/list.hpp"
-#include "std/mutex.hpp"
-#include "std/string.hpp"
-#include "std/unordered_set.hpp"
+#include <list>
+#include <map>
+#include <mutex>
+#include <set>
+#include <string>
+#include <unordered_set>
 
 namespace dp
 {
-
 class GlyphUsageTracker
 {
 public:
@@ -21,14 +20,14 @@ public:
   {
     size_t m_counter = 0;
     size_t m_group = 0;
-    set<size_t> m_expectedGroups;
+    std::set<size_t> m_expectedGroups;
   };
-  using UnexpectedGlyphs = map<strings::UniChar, UnexpectedGlyphData>;
-  using InvalidGlyphs = map<strings::UniChar, size_t>;
+  using UnexpectedGlyphs = std::map<strings::UniChar, UnexpectedGlyphData>;
+  using InvalidGlyphs = std::map<strings::UniChar, size_t>;
 
   struct GlyphUsageStatistic
   {
-    string ToString() const;
+    std::string ToString() const;
 
     InvalidGlyphs m_invalidGlyphs;
     UnexpectedGlyphs m_unexpectedGlyphs;
@@ -49,9 +48,8 @@ private:
 
 private:
   GlyphUsageStatistic m_glyphStat;
-  unordered_set<string> m_processedStrings;
+  std::unordered_set<std::string> m_processedStrings;
 
-  mutex m_mutex;
+  std::mutex m_mutex;
 };
-
-} // namespace dp
+}  // namespace dp

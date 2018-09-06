@@ -1,14 +1,14 @@
 #pragma once
 
-#include "std/cstdint.hpp"
+#include <cstdint>
 
 namespace dp
 {
-
 class BufferBase
 {
 public:
   BufferBase(uint8_t elementSize, uint32_t capacity);
+  virtual ~BufferBase() = default;
 
   uint32_t GetCapacity() const;
   uint32_t GetCurrentSize() const;
@@ -16,7 +16,7 @@ public:
 
   uint8_t GetElementSize() const;
 
-  void Seek(uint32_t elementNumber);
+  virtual void Seek(uint32_t elementNumber);
 
 protected:
   void Resize(uint32_t elementCount);
@@ -28,5 +28,4 @@ private:
   uint32_t m_capacity;
   uint32_t m_size;
 };
-
-} // namespace dp
+}  // namespace dp

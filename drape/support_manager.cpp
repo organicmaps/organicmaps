@@ -7,6 +7,8 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 #include <string>
 #include <vector>

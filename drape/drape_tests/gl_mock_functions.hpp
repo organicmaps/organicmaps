@@ -5,6 +5,8 @@
 
 #include <gmock/gmock.h>
 
+#include <string>
+
 namespace emul
 {
 class GLMockFunctions
@@ -30,7 +32,7 @@ public:
   MOCK_METHOD4(glBufferSubData, void(glConst target, uint32_t size, void const * data, uint32_t offset));
   MOCK_METHOD2(glGetBufferParameter, int32_t(glConst target, glConst name));
 
-  MOCK_METHOD2(glGetUniformLocation, int8_t(uint32_t programID, string const & name));
+  MOCK_METHOD2(glGetUniformLocation, int8_t(uint32_t programID, std::string const & name));
   MOCK_METHOD2(glUniformValuei, void(int8_t location, int32_t v));
   MOCK_METHOD3(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2));
   MOCK_METHOD4(glUniformValuei, void(int8_t location, int32_t v1, int32_t v2, int32_t v3));
@@ -44,17 +46,17 @@ public:
   MOCK_METHOD0(glGetCurrentProgram, uint32_t());
 
   MOCK_METHOD1(glCreateShader, uint32_t(glConst type));
-  MOCK_METHOD2(glShaderSource, void(uint32_t shaderID, string const & src));
-  MOCK_METHOD2(glCompileShader, bool(uint32_t shaderID, string & errorLog));
+  MOCK_METHOD2(glShaderSource, void(uint32_t shaderID, std::string const & src));
+  MOCK_METHOD2(glCompileShader, bool(uint32_t shaderID, std::string & errorLog));
   MOCK_METHOD1(glDeleteShader, void(uint32_t shaderID));
 
   MOCK_METHOD0(glCreateProgram, uint32_t());
   MOCK_METHOD2(glAttachShader, void(uint32_t programID, uint32_t shaderID));
   MOCK_METHOD2(glDetachShader, void(uint32_t programID, uint32_t shaderID));
-  MOCK_METHOD2(glLinkProgram, bool(uint32_t programID, string & errorLog));
+  MOCK_METHOD2(glLinkProgram, bool(uint32_t programID, std::string & errorLog));
   MOCK_METHOD1(glDeleteProgram, void(uint32_t programID));
 
-  MOCK_METHOD2(glGetAttribLocation, int32_t(uint32_t programID, string const & name));
+  MOCK_METHOD2(glGetAttribLocation, int32_t(uint32_t programID, std::string const & name));
   MOCK_METHOD1(glEnableVertexAttribute, void(int32_t attributeLocation));
   MOCK_METHOD6(glVertexAttributePointer, void(int32_t attrLocation,
                                              uint32_t count,
@@ -64,13 +66,12 @@ public:
                                              uint32_t offset));
 
   MOCK_METHOD1(glUseProgram, void(uint32_t programID));
-  MOCK_METHOD1(glHasExtension, bool(string const & extName));
+  MOCK_METHOD1(glHasExtension, bool(std::string const & extName));
 
   MOCK_METHOD2(glGetProgramiv, int32_t(uint32_t, glConst));
 
-  MOCK_METHOD5(glGetActiveUniform, void(uint32_t, uint32_t,
-                                        int32_t*, glConst *,
-                                        string &));
+  MOCK_METHOD5(glGetActiveUniform, void(uint32_t, uint32_t, int32_t*, glConst *,
+                                        std::string &));
 
   // Texture functions
   MOCK_METHOD1(glActiveTexture, void(glConst));
@@ -82,7 +83,7 @@ public:
   MOCK_METHOD2(glTexParameter, void(glConst, glConst));
 
   MOCK_METHOD1(glGetInteger, int32_t(glConst));
-  MOCK_METHOD1(glGetString, string(glConst));
+  MOCK_METHOD1(glGetString, std::string(glConst));
   MOCK_METHOD0(glGetMaxLineWidth, int32_t());
 
   MOCK_METHOD1(glLineWidth, void(uint32_t value));

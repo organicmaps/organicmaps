@@ -14,7 +14,7 @@ public:
   class SymbolKey : public Key
   {
   public:
-    explicit SymbolKey(string const & symbolName);
+    explicit SymbolKey(std::string const & symbolName);
     ResourceType GetType() const override;
     std::string const & GetSymbolName() const;
 

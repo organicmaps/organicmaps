@@ -4,6 +4,8 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/target_os.hpp"
+
 namespace dp
 {
 namespace

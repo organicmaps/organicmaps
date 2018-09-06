@@ -2,7 +2,6 @@
 
 #include "drape/gl_constants.hpp"
 #include "drape/gl_gpu_program.hpp"
-#include "drape/gl_extensions_list.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"

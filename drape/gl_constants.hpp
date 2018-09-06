@@ -1,8 +1,8 @@
 #pragma once
 
-#include "std/cstdint.hpp"
+#include <cstdint>
 
-typedef uint32_t glConst;
+using glConst = uint32_t;
 
 namespace gl_const
 {
@@ -188,5 +188,4 @@ extern const glConst GLDepthStencilAttachment;
 
 /// Framebuffer status
 extern const glConst GLFramebufferComplete;
-
-} // namespace GLConst
+}  // namespace gl_const

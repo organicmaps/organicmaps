@@ -9,6 +9,8 @@
 
 #include "qt_tstfrm/test_main_loop.hpp"
 
+#include "std/target_os.hpp"
+
 #include <cstring>
 #include <functional>
 #include <memory>

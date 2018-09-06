@@ -39,7 +39,6 @@
 
 namespace df
 {
-
 dp::Color ToDrapeColor(uint32_t src)
 {
   return dp::Extract(src, static_cast<uint8_t>(255 - (src >> 24)));
@@ -463,7 +462,7 @@ string BaseApplyFeature::ExtractHotelInfo() const
   if (!m_hotelData.m_isHotel)
     return "";
 
-  ostringstream out;
+  std::ostringstream out;
   if (!m_hotelData.m_rating.empty() && m_hotelData.m_rating != "0")
   {
     out << m_hotelData.m_rating << kStarSymbol;

@@ -5,7 +5,7 @@
 #include "base/condition.hpp"
 #include "base/assert.hpp"
 
-#include "std/function.hpp"
+#include <functional>
 
 namespace dp
 {
@@ -40,9 +40,10 @@ public:
   void SetPresentAvailable(bool available) override;
 
 protected:
-  typedef function<GraphicsContext * ()> TCreateCtxFn;
-  typedef function<bool()> TIsSeparateCreatedFn;
-  GraphicsContext * CreateContext(TCreateCtxFn const & createFn, TIsSeparateCreatedFn const checkFn);
+  using TCreateCtxFn = std::function<GraphicsContext * ()>;
+  using TIsSeparateCreatedFn = std::function<bool()>;
+  GraphicsContext * CreateContext(TCreateCtxFn const & createFn,
+                                  TIsSeparateCreatedFn const & checkFn);
 
 private:
   GraphicsContextFactory * m_factory;

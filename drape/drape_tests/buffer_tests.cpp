@@ -7,8 +7,8 @@
 #include "drape/index_buffer.hpp"
 #include "drape/index_storage.hpp"
 
-#include "std/cstdlib.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdlib>
+#include <memory>
 
 #include <gmock/gmock.h>
 
@@ -24,11 +24,12 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer,
+    3 * 100 * sizeof(float), nullptr, gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
   buffer->MoveToGPU(GPUBuffer::ElementBuffer);
 }
 
@@ -37,11 +38,12 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, 100 * dp::IndexStorage::SizeOfIndex(), NULL, gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer,
+    100 * dp::IndexStorage::SizeOfIndex(), nullptr, gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLElementArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
-  unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
+  std::unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
   buffer->MoveToGPU(GPUBuffer::IndexBuffer);
 }
 
@@ -51,12 +53,13 @@ UNIT_TEST(UploadDataTest)
   for (int i = 0; i < 3 * 100; ++i)
     data[i] = (float)i;
 
-  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float),
+    buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 
@@ -76,12 +79,13 @@ UNIT_TEST(ParticalUploadDataTest)
   for (size_t i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
-  unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
+  std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), buffer->GetBuffer()->Data(), gl_const::GLDynamicDraw));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float),
+    buffer->GetBuffer()->Data(),gl_const::GLDynamicDraw));
   EXPECTGL(glBindBuffer(0, gl_const::GLArrayBuffer));
   EXPECTGL(glDeleteBuffer(1));
 

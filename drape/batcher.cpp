@@ -266,7 +266,7 @@ IndicesRange Batcher::InsertPrimitives(RenderState const & state, ref_ptr<Attrib
     wrapper.SetVAO(vao);
 
     TBatcher batch(wrapper, batcherArgs ...);
-    batch.SetCanDevideStreams(handle == nullptr);
+    batch.SetCanDivideStreams(handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(params);
 

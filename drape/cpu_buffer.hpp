@@ -2,23 +2,22 @@
 
 #include "drape/buffer_base.hpp"
 
-#include "std/vector.hpp"
-#include "std/shared_ptr.hpp"
+#include <memory>
+#include <vector>
 
 namespace dp
 {
-
 class CPUBuffer : public BufferBase
 {
-  typedef BufferBase TBase;
+  using TBase = BufferBase;
 public:
   CPUBuffer(uint8_t elementSize, uint32_t capacity);
-  ~CPUBuffer();
+  ~CPUBuffer() override;
 
   void UploadData(void const * data, uint32_t elementCount);
   // Set memory cursor on element with number == "elementNumber"
   // Element numbers start from 0
-  void Seek(uint32_t elementNumber);
+  void Seek(uint32_t elementNumber) override;
   // Check function. In real world use must use it only in assert
   uint32_t GetCurrentElementNumber() const;
   unsigned char const * Data() const;
@@ -27,9 +26,7 @@ private:
   unsigned char * NonConstData();
   unsigned char * GetCursor() const;
 
-private:
   unsigned char * m_memoryCursor;
-  shared_ptr<vector<unsigned char> > m_memory;
+  std::shared_ptr<std::vector<unsigned char>> m_memory;
 };
-
-} //namespace dp
+}  // namespace dp

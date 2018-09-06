@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <limits>
+#include <sstream>
 #include <vector>
 
 namespace dp
@@ -75,7 +76,7 @@ string ReadFileToString(string const & filename)
 template <typename ToDo>
 void ParseColorsList(string const & colorsFile, ToDo toDo)
 {
-  istringstream fin(ReadFileToString(colorsFile));
+  std::istringstream fin(ReadFileToString(colorsFile));
   while (true)
   {
     uint32_t color;

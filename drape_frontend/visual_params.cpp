@@ -8,6 +8,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "std/target_os.hpp"
+
 #include <algorithm>
 #include <cmath>
 #include <limits>

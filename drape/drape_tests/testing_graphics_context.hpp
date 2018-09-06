@@ -6,13 +6,16 @@
 class TestingGraphicsContext : public dp::GraphicsContext
 {
 public:
+  TestingGraphicsContext() = default;
+  explicit TestingGraphicsContext(dp::ApiVersion apiVersion) : m_apiVersion(apiVersion) {}
+
   void Present() override {}
   void MakeCurrent() override {}
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
   void ApplyFramebuffer(std::string const & framebufferLabel) override {}
 
   void Init(dp::ApiVersion apiVersion) override {}
-  dp::ApiVersion GetApiVersion() const override { return dp::ApiVersion::OpenGLES2; }
+  dp::ApiVersion GetApiVersion() const override { return m_apiVersion; }
   std::string GetRendererName() const override { return {}; }
   std::string GetRendererVersion() const override { return {}; }
 
@@ -26,4 +29,7 @@ public:
   void SetStencilFunction(dp::StencilFace face, dp::TestFunction stencilFunction) override {}
   void SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction,
                          dp::StencilAction depthFailAction, dp::StencilAction passAction) override {}
+
+private:
+  dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES2;
 };

@@ -3,8 +3,6 @@
 
 #include "base/assert.hpp"
 
-#include "std/string.hpp"
-
 using namespace emul;
 
 dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::Invalid;
@@ -66,12 +64,12 @@ uint32_t GLFunctions::glCreateShader(glConst type)
   return MOCK_CALL(glCreateShader(type));
 }
 
-void GLFunctions::glShaderSource(uint32_t shaderID, string const & src, string const & defines)
+void GLFunctions::glShaderSource(uint32_t shaderID, std::string const & src, std::string const & defines)
 {
   MOCK_CALL(glShaderSource(shaderID, src));
 }
 
-bool GLFunctions::glCompileShader(uint32_t shaderID, string & errorLog)
+bool GLFunctions::glCompileShader(uint32_t shaderID, std::string & errorLog)
 {
   return MOCK_CALL(glCompileShader(shaderID, errorLog));
 }
@@ -96,7 +94,7 @@ void GLFunctions::glDetachShader(uint32_t programID, uint32_t shaderID)
   MOCK_CALL(glDetachShader(programID, shaderID));
 }
 
-bool GLFunctions::glLinkProgram(uint32_t programID, string & errorLog)
+bool GLFunctions::glLinkProgram(uint32_t programID, std::string & errorLog)
 {
   return MOCK_CALL(glLinkProgram(programID, errorLog));
 }
@@ -111,12 +109,12 @@ void GLFunctions::glUseProgram(uint32_t programID)
   MOCK_CALL(glUseProgram(programID));
 }
 
-int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
+int8_t GLFunctions::glGetAttribLocation(uint32_t programID, std::string const & name)
 {
   return MOCK_CALL(glGetAttribLocation(programID, name));
 }
 
-void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
+void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, std::string const & name)
 {}
 
 // Enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation.
@@ -135,7 +133,7 @@ void GLFunctions::glVertexAttributePointer(int32_t attrLocation,
   MOCK_CALL(glVertexAttributePointer(attrLocation, count, type, needNormalize, stride, offset));
 }
 
-int8_t GLFunctions::glGetUniformLocation(uint32_t programID, string const & name)
+int8_t GLFunctions::glGetUniformLocation(uint32_t programID, std::string const & name)
 {
   return MOCK_CALL(glGetUniformLocation(programID, name));
 }
@@ -190,7 +188,7 @@ uint32_t GLFunctions::glGetCurrentProgram()
   return MOCK_CALL(glGetCurrentProgram());
 }
 
-bool GLFunctions::glHasExtension(string const & extName)
+bool GLFunctions::glHasExtension(std::string const & extName)
 {
   return MOCK_CALL(glHasExtension(extName));
 }
@@ -201,7 +199,7 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 }
 
 void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
-                                     int32_t * uniformSize, glConst * type, string &name)
+                                     int32_t * uniformSize, glConst * type, std::string & name)
 {
   MOCK_CALL(glGetActiveUniform(programID, uniformIndex, uniformSize, type, name));
 }
@@ -247,7 +245,7 @@ int32_t GLFunctions::glGetInteger(glConst pname)
   return MOCK_CALL(glGetInteger(pname));
 }
 
-string GLFunctions::glGetString(glConst pname)
+std::string GLFunctions::glGetString(glConst pname)
 {
   return MOCK_CALL(glGetString(pname));
 }

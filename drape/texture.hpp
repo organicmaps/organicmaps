@@ -9,8 +9,7 @@
 
 #include "base/macros.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
+#include <cstdint>
 
 namespace dp
 {

@@ -4,12 +4,13 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iostream.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
 #include "std/target_os.hpp"
-#include "std/bind.hpp"
+
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "drape/drape_tests/gl_mock_functions.hpp"
 
@@ -39,16 +40,17 @@ int main(int argc, char * argv[])
   base::ScopedLogLevelChanger const infoLogLevel(LINFO);
 
   emul::GLMockFunctions::Init(&argc, argv);
-  SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
 
-  vector<string> testNames;
-  vector<bool> testResults;
+  SCOPE_GUARD(GLMockScope, std::bind(&emul::GLMockFunctions::Teardown));
+
+  std::vector<std::string> testNames;
+  std::vector<bool> testResults;
   int numFailedTests = 0;
 
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; pTest = pTest->m_pNext)
   {
-    string fileName(pTest->m_FileName);
-    string testName(pTest->m_TestName);
+    std::string fileName(pTest->m_FileName);
+    std::string testName(pTest->m_TestName);
     // Retrieve fine file name
     {
       int iFirstSlash = static_cast<int>(fileName.size()) - 1;
@@ -65,11 +67,11 @@ int main(int argc, char * argv[])
   int iTest = 0;
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
-    cerr << "Running " << testNames[iTest] << endl << flush;
+    std::cerr << "Running " << testNames[iTest] << std::endl << std::flush;
     if (!g_bLastTestOK)
     {
       // Somewhere else global variables have been reset.
-      cerr << "\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!" << endl;
+      std::cerr << "\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!" << std::endl;
       return 5;
     }
     try
@@ -80,7 +82,7 @@ int main(int argc, char * argv[])
 
       if (g_bLastTestOK)
       {
-        cerr << "OK" << endl;
+        std::cerr << "OK" << std::endl;
       }
       else
       {
@@ -90,18 +92,21 @@ int main(int argc, char * argv[])
         ++numFailedTests;
       }
 
-    } catch (TestFailureException const & )
+    }
+    catch (TestFailureException const &)
     {
       testResults[iTest] = false;
       ++numFailedTests;
-    } catch (std::exception const & ex)
+    }
+    catch (std::exception const & ex)
     {
-      cerr << "FAILED" << endl << "<<<Exception thrown [" << ex.what() << "].>>>" << endl;
+      std::cerr << "FAILED" << endl << "<<<Exception thrown [" << ex.what() << "].>>>" << std::endl;
       testResults[iTest] = false;
       ++numFailedTests;
-    } catch (...)
+    }
+    catch (...)
     {
-      cerr << "FAILED" << endl << "<<<Unknown exception thrown.>>>" << endl;
+      std::cerr << "FAILED" << endl << "<<<Unknown exception thrown.>>>" << std::endl;
       testResults[iTest] = false;
       ++numFailedTests;
     }
@@ -110,18 +115,18 @@ int main(int argc, char * argv[])
 
   if (numFailedTests == 0)
   {
-    cerr << endl << "All tests passed." << endl << flush;
+    std::cerr << std::endl << "All tests passed." << std::endl << std::flush;
     return 0;
   }
   else
   {
-    cerr << endl << numFailedTests << " tests failed:" << endl;
+    std::cerr << std::endl << numFailedTests << " tests failed:" << std::endl;
     for (size_t i = 0; i < testNames.size(); ++i)
     {
       if (!testResults[i])
-        cerr << testNames[i] << endl;
+        std::cerr << testNames[i] << std::endl;
     }
-    cerr << "Some tests FAILED." << endl << flush;
+    std::cerr << "Some tests FAILED." << std::endl << flush;
     return 1;
   }
 }

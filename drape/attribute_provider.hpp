@@ -3,17 +3,15 @@
 #include "drape/pointers.hpp"
 #include "drape/binding_info.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace dp
 {
-
 class AttributeProvider
 {
 public:
   AttributeProvider(uint8_t streamCount, uint32_t vertexCount);
 
-  /// interface for batcher
   bool IsDataExists() const;
   uint32_t GetVertexCount() const;
 
@@ -38,12 +36,11 @@ private:
     BindingInfo m_binding;
     ref_ptr<void> m_data;
   };
-  vector<AttributeStream> m_streams;
+  std::vector<AttributeStream> m_streams;
 #ifdef DEBUG
   void CheckStreams() const;
   void InitCheckStream(uint8_t streamIndex);
-  vector<bool> m_checkInfo;
+  std::vector<bool> m_checkInfo;
 #endif
 };
-
-} // namespace dp
+}  // namespace dp
