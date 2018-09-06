@@ -113,10 +113,10 @@ drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
   NSError * error = nil;
   MTLRenderPipelineReflection * reflectionObj = nil;
   MTLPipelineOption option = MTLPipelineOptionBufferTypeInfo | MTLPipelineOptionArgumentInfo;
-  id <MTLRenderPipelineState> pso = [m_device newRenderPipelineStateWithDescriptor:desc
-                                                                           options:option
-                                                                        reflection:&reflectionObj
-                                                                             error:&error];
+  id<MTLRenderPipelineState> pso = [m_device newRenderPipelineStateWithDescriptor:desc
+                                                                          options:option
+                                                                       reflection:&reflectionObj
+                                                                            error:&error];
   if (error != nil || pso == nil)
   {
     NSLog(@"%@", error);

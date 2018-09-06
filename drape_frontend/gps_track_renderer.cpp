@@ -309,7 +309,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
   ASSERT_GREATER(m_renderData.size(), 0, ());
   dp::RenderState const & state = m_renderData.front()->m_state;
   dp::ApplyState(context, program, state);
-  mng->GetParamsSetter()->Apply(program, params);
+  mng->GetParamsSetter()->Apply(context, program, params);
 
   for (size_t i = 0; i < m_renderData.size(); i++)
   {

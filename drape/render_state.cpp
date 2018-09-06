@@ -13,6 +13,7 @@ std::string const kMaskTextureName = "u_maskTex";
 }  // namespace
 
 #if defined(OMIM_OS_IPHONE)
+// Definitions of these methods are in a .mm-file.
 extern void ApplyDepthStencilStateForMetal(ref_ptr<GraphicsContext> context);
 extern void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,
                                        bool blendingEnabled);

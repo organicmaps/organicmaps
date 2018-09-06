@@ -158,7 +158,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
       params.m_modelView = glsl::make_mat4(mv.m_data);
       params.m_opacity = opacity;
-      mng->GetParamsSetter()->Apply(program, params);
+      mng->GetParamsSetter()->Apply(context, program, params);
       renderData.m_bucket->Render(true /* draw as line */);
     }
     else
@@ -182,7 +182,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
         params.m_darkArrowColor = glsl::vec3(CalculateHalfWidth(screen, RoadClass::Class0, false /* left */),
                                              CalculateHalfWidth(screen, RoadClass::Class1, false /* left */),
                                              CalculateHalfWidth(screen, RoadClass::Class2, false /* left */));
-        mng->GetParamsSetter()->Apply(programPtr, params);
+        mng->GetParamsSetter()->Apply(context, programPtr, params);
 
         renderData.m_bucket->Render(false /* draw as line */);
         continue;
@@ -234,7 +234,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
       params.m_outlineColor = glsl::ToVec3(outlineColor);
       params.m_trafficParams = glsl::vec4(leftPixelHalfWidth, rightPixelHalfWidth, invLeftPixelLength,
                                           zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
-      mng->GetParamsSetter()->Apply(programPtr, params);
+      mng->GetParamsSetter()->Apply(context, programPtr, params);
 
       renderData.m_bucket->Render(false /* draw as line */);
     }

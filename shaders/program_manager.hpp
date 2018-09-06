@@ -27,7 +27,7 @@ public:
 
 private:
   void InitForOpenGL(ref_ptr<dp::GraphicsContext> context);
-  // Definition of this method is in separate .mm-file.
+  // Definition of this method is in a .mm-file.
   void InitForMetal(ref_ptr<dp::GraphicsContext> context);
   
   using Programs = std::array<drape_ptr<dp::GpuProgram>,

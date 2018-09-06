@@ -6,7 +6,6 @@
 #include "drape/gl_functions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/gpu_program.hpp"
 #include "drape/texture_manager.hpp"
 
 namespace
@@ -126,7 +125,7 @@ public:
     }
   }
 
-  void Unbind(ref_ptr<dp::GpuProgram> program) override
+  void Unbind() override
   {
     if (GLFunctions::ExtensionsList.IsSupported(dp::GLExtensionsList::VertexArrayObject))
       GLFunctions::glBindVertexArray(0);
@@ -261,7 +260,7 @@ void MeshObject::Unbind(ref_ptr<dp::GpuProgram> program)
   program->Unbind();
 
   CHECK(m_impl != nullptr, ());
-  m_impl->Unbind(program);
+  m_impl->Unbind();
 }
 
 // static

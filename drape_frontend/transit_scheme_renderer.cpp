@@ -191,7 +191,7 @@ void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
     params.m_maxRadius = kTransitLineHalfWidth;
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
@@ -212,7 +212,7 @@ void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context, re
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_lineHalfWidth = pixelHalfWidth;
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
@@ -236,7 +236,7 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, 
     params.m_params = glsl::vec3(static_cast<float>(cos(screen.GetAngle())),
                                  static_cast<float>(sin(screen.GetAngle())),
                                  pixelHalfWidth);
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
@@ -259,13 +259,13 @@ void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref
     params.m_modelView = glsl::make_mat4(mv.m_data);
     params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
     params.m_isOutlinePass = 1.0f;
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
 
     params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
     params.m_isOutlinePass = 0.0f;
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
 
@@ -287,7 +287,7 @@ void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, re
     frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
     params.m_modelView = glsl::make_mat4(mv.m_data);
-    mng->GetParamsSetter()->Apply(program, params);
+    mng->GetParamsSetter()->Apply(context, program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
 

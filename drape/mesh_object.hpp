@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape/graphics_context.hpp"
-#include "drape/render_state.hpp"
 #include "drape/pointers.hpp"
+#include "drape/render_state.hpp"
 
 #include <functional>
 #include <string>
@@ -13,12 +13,13 @@ namespace dp
 class GpuProgram;
 class GraphicsContext;
 class MeshObjectImpl;
+
 namespace metal
 {
 class MetalMeshObjectImpl;
 }  // namespace metal
 
-// This class implement simple mesh object which does not use an index buffer.
+// This class implements a simple mesh object which does not use an index buffer.
 // Use this class only for simple geometry.
 class MeshObject
 {
@@ -50,7 +51,7 @@ public:
     Bind(context, program);
 
     ApplyState(context, program, state);
-    paramsSetter->Apply(program, params);
+    paramsSetter->Apply(context, program, params);
 
     DrawPrimitives(context);
 
@@ -98,7 +99,7 @@ private:
   };
 
   void InitForOpenGL();
-  // Definition of this method is in separate .mm-file.
+  // Definition of this method is in a .mm-file.
   void InitForMetal();
 
   void Bind(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program);
@@ -120,7 +121,7 @@ public:
   virtual void Reset() = 0;
   virtual void UpdateBuffer(uint32_t bufferInd) = 0;
   virtual void Bind(ref_ptr<dp::GpuProgram> program) = 0;
-  virtual void Unbind(ref_ptr<dp::GpuProgram> program) = 0;
+  virtual void Unbind() = 0;
   virtual void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) = 0;
 };
 }  // namespace dp

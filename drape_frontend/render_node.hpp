@@ -46,7 +46,7 @@ private:
     }
 
     dp::ApplyState(context, prg, m_state);
-    mng->GetParamsSetter()->Apply(prg, params);
+    mng->GetParamsSetter()->Apply(context, prg, params);
   }
 
   dp::RenderState m_state;

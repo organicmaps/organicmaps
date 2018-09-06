@@ -64,14 +64,14 @@ void DrapeApiRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu:
         params.m_modelView = glsl::make_mat4(mv.m_data);
         params.m_contrastGamma = glsl::vec2(glyphParams.m_guiContrast, glyphParams.m_guiGamma);
         params.m_isOutlinePass = 0.0f;
-        mng->GetParamsSetter()->Apply(program, params);
+        mng->GetParamsSetter()->Apply(context, program, params);
       }
       else
       {
         gpu::MapProgramParams params;
         frameValues.SetTo(params);
         params.m_modelView = glsl::make_mat4(mv.m_data);
-        mng->GetParamsSetter()->Apply(program, params);
+        mng->GetParamsSetter()->Apply(context, program, params);
       }
 
       bucket.second->Render(bucket.first.GetDrawAsLine());

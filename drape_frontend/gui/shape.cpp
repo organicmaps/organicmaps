@@ -110,7 +110,7 @@ void ShapeRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pr
 
     auto params = info.m_handle->GetParams();
     params.m_projection = projection;
-    mng->GetParamsSetter()->Apply(prg, params);
+    mng->GetParamsSetter()->Apply(context, prg, params);
 
     if (info.m_handle->HasDynamicAttributes())
     {

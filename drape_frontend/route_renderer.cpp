@@ -431,7 +431,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
                                                 gpu::Program::RouteDash : gpu::Program::Route);
   prg->Bind();
   dp::ApplyState(context, prg, state);
-  mng->GetParamsSetter()->Apply(prg, params);
+  mng->GetParamsSetter()->Apply(context, prg, params);
 
   // Render buckets.
   for (auto const & bucket : subrouteData->m_renderProperty.m_buckets)
@@ -468,7 +468,7 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteArrow);
   prg->Bind();
   dp::ApplyState(context, prg, state);
-  mng->GetParamsSetter()->Apply(prg, params);
+  mng->GetParamsSetter()->Apply(context, prg, params);
   for (auto const & bucket : subrouteInfo.m_arrowsData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
@@ -508,7 +508,7 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteMarker);
   prg->Bind();
   dp::ApplyState(context, prg, state);
-  mng->GetParamsSetter()->Apply(prg, params);
+  mng->GetParamsSetter()->Apply(context, prg, params);
   for (auto const & bucket : subrouteInfo.m_markersData->m_renderProperty.m_buckets)
     bucket->Render(state.GetDrawAsLine());
 }
@@ -528,7 +528,7 @@ void RouteRenderer::RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_
 
   dp::RenderState const & state = m_previewRenderData.front()->m_state;
   dp::ApplyState(context, program, state);
-  mng->GetParamsSetter()->Apply(program, params);
+  mng->GetParamsSetter()->Apply(context, program, params);
 
   ASSERT_EQUAL(m_previewRenderData.size(), m_previewHandlesCache.size(), ());
   for (size_t i = 0; i < m_previewRenderData.size(); i++)

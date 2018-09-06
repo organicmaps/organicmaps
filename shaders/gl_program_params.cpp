@@ -4,6 +4,7 @@
 #include "drape/uniform_value.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
 #include <string>
 
@@ -25,7 +26,8 @@ struct UniformsGuard
   ~UniformsGuard()
   {
     auto const uniformsCount = m_program->GetNumericUniformsCount();
-    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up", m_program->GetName(), m_paramsName));
+    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up",
+                m_program->GetName(), m_paramsName));
   }
 
   ref_ptr<dp::GLGpuProgram> m_program;
@@ -56,7 +58,8 @@ class Parameter
 {
 public:
   template<typename ParamType>
-  static void CheckApply(UniformsGuard & guard, std::string const & name, ParamType const & t)
+  static void CheckApply(UniformsGuard & guard, std::string const & name,
+                         ParamType const & t)
   {
     if (Apply<ParamType>(guard.m_program, name, t))
       guard.m_counter++;
@@ -64,7 +67,8 @@ public:
 
 private:
   template<typename ParamType>
-  static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name, ParamType const & p)
+  static bool Apply(ref_ptr<dp::GLGpuProgram> program, std::string const & name,
+                    ParamType const & p)
   {
     auto const location = program->GetUniformLocation(name);
     if (location < 0)
@@ -77,8 +81,11 @@ private:
 };
 }  // namespace
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, MapProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  MapProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -91,8 +98,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, MapProgramPar
   Parameter::CheckApply(guard, "u_contrastGamma", params.m_contrastGamma);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, RouteProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  RouteProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -108,8 +118,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, RouteProgramP
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, TrafficProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  TrafficProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -123,8 +136,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, TrafficProgra
   Parameter::CheckApply(guard, "u_darkArrowColor", params.m_darkArrowColor);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, TransitProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  TransitProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -135,8 +151,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, TransitProgra
   Parameter::CheckApply(guard, "u_maxRadius", params.m_maxRadius);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  GuiProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -148,8 +167,11 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, GuiProgramPar
   Parameter::CheckApply(guard, "u_length", params.m_length);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  ShapesProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
@@ -162,30 +184,42 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, ShapesProgram
   Parameter::CheckApply(guard, "u_azimut", params.m_azimut);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  Arrow3dProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_transform", params.m_transform);
   Parameter::CheckApply(guard, "u_color", params.m_color);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, DebugRectProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  DebugRectProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_color", params.m_color);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, ScreenQuadProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  ScreenQuadProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, SMAAProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::GpuProgram> program,
+                                  SMAAProgramParams const & params)
 {
+  UNUSED_VALUE(context);
   UniformsGuard guard(program, params);
 
   Parameter::CheckApply(guard, "u_framebufferMetrics", params.m_framebufferMetrics);

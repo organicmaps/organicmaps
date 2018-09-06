@@ -522,7 +522,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   });
   m_stipplePenTexture = make_unique_dp<StipplePenTexture>(StipplePenTextureSize(patterns.size(), m_maxTextureSize),
                                                           make_ref(m_textureAllocator));
-  LOG(LDEBUG, ("Patterns texture size = ", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
+  LOG(LDEBUG, ("Patterns texture size =", m_stipplePenTexture->GetWidth(), m_stipplePenTexture->GetHeight()));
 
   ref_ptr<StipplePenTexture> stipplePenTextureTex = make_ref(m_stipplePenTexture);
   for (auto it = patterns.begin(); it != patterns.end(); ++it)
@@ -536,7 +536,7 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   });
   m_colorTexture = make_unique_dp<ColorTexture>(ColorTextureSize(colors.size(), m_maxTextureSize),
                                                 make_ref(m_textureAllocator));
-  LOG(LDEBUG, ("Colors texture size = ", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
+  LOG(LDEBUG, ("Colors texture size =", m_colorTexture->GetWidth(), m_colorTexture->GetHeight()));
 
   ref_ptr<ColorTexture> colorTex = make_ref(m_colorTexture);
   for (auto it = colors.begin(); it != colors.end(); ++it)

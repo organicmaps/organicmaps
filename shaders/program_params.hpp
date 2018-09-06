@@ -3,6 +3,7 @@
 #include "shaders/programs.hpp"
 
 #include "drape/glsl_types.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/gpu_program.hpp"
 #include "drape/pointers.hpp"
 
@@ -208,15 +209,25 @@ class ProgramParamsSetter
 {
 public:
   virtual ~ProgramParamsSetter() = default;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, MapProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, RouteProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, TrafficProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, TransitProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, DebugRectProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, ScreenQuadProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, SMAAProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, MapProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, RouteProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, TrafficProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, TransitProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, DebugRectProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, ScreenQuadProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GraphicsContext> context,
+                     ref_ptr<dp::GpuProgram> program, SMAAProgramParams const & params) = 0;
 };
 }  // namespace gpu

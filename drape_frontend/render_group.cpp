@@ -100,14 +100,14 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
     m_params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
     m_params.m_isOutlinePass = 1.0f;
 
-    mng->GetParamsSetter()->Apply(programPtr, m_params);
+    mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
 
     m_params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
     m_params.m_isOutlinePass = 0.0f;
 
-    mng->GetParamsSetter()->Apply(programPtr, m_params);
+    mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
@@ -115,13 +115,13 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
   {
     m_params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
 
-    mng->GetParamsSetter()->Apply(programPtr, m_params);
+    mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
   else
   {
-    mng->GetParamsSetter()->Apply(programPtr, m_params);
+    mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
