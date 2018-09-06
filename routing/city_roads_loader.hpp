@@ -34,6 +34,7 @@ struct CityRoadsHeader
   }
 
   uint16_t m_version = 0;
+  // Field |m_endianness| is reserved for endianness of the section.
   uint16_t m_endianness = 0;
   uint32_t m_dataSize = 0;
 };
