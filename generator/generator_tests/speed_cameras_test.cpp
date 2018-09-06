@@ -143,7 +143,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
 
   // Create test dir.
   string const testDirFullPath = my::JoinPath(tmpDir, kTestDir);
-  UNUSED_VALUE(Platform::MkDir(testDirFullPath));
+  FORCE_USE_VALUE(Platform::MkDir(testDirFullPath));
 
   string const osmRelativePath = my::JoinPath(kTestDir, kOsmFileName);
   ScopedFile const osmScopedFile(osmRelativePath, osmContent);
