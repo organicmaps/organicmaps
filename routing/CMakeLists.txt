@@ -20,7 +20,8 @@ set(
   checkpoint_predictor.hpp
   checkpoints.cpp
   checkpoints.hpp
-  city_roads_serialization.hpp
+  city_roads_loader.cpp
+  city_roads_loader.hpp
   coding.hpp
   cross_mwm_connector.cpp
   cross_mwm_connector.hpp

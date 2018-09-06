@@ -5,6 +5,8 @@
 #include "base/macros.hpp"
 
 #include "std/cstdint.hpp"
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 class MemoryRegion
 {

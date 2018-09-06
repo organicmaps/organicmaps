@@ -2,14 +2,14 @@
 
 #include "generator/cities_boundaries_checker.hpp"
 
-#include "routing/city_roads_serialization.hpp"
+#include "routing/city_roads_loader.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.cpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/compressed_bit_vector.hpp"
+#include "coding/succinct_mapper.hpp"
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
@@ -18,6 +18,9 @@
 #include <utility>
 
 #include "defines.hpp"
+
+#include "3party/succinct/bit_vector.hpp"
+#include "3party/succinct/rs_bit_vector.hpp"
 
 using namespace generator;
 using namespace std;
@@ -71,17 +74,25 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
   if (cityRoadFeatureIds.empty())
     return;
 
-  sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
-
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(CITY_ROADS_FILE_TAG);
   CityRoadsHeader header;
+  auto const startOffset = w.Pos();
   header.Serialize(w);
 
-  auto const cbv = coding::CompressedBitVectorBuilder::FromBitPositions(move(cityRoadFeatureIds));
-  CHECK(cbv, ());
+  size_t const maxFid = *max_element(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend());
+  succinct::bit_vector_builder builder(maxFid);
+  for (auto fid : cityRoadFeatureIds)
+    builder.set(fid, true /* road feature id */);
 
-  CityRoadsSerializer::Serialize(*cbv, w);
+  coding::FreezeVisitor<Writer> visitor(w);
+  succinct::rs_bit_vector(&builder).map(visitor);
+  auto const endOffset = w.Pos();
+  header.m_dataSize = static_cast<uint32_t>(endOffset - startOffset - sizeof(CityRoadsHeader));
+
+  w.Seek(startOffset);
+  header.Serialize(w);
+  w.Seek(endOffset);
 }
 
 bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
@@ -94,7 +105,7 @@ bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
     // @TODO(bykoianko) The generation city roads section process is based on two stages now:
     // * dumping cities boundaries on feature generation step
     // * calculating feature ids and building section when feature ids are available
-    // As a result of dumping cities boundaries instansed of indexer::CityBoundary objects
+    // As a result of dumping cities boundaries instances of indexer::CityBoundary objects
     // are generated and dumped. These objects are used for generating city roads section.
     // Using real geometry of cities boundaries should be considered for generating city road
     // features. That mean that the real geometry of cities boundaries should be dumped

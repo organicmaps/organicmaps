@@ -14,6 +14,12 @@ class DataSource;
 
 namespace feature
 {
+// @TODO(bykoianko) |m_altitudeAvailability| and |m_featureTable| are saved without
+// taking into account endianness. It should be fixed. The plan is
+// * to use one bit form AltitudeHeader::m_version for keeping information about endianness. (Zero
+//   should be used for big endian.)
+// * to check the endianness of the reader and the bit while reading and to use an appropriate
+//   methods for reading.
 class AltitudeLoader
 {
 public:
