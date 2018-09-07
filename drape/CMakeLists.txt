@@ -133,12 +133,15 @@ append(
   hw_texture_ios.mm
   metal/metal_base_context.hpp
   metal/metal_base_context.mm
+  metal/metal_gpu_buffer_impl.mm
   metal/metal_gpu_program.hpp
+  metal/metal_mesh_object_impl.hpp
   metal/metal_mesh_object_impl.mm
   metal/metal_states.hpp
   metal/metal_states.mm
   metal/metal_texture.hpp
   metal/metal_texture.mm
+  metal/metal_vertex_array_buffer_impl.mm
   metal/render_state_metal.mm
 )
 endif()

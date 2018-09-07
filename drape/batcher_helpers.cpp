@@ -196,7 +196,7 @@ void UniversalBatch::SetCanDivideStreams(bool canDivide)
   m_canDivideStreams = canDivide;
 }
 
-bool UniversalBatch::CanDevideStreams() const
+bool UniversalBatch::CanDivideStreams() const
 {
   return m_canDivideStreams;
 }
@@ -273,7 +273,7 @@ void TriangleListBatch::BatchData(ref_ptr<GraphicsContext> context,
     uint32_t avIndex  = GetAvailableIndexCount();
     uint32_t vertexCount = streams->GetVertexCount();
 
-    if (CanDevideStreams())
+    if (CanDivideStreams())
     {
       vertexCount = std::min(vertexCount, avVertex);
       vertexCount = std::min(vertexCount, avIndex);
@@ -386,7 +386,7 @@ uint32_t FanStripHelper::BatchIndexes(ref_ptr<GraphicsContext> context, uint32_t
   uint32_t batchIndexCount = 0;
   CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
 
-  if (!IsFullUploaded() && !CanDevideStreams())
+  if (!IsFullUploaded() && !CanDivideStreams())
   {
     ChangeBuffer(context);
     avVertex = GetAvailableVertexCount();
@@ -515,7 +515,7 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
 
     if (!cpuBuffers.empty())
     {
-      // if cpuBuffers not empty than on previous integration we not move data on gpu
+      // if cpuBuffers not empty than on previous iteration we not move data on gpu
       // and in cpuBuffers stored first vertex of fan.
       // To avoid two separate call of glBufferSubData
       // (for first vertex and for next part of data)
@@ -564,7 +564,7 @@ void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
           FlushData(binding, rawDataPointer, batchVertexCount);
 
           // "(vertexCount + 1) - batchVertexCount" we allocate CPUBuffer on all remaining data
-          // + first vertex of fan, that must be duplicate in nex buffer
+          // + first vertex of fan, that must be duplicate in the next buffer
           // + last vertex of currently uploaded data.
           cpuBuffers.emplace_back(binding.GetElementSize(), (vertexCount + 2) - batchVertexCount);
           CPUBuffer & cpuBuffer = cpuBuffers.back();

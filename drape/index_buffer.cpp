@@ -3,11 +3,9 @@
 
 namespace dp
 {
-
 IndexBuffer::IndexBuffer(uint32_t capacity)
   : DataBuffer((uint8_t)IndexStorage::SizeOfIndex(), capacity)
-{
-}
+{}
 
 void IndexBuffer::UploadData(void const * data, uint32_t size)
 {
@@ -22,5 +20,4 @@ void IndexBuffer::UpdateData(void const * data, uint32_t size)
   if (size > 0)
     UploadData(data, size);
 }
-
-} // namespace dp
+}  // namespace dp

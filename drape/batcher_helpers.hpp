@@ -30,7 +30,7 @@ public:
 
   virtual void BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams) = 0;
   void SetCanDivideStreams(bool canDivide);
-  bool CanDevideStreams() const;
+  bool CanDivideStreams() const;
   void SetVertexStride(uint8_t vertexStride);
 
 protected:

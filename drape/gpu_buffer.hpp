@@ -16,7 +16,6 @@ public:
     IndexBuffer
   };
 
-public:
   GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity);
   ~GPUBuffer() override;
 

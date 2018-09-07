@@ -8,6 +8,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include "std/target_os.hpp"
+
 namespace dp
 {
 namespace
@@ -204,7 +206,9 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Metal)
     {
-      //TODO(@rokuz,@darina)
+#if defined(OMIM_OS_IPHONE)
+      m_impl = CreateImplForMetal(make_ref(this));
+#endif
     }
     else
     {

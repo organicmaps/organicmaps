@@ -36,8 +36,14 @@ public:
                            bool drawAsLine, IndicesRange const & range) = 0;
 };
 
+namespace metal
+{
+class MetalVertexArrayBufferImpl;
+}  // namespace metal
+
 class VertexArrayBuffer
 {
+  friend class metal::MetalVertexArrayBufferImpl;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
@@ -84,6 +90,9 @@ private:
   ref_ptr<DataBufferBase> GetIndexBuffer() const;
 
   void PreflushImpl(ref_ptr<GraphicsContext> context);
+
+  // Definition of this method is in a .mm-file.
+  drape_ptr<VertexArrayBufferImpl> CreateImplForMetal(ref_ptr<VertexArrayBuffer> buffer);
 
   uint32_t const m_dataBufferSize;
 

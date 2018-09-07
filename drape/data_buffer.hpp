@@ -35,6 +35,10 @@ public:
   void MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target);
 
 private:
+  // Definition of this method is in a .mm-file.
+  drape_ptr<DataBufferBase> CreateImplForMetal(ref_ptr<GraphicsContext> context, void const * data,
+                                               uint8_t elementSize, uint32_t capacity);
+  
   drape_ptr<DataBufferBase> m_impl;
 };
 

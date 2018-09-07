@@ -1,6 +1,8 @@
 #include "drape/data_buffer.hpp"
 #include "drape/data_buffer_impl.hpp"
 
+#include "std/target_os.hpp"
+
 namespace dp
 {
 DataBuffer::DataBuffer(uint8_t elementSize, uint32_t capacity)
@@ -34,7 +36,18 @@ void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target t
   }
   else if (apiVersion == dp::ApiVersion::Metal)
   {
-    //TODO(@rokuz,@darina)
+#if defined(OMIM_OS_IPHONE)
+    if (currentSize != 0)
+    {
+      m_impl = CreateImplForMetal(context, m_impl->Data(), m_impl->GetElementSize(),
+                                  currentSize);
+    }
+    else
+    {
+      m_impl = CreateImplForMetal(context, nullptr, m_impl->GetElementSize(),
+                                  m_impl->GetAvailableSize());
+    }
+#endif
   }
   else
   {

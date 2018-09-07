@@ -4,16 +4,14 @@
 
 namespace dp
 {
-
 class IndexBuffer : public DataBuffer
 {
 public:
-  IndexBuffer(uint32_t capacity);
+  explicit IndexBuffer(uint32_t capacity);
 
-  /// check size of buffer and size of uploaded data
+  // Check size of buffer and size of uploaded data.
   void UploadData(void const * data, uint32_t size);
-  /// resize buffer to new size, and discard old data
+  // Resize buffer to new size, and discard old data.
   void UpdateData(void const * data, uint32_t size);
 };
-
-} // namespace dp
+}  // namespace dp

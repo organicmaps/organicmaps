@@ -97,6 +97,6 @@ public:
     return m_buffer->Map(elementOffset, elementCount);
   }
 
-  void Unmap() override { return m_buffer->Unmap(); }
+  void Unmap() override { m_buffer->Unmap(); }
 };
 }  // namespace dp
