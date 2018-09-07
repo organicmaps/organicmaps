@@ -42,6 +42,7 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
+#include "metrics/eye.hpp"
 
 #include <memory>
 #include <string>
@@ -1776,6 +1777,14 @@ Java_com_mapswithme_maps_Framework_nativeGetCurrentTipsApi(JNIEnv * env, jclass)
   return tipsApi.GetTip().is_initialized() ? static_cast<jint>(tipsApi.GetTip().get()) : -1;
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeTipsShown(JNIEnv * env, jclass,
+                                                   jint type, jint event)
+{
+  auto const & typeValue = static_cast<eye::Tip::Type>(type);
+  auto const & eventValue = static_cast<eye::Tip::Event>(event);
+  eye::Eye::Event::TipShown(typeValue, eventValue);
+}
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass)
 {

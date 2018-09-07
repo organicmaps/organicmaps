@@ -165,39 +165,85 @@ public enum TipsProvider
   {
     void onInterceptClick(@NonNull MwmActivity params);
 
-    class OpenBookmarksCatalog implements ClickInterceptor
+    abstract class AbstractClickInterceptor implements ClickInterceptor
     {
+      @NonNull
+      private final TipsProvider mTipsProvider;
+
+      AbstractClickInterceptor(@NonNull TipsProvider tipsProvider)
+      {
+        mTipsProvider = tipsProvider;
+      }
+
+      @NonNull
+      TipsProvider getType()
+      {
+        return mTipsProvider;
+      }
+
       @Override
-      public void onInterceptClick(@NonNull MwmActivity params)
+      public final void onInterceptClick(@NonNull MwmActivity params)
+      {
+        Framework.tipsShown(getType());
+        onInterceptClickInternal(params);
+      }
+
+      protected abstract void onInterceptClickInternal(@NonNull MwmActivity params);
+    }
+
+    class OpenBookmarksCatalog extends AbstractClickInterceptor
+    {
+      OpenBookmarksCatalog()
+      {
+        super(BOOKMARKS);
+      }
+
+      @Override
+      public void onInterceptClickInternal(@NonNull MwmActivity params)
       {
         BookmarksCatalogActivity.startForResult(params,
                                                 BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
       }
     }
 
-    class ActivateSubwayLayer implements ClickInterceptor
+    class ActivateSubwayLayer extends AbstractClickInterceptor
     {
+      ActivateSubwayLayer()
+      {
+        super(MAP_LAYERS);
+      }
+
       @Override
-      public void onInterceptClick(@NonNull MwmActivity params)
+      public void onInterceptClickInternal(@NonNull MwmActivity params)
       {
         Mode.SUBWAY.setEnabled(params, true);
         params.onSubwayLayerSelected();
       }
     }
 
-    class SearchHotels implements ClickInterceptor
+    class SearchHotels extends AbstractClickInterceptor
     {
+      SearchHotels()
+      {
+        super(SEARCH);
+      }
+
       @Override
-      public void onInterceptClick(@NonNull MwmActivity params)
+      public void onInterceptClickInternal(@NonNull MwmActivity params)
       {
         params.showSearch(params.getString(R.string.hotel));
       }
     }
 
-    class OpenDiscoveryScreen implements ClickInterceptor
+    class OpenDiscoveryScreen extends AbstractClickInterceptor
     {
+      OpenDiscoveryScreen()
+      {
+        super(DISCOVERY);
+      }
+
       @Override
-      public void onInterceptClick(@NonNull MwmActivity params)
+      public void onInterceptClickInternal(@NonNull MwmActivity params)
       {
         params.showDiscovery();
       }
