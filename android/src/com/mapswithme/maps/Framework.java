@@ -474,4 +474,6 @@ public class Framework
   public static native void nativeSetSubscriptionValidationListener(
       @Nullable SubscriptionValidationListener listener);
   public static native boolean nativeHasActiveSubscription();
+
+  public static native int nativeGetCurrentTipsApi();
 }

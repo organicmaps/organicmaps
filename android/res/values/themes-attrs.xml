@@ -105,6 +105,9 @@
     <attr name="adChoicesIcon" format="reference"/>
     <attr name="saleIcon" format="reference"/>
     <attr name="toggleMapLayerBtnBg" format="reference"/>
+    <attr name="tipsBgColor" format="color"/>
+    <attr name="tipsPrimaryTextColor" format="color"/>
+    <attr name="tipsSecondaryTextColor" format="color"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

@@ -67,6 +67,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.tips.TipsProvider;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
@@ -577,7 +578,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initMap();
     initNavigationButtons();
 
-    mPlacePage = (PlacePageView) findViewById(R.id.info_box);
+    mPlacePage = findViewById(R.id.info_box);
     mPlacePage.setOnVisibilityChangedListener(this);
     mPlacePage.setOnAnimationListener(this);
     mPlacePageTracker = new PlacePageTracker(mPlacePage);
@@ -593,6 +594,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
+    initTips();
+  }
+
+  private void initTips()
+  {
+    TipsProvider api = TipsProvider.requestCurrent(getClass());
+    if (api == TipsProvider.STUB)
+      return;
+
+    api.showTutorial(getActivity());
   }
 
   private void initFilterViews()
@@ -651,7 +662,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mPositionChooser == null)
       return;
 
-    final Toolbar toolbar = (Toolbar) mPositionChooser.findViewById(R.id.toolbar_position_chooser);
+    final Toolbar toolbar = mPositionChooser.findViewById(R.id.toolbar_position_chooser);
     UiUtils.extendViewWithStatusBar(toolbar);
     UiUtils.showHomeUpButton(toolbar);
     toolbar.setNavigationOnClickListener(v -> hidePositionChooser());
@@ -686,7 +697,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMap()
   {
-    mFadeView = (FadeView) findViewById(R.id.fade_view);
+    mFadeView = findViewById(R.id.fade_view);
     mFadeView.setListener(new FadeView.Listener()
     {
       @Override
@@ -789,7 +800,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mFadeView.fadeOut();
     mMainMenu.close(true, procAfterClose);
   }
-
   private boolean closePositionChooser()
   {
     if (UiUtils.isVisible(mPositionChooser))
@@ -828,80 +838,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMainMenu()
   {
-    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), item -> {
-      if (mIsFullscreenAnimating)
-        return;
-
-      switch (item)
-      {
-      case MENU:
-        if (!mMainMenu.isOpen())
-        {
-          Statistics.INSTANCE.trackToolbarClick(item);
-          if (mPlacePage == null || (mPlacePage.isDocked() && closePlacePage()))
-            return;
-
-          if (closeSidePanel())
-            return;
-        }
-        toggleMenu();
-        break;
-
-      case ADD_PLACE:
-        Statistics.INSTANCE.trackToolbarMenu(item);
-        closePlacePage();
-        if (mIsTabletLayout)
-          closeSidePanel();
-        closeMenu(() -> {
-          showPositionChooser(false, false);
-        });
-        break;
-
-      case SEARCH:
-        Statistics.INSTANCE.trackToolbarClick(item);
-        RoutingController.get().cancel();
-        closeMenu(() -> showSearch(mSearchController.getQuery()));
-        break;
-
-      case POINT_TO_POINT:
-        Statistics.INSTANCE.trackToolbarClick(item);
-        startLocationToPoint(null, false);
-        break;
-
-      case DISCOVERY:
-        Statistics.INSTANCE.trackToolbarClick(item);
-        showDiscovery();
-        break;
-
-      case BOOKMARKS:
-        Statistics.INSTANCE.trackToolbarClick(item);
-        closeMenu(this::showBookmarks);
-        break;
-
-      case SHARE_MY_LOCATION:
-        Statistics.INSTANCE.trackToolbarMenu(item);
-        closeMenu(this::shareMyLocation);
-        break;
-
-      case DOWNLOAD_MAPS:
-        Statistics.INSTANCE.trackToolbarMenu(item);
-        RoutingController.get().cancel();
-        closeMenu(() -> showDownloader(false));
-        break;
-
-      case SETTINGS:
-        Statistics.INSTANCE.trackToolbarMenu(item);
-        Intent intent = new Intent(MwmActivity.this, SettingsActivity.class);
-        closeMenu(() -> startActivity(intent));
-        break;
-
-      case DOWNLOAD_GUIDES:
-        Statistics.INSTANCE.trackToolbarMenu(item);
-        int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
-        closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
-        break;
-      }
-    });
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), this::onItemClickOrSkipAnim);
 
     if (mIsTabletLayout)
     {
@@ -914,7 +851,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mPlacePage.setLeftAnimationTrackListener(mMainMenu.getLeftAnimationTrackListener());
   }
 
-  private void showDiscovery()
+  private void onItemClickOrSkipAnim(@NonNull MainMenu.Item item)
+  {
+    if (mIsFullscreenAnimating)
+      return;
+
+    item.onClicked(this, item);
+  }
+
+  public void showDiscovery()
   {
     if (mIsTabletLayout)
     {
@@ -988,7 +933,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (state != State.HIDDEN)
     {
       mPlacePageRestored = true;
-      MapObject mapObject = (MapObject) savedInstanceState.getParcelable(STATE_MAP_OBJECT);
+      MapObject mapObject = savedInstanceState.getParcelable(STATE_MAP_OBJECT);
       mPlacePage.setMapObject(mapObject, true,
                               new PlacePageView.SetMapObjectListener()
       {
@@ -2702,6 +2647,214 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
 
       myPositionClick();
+    }
+  }
+
+  public interface ClickMenuDelegate
+  {
+    void onMenuItemClick();
+
+    abstract class AbstractClickMenuDelegate implements ClickMenuDelegate
+    {
+      @NonNull
+      private final MwmActivity mActivity;
+      @NonNull
+      private final MainMenu.Item mItem;
+
+      AbstractClickMenuDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        mActivity = activity;
+        mItem = item;
+      }
+
+      @NonNull
+      public MwmActivity getActivity()
+      {
+        return mActivity;
+      }
+
+      @NonNull
+      public MainMenu.Item getItem()
+      {
+        return mItem;
+      }
+
+      @Override
+      public final void onMenuItemClick()
+      {
+        TipsProvider api = TipsProvider.requestCurrent(getActivity().getClass());
+        if (api == TipsProvider.STUB || getItem() != api.getSiblingMenuItem())
+          onMenuItemClickInternal();
+        else
+          api.createClickInterceptor().onInterceptClick(getActivity());
+      }
+
+      public abstract void onMenuItemClickInternal();
+    }
+
+    class MenuClickDelegate extends AbstractClickMenuDelegate
+    {
+      public MenuClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        if (!getActivity().mMainMenu.isOpen())
+        {
+          Statistics.INSTANCE.trackToolbarClick(getItem());
+          if (getActivity().mPlacePage.isDocked() && getActivity().closePlacePage())
+            return;
+
+          if (getActivity().closeSidePanel())
+            return;
+        }
+        getActivity().toggleMenu();
+      }
+    }
+
+    class AddPlaceDelegate extends AbstractClickMenuDelegate
+    {
+      public AddPlaceDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarMenu(getItem());
+        getActivity().closePlacePage();
+        if (getActivity().mIsTabletLayout)
+          getActivity().closeSidePanel();
+        getActivity().closeMenu(() -> getActivity().showPositionChooser(false, false));
+      }
+    }
+
+    class SearchClickDelegate extends AbstractClickMenuDelegate
+    {
+      public SearchClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarClick(getItem());
+        RoutingController.get().cancel();
+        getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
+      }
+    }
+
+    class PointToPointDelegate extends AbstractClickMenuDelegate
+    {
+      public PointToPointDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarClick(getItem());
+        getActivity().startLocationToPoint(null, false);
+      }
+    }
+
+    class DiscoveryDelegate extends AbstractClickMenuDelegate
+    {
+      public DiscoveryDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarClick(getItem());
+        getActivity().showDiscovery();
+      }
+    }
+
+    class BookmarksDelegate extends AbstractClickMenuDelegate
+    {
+      public BookmarksDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarClick(getItem());
+        getActivity().closeMenu(getActivity()::showBookmarks);
+      }
+    }
+
+    class ShareMyLocationDelegate extends AbstractClickMenuDelegate
+    {
+      public ShareMyLocationDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarMenu(getItem());
+        getActivity().closeMenu(getActivity()::shareMyLocation);
+      }
+    }
+
+    class DownloadMapsDelegate extends AbstractClickMenuDelegate
+    {
+      public DownloadMapsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarMenu(getItem());
+        RoutingController.get().cancel();
+        getActivity().closeMenu(() -> getActivity().showDownloader(false));
+      }
+    }
+
+    class SettingsDelegate extends AbstractClickMenuDelegate
+    {
+      public SettingsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarMenu(getItem());
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        getActivity().closeMenu(() -> getActivity().startActivity(intent));
+      }
+    }
+
+    class DownloadGuidesDelegate extends AbstractClickMenuDelegate
+    {
+      public DownloadGuidesDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+      {
+        super(activity, item);
+      }
+
+      @Override
+      public void onMenuItemClickInternal()
+      {
+        Statistics.INSTANCE.trackToolbarMenu(getItem());
+        int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
+        getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
+      }
     }
   }
 }

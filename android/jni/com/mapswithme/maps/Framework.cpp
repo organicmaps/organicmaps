@@ -1769,6 +1769,13 @@ Java_com_mapswithme_maps_Framework_nativeSetSubscriptionValidationListener(JNIEn
   }
 }
 
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetCurrentTipsApi(JNIEnv * env, jclass)
+{
+  auto const & tipsApi = frm()->GetTipsApi();
+  return tipsApi.GetTip().is_initialized() ? static_cast<jint>(tipsApi.GetTip().get()) : -1;
+}
+
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass)
 {

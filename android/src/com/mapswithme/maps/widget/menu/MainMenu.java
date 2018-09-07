@@ -122,16 +122,106 @@ public class MainMenu extends BaseMenu
 
   public enum Item implements BaseMenu.Item
   {
-    MENU(R.id.toggle),
-    ADD_PLACE(R.id.add_place),
-    DOWNLOAD_GUIDES(R.id.download_guides),
-    SEARCH(R.id.search),
-    POINT_TO_POINT(R.id.p2p),
-    DISCOVERY(R.id.discovery),
-    BOOKMARKS(R.id.bookmarks),
-    SHARE_MY_LOCATION(R.id.share),
-    DOWNLOAD_MAPS(R.id.download_maps),
-    SETTINGS(R.id.settings);
+    MENU(R.id.toggle)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.MenuClickDelegate(activity, item);
+          }
+        },
+    ADD_PLACE(R.id.add_place)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.AddPlaceDelegate(activity, item);
+          }
+        },
+    DOWNLOAD_GUIDES(R.id.download_guides)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.DownloadGuidesDelegate(activity, item);
+          }
+        },
+    SEARCH(R.id.search)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.SearchClickDelegate(activity, item);
+          }
+        },
+    POINT_TO_POINT(R.id.p2p)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.PointToPointDelegate(activity, item);
+          }
+        },
+    DISCOVERY(R.id.discovery)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.DiscoveryDelegate(activity, item);
+          }
+        },
+    BOOKMARKS(R.id.bookmarks)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.BookmarksDelegate(activity, item);
+          }
+        },
+    SHARE_MY_LOCATION(R.id.share)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.ShareMyLocationDelegate(activity, item);
+          }
+        },
+    DOWNLOAD_MAPS(R.id.download_maps)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.DownloadMapsDelegate(activity, item);
+          }
+        },
+    SETTINGS(R.id.settings)
+        {
+          @NonNull
+          @Override
+          public MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                   @NonNull Item item)
+          {
+            return new MwmActivity.ClickMenuDelegate.SettingsDelegate(activity, item);
+          }
+        };
 
     private final int mViewId;
 
@@ -145,6 +235,16 @@ public class MainMenu extends BaseMenu
     {
       return mViewId;
     }
+
+    public void onClicked(@NonNull MwmActivity activity, @NonNull Item item)
+    {
+      MwmActivity.ClickMenuDelegate delegate = createClickDelegate(activity, item);
+      delegate.onMenuItemClick();
+    }
+
+    @NonNull
+    public abstract MwmActivity.ClickMenuDelegate createClickDelegate(@NonNull MwmActivity activity,
+                                                                      @NonNull Item item);
   }
 
   @Override

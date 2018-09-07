@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
+import com.mapswithme.maps.tips.TipsProvider;
 import com.mapswithme.util.InputUtils;
 
 import java.util.Collection;
@@ -266,6 +268,15 @@ public class MapLayerCompositeController implements MapLayerController
     @Override
     public void onClick(View v)
     {
+      TipsProvider api;
+      if ((api = TipsProvider.requestCurrent(mActivity.getClass())) == TipsProvider.MAP_LAYERS)
+      {
+        MwmActivity mwmActivity = (MwmActivity) mActivity;
+        TipsProvider.ClickInterceptor interceptor = api.createClickInterceptor();
+        interceptor.onInterceptClick(mwmActivity);
+        return;
+      }
+
       if (mMasterEntry.getMode().isEnabled(mActivity))
       {
         turnOff();
