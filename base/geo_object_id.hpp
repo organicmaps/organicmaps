@@ -35,6 +35,8 @@ namespace base
 // and the difference does not seem important. Also this would probably touch the highest bit.
 class GeoObjectId
 {
+  friend std::string DebugPrint(GeoObjectId const & id);
+
 public:
   // Sources of the objects.
   enum class Type : uint8_t

@@ -89,7 +89,10 @@ std::string DebugPrint(GeoObjectId::Type const & t)
 std::string DebugPrint(GeoObjectId const & id)
 {
   std::ostringstream oss;
-  oss << DebugPrint(id.GetType()) << " " << id.GetSerialId();
+  // To print serial id it's written |id.m_encodedId & kSerialMask| instead of id.GetSerialId().
+  // It's done to be able to print a instance of GeoObjectId created by default constructor.
+  // In case of instance of GeoObjectId created by default ctor GetSerialId() shouldn't be called.
+  oss << DebugPrint(id.GetType()) << " " << (id.m_encodedId & kSerialMask);
   return oss.str();
 }
 }  // namespace base
