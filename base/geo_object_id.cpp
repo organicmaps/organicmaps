@@ -89,10 +89,8 @@ std::string DebugPrint(GeoObjectId::Type const & t)
 std::string DebugPrint(GeoObjectId const & id)
 {
   std::ostringstream oss;
-  // To print serial id it's written |id.m_encodedId & kSerialMask| instead of id.GetSerialId().
-  // It's done to be able to print a instance of GeoObjectId created by default constructor.
-  // In case of instance of GeoObjectId created by default ctor GetSerialId() shouldn't be called.
-  oss << DebugPrint(id.GetType()) << " " << (id.m_encodedId & kSerialMask);
+  // GetSerialId() does not work for invalid ids but we may still want to print them.
+  oss << DebugPrint(id.GetType()) << " " << (id.GetEncodedId() & kSerialMask);
   return oss.str();
 }
 }  // namespace base

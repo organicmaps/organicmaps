@@ -8,6 +8,7 @@ UNIT_TEST(GeoObjectId)
 {
   GeoObjectId const invalid(GeoObjectId::kInvalid);
   TEST_EQUAL(invalid.GetType(), GeoObjectId::Type::Invalid, ());
+  TEST_EQUAL(DebugPrint(invalid), "Invalid 0", ());
 
   GeoObjectId const node(GeoObjectId::Type::ObsoleteOsmNode, 12345);
   TEST_EQUAL(node.GetSerialId(), 12345ULL, ());
@@ -40,14 +41,5 @@ UNIT_TEST(GeoObjectId)
   TEST_EQUAL(fias.GetSerialId(), 0xf1a5, ());
   TEST_EQUAL(fias.GetType(), GeoObjectId::Type::Fias, ());
   TEST_EQUAL(DebugPrint(fias), "FIAS 61861", ());
-}
-
-UNIT_TEST(GeoObjectId_DebugPrint)
-{
-  GeoObjectId const invalid;
-  TEST_EQUAL(DebugPrint(invalid), "Invalid 0", ());
-
-  GeoObjectId const valid(GeoObjectId::Type::OsmWay, 123);
-  TEST_EQUAL(DebugPrint(valid), "Osm Way 123", ());
 }
 }  // namespace base
