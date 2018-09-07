@@ -20,15 +20,16 @@ class TrafficRenderer final
 public:
   TrafficRenderer() = default;
 
-  void AddRenderData(ref_ptr<gpu::ProgramManager> mng,
+  void AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                      TrafficRenderData && renderData);
 
   void RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                     ScreenBase const & screen, int zoomLevel, float opacity, FrameValues const & frameValues);
+                     ScreenBase const & screen, int zoomLevel, float opacity,
+                     FrameValues const & frameValues);
 
   bool HasRenderData() const { return !m_renderData.empty(); }
 
-  void ClearGLDependentResources();
+  void ClearContextDependentResources();
   void Clear(MwmSet::MwmId const & mwmId);
 
   void OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,

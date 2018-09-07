@@ -98,9 +98,9 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   completionCondition.wait(lock, [&notified] { return notified; });
 }
 
-bool BaseRenderer::FilterGLContextDependentMessage(ref_ptr<Message> msg)
+bool BaseRenderer::FilterContextDependentMessage(ref_ptr<Message> msg)
 {
-  return msg->IsGLContextDependent();
+  return msg->IsGraphicsContextDependent();
 }
 
 void BaseRenderer::CheckRenderingEnabled()
@@ -112,7 +112,7 @@ void BaseRenderer::CheckRenderingEnabled()
     if (m_wasContextReset)
     {
       using namespace std::placeholders;
-      EnableMessageFiltering(std::bind(&BaseRenderer::FilterGLContextDependentMessage, this, _1));
+      EnableMessageFiltering(std::bind(&BaseRenderer::FilterContextDependentMessage, this, _1));
       OnContextDestroy();
     }
     else

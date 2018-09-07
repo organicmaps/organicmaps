@@ -232,7 +232,8 @@ void CalculateTextOffsets(dp::TitleDecl const titleDecl, m2::PointF const & prim
   }
 }
 
-void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void TextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures) const
 {
   auto const & titleDecl = m_params.m_titleDecl;
   ASSERT(!titleDecl.m_primaryText.empty(), ());
@@ -269,20 +270,20 @@ void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
   if (primaryLayout.GetGlyphCount() > 0)
   {
-    DrawSubString(primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
+    DrawSubString(context, primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
                   textures, true /* isPrimary */, titleDecl.m_primaryOptional);
   }
 
   if (secondaryLayout != nullptr && secondaryLayout->GetGlyphCount() > 0)
   {
-    DrawSubString(*secondaryLayout.get(), titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
+    DrawSubString(context, *secondaryLayout.get(), titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
                   textures, false /* isPrimary */, titleDecl.m_secondaryOptional);
   }
 }
 
-void TextShape::DrawSubString(StraightTextLayout & layout, dp::FontDecl const & font,
-                              glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                              ref_ptr<dp::TextureManager> textures,
+void TextShape::DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightTextLayout & layout,
+                              dp::FontDecl const & font, glm::vec2 const & baseOffset,
+                              ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
                               bool isPrimary, bool isOptional) const
 {
   glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
@@ -292,14 +293,16 @@ void TextShape::DrawSubString(StraightTextLayout & layout, dp::FontDecl const & 
                                      : m_params.m_titleDecl.m_secondaryTextFont.m_outlineColor;
 
   if (outlineColor == dp::Color::Transparent())
-    DrawSubStringPlain(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
+    DrawSubStringPlain(context, layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
   else
-    DrawSubStringOutlined(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
+    DrawSubStringOutlined(context, layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
 }
 
-void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,
+void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
+                                   StraightTextLayout const & layout, dp::FontDecl const & font,
                                    glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                                   ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
+                                   ref_ptr<dp::TextureManager> textures, bool isPrimary,
+                                   bool isOptional) const
 {
   gpu::TTextStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -361,12 +364,14 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
-  batcher->InsertListOfStrip(state, make_ref(&provider), std::move(handle), 4);
+  batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
 }
 
-void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::FontDecl const & font,
+void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
+                                      StraightTextLayout const & layout, dp::FontDecl const & font,
                                       glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                                      ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const
+                                      ref_ptr<dp::TextureManager> textures, bool isPrimary,
+                                      bool isOptional) const
 {
   gpu::TTextOutlinedStaticVertexBuffer staticBuffer;
   gpu::TTextDynamicVertexBuffer dynamicBuffer;
@@ -423,7 +428,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
-  batcher->InsertListOfStrip(state, make_ref(&provider), std::move(handle), 4);
+  batcher->InsertListOfStrip(context, state, make_ref(&provider), std::move(handle), 4);
 }
 
 uint64_t TextShape::GetOverlayPriority() const

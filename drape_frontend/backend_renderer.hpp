@@ -98,7 +98,7 @@ private:
 
   void ReleaseResources();
 
-  void InitGLDependentResource();
+  void InitContextDependentResources();
   void FlushGeometry(TileKey const & key, dp::RenderState const & state, drape_ptr<dp::RenderBucket> && buffer);
 
   void FlushTransitRenderData(TransitRenderData && renderData);

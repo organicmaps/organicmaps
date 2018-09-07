@@ -24,7 +24,8 @@ AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buil
   , m_params(params)
 {}
 
-void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void AreaShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
@@ -39,14 +40,15 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   }
 
   if (m_params.m_is3D)
-    DrawArea3D(batcher, colorUv, outlineUv, region.GetTexture());
+    DrawArea3D(context, batcher, colorUv, outlineUv, region.GetTexture());
   else if (m_params.m_hatching)
-    DrawHatchingArea(batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture());
+    DrawHatchingArea(context, batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture());
   else
-    DrawArea(batcher, colorUv, outlineUv, region.GetTexture());
+    DrawArea(context, batcher, colorUv, outlineUv, region.GetTexture());
 }
 
-void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
+void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                         m2::PointD const & colorUv, m2::PointD const & outlineUv,
                          ref_ptr<dp::Texture> texture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
@@ -66,7 +68,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
-  batcher->InsertTriangleList(state, make_ref(&provider));
+  batcher->InsertTriangleList(context, state, make_ref(&provider));
 
   // Generate outline.
   if (m_buildingOutline.m_generateOutline && !m_buildingOutline.m_indices.empty())
@@ -89,12 +91,13 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
 
     dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
-    batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
+    batcher->InsertLineRaw(context, outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
 }
 
-void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
-                                 ref_ptr<dp::Texture> texture, ref_ptr<dp::Texture> hatchingTexture) const
+void AreaShape::DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                                 m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
+                                 ref_ptr<dp::Texture> hatchingTexture) const
 {
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
@@ -124,10 +127,11 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const 
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
-  batcher->InsertTriangleList(state, make_ref(&provider));
+  batcher->InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
+void AreaShape::DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                           m2::PointD const & colorUv, m2::PointD const & outlineUv,
                            ref_ptr<dp::Texture> texture) const
 {
   ASSERT(!m_buildingOutline.m_indices.empty(), ());
@@ -172,7 +176,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::Area3dVertex::GetBindingInfo(), make_ref(vertexes.data()));
-  batcher->InsertTriangleList(state, make_ref(&provider));
+  batcher->InsertTriangleList(context, state, make_ref(&provider));
 
   // Generate outline.
   if (m_buildingOutline.m_generateOutline)
@@ -196,7 +200,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
 
     dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
-    batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
+    batcher->InsertLineRaw(context, outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
 }
 }  // namespace df

@@ -37,8 +37,9 @@ class OverlayBatcher
 {
 public:
   explicit OverlayBatcher(TileKey const & key);
-  void Batch(drape_ptr<MapShape> const & shape, ref_ptr<dp::TextureManager> texMng);
-  void Finish(TOverlaysRenderData & data);
+  void Batch(ref_ptr<dp::GraphicsContext> context, drape_ptr<MapShape> const & shape,
+             ref_ptr<dp::TextureManager> texMng);
+  void Finish(ref_ptr<dp::GraphicsContext> context, TOverlaysRenderData & data);
 
 private:
   void FlushGeometry(TileKey const & key, dp::RenderState const & state,

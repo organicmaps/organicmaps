@@ -89,7 +89,8 @@ private:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::TextureManager> tex,
+drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context,
+                                       m2::PointF & compassSize, ref_ptr<dp::TextureManager> tex,
                                        TTapHandler const & tapHandler) const
 {
   dp::TextureManager::SymbolRegion region;
@@ -136,8 +137,8 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertTriangleStrip(state, make_ref(&provider), std::move(handle));
+  dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 
   return renderer;
 }

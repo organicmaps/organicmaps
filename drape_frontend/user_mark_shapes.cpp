@@ -108,7 +108,8 @@ std::string GetSymbolNameForZoomLevel(drape_ptr<UserPointMark::SymbolNameZoomInf
   return {};
 }
 
-void GenerateColoredSymbolShapes(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
+                                 UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
                                  m2::PointD const & tileCenter, ref_ptr<dp::TextureManager> textures,
                                  m2::PointF & symbolSize, dp::Batcher & batcher)
 {
@@ -136,20 +137,21 @@ void GenerateColoredSymbolShapes(UserMarkRenderParams const & renderInfo, TileKe
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
                            kStartUserMarkOverlayIndex + renderInfo.m_index,
                            *renderInfo.m_symbolSizes.get())
-            .Draw(&batcher, textures);
+            .Draw(context, &batcher, textures);
       }
       else
       {
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
                            kStartUserMarkOverlayIndex + renderInfo.m_index)
-            .Draw(&batcher, textures);
+            .Draw(context, &batcher, textures);
       }
       break;
     }
   }
 }
 
-void GeneratePoiSymbolShape(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context,
+                            UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
                             m2::PointD const & tileCenter, std::string const & symbolName,
                             ref_ptr<dp::TextureManager> textures, m2::PointF & symbolOffset,
                             dp::Batcher & batcher)
@@ -178,10 +180,11 @@ void GeneratePoiSymbolShape(UserMarkRenderParams const & renderInfo, TileKey con
   }
   PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
                  kStartUserMarkOverlayIndex + renderInfo.m_index)
-      .Draw(&batcher, textures);
+      .Draw(context, &batcher, textures);
 }
 
-void GenerateTextShapes(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context,
+                        UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
                         m2::PointD const & tileCenter, m2::PointF const & symbolSize,
                         m2::PointF const & symbolOffset, ref_ptr<dp::TextureManager> textures,
                         dp::Batcher & batcher)
@@ -238,13 +241,13 @@ void GenerateTextShapes(UserMarkRenderParams const & renderInfo, TileKey const &
     {
       TextShape(renderInfo.m_pivot, params, tileKey, *renderInfo.m_symbolSizes,
                 m2::PointF(0.0f, 0.0f) /* symbolOffset */, renderInfo.m_anchor, overlayIndex)
-          .Draw(&batcher, textures);
+          .Draw(context, &batcher, textures);
     }
     else
     {
       TextShape(renderInfo.m_pivot, params, tileKey, symbolSize, symbolOffset, renderInfo.m_anchor,
                 overlayIndex)
-          .Draw(&batcher, textures);
+          .Draw(context, &batcher, textures);
     }
   }
 }
@@ -289,9 +292,9 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
 }
 }  // namespace
 
-void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
-                    dp::Batcher & batcher)
+void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                    ref_ptr<dp::TextureManager> textures, kml::MarkIdCollection const & marksId,
+                    UserMarksRenderCollection & renderParams, dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
   size_t const vertexCount = marksId.size() * dp::Batcher::VertexPerQuad;
@@ -327,12 +330,15 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (renderInfo.m_hasSymbolPriority)
     {
       if (renderInfo.m_coloredSymbols != nullptr)
-        GenerateColoredSymbolShapes(renderInfo, tileKey, tileCenter, textures, symbolSize, batcher);
+      {
+        GenerateColoredSymbolShapes(context, renderInfo, tileKey, tileCenter, textures, symbolSize,
+                                    batcher);
+      }
 
       if (renderInfo.m_symbolNames != nullptr)
       {
-        GeneratePoiSymbolShape(renderInfo, tileKey, tileCenter, symbolName, textures, symbolOffset,
-                               batcher);
+        GeneratePoiSymbolShape(context, renderInfo, tileKey, tileCenter, symbolName, textures,
+                               symbolOffset, batcher);
       }
     }
     else if (renderInfo.m_symbolNames != nullptr)
@@ -388,8 +394,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     if (renderInfo.m_titleDecl != nullptr)
     {
-      GenerateTextShapes(renderInfo, tileKey, tileCenter, symbolSize, symbolOffset, textures,
-                         batcher);
+      GenerateTextShapes(context, renderInfo, tileKey, tileCenter, symbolSize, symbolOffset,
+                         textures, batcher);
     }
 
     if (renderInfo.m_badgeNames != nullptr)
@@ -399,8 +405,8 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       auto const badgeName = GetSymbolNameForZoomLevel(renderInfo.m_badgeNames, tileKey);
       if (!badgeName.empty())
       {
-        GeneratePoiSymbolShape(renderInfo, tileKey, tileCenter, badgeName, textures, symbolOffset,
-                               batcher);
+        GeneratePoiSymbolShape(context, renderInfo, tileKey, tileCenter, badgeName, textures,
+                               symbolOffset, batcher);
       }
     }
 
@@ -420,7 +426,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
     attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
-    batcher.InsertListOfStrip(state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
+    batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
   }
 }
 
@@ -454,9 +460,9 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
   }
 }
 
-void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection & renderParams,
-                    dp::Batcher & batcher)
+void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                    ref_ptr<dp::TextureManager> textures, kml::TrackIdCollection const & linesId,
+                    UserLinesRenderCollection & renderParams, dp::Batcher & batcher)
 {
   ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
   ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::GetUpperStyleScale(), ());
@@ -519,7 +525,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 
-        LineShape(clippedSpline, params).Draw(make_ref(&batcher), textures);
+        LineShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
       }
     }
   }

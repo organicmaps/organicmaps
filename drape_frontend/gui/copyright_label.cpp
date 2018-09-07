@@ -71,7 +71,9 @@ CopyrightLabel::CopyrightLabel(Position const & position)
   : TBase(position)
 {}
 
-drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> context,
+                                              m2::PointF & size,
+                                              ref_ptr<dp::TextureManager> tex) const
 {
   StaticLabel::LabelResult result;
   StaticLabel::CacheStaticText("Map data © OpenStreetMap", "", m_position.m_anchor,
@@ -93,8 +95,8 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::Tex
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);
-  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
+  dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertListOfStrip(context, result.m_state, make_ref(&provider),
                             std::move(handle), dp::Batcher::VertexPerQuad);
 
   return renderer;

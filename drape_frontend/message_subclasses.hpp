@@ -131,7 +131,7 @@ public:
   {}
 
   Type GetType() const override { return Type::FlushTile; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   dp::RenderState const & GetState() const { return m_state; }
   drape_ptr<dp::RenderBucket> && AcceptBuffer() { return std::move(m_buffer); }
@@ -148,7 +148,7 @@ public:
   explicit FlushRenderDataMessage(RenderDataType && data) : m_data(std::move(data)) {}
 
   Type GetType() const override { return MessageType; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   RenderDataType && AcceptRenderData() { return std::move(m_data); }
 
@@ -301,7 +301,7 @@ public:
   {}
 
   Type GetType() const override { return Type::GuiLayerRecached; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   drape_ptr<gui::LayerRenderer> && AcceptRenderer() { return std::move(m_renderer); }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
@@ -320,7 +320,7 @@ public:
   {}
 
   Type GetType() const override { return Type::GuiRecache;}
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   gui::TWidgetsInitInfo const & GetInitInfo() const { return m_initInfo; }
   bool NeedResetOldGui() const { return m_needResetOldGui; }
@@ -336,7 +336,7 @@ public:
   MapShapesRecacheMessage() = default;
 
   Type GetType() const override { return Type::MapShapesRecache; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 };
 
 class GuiLayerLayoutMessage : public Message
@@ -347,7 +347,7 @@ public:
   {}
 
   Type GetType() const override { return Type::GuiLayerLayout; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   gui::TWidgetsLayoutInfo const & GetLayoutInfo() const { return m_layoutInfo; }
   gui::TWidgetsLayoutInfo AcceptLayoutInfo() { return std::move(m_layoutInfo); }
@@ -430,7 +430,7 @@ public:
   {}
 
   Type GetType() const override { return Type::MapShapes; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   drape_ptr<MyPosition> && AcceptShape() { return std::move(m_shape); }
   drape_ptr<SelectionShape> AcceptSelection() { return std::move(m_selection); }
@@ -520,7 +520,7 @@ public:
   {}
 
   Type GetType() const override { return Type::SelectObject; }
-  bool IsGLContextDependent() const override { return false; }
+  bool IsGraphicsContextDependent() const override { return false; }
 
   m2::PointD const & GetPosition() const { return m_glbPoint; }
   SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
@@ -715,7 +715,7 @@ class RecoverGLResourcesMessage : public Message
 {
 public:
   Type GetType() const override { return Type::RecoverGLResources; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 };
 
 class SetVisibleViewportMessage : public Message
@@ -1168,7 +1168,7 @@ public:
   {}
 
   Type GetType() const override { return Type::SetPostprocessStaticTextures; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
 
   drape_ptr<PostprocessStaticTextures> && AcceptTextures() { return std::move(m_textures); }
 
@@ -1251,7 +1251,7 @@ private:
 class FinishTexturesInitializationMessage : public Message
 {
 public:
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGraphicsContextDependent() const override { return true; }
   Type GetType() const override { return Type::FinishTexturesInitialization; }
 };
 
@@ -1278,8 +1278,8 @@ public:
     , m_notifyId(notifyId)
   {}
 
-  // We can not notify render threads without active OpenGL context.
-  bool IsGLContextDependent() const override { return true; }
+  // We can not notify render threads without active graphics context.
+  bool IsGraphicsContextDependent() const override { return true; }
 
   Type GetType() const override { return Type::NotifyRenderThread; }
 

@@ -57,28 +57,32 @@ public:
 
   void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
-  void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                   bool trafficShown, FrameValues const & frameValues);
+  void RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                   ScreenBase const & screen, bool trafficShown, FrameValues const & frameValues);
 
-  void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
+  void AddSubrouteData(ref_ptr<dp::GraphicsContext> context,
+                       drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
   Subroutes const & GetSubroutes() const;
 
   void RemoveSubrouteData(dp::DrapeID subrouteId);
 
-  void AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
+  void AddSubrouteArrowsData(ref_ptr<dp::GraphicsContext> context,
+                             drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
                              ref_ptr<gpu::ProgramManager> mng);
 
-  void AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
+  void AddSubrouteMarkersData(ref_ptr<dp::GraphicsContext> context,
+                              drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
                               ref_ptr<gpu::ProgramManager> mng);
 
-  void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
+  void AddPreviewRenderData(ref_ptr<dp::GraphicsContext> context,
+                            drape_ptr<CirclesPackRenderData> && renderData,
                             ref_ptr<gpu::ProgramManager> mng);
 
   void UpdatePreview(ScreenBase const & screen);
 
   void Clear();
   void ClearObsoleteData(int currentRecacheId);
-  void ClearGLDependentResources();
+  void ClearContextDependentResources();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
   void SetFollowingEnabled(bool enabled);

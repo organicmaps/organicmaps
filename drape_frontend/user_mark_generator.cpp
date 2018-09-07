@@ -217,9 +217,12 @@ ref_ptr<MarksIDGroups> UserMarkGenerator::GetUserLinesGroups(TileKey const & til
   return nullptr;
 }
 
-void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures)
+void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context,
+                                                  TileKey const & tileKey,
+                                                  ref_ptr<dp::TextureManager> textures)
 {
-  auto const clippedTileKey = TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
+  auto const clippedTileKey =
+      TileKey(tileKey.m_x, tileKey.m_y, ClipTileZoomByMaxDataZoom(tileKey.m_zoomLevel));
   auto marksGroups = GetUserMarksGroups(clippedTileKey);
   auto linesGroups = GetUserLinesGroups(clippedTileKey);
 
@@ -230,21 +233,22 @@ void UserMarkGenerator::GenerateUserMarksGeometry(TileKey const & tileKey, ref_p
   dp::Batcher batcher(kMaxSize, kMaxSize);
   TUserMarksRenderData renderData;
   {
-    dp::SessionGuard guard(batcher, [&tileKey, &renderData](dp::RenderState const & state,
-                                                           drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher, [&tileKey, &renderData](dp::RenderState const & state,
+                                                                     drape_ptr<dp::RenderBucket> && b)
     {
       renderData.emplace_back(state, std::move(b), tileKey);
     });
 
     if (marksGroups != nullptr)
-      CacheUserMarks(tileKey, *marksGroups.get(), textures, batcher);
+      CacheUserMarks(context, tileKey, *marksGroups.get(), textures, batcher);
     if (linesGroups != nullptr)
-      CacheUserLines(tileKey, *linesGroups.get(), textures, batcher);
+      CacheUserLines(context, tileKey, *linesGroups.get(), textures, batcher);
   }
   m_flushFn(std::move(renderData));
 }
 
-void UserMarkGenerator::CacheUserLines(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
+void UserMarkGenerator::CacheUserLines(ref_ptr<dp::GraphicsContext> context,
+                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
                                        ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   for (auto & groupPair : indexesGroups)
@@ -253,11 +257,12 @@ void UserMarkGenerator::CacheUserLines(TileKey const & tileKey, MarksIDGroups co
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
 
-    df::CacheUserLines(tileKey, textures, groupPair.second->m_lineIds, m_lines, batcher);
+    df::CacheUserLines(context, tileKey, textures, groupPair.second->m_lineIds, m_lines, batcher);
   }
 }
 
-void UserMarkGenerator::CacheUserMarks(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
+void UserMarkGenerator::CacheUserMarks(ref_ptr<dp::GraphicsContext> context,
+                                       TileKey const & tileKey, MarksIDGroups const & indexesGroups,
                                        ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   for (auto & groupPair : indexesGroups)
@@ -265,7 +270,7 @@ void UserMarkGenerator::CacheUserMarks(TileKey const & tileKey, MarksIDGroups co
     kml::MarkGroupId groupId = groupPair.first;
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
-    df::CacheUserMarks(tileKey, textures, groupPair.second->m_markIds, m_marks, batcher);
+    df::CacheUserMarks(context, tileKey, textures, groupPair.second->m_markIds, m_marks, batcher);
   }
 }
 

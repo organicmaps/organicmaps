@@ -57,7 +57,7 @@ public:
     return make_ref(it->second.first);
   }
 
-  void ReleaseBatcher(TKey const & key)
+  void ReleaseBatcher(ref_ptr<dp::GraphicsContext> context, TKey const & key)
   {
     auto it = m_batchers.find(key);
     ASSERT(it != m_batchers.end(), ());
@@ -65,7 +65,7 @@ public:
     if ((--it->second.second)== 0)
     {
       dp::Batcher * batcher = it->second.first;
-      batcher->EndSession();
+      batcher->EndSession(context);
       m_pool.Return(batcher);
       m_batchers.erase(it);
     }

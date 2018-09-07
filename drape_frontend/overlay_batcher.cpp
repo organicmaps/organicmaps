@@ -23,15 +23,16 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
   });
 }
 
-void OverlayBatcher::Batch(drape_ptr<MapShape> const & shape, ref_ptr<dp::TextureManager> texMng)
+void OverlayBatcher::Batch(ref_ptr<dp::GraphicsContext> context, drape_ptr<MapShape> const & shape,
+                           ref_ptr<dp::TextureManager> texMng)
 {
   m_batcher.SetFeatureMinZoom(shape->GetFeatureMinZoom());
-  shape->Draw(make_ref(&m_batcher), texMng);
+  shape->Draw(context, make_ref(&m_batcher), texMng);
 }
 
-void OverlayBatcher::Finish(TOverlaysRenderData & data)
+void OverlayBatcher::Finish(ref_ptr<dp::GraphicsContext> context, TOverlaysRenderData & data)
 {
-  m_batcher.EndSession();
+  m_batcher.EndSession(context);
   data.swap(m_data);
 }
 

@@ -213,10 +213,11 @@ std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float
   return newArrowBorders;
 }
 
-void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<gpu::ProgramManager> mng)
+void BuildBuckets(ref_ptr<dp::GraphicsContext> context, RouteRenderProperty const & renderProperty,
+                  ref_ptr<gpu::ProgramManager> mng)
 {
   for (auto const & bucket : renderProperty.m_buckets)
-    bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgram<gpu::Program>()));
+    bucket->GetBuffer()->Build(context, mng->GetProgram(renderProperty.m_state.GetProgram<gpu::Program>()));
 }
 
 RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subroutes,
@@ -435,7 +436,7 @@ void RouteRenderer::RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr
 
   // Render buckets.
   for (auto const & bucket : subrouteData->m_renderProperty.m_buckets)
-    bucket->Render(state.GetDrawAsLine());
+    bucket->Render(context, state.GetDrawAsLine());
 }
 
 void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -470,7 +471,7 @@ void RouteRenderer::RenderSubrouteArrows(ref_ptr<dp::GraphicsContext> context, r
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
   for (auto const & bucket : subrouteInfo.m_arrowsData->m_renderProperty.m_buckets)
-    bucket->Render(state.GetDrawAsLine());
+    bucket->Render(context, state.GetDrawAsLine());
 }
 
 void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -510,7 +511,7 @@ void RouteRenderer::RenderSubrouteMarkers(ref_ptr<dp::GraphicsContext> context, 
   dp::ApplyState(context, prg, state);
   mng->GetParamsSetter()->Apply(context, prg, params);
   for (auto const & bucket : subrouteInfo.m_markersData->m_renderProperty.m_buckets)
-    bucket->Render(state.GetDrawAsLine());
+    bucket->Render(context, state.GetDrawAsLine());
 }
 
 void RouteRenderer::RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
@@ -534,7 +535,7 @@ void RouteRenderer::RenderPreviewData(ref_ptr<dp::GraphicsContext> context, ref_
   for (size_t i = 0; i < m_previewRenderData.size(); i++)
   {
     if (m_previewHandlesCache[i].second != 0)
-      m_previewRenderData[i]->m_bucket->Render(state.GetDrawAsLine());
+      m_previewRenderData[i]->m_bucket->Render(context, state.GetDrawAsLine());
   }
 }
 
@@ -558,7 +559,8 @@ void RouteRenderer::RenderRoute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gp
   RenderPreviewData(context, mng, screen, frameValues);
 }
 
-void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
+void RouteRenderer::AddSubrouteData(ref_ptr<dp::GraphicsContext> context,
+                                    drape_ptr<SubrouteData> && subrouteData,
                                     ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
@@ -586,7 +588,7 @@ void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
     }
 
     it->m_subrouteData.push_back(std::move(subrouteData));
-    BuildBuckets(it->m_subrouteData.back()->m_renderProperty, mng);
+    BuildBuckets(context, it->m_subrouteData.back()->m_renderProperty, mng);
   }
   else
   {
@@ -596,7 +598,7 @@ void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
     info.m_subrouteId = subrouteData->m_subrouteId;
     info.m_length = subrouteData->m_subroute->m_polyline.GetLength();
     info.m_subrouteData.push_back(std::move(subrouteData));
-    BuildBuckets(info.m_subrouteData.back()->m_renderProperty, mng);
+    BuildBuckets(context, info.m_subrouteData.back()->m_renderProperty, mng);
     m_subroutes.push_back(std::move(info));
 
     std::sort(m_subroutes.begin(), m_subroutes.end(),
@@ -607,25 +609,27 @@ void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
   }
 }
 
-void RouteRenderer::AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && routeArrowsData,
+void RouteRenderer::AddSubrouteArrowsData(ref_ptr<dp::GraphicsContext> context,
+                                          drape_ptr<SubrouteArrowsData> && routeArrowsData,
                                           ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, routeArrowsData->m_subrouteId);
   if (it != m_subroutes.end())
   {
     it->m_arrowsData = std::move(routeArrowsData);
-    BuildBuckets(it->m_arrowsData->m_renderProperty, mng);
+    BuildBuckets(context, it->m_arrowsData->m_renderProperty, mng);
   }
 }
 
-void RouteRenderer::AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
+void RouteRenderer::AddSubrouteMarkersData(ref_ptr<dp::GraphicsContext> context,
+                                           drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
                                            ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, subrouteMarkersData->m_subrouteId);
   if (it != m_subroutes.end())
   {
     it->m_markersData = std::move(subrouteMarkersData);
-    BuildBuckets(it->m_markersData->m_renderProperty, mng);
+    BuildBuckets(context, it->m_markersData->m_renderProperty, mng);
   }
 }
 
@@ -641,13 +645,14 @@ void RouteRenderer::RemoveSubrouteData(dp::DrapeID subrouteId)
     m_subroutes.erase(it);
 }
 
-void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
+void RouteRenderer::AddPreviewRenderData(ref_ptr<dp::GraphicsContext> context,
+                                         drape_ptr<CirclesPackRenderData> && renderData,
                                          ref_ptr<gpu::ProgramManager> mng)
 {
   drape_ptr<CirclesPackRenderData> data = std::move(renderData);
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
-  data->m_bucket->GetBuffer()->Build(program);
+  data->m_bucket->GetBuffer()->Build(context, program);
   m_previewRenderData.push_back(std::move(data));
   m_waitForPreviewRenderData = false;
 
@@ -676,9 +681,9 @@ void RouteRenderer::Clear()
   m_distanceFromBegin = kInvalidDistance;
 }
 
-void RouteRenderer::ClearGLDependentResources()
+void RouteRenderer::ClearContextDependentResources()
 {
-  // Here we clear only GL-dependent part of subroute data.
+  // Here we clear only context-dependent part of subroute data.
   for (auto & subroute : m_subroutes)
   {
     subroute.m_subrouteData.clear();

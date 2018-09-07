@@ -26,7 +26,7 @@ public:
   LayerRenderer() = default;
   ~LayerRenderer();
 
-  void Build(ref_ptr<gpu::ProgramManager> mng);
+  void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng);
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, bool routingActive,
               ScreenBase const & screen);
   void Merge(ref_ptr<LayerRenderer> other);
@@ -69,15 +69,16 @@ public:
 #endif
 
 private:
-  m2::PointF CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer,
-                          ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheRuler(Position const & position, ref_ptr<LayerRenderer> renderer,
-                        ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheCopyright(Position const & position, ref_ptr<LayerRenderer> renderer,
-                            ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheScaleFpsLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
+  m2::PointF CacheCompass(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                          ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                        ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheCopyright(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                            ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                                ref_ptr<LayerRenderer> renderer,
                                 ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheWatermark(Position const & position, ref_ptr<LayerRenderer> renderer,
-                            ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheWatermark(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                            ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures);
 };
 }  // namespace gui

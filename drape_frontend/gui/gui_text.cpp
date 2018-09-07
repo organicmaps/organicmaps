@@ -437,7 +437,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
     result.m_buffer.push_back(DynamicVertex(glsl::vec2(0.0, 0.0), glsl::vec2(0.0, 0.0)));
 }
 
-m2::PointF MutableLabel::GetAvarageSize() const
+m2::PointF MutableLabel::GetAverageSize() const
 {
   float h = 0, w = 0;
   for (auto const & node : m_alphabet)
@@ -547,7 +547,8 @@ void MutableLabelHandle::SetContent(std::string const & content)
   }
 }
 
-m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
+m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
+                                    ref_ptr<dp::TextureManager> mng,
                                     dp::Batcher::TFlushFn const & flushFn)
 {
   uint32_t vertexCount = dp::Batcher::VertexPerQuad * params.m_maxLength;
@@ -564,7 +565,7 @@ m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureMa
   MutableLabel::PrecacheResult staticData;
 
   handle->GetTextView()->Precache(preCacheP, staticData, mng);
-  handle->UpdateSize(handle->GetTextView()->GetAvarageSize());
+  handle->UpdateSize(handle->GetTextView()->GetAverageSize());
 
   ASSERT_EQUAL(vertexCount, staticData.m_buffer.size(), ());
   buffer_vector<MutableLabel::DynamicVertex, 128> dynData;
@@ -579,8 +580,8 @@ m2::PointF MutableLabelDrawer::Draw(Params const & params, ref_ptr<dp::TextureMa
 
   {
     dp::Batcher batcher(indexCount, vertexCount);
-    dp::SessionGuard guard(batcher, flushFn);
-    batcher.InsertListOfStrip(staticData.m_state, make_ref(&provider),
+    dp::SessionGuard guard(context, batcher, flushFn);
+    batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
                               move(handle), dp::Batcher::VertexPerQuad);
   }
 

@@ -12,7 +12,7 @@
 
 namespace df
 {
-class DebugRectRenderer: public dp::MeshObject, public dp::DebugRenderer
+class DebugRectRenderer : public dp::MeshObject, public dp::DebugRenderer
 {
   using Base = dp::MeshObject;
 public:

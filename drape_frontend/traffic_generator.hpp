@@ -168,7 +168,7 @@ public:
   {}
 
   void Init();
-  void ClearGLDependentResources();
+  void ClearContextDependentResources();
 
   void FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                              TrafficSegmentsGeometry const & geom, ref_ptr<dp::TextureManager> textures);
@@ -223,7 +223,8 @@ private:
 
   void FlushGeometry(TrafficBatcherKey const & key, dp::RenderState const & state,
                      drape_ptr<dp::RenderBucket> && buffer);
-  void GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, TileKey const & tileKey,
+  void GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                                TileKey const & tileKey,
                                 TrafficSegmentsGeometryValue const & geometry,
                                 traffic::TrafficInfo::Coloring const & coloring,
                                 ref_ptr<dp::TextureManager> texturesMgr);

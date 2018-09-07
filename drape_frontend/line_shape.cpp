@@ -540,7 +540,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   }
 }
 
-void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void LineShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                     ref_ptr<dp::TextureManager> textures) const
 {
   if (!m_lineShapeInfo)
     Prepare(textures);
@@ -551,14 +552,14 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
   provider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetLineData());
   if (!m_isSimple)
   {
-    batcher->InsertListOfStrip(state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+    batcher->InsertListOfStrip(context, state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 
     uint32_t const joinSize = m_lineShapeInfo->GetJoinSize();
     if (joinSize > 0)
     {
       dp::AttributeProvider joinsProvider(1, joinSize);
       joinsProvider.InitStream(0, m_lineShapeInfo->GetBindingInfo(), m_lineShapeInfo->GetJoinData());
-      batcher->InsertTriangleList(state, make_ref(&joinsProvider));
+      batcher->InsertTriangleList(context, state, make_ref(&joinsProvider));
     }
 
     uint32_t const capSize = m_lineShapeInfo->GetCapSize();
@@ -566,12 +567,12 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     {
       dp::AttributeProvider capProvider(1, capSize);
       capProvider.InitStream(0, m_lineShapeInfo->GetCapBindingInfo(), m_lineShapeInfo->GetCapData());
-      batcher->InsertTriangleList(m_lineShapeInfo->GetCapState(), make_ref(&capProvider));
+      batcher->InsertTriangleList(context, m_lineShapeInfo->GetCapState(), make_ref(&capProvider));
     }
   }
   else
   {
-    batcher->InsertLineStrip(state, make_ref(&provider));
+    batcher->InsertLineStrip(context, state, make_ref(&provider));
   }
 }
 }  // namespace df

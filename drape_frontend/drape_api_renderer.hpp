@@ -17,7 +17,7 @@ class DrapeApiRenderer
 public:
   DrapeApiRenderer() = default;
 
-  void AddRenderProperties(ref_ptr<gpu::ProgramManager> mng,
+  void AddRenderProperties(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                            std::vector<drape_ptr<DrapeApiRenderProperty>> && properties);
   void RemoveRenderProperty(std::string const & id);
   void Clear();

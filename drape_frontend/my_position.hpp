@@ -21,7 +21,7 @@ namespace df
 class MyPosition
 {
 public:
-  explicit MyPosition(ref_ptr<dp::TextureManager> mng);
+  MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
   void InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
@@ -40,8 +40,8 @@ public:
                         ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
 
 private:
-  void CacheAccuracySector(ref_ptr<dp::TextureManager> mng);
-  void CachePointPosition(ref_ptr<dp::TextureManager> mng);
+  void CacheAccuracySector(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
+  void CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
   enum EMyPositionPart
   {
@@ -54,9 +54,9 @@ private:
                   gpu::ShapesProgramParams const & params,
                   EMyPositionPart part);
 
-  void CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
-                   dp::RenderState const & state, dp::Batcher & batcher,
-                   EMyPositionPart part);
+  void CacheSymbol(ref_ptr<dp::GraphicsContext> context,
+                   dp::TextureManager::SymbolRegion const & symbol, dp::RenderState const & state,
+                   dp::Batcher & batcher, EMyPositionPart part);
 
   m2::PointF m_position;
   float m_azimuth;

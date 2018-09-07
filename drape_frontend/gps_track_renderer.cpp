@@ -78,13 +78,14 @@ GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
   m_handlesCache.reserve(8);
 }
 
-void GpsTrackRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng,
+void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
+                                     ref_ptr<gpu::ProgramManager> mng,
                                      drape_ptr<CirclesPackRenderData> && renderData)
 {
   drape_ptr<CirclesPackRenderData> data = std::move(renderData);
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
-  data->m_bucket->GetBuffer()->Build(program);
+  data->m_bucket->GetBuffer()->Build(context, program);
   m_renderData.push_back(std::move(data));
   m_waitForRenderData = false;
 }
@@ -314,7 +315,7 @@ void GpsTrackRenderer::RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr
   for (size_t i = 0; i < m_renderData.size(); i++)
   {
     if (m_handlesCache[i].second != 0)
-      m_renderData[i]->m_bucket->Render(state.GetDrawAsLine());
+      m_renderData[i]->m_bucket->Render(context, state.GetDrawAsLine());
   }
 }
 

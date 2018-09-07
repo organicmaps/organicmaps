@@ -34,7 +34,7 @@ public:
     OBJECT_MY_POSITION
   };
 
-  explicit SelectionShape(ref_ptr<dp::TextureManager> mng);
+  SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng);
 
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);

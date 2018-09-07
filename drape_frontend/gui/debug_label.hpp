@@ -18,7 +18,8 @@ public:
 
   void AddLabel(ref_ptr<dp::TextureManager> tex, std::string const & caption,
                 TUpdateDebugLabelFn const & onUpdateFn);
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex);
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::GraphicsContext> context,
+                                ref_ptr<dp::TextureManager> tex);
 
 private:
   std::vector<MutableLabelDrawer::Params> m_labelsParams;

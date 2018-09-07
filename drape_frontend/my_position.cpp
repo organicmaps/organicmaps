@@ -53,7 +53,7 @@ dp::BindingInfo GetBindingInfo()
 }
 }  // namespace
 
-MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
+MyPosition::MyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointF::Zero())
   , m_azimuth(0.0f)
   , m_accuracy(0.0f)
@@ -62,8 +62,8 @@ MyPosition::MyPosition(ref_ptr<dp::TextureManager> mng)
   , m_obsoletePosition(false)
 {
   m_parts.resize(4);
-  CacheAccuracySector(mng);
-  CachePointPosition(mng);
+  CacheAccuracySector(context, mng);
+  CachePointPosition(context, mng);
 }
 
 void MyPosition::InitArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
@@ -150,7 +150,8 @@ void MyPosition::RenderMyPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<
   }
 }
 
-void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
+void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
+                                     ref_ptr<dp::TextureManager> mng)
 {
   size_t constexpr kTriangleCount = 40;
   size_t constexpr kVertexCount = 3 * kTriangleCount;
@@ -179,7 +180,8 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
-    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher,
+      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -191,12 +193,14 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::TextureManager> mng)
     dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
     provider.InitStream(0 /* stream index */, GetBindingInfo(), make_ref(buffer.data()));
 
-    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
+    m_parts[MyPositionAccuracy].first = batcher.InsertTriangleList(context, state,
+                                                                   make_ref(&provider), nullptr);
     ASSERT(m_parts[MyPositionAccuracy].first.IsValid(), ());
   }
 }
 
-void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
+void MyPosition::CacheSymbol(ref_ptr<dp::GraphicsContext> context,
+                             dp::TextureManager::SymbolRegion const & symbol,
                              dp::RenderState const & state, dp::Batcher & batcher,
                              EMyPositionPart part)
 {
@@ -213,11 +217,11 @@ void MyPosition::CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,
 
   dp::AttributeProvider provider(1 /* streamCount */, dp::Batcher::VertexPerQuad);
   provider.InitStream(0 /* streamIndex */, GetBindingInfo(), make_ref(data));
-  m_parts[part].first = batcher.InsertTriangleStrip(state, make_ref(&provider), nullptr);
+  m_parts[part].first = batcher.InsertTriangleStrip(context, state, make_ref(&provider), nullptr);
   ASSERT(m_parts[part].first.IsValid(), ());
 }
 
-void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
+void MyPosition::CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
 {
   int const kSymbolsCount = 1;
   dp::TextureManager::SymbolRegion pointSymbol;
@@ -231,7 +235,8 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
   EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher,
+      [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -243,7 +248,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
     for (int i = 0; i < kSymbolsCount; i++)
     {
       m_parts[partIndices[i]].second = partIndex;
-      CacheSymbol(*symbols[i], state, batcher, partIndices[i]);
+      CacheSymbol(context, *symbols[i], state, batcher, partIndices[i]);
     }
   }
 }

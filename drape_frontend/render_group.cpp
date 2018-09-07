@@ -80,7 +80,7 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
   dp::ApplyState(context, programPtr, m_state);
 
   for(auto & renderBucket : m_renderBuckets)
-    renderBucket->GetBuffer()->Build(programPtr);
+    renderBucket->GetBuffer()->Build(context, programPtr);
 
   auto const program = m_state.GetProgram<gpu::Program>();
   auto const program3d = m_state.GetProgram3d<gpu::Program>();
@@ -102,14 +102,14 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
 
     mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(m_state.GetDrawAsLine());
+      renderBucket->Render(context, m_state.GetDrawAsLine());
 
     m_params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
     m_params.m_isOutlinePass = 0.0f;
 
     mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(m_state.GetDrawAsLine());
+      renderBucket->Render(context, m_state.GetDrawAsLine());
   }
   else if (program == gpu::Program::Text || program3d == gpu::Program::TextBillboard)
   {
@@ -117,13 +117,13 @@ void RenderGroup::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Prog
 
     mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
-      renderBucket->Render(m_state.GetDrawAsLine());
+      renderBucket->Render(context, m_state.GetDrawAsLine());
   }
   else
   {
     mng->GetParamsSetter()->Apply(context, programPtr, m_params);
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
-      renderBucket->Render(m_state.GetDrawAsLine());
+      renderBucket->Render(context, m_state.GetDrawAsLine());
   }
 
   for(auto const & renderBucket : m_renderBuckets)

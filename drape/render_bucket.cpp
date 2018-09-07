@@ -91,7 +91,7 @@ void RenderBucket::SetOverlayVisibility(bool isVisible)
     overlayHandle->SetIsVisible(isVisible);
 }
 
-void RenderBucket::Render(bool drawAsLine)
+void RenderBucket::Render(ref_ptr<GraphicsContext> context, bool drawAsLine)
 {
   ASSERT(m_buffer != nullptr, ());
 
@@ -117,9 +117,9 @@ void RenderBucket::Render(bool drawAsLine)
         handle->GetAttributeMutation(rfpAttrib);
     }
 
-    m_buffer->ApplyMutation(hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
+    m_buffer->ApplyMutation(context, hasIndexMutation ? rfpIndex : nullptr, rfpAttrib);
   }
-  m_buffer->Render(drawAsLine);
+  m_buffer->Render(context, drawAsLine);
 }
 
 void RenderBucket::SetFeatureMinZoom(int minZoom)

@@ -97,7 +97,8 @@ dp::BindingInfo const & GetTransitStaticBindingInfo()
   return *s_info;
 }
 
-void GenerateLineCaps(std::vector<SchemeSegment> const & segments, glsl::vec4 const & color,
+void GenerateLineCaps(ref_ptr<dp::GraphicsContext> context,
+                      std::vector<SchemeSegment> const & segments, glsl::vec4 const & color,
                       float lineOffset, float halfWidth, float depth, dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
@@ -124,7 +125,7 @@ void GenerateLineCaps(std::vector<SchemeSegment> const & segments, glsl::vec4 co
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::TransitCircle, DepthLayer::TransitSchemeLayer);
-  batcher.InsertTriangleList(state, make_ref(&provider));
+  batcher.InsertTriangleList(context, state, make_ref(&provider));
 }
 
 struct TitleInfo
@@ -254,7 +255,8 @@ void FillStopParams(TransitDisplayInfo const & transitDisplayInfo, MwmSet::MwmId
 }
 
 bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
-                    std::vector<routing::transit::StopId> const & sameStops, size_t & stop1Ind, size_t & stop2Ind)
+                    std::vector<routing::transit::StopId> const & sameStops, size_t & stop1Ind,
+                    size_t & stop2Ind)
 {
   stop1Ind = std::numeric_limits<size_t>::max();
   stop2Ind = std::numeric_limits<size_t>::max();
@@ -279,7 +281,8 @@ bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId s
 }
 }  // namespace
 
-void TransitSchemeBuilder::UpdateSchemes(TransitDisplayInfos const & transitDisplayInfos,
+void TransitSchemeBuilder::UpdateSchemes(ref_ptr<dp::GraphicsContext> context,
+                                         TransitDisplayInfos const & transitDisplayInfos,
                                          ref_ptr<dp::TextureManager> textures)
 {
   for (auto const & mwmInfo : transitDisplayInfos)
@@ -297,7 +300,7 @@ void TransitSchemeBuilder::UpdateSchemes(TransitDisplayInfos const & transitDisp
     CollectShapes(transitDisplayInfo, scheme);
 
     PrepareScheme(scheme);
-    BuildScheme(mwmId, textures);
+    BuildScheme(context, mwmId, textures);
   }
 }
 
@@ -311,19 +314,22 @@ void TransitSchemeBuilder::Clear(MwmSet::MwmId const & mwmId)
   m_schemes.erase(mwmId);
 }
 
-void TransitSchemeBuilder::RebuildSchemes(ref_ptr<dp::TextureManager> textures)
+void TransitSchemeBuilder::RebuildSchemes(ref_ptr<dp::GraphicsContext> context,
+                                          ref_ptr<dp::TextureManager> textures)
 {
   for (auto const & mwmScheme : m_schemes)
-    BuildScheme(mwmScheme.first, textures);
+    BuildScheme(context, mwmScheme.first, textures);
 }
 
-void TransitSchemeBuilder::BuildScheme(MwmSet::MwmId const & mwmId, ref_ptr<dp::TextureManager> textures)
+void TransitSchemeBuilder::BuildScheme(ref_ptr<dp::GraphicsContext> context,
+                                       MwmSet::MwmId const & mwmId,
+                                       ref_ptr<dp::TextureManager> textures)
 {
   if (m_schemes.find(mwmId) == m_schemes.end())
     return;
   ++m_recacheId;
-  GenerateShapes(mwmId);
-  GenerateStops(mwmId, textures);
+  GenerateShapes(context, mwmId);
+  GenerateStops(context, mwmId, textures);
 }
 
 void TransitSchemeBuilder::CollectStops(TransitDisplayInfo const & transitDisplayInfo,
@@ -533,14 +539,15 @@ void TransitSchemeBuilder::PrepareScheme(MwmSchemeData & scheme)
   scheme.m_pivot = boundingRect.Center();
 }
 
-void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
+void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId)
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
-    dp::SessionGuard guard(batcher, [this, &mwmId, &scheme](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher, [this, &mwmId, &scheme](dp::RenderState const & state,
+                                                                     drape_ptr<dp::RenderBucket> && b)
     {
       TransitRenderData::Type type = TransitRenderData::Type::Lines;
       if (state.GetProgram<gpu::Program>() == gpu::Program::TransitCircle)
@@ -575,7 +582,7 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
         auto const & lineId = coloredLine.second;
         auto const depth = scheme.m_lines.at(lineId).m_depth;
 
-        GenerateLine(shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset,
+        GenerateLine(context, shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset,
                      kTransitLineHalfWidth, depth, batcher);
         shapeOffset += shapeOffsetIncrement;
       }
@@ -583,7 +590,8 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
   }
 }
 
-void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp::TextureManager> textures)
+void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context, MwmSet::MwmId const & mwmId,
+                                         ref_ptr<dp::TextureManager> textures)
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
@@ -602,7 +610,7 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
-    dp::SessionGuard guard(batcher, flusher);
+    dp::SessionGuard guard(context, batcher, flusher);
 
     float const kStopScale = 2.5f;
     float const kTransferScale = 3.0f;
@@ -611,18 +619,20 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
 
     for (auto const & stop : scheme.m_stops)
     {
-      GenerateStop(stop.second, scheme.m_pivot, scheme.m_lines, batcher);
-      GenerateTitles(stop.second, scheme.m_pivot, stopMarkerSizes, textures, batcher);
+      GenerateStop(context, stop.second, scheme.m_pivot, scheme.m_lines, batcher);
+      GenerateTitles(context, stop.second, scheme.m_pivot, stopMarkerSizes, textures, batcher);
     }
     for (auto const & transfer : scheme.m_transfers)
     {
-      GenerateTransfer(transfer.second, scheme.m_pivot, batcher);
-      GenerateTitles(transfer.second, scheme.m_pivot, transferMarkerSizes, textures, batcher);
+      GenerateTransfer(context, transfer.second, scheme.m_pivot, batcher);
+      GenerateTitles(context, transfer.second, scheme.m_pivot, transferMarkerSizes, textures, batcher);
     }
   }
 }
 
-void TransitSchemeBuilder::GenerateTransfer(StopNodeParams const & params, m2::PointD const & pivot, dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateTransfer(ref_ptr<dp::GraphicsContext> context,
+                                            StopNodeParams const & params, m2::PointD const & pivot,
+                                            dp::Batcher & batcher)
 {
   m2::PointD const pt = MapShape::ConvertToLocal(params.m_pivot, pivot, kShapeCoordScalar);
 
@@ -646,21 +656,21 @@ void TransitSchemeBuilder::GenerateTransfer(StopNodeParams const & params, m2::P
   float const innerScale = maxLinesCount == 1 ? 1.4f : kInnerScale;
   float const outerScale = maxLinesCount == 1 ? 1.9f : kOuterScale;
 
-  GenerateMarker(pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale,
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, outerScale, outerScale,
                  kOuterMarkerDepth, outerColor, batcher);
 
-  GenerateMarker(pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale,
+  GenerateMarker(context, pt, dir, widthLinesCount, maxLinesCount, innerScale, innerScale,
                  kInnerMarkerDepth, innerColor, batcher);
 }
 
-void TransitSchemeBuilder::GenerateStop(StopNodeParams const & params, m2::PointD const & pivot,
-                                        std::map<routing::transit::LineId, LineParams> const & lines,
-                                        dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateStop(ref_ptr<dp::GraphicsContext> context, StopNodeParams const & params,
+                                        m2::PointD const & pivot, std::map<routing::transit::LineId,
+                                        LineParams> const & lines, dp::Batcher & batcher)
 {
   bool const severalRoads = params.m_stopsInfo.size() > 1;
   if (severalRoads)
   {
-    GenerateTransfer(params, pivot, batcher);
+    GenerateTransfer(context, params, pivot, batcher);
     return;
   }
 
@@ -677,14 +687,19 @@ void TransitSchemeBuilder::GenerateStop(StopNodeParams const & params, m2::Point
 
   m2::PointD dir = params.m_shapesInfo.begin()->second.m_direction;
 
-  GenerateMarker(pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth, outerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kOuterScale, kOuterScale, kOuterMarkerDepth,
+                 outerColor, batcher);
 
-  GenerateMarker(pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth, innerColor, batcher);
+  GenerateMarker(context, pt, dir, 1.0f, 1.0f, kInnerScale, kInnerScale, kInnerMarkerDepth,
+                 innerColor, batcher);
 }
 
-void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2::PointD const & pivot,
+void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
+                                          StopNodeParams const & stopParams,
+                                          m2::PointD const & pivot,
                                           std::vector<m2::PointF> const & markerSizes,
-                                          ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
+                                          ref_ptr<dp::TextureManager> textures,
+                                          dp::Batcher & batcher)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
@@ -736,8 +751,8 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_startOverlayRank = dp::OverlayRank0;
     textParams.m_minVisibleScale = minVisibleScale;
 
-    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
-      .Draw(&batcher, textures);
+    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes,
+              title.m_offset, dp::Center, kTransitOverlayIndex).Draw(context, &batcher, textures);
   }
 
   df::ColoredSymbolViewParams colorParams;
@@ -751,14 +766,15 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
 
-  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex, markerSizes)
-    .Draw(&batcher, textures);
+  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(),
+                     kTransitStubOverlayIndex, markerSizes).Draw(context, &batcher, textures);
 }
 
-void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widthDir,
+void TransitSchemeBuilder::GenerateMarker(ref_ptr<dp::GraphicsContext> context,
+                                          m2::PointD const & pt, m2::PointD widthDir,
                                           float linesCountWidth, float linesCountHeight,
-                                          float scaleWidth, float scaleHeight,
-                                          float depth, dp::Color const & color, dp::Batcher & batcher)
+                                          float scaleWidth, float scaleHeight, float depth,
+                                          dp::Color const & color, dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
 
@@ -788,12 +804,14 @@ void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widt
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::TransitMarker, DepthLayer::TransitSchemeLayer);
-  batcher.InsertTriangleList(state, make_ref(&provider));
+  batcher.InsertTriangleList(context, state, make_ref(&provider));
 }
 
-void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
-                                        dp::Color const & colorConst, float lineOffset, float halfWidth,
-                                        float depth, dp::Batcher & batcher)
+void TransitSchemeBuilder::GenerateLine(ref_ptr<dp::GraphicsContext> context,
+                                        std::vector<m2::PointD> const & path,
+                                        m2::PointD const & pivot, dp::Color const & colorConst,
+                                        float lineOffset, float halfWidth, float depth,
+                                        dp::Batcher & batcher)
 {
   using TV = TransitStaticVertex;
 
@@ -834,8 +852,8 @@ void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateRenderState(gpu::Program::Transit, DepthLayer::TransitSchemeLayer);
-  batcher.InsertTriangleList(state, make_ref(&provider));
+  batcher.InsertTriangleList(context, state, make_ref(&provider));
 
-  GenerateLineCaps(segments, color, lineOffset, halfWidth, depth, batcher);
+  GenerateLineCaps(context, segments, color, lineOffset, halfWidth, depth, batcher);
 }
 }  // namespace df

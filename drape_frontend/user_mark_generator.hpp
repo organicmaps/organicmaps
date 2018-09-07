@@ -32,7 +32,8 @@ public:
   void RemoveGroup(kml::MarkGroupId groupId);
   void SetGroupVisibility(kml::MarkGroupId groupId, bool isVisible);
 
-  void GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures);
+  void GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                                 ref_ptr<dp::TextureManager> textures);
 
 private:
   void UpdateIndex(kml::MarkGroupId groupId);
@@ -45,10 +46,12 @@ private:
   ref_ptr<MarksIDGroups> GetUserMarksGroups(TileKey const & tileKey);
   ref_ptr<MarksIDGroups> GetUserLinesGroups(TileKey const & tileKey);
 
-  void CacheUserMarks(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
-  void CacheUserLines(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
-                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
+  void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                      MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                      dp::Batcher & batcher);
+  void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
+                      MarksIDGroups const & indexesGroups, ref_ptr<dp::TextureManager> textures,
+                      dp::Batcher & batcher);
 
   std::unordered_set<kml::MarkGroupId> m_groupsVisibility;
   MarksIDGroups m_groups;

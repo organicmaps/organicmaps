@@ -13,19 +13,32 @@ ref_ptr<DataBufferBase> DataBuffer::GetBuffer() const
   return make_ref(m_impl);
 }
 
-void DataBuffer::MoveToGPU(GPUBuffer::Target target)
+void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target)
 {
   // If currentSize is 0 buffer hasn't been filled on preparation stage, let it be filled further.
   uint32_t const currentSize = m_impl->GetCurrentSize();
-  if (currentSize != 0)
+
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
-    m_impl = make_unique_dp<GpuBufferImpl>(target, m_impl->Data(), m_impl->GetElementSize(),
-                                           currentSize);
+    if (currentSize != 0)
+    {
+      m_impl = make_unique_dp<GpuBufferImpl>(target, m_impl->Data(), m_impl->GetElementSize(),
+                                             currentSize);
+    }
+    else
+    {
+      m_impl = make_unique_dp<GpuBufferImpl>(target, nullptr, m_impl->GetElementSize(),
+                                             m_impl->GetAvailableSize());
+    }
+  }
+  else if (apiVersion == dp::ApiVersion::Metal)
+  {
+    //TODO(@rokuz,@darina)
   }
   else
   {
-    m_impl = make_unique_dp<GpuBufferImpl>(target, nullptr, m_impl->GetElementSize(),
-                                           m_impl->GetAvailableSize());
+    CHECK(false, ("Unsupported API version."));
   }
 }
 

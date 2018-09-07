@@ -81,7 +81,8 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_needOverlay(needOverlay)
 {}
 
-ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSymbolViewParams const & params,
+ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt,
+                                       ColoredSymbolViewParams const & params,
                                        TileKey const & tileKey, uint32_t textIndex,
                                        std::vector<m2::PointF> const & overlaySizes)
   : m_point(mercatorPt)
@@ -92,7 +93,7 @@ ColoredSymbolShape::ColoredSymbolShape(m2::PointD const & mercatorPt, ColoredSym
   , m_overlaySizes(overlaySizes)
 {}
 
-void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
+void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
                               ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::ColorRegion colorRegion;
@@ -306,7 +307,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::ColoredSymbolVertex::GetBindingInfo(), make_ref(buffer.data()));
-  batcher->InsertTriangleList(state, make_ref(&provider), move(handle));
+  batcher->InsertTriangleList(context, state, make_ref(&provider), move(handle));
 }
 
 uint64_t ColoredSymbolShape::GetOverlayPriority() const

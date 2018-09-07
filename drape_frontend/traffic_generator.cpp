@@ -130,14 +130,16 @@ void TrafficGenerator::Init()
   m_providerCircles.InitStream(0 /* stream index */, GetTrafficCircleStaticBindingInfo(), nullptr);
 }
 
-void TrafficGenerator::ClearGLDependentResources()
+void TrafficGenerator::ClearContextDependentResources()
 {
   InvalidateTexturesCache();
   m_batchersPool.reset();
   m_circlesBatcher.reset();
 }
 
-void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, TileKey const & tileKey,
+void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> context,
+                                                MwmSet::MwmId const & mwmId,
+                                                TileKey const & tileKey,
                                                 TrafficSegmentsGeometryValue const & geometry,
                                                 traffic::TrafficInfo::Coloring const & coloring,
                                                 ref_ptr<dp::TextureManager> texturesMgr)
@@ -198,7 +200,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
 
       dp::RenderState curLineState = lineState;
       curLineState.SetLineWidth(width);
-      batcher->InsertLineStrip(curLineState, make_ref(&m_providerLines));
+      batcher->InsertLineStrip(context, curLineState, make_ref(&m_providerLines));
     }
     else
     {
@@ -215,20 +217,22 @@ void TrafficGenerator::GenerateSegmentsGeometry(MwmSet::MwmId const & mwmId, Til
 
       m_providerTriangles.Reset(static_cast<uint32_t>(staticGeometry.size()));
       m_providerTriangles.UpdateStream(0 /* stream index */, make_ref(staticGeometry.data()));
-      batcher->InsertTriangleList(state, make_ref(&m_providerTriangles));
+      batcher->InsertTriangleList(context, state, make_ref(&m_providerTriangles));
 
       if (circlesGeometry.empty())
         continue;
 
       m_providerCircles.Reset(static_cast<uint32_t>(circlesGeometry.size()));
       m_providerCircles.UpdateStream(0 /* stream index */, make_ref(circlesGeometry.data()));
-      m_circlesBatcher->InsertTriangleList(circleState, make_ref(&m_providerCircles));
+      m_circlesBatcher->InsertTriangleList(context, circleState, make_ref(&m_providerCircles));
     }
   }
 }
 
-void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
-                                             TrafficSegmentsGeometry const & geom, ref_ptr<dp::TextureManager> textures)
+void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> context,
+                                             TileKey const & tileKey,
+                                             TrafficSegmentsGeometry const & geom,
+                                             ref_ptr<dp::TextureManager> textures)
 {
   FillColorsCache(textures);
 
@@ -251,12 +255,12 @@ void TrafficGenerator::FlushSegmentsGeometry(ref_ptr<dp::GraphicsContext> contex
                     std::move(renderBucket));
     });
 
-    GenerateSegmentsGeometry(mwmId, tileKey, g.second, coloringIt->second, textures);
+    GenerateSegmentsGeometry(context, mwmId, tileKey, g.second, coloringIt->second, textures);
 
     for (auto const & roadClass : kRoadClasses)
-      m_batchersPool->ReleaseBatcher(TrafficBatcherKey(mwmId, tileKey, roadClass));
+      m_batchersPool->ReleaseBatcher(context, TrafficBatcherKey(mwmId, tileKey, roadClass));
 
-    m_circlesBatcher->EndSession();
+    m_circlesBatcher->EndSession(context);
   }
 
   context->Flush();

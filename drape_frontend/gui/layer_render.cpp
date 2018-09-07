@@ -34,14 +34,14 @@ LayerRenderer::~LayerRenderer()
   DestroyRenderers();
 }
 
-void LayerRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
+void LayerRenderer::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng)
 {
   for (auto & r : m_renderers)
-    r.second->Build(mng);
+    r.second->Build(context, mng);
 }
 
-void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, bool routingActive,
-                           ScreenBase const & screen)
+void LayerRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                           bool routingActive, ScreenBase const & screen)
 {
   if (HasWidget(gui::WIDGET_RULER))
   {
@@ -201,21 +201,22 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(ref_ptr<dp::GraphicsContext
                                                      TWidgetsInitInfo const & initInfo,
                                                      ref_ptr<dp::TextureManager> textures)
 {
-  using TCacheShape = std::function<m2::PointF(Position anchor, ref_ptr<LayerRenderer> renderer,
+  using TCacheShape = std::function<m2::PointF(ref_ptr<dp::GraphicsContext>, Position anchor,
+                                               ref_ptr<LayerRenderer> renderer,
                                                ref_ptr<dp::TextureManager> textures)>;
   static std::map<EWidget, TCacheShape> cacheFunctions{
-      std::make_pair(WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3)),
-      std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3)),
-      std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3)),
-      std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3)),
-      std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3))};
+      std::make_pair(WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3, _4)),
+      std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3, _4)),
+      std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3, _4)),
+      std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3, _4)),
+      std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3, _4))};
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
   for (auto const & node : initInfo)
   {
     auto cacheFunction = cacheFunctions.find(node.first);
     if (cacheFunction != cacheFunctions.end())
-      cacheFunction->second(node.second, make_ref(renderer), textures);
+      cacheFunction->second(context, node.second, make_ref(renderer), textures);
   }
 
   // Flush gui geometry.
@@ -231,7 +232,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheChoosePositionMark(ref_ptr<dp::Grap
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
   ChoosePositionMark positionMark = ChoosePositionMark(Position(surfSize * 0.5f, dp::Center));
-  renderer->AddShapeRenderer(WIDGET_CHOOSE_POSITION_MARK, positionMark.Draw(textures));
+  renderer->AddShapeRenderer(WIDGET_CHOOSE_POSITION_MARK, positionMark.Draw(context, textures));
 
   // Flush gui geometry.
   context->Flush();
@@ -319,14 +320,14 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
   debugLabels.AddLabel(textures, "angle: ",
                        [](ScreenBase const & screen, string & content) -> bool
   {
-    ostringstream out;
+    std::ostringstream out;
     out << std::fixed << std::setprecision(2)
         << "angle: " << screen.GetRotationAngle() * 180.0 / math::pi;
     content.assign(out.str());
     return true;
   });
 
-  renderer->AddShapeRenderer(WIDGET_DEBUG_INFO, debugLabels.Draw(textures));
+  renderer->AddShapeRenderer(WIDGET_DEBUG_INFO, debugLabels.Draw(context, textures));
 
   // Flush gui geometry.
   context->Flush();
@@ -335,12 +336,13 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::GraphicsCon
 }
 #endif
 
-m2::PointF LayerCacher::CacheCompass(Position const & position, ref_ptr<LayerRenderer> renderer,
+m2::PointF LayerCacher::CacheCompass(ref_ptr<dp::GraphicsContext> context,
+                                     Position const & position, ref_ptr<LayerRenderer> renderer,
                                      ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF compassSize;
   Compass compass = Compass(position);
-  drape_ptr<ShapeRenderer> shape = compass.Draw(compassSize, textures,
+  drape_ptr<ShapeRenderer> shape = compass.Draw(context, compassSize, textures,
     std::bind(&DrapeGui::CallOnCompassTappedHandler, &DrapeGui::Instance()));
 
   renderer->AddShapeRenderer(WIDGET_COMPASS, std::move(shape));
@@ -348,23 +350,27 @@ m2::PointF LayerCacher::CacheCompass(Position const & position, ref_ptr<LayerRen
   return compassSize;
 }
 
-m2::PointF LayerCacher::CacheRuler(Position const & position, ref_ptr<LayerRenderer> renderer,
+m2::PointF LayerCacher::CacheRuler(ref_ptr<dp::GraphicsContext> context, Position const & position,
+                                   ref_ptr<LayerRenderer> renderer,
                                    ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF rulerSize;
-  renderer->AddShapeRenderer(WIDGET_RULER, Ruler(position).Draw(rulerSize, textures));
+  renderer->AddShapeRenderer(WIDGET_RULER, Ruler(position).Draw(context, rulerSize, textures));
   return rulerSize;
 }
 
-m2::PointF LayerCacher::CacheCopyright(Position const & position, ref_ptr<LayerRenderer> renderer,
+m2::PointF LayerCacher::CacheCopyright(ref_ptr<dp::GraphicsContext> context,
+                                       Position const & position, ref_ptr<LayerRenderer> renderer,
                                        ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF size;
-  renderer->AddShapeRenderer(WIDGET_COPYRIGHT, CopyrightLabel(position).Draw(size, textures));
+  renderer->AddShapeRenderer(WIDGET_COPYRIGHT, CopyrightLabel(position).Draw(context, size, textures));
   return size;
 }
 
-m2::PointF LayerCacher::CacheScaleFpsLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
+m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
+                                           Position const & position,
+                                           ref_ptr<LayerRenderer> renderer,
                                            ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
@@ -379,18 +385,19 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(Position const & position, ref_ptr<La
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
-  m2::PointF size = MutableLabelDrawer::Draw(params, textures,
+  m2::PointF size = MutableLabelDrawer::Draw(context, params, textures,
     std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
   renderer->AddShapeRenderer(WIDGET_SCALE_FPS_LABEL, std::move(scaleRenderer));
   return size;
 }
 
-m2::PointF LayerCacher::CacheWatermark(Position const & position, ref_ptr<LayerRenderer> renderer,
+m2::PointF LayerCacher::CacheWatermark(ref_ptr<dp::GraphicsContext> context,
+                                       Position const & position, ref_ptr<LayerRenderer> renderer,
                                        ref_ptr<dp::TextureManager> textures)
 {
   m2::PointF size;
-  renderer->AddShapeRenderer(WIDGET_WATERMARK, Watermark(position).Draw(size, textures));
+  renderer->AddShapeRenderer(WIDGET_WATERMARK, Watermark(position).Draw(context, size, textures));
   return size;
 }
 }  // namespace gui

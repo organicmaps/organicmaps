@@ -482,7 +482,8 @@ void RouteShape::PrepareMarkersGeometry(std::vector<SubrouteMarker> const & mark
   }
 }
 
-void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
+void RouteShape::CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
+                                  ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                   std::vector<ArrowBorders> const & borders, double baseDepthIndex,
                                   SubrouteArrowsData & routeArrowsData)
 {
@@ -505,13 +506,16 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
                          depth, geometry, joinsGeometry);
   }
 
-  BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
+  BatchGeometry(context, state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
                 AV::GetBindingInfo(), routeArrowsData.m_renderProperty);
 }
 
-drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute, size_t styleIndex,
-                                                   int recacheId, ref_ptr<dp::TextureManager> textures)
+drape_ptr<df::SubrouteData> RouteShape::CacheRoute(ref_ptr<dp::GraphicsContext> context,
+                                                   dp::DrapeID subrouteId,
+                                                   SubrouteConstPtr subroute, size_t styleIndex,
+                                                   int recacheId,
+                                                   ref_ptr<dp::TextureManager> textures)
 {
   size_t startIndex;
   size_t endIndex;
@@ -570,15 +574,17 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
                                  gpu::Program::RouteDash : gpu::Program::Route, DepthLayer::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
-  BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
+  BatchGeometry(context, state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
                 make_ref(joinsGeometry.data()), static_cast<uint32_t>(joinsGeometry.size()),
                 RV::GetBindingInfo(), subrouteData->m_renderProperty);
 
   return subrouteData;
 }
 
-drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(dp::DrapeID subrouteId,
-                                                            SubrouteConstPtr subroute, int recacheId,
+drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(ref_ptr<dp::GraphicsContext> context,
+                                                            dp::DrapeID subrouteId,
+                                                            SubrouteConstPtr subroute,
+                                                            int recacheId,
                                                             ref_ptr<dp::TextureManager> textures)
 {
   if (subroute->m_markers.empty())
@@ -602,8 +608,8 @@ drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(dp::DrapeID subroute
   {
     uint32_t const kBatchSize = 200;
     dp::Batcher batcher(kBatchSize, kBatchSize);
-    dp::SessionGuard guard(batcher, [&markersData](dp::RenderState const & state,
-                                                   drape_ptr<dp::RenderBucket> &&b)
+    dp::SessionGuard guard(context, batcher, [&markersData](dp::RenderState const & state,
+                                                            drape_ptr<dp::RenderBucket> &&b)
     {
       markersData->m_renderProperty.m_buckets.push_back(std::move(b));
       markersData->m_renderProperty.m_state = state;
@@ -611,13 +617,14 @@ drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(dp::DrapeID subroute
 
     dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
     provider.InitStream(0 /* stream index */, MV::GetBindingInfo(), geometry.data());
-    batcher.InsertTriangleList(state, make_ref(&provider));
+    batcher.InsertTriangleList(context, state, make_ref(&provider));
   }
 
   return markersData;
 }
 
-void RouteShape::BatchGeometry(dp::RenderState const & state, ref_ptr<void> geometry, uint32_t geomSize,
+void RouteShape::BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderState const & state,
+                               ref_ptr<void> geometry, uint32_t geomSize,
                                ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
                                dp::BindingInfo const & bindingInfo, RouteRenderProperty & property)
 {
@@ -627,7 +634,8 @@ void RouteShape::BatchGeometry(dp::RenderState const & state, ref_ptr<void> geom
 
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
-  dp::SessionGuard guard(batcher, [&property](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+  dp::SessionGuard guard(context, batcher, [&property](dp::RenderState const & state,
+                                                       drape_ptr<dp::RenderBucket> && b)
   {
     property.m_buckets.push_back(std::move(b));
     property.m_state = state;
@@ -637,14 +645,14 @@ void RouteShape::BatchGeometry(dp::RenderState const & state, ref_ptr<void> geom
   {
     dp::AttributeProvider provider(1 /* stream count */, geomSize);
     provider.InitStream(0 /* stream index */, bindingInfo, geometry);
-    batcher.InsertListOfStrip(state, make_ref(&provider), 4);
+    batcher.InsertListOfStrip(context, state, make_ref(&provider), 4);
   }
 
   if (joinsGeomSize != 0)
   {
     dp::AttributeProvider joinsProvider(1 /* stream count */, joinsGeomSize);
     joinsProvider.InitStream(0 /* stream index */, bindingInfo, joinsGeometry);
-    batcher.InsertTriangleList(state, make_ref(&joinsProvider));
+    batcher.InsertTriangleList(context, state, make_ref(&joinsProvider));
   }
 }
 }  // namespace df

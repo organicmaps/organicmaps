@@ -3,7 +3,7 @@
 #include "drape/attribute_buffer_mutator.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/data_buffer.hpp"
-#include "drape/gl_gpu_program.hpp"
+#include "drape/gpu_program.hpp"
 #include "drape/index_buffer.hpp"
 #include "drape/index_buffer_mutator.hpp"
 #include "drape/pointers.hpp"
@@ -22,22 +22,35 @@ struct IndicesRange
   bool IsValid() const { return m_idxCount != 0; }
 };
 
+using BuffersMap = std::map<BindingInfo, drape_ptr<DataBuffer>>;
+
+class VertexArrayBufferImpl
+{
+public:
+  virtual ~VertexArrayBufferImpl() = default;
+  virtual bool Build(ref_ptr<GpuProgram> program) = 0;
+  virtual bool Bind() = 0;
+  virtual void Unbind() = 0;
+  virtual void BindBuffers(BuffersMap const & buffers) const = 0;
+  virtual void RenderRange(ref_ptr<GraphicsContext> context,
+                           bool drawAsLine, IndicesRange const & range) = 0;
+};
+
 class VertexArrayBuffer
 {
-  using BuffersMap = std::map<BindingInfo, drape_ptr<DataBuffer>>;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
 
   // This method must be called on a reading thread, before VAO will be transferred to the render thread.
-  void Preflush();
+  void Preflush(ref_ptr<GraphicsContext> context);
 
   // OES_vertex_array_object create OpenGL resource that belong only one GL context (which was
   // created by). By this reason Build/Bind and Render must be called only on FrontendRenderer
   // thread.
-  void Render(bool drawAsLine);
-  void RenderRange(bool drawAsLine, IndicesRange const & range);
-  void Build(ref_ptr<GpuProgram> program);
+  void Render(ref_ptr<GraphicsContext> context, bool drawAsLine);
+  void RenderRange(ref_ptr<GraphicsContext> context, bool drawAsLine, IndicesRange const & range);
+  void Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program);
 
   uint32_t GetAvailableVertexCount() const;
   uint32_t GetAvailableIndexCount() const;
@@ -48,7 +61,8 @@ public:
   void UploadData(BindingInfo const & bindingInfo, void const * data, uint32_t count);
   void UploadIndexes(void const * data, uint32_t count);
 
-  void ApplyMutation(ref_ptr<IndexBufferMutator> indexMutator,
+  void ApplyMutation(ref_ptr<GraphicsContext> context,
+                     ref_ptr<IndexBufferMutator> indexMutator,
                      ref_ptr<AttributeBufferMutator> attrMutator);
 
   void ResetChangingTracking() { m_isChanged = false; }
@@ -69,19 +83,18 @@ private:
 
   ref_ptr<DataBufferBase> GetIndexBuffer() const;
 
-  void PreflushImpl();
+  void PreflushImpl(ref_ptr<GraphicsContext> context);
 
-  int m_VAO;
+  uint32_t const m_dataBufferSize;
+
+  drape_ptr<VertexArrayBufferImpl> m_impl;
   BuffersMap m_staticBuffers;
   BuffersMap m_dynamicBuffers;
 
   drape_ptr<IndexBuffer> m_indexBuffer;
-  uint32_t m_dataBufferSize;
 
-  ref_ptr<GLGpuProgram> m_program;
-
-  bool m_isPreflushed;
-  bool m_moveToGpuOnBuild;
-  bool m_isChanged;
+  bool m_isPreflushed = false;
+  bool m_moveToGpuOnBuild = false;
+  bool m_isChanged = false;
 };
 }  // namespace dp

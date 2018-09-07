@@ -55,7 +55,7 @@ dp::BindingInfo GetBindingInfo()
 }
 }  // namespace
 
-SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
+SelectionShape::SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
   , m_positionZ(0.0)
   , m_animation(false, 0.25)
@@ -89,7 +89,8 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
-    dp::SessionGuard guard(batcher, [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(context, batcher, [this](dp::RenderState const & state,
+                                                    drape_ptr<dp::RenderBucket> && b)
     {
       drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
@@ -99,7 +100,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
     dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
     provider.InitStream(0 /* stream index */, GetBindingInfo(), make_ref(buffer.data()));
 
-    batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
+    batcher.InsertTriangleList(context, state, make_ref(&provider), nullptr);
   }
 
   m_radius = 15.0f * VisualParams::Instance().GetVisualScale();

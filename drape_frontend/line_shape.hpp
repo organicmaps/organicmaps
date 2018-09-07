@@ -38,7 +38,8 @@ public:
   LineShape(m2::SharedSpline const & spline, LineViewParams const & params);
 
   void Prepare(ref_ptr<dp::TextureManager> textures) const override;
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
 
 private:
   template <typename TBuilder>

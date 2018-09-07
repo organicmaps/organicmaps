@@ -76,7 +76,8 @@ void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, std::string cons
   ++m_labelsCount;
 }
 
-drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::TextureManager> tex)
+drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::GraphicsContext> context,
+                                               ref_ptr<dp::TextureManager> tex)
 {
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
 
@@ -85,8 +86,8 @@ drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::TextureManager> tex)
   for (auto & params : m_labelsParams)
   {
     params.m_pivot.y = pos.y;
-    m2::PointF textSize = MutableLabelDrawer::Draw(
-      params, tex, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+    m2::PointF textSize = MutableLabelDrawer::Draw(context, params, tex,
+      std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
     pos.y += 2 * textSize.y;
   }
 

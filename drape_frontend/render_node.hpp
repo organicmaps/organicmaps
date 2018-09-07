@@ -19,29 +19,31 @@ public:
   {}
 
   template <typename ParamsType>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params,
-              dp::IndicesRange const & range)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+              ParamsType const & params, dp::IndicesRange const & range)
   {
     Apply(context, mng, params);
-    m_buffer->RenderRange(m_state.GetDrawAsLine(), range);
+    m_buffer->RenderRange(context, m_state.GetDrawAsLine(), range);
   }
 
   template <typename ParamsType>
-  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
+  void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+              ParamsType const & params)
   {
     Apply(context, mng, params);
-    m_buffer->Render(m_state.GetDrawAsLine());
+    m_buffer->Render(context, m_state.GetDrawAsLine());
   }
 
 private:
   template <typename ParamsType>
-  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ParamsType const & params)
+  void Apply(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+             ParamsType const & params)
   {
     auto prg = mng->GetProgram(m_state.GetProgram<gpu::Program>());
     prg->Bind();
     if (!m_isBuilt)
     {
-      m_buffer->Build(prg);
+      m_buffer->Build(context, prg);
       m_isBuilt = true;
     }
 

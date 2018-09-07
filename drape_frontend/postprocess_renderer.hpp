@@ -43,7 +43,7 @@ public:
   ~PostprocessRenderer();
 
   void Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback);
-  void ClearGLDependentResources();
+  void ClearContextDependentResources();
   void Resize(ref_ptr<dp::GraphicsContext> context, uint32_t width, uint32_t height);
   void SetStaticTextures(drape_ptr<PostprocessStaticTextures> && textures);
 

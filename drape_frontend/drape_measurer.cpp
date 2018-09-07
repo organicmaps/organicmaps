@@ -1,8 +1,7 @@
-#include "drape_measurer.hpp"
+#include "drape_frontend/drape_measurer.hpp"
 
 namespace df
 {
-
 DrapeMeasurer & DrapeMeasurer::Instance()
 {
   static DrapeMeasurer s_inst;
@@ -33,7 +32,7 @@ void DrapeMeasurer::StartBenchmark()
 
 #ifdef TILES_STATISTIC
   {
-    lock_guard<mutex> lock(m_tilesMutex);
+    std::lock_guard<std::mutex> lock(m_tilesMutex);
     m_tilesReadInfo.clear();
   }
 #endif
@@ -232,7 +231,7 @@ void DrapeMeasurer::StartTileReading()
   threads::ThreadID tid = threads::GetCurrentThreadID();
   std::shared_ptr<TileReadInfo> tileInfo;
   {
-    lock_guard<mutex> lock(m_tilesMutex);
+    std::lock_guard<std::mutex> lock(m_tilesMutex);
     auto const it = m_tilesReadInfo.find(tid);
     if (it != m_tilesReadInfo.end())
     {
@@ -259,7 +258,7 @@ void DrapeMeasurer::EndTileReading()
   threads::ThreadID tid = threads::GetCurrentThreadID();
   std::shared_ptr<TileReadInfo> tileInfo;
   {
-    lock_guard<mutex> lock(m_tilesMutex);
+    std::lock_guard<std::mutex> lock(m_tilesMutex);
     auto const it = m_tilesReadInfo.find(tid);
     if (it != m_tilesReadInfo.end())
       tileInfo = it->second;
@@ -277,7 +276,7 @@ DrapeMeasurer::TileStatistic DrapeMeasurer::GetTileStatistic()
   using namespace std::chrono;
   TileStatistic statistic;
   {
-    lock_guard<mutex> lock(m_tilesMutex);
+    std::lock_guard<std::mutex> lock(m_tilesMutex);
     for (auto const & it : m_tilesReadInfo)
     {
       statistic.m_tileReadTimeInMs +=
@@ -415,5 +414,4 @@ DrapeMeasurer::DrapeStatistic DrapeMeasurer::GetDrapeStatistic()
 #endif
   return statistic;
 }
-
-} // namespace df
+}  // namespace df

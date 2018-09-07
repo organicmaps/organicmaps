@@ -72,7 +72,8 @@ uint64_t PathTextShape::GetOverlayPriority(uint32_t textIndex, size_t textLength
   return priority;
 }
 
-void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
+void PathTextShape::DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context,
+                                      ref_ptr<dp::TextureManager> textures,
                                       ref_ptr<dp::Batcher> batcher) const
 {
   auto const layout = m_context->GetLayout();
@@ -107,12 +108,13 @@ void PathTextShape::DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
                         make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(),
                         make_ref(dynBuffer.data()));
-    batcher->InsertListOfStrip(state, make_ref(&provider),
+    batcher->InsertListOfStrip(context, state, make_ref(&provider),
                                CreateOverlayHandle(textIndex, textures), 4);
   }
 }
 
-void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
+void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
+                                         ref_ptr<dp::TextureManager> textures,
                                          ref_ptr<dp::Batcher> batcher) const
 {
   auto const layout = m_context->GetLayout();
@@ -145,7 +147,7 @@ void PathTextShape::DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
                         make_ref(staticBuffer.data()));
     provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(),
                         make_ref(dynBuffer.data()));
-    batcher->InsertListOfStrip(state, make_ref(&provider),
+    batcher->InsertListOfStrip(context, state, make_ref(&provider),
                                CreateOverlayHandle(textIndex, textures), 4);
   }
 }
@@ -162,14 +164,15 @@ drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textInd
                                         textures, m_params.m_minVisibleScale, true /* isBillboard */);
 }
 
-void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void PathTextShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                         ref_ptr<dp::TextureManager> textures) const
 {
   if (m_context->GetLayout() == nullptr || m_context->GetOffsets().empty())
     return;
 
   if (m_params.m_textFont.m_outlineColor == dp::Color::Transparent())
-    DrawPathTextPlain(textures, batcher);
+    DrawPathTextPlain(context, textures, batcher);
   else
-    DrawPathTextOutlined(textures, batcher);
+    DrawPathTextOutlined(context, textures, batcher);
 }
 }  // namespace df

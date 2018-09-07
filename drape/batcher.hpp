@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/attribute_provider.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
@@ -28,50 +29,62 @@ public:
   Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize);
   ~Batcher();
 
-  void InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleList(RenderState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState const & state,
+                          ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleList(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                  ref_ptr<AttributeProvider> params,
                                   drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                           ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                   ref_ptr<AttributeProvider> params,
                                    drape_ptr<OverlayHandle> && handle);
 
-  void InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertTriangleFan(RenderState const & state, ref_ptr<AttributeProvider> params,
+  void InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
+                         ref_ptr<AttributeProvider> params);
+  IndicesRange InsertTriangleFan(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                 ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle);
 
-  void InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params, uint8_t vertexStride);
-  IndicesRange InsertListOfStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
+  void InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                         ref_ptr<AttributeProvider> params, uint8_t vertexStride);
+  IndicesRange InsertListOfStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                 ref_ptr<AttributeProvider> params,
                                  drape_ptr<OverlayHandle> && handle, uint8_t vertexStride);
 
-  void InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params);
-  IndicesRange InsertLineStrip(RenderState const & state, ref_ptr<AttributeProvider> params,
+  void InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                       ref_ptr<AttributeProvider> params);
+  IndicesRange InsertLineStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
+                               ref_ptr<AttributeProvider> params,
                                drape_ptr<OverlayHandle> && handle);
 
-  void InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
-                     vector<int> const & indices);
-  IndicesRange InsertLineRaw(RenderState const & state, ref_ptr<AttributeProvider> params,
-                             vector<int> const & indices, drape_ptr<OverlayHandle> && handle);
+  void InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
+                     ref_ptr<AttributeProvider> params, vector<int> const & indices);
+  IndicesRange InsertLineRaw(ref_ptr<GraphicsContext> context, RenderState const & state,
+                             ref_ptr<AttributeProvider> params, vector<int> const & indices,
+                             drape_ptr<OverlayHandle> && handle);
 
   using TFlushFn = std::function<void (RenderState const &, drape_ptr<RenderBucket> &&)>;
   void StartSession(TFlushFn const & flusher);
-  void EndSession();
+  void EndSession(ref_ptr<GraphicsContext> context);
   void ResetSession();
 
   void SetFeatureMinZoom(int minZoom);
 
 private:
-  template<typename TBatcher, typename ... TArgs>
-  IndicesRange InsertPrimitives(RenderState const & state, ref_ptr<AttributeProvider> params,
+  template <typename TBatcher, typename... TArgs>
+  IndicesRange InsertPrimitives(ref_ptr<GraphicsContext> context, RenderState const & state,
+                                ref_ptr<AttributeProvider> params,
                                 drape_ptr<OverlayHandle> && transferHandle, uint8_t vertexStride,
-                                TArgs ... batcherArgs);
+                                TArgs... batcherArgs);
 
   class CallbacksWrapper;
-  void ChangeBuffer(ref_ptr<CallbacksWrapper> wrapper);
+  void ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWrapper> wrapper);
   ref_ptr<RenderBucket> GetBucket(RenderState const & state);
 
-  void FinalizeBucket(RenderState const & state);
-  void Flush();
+  void FinalizeBucket(ref_ptr<GraphicsContext> context, RenderState const & state);
+  void Flush(ref_ptr<GraphicsContext> context);
 
   TFlushFn m_flushInterface;
 
@@ -102,11 +115,13 @@ private:
 class SessionGuard
 {
 public:
-  SessionGuard(Batcher & batcher, Batcher::TFlushFn const & flusher);
+  SessionGuard(ref_ptr<GraphicsContext> context, Batcher & batcher,
+               Batcher::TFlushFn const & flusher);
   ~SessionGuard();
 
-  DISALLOW_COPY_AND_MOVE(SessionGuard);
 private:
+  ref_ptr<GraphicsContext> m_context;
   Batcher & m_batcher;
+  DISALLOW_COPY_AND_MOVE(SessionGuard);
 };
 }  // namespace dp

@@ -9,6 +9,7 @@ class ChoosePositionMark : public Shape
 public:
   explicit ChoosePositionMark(gui::Position const & position) : Shape(position) {}
 
-  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::TextureManager> tex) const;
+  drape_ptr<ShapeRenderer> Draw(ref_ptr<dp::GraphicsContext> context,
+                                ref_ptr<dp::TextureManager> tex) const;
 };
 }  // namespace gui

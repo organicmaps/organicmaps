@@ -239,9 +239,9 @@ uint32_t UniversalBatch::GetAvailableIndexCount() const
   return m_callbacks.GetAvailableIndexCount();
 }
 
-void UniversalBatch::ChangeBuffer() const
+void UniversalBatch::ChangeBuffer(ref_ptr<GraphicsContext> context) const
 {
-  return m_callbacks.ChangeBuffer();
+  return m_callbacks.ChangeBuffer(context);
 }
 
 uint8_t UniversalBatch::GetVertexStride() const
@@ -261,12 +261,13 @@ TriangleListBatch::TriangleListBatch(BatchCallbacks & callbacks)
   : TBase(callbacks, 3 /* minVerticesCount */, 3 /* minIndicesCount */)
 {}
 
-void TriangleListBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void TriangleListBatch::BatchData(ref_ptr<GraphicsContext> context,
+                                  ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
     uint32_t avVertex = GetAvailableVertexCount();
     uint32_t avIndex  = GetAvailableIndexCount();
@@ -281,7 +282,7 @@ void TriangleListBatch::BatchData(ref_ptr<AttributeProvider> streams)
     }
     else if (!IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount))
     {
-      ChangeBuffer();
+      ChangeBuffer(context);
       avVertex = GetAvailableVertexCount();
       avIndex  = GetAvailableIndexCount();
       ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount), ());
@@ -302,12 +303,13 @@ LineStripBatch::LineStripBatch(BatchCallbacks & callbacks)
   : TBase(callbacks, 2 /* minVerticesCount */, 2 /* minIndicesCount */)
 {}
 
-void LineStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void LineStripBatch::BatchData(ref_ptr<GraphicsContext> context,
+                               ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
     uint32_t avVertex = GetAvailableVertexCount();
     uint32_t avIndex = GetAvailableIndexCount();
@@ -317,7 +319,7 @@ void LineStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
 
     if (!IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount))
     {
-      ChangeBuffer();
+      ChangeBuffer(context);
       avVertex = GetAvailableVertexCount();
       avIndex = GetAvailableIndexCount();
       ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount), ());
@@ -338,12 +340,12 @@ LineRawBatch::LineRawBatch(BatchCallbacks & callbacks, std::vector<int> const & 
   , m_indices(indices)
 {}
 
-void LineRawBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void LineRawBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
     uint32_t avVertex = GetAvailableVertexCount();
     uint32_t avIndex = GetAvailableIndexCount();
@@ -353,7 +355,7 @@ void LineRawBatch::BatchData(ref_ptr<AttributeProvider> streams)
 
     if (!IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount))
     {
-      ChangeBuffer();
+      ChangeBuffer(context);
       avVertex = GetAvailableVertexCount();
       avIndex = GetAvailableIndexCount();
       ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, indexCount), ());
@@ -375,7 +377,7 @@ FanStripHelper::FanStripHelper(BatchCallbacks & callbacks)
   , m_isFullUploaded(false)
 {}
 
-uint32_t FanStripHelper::BatchIndexes(uint32_t vertexCount)
+uint32_t FanStripHelper::BatchIndexes(ref_ptr<GraphicsContext> context, uint32_t vertexCount)
 {
   uint32_t avVertex = GetAvailableVertexCount();
   uint32_t avIndex  = GetAvailableIndexCount();
@@ -386,7 +388,7 @@ uint32_t FanStripHelper::BatchIndexes(uint32_t vertexCount)
 
   if (!IsFullUploaded() && !CanDevideStreams())
   {
-    ChangeBuffer();
+    ChangeBuffer(context);
     avVertex = GetAvailableVertexCount();
     avIndex  = GetAvailableIndexCount();
     CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
@@ -457,14 +459,15 @@ TriangleStripBatch::TriangleStripBatch(BatchCallbacks & callbacks)
  : TBase(callbacks)
 {}
 
-void TriangleStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void TriangleStripBatch::BatchData(ref_ptr<GraphicsContext> context,
+                                   ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
-    uint32_t const batchVertexCount = BatchIndexes(streams->GetVertexCount());
+    uint32_t const batchVertexCount = BatchIndexes(context, streams->GetVertexCount());
     FlushData(streams, batchVertexCount);
 
     uint32_t const advanceCount = IsFullUploaded() ? batchVertexCount : (batchVertexCount - 2);
@@ -498,16 +501,17 @@ TriangleFanBatch::TriangleFanBatch(BatchCallbacks & callbacks) : TBase(callbacks
  * second part of data. But to avoid 2 separate call of glBufferSubData we at first do a copy of
  * data from params to cpuBuffer and than copy continuous block of memory from cpuBuffer
  */
-void TriangleFanBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void TriangleFanBatch::BatchData(ref_ptr<GraphicsContext> context,
+                                 ref_ptr<AttributeProvider> streams)
 {
   std::vector<CPUBuffer> cpuBuffers;
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
     uint32_t vertexCount = streams->GetVertexCount();
-    uint32_t batchVertexCount = BatchIndexes(vertexCount);
+    uint32_t batchVertexCount = BatchIndexes(context, vertexCount);
 
     if (!cpuBuffers.empty())
     {
@@ -588,14 +592,15 @@ TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks & callbacks)
  : TBase(callbacks)
 {}
 
-void TriangleListOfStripBatch::BatchData(ref_ptr<AttributeProvider> streams)
+void TriangleListOfStripBatch::BatchData(ref_ptr<GraphicsContext> context,
+                                         ref_ptr<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
     if (IsBufferFilled(GetAvailableVertexCount(), GetAvailableIndexCount()))
-      ChangeBuffer();
+      ChangeBuffer(context);
 
-    uint32_t const batchVertexCount = BatchIndexes(streams->GetVertexCount());
+    uint32_t const batchVertexCount = BatchIndexes(context, streams->GetVertexCount());
     FlushData(streams, batchVertexCount);
     streams->Advance(batchVertexCount);
   }

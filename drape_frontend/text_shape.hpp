@@ -25,23 +25,29 @@ public:
             TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
             m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex);
 
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
   // Only for testing purposes!
   void DisableDisplacing() { m_disableDisplacing = true; }
 
 private:
-  void DrawSubString(StraightTextLayout & layout, dp::FontDecl const & font,
-                     glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                     ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
+  void DrawSubString(ref_ptr<dp::GraphicsContext> context, StraightTextLayout & layout,
+                     dp::FontDecl const & font, glsl::vec2 const & baseOffset,
+                     ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
+                     bool isPrimary, bool isOptional) const;
 
-  void DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,
-                          glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                          ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
-  void DrawSubStringOutlined(StraightTextLayout const & layout, dp::FontDecl const & font,
+  void DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context, StraightTextLayout const & layout,
+                          dp::FontDecl const & font, glsl::vec2 const & baseOffset,
+                          ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures,
+                          bool isPrimary, bool isOptional) const;
+
+  void DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
+                             StraightTextLayout const & layout, dp::FontDecl const & font,
                              glsl::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
-                             ref_ptr<dp::TextureManager> textures, bool isPrimary, bool isOptional) const;
+                             ref_ptr<dp::TextureManager> textures, bool isPrimary,
+                             bool isOptional) const;
 
   uint64_t GetOverlayPriority() const;
 

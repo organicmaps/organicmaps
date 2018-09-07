@@ -38,7 +38,7 @@ bool TransitSchemeRenderer::HasRenderData() const
     !m_textRenderData.empty() || !m_colorSymbolRenderData.empty();
 }
 
-void TransitSchemeRenderer::ClearGLDependentResources(ref_ptr<dp::OverlayTree> tree)
+void TransitSchemeRenderer::ClearContextDependentResources(ref_ptr<dp::OverlayTree> tree)
 {
   if (tree)
   {
@@ -85,30 +85,34 @@ void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, 
                    renderData.end());
 }
 
-void TransitSchemeRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
+                                          ref_ptr<gpu::ProgramManager> mng,
+                                          ref_ptr<dp::OverlayTree> tree,
                                           TransitRenderData && renderData)
 {
   switch (renderData.m_type)
   {
     case TransitRenderData::Type::LinesCaps:
-      PrepareRenderData(mng, tree, m_linesCapsRenderData, std::move(renderData));
+      PrepareRenderData(context, mng, tree, m_linesCapsRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Lines:
-      PrepareRenderData(mng, tree, m_linesRenderData, std::move(renderData));
+      PrepareRenderData(context, mng, tree, m_linesRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Markers:
-      PrepareRenderData(mng, tree, m_markersRenderData, std::move(renderData));
+      PrepareRenderData(context, mng, tree, m_markersRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Text:
-      PrepareRenderData(mng, tree, m_textRenderData, std::move(renderData));
+      PrepareRenderData(context, mng, tree, m_textRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Stubs:
-      PrepareRenderData(mng, tree, m_colorSymbolRenderData, std::move(renderData));
+      PrepareRenderData(context, mng, tree, m_colorSymbolRenderData, std::move(renderData));
       break;
   }
 }
 
-void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GraphicsContext> context,
+                                              ref_ptr<gpu::ProgramManager> mng,
+                                              ref_ptr<dp::OverlayTree> tree,
                                               std::vector<TransitRenderData> & currentRenderData,
                                               TransitRenderData && newRenderData)
 {
@@ -124,14 +128,17 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, 
   // Add new render data.
   auto program = mng->GetProgram(newRenderData.m_state.GetProgram<gpu::Program>());
   program->Bind();
-  newRenderData.m_bucket->GetBuffer()->Build(program);
+  newRenderData.m_bucket->GetBuffer()->Build(context, program);
 
   currentRenderData.emplace_back(std::move(newRenderData));
 }
 
-void TransitSchemeRenderer::RenderTransit(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                          ScreenBase const & screen, ref_ptr<PostprocessRenderer> postprocessRenderer,
-                                          FrameValues const & frameValues, ref_ptr<DebugRectRenderer> debugRectRenderer)
+void TransitSchemeRenderer::RenderTransit(ref_ptr<dp::GraphicsContext> context,
+                                          ref_ptr<gpu::ProgramManager> mng,
+                                          ScreenBase const & screen,
+                                          ref_ptr<PostprocessRenderer> postprocessRenderer,
+                                          FrameValues const & frameValues,
+                                          ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   auto const zoomLevel = GetDrawTileScale(screen);
   if (!IsSchemeVisible(zoomLevel) || !HasRenderData())
@@ -168,15 +175,17 @@ void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, Scree
   }
 }
 
-void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData)
+void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree,
+                                           std::vector<TransitRenderData> & renderData)
 {
   for (auto & data : renderData)
     data.m_bucket->RemoveOverlayHandles(tree);
 }
 
-void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                            ScreenBase const & screen, FrameValues const & frameValues,
-                                            float pixelHalfWidth)
+void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context,
+                                            ref_ptr<gpu::ProgramManager> mng,
+                                            ScreenBase const & screen,
+                                            FrameValues const & frameValues, float pixelHalfWidth)
 {
   context->Clear(dp::ClearBits::DepthBit);
   for (auto & renderData : m_linesCapsRenderData)
@@ -193,13 +202,13 @@ void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context
     params.m_maxRadius = kTransitLineHalfWidth;
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
   }
 }
 
-void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                        ScreenBase const & screen, FrameValues const & frameValues,
-                                        float pixelHalfWidth)
+void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context,
+                                        ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                                        FrameValues const & frameValues, float pixelHalfWidth)
 {
   for (auto & renderData : m_linesRenderData)
   {
@@ -214,13 +223,14 @@ void TransitSchemeRenderer::RenderLines(ref_ptr<dp::GraphicsContext> context, re
     params.m_lineHalfWidth = pixelHalfWidth;
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
   }
 }
 
-void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                          ScreenBase const & screen, FrameValues const & frameValues,
-                                          float pixelHalfWidth)
+void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context,
+                                          ref_ptr<gpu::ProgramManager> mng,
+                                          ScreenBase const & screen,
+                                          FrameValues const & frameValues, float pixelHalfWidth)
 {
   context->Clear(dp::ClearBits::DepthBit);
   for (auto & renderData : m_markersRenderData)
@@ -238,12 +248,13 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context, 
                                  pixelHalfWidth);
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
   }
 }
 
-void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                       ScreenBase const & screen, FrameValues const & frameValues,
+void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context,
+                                       ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                                       FrameValues const & frameValues,
                                        ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
@@ -261,20 +272,21 @@ void TransitSchemeRenderer::RenderText(ref_ptr<dp::GraphicsContext> context, ref
     params.m_isOutlinePass = 1.0f;
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
 
     params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
     params.m_isOutlinePass = 0.0f;
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
 
     renderData.m_bucket->RenderDebug(context, screen, debugRectRenderer);
   }
 }
 
-void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                        ScreenBase const & screen, FrameValues const & frameValues,
+void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context,
+                                        ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                                        FrameValues const & frameValues,
                                         ref_ptr<DebugRectRenderer> debugRectRenderer)
 {
   for (auto & renderData : m_colorSymbolRenderData)
@@ -289,7 +301,7 @@ void TransitSchemeRenderer::RenderStubs(ref_ptr<dp::GraphicsContext> context, re
     params.m_modelView = glsl::make_mat4(mv.m_data);
     mng->GetParamsSetter()->Apply(context, program, params);
 
-    renderData.m_bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(context, false /* draw as line */);
 
     renderData.m_bucket->RenderDebug(context, screen, debugRectRenderer);
   }

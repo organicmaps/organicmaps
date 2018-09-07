@@ -91,7 +91,9 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 }
 }  // namespace
 
-void TrafficRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, TrafficRenderData && renderData)
+void TrafficRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
+                                    ref_ptr<gpu::ProgramManager> mng,
+                                    TrafficRenderData && renderData)
 {
   // Remove obsolete render data.
   TileKey const tileKey(renderData.m_tileKey);
@@ -107,7 +109,7 @@ void TrafficRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, TrafficRen
 
   auto program = mng->GetProgram(rd.m_state.GetProgram<gpu::Program>());
   program->Bind();
-  rd.m_bucket->GetBuffer()->Build(program);
+  rd.m_bucket->GetBuffer()->Build(context, program);
 
   std::sort(m_renderData.begin(), m_renderData.end());
 }
@@ -134,9 +136,9 @@ void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
   }), m_renderData.end());
 }
 
-void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                                    ScreenBase const & screen, int zoomLevel, float opacity,
-                                    FrameValues const & frameValues)
+void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context,
+                                    ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
+                                    int zoomLevel, float opacity, FrameValues const & frameValues)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
@@ -159,7 +161,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
       params.m_modelView = glsl::make_mat4(mv.m_data);
       params.m_opacity = opacity;
       mng->GetParamsSetter()->Apply(context, program, params);
-      renderData.m_bucket->Render(true /* draw as line */);
+      renderData.m_bucket->Render(context, true /* draw as line */);
     }
     else
     {
@@ -184,7 +186,7 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
                                              CalculateHalfWidth(screen, RoadClass::Class2, false /* left */));
         mng->GetParamsSetter()->Apply(context, programPtr, params);
 
-        renderData.m_bucket->Render(false /* draw as line */);
+        renderData.m_bucket->Render(context, false /* draw as line */);
         continue;
       }
 
@@ -236,12 +238,12 @@ void TrafficRenderer::RenderTraffic(ref_ptr<dp::GraphicsContext> context, ref_pt
                                           zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
       mng->GetParamsSetter()->Apply(context, programPtr, params);
 
-      renderData.m_bucket->Render(false /* draw as line */);
+      renderData.m_bucket->Render(context, false /* draw as line */);
     }
   }
 }
 
-void TrafficRenderer::ClearGLDependentResources()
+void TrafficRenderer::ClearContextDependentResources()
 {
   m_renderData.clear();
 }

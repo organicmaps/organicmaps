@@ -170,21 +170,23 @@ private:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> Ruler::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
+                                     ref_ptr<dp::TextureManager> tex) const
 {
   ShapeControl control;
   size = m2::PointF::Zero();
-  DrawRuler(size, control, tex, true);
-  DrawRuler(size, control, tex, false);
-  DrawText(size, control, tex, true);
-  DrawText(size, control, tex, false);
+  DrawRuler(context, size, control, tex, true);
+  DrawRuler(context, size, control, tex, false);
+  DrawText(context, size, control, tex, true);
+  DrawText(context, size, control, tex, false);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(std::move(control));
   return renderer;
 }
 
-void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
+                      ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                       bool isAppearing) const
 {
   buffer_vector<RulerVertex, 4> data;
@@ -222,14 +224,15 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
 
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-    dp::SessionGuard guard(batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertTriangleStrip(state, make_ref(&provider),
+    dp::SessionGuard guard(context, batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
+    batcher.InsertTriangleStrip(context, state, make_ref(&provider),
                                 make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler,
                                   m_position.m_anchor, m_position.m_pixelPivot, isAppearing));
   }
 }
 
-void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
+void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
+                     ShapeControl & control, ref_ptr<dp::TextureManager> tex,
                      bool isAppearing) const
 {
   std::string alphabet;
@@ -248,7 +251,7 @@ void Ruler::DrawText(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Text
                                            isAppearing, tex);
   };
 
-  m2::PointF textSize = MutableLabelDrawer::Draw(params, tex,
+  m2::PointF textSize = MutableLabelDrawer::Draw(context, params, tex,
     std::bind(&ShapeControl::AddShape, &control, _1, _2));
   size.y += (textSize.y + abs(helper.GetVerticalTextOffset()));
 }

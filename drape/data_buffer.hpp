@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/graphics_context.hpp"
 #include "drape/gpu_buffer.hpp"
 #include "drape/pointers.hpp"
 
@@ -31,7 +32,7 @@ public:
   DataBuffer(uint8_t elementSize, uint32_t capacity);
 
   ref_ptr<DataBufferBase> GetBuffer() const;
-  void MoveToGPU(GPUBuffer::Target target);
+  void MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target);
 
 private:
   drape_ptr<DataBufferBase> m_impl;

@@ -43,7 +43,8 @@ public:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> context,
+                                                  ref_ptr<dp::TextureManager> tex) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("cross_geoposition", region);
@@ -88,8 +89,8 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> te
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertTriangleStrip(state, make_ref(&provider), std::move(handle));
+  dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 
   return renderer;
 }

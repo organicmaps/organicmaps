@@ -11,7 +11,8 @@ class PathSymbolShape : public MapShape
 {
 public:
   PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params);
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
 
 private:
   PathSymbolViewParams m_params;

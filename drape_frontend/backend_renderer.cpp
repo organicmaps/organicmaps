@@ -92,8 +92,8 @@ unique_ptr<threads::IRoutine> BackendRenderer::CreateRoutine()
 
 void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui)
 {
-  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(context, initInfo, m_texMng);
+  CHECK(m_context != nullptr, ());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheWidgets(m_context, initInfo, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), needResetOldGui);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -101,8 +101,8 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
 #ifdef RENDER_DEBUG_INFO_LABELS
 void BackendRenderer::RecacheDebugLabels()
 {
-  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(context, m_texMng);
+  CHECK(m_context != nullptr, ());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_context, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -110,8 +110,8 @@ void BackendRenderer::RecacheDebugLabels()
 
 void BackendRenderer::RecacheChoosePositionMark()
 {
-  auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(context, m_texMng);
+  CHECK(m_context != nullptr, ());
+  drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheChoosePositionMark(m_context, m_texMng);
   drape_ptr<Message> outputMsg = make_unique_dp<GuiLayerRecachedMessage>(std::move(layerRenderer), false);
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(outputMsg), MessagePriority::Normal);
 }
@@ -187,17 +187,19 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::TileReadEnded:
     {
       ref_ptr<TileReadEndMessage> msg = message;
-      m_batchersPool->ReleaseBatcher(msg->GetKey());
+      CHECK(m_context != nullptr, ());
+      m_batchersPool->ReleaseBatcher(m_context, msg->GetKey());
       break;
     }
 
   case Message::Type::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
+      CHECK(m_context != nullptr, ());
       if (msg->NeedForceUpdateUserMarks())
       {
         for (auto const & tileKey : msg->GetTiles())
-          m_userMarkGenerator->GenerateUserMarksGeometry(tileKey, m_texMng);
+          m_userMarkGenerator->GenerateUserMarksGeometry(m_context, tileKey, m_texMng);
       }
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FinishTileReadMessage>(msg->MoveTiles(),
@@ -228,6 +230,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
+        CHECK(m_context != nullptr, ());
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(tileKey);
 #if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().StartShapesGeneration();
@@ -235,7 +238,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
         {
           batcher->SetFeatureMinZoom(shape->GetFeatureMinZoom());
-          shape->Draw(batcher, m_texMng);
+          shape->Draw(m_context, batcher, m_texMng);
         }
 #if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndShapesGeneration(static_cast<uint32_t>(msg->GetShapes().size()));
@@ -250,6 +253,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
+        CHECK(m_context != nullptr, ());
         CleanupOverlays(tileKey);
 
 #if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
@@ -257,10 +261,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 #endif
         OverlayBatcher batcher(tileKey);
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
-          batcher.Batch(shape, m_texMng);
+          batcher.Batch(m_context, shape, m_texMng);
 
         TOverlaysRenderData renderData;
-        batcher.Finish(renderData);
+        batcher.Finish(m_context, renderData);
         if (!renderData.empty())
         {
           m_overlays.reserve(m_overlays.size() + renderData.size());
@@ -317,8 +321,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::AddSubroute:
     {
       ref_ptr<AddSubrouteMessage> msg = message;
-      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-      m_routeBuilder->Build(context, msg->GetSubrouteId(), msg->GetSubroute(), m_texMng,
+      CHECK(m_context != nullptr, ());
+      m_routeBuilder->Build(m_context, msg->GetSubrouteId(), msg->GetSubroute(), m_texMng,
                             msg->GetRecacheId());
       break;
     }
@@ -326,8 +330,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::CacheSubrouteArrows:
     {
       ref_ptr<CacheSubrouteArrowsMessage> msg = message;
-      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-      m_routeBuilder->BuildArrows(context, msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
+      CHECK(m_context != nullptr, ());
+      m_routeBuilder->BuildArrows(m_context, msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
                                   msg->GetRecacheId());
       break;
     }
@@ -347,14 +351,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::SwitchMapStyle:
     {
-      m_texMng->OnSwitchMapStyle(make_ref(m_contextFactory->GetResourcesUploadContext()));
+      CHECK(m_context != nullptr, ());
+      m_texMng->OnSwitchMapStyle(m_context);
       RecacheMapShapes();
       RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
 #ifdef RENDER_DEBUG_INFO_LABELS
       RecacheDebugLabels();
 #endif
       m_trafficGenerator->InvalidateTexturesCache();
-      m_transitBuilder->RebuildSchemes(m_texMng);
+      m_transitBuilder->RebuildSchemes(m_context, m_texMng);
       break;
     }
 
@@ -363,8 +368,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<CacheCirclesPackMessage> msg = message;
       drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
-      auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-      CirclesPackShape::Draw(context, m_texMng, *data.get());
+      CHECK(m_context != nullptr, ());
+      CirclesPackShape::Draw(m_context, m_texMng, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<FlushCirclesPackMessage>(
                                   std::move(data), msg->GetDestination()),
@@ -414,8 +419,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       auto const & tileKey = msg->GetKey();
       if (m_requestedTiles->CheckTileKey(tileKey) && m_readManager->CheckTileKey(tileKey))
       {
-        auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
-        m_trafficGenerator->FlushSegmentsGeometry(context, tileKey, msg->GetSegments(), m_texMng);
+        CHECK(m_context != nullptr, ());
+        m_trafficGenerator->FlushSegmentsGeometry(m_context, tileKey, msg->GetSegments(), m_texMng);
       }
       break;
     }
@@ -458,13 +463,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::UpdateTransitScheme:
     {
       ref_ptr<UpdateTransitSchemeMessage> msg = message;
-      m_transitBuilder->UpdateSchemes(msg->GetTransitDisplayInfos(), m_texMng);
+      CHECK(m_context != nullptr, ());
+      m_transitBuilder->UpdateSchemes(m_context, msg->GetTransitDisplayInfos(), m_texMng);
       break;
     }
 
   case Message::Type::RegenerateTransitScheme:
     {
-      m_transitBuilder->RebuildSchemes(m_texMng);
+      CHECK(m_context != nullptr, ());
+      m_transitBuilder->RebuildSchemes(m_context, m_texMng);
       break;
     }
 
@@ -500,8 +507,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::Type::DrapeApiAddLines:
     {
       ref_ptr<DrapeApiAddLinesMessage> msg = message;
-      vector<drape_ptr<DrapeApiRenderProperty>> properties;
-      m_drapeApiBuilder->BuildLines(msg->GetLines(), m_texMng, properties);
+      CHECK(m_context != nullptr, ());
+      std::vector<drape_ptr<DrapeApiRenderProperty>> properties;
+      m_drapeApiBuilder->BuildLines(m_context, msg->GetLines(), m_texMng, properties);
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<DrapeApiFlushMessage>(std::move(properties)),
                                 MessagePriority::Normal);
@@ -595,19 +603,23 @@ void BackendRenderer::ReleaseResources()
   m_trafficGenerator.reset();
 
   m_texMng->Release();
+
+  // Here m_context can be nullptr, so call the method
+  // for the context from the factory.
   m_contextFactory->GetResourcesUploadContext()->DoneCurrent();
+  m_context = nullptr;
 }
 
 void BackendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
-  auto context = m_contextFactory->GetResourcesUploadContext();
-  m_contextFactory->WaitForInitialization(context);
-  context->MakeCurrent();
-  context->Init(m_apiVersion);
+  m_context = m_contextFactory->GetResourcesUploadContext();
+  m_contextFactory->WaitForInitialization(m_context.get());
+  m_context->MakeCurrent();
+  m_context->Init(m_apiVersion);
 
   m_readManager->Start();
-  InitGLDependentResource();
+  InitContextDependentResources();
 }
 
 void BackendRenderer::OnContextDestroy()
@@ -618,9 +630,13 @@ void BackendRenderer::OnContextDestroy()
   m_metalineManager->Stop();
   m_texMng->Release();
   m_overlays.clear();
-  m_trafficGenerator->ClearGLDependentResources();
+  m_trafficGenerator->ClearContextDependentResources();
 
-  m_contextFactory->GetResourcesUploadContext()->DoneCurrent();
+  // Here we have to erase weak pointer to the context, since it
+  // can be destroyed after this method.
+  CHECK(m_context != nullptr, ());
+  m_context->DoneCurrent();
+  m_context = nullptr;
 }
 
 BackendRenderer::Routine::Routine(BackendRenderer & renderer) : m_renderer(renderer) {}
@@ -629,10 +645,10 @@ void BackendRenderer::Routine::Do()
 {
   LOG(LINFO, ("Start routine."));
   m_renderer.OnContextCreate();
-  dp::GraphicsContext * context = m_renderer.m_contextFactory->GetResourcesUploadContext();
   while (!IsCancelled())
   {
-    if (context->Validate())
+    CHECK(m_renderer.m_context != nullptr, ());
+    if (m_renderer.m_context->Validate())
       m_renderer.ProcessSingleMessage();
     m_renderer.CheckRenderingEnabled();
   }
@@ -640,7 +656,7 @@ void BackendRenderer::Routine::Do()
   m_renderer.ReleaseResources();
 }
 
-void BackendRenderer::InitGLDependentResource()
+void BackendRenderer::InitContextDependentResources()
 {
   uint32_t constexpr kBatchSize = 5000;
   m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(kReadingThreadsCount,
@@ -665,7 +681,8 @@ void BackendRenderer::InitGLDependentResource()
   params.m_glyphMngParams.m_baseGlyphHeight = VisualParams::Instance().GetGlyphBaseSize();
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
-  m_texMng->Init(make_ref(m_contextFactory->GetResourcesUploadContext()), params);
+  CHECK(m_context != nullptr, ());
+  m_texMng->Init(m_context, params);
 
   // Send some textures to frontend renderer.
   drape_ptr<PostprocessStaticTextures> textures = make_unique_dp<PostprocessStaticTextures>();
@@ -682,16 +699,18 @@ void BackendRenderer::InitGLDependentResource()
 
 void BackendRenderer::RecacheMapShapes()
 {
-  auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_texMng),
-                                              make_unique_dp<SelectionShape>(m_texMng));
-  m_contextFactory->GetResourcesUploadContext()->Flush();
+  CHECK(m_context != nullptr, ());
+  auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_context, m_texMng),
+                                              make_unique_dp<SelectionShape>(m_context, m_texMng));
+  m_context->Flush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushGeometry(TileKey const & key, dp::RenderState const & state,
                                     drape_ptr<dp::RenderBucket> && buffer)
 {
-  m_contextFactory->GetResourcesUploadContext()->Flush();
+  CHECK(m_context != nullptr, ());
+  m_context->Flush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<FlushRenderBucketMessage>(key, state, std::move(buffer)),
                             MessagePriority::Normal);

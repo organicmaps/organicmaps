@@ -24,14 +24,14 @@ public:
   using TRenderDataRequestFn = std::function<void(uint32_t)>;
   explicit GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn);
 
-  void AddRenderData(ref_ptr<gpu::ProgramManager> mng,
+  void AddRenderData(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                      drape_ptr<CirclesPackRenderData> && renderData);
 
   void UpdatePoints(std::vector<GpsTrackPoint> const & toAdd,
                     std::vector<uint32_t> const & toRemove);
 
-  void RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-                   int zoomLevel, FrameValues const & frameValues);
+  void RenderTrack(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
+                   ScreenBase const & screen, int zoomLevel, FrameValues const & frameValues);
 
   void Update();
   void Clear();

@@ -18,7 +18,8 @@ public:
   PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params,
                  TileKey const & tileKey, uint32_t textIndex);
 
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
 private:

@@ -17,16 +17,13 @@
 
 namespace df
 {
-
 class BaseRenderer : public MessageAcceptor
 {
 public:
   struct Params
   {
-    Params(dp::ApiVersion apiVersion,
-           ref_ptr<ThreadsCommutator> commutator,
-           ref_ptr<dp::GraphicsContextFactory> factory,
-           ref_ptr<dp::TextureManager> texMng)
+    Params(dp::ApiVersion apiVersion, ref_ptr<ThreadsCommutator> commutator,
+           ref_ptr<dp::GraphicsContextFactory> factory, ref_ptr<dp::TextureManager> texMng)
       : m_apiVersion(apiVersion)
       , m_commutator(commutator)
       , m_oglContextFactory(factory)
@@ -53,6 +50,7 @@ protected:
   dp::ApiVersion m_apiVersion;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::GraphicsContextFactory> m_contextFactory;
+  ref_ptr<dp::GraphicsContext> m_context;
   ref_ptr<dp::TextureManager> m_texMng;
 
   void StartThread();
@@ -79,10 +77,9 @@ private:
   bool m_wasNotified;
   std::atomic<bool> m_wasContextReset;
 
-  bool FilterGLContextDependentMessage(ref_ptr<Message> msg);
+  bool FilterContextDependentMessage(ref_ptr<Message> msg);
   void SetRenderingEnabled(bool const isEnabled);
   void Notify();
   void WakeUp();
 };
-
-} // namespace df
+}  // namespace df

@@ -121,7 +121,7 @@ public:
                 ref_ptr<dp::TextureManager> mng);
 
   void SetText(LabelResult & result, std::string text) const;
-  m2::PointF GetAvarageSize() const;
+  m2::PointF GetAverageSize() const;
 
   using TAlphabetNode = std::pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
   using TAlphabet = std::vector<TAlphabetNode>;
@@ -174,7 +174,7 @@ class MutableLabelDrawer
 {
 public:
   using TCreatoreResult = drape_ptr<MutableLabelHandle>;
-  using THandleCreator = std::function<TCreatoreResult(dp::Anchor, m2::PointF const & /*pivot*/)>;
+  using THandleCreator = std::function<TCreatoreResult(dp::Anchor, m2::PointF const & /* pivot */)>;
 
   struct Params
   {
@@ -187,8 +187,8 @@ public:
   };
 
   // Return maximum pixel size.
-  static m2::PointF Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
-                         dp::Batcher::TFlushFn const & flushFn);
+  static m2::PointF Draw(ref_ptr<dp::GraphicsContext> context, Params const & params,
+                         ref_ptr<dp::TextureManager> mng, dp::Batcher::TFlushFn const & flushFn);
 };
 
 class StaticLabelHandle : public Handle

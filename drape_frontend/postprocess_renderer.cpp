@@ -144,7 +144,7 @@ bool IsSupported(drape_ptr<dp::Framebuffer> const & framebuffer)
 
 PostprocessRenderer::~PostprocessRenderer()
 {
-  ClearGLDependentResources();
+  ClearContextDependentResources();
 }
 
 void PostprocessRenderer::Init(ref_ptr<dp::GraphicsContext> context, dp::FramebufferFallback && fallback)
@@ -155,7 +155,7 @@ void PostprocessRenderer::Init(ref_ptr<dp::GraphicsContext> context, dp::Framebu
   ASSERT(m_framebufferFallback != nullptr, ());
 }
 
-void PostprocessRenderer::ClearGLDependentResources()
+void PostprocessRenderer::ClearContextDependentResources()
 {
   m_screenQuadRenderer.reset();
   m_framebufferFallback = nullptr;

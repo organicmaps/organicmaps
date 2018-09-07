@@ -79,11 +79,11 @@ ShapeRenderer::~ShapeRenderer()
   ForEachShapeInfo([](ShapeControl::ShapeInfo & info) { info.Destroy(); });
 }
 
-void ShapeRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
+void ShapeRenderer::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng)
 {
-  ForEachShapeInfo([mng](ShapeControl::ShapeInfo & info) mutable
+  ForEachShapeInfo([context, mng](ShapeControl::ShapeInfo & info) mutable
   {
-    info.m_buffer->Build(mng->GetProgram(info.m_state.GetProgram<gpu::Program>()));
+    info.m_buffer->Build(context, mng->GetProgram(info.m_state.GetProgram<gpu::Program>()));
   });
 }
 
@@ -117,10 +117,10 @@ void ShapeRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pr
       dp::AttributeBufferMutator mutator;
       ref_ptr<dp::AttributeBufferMutator> mutatorRef = make_ref(&mutator);
       info.m_handle->GetAttributeMutation(mutatorRef);
-      info.m_buffer->ApplyMutation(nullptr, mutatorRef);
+      info.m_buffer->ApplyMutation(context, nullptr, mutatorRef);
     }
 
-    info.m_buffer->Render(info.m_state.GetDrawAsLine());
+    info.m_buffer->Render(context, info.m_state.GetDrawAsLine());
   });
 }
 

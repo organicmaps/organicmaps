@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "drape/drape_tests/gl_mock_functions.hpp"
+#include "drape/drape_tests/testing_graphics_context.hpp"
 
 #include "drape/data_buffer.hpp"
 #include "drape/gpu_buffer.hpp"
@@ -21,6 +22,7 @@ using ::testing::Return;
 
 UNIT_TEST(CreateDestroyDataBufferTest)
 {
+  TestingGraphicsContext context;
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
@@ -30,11 +32,12 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glDeleteBuffer(1));
 
   std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
-  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
 }
 
 UNIT_TEST(CreateDestroyIndexBufferTest)
 {
+  TestingGraphicsContext context;
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLElementArrayBuffer));
@@ -44,7 +47,7 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glDeleteBuffer(1));
 
   std::unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
-  buffer->MoveToGPU(GPUBuffer::IndexBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::IndexBuffer);
 }
 
 UNIT_TEST(UploadDataTest)
@@ -55,6 +58,7 @@ UNIT_TEST(UploadDataTest)
 
   std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
+  TestingGraphicsContext context;
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
@@ -64,7 +68,7 @@ UNIT_TEST(UploadDataTest)
   EXPECTGL(glDeleteBuffer(1));
 
   buffer->GetBuffer()->UploadData(data, 100);
-  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
 }
 
 UNIT_TEST(ParticalUploadDataTest)
@@ -81,6 +85,7 @@ UNIT_TEST(ParticalUploadDataTest)
 
   std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
 
+  TestingGraphicsContext context;
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
   EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
@@ -103,5 +108,5 @@ UNIT_TEST(ParticalUploadDataTest)
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 0, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 100, ());
 
-  buffer->MoveToGPU(GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
 }

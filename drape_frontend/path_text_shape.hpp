@@ -26,15 +26,18 @@ public:
 
   std::vector<double> GetOffsets() const { return m_context->GetOffsets(); }
 
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
   MapShapeType GetType() const override { return MapShapeType::OverlayType; }
 
 private:
   uint64_t GetOverlayPriority(uint32_t textIndex, size_t textLength) const;
 
-  void DrawPathTextPlain(ref_ptr<dp::TextureManager> textures,
+  void DrawPathTextPlain(ref_ptr<dp::GraphicsContext> context,
+                         ref_ptr<dp::TextureManager> textures,
                          ref_ptr<dp::Batcher> batcher) const;
-  void DrawPathTextOutlined(ref_ptr<dp::TextureManager> textures,
+  void DrawPathTextOutlined(ref_ptr<dp::GraphicsContext> context,
+                            ref_ptr<dp::TextureManager> textures,
                             ref_ptr<dp::Batcher> batcher) const;
   drape_ptr<dp::OverlayHandle> CreateOverlayHandle(uint32_t textIndex,
                                                    ref_ptr<dp::TextureManager> textures) const;

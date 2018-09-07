@@ -202,15 +202,18 @@ public:
   using MV = gpu::RouteMarkerVertex;
   using TMarkersGeometryBuffer = buffer_vector<MV, 32>;
 
-  static drape_ptr<df::SubrouteData> CacheRoute(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+  static drape_ptr<df::SubrouteData> CacheRoute(ref_ptr<dp::GraphicsContext> context,
+                                                dp::DrapeID subrouteId, SubrouteConstPtr subroute,
                                                 size_t styleIndex, int recacheId,
                                                 ref_ptr<dp::TextureManager> textures);
 
-  static drape_ptr<df::SubrouteMarkersData> CacheMarkers(dp::DrapeID subrouteId,
+  static drape_ptr<df::SubrouteMarkersData> CacheMarkers(ref_ptr<dp::GraphicsContext> context,
+                                                         dp::DrapeID subrouteId,
                                                          SubrouteConstPtr subroute, int recacheId,
                                                          ref_ptr<dp::TextureManager> textures);
 
-  static void CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
+  static void CacheRouteArrows(ref_ptr<dp::GraphicsContext> context,
+                               ref_ptr<dp::TextureManager> mng, m2::PolylineD const & polyline,
                                std::vector<ArrowBorders> const & borders, double baseDepthIndex,
                                SubrouteArrowsData & routeArrowsData);
 
@@ -226,8 +229,9 @@ private:
                                      m2::PointD const & pivot, float baseDepth,
                                      TMarkersGeometryBuffer & geometry);
 
-  static void BatchGeometry(dp::RenderState const & state, ref_ptr<void> geometry, uint32_t geomSize,
-                            ref_ptr<void> joinsGeometry, uint32_t joinsGeomSize,
-                            dp::BindingInfo const & bindingInfo, RouteRenderProperty & property);
+  static void BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderState const & state,
+                            ref_ptr<void> geometry, uint32_t geomSize, ref_ptr<void> joinsGeometry,
+                            uint32_t joinsGeomSize, dp::BindingInfo const & bindingInfo,
+                            RouteRenderProperty & property);
 };
 }  // namespace df

@@ -157,7 +157,8 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   dynamicVertexData.resize(data.m_pointsCount * kVerticesInPoint);
 
   dp::Batcher batcher(data.m_pointsCount * kIndicesInPoint, data.m_pointsCount * kVerticesInPoint);
-  dp::SessionGuard guard(batcher, [&data](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
+  dp::SessionGuard guard(context, batcher,
+                         [&data](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
   {
     data.m_bucket = std::move(b);
     data.m_state = state;
@@ -171,8 +172,8 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
                       make_ref(staticVertexData.data()));
   provider.InitStream(1 /* stream index */, GetCirclesPackDynamicBindingInfo(),
                       make_ref(dynamicVertexData.data()));
-  batcher.InsertListOfStrip(GetCirclesPackState(texMng), make_ref(&provider), std::move(handle),
-                            kVerticesInPoint);
+  batcher.InsertListOfStrip(context, GetCirclesPackState(texMng), make_ref(&provider),
+                            std::move(handle), kVerticesInPoint);
 
   context->Flush();
 }

@@ -1,8 +1,10 @@
 #include "testing/testing.hpp"
 
-#include "drape/batcher.hpp"
 #include "drape/drape_tests/gl_mock_functions.hpp"
 #include "drape/drape_tests/memory_comparer.hpp"
+#include "drape/drape_tests/testing_graphics_context.hpp"
+
+#include "drape/batcher.hpp"
 #include "drape/gl_constants.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -28,9 +30,9 @@ namespace
 {
 struct VAOAcceptor
 {
-  virtual void FlushFullBucket(RenderState const & /*state*/, drape_ptr<RenderBucket> && bucket)
+  virtual void FlushFullBucket(RenderState const & /* state */, drape_ptr<RenderBucket> && bucket)
   {
-    m_vao.push_back(move(bucket));
+    m_vao.push_back(std::move(bucket));
   }
 
   std::vector<drape_ptr<RenderBucket>> m_vao;
@@ -76,11 +78,12 @@ public:
     AttributeProvider provider(1, vertexCount);
     provider.InitStream(0, binding, make_ref(vertexes));
 
+    TestingGraphicsContext context;
     VAOAcceptor vaoAcceptor;
     Batcher batcher(65000, 65000);
     batcher.StartSession(std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
     fn(&batcher, state, make_ref(&provider));
-    batcher.EndSession();
+    batcher.EndSession(make_ref(&context));
 
     ExpectBufferDeletion();
 
@@ -129,6 +132,7 @@ private:
 
 UNIT_TEST(BatchLists_Test)
 {
+  TestingGraphicsContext context;
   uint32_t const kVerticesCount = 12;
   uint32_t const kFloatsCount = 3 * 12; // 3 component on each vertex.
   float data[kFloatsCount];
@@ -141,15 +145,16 @@ UNIT_TEST(BatchLists_Test)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   {
-    batcher->InsertTriangleList(state, p);
+    batcher->InsertTriangleList(make_ref(&context), state, p);
   };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kVerticesCount, fn);
 }
 
 UNIT_TEST(BatchListOfStript_4stride)
 {
+  TestingGraphicsContext context;
   uint32_t const kVerticesCount = 12;
   uint32_t const kIndicesCount = 18;
 
@@ -161,9 +166,9 @@ UNIT_TEST(BatchListOfStript_4stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   {
-    batcher->InsertListOfStrip(state, p, dp::Batcher::VertexPerQuad);
+    batcher->InsertListOfStrip(make_ref(&context), state, p, dp::Batcher::VertexPerQuad);
   };
 
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
@@ -171,6 +176,7 @@ UNIT_TEST(BatchListOfStript_4stride)
 
 UNIT_TEST(BatchListOfStript_5stride)
 {
+  TestingGraphicsContext context;
   uint32_t const kVerticesCount = 15;
   uint32_t const kIndicesCount = 27;
 
@@ -192,15 +198,16 @@ UNIT_TEST(BatchListOfStript_5stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   {
-    batcher->InsertListOfStrip(state, p, 5);
+    batcher->InsertListOfStrip(make_ref(&context), state, p, 5);
   };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
 
 UNIT_TEST(BatchListOfStript_6stride)
 {
+  TestingGraphicsContext context;
   uint32_t const kVerticesCount = 18;
   uint32_t const kIndicesCount = 36;
 
@@ -226,9 +233,9 @@ UNIT_TEST(BatchListOfStript_6stride)
   dp::IndexStorage indexes(std::move(indexesRaw));
 
   BatcherExpectations expectations;
-  auto fn = [](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
+  auto fn = [&context](Batcher * batcher, RenderState const & state, ref_ptr<AttributeProvider> p)
   {
-    batcher->InsertListOfStrip(state, p, 6);
+    batcher->InsertListOfStrip(make_ref(&context), state, p, 6);
   };
   expectations.RunTest(data, indexes.GetRaw(), kVerticesCount, 3, kIndicesCount, fn);
 }
@@ -321,6 +328,7 @@ private:
 
 UNIT_TEST(BatchListOfStript_partial)
 {
+  TestingGraphicsContext context;
   uint32_t const VertexCount = 16;
   uint32_t const ComponentCount = 3;
   uint32_t const VertexArraySize = VertexCount * ComponentCount;
@@ -358,10 +366,10 @@ UNIT_TEST(BatchListOfStript_partial)
 
   using IndexVertexCount = std::pair<uint32_t, uint32_t>;
   std::vector<IndexVertexCount> srcData;
-  srcData.push_back(make_pair(30, 12));
-  srcData.push_back(make_pair(30, 13));
-  srcData.push_back(make_pair(18, 30));
-  srcData.push_back(make_pair(19, 30));
+  srcData.emplace_back(std::make_pair(30, 12));
+  srcData.emplace_back(std::make_pair(30, 13));
+  srcData.emplace_back(std::make_pair(18, 30));
+  srcData.emplace_back(std::make_pair(19, 30));
 
   for (size_t i = 0; i < srcData.size(); ++i)
   {
@@ -388,8 +396,8 @@ UNIT_TEST(BatchListOfStript_partial)
     VAOAcceptor vaoAcceptor;
     Batcher batcher(srcData[i].first, srcData[i].second);
     batcher.StartSession(std::bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-    batcher.InsertListOfStrip(state, make_ref(&provider), 4);
-    batcher.EndSession();
+    batcher.InsertListOfStrip(make_ref(&context), state, make_ref(&provider), 4);
+    batcher.EndSession(make_ref(&context));
 
     for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
       vaoAcceptor.m_vao[i].reset();

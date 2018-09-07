@@ -26,15 +26,19 @@ public:
   AreaShape(std::vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
             AreaViewParams const & params);
 
-  void Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const override;
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
 
 private:
-  void DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
-                m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
-  void DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
-                  m2::PointD const & outlineUv, ref_ptr<dp::Texture> texture) const;
-  void DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
-                        ref_ptr<dp::Texture> texture, ref_ptr<dp::Texture> hatchingTexture) const;
+  void DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                m2::PointD const & colorUv, m2::PointD const & outlineUv,
+                ref_ptr<dp::Texture> texture) const;
+  void DrawArea3D(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                  m2::PointD const & colorUv, m2::PointD const & outlineUv,
+                  ref_ptr<dp::Texture> texture) const;
+  void DrawHatchingArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                        m2::PointD const & colorUv, ref_ptr<dp::Texture> texture,
+                        ref_ptr<dp::Texture> hatchingTexture) const;
 
   std::vector<m2::PointD> m_vertexes;
   BuildingOutline m_buildingOutline;

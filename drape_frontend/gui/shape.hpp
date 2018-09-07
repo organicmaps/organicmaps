@@ -7,6 +7,7 @@
 
 #include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
+#include "drape/graphics_context.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -88,7 +89,7 @@ public:
 
   ~ShapeRenderer();
 
-  void Build(ref_ptr<gpu::ProgramManager> mng);
+  void Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng);
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen);
   void AddShape(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);

@@ -67,7 +67,8 @@ private:
 };
 }  // namespace
 
-drape_ptr<ShapeRenderer> Watermark::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
+drape_ptr<ShapeRenderer> Watermark::Draw(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
+                                         ref_ptr<dp::TextureManager> tex) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("watermark", region);
@@ -111,8 +112,8 @@ drape_ptr<ShapeRenderer> Watermark::Draw(m2::PointF & size, ref_ptr<dp::TextureM
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertTriangleStrip(state, make_ref(&provider), std::move(handle));
+  dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 
   return renderer;
 }

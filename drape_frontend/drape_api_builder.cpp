@@ -12,8 +12,9 @@
 
 namespace
 {
-void BuildText(std::string const & str, dp::FontDecl const & font, m2::PointD const & position,
-               m2::PointD const & center, ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
+void BuildText(ref_ptr<dp::GraphicsContext> context, std::string const & str,
+               dp::FontDecl const & font, m2::PointD const & position, m2::PointD const & center,
+               ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   gui::StaticLabel::LabelResult result;
   gui::StaticLabel::CacheStaticText(str, "\n", dp::LeftTop, font, textures, result);
@@ -25,13 +26,14 @@ void BuildText(std::string const & str, dp::FontDecl const & font, m2::PointD co
   provider.InitStream(0 /* streamIndex */, gui::StaticLabel::Vertex::GetBindingInfo(),
                       make_ref(result.m_buffer.data()));
 
-  batcher.InsertListOfStrip(result.m_state, make_ref(&provider), dp::Batcher::VertexPerQuad);
+  batcher.InsertListOfStrip(context, result.m_state, make_ref(&provider), dp::Batcher::VertexPerQuad);
 }
 }  // namespace
 
 namespace df
 {
-void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::TextureManager> textures,
+void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
+                                 DrapeApi::TLines const & lines, ref_ptr<dp::TextureManager> textures,
                                  std::vector<drape_ptr<DrapeApiRenderProperty>> & properties)
 {
   properties.reserve(lines.size());
@@ -52,8 +54,8 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
     auto property = make_unique_dp<DrapeApiRenderProperty>();
     property->m_center = rect.Center();
     {
-      dp::SessionGuard guard(batcher, [&property, id](dp::RenderState const & state,
-                                                      drape_ptr<dp::RenderBucket> && b)
+      dp::SessionGuard guard(context, batcher, [&property, id](dp::RenderState const & state,
+                                                               drape_ptr<dp::RenderBucket> && b)
       {
         property->m_id = id;
         property->m_buckets.emplace_back(state, std::move(b));
@@ -68,7 +70,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
       lvp.m_color = data.m_color;
       lvp.m_width = data.m_width;
       lvp.m_join = dp::RoundJoin;
-      LineShape(spline, lvp).Draw(make_ref(&batcher), textures);
+      LineShape(spline, lvp).Draw(context, make_ref(&batcher), textures);
 
       if (data.m_showPoints)
       {
@@ -82,7 +84,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
         for (m2::PointD const & pt : data.m_points)
         {
           ColoredSymbolShape(m2::PointD(pt), cvp, TileKey(), 0 /* textIndex */,
-                             false /* need overlay */).Draw(make_ref(&batcher), textures);
+                             false /* need overlay */).Draw(context, make_ref(&batcher), textures);
         }
       }
 
@@ -100,7 +102,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
           else
             s = id;
 
-          BuildText(s, font, pt, property->m_center, textures, batcher);
+          BuildText(context, s, font, pt, property->m_center, textures, batcher);
           index++;
         }
       }

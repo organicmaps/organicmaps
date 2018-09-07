@@ -36,18 +36,20 @@ glsl::vec2 ShiftNormal(glsl::vec2 const & n, df::PoiSymbolViewParams const & par
   return result;
 }
 
-template<typename TVertex>
-void Batch(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
-           glsl::vec4 const & position, df::PoiSymbolViewParams const & params,
+template <typename TVertex>
+void Batch(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+           drape_ptr<dp::OverlayHandle> && handle, glsl::vec4 const & position,
+           df::PoiSymbolViewParams const & params,
            dp::TextureManager::SymbolRegion const & symbolRegion,
            dp::TextureManager::ColorRegion const & colorRegion)
 {
   ASSERT(0, ("Can not be used without specialization"));
 }
 
-template<>
-void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
-               glsl::vec4 const & position, df::PoiSymbolViewParams const & params,
+template <>
+void Batch<SV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+               drape_ptr<dp::OverlayHandle> && handle, glsl::vec4 const & position,
+               df::PoiSymbolViewParams const & params,
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
@@ -75,12 +77,13 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, SV::GetBindingInfo(), make_ref(vertexes));
-  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+  batcher->InsertTriangleStrip(context, state, make_ref(&provider), move(handle));
 }
 
-template<>
-void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && handle,
-               glsl::vec4 const & position, df::PoiSymbolViewParams const & params,
+template <>
+void Batch<MV>(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+               drape_ptr<dp::OverlayHandle> && handle, glsl::vec4 const & position,
+               df::PoiSymbolViewParams const & params,
                dp::TextureManager::SymbolRegion const & symbolRegion,
                dp::TextureManager::ColorRegion const & colorRegion)
 {
@@ -110,7 +113,7 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
 
   dp::AttributeProvider provider(1 /* streamCount */, ARRAY_SIZE(vertexes));
   provider.InitStream(0 /* streamIndex */, MV::GetBindingInfo(), make_ref(vertexes));
-  batcher->InsertTriangleStrip(state, make_ref(&provider), move(handle));
+  batcher->InsertTriangleStrip(context, state, make_ref(&provider), move(handle));
 }
 }  // namespace
 
@@ -124,7 +127,8 @@ PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParam
   , m_textIndex(textIndex)
 {}
 
-void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
+void PoiSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+                          ref_ptr<dp::TextureManager> textures) const
 {
   dp::TextureManager::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
@@ -137,12 +141,12 @@ void PoiSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManag
   {
     dp::TextureManager::ColorRegion maskColorRegion;
     textures->GetColorRegion(df::GetColorConstant(kPoiDeletedMaskColor), maskColorRegion);
-    Batch<MV>(batcher, CreateOverlayHandle(pixelSize), position, m_params,
+    Batch<MV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params,
               region, maskColorRegion);
   }
   else
   {
-    Batch<SV>(batcher, CreateOverlayHandle(pixelSize), position, m_params,
+    Batch<SV>(context, batcher, CreateOverlayHandle(pixelSize), position, m_params,
               region, dp::TextureManager::ColorRegion());
   }
 }
@@ -151,7 +155,8 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
 {
   dp::OverlayID overlayId = dp::OverlayID(m_params.m_id, m_tileCoords, m_textIndex);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor,
-                                                                         m_pt, m2::PointD(pixelSize), m2::PointD(m_params.m_offset),
+                                                                         m_pt, m2::PointD(pixelSize),
+                                                                         m2::PointD(m_params.m_offset),
                                                                          GetOverlayPriority(),
                                                                          true /* isBound */,
                                                                          m_params.m_symbolName,
