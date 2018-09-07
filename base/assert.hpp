@@ -95,6 +95,6 @@ namespace my
 // The macro that causes the warning to be ignored: control reaches end of
 // non-void function.
 #define CHECK_SWITCH() do { \
-  CHECK(false, ("Incorrect value in the switch statment")); \
+  CHECK(false, ("Incorrect value in the switch statement")); \
   std::abort(); \
 } while(false)

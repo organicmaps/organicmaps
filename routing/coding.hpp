@@ -65,7 +65,7 @@ void WriteGamma(BitWriter<Sink> & writer, T value)
   UNUSED_VALUE(success);
 }
 
-// C++ standart says:
+// C++ standard says:
 // if the value can't be represented in the destination unsigned type,
 // the result is implementation-defined.
 //
