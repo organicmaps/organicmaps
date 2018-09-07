@@ -148,4 +148,5 @@ private:
   bool m_isSchemeMode = false;
   bool m_isSchemeModeBlocked = false;
   pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
+  bool m_trackFirstSchemeData = false;
 };

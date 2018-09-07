@@ -7,6 +7,8 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
 
+#include "metrics/eye.hpp"
+
 #include "coding/reader.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -178,6 +180,7 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   if (m_isSchemeMode == enable)
     return;
   m_isSchemeMode = enable;
+  m_trackFirstSchemeData = enable;
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTransitScheme, enable);
 
@@ -294,6 +297,13 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       break;
     }
   }
+
+  if (hasData && m_trackFirstSchemeData)
+  {
+    eye::Eye::Event::LayerUsed(eye::Layer::Type::PublicTransport);
+    m_trackFirstSchemeData = false;
+  }
+  
   ChangeState(hasData ? TransitSchemeState::Enabled : TransitSchemeState::NoData);
 }
 
