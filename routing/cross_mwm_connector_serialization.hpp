@@ -437,13 +437,13 @@ private:
   static uint32_t CalcBitsPerCrossMwmId(
       std::vector<Transition<base::GeoObjectId>> const & transitions)
   {
-    base::GeoObjectId osmId(0ULL);
+    uint64_t serial = 0;
     for (auto const & transition : transitions)
-      osmId = std::max(osmId, transition.GetCrossMwmId());
+      serial = std::max(serial, transition.GetCrossMwmId().GetSerialId());
 
     // Note that we lose base::GeoObjectId::Type bits here, remember about
     // it in ReadCrossMwmId method.
-    return bits::NumUsedBits(osmId.GetSerialId());
+    return bits::NumUsedBits(serial);
   }
 
   static uint32_t CalcBitsPerCrossMwmId(
