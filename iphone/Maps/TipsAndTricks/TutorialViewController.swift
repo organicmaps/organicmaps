@@ -25,8 +25,8 @@ class TutorialViewController: UIViewController {
   weak var delegate: TutorialViewControllerDelegate?
   private var targetViewActions: [TargetAction] = []
 
-  var tutorialView: ITutorialView {
-    return view as! ITutorialView
+  var tutorialView: TutorialBlurView {
+    return view as! TutorialBlurView
   }
 
   override func viewDidLoad() {

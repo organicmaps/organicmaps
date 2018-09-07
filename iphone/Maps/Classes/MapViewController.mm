@@ -238,9 +238,6 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewWillAppear:animated];
 
-  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
-    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
-
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self.welcomePageController show];
@@ -255,6 +252,9 @@ BOOL gIsFirstMyPositionMode = YES;
   [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
   self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
+  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
+    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+
   if (!self.welcomePageController)
     [self.controlsManager showTutorialIfNeeded];
 
@@ -478,7 +478,8 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.navigationController setViewControllers:controllers animated:animated];
 }
 
-- (void)searchText:(NSString *)text {
+- (void)searchText:(NSString *)text
+{
   [self.controlsManager searchText:text forInputLocale:[[AppInfo sharedInfo] languageId]];
 }
 

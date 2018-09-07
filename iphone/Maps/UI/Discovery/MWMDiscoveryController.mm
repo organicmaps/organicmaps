@@ -3,6 +3,7 @@
 #import "Framework.h"
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
+#import "MWMEye.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
@@ -138,6 +139,7 @@ struct Callback
                           [self](uint32_t const requestId, ItemType const type) {
                             [self.tableManager errorAtItem:type];
                           });
+  [MWMEye discoveryShown];
 }
 
 #pragma mark - MWMDiscoveryTapDelegate
@@ -152,38 +154,55 @@ struct Callback
 {
   NSString * dest = @"";
   NSString * event = kStatPlacepageSponsoredItemSelected;
+  MWMEyeDiscoveryEvent eyeEvent;
   switch (type)
   {
   case ItemType::Viator:
     [self openUrl:[NSURL URLWithString:@(m_model.GetViatorAt(index).m_pageUrl.c_str())]];
     dest = kStatExternal;
+    CHECK(false, ("Not reachable"));
+    return;
     break;
   case ItemType::LocalExperts:
     if (index == m_model.GetItemsCount(type))
     {
       [self openURLForItem:type];
       event = kStatPlacepageSponsoredMoreSelected;
+      eyeEvent = MWMEyeDiscoveryEventMoreLocals;
     }
     else
     {
       [self openUrl:[NSURL URLWithString:@(m_model.GetExpertAt(index).m_pageUrl.c_str())]];
+      eyeEvent = MWMEyeDiscoveryEventLocals;
     }
     dest = kStatExternal;
     break;
   case ItemType::Attractions:
     if (index == m_model.GetItemsCount(type))
+    {
       [self searchTourism];
+      eyeEvent = MWMEyeDiscoveryEventMoreAttractions;
+    }
     else
+    {
       [self showSearchResult:m_model.GetAttractionAt(index)];
+      eyeEvent = MWMEyeDiscoveryEventAttractions;
+    }
 
     dest = kStatPlacePage;
     break;
   case ItemType::Cafes:
     if (index == m_model.GetItemsCount(type))
+    {
       [self searchFood];
+      eyeEvent = MWMEyeDiscoveryEventMoreCafes;
+    }
     else
+    {
       [self showSearchResult:m_model.GetCafeAt(index)];
-      
+      eyeEvent = MWMEyeDiscoveryEventCafes;
+    }
+
     dest = kStatPlacePage;
     break;
   case ItemType::Hotels:
@@ -192,11 +211,13 @@ struct Callback
       [self openFilters];
       event = kStatPlacepageSponsoredMoreSelected;
       dest = kStatSearchFilterOpen;
+      eyeEvent = MWMEyeDiscoveryEventMoreHotels;
     }
     else
     {
       [self showSearchResult:m_model.GetHotelAt(index)];
       dest = kStatPlacePage;
+      eyeEvent = MWMEyeDiscoveryEventHotels;
     }
     break;
   }
@@ -209,6 +230,7 @@ struct Callback
           kStatItem: @(index + 1),
           kStatDestination: dest
         }];
+  [MWMEye discoveryItemClickedWithEvent:eyeEvent];
 }
 
 - (void)openFilters

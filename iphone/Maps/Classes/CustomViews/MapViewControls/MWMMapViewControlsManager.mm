@@ -20,7 +20,6 @@
 #include "storage/storage_helpers.hpp"
 
 #include "map/place_page_info.hpp"
-#include "metrics/eye.hpp"
 
 namespace
 {
@@ -41,7 +40,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) MapViewController * ownerController;
 
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
-@property(nonatomic) eye::Tip::Type tutorialType;
+@property(nonatomic) MWMTip tutorialType;
 
 @end
 
@@ -372,50 +371,56 @@ extern NSString * const kAlohalyticsTapEventKey;
 #pragma mark - MWMBookingInfoHolder
 - (id<MWMBookingInfoHolder>)bookingInfoHolder { return self.placePageManager; }
 
-- (MWMTutorialViewController *)tutorialWithType:(eye::Tip::Type)tutorialType {
+- (MWMTutorialViewController *)tutorialWithType:(MWMTip)tutorialType
+{
   MWMTutorialViewController * tutorial;
-  switch (tutorialType) {
-    case eye::Tip::Type::BookingHotels:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSearch
-                                              target:self.menuController.searchButton
-                                            delegate:self];
-      break;
-    case eye::Tip::Type::DiscoverButton:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeDiscovery
-                                              target:self.menuController.discoveryButton
-                                            delegate:self];
-      break;
-    case eye::Tip::Type::BookmarksCatalog:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeBookmarks
-                                              target:self.menuController.bookmarksButton
-                                            delegate:self];
-      break;
-    case eye::Tip::Type::MapsLayers:
-      tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSubway
-                                              target:(UIControl *)self.trafficButton.view
-                                            delegate:self];
-      break;
-    case eye::Tip::Type::Count:
-      break;
+  switch (tutorialType)
+  {
+  case MWMTipSearch:
+    tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSearch
+                                            target:self.menuController.searchButton
+                                          delegate:self];
+    break;
+  case MWMTipDiscovery:
+    tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeDiscovery
+                                            target:self.menuController.discoveryButton
+                                          delegate:self];
+    break;
+  case MWMTipBookmarks:
+    tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeBookmarks
+                                            target:self.menuController.bookmarksButton
+                                          delegate:self];
+    break;
+  case MWMTipSubway:
+    tutorial = [MWMTutorialViewController tutorial:MWMTutorialTypeSubway
+                                            target:(UIControl *)self.trafficButton.view
+                                          delegate:self];
+    break;
+  case MWMTipNone:
+    break;
   }
+  
   return tutorial;
 }
 
-- (void)showTutorialIfNeeded {
-  auto tutorialType = GetFramework().GetTipsApi().GetTip();
-  if (!tutorialType.is_initialized()) return;
+- (void)showTutorialIfNeeded
+{
+  self.tutorialType = [MWMEye getTipType];
+  auto tutorial = [self tutorialWithType:self.tutorialType];
+  if (!tutorial)
+    return;
 
-  self.tutorialType = tutorialType.get();
-  auto tutorial = [self tutorialWithType:tutorialType.get()];
-  [self.ownerController addChildViewController:tutorial];
-  tutorial.view.frame = self.ownerController.view.bounds;
+  auto ownerController = self.ownerController;
+  [ownerController addChildViewController:tutorial];
+  tutorial.view.frame = ownerController.view.bounds;
   tutorial.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [self.ownerController.view addSubview:tutorial.view];
-  [tutorial didMoveToParentViewController:self.ownerController];
+  [ownerController.view addSubview:tutorial.view];
+  [tutorial didMoveToParentViewController:ownerController];
 }
 
-- (void)didPressCancel:(MWMTutorialViewController *)viewController {
-  eye::Eye::Event::TipShown(self.tutorialType, eye::Tip::Event::GotitClicked);
+- (void)didPressCancel:(MWMTutorialViewController *)viewController
+{
+  [MWMEye tipShownWithType:self.tutorialType event:MWMTipEventGotIt];
   [viewController fadeOutWithCompletion:^{
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
@@ -423,8 +428,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   }];
 }
 
-- (void)didPressTarget:(MWMTutorialViewController *)viewController {
-  eye::Eye::Event::TipShown(self.tutorialType, eye::Tip::Event::ActionClicked);
+- (void)didPressTarget:(MWMTutorialViewController *)viewController
+{
+  [MWMEye tipShownWithType:self.tutorialType event:MWMTipEventAction];
   [viewController fadeOutWithCompletion:^{
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];

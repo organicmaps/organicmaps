@@ -348,8 +348,7 @@
 		470A89FF2134517600D72FBF /* BookmarksTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */; };
 		470A8A012136097000D72FBF /* SubwayTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
-		471BBD962130392E00EB17C9 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD952130392E00EB17C9 /* TutorialView.swift */; };
-		471BBD9821303A5200EB17C9 /* BookmarksTutorial.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471BBD9721303A5200EB17C9 /* BookmarksTutorial.xib */; };
+		474C9F632141896800369009 /* MWMEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 474C9F622141896800369009 /* MWMEye.mm */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
@@ -1318,8 +1317,8 @@
 		470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksTutorialBlur.xib; sourceTree = "<group>"; };
 		470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubwayTutorialBlur.xib; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		471BBD952130392E00EB17C9 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		471BBD9721303A5200EB17C9 /* BookmarksTutorial.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksTutorial.xib; sourceTree = "<group>"; };
+		474C9F612141896800369009 /* MWMEye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEye.h; sourceTree = "<group>"; };
+		474C9F622141896800369009 /* MWMEye.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEye.mm; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
@@ -2184,6 +2183,7 @@
 		340475281E081A4600C92850 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				474C9F602141894300369009 /* Metrics */,
 				3472B5E7200F8CEB00DC6CD5 /* UGC */,
 				3472B5DD200F868E00DC6CD5 /* Editor */,
 				3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */,
@@ -3151,8 +3151,6 @@
 			isa = PBXGroup;
 			children = (
 				471BBD932130390F00EB17C9 /* TutorialViewController.swift */,
-				471BBD952130392E00EB17C9 /* TutorialView.swift */,
-				471BBD9721303A5200EB17C9 /* BookmarksTutorial.xib */,
 				470A89FC21342A9D00D72FBF /* TutorialBlurView.swift */,
 				47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */,
 				47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */,
@@ -3169,6 +3167,15 @@
 				4788738E20EE30B300F6826B /* LayersViewController.xib */,
 			);
 			path = Layers;
+			sourceTree = "<group>";
+		};
+		474C9F602141894300369009 /* Metrics */ = {
+			isa = PBXGroup;
+			children = (
+				474C9F612141896800369009 /* MWMEye.h */,
+				474C9F622141896800369009 /* MWMEye.mm */,
+			);
+			path = Metrics;
 			sourceTree = "<group>";
 		};
 		47E3C7232111E2F8008B3B27 /* Modal */ = {
@@ -4442,7 +4449,6 @@
 				34AB665C1FC5AA330078E451 /* TransportTransitIntermediatePoint.xib in Resources */,
 				F6E2FF151E097BA00083EBEC /* MWMSearchHistoryRequestCell.xib in Resources */,
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
-				471BBD9821303A5200EB17C9 /* BookmarksTutorial.xib in Resources */,
 				346225921DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				34AB660E1FC5AA320078E451 /* NavigationControlView.xib in Resources */,
 				408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */,
@@ -4670,6 +4676,7 @@
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
 				47E3C72D2111E6A2008B3B27 /* AlertTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
+				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
@@ -4679,7 +4686,6 @@
 				F6E2FDA11E097BA00083EBEC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
 				4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */,
 				3454D7D41E07F045004AF2AD /* UIImageView+Coloring.mm in Sources */,
-				471BBD962130392E00EB17C9 /* TutorialView.swift in Sources */,
 				3463BA671DE81DB90082417F /* MWMTrafficButtonViewController.mm in Sources */,
 				F6E2FE551E097BA00083EBEC /* MWMPlacePageActionBar.mm in Sources */,
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,

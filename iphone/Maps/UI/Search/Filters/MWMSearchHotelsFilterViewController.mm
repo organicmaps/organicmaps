@@ -1,5 +1,6 @@
 #import "MWMSearchHotelsFilterViewController.h"
 #import <CoreActionSheetPicker/ActionSheetPicker.h>
+#import "MWMEye.h"
 #import "MWMSearch.h"
 #import "MWMSearchFilterViewController_Protected.h"
 #import "Statistics.h"
@@ -233,6 +234,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (IBAction)applyAction
 {
   [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
+  [MWMEye bookingFilterUsed];
   [MWMSearch update];
   [self dismissViewControllerAnimated:YES completion:self.onFinishCallback];
 }

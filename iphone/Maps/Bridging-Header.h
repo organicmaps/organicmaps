@@ -76,3 +76,4 @@
 #import "WebViewController.h"
 #import "MWMCatalogCategory.h"
 #import "MWMCatalogCommon.h"
+#import "MWMEye.h"

@@ -1,5 +1,5 @@
 @objc(MWMTutorialBlurView)
-class TutorialBlurView: UIVisualEffectView, ITutorialView {
+class TutorialBlurView: UIVisualEffectView {
   var targetView: UIView?
   private var maskPath: UIBezierPath?
   private var maskLayer = CAShapeLayer()
@@ -24,7 +24,10 @@ class TutorialBlurView: UIVisualEffectView, ITutorialView {
   }
 
   override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    return maskPath?.contains(point) ?? super.point(inside: point, with: event)
+    guard let pointInView = targetView?.bounds.contains(convert(point, to: targetView)) else {
+      return super.point(inside: point, with: event)
+    }
+    return !pointInView
   }
 
   override func didMoveToSuperview() {

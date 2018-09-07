@@ -107,6 +107,7 @@ final class CatalogWebViewController: WebViewController {
     if !statSent {
       Statistics.logEvent("Bookmarks_Downloaded_Catalogue_open")
       statSent = true
+      MWMEye.boomarksCatalogShown()
     }
     loadingIndicator.stopAnimating()
     backButton.isEnabled = webView.canGoBack
