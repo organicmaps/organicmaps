@@ -232,9 +232,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Bundle mSavedForTabletState;
   @Nullable
   private PlacePageTracker mPlacePageTracker;
-  @SuppressWarnings("NullableProblems")
   @NonNull
-  private PurchaseController mPurchaseController;
+  private PurchaseController mAdsRemovalPurchaseController =
+      PurchaseFactory.ADS_REMOVAL.createPurchaseController();
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -553,7 +553,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize();
 
-    mPurchaseController = PurchaseFactory.ADS_REMOVAL.createPurchaseController(this, "ads.removal.monthly.test");
+    mAdsRemovalPurchaseController.initialize(this);
 
     //TODO: uncomment after correct visible rect calculation.
     //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
@@ -1359,7 +1359,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavigationController != null)
       TrafficManager.INSTANCE.attach(mNavigationController);
     mPlacePage.onActivityStarted();
-    mPurchaseController.start(this);
   }
 
   @Override
@@ -1375,7 +1374,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     TrafficManager.INSTANCE.detachAll();
     mToggleMapLayerController.detachCore();
     mPlacePage.onActivityStopped();
-    mPurchaseController.stop();
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    mAdsRemovalPurchaseController.destroy();
   }
 
   @Override
@@ -1881,9 +1886,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @NonNull
   @Override
-  public PurchaseController getPurchaseController()
+  public PurchaseController getAdsRemovalPurchaseController()
   {
-    return mPurchaseController;
+    return mAdsRemovalPurchaseController;
   }
 
   private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)

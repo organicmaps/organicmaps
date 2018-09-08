@@ -1,6 +1,5 @@
 package com.mapswithme.maps.purchase;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.android.billingclient.api.BillingClient;
@@ -11,37 +10,32 @@ public enum PurchaseFactory
       {
         @NonNull
         @Override
-        public PurchaseValidator<AdValidationCallback> createPurchaseValidator()
+        public PurchaseValidator<AdsRemovalValidationCallback> createPurchaseValidator()
         {
-          return new AdSubscriptionValidator();
+          return new AdsRemovalPurchaseValidator();
         }
 
         @NonNull
         @Override
-        public BillingManager<PlayStoreBillingCallback> createBillingManager
-            (@NonNull Activity activity, @NonNull String... productIds)
+        BillingManager<PlayStoreBillingCallback> createBillingManager()
         {
-          return new PlayStoreBillingManager(BillingClient.SkuType.SUBS, productIds);
+          return new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
         }
 
         @Override
-        public PurchaseController createPurchaseController(@NonNull Activity activity,
-                                                           @NonNull String... productIds)
+        public PurchaseController createPurchaseController()
         {
-          BillingManager<PlayStoreBillingCallback> billingManager
-              = createBillingManager(activity, productIds);
-          PurchaseValidator<AdValidationCallback> validator = createPurchaseValidator();
-          return new AdPurchaseController(validator, billingManager);
+          BillingManager<PlayStoreBillingCallback> billingManager = createBillingManager();
+          PurchaseValidator<AdsRemovalValidationCallback> validator = createPurchaseValidator();
+          return new AdsRemovalPurchaseController(validator, billingManager, "ads.removal.monthly.test");
         }
       };
 
   @NonNull
-  public abstract PurchaseValidator createPurchaseValidator();
+  abstract PurchaseValidator createPurchaseValidator();
 
   @NonNull
-  public abstract BillingManager createBillingManager(@NonNull Activity activity,
-                                                      @NonNull String... productIds);
+  abstract BillingManager createBillingManager();
 
-  public abstract PurchaseController createPurchaseController(@NonNull Activity activity,
-                                                              @NonNull String... productIds);
+  public abstract PurchaseController createPurchaseController();
 }

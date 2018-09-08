@@ -2,8 +2,6 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 
 /**
  * Manages a billing flow for the specific product.
@@ -24,7 +22,7 @@ public interface BillingManager<T>
    * Launches the billing flow for the product with the specified id.
    * Controls whole native part of billing process.
    *
-   * @param productId if of the product which is going to be purchased.
+   * @param productId identifier of the product which is going to be purchased.
    */
   void launchBillingFlowForProduct(@NonNull String productId);
 
@@ -34,15 +32,15 @@ public interface BillingManager<T>
   boolean isBillingSupported();
 
   /**
-   * Obtains a purchase token if it exists.
+   * Queries existing purchases.
    */
-  @Nullable
-  String obtainPurchaseToken();
+  void queryExistingPurchases();
 
   /**
-   * Queries product details. They will be delivered to the caller through callback {@link T}.
+   * Queries product details for specified products. They will be delivered to the caller
+   * through callback {@link T}.
    */
-  void queryProductDetails();
+  void queryProductDetails(@NonNull String... productIds);
 
   /**
    * Adds a billing callback.

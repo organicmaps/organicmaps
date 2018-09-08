@@ -5,5 +5,5 @@ import android.support.annotation.NonNull;
 public interface PurchaseControllerProvider
 {
   @NonNull
-  public PurchaseController getPurchaseController();
+  public PurchaseController getAdsRemovalPurchaseController();
 }

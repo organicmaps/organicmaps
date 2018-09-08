@@ -25,7 +25,7 @@ public class LoggerFactory
   public enum Type
   {
     MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK, STORAGE, DOWNLOADER,
-    CORE, THIRD_PARTY
+    CORE, THIRD_PARTY, BILLING
   }
 
   public interface OnZipCompletedListener

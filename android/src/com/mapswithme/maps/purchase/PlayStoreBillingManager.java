@@ -13,14 +13,13 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback>,
                                                 PurchasesUpdatedListener,
                                                 PlayStoreBillingConnection.ConnectionListener
 {
-  final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   final static String TAG = PlayStoreBillingManager.class.getSimpleName();
   @Nullable
   private Activity mActivity;
@@ -28,8 +27,6 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   private BillingClient mBillingClient;
   @Nullable
   private PlayStoreBillingCallback mCallback;
-  @NonNull
-  private final List<String> mProductIds;
   @NonNull
   @BillingClient.SkuType
   private final String mProductType;
@@ -39,10 +36,8 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @NonNull
   private final List<BillingRequest> mPendingRequests = new ArrayList<>();
   
-  PlayStoreBillingManager(@NonNull @BillingClient.SkuType String productType,
-                          @NonNull String... productIds)
+  PlayStoreBillingManager(@NonNull @BillingClient.SkuType String productType)
   {
-    mProductIds = Collections.unmodifiableList(Arrays.asList(productIds));
     mProductType = productType;
   }
 
@@ -65,10 +60,10 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   }
 
   @Override
-  public void queryProductDetails()
+  public void queryProductDetails(@NonNull String... productIds)
   {
     executeBillingRequest(new QueryProductDetailsRequest(getClientOrThrow(), mProductType,
-                                                         mCallback, mProductIds));
+                                                         mCallback, Arrays.asList(productIds)));
   }
 
   private void executeBillingRequest(@NonNull BillingRequest request)
@@ -112,11 +107,10 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
     return result != BillingResponse.FEATURE_NOT_SUPPORTED;
   }
 
-  @Nullable
   @Override
-  public String obtainPurchaseToken()
+  public void queryExistingPurchases()
   {
-    return null;
+    executeBillingRequest(new QueryExistingPurchases(getClientOrThrow(), mProductType, mCallback));
   }
 
   @Override

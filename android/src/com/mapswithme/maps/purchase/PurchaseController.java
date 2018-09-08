@@ -5,21 +5,21 @@ import android.support.annotation.NonNull;
 
 /**
  * Provides necessary purchase functionality to the UI. Controls whole platform-specific billing
- * process. This controller has to be used only within {@link #start(Activity)} and {@link #stop()}
+ * process. This controller has to be used only within {@link #initialize(Activity)} and {@link #destroy()}
  * interval.
  */
 public interface PurchaseController
 {
   /**
-   * Starts the controller.
+   * Initializes the controller.
    * @param activity the activity which controller serves.
    */
-  void start(@NonNull Activity activity);
+  void initialize(@NonNull Activity activity);
 
   /**
-   * Stops the controller.
+   * Destroys the controller.
    */
-  void stop();
+  void destroy();
 
   /**
    * Indicates whether the purchase already done or not.
@@ -34,7 +34,7 @@ public interface PurchaseController
   /**
    * Launches the purchase flow for the specified product.
    *
-   * @param id of the product which is going to be purchased.
+   * @param productId id of the product which is going to be purchased.
    */
   void launchPurchaseFlow(@NonNull String productId);
 }

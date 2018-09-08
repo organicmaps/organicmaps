@@ -1,6 +1,6 @@
 package com.mapswithme.maps.purchase;
 
-public enum AdValidationStatus
+public enum AdsRemovalValidationStatus
 {
   ACTIVE,
   NOT_ACTIVE,

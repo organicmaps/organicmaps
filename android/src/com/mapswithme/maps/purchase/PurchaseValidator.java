@@ -34,12 +34,12 @@ interface PurchaseValidator<T>
   boolean hasActivePurchase();
 
   /**
-   * Ads observer of validation.
+   * Adds validation observer.
    */
   void addCallback(@NonNull T callback);
 
   /**
-   * Removes observer of validation.
+   * Removes validation observer.
    */
-  void removeCallback(@NonNull T callback);
+  void removeCallback();
 }

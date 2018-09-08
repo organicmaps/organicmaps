@@ -11,7 +11,7 @@ import com.mapswithme.util.log.LoggerFactory;
 class PlayStoreBillingConnection implements BillingConnection,
                                             BillingClientStateListener
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = PlayStoreBillingConnection.class.getSimpleName();
   @NonNull
   private final BillingClient mBillingClient;

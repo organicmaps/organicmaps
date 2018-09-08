@@ -18,19 +18,19 @@ abstract class AbstractPurchaseController<V, B> implements PurchaseController
   }
 
   @Override
-  public final void start(@NonNull Activity activity)
+  public final void initialize(@NonNull Activity activity)
   {
     mValidator.initialize();
     mBillingManager.initialize(activity);
-    onStart(activity);
+    onInitialize(activity);
   }
 
   @Override
-  public final void stop()
+  public final void destroy()
   {
     mValidator.destroy();
     mBillingManager.destroy();
-    onStop();
+    onDestroy();
   }
 
   @Override
@@ -63,7 +63,7 @@ abstract class AbstractPurchaseController<V, B> implements PurchaseController
     return mBillingManager;
   }
 
-  abstract void onStart(@NonNull Activity activity);
+  abstract void onInitialize(@NonNull Activity activity);
 
-  abstract void onStop();
+  abstract void onDestroy();
 }
