@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,6 +23,7 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
@@ -175,6 +178,10 @@ final class BannerController
 
   private void handleAdsRemoval()
   {
+    FragmentActivity activity = (FragmentActivity) mBannerView.getContext();
+    AdsRemovalPurchaseDialog fragment
+        = (AdsRemovalPurchaseDialog) Fragment.instantiate(activity, AdsRemovalPurchaseDialog.class.getName());
+    fragment.show(activity.getSupportFragmentManager(), null);
   }
 
   private void setErrorStatus(boolean value)

@@ -72,9 +72,10 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.purchase.PurchaseController;
-import com.mapswithme.maps.purchase.PurchaseControllerProvider;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -148,7 +149,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  OnTrafficLayerToggleListener,
                                  OnSubwayLayerToggleListener,
                                  BookmarkManager.BookmarksCatalogListener,
-                                 PurchaseControllerProvider
+                                 AdsRemovalPurchaseControllerProvider
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -233,8 +234,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private PlacePageTracker mPlacePageTracker;
   @NonNull
-  private PurchaseController mAdsRemovalPurchaseController =
-      PurchaseFactory.ADS_REMOVAL.createPurchaseController();
+  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController =
+      PurchaseFactory.createPurchaseController();
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -1884,9 +1885,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     });
   }
 
-  @NonNull
   @Override
-  public PurchaseController getAdsRemovalPurchaseController()
+  @NonNull
+  public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
   }

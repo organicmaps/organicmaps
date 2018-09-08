@@ -4,39 +4,20 @@ import android.support.annotation.NonNull;
 
 import com.android.billingclient.api.BillingClient;
 
-public enum PurchaseFactory
+public class PurchaseFactory
 {
-  ADS_REMOVAL
-      {
-        @NonNull
-        @Override
-        public PurchaseValidator<AdsRemovalValidationCallback> createPurchaseValidator()
-        {
-          return new AdsRemovalPurchaseValidator();
-        }
-
-        @NonNull
-        @Override
-        BillingManager<PlayStoreBillingCallback> createBillingManager()
-        {
-          return new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
-        }
-
-        @Override
-        public PurchaseController createPurchaseController()
-        {
-          BillingManager<PlayStoreBillingCallback> billingManager = createBillingManager();
-          PurchaseValidator<AdsRemovalValidationCallback> validator = createPurchaseValidator();
-          return new AdsRemovalPurchaseController(validator, billingManager,
-                                                  "ads.removal.monthly.test");
-        }
-      };
+  private PurchaseFactory()
+  {
+    // Utility class.
+  }
 
   @NonNull
-  abstract PurchaseValidator createPurchaseValidator();
-
-  @NonNull
-  abstract BillingManager createBillingManager();
-
-  public abstract PurchaseController createPurchaseController();
+  public static PurchaseController<AdsRemovalPurchaseCallback> createPurchaseController()
+  {
+    BillingManager<PlayStoreBillingCallback> billingManager
+        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+    PurchaseValidator<AdsRemovalValidationCallback> validator = new AdsRemovalPurchaseValidator();
+    return new AdsRemovalPurchaseController(validator, billingManager,
+                                            "ads.removal.monthly.test");
+  }
 }
