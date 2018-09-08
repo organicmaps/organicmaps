@@ -2,6 +2,7 @@
 
 #include "base/assert.hpp"
 
+#include <iostream>
 #include <sstream>
 
 namespace
@@ -20,9 +21,7 @@ namespace base
 GeoObjectId::GeoObjectId(uint64_t encodedId) : m_encodedId(encodedId) {}
 
 GeoObjectId::GeoObjectId(GeoObjectId::Type type, uint64_t id)
-{
-  m_encodedId = (static_cast<uint64_t>(type) << 56) | id;
-}
+  : m_encodedId((static_cast<uint64_t>(type) << 56) | id) {}
 
 uint64_t GeoObjectId::GetSerialId() const
 {
@@ -66,6 +65,12 @@ GeoObjectId MakeOsmWay(uint64_t id)
 GeoObjectId MakeOsmRelation(uint64_t id)
 {
   return GeoObjectId(GeoObjectId::Type::ObsoleteOsmRelation, id);
+}
+
+std::ostream & operator<<(std::ostream & os, GeoObjectId const & geoObjectId)
+{
+  os << geoObjectId.GetEncodedId();
+  return os;
 }
 
 std::string DebugPrint(GeoObjectId::Type const & t)

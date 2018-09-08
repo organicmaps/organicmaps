@@ -11,8 +11,9 @@
 
 #include "indexer/classificator.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/assert.hpp"
-#include "base/geo_object_id.hpp"
 
 #include <set>
 #include <string>
@@ -22,10 +23,10 @@ namespace generator
 {
 TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
                                    cache::IntermediateDataReader & holder,
-                                   RegionInfoCollector & regionInfoCollector) :
-  m_emitter(emitter),
-  m_holder(holder),
-  m_regionInfoCollector(regionInfoCollector)
+                                   RegionInfoCollector & regionInfoCollector)
+  : m_emitter(emitter),
+    m_holder(holder),
+    m_regionInfoCollector(regionInfoCollector)
 {
 }
 
@@ -33,15 +34,20 @@ void TranslatorRegion::EmitElement(OsmElement * p)
 {
   CHECK(p, ("Tried to emit a null OsmElement"));
 
+  FeatureParams params;
+  if (!(IsSuitableElement(p) && ParseParams(p, params)))
+    return;
+
   switch (p->type)
   {
   case OsmElement::EntityType::Relation:
   {
-    FeatureParams params;
-    if (!(IsSuitableElement(p) && ParseParams(p, params)))
-      return;
-
-    BuildFeatureAndEmit(p, params);
+    BuildFeatureAndEmitFromRelation(p, params);
+    break;
+  }
+  case OsmElement::EntityType::Way:
+  {
+    BuildFeatureAndEmitFromWay(p, params);
     break;
   }
   default:
@@ -77,9 +83,9 @@ bool TranslatorRegion::IsSuitableElement(OsmElement const * p) const
   return false;
 }
 
-void TranslatorRegion::AddInfoAboutRegion(OsmElement const * p) const
+void TranslatorRegion::AddInfoAboutRegion(OsmElement const * p, base::GeoObjectId osmId) const
 {
-  m_regionInfoCollector.Add(*p);
+  m_regionInfoCollector.Add(osmId, *p);
 }
 
 bool TranslatorRegion::ParseParams(OsmElement * p, FeatureParams & params) const
@@ -90,7 +96,7 @@ bool TranslatorRegion::ParseParams(OsmElement * p, FeatureParams & params) const
   return params.IsValid();
 }
 
-void TranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, FeatureParams & params)
+void TranslatorRegion::BuildFeatureAndEmitFromRelation(OsmElement const * p, FeatureParams & params)
 {
   HolesRelation helper(m_holder);
   helper.Build(p);
@@ -99,21 +105,45 @@ void TranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, FeatureParams &
   outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts,
                     std::vector<uint64_t> const & ids)
   {
-    FeatureBuilder1 ft;
+    FeatureBuilder1 fb;
     for (uint64_t id : ids)
-      ft.AddOsmId(base::MakeOsmWay(id));
+      fb.AddOsmId(base::MakeOsmWay(id));
 
     for (auto const & pt : pts)
-      ft.AddPoint(pt);
+      fb.AddPoint(pt);
 
-    ft.AddOsmId(base::MakeOsmRelation(p->id));
-    if (!ft.IsGeometryClosed())
+    auto const id = base::MakeOsmRelation(p->id);
+    fb.AddOsmId(id);
+    if (!fb.IsGeometryClosed())
       return;
 
-    ft.SetAreaAddHoles(holesGeometry);
-    ft.SetParams(params);
-    AddInfoAboutRegion(p);
-    (*m_emitter)(ft);
+    fb.SetAreaAddHoles(holesGeometry);
+    fb.SetParams(params);
+    AddInfoAboutRegion(p, id);
+    (*m_emitter)(fb);
   });
+}
+
+void TranslatorRegion::BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureParams & params)
+{
+  FeatureBuilder1 fb;
+  m2::PointD pt;
+  for (uint64_t ref : p->Nodes())
+  {
+    if (!m_holder.GetNode(ref, pt.y, pt.x))
+      return;
+
+    fb.AddPoint(pt);
+  }
+
+  auto const id = base::MakeOsmWay(p->id);
+  fb.SetOsmId(id);
+  fb.SetParams(params);
+  if (!fb.IsGeometryClosed())
+    return;
+
+  fb.SetArea();
+  AddInfoAboutRegion(p, id);
+  (*m_emitter)(fb);
 }
 }  // namespace generator

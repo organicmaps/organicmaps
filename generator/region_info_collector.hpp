@@ -4,12 +4,15 @@
 
 #include "coding/write_to_sink.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <cstdint>
 #include <functional>
 #include <ostream>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <utility>
 
 struct OsmElement;
 class FeatureParams;
@@ -63,11 +66,8 @@ public:
   RegionInfoCollector() = default;
   explicit RegionInfoCollector(std::string const & filename);
   explicit RegionInfoCollector(Platform::FilesList const & filenames);
-
-  // It is supposed to be called already on the filtered osm objects that represent regions.
-  void Add(OsmElement const & el);
-  // osmId is osm relation id.
-  RegionDataProxy Get(uint64_t osmId) const;
+  void Add(base::GeoObjectId const & osmId, OsmElement const & el);
+  RegionDataProxy Get(base::GeoObjectId const & osmId) const;
   void Save(std::string const & filename);
 
 private:
@@ -90,7 +90,7 @@ private:
     std::string GetAlpha3() const { return m_alpha3; }
     std::string GetNumeric() const { return m_numeric; }
 
-    uint64_t m_osmId = 0;
+    base::GeoObjectId m_osmId;
     char m_alpha2[3] = {};
     char m_alpha3[4] = {};
     char m_numeric[4] = {};
@@ -98,13 +98,13 @@ private:
 
   struct RegionData
   {
-    uint64_t m_osmId = 0;
+    base::GeoObjectId m_osmId;
     AdminLevel m_adminLevel = AdminLevel::Unknown;
     PlaceType m_place = PlaceType::Unknown;
   };
 
-  using MapRegionData = std::unordered_map<uint64_t, RegionData>;
-  using MapIsoCode = std::unordered_map<uint64_t, IsoCode>;
+  using MapRegionData = std::unordered_map<base::GeoObjectId, RegionData>;
+  using MapIsoCode = std::unordered_map<base::GeoObjectId, IsoCode>;
 
   template <typename Source, typename Map>
   void ReadMap(Source & src, Map & seq)
@@ -131,8 +131,8 @@ private:
   }
 
   void ParseFile(std::string const & filename);
-  void FillRegionData(OsmElement const & el, RegionData & rd);
-  void FillIsoCode(OsmElement const & el, IsoCode & rd);
+  void FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el, RegionData & rd);
+  void FillIsoCode(base::GeoObjectId const & osmId, OsmElement const & el, IsoCode & rd);
 
   MapRegionData m_mapRegionData;
   MapIsoCode m_mapIsoCode;
@@ -141,9 +141,9 @@ private:
 class RegionDataProxy
 {
 public:
-  RegionDataProxy(RegionInfoCollector const & regionInfoCollector, uint64_t osmId);
+  RegionDataProxy(RegionInfoCollector const & regionInfoCollector, base::GeoObjectId const & osmId);
 
-  uint64_t GetOsmId() const;
+  base::GeoObjectId const & GetOsmId() const;
   AdminLevel GetAdminLevel() const;
   PlaceType GetPlaceType() const;
 
@@ -165,7 +165,7 @@ private:
   RegionInfoCollector::MapIsoCode const & GetMapIsoCode() const;
 
   std::reference_wrapper<RegionInfoCollector const> m_regionInfoCollector;
-  uint64_t m_osmId;
+  base::GeoObjectId m_osmId;
 };
 
 inline std::ostream & operator<<(std::ostream & out, AdminLevel const & t)

@@ -9,7 +9,6 @@
 #include "coding/transliteration.hpp"
 
 #include "base/control_flow.hpp"
-#include "base/geo_object_id.hpp"
 #include "base/macros.hpp"
 #include "base/timer.hpp"
 
@@ -68,7 +67,7 @@ public:
       ToJSONObject(*address, label, region.GetName());
       if (m_extendedOutput)
       {
-        ToJSONObject(*address, label + "_i", region.GetId());
+        ToJSONObject(*address, label + "_i", region.GetId().GetSerialId());
         ToJSONObject(*address, label + "_a", region.GetArea());
         ToJSONObject(*address, label + "_r", region.GetRank());
       }
@@ -146,7 +145,8 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
 
   auto const & d = node->GetData();
   auto const point = d.GetCenter();
-  stream << d.GetName()  << "<" << d.GetEnglishOrTransliteratedName() << "> (" << d.GetId()
+  stream << d.GetName() << "<" << d.GetEnglishOrTransliteratedName() << "> ("
+         << d.GetId()
          << ";" << d.GetLabel()
          << ";" << static_cast<size_t>(d.GetRank())
          << ";[" << point.get<0>() << "," << point.get<1>() << "])"
@@ -177,14 +177,14 @@ RegionsBuilder::Regions ReadRegionsFromTmpMwm(feature::GenerateInfo const & genI
 {
   RegionsBuilder::Regions regions;
   auto const tmpMwmFilename = genInfo.GetTmpFileName(genInfo.m_fileName);
-  auto const toDo = [&regions, &regionsInfoCollector](const FeatureBuilder1 & fb, uint64_t)
+  auto const toDo = [&regions, &regionsInfoCollector](FeatureBuilder1 const & fb, uint64_t /* currPos */)
   {
     // We expect only the type of osm of the object - relation. But some settlements can be
     // presented as ways. We must remember about this.
     if (!fb.IsArea() || !fb.IsGeometryClosed())
       return;
 
-    auto const id = fb.GetMostGenericOsmId().GetSerialId();
+    auto const id = fb.GetMostGenericOsmId();
     auto region = Region(fb, regionsInfoCollector.Get(id));
 
     auto const & label = region.GetLabel();
@@ -318,7 +318,9 @@ std::string Region::GetEnglishOrTransliteratedName() const
   {
     if (code != StringUtf8Multilang::kDefaultCode &&
         Transliteration::Instance().Transliterate(name, code, s))
+    {
       return base::ControlFlow::Break;
+    }
 
     return base::ControlFlow::Continue;
   };
@@ -492,7 +494,7 @@ double Region::GetArea() const
   return m_area;
 }
 
-uint64_t Region::GetId() const
+base::GeoObjectId Region::GetId() const
 {
   return m_regionData.GetOsmId();
 }
@@ -682,7 +684,7 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
 
   auto const jsonlName = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
   std::ofstream ofs(jsonlName, std::ofstream::out);
-  std::set<uint64_t> setIds;
+  std::set<base::GeoObjectId> setIds;
   size_t countIds = 0;
   for (auto const & countryName : kvBuilder->GetCountryNames())
   {
@@ -700,11 +702,10 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
     auto const idStringList = kvBuilder->ToIdStringList(mergedTree);
     for (auto const & s : idStringList)
     {
-      auto const id = base::GeoObjectId(base::GeoObjectId::Type::OsmRelation, s.first).GetEncodedId();
-      ofs << id << " " << s.second << std::endl;
+      ofs << s.first << " " << s.second << std::endl;
       ++countIds;
-      if (!setIds.insert(id).second)
-        LOG(LWARNING, ("Id alredy exists:", id, s.first));
+      if (!setIds.insert(s.first).second)
+        LOG(LWARNING, ("Id alredy exists:",  s.first));
     }
   }
 

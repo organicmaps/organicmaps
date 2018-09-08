@@ -4,6 +4,8 @@
 
 #include "indexer/feature_data.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <memory>
 
 struct OsmElement;
@@ -34,9 +36,10 @@ public:
 
 private:
   bool IsSuitableElement(OsmElement const * p) const;
-  void AddInfoAboutRegion(OsmElement const * p) const;
+  void AddInfoAboutRegion(OsmElement const * p, base::GeoObjectId osmId) const;
   bool ParseParams(OsmElement * p, FeatureParams & params) const;
-  void BuildFeatureAndEmit(OsmElement const * p, FeatureParams & params);
+  void BuildFeatureAndEmitFromRelation(OsmElement const * p, FeatureParams & params);
+  void BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureParams & params);
 
 private:
   std::shared_ptr<EmitterInterface> m_emitter;

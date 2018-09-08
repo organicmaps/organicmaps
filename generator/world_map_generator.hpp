@@ -315,11 +315,9 @@ public:
   void DoMerge() { m_merger.DoMerge(m_worldBucket); }
 };
 
-template <class FeatureOutT>
+template <class FeatureOut>
 class CountryMapGenerator
 {
-  FeatureOutT m_bucket;
-
 public:
   CountryMapGenerator(feature::GenerateInfo const & info) : m_bucket(info) {}
 
@@ -329,5 +327,8 @@ public:
       m_bucket(fb);
   }
 
-  inline FeatureOutT & Parent() { return m_bucket; }
+  FeatureOut & Parent() { return m_bucket; }
+
+private:
+  FeatureOut m_bucket;
 };

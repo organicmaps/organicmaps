@@ -7,6 +7,8 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <string>
@@ -57,7 +59,7 @@ struct Region
   std::shared_ptr<BoostPolygon> const GetPolygon() const;
   BoostRect const & GetRect() const;
   double GetArea() const;
-  uint64_t GetId() const;
+  base::GeoObjectId GetId() const;
 
 private:
   void FillPolygon(FeatureBuilder1 const & fb);
@@ -106,7 +108,7 @@ class RegionsBuilder
 public:
   using Regions = std::vector<Region>;
   using StringsList = std::vector<std::string>;
-  using IdStringList = std::vector<std::pair<uint64_t, std::string>>;
+  using IdStringList = std::vector<std::pair<base::GeoObjectId, std::string>>;
   using CountryTrees = std::multimap<std::string, Node::Ptr>;
 
   explicit RegionsBuilder(Regions && regions);

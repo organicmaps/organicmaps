@@ -24,7 +24,7 @@
 namespace
 {
 using PopularityIndex = uint8_t;
-using PopularPlaces = std::unordered_map<base::GeoObjectId, PopularityIndex, base::HashGeoObjectId>;
+using PopularPlaces = std::unordered_map<base::GeoObjectId, PopularityIndex>;
 
 void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
 {

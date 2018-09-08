@@ -53,7 +53,7 @@ struct TransitId
 
 struct HashKey
 {
-  size_t operator()(base::GeoObjectId const & key) const { return base::HashGeoObjectId()(key); }
+  size_t operator()(base::GeoObjectId const & key) const { return std::hash<base::GeoObjectId>()(key); }
 
   size_t operator()(TransitId const & key) const
   {

@@ -85,18 +85,17 @@ void RegionInfoCollector::ParseFile(std::string const & filename)
   }
 }
 
-void RegionInfoCollector::Add(OsmElement const & el)
+void RegionInfoCollector::Add(base::GeoObjectId const & osmId, OsmElement const & el)
 {
   RegionData regionData;
-  FillRegionData(el, regionData);
-  m_mapRegionData.emplace(el.id, regionData);
-
+  FillRegionData(osmId, el, regionData);
+  m_mapRegionData.emplace(osmId, regionData);
   // If the region is a country.
   if (regionData.m_adminLevel == AdminLevel::Two)
   {
     IsoCode isoCode;
-    FillIsoCode(el, isoCode);
-    m_mapIsoCode.emplace(el.id, isoCode);
+    FillIsoCode(osmId, el, isoCode);
+    m_mapIsoCode.emplace(osmId, isoCode);
   }
 }
 
@@ -115,14 +114,15 @@ void RegionInfoCollector::Save(std::string const & filename)
   }
 }
 
-RegionDataProxy RegionInfoCollector::Get(uint64_t osmId) const
+RegionDataProxy RegionInfoCollector::Get(base::GeoObjectId const & osmId) const
 {
   return RegionDataProxy(*this, osmId);
 }
 
-void RegionInfoCollector::FillRegionData(OsmElement const & el, RegionData & rd)
+void RegionInfoCollector::FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el,
+                                         RegionData & rd)
 {
-  rd.m_osmId = el.id;
+  rd.m_osmId = osmId;
   rd.m_place = EncodePlaceType(el.GetTag("place"));
   auto const al = el.GetTag("admin_level");
 
@@ -144,15 +144,17 @@ void RegionInfoCollector::FillRegionData(OsmElement const & el, RegionData & rd)
   }
 }
 
-void RegionInfoCollector::FillIsoCode(OsmElement const & el, IsoCode & rd)
+void RegionInfoCollector::FillIsoCode(base::GeoObjectId const & osmId, OsmElement const & el,
+                                      IsoCode & rd)
 {
-  rd.m_osmId = el.id;
+  rd.m_osmId = osmId;
   rd.SetAlpha2(el.GetTag("ISO3166-1:alpha2"));
   rd.SetAlpha3(el.GetTag("ISO3166-1:alpha3"));
   rd.SetNumeric(el.GetTag("ISO3166-1:numeric"));
 }
 
-RegionDataProxy::RegionDataProxy(RegionInfoCollector const & regionInfoCollector, uint64_t osmId)
+RegionDataProxy::RegionDataProxy(RegionInfoCollector const & regionInfoCollector,
+                                 base::GeoObjectId const & osmId)
   : m_regionInfoCollector(regionInfoCollector),
     m_osmId(osmId)
 {
@@ -173,7 +175,7 @@ RegionInfoCollector::MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
   return GetCollector().m_mapIsoCode;
 }
 
-uint64_t RegionDataProxy::GetOsmId() const
+base::GeoObjectId const & RegionDataProxy::GetOsmId() const
 {
   return m_osmId;
 }

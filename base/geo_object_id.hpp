@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <iosfwd>
 #include <string>
 
 namespace base
@@ -57,11 +58,10 @@ public:
     ObsoleteOsmRelation = 0xC0,
   };
 
-  static const uint64_t kInvalid = 0ULL;
+  static constexpr uint64_t kInvalid = 0ULL;
 
   explicit GeoObjectId(uint64_t encodedId = kInvalid);
-
-  GeoObjectId(Type type, uint64_t id);
+  explicit GeoObjectId(GeoObjectId::Type type, uint64_t id);
 
   // Returns the id that the object has within its source.
   uint64_t GetSerialId() const;
@@ -81,13 +81,7 @@ private:
   uint64_t m_encodedId;
 };
 
-struct HashGeoObjectId : private std::hash<uint64_t>
-{
-  size_t operator()(GeoObjectId const & id) const
-  {
-    return std::hash<uint64_t>::operator()(id.GetEncodedId());
-  }
-};
+std::ostream & operator<<(std::ostream & os, GeoObjectId const & geoObjectId);
 
 // Helper functions for readability.
 GeoObjectId MakeOsmNode(uint64_t id);
@@ -97,3 +91,16 @@ GeoObjectId MakeOsmRelation(uint64_t id);
 std::string DebugPrint(GeoObjectId::Type const & t);
 std::string DebugPrint(GeoObjectId const & id);
 }  // namespace base
+
+namespace std
+{
+template <>
+struct hash<base::GeoObjectId>
+{
+  std::size_t operator()(base::GeoObjectId const & k) const
+  {
+    auto const hash = std::hash<uint64_t>();
+    return hash(k.GetEncodedId());
+  }
+};
+}  // namespace std

@@ -11,7 +11,7 @@
 namespace generator
 {
 using OsmIdToBoundariesTable =
-    base::ClusteringMap<base::GeoObjectId, indexer::CityBoundary, base::HashGeoObjectId>;
+    base::ClusteringMap<base::GeoObjectId, indexer::CityBoundary>;
 using TestIdToBoundariesTable = base::ClusteringMap<uint64_t, indexer::CityBoundary>;
 
 bool BuildCitiesBoundaries(std::string const & dataPath, std::string const & osmToFeaturePath,
