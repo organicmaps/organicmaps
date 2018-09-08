@@ -21,6 +21,7 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
+import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -100,7 +101,10 @@ final class BannerController
   private ImageView mAdChoicesLabel;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mAdRemovalButton;
+  private View mAdsRemovalIcon;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mAdsRemovalButton;
 
   private final float mCloseFrameHeight;
 
@@ -117,9 +121,12 @@ final class BannerController
   private AdTracker mAdTracker;
   @NonNull
   private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
+  @NonNull
+  private final PurchaseController mPurchaseController;
 
   BannerController(@NonNull ViewGroup bannerContainer, @Nullable BannerListener listener,
-                   @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker)
+                   @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker,
+                   @NonNull PurchaseController purchaseController)
   {
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
@@ -130,6 +137,7 @@ final class BannerController
     mAdTracker = tracker;
     Resources resources = mBannerView.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
+    mPurchaseController = purchaseController;
     initBannerViews();
   }
 
@@ -141,16 +149,16 @@ final class BannerController
     mActionSmall = mBannerView.findViewById(R.id.tv__action_small);
     mActionContainer = mBannerView.findViewById(R.id.action_container);
     mActionLarge = mActionContainer.findViewById(R.id.tv__action_large);
-    View actionRemove = mActionContainer.findViewById(R.id.tv__action_remove);
-    actionRemove.setOnClickListener(v -> handleAdsRemoval());
+    mAdsRemovalButton = mActionContainer.findViewById(R.id.tv__action_remove);
+    mAdsRemovalButton.setOnClickListener(v -> handleAdsRemoval());
     mAdChoices = mBannerView.findViewById(R.id.ad_choices_icon);
     mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
     mAdChoicesLabel = mBannerView.findViewById(R.id.ad_choices_label);
-    mAdRemovalButton = mBannerView.findViewById(R.id.remove_btn);
-    mAdRemovalButton.setOnClickListener(v -> handleAdsRemoval());
+    mAdsRemovalIcon = mBannerView.findViewById(R.id.remove_btn);
+    mAdsRemovalIcon.setOnClickListener(v -> handleAdsRemoval());
     Resources res = mBannerView.getResources();
     final int tapArea = res.getDimensionPixelSize(R.dimen.margin_quarter_plus);
-    UiUtils.expandTouchAreaForViews(tapArea, mAdChoices, mAdRemovalButton);
+    UiUtils.expandTouchAreaForViews(tapArea, mAdChoices, mAdsRemovalIcon);
   }
 
   private void handlePrivacyInfoUrl()
@@ -189,13 +197,13 @@ final class BannerController
         && mCurrentAd == null)
     {
       UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoices,
-                   mAdChoicesLabel, mAdRemovalButton);
+                   mAdChoicesLabel, mAdsRemovalIcon, mAdsRemovalButton);
     }
     else if (mCurrentAd != null)
     {
       UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoicesLabel,
-                   mAdRemovalButton);
+      UiUtils.showIf(mPurchaseController.isPurchaseSupported(), mAdsRemovalIcon, mAdsRemovalButton);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
