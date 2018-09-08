@@ -27,7 +27,8 @@ public enum PurchaseFactory
         {
           BillingManager<PlayStoreBillingCallback> billingManager = createBillingManager();
           PurchaseValidator<AdsRemovalValidationCallback> validator = createPurchaseValidator();
-          return new AdsRemovalPurchaseController(validator, billingManager, "ads.removal.monthly.test");
+          return new AdsRemovalPurchaseController(validator, billingManager,
+                                                  "ads.removal.monthly.test");
         }
       };
 

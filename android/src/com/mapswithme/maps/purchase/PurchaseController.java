@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  * process. This controller has to be used only within {@link #initialize(Activity)} and {@link #destroy()}
  * interval.
  */
-public interface PurchaseController
+public interface PurchaseController<T>
 {
   /**
    * Initializes the controller.
@@ -32,11 +32,16 @@ public interface PurchaseController
   boolean isPurchaseSupported();
 
   /**
-   * Launches the purchase flow for the specified product.
+   * Launches the purchase flow for the specified product. The purchase results will be delivered
+   * through {@link T} callback.
    *
    * @param productId id of the product which is going to be purchased.
    */
   void launchPurchaseFlow(@NonNull String productId);
+
+  void addCallback(@NonNull T  callback);
+
+  void removeCallback();
 }
 
 

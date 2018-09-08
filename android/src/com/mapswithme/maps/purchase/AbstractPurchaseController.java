@@ -2,13 +2,16 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-abstract class AbstractPurchaseController<V, B> implements PurchaseController
+abstract class AbstractPurchaseController<V, B, UiCallback> implements PurchaseController<UiCallback>
 {
   @NonNull
   private final PurchaseValidator<V> mValidator;
   @NonNull
   private final BillingManager<B> mBillingManager;
+  @Nullable
+  private UiCallback mUiCallback;
 
   AbstractPurchaseController(@NonNull PurchaseValidator<V> validator,
                              @NonNull BillingManager<B> billingManager)
@@ -31,6 +34,24 @@ abstract class AbstractPurchaseController<V, B> implements PurchaseController
     mValidator.destroy();
     mBillingManager.destroy();
     onDestroy();
+  }
+
+  @Override
+  public void addCallback(@NonNull UiCallback callback)
+  {
+    mUiCallback = callback;
+  }
+
+  @Override
+  public void removeCallback()
+  {
+    mUiCallback = null;
+  }
+
+  @Nullable
+  UiCallback getUiCallback()
+  {
+    return mUiCallback;
   }
 
   @Override

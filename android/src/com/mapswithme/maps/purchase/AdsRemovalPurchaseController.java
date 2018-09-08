@@ -13,7 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemovalValidationCallback, PlayStoreBillingCallback>
+class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemovalValidationCallback,
+    PlayStoreBillingCallback, AdsRemovalPurchaseCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AdsRemovalPurchaseController.class.getSimpleName();
@@ -62,7 +63,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     @Override
     public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      // Coming soon.
+      if (getUiCallback() != null)
+        getUiCallback().onProductDetailsLoaded(details);
     }
 
     @Override
@@ -79,7 +81,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     @Override
     public void onPurchaseFailure()
     {
-      // Coming soon.
+      if (getUiCallback() != null)
+        getUiCallback().onFailure();
     }
 
     @Override
