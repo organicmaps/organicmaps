@@ -47,6 +47,7 @@ set(
   com/mapswithme/maps/editor/OpeningHours.cpp
   com/mapswithme/maps/editor/Editor.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
+  com/mapswithme/maps/metrics/UserActionsLogger.cpp
   com/mapswithme/maps/Framework.cpp
   com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationState.cpp

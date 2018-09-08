@@ -11,6 +11,7 @@ import android.view.View;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -139,8 +140,15 @@ public enum TipsApi
         .setSecondaryTextTypeface(Typeface.DEFAULT)
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
-        .setPromptBackground(new FullscreenPromptBackground());
+        .setPromptBackground(new FullscreenPromptBackground())
+        .setPromptStateChangeListener((prompt, state) -> onPromptStateChanged(state));
     builder.show();
+  }
+
+  private void onPromptStateChanged(int state)
+  {
+    if (state == MaterialTapTargetPrompt.STATE_DISMISSED)
+      UserActionsLogger.logTipsShownEvent(TipsApi.this, TipsAction.GOT_IT_CLICKED);
   }
 
   @Nullable

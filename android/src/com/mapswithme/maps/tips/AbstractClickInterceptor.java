@@ -2,8 +2,8 @@ package com.mapswithme.maps.tips;
 
 import android.support.annotation.NonNull;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 
 public abstract class AbstractClickInterceptor implements ClickInterceptor
 {
@@ -24,7 +24,7 @@ public abstract class AbstractClickInterceptor implements ClickInterceptor
   @Override
   public final void onInterceptClick(@NonNull MwmActivity activity)
   {
-    Framework.tipsShown(getType());
+    UserActionsLogger.logTipsShownEvent(getType(), TipsAction.ACTION_CLICKED);
     onInterceptClickInternal(activity);
   }
 
