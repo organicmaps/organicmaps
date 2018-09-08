@@ -37,6 +37,11 @@ struct Region
   explicit Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd);
 
   void DeletePolygon();
+  // This function will take the following steps:
+  // 1. Return the english name if it exists.
+  // 2. Return transliteration if it succeeds.
+  // 3. Otherwise, return empty string.
+  std::string GetEnglishOrTransliteratedName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
   bool IsCountry() const;
   bool HasIsoCode() const;

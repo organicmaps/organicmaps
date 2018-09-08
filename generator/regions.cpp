@@ -6,8 +6,11 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/transliteration.hpp"
 
+#include "base/control_flow.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/macros.hpp"
 #include "base/timer.hpp"
 
 #include <chrono>
@@ -56,23 +59,31 @@ public:
     ToJSONArray(*coordinates, center.get<1>());
     ToJSONObject(*geometry, "coordinates", coordinates);
 
+    auto localeEn = my::NewJSONObject();
     auto address = my::NewJSONObject();
     for (auto const & p : boost::adaptors::reverse(nodePtrList))
     {
-      auto const label = p->GetData().GetLabel();
-      ToJSONObject(*address, label, p->GetData().GetName());
+      auto const & region = p->GetData();
+      auto const label = region.GetLabel();
+      ToJSONObject(*address, label, region.GetName());
       if (m_extendedOutput)
       {
-        ToJSONObject(*address, label + "_i", p->GetData().GetId());
-        ToJSONObject(*address, label + "_a", p->GetData().GetArea());
-        ToJSONObject(*address, label + "_r", p->GetData().GetRank());
+        ToJSONObject(*address, label + "_i", region.GetId());
+        ToJSONObject(*address, label + "_a", region.GetArea());
+        ToJSONObject(*address, label + "_r", region.GetRank());
       }
+
+      ToJSONObject(*localeEn, label, region.GetEnglishOrTransliteratedName());
     }
+
+    auto locales = my::NewJSONObject();
+    ToJSONObject(*locales, "en", localeEn);
 
     auto properties = my::NewJSONObject();
     ToJSONObject(*properties, "name", main.GetName());
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
+    ToJSONObject(*properties, "locales", locales);
     if (country.HasIsoCode())
       ToJSONObject(*properties, "code", country.GetIsoCode());
 
@@ -135,7 +146,7 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
 
   auto const & d = node->GetData();
   auto const point = d.GetCenter();
-  stream << d.GetName() << "(" << d.GetId()
+  stream << d.GetName()  << "<" << d.GetEnglishOrTransliteratedName() << "> (" << d.GetId()
          << ";" << d.GetLabel()
          << ";" << static_cast<size_t>(d.GetRank())
          << ";[" << point.get<0>() << "," << point.get<1>() << "])"
@@ -294,6 +305,25 @@ std::string Region::GetName(int8_t lang) const
 {
   std::string s;
   VERIFY(m_name.GetString(lang, s) != s.empty(), ());
+  return s;
+}
+
+std::string Region::GetEnglishOrTransliteratedName() const
+{
+  std::string s = GetName(StringUtf8Multilang::kEnglishCode);
+  if (!s.empty())
+    return s;
+
+  auto const fn = [&s, this](int8_t code, std::string const & name)
+  {
+    if (code != StringUtf8Multilang::kDefaultCode &&
+        Transliteration::Instance().Transliterate(name, code, s))
+      return base::ControlFlow::Break;
+
+    return base::ControlFlow::Continue;
+  };
+
+  m_name.ForEach(fn);
   return s;
 }
 
@@ -638,6 +668,8 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
 
   LOG(LINFO, ("Start generating regions.."));
   auto timer = my::Timer();
+
+  Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 
   auto const collectorFilename =
       genInfo.GetTmpFileName(genInfo.m_fileName, RegionInfoCollector::kDefaultExt);

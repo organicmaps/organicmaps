@@ -43,6 +43,7 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/transliteration.hpp"
 
 #include "base/timer.hpp"
 
