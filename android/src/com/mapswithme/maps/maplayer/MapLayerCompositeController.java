@@ -1,14 +1,15 @@
 package com.mapswithme.maps.maplayer;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
-import com.mapswithme.maps.tips.TipsProvider;
+import com.mapswithme.maps.tips.TipsApi;
+import com.mapswithme.maps.tips.TipsClickListener;
 import com.mapswithme.util.InputUtils;
 
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class MapLayerCompositeController implements MapLayerController
   public MapLayerCompositeController(@NonNull TrafficButton traffic, @NonNull View subway,
                                      @NonNull AppCompatActivity activity)
   {
-    OpenBottomDialogClickListener listener = new OpenBottomDialogClickListener();
+    View.OnClickListener listener = new OpenBottomDialogClickListener(activity, TipsApi.MAP_LAYERS);
     mActivity = activity;
     mChildrenEntries = createEntries(traffic, subway, activity, listener);
     mMasterEntry = getCurrentLayer();
@@ -39,7 +40,7 @@ public class MapLayerCompositeController implements MapLayerController
   private static Collection<ControllerAndMode> createEntries(@NonNull TrafficButton traffic,
                                                              @NonNull View subway,
                                                              @NonNull AppCompatActivity activity,
-                                                             @NonNull OpenBottomDialogClickListener dialogClickListener)
+                                                             @NonNull View.OnClickListener dialogClickListener)
   {
     traffic.setOnclickListener(dialogClickListener);
     TrafficButtonController trafficButtonController = new TrafficButtonController(traffic,
@@ -263,20 +264,16 @@ public class MapLayerCompositeController implements MapLayerController
     }
   }
 
-  private class OpenBottomDialogClickListener implements View.OnClickListener
+  private class OpenBottomDialogClickListener extends TipsClickListener
   {
-    @Override
-    public void onClick(View v)
+    OpenBottomDialogClickListener(@NonNull Activity activity, @NonNull TipsApi provider)
     {
-      TipsProvider api;
-      if ((api = TipsProvider.requestCurrent(mActivity.getClass())) == TipsProvider.MAP_LAYERS)
-      {
-        MwmActivity mwmActivity = (MwmActivity) mActivity;
-        TipsProvider.ClickInterceptor interceptor = api.createClickInterceptor();
-        interceptor.onInterceptClick(mwmActivity);
-        return;
-      }
+      super(activity, provider);
+    }
 
+    @Override
+    public void onProcessClick(@NonNull View view)
+    {
       if (mMasterEntry.getMode().isEnabled(mActivity))
       {
         turnOff();

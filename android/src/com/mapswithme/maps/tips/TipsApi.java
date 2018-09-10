@@ -11,9 +11,6 @@ import android.view.View;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.widget.menu.MainMenu;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -25,7 +22,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.FullscreenPro
 import java.util.Arrays;
 import java.util.List;
 
-public enum TipsProvider
+public enum TipsApi
 {
   BOOKMARKS(R.string.tips_bookmarks_catalog_title,
             R.string.tips_bookmarks_catalog_message,
@@ -35,7 +32,7 @@ public enum TipsProvider
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return new ClickInterceptor.OpenBookmarksCatalog();
+          return ClickInterceptorFactory.createOpenBookmarksCatalogListener();
         }
       },
 
@@ -47,7 +44,7 @@ public enum TipsProvider
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return new ClickInterceptor.SearchHotels();
+          return ClickInterceptorFactory.createSearchHotelsListener();
         }
       },
 
@@ -59,7 +56,7 @@ public enum TipsProvider
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return new ClickInterceptor.OpenDiscoveryScreen();
+          return ClickInterceptorFactory.createOpenDiscoveryScreenListener();
         }
       },
 
@@ -72,22 +69,27 @@ public enum TipsProvider
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return new ClickInterceptor.ActivateSubwayLayer();
+          return ClickInterceptorFactory.createActivateSubwayLayerListener();
         }
       },
 
   STUB
       {
+        public void showTutorial(@NonNull Activity activity)
+        {
+          throw new UnsupportedOperationException("Not supported here!");
+        }
+
         @NonNull
         @Override
         public ClickInterceptor createClickInterceptor()
         {
-          return params -> {};
+          return activity -> {};
         }
       };
 
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = TipsProvider.class.getSimpleName();
+  private static final String TAG = TipsApi.class.getSimpleName();
 
   @StringRes
   private final int mPrimaryText;
@@ -100,8 +102,8 @@ public enum TipsProvider
   @Nullable
   private final MainMenu.Item mSiblingMenuItem;
 
-  TipsProvider(@StringRes int primaryText, @StringRes int secondaryText, @IdRes int anchorViewId,
-               @Nullable MainMenu.Item siblingMenuItem, @NonNull Class<?>... allowedScreens)
+  TipsApi(@StringRes int primaryText, @StringRes int secondaryText, @IdRes int anchorViewId,
+          @Nullable MainMenu.Item siblingMenuItem, @NonNull Class<?>... allowedScreens)
   {
     mPrimaryText = primaryText;
     mSecondaryText = secondaryText;
@@ -110,7 +112,7 @@ public enum TipsProvider
     mAllowedScreens = Arrays.asList(allowedScreens);
   }
 
-  TipsProvider()
+  TipsApi()
   {
     this(UiUtils.NO_ID, UiUtils.NO_ID, UiUtils.NO_ID, null);
   }
@@ -119,14 +121,14 @@ public enum TipsProvider
   {
     return mAllowedScreens.contains(screenClass);
   }
-  @SuppressWarnings("UnusedReturnValue")
-  @Nullable
-  public MaterialTapTargetPrompt showTutorial(@NonNull Activity activity)
+
+  public void showTutorial(@NonNull Activity activity)
   {
     View target = activity.findViewById(mAnchorViewId);
-    return new MaterialTapTargetPrompt.Builder(activity)
+    MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt
+        .Builder(activity)
         .setTarget(target)
-        .setFocalRadius(R.dimen.nav_street_height)
+        .setFocalRadius(R.dimen.focal_radius)
         .setPrimaryText(mPrimaryText)
         .setPrimaryTextSize(R.dimen.text_size_toolbar)
         .setPrimaryTextColour(ThemeUtils.getColor(activity, R.attr.tipsPrimaryTextColor))
@@ -137,8 +139,8 @@ public enum TipsProvider
         .setSecondaryTextTypeface(Typeface.DEFAULT)
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
-        .setPromptBackground(new FullscreenPromptBackground())
-        .show();
+        .setPromptBackground(new FullscreenPromptBackground());
+    builder.show();
   }
 
   @Nullable
@@ -151,102 +153,14 @@ public enum TipsProvider
   public abstract ClickInterceptor createClickInterceptor();
 
   @NonNull
-  public static <T> TipsProvider requestCurrent(@NonNull Class<T> requiredScreenClass)
+  public static <T> TipsApi requestCurrent(@NonNull Class<T> requiredScreenClass)
   {
     int index = Framework.nativeGetCurrentTipsApi();
-    TipsProvider value = index >= 0 ? values()[index] : STUB;
-    TipsProvider tipsProvider = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
-                                                                                            : STUB;
-    LOGGER.d(TAG, "tipsProvider = " + tipsProvider);
-    return tipsProvider;
+    TipsApi value = index >= 0 ? values()[index] : STUB;
+    TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
+                                                                                  : STUB;
+    LOGGER.d(TAG, "tipsApi = " + tipsApi);
+    return tipsApi;
   }
 
-  public interface ClickInterceptor
-  {
-    void onInterceptClick(@NonNull MwmActivity params);
-
-    abstract class AbstractClickInterceptor implements ClickInterceptor
-    {
-      @NonNull
-      private final TipsProvider mTipsProvider;
-
-      AbstractClickInterceptor(@NonNull TipsProvider tipsProvider)
-      {
-        mTipsProvider = tipsProvider;
-      }
-
-      @NonNull
-      TipsProvider getType()
-      {
-        return mTipsProvider;
-      }
-
-      @Override
-      public final void onInterceptClick(@NonNull MwmActivity params)
-      {
-        Framework.tipsShown(getType());
-        onInterceptClickInternal(params);
-      }
-
-      protected abstract void onInterceptClickInternal(@NonNull MwmActivity params);
-    }
-
-    class OpenBookmarksCatalog extends AbstractClickInterceptor
-    {
-      OpenBookmarksCatalog()
-      {
-        super(BOOKMARKS);
-      }
-
-      @Override
-      public void onInterceptClickInternal(@NonNull MwmActivity params)
-      {
-        BookmarksCatalogActivity.startForResult(params,
-                                                BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
-      }
-    }
-
-    class ActivateSubwayLayer extends AbstractClickInterceptor
-    {
-      ActivateSubwayLayer()
-      {
-        super(MAP_LAYERS);
-      }
-
-      @Override
-      public void onInterceptClickInternal(@NonNull MwmActivity params)
-      {
-        Mode.SUBWAY.setEnabled(params, true);
-        params.onSubwayLayerSelected();
-      }
-    }
-
-    class SearchHotels extends AbstractClickInterceptor
-    {
-      SearchHotels()
-      {
-        super(SEARCH);
-      }
-
-      @Override
-      public void onInterceptClickInternal(@NonNull MwmActivity params)
-      {
-        params.showSearch(params.getString(R.string.hotel));
-      }
-    }
-
-    class OpenDiscoveryScreen extends AbstractClickInterceptor
-    {
-      OpenDiscoveryScreen()
-      {
-        super(DISCOVERY);
-      }
-
-      @Override
-      public void onInterceptClickInternal(@NonNull MwmActivity params)
-      {
-        params.showDiscovery();
-      }
-    }
-  }
 }

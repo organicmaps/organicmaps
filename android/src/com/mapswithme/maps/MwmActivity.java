@@ -67,7 +67,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
-import com.mapswithme.maps.tips.TipsProvider;
+import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
@@ -599,8 +599,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initTips()
   {
-    TipsProvider api = TipsProvider.requestCurrent(getClass());
-    if (api == TipsProvider.STUB)
+    TipsApi api = TipsApi.requestCurrent(getClass());
+    if (api == TipsApi.STUB)
       return;
 
     api.showTutorial(getActivity());
@@ -2650,211 +2650,207 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public interface ClickMenuDelegate
+  static abstract class AbstractClickMenuDelegate implements ClickMenuDelegate
   {
-    void onMenuItemClick();
+    @NonNull
+    private final MwmActivity mActivity;
+    @NonNull
+    private final MainMenu.Item mItem;
 
-    abstract class AbstractClickMenuDelegate implements ClickMenuDelegate
+    AbstractClickMenuDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
     {
-      @NonNull
-      private final MwmActivity mActivity;
-      @NonNull
-      private final MainMenu.Item mItem;
-
-      AbstractClickMenuDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        mActivity = activity;
-        mItem = item;
-      }
-
-      @NonNull
-      public MwmActivity getActivity()
-      {
-        return mActivity;
-      }
-
-      @NonNull
-      public MainMenu.Item getItem()
-      {
-        return mItem;
-      }
-
-      @Override
-      public final void onMenuItemClick()
-      {
-        TipsProvider api = TipsProvider.requestCurrent(getActivity().getClass());
-        if (api == TipsProvider.STUB || getItem() != api.getSiblingMenuItem())
-          onMenuItemClickInternal();
-        else
-          api.createClickInterceptor().onInterceptClick(getActivity());
-      }
-
-      public abstract void onMenuItemClickInternal();
+      mActivity = activity;
+      mItem = item;
     }
 
-    class MenuClickDelegate extends AbstractClickMenuDelegate
+    @NonNull
+    public MwmActivity getActivity()
     {
-      public MenuClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
-
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        if (!getActivity().mMainMenu.isOpen())
-        {
-          Statistics.INSTANCE.trackToolbarClick(getItem());
-          if (getActivity().mPlacePage.isDocked() && getActivity().closePlacePage())
-            return;
-
-          if (getActivity().closeSidePanel())
-            return;
-        }
-        getActivity().toggleMenu();
-      }
+      return mActivity;
     }
 
-    class AddPlaceDelegate extends AbstractClickMenuDelegate
+    @NonNull
+    public MainMenu.Item getItem()
     {
-      public AddPlaceDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
-
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarMenu(getItem());
-        getActivity().closePlacePage();
-        if (getActivity().mIsTabletLayout)
-          getActivity().closeSidePanel();
-        getActivity().closeMenu(() -> getActivity().showPositionChooser(false, false));
-      }
+      return mItem;
     }
 
-    class SearchClickDelegate extends AbstractClickMenuDelegate
+    @Override
+    public final void onMenuItemClick()
     {
-      public SearchClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      TipsApi api = TipsApi.requestCurrent(getActivity().getClass());
+      LOGGER.d(TAG, "TipsApi = " + api);
+      if (getItem() == api.getSiblingMenuItem())
+        api.createClickInterceptor().onInterceptClick(getActivity());
+      else
+        onMenuItemClickInternal();
+    }
 
-      @Override
-      public void onMenuItemClickInternal()
+    public abstract void onMenuItemClickInternal();
+  }
+
+  public static class MenuClickDelegate extends AbstractClickMenuDelegate
+  {
+    public MenuClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
+    }
+
+    @Override
+    public void onMenuItemClickInternal()
+    {
+      if (!getActivity().mMainMenu.isOpen())
       {
         Statistics.INSTANCE.trackToolbarClick(getItem());
-        RoutingController.get().cancel();
-        getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
+        if (getActivity().mPlacePage.isDocked() && getActivity().closePlacePage())
+          return;
+
+        if (getActivity().closeSidePanel())
+          return;
       }
+      getActivity().toggleMenu();
+    }
+  }
+
+  public static class AddPlaceDelegate extends AbstractClickMenuDelegate
+  {
+    public AddPlaceDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class PointToPointDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public PointToPointDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      getActivity().closePlacePage();
+      if (getActivity().mIsTabletLayout)
+        getActivity().closeSidePanel();
+      getActivity().closeMenu(() -> getActivity().showPositionChooser(false, false));
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarClick(getItem());
-        getActivity().startLocationToPoint(null, false);
-      }
+  public static class SearchClickDelegate extends AbstractClickMenuDelegate
+  {
+    public SearchClickDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class DiscoveryDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public DiscoveryDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarClick(getItem());
+      RoutingController.get().cancel();
+      getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarClick(getItem());
-        getActivity().showDiscovery();
-      }
+  public static class SettingsDelegate extends AbstractClickMenuDelegate
+  {
+    public SettingsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class BookmarksDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public BookmarksDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Intent intent = new Intent(getActivity(), SettingsActivity.class);
+      getActivity().closeMenu(() -> getActivity().startActivity(intent));
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarClick(getItem());
-        getActivity().closeMenu(getActivity()::showBookmarks);
-      }
+  public static class DownloadGuidesDelegate extends AbstractClickMenuDelegate
+  {
+    public DownloadGuidesDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class ShareMyLocationDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public ShareMyLocationDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
+      getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarMenu(getItem());
-        getActivity().closeMenu(getActivity()::shareMyLocation);
-      }
+  public static class DownloadMapsDelegate extends AbstractClickMenuDelegate
+  {
+    public DownloadMapsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class DownloadMapsDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public DownloadMapsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      RoutingController.get().cancel();
+      getActivity().closeMenu(() -> getActivity().showDownloader(false));
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarMenu(getItem());
-        RoutingController.get().cancel();
-        getActivity().closeMenu(() -> getActivity().showDownloader(false));
-      }
+  public static class BookmarksDelegate extends AbstractClickMenuDelegate
+  {
+    public BookmarksDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class SettingsDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public SettingsDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarClick(getItem());
+      getActivity().closeMenu(getActivity()::showBookmarks);
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarMenu(getItem());
-        Intent intent = new Intent(getActivity(), SettingsActivity.class);
-        getActivity().closeMenu(() -> getActivity().startActivity(intent));
-      }
+  public static class ShareMyLocationDelegate extends AbstractClickMenuDelegate
+  {
+    public ShareMyLocationDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
     }
 
-    class DownloadGuidesDelegate extends AbstractClickMenuDelegate
+    @Override
+    public void onMenuItemClickInternal()
     {
-      public DownloadGuidesDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
-      {
-        super(activity, item);
-      }
+      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      getActivity().closeMenu(getActivity()::shareMyLocation);
+    }
+  }
 
-      @Override
-      public void onMenuItemClickInternal()
-      {
-        Statistics.INSTANCE.trackToolbarMenu(getItem());
-        int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
-        getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
-      }
+  public static class DiscoveryDelegate extends AbstractClickMenuDelegate
+  {
+    public DiscoveryDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
+    }
+
+    @Override
+    public void onMenuItemClickInternal()
+    {
+      Statistics.INSTANCE.trackToolbarClick(getItem());
+      getActivity().showDiscovery();
+    }
+  }
+
+  public static class PointToPointDelegate extends AbstractClickMenuDelegate
+  {
+    public PointToPointDelegate(@NonNull MwmActivity activity, @NonNull MainMenu.Item item)
+    {
+      super(activity, item);
+    }
+
+    @Override
+    public void onMenuItemClickInternal()
+    {
+      Statistics.INSTANCE.trackToolbarClick(getItem());
+      getActivity().startLocationToPoint(null, false);
     }
   }
 }

@@ -25,7 +25,7 @@ import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.maps.tips.TipsAction;
-import com.mapswithme.maps.tips.TipsProvider;
+import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -225,9 +225,9 @@ public class Framework
     return FilterUtils.RATING_ANY;
   }
 
-  public static void tipsShown(@NonNull TipsProvider tipsProvider)
+  public static void tipsShown(@NonNull TipsApi tipsApi)
   {
-    nativeTipsShown(tipsProvider.ordinal(),  TipsAction.ACTION_CLICKED.ordinal());
+    nativeTipsShown(tipsApi.ordinal(), TipsAction.ACTION_CLICKED.ordinal());
   }
 
   public static native void nativeShowTrackRect(long track);

@@ -250,4 +250,5 @@
   <dimen name="show_on_map_dialog_padding">30dp</dimen>
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
+  <dimen name="focal_radius">44dp</dimen>
 </resources>

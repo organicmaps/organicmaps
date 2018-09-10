@@ -133,9 +133,9 @@
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_light_off</item>
     <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn</item>
     <item name="accentTextColorSelector">@color/tab_text</item>
-    <item name="tipsBgColor">@color/tips_and_triks_bg_dark</item>
-    <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_light</item>
-    <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_light</item>
+    <item name="tipsBgColor">@color/tips_and_triks_bg_night</item>
+    <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text</item>
+    <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text</item>
   </style>
 
   <!-- Night theme -->
@@ -272,8 +272,8 @@
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_dark_off</item>
     <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn_dark</item>
     <item name="accentTextColorSelector">@color/tab_text_night</item>
-    <item name="tipsBgColor">@color/tips_and_triks_bg_light</item>
-    <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_dark</item>
-    <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_dark</item>
+    <item name="tipsBgColor">@color/tips_and_triks_bg</item>
+    <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_night</item>
+    <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_night</item>
   </style>
 </resources>

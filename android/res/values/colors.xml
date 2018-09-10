@@ -185,10 +185,10 @@
   <color name="rating_none">#FF888A82</color>
   <color name="rating_coming_soon">#FF1E96F0</color>
 
-  <color name="tips_and_triks_bg_dark">#b8000000</color>
-  <color name="tips_and_triks_bg_light">#b8ffffff</color>
-  <color name="tips_and_triks_primary_text_dark">#000000</color>
-  <color name="tips_and_triks_primary_text_light">#ffffff</color>
-  <color name="tips_and_triks_secondary_text_dark">#b8000000</color>
-  <color name="tips_and_triks_secondary_text_light">#b3ffffff</color>
+  <color name="tips_and_triks_bg_night">#B8000000</color>
+  <color name="tips_and_triks_bg">#B8FFFFFF</color>
+  <color name="tips_and_triks_primary_text">#FFFFFF</color>
+  <color name="tips_and_triks_primary_text_night">#000000</color>
+  <color name="tips_and_triks_secondary_text">#B3FFFFFF</color>
+  <color name="tips_and_triks_secondary_text_night">#B8000000</color>
 </resources>
