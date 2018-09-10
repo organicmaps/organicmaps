@@ -363,7 +363,7 @@ void AsyncRouter::CalculateRoute()
     routerName = router->GetName();
   }
 
-  shared_ptr<Route> route = make_shared<Route>(router->GetName(), routeId);
+  auto route = make_shared<Route>(router->GetName(), routeId);
   RouterResultCode code;
 
   my::Timer timer;

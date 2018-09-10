@@ -157,7 +157,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
   TEST_EQUAL(counter, 1, ());
 
   TimedSignal oppositeTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&oppositeTimedSignal, &info, &dataSource, this]() {
+  GetPlatform().RunTask(Platform::Thread::Gui, [&oppositeTimedSignal, &info, this]() {
     info.m_horizontalAccuracy = 0.01;
     info.m_verticalAccuracy = 0.01;
     info.m_longitude = 0.;
@@ -165,7 +165,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
     RoutingSession::State code;
     while (info.m_latitude < kTestRoute.back().y)
     {
-      code = m_session->OnLocationPositionChanged(info, dataSource);
+      code = m_session->OnLocationPositionChanged(info);
       TEST_EQUAL(code, RoutingSession::State::OnRoute, ());
       info.m_latitude += 0.01;
     }
@@ -180,13 +180,13 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
   TimedSignal checkTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, &dataSource, this]() {
+  GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, this]() {
     info.m_longitude = 0.;
     info.m_latitude = 1.;
     RoutingSession::State code = RoutingSession::State::RoutingNotActive;
     for (size_t i = 0; i < 10; ++i)
     {
-      code = m_session->OnLocationPositionChanged(info, dataSource);
+      code = m_session->OnLocationPositionChanged(info);
       info.m_latitude -= 0.1;
     }
     TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
@@ -220,7 +220,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
   TimedSignal oppositeTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&oppositeTimedSignal, &info, &dataSource, this, &counter]() {
+  GetPlatform().RunTask(Platform::Thread::Gui, [&oppositeTimedSignal, &info, this, &counter]() {
     TEST(!m_session->IsFollowing(), ());
     m_session->EnableFollowMode();
     TEST(m_session->IsFollowing(), ());
@@ -231,7 +231,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     info.m_latitude = 1.;
     while (info.m_latitude < kTestRoute.back().y)
     {
-      m_session->OnLocationPositionChanged(info, dataSource);
+      m_session->OnLocationPositionChanged(info);
       TEST(m_session->IsOnRoute(), ());
       TEST(m_session->IsFollowing(), ());
       info.m_latitude += 0.01;
@@ -248,7 +248,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
   TimedSignal rebuildTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&rebuildTimedSignal, &info, &dataSource, this] {
+  GetPlatform().RunTask(Platform::Thread::Gui, [&rebuildTimedSignal, &info, this] {
     // Manual route building resets the following flag.
     TEST(!m_session->IsFollowing(), ());
     m_session->EnableFollowMode();
@@ -258,7 +258,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersist
     RoutingSession::State code;
     for (size_t i = 0; i < 10; ++i)
     {
-      code = m_session->OnLocationPositionChanged(info, dataSource);
+      code = m_session->OnLocationPositionChanged(info);
       info.m_latitude -= 0.1;
     }
     TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
@@ -306,7 +306,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
   TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
   TimedSignal checkTimedSignal;
-  GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &dataSource, this] {
+  GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, this] {
     // Get completion percent of unstarted route.
     TEST_EQUAL(m_session->GetCompletionPercent(), 0, (m_session->GetCompletionPercent()));
 
@@ -317,25 +317,25 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRoutePercentTest
     // Go through the route.
     info.m_longitude = 0.;
     info.m_latitude = 1.;
-    m_session->OnLocationPositionChanged(info, dataSource);
+    m_session->OnLocationPositionChanged(info);
     TEST(my::AlmostEqualAbs(m_session->GetCompletionPercent(), 0., 0.5),
          (m_session->GetCompletionPercent()));
 
     info.m_longitude = 0.;
     info.m_latitude = 2.;
-    m_session->OnLocationPositionChanged(info, dataSource);
+    m_session->OnLocationPositionChanged(info);
     TEST(my::AlmostEqualAbs(m_session->GetCompletionPercent(), 33.3, 0.5),
          (m_session->GetCompletionPercent()));
 
     info.m_longitude = 0.;
     info.m_latitude = 3.;
-    m_session->OnLocationPositionChanged(info, dataSource);
+    m_session->OnLocationPositionChanged(info);
     TEST(my::AlmostEqualAbs(m_session->GetCompletionPercent(), 66.6, 0.5),
          (m_session->GetCompletionPercent()));
 
     info.m_longitude = 0.;
     info.m_latitude = 3.99;
-    m_session->OnLocationPositionChanged(info, dataSource);
+    m_session->OnLocationPositionChanged(info);
     TEST(my::AlmostEqualAbs(m_session->GetCompletionPercent(), 100., 0.5),
          (m_session->GetCompletionPercent()));
     checkTimedSignal.Signal();

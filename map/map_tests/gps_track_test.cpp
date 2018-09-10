@@ -22,7 +22,7 @@ inline location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double sp
 {
   location::GpsInfo info;
   info.m_timestamp = timestamp;
-  info.m_speed = speed;
+  info.m_speedMpS = speed;
   info.m_latitude = ll.lat;
   info.m_longitude = ll.lon;
   info.m_horizontalAccuracy = 15;
@@ -117,7 +117,7 @@ UNIT_TEST(GpsTrack_Simple)
     {
       TEST_EQUAL(i, callback.m_toAdd[i].first, ());
       TEST_EQUAL(points[i].m_timestamp, callback.m_toAdd[i].second.m_timestamp, ());
-      TEST_EQUAL(points[i].m_speed, callback.m_toAdd[i].second.m_speed, ());
+      TEST_EQUAL(points[i].m_speedMpS, callback.m_toAdd[i].second.m_speed, ());
       TEST_EQUAL(points[i].m_latitude, callback.m_toAdd[i].second.m_latitude, ());
       TEST_EQUAL(points[i].m_longitude, callback.m_toAdd[i].second.m_longitude, ());
     }
@@ -140,7 +140,7 @@ UNIT_TEST(GpsTrack_Simple)
     {
       TEST_EQUAL(i, callback.m_toAdd[i].first, ());
       TEST_EQUAL(points[i].m_timestamp, callback.m_toAdd[i].second.m_timestamp, ());
-      TEST_EQUAL(points[i].m_speed, callback.m_toAdd[i].second.m_speed, ());
+      TEST_EQUAL(points[i].m_speedMpS, callback.m_toAdd[i].second.m_speed, ());
       TEST_EQUAL(points[i].m_latitude, callback.m_toAdd[i].second.m_latitude, ());
       TEST_EQUAL(points[i].m_longitude, callback.m_toAdd[i].second.m_longitude, ());
     }
@@ -173,7 +173,7 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   TEST_EQUAL(1, callback.m_toAdd.size(), ());
   TEST_EQUAL(0, callback.m_toAdd[0].first, ());
   TEST_EQUAL(pt1.m_timestamp, callback.m_toAdd[0].second.m_timestamp, ());
-  TEST_EQUAL(pt1.m_speed, callback.m_toAdd[0].second.m_speed, ());
+  TEST_EQUAL(pt1.m_speedMpS, callback.m_toAdd[0].second.m_speed, ());
   TEST_EQUAL(pt1.m_latitude, callback.m_toAdd[0].second.m_latitude, ());
   TEST_EQUAL(pt1.m_longitude, callback.m_toAdd[0].second.m_longitude, ());
   // and nothing was evicted
@@ -190,7 +190,7 @@ UNIT_TEST(GpsTrack_EvictedByAdd)
   TEST_EQUAL(1, callback.m_toAdd.size(), ());
   TEST_EQUAL(1, callback.m_toAdd[0].first, ());
   TEST_EQUAL(pt2.m_timestamp, callback.m_toAdd[0].second.m_timestamp, ());
-  TEST_EQUAL(pt2.m_speed, callback.m_toAdd[0].second.m_speed, ());
+  TEST_EQUAL(pt2.m_speedMpS, callback.m_toAdd[0].second.m_speed, ());
   TEST_EQUAL(pt2.m_latitude, callback.m_toAdd[0].second.m_latitude, ());
   TEST_EQUAL(pt2.m_longitude, callback.m_toAdd[0].second.m_longitude, ());
   // and pt1 was evicted as old

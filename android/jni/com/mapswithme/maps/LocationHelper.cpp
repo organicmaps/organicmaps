@@ -35,7 +35,7 @@ extern "C"
       info.m_bearing = bearing;
 
     if (speed > 0.0)
-      info.m_speed = speed;
+      info.m_speedMpS = speed;
 
     LOG_MEMORY_INFO();
     if (g_framework)

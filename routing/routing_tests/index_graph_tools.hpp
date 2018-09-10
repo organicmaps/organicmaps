@@ -8,7 +8,9 @@
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_access.hpp"
 #include "routing/road_point.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
+#include "routing/speed_camera_ser_des.hpp"
 #include "routing/single_vehicle_world_graph.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/transit_world_graph.hpp"
@@ -90,6 +92,11 @@ public:
 
   Geometry & GetGeometry(NumMwmId mwmId) override { return GetIndexGraph(mwmId).GetGeometry(); }
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
+  std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override
+  {
+    return {};
+  }
+
   void Clear() override;
 
   void AddGraph(NumMwmId mwmId, unique_ptr<IndexGraph> graph);

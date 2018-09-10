@@ -2,12 +2,14 @@
 
 #include "routing/edge_estimator.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include <memory>
+#include <vector>
 
 class MwmValue;
 class DataSource;
@@ -21,6 +23,9 @@ public:
 
   virtual Geometry & GetGeometry(NumMwmId numMwmId) = 0;
   virtual IndexGraph & GetIndexGraph(NumMwmId mwmId) = 0;
+
+  // Because several cameras can lie on one segment we return vector of them.
+  virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) = 0;
   virtual void Clear() = 0;
 
   static std::unique_ptr<IndexGraphLoader> Create(

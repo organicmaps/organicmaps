@@ -45,12 +45,6 @@ void SerializeSpeedCamera(FileWriter & writer, routing::SpeedCameraMetadata cons
   WriteVarInt(writer, 0 /* number of time conditions */);
 }
 
-std::vector<RouteSegment::SpeedCamera> & EmptyVectorOfSpeedCameras()
-{
-  static std::vector<RouteSegment::SpeedCamera> kEmptyVectorOfSpeedCameras;
-  return kEmptyVectorOfSpeedCameras;
-}
-
 std::string DebugPrint(SegmentCoord const & segment)
 {
   std::stringstream ss;

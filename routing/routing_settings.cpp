@@ -11,7 +11,7 @@ RoutingSettings::RoutingSettings(bool matchRoute, bool soundDirection, double ma
   , m_matchingThresholdM(matchingThresholdM)
   , m_keepPedestrianInfo(keepPedestrianInfo)
   , m_showTurnAfterNext(showTurnAfterNext)
-  , m_speedCameraWarning(speedCameraWarning)
+  , m_speedCameraWarningEnabled(speedCameraWarning)
 {
 }
 
@@ -22,21 +22,23 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
   case VehicleType::Pedestrian:
     return {true /* m_matchRoute */,         false /* m_soundDirection */,
             20. /* m_matchingThresholdM */,  true /* m_keepPedestrianInfo */,
-            false /* m_showTurnAfterNext */, false /* m_speedCameraWarning*/};
+            false /* m_showTurnAfterNext */, false /* m_speedCameraWarningEnabled */};
   case VehicleType::Transit:
     return {true /* m_matchRoute */,         false /* m_soundDirection */,
             40. /* m_matchingThresholdM */,  true /* m_keepPedestrianInfo */,
-            false /* m_showTurnAfterNext */, false /* m_speedCameraWarning*/};
+            false /* m_showTurnAfterNext */, false /* m_speedCameraWarningEnabled */};
   case VehicleType::Bicycle:
     return {true /* m_matchRoute */,         true /* m_soundDirection */,
             30. /* m_matchingThresholdM */,  false /* m_keepPedestrianInfo */,
-            false /* m_showTurnAfterNext */, false /* m_speedCameraWarning*/};
+            false /* m_showTurnAfterNext */, false /* m_speedCameraWarningEnabled */};
   case VehicleType::Count:
     CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
   case VehicleType::Car:
     return {true /* m_matchRoute */,        true /* m_soundDirection */,
             50. /* m_matchingThresholdM */, false /* m_keepPedestrianInfo */,
-            true /* m_showTurnAfterNext */, true /* m_speedCameraWarning*/};
+            true /* m_showTurnAfterNext */, false /* m_speedCameraWarningEnabled */};
+    // TODO (@gmoryes) make m_speedCameraWarningEnabled to true after tests ok. Now it can be on with:
+    // TODO (@gmoryes) typing "?speedcams" in search panel.
   }
   CHECK_SWITCH();
 }

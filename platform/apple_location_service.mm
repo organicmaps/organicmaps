@@ -82,7 +82,7 @@ public:
   //info.m_verticalAccuracy = location.verticalAccuracy;
   //info.m_altitude = location.altitude;
   //info.m_course = location.course;
-  //info.m_speed = location.speed;
+  //info.m_speedMpS = location.speed;
 }
 
 - (void)locationManager:(CLLocationManager *)manager

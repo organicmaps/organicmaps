@@ -108,7 +108,6 @@ UNIT_TEST(GetDirectionTextIdTest)
 
 UNIT_TEST(GetTtsTextTest)
 {
-  // TODO (@gmoryes) add here message about speed_camera, when it will be coined
   string const engShortJson =
       "\
       {\

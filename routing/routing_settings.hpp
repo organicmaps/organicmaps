@@ -42,8 +42,9 @@ public:
   /// about the turn after the next in some cases.
   bool m_showTurnAfterNext;
 
-  /// \brief m_speedCameraWarning is a flag for enabling user notifications about speed cameras.
-  bool m_speedCameraWarning;
+  /// \brief m_speedCameraWarningEnabled is a flag for enabling user notifications about speed
+  /// cameras.
+  bool m_speedCameraWarningEnabled;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);

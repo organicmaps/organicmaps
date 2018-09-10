@@ -63,8 +63,7 @@ string GetTtsText::GetTurnNotification(Notification const & notification) const
 
 string GetTtsText::GetSpeedCameraNotification() const
 {
-  // TODO (@gmoryes) add this tag to sound.txt
-  return GetTextById("speed_camera");
+  return GetTextById("unknown_camera");
 }
 
 string GetTtsText::GetLocale() const

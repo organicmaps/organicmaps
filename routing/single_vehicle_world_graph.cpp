@@ -119,6 +119,11 @@ vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmI
 
 unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &) { return {}; }
 
+std::vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
+{
+  return m_loader->GetSpeedCameraInfo(segment);
+}
+
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
   return m_loader->GetGeometry(mwmId).GetRoad(featureId);

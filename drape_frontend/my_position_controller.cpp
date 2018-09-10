@@ -413,11 +413,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_errorRadius = rect.SizeX() * 0.5;
   m_horizontalAccuracy = info.m_horizontalAccuracy;
 
-  if (info.m_speed > 0.0)
+  if (info.m_speedMpS > 0.0)
   {
     double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
-    m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
-    m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, true /* isPerspectiveAllowed */);
+    m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speedMpS, false /* isPerspectiveAllowed */);
+    m_autoScale3d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speedMpS, true /* isPerspectiveAllowed */);
   }
   else
   {
@@ -426,7 +426,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
 
   bool const hasBearing = info.HasBearing();
   if ((isNavigable && hasBearing) ||
-      (!isNavigable && hasBearing && info.HasSpeed() && info.m_speed > kMinSpeedThresholdMps))
+      (!isNavigable && hasBearing && info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps))
   {
     SetDirection(my::DegToRad(info.m_bearing));
     m_lastGPSBearing.Reset();

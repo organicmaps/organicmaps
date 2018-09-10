@@ -1,9 +1,11 @@
 #pragma once
 
 #include "routing/async_router.hpp"
-#include "routing/routing_callbacks.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
+#include "routing/routing_callbacks.hpp"
+#include "routing/routing_exceptions.hpp"
+#include "routing/speed_camera.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
@@ -24,8 +26,8 @@
 #include <limits>
 #include <map>
 #include <memory>
-
-class DataSource;
+#include <queue>
+#include <string>
 
 namespace location
 {
@@ -34,15 +36,6 @@ class RouteMatchingInfo;
 
 namespace routing
 {
-struct SpeedCameraRestriction
-{
-  size_t m_index;  // Index of a polyline point where camera is located.
-  uint8_t m_maxSpeedKmH;  // Maximum speed allowed by the camera.
-
-  SpeedCameraRestriction(size_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
-  SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(std::numeric_limits<uint8_t>::max()) {}
-};
-
 /// \breaf This class is responsible for the route built in the program.
 /// \note All method of this class should be called from ui thread if there's no
 /// a special note near a method.
@@ -128,7 +121,7 @@ public:
   bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
                                       feature::TAltitudes & routeAltitudesM) const;
 
-  State OnLocationPositionChanged(location::GpsInfo const & info, DataSource const & dataSource);
+  State OnLocationPositionChanged(location::GpsInfo const & info);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
@@ -150,6 +143,9 @@ public:
   /// Returns true if following was enabled, false if a route is not ready for the following yet.
   bool EnableFollowMode();
 
+  // TODO (@gmoryes) delete this function (or not?) after tests of speed cameras end.
+  void ToggleSpeedCameras(bool enable);
+
   void SetRoutingSettings(RoutingSettings const & routingSettings);
   void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback,
                            ReadyCallback const & rebuildReadyCallback,
@@ -159,12 +155,13 @@ public:
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
 
   // Sound notifications for turn instructions.
+  void GenerateNotifications(std::vector<std::string> & notifications);
   void EnableTurnNotifications(bool enable);
-  bool AreTurnNotificationsEnabled() const;
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(std::string const & locale);
+  bool AreTurnNotificationsEnabled() const;
   std::string GetTurnNotificationsLocale() const;
-  void GenerateNotifications(std::vector<std::string> & notifications);
+  void SetLocaleWithJsonForTesting(std::string const & json, std::string const & locale);
 
   void EmitCloseRoutingEvent() const;
 
@@ -182,6 +179,14 @@ public:
   /// protected by mutex in TrafficCache class.
   void CopyTraffic(traffic::AllMwmTrafficInfo & trafficColoring) const override;
 
+  void AssignRouteForTesting(std::shared_ptr<Route> route, RouterResultCode e) { AssignRoute(route, e); }
+
+  /// \brief Find and save speed cameras on the following route.
+  /// Also analyze |info| and previously cached camera to make warn about them.
+  void ProcessSpeedCameras(location::GpsInfo const & info);
+
+  void FindCamerasOnRouteAndCache(double passedDistanceMeters);
+
 private:
   struct DoReadyCallback
   {
@@ -190,18 +195,12 @@ private:
 
     DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb)
         : m_rs(rs), m_callback(cb)
-    {
-    }
+    {}
 
     void operator()(std::shared_ptr<Route> route, RouterResultCode e);
   };
 
   void AssignRoute(std::shared_ptr<Route> route, RouterResultCode e);
-
-  /// Returns a nearest speed camera record on your way and distance to it.
-  /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
-  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSource const & dataSource);
-
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
@@ -209,21 +208,29 @@ private:
   double GetCompletionPercent() const;
   void PassCheckpoints();
 
+  void ProcessCameraWarning();
+  void PassCameraToWarned();
+
 private:
   std::unique_ptr<AsyncRouter> m_router;
   std::shared_ptr<Route> m_route;
   State m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
-  size_t m_lastWarnedSpeedCameraIndex;
-  SpeedCameraRestriction m_lastFoundCamera;
-  // Index of a last point on a route checked for a speed camera.
-  size_t m_lastCheckedSpeedCameraIndex;
 
-  // TODO (ldragunov) Rewrite UI interop to message queue and avoid mutable.
-  /// This field is mutable because it's modified in a constant getter. Note that the notification
-  /// about camera will be sent at most once.
-  mutable bool m_speedWarningSignal;
+  // Queue of speedCams, warnings about which has been pronounced.
+  std::queue<SpeedCameraOnRoute> m_warnedSpeedCameras;
+
+  // Queue of speedCams, that we have found, but they are too far, to make warning about them.
+  std::queue<SpeedCameraOnRoute> m_cachedSpeedCameras;
+
+  // Big red button about camera in user interface.
+  bool m_showWarningAboutSpeedCam = false;
+
+  // Flag of doing sound notification about camera on a way.
+  bool m_makeNotificationAboutSpeedCam = false;
+
+  size_t m_firstNotCheckedSpeedCameraIndex = 0;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance = 0.0;

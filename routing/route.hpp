@@ -15,6 +15,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include <limits>
 #include <memory>
@@ -48,10 +49,13 @@ public:
 
     friend bool operator<(SpeedCamera const & lhs, SpeedCamera const & rhs)
     {
-      if (lhs.m_coef != rhs.m_coef)
+      static auto constexpr kCoefEps = 1e-5;
+      if (!my::AlmostEqualAbs(lhs.m_coef, rhs.m_coef, kCoefEps))
         return lhs.m_coef < rhs.m_coef;
 
-      return lhs.m_maxSpeedKmPH < rhs.m_maxSpeedKmPH;
+      // Cameras with same position on segment should be sorted in speed decrease order.
+      // Thus camera with higher speed will be warned the first.
+      return lhs.m_maxSpeedKmPH > rhs.m_maxSpeedKmPH;
     }
 
     double m_coef = 0.0;
@@ -365,6 +369,9 @@ public:
   void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
   bool IsRouteId(uint64_t routeId) const { return routeId == m_routeId; }
 
+  /// \returns Length of the route segment with |segIdx| in meters.
+  double GetSegLenMeters(size_t segIdx) const;
+
 private:
   friend std::string DebugPrint(Route const & r);
 
@@ -374,8 +381,7 @@ private:
 
   /// \returns Estimated time to pass the route segment with |segIdx|.
   double GetTimeToPassSegSec(size_t segIdx) const;
-  /// \returns Length of the route segment with |segIdx| in meters.
-  double GetSegLenMeters(size_t segIdx) const;
+
   /// \returns ETA to the last passed route point in seconds.
   double GetETAToLastPassedPointSec() const;
 

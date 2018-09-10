@@ -212,23 +212,23 @@ void MapsWithMeForm::OnLocationUpdated(const Tizen::Locations::Location& locatio
   location::GpsInfo info;
   Coordinates const & coord = location.GetCoordinates();
   info.m_source = location::ETizen;
-  info.m_timestamp = detail::ConverToSecondsFrom1970(location.GetTimestamp());//!< seconds from 1st Jan 1970
-  info.m_latitude = coord.GetLatitude();            //!< degrees
-  info.m_longitude = coord.GetLongitude();           //!< degrees
+  info.m_timestamp = detail::ConverToSecondsFrom1970(location.GetTimestamp());  //!< seconds from 1st Jan 1970
+  info.m_latitude = coord.GetLatitude();    //!< degrees
+  info.m_longitude = coord.GetLongitude();  //!< degrees
   info.m_horizontalAccuracy = location.GetHorizontalAccuracy();  //!< metres
-  info.m_altitude = coord.GetAltitude();            //!< metres
+  info.m_altitude = coord.GetAltitude();    //!< metres
   if (!isnan(location.GetVerticalAccuracy()))
     info.m_verticalAccuracy = location.GetVerticalAccuracy();    //!< metres
   else
     info.m_verticalAccuracy = -1;
   if (!isnan(location.GetCourse()))
-    info.m_course = location.GetCourse();             //!< positive degrees from the true North
+    info.m_course = location.GetCourse();  //!< positive degrees from the true North
   else
     info.m_course = -1;
   if (!isnan(location.GetSpeed()))
-    info.m_speed = location.GetSpeed() / 3.6;         //!< metres per second
+    info.m_speedMpS = location.GetSpeed() / 3.6;  //!< metres per second
   else
-    info.m_speed = -1;
+    info.m_speedMps = -1;
 
   pFramework->OnLocationUpdate(info);
   Draw();

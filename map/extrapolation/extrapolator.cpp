@@ -76,7 +76,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   // look nice when the road changes its direction.
 
   if (gpsInfo1.HasSpeed() && gpsInfo2.HasSpeed())
-    result.m_speed = e.Extrapolate(gpsInfo1.m_speed, gpsInfo2.m_speed);
+    result.m_speedMpS = e.Extrapolate(gpsInfo1.m_speedMpS, gpsInfo2.m_speedMpS);
 
   return result;
 }

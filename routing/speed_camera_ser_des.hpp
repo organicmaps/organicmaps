@@ -3,6 +3,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
 #include "routing/segment.hpp"
+#include "routing/speed_camera.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
@@ -133,10 +134,7 @@ std::pair<SegmentCoord, RouteSegment::SpeedCamera> DeserializeSpeedCamera(
   ReadPrimitiveFromSource(src, speed);
   CHECK_LESS(speed, kMaxCameraSpeedKmpH, ());
   if (speed == 0)
-  {
-    // TODO (@gmoryes) change to (speed = routing::SpeedCameraOnRoute::kNoSpeedInfo)
-    speed = std::numeric_limits<uint8_t>::max();
-  }
+    speed = routing::SpeedCameraOnRoute::kNoSpeedInfo;
 
   // We don't use direction of camera, because of bad data in OSM.
   UNUSED_VALUE(ReadPrimitiveFromSource<uint8_t>(src));  // direction
@@ -169,8 +167,6 @@ void DeserializeSpeedCamsFromMwm(
     map[segment].emplace_back(speedCamera);
   }
 }
-
-std::vector<RouteSegment::SpeedCamera> & EmptyVectorOfSpeedCameras();
 
 std::string DebugPrint(SegmentCoord const & segment);
 }  // namespace routing

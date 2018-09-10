@@ -70,7 +70,6 @@ location::GpsInfo GetGps(double x, double y)
   info.m_latitude = MercatorBounds::YToLat(y);
   info.m_longitude = MercatorBounds::XToLon(x);
   info.m_horizontalAccuracy = 2;
-  info.m_speed = -1;
   return info;
 }
 }  // namespace

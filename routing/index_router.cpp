@@ -877,7 +877,12 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
   auto & worldGraph = starter.GetGraph();
   for (auto & routeSegment : route.GetRouteSegments())
+  {
     routeSegment.SetTransitInfo(worldGraph.GetTransitInfo(routeSegment.GetSegment()));
+
+    if (m_vehicleType == VehicleType::Car && routeSegment.IsRealSegment())
+      routeSegment.SetSpeedCameraInfo(worldGraph.GetSpeedCamInfo(routeSegment.GetSegment()));
+  }
 
   if (delegate.IsCancelled())
     return RouterResultCode::Cancelled;

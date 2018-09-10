@@ -141,11 +141,12 @@ public:
 
   bool IsEnabled() const { return m_enabled; }
   void Enable(bool enable);
+  std::string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetLengthUnits(measurement_utils::Units units);
-  inline measurement_utils::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
-  inline void SetLocale(std::string const & locale) { m_getTtsText.SetLocale(locale); }
-  inline std::string GetLocale() const { return m_getTtsText.GetLocale(); }
   void SetSpeedMetersPerSecond(double speed);
+  void SetLocale(std::string const & locale) { m_getTtsText.SetLocale(locale); }
+  measurement_utils::Units GetLengthUnits() const { return m_settings.GetLengthUnits(); }
+  void SetLocaleWithJsonForTesting(std::string const & json, std::string const & locale);
 
   /// \brief Generate text of speed camera notification.
   std::string GenerateSpeedCameraText() const;

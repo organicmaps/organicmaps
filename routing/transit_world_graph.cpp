@@ -175,6 +175,8 @@ unique_ptr<TransitInfo> TransitWorldGraph::GetTransitInfo(Segment const & segmen
   return {};
 }
 
+std::vector<RouteSegment::SpeedCamera> TransitWorldGraph::GetSpeedCamInfo(Segment const & segment) { return {}; }
+
 void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
                                       vector<Segment> & twins)
 {

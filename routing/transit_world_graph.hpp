@@ -5,6 +5,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph_loader.hpp"
 #include "routing/road_graph.hpp"
+#include "routing/route.hpp"
 #include "routing/segment.hpp"
 #include "routing/transit_graph_loader.hpp"
 #include "routing/transit_info.hpp"
@@ -60,6 +61,7 @@ public:
   bool LeapIsAllowed(NumMwmId mwmId) const override;
   std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter) override;
   std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) override;
+  std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) override;
 
 private:
   // WorldGraph overrides:

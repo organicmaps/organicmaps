@@ -2809,6 +2809,16 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
   return false;
 }
 
+bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
+{
+  if (params.m_query == "?speedcams")
+  {
+    GetRoutingManager().RoutingSession().ToggleSpeedCameras(true /* enable */);
+    return true;
+  }
+  return false;
+}
+
 namespace
 {
 WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
@@ -3373,6 +3383,8 @@ bool Framework::ParseSearchQueryCommand(search::SearchParams const & params)
   if (ParseSetGpsTrackMinAccuracyCommand(params.m_query))
     return true;
   if (ParseEditorDebugCommand(params))
+    return true;
+  if (ParseRoutingDebugCommand(params))
     return true;
   return false;
 }

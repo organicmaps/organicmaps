@@ -3,7 +3,9 @@
 #include "routing/index_graph_serialization.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/road_access_serialization.hpp"
+#include "routing/route.hpp"
 #include "routing/routing_exceptions.hpp"
+#include "routing/speed_camera_ser_des.hpp"
 
 #include "indexer/data_source.hpp"
 
@@ -11,6 +13,10 @@
 
 #include "base/assert.hpp"
 #include "base/timer.hpp"
+
+#include <algorithm>
+#include <map>
+#include <unordered_map>
 
 namespace
 {
@@ -27,6 +33,7 @@ public:
   // IndexGraphLoader overrides:
   Geometry & GetGeometry(NumMwmId numMwmId) override;
   IndexGraph & GetIndexGraph(NumMwmId numMwmId) override;
+  vector<RouteSegment::SpeedCamera> GetSpeedCameraInfo(Segment const & segment) override;
   void Clear() override;
 
 private:
@@ -46,6 +53,10 @@ private:
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
   unordered_map<NumMwmId, GeometryIndexGraph> m_graphs;
+
+  // TODO (@gmoryes) move this field to |GeometryIndexGraph| after @bykoianko PR
+  unordered_map<NumMwmId, map<SegmentCoord, vector<RouteSegment::SpeedCamera>>> m_cachedCameras;
+  decltype(m_cachedCameras)::iterator ReceiveSpeedCamsFromMwm(NumMwmId numMwmId);
 };
 
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(
@@ -83,6 +94,81 @@ IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
   }
 
   return *CreateIndexGraph(numMwmId, CreateGeometry(numMwmId)).m_indexGraph;
+}
+
+auto IndexGraphLoaderImpl::ReceiveSpeedCamsFromMwm(NumMwmId numMwmId) -> decltype(m_cachedCameras)::iterator
+{
+  m_cachedCameras.emplace(numMwmId,
+                          map<SegmentCoord, vector<RouteSegment::SpeedCamera>>{});
+  auto & mapReference = m_cachedCameras.find(numMwmId)->second;
+
+  auto const & file = m_numMwmIds->GetFile(numMwmId);
+  auto handle = m_dataSource.GetMwmHandleByCountryFile(file);
+  if (!handle.IsAlive())
+    MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+
+  MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
+  if (!mwmValue.m_cont.IsExist(CAMERAS_INFO_FILE_TAG))
+  {
+    LOG(LINFO, ("No section about speed cameras"));
+    return m_cachedCameras.end();
+  }
+
+  try
+  {
+    FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(CAMERAS_INFO_FILE_TAG));
+    ReaderSource<FilesContainerR::TReader> src(reader);
+    DeserializeSpeedCamsFromMwm(src, mapReference);
+  }
+  catch (Reader::OpenException & ex)
+  {
+    LOG(LINFO, ("No section about speed cameras"));
+    return m_cachedCameras.end();
+  }
+
+  decltype(m_cachedCameras)::iterator it;
+  it = m_cachedCameras.find(numMwmId);
+  CHECK(it != m_cachedCameras.end(), ());
+
+  return it;
+}
+
+vector<RouteSegment::SpeedCamera> IndexGraphLoaderImpl::GetSpeedCameraInfo(Segment const & segment)
+{
+  auto const numMwmId = segment.GetMwmId();
+
+  auto it = m_cachedCameras.find(numMwmId);
+  if (it == m_cachedCameras.end())
+    it = ReceiveSpeedCamsFromMwm(numMwmId);
+
+  if (it == m_cachedCameras.end())
+    return {};
+
+  auto result = it->second.find({segment.GetFeatureId(), segment.GetSegmentIdx()});
+  if (result == it->second.end())
+    return {};
+
+  auto camerasTmp = result->second;
+  std::sort(camerasTmp.begin(), camerasTmp.end());
+
+  // TODO (@gmoryes) do this in generator.
+  // This code matches cameras with equal coefficients and among them
+  // only the camera with minimal maxSpeed is left.
+  static constexpr auto kInvalidCoef = 2.0;
+  camerasTmp.emplace_back(kInvalidCoef, 0.0 /* maxSpeedKmPH */);
+  vector<RouteSegment::SpeedCamera> cameras;
+  for (size_t i = 1; i < camerasTmp.size(); ++i)
+  {
+    static constexpr auto kEps = 1e-5;
+    if (!my::AlmostEqualAbs(camerasTmp[i - 1].m_coef, camerasTmp[i].m_coef, kEps))
+      cameras.emplace_back(camerasTmp[i - 1]);
+  }
+  // Cameras stored from beginning to ending of segment. So if we go at segment in backward direction,
+  // we should read cameras in reverse sequence too.
+  if (!segment.IsForward())
+    std::reverse(cameras.begin(), cameras.end());
+
+  return cameras;
 }
 
 IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateGeometry(NumMwmId numMwmId)
