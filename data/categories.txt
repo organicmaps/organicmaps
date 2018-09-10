@@ -964,7 +964,7 @@ sk:^Liehoviny|alkohol
 fa:مشروب فروشی
 
 shop-books|@shop
-en:^Bookstore|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
+en:^Bookstore|bookshop|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
 ru:^Книжный магазин|книги|2магазин
 ar:^مكتبة لبيع الكتب|متجر
 cs:^Knihkupectví
@@ -1188,7 +1188,7 @@ sk:^Darčeky
 fa:مغازه کادو فروشی
 
 shop-beauty
-en:^Beauty Shop|beautician|hairdresser|hairdressing|haircut|U+1F484|beauty salon|hair salon|beauty parlor|hair and nail salon|nail salon|coloring
+en:^Beauty Shop|barber|beautician|hairdresser|hairdressing|haircut|U+1F484|beauty salon|hair salon|beauty parlor|hair and nail salon|nail salon|coloring
 ru:^Салон красоты|косметический салон|парикмахерская|салоны красоты и парикмахерские|стрижка|подстричься|маникюр|маникюрный салон|красота|студия красоты|центр красоты
 ar:^صالون تجميل|كوافير|متجر
 cs:^Kosmetický salon
@@ -1800,7 +1800,7 @@ sw:^Stendi ya basi|basi|stendi|usafiri
 fa:ایستگاه اتوبوس
 
 railway-station|railway-halt|building-train_station|@transport
-en:3^Train Station|4railway|railroad|3train|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
+en:3^Train Station|trainstation|4railway|railroad|3train|4station|U+1F684|U+1F685|U+1F689|U+1F682|U+1F686|U+1F688|U+1F68A|U+1F68B
 ru:^Ж/д станция|3поезд|3станция|4транспорт
 ar:^محطة سكك حديدية|محطة قطار|قطار|محطة|مواصلات|نقل
 cs:3^Železniční stanice|vlakové nádraží|2vlak
@@ -6765,7 +6765,7 @@ sk:^Obchod zo zvieratami
 fa:فروشگاه حیوانات خانگی
 
 tourism-zoo|@tourism
-en:2^Zoo
+en:2^Zoo|zoo park
 ru:2^Зоопарк
 ar:^حديقة حيوان
 cs:^zoologická zahrada
@@ -8919,7 +8919,7 @@ zh-Hans:^殡仪馆
 zh-Hant:^葬儀社
 
 shop-massage
-en:^Massage Parlour|spa|massage center|massage therapy|massage services|massage salon|spa treatment|spa services
+en:^Massage Parlour|massage|spa|massage center|massage therapy|massage services|massage salon|spa treatment|spa services
 ru:^Массажный салон|массаж|спа|спа-салон|салон красоты|массажный кабинет
 ar:^قاعة تدليك
 cs:^Masážní salon
