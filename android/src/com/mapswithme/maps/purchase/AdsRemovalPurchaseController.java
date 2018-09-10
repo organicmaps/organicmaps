@@ -2,6 +2,7 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.billingclient.api.Purchase;
@@ -21,7 +22,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
   @NonNull
   private final AdsRemovalValidationCallback mValidationCallback = new AdValidationCallbackImpl();
   @NonNull
-  private final PlayStoreBillingCallback mBillingCallback = new PlaysStoreBillingCallbackImpl();
+  private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
   @NonNull
   private final List<String> mProductIds;
 
@@ -58,7 +59,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     }
   }
 
-  private class PlaysStoreBillingCallbackImpl implements PlayStoreBillingCallback
+  private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
   {
     @Override
     public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
@@ -90,14 +91,11 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     {
       String token = null;
       String productId = null;
-      for (Purchase purchase : purchases)
+      Purchase target = findTargetPurchase(purchases);
+      if (target != null)
       {
-        if (mProductIds.contains(purchase.getSku()))
-        {
-          token = purchase.getPurchaseToken();
-          productId = purchase.getSku();
-          break;
-        }
+        token = target.getPurchaseToken();
+        productId = target.getSku();
       }
 
       if (TextUtils.isEmpty(token))
@@ -108,6 +106,18 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
 
       LOGGER.i(TAG, "Validating existing purchase token for '" + productId + "'...");
       getValidator().validate(token);
+    }
+
+    @Nullable
+    private Purchase findTargetPurchase(@NonNull List<Purchase> purchases)
+    {
+      for (Purchase purchase: purchases)
+      {
+        if (mProductIds.contains(purchase.getSku()))
+          return purchase;
+      }
+
+      return null;
     }
   }
 }
