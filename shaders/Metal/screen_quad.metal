@@ -20,7 +20,7 @@ typedef struct
 } Uniforms_T;
 
 vertex Fragment_T vsScreenQuad(device const Vertex_T * vertices [[buffer(0)]],
-                               uint vid [[vertex_id]])
+                               ushort vid [[vertex_id]])
 {
   Vertex_T const in = vertices[vid];
   Fragment_T out;

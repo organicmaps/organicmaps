@@ -7,6 +7,7 @@
 #include "base/assert.hpp"
 
 #include <algorithm>
+#include <functional>
 #include <string>
 #include <vector>
 #include <utility>
@@ -15,9 +16,10 @@ namespace dp
 {
 namespace metal
 {
-MetalBaseContext::MetalBaseContext(id<MTLDevice> device, id<MTLTexture> depthStencilTexture)
+MetalBaseContext::MetalBaseContext(id<MTLDevice> device, m2::PointU const & screenSize,
+                                   DrawableRequest && drawableRequest)
   : m_device(device)
-  , m_depthStencilTexture(depthStencilTexture)
+  , m_drawableRequest(std::move(drawableRequest))
 {
   m_renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
   m_renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
@@ -28,8 +30,27 @@ MetalBaseContext::MetalBaseContext(id<MTLDevice> device, id<MTLTexture> depthSte
   m_renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
   m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionStore;
   m_renderPassDescriptor.stencilAttachment.clearStencil = 0;
+  
+  RecreateDepthTexture(screenSize);
 }
-
+  
+void MetalBaseContext::RecreateDepthTexture(m2::PointU const & screenSize)
+{
+  if (screenSize.x == 0 || screenSize.y == 0)
+  {
+    m_depthTexture.reset();
+    return;
+  }
+  
+  m_depthTexture = make_unique_dp<MetalTexture>(nullptr /* allocator */);
+  HWTexture::Params params;
+  params.m_width = screenSize.x;
+  params.m_height = screenSize.y;
+  params.m_format = TextureFormat::Depth;
+  params.m_isRenderTarget = true;
+  m_depthTexture->Create(make_ref(this), params, nullptr /* data */);
+}
+  
 void MetalBaseContext::Init(dp::ApiVersion apiVersion)
 {
   CHECK(apiVersion == dp::ApiVersion::Metal, ());
@@ -83,6 +104,14 @@ std::string MetalBaseContext::GetRendererVersion() const
   }
   return "Unknown";
 }
+  
+void MetalBaseContext::Resize(int w, int h)
+{
+  if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
+    return;
+  
+  RecreateDepthTexture(m2::PointU(w, h));
+}
 
 void MetalBaseContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 {
@@ -102,8 +131,9 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   if (!m_currentFramebuffer)
   {
     // Use default(system) framebuffer and depth-stencil.
-    m_renderPassDescriptor.colorAttachments[0].texture = m_frameDrawable.texture;
-    m_renderPassDescriptor.depthAttachment.texture = m_depthStencilTexture;
+    RequestFrameDrawable();
+    m_renderPassDescriptor.colorAttachments[0].texture = m_frameDrawable != nil ? m_frameDrawable.texture : nil;
+    m_renderPassDescriptor.depthAttachment.texture = m_depthTexture ? m_depthTexture->GetTexture() : nil;
     m_renderPassDescriptor.stencilAttachment.texture = nil;
   }
   else
@@ -176,7 +206,7 @@ void MetalBaseContext::SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t 
   id<MTLRenderCommandEncoder> encoder = GetCommandEncoder();
   [encoder setViewport:(MTLViewport){ static_cast<double>(x), static_cast<double>(y),
                                       static_cast<double>(w), static_cast<double>(h),
-                                      -1.0, 1.0 }];
+                                      0.0, 1.0 }];
   [encoder setScissorRect:(MTLScissorRect){ x, y, w, h }];
 }
 
@@ -248,27 +278,35 @@ id<MTLSamplerState> MetalBaseContext::GetSamplerState(TextureFilter filter, Text
 void MetalBaseContext::Present()
 {
   FinishCurrentEncoding();
+  
+  RequestFrameDrawable();
   if (m_frameDrawable)
-  {
     [m_frameCommandBuffer presentDrawable:m_frameDrawable];
-    [m_frameCommandBuffer commit];
-  }
+  
+  [m_frameCommandBuffer commit];
   m_frameDrawable = nil;
   [m_frameCommandBuffer waitUntilCompleted];
   m_frameCommandBuffer = nil;
 }
   
-void MetalBaseContext::SetFrameDrawable(id<CAMetalDrawable> drawable)
+void MetalBaseContext::RequestFrameDrawable()
 {
-  CHECK(drawable != nil, ());
-  m_frameDrawable = drawable;
+  if (m_frameDrawable != nil)
+    return;
+  
+  CHECK(m_drawableRequest != nullptr, ());
+  m_frameDrawable = m_drawableRequest();
 }
   
-bool MetalBaseContext::HasFrameDrawable() const
+void MetalBaseContext::ResetFrameDrawable()
 {
-  return m_frameDrawable != nil;
-}
+  if (m_frameDrawable == nil)
+    return;
   
+  m_frameDrawable = nil;
+  RequestFrameDrawable();
+}
+
 void MetalBaseContext::FinishCurrentEncoding()
 {
   [m_currentCommandEncoder popDebugGroup];
@@ -276,4 +314,12 @@ void MetalBaseContext::FinishCurrentEncoding()
   m_currentCommandEncoder = nil;
 }
 }  // namespace metal
+
+void RenderFrameMediator(std::function<void()> && renderFrameFunction)
+{
+  @autoreleasepool
+  {
+    renderFrameFunction();
+  }
+}
 }  // namespace dp

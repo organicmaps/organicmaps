@@ -32,7 +32,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", ""),  // TextOutlined
   ProgramInfo("", ""),  // Text
   ProgramInfo("", ""),  // TextFixed
-  ProgramInfo("", ""),  // TextOutlinedGui
+  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui"),  // TextStaticOutlinedGui
+  ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui"),  // TextOutlinedGui
   ProgramInfo("", ""),  // Area
   ProgramInfo("", ""),  // AreaOutline
   ProgramInfo("", ""),  // Area3d
@@ -43,8 +44,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", ""),  // DashedLine
   ProgramInfo("", ""),  // PathSymbol
   ProgramInfo("", ""),  // HatchingArea
-  ProgramInfo("", ""),  // TexturingGui
-  ProgramInfo("", ""),  // Ruler
+  ProgramInfo("vsTexturingGui", "fsTexturingGui"),  // TexturingGui
+  ProgramInfo("vsRuler", "fsRuler"),  // Ruler
   ProgramInfo("", ""),  // Accuracy
   ProgramInfo("", ""),  // MyPosition
   ProgramInfo("", ""),  // Transit

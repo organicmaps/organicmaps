@@ -55,9 +55,17 @@ void MetalGPUBuffer::Resize(ref_ptr<MetalBaseContext> context, void const * data
   
   id<MTLDevice> device = context->GetMetalDevice();
   uint32_t const sizeInBytes = GetCapacity() * GetElementSize();
-  m_metalBuffer = [device newBufferWithBytes:data
-                                      length:sizeInBytes
-                                     options:MTLResourceCPUCacheModeWriteCombined];
+  if (data != nil)
+  {
+    m_metalBuffer = [device newBufferWithBytes:data
+                                        length:sizeInBytes
+                                       options:MTLResourceCPUCacheModeWriteCombined];
+  }
+  else
+  {
+    m_metalBuffer = [device newBufferWithLength:sizeInBytes
+                                       options:MTLResourceCPUCacheModeWriteCombined];
+  }
   
   // If we have already set up data, we have to call SetDataSize.
   if (data != nullptr)

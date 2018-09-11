@@ -90,10 +90,9 @@ void ShapeRenderer::Build(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
 void ShapeRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                            ScreenBase const & screen)
 {
-  std::array<float, 16> m = {};
   m2::RectD const & pxRect = screen.PixelRectIn3d();
-  dp::MakeProjection(m, 0.0f, static_cast<float>(pxRect.SizeX()),
-                     static_cast<float>(pxRect.SizeY()), 0.0f);
+  auto m = dp::MakeProjection(context->GetApiVersion(), 0.0f, static_cast<float>(pxRect.SizeX()),
+                              static_cast<float>(pxRect.SizeY()), 0.0f);
   glsl::mat4 const projection = glsl::make_mat4(m.data());
 
   ForEachShapeInfo([&projection, &screen, context, mng](ShapeControl::ShapeInfo & info) mutable

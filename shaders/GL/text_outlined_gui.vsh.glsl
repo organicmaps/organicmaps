@@ -1,4 +1,4 @@
-attribute vec4 a_position;
+attribute vec3 a_position;
 attribute vec2 a_normal;
 attribute vec2 a_colorTexCoord;
 attribute vec2 a_outlineColorTexCoord;
@@ -24,7 +24,7 @@ void main()
   float isOutline = step(0.5, u_isOutlinePass);
   float depthShift = kBaseDepthShift * isOutline;
   
-  vec4 pos = (vec4(a_position.xyz, 1.0) + vec4(0.0, 0.0, depthShift, 0.0)) * u_modelView;
+  vec4 pos = (vec4(a_position, 1.0) + vec4(0.0, 0.0, depthShift, 0.0)) * u_modelView;
   vec4 shiftedPos = vec4(a_normal, 0.0, 0.0) + pos;
   gl_Position = shiftedPos * u_projection;
   vec2 colorTexCoord = mix(a_colorTexCoord, a_outlineColorTexCoord, isOutline);

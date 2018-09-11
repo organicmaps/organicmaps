@@ -17,6 +17,7 @@ enum class Program
   TextOutlined,
   Text,
   TextFixed,
+  TextStaticOutlinedGui,
   TextOutlinedGui,
   Area,
   AreaOutline,
@@ -74,6 +75,7 @@ inline std::string DebugPrint(Program p)
   case Program::TextOutlined: return "TextOutlined";
   case Program::Text: return "Text";
   case Program::TextFixed: return "TextFixed";
+  case Program::TextStaticOutlinedGui: return "TextStaticOutlinedGui";
   case Program::TextOutlinedGui: return "TextOutlinedGui";
   case Program::Area: return "Area";
   case Program::AreaOutline: return "AreaOutline";

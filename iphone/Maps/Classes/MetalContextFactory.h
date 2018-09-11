@@ -8,7 +8,7 @@
 class MetalContextFactory: public dp::GraphicsContextFactory
 {
 public:
-  explicit MetalContextFactory(MetalView * metalView);
+  MetalContextFactory(MetalView * metalView, m2::PointU const & screenSize);
   dp::GraphicsContext * GetDrawContext() override;
   dp::GraphicsContext * GetResourcesUploadContext() override;
   bool IsDrawContextCreated() const override { return true; }

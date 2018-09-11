@@ -46,6 +46,16 @@
 
 using namespace std::placeholders;
 
+#if defined(OMIM_OS_IPHONE)
+namespace dp
+{
+extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
+}  // namespace dp
+#define RENDER_FRAME(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; });
+#else
+#define RENDER_FRAME(renderFunction) renderFunction;
+#endif
+
 namespace df
 {
 namespace
@@ -103,8 +113,8 @@ struct RemoveTilePredicate
     return false;
   }
 };
-} // namespace
-
+}  // namespace
+  
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
   , m_trafficRenderer(new TrafficRenderer())
@@ -214,6 +224,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::Type::FlushTile:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushRenderBucketMessage> msg = message;
       dp::RenderState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
@@ -228,6 +239,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushOverlays:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushOverlaysMessage> msg = message;
       TOverlaysRenderData renderData = msg->AcceptRenderData();
       for (auto & overlayRenderData : renderData)
@@ -253,6 +265,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FinishTileRead:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FinishTileReadMessage> msg = message;
       bool changed = false;
       for (auto const & tileKey : msg->GetTiles())
@@ -289,6 +302,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushUserMarks:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushUserMarksMessage> msg = message;
       TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
       for (auto & renderData : marksRenderData)
@@ -345,6 +359,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::MapShapes:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<MapShapesMessage> msg = message;
       CHECK(m_context != nullptr, ());
       m_myPositionController->SetRenderShape(m_context, m_texMng, msg->AcceptShape());
@@ -426,6 +441,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubroute:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteMessage> msg = message;
       auto subrouteData = msg->AcceptRenderData();
 
@@ -456,6 +472,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushTransitScheme:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushTransitSchemeMessage > msg = message;
       auto renderData = msg->AcceptRenderData();
       CHECK(m_context != nullptr, ());
@@ -466,6 +483,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubrouteArrows:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;
       drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptRenderData();
       if (CheckRouteRecaching(make_ref(routeArrowsData)))
@@ -479,6 +497,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubrouteMarkers:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteMarkersMessage> msg = message;
       drape_ptr<SubrouteMarkersData> markersData = msg->AcceptRenderData();
       if (markersData->m_recacheId < 0)
@@ -495,6 +514,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RemoveSubroute:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<RemoveSubrouteMessage> msg = message;
       if (msg->NeedDeactivateFollowing())
       {
@@ -544,6 +564,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::AddRoutePreviewSegment:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<AddRoutePreviewSegmentMessage> const msg = message;
       RouteRenderer::PreviewInfo info;
       info.m_startPoint = msg->GetStartPoint();
@@ -554,6 +575,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RemoveRoutePreviewSegment:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<RemoveRoutePreviewSegmentMessage> const msg = message;
       if (msg->NeedRemoveAll())
         m_routeRenderer->RemoveAllPreviewSegments();
@@ -564,6 +586,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::SetSubrouteVisibility:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<SetSubrouteVisibilityMessage> const msg = message;
       m_routeRenderer->SetSubrouteVisibility(msg->GetSubrouteId(), msg->IsVisible());
       break;
@@ -661,6 +684,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushCirclesPack:
     {
+      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushCirclesPackMessage> msg = message;
       CHECK(m_context != nullptr, ());
       switch (msg->GetDestination())
@@ -1496,6 +1520,112 @@ void FrontendRenderer::RenderEmptyFrame()
 
   m_context->Present();
 }
+  
+void FrontendRenderer::RenderFrame()
+{
+  CHECK(m_context != nullptr, ());
+  if (!m_context->Validate())
+  {
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    return;
+  }
+
+  auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
+  m_frameData.m_timer.Reset();
+
+  ScreenBase modelView = ProcessEvents(m_frameData.m_modelViewChanged, m_frameData.m_viewportChanged);
+  if (m_frameData.m_viewportChanged)
+    OnResize(modelView);
+
+  // Check for a frame is active.
+  bool isActiveFrame = m_frameData.m_modelViewChanged || m_frameData.m_viewportChanged;
+
+  if (isActiveFrame)
+    PrepareScene(modelView);
+
+  isActiveFrame |= m_texMng->UpdateDynamicTextures(m_context);
+  isActiveFrame |= m_userEventStream.IsWaitingForActionCompletion();
+  isActiveFrame |= InterpolationHolder::Instance().IsActive();
+
+  bool isActiveFrameForScene = isActiveFrame || m_frameData.m_forceFullRedrawNextFrame;
+  if (AnimationSystem::Instance().HasAnimations())
+  {
+    isActiveFrameForScene |= AnimationSystem::Instance().HasMapAnimations();
+    isActiveFrame = true;
+  }
+
+  m_routeRenderer->UpdatePreview(modelView);
+
+#ifdef SHOW_FRAMES_STATS
+  m_frameData.m_framesOverall += static_cast<uint64_t>(isActiveFrame);
+  m_frameData.m_framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
+#endif
+
+  RenderScene(modelView, isActiveFrameForScene);
+
+  auto const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
+  isActiveFrame |= hasForceUpdate;
+
+  if (m_frameData.m_modelViewChanged || hasForceUpdate)
+    UpdateScene(modelView);
+
+  InterpolationHolder::Instance().Advance(m_frameData.m_frameTime);
+  AnimationSystem::Instance().Advance(m_frameData.m_frameTime);
+
+  // On the first inactive frame we invalidate overlay tree.
+  if (!isActiveFrame)
+  {
+    if (m_frameData.m_inactiveFramesCounter == 0)
+      m_overlayTree->InvalidateOnNextFrame();
+    m_frameData.m_inactiveFramesCounter++;
+  }
+  else
+  {
+    m_frameData.m_inactiveFramesCounter = 0;
+  }
+
+  bool const canSuspend = m_frameData.m_inactiveFramesCounter > FrameData::kMaxInactiveFrames;
+  m_frameData.m_forceFullRedrawNextFrame = m_overlayTree->IsNeedUpdate();
+  if (canSuspend)
+  {
+    // Process a message or wait for a message.
+    // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
+    // possibility of infinity waiting in ProcessSingleMessage.
+    ProcessSingleMessage(IsRenderingEnabled());
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_timer.Reset();
+    m_frameData.m_inactiveFramesCounter = 0;
+  }
+  else
+  {
+    auto availableTime = kVSyncInterval - m_frameData.m_timer.ElapsedSeconds();
+    do
+    {
+      if (!ProcessSingleMessage(false /* waitForMessage */))
+        break;
+      m_frameData.m_forceFullRedrawNextFrame = true;
+      m_frameData.m_inactiveFramesCounter = 0;
+      availableTime = kVSyncInterval - m_frameData.m_timer.ElapsedSeconds();
+    }
+    while (availableTime > 0.0);
+  }
+
+  m_context->Present();
+
+  // Limit fps in following mode.
+  double constexpr kFrameTime = 1.0 / 30.0;
+  auto const ft = m_frameData.m_timer.ElapsedSeconds();
+  if (!canSuspend && ft < kFrameTime && m_myPositionController->IsRouteFollowingActive())
+  {
+    auto const ms = static_cast<uint32_t>((kFrameTime - ft) * 1000);
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+  }
+
+  m_frameData.m_frameTime = m_frameData.m_timer.ElapsedSeconds();
+  scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
+    m_frameData.m_inactiveFramesCounter + 1 < FrameData::kMaxInactiveFrames);
+}
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 {
@@ -1541,8 +1671,7 @@ void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context,
 
 void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
 {
-  std::array<float, 16> m;
-  dp::MakeProjection(m, 0.0f, screen.GetWidth(), screen.GetHeight(), 0.0f);
+  auto m = dp::MakeProjection(m_apiVersion, 0.0f, screen.GetWidth(), screen.GetHeight(), 0.0f);
   m_frameValues.m_projection = glsl::make_mat4(m.data());
 }
 
@@ -1977,14 +2106,6 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-  base::Timer timer;
-  double frameTime = 0.0;
-  bool modelViewChanged = true;
-  bool viewportChanged = true;
-  uint32_t inactiveFramesCounter = 0;
-  bool forceFullRedrawNextFrame = false;
-  uint32_t constexpr kMaxInactiveFrames = 2;
-
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
 #ifdef DEBUG
   scaleFpsHelper.SetVisible(true);
@@ -1993,120 +2114,17 @@ void FrontendRenderer::Routine::Do()
   m_renderer.ScheduleOverlayCollecting();
 
 #ifdef SHOW_FRAMES_STATS
-  uint64_t framesOverall = 0;
-  uint64_t framesFast = 0;
-
   m_renderer.m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(5),
-                                true /* repeating */, [&framesOverall, &framesFast](uint64_t)
+                                true /* repeating */, [this](uint64_t)
   {
-    LOG(LINFO, ("framesOverall =", framesOverall, "framesFast =", framesFast));
+    LOG(LINFO, ("framesOverall =", m_renderer.m_frameData.m_framesOverall,
+                "framesFast =", m_renderer.m_frameData.m_framesFast));
   });
 #endif
 
   while (!IsCancelled())
   {
-    CHECK(m_renderer.m_context != nullptr, ());
-    if (m_renderer.m_context->Validate())
-    {
-      timer.Reset();
-
-      ScreenBase modelView = m_renderer.ProcessEvents(modelViewChanged, viewportChanged);
-      if (viewportChanged)
-        m_renderer.OnResize(modelView);
-
-      // Check for a frame is active.
-      bool isActiveFrame = modelViewChanged || viewportChanged;
-
-      if (isActiveFrame)
-        m_renderer.PrepareScene(modelView);
-
-      isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures(m_renderer.m_context);
-      isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
-      isActiveFrame |= InterpolationHolder::Instance().IsActive();
-
-      bool isActiveFrameForScene = isActiveFrame || forceFullRedrawNextFrame;
-      if (AnimationSystem::Instance().HasAnimations())
-      {
-        isActiveFrameForScene |= AnimationSystem::Instance().HasMapAnimations();
-        isActiveFrame = true;
-      }
-
-      m_renderer.m_routeRenderer->UpdatePreview(modelView);
-
-#ifdef SHOW_FRAMES_STATS
-      framesOverall += static_cast<uint64_t>(isActiveFrame);
-      framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
-#endif
-
-      m_renderer.RenderScene(modelView, isActiveFrameForScene);
-
-      auto const hasForceUpdate = m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks;
-      isActiveFrame |= hasForceUpdate;
-
-      if (modelViewChanged || hasForceUpdate)
-        m_renderer.UpdateScene(modelView);
-
-      InterpolationHolder::Instance().Advance(frameTime);
-      AnimationSystem::Instance().Advance(frameTime);
-
-      // On the first inactive frame we invalidate overlay tree.
-      if (!isActiveFrame)
-      {
-        if (inactiveFramesCounter == 0)
-          m_renderer.m_overlayTree->InvalidateOnNextFrame();
-        inactiveFramesCounter++;
-      }
-      else
-      {
-        inactiveFramesCounter = 0;
-      }
-
-      bool const canSuspend = inactiveFramesCounter > kMaxInactiveFrames;
-      forceFullRedrawNextFrame = m_renderer.m_overlayTree->IsNeedUpdate();
-      if (canSuspend)
-      {
-        // Process a message or wait for a message.
-        // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
-        // possibility of infinity waiting in ProcessSingleMessage.
-        m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
-        forceFullRedrawNextFrame = true;
-        timer.Reset();
-        inactiveFramesCounter = 0;
-      }
-      else
-      {
-        auto availableTime = kVSyncInterval - timer.ElapsedSeconds();
-        do
-        {
-          if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
-            break;
-          forceFullRedrawNextFrame = true;
-          inactiveFramesCounter = 0;
-          availableTime = kVSyncInterval - timer.ElapsedSeconds();
-        }
-        while (availableTime > 0.0);
-      }
-
-      m_renderer.m_context->Present();
-
-      // Limit fps in following mode.
-      double constexpr kFrameTime = 1.0 / 30.0;
-      auto const ft = timer.ElapsedSeconds();
-      if (!canSuspend && ft < kFrameTime &&
-          m_renderer.m_myPositionController->IsRouteFollowingActive())
-      {
-        auto const ms = static_cast<uint32_t>((kFrameTime - ft) * 1000);
-        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-      }
-
-      frameTime = timer.ElapsedSeconds();
-      scaleFpsHelper.SetFrameTime(frameTime, inactiveFramesCounter + 1 < kMaxInactiveFrames);
-    }
-    else
-    {
-      forceFullRedrawNextFrame = true;
-      inactiveFramesCounter = 0;
-    }
+    RENDER_FRAME(m_renderer.RenderFrame());
     m_renderer.CheckRenderingEnabled();
   }
 
@@ -2121,7 +2139,7 @@ void FrontendRenderer::ReleaseResources()
 
   m_guiRenderer.reset();
   m_myPositionController.reset();
-  m_selectionShape.release();
+  m_selectionShape.reset();
   m_routeRenderer.reset();
   m_buildingsFramebuffer.reset();
   m_screenQuadRenderer.reset();

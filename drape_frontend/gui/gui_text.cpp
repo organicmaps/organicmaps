@@ -106,7 +106,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 }
 
 StaticLabel::LabelResult::LabelResult()
-  : m_state(df::CreateRenderState(gpu::Program::TextOutlinedGui, df::DepthLayer::GuiLayer))
+  : m_state(df::CreateRenderState(gpu::Program::TextStaticOutlinedGui, df::DepthLayer::GuiLayer))
 {
   m_state.SetDepthTestEnabled(false);
 }
@@ -483,7 +483,7 @@ void MutableLabelHandle::GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator
   uint32_t byteCount =
       static_cast<uint32_t>(result.m_buffer.size()) * sizeof(MutableLabel::DynamicVertex);
 
-  MutableLabel::DynamicVertex * dataPointer =
+  auto dataPointer =
       reinterpret_cast<MutableLabel::DynamicVertex *>(mutator->AllocateMutationBuffer(byteCount));
   copy(result.m_buffer.begin(), result.m_buffer.end(), dataPointer);
 

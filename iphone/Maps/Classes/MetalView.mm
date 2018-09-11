@@ -29,6 +29,7 @@
   self.paused = TRUE;
   self.enableSetNeedsDisplay = FALSE;
   self.clearColor = MTLClearColorMake(0.0, 0.0, 0.0, 0.0);
+  self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
 }
 
 @end

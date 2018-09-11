@@ -7,19 +7,16 @@ namespace
 class DrawMetalContext : public dp::metal::MetalBaseContext
 {
 public:
-  DrawMetalContext(CAMetalLayer * metalLayer, id<MTLTexture> depthStencilTexture)
-    : dp::metal::MetalBaseContext(metalLayer.device, depthStencilTexture)
+  DrawMetalContext(CAMetalLayer * metalLayer, m2::PointU const & screenSize)
+    : dp::metal::MetalBaseContext(metalLayer.device, screenSize, [this]{ return [m_metalLayer nextDrawable]; })
     , m_metalLayer(metalLayer)
   {}
   
-  bool Validate() override
+  void Resize(int w, int h) override
   {
-    if (HasFrameDrawable())
-      return true;
-    
-    id<CAMetalDrawable> drawable = [m_metalLayer nextDrawable];
-    SetFrameDrawable(drawable);
-    return drawable != nil;
+    m_metalLayer.drawableSize = CGSize{static_cast<float>(w), static_cast<float>(h)};
+    ResetFrameDrawable();
+    dp::metal::MetalBaseContext::Resize(w, h);
   }
   
 private:
@@ -30,17 +27,17 @@ class UploadMetalContext : public dp::metal::MetalBaseContext
 {
 public:
   explicit UploadMetalContext(id<MTLDevice> device)
-    : dp::metal::MetalBaseContext(device, nil)
+    : dp::metal::MetalBaseContext(device, {}, nullptr)
   {}
   
   void Present() override {}
   void MakeCurrent() override {}
+  void Resize(int w, int h) override {}
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
   void Init(dp::ApiVersion apiVersion) override
   {
     CHECK_EQUAL(apiVersion, dp::ApiVersion::Metal, ());
   }
-  bool Validate() override { return true; }
   
   void SetClearColor(dp::Color const & color) override {}
   void Clear(uint32_t clearBits) override {}
@@ -54,10 +51,10 @@ public:
 };
 }  // namespace
 
-MetalContextFactory::MetalContextFactory(MetalView * metalView)
+MetalContextFactory::MetalContextFactory(MetalView * metalView, m2::PointU const & screenSize)
 {
   CAMetalLayer * metalLayer = (CAMetalLayer *)metalView.layer;
-  m_drawContext = make_unique_dp<DrawMetalContext>(metalLayer, metalView.depthStencilTexture);
+  m_drawContext = make_unique_dp<DrawMetalContext>(metalLayer, screenSize);
   m_uploadContext = make_unique_dp<UploadMetalContext>(m_drawContext->GetMetalDevice());
 }
 

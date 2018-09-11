@@ -58,7 +58,8 @@ void DrapeApiRenderer::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu:
       program->Bind();
       dp::ApplyState(context, program, bucket.first);
 
-      if (bucket.first.GetProgram<gpu::Program>() == gpu::Program::TextOutlinedGui)
+      auto const p = bucket.first.GetProgram<gpu::Program>();
+      if (p == gpu::Program::TextOutlinedGui || p == gpu::Program::TextStaticOutlinedGui)
       {
         gpu::GuiProgramParams params;
         frameValues.SetTo(params);

@@ -6,6 +6,7 @@ BookmarkAnim user_mark.vsh.glsl user_mark.fsh.glsl
 TextOutlined text_outlined.vsh.glsl text.fsh.glsl
 Text text.vsh.glsl text.fsh.glsl
 TextFixed text.vsh.glsl text_fixed.fsh.glsl
+TextStaticOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 TextOutlinedGui text_outlined_gui.vsh.glsl text.fsh.glsl
 Area area.vsh.glsl solid_color.fsh.glsl
 AreaOutline area.vsh.glsl solid_color.fsh.glsl

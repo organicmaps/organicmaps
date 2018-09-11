@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4560F58A213D57D600CC736C /* debug_rect.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDC21342BDE009955CC /* debug_rect.metal */; };
 		4560F58B213D57D600CC736C /* screen_quad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F582213D44CE00CC736C /* screen_quad.metal */; };
+		4560F5AB2142AC1300CC736C /* gui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F5AA2142AC1300CC736C /* gui.metal */; };
 		4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4561ADF320E378CB0096BC12 /* program_manager.cpp */; };
 		4561ADF920E37A6F0096BC12 /* shaders_compiler in Resources */ = {isa = PBXBuildFile; fileRef = 4561ADF820E37A6F0096BC12 /* shaders_compiler */; };
 		4566608A20E256240085E8C1 /* program_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566608020E256230085E8C1 /* program_params.cpp */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		4560F582213D44CE00CC736C /* screen_quad.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = screen_quad.metal; sourceTree = "<group>"; };
+		4560F5AA2142AC1300CC736C /* gui.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = gui.metal; sourceTree = "<group>"; };
 		4561ADF320E378CB0096BC12 /* program_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_manager.cpp; sourceTree = "<group>"; };
 		4561ADF420E378CB0096BC12 /* program_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = program_manager.hpp; sourceTree = "<group>"; };
 		4561ADF820E37A6F0096BC12 /* shaders_compiler */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders_compiler; path = ../../tools/shaders_compiler; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			children = (
 				45789EDC21342BDE009955CC /* debug_rect.metal */,
 				4560F582213D44CE00CC736C /* screen_quad.metal */,
+				4560F5AA2142AC1300CC736C /* gui.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
 				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
 				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,
 			);

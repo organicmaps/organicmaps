@@ -278,7 +278,15 @@ bool MetalStates::PipelineKey::operator<(PipelineKey const & rhs) const
 MTLRenderPipelineDescriptor * MetalStates::PipelineKey::BuildDescriptor() const
 {
   MTLRenderPipelineDescriptor * desc = [[MTLRenderPipelineDescriptor alloc] init];
-  desc.rasterSampleCount = 1;
+  if (@available(iOS 11.0, *))
+  {
+    desc.rasterSampleCount = 1;
+    desc.vertexBuffers[0].mutability = MTLMutabilityImmutable;  // The first VB is always immutable.
+  }
+  else
+  {
+    desc.sampleCount = 1;
+  }
   ref_ptr<MetalGpuProgram> metalProgram = m_program;
   desc.vertexFunction = metalProgram->GetVertexShader();
   desc.fragmentFunction = metalProgram->GetFragmentShader();

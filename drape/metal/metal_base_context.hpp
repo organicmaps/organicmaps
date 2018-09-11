@@ -4,10 +4,14 @@
 #include "drape/graphics_context.hpp"
 #include "drape/gpu_program.hpp"
 #include "drape/metal/metal_states.hpp"
+#include "drape/metal/metal_texture.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture_types.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <cstdint>
+#include <functional>
 
 namespace dp
 {
@@ -16,11 +20,16 @@ namespace metal
 class MetalBaseContext : public dp::GraphicsContext
 {
 public:
-  MetalBaseContext(id<MTLDevice> device, id<MTLTexture> depthStencilTexture);
+  using DrawableRequest = std::function<id<CAMetalDrawable>()>;
+  
+  MetalBaseContext(id<MTLDevice> device, m2::PointU const & screenSize,
+                   DrawableRequest && drawableRequest);
   
   void Present() override;
   void MakeCurrent() override {}
   void DoneCurrent() override {}
+  bool Validate() override { return true; }
+  void Resize(int w, int h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void ApplyFramebuffer(std::string const & framebufferLabel) override;
   void Init(ApiVersion apiVersion) override;
@@ -47,12 +56,14 @@ public:
                                       TextureWrapping wrapTMode);
   
 protected:
-  void SetFrameDrawable(id<CAMetalDrawable> drawable);
-  bool HasFrameDrawable() const;
+  void RecreateDepthTexture(m2::PointU const & screenSize);
+  void RequestFrameDrawable();
+  void ResetFrameDrawable();
   void FinishCurrentEncoding();
 
   id<MTLDevice> m_device;
-  id<MTLTexture> m_depthStencilTexture;
+  DrawableRequest m_drawableRequest;
+  drape_ptr<MetalTexture> m_depthTexture;
   MTLRenderPassDescriptor * m_renderPassDescriptor;
   id<MTLCommandQueue> m_commandQueue;
   ref_ptr<dp::BaseFramebuffer> m_currentFramebuffer;

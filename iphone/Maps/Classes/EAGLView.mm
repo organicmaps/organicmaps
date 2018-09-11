@@ -89,12 +89,13 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)createDrapeEngine
 {
+  m2::PointU const s = [self pixelSize];
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
     CHECK(self.metalView != nil, ());
     CHECK_EQUAL(self.bounds.size.width, self.metalView.bounds.size.width, ());
     CHECK_EQUAL(self.bounds.size.height, self.metalView.bounds.size.height, ());
-    m_factory = make_unique_dp<MetalContextFactory>(self.metalView);
+    m_factory = make_unique_dp<MetalContextFactory>(self.metalView, s);
   }
   else
   {
@@ -102,8 +103,6 @@ double getExactDPI(double contentScaleFactor)
     m_factory = make_unique_dp<dp::ThreadSafeFactory>(
                   new iosOGLContextFactory(eaglLayer, m_apiVersion, m_presentAvailable));
   }
-  
-  m2::PointU const s = [self pixelSize];
   [self createDrapeEngineWithWidth:s.x height:s.y];
 }
 
@@ -164,20 +163,6 @@ double getExactDPI(double contentScaleFactor)
 {
   GetFramework().PrepareToShutdown();
   m_factory.reset();
-}
-
-- (CGPoint)viewPoint2GlobalPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.contentScaleFactor;
-  m2::PointD const ptG = GetFramework().PtoG(m2::PointD(pt.x * scaleFactor, pt.y * scaleFactor));
-  return CGPointMake(ptG.x, ptG.y);
-}
-
-- (CGPoint)globalPoint2ViewPoint:(CGPoint)pt
-{
-  CGFloat const scaleFactor = self.contentScaleFactor;
-  m2::PointD const ptP = GetFramework().GtoP(m2::PointD(pt.x, pt.y));
-  return CGPointMake(ptP.x / scaleFactor, ptP.y / scaleFactor);
 }
 
 - (void)setPresentAvailable:(BOOL)available

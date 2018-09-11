@@ -6,7 +6,7 @@ namespace dp
 {
 namespace depth
 {
-float constexpr kMyPositionMarkDepth = maxDepth - 1.0f;
+float constexpr kMyPositionMarkDepth = kMaxDepth - 1.0f;
 }  // namespace depth
 
 namespace displacement

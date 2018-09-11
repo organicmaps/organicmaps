@@ -185,7 +185,9 @@ void PostprocessRenderer::SetStaticTextures(drape_ptr<PostprocessStaticTextures>
 bool PostprocessRenderer::IsEnabled() const
 {
   // Do not use post processing in routing following mode by energy-saving reasons.
-  if (m_isRouteFollowingActive)
+  // For Metal rendering to the texture is more efficient,
+  // since nextDrawable will be requested later.
+  if (m_apiVersion != dp::ApiVersion::Metal && m_isRouteFollowingActive)
     return false;
 
   return IsSupported(m_mainFramebuffer);
@@ -195,7 +197,7 @@ void PostprocessRenderer::SetEffectEnabled(ref_ptr<dp::GraphicsContext> context,
                                            Effect effect, bool enabled)
 {
   // Do not support AA for OpenGLES 2.0.
-  if (context->GetApiVersion() == dp::ApiVersion::OpenGLES2 && effect == Effect::Antialiasing)
+  if (m_apiVersion == dp::ApiVersion::OpenGLES2 && effect == Effect::Antialiasing)
     return;
 
   auto const oldValue = m_effects;
@@ -379,15 +381,15 @@ void PostprocessRenderer::UpdateFramebuffers(ref_ptr<dp::GraphicsContext> contex
   ASSERT_NOT_EQUAL(width, 0, ());
   ASSERT_NOT_EQUAL(height, 0, ());
 
-  auto const apiVersion = context->GetApiVersion();
+  CHECK_EQUAL(m_apiVersion, context->GetApiVersion(), ());
   InitFramebuffer(context, m_mainFramebuffer, width, height, true /* depthEnabled */,
-                  apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
+                  m_apiVersion != dp::ApiVersion::OpenGLES2 /* stencilEnabled */);
   m_isMainFramebufferRendered = false;
 
   m_isSmaaFramebufferRendered = false;
   if (!m_isRouteFollowingActive && IsEffectEnabled(Effect::Antialiasing))
   {
-    CHECK_NOT_EQUAL(apiVersion, dp::ApiVersion::OpenGLES2, ());
+    CHECK_NOT_EQUAL(m_apiVersion, dp::ApiVersion::OpenGLES2, ());
 
     InitFramebuffer(context, m_edgesFramebuffer, dp::TextureFormat::RedGreen,
                     m_mainFramebuffer->GetDepthStencilRef(),

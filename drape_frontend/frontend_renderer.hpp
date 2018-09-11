@@ -171,6 +171,7 @@ private:
   void RenderSearchMarksLayer(ScreenBase const & modelView);
   void RenderTransitBackground();
   void RenderEmptyFrame();
+  void RenderFrame();
 
   bool HasTransitRouteData() const;
   bool HasRouteData() const;
@@ -348,6 +349,22 @@ private:
   drape_ptr<ScreenQuadRenderer> m_transitBackground;
 
   drape_ptr<DrapeNotifier> m_notifier;
+
+  struct FrameData
+  {
+    base::Timer m_timer;
+    double m_frameTime = 0.0;
+    bool m_modelViewChanged = true;
+    bool m_viewportChanged = true;
+    uint32_t m_inactiveFramesCounter = 0;
+    bool m_forceFullRedrawNextFrame = false;
+#ifdef SHOW_FRAMES_STATS
+    uint64_t m_framesOverall = 0;
+    uint64_t m_framesFast = 0;
+#endif
+    static uint32_t constexpr kMaxInactiveFrames = 2;
+  };
+  FrameData m_frameData;
 
 #ifdef DEBUG
   bool m_isTeardowned;

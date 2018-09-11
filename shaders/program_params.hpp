@@ -9,6 +9,8 @@
 
 #include "base/assert.hpp"
 
+#include "std/target_os.hpp"
+
 #include <map>
 #include <vector>
 
@@ -43,6 +45,11 @@ private:
     } \
   }
 
+#if defined(OMIM_OS_IPHONE)
+#define ALIGNMENT __attribute__ ((aligned(16)))
+#else
+#define ALIGNMENT
+#endif
 
 struct MapProgramParams
 {
@@ -82,7 +89,7 @@ struct MapProgramParams
     Program::TextOutlinedBillboard,
     Program::Texturing,
     Program::TexturingBillboard)
-};
+} ALIGNMENT;
 
 struct RouteProgramParams
 {
@@ -103,7 +110,7 @@ struct RouteProgramParams
     Program::RouteDash,
     Program::RouteArrow,
     Program::RouteMarker)
-};
+} ALIGNMENT;
 
 struct TrafficProgramParams
 {
@@ -121,7 +128,7 @@ struct TrafficProgramParams
     Program::Traffic,
     Program::TrafficLine,
     Program::TrafficCircle)
-};
+} ALIGNMENT;
 
 struct TransitProgramParams
 {
@@ -136,7 +143,7 @@ struct TransitProgramParams
     Program::Transit,
     Program::TransitCircle,
     Program::TransitMarker)
-};
+} ALIGNMENT;
 
 struct GuiProgramParams
 {
@@ -149,10 +156,11 @@ struct GuiProgramParams
   float m_length = 0.0f;
 
   BIND_PROGRAMS(GuiProgramParams,
+    Program::TextStaticOutlinedGui,
     Program::TextOutlinedGui,
     Program::TexturingGui,
     Program::Ruler)
-};
+} ALIGNMENT;
 
 struct ShapesProgramParams
 {
@@ -168,7 +176,7 @@ struct ShapesProgramParams
   BIND_PROGRAMS(ShapesProgramParams,
     Program::Accuracy,
     Program::MyPosition)
-};
+} ALIGNMENT;
 
 struct Arrow3dProgramParams
 {
@@ -179,21 +187,21 @@ struct Arrow3dProgramParams
     Program::Arrow3d,
     Program::Arrow3dShadow,
     Program::Arrow3dOutline)
-};
+} ALIGNMENT;
 
 struct DebugRectProgramParams
 {
   glsl::vec4 m_color;
 
   BIND_PROGRAMS(DebugRectProgramParams, Program::DebugRect)
-};
+} ALIGNMENT;
 
 struct ScreenQuadProgramParams
 {
   float m_opacity = 1.0f;
 
   BIND_PROGRAMS(ScreenQuadProgramParams, Program::ScreenQuad)
-};
+} ALIGNMENT;
 
 struct SMAAProgramParams
 {
@@ -203,7 +211,9 @@ struct SMAAProgramParams
     Program::SmaaEdges,
     Program::SmaaBlendingWeight,
     Program::SmaaFinal)
-};
+} ALIGNMENT;
+
+#undef ALIGNMENT
 
 class ProgramParamsSetter
 {
