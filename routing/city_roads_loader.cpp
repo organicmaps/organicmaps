@@ -46,9 +46,7 @@ bool CityRoadsLoader::IsCityRoad(uint32_t fid) const
 {
   if (fid < m_cityRoads.size())
     return m_cityRoads[fid];
-  else if (fid == m_cityRoads.size())
-    return true;
-  else
-    return false;
+
+  return false;
 }
 }  // namespace routing

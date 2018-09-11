@@ -83,7 +83,7 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
   CHECK(adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
             cityRoadFeatureIds.cend(),
         ("City road feature ids should be unique."));
-  succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back(),
+  succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back() + 1,
                                                    cityRoadFeatureIds.size());
   for (auto fid : cityRoadFeatureIds)
     builder.push_back(fid);
