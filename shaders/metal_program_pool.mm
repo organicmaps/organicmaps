@@ -22,7 +22,13 @@ struct ProgramInfo
     , m_fragmentShaderName(std::move(fragmentShaderName))
   {}
 };
-
+  
+std::array<ProgramInfo, static_cast<size_t>(SystemProgram::SystemProgramsCount)> const kMetalSystemProgramsInfo = {{
+  ProgramInfo("vsCleaner", "fsClearColor"),  // ClearColor
+  ProgramInfo("vsCleaner", "fsClearDepth"),  // ClearDepth
+  ProgramInfo("vsCleaner", "fsClearColorAndDepth"),  // ClearColorAndDepth
+}};
+  
 std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMetalProgramsInfo = {{
   ProgramInfo("", ""),  // ColoredSymbol
   ProgramInfo("", ""),  // Texturing
@@ -77,6 +83,21 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
 }};
 }  // namespace
 
+std::string DebugPrint(SystemProgram p)
+{
+  switch (p)
+  {
+    case SystemProgram::ClearColor: return "ClearColor";
+    case SystemProgram::ClearDepth: return "ClearDepth";
+    case SystemProgram::ClearColorAndDepth: return "ClearColorAndDepth";
+      
+    case SystemProgram::SystemProgramsCount:
+      CHECK(false, ("Try to output SystemProgramsCount"));
+  }
+  CHECK(false, ("Unknown program"));
+  return {};
+}
+  
 MetalProgramPool::MetalProgramPool(id<MTLDevice> device)
   : m_device(device)
 {
@@ -98,19 +119,34 @@ MetalProgramPool::~MetalProgramPool()
   ProgramParams::Destroy();
 }
 
+drape_ptr<dp::GpuProgram> MetalProgramPool::GetSystemProgram(SystemProgram program)
+{
+  auto const & info = kMetalSystemProgramsInfo[static_cast<size_t>(program)];
+  return Get(DebugPrint(program), info.m_vertexShaderName, info.m_fragmentShaderName);
+}
+  
 drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
 {
   auto const & info = kMetalProgramsInfo[static_cast<size_t>(program)];
-  CHECK(!info.m_vertexShaderName.empty(), ());
-  CHECK(!info.m_fragmentShaderName.empty(), ());
-
-  id<MTLFunction> vertexShader = GetFunction(info.m_vertexShaderName);
-  id<MTLFunction> fragmentShader = GetFunction(info.m_fragmentShaderName);
+  return Get(DebugPrint(program), info.m_vertexShaderName, info.m_fragmentShaderName);
+}
+  
+drape_ptr<dp::GpuProgram> MetalProgramPool::Get(std::string const & programName,
+                                                std::string const & vertexShaderName,
+                                                std::string const & fragmentShaderName)
+{
+  CHECK(!vertexShaderName.empty(), ());
+  CHECK(!fragmentShaderName.empty(), ());
+  
+  id<MTLFunction> vertexShader = GetFunction(vertexShaderName);
+  id<MTLFunction> fragmentShader = GetFunction(fragmentShaderName);
   
   MTLRenderPipelineDescriptor * desc = [[MTLRenderPipelineDescriptor alloc] init];
   desc.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
+  desc.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
   desc.vertexFunction = vertexShader;
   desc.fragmentFunction = fragmentShader;
+  
   NSError * error = nil;
   MTLRenderPipelineReflection * reflectionObj = nil;
   MTLPipelineOption option = MTLPipelineOptionBufferTypeInfo | MTLPipelineOptionArgumentInfo;
@@ -163,8 +199,7 @@ drape_ptr<dp::GpuProgram> MetalProgramPool::Get(Program program)
     }
   }
   
-  auto const name = DebugPrint(program);
-  return make_unique_dp<dp::metal::MetalGpuProgram>(name, vertexShader, fragmentShader,
+  return make_unique_dp<dp::metal::MetalGpuProgram>(programName, vertexShader, fragmentShader,
                                                     vsUniformsBindingIndex, fsUniformsBindingIndex,
                                                     std::move(textureBindingInfo));
 }
@@ -176,7 +211,8 @@ id<MTLFunction> MetalProgramPool::GetFunction(std::string const & name)
   {
     id<MTLFunction> f = [m_library newFunctionWithName:@(name.c_str())];
     CHECK(f != nil, ());
-    f.label = [@"Function " stringByAppendingString:@(name.c_str())];
+    if (@available(iOS 10.0, *))
+      f.label = [@"Function " stringByAppendingString:@(name.c_str())];
     m_functions.insert(std::make_pair(name, f));
     return f;
   }

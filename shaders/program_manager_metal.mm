@@ -12,5 +12,10 @@ void ProgramManager::InitForMetal(ref_ptr<dp::GraphicsContext> context)
   ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
   m_pool = make_unique_dp<metal::MetalProgramPool>(metalContext->GetMetalDevice());
   m_paramsSetter = make_unique_dp<metal::MetalProgramParamsSetter>();
+  
+  ref_ptr<metal::MetalProgramPool> metalPool = make_ref(m_pool);
+  metalContext->SetSystemPrograms(metalPool->GetSystemProgram(SystemProgram::ClearColor),
+                                  metalPool->GetSystemProgram(SystemProgram::ClearDepth),
+                                  metalPool->GetSystemProgram(SystemProgram::ClearColorAndDepth));
 }
 }  // namespace gpu

@@ -1,5 +1,4 @@
 #include "drape/metal/metal_base_context.hpp"
-#include "drape/metal/metal_gpu_program.hpp"
 #include "drape/metal/metal_texture.hpp"
 
 #include "drape/framebuffer.hpp"
@@ -171,6 +170,7 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
 
 void MetalBaseContext::SetClearColor(dp::Color const & color)
 {
+  m_cleaner.SetClearColor(color);
   m_renderPassDescriptor.colorAttachments[0].clearColor =
     MTLClearColorMake(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
 }
@@ -179,8 +179,15 @@ void MetalBaseContext::Clear(uint32_t clearBits)
 {
   if (m_currentCommandEncoder != nil)
   {
-    // Encoder has already been created. Here we has to draw fullscreen quad for clearing.
-    // TODO(@rokuz,@darina)
+    if ((clearBits & ClearBits::ColorBit) && (clearBits & ClearBits::DepthBit))
+      m_cleaner.ClearColorAndDepth(make_ref(this), m_currentCommandEncoder);
+    else if (clearBits & ClearBits::ColorBit)
+      m_cleaner.ClearColor(make_ref(this), m_currentCommandEncoder);
+    else if (clearBits & ClearBits::DepthBit)
+      m_cleaner.ClearDepth(make_ref(this), m_currentCommandEncoder);
+    
+    if (clearBits & ClearBits::StencilBit)
+      CHECK(false, ("Stencil clearing is not implemented"));
   }
   else
   {
@@ -312,6 +319,14 @@ void MetalBaseContext::FinishCurrentEncoding()
   [m_currentCommandEncoder popDebugGroup];
   [m_currentCommandEncoder endEncoding];
   m_currentCommandEncoder = nil;
+}
+  
+void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor,
+                                         drape_ptr<GpuProgram> && programClearDepth,
+                                         drape_ptr<GpuProgram> && programClearColorAndDepth)
+{
+  m_cleaner.Init(make_ref(this), std::move(programClearColor), std::move(programClearDepth),
+                 std::move(programClearColorAndDepth));
 }
 }  // namespace metal
 

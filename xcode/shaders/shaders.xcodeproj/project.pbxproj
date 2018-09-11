@@ -34,6 +34,7 @@
 		45789EE021343F70009955CC /* metal_program_pool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDE21343F70009955CC /* metal_program_pool.mm */; };
 		45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE321353CA3009955CC /* program_manager_metal.mm */; };
 		45789EE72135464D009955CC /* metal_program_params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE62135464D009955CC /* metal_program_params.mm */; };
+		BBF791702146D8EC00D27BD8 /* system.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7916F2146D8EC00D27BD8 /* system.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		45789EE52135464D009955CC /* metal_program_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metal_program_params.hpp; sourceTree = "<group>"; };
 		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
 		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBF7916F2146D8EC00D27BD8 /* system.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = system.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +375,7 @@
 				45789EDC21342BDE009955CC /* debug_rect.metal */,
 				4560F582213D44CE00CC736C /* screen_quad.metal */,
 				4560F5AA2142AC1300CC736C /* gui.metal */,
+				BBF7916F2146D8EC00D27BD8 /* system.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
+				BBF791702146D8EC00D27BD8 /* system.metal in Sources */,
 				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
 				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,
 			);

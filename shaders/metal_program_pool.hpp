@@ -10,6 +10,15 @@
 
 namespace gpu
 {
+enum class SystemProgram
+{
+  ClearColor = 0,
+  ClearDepth,
+  ClearColorAndDepth,
+  
+  SystemProgramsCount
+};
+  
 namespace metal
 {
 class MetalProgramPool : public ProgramPool
@@ -19,8 +28,12 @@ public:
   ~MetalProgramPool() override;
 
   drape_ptr<dp::GpuProgram> Get(Program program) override;
-
+  drape_ptr<dp::GpuProgram> GetSystemProgram(SystemProgram program);
+  
 private:
+  drape_ptr<dp::GpuProgram> Get(std::string const & programName, std::string const & vertexShaderName,
+                                std::string const & fragmentShaderName);
+  
   id<MTLFunction> GetFunction(std::string const & name);
   id<MTLDevice> m_device;
   id<MTLLibrary> m_library;

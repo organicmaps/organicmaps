@@ -124,6 +124,8 @@
 		BBB72E9C2111CE9100249D4F /* graphics_context_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E992111CE9100249D4F /* graphics_context_factory.cpp */; };
 		BBB72E9F2118A45800249D4F /* mesh_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBB72E9D2118A45700249D4F /* mesh_object.cpp */; };
 		BBB72EA02118A45800249D4F /* mesh_object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBB72E9E2118A45800249D4F /* mesh_object.hpp */; };
+		BBF7916C2142E3A100D27BD8 /* metal_cleaner.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF7916B2142E3A100D27BD8 /* metal_cleaner.mm */; };
+		BBF7916E2142E42C00D27BD8 /* metal_cleaner.hpp in Headers */ = {isa = PBXBuildFile; fileRef = BBF7916D2142E42C00D27BD8 /* metal_cleaner.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -247,6 +249,8 @@
 		BBB72E992111CE9100249D4F /* graphics_context_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_context_factory.cpp; sourceTree = "<group>"; };
 		BBB72E9D2118A45700249D4F /* mesh_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh_object.cpp; sourceTree = "<group>"; };
 		BBB72E9E2118A45800249D4F /* mesh_object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh_object.hpp; sourceTree = "<group>"; };
+		BBF7916B2142E3A100D27BD8 /* metal_cleaner.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_cleaner.mm; sourceTree = "<group>"; };
+		BBF7916D2142E42C00D27BD8 /* metal_cleaner.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = metal_cleaner.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +279,8 @@
 				4598438D2139967F00F8CAB2 /* metal_texture.mm */,
 				4560F5A6214297D800CC736C /* metal_vertex_array_buffer_impl.mm */,
 				4560F590213EC93300CC736C /* render_state_metal.mm */,
+				BBF7916B2142E3A100D27BD8 /* metal_cleaner.mm */,
+				BBF7916D2142E42C00D27BD8 /* metal_cleaner.hpp */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -449,6 +455,7 @@
 				45447109211462A300D28C28 /* texture_types.hpp in Headers */,
 				BBB72EA02118A45800249D4F /* mesh_object.hpp in Headers */,
 				675D219A1BFB876E00717E4F /* projection.hpp in Headers */,
+				BBF7916E2142E42C00D27BD8 /* metal_cleaner.hpp in Headers */,
 				45789EF6213557F7009955CC /* gl_includes.hpp in Headers */,
 				45789EF9213557F7009955CC /* gl_functions.hpp in Headers */,
 				670947291BDF9A4F005014C0 /* hw_texture_ios.hpp in Headers */,
@@ -554,6 +561,7 @@
 				6729A5631A69213A007D5872 /* attribute_buffer_mutator.cpp in Sources */,
 				6729A56B1A69213A007D5872 /* binding_info.cpp in Sources */,
 				BBB72E9F2118A45800249D4F /* mesh_object.cpp in Sources */,
+				BBF7916C2142E3A100D27BD8 /* metal_cleaner.mm in Sources */,
 				45789EF5213557F7009955CC /* gl_gpu_program.cpp in Sources */,
 				45789EF3213557F7009955CC /* gl_extensions_list.cpp in Sources */,
 				6729A5941A69213A007D5872 /* overlay_handle.cpp in Sources */,

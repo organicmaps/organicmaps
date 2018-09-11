@@ -3,6 +3,7 @@
 
 #include "drape/graphics_context.hpp"
 #include "drape/gpu_program.hpp"
+#include "drape/metal/metal_cleaner.hpp"
 #include "drape/metal/metal_states.hpp"
 #include "drape/metal/metal_texture.hpp"
 #include "drape/pointers.hpp"
@@ -55,6 +56,10 @@ public:
   id<MTLSamplerState> GetSamplerState(TextureFilter filter, TextureWrapping wrapSMode,
                                       TextureWrapping wrapTMode);
   
+  void SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor,
+                         drape_ptr<GpuProgram> && programClearDepth,
+                         drape_ptr<GpuProgram> && programClearColorAndDepth);
+  
 protected:
   void RecreateDepthTexture(m2::PointU const & screenSize);
   void RequestFrameDrawable();
@@ -74,6 +79,8 @@ protected:
   id<CAMetalDrawable> m_frameDrawable;
   id<MTLCommandBuffer> m_frameCommandBuffer;
   id<MTLRenderCommandEncoder> m_currentCommandEncoder;
+  
+  MetalCleaner m_cleaner;
 };
 }  // namespace metal
 }  // namespace dp
