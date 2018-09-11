@@ -12,7 +12,7 @@ namespace
 using namespace generator;
 using namespace indexer;
 
-UNIT_TEST(CitiesBoundariesCheckerTest_Square)
+UNIT_TEST(CitiesBoundariesChecker_Square)
 {
   auto const checker =
       CitiesBoundariesChecker({CityBoundary({{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}, {0.0, 1.0}})});
@@ -26,7 +26,7 @@ UNIT_TEST(CitiesBoundariesCheckerTest_Square)
   TEST(!checker.InCity({40.0, -40.0}), ());
 }
 
-UNIT_TEST(CitiesBoundariesCheckerTest_NotConvexPolygon)
+UNIT_TEST(CitiesBoundariesChecker_NotConvexPolygon)
 {
   auto const checker =
       CitiesBoundariesChecker({CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}})});
@@ -40,7 +40,7 @@ UNIT_TEST(CitiesBoundariesCheckerTest_NotConvexPolygon)
   TEST(!checker.InCity({40.0, -40.0}), ());
 }
 
-UNIT_TEST(CitiesBoundariesCheckerTest_IntersectedPolygons)
+UNIT_TEST(CitiesBoundariesChecker_IntersectedPolygons)
 {
   auto const checker = CitiesBoundariesChecker(
       {CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}),
@@ -55,7 +55,7 @@ UNIT_TEST(CitiesBoundariesCheckerTest_IntersectedPolygons)
   TEST(!checker.InCity({40.0, -40.0}), ());
 }
 
-UNIT_TEST(CitiesBoundariesCheckerTest_SeveralPolygons)
+UNIT_TEST(CitiesBoundariesChecker_SeveralPolygons)
 {
   auto const checker = CitiesBoundariesChecker(
       {CityBoundary({{0.0, 0.0}, {1.0, -1.0}, {0.5, 0.0}, {1.0, 1.0}, {0.0, 1.0}}),

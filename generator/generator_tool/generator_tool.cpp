@@ -131,7 +131,7 @@ DEFINE_string(transit_path, "", "Path to directory with transit graphs in json."
 DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info.");
 DEFINE_bool(
     make_city_roads, false,
-    "Calculates which features lie inside cities and makes a section with ids of these features.");
+    "Calculates which roads lie inside cities and makes a section with ids of these features.");
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");

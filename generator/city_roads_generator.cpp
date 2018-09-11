@@ -79,10 +79,10 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
   auto const startOffset = w.Pos();
   header.Serialize(w);
 
-  std::sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
-  CHECK(std::adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
+  sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
+  CHECK(adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
             cityRoadFeatureIds.cend(),
-        ("City road feaute ids should be unique."));
+        ("City road feature ids should be unique."));
   succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back(),
                                                    cityRoadFeatureIds.size());
   for (auto fid : cityRoadFeatureIds)
