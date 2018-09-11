@@ -79,7 +79,7 @@ public:
     size_t m_numUsedTokens = 0;
 
     // The highest value of certainty for each retrieved osm id.
-    std::unordered_map<base::GeoObjectId, double, base::HashGeoObjectId> m_results;
+    std::unordered_map<base::GeoObjectId, double> m_results;
 
     std::vector<Layer> m_layers;
   };

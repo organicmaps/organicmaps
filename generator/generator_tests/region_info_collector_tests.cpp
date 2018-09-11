@@ -5,8 +5,11 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include "platform/platform.hpp"
 
+#include <cstdint>
 #include <limits>
 #include <string>
 #include <utility>
@@ -34,15 +37,19 @@ auto const kOsmElementCountry = MakeOsmElement(2, {{"admin_level", "2"},
                                                    {"ISO3166-1:alpha2", "RU"},
                                                    {"ISO3166-1:alpha3", "RUS"},
                                                    {"ISO3166-1:numeric", "643"}});
+base::GeoObjectId CastId(uint64_t id)
+{
+  return base::MakeOsmRelation(id);
+}
 }  // namespace
 
 UNIT_TEST(RegionInfoCollector_Add)
 {
   generator::RegionInfoCollector regionInfoCollector;
-  regionInfoCollector.Add(kOsmElementCity);
+  regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
   {
-    auto const regionData = regionInfoCollector.Get(kOsmElementCity.id);
-    TEST_EQUAL(regionData.GetOsmId(), kOsmElementCity.id, ());
+    auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
+    TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCity.id), ());
     TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Six, ());
     TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::City, ());
     TEST(!regionData.HasIsoCodeAlpha2(), ());
@@ -50,10 +57,10 @@ UNIT_TEST(RegionInfoCollector_Add)
     TEST(!regionData.HasIsoCodeAlphaNumeric(), ());
   }
 
-  regionInfoCollector.Add(kOsmElementCountry);
+  regionInfoCollector.Add(CastId(kOsmElementCountry.id), kOsmElementCountry);
   {
-    auto const regionData = regionInfoCollector.Get(kOsmElementCountry.id);
-    TEST_EQUAL(regionData.GetOsmId(), kOsmElementCountry.id, ());
+    auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
+    TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCountry.id), ());
     TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Two, ());
     TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::Unknown, ());
 
@@ -65,10 +72,10 @@ UNIT_TEST(RegionInfoCollector_Add)
     TEST_EQUAL(regionData.GetIsoCodeAlphaNumeric(), "643", ());
   }
 
-  regionInfoCollector.Add(kOsmElementEmpty);
+  regionInfoCollector.Add(CastId(kOsmElementEmpty.id), kOsmElementEmpty);
   {
-    auto const regionDataEmpty = regionInfoCollector.Get(kOsmElementEmpty.id);
-    TEST_EQUAL(regionDataEmpty.GetOsmId(), kOsmElementEmpty.id, ());
+    auto const regionDataEmpty = regionInfoCollector.Get(CastId(kOsmElementEmpty.id));
+    TEST_EQUAL(regionDataEmpty.GetOsmId(), CastId(kOsmElementEmpty.id), ());
     TEST_EQUAL(regionDataEmpty.GetAdminLevel(), generator::AdminLevel::Unknown, ());
     TEST_EQUAL(regionDataEmpty.GetPlaceType(), generator::PlaceType::Unknown, ());
     TEST(!regionDataEmpty.HasIsoCodeAlpha2(), ());
@@ -80,10 +87,10 @@ UNIT_TEST(RegionInfoCollector_Add)
 UNIT_TEST(RegionInfoCollector_Get)
 {
   generator::RegionInfoCollector regionInfoCollector;
-  regionInfoCollector.Add(kOsmElementCity);
+  regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
 
-  auto const regionData = regionInfoCollector.Get(kOsmElementCity.id);
-  TEST_EQUAL(regionData.GetOsmId(), kOsmElementCity.id, ());
+  auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
+  TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCity.id), ());
   TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Six, ());
   TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::City, ());
 }
@@ -91,35 +98,44 @@ UNIT_TEST(RegionInfoCollector_Get)
 UNIT_TEST(RegionInfoCollector_Exists)
 {
   generator::RegionInfoCollector regionInfoCollector;
-  regionInfoCollector.Add(kOsmElementCity);
-  regionInfoCollector.Add(kOsmElementCountry);
+  regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
+  regionInfoCollector.Add(CastId(kOsmElementCountry.id), kOsmElementCountry);
 
-  TEST(regionInfoCollector.Get(kOsmElementCountry.id).HasAdminLevel(), ());
-  TEST(!regionInfoCollector.Get(kOsmElementCountry.id).HasPlaceType(), ());
-  TEST(regionInfoCollector.Get(kOsmElementCountry.id).HasIsoCodeAlpha2(), ());
-  TEST(regionInfoCollector.Get(kOsmElementCountry.id).HasIsoCodeAlpha3(), ());
-  TEST(regionInfoCollector.Get(kOsmElementCountry.id).HasIsoCodeAlphaNumeric(), ());
+  {
+    auto const rg = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
+    TEST(rg.HasAdminLevel(), ());
+    TEST(!rg.HasPlaceType(), ());
+    TEST(rg.HasIsoCodeAlpha2(), ());
+    TEST(rg.HasIsoCodeAlpha3(), ());
+    TEST(rg.HasIsoCodeAlphaNumeric(), ());
+  }
 
-  TEST(regionInfoCollector.Get(kOsmElementCity.id).HasAdminLevel(), ());
-  TEST(regionInfoCollector.Get(kOsmElementCity.id).HasPlaceType(), ());
-  TEST(!regionInfoCollector.Get(kOsmElementCity.id).HasIsoCodeAlpha2(), ());
-  TEST(!regionInfoCollector.Get(kOsmElementCity.id).HasIsoCodeAlpha3(), ());
-  TEST(!regionInfoCollector.Get(kOsmElementCity.id).HasIsoCodeAlphaNumeric(), ());
+  {
+    auto const rg = regionInfoCollector.Get(CastId(kOsmElementCity.id));
+    TEST(rg.HasAdminLevel(), ());
+    TEST(rg.HasPlaceType(), ());
+    TEST(!rg.HasIsoCodeAlpha2(), ());
+    TEST(!rg.HasIsoCodeAlpha3(), ());
+    TEST(!rg.HasIsoCodeAlphaNumeric(), ());
+  }
 
-  TEST(!regionInfoCollector.Get(kNotExistingId).HasAdminLevel(), ());
-  TEST(!regionInfoCollector.Get(kNotExistingId).HasPlaceType(), ());
-  TEST(!regionInfoCollector.Get(kNotExistingId).HasIsoCodeAlpha2(), ());
-  TEST(!regionInfoCollector.Get(kNotExistingId).HasIsoCodeAlpha3(), ());
-  TEST(!regionInfoCollector.Get(kNotExistingId).HasIsoCodeAlphaNumeric(), ());
+  {
+    auto const rg = regionInfoCollector.Get(CastId(kNotExistingId));
+    TEST(!rg.HasAdminLevel(), ());
+    TEST(!rg.HasPlaceType(), ());
+    TEST(!rg.HasIsoCodeAlpha2(), ());
+    TEST(!rg.HasIsoCodeAlpha3(), ());
+    TEST(!rg.HasIsoCodeAlphaNumeric(), ());
+  }
 }
 
 UNIT_TEST(RegionInfoCollector_Save)
 {
   generator::RegionInfoCollector regionInfoCollector;
-  regionInfoCollector.Add(kOsmElementCity);
-  auto const regionCity = regionInfoCollector.Get(kOsmElementCity.id);
-  regionInfoCollector.Add(kOsmElementCountry);
-  auto const regionCountry = regionInfoCollector.Get(kOsmElementCountry.id);
+  regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
+  auto const regionCity = regionInfoCollector.Get(CastId(kOsmElementCity.id));
+  regionInfoCollector.Add(CastId(kOsmElementCountry.id), kOsmElementCountry);
+  auto const regionCountry = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
 
   auto & platform = GetPlatform();
   auto const tmpDir = platform.TmpDir();
@@ -128,7 +144,7 @@ UNIT_TEST(RegionInfoCollector_Save)
   regionInfoCollector.Save(name);
   {
     generator::RegionInfoCollector regionInfoCollector(name);
-    auto const rRegionData = regionInfoCollector.Get(kOsmElementCity.id);
+    auto const rRegionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
 
     TEST_EQUAL(regionCity.GetOsmId(), rRegionData.GetOsmId(), ());
     TEST_EQUAL(regionCity.GetAdminLevel(), rRegionData.GetAdminLevel(), ());
@@ -140,7 +156,7 @@ UNIT_TEST(RegionInfoCollector_Save)
 
   {
     generator::RegionInfoCollector regionInfoCollector(name);
-    auto const rRegionData = regionInfoCollector.Get(kOsmElementCountry.id);
+    auto const rRegionData = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
 
     TEST_EQUAL(regionCountry.GetOsmId(), rRegionData.GetOsmId(), ());
     TEST_EQUAL(regionCountry.GetAdminLevel(), rRegionData.GetAdminLevel(), ());
