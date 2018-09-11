@@ -5,6 +5,8 @@
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 
+#include "base/logging.hpp"
+
 #include <utility>
 
 namespace routing
@@ -38,5 +40,15 @@ CityRoadsLoader::CityRoadsLoader(DataSource const & dataSource, MwmSet::MwmId co
     LOG(LERROR, ("File", mwmValue.GetCountryFileName(), "Error while reading", CITY_ROADS_FILE_TAG,
                  "section.", e.Msg()));
   }
+}
+
+bool CityRoadsLoader::IsCityRoad(uint32_t fid) const
+{
+  if (fid < m_cityRoads.size())
+    return m_cityRoads[fid];
+  else if (fid == m_cityRoads.size())
+    return true;
+  else
+    return false;
 }
 }  // namespace routing

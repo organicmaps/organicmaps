@@ -94,7 +94,8 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   sort(originalCityRoadFeatureIds.begin(), originalCityRoadFeatureIds.end());
   size_t const kMaxRoadFeatureId = originalCityRoadFeatureIds.back();
   CHECK_LESS(kMaxRoadFeatureId, numeric_limits<uint32_t>::max(), ());
-  for (uint32_t fid = 0; fid < kMaxRoadFeatureId; ++fid)
+  // Note. 2 is added below to test all the if-branches of CityRoadsLoader::IsCityRoad() method.
+  for (uint32_t fid = 0; fid < kMaxRoadFeatureId + 2; ++fid)
   {
     bool const isCityRoad =
         binary_search(originalCityRoadFeatureIds.cbegin(), originalCityRoadFeatureIds.cend(), fid);

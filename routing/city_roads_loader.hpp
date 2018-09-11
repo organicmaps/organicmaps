@@ -47,7 +47,7 @@ public:
   CityRoadsLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId);
 
   bool HasCityRoads() const { return m_cityRoads.size() > 0; }
-  bool IsCityRoad(uint32_t fid) const { return m_cityRoads[fid]; }
+  bool IsCityRoad(uint32_t fid) const;
 
 private:
   std::unique_ptr<CopiedMemoryRegion> m_cityRoadsRegion;
