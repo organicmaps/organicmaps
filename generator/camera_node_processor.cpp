@@ -209,4 +209,26 @@ std::string CameraNodeIntermediateDataProcessor::ValidateMaxSpeedString(std::str
 
   return result;
 }
+
+void CameraNodeIntermediateDataProcessor::ProcessNode(OsmElement & em)
+{
+  for (auto const & tag : em.Tags())
+  {
+    std::string const & key(tag.key);
+    std::string const & value(tag.value);
+    if (key == "highway" && value == "speed_camera")
+    {
+      m_speedCameraNodes.insert(em.id);
+    }
+    else if (key == "maxspeed" && !value.empty())
+    {
+      WriteToSink(m_maxSpeedFileWriter, em.id);
+
+      std::string result = ValidateMaxSpeedString(value);
+      CHECK_LESS(result.size(), kMaxSpeedSpeedStringLength, ("Too long string for speed"));
+      WriteToSink(m_maxSpeedFileWriter, result.size());
+      m_maxSpeedFileWriter.Write(result.c_str(), result.size());
+    }
+  }
+}
 }  // namespace generator

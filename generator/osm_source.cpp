@@ -70,21 +70,19 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-template <typename Element>
 void AddElementToCache(cache::IntermediateDataWriter & cache,
-                       CameraNodeIntermediateDataProcessor & cameras, Element & em,
-                       vector<OsmElement::Tag> const & tags)
+                       CameraNodeIntermediateDataProcessor & cameras, OsmElement & em)
 {
   switch (em.type)
   {
-  case Element::EntityType::Node:
+  case OsmElement::EntityType::Node:
   {
     auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
     cache.AddNode(em.id, pt.y, pt.x);
-    cameras.ProcessNode(em, tags);
+    cameras.ProcessNode(em);
     break;
   }
-  case Element::EntityType::Way:
+  case OsmElement::EntityType::Way:
   {
     // Store way.
     WayElement way(em.id);
@@ -98,20 +96,20 @@ void AddElementToCache(cache::IntermediateDataWriter & cache,
     }
     break;
   }
-  case Element::EntityType::Relation:
+  case OsmElement::EntityType::Relation:
   {
     // store relation
     RelationElement relation;
     for (auto const & member : em.Members())
     {
       switch (member.type) {
-      case Element::EntityType::Node:
+      case OsmElement::EntityType::Node:
         relation.nodes.emplace_back(member.ref, string(member.role));
         break;
-      case Element::EntityType::Way:
+      case OsmElement::EntityType::Way:
         relation.ways.emplace_back(member.ref, string(member.role));
         break;
-      case Element::EntityType::Relation:
+      case OsmElement::EntityType::Relation:
         // we just ignore type == "relation"
         break;
       default:
@@ -119,7 +117,7 @@ void AddElementToCache(cache::IntermediateDataWriter & cache,
       }
     }
 
-    for (auto const & tag : tags)
+    for (auto const & tag : em.Tags())
       relation.tags.emplace(tag.key, tag.value);
 
     if (relation.IsValid())
@@ -137,8 +135,8 @@ void BuildIntermediateDataFromXML(SourceReader & stream, cache::IntermediateData
 {
   XMLSource parser([&](OsmElement * e)
   {
-    towns.CheckElement(*e, e->Tags());
-    AddElementToCache(cache, cameras, *e, e->Tags());
+    towns.CheckElement(*e);
+    AddElementToCache(cache, cameras, *e);
   });
   ParseXMLSequence(stream, parser);
 }
@@ -152,20 +150,14 @@ void ProcessOsmElementsFromXML(SourceReader & stream, function<void(OsmElement *
 void BuildIntermediateDataFromO5M(SourceReader & stream, cache::IntermediateDataWriter & cache,
                                   TownsDumper & towns, CameraNodeIntermediateDataProcessor & cameras)
 {
-  osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
-  {
-    return stream.Read(reinterpret_cast<char *>(buffer), size);
-  });
+  auto processor = [&cache, &cameras, &towns](OsmElement * em) {
+    towns.CheckElement(*em);
+    AddElementToCache(cache, cameras, *em);
+  };
 
-  for (auto const & em : dataset)
-  {
-    vector<OsmElement::Tag> tags;
-    for (auto const & tag : em.Tags())
-      tags.emplace_back(tag.key, tag.value);
-
-    towns.CheckElement(em, tags);
-    AddElementToCache(cache, cameras, em, tags);
-  }
+  // Use only this function here, look into ProcessOsmElementsFromO5M
+  // for more details.
+  ProcessOsmElementsFromO5M(stream, processor);
 }
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
@@ -186,6 +178,12 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
     default: return OsmElement::EntityType::Unknown;
     }
   };
+
+  // Be careful, we could call Nodes(), Members(), Tags() from O5MSource::Entity
+  // only once (!). Because these functions read data from file simultaneously with
+  // iterating in loop. Furthermore, into Tags() method calls Nodes.Skip() and Members.Skip(),
+  // thus first call of Nodes (Members) after Tags() will not return any results.
+  // So don not reorder the "for" loops (!).
 
   for (auto const & em : dataset)
   {

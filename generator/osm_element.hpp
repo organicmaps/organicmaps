@@ -1,5 +1,6 @@
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 

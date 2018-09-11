@@ -58,28 +58,7 @@ public:
 
   static size_t const kMaxSpeedSpeedStringLength;
 
-  template <typename Element>
-  void ProcessNode(Element & em, std::vector<OsmElement::Tag> const & tags)
-  {
-    for (auto const & tag : tags)
-    {
-      std::string const & key(tag.key);
-      std::string const & value(tag.value);
-      if (key == "highway" && value == "speed_camera")
-      {
-        m_speedCameraNodes.insert(em.id);
-      }
-      else if (key == "maxspeed" && !value.empty())
-      {
-        WriteToSink(m_maxSpeedFileWriter, em.id);
-
-        std::string result = ValidateMaxSpeedString(value);
-        CHECK_LESS(result.size(), kMaxSpeedSpeedStringLength, ("Too long string for speed"));
-        WriteToSink(m_maxSpeedFileWriter, result.size());
-        m_maxSpeedFileWriter.Write(result.c_str(), result.size());
-      }
-    }
-  }
+  void ProcessNode(OsmElement & em);
 
   void ProcessWay(uint64_t id, WayElement const & way);
 
