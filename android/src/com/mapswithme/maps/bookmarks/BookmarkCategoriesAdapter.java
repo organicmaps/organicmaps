@@ -188,7 +188,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public int getItemCount()
   {
     int count = super.getItemCount();
-    return count > 0 ? count + 1 /* header */ + (mType.getFactory().hasAdapterFooter() ? 1 : 0) /* add category btn */ : 0;
+    return count > 0 ? count + 1 /* header */ + (mType.getFactory().hasAdapterFooter() ? 1 : 0) : 0;
   }
 
   @NonNull
