@@ -34,7 +34,7 @@ class ClickInterceptorFactory
     return new OpenBookmarksCatalog();
   }
 
-  public static class OpenBookmarksCatalog extends AbstractClickInterceptor
+  static class OpenBookmarksCatalog extends AbstractClickInterceptor
   {
     OpenBookmarksCatalog()
     {
@@ -50,7 +50,7 @@ class ClickInterceptorFactory
     }
   }
 
-  public static class ActivateSubwayLayer extends AbstractClickInterceptor
+  static class ActivateSubwayLayer extends AbstractClickInterceptor
   {
     ActivateSubwayLayer()
     {
@@ -65,7 +65,7 @@ class ClickInterceptorFactory
     }
   }
 
-  public static class SearchHotels extends AbstractClickInterceptor
+  static class SearchHotels extends AbstractClickInterceptor
   {
     SearchHotels()
     {
@@ -79,7 +79,7 @@ class ClickInterceptorFactory
     }
   }
 
-  public static class OpenDiscoveryScreen extends AbstractClickInterceptor
+  static class OpenDiscoveryScreen extends AbstractClickInterceptor
   {
     OpenDiscoveryScreen()
     {
