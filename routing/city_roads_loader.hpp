@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 
-#include "3party/succinct/rs_bit_vector.hpp"
+#include "3party/succinct/elias_fano.hpp"
 
 class DataSource;
 
@@ -51,6 +51,6 @@ public:
 
 private:
   std::unique_ptr<CopiedMemoryRegion> m_cityRoadsRegion;
-  succinct::rs_bit_vector m_cityRoads;
+  succinct::elias_fano m_cityRoads;
 };
 }  // namespace routing

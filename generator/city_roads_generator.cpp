@@ -19,8 +19,7 @@
 
 #include "defines.hpp"
 
-#include "3party/succinct/bit_vector.hpp"
-#include "3party/succinct/rs_bit_vector.hpp"
+#include "3party/succinct/elias_fano.hpp"
 
 using namespace generator;
 using namespace std;
@@ -80,26 +79,33 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
   auto const startOffset = w.Pos();
   header.Serialize(w);
 
-  size_t const maxFid = *max_element(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend());
-  succinct::bit_vector_builder builder(maxFid);
+  std::sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
+  CHECK(std::adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
+            cityRoadFeatureIds.cend(),
+        ("City road feaute ids should be unique."));
+  succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back(),
+                                                   cityRoadFeatureIds.size());
   for (auto fid : cityRoadFeatureIds)
-    builder.set(fid, true /* road feature id */);
+    builder.push_back(fid);
 
   coding::FreezeVisitor<Writer> visitor(w);
-  succinct::rs_bit_vector(&builder).map(visitor);
+  succinct::elias_fano(&builder).map(visitor);
+
   auto const endOffset = w.Pos();
   header.m_dataSize = static_cast<uint32_t>(endOffset - startOffset - sizeof(CityRoadsHeader));
 
   w.Seek(startOffset);
   header.Serialize(w);
   w.Seek(endOffset);
+
+  LOG(LINFO, ("city_roads section is built in", dataPath, ". Serialized", cityRoadFeatureIds.size(),
+      "road feature ids in cities. Size:", endOffset - startOffset, "bytes."));
 }
 
 bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
 {
   LOG(LDEBUG, ("BuildCityRoads(", dataPath, ");"));
   vector<uint64_t> cityRoadFeatureIds;
-  size_t cityRoadFeatureIdsSz = 0;
   try
   {
     // @TODO(bykoianko) The generation city roads section process is based on two stages now:
@@ -112,7 +118,6 @@ bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
     // on the first step. And then to try using the real geometry should be used for generating city
     // road features. But there's a chance that it takes to long time.
     CalcRoadFeatureIds(dataPath, table, cityRoadFeatureIds);
-    cityRoadFeatureIdsSz = cityRoadFeatureIds.size();
     SerializeCityRoads(dataPath, move(cityRoadFeatureIds));
   }
   catch (Reader::Exception const & e)
@@ -120,8 +125,6 @@ bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
     LOG(LERROR, ("Error while building section city_roads in", dataPath, ". Message:", e.Msg()));
     return false;
   }
-  LOG(LINFO, ("city_roads section is built in", dataPath, ". Serialized", cityRoadFeatureIdsSz,
-              "road feature ids in cities."));
   return true;
 }
 }  // namespace routing
