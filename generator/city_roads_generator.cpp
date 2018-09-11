@@ -2,24 +2,19 @@
 
 #include "generator/cities_boundaries_checker.hpp"
 
-#include "routing/city_roads_loader.hpp"
+#include "routing/city_roads_serialization.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.cpp"
 #include "indexer/feature_processor.hpp"
 
-#include "coding/succinct_mapper.hpp"
-
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
 
-#include <algorithm>
 #include <utility>
 
 #include "defines.hpp"
-
-#include "3party/succinct/elias_fano.hpp"
 
 using namespace generator;
 using namespace std;
@@ -75,36 +70,13 @@ void SerializeCityRoads(string const & dataPath, vector<uint64_t> && cityRoadFea
 
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter w = cont.GetWriter(CITY_ROADS_FILE_TAG);
-  CityRoadsHeader header;
-  auto const startOffset = w.Pos();
-  header.Serialize(w);
 
-  sort(cityRoadFeatureIds.begin(), cityRoadFeatureIds.end());
-  CHECK(adjacent_find(cityRoadFeatureIds.cbegin(), cityRoadFeatureIds.cend()) ==
-            cityRoadFeatureIds.cend(),
-        ("City road feature ids should be unique."));
-  succinct::elias_fano::elias_fano_builder builder(cityRoadFeatureIds.back() + 1,
-                                                   cityRoadFeatureIds.size());
-  for (auto fid : cityRoadFeatureIds)
-    builder.push_back(fid);
-
-  coding::FreezeVisitor<Writer> visitor(w);
-  succinct::elias_fano(&builder).map(visitor);
-
-  auto const endOffset = w.Pos();
-  header.m_dataSize = static_cast<uint32_t>(endOffset - startOffset - sizeof(CityRoadsHeader));
-
-  w.Seek(startOffset);
-  header.Serialize(w);
-  w.Seek(endOffset);
-
-  LOG(LINFO, ("city_roads section is built in", dataPath, ". Serialized", cityRoadFeatureIds.size(),
-      "road feature ids in cities. Size:", endOffset - startOffset, "bytes."));
+  routing::CityRoadsSerializer::Serialize(w, move(cityRoadFeatureIds));
 }
 
 bool BuildCityRoads(string const & dataPath, OsmIdToBoundariesTable & table)
 {
-  LOG(LDEBUG, ("BuildCityRoads(", dataPath, ");"));
+  LOG(LINFO, ("BuildCityRoads(", dataPath, ");"));
   vector<uint64_t> cityRoadFeatureIds;
   try
   {

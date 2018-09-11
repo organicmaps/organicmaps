@@ -1,9 +1,10 @@
 #include "routing/city_roads_loader.hpp"
 
+#include "routing/city_roads_serialization.hpp"
+
 #include "indexer/data_source.hpp"
 
 #include "coding/reader.hpp"
-#include "coding/succinct_mapper.hpp"
 
 #include "base/logging.hpp"
 
@@ -23,17 +24,9 @@ CityRoadsLoader::CityRoadsLoader(DataSource const & dataSource, MwmSet::MwmId co
 
   try
   {
-    auto reader = std::make_unique<FilesContainerR::TReader>(mwmValue.m_cont.GetReader(CITY_ROADS_FILE_TAG));
-    ReaderSource<FilesContainerR::TReader> src(*reader);
-
-    CityRoadsHeader header;
-    header.Deserialize(src);
-
-    std::vector<uint8_t> data(header.m_dataSize);
-    src.Read(data.data(), data.size());
-    m_cityRoadsRegion = std::make_unique<CopiedMemoryRegion>(std::move(data));
-    coding::MapVisitor visitor(m_cityRoadsRegion->ImmutableData());
-    m_cityRoads.map(visitor);
+    FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(CITY_ROADS_FILE_TAG));
+    ReaderSource<FilesContainerR::TReader> src(reader);
+    CityRoadsSerializer::Deserialize(src, m_cityRoadsRegion, m_cityRoads);
   }
   catch (Reader::OpenException const & e)
   {
