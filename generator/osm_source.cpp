@@ -11,7 +11,7 @@
 #include "generator/osm_o5m_source.hpp"
 #include "generator/osm_xml_source.hpp"
 #include "generator/polygonizer.hpp"
-#include "generator/region_info_collector.hpp"
+#include "generator/regions/region_info_collector.hpp"
 #include "generator/tag_admixer.hpp"
 #include "generator/towns_dumper.hpp"
 #include "generator/translator_factory.hpp"
@@ -301,13 +301,13 @@ bool GenerateRegionFeatures(feature::GenerateInfo & info, shared_ptr<EmitterInte
 {
   auto preEmit = [](OsmElement * e) { return true; };
   auto cache = LoadCache(info);
-  RegionInfoCollector regionInfoCollector;
+  regions::RegionInfoCollector regionInfoCollector;
   auto translator = CreateTranslator(TranslatorType::Region, emitter, cache, regionInfoCollector);
 
   if (!GenerateRaw(info, emitter, preEmit, translator))
     return false;
 
-  auto const filename = info.GetTmpFileName(info.m_fileName, RegionInfoCollector::kDefaultExt);
+  auto const filename = info.GetTmpFileName(info.m_fileName, regions::RegionInfoCollector::kDefaultExt);
   regionInfoCollector.Save(filename);
   return true;
 }

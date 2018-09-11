@@ -2,7 +2,9 @@
 
 #include "generator/osm_element.hpp"
 #include "generator/regions.hpp"
-#include "generator/region_info_collector.hpp"
+#include "generator/regions/region_info_collector.hpp"
+#include "generator/regions/regions_builder.hpp"
+#include "generator/regions/to_string_policy.hpp"
 
 #include "platform/platform.hpp"
 
@@ -18,7 +20,6 @@
 #include <vector>
 #include <utility>
 
-using namespace generator;
 using namespace generator::regions;
 
 namespace

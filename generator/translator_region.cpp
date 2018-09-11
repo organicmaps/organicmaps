@@ -7,7 +7,7 @@
 #include "generator/intermediate_data.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
-#include "generator/region_info_collector.hpp"
+#include "generator/regions/region_info_collector.hpp"
 
 #include "indexer/classificator.hpp"
 
@@ -23,7 +23,7 @@ namespace generator
 {
 TranslatorRegion::TranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
                                    cache::IntermediateDataReader & holder,
-                                   RegionInfoCollector & regionInfoCollector)
+                                   regions::RegionInfoCollector & regionInfoCollector)
   : m_emitter(emitter),
     m_holder(holder),
     m_regionInfoCollector(regionInfoCollector)
@@ -40,16 +40,15 @@ void TranslatorRegion::EmitElement(OsmElement * p)
 
   switch (p->type)
   {
+  case OsmElement::EntityType::Node:
+    BuildFeatureAndEmitFromNode(p, params);
+    break;
   case OsmElement::EntityType::Relation:
-  {
     BuildFeatureAndEmitFromRelation(p, params);
     break;
-  }
   case OsmElement::EntityType::Way:
-  {
     BuildFeatureAndEmitFromWay(p, params);
     break;
-  }
   default:
     break;
   }
@@ -57,26 +56,21 @@ void TranslatorRegion::EmitElement(OsmElement * p)
 
 bool TranslatorRegion::IsSuitableElement(OsmElement const * p) const
 {
-  static std::set<std::string> const adminLevels = {"2", "4", "5", "6", "7", "8"};
   static std::set<std::string> const places = {"city", "town", "village", "suburb", "neighbourhood",
                                                "hamlet", "locality", "isolated_dwelling"};
 
-  bool haveBoundary = false;
-  bool haveAdminLevel = false;
-  bool haveName = false;
   for (auto const & t : p->Tags())
   {
     if (t.key == "place" && places.find(t.value) != places.end())
       return true;
 
-    if (t.key == "boundary" && t.value == "administrative")
-      haveBoundary = true;
-    else if (t.key == "admin_level" && adminLevels.find(t.value) != adminLevels.end())
-      haveAdminLevel = true;
-    else if (t.key == "name" && !t.value.empty())
-      haveName = true;
+    auto const & members = p->Members();
+    auto const pred = [](OsmElement::Member const & m) { return m.role == "admin_centre"; };
+    if (t.key == "boundary" && t.value == "police" &&
+        std::find_if(std::begin(members), std::end(members), pred) != std::end(members))
+      return true;
 
-    if (haveBoundary && haveAdminLevel && haveName)
+    if (t.key == "boundary" && t.value == "administrative")
       return true;
   }
 
@@ -143,6 +137,18 @@ void TranslatorRegion::BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureP
     return;
 
   fb.SetArea();
+  AddInfoAboutRegion(p, id);
+  (*m_emitter)(fb);
+}
+
+void TranslatorRegion::BuildFeatureAndEmitFromNode(OsmElement const * p, FeatureParams & params)
+{
+  m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
+  FeatureBuilder1 fb;
+  fb.SetCenter(pt);
+  auto const id = base::MakeOsmNode(p->id);
+  fb.SetOsmId(id);
+  fb.SetParams(params);
   AddInfoAboutRegion(p, id);
   (*m_emitter)(fb);
 }

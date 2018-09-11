@@ -20,6 +20,8 @@ class FileWriter;
 
 namespace generator
 {
+namespace regions
+{
 // https://wiki.openstreetmap.org/wiki/Tag:boundary=administrative
 enum class AdminLevel : uint8_t
 {
@@ -101,6 +103,7 @@ private:
     base::GeoObjectId m_osmId;
     AdminLevel m_adminLevel = AdminLevel::Unknown;
     PlaceType m_place = PlaceType::Unknown;
+    base::GeoObjectId m_osmIdAdminCenter;
   };
 
   using MapRegionData = std::unordered_map<base::GeoObjectId, RegionData>;
@@ -147,6 +150,9 @@ public:
   AdminLevel GetAdminLevel() const;
   PlaceType GetPlaceType() const;
 
+  void SetAdminLevel(AdminLevel adminLevel);
+  void SetPlaceType(PlaceType placeType);
+
   bool HasAdminLevel() const;
   bool HasPlaceType() const;
 
@@ -157,6 +163,9 @@ public:
   std::string GetIsoCodeAlpha2() const;
   std::string GetIsoCodeAlpha3() const;
   std::string GetIsoCodeAlphaNumeric() const;
+
+  bool HasAdminCenter() const;
+  base::GeoObjectId GetAdminCenter() const;
 
 private:
   bool HasIsoCode() const;
@@ -179,4 +188,5 @@ inline std::ostream & operator<<(std::ostream & out, PlaceType const & t)
   out << static_cast<int>(t);
   return out;
 }
+}  // namespace regions
 }  // namespace generator

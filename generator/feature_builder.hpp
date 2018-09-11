@@ -55,6 +55,7 @@ public:
   void SetAreaAddHoles(Geometry const & holes);
   void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
+  bool IsPoint() const { return (GetGeomType() == feature::GEOM_POINT); }
   bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
   bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
 

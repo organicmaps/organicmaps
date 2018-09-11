@@ -18,7 +18,10 @@ struct GenerateInfo;
 namespace generator
 {
 class EmitterInterface;
+namespace regions
+{
 class RegionInfoCollector;
+}  // namespace regions
 namespace cache
 {
 class IntermediateDataReader;
@@ -30,7 +33,7 @@ class TranslatorRegion : public TranslatorInterface
 public:
   explicit TranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
                             cache::IntermediateDataReader & holder,
-                            RegionInfoCollector & regionInfoCollector);
+                            regions::RegionInfoCollector & regionInfoCollector);
 
   void EmitElement(OsmElement * p) override;
 
@@ -40,10 +43,11 @@ private:
   bool ParseParams(OsmElement * p, FeatureParams & params) const;
   void BuildFeatureAndEmitFromRelation(OsmElement const * p, FeatureParams & params);
   void BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureParams & params);
+  void BuildFeatureAndEmitFromNode(OsmElement const * p, FeatureParams & params);
 
 private:
   std::shared_ptr<EmitterInterface> m_emitter;
   cache::IntermediateDataReader & m_holder;
-  RegionInfoCollector & m_regionInfoCollector;
+  regions::RegionInfoCollector & m_regionInfoCollector;
 };
 }  // namespace generator

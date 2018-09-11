@@ -1,4 +1,4 @@
-#include "generator/region_info_collector.hpp"
+#include "generator/regions/region_info_collector.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
@@ -18,6 +18,8 @@ uint8_t const kVersion = 0;
 }  // namespace
 
 namespace generator
+{
+namespace regions
 {
 std::string const RegionInfoCollector::kDefaultExt = ".regions.bin";
 
@@ -124,8 +126,14 @@ void RegionInfoCollector::FillRegionData(base::GeoObjectId const & osmId, OsmEle
 {
   rd.m_osmId = osmId;
   rd.m_place = EncodePlaceType(el.GetTag("place"));
-  auto const al = el.GetTag("admin_level");
 
+  auto const & members = el.Members();
+  auto const it = std::find_if(std::begin(members), std::end(members),
+                               [](OsmElement::Member const & m) { return m.role == "admin_centre"; });
+  if (it != std::end(members))
+    rd.m_osmIdAdminCenter = base::MakeOsmNode(it->ref);
+
+  auto const al = el.GetTag("admin_level");
   if (al.empty())
     return;
 
@@ -165,10 +173,12 @@ RegionInfoCollector const & RegionDataProxy::GetCollector() const
   return m_regionInfoCollector;
 }
 
+
 RegionInfoCollector::MapRegionData const & RegionDataProxy::GetMapRegionData() const
 {
   return GetCollector().m_mapRegionData;
 }
+
 
 RegionInfoCollector::MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
 {
@@ -188,6 +198,16 @@ AdminLevel RegionDataProxy::GetAdminLevel() const
 PlaceType RegionDataProxy::GetPlaceType() const
 {
   return GetMapRegionData().at(m_osmId).m_place;
+}
+
+void RegionDataProxy::SetAdminLevel(AdminLevel adminLevel)
+{
+  const_cast<AdminLevel &>(GetMapRegionData().at(m_osmId).m_adminLevel) = adminLevel;
+}
+
+void RegionDataProxy::SetPlaceType(PlaceType placeType)
+{
+  const_cast<PlaceType &>(GetMapRegionData().at(m_osmId).m_place) = placeType;
 }
 
 bool RegionDataProxy::HasAdminLevel() const
@@ -236,4 +256,16 @@ std::string RegionDataProxy::GetIsoCodeAlphaNumeric() const
 {
   return GetMapIsoCode().at(m_osmId).GetNumeric();
 }
+
+bool RegionDataProxy::HasAdminCenter() const
+{
+  return (GetMapRegionData().count(m_osmId) != 0) &&
+      (GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.IsValid());
+}
+
+base::GeoObjectId RegionDataProxy::GetAdminCenter() const
+{
+  return GetMapRegionData().at(m_osmId).m_osmIdAdminCenter;
+}
+}  // namespace regions
 }  // namespace generator

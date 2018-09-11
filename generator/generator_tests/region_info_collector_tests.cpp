@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/osm_element.hpp"
-#include "generator/region_info_collector.hpp"
+#include "generator/regions/region_info_collector.hpp"
 
 #include "coding/file_name_utils.hpp"
 
@@ -14,6 +14,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+using namespace generator::regions;
 
 namespace
 {
@@ -45,13 +47,13 @@ base::GeoObjectId CastId(uint64_t id)
 
 UNIT_TEST(RegionInfoCollector_Add)
 {
-  generator::RegionInfoCollector regionInfoCollector;
+  RegionInfoCollector regionInfoCollector;
   regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
   {
     auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
     TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCity.id), ());
-    TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Six, ());
-    TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::City, ());
+    TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
+    TEST_EQUAL(regionData.GetPlaceType(), PlaceType::City, ());
     TEST(!regionData.HasIsoCodeAlpha2(), ());
     TEST(!regionData.HasIsoCodeAlpha3(), ());
     TEST(!regionData.HasIsoCodeAlphaNumeric(), ());
@@ -61,8 +63,8 @@ UNIT_TEST(RegionInfoCollector_Add)
   {
     auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
     TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCountry.id), ());
-    TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Two, ());
-    TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::Unknown, ());
+    TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Two, ());
+    TEST_EQUAL(regionData.GetPlaceType(), PlaceType::Unknown, ());
 
     TEST(regionData.HasIsoCodeAlpha2(), ());
     TEST(regionData.HasIsoCodeAlpha3(), ());
@@ -76,8 +78,8 @@ UNIT_TEST(RegionInfoCollector_Add)
   {
     auto const regionDataEmpty = regionInfoCollector.Get(CastId(kOsmElementEmpty.id));
     TEST_EQUAL(regionDataEmpty.GetOsmId(), CastId(kOsmElementEmpty.id), ());
-    TEST_EQUAL(regionDataEmpty.GetAdminLevel(), generator::AdminLevel::Unknown, ());
-    TEST_EQUAL(regionDataEmpty.GetPlaceType(), generator::PlaceType::Unknown, ());
+    TEST_EQUAL(regionDataEmpty.GetAdminLevel(), AdminLevel::Unknown, ());
+    TEST_EQUAL(regionDataEmpty.GetPlaceType(), PlaceType::Unknown, ());
     TEST(!regionDataEmpty.HasIsoCodeAlpha2(), ());
     TEST(!regionDataEmpty.HasIsoCodeAlpha3(), ());
     TEST(!regionDataEmpty.HasIsoCodeAlphaNumeric(), ());
@@ -86,18 +88,18 @@ UNIT_TEST(RegionInfoCollector_Add)
 
 UNIT_TEST(RegionInfoCollector_Get)
 {
-  generator::RegionInfoCollector regionInfoCollector;
+  RegionInfoCollector regionInfoCollector;
   regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
 
   auto const regionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
   TEST_EQUAL(regionData.GetOsmId(), CastId(kOsmElementCity.id), ());
-  TEST_EQUAL(regionData.GetAdminLevel(), generator::AdminLevel::Six, ());
-  TEST_EQUAL(regionData.GetPlaceType(), generator::PlaceType::City, ());
+  TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
+  TEST_EQUAL(regionData.GetPlaceType(), PlaceType::City, ());
 }
 
 UNIT_TEST(RegionInfoCollector_Exists)
 {
-  generator::RegionInfoCollector regionInfoCollector;
+  RegionInfoCollector regionInfoCollector;
   regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
   regionInfoCollector.Add(CastId(kOsmElementCountry.id), kOsmElementCountry);
 
@@ -131,7 +133,7 @@ UNIT_TEST(RegionInfoCollector_Exists)
 
 UNIT_TEST(RegionInfoCollector_Save)
 {
-  generator::RegionInfoCollector regionInfoCollector;
+  RegionInfoCollector regionInfoCollector;
   regionInfoCollector.Add(CastId(kOsmElementCity.id), kOsmElementCity);
   auto const regionCity = regionInfoCollector.Get(CastId(kOsmElementCity.id));
   regionInfoCollector.Add(CastId(kOsmElementCountry.id), kOsmElementCountry);
@@ -143,7 +145,7 @@ UNIT_TEST(RegionInfoCollector_Save)
   auto const name = base::JoinPath(tmpDir, "RegionInfoCollector.bin");
   regionInfoCollector.Save(name);
   {
-    generator::RegionInfoCollector regionInfoCollector(name);
+    RegionInfoCollector regionInfoCollector(name);
     auto const rRegionData = regionInfoCollector.Get(CastId(kOsmElementCity.id));
 
     TEST_EQUAL(regionCity.GetOsmId(), rRegionData.GetOsmId(), ());
@@ -155,7 +157,7 @@ UNIT_TEST(RegionInfoCollector_Save)
   }
 
   {
-    generator::RegionInfoCollector regionInfoCollector(name);
+    RegionInfoCollector regionInfoCollector(name);
     auto const rRegionData = regionInfoCollector.Get(CastId(kOsmElementCountry.id));
 
     TEST_EQUAL(regionCountry.GetOsmId(), rRegionData.GetOsmId(), ());

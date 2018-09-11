@@ -87,12 +87,23 @@ set(SRC
   place.cpp
   relation_tags.cpp
   relation_tags.hpp
-  region_info_collector.cpp
-  region_info_collector.hpp
   region_meta.cpp
   region_meta.hpp
   regions.cpp
   regions.hpp
+  regions/city.hpp
+  regions/node.cpp
+  regions/node.hpp
+  regions/region.cpp
+  regions/region.hpp
+  regions/region_base.cpp
+  regions/region_base.hpp
+  regions/region_info_collector.cpp
+  regions/region_info_collector.hpp
+  regions/regions_builder.cpp
+  regions/regions_builder.hpp
+  regions/to_string_policy.cpp
+  regions/to_string_policy.hpp
   restriction_collector.cpp
   restriction_collector.hpp
   restriction_generator.cpp

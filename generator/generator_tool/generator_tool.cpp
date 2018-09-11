@@ -450,7 +450,7 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_cameras)
     {
       string const camerasFilename =
-        genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
+          genInfo.GetIntermediateFileName(CAMERAS_TO_WAYS_FILENAME);
 
       BuildCamerasInfo(datFile, camerasFilename, osmToFeatureFilename);
     }
