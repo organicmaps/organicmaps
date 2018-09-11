@@ -27,8 +27,8 @@ public:
   /// @returns translated cuisine (can be empty, if we can't translate key).
   std::string Translate(std::string const & singleOsmCuisine,
                         std::string const & lang = languages::GetCurrentTwine());
-  /// @returns list of osm cuisines in cuisines.txt (not localized).
-  AllCuisines AllSupportedCuisines();
+  /// @returns list of osm cuisines in cuisines.txt.
+  AllCuisines AllSupportedCuisines(std::string const & lang = languages::GetCurrentTwine());
 
 private:
   platform::TGetTextByIdPtr m_translations;

@@ -56,5 +56,9 @@ string Cuisines::Translate(string const & singleOsmCuisine, string const & lang)
   return TranslateImpl(m_translations, singleOsmCuisine);
 }
 
-AllCuisines Cuisines::AllSupportedCuisines() { return m_translations->GetAllSortedTranslations(); }
+AllCuisines Cuisines::AllSupportedCuisines(string const & lang)
+{
+  InitializeCuisinesForLocale(m_translations, lang);
+  return m_translations->GetAllSortedTranslations();
+}
 }  // namespace osm
