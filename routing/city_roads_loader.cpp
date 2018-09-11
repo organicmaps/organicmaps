@@ -10,6 +10,8 @@
 
 #include <utility>
 
+#include "defines.hpp"
+
 namespace routing
 {
 CityRoadsLoader::CityRoadsLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId)

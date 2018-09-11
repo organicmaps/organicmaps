@@ -6,7 +6,6 @@
 
 #include <cstdint>
 #include <memory>
-#include <vector>
 
 #include "3party/succinct/elias_fano.hpp"
 

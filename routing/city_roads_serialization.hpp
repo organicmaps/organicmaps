@@ -19,7 +19,7 @@ namespace routing
 {
 struct CityRoadsHeader
 {
-  template <class Sink>
+  template <typename Sink>
   void Serialize(Sink & sink) const
   {
     WriteToSink(sink, m_version);
@@ -27,7 +27,7 @@ struct CityRoadsHeader
     WriteToSink(sink, m_dataSize);
   }
 
-  template <class Source>
+  template <typename Source>
   void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint16_t>(src);
@@ -48,7 +48,7 @@ class CityRoadsSerializer
 public:
   CityRoadsSerializer() = delete;
 
-  template <class Sink>
+  template <typename Sink>
   static void Serialize(Sink & sink, std::vector<uint64_t> && cityRoadFeatureIds)
   {
     CityRoadsHeader header;
@@ -78,12 +78,13 @@ public:
         "road feature ids in cities. Size:", endOffset - startOffset, "bytes."));
   }
 
-  template <class Source>
+  template <typename Source>
   static void Deserialize(Source & src, std::unique_ptr<CopiedMemoryRegion> & cityRoadsRegion,
                           succinct::elias_fano & cityRoads)
   {
     CityRoadsHeader header;
     header.Deserialize(src);
+    CHECK_EQUAL(header.m_version, 0, ());
 
     std::vector<uint8_t> data(header.m_dataSize);
     src.Read(data.data(), data.size());
