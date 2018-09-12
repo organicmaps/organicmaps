@@ -303,7 +303,7 @@ public:
 
 template <typename TKey, typename TValue>
 void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
-                              CategoriesHolder & categoriesHolder,
+                              CategoriesHolder const & categoriesHolder,
                               vector<pair<TKey, TValue>> & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
@@ -516,12 +516,10 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   using Key = strings::UniString;
   using Value = FeatureIndexValue;
 
-  Platform & platform = GetPlatform();
-
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
   my::Timer timer;
 
-  CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
+  auto const & categoriesHolder = GetDefaultCategories();
 
   FeaturesVectorTest features(container);
   auto codingParams =
