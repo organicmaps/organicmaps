@@ -103,12 +103,12 @@ public class Framework
   public static final int TOKEN_MAPSME = 3;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SUBSCRIPTION_ACTIVE, SUBSCRIPTION_NOT_ACTIVE, SUBSCRIPTION_VALIDATION_FAILURE })
-  public @interface SubscriptionValidationCode {}
+  @IntDef({ PURCHASE_VERIFIED, PURCHASE_NOT_VERIFIED, PURCHASE_VALIDATION_SERVER_ERROR })
+  public @interface PurchaseValidationCode {}
 
-  public static final int SUBSCRIPTION_ACTIVE = 0;
-  public static final int SUBSCRIPTION_NOT_ACTIVE = 1;
-  public static final int SUBSCRIPTION_VALIDATION_FAILURE = 2;
+  public static final int PURCHASE_VERIFIED = 0;
+  public static final int PURCHASE_NOT_VERIFIED = 1;
+  public static final int PURCHASE_VALIDATION_SERVER_ERROR = 2;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener
@@ -145,9 +145,10 @@ public class Framework
   }
 
   @SuppressWarnings("unused")
-  public interface SubscriptionValidationListener
+  public interface PurchaseValidationListener
   {
-    void onValidateSubscription(@SubscriptionValidationCode int code);
+    void onValidatePurchase(@PurchaseValidationCode int code, @NonNull String serverId,
+                            @NonNull String vendorId, @NonNull String purchaseToken);
   }
 
   public static class Params3dMode
@@ -477,10 +478,14 @@ public class Framework
 
   public static native void nativeMakeCrash();
 
-  public static native void nativeValidateSubscription(@NonNull String purchaseToken);
-  public static native void nativeSetSubscriptionValidationListener(
-      @Nullable SubscriptionValidationListener listener);
-  public static native boolean nativeHasActiveSubscription();
+  public static native void nativeValidatePurchase(@NonNull String serverId,
+                                                   @NonNull String vendorId,
+                                                   @NonNull String purchaseToken);
+  public static native void nativeSetPurchaseValidationListener(@Nullable
+    PurchaseValidationListener listener);
+
+  public static native boolean nativeHasActiveRemoveAdsSubscription();
+  public static native void nativeSetActiveRemoveAdsSubscription(boolean isActive);
 
   public static native int nativeGetCurrentTipsApi();
 

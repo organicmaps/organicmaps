@@ -8,7 +8,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidationCallback>,
-                                             Framework.SubscriptionValidationListener
+                                             Framework.PurchaseValidationListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AdsRemovalPurchaseValidator.class.getSimpleName();
@@ -18,27 +18,28 @@ class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidat
   @Override
   public void initialize()
   {
-    Framework.nativeSetSubscriptionValidationListener(this);
-    LOGGER.i(TAG, "Initializing 'ads removal' purchase validator...");
+    Framework.nativeSetPurchaseValidationListener(this);
+    LOGGER.i(TAG, "Initializing purchase validator...");
   }
 
   @Override
   public void destroy()
   {
-    Framework.nativeSetSubscriptionValidationListener(null);
-    LOGGER.i(TAG, "Destroying 'ads removal' purchase validator...");
+    Framework.nativeSetPurchaseValidationListener(null);
+    LOGGER.i(TAG, "Destroying purchase validator...");
   }
 
   @Override
   public void validate(@NonNull String purchaseToken)
   {
-    Framework.nativeValidateSubscription(purchaseToken);
+    //TODO (@alexzatsepin): Paste serverId and vendorId.
+    Framework.nativeValidatePurchase("", "", purchaseToken);
   }
 
   @Override
   public boolean hasActivePurchase()
   {
-    return Framework.nativeHasActiveSubscription();
+    return Framework.nativeHasActiveRemoveAdsSubscription();
   }
 
   @Override
@@ -54,7 +55,9 @@ class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidat
   }
 
   @Override
-  public void onValidateSubscription(@Framework.SubscriptionValidationCode int code)
+  public void onValidatePurchase(@Framework.PurchaseValidationCode int code,
+                                 @NonNull String serverId, @NonNull String vendorId,
+                                 @NonNull String purchaseToken)
   {
     LOGGER.i(TAG, "Validation code: " + code);
     if (mCallback != null)

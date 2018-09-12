@@ -655,8 +655,11 @@ std::string LocalAdsManager::GetCompanyUrl(FeatureID const & featureId) const
   return MakeCampaignPageURL(featureId);
 }
 
-void LocalAdsManager::OnSubscriptionChanged(bool isActive)
+void LocalAdsManager::OnSubscriptionChanged(SubscriptionType type, bool isActive)
 {
+  if (type != SubscriptionType::RemoveAds)
+    return;
+
   bool enabled = !isActive;
   if (m_isEnabled == enabled)
     return;

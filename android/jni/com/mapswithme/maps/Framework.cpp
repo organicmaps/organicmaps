@@ -715,12 +715,19 @@ void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success
 
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
-void CallSubscriptionValidationListener(shared_ptr<jobject> listener,
-                                        Subscription::ValidationCode code)
+void CallPurchaseValidationListener(shared_ptr<jobject> listener, Purchase::ValidationCode code,
+                                    Purchase::ValidationInfo const & validationInfo)
 {
   JNIEnv * env = jni::GetEnv();
-  jmethodID const methodId = jni::GetMethodID(env, *listener, "onValidateSubscription", "(I)V");
-  env->CallVoidMethod(*listener, methodId, static_cast<jint>(code));
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onValidatePurchase",
+    "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+  jni::TScopedLocalRef const serverId(env, jni::ToJavaString(env, validationInfo.m_serverId));
+  jni::TScopedLocalRef const vendorId(env, jni::ToJavaString(env, validationInfo.m_vendorId));
+  jni::TScopedLocalRef const receiptData(env, jni::ToJavaString(env, validationInfo.m_receiptData));
+
+  env->CallVoidMethod(*listener, methodId, static_cast<jint>(code), serverId.get(), vendorId.get(),
+                      receiptData.get());
 }
 
 /// @name JNI EXPORTS
@@ -1629,8 +1636,8 @@ Java_com_mapswithme_maps_Framework_nativeDeleteSavedRoutePoints()
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 {
-  auto const & subscription = frm()->GetSubscription();
-  if (subscription && subscription->IsActive())
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
     return nullptr;
   return usermark_helper::ToBannersArray(env, frm()->GetAdsEngine().GetSearchBanners());
 }
@@ -1720,8 +1727,8 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env, jclass,
                                                                     jstring mwmId)
 {
-  auto const & subscription = frm()->GetSubscription();
-  if (subscription && subscription->IsActive())
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds))
     return static_cast<jboolean>(false);
   return static_cast<jboolean>(ads::HasMegafonDownloaderBanner(frm()->GetStorage(),
                                                                jni::ToNativeString(env, mwmId),
@@ -1741,33 +1748,57 @@ Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeValidateSubscription(JNIEnv * env, jclass,
-                                                              jstring purchaseToken)
+Java_com_mapswithme_maps_Framework_nativeValidatePurchase(JNIEnv * env, jclass, jstring serverId,
+                                                          jstring vendorId, jstring purchaseToken)
 {
-  auto const & subscription = frm()->GetSubscription();
-  if (subscription == nullptr)
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase == nullptr)
     return;
 
-  subscription->Validate(jni::ToNativeString(env, purchaseToken), frm()->GetUser().GetAccessToken());
+  Purchase::ValidationInfo info;
+  info.m_serverId = jni::ToNativeString(env, serverId);
+  info.m_vendorId = jni::ToNativeString(env, vendorId);
+  info.m_receiptData = jni::ToNativeString(env, purchaseToken);
+
+  purchase->Validate(info, frm()->GetUser().GetAccessToken());
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetSubscriptionValidationListener(JNIEnv *, jclass,
-                                                                           jobject listener)
+Java_com_mapswithme_maps_Framework_nativeSetPurchaseValidationListener(JNIEnv *, jclass,
+                                                                       jobject listener)
 {
-  auto const & subscription = frm()->GetSubscription();
-  if (subscription == nullptr)
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase == nullptr)
     return;
 
   if (listener != nullptr)
   {
-    subscription->SetValidationCallback(bind(&CallSubscriptionValidationListener,
-                                        jni::make_global_ref(listener), _1));
+    purchase->SetValidationCallback(bind(&CallPurchaseValidationListener,
+                                         jni::make_global_ref(listener), _1, _2));
   }
   else
   {
-    subscription->SetValidationCallback(nullptr);
+    purchase->SetValidationCallback(nullptr);
   }
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasActiveRemoveAdsSubscription(JNIEnv *, jclass)
+{
+  auto const & purchase = frm()->GetPurchase();
+  return purchase != nullptr ?
+         static_cast<jboolean>(purchase->IsSubscriptionActive(SubscriptionType::RemoveAds)) :
+         static_cast<jboolean>(false);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetActiveRemoveAdsSubscription(JNIEnv *, jclass,
+                                                                        jboolean isActive)
+{
+  auto const & purchase = frm()->GetPurchase();
+  if (purchase == nullptr)
+    return;
+  purchase->SetSubscriptionEnabled(SubscriptionType::RemoveAds, static_cast<bool>(isActive));
 }
 
 JNIEXPORT jint JNICALL
@@ -1784,12 +1815,5 @@ Java_com_mapswithme_maps_Framework_nativeTipsShown(JNIEnv * env, jclass,
   auto const & typeValue = static_cast<eye::Tip::Type>(type);
   auto const & eventValue = static_cast<eye::Tip::Event>(event);
   eye::Eye::Event::TipShown(typeValue, eventValue);
-}
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeHasActiveSubscription(JNIEnv *, jclass)
-{
-  auto const & subscription = frm()->GetSubscription();
-  return subscription != nullptr ? static_cast<jboolean>(subscription->IsActive())
-                                 : static_cast<jboolean>(false);
 }
 }  // extern "C"

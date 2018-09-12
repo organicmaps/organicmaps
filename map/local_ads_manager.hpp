@@ -1,6 +1,6 @@
 #pragma once
 
-#include "map/subscription.hpp"
+#include "map/purchase.hpp"
 
 #include "local_ads/statistics.hpp"
 
@@ -66,7 +66,7 @@ public:
 
   std::string GetCompanyUrl(FeatureID const & featureId) const;
 
-  void OnSubscriptionChanged(bool isActive) override;
+  void OnSubscriptionChanged(SubscriptionType type, bool isActive) override;
 
 private:
   enum class RequestType

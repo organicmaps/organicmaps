@@ -79,6 +79,8 @@ set(
   mwm_url.hpp
   place_page_info.cpp
   place_page_info.hpp
+  purchase.cpp
+  purchase.hpp
   reachable_by_taxi_checker.cpp
   reachable_by_taxi_checker.hpp
   routing_manager.cpp
@@ -90,8 +92,6 @@ set(
   search_mark.cpp
   search_mark.hpp
   search_product_info.hpp
-  subscription.cpp
-  subscription.hpp
   taxi_delegate.cpp
   taxi_delegate.hpp
   tips_api.cpp

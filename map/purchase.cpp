@@ -1,4 +1,4 @@
-#include "map/subscription.hpp"
+#include "map/purchase.hpp"
 
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
@@ -84,64 +84,77 @@ struct ValidationResult
 };
 }  // namespace
 
-Subscription::Subscription()
+Purchase::Purchase()
 {
   std::string id;
   if (GetPlatform().GetSecureStorage().Load(kSubscriptionId, id))
-    m_subscriptionId = id;
-  m_isActive = (GetSubscriptionId() == m_subscriptionId);
+    m_removeAdsSubscriptionData.m_subscriptionId = id;
+
+  m_removeAdsSubscriptionData.m_isActive =
+    (GetSubscriptionId() == m_removeAdsSubscriptionData.m_subscriptionId);
 }
 
-void Subscription::Register(SubscriptionListener * listener)
+void Purchase::RegisterSubscription(SubscriptionListener * listener)
 {
   CHECK(listener != nullptr, ());
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_listeners.emplace_back(listener);
-  listener->OnSubscriptionChanged(IsActive());
 }
 
-void Subscription::SetValidationCallback(ValidationCallback && callback)
+void Purchase::SetValidationCallback(ValidationCallback && callback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_validationCallback = std::move(callback);
 }
 
-bool Subscription::IsActive() const
+bool Purchase::IsSubscriptionActive(SubscriptionType type) const
 {
-  return m_isActive;
+  switch (type)
+  {
+  case SubscriptionType::RemoveAds: return m_removeAdsSubscriptionData.m_isActive;
+  }
+  CHECK_SWITCH();
 }
 
-void Subscription::Validate(std::string const & receiptData, std::string const & accessToken)
+void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)
+{
+  switch (type)
+  {
+  case SubscriptionType::RemoveAds:
+  {
+    m_removeAdsSubscriptionData.m_isActive = isEnabled;
+    if (isEnabled)
+    {
+      m_removeAdsSubscriptionData.m_subscriptionId = GetSubscriptionId();
+      GetPlatform().GetSecureStorage().Save(kSubscriptionId,
+                                            m_removeAdsSubscriptionData.m_subscriptionId);
+    }
+    else
+    {
+      GetPlatform().GetSecureStorage().Remove(kSubscriptionId);
+    }
+    break;
+  }
+  }
+
+  for (auto & listener : m_listeners)
+    listener->OnSubscriptionChanged(type, isEnabled);
+}
+
+void Purchase::Validate(ValidationInfo const & validationInfo, std::string const & accessToken)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   std::string const url = ValidationUrl();
-  if (url.empty())
-  {
-    ApplyValidation(ValidationCode::NotActive);
-    return;
-  }
-
-  // If we validate the subscription immediately after purchasing, we believe that
-  // the subscription is valid and apply it before the validation. If the result of
-  // validation will be different, we return everything back.
-  if (m_subscriptionId.empty() && !receiptData.empty())
-  {
-    m_isActive = true;
-    m_subscriptionId = GetSubscriptionId();
-    GetPlatform().GetSecureStorage().Save(kSubscriptionId, m_subscriptionId);
-    for (auto & listener : m_listeners)
-      listener->OnSubscriptionChanged(true /* isActive */);
-  }
-
   auto const status = GetPlatform().ConnectionStatus();
-  if (status == Platform::EConnectionType::CONNECTION_NONE || receiptData.empty())
+  if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE || !validationInfo.IsValid())
   {
-    ApplyValidation(ValidationCode::Failure);
+    if (m_validationCallback)
+      m_validationCallback(ValidationCode::ServerError, validationInfo);
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, url, receiptData, accessToken]()
+  GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo, accessToken]()
   {
     platform::HttpClient request(url);
     request.SetRawHeader("Accept", "application/json");
@@ -149,16 +162,18 @@ void Subscription::Validate(std::string const & receiptData, std::string const &
     if (!accessToken.empty())
       request.SetRawHeader("Authorization", "Bearer " + accessToken);
 
+    //TODO: build new server request after server completion.
+
     std::string jsonStr;
     {
       using Sink = MemWriter<std::string>;
       Sink sink(jsonStr);
       coding::SerializerJson<Sink> serializer(sink);
-      serializer(ValidationData(kProductId, receiptData, kReceiptType));
+      serializer(ValidationData(kProductId, validationInfo.m_receiptData, kReceiptType));
     }
     request.SetBodyData(std::move(jsonStr), "application/json");
 
-    ValidationCode code = ValidationCode::Failure;
+    ValidationCode code = ValidationCode::ServerError;
     if (request.RunHttpRequest())
     {
       auto const resultCode = request.ErrorCode();
@@ -170,13 +185,14 @@ void Subscription::Validate(std::string const & receiptData, std::string const &
           deserializer(result);
         }
 
-        code = result.m_isValid ? ValidationCode::Active : ValidationCode::NotActive;
+        code = result.m_isValid ? ValidationCode::Verified : ValidationCode::NotVerified;
         if (!result.m_error.empty())
-          LOG(LWARNING, ("Validation URL:", url, "Subscription error:", result.m_error));
+          LOG(LWARNING, ("Validation URL:", url, "Server error:", result.m_error));
       }
       else
       {
-        LOG(LWARNING, ("Validation URL:", url, "Unexpected server error. Code =", resultCode, request.ServerResponse()));
+        LOG(LWARNING, ("Validation URL:", url, "Unexpected server error. Code =", resultCode,
+                       request.ServerResponse()));
       }
     }
     else
@@ -184,32 +200,10 @@ void Subscription::Validate(std::string const & receiptData, std::string const &
       LOG(LWARNING, ("Validation URL:", url, "Request failed."));
     }
 
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, code]() { ApplyValidation(code); });
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, validationInfo]()
+    {
+      if (m_validationCallback)
+        m_validationCallback(code, validationInfo);
+    });
   });
-}
-
-void Subscription::ApplyValidation(ValidationCode code)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  if (code != ValidationCode::Failure)
-  {
-    bool const isActive = (code == ValidationCode::Active);
-    m_isActive = isActive;
-    if (isActive)
-    {
-      m_subscriptionId = GetSubscriptionId();
-      GetPlatform().GetSecureStorage().Save(kSubscriptionId, m_subscriptionId);
-    }
-    else
-    {
-      GetPlatform().GetSecureStorage().Remove(kSubscriptionId);
-    }
-
-    for (auto & listener : m_listeners)
-      listener->OnSubscriptionChanged(isActive);
-  }
-
-  if (m_validationCallback)
-    m_validationCallback(code);
 }
