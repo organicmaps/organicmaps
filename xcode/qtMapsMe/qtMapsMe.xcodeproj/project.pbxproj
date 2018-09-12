@@ -208,6 +208,7 @@
 				6729A5D11A693140007D5872 /* packed_polygons.bin in CopyFiles */,
 				6729A5CF1A693108007D5872 /* drules_proto.bin in CopyFiles */,
 				6729A5CB1A69309E007D5872 /* types.txt in CopyFiles */,
+				4069ADA121495AE5005EB75C /* categories_cuisines.txt in CopyFiles */,
 				6729A5C11A693014007D5872 /* categories.txt in CopyFiles */,
 				6729A5C21A693014007D5872 /* classificator.txt in CopyFiles */,
 				6729A5C31A693014007D5872 /* countries.txt in CopyFiles */,
@@ -246,6 +247,7 @@
 		34FFD2FF1E9CEEA20010AD12 /* scale_slider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scale_slider.hpp; sourceTree = "<group>"; };
 		34FFD30B1E9CEF010010AD12 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "/Users/igrechuhin/Repo/omim/xcode/icu/../../../omim-build/xcode/Debug/libicu.a"; sourceTree = "<absolute>"; };
 		34FFD30C1E9CEF010010AD12 /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/igrechuhin/Repo/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
+		4069ADA021495AE4005EB75C /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = categories_cuisines.txt; sourceTree = "<group>"; };
 		450703061E9E6C7100E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = local_ads_symbols.txt; sourceTree = "<group>"; };
 		456B3F9E1EDEEB04009B3D1F /* build_common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = build_common.cpp; path = build_style/build_common.cpp; sourceTree = "<group>"; };
 		456B3F9F1EDEEB04009B3D1F /* build_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = build_common.h; path = build_style/build_common.h; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 				6714E6031BD14016008AB603 /* resources-mdpi_dark in Resources */,
 				45B5B5991CA422C800D93E36 /* resources-hdpi_clear in Resources */,
 				34FFD3071E9CEEA20010AD12 /* minus.png in Resources */,
+				4069ADA121495AE5005EB75C /* categories_cuisines.txt in Resources */,
 				45B5B5A51CA422EE00D93E36 /* resources-xhdpi_dark in Resources */,
 				671182F71C80E09A00CB8177 /* patterns.txt in Resources */,
 				34FFD3081E9CEEA20010AD12 /* plus.png in Resources */,

@@ -3,6 +3,7 @@ cd ..
 rm -rf assets/
 mkdir assets
 cp ../data/categories.txt assets/
+cp ../data/categories_cuisines.txt assets/
 cp ../data/classificator.txt assets/
 cp ../data/colors.txt assets/
 cp ../data/copyright.html assets/

@@ -284,6 +284,7 @@
 		4000905F201F5CAF00963E18 /* locality_index_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locality_index_builder.hpp; sourceTree = "<group>"; };
 		40009060201F5CB000963E18 /* locality_object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locality_object.hpp; sourceTree = "<group>"; };
 		40009061201F5CB000963E18 /* locality_index_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = locality_index_builder.cpp; sourceTree = "<group>"; };
+		4052928E21496D2B00D821F1 /* categories_cuisines.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = categories_cuisines.txt; path = ../../data/categories_cuisines.txt; sourceTree = "<group>"; };
 		406B37F2207FBABA000F3648 /* borders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = borders.cpp; sourceTree = "<group>"; };
 		406B37F3207FBABA000F3648 /* borders.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = borders.hpp; sourceTree = "<group>"; };
 		406B37F6207FBAC7000F3648 /* borders_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = borders_test.cpp; sourceTree = "<group>"; };
@@ -484,6 +485,7 @@
 			children = (
 				3496ABAE1DC1FAC900C5DDBA /* minsk-pass.mwm */,
 				3496ABA41DC1FA9E00C5DDBA /* categories.txt */,
+				4052928E21496D2B00D821F1 /* categories_cuisines.txt */,
 				3496ABA51DC1FA9E00C5DDBA /* countries_meta.txt */,
 				3496ABA61DC1FA9E00C5DDBA /* countries_names.txt */,
 				3496ABA71DC1FA9E00C5DDBA /* countries_obsolete.txt */,
@@ -780,7 +782,7 @@
 				34664CF51D49FEC1003D7096 /* feature_altitude.hpp in Headers */,
 				675341241A3F540F00A0A8C3 /* feature_visibility.hpp in Headers */,
 				6753411D1A3F540F00A0A8C3 /* shared_load_info.hpp in Headers */,
-				56C74C231C749E4700B71B9F /* shared_load_info.hpp in Headers */,
+				56C74C231C749E4700B71B9F /* search_delimiters.hpp in Headers */,
 				675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */,
 				40009064201F5CB000963E18 /* locality_index_builder.hpp in Headers */,
 				6726C1D21A49DAAC005EEA39 /* feature_meta.hpp in Headers */,

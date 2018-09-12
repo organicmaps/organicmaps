@@ -22,6 +22,7 @@ namespace
     "resources-xhdpi_clear/symbols.sdf",
     "resources-xhdpi_clear/symbols.png",
     "categories.txt",
+    "categories_cuisines.txt",
     "classificator.txt",
     "types.txt",
     "fonts_blacklist.txt",

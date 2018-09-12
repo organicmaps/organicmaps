@@ -1,0 +1,2667 @@
+@fastfood
+en:Fast Food
+ru:Фастфуд
+ar:وجبا
+cs:Rychlé občerstvení
+da:Fastfood
+nl:Fast food
+fi:Pikaruokala
+fr:Restauration rapide
+de:Fast-Food
+hu:Gyorsétterem
+id:Cepat saji
+it:Fast food
+ja:ファストフード
+ko:패스트 푸드
+nb:Hurtigmat
+pl:Fast food
+pt:Comida de plástico
+pt-BR:Lanchonete
+ro:Fast food
+es:Comida rápida
+sv:Snabbmat
+th:อาหารจานด่วน
+tr:Fast food
+uk:Фастфуд
+vi:Thức ăn nhanh
+zh-Hans:快餐
+zh-Hant:速食店
+el:Ταχυφαγίο
+sk:Rýchle občerstvenie
+fa:غذای حاضری
+
+cuisine-regional
+en:Regional
+ru:Региональная кухня
+ar:مطبخ إقليمي
+cs:Regionální kuchyně
+da:Regionalt køkken
+nl:Regionale keuken
+fi:Alueellinen keittiö
+fr:Cuisine régionale
+de:Regionale Küche
+hu:Regionális konyha
+id:Masakan regional
+it:Cucina regionale
+ja:郷土料理
+ko:지역적 음식
+nb:Regional mat
+pl:Kuchnia regionalna
+pt:Cozinha regional
+ro:Bucătărie regional
+es:Cocina regional
+sv:Regional mat
+th:อาหารพื้นเมือง
+tr:Bölgesel mutfak
+uk:Регіональна кухня
+vi:Ẩm thực khu vực
+zh-Hans:地方菜
+zh-Hant:地方料理
+el:Περιφερειακή
+he:מטבח אזורי
+sk:Regionálna kuchyňa
+
+cuisine-pizza|@fastfood
+en:Pizza
+ru:Пиццерия|Пицца
+ar:بيتزا
+cs:Pizza
+da:Pizza
+nl:Pizza's
+fi:Pitsa
+fr:Pizza
+de:Pizza
+hu:Pizza
+id:Pizza
+it:Pizza
+ja:ピザ
+ko:피자
+nb:Pizza
+pl:Pizzeria
+pt:Pizza
+ro:Pizza
+es:Pizzas
+sv:Pizza
+th:พิซซ่า
+tr:Pizza
+uk:Піцерія
+vi:Bánh pizza
+zh-Hans:匹萨
+zh-Hant:披薩
+el:Πίτσα
+he:פיצה
+sk:Pizza
+
+cuisine-burger|@fastfood
+en:Burger
+ru:Бургеры
+ar:برغر
+cs:Burger
+da:Burger
+nl:Hamburgers
+fi:Hampurilainen
+fr:Hamburger
+de:Burger
+hu:Hamburger
+id:Burger
+it:Hamburger
+ja:ハンバーガー
+ko:햄버거
+nb:Burger
+pl:Burgery
+pt:Hambúrguer
+ro:Burger
+es:Hamburguesas
+sv:Hamburgare
+th:เบอร์เกอร์
+tr:Hamburger
+uk:Бургери
+vi:Bánh hamburger
+zh-Hans:汉堡包
+zh-Hant:漢堡
+el:Μπιφτέκι
+he:המבורגר
+sk:Hamburger
+
+cuisine-italian
+en:Italian cuisine
+ru:Итальянская кухня
+ar:مطبخ إيطالي
+cs:Italská kuchyně
+da:Italiensk
+nl:Italiaans
+fi:Italialainen keittiö
+fr:Cuisine italienne
+de:Italienische Küche
+hu:Olasz konyha
+id:Masakan italia
+it:Cucina italiana
+ja:イタリア料理
+ko:이탈리아식 음식
+nb:Italiensk mat
+pl:Kuchnia włoska
+pt:Cozinha italiana
+ro:Bucătărie italian
+es:Cocina italiana
+sv:Italiensk mat
+th:อาหารอิตาเลียน
+tr:Italyan mutfağı
+uk:Італійська кухня
+vi:Ẩm thực ý
+zh-Hans:意大利菜
+zh-Hant:義大利料理
+el:Ιταλική
+he:מטבח איטלקי
+sk:Talianska kuchyňa
+
+cuisine-chinese
+en:Chinese cuisine
+ru:Китайская кухня
+ar:مطبخ صيني
+cs:Čínská kuchyně
+da:Kinesisk
+nl:Chinees
+fi:Kiinalainen keittiö
+fr:Cuisine chinoise
+de:Chinesische Küche
+hu:Kínai konyha
+id:Masakan tionghoa
+it:Cucina cinese
+ja:中華料理
+ko:중국식 음식
+nb:Kinesisk mat
+pl:Kuchnia chińska
+pt:Cozinha chinesa
+ro:Bucătărie chinez
+es:Cocina china
+sv:Kinesisk mat
+th:อาหารจีน
+tr:Çin mutfağı
+uk:Китайська кухня
+vi:Ẩm thực trung quốc
+zh-Hans:中国菜
+zh-Hant:中華料理
+el:Κινέζικη
+he:מטבח סיני
+sk:Čína
+
+cuisine-coffee_shop
+en:Coffee
+ru:Кофе
+ar:ﺓﻮﻬﻗ
+cs:Káva
+da:Kaffe
+nl:Koffie
+fi:Kahvi
+fr:Café
+de:Kaffee
+hu:Kávé
+id:Kopi
+it:Caffè
+ja:コーヒー
+ko:커피
+nb:Kaffe
+pl:Kawa
+pt:Café
+ro:Cafea
+es:Café
+sv:Kaffe
+th:กาแฟ
+tr:Kahve
+uk:Кава
+vi:Cà phê
+zh-Hans:咖啡
+zh-Hant:咖啡
+el:Καφές
+he:הֶפָק
+sk:Káva
+sw:Kahawa
+
+cuisine-sandwich|@fastfood
+en:Sandwich
+ru:Сэндвичи
+ar:ساندوتش
+cs:Sendvič
+da:Sandwich
+nl:Broodjes
+fi:Voileipä
+fr:Sandwich
+de:Sandwich
+hu:Szendvics
+id:Roti isi
+it:Panini
+ja:サンドイッチ
+ko:샌드위치
+nb:Smørbrød
+pl:Kanapki
+pt:Sanduíche
+ro:Sandwich
+es:Sándwiches
+sv:Smörgås
+th:แซนด์วิช
+tr:Sandviç
+uk:Сандвічі
+vi:Bánh sandwich
+zh-Hans:三明治
+zh-Hant:三明治
+el:Σάντουιτς
+he:סנדוויץ'
+sk:Sendvič
+
+cuisine-german
+en:German cuisine
+ru:Немецкая кухня
+ar:مطبخ ألماني
+cs:Německá kuchyně
+da:Tysk
+nl:Duits
+fi:Saksalainen keittiö
+fr:Cuisine allemande
+de:Deutsche Küche
+hu:Német konyha
+id:Masakan jerman
+it:Cucina tedesca
+ja:ドイツ料理
+ko:독일식 음식
+nb:Tysk mat
+pl:Kuchnia niemiecka
+pt:Cozinha alemã
+ro:Bucătărie german
+es:Cocina alemana
+sv:Tysk mat
+th:อาหารเยอรมัน
+tr:Alman mutfağı
+uk:Німецька кухня
+vi:Ẩm thực đức
+zh-Hans:德国菜
+zh-Hant:德國料理
+el:Γερμανική
+he:מטבח גרמני
+sk:Nemecká kuchyňa
+
+cuisine-japanese
+en:Japanese cuisine
+ru:Японская кухня
+ar:مطبخ ياباني
+cs:Japonská kuchyně
+da:Japansk
+nl:Japans
+fi:Japanilainen keittiö
+fr:Cuisine japonaise
+de:Japanische Küche
+hu:Japán konyha
+id:Masakan jepang
+it:Cucina giapponese
+ja:日本料理
+ko:일본식 음식
+nb:Japansk mat
+pl:Kuchnia japońska
+pt:Cozinha japonesa
+ro:Bucătărie japonez
+es:Cocina japonesa
+sv:Japansk mat
+th:อาหารญี่ปุ่น
+tr:Japon mutfağı
+uk:Японська кухня
+vi:Ẩm thực nhật bản
+zh-Hans:日本菜
+zh-Hant:日本料理
+el:Ιαπωνική
+he:מטבח יפני
+sk:Japonská kuchyňa
+
+cuisine-kebab|@fastfood
+en:Kebab
+ru:Кебабы
+ar:كباب
+cs:Kebab
+da:Kebab
+nl:Kebab
+fi:Kebab
+fr:Kebab
+de:Kebab
+hu:Kebab
+id:Kebab
+it:Kebab
+ja:カバブ
+ko:케밥
+nb:Kebab
+pl:Kebab
+pt:Espetinho
+ro:Kebab
+es:Kebabs
+sv:Kebab
+th:เคบับ
+tr:Kebap
+uk:Кебаби
+vi:Thịt nướng kebab
+zh-Hans:烤肉
+zh-Hant:烤肉
+el:Κεμπάπ
+he:קבב
+sk:Kebab
+
+cuisine-mexican
+en:Mexican cuisine
+ru:Мексиканская кухня
+ar:مطبخ مكسيكي
+cs:Mexická kuchyně
+da:Mexicansk
+nl:Mexicaans
+fi:Meksikolainen keittiö
+fr:Cuisine mexicaine
+de:Mexikanische Küche
+hu:Mexikói konyha
+id:Masakan meksiko
+it:Cucina messicana
+ja:メキシコ料理
+ko:멕시코식 음식
+nb:Meksikansk mat
+pl:Kuchnia meksykańska
+pt:Cozinha mexicana
+ro:Bucătărie mexican
+es:Cocina mexicana
+sv:Mexikansk mat
+th:อาหารเม็กซิกัน
+tr:Meksika mutfağı
+uk:Мексиканська кухня
+vi:Ẩm thực mexico
+zh-Hans:墨西哥菜
+zh-Hant:墨西哥料理
+el:Μεξικάνικη
+he:מטבח מקסיקני
+sk:Mexická kuchyňa
+
+cuisine-indian
+en:Indian cuisine
+ru:Индийская кухня
+ar:مطبخ هندي
+cs:Indická kuchyně
+da:Indisk
+nl:Indisch
+fi:Intialainen keittiö
+fr:Cuisine indienne
+de:Indische Küche
+hu:Indiai konyha
+id:Masakan india
+it:Cucina indiana
+ja:インド料理
+ko:인도식 음식
+nb:Indisk mat
+pl:Kuchnia indyjska
+pt:Cozinha indiana
+ro:Bucătărie indian
+es:Cocina hindú
+sv:Indisk mat
+th:อาหารอินเดีย
+tr:Hint mutfağı
+uk:Індійська кухня
+vi:Ẩm thực ấn độ
+zh-Hans:印度菜
+zh-Hant:印度料理
+el:Ινδική
+he:מטבח הודי
+sk:Indická kuchyňa
+
+cuisine-american
+en:American cuisine
+ru:Американская кухня
+ar:مطبخ أمريكي
+cs:Americká kuchyně
+da:Amerikansk
+nl:Amerikaans
+fi:Amerikkalainen keittiö
+fr:Cuisine américaine
+de:Amerikanische Küche
+hu:Amerikai konyha
+id:Masakan amerika
+it:Cucina americana
+ja:アメリカ料理
+ko:미국식 음식
+nb:Amerikansk mat
+pl:Kuchnia amerykańska
+pt:Cozinha americana
+ro:Bucătărie american
+es:Cocina americana
+sv:Amerikansk mat
+th:อาหารอเมริกัน
+tr:Amerikan mutfağı
+uk:Американська кухня
+vi:Ẩm thực mỹ
+zh-Hans:美国菜
+zh-Hant:美國料理
+el:Αμερικάνικη
+he:מטבח אמריקאי
+sk:Americká kuchyňa
+
+cuisine-french
+en:French cuisine
+ru:Французская кухня
+ar:مطبخ فرنسي
+cs:Francouzská kuchyně
+da:Fransk
+nl:Frans
+fi:Ranskalainen keittiö
+fr:Cuisine française
+de:Französische Küche
+hu:Francia konyha
+id:Masakan prancis
+it:Cucina francese
+ja:フランス料理
+ko:프랑스식 음식
+nb:Fransk mat
+pl:Kuchnia francuska
+pt:Cozinha francesa
+ro:Bucătărie francez
+es:Cocina francesa
+sv:Fransk mat
+th:อาหารฝรั่งเศส
+tr:Fransız mutfağı
+uk:Французька кухня
+vi:Ẩm thực pháp
+zh-Hans:法国菜
+zh-Hant:法國料理
+el:Γαλλική
+he:מטבח צרפתי
+sk:Francúzska kuchyňa
+
+cuisine-ice_cream
+en:Ice Cream
+ru:Кафе-мороженое|мороженое
+ar:مُثَلّجات
+cs:Zmrzlina
+da:Is
+nl:Ijs
+fi:Jäätelö
+fr:Crème glacée
+de:Eis
+hu:Jégkrém
+id:Es_krim
+it:Gelateria
+ja:アイスクリーム
+ko:아이스크림
+nb:Iskrem
+pl:Lodziarnia
+pt:Sorvete
+ro:Înghețată
+es:Helados
+sv:Glass
+th:ไอศกรีม
+tr:Dondurma
+uk:Морозиво
+vi:Kem
+zh-Hans:冰淇淋
+zh-Hant:冰淇淋
+el:Παγωτό
+he:גלידה
+sk:Zmrzlina
+
+cuisine-asian
+en:Asian cuisine
+ru:Азиатская кухня
+ar:مطبخ آسيوي
+cs:Asijská kuchyně
+da:Asiatisk
+nl:Aziatisch
+fi:Aasialainen keittiö
+fr:Cuisine asiatique
+de:Asiatische Küche
+hu:Ázsiai és közel-keleti konyha
+id:Masakan asia
+it:Cucina asiatica
+ja:アジア料理
+ko:아시아식 음식
+nb:Asiatisk mat
+pl:Kuchnia azjatycka
+pt:Cozinha asiática
+ro:Bucătărie asiatic
+es:Cocina asiática
+sv:Asiatisk mat
+th:อาหารเอเชีย
+tr:Asya mutfağı
+uk:Азіатська кухня
+vi:Ẩm thực châu á
+zh-Hans:亚洲菜
+zh-Hant:亞洲料理
+el:Ασιάτικη
+he:מטבח אסיאתי
+sk:Ázijská kuchyňa
+
+cuisine-chicken
+en:Chicken
+ru:Блюда из курицы
+ar:دجاج
+cs:Kuře
+da:Kylling
+nl:Kip
+fi:Kana
+fr:Poulet
+de:Hühnchen
+hu:Csirke
+id:Ayam
+it:Pollo
+ja:鶏肉
+ko:닭고기
+nb:Kylling
+pl:Kurczak
+pt:Frango
+ro:Pui
+es:Pollos
+sv:Kyckling
+th:ไก่
+tr:Tavuk
+uk:Страви з курки
+vi:Gà
+zh-Hans:鸡
+zh-Hant:雞肉
+el:Κοτόπουλο
+he:עוף
+sk:Kurča
+
+cuisine-greek
+en:Greek cuisine
+ru:Греческая кухня
+ar:مطبخ يوناني
+cs:Řecká kuchyně
+da:Græsk
+nl:Grieks
+fi:Kreikkalainen keittiö
+fr:Cuisine grecque
+de:Griechische Küche
+hu:Görög konyha
+id:Masakan yunani
+it:Cucina greca
+ja:ギリシャ料理
+ko:그리스식 음식
+nb:Gresk mat
+pl:Kuchnia grecka
+pt:Cozinha grega
+ro:Bucătărie grecesc
+es:Cocina griega
+sv:Grekisk mat
+th:อาหารกรีก
+tr:Yunan mutfağı
+uk:Грецька кухня
+vi:Ẩm thực hy lạp
+zh-Hans:希腊菜
+zh-Hant:希臘料理
+el:Ελληνική
+he:מטבח יווני
+sk:Grécka kuchyňa
+
+cuisine-thai
+en:Thai cuisine
+ru:Тайская кухня
+ar:مطبخ تايلندي
+cs:Thajská kuchyně
+da:Thailandsk
+nl:Thais gerechten
+fi:Thaimaalainen keittiö
+fr:Cuisine thaï
+de:Thai-Küche
+hu:Thai konyha
+id:Masakan thailand
+it:Cucina tailandese
+ja:タイ料理
+ko:타이식 음식
+nb:Thaimat
+pl:Kuchnia tajska
+pt:Cozinha tailandesa
+ro:Bucătărie tailandez
+es:Cocina tailandesa
+sv:Thailändsk mat
+th:อาหารไทย
+tr:Tayland mutfağı
+uk:Тайська кухня
+vi:Ẩm thực thái lan
+zh-Hans:泰国菜
+zh-Hant:泰國料理
+el:Ταϊλανδική
+he:מטבח תאילנדי
+sk:Thajská kuchyňa
+
+cuisine-international
+en:International cuisine
+ru:Международная кухня
+ar:مطبخ عالمي
+cs:Mezinárodní kuchyně
+da:International
+nl:Internationaal
+fi:Kansainvälinen keittiö
+fr:Cuisine internationale
+de:Internationale Küche
+hu:Nemzetközi konyha
+id:Masakan internasional
+it:Cucina internazionale
+ja:国際料理
+ko:국제 음식
+nb:Internasjonal mat
+pl:Kuchnia międzynarodowa
+pt:Cozinha internacional
+ro:Bucătărie internațional
+es:Cocina internacional
+sv:Internationell mat
+th:อาหารนานาชาติ
+tr:Uluslararası mutfak
+uk:Міжнародна кухня
+vi:Ẩm thực quốc tế
+zh-Hans:国际菜肴
+zh-Hant:國際菜肴
+el:Διεθνής
+he:מטבח בינלאומי
+sk:Medzinárodné jedlá
+
+cuisine-sushi
+en:Sushi
+ru:Суши
+ar:سوشي
+cs:Suši
+da:Sushi
+nl:Sushi
+fi:Sushi
+fr:Sushi
+de:Sushi
+hu:Szusi
+id:Sushi
+it:Sushi
+ja:寿司
+ko:초밥
+nb:Sushi
+pl:Sushi
+pt:Sushi
+ro:Sushi
+es:Sushi
+sv:Sushi
+th:ซูชิ
+tr:Suşi
+uk:Суші
+vi:Sushi
+zh-Hans:寿司
+zh-Hant:壽司
+el:Σούσι
+he:סושי
+sk:Suši
+
+cuisine-fish_and_chips
+en:Fish and Chips
+ru:Рыба и картофель фри
+ar:سمك و رقائق البطاطس
+cs:Ryba a hranolky
+da:Fish and chips
+nl:Fish and chips
+fi:Fish & chips
+fr:Fish and chips
+de:Fish and Chips
+hu:Hal és sültkrumpli
+id:Ikan dan kentang goreng
+it:Fish and chips
+ja:フィッシュ・アンド・チップス
+ko:피쉬 앤 칩스
+nb:Fisk og pommes frites
+pl:Ryba i frytki
+pt:Peixe e batatas fritas
+ro:Restaurant fish and chips
+es:Pescado rebozado con patatas
+sv:Friterad fisk och pommes frites
+th:ปลาและมันฝรั่งทอด
+tr:Balık ve patates cipsi
+uk:Риба зі смаженою картоплею
+vi:Cá và khoai tây chiên
+zh-Hans:炸鱼 和 薯条
+zh-Hant:炸魚薯條
+el:Ψάρια και πατάτες
+he:פיש אנד צ'יפס
+sk:Ryba s hranolkami
+
+cuisine-turkish
+en:Turkish cuisine
+ru:Турецкая кухня
+ar:مطبخ تركي
+cs:Turecká kuchyně
+da:Tyrkisk
+nl:Turks
+fi:Turkkilainen keittiö
+fr:Cuisine turque
+de:Türkische Küche
+hu:Török konyha
+id:Masakan turki
+it:Cucina turca
+ja:トルコ料理
+ko:터키식 음식
+nb:Tyrkisk mat
+pl:Kuchnia turecka
+pt:Cozinha turca
+ro:Bucătărie turcesc
+es:Cocina turca
+sv:Turkisk mat
+th:ตุรกีอาหารตุรกี
+tr:Türk mutfağı
+uk:Турецька кухня
+vi:Ẩm thực thổ nhĩ kỳ
+zh-Hans:土耳其菜
+zh-Hant:土耳其料理
+el:Τουρκική
+he:מטבח תורכי
+sk:Turecká kuchyňa
+
+cuisine-seafood
+en:Seafood
+ru:Морепродукты
+ar:مأكولات بحرية
+cs:Mořské plody
+da:Fisk og skaldyr
+nl:Vis en zeevruchten
+fi:Meren elävät
+fr:Fruits de mer
+de:Meeresfrüchte
+hu:Tenger gyümölcsei
+id:Hidangan laut
+it:Frutti di mare
+ja:シーフード
+ko:해산물
+nb:Sjømat
+pl:Owoce morza
+pt:Frutos do mar
+ro:Fructe de mare
+es:Mariscos
+sv:Skaldjur
+th:อาหารทะเล
+tr:Deniz ürünleri
+uk:Морська їжа
+vi:Hải sản
+zh-Hans:海鲜
+zh-Hant:海鮮
+el:Θαλασσινά
+he:מאכלי ים
+sk:Morské plody
+
+cuisine-steak_house
+en:Steak House
+ru:Стейк-хаус
+ar:شرائح اللحم
+cs:Steaková restaurace
+da:Steakhouse
+nl:Steakhouse
+fi:Pihviravintola
+fr:Grillades
+de:Steakhaus
+hu:Steak ház
+id:Restoran_steik
+it:Bisteccheria
+ja:ステーキハウス
+ko:스테이크 하우스
+nb:Biffrestaurant
+pl:Steki
+pt:Churrascaria
+ro:Restaurant steakhouse
+es:Asador
+sv:Stekhus
+th:ร้านสเต๊ก
+tr:Et lokantası
+uk:Стейк-хаус
+vi:Steak house
+zh-Hans:牛排馆
+zh-Hant:牛排館
+el:Μπριζολάδικο
+he:סטייקיה
+sk:Steak house
+
+cuisine-spanish
+en:Spanish cuisine
+ru:Испанская кухня
+ar:مطبخ إسباني
+cs:Španělská kuchyně
+da:Spansk
+nl:Spaans
+fi:Espanjalainen keittiö
+fr:Cuisine espagnole
+de:Spanische Küche
+hu:Spanyol konyha
+id:Masakan spanyol
+it:Cucina spagnola
+ja:スペイン料理
+ko:스페인식 음식
+nb:Spansk mat
+pl:Kuchnia hiszpańska
+pt:Cozinha espanhola
+ro:Bucătărie spaniol
+es:Cocina española
+sv:Spansk mat
+th:อาหารสเปน
+tr:Ispanyol mutfağı
+uk:Іспанська кухня
+vi:Ẩm thực tây ban nha
+zh-Hans:西班牙菜
+zh-Hant:西班牙料理
+el:Ισπανική
+he:מטבח ספרדי
+sk:Španielska kuchyňa
+
+cuisine-fish
+en:Fish restaurant
+ru:Рыбный ресторан
+ar:سمك
+cs:Ryba
+da:Fisk
+nl:Vis
+fi:Kala
+fr:Poisson
+de:Fisch
+hu:Hal
+id:Ikan
+it:Pesce
+ja:魚料理
+ko:생선
+nb:Fisk
+pl:Ryby
+pt:Peixe
+ro:Pește
+es:Pescados
+sv:Fisk
+th:ปลา
+tr:Balık
+uk:Рибний ресторан
+vi:Cá
+zh-Hans:鱼
+zh-Hant:魚
+el:Ψάρια
+he:דגים
+sk:Ryby
+
+cuisine-vietnamese
+en:Vietnamese cuisine
+ru:Вьетнамская кухня
+ar:مطبخ فيتنامي
+cs:Vietnamská kuchyně
+da:Vietnamesisk
+nl:Vietnamees
+fi:Vietnamilainen keittiö
+fr:Cuisine vietnamienne
+de:Vietnamesische Küche
+hu:Vietnami konyha
+id:Masakan vietnam
+it:Cucina vietnamita
+ja:ベトナム料理
+ko:베트남식 음식
+nb:Vietnamesisk mat
+pl:Kuchnia wietnamska
+pt:Cozinha vietnamita
+ro:Bucătărie vietnamez
+es:Cocina vietnamita
+sv:Vietnamesisk mat
+th:อาหารเวียดนาม
+tr:Vietnam mutfağı
+uk:В'єтнамська кухня
+vi:Ẩm thực việt
+zh-Hans:越南菜
+zh-Hant:越南料理
+el:Βιετναμέζικη
+he:מטבח וייטנאמי
+sk:Vietnamská kuchyňa
+
+cuisine-noodles
+en:Noodles
+ru:Лапшичная|Лапша
+ar:الشعرية
+cs:Nudle
+da:Nudler
+nl:Noedels
+fi:Nuudeli
+fr:Nouilles
+de:Nudeln
+hu:Tészta
+id:Bakmi
+it:Noodles
+ja:麺類
+ko:국수
+nb:Nudler
+pl:Noodle
+pt:Macarrão
+ro:Tăiței
+es:Tallarines
+sv:Nudlar
+th:บะหมี่
+tr:Erişte
+uk:Вермішель
+vi:Mì
+zh-Hans:面
+zh-Hant:麵食
+el:Χυλοπίτες
+he:אטריות
+sk:Rezance
+
+cuisine-vegetarian
+en:Vegetarian
+ru:Вегетарианская кухня
+ar:مطبخ نباتي
+cs:Vegetariánská kuchyně
+da:Vegetarretter
+nl:Vegetarisch
+fi:Kasvis keittiö
+fr:Cuisine végétarienne
+de:Vegetarische Küche
+hu:Vegetáriánus konyha
+id:Masakan vegetarian
+it:Cucina vegetariana
+ja:ベジタリアン料理
+ko:채식주의자 음식
+nb:Vegetar mat
+pl:Kuchnia wegetariańska
+pt:Cozinha vegetariana
+ro:Bucătărie vegetarian
+es:Cocina vegetariana
+sv:Vegetarisk mat
+th:อาหารมังสวิรัติ
+tr:Vejetaryen mutfağı
+uk:Вегетаріанська кухня
+vi:Ẩm thực chay
+zh-Hans:素菜
+zh-Hant:素食
+el:Χορτοφαγική
+he:מטבח צמחוני
+sk:Vegetariánske jedlá
+
+cuisine-korean
+en:Korean cuisine
+ru:Корейская
+ar:مطبخ كوري
+cs:Korejská kuchyně
+da:Koreansk
+nl:Koreaans
+fi:Korealainen
+fr:Cuisine coréenne
+de:Koreanische Küche
+hu:Koreai konyha
+id:Korea
+it:Cucina coreana
+ja:韓国料理
+ko:한국식 음식
+nb:Koreansk mat
+pl:Kuchnia koreańska
+pt:Cozinha coreana
+ro:Coreean
+es:Cocina coreana
+sv:Koreansk mat
+th:อาหารเกาหลี
+tr:Kore mutfağı
+uk:Корейська кухня
+vi:Ẩm thực hàn quốc
+zh-Hans:韩国菜
+zh-Hant:韓國料理
+el:Κορεάτικη
+he:מטבח קוריאני
+sk:Kórejská kuchyňa
+
+cuisine-friture|@fastfood
+en:Friture
+ru:Блюда во фритюре
+ar:وجبات سريعة
+cs:Smažené pokrmy
+da:Friture
+nl:Frituur
+fi:Uppopaistettu
+fr:Friture
+de:Friterie
+hu:Olajban sütött ételek
+id:Gorengan
+it:Fritture
+ja:揚げ物
+ko:튀김 요리
+nb:Frityrt
+pl:Smażalnia
+pt:Fritura
+ro:Prăjit
+es:Frituras
+sv:Friterat
+th:ปลาเล็กปลาน้อย
+tr:Kızartma
+uk:Страви у фритюрі
+vi:Friture
+zh-Hans:油炸
+zh-Hant:油炸
+el:Τηγανητά
+he:פריטורה
+sk:Vyprážané jedlá
+
+cuisine-barbecue
+en:Barbecue
+ru:Барбекю
+ar:مشويات
+cs:Grilované pokrmy
+da:Barbecue
+nl:Barbecue
+fi:Grilli
+fr:Barbecue
+de:Grill
+hu:Grill
+id:Barbekyu
+it:Barbecue
+ja:バーベキュー
+ko:바베큐
+nb:Grillmat
+pl:Dania z grilla
+pt:Churrasco
+ro:Grătar
+es:Barbacoa
+sv:Grillat
+th:บาร์บีคิว
+tr:Mangal
+uk:Барбекю
+vi:Thịt nướng ngoài trời
+zh-Hans:烧烤
+zh-Hant:燒烤
+el:Μπάρμπεκιου
+he:ברביקיו
+sk:Gril
+
+cuisine-bavarian
+en:Bavarian cuisine
+ru:Баварская кухня
+ar:مطبخ بافاري
+cs:Bavorská kuchyně
+da:Bavarisk
+nl:Beiers
+fi:Baijerilainen keittiö
+fr:Cuisine bavaroise
+de:Bayerische Küche
+hu:Bajor konyha
+id:Masakan bavaria
+it:Cucina bavarese
+ja:ババロア料理
+ko:바이에른식 음식
+nb:Bayersk mat
+pl:Kuchnia bawarska
+pt:Cozinha bávara
+ro:Bucătărie bavarez
+es:Cocina bávara
+sv:Bayersk mat
+th:อาหารบาวาเรีย
+tr:Bavyera mutfağı
+uk:Баварська кухня
+vi:Ẩm thực bavarian
+zh-Hans:巴伐利亚菜
+zh-Hant:巴伐利亞料理
+el:Βαυαρική
+he:מטבח של בוואריה
+sk:Bavorská kuchyňa
+
+cuisine-ramen
+en:Ramen
+ru:Рамен
+ar:حساء رامن
+cs:Ramen
+da:Ramen
+nl:Ramennoedels
+fi:Ramen
+fr:Râmen
+de:Ramen
+hu:Rámen
+id:Ramen
+it:Ramen
+ja:ラーメン
+ko:라면
+nb:Ramen
+pl:Zupa ramen
+pt:Lámen
+ro:Ramen
+es:Ramen
+sv:Ramen
+th:ราเม็ง
+tr:Japon eriştesi
+uk:Рамен
+vi:Mì ramen
+zh-Hans:拉面
+zh-Hant:拉麵
+el:Ράμεν
+he:ראמן
+sk:Rámen (japonská rezancová polievka)
+
+cuisine-italian_pizza
+en:Italian Pizza
+ru:Итальянская пиццерия
+ar:مطبخ إيطالي؛بيتزا
+cs:Italská, pizza
+da:Italiensk, pizza
+nl:Italiaans, pizza
+fi:Italialainen, pizza
+fr:Italien, pizza
+de:Italienische Küche; Pizza
+hu:Olasz konyha, pizza
+id:Italia, pizza
+it:Cucina italiana, pizza
+ja:イタリア料理；ピザ
+ko:이탈리아식, 피자
+nb:Italiensk mat;pizza
+pl:Włoska, pizza
+pt:Italiana, pizza
+ro:Italian, pizza
+es:Cocina italiana, pizzas
+sv:Italiensk, pizza
+th:อาหารอิตาเลียน; พิซซ่า
+tr:Italyan, pizza
+uk:Італійська кухня, піцерія
+vi:Ẩm thực ý, bánh pizza
+zh-Hans:意大利菜；匹萨
+zh-Hant:義大利料理；披薩
+el:Ιταλική, Πίτσα
+he:מטבח איטלקי;פיצה
+sk:Talianska kuchyňa; pizza
+
+cuisine-mediterranean
+en:Mediterranean cuisine
+ru:Средиземноморская кухня
+ar:مطبخ شرق أوسطي
+cs:Středomořská kuchyně
+da:Middelhavskost
+nl:Mediterraans
+fi:Välimeren keittiö keittiö
+fr:Cuisine méditerranéenne
+de:Mediterrane Küche
+hu:Mediterrán konyha
+id:Masakan mediterania
+it:Cucina mediterranea
+ja:地中海料理
+ko:지중해식 음식
+nb:Middelhavsmat
+pl:Kuchnia śródziemnomorska
+pt:Cozinha mediterrânea
+ro:Bucătărie cu specific mediteranean
+es:Cocina mediterránea
+sv:Medelhavsmat
+th:อาหารเมดิเตอร์เรเนียน
+tr:Akdeniz mutfağı
+uk:Середземноморська кухня
+vi:Ẩm thực địa trung hải
+zh-Hans:地中海菜
+zh-Hant:地中海料理
+el:Μεσογειακή
+he:מטבח ים-תיכוני
+sk:Stredomorská kuchyňa
+
+cuisine-donut
+en:Donut
+ru:Пончики
+ar:الكعك المحلاة
+cs:Kobliha
+da:Donuts
+nl:Donuts
+fi:Donitsi
+fr:Donuts
+de:Donuts
+hu:Fánk
+id:Donat
+it:Ciambelle
+ja:ドーナッツ
+ko:도너츠
+nb:Smultring
+pl:Pączki
+pt:Rosquinha
+ro:Gogoașă
+es:Rosquillas
+sv:Munk
+th:โดนัท
+tr:Donut
+uk:Пончики
+vi:Bánh rán
+zh-Hans:甜甜圈
+zh-Hant:甜甜圈
+el:Ντόνατ
+he:דונאט
+sk:Šišky
+
+cuisine-beef_bowl
+en:Beef Bowl
+ru:Рис и говядина
+ar:طبق لحم البقر
+cs:Miska hovězího
+da:Gyudon
+nl:Gyudon
+fi:Naudanlihakulho
+fr:Donburi de bœuf
+de:Gyūdon
+hu:Gyúdon
+id:Nasi daging sapi
+it:Gyūdon
+ja:ビーフボウル
+ko:쇠고기 덮밥
+nb:Biffbolle
+pl:Gyūdon
+pt:Tigela com carne bovina
+ro:Ciorbă de văcuță
+es:Gyūdon
+sv:Biff donburi
+th:ชามเนื้อวัว
+tr:Biftek tabağı
+uk:Тарілка з яловичиною
+vi:Tô thịt bò
+zh-Hans:牛肉 碗
+zh-Hant:牛丼
+el:Σούπα με βοδινό
+he:קערת בשר בקר
+sk:Misa hovädzieho
+
+cuisine-cake
+en:Cake
+ru:Кондитерская
+ar:كيك
+cs:Dort
+da:Kager
+nl:Taart
+fi:Kakku
+fr:Gâteau
+de:Kuchen
+hu:Torta
+id:Kue
+it:Torte
+ja:ケーキ
+ko:케이크
+nb:Kake
+pl:Ciasta
+pt:Bolo
+ro:Tort
+es:Tartas
+sv:Tårta
+th:เค้ก
+tr:Pasta
+uk:Кондитерська
+vi:Bánh ngọt
+zh-Hans:蛋糕
+zh-Hant:蛋糕
+el:Κέικ
+he:עוגה
+sk:Koláče
+
+cuisine-crepe
+en:Crepe
+ru:Тонкие блинчики
+ar:كريب
+cs:Crêpe
+da:Crepes
+nl:Pannenkoek
+fi:Kreppi
+fr:Crêpe
+de:Crêpe
+hu:Francia palacsinta
+id:Kue dadar
+it:Crêpes
+ja:クレープ
+ko:크레이프
+nb:Crepe
+pl:Naleśnikarnia
+pt:Crepe
+ro:Crep
+es:Crepes
+sv:Crêpe
+th:เครป
+tr:Krep
+uk:Креп
+vi:Bánh crepe
+zh-Hans:千层饼
+zh-Hant:可麗餅
+el:Κρέπα
+he:קרפ
+sk:Palacinky
+
+cuisine-heuriger
+en:Heuriger
+ru:Винная таверна|хойригер
+ar:البيرة
+cs:Heuriger
+da:Heuriger
+nl:Heuriger
+fi:Viinitaverna
+fr:Heuriger
+de:Heuriger
+hu:Heuriger
+id:Taverna anggur
+it:Heuriger
+ja:ホイリゲ
+ko:호이리거
+nb:Heuriger
+pl:Heuriger
+pt:Heuriger
+ro:Heuriger
+es:Heuriger
+sv:Vintaverna (heuriger)
+th:โรงเหล้า
+tr:Heuriger
+uk:Винна таверна (хойригер)
+vi:Heuriger
+zh-Hans:霍里格
+zh-Hant:霍里格
+el:Χόιριγκερ
+he:הויריגר
+sk:Heuriger
+
+cuisine-lebanese
+en:Lebanese cuisine
+ru:Ливанская кухня
+ar:مطبخ لبناني
+cs:Libanonská kuchyně
+da:Libanesisk
+nl:Libanees
+fi:Libanonilainen keittiö
+fr:Cuisine libanaise
+de:Libanesische Küche
+hu:Libanoni konyha
+id:Masakan lebanon
+it:Cucina libanese
+ja:レバノン料理
+ko:레바논식 음식
+nb:Libanesisk mat
+pl:Kuchnia libańska
+pt:Cozinha libanesa
+ro:Bucătărie libanez
+es:Cocina libanesa
+sv:Libanesisk mat
+th:อาหารเลบานอน
+tr:Lübnan mutfağı
+uk:Ліванська кухня
+vi:Ẩm thực lebanon
+zh-Hans:黎巴嫩菜
+zh-Hant:黎巴嫩料理
+el:Λιβανέζικη
+he:מטבח לבנוני
+sk:Libanonská kuchyňa
+
+cuisine-local
+en:Local cuisine
+ru:Местная кухня
+ar:مطبخ محلي
+cs:Místní kuchyně
+da:Lokalt køkken
+nl:Regionale keuken
+fi:Paikallinen keittiö
+fr:Cuisine locale
+de:Lokale Küche
+hu:Helyi konyha
+id:Masakan lokal
+it:Cucina locale
+ja:地元の料理
+ko:현지식 음식
+nb:Lokal mat
+pl:Kuchnia lokalna
+pt:Cozinha local
+ro:Bucătărie local
+es:Cocina local
+sv:Lokal mat
+th:อาหารท้องถิ่น
+tr:Yerel mutfak
+uk:Місцева кухня
+vi:Ẩm thực địa phương
+zh-Hans:本地菜
+zh-Hant:本地料理
+el:Τοπική
+he:מטבח מקומי
+sk:Miestna kuchyňa
+
+cuisine-curry
+en:Curry
+ru:Блюда карри
+ar:كاري
+cs:Kari
+da:Karryretter
+nl:Curry's
+fi:Curry
+fr:Curry
+de:Curry
+hu:Curry
+id:Kari
+it:Curry
+ja:カレー
+ko:카레
+nb:Karri
+pl:Curry
+pt:Curry
+ro:Curry
+es:Curri
+sv:Curry
+th:กะหรี่
+tr:Köri
+uk:Каррі
+vi:Món cà ri
+zh-Hans:咖喱
+zh-Hant:咖哩
+el:Κάρι
+he:קארי
+sk:Kari
+
+cuisine-filipino
+en:Filipino cuisine
+ru:Филиппинская кухня
+ar:مطبخ فلبيني
+cs:Filipínská kuchyně
+da:Filippinsk
+nl:Filipijns
+fi:Filippiiniläinen keittiö
+fr:Cuisine philippine
+de:Philippinische Küche
+hu:Filippínó konyha
+id:Masakan filipina
+it:Cucina filippina
+ja:フィリピン料理
+ko:필리핀식 음식
+nb:Filippinsk mat
+pl:Kuchnia filipińska
+pt:Cozinha filipina
+ro:Bucătărie filipinez
+es:Cocina filipina
+sv:Filippinsk mat
+th:อาหารฟิลิปปินส์
+tr:Filipino mutfağı
+uk:Філіппінська кухня
+vi:Ẩm thực philipin
+zh-Hans:菲律宾菜
+zh-Hant:菲律賓料理
+el:Φιλιππινέζικη
+he:מטבח פיליפיני
+sk:Filipínska kuchyňa
+
+cuisine-russian
+en:Russian cuisine
+ru:Русская кухня
+ar:مطبخ روسي
+cs:Ruská kuchyně
+da:Russisk
+nl:Russisch
+fi:Venäläinen keittiö
+fr:Cuisine russe
+de:Russische Küche
+hu:Orosz konyha
+id:Masakan rusia
+it:Cucina russa
+ja:ロシア料理
+ko:러시아식 음식
+nb:Russisk mat
+pl:Kuchnia rosyjska
+pt:Cozinha russa
+ro:Bucătărie rusesc
+es:Cocina rusa
+sv:Rysk mat
+th:อาหารรัสเซีย
+tr:Rus mutfağı
+uk:Російська кухня
+vi:Ẩm thực nga
+zh-Hans:俄罗斯菜
+zh-Hant:俄羅斯料理
+el:Ρώσσικη
+he:מטבח רוסי
+sk:Ruská kuchyňa
+
+cuisine-breakfast
+en:Breakfast
+ru:Завтраки
+ar:فطور
+cs:Snídaně
+da:Morgenmad
+nl:Ontbijt
+fi:Aamiainen
+fr:Petit déjeuner
+de:Frühstück
+hu:Reggeli
+id:Sarapan
+it:Colazione
+ja:朝食
+ko:아침 식사
+nb:Frokost
+pl:Śniadaniarnia
+pt:Café da manhã
+ro:Mic dejun
+es:Desayunos
+sv:Frukost
+th:อาหารเช้า
+tr:Kahvaltı
+uk:Сніданки
+vi:Bữa ăn sáng
+zh-Hans:早餐
+zh-Hant:早餐
+el:Πρωινό
+he:ארוחת בוקר
+sk:Raňajky
+
+cuisine-tapas
+en:Tapas
+ru:Тапас-бар
+ar:تاباس
+cs:Tapas
+da:Tapas
+nl:Tapas
+fi:Tapas
+fr:Tapas
+de:Tapas
+hu:Tapas
+id:Kudapan spanyol
+it:Tapas
+ja:タパス
+ko:타파스
+nb:Tapas
+pl:Tapas
+pt:Tapas
+ro:Tapas
+es:Tapas
+sv:Tapas
+th:ทาปาส
+tr:Tapas
+uk:Тапас-бар
+vi:Tapas
+zh-Hans:塔帕斯
+zh-Hant:塔帕斯
+el:Τάπας
+he:טאפאס
+sk:Tapas
+
+cuisine-bagel
+en:Bagel
+ru:Бубличная
+ar:كعك بولندي
+cs:Bagel
+da:Bagels
+nl:Bagels
+fi:Bagel
+fr:Bagel
+de:Bagel
+hu:Bagel
+id:Roti bagel
+it:Bagel
+ja:ベーグル
+ko:베이글
+nb:Bagel
+pl:Bajgle
+pt:Bagel
+ro:Chiflă
+es:Bágel
+sv:Bagel
+th:เบเกิล
+tr:Simit
+uk:Випічка
+vi:Bánh mì vòng bagel
+zh-Hans:贝格
+zh-Hant:貝果
+el:Κουλούρι
+he:בייגל
+sk:Bagely
+
+cuisine-pasta
+en:Pasta
+ru:Паста
+ar:مَعْكَرُونَة
+cs:Těstoviny
+da:Pasta
+nl:Pasta
+fi:Pasta
+fr:Pâtes
+de:Pasta
+hu:Tészta
+id:Pasta
+it:Pasta
+ja:パスタ
+ko:파스타
+nb:Pasta
+pl:Makarony
+pt:Massa
+ro:Paste
+es:Pastas
+sv:Pasta
+th:พาสต้า
+tr:Makarna
+uk:Паста
+vi:Mỳ ống
+zh-Hans:意大利面
+zh-Hant:義大利麵
+el:Ζυμαρικά
+he:פסטה
+sk:Cestoviny
+
+cuisine-buschenschank
+en:Buschenschank
+ru:Домашняя таверна|бушеншанк
+ar:البيرة
+cs:Buschenschank
+da:Buschenschank
+nl:Buschenschank
+fi:Viinitaverna
+fr:Buschenschank
+de:Buschenschank
+hu:Borozó
+id:Taverna anggur
+it:Osteria contadina
+ja:ブッシェンシャンク
+ko:와인 레스토랑
+nb:Buschenschank
+pl:Winiarnia
+pt:Buschenschank
+ro:Tavernă
+es:Buschenschank
+sv:Vintaverna
+th:โรงเหล้า
+tr:Buschenschank
+uk:Домашня таверна (бушеншанк)
+vi:Buschenschank
+zh-Hans:酒庄
+zh-Hant:酒莊
+el:Μπούσενσανκ (αυστριακή ταβέρνα)
+he:בושנשאנק
+sk:Viecha
+
+cuisine-sausage|@fastfood
+en:Sausage
+ru:Сосисочная
+ar:سجق
+cs:Klobása
+da:Pølser
+nl:Worst
+fi:Makkara
+fr:Saucisse
+de:Wurst
+hu:Kolbász
+id:Sosis
+it:Salsicce
+ja:ソーセージ
+ko:소시지
+nb:Pølse
+pl:Kiełbasiarnia
+pt:Linguiça
+ro:Cârnat
+es:Salchichas
+sv:Korv
+th:ไส้กรอก
+tr:Sucuk
+uk:Сосисочна
+vi:Xúc xích
+zh-Hans:火腿
+zh-Hant:火腿
+el:Λουκάνικο
+he:נקניק
+sk:Klobása
+
+cuisine-portuguese
+en:Portuguese cuisine
+ru:Португальская кухня
+ar:مطبخ برتغالي
+cs:Portugalská kuchyně
+da:Portugisisk
+nl:Portugees
+fi:Portugalilainen keittiö
+fr:Cuisine portugaise
+de:Portugiesische Küche
+hu:Portugál konyha
+id:Masakan portugis
+it:Cucina portoghese
+ja:ポルトガル料理
+ko:포르투갈식 음식
+nb:Portugisisk mat
+pl:Kuchnia portugalska
+pt:Cozinha portuguesa
+ro:Bucătărie portughez
+es:Cocina portuguesa
+sv:Portugisisk mat
+th:อาหารโปรตุเกส
+tr:Portekiz mutfağı
+uk:Португальська кухня
+vi:Ẩm thực bồ đào nha
+zh-Hans:葡萄牙菜
+zh-Hant:葡萄牙料理
+el:Πορτογαλική
+he:מטבח פורטוגלי
+sk:Portugalská kuchyňa
+
+cuisine-grill
+en:Grill
+ru:Гриль
+ar:شواء
+cs:Gril
+da:Grill
+nl:Gegrilde gerechten
+fi:Grilli
+fr:Grill
+de:Grill
+hu:Grill
+id:Panggangan
+it:Cucina alla griglia
+ja:グリル
+ko:그릴
+nb:Grill
+pl:Dania z grilla
+pt:Grelhada
+ro:Grătar
+es:Parrilla
+sv:Grill
+th:ย่าง
+tr:ızgara
+uk:Гриль
+vi:Thịt nướng
+zh-Hans:烤
+zh-Hant:烤
+el:Ψησταριά
+he:גריל
+sk:Gril
+
+cuisine-pancake
+en:Pancake
+ru:Блинная
+ar:بان كيك
+cs:Palačinka
+da:Pandekager
+nl:Pannenkoek
+fi:Lettu
+fr:Crêpe
+de:Pfannkuchen
+hu:Palacsinta
+id:Panekuk
+it:Pancake
+ja:ホットケーキ
+ko:팬케이크
+nb:Pannekake
+pl:Naleśnik
+pt:Panqueca
+ro:Clătită
+es:Tortitas
+sv:Pannkaka
+th:แพนเค้ก
+tr:Gözleme
+uk:Млинці
+vi:Bánh kếp
+zh-Hans:煎饼
+zh-Hant:煎餅
+el:Τηγανίτα
+he:פנקייק
+sk:Lievance
+
+cuisine-malagasy
+en:Malagasy cuisine
+ru:Мадагаскарская кухня
+ar:مدغشقر
+cs:Madagaskarská kuchyně
+da:Madagaskisk
+nl:Malagassisch
+fi:Madagaskarilainen keittiö
+fr:Cuisine malgache
+de:Madegassische Küche
+hu:Madagaszkári konyha
+id:Masakan madagaskar
+it:Cucina malgascia
+ja:マダガスカル料理
+ko:마다가스카르식 음식
+nb:Gassisk
+pl:Kuchnia malgaska
+pt:Cozinha malgaxe
+ro:Bucătărie malgaș
+es:Cocina malgache
+sv:Madagaskisk mat
+th:มาดากัสการ์
+tr:Malgaş mutfağı
+uk:Малагасійська кухня
+vi:Malagasy
+zh-Hans:马达加斯加的
+zh-Hant:馬達加斯加料理
+el:Μαδαγασκάρης
+he:מלגאסי
+sk:Madagaskarská kuchyňa
+
+cuisine-polish
+en:Polish cuisine
+ru:Польская кухня
+ar:مطبخ بولندي
+cs:Polská kuchyně
+da:Polsk
+nl:Pools
+fi:Puolalainen keittiö
+fr:Cuisine polonaise
+de:Polnische Küche
+hu:Lengyel konyha
+id:Masakan polandia
+it:Cucina polacca
+ja:ポーランド料理
+ko:폴란드식 음식
+nb:Polsk mat
+pl:Kuchnia polska
+pt:Cozinha polonesa
+ro:Bucătărie polonez
+es:Cocina polaca
+sv:Polsk mat
+th:อาหารโปแลนด์
+tr:Polonya mutfağı
+uk:Польська кухня
+vi:Ẩm thực ba lan
+zh-Hans:波兰菜
+zh-Hant:波蘭料理
+el:Πολωνέζικη
+he:מטבח פולני
+sk:Poľská kuchyňa
+
+cuisine-diner
+en:Diner
+ru:Дайнер
+ar:العشاء
+cs:Večeře
+da:Diner
+nl:Diner
+fi:Lounaskahvila
+fr:Diner américain
+de:Diner
+hu:Étkező
+id:Makan malam
+it:Ristorantino
+ja:ダイナー
+ko:식당
+nb:Middag
+pl:Bar szybkiej obsługi
+pt:Lanchonete
+ro:Cină
+es:Cena
+sv:Matställe
+th:ร้านอาหาร
+tr:Vagon restoran
+uk:Дайнер
+vi:Bữa tối
+zh-Hans:饭店
+zh-Hant:美式餐廳
+el:Μικροεστιατόριο
+he:דיינר
+sk:Diner
+
+cuisine-african
+en:African cuisine
+ru:Африканская кухня
+ar:مطبخ أفريقي
+cs:Africká kuchyně
+da:Afrikansk
+nl:Afrikaans
+fi:Afrikkalainen keittiö
+fr:Cuisine africaine
+de:Afrikanische Küche
+hu:Afrikai konyha
+id:Masakan afrika
+it:Cucina africana
+ja:アフリカ料理
+ko:아프리카식 음식
+nb:Afrikansk mat
+pl:Kuchnia afrykańska
+pt:Cozinha africana
+ro:Bucătărie african
+es:Cocina africana
+sv:Afrikansk mat
+th:อาหารแอฟริกัน
+tr:Afrika mutfağı
+uk:Африканська кухня
+vi:Ẩm thực châu phi
+zh-Hans:非洲菜
+zh-Hant:非洲料理
+el:Αφρικανική
+he:מטבח אפריקאי
+sk:Africká kuchyňa
+
+cuisine-georgian
+en:Georgian cuisine
+ru:Грузинская кухня
+ar:مطبخ جورجي
+cs:Gruzínská kuchyně
+da:Georgisk
+nl:Georgisch
+fi:Georgialainen keittiö
+fr:Cuisine géorgienne
+de:Georgische Küche
+hu:Grúz konyha
+id:Masakan georgia
+it:Cucina georgiana
+ja:ジョージア料理
+ko:그루지야식 음식
+nb:Georgisk mat
+pl:Kuchnia gruzińska
+pt:Cozinha georgiana
+ro:Bucătărie georgian
+es:Cocina georgiana
+sv:Georgisk mat
+th:อาหารจอร์เจีย
+tr:Gürcistan mutfağı
+uk:Грузинська кухня
+vi:Ẩm thực georgia
+zh-Hans:格鲁吉亚菜
+zh-Hant:喬治亞料理
+el:Γεωργιανή
+he:מטבח גיאורגי
+sk:Gruzínska kuchyňa
+
+cuisine-croatian
+en:Croatian cuisine
+ru:Хорватская кухня
+ar:مطبخ كرواتي
+cs:Chorvatská kuchyně
+da:Kroatisk
+nl:Kroatisch
+fi:Kroatialainen keittiö
+fr:Cuisine croate
+de:Kroatische Küche
+hu:Horvát konyha
+id:Masakan kroasia
+it:Cucina croata
+ja:クロアチア料理
+ko:크로아티아식 음식
+nb:Kroatisk mat
+pl:Kuchnia chorwacka
+pt:Cozinha croata
+ro:Bucătărie croat
+es:Cocina croata
+sv:Kroatisk mat
+th:อาหารโครเอเชีย
+tr:Hırvat mutfağı
+uk:Сербська кухня
+vi:Ẩm thực croatia
+zh-Hans:克罗地亚的
+zh-Hant:克羅埃西亞料理
+el:Κροατική
+he:מטבח קרואטי
+sk:Chorvátska kuchyňa
+
+cuisine-arab
+en:Arab cuisine
+ru:Арабская кухня
+ar:مطبخ عربي
+cs:Arabská kuchyně
+da:Arabisk
+nl:Arabisch
+fi:Arabialainen keittiö
+fr:Cuisine arabe
+de:Arabische Küche
+hu:Arab konyha
+id:Masakan arab
+it:Cucina araba
+ja:アラビア料理
+ko:아랍식 음식
+nb:Arabisk mat
+pl:Kuchnia arabska
+pt:Cozinha árabe
+ro:Bucătărie arăbesc
+es:Cocina árabe
+sv:Arabisk mat
+th:อาหารอาหรับ
+tr:Arap mutfağı
+uk:Арабська кухня
+vi:Ẩm thực ả-rập
+zh-Hans:阿拉伯菜
+zh-Hant:阿拉伯料理
+el:Αραβική
+he:מטבח ערבי
+sk:Arabská kuchyňa
+
+cuisine-balkan
+en:Balkan cuisine
+ru:Балканская кухня
+ar:مطبخ بلقاني
+cs:Balkánská kuchyně
+da:Balkansk
+nl:Balkan
+fi:Balkanilainen keittiö
+fr:Cuisine des Balkans
+de:Balkanküche
+hu:Balkáni konyha
+id:Masakan balkan
+it:Cucina balcanica
+ja:バルカン料理
+ko:발칸 반도식 음식
+nb:Balkan mat
+pl:Kuchnia bałkańska
+pt:Cozinha balcânica
+ro:Bucătărie balcanic
+es:Cocina balcánica
+sv:Balkansk mat
+th:อาหารบอลข่าน
+tr:Balkan mutfağı
+uk:Балканська кухня
+vi:Ẩm thực balkan
+zh-Hans:巴尔干菜
+zh-Hant:巴爾幹料理
+el:Βαλκανίων
+he:מטבח בלקני
+sk:Balkánska kuchyňa
+
+cuisine-brazilian
+en:Brazilian cuisine
+ru:Бразильская кухня
+ar:مطبخ برازيلي
+cs:Brazilská kuchyně
+da:Brasiliansk
+nl:Braziliaans
+fi:Brasilialainen keittiö
+fr:Cuisine brésilienne
+de:Brasilianische Küche
+hu:Brazil konyha
+id:Masakan brasil
+it:Cucina brasiliana
+ja:ブラジル料理
+ko:브라질식 음식
+nb:Brasiliansk mat
+pl:Kuchnia brazylijska
+pt:Cozinha brasileira
+ro:Bucătărie brazilian
+es:Cocina brasileña
+sv:Brasiliansk mat
+th:อาหารบราซิล
+tr:Brezilya mutfağı
+uk:Бразильська кухня
+vi:Ẩm thực brazil
+zh-Hans:巴西菜
+zh-Hant:巴西料理
+el:Βραζιλιάνικη
+he:מטבח ברזילאי
+sk:Brazílska kuchyňa
+
+cuisine-caribbean
+en:Caribbean cuisine
+ru:Карибская кухня
+ar:مطبخ كاريبي
+cs:Karibská kuchyně
+da:Caribisk
+nl:Caraïbisch
+fi:Karibialainen keittiö
+fr:Cuisine des Caraïbes
+de:Karibische Küche
+hu:Karibi konyha
+id:Masakan karibia
+it:Cucina caraibica
+ja:カリブ料理
+ko:카리브식 음식
+nb:Karibisk mat
+pl:Kuchnia karaibska
+pt:Cozinha caribenha
+ro:Bucătărie caribbean
+es:Cocina caribeña
+sv:Karibisk mat
+th:อาหารแคริบเบียน
+tr:Karayip mutfağı
+uk:Карибська кухня
+vi:Ẩm thực caribê
+zh-Hans:加勒比菜
+zh-Hant:加勒比料理
+el:Καραϊβική
+he:מטבח קריבי
+sk:Karibská kuchyňa
+
+cuisine-austrian
+en:Austrian cuisine
+ru:Австрийская кухня
+ar:مطبخ نمساوي
+cs:Rakouská kuchyně
+da:Østrigsk
+nl:Oostenrijks
+fi:Itävaltalainen keittiö
+fr:Cuisine autrichienne
+de:Österreichische Küche
+hu:Osztrák konyha
+id:Masakan austria
+it:Cucina austriaca
+ja:オーストリア料理
+ko:오스트리아식 음식
+nb:Østerriksk mat
+pl:Kuchnia austriacka
+pt:Cozinha austríaca
+ro:Bucătărie austriac
+es:Cocina austriaca
+sv:Österrikisk mat
+th:อาหารออสเตรีย
+tr:Avusturya mutfağı
+uk:Австрійська кухня
+vi:Ẩm thực áo
+zh-Hans:奥地利菜
+zh-Hant:奧地利料理
+el:Αυστριακή
+he:מטבח אוסטרי
+sk:Rakúska kuchyňa
+
+cuisine-vegan
+en:Vegan
+ru:Веганская кухня
+ar:مطبخ نباتي
+cs:Veganská kuchyně
+da:Vegansk
+nl:Veganistisch
+fi:Vegaani keittiö
+fr:Cuisine végétalienne
+de:Vegane Küche
+hu:Vegán konyha
+id:Masakan vegan
+it:Cucina vegana
+ja:ビーガン料理
+ko:비건 음식
+nb:Veganermat
+pl:Kuchnia wegańska
+pt:Cozinha vegana
+ro:Bucătărie vegan
+es:Cocina vegana
+sv:Vegansk mat
+th:อาหารมังสวิรัติ
+tr:Vegan mutfağı
+uk:Веганська кухня
+vi:Ẩm thực chay
+zh-Hans:全素菜
+zh-Hant:全素料理
+el:Για χορτοφάγους
+he:מטבח טבעוני
+sk:Vegánske jedlá
+
+cuisine-argentinian
+en:Argentinian cuisine
+ru:Аргентинская кухня
+ar:مطبخ أرجنتيني
+cs:Argentinská kuchyně
+da:Argentinsk
+nl:Argentijns
+fi:Argentiinalainen keittiö
+fr:Cuisine argentine
+de:Argentinische Küche
+hu:Argentin konyha
+id:Masakan argentina
+it:Cucina argentina
+ja:アルゼンチン料理
+ko:아르헨티나식 음식
+nb:Argentinsk mat
+pl:Kuchnia argentyńska
+pt:Cozinha argentina
+ro:Bucătărie argentinian
+es:Cocina argentina
+sv:Argentinsk mat
+th:อาหารอาเจนติน่า
+tr:Arjantin mutfağı
+uk:Аргентинська кухня
+vi:Ẩm thực argentina
+zh-Hans:阿根廷菜
+zh-Hant:阿根廷料理
+el:Αργεντίνικη
+he:מטבח ארגטינאי
+sk:Argentínska kuchyňa
+
+cuisine-persian
+en:Persian cuisine
+ru:Иранская кухня
+ar:مطبخ إيراني
+cs:Perská kuchyně
+da:Persisk
+nl:Perzisch
+fi:Persialainen keittiö
+fr:Cuisine persane
+de:Persische Küche
+hu:Perzsa konyha
+id:Masakan persia
+it:Cucina persiana
+ja:ペルシャ料理
+ko:페르시아식 음식
+nb:Persisk mat
+pl:Kuchnia perska
+pt:Cozinha persa
+ro:Bucătărie persan
+es:Cocina persa
+sv:Persisk mat
+th:อาหารเปอร์เซีย
+tr:Iran mutfağı
+uk:Перська кухня
+vi:Ẩm thực ba tư
+zh-Hans:波斯菜
+zh-Hant:波斯料理
+el:Περσική
+he:מטבח פרסי
+sk:Perzská kuchyňa
+
+cuisine-soba
+en:Soba
+ru:Соба
+ar:سوبا
+cs:Soba
+da:Soba
+nl:Soba
+fi:Sobanuudeli
+fr:Soba
+de:Soba
+hu:Soba
+id:Soba
+it:Soba
+ja:そば
+ko:메밀 국수
+nb:Soba
+pl:Soba
+pt:Soba
+ro:Soba
+es:Soba
+sv:Soba
+th:โซบะ
+tr:Erişte
+uk:Соба
+vi:Mì soba
+zh-Hans:荞麦面
+zh-Hant:蕎麥面
+el:Σόμπα (λεπτά μακαρόνια)
+he:אטריות סובה
+sk:Soba
+
+cuisine-malaysian
+en:Malaysian cuisine
+ru:Малазийская кухня
+ar:مطبخ ماليزي
+cs:Malajsijská kuchyně
+da:Malaysisk
+nl:Maleisisch
+fi:Malesialainen keittiö
+fr:Cuisine malaisienne
+de:Malaysische Küche
+hu:Maláj konyha
+id:Masakan malaysia
+it:Cucina malese
+ja:マレーシア料理
+ko:말레이시아식 음식
+nb:Malaysisk mat
+pl:Kuchnia malezyjska
+pt:Cozinha malaia
+ro:Bucătărie malaysian
+es:Cocina malaya
+sv:Malaysisk mat
+th:อาหารมาเลเซีย
+tr:Malezya mutfağı
+uk:Малайзійська кухня
+vi:Ẩm thực malaysia
+zh-Hans:马来西亚菜
+zh-Hant:馬來西亞料理
+el:Μαλαισιανή
+he:מטבח מלזי
+sk:Malajzijská kuchyňa
+
+cuisine-indonesian
+en:Indonesian cuisine
+ru:Индонезийская кухня
+ar:مطبخ إندونيسي
+cs:Indonéská kuchyně
+da:Indonesisk
+nl:Indonesisch
+fi:Indonesialainen keittiö
+fr:Cuisine indonésienne
+de:Indonesische Küche
+hu:Indonéz konyha
+id:Masakan indonesia
+it:Cucina indonesiana
+ja:インドネシア料理
+ko:인도네시아식 음식
+nb:Indonesisk mat
+pl:Kuchnia indonezyjska
+pt:Cozinha indonésia
+ro:Bucătărie indonezian
+es:Cocina indonesia
+sv:Indonesisk mat
+th:อาหารอินโดนีเซีย
+tr:Endonezya mutfağı
+uk:Індонезійська кухня
+vi:Ẩm thực indonesia
+zh-Hans:印度尼西亚菜
+zh-Hant:印度尼西亞料理
+el:Ινδονησιακή
+he:מטבח אינדונזי
+sk:Indonézska kuchyňa
+
+cuisine-ethiopian
+en:Ethiopian cuisine
+ru:Эфиопская кухня
+ar:مطبخ إثيوبي
+cs:Etiopská kuchyně
+da:Etiopisk
+nl:Ethiopisch
+fi:Etiopialainen keittiö
+fr:Cuisine éthiopienne
+de:Äthiopische Küche
+hu:Etióp konyha
+id:Masakan etiopia
+it:Cucina etiope
+ja:エチオピア料理
+ko:에티오피아식 음식
+nb:Etiopisk mat
+pl:Kuchnia etiopska
+pt:Cozinha etíope
+ro:Bucătărie etiopian
+es:Cocina etíope
+sv:Etiopisk mat
+th:อาหารเอธิโอเปีย
+tr:Etiyopya mutfağı
+uk:Ефіопська кухня
+vi:Ẩm thực ethiopia
+zh-Hans:埃塞俄比亚菜
+zh-Hant:衣索比亞料理
+el:Αιθιοπίας
+he:מטבח אתיופי
+sk:Etiópska kuchyňa
+
+cuisine-deli
+en:Delicacies
+ru:Деликатесы
+ar:أطعمة مبردة
+cs:Lahůdky
+da:Delicacies
+nl:Delicacies
+fi:Herkkukauppa
+fr:Charcuterie
+de:Deli-Küche
+hu:Csemege
+id:Toko makanan jadi
+it:Gastronomia
+ja:デリ
+ko:델리
+nb:Delimat
+pl:Delikatesy
+pt:Charcutaria
+ro:Delicacies
+es:Delicatesen
+sv:Delicacies
+th:อาหารพิเศษ
+tr:Şarküteri
+uk:Делікатеси
+vi:Món ăn ngon
+zh-Hans:熟食店
+zh-Hant:熟食店
+el:Εκλεκτά τρόφιμα
+he:מעדנייה
+sk:Delikatesy
+
+cuisine-irish
+en:Irish cuisine
+ru:Ирландская кухня
+ar:مطبخ إيرلندي
+cs:Irská kuchyně
+da:Irsk
+nl:Iers
+fi:Irlantilainen keittiö
+fr:Cuisine irlandaise
+de:Irische Küche
+hu:Ír konyha
+id:Masakan irlandia
+it:Cucina irlandese
+ja:アイルランド料理
+ko:아일랜드식 음식
+nb:Irsk mat
+pl:Kuchnia irlandzka
+pt:Cozinha irlandesa
+ro:Bucătărie irlandez
+es:Cocina irlandesa
+sv:Irländsk mat
+th:อาหารไอริช
+tr:Irlanda mutfağı
+uk:Ірландська кухня
+vi:Ẩm thực ai-len
+zh-Hans:爱尔兰菜
+zh-Hant:愛爾蘭料理
+el:Ιρλανδέζικη
+he:מטבח אירי
+sk:Írska kuchyňa
+
+cuisine-hungarian
+en:Hungarian cuisine
+ru:Венгерская кухня
+ar:مطبخ مجري
+cs:Maďarská kuchyně
+da:Ungarsk
+nl:Hongaars
+fi:Unkarilainen keittiö
+fr:Cuisine hongroise
+de:Ungarische Küche
+hu:Magyar konyha
+id:Masakan hongaria
+it:Cucina ungherese
+ja:ハンガリー料理
+ko:헝가리식 음식
+nb:Ungarsk mat
+pl:Kuchnia węgierska
+pt:Cozinha húngara
+ro:Bucătărie maghiar
+es:Cocina húngara
+sv:Ungersk mat
+th:อาหารฮังการี
+tr:Macar mutfağı
+uk:Угорська кухня
+vi:Ẩm thực hungary
+zh-Hans:匈牙利菜
+zh-Hant:匈牙利料理
+el:Ουγγρική
+he:מטבח הונגרי
+sk:Maďarská kuchyňa
+
+cuisine-lao
+en:Lao cuisine
+ru:Лаосская кухня
+ar:مطبخ لاوي
+cs:Laoská kuchyně
+da:Laotisk
+nl:Laotiaans
+fi:Laosilainen keittiö
+fr:Cuisine laotienne
+de:Laotische Küche
+hu:Laoszi konyha
+id:Masakan laos
+it:Cucina laotiana
+ja:ラオス料理
+ko:라오식 음식
+nb:Lao mat
+pl:Kuchnia laoska
+pt:Cozinha laosiana
+ro:Bucătărie lao
+es:Cocina laosiana
+sv:Laotisk mat
+th:อาหารลาว
+tr:Lao mutfağı
+uk:Лаоська кухня
+vi:Ẩm thực lào
+zh-Hans:老挝菜
+zh-Hant:寮國料理
+el:Λάος
+he:מטבח לאו
+sk:Laoská kuchyňa
+
+cuisine-hotdog|@fastfood
+en:Hotdog
+ru:Хот-доги
+ar:هوت دوغ
+cs:Hot dog
+da:Hotdogs
+nl:Hotdogs
+fi:Hotdog
+fr:Hot-dog
+de:Hotdog
+hu:Hotdog
+id:Hotdog
+it:Hot dog
+ja:ホットドッグ
+ko:핫도그
+nb:Hotdog
+pl:Hot-dogi
+pt:Cachorro-quente
+ro:Hot dog
+es:Perritos calientes
+sv:Varmkorv
+th:ฮอทดอก
+tr:Sosisli
+uk:Хот-доги
+vi:Hotdog
+zh-Hans:热狗
+zh-Hant:熱狗
+el:Χοτ Ντογκ
+he:נקניקיה
+sk:Párok v rožku
+
+cuisine-oriental
+en:Far Eastern cuisine
+ru:Восточная кухня
+ar:مطبخ شرقي
+cs:Orientální kuchyně
+da:Orientalsk
+nl:Oosters
+fi:Itämainen keittiö
+fr:Cuisine orientale
+de:Orientalische Küche
+hu:Keleti konyha
+id:Masakan oriental
+it:Cucina orientale
+ja:東洋の料理
+ko:극동식 음식
+nb:Orientalsk mat
+pl:Kuchnia orientalna
+pt:Cozinha oriental
+ro:Bucătărie oriental
+es:Cocina oriental
+sv:Orientalisk mat
+th:อาหารโอเรียนทอล
+tr:Doğu mutfağı
+uk:Східна кухня
+vi:Ẩm thực phương đông
+zh-Hans:东方菜
+zh-Hant:東方料理
+el:Άπω Ανατολής
+he:מטבח מזרחי
+sk:Orientálna kuchyňa
+
+cuisine-savory_pancakes
+en:Savory Pancakes
+ru:Несладкие блинчики
+ar:بان كيك السافوري
+cs:Pikantní palačinky
+da:Madpandekager
+nl:Hartige pannenkoeken
+fi:Suolaiset letut
+fr:Crêpes salées
+de:Herzhafte Pfannkuchen
+hu:Sós palacsinta
+id:Panekuk gurih
+it:Pancake salati
+ja:おいしいホットケーキ
+ko:맛좋은 팬케이크
+nb:Fylte pannekaker
+pl:Wytrawne naleśniki
+pt:Panquecas salgadas
+ro:Clătite delicioase
+es:Tortitas saladas
+sv:Fyllda pannkakor
+th:แพนเค้กแบบเค็ม
+tr:Açma
+uk:Пікантні оладки
+vi:Bánh kếp rau thơm
+zh-Hans:咸的_煎饼
+zh-Hant:大阪燒
+el:Αλμυρές τηγανίτες
+he:חביתיות טעימות
+sk:Pikantné palacinky
+
+cuisine-moroccan
+en:Moroccan cuisine
+ru:Марокканская кухня
+ar:مطبخ مغربي
+cs:Marocká kuchyně
+da:Marokkansk
+nl:Marokkaans
+fi:Marokkolainen keittiö
+fr:Cuisine marocaine
+de:Marokkanische Küche
+hu:Marokkói konyha
+id:Masakan maroko
+it:Cucina marocchina
+ja:モロッコ料理
+ko:모로코식 음식
+nb:Marokkansk mat
+pl:Kuchnia marokańska
+pt:Cozinha marroquina
+ro:Bucătărie marocan
+es:Cocina marroquí
+sv:Marockansk mat
+th:อาหารโมร็อกโก
+tr:Fas mutfağı
+uk:Марокканська кухня
+vi:Ẩm thực ma-rốc
+zh-Hans:摩洛哥菜
+zh-Hant:摩洛哥料理
+el:Μαροκινή
+he:מטבח מרוקאי
+sk:Marocká kuchyňa
+
+cuisine-peruvian
+en:Peruvian cuisine
+ru:Перуанская кухня
+ar:بيرو
+cs:Peruánská kuchyně
+da:Peruviansk
+nl:Peruaans
+fi:Perulainen keittiö
+fr:Cuisine péruvienne
+de:Peruanische Küche
+hu:Perui konyha
+id:Masakan peru
+it:Cucina peruviana
+ja:ペルー料理
+ko:페루식 음식
+nb:Peruansk mat
+pl:Kuchnia peruwiańska
+pt:Cozinha peruana
+ro:Bucătărie peruan
+es:Cocina peruana
+sv:Peruansk mat
+th:อาหารเปรู
+tr:Peru mutfağı
+uk:Перуанська кухня
+vi:Ẩm thực Pê-ru
+zh-Hans:秘鲁的
+zh-Hant:秘魯料理
+el:Περουβιανή
+he:מטבח פרואני
+sk:Peruánska kuchyňa
+
+cuisine-fine_dining
+en:Fine Dining
+ru:Ресторан высокой кухни
+ar:مطعم متكامل
+cs:Zážitková gastronomie
+da:Eksklusiv
+nl:Gastronomisch
+fi:Hieno ravintola
+fr:Restaurant gastronomique
+de:Gehobene Küche
+hu:Exkluzív étterem
+id:Adiboga
+it:Ristorante elegante
+ja:高級料理
+ko:고급 식당
+nb:Gourmet
+pl:Wykwintna kuchnia
+pt:Alta gastronomia
+ro:Restaurant elegant
+es:Restaurante elegante
+sv:Lyxrestaurang
+th:อาหารหรูหรา
+tr:Birinci sınıf restoran
+uk:Ресторан високої кухні
+vi:Chuỗi nhà hàng
+zh-Hans:高级餐饮
+zh-Hant:高級餐飲
+el:Εκλεκτά εστιατόρια
+he:אכילה במסעדות יוקרה
+sk:Exkluzívna reštaurácia
+
+cuisine-tea
+en:Tea
+ru:Чайная
+ar:شاي
+cs:Čaj
+da:Te
+nl:Thee
+fi:Tee
+fr:Thé
+de:Tee
+hu:Tea
+id:Teh
+it:Tè
+ja:紅茶
+ko:차
+nb:Te
+pl:Herbaciarnia
+pt:Chá
+ro:Ceai
+es:Té
+sv:Te
+th:ชา
+tr:Çay
+uk:Чайна
+vi:Trà
+zh-Hans:茶
+zh-Hant:茶
+el:Τσάι
+he:תה
+sk:Čaj
