@@ -2454,6 +2454,13 @@
 
 "channels_reviews" = "Unsent reviews";
 
+"purchase_loading" = "Purchase information is loading…";
+
+"purchase_error_subtitle" = "An error occurred while processing your purchase";
+
+
+/**********  Partners  **********/
+
 "sponsored_partner1_action" = "Outlets";
 
 "sponsored_partner3_action" = "Coupon";

@@ -2452,7 +2452,14 @@
 
 "channels_map_update" = "Обновления карт";
 
-"channels_reviews" = "Неотправленные отзывы[[ Partners ]]";
+"channels_reviews" = "Неотправленные отзывы";
+
+"purchase_loading" = "Загружаем информацию о покупках…";
+
+"purchase_error_subtitle" = "Во время обработки вашей покупки произошла ошибка";
+
+
+/**********  Partners  **********/
 
 "sponsored_partner1_action" = "Аутлеты";
 
