@@ -11,7 +11,7 @@
 extern "C"
 {
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeTipsShown(JNIEnv * env, jclass, jint type, jint event)
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeTipShown(JNIEnv * env, jclass, jint type, jint event)
 {
   auto const & typeValue = static_cast<eye::Tip::Type>(type);
   auto const & eventValue = static_cast<eye::Tip::Event>(event);
