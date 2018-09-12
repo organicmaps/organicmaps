@@ -9196,6 +9196,3 @@ sponsored-holiday
 en:^Christmas or New Year Celebrations
 ru:^Празднование Рождества или Нового года
 el:^Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
-
-sponsored-partner2
-en:^Luggage Storage|Luggage Hero|3luggagehero
