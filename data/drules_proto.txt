@@ -64535,7 +64535,7 @@ cont {
     scale: 15
     symbol {
       name: "partner10-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64543,14 +64543,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner10-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64558,14 +64558,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner10-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64573,39 +64573,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner10-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner10-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -64615,7 +64598,7 @@ cont {
     scale: 15
     symbol {
       name: "partner12-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64623,14 +64606,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner12-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64638,14 +64621,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner12-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64653,39 +64636,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner12-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner12-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -64785,7 +64751,7 @@ cont {
     scale: 14
     symbol {
       name: "partner2-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64793,14 +64759,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 15
     symbol {
       name: "partner2-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64808,14 +64774,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner2-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64823,14 +64789,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner2-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64838,39 +64804,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner2-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner2-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -64918,7 +64867,7 @@ cont {
     scale: 15
     symbol {
       name: "partner4-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64926,14 +64875,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner4-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64941,14 +64890,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner4-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -64956,39 +64905,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner4-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner4-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -64998,7 +64930,7 @@ cont {
     scale: 15
     symbol {
       name: "partner6-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65006,14 +64938,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner6-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65021,14 +64953,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner6-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65036,39 +64968,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner6-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner6-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -65078,7 +64993,7 @@ cont {
     scale: 15
     symbol {
       name: "partner7-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65086,14 +65001,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner7-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65101,14 +65016,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner7-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65116,39 +65031,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner7-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner7-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -65158,7 +65056,7 @@ cont {
     scale: 15
     symbol {
       name: "partner8-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65166,14 +65064,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner8-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65181,14 +65079,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner8-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65196,39 +65094,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner8-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner8-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
@@ -65238,7 +65119,7 @@ cont {
     scale: 15
     symbol {
       name: "partner9-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65246,14 +65127,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 16
     symbol {
       name: "partner9-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65261,14 +65142,14 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 17
     symbol {
       name: "partner9-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
@@ -65276,39 +65157,22 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15548
+      priority: 15732
     }
   }
   element {
     scale: 18
     symbol {
       name: "partner9-l"
-      priority: 16548
+      priority: 16732
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
-        is_optional: true
       }
-      priority: 15548
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner9-l"
-      priority: 16548
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-        is_optional: true
-      }
-      priority: 15548
+      priority: 15732
     }
   }
 }
