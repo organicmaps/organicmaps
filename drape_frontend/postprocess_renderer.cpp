@@ -369,7 +369,7 @@ void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
   m_isMainFramebufferRendered = false;
 
   m_isSmaaFramebufferRendered = false;
-  if (IsEffectEnabled(Effect::Antialiasing))
+  if (!m_isRouteFollowingActive && IsEffectEnabled(Effect::Antialiasing))
   {
     CHECK(m_apiVersion != dp::ApiVersion::OpenGLES2, ());
 
@@ -408,19 +408,8 @@ void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActiv
     return;
 
   m_isRouteFollowingActive = isRouteFollowingActive;
-  if (m_isRouteFollowingActive)
-  {
-    if (m_width != 0 && m_height != 0)
-      UpdateFramebuffers(m_width, m_height);
-  }
-  else
-  {
-    m_isMainFramebufferRendered = false;
-    m_isSmaaFramebufferRendered = false;
-    m_edgesFramebuffer.reset();
-    m_blendingWeightFramebuffer.reset();
-    m_smaaFramebuffer.reset();
-  }
+  if (m_width != 0 && m_height != 0)
+    UpdateFramebuffers(context, m_width, m_height);
 }
 
 StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer, ref_ptr<dp::GraphicsContext> context)
