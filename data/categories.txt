@@ -1619,7 +1619,7 @@ fr:^Réparation auto|voitures|auto
 de:^Autohaus
 hu:^Gépkocsi bolt|kocsi
 id:^Toko mobil
-it:^Car negozio
+it:^Concessionaria|Autosalone
 ja:^カーディーラー|車|車販売|ディーラー
 ko:^자동차 가게
 nb:^Bil butikk
