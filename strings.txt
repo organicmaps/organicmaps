@@ -29971,39 +29971,6 @@ fa = دوباره نپرس
     zh-Hans = 订宾馆
     zh-Hant = 訂賓館
 
-  [luggage_storage]
-    en = Luggage storage
-    ru = Хранение багажа
-    ar = مخزن الحقائب
-    cs = Úschovna zavazadel
-    da = Bagageopbevaring
-    nl = Bagageopslag
-    fi = Matkatavaroiden säilytys
-    fr = Compartiment de bagage
-    de = Gepäckaufbewahrung
-    hu = Csomagmegőrzés
-    id = Penyimpanan barang
-    it = Deposito bagagli
-    ja = 荷物スペース
-    ko = 수하물 보관소
-    nb = Bagasjerom
-    pl = Przechowalnia bagażu
-    pt = Armazenamento de bagagem
-    pt-BR = Guarda-volumes
-    ro = Depozitare bagaje
-    es = Almacenamiento de equipaje
-    sv = Bagageförvaring
-    th = พื้นที่จัดเก็บกระเป๋าเดินทาง
-    tr = Bagaj saklama
-    uk = Камера схову багажу
-    vi = Giữ hộ hành lý
-    el = Χώρος αποθήκευσης αποσκευών
-    es_MX = Guarda equipaje
-    sk = Odkladací priestor pre batožinu
-    sw = Uhifadhi wa mizigo
-    zh-Hans = 行李寄存
-    zh-Hant = 行李寄存
-
   [maxim_taxi_title]
     en = maxim
 

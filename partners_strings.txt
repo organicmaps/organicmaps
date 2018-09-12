@@ -8,58 +8,6 @@
     en = Coupon
     ru = Купон
     
-  [sponsored_partner4_action]
-    en = Store
-    ru = Магазин
-    
-  [sponsored_partner6_action]
-    en = Store
-    ru = Магазин
-    
-  [sponsored_partner7_action]
-    en = Store
-    ru = Магазин
-    
-  [sponsored_partner8_action]
-    en = Special
-    ru = Акция
-    
-  [sponsored_partner9_action]
-    en = Special
-    ru = Акция
-    
-  [sponsored_partner10_action]
-    en = Store
-    ru = Магазин
-    
-  [sponsored_partner11_action]
-    en = -
-    ru = -
-    
-  [sponsored_partner12_action]
-    en = Store
-    ru = Магазин
-    
-  [sponsored_partner13_action]
-    en = -
-    ru = -
-    
-  [sponsored_partner14_action]
-    en = -
-    ru = -
-    
-  [sponsored_partner15_action]
-    en = -
-    ru = -
-    
-  [sponsored_partner16_action]
-    en = -
-    ru = -
-    
-  [sponsored_partner17_action]
-    en = -
-    ru = -
-    
   [sponsored_partner18_action]
     en = Lifehack
     ru = Лайфхак
