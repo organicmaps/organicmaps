@@ -72,7 +72,6 @@ public:
   static std::vector<std::string> kDisabledLanguages;
 
   explicit CategoriesHolder(std::unique_ptr<Reader> && reader);
-  void LoadFromStream(std::istream & s);
 
   template <class ToDo>
   void ForEachCategory(ToDo && toDo) const
@@ -155,6 +154,7 @@ public:
   static std::string MapIntegerToLocale(int8_t code);
 
 private:
+  void LoadFromStream(std::istream & s);
   void AddCategory(Category & cat, std::vector<uint32_t> & types);
   static bool ValidKeyToken(String const & s);
 };
