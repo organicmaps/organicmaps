@@ -40179,11 +40179,26 @@ cont {
   }
 }
 cont {
-  name: "sponsored-partner10"
+  name: "sponsored-partner1"
+  element {
+    scale: 14
+    symbol {
+      name: "partner1-l"
+      priority: 16732
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15732
+    }
+  }
   element {
     scale: 15
     symbol {
-      name: "partner10-l"
+      name: "partner1-l"
       priority: 16732
     }
     caption {
@@ -40198,7 +40213,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "partner10-l"
+      name: "partner1-l"
       priority: 16732
     }
     caption {
@@ -40213,7 +40228,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "partner10-l"
+      name: "partner1-l"
       priority: 16732
     }
     caption {
@@ -40228,7 +40243,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "partner10-l"
+      name: "partner1-l"
       priority: 16732
     }
     caption {
@@ -40236,6 +40251,7 @@ cont {
         height: 11
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
       priority: 15732
     }
@@ -40243,7 +40259,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "partner10-l"
+      name: "partner1-l"
       priority: 16732
     }
     caption {
@@ -40251,84 +40267,7 @@ cont {
         height: 11
         color: 4473924
         offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner12"
-  element {
-    scale: 15
-    symbol {
-      name: "partner12-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner12-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner12-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner12-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner12-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
+        is_optional: true
       }
       priority: 15732
     }
@@ -40425,99 +40364,6 @@ cont {
   }
 }
 cont {
-  name: "sponsored-partner2"
-  element {
-    scale: 14
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 15
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner2-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
   name: "sponsored-partner20"
   element {
     scale: 15
@@ -40552,396 +40398,6 @@ cont {
     symbol {
       name: "partner20-l"
       priority: 16732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner4"
-  element {
-    scale: 15
-    symbol {
-      name: "partner4-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner4-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner4-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner4-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner4-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner6"
-  element {
-    scale: 15
-    symbol {
-      name: "partner6-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner6-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner6-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner6-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner6-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner7"
-  element {
-    scale: 15
-    symbol {
-      name: "partner7-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner7-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner7-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner7-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner7-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner8"
-  element {
-    scale: 15
-    symbol {
-      name: "partner8-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner8-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner8-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner8-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner8-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-}
-cont {
-  name: "sponsored-partner9"
-  element {
-    scale: 15
-    symbol {
-      name: "partner9-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 16
-    symbol {
-      name: "partner9-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "partner9-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 10
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "partner9-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "partner9-l"
-      priority: 16732
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        offset_y: 1
-      }
-      priority: 15732
     }
   }
 }
