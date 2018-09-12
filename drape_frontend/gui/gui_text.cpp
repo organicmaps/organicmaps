@@ -4,8 +4,8 @@
 
 #include "shaders/programs.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/stl_add.hpp"
 
 #include "drape/bidi.hpp"
 #include "drape/glsl_func.hpp"

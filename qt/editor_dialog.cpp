@@ -2,8 +2,8 @@
 
 #include "indexer/editable_map_object.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/stl_add.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -247,7 +247,7 @@ void EditorDialog::OnSave()
     case osm::Props::Cuisine:
     {
       vector<string> cuisines;
-      strings::Tokenize(v, ";", MakeBackInsertFunctor(cuisines));
+      strings::Tokenize(v, ";", base::MakeBackInsertFunctor(cuisines));
       m_feature.SetCuisines(cuisines);
     }
     break;

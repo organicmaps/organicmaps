@@ -6,7 +6,7 @@
 #include "drape/constants.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <functional>

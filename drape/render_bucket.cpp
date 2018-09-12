@@ -6,7 +6,7 @@
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "std/bind.hpp"
 
 namespace dp

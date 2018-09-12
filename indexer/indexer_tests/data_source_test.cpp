@@ -15,7 +15,7 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <string>

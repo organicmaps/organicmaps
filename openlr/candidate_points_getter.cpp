@@ -38,12 +38,12 @@ void CandidatePointsGetter::GetJunctionPointCandidates(m2::PointD const & p,
   // later. The idea to fix this was to move SortUnique to the stage
   // after enriching with projections.
 
-  my::SortUnique(candidates,
-                 [&p](m2::PointD const & a, m2::PointD const & b) {
-                   return MercatorBounds::DistanceOnEarth(a, p) <
-                          MercatorBounds::DistanceOnEarth(b, p);
-                 },
-                 [](m2::PointD const & a, m2::PointD const & b) { return a == b; });
+  base::SortUnique(candidates,
+                   [&p](m2::PointD const & a, m2::PointD const & b) {
+                     return MercatorBounds::DistanceOnEarth(a, p) <
+                            MercatorBounds::DistanceOnEarth(b, p);
+                   },
+                   [](m2::PointD const & a, m2::PointD const & b) { return a == b; });
 
   candidates.resize(min(m_maxJunctionCandidates, candidates.size()));
 }

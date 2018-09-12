@@ -68,7 +68,7 @@ void Pinger::Ping(vector<string> const & urls, Pinger::Pong const & pong)
     t.Shutdown(base::WorkerThread::Exit::ExecPending);
   }
 
-  my::EraseIf(readyUrls, [](auto const & url) { return url.empty(); });
+  base::EraseIf(readyUrls, [](auto const & url) { return url.empty(); });
   SendStatistics(readyUrls.size());
   pong(move(readyUrls));
 }

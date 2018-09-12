@@ -11,7 +11,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/control_flow.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 namespace search
 {

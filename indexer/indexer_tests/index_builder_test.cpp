@@ -13,8 +13,7 @@
 #include "coding/file_container.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
-
+#include "base/stl_helpers.hpp"
 
 UNIT_TEST(BuildIndexTest)
 {
@@ -41,7 +40,7 @@ UNIT_TEST(BuildIndexTest)
   {
     FilesContainerW containerWriter(filePath);
     vector<string> tags;
-    originalContainer.ForEachTag(MakeBackInsertFunctor(tags));
+    originalContainer.ForEachTag(base::MakeBackInsertFunctor(tags));
     for (size_t i = 0; i < tags.size(); ++i)
     {
       if (tags[i] != INDEX_FILE_TAG)

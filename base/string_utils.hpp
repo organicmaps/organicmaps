@@ -2,7 +2,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -317,7 +317,7 @@ template <template <typename ...> class Collection = std::vector>
 Collection<std::string> Tokenize(std::string const & str, char const * delims)
 {
   Collection<std::string> c;
-  Tokenize(str, delims, MakeInsertFunctor(c));
+  Tokenize(str, delims, base::MakeInsertFunctor(c));
   return c;
 }
 

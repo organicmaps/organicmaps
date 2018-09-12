@@ -8,12 +8,12 @@
 #include "drape/batcher.hpp"
 #include "drape/overlay_handle.hpp"
 
-#include "base/math.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/math.hpp"
+#include "base/matrix.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
-#include "base/matrix.hpp"
 
 #include "geometry/transformations.hpp"
 

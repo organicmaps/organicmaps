@@ -63,7 +63,6 @@ set(
   src_point.cpp
   src_point.hpp
   stats.hpp
-  stl_add.hpp
   stl_helpers.hpp
   stl_iterator.hpp
   string_format.cpp

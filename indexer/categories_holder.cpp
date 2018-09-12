@@ -7,7 +7,7 @@
 #include "coding/reader_streambuf.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 using namespace std;
 
@@ -128,7 +128,7 @@ void ProcessCategory(string const & line, vector<string> & groups, vector<uint32
 
   // Split category to subcategories for classificator.
   vector<string> v;
-  strings::Tokenize(line, "-", MakeBackInsertFunctor(v));
+  strings::Tokenize(line, "-", base::MakeBackInsertFunctor(v));
 
   // Get classificator type.
   uint32_t const type = classif().GetTypeByPathSafe(v);
@@ -217,7 +217,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
       auto const uniName = search::NormalizeAndSimplifyString(synonym.m_name);
 
       vector<String> tokens;
-      SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
+      SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
       for (auto const & token : tokens)
       {

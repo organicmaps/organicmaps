@@ -8,7 +8,7 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <exception>
@@ -409,7 +409,7 @@ void MwmSet::ClearCache(MwmId const & id)
   {
     return (p.first == id);
   };
-  ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
+  ClearCacheImpl(base::RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
 }
 
 // MwmValue ----------------------------------------------------------------------------------------

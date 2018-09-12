@@ -40,12 +40,12 @@ UNIT_TEST(Tree4D_Smoke)
     theTree.ReplaceAllInRect(arr[i], &RTrue<R>);
 
   vector<R> test;
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
   test.clear();
   R const searchR(1.5, 1.5, 1.5, 1.5);
-  theTree.ForEachInRect(searchR, MakeBackInsertFunctor(test));
+  theTree.ForEachInRect(searchR, base::MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
   TEST_EQUAL(test[0], arr[1], ());
 
@@ -53,12 +53,12 @@ UNIT_TEST(Tree4D_Smoke)
   theTree.ReplaceAllInRect(replaceR, &RTrue<R>);
 
   test.clear();
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
   TEST_EQUAL(test[0], replaceR, ());
 
   test.clear();
-  theTree.ForEachInRect(searchR, MakeBackInsertFunctor(test));
+  theTree.ForEachInRect(searchR, base::MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
 }
 
@@ -84,7 +84,7 @@ UNIT_TEST(Tree4D_ReplaceAllInRect)
   }
 
   vector<R> test;
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
 
   TEST_EQUAL(ARRAY_SIZE(arr), test.size(), ());
   for (size_t i = 0; i < test.size(); ++i)
@@ -101,7 +101,7 @@ void CheckInRect(R const * arr, size_t count, R const & searchR, size_t expected
     theTree.Add(arr[i], arr[i]);
 
   vector<R> test;
-  theTree.ForEachInRect(searchR, MakeBackInsertFunctor(test));
+  theTree.ForEachInRect(searchR, base::MakeBackInsertFunctor(test));
 
   TEST_EQUAL(test.size(), expected, ());
 }
@@ -151,14 +151,14 @@ UNIT_TEST(Tree4D_ReplaceEqual)
     theTree.ReplaceEqualInRect(arr[i], equal_to<T>(), &RTrue<T>);
 
   vector<T> test;
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
   // 2.
   theTree.ReplaceEqualInRect(T(0, 0, 3, 3, 2), equal_to<T>(), &RFalse<T>);
 
   test.clear();
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
   auto i = find(test.begin(), test.end(), T(1, 1, 2, 2, 2));
@@ -168,7 +168,7 @@ UNIT_TEST(Tree4D_ReplaceEqual)
   theTree.ReplaceEqualInRect(T(0, 0, 3, 3, 2), equal_to<T>(), &RTrue<T>);
 
   test.clear();
-  theTree.ForEach(MakeBackInsertFunctor(test));
+  theTree.ForEach(base::MakeBackInsertFunctor(test));
   TEST_EQUAL(3, test.size(), ());
 
   i = find(test.begin(), test.end(), T(1, 1, 2, 2, 2));

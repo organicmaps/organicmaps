@@ -60,13 +60,13 @@ vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
   locales.Insert(static_cast<uint64_t>(code));
 
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens),
+  SplitUniString(search::NormalizeAndSimplifyString(name), ::base::MakeBackInsertFunctor(tokens),
                  search::Delimiters());
 
   FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
 
-  my::SortUnique(types);
+  ::base::SortUnique(types);
   return types;
 }
 

@@ -6,8 +6,8 @@
 #include "coding/reader.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/stl_add.hpp"
 
 #include <algorithm>
 #include <functional>

@@ -6,7 +6,6 @@
 
 #include "base/assert.hpp"
 #include "base/mem_trie.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -92,7 +91,7 @@ private:
   {
     std::vector<Id> ids;
     fn(ids);
-    my::SortUnique(ids);
+    ::base::SortUnique(ids);
     return ids;
   }
 

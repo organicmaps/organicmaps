@@ -1,7 +1,7 @@
 #include "drape/texture_of_colors.hpp"
 
 #include "base/shared_buffer_manager.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cstring>
 

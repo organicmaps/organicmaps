@@ -2,7 +2,7 @@
 
 #include "indexer/search_delimiters.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -12,7 +12,6 @@
 
 namespace search
 {
-
 // This function should be used for all search strings normalization.
 // It does some magic text transformation which greatly helps us to improve our search.
 strings::UniString NormalizeAndSimplifyString(std::string const & s);
@@ -27,13 +26,13 @@ void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & del
 template <typename Tokens, typename Delims>
 void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens, Delims const & delims)
 {
-  SplitUniString(NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens), delims);
 }
 
 template <typename Tokens>
 void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens)
 {
-  SplitUniString(NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens),
+  SplitUniString(NormalizeAndSimplifyString(s), ::base::MakeBackInsertFunctor(tokens),
                  search::Delimiters());
 }
 
@@ -50,7 +49,7 @@ bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
                                                Tokens & tokens,
                                                Delims const & delims)
 {
-  SplitUniString(s, MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(s, ::base::MakeBackInsertFunctor(tokens), delims);
   return !s.empty() && !delims(s.back());
 }
 

@@ -4,9 +4,9 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
-#include "base/logging.hpp"
 #include "base/exception.hpp"
-#include "base/stl_add.hpp"
+#include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <istream>
 

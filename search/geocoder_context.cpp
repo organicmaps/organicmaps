@@ -3,7 +3,7 @@
 #include "search/token_range.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 using namespace std;
 

@@ -7,7 +7,7 @@
 #include "coding/writer.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <utility>
 #include <vector>
@@ -133,7 +133,7 @@ UNIT_TEST(IntervalIndex_Serialized)
   uint32_t expected [] = {0, 1, 2};
   vector<uint32_t> values;
   TEST_EQUAL(index.KeyEnd(), 0x10000, ());
-  index.ForEach(MakeBackInsertFunctor(values), 0, 0x10000);
+  index.ForEach(base::MakeBackInsertFunctor(values), 0, 0x10000);
   TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
 }
 
@@ -152,41 +152,41 @@ UNIT_TEST(IntervalIndex_Simple)
   {
     uint32_t expected [] = {0, 1, 2};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0ULL, index.KeyEnd());
+    index.ForEach(base::MakeBackInsertFunctor(values), 0ULL, index.KeyEnd());
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D201ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D201ULL);
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0x0ULL, 0xA0B1C30000ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0x0ULL, 0xA0B1C30000ULL);
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected [] = {0};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D101ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D101ULL);
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     uint32_t expected [] = {0};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D200ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D200ULL);
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
   {
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D100ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0xA0B1C2D100ULL, 0xA0B1C2D100ULL);
     TEST_EQUAL(values, vector<uint32_t>(), ());
   }
   {
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0xA0B1000000ULL, 0xA0B1B20000ULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0xA0B1000000ULL, 0xA0B1B20000ULL);
     TEST_EQUAL(values, vector<uint32_t>(), ());
   }
 }
@@ -201,7 +201,7 @@ UNIT_TEST(IntervalIndex_Empty)
   IntervalIndex<MemReader, uint32_t> index(reader);
   {
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0ULL, 0xFFFFFFFFFFULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0ULL, 0xFFFFFFFFFFULL);
     TEST_EQUAL(values, vector<uint32_t>(), ());
   }
 }
@@ -221,7 +221,7 @@ UNIT_TEST(IntervalIndex_Simple2)
   {
     uint32_t expected [] = {0, 1, 2, 3};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0, 0xFFFFFFFFFFULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0, 0xFFFFFFFFFFULL);
     sort(values.begin(), values.end());
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
@@ -240,7 +240,7 @@ UNIT_TEST(IntervalIndex_Simple3)
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0, 0xFFFFULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0, 0xFFFFULL);
     sort(values.begin(), values.end());
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
@@ -259,7 +259,7 @@ UNIT_TEST(IntervalIndex_Simple4)
   {
     uint32_t expected [] = {0, 1};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0, 0xFFFFFFFFULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0, 0xFFFFFFFFULL);
     sort(values.begin(), values.end());
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }
@@ -280,7 +280,7 @@ UNIT_TEST(IntervalIndex_Simple5)
   {
     uint32_t expected [] = {0, 1, 2, 3};
     vector<uint32_t> values;
-    index.ForEach(MakeBackInsertFunctor(values), 0, 0xFFFFFFFFFFULL);
+    index.ForEach(base::MakeBackInsertFunctor(values), 0, 0xFFFFFFFFFFULL);
     sort(values.begin(), values.end());
     TEST_EQUAL(values, vector<uint32_t>(expected, expected + ARRAY_SIZE(expected)), ());
   }

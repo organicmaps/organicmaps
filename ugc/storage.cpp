@@ -359,7 +359,7 @@ void Storage::DefragmentationImpl(bool force)
     return;
   }
 
-  my::EraseIf(m_indexes, [](UpdateIndex const & i) -> bool { return i.m_deleted; });
+  base::EraseIf(m_indexes, [](UpdateIndex const & i) -> bool { return i.m_deleted; });
   CHECK(my::DeleteFileX(ugcFilePath), ());
   CHECK(my::RenameFileX(tmpUGCFilePath, ugcFilePath), ());
 

@@ -1,15 +1,15 @@
 #include "testing/testing.hpp"
+
 #include "geometry/cellid.hpp"
 #include "geometry/covering.hpp"
 #include "geometry/covering_utils.hpp"
 #include "geometry/point2d.hpp"
-#include "base/stl_add.hpp"
 
+#include "base/stl_helpers.hpp"
 
 // TODO: Add covering unit tests here.
 
-
-typedef m2::CellId<5> CellId;
+using CellId = m2::CellId<5>;
 
 UNIT_TEST(CoverTriangle_Simple)
 {

@@ -1,8 +1,8 @@
 #include "indexer/types_mapping.hpp"
 #include "indexer/classificator.hpp"
 
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
-#include "base/stl_add.hpp"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ void IndexAndTypeMapping::Load(istream & s)
     if (!v.empty())
     {
       path.clear();
-      strings::Tokenize(v, "|", MakeBackInsertFunctor(path));
+      strings::Tokenize(v, "|", base::MakeBackInsertFunctor(path));
 
       Add(ind++, c.GetTypeByPath(path));
     }

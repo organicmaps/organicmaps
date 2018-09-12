@@ -189,7 +189,7 @@ public:
 
   using UnderlyingType = std::underlying_type_t<Type>;
 
-  static_assert(my::Key(Type::Count) <= CHAR_BIT * sizeof(unsigned),
+  static_assert(base::Key(Type::Count) <= CHAR_BIT * sizeof(unsigned),
                 "Too many types of hotels");
 
   static char const * GetHotelTypeTag(Type type);
@@ -202,7 +202,7 @@ public:
 private:
   IsHotelChecker();
 
-  std::array<std::pair<uint32_t, Type>, my::Key(Type::Count)> m_sortedTypes;
+  std::array<std::pair<uint32_t, Type>, base::Key(Type::Count)> m_sortedTypes;
 };
 
 // WiFi is a type in classificator.txt,
@@ -272,7 +272,7 @@ uint64_t GetPopulationByRadius(double r);
 /// feature types like "highway", "living_street", "bridge" and so on
 ///  or *. * means any class.
 /// The root name ("world") is ignored
-bool IsTypeConformed(uint32_t type, my::StringIL const & path);
+bool IsTypeConformed(uint32_t type, base::StringIL const & path);
 
 // Highway class. The order is important.
 // The enum values follow from the biggest roads (Trunk) to the smallest ones (Service).

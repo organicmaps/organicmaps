@@ -701,9 +701,10 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
   };
 
   // Getting rid of knowingly bad candidates.
-  my::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
+  base::EraseIf(candidates, [&](pair<Edge, Junction> const & p) {
     Edge const & edge = p.first;
-    return edge.GetFeatureId().m_mwmId != mwmId || IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
+    return edge.GetFeatureId().m_mwmId != mwmId ||
+           IsDeadEnd(getSegmentByEdge(edge), isOutgoing, worldGraph);
   });
 
   if (candidates.empty())

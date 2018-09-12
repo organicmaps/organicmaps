@@ -1,7 +1,7 @@
 #include "drape_frontend/message_queue.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 namespace df
 {

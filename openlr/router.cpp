@@ -666,7 +666,7 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
 
   double const kFakeCoverageThreshold = 0.5;
 
-  my::EraseIf(edges, std::mem_fn(&Edge::IsSpecial));
+  base::EraseIf(edges, std::mem_fn(&Edge::IsSpecial));
 
   {
     size_t const n = FindPrefixLengthToConsume(

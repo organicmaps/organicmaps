@@ -48,7 +48,7 @@ UNIT_TEST(RestrictionTest_ValidCase)
   TEST(restrictionCollector.AddRestriction(Restriction::Type::Only,
                                            {base::MakeOsmWay(5), base::MakeOsmWay(7)}),
        ());
-  my::SortUnique(restrictionCollector.m_restrictions);
+  base::SortUnique(restrictionCollector.m_restrictions);
 
   // Checking the result.
   TEST(restrictionCollector.IsValid(), ());

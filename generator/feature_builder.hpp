@@ -88,7 +88,7 @@ public:
 
   template <class FnT> bool RemoveTypesIf(FnT fn)
   {
-    my::EraseIf(m_params.m_types, fn);
+    base::EraseIf(m_params.m_types, fn);
     return m_params.m_types.empty();
   }
 

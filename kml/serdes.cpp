@@ -317,7 +317,7 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
 void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
                       std::string const & extendedServerId)
 {
-  for (uint8_t i = 0; i < my::Key(PredefinedColor::Count); ++i)
+  for (uint8_t i = 0; i < base::Key(PredefinedColor::Count); ++i)
     SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)));
 
   // Use CDATA if we have special symbols in the name.

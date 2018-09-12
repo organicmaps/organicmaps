@@ -46,7 +46,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
     fields.push_back(EType::FMD_INTERNET);
-    my::SortUnique(fields);
+    base::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
   {
@@ -57,7 +57,7 @@ UNIT_TEST(EditorConfig_TypeDescription)
     TEST(desc.IsAddressEditable(), ());
     auto fields = poi;
     fields.push_back(EType::FMD_OPERATOR);
-    my::SortUnique(fields);
+    base::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
   {

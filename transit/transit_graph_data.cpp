@@ -214,7 +214,7 @@ void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap 
   // Note. It's possible that two stops are connected with the same line several times
   // in the same direction. It happens in Oslo metro (T-banen):
   // https://en.wikipedia.org/wiki/Oslo_Metro#/media/File:Oslo_Metro_Map.svg branch 5.
-  my::SortUnique(m_edges,
+  base::SortUnique(m_edges,
                  [](Edge const & e1, Edge const & e2) {
                    if (e1 != e2)
                      return e1 < e2;

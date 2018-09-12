@@ -290,7 +290,7 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
   }
 
   if (outgoingTurns.isCandidatesAngleValid)
-    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), my::LessBy(&TurnCandidate::m_angle));
+    sort(outgoingTurns.candidates.begin(), outgoingTurns.candidates.end(), base::LessBy(&TurnCandidate::m_angle));
 }
 
 void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction const & currJunction,

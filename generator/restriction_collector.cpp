@@ -55,7 +55,7 @@ RestrictionCollector::RestrictionCollector(std::string const & restrictionPath,
   }
   clean.release();
 
-  my::SortUnique(m_restrictions);
+  base::SortUnique(m_restrictions);
 
   if (!IsValid())
     LOG(LERROR, ("Some restrictions are not valid."));

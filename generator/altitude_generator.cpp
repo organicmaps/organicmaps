@@ -141,7 +141,7 @@ public:
   bool IsFeatureAltitudesSorted()
   {
     return std::is_sorted(m_featureAltitudes.begin(), m_featureAltitudes.end(),
-                          my::LessBy(&Processor::FeatureAltitude::m_featureId));
+                          base::LessBy(&Processor::FeatureAltitude::m_featureId));
   }
 
 private:

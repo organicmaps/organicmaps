@@ -4,7 +4,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 using namespace strings;

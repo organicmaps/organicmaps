@@ -408,7 +408,7 @@ void User::NotifySubscribersImpl()
 
 void User::ClearSubscribersImpl()
 {
-  my::EraseIf(m_subscribers, [](auto const & s) { return s == nullptr; });
+  base::EraseIf(m_subscribers, [](auto const & s) { return s == nullptr; });
 }
 
 void User::RequestUserDetails()

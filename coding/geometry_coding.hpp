@@ -12,7 +12,7 @@
 #include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/buffer_vector.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -251,7 +251,7 @@ void LoadOuter(DecodeFunT fn, TSource & src, GeometryCodingParams const & params
 
   DeltasT deltas;
   deltas.reserve(count / 2);
-  ReadVarUint64Array(p, p + count, MakeBackInsertFunctor(deltas));
+  ReadVarUint64Array(p, p + count, base::MakeBackInsertFunctor(deltas));
 
   Decode(fn, deltas, params, points, reserveF);
 }

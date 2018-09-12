@@ -6,7 +6,7 @@
 #include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/exception.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cstddef>
 #include <type_traits>
@@ -257,7 +257,7 @@ void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
 template <typename F> inline
 void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, IdFunctor());
+  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, base::IdFunctor());
 }
 
 template <typename F> inline
@@ -270,7 +270,7 @@ void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
 template <typename F> inline
 void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
 {
-  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, IdFunctor());
+  return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
 }
 
 template <class Cont, class Sink>

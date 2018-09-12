@@ -42,8 +42,8 @@ void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && e
   vector<Result> actual;
   geocoder.ProcessQuery(query, actual);
   TEST_EQUAL(actual.size(), expected.size(), (actual, expected));
-  sort(actual.begin(), actual.end(), my::LessBy(&Result::m_osmId));
-  sort(expected.begin(), expected.end(), my::LessBy(&Result::m_osmId));
+  sort(actual.begin(), actual.end(), base::LessBy(&Result::m_osmId));
+  sort(expected.begin(), expected.end(), base::LessBy(&Result::m_osmId));
   for (size_t i = 0; i < actual.size(); ++i)
   {
     TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, ());

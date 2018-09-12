@@ -141,7 +141,7 @@ void PreRanker::Filter(bool viewportSearch)
   };
 
   sort(m_results.begin(), m_results.end(), comparePreRankerResults);
-  m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreRankerResult::GetId)),
+  m_results.erase(unique(m_results.begin(), m_results.end(), base::EqualsBy(&PreRankerResult::GetId)),
                   m_results.end());
 
   bool const centersLoaded =
@@ -243,7 +243,7 @@ void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
 
-  my::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
+  ::base::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
     auto const & info = result.GetInfo();
     return !viewport.IsPointInside(info.m_center);
   });

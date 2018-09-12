@@ -12,8 +12,8 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "base/stl_add.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/iterator_facade.hpp"
 

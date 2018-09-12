@@ -29,10 +29,10 @@
 
 #include "geometry/any_rect2d.hpp"
 
-#include "base/timer.hpp"
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
+#include "base/timer.hpp"
 
 #include <algorithm>
 #include <chrono>

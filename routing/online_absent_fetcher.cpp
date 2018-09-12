@@ -60,7 +60,7 @@ void OnlineAbsentCountriesFetcher::GetAbsentCountries(vector<string> & countries
   }
   m_fetcherThread.reset();
 
-  my::SortUnique(countries);
+  base::SortUnique(countries);
 }
 
 bool OnlineAbsentCountriesFetcher::AllPointsInSameMwm(Checkpoints const & checkpoints) const

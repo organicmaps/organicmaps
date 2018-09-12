@@ -20,7 +20,7 @@ static uint8_t kAdultsCount = 2;
 static int8_t kAgeOfChild = 5;
 static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
 
-std::array<ftypes::IsHotelChecker::Type, my::Key(ftypes::IsHotelChecker::Type::Count)> const
+std::array<ftypes::IsHotelChecker::Type, base::Key(ftypes::IsHotelChecker::Type::Count)> const
     kTypes = {{ftypes::IsHotelChecker::Type::Hotel, ftypes::IsHotelChecker::Type::Apartment,
                ftypes::IsHotelChecker::Type::CampSite, ftypes::IsHotelChecker::Type::Chalet,
                ftypes::IsHotelChecker::Type::GuestHouse, ftypes::IsHotelChecker::Type::Hostel,
@@ -141,7 +141,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   {
     m_selectedTypes.emplace(params.m_type);
     [self.type.collectionView
-                       selectItemAtIndexPath:[NSIndexPath indexPathForItem:my::Key(params.m_type)
+                       selectItemAtIndexPath:[NSIndexPath indexPathForItem:base::Key(params.m_type)
                                    inSection:0]
                                     animated:NO
                               scrollPosition:UICollectionViewScrollPositionNone];
@@ -398,7 +398,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return my::Key(Section::Count);
+  return base::Key(Section::Count);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

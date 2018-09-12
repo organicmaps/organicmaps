@@ -13,7 +13,7 @@
 
 #include "base/exception.hpp"
 #include "base/geo_object_id.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdlib>

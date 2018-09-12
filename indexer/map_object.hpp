@@ -158,7 +158,7 @@ std::vector<Props> MetadataToProps(std::vector<T> const & metadata)
       // Please add new cases when compiler issues an "unhandled switch case" warning here.
     }
   }
-  my::SortUnique(res);
+  base::SortUnique(res);
   return res;
 }
 }  // namespace osm

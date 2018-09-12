@@ -100,7 +100,7 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
 
         std::vector<QueryParams::String> categoryTokens;
         SplitUniString(search::NormalizeAndSimplifyString(categorySynonym.m_name),
-                       MakeBackInsertFunctor(categoryTokens), search::Delimiters());
+                       ::base::MakeBackInsertFunctor(categoryTokens), search::Delimiters());
 
         if (slice.Size() != categoryTokens.size())
           return;

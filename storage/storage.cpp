@@ -1389,7 +1389,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent, TCountriesVec & dow
 
   TCountriesVec uniqueDisputed(disputedTerritoriesWithoutSiblings.begin(),
                                disputedTerritoriesWithoutSiblings.end());
-  my::SortUnique(uniqueDisputed);
+  base::SortUnique(uniqueDisputed);
 
   for (auto const & countryId : uniqueDisputed)
   {

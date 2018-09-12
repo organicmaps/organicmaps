@@ -14,7 +14,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>

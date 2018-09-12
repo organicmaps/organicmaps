@@ -8,7 +8,7 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/cstdint.hpp"
@@ -25,7 +25,7 @@ NameScore GetScore(string const & name, string const & query, TokenRange const &
   QueryParams params;
 
   vector<UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(query), ::base::MakeBackInsertFunctor(tokens), delims);
 
   if (!query.empty() && !delims(strings::LastUniChar(query)))
   {

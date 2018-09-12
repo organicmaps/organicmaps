@@ -5,7 +5,7 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/iterator.hpp"
 #include "std/limits.hpp"
@@ -72,8 +72,8 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  double cp = m2::robust::OrientedS(*PrevIterInCycle(iRes, beg, end), *iRes,
-                                    *NextIterInCycle(iRes, beg, end));
+  double cp = m2::robust::OrientedS(*base::PrevIterInCycle(iRes, beg, end), *iRes,
+                                    *base::NextIterInCycle(iRes, beg, end));
   if (cp != 0.0)
     return (cp > 0.0);
 
@@ -88,8 +88,8 @@ template <typename IterT> bool IsPolygonCCW(IterT beg, IterT end)
     }
   }
 
-  IterT iPrev = PrevIterInCycle(iRes, beg, end);
-  IterT iNext = NextIterInCycle(iRes, beg, end);
+  IterT iPrev = base::PrevIterInCycle(iRes, beg, end);
+  IterT iNext = base::NextIterInCycle(iRes, beg, end);
   cp =  m2::robust::OrientedS(*iPrev, *iRes, *iNext);
 
   ASSERT_NOT_EQUAL(cp, 0.0, (*iPrev, *iRes, *iNext));
@@ -105,15 +105,15 @@ bool IsDiagonalVisible(IterT beg, IterT end, IterT i0, IterT i1)
   ASSERT ( TestPolygonPreconditions(beg, end), () );
   ASSERT ( i0 != i1, () );
 
-  IterT const prev = PrevIterInCycle(i0, beg, end);
-  IterT const next = NextIterInCycle(i0, beg, end);
+  IterT const prev = base::PrevIterInCycle(i0, beg, end);
+  IterT const next = base::NextIterInCycle(i0, beg, end);
   if (prev == i1 || next == i1)
     return true;
 
   if (!m2::robust::IsSegmentInCone(*i0, *i1, *prev, *next))
     return false;
 
-  for (IterT j0 = beg, j1 = PrevIterInCycle(beg, beg, end); j0 != end; j1 = j0++)
+  for (IterT j0 = beg, j1 = base::PrevIterInCycle(beg, beg, end); j0 != end; j1 = j0++)
     if (j0 != i0 && j0 != i1 && j1 != i0 && j1 != i1 && m2::robust::SegmentsIntersect(*i0, *i1, *j0, *j1))
       return false;
 
@@ -176,7 +176,7 @@ template <class TIter> double GetPolygonArea(TIter beg, TIter end)
   TIter curr = beg;
   while (curr != end)
   {
-    TIter next = NextIterInCycle(curr, beg, end);
+    TIter next = base::NextIterInCycle(curr, beg, end);
     area += ((*curr).x * (*next).y - (*curr).y * (*next).x);
     ++curr;
   }

@@ -8,7 +8,7 @@
 
 #include "geometry/screenbase.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <sstream>

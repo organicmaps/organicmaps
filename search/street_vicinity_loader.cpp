@@ -8,7 +8,7 @@
 #include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 namespace search
 {
@@ -50,7 +50,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
     return;
 
   vector<m2::PointD> points;
-  feature.ForEachPoint(MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
+  feature.ForEachPoint(::base::MakeBackInsertFunctor(points), FeatureType::BEST_GEOMETRY);
   ASSERT(!points.empty(), ());
 
   for (auto const & point : points)
@@ -58,7 +58,7 @@ void StreetVicinityLoader::LoadStreet(uint32_t featureId, Street & street)
 
   covering::CoveringGetter coveringGetter(street.m_rect, covering::ViewportWithLowLevels);
   auto const & intervals = coveringGetter.Get<RectId::DEPTH_LEVELS>(m_scale);
-  m_context->ForEachIndex(intervals, m_scale, MakeBackInsertFunctor(street.m_features));
+  m_context->ForEachIndex(intervals, m_scale, ::base::MakeBackInsertFunctor(street.m_features));
 
   street.m_calculator = make_unique<ProjectionOnStreetCalculator>(points);
 }

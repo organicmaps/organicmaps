@@ -3,7 +3,7 @@
 #include "geometry/nearby_points_sweeper.hpp"
 #include "geometry/point2d.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <set>
 #include <utility>
@@ -30,7 +30,7 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
     TIndexSet expected = {0};
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -48,7 +48,7 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
       TIndexSet expected = {0, 2, 5};
 
       TIndexSet actual;
-      sweeper.Sweep(MakeInsertFunctor(actual));
+      sweeper.Sweep(base::MakeInsertFunctor(actual));
 
       TEST_EQUAL(expected, actual, ());
     }
@@ -62,7 +62,7 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
       TIndexSet expected = {0, 2, 5};
 
       TIndexSet actual;
-      sweeper.Sweep(MakeInsertFunctor(actual));
+      sweeper.Sweep(base::MakeInsertFunctor(actual));
 
       TEST_EQUAL(expected, actual, ());
     }
@@ -80,7 +80,7 @@ UNIT_TEST(NearbyPointsSweeper_Smoke)
     TIndexSet expected = {0, 2, 3};
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -106,7 +106,7 @@ UNIT_TEST(NearbyPointsSweeper_CornerCases)
     }
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -118,7 +118,7 @@ UNIT_TEST(NearbyPointsSweeper_CornerCases)
 
     TIndexSet expected = {0};
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -134,7 +134,7 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TIndexSet expected = {9};
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -148,7 +148,7 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TIndexSet expected = {1, 3};
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }
@@ -163,7 +163,7 @@ UNIT_TEST(NearbyPointsSweeper_Priority)
     TIndexSet expected = {1, 3};
 
     TIndexSet actual;
-    sweeper.Sweep(MakeInsertFunctor(actual));
+    sweeper.Sweep(base::MakeInsertFunctor(actual));
 
     TEST_EQUAL(expected, actual, ());
   }

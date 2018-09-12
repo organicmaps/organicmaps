@@ -21,7 +21,7 @@ void MemTextIndex::SortPostings()
     // so we remove duplicates for the docid index.
     // If the count is needed for ranking it may be stored
     // separately.
-    my::SortUnique(entry.second);
+    ::base::SortUnique(entry.second);
   }
 }
 

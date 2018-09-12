@@ -33,7 +33,7 @@ bool IsContinuedBy(vector<PointD> const & hull, PointD const & p, double eps)
 
 vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
 {
-  my::SortUnique(points);
+  base::SortUnique(points);
 
   auto const n = points.size();
 

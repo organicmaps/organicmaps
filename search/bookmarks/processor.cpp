@@ -103,7 +103,7 @@ void Processor::Erase(Id const & id)
 void Processor::Search(QueryParams const & params) const
 {
   set<Id> ids;
-  auto insertId = MakeInsertFunctor(ids);
+  auto insertId = ::base::MakeInsertFunctor(ids);
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {

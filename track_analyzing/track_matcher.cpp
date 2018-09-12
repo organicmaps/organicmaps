@@ -190,7 +190,7 @@ void TrackMatcher::Step::FillCandidates(Step const & previousStep, IndexGraph & 
     }
   }
 
-  my::SortUnique(m_candidates);
+  base::SortUnique(m_candidates);
 
   m_candidates.erase(remove_if(m_candidates.begin(), m_candidates.end(),
                                [&](Candidate const & candidate) {

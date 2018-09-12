@@ -29,7 +29,7 @@
 #include "base/cancellable.hpp"
 #include "base/limited_priority_queue.hpp"
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/iterator.hpp"
@@ -153,7 +153,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   preRanker.UpdateResults(true /* lastUpdate */);
 
-  TEST(all_of(emit.begin(), emit.end(), IdFunctor()), (emit));
+  TEST(all_of(emit.begin(), emit.end(), ::base::IdFunctor()), (emit));
   TEST(ranker.Finished(), ());
   TEST_EQUAL(results.size(), kBatchSize, ());
 

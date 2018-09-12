@@ -8,7 +8,7 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -133,7 +133,7 @@ NameScore GetNameScore(std::string const & name, Slice const & slice)
     return NAME_SCORE_ZERO;
 
   std::vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), Delimiters());
+  SplitUniString(NormalizeAndSimplifyString(name), ::base::MakeBackInsertFunctor(tokens), Delimiters());
   return GetNameScore(tokens, slice);
 }
 

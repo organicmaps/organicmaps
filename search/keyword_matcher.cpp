@@ -5,7 +5,7 @@
 
 #include "base/assert.hpp"
 #include "base/buffer_vector.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -40,7 +40,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(string const & name) const
 KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const & name) const
 {
   buffer_vector<strings::UniString, kMaxNumTokens> tokens;
-  SplitUniString(name, MakeBackInsertFunctor(tokens), Delimiters());
+  SplitUniString(name, ::base::MakeBackInsertFunctor(tokens), Delimiters());
 
   return CalcScore(tokens.data(), tokens.size());
 }

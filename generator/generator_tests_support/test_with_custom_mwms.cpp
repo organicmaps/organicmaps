@@ -2,7 +2,7 @@
 
 #include "platform/local_country_file_utils.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 namespace generator
 {

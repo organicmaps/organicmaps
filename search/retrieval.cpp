@@ -107,7 +107,7 @@ private:
 
 unique_ptr<coding::CompressedBitVector> SortFeaturesAndBuildCBV(vector<uint64_t> && features)
 {
-  my::SortUnique(features);
+  ::base::SortUnique(features);
   return coding::CompressedBitVectorBuilder::FromBitPositions(move(features));
 }
 

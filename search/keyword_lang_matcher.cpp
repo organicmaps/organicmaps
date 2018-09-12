@@ -4,7 +4,7 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <limits>

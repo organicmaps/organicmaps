@@ -314,16 +314,16 @@ dp::FontDecl GetRoadShieldTextFont(dp::FontDecl const & baseFont, ftypes::RoadSh
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {my::Key(RoadShieldType::Generic_Green), kRoadShieldWhiteTextColor},
-      {my::Key(RoadShieldType::Generic_Blue), kRoadShieldWhiteTextColor},
-      {my::Key(RoadShieldType::UK_Highway), kRoadShieldUKYellowTextColor},
-      {my::Key(RoadShieldType::US_Interstate), kRoadShieldWhiteTextColor},
-      {my::Key(RoadShieldType::US_Highway), kRoadShieldBlackTextColor},
-      {my::Key(RoadShieldType::Generic_Red), kRoadShieldWhiteTextColor},
-      {my::Key(RoadShieldType::Generic_Orange), kRoadShieldBlackTextColor}
+      {base::Key(RoadShieldType::Generic_Green), kRoadShieldWhiteTextColor},
+      {base::Key(RoadShieldType::Generic_Blue), kRoadShieldWhiteTextColor},
+      {base::Key(RoadShieldType::UK_Highway), kRoadShieldUKYellowTextColor},
+      {base::Key(RoadShieldType::US_Interstate), kRoadShieldWhiteTextColor},
+      {base::Key(RoadShieldType::US_Highway), kRoadShieldBlackTextColor},
+      {base::Key(RoadShieldType::Generic_Red), kRoadShieldWhiteTextColor},
+      {base::Key(RoadShieldType::Generic_Orange), kRoadShieldBlackTextColor}
   };
 
-  auto it = kColors.find(my::Key(shield.m_type));
+  auto it = kColors.find(base::Key(shield.m_type));
   if (it != kColors.end())
     f.m_color = df::GetColorConstant(it->second);
 
@@ -335,14 +335,14 @@ dp::Color GetRoadShieldColor(dp::Color const & baseColor, ftypes::RoadShield con
   using ftypes::RoadShieldType;
 
   static std::unordered_map<int, df::ColorConstant> kColors = {
-      {my::Key(RoadShieldType::Generic_Green), kRoadShieldGreenBackgroundColor},
-      {my::Key(RoadShieldType::Generic_Blue), kRoadShieldBlueBackgroundColor},
-      {my::Key(RoadShieldType::UK_Highway), kRoadShieldGreenBackgroundColor},
-      {my::Key(RoadShieldType::Generic_Red), kRoadShieldRedBackgroundColor},
-      {my::Key(RoadShieldType::Generic_Orange), kRoadShieldOrangeBackgroundColor}
+      {base::Key(RoadShieldType::Generic_Green), kRoadShieldGreenBackgroundColor},
+      {base::Key(RoadShieldType::Generic_Blue), kRoadShieldBlueBackgroundColor},
+      {base::Key(RoadShieldType::UK_Highway), kRoadShieldGreenBackgroundColor},
+      {base::Key(RoadShieldType::Generic_Red), kRoadShieldRedBackgroundColor},
+      {base::Key(RoadShieldType::Generic_Orange), kRoadShieldOrangeBackgroundColor}
   };
 
-  auto it = kColors.find(my::Key(shield.m_type));
+  auto it = kColors.find(base::Key(shield.m_type));
   if (it != kColors.end())
     return df::GetColorConstant(it->second);
 

@@ -4,7 +4,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <sstream>
 #include <string>

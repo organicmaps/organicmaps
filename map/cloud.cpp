@@ -503,7 +503,7 @@ void Cloud::UpdateIndex(bool indexExists)
       MarkModifiedImpl(path.second, true /* isOutdated */);
 
     // Erase disappeared files from index.
-    my::EraseIf(m_index.m_entries, [this](EntryPtr const & entity) {
+    base::EraseIf(m_index.m_entries, [this](EntryPtr const & entity) {
       return m_files.find(entity->m_name) == m_files.end();
     });
 

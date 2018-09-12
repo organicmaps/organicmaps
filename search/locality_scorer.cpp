@@ -178,7 +178,7 @@ void LocalityScorer::LeaveTopByNormAndRank(size_t limitUniqueIds, vector<ExLocal
     seen.insert(els[i].GetId());
   ASSERT_LESS_OR_EQUAL(seen.size(), limitUniqueIds, ());
 
-  my::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
+  ::base::EraseIf(els, [&](ExLocality const & el) { return seen.find(el.GetId()) == seen.cend(); });
 }
 
 void LocalityScorer::LeaveTopBySimilarityAndRank(size_t limit, vector<ExLocality> & els) const

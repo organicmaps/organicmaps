@@ -32,7 +32,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
@@ -69,7 +69,7 @@ public:
         continue;
 
       tokens.clear();
-      strings::Tokenize(line, ":,", MakeBackInsertFunctor(tokens));
+      strings::Tokenize(line, ":,", base::MakeBackInsertFunctor(tokens));
 
       if (tokens.size() > 1)
       {
@@ -162,7 +162,7 @@ struct FeatureNameInserter
 
     // split input string on tokens
     search::QueryTokens tokens;
-    SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
+    SplitUniString(uniName, base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
     // add synonyms for input native string
     if (m_synonyms)
@@ -274,7 +274,7 @@ public:
       // See OSM TagInfo or Wiki about modern postcodes format. The
       // mean number of tokens is less than two.
       buffer_vector<strings::UniString, 2> tokens;
-      SplitUniString(NormalizeAndSimplifyString(postcode), MakeBackInsertFunctor(tokens),
+      SplitUniString(NormalizeAndSimplifyString(postcode), base::MakeBackInsertFunctor(tokens),
                      Delimiters());
       for (auto const & token : tokens)
         inserter.AddToken(kPostcodesLang, token);

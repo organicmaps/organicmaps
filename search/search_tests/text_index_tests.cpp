@@ -14,7 +14,7 @@
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/transform_iterator.hpp"
@@ -72,7 +72,7 @@ template <typename Index, typename Token>
 void TestForEach(Index const & index, Token const & token, vector<uint32_t> const & expected)
 {
   vector<uint32_t> actual;
-  index.ForEachPosting(token, MakeBackInsertFunctor(actual));
+  index.ForEachPosting(token, ::base::MakeBackInsertFunctor(actual));
   TEST_EQUAL(actual, expected, (token));
 };
 }  // namespace

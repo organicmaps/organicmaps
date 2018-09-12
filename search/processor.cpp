@@ -44,7 +44,6 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -223,7 +222,7 @@ void Processor::SetQuery(string const & query)
   vector<strings::UniString> tokens;
   {
     search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
-    SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(tokens), delims);
+    SplitUniString(NormalizeAndSimplifyString(query), ::base::MakeBackInsertFunctor(tokens), delims);
   }
 
   search::Delimiters delims;
@@ -238,7 +237,7 @@ void Processor::SetQuery(string const & query)
       // Splits |token| by hashtags, because all other delimiters are
       // already removed.
       subTokens.clear();
-      SplitUniString(token, MakeBackInsertFunctor(subTokens), delims);
+      SplitUniString(token, ::base::MakeBackInsertFunctor(subTokens), delims);
       if (subTokens.empty())
         continue;
 
@@ -281,7 +280,7 @@ void Processor::SetQuery(string const & query)
   if (!m_isCategorialRequest)
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
 
-  my::SortUnique(m_preferredTypes);
+  ::base::SortUnique(m_preferredTypes);
 }
 
 m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
@@ -531,7 +530,7 @@ void Processor::InitParams(QueryParams & params) const
   }
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
-    my::SortUnique(params.GetTypeIndices(i));
+    ::base::SortUnique(params.GetTypeIndices(i));
 
   m_keywordsScorer.ForEachLanguage(
       [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });

@@ -375,7 +375,7 @@ void const * LoadInner(DecodeFunT fn, void const * pBeg, size_t count,
   DeltasT deltas;
   deltas.reserve(count);
   void const * ret =
-      ReadVarUint64Array(static_cast<char const *>(pBeg), count, MakeBackInsertFunctor(deltas));
+      ReadVarUint64Array(static_cast<char const *>(pBeg), count, base::MakeBackInsertFunctor(deltas));
 
   Decode(fn, deltas, params, points);
   return ret;

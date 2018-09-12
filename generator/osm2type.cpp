@@ -9,7 +9,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -233,7 +233,7 @@ namespace ftype
     {
       Classificator const & c = classif();
 
-      my::StringIL arr[] =
+      base::StringIL arr[] =
       {
         {"entrance"}, {"highway"},
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
@@ -439,13 +439,13 @@ namespace ftype
     if (!isHighway || (surface.empty() && smoothness.empty()))
       return string();
 
-    static my::StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
-                                         "sett", "concrete", "concrete:lanes", "concrete:plates",
-                                         "paving_stones", "metal", "wood"};
-    static my::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
-                                       "mud", "sand", "snow", "woodchips"};
-    static my::StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
-                                         "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+    static base::StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
+                                           "sett", "concrete", "concrete:lanes", "concrete:plates",
+                                           "paving_stones", "metal", "wood"};
+    static base::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
+                                         "mud", "sand", "snow", "woodchips"};
+    static base::StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
+                                           "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
 
     bool isPaved = false;
     bool isGood = true;

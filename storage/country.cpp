@@ -49,7 +49,7 @@ public:
   ~StoreCountriesSingleMwms()
   {
     for (auto & entry : m_affiliations)
-      my::SortUnique(entry.second);
+      base::SortUnique(entry.second);
   }
 
   // StoreSingleMwmInterface overrides:

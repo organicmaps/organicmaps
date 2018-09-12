@@ -88,7 +88,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
     handleField(fieldName);
   }
 
-  my::SortUnique(outDesc.m_editableFields);
+  base::SortUnique(outDesc.m_editableFields);
   return true;
 }
 

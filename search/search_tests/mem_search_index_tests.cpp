@@ -7,7 +7,6 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/uni_string_dfa.hpp"
@@ -59,7 +58,7 @@ public:
   vector<Id> StrictQuery(string const & query, string const & lang) const
   {
     auto prev = m_index.GetAllIds();
-    TEST(IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
+    TEST(::base::IsSortedAndUnique(prev.cbegin(), prev.cend()), ());
 
     vector<UniString> tokens;
     NormalizeAndTokenizeString(query, tokens);
@@ -73,7 +72,7 @@ public:
       MatchFeaturesInTrie(request, m_index.GetRootIterator(),
                           [](Id const & /* id */) { return true; } /* filter */,
                           [&curr](Id const & id) { curr.push_back(id); } /* toDo */);
-      my::SortUnique(curr);
+      ::base::SortUnique(curr);
 
       vector<Id> intersection;
       set_intersection(prev.begin(), prev.end(), curr.begin(), curr.end(),

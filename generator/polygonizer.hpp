@@ -73,7 +73,7 @@ namespace feature
     ~Polygonizer()
     {
       Finish();
-      for_each(m_Buckets.begin(), m_Buckets.end(), DeleteFunctor());
+      for_each(m_Buckets.begin(), m_Buckets.end(), base::DeleteFunctor());
     }
 
     struct PointChecker

@@ -70,7 +70,7 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
     meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
 
     auto const tourism = classif().GetTypeByPath({"tourism"});
-    my::EraseIf(params.m_types, [tourism](uint32_t type)
+    base::EraseIf(params.m_types, [tourism](uint32_t type)
     {
       ftype::TruncValue(type, 1);
       return type == tourism;

@@ -10,7 +10,6 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -70,9 +69,9 @@ private:
       return;
 
     auto const & tokens = m_dict.GetTokens();
-    m_index1.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(m_postings));
-    m_index2.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(m_postings));
-    my::SortUnique(m_postings);
+    m_index1.ForEachPosting(tokens[m_tokenId], ::base::MakeBackInsertFunctor(m_postings));
+    m_index2.ForEachPosting(tokens[m_tokenId], ::base::MakeBackInsertFunctor(m_postings));
+    ::base::SortUnique(m_postings);
   }
 
   TextIndexDictionary const & m_dict;

@@ -5,7 +5,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <string>
 #include <vector>
@@ -36,7 +36,7 @@ inline uint32_t GetType(char const * (&arr)[N])
   return classif().GetTypeByPath(path);
 }
 
-inline uint32_t GetType(my::StringIL const & lst)
+inline uint32_t GetType(base::StringIL const & lst)
 {
   return classif().GetTypeByPath(lst);
 }

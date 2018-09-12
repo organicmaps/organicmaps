@@ -1,6 +1,6 @@
 #include "indexer/cuisines.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 using namespace std;
@@ -32,7 +32,7 @@ string TranslateImpl(platform::TGetTextByIdPtr const & ptr, string const & key)
 
 void Cuisines::Parse(string const & osmRawCuisinesTagValue, vector<string> & outCuisines)
 {
-  strings::Tokenize(osmRawCuisinesTagValue, ";", MakeBackInsertFunctor(outCuisines));
+  strings::Tokenize(osmRawCuisinesTagValue, ";", base::MakeBackInsertFunctor(outCuisines));
 }
 
 void Cuisines::ParseAndLocalize(string const & osmRawCuisinesTagValue, vector<string> & outCuisines,

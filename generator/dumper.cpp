@@ -131,7 +131,7 @@ namespace feature
 
       vector<strings::UniString> tokens;
       search::SplitUniString(search::NormalizeAndSimplifyString(name),
-                             MakeBackInsertFunctor(tokens), search::Delimiters());
+                             base::MakeBackInsertFunctor(tokens), search::Delimiters());
 
       if (tokens.empty())
         return;

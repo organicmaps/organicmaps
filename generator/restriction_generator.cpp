@@ -38,7 +38,7 @@ bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & rest
   auto const firstOnlyIt =
       std::lower_bound(restrictions.cbegin(), restrictions.cend(),
                        Restriction(Restriction::Type::Only, {} /* links */),
-                       my::LessBy(&Restriction::m_type));
+                       base::LessBy(&Restriction::m_type));
 
   RestrictionHeader header;
   header.m_noRestrictionCount = base::checked_cast<uint32_t>(std::distance(restrictions.cbegin(), firstOnlyIt));

@@ -7,7 +7,7 @@
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cstring>
 #include <functional>
@@ -262,7 +262,7 @@ public:
 
   ~PartialBatcherTest()
   {
-    std::for_each(m_comparators.begin(), m_comparators.end(), DeleteFunctor());
+    std::for_each(m_comparators.begin(), m_comparators.end(), base::DeleteFunctor());
   }
 
   void AddBufferNode(BufferNode const & node)

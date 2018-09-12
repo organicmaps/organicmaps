@@ -23,9 +23,9 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
   CHECK(!turns.empty(), ());
   CHECK(!times.empty(), ());
 
-  CHECK(is_sorted(turns.cbegin(), turns.cend(), my::LessBy(&turns::TurnItem::m_index)), ());
-  CHECK(is_sorted(streets.cbegin(), streets.cend(), my::LessBy(&Route::TStreetItem::first)), ());
-  CHECK(is_sorted(times.cbegin(), times.cend(), my::LessBy(&Route::TTimeItem::first)), ());
+  CHECK(is_sorted(turns.cbegin(), turns.cend(), base::LessBy(&turns::TurnItem::m_index)), ());
+  CHECK(is_sorted(streets.cbegin(), streets.cend(), base::LessBy(&Route::TStreetItem::first)), ());
+  CHECK(is_sorted(times.cbegin(), times.cend(), base::LessBy(&Route::TTimeItem::first)), ());
 
   CHECK_LESS(turns.back().m_index, junctions.size(), ());
   if (!streets.empty())

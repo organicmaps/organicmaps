@@ -630,7 +630,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   {
     if (auto const price = data.hotelRawApproximatePricing)
     {
-      CHECK_LESS_OR_EQUAL(*price, my::Key(search_filter::Price::Three), ());
+      CHECK_LESS_OR_EQUAL(*price, base::Key(search_filter::Price::Three), ());
       params.m_price = static_cast<search_filter::Price>(*price);
     }
 

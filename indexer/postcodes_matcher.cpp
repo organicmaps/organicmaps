@@ -5,7 +5,7 @@
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -76,7 +76,7 @@ private:
   void AddString(UniString const & s, search::Delimiters & delimiters)
   {
     vector<UniString> tokens;
-    SplitUniString(s, MakeBackInsertFunctor(tokens), delimiters);
+    SplitUniString(s, base::MakeBackInsertFunctor(tokens), delimiters);
     StringSlice slice(tokens);
 
     m_maxNumTokensInPostcode = max(m_maxNumTokensInPostcode, tokens.size());

@@ -4,7 +4,7 @@
 #include "coding/byte_stream.hpp"
 
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <vector>
 
@@ -111,10 +111,10 @@ UNIT_TEST(VarIntMax)
 UNIT_TEST(ReadVarInt64Array_EmptyArray)
 {
   vector<int64_t> result;
-  void const * pEnd = ReadVarInt64Array(NULL, (void *)0, MakeBackInsertFunctor(result));
+  void const * pEnd = ReadVarInt64Array(NULL, (void *)0, base::MakeBackInsertFunctor(result));
   TEST_EQUAL(result, vector<int64_t>(), ("UntilBufferEnd"));
   TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("UntilBufferEnd"));
-  pEnd = ReadVarInt64Array(NULL, (size_t)0, MakeBackInsertFunctor(result));
+  pEnd = ReadVarInt64Array(NULL, (size_t)0, base::MakeBackInsertFunctor(result));
   TEST_EQUAL(result, vector<int64_t>(), ("GivenSize"));
   TEST_EQUAL(reinterpret_cast<uintptr_t>(pEnd), 0, ("GivenSize"));
 }
@@ -165,7 +165,7 @@ UNIT_TEST(ReadVarInt64Array)
 
       vector<int64_t> result;
       void const * pEnd = ReadVarInt64Array(pDataStart, pDataEnd,
-                                            MakeBackInsertFunctor(result));
+                                            base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, pDataEnd, ("UntilBufferEnd", data.size()));
       TEST_EQUAL(result, testValues, ("UntilBufferEnd", data.size()));
@@ -173,7 +173,7 @@ UNIT_TEST(ReadVarInt64Array)
     {
       vector<int64_t> result;
       void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(),
-                                            MakeBackInsertFunctor(result));
+                                            base::MakeBackInsertFunctor(result));
 
       TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));
       TEST_EQUAL(result, testValues, ("GivenSize", data.size()));

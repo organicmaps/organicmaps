@@ -138,7 +138,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
     parentGraph.emplace_back();
     FeaturesLayer parent(*layers[i]);
     if (i != layers.size() - 1)
-      my::SortUnique(reachable);
+      ::base::SortUnique(reachable);
     parent.m_sortedFeatures = &reachable;
 
     // The first condition is an optimization: it is enough to extract
@@ -202,7 +202,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     parentGraph.emplace_front();
     FeaturesLayer child(*layers[i]);
     if (i != 0)
-      my::SortUnique(reachable);
+      ::base::SortUnique(reachable);
     child.m_sortedFeatures = &reachable;
     child.m_hasDelayedFeatures = (i == 0 && MayHaveDelayedFeatures(child));
 
@@ -216,7 +216,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
     first = false;
   }
 
-  my::SortUnique(lowestLevel);
+  ::base::SortUnique(lowestLevel);
 
   IntersectionResult result;
   for (auto const & id : lowestLevel)

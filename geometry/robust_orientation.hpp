@@ -2,7 +2,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <iterator>
@@ -51,8 +51,8 @@ bool CheckPolygonSelfIntersections(Iter beg, Iter end)
       if (std::distance(i, j) <= 1 || (i == beg && j == last))
         continue;
 
-      Iter ii = NextIterInCycle(i, beg, end);
-      Iter jj = NextIterInCycle(j, beg, end);
+      Iter ii = base::NextIterInCycle(i, beg, end);
+      Iter jj = base::NextIterInCycle(j, beg, end);
       PointD a = *i, b = *ii, c = *j, d = *jj;
 
       // check for rect intersection
@@ -78,13 +78,13 @@ bool CheckPolygonSelfIntersections(Iter beg, Iter end)
 
       if (s1 == 0.0 && IsInSection(a, b, c))
       {
-        PointD const prev = *PrevIterInCycle(j, beg, end);
+        PointD const prev = *base::PrevIterInCycle(j, beg, end);
 
         PointD test[] = {a, b};
         if (a == c)
-          test[0] = *PrevIterInCycle(i, beg, end);
+          test[0] = *base::PrevIterInCycle(i, beg, end);
         if (b == c)
-          test[1] = *NextIterInCycle(ii, beg, end);
+          test[1] = *base::NextIterInCycle(ii, beg, end);
 
         if (IsSegmentInCone(c, test[0], prev, d) == IsSegmentInCone(c, test[1], prev, d))
           continue;
@@ -92,13 +92,13 @@ bool CheckPolygonSelfIntersections(Iter beg, Iter end)
 
       if (s2 == 0.0 && IsInSection(a, b, d))
       {
-        PointD const next = *NextIterInCycle(jj, beg, end);
+        PointD const next = *base::NextIterInCycle(jj, beg, end);
 
         PointD test[] = {a, b};
         if (a == d)
-          test[0] = *PrevIterInCycle(i, beg, end);
+          test[0] = *base::PrevIterInCycle(i, beg, end);
         if (b == d)
-          test[1] = *NextIterInCycle(ii, beg, end);
+          test[1] = *base::NextIterInCycle(ii, beg, end);
 
         if (IsSegmentInCone(d, test[0], c, next) == IsSegmentInCone(d, test[1], c, next))
           continue;
@@ -106,13 +106,13 @@ bool CheckPolygonSelfIntersections(Iter beg, Iter end)
 
       if (s3 == 0.0 && IsInSection(c, d, a))
       {
-        PointD const prev = *PrevIterInCycle(i, beg, end);
+        PointD const prev = *base::PrevIterInCycle(i, beg, end);
 
         PointD test[] = {c, d};
         if (c == a)
-          test[0] = *PrevIterInCycle(j, beg, end);
+          test[0] = *base::PrevIterInCycle(j, beg, end);
         if (d == a)
-          test[1] = *NextIterInCycle(jj, beg, end);
+          test[1] = *base::NextIterInCycle(jj, beg, end);
 
         if (IsSegmentInCone(a, test[0], prev, b) == IsSegmentInCone(a, test[1], prev, b))
           continue;
@@ -120,13 +120,13 @@ bool CheckPolygonSelfIntersections(Iter beg, Iter end)
 
       if (s4 == 0.0 && IsInSection(c, d, b))
       {
-        PointD const next = *NextIterInCycle(ii, beg, end);
+        PointD const next = *base::NextIterInCycle(ii, beg, end);
 
         PointD test[] = {c, d};
         if (c == b)
-          test[0] = *PrevIterInCycle(j, beg, end);
+          test[0] = *base::PrevIterInCycle(j, beg, end);
         if (d == b)
-          test[1] = *NextIterInCycle(jj, beg, end);
+          test[1] = *base::NextIterInCycle(jj, beg, end);
 
         if (IsSegmentInCone(b, test[0], a, next) == IsSegmentInCone(b, test[1], a, next))
           continue;

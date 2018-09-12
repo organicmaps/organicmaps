@@ -14,7 +14,7 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <cstdint>
 #include <set>
@@ -69,7 +69,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
   TEST_EQUAL(dataSource.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
-  my::StringIL arr[] = {{"shop"}, {"office"}};
+  base::StringIL arr[] = {{"shop"}, {"office"}};
 
   Classificator const & cl = classif();
   set<uint32_t> types;

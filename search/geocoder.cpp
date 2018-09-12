@@ -428,7 +428,7 @@ void Geocoder::GoInViewport()
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
-  my::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
+  ::base::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
     return !m_params.m_pivot.IsIntersect(info->m_bordersRect);
   });
 
@@ -1169,7 +1169,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         return !filtered.HasBit(bit);
       };
       for (auto & cluster : clusters)
-        my::EraseIf(cluster, noFeature);
+        ::base::EraseIf(cluster, noFeature);
 
       size_t curs[kNumClusters] = {};
       size_t ends[kNumClusters];
@@ -1275,7 +1275,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
   sortedLayers.reserve(layers.size());
   for (auto const & layer : layers)
     sortedLayers.push_back(&layer);
-  sort(sortedLayers.begin(), sortedLayers.end(), my::LessBy(&FeaturesLayer::m_type));
+  sort(sortedLayers.begin(), sortedLayers.end(), ::base::LessBy(&FeaturesLayer::m_type));
 
   auto const & innermostLayer = *sortedLayers.front();
 

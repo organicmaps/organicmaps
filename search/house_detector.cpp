@@ -851,7 +851,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
 {
   // LOG(LDEBUG, ("IDs = ", ids));
 
-  ASSERT(IsSortedAndUnique(ids.begin(), ids.end()), ());
+  ASSERT(base::IsSortedAndUnique(ids.begin(), ids.end()), ());
 
   // Check if the cache is obsolete and need to be cleared.
   if (!m_id2st.empty())
@@ -1191,7 +1191,7 @@ void HouseDetector::ClearUnusedStreets(vector<FeatureID> const & ids)
   m_streets.erase(remove_if(m_streets.begin(), m_streets.end(), HasStreet(streets)),
                   m_streets.end());
 
-  for_each(streets.begin(), streets.end(), DeleteFunctor());
+  for_each(streets.begin(), streets.end(), base::DeleteFunctor());
 }
 
 template <typename T>

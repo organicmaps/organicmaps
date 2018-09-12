@@ -194,10 +194,10 @@ std::vector<LinearSegment> LoadSegments(pugi::xml_document & document)
     segments.resize(FLAGS_limit);
   }
 
-  my::EraseIf(segments,
-              [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
+  base::EraseIf(segments,
+                [&filter](LinearSegment const & segment) { return !filter.Matches(segment); });
 
-  std::sort(segments.begin(), segments.end(), my::LessBy(&LinearSegment::m_segmentId));
+  std::sort(segments.begin(), segments.end(), base::LessBy(&LinearSegment::m_segmentId));
 
   return segments;
 }

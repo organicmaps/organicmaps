@@ -3,7 +3,6 @@
 #include "search_string_utils.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -33,7 +32,7 @@ template <typename TF>
 void ForEachToken(string const & s, TF && fn)
 {
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens),
+  SplitUniString(search::NormalizeAndSimplifyString(s), base::MakeBackInsertFunctor(tokens),
                  search::Delimiters());
   for (auto const & token : tokens)
     fn(strings::ToUtf8(token));
@@ -96,7 +95,7 @@ void CategoriesIndex::GetCategories(string const & query, vector<Category> & res
 {
   vector<uint32_t> types;
   GetAssociatedTypes(query, types);
-  my::SortUnique(types);
+  base::SortUnique(types);
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
                                       {
                                         if (binary_search(types.begin(), types.end(), type))

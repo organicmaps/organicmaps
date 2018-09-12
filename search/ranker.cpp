@@ -478,7 +478,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   if (m_params.m_viewportSearch)
   {
     sort(m_tentativeResults.begin(), m_tentativeResults.end(),
-         my::LessBy(&RankerResult::GetDistanceToPivot));
+         ::base::LessBy(&RankerResult::GetDistanceToPivot));
   }
   else
   {
@@ -486,7 +486,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     // but the model is lightweight enough and the slowdown
     // is negligible.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
-         my::LessBy(&RankerResult::GetLinearModelRank));
+         ::base::LessBy(&RankerResult::GetLinearModelRank));
     ProcessSuggestions(m_tentativeResults);
   }
 

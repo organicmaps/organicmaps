@@ -189,7 +189,7 @@ void LevenshteinDFA::State::Normalize()
   }
 
   m_positions.erase(m_positions.begin() + j, m_positions.end());
-  my::SortUnique(m_positions);
+  base::SortUnique(m_positions);
 }
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
         m_alphabet.insert(m_alphabet.end(), misprints.begin(), misprints.end());
     }
   }
-  my::SortUnique(m_alphabet);
+  base::SortUnique(m_alphabet);
 
   UniChar missed = 0;
   for (size_t i = 0; i < m_alphabet.size() && missed >= m_alphabet[i]; ++i)

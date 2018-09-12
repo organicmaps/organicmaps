@@ -4,7 +4,7 @@
 
 #include "indexer/search_delimiters.hpp"
 
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstdint>
@@ -111,7 +111,7 @@ UNIT_TEST(StringSplit_Smoke)
     TEST_EQUAL(ToUtf8(s1), s, ());
 
     char const * arr[] = { "1", "2" };
-    SplitUniString(s1, MakeBackInsertFunctor(tokens), Delimiters());
+    SplitUniString(s1, ::base::MakeBackInsertFunctor(tokens), Delimiters());
     TestEqual(tokens, arr);
   }
 }

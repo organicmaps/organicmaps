@@ -29,9 +29,9 @@ void TestFindStrip(P const * beg, size_t n)
   TEST_LESS(i, n, ());
 
   vector<size_t> test;
-  MakeSingleStripFromIndex(i, n, MakeBackInsertFunctor(test));
+  MakeSingleStripFromIndex(i, n, base::MakeBackInsertFunctor(test));
 
-  my::SortUnique(test);
+  base::SortUnique(test);
   TEST_EQUAL(test.size(), n, ());
 }
 

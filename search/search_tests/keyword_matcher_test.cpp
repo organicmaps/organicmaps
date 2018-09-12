@@ -7,7 +7,7 @@
 #include "indexer/search_string_utils.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/sstream.hpp"
 #include "std/vector.hpp"

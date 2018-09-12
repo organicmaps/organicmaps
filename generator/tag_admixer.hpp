@@ -3,7 +3,7 @@
 #include "generator/osm_element.hpp"
 
 #include "base/logging.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <fstream>

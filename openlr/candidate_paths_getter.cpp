@@ -178,7 +178,7 @@ void CandidatePathsGetter::GetStartLines(vector<m2::PointD> const & points, bool
   }
 
   // Same edges may start on different points if those points are close enough.
-  my::SortUnique(edges, less<Graph::Edge>(), EdgesAreAlmostEqual);
+  base::SortUnique(edges, less<Graph::Edge>(), EdgesAreAlmostEqual);
 }
 
 void CandidatePathsGetter::GetAllSuitablePaths(Graph::EdgeVector const & startLines,

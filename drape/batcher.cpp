@@ -6,7 +6,7 @@
 #include "drape/vertex_array_buffer.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/bind.hpp"
 

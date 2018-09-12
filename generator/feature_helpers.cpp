@@ -55,6 +55,6 @@ m2::PointD CalculateMidPoints::GetCenter() const
 
 void CalculateMidPoints::Sort()
 {
-  sort(m_vec.begin(), m_vec.end(), my::LessBy(&CellAndOffset::first));
+  sort(m_vec.begin(), m_vec.end(), base::LessBy(&CellAndOffset::first));
 }
 }  // namespace feature

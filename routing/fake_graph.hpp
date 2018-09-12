@@ -59,7 +59,7 @@ public:
                                   std::map<SegmentType, VertexType> const & rhs) {
       auto const counter =
           std::set_intersection(lhs.begin(), lhs.end(), rhs.begin(), rhs.end(), CounterIterator(),
-                                my::LessBy(&std::pair<SegmentType, VertexType>::first));
+                                base::LessBy(&std::pair<SegmentType, VertexType>::first));
       return counter.GetCount() == 0;
     };
 

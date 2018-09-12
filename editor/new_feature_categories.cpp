@@ -56,7 +56,7 @@ void NewFeatureCategories::AddLanguage(string lang)
     m_index.AddCategoryByTypeAndLang(type, langCode);
     names.emplace_back(m_index.GetCategoriesHolder()->GetReadableFeatureType(type, langCode), type);
   }
-  my::SortUnique(names);
+  base::SortUnique(names);
   m_categoriesByLang[lang] = names;
 }
 
@@ -78,7 +78,7 @@ NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, 
         m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode);
     result[i].second = resultTypes[i];
   }
-  my::SortUnique(result);
+  base::SortUnique(result);
 
   alohalytics::TStringMap const stats = {
       {"query", query}, {"lang", lang}};

@@ -63,7 +63,7 @@ string DebugPrint(Tracer::Parse const & parse)
 vector<Tracer::Parse> Tracer::GetUniqueParses() const
 {
   auto parses = m_parses;
-  my::SortUnique(parses);
+  ::base::SortUnique(parses);
   return parses;
 }
 }  // namespace search

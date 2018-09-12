@@ -315,7 +315,7 @@ bool ParseLanes(string lanesString, vector<SingleLaneInfo> & lanes)
     return false;
   lanes.clear();
   strings::AsciiToLower(lanesString);
-  my::EraseIf(lanesString, [](char c) { return isspace(c); });
+  base::EraseIf(lanesString, [](char c) { return isspace(c); });
 
   vector<string> SplitLanesStrings;
   SingleLaneInfo lane;

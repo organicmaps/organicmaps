@@ -853,7 +853,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   if (nodes.isCandidatesAngleValid)
   {
     ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates
-        .end(), my::LessBy(&TurnCandidate::m_angle)),
+        .end(), base::LessBy(&TurnCandidate::m_angle)),
            ("Turn candidates should be sorted by its angle field."));
   }
 

@@ -11,7 +11,7 @@
 #include "base/assert.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/uni_string_dfa.hpp"
 

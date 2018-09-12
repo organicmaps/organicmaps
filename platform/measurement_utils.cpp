@@ -6,7 +6,7 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cmath>

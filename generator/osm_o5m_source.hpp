@@ -141,7 +141,7 @@ public:
       case EntityType::Sync:      s << "O5M_CMD_SYNC";
       case EntityType::Jump:      s << "O5M_CMD_JUMP";
       case EntityType::Reset:     s << "O5M_CMD_RESET";
-      default: return s << "Unknown command: " << std::hex << my::Key(type);
+      default: return s << "Unknown command: " << std::hex << base::Key(type);
     }
     return s;
   }

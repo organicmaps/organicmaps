@@ -91,6 +91,6 @@ void ConvertRestrictionsOnlyToNoAndSort(IndexGraph const & graph,
       }
     });
   }
-  my::SortUnique(restrictionsNo);
+  base::SortUnique(restrictionsNo);
 }
 }  // namespace routing

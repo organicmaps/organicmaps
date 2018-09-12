@@ -8,7 +8,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/assert.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
 

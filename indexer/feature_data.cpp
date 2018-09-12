@@ -8,7 +8,7 @@
 
 #include "base/assert.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -46,7 +46,7 @@ TypesHolder::TypesHolder(FeatureType & f) : m_size(0), m_geoType(f.GetFeatureTyp
 
 void TypesHolder::Remove(uint32_t type)
 {
-  UNUSED_VALUE(RemoveIf(EqualFunctor<uint32_t>(type)));
+  UNUSED_VALUE(RemoveIf(base::EqualFunctor<uint32_t>(type)));
 }
 
 bool TypesHolder::Equals(TypesHolder const & other) const
@@ -174,7 +174,7 @@ void TypesHolder::SortBySpec()
 
   // Put "very common" types to the end of possible PP-description types.
   static UselessTypesChecker checker;
-  UNUSED_VALUE(RemoveIfKeepValid(begin(), end(), [](uint32_t t) { return checker(t); }));
+  UNUSED_VALUE(base::RemoveIfKeepValid(begin(), end(), [](uint32_t t) { return checker(t); }));
 }
 
 vector<string> TypesHolder::ToObjectNames() const
@@ -475,7 +475,7 @@ bool FeatureParams::FinishAddingTypes()
     if (type != boundary)
     {
       // Find all equal types (2-arity).
-      auto j = RemoveIfKeepValid(m_types.begin() + i + 1, m_types.end(), [type] (uint32_t t)
+      auto j = base::RemoveIfKeepValid(m_types.begin() + i + 1, m_types.end(), [type] (uint32_t t)
       {
         ftype::TruncValue(t, 2);
         return (type == t);

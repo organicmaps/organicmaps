@@ -215,7 +215,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
       }
     }
 
-    my::SortUnique(twins);
+    base::SortUnique(twins);
   }
 
   for (Segment const & t : twins)

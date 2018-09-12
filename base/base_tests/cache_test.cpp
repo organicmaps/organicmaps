@@ -1,7 +1,8 @@
 #include "testing/testing.hpp"
+
 #include "base/cache.hpp"
 #include "base/macros.hpp"
-#include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <functional>
 
@@ -86,7 +87,7 @@ UNIT_TEST(CacheSmoke_0)
   cache.Find(0, found);
   TEST(!found, ());
   std::vector<char> v;
-  cache.ForEachValue(MakeBackInsertFunctor(v));
+  cache.ForEachValue(base::MakeBackInsertFunctor(v));
   TEST_EQUAL(v, std::vector<char>(8, 0), ());
 }
 
