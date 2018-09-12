@@ -177,7 +177,6 @@ static NSString * const kStatLocals = @"Locals";
 static NSString * const kStatLocalsProvider = @"Locals.Maps.Me";
 static NSString * const kStatLocation = @"Location";
 static NSString * const kStatLogout = @"Logout";
-static NSString * const kStatLuggageHero = @"LuggageHero";
 static NSString * const kStatMap = @"map";
 static NSString * const kStatMapDataSize = @"map_data_size";
 static NSString * const kStatMapSearch = @"Map search";

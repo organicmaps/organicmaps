@@ -78,8 +78,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @Override
   public int getItemViewType(int position)
   {
-    if (mCategoryResIds[position] == R.string.luggage_storage)
-      return R.layout.item_search_category_luggage;
     return R.layout.item_search_category;
   }
 

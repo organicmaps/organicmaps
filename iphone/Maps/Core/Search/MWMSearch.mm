@@ -23,8 +23,6 @@
 #include <memory>
 #include <utility>
 
-extern NSString * const kLuggageCategory;
-
 namespace
 {
 using Observer = id<MWMSearchObserver>;

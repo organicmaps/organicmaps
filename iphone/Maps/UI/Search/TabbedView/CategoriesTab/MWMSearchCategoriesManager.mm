@@ -6,8 +6,6 @@
 
 #include "Framework.h"
 
-extern NSString * const kLuggageCategory = @"luggagehero";
-
 @implementation MWMSearchCategoriesManager
 {
   vector<string> m_categories;
@@ -49,18 +47,6 @@ extern NSString * const kLuggageCategory = @"luggagehero";
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView
-      willDisplayCell:(UITableViewCell *)cell
-    forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  NSString * string = @(m_categories[indexPath.row].c_str());
-  if ([string isEqualToString:kLuggageCategory])
-  {
-    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_LuggageHero"];
-    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatLuggageHero}];
-  }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
@@ -71,17 +57,6 @@ extern NSString * const kLuggageCategory = @"luggagehero";
   id<MWMSearchTabbedViewProtocol> delegate = self.delegate;
   [delegate searchText:query forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
-
-  auto doWork = ^(NSString * param) {
-    if (!IPAD)
-      delegate.state = MWMSearchManagerStateMapSearch;
-
-    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : param}];
-    [MRMyTracker trackEventWithName:[kStatLuggageHero stringByAppendingFormat:@"_%@", param]];
-  };
-
-  if ([string isEqualToString:kLuggageCategory])
-    doWork(kStatLuggageHero);
 }
 
 @end

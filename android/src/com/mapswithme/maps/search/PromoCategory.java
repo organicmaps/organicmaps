@@ -5,31 +5,30 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.util.statistics.Statistics;
+import com.mapswithme.util.UiUtils;
 
 public enum PromoCategory
 {
-  LUGGAGE_HERO
+  STUB
       {
         @NonNull
         @Override
         String getKey()
         {
-          return "luggagehero";
+          return "";
         }
 
         @Override
         int getStringId()
         {
-          return R.string.luggage_storage;
+          return UiUtils.NO_ID;
         }
 
         @NonNull
         @Override
         String getStatisticValue()
         {
-          return Statistics.ParamValue.LUGGAGE_HERO;
+          return "";
         }
       };
 

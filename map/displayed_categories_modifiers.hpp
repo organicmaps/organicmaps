@@ -24,9 +24,3 @@ private:
   std::string const m_categoryName;
   uint32_t const m_position;
 };
-
-class LuggageHeroModifier : public SponsoredCategoryModifier
-{
-public:
-  explicit LuggageHeroModifier(std::string const & currentCity);
-};

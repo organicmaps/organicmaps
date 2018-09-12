@@ -1501,11 +1501,12 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   // Apply sponsored modifiers.
   if (m_subscription && !m_subscription->IsActive())
   {
-    std::tuple<LuggageHeroModifier> modifiers(city);
-    my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
-    {
-      m_displayedCategories->Modify(modifier);
-    });
+    // Add Category modifiers here.
+    //std::tuple<Modifier> modifiers(city);
+    //my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
+    //{
+    //  m_displayedCategories->Modify(modifier);
+    //});
   }
 
   return *m_displayedCategories;

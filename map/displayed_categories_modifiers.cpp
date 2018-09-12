@@ -7,12 +7,7 @@
 
 namespace
 {
-std::unordered_set<std::string> const kLuggageHeroesSupportedCities{"London", "New York",
-                                                                    "Copenhagen"};
-
-std::string const kLuggageHeroCategory = "luggagehero";
-
-std::vector<std::string> const kSponsoredCategories = {kLuggageHeroCategory};
+std::vector<std::string> const kSponsoredCategories = {};
 
 search::DisplayedCategories::Keys::const_iterator FindInsertionPlace(
     search::DisplayedCategories::Keys & keys, uint32_t position)
@@ -55,8 +50,3 @@ void SponsoredCategoryModifier::Modify(search::DisplayedCategories::Keys & keys)
   else if (!supported && contains)
     keys.erase(std::remove(keys.begin(), keys.end(), m_categoryName), keys.end());
 }
-
-LuggageHeroModifier::LuggageHeroModifier(std::string const & currentCity)
-  : SponsoredCategoryModifier(currentCity, kLuggageHeroesSupportedCities, kLuggageHeroCategory,
-                              4 /* position */)
-{}

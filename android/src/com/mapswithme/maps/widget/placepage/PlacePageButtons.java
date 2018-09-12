@@ -33,19 +33,6 @@ public final class PlacePageButtons
     // %PartnersExtender.PartnerItemMap
     put(PartnerItem.PARTNER1.getIndex(), PartnerItem.PARTNER1);
     put(PartnerItem.PARTNER3.getIndex(), PartnerItem.PARTNER3);
-    put(PartnerItem.PARTNER4.getIndex(), PartnerItem.PARTNER4);
-    put(PartnerItem.PARTNER6.getIndex(), PartnerItem.PARTNER6);
-    put(PartnerItem.PARTNER7.getIndex(), PartnerItem.PARTNER7);
-    put(PartnerItem.PARTNER8.getIndex(), PartnerItem.PARTNER8);
-    put(PartnerItem.PARTNER9.getIndex(), PartnerItem.PARTNER9);
-    put(PartnerItem.PARTNER10.getIndex(), PartnerItem.PARTNER10);
-    put(PartnerItem.PARTNER11.getIndex(), PartnerItem.PARTNER11);
-    put(PartnerItem.PARTNER12.getIndex(), PartnerItem.PARTNER12);
-    put(PartnerItem.PARTNER13.getIndex(), PartnerItem.PARTNER13);
-    put(PartnerItem.PARTNER14.getIndex(), PartnerItem.PARTNER14);
-    put(PartnerItem.PARTNER15.getIndex(), PartnerItem.PARTNER15);
-    put(PartnerItem.PARTNER16.getIndex(), PartnerItem.PARTNER16);
-    put(PartnerItem.PARTNER17.getIndex(), PartnerItem.PARTNER17);
     put(PartnerItem.PARTNER18.getIndex(), PartnerItem.PARTNER18);
     put(PartnerItem.PARTNER19.getIndex(), PartnerItem.PARTNER19);
     put(PartnerItem.PARTNER20.getIndex(), PartnerItem.PARTNER20);
@@ -134,19 +121,6 @@ public final class PlacePageButtons
     // %PartnersExtender.ButtonType
     PARTNER1,
     PARTNER3,
-    PARTNER4,
-    PARTNER6,
-    PARTNER7,
-    PARTNER8,
-    PARTNER9,
-    PARTNER10,
-    PARTNER11,
-    PARTNER12,
-    PARTNER13,
-    PARTNER14,
-    PARTNER15,
-    PARTNER16,
-    PARTNER17,
     PARTNER18,
     PARTNER19,
     PARTNER20,
@@ -185,84 +159,6 @@ public final class PlacePageButtons
         new ImageResources(R.drawable.ic_24px_logo_partner3),
         R.drawable.button_partner3,
         ButtonType.PARTNER3),
-    PARTNER4(
-        4,
-        R.string.sponsored_partner4_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner4),
-        R.drawable.button_partner4,
-        ButtonType.PARTNER4),
-    PARTNER6(
-        6,
-        R.string.sponsored_partner6_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner6),
-        R.drawable.button_partner6,
-        ButtonType.PARTNER6),
-    PARTNER7(
-        7,
-        R.string.sponsored_partner7_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner7),
-        R.drawable.button_partner7,
-        ButtonType.PARTNER7),
-    PARTNER8(
-        8,
-        R.string.sponsored_partner8_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner8),
-        R.drawable.button_partner8,
-        ButtonType.PARTNER8),
-    PARTNER9(
-        9,
-        R.string.sponsored_partner9_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner9),
-        R.drawable.button_partner9,
-        ButtonType.PARTNER9),
-    PARTNER10(
-        10,
-        R.string.sponsored_partner10_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner10),
-        R.drawable.button_partner10,
-        ButtonType.PARTNER10),
-    PARTNER11(
-        11,
-        R.string.sponsored_partner11_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner11),
-        R.drawable.button_partner11,
-        ButtonType.PARTNER11),
-    PARTNER12(
-        12,
-        R.string.sponsored_partner12_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner12),
-        R.drawable.button_partner12,
-        ButtonType.PARTNER12),
-    PARTNER13(
-        13,
-        R.string.sponsored_partner13_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner13),
-        R.drawable.button_partner13,
-        ButtonType.PARTNER13),
-    PARTNER14(
-        14,
-        R.string.sponsored_partner14_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner14),
-        R.drawable.button_partner14,
-        ButtonType.PARTNER14),
-    PARTNER15(
-        15,
-        R.string.sponsored_partner15_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner15),
-        R.drawable.button_partner15,
-        ButtonType.PARTNER15),
-    PARTNER16(
-        16,
-        R.string.sponsored_partner16_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner16),
-        R.drawable.button_partner16,
-        ButtonType.PARTNER16),
-    PARTNER17(
-        17,
-        R.string.sponsored_partner17_action,
-        new ImageResources(R.drawable.ic_24px_logo_partner17),
-        R.drawable.button_partner17,
-        ButtonType.PARTNER17),
     PARTNER18(
         18,
         R.string.sponsored_partner18_action,

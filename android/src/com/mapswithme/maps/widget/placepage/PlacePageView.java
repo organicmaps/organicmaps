@@ -517,19 +517,6 @@ public class PlacePageView extends RelativeLayout
           // %PartnersExtender.Switch
           case PARTNER1:
           case PARTNER3:
-          case PARTNER4:
-          case PARTNER6:
-          case PARTNER7:
-          case PARTNER8:
-          case PARTNER9:
-          case PARTNER10:
-          case PARTNER11:
-          case PARTNER12:
-          case PARTNER13:
-          case PARTNER14:
-          case PARTNER15:
-          case PARTNER16:
-          case PARTNER17:
           case PARTNER18:
           case PARTNER19:
           case PARTNER20:
@@ -647,19 +634,6 @@ public class PlacePageView extends RelativeLayout
         // %PartnersExtender.SwitchClick
         case PARTNER1:
         case PARTNER3:
-        case PARTNER4:
-        case PARTNER6:
-        case PARTNER7:
-        case PARTNER8:
-        case PARTNER9:
-        case PARTNER10:
-        case PARTNER11:
-        case PARTNER12:
-        case PARTNER13:
-        case PARTNER14:
-        case PARTNER15:
-        case PARTNER16:
-        case PARTNER17:
         case PARTNER18:
         case PARTNER19:
         case PARTNER20:

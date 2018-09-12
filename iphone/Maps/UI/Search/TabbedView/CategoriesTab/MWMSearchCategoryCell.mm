@@ -2,8 +2,6 @@
 #import "MWMCommon.h"
 #import "UIImageView+Coloring.h"
 
-extern NSString * const kLuggageCategory;
-
 @interface MWMSearchCategoryCell ()
 
 @property(weak, nonatomic) IBOutlet UIImageView * icon;
@@ -29,17 +27,8 @@ extern NSString * const kLuggageCategory;
   UILabel * label = self.label;
   label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
-  if ([category isEqualToString:kLuggageCategory])
-  {
-    label.text = L(@"luggage_storage");
-    self.adIcon.hidden = NO;
-    self.adIcon.image = [UIImage imageNamed:@"logo_luggage"];
-  }
-  else
-  {
-    label.text = L(category);
-    self.adIcon.hidden = YES;
-  }
+  label.text = L(category);
+  self.adIcon.hidden = YES;
 }
 
 @end
