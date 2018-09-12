@@ -140,6 +140,23 @@ UNIT_TEST(CategoriesHolder_DisplayedNameSmoke)
   }
 }
 
+UNIT_TEST(CategoriesHolder_LoadDefault)
+{
+  classificator::Load();
+
+  uint32_t counter = 0;
+  auto const count = [&counter](CategoriesHolder::Category const &) { ++counter; };
+
+  auto const & categoriesHolder = GetDefaultCategories();
+  categoriesHolder.ForEachCategory(count);
+  TEST_GREATER(counter, 0, ());
+
+  counter = 0;
+  auto const & cuisineCategoriesHolder = GetDefaultCuisineCategories();
+  cuisineCategoriesHolder.ForEachCategory(count);
+  TEST_GREATER(counter, 0, ());
+}
+
 UNIT_TEST(CategoriesHolder_DisplayedName)
 {
   char const kCategories[] =
