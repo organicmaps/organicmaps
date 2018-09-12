@@ -23,7 +23,7 @@ vertex Fragment_T vsScreenQuad(const Vertex_T in [[stage_in]])
 {
   Fragment_T out;
   out.position = float4(in.a_position, 0.0, 1.0);
-  out.texCoords = in.a_texCoords;
+  out.texCoords = float2(in.a_texCoords.x, 1.0 - in.a_texCoords.y);
   return out;
 }
 

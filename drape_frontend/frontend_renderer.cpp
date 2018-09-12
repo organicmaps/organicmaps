@@ -359,7 +359,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::MapShapes:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<MapShapesMessage> msg = message;
       CHECK(m_context != nullptr, ());
       m_myPositionController->SetRenderShape(m_context, m_texMng, msg->AcceptShape());

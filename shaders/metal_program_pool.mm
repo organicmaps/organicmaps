@@ -69,8 +69,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", "", {}),  // HatchingArea
   ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),  // TexturingGui
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),  // Ruler
-  ProgramInfo("", "", {}),  // Accuracy
-  ProgramInfo("", "", {}),  // MyPosition
+  ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),  // Accuracy
+  ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),  // MyPosition
   ProgramInfo("", "", {}),  // Transit
   ProgramInfo("", "", {}),  // TransitMarker
   ProgramInfo("", "", {}),  // Route
@@ -80,9 +80,9 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", "", {}),  // CirclePoint
   ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),  // DebugRect
   ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),  // ScreenQuad
-  ProgramInfo("", "", {}),  // Arrow3d
-  ProgramInfo("", "", {}),  // Arrow3dShadow
-  ProgramInfo("", "", {}),  // Arrow3dOutline
+  ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),  // Arrow3d
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}}),  // Arrow3dShadow
+  ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}}),  // Arrow3dOutline
   ProgramInfo("", "", {}),  // ColoredSymbolBillboard
   ProgramInfo("", "", {}),  // TexturingBillboard
   ProgramInfo("", "", {}),  // MaskedTexturingBillboard

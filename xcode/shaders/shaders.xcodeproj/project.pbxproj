@@ -35,6 +35,8 @@
 		45789EE421353CA3009955CC /* program_manager_metal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE321353CA3009955CC /* program_manager_metal.mm */; };
 		45789EE72135464D009955CC /* metal_program_params.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45789EE62135464D009955CC /* metal_program_params.mm */; };
 		BBF791702146D8EC00D27BD8 /* system.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7916F2146D8EC00D27BD8 /* system.metal */; };
+		BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917221493AFC00D27BD8 /* arrow3d.metal */; };
+		BBF7917521495FF900D27BD8 /* shapes.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917421495FF900D27BD8 /* shapes.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +175,9 @@
 		45789EE62135464D009955CC /* metal_program_params.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_program_params.mm; sourceTree = "<group>"; };
 		4598437C21394BE000F8CAB2 /* shaders_metal.metallib */ = {isa = PBXFileReference; explicitFileType = "archive.metal-library"; includeInIndex = 0; path = shaders_metal.metallib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF7916F2146D8EC00D27BD8 /* system.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = system.metal; sourceTree = "<group>"; };
+		BBF7917221493AFC00D27BD8 /* arrow3d.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = arrow3d.metal; sourceTree = "<group>"; };
+		BBF7917421495FF900D27BD8 /* shapes.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shapes.metal; sourceTree = "<group>"; };
+		BBF79176214970B600D27BD8 /* shaders_lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaders_lib.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +381,9 @@
 				4560F582213D44CE00CC736C /* screen_quad.metal */,
 				4560F5AA2142AC1300CC736C /* gui.metal */,
 				BBF7916F2146D8EC00D27BD8 /* system.metal */,
+				BBF7917221493AFC00D27BD8 /* arrow3d.metal */,
+				BBF7917421495FF900D27BD8 /* shapes.metal */,
+				BBF79176214970B600D27BD8 /* shaders_lib.h */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -536,6 +544,8 @@
 				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
 				BBF791702146D8EC00D27BD8 /* system.metal in Sources */,
 				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
+				BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */,
+				BBF7917521495FF900D27BD8 /* shapes.metal in Sources */,
 				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -40,7 +40,7 @@ public:
 
 private:
   math::Matrix<float, 4, 4> CalculateTransform(ScreenBase const & screen, float dz,
-                                               float scaleFactor) const;
+                                               float scaleFactor, dp::ApiVersion apiVersion) const;
   void RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
                    dp::MeshObject & mesh, ScreenBase const & screen, gpu::Program program,
                    dp::Color const & color, float dz, float scaleFactor);

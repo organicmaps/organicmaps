@@ -121,7 +121,8 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
                           dp::Color const & color, float dz, float scaleFactor)
 {
   gpu::Arrow3dProgramParams params;
-  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor);
+  math::Matrix<float, 4, 4> const modelTransform = CalculateTransform(screen, dz, scaleFactor,
+                                                                      context->GetApiVersion());
   params.m_transform = glsl::make_mat4(modelTransform.m_data);
   params.m_color = glsl::ToVec4(color);
 
@@ -130,7 +131,7 @@ void Arrow3d::RenderArrow(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::Pro
 }
 
 math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen, float dz,
-                                                      float scaleFactor) const
+                                                      float scaleFactor, dp::ApiVersion apiVersion) const
 {
   double arrowScale = VisualParams::Instance().GetVisualScale() * kArrowSize * scaleFactor;
   if (screen.isPerspective())
@@ -166,6 +167,12 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
   math::Matrix<float, 4, 4> modelTransform = rotateM * scaleM * translateM;
   if (screen.isPerspective())
     return modelTransform * math::Matrix<float, 4, 4>(screen.Pto3dMatrix());
+
+  if (apiVersion == dp::ApiVersion::Metal)
+  {
+    modelTransform(3, 2) = modelTransform(3, 2) + 0.5f;
+    modelTransform(2, 2) = modelTransform(2, 2) * 0.5f;
+  }
 
   return modelTransform;
 }
