@@ -1290,7 +1290,6 @@
 	<string name="bookmarks_error_title_share_empty">Sharing error</string>
 	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
 	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
-	<string name="luggage_storage">Luggage storage</string>
 	<string name="maxim_taxi_title">maxim</string>
 	<string name="bookmarks_error_title_empty_list_name">The name couldn\'t be empty</string>
 	<string name="bookmarks_error_message_empty_list_name">Please enter the list name</string>
@@ -1432,19 +1431,6 @@
 	<string name="channels_reviews">Unsent reviews</string>
 	<string name="sponsored_partner1_action">Outlets</string>
 	<string name="sponsored_partner3_action">Coupon</string>
-	<string name="sponsored_partner4_action">Store</string>
-	<string name="sponsored_partner6_action">Store</string>
-	<string name="sponsored_partner7_action">Store</string>
-	<string name="sponsored_partner8_action">Special</string>
-	<string name="sponsored_partner9_action">Special</string>
-	<string name="sponsored_partner10_action">Store</string>
-	<string name="sponsored_partner11_action">-</string>
-	<string name="sponsored_partner12_action">Store</string>
-	<string name="sponsored_partner13_action">-</string>
-	<string name="sponsored_partner14_action">-</string>
-	<string name="sponsored_partner15_action">-</string>
-	<string name="sponsored_partner16_action">-</string>
-	<string name="sponsored_partner17_action">-</string>
 	<string name="sponsored_partner18_action">Lifehack</string>
 	<string name="sponsored_partner19_action">Lifehack</string>
 	<string name="sponsored_partner20_action">Lifehack</string>

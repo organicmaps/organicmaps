@@ -1249,7 +1249,6 @@
 	<string name="bookmarks_error_title_share_empty">Erro de partilha</string>
 	<string name="bookmarks_error_message_share_empty">Não pode partilhar uma lista vazia</string>
 	<string name="discovery_button_subtitle_book_hotels">Reservar hotéis</string>
-	<string name="luggage_storage">Armazenamento de bagagem</string>
 	<string name="bookmarks_error_title_empty_list_name">O nome não podia estar vazio</string>
 	<string name="bookmarks_error_message_empty_list_name">Por favor insira o nome da lista</string>
 	<string name="bookmarks_new_list_hint">Nova lista</string>

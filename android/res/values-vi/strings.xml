@@ -1246,7 +1246,6 @@
 	<string name="bookmarks_error_title_share_empty">Lỗi chia sẻ</string>
 	<string name="bookmarks_error_message_share_empty">Không thể chia sẻ một danh sách trống</string>
 	<string name="discovery_button_subtitle_book_hotels">Đặt phòng khách sạn</string>
-	<string name="luggage_storage">Giữ hộ hành lý</string>
 	<string name="bookmarks_error_title_empty_list_name">Tên không được để trống</string>
 	<string name="bookmarks_error_message_empty_list_name">Vui lòng nhập tên danh sách</string>
 	<string name="bookmarks_new_list_hint">Danh sách mới</string>

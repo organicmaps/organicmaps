@@ -2216,8 +2216,6 @@
 
 "discovery_button_subtitle_book_hotels" = "Reserver hoteller";
 
-"luggage_storage" = "Bagageopbevaring";
-
 "maxim_taxi_title" = "maxim";
 
 "bookmarks_error_title_empty_list_name" = "Navnet kunne ikke være tomt";
@@ -2459,32 +2457,6 @@
 "sponsored_partner1_action" = "Outlets";
 
 "sponsored_partner3_action" = "Coupon";
-
-"sponsored_partner4_action" = "Store";
-
-"sponsored_partner6_action" = "Store";
-
-"sponsored_partner7_action" = "Store";
-
-"sponsored_partner8_action" = "Special";
-
-"sponsored_partner9_action" = "Special";
-
-"sponsored_partner10_action" = "Store";
-
-"sponsored_partner11_action" = "-";
-
-"sponsored_partner12_action" = "Store";
-
-"sponsored_partner13_action" = "-";
-
-"sponsored_partner14_action" = "-";
-
-"sponsored_partner15_action" = "-";
-
-"sponsored_partner16_action" = "-";
-
-"sponsored_partner17_action" = "-";
 
 "sponsored_partner18_action" = "Lifehack";
 

@@ -1245,7 +1245,6 @@
 	<string name="bookmarks_error_title_share_empty">共有エラー</string>
 	<string name="bookmarks_error_message_share_empty">空のリストは教諭できません</string>
 	<string name="discovery_button_subtitle_book_hotels">ホテルを予約</string>
-	<string name="luggage_storage">荷物スペース</string>
 	<string name="bookmarks_error_title_empty_list_name">名前を空にすることはできませんでした</string>
 	<string name="bookmarks_error_message_empty_list_name">リスト名を入力してください</string>
 	<string name="bookmarks_new_list_hint">新しいリスト</string>

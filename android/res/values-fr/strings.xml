@@ -1259,7 +1259,6 @@
 	<string name="bookmarks_error_title_share_empty">Erreur de partage</string>
 	<string name="bookmarks_error_message_share_empty">Impossible de partager une liste vide</string>
 	<string name="discovery_button_subtitle_book_hotels">Réserver des hôtels</string>
-	<string name="luggage_storage">Compartiment de bagage</string>
 	<string name="bookmarks_error_title_empty_list_name">Le nom ne peut pas être vide</string>
 	<string name="bookmarks_error_message_empty_list_name">Veuillez entrer le nom de la liste</string>
 	<string name="bookmarks_new_list_hint">Nouvelle liste</string>

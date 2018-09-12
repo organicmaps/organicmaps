@@ -1010,7 +1010,6 @@
 	<string name="bookmarks_error_title_share_empty">Σφάλμα κοινής χρήσης</string>
 	<string name="bookmarks_error_message_share_empty">Αδύνατη η κοινή χρήση κενής λίστας</string>
 	<string name="discovery_button_subtitle_book_hotels">Κάντε κράτηση σε ξενοδοχεία</string>
-	<string name="luggage_storage">Χώρος αποθήκευσης αποσκευών</string>
 	<string name="bookmarks_error_title_empty_list_name">Το όνομα δεν θα μπορούσε να είναι άδειο</string>
 	<string name="bookmarks_error_message_empty_list_name">Εισαγάγετε το όνομα της λίστας</string>
 	<string name="bookmarks_new_list_hint">Νέα λίστα</string>

@@ -1245,7 +1245,6 @@
 	<string name="bookmarks_error_title_share_empty">Errore di condivisione</string>
 	<string name="bookmarks_error_message_share_empty">Impossibile condividere una lista vuota</string>
 	<string name="discovery_button_subtitle_book_hotels">Prenota hotel</string>
-	<string name="luggage_storage">Deposito bagagli</string>
 	<string name="bookmarks_error_title_empty_list_name">Il nome non può essere vuoto</string>
 	<string name="bookmarks_error_message_empty_list_name">Si prega di inserire il nome della lista</string>
 	<string name="bookmarks_new_list_hint">Nuova lista</string>

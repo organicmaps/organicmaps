@@ -1246,7 +1246,6 @@
 	<string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
 	<string name="bookmarks_error_message_share_empty">Tyhjää listaa ei voi jakaa</string>
 	<string name="discovery_button_subtitle_book_hotels">Varaa hotelleja</string>
-	<string name="luggage_storage">Matkatavaroiden säilytys</string>
 	<string name="bookmarks_error_title_empty_list_name">Nimi ei voinut olla tyhjä</string>
 	<string name="bookmarks_error_message_empty_list_name">Anna luettelon nimi</string>
 	<string name="bookmarks_new_list_hint">Uusi lista</string>

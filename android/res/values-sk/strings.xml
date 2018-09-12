@@ -1249,7 +1249,6 @@
 	<string name="bookmarks_error_title_share_empty">Chyba zdieľania</string>
 	<string name="bookmarks_error_message_share_empty">Prázdny zoznam nie je možné zdieľať</string>
 	<string name="discovery_button_subtitle_book_hotels">Rezervovať hotely</string>
-	<string name="luggage_storage">Odkladací priestor pre batožinu</string>
 	<string name="bookmarks_error_title_empty_list_name">Názov nemôže byť prázdny</string>
 	<string name="bookmarks_error_message_empty_list_name">Zadajte názov zoznamu</string>
 	<string name="bookmarks_new_list_hint">Nový zoznam</string>

@@ -1245,7 +1245,6 @@
 	<string name="bookmarks_error_title_share_empty">Kesalahan dalam membagikan</string>
 	<string name="bookmarks_error_message_share_empty">Tidak dapat membagikan daftar kosong</string>
 	<string name="discovery_button_subtitle_book_hotels">Pesan hotel</string>
-	<string name="luggage_storage">Penyimpanan barang</string>
 	<string name="bookmarks_error_title_empty_list_name">Namanya tidak boleh kosong</string>
 	<string name="bookmarks_error_message_empty_list_name">Silakan masukkan nama daftar</string>
 	<string name="bookmarks_new_list_hint">Daftar baru</string>

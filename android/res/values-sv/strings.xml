@@ -1250,7 +1250,6 @@
 	<string name="bookmarks_error_title_share_empty">Delningsfel</string>
 	<string name="bookmarks_error_message_share_empty">Kan inte dela en tom lista</string>
 	<string name="discovery_button_subtitle_book_hotels">Boka hotell</string>
-	<string name="luggage_storage">Bagageförvaring</string>
 	<string name="bookmarks_error_title_empty_list_name">Namnet kunde inte vara tomt</string>
 	<string name="bookmarks_error_message_empty_list_name">Vänligen ange listnamnet</string>
 	<string name="bookmarks_new_list_hint">Ny lista</string>

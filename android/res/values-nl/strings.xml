@@ -1246,7 +1246,6 @@
 	<string name="bookmarks_error_title_share_empty">Deelfout</string>
 	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
 	<string name="discovery_button_subtitle_book_hotels">Boek hotels</string>
-	<string name="luggage_storage">Bagageopslag</string>
 	<string name="bookmarks_error_title_empty_list_name">De naam kan niet leeg zijn</string>
 	<string name="bookmarks_error_message_empty_list_name">Voer de lijstnaam in</string>
 	<string name="bookmarks_new_list_hint">Nieuwe lijst</string>

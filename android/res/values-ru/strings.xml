@@ -1279,7 +1279,6 @@
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
 	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
-	<string name="luggage_storage">Хранение багажа</string>
 	<string name="bookmarks_error_title_empty_list_name">Имя списка не может быть пустым</string>
 	<string name="bookmarks_error_message_empty_list_name">Введите имя списка, пожалуйста</string>
 	<string name="bookmarks_new_list_hint">Новый список</string>
@@ -1427,19 +1426,6 @@
 	<string name="channels_reviews">Неотправленные отзывы[[ Partners ]]</string>
 	<string name="sponsored_partner1_action">Аутлеты</string>
 	<string name="sponsored_partner3_action">Купон</string>
-	<string name="sponsored_partner4_action">Магазин</string>
-	<string name="sponsored_partner6_action">Магазин</string>
-	<string name="sponsored_partner7_action">Магазин</string>
-	<string name="sponsored_partner8_action">Акция</string>
-	<string name="sponsored_partner9_action">Акция</string>
-	<string name="sponsored_partner10_action">Магазин</string>
-	<string name="sponsored_partner11_action">-</string>
-	<string name="sponsored_partner12_action">Магазин</string>
-	<string name="sponsored_partner13_action">-</string>
-	<string name="sponsored_partner14_action">-</string>
-	<string name="sponsored_partner15_action">-</string>
-	<string name="sponsored_partner16_action">-</string>
-	<string name="sponsored_partner17_action">-</string>
 	<string name="sponsored_partner18_action">Лайфхак</string>
 	<string name="sponsored_partner19_action">Лайфхак</string>
 	<string name="sponsored_partner20_action">Лайфхак</string>
