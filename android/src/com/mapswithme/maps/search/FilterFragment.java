@@ -22,6 +22,7 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
 import com.mapswithme.maps.widget.recycler.TagLayoutManager;
@@ -226,6 +227,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     mListener.onFilterApply(filter, params);
     Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
                                          Statistics.EventParam.HOTEL);
+    UserActionsLogger.logBookingFilterUsedEvent();
   }
 
   @Override

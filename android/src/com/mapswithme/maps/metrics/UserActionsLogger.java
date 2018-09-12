@@ -1,6 +1,5 @@
 package com.mapswithme.maps.metrics;
 
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.discovery.DiscoveryUserEvent;

@@ -67,6 +67,7 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
@@ -2743,6 +2744,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Statistics.INSTANCE.trackToolbarClick(getItem());
       RoutingController.get().cancel();
       getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
+      UserActionsLogger.logDiscoveryShownEvent();
     }
   }
 
@@ -2806,6 +2808,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().closeMenu(getActivity()::showBookmarks);
+      UserActionsLogger.logBookmarksCatalogShownEvent();
     }
   }
 
@@ -2836,6 +2839,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().showDiscovery();
+      UserActionsLogger.logDiscoveryShownEvent();
     }
   }
 

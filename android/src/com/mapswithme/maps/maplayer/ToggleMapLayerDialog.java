@@ -25,6 +25,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 
 import java.util.Arrays;
@@ -207,6 +208,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     {
       OnSubwayLayerToggleListener listener = (OnSubwayLayerToggleListener) getActivity();
       listener.onSubwayLayerSelected();
+      UserActionsLogger.logLayerUsedEvent(Mode.SUBWAY);
     }
   }
 
@@ -217,6 +219,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     {
       OnTrafficLayerToggleListener listener = (OnTrafficLayerToggleListener) getActivity();
       listener.onTrafficLayerSelected();
+      UserActionsLogger.logLayerUsedEvent(Mode.TRAFFIC);
     }
   }
 }

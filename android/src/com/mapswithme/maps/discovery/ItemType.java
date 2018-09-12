@@ -11,10 +11,13 @@ public enum ItemType
 {
   VIATOR,
 
-  ATTRACTIONS(R.string.discovery_button_subtitle_attractions)
+  ATTRACTIONS(R.string.discovery_button_subtitle_attractions,
+              DiscoveryUserEvent.MORE_ATTRACTIONS_CLICKED,
+              DiscoveryUserEvent.ATTRACTIONS_CLICKED)
       {
         @Override
-        public void onResultReceived(@NonNull DiscoveryResultReceiver callback, @NonNull SearchResult[] results)
+        public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
+                                     @NonNull SearchResult[] results)
         {
           callback.onAttractionsReceived(results);
         }
@@ -26,10 +29,11 @@ public enum ItemType
         }
       },
 
-  CAFES(R.string.food)
+  CAFES(R.string.food, DiscoveryUserEvent.MORE_CAFES_CLICKED, DiscoveryUserEvent.CAFES_CLICKED)
       {
         @Override
-        public void onResultReceived(@NonNull DiscoveryResultReceiver callback, @NonNull SearchResult[] results)
+        public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
+                                     @NonNull SearchResult[] results)
         {
           callback.onCafesReceived(results);
         }
@@ -41,28 +45,51 @@ public enum ItemType
         }
       },
 
-  HOTELS
+  HOTELS(R.string.discovery_button_subtitle_attractions, DiscoveryUserEvent.MORE_HOTELS_CLICKED,
+         DiscoveryUserEvent.HOTELS_CLICKED)
       {
         @Override
-        public void onResultReceived(@NonNull DiscoveryResultReceiver callback, @NonNull SearchResult[] results)
+        public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
+                                     @NonNull SearchResult[] results)
         {
           callback.onHotelsReceived(results);
         }
       },
 
-  LOCAL_EXPERTS;
+  LOCAL_EXPERTS(R.string.discovery_button_subtitle_attractions,
+                DiscoveryUserEvent.MORE_LOCALS_CLICKED,
+                DiscoveryUserEvent.LOCALS_CLICKED);
 
   @StringRes
   private final int mSearchCategory;
+  @NonNull
+  private final DiscoveryUserEvent mMoreClickEvent;
+  @NonNull
+  private final DiscoveryUserEvent mItemClickEvent;
 
-  ItemType(@StringRes int searchCategory)
+  ItemType(@StringRes int searchCategory, @NonNull DiscoveryUserEvent moreClickEvent,
+           @NonNull DiscoveryUserEvent itemClickEvent)
   {
     mSearchCategory = searchCategory;
+    mMoreClickEvent = moreClickEvent;
+    mItemClickEvent = itemClickEvent;
   }
 
   ItemType()
   {
-    this(UiUtils.NO_ID);
+    this(UiUtils.NO_ID, DiscoveryUserEvent.STUB, DiscoveryUserEvent.STUB);
+  }
+
+  @NonNull
+  public DiscoveryUserEvent getMoreClickEvent()
+  {
+    return mMoreClickEvent;
+  }
+
+  @NonNull
+  public DiscoveryUserEvent getItemClickEvent()
+  {
+    return mItemClickEvent;
   }
 
   @StringRes
