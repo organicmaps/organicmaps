@@ -4,7 +4,7 @@ using namespace metal;
 
 typedef struct
 {
-  packed_float2 a_position;
+  float2 a_position [[attribute(0)]];
 } Vertex_T;
 
 typedef struct
@@ -17,11 +17,10 @@ typedef struct
   float4 u_color;
 } Uniforms_T;
 
-vertex Fragment_T vsDebugRect(device const Vertex_T * vertices [[buffer(0)]],
-                              ushort vid [[vertex_id]])
+vertex Fragment_T vsDebugRect(const Vertex_T in [[stage_in]])
 {
   Fragment_T out;
-  out.position = float4(vertices[vid].a_position, 0.0, 1.0);
+  out.position = float4(in.a_position, 0.0, 1.0);
   return out;
 }
 

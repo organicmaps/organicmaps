@@ -4,7 +4,7 @@ using namespace metal;
 
 typedef struct
 {
-  packed_float2 a_position;
+  float2 a_position [[attribute(0)]];
 } Vertex_T;
 
 typedef struct
@@ -28,11 +28,10 @@ typedef struct
   float depth [[depth(any)]];
 } Fragment_DepthOutput;
 
-vertex Fragment_T vsCleaner(device const Vertex_T * vertices [[buffer(0)]],
-                            ushort vid [[vertex_id]])
+vertex Fragment_T vsCleaner(const Vertex_T in [[stage_in]])
 {
   Fragment_T out;
-  out.position = float4(vertices[vid].a_position, 0.0, 1.0);
+  out.position = float4(in.a_position, 0.0, 1.0);
   return out;
 }
 
@@ -58,4 +57,3 @@ fragment Fragment_Output fsClearColorAndDepth(const Fragment_T in [[stage_in]],
   out.depth = 1.0;
   return out;
 }
-

@@ -2,6 +2,8 @@
 #include "drape/metal/metal_base_context.hpp"
 #include "drape/metal/metal_gpu_program.hpp"
 
+#include <vector>
+
 namespace dp
 {
 namespace metal

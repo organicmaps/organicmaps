@@ -26,13 +26,17 @@ public:
   MetalGpuProgram(std::string const & programName,
                   id<MTLFunction> vertexShader, id<MTLFunction> fragmentShader,
                   int8_t vsUniformsBindingIndex, int8_t fsUniformsBindingIndex,
-                  TexturesBindingInfo && textureBindingInfo)
+                  TexturesBindingInfo && vertexTextureBindingInfo,
+                  TexturesBindingInfo && fragmentTextureBindingInfo,
+                  MTLVertexDescriptor * vertexDescriptor)
     : GpuProgram(programName)
     , m_vertexShader(vertexShader)
     , m_fragmentShader(fragmentShader)
     , m_vsUniformsBindingIndex(vsUniformsBindingIndex)
     , m_fsUniformsBindingIndex(fsUniformsBindingIndex)
-    , m_textureBindingInfo(std::move(textureBindingInfo))
+    , m_vertexTextureBindingInfo(std::move(vertexTextureBindingInfo))
+    , m_fragmentTextureBindingInfo(std::move(fragmentTextureBindingInfo))
+    , m_vertexDescriptor(vertexDescriptor)
   {}
 
   void Bind() override {}
@@ -44,22 +48,36 @@ public:
   int8_t GetVertexShaderUniformsBindingIndex() const { return m_vsUniformsBindingIndex; }
   int8_t GetFragmentShaderUniformsBindingIndex() const { return m_fsUniformsBindingIndex; }
   
-  // Now textures can be bound only in fragment shaders.
-  TextureBindingInfo const & GetTextureBindingInfo(std::string const & textureName) const
+  TextureBindingInfo const & GetVertexTextureBindingInfo(std::string const & textureName) const
+  {
+    return GetTextureBindingInfo(m_vertexTextureBindingInfo, textureName);
+  }
+  
+  TextureBindingInfo const & GetFragmentTextureBindingInfo(std::string const & textureName) const
+  {
+    return GetTextureBindingInfo(m_fragmentTextureBindingInfo, textureName);
+  }
+
+  MTLVertexDescriptor * GetVertexDescriptor() const { return m_vertexDescriptor; }
+
+private:
+  TextureBindingInfo const & GetTextureBindingInfo(TexturesBindingInfo const & bindingInfo,
+                                                   std::string const & textureName) const
   {
     static TextureBindingInfo kEmptyBinding;
-    auto const it = m_textureBindingInfo.find(textureName);
-    if (it == m_textureBindingInfo.cend())
+    auto const it = bindingInfo.find(textureName);
+    if (it == bindingInfo.cend())
       return kEmptyBinding;
     return it->second;
   }
-
-private:
+  
   id<MTLFunction> m_vertexShader;
   id<MTLFunction> m_fragmentShader;
   int8_t const m_vsUniformsBindingIndex;
   int8_t const m_fsUniformsBindingIndex;
-  TexturesBindingInfo const m_textureBindingInfo;
+  TexturesBindingInfo const m_vertexTextureBindingInfo;
+  TexturesBindingInfo const m_fragmentTextureBindingInfo;
+  MTLVertexDescriptor * m_vertexDescriptor;
 };
 }  // namespace metal
 }  // namespace dp

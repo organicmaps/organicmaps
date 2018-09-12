@@ -35,17 +35,38 @@ void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram>
   id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
   for (auto const & texture : state.GetTextures())
   {
-    auto const & bindingInfo = p->GetTextureBindingInfo(texture.first);
+    if (texture.second == nullptr)
+      continue;
+    
     ref_ptr<dp::metal::MetalTexture> t = texture.second->GetHardwareTexture();
-    if (t != nullptr && bindingInfo.m_textureBindingIndex >= 0)
+    if (t == nullptr)
+      continue;
+    
+    dp::HWTexture::Params const & params = t->GetParams();
+    
+    // Set texture to the vertex shader.
+    auto const & vsBindingInfo = p->GetVertexTextureBindingInfo(texture.first);
+    if (vsBindingInfo.m_textureBindingIndex >= 0)
     {
-      [encoder setFragmentTexture:t->GetTexture() atIndex:bindingInfo.m_textureBindingIndex];
-      if (bindingInfo.m_samplerBindingIndex >= 0)
+      [encoder setVertexTexture:t->GetTexture() atIndex:vsBindingInfo.m_textureBindingIndex];
+      if (vsBindingInfo.m_samplerBindingIndex >= 0)
       {
-        dp::HWTexture::Params const & params = t->GetParams();
         id<MTLSamplerState> samplerState = metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode,
                                                                          params.m_wrapTMode);
-        [encoder setFragmentSamplerState:samplerState atIndex:bindingInfo.m_samplerBindingIndex];
+        [encoder setVertexSamplerState:samplerState atIndex:vsBindingInfo.m_samplerBindingIndex];
+      }
+    }
+    
+    // Set texture to the fragment shader.
+    auto const & fsBindingInfo = p->GetFragmentTextureBindingInfo(texture.first);
+    if (fsBindingInfo.m_textureBindingIndex >= 0)
+    {
+      [encoder setFragmentTexture:t->GetTexture() atIndex:fsBindingInfo.m_textureBindingIndex];
+      if (fsBindingInfo.m_samplerBindingIndex >= 0)
+      {
+        id<MTLSamplerState> samplerState = metalContext->GetSamplerState(params.m_filter, params.m_wrapSMode,
+                                                                         params.m_wrapTMode);
+        [encoder setFragmentSamplerState:samplerState atIndex:fsBindingInfo.m_samplerBindingIndex];
       }
     }
   }

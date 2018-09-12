@@ -17,73 +17,67 @@ typedef struct
 
 typedef struct
 {
-  packed_float2 a_position;
-  packed_float2 a_normal;
-  packed_float2 a_texCoords;
+  float2 a_position [[attribute(0)]];
+  float2 a_normal [[attribute(1)]];
+  float2 a_texCoords [[attribute(2)]];
 } RulerVertex_T;
 
 typedef struct
 {
   float4 position [[position]];
-  float2 texCoords;
+  half4 color;
 } RulerFragment_T;
 
-vertex RulerFragment_T vsRuler(device const RulerVertex_T * vertices [[buffer(0)]],
-                               constant Uniforms_T & uniforms [[buffer(1)]],
-                               ushort vid [[vertex_id]])
+vertex RulerFragment_T vsRuler(const RulerVertex_T in [[stage_in]],
+                               texture2d<half> u_colorTex [[texture(0)]],
+                               sampler u_colorTexSampler [[sampler(0)]],
+                               constant Uniforms_T & uniforms [[buffer(1)]])
 {
-  RulerVertex_T const in = vertices[vid];
   RulerFragment_T out;
   float2 p = uniforms.u_position + in.a_position + uniforms.u_length * in.a_normal;
   out.position = float4(p, 0.0, 1.0) * uniforms.u_projection;
-  out.texCoords = in.a_texCoords;
+  half4 color = u_colorTex.sample(u_colorTexSampler, in.a_texCoords);
+  color.a *= uniforms.u_opacity;
+  out.color = color;
   return out;
 }
 
-fragment float4 fsRuler(const RulerFragment_T in [[stage_in]],
-                        constant Uniforms_T & uniforms [[buffer(0)]],
-                        texture2d<float> u_colorTex [[texture(0)]],
-                        sampler u_colorTexSampler [[sampler(0)]])
+fragment half4 fsRuler(const RulerFragment_T in [[stage_in]])
 {
-  float4 color = u_colorTex.sample(u_colorTexSampler, in.texCoords);
-  color.a *= uniforms.u_opacity;
-  return color;
+  return in.color;
 }
 
 // TextStaticOutlinedGui / TextOutlinedGui
 
 typedef struct
 {
-  packed_float3 a_position;
-  packed_float2 a_normal;
-  packed_float2 a_colorTexCoord;
-  packed_float2 a_outlineColorTexCoord;
-  packed_float2 a_maskTexCoord;
+  float3 a_position [[attribute(0)]];
+  float2 a_normal [[attribute(1)]];
+  float2 a_colorTexCoord [[attribute(2)]];
+  float2 a_outlineColorTexCoord [[attribute(3)]];
+  float2 a_maskTexCoord [[attribute(4)]];
 } TextStaticOutlinedGuiVertex_T;
 
 typedef struct
 {
-  packed_float3 a_position;
-  packed_float2 a_colorTexCoord;
-  packed_float2 a_outlineColorTexCoord;
-} TextOutlinedGuiVertex0_T;
-
-typedef struct
-{
-  packed_float2 a_normal;
-  packed_float2 a_maskTexCoord;
-} TextOutlinedGuiVertex1_T;
+  float3 a_position [[attribute(0)]];
+  float2 a_colorTexCoord [[attribute(1)]];
+  float2 a_outlineColorTexCoord [[attribute(2)]];
+  float2 a_normal [[attribute(3)]];
+  float2 a_maskTexCoord [[attribute(4)]];
+} TextOutlinedGuiVertex_T;
 
 typedef struct
 {
   float4 position [[position]];
-  float2 colorTexCoords;
+  half4 glyphColor;
   float2 maskTexCoord;
 } TextOutlinedGuiFragment_T;
 
 TextOutlinedGuiFragment_T ComputeTextOutlinedGuiVertex(constant Uniforms_T & uniforms, float3 a_position, float2 a_normal,
                                                        float2 a_colorTexCoord, float2 a_outlineColorTexCoord,
-                                                       float2 a_maskTexCoord)
+                                                       float2 a_maskTexCoord, texture2d<half> u_colorTex,
+                                                       sampler u_colorTexSampler)
 {
   constexpr float kBaseDepthShift = -10.0;
   
@@ -95,39 +89,38 @@ TextOutlinedGuiFragment_T ComputeTextOutlinedGuiVertex(constant Uniforms_T & uni
   float4 pos = (float4(a_position, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
   float4 shiftedPos = float4(a_normal, 0.0, 0.0) + pos;
   out.position = shiftedPos * uniforms.u_projection;
-  out.colorTexCoords = mix(a_colorTexCoord, a_outlineColorTexCoord, isOutline);
+  out.glyphColor = u_colorTex.sample(u_colorTexSampler,
+                                     mix(a_colorTexCoord, a_outlineColorTexCoord, isOutline));
   out.maskTexCoord = a_maskTexCoord;
   return out;
 }
 
-vertex TextOutlinedGuiFragment_T vsTextStaticOutlinedGui(device const TextStaticOutlinedGuiVertex_T * vertices [[buffer(0)]],
+vertex TextOutlinedGuiFragment_T vsTextStaticOutlinedGui(const TextStaticOutlinedGuiVertex_T in [[stage_in]],
                                                          constant Uniforms_T & uniforms [[buffer(1)]],
-                                                         ushort vid [[vertex_id]])
+                                                         texture2d<half> u_colorTex [[texture(0)]],
+                                                         sampler u_colorTexSampler [[sampler(0)]])
 {
-  TextStaticOutlinedGuiVertex_T const in = vertices[vid];
-  return ComputeTextOutlinedGuiVertex(uniforms, in.a_position, in.a_normal, in.a_colorTexCoord, in.a_outlineColorTexCoord,
-                                      in.a_maskTexCoord);
+  return ComputeTextOutlinedGuiVertex(uniforms, in.a_position, in.a_normal, in.a_colorTexCoord,
+                                      in.a_outlineColorTexCoord, in.a_maskTexCoord,
+                                      u_colorTex, u_colorTexSampler);
 }
 
-vertex TextOutlinedGuiFragment_T vsTextOutlinedGui(device const TextOutlinedGuiVertex0_T * vertices0 [[buffer(0)]],
-                                                   device const TextOutlinedGuiVertex1_T * vertices1 [[buffer(1)]],
+vertex TextOutlinedGuiFragment_T vsTextOutlinedGui(const TextOutlinedGuiVertex_T in [[stage_in]],
                                                    constant Uniforms_T & uniforms [[buffer(2)]],
-                                                   ushort vid [[vertex_id]])
+                                                   texture2d<half> u_colorTex [[texture(0)]],
+                                                   sampler u_colorTexSampler [[sampler(0)]])
 {
-  TextOutlinedGuiVertex0_T const in0 = vertices0[vid];
-  TextOutlinedGuiVertex1_T const in1 = vertices1[vid];
-  return ComputeTextOutlinedGuiVertex(uniforms, in0.a_position, in1.a_normal, in0.a_colorTexCoord,
-                                      in0.a_outlineColorTexCoord, in1.a_maskTexCoord);
+  return ComputeTextOutlinedGuiVertex(uniforms, in.a_position, in.a_normal, in.a_colorTexCoord,
+                                      in.a_outlineColorTexCoord, in.a_maskTexCoord,
+                                      u_colorTex, u_colorTexSampler);
 }
 
-fragment float4 fsTextOutlinedGui(const TextOutlinedGuiFragment_T in [[stage_in]],
-                                  constant Uniforms_T & uniforms [[buffer(0)]],
-                                  texture2d<float> u_colorTex [[texture(0)]],
-                                  sampler u_colorTexSampler [[sampler(0)]],
-                                  texture2d<float> u_maskTex [[texture(1)]],
-                                  sampler u_maskTexSampler [[sampler(1)]])
+fragment half4 fsTextOutlinedGui(const TextOutlinedGuiFragment_T in [[stage_in]],
+                                 constant Uniforms_T & uniforms [[buffer(0)]],
+                                 texture2d<float> u_maskTex [[texture(0)]],
+                                 sampler u_maskTexSampler [[sampler(0)]])
 {
-  float4 glyphColor = u_colorTex.sample(u_colorTexSampler, in.colorTexCoords);
+  half4 glyphColor = in.glyphColor;
   float dist = u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
   float2 contrastGamma = uniforms.u_contrastGamma;
   float alpha = smoothstep(contrastGamma.x - contrastGamma.y, contrastGamma.x + contrastGamma.y, dist);
@@ -139,8 +132,8 @@ fragment float4 fsTextOutlinedGui(const TextOutlinedGuiFragment_T in [[stage_in]
 
 typedef struct
 {
-  packed_float2 a_position;
-  packed_float2 a_texCoords;
+  float2 a_position [[attribute(0)]];
+  float2 a_texCoords [[attribute(1)]];
 } TexturingGuiVertex_T;
 
 typedef struct
@@ -149,11 +142,9 @@ typedef struct
   float2 texCoords;
 } TexturingGuiFragment_T;
 
-vertex TexturingGuiFragment_T vsTexturingGui(device const TexturingGuiVertex_T * vertices [[buffer(0)]],
-                                             constant Uniforms_T & uniforms [[buffer(1)]],
-                                             ushort vid [[vertex_id]])
+vertex TexturingGuiFragment_T vsTexturingGui(const TexturingGuiVertex_T in [[stage_in]],
+                                             constant Uniforms_T & uniforms [[buffer(1)]])
 {
-  TexturingGuiVertex_T const in = vertices[vid];
   TexturingGuiFragment_T out;
   out.position = float4(in.a_position, 0.0, 1.0) * uniforms.u_modelView * uniforms.u_projection;
   out.texCoords = in.a_texCoords;

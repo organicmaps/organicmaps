@@ -160,6 +160,7 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   
   CHECK(m_currentCommandEncoder == nil, ("Current command encoder was not finished."));
   m_currentCommandEncoder = [m_frameCommandBuffer renderCommandEncoderWithDescriptor:m_renderPassDescriptor];
+  m_currentCommandEncoder.label = @(framebufferLabel.c_str());
   [m_currentCommandEncoder pushDebugGroup:@(framebufferLabel.c_str())];
   
   // Default rendering options.

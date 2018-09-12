@@ -290,6 +290,7 @@ MTLRenderPipelineDescriptor * MetalStates::PipelineKey::BuildDescriptor() const
   ref_ptr<MetalGpuProgram> metalProgram = m_program;
   desc.vertexFunction = metalProgram->GetVertexShader();
   desc.fragmentFunction = metalProgram->GetFragmentShader();
+  desc.vertexDescriptor = metalProgram->GetVertexDescriptor();
   MTLRenderPipelineColorAttachmentDescriptor * colorAttachment = desc.colorAttachments[0];
   colorAttachment.pixelFormat = m_colorFormat;
   desc.depthAttachmentPixelFormat = m_depthStencilFormat;
