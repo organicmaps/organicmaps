@@ -219,6 +219,8 @@ class IsFoodChecker : public BaseChecker
   IsFoodChecker();
 public:
   DECLARE_CHECKER_INSTANCE(IsFoodChecker);
+
+  std::vector<uint32_t> const & GetTypes() const { return m_types; }
 };
 
 class IsCuisineChecker : public BaseChecker

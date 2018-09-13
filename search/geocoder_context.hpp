@@ -1,6 +1,7 @@
 #pragma once
 
 #include "search/cbv.hpp"
+#include "search/cuisine_filter.hpp"
 #include "search/features_layer.hpp"
 #include "search/geocoder_locality.hpp"
 #include "search/hotels_filter.hpp"
@@ -78,6 +79,7 @@ struct BaseContext
   // size_t m_numEmitted = 0;
 
   std::unique_ptr<hotels_filter::HotelsFilter::ScopedFilter> m_hotelsFilter;
+  std::unique_ptr<cuisine_filter::CuisineFilter::ScopedFilter> m_cuisineFilter;
 };
 
 std::string DebugPrint(BaseContext::TokenType type);

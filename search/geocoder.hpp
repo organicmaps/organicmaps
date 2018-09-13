@@ -4,6 +4,7 @@
 #include "search/categories_cache.hpp"
 #include "search/cbv.hpp"
 #include "search/cities_boundaries_table.hpp"
+#include "search/cuisine_filter.hpp"
 #include "search/feature_offset_match.hpp"
 #include "search/features_layer.hpp"
 #include "search/features_layer_path_finder.hpp"
@@ -85,6 +86,7 @@ public:
     m2::PointD m_position;
     Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+    vector<uint32_t> m_cuisineTypes;
     vector<uint32_t> m_preferredTypes;
     shared_ptr<Tracer> m_tracer;
   };
@@ -249,7 +251,9 @@ private:
   StreetsCache m_streetsCache;
   VillagesCache & m_villagesCache;
   HotelsCache m_hotelsCache;
+  FoodCache m_foodCache;
   hotels_filter::HotelsFilter m_hotelsFilter;
+  cuisine_filter::CuisineFilter m_cuisineFilter;
 
   base::Cancellable const & m_cancellable;
 

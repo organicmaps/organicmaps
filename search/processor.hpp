@@ -124,6 +124,7 @@ protected:
   strings::UniString m_prefix;
   bool m_isCategorialRequest;
   std::vector<uint32_t> m_preferredTypes;
+  std::vector<uint32_t> m_cuisineTypes;
 
   m2::RectD m_viewport;
   m2::PointD m_position;

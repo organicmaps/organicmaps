@@ -1,5 +1,6 @@
 #include "search/cuisine_filter.hpp"
 
+#include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -23,6 +24,24 @@ void Description::FromFeature(FeatureType & ft)
     if (ftypes::IsCuisineChecker::Instance().IsMatched(t))
       m_types.push_back(t);
   });
+
+  // Old maps support.
+  if (!m_types.empty())
+    return;
+
+  auto const & metadata = ft.GetMetadata();
+  if (!metadata.Has(feature::Metadata::FMD_CUISINE))
+    return;
+
+  string const rawCuisines = metadata.Get(feature::Metadata::FMD_CUISINE);
+  vector<string> cuisines;
+  osm::Cuisines::Instance().Parse(rawCuisines, cuisines);
+  for (auto const & c : cuisines)
+  {
+    auto const t = classif().GetTypeByPathSafe({"cuisine", c});
+    if (t != 0)
+      m_types.push_back(t);
+  }
 }
 
 CuisineFilter::ScopedFilter::ScopedFilter(MwmSet::MwmId const & mwmId,

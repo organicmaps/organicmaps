@@ -1,6 +1,7 @@
 #include "processor.hpp"
 
 #include "search/common.hpp"
+#include "search/cuisine_filter.hpp"
 #include "search/dummy_rank_table.hpp"
 #include "search/geometry_utils.hpp"
 #include "search/intermediate_result.hpp"
@@ -25,6 +26,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -276,6 +278,19 @@ void Processor::SetQuery(string const & query)
   m_preferredTypes.clear();
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
   m_isCategorialRequest = FillCategories(tokenSlice, GetCategoryLocales(), m_categories, m_preferredTypes);
+
+  // Try to match query to cuisine categories.
+  if (!m_isCategorialRequest)
+  {
+    bool const isCuisineRequest = FillCategories(
+        tokenSlice, GetCategoryLocales(), GetDefaultCuisineCategories(), m_cuisineTypes);
+
+    if (isCuisineRequest)
+    {
+      m_isCategorialRequest = true;
+      m_preferredTypes = ftypes::IsFoodChecker::Instance().GetTypes();
+    }
+  }
 
   if (!m_isCategorialRequest)
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
@@ -547,6 +562,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
   geocoderParams.m_position = GetPosition();
   geocoderParams.m_categoryLocales = GetCategoryLocales();
   geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
+  geocoderParams.m_cuisineTypes = m_cuisineTypes;
   geocoderParams.m_preferredTypes = m_preferredTypes;
   geocoderParams.m_tracer = searchParams.m_tracer;
 

@@ -345,7 +345,9 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_streetsCache(cancellable)
   , m_villagesCache(villagesCache)
   , m_hotelsCache(cancellable)
+  , m_foodCache(cancellable)
   , m_hotelsFilter(m_hotelsCache)
+  , m_cuisineFilter(m_foodCache)
   , m_cancellable(cancellable)
   , m_citiesBoundaries(citiesBoundaries)
   , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
@@ -447,7 +449,9 @@ void Geocoder::ClearCaches()
   m_matchersCache.clear();
   m_streetsCache.Clear();
   m_hotelsCache.Clear();
+  m_foodCache.Clear();
   m_hotelsFilter.ClearCaches();
+  m_cuisineFilter.ClearCaches();
   m_postcodes.Clear();
 }
 
@@ -596,6 +600,7 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
   }
 
   ctx.m_hotelsFilter = m_hotelsFilter.MakeScopedFilter(*m_context, m_params.m_hotelsFilter);
+  ctx.m_cuisineFilter = m_cuisineFilter.MakeScopedFilter(*m_context, m_params.m_cuisineTypes);
 }
 
 void Geocoder::InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer)
@@ -1318,7 +1323,10 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
   FeatureID id(mwmId, ftId);
 
   if (ctx.m_hotelsFilter && !ctx.m_hotelsFilter->Matches(id))
-      return;
+    return;
+
+  if (ctx.m_cuisineFilter && !ctx.m_cuisineFilter->Matches(id))
+    return;
 
   if (m_params.m_tracer)
     TraceResult(*m_params.m_tracer, ctx, mwmId, ftId, type, tokenRange);
