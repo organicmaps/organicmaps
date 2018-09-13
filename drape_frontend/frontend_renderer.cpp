@@ -440,7 +440,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubroute:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteMessage> msg = message;
       auto subrouteData = msg->AcceptRenderData();
 
@@ -482,7 +481,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubrouteArrows:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;
       drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptRenderData();
       if (CheckRouteRecaching(make_ref(routeArrowsData)))
@@ -496,7 +494,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushSubrouteMarkers:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushSubrouteMarkersMessage> msg = message;
       drape_ptr<SubrouteMarkersData> markersData = msg->AcceptRenderData();
       if (markersData->m_recacheId < 0)
@@ -513,7 +510,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RemoveSubroute:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<RemoveSubrouteMessage> msg = message;
       if (msg->NeedDeactivateFollowing())
       {
@@ -563,7 +559,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::AddRoutePreviewSegment:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<AddRoutePreviewSegmentMessage> const msg = message;
       RouteRenderer::PreviewInfo info;
       info.m_startPoint = msg->GetStartPoint();
@@ -574,7 +569,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RemoveRoutePreviewSegment:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<RemoveRoutePreviewSegmentMessage> const msg = message;
       if (msg->NeedRemoveAll())
         m_routeRenderer->RemoveAllPreviewSegments();
@@ -585,7 +579,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::SetSubrouteVisibility:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<SetSubrouteVisibilityMessage> const msg = message;
       m_routeRenderer->SetSubrouteVisibility(msg->GetSubrouteId(), msg->IsVisible());
       break;
@@ -683,7 +676,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushCirclesPack:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushCirclesPackMessage> msg = message;
       CHECK(m_context != nullptr, ());
       switch (msg->GetDestination())

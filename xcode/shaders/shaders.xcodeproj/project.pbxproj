@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451E692D214A53C000764A97 /* route.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E692C214A53C000764A97 /* route.metal */; };
+		451E692F214A6FA200764A97 /* map.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E692E214A6FA200764A97 /* map.metal */; };
+		451E6931214A8D4200764A97 /* shaders_lib.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E6930214A8D4200764A97 /* shaders_lib.metal */; };
 		4560F58A213D57D600CC736C /* debug_rect.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDC21342BDE009955CC /* debug_rect.metal */; };
 		4560F58B213D57D600CC736C /* screen_quad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F582213D44CE00CC736C /* screen_quad.metal */; };
 		4560F5AB2142AC1300CC736C /* gui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F5AA2142AC1300CC736C /* gui.metal */; };
@@ -62,6 +65,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		451E692C214A53C000764A97 /* route.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = route.metal; sourceTree = "<group>"; };
+		451E692E214A6FA200764A97 /* map.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = map.metal; sourceTree = "<group>"; };
+		451E6930214A8D4200764A97 /* shaders_lib.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shaders_lib.metal; sourceTree = "<group>"; };
 		4560F582213D44CE00CC736C /* screen_quad.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = screen_quad.metal; sourceTree = "<group>"; };
 		4560F5AA2142AC1300CC736C /* gui.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = gui.metal; sourceTree = "<group>"; };
 		4561ADF320E378CB0096BC12 /* program_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_manager.cpp; sourceTree = "<group>"; };
@@ -377,13 +383,16 @@
 		45789EDB21342AC4009955CC /* Metal */ = {
 			isa = PBXGroup;
 			children = (
-				45789EDC21342BDE009955CC /* debug_rect.metal */,
-				4560F582213D44CE00CC736C /* screen_quad.metal */,
-				4560F5AA2142AC1300CC736C /* gui.metal */,
-				BBF7916F2146D8EC00D27BD8 /* system.metal */,
 				BBF7917221493AFC00D27BD8 /* arrow3d.metal */,
-				BBF7917421495FF900D27BD8 /* shapes.metal */,
+				45789EDC21342BDE009955CC /* debug_rect.metal */,
+				4560F5AA2142AC1300CC736C /* gui.metal */,
+				451E692E214A6FA200764A97 /* map.metal */,
+				451E692C214A53C000764A97 /* route.metal */,
+				4560F582213D44CE00CC736C /* screen_quad.metal */,
 				BBF79176214970B600D27BD8 /* shaders_lib.h */,
+				451E6930214A8D4200764A97 /* shaders_lib.metal */,
+				BBF7917421495FF900D27BD8 /* shapes.metal */,
+				BBF7916F2146D8EC00D27BD8 /* system.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -541,9 +550,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				451E692F214A6FA200764A97 /* map.metal in Sources */,
 				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
+				451E692D214A53C000764A97 /* route.metal in Sources */,
 				BBF791702146D8EC00D27BD8 /* system.metal in Sources */,
 				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
+				451E6931214A8D4200764A97 /* shaders_lib.metal in Sources */,
 				BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */,
 				BBF7917521495FF900D27BD8 /* shapes.metal in Sources */,
 				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,

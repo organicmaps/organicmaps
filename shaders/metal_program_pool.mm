@@ -73,11 +73,11 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),  // MyPosition
   ProgramInfo("", "", {}),  // Transit
   ProgramInfo("", "", {}),  // TransitMarker
-  ProgramInfo("", "", {}),  // Route
-  ProgramInfo("", "", {}),  // RouteDash
-  ProgramInfo("", "", {}),  // RouteArrow
-  ProgramInfo("", "", {}),  // RouteMarker
-  ProgramInfo("", "", {}),  // CirclePoint
+  ProgramInfo("vsRoute", "fsRoute", {{0, 3}}),  // Route
+  ProgramInfo("vsRoute", "fsRouteDash", {{0, 3}}),  // RouteDash
+  ProgramInfo("vsRouteArrow", "fsRouteArrow", {{0, 2}}),  // RouteArrow
+  ProgramInfo("vsRouteMarker", "fsRouteMarker", {{0, 2}}),  // RouteMarker
+  ProgramInfo("vsCirclePoint", "fsCirclePoint", {{0, 0}, {1, 2}}),  // CirclePoint
   ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),  // DebugRect
   ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),  // ScreenQuad
   ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),  // Arrow3d
