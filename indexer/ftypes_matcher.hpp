@@ -221,6 +221,14 @@ public:
   DECLARE_CHECKER_INSTANCE(IsFoodChecker);
 };
 
+class IsCuisineChecker : public BaseChecker
+{
+  IsCuisineChecker();
+
+public:
+  DECLARE_CHECKER_INSTANCE(IsCuisineChecker);
+};
+
 class IsCityChecker : public BaseChecker
 {
   IsCityChecker();

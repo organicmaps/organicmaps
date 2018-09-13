@@ -393,6 +393,12 @@ IsFoodChecker:: IsFoodChecker()
     m_types.push_back(c.GetTypeByPath({path[0], path[1]}));
 }
 
+IsCuisineChecker::IsCuisineChecker() : BaseChecker(1 /* level */)
+{
+  Classificator const & c = classif();
+  m_types.push_back(c.GetTypeByPath({"cuisine"}));
+}
+
 IsCityChecker::IsCityChecker()
 {
   m_types.push_back(classif().GetTypeByPath({"place", "city"}));

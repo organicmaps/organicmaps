@@ -63,4 +63,10 @@ class HotelsCache : public CategoriesCache
 public:
   HotelsCache(base::Cancellable const & cancellable);
 };
+
+class FoodCache : public CategoriesCache
+{
+public:
+  FoodCache(base::Cancellable const & cancellable);
+};
 }  // namespace search

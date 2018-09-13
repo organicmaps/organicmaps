@@ -67,4 +67,10 @@ HotelsCache::HotelsCache(base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsHotelChecker::Instance(), cancellable)
 {
 }
+
+// FoodCache ---------------------------------------------------------------------------------------
+FoodCache::FoodCache(base::Cancellable const & cancellable)
+  : CategoriesCache(ftypes::IsFoodChecker::Instance(), cancellable)
+{
+}
 }  // namespace search
