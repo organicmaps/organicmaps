@@ -13,6 +13,8 @@
 		3496AB711DC1F5AB00C5DDBA /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3496AB701DC1F5AB00C5DDBA /* libalohalitics.a */; };
 		34C624BD1DABCCD100510300 /* socket_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34C624BB1DABCCD100510300 /* socket_apple.mm */; };
 		34C624BE1DABCCD100510300 /* socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C624BC1DABCCD100510300 /* socket.hpp */; };
+		3D15ACE1214A707900F725D5 /* localization.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACDF214A707800F725D5 /* localization.mm */; };
+		3D15ACE2214A707900F725D5 /* localization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE0214A707800F725D5 /* localization.hpp */; };
 		3D30587D1D8320E4004AC712 /* http_client.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D30587B1D8320E4004AC712 /* http_client.hpp */; };
 		3D30587F1D880910004AC712 /* http_client_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D30587E1D880910004AC712 /* http_client_apple.mm */; };
 		3D318A062021DD8B007B2607 /* http_uploader_apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D318A042021DD8A007B2607 /* http_uploader_apple.mm */; };
@@ -27,10 +29,10 @@
 		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
 		4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4564FA7C2094978C0043CCFB /* remote_file.hpp */; };
 		4564FA7F2094978D0043CCFB /* remote_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4564FA7D2094978D0043CCFB /* remote_file.cpp */; };
-		5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */; };
 		45D7ADBA210F48E500160DE3 /* http_user_agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */; };
 		45D7ADBB210F48E500160DE3 /* http_user_agent_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */; };
 		45D7ADBC210F48E500160DE3 /* http_user_agent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */; };
+		5661A5CC20DD57DA00C6B1D1 /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -131,6 +133,8 @@
 		34C624BC1DABCCD100510300 /* socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = socket.hpp; sourceTree = "<group>"; };
 		34F558331DBF273C00A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F558341DBF273C00A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		3D15ACDF214A707800F725D5 /* localization.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = localization.mm; sourceTree = "<group>"; };
+		3D15ACE0214A707800F725D5 /* localization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = localization.hpp; sourceTree = "<group>"; };
 		3D30587B1D8320E4004AC712 /* http_client.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_client.hpp; sourceTree = "<group>"; };
 		3D30587E1D880910004AC712 /* http_client_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_client_apple.mm; sourceTree = "<group>"; };
 		3D318A042021DD8A007B2607 /* http_uploader_apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_uploader_apple.mm; sourceTree = "<group>"; };
@@ -145,10 +149,10 @@
 		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
 		4564FA7C2094978C0043CCFB /* remote_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = remote_file.hpp; sourceTree = "<group>"; };
 		4564FA7D2094978D0043CCFB /* remote_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remote_file.cpp; sourceTree = "<group>"; };
-		5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
 		45D7ADB7210F48E400160DE3 /* http_user_agent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = http_user_agent.cpp; sourceTree = "<group>"; };
 		45D7ADB8210F48E400160DE3 /* http_user_agent_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = http_user_agent_ios.mm; sourceTree = "<group>"; };
 		45D7ADB9210F48E400160DE3 /* http_user_agent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = http_user_agent.hpp; sourceTree = "<group>"; };
+		5661A5CB20DD57DA00C6B1D1 /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -362,6 +366,8 @@
 		6753437A1A3F5CF500A0A8C3 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				3D15ACE0214A707800F725D5 /* localization.hpp */,
+				3D15ACDF214A707800F725D5 /* localization.mm */,
 				675343861A3F5D5900A0A8C3 /* apple_location_service.mm */,
 				675343881A3F5D5900A0A8C3 /* chunks_download_strategy.cpp */,
 				675343891A3F5D5900A0A8C3 /* chunks_download_strategy.hpp */,
@@ -509,6 +515,7 @@
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
 				675343CD1A3F5D5A00A0A8C3 /* platform.hpp in Headers */,
 				6741250F1B4C00CC00A3E828 /* local_country_file.hpp in Headers */,
+				3D15ACE2214A707900F725D5 /* localization.hpp in Headers */,
 				3DE8B98F1DEC3115000E6083 /* network_policy.hpp in Headers */,
 				675E88A11DB7B0F200F8EBDA /* test_socket.hpp in Headers */,
 				675343CF1A3F5D5A00A0A8C3 /* preferred_languages.hpp in Headers */,
@@ -652,6 +659,7 @@
 				675343C91A3F5D5A00A0A8C3 /* platform_unix_impl.cpp in Sources */,
 				67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */,
 				67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */,
+				3D15ACE1214A707900F725D5 /* localization.mm in Sources */,
 				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
 				4564FA7F2094978D0043CCFB /* remote_file.cpp in Sources */,
 				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,

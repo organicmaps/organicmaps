@@ -77,6 +77,7 @@ set(
   com/mapswithme/platform/HttpUserAgent.cpp
   com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/Language.cpp
+  com/mapswithme/platform/Localization.cpp
   com/mapswithme/platform/MarketingService.cpp
   com/mapswithme/platform/Platform.cpp
   com/mapswithme/platform/PThreadImpl.cpp

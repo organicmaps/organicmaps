@@ -30,6 +30,7 @@ set(
   local_country_file.hpp
   local_country_file_utils.cpp
   local_country_file_utils.hpp
+  localization.hpp
   location.hpp
   marketing_service.cpp
   marketing_service.hpp
@@ -64,6 +65,7 @@ if(${PLATFORM_IPHONE})
     http_client_apple.mm
     http_uploader_apple.mm
     http_user_agent_ios.mm
+    localization.mm
     marketing_service_ios.mm
     network_policy_ios.h
     network_policy_ios.mm
@@ -84,6 +86,7 @@ else() # neither iPhone nor Android
   append(
     SRC
     http_user_agent_dummy.cpp
+    localization_dummy.cpp
     location_service.cpp
     location_service.hpp
     marketing_service_dummy.cpp
