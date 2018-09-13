@@ -12,6 +12,7 @@ set(
   megafon_countries_tests.cpp
   mopub_tests.cpp
   rb_tests.cpp
+  rutaxi_tests.cpp
   taxi_engine_tests.cpp
   taxi_places_tests.cpp
   uber_tests.cpp

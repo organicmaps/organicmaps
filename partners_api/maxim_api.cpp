@@ -104,11 +104,9 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
             << "&endLongitude=" << to.lon;
 
 #if defined(OMIM_OS_IPHONE)
-  installLink << "https://itunes.apple.com/app/apple-store/id579985456?pt=119057982"
-               << "&ct=maps_me&mt=8";
+  installLink << "https://app.appsflyer.com/id579985456?pid=maps_me";
 #elif defined(OMIM_OS_ANDROID)
-  installLink << "https://play.google.com/store/apps/details?id=com.taxsee.taxsee"
-               << "&referrer=utm_source%3Dmaps_me";
+  installLink << "https://app.appsflyer.com/com.taxsee.taxsee?pid=maps_me";
 #endif
 
   return {"maximzakaz://" + orderLink.str(), installLink.str()};

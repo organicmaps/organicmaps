@@ -29,6 +29,9 @@
 		349FEC5A2010D54D00FE5CA3 /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */; };
 		349FEC5C2010D56400FE5CA3 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5D2010D56400FE5CA3 /* libprotobuf.a */; };
 		349FEC5E2010D67B00FE5CA3 /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */; };
+		3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */; };
+		3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */; };
+		3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */; };
 		3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AED1EE6D202009EAB9B /* google_tests.cpp */; };
 		3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */; };
 		3D452AF31EE6D20D009EAB9B /* google_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AF11EE6D20D009EAB9B /* google_ads.cpp */; };
@@ -110,6 +113,9 @@
 		349FEC5B2010D54D00FE5CA3 /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		349FEC5D2010D56400FE5CA3 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		349FEC5F2010D67B00FE5CA3 /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_delegate.hpp; sourceTree = "<group>"; };
+		3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rutaxi_api.hpp; sourceTree = "<group>"; };
+		3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rutaxi_api.cpp; sourceTree = "<group>"; };
 		3D452AED1EE6D202009EAB9B /* google_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_tests.cpp; sourceTree = "<group>"; };
 		3D452AEE1EE6D202009EAB9B /* mopub_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_tests.cpp; sourceTree = "<group>"; };
 		3D452AF11EE6D20D009EAB9B /* google_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = google_ads.cpp; sourceTree = "<group>"; };
@@ -229,6 +235,9 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3D15ACE5214AA1B000F725D5 /* rutaxi_api.cpp */,
+				3D15ACE4214AA1B000F725D5 /* rutaxi_api.hpp */,
+				3D15ACE3214AA1AF00F725D5 /* taxi_delegate.hpp */,
 				3DCD415120DAB33700143533 /* booking_block_params.cpp */,
 				3DCD415220DAB33700143533 /* booking_block_params.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
@@ -349,9 +358,11 @@
 				F6B536411DA520E40067EEA5 /* booking_api.hpp in Headers */,
 				3430643D1E9FBCF500DC7665 /* mopub_ads.hpp in Headers */,
 				3D47B2B11F14FA14000828D2 /* utils.hpp in Headers */,
+				3D15ACE7214AA1B000F725D5 /* rutaxi_api.hpp in Headers */,
 				45C380782094C5B400C18D81 /* partners.hpp in Headers */,
 				3DFEBF861EF82BEA00317D5C /* viator_api.hpp in Headers */,
 				346E889C1E9D087400D4CE9B /* rb_ads.hpp in Headers */,
+				3D15ACE6214AA1B000F725D5 /* taxi_delegate.hpp in Headers */,
 				3DFEBF9A1EFBFC1500317D5C /* taxi_base.hpp in Headers */,
 				346E889A1E9D087400D4CE9B /* banner.hpp in Headers */,
 				3DFEBF9F1EFBFC1500317D5C /* yandex_api.hpp in Headers */,
@@ -463,6 +474,7 @@
 				3D452AEF1EE6D202009EAB9B /* google_tests.cpp in Sources */,
 				3D452AF01EE6D202009EAB9B /* mopub_tests.cpp in Sources */,
 				3D4E997F1FB439300025B48C /* utils.cpp in Sources */,
+				3D15ACE8214AA1B000F725D5 /* rutaxi_api.cpp in Sources */,
 				3430643C1E9FBCF500DC7665 /* mopub_ads.cpp in Sources */,
 				45C380772094C5B400C18D81 /* partners.cpp in Sources */,
 				346E88961E9D087400D4CE9B /* ads_base.cpp in Sources */,

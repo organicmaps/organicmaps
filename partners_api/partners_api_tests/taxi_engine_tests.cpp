@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "partners_api/maxim_api.hpp"
+#include "partners_api/rutaxi_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
@@ -10,6 +11,7 @@
 #include "platform/gui_thread.hpp"
 
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/worker_thread.hpp"
@@ -86,6 +88,18 @@ public:
   storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
 };
 
+class RussiaSochiDelegate : public taxi::Delegate
+{
+public:
+  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override
+  {
+    return {"Russian Federation"};
+  }
+
+  std::string GetCityName(m2::PointD const & point) override { return "Sochi"; }
+  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+};
+
 std::vector<taxi::Product> GetUberSynchronous(ms::LatLon const & from, ms::LatLon const & to,
                                               std::string const & url)
 {
@@ -135,9 +149,32 @@ std::vector<taxi::Product> GetMaximSynchronous(ms::LatLon const & from, ms::LatL
   return maximProducts;
 }
 
+std::vector<taxi::Product> GetRutaxiSynchronous(ms::LatLon const & from, ms::LatLon const & to,
+                                                taxi::Delegate & delegate, std::string const & url)
+{
+  auto const city = delegate.GetCityName(MercatorBounds::FromLatLon(from));
+
+  std::string fromHttpResult;
+  TEST(taxi::rutaxi::RawApi::GetNearObject(from, city, fromHttpResult, url), ());
+  taxi::rutaxi::Object fromObj;
+  taxi::rutaxi::MakeNearObject(fromHttpResult, fromObj);
+
+  std::string toHttpResult;
+  TEST(taxi::rutaxi::RawApi::GetNearObject(to, city, toHttpResult, url), ());
+  taxi::rutaxi::Object toObj;
+  taxi::rutaxi::MakeNearObject(toHttpResult, toObj);
+
+  std::string costHttpResult;
+  TEST(taxi::rutaxi::RawApi::GetCost(fromObj, toObj, city, costHttpResult, url), ());
+  std::vector<taxi::Product> rutaxiProducts;
+  taxi::rutaxi::MakeProducts(costHttpResult, fromObj, toObj, {city, "UFO"}, rutaxiProducts);
+
+  return rutaxiProducts;
+}
+
 taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
                                                  ms::LatLon const & from, ms::LatLon const & to,
-                                                 std::string const & url)
+                                                 taxi::Delegate & delegate, std::string const & url)
 {
   taxi::ProvidersContainer providers;
 
@@ -153,6 +190,10 @@ taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
       break;
     case taxi::Provider::Type::Maxim:
       providers.emplace_back(taxi::Provider::Type::Maxim, GetMaximSynchronous(from, to, url));
+      break;
+    case taxi::Provider::Type::Rutaxi:
+      providers.emplace_back(taxi::Provider::Type::Rutaxi,
+                             GetRutaxiSynchronous(from, to, delegate, url));
       break;
     case taxi::Provider::Type::Count:
       LOG(LERROR, ());
@@ -247,8 +288,8 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
     TEST(false, ("errorNotPossibleCallback", requestId, errors));
   };
 
-  // Try to image what products1, products2 and products3 are lists of products for different taxi
-  // providers. Only product id is important for us, all other fields are empty.
+  // Try to image what products1, products2, products3 and products4 are lists of products for
+  // different taxi providers. Only product id is important for us, all other fields are empty.
   std::vector<taxi::Product> products1 =
   {
     {"1", "", "", "", ""},
@@ -268,27 +309,35 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
     {"7", "", "", "", ""},
   };
 
-  maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
-  maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
-  maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
-  maker.ProcessProducts(reqId, taxi::Provider::Type::Maxim, products3);
-
-  TEST(providers.empty(), ());
-  TEST(errors.empty(), ());
+  std::vector<taxi::Product> products4 =
+  {
+    {"8", "", "", "", ""},
+  };
 
   maker.Reset(reqId, 4, successCallback, errorNotPossibleCallback);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Maxim, products3);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Rutaxi, products3);
+
+  TEST(providers.empty(), ());
+  TEST(errors.empty(), ());
+
+  maker.Reset(reqId, 5, successCallback, errorNotPossibleCallback);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Maxim, products3);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Rutaxi, products4);
   maker.DecrementRequestCount(reqId);
   maker.MakeResult(reqId);
 
   testing::Wait();
 
-  TEST_EQUAL(providers.size(), 3, ());
+  TEST_EQUAL(providers.size(), 4, ());
   TEST_EQUAL(providers[0].GetType(), taxi::Provider::Type::Uber, ());
   TEST_EQUAL(providers[1].GetType(), taxi::Provider::Type::Yandex, ());
   TEST_EQUAL(providers[2].GetType(), taxi::Provider::Type::Maxim, ());
+  TEST_EQUAL(providers[3].GetType(), taxi::Provider::Type::Rutaxi, ());
   TEST_EQUAL(providers[0][0].m_productId, "1", ());
   TEST_EQUAL(providers[0][1].m_productId, "2", ());
   TEST_EQUAL(providers[0][2].m_productId, "3", ());
@@ -296,11 +345,13 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
   TEST_EQUAL(providers[1][1].m_productId, "5", ());
   TEST_EQUAL(providers[1][2].m_productId, "6", ());
   TEST_EQUAL(providers[2][0].m_productId, "7", ());
+  TEST_EQUAL(providers[3][0].m_productId, "8", ());
 
-  maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
+  maker.Reset(reqId, 4, successCallback, errorNotPossibleCallback);
   maker.ProcessError(reqId, taxi::Provider::Type::Uber, taxi::ErrorCode::NoProducts);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Yandex, products2);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Maxim, products3);
+  maker.ProcessError(reqId, taxi::Provider::Type::Rutaxi, taxi::ErrorCode::NoProducts);
   maker.MakeResult(reqId);
 
   testing::Wait();
@@ -313,37 +364,42 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
   TEST_EQUAL(providers[0][2].m_productId, "6", ());
   TEST_EQUAL(providers[1][0].m_productId, "7", ());
 
-  maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
+  maker.Reset(reqId, 4, successCallback, errorNotPossibleCallback);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Uber, products1);
   maker.ProcessError(reqId, taxi::Provider::Type::Yandex, taxi::ErrorCode::NoProducts);
   maker.ProcessProducts(reqId, taxi::Provider::Type::Maxim, products3);
+  maker.ProcessProducts(reqId, taxi::Provider::Type::Rutaxi, products4);
   maker.MakeResult(reqId);
 
   testing::Wait();
 
-  TEST_EQUAL(providers.size(), 2, ());
+  TEST_EQUAL(providers.size(), 3, ());
   TEST_EQUAL(providers[0].GetType(), taxi::Provider::Type::Uber, ());
   TEST_EQUAL(providers[1].GetType(), taxi::Provider::Type::Maxim, ());
   TEST_EQUAL(providers[0][0].m_productId, "1", ());
   TEST_EQUAL(providers[0][1].m_productId, "2", ());
   TEST_EQUAL(providers[0][2].m_productId, "3", ());
   TEST_EQUAL(providers[1][0].m_productId, "7", ());
+  TEST_EQUAL(providers[2][0].m_productId, "8", ());
 
-  maker.Reset(reqId, 3, successNotPossibleCallback, errorCallback);
+  maker.Reset(reqId, 4, successNotPossibleCallback, errorCallback);
   maker.ProcessError(reqId, taxi::Provider::Type::Uber, taxi::ErrorCode::NoProducts);
   maker.ProcessError(reqId, taxi::Provider::Type::Yandex, taxi::ErrorCode::RemoteError);
   maker.ProcessError(reqId, taxi::Provider::Type::Maxim, taxi::ErrorCode::NoProducts);
+  maker.ProcessError(reqId, taxi::Provider::Type::Rutaxi, taxi::ErrorCode::RemoteError);
   maker.MakeResult(reqId);
 
   testing::Wait();
 
-  TEST_EQUAL(errors.size(), 3, ());
+  TEST_EQUAL(errors.size(), 4, ());
   TEST_EQUAL(errors[0].m_type, taxi::Provider::Type::Uber, ());
   TEST_EQUAL(errors[0].m_code, taxi::ErrorCode::NoProducts, ());
   TEST_EQUAL(errors[1].m_type, taxi::Provider::Type::Yandex, ());
   TEST_EQUAL(errors[1].m_code, taxi::ErrorCode::RemoteError, ());
   TEST_EQUAL(errors[2].m_type, taxi::Provider::Type::Maxim, ());
   TEST_EQUAL(errors[2].m_code, taxi::ErrorCode::NoProducts, ());
+  TEST_EQUAL(errors[3].m_type, taxi::Provider::Type::Rutaxi, ());
+  TEST_EQUAL(errors[3].m_code, taxi::ErrorCode::RemoteError, ());
 
   maker.Reset(reqId, 3, successCallback, errorNotPossibleCallback);
   maker.DecrementRequestCount(reqId);
@@ -391,12 +447,14 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_Smoke)
 
   taxi::Engine engine({{taxi::Provider::Type::Uber, kTesturl},
                        {taxi::Provider::Type::Yandex, kTesturl},
-                       {taxi::Provider::Type::Maxim, kTesturl}});
+                       {taxi::Provider::Type::Maxim, kTesturl},
+                       {taxi::Provider::Type::Rutaxi, kTesturl}});
 
   engine.SetDelegate(std::make_unique<BelarusMinskDelegate>());
+  BelarusMinskDelegate delegate;
 
   taxi::ProvidersContainer const synchronousProviders =
-      GetProvidersSynchronous(engine, from, to, kTesturl);
+      GetProvidersSynchronous(engine, from, to, delegate, kTesturl);
 
   TEST(!synchronousProviders.empty(), ());
 
@@ -462,6 +520,11 @@ UNIT_TEST(TaxiEngine_GetProvidersAtPos)
   providers = engine.GetProvidersAtPos(latlon);
   TEST_EQUAL(providers.size(), 1, ());
   TEST_EQUAL(providers[0], taxi::Provider::Type::Uber, ());
+
+  engine.SetDelegate(std::make_unique<RussiaSochiDelegate>());
+  providers = engine.GetProvidersAtPos(latlon);
+  TEST_EQUAL(providers.size(), 1, ());
+  TEST_EQUAL(providers[0], taxi::Provider::Type::Rutaxi, ());
 
   engine.SetDelegate(std::make_unique<RussiaKonetsDelegate>());
   providers = engine.GetProvidersAtPos(latlon);

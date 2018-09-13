@@ -34,8 +34,11 @@ set(
   partners.hpp
   rb_ads.cpp
   rb_ads.hpp
+  rutaxi_api.cpp
+  rutaxi_api.hpp
   taxi_base.cpp
   taxi_base.hpp
+  taxi_delegate.hpp
   taxi_engine.cpp
   taxi_engine.hpp
   taxi_places.cpp

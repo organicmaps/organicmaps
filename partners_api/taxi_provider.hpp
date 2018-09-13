@@ -24,6 +24,7 @@ public:
     Uber,
     Yandex,
     Maxim,
+    Rutaxi,
     Count
   };
 
@@ -80,6 +81,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Uber: return "Uber";
   case Provider::Type::Yandex: return "Yandex";
   case Provider::Type::Maxim: return "Maxim";
+  case Provider::Type::Rutaxi: return "Rutaxi";
   case Provider::Type::Count: ASSERT(false, ()); return "";
   }
   CHECK_SWITCH();

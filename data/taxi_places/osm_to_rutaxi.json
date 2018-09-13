@@ -1,0 +1,532 @@
+[
+  {
+    "osm": "Abakan",
+    "rutaxi": "abakan",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Aleksin",
+    "rutaxi": "aleksin",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Almaty",
+    "rutaxi": "almaty",
+    "currency": "KZT"
+  },
+  {
+    "osm": "Angarsk",
+    "rutaxi": "angarsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Astana",
+    "rutaxi": "astana",
+    "currency": "KZT"
+  },
+  {
+    "osm": "Astrakhan",
+    "rutaxi": "astrakhan",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Barnaul",
+    "rutaxi": "barnaul",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Berezniki",
+    "rutaxi": "berezniki",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Blagoveshchensk",
+    "rutaxi": "blagoveshchensk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Bryansk",
+    "rutaxi": "bryansk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Veliky Novgorod",
+    "rutaxi": "vnovgorod",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Vladivostok",
+    "rutaxi": "vladivostok",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Vladimir",
+    "rutaxi": "vladimir",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Volgograd",
+    "rutaxi": "volgograd",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Volzhsky",
+    "rutaxi": "volzhskiy",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Vologda",
+    "rutaxi": "vologda",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Voronezh",
+    "rutaxi": "voronezh",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Votkinsk",
+    "rutaxi": "votkinsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Gatchina",
+    "rutaxi": "gatchina",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Dzerzhinsk",
+    "rutaxi": "dzerjinsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Dimitrovgrad",
+    "rutaxi": "dmgrad",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Donskoj",
+    "rutaxi": "domodedovo",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Yekaterinburg",
+    "rutaxi": "ekt",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Zhigulyovsk",
+    "rutaxi": "zhigulevsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Zlatoust",
+    "rutaxi": "zlatoust",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Ivanovo",
+    "rutaxi": "ivanovo",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Izhevsk",
+    "rutaxi": "izhevsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Irkutsk",
+    "rutaxi": "irkutsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Yoshkar-Ola",
+    "rutaxi": "yoshkarola",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kazan",
+    "rutaxi": "kazan",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kaliningrad",
+    "rutaxi": "kaliningrad",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kaluga",
+    "rutaxi": "kaluga",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Karaganda",
+    "rutaxi": "karaganda",
+    "currency": "KZT"
+  },
+  {
+    "osm": "Kemerovo",
+    "rutaxi": "kemerovo",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kirov",
+    "rutaxi": "kirov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kozelsk",
+    "rutaxi": "kozelsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kondrovo",
+    "rutaxi": "kondrovo",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kostroma",
+    "rutaxi": "kostroma",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Krasnodar",
+    "rutaxi": "krasnodar",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Krasnoyarsk",
+    "rutaxi": "krasnoyarsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kungur",
+    "rutaxi": "kungur",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Kyzyl",
+    "rutaxi": "kyzyl",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Lipetsk",
+    "rutaxi": "lipeck",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Lysva",
+    "rutaxi": "lisva",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Lyudinovo",
+    "rutaxi": "lyudinovo",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Magnitogorsk",
+    "rutaxi": "magnitogorsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Miass",
+    "rutaxi": "miass",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Minusinsk",
+    "rutaxi": "minus",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Moscow",
+    "rutaxi": "moscow",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Murmansk",
+    "rutaxi": "murmansk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Naberezhnye Chelny",
+    "rutaxi": "nabchelny",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Nizhny Novgorod",
+    "rutaxi": "nnovgorod",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Nizhny Tagil",
+    "rutaxi": "ntagil",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novoaltaysk",
+    "rutaxi": "novoaltaisk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novokuznetsk",
+    "rutaxi": "novokuznetsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novokuybyshevsk",
+    "rutaxi": "novokuib",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novomoskovsk",
+    "rutaxi": "novomoskovsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novorossiysk",
+    "rutaxi": "novoross",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novosibirsk",
+    "rutaxi": "novosibirsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Novocherkassk",
+    "rutaxi": "novochek",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Obninsk",
+    "rutaxi": "obninsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Oktyabrskiy",
+    "rutaxi": "oktiabrsky",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Omsk",
+    "rutaxi": "omsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Orenburg",
+    "rutaxi": "orenburg",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Orsk",
+    "rutaxi": "orsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Penza",
+    "rutaxi": "penza",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Pervouralsk",
+    "rutaxi": "pervouralsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Perm",
+    "rutaxi": "perm",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Petrozavodsk",
+    "rutaxi": "ptz",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Pskov",
+    "rutaxi": "pskov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Rostov-on-Don",
+    "rutaxi": "rostov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Ryazan",
+    "rutaxi": "ryazan",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Salavat",
+    "rutaxi": "salavat",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Samara",
+    "rutaxi": "samara",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Saint Petersburg",
+    "rutaxi": "spb",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Saransk",
+    "rutaxi": "saransk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Saratov",
+    "rutaxi": "saratov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Sayanogorsk",
+    "rutaxi": "sayan",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Serpukhov",
+    "rutaxi": "serpuhov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Smolensk",
+    "rutaxi": "smolensk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Solikamsk",
+    "rutaxi": "solikamsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Sochi",
+    "rutaxi": "sochi",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Sterlitamak",
+    "rutaxi": "sterl",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Syzran",
+    "rutaxi": "syzran",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Syktyvkar",
+    "rutaxi": "syktyvkar",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Taganrog",
+    "rutaxi": "taganrog",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Tambov",
+    "rutaxi": "tambov",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Tver",
+    "rutaxi": "tver",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Togliatti",
+    "rutaxi": "tolyatti",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Tomsk",
+    "rutaxi": "tomsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Tyumen",
+    "rutaxi": "tyumen",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Ulan-Ude",
+    "rutaxi": "ulan-ude",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Ulyanovsk",
+    "rutaxi": "ulyanovsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Ufa",
+    "rutaxi": "ufa",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Khabarovsk",
+    "rutaxi": "habarovsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chaikovsky",
+    "rutaxi": "chaykovskiy",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chapaevsk",
+    "rutaxi": "chapaevsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Cheboksary",
+    "rutaxi": "cheboksary",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chelyabinsk",
+    "rutaxi": "chel",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Cherepovets",
+    "rutaxi": "cherepovec",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chernogorsk",
+    "rutaxi": "chernogorsk",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chita",
+    "rutaxi": "chita",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Chusovoy",
+    "rutaxi": "chus",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Shakhty",
+    "rutaxi": "shakhty",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Engels",
+    "rutaxi": "engels",
+    "currency": "RUB"
+  },
+  {
+    "osm": "Yaroslavl",
+    "rutaxi": "yaroslavl",
+    "currency": "RUB" 
+  }
+]

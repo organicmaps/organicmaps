@@ -1,5 +1,6 @@
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/maxim_api.hpp"
+#include "partners_api/rutaxi_api.hpp"
 #include "partners_api/taxi_places_loader.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
@@ -118,9 +119,25 @@ Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
   AddApi<yandex::Api>(urls, Provider::Type::Yandex);
   AddApi<uber::Api>(urls, Provider::Type::Uber);
   AddApi<maxim::Api>(urls, Provider::Type::Maxim);
+  AddApi<rutaxi::Api>(urls, Provider::Type::Rutaxi);
 }
 
-void Engine::SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
+void Engine::SetDelegate(std::unique_ptr<Delegate> delegate)
+{
+  m_delegate = std::move(delegate);
+
+  auto it = std::find_if(m_apis.begin(), m_apis.end(), [](ApiItem const & item)
+  {
+    return item.m_type == Provider::Type::Rutaxi;
+  });
+
+  if (it != m_apis.end())
+  {
+    auto rutaxiPtr = dynamic_cast<rutaxi::Api *>(it->m_api.get());
+    CHECK(rutaxiPtr != nullptr, ());
+    rutaxiPtr->SetDelegate(m_delegate.get());
+  }
+}
 
 /// Requests list of available products. Returns request identificator immediately.
 uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,

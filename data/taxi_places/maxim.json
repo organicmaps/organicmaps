@@ -3,34 +3,50 @@
     "countries": [
       {
         "id": "Azerbaijan Region",
-        "cities": [ "Baku" ]
+        "cities": [ "Baku", "Ganja", "Mingachevir", "Sumgayit" ]
       },
       {
         "id": "Belarus",
-        "cities": [ "Baranovichi", "Mahilyow" ]
+        "cities": [ "Baranovichi", "Mahilyow", "Brest", "Vitebsk", "Hrodna" ]
       },
       {
         "id": "Bulgaria",
-        "cities": [ "Varna", "Plovdiv", "Sofia" ]
+        "cities": [ "Sofia" ]
       },
       {
         "id": "Georgia Region",
-        "cities": [ "Batumi", "Gori", "Zugdidi", "Kutaisi", "Poti" ]
+        "cities": [ "Batumi", "Gori", "Zugdidi", "Kutaisi", "Poti", "Rustavi", "Tbilisi" ]
+      },
+      {
+        "id": "Chile",
+        "cities": [ "Concepcion", "Santiago" ]
+      },
+      {
+        "id": "Indonesia",
+        "cities": [ "Denpasar", "Jakarta" ]
+      },
+      {
+        "id": "Italy",
+        "cities": [ "Milan" ]
       },
       {
         "id": "Kazakhstan",
-        "cities": [ "Kokshetau", "Semey", "Temirtau", "Oskemen" ]
+        "cities": [ "Aktobe", "Kostanay", "Semipalatinsk", "Temirtau", "Oskemen", "Oral" ]
+      },
+      {
+        "id": "Malaysia",
+        "cities": [ "Kuala Lumpur" ]
+      },
+      {
+        "id": "Tajikistan",
+        "cities": [ "Dushanbe", "Khujand" ]
+      },
+      {
+        "id": "Ukraine",
+        "cities": [ "Zhytomyr", "Kremenchuk", "Mariupol", "Poltava", "Sumy", "Kharkiv", "Cherkasy", "Chernihiv" ]
       }
     ],
-    "mwms": [
-      "Belarus_Brest Region",
-      "Belarus_Vitebsk Region",
-      "Ukraine_Poltava Oblast",
-      "Ukraine_Donetsk Oblast",
-      "Ukraine_Sumy Oblast",
-      "Ukraine_Cherkasy Oblast",
-      "Ukraine_Chernihiv Oblast"
-    ]
+    "mwms": []
   },
   "disabled": {
     "countries": [],

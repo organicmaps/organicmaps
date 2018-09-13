@@ -51,6 +51,7 @@ std::string Loader::GetFileNameByProvider(Provider::Type const type)
   switch (type)
   {
   case Provider::Type::Maxim: return "taxi_places/maxim.json";
+  case Provider::Type::Rutaxi: return "taxi_places/rutaxi.json";
   case Provider::Type::Uber: return "taxi_places/uber.json";
   case Provider::Type::Yandex: return "taxi_places/yandex.json";
   case Provider::Type::Count: LOG(LERROR, ("Incorrect taxi provider")); return "";
