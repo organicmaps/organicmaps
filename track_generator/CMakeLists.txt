@@ -16,11 +16,13 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   routing_quality
-  routing_common
   routing
+  routing_common
   kml
+  storage
   indexer
   platform
+  mwm_diff
   bsdiff
   geometry
   coding
