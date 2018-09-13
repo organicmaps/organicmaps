@@ -104,6 +104,39 @@ public enum TaxiType
         {
           return "Maxim";
         }
+      },
+  // Dummy.
+  RUTAXI
+      {
+        @NonNull
+        public String getPackageName()
+        {
+          return "ru.rutaxi.vezet";
+        }
+
+        @NonNull
+        public Utils.PartnerAppOpenMode getOpenMode()
+        {
+          return Utils.PartnerAppOpenMode.Direct;
+        }
+
+        @DrawableRes
+        public int getIcon()
+        {
+          return R.drawable.ic_taxi_logo_maksim;
+        }
+
+        @StringRes
+        public int getTitle()
+        {
+          return R.string.maxim_taxi_title;
+        }
+
+        @NonNull
+        public String getProviderName()
+        {
+          return "Rutaxi";
+        }
       };
 
   @NonNull

@@ -133,6 +133,10 @@ using namespace taxi;
           self.type = MWMRoutePreviewTaxiCellTypeMaxim;
           providerName = kStatMaxim;
           break;
+        // Dummy.
+        case taxi::Provider::Type::Rutaxi:
+          self.type = MWMRoutePreviewTaxiCellTypeMaxim;
+          providerName = kStatMaxim;
         case taxi::Provider::Type::Count:
           LOG(LERROR, ("Incorrect taxi provider"));
           break;
@@ -167,6 +171,8 @@ using namespace taxi;
         case taxi::Provider::Type::Uber: provider = kStatUber; break;
         case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
         case taxi::Provider::Type::Maxim: provider = kStatMaxim; break;
+        // Dummy.
+        case taxi::Provider::Type::Rutaxi: provider = kStatMaxim; break;
         case taxi::Provider::Count: LOG(LERROR, ("Incorrect taxi provider")); break;
         }
         NSString * errorValue = nil;

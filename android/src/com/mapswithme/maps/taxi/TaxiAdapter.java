@@ -53,7 +53,7 @@ public class TaxiAdapter extends PagerAdapter
     String separator;
     // We ignore all Yandex.Taxi product names until they do support of passing product parameters
     // to their app via deeplink.
-    if (mType == TaxiType.YANDEX || mType == TaxiType.MAXIM)
+    if (mType == TaxiType.YANDEX || mType == TaxiType.MAXIM || mType == TaxiType.RUTAXI)
     {
       name.setText(mType.getTitle());
       separator = " • ~";

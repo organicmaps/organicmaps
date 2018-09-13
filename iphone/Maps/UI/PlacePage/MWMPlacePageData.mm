@@ -107,6 +107,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     case taxi::Provider::Uber: provider = kStatUber; break;
     case taxi::Provider::Yandex: provider = kStatYandex; break;
     case taxi::Provider::Maxim: provider = kStatMaxim; break;
+    // Dummy.
+    case taxi::Provider::Rutaxi: provider = kStatMaxim; break;
     case taxi::Provider::Count: LOG(LERROR, ("Incorrect taxi provider")); break;
     }
     [Statistics logEvent:kStatPlacepageTaxiShow withParameters:@{ @"provider" : provider }];
