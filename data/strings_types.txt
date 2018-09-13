@@ -1,3 +1,5 @@
+[[ Types ]]
+
   [aerialway]
     en = aerialway
 
