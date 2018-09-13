@@ -67,17 +67,16 @@ import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.maplayer.Mode;
-import com.mapswithme.maps.metrics.UserActionsLogger;
-import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
-import com.mapswithme.maps.purchase.PurchaseFactory;
-import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.PurchaseController;
+import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -100,6 +99,7 @@ import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.tips.TipsApi;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -125,6 +125,7 @@ import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -240,6 +241,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       PurchaseFactory.createPurchaseController();
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
+  private MaterialTapTargetPrompt mTutorial;
 
   public interface LeftAnimationTrackListener
   {
@@ -595,16 +597,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
-    initTips();
   }
 
   private void initTips()
   {
+    if (mTutorial != null)
+      return;
+
     TipsApi api = TipsApi.requestCurrent(getClass());
     if (api == TipsApi.STUB)
       return;
 
-    api.showTutorial(getActivity());
+    View contentView = findViewById(android.R.id.content);
+    mTutorial = api.showTutorial(getActivity(), contentView.getHeight());
   }
 
   private void initFilterViews()
@@ -642,6 +647,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
       }, R.string.search_in_table);
     }
+  }
+
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus)
+  {
+    super.onWindowFocusChanged(hasFocus);
+    initTips();
   }
 
   private void runSearch()

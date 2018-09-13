@@ -18,7 +18,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
-import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.FullscreenPromptBackground;
 
 import java.util.Arrays;
 import java.util.List;
@@ -76,7 +75,7 @@ public enum TipsApi
 
   STUB
       {
-        public void showTutorial(@NonNull Activity activity)
+        public MaterialTapTargetPrompt showTutorial(@NonNull Activity activity, int height)
         {
           throw new UnsupportedOperationException("Not supported here!");
         }
@@ -123,8 +122,10 @@ public enum TipsApi
     return mAllowedScreens.contains(screenClass);
   }
 
-  public void showTutorial(@NonNull Activity activity)
+  public MaterialTapTargetPrompt showTutorial(@NonNull Activity activity, int height)
   {
+    ImmersiveCompatPromptBackground bg = new ImmersiveCompatPromptBackground();
+    bg.setHeight(height);
     View target = activity.findViewById(mAnchorViewId);
     MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt
         .Builder(activity)
@@ -140,9 +141,10 @@ public enum TipsApi
         .setSecondaryTextTypeface(Typeface.DEFAULT)
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
-        .setPromptBackground(new FullscreenPromptBackground())
+        .setPromptBackground(bg)
+        .setClipToView(null)
         .setPromptStateChangeListener((prompt, state) -> onPromptStateChanged(state));
-    builder.show();
+    return builder.show();
   }
 
   private void onPromptStateChanged(int state)
