@@ -76,6 +76,7 @@ namespace
 }
 
 jobject g_mapObjectListener = nullptr;
+int const kUndefinedTip = -1;
 }  // namespace
 
 namespace android
@@ -1804,8 +1805,8 @@ JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetCurrentTipsApi(JNIEnv * env, jclass)
 {
   auto const & tipsApi = frm()->GetTipsApi();
-  static constexpr int kUNDEFINED_TIP = -1;
-  return tipsApi.GetTip().is_initialized() ? static_cast<jint>(tipsApi.GetTip().get()) : kUNDEFINED_TIP;
+  auto const tip = tipsApi.GetTip();
+  return tip.is_initialized() ? static_cast<jint>(tip.get()) : kUndefinedTip;
 }
 
 JNIEXPORT jboolean JNICALL

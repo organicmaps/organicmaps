@@ -397,7 +397,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       {
         super.onItemSelectedInternal(item, position);
         Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position, EXTERNAL);
-        getType().getItemClickEvent().log();
       }
 
       @Override
@@ -407,7 +406,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
         Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                               galleryType,
                                               DISCOVERY);
-        getType().getMoreClickEvent().log();
       }
     };
   }
