@@ -40,6 +40,8 @@
 		BBF791702146D8EC00D27BD8 /* system.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7916F2146D8EC00D27BD8 /* system.metal */; };
 		BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917221493AFC00D27BD8 /* arrow3d.metal */; };
 		BBF7917521495FF900D27BD8 /* shapes.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF7917421495FF900D27BD8 /* shapes.metal */; };
+		BBF7917D214AC41700D27BD8 /* transit.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF79178214AA92D00D27BD8 /* transit.metal */; };
+		BBF7917E214AC41F00D27BD8 /* traffic.metal in Sources */ = {isa = PBXBuildFile; fileRef = BBF79177214AA53C00D27BD8 /* traffic.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +186,12 @@
 		BBF7917221493AFC00D27BD8 /* arrow3d.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = arrow3d.metal; sourceTree = "<group>"; };
 		BBF7917421495FF900D27BD8 /* shapes.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shapes.metal; sourceTree = "<group>"; };
 		BBF79176214970B600D27BD8 /* shaders_lib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaders_lib.h; sourceTree = "<group>"; };
+		BBF79177214AA53C00D27BD8 /* traffic.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = traffic.metal; sourceTree = "<group>"; };
+		BBF79178214AA92D00D27BD8 /* transit.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = transit.metal; sourceTree = "<group>"; };
+		BBF79179214AB8B500D27BD8 /* traffic_circle.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = traffic_circle.fsh.glsl; sourceTree = "<group>"; };
+		BBF7917A214AB8B600D27BD8 /* transit_circle.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transit_circle.fsh.glsl; sourceTree = "<group>"; };
+		BBF7917B214AB8B600D27BD8 /* traffic_circle.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = traffic_circle.vsh.glsl; sourceTree = "<group>"; };
+		BBF7917C214AB8B600D27BD8 /* transit_circle.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = transit_circle.vsh.glsl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +339,10 @@
 				4566609520E256470085E8C1 /* traffic_line.vsh.glsl */,
 				4566608F20E256470085E8C1 /* traffic.fsh.glsl */,
 				456660BB20E2564E0085E8C1 /* traffic.vsh.glsl */,
+				BBF79179214AB8B500D27BD8 /* traffic_circle.fsh.glsl */,
+				BBF7917B214AB8B600D27BD8 /* traffic_circle.vsh.glsl */,
+				BBF7917A214AB8B600D27BD8 /* transit_circle.fsh.glsl */,
+				BBF7917C214AB8B600D27BD8 /* transit_circle.vsh.glsl */,
 				4566609720E256480085E8C1 /* transit_marker.fsh.glsl */,
 				456660A020E256490085E8C1 /* transit_marker.vsh.glsl */,
 				4566609A20E256480085E8C1 /* transit.fsh.glsl */,
@@ -393,6 +405,8 @@
 				451E6930214A8D4200764A97 /* shaders_lib.metal */,
 				BBF7917421495FF900D27BD8 /* shapes.metal */,
 				BBF7916F2146D8EC00D27BD8 /* system.metal */,
+				BBF79177214AA53C00D27BD8 /* traffic.metal */,
+				BBF79178214AA92D00D27BD8 /* transit.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -554,9 +568,11 @@
 				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
 				451E692D214A53C000764A97 /* route.metal in Sources */,
 				BBF791702146D8EC00D27BD8 /* system.metal in Sources */,
+				BBF7917E214AC41F00D27BD8 /* traffic.metal in Sources */,
 				4560F58A213D57D600CC736C /* debug_rect.metal in Sources */,
 				451E6931214A8D4200764A97 /* shaders_lib.metal in Sources */,
 				BBF7917321493AFC00D27BD8 /* arrow3d.metal in Sources */,
+				BBF7917D214AC41700D27BD8 /* transit.metal in Sources */,
 				BBF7917521495FF900D27BD8 /* shapes.metal in Sources */,
 				4560F58B213D57D600CC736C /* screen_quad.metal in Sources */,
 			);

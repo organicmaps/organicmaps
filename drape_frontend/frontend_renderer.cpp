@@ -265,7 +265,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FinishTileRead:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FinishTileReadMessage> msg = message;
       bool changed = false;
       for (auto const & tileKey : msg->GetTiles())
@@ -470,7 +469,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushTransitScheme:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushTransitSchemeMessage > msg = message;
       auto renderData = msg->AcceptRenderData();
       CHECK(m_context != nullptr, ());

@@ -63,7 +63,7 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", "", {}),  // Area3dOutline
   ProgramInfo("", "", {}),  // Line
   ProgramInfo("", "", {}),  // CapJoin
-  ProgramInfo("", "", {}),  // TransitCircle
+  ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),  // TransitCircle
   ProgramInfo("", "", {}),  // DashedLine
   ProgramInfo("", "", {}),  // PathSymbol
   ProgramInfo("", "", {}),  // HatchingArea
@@ -71,8 +71,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),  // Ruler
   ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),  // Accuracy
   ProgramInfo("vsMyPosition", "fsMyPosition", {{0, 1}}),  // MyPosition
-  ProgramInfo("", "", {}),  // Transit
-  ProgramInfo("", "", {}),  // TransitMarker
+  ProgramInfo("vsTransit", "fsTransit", {{0, 2}}),  // Transit
+  ProgramInfo("vsTransitMarker", "fsTransitMarker", {{0, 2}}),  // TransitMarker
   ProgramInfo("vsRoute", "fsRoute", {{0, 3}}),  // Route
   ProgramInfo("vsRoute", "fsRouteDash", {{0, 3}}),  // RouteDash
   ProgramInfo("vsRouteArrow", "fsRouteArrow", {{0, 2}}),  // RouteArrow
@@ -91,9 +91,9 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", "", {}),  // TextOutlinedBillboard
   ProgramInfo("", "", {}),  // TextBillboard
   ProgramInfo("", "", {}),  // TextFixedBillboard
-  ProgramInfo("", "", {}),  // Traffic
-  ProgramInfo("", "", {}),  // TrafficLine
-  ProgramInfo("", "", {}),  // TrafficCircle
+  ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),  // Traffic
+  ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),  // TrafficLine
+  ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),  // TrafficCircle
   ProgramInfo("", "", {}),  // SmaaEdges
   ProgramInfo("", "", {}),  // SmaaBlendingWeight
   ProgramInfo("", "", {}),  // SmaaFinal

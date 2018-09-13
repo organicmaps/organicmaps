@@ -3,6 +3,8 @@
 
 using namespace metal;
 
+constant float kShapeCoordScalar = 1000.0;
+
 float4 ApplyPivotTransform(float4 pivot, float4x4 pivotTransform, float pivotRealZ);
 
 // This function calculates transformed position on an axis for line shaders family.

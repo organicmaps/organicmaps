@@ -4,7 +4,6 @@ uniform sampler2D u_colorTex;
 
 varying vec4 v_offsets;
 varying vec4 v_color;
-varying float v_scale;
 
 void main()
 {

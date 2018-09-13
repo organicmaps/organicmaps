@@ -102,9 +102,11 @@ void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GraphicsContext> context,
       PrepareRenderData(context, mng, tree, m_markersRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Text:
+      break;  // TODO(@darina): TEMPORARY
       PrepareRenderData(context, mng, tree, m_textRenderData, std::move(renderData));
       break;
     case TransitRenderData::Type::Stubs:
+      break; // TODO(@darina): TEMPORARY
       PrepareRenderData(context, mng, tree, m_colorSymbolRenderData, std::move(renderData));
       break;
   }
