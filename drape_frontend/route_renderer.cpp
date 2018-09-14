@@ -744,4 +744,9 @@ bool RouteRenderer::HasData() const
 {
   return !m_subroutes.empty();
 }
+  
+bool RouteRenderer::HasPreviewData() const
+{
+  return !m_previewSegments.empty() && !m_previewRenderData.empty();
+}
 }  // namespace df

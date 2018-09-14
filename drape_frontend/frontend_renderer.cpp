@@ -61,8 +61,9 @@ namespace df
 namespace
 {
 float constexpr kIsometryAngle = static_cast<float>(math::pi) * 76.0f / 180.0f;
-double const kVSyncInterval = 0.06;
-//double const kVSyncInterval = 0.014;
+double constexpr kVSyncInterval = 0.06;
+// Metal rendering is fast, so we can decrease sync inverval.
+double constexpr kVSyncIntervalMetal = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
 
@@ -1423,9 +1424,9 @@ bool FrontendRenderer::HasRouteData() const
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
   CHECK(m_context != nullptr, ());
-  m_context->Clear(dp::ClearBits::DepthBit);
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
+    m_context->Clear(dp::ClearBits::DepthBit);
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(m_context, make_ref(m_gpuProgramManager), modelView,
                                            make_ref(m_postprocessRenderer), m_frameValues,
@@ -1436,9 +1437,9 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
 {
   CHECK(m_context != nullptr, ());
-  m_context->Clear(dp::ClearBits::DepthBit);
   if (m_trafficRenderer->HasRenderData())
   {
+    m_context->Clear(dp::ClearBits::DepthBit);
     m_trafficRenderer->RenderTraffic(m_context, make_ref(m_gpuProgramManager), modelView,
                                      m_currentZoomLevel, 1.0f /* opacity */, m_frameValues);
   }
@@ -1464,11 +1465,14 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
 {
   if (HasTransitRouteData())
     RenderTransitBackground();
-
-  CHECK(m_context != nullptr, ());
-  m_context->Clear(dp::ClearBits::DepthBit);
-  m_routeRenderer->RenderRoute(m_context, make_ref(m_gpuProgramManager), modelView,
-                               m_trafficRenderer->HasRenderData(), m_frameValues);
+  
+  if (m_routeRenderer->HasData() || m_routeRenderer->HasPreviewData())
+  {
+    CHECK(m_context != nullptr, ());
+    m_context->Clear(dp::ClearBits::DepthBit);
+    m_routeRenderer->RenderRoute(m_context, make_ref(m_gpuProgramManager), modelView,
+                                 m_trafficRenderer->HasRenderData(), m_frameValues);
+  }
 }
 
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
@@ -1590,14 +1594,16 @@ void FrontendRenderer::RenderFrame()
   }
   else
   {
-    auto availableTime = kVSyncInterval - m_frameData.m_timer.ElapsedSeconds();
+    auto const syncInverval = (m_apiVersion == dp::ApiVersion::Metal) ? kVSyncIntervalMetal : kVSyncInterval;
+    
+    auto availableTime = syncInverval - m_frameData.m_timer.ElapsedSeconds();
     do
     {
       if (!ProcessSingleMessage(false /* waitForMessage */))
         break;
       m_frameData.m_forceFullRedrawNextFrame = true;
       m_frameData.m_inactiveFramesCounter = 0;
-      availableTime = kVSyncInterval - m_frameData.m_timer.ElapsedSeconds();
+      availableTime = syncInverval - m_frameData.m_timer.ElapsedSeconds();
     }
     while (availableTime > 0.0);
   }

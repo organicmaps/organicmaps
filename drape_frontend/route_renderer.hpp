@@ -95,6 +95,7 @@ public:
 
   bool HasTransitData() const;
   bool HasData() const;
+  bool HasPreviewData() const;
 
 private:
   void RenderSubroute(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
