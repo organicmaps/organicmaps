@@ -23,13 +23,10 @@ namespace
 std::string const kSubscriptionId = "SubscriptionId";
 std::string const kServerUrl = PURCHASE_SERVER_URL;
 #if defined(OMIM_OS_IPHONE)
-std::string const kProductId = "ad.removal.apple";
 std::string const kReceiptType = "apple";
 #elif defined(OMIM_OS_ANDROID)
-std::string const kProductId = "ad.removal.google";
 std::string const kReceiptType = "google";
 #else
-std::string const kProductId {};
 std::string const kReceiptType {};
 #endif
 
@@ -42,7 +39,7 @@ std::string ValidationUrl()
 {
   if (kServerUrl.empty())
     return {};
-  return kServerUrl + "purchases/is_purchased";
+  return kServerUrl + "registrar/register";
 }
 
 struct ReceiptData
@@ -61,26 +58,26 @@ struct ReceiptData
 
 struct ValidationData
 {
-  ValidationData(std::string const & productId, std::string const & receiptData,
-                 std::string const & receiptType)
-    : m_productId(productId)
-    , m_receipt(receiptData, receiptType)
+  ValidationData(Purchase::ValidationInfo const & validationInfo, std::string const & receiptType)
+    : m_serverId(validationInfo.m_serverId)
+    , m_vendorId(validationInfo.m_vendorId)
+    , m_receipt(validationInfo.m_receiptData, receiptType)
   {}
 
-  std::string m_productId;
+  std::string m_serverId;
+  std::string m_vendorId;
   ReceiptData m_receipt;
 
-  DECLARE_VISITOR(visitor(m_productId, "product_id"),
+  DECLARE_VISITOR(visitor(m_serverId, "server_id"),
+                  visitor(m_vendorId, "vendor"),
                   visitor(m_receipt, "receipt"))
 };
 
 struct ValidationResult
 {
-  bool m_isValid = true;
-  std::string m_error;
+  std::string m_reason;
 
-  DECLARE_VISITOR(visitor(m_isValid, "valid"),
-                  visitor(m_error, "error"))
+  DECLARE_VISITOR(visitor(m_reason, "reason"))
 };
 }  // namespace
 
@@ -162,14 +159,12 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
     if (!accessToken.empty())
       request.SetRawHeader("Authorization", "Bearer " + accessToken);
 
-    //TODO: build new server request after server completion.
-
     std::string jsonStr;
     {
       using Sink = MemWriter<std::string>;
       Sink sink(jsonStr);
       coding::SerializerJson<Sink> serializer(sink);
-      serializer(ValidationData(kProductId, validationInfo.m_receiptData, kReceiptType));
+      serializer(ValidationData(validationInfo, kReceiptType));
     }
     request.SetBodyData(std::move(jsonStr), "application/json");
 
@@ -179,25 +174,32 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
       auto const resultCode = request.ErrorCode();
       if (resultCode >= 200 && resultCode < 300)
       {
+        code = ValidationCode::Verified;
+      }
+      else if (resultCode >= 400 && resultCode < 500)
+      {
+        code = ValidationCode::NotVerified;
+
         ValidationResult result;
+        try
         {
           coding::DeserializerJson deserializer(request.ServerResponse());
           deserializer(result);
         }
+        catch(coding::DeserializerJson::Exception const &) {}
 
-        code = result.m_isValid ? ValidationCode::Verified : ValidationCode::NotVerified;
-        if (!result.m_error.empty())
-          LOG(LWARNING, ("Validation URL:", url, "Server error:", result.m_error));
+        if (!result.m_reason.empty())
+          LOG(LWARNING, ("Validation error:", result.m_reason));
       }
       else
       {
-        LOG(LWARNING, ("Validation URL:", url, "Unexpected server error. Code =", resultCode,
+        LOG(LWARNING, ("Unexpected validation error. Code =", resultCode,
                        request.ServerResponse()));
       }
     }
     else
     {
-      LOG(LWARNING, ("Validation URL:", url, "Request failed."));
+      LOG(LWARNING, ("Validation request failed."));
     }
 
     GetPlatform().RunTask(Platform::Thread::Gui, [this, code, validationInfo]()
