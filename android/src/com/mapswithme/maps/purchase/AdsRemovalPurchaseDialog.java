@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
@@ -110,6 +111,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
           @Override
           void activate(@NonNull View view)
           {
+            UiUtils.hide(view, R.id.title, R.id.image);
             UiUtils.show(view, R.id.progress_layout);
           }
         },
@@ -119,6 +121,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
           void activate(@NonNull View view)
           {
             UiUtils.hide(view, R.id.progress_layout);
+            UiUtils.show(view, R.id.title, R.id.image);
+            TextView title = view.findViewById(R.id.title);
+            title.setText(R.string.remove_ads_title);
           }
         },
     EXPLANATION

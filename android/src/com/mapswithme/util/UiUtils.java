@@ -134,7 +134,11 @@ public final class UiUtils
 
   public static void hide(View frame, @IdRes int viewId)
   {
-    hide(frame.findViewById(viewId));
+    View view = frame.findViewById(viewId);
+    if (view == null)
+      return;
+
+    hide(view);
   }
 
   public static void hide(View frame, @IdRes int... viewIds)
@@ -156,7 +160,11 @@ public final class UiUtils
 
   public static void show(View frame, @IdRes int viewId)
   {
-    show(frame.findViewById(viewId));
+    View view = frame.findViewById(viewId);
+    if (view == null)
+      return;
+
+    show(view);
   }
 
   public static void show(View frame, @IdRes int... viewIds)

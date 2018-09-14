@@ -6,10 +6,33 @@
   android:layout_width="match_parent"
   android:fillViewport="true">
   <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:minHeight="@dimen/ads_removal_dialog_min_height"
+    android:padding="@dimen/margin_base_plus"
     android:orientation="vertical">
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:gravity="center"
+      android:layout_gravity="center_horizontal"
+      android:textAppearance="@style/MwmTextAppearance.Title"
+      android:visibility="invisible"
+      tools:visibility="visible"/>
+    <ImageView
+      android:id="@+id/image"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/margin_half"
+      android:src="@drawable/img_mappy_heart"
+      android:visibility="invisible"
+      tools:visibility="visible"/>
     <LinearLayout
       android:id="@+id/progress_layout"
       android:layout_width="match_parent"
