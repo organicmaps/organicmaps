@@ -3,6 +3,8 @@ package com.mapswithme.maps.purchase;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 /**
  * Manages a billing flow for the specific product.
  */
@@ -40,7 +42,7 @@ public interface BillingManager<T>
    * Queries product details for specified products. They will be delivered to the caller
    * through callback {@link T}.
    */
-  void queryProductDetails(@NonNull String... productIds);
+  void queryProductDetails(@NonNull List<String> productIds);
 
   /**
    * Adds a billing callback.

@@ -22,11 +22,6 @@ public interface PurchaseController<T>
   void destroy();
 
   /**
-   * Indicates whether the purchase already done or not.
-   */
-  boolean isPurchaseDone();
-
-  /**
    * Indicates whether the purchase flow is supported by this device or not.
    */
   boolean isPurchaseSupported();
@@ -38,6 +33,11 @@ public interface PurchaseController<T>
    * @param productId id of the product which is going to be purchased.
    */
   void launchPurchaseFlow(@NonNull String productId);
+
+  /**
+   * Queries purchase details. They will be delivered to the caller through callback {@link T}.
+   */
+  void queryPurchaseDetails();
 
   void addCallback(@NonNull T  callback);
 

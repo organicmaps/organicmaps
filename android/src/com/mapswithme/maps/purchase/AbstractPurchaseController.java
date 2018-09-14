@@ -55,12 +55,6 @@ abstract class AbstractPurchaseController<V, B, UiCallback> implements PurchaseC
   }
 
   @Override
-  public boolean isPurchaseDone()
-  {
-    return mValidator.hasActivePurchase();
-  }
-
-  @Override
   public boolean isPurchaseSupported()
   {
     return mBillingManager.isBillingSupported();

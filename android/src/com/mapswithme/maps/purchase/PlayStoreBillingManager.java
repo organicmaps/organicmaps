@@ -12,7 +12,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback>,
@@ -60,10 +59,10 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   }
 
   @Override
-  public void queryProductDetails(@NonNull String... productIds)
+  public void queryProductDetails(@NonNull List<String> productIds)
   {
     executeBillingRequest(new QueryProductDetailsRequest(getClientOrThrow(), mProductType,
-                                                         mCallback, Arrays.asList(productIds)));
+                                                         mCallback, productIds));
   }
 
   private void executeBillingRequest(@NonNull BillingRequest request)

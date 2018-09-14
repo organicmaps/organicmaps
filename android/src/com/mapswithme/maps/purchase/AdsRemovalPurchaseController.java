@@ -49,6 +49,12 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     getBillingManager().removeCallback(mBillingCallback);
   }
 
+  @Override
+  public void queryPurchaseDetails()
+  {
+    getBillingManager().queryProductDetails(mProductIds);
+  }
+
   private static class AdValidationCallbackImpl implements AdsRemovalValidationCallback
   {
 
