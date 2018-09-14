@@ -105,60 +105,39 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
   auto const baseUrl = m_baseUrl;
   auto const & city = cityIdIt->second;
 
-  using ObjectPtr = std::shared_ptr<Object>;
-
-  ObjectPtr fromObj = std::make_shared<Object>();
-  ObjectPtr toObj = std::make_shared<Object>();
-  auto errorOnPreviousStep = std::make_shared<bool>(false);
-
-  auto const getNearObject =
-    [city, baseUrl, errorOnPreviousStep, errorFn](ms::LatLon const & pos, ObjectPtr & dst)
+  GetPlatform().RunTask(Platform::Thread::Network, [from, to, city, baseUrl, successFn, errorFn]()
   {
-    if (*errorOnPreviousStep)
-      return;
-
-    std::string httpResult;
-    if (!RawApi::GetNearObject(pos, city.m_id, httpResult, baseUrl))
+    auto const getNearObject = [&city, &baseUrl, &errorFn](ms::LatLon const & pos, Object & dst)
     {
-      errorFn(ErrorCode::RemoteError);
-      *errorOnPreviousStep = true;
-      return;
-    }
+      std::string httpResult;
+      if (!RawApi::GetNearObject(pos, city.m_id, httpResult, baseUrl))
+      {
+        errorFn(ErrorCode::RemoteError);
+        return false;
+      }
 
-    Object result;
-    try
-    {
-      MakeNearObject(httpResult, result);
-    }
-    catch (my::Json::Exception const & e)
-    {
-      errorFn(ErrorCode::NoProducts);
-      *errorOnPreviousStep = true;
-      LOG(LERROR, (e.what(), httpResult));
-      return;
-    }
+      try
+      {
+        MakeNearObject(httpResult, dst);
+      }
+      catch (my::Json::Exception const & e)
+      {
+        errorFn(ErrorCode::NoProducts);
+        LOG(LERROR, (e.what(), httpResult));
+        return false;
+      }
 
-    *dst = result;
-  };
+      return true;
+    };
 
-  GetPlatform().RunTask(Platform::Thread::Network, [getNearObject, from, fromObj]() mutable
-  {
-    getNearObject(from, fromObj);
-  });
+    Object fromObj;
+    Object toObj;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [getNearObject, to, toObj]() mutable
-  {
-    getNearObject(to, toObj);
-  });
-
-  GetPlatform().RunTask(Platform::Thread::Network,
-    [fromObj, toObj, city, baseUrl, errorOnPreviousStep, successFn, errorFn]()
-  {
-    if (*errorOnPreviousStep)
+    if (!getNearObject(from, fromObj) || !getNearObject(to, toObj))
       return;
 
     std::string result;
-    if (!RawApi::GetCost(*fromObj, *toObj, city.m_id, result, baseUrl))
+    if (!RawApi::GetCost(fromObj, toObj, city.m_id, result, baseUrl))
     {
       errorFn(ErrorCode::RemoteError);
       return;
@@ -167,7 +146,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     std::vector<Product> products;
     try
     {
-      MakeProducts(result, *fromObj, *toObj, city, products);
+      MakeProducts(result, fromObj, toObj, city, products);
     }
     catch (my::Json::Exception const & e)
     {

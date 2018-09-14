@@ -105,13 +105,12 @@ public enum TaxiType
           return "Maxim";
         }
       },
-  // Dummy.
   RUTAXI
       {
         @NonNull
         public String getPackageName()
         {
-          return "ru.rutaxi.vezet";
+          return "com.its.rto";
         }
 
         @NonNull
