@@ -55,7 +55,7 @@ void AreaShape::DrawArea(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batch
 
   buffer_vector<gpu::AreaVertex, 128> vertexes;
   vertexes.resize(m_vertexes.size());
-  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
+  std::transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
   {
     return gpu::AreaVertex(
       glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),

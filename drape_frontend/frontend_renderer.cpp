@@ -224,7 +224,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
   case Message::Type::FlushTile:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushRenderBucketMessage> msg = message;
       dp::RenderState const & state = msg->GetState();
       TileKey const & key = msg->GetKey();
@@ -1380,6 +1379,10 @@ void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFrame
   if (useFramebuffer)
   {
     m_buildingsFramebuffer->ApplyFallback();
+    m_context->Clear(dp::ClearBits::DepthBit);
+    m_context->ApplyFramebuffer("Static frame (after buildings)");
+    m_viewport.Apply(m_context);
+
     m_screenQuadRenderer->RenderTexture(m_context, make_ref(m_gpuProgramManager),
                                         m_buildingsFramebuffer->GetTexture(),
                                         kOpacity);
@@ -1681,6 +1684,11 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
     transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle));
     transform(2, 2) = 1.0f / screen.GetHeight();
+    if (m_apiVersion == dp::ApiVersion::Metal)
+    {
+      transform(3, 2) = transform(3, 2) + 0.5f;
+      transform(2, 2) = transform(2, 2) * 0.5f;
+    }
     m_frameValues.m_pivotTransform = glsl::make_mat4(transform.m_data);
   }
   else

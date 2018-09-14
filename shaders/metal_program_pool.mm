@@ -57,16 +57,16 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("", "", {}),  // TextFixed
   ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),  // TextStaticOutlinedGui
   ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),  // TextOutlinedGui
-  ProgramInfo("", "", {}),  // Area
-  ProgramInfo("", "", {}),  // AreaOutline
-  ProgramInfo("", "", {}),  // Area3d
-  ProgramInfo("", "", {}),  // Area3dOutline
-  ProgramInfo("", "", {}),  // Line
-  ProgramInfo("", "", {}),  // CapJoin
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // Area
+  ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // AreaOutline
+  ProgramInfo("vsArea3d", "fsArea3d", {{0, 2}}),  // Area3d
+  ProgramInfo("vsArea3dOutline", "fsArea", {{0, 1}}),  // Area3dOutline
+  ProgramInfo("vsLine", "fsLine", {{0, 2}}),  // Line
+  ProgramInfo("vsCapJoin", "fsCapJoin", {{0, 2}}),  // CapJoin
   ProgramInfo("vsTransitCircle", "fsTransitCircle", {{0, 2}}),  // TransitCircle
-  ProgramInfo("", "", {}),  // DashedLine
-  ProgramInfo("", "", {}),  // PathSymbol
-  ProgramInfo("", "", {}),  // HatchingArea
+  ProgramInfo("vsDashedLine", "fsDashedLine", {{0, 3}}),  // DashedLine
+  ProgramInfo("vsPathSymbol", "fsPathSymbol", {{0, 2}}),  // PathSymbol
+  ProgramInfo("vsHatchingArea", "fsHatchingArea", {{0, 2}}),  // HatchingArea
   ProgramInfo("vsTexturingGui", "fsTexturingGui", {{0, 1}}),  // TexturingGui
   ProgramInfo("vsRuler", "fsRuler", {{0, 2}}),  // Ruler
   ProgramInfo("vsAccuracy", "fsAccuracy", {{0, 1}}),  // Accuracy

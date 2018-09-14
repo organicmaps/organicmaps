@@ -149,7 +149,10 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
       ASSERT(dynamic_cast<MetalTexture *>(depthStencilRef->GetTexture()->GetHardwareTexture().get()) != nullptr, ());
       ref_ptr<MetalTexture> depthStencilAttachment = depthStencilRef->GetTexture()->GetHardwareTexture();
       m_renderPassDescriptor.depthAttachment.texture = depthStencilAttachment->GetTexture();
-      m_renderPassDescriptor.stencilAttachment.texture = depthStencilAttachment->GetTexture();
+      if (depthStencilAttachment->GetFormat() == dp::TextureFormat::DepthStencil)
+        m_renderPassDescriptor.stencilAttachment.texture = depthStencilAttachment->GetTexture();
+      else
+        m_renderPassDescriptor.stencilAttachment.texture = nil;
     }
     else
     {

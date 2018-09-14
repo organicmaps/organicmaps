@@ -3,6 +3,8 @@
 
 using namespace metal;
 
+// Scale factor in shape's coordinates transformation from tile's coordinate
+// system.
 constant float kShapeCoordScalar = 1000.0;
 
 float4 ApplyPivotTransform(float4 pivot, float4x4 pivotTransform, float pivotRealZ);
