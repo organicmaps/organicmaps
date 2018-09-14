@@ -22,11 +22,12 @@ public:
   }
 
   void SetParams(ref_ptr<gpu::ProgramManager> gpuProgramManager,
-                 ref_ptr<dp::Texture> texture, float opacity)
+                 ref_ptr<dp::Texture> texture, float opacity, bool invertV)
   {
     UNUSED_VALUE(gpuProgramManager);
     m_state.SetTexture("u_colorTex", std::move(texture));
     m_params.m_opacity = opacity;
+    m_params.m_invertV = invertV ? 1.0f : 0.0f;
   }
 
   dp::RenderState const & GetRenderState() const { return m_state; }
@@ -58,10 +59,10 @@ void ScreenQuadRenderer::Rebuild()
 
 void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GraphicsContext> context,
                                        ref_ptr<gpu::ProgramManager> mng,
-                                       ref_ptr<dp::Texture> texture, float opacity)
+                                       ref_ptr<dp::Texture> texture, float opacity, bool invertV)
 {
   TextureRenderParams params;
-  params.SetParams(mng, std::move(texture), opacity);
+  params.SetParams(mng, std::move(texture), opacity, invertV);
 
   auto program = mng->GetProgram(params.GetRenderState().GetProgram<gpu::Program>());
   Base::Render(context, program, params.GetRenderState(), mng->GetParamsSetter(),

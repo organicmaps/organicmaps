@@ -94,9 +94,9 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),  // Traffic
   ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),  // TrafficLine
   ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),  // TrafficCircle
-  ProgramInfo("", "", {}),  // SmaaEdges
-  ProgramInfo("", "", {}),  // SmaaBlendingWeight
-  ProgramInfo("", "", {}),  // SmaaFinal
+  ProgramInfo("vsSmaaEdges", "fsSmaaEdges", {{0, 1}}),  // SmaaEdges
+  ProgramInfo("vsSmaaBlendingWeight", "fsSmaaBlendingWeight", {{0, 1}}),  // SmaaBlendingWeight
+  ProgramInfo("vsSmaaFinal", "fsSmaaFinal", {{0, 1}}),  // SmaaFinal
 }};
   
 MTLVertexFormat GetFormatByDataType(MTLDataType dataType)

@@ -20,8 +20,10 @@ public:
   void SetTextureRect(m2::RectF const & rect);
   m2::RectF const & GetTextureRect() const { return m_textureRect; }
 
+  // The parameter invertV is necessary, since there are some APIs (e.g. Metal) there render target
+  // coordinates system is inverted by V axis.
   void RenderTexture(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng,
-                     ref_ptr<dp::Texture> texture, float opacity);
+                     ref_ptr<dp::Texture> texture, float opacity, bool invertV = true);
 
 private:
   void Rebuild();

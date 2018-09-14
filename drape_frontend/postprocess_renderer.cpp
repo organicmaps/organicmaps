@@ -224,13 +224,19 @@ bool PostprocessRenderer::CanRenderAntialiasing() const
     return false;
   }
 
-  if (m_staticTextures == nullptr)
+  if (m_staticTextures == nullptr ||
+      m_staticTextures->m_smaaSearchTexture == nullptr ||
+      m_staticTextures->m_smaaAreaTexture == nullptr)
+  {
     return false;
+  }
 
-  return m_staticTextures->m_smaaSearchTexture != nullptr &&
-         m_staticTextures->m_smaaAreaTexture != nullptr &&
-         m_staticTextures->m_smaaAreaTexture->GetID() != 0 &&
-         m_staticTextures->m_smaaSearchTexture->GetID() != 0;
+  if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+  {
+    return m_staticTextures->m_smaaAreaTexture->GetID() != 0 &&
+           m_staticTextures->m_smaaSearchTexture->GetID() != 0;
+  }
+  return true;
 }
 
 bool PostprocessRenderer::BeginFrame(ref_ptr<dp::GraphicsContext> context, bool activeFrame)
@@ -263,10 +269,13 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
   if (m_frameStarted && CanRenderAntialiasing())
   {
     ASSERT(m_staticTextures->m_smaaAreaTexture != nullptr, ());
-    ASSERT_GREATER(m_staticTextures->m_smaaAreaTexture->GetID(), 0, ());
-
     ASSERT(m_staticTextures->m_smaaSearchTexture != nullptr, ());
-    ASSERT_GREATER(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
+
+    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+    {
+      ASSERT_GREATER(m_staticTextures->m_smaaAreaTexture->GetID(), 0, ());
+      ASSERT_GREATER(m_staticTextures->m_smaaSearchTexture->GetID(), 0, ());
+    }
 
     context->SetClearColor(dp::Color::Transparent());
     context->SetStencilTestEnabled(true);

@@ -10,6 +10,7 @@
 		451E692D214A53C000764A97 /* route.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E692C214A53C000764A97 /* route.metal */; };
 		451E692F214A6FA200764A97 /* map.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E692E214A6FA200764A97 /* map.metal */; };
 		451E6931214A8D4200764A97 /* shaders_lib.metal in Sources */ = {isa = PBXBuildFile; fileRef = 451E6930214A8D4200764A97 /* shaders_lib.metal */; };
+		45355A43214BF358007740F8 /* smaa.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45355A42214BF358007740F8 /* smaa.metal */; };
 		4560F58A213D57D600CC736C /* debug_rect.metal in Sources */ = {isa = PBXBuildFile; fileRef = 45789EDC21342BDE009955CC /* debug_rect.metal */; };
 		4560F58B213D57D600CC736C /* screen_quad.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F582213D44CE00CC736C /* screen_quad.metal */; };
 		4560F5AB2142AC1300CC736C /* gui.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4560F5AA2142AC1300CC736C /* gui.metal */; };
@@ -70,6 +71,7 @@
 		451E692C214A53C000764A97 /* route.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = route.metal; sourceTree = "<group>"; };
 		451E692E214A6FA200764A97 /* map.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = map.metal; sourceTree = "<group>"; };
 		451E6930214A8D4200764A97 /* shaders_lib.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = shaders_lib.metal; sourceTree = "<group>"; };
+		45355A42214BF358007740F8 /* smaa.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = smaa.metal; sourceTree = "<group>"; };
 		4560F582213D44CE00CC736C /* screen_quad.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = screen_quad.metal; sourceTree = "<group>"; };
 		4560F5AA2142AC1300CC736C /* gui.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = gui.metal; sourceTree = "<group>"; };
 		4561ADF320E378CB0096BC12 /* program_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_manager.cpp; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				BBF7916F2146D8EC00D27BD8 /* system.metal */,
 				BBF79177214AA53C00D27BD8 /* traffic.metal */,
 				BBF79178214AA92D00D27BD8 /* transit.metal */,
+				45355A42214BF358007740F8 /* smaa.metal */,
 			);
 			path = Metal;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				451E692F214A6FA200764A97 /* map.metal in Sources */,
+				45355A43214BF358007740F8 /* smaa.metal in Sources */,
 				4560F5AB2142AC1300CC736C /* gui.metal in Sources */,
 				451E692D214A53C000764A97 /* route.metal in Sources */,
 				BBF791702146D8EC00D27BD8 /* system.metal in Sources */,

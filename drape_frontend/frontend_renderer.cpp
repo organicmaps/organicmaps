@@ -1456,7 +1456,8 @@ void FrontendRenderer::RenderTransitBackground()
     m_transitBackground->SetTextureRect(region.GetTexRect());
 
   CHECK(m_context != nullptr, ());
-  m_transitBackground->RenderTexture(m_context, make_ref(m_gpuProgramManager), region.GetTexture(), 1.0f);
+  m_transitBackground->RenderTexture(m_context, make_ref(m_gpuProgramManager),
+                                     region.GetTexture(), 1.0f /* opacity */, false /* invertV */);
 }
 
 void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)

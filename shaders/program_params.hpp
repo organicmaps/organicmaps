@@ -199,6 +199,7 @@ struct DebugRectProgramParams
 struct ScreenQuadProgramParams
 {
   float m_opacity = 1.0f;
+  float m_invertV = 1.0f;
 
   BIND_PROGRAMS(ScreenQuadProgramParams, Program::ScreenQuad)
 } ALIGNMENT;
