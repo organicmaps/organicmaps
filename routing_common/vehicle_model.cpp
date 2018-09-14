@@ -86,6 +86,8 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f) const
   feature::TypesHolder const types(f);
 
   RoadAvailability const restriction = GetRoadAvailability(types);
+  // TODO(bykoianko) If a road is available, a speed according to city status (CityRoads)
+  // should be returned.
   if (restriction == RoadAvailability::Available)
     return GetMaxSpeed();
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))

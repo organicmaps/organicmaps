@@ -4,7 +4,7 @@
 
 #include "generator/city_roads_generator.hpp"
 
-#include "routing/city_roads_loader.hpp"
+#include "routing/city_roads.hpp"
 
 #include "indexer/data_source.hpp"
 
@@ -49,14 +49,14 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 }
 
-unique_ptr<CityRoadsLoader> LoadCityRoads(LocalCountryFile const & country)
+bool LoadCityRoads(LocalCountryFile const & country, CityRoads & cityRoads)
 {
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   auto const & mwmId = regResult.first;
 
-  return make_unique<CityRoadsLoader>(dataSource, mwmId);
+  return LoadCityRoads(dataSource, mwmId, cityRoads);
 }
 
 /// \brief Builds mwm with city_roads section, read the section and compare original feature ids
@@ -81,25 +81,27 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   vector<uint64_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
   SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
-  auto const loader = LoadCityRoads(country);
-  TEST(loader, ());
+  CityRoads cityRoads;
+  bool const loadCityRoadsResult = LoadCityRoads(country, cityRoads);
 
   // Comparing loading form mwm and expected feature ids.
   if (originalCityRoadFeatureIds.empty())
   {
-    TEST(!loader->HasCityRoads(), ());
+    TEST(!cityRoads.HasCityRoads(), ());
     return;
   }
+
+  TEST(loadCityRoadsResult, ());
 
   sort(originalCityRoadFeatureIds.begin(), originalCityRoadFeatureIds.end());
   size_t const kMaxRoadFeatureId = originalCityRoadFeatureIds.back();
   CHECK_LESS(kMaxRoadFeatureId, numeric_limits<uint32_t>::max(), ());
-  // Note. 2 is added below to test all the if-branches of CityRoadsLoader::IsCityRoad() method.
+  // Note. 2 is added below to test all the if-branches of CityRoads::IsCityRoad() method.
   for (uint32_t fid = 0; fid < kMaxRoadFeatureId + 2; ++fid)
   {
     bool const isCityRoad =
         binary_search(originalCityRoadFeatureIds.cbegin(), originalCityRoadFeatureIds.cend(), fid);
-    TEST_EQUAL(loader->IsCityRoad(fid), isCityRoad, (fid));
+    TEST_EQUAL(cityRoads.IsCityRoad(fid), isCityRoad, (fid));
   }
 }
 

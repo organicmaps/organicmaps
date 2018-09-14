@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/city_roads_loader.hpp"
+#include "routing/city_roads.hpp"
 
 #include "coding/succinct_mapper.hpp"
 #include "coding/writer.hpp"
