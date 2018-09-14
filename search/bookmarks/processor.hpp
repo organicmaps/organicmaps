@@ -15,7 +15,7 @@
 #include <utility>
 #include <vector>
 
-namespace my
+namespace base
 {
 class Cancellable;
 }

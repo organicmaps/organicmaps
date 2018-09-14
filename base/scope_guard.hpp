@@ -3,9 +3,10 @@
 /// @brief	See http://gzip.rsdn.ru/forum/Message.aspx?mid=389127&only=1.
 
 #pragma once
+
 #include "base/base.hpp"
 
-namespace my
+namespace base
 {
 namespace impl
 {
@@ -56,9 +57,8 @@ impl::GuardImpl<TFunctor> make_scope_guard(TFunctor const & F)
 {
   return impl::GuardImpl<TFunctor>(F);
 }
-
-} // namespace my
+} // namespace base
 
 #define MY_SCOPE_GUARD(name, func) \
-  ::my::scope_guard name = my::make_scope_guard(func); static_cast<void>(name);
+  ::base::scope_guard name = base::make_scope_guard(func); static_cast<void>(name);
 

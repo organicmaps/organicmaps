@@ -17,7 +17,7 @@ public:
 
 #if defined(TRACK_POINTERS)
 bool g_assertRaised = false;
-bool OnAssertRaised(my::SrcPoint const & /* srcPoint */, std::string const & /* msg */)
+bool OnAssertRaised(base::SrcPoint const & /* srcPoint */, std::string const & /* msg */)
 {
   g_assertRaised = true;
   return false;
@@ -83,14 +83,14 @@ UNIT_TEST(RefPointerExpiringTest)
 {
 #if defined(TRACK_POINTERS)
   g_assertRaised = false;
-  my::AssertFailedFn prevFn = my::SetAssertFunction(OnAssertRaised);
+  base::AssertFailedFn prevFn = base::SetAssertFunction(OnAssertRaised);
 
   drape_ptr<Tester> ptr = make_unique_dp<Tester>();
   ref_ptr<Tester> refPtr1 = make_ref(ptr);
   ref_ptr<Tester> refPtr2 = make_ref(ptr);
   ptr.reset();
 
-  my::SetAssertFunction(prevFn);
+  base::SetAssertFunction(prevFn);
 
   TEST(g_assertRaised, ());
 #endif

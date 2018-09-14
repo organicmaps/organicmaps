@@ -59,7 +59,7 @@ class TouchEvent : public UserEvent
 public:
   TouchEvent()
     : m_type(TOUCH_CANCEL)
-    , m_timeStamp(my::Timer::LocalTime())
+    , m_timeStamp(base::Timer::LocalTime())
     , m_pointersMask(0xFFFF)
   {}
 
@@ -477,7 +477,7 @@ private:
   bool m_needTrackCenter = false;
 
   Navigator m_navigator;
-  my::Timer m_touchTimer;
+  base::Timer m_touchTimer;
   enum ERecognitionState
   {
     STATE_EMPTY,
@@ -507,7 +507,7 @@ private:
   m2::PointD m_startDoubleTapAndHold;
 
   KineticScroller m_scroller;
-  my::Timer m_kineticTimer;
+  base::Timer m_kineticTimer;
   bool m_kineticScrollEnabled = true;
 };
 }  // namespace df

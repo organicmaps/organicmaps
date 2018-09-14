@@ -56,7 +56,7 @@ static inline double headingToNorthRad(CLHeading * heading)
   if (heading)
   {
     north = (heading.trueHeading < 0) ? heading.magneticHeading : heading.trueHeading;
-    north = my::DegToRad(north);
+    north = base::DegToRad(north);
   }
   return north;
 }

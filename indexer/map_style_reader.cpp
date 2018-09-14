@@ -98,7 +98,7 @@ ReaderPtr<Reader> StyleReader::GetDrawingRulesReader() const
       std::string("drules_proto") + GetStyleRulesSuffix(GetCurrentStyle()) + ".bin";
 
   auto overriddenRulesFile =
-      my::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, rulesFile);
+      base::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, rulesFile);
   if (GetPlatform().IsFileExistsByFullPath(overriddenRulesFile))
     rulesFile = overriddenRulesFile;
 
@@ -110,10 +110,10 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
 {
   std::string const resourceDir =
       std::string("resources-") + density + GetStyleResourcesSuffix(GetCurrentStyle());
-  std::string resFile = my::JoinFoldersToPath(resourceDir, file);
+  std::string resFile = base::JoinFoldersToPath(resourceDir, file);
 
   auto overriddenResFile =
-      my::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, resFile);
+      base::JoinFoldersToPath({GetPlatform().WritableDir(), kStylesOverrideDir}, resFile);
   if (GetPlatform().IsFileExistsByFullPath(overriddenResFile))
     resFile = overriddenResFile;
 
@@ -122,7 +122,7 @@ ReaderPtr<Reader> StyleReader::GetResourceReader(std::string const & file,
 
 ReaderPtr<Reader> StyleReader::GetDefaultResourceReader(std::string const & file) const
 {
-  return GetPlatform().GetReader(my::JoinFoldersToPath("resources-default", file));
+  return GetPlatform().GetReader(base::JoinFoldersToPath("resources-default", file));
 }
 
 StyleReader & GetStyleReader()

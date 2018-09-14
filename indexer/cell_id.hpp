@@ -68,10 +68,10 @@ public:
 #if 0 // DEBUG
     double minX, minY, maxX, maxY;
     GetCellBounds(id1, minX, minY, maxX, maxY);
-    ASSERT(my::between_s(minX, maxX, x1), (x1, minX, maxX));
-    ASSERT(my::between_s(minX, maxX, x2), (x2, minX, maxX));
-    ASSERT(my::between_s(minY, maxY, y1), (y1, minY, maxY));
-    ASSERT(my::between_s(minY, maxY, y2), (y2, minY, maxY));
+    ASSERT(base::between_s(minX, maxX, x1), (x1, minX, maxX));
+    ASSERT(base::between_s(minX, maxX, x2), (x2, minX, maxX));
+    ASSERT(base::between_s(minY, maxY, y1), (y1, minY, maxY));
+    ASSERT(base::between_s(minY, maxY, y2), (y2, minY, maxY));
 #endif
     return id1;
   }

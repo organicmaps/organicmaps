@@ -30,9 +30,9 @@ struct Color
   bool operator< (Color const & other) const { return m_rgba < other.m_rgba; }
   Color operator*(float s) const
   {
-    return Color(static_cast<uint8_t>(my::clamp(GetRedF() * s, 0.0f, 1.0f) * 255.0f),
-                 static_cast<uint8_t>(my::clamp(GetGreenF() * s, 0.0f, 1.0f) * 255.0f),
-                 static_cast<uint8_t>(my::clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f),
+    return Color(static_cast<uint8_t>(base::clamp(GetRedF() * s, 0.0f, 1.0f) * 255.0f),
+                 static_cast<uint8_t>(base::clamp(GetGreenF() * s, 0.0f, 1.0f) * 255.0f),
+                 static_cast<uint8_t>(base::clamp(GetBlueF() * s, 0.0f, 1.0f) * 255.0f),
                  GetAlpha());
   }
 

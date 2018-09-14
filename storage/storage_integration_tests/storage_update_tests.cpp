@@ -66,13 +66,13 @@ string GetCountriesTxtWebUrl(string const version)
 
 string GetCountriesTxtFilePath()
 {
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), kCountriesTxtFile);
+  return base::JoinFoldersToPath(GetPlatform().WritableDir(), kCountriesTxtFile);
 }
 
 string GetMwmFilePath(string const & version, TCountryId const & countryId)
 {
-  return my::JoinFoldersToPath({GetPlatform().WritableDir(), version},
-                               countryId + DATA_FILE_EXTENSION);
+  return base::JoinFoldersToPath({GetPlatform().WritableDir(), version},
+                                 countryId + DATA_FILE_EXTENSION);
 }
 
 } // namespace
@@ -123,7 +123,7 @@ UNIT_TEST(SmallMwms_Update_Test)
   }
 
   // Replace countries.txt by version 2
-  TEST(my::DeleteFileX(GetCountriesTxtFilePath()), ());
+  TEST(base::DeleteFileX(GetCountriesTxtFilePath()), ());
   TEST(DownloadFile(GetCountriesTxtWebUrl(kMwmVersion2), GetCountriesTxtFilePath(), kCountriesTxtFileSize2), ());
 
   {

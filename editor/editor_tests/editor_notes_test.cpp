@@ -16,7 +16,7 @@ using platform::tests_support::ScopedFile;
 UNIT_TEST(Notes_Smoke)
 {
   auto const fileName = "notes.xml";
-  auto const fullFileName = my::JoinFoldersToPath({GetPlatform().WritableDir()}, fileName);
+  auto const fullFileName = base::JoinFoldersToPath({GetPlatform().WritableDir()}, fileName);
   ScopedFile sf(fileName, ScopedFile::Mode::DoNotCreate);
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);

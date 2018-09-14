@@ -153,9 +153,9 @@ int main(int argc, char * argv[])
   UNUSED_VALUE(argv);
 #endif
 
-  my::ScopedLogLevelChanger const infoLogLevel(LINFO);
+  base::ScopedLogLevelChanger const infoLogLevel(LINFO);
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_LINUX) || defined(OMIM_OS_IPHONE)
-  my::SetLogMessageFn(my::LogMessageTests);
+  base::SetLogMessageFn(base::LogMessageTests);
 #endif
 
   vector<string> testNames;
@@ -231,7 +231,7 @@ int main(int argc, char * argv[])
       return STATUS_BROKEN_FRAMEWORK;
     }
 
-    my::HighResTimer timer(true);
+    base::HighResTimer timer(true);
 
     try
     {

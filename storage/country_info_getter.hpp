@@ -157,7 +157,7 @@ protected:
   std::result_of_t<TFn(vector<m2::RegionD>)> WithRegion(size_t id, TFn && fn) const;
 
   FilesContainerR m_reader;
-  mutable my::Cache<uint32_t, std::vector<m2::RegionD>> m_cache;
+  mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_cache;
   mutable std::mutex m_cacheMutex;
 };
 

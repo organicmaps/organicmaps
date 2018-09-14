@@ -107,7 +107,7 @@ void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType 
       double const distM = MercatorBounds::DistanceOnEarth(point, tp);
       ClosestSegment & closestSegment = minDistSegs[numMwmId];
       double constexpr kEpsMeters = 2.0;
-      if (my::AlmostEqualAbs(distM, 0.0, kEpsMeters))
+      if (base::AlmostEqualAbs(distM, 0.0, kEpsMeters))
       {
         twins.push_back(tc);
         closestSegment.m_exactMatchFound = true;

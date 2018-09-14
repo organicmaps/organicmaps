@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <iterator>
+#include <string>
 #include <vector>
 
 namespace coding
@@ -48,7 +49,7 @@ public:
   }
 
   template <typename Sink>
-  static void EncodeAndWriteBlock(Sink & sink, string const & s)
+  static void EncodeAndWriteBlock(Sink & sink, std::string const & s)
   {
     EncodeAndWriteBlock(sink, s.size(), reinterpret_cast<uint8_t const *>(s.data()));
   }

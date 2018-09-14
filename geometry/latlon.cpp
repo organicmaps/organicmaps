@@ -24,6 +24,6 @@ bool LatLon::operator==(ms::LatLon const & p) const { return lat == p.lat && lon
 
 bool LatLon::EqualDxDy(LatLon const & p, double eps) const
 {
-  return (my::AlmostEqualAbs(lat, p.lat, eps) && my::AlmostEqualAbs(lon, p.lon, eps));
+  return (base::AlmostEqualAbs(lat, p.lat, eps) && base::AlmostEqualAbs(lon, p.lon, eps));
 }
 }  // namespace ms

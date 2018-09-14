@@ -62,7 +62,7 @@ protected:
   vector<search::Result> m_results;
   bool m_done = false;
 
-  my::Timer m_timer;
+  base::Timer m_timer;
   steady_clock::duration m_startTime;
   steady_clock::duration m_endTime;
 

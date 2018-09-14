@@ -55,7 +55,7 @@ UNIT_TEST(UGC_TranslateRatingTest)
 
   TEST_EQUAL(ugc.m_ratings.size(), 2, ());
   TEST_EQUAL(ugc.m_ratings[0].m_key, "2", ());
-  TEST(my::AlmostEqualAbs(ugc.m_ratings[0].m_value, 3.4f, 1e-6f), ());
+  TEST(base::AlmostEqualAbs(ugc.m_ratings[0].m_value, 3.4f, 1e-6f), ());
 }
 
 UNIT_TEST(UGC_TranslateEmptyUgcTest)

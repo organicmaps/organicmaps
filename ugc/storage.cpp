@@ -38,9 +38,9 @@ string const kTmpFileExtension = ".tmp";
 
 using Sink = MemWriter<string>;
 
-string GetUGCFilePath() { return my::JoinPath(GetPlatform().SettingsDir(), kUGCUpdateFileName); }
+string GetUGCFilePath() { return base::JoinPath(GetPlatform().SettingsDir(), kUGCUpdateFileName); }
 
-string GetIndexFilePath() { return my::JoinPath(GetPlatform().SettingsDir(), kIndexFileName); }
+string GetIndexFilePath() { return base::JoinPath(GetPlatform().SettingsDir(), kIndexFileName); }
 
 bool GetUGCFileSize(uint64_t & size)
 {
@@ -71,7 +71,7 @@ string SerializeIndexes(ugc::UpdateIndexes const & indexes)
   if (indexes.empty())
     return string();
 
-  auto array = my::NewJSONArray();
+  auto array = base::NewJSONArray();
   for (auto const & index : indexes)
   {
     string data;
@@ -81,7 +81,7 @@ string SerializeIndexes(ugc::UpdateIndexes const & indexes)
       ser(index);
     }
 
-    my::Json node(data);
+    base::Json node(data);
     json_array_append_new(array.get(), node.get_deep_copy());
   }
 
@@ -255,15 +255,15 @@ void Storage::Migrate(string const & indexFilePath)
   // Backup existing files
   auto const v0IndexFilePath = indexFilePath + suffix;
   auto const v0UGCFilePath = ugcFilePath + suffix;
-  if (!my::CopyFileX(indexFilePath, v0IndexFilePath))
+  if (!base::CopyFileX(indexFilePath, v0IndexFilePath))
   {
     LOG(LERROR, ("Can't backup UGC index file"));
     return;
   }
 
-  if (!my::CopyFileX(ugcFilePath, v0UGCFilePath))
+  if (!base::CopyFileX(ugcFilePath, v0UGCFilePath))
   {
-    my::DeleteFileX(v0IndexFilePath);
+    base::DeleteFileX(v0IndexFilePath);
     LOG(LERROR, ("Can't backup UGC update file"));
     return;
   }
@@ -277,10 +277,10 @@ void Storage::Migrate(string const & indexFilePath)
   case migration::Result::Success:
     if (!SaveIndex(indexFilePath))
     {
-      my::DeleteFileX(indexFilePath);
-      my::DeleteFileX(ugcFilePath);
-      my::RenameFileX(v0UGCFilePath, ugcFilePath);
-      my::RenameFileX(v0IndexFilePath, indexFilePath);
+      base::DeleteFileX(indexFilePath);
+      base::DeleteFileX(ugcFilePath);
+      base::RenameFileX(v0UGCFilePath, ugcFilePath);
+      base::RenameFileX(v0IndexFilePath, indexFilePath);
       m_indexes.clear();
       LOG(LERROR, ("Can't save UGC index after migration"));
       return;
@@ -306,7 +306,7 @@ bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
   catch (FileWriter::Exception const & exception)
   {
     LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
-    my::DeleteFileX(indexFilePath);
+    base::DeleteFileX(indexFilePath);
     return false;
   }
 
@@ -360,8 +360,8 @@ void Storage::DefragmentationImpl(bool force)
   }
 
   base::EraseIf(m_indexes, [](UpdateIndex const & i) -> bool { return i.m_deleted; });
-  CHECK(my::DeleteFileX(ugcFilePath), ());
-  CHECK(my::RenameFileX(tmpUGCFilePath, ugcFilePath), ());
+  CHECK(base::DeleteFileX(ugcFilePath), ());
+  CHECK(base::RenameFileX(tmpUGCFilePath, ugcFilePath), ());
 
   m_numberOfDeleted = 0;
 }
@@ -371,7 +371,7 @@ string Storage::GetUGCToSend() const
   if (m_indexes.empty())
     return string();
 
-  auto array = my::NewJSONArray();
+  auto array = base::NewJSONArray();
   auto const indexesSize = m_indexes.size();
   auto const ugcFilePath = GetUGCFilePath();
   FileReader r(ugcFilePath);
@@ -408,8 +408,8 @@ string Storage::GetUGCToSend() const
       ser(update);
     }
 
-    my::Json serializedUgc(data);
-    auto embeddedNode = my::NewJSONObject();
+    base::Json serializedUgc(data);
+    auto embeddedNode = base::NewJSONObject();
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
     ToJSONObject(*embeddedNode.get(), "mwm_name", index.m_mwmName);
     ToJSONObject(*embeddedNode.get(), "feature_id", index.m_featureId);
@@ -423,7 +423,7 @@ string Storage::GetUGCToSend() const
   if (json_array_size(array.get()) == 0)
     return string();
 
-  auto reviewsNode = my::NewJSONObject();
+  auto reviewsNode = base::NewJSONObject();
   ToJSONObject(*reviewsNode.get(), "reviews", *array.release());
 
   unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(reviewsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
@@ -461,7 +461,7 @@ void Storage::MarkAllAsSynchronized()
     return;
 
   auto const indexPath = GetIndexFilePath();
-  my::DeleteFileX(indexPath);
+  base::DeleteFileX(indexPath);
   SaveIndex();
 }
 

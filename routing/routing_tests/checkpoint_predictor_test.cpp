@@ -15,7 +15,7 @@ namespace
 void TestAlmostEqual(double v1, double v2)
 {
   double constexpr kEpsMeters = 1.0;
-  TEST(my::AlmostEqualAbs(v1, v2, kEpsMeters), (v1, v2));
+  TEST(base::AlmostEqualAbs(v1, v2, kEpsMeters), (v1, v2));
 }
 }  // namespace
 

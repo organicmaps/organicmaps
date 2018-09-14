@@ -160,7 +160,7 @@ vector<RouteSegment::SpeedCamera> IndexGraphLoaderImpl::GetSpeedCameraInfo(Segme
   for (size_t i = 1; i < camerasTmp.size(); ++i)
   {
     static constexpr auto kEps = 1e-5;
-    if (!my::AlmostEqualAbs(camerasTmp[i - 1].m_coef, camerasTmp[i].m_coef, kEps))
+    if (!base::AlmostEqualAbs(camerasTmp[i - 1].m_coef, camerasTmp[i].m_coef, kEps))
       cameras.emplace_back(camerasTmp[i - 1]);
   }
   // Cameras stored from beginning to ending of segment. So if we go at segment in backward direction,
@@ -197,7 +197,7 @@ IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateIndexGrap
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
   graph.m_indexGraph = make_unique<IndexGraph>(graph.m_geometry, m_estimator);
-  my::Timer timer;
+  base::Timer timer;
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   DeserializeIndexGraph(mwmValue, m_vehicleType, *graph.m_indexGraph);
   LOG(LINFO, (ROUTING_FILE_TAG, "section for", file.GetName(), "loaded in", timer.ElapsedSeconds(),

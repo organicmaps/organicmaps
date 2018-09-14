@@ -245,8 +245,8 @@ uint8_t CalcSearchRank(FeatureType & ft)
   auto const transportRank = CalcTransportRank(ft);
   auto const populationRank = feature::PopulationToRank(ftypes::GetPopulation(ft));
 
-  return my::clamp(eventRank + transportRank + populationRank, 0,
-                   static_cast<int>(numeric_limits<uint8_t>::max()));
+  return base::clamp(eventRank + transportRank + populationRank, 0,
+                     static_cast<int>(numeric_limits<uint8_t>::max()));
 }
 
 // Creates rank table if it does not exists in |rcont| or has wrong

@@ -66,8 +66,8 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
   TEST_EQUAL(points.size(), 1, ());
   auto const & point = points[0];
   TEST_EQUAL(point.m_timestamp, timestamp, ());
-  TEST(my::AlmostEqualAbs(point.m_latLon.lat, latidute, 0.001), ());
-  TEST(my::AlmostEqualAbs(point.m_latLon.lon, longtitude, 0.001), ());
+  TEST(base::AlmostEqualAbs(point.m_latLon.lat, latidute, 0.001), ());
+  TEST(base::AlmostEqualAbs(point.m_latLon.lon, longtitude, 0.001), ());
 }
 }
 

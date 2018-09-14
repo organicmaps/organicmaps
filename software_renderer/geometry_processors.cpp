@@ -53,7 +53,7 @@ void get_path_intervals::operator()(m2::PointD const & pt)
       }
       else
       {
-        if (my::AlmostEqualULPs(m_intervals->back(), clipStart))
+        if (base::AlmostEqualULPs(m_intervals->back(), clipStart))
           m_intervals->back() = clipEnd;
         else
         {

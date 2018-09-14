@@ -76,7 +76,7 @@ UNIT_TEST(RestrictionTest_InvalidCase)
 UNIT_TEST(RestrictionTest_ParseRestrictions)
 {
   std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  std::string const kRestrictionPath = my::JoinPath(kRestrictionTestDir, kRestrictionName);
+  std::string const kRestrictionPath = base::JoinPath(kRestrictionTestDir, kRestrictionName);
   std::string const kRestrictionContent = R"(No, 1, 1,
                                         Only, 0, 2,
                                         Only, 2, 3,
@@ -91,7 +91,7 @@ UNIT_TEST(RestrictionTest_ParseRestrictions)
   Platform const & platform = GetPlatform();
 
   TEST(restrictionCollector.ParseRestrictions(
-           my::JoinPath(platform.WritableDir(), kRestrictionPath)),
+           base::JoinPath(platform.WritableDir(), kRestrictionPath)),
        ());
   TEST(!restrictionCollector.HasRestrictions(), ());
 }
@@ -101,7 +101,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
   ScopedDir scopedDir(kRestrictionTestDir);
 
   std::string const kRestrictionName = "restrictions_in_osm_ids.csv";
-  std::string const kRestrictionPath = my::JoinPath(kRestrictionTestDir, kRestrictionName);
+  std::string const kRestrictionPath = base::JoinPath(kRestrictionTestDir, kRestrictionName);
   std::string const kRestrictionContent = R"(No, 10, 10,
                                         Only, 10, 20,
                                         Only, 30, 40,)";
@@ -109,7 +109,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
 
   std::string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
   std::string const osmIdsToFeatureIdsPath =
-      my::JoinPath(kRestrictionTestDir, kOsmIdsToFeatureIdsName);
+      base::JoinPath(kRestrictionTestDir, kOsmIdsToFeatureIdsName);
   std::string const kOsmIdsToFeatureIdsContent = R"(10, 1,
                                                20, 2,
                                                30, 3,
@@ -119,7 +119,7 @@ UNIT_TEST(RestrictionTest_RestrictionCollectorWholeClassTest)
   std::string const osmIdsToFeatureIdsFullPath = mappingScopedFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(kOsmIdsToFeatureIdsContent, osmIdsToFeatureIdsFullPath);
 
-  RestrictionCollector restrictionCollector(my::JoinPath(platform.WritableDir(), kRestrictionPath),
+  RestrictionCollector restrictionCollector(base::JoinPath(platform.WritableDir(), kRestrictionPath),
                                             osmIdsToFeatureIdsFullPath);
   TEST(restrictionCollector.IsValid(), ());
 

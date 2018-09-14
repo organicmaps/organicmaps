@@ -120,7 +120,7 @@ void ParsePatternsList(string const & patternsFile, ToDo toDo)
 }
 m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 {
-  uint32_t const sz = my::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
+  uint32_t const sz = base::NextPowOf2(static_cast<uint32_t>(patternsCount) + kReservedPatterns);
   uint32_t const stippleTextureHeight =
       std::min(maxTextureSize, std::max(sz, kMinStippleTextureHeight));
   return m2::PointU(kStippleTextureWidth, stippleTextureHeight);
@@ -129,7 +129,7 @@ m2::PointU StipplePenTextureSize(size_t patternsCount, uint32_t maxTextureSize)
 m2::PointU ColorTextureSize(size_t colorsCount, uint32_t maxTextureSize)
 {
   uint32_t const sz = static_cast<uint32_t>(floor(sqrt(colorsCount + kReservedColors)));
-  uint32_t colorTextureSize = std::max(my::NextPowOf2(sz), kMinColorTextureSize);
+  uint32_t colorTextureSize = std::max(base::NextPowOf2(sz), kMinColorTextureSize);
   colorTextureSize *= ColorTexture::GetColorSizeInPixels();
   colorTextureSize = std::min(maxTextureSize, colorTextureSize);
   return m2::PointU(colorTextureSize, colorTextureSize);

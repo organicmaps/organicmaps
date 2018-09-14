@@ -143,10 +143,10 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
 string SerializeRoutePoints(vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
-  auto pointsNode = my::NewJSONArray();
+  auto pointsNode = base::NewJSONArray();
   for (auto const & p : points)
   {
-    auto pointNode = my::NewJSONObject();
+    auto pointNode = base::NewJSONObject();
     SerializeRoutePoint(pointNode.get(), p);
     json_array_append_new(pointsNode.get(), pointNode.release());
   }
@@ -159,7 +159,7 @@ vector<RouteMarkData> DeserializeRoutePoints(string const & data)
 {
   try
   {
-    my::Json root(data.c_str());
+    base::Json root(data.c_str());
 
     if (root.get() == nullptr || !json_is_array(root.get()))
       return {};
@@ -188,7 +188,7 @@ vector<RouteMarkData> DeserializeRoutePoints(string const & data)
 
     return result;
   }
-  catch (my::Json::Exception const &)
+  catch (base::Json::Exception const &)
   {
     return {};
   }

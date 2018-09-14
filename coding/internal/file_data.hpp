@@ -18,9 +18,8 @@ namespace Tizen
 }
 #endif
 
-
-namespace my {
-
+namespace base
+{
 class FileData: private noncopyable
 {
 public:
@@ -68,4 +67,4 @@ bool WriteToTempAndRenameToFile(string const & dest, function<bool(string const 
 /// @return false if copy fails. DO NOT THROWS exceptions
 bool CopyFileX(string const & fOld, string const & fNew);
 bool IsEqualFiles(string const & firstFile, string const & secondFile);
-}
+}  // namespace base

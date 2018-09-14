@@ -26,7 +26,7 @@ using MigrationTables = unordered_map<int64_t, MigrationTable>;
 
 bool GetMigrationTable(int64_t tableVersion, MigrationTable & t)
 {
-  auto const fileName = my::JoinPath(kMigrationDirName, to_string(tableVersion) + kBinExt);
+  auto const fileName = base::JoinPath(kMigrationDirName, to_string(tableVersion) + kBinExt);
   try
   {
     auto reader = GetPlatform().GetReader(fileName);

@@ -58,7 +58,7 @@ public:
   template <typename T>
   void operator()(vector<T> const & vs, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONArray(), name, [this, &vs] {
+    NewScopeWith(base::NewJSONArray(), name, [this, &vs] {
       for (auto const & v : vs)
         (*this)(v);
     });
@@ -67,7 +67,7 @@ public:
   template <typename R, EnableIfNotEnum<R> * = nullptr>
   void operator()(R const & r, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
+    NewScopeWith(base::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
   }
 
   template <typename T, EnableIfEnum<T> * = nullptr>
@@ -116,9 +116,9 @@ public:
 
 private:
   template <typename Fn>
-  void NewScopeWith(my::JSONPtr json_object, char const * name, Fn && fn)
+  void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
   {
-    my::JSONPtr safe_json = std::move(m_json);
+    base::JSONPtr safe_json = std::move(m_json);
     m_json = std::move(json_object);
 
     fn();
@@ -132,7 +132,7 @@ private:
       m_json = std::move(safe_json);
   }
 
-  my::JSONPtr m_json = nullptr;
+  base::JSONPtr m_json = nullptr;
   Sink & m_sink;
 };
 
@@ -189,7 +189,7 @@ public:
     json_t * context = SaveContext(name);
 
     if (!json_is_array(m_json))
-      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
 
     vs.resize(json_array_size(m_json));
     for (size_t index = 0; index < vs.size(); ++index)
@@ -257,7 +257,7 @@ public:
   template <typename Optional>
   void operator()(Optional & opt, Optional const & defaultValue, char const * name = nullptr)
   {
-    auto json = my::GetJSONOptionalField(m_json, name);
+    auto json = base::GetJSONOptionalField(m_json, name);
     if (!json)
     {
       opt = defaultValue;
@@ -272,7 +272,7 @@ private:
   {
     json_t * context = m_json;
     if (name)
-      m_json = my::GetJSONObligatoryField(context, name);
+      m_json = base::GetJSONObligatoryField(context, name);
     return context;
   }
 
@@ -282,7 +282,7 @@ private:
       m_json = context;
   }
 
-  my::Json m_jsonObject;
+  base::Json m_jsonObject;
   json_t * m_json = nullptr;
 };
 }  // namespace ugc

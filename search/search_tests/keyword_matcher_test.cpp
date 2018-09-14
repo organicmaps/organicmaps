@@ -9,12 +9,14 @@
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/sstream.hpp"
-#include "std/vector.hpp"
+#include <sstream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 namespace
 {
-
 using search::KeywordMatcher;
 using search::kMaxNumTokens;
 
@@ -131,9 +133,7 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
     prevScore = testScore;
   }
 }
-
-}  // unnamed namespace
-
+}  // namespace
 
 UNIT_TEST(KeywordMatcher_Prefix)
 {
@@ -246,7 +246,6 @@ UNIT_TEST(KeywordMatcher_KeywordAndKeyword)
 
 namespace
 {
-
 string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = true)
 {
   ostringstream out;

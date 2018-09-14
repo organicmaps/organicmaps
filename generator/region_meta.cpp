@@ -31,7 +31,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
     std::string buffer;
     reader->ReadAsString(buffer);
-    my::Json root(buffer.data());
+    base::Json root(buffer.data());
 
     json_t * jsonData = nullptr;
     FromJSONObjectOptionalField(root.get(), countryName, jsonData);
@@ -65,7 +65,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
     for (json_t * holiday : holidays)
     {
       if (!json_is_array(holiday) || json_array_size(holiday) != 2)
-        MYTHROW(my::Json::Exception, ("Holiday must be an array of two elements in", countryName));
+        MYTHROW(base::Json::Exception, ("Holiday must be an array of two elements in", countryName));
       json_t * reference = json_array_get(holiday, 0);
       int8_t refId = 0;
       if (json_is_integer(reference))
@@ -78,14 +78,14 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
       }
       else
       {
-        MYTHROW(my::Json::Exception,
+        MYTHROW(base::Json::Exception,
                 ("Holiday month reference should be either a std::string or a number in", countryName));
       }
 
       if (refId <= 0)
-        MYTHROW(my::Json::Exception, ("Incorrect month reference in", countryName));
+        MYTHROW(base::Json::Exception, ("Incorrect month reference in", countryName));
       if (!json_is_integer(json_array_get(holiday, 1)))
-        MYTHROW(my::Json::Exception, ("Holiday day offset should be a number in", countryName));
+        MYTHROW(base::Json::Exception, ("Holiday day offset should be a number in", countryName));
       data.AddPublicHoliday(refId, json_integer_value(json_array_get(holiday, 1)));
     }
 
@@ -97,7 +97,7 @@ bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
   {
     LOG(LWARNING, ("Error reading", COUNTRIES_META_FILE, ":", e.Msg()));
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, ("Error parsing JSON in", COUNTRIES_META_FILE, ":", e.Msg()));
   }

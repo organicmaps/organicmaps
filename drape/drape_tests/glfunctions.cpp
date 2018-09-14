@@ -296,7 +296,7 @@ uint32_t GLFunctions::glCheckFramebufferStatus()
   return MOCK_CALL(glCheckFramebufferStatus());
 }
 
-void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
+void CheckGLError(base::SrcPoint const & /*srcPt*/) {}
 
 void GLFunctions::glEnable(glConst mode) {}
 

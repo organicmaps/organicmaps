@@ -12,7 +12,7 @@
 
 #include <string>
 
-using namespace my;
+using namespace base;
 
 // @todo(vbykoianko) Probably it's worth thinking about output of the function to make the result of
 // the tests more readable.

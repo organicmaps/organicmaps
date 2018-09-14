@@ -18,12 +18,12 @@ namespace mwm_diff
 {
 UNIT_TEST(IncrementalUpdates_Smoke)
 {
-  string const oldMwmPath = my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const oldMwmPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
   string const newMwmPath1 =
-      my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
+      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new1.mwm");
   string const newMwmPath2 =
-      my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
-  string const diffPath = my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
+      base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-new2.mwm");
+  string const diffPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwmdiff");
 
   MY_SCOPE_GUARD(cleanup, [&] {
     FileWriter::DeleteFileX(newMwmPath1);
@@ -39,7 +39,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
   TEST(MakeDiff(oldMwmPath, newMwmPath1, diffPath), ());
   TEST(ApplyDiff(oldMwmPath, newMwmPath2, diffPath), ());
 
-  TEST(my::IsEqualFiles(newMwmPath1, newMwmPath2), ());
+  TEST(base::IsEqualFiles(newMwmPath1, newMwmPath2), ());
 }
 }  // namespace mwm_diff
 }  // namespace generator

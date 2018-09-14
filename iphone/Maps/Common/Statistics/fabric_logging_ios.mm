@@ -8,7 +8,7 @@
 
 namespace platform
 {
-void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
+void LogMessageFabric(base::LogLevel level, base::SrcPoint const & srcPoint, std::string const & msg)
 {
   std::string recordType;
   switch (level)
@@ -26,15 +26,15 @@ void LogMessageFabric(my::LogLevel level, my::SrcPoint const & srcPoint, std::st
   CLSLog(@"%@", @(srcString.c_str()));
 }
 
-void IosLogMessage(my::LogLevel level, my::SrcPoint const & srcPoint, std::string const & msg)
+void IosLogMessage(base::LogLevel level, base::SrcPoint const & srcPoint, std::string const & msg)
 {
   LogMessageFabric(level, srcPoint, msg);
-  my::LogMessageDefault(level, srcPoint, msg);
+  base::LogMessageDefault(level, srcPoint, msg);
 }
 
-bool IosAssertMessage(my::SrcPoint const & srcPoint, std::string const & msg)
+bool IosAssertMessage(base::SrcPoint const & srcPoint, std::string const & msg)
 {
-  LogMessageFabric(my::LCRITICAL, srcPoint, msg);
+  LogMessageFabric(base::LCRITICAL, srcPoint, msg);
   std::cerr << "ASSERT FAILED" << std::endl
             << srcPoint.FileName() << ":" << srcPoint.Line() << std::endl
             << msg << std::endl;

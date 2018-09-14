@@ -14,7 +14,7 @@
 
 namespace coding
 {
-class CompressedBitVector : public my::RefCounted
+class CompressedBitVector : public base::RefCounted
 {
 public:
   enum class StorageStrategy

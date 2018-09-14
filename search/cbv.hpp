@@ -4,8 +4,9 @@
 
 #include "base/ref_counted.hpp"
 
-#include "std/function.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <memory>
+#include <utility>
 
 namespace search
 {
@@ -16,12 +17,12 @@ class CBV
 {
 public:
   CBV() = default;
-  explicit CBV(unique_ptr<coding::CompressedBitVector> p);
+  explicit CBV(std::unique_ptr<coding::CompressedBitVector> p);
   CBV(CBV const & cbv) = default;
   CBV(CBV && cbv);
 
   inline operator bool() const { return !IsEmpty(); }
-  CBV & operator=(unique_ptr<coding::CompressedBitVector> p);
+  CBV & operator=(std::unique_ptr<coding::CompressedBitVector> p);
   CBV & operator=(CBV const & rhs) = default;
   CBV & operator=(CBV && rhs);
 
@@ -34,12 +35,12 @@ public:
   bool HasBit(uint64_t id) const;
   uint64_t PopCount() const;
 
-  template <class TFn>
-  void ForEach(TFn && fn) const
+  template <typename Fn>
+  void ForEach(Fn && fn) const
   {
     ASSERT(!m_isFull, ());
     if (!IsEmpty())
-      coding::CompressedBitVectorEnumerator::ForEach(*m_p, forward<TFn>(fn));
+      coding::CompressedBitVectorEnumerator::ForEach(*m_p, std::forward<Fn>(fn));
   }
 
   CBV Union(CBV const & rhs) const;
@@ -51,7 +52,7 @@ public:
   uint64_t Hash() const;
 
 private:
-  my::RefCountPtr<coding::CompressedBitVector> m_p;
+  base::RefCountPtr<coding::CompressedBitVector> m_p;
 
   // True iff all bits are set to one.
   bool m_isFull = false;

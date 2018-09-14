@@ -34,7 +34,7 @@ namespace software_renderer
 {
 DrawRule::DrawRule(drule::BaseRule const * p, double depth)
   : m_rule(p)
-  , m_depth(my::clamp(depth, static_cast<double>(minDepth), static_cast<double>(maxDepth)))
+  , m_depth(base::clamp(depth, static_cast<double>(minDepth), static_cast<double>(maxDepth)))
 {
 }
 

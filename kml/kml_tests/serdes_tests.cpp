@@ -502,7 +502,7 @@ UNIT_TEST(Kml_Serialization_Bin_Memory)
 // 4. Check deserialization from the text file.
 UNIT_TEST(Kml_Deserialization_Text_File)
 {
-  std::string const kmlFile = my::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
+  std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
   try
   {
@@ -539,7 +539,7 @@ UNIT_TEST(Kml_Deserialization_Text_File)
 // 5. Check deserialization from the binary file.
 UNIT_TEST(Kml_Deserialization_Bin_File)
 {
-  std::string const kmbFile = my::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
+  std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
   try
   {
@@ -579,7 +579,7 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 {
   auto data = GenerateKmlFileData();
 
-  std::string const kmbFile = my::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
+  std::string const kmbFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kmb");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
   try
   {
@@ -617,7 +617,7 @@ UNIT_TEST(Kml_Serialization_Text_File)
 
   auto data = GenerateKmlFileData();
 
-  std::string const kmlFile = my::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
+  std::string const kmlFile = base::JoinPath(GetPlatform().TmpDir(), "tmp.kml");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
   try
   {

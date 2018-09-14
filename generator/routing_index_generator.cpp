@@ -335,8 +335,8 @@ void CalcCrossMwmConnectors(
     vector<CrossMwmConnectorSerializer::Transition<CrossMwmId>> & transitions,
     CrossMwmConnectorPerVehicleType<CrossMwmId> & connectors)
 {
-  my::Timer timer;
-  string const polyFile = my::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
+  base::Timer timer;
+  string const polyFile = base::JoinPath(path, BORDERS_DIR, country + BORDERS_EXTENSION);
   vector<m2::RegionD> borders;
   osm::LoadBorders(polyFile, borders);
 
@@ -388,7 +388,7 @@ void FillWeights(string const & path, string const & mwmFile, string const & cou
                  CountryParentNameGetterFn const & countryParentNameGetterFn,
                  bool disableCrossMwmProgress, CrossMwmConnector<CrossMwmId> & connector)
 {
-  my::Timer timer;
+  base::Timer timer;
 
   shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory(countryParentNameGetterFn).GetVehicleModelForCountry(country);

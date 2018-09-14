@@ -391,7 +391,7 @@ void BookMarkSplitPanel::UpdateCompass()
     double const dAzimut = GetAzimuth(GetCurMark(), m_northAzimuth);
     double dRotateAngle = dAzimut - (math::pi / 2);
     AngleIn2Pi(dRotateAngle);
-    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), my::RadToDeg(dRotateAngle));
+    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), base::RadToDeg(dRotateAngle));
     delete pCanvas;
   }
 }

@@ -57,7 +57,7 @@ private:
     void Clear();
 
   private:
-    using TMwmFeatureCache = my::Cache<uint32_t, RoadInfo>;
+    using TMwmFeatureCache = base::Cache<uint32_t, RoadInfo>;
     map<MwmSet::MwmId, TMwmFeatureCache> m_cache;
   };
 

@@ -66,7 +66,7 @@ void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expec
   if (expectedWeight != kUnknownWeight)
   {
     double constexpr kEpsilon = 0.01;
-    TEST(my::AlmostEqualRel(timeSec, expectedWeight, kEpsilon),
+    TEST(base::AlmostEqualRel(timeSec, expectedWeight, kEpsilon),
          ("Expected weight:", expectedWeight, "got:", timeSec));
   }
 

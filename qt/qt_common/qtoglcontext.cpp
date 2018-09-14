@@ -59,7 +59,7 @@ void QtRenderOGLContext::Resize(int w, int h)
   LockFrame();
   m_resizeLock = true;
 
-  QSize size(my::NextPowOf2(w), my::NextPowOf2(h));
+  QSize size(base::NextPowOf2(w), base::NextPowOf2(h));
   m_texRect =
       QRectF(0.0, 0.0, w / static_cast<float>(size.width()), h / static_cast<float>(size.height()));
 

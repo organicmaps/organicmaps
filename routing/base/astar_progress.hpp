@@ -45,7 +45,7 @@ private:
   float CheckConstraints(float const & roadPart)
   {
     float mappedValue = m_startValue + (m_stopValue - m_startValue) * roadPart;
-    mappedValue = my::clamp(mappedValue, m_startValue, m_stopValue);
+    mappedValue = base::clamp(mappedValue, m_startValue, m_stopValue);
     if (mappedValue > m_lastValue)
       m_lastValue = mappedValue;
     return m_lastValue;

@@ -117,7 +117,7 @@ bool Save(std::string const & fileName, std::list<editor::Note> const & notes,
 {
   pugi::xml_document xml;
   SaveToXml(notes, xml, uploadedNotesCount);
-  return my::WriteToTempAndRenameToFile(fileName, [&xml](std::string const & fileName) {
+  return base::WriteToTempAndRenameToFile(fileName, [&xml](std::string const & fileName) {
     return xml.save_file(fileName.data(), "  ");
   });
 }

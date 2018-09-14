@@ -183,8 +183,8 @@ void CmdTracks(string const & filepath, string const & trackExtension, StringFil
           cout << fixed << setprecision(1) << "  points: " << track.size() << ", length: " << length
                << ", duration: " << duration << ", estimated duration: " << estimatedDuration
                << ", speed: " << speed << ", traffic: " << hasTrafficPoints
-               << ", departure: " << my::SecondsSinceEpochToString(start.m_timestamp)
-               << ", arrival: " << my::SecondsSinceEpochToString(finish.m_timestamp)
+               << ", departure: " << base::SecondsSinceEpochToString(start.m_timestamp)
+               << ", arrival: " << base::SecondsSinceEpochToString(finish.m_timestamp)
                << setprecision(numeric_limits<double>::max_digits10)
                << ", start: " << start.m_latLon.lat << ", " << start.m_latLon.lon
                << ", finish: " << finish.m_latLon.lat << ", " << finish.m_latLon.lon << endl;

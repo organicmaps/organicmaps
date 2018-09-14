@@ -137,7 +137,7 @@ namespace feature
     LOG(LINFO, ("Saving features offsets table to ", filePath));
     string const fileNameTmp = filePath + EXTENSION_TMP;
     succinct::mapper::freeze(m_table, fileNameTmp.c_str());
-    my::RenameFileX(fileNameTmp, filePath);
+    base::RenameFileX(fileNameTmp, filePath);
   }
 
   uint32_t FeaturesOffsetsTable::GetFeatureOffset(size_t index) const

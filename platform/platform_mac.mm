@@ -92,8 +92,8 @@ Platform::Platform()
 
   if (m_resourcesDir.empty())
     m_resourcesDir = ".";
-  m_resourcesDir = my::AddSlashIfNeeded(m_resourcesDir);
-  m_writableDir = my::AddSlashIfNeeded(m_writableDir);
+  m_resourcesDir = base::AddSlashIfNeeded(m_resourcesDir);
+  m_writableDir = base::AddSlashIfNeeded(m_writableDir);
 
   m_settingsDir = m_writableDir;
   m_privateDir = m_writableDir;

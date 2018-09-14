@@ -119,7 +119,7 @@ bool CheckCameraMapsEquality(CameraMap const & lhs, CameraMap const & rhs)
     // It can differ on jenknins and local computer.
     if (!(vectorL[i].first.m_segmentId == vectorR[i].first.m_segmentId &&
           vectorL[i].second.m_maxSpeedKmPH == vectorR[i].second.m_maxSpeedKmPH &&
-          my::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, kCoefEqualityEpsilonM)))
+          base::AlmostEqualAbs(vectorL[i].second.m_coef, vectorR[i].second.m_coef, kCoefEqualityEpsilonM)))
     {
       LOG(LINFO, ("These should be equals:",
                   "sId:", vectorL[i].first.m_segmentId, vectorR[i].first.m_segmentId,
@@ -142,10 +142,10 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   platform.SetWritableDirForTests(tmpDir);
 
   // Create test dir.
-  string const testDirFullPath = my::JoinPath(tmpDir, kTestDir);
+  string const testDirFullPath = base::JoinPath(tmpDir, kTestDir);
   FORCE_USE_VALUE(Platform::MkDir(testDirFullPath));
 
-  string const osmRelativePath = my::JoinPath(kTestDir, kOsmFileName);
+  string const osmRelativePath = base::JoinPath(kTestDir, kOsmFileName);
   ScopedFile const osmScopedFile(osmRelativePath, osmContent);
 
   // Step 1. Generate intermediate data.
@@ -156,14 +156,14 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   genInfo.m_targetDir = testDirFullPath;
   genInfo.m_intermediateDir = testDirFullPath;
   genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
-  genInfo.m_osmFileName = my::JoinPath(tmpDir, osmRelativePath);
+  genInfo.m_osmFileName = base::JoinPath(tmpDir, osmRelativePath);
   genInfo.m_osmFileType = feature::GenerateInfo::OsmSourceType::XML;
 
   TEST(GenerateIntermediateData(genInfo), ("Can not generate intermediate data for speed cam"));
 
   // Building empty mwm.
-  LocalCountryFile country(my::JoinPath(tmpDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
-  string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  LocalCountryFile country(base::JoinPath(tmpDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
 
   // Step 2. Generate binary file about cameras.
@@ -189,13 +189,13 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   if (!answer.empty())
   {
     // Check that intermediate file is non empty.
-    TEST_NOT_EQUAL(my::FileData(camerasFilename, my::FileData::OP_READ).Size(), 0,
+    TEST_NOT_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
                    ("SpeedCam intermediate file is empty"));
   }
   else
   {
     // Check that intermediate file is empty.
-    TEST_EQUAL(my::FileData(camerasFilename, my::FileData::OP_READ).Size(), 0,
+    TEST_EQUAL(base::FileData(camerasFilename, base::FileData::OP_READ).Size(), 0,
                ("SpeedCam intermediate file is non empty"));
   }
 

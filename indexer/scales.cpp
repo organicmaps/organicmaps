@@ -34,12 +34,12 @@ namespace scales
 
   int GetScaleLevel(double ratio)
   {
-    return my::rounds(GetScaleLevelD(ratio));
+    return base::rounds(GetScaleLevelD(ratio));
   }
 
   int GetScaleLevel(m2::RectD const & r)
   {
-    return my::rounds(GetScaleLevelD(r));
+    return base::rounds(GetScaleLevelD(r));
   }
 
   double GetRationForLevel(double level)

@@ -8,7 +8,7 @@
 #include <atomic>
 #include <string>
 
-namespace my
+namespace base
 {
 enum LogLevel
 {
@@ -63,36 +63,36 @@ struct ScopedLogAbortLevelChanger
   }
   ~ScopedLogAbortLevelChanger() { g_LogAbortLevel = m_old; }
 };
-}  // namespace my
+}  // namespace base
 
-using ::my::LDEBUG;
-using ::my::LINFO;
-using ::my::LWARNING;
-using ::my::LERROR;
-using ::my::LCRITICAL;
-using ::my::NUM_LOG_LEVELS;
+using ::base::LDEBUG;
+using ::base::LINFO;
+using ::base::LWARNING;
+using ::base::LERROR;
+using ::base::LCRITICAL;
+using ::base::NUM_LOG_LEVELS;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));
-#define LOG(level, msg)                                        \
-  do                                                           \
-  {                                                            \
-    if ((level) >= ::my::g_LogLevel)                           \
-      ::my::LogMessage(level, SRC(), ::my::impl::Message msg); \
+#define LOG(level, msg)                                      \
+  do                                                         \
+  {                                                          \
+    if ((level) >= ::base::g_LogLevel)                       \
+      ::base::LogMessage(level, SRC(), ::base::Message msg); \
   } while (false)
 
 // Logging macro with short info (without entry point)
 #define LOG_SHORT(level, msg)                                           \
   do                                                                    \
   {                                                                     \
-    if ((level) >= ::my::g_LogLevel)                                    \
-      ::my::LogMessage(level, my::SrcPoint(), ::my::impl::Message msg); \
+    if ((level) >= ::base::g_LogLevel)                                  \
+      ::base::LogMessage(level, base::SrcPoint(), ::base::Message msg); \
   } while (false)
 
 // Conditional log. Logs @msg with level @level in case when @X returns false.
-#define CLOG(level, X, msg)                                         \
-  do                                                                \
-  {                                                                 \
-    if (!(X))                                                         \
-      LOG(level, (SRC(), "CLOG(" #X ")", ::my::impl::Message msg)); \
+#define CLOG(level, X, msg)                                     \
+  do                                                            \
+  {                                                             \
+    if (!(X))                                                   \
+      LOG(level, (SRC(), "CLOG(" #X ")", ::base::Message msg)); \
   } while (false)

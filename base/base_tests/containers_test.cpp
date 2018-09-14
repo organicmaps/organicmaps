@@ -2,8 +2,7 @@
 
 #include "base/limited_priority_queue.hpp"
 
-
-using namespace my;
+using namespace base;
 
 UNIT_TEST(LPQueue_Smoke)
 {

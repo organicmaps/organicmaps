@@ -94,10 +94,10 @@ bool TestSerDesSpeedCamera(std::vector<SpeedCameraMetadata> const & speedCameras
   }
 
   ScopedDir scopedDir(kTestDir);
-  auto const testFile = my::JoinPath(kTestDir, kTestFileForCamera);
+  auto const testFile = base::JoinPath(kTestDir, kTestFileForCamera);
   ScopedFile scopedFile(testFile, "");
   auto const & writableDir = GetPlatform().WritableDir();
-  auto const & filePath = my::JoinPath(writableDir, testFile);
+  auto const & filePath = base::JoinPath(writableDir, testFile);
 
   {
     FileWriter writer(filePath);
@@ -118,7 +118,7 @@ bool TestSerDesSpeedCamera(std::vector<SpeedCameraMetadata> const & speedCameras
       std::tie(segment, speedCamera) = DeserializeSpeedCamera(src, prevFeatureId);
       TEST_EQUAL(segment.m_featureId, way.m_featureId, ());
       TEST_EQUAL(segment.m_segmentId, way.m_segmentId, ());
-      TEST(my::AlmostEqualAbs(speedCamera.m_coef, way.m_coef, 1e-5), ());
+      TEST(base::AlmostEqualAbs(speedCamera.m_coef, way.m_coef, 1e-5), ());
       TEST_EQUAL(speedCamera.m_maxSpeedKmPH, metadata.m_maxSpeedKmPH, ());
     }
   }

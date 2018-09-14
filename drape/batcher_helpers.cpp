@@ -61,7 +61,7 @@ protected:
   int16_t GetCWNormalizer()
   {
     int16_t tmp = m_minStripCounter;
-    m_minStripCounter = my::cyclicClamp(m_minStripCounter + 1, 0, 5);
+    m_minStripCounter = base::cyclicClamp(m_minStripCounter + 1, 0, 5);
     switch (tmp)
     {
       case 4: return 1;

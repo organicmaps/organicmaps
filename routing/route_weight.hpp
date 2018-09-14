@@ -79,8 +79,8 @@ public:
   {
     return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
            m_numAccessChanges == rhs.m_numAccessChanges &&
-           my::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
-           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
+           base::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
+           base::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
   }
 
 private:

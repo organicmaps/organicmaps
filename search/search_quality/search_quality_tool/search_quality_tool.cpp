@@ -217,7 +217,7 @@ int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const f
   {
     auto const & r = results[i];
     if (r.HasPoint() &&
-        my::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
+        base::AlmostEqualAbs(r.GetFeatureCenter(), MercatorBounds::FromLatLon(lat, lon), kEps))
     {
       double const dist = MercatorBounds::DistanceOnEarth(r.GetFeatureCenter(),
                                                           MercatorBounds::FromLatLon(lat, lon));
@@ -282,12 +282,12 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSource & dataSource,
                        TestSearchEngine & engine)
 {
-  my::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
+  base::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
 
   ifstream stream(path.c_str());
   CHECK(stream.is_open(), ("Can't open", path));
 
-  my::Timer timer;
+  base::Timer timer;
 
   uint32_t totalQueries = 0;
   uint32_t malformedQueries = 0;
@@ -359,7 +359,7 @@ int main(int argc, char * argv[])
   if (!FLAGS_data_path.empty())
   {
     platform.SetResourceDir(FLAGS_data_path);
-    countriesFile = my::JoinFoldersToPath(FLAGS_data_path, COUNTRIES_FILE);
+    countriesFile = base::JoinFoldersToPath(FLAGS_data_path, COUNTRIES_FILE);
   }
 
   if (!FLAGS_mwm_path.empty())
@@ -432,7 +432,7 @@ int main(int argc, char * argv[])
   vector<string> queries;
   string queriesPath = FLAGS_queries_path;
   if (queriesPath.empty())
-    queriesPath = my::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
+    queriesPath = base::JoinFoldersToPath(platform.WritableDir(), kDefaultQueriesPathSuffix);
   ReadStringsFromFile(queriesPath, queries);
 
   vector<unique_ptr<TestSearchRequest>> requests;

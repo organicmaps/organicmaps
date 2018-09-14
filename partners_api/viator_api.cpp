@@ -123,7 +123,7 @@ std::string MakeUrl(std::string const & apiMethod)
   return os.str();
 }
 
-bool CheckAnswer(my::Json const & root)
+bool CheckAnswer(base::Json const & root)
 {
   bool success;
   FromJSONObjectOptionalField(root.get(), "success", success);
@@ -146,7 +146,7 @@ void MakeProducts(std::string const & src, std::vector<Product> & products)
 {
   products.clear();
 
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
   auto const data = json_object_get(root.get(), "data");
   if (!CheckAnswer(root) || !json_array_size(data))
     return;
@@ -214,7 +214,7 @@ void Api::GetTop5Products(std::string const & destId, std::string const & curren
     {
       MakeProducts(result, products);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg()));
       products.clear();

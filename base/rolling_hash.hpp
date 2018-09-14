@@ -21,7 +21,7 @@ public:
   template <typename IterT> hash_type Init(IterT it, uint64_t windowSize)
   {
     m_WindowSize = windowSize;
-    m_RemoveMultiplier = my::PowUint(m_Multiplier, m_WindowSize - 1);
+    m_RemoveMultiplier = base::PowUint(m_Multiplier, m_WindowSize - 1);
 #ifdef DEBUG
     while (!m_Queue.empty()) m_Queue.pop();
 #endif

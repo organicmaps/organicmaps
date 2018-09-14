@@ -164,7 +164,7 @@ UserPreferences ServerApi06::GetUserPreferences() const
   UserPreferences pref;
   pref.m_id = user.attribute("id").as_ullong();
   pref.m_displayName = user.attribute("display_name").as_string();
-  pref.m_accountCreated = my::StringToTimestamp(user.attribute("account_created").as_string());
+  pref.m_accountCreated = base::StringToTimestamp(user.attribute("account_created").as_string());
   pref.m_imageUrl = user.child("img").attribute("href").as_string();
   pref.m_changesets = user.child("changesets").attribute("count").as_uint();
   return pref;
@@ -187,7 +187,7 @@ OsmOAuth::Response ServerApi06::GetXmlFeaturesAtLatLon(double lat, double lon, d
   double const latDegreeOffset = radiusInMeters * MercatorBounds::degreeInMetres;
   double const minLat = max(-90.0, lat - latDegreeOffset);
   double const maxLat = min( 90.0, lat + latDegreeOffset);
-  double const cosL = max(cos(my::DegToRad(max(fabs(minLat), fabs(maxLat)))), 0.00001);
+  double const cosL = max(cos(base::DegToRad(max(fabs(minLat), fabs(maxLat)))), 0.00001);
   double const lonDegreeOffset = radiusInMeters * MercatorBounds::degreeInMetres / cosL;
   double const minLon = max(-180.0, lon - lonDegreeOffset);
   double const maxLon = min( 180.0, lon + lonDegreeOffset);

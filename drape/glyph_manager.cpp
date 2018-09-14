@@ -597,14 +597,14 @@ GlyphManager::Glyph GlyphManager::GenerateGlyph(Glyph const & glyph, uint32_t sd
       ASSERT(img.GetWidth() == glyph.m_image.m_width, ());
       ASSERT(img.GetHeight() == glyph.m_image.m_height, ());
 
-      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      size_t bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
       resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
 
       img.GetData(*resultGlyph.m_image.m_data);
     }
     else
     {
-      size_t bufferSize = my::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
+      size_t bufferSize = base::NextPowOf2(glyph.m_image.m_width * glyph.m_image.m_height);
       resultGlyph.m_image.m_data = SharedBufferManager::instance().reserveSharedBuffer(bufferSize);
       resultGlyph.m_image.m_data->assign(glyph.m_image.m_data->begin(), glyph.m_image.m_data->end());
     }

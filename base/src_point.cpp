@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <sstream>
 
-namespace my
+namespace base
 {
 void SrcPoint::TruncateFileName()
 {
@@ -28,4 +28,4 @@ std::string DebugPrint(SrcPoint const & srcPoint)
         << srcPoint.Postfix() << " ";
   return out.str();
 }
-}  // namespace my
+}  // namespace base

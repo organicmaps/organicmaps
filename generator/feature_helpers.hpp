@@ -66,10 +66,10 @@ public:
   // p is close to the borders of |m_rect|, in which case returns a very large number.
   double operator()(m2::PointD const & a, m2::PointD const & b, m2::PointD const & p) const
   {
-    if (my::AlmostEqualAbs(p.x, m_rect.minX(), m_eps) ||
-        my::AlmostEqualAbs(p.x, m_rect.maxX(), m_eps) ||
-        my::AlmostEqualAbs(p.y, m_rect.minY(), m_eps) ||
-        my::AlmostEqualAbs(p.y, m_rect.maxY(), m_eps))
+    if (base::AlmostEqualAbs(p.x, m_rect.minX(), m_eps) ||
+        base::AlmostEqualAbs(p.x, m_rect.maxX(), m_eps) ||
+        base::AlmostEqualAbs(p.y, m_rect.minY(), m_eps) ||
+        base::AlmostEqualAbs(p.y, m_rect.maxY(), m_eps))
     {
       // Points near rect should be in a result simplified vector.
       return std::numeric_limits<double>::max();

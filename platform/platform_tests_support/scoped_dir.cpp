@@ -13,7 +13,7 @@ namespace platform
 namespace tests_support
 {
 ScopedDir::ScopedDir(string const & relativePath)
-    : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)),
+    : m_fullPath(base::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath)),
       m_relativePath(relativePath),
       m_reset(false)
 {
@@ -34,7 +34,7 @@ ScopedDir::ScopedDir(string const & relativePath)
 }
 
 ScopedDir::ScopedDir(ScopedDir const & parent, string const & name)
-  : ScopedDir(my::JoinFoldersToPath(parent.GetRelativePath(), name))
+  : ScopedDir(base::JoinFoldersToPath(parent.GetRelativePath(), name))
 {
 }
 

@@ -58,14 +58,14 @@ void TestIntermediateData_SpeedCameraNodesToWays(
 
   ScopedDir const scopedDir(kTestDir);
 
-  string const osmRelativePath = my::JoinPath(kTestDir, kOsmFileName);
+  string const osmRelativePath = base::JoinPath(kTestDir, kOsmFileName);
   ScopedFile const osmScopedFile(osmRelativePath, osmSourceXML);
 
   // Generate intermediate data.
   GenerateInfo genInfo;
   genInfo.m_intermediateDir = writableDir;
   genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
-  genInfo.m_osmFileName = my::JoinPath(tmpDir, osmRelativePath);
+  genInfo.m_osmFileName = base::JoinPath(tmpDir, osmRelativePath);
   genInfo.m_osmFileType = feature::GenerateInfo::OsmSourceType::XML;
 
   // Test save intermediate data is OK.

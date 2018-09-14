@@ -434,7 +434,7 @@ void swap(buffer_vector<T, N> & r1, buffer_vector<T, N> & r2)
 template <typename T, size_t N>
 inline std::string DebugPrint(buffer_vector<T, N> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.data(), v.data() + v.size());
+  return DebugPrintSequence(v.data(), v.data() + v.size());
 }
 
 template <typename T, size_t N1, size_t N2>

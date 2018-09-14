@@ -69,7 +69,7 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
     if (elapsed != 0)
       speed = CalcSpeedKMpH(distance, elapsed);
 
-    LOG(LINFO, (my::SecondsSinceEpochToString(point.GetDataPoint().m_timestamp),
+    LOG(LINFO, (base::SecondsSinceEpochToString(point.GetDataPoint().m_timestamp),
                 point.GetDataPoint().m_latLon, point.GetSegment(), ", traffic:",
                 point.GetDataPoint().m_traffic, ", distance:", distance, ", elapsed:", elapsed,
                 ", speed:", speed));

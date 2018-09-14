@@ -256,7 +256,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
         }
 
         cout << mwmName << " " << user << " " << trackIdx << " "
-             << my::SecondsSinceEpochToString(start) << " " << length << " " << timeElapsed << " "
+             << base::SecondsSinceEpochToString(start) << " " << length << " " << timeElapsed << " "
              << speed << " " << aggregator.GetSummary() << endl;
       }
     }

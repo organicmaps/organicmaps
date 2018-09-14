@@ -1,22 +1,23 @@
 #pragma once
+
 #include "base/base.hpp"
 
 #include <sstream>
 #include <string>
 
-
-namespace my
+namespace base
 {
-
-template <typename T> class NoopStats
+template <typename T>
+class NoopStats
 {
 public:
   NoopStats() {}
-  inline void operator() (T const &) {}
-  inline std::string GetStatsStr() const { return ""; }
+  void operator() (T const &) {}
+  std::string GetStatsStr() const { return ""; }
 };
 
-template <typename T> class AverageStats
+template <typename T>
+class AverageStats
 {
 public:
   AverageStats() : m_Count(0), m_Sum(0) {}
@@ -27,7 +28,7 @@ public:
     m_Sum += x;
   }
 
-  string GetStatsStr() const
+  std::string GetStatsStr() const
   {
     std::ostringstream out;
     out << "N: " << m_Count;
@@ -50,5 +51,4 @@ private:
   uint32_t m_Count;
   double m_Sum;
 };
-
-}
+}  // namespace base

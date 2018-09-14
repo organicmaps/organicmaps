@@ -3,13 +3,14 @@
 #include "base/newtype.hpp"
 
 #include <sstream>
+#include <string>
 #include <type_traits>
 
 namespace
 {
 NEWTYPE(int, Int);
 
-string DebugPrint(Int const & i)
+std::string DebugPrint(Int const & i)
 {
   std::stringstream sstr;
   sstr << "Int(" << i.Get() << ')';

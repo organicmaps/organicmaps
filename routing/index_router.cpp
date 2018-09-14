@@ -556,7 +556,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
                                           m2::PointD const & startDirection,
                                           RouterDelegate const & delegate, Route & route)
 {
-  my::Timer timer;
+  base::Timer timer;
   TrafficStash::Guard guard(m_trafficStash);
   auto graph = MakeWorldGraph();
   graph->SetMode(WorldGraph::Mode::NoLeaps);

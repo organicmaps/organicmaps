@@ -177,7 +177,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
 
   SharedBufferManager & mng = SharedBufferManager::instance();
   uint32_t const bytesPerNode = kMaxStipplePenLength * kStippleHeight;
-  uint32_t reserveBufferSize = my::NextPowOf2(static_cast<uint32_t>(pendingNodes.size()) * bytesPerNode);
+  uint32_t reserveBufferSize = base::NextPowOf2(static_cast<uint32_t>(pendingNodes.size()) * bytesPerNode);
   SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
   uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
   memset(rawBuffer, 0, reserveBufferSize);

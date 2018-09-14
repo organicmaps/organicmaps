@@ -22,7 +22,7 @@ class StorageDownloadingPolicy : public DownloadingPolicy
   bool m_downloadRetryFailed = false;
   static size_t constexpr kAutoRetryCounterMax = 3;
   size_t m_autoRetryCounter = kAutoRetryCounterMax;
-  my::DeferredTask m_autoRetryWorker;
+  base::DeferredTask m_autoRetryWorker;
 
   time_point<steady_clock> m_disableCellularTime;
 

@@ -12,7 +12,7 @@ namespace dp
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint32_t capacity)
   : TBase(elementSize, capacity)
 {
-  uint32_t memorySize = my::NextPowOf2(GetCapacity() * GetElementSize());
+  uint32_t memorySize = base::NextPowOf2(GetCapacity() * GetElementSize());
   m_memory = SharedBufferManager::instance().reserveSharedBuffer(memorySize);
   m_memoryCursor = NonConstData();
 }

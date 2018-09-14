@@ -18,7 +18,7 @@ extern crashlytics_context_t * g_crashlytics;
 namespace jni
 {
 
-using namespace my;
+using namespace base;
 
 void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {

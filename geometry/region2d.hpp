@@ -25,8 +25,8 @@ struct DefEqualFloat
   {
     static_assert(std::is_floating_point<typename Point::value_type>::value, "");
 
-    return my::AlmostEqualAbs(p1.x, p2.x, static_cast<typename Point::value_type>(kPrecision)) &&
-           my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename Point::value_type>(kPrecision));
+    return base::AlmostEqualAbs(p1.x, p2.x, static_cast<typename Point::value_type>(kPrecision)) &&
+           base::AlmostEqualAbs(p1.y, p2.y, static_cast<typename Point::value_type>(kPrecision));
   }
 
   template <typename Coord>
@@ -34,7 +34,7 @@ struct DefEqualFloat
   {
     static_assert(std::is_floating_point<Coord>::value, "");
 
-    return my::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
+    return base::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
   }
   // Determines if value of a val lays between a p1 and a p2 values with some precision.
   bool IsAlmostBetween(double val, double p1, double p2) const

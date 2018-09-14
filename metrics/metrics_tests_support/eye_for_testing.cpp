@@ -16,8 +16,8 @@ void EyeForTesting::ResetEye()
 
   auto const path = Storage::GetEyeFilePath();
   uint64_t unused;
-  if (my::GetFileSize(path, unused))
-    my::DeleteFileX(path);
+  if (base::GetFileSize(path, unused))
+    base::DeleteFileX(path);
 }
 
 // static

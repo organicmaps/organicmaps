@@ -210,9 +210,9 @@ void ScreenBase::SetAngle(double angle)
   UpdateDependentParameters();
 }
 
-int ScreenBase::GetWidth() const { return my::rounds(m_PixelRect.SizeX()); }
+int ScreenBase::GetWidth() const { return base::rounds(m_PixelRect.SizeX()); }
 
-int ScreenBase::GetHeight() const { return my::rounds(m_PixelRect.SizeY()); }
+int ScreenBase::GetHeight() const { return base::rounds(m_PixelRect.SizeY()); }
 
 ScreenBase::MatrixT const ScreenBase::CalcTransform(m2::PointD const & oldPt1,
                                                     m2::PointD const & oldPt2,

@@ -184,12 +184,12 @@ private:
   double m_autoScale2d;
   double m_autoScale3d;
 
-  my::Timer m_lastGPSBearing;
-  my::Timer m_pendingTimer;
-  my::Timer m_routingNotFollowTimer;
+  base::Timer m_lastGPSBearing;
+  base::Timer m_pendingTimer;
+  base::Timer m_routingNotFollowTimer;
   bool m_blockRoutingNotFollowTimer = false;
-  my::Timer m_blockAutoZoomTimer;
-  my::Timer m_updateLocationTimer;
+  base::Timer m_blockAutoZoomTimer;
+  base::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
 
   m2::RectD m_pixelRect;

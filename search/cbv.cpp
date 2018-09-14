@@ -1,9 +1,9 @@
 #include "search/cbv.hpp"
 
-#include "std/limits.hpp"
-#include "std/vector.hpp"
+#include <limits>
+#include <vector>
 
-using namespace my;
+using namespace std;
 
 namespace search
 {

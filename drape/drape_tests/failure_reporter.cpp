@@ -23,8 +23,8 @@ public:
     if (!m_throwed)
     {
       m_throwed = true;
-      my::OnTestFailed(my::SrcPoint(file == NULL ? "" : file,
-                                    line, ""), message);
+      base::OnTestFailed(base::SrcPoint(file == NULL ? "" : file,
+                                        line, ""), message);
     }
   }
 };

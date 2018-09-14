@@ -332,7 +332,7 @@ struct UGC
   bool operator==(UGC const & rhs) const
   {
     return m_ratings == rhs.m_ratings && m_reviews == rhs.m_reviews &&
-        my::AlmostEqualAbs(m_totalRating, rhs.m_totalRating, 1e-6f) && m_basedOn == rhs.m_basedOn;
+        base::AlmostEqualAbs(m_totalRating, rhs.m_totalRating, 1e-6f) && m_basedOn == rhs.m_basedOn;
   }
 
   bool IsEmpty() const

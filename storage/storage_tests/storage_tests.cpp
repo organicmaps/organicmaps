@@ -1216,7 +1216,7 @@ UNIT_TEST(StorageTest_TwoInstance)
   platform::tests_support::ScopedDir removeTestDir1(testDir1);
   UNUSED_VALUE(removeTestDir1);
   string const versionDir1 =
-      my::JoinFoldersToPath(testDir1, strings::to_string(storage1.GetCurrentDataVersion()));
+      base::JoinFoldersToPath(testDir1, strings::to_string(storage1.GetCurrentDataVersion()));
   platform::tests_support::ScopedDir removeVersionDir1(versionDir1);
   UNUSED_VALUE(removeVersionDir1);
   TaskRunner runner1;
@@ -1227,7 +1227,7 @@ UNIT_TEST(StorageTest_TwoInstance)
   platform::tests_support::ScopedDir removeTestDir2(testDir2);
   UNUSED_VALUE(removeTestDir2);
   string const versionDir2 =
-      my::JoinFoldersToPath(testDir2, strings::to_string(storage2.GetCurrentDataVersion()));
+      base::JoinFoldersToPath(testDir2, strings::to_string(storage2.GetCurrentDataVersion()));
   platform::tests_support::ScopedDir removeVersionDir2(versionDir2);
   UNUSED_VALUE(removeVersionDir2);
   TaskRunner runner2;
@@ -1241,7 +1241,7 @@ UNIT_TEST(StorageTest_TwoInstance)
     auto const checker = AbsentCountryDownloaderChecker(storage1, uruguayId, MapOptions::Map);
     checker->StartDownload();
     runner1.Run();
-    TEST(platform.IsFileExistsByFullPath(my::JoinFoldersToPath(writableDir, versionDir1)), ());
+    TEST(platform.IsFileExistsByFullPath(base::JoinFoldersToPath(writableDir, versionDir1)), ());
   }
 
   storage2.DeleteCountry(uruguayId, MapOptions::Map);
@@ -1251,7 +1251,7 @@ UNIT_TEST(StorageTest_TwoInstance)
     auto const checker = AbsentCountryDownloaderChecker(storage2, uruguayId, MapOptions::Map);
     checker->StartDownload();
     runner2.Run();
-    TEST(platform.IsFileExistsByFullPath(my::JoinFoldersToPath(writableDir, versionDir1)), ());
+    TEST(platform.IsFileExistsByFullPath(base::JoinFoldersToPath(writableDir, versionDir1)), ());
   }
 }
 
@@ -1410,7 +1410,7 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   classificator::Load();
   WritableDirChanger writableDirChanger(kMapTestDir);
 
-  string const kVersion1Dir = my::JoinFoldersToPath(GetPlatform().WritableDir(), "1");
+  string const kVersion1Dir = base::JoinFoldersToPath(GetPlatform().WritableDir(), "1");
   CHECK_EQUAL(Platform::MkDir(kVersion1Dir), Platform::ERR_OK, ());
 
   LocalCountryFile country1(kVersion1Dir, CountryFile("OutdatedCountry1"), 1);

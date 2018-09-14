@@ -16,14 +16,14 @@ namespace
 inline m2::PointU ClampPoint(m2::PointU const & maxPoint, m2::Point<double> const & point)
 {
   using uvalue_t = m2::PointU::value_type;
-  // return m2::PointU(my::clamp(static_cast<uvalue_t>(point.x), static_cast<uvalue_t>(0),
+  // return m2::PointU(base::clamp(static_cast<uvalue_t>(point.x), static_cast<uvalue_t>(0),
   // maxPoint.x),
-  //                  my::clamp(static_cast<uvalue_t>(point.y), static_cast<uvalue_t>(0),
+  //                  base::clamp(static_cast<uvalue_t>(point.y), static_cast<uvalue_t>(0),
   //                  maxPoint.y));
 
   return m2::PointU(
-      static_cast<uvalue_t>(my::clamp(point.x, 0.0, static_cast<double>(maxPoint.x))),
-      static_cast<uvalue_t>(my::clamp(point.y, 0.0, static_cast<double>(maxPoint.y))));
+      static_cast<uvalue_t>(base::clamp(point.x, 0.0, static_cast<double>(maxPoint.x))),
+      static_cast<uvalue_t>(base::clamp(point.y, 0.0, static_cast<double>(maxPoint.y))));
 }
 
 struct edge_less_p0

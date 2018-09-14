@@ -404,7 +404,7 @@ void Geocoder::GoEverywhere()
 // TODO (@y): remove following code as soon as Geocoder::Go() will
 // work fast for most cases (significantly less than 1 second).
 #if defined(DEBUG)
-  my::Timer timer;
+  base::Timer timer;
   MY_SCOPE_GUARD(printDuration, [&timer]()
                  {
                    LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));

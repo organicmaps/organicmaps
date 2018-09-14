@@ -57,7 +57,7 @@ char const * GetStringClassName();
 
 std::string DescribeException();
 bool HandleJavaException(JNIEnv * env);
-my::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e);
+base::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e);
 
 std::shared_ptr<jobject> make_global_ref(jobject obj);
 using TScopedLocalRef = ScopedLocalRef<jobject>;

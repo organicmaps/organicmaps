@@ -97,7 +97,7 @@ double MatchByGeometry(LGeometry const & lhs, RGeometry const & rhs)
   auto const unionArea = lhsArea + rhsArea - intersectionArea;
 
   // Avoid infinity.
-  if (my::AlmostEqualAbs(unionArea, 0.0, 1e-18))
+  if (base::AlmostEqualAbs(unionArea, 0.0, 1e-18))
     return kPenaltyScore;
 
   auto const score = intersectionArea / unionArea;

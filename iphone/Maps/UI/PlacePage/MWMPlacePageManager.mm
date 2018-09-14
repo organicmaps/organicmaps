@@ -263,7 +263,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
   auto const locationMercator = lastLocation.mercator;
   auto const dataMercator = data.mercator;
-  if (my::AlmostEqualAbs(locationMercator, dataMercator, 1e-10))
+  if (base::AlmostEqualAbs(locationMercator, dataMercator, 1e-10))
     return;
 
   auto const angle = ang::AngleTo(locationMercator, dataMercator) + info.m_bearing;

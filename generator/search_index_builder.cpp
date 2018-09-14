@@ -517,7 +517,7 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   using Value = FeatureIndexValue;
 
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
-  my::Timer timer;
+  base::Timer timer;
 
   auto const & categoriesHolder = GetDefaultCategories();
 

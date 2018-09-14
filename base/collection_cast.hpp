@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-namespace my
+namespace base
 {
 namespace details
 {
@@ -26,4 +26,4 @@ auto collection_cast(TFrom && from) -> TTo<details::TValueType<TFrom>>
 {
   return TTo<details::TValueType<TFrom>>(begin(from), end(from));
 }
-}  // namespace my
+}  // namespace base

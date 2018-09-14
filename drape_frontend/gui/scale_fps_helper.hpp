@@ -48,7 +48,7 @@ private:
   int m_scale = 1;
   bool m_isVisible = false;
 
-  my::Timer m_fpsAggregationTimer;
+  base::Timer m_fpsAggregationTimer;
   double m_aggregatedFrameTime = 0.0;
   uint32_t m_framesCounter = 1;
   bool m_isPaused = false;

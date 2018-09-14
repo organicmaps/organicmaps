@@ -177,10 +177,10 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAndGotitClicked_Test)
 UNIT_CLASS_TEST(ScopedEyeForTesting, ShowTipAfterWarmStart)
 {
   TipsApiDelegate d;
-  d.SetLastBackgroundTime(my::Timer::LocalTime());
+  d.SetLastBackgroundTime(base::Timer::LocalTime());
   auto tip = GetTipForTesting({}, TipsApi::GetShowSameTipPeriod(), d);
   TEST(!tip.is_initialized(), ());
-  d.SetLastBackgroundTime(my::Timer::LocalTime() - TipsApi::ShowTipAfterCollapsingPeriod().count());
+  d.SetLastBackgroundTime(base::Timer::LocalTime() - TipsApi::ShowTipAfterCollapsingPeriod().count());
   tip = GetTipForTesting({}, TipsApi::GetShowSameTipPeriod(), d);
   TEST(tip.is_initialized(), ());
 }

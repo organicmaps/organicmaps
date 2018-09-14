@@ -90,7 +90,7 @@ public:
     /// <id, feature status string>
     vector<pair<FeatureID, string>> m_edits;
     size_t m_uploadedCount = 0;
-    time_t m_lastUploadTimestamp = my::INVALID_TIME_STAMP;
+    time_t m_lastUploadTimestamp = base::INVALID_TIME_STAMP;
   };
 
   // Predefined messages.
@@ -185,7 +185,7 @@ private:
   // TODO(a): Use this structure as part of FeatureTypeInfo.
   struct UploadInfo
   {
-    time_t m_uploadAttemptTimestamp = my::INVALID_TIME_STAMP;
+    time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
     /// Is empty if upload has never occured or one of k* constants above otherwise.
     string m_uploadStatus;
     string m_uploadError;
@@ -198,8 +198,8 @@ private:
     FeatureType m_feature;
     /// If not empty contains Feature's addr:street, edited by user.
     string m_street;
-    time_t m_modificationTimestamp = my::INVALID_TIME_STAMP;
-    time_t m_uploadAttemptTimestamp = my::INVALID_TIME_STAMP;
+    time_t m_modificationTimestamp = base::INVALID_TIME_STAMP;
+    time_t m_uploadAttemptTimestamp = base::INVALID_TIME_STAMP;
     /// Is empty if upload has never occured or one of k* constants above otherwise.
     string m_uploadStatus;
     string m_uploadError;

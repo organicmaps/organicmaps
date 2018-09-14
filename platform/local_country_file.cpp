@@ -65,7 +65,7 @@ void LocalCountryFile::DeleteFromDisk(MapOptions files) const
   {
     if (OnDisk(file) && HasOptions(files, file))
     {
-      if (!my::DeleteFileX(GetPath(file)))
+      if (!base::DeleteFileX(GetPath(file)))
         LOG(LERROR, (file, "from", *this, "wasn't deleted from disk."));
     }
   }
@@ -73,7 +73,7 @@ void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 
 string LocalCountryFile::GetPath(MapOptions file) const
 {
-  return my::JoinFoldersToPath(m_directory, GetFileName(m_countryFile.GetName(), file, GetVersion()));
+  return base::JoinFoldersToPath(m_directory, GetFileName(m_countryFile.GetName(), file, GetVersion()));
 }
 
 uint64_t LocalCountryFile::GetSize(MapOptions filesMask) const
@@ -119,10 +119,10 @@ LocalCountryFile LocalCountryFile::MakeForTesting(string const & countryFileName
 LocalCountryFile LocalCountryFile::MakeTemporary(string const & fullPath)
 {
   string name = fullPath;
-  my::GetNameFromFullPath(name);
-  my::GetNameWithoutExt(name);
+  base::GetNameFromFullPath(name);
+  base::GetNameWithoutExt(name);
 
-  return LocalCountryFile(my::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
+  return LocalCountryFile(base::GetDirectory(fullPath), CountryFile(name), 0 /* version */);
 }
 
 

@@ -47,7 +47,7 @@ string const kTestMwmName = "ugc storage test";
 bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
   if (v == ugc::IndexVersion::Latest)
-    return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "index.json"));
+    return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "index.json"));
 
   string version;
   switch (v)
@@ -60,13 +60,13 @@ bool DeleteIndexFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
     break;
   }
 
-  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "index.json." + version));
+  return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "index.json." + version));
 }
 
 bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
 {
   if (v == ugc::IndexVersion::Latest)
-    return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin"));
+    return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin"));
 
 
   string version;
@@ -80,7 +80,7 @@ bool DeleteUGCFile(ugc::IndexVersion v = ugc::IndexVersion::Latest)
       break;
   }
 
-  return my::DeleteFileX(my::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin." + version));
+  return base::DeleteFileX(base::JoinPath(GetPlatform().WritableDir(), "ugc.update.bin." + version));
 }
 }  // namespace
 
@@ -329,7 +329,7 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
     ser(newUGC);
   }
 
-  my::Json ugcNode(data);
+  base::Json ugcNode(data);
   auto const & indexes = storage.GetIndexesForTesting();
   TEST_EQUAL(indexes.size(), 2, ());
   auto const & firstIndex = indexes.front();
@@ -339,7 +339,7 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   TEST(!firstIndex.m_synchronized, ());
   TEST(!lastIndex.m_synchronized, ());
 
-  auto embeddedNode = my::NewJSONObject();
+  auto embeddedNode = base::NewJSONObject();
   ToJSONObject(*embeddedNode.get(), "data_version", lastIndex.m_dataVersion);
   ToJSONObject(*embeddedNode.get(), "mwm_name", lastIndex.m_mwmName);
   ToJSONObject(*embeddedNode.get(), "feature_id", lastIndex.m_featureId);
@@ -347,9 +347,9 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   ToJSONObject(*embeddedNode.get(), "feature_type", c.GetReadableObjectName(c.GetTypeForIndex(lastIndex.m_matchingType)));
   ToJSONObject(*ugcNode.get(), "feature", *embeddedNode.release());
 
-  auto array = my::NewJSONArray();
+  auto array = base::NewJSONArray();
   json_array_append_new(array.get(), ugcNode.get_deep_copy());
-  auto reviewsNode = my::NewJSONObject();
+  auto reviewsNode = base::NewJSONObject();
   ToJSONObject(*reviewsNode.get(), "reviews", *array.release());
   unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(reviewsNode.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
   string const toSendExpected(buffer.get());
@@ -476,11 +476,11 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
   auto & p = GetPlatform();
   auto const version = "v0";
   auto const indexFileName = "index.json";
-  auto const folder = my::JoinPath(p.WritableDir(), "ugc_migration_supported_files", "test_index", version);
-  auto const indexFilePath = my::JoinPath(folder, indexFileName);
+  auto const folder = base::JoinPath(p.WritableDir(), "ugc_migration_supported_files", "test_index", version);
+  auto const indexFilePath = base::JoinPath(folder, indexFileName);
   {
     using Inflate = coding::ZLib::Inflate;
-    auto const r = p.GetReader(my::JoinPath(folder, "index.gz"));
+    auto const r = p.GetReader(base::JoinPath(folder, "index.gz"));
     string data;
     r->ReadAsString(data);
     Inflate inflate(Inflate::Format::GZip);
@@ -499,8 +499,8 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
     s.LoadForTesting(indexFilePath);
     uint64_t migratedIndexFileSize = 0;
     uint64_t v0IndexFileSize = 0;
-    TEST(my::GetFileSize(indexFilePath, migratedIndexFileSize), ());
-    TEST(my::GetFileSize(v0IndexFilePath, v0IndexFileSize), ());
+    TEST(base::GetFileSize(indexFilePath, migratedIndexFileSize), ());
+    TEST(base::GetFileSize(v0IndexFilePath, v0IndexFileSize), ());
     TEST_GREATER(migratedIndexFileSize, 0, ());
     TEST_GREATER(v0IndexFileSize, 0, ());
     auto const & indexes = s.GetIndexesForTesting();
@@ -525,8 +525,8 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
     }
   }
 
-  my::DeleteFileX(indexFilePath);
-  my::DeleteFileX(v0IndexFilePath);
+  base::DeleteFileX(indexFilePath);
+  base::DeleteFileX(v0IndexFilePath);
 }
 
 UNIT_TEST(UGC_NoReviews)

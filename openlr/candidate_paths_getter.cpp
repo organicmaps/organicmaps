@@ -41,10 +41,10 @@ m2::PointD PointAtSegmentM(m2::PointD const & p1, m2::PointD const & p2, double 
 
 uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
 {
-  auto const angle = location::AngleToBearing(my::RadToDeg(ang::AngleTo(a, b)));
+  auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
   CHECK_LESS_OR_EQUAL(angle, 360, ("Angle should be less than or equal to 360."));
   CHECK_GREATER_OR_EQUAL(angle, 0, ("Angle should be greater than or equal to 0"));
-  return my::clamp(angle / kAnglesInBucket, 0.0, 255.0);
+  return base::clamp(angle / kAnglesInBucket, 0.0, 255.0);
 }
 
 // This class is used to get correct points for further bearing calculations.

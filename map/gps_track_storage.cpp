@@ -295,8 +295,8 @@ void GpsTrackStorage::TruncFile()
   m_stream.close();
 
   // Replace file
-  if (!my::DeleteFileX(m_filePath) ||
-      !my::RenameFileX(tmpFilePath, m_filePath))
+  if (!base::DeleteFileX(m_filePath) ||
+      !base::RenameFileX(tmpFilePath, m_filePath))
   {
     MYTHROW(WriteException, ("File:", m_filePath));
   }

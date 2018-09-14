@@ -66,7 +66,7 @@ void Init(string const & resource_path, string const & mwm_path)
   if (!resource_path.empty())
   {
     platform.SetResourceDir(resource_path);
-    countriesFile = my::JoinFoldersToPath(resource_path, COUNTRIES_FILE);
+    countriesFile = base::JoinFoldersToPath(resource_path, COUNTRIES_FILE);
   }
 
   if (!mwm_path.empty())

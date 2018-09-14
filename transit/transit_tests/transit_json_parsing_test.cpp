@@ -24,7 +24,7 @@ void TestDeserializerFromJson(string const & jsonBuffer,
                               OsmIdToFeatureIdsMap const & osmIdToFeatureIds, string const & name,
                               vector<Obj> const & expected)
 {
-  my::Json root(jsonBuffer.c_str());
+  base::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json."));
 
   DeserializerFromJson deserializer(root.get(), osmIdToFeatureIds);

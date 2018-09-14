@@ -72,7 +72,7 @@ public:
       return;
     }
 
-    auto const excludedIdsPath = my::JoinPath(GetPlatform().ResourcesDir(), BOOKING_EXCLUDED_FILE);
+    auto const excludedIdsPath = base::JoinPath(GetPlatform().ResourcesDir(), BOOKING_EXCLUDED_FILE);
 
     LoadData(dataSource, LoadExcludedIds(excludedIdsPath));
   }

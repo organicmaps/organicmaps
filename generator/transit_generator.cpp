@@ -45,7 +45,7 @@ namespace
 {
 void LoadBorders(string const & dir, TCountryId const & countryId, vector<m2::RegionD> & borders)
 {
-  string const polyFile = my::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
+  string const polyFile = base::JoinPath(dir, BORDERS_DIR, countryId + BORDERS_EXTENSION);
   borders.clear();
   osm::LoadBorders(polyFile, borders);
 }
@@ -61,7 +61,7 @@ void FillOsmIdToFeatureIdsMap(string const & osmIdToFeatureIdsPath, OsmIdToFeatu
 
 string GetMwmPath(string const & mwmDir, TCountryId const & countryId)
 {
-  return my::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
+  return base::JoinPath(mwmDir, countryId + DATA_FILE_EXTENSION);
 }
 
 /// \brief Calculates best pedestrian segment for every gate in |graphData.m_gates|.
@@ -157,7 +157,7 @@ void DeserializeFromJson(OsmIdToFeatureIdsMap const & mapping,
     LOG(LCRITICAL, ("Can't open", transitJsonPath, e.what()));
   }
 
-  my::Json root(jsonBuffer.c_str());
+  base::Json root(jsonBuffer.c_str());
   CHECK(root.get() != nullptr, ("Cannot parse the json file:", transitJsonPath));
 
   data.Clear();
@@ -184,7 +184,7 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
 {
   LOG(LINFO, ("Building transit section for", countryId, "mwmDir:", mwmDir));
   Platform::FilesList graphFiles;
-  Platform::GetFilesByExt(my::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
+  Platform::GetFilesByExt(base::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
 
   string const mwmPath = GetMwmPath(mwmDir, countryId);
   OsmIdToFeatureIdsMap mapping;
@@ -195,7 +195,7 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
   GraphData jointData;
   for (auto const & fileName : graphFiles)
   {
-    auto const filePath = my::JoinPath(transitDir, fileName);
+    auto const filePath = base::JoinPath(transitDir, fileName);
     GraphData data;
     DeserializeFromJson(mapping, filePath, data);
     // @todo(bykoianko) Json should be clipped on feature generation step. It's much more efficient.

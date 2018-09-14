@@ -34,7 +34,7 @@ namespace platform
 {
 bool GetJsonBuffer(platform::TextSource textSource, string const & localeName, string & jsonBuffer)
 {
-  string const pathToJson = my::JoinFoldersToPath(
+  string const pathToJson = base::JoinFoldersToPath(
       {GetTextSourceString(textSource), localeName + ".json"}, "localize.json");
 
   try
@@ -94,7 +94,7 @@ void GetTextById::InitFromJson(string const & jsonBuffer)
     return;
   }
 
-  my::Json root(jsonBuffer.c_str());
+  base::Json root(jsonBuffer.c_str());
   if (root.get() == nullptr)
   {
     ASSERT(false, ("Cannot parse the json file."));

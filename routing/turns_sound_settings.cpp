@@ -38,9 +38,9 @@ uint32_t Settings::ComputeTurnDistanceM(double speedMetersPerSecond) const
   ASSERT(IsValid(), ());
 
   double const turnNotificationDistanceM = m_timeSeconds * speedMetersPerSecond;
-  return static_cast<uint32_t>(my::clamp(turnNotificationDistanceM,
-                                         ConvertUnitsToMeters(m_minDistanceUnits),
-                                         ConvertUnitsToMeters(m_maxDistanceUnits)));
+  return static_cast<uint32_t>(base::clamp(turnNotificationDistanceM,
+                                           ConvertUnitsToMeters(m_minDistanceUnits),
+                                           ConvertUnitsToMeters(m_maxDistanceUnits)));
 }
 
 bool Settings::TooCloseForFisrtNotification(double distToTurnMeters) const
@@ -103,7 +103,7 @@ uint32_t Settings::ComputeDistToPronounceDistM(double speedMetersPerSecond) cons
   ASSERT_LESS_OR_EQUAL(0, speedMetersPerSecond, ());
   uint32_t const startBeforeMeters =
       static_cast<uint32_t>(speedMetersPerSecond * m_startBeforeSeconds);
-  return my::clamp(startBeforeMeters, m_minStartBeforeMeters, m_maxStartBeforeMeters);
+  return base::clamp(startBeforeMeters, m_minStartBeforeMeters, m_maxStartBeforeMeters);
 }
 
 string DebugPrint(Notification const & notification)

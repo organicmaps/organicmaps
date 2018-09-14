@@ -45,7 +45,7 @@ UNIT_TEST(RuTaxi_GetNearObject)
   TEST(!result.empty(), ());
   LOG(LINFO, (result));
 
-  my::Json root(result.c_str());
+  base::Json root(result.c_str());
 
   TEST(json_is_object(root.get()), ());
 
@@ -64,7 +64,7 @@ UNIT_TEST(RuTaxi_GetCost)
   TEST(!result.empty(), ());
   LOG(LINFO, (result));
 
-  my::Json root(result.c_str());
+  base::Json root(result.c_str());
 
   TEST(json_is_object(root.get()), ());
 

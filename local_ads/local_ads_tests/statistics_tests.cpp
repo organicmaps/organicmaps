@@ -63,7 +63,7 @@ UNIT_TEST(LocalAdsStatistics_Write_With_Unprocessed)
   std::list<local_ads::Event> expectedUnprocessedEvents = events2;
   expectedUnprocessedEvents.sort();
 
-  my::GetNameFromFullPath(fileNameToRebuild);
+  base::GetNameFromFullPath(fileNameToRebuild);
   TEST_EQUAL(fileNameToRebuild, "Moscow_123456.dat", ());
   TEST_EQUAL(expectedUnprocessedEvents, unprocessedEvents2, ());
 }

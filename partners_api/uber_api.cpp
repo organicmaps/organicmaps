@@ -100,8 +100,8 @@ void MakeFromJson(char const * times, char const * prices, vector<taxi::Product>
   products.clear();
   try
   {
-    my::Json timesRoot(times);
-    my::Json pricesRoot(prices);
+    base::Json timesRoot(times);
+    base::Json pricesRoot(prices);
     auto const timesArray = json_object_get(timesRoot.get(), "times");
     auto const pricesArray = json_object_get(pricesRoot.get(), "prices");
     if (CheckUberResponse(timesArray) && CheckUberResponse(pricesArray))
@@ -109,7 +109,7 @@ void MakeFromJson(char const * times, char const * prices, vector<taxi::Product>
       FillProducts(timesArray, pricesArray, products);
     }
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
     products.clear();

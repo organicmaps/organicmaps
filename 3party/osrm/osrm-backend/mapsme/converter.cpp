@@ -260,7 +260,7 @@ void GenerateRoutingIndex(const std::string & fPath)
     routingCont.Finish();
   }
 
-  MY_SCOPE_GUARD(testFileGuard, bind(&my::DeleteFileX, cref(path)));
+  MY_SCOPE_GUARD(testFileGuard, bind(&base::DeleteFileX, cref(path)));
 
   FilesMappingContainer container;
   container.Open(path);

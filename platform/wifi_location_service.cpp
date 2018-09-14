@@ -28,7 +28,7 @@ namespace location
         try
         {
           bool success = false;
-          my::Json root(response.GetData().c_str());
+          base::Json root(response.GetData().c_str());
           if (json_is_object(root.get()))
           {
             json_t * location = json_object_get(root.get(), "location");
@@ -57,7 +57,7 @@ namespace location
           if (!success)
             LOG(LWARNING, ("Invalid reply from location server:", response.GetData()));
         }
-        catch (my::Json::Exception const & e)
+        catch (base::Json::Exception const & e)
         {
           LOG(LWARNING, ("Invalid reply from location server:", e.what(), response.GetData()));
         }

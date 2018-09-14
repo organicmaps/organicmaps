@@ -166,8 +166,8 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
 {
   // TODO(mgsergio): If xml and feature are identical return true
   auto const uploadTime = xml.GetUploadTime();
-  return uploadTime != my::INVALID_TIME_STAMP &&
-         my::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
+  return uploadTime != base::INVALID_TIME_STAMP &&
+         base::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
 }
 }  // namespace
 
@@ -267,7 +267,7 @@ bool Editor::Save(FeaturesContainer const & features) const
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
       ASSERT_NOT_EQUAL(0, fti.m_modificationTimestamp, ());
       xf.SetModificationTime(fti.m_modificationTimestamp);
-      if (fti.m_uploadAttemptTimestamp != my::INVALID_TIME_STAMP)
+      if (fti.m_uploadAttemptTimestamp != base::INVALID_TIME_STAMP)
       {
         xf.SetUploadTime(fti.m_uploadAttemptTimestamp);
         ASSERT(!fti.m_uploadStatus.empty(), ("Upload status updates with upload timestamp."));
@@ -923,7 +923,7 @@ bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, Featu
   fti.m_street = xml.GetTagValue(kAddrStreetTag);
 
   fti.m_modificationTimestamp = xml.GetModificationTime();
-  ASSERT_NOT_EQUAL(my::INVALID_TIME_STAMP, fti.m_modificationTimestamp, ());
+  ASSERT_NOT_EQUAL(base::INVALID_TIME_STAMP, fti.m_modificationTimestamp, ());
   fti.m_uploadAttemptTimestamp = xml.GetUploadTime();
   fti.m_uploadStatus = xml.GetUploadStatus();
   fti.m_uploadError = xml.GetUploadError();
@@ -1024,9 +1024,9 @@ Editor::Stats Editor::GetStats() const
       auto feature = fti.m_feature;
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
-      LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == my::INVALID_TIME_STAMP
+      LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == base::INVALID_TIME_STAMP
                        ? "NOT_UPLOADED_YET"
-                       : my::TimestampToString(fti.m_uploadAttemptTimestamp),
+                       : base::TimestampToString(fti.m_uploadAttemptTimestamp),
                    fti.m_uploadStatus, fti.m_uploadError, feature.GetFeatureType(),
                    feature::GetCenter(feature)));
       if (fti.m_uploadStatus == kUploaded)
@@ -1093,7 +1093,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
   CHECK_THREAD_CHECKER(MainThreadChecker, (""));
 
   auto const version = GetMwmCreationTimeByMwmId(fid.m_mwmId);
-  auto const stringVersion = my::TimestampToString(my::SecondsSinceEpochToTimeT(version));
+  auto const stringVersion = base::TimestampToString(base::SecondsSinceEpochToTimeT(version));
   ostringstream sstr;
   auto canCreate = true;
 

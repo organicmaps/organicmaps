@@ -24,10 +24,10 @@ void CreateAndTestZip(string const & filePath, string const & zipPath)
   string const unzippedFile = "unzipped.tmp";
   ZipFileReader::UnzipFile(zipPath, files[0].first, unzippedFile);
 
-  TEST(my::IsEqualFiles(filePath, unzippedFile), ());
-  TEST(my::DeleteFileX(filePath), ());
-  TEST(my::DeleteFileX(zipPath), ());
-  TEST(my::DeleteFileX(unzippedFile), ());
+  TEST(base::IsEqualFiles(filePath, unzippedFile), ());
+  TEST(base::DeleteFileX(filePath), ());
+  TEST(base::DeleteFileX(zipPath), ());
+  TEST(base::DeleteFileX(unzippedFile), ());
 }
 
 }

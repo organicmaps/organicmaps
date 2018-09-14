@@ -345,10 +345,10 @@ size_t constexpr GetOptimalBatchSize()
 {
   // This code computes the most optimal (in the sense of cache lines
   // occupancy) batch size.
-  size_t constexpr a = my::LCM(sizeof(LinearSegment), kCacheLineSize) / sizeof(LinearSegment);
+  size_t constexpr a = base::LCM(sizeof(LinearSegment), kCacheLineSize) / sizeof(LinearSegment);
   size_t constexpr b =
-      my::LCM(sizeof(IRoadGraph::TEdgeVector), kCacheLineSize) / sizeof(IRoadGraph::TEdgeVector);
-  return my::LCM(a, b);
+      base::LCM(sizeof(IRoadGraph::TEdgeVector), kCacheLineSize) / sizeof(IRoadGraph::TEdgeVector);
+  return base::LCM(a, b);
 }
 }  // namespace
 
@@ -408,7 +408,7 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
     size_t const numSegments = segments.size();
 
     Decoder decoder(dataSource, make_unique<CarModelFactory>(m_countryParentNameGetter));
-    my::Timer timer;
+    base::Timer timer;
     for (size_t i = threadNum * kBatchSize; i < numSegments; i += numThreads * kBatchSize)
     {
       for (size_t j = i; j < numSegments && j < i + kBatchSize; ++j)

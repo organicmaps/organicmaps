@@ -218,7 +218,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
-    if (!my::AlmostEqualAbs(ft.GetCenter(), cross, routing::kPointsEqualEpsilon))
+    if (!base::AlmostEqualAbs(ft.GetCenter(), cross, routing::kPointsEqualEpsilon))
       return;
 
     feature::TypesHolder typesHolder(ft);

@@ -19,7 +19,7 @@ bool AlmostEqualAbs(vector<double> const & v1, vector<double> const & v2)
 
   for (size_t i = 0; i < v1.size(); ++i)
   {
-    if (!my::AlmostEqualAbs(v1[i], v2[i], kEpsilon))
+    if (!base::AlmostEqualAbs(v1[i], v2[i], kEpsilon))
       return false;
   }
   return true;

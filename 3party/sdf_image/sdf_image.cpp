@@ -142,7 +142,7 @@ void SdfImage::Distquant()
 {
   for_each(m_data.begin(), m_data.end(), [](float & node)
   {
-    node = my::clamp(0.5f + node * 0.0325f, 0.0f, 1.0f);
+    node = base::clamp(0.5f + node * 0.0325f, 0.0f, 1.0f);
   });
 }
 
@@ -266,7 +266,7 @@ float SdfImage::DistaA3(int c, int xc, int yc, int xi, int yi) const
   ASSERT_GREATER_OR_EQUAL(closest, 0, ());
   ASSERT_LESS(closest, m_data.size(), ());
 
-  float a = my::clamp(m_data[closest], 0.0f, 1.0f); // Grayscale value at the edge pixel
+  float a = base::clamp(m_data[closest], 0.0f, 1.0f); // Grayscale value at the edge pixel
 
   if(a == 0.0)
     return 1000000.0; // Not an object pixel, return "very far" ("don't know yet")

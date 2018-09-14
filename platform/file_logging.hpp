@@ -19,7 +19,7 @@
 // # define OMIM_ENABLE_LOG_MEMORY_INFO
 // #endif
 
-void LogMessageFile(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg);
+void LogMessageFile(base::LogLevel level, base::SrcPoint const & srcPoint, string const & msg);
 void LogMemoryInfo();
 
 #ifdef OMIM_ENABLE_LOG_MEMORY_INFO

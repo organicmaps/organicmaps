@@ -284,7 +284,7 @@ std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string
     auto fileName = files.front().first;
     for (auto const & f : files)
     {
-      if (strings::MakeLowerCase(my::GetFileExtension(f.first)) == kKmlExtension)
+      if (strings::MakeLowerCase(base::GetFileExtension(f.first)) == kKmlExtension)
       {
         fileName = f.first;
         break;

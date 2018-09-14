@@ -222,14 +222,14 @@ bool HandleJavaException(JNIEnv * env)
      jni::ScopedLocalRef<jthrowable> const e(env, env->ExceptionOccurred());
      env->ExceptionDescribe();
      env->ExceptionClear();
-     my::LogLevel level = GetLogLevelForException(env, e.get());
+     base::LogLevel level = GetLogLevelForException(env, e.get());
      LOG(level, (ToNativeString(env, e.get())));
      return true;
    }
    return false;
 }
 
-my::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e)
+base::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e)
 {
   static jclass const errorClass = jni::GetGlobalClassRef(env, "java/lang/Error");
   ASSERT(errorClass, (jni::DescribeException()));

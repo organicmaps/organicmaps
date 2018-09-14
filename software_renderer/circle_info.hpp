@@ -19,10 +19,10 @@ struct CircleInfo
              bool isOutlined = false,
              double outlineWidth = 1,
              dp::Color const & outlineColor = dp::Color(255, 255, 255, 255))
-    : m_radius(my::rounds(radius))
+    : m_radius(base::rounds(radius))
     , m_color(color)
     , m_isOutlined(isOutlined)
-    , m_outlineWidth(my::rounds(outlineWidth))
+    , m_outlineWidth(base::rounds(outlineWidth))
     , m_outlineColor(outlineColor)
   {
     if (!m_isOutlined)

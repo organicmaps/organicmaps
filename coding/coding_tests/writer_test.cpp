@@ -254,7 +254,7 @@ UNIT_TEST(FileWriter_Reserve)
 
   {
     uint64_t size;
-    TEST(my::GetFileSize(TEST_FILE, size), ());
+    TEST(base::GetFileSize(TEST_FILE, size), ());
     TEST_EQUAL(size, TEST_SIZE, ());
 
     FileWriter w(TEST_FILE, FileWriter::OP_WRITE_EXISTING);

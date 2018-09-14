@@ -107,7 +107,7 @@ std::string ReviewReceiverUrl()
 
 std::string ParseAccessToken(std::string const & src)
 {
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
   std::string tokenStr;
   FromJSONObject(root.get(), "access_token", tokenStr);
   return tokenStr;
@@ -120,7 +120,7 @@ std::string BuildAuthorizationToken(std::string const & accessToken)
 
 std::vector<uint64_t> DeserializeReviewIds(std::string const & reviewIdsSrc)
 {
-  my::Json root(reviewIdsSrc.c_str());
+  base::Json root(reviewIdsSrc.c_str());
   if (json_array_size(root.get()) == 0)
     return {};
 
@@ -134,7 +134,7 @@ std::vector<uint64_t> DeserializeReviewIds(std::string const & reviewIdsSrc)
       FromJSON(item, result[i]);
     }
   }
-  catch(my::Json::Exception const & ex)
+  catch(base::Json::Exception const & ex)
   {
     LOG(LWARNING, ("Review ids deserialization failed."));
     return {};

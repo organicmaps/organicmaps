@@ -162,8 +162,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   m2::PointD org = bm->GetPivot();
 
   double const kEps = 1e-6;
-  TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.566765, kEps), ());
-  TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.900047, kEps), ());
+  TEST(base::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.566765, kEps), ());
+  TEST(base::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.900047, kEps), ());
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "From: Минск, Минская область, Беларусь", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
@@ -171,8 +171,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
   bm = bmManager.GetBookmark(*it++);
   org = bm->GetPivot();
-  TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.551532, kEps), ());
-  TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.89306, kEps), ());
+  TEST(base::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.551532, kEps), ());
+  TEST(base::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.89306, kEps), ());
   TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "<MWM & Sons>", ());
   TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
   string const dir = BookmarkManager::GetActualBookmarksDirectory();
   string const ext = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
-  string const fileName = my::JoinPath(dir, "UnitTestBookmarks" + ext);
+  string const fileName = base::JoinPath(dir, "UnitTestBookmarks" + ext);
 
   User user;
   BookmarkManager bmManager(user, (BookmarkManager::Callbacks(bmCallbacks)));
@@ -270,9 +270,9 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST(bmManager.SaveBookmarkCategory(groupId3), ());
   // old file shouldn't be deleted if we save bookmarks with new category name
   uint64_t dummy;
-  TEST(my::GetFileSize(fileName, dummy), ());
+  TEST(base::GetFileSize(fileName, dummy), ());
 
-  TEST(my::DeleteFileX(fileName), ());
+  TEST(base::DeleteFileX(fileName), ());
 }
 
 namespace
@@ -282,7 +282,7 @@ namespace
     string const path = BookmarkManager::GetActualBookmarksDirectory();
     string const extension = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
     for (auto const & fileName : arrFiles)
-      FileWriter::DeleteFileX(my::JoinPath(path, fileName + extension));
+      FileWriter::DeleteFileX(base::JoinPath(path, fileName + extension));
   }
 
   UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
@@ -670,7 +670,7 @@ char const * kmlString3 =
       return false;
     if (b1.GetScale() != b2.GetScale())
       return false;
-    if (!my::AlmostEqualAbs(b1.GetPivot(), b2.GetPivot(), 1e-6 /* eps*/))
+    if (!base::AlmostEqualAbs(b1.GetPivot(), b2.GetPivot(), 1e-6 /* eps*/))
       return false;
 
     // do not check timestamp
@@ -706,7 +706,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 
   auto const fileName = bmManager.GetCategoryFileName(catId);
   auto const fileNameTmp = fileName + ".backup";
-  TEST(my::CopyFileX(fileName, fileNameTmp), ());
+  TEST(base::CopyFileX(fileName, fileNameTmp), ());
 
   bmManager.GetEditSession().DeleteBmCategory(catId);
 
@@ -734,7 +734,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   TEST(EqualBookmarks(*bm1, *bm2), ());
   TEST_EQUAL(kml::GetDefaultStr(bm1->GetName()), "![X1]{X2}(X3)", ());
 
-  TEST(my::DeleteFileX(fileNameTmp), ());
+  TEST(base::DeleteFileX(fileNameTmp), ());
 }
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
@@ -966,8 +966,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   TEST_EQUAL(kmlData2->m_bookmarksData.size(), 1, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData2->m_bookmarksData.front().m_name), "name 3", ());
 
-  TEST(my::DeleteFileX(fileName), ());
-  TEST(my::DeleteFileX(fileName2), ());
+  TEST(base::DeleteFileX(fileName), ());
+  TEST(base::DeleteFileX(fileName2), ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)

@@ -150,7 +150,7 @@ public:
   static uint32_t glCheckFramebufferStatus();
 };
 
-void CheckGLError(my::SrcPoint const & src);
+void CheckGLError(base::SrcPoint const & src);
 
 #ifdef DEBUG
 #define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)

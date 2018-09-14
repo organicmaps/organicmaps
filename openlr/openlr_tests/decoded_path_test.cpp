@@ -121,11 +121,11 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
   classificator::Load();
   auto & platform = GetPlatform();
 
-  auto const mwmPath = my::JoinPath(platform.WritableDir(), kTestDir);
+  auto const mwmPath = base::JoinPath(platform.WritableDir(), kTestDir);
 
   LocalCountryFile country(mwmPath, CountryFile(kTestMwm), 0 /* version */);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
+  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
                            ScopedFile::Mode::Create);
 
   {

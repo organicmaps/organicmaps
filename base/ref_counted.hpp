@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace my
+namespace base
 {
 class RefCounted
 {
@@ -104,4 +104,4 @@ public:
 private:
   T * m_p = nullptr;
 };
-}  // namespace my
+}  // namespace base

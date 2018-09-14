@@ -73,7 +73,7 @@ double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry c
   CHECK_GREATER(speedMpS, 0.0, ());
   double const timeSec = distance / speedMpS;
 
-  if (my::AlmostEqualAbs(distance, 0.0, 0.1))
+  if (base::AlmostEqualAbs(distance, 0.0, 0.1))
     return timeSec;
 
   double const altitudeDiff =

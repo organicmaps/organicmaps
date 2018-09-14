@@ -49,7 +49,7 @@ DrapeEngine::DrapeEngine(Params && params)
   double timeInBackground = 0.0;
   double lastEnterBackground = 0.0;
   if (settings::Get("LastEnterBackground", lastEnterBackground))
-    timeInBackground = my::Timer::LocalTime() - lastEnterBackground;
+    timeInBackground = base::Timer::LocalTime() - lastEnterBackground;
 
   std::vector<PostprocessRenderer::Effect> effects;
 
@@ -760,7 +760,7 @@ void DrapeEngine::SetFontScaleFactor(double scaleFactor)
   double const kMinScaleFactor = 0.5;
   double const kMaxScaleFactor = 2.0;
 
-  scaleFactor = my::clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
+  scaleFactor = base::clamp(scaleFactor, kMinScaleFactor, kMaxScaleFactor);
 
   VisualParams::Instance().SetFontScale(scaleFactor);
 }

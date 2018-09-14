@@ -102,27 +102,27 @@ UNIT_TEST(DistanceToCurrentTurnTest)
   turns::TurnItem turn;
 
   route.GetCurrentTurn(distance, turn);
-  TEST(my::AlmostEqualAbs(distance,
-                          MercatorBounds::DistanceOnEarth(kTestGeometry[0], kTestGeometry[1]), 0.1),
-                          ());
+  TEST(base::AlmostEqualAbs(distance,
+                            MercatorBounds::DistanceOnEarth(kTestGeometry[0], kTestGeometry[1]), 0.1),
+                            ());
   TEST_EQUAL(turn, kTestTurns[0], ());
 
   route.MoveIterator(GetGps(0, 0.5));
   route.GetCurrentTurn(distance, turn);
-  TEST(my::AlmostEqualAbs(distance,
-                          MercatorBounds::DistanceOnEarth({0, 0.5}, kTestGeometry[1]), 0.1), ());
+  TEST(base::AlmostEqualAbs(distance,
+                            MercatorBounds::DistanceOnEarth({0, 0.5}, kTestGeometry[1]), 0.1), ());
   TEST_EQUAL(turn, kTestTurns[0], ());
 
   route.MoveIterator(GetGps(1, 1.5));
   route.GetCurrentTurn(distance, turn);
-  TEST(my::AlmostEqualAbs(distance,
-                          MercatorBounds::DistanceOnEarth({1, 1.5}, kTestGeometry[4]), 0.1), ());
+  TEST(base::AlmostEqualAbs(distance,
+                            MercatorBounds::DistanceOnEarth({1, 1.5}, kTestGeometry[4]), 0.1), ());
   TEST_EQUAL(turn, kTestTurns[2], ());
 
   route.MoveIterator(GetGps(1, 2.5));
   route.GetCurrentTurn(distance, turn);
-  TEST(my::AlmostEqualAbs(distance,
-                          MercatorBounds::DistanceOnEarth({1, 2.5}, kTestGeometry[4]), 0.1), ());
+  TEST(base::AlmostEqualAbs(distance,
+                            MercatorBounds::DistanceOnEarth({1, 2.5}, kTestGeometry[4]), 0.1), ());
   TEST_EQUAL(turn, kTestTurns[2], ());
 }
 
@@ -172,8 +172,8 @@ UNIT_TEST(NextTurnsTest)
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[0], kTestGeometry[1]);
     double const secondSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[1], kTestGeometry[2]);
-    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
-    TEST(my::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST(base::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[0], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[1], ());
   }
@@ -185,8 +185,8 @@ UNIT_TEST(NextTurnsTest)
     TEST_EQUAL(turnsDist.size(), 2, ());
     double const firstSegLenM = MercatorBounds::DistanceOnEarth({x, y}, kTestGeometry[1]);
     double const secondSegLenM = MercatorBounds::DistanceOnEarth(kTestGeometry[1], kTestGeometry[2]);
-    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
-    TEST(my::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
+    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST(base::AlmostEqualAbs(turnsDist[1].m_distMeters, firstSegLenM + secondSegLenM, 0.1), ());
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[0], ());
     TEST_EQUAL(turnsDist[1].m_turnItem, kTestTurns[1], ());
   }
@@ -197,7 +197,7 @@ UNIT_TEST(NextTurnsTest)
     TEST(route.GetNextTurns(turnsDist), ());
     TEST_EQUAL(turnsDist.size(), 1, ());
     double const firstSegLenM = MercatorBounds::DistanceOnEarth({x, y}, kTestGeometry[4]);
-    TEST(my::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
+    TEST(base::AlmostEqualAbs(turnsDist[0].m_distMeters, firstSegLenM, 0.1), ());
     TEST_EQUAL(turnsDist[0].m_turnItem, kTestTurns[2], ());
   }
   {

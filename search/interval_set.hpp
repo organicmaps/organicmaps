@@ -5,59 +5,60 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-namespace my
+// todo(@m) Move to search/base?
+namespace search
 {
 // This class represents a set of disjoint intervals in the form
 // [begin, end).  Note that neighbour intervals are always coalesced,
 // so while [0, 1), [1, 2) and [2, 3) are disjoint, after addition to
 // the set they will be stored as a single [0, 3).
-template <typename TElem>
+template <typename Elem>
 class IntervalSet
 {
 public:
-  using TInterval = pair<TElem, TElem>;
+  using Interval = pair<Elem, Elem>;
 
   // Adds an |interval| to the set, coalescing adjacent intervals if needed.
   //
   // Complexity: O(num of intervals intersecting with |interval| +
   // log(total number of intervals)).
-  void Add(TInterval const & interval);
+  void Add(Interval const & interval);
 
   // Subtracts set from an |interval| and appends result to
   // |difference|.
   //
   // Complexity: O(num of intervals intersecting with |interval| +
   // log(total number of intervals)).
-  void SubtractFrom(TInterval const & interval, vector<TInterval> & difference) const;
+  void SubtractFrom(Interval const & interval, vector<Interval> & difference) const;
 
   // Returns all elements of the set as a set of intervals.
   //
   // Complexity: O(1).
-  inline set<TInterval> const & Elems() const { return m_intervals; }
+  inline set<Interval> const & Elems() const { return m_intervals; }
 
 private:
-  using TIterator = typename set<TInterval>::iterator;
+  using Iterator = typename set<Interval>::iterator;
 
   // Calculates range of intervals that have non-empty intersection with a given |interval|.
-  void Cover(TInterval const & interval, TIterator & begin, TIterator & end) const;
+  void Cover(Interval const & interval, Iterator & begin, Iterator & end) const;
 
   // This is a set of disjoint intervals.
-  set<TInterval> m_intervals;
+  set<Interval> m_intervals;
 };
 
-template <typename TElem>
-void IntervalSet<TElem>::Add(TInterval const & interval)
+template <typename Elem>
+void IntervalSet<Elem>::Add(Interval const & interval)
 {
   // Skips empty intervals.
   if (interval.first == interval.second)
     return;
 
-  TIterator begin;
-  TIterator end;
+  Iterator begin;
+  Iterator end;
   Cover(interval, begin, end);
 
-  TElem from = interval.first;
-  TElem to = interval.second;
+  Elem from = interval.first;
+  Elem to = interval.second;
 
   // Updates |from| and |to| in accordance with corner intervals (if any).
   if (begin != end)
@@ -95,17 +96,17 @@ void IntervalSet<TElem>::Add(TInterval const & interval)
   m_intervals.emplace(from, to);
 }
 
-template <typename TElem>
-void IntervalSet<TElem>::SubtractFrom(TInterval const & interval,
-                                      vector<TInterval> & difference) const
+template <typename Elem>
+void IntervalSet<Elem>::SubtractFrom(Interval const & interval,
+                                      vector<Interval> & difference) const
 {
-  TIterator begin;
-  TIterator end;
+  Iterator begin;
+  Iterator end;
 
   Cover(interval, begin, end);
 
-  TElem from = interval.first;
-  TElem const to = interval.second;
+  Elem from = interval.first;
+  Elem const to = interval.second;
 
   for (auto it = begin; it != end && from < to; ++it)
   {
@@ -124,11 +125,11 @@ void IntervalSet<TElem>::SubtractFrom(TInterval const & interval,
     difference.emplace_back(from, to);
 }
 
-template <typename TElem>
-void IntervalSet<TElem>::Cover(TInterval const & interval, TIterator & begin, TIterator & end) const
+template <typename Elem>
+void IntervalSet<Elem>::Cover(Interval const & interval, Iterator & begin, Iterator & end) const
 {
-  TElem const & from = interval.first;
-  TElem const & to = interval.second;
+  Elem const & from = interval.first;
+  Elem const & to = interval.second;
 
   begin = m_intervals.lower_bound(make_pair(from, from));
   if (begin != m_intervals.begin())
@@ -141,4 +142,4 @@ void IntervalSet<TElem>::Cover(TInterval const & interval, TIterator & begin, TI
 
   end = m_intervals.lower_bound(make_pair(to, to));
 }
-}  // namespace my
+}  // namespace search

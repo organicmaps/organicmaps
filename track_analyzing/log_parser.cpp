@@ -43,7 +43,7 @@ public:
   {
     numMwmIds.ForEachId([&](routing::NumMwmId numMwmId) {
       string const & mwmName = numMwmIds.GetFile(numMwmId).GetName();
-      string const polyFile = my::JoinPath(dataDir, BORDERS_DIR, mwmName + BORDERS_EXTENSION);
+      string const polyFile = base::JoinPath(dataDir, BORDERS_DIR, mwmName + BORDERS_EXTENSION);
       osm::LoadBorders(polyFile, m_borders[numMwmId]);
     });
   }
@@ -95,7 +95,7 @@ void LogParser::Parse(string const & logFile, MwmToTracks & mwmToTracks) const
 
 void LogParser::ParseUserTracks(string const & logFile, UserToTrack & userToTrack) const
 {
-  my::Timer timer;
+  base::Timer timer;
 
   std::ifstream stream(logFile);
   if (!stream)
@@ -142,7 +142,7 @@ void LogParser::ParseUserTracks(string const & logFile, UserToTrack & userToTrac
 
 void LogParser::SplitIntoMwms(UserToTrack const & userToTrack, MwmToTracks & mwmToTracks) const
 {
-  my::Timer timer;
+  base::Timer timer;
 
   PointToMwmId const pointToMwmId(m_mwmTree, *m_numMwmIds, m_dataDir);
 

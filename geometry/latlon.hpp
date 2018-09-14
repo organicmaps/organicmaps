@@ -29,7 +29,7 @@ public:
 
   struct Hash
   {
-    size_t operator()(ms::LatLon const & p) const { return my::Hash(p.lat, p.lon); }
+    size_t operator()(ms::LatLon const & p) const { return base::Hash(p.lat, p.lon); }
   };
 };
 

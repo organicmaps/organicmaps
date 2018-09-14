@@ -51,7 +51,7 @@ public:
 protected:
   void OnMwmBuilt(MwmInfo const & /* info */) override;
 
-  my::ScopedLogLevelChanger m_scopedLog;
+  base::ScopedLogLevelChanger m_scopedLog;
 
   tests_support::TestSearchEngine m_engine;
 

@@ -260,12 +260,12 @@ void XMLFeature::SetHouse(string const & house) { SetTagValue(kHouseNumber, hous
 
 time_t XMLFeature::GetModificationTime() const
 {
-  return my::StringToTimestamp(GetRootNode().attribute(kTimestamp).value());
+  return base::StringToTimestamp(GetRootNode().attribute(kTimestamp).value());
 }
 
 void XMLFeature::SetModificationTime(time_t const time)
 {
-  SetAttribute(kTimestamp, my::TimestampToString(time));
+  SetAttribute(kTimestamp, base::TimestampToString(time));
 }
 
 uint32_t XMLFeature::GetMWMFeatureIndex() const
@@ -281,12 +281,12 @@ void XMLFeature::SetMWMFeatureIndex(uint32_t index)
 
 time_t XMLFeature::GetUploadTime() const
 {
-  return my::StringToTimestamp(GetRootNode().attribute(kUploadTimestamp).value());
+  return base::StringToTimestamp(GetRootNode().attribute(kUploadTimestamp).value());
 }
 
 void XMLFeature::SetUploadTime(time_t const time)
 {
-  SetAttribute(kUploadTimestamp, my::TimestampToString(time));
+  SetAttribute(kUploadTimestamp, base::TimestampToString(time));
 }
 
 string XMLFeature::GetUploadStatus() const

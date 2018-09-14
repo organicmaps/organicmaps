@@ -23,10 +23,8 @@
 #include "tizen/inc/FIo.hpp"
 #endif
 
-
-namespace my
+namespace base
 {
-
 FileData::FileData(string const & fileName, Op op)
     : m_FileName(fileName), m_Op(op)
 {
@@ -210,7 +208,7 @@ bool GetFileSize(string const & fName, uint64_t & sz)
 {
   try
   {
-    typedef my::FileData fdata_t;
+    typedef base::FileData fdata_t;
     fdata_t f(fName, fdata_t::OP_READ);
     sz = f.Size();
     return true;
@@ -321,8 +319,8 @@ bool CopyFileX(string const & fOld, string const & fNew)
 
 bool IsEqualFiles(string const & firstFile, string const & secondFile)
 {
-  my::FileData first(firstFile, my::FileData::OP_READ);
-  my::FileData second(secondFile, my::FileData::OP_READ);
+  base::FileData first(firstFile, base::FileData::OP_READ);
+  base::FileData second(secondFile, base::FileData::OP_READ);
   if (first.Size() != second.Size())
     return false;
 
@@ -348,5 +346,4 @@ bool IsEqualFiles(string const & firstFile, string const & secondFile)
 
   return true;
 }
-
-}
+}  // namespace base

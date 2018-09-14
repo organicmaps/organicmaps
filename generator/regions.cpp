@@ -50,16 +50,16 @@ public:
     auto const & main = nodePtrList.front()->GetData();
     auto const & country = nodePtrList.back()->GetData();
 
-    auto geometry = my::NewJSONObject();
+    auto geometry = base::NewJSONObject();
     ToJSONObject(*geometry, "type", "Point");
-    auto coordinates = my::NewJSONArray();
+    auto coordinates = base::NewJSONArray();
     auto const center = main.GetCenter();
     ToJSONArray(*coordinates, center.get<0>());
     ToJSONArray(*coordinates, center.get<1>());
     ToJSONObject(*geometry, "coordinates", coordinates);
 
-    auto localeEn = my::NewJSONObject();
-    auto address = my::NewJSONObject();
+    auto localeEn = base::NewJSONObject();
+    auto address = base::NewJSONObject();
     for (auto const & p : boost::adaptors::reverse(nodePtrList))
     {
       auto const & region = p->GetData();
@@ -75,10 +75,10 @@ public:
       ToJSONObject(*localeEn, label, region.GetEnglishOrTransliteratedName());
     }
 
-    auto locales = my::NewJSONObject();
+    auto locales = base::NewJSONObject();
     ToJSONObject(*locales, "en", localeEn);
 
-    auto properties = my::NewJSONObject();
+    auto properties = base::NewJSONObject();
     ToJSONObject(*properties, "name", main.GetName());
     ToJSONObject(*properties, "rank", main.GetRank());
     ToJSONObject(*properties, "address", address);
@@ -86,7 +86,7 @@ public:
     if (country.HasIsoCode())
       ToJSONObject(*properties, "code", country.GetIsoCode());
 
-    auto feature = my::NewJSONObject();
+    auto feature = base::NewJSONObject();
     ToJSONObject(*feature, "type", "Feature");
     ToJSONObject(*feature, "geometry", geometry);
     ToJSONObject(*feature, "properties", properties);
@@ -669,7 +669,7 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
   using namespace regions;
 
   LOG(LINFO, ("Start generating regions.."));
-  auto timer = my::Timer();
+  auto timer = base::Timer();
 
   Transliteration::Instance().Init(GetPlatform().ResourcesDir());
 

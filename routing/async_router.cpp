@@ -366,7 +366,7 @@ void AsyncRouter::CalculateRoute()
   auto route = make_shared<Route>(router->GetName(), routeId);
   RouterResultCode code;
 
-  my::Timer timer;
+  base::Timer timer;
   double elapsedSec = 0.0;
 
   try

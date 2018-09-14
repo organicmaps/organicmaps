@@ -65,7 +65,7 @@ bool IsHouseNumber(strings::UniString const & s)
 
 uint8_t PopulationToRank(uint64_t p)
 {
-  return static_cast<uint8_t>(min(0xFF, my::rounds(log(double(p)) / log(1.1))));
+  return static_cast<uint8_t>(min(0xFF, base::rounds(log(double(p)) / log(1.1))));
 }
 
 uint64_t RankToPopulation(uint8_t r)

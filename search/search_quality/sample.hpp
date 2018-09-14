@@ -42,7 +42,7 @@ struct Sample
   };
 
   bool DeserializeFromJSON(std::string const & jsonStr);
-  my::JSONPtr SerializeToJSON() const;
+  base::JSONPtr SerializeToJSON() const;
 
   static bool DeserializeFromJSONLines(std::string const & lines, std::vector<Sample> & samples);
   static void SerializeToJSONLines(std::vector<Sample> const & samples, std::string & lines);
@@ -70,7 +70,7 @@ void FromJSONObject(json_t * root, std::string const & field,
 void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance);
 
 void FromJSON(json_t * root, Sample::Result & result);
-my::JSONPtr ToJSON(Sample::Result const & result);
+base::JSONPtr ToJSON(Sample::Result const & result);
 
 std::string DebugPrint(Sample::Result::Relevance r);
 

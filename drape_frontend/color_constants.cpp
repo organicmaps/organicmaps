@@ -51,7 +51,7 @@ public:
 
     try
     {
-      my::Json root(data);
+      base::Json root(data);
 
       if (root.get() == nullptr)
         return;
@@ -77,7 +77,7 @@ public:
         m_nightColors[df::GetTransitTextColorName(name)] = ParseColor(strValue);
       }
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LWARNING, ("Reading transit colors failed:", e.Msg()));
     }

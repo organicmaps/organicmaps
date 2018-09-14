@@ -31,7 +31,7 @@ namespace editor
 
 UserStats::UserStats()
   : m_changesCount(kUninitialized), m_rank(kUninitialized)
-  , m_updateTime(my::SecondsSinceEpochToTimeT(0)), m_valid(false)
+  , m_updateTime(base::SecondsSinceEpochToTimeT(0)), m_valid(false)
 {
 }
 
@@ -70,7 +70,7 @@ bool UserStats::GetLevelUpRequiredFeat(string & levelUpFeat) const
 // UserStatsLoader ---------------------------------------------------------------------------------
 
 UserStatsLoader::UserStatsLoader()
-  : m_lastUpdate(my::SecondsSinceEpochToTimeT(0))
+  : m_lastUpdate(base::SecondsSinceEpochToTimeT(0))
 {
   if (!LoadFromSettings())
     LOG(LINFO, ("There is no cached user stats info in settings"));
@@ -194,7 +194,7 @@ bool UserStatsLoader::LoadFromSettings()
     return false;
   }
 
-  m_lastUpdate = my::SecondsSinceEpochToTimeT(lastUpdate);
+  m_lastUpdate = base::SecondsSinceEpochToTimeT(lastUpdate);
   m_userStats = UserStats(m_lastUpdate, rating, changesCount, "");
   return true;
 }
@@ -211,7 +211,7 @@ void UserStatsLoader::SaveToSettings()
   int32_t changesCount;
   if (m_userStats.GetChangesCount(changesCount))
     settings::Set(kSettingsChangesCount, changesCount);
-  settings::Set(kSettingsLastUpdate, my::TimeTToSecondsSinceEpoch(m_lastUpdate));
+  settings::Set(kSettingsLastUpdate, base::TimeTToSecondsSinceEpoch(m_lastUpdate));
   // Do not save m_requiredLevelUpFeat for it becomes obsolete very fast.
 }
 

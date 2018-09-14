@@ -428,7 +428,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if ((isNavigable && hasBearing) ||
       (!isNavigable && hasBearing && info.HasSpeed() && info.m_speedMpS > kMinSpeedThresholdMps))
   {
-    SetDirection(my::DegToRad(info.m_bearing));
+    SetDirection(base::DegToRad(info.m_bearing));
     m_lastGPSBearing.Reset();
   }
 
@@ -657,7 +657,7 @@ bool MyPositionController::AlmostCurrentPosition(m2::PointD const & pos) const
 bool MyPositionController::AlmostCurrentAzimut(double azimut) const
 {
   double const kDirectionEqualityDelta = 1e-5;
-  return my::AlmostEqualAbs(azimut, m_drawDirection, kDirectionEqualityDelta);
+  return base::AlmostEqualAbs(azimut, m_drawDirection, kDirectionEqualityDelta);
 }
 
 void MyPositionController::SetDirection(double bearing)

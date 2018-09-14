@@ -274,7 +274,7 @@ void BicycleDirectionsEngine::GetSegmentRangeAndAdjacentEdges(
       ASSERT_LESS(MercatorBounds::DistanceOnEarth(junctionPoint, edge.GetStartJunction().GetPoint()),
                   turns::kFeaturesNearTurnMeters, ());
       m2::PointD const & outgoingPoint = edge.GetEndJunction().GetPoint();
-      angle = my::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+      angle = base::RadToDeg(turns::PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
     }
     else
     {

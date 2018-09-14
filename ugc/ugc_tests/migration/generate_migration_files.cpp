@@ -41,19 +41,19 @@ string const kBinFileExtension = ".bin";
 
 string GetUGCDirPath()
 {
-  return my::JoinPath(GetPlatform().WritableDir(), "ugc_migration");
+  return base::JoinPath(GetPlatform().WritableDir(), "ugc_migration");
 }
 
 void LoadClassificatorTypesForVersion(string const & version)
 {
-  auto const folderPath = my::JoinPath("ugc_migration_supported_files", version);
+  auto const folderPath = base::JoinPath("ugc_migration_supported_files", version);
   auto const & p = GetPlatform();
 
   using Inflate = coding::ZLib::Inflate;
 
   string classificator;
   {
-    auto const r = p.GetReader(my::JoinPath(folderPath, kClassificatorFileName));
+    auto const r = p.GetReader(base::JoinPath(folderPath, kClassificatorFileName));
     string data;
     r->ReadAsString(data);
     Inflate inflate(Inflate::Format::GZip);
@@ -62,7 +62,7 @@ void LoadClassificatorTypesForVersion(string const & version)
 
   string types;
   {
-    auto const r = p.GetReader(my::JoinPath(folderPath, kTypesFileName));
+    auto const r = p.GetReader(base::JoinPath(folderPath, kTypesFileName));
     string data;
     r->ReadAsString(data);
     Inflate inflate(Inflate::Format::GZip);
@@ -74,7 +74,7 @@ void LoadClassificatorTypesForVersion(string const & version)
 
 void LoadTableForVersion(string const & version, MigrationTable & table)
 {
-  Source source(FileReader(my::JoinPath(GetUGCDirPath(), version + kBinFileExtension)));
+  Source source(FileReader(base::JoinPath(GetUGCDirPath(), version + kBinFileExtension)));
   ugc::DeserializerV0<Source> des(source);
   des(table);
 }
@@ -98,7 +98,7 @@ UNIT_TEST(UGC_GenerateMigrationFiles)
     c.ForEachTree(parse);
 
     auto const fileName = v + kBinFileExtension;
-    auto const filePath = my::JoinPath(ugcDirPath, fileName);
+    auto const filePath = base::JoinPath(ugcDirPath, fileName);
     {
       FileWriter sink(filePath, FileWriter::Op::OP_WRITE_TRUNCATE);
       ugc::Serializer<FileWriter> ser(sink);

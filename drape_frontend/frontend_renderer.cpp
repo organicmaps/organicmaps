@@ -1941,7 +1941,7 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-  my::Timer timer;
+  base::Timer timer;
   double frameTime = 0.0;
   bool modelViewChanged = true;
   bool viewportChanged = true;

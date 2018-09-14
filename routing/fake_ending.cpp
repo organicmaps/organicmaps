@@ -24,7 +24,7 @@ Junction CalcProjectionToSegment(Junction const & begin, Junction const & end,
   auto const distBeginToEnd = MercatorBounds::DistanceOnEarth(begin.GetPoint(), end.GetPoint());
 
   double constexpr kEpsMeters = 2.0;
-  if (my::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
+  if (base::AlmostEqualAbs(distBeginToEnd, 0.0, kEpsMeters))
     return Junction(projectedPoint, begin.GetAltitude());
 
   auto const distBeginToProjection =

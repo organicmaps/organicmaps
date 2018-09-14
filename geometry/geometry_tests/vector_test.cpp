@@ -2,17 +2,19 @@
 
 #include "geometry/avg_vector.hpp"
 
-
 namespace
 {
-template <class T, size_t N> bool EqualArrays(T (&a1)[N], T (&a2)[N])
+template <class T, size_t N>
+bool EqualArrays(T (&a1)[N], T (&a2)[N])
+{
+  for (size_t i = 0; i < N; ++i)
   {
-    for (size_t i = 0; i < N; ++i)
-      if (!my::AlmostEqualULPs(a1[i], a2[i]))
-        return false;
-    return true;
+    if (!base::AlmostEqualULPs(a1[i], a2[i]))
+      return false;
   }
+  return true;
 }
+}  // namespace
 
 UNIT_TEST(AvgVector_Smoke)
 {

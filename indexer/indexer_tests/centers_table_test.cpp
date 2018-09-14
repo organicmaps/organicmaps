@@ -34,7 +34,7 @@ struct CentersTableTest
 
 UNIT_CLASS_TEST(CentersTableTest, Smoke)
 {
-  string const kMap = my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
+  string const kMap = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
 
   feature::DataHeader header(kMap);
   auto const codingParams = header.GetDefGeometryCodingParams();

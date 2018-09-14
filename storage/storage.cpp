@@ -202,7 +202,7 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
     auto localFile = PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, countryFile);
     string localFilename = localFile->GetPath(MapOptions::Map);
     LOG_SHORT(LINFO, ("Move", prefetchedFilename, "to", localFilename));
-    my::RenameFileX(prefetchedFilename, localFilename);
+    base::RenameFileX(prefetchedFilename, localFilename);
   }
 
   // Remove empty migrate folder
@@ -654,7 +654,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   if (opt == MapOptions::Diff)
   {
     string filePath = readyFilePath;
-    my::GetNameWithoutExt(filePath);
+    base::GetNameWithoutExt(filePath);
     isDownloadedDiff = p.GetFileSizeByFullPath(filePath, size);
   }
 
@@ -772,7 +772,7 @@ void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
     {
       GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloaded, countryId);
       char nowStr[18]{};
-      tm now = my::GmTime(time(nullptr));
+      tm now = base::GmTime(time(nullptr));
       strftime(nowStr, sizeof(nowStr), "%Y-%m-%d %H:%M", &now);
       GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kMapLastDownloadedTimestamp,
                                                            std::string(nowStr));
@@ -947,7 +947,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     if (!HasOptions(options, file))
       continue;
     string const path = GetFileDownloadPath(countryId, file);
-    if (!my::RenameFileX(path, localFile->GetPath(file)))
+    if (!base::RenameFileX(path, localFile->GetPath(file)))
     {
       ok = false;
       break;

@@ -94,7 +94,7 @@ UNIT_TEST(ApkReader_Multithreaded)
   string const path = GetPlatform().WritableDir() + "../android/MapsWithMePro/bin/MapsWithMePro-production.apk";
 
   uint64_t size;
-  if (!my::GetFileSize(path, size))
+  if (!base::GetFileSize(path, size))
   {
     LOG(LINFO, ("Apk not found"));
     return;

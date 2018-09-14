@@ -35,10 +35,10 @@ double const kAnglesInBucket = 360.0 / kNumBuckets;
 
 uint32_t Bearing(m2::PointD const & a, m2::PointD const & b)
 {
-  auto const angle = location::AngleToBearing(my::RadToDeg(ang::AngleTo(a, b)));
+  auto const angle = location::AngleToBearing(base::RadToDeg(ang::AngleTo(a, b)));
   CHECK_LESS_OR_EQUAL(angle, 360, ("Angle should be less than or equal to 360."));
   CHECK_GREATER_OR_EQUAL(angle, 0, ("Angle should be greater than or equal to 0"));
-  return my::clamp(angle / kAnglesInBucket, 0.0, 255.0);
+  return base::clamp(angle / kAnglesInBucket, 0.0, 255.0);
 }
 
 class Score final
@@ -80,7 +80,7 @@ public:
     ASSERT_GREATER_OR_EQUAL(actual, 0, ());
 
     int const diff = abs(expected - actual);
-    double angle = my::DegToRad(min(diff, kNumBuckets - diff) * kAnglesInBucket);
+    double angle = base::DegToRad(min(diff, kNumBuckets - diff) * kAnglesInBucket);
     m_penalty += kBearingErrorCoeff * angle * kBearingDist;
   }
 
@@ -586,8 +586,8 @@ double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It 
     double const sp = DotProduct(uv, s - u) / sqlen;
     double const tp = DotProduct(uv, t - u) / sqlen;
 
-    double const start = my::clamp(min(sp, tp), 0.0, 1.0);
-    double const finish = my::clamp(max(sp, tp), 0.0, 1.0);
+    double const start = base::clamp(min(sp, tp), 0.0, 1.0);
+    double const finish = base::clamp(max(sp, tp), 0.0, 1.0);
     covs.emplace_back(start, finish);
   }
 
@@ -645,7 +645,7 @@ double Router::GetMatchingScore(m2::PointD const & u, m2::PointD const & v, It b
     cov += MercatorBounds::DistanceOnEarth(s, t);
   }
 
-  return len == 0 ? 0 : my::clamp(cov / len, 0.0, 1.0);
+  return len == 0 ? 0 : base::clamp(cov / len, 0.0, 1.0);
 }
 
 template <typename It, typename Fn>

@@ -2,12 +2,10 @@
 
 #include "std/algorithm.hpp"
 
-
 struct json_struct_t;
 
-namespace my
+namespace base
 {
-
 class JsonHandle
 {
   void IncRef();
@@ -67,5 +65,4 @@ public:
 private:
   json_struct_t * m_pJson;
 };
-
-}
+}  // namespace base

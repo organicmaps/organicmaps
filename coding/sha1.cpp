@@ -21,7 +21,7 @@ SHA1::Hash SHA1::Calculate(std::string const & filePath)
   uint32_t constexpr kFileBufferSize = 8192;
   try
   {
-    my::FileData file(filePath, my::FileData::OP_READ);
+    base::FileData file(filePath, base::FileData::OP_READ);
     uint64_t const fileSize = file.Size();
 
     CSHA1 sha1;

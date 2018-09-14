@@ -273,7 +273,7 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 
   float const kMinDepth = -100000.0f;
   float const kMaxDepth = 100000.0f;
-  float const d = my::clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
+  float const d = base::clamp(depth, kMinDepth, kMaxDepth) - kMinDepth;
   auto const priority = static_cast<uint32_t>(d);
 
   return (static_cast<uint64_t>(minZoom) << 56) |

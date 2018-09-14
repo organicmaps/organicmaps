@@ -7,9 +7,8 @@
 #include <functional>
 #include <vector>
 
-namespace my
+namespace base
 {
-
 // Priority queue that stores only N smallest elements.
 template <typename T, typename CompareT = std::less<T>>
 class limited_priority_queue
@@ -89,5 +88,4 @@ void swap(limited_priority_queue<T, CompareT> & q1, limited_priority_queue<T, Co
 {
   q1.swap(q2);
 }
-
-}  // namespace my
+}  // namespace base

@@ -50,7 +50,7 @@ public:
     friend bool operator<(SpeedCamera const & lhs, SpeedCamera const & rhs)
     {
       static auto constexpr kCoefEps = 1e-5;
-      if (!my::AlmostEqualAbs(lhs.m_coef, rhs.m_coef, kCoefEps))
+      if (!base::AlmostEqualAbs(lhs.m_coef, rhs.m_coef, kCoefEps))
         return lhs.m_coef < rhs.m_coef;
 
       // Cameras with same position on segment should be sorted in speed decrease order.

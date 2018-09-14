@@ -33,14 +33,14 @@ ScopedFile::ScopedFile(string const & relativePath, string const & contents)
 ScopedFile::ScopedFile(ScopedDir const & dir, CountryFile const & countryFile,
                        MapOptions mapOptions)
   : ScopedFile(
-        my::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), mapOptions,
-                                                        version::FOR_TESTING_TWO_COMPONENT_MWM1)),
+        base::JoinPath(dir.GetRelativePath(), GetFileName(countryFile.GetName(), mapOptions,
+                                                          version::FOR_TESTING_TWO_COMPONENT_MWM1)),
         Mode::Create)
 {
 }
 
 ScopedFile::ScopedFile(string const & relativePath, string const & contents, Mode mode)
-  : m_fullPath(my::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath))
+  : m_fullPath(base::JoinFoldersToPath(GetPlatform().WritableDir(), relativePath))
 {
   if (mode == Mode::DoNotCreate)
     return;
@@ -67,7 +67,7 @@ ScopedFile::~ScopedFile()
     LOG(LERROR, ("File", GetFullPath(), "did not exist or was deleted before dtor of ScopedFile."));
     return;
   }
-  if (!my::DeleteFileX(GetFullPath()))
+  if (!base::DeleteFileX(GetFullPath()))
     LOG(LERROR, ("Can't remove test file:", GetFullPath()));
 }
 

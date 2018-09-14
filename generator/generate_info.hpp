@@ -91,19 +91,19 @@ struct GenerateInfo
   std::string GetTmpFileName(std::string const & fileName,
                              std::string const & ext = DATA_FILE_EXTENSION_TMP) const
   {
-    return my::JoinFoldersToPath(m_tmpDir, fileName + ext);
+    return base::JoinFoldersToPath(m_tmpDir, fileName + ext);
   }
 
   std::string GetTargetFileName(std::string const & fileName,
                                 std::string const & ext = DATA_FILE_EXTENSION) const
   {
-    return my::JoinFoldersToPath(m_targetDir, fileName + ext);
+    return base::JoinFoldersToPath(m_targetDir, fileName + ext);
   }
 
   std::string GetIntermediateFileName(std::string const & fileName,
                                       std::string const & ext = "") const
   {
-    return my::JoinFoldersToPath(m_intermediateDir, fileName + ext);
+    return base::JoinFoldersToPath(m_intermediateDir, fileName + ext);
   }
 
   std::string GetAddressesFileName() const

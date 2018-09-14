@@ -49,7 +49,7 @@ protected:
   routing::TagsProcessor & m_routingTagsProcessor;
 
 private:
-  my::Cache<uint64_t, RelationElement> m_cache;
+  base::Cache<uint64_t, RelationElement> m_cache;
 };
 
 class RelationTagsNode : public RelationTagsBase

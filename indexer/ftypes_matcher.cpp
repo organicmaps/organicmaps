@@ -485,7 +485,7 @@ double GetRadiusByPopulation(uint64_t p)
 
 uint64_t GetPopulationByRadius(double r)
 {
-  return my::rounds(pow(r / 550.0, 3.6));
+  return base::rounds(pow(r / 550.0, 3.6));
 }
 
 bool IsTypeConformed(uint32_t type, base::StringIL const & path)

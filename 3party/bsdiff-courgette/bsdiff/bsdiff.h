@@ -125,7 +125,7 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
 
   auto initial_patch_sink_pos = patch_sink.Pos();
 
-  my::Timer bsdiff_timer;
+  base::Timer bsdiff_timer;
 
   CHECK_GREATER_OR_EQUAL(kNumStreams, 6, ());
   std::array<MemStream, kNumStreams> mem_streams;
@@ -148,7 +148,7 @@ BSDiffStatus CreateBinaryPatch(OldReader & old_reader,
     return MEM_ERROR;
   }
 
-  my::Timer suf_sort_timer;
+  base::Timer suf_sort_timer;
   divsuf::saint_t result = divsuf::divsufsort_include_empty(
       old, I.begin(), old_size);
   LOG(LINFO, ("Done divsufsort", suf_sort_timer.ElapsedSeconds()));

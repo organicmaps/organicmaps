@@ -18,11 +18,11 @@ bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats 
 {
   try
   {
-    my::Json root(jsonStr.c_str());
+    base::Json root(jsonStr.c_str());
     DeserializeFromJSONImpl(root.get(), jsonStr, stats);
     return true;
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LDEBUG, ("Can't parse entry:", e.Msg(), jsonStr));
   }
@@ -36,11 +36,11 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   if (!json_is_object(root))
   {
     ++stats.m_badJsons;
-    MYTHROW(my::Json::Exception, ("Not a json object."));
+    MYTHROW(base::Json::Exception, ("Not a json object."));
   }
 
-  json_t * const properties = my::GetJSONObligatoryField(root, "properties");
-  json_t * const address = my::GetJSONObligatoryField(properties, "address");
+  json_t * const properties = base::GetJSONObligatoryField(root, "properties");
+  json_t * const address = base::GetJSONObligatoryField(properties, "address");
   bool hasDuplicateAddress = false;
 
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)

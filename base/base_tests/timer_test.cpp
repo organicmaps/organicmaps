@@ -6,7 +6,7 @@
 
 UNIT_TEST(Timer_Seconds)
 {
-  my::Timer timer;
+  base::Timer timer;
 
   double t1 = timer.ElapsedSeconds();
   double s = 0.0;
@@ -20,12 +20,12 @@ UNIT_TEST(Timer_Seconds)
 
 UNIT_TEST(Timer_CurrentStringTime)
 {
-  LOG(LINFO, (my::FormatCurrentTime()));
+  LOG(LINFO, (base::FormatCurrentTime()));
 }
 
 UNIT_TEST(Timer_TimestampConversion)
 {
-  using namespace my;
+  using namespace base;
 
   TEST_EQUAL(TimestampToString(0), "1970-01-01T00:00:00Z", ());
   TEST_EQUAL(TimestampToString(1354482514), "2012-12-02T21:08:34Z", ());
@@ -62,11 +62,11 @@ UNIT_TEST(Timer_TimestampConversion)
 
 UNIT_TEST(Timer_GenerateYYMMDD)
 {
-  TEST_EQUAL(my::GenerateYYMMDD(116, 0, 26), 160126, ());
+  TEST_EQUAL(base::GenerateYYMMDD(116, 0, 26), 160126, ());
 }
 
 UNIT_TEST(Timer_TimeTConversion)
 {
   auto const now = ::time(nullptr);
-  TEST_EQUAL(my::SecondsSinceEpochToTimeT(my::TimeTToSecondsSinceEpoch(now)), now, ());
+  TEST_EQUAL(base::SecondsSinceEpochToTimeT(base::TimeTToSecondsSinceEpoch(now)), now, ());
 }

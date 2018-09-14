@@ -114,7 +114,7 @@ void Framework::OnLocationUpdated(location::GpsInfo const & info)
 
 void Framework::OnCompassUpdated(location::CompassInfo const & info, bool forceRedraw)
 {
-  static double const COMPASS_THRESHOLD = my::DegToRad(1.0);
+  static double const COMPASS_THRESHOLD = base::DegToRad(1.0);
 
   /// @todo Do not emit compass bearing too often.
   /// Need to make more experiments in future.

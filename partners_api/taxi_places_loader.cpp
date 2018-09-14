@@ -36,7 +36,7 @@ SupportedPlaces Loader::LoadFor(Provider::Type const type)
     coding::DeserializerJson des(fileData);
     des(places);
   }
-  catch (my::Json::Exception const & ex)
+  catch (base::Json::Exception const & ex)
   {
     LOG(LWARNING,
         ("Exception while parsing file:", filename, "reason:", ex.what(), "json:", fileData));

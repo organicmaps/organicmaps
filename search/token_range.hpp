@@ -62,11 +62,11 @@ public:
   inline size_t Begin() const { return m_begin; }
   inline size_t End() const { return m_end; }
 
-  inline my::RangeIterator<size_t> begin() const { return my::RangeIterator<size_t>(m_begin); }
-  inline my::RangeIterator<size_t> end() const { return my::RangeIterator<size_t>(m_end); }
+  inline base::RangeIterator<size_t> begin() const { return base::RangeIterator<size_t>(m_begin); }
+  inline base::RangeIterator<size_t> end() const { return base::RangeIterator<size_t>(m_end); }
 
-  inline my::RangeIterator<size_t> cbegin() const { return my::RangeIterator<size_t>(m_begin); }
-  inline my::RangeIterator<size_t> cend() const { return my::RangeIterator<size_t>(m_end); }
+  inline base::RangeIterator<size_t> cbegin() const { return base::RangeIterator<size_t>(m_begin); }
+  inline base::RangeIterator<size_t> cend() const { return base::RangeIterator<size_t>(m_end); }
 
 private:
   friend std::string DebugPrint(TokenRange const & tokenRange);

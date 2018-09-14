@@ -78,7 +78,7 @@ void correctColors(gil::bgra8_image_t & image)
     {
       gil::bgra8_pixel_t pixel = view(x, y);
       auto color = static_cast<unsigned char>(
-          my::clamp(0.07 * pixel[0] + 0.5 * pixel[1] + 0.22 * pixel[2], 0.0, 255.0));
+          base::clamp(0.07 * pixel[0] + 0.5 * pixel[1] + 0.22 * pixel[2], 0.0, 255.0));
 
       view(x, y)[0] = color;
       view(x, y)[1] = color;

@@ -91,7 +91,7 @@ void RunGraphicsBenchmark(Framework * framework)
   string const & result = request.ServerResponse();
   try
   {
-    my::Json root(result.c_str());
+    base::Json root(result.c_str());
     json_t * scenariosNode = json_object_get(root.get(), "scenarios");
     if (scenariosNode == nullptr || !json_is_array(scenariosNode))
       return;
@@ -142,7 +142,7 @@ void RunGraphicsBenchmark(Framework * framework)
       }
     }
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     return;
   }

@@ -59,10 +59,10 @@ void setMarketingSender()
 int main(int argc, char * argv[])
 {
 #ifdef MWM_LOG_TO_FILE
-  my::SetLogMessageFn(LogMessageFile);
+  base::SetLogMessageFn(LogMessageFile);
 #elif OMIM_PRODUCTION
-  my::SetLogMessageFn(platform::IosLogMessage);
-  my::SetAssertFunction(platform::IosAssertMessage);
+  base::SetLogMessageFn(platform::IosLogMessage);
+  base::SetAssertFunction(platform::IosAssertMessage);
 #endif
   auto & p = GetPlatform();
   LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));

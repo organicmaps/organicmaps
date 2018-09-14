@@ -35,7 +35,7 @@ class DownloadObserver
   vector<HttpRequest::Status> m_statuses;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
-  my::ScopedLogLevelChanger const m_debugLogLevel;
+  base::ScopedLogLevelChanger const m_debugLogLevel;
 
 public:
   DownloadObserver() : m_chunksToFail(-1), m_debugLogLevel(LDEBUG)
@@ -354,21 +354,21 @@ namespace
 
   void FinishDownloadSuccess(string const & file)
   {
-    TEST(my::DeleteFileX(file), ("Result file should present on success"));
+    TEST(base::DeleteFileX(file), ("Result file should present on success"));
 
     uint64_t size;
-    TEST(!my::GetFileSize(file + DOWNLOADING_FILE_EXTENSION, size), ("No downloading file on success"));
-    TEST(!my::GetFileSize(file + RESUME_FILE_EXTENSION, size), ("No resume file on success"));
+    TEST(!base::GetFileSize(file + DOWNLOADING_FILE_EXTENSION, size), ("No downloading file on success"));
+    TEST(!base::GetFileSize(file + RESUME_FILE_EXTENSION, size), ("No resume file on success"));
   }
 
   void FinishDownloadFail(string const & file)
   {
     uint64_t size;
-    TEST(!my::GetFileSize(file, size), ("No result file on fail"));
+    TEST(!base::GetFileSize(file, size), ("No result file on fail"));
 
-    (void)my::DeleteFileX(file + DOWNLOADING_FILE_EXTENSION);
+    (void)base::DeleteFileX(file + DOWNLOADING_FILE_EXTENSION);
 
-    TEST(my::DeleteFileX(file + RESUME_FILE_EXTENSION), ("Resume file should present on fail"));
+    TEST(base::DeleteFileX(file + RESUME_FILE_EXTENSION), ("Resume file should present on fail"));
   }
 }
 
@@ -561,13 +561,13 @@ UNIT_TEST(DownloadResumeChunks)
     observer.TestOk();
 
     uint64_t size;
-    TEST(!my::GetFileSize(RESUME_FILENAME, size), ("No resume file on success"));
+    TEST(!base::GetFileSize(RESUME_FILENAME, size), ("No resume file on success"));
   }
 
   // 2nd step - mark some file blocks as not downloaded
   {
     // to substitute temporary not fully downloaded file
-    TEST(my::RenameFileX(FILENAME, DOWNLOADING_FILENAME), ());
+    TEST(base::RenameFileX(FILENAME, DOWNLOADING_FILENAME), ());
 
     FileWriter f(DOWNLOADING_FILENAME, FileWriter::OP_WRITE_EXISTING);
     f.Seek(beg1);

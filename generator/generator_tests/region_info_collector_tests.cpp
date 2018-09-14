@@ -140,7 +140,7 @@ UNIT_TEST(RegionInfoCollector_Save)
   auto & platform = GetPlatform();
   auto const tmpDir = platform.TmpDir();
   platform.SetWritableDirForTests(tmpDir);
-  auto const name = my::JoinPath(tmpDir, "RegionInfoCollector.bin");
+  auto const name = base::JoinPath(tmpDir, "RegionInfoCollector.bin");
   regionInfoCollector.Save(name);
   {
     generator::RegionInfoCollector regionInfoCollector(name);

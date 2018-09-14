@@ -12,7 +12,7 @@
 
 #include "3party/jansson/src/jansson.h"
 
-namespace my
+namespace base
 {
 struct JSONDecRef
 {
@@ -57,7 +57,7 @@ private:
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);
 json_t * GetJSONOptionalField(json_t * root, std::string const & field);
 bool JSONIsNull(json_t * root);
-}  // namespace my
+}  // namespace base
 
 inline void FromJSON(json_t * root, json_t *& value) { value = root; }
 
@@ -69,7 +69,7 @@ template <typename T,
 void FromJSON(json_t * root, T & result)
 {
   if (!json_is_number(root))
-    MYTHROW(my::Json::Exception, ("Object must contain a json number."));
+    MYTHROW(base::Json::Exception, ("Object must contain a json number."));
   result = static_cast<T>(json_integer_value(root));
 }
 
@@ -78,21 +78,21 @@ std::string FromJSONToString(json_t * root);
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, T & result)
 {
-  auto * json = my::GetJSONObligatoryField(root, field);
+  auto * json = base::GetJSONObligatoryField(root, field);
   try
   {
     FromJSON(json, result);
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
-    MYTHROW(my::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
+    MYTHROW(base::Json::Exception, ("An error occured while parsing field", field, e.Msg()));
   }
 }
 
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, T & result)
 {
-  auto * json = my::GetJSONOptionalField(root, field);
+  auto * json = base::GetJSONOptionalField(root, field);
   if (!json)
   {
     result = T{};
@@ -103,10 +103,10 @@ void FromJSONObjectOptionalField(json_t * root, std::string const & field, T & r
 
 template <typename T,
           typename std::enable_if<std::is_integral<T>::value, void>::type* = nullptr>
-inline my::JSONPtr ToJSON(T value) { return my::NewJSONInt(value); }
-inline my::JSONPtr ToJSON(double value) { return my::NewJSONReal(value); }
-inline my::JSONPtr ToJSON(bool value) { return my::NewJSONBool(value); }
-inline my::JSONPtr ToJSON(char const * s) { return my::NewJSONString(s); }
+inline base::JSONPtr ToJSON(T value) { return base::NewJSONInt(value); }
+inline base::JSONPtr ToJSON(double value) { return base::NewJSONReal(value); }
+inline base::JSONPtr ToJSON(bool value) { return base::NewJSONBool(value); }
+inline base::JSONPtr ToJSON(char const * s) { return base::NewJSONString(s); }
 
 template <typename T>
 void ToJSONArray(json_t & root, T const & value)
@@ -114,7 +114,7 @@ void ToJSONArray(json_t & root, T const & value)
   json_array_append_new(&root, ToJSON(value).release());
 }
 
-inline void ToJSONArray(json_t & parent, my::JSONPtr & child)
+inline void ToJSONArray(json_t & parent, base::JSONPtr & child)
 {
   json_array_append_new(&parent, child.release());
 }
@@ -130,7 +130,7 @@ void ToJSONObject(json_t & root, std::string const & field, T const & value)
   json_object_set_new(&root, field.c_str(), ToJSON(value).release());
 }
 
-inline void ToJSONObject(json_t & parent, std::string const & field, my::JSONPtr & child)
+inline void ToJSONObject(json_t & parent, std::string const & field, base::JSONPtr & child)
 {
   json_object_set_new(&parent, field.c_str(), child.release());
 }
@@ -143,9 +143,9 @@ inline void ToJSONObject(json_t & parent, std::string const & field, json_t & ch
 template <typename T>
 void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  auto * arr = my::GetJSONObligatoryField(root, field);
+  auto * arr = base::GetJSONObligatoryField(root, field);
   if (!json_is_array(arr))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
   size_t sz = json_array_size(arr);
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
@@ -161,14 +161,14 @@ void FromJSONObject(json_t * root, std::string const & field, std::vector<T> & r
 template <typename T>
 bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  auto * arr = my::GetJSONOptionalField(root, field);
-  if (!arr || my::JSONIsNull(arr))
+  auto * arr = base::GetJSONOptionalField(root, field);
+  if (!arr || base::JSONIsNull(arr))
   {
     result.clear();
     return false;
   }
   if (!json_is_array(arr))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
   size_t const sz = json_array_size(arr);
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
@@ -179,7 +179,7 @@ bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vecto
 template <typename T>
 void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const & values)
 {
-  auto arr = my::NewJSONArray();
+  auto arr = base::NewJSONArray();
   for (auto const & value : values)
     json_array_append_new(arr.get(), ToJSON(value).release());
   json_object_set_new(&root, field.c_str(), arr.release());
@@ -188,14 +188,14 @@ void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const
 template <typename T>
 void FromJSONObjectOptionalField(json_t * root, std::string const & field, std::vector<T> & result)
 {
-  json_t * arr = my::GetJSONOptionalField(root, field);
+  json_t * arr = base::GetJSONOptionalField(root, field);
   if (!arr)
   {
     result.clear();
     return;
   }
   if (!json_is_array(arr))
-    MYTHROW(my::Json::Exception, ("The field", field, "must contain a json array."));
+    MYTHROW(base::Json::Exception, ("The field", field, "must contain a json array."));
   size_t sz = json_array_size(arr);
   result.resize(sz);
   for (size_t i = 0; i < sz; ++i)
@@ -210,11 +210,11 @@ struct JSONFreeDeleter
 namespace std
 {
 void FromJSON(json_t * root, std::string & result);
-inline my::JSONPtr ToJSON(std::string const & s) { return my::NewJSONString(s); }
+inline base::JSONPtr ToJSON(std::string const & s) { return base::NewJSONString(s); }
 }  // namespace std
 
 namespace strings
 {
 void FromJSON(json_t * root, UniString & result);
-my::JSONPtr ToJSON(UniString const & s);
+base::JSONPtr ToJSON(UniString const & s);
 }  // namespace strings

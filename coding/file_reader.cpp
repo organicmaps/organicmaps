@@ -17,11 +17,11 @@ using namespace std;
 
 namespace
 {
-class FileDataWithCachedSize : public my::FileData
+class FileDataWithCachedSize : public base::FileData
 {
 public:
   explicit FileDataWithCachedSize(string const & fileName)
-    : my::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
+    : base::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
   {
   }
 

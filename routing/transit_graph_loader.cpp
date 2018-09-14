@@ -73,7 +73,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-  my::Timer timer;
+  base::Timer timer;
   auto graph = make_unique<TransitGraph>(numMwmId, m_estimator);
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   if (!mwmValue.m_cont.IsExist(TRANSIT_FILE_TAG))

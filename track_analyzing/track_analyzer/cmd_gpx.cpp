@@ -40,7 +40,7 @@ void CmdGPX(string const & logFile, string const & outputDirName, string const &
       if (!userID.empty() && track.first != userID)
         continue;
 
-      auto const path = my::JoinPath(outputDirName, mwmName + to_string(i) + ".gpx");
+      auto const path = base::JoinPath(outputDirName, mwmName + to_string(i) + ".gpx");
       ofstream ofs(path, ofstream::out);
       ofs << "<gpx>\n";
       ofs << "<metadata>\n";

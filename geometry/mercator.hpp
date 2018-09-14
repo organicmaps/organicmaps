@@ -15,21 +15,21 @@ struct MercatorBounds
 
   static m2::RectD FullRect() { return m2::RectD(minX, minY, maxX, maxY); }
 
-  static bool ValidLon(double d) { return my::between_s(-180.0, 180.0, d); }
-  static bool ValidLat(double d) { return my::between_s(-90.0, 90.0, d); }
+  static bool ValidLon(double d) { return base::between_s(-180.0, 180.0, d); }
+  static bool ValidLat(double d) { return base::between_s(-90.0, 90.0, d); }
 
-  static bool ValidX(double d) { return my::between_s(minX, maxX, d); }
-  static bool ValidY(double d) { return my::between_s(minY, maxY, d); }
+  static bool ValidX(double d) { return base::between_s(minX, maxX, d); }
+  static bool ValidY(double d) { return base::between_s(minY, maxY, d); }
 
-  static double ClampX(double d) { return my::clamp(d, minX, maxX); }
-  static double ClampY(double d) { return my::clamp(d, minY, maxY); }
+  static double ClampX(double d) { return base::clamp(d, minX, maxX); }
+  static double ClampY(double d) { return base::clamp(d, minY, maxY); }
 
-  static double YToLat(double y) { return my::RadToDeg(2.0 * atan(tanh(0.5 * my::DegToRad(y)))); }
+  static double YToLat(double y) { return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y)))); }
 
   static double LatToY(double lat)
   {
-    double const sinx = sin(my::DegToRad(my::clamp(lat, -86.0, 86.0)));
-    double const res = my::RadToDeg(0.5 * log((1.0 + sinx) / (1.0 - sinx)));
+    double const sinx = sin(base::DegToRad(base::clamp(lat, -86.0, 86.0)));
+    double const res = base::RadToDeg(0.5 * log((1.0 + sinx) / (1.0 - sinx)));
     return ClampY(res);
   }
 

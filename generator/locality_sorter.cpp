@@ -201,7 +201,7 @@ bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const
 
     for (auto const & filename : files)
     {
-      auto const file = my::JoinFoldersToPath(featuresDir, filename);
+      auto const file = base::JoinFoldersToPath(featuresDir, filename);
       LOG(LINFO, ("Processing", file));
 
       CalculateMidPoints midPoints;
@@ -256,7 +256,7 @@ bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile
   header.SetScales({scales::GetUpperScale()});
 
   LocalityCollector localityCollector(dataFile, header,
-                                      static_cast<uint32_t>(my::SecondsSinceEpoch()));
+                                      static_cast<uint32_t>(base::SecondsSinceEpoch()));
   return GenerateLocalityDataImpl(localityCollector, needSerialize, featuresDir, dataFile);
 }
 
@@ -267,7 +267,7 @@ bool GenerateRegionsData(string const & featuresDir, string const & dataFile)
   header.SetScales({scales::GetUpperScale()});
 
   LocalityCollector regionsCollector(dataFile, header,
-                                     static_cast<uint32_t>(my::SecondsSinceEpoch()));
+                                     static_cast<uint32_t>(base::SecondsSinceEpoch()));
   auto const needSerialize = [](FeatureBuilder1 const & fb) { return fb.IsArea(); };
   return GenerateLocalityDataImpl(regionsCollector, needSerialize, featuresDir, dataFile);
 }

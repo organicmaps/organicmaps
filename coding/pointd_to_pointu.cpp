@@ -14,7 +14,7 @@ uint32_t DoubleToUint32(double x, double min, double max, uint32_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
   ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
-  x = my::clamp(x, min, max);
+  x = base::clamp(x, min, max);
   return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * bits::GetFullMask(static_cast<uint8_t>(coordBits)));
 }
 
@@ -27,8 +27,8 @@ double Uint32ToDouble(uint32_t x, double min, double max, uint32_t coordBits)
 
 m2::PointU PointDToPointU(double x, double y, uint32_t coordBits)
 {
-  x = my::clamp(x, MercatorBounds::minX, MercatorBounds::maxX);
-  y = my::clamp(y, MercatorBounds::minY, MercatorBounds::maxY);
+  x = base::clamp(x, MercatorBounds::minX, MercatorBounds::maxX);
+  y = base::clamp(y, MercatorBounds::minY, MercatorBounds::maxY);
 
   uint32_t const ix = static_cast<uint32_t>(0.5 +
                                             (x - MercatorBounds::minX) /

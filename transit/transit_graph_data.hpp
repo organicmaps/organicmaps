@@ -60,12 +60,12 @@ public:
   template <typename T>
   void operator()(std::vector<T> & vs, char const * name = nullptr)
   {
-    auto * arr = my::GetJSONOptionalField(m_node, name);
+    auto * arr = base::GetJSONOptionalField(m_node, name);
     if (arr == nullptr)
       return;
 
     if (!json_is_array(arr))
-      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
     size_t const sz = json_array_size(arr);
     vs.resize(sz);
     for (size_t i = 0; i < sz; ++i)
@@ -83,7 +83,7 @@ public:
   {
     if (name != nullptr && json_is_object(m_node))
     {
-      json_t * dictNode = my::GetJSONOptionalField(m_node, name);
+      json_t * dictNode = base::GetJSONOptionalField(m_node, name);
       if (dictNode == nullptr)
         return; // No such field in json.
 
@@ -106,7 +106,7 @@ private:
       return;
     }
 
-    json_struct_t * field = my::GetJSONOptionalField(m_node, name);
+    json_struct_t * field = base::GetJSONOptionalField(m_node, name);
     if (field == nullptr)
     {
       // No optional field |name| at |m_node|. In that case the default value should be set to |t|.
@@ -125,7 +125,7 @@ private:
 class GraphData
 {
 public:
-  void DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping);
+  void DeserializeFromJson(base::Json const & root, OsmIdToFeatureIdsMap const & mapping);
   /// \note This method changes only |m_header| and fills it with correct offsets.
   void Serialize(Writer & writer);
   void DeserializeAll(Reader & reader);

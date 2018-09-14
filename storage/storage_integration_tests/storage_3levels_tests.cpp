@@ -46,7 +46,7 @@ UNIT_TEST(SmallMwms_3levels_Test)
 
   TEST_EQUAL(3, GetLevelCount(storage, kCountryId), ());
 
-  string const mapDir = my::JoinFoldersToPath(platform.WritableDir(), version);
+  string const mapDir = base::JoinFoldersToPath(platform.WritableDir(), version);
 
   auto onProgressFn = [&](TCountryId const & countryId, TLocalAndRemoteSize const & mapSize)
   {

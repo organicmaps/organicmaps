@@ -17,7 +17,7 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
   outUrls.clear();
   try
   {
-    my::Json root(jsonStr.c_str());
+    base::Json root(jsonStr.c_str());
     for (size_t i = 0; i < json_array_size(root.get()); ++i)
     {
       char const * url = json_string_value(json_array_get(root.get(), i));
@@ -25,7 +25,7 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
         outUrls.push_back(url);
     }
   }
-  catch (my::Json::Exception const & ex)
+  catch (base::Json::Exception const & ex)
   {
     LOG(LERROR, ("Can't parse server list json:", ex.Msg(), jsonStr));
   }

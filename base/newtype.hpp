@@ -5,7 +5,7 @@
 #include <string>
 #include <type_traits>
 
-namespace my
+namespace base
 {
 namespace impl
 {
@@ -160,19 +160,18 @@ std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
   return ::DebugPrint(nt.Get());
 }
 }  // namespace newtype_default_output
-}  // namespace my
+}  // namespace base
 
-#define NEWTYPE(REPR, NAME)                     \
-  struct NAME ## _tag;                          \
-  using NAME = my::NewType<REPR, NAME ## _tag>
-
+#define NEWTYPE(REPR, NAME) \
+  struct NAME##_tag;        \
+  using NAME = base::NewType<REPR, NAME##_tag>
 
 #define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \
   inline std::string DebugPrint(NAME const & nt)                        \
   {                                                                     \
-    return my::newtype_default_output::SimpleDebugPrint(nt);            \
+    return base::newtype_default_output::SimpleDebugPrint(nt);          \
   }                                                                     \
   inline std::ostream & operator<<(std::ostream & ost, NAME const & nt) \
   {                                                                     \
-    return ost << my::newtype_default_output::SimpleDebugPrint(nt);     \
+    return ost << base::newtype_default_output::SimpleDebugPrint(nt);   \
   }

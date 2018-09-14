@@ -25,7 +25,7 @@ namespace
 void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & storage,
                  NumMwmIds const & numMwmIds, MwmToMatchedTracks & mwmToMatchedTracks)
 {
-  my::Timer timer;
+  base::Timer timer;
 
   uint64_t tracksCount = 0;
   uint64_t pointsCount = 0;

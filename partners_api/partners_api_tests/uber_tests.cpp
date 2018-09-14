@@ -41,7 +41,7 @@ UNIT_TEST(Uber_GetTimes)
   TEST(uber::RawApi::GetEstimatedTime(pos, result), ());
   TEST(!result.empty(), ());
 
-  my::Json timeRoot(result.c_str());
+  base::Json timeRoot(result.c_str());
   auto const timesArray = json_object_get(timeRoot.get(), "times");
 
   TEST(json_is_array(timesArray), ());
@@ -59,7 +59,7 @@ UNIT_TEST(Uber_GetTimes)
       FromJSONObject(item, "display_name", name);
       FromJSONObject(item, "estimate", estimatedTime);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       TEST(false, (e.Msg()));
     }
@@ -80,7 +80,7 @@ UNIT_TEST(Uber_GetPrices)
   TEST(uber::RawApi::GetEstimatedPrice(from, to, result), ());
   TEST(!result.empty(), ());
 
-  my::Json priceRoot(result.c_str());
+  base::Json priceRoot(result.c_str());
   auto const pricesArray = json_object_get(priceRoot.get(), "prices");
 
   TEST(json_is_array(pricesArray), ());
@@ -109,7 +109,7 @@ UNIT_TEST(Uber_GetPrices)
           currency = "null";
       }
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       TEST(false, (e.Msg()));
     }

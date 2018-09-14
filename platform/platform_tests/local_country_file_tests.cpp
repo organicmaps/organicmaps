@@ -212,13 +212,13 @@ UNIT_TEST(LocalCountryFile_CleanupPartiallyDownloadedFiles)
       {"Netherlands.mwm.routing.downloading2", ScopedFile::Mode::Create},
       {"Germany.mwm.ready3", ScopedFile::Mode::Create},
       {"UK_England.mwm.resume4", ScopedFile::Mode::Create},
-      {my::JoinFoldersToPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
+      {base::JoinFoldersToPath(oldDir.GetRelativePath(), "Russia_Central.mwm.downloading"),
        ScopedFile::Mode::Create}};
   ScopedFile toBeKept[] = {
       {"Italy.mwm", ScopedFile::Mode::Create},
       {"Spain.mwm", ScopedFile::Mode::Create},
       {"Spain.mwm.routing", ScopedFile::Mode::Create},
-      {my::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
+      {base::JoinFoldersToPath(latestDir.GetRelativePath(), "Russia_Southern.mwm.downloading"),
        ScopedFile::Mode::Create}};
 
   CleanupMapsDirectory(101010 /* latestVersion */);
@@ -348,7 +348,7 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
   CountryFile germanyFile("Germany");
   LocalCountryFile germanyLocalFile(testDir.GetFullPath(), germanyFile, 101010 /* version */);
   TEST_EQUAL(
-      my::JoinFoldersToPath(germanyLocalFile.GetDirectory(), germanyFile.GetName()),
+      base::JoinFoldersToPath(germanyLocalFile.GetDirectory(), germanyFile.GetName()),
       CountryIndexes::IndexesDir(germanyLocalFile), ());
   CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
@@ -369,7 +369,7 @@ UNIT_TEST(LocalCountryFile_CountryIndexes)
 
 UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
 {
-  my::ScopedLogLevelChanger const criticalLogLevel(LCRITICAL);
+  base::ScopedLogLevelChanger const criticalLogLevel(LCRITICAL);
 
   ScopedDir testDir("101010");
 
@@ -378,7 +378,7 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   CountryIndexes::PreparePlaceOnDisk(germanyLocalFile);
 
   string const userFilePath =
-      my::JoinFoldersToPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
+      base::JoinFoldersToPath(CountryIndexes::IndexesDir(germanyLocalFile), "user-data.txt");
   {
     FileWriter writer(userFilePath);
     string const data = "user data";
@@ -387,7 +387,7 @@ UNIT_TEST(LocalCountryFile_DoNotDeleteUserFiles)
   TEST(!CountryIndexes::DeleteFromDisk(germanyLocalFile),
        ("Indexes dir should not be deleted for:", germanyLocalFile));
 
-  TEST(my::DeleteFileX(userFilePath), ("Can't delete test file:", userFilePath));
+  TEST(base::DeleteFileX(userFilePath), ("Can't delete test file:", userFilePath));
   TEST(CountryIndexes::DeleteFromDisk(germanyLocalFile),
        ("Can't delete indexes for:", germanyLocalFile));
 }

@@ -305,8 +305,8 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     auto const & lastGoodPoint = m_route->GetFollowedPolyline().GetCurrentIter().m_pt;
     double const dist = MercatorBounds::DistanceOnEarth(lastGoodPoint,
                                                         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
-    if (my::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
-        return m_state;
+    if (base::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
+      return m_state;
     if (dist > m_lastDistance)
     {
       ++m_moveAwayCounter;

@@ -137,7 +137,7 @@ Geocoder::Geocoder(string pathToJsonHierarchy) : m_hierarchy(pathToJsonHierarchy
 void Geocoder::ProcessQuery(string const & query, vector<Result> & results) const
 {
 #if defined(DEBUG)
-  my::Timer timer;
+  base::Timer timer;
   MY_SCOPE_GUARD(printDuration, [&timer]() {
     LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
   });

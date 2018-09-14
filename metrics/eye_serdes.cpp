@@ -42,7 +42,7 @@ void Serdes::Deserialize(std::vector<int8_t> const & bytes, Info & result)
       coding::DeserializerJson des(source);
       des(result);
     }
-    catch (my::Json::Exception & ex)
+    catch (base::Json::Exception & ex)
     {
       LOG(LERROR, ("Cannot deserialize eye file. Exception:", ex.Msg(), "Version:", version,
                    "File content:", bytes));

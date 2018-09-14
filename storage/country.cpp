@@ -166,11 +166,11 @@ bool LoadCountriesSingleMwmsImpl(string const & jsonBuffer, StoreSingleMwmInterf
 {
   try
   {
-    my::Json root(jsonBuffer.c_str());
+    base::Json root(jsonBuffer.c_str());
     LoadGroupSingleMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, store);
     return true;
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
     return false;
@@ -286,11 +286,11 @@ bool LoadCountriesTwoComponentMwmsImpl(string const & jsonBuffer,
 {
   try
   {
-    my::Json root(jsonBuffer.c_str());
+    base::Json root(jsonBuffer.c_str());
     LoadGroupTwoComponentMwmsImpl(0 /* depth */, root.get(), kInvalidCountryId, store);
     return true;
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
     return false;
@@ -307,7 +307,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countr
   int64_t version = -1;
   try
   {
-    my::Json root(jsonBuffer.c_str());
+    base::Json root(jsonBuffer.c_str());
     FromJSONObject(root.get(), "v", version);
 
     if (version::IsSingleMwm(version))
@@ -325,7 +325,7 @@ int64_t LoadCountriesFromBuffer(string const & jsonBuffer, TCountryTree & countr
         return -1;
     }
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
   }
@@ -348,7 +348,7 @@ void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryI
   int64_t version = -1;
   try
   {
-    my::Json root(jsonBuffer.c_str());
+    base::Json root(jsonBuffer.c_str());
     FromJSONObjectOptionalField(root.get(), "v", version);
     isSingleMwm = version::IsSingleMwm(version);
     if (isSingleMwm)
@@ -362,7 +362,7 @@ void LoadCountryFile2CountryInfo(string const & jsonBuffer, map<string, CountryI
       LoadCountriesTwoComponentMwmsImpl(jsonBuffer, store);
     }
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LERROR, (e.Msg()));
   }

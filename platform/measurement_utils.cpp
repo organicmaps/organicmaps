@@ -69,7 +69,7 @@ bool FormatDistance(double m, string & res)
 
 string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac)
 {
-  using namespace my;
+  using namespace base;
 
   ostringstream sstream;
   sstream << setfill('0');
@@ -97,7 +97,7 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
   sstream << "″";
 
   // This condition is too heavy for production purposes (but more correct).
-  //if (my::rounds(value * 3600.0 * pow(10, dac)) != 0)
+  //if (base::rounds(value * 3600.0 * pow(10, dac)) != 0)
   if (!AlmostEqualULPs(value, 0.0))
   {
     char postfix = positive;

@@ -26,7 +26,7 @@ bool ParseResponse(string const & serverResponse, vector<m2::PointD> & outPoints
 {
   try
   {
-    my::Json parser(serverResponse.c_str());
+    base::Json parser(serverResponse.c_str());
 
     json_t const * countries = json_object_get(parser.get(), "used_mwms");
     size_t const pointsCount = json_array_size(countries);
@@ -38,7 +38,7 @@ bool ParseResponse(string const & serverResponse, vector<m2::PointD> & outPoints
     }
     return pointsCount > 0;
   }
-  catch (my::Json::Exception const & exception)
+  catch (base::Json::Exception const & exception)
   {
     LOG(LWARNING, ("Can't parse server response:", exception.what()));
     LOG(LWARNING, ("Response body:", serverResponse));

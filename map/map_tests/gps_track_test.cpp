@@ -32,7 +32,7 @@ inline location::GpsInfo Make(double timestamp, ms::LatLon const & ll, double sp
 
 inline string GetGpsTrackFilePath()
 {
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), "gpstrack_test.bin");
+  return base::JoinFoldersToPath(GetPlatform().WritableDir(), "gpstrack_test.bin");
 }
 
 class GpsTrackCallback

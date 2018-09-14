@@ -60,7 +60,7 @@ public:
 #if defined(DEBUG)
     for (auto const * layer : layers)
       LOG(LINFO, (DebugPrint(*layer)));
-    my::Timer timer;
+    base::Timer timer;
 #endif  // defined(DEBUG)
 
     std::vector<IntersectionResult> results;

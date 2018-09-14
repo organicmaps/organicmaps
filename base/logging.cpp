@@ -24,7 +24,7 @@ namespace
 mutex g_logMutex;
 }  // namespace
 
-namespace my
+namespace base
 {
 string ToString(LogLevel level)
 {
@@ -65,7 +65,7 @@ class LogHelper
     return id;
   }
 
-  my::Timer m_timer;
+  base::Timer m_timer;
 
   array<char const *, NUM_LOG_LEVELS> m_names;
   array<size_t, NUM_LOG_LEVELS> m_lens;
@@ -147,4 +147,4 @@ LogLevel GetDefaultLogAbortLevel()
 
 AtomicLogLevel g_LogLevel = {GetDefaultLogLevel()};
 AtomicLogLevel g_LogAbortLevel = {GetDefaultLogAbortLevel()};
-}  // namespace my
+}  // namespace base

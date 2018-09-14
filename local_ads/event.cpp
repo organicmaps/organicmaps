@@ -39,8 +39,8 @@ bool Event::operator==(Event const & event) const
   return m_type == event.m_type && m_mwmVersion == event.m_mwmVersion &&
          m_countryId == event.m_countryId && m_featureId == event.m_featureId &&
          m_zoomLevel == event.m_zoomLevel &&
-         my::AlmostEqualAbs(m_latitude, event.m_latitude, kEps) &&
-         my::AlmostEqualAbs(m_longitude, event.m_longitude, kEps) &&
+         base::AlmostEqualAbs(m_latitude, event.m_latitude, kEps) &&
+         base::AlmostEqualAbs(m_longitude, event.m_longitude, kEps) &&
          m_accuracyInMeters == event.m_accuracyInMeters &&
          duration_cast<seconds>(m_timestamp - event.m_timestamp).count() == 0;
 }

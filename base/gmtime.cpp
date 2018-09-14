@@ -2,7 +2,7 @@
 
 #include "std/target_os.hpp"
 
-namespace my
+namespace base
 {
 std::tm GmTime(time_t const time)
 {
@@ -14,4 +14,4 @@ std::tm GmTime(time_t const time)
 #endif
   return result;
 }
-}  // namespace my
+}  // namespace base

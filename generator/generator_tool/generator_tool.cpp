@@ -88,7 +88,7 @@ DEFINE_string(output, "", "File name for process (without 'mwm' ext).");
 DEFINE_bool(preload_cache, false, "Preload all ways and relations cache.");
 DEFINE_string(node_storage, "map",
               "Type of storage for intermediate points representation. Available: raw, map, mem.");
-DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
+DEFINE_uint64(planet_version, base::SecondsSinceEpoch(),
               "Version as seconds since epoch, by default - now.");
 
 // Preprocessing and feature generator.
@@ -184,7 +184,7 @@ int main(int argc, char ** argv)
   }
 
   string const path =
-      FLAGS_data_path.empty() ? pl.WritableDir() : my::AddSlashIfNeeded(FLAGS_data_path);
+      FLAGS_data_path.empty() ? pl.WritableDir() : base::AddSlashIfNeeded(FLAGS_data_path);
 
   // So that stray GetWritablePathForFile calls do not crash the generator.
   pl.SetWritableDirForTests(path);
@@ -194,13 +194,13 @@ int main(int argc, char ** argv)
 
   genInfo.m_intermediateDir =
       FLAGS_intermediate_data_path.empty() ?
-        path : my::AddSlashIfNeeded(FLAGS_intermediate_data_path);
+        path : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_targetDir = genInfo.m_tmpDir = path;
 
   /// @todo Probably, it's better to add separate option for .mwm.tmp files.
   if (!FLAGS_intermediate_data_path.empty())
   {
-    string const tmpPath = my::JoinPath(genInfo.m_intermediateDir, "tmp");
+    string const tmpPath = base::JoinPath(genInfo.m_intermediateDir, "tmp");
     if (Platform::MkDir(tmpPath) != Platform::ERR_UNKNOWN)
       genInfo.m_tmpDir = tmpPath;
   }
@@ -313,8 +313,8 @@ int main(int argc, char ** argv)
       return -1;
     }
 
-    auto const locDataFile = my::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
-    auto const outFile = my::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
+    auto const locDataFile = base::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
+    auto const outFile = base::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
     if (FLAGS_generate_geo_objects_index)
     {
       if (!feature::GenerateGeoObjectsData(genInfo.m_tmpDir, FLAGS_nodes_list_path, locDataFile))
@@ -360,7 +360,7 @@ int main(int argc, char ** argv)
   for (size_t i = 0; i < count; ++i)
   {
     string const & country = genInfo.m_bucketNames[i];
-    string const datFile = my::JoinPath(path, country + DATA_FILE_EXTENSION);
+    string const datFile = base::JoinPath(path, country + DATA_FILE_EXTENSION);
     string const osmToFeatureFilename =
         genInfo.GetTargetFileName(country) + OSM2FEATURE_FILE_EXTENSION;
 
@@ -529,7 +529,7 @@ int main(int argc, char ** argv)
     }
   }
 
-  string const datFile = my::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
+  string const datFile = base::JoinPath(path, FLAGS_output + DATA_FILE_EXTENSION);
 
   if (FLAGS_calc_statistics)
   {

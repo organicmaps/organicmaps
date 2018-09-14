@@ -124,10 +124,10 @@ void TestMwmBuilder::Finish()
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
         ("Can't sort features."));
 
-  CHECK(my::DeleteFileX(tmpFilePath), ());
+  CHECK(base::DeleteFileX(tmpFilePath), ());
 
   string const path = m_file.GetPath(MapOptions::Map);
-  (void)my::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
+  (void)base::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
 
   CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
 

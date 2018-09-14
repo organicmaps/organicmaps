@@ -756,7 +756,7 @@ namespace ftype
           {
             params.layer = atoi(v.c_str());
             int8_t const bound = 10;
-            params.layer = my::clamp(params.layer, static_cast<int8_t>(-bound), bound);
+            params.layer = base::clamp(params.layer, static_cast<int8_t>(-bound), bound);
           }
         }
       },

@@ -16,7 +16,7 @@ namespace search
 // need guaranteed O(Log(AlphabetSize) * Length(s)), refactor this
 // class.
 //
-// TODO (@y): unify this with my::MemTrie.
+// TODO (@y): unify this with base::MemTrie.
 template <typename TChar, size_t OutDegree>
 class StringSet
 {

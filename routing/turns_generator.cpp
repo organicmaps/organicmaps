@@ -228,7 +228,7 @@ bool KeepTurnByIngoingEdges(m2::PointD const & junctionPoint,
                             size_t const turnEdgesCount)
 {
   double const turnAngle =
-    my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
+    base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPointOneSegment, outgoingPoint));
   bool const isGoStraightOrSlightTurn = IsGoStraightOrSlightTurn(IntermediateDirection(turnAngle));
 
   // The code below is responsible for cases when there is only one way to leave the junction.
@@ -418,7 +418,7 @@ bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointInde
   ASSERT_GREATER_OR_EQUAL(turnInfo.m_ingoing.m_path.size(), 2, ());
   ASSERT_GREATER_OR_EQUAL(turnInfo.m_outgoing.m_path.size(), 2, ());
 
-  double const oneSegmentTurnAngle = my::RadToDeg(
+  double const oneSegmentTurnAngle = base::RadToDeg(
       PiMinusTwoVectorsAngle(turnInfo.m_ingoing.m_path.back().GetPoint(),
                              turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint(),
                              turnInfo.m_outgoing.m_path[1].GetPoint()));
@@ -838,7 +838,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
       GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxOutgoingPointsCount,
                       kMinOutgoingDistMeters, true /* forward */);
 
-  double const turnAngle = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
+  double const turnAngle = base::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
   CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
 
   turn.m_keepAnyway = (!turnInfo.m_ingoing.m_isLink && turnInfo.m_outgoing.m_isLink);
@@ -1012,7 +1012,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIn
 
       auto angle = ang::TwoVectorsAngle(m2::PointD::Zero(), v1, v2);
 
-      if (!my::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
+      if (!base::AlmostEqualAbs(angle, math::pi, kUTurnHeadingSensitivity))
         return 0;
 
       // Determine turn direction.

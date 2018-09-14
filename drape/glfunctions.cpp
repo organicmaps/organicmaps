@@ -1017,7 +1017,7 @@ std::string GetGLError(GLenum error)
 }
 }  // namespace
 
-void CheckGLError(my::SrcPoint const & srcPoint)
+void CheckGLError(base::SrcPoint const & srcPoint)
 {
   GLenum result = glGetError();
   while (result != GL_NO_ERROR)

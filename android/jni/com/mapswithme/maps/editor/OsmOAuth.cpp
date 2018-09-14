@@ -145,7 +145,7 @@ Java_com_mapswithme_maps_editor_OsmOAuth_nativeUpdateOsmUserStats(JNIEnv * env, 
     JNIEnv * env = jni::GetEnv();
     env->CallStaticVoidMethod(osmAuthClazz, listenerId,
                               env->NewObject(statsClazz, statsCtor, count, rank, jni::ToJavaString(env, levelUp),
-                                             my::TimeTToSecondsSinceEpoch(userStats.GetLastUpdate())));
+                                             base::TimeTToSecondsSinceEpoch(userStats.GetLastUpdate())));
   });
 }
 } // extern "C"

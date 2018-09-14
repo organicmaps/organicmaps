@@ -11,12 +11,15 @@
 
 #include "base/logging.hpp"
 
-#include "std/string.hpp"
-#include "std/fstream.hpp"
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <string>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
 using namespace routing;
+using namespace std;
 using storage::CountryInfo;
 
 double constexpr kMinimumRouteDistanceM = 10000.;

@@ -355,7 +355,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   if (!manager.shareCategoryURL)
     return;
   
-  my::DeleteFileX(manager.shareCategoryURL.path.UTF8String);
+  base::DeleteFileX(manager.shareCategoryURL.path.UTF8String);
   manager.shareCategoryURL = nil;
 }
 

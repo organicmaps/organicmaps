@@ -130,7 +130,7 @@ local_ads::Timestamp GetMaxTimestamp(std::list<local_ads::Event> const & events,
 
 std::string GetPath(std::string const & fileName)
 {
-  return my::JoinFoldersToPath({GetPlatform().WritableDir(), kStatisticsFolderName}, fileName);
+  return base::JoinFoldersToPath({GetPlatform().WritableDir(), kStatisticsFolderName}, fileName);
 }
 
 std::string GetPath(local_ads::Event const & event)
@@ -196,16 +196,16 @@ std::vector<uint8_t> SerializeForServer(std::list<local_ads::Event> const & even
 {
   using namespace std::chrono;
   ASSERT(!events.empty(), ());
-  auto root = my::NewJSONObject();
+  auto root = base::NewJSONObject();
   ToJSONObject(*root, "userId", userId);
   static std::string offlineId = GetPlatform().MacAddress(true /* md5Decoded */);
   ToJSONObject(*root, "offlineId", offlineId);
   ToJSONObject(*root, "countryId", events.front().m_countryId);
   ToJSONObject(*root, "mwmVersion", events.front().m_mwmVersion);
-  auto eventsNode = my::NewJSONArray();
+  auto eventsNode = base::NewJSONArray();
   for (auto const & event : events)
   {
-    auto eventNode = my::NewJSONObject();
+    auto eventNode = base::NewJSONObject();
     auto s = duration_cast<seconds>(event.m_timestamp.time_since_epoch()).count();
     ToJSONObject(*eventNode, "type", static_cast<uint8_t>(event.m_type));
     ToJSONObject(*eventNode, "timestamp", static_cast<int64_t>(s));

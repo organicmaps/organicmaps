@@ -24,7 +24,7 @@ public:
   void Reset() override;
 
 private:
-  my::Timer m_timer;
+  base::Timer m_timer;
   uint32_t m_timeoutSec;
 };
 

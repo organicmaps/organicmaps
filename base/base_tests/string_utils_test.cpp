@@ -3,10 +3,11 @@
 #include "base/string_utils.hpp"
 #include "base/logging.hpp"
 
-#include <functional>
 #include <fstream>
+#include <functional>
 #include <iomanip>
 #include <map>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -39,7 +40,7 @@ UNIT_TEST(LowerUniChar)
     std::getline(file, line);
     // strip comments
     size_t const sharp = line.find('#');
-    if (sharp != string::npos)
+    if (sharp != std::string::npos)
       line.erase(sharp);
     strings::SimpleTokenizer semicolon(line, ";");
     if (!semicolon)

@@ -377,7 +377,7 @@ void FilesContainerW::DeleteSection(Tag const & tag)
   }
 
   // swap files
-  if (!my::DeleteFileX(m_name) || !my::RenameFileX(m_name + ".tmp", m_name))
+  if (!base::DeleteFileX(m_name) || !base::RenameFileX(m_name + ".tmp", m_name))
     MYTHROW(RootException, ("Can't rename file", m_name, "Sharing violation or disk error!"));
 
   // do open to update m_info

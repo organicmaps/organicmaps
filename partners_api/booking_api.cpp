@@ -210,7 +210,7 @@ vector<HotelReview> ParseReviews(json_t const * reviewsArray)
 
 void FillHotelInfo(string const & src, HotelInfo & info)
 {
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
 
   FromJSONObjectOptionalField(root.get(), "description", info.m_description);
   double score;
@@ -267,7 +267,7 @@ BlockInfo MakeBlock(json_t * src, string const & currency)
 
   auto minPriceRoot = json_object_get(src, "min_price");
   if (!json_is_object(minPriceRoot))
-    MYTHROW(my::Json::Exception, ("The min_price must contain a json object."));
+    MYTHROW(base::Json::Exception, ("The min_price must contain a json object."));
 
   FillPriceAndCurrency(minPriceRoot, currency, result);
 
@@ -317,13 +317,13 @@ BlockInfo MakeBlock(json_t * src, string const & currency)
 
 void FillBlocks(string const & src, string const & currency, Blocks & blocks)
 {
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
   if (!json_is_object(root.get()))
-    MYTHROW(my::Json::Exception, ("The answer must contain a json object."));
+    MYTHROW(base::Json::Exception, ("The answer must contain a json object."));
 
   auto rootArray = json_object_get(root.get(), "result");
   if (!json_is_array(rootArray))
-    MYTHROW(my::Json::Exception, ("The \"result\" field must contain a json array."));
+    MYTHROW(base::Json::Exception, ("The \"result\" field must contain a json array."));
 
   size_t const rootSize = json_array_size(rootArray);
   ASSERT_LESS(rootSize, 2, ("Several hotels is not supported in this method"));
@@ -332,11 +332,11 @@ void FillBlocks(string const & src, string const & currency, Blocks & blocks)
 
   auto rootItem = json_array_get(rootArray, 0);
   if (!json_is_object(rootItem))
-    MYTHROW(my::Json::Exception, ("The root item must contain a json object."));
+    MYTHROW(base::Json::Exception, ("The root item must contain a json object."));
 
   auto blocksArray = json_object_get(rootItem, "block");
   if (!json_is_array(blocksArray))
-    MYTHROW(my::Json::Exception, ("The \"block\" field must contain a json array."));
+    MYTHROW(base::Json::Exception, ("The \"block\" field must contain a json array."));
 
   size_t const blocksSize = json_array_size(blocksArray);
   for (size_t i = 0; i < blocksSize; ++i)
@@ -344,7 +344,7 @@ void FillBlocks(string const & src, string const & currency, Blocks & blocks)
     auto block = json_array_get(blocksArray, i);
 
     if (!json_is_object(block))
-      MYTHROW(my::Json::Exception, ("The block item must contain a json object."));
+      MYTHROW(base::Json::Exception, ("The block item must contain a json object."));
 
     blocks.Add(MakeBlock(block, currency));
   }
@@ -352,7 +352,7 @@ void FillBlocks(string const & src, string const & currency, Blocks & blocks)
 
 void FillHotelIds(string const & src, vector<std::string> & ids)
 {
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
   auto const resultsArray = json_object_get(root.get(), "result");
 
   auto const size = json_array_size(resultsArray);
@@ -512,7 +512,7 @@ void Api::GetBlockAvailability(BlockParams && params,
     {
       FillBlocks(httpResult, params.m_currency, blocks);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg()));
       blocks = {};
@@ -540,7 +540,7 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang,
     {
       FillHotelInfo(result, info);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LINFO, ("Failed to parse json:", hotelId, result, e.what()));
       ClearHotelInfo(info);
@@ -567,7 +567,7 @@ void Api::GetHotelAvailability(AvailabilityParams const & params,
     {
       FillHotelIds(httpResult, result);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg()));
       result.clear();

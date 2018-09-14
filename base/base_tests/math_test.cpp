@@ -8,32 +8,32 @@
 
 UNIT_TEST(id)
 {
-    TEST_EQUAL(my::id(true), true, ());
-    TEST_EQUAL(my::id(1), 1.0, ());
-    TEST_EQUAL(my::id(1.0), 1, ());
+    TEST_EQUAL(base::id(true), true, ());
+    TEST_EQUAL(base::id(1), 1.0, ());
+    TEST_EQUAL(base::id(1.0), 1, ());
 }
 
 UNIT_TEST(SizeAligned)
 {
-    TEST_EQUAL(my::SizeAligned(0, 1), size_t(0), ());
-    TEST_EQUAL(my::SizeAligned(1, 1), size_t(1), ());
-    TEST_EQUAL(my::SizeAligned(2, 1), size_t(2), ());
-    TEST_EQUAL(my::SizeAligned(3, 1), size_t(3), ());
+    TEST_EQUAL(base::SizeAligned(0, 1), size_t(0), ());
+    TEST_EQUAL(base::SizeAligned(1, 1), size_t(1), ());
+    TEST_EQUAL(base::SizeAligned(2, 1), size_t(2), ());
+    TEST_EQUAL(base::SizeAligned(3, 1), size_t(3), ());
 
-    TEST_EQUAL(my::SizeAligned(0, 8), size_t(0), ());
-    TEST_EQUAL(my::SizeAligned(1, 8), size_t(8), ());
-    TEST_EQUAL(my::SizeAligned(2, 8), size_t(8), ());
-    TEST_EQUAL(my::SizeAligned(7, 8), size_t(8), ());
-    TEST_EQUAL(my::SizeAligned(8, 8), size_t(8), ());
-    TEST_EQUAL(my::SizeAligned(9, 8), size_t(16), ());
-    TEST_EQUAL(my::SizeAligned(15, 8), size_t(16), ());
-    TEST_EQUAL(my::SizeAligned(16, 8), size_t(16), ());
-    TEST_EQUAL(my::SizeAligned(17, 8), size_t(24), ());
+    TEST_EQUAL(base::SizeAligned(0, 8), size_t(0), ());
+    TEST_EQUAL(base::SizeAligned(1, 8), size_t(8), ());
+    TEST_EQUAL(base::SizeAligned(2, 8), size_t(8), ());
+    TEST_EQUAL(base::SizeAligned(7, 8), size_t(8), ());
+    TEST_EQUAL(base::SizeAligned(8, 8), size_t(8), ());
+    TEST_EQUAL(base::SizeAligned(9, 8), size_t(16), ());
+    TEST_EQUAL(base::SizeAligned(15, 8), size_t(16), ());
+    TEST_EQUAL(base::SizeAligned(16, 8), size_t(16), ());
+    TEST_EQUAL(base::SizeAligned(17, 8), size_t(24), ());
 }
 
 UNIT_TEST(PowUInt)
 {
-  TEST_EQUAL(my::PowUint(3, 10), 59049, ());
+  TEST_EQUAL(base::PowUint(3, 10), 59049, ());
 }
 
 UNIT_TEST(AlmostEqualULPs_Smoke)
@@ -54,10 +54,10 @@ UNIT_TEST(AlmostEqualULPs_Smoke)
   TEST_ALMOST_EQUAL_ULPS(1.0/dmax, 1.0/dmax, ());
   TEST_ALMOST_EQUAL_ULPS(-1.0/dmax, -1.0/dmax, ());
 
-  TEST(!my::AlmostEqualULPs(1.0, -1.0), ());
-  TEST(!my::AlmostEqualULPs(2.0, -2.0), ());
-  TEST(!my::AlmostEqualULPs(dmax, -dmax), ());
-  TEST(!my::AlmostEqualULPs(0.0, eps), ());
+  TEST(!base::AlmostEqualULPs(1.0, -1.0), ());
+  TEST(!base::AlmostEqualULPs(2.0, -2.0), ());
+  TEST(!base::AlmostEqualULPs(dmax, -dmax), ());
+  TEST(!base::AlmostEqualULPs(0.0, eps), ());
 }
 
 UNIT_TEST(AlmostEqual_Smoke)
@@ -65,15 +65,15 @@ UNIT_TEST(AlmostEqual_Smoke)
   double const small = 1e-18;
   double const eps = 1e-10;
 
-  TEST(my::AlmostEqualAbs(0.0, 0.0 + small, eps), ());
-  TEST(!my::AlmostEqualRel(0.0, 0.0 + small, eps), ());
-  TEST(!my::AlmostEqualULPs(0.0, 0.0 + small), ());
+  TEST(base::AlmostEqualAbs(0.0, 0.0 + small, eps), ());
+  TEST(!base::AlmostEqualRel(0.0, 0.0 + small, eps), ());
+  TEST(!base::AlmostEqualULPs(0.0, 0.0 + small), ());
 
-  TEST(my::AlmostEqualAbs(1.0, 1.0 + small, eps), ());
-  TEST(my::AlmostEqualRel(1.0, 1.0 + small, eps), ());
-  TEST(my::AlmostEqualULPs(1.0, 1.0 + small), ());
+  TEST(base::AlmostEqualAbs(1.0, 1.0 + small, eps), ());
+  TEST(base::AlmostEqualRel(1.0, 1.0 + small, eps), ());
+  TEST(base::AlmostEqualULPs(1.0, 1.0 + small), ());
 
-  TEST(my::AlmostEqualRel(123456789.0, 123456780.0, 1e-7), ());
+  TEST(base::AlmostEqualRel(123456789.0, 123456780.0, 1e-7), ());
 }
 
 namespace
@@ -98,12 +98,12 @@ template <typename FloatT> void TestMaxULPs()
         FloatT y = x;
         for (unsigned int i = 0; i <= maxULPs; ++i)
         {
-          TEST(my::AlmostEqualULPs(x, y, maxULPs), (x, y, maxULPs, x - y, dir));
+          TEST(base::AlmostEqualULPs(x, y, maxULPs), (x, y, maxULPs, x - y, dir));
           FloatT const nextY = NextFloat(y, dir);
           TEST_NOT_EQUAL(y, nextY, (i, base, dir));
           y = nextY;
         }
-        TEST(!my::AlmostEqualULPs(x, y, maxULPs), (x, y, maxULPs, x - y));
+        TEST(!base::AlmostEqualULPs(x, y, maxULPs), (x, y, maxULPs, x - y));
       }
     }
   }
@@ -136,43 +136,43 @@ UNIT_TEST(TEST_FLOAT_DOUBLE_EQUAL_macros)
 
 UNIT_TEST(IsIntersect_Intervals)
 {
-  TEST(my::IsIntersect(0, 100, 100, 200), ());
-  TEST(!my::IsIntersect(0, 100, 150, 200), ());
-  TEST(my::IsIntersect(0, 100, 50, 150), ());
-  TEST(my::IsIntersect(0, 100, 50, 80), ());
-  TEST(my::IsIntersect(0, 100, -50, 50), ());
-  TEST(my::IsIntersect(0, 100, -50, 0), ());
-  TEST(!my::IsIntersect(0, 100, -50, -20), ());
+  TEST(base::IsIntersect(0, 100, 100, 200), ());
+  TEST(!base::IsIntersect(0, 100, 150, 200), ());
+  TEST(base::IsIntersect(0, 100, 50, 150), ());
+  TEST(base::IsIntersect(0, 100, 50, 80), ());
+  TEST(base::IsIntersect(0, 100, -50, 50), ());
+  TEST(base::IsIntersect(0, 100, -50, 0), ());
+  TEST(!base::IsIntersect(0, 100, -50, -20), ());
 }
 
 UNIT_TEST(GCD_Test)
 {
-  TEST_EQUAL(my::GCD(6, 3), 3, ());
-  TEST_EQUAL(my::GCD(14, 7), 7, ());
-  TEST_EQUAL(my::GCD(100, 100), 100, ());
-  TEST_EQUAL(my::GCD(7, 3), 1, ());
-  TEST_EQUAL(my::GCD(8, 3), 1, ());
-  TEST_EQUAL(my::GCD(9, 3), 3, ());
+  TEST_EQUAL(base::GCD(6, 3), 3, ());
+  TEST_EQUAL(base::GCD(14, 7), 7, ());
+  TEST_EQUAL(base::GCD(100, 100), 100, ());
+  TEST_EQUAL(base::GCD(7, 3), 1, ());
+  TEST_EQUAL(base::GCD(8, 3), 1, ());
+  TEST_EQUAL(base::GCD(9, 3), 3, ());
 }
 
 UNIT_TEST(LCM_Test)
 {
-  TEST_EQUAL(my::LCM(6, 3), 6, ());
-  TEST_EQUAL(my::LCM(14, 7), 14, ());
-  TEST_EQUAL(my::LCM(100, 100), 100, ());
-  TEST_EQUAL(my::LCM(7, 3), 21, ());
-  TEST_EQUAL(my::LCM(8, 3), 24, ());
-  TEST_EQUAL(my::LCM(9, 3), 9, ());
+  TEST_EQUAL(base::LCM(6, 3), 6, ());
+  TEST_EQUAL(base::LCM(14, 7), 14, ());
+  TEST_EQUAL(base::LCM(100, 100), 100, ());
+  TEST_EQUAL(base::LCM(7, 3), 21, ());
+  TEST_EQUAL(base::LCM(8, 3), 24, ());
+  TEST_EQUAL(base::LCM(9, 3), 9, ());
 }
 
 UNIT_TEST(Sign_test)
 {
-  TEST_EQUAL(1, my::Sign(1), ());
-  TEST_EQUAL(1, my::Sign(10.4), ());
+  TEST_EQUAL(1, base::Sign(1), ());
+  TEST_EQUAL(1, base::Sign(10.4), ());
 
-  TEST_EQUAL(0, my::Sign(0), ());
-  TEST_EQUAL(0, my::Sign(0.0), ());
+  TEST_EQUAL(0, base::Sign(0), ());
+  TEST_EQUAL(0, base::Sign(0.0), ());
 
-  TEST_EQUAL(-1, my::Sign(-11), ());
-  TEST_EQUAL(-1, my::Sign(-10.4), ());
+  TEST_EQUAL(-1, base::Sign(-11), ());
+  TEST_EQUAL(-1, base::Sign(-10.4), ());
 }

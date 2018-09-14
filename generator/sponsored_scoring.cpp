@@ -88,7 +88,7 @@ namespace impl
 double GetLinearNormDistanceScore(double distance, double const maxDistance)
 {
   CHECK_NOT_EQUAL(maxDistance, 0.0, ("maxDistance cannot be 0."));
-  distance = my::clamp(distance, 0.0, maxDistance);
+  distance = base::clamp(distance, 0.0, maxDistance);
   return 1.0 - distance / maxDistance;
 }
 

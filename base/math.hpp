@@ -1,4 +1,5 @@
 #pragma once
+
 #include "base/assert.hpp"
 
 #include <algorithm>
@@ -18,7 +19,7 @@ namespace math
   double constexpr twicePi = 2. * pi;
 }  // namespace math
 
-namespace my
+namespace base
 {
 template <typename T> inline T Abs(T x)
 {
@@ -208,4 +209,4 @@ int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
 }
-}  // namespace my
+}  // namespace base

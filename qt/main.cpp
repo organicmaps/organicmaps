@@ -26,7 +26,7 @@
 #include <QtWidgets/QFileDialog>
 
 DEFINE_string(data_path, "", "Path to data directory");
-DEFINE_string(log_abort_level, my::ToString(my::GetDefaultLogAbortLevel()),
+DEFINE_string(log_abort_level, base::ToString(base::GetDefaultLogAbortLevel()),
               "Log messages severity that causes termination.");
 DEFINE_string(resources_path, "", "Path to resources directory");
 
@@ -34,11 +34,11 @@ namespace
 {
 bool ValidateLogAbortLevel(char const * flagname, string const & value)
 {
-  my::LogLevel level;
-  if (!my::FromString(value, level))
+  base::LogLevel level;
+  if (!base::FromString(value, level))
   {
     ostringstream os;
-    auto const & names = my::GetLogLevelNames();
+    auto const & names = base::GetLogLevelNames();
     for (size_t i = 0; i < names.size(); ++i)
     {
       if (i != 0)
@@ -71,7 +71,7 @@ public:
   class InitializeFinalize : public FinalizeBase
   {
     FILE * m_errFile;
-    my::ScopedLogLevelChanger const m_debugLog;
+    base::ScopedLogLevelChanger const m_debugLog;
   public:
     InitializeFinalize() : m_debugLog(LDEBUG)
     {
@@ -102,9 +102,9 @@ int main(int argc, char * argv[])
   if (!FLAGS_data_path.empty())
     platform.SetWritableDirForTests(FLAGS_data_path);
 
-  my::LogLevel level;
-  CHECK(my::FromString(FLAGS_log_abort_level, level), ());
-  my::g_LogAbortLevel = level;
+  base::LogLevel level;
+  CHECK(base::FromString(FLAGS_log_abort_level, level), ());
+  base::g_LogAbortLevel = level;
 
   Q_INIT_RESOURCE(resources_common);
 

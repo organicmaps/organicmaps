@@ -743,7 +743,7 @@ void EditorTest::GetStatsTest()
 
   TEST(stats.m_edits.empty(), ());
   TEST_EQUAL(stats.m_uploadedCount, 0, ());
-  TEST_EQUAL(stats.m_lastUploadTimestamp, my::INVALID_TIME_STAMP, ());
+  TEST_EQUAL(stats.m_lastUploadTimestamp, base::INVALID_TIME_STAMP, ());
 
   ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [](FeatureType & ft)
   {
@@ -769,7 +769,7 @@ void EditorTest::GetStatsTest()
   stats = editor.GetStats();
   TEST_EQUAL(stats.m_edits.size(), 3, ());
   TEST_EQUAL(stats.m_uploadedCount, 0, ());
-  TEST_EQUAL(stats.m_lastUploadTimestamp, my::INVALID_TIME_STAMP, ());
+  TEST_EQUAL(stats.m_lastUploadTimestamp, base::INVALID_TIME_STAMP, ());
 
   osm::EditableMapObject emo;
   CreateCafeAtPoint({6.0, 6.0}, mwmId, emo);
@@ -781,7 +781,7 @@ void EditorTest::GetStatsTest()
   stats = editor.GetStats();
   TEST_EQUAL(stats.m_edits.size(), 1, ());
   TEST_EQUAL(stats.m_uploadedCount, 1, ());
-  TEST_NOT_EQUAL(stats.m_lastUploadTimestamp, my::INVALID_TIME_STAMP, ());
+  TEST_NOT_EQUAL(stats.m_lastUploadTimestamp, base::INVALID_TIME_STAMP, ());
 }
 
 void EditorTest::IsCreatedFeatureTest()

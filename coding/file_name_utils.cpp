@@ -1,9 +1,10 @@
-#include "file_name_utils.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "std/target_os.hpp"
 
+using namespace std;
 
-namespace my
+namespace base
 {
 void GetNameWithoutExt(string & name)
 {
@@ -63,7 +64,7 @@ string GetNativeSeparator()
 
 string JoinFoldersToPath(const string & folder, const string & file)
 {
-  return my::AddSlashIfNeeded(folder) + file;
+  return base::AddSlashIfNeeded(folder) + file;
 }
 
 string JoinFoldersToPath(initializer_list<string> const & folders, const string & file)
@@ -84,5 +85,4 @@ string AddSlashIfNeeded(string const & path)
     return path;
   return path + sep;
 }
-
-}  // namespace my
+}  // namespace base

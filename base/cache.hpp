@@ -8,8 +8,7 @@
 #include <type_traits>
 #include <utility>
 
-
-namespace my
+namespace base
 {
   // Simple cache that stores list of values.
   template <typename KeyT, typename ValueT> class Cache
@@ -167,4 +166,4 @@ namespace my
     uint64_t m_miss;
     uint64_t m_access;
   };
-}
+}  // namespace base

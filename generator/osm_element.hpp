@@ -120,8 +120,8 @@ struct OsmElement
   {
     return type == e.type
             && id == e.id
-            && my::AlmostEqualAbs(lon, e.lon, 1e-7)
-            && my::AlmostEqualAbs(lat, e.lat, 1e-7)
+            && base::AlmostEqualAbs(lon, e.lon, 1e-7)
+            && base::AlmostEqualAbs(lat, e.lat, 1e-7)
             && ref == e.ref
             && k == e.k
             && v == e.v

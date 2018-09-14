@@ -140,7 +140,7 @@ bool NormalizeChartData(vector<double> const & distanceDataM,
     ASSERT_LESS(0, nextPointIdx, ("distFormStartM is greater than 0 but nextPointIdx == 0."));
     size_t const prevPointIdx = nextPointIdx - 1;
 
-    if (my::AlmostEqualAbs(distanceDataM[prevPointIdx], distanceDataM[nextPointIdx], kEpsilon))
+    if (base::AlmostEqualAbs(distanceDataM[prevPointIdx], distanceDataM[nextPointIdx], kEpsilon))
       return static_cast<double>(altitudeDataM[prevPointIdx]);
 
     double const k = (altitudeDataM[nextPointIdx] - altitudeDataM[prevPointIdx]) /

@@ -48,7 +48,7 @@ inline Junction MakeJunctionForTesting(m2::PointD const & point)
 
 inline bool AlmostEqualAbs(Junction const & lhs, Junction const & rhs)
 {
-  return my::AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), kPointsEqualEpsilon);
+  return base::AlmostEqualAbs(lhs.GetPoint(), rhs.GetPoint(), kPointsEqualEpsilon);
 }
 
 /// The Edge class represents an edge description on a road network graph
@@ -203,7 +203,7 @@ public:
     {
       for (size_t i = 0; i < roadInfo.m_junctions.size(); ++i)
       {
-        if (!my::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
+        if (!base::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
                                 kPointsEqualEpsilon))
         {
           continue;

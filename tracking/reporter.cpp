@@ -63,7 +63,7 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup t
 
   if (Platform::GetChargingStatus() != Platform::ChargingStatus::Plugged)
   {
-    double const currentTime = my::Timer::LocalTime();
+    double const currentTime = base::Timer::LocalTime();
     if (currentTime < m_lastNotChargingEvent + kNotChargingEventPeriod)
       return;
 
@@ -135,7 +135,7 @@ bool Reporter::SendPoints()
   if (m_wasConnected)
     return true;
 
-  double const currentTime = my::Timer::LocalTime();
+  double const currentTime = base::Timer::LocalTime();
   if (currentTime < m_lastConnectionAttempt + kReconnectDelaySeconds)
     return false;
 

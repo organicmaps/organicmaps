@@ -276,7 +276,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
 
 string DebugPrint(search::Results const & results)
 {
-  return ::my::impl::DebugPrintSequence(results.begin(), results.end());
+  return DebugPrintSequence(results.begin(), results.end());
 }
 
 // AddressInfo -------------------------------------------------------------------------------------

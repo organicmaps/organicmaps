@@ -57,24 +57,24 @@ std::string const kBookmarkCloudSettingsParam = "BookmarkCloudParam";
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
 {
-  return strings::MakeLowerCase(my::GetFileExtension(filePath));
+  return strings::MakeLowerCase(base::GetFileExtension(filePath));
 }
 
 std::string GetFileName(std::string const & filePath)
 {
   std::string ret = filePath;
-  my::GetNameFromFullPath(ret);
+  base::GetNameFromFullPath(ret);
   return ret;
 }
 
 std::string GetBookmarksDirectory()
 {
-  return my::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
+  return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
 std::string GetPrivateBookmarksDirectory()
 {
-  return my::JoinPath(GetPlatform().PrivateDir(), "bookmarks_private");
+  return base::JoinPath(GetPlatform().PrivateDir(), "bookmarks_private");
 }
 
 bool IsBadCharForPath(strings::UniChar const & c)
@@ -139,8 +139,8 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   auto const categoryName = kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name);
   std::string fileName = BookmarkManager::RemoveInvalidSymbols(categoryName, "");
   if (fileName.empty())
-    fileName = my::GetNameFromFullPathWithoutExt(kmlToShare.first);
-  auto const filePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
+    fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
+  auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
@@ -151,7 +151,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
                                           "Bookmarks file does not exist.");
   }
 
-  auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
+  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
   {
     return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::ArchiveError,
@@ -164,8 +164,8 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
 Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
                                                std::string const & convertedFilePath)
 {
-  std::string const fileName = my::GetNameFromFullPathWithoutExt(filePath);
-  auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
+  std::string const fileName = base::GetNameFromFullPathWithoutExt(filePath);
+  auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, tmpFilePath));
 
   auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
@@ -203,7 +203,7 @@ std::string const kSettingsParam = "BookmarksMigrationCompleted";
 
 std::string GetBackupFolderName()
 {
-  return my::JoinPath(GetPlatform().SettingsDir(), "bookmarks_backup");
+  return base::JoinPath(GetPlatform().SettingsDir(), "bookmarks_backup");
 }
 
 std::string CheckAndCreateBackupFolder()
@@ -215,7 +215,7 @@ std::string CheckAndCreateBackupFolder()
   std::ostringstream ss;
   ss << std::setfill('0') << std::setw(4) << t->tm_year + 1900
      << std::setw(2) << t->tm_mon + 1 << std::setw(2) << t->tm_mday;
-  auto const backupFolder = my::JoinPath(commonBackupFolder, ss.str());
+  auto const backupFolder = base::JoinPath(commonBackupFolder, ss.str());
 
   // In the case if the folder exists, try to resume.
   if (GetPlatform().IsFileExistsByFullPath(backupFolder))
@@ -236,8 +236,8 @@ bool BackupBookmarks(std::string const & backupDir,
 {
   for (auto const & f : files)
   {
-    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
-    auto const kmzPath = my::JoinPath(backupDir, fileName + kKmzExtension);
+    std::string fileName = base::GetNameFromFullPathWithoutExt(f);
+    auto const kmzPath = base::JoinPath(backupDir, fileName + kKmzExtension);
     if (GetPlatform().IsFileExistsByFullPath(kmzPath))
       continue;
 
@@ -252,7 +252,7 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
 {
   convertedCount = 0;
 
-  auto const conversionFolder = my::JoinPath(GetBackupFolderName(),
+  auto const conversionFolder = base::JoinPath(GetBackupFolderName(),
                                              "conversion");
   if (!GetPlatform().IsFileExistsByFullPath(conversionFolder) &&
       !GetPlatform().MkDirChecked(conversionFolder))
@@ -265,8 +265,8 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
   convertedFiles.reserve(files.size());
   for (auto const & f : files)
   {
-    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
-    auto const kmbPath = my::JoinPath(conversionFolder, fileName + kKmbExtension);
+    std::string fileName = base::GetNameFromFullPathWithoutExt(f);
+    auto const kmbPath = base::JoinPath(conversionFolder, fileName + kKmbExtension);
     if (!GetPlatform().IsFileExistsByFullPath(kmbPath))
     {
       auto kmlData = LoadKmlFile(f, KmlFileType::Text);
@@ -275,7 +275,7 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
 
       if (!SaveKmlFile(*kmlData, kmbPath, KmlFileType::Binary))
       {
-        my::DeleteFileX(kmbPath);
+        base::DeleteFileX(kmbPath);
         continue;
       }
     }
@@ -293,16 +293,16 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
   // Move converted bookmark-files with respect of existing files.
   for (auto const & f : convertedFiles)
   {
-    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
-    auto kmbPath = my::JoinPath(newBookmarksDir, fileName + kKmbExtension);
+    std::string fileName = base::GetNameFromFullPathWithoutExt(f);
+    auto kmbPath = base::JoinPath(newBookmarksDir, fileName + kKmbExtension);
     size_t counter = 1;
     while (Platform::IsFileExistsByFullPath(kmbPath))
     {
-      kmbPath = my::JoinPath(newBookmarksDir,
+      kmbPath = base::JoinPath(newBookmarksDir,
         fileName + strings::to_string(counter++) + kKmbExtension);
     }
 
-    if (!my::RenameFileX(f, kmbPath))
+    if (!base::RenameFileX(f, kmbPath))
       return false;
   }
   GetPlatform().RmDirRecursively(conversionFolder);
@@ -357,7 +357,7 @@ bool MigrateIfNeeded()
   }
 
   for (auto & f : files)
-    f = my::JoinFoldersToPath(dir, f);
+    f = base::JoinFoldersToPath(dir, f);
 
   std::string failedStage;
   auto const backupDir = CheckAndCreateBackupFolder();
@@ -375,7 +375,7 @@ bool MigrateIfNeeded()
   }
 
   for (auto const & f : files)
-    my::DeleteFileX(f);
+    base::DeleteFileX(f);
   OnMigrationSuccess(files.size(), convertedCount);
   return true;
 }
@@ -963,7 +963,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
   cloudFilePaths.reserve(files.size());
   for (auto const & file : files)
   {
-    auto const filePath = my::JoinPath(dir, file);
+    auto const filePath = base::JoinPath(dir, file);
     auto kmlData = LoadKmlFile(filePath, fileType);
     if (kmlData == nullptr)
       continue;
@@ -1067,14 +1067,14 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
         if (migrated)
         {
-          std::string fileName = my::GetNameFromFullPathWithoutExt(fileSavePath);
+          std::string fileName = base::GetNameFromFullPathWithoutExt(fileSavePath);
 
-          my::DeleteFileX(fileSavePath);
+          base::DeleteFileX(fileSavePath);
           fileSavePath = GenerateValidAndUniqueFilePathForKMB(fileName);
 
           if (!SaveKmlFile(*kmlData, fileSavePath, KmlFileType::Binary))
           {
-            my::DeleteFileX(fileSavePath);
+            base::DeleteFileX(fileSavePath);
             fileSavePath.clear();
           }
         }
@@ -1173,7 +1173,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
   if (fileExt == kKmlExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
-    if (!my::CopyFileX(filePath, fileSavePath))
+    if (!base::CopyFileX(filePath, fileSavePath))
       return {};
   }
   else if (fileExt == kKmzExtension)
@@ -1665,7 +1665,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
       {
         return nullptr;
       }
-      auto const fn = my::JoinPath(privateFileDir, group->GetServerId() + kKmbExtension);
+      auto const fn = base::JoinPath(privateFileDir, group->GetServerId() + kKmbExtension);
       group->SetFileName(fn);
       collection->emplace_back(fn, CollectBmGroupKMLData(group));
       continue;
@@ -1688,17 +1688,17 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
 
 bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file)
 {
-  auto const ext = my::GetFileExtension(file);
+  auto const ext = base::GetFileExtension(file);
   auto const fileTmp = file + ".tmp";
   if (SaveKmlFile(kmlData, fileTmp, ext == kKmbExtension ?
                                     KmlFileType::Binary : KmlFileType::Text))
   {
     // Only after successful save we replace original file.
-    my::DeleteFileX(file);
-    VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
+    base::DeleteFileX(file);
+    VERIFY(base::RenameFileX(fileTmp, file), (fileTmp, file));
     return true;
   }
-  my::DeleteFileX(fileTmp);
+  base::DeleteFileX(fileTmp);
   return false;
 }
 
@@ -1905,7 +1905,7 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
     Platform::FilesList files;
     Platform::GetFilesByExt(oldDir, kKmlExtension, files);
     for (auto & f : files)
-      f = my::JoinPath(oldDir, f);
+      f = base::JoinPath(oldDir, f);
 
     auto const newDir = GetBookmarksDirectory();
     if (!GetPlatform().IsFileExistsByFullPath(newDir) && !GetPlatform().MkDirChecked(newDir))
@@ -1930,11 +1930,11 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
       if (FromCatalog(*kmlData) && !::IsMyCategory(userId, kmlData->m_categoryData))
         continue;
 
-      std::string fileName = my::GetNameFromFullPathWithoutExt(f);
-      auto kmbPath = my::JoinPath(newDir, fileName + kKmbExtension);
+      std::string fileName = base::GetNameFromFullPathWithoutExt(f);
+      auto kmbPath = base::JoinPath(newDir, fileName + kKmbExtension);
       size_t counter = 1;
       while (Platform::IsFileExistsByFullPath(kmbPath))
-        kmbPath = my::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
+        kmbPath = base::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
 
       if (!SaveKmlFile(*kmlData, kmbPath, KmlFileType::Binary))
       {
@@ -1943,7 +1943,7 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
       }
 
       fileData->emplace_back(kmbPath, std::move(kmlData));
-      my::DeleteFileX(f);
+      base::DeleteFileX(f);
     }
 
     if (!fileData->empty())
@@ -2128,7 +2128,7 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
     if (kmlData && FromCatalog(*kmlData) && kmlData->m_serverId == id)
     {
       bool const isMyCategory = ::IsMyCategory(userId, kmlData->m_categoryData);
-      auto const p = my::JoinPath(isMyCategory ? GetBookmarksDirectory() : GetPrivateBookmarksDirectory(),
+      auto const p = base::JoinPath(isMyCategory ? GetBookmarksDirectory() : GetPrivateBookmarksDirectory(),
                                   id, kKmbExtension);
       auto collection = std::make_shared<KMLDataCollection>();
       collection->emplace_back(p, std::move(kmlData));
@@ -2371,9 +2371,9 @@ std::string BookmarkManager::GenerateUniqueFileName(const std::string & path, st
 
   size_t counter = 1;
   std::string suffix;
-  while (Platform::IsFileExistsByFullPath(my::JoinPath(path, name + suffix + kmlExt)))
+  while (Platform::IsFileExistsByFullPath(base::JoinPath(path, name + suffix + kmlExt)))
     suffix = strings::to_string(counter++);
-  return my::JoinPath(path, name + suffix + kmlExt);
+  return base::JoinPath(path, name + suffix + kmlExt);
 }
 
 // static

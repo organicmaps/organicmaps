@@ -1,8 +1,8 @@
-#include "deferred_task.hpp"
+#include "base/deferred_task.hpp"
 
-namespace my
+namespace base
 {
-DeferredTask::DeferredTask(TDuration const & duration) : m_duration(duration)
+DeferredTask::DeferredTask(Duration const & duration) : m_duration(duration)
 {
   m_thread = threads::SimpleThread([this]
   {
@@ -46,4 +46,4 @@ void DeferredTask::Drop()
   }
   m_cv.notify_one();
 }
-}  // namespace my
+}  // namespace base

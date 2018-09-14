@@ -856,8 +856,8 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
   // Check if the cache is obsolete and need to be cleared.
   if (!m_id2st.empty())
   {
-    typedef pair<FeatureID, Street *> ValueT;
-    function<ValueT::first_type const &(ValueT const &)> f = bind(&ValueT::first, _1);
+    using Value = pair<FeatureID, Street *>;
+    function<Value::first_type const &(Value const &)> f = bind(&Value::first, _1);
 
     // Do clear cache if we have elements that are present in the one set,
     // but not in the other one (set's order is irrelevant).
@@ -1050,8 +1050,8 @@ void MergedStreet::FinishReadingHouses()
 
 HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) const
 {
-  typedef my::limited_priority_queue<HouseProjection const *, HouseProjection::LessDistance> QueueT;
-  QueueT q(HN_COUNT_FOR_ODD_TEST);
+  using Queue = base::limited_priority_queue<HouseProjection const *, HouseProjection::LessDistance>;
+  Queue q(HN_COUNT_FOR_ODD_TEST);
 
   // Get some most closest houses.
   for (MergedStreet::Index i = Begin(); !IsEnd(i); Inc(i))
@@ -1060,7 +1060,7 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
   // Calculate all probabilities.
   // even-left, odd-left, even-right, odd-right
   double counter[4] = {0, 0, 0, 0};
-  for (QueueT::const_iterator i = q.begin(); i != q.end(); ++i)
+  for (Queue::const_iterator i = q.begin(); i != q.end(); ++i)
   {
     size_t ind = (*i)->m_house->GetIntNumber() % 2;
     if ((*i)->m_projSign)

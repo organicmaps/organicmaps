@@ -459,7 +459,7 @@ void TestTopologyGraph(TestIndexGraphTopology const & graph, TestIndexGraphTopol
   if (!pathFound)
     return;
 
-  TEST(my::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
+  TEST(base::AlmostEqualAbs(pathWeight, expectedWeight, kEpsilon),
        (pathWeight, expectedWeight, pathEdges));
   TEST_EQUAL(pathEdges, expectedEdges, ());
 }

@@ -58,7 +58,7 @@ void CreateTMZip(tm_zip & res)
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
   // 2. Open zip file for writing.
-  MY_SCOPE_GUARD(outFileGuard, bind(&my::DeleteFileX, cref(zipFilePath)));
+  MY_SCOPE_GUARD(outFileGuard, bind(&base::DeleteFileX, cref(zipFilePath)));
   ZipHandle zip(zipFilePath);
   if (!zip.Handle())
     return false;
@@ -67,7 +67,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   CreateTMZip(zipInfo.tmz_date);
 
   string fileName = filePath;
-  my::GetNameFromFullPath(fileName);
+  base::GetNameFromFullPath(fileName);
   if (!strings::IsASCIIString(fileName))
     fileName = "MapsMe.kml";
 
@@ -80,7 +80,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   // Write source file into zip file.
   try
   {
-    my::FileData file(filePath, my::FileData::OP_READ);
+    base::FileData file(filePath, base::FileData::OP_READ);
     uint64_t const fileSize = file.Size();
 
     uint64_t currSize = 0;

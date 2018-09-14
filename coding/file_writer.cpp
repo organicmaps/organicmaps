@@ -11,7 +11,7 @@ FileWriter::FileWriter(FileWriter && rhs)
 }
 
 FileWriter::FileWriter(string const & fileName, FileWriter::Op op, bool bTruncOnClose)
-  : m_pFileData(make_unique<my::FileData>(fileName, static_cast<my::FileData::Op>(op)))
+  : m_pFileData(make_unique<base::FileData>(fileName, static_cast<base::FileData::Op>(op)))
   , m_bTruncOnClose(bTruncOnClose)
 {
 }
@@ -73,7 +73,7 @@ void FileWriter::Reserve(uint64_t size)
 
 void FileWriter::DeleteFileX(string const & fName)
 {
-  (void)my::DeleteFileX(fName);
+  UNUSED_VALUE(base::DeleteFileX(fName));
 }
 
 void FileWriter::WritePadding(uint64_t offset, uint64_t factor)

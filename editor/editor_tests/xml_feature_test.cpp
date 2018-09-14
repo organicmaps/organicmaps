@@ -51,7 +51,7 @@ UNIT_TEST(XMLFeature_Setters)
   XMLFeature feature(XMLFeature::Type::Node);
 
   feature.SetCenter(MercatorBounds::FromLatLon(55.7978998, 37.4745280));
-  feature.SetModificationTime(my::StringToTimestamp("2015-11-27T21:13:32Z"));
+  feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
 
   feature.SetName("Gorki Park");
   feature.SetName("en", "Gorki Park");
@@ -85,7 +85,7 @@ UNIT_TEST(XMLFeature_UintLang)
   XMLFeature feature(XMLFeature::Type::Node);
 
   feature.SetCenter(MercatorBounds::FromLatLon(55.79, 37.47));
-  feature.SetModificationTime(my::StringToTimestamp("2015-11-27T21:13:32Z"));
+  feature.SetModificationTime(base::StringToTimestamp("2015-11-27T21:13:32Z"));
 
   feature.SetName(StringUtf8Multilang::kDefaultCode, "Gorki Park");
   feature.SetName(StringUtf8Multilang::GetLangIndex("ru"), "Парк Горького");
@@ -194,7 +194,7 @@ UNIT_TEST(XMLFeature_FromXml)
 
   TEST_EQUAL(feature.GetTagValue("opening_hours"), "Mo-Fr 08:15-17:30", ());
   TEST_EQUAL(feature.GetTagValue("amenity"), "atm", ());
-  TEST_EQUAL(my::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
+  TEST_EQUAL(base::TimestampToString(feature.GetModificationTime()), "2015-11-27T21:13:32Z", ());
 }
 
 UNIT_TEST(XMLFeature_ForEachName)

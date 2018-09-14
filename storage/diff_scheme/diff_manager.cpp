@@ -62,7 +62,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
     diffFile->SyncWithDisk();
 
     auto const isOnDisk = diffFile->OnDisk(MapOptions::Diff);
-    auto const isFilePrepared = isOnDisk || my::RenameFileX(diffReadyPath, diffPath);
+    auto const isFilePrepared = isOnDisk || base::RenameFileX(diffReadyPath, diffPath);
 
     if (isFilePrepared)
     {
@@ -74,7 +74,7 @@ void Manager::ApplyDiff(ApplyDiffParams && p, std::function<void(bool const resu
       string const newMwmPath = diffFile->GetPath(MapOptions::Map);
       string const diffApplyingInProgressPath = newMwmPath + DIFF_APPLYING_FILE_EXTENSION;
       result = generator::mwm_diff::ApplyDiff(oldMwmPath, diffApplyingInProgressPath, diffPath) &&
-              my::RenameFileX(diffApplyingInProgressPath, newMwmPath);
+              base::RenameFileX(diffApplyingInProgressPath, newMwmPath);
     }
 
     diffFile->DeleteFromDisk(MapOptions::Diff);

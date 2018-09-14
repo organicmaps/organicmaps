@@ -41,7 +41,7 @@ UNIT_TEST(WritableDir)
 
   try
   {
-    my::FileData f(path, my::FileData::OP_WRITE_TRUNCATE);
+    base::FileData f(path, base::FileData::OP_WRITE_TRUNCATE);
   }
   catch (Writer::OpenException const &)
   {
@@ -49,7 +49,7 @@ UNIT_TEST(WritableDir)
     return;
   }
 
-  my::DeleteFileX(path);
+  base::DeleteFileX(path);
 }
 
 UNIT_TEST(WritablePathForFile)
@@ -109,8 +109,8 @@ UNIT_TEST(GetFilesInDir_Smoke)
 UNIT_TEST(DirsRoutines)
 {
   string const baseDir = GetPlatform().WritableDir();
-  string const testDir = my::JoinFoldersToPath(baseDir, "test-dir");
-  string const testFile = my::JoinFoldersToPath(testDir, "test-file");
+  string const testDir = base::JoinFoldersToPath(baseDir, "test-dir");
+  string const testFile = base::JoinFoldersToPath(testDir, "test-file");
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
@@ -136,11 +136,11 @@ UNIT_TEST(GetFilesByType)
 
   string const baseDir = GetPlatform().WritableDir();
 
-  string const testDir = my::JoinFoldersToPath(baseDir, kTestDirBaseName);
+  string const testDir = base::JoinFoldersToPath(baseDir, kTestDirBaseName);
   TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir, bind(&Platform::RmDir, testDir));
 
-  string const testFile = my::JoinFoldersToPath(baseDir, kTestFileBaseName);
+  string const testFile = base::JoinFoldersToPath(baseDir, kTestFileBaseName);
   TEST(!Platform::IsFileExistsByFullPath(testFile), ());
   {
     FileWriter writer(testFile);
@@ -215,20 +215,20 @@ UNIT_TEST(GetWritableStorageStatus)
 
 UNIT_TEST(RmDirRecursively)
 {
-  string const testDir1 = my::JoinFoldersToPath(GetPlatform().WritableDir(), "test_dir1");
+  string const testDir1 = base::JoinFoldersToPath(GetPlatform().WritableDir(), "test_dir1");
   TEST_EQUAL(Platform::MkDir(testDir1), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir1, bind(&Platform::RmDir, testDir1));
 
-  string const testDir2 = my::JoinFoldersToPath(testDir1, "test_dir2");
+  string const testDir2 = base::JoinFoldersToPath(testDir1, "test_dir2");
   TEST_EQUAL(Platform::MkDir(testDir2), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir2, bind(&Platform::RmDir, testDir2));
 
-  string const filePath = my::JoinFoldersToPath(testDir2, "test_file");
+  string const filePath = base::JoinFoldersToPath(testDir2, "test_file");
   {
     FileWriter testFile(filePath);
     testFile.Write("HOHOHO", 6);
   }
-  MY_SCOPE_GUARD(removeTestFile, bind(&my::DeleteFileX, filePath));
+  MY_SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, filePath));
 
   TEST(Platform::IsFileExistsByFullPath(filePath), ());
   TEST(Platform::IsFileExistsByFullPath(testDir1), ());

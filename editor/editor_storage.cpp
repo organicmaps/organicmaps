@@ -26,7 +26,7 @@ bool LocalStorage::Save(xml_document const & doc)
 
   std::lock_guard<std::mutex> guard(m_mutex);
 
-  return my::WriteToTempAndRenameToFile(editorFilePath, [&doc](string const & fileName) {
+  return base::WriteToTempAndRenameToFile(editorFilePath, [&doc](string const & fileName) {
     return doc.save_file(fileName.data(), "  " /* indent */);
   });
 }
@@ -52,7 +52,7 @@ bool LocalStorage::Reset()
 {
   std::lock_guard<std::mutex> guard(m_mutex);
 
-  return my::DeleteFileX(GetEditorFilePath());
+  return base::DeleteFileX(GetEditorFilePath());
 }
 
 // StorageMemory -----------------------------------------------------------------------------------

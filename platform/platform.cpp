@@ -77,7 +77,7 @@ bool Platform::RmDirRecursively(string const & dirName)
   GetFilesByRegExp(dirName, ".*", allFiles);
   for (string const & file : allFiles)
   {
-    string const path = my::JoinFoldersToPath(dirName, file);
+    string const path = base::JoinFoldersToPath(dirName, file);
 
     EFileType type;
     if (GetFileType(path, type) != ERR_OK)
@@ -90,7 +90,7 @@ bool Platform::RmDirRecursively(string const & dirName)
     }
     else
     {
-      if (!my::DeleteFileX(path))
+      if (!base::DeleteFileX(path))
         res = false;
     }
   }
@@ -103,7 +103,7 @@ bool Platform::RmDirRecursively(string const & dirName)
 
 void Platform::SetSettingsDir(string const & path)
 {
-  m_settingsDir = my::AddSlashIfNeeded(path);
+  m_settingsDir = base::AddSlashIfNeeded(path);
 }
 
 string Platform::ReadPathForFile(string const & file, string searchScope) const
@@ -186,7 +186,7 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
   for (string const & file : allFiles)
   {
     EFileType type;
-    if (GetFileType(my::JoinFoldersToPath(directory, file), type) != ERR_OK)
+    if (GetFileType(base::JoinFoldersToPath(directory, file), type) != ERR_OK)
       continue;
     if (typeMask & type)
       outFiles.emplace_back(file, type);
@@ -212,7 +212,7 @@ void Platform::GetFilesRecursively(string const & directory, FilesList & filesLi
   {
     auto const & file = p.first;
     CHECK_EQUAL(p.second, Platform::FILE_TYPE_REGULAR, ("dir:", directory, "file:", file));
-    filesList.push_back(my::JoinPath(directory, file));
+    filesList.push_back(base::JoinPath(directory, file));
   }
 
   TFilesWithType subdirs;
@@ -225,18 +225,18 @@ void Platform::GetFilesRecursively(string const & directory, FilesList & filesLi
     if (subdir == "." || subdir == "..")
       continue;
 
-    GetFilesRecursively(my::JoinPath(directory, subdir), filesList);
+    GetFilesRecursively(base::JoinPath(directory, subdir), filesList);
   }
 }
 
 void Platform::SetWritableDirForTests(string const & path)
 {
-  m_writableDir = my::AddSlashIfNeeded(path);
+  m_writableDir = base::AddSlashIfNeeded(path);
 }
 
 void Platform::SetResourceDir(string const & path)
 {
-  m_resourcesDir = my::AddSlashIfNeeded(path);
+  m_resourcesDir = base::AddSlashIfNeeded(path);
 }
 
 // static

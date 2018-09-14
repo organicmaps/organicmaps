@@ -2,7 +2,7 @@
 
 #include "base/ref_counted.hpp"
 
-using namespace my;
+using namespace base;
 
 namespace
 {

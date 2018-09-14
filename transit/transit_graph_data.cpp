@@ -152,7 +152,7 @@ void DeserializerFromJson::operator()(m2::PointD & p, char const * name)
   if (name == nullptr)
     item = m_node; // Array item case
   else
-    item = my::GetJSONObligatoryField(m_node, name);
+    item = base::GetJSONObligatoryField(m_node, name);
 
   CHECK(json_is_object(item), ("Item is not a json object:", name));
   FromJSONObject(item, "x", p.x);
@@ -204,7 +204,7 @@ void DeserializerFromJson::operator()(StopIdRanges & rs, char const * name)
 }
 
 // GraphData --------------------------------------------------------------------------------------
-void GraphData::DeserializeFromJson(my::Json const & root, OsmIdToFeatureIdsMap const & mapping)
+void GraphData::DeserializeFromJson(base::Json const & root, OsmIdToFeatureIdsMap const & mapping)
 {
   DeserializerFromJson deserializer(root.get(), mapping);
   Visit(deserializer);

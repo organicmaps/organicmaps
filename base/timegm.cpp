@@ -69,7 +69,7 @@ time_t TimeGM(std::tm const & tm)
   minutes = hours * 60 + tm.tm_min;
   seconds = minutes * 60 + tm.tm_sec;
 
-  return my::SecondsSinceEpochToTimeT(seconds);
+  return base::SecondsSinceEpochToTimeT(seconds);
 }
 
 time_t TimeGM(int year, int month, int day, int hour, int min, int sec)

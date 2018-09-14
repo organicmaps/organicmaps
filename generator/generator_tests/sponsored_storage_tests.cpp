@@ -23,7 +23,7 @@ UNIT_TEST(LoadExcludedIds)
   generator::SponsoredObjectStorage<generator::BookingHotel> storage(
       kDummyDistanseForTesting, kDummyCountOfObjectsForTesting);
 
-  auto const & path = my::JoinPath(GetPlatform().WritableDir(), kExcludedIdsFileName);
+  auto const & path = base::JoinPath(GetPlatform().WritableDir(), kExcludedIdsFileName);
   auto const excludedIds = storage.LoadExcludedIds(path);
   generator::BookingHotel::ObjectId id;
   TEST_EQUAL(excludedIds.size(), 3, ());

@@ -139,7 +139,7 @@ void RegionInfoCollector::FillRegionData(base::GeoObjectId const & osmId, OsmEle
   }
   catch (std::exception const & e)  // std::invalid_argument, std::out_of_range
   {
-    LOG(::my::LWARNING, (e.what()));
+    LOG(::base::LWARNING, (e.what()));
     rd.m_adminLevel = AdminLevel::Unknown;
   }
 }

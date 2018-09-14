@@ -209,7 +209,7 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
   }
 
   if (strings::to_int(src.Get(feature::Metadata::FMD_STARS), meta.m_stars))
-    meta.m_stars = my::clamp(meta.m_stars, 0, 5);
+    meta.m_stars = base::clamp(meta.m_stars, 0, 5);
   else
     meta.m_stars = 0;
 

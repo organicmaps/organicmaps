@@ -16,7 +16,7 @@
 #include <sstream>
 #include <string>
 
-using namespace my;
+using namespace base;
 using namespace std;
 
 namespace
@@ -93,20 +93,20 @@ bool Sample::DeserializeFromJSON(string const & jsonStr)
 {
   try
   {
-    my::Json root(jsonStr.c_str());
+    base::Json root(jsonStr.c_str());
     DeserializeFromJSONImpl(root.get());
     return true;
   }
-  catch (my::Json::Exception const & e)
+  catch (base::Json::Exception const & e)
   {
     LOG(LWARNING, ("Can't parse sample:", e.Msg(), jsonStr));
   }
   return false;
 }
 
-my::JSONPtr Sample::SerializeToJSON() const
+base::JSONPtr Sample::SerializeToJSON() const
 {
-  auto json = my::NewJSONObject();
+  auto json = base::NewJSONObject();
   SerializeToJSONImpl(*json);
   return json;
 }
@@ -238,9 +238,9 @@ void FromJSON(json_t * root, Sample::Result & result)
   FromJSONObject(root, "relevancy", result.m_relevance);
 }
 
-my::JSONPtr ToJSON(Sample::Result const & result)
+base::JSONPtr ToJSON(Sample::Result const & result)
 {
-  auto root = my::NewJSONObject();
+  auto root = base::NewJSONObject();
   ToJSONObject(*root, "position", result.m_pos);
   ToJSONObject(*root, "name", result.m_name);
   ToJSONObject(*root, "houseNumber", result.m_houseNumber);

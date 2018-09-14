@@ -73,10 +73,10 @@ void LoadDataSources(std::string const & pathToMWMFolder,
 
   for (auto const & fileName : files)
   {
-    auto const fullFileName = my::JoinFoldersToPath({pathToMWMFolder}, fileName);
+    auto const fullFileName = base::JoinFoldersToPath({pathToMWMFolder}, fileName);
     ModelReaderPtr reader(GetPlatform().GetReader(fullFileName, "f"));
     platform::LocalCountryFile localFile(pathToMWMFolder,
-                                         platform::CountryFile(my::FilenameWithoutExt(fileName)),
+                                         platform::CountryFile(base::FilenameWithoutExt(fileName)),
                                          version::ReadVersionDate(reader));
 
     LOG(LINFO, ("Found mwm:", fullFileName));

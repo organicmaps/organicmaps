@@ -84,84 +84,80 @@ inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock>
   return str;
 }
 
-template <typename U, typename V> inline std::string DebugPrint(std::pair<U,V> const & p)
+template <typename U, typename V>
+std::string DebugPrint(std::pair<U, V> const & p)
 {
   std::ostringstream out;
   out << "(" << DebugPrint(p.first) << ", " << DebugPrint(p.second) << ")";
   return out.str();
 }
 
-namespace my
+template <typename IterT>
+std::string DebugPrintSequence(IterT beg, IterT end)
 {
-  namespace impl
-  {
-    template <typename IterT> inline std::string DebugPrintSequence(IterT beg, IterT end)
-    {
-      std::ostringstream out;
-      out << "[" << std::distance(beg, end) << ":";
-      for (;  beg != end; ++beg)
-        out << " " << DebugPrint(*beg);
-      out << " ]";
-      return out.str();
-    }
-  }
+  std::ostringstream out;
+  out << "[" << std::distance(beg, end) << ":";
+  for (; beg != end; ++beg)
+    out << " " << DebugPrint(*beg);
+  out << " ]";
+  return out.str();
 }
 
 template <typename T, size_t N> inline std::string DebugPrint(T (&arr) [N])
 {
-  return ::my::impl::DebugPrintSequence(arr, arr + N);
+  return DebugPrintSequence(arr, arr + N);
 }
 
 template <typename T, size_t N> inline std::string DebugPrint(std::array<T, N> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T> inline std::string DebugPrint(std::vector<T> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T> inline std::string DebugPrint(std::deque<T> const & d)
 {
-  return ::my::impl::DebugPrintSequence(d.begin(), d.end());
+  return DebugPrintSequence(d.begin(), d.end());
 }
 
 template <typename T> inline std::string DebugPrint(std::list<T> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T, typename C> inline std::string DebugPrint(std::set<T, C> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T, typename C> inline std::string DebugPrint(std::multiset<T, C> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename U, typename V, typename C> inline std::string DebugPrint(std::map<U, V, C> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T> inline std::string DebugPrint(std::initializer_list<T> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <class Key, class Hash, class Pred>
 inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <class Key, class T, class Hash, class Pred>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
 template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v)
@@ -176,24 +172,24 @@ template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v
 
 template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v)
 {
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+  return DebugPrintSequence(v.begin(), v.end());
 }
 
-namespace my
+namespace base
 {
-  namespace impl
-  {
-    inline std::string Message()
-    {
-      return std::string();
-    }
-    template <typename T> std::string Message(T const & t)
-    {
-      return DebugPrint(t);
-    }
-    template <typename T, typename... ARGS> std::string Message(T const & t, ARGS const & ... others)
-    {
-      return DebugPrint(t) + " " + Message(others...);
-    }
-  }
+inline std::string Message() { return std::string(); }
+
+template <typename T>
+std::string Message(T const & t)
+{
+  using ::DebugPrint;
+  return DebugPrint(t);
 }
+
+template <typename T, typename... Args>
+std::string Message(T const & t, Args const &... others)
+{
+  using ::DebugPrint;
+  return DebugPrint(t) + " " + Message(others...);
+}
+}  // namespace base

@@ -47,9 +47,9 @@ location::CompassInfo compassInfoFromHeading(CLHeading * h)
 {
   location::CompassInfo info;
   if (h.trueHeading >= 0.0)
-    info.m_bearing = my::DegToRad(h.trueHeading);
+    info.m_bearing = base::DegToRad(h.trueHeading);
   else if (h.headingAccuracy >= 0.0)
-    info.m_bearing = my::DegToRad(h.magneticHeading);
+    info.m_bearing = base::DegToRad(h.magneticHeading);
   return info;
 }
 

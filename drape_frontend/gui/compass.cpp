@@ -33,8 +33,8 @@ struct CompassVertex
 class CompassHandle : public TappableHandle
 {
   using TBase = TappableHandle;
-  double const kVisibleStartAngle = my::DegToRad(5.0);
-  double const kVisibleEndAngle = my::DegToRad(355.0);
+  double const kVisibleStartAngle = base::DegToRad(5.0);
+  double const kVisibleEndAngle = base::DegToRad(355.0);
 
 public:
   CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,

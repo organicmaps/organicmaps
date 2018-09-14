@@ -4,27 +4,29 @@
 #include "base/cache.hpp"
 #include "base/stats.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-#include "std/sstream.hpp"
-#include "std/vector.hpp"
-
+#include <algorithm>
+#include <cstdint>
+#include <cstring>
+#include <sstream>
+#include <string>
+#include <vector>
 
 namespace impl
 {
-
-template <bool bEnable> struct ReaderCacheStats
+template <bool Enable>
+struct ReaderCacheStats
 {
-  string GetStatsStr(uint32_t, uint32_t) const { return ""; }
-  my::NoopStats<uint32_t> m_ReadSize;
-  my::NoopStats<uint32_t> m_CacheHit;
+  std::string GetStatsStr(uint32_t, uint32_t) const { return ""; }
+  base::NoopStats<uint32_t> m_ReadSize;
+  base::NoopStats<uint32_t> m_CacheHit;
 };
 
-template <> struct ReaderCacheStats<true>
+template <>
+struct ReaderCacheStats<true>
 {
-  string GetStatsStr(uint32_t logPageSize, uint32_t pageCount) const
+  std::string GetStatsStr(uint32_t logPageSize, uint32_t pageCount) const
   {
-    ostringstream out;
+    std::ostringstream out;
     out << "LogPageSize: " << logPageSize << " PageCount: " << pageCount;
     out << " ReadSize(" << m_ReadSize.GetStatsStr() << ")";
     out << " CacheHit(" << m_CacheHit.GetStatsStr() << ")";
@@ -36,11 +38,10 @@ template <> struct ReaderCacheStats<true>
     return out.str();
   }
 
-  my::AverageStats<uint32_t> m_ReadSize;
-  my::AverageStats<uint32_t> m_CacheHit;
+  base::AverageStats<uint32_t> m_ReadSize;
+  base::AverageStats<uint32_t> m_CacheHit;
 };
-
-}
+}  // namespace impl
 
 template <class ReaderT, bool bStats = false>
 class ReaderCache
@@ -60,7 +61,7 @@ public:
     char * pDst = static_cast<char *>(p);
     uint64_t pageNum = pos >> m_LogPageSize;
     size_t const firstPageOffset = static_cast<size_t>(pos - (pageNum << m_LogPageSize));
-    size_t const firstCopySize = min(size, PageSize() - firstPageOffset);
+    size_t const firstCopySize = std::min(size, PageSize() - firstPageOffset);
     ASSERT_GREATER(firstCopySize, 0, ());
     memcpy(pDst, ReadPage(reader, pageNum) + firstPageOffset, firstCopySize);
     size -= firstCopySize;
@@ -69,7 +70,7 @@ public:
     ++pageNum;
     while (size > 0)
     {
-      size_t const copySize = min(size, PageSize());
+      size_t const copySize = std::min(size, PageSize());
       memcpy(pDst, ReadPage(reader, pageNum), copySize);
       size -= copySize;
       pos += copySize;
@@ -78,7 +79,7 @@ public:
     }
   }
 
-  string GetStatsStr() const
+  std::string GetStatsStr() const
   {
     return m_Stats.GetStatsStr(m_LogPageSize, m_Cache.GetCacheSize());
   }
@@ -89,19 +90,19 @@ private:
   inline char const * ReadPage(ReaderT & reader, uint64_t pageNum)
   {
     bool cached;
-    vector<char> & v = m_Cache.Find(pageNum, cached);
+    std::vector<char> & v = m_Cache.Find(pageNum, cached);
     m_Stats.m_CacheHit(cached ? 1 : 0);
     if (!cached)
     {
       if (v.empty())
         v.resize(PageSize());
       uint64_t const pos = pageNum << m_LogPageSize;
-      reader.Read(pos, &v[0], min(PageSize(), static_cast<size_t>(reader.Size() - pos)));
+      reader.Read(pos, &v[0], std::min(PageSize(), static_cast<size_t>(reader.Size() - pos)));
     }
     return &v[0];
   }
 
-  my::Cache<uint64_t, vector<char> > m_Cache;
+  base::Cache<uint64_t, std::vector<char> > m_Cache;
   uint32_t const m_LogPageSize;
   impl::ReaderCacheStats<bStats> m_Stats;
 };

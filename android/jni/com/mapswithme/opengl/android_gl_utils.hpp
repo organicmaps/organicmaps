@@ -2,7 +2,7 @@
 
 #include "drape/glIncludes.hpp"
 
-namespace my
+namespace base
 {
 class SrcPoint;
 }
@@ -23,7 +23,7 @@ private:
   EGLDisplay m_display;
 };
 
-void CheckEGL(my::SrcPoint const & src);
+void CheckEGL(base::SrcPoint const & src);
 
 }  // namespace android
 

@@ -103,7 +103,7 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
     try
     {
       kml::DeserializerKml des(data);
-      FileReader r(my::JoinPath(inputDir, file));
+      FileReader r(base::JoinPath(inputDir, file));
       des.Deserialize(r);
     }
     catch (FileReader::Exception const & ex)
@@ -132,7 +132,7 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
     try
     {
       kml::SerializerKml ser(data);
-      FileWriter sink(my::JoinPath(outputDir, file));
+      FileWriter sink(base::JoinPath(outputDir, file));
       ser.Serialize(sink);
     }
     catch (FileWriter::Exception const & ex)

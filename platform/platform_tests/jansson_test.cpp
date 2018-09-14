@@ -12,7 +12,7 @@ UNIT_TEST(Jansson_Smoke)
   char const * str = "{\"location\":{\"latitude\":47.3345141,\"longitude\":8.5312839,"
       "\"accuracy\":22.0},\"access_token\":\"2:vC65Xv0mxMtsNVf4:hY5YSIkuFfnAU77z\"}";
 
-  my::Json root(str);
+  base::Json root(str);
   TEST(json_is_object(root.get()), ());
   json_t * location = json_object_get(root.get(), "location");
   TEST(json_is_object(location), ());
@@ -32,9 +32,9 @@ UNIT_TEST(Jansson_Smoke)
   bool wasException = false;
   try
   {
-    my::Json invalid("{asd]");
+    base::Json invalid("{asd]");
   }
-  catch (my::Json::Exception const &)
+  catch (base::Json::Exception const &)
   {
     wasException = true;
   }

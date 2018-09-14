@@ -20,7 +20,7 @@ size_t constexpr kMaxItemCount = 100000; // > 24h with 1point/s
 
 inline string GetFilePath()
 {
-  return my::JoinFoldersToPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
+  return base::JoinFoldersToPath(GetPlatform().WritableDir(), GPS_TRACK_FILENAME);
 }
 
 inline bool GetSettingsIsEnabled()

@@ -47,7 +47,7 @@ void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && e
   for (size_t i = 0; i < actual.size(); ++i)
   {
     TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, ());
-    TEST(my::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps),
+    TEST(base::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps),
          (query, actual[i].m_certainty, expected[i].m_certainty));
   }
 }

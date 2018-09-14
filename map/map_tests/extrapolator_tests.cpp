@@ -15,14 +15,14 @@ void TestGpsInfo(GpsInfo const & tested, GpsInfo const & expected)
 {
   double constexpr kEpsilon = 1e-5;
   TEST_EQUAL(tested.m_source, expected.m_source, ());
-  TEST(my::AlmostEqualAbs(tested.m_latitude, expected.m_latitude, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_longitude, expected.m_longitude, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon),
+  TEST(base::AlmostEqualAbs(tested.m_latitude, expected.m_latitude, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_longitude, expected.m_longitude, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon),
        ());
-  TEST(my::AlmostEqualAbs(tested.m_altitude, expected.m_altitude, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_verticalAccuracy, expected.m_verticalAccuracy, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_bearing, expected.m_bearing, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_speedMpS, expected.m_speedMpS, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_altitude, expected.m_altitude, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_verticalAccuracy, expected.m_verticalAccuracy, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_bearing, expected.m_bearing, kEpsilon), ());
+  TEST(base::AlmostEqualAbs(tested.m_speedMpS, expected.m_speedMpS, kEpsilon), ());
 }
 
 GpsInfo GetGpsInfo(double timestampS, double lat, double lon, double altitude, double speed)

@@ -107,7 +107,7 @@ double Route::GetCurrentTimeToEndSec() const
   double const totalTimeS = GetTotalTimeSec();
   // Note. If a segment is short it does not make any sense to take into account time needed
   // to path its part.
-  if (my::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
+  if (base::AlmostEqualAbs(curSegLenMeters, 0.0, 1.0 /* meters */))
     return totalTimeS - etaToLastPassedPointS;
 
   double const curSegTimeS = GetTimeToPassSegSec(curIter.m_ind);
@@ -259,7 +259,7 @@ double Route::GetPolySegAngle(size_t ind) const
     p2 = m_poly.GetPolyline().GetPoint(i);
   }
   while (m2::AlmostEqualULPs(p1, p2) && ++i < polySz);
-  return (i == polySz) ? 0 : my::RadToDeg(ang::AngleTo(p1, p2));
+  return (i == polySz) ? 0 : base::RadToDeg(ang::AngleTo(p1, p2));
 }
 
 void Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const

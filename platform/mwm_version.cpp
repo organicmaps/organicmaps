@@ -45,7 +45,7 @@ uint64_t VersionToSecondsSinceEpoch(uint64_t version)
   tm.tm_mon = parts[1] - 1;
   tm.tm_mday = parts[2];
 
-  return my::TimeTToSecondsSinceEpoch(base::TimeGM(tm));
+  return base::TimeTToSecondsSinceEpoch(base::TimeGM(tm));
 }
 
 char const MWM_PROLOG[] = "MWM";
@@ -76,13 +76,13 @@ void ReadVersionT(TSource & src, MwmVersion & version)
 
 uint32_t MwmVersion::GetVersion() const
 {
-  auto const tm = my::GmTime(my::SecondsSinceEpochToTimeT(m_secondsSinceEpoch));
-  return my::GenerateYYMMDD(tm.tm_year, tm.tm_mon, tm.tm_mday);
+  auto const tm = base::GmTime(base::SecondsSinceEpochToTimeT(m_secondsSinceEpoch));
+  return base::GenerateYYMMDD(tm.tm_year, tm.tm_mon, tm.tm_mday);
 }
 
 bool MwmVersion::IsEditableMap() const
 {
-  return m_secondsSinceEpoch + kMaxSecondsTillNoEdits > my::SecondsSinceEpoch();
+  return m_secondsSinceEpoch + kMaxSecondsTillNoEdits > base::SecondsSinceEpoch();
 }
 
 string DebugPrint(Format f)

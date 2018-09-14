@@ -5,9 +5,8 @@
 #include <ctime>
 #include <string>
 
-namespace my
+namespace base
 {
-
 /// Cross platform timer
 class Timer
 {
@@ -22,10 +21,10 @@ public:
   /// @return Elapsed time from start (@see Reset).
   inline std::chrono::steady_clock::duration TimeElapsed() const { return std::chrono::steady_clock::now() - m_startTime; }
 
-  template <typename TDuration>
-  inline TDuration TimeElapsedAs() const
+  template <typename Duration>
+  inline Duration TimeElapsedAs() const
   {
-    return std::chrono::duration_cast<TDuration>(TimeElapsed());
+    return std::chrono::duration_cast<Duration>(TimeElapsed());
   }
 
   inline double ElapsedSeconds() const { return TimeElapsedAs<std::chrono::duration<double>>().count(); }
@@ -75,4 +74,4 @@ public:
 
 time_t SecondsSinceEpochToTimeT(uint64_t secondsSinceEpoch);
 uint64_t TimeTToSecondsSinceEpoch(time_t time);
-}  // namespace my
+}  // namespace base

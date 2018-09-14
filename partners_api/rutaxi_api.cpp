@@ -120,7 +120,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
       {
         MakeNearObject(httpResult, dst);
       }
-      catch (my::Json::Exception const & e)
+      catch (base::Json::Exception const & e)
       {
         errorFn(ErrorCode::NoProducts);
         LOG(LERROR, (e.what(), httpResult));
@@ -148,7 +148,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     {
       MakeProducts(result, fromObj, toObj, city, products);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LERROR, (e.what(), result));
       products.clear();
@@ -170,7 +170,7 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
 
 void MakeNearObject(std::string const & src, Object & dst)
 {
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
 
   auto const data = json_object_get(root.get(), "data");
   auto const objects = json_object_get(data, "objects");
@@ -186,7 +186,7 @@ void MakeProducts(std::string const & src, Object const & from, Object const & t
 {
   products.clear();
 
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
 
   std::ostringstream productStream;
   productStream << "city=" << city.m_id << "&title1=" << UrlEncode(from.m_title)
@@ -231,7 +231,7 @@ CityMapping LoadCityMapping()
 
   try
   {
-    my::Json root(fileData.c_str());
+    base::Json root(fileData.c_str());
 
     auto const count = json_array_size(root.get());
     std::string osmName;
@@ -248,7 +248,7 @@ CityMapping LoadCityMapping()
       result.emplace(osmName, city);
     }
   }
-  catch (my::Json::Exception const & ex)
+  catch (base::Json::Exception const & ex)
   {
     LOG(LWARNING, ("Exception while parsing file:", kMappingFilepath, "reason:", ex.what(),
                    "json:", fileData));

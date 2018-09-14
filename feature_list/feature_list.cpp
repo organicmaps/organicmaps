@@ -327,7 +327,7 @@ int main(int argc, char ** argv)
   if (argc > 2)
   {
     pl.SetResourceDir(argv[2]);
-    countriesFile = my::JoinPath(argv[2], COUNTRIES_FILE);
+    countriesFile = base::JoinPath(argv[2], COUNTRIES_FILE);
   }
 
   storage::Storage storage(countriesFile, argv[1]);
@@ -363,7 +363,7 @@ int main(int argc, char ** argv)
     if (argc > 3 && !strings::StartsWith(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION, argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
-    string osmToFeatureFile = my::JoinPath(
+    string osmToFeatureFile = base::JoinPath(
         argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
     map<uint32_t, base::GeoObjectId> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);

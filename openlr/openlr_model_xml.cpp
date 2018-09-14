@@ -88,8 +88,8 @@ bool FirstCoordinateFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   if (!GetLatLon(node.child("olr:coordinate"), lat, lon))
     return false;
 
-  latLon.lat = ((lat - my::Sign(lat) * 0.5) * 360) / (1 << 24);
-  latLon.lon = ((lon - my::Sign(lon) * 0.5) * 360) / (1 << 24);
+  latLon.lat = ((lat - base::Sign(lat) * 0.5) * 360) / (1 << 24);
+  latLon.lon = ((lon - base::Sign(lon) * 0.5) * 360) / (1 << 24);
 
   return true;
 }

@@ -6,7 +6,7 @@
 
 UNIT_TEST(RangeIterator)
 {
-  using namespace my;
+  using namespace base;
 
   {
     std::vector<int> result;

@@ -78,7 +78,7 @@ void Api::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const & to,
     {
       MakeFromJson(result, products);
     }
-    catch (my::Json::Exception const & e)
+    catch (base::Json::Exception const & e)
     {
       LOG(LERROR, (e.what(), result));
       products.clear();
@@ -116,7 +116,7 @@ void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products
 {
   products.clear();
 
-  my::Json root(src.c_str());
+  base::Json root(src.c_str());
   if (!json_is_object(root.get()))
     return;
 

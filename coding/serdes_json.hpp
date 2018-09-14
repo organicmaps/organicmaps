@@ -12,6 +12,7 @@
 #include <cstring>
 #include <memory>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace coding
@@ -88,13 +89,13 @@ public:
   template <typename R, EnableIfNotIterable<R> * = nullptr, EnableIfNotEnum<R> * = nullptr>
   void operator()(R const & r, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
+    NewScopeWith(base::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
   }
 
   template <typename T, EnableIfIterable<T> * = nullptr>
   void operator()(T const & src, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONArray(), name, [this, &src] {
+    NewScopeWith(base::NewJSONArray(), name, [this, &src] {
       for (auto const & v : src)
         (*this)(v);
     });
@@ -103,7 +104,7 @@ public:
   template <typename R>
   void operator()(std::unique_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONObject(), name, [this, &r] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &r] {
       CHECK(r, ());
       r->Visit(*this);
     });
@@ -112,7 +113,7 @@ public:
   template <typename R>
   void operator()(std::shared_ptr<R> const & r, char const * name = nullptr)
   {
-    NewScopeWith(my::NewJSONObject(), name, [this, &r] {
+    NewScopeWith(base::NewJSONObject(), name, [this, &r] {
       CHECK(r, ());
       r->Visit(*this);
     });
@@ -131,9 +132,9 @@ public:
 
 protected:
   template <typename Fn>
-  void NewScopeWith(my::JSONPtr json_object, char const * name, Fn && fn)
+  void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
   {
-    my::JSONPtr safe_json = std::move(m_json);
+    base::JSONPtr safe_json = std::move(m_json);
     m_json = std::move(json_object);
 
     auto rollback = [this, &safe_json, name]()
@@ -153,7 +154,7 @@ protected:
     fn();
   }
 
-  my::JSONPtr m_json = nullptr;
+  base::JSONPtr m_json = nullptr;
   Sink & m_sink;
 };
 
@@ -203,7 +204,7 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
-      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
 
     vs.resize(json_array_size(m_json));
     for (size_t index = 0; index < vs.size(); ++index)
@@ -223,7 +224,7 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
-      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array."));
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array."));
 
     T tmp;
     size_t size = json_array_size(m_json);
@@ -246,12 +247,12 @@ public:
     json_t * outerContext = SaveContext(name);
 
     if (!json_is_array(m_json))
-      MYTHROW(my::Json::Exception,
+      MYTHROW(base::Json::Exception,
               ("The field", name, "must contain a json array.", json_dumps(m_json, 0)));
 
     if (N != json_array_size(m_json))
     {
-      MYTHROW(my::Json::Exception, ("The field", name, "must contain a json array of size", N,
+      MYTHROW(base::Json::Exception, ("The field", name, "must contain a json array of size", N,
                                     "but size is", json_array_size(m_json)));
     }
 
@@ -318,7 +319,7 @@ protected:
   {
     json_t * context = m_json;
     if (name)
-      m_json = my::GetJSONObligatoryField(context, name);
+      m_json = base::GetJSONObligatoryField(context, name);
     return context;
   }
 
@@ -328,7 +329,7 @@ protected:
       m_json = context;
   }
 
-  my::Json m_jsonObject;
+  base::Json m_jsonObject;
   json_t * m_json = nullptr;
 };
 }  // namespace coding

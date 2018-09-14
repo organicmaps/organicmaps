@@ -41,7 +41,7 @@ boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
   if (lastBackgroundTime != 0.0)
   {
     auto const timeInBackground =
-        static_cast<uint64_t>(my::Timer::LocalTime() - lastBackgroundTime);
+        static_cast<uint64_t>(base::Timer::LocalTime() - lastBackgroundTime);
     if (timeInBackground < kShowTipAfterCollapsingPeriod.count())
       return {};
   }

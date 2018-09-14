@@ -1329,7 +1329,7 @@ void Framework::MemoryWarning()
 
 void Framework::EnterBackground()
 {
-  m_startBackgroundTime = my::Timer::LocalTime();
+  m_startBackgroundTime = base::Timer::LocalTime();
   settings::Set("LastEnterBackground", m_startBackgroundTime);
 
   SaveViewport();
@@ -1354,7 +1354,7 @@ void Framework::EnterBackground()
 
 void Framework::EnterForeground()
 {
-  m_startForegroundTime = my::Timer::LocalTime();
+  m_startForegroundTime = base::Timer::LocalTime();
   if (m_drapeEngine != nullptr && m_startBackgroundTime != 0.0)
   {
     auto const timeInBackground = m_startForegroundTime - m_startBackgroundTime;
@@ -2426,7 +2426,7 @@ void Framework::PredictLocation(double & lat, double & lon, double accuracy,
                                 double bearing, double speed, double elapsedSeconds)
 {
   double offsetInM = speed * elapsedSeconds;
-  double angle = my::DegToRad(90.0 - bearing);
+  double angle = base::DegToRad(90.0 - bearing);
 
   m2::PointD mercatorPt = MercatorBounds::MetresToXY(lon, lat, accuracy).Center();
   mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));

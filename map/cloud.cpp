@@ -55,12 +55,12 @@ std::string const kSnapshotFile = "snapshot.json";
 
 std::string GetIndexFilePath(std::string const & indexName)
 {
-  return my::JoinPath(GetPlatform().SettingsDir(), indexName);
+  return base::JoinPath(GetPlatform().SettingsDir(), indexName);
 }
 
 std::string GetRestoringFolder(std::string const & serverPathName)
 {
-  return my::JoinPath(GetPlatform().TmpDir(), serverPathName + "_restore");
+  return base::JoinPath(GetPlatform().TmpDir(), serverPathName + "_restore");
 }
 
 std::string BuildMethodUrl(std::string const & serverPathName, std::string const & methodName)
@@ -84,8 +84,8 @@ std::string BuildAuthenticationToken(std::string const & accessToken)
 std::string ExtractFileNameWithoutExtension(std::string const & filePath)
 {
   std::string path = filePath;
-  my::GetNameFromFullPath(path);
-  my::GetNameWithoutExt(path);
+  base::GetNameFromFullPath(path);
+  base::GetNameWithoutExt(path);
   return path;
 }
 
@@ -270,7 +270,7 @@ void ParseRequestJsonResult(std::string const & url, std::string const & serverR
   {
     DeserializeFromJson(serverResponse, result.m_response);
   }
-  catch (my::Json::Exception const & exception)
+  catch (base::Json::Exception const & exception)
   {
     LOG(LWARNING, ("Malformed server response", "url:", url, "response:", serverResponse));
     result.m_response = {};
@@ -325,7 +325,7 @@ Cloud::SnapshotResponseData ReadSnapshotFile(std::string const & filename)
     DeserializeFromJson(jsonStr, data);
     return data;
   }
-  catch (my::Json::Exception const & exception)
+  catch (base::Json::Exception const & exception)
   {
     LOG(LWARNING, ("Exception while parsing file:", filename,
                    "reason:", exception.what(), "json:", jsonStr));
@@ -335,7 +335,7 @@ Cloud::SnapshotResponseData ReadSnapshotFile(std::string const & filename)
 
 bool CheckAndGetFileSize(std::string const & filePath, uint64_t & fileSize)
 {
-  if (!my::GetFileSize(filePath, fileSize))
+  if (!base::GetFileSize(filePath, fileSize))
     return false;
 
   // We do not work with files which size is more than kMaxUploadingFileSizeInBytes.
@@ -398,7 +398,7 @@ void Cloud::SetState(State state)
 
   case State::Disabled:
     // Delete index file and clear memory.
-    my::DeleteFileX(GetIndexFilePath(m_params.m_indexName));
+    base::DeleteFileX(GetIndexFilePath(m_params.m_indexName));
     m_index = Index();
     break;
 
@@ -481,7 +481,7 @@ bool Cloud::ReadIndex()
     std::lock_guard<std::mutex> lock(m_mutex);
     std::swap(m_index, index);
   }
-  catch (my::Json::Exception const & exception)
+  catch (base::Json::Exception const & exception)
   {
     LOG(LWARNING, ("Exception while parsing file:", indexFilePath,
                    "reason:", exception.what(), "json:", jsonStr));
@@ -687,7 +687,7 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
     auto const uploadedName = PrepareFileToUploading(entryName, hash);
     auto deleteAfterUploading = [uploadedName]() {
       if (!uploadedName.empty())
-        my::DeleteFileX(uploadedName);
+        base::DeleteFileX(uploadedName);
     };
     MY_SCOPE_GUARD(deleteAfterUploadingGuard, deleteAfterUploading);
 
@@ -736,7 +736,7 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
 bool Cloud::UploadFile(std::string const & uploadedName)
 {
   uint64_t uploadedFileSize = 0;
-  if (!my::GetFileSize(uploadedName, uploadedFileSize))
+  if (!base::GetFileSize(uploadedName, uploadedFileSize))
   {
     FinishUploading(SynchronizationResult::DiskError, "File size calculation error");
     return false;
@@ -832,11 +832,11 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
 
   // 3. Create a temporary file from the original uploading file.
   auto name = ExtractFileNameWithoutExtension(filePath);
-  auto const tmpPath = my::JoinFoldersToPath(GetPlatform().TmpDir(), name + ".tmp");
-  if (!my::CopyFileX(filePath, tmpPath))
+  auto const tmpPath = base::JoinFoldersToPath(GetPlatform().TmpDir(), name + ".tmp");
+  if (!base::CopyFileX(filePath, tmpPath))
     return {};
   
-  MY_SCOPE_GUARD(tmpFileGuard, std::bind(&my::DeleteFileX, std::cref(tmpPath)));
+  MY_SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(tmpPath)));
 
   // 4. Calculate SHA1 of the temporary file and compare with original one.
   // Original file can be modified during copying process, so we have to
@@ -845,7 +845,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
   if (originalSha1 != tmpSha1)
     return {};
 
-  auto const outputPath = my::JoinFoldersToPath(GetPlatform().TmpDir(),
+  auto const outputPath = base::JoinFoldersToPath(GetPlatform().TmpDir(),
                                                 name + ".uploaded");
 
   // 5. Convert temporary file and save to output path.
@@ -1297,7 +1297,7 @@ void Cloud::FinishRestoring(Cloud::SynchronizationResult result, std::string con
 
 std::list<Cloud::SnapshotFileData> Cloud::GetDownloadingList(std::string const & restoringDirPath)
 {
-  auto const snapshotFile = my::JoinPath(restoringDirPath, kSnapshotFile);
+  auto const snapshotFile = base::JoinPath(restoringDirPath, kSnapshotFile);
   auto const prevSnapshot = ReadSnapshotFile(snapshotFile);
 
   SnapshotResponseData currentSnapshot;
@@ -1334,7 +1334,7 @@ std::list<Cloud::SnapshotFileData> Cloud::GetDownloadingList(std::string const &
   std::list<Cloud::SnapshotFileData> result;
   for (auto & f : currentSnapshot.m_files)
   {
-    auto const restoringFile = my::JoinPath(restoringDirPath, f.m_fileName);
+    auto const restoringFile = base::JoinPath(restoringDirPath, f.m_fileName);
     if (!GetPlatform().IsFileExistsByFullPath(restoringFile))
     {
       result.push_back(std::move(f));
@@ -1342,7 +1342,7 @@ std::list<Cloud::SnapshotFileData> Cloud::GetDownloadingList(std::string const &
     }
 
     uint64_t fileSize = 0;
-    if (!my::GetFileSize(restoringFile, fileSize) || fileSize != f.m_fileSize)
+    if (!base::GetFileSize(restoringFile, fileSize) || fileSize != f.m_fileSize)
       result.push_back(std::move(f));
   }
 
@@ -1372,7 +1372,7 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
 
     auto const f = files.front();
     files.erase(files.begin());
-    auto const filePath = my::JoinPath(dirPath, f.m_fileName);
+    auto const filePath = base::JoinPath(dirPath, f.m_fileName);
 
     auto const url = BuildMethodUrl(m_params.m_serverPathName, kServerDownloadMethod);
     auto const result = CloudRequestWithJsonResult<DownloadingRequestData, DownloadingResult>(
@@ -1460,7 +1460,7 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
     convertedFiles.reserve(currentSnapshot.m_files.size());
     for (auto & f : currentSnapshot.m_files)
     {
-      auto const restoringFile = my::JoinPath(dirPath, f.m_fileName);
+      auto const restoringFile = base::JoinPath(dirPath, f.m_fileName);
       if (!GetPlatform().IsFileExistsByFullPath(restoringFile))
       {
         FinishRestoring(SynchronizationResult::DiskError, "Restored file is absent");
@@ -1468,7 +1468,7 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
       }
 
       uint64_t fileSize = 0;
-      if (!my::GetFileSize(restoringFile, fileSize) || fileSize != f.m_fileSize)
+      if (!base::GetFileSize(restoringFile, fileSize) || fileSize != f.m_fileSize)
       {
         std::string const str = "Restored file has incorrect size. Expected size = " +
                                 strings::to_string(f.m_fileSize) +
@@ -1478,7 +1478,7 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
       }
 
       auto const fn = f.m_fileName + ".converted";
-      auto const convertedFile = my::JoinPath(dirPath, fn);
+      auto const convertedFile = base::JoinPath(dirPath, fn);
       auto const convertionResult = m_params.m_restoreConverter(restoringFile, convertedFile);
       if (!convertionResult.m_isSuccessful)
       {
@@ -1529,11 +1529,11 @@ void Cloud::ApplyRestoredFiles(std::string const & dirPath, RestoredFilesCollect
     readyFiles.reserve(files.size());
     for (auto const & f : files)
     {
-      auto const restoredFile = my::JoinPath(dirPath, f.m_filename);
+      auto const restoredFile = base::JoinPath(dirPath, f.m_filename);
       auto const finalFilename =
-          my::FilenameWithoutExt(f.m_filename) + m_params.m_restoredFileExtension;
-      auto const readyFile = my::JoinPath(m_params.m_restoringFolder, finalFilename);
-      if (!my::RenameFileX(restoredFile, readyFile))
+          base::FilenameWithoutExt(f.m_filename) + m_params.m_restoredFileExtension;
+      auto const readyFile = base::JoinPath(m_params.m_restoringFolder, finalFilename);
+      if (!base::RenameFileX(restoredFile, readyFile))
       {
         FinishRestoring(SynchronizationResult::DiskError, "Restored file moving error");
         return;

@@ -14,9 +14,8 @@
 
 #include <sys/time.h>
 
-namespace my
+namespace base
 {
-
 Timer::Timer(bool start/* = true*/)
 {
   if (start)
@@ -175,4 +174,4 @@ uint64_t TimeTToSecondsSinceEpoch(time_t time)
   auto const tpoint = std::chrono::system_clock::from_time_t(time);
   return std::chrono::duration_cast<std::chrono::seconds>(tpoint.time_since_epoch()).count();
 }
-}
+}  // namespace base

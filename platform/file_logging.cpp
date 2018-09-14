@@ -20,7 +20,7 @@ namespace
   }
 }
 
-void LogMessageFile(my::LogLevel level, my::SrcPoint const & srcPoint, string const & msg)
+void LogMessageFile(base::LogLevel level, base::SrcPoint const & srcPoint, string const & msg)
 {
   static mutex mtx;
   static unique_ptr<FileWriter> file;

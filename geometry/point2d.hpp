@@ -159,7 +159,7 @@ public:
 
   struct Hash
   {
-    size_t operator()(m2::Point<T> const & p) const { return my::Hash(p.x, p.y); }
+    size_t operator()(m2::Point<T> const & p) const { return base::Hash(p.x, p.y); }
   };
 };
 
@@ -235,13 +235,13 @@ std::string DebugPrint(m2::Point<T> const & p)
 template <typename T>
 bool AlmostEqualAbs(m2::Point<T> const & a, m2::Point<T> const & b, double const eps)
 {
-  return my::AlmostEqualAbs(a.x, b.x, eps) && my::AlmostEqualAbs(a.y, b.y, eps);
+  return base::AlmostEqualAbs(a.x, b.x, eps) && base::AlmostEqualAbs(a.y, b.y, eps);
 }
 
 template <typename T>
 bool AlmostEqualULPs(m2::Point<T> const & a, m2::Point<T> const & b, unsigned int maxULPs = 256)
 {
-  return my::AlmostEqualULPs(a.x, b.x, maxULPs) && my::AlmostEqualULPs(a.y, b.y, maxULPs);
+  return base::AlmostEqualULPs(a.x, b.x, maxULPs) && base::AlmostEqualULPs(a.y, b.y, maxULPs);
 }
 
 /// Calculate three points of a triangle (p1, p2 and p3) which give an arrow that
@@ -269,7 +269,7 @@ template <typename T>
 Point<T> PointAtSegment(Point<T> const & p1, Point<T> const & p2, T shiftFromP1)
 {
   Point<T> p12 = p2 - p1;
-  shiftFromP1 = my::clamp(shiftFromP1, static_cast<T>(0.0), static_cast<T>(p12.Length()));
+  shiftFromP1 = base::clamp(shiftFromP1, static_cast<T>(0.0), static_cast<T>(p12.Length()));
   return p1 + p12.Normalize() * shiftFromP1;
 }
 
@@ -298,7 +298,7 @@ bool operator<(Point<T> const & l, Point<T> const & r)
 }
 }  // namespace m2
 
-namespace my
+namespace base
 {
 template <typename T>
 bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned int maxULPs = 256)
@@ -311,4 +311,4 @@ bool AlmostEqualAbs(m2::Point<T> const & p1, m2::Point<T> const & p2, double con
 {
   return m2::AlmostEqualAbs(p1, p2, eps);
 }
-}  // namespace my
+}  // namespace base

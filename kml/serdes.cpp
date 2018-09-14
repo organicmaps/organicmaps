@@ -180,7 +180,7 @@ void SaveColorToABGR(KmlWriter::WriterWrapper & writer, uint32_t rgba)
 std::string TimestampToString(Timestamp const & timestamp)
 {
   auto const ts = std::chrono::system_clock::to_time_t(timestamp);
-  std::string const strTimeStamp = my::TimestampToString(ts);
+  std::string const strTimeStamp = base::TimestampToString(ts);
   if (strTimeStamp.size() != 20)
     MYTHROW(KmlWriter::WriteKmlException, ("We always generate fixed length UTC-format timestamp."));
   return strTimeStamp;
@@ -800,8 +800,8 @@ void KmlParser::CharData(std::string value)
       }
       else if (currTag == "mwm:lastModified")
       {
-        auto const ts = my::StringToTimestamp(value);
-        if (ts != my::INVALID_TIME_STAMP)
+        auto const ts = base::StringToTimestamp(value);
+        if (ts != base::INVALID_TIME_STAMP)
           m_data.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(ts);
       }
       else if (currTag == "mwm:accessRules")
@@ -983,8 +983,8 @@ void KmlParser::CharData(std::string value)
       {
         if (currTag == "when")
         {
-          auto const ts = my::StringToTimestamp(value);
-          if (ts != my::INVALID_TIME_STAMP)
+          auto const ts = base::StringToTimestamp(value);
+          if (ts != base::INVALID_TIME_STAMP)
             m_timestamp = std::chrono::system_clock::from_time_t(ts);
         }
       }

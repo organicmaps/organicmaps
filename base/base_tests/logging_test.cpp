@@ -8,7 +8,7 @@
 
 namespace
 {
-  void TestLogMessage(my::LogLevel, my::SrcPoint const &, std::string const &)
+  void TestLogMessage(base::LogLevel, base::SrcPoint const &, std::string const &)
   {
   }
 
@@ -28,11 +28,11 @@ namespace
 
 UNIT_TEST(Logging_Level)
 {
-  my::LogLevel const logLevelSaved = my::g_LogLevel;
-  my::g_LogLevel = LWARNING;
+  base::LogLevel const logLevelSaved = base::g_LogLevel;
+  base::g_LogLevel = LWARNING;
 
   g_SomeFunctionCalled = false;
-  my::LogMessageFn logMessageSaved = my::SetLogMessageFn(&TestLogMessage);
+  base::LogMessageFn logMessageSaved = base::SetLogMessageFn(&TestLogMessage);
 
   LOG(LINFO, ("This should not pass", SomeFunction()));
   TEST(!g_SomeFunctionCalled, ());
@@ -40,8 +40,8 @@ UNIT_TEST(Logging_Level)
   LOG(LWARNING, ("This should pass", SomeFunction()));
   TEST(g_SomeFunctionCalled, ());
 
-  my::SetLogMessageFn(logMessageSaved);
-  my::g_LogLevel = logLevelSaved;
+  base::SetLogMessageFn(logMessageSaved);
+  base::g_LogLevel = logLevelSaved;
 }
 
 UNIT_TEST(NullMessage)

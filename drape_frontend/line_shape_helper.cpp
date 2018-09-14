@@ -266,7 +266,7 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
   glsl::vec2 const v2 = newPoint - startPoint;
   float const squareLen = glsl::dot(v1, v1);
   float const proj = glsl::dot(v1, v2) / squareLen;
-  return sqrt(squareLen) * my::clamp(proj, 0.0f, 1.0f);
+  return sqrt(squareLen) * base::clamp(proj, 0.0f, 1.0f);
 }
 }  // namespace df
 

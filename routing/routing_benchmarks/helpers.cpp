@@ -34,7 +34,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
 {
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
-  my::Timer timer;
+  base::Timer timer;
   auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
                                                 m2::PointD::Zero() /* startDirection */,
                                                 false /* adjust */, delegate, route);
@@ -42,8 +42,8 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
   TEST_EQUAL(routing::RouterResultCode::NoError, resultCode, ());
   TEST(route.IsValid(), ());
   m2::PolylineD const & poly = route.GetPoly();
-  TEST(my::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
-  TEST(my::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
+  TEST(base::AlmostEqualAbs(poly.Front(), startPos, routing::kPointsEqualEpsilon), ());
+  TEST(base::AlmostEqualAbs(poly.Back(), finalPos, routing::kPointsEqualEpsilon), ());
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
   LOG(LINFO, ("Route distance, meters:", route.GetTotalDistanceMeters()));
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
@@ -117,7 +117,7 @@ void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & fi
   }
 
   double constexpr kEpsilon = 1e-6;
-  TEST(my::AlmostEqualAbs(routeFoundByAstar.GetTotalDistanceMeters(),
+  TEST(base::AlmostEqualAbs(routeFoundByAstar.GetTotalDistanceMeters(),
                           routeFoundByAstarBidirectional.GetTotalDistanceMeters(), kEpsilon),
        ());
 }

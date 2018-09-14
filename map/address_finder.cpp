@@ -67,7 +67,7 @@ namespace
     {
       // feature should be visible in needed scale
       pair<int, int> const r = feature::GetDrawableScaleRange(types);
-      return my::between_s(r.first, r.second, m_scale);
+      return base::between_s(r.first, r.second, m_scale);
     }
 
     /// @return epsilon value for distance compare according to priority:
@@ -319,7 +319,7 @@ namespace
       {
         // we need features with texts for address lookup
         pair<int, int> const r = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT | RULE_SYMBOL);
-        return my::between_s(r.first, r.second, m_scale);
+        return base::between_s(r.first, r.second, m_scale);
       }
       else
         return true;

@@ -31,16 +31,16 @@ auto const kTimeoutInSeconds = 5.0;
 
 string SerializeCheckerData(LocalMapsInfo const & info)
 {
-  auto mwmsArrayNode = my::NewJSONArray();
+  auto mwmsArrayNode = base::NewJSONArray();
   for (auto const & nameAndVersion : info.m_localMaps)
   {
-    auto node = my::NewJSONObject();
+    auto node = base::NewJSONObject();
     ToJSONObject(*node, kNameKey, nameAndVersion.first);
     ToJSONObject(*node, kVersionKey, nameAndVersion.second);
     json_array_append_new(mwmsArrayNode.get(), node.release());
   }
 
-  auto const root = my::NewJSONObject();
+  auto const root = base::NewJSONObject();
   json_object_set_new(root.get(), kMwmsKey, mwmsArrayNode.release());
   ToJSONObject(*root, kMaxVersionKey, info.m_currentDataVersion);
   unique_ptr<char, JSONFreeDeleter> buffer(json_dumps(root.get(), JSON_COMPACT | JSON_ENSURE_ASCII));
@@ -55,7 +55,7 @@ NameDiffInfoMap DeserializeResponse(string const & response, LocalMapsInfo::Name
     return NameDiffInfoMap{};
   }
 
-  my::Json const json(response.c_str());
+  base::Json const json(response.c_str());
   if (json.get() == nullptr)
     return NameDiffInfoMap{};
 

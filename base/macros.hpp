@@ -3,17 +3,17 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
 
-namespace my
+namespace base
 {
-    namespace impl
-    {
-        // http://rsdn.ru/Forum/?mid=1025325
-        template <typename T, unsigned int N> char(&ArraySize(T(&)[N]))[N];
-    }
-}
+namespace impl
+{
+// http://rsdn.ru/Forum/?mid=1025325
+template <typename T, unsigned int N> char(&ArraySize(T(&)[N]))[N];
+}  // namespace impl
+} // namespace base
 
 // Number of elements in array. Compilation error if the type passed is not an array.
-#define ARRAY_SIZE(X) sizeof(::my::impl::ArraySize(X))
+#define ARRAY_SIZE(X) sizeof(::base::impl::ArraySize(X))
 
 #define DISALLOW_COPY(className)                             \
   className(className const &) = delete;                     \
@@ -35,20 +35,21 @@ namespace my
 
 #define UNUSED_VALUE(x) static_cast<void>(x)
 
-namespace my
+namespace base
 {
-  namespace impl
-  {
-    template <typename T> inline void ForceUseValue(T const & t)
-    {
-       volatile T dummy = t;
-       UNUSED_VALUE(dummy);
-    }
-  }
+namespace impl
+{
+template <typename T>
+inline void ForceUseValue(T const & t)
+{
+  volatile T dummy = t;
+  UNUSED_VALUE(dummy);
 }
+}  // namespace impl
+}  // namespace base
 
 // Prevent compiler optimization.
-#define FORCE_USE_VALUE(x) ::my::impl::ForceUseValue(x)
+#define FORCE_USE_VALUE(x) ::base::impl::ForceUseValue(x)
 
 #ifdef __GNUC__
 #define PREDICT(x, prediction) __builtin_expect(x, prediction)

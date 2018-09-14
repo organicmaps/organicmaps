@@ -4,9 +4,15 @@
 
 #include "base/base.hpp"
 
+#include <cstddef>
+#include <cstdint>
 #include <memory>
+#include <string>
 
-namespace my { class FileData; }
+namespace base
+{
+class FileData;
+}
 
 // FileWriter, not thread safe.
 class FileWriter : public Writer
@@ -32,7 +38,7 @@ public:
 
   FileWriter(FileWriter && rhs);
 
-  explicit FileWriter(string const & fileName,
+  explicit FileWriter(std::string const & fileName,
                       Op operation = OP_WRITE_TRUNCATE, bool bTruncOnClose = false);
   ~FileWriter() override;
 
@@ -48,13 +54,13 @@ public:
 
   void Reserve(uint64_t size);
 
-  static void DeleteFileX(string const & fName);
+  static void DeleteFileX(std::string const & fName);
 
-  string const & GetName() const;
+  std::string const & GetName() const;
 
 private:
   void WritePadding(uint64_t offset, uint64_t factor);
 
-  std::unique_ptr<my::FileData> m_pFileData;
+  std::unique_ptr<base::FileData> m_pFileData;
   bool m_bTruncOnClose;
 };

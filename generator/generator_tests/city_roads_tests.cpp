@@ -68,16 +68,16 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   string const writableDir = GetPlatform().WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(my::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
+  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
                            0 /* version */);
   ScopedDir const scopedDir(kTestDir);
 
-  string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildEmptyMwm(country);
 
   // Adding city_roads section to mwm.
-  string const mwmFullPath = my::JoinPath(writableDir, mwmRelativePath);
+  string const mwmFullPath = base::JoinPath(writableDir, mwmRelativePath);
   vector<uint64_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
   SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 

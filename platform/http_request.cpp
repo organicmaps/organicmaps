@@ -269,12 +269,12 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     // 3. Clean up resume file with chunks range on success
     if (m_status == Status::Completed)
     {
-      my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+      base::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
 
       // Rename finished file to it's original name.
       if (Platform::IsFileExistsByFullPath(m_filePath))
-        my::DeleteFileX(m_filePath);
-      CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
+        base::DeleteFileX(m_filePath);
+      CHECK(base::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
             (m_filePath, strerror(errno)));
 
       Platform::DisableBackupForFile(m_filePath);
@@ -317,7 +317,7 @@ public:
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
-      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) &&
+      if (base::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) &&
               size <= static_cast<uint64_t>(fileSize))
         openMode = FileWriter::OP_WRITE_EXISTING;
       else
@@ -353,8 +353,8 @@ public:
 
       if (m_doCleanProgressFiles)
       {
-        my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
-        my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+        base::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
+        base::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
       }
     }
   }

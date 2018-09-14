@@ -108,7 +108,7 @@ bool ConfigLoader::SaveAndReload(pugi::xml_document const & doc)
 
   auto const filePath = GetConfigFilePath();
   auto const result =
-    my::WriteToTempAndRenameToFile(filePath, [&doc](string const & fileName)
+    base::WriteToTempAndRenameToFile(filePath, [&doc](string const & fileName)
     {
       return doc.save_file(fileName.c_str(), "  ");
     });
@@ -174,7 +174,7 @@ void ConfigLoader::GetRemoteConfig(pugi::xml_document & doc)
 bool ConfigLoader::SaveHash(string const & hash, string const & filePath)
 {
   auto const result =
-    my::WriteToTempAndRenameToFile(filePath, [&hash](string const & fileName)
+    base::WriteToTempAndRenameToFile(filePath, [&hash](string const & fileName)
     {
       ofstream ofs(fileName, ofstream::out);
       if (!ofs.is_open())

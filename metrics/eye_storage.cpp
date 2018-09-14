@@ -22,7 +22,7 @@ std::string Storage::GetEyeFilePath()
 // static
 bool Storage::Save(std::string const & filePath, std::vector<int8_t> const & src)
 {
-  return my::WriteToTempAndRenameToFile(filePath, [&src](string const & fileName)
+  return base::WriteToTempAndRenameToFile(filePath, [&src](string const & fileName)
   {
     try
     {

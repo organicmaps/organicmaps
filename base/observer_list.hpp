@@ -69,4 +69,4 @@ private:
   Mutex m_observersLock;
   std::vector<Observer *> m_observers;
 };
-}  // namespace my
+}  // namespace base

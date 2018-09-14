@@ -48,28 +48,28 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
     return;
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
-  auto coordinates = my::NewJSONArray();
+  auto coordinates = base::NewJSONArray();
   ToJSONArray(*coordinates, std::round(center.lon * kRoundDigits) / kRoundDigits);
   ToJSONArray(*coordinates, std::round(center.lat * kRoundDigits) / kRoundDigits);
-  auto geometry = my::NewJSONObject();
+  auto geometry = base::NewJSONObject();
   ToJSONObject(*geometry, "type", "Point");
   ToJSONObject(*geometry, "coordinates", coordinates);
 
-  auto properties = my::NewJSONObject();
+  auto properties = base::NewJSONObject();
   ToJSONObject(*properties, "id", fb.GetMostGenericOsmId().GetEncodedId());
   if (!name.empty() && !category.empty() && category != "building-address")
   {
     ToJSONObject(*properties, "name", name);
     ToJSONObject(*properties, "tags", category);
   }
-  auto address = my::NewJSONObject();
+  auto address = base::NewJSONObject();
   if (!street.empty())
     ToJSONObject(*address, "street", street);
   if (!house.empty())
     ToJSONObject(*address, "building", house);
   ToJSONObject(*properties, "address", address);
 
-  auto feature = my::NewJSONObject();
+  auto feature = base::NewJSONObject();
   ToJSONObject(*feature, "type", "Feature");
   ToJSONObject(*feature, "geometry", geometry);
   ToJSONObject(*feature, "properties", properties);

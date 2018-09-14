@@ -1,45 +1,45 @@
 #pragma once
 
-#include "std/initializer_list.hpp"
-#include "std/string.hpp"
-
+#include <initializer_list>
+#include <string>
 #include <utility>
 
-namespace my
+namespace base
 {
-  /// Remove extension from file name.
-  void GetNameWithoutExt(string & name);
-  string FilenameWithoutExt(string name);
-  /// @return File extension with the dot or empty string if no extension found.
-  string GetFileExtension(string const & name);
+/// Remove extension from file name.
+void GetNameWithoutExt(std::string & name);
+std::string FilenameWithoutExt(std::string name);
+/// @return File extension with the dot or empty std::string if no extension found.
+std::string GetFileExtension(std::string const & name);
 
-  /// Get file name from full path.
-  void GetNameFromFullPath(string & name);
+/// Get file name from full path.
+void GetNameFromFullPath(std::string & name);
 
-  /// Get file name from full path without extension.
-  string GetNameFromFullPathWithoutExt(string const & path);
+/// Get file name from full path without extension.
+std::string GetNameFromFullPathWithoutExt(std::string const & path);
 
-  /// Returns all but last components of the path. After dropping the last
-  /// component, all trailing slashes are removed, unless the result is a
-  /// root directory. If the argument is a single component, returns ".".
-  string GetDirectory(string const & path);
+/// Returns all but last components of the path. After dropping the last
+/// component, all trailing slashes are removed, unless the result is a
+/// root directory. If the argument is a single component, returns ".".
+std::string GetDirectory(std::string const & path);
 
-  /// Get folder separator for specific platform
-  string GetNativeSeparator();
+/// Get folder separator for specific platform
+std::string GetNativeSeparator();
 
-  /// @deprecated use JoinPath instead.
-  string JoinFoldersToPath(const string & folder, const string & file);
-  string JoinFoldersToPath(initializer_list<string> const & folders, const string & file);
+/// @deprecated use JoinPath instead.
+std::string JoinFoldersToPath(std::string const & folder, std::string const & file);
+std::string JoinFoldersToPath(std::initializer_list<std::string> const & folders,
+                              std::string const & file);
 
-  /// Add the terminating slash to the folder path string if it's not already there.
-  string AddSlashIfNeeded(string const & path);
+/// Add the terminating slash to the folder path std::string if it's not already there.
+std::string AddSlashIfNeeded(std::string const & path);
 
-  inline std::string JoinPath(std::string const & file) { return file; }
+inline std::string JoinPath(std::string const & file) { return file; }
 
-  /// Create full path from some folder using native folders separator.
-  template<typename... Args>
-  std::string JoinPath(std::string const & folder, Args&&... args)
-  {
-    return AddSlashIfNeeded(folder) + JoinPath(std::forward<Args>(args)...);
-  }
+/// Create full path from some folder using native folders separator.
+template <typename... Args>
+std::string JoinPath(std::string const & folder, Args &&... args)
+{
+  return AddSlashIfNeeded(folder) + JoinPath(std::forward<Args>(args)...);
 }
+}  // namespace base

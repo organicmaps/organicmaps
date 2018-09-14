@@ -73,7 +73,7 @@ std::string GetEglError(EGLint error)
 
 }  // namespace
 
-void CheckEGL(my::SrcPoint const & src)
+void CheckEGL(base::SrcPoint const & src)
 {
   EGLint error = eglGetError();
   while (error != EGL_SUCCESS)

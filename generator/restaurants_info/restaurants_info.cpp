@@ -33,7 +33,7 @@ feature::GenerateInfo GetGenerateInfo()
   info.SetNodeStorageType("map");
   info.SetOsmFileType("o5m");
 
-  info.m_intermediateDir = my::GetDirectory(FLAGS_out);
+  info.m_intermediateDir = base::GetDirectory(FLAGS_out);
 
   // Set other info params here.
 

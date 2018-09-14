@@ -202,29 +202,30 @@ namespace integration
     TEST_EQUAL(streetName, expectedStreetName, ());
   }
 
-  void TestRouteLength(Route const & route, double expectedRouteMeters,
-                       double relativeError)
+  void TestRouteLength(Route const & route, double expectedRouteMeters, double relativeError)
   {
     double const delta = max(expectedRouteMeters * relativeError, kErrorMeters);
     double const routeMeters = route.GetTotalDistanceMeters();
-    TEST(my::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
-        ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters, "delta:", delta));
+    TEST(base::AlmostEqualAbs(routeMeters, expectedRouteMeters, delta),
+         ("Route length test failed. Expected:", expectedRouteMeters, "have:", routeMeters,
+          "delta:", delta));
   }
 
   void TestRouteTime(Route const & route, double expectedRouteSeconds, double relativeError)
   {
     double const delta = max(expectedRouteSeconds * relativeError, kErrorSeconds);
     double const routeSeconds = route.GetTotalTimeSec();
-    TEST(my::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
-        ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds, "delta:", delta));
+    TEST(base::AlmostEqualAbs(routeSeconds, expectedRouteSeconds, delta),
+         ("Route time test failed. Expected:", expectedRouteSeconds, "have:", routeSeconds,
+          "delta:", delta));
   }
 
   void TestRoutePointsNumber(Route const & route, size_t expectedPointsNumber, double relativeError)
   {
     CHECK_GREATER_OR_EQUAL(relativeError, 0.0, ());
     size_t const routePoints = route.GetPoly().GetSize();
-    TEST(my::AlmostEqualRel(static_cast<double>(routePoints),
-                            static_cast<double>(expectedPointsNumber), relativeError),
+    TEST(base::AlmostEqualRel(static_cast<double>(routePoints),
+                              static_cast<double>(expectedPointsNumber), relativeError),
          ("Route points test failed. Expected:", expectedPointsNumber, "have:", routePoints,
           "relative error:", relativeError));
   }

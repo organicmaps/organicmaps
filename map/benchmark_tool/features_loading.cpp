@@ -20,7 +20,7 @@ namespace
 {
   class Accumulator
   {
-    my::Timer m_timer;
+    base::Timer m_timer;
     size_t m_count;
 
     Result & m_res;
@@ -78,7 +78,7 @@ namespace
       {
         acc.Reset(scale);
 
-        my::Timer timer;
+        base::Timer timer;
         src.ForEachFeature(r, acc, scale);
         res.Add(timer.ElapsedSeconds());
 
@@ -99,8 +99,8 @@ namespace
 void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange, AllResult & res)
 {
   string fileName = file;
-  my::GetNameFromFullPath(fileName);
-  my::GetNameWithoutExt(fileName);
+  base::GetNameFromFullPath(fileName);
+  base::GetNameWithoutExt(fileName);
 
   platform::LocalCountryFile localFile =
       platform::LocalCountryFile::MakeForTesting(fileName);

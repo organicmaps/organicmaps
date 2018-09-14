@@ -18,10 +18,10 @@ void TestPacker(StipplePenPacker & packer, uint32_t width, m2::RectU const & exp
 
 bool IsRectsEqual(m2::RectF const & r1, m2::RectF const & r2)
 {
-  return my::AlmostEqualULPs(r1.minX(), r2.minX()) &&
-         my::AlmostEqualULPs(r1.minY(), r2.minY()) &&
-         my::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
-         my::AlmostEqualULPs(r1.maxY(), r2.maxY());
+  return base::AlmostEqualULPs(r1.minX(), r2.minX()) &&
+         base::AlmostEqualULPs(r1.minY(), r2.minY()) &&
+         base::AlmostEqualULPs(r1.maxX(), r2.maxX()) &&
+         base::AlmostEqualULPs(r1.maxY(), r2.maxY());
 }
 
 class DummyStipplePenIndex : public StipplePenIndex

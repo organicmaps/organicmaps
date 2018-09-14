@@ -42,9 +42,9 @@ void Test(vector<TrafficGPSEncoder::DataPoint> & points)
     {
       TEST_EQUAL(points[i].m_timestamp, result[i].m_timestamp,
                  (points[i].m_timestamp, result[i].m_timestamp));
-      TEST(my::AlmostEqualAbsOrRel(points[i].m_latLon.lat, result[i].m_latLon.lat, kEps),
+      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.lat, result[i].m_latLon.lat, kEps),
            (points[i].m_latLon.lat, result[i].m_latLon.lat));
-      TEST(my::AlmostEqualAbsOrRel(points[i].m_latLon.lon, result[i].m_latLon.lon, kEps),
+      TEST(base::AlmostEqualAbsOrRel(points[i].m_latLon.lon, result[i].m_latLon.lon, kEps),
            (points[i].m_latLon.lon, result[i].m_latLon.lon));
     }
 

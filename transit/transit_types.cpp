@@ -138,7 +138,7 @@ bool Stop::IsEqualForTesting(Stop const & stop) const
   double constexpr kPointsEqualEpsilon = 1e-6;
   return m_id == stop.m_id && m_featureIdentifiers == stop.m_featureIdentifiers &&
          m_transferId == stop.m_transferId && m_lineIds == stop.m_lineIds &&
-         my::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
+         base::AlmostEqualAbs(m_point, stop.m_point, kPointsEqualEpsilon) &&
          m_titleAnchors == stop.m_titleAnchors;
 }
 
@@ -199,7 +199,7 @@ bool Gate::IsEqualForTesting(Gate const & gate) const
 {
   return m_featureIdentifiers == gate.m_featureIdentifiers && m_entrance == gate.m_entrance &&
          m_exit == gate.m_exit && m_weight == gate.m_weight && m_stopIds == gate.m_stopIds &&
-         my::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
+         base::AlmostEqualAbs(m_point, gate.m_point, kPointsEqualEpsilon);
 }
 
 bool Gate::IsValid() const
@@ -310,7 +310,7 @@ Transfer::Transfer(StopId id, m2::PointD const & point, std::vector<StopId> cons
 bool Transfer::IsEqualForTesting(Transfer const & transfer) const
 {
   return m_id == transfer.m_id &&
-         my::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
+         base::AlmostEqualAbs(m_point, transfer.m_point, kPointsEqualEpsilon) &&
          m_stopIds == transfer.m_stopIds && m_titleAnchors == transfer.m_titleAnchors;
 }
 
@@ -355,7 +355,7 @@ bool Shape::IsEqualForTesting(Shape const & shape) const
 
   for (size_t i = 0; i < m_polyline.size(); ++i)
   {
-    if (!my::AlmostEqualAbs(m_polyline[i], shape.m_polyline[i], kPointsEqualEpsilon))
+    if (!base::AlmostEqualAbs(m_polyline[i], shape.m_polyline[i], kPointsEqualEpsilon))
       return false;
   }
   return true;

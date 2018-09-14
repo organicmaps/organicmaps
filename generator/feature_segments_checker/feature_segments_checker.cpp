@@ -103,7 +103,7 @@ bool LinearLeastSquaresFactors(vector<double> const & xs, vector<double> const &
     mx2 += xs[i] * xs[i] / n;
   }
 
-  if (my::AlmostEqualAbs(mx * mx, mx2, kEpsilon))
+  if (base::AlmostEqualAbs(mx * mx, mx2, kEpsilon))
     return false;
 
   k = (my * mx - mxy) / (mx * mx - mx2);

@@ -27,7 +27,7 @@ bool UGCTranslator::TranslateUGC(base::GeoObjectId const & id, ugc::UGC & ugc)
 
   std::string str(src.cbegin(), src.cend());
 
-  my::Json json(str);
+  base::Json json(str);
 
   auto const size = json_array_size(json.get());
 
