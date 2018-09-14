@@ -21,3 +21,11 @@ float2 CalcLineTransformedAxisPos(float2 originalAxisPos, float2 shiftedPos, flo
   else
     return originalAxisPos;
 }
+
+float4 ApplyBillboardPivotTransform(float4 pivot, float4x4 pivotTransform, float pivotRealZ, float2 offset)
+{
+  float logicZ = pivot.z / pivot.w;
+  float4 transformedPivot = pivotTransform * float4(pivot.xy, pivotRealZ, pivot.w);
+  float4 scale = pivotTransform * float4(1.0, -1.0, 0.0, 1.0);
+  return float4(transformedPivot.xy / transformedPivot.w, logicZ, 1.0) + float4(offset / scale.w * scale.x, 0.0, 0.0);
+}

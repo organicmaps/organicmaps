@@ -47,15 +47,15 @@ std::array<ProgramInfo, static_cast<size_t>(SystemProgram::SystemProgramsCount)>
 }};
   
 std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMetalProgramsInfo = {{
-  ProgramInfo("", "", {}),  // ColoredSymbol
-  ProgramInfo("", "", {}),  // Texturing
-  ProgramInfo("", "", {}),  // MaskedTexturing
+  ProgramInfo("vsColoredSymbol", "fsColoredSymbol", {{0, 2}}),  // ColoredSymbol
+  ProgramInfo("vsTexturing", "fsTexturing", {{0, 2}}),  // Texturing
+  ProgramInfo("vsMaskedTexturing", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturing
   ProgramInfo("", "", {}),  // Bookmark
   ProgramInfo("", "", {}),  // BookmarkAnim
-  ProgramInfo("", "", {}),  // TextOutlined
-  ProgramInfo("", "", {}),  // Text
-  ProgramInfo("", "", {}),  // TextFixed
-  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 4}}),  // TextStaticOutlinedGui
+  ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),  // TextOutlined
+  ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),  // Text
+  ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixed
+  ProgramInfo("vsTextStaticOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),  // TextStaticOutlinedGui
   ProgramInfo("vsTextOutlinedGui", "fsTextOutlinedGui", {{0, 2}, {3, 4}}),  // TextOutlinedGui
   ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // Area
   ProgramInfo("vsArea", "fsArea", {{0, 1}}),  // AreaOutline
@@ -83,14 +83,14 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),  // Arrow3d
   ProgramInfo("vsArrow3dShadow", "fsArrow3dShadow", {{0, 0}}),  // Arrow3dShadow
   ProgramInfo("vsArrow3dShadow", "fsArrow3dOutline", {{0, 0}}),  // Arrow3dOutline
-  ProgramInfo("", "", {}),  // ColoredSymbolBillboard
-  ProgramInfo("", "", {}),  // TexturingBillboard
-  ProgramInfo("", "", {}),  // MaskedTexturingBillboard
+  ProgramInfo("vsColoredSymbolBillboard", "fsColoredSymbol", {{0, 2}}),  // ColoredSymbolBillboard
+  ProgramInfo("vsTexturingBillboard", "fsTexturing", {{0, 2}}),  // TexturingBillboard
+  ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturingBillboard
   ProgramInfo("", "", {}),  // BookmarkBillboard
   ProgramInfo("", "", {}),  // BookmarkAnimBillboard
-  ProgramInfo("", "", {}),  // TextOutlinedBillboard
-  ProgramInfo("", "", {}),  // TextBillboard
-  ProgramInfo("", "", {}),  // TextFixedBillboard
+  ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),  // TextOutlinedBillboard
+  ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),  // TextBillboard
+  ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixedBillboard
   ProgramInfo("vsTraffic", "fsTraffic", {{0, 2}}),  // Traffic
   ProgramInfo("vsTrafficLine", "fsTrafficLine", {{0, 1}}),  // TrafficLine
   ProgramInfo("vsTrafficCircle", "fsTrafficCircle", {{0, 2}}),  // TrafficCircle

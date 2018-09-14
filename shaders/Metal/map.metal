@@ -435,3 +435,320 @@ fragment float4 fsPathSymbol(const PathSymbolFragment_T in [[stage_in]],
   color.a *= uniforms.u_opacity;
   return color;
 }
+
+// Text
+
+typedef struct
+{
+  float2 a_colorTexCoord [[attribute(0)]];
+  float2 a_maskTexCoord [[attribute(1)]];
+  float4 a_position [[attribute(2)]];
+  float2 a_normal [[attribute(3)]];
+} TextVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float4 color;
+  float2 maskTexCoord;
+} TextFragment_T;
+
+vertex TextFragment_T vsText(const TextVertex_T in [[stage_in]],
+                             constant Uniforms_T & uniforms [[buffer(2)]],
+                             texture2d<float> u_colorTex [[texture(0)]],
+                             sampler u_colorTexSampler [[sampler(0)]])
+{
+  TextFragment_T out;
+  
+  float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
+  out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.maskTexCoord = in.a_maskTexCoord;
+  out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord);
+  return out;
+}
+
+fragment float4 fsText(const TextFragment_T in [[stage_in]],
+                       constant Uniforms_T & uniforms [[buffer(0)]],
+                       texture2d<float> u_maskTex [[texture(0)]],
+                       sampler u_maskTexSampler [[sampler(0)]])
+{
+  float4 glyphColor = in.color;
+  float dist = u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
+  float2 contrastGamma = uniforms.u_contrastGamma;
+  float alpha = smoothstep(contrastGamma.x - contrastGamma.y, contrastGamma.x + contrastGamma.y, dist);
+  glyphColor.a *= alpha * uniforms.u_opacity;
+  return glyphColor;
+}
+
+// TextBillboard
+
+vertex TextFragment_T vsTextBillboard(const TextVertex_T in [[stage_in]],
+                                      constant Uniforms_T & uniforms [[buffer(2)]],
+                                      texture2d<float> u_colorTex [[texture(0)]],
+                                      sampler u_colorTexSampler [[sampler(0)]])
+{
+  TextFragment_T out;
+  
+  float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
+                                              in.a_position.w * uniforms.u_zScale, offset.xy);
+  out.maskTexCoord = in.a_maskTexCoord;
+  out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoord);
+  return out;
+}
+
+// TextOutlined
+
+typedef struct
+{
+  float2 a_colorTexCoord [[attribute(0)]];
+  float2 a_outlineColorTexCoord [[attribute(1)]];
+  float2 a_maskTexCoord [[attribute(2)]];
+  float4 a_position [[attribute(3)]];
+  float2 a_normal [[attribute(4)]];
+} TextOutlinedVertex_T;
+
+vertex TextFragment_T vsTextOutlined(const TextOutlinedVertex_T in [[stage_in]],
+                                     constant Uniforms_T & uniforms [[buffer(2)]],
+                                     texture2d<float> u_colorTex [[texture(0)]],
+                                     sampler u_colorTexSampler [[sampler(0)]])
+{
+  constexpr float kBaseDepthShift = -10.0;
+  
+  TextFragment_T out;
+  
+  float isOutline = step(0.5, uniforms.u_isOutlinePass);
+  float notOutline = 1.0 - isOutline;
+  float depthShift = kBaseDepthShift * isOutline;
+  
+  float4 pos = (float4(in.a_position.xyz, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
+  float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
+  out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.maskTexCoord = in.a_maskTexCoord;
+  float2 colorTexCoord = in.a_colorTexCoord * notOutline + in.a_outlineColorTexCoord * isOutline;
+  out.color = u_colorTex.sample(u_colorTexSampler, colorTexCoord);
+  return out;
+}
+
+// TextOutlinedBillboard
+
+vertex TextFragment_T vsTextOutlinedBillboard(const TextOutlinedVertex_T in [[stage_in]],
+                                              constant Uniforms_T & uniforms [[buffer(2)]],
+                                              texture2d<float> u_colorTex [[texture(0)]],
+                                              sampler u_colorTexSampler [[sampler(0)]])
+{
+  constexpr float kBaseDepthShift = -10.0;
+  
+  TextFragment_T out;
+  
+  float isOutline = step(0.5, uniforms.u_isOutlinePass);
+  float depthShift = kBaseDepthShift * isOutline;
+  
+  float4 pivot = (float4(in.a_position.xyz, 1.0) + float4(0.0, 0.0, depthShift, 0.0)) * uniforms.u_modelView;
+  float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
+                                              in.a_position.w * uniforms.u_zScale, offset.xy);
+  out.maskTexCoord = in.a_maskTexCoord;
+  float2 colorTexCoord = mix(in.a_colorTexCoord, in.a_outlineColorTexCoord, isOutline);
+  out.color = u_colorTex.sample(u_colorTexSampler, colorTexCoord);
+  return out;
+}
+
+// TextFixed
+
+fragment float4 fsTextFixed(const TextFragment_T in [[stage_in]],
+                            constant Uniforms_T & uniforms [[buffer(0)]],
+                            texture2d<float> u_maskTex [[texture(0)]],
+                            sampler u_maskTexSampler [[sampler(0)]])
+{
+  float4 glyphColor = in.color;
+  float alpha = u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
+  glyphColor.a *= alpha * uniforms.u_opacity;
+  return glyphColor;
+}
+
+// ColoredSymbol
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float4 a_normal [[attribute(1)]];
+  float4 a_colorTexCoords [[attribute(2)]];
+} ColoredSymbolVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float4 normal;
+  float4 color;
+} ColoredSymbolFragment_T;
+
+typedef struct
+{
+  float4 color [[color(0)]];
+  float depth [[depth(any)]];
+} ColoredSymbolOut_T;
+
+vertex ColoredSymbolFragment_T vsColoredSymbol(const ColoredSymbolVertex_T in [[stage_in]],
+                                               constant Uniforms_T & uniforms [[buffer(1)]],
+                                               texture2d<float> u_colorTex [[texture(0)]],
+                                               sampler u_colorTexSampler [[sampler(0)]])
+{
+  ColoredSymbolFragment_T out;
+  
+  float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
+  float4 pos = float4(in.a_normal.xy + in.a_colorTexCoords.zw, 0.0, 0.0) + p;
+  out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoords.xy);
+  out.normal = in.a_normal;
+  return out;
+}
+
+vertex ColoredSymbolFragment_T vsColoredSymbolBillboard(const ColoredSymbolVertex_T in [[stage_in]],
+                                                        constant Uniforms_T & uniforms [[buffer(1)]],
+                                                        texture2d<float> u_colorTex [[texture(0)]],
+                                                        sampler u_colorTexSampler [[sampler(0)]])
+{
+  ColoredSymbolFragment_T out;
+  
+  float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 offset = float4(in.a_normal.xy + in.a_colorTexCoords.zw, 0.0, 0.0) * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform, 0.0, offset.xy);
+  out.color = u_colorTex.sample(u_colorTexSampler, in.a_colorTexCoords.xy);
+  out.normal = in.a_normal;
+  return out;
+}
+
+fragment ColoredSymbolOut_T fsColoredSymbol(const ColoredSymbolFragment_T in [[stage_in]],
+                                            constant Uniforms_T & uniforms [[buffer(0)]])
+{
+  constexpr float kAntialiasingPixelsCount = 2.5;
+  
+  ColoredSymbolOut_T out;
+  
+  float r1 = (in.normal.z - kAntialiasingPixelsCount) * (in.normal.z - kAntialiasingPixelsCount);
+  float r2 = in.normal.x * in.normal.x + in.normal.y * in.normal.y;
+  float r3 = in.normal.z * in.normal.z;
+  float alpha = mix(step(r3, r2), smoothstep(r1, r3, r2), in.normal.w);
+  
+  float4 finalColor = in.color;
+  finalColor.a = finalColor.a * uniforms.u_opacity * (1.0 - alpha);
+  if (finalColor.a == 0.0)
+    out.depth = 1.0;
+  else
+    out.depth = in.position.z;
+  
+  out.color = finalColor;
+  return out;
+}
+
+// Texturing
+
+typedef struct
+{
+  float4 a_position [[attribute(0)]];
+  float2 a_normal [[attribute(1)]];
+  float2 a_colorTexCoords [[attribute(2)]];
+} TexturingVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float2 colorTexCoords;
+} TexturingFragment_T;
+
+vertex TexturingFragment_T vsTexturing(const TexturingVertex_T in [[stage_in]],
+                                       constant Uniforms_T & uniforms [[buffer(1)]],
+                                       texture2d<float> u_colorTex [[texture(0)]],
+                                       sampler u_colorTexSampler [[sampler(0)]])
+{
+  TexturingFragment_T out;
+  
+  float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
+  out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.colorTexCoords = in.a_colorTexCoords;
+  return out;
+}
+
+vertex TexturingFragment_T vsTexturingBillboard(const TexturingVertex_T in [[stage_in]],
+                                                constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  TexturingFragment_T out;
+  
+  float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
+                                              in.a_position.w * uniforms.u_zScale, offset.xy);
+  out.colorTexCoords = in.a_colorTexCoords;
+  return out;
+}
+
+fragment float4 fsTexturing(const TexturingFragment_T in [[stage_in]],
+                            constant Uniforms_T & uniforms [[buffer(0)]],
+                            texture2d<float> u_colorTex [[texture(0)]],
+                            sampler u_colorTexSampler [[sampler(0)]])
+{
+  float4 finalColor = u_colorTex.sample(u_colorTexSampler, in.colorTexCoords.xy);
+  finalColor.a *= uniforms.u_opacity;
+  return finalColor;
+}
+
+// MaskedTexturing
+
+typedef struct
+{
+  float4 a_position [[attribute(0)]];
+  float2 a_normal [[attribute(1)]];
+  float2 a_colorTexCoords [[attribute(2)]];
+  float2 a_maskTexCoords [[attribute(3)]];
+} MaskedTexturingVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float2 colorTexCoords;
+  float2 maskTexCoords;
+} MaskedTexturingFragment_T;
+
+vertex MaskedTexturingFragment_T vsMaskedTexturing(const MaskedTexturingVertex_T in [[stage_in]],
+                                                   constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  MaskedTexturingFragment_T out;
+  
+  float4 pos = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 shiftedPos = float4(in.a_normal, 0.0, 0.0) + pos;
+  out.position = ApplyPivotTransform(shiftedPos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.colorTexCoords = in.a_colorTexCoords;
+  out.maskTexCoords = in.a_maskTexCoords;
+  return out;
+}
+
+vertex MaskedTexturingFragment_T vsMaskedTexturingBillboard(const MaskedTexturingVertex_T in [[stage_in]],
+                                                            constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  MaskedTexturingFragment_T out;
+  
+  float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 offset = float4(in.a_normal, 0.0, 0.0) * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(pivot * uniforms.u_projection, uniforms.u_pivotTransform,
+                                              in.a_position.w * uniforms.u_zScale, offset.xy);
+  out.colorTexCoords = in.a_colorTexCoords;
+  out.maskTexCoords = in.a_maskTexCoords;
+  return out;
+}
+
+fragment float4 fsMaskedTexturing(const MaskedTexturingFragment_T in [[stage_in]],
+                                  constant Uniforms_T & uniforms [[buffer(0)]],
+                                  texture2d<float> u_colorTex [[texture(0)]],
+                                  sampler u_colorTexSampler [[sampler(0)]],
+                                  texture2d<float> u_maskTex [[texture(1)]],
+                                  sampler u_maskTexSampler [[sampler(1)]])
+{
+  float4 finalColor = u_colorTex.sample(u_colorTexSampler, in.colorTexCoords.xy) *
+  u_maskTex.sample(u_maskTexSampler, in.maskTexCoords.xy);
+  finalColor.a *= uniforms.u_opacity;
+  return finalColor;
+}
