@@ -50,8 +50,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsColoredSymbol", "fsColoredSymbol", {{0, 2}}),  // ColoredSymbol
   ProgramInfo("vsTexturing", "fsTexturing", {{0, 2}}),  // Texturing
   ProgramInfo("vsMaskedTexturing", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturing
-  ProgramInfo("", "", {}),  // Bookmark
-  ProgramInfo("", "", {}),  // BookmarkAnim
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),  // Bookmark
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),  // BookmarkAnim
   ProgramInfo("vsTextOutlined", "fsText", {{0, 2}, {3, 4}}),  // TextOutlined
   ProgramInfo("vsText", "fsText", {{0, 1}, {2, 3}}),  // Text
   ProgramInfo("vsText", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixed
@@ -86,8 +86,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsColoredSymbolBillboard", "fsColoredSymbol", {{0, 2}}),  // ColoredSymbolBillboard
   ProgramInfo("vsTexturingBillboard", "fsTexturing", {{0, 2}}),  // TexturingBillboard
   ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturingBillboard
-  ProgramInfo("", "", {}),  // BookmarkBillboard
-  ProgramInfo("", "", {}),  // BookmarkAnimBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkAnimBillboard
   ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),  // TextOutlinedBillboard
   ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),  // TextBillboard
   ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixedBillboard

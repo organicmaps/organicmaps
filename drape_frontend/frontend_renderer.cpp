@@ -299,7 +299,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::FlushUserMarks:
     {
-      if (m_apiVersion == dp::ApiVersion::Metal) return; // TODO(@darina, @rokuz): TEMPORARY
       ref_ptr<FlushUserMarksMessage> msg = message;
       TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
       for (auto & renderData : marksRenderData)

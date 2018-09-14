@@ -752,3 +752,85 @@ fragment float4 fsMaskedTexturing(const MaskedTexturingFragment_T in [[stage_in]
   finalColor.a *= uniforms.u_opacity;
   return finalColor;
 }
+
+// UserMark
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float2 a_normal [[attribute(1)]];
+  float4 a_texCoords [[attribute(2)]];
+  float4 a_colorAndAnimate [[attribute(3)]];
+} UserMarkVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float4 texCoords;
+  float3 maskColor;
+} UserMarkFragment_T;
+
+typedef struct
+{
+  float4 color [[color(0)]];
+  float depth [[depth(any)]];
+} UserMarkOut_T;
+
+vertex UserMarkFragment_T vsUserMark(const UserMarkVertex_T in [[stage_in]],
+                                     constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  UserMarkFragment_T out;
+  
+  float2 normal = in.a_normal;
+  if (in.a_colorAndAnimate.w > 0.0)
+    normal = uniforms.u_interpolation * normal;
+  
+  float4 p = float4(in.a_position, 1.0) * uniforms.u_modelView;
+  float4 pos = float4(normal, 0.0, 0.0) + p;
+  float4 projectedPivot = p * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos * uniforms.u_projection, uniforms.u_pivotTransform, 0.0);
+  out.position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  out.texCoords = in.a_texCoords;
+  out.maskColor = in.a_colorAndAnimate.rgb;
+  
+  return out;
+}
+
+vertex UserMarkFragment_T vsUserMarkBillboard(const UserMarkVertex_T in [[stage_in]],
+                                              constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  UserMarkFragment_T out;
+  
+  float2 normal = in.a_normal;
+  if (in.a_colorAndAnimate.w > 0.0)
+    normal = uniforms.u_interpolation * normal;
+  
+  float4 pivot = float4(in.a_position.xyz, 1.0) * uniforms.u_modelView;
+  float4 offset = float4(normal, 0.0, 0.0) * uniforms.u_projection;
+  float4 projectedPivot = pivot * uniforms.u_projection;
+  out.position = ApplyBillboardPivotTransform(projectedPivot, uniforms.u_pivotTransform, 0.0, offset.xy);
+  out.position.z = projectedPivot.y / projectedPivot.w * 0.5 + 0.5;
+  
+  out.texCoords = in.a_texCoords;
+  out.maskColor = in.a_colorAndAnimate.rgb;
+  return out;
+}
+
+fragment UserMarkOut_T fsUserMark(const UserMarkFragment_T in [[stage_in]],
+                                  constant Uniforms_T & uniforms [[buffer(0)]],
+                                  texture2d<float> u_colorTex [[texture(0)]],
+                                  sampler u_colorTexSampler [[sampler(0)]])
+{
+  UserMarkOut_T out;
+  
+  float4 color = u_colorTex.sample(u_colorTexSampler, in.texCoords.xy);
+  float4 bgColor = u_colorTex.sample(u_colorTexSampler, in.texCoords.zw) * float4(in.maskColor, 1.0);
+  float4 finalColor = mix(color, mix(bgColor, color, color.a), bgColor.a);
+  finalColor.a = clamp(color.a + bgColor.a, 0.0, 1.0) * uniforms.u_opacity;
+  if (finalColor.a < 0.001)
+    out.depth = 1.0;
+  else
+    out.depth = in.position.z;
+  out.color = finalColor;
+  return out;
+}
