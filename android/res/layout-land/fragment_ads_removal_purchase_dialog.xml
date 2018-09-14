@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"
+  android:fillViewport="true">
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/ads_removal_dialog_min_height"
+    android:orientation="vertical">
+    <LinearLayout
+      android:id="@+id/progress_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="invisible"
+      tools:visibility="visible">
+      <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base_plus"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_size_body_2"
+        android:text="@string/purchase_loading"/>
+    </LinearLayout>
+  </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

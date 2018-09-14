@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
@@ -73,7 +74,16 @@ public class BaseMwmDialogFragment extends DialogFragment
   {
     Context context = getContext();
     if (context == null)
-      throw new IllegalStateException("Before call this method make sure that the context exist");
+      throw new IllegalStateException("Before call this method make sure that the context exists");
     return (Application) context.getApplicationContext();
+  }
+
+  @NonNull
+  protected View getViewOrThrow()
+  {
+    View view = getView();
+    if (view == null)
+      throw new IllegalStateException("Before call this method make sure that the view exists");
+    return view;
   }
 }

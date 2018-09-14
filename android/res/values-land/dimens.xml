@@ -24,4 +24,7 @@
   <dimen name="permissions_title_note_margin">@dimen/margin_half</dimen>
   <dimen name="permissions_items_margin">@dimen/margin_half</dimen>
   <dimen name="info_page_image_size">200dp</dimen>
+
+  <!-- Purchases-->
+  <dimen name="ads_removal_dialog_min_height">360dp</dimen>
 </resources>

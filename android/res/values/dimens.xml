@@ -251,4 +251,7 @@
   <dimen name="dp_0">0dp</dimen>
   <dimen name="toggle_map_layer_frame_height">98dp</dimen>
   <dimen name="focal_radius">44dp</dimen>
+
+  <!-- Purchases-->
+  <dimen name="ads_removal_dialog_min_height">508dp</dimen>
 </resources>
