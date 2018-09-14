@@ -53,7 +53,7 @@ public:
       return infoGetter.GetLimitRectForLeaf(countryId);
     };
 
-    auto const index = my::Key(type);
+    auto const index = base::Key(type);
     if (!m_routers[index])
     {
       m_routers[index] = make_unique<IndexRouter>(type, false /* load altitudes */, *m_cpg,
@@ -95,7 +95,7 @@ private:
 
   FrozenDataSource m_dataSource;
   shared_ptr<NumMwmIds> m_numMwmIds = make_shared<NumMwmIds>();
-  array<unique_ptr<IndexRouter>, my::Key(VehicleType::Count)> m_routers{};
+  array<unique_ptr<IndexRouter>, base::Key(VehicleType::Count)> m_routers{};
   unique_ptr<storage::CountryParentGetter> m_cpg = make_unique<storage::CountryParentGetter>();
   unique_ptr<storage::CountryInfoGetter> m_cig = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   traffic::TrafficCache m_trafficCache;
