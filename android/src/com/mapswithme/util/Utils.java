@@ -605,6 +605,11 @@ public class Utils
     return Build.MODEL;
   }
 
+  public static boolean isJellyBeanOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.JELLY_BEAN_MR1);
+  }
+
   private  static class OnZipCompletedCallback implements LoggerFactory.OnZipCompletedListener
   {
     @NonNull

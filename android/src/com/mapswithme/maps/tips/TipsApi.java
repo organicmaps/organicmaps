@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -75,7 +74,7 @@ public enum TipsApi
 
   STUB
       {
-        public MaterialTapTargetPrompt showTutorial(@NonNull Activity activity, int height)
+        public void showTutorial(@NonNull Activity activity)
         {
           throw new UnsupportedOperationException("Not supported here!");
         }
@@ -122,10 +121,8 @@ public enum TipsApi
     return mAllowedScreens.contains(screenClass);
   }
 
-  public MaterialTapTargetPrompt showTutorial(@NonNull Activity activity, int height)
+  public void showTutorial(@NonNull Activity activity)
   {
-    ImmersiveCompatPromptBackground bg = new ImmersiveCompatPromptBackground();
-    bg.setHeight(height);
     View target = activity.findViewById(mAnchorViewId);
     MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt
         .Builder(activity)
@@ -141,10 +138,9 @@ public enum TipsApi
         .setSecondaryTextTypeface(Typeface.DEFAULT)
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
-        .setPromptBackground(bg)
-        .setClipToView(null)
+        .setPromptBackground(new ImmersiveCompatPromptBackground(activity.getWindowManager()))
         .setPromptStateChangeListener((prompt, state) -> onPromptStateChanged(state));
-    return builder.show();
+    builder.show();
   }
 
   private void onPromptStateChanged(int state)
@@ -165,7 +161,7 @@ public enum TipsApi
   @NonNull
   public static <T> TipsApi requestCurrent(@NonNull Class<T> requiredScreenClass)
   {
-    int index = Framework.nativeGetCurrentTipsApi();
+    int index = 1;
     TipsApi value = index >= 0 ? values()[index] : STUB;
     TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
                                                                                   : STUB;

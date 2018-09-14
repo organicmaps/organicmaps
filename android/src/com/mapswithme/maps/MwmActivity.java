@@ -597,19 +597,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
+    initTips();
   }
 
   private void initTips()
   {
-    if (mTutorial != null)
-      return;
-
     TipsApi api = TipsApi.requestCurrent(getClass());
     if (api == TipsApi.STUB)
       return;
 
-    View contentView = findViewById(android.R.id.content);
-    mTutorial = api.showTutorial(getActivity(), contentView.getHeight());
+    api.showTutorial(getActivity());
   }
 
   private void initFilterViews()
@@ -647,13 +644,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         }
       }, R.string.search_in_table);
     }
-  }
-
-  @Override
-  public void onWindowFocusChanged(boolean hasFocus)
-  {
-    super.onWindowFocusChanged(hasFocus);
-    initTips();
   }
 
   private void runSearch()
