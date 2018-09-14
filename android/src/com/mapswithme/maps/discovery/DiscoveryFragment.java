@@ -29,7 +29,7 @@ import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
-import com.mapswithme.maps.gallery.impl.GalleryBasedItemSelectedListener;
+import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -390,19 +390,17 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   private <I extends Items.Item> ItemSelectedListener<I> createOnlineProductItemListener(@NonNull GalleryType galleryType,
                                                                                          @NonNull ItemType itemType)
   {
-    return new GalleryBasedItemSelectedListener<I>(getActivity(), itemType)
+    return new LoggableItemSelectedListener<I>(getActivity(), itemType)
     {
       @Override
       public void onItemSelectedInternal(@NonNull I item, int position)
       {
-        super.onItemSelectedInternal(item, position);
         Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position, EXTERNAL);
       }
 
       @Override
       public void onMoreItemSelectedInternal(@NonNull I item)
       {
-        super.onMoreItemSelectedInternal(item);
         Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
                                               galleryType,
                                               DISCOVERY);
@@ -424,7 +422,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
     }
   }
 
-  private static class SearchBasedListener extends GalleryBasedItemSelectedListener<Items.SearchItem>
+  private static class SearchBasedListener extends LoggableItemSelectedListener<Items.SearchItem>
   {
     @NonNull
     private final DiscoveryFragment mFragment;
@@ -439,6 +437,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
       super(fragment.getActivity(), itemType);
       mFragment = fragment;
       mType = galleryType;
+    }
+
+    @Override
+    protected void openUrl(@NonNull Items.SearchItem item)
+    {
+      /* Do nothing */
     }
 
     @Override

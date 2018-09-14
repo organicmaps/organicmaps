@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.gallery.Items;
 
-public class GalleryBasedItemSelectedListener<I extends Items.Item> extends BaseItemSelectedListener<I>
+public abstract class LoggableItemSelectedListener<I extends Items.Item> extends BaseItemSelectedListener<I>
 {
-  public GalleryBasedItemSelectedListener(@NonNull Activity context, @NonNull ItemType type)
+  public LoggableItemSelectedListener(@NonNull Activity context, @NonNull ItemType type)
   {
     super(context, type);
   }
@@ -16,6 +16,7 @@ public class GalleryBasedItemSelectedListener<I extends Items.Item> extends Base
   @Override
   public final void onMoreItemSelected(@NonNull I item)
   {
+    openUrl(item);
     onMoreItemSelectedInternal(item);
     getType().getMoreClickEvent().log();
   }
@@ -23,17 +24,12 @@ public class GalleryBasedItemSelectedListener<I extends Items.Item> extends Base
   @Override
   public final void onItemSelected(@NonNull I item, int position)
   {
+    openUrl(item);
     onItemSelectedInternal(item, position);
     getType().getItemClickEvent().log();
   }
 
-  protected void onMoreItemSelectedInternal(@NonNull I item)
-  {
-    super.onMoreItemSelected(item);
-  }
+  protected abstract void onMoreItemSelectedInternal(@NonNull I item);
 
-  protected void onItemSelectedInternal(@NonNull I item, int position)
-  {
-    super.onItemSelected(item, position);
-  }
+  protected abstract void onItemSelectedInternal(@NonNull I item, int position);
 }

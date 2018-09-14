@@ -1,6 +1,3 @@
-//
-// Created by Dmitry Donskoy on 08.09.2018.
-//
 #include <jni.h>
 #include <android/jni/com/mapswithme/maps/Framework.hpp>
 #include "com/mapswithme/core/jni_helper.hpp"
@@ -11,7 +8,8 @@
 extern "C"
 {
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeTipShown(JNIEnv * env, jclass, jint type, jint event)
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeTipShown(JNIEnv * env, jclass, jint type,
+                                                                  jint event)
 {
   auto const & typeValue = static_cast<eye::Tip::Type>(type);
   auto const & eventValue = static_cast<eye::Tip::Event>(event);

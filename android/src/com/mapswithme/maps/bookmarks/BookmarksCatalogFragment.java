@@ -22,6 +22,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -100,6 +101,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     initWebView(mWebView);
     mRetryBtn.setOnClickListener(v -> onRetryClick());
     mWebView.loadUrl(mCatalogUrl);
+    UserActionsLogger.logBookmarksCatalogShownEvent();
     return root;
   }
 

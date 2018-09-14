@@ -2808,7 +2808,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       Statistics.INSTANCE.trackToolbarClick(getItem());
       getActivity().closeMenu(getActivity()::showBookmarks);
-      UserActionsLogger.logBookmarksCatalogShownEvent();
     }
   }
 
