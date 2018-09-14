@@ -13,9 +13,7 @@
 #include <utility>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // The dictionary contains all tokens that are present
 // in the text index.
@@ -27,7 +25,7 @@ public:
     auto const it = std::lower_bound(m_tokens.cbegin(), m_tokens.cend(), token);
     if (it == m_tokens.cend() || *it != token)
       return false;
-    id = ::base::checked_cast<uint32_t>(std::distance(m_tokens.cbegin(), it));
+    id = base::checked_cast<uint32_t>(std::distance(m_tokens.cbegin(), it));
     return true;
   }
 
@@ -42,7 +40,7 @@ public:
   template <typename Sink>
   void Serialize(Sink & sink, TextIndexHeader & header, uint64_t startPos) const
   {
-    header.m_numTokens = ::base::checked_cast<uint32_t>(m_tokens.size());
+    header.m_numTokens = base::checked_cast<uint32_t>(m_tokens.size());
 
     header.m_dictPositionsOffset = RelativePos(sink, startPos);
     // An uint32_t for each 32-bit offset and an uint32_t for the dummy entry at the end.
@@ -84,7 +82,7 @@ public:
     m_tokens.resize(header.m_numTokens);
     for (size_t i = 0; i < m_tokens.size(); ++i)
     {
-      size_t const size = ::base::checked_cast<size_t>(tokenOffsets[i + 1] - tokenOffsets[i]);
+      size_t const size = base::checked_cast<size_t>(tokenOffsets[i + 1] - tokenOffsets[i]);
       DeserializeToken(source, m_tokens[i], size);
     }
   }
@@ -110,10 +108,9 @@ private:
   template <typename Sink>
   static uint32_t RelativePos(Sink & sink, uint64_t startPos)
   {
-    return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
+    return base::checked_cast<uint32_t>(sink.Pos() - startPos);
   }
 
   std::vector<Token> m_tokens;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

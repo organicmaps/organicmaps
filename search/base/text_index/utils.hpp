@@ -4,14 +4,11 @@
 
 #include <cstdint>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 template <typename Sink>
 uint32_t RelativePos(Sink & sink, uint64_t startPos)
 {
-  return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
+  return base::checked_cast<uint32_t>(sink.Pos() - startPos);
 }
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

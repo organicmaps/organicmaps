@@ -6,9 +6,7 @@
 #include <cstddef>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // This class is supposed to be used in inverted index to store list
 // of document ids.
@@ -55,5 +53,4 @@ public:
 private:
   std::vector<Id> m_ids;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

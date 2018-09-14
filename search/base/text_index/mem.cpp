@@ -4,9 +4,7 @@
 
 using namespace std;
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 void MemTextIndex::AddPosting(Token const & token, Posting const & posting)
 {
@@ -21,7 +19,7 @@ void MemTextIndex::SortPostings()
     // so we remove duplicates for the docid index.
     // If the count is needed for ranking it may be stored
     // separately.
-    ::base::SortUnique(entry.second);
+    base::SortUnique(entry.second);
   }
 }
 
@@ -33,5 +31,4 @@ void MemTextIndex::BuildDictionary()
     tokens.emplace_back(entry.first);
   m_dictionary.SetTokens(move(tokens));
 }
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

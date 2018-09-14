@@ -2,11 +2,8 @@
 
 using namespace std;
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // static
 string const TextIndexHeader::kHeaderMagic = "mapsmetextidx";
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

@@ -72,7 +72,7 @@ void FillRankingInfo(QueryVec & qv, IdfMap & idfs, DocVec const & dv, RankingInf
 }
 }  // namespace
 
-Processor::Processor(Emitter & emitter, ::base::Cancellable const & cancellable)
+Processor::Processor(Emitter & emitter, base::Cancellable const & cancellable)
   : m_emitter(emitter), m_cancellable(cancellable)
 {
 }
@@ -103,7 +103,7 @@ void Processor::Erase(Id const & id)
 void Processor::Search(QueryParams const & params) const
 {
   set<Id> ids;
-  auto insertId = ::base::MakeInsertFunctor(ids);
+  auto insertId = base::MakeInsertFunctor(ids);
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
   {
@@ -143,7 +143,7 @@ void Processor::Search(QueryParams const & params) const
 
 uint64_t Processor::GetNumDocs(strings::UniString const & token, bool isPrefix) const
 {
-  return ::base::asserted_cast<uint64_t>(
+  return base::asserted_cast<uint64_t>(
       m_index.GetNumDocs(StringUtf8Multilang::kDefaultCode, token, isPrefix));
 }
 

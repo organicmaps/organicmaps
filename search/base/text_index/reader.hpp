@@ -15,9 +15,7 @@
 #include <utility>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // A reader class for on-demand reading of postings lists from disk.
 class TextIndexReader
@@ -77,5 +75,4 @@ private:
   TextIndexDictionary m_dictionary;
   std::vector<uint32_t> m_postingsStarts;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

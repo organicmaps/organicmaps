@@ -92,7 +92,7 @@ public:
   Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
            CategoriesHolder const & categories, CitiesBoundariesTable const & citiesBoundaries,
            PreRanker & preRanker, VillagesCache & villagesCache,
-           ::base::Cancellable const & cancellable);
+           base::Cancellable const & cancellable);
   ~Geocoder();
 
   // Sets search query params.
@@ -251,7 +251,7 @@ private:
   HotelsCache m_hotelsCache;
   hotels_filter::HotelsFilter m_hotelsFilter;
 
-  ::base::Cancellable const & m_cancellable;
+  base::Cancellable const & m_cancellable;
 
   // Geocoder params.
   Params m_params;

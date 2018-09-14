@@ -45,7 +45,7 @@ void StreetsMatcher::Go(BaseContext const & ctx, FeaturesFilter const & filter,
       unique(predictions.begin(), predictions.end(), base::EqualsBy(&Prediction::m_hash)),
       predictions.end());
 
-  sort(predictions.rbegin(), predictions.rend(), ::base::LessBy(&Prediction::m_prob));
+  sort(predictions.rbegin(), predictions.rend(), base::LessBy(&Prediction::m_prob));
   while (predictions.size() > kMaxNumOfImprobablePredictions &&
          predictions.back().m_prob < kTailProbability)
   {

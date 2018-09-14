@@ -14,7 +14,7 @@ namespace search
 int constexpr kMaxApproxStreetDistanceM = 100;
 
 FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
-                                           ::base::Cancellable const & cancellable)
+                                           base::Cancellable const & cancellable)
   : m_context(nullptr)
   , m_postcodes(nullptr)
   , m_reverseGeocoder(dataSource)

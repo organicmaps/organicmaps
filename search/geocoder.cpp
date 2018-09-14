@@ -159,7 +159,7 @@ class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
   LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params,
-                         ::base::Cancellable const & cancellable)
+                         base::Cancellable const & cancellable)
     : m_context(context)
     , m_params(params)
     , m_cancellable(cancellable)
@@ -205,7 +205,7 @@ public:
 private:
   MwmContext const & m_context;
   Geocoder::Params const & m_params;
-  ::base::Cancellable const & m_cancellable;
+  base::Cancellable const & m_cancellable;
 
   Retrieval m_retrieval;
 
@@ -338,7 +338,7 @@ size_t OrderCountries(m2::PointD const & position, m2::RectD const & pivot, bool
 Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories,
                    CitiesBoundariesTable const & citiesBoundaries, PreRanker & preRanker,
-                   VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
+                   VillagesCache & villagesCache, base::Cancellable const & cancellable)
   : m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_categories(categories)
@@ -428,7 +428,7 @@ void Geocoder::GoInViewport()
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
-  ::base::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
+  base::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
     return !m_params.m_pivot.IsIntersect(info->m_bordersRect);
   });
 
@@ -794,7 +794,7 @@ void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
   }
 
   auto emit = [&](uint64_t bit) {
-    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
@@ -1020,9 +1020,9 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
 
   vector<uint32_t> sortedFeatures;
-  sortedFeatures.reserve(::base::checked_cast<size_t>(prediction.m_features.PopCount()));
+  sortedFeatures.reserve(base::checked_cast<size_t>(prediction.m_features.PopCount()));
   prediction.m_features.ForEach([&sortedFeatures](uint64_t bit) {
-    sortedFeatures.push_back(::base::asserted_cast<uint32_t>(bit));
+    sortedFeatures.push_back(base::asserted_cast<uint32_t>(bit));
   });
   layer.m_sortedFeatures = &sortedFeatures;
 
@@ -1057,7 +1057,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
       if (m_filter->NeedToFilter(m_postcodes.m_features))
         filtered = m_filter->Filter(m_postcodes.m_features);
       filtered.ForEach([&](uint64_t bit) {
-        auto const featureId = ::base::asserted_cast<uint32_t>(bit);
+        auto const featureId = base::asserted_cast<uint32_t>(bit);
         Model::Type type;
         if (GetTypeInGeocoding(ctx, featureId, type))
         {
@@ -1098,7 +1098,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
 
     vector<uint32_t> features;
     m_postcodes.m_features.ForEach([&features](uint64_t bit) {
-      features.push_back(::base::asserted_cast<uint32_t>(bit));
+      features.push_back(base::asserted_cast<uint32_t>(bit));
     });
     layer.m_sortedFeatures = &features;
     return FindPaths(ctx);
@@ -1116,7 +1116,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   // any.
   auto clusterize = [&](uint64_t bit)
   {
-    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
@@ -1169,7 +1169,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         return !filtered.HasBit(bit);
       };
       for (auto & cluster : clusters)
-        ::base::EraseIf(cluster, noFeature);
+        base::EraseIf(cluster, noFeature);
 
       size_t curs[kNumClusters] = {};
       size_t ends[kNumClusters];
@@ -1177,7 +1177,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
         ends[i] = clusters[i].size();
       filtered.ForEach([&](uint64_t bit)
                        {
-                         auto const featureId = ::base::asserted_cast<uint32_t>(bit);
+                         auto const featureId = base::asserted_cast<uint32_t>(bit);
                          bool found = false;
                          for (size_t i = 0; i < kNumClusters && !found; ++i)
                          {
@@ -1275,7 +1275,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
   sortedLayers.reserve(layers.size());
   for (auto const & layer : layers)
     sortedLayers.push_back(&layer);
-  sort(sortedLayers.begin(), sortedLayers.end(), ::base::LessBy(&FeaturesLayer::m_type));
+  sort(sortedLayers.begin(), sortedLayers.end(), base::LessBy(&FeaturesLayer::m_type));
 
   auto const & innermostLayer = *sortedLayers.front();
 
@@ -1404,7 +1404,7 @@ void Geocoder::MatchUnclassified(BaseContext & ctx, size_t curToken)
 
   auto emitUnclassified = [&](uint64_t bit)
   {
-    auto const featureId = ::base::asserted_cast<uint32_t>(bit);
+    auto const featureId = base::asserted_cast<uint32_t>(bit);
     Model::Type type;
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;

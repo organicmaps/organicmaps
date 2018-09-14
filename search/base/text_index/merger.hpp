@@ -4,9 +4,7 @@
 
 class FileWriter;
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // Merges two on-disk text indexes and writes them to a new one.
 class TextIndexMerger
@@ -26,5 +24,4 @@ public:
   static void Merge(TextIndexReader const & index1, TextIndexReader const & index2,
                     FileWriter & sink);
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

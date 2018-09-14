@@ -55,7 +55,7 @@ public:
   TestRanker(DataSource & dataSource, storage::CountryInfoGetter & infoGetter,
              CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
              Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-             ::base::Cancellable const & cancellable, vector<PreRankerResult> & results)
+             base::Cancellable const & cancellable, vector<PreRankerResult> & results)
     : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter,
              GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
@@ -88,7 +88,7 @@ class PreRankerTest : public SearchTest
 {
 public:
   vector<Suggest> m_suggests;
-  ::base::Cancellable m_cancellable;
+  base::Cancellable m_cancellable;
 };
 
 UNIT_CLASS_TEST(PreRankerTest, Smoke)
@@ -153,7 +153,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   preRanker.UpdateResults(true /* lastUpdate */);
 
-  TEST(all_of(emit.begin(), emit.end(), ::base::IdFunctor()), (emit));
+  TEST(all_of(emit.begin(), emit.end(), base::IdFunctor()), (emit));
   TEST(ranker.Finished(), ());
   TEST_EQUAL(results.size(), kBatchSize, ());
 

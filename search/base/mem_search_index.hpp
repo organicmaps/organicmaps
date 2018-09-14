@@ -15,9 +15,7 @@
 #include <utility>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 template <typename Id>
 class MemSearchIndex
@@ -26,7 +24,7 @@ public:
   using Token = strings::UniString;
   using Char = Token::value_type;
   using List = InvertedList<Id>;
-  using Trie = ::base::MemTrie<Token, List>;
+  using Trie = base::MemTrie<Token, List>;
   using Iterator = trie::MemTrieIterator<Token, List>;
 
   template <typename Doc>
@@ -91,11 +89,10 @@ private:
   {
     std::vector<Id> ids;
     fn(ids);
-    ::base::SortUnique(ids);
+    base::SortUnique(ids);
     return ids;
   }
 
   Trie m_trie;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

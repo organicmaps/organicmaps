@@ -11,9 +11,7 @@
 #include <functional>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 struct TextIndexHeader;
 
@@ -87,5 +85,4 @@ void WritePostings(Sink & sink, uint64_t startPos, TextIndexHeader & header,
     sink.Seek(savedPos);
   }
 }
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

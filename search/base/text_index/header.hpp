@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "search/base/text_index/text_index.hpp"
@@ -10,9 +11,7 @@
 #include <cstdint>
 #include <string>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 struct TextIndexHeader
 {
@@ -55,5 +54,4 @@ struct TextIndexHeader
   uint32_t m_postingsStartsOffset = 0;
   uint32_t m_postingsListsOffset = 0;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

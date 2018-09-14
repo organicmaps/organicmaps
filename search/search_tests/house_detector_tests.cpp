@@ -406,7 +406,7 @@ UNIT_TEST(HS_MWMSearch)
       continue;
 
     vector<string> v;
-    strings::Tokenize(line, "|", ::base::MakeBackInsertFunctor(v));
+    strings::Tokenize(line, "|", base::MakeBackInsertFunctor(v));
 
     string key = GetStreetKey(v[0]);
     if (key.empty())

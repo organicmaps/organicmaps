@@ -20,9 +20,7 @@
 #include <utility>
 #include <vector>
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 class MemTextIndex
 {
@@ -167,5 +165,4 @@ private:
   std::map<Token, std::vector<Posting>> m_postingsByToken;
   TextIndexDictionary m_dictionary;
 };
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

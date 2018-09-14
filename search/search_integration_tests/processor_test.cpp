@@ -588,7 +588,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   // Tests that postcode is added to the search index.
   {
     MwmContext context(m_dataSource.GetMwmHandleById(countryId));
-    ::base::Cancellable cancellable;
+    base::Cancellable cancellable;
 
     QueryParams params;
     {
@@ -607,7 +607,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
     FeaturesLoaderGuard loader(m_dataSource, countryId);
     FeatureType ft;
-    TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
+    TEST(loader.GetFeatureByIndex(base::checked_cast<uint32_t>(index), ft), ());
 
     auto rule = ExactMatch(countryId, building31);
     TEST(rule->Matches(ft), ());

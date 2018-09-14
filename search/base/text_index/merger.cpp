@@ -22,7 +22,7 @@ using namespace std;
 
 namespace
 {
-using namespace search::base;
+using namespace search_base;
 
 class MergedPostingsListFetcher : public PostingsFetcher
 {
@@ -69,9 +69,9 @@ private:
       return;
 
     auto const & tokens = m_dict.GetTokens();
-    m_index1.ForEachPosting(tokens[m_tokenId], ::base::MakeBackInsertFunctor(m_postings));
-    m_index2.ForEachPosting(tokens[m_tokenId], ::base::MakeBackInsertFunctor(m_postings));
-    ::base::SortUnique(m_postings);
+    m_index1.ForEachPosting(tokens[m_tokenId], base::MakeBackInsertFunctor(m_postings));
+    m_index2.ForEachPosting(tokens[m_tokenId], base::MakeBackInsertFunctor(m_postings));
+    base::SortUnique(m_postings);
   }
 
   TextIndexDictionary const & m_dict;
@@ -98,9 +98,7 @@ TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1,
 }
 }  // namespace
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 // static
 void TextIndexMerger::Merge(TextIndexReader const & index1, TextIndexReader const & index2,
@@ -126,5 +124,4 @@ void TextIndexMerger::Merge(TextIndexReader const & index1, TextIndexReader cons
   header.Serialize(sink);
   sink.Seek(finishPos);
 }
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

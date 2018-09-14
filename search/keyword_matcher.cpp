@@ -40,7 +40,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(string const & name) const
 KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const & name) const
 {
   buffer_vector<strings::UniString, kMaxNumTokens> tokens;
-  SplitUniString(name, ::base::MakeBackInsertFunctor(tokens), Delimiters());
+  SplitUniString(name, base::MakeBackInsertFunctor(tokens), Delimiters());
 
   return CalcScore(tokens.data(), tokens.size());
 }

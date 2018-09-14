@@ -82,7 +82,7 @@ public:
          storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
          Emitter & emitter, CategoriesHolder const & categories,
          std::vector<Suggest> const & suggests, VillagesCache & villagesCache,
-         ::base::Cancellable const & cancellable);
+         base::Cancellable const & cancellable);
   virtual ~Ranker() = default;
 
   void Init(Params const & params, Geocoder::Params const & geocoderParams);
@@ -126,7 +126,7 @@ private:
   Params m_params;
   Geocoder::Params m_geocoderParams;
   ReverseGeocoder const m_reverseGeocoder;
-  ::base::Cancellable const & m_cancellable;
+  base::Cancellable const & m_cancellable;
   KeywordLangMatcher & m_keywordsScorer;
 
   mutable LocalityFinder m_localities;

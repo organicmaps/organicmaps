@@ -64,7 +64,7 @@ void GetNearbyStreetsImpl(DataSource const & source, MwmSet::MwmId const & id,
 
   fillStreets(move(mwmHandle), rect, addStreet);
 
-  sort(streets.begin(), streets.end(), ::base::LessBy(&ReverseGeocoder::Street::m_distanceMeters));
+  sort(streets.begin(), streets.end(), base::LessBy(&ReverseGeocoder::Street::m_distanceMeters));
 }
 }  // namespace
 
@@ -79,7 +79,7 @@ void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD 
   auto const addStreet = [&center, &streets](FeatureType & ft) { AddStreet(ft, center, streets); };
 
   context.ForEachFeature(rect, addStreet);
-  sort(streets.begin(), streets.end(), ::base::LessBy(&Street::m_distanceMeters));
+  sort(streets.begin(), streets.end(), base::LessBy(&Street::m_distanceMeters));
 }
 
 void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
@@ -240,7 +240,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
   };
 
   m_dataSource.ForEachInRect(addBuilding, rect, kQueryScale);
-  sort(buildings.begin(), buildings.end(), ::base::LessBy(&Building::m_distanceMeters));
+  sort(buildings.begin(), buildings.end(), base::LessBy(&Building::m_distanceMeters));
 }
 
 // static

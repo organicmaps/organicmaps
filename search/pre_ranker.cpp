@@ -243,7 +243,7 @@ void PreRanker::FilterForViewportSearch()
 {
   auto const & viewport = m_params.m_viewport;
 
-  ::base::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
+  base::EraseIf(m_results, [&viewport](PreRankerResult const & result) {
     auto const & info = result.GetInfo();
     return !viewport.IsPointInside(info.m_center);
   });
@@ -288,7 +288,7 @@ void PreRanker::FilterForViewportSearch()
 
     if (m <= old)
     {
-      for (size_t i : ::base::RandomSample(old, m, m_rng))
+      for (size_t i : base::RandomSample(old, m, m_rng))
         results.push_back(m_results[bucket[i]]);
     }
     else
@@ -296,7 +296,7 @@ void PreRanker::FilterForViewportSearch()
       for (size_t i = 0; i < old; ++i)
         results.push_back(m_results[bucket[i]]);
 
-      for (size_t i : ::base::RandomSample(bucket.size() - old, m - old, m_rng))
+      for (size_t i : base::RandomSample(bucket.size() - old, m - old, m_rng))
         results.push_back(m_results[bucket[old + i]]);
     }
   }
@@ -308,7 +308,7 @@ void PreRanker::FilterForViewportSearch()
   else
   {
     m_results.clear();
-    for (size_t i : ::base::RandomSample(results.size(), BatchSize(), m_rng))
+    for (size_t i : base::RandomSample(results.size(), BatchSize(), m_rng))
       m_results.push_back(results[i]);
   }
 }

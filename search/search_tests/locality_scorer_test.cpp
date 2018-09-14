@@ -38,7 +38,7 @@ public:
 
     vector<UniString> tokens;
     Delimiters delims;
-    SplitUniString(NormalizeAndSimplifyString(query), ::base::MakeBackInsertFunctor(tokens), delims);
+    SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
 
     if (lastTokenIsPrefix)
     {
@@ -90,7 +90,7 @@ public:
         }
       });
 
-      ::base::SortUnique(ids);
+      base::SortUnique(ids);
       ctx.m_features.emplace_back(coding::CompressedBitVectorBuilder::FromBitPositions(ids));
     }
 
@@ -99,7 +99,7 @@ public:
 
     vector<Locality> localities;
     m_scorer.GetTopLocalities(MwmSet::MwmId(), ctx, filter, limit, localities);
-    sort(localities.begin(), localities.end(), ::base::LessBy(&Locality::m_featureId));
+    sort(localities.begin(), localities.end(), base::LessBy(&Locality::m_featureId));
 
     Ids ids;
     for (auto const & locality : localities)
@@ -135,7 +135,7 @@ public:
       m_searchIndex.ForEachInNode(token, [&ids](uint32_t id) { ids.push_back(id); });
     }
 
-    ::base::SortUnique(ids);
+    base::SortUnique(ids);
     return CBV{coding::CompressedBitVectorBuilder::FromBitPositions(move(ids))};
   }
 

@@ -11,7 +11,7 @@ namespace search
 // geometry retrieval for fast cancellation of time-consuming tasks.
 DECLARE_EXCEPTION(CancelException, RootException);
 
-inline void BailIfCancelled(::base::Cancellable const & cancellable)
+inline void BailIfCancelled(base::Cancellable const & cancellable)
 {
   if (cancellable.IsCancelled())
     MYTHROW(CancelException, ("Cancelled"));

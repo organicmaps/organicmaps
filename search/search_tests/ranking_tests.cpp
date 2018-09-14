@@ -25,7 +25,7 @@ NameScore GetScore(string const & name, string const & query, TokenRange const &
   QueryParams params;
 
   vector<UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(query), ::base::MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
 
   if (!query.empty() && !delims(strings::LastUniChar(query)))
   {

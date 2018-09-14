@@ -146,15 +146,15 @@ Processor::Processor(DataSource const & dataSource, CategoriesHolder const & cat
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
-  , m_villagesCache(static_cast<::base::Cancellable const &>(*this))
+  , m_villagesCache(static_cast<base::Cancellable const &>(*this))
   , m_citiesBoundaries(dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
-             suggests, m_villagesCache, static_cast<::base::Cancellable const &>(*this))
+             suggests, m_villagesCache, static_cast<base::Cancellable const &>(*this))
   , m_preRanker(dataSource, m_ranker)
   , m_geocoder(dataSource, infoGetter, categories, m_citiesBoundaries, m_preRanker, m_villagesCache,
-               static_cast<::base::Cancellable const &>(*this))
-  , m_bookmarksProcessor(m_emitter, static_cast<::base::Cancellable const &>(*this))
+               static_cast<base::Cancellable const &>(*this))
+  , m_bookmarksProcessor(m_emitter, static_cast<base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
   m_keywordsScorer.SetLanguages(
@@ -222,7 +222,7 @@ void Processor::SetQuery(string const & query)
   vector<strings::UniString> tokens;
   {
     search::DelimitersWithExceptions delims(vector<strings::UniChar>{'#'});
-    SplitUniString(NormalizeAndSimplifyString(query), ::base::MakeBackInsertFunctor(tokens), delims);
+    SplitUniString(NormalizeAndSimplifyString(query), base::MakeBackInsertFunctor(tokens), delims);
   }
 
   search::Delimiters delims;
@@ -237,7 +237,7 @@ void Processor::SetQuery(string const & query)
       // Splits |token| by hashtags, because all other delimiters are
       // already removed.
       subTokens.clear();
-      SplitUniString(token, ::base::MakeBackInsertFunctor(subTokens), delims);
+      SplitUniString(token, base::MakeBackInsertFunctor(subTokens), delims);
       if (subTokens.empty())
         continue;
 
@@ -280,7 +280,7 @@ void Processor::SetQuery(string const & query)
   if (!m_isCategorialRequest)
     ForEachCategoryType(tokenSlice, [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
 
-  ::base::SortUnique(m_preferredTypes);
+  base::SortUnique(m_preferredTypes);
 }
 
 m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
@@ -530,7 +530,7 @@ void Processor::InitParams(QueryParams & params) const
   }
 
   for (size_t i = 0; i < params.GetNumTokens(); ++i)
-    ::base::SortUnique(params.GetTypeIndices(i));
+    base::SortUnique(params.GetTypeIndices(i));
 
   m_keywordsScorer.ForEachLanguage(
       [&](int8_t lang) { params.GetLangs().Insert(static_cast<uint64_t>(lang)); });

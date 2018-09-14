@@ -61,7 +61,7 @@ template <typename ToDo>
 void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & locales,
                               CategoriesHolder const & categories, ToDo && todo)
 {
-  using Iterator = trie::MemTrieIterator<strings::UniString, ::base::VectorValues<uint32_t>>;
+  using Iterator = trie::MemTrieIterator<strings::UniString, base::VectorValues<uint32_t>>;
 
   auto const & trie = categories.GetNameToTypesTrie();
   Iterator const iterator(trie.GetRootIterator());
@@ -100,7 +100,7 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
 
         std::vector<QueryParams::String> categoryTokens;
         SplitUniString(search::NormalizeAndSimplifyString(categorySynonym.m_name),
-                       ::base::MakeBackInsertFunctor(categoryTokens), search::Delimiters());
+                       base::MakeBackInsertFunctor(categoryTokens), search::Delimiters());
 
         if (slice.Size() != categoryTokens.size())
           return;

@@ -57,7 +57,7 @@ public:
 
 protected:
   Emitter m_emitter;
-  ::base::Cancellable m_cancellable;
+  base::Cancellable m_cancellable;
   Processor m_processor;
 };
 

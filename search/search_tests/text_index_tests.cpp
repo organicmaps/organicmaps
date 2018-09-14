@@ -26,7 +26,7 @@
 #include <vector>
 
 using namespace platform::tests_support;
-using namespace search::base;
+using namespace search_base;
 using namespace search;
 using namespace std;
 
@@ -35,7 +35,7 @@ namespace
 // Prepend several bytes to serialized indexes in order to check the relative offsets.
 size_t const kSkip = 10;
 
-search::base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollection)
+search_base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollection)
 {
   MemTextIndex memIndex;
 
@@ -72,7 +72,7 @@ template <typename Index, typename Token>
 void TestForEach(Index const & index, Token const & token, vector<uint32_t> const & expected)
 {
   vector<uint32_t> actual;
-  index.ForEachPosting(token, ::base::MakeBackInsertFunctor(actual));
+  index.ForEachPosting(token, base::MakeBackInsertFunctor(actual));
   TEST_EQUAL(actual, expected, (token));
 };
 }  // namespace
@@ -81,8 +81,6 @@ namespace search
 {
 UNIT_TEST(TextIndex_Smoke)
 {
-  using Token = base::Token;
-
   vector<Token> const docsCollection = {
       "a b c",
       "a c",
@@ -151,8 +149,6 @@ UNIT_TEST(TextIndex_UniString)
 
 UNIT_TEST(TextIndex_Merging)
 {
-  using Token = base::Token;
-
   // todo(@m) Arrays? docsCollection[i]
   vector<Token> const docsCollection1 = {
       "a b c",

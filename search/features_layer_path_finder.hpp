@@ -45,7 +45,7 @@ public:
     MODE_BOTTOM_UP
   };
 
-  FeaturesLayerPathFinder(::base::Cancellable const & cancellable);
+  FeaturesLayerPathFinder(base::Cancellable const & cancellable);
 
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
@@ -92,7 +92,7 @@ private:
                                      std::vector<FeaturesLayer const *> const & layers,
                                      std::vector<IntersectionResult> & results);
 
-  ::base::Cancellable const & m_cancellable;
+  base::Cancellable const & m_cancellable;
 
   static Mode m_mode;
 };

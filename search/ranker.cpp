@@ -364,7 +364,7 @@ Ranker::Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boun
                storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
                Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, VillagesCache & villagesCache,
-               ::base::Cancellable const & cancellable)
+               base::Cancellable const & cancellable)
   : m_reverseGeocoder(dataSource)
   , m_cancellable(cancellable)
   , m_keywordsScorer(keywordsScorer)
@@ -478,7 +478,7 @@ void Ranker::UpdateResults(bool lastUpdate)
   if (m_params.m_viewportSearch)
   {
     sort(m_tentativeResults.begin(), m_tentativeResults.end(),
-         ::base::LessBy(&RankerResult::GetDistanceToPivot));
+         base::LessBy(&RankerResult::GetDistanceToPivot));
   }
   else
   {
@@ -486,7 +486,7 @@ void Ranker::UpdateResults(bool lastUpdate)
     // but the model is lightweight enough and the slowdown
     // is negligible.
     sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
-         ::base::LessBy(&RankerResult::GetLinearModelRank));
+         base::LessBy(&RankerResult::GetLinearModelRank));
     ProcessSuggestions(m_tentativeResults);
   }
 

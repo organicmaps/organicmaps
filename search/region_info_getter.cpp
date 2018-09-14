@@ -64,7 +64,7 @@ string RegionInfoGetter::GetLocalizedFullName(storage::TCountryId const & id) co
   if (parts.size() > kMaxNumParts)
     parts.erase(parts.begin(), parts.end() - kMaxNumParts);
 
-  ::base::EraseIf(parts, [&](string const & s) { return s.empty(); });
+  base::EraseIf(parts, [&](string const & s) { return s.empty(); });
 
   if (!parts.empty())
     return strings::JoinStrings(parts, ", ");

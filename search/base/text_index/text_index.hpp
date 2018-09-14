@@ -27,9 +27,7 @@
 //   [postings lists, stored as delta-encoded varints]
 //
 // All offsets are measured relative to the start of the index.
-namespace search
-{
-namespace base
+namespace search_base
 {
 using Token = std::string;
 using Posting = uint32_t;
@@ -41,5 +39,4 @@ enum class TextIndexVersion : uint8_t
 };
 
 std::string DebugPrint(TextIndexVersion const & version);
-}  // namespace base
-}  // namespace search
+}  // namespace search_base

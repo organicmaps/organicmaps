@@ -19,7 +19,7 @@ void GetSuggestion(RankerResult const & res, string const & query, QueryTokens c
   // Splits result's name.
   search::Delimiters delims;
   vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(res.GetName()), ::base::MakeBackInsertFunctor(tokens), delims);
+  SplitUniString(NormalizeAndSimplifyString(res.GetName()), base::MakeBackInsertFunctor(tokens), delims);
 
   // Finds tokens that are already present in the input query.
   vector<bool> tokensMatched(tokens.size());

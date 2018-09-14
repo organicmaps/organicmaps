@@ -24,7 +24,7 @@ class LocalityFinderTest : public generator::tests_support::TestWithClassificato
 
   FrozenDataSource m_dataSource;
 
-  ::base::Cancellable m_cancellable;
+  base::Cancellable m_cancellable;
   search::VillagesCache m_villagesCache;
   search::CitiesBoundariesTable m_boundariesTable;
 

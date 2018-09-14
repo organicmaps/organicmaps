@@ -60,13 +60,13 @@ vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
   locales.Insert(static_cast<uint64_t>(code));
 
   vector<strings::UniString> tokens;
-  SplitUniString(search::NormalizeAndSimplifyString(name), ::base::MakeBackInsertFunctor(tokens),
+  SplitUniString(search::NormalizeAndSimplifyString(name), base::MakeBackInsertFunctor(tokens),
                  search::Delimiters());
 
   FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
 
-  ::base::SortUnique(types);
+  base::SortUnique(types);
   return types;
 }
 
@@ -121,7 +121,7 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
     features = filter.Filter(features);
     MwmSet::MwmId mwmId(info);
     features.ForEach([&fn, &mwmId](uint64_t bit) {
-      fn(FeatureID(mwmId, ::base::asserted_cast<uint32_t>(bit)));
+      fn(FeatureID(mwmId, base::asserted_cast<uint32_t>(bit)));
     });
   }
 }

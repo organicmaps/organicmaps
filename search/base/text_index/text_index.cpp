@@ -5,9 +5,7 @@
 
 using namespace std;
 
-namespace search
-{
-namespace base
+namespace search_base
 {
 string DebugPrint(TextIndexVersion const & version)
 {
@@ -20,5 +18,4 @@ string DebugPrint(TextIndexVersion const & version)
   ASSERT(false, (ret));
   return ret;
 }
-}  // namespace base
 }  // namespace search
