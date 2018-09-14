@@ -99,6 +99,7 @@ else
 #define BOOKMARKS_CATALOG_FRONT_URL ""
 #define BOOKMARKS_CATALOG_DOWNLOAD_URL ""
 #define GOOGLE_WEB_CLIENT_ID ""
+#define RUTAXI_APP_TOKEN ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
