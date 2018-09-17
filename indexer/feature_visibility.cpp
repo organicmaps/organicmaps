@@ -233,6 +233,7 @@ namespace
     static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
     static const uint32_t wheelchair = classif().GetTypeByPath({ "wheelchair" });
     static const uint32_t sponsored = classif().GetTypeByPath({ "sponsored" });
+    static const uint32_t cuisine = classif().GetTypeByPath({ "cuisine" });
     // Reserved for custom event processing, i.e. fc2018.
     //static const uint32_t event = classif().GetTypeByPath({ "event" });
     static const uint32_t internet = classif().GetTypeByPath({ "internet_access" });
@@ -256,6 +257,9 @@ namespace
     // We're okay with the type being already truncated above.
     ftype::TruncValue(type, 1);
     if (wheelchair == type && typeLength == 2)
+      return true;
+
+    if (cuisine == type)
       return true;
 
     if (g != GEOM_LINE)
