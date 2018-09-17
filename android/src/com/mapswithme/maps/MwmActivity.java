@@ -72,7 +72,6 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
-import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -125,7 +124,6 @@ import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -241,7 +239,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       PurchaseFactory.createPurchaseController();
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
-  private MaterialTapTargetPrompt mTutorial;
 
   public interface LeftAnimationTrackListener
   {

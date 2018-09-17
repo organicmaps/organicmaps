@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.View;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -138,7 +139,7 @@ public enum TipsApi
         .setSecondaryTextTypeface(Typeface.DEFAULT)
         .setBackgroundColour(ThemeUtils.getColor(activity, R.attr.tipsBgColor))
         .setFocalColour(activity.getResources().getColor(android.R.color.transparent))
-        .setPromptBackground(new ImmersiveCompatPromptBackground(activity.getWindowManager()))
+        .setPromptBackground(new ImmersiveModeCompatPromptBackground(activity.getWindowManager()))
         .setPromptStateChangeListener((prompt, state) -> onPromptStateChanged(state));
     builder.show();
   }
@@ -161,7 +162,7 @@ public enum TipsApi
   @NonNull
   public static <T> TipsApi requestCurrent(@NonNull Class<T> requiredScreenClass)
   {
-    int index = 1;
+    int index = Framework.nativeGetCurrentTipsApi();
     TipsApi value = index >= 0 ? values()[index] : STUB;
     TipsApi tipsApi = value != STUB && value.isScreenAllowed(requiredScreenClass) ? value
                                                                                   : STUB;

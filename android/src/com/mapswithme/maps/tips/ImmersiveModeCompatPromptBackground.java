@@ -18,7 +18,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.PromptBackground;
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptOptions;
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptUtils;
 
-public class ImmersiveCompatPromptBackground extends PromptBackground
+public class ImmersiveModeCompatPromptBackground extends PromptBackground
 {
   @NonNull
   private final WindowManager mWindowManager;
@@ -34,7 +34,7 @@ public class ImmersiveCompatPromptBackground extends PromptBackground
   @NonNull
   private final DisplayMetrics mBaseMetrics;
 
-  ImmersiveCompatPromptBackground(@NonNull WindowManager windowManager)
+  ImmersiveModeCompatPromptBackground(@NonNull WindowManager windowManager)
   {
     mWindowManager = windowManager;
     mPaint = new Paint();
