@@ -17,7 +17,7 @@ public class PurchaseFactory
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
     PurchaseValidator<AdsRemovalValidationCallback> validator = new AdsRemovalPurchaseValidator();
-    return new AdsRemovalPurchaseController(validator, billingManager,
-                                            "ads.removal.monthly.test");
+    return new AdsRemovalPurchaseController(validator, billingManager, "ads.removal.yearly.test",
+                                            "ads.removal.monthly.test", "ads.removal.weekly.test");
   }
 }

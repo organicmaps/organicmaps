@@ -13,10 +13,10 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 
 public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
@@ -24,13 +24,20 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private final static String TAG = AdsRemovalPurchaseDialog.class.getSimpleName();
   private final static String EXTRA_CURRENT_STATE = "extra_current_state";
-  @Nullable
-  private List<SkuDetails> mDetails;
+  private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
+  private final static int WEEKS_IN_YEAR = 52;
+  private final static int WEEKS_IN_MONTH = 4;
+
+  @NonNull
+  private ProductDetails[] mProductDetails = new ProductDetails[Period.values().length];
   @NonNull
   private State mState = State.NONE;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<AdsRemovalPurchaseCallback> mController;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mPayButtonContainer;
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -54,6 +61,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   {
     LOGGER.d(TAG, "onCreateView savedInstanceState = " + savedInstanceState + "this " + this);
     View view = inflater.inflate(R.layout.fragment_ads_removal_purchase_dialog, container, false);
+    mPayButtonContainer = view.findViewById(R.id.pay_button_container);
+    mPayButtonContainer.setOnClickListener(v -> onYearlyProductClicked());
     return view;
   }
 
@@ -65,13 +74,25 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     if (savedInstanceState != null)
     {
       State savedState = State.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
+      ProductDetails[] productDetails
+          = (ProductDetails[]) savedInstanceState.getParcelableArray(EXTRA_PRODUCT_DETAILS);
+      if (productDetails != null && productDetails.length > 0)
+      {
+        mProductDetails = productDetails;
+        updateYearlyButton();
+      }
       activateState(savedState);
+      return;
     }
-    else
-    {
-      activateState(State.LOADING);
-      mController.queryPurchaseDetails();
-    }
+
+    activateState(State.LOADING);
+    mController.queryPurchaseDetails();
+  }
+
+  void onYearlyProductClicked()
+  {
+    ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
+    mController.launchPurchaseFlow(details.getProductId());
   }
 
   private void activateState(@NonNull State state)
@@ -86,6 +107,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     super.onSaveInstanceState(outState);
     LOGGER.d(TAG, "onSaveInstanceState");
     outState.putInt(EXTRA_CURRENT_STATE, mState.ordinal());
+    outState.putParcelableArray(EXTRA_PRODUCT_DETAILS, mProductDetails);
   }
 
   @Override
@@ -94,6 +116,37 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     LOGGER.d(TAG, "onDetach");
     super.onDetach();
     mController.removeCallback();
+  }
+
+  private void updateYearlyButton()
+  {
+    ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
+    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+    TextView priceView = mPayButtonContainer.findViewById(R.id.price);
+    priceView.setText(getString(R.string.paybtn_title, price));
+    TextView savingView = mPayButtonContainer.findViewById(R.id.saving);
+    String saving = Utils.formatCurrencyString(calculateYearlySaving(), details.getCurrencyCode());
+    savingView.setText(getString(R.string.paybtn_subtitle, saving));
+  }
+
+  @NonNull
+  private ProductDetails getProductDetailsForPeriod(@NonNull Period period)
+  {
+    return mProductDetails[period.ordinal()];
+  }
+
+  private float calculateYearlySaving()
+  {
+    float pricePerWeek = getProductDetailsForPeriod(Period.P1W).getPrice();
+    float pricePerYear = getProductDetailsForPeriod(Period.P1Y).getPrice();
+    return pricePerWeek * WEEKS_IN_YEAR - pricePerYear;
+  }
+
+  private float calculateMonthlySaving()
+  {
+    float pricePerWeek = getProductDetailsForPeriod(Period.P1W).getPrice();
+    float pricePerMonth = getProductDetailsForPeriod(Period.P1M).getPrice();
+    return pricePerWeek * WEEKS_IN_MONTH - pricePerMonth;
   }
 
   public enum State
@@ -111,7 +164,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
           @Override
           void activate(@NonNull View view)
           {
-            UiUtils.hide(view, R.id.title, R.id.image);
+            UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
             UiUtils.show(view, R.id.progress_layout);
           }
         },
@@ -121,7 +174,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
           void activate(@NonNull View view)
           {
             UiUtils.hide(view, R.id.progress_layout);
-            UiUtils.show(view, R.id.title, R.id.image);
+            UiUtils.show(view, R.id.title, R.id.image, R.id.pay_button_container);
             TextView title = view.findViewById(R.id.title);
             title.setText(R.string.remove_ads_title);
           }
@@ -151,7 +204,15 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      mDetails = Collections.unmodifiableList(details);
+      for (SkuDetails sku: details)
+      {
+        float price = sku.getPriceAmountMicros() / 1000000;
+        String currencyCode = sku.getPriceCurrencyCode();
+        Period period = Period.valueOf(sku.getSubscriptionPeriod());
+        mProductDetails[period.ordinal()] = new ProductDetails(sku.getSku(), price, currencyCode);
+      }
+
+      updateYearlyButton();
       activateState(State.PRICE_SELECTION);
     }
 
@@ -160,5 +221,13 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     {
       // Coming soon.
     }
+  }
+
+  enum Period
+  {
+    // Order is important.
+    P1Y,
+    P1M,
+    P1W
   }
 }

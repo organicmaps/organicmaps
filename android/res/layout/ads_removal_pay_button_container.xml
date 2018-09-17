@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/pay_button_container"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  style="@style/MwmWidget.Button.Primary"
+  android:minWidth="@dimen/ads_removal_pay_button_min_width"
+  android:layout_centerHorizontal="true"
+  android:paddingBottom="@dimen/margin_half_double_plus"
+  android:paddingTop="@dimen/margin_half_double_plus"
+  android:orientation="vertical"
+  tools:showIn="@layout/fragment_ads_removal_purchase_dialog">
+  <TextView
+    android:id="@+id/price"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textColor="?attr/accentButtonTextColor"
+    android:textSize="@dimen/text_size_toolbar"
+    android:textAllCaps="true"
+    android:ellipsize="end"
+    android:gravity="center"/>
+  <TextView
+    android:id="@+id/saving"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:textColor="?attr/menuBackground"
+    android:textSize="@dimen/text_size_body_3"
+    android:textAllCaps="true"
+    android:ellipsize="end"
+    android:gravity="center"/>
+</LinearLayout>

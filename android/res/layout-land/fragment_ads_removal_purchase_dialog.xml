@@ -22,6 +22,13 @@
       android:textAppearance="@style/MwmTextAppearance.Title"
       android:visibility="invisible"
       tools:visibility="visible"/>
+    <include
+      layout="@layout/ads_removal_pay_button_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/title"
+      android:layout_marginTop="@dimen/margin_double_plus"/>
     <LinearLayout
       android:id="@+id/progress_layout"
       android:layout_width="match_parent"

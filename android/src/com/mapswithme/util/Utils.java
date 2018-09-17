@@ -519,10 +519,17 @@ public class Utils
   @NonNull
   public static String formatCurrencyString(@NonNull String price, @NonNull String currencyCode)
   {
+
+    float value = Float.valueOf(price);
+    return formatCurrencyString(value, currencyCode);
+  }
+
+  @NonNull
+  public static String formatCurrencyString(float price, @NonNull String currencyCode)
+  {
     String text;
     try
     {
-      float value = Float.valueOf(price);
       Locale locale = Locale.getDefault();
       Currency currency = Utils.getCurrencyForLocale(locale);
       // If the currency cannot be obtained for the default locale we will use Locale.US.
@@ -531,7 +538,7 @@ public class Utils
       NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
       if (!TextUtils.isEmpty(currencyCode))
         formatter.setCurrency(Currency.getInstance(currencyCode));
-      return formatter.format(value);
+      return formatter.format(price);
     }
     catch (Throwable e)
     {

@@ -33,6 +33,13 @@
       android:src="@drawable/img_mappy_heart"
       android:visibility="invisible"
       tools:visibility="visible"/>
+    <include
+      layout="@layout/ads_removal_pay_button_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/image"
+      android:layout_marginTop="@dimen/margin_base"/>
     <LinearLayout
       android:id="@+id/progress_layout"
       android:layout_width="match_parent"
