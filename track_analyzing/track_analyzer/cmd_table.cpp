@@ -48,8 +48,8 @@ public:
     for (auto const & speedForType : CarModel::GetLimits())
     {
       vector<string> path;
-      for (char const * type : speedForType.m_types)
-        path.push_back(string(type));
+      for (auto const & type : speedForType.m_types)
+        path.push_back(type);
 
       m_tags.push_back(classif().GetTypeByPath(path));
     }
