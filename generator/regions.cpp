@@ -314,7 +314,7 @@ std::string Region::GetEnglishOrTransliteratedName() const
   if (!s.empty())
     return s;
 
-  auto const fn = [&s, this](int8_t code, std::string const & name)
+  auto const fn = [&s](int8_t code, std::string const & name)
   {
     if (code != StringUtf8Multilang::kDefaultCode &&
         Transliteration::Instance().Transliterate(name, code, s))
