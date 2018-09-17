@@ -42,6 +42,7 @@ void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram>
     if (t == nullptr)
       continue;
     
+    t->SetFilter(state.GetTextureFilter());
     dp::HWTexture::Params const & params = t->GetParams();
     
     // Set texture to the vertex shader.

@@ -57,9 +57,12 @@ double getExactDPI(double contentScaleFactor)
 
 - (dp::ApiVersion)getSupportedApiVersion
 {
-  id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
-  if (tempDevice)
-    return dp::ApiVersion::Metal;
+  if (GetFramework().LoadMetalAllowed())
+  {
+    id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
+    if (tempDevice)
+      return dp::ApiVersion::Metal;
+  }
   
   EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
   if (tempContext != nil)
@@ -108,7 +111,7 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)createDrapeEngineWithWidth:(int)width height:(int)height
 {
-  LOG(LINFO, ("CreateDrapeEngine Started", width, height));
+  LOG(LINFO, ("CreateDrapeEngine Started", width, height, m_apiVersion));
   CHECK(m_factory != nullptr, ());
   
   Framework::DrapeCreationParams p;

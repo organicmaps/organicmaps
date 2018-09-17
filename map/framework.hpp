@@ -774,6 +774,11 @@ public:
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);
 
+#if defined(OMIM_OS_IPHONE)
+  bool LoadMetalAllowed();
+  void SaveMetalAllowed(bool allowed);
+#endif
+
 public:
   template <typename ResultCallback>
   uint32_t Discover(discovery::ClientParams && params, ResultCallback const & onResult,

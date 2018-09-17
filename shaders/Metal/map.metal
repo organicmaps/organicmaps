@@ -660,9 +660,7 @@ typedef struct
 } TexturingFragment_T;
 
 vertex TexturingFragment_T vsTexturing(const TexturingVertex_T in [[stage_in]],
-                                       constant Uniforms_T & uniforms [[buffer(1)]],
-                                       texture2d<float> u_colorTex [[texture(0)]],
-                                       sampler u_colorTexSampler [[sampler(0)]])
+                                       constant Uniforms_T & uniforms [[buffer(1)]])
 {
   TexturingFragment_T out;
   

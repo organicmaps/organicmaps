@@ -136,6 +136,10 @@ char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 
+#if defined(OMIM_OS_IPHONE)
+char const kMetalAllowed[] = "MetalAllowed";
+#endif
+
 #if defined(OMIM_OS_ANDROID)
 char const kICUDataFile[] = "icudt57l.dat";
 #endif
@@ -2493,6 +2497,21 @@ void Framework::UpdateSavedDataVersion()
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 
+#if defined(OMIM_OS_IPHONE)
+bool Framework::LoadMetalAllowed()
+{
+  bool allowed;
+  if (settings::Get(kMetalAllowed, allowed))
+    return allowed;
+  return false;
+}
+
+void Framework::SaveMetalAllowed(bool allowed)
+{
+  settings::Set(kMetalAllowed, allowed);
+}
+#endif
+
 void Framework::AllowTransliteration(bool allowTranslit)
 {
   Transliteration::Instance().SetMode(allowTranslit ? Transliteration::Mode::Enabled
@@ -2767,6 +2786,18 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     m_drapeEngine->EnableDebugRectRendering(false /* shown */);
     return true;
   }
+#if defined(OMIM_OS_IPHONE)
+  if (query == "?metal")
+  {
+    SaveMetalAllowed(true);
+    return true;
+  }
+  if (query == "?gl")
+  {
+    SaveMetalAllowed(false);
+    return true;
+  }
+#endif
   return false;
 }
 
