@@ -24,30 +24,6 @@ namespace
 // because a user can forget to update maps after a new app version has been installed
 // automatically in the background.
 uint64_t constexpr kMaxSecondsTillNoEdits = 3600 * 24 * 31 * 2;
-
-uint64_t VersionToSecondsSinceEpoch(uint64_t version)
-{
-  auto constexpr partsCount = 3;
-  // From left to right YY MM DD.
-  array<int, partsCount> parts{};  // Initialize with zeros.
-  for (auto i = partsCount - 1; i >= 0; --i)
-  {
-    parts[i] = version % 100;
-    version /= 100;
-  }
-  ASSERT_EQUAL(version, 0, ("Version is too big."));
-
-  ASSERT_LESS_OR_EQUAL(parts[1], 12, ("Month should be in range [1, 12]"));
-  ASSERT_LESS_OR_EQUAL(parts[2], 31, ("Day should be in range [1, 31]"));
-
-  std::tm tm{};
-  tm.tm_year = parts[0] + 100;
-  tm.tm_mon = parts[1] - 1;
-  tm.tm_mday = parts[2];
-
-  return base::TimeTToSecondsSinceEpoch(base::TimeGM(tm));
-}
-
 char const MWM_PROLOG[] = "MWM";
 
 template <class TSource>
@@ -60,7 +36,7 @@ void ReadVersionT(TSource & src, MwmVersion & version)
   if (strcmp(prolog, MWM_PROLOG) != 0)
   {
     version.SetFormat(Format::v2);
-    version.SetSecondsSinceEpoch(VersionToSecondsSinceEpoch(111101));
+    version.SetSecondsSinceEpoch(base::YYMMDDToSecondsSinceEpoch(111101));
     return;
   }
 
@@ -68,9 +44,14 @@ void ReadVersionT(TSource & src, MwmVersion & version)
   // with the correspondent return value.
   version.SetFormat(static_cast<Format>(ReadVarUint<uint32_t>(src)));
   if (version.GetFormat() < Format::v8)
-    version.SetSecondsSinceEpoch(VersionToSecondsSinceEpoch(ReadVarUint<uint64_t>(src)));
+  {
+    version.SetSecondsSinceEpoch(
+        base::YYMMDDToSecondsSinceEpoch(static_cast<uint32_t>(ReadVarUint<uint64_t>(src))));
+  }
   else
+  {
     version.SetSecondsSinceEpoch(ReadVarUint<uint32_t>(src));
+  }
 }
 }  // namespace
 

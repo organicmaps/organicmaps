@@ -53,11 +53,13 @@ namespace generator
 {
 namespace tests_support
 {
-TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type)
+TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type,
+                               uint32_t version)
   : m_file(file)
   , m_type(type)
-  , m_collector(make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) +
-                                                        EXTENSION_TMP))
+  , m_collector(
+        make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
+  , m_version(version)
 {
 }
 
@@ -121,6 +123,7 @@ void TestMwmBuilder::Finish()
   feature::GenerateInfo info;
   info.m_targetDir = m_file.GetDirectory();
   info.m_tmpDir = m_file.GetDirectory();
+  info.m_versionDate = static_cast<uint32_t>(base::YYMMDDToSecondsSinceEpoch(m_version));
   CHECK(GenerateFinalFeatures(info, m_file.GetCountryFile().GetName(), m_type),
         ("Can't sort features."));
 

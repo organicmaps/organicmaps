@@ -31,6 +31,12 @@ bool MwmTraits::HasRoutingIndex() const
   return GetVersion() >= kFirstVersionWithRoutingIndex;
 }
 
+bool MwmTraits::HasCuisineTypes() const
+{
+  uint32_t constexpr kFirstVersionWithCuisineTypes = 180917;
+  return GetVersion() >= kFirstVersionWithCuisineTypes;
+}
+
 string DebugPrint(MwmTraits::SearchIndexFormat format)
 {
   switch (format)

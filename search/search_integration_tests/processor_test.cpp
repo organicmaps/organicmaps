@@ -1483,6 +1483,9 @@ UNIT_CLASS_TEST(ProcessorTest, CuisineMetadataTest)
   TestCafeWithCuisine kebab(m2::PointD(1.0, 1.0), "Useless name", "en", "kebab");
   TestCafeWithCuisine tapas(m2::PointD(1.0, 1.0), "Useless name", "en", "tapas");
 
+  // Metadata is supported for old maps only.
+  SetMwmVersion(180801);
+
   auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
     builder.Add(kebab);
     builder.Add(tapas);

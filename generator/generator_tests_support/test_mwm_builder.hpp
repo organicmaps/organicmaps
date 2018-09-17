@@ -4,6 +4,8 @@
 
 #include "indexer/data_header.hpp"
 
+#include "base/timer.hpp"
+
 #include <memory>
 #include <string>
 #include <vector>
@@ -27,7 +29,8 @@ class TestFeature;
 class TestMwmBuilder
 {
 public:
-  TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type);
+  TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type,
+                 uint32_t version = base::GenerateYYMMDD(base::SecondsSinceEpoch()));
 
   ~TestMwmBuilder();
 
@@ -43,6 +46,7 @@ private:
   std::vector<std::string> m_languages;
   std::unique_ptr<feature::FeaturesCollector> m_collector;
   TestIdToBoundariesTable m_boundariesTable;
+  uint32_t m_version = 0;
 };
 }  // namespace tests_support
 }  // namespace generator

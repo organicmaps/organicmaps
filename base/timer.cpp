@@ -1,12 +1,15 @@
+#include "base/timer.hpp"
+
 #include "base/assert.hpp"
 #include "base/get_time.hpp"
+#include "base/gmtime.hpp"
 #include "base/macros.hpp"
 #include "base/timegm.hpp"
-#include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
 #include <algorithm>
+#include <array>
 #include <chrono>
 #include <cstdio>
 #include <iomanip>
@@ -58,6 +61,37 @@ uint32_t GenerateYYMMDD(int year, int month, int day)
   result = (result + month + 1) * 100;
   result = result + day;
   return result;
+}
+
+uint32_t GenerateYYMMDD(uint64_t secondsSinceEpoch)
+{
+  auto const tm = GmTime(SecondsSinceEpochToTimeT(secondsSinceEpoch));
+  return GenerateYYMMDD(tm.tm_year, tm.tm_mon, tm.tm_mday);
+}
+
+uint64_t YYMMDDToSecondsSinceEpoch(uint32_t yymmdd)
+{
+  auto constexpr partsCount = 3;
+  // From left to right YY MM DD.
+  std::array<int, partsCount> parts{};  // Initialize with zeros.
+  for (auto i = partsCount - 1; i >= 0; --i)
+  {
+    parts[i] = yymmdd % 100;
+    yymmdd /= 100;
+  }
+  ASSERT_EQUAL(yymmdd, 0, ("Version is too big."));
+
+  ASSERT_GREATER_OR_EQUAL(parts[1], 1, ("Month should be in range [1, 12]"));
+  ASSERT_LESS_OR_EQUAL(parts[1], 12, ("Month should be in range [1, 12]"));
+  ASSERT_GREATER_OR_EQUAL(parts[2], 1, ("Day should be in range [1, 31]"));
+  ASSERT_LESS_OR_EQUAL(parts[2], 31, ("Day should be in range [1, 31]"));
+
+  std::tm tm{};
+  tm.tm_year = parts[0] + 100;
+  tm.tm_mon = parts[1] - 1;
+  tm.tm_mday = parts[2];
+
+  return TimeTToSecondsSinceEpoch(TimeGM(tm));
 }
 
 uint64_t SecondsSinceEpoch()

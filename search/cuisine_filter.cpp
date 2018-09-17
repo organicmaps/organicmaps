@@ -5,6 +5,8 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
+#include "platform/mwm_traits.hpp"
+
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
@@ -17,18 +19,19 @@ namespace search
 namespace cuisine_filter
 {
 // Description -------------------------------------------------------------------------------------
-void Description::FromFeature(FeatureType & ft)
+Description::Description(FeatureType & ft, bool fromMetadata)
 {
   m_types.clear();
-  ft.ForEachType([this](uint32_t t) {
-    if (ftypes::IsCuisineChecker::Instance().IsMatched(t))
-      m_types.push_back(t);
-  });
+  if (!fromMetadata)
+  {
+    ft.ForEachType([this](uint32_t t) {
+      if (ftypes::IsCuisineChecker::Instance().IsMatched(t))
+        m_types.push_back(t);
+    });
+    return;
+  }
 
   // Old maps support.
-  if (!m_types.empty())
-    return;
-
   auto const & metadata = ft.GetMetadata();
   if (!metadata.Has(feature::Metadata::FMD_CUISINE))
     return;
@@ -93,16 +96,17 @@ CuisineFilter::Descriptions const & CuisineFilter::GetDescriptions(MwmContext co
   if (it != m_descriptions.end())
     return it->second;
 
+  auto & value = context.m_value;
+  version::MwmTraits mwmTraits(value.GetMwmVersion());
+  auto const loadFromMetadata = !mwmTraits.HasCuisineTypes();
+
   auto const food = m_food.Get(context);
   auto & descriptions = m_descriptions[mwmId];
-  food.ForEach([&descriptions, &context](uint64_t bit) {
+  food.ForEach([&descriptions, &context, &loadFromMetadata](uint64_t bit) {
     auto const id = base::asserted_cast<uint32_t>(bit);
     FeatureType ft;
-
-    Description description;
     if (context.GetFeature(id, ft))
-      description.FromFeature(ft);
-    descriptions.emplace_back(id, description);
+      descriptions.emplace_back(id, Description(ft, loadFromMetadata));
   });
   return descriptions;
 }

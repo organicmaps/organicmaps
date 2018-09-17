@@ -40,6 +40,8 @@ std::string FormatCurrentTime();
 /// \param day      The day of the month, in the range 1 to 31.
 /// \return Timestamp.
 uint32_t GenerateYYMMDD(int year, int month, int day);
+uint32_t GenerateYYMMDD(uint64_t secondsSinceEpoch);
+uint64_t YYMMDDToSecondsSinceEpoch(uint32_t yymmdd);
 
 uint64_t SecondsSinceEpoch();
 

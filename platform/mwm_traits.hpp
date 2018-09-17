@@ -52,6 +52,8 @@ public:
   // Check whether mwm has routing index section.
   bool HasRoutingIndex() const;
 
+  bool HasCuisineTypes() const;
+
 private:
   Format GetFormat() const { return m_version.GetFormat(); }
   uint32_t GetVersion() const { return m_version.GetVersion(); }

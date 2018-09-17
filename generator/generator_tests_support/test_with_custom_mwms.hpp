@@ -26,6 +26,8 @@ namespace tests_support
 class TestWithCustomMwms : public TestWithClassificator
 {
 public:
+  TestWithCustomMwms();
+
   ~TestWithCustomMwms() override;
 
   // Creates a physical country file on a disk, which will be removed
@@ -43,7 +45,7 @@ public:
     Cleanup(file);
 
     {
-      generator::tests_support::TestMwmBuilder builder(file, type);
+      generator::tests_support::TestMwmBuilder builder(file, type, m_version);
       fn(builder);
     }
 
@@ -83,6 +85,8 @@ public:
     return BuildMwm(name, feature::DataHeader::country, std::forward<BuildFn>(fn));
   }
 
+  void SetMwmVersion(uint32_t version);
+
 protected:
   static void Cleanup(platform::LocalCountryFile const & file);
 
@@ -90,6 +94,7 @@ protected:
 
   EditableDataSource m_dataSource;
   std::vector<platform::LocalCountryFile> m_files;
+  uint32_t m_version = 0;
 };
 }  // namespace tests_support
 }  // namespace generator
