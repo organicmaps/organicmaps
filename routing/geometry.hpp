@@ -64,6 +64,7 @@ public:
 
 private:
   buffer_vector<Junction, 32> m_junctions;
+  // @TODO(bykoianko) Speed in city and outside should be kept.
   VehicleModelInterface::SpeedKMpH m_speed;
   bool m_isOneWay = false;
   bool m_valid = false;

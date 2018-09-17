@@ -43,6 +43,9 @@ public:
     }
   };
 
+  // @TODO(bykoianko) A struct for adding speed in city and out side should be added.
+  // This structure should contain to fields of SpeedKMpH type.
+
   /// Factors which reduce weight and ETA speed on feature in case of bad pavement.
   /// Both should be in range [0.0, 1.0].
   struct SpeedFactor
@@ -56,6 +59,8 @@ public:
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   virtual SpeedKMpH GetSpeed(FeatureType & f) const = 0;
+
+  // @TODO(bykoianko) Method for getting speed in city and outside should be added.
 
   /// @returns Max weight and ETA speed in KMpH for this model
   virtual SpeedKMpH GetMaxSpeed() const = 0;
@@ -217,6 +222,7 @@ private:
     }
 
   private:
+    // @TODO(bykoianko) Road limits should contain speed for roads inside a city and outside.
     SpeedKMpH const m_speed;
     bool const m_isPassThroughAllowed;
   };
