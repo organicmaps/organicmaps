@@ -45,11 +45,17 @@ class SensorHelper implements SensorEventListener
 
     SensorType type = SensorType.get(event);
 
-    if (!mHandler.hasMessages(MARKER) || type != SensorType.TYPE_MAGNETIC_FIELD)
+    if (type != SensorType.TYPE_MAGNETIC_FIELD)
+    {
       notifyImmediately(event);
+      return;
+    }
 
-    if (type == SensorType.TYPE_MAGNETIC_FIELD && !mHandler.hasMessages(MARKER))
+    if (!mHandler.hasMessages(MARKER))
+    {
+      notifyImmediately(event);
       addRateLimitMessage();
+    }
   }
 
   private void addRateLimitMessage()
