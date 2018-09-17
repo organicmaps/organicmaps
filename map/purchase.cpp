@@ -30,9 +30,19 @@ std::string const kReceiptType = "google";
 std::string const kReceiptType {};
 #endif
 
-std::string GetSubscriptionId()
+std::string GetClientIdHash()
 {
   return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
+}
+
+std::string GetSubscriptionId()
+{
+  return GetClientIdHash();
+}
+
+std::string GetDeviceId()
+{
+  return GetClientIdHash();
 }
 
 std::string ValidationUrl()
@@ -58,19 +68,23 @@ struct ReceiptData
 
 struct ValidationData
 {
-  ValidationData(Purchase::ValidationInfo const & validationInfo, std::string const & receiptType)
+  ValidationData(Purchase::ValidationInfo const & validationInfo, std::string const & receiptType,
+                 std::string const & deviceId)
     : m_serverId(validationInfo.m_serverId)
     , m_vendorId(validationInfo.m_vendorId)
     , m_receipt(validationInfo.m_receiptData, receiptType)
+    , m_deviceId(deviceId)
   {}
 
   std::string m_serverId;
   std::string m_vendorId;
   ReceiptData m_receipt;
+  std::string m_deviceId;
 
   DECLARE_VISITOR(visitor(m_serverId, "server_id"),
                   visitor(m_vendorId, "vendor"),
-                  visitor(m_receipt, "receipt"))
+                  visitor(m_receipt, "receipt"),
+                  visitor(m_deviceId, "device_id"))
 };
 
 struct ValidationResult
@@ -164,7 +178,7 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
       using Sink = MemWriter<std::string>;
       Sink sink(jsonStr);
       coding::SerializerJson<Sink> serializer(sink);
-      serializer(ValidationData(validationInfo, kReceiptType));
+      serializer(ValidationData(validationInfo, kReceiptType, GetDeviceId()));
     }
     request.SetBodyData(std::move(jsonStr), "application/json");
 
