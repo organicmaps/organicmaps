@@ -78,6 +78,8 @@
 		40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C645151F8D167E002E05A0 /* fake_ending.hpp */; };
 		40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */; };
 		40F7F3E51F7D246D0082D564 /* single_vehicle_world_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */; };
+		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
+		44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44AE4A11214FBB8D006321F5 /* speed_camera.hpp */; };
 		44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */; };
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44EB88C4214007AD004E2863 /* speed_camera_notification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */; };
@@ -360,6 +362,8 @@
 		40C645151F8D167E002E05A0 /* fake_ending.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_ending.hpp; sourceTree = "<group>"; };
 		40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = single_vehicle_world_graph.hpp; sourceTree = "<group>"; };
 		40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = single_vehicle_world_graph.cpp; sourceTree = "<group>"; };
+		44AE4A10214FBB8D006321F5 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
+		44AE4A11214FBB8D006321F5 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 		44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_ser_des.hpp; sourceTree = "<group>"; };
 		44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_ser_des.cpp; sourceTree = "<group>"; };
 		44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_notification.cpp; sourceTree = "<group>"; };
@@ -785,6 +789,8 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				44AE4A10214FBB8D006321F5 /* speed_camera.cpp */,
+				44AE4A11214FBB8D006321F5 /* speed_camera.hpp */,
 				56473D72214825B4007E6FBA /* city_roads_serialization.hpp */,
 				56085C3A21413221004159B4 /* city_roads_loader.cpp */,
 				56085C3B21413222004159B4 /* city_roads_loader.hpp */,
@@ -989,6 +995,7 @@
 				0C81E1541F02589800DC66DF /* traffic_stash.hpp in Headers */,
 				40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */,
 				0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */,
+				44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */,
 				56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */,
 				0C15B8021F02A61B0058E253 /* checkpoints.hpp in Headers */,
 				0C5F5D211E798B0400307B98 /* cross_mwm_connector_serialization.hpp in Headers */,
@@ -1241,6 +1248,7 @@
 				56C439281E93BF8C00998E29 /* cross_mwm_graph.cpp in Sources */,
 				670EE5731B664796001E8064 /* pedestrian_directions.cpp in Sources */,
 				6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */,
+				44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */,
 				674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */,
 				0C5F5D221E798B0400307B98 /* cross_mwm_connector.cpp in Sources */,
 				0C81E1531F02589800DC66DF /* traffic_stash.cpp in Sources */,
