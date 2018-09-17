@@ -10,7 +10,8 @@ import com.mapswithme.util.log.LoggerFactory;
 public class FirebaseJobService extends JobService
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = NativeJobService.class.getSimpleName();
+  private static final String TAG = FirebaseJobService.class.getSimpleName();
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private JobServiceDelegate mDelegate;
