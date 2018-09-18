@@ -120,7 +120,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())
   {
-  case Message::UpdateReadManager:
+  case Message::Type::UpdateReadManager:
     {
       TTilesCollection tiles = m_requestedTiles->GetTiles();
       if (!tiles.empty())
@@ -137,7 +137,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::InvalidateReadManagerRect:
+  case Message::Type::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
       if (msg->NeedRestartReading())
@@ -147,13 +147,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ShowChoosePositionMark:
+  case Message::Type::ShowChoosePositionMark:
     {
       RecacheChoosePositionMark();
       break;
     }
 
-  case Message::GuiRecache:
+  case Message::Type::GuiRecache:
     {
       ref_ptr<GuiRecacheMessage> msg = message;
       m_lastWidgetsInfo = msg->GetInitInfo();
@@ -164,7 +164,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::GuiLayerLayout:
+  case Message::Type::GuiLayerLayout:
     {
       ref_ptr<GuiLayerLayoutMessage> msg = message;
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -173,21 +173,21 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::TileReadStarted:
+  case Message::Type::TileReadStarted:
     {
       ref_ptr<TileReadStartMessage> msg = message;
       m_batchersPool->ReserveBatcher(msg->GetKey());
       break;
     }
 
-  case Message::TileReadEnded:
+  case Message::Type::TileReadEnded:
     {
       ref_ptr<TileReadEndMessage> msg = message;
       m_batchersPool->ReleaseBatcher(msg->GetKey());
       break;
     }
 
-  case Message::FinishTileRead:
+  case Message::Type::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
       if (msg->NeedForceUpdateUserMarks())
@@ -202,7 +202,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FinishReading:
+  case Message::Type::FinishReading:
     {
       TOverlaysRenderData overlays;
       overlays.swap(m_overlays);
@@ -212,13 +212,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::MapShapesRecache:
+  case Message::Type::MapShapesRecache:
     {
       RecacheMapShapes();
       break;
     }
 
-  case Message::MapShapeReaded:
+  case Message::Type::MapShapeReaded:
     {
       ref_ptr<MapShapeReadedMessage> msg = message;
       auto const & tileKey = msg->GetKey();
@@ -240,7 +240,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::OverlayMapShapeReaded:
+  case Message::Type::OverlayMapShapeReaded:
     {
       ref_ptr<OverlayMapShapeReadedMessage> msg = message;
       auto const & tileKey = msg->GetKey();
@@ -271,14 +271,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ChangeUserMarkGroupVisibility:
+  case Message::Type::ChangeUserMarkGroupVisibility:
     {
       ref_ptr<ChangeUserMarkGroupVisibilityMessage> msg = message;
       m_userMarkGenerator->SetGroupVisibility(msg->GetGroupId(), msg->IsVisible());
       break;
     }
 
-  case Message::UpdateUserMarks:
+  case Message::Type::UpdateUserMarks:
     {
       ref_ptr<UpdateUserMarksMessage> msg = message;
       m_userMarkGenerator->SetRemovedUserMarks(msg->AcceptRemovedIds());
@@ -288,7 +288,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateUserMarkGroup:
+  case Message::Type::UpdateUserMarkGroup:
     {
       ref_ptr<UpdateUserMarkGroupMessage> msg = message;
       kml::MarkGroupId const groupId = msg->GetGroupId();
@@ -296,21 +296,21 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ClearUserMarkGroup:
+  case Message::Type::ClearUserMarkGroup:
     {
       ref_ptr<ClearUserMarkGroupMessage> msg = message;
       m_userMarkGenerator->RemoveGroup(msg->GetGroupId());
       break;
     }
 
-  case Message::InvalidateUserMarks:
+  case Message::Type::InvalidateUserMarks:
     {
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                                 make_unique_dp<InvalidateUserMarksMessage>(),
                                 MessagePriority::Normal);
       break;
     }
-  case Message::AddSubroute:
+  case Message::Type::AddSubroute:
     {
       ref_ptr<AddSubrouteMessage> msg = message;
       auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
@@ -319,7 +319,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CacheSubrouteArrows:
+  case Message::Type::CacheSubrouteArrows:
     {
       ref_ptr<CacheSubrouteArrowsMessage> msg = message;
       auto context = make_ref(m_contextFactory->GetResourcesUploadContext());
@@ -328,7 +328,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RemoveSubroute:
+  case Message::Type::RemoveSubroute:
     {
       ref_ptr<RemoveSubrouteMessage> msg = message;
       m_routeBuilder->ClearRouteCache();
@@ -341,7 +341,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SwitchMapStyle:
+  case Message::Type::SwitchMapStyle:
     {
       m_texMng->OnSwitchMapStyle();
       RecacheMapShapes();
@@ -354,7 +354,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CacheCirclesPack:
+  case Message::Type::CacheCirclesPack:
     {
       ref_ptr<CacheCirclesPackMessage> msg = message;
       drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
@@ -368,14 +368,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Allow3dBuildings:
+  case Message::Type::Allow3dBuildings:
     {
       ref_ptr<Allow3dBuildingsMessage> msg = message;
       m_readManager->Allow3dBuildings(msg->Allow3dBuildings());
       break;
     }
 
-  case Message::RequestSymbolsSize:
+  case Message::Type::RequestSymbolsSize:
     {
       ref_ptr<RequestSymbolsSizeMessage> msg = message;
       auto const & symbols = msg->GetSymbols();
@@ -392,7 +392,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::EnableTraffic:
+  case Message::Type::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
       if (!msg->IsTrafficEnabled())
@@ -404,7 +404,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushTrafficGeometry:
+  case Message::Type::FlushTrafficGeometry:
     {
       ref_ptr<FlushTrafficGeometryMessage> msg = message;
       auto const & tileKey = msg->GetKey();
@@ -416,7 +416,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateTraffic:
+  case Message::Type::UpdateTraffic:
     {
       ref_ptr<UpdateTrafficMessage> msg = message;
       m_trafficGenerator->UpdateColoring(msg->GetSegmentsColoring());
@@ -426,7 +426,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ClearTrafficData:
+  case Message::Type::ClearTrafficData:
     {
       ref_ptr<ClearTrafficDataMessage> msg = message;
 
@@ -438,7 +438,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetSimplifiedTrafficColors:
+  case Message::Type::SetSimplifiedTrafficColors:
     {
       ref_ptr<SetSimplifiedTrafficColorsMessage> msg = message;
 
@@ -451,20 +451,20 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateTransitScheme:
+  case Message::Type::UpdateTransitScheme:
     {
       ref_ptr<UpdateTransitSchemeMessage> msg = message;
       m_transitBuilder->UpdateSchemes(msg->GetTransitDisplayInfos(), m_texMng);
       break;
     }
 
-  case Message::RegenerateTransitScheme:
+  case Message::Type::RegenerateTransitScheme:
     {
       m_transitBuilder->RebuildSchemes(m_texMng);
       break;
     }
 
-  case Message::ClearTransitSchemeData:
+  case Message::Type::ClearTransitSchemeData:
     {
       ref_ptr<ClearTransitSchemeDataMessage> msg = message;
       m_transitBuilder->Clear(msg->GetMwmId());
@@ -474,7 +474,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ClearAllTransitSchemeData:
+  case Message::Type::ClearAllTransitSchemeData:
     {
       m_transitBuilder->Clear();
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -483,7 +483,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::EnableTransitScheme:
+  case Message::Type::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage> msg = message;
       if (!msg->IsEnabled())
@@ -493,7 +493,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                 MessagePriority::Normal);
       break;
     }
-  case Message::DrapeApiAddLines:
+  case Message::Type::DrapeApiAddLines:
     {
       ref_ptr<DrapeApiAddLinesMessage> msg = message;
       vector<drape_ptr<DrapeApiRenderProperty>> properties;
@@ -504,7 +504,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::DrapeApiRemove:
+  case Message::Type::DrapeApiRemove:
     {
       ref_ptr<DrapeApiRemoveMessage> msg = message;
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -513,7 +513,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetCustomFeatures:
+  case Message::Type::SetCustomFeatures:
     {
       ref_ptr<SetCustomFeaturesMessage> msg = message;
       m_readManager->SetCustomFeatures(msg->AcceptFeatures());
@@ -524,7 +524,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RemoveCustomFeatures:
+  case Message::Type::RemoveCustomFeatures:
     {
       ref_ptr<RemoveCustomFeaturesMessage> msg = message;
       bool changed = false;
@@ -543,7 +543,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetDisplacementMode:
+  case Message::Type::SetDisplacementMode:
     {
       ref_ptr<SetDisplacementModeMessage> msg = message;
       m_readManager->SetDisplacementMode(msg->GetMode());
@@ -556,7 +556,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::EnableUGCRendering:
+  case Message::Type::EnableUGCRendering:
     {
       ref_ptr<EnableUGCRenderingMessage> msg = message;
       m_readManager->EnableUGCRendering(msg->IsEnabled());
@@ -566,7 +566,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::NotifyRenderThread:
+  case Message::Type::NotifyRenderThread:
     {
       ref_ptr<NotifyRenderThreadMessage> msg = message;
       msg->InvokeFunctor();

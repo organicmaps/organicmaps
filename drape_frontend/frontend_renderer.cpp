@@ -214,7 +214,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 {
   switch (message->GetType())
   {
-  case Message::FlushTile:
+  case Message::Type::FlushTile:
     {
       ref_ptr<FlushRenderBucketMessage> msg = message;
       dp::RenderState const & state = msg->GetState();
@@ -228,7 +228,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushOverlays:
+  case Message::Type::FlushOverlays:
     {
       ref_ptr<FlushOverlaysMessage> msg = message;
       TOverlaysRenderData renderData = msg->AcceptRenderData();
@@ -253,7 +253,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FinishTileRead:
+  case Message::Type::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
       bool changed = false;
@@ -282,14 +282,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::InvalidateRect:
+  case Message::Type::InvalidateRect:
     {
       ref_ptr<InvalidateRectMessage> m = message;
       InvalidateRect(m->GetRect());
       break;
     }
 
-  case Message::FlushUserMarks:
+  case Message::Type::FlushUserMarks:
     {
       ref_ptr<FlushUserMarksMessage> msg = message;
       TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
@@ -306,7 +306,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::GuiLayerRecached:
+  case Message::Type::GuiLayerRecached:
     {
       ref_ptr<GuiLayerRecachedMessage> msg = message;
       drape_ptr<gui::LayerRenderer> renderer = std::move(msg->AcceptRenderer());
@@ -336,7 +336,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::GuiLayerLayout:
+  case Message::Type::GuiLayerLayout:
     {
       m_lastWidgetsLayout = ref_ptr<GuiLayerLayoutMessage>(message)->GetLayoutInfo();
       if (m_guiRenderer != nullptr)
@@ -344,7 +344,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::MapShapes:
+  case Message::Type::MapShapes:
     {
       ref_ptr<MapShapesMessage> msg = message;
       m_myPositionController->SetRenderShape(msg->AcceptShape());
@@ -358,7 +358,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     break;
 
-  case Message::ChangeMyPositionMode:
+  case Message::Type::ChangeMyPositionMode:
     {
       ref_ptr<ChangeMyPositionModeMessage> msg = message;
       switch (msg->GetChangeType())
@@ -379,14 +379,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::CompassInfo:
+  case Message::Type::CompassInfo:
     {
       ref_ptr<CompassInfoMessage> msg = message;
       m_myPositionController->OnCompassUpdate(msg->GetInfo(), m_userEventStream.GetCurrentScreen());
       break;
     }
 
-  case Message::GpsInfo:
+  case Message::Type::GpsInfo:
     {
 #ifdef SCENARIO_ENABLE
       if (m_scenarioManager->IsRunning())
@@ -408,7 +408,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SelectObject:
+  case Message::Type::SelectObject:
     {
       ref_ptr<SelectObjectMessage> msg = message;
       m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
@@ -424,7 +424,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushSubroute:
+  case Message::Type::FlushSubroute:
     {
       ref_ptr<FlushSubrouteMessage> msg = message;
       auto subrouteData = msg->AcceptRenderData();
@@ -453,7 +453,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushTransitScheme:
+  case Message::Type::FlushTransitScheme:
     {
       ref_ptr<FlushTransitSchemeMessage > msg = message;
       auto renderData = msg->AcceptRenderData();
@@ -462,7 +462,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushSubrouteArrows:
+  case Message::Type::FlushSubrouteArrows:
     {
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;
       drape_ptr<SubrouteArrowsData> routeArrowsData = msg->AcceptRenderData();
@@ -474,7 +474,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushSubrouteMarkers:
+  case Message::Type::FlushSubrouteMarkers:
     {
       ref_ptr<FlushSubrouteMarkersMessage> msg = message;
       drape_ptr<SubrouteMarkersData> markersData = msg->AcceptRenderData();
@@ -489,7 +489,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RemoveSubroute:
+  case Message::Type::RemoveSubroute:
     {
       ref_ptr<RemoveSubrouteMessage> msg = message;
       if (msg->NeedDeactivateFollowing())
@@ -509,7 +509,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FollowRoute:
+  case Message::Type::FollowRoute:
     {
       ref_ptr<FollowRouteMessage> const msg = message;
 
@@ -527,7 +527,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::DeactivateRouteFollowing:
+  case Message::Type::DeactivateRouteFollowing:
     {
       m_myPositionController->DeactivateRouting();
       m_postprocessRenderer->OnChangedRouteFollowingMode(false /* active */);
@@ -536,7 +536,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AddRoutePreviewSegment:
+  case Message::Type::AddRoutePreviewSegment:
     {
       ref_ptr<AddRoutePreviewSegmentMessage> const msg = message;
       RouteRenderer::PreviewInfo info;
@@ -546,7 +546,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RemoveRoutePreviewSegment:
+  case Message::Type::RemoveRoutePreviewSegment:
     {
       ref_ptr<RemoveRoutePreviewSegmentMessage> const msg = message;
       if (msg->NeedRemoveAll())
@@ -556,20 +556,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetSubrouteVisibility:
+  case Message::Type::SetSubrouteVisibility:
     {
       ref_ptr<SetSubrouteVisibilityMessage> const msg = message;
       m_routeRenderer->SetSubrouteVisibility(msg->GetSubrouteId(), msg->IsVisible());
       break;
     }
 
-  case Message::RecoverGLResources:
+  case Message::Type::RecoverGLResources:
     {
       UpdateGLResources();
       break;
     }
 
-  case Message::UpdateMapStyle:
+  case Message::Type::UpdateMapStyle:
     {
 #ifdef BUILD_DESIGNER
       classificator::Load();
@@ -607,20 +607,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::AllowAutoZoom:
+  case Message::Type::AllowAutoZoom:
     {
       ref_ptr<AllowAutoZoomMessage> const msg = message;
       m_myPositionController->EnableAutoZoomInRouting(msg->AllowAutoZoom());
       break;
     }
 
-  case Message::EnablePerspective:
+  case Message::Type::EnablePerspective:
     {
       AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
       break;
     }
 
-  case Message::Allow3dMode:
+  case Message::Type::Allow3dMode:
     {
       ref_ptr<Allow3dModeMessage> const msg = message;
       ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
@@ -652,7 +652,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushCirclesPack:
+  case Message::Type::FlushCirclesPack:
     {
       ref_ptr<FlushCirclesPackMessage> msg = message;
       switch (msg->GetDestination())
@@ -667,41 +667,41 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateGpsTrackPoints:
+  case Message::Type::UpdateGpsTrackPoints:
     {
       ref_ptr<UpdateGpsTrackPointsMessage> msg = message;
       m_gpsTrackRenderer->UpdatePoints(msg->GetPointsToAdd(), msg->GetPointsToRemove());
       break;
     }
 
-  case Message::ClearGpsTrackPoints:
+  case Message::Type::ClearGpsTrackPoints:
     {
       m_gpsTrackRenderer->Clear();
       break;
     }
 
-  case Message::BlockTapEvents:
+  case Message::Type::BlockTapEvents:
     {
       ref_ptr<BlockTapEventsMessage> msg = message;
       m_blockTapEvents = msg->NeedBlock();
       break;
     }
 
-  case Message::SetKineticScrollEnabled:
+  case Message::Type::SetKineticScrollEnabled:
     {
       ref_ptr<SetKineticScrollEnabledMessage> msg = message;
       m_userEventStream.SetKineticScrollEnabled(msg->IsEnabled());
       break;
     }
 
-  case Message::SetTimeInBackground:
+  case Message::Type::SetTimeInBackground:
     {
       ref_ptr<SetTimeInBackgroundMessage> msg = message;
       m_myPositionController->SetTimeInBackground(msg->GetTime());
       break;
     }
 
-  case Message::SetAddNewPlaceMode:
+  case Message::Type::SetAddNewPlaceMode:
     {
       ref_ptr<SetAddNewPlaceModeMessage> msg = message;
       m_userEventStream.SetKineticScrollEnabled(msg->IsKineticScrollEnabled());
@@ -726,7 +726,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetVisibleViewport:
+  case Message::Type::SetVisibleViewport:
     {
       ref_ptr<SetVisibleViewportMessage> msg = message;
       AddUserEvent(make_unique_dp<SetVisibleViewportEvent>(msg->GetRect()));
@@ -736,14 +736,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::Invalidate:
+  case Message::Type::Invalidate:
     {
       m_myPositionController->ResetRoutingNotFollowTimer();
       m_myPositionController->ResetBlockAutoZoomTimer();
       break;
     }
 
-  case Message::EnableTransitScheme:
+  case Message::Type::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
       m_transitSchemeEnabled = msg->IsEnabled();
@@ -756,20 +756,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ClearTransitSchemeData:
+  case Message::Type::ClearTransitSchemeData:
     {
       ref_ptr<ClearTransitSchemeDataMessage> msg = message;
       m_transitSchemeRenderer->Clear(msg->GetMwmId(), make_ref(m_overlayTree));
       break;
     }
 
-  case Message::ClearAllTransitSchemeData:
+  case Message::Type::ClearAllTransitSchemeData:
     {
       m_transitSchemeRenderer->ClearGLDependentResources(make_ref(m_overlayTree));
       break;
   }
 
-  case Message::EnableTraffic:
+  case Message::Type::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
       m_trafficEnabled = msg->IsTrafficEnabled();
@@ -780,17 +780,17 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RegenerateTraffic:
-  case Message::SetSimplifiedTrafficColors:
-  case Message::SetDisplacementMode:
-  case Message::UpdateMetalines:
-  case Message::EnableUGCRendering:
+  case Message::Type::RegenerateTraffic:
+  case Message::Type::SetSimplifiedTrafficColors:
+  case Message::Type::SetDisplacementMode:
+  case Message::Type::UpdateMetalines:
+  case Message::Type::EnableUGCRendering:
     {
       m_forceUpdateScene = true;
       break;
     }
 
-  case Message::EnableDebugRectRendering:
+  case Message::Type::EnableDebugRectRendering:
     {
       ref_ptr<EnableDebugRectRenderingMessage> msg = message;
       m_isDebugRectRenderingEnabled = msg->IsEnabled();
@@ -798,13 +798,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     break;
 
-  case Message::InvalidateUserMarks:
+  case Message::Type::InvalidateUserMarks:
     {
       m_forceUpdateUserMarks = true;
       break;
     }
 
-  case Message::FlushTrafficData:
+  case Message::Type::FlushTrafficData:
     {
       if (!m_trafficEnabled)
         break;
@@ -813,21 +813,21 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::ClearTrafficData:
+  case Message::Type::ClearTrafficData:
     {
       ref_ptr<ClearTrafficDataMessage> msg = message;
       m_trafficRenderer->Clear(msg->GetMwmId());
       break;
     }
 
-  case Message::DrapeApiFlush:
+  case Message::Type::DrapeApiFlush:
     {
       ref_ptr<DrapeApiFlushMessage> msg = message;
       m_drapeApiRenderer->AddRenderProperties(make_ref(m_gpuProgramManager), msg->AcceptProperties());
       break;
     }
 
-  case Message::DrapeApiRemove:
+  case Message::Type::DrapeApiRemove:
     {
       ref_ptr<DrapeApiRemoveMessage> msg = message;
       if (msg->NeedRemoveAll())
@@ -837,7 +837,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetTrackedFeatures:
+  case Message::Type::SetTrackedFeatures:
     {
       ref_ptr<SetTrackedFeaturesMessage> msg = message;
       m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptFeatures());
@@ -845,14 +845,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::SetPostprocessStaticTextures:
+  case Message::Type::SetPostprocessStaticTextures:
     {
       ref_ptr<SetPostprocessStaticTexturesMessage> msg = message;
       m_postprocessRenderer->SetStaticTextures(msg->AcceptTextures());
       break;
     }
 
-  case Message::SetPosteffectEnabled:
+  case Message::Type::SetPosteffectEnabled:
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
       if (msg->GetEffect() == PostprocessRenderer::Effect::Antialiasing)
@@ -863,7 +863,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::RunFirstLaunchAnimation:
+  case Message::Type::RunFirstLaunchAnimation:
     {
       ref_ptr<RunFirstLaunchAnimationMessage> msg = message;
       m_firstLaunchAnimationTriggered = true;
@@ -871,28 +871,28 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::PostUserEvent:
+  case Message::Type::PostUserEvent:
     {
       ref_ptr<PostUserEventMessage> msg = message;
       AddUserEvent(msg->AcceptEvent());
       break;
     }
 
-  case Message::FinishTexturesInitialization:
+  case Message::Type::FinishTexturesInitialization:
     {
       ref_ptr<FinishTexturesInitializationMessage> msg = message;
       m_finishTexturesInitialization = true;
       break;
     }
 
-  case Message::ShowDebugInfo:
+  case Message::Type::ShowDebugInfo:
     {
       ref_ptr<ShowDebugInfoMessage> msg = message;
       gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(msg->IsShown());
       break;
     }
 
-  case Message::NotifyRenderThread:
+  case Message::Type::NotifyRenderThread:
     {
       ref_ptr<NotifyRenderThreadMessage> msg = message;
       msg->InvokeFunctor();

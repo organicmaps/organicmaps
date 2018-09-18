@@ -1,11 +1,13 @@
 #pragma once
 
+#include <string>
+
 namespace df
 {
 class Message
 {
 public:
-  enum Type
+  enum class Type
   {
     Unknown,
     TileReadStarted,
@@ -97,7 +99,7 @@ public:
   };
 
   virtual ~Message() = default;
-  virtual Type GetType() const { return Unknown; }
+  virtual Type GetType() const { return Type::Unknown; }
   virtual bool IsGLContextDependent() const { return false; }
 };
 
@@ -116,4 +118,6 @@ enum class MessagePriority
   // This priority allows to process messages after any other messages in queue.
   Low
 };
+
+std::string DebugPrint(Message::Type msgType);
 }  // namespace df
