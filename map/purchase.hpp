@@ -51,6 +51,9 @@ public:
   void Validate(ValidationInfo const & validationInfo, std::string const & accessToken);
 
 private:
+  void ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
+                    std::string const & accessToken, uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
+
   struct RemoveAdsSubscriptionData
   {
     std::atomic<bool> m_isActive;

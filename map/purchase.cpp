@@ -30,6 +30,10 @@ std::string const kReceiptType = "google";
 std::string const kReceiptType {};
 #endif
 
+uint32_t constexpr kFirstWaitingTimeInSec = 1;
+uint32_t constexpr kWaitingTimeScaleFactor = 2;
+uint8_t constexpr kMaxAttemptIndex = 2;
+
 std::string GetClientIdHash()
 {
   return coding::SHA1::CalculateBase64ForString(GetPlatform().UniqueClientId());
@@ -167,59 +171,79 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo, accessToken]()
   {
-    platform::HttpClient request(url);
-    request.SetRawHeader("Accept", "application/json");
-    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
-    if (!accessToken.empty())
-      request.SetRawHeader("Authorization", "Bearer " + accessToken);
+    ValidateImpl(url, validationInfo, accessToken, 0 /* attemptIndex */, kFirstWaitingTimeInSec);
+  });
+}
 
-    std::string jsonStr;
+void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
+                            std::string const & accessToken, uint8_t attemptIndex, uint32_t waitingTimeInSeconds)
+{
+  platform::HttpClient request(url);
+  request.SetRawHeader("Accept", "application/json");
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+  if (!accessToken.empty())
+    request.SetRawHeader("Authorization", "Bearer " + accessToken);
+
+  std::string jsonStr;
+  {
+    using Sink = MemWriter<std::string>;
+    Sink sink(jsonStr);
+    coding::SerializerJson<Sink> serializer(sink);
+    serializer(ValidationData(validationInfo, kReceiptType, GetDeviceId()));
+  }
+  request.SetBodyData(std::move(jsonStr), "application/json");
+
+  ValidationCode code = ValidationCode::ServerError;
+  if (request.RunHttpRequest())
+  {
+    auto const resultCode = request.ErrorCode();
+    if (resultCode >= 200 && resultCode < 300)
     {
-      using Sink = MemWriter<std::string>;
-      Sink sink(jsonStr);
-      coding::SerializerJson<Sink> serializer(sink);
-      serializer(ValidationData(validationInfo, kReceiptType, GetDeviceId()));
+      code = ValidationCode::Verified;
     }
-    request.SetBodyData(std::move(jsonStr), "application/json");
-
-    ValidationCode code = ValidationCode::ServerError;
-    if (request.RunHttpRequest())
+    else if (resultCode >= 400 && resultCode < 500)
     {
-      auto const resultCode = request.ErrorCode();
-      if (resultCode >= 200 && resultCode < 300)
-      {
-        code = ValidationCode::Verified;
-      }
-      else if (resultCode >= 400 && resultCode < 500)
-      {
-        code = ValidationCode::NotVerified;
+      code = ValidationCode::NotVerified;
 
-        ValidationResult result;
-        try
-        {
-          coding::DeserializerJson deserializer(request.ServerResponse());
-          deserializer(result);
-        }
-        catch(coding::DeserializerJson::Exception const &) {}
-
-        if (!result.m_reason.empty())
-          LOG(LWARNING, ("Validation error:", result.m_reason));
-      }
-      else
+      ValidationResult result;
+      try
       {
-        LOG(LWARNING, ("Unexpected validation error. Code =", resultCode,
-                       request.ServerResponse()));
+        coding::DeserializerJson deserializer(request.ServerResponse());
+        deserializer(result);
       }
+      catch(coding::DeserializerJson::Exception const &) {}
+
+      if (!result.m_reason.empty())
+        LOG(LWARNING, ("Validation error:", result.m_reason));
     }
     else
     {
-      LOG(LWARNING, ("Validation request failed."));
+      LOG(LWARNING, ("Unexpected validation error. Code =", resultCode,
+        request.ServerResponse()));
     }
+  }
+  else
+  {
+    LOG(LWARNING, ("Validation request failed."));
+  }
 
+  if (code == ValidationCode::ServerError && attemptIndex < kMaxAttemptIndex)
+  {
+    auto const delayTime = std::chrono::seconds(waitingTimeInSeconds);
+    ++attemptIndex;
+    waitingTimeInSeconds *= kWaitingTimeScaleFactor;
+    GetPlatform().RunDelayedTask(Platform::Thread::Network, delayTime,
+                                 [this, url, validationInfo, accessToken, attemptIndex, waitingTimeInSeconds]()
+    {
+      ValidateImpl(url, validationInfo, accessToken, attemptIndex, waitingTimeInSeconds);
+    });
+  }
+  else
+  {
     GetPlatform().RunTask(Platform::Thread::Gui, [this, code, validationInfo]()
     {
       if (m_validationCallback)
         m_validationCallback(code, validationInfo);
     });
-  });
+  }
 }
