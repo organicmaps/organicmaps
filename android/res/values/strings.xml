@@ -1431,6 +1431,10 @@
 	<string name="channels_reviews">Unsent reviews</string>
 	<string name="purchase_loading">Purchase information is loading…</string>
 	<string name="purchase_error_subtitle">An error occurred while processing your purchase</string>
+	<string name="awaiting_approval">Awaiting a parent\'s approval</string>
+	<string name="whats_new_leave_review">Leave a review! Share your opinion about the locations you visited on your vacation.</string>
+	<string name="server_unavailable_title">Server is unavailable</string>
+	<string name="server_unavailable_message">The purchase will be completed later. If the error persists, please contact support\@maps.me.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

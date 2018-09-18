@@ -2458,6 +2458,14 @@
 
 "purchase_error_subtitle" = "An error occurred while processing your purchase";
 
+"awaiting_approval" = "Awaiting a parent's approval";
+
+"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+
+"server_unavailable_title" = "Server is unavailable";
+
+"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+
 
 /**********  Partners  **********/
 
