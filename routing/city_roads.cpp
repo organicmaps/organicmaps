@@ -4,8 +4,6 @@
 
 #include "indexer/data_source.hpp"
 
-#include "coding/reader.hpp"
-
 #include "base/logging.hpp"
 
 #include <utility>
@@ -22,28 +20,31 @@ bool CityRoads::IsCityRoad(uint32_t fid) const
   return false;
 }
 
-bool LoadCityRoads(DataSource const & dataSource, MwmSet::MwmId const & mwmId, CityRoads & cityRoads)
+void LoadCityRoads(std::string const & fileName, FilesContainerR::TReader const & reader,
+                   CityRoads & cityRoads)
 {
-  MwmSet::MwmHandle m_handle(dataSource.GetMwmHandleById(mwmId));
-  if (!m_handle.IsAlive())
-    return false;
-
-  auto const & mwmValue = *m_handle.GetValue<MwmValue>();
-  if (!mwmValue.m_cont.IsExist(CITY_ROADS_FILE_TAG))
-    return false;
-
   try
   {
-    FilesContainerR::TReader reader(mwmValue.m_cont.GetReader(CITY_ROADS_FILE_TAG));
     ReaderSource<FilesContainerR::TReader> src(reader);
     CityRoadsSerializer::Deserialize(src, cityRoads.m_cityRoadsRegion, cityRoads.m_cityRoads);
-    return true;
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("File", mwmValue.GetCountryFileName(), "Error while reading", CITY_ROADS_FILE_TAG,
+    LOG(LERROR, ("File", fileName, "Error while reading", CITY_ROADS_FILE_TAG,
         "section.", e.Msg()));
-    return false;
   }
+}
+
+std::unique_ptr<CityRoads> LoadCityRoads(DataSource const & dataSource,
+                                         MwmSet::MwmHandle const & handle)
+{
+  auto cityRoads = std::make_unique<CityRoads>();
+  auto const & mwmValue = *handle.GetValue<MwmValue>();
+  if (!mwmValue.m_cont.IsExist(CITY_ROADS_FILE_TAG))
+    return cityRoads;
+
+  LoadCityRoads(mwmValue.GetCountryFileName(), mwmValue.m_cont.GetReader(CITY_ROADS_FILE_TAG),
+                *cityRoads);
+  return cityRoads;
 }
 }  // namespace routing

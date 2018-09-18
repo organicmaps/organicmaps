@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/city_roads.hpp"
 #include "routing/road_point.hpp"
 #include "routing/road_graph.hpp"
 
@@ -29,7 +30,7 @@ public:
   RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH, Points const & points);
 
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-            feature::TAltitudes const * altitudes);
+            feature::TAltitudes const * altitudes, bool inCity);
 
   bool IsOneWay() const { return m_isOneWay; }
   VehicleModelInterface::SpeedKMpH const & GetSpeed() const { return m_speed; }
@@ -64,7 +65,7 @@ public:
 
 private:
   buffer_vector<Junction, 32> m_junctions;
-  // @TODO(bykoianko) Speed in city and outside should be kept.
+  // @TODO(bykoianko) In |m_speed| should be kept speed according to city status of the road.
   VehicleModelInterface::SpeedKMpH m_speed;
   bool m_isOneWay = false;
   bool m_valid = false;
@@ -82,6 +83,7 @@ public:
   static std::unique_ptr<GeometryLoader> Create(DataSource const & dataSource,
                                                 MwmSet::MwmHandle const & handle,
                                                 std::shared_ptr<VehicleModelInterface> vehicleModel,
+                                                std::unique_ptr<CityRoads> cityRoads,
                                                 bool loadAltitudes);
 
   /// This is for stand-alone work.

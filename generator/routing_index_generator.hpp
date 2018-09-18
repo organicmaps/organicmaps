@@ -12,7 +12,9 @@ bool BuildRoutingIndex(std::string const & filename, std::string const & country
                        CountryParentNameGetterFn const & countryParentNameGetterFn);
 
 /// \brief Builds CROSS_MWM_FILE_TAG section.
-/// \note Before call of this method all features and feature geometry should be generated.
+/// \note Before call of this method
+/// * all features and feature geometry should be generated
+/// * city_roads section should be generated
 void BuildRoutingCrossMwmSection(std::string const & path, std::string const & mwmFile,
                                  std::string const & country,
                                  CountryParentNameGetterFn const & countryParentNameGetterFn,

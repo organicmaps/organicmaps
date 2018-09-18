@@ -3,9 +3,11 @@
 #include "indexer/mwm_set.hpp"
 
 #include "coding/memory_region.hpp"
+#include "coding/reader.hpp"
 
 #include <cstdint>
 #include <memory>
+#include <string>
 
 #include "3party/succinct/elias_fano.hpp"
 
@@ -15,7 +17,7 @@ namespace routing
 {
 class CityRoads
 {
-  friend bool LoadCityRoads(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
+  friend void LoadCityRoads(std::string const & fileName, FilesContainerR::TReader const & reader,
                             CityRoads & cityRoads);
 
 public:
@@ -29,5 +31,7 @@ private:
   succinct::elias_fano m_cityRoads;
 };
 
-bool LoadCityRoads(DataSource const & dataSource, MwmSet::MwmId const & mwmId, CityRoads & cityRoads);
+std::unique_ptr<CityRoads> LoadCityRoads(DataSource const & dataSource, MwmSet::MwmHandle const & handle);
+void LoadCityRoads(std::string const & fileName, FilesContainerR::TReader const & reader,
+                   CityRoads & cityRoads);
 }  // namespace routing

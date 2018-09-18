@@ -1,5 +1,6 @@
 #include "routing/geometry.hpp"
 
+#include "routing/city_roads.hpp"
 #include "routing/routing_exceptions.hpp"
 
 #include "editor/editable_data_source.hpp"
@@ -10,6 +11,7 @@
 
 #include "base/assert.hpp"
 
+#include <algorithm>
 #include <string>
 
 using namespace routing;
@@ -26,13 +28,15 @@ class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
   GeometryLoaderImpl(DataSource const & dataSource, MwmSet::MwmHandle const & handle,
-                     shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes);
+                     shared_ptr<VehicleModelInterface> vehicleModel,
+                     unique_ptr<CityRoads> cityRoads, bool loadAltitudes);
 
   // GeometryLoader overrides:
   void Load(uint32_t featureId, RoadGeometry & road) override;
 
 private:
   shared_ptr<VehicleModelInterface> m_vehicleModel;
+  unique_ptr<CityRoads> m_cityRoads;
   FeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
@@ -42,8 +46,9 @@ private:
 GeometryLoaderImpl::GeometryLoaderImpl(DataSource const & dataSource,
                                        MwmSet::MwmHandle const & handle,
                                        shared_ptr<VehicleModelInterface> vehicleModel,
-                                       bool loadAltitudes)
+                                       unique_ptr<CityRoads> cityRoads, bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
+  , m_cityRoads(move(cityRoads))
   , m_guard(dataSource, handle.GetId())
   , m_country(handle.GetInfo()->GetCountryName())
   , m_altitudeLoader(dataSource, handle.GetId())
@@ -51,6 +56,7 @@ GeometryLoaderImpl::GeometryLoaderImpl(DataSource const & dataSource,
 {
   CHECK(handle.IsAlive(), ());
   CHECK(m_vehicleModel, ());
+  CHECK(m_cityRoads, ());
 }
 
 void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
@@ -66,7 +72,7 @@ void GeometryLoaderImpl::Load(uint32_t featureId, RoadGeometry & road)
   if (m_loadAltitudes)
     altitudes = &(m_altitudeLoader.GetAltitudes(featureId, feature.GetPointsCount()));
 
-  road.Load(*m_vehicleModel, feature, altitudes);
+  road.Load(*m_vehicleModel, feature, altitudes, m_cityRoads->IsCityRoad(featureId));
   m_altitudeLoader.ClearCache();
 }
 
@@ -81,6 +87,7 @@ public:
 
 private:
   FeaturesVectorTest m_featuresVector;
+  CityRoads m_cityRoads;
   shared_ptr<VehicleModelInterface> m_vehicleModel;
 };
 
@@ -89,6 +96,10 @@ FileGeometryLoader::FileGeometryLoader(string const & fileName,
   : m_featuresVector(FilesContainerR(make_unique<FileReader>(fileName)))
   , m_vehicleModel(vehicleModel)
 {
+  auto const cont = FilesContainerR(make_unique<FileReader>(fileName));
+  if (cont.IsExist(CITY_ROADS_FILE_TAG))
+    LoadCityRoads(fileName, cont.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
+
   CHECK(m_vehicleModel, ());
 }
 
@@ -97,7 +108,9 @@ void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
   FeatureType feature;
   m_featuresVector.GetVector().GetByIndex(featureId, feature);
   feature.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  road.Load(*m_vehicleModel, feature, nullptr /* altitudes */);
+  // Note. If FileGeometryLoader is used for generation cross mwm section for bicycle or
+  // pedestrian routing |altitudes| should be used here.
+  road.Load(*m_vehicleModel, feature, nullptr /* altitudes */, m_cityRoads.IsCityRoad(featureId));
 }
 }  // namespace
 
@@ -117,12 +130,13 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-                        feature::TAltitudes const * altitudes)
+                        feature::TAltitudes const * altitudes, bool inCity)
 {
   CHECK(altitudes == nullptr || altitudes->size() == feature.GetPointsCount(), ());
 
   m_valid = vehicleModel.IsRoad(feature);
   m_isOneWay = vehicleModel.IsOneWay(feature);
+  // @TODO(bykoianko) |inCity| should be used to get a correct speed.
   m_speed = vehicleModel.GetSpeed(feature);
   m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
 
@@ -168,10 +182,12 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 unique_ptr<GeometryLoader> GeometryLoader::Create(DataSource const & dataSource,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
+                                                  unique_ptr<CityRoads> cityRoads,
                                                   bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
-  return make_unique<GeometryLoaderImpl>(dataSource, handle, vehicleModel, loadAltitudes);
+  return make_unique<GeometryLoaderImpl>(dataSource, handle, vehicleModel, move(cityRoads),
+                                         loadAltitudes);
 }
 
 // static

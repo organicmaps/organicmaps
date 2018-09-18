@@ -41,7 +41,6 @@ private:
   struct GraphAttrs
   {
     shared_ptr<Geometry> m_geometry;
-    shared_ptr<CityRoads> m_cityRoads;
     unique_ptr<IndexGraph> m_indexGraph;
   };
 
@@ -187,9 +186,8 @@ IndexGraphLoaderImpl::GraphAttrs & IndexGraphLoaderImpl::CreateGeometry(NumMwmId
       m_vehicleModelFactory->GetVehicleModelForCountry(file.GetName());
 
   auto & graph = m_graphs[numMwmId];
-  // @TODO(bykoianko) shared_ptr<CityRoads> should be passed to GeomtryLoader.
-  graph.m_geometry =
-      make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, vehicleModel, m_loadAltitudes));
+  graph.m_geometry = make_shared<Geometry>(GeometryLoader::Create(
+      m_dataSource, handle, vehicleModel, LoadCityRoads(m_dataSource, handle), m_loadAltitudes));
   return graph;
 }
 

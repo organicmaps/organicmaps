@@ -25,6 +25,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <limits>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>
@@ -49,14 +50,18 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 }
 
-bool LoadCityRoads(LocalCountryFile const & country, CityRoads & cityRoads)
+unique_ptr<CityRoads> LoadCityRoads(LocalCountryFile const & country)
 {
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   auto const & mwmId = regResult.first;
 
-  return LoadCityRoads(dataSource, mwmId, cityRoads);
+  MwmSet::MwmHandle handle(dataSource.GetMwmHandleById(mwmId));
+  if (!handle.IsAlive())
+    return make_unique<CityRoads>();
+
+  return routing::LoadCityRoads(dataSource, handle);
 }
 
 /// \brief Builds mwm with city_roads section, read the section and compare original feature ids
@@ -81,17 +86,16 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   vector<uint64_t> originalCityRoadFeatureIds = cityRoadFeatureIds;
   SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
-  CityRoads cityRoads;
-  bool const loadCityRoadsResult = LoadCityRoads(country, cityRoads);
+  auto const cityRoads = LoadCityRoads(country);
 
   // Comparing loading form mwm and expected feature ids.
   if (originalCityRoadFeatureIds.empty())
   {
-    TEST(!cityRoads.HasCityRoads(), ());
+    TEST(!cityRoads->HasCityRoads(), ());
     return;
   }
 
-  TEST(loadCityRoadsResult, ());
+  TEST(cityRoads->HasCityRoads(), ());
 
   sort(originalCityRoadFeatureIds.begin(), originalCityRoadFeatureIds.end());
   size_t const kMaxRoadFeatureId = originalCityRoadFeatureIds.back();
@@ -101,7 +105,7 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   {
     bool const isCityRoad =
         binary_search(originalCityRoadFeatureIds.cbegin(), originalCityRoadFeatureIds.cend(), fid);
-    TEST_EQUAL(cityRoads.IsCityRoad(fid), isCityRoad, (fid));
+    TEST_EQUAL(cityRoads->IsCityRoad(fid), isCityRoad, (fid));
   }
 }
 

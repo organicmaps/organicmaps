@@ -2,15 +2,16 @@
 
 #include "track_analyzing/exceptions.hpp"
 
-#include <routing/index_graph_loader.hpp>
+#include "routing/city_roads.hpp"
+#include "routing/index_graph_loader.hpp"
 
-#include <routing_common/car_model.hpp>
+#include "routing_common/car_model.hpp"
 
-#include <indexer/scales.hpp>
+#include "indexer/scales.hpp"
 
-#include <geometry/parametrized_segment.hpp>
+#include "geometry/parametrized_segment.hpp"
 
-#include <base/stl_helpers.hpp>
+#include "base/stl_helpers.hpp"
 
 using namespace routing;
 using namespace std;
@@ -64,8 +65,9 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
 
   MwmSet::MwmHandle const handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
   m_graph = make_unique<IndexGraph>(
-      make_shared<Geometry>(
-          GeometryLoader::Create(m_dataSource, handle, m_vehicleModel, false /* loadAltitudes */)),
+      make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, m_vehicleModel,
+                                                   LoadCityRoads(m_dataSource, handle),
+                                                   false /* loadAltitudes */)),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
 
   DeserializeIndexGraph(*handle.GetValue<MwmValue>(), VehicleType::Car, *m_graph);
