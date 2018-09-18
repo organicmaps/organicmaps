@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentManager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 
 class CatalogListenerDecorator extends BookmarkManager.DefaultBookmarksCatalogListener
 {

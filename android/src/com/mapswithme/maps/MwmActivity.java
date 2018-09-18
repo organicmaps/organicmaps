@@ -49,6 +49,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
 import com.mapswithme.maps.discovery.ItemType;

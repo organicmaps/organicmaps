@@ -19,7 +19,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;

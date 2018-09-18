@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 
 class CategoryValidator implements EditTextDialogFragment.Validator
 {

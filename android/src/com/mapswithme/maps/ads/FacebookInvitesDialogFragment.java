@@ -13,7 +13,7 @@ import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 public class FacebookInvitesDialogFragment extends BaseMwmDialogFragment

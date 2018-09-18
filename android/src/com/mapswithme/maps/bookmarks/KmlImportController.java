@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 
 public class KmlImportController implements BookmarkManager.KmlConversionListener
 {

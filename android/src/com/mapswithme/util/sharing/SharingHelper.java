@@ -21,7 +21,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;

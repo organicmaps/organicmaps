@@ -1,4 +1,4 @@
-package com.mapswithme.util;
+package com.mapswithme.maps.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,7 +26,7 @@ public class DialogUtils
   }
 
   @NonNull
-  private static AlertDialog.Builder buildAlertDialog(@NonNull Context context, @StringRes int titleId,
+  static AlertDialog.Builder buildAlertDialog(@NonNull Context context, @StringRes int titleId,
                                                       @StringRes int msgId)
   {
     return buildAlertDialog(context, titleId)

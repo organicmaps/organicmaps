@@ -26,7 +26,7 @@ import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;

@@ -18,7 +18,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.DateUtils;
-import com.mapswithme.util.DialogUtils;
+import com.mapswithme.maps.dialog.DialogUtils;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.Utils;
