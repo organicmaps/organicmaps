@@ -89,7 +89,14 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     public void onPurchaseFailure()
     {
       if (getUiCallback() != null)
-        getUiCallback().onFailure();
+        getUiCallback().onPaymentFailure();
+    }
+
+    @Override
+    public void onPurchaseDetailsFailure()
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onProductDetailsFailure();
     }
 
     @Override

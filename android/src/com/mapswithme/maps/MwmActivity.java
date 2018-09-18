@@ -109,7 +109,6 @@ import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.Counters;
-import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;

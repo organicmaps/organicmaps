@@ -12,5 +12,6 @@ public interface PlayStoreBillingCallback
   void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPurchaseSuccessful(@NonNull List<Purchase> purchases);
   void onPurchaseFailure();
+  void onPurchaseDetailsFailure();
   void onPurchasesLoaded(@NonNull List<Purchase> purchases);
 }

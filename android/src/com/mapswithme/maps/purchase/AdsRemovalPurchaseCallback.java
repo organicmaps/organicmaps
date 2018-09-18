@@ -9,5 +9,6 @@ import java.util.List;
 public interface AdsRemovalPurchaseCallback
 {
   void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
-  void onFailure();
+  void onPaymentFailure();
+  void onProductDetailsFailure();
 }

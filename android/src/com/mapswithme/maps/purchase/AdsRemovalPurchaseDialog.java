@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -19,7 +21,7 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.List;
 
-public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
+public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements AlertDialogCallback
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private final static String TAG = AdsRemovalPurchaseDialog.class.getSimpleName();
@@ -27,9 +29,11 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
   private final static int WEEKS_IN_YEAR = 52;
   private final static int WEEKS_IN_MONTH = 4;
+  private final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
+  private final static int REQ_CODE_PAYMENT_FAILURE = 2;
 
-  @NonNull
-  private ProductDetails[] mProductDetails = new ProductDetails[Period.values().length];
+  @Nullable
+  private ProductDetails[] mProductDetails;
   @NonNull
   private State mState = State.NONE;
   @SuppressWarnings("NullableProblems")
@@ -76,7 +80,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
       State savedState = State.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
       ProductDetails[] productDetails
           = (ProductDetails[]) savedInstanceState.getParcelableArray(EXTRA_PRODUCT_DETAILS);
-      if (productDetails != null && productDetails.length > 0)
+      if (productDetails != null)
       {
         mProductDetails = productDetails;
         updateYearlyButton();
@@ -132,6 +136,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   @NonNull
   private ProductDetails getProductDetailsForPeriod(@NonNull Period period)
   {
+    if (mProductDetails == null)
+      throw new AssertionError("Product details must be exist at this moment!");
     return mProductDetails[period.ordinal()];
   }
 
@@ -147,6 +153,32 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     float pricePerWeek = getProductDetailsForPeriod(Period.P1W).getPrice();
     float pricePerMonth = getProductDetailsForPeriod(Period.P1M).getPrice();
     return pricePerWeek * WEEKS_IN_MONTH - pricePerMonth;
+  }
+
+  @Override
+  public void onAlertDialogClick(int requestCode, int which)
+  {
+    handleErrorDialogEvent(requestCode);
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+    handleErrorDialogEvent(requestCode);
+  }
+
+  private void handleErrorDialogEvent(int requestCode)
+  {
+    switch (requestCode)
+    {
+      case REQ_CODE_PRODUCT_DETAILS_FAILURE:
+        dismissAllowingStateLoss();
+        break;
+      case REQ_CODE_PAYMENT_FAILURE:
+        activateState(State.PRICE_SELECTION);
+        updateYearlyButton();
+        break;
+    }
   }
 
   public enum State
@@ -186,14 +218,6 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
           {
 
           }
-        },
-    ERROR
-        {
-          @Override
-          void activate(@NonNull View view)
-          {
-
-          }
         };
 
     abstract void activate(@NonNull View view);
@@ -204,6 +228,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
+      mProductDetails = new ProductDetails[Period.values().length];
       for (SkuDetails sku: details)
       {
         float price = sku.getPriceAmountMicros() / 1000000;
@@ -217,9 +242,18 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     }
 
     @Override
-    public void onFailure()
+    public void onPaymentFailure()
     {
-      // Coming soon.
+      AlertDialog.show(R.string.bookmarks_convert_error_title, R.string.purchase_error_subtitle,
+                       R.string.back, AdsRemovalPurchaseDialog.this, REQ_CODE_PAYMENT_FAILURE);
+    }
+
+    @Override
+    public void onProductDetailsFailure()
+    {
+      AlertDialog.show(R.string.bookmarks_convert_error_title,
+                       R.string.discovery_button_other_error_message, R.string.ok,
+                       AdsRemovalPurchaseDialog.this, REQ_CODE_PRODUCT_DETAILS_FAILURE);
     }
   }
 
