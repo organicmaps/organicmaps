@@ -14,7 +14,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -35,7 +34,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   @Nullable
   private ProductDetails[] mProductDetails;
   @NonNull
-  private State mState = State.NONE;
+  private AdsRemovalPaymentState mState = AdsRemovalPaymentState.NONE;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<AdsRemovalPurchaseCallback> mController;
@@ -77,19 +76,21 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     LOGGER.d(TAG, "onViewCreated savedInstanceState = " + savedInstanceState);
     if (savedInstanceState != null)
     {
-      State savedState = State.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
+      AdsRemovalPaymentState savedState = AdsRemovalPaymentState.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
       ProductDetails[] productDetails
           = (ProductDetails[]) savedInstanceState.getParcelableArray(EXTRA_PRODUCT_DETAILS);
       if (productDetails != null)
-      {
         mProductDetails = productDetails;
-        updateYearlyButton();
-      }
+
       activateState(savedState);
       return;
     }
 
-    activateState(State.LOADING);
+    activateState(AdsRemovalPaymentState.LOADING);
+  }
+
+  void queryPurchaseDetails()
+  {
     mController.queryPurchaseDetails();
   }
 
@@ -99,10 +100,10 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mController.launchPurchaseFlow(details.getProductId());
   }
 
-  private void activateState(@NonNull State state)
+  private void activateState(@NonNull AdsRemovalPaymentState state)
   {
     mState = state;
-    mState.activate(getViewOrThrow());
+    mState.activate(this);
   }
 
   @Override
@@ -122,7 +123,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mController.removeCallback();
   }
 
-  private void updateYearlyButton()
+  void updateYearlyButton()
   {
     ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
@@ -175,52 +176,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
         dismissAllowingStateLoss();
         break;
       case REQ_CODE_PAYMENT_FAILURE:
-        activateState(State.PRICE_SELECTION);
-        updateYearlyButton();
+        activateState(AdsRemovalPaymentState.PRICE_SELECTION);
         break;
     }
-  }
-
-  public enum State
-  {
-    NONE
-        {
-          @Override
-          void activate(@NonNull View view)
-          {
-            throw new UnsupportedOperationException("This state can't be used!");
-          }
-        },
-    LOADING
-        {
-          @Override
-          void activate(@NonNull View view)
-          {
-            UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
-            UiUtils.show(view, R.id.progress_layout);
-          }
-        },
-    PRICE_SELECTION
-        {
-          @Override
-          void activate(@NonNull View view)
-          {
-            UiUtils.hide(view, R.id.progress_layout);
-            UiUtils.show(view, R.id.title, R.id.image, R.id.pay_button_container);
-            TextView title = view.findViewById(R.id.title);
-            title.setText(R.string.remove_ads_title);
-          }
-        },
-    EXPLANATION
-        {
-          @Override
-          void activate(@NonNull View view)
-          {
-
-          }
-        };
-
-    abstract void activate(@NonNull View view);
   }
 
   private class PurchaseCallback implements AdsRemovalPurchaseCallback
@@ -237,8 +195,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
         mProductDetails[period.ordinal()] = new ProductDetails(sku.getSku(), price, currencyCode);
       }
 
-      updateYearlyButton();
-      activateState(State.PRICE_SELECTION);
+      activateState(AdsRemovalPaymentState.PRICE_SELECTION);
     }
 
     @Override
