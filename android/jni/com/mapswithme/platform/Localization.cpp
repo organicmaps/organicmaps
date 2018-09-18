@@ -1,13 +1,26 @@
+#include <jni.h>
+
 #include "platform/localization.hpp"
+
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/core/ScopedLocalRef.hpp"
+
+#include <string>
 
 namespace platform
 {
 std::string GetLocalizedTypeName(std::string const & type)
 {
-  //TODO: Add code here.
+  JNIEnv * env = jni::GetEnv();
+  static auto const getLocalizedFeatureType =
+      jni::GetStaticMethodID(env, g_utilsClazz,
+                             "getLocalizedFeatureType", "(Ljava/lang/String;)Ljava/lang/String;");
 
-  // Return type as is by default.
-  return type;
+  jni::TScopedLocalRef typeRef(env, jni::ToJavaString(env, type));
+  auto localizedFeatureType =
+      env->CallStaticObjectMethod(g_utilsClazz, getLocalizedFeatureType, typeRef.get());
+
+  return jni::ToNativeString(env, static_cast<jstring>(localizedFeatureType));
 }
 }  // namespace platform
 

@@ -25,8 +25,6 @@ namespace
 using TCuisine = std::pair<std::string, std::string>;
 osm::EditableMapObject g_editableMapObject;
 
-jclass g_featureCategoryClazz;
-jmethodID g_featureCtor;
 jclass g_localNameClazz;
 jmethodID g_localNameCtor;
 jfieldID g_localNameFieldCode;
@@ -37,13 +35,6 @@ jfieldID g_localStreetFieldDef;
 jfieldID g_localStreetFieldLoc;
 jclass g_namesDataSourceClassID;
 jmethodID g_namesDataSourceConstructorID;
-
-
-jobject ToJavaFeatureCategory(JNIEnv * env, osm::NewFeatureCategories::TName const & category)
-{
-  return env->NewObject(g_featureCategoryClazz, g_featureCtor, category.second,
-                        jni::TScopedLocalRef(env, jni::ToJavaString(env, category.first)).get());
-}
 
 jobject ToJavaName(JNIEnv * env, osm::LocalizedName const & name)
 {
@@ -75,10 +66,6 @@ using osm::Editor;
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeInit(JNIEnv * env, jclass)
 {
-  g_featureCategoryClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/FeatureCategory");
-  // FeatureCategory(int category, String name)
-  g_featureCtor = jni::GetConstructorID(env, g_featureCategoryClazz, "(ILjava/lang/String;)V");
-
   g_localNameClazz = jni::GetGlobalClassRef(env, "com/mapswithme/maps/editor/data/LocalizedName");
   // LocalizedName(int code, @NonNull String name, @NonNull String lang, @NonNull String langName)
   g_localNameCtor = jni::GetConstructorID(env, g_localNameClazz, "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
@@ -434,10 +421,11 @@ Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv *, jclass, jint featureCategory)
+Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
 {
   ::Framework * frm = g_framework->NativeFramework();
-  CHECK(frm->CreateMapObject(frm->GetViewportCenter(), featureCategory, g_editableMapObject),
+  auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
+  CHECK(frm->CreateMapObject(frm->GetViewportCenter(), type, g_editableMapObject),
         ("Couldn't create mapobject, wrong coordinates of missing mwm"));
 }
 
@@ -465,23 +453,19 @@ Java_com_mapswithme_maps_editor_Editor_nativeRollbackMapObject(JNIEnv * env, jcl
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetAllFeatureCategories(JNIEnv * env, jclass clazz, jstring jLang)
+Java_com_mapswithme_maps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env, jclass clazz, jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaArray(env, g_featureCategoryClazz,
-                          GetFeatureCategories().GetAllCategoryNames(lang),
-                          ToJavaFeatureCategory);
+  return jni::ToJavaStringArray(env, GetFeatureCategories().GetAllCategoryNames());
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSearchFeatureCategories(JNIEnv * env, jclass clazz, jstring query, jstring jLang)
+Java_com_mapswithme_maps_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env, jclass clazz, jstring query, jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaArray(env, g_featureCategoryClazz,
-                          GetFeatureCategories().Search(jni::ToNativeString(env, query), lang),
-                          ToJavaFeatureCategory);
+  return jni::ToJavaStringArray(env, GetFeatureCategories().Search(jni::ToNativeString(env, query)));
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -602,7 +586,9 @@ Java_com_mapswithme_maps_editor_Editor_nativeIsNameValid(JNIEnv * env, jclass cl
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_Editor_nativeGetCategory(JNIEnv * env, jclass clazz)
 {
-  return jni::ToJavaString(env, g_editableMapObject.GetLocalizedType());
+  auto types = g_editableMapObject.GetTypes();
+  types.SortBySpec();
+  return jni::ToJavaString(env, classif().GetReadableObjectName(*types.begin()));
 }
 
 // @FeatureStatus

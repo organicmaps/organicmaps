@@ -38,6 +38,7 @@ import com.mapswithme.util.Graphics;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 public class EditorFragment extends BaseMwmFragment implements View.OnClickListener,
@@ -133,7 +134,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
 
     initViews(view);
 
-    mCategory.setText(Editor.nativeGetCategory());
+    mCategory.setText(Utils.getLocalizedFeatureType(getContext(), Editor.nativeGetCategory()));
     final LocalizedStreet street = Editor.nativeGetStreet();
     mStreet.setText(street.defaultName);
 

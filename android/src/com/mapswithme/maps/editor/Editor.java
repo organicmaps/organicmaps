@@ -140,9 +140,9 @@ public final class Editor
   public static native boolean nativeSaveEditedFeature();
 
   @NonNull
-  public static native FeatureCategory[] nativeGetAllFeatureCategories(String lang);
+  public static native String[] nativeGetAllCreatableFeatureTypes(String lang);
   @NonNull
-  public static native FeatureCategory[] nativeSearchFeatureCategories(String query, String lang);
+  public static native String[] nativeSearchCreatableFeatureTypes(String query, String lang);
 
   /**
    * Creates new object on the map. Places it in the center of current viewport.
@@ -151,9 +151,9 @@ public final class Editor
    */
   public static void createMapObject(FeatureCategory category)
   {
-    nativeCreateMapObject(category.category);
+    nativeCreateMapObject(category.getType());
   }
-  public static native void nativeCreateMapObject(int categoryId);
+  public static native void nativeCreateMapObject(String type);
   public static native void nativeCreateNote(String text);
   public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();

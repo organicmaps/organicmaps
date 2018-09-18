@@ -54,26 +54,21 @@ public class FeatureCategoryAdapter extends RecyclerView.Adapter<FeatureCategory
     TextView name;
     View selected;
 
-    public FeatureViewHolder(View itemView)
+    FeatureViewHolder(View itemView)
     {
       super(itemView);
       name = (TextView) itemView.findViewById(R.id.name);
       selected = itemView.findViewById(R.id.selected);
       UiUtils.hide(selected);
-      itemView.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          onCategorySelected(getAdapterPosition());
-        }
-      });
+      itemView.setOnClickListener(v -> onCategorySelected(getAdapterPosition()));
     }
 
     public void bind(int position)
     {
-      name.setText(mCategories[position].name);
-      UiUtils.showIf(mSelectedCategory != null && mCategories[position].category == mSelectedCategory.category, selected);
+      name.setText(mCategories[position].getLocalizedTypeName());
+      boolean showCondition = mSelectedCategory != null
+                              && mCategories[position].getType().equals(mSelectedCategory.getType());
+      UiUtils.showIf(showCondition, selected);
     }
   }
 

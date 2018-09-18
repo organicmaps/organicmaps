@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
@@ -709,5 +710,34 @@ public class Utils
   public interface Proc<T>
   {
     void invoke(@NonNull T param);
+  }
+
+  @StringRes
+  public static int getStringIdForFeatureType(@NonNull Context context, String type)
+  {
+    String key = "type." + type.replace('-', '.');
+    return getStringIdByKey(context, key);
+  }
+
+  public static String getLocalizedFeatureType(@NonNull Context context, String type)
+  {
+    @StringRes
+    int id = getStringIdForFeatureType(context, type);
+
+    try
+    {
+      return context.getString(id);
+    }
+    catch (Resources.NotFoundException e)
+    {
+      LOGGER.e(TAG, "Failed to get localized string for type'" + type + "'", e);
+    }
+
+    return type;
+  }
+
+  public static String getLocalizedFeatureType(String type)
+  {
+    return getLocalizedFeatureType(MwmApplication.get(), type);
   }
 }

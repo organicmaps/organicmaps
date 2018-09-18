@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,9 @@ import com.mapswithme.maps.editor.data.FeatureCategory;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Language;
+import com.mapswithme.util.Utils;
+
+import java.util.Arrays;
 
 public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter>
 {
@@ -52,15 +54,43 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 
   private void setFilter(String query)
   {
-    getAdapter().setCategories(query.isEmpty() ? Editor.nativeGetAllFeatureCategories(Language.getDefaultLocale())
-                                               : Editor.nativeSearchFeatureCategories(query, Language.getDefaultLocale()));
+    String locale = Language.getDefaultLocale();
+    String[] creatableTypes = query.isEmpty()
+                              ? Editor.nativeGetAllCreatableFeatureTypes(locale)
+                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
+
+    FeatureCategory[] categories = MakeFeatureCategoriesFromTypes(creatableTypes);
+
+    getAdapter().setCategories(categories);
   }
 
   @NonNull
   @Override
   protected FeatureCategoryAdapter createAdapter()
   {
-    return new FeatureCategoryAdapter(this, Editor.nativeGetAllFeatureCategories(Language.getDefaultLocale()), mSelectedCategory);
+    String locale = Language.getDefaultLocale();
+    String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(locale);
+
+    FeatureCategory[] categories = MakeFeatureCategoriesFromTypes(creatableTypes);
+
+    return new FeatureCategoryAdapter(this, categories, mSelectedCategory);
+  }
+
+  @NonNull
+  private FeatureCategory[] MakeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
+  {
+    FeatureCategory[] categories = new FeatureCategory[creatableTypes.length];
+
+    for (int i = 0; i < creatableTypes.length; ++i)
+    {
+      String localizedType = Utils.getLocalizedFeatureType(getContext(), creatableTypes[i]);
+      categories[i] = new FeatureCategory(creatableTypes[i], localizedType);
+    }
+
+    Arrays.sort(categories, (lhs, rhs) ->
+      lhs.getLocalizedTypeName().compareTo(rhs.getLocalizedTypeName()));
+
+    return categories;
   }
 
   public void selectCategory(FeatureCategory category)

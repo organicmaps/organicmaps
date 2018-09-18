@@ -7,6 +7,7 @@
 #include "base/stl_helpers.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/utility.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
@@ -27,14 +28,13 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
       LOG(LWARNING, ("Unknown type in Editor's config:", classificatorType));
       continue;
     }
-    m_types.push_back(type);
+    m_types.emplace_back(cl.GetReadableObjectName(type));
   }
 }
 
 NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other)
   : m_index(move(other.m_index))
   , m_types(move(other.m_types))
-  , m_categoriesByLang(move(other.m_categoriesByLang))
 {
 }
 
@@ -46,54 +46,37 @@ void NewFeatureCategories::AddLanguage(string lang)
     lang = "en";
     langCode = CategoriesHolder::kEnglishCode;
   }
-  if (m_categoriesByLang.find(lang) != m_categoriesByLang.end())
+  if (m_addedLangs.find(lang) != m_addedLangs.end())
     return;
 
-  NewFeatureCategories::TNames names;
-  names.reserve(m_types.size());
+  auto const & c = classif();
   for (auto const & type : m_types)
   {
-    m_index.AddCategoryByTypeAndLang(type, langCode);
-    names.emplace_back(m_index.GetCategoriesHolder()->GetReadableFeatureType(type, langCode), type);
+    m_index.AddCategoryByTypeAndLang(c.GetTypeByReadableObjectName(type), langCode);
   }
-  base::SortUnique(names);
-  m_categoriesByLang[lang] = names;
+
+  m_addedLangs.insert(lang);
 }
 
-NewFeatureCategories::TNames NewFeatureCategories::Search(string const & query, string lang) const
+NewFeatureCategories::TypeNames NewFeatureCategories::Search(string const & query) const
 {
-  auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
-  if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
-  {
-    lang = "en";
-    langCode = CategoriesHolder::kEnglishCode;
-  }
   vector<uint32_t> resultTypes;
   m_index.GetAssociatedTypes(query, resultTypes);
 
-  NewFeatureCategories::TNames result(resultTypes.size());
+  auto const & c = classif();
+  NewFeatureCategories::TypeNames result(resultTypes.size());
   for (size_t i = 0; i < result.size(); ++i)
   {
-    result[i].first =
-        m_index.GetCategoriesHolder()->GetReadableFeatureType(resultTypes[i], langCode);
-    result[i].second = resultTypes[i];
+    result[i] = c.GetReadableObjectName(resultTypes[i]);
   }
-  base::SortUnique(result);
 
-  alohalytics::TStringMap const stats = {
-      {"query", query}, {"lang", lang}};
-  alohalytics::LogEvent("searchNewFeatureCategory", stats);
+  alohalytics::LogEvent("searchNewFeatureCategory", {{"query", query}});
 
   return result;
 }
 
-NewFeatureCategories::TNames const & NewFeatureCategories::GetAllCategoryNames(
-    string const & lang) const
+NewFeatureCategories::TypeNames const & NewFeatureCategories::GetAllCategoryNames() const
 {
-  auto it = m_categoriesByLang.find(lang);
-  if (it == m_categoriesByLang.end())
-    it = m_categoriesByLang.find("en");
-  CHECK(it != m_categoriesByLang.end(), ());
-  return it->second;
+  return m_types;
 }
 }  // namespace osm

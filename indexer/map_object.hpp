@@ -61,8 +61,6 @@ public:
   ms::LatLon GetLatLon() const;
   m2::PointD const & GetMercator() const;
 
-  /// @returns "the best" type to display in UI.
-  std::string GetLocalizedType() const;
   feature::TypesHolder const & GetTypes() const;
   std::string GetDefaultName() const;
   StringUtf8Multilang const & GetNameMultilang() const;
@@ -103,6 +101,9 @@ public:
   bool IsBuilding() const;
 
 protected:
+  /// @returns "the best" type to display in UI.
+  std::string GetLocalizedType() const;
+
   FeatureID m_featureID;
   m2::PointD m_mercator;
   StringUtf8Multilang m_name;

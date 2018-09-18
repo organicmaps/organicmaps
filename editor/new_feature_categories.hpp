@@ -7,9 +7,8 @@
 #include "base/macros.hpp"
 
 #include "std/cstdint.hpp"
-#include "std/map.hpp"
 #include "std/string.hpp"
-#include "std/utility.hpp"
+#include "std/unordered_set.hpp"
 #include "std/vector.hpp"
 
 namespace osm
@@ -18,8 +17,8 @@ namespace osm
 class NewFeatureCategories
 {
 public:
-  using TName = pair<string, uint32_t>;
-  using TNames = vector<TName>;
+  using TypeName = string;
+  using TypeNames = vector<TypeName>;
 
   NewFeatureCategories(editor::EditorConfig const & config);
 
@@ -40,18 +39,18 @@ public:
   // the substring |query| (in any language that was added before).
   // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TNames Search(string const & query, string lang) const;
+  TypeNames Search(string const & query) const;
 
   // Returns all registered names of categories in language |lang| and
   // types corresponding to these names. The language must have been added before.
   // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TNames const & GetAllCategoryNames(string const & lang) const;
+  TypeNames const & GetAllCategoryNames() const;
 
 private:
   indexer::CategoriesIndex m_index;
-  vector<uint32_t> m_types;
-  map<string, TNames> m_categoriesByLang;
+  unordered_set<string> m_addedLangs;
+  TypeNames m_types;
 
   DISALLOW_COPY(NewFeatureCategories);
 };

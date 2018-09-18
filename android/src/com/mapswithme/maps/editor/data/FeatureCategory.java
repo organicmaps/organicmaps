@@ -2,23 +2,38 @@ package com.mapswithme.maps.editor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 public class FeatureCategory implements Parcelable
 {
-  public final int category;
-  // Localized category name.
-  public final String name;
+  @NonNull
+  private final String mType;
 
-  public FeatureCategory(int category, String name)
+  @NonNull
+  private final String mLocalizedTypeName;
+
+  public FeatureCategory(@NonNull String type, @NonNull String localizedTypeName)
   {
-    this.category = category;
-    this.name = name;
+    mType = type;
+    mLocalizedTypeName = localizedTypeName;
   }
 
-  public FeatureCategory(Parcel source)
+  private FeatureCategory(Parcel source)
   {
-    category = source.readInt();
-    name = source.readString();
+    mType = source.readString();
+    mLocalizedTypeName = source.readString();
+  }
+
+  @NonNull
+  public String getType()
+  {
+    return mType;
+  }
+
+  @NonNull
+  public String getLocalizedTypeName()
+  {
+    return mLocalizedTypeName;
   }
 
   @Override
@@ -30,8 +45,8 @@ public class FeatureCategory implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeInt(category);
-    dest.writeString(name);
+    dest.writeString(mType);
+    dest.writeString(mLocalizedTypeName);
   }
 
   public static final Creator<FeatureCategory> CREATOR = new Creator<FeatureCategory>()
