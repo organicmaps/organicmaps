@@ -127,6 +127,12 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   @Override
   public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases)
   {
+    if (responseCode == BillingResponse.USER_CANCELED)
+    {
+      LOGGER.i(TAG, "Billing cancelled by user");
+      return;
+    }
+
     if (responseCode != BillingResponse.OK || purchases == null || purchases.isEmpty())
     {
       LOGGER.e(TAG, "Billing failed. Response code: " + responseCode);
