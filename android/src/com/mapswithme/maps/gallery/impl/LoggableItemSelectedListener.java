@@ -16,7 +16,7 @@ public abstract class LoggableItemSelectedListener<I extends Items.Item> extends
   @Override
   public final void onMoreItemSelected(@NonNull I item)
   {
-    openUrl(item);
+    super.onMoreItemSelected(item);
     onMoreItemSelectedInternal(item);
     getType().getMoreClickEvent().log();
   }
@@ -24,7 +24,7 @@ public abstract class LoggableItemSelectedListener<I extends Items.Item> extends
   @Override
   public final void onItemSelected(@NonNull I item, int position)
   {
-    openUrl(item);
+    super.onItemSelected(item, position);
     onItemSelectedInternal(item, position);
     getType().getItemClickEvent().log();
   }

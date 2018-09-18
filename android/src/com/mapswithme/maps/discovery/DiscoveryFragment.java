@@ -30,6 +30,7 @@ import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.search.SearchResult;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -102,7 +103,9 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_discovery, container, false);
+    View root = inflater.inflate(R.layout.fragment_discovery, container, false);
+    UserActionsLogger.logDiscoveryShownEvent();
+    return root;
   }
 
   private void initHotelGallery()
