@@ -1156,7 +1156,7 @@ void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
 
     // Delete file after loading.
     auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    MY_SCOPE_GUARD(routePointsFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
+    SCOPE_GUARD(routePointsFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
 
     string data;
     try

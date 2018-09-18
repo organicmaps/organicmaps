@@ -195,7 +195,7 @@ bool Platform::GetFileSizeByFullPath(string const & filePath, uint64_t & size)
   HANDLE hFile = CreateFileA(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile != INVALID_HANDLE_VALUE)
   {
-    MY_SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
+    SCOPE_GUARD(autoClose, bind(&CloseHandle, hFile));
     LARGE_INTEGER fileSize;
     if (0 != GetFileSizeEx(hFile, &fileSize))
     {

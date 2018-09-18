@@ -250,7 +250,7 @@ void Engine::DoSearch(SearchParams const & params, shared_ptr<ProcessorHandle> h
 {
   processor.Reset();
   handle->Attach(processor);
-  MY_SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
+  SCOPE_GUARD(detach, [&handle] { handle->Detach(); });
 
   processor.Search(params);
 }

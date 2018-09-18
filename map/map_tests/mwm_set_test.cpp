@@ -38,7 +38,7 @@ UNIT_TEST(MwmSet_FileSystemErrors)
     g_LogAbortLevel = oldLevel;
     TEST_EQUAL(chmod(dir.c_str(), readOnlyMode | S_IWUSR), 0, ());
   };
-  MY_SCOPE_GUARD(restoreGuard, restoreFn);
+  SCOPE_GUARD(restoreGuard, restoreFn);
 
   DataSource dataSource;
   auto p = dataSource.RegisterMap(localFile);

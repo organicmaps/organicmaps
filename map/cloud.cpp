@@ -689,7 +689,7 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
       if (!uploadedName.empty())
         base::DeleteFileX(uploadedName);
     };
-    MY_SCOPE_GUARD(deleteAfterUploadingGuard, deleteAfterUploading);
+    SCOPE_GUARD(deleteAfterUploadingGuard, deleteAfterUploading);
 
     if (uploadedName.empty())
     {
@@ -835,8 +835,8 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
   auto const tmpPath = base::JoinFoldersToPath(GetPlatform().TmpDir(), name + ".tmp");
   if (!base::CopyFileX(filePath, tmpPath))
     return {};
-  
-  MY_SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(tmpPath)));
+
+  SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(tmpPath)));
 
   // 4. Calculate SHA1 of the temporary file and compare with original one.
   // Original file can be modified during copying process, so we have to

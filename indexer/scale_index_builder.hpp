@@ -130,8 +130,8 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
 
   std::string const cellsToFeatureAllBucketsFile =
       tmpFilePrefix + CELL2FEATURE_SORTED_EXT + ".allbuckets";
-  MY_SCOPE_GUARD(cellsToFeatureAllBucketsFileGuard,
-                 bind(&FileWriter::DeleteFileX, cellsToFeatureAllBucketsFile));
+  SCOPE_GUARD(cellsToFeatureAllBucketsFileGuard,
+              bind(&FileWriter::DeleteFileX, cellsToFeatureAllBucketsFile));
   {
     FileWriter cellsToFeaturesAllBucketsWriter(cellsToFeatureAllBucketsFile);
 
@@ -170,7 +170,7 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
   for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
   {
     std::string const cellsToFeatureFile = tmpFilePrefix + CELL2FEATURE_SORTED_EXT;
-    MY_SCOPE_GUARD(cellsToFeatureFileGuard, bind(&FileWriter::DeleteFileX, cellsToFeatureFile));
+    SCOPE_GUARD(cellsToFeatureFileGuard, bind(&FileWriter::DeleteFileX, cellsToFeatureFile));
     {
       FileWriter cellsToFeaturesWriter(cellsToFeatureFile);
       WriterFunctor<FileWriter> out(cellsToFeaturesWriter);

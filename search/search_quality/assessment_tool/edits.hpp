@@ -120,10 +120,10 @@ private:
   template <typename Fn>
   std::result_of_t<Fn()> WithObserver(Update const & update, Fn && fn)
   {
-    MY_SCOPE_GUARD(obsCall, ([this, &update]() {
-                     if (m_onUpdate)
-                       m_onUpdate(update);
-                   }));
+    SCOPE_GUARD(obsCall, ([this, &update]() {
+                  if (m_onUpdate)
+                    m_onUpdate(update);
+                }));
     return fn();
   }
 

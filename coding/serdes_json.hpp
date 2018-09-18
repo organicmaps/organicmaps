@@ -149,7 +149,7 @@ protected:
 
       m_json = std::move(safe_json);
     };
-    MY_SCOPE_GUARD(rollbackJson, rollback);
+    SCOPE_GUARD(rollbackJson, rollback);
 
     fn();
   }

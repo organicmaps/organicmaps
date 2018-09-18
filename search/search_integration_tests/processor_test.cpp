@@ -1335,7 +1335,7 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
         FeaturesLayerPathFinder::MODE_BOTTOM_UP})
   {
     FeaturesLayerPathFinder::SetModeForTesting(mode);
-    MY_SCOPE_GUARD(rollbackMode, [&] {
+    SCOPE_GUARD(rollbackMode, [&] {
       FeaturesLayerPathFinder::SetModeForTesting(FeaturesLayerPathFinder::MODE_AUTO);
     });
 

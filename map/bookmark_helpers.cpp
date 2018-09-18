@@ -307,7 +307,7 @@ std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
     return nullptr;
 
-  MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, unarchievedPath));
+  SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, unarchievedPath));
 
   kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
   return LoadKmlFile(unarchievedPath, KmlFileType::Text);

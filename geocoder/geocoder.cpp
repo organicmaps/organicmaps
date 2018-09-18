@@ -138,7 +138,7 @@ void Geocoder::ProcessQuery(string const & query, vector<Result> & results) cons
 {
 #if defined(DEBUG)
   base::Timer timer;
-  MY_SCOPE_GUARD(printDuration, [&timer]() {
+  SCOPE_GUARD(printDuration, [&timer]() {
     LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
   });
 #endif
@@ -198,7 +198,7 @@ void Geocoder::Go(Context & ctx, Type type) const
           ctx.AddResult(e->m_osmId, certainty);
 
         ctx.GetLayers().emplace_back(move(curLayer));
-        MY_SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
+        SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
 
         Go(ctx, NextType(type));
       }

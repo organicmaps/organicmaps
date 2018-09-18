@@ -42,7 +42,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithoutTrunc)
   LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
   string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
   FileWriter::DeleteFileX(filePath);
 
   size_t const fileMaxItemCount = 100000;
@@ -108,7 +108,7 @@ UNIT_TEST(GpsTrackStorage_WriteReadWithTrunc)
   LOG(LINFO, ("Timestamp", ctime(&t), timestamp));
 
   string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
   FileWriter::DeleteFileX(filePath);
 
   size_t const fileMaxItemCount = 100000;

@@ -40,7 +40,7 @@ int main(int argc, char * argv[])
   base::ScopedLogLevelChanger const infoLogLevel(LINFO);
 
   emul::GLMockFunctions::Init(&argc, argv);
-  MY_SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
+  SCOPE_GUARD(GLMockScope, bind(&emul::GLMockFunctions::Teardown));
 
   vector<string> testNames;
   vector<bool> testResults;

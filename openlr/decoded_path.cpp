@@ -82,7 +82,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
 {
   auto const flags = ost.flags();
   ost << std::fixed;  // Avoid scientific notation cause '-' is used as fields separator.
-  MY_SCOPE_GUARD(guard, ([&ost, &flags] { ost.flags(flags); }));
+  SCOPE_GUARD(guard, ([&ost, &flags] { ost.flags(flags); }));
 
   for (auto const & p : paths)
   {

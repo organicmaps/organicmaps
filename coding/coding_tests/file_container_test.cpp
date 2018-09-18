@@ -252,7 +252,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
   string const containerPath = "file_container.tmp";
   string const tagName = "dummy";
 
-  MY_SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
+  SCOPE_GUARD(deleteContainerFileGuard, bind(&FileWriter::DeleteFileX, cref(containerPath)));
 
   {
     FilesContainerW writer(containerPath);

@@ -24,7 +24,7 @@ void FakeMapFilesDownloader::GetServersList(TServersListCallback const & callbac
 {
   CHECK(m_checker.CalledOnOriginalThread(), ());
   m_idle = false;
-  MY_SCOPE_GUARD(resetIdle, bind(&FakeMapFilesDownloader::Reset, this));
+  SCOPE_GUARD(resetIdle, bind(&FakeMapFilesDownloader::Reset, this));
   callback(m_servers);
 }
 

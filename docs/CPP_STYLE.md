@@ -216,7 +216,7 @@ v = w * (x + z);
     * `LWARNING` - the same as `LINFO` but catches your attention
     * `LERROR` - the same as `LWARNING`, but crashes in DEBUG and works in RELEASE
     * `LCRITICAL` - the same as `LERROR` and ALWAYS crashes
-- Need scope guard? Check `MY_SCOPE_GUARD(name, func)`
+- Need scope guard? Check `SCOPE_GUARD(name, func)`
 - Use `std::array::size()` to calculate plain C-array's size
 - Declare your own exceptions with `DECLARE_EXCEPTION(name, baseException)`, where `baseException` is usually `RootException`
 - Throw exceptions with `MYTHROW(exceptionName, (message))`

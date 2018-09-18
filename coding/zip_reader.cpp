@@ -48,7 +48,7 @@ ZipFileReader::ZipFileReader(string const & container, string const & file, uint
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", container));
 
-  MY_SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
   if (UNZ_OK != unzLocateFile(zip, file.c_str(), 1))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", file));
@@ -76,7 +76,7 @@ void ZipFileReader::FilesList(string const & zipContainer, FileListT & filesList
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
 
-  MY_SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
   if (UNZ_OK != unzGoToFirstFile(zip))
     MYTHROW(LocateZipException, ("Can't find first file inside zip", zipContainer));
@@ -109,14 +109,14 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
-  MY_SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
+  SCOPE_GUARD(zipGuard, bind(&unzClose, zip));
 
   if (UNZ_OK != unzLocateFile(zip, fileInZip.c_str(), 1))
     MYTHROW(LocateZipException, ("Can't locate file inside zip", fileInZip));
 
   if (UNZ_OK != unzOpenCurrentFile(zip))
     MYTHROW(LocateZipException, ("Can't open file inside zip", fileInZip));
-  MY_SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
+  SCOPE_GUARD(currentFileGuard, bind(&unzCloseCurrentFile, zip));
 
   unz_file_info64 fileInfo;
   if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))

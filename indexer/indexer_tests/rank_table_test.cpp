@@ -58,7 +58,7 @@ UNIT_TEST(RankTableBuilder_Smoke)
   size_t const kNumRanks = 256;
 
   FileWriter::DeleteFileX(kTestCont);
-  MY_SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestCont));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestCont));
 
   vector<uint8_t> ranks;
   for (size_t i = 0; i < kNumRanks; ++i)
@@ -80,7 +80,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
       base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
   string const mapPath = base::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass-copy.mwm");
   base::CopyFileX(originalMapPath, mapPath);
-  MY_SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, mapPath));
 
   platform::LocalCountryFile localFile =
       platform::LocalCountryFile::MakeForTesting("minsk-pass-copy");
@@ -107,7 +107,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 UNIT_TEST(RankTableBuilder_WrongEndianness)
 {
   char const kTestFile[] = "test.mwm";
-  MY_SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
 
   vector<uint8_t> ranks = {0, 1, 2, 3, 4};
   {

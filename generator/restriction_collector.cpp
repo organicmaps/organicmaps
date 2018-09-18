@@ -36,7 +36,7 @@ namespace routing
 RestrictionCollector::RestrictionCollector(std::string const & restrictionPath,
                                            std::string const & osmIdsToFeatureIdPath)
 {
-  MY_SCOPE_GUARD(clean, [this](){
+  SCOPE_GUARD(clean, [this]() {
     m_osmIdToFeatureId.clear();
     m_restrictions.clear();
   });

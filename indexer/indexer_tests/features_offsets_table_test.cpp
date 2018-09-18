@@ -74,7 +74,7 @@ namespace feature
     FileWriter::DeleteFileX(indexFile);
 
     unique_ptr<FeaturesOffsetsTable> table = FeaturesOffsetsTable::CreateIfNotExistsAndLoad(localFile);
-    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
+    SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
     TEST(table.get(), ());
 
     uint64_t builderSize = 0;
@@ -114,8 +114,8 @@ namespace feature
     TEST_EQUAL(builder.size(), table->size(), ());
 
     string const testFile = pl.WritablePathForFile(testFileName + DATA_FILE_EXTENSION);
-    MY_SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
-    MY_SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
+    SCOPE_GUARD(deleteTestFileGuard, bind(&FileWriter::DeleteFileX, cref(testFile)));
+    SCOPE_GUARD(deleteTestFileIndexGuard, bind(&FileWriter::DeleteFileX, cref(indexFile)));
 
     // Store table in a temporary data file.
     {

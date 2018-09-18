@@ -74,7 +74,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   auto const changesetCloser = [&]() { api.CloseChangeSet(changeSetId); };
 
   {
-    MY_SCOPE_GUARD(guard, changesetCloser);
+    SCOPE_GUARD(guard, changesetCloser);
 
     // Sometimes network can unexpectedly fail (or test exception can be raised), so do some cleanup before unit tests.
     DeleteOSMNodeIfExists(api, changeSetId, kOriginalLocation);
@@ -113,7 +113,7 @@ UNIT_TEST(OSM_ServerAPI_ChangesetAndNode)
   // Cleanup - delete unit test node from the server.
   changeSetId = api.CreateChangeSet({{"created_by", "MAPS.ME Unit Test"},
                                      {"comment", "For test purposes only."}});
-  MY_SCOPE_GUARD(guard, changesetCloser);
+  SCOPE_GUARD(guard, changesetCloser);
   // New changeset has new id.
   node.SetAttribute("changeset", strings::to_string(changeSetId));
   TEST_NO_THROW(api.DeleteElement(node), ());

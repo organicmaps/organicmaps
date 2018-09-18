@@ -32,7 +32,7 @@ UNIT_TEST(SimpleDenseCoding_Smoke)
     data[i] = i;
 
   string const kTestFile = "test.tmp";
-  MY_SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
+  SCOPE_GUARD(cleanup, bind(&FileWriter::DeleteFileX, kTestFile));
 
   {
     SimpleDenseCoding coding(data);

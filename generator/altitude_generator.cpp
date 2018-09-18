@@ -97,8 +97,8 @@ public:
     }
 
     bool hasAltitude = false;
-    MY_SCOPE_GUARD(altitudeAvailabilityBuilding,
-                   [&]() { m_altitudeAvailabilityBuilder.push_back(hasAltitude); });
+    SCOPE_GUARD(altitudeAvailabilityBuilding,
+                [&]() { m_altitudeAvailabilityBuilder.push_back(hasAltitude); });
 
     if (!routing::IsRoad(feature::TypesHolder(f)))
       return;

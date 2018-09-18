@@ -141,7 +141,7 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   if (fileName.empty())
     fileName = base::GetNameFromFullPathWithoutExt(kmlToShare.first);
   auto const filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
-  MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
+  SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
 
@@ -166,7 +166,7 @@ Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
 {
   std::string const fileName = base::GetNameFromFullPathWithoutExt(filePath);
   auto const tmpFilePath = base::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
-  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, tmpFilePath));
+  SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, tmpFilePath));
 
   auto kmlData = LoadKmlFile(filePath, KmlFileType::Binary);
   if (kmlData == nullptr)
@@ -2122,7 +2122,7 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
   auto const userId = m_user.GetUserId();
   GetPlatform().RunTask(Platform::Thread::File, [this, id, filePath, userId]()
   {
-    MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
+    SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
     std::string hash;
     auto kmlData = LoadKmzFile(filePath, hash);
     if (kmlData && FromCatalog(*kmlData) && kmlData->m_serverId == id)

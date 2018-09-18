@@ -171,7 +171,7 @@ namespace feature
     try
     {
       string const destPath = filePath + ".offsets";
-      MY_SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
+      SCOPE_GUARD(fileDeleter, bind(FileWriter::DeleteFileX, destPath));
 
       (void)feature::FeaturesOffsetsTable::Build(FilesContainerR(filePath), destPath);
       FilesContainerW(filePath, FileWriter::OP_WRITE_EXISTING).Write(destPath, FEATURE_OFFSETS_FILE_TAG);

@@ -83,7 +83,7 @@ seconds const kWaitForCallbackTimeout = seconds(5);
 UNIT_TEST(GpsTrack_Simple)
 {
   string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
   FileWriter::DeleteFileX(filePath);
 
   time_t const t = system_clock::to_time_t(system_clock::now());
@@ -150,7 +150,7 @@ UNIT_TEST(GpsTrack_Simple)
 UNIT_TEST(GpsTrack_EvictedByAdd)
 {
   string const filePath = GetGpsTrackFilePath();
-  MY_SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
+  SCOPE_GUARD(gpsTestFileDeleter, bind(FileWriter::DeleteFileX, filePath));
   FileWriter::DeleteFileX(filePath);
 
   time_t const t = system_clock::to_time_t(system_clock::now());

@@ -234,7 +234,7 @@ string Platform::DeviceModel() const
 Platform::EConnectionType Platform::ConnectionStatus()
 {
   int socketFd = socket(AF_INET, SOCK_STREAM, 0);
-  MY_SCOPE_GUARD(closeSocket, bind(&close, socketFd));
+  SCOPE_GUARD(closeSocket, bind(&close, socketFd));
   if (socketFd < 0)
     return EConnectionType::CONNECTION_NONE;
 

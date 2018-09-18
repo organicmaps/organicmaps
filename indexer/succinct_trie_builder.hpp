@@ -102,7 +102,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
   using TEntry = typename TIter::value_type;
 
   TNode * root = new TNode();
-  MY_SCOPE_GUARD(cleanup, std::bind(&DeleteTrie<TNode>, root));
+  SCOPE_GUARD(cleanup, std::bind(&DeleteTrie<TNode>, root));
   TTrieString prevKey;
   TEntry prevEntry;
 

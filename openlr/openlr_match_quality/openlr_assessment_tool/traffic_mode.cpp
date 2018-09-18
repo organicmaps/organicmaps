@@ -317,7 +317,7 @@ void TrafficMode::CommitPath()
   if (!m_buildingPath)
     MYTHROW(TrafficModeError, ("Path building is not started"));
 
-  MY_SCOPE_GUARD(guard, [this]{ emit EditingStopped(); });
+  SCOPE_GUARD(guard, [this] { emit EditingStopped(); });
 
   m_buildingPath = false;
   m_drawerDelegate->ClearAllVisualizedPoints();

@@ -182,7 +182,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   LOG(LINFO, ("Search everywhere started."));
   base::Timer timer;
-  MY_SCOPE_GUARD(printDuration, [&timer]() {
+  SCOPE_GUARD(printDuration, [&timer]() {
     LOG(LINFO, ("Search everywhere ended. Time:", timer.ElapsedSeconds(), "seconds."));
   });
   return Search(p, true /* forceSearch */);

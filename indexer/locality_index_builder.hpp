@@ -31,7 +31,7 @@ void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
                         CoverLocality const & coverLocality, string const & tmpFilePrefix)
 {
   string const cellsToValueFile = tmpFilePrefix + CELL2LOCALITY_SORTED_EXT + ".all";
-  MY_SCOPE_GUARD(cellsToValueFileGuard, bind(&FileWriter::DeleteFileX, cellsToValueFile));
+  SCOPE_GUARD(cellsToValueFileGuard, bind(&FileWriter::DeleteFileX, cellsToValueFile));
   {
     FileWriter cellsToValueWriter(cellsToValueFile);
 

@@ -405,10 +405,9 @@ void Geocoder::GoEverywhere()
 // work fast for most cases (significantly less than 1 second).
 #if defined(DEBUG)
   base::Timer timer;
-  MY_SCOPE_GUARD(printDuration, [&timer]()
-                 {
-                   LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
-                 });
+  SCOPE_GUARD(printDuration, [&timer]() {
+    LOG(LINFO, ("Total geocoding time:", timer.ElapsedSeconds(), "seconds"));
+  });
 #endif
 
   if (m_params.GetNumTokens() == 0)
@@ -514,7 +513,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     ASSERT(context, ());
     m_context = move(context);
 
-    MY_SCOPE_GUARD(cleanup, [&]() {
+    SCOPE_GUARD(cleanup, [&]() {
       LOG(LDEBUG, (m_context->GetName(), "geocoding complete."));
       m_matcher->OnQueryFinished();
       m_matcher = nullptr;
@@ -547,7 +546,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
 
     auto citiesFromWorld = m_cities;
     FillVillageLocalities(ctx);
-    MY_SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
+    SCOPE_GUARD(remove_villages, [&]() { m_cities = citiesFromWorld; });
 
     bool const intersectsPivot = index < numIntersectingMaps;
     if (m_params.IsCategorialRequest())
@@ -862,7 +861,7 @@ void Geocoder::MatchRegions(BaseContext & ctx, Region::Type type)
         continue;
 
       ctx.m_regions.push_back(&region);
-      MY_SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_regions.pop_back(); });
+      SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_regions.pop_back(); });
 
       ScopedMarkTokens mark(ctx.m_tokens, BaseContext::FromRegionType(type), tokenRange);
 
@@ -906,7 +905,7 @@ void Geocoder::MatchCities(BaseContext & ctx)
 
       ScopedMarkTokens mark(ctx.m_tokens, BaseContext::TOKEN_TYPE_CITY, tokenRange);
       ctx.m_city = &city;
-      MY_SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_city = nullptr; });
+      SCOPE_GUARD(cleanup, [&ctx]() { ctx.m_city = nullptr; });
 
       if (ctx.AllTokensUsed())
       {
@@ -940,10 +939,7 @@ void Geocoder::MatchAroundPivot(BaseContext & ctx)
 void Geocoder::LimitedSearch(BaseContext & ctx, FeaturesFilter const & filter)
 {
   m_filter = &filter;
-  MY_SCOPE_GUARD(resetFilter, [&]()
-                 {
-                   m_filter = nullptr;
-                 });
+  SCOPE_GUARD(resetFilter, [&]() { m_filter = nullptr; });
 
   if (!ctx.m_streets)
     ctx.m_streets = m_streetsCache.Get(*m_context);
@@ -983,7 +979,7 @@ void Geocoder::WithPostcodes(BaseContext & ctx, TFn && fn)
     TokenRange const tokenRange(startToken, endToken);
 
     auto postcodes = RetrievePostcodeFeatures(*m_context, TokenSlice(m_params, tokenRange));
-    MY_SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
+    SCOPE_GUARD(cleanup, [&]() { m_postcodes.Clear(); });
 
     if (!postcodes.IsEmpty())
     {
@@ -1014,7 +1010,7 @@ void Geocoder::CreateStreetsLayerAndMatchLowerLayers(BaseContext & ctx,
   ASSERT(layers.empty(), ());
 
   layers.emplace_back();
-  MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+  SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
 
   auto & layer = layers.back();
   InitLayer(Model::TYPE_STREET, prediction.m_tokenRange, layer);
@@ -1091,7 +1087,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
     // Following code creates a fake layer with buildings and
     // intersects it with the streets layer.
     layers.emplace_back();
-    MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+    SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
 
     auto & layer = layers.back();
     InitLayer(Model::TYPE_BUILDING, m_postcodes.m_tokenRange, layer);
@@ -1105,7 +1101,7 @@ void Geocoder::MatchPOIsAndBuildings(BaseContext & ctx, size_t curToken)
   }
 
   layers.emplace_back();
-  MY_SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
+  SCOPE_GUARD(cleanupGuard, bind(&vector<FeaturesLayer>::pop_back, &layers));
 
   // Clusters of features by search type. Each cluster is a sorted
   // list of ids.
@@ -1295,7 +1291,7 @@ void Geocoder::FindPaths(BaseContext & ctx)
 void Geocoder::TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
                            uint32_t ftId, Model::Type type, TokenRange const & tokenRange)
 {
-  MY_SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
+  SCOPE_GUARD(emitParse, [&]() { tracer.EmitParse(ctx.m_tokens); });
 
   if (type != Model::TYPE_POI && type != Model::TYPE_BUILDING)
     return;

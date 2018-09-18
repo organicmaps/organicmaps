@@ -59,6 +59,6 @@ impl::GuardImpl<TFunctor> make_scope_guard(TFunctor const & F)
 }
 } // namespace base
 
-#define MY_SCOPE_GUARD(name, func) \
-  ::base::scope_guard name = base::make_scope_guard(func); static_cast<void>(name);
-
+#define SCOPE_GUARD(name, func)                            \
+  ::base::scope_guard name = base::make_scope_guard(func); \
+  static_cast<void>(name);

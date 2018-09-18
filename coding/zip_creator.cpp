@@ -58,7 +58,7 @@ void CreateTMZip(tm_zip & res)
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
   // 2. Open zip file for writing.
-  MY_SCOPE_GUARD(outFileGuard, bind(&base::DeleteFileX, cref(zipFilePath)));
+  SCOPE_GUARD(outFileGuard, bind(&base::DeleteFileX, cref(zipFilePath)));
   ZipHandle zip(zipFilePath);
   if (!zip.Handle())
     return false;
