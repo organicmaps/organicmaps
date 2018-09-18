@@ -23,5 +23,3 @@ std::string GetLocalizedTypeName(std::string const & type)
   return jni::ToNativeString(env, static_cast<jstring>(localizedFeatureType));
 }
 }  // namespace platform
-
-

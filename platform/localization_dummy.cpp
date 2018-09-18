@@ -7,7 +7,3 @@ std::string GetLocalizedTypeName(std::string const & type)
   return type;
 }
 }  // namespace platform
-
-
-
-

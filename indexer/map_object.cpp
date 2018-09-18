@@ -1,6 +1,5 @@
 #include "map_object.hpp"
 
-#include "indexer/categories_holder.hpp"
 #include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
