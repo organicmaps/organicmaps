@@ -33280,13 +33280,13 @@ fa = دوباره نپرس
 
   [whats_new_leave_review]
     en = Leave a review! Share your opinion about the locations you visited on your vacation.
-    ru = Остьвьте отзыв! Поделитесь своим мнением о местах, которые посетили в отпуске.
+    ru = Оставьте отзыв! Поделитесь своим мнением о местах, которые посетили в отпуске.
 
-  [server_unavialable_title]
-    en = Server is unavialble
+  [server_unavailable_title]
+    en = Server is unavailable
     ru = Сервер недоступен
 
-  [server_unavialable_message]
+  [server_unavailable_message]
     en = The purchase will be completed later. If the error persists, please contact support@maps.me.
     ru = Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support@maps.me.
     
