@@ -2,8 +2,10 @@ package com.mapswithme.maps.purchase;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -30,10 +32,12 @@ class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidat
   }
 
   @Override
-  public void validate(@NonNull String purchaseToken)
+  public void validate(@NonNull String purchaseData)
   {
-    //TODO (@alexzatsepin): Paste serverId and vendorId.
-    Framework.nativeValidatePurchase("", "", purchaseToken);
+    String encodedData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
+    String serverId = PrivateVariables.adsRemovalServerId();
+    String vendor = PrivateVariables.adsRemovalVendor();
+    Framework.nativeValidatePurchase(serverId, vendor, encodedData);
   }
 
   @Override

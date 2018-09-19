@@ -30,6 +30,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private final static int WEEKS_IN_MONTH = 4;
   private final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
   private final static int REQ_CODE_PAYMENT_FAILURE = 2;
+  private final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
 
   @Nullable
   private ProductDetails[] mProductDetails;
@@ -173,6 +174,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     switch (requestCode)
     {
       case REQ_CODE_PRODUCT_DETAILS_FAILURE:
+      case REQ_CODE_VALIDATION_SERVER_ERROR:
         dismissAllowingStateLoss();
         break;
       case REQ_CODE_PAYMENT_FAILURE:
@@ -211,6 +213,26 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
       AlertDialog.show(R.string.bookmarks_convert_error_title,
                        R.string.discovery_button_other_error_message, R.string.ok,
                        AdsRemovalPurchaseDialog.this, REQ_CODE_PRODUCT_DETAILS_FAILURE);
+    }
+
+    @Override
+    public void onValidationStarted()
+    {
+      activateState(AdsRemovalPaymentState.VALIDATION);
+    }
+
+    @Override
+    public void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status)
+    {
+      if (status == AdsRemovalValidationStatus.SERVER_ERROR)
+      {
+        AlertDialog.show(R.string.server_unavailable_title, R.string.server_unavailable_message,
+                         R.string.ok, AdsRemovalPurchaseDialog.this,
+                         REQ_CODE_VALIDATION_SERVER_ERROR);
+        return;
+      }
+
+      dismissAllowingStateLoss();
     }
   }
 

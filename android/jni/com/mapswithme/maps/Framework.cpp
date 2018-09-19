@@ -1749,7 +1749,7 @@ Java_com_mapswithme_maps_Framework_nativeMakeCrash(JNIEnv *env, jclass type)
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeValidatePurchase(JNIEnv * env, jclass, jstring serverId,
-                                                          jstring vendorId, jstring purchaseToken)
+                                                          jstring vendorId, jstring purchaseData)
 {
   auto const & purchase = frm()->GetPurchase();
   if (purchase == nullptr)
@@ -1758,7 +1758,7 @@ Java_com_mapswithme_maps_Framework_nativeValidatePurchase(JNIEnv * env, jclass, 
   Purchase::ValidationInfo info;
   info.m_serverId = jni::ToNativeString(env, serverId);
   info.m_vendorId = jni::ToNativeString(env, vendorId);
-  info.m_receiptData = jni::ToNativeString(env, purchaseToken);
+  info.m_receiptData = jni::ToNativeString(env, purchaseData);
 
   purchase->Validate(info, frm()->GetUser().GetAccessToken());
 }

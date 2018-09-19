@@ -11,4 +11,6 @@ public interface AdsRemovalPurchaseCallback
   void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPaymentFailure();
   void onProductDetailsFailure();
+  void onValidationStarted();
+  void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status);
 }

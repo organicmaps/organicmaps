@@ -2,7 +2,7 @@ package com.mapswithme.maps.purchase;
 
 public enum AdsRemovalValidationStatus
 {
-  ACTIVE,
-  NOT_ACTIVE,
-  FAILURE
+  VERIFIED,
+  NOT_VERIFIED,
+  SERVER_ERROR
 }

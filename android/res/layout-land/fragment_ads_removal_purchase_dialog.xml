@@ -29,27 +29,10 @@
       android:layout_centerHorizontal="true"
       android:layout_below="@id/title"
       android:layout_marginTop="@dimen/margin_double_plus"/>
-    <LinearLayout
-      android:id="@+id/progress_layout"
+    <include
+      layout="@layout/ads_removal_progress_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="invisible"
-      tools:visibility="visible">
-      <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base_plus"
-        android:gravity="center"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textSize="@dimen/text_size_body_2"
-        android:text="@string/purchase_loading"/>
-    </LinearLayout>
+      android:layout_centerInParent="true"/>
   </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

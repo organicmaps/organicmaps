@@ -473,7 +473,7 @@ public class Framework
 
   public static native void nativeValidatePurchase(@NonNull String serverId,
                                                    @NonNull String vendorId,
-                                                   @NonNull String purchaseToken);
+                                                   @NonNull String purchaseData);
   public static native void nativeSetPurchaseValidationListener(@Nullable
     PurchaseValidationListener listener);
 

@@ -25,7 +25,10 @@ enum AdsRemovalPaymentState
         {
           View view = AdsRemovalPaymentState.getDialogViewOrThrow(dialog);
           UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
-          UiUtils.show(view, R.id.progress_layout);
+          View progressLayout = view.findViewById(R.id.progress_layout);
+          TextView message = progressLayout.findViewById(R.id.message);
+          message.setText(R.string.purchase_loading);
+          UiUtils.show(progressLayout);
           dialog.queryPurchaseDetails();
         }
       },
@@ -48,6 +51,19 @@ enum AdsRemovalPaymentState
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
 
+        }
+      },
+  VALIDATION
+      {
+        @Override
+        void activate(@NonNull AdsRemovalPurchaseDialog dialog)
+        {
+          View view = AdsRemovalPaymentState.getDialogViewOrThrow(dialog);
+          UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
+          View progressLayout = view.findViewById(R.id.progress_layout);
+          TextView message = progressLayout.findViewById(R.id.message);
+          message.setText(R.string.please_wait);
+          UiUtils.show(progressLayout);
         }
       };
 

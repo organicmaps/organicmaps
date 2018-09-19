@@ -7,6 +7,8 @@ import android.text.TextUtils;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -55,13 +57,20 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     getBillingManager().queryProductDetails(mProductIds);
   }
 
-  private static class AdValidationCallbackImpl implements AdsRemovalValidationCallback
+  private class AdValidationCallbackImpl implements AdsRemovalValidationCallback
   {
 
     @Override
     public void onValidate(@NonNull AdsRemovalValidationStatus status)
     {
-      LOGGER.i(TAG, "Validation static of 'ads removal': " + status);
+      LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
+      if (status == AdsRemovalValidationStatus.VERIFIED)
+        Framework.nativeSetActiveRemoveAdsSubscription(true);
+      else if (status == AdsRemovalValidationStatus.NOT_VERIFIED)
+        Framework.nativeSetActiveRemoveAdsSubscription(false);
+
+      if (getUiCallback() != null)
+        getUiCallback().onValidationStatusObtained(status);
     }
   }
 
@@ -81,7 +90,9 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
       {
         LOGGER.i(TAG, "Validating 'ads removal' purchased '" + purchase.getSku()
                       + "' on backend server...");
-        getValidator().validate(purchase.getPurchaseToken());
+        getValidator().validate(purchase.getOriginalJson());
+        if (getUiCallback() != null)
+          getUiCallback().onValidationStarted();
       }
     }
 
@@ -102,23 +113,29 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     @Override
     public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
     {
-      String token = null;
+      String purchaseData = null;
       String productId = null;
       Purchase target = findTargetPurchase(purchases);
       if (target != null)
       {
-        token = target.getPurchaseToken();
+        purchaseData = target.getOriginalJson();
         productId = target.getSku();
       }
 
-      if (TextUtils.isEmpty(token))
+      if (TextUtils.isEmpty(purchaseData))
       {
-        LOGGER.i(TAG, "Existing purchase token for 'ads removal' not found");
+        LOGGER.i(TAG, "Existing purchase data for 'ads removal' not found");
         return;
       }
 
-      LOGGER.i(TAG, "Validating existing purchase token for '" + productId + "'...");
-      getValidator().validate(token);
+      if (!ConnectionState.isWifiConnected())
+      {
+        LOGGER.i(TAG, "Validation postponed, connection not WI-FI.");
+        return;
+      }
+
+      LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
+      getValidator().validate(purchaseData);
     }
 
     @Nullable

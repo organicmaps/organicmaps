@@ -57,4 +57,16 @@ extern "C"
   {
     return env->NewStringUTF(GOOGLE_WEB_CLIENT_ID);
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalServerId(JNIEnv * env, jclass clazz)
+  {
+    return env->NewStringUTF(ADS_REMOVAL_SERVER_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalVendor(JNIEnv * env, jclass clazz)
+  {
+    return env->NewStringUTF(ADS_REMOVAL_VENDOR);
+  }
 }

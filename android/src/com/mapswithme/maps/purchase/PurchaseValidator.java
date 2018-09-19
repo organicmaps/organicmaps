@@ -22,11 +22,11 @@ interface PurchaseValidator<T>
   void destroy();
 
   /**
-   * Validates the purchase with specified token.
+   * Validates the purchase with specified purchase data.
    *
-   * @param purchaseToken token which describes the validated purchase.
+   * @param purchaseData token which describes the validated purchase.
    */
-  void validate(@NonNull String purchaseToken);
+  void validate(@NonNull String purchaseData);
 
   /**
    * Indicates whether the app has active purchase or not.

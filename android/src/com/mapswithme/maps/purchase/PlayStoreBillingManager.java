@@ -14,7 +14,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback>,
+class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback>,
                                                 PurchasesUpdatedListener,
                                                 PlayStoreBillingConnection.ConnectionListener
 {
@@ -129,7 +129,13 @@ public class PlayStoreBillingManager implements BillingManager<PlayStoreBillingC
   {
     if (responseCode == BillingResponse.USER_CANCELED)
     {
-      LOGGER.i(TAG, "Billing cancelled by user");
+      LOGGER.i(TAG, "Billing cancelled by user.");
+      return;
+    }
+
+    if (responseCode == BillingResponse.ITEM_ALREADY_OWNED)
+    {
+      LOGGER.i(TAG, "Billing already done before.");
       return;
     }
 
