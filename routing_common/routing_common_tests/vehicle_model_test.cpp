@@ -15,12 +15,12 @@ namespace
 using SpeedKMpH = routing::VehicleModel::SpeedKMpH;
 
 routing::VehicleModel::LimitsInitList const s_testLimits = {
-    //    Out of city weight and eta speeds.     In city weight and eta speeds.
-    {{"highway", "trunk"}, {SpeedKMpH(150.0, 150.0), SpeedKMpH(100.0, 100.0)}, true},
-    {{"highway", "primary"}, {SpeedKMpH(120.0, 120.0), SpeedKMpH(90.0, 90.0)}, true},
+    //                In city weight and eta speeds. Out of city weight and eta speeds.
+    {{"highway", "trunk"}, {SpeedKMpH(100.0, 100.0), SpeedKMpH(150.0, 150.0)}, true},
+    {{"highway", "primary"}, {SpeedKMpH(90.0, 90.0), SpeedKMpH(120.0, 120.0)}, true},
     {{"highway", "secondary"}, {SpeedKMpH(80.0, 70.0), SpeedKMpH(80.0, 70.0)}, true},
-    {{"highway", "residential"}, {SpeedKMpH(50.0, 60.0), SpeedKMpH(45.0, 55.0)}, true},
-    {{"highway", "service"}, {SpeedKMpH(50.0, 40.0), SpeedKMpH(47.0, 36.0)}, false}};
+    {{"highway", "residential"}, {SpeedKMpH(45.0, 55.0), SpeedKMpH(50.0, 60.0)}, true},
+    {{"highway", "service"}, {SpeedKMpH(47.0, 36.0), SpeedKMpH(50.0, 40.0)}, false}};
 
 routing::VehicleModel::SurfaceInitList const g_carSurface = {
     {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
@@ -94,8 +94,10 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 {
   TestVehicleModel vehicleModel;
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_weight, 150, ());
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_eta, 150, ());
+  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_inCity.m_weight, 100, ());
+  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_inCity.m_eta, 100, ());
+  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_outCity.m_weight, 150, ());
+  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_outCity.m_eta, 150, ());
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
@@ -104,9 +106,9 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
   CheckSpeed({GetType("highway", "secondary", "tunnel")}, {80.0, 70.0});
   CheckSpeed({GetType("highway", "secondary")}, {80.0, 70.0});
 
-  CheckSpeed({GetType("highway", "trunk")}, {100.0, 100.0});
-  CheckSpeed({GetType("highway", "primary")}, {90.0, 90.0});
-  CheckSpeed({GetType("highway", "residential")}, {45.0, 55.0});
+  CheckSpeed({GetType("highway", "trunk")}, {150.0, 150.0});
+  CheckSpeed({GetType("highway", "primary")}, {120.0, 120.0});
+  CheckSpeed({GetType("highway", "residential")}, {50.0, 60.0});
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed_MultiTypes)
@@ -167,8 +169,8 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_SpeedFactor)
   CheckSpeed({secondary, unpavedGood}, {48.0, 56.0});
   CheckSpeed({secondary, unpavedBad}, {16.0, 14.0});
 
-  CheckSpeed({residential, pavedGood}, {36.0, 49.5});
-  CheckSpeed({residential, pavedBad}, {18.0, 27.5});
-  CheckSpeed({residential, unpavedGood}, {27.0, 44.0});
-  CheckSpeed({residential, unpavedBad}, {9.0, 11.0});
+  CheckSpeed({residential, pavedGood}, {40.0, 54.0});
+  CheckSpeed({residential, pavedBad}, {20.0, 30.0});
+  CheckSpeed({residential, unpavedGood}, {30.0, 48.0});
+  CheckSpeed({residential, unpavedBad}, {10.0, 12.0});
 }

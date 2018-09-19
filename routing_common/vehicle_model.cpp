@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <sstream>
 
+using namespace routing;
 using namespace std;
 
 namespace
@@ -19,6 +20,12 @@ WeightAndETA Pick(WeightAndETA const & lhs, WeightAndETA const & rhs)
 {
   return {F(lhs.m_weight, rhs.m_weight), F(lhs.m_eta, rhs.m_eta)};
 };
+
+VehicleModel::InOutCitySpeedKMpH Max(VehicleModel::InOutCitySpeedKMpH const & lhs,
+                                     VehicleModel::InOutCitySpeedKMpH const & rhs)
+{
+  return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
+}
 }  // namespace
 
 namespace routing
@@ -42,7 +49,7 @@ VehicleModel::RoadLimits::RoadLimits(VehicleModel::InOutCitySpeedKMpH const & sp
 
 VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface)
-  : m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
+  : m_maxSpeed({}, {}), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
 {
   CHECK_EQUAL(m_surfaceFactors.size(), 4,
               ("If you want to change the size of the container please take into account that it's "
@@ -51,7 +58,7 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
 
   for (auto const & v : featureTypeLimits)
   {
-    m_maxSpeed = Pick<max>(m_maxSpeed, Pick<max>(v.m_speed.m_outCity, v.m_speed.m_inCity));
+    m_maxSpeed = Max(m_maxSpeed, v.m_speed);
     m_highwayTypes.emplace(c.GetTypeByPath(v.m_types),
                            RoadLimits(v.m_speed, v.m_isPassThroughAllowed));
   }
@@ -78,7 +85,7 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   for (auto const & tag : additionalTags)
   {
     m_addRoadTypes.emplace_back(c, tag);
-    m_maxSpeed = Pick<max>(m_maxSpeed, Pick<max>(tag.m_speed.m_outCity, tag.m_speed.m_inCity));
+    m_maxSpeed = Max(m_maxSpeed, tag.m_speed);
   }
 }
 
@@ -90,7 +97,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f) const
   // TODO(bykoianko) If a road is available, a speed according to city status (CityRoads)
   // should be returned.
   if (restriction == RoadAvailability::Available)
-    return GetMaxSpeed();
+    return GetMaxSpeed().m_outCity;
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
     return GetMinTypeSpeed(types);
 
@@ -99,7 +106,8 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f) const
 
 VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
 {
-  VehicleModel::SpeedKMpH speed{m_maxSpeed.m_weight * 2.0, m_maxSpeed.m_eta * 2.0};
+  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
+  VehicleModel::SpeedKMpH speed{m_maxSpeed.m_outCity.m_weight * 2.0, m_maxSpeed.m_outCity.m_eta * 2.0};
   // Decreasing speed factor based on road surface (cover).
   VehicleModel::SpeedFactor factor;
   for (uint32_t t : types)
@@ -127,10 +135,12 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
   CHECK_GREATER_OR_EQUAL(factor.m_eta, 0.0, ());
 
   VehicleModel::SpeedKMpH ret;
-  if (speed.m_weight <= m_maxSpeed.m_weight)
+  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
+  if (speed.m_weight <= m_maxSpeed.m_outCity.m_weight)
     ret.m_weight = speed.m_weight * factor.m_weight;
 
-  if (speed.m_eta <= m_maxSpeed.m_eta)
+  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
+  if (speed.m_eta <= m_maxSpeed.m_outCity.m_eta)
     ret.m_eta = speed.m_eta * factor.m_eta;
 
   return ret;
@@ -252,6 +262,21 @@ string VehicleModelFactory::GetParent(string const & country) const
   return m_countryParentNameGetterFn(country);
 }
 
+double GetMaxWeight(VehicleModel::InOutCitySpeedKMpH const & speed)
+{
+  return max(speed.m_inCity.m_weight, speed.m_outCity.m_weight);
+}
+
+double GetMaxEta(VehicleModel::InOutCitySpeedKMpH const & speed)
+{
+  return max(speed.m_inCity.m_eta, speed.m_outCity.m_eta);
+}
+
+VehicleModel::SpeedKMpH GetMax(VehicleModel::InOutCitySpeedKMpH const & speed)
+{
+  return {GetMaxWeight(speed), GetMaxEta(speed)};
+}
+
 string DebugPrint(VehicleModelInterface::RoadAvailability const l)
 {
   switch (l)
@@ -272,6 +297,15 @@ std::string DebugPrint(VehicleModelInterface::SpeedKMpH const & speed)
   oss << "SpeedKMpH [ ";
   oss << "weight:" << speed.m_weight << ", ";
   oss << "eta:" << speed.m_eta << " ]";
+  return oss.str();
+}
+
+std::string DebugPrint(VehicleModelInterface::InOutCitySpeedKMpH const & speed)
+{
+  ostringstream oss;
+  oss << "InOutCitySpeedKMpH [ ";
+  oss << "inCity:" << DebugPrint(speed.m_inCity) << ", ";
+  oss << "outCity:" << DebugPrint(speed.m_outCity) << " ]";
   return oss.str();
 }
 }  // namespace routing

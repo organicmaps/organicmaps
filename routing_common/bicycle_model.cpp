@@ -456,7 +456,7 @@ void BicycleModel::Init()
   m_bidirBicycleType = classif().GetTypeByPath({"hwtag", "bidir_bicycle"});
 
   vector<AdditionalRoadTags> const additionalTags = {
-      {hwtagYesBicycle, InOutCitySpeedKMpH(m_maxSpeed, m_maxSpeed)},
+      {hwtagYesBicycle, m_maxSpeed},
       {{"route", "ferry"}, kSpeedFerryKMpH},
       {{"man_made", "pier"}, kSpeedPierKMpH}
   };

@@ -82,8 +82,7 @@ VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleM
       featureId.m_mwmId.GetInfo()->GetCountryName());
 
   ASSERT(nullptr != vehicleModel, ());
-  ASSERT_EQUAL(m_maxSpeed.m_weight, vehicleModel->GetMaxSpeed().m_weight, ());
-  ASSERT_EQUAL(m_maxSpeed.m_eta, vehicleModel->GetMaxSpeed().m_eta, ());
+  ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxSpeed(), ());
 
   itr = m_cache.insert(make_pair(featureId.m_mwmId, move(vehicleModel))).first;
   return itr->second.get();
@@ -156,7 +155,7 @@ double FeaturesRoadGraph::GetSpeedKMpH(FeatureID const & featureId) const
   return speedKMPH;
 }
 
-double FeaturesRoadGraph::GetMaxSpeedKMpH() const { return m_vehicleModel.GetMaxSpeed().m_weight; }
+double FeaturesRoadGraph::GetMaxSpeedKMpH() const { return GetMaxWeight(m_vehicleModel.GetMaxSpeed()); }
 
 void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
                                                      ICrossEdgesLoader & edgesLoader) const

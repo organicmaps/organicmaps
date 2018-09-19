@@ -308,7 +308,7 @@ void PedestrianModel::Init()
   m_yesFootType = classif().GetTypeByPath(hwtagYesFoot);
 
   vector<AdditionalRoadTags> const additionalTags = {
-    {hwtagYesFoot, InOutCitySpeedKMpH(m_maxSpeed, m_maxSpeed)},
+    {hwtagYesFoot, m_maxSpeed},
     {{"route", "ferry"}, kSpeedFerryKMpH},
     {{"man_made", "pier"}, kSpeedPierKMpH}
   };

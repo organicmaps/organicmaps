@@ -166,6 +166,7 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
   // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
   // the most likely a pedestrian (a cyclist) will go along big roads with average
   // speed (graph.GetMaxSpeedKMpH()).
+  // @TODO Eta part of speed should be used here.
   double const speedMpS = KMPH2MPS(graph.GetMaxSpeedKMpH());
   CHECK_GREATER(speedMpS, 0.0, ());
 
