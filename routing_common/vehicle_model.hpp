@@ -31,20 +31,33 @@ public:
   struct SpeedKMpH
   {
     SpeedKMpH() = default;
-    SpeedKMpH(double weight) noexcept : m_weight(weight), m_eta(weight) {}
+    explicit SpeedKMpH(double weight) noexcept : m_weight(weight), m_eta(weight) {}
     SpeedKMpH(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
-
-    double m_weight = 0.0; // KMpH
-    double m_eta = 0.0;    // KMpH
 
     bool operator==(SpeedKMpH const & rhs) const
     {
       return m_weight == rhs.m_weight && m_eta == rhs.m_eta;
     }
+
+    double m_weight = 0.0; // KMpH
+    double m_eta = 0.0;    // KMpH
   };
 
-  // @TODO(bykoianko) A struct for adding speed in city and out side should be added.
-  // This structure should contain to fields of SpeedKMpH type.
+  struct InOutCitySpeedKMpH
+  {
+    InOutCitySpeedKMpH(SpeedKMpH const & inCity, SpeedKMpH const & outCity) noexcept
+      : m_inCity(inCity), m_outCity(outCity)
+    {
+    }
+
+    bool operator==(InOutCitySpeedKMpH const & rhs) const
+    {
+      return m_inCity == rhs.m_inCity && m_outCity == rhs.m_outCity;
+    }
+
+    SpeedKMpH m_inCity;
+    SpeedKMpH m_outCity;
+  };
 
   /// Factors which reduce weight and ETA speed on feature in case of bad pavement.
   /// Both should be in range [0.0, 1.0].
@@ -99,23 +112,22 @@ public:
 class VehicleModel : public VehicleModelInterface
 {
 public:
-  using SpeedKMpH = VehicleModelInterface::SpeedKMpH;
+  using InOutCitySpeedKMpH = VehicleModelInterface::InOutCitySpeedKMpH;
   using SpeedFactor = VehicleModelInterface::SpeedFactor;
+  using SpeedKMpH = VehicleModelInterface::SpeedKMpH;
 
   struct FeatureTypeLimits final
   {
-    FeatureTypeLimits(std::vector<std::string> const & types, SpeedKMpH const & outCitySpeed,
-                      SpeedKMpH const & inCitySpeed, bool isPassThroughAllowed)
+    FeatureTypeLimits(std::vector<std::string> const & types, InOutCitySpeedKMpH const & speed,
+                      bool isPassThroughAllowed)
       : m_types(types)
-      , m_outCitySpeed(outCitySpeed)
-      , m_inCitySpeed(inCitySpeed)
+      , m_speed(speed)
       , m_isPassThroughAllowed(isPassThroughAllowed)
     {
     }
 
     std::vector<std::string> m_types;
-    SpeedKMpH m_outCitySpeed;     // Average speed on this road type out of cities.
-    SpeedKMpH m_inCitySpeed;      // Average speed on this road type in cities.
+    InOutCitySpeedKMpH m_speed;   // Average speed on this road type in and out of cities.
     bool m_isPassThroughAllowed;  // Pass through this road type is allowed.
   };
 
@@ -132,14 +144,13 @@ public:
     AdditionalRoadTags() = default;
 
     AdditionalRoadTags(std::initializer_list<char const *> const & hwtag,
-                       SpeedKMpH const & outCitySpeed, SpeedKMpH const & inCitySpeed)
-      : m_hwtag(hwtag), m_outCitySpeed(outCitySpeed), m_inCitySpeed(inCitySpeed)
+                       InOutCitySpeedKMpH const & speed) noexcept
+      : m_hwtag(hwtag), m_speed(speed)
     {
     }
 
     std::initializer_list<char const *> m_hwtag;
-    SpeedKMpH m_outCitySpeed;
-    SpeedKMpH m_inCitySpeed;
+    InOutCitySpeedKMpH m_speed;
   };
 
   using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
@@ -195,6 +206,8 @@ protected:
 
   SpeedKMpH GetMinTypeSpeed(feature::TypesHolder const & types) const;
 
+  // @TODO(bykoianko) |m_maxSpeed| should be kept for in city and out city roads.
+  // Use InOutCitySpeedKMpH structure.
   SpeedKMpH m_maxSpeed;
 
 private:
@@ -205,16 +218,16 @@ private:
     bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
 
     uint32_t const m_type;
-    SpeedKMpH m_outCitySpeed;
-    SpeedKMpH m_inCitySpeed;
+    InOutCitySpeedKMpH m_speed;
   };
 
   class RoadLimits final
   {
   public:
-    RoadLimits(SpeedKMpH const & speed, bool isPassThroughAllowed);
+    RoadLimits(InOutCitySpeedKMpH const & speed, bool isPassThroughAllowed);
 
-    SpeedKMpH const & GetSpeed() const { return m_speed; };
+    // @TODO() GetSpeed() should return speed in city and outside.
+    SpeedKMpH const & GetSpeed() const { return m_speed.m_outCity; };
     bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; };
     bool operator==(RoadLimits const & rhs) const
     {
@@ -222,8 +235,7 @@ private:
     }
 
   private:
-    // @TODO(bykoianko) Road limits should contain speed for roads inside a city and outside.
-    SpeedKMpH const m_speed;
+    InOutCitySpeedKMpH const m_speed;
     bool const m_isPassThroughAllowed;
   };
 

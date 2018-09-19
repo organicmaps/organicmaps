@@ -12,14 +12,15 @@ using namespace std;
 
 namespace
 {
+using SpeedKMpH = routing::VehicleModel::SpeedKMpH;
+
 routing::VehicleModel::LimitsInitList const s_testLimits = {
     //    Out of city weight and eta speeds.     In city weight and eta speeds.
-    {{"highway", "trunk"}, {150.0, 150.0},       {100.0, 100.0}, true},
-    {{"highway", "primary"}, {120.0, 120.0},     {90.0, 90.0}, true},
-    {{"highway", "secondary"}, {80.0, 70.0},     {80.0, 70.0}, true},
-    {{"highway", "residential"}, {50.0, 60.0},   {45.0, 55.0}, true},
-    {{"highway", "service"}, {50.0, 40.0},       {47.0, 36.0}, false}
-};
+    {{"highway", "trunk"}, {SpeedKMpH(150.0, 150.0), SpeedKMpH(100.0, 100.0)}, true},
+    {{"highway", "primary"}, {SpeedKMpH(120.0, 120.0), SpeedKMpH(90.0, 90.0)}, true},
+    {{"highway", "secondary"}, {SpeedKMpH(80.0, 70.0), SpeedKMpH(80.0, 70.0)}, true},
+    {{"highway", "residential"}, {SpeedKMpH(50.0, 60.0), SpeedKMpH(45.0, 55.0)}, true},
+    {{"highway", "service"}, {SpeedKMpH(50.0, 40.0), SpeedKMpH(47.0, 36.0)}, false}};
 
 routing::VehicleModel::SurfaceInitList const g_carSurface = {
     {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
@@ -38,8 +39,7 @@ class TestVehicleModel : public routing::VehicleModel
 {
   friend void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue);
   friend void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue);
-  friend void CheckSpeed(initializer_list<uint32_t> const & types,
-                         routing::VehicleModelInterface::SpeedKMpH && expectedSpeed);
+  friend void CheckSpeed(initializer_list<uint32_t> const & types, SpeedKMpH && expectedSpeed);
 
 public:
   TestVehicleModel() : VehicleModel(classif(), s_testLimits, g_carSurface) {}
@@ -60,7 +60,7 @@ uint32_t GetOnewayType()
   return GetType("hwtag", "oneway");
 }
 
-void CheckSpeed(initializer_list<uint32_t> const & types, routing::VehicleModelInterface::SpeedKMpH && expectedSpeed)
+void CheckSpeed(initializer_list<uint32_t> const & types, SpeedKMpH && expectedSpeed)
 {
   TestVehicleModel vehicleModel;
   feature::TypesHolder h;
