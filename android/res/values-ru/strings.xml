@@ -1430,6 +1430,7 @@
 	<string name="whats_new_leave_review">Оставьте отзыв! Поделитесь своим мнением о местах, которые посетили в отпуске.</string>
 	<string name="server_unavailable_title">Сервер недоступен</string>
 	<string name="server_unavailable_message">Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Подключитесь к интернету, чтобы выбрать дату заезда и выезда.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

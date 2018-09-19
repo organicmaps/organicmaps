@@ -2466,6 +2466,8 @@
 
 "server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
 
+"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
+
 
 /**********  Partners  **********/
 

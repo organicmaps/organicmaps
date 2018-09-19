@@ -1435,6 +1435,7 @@
 	<string name="whats_new_leave_review">Leave a review! Share your opinion about the locations you visited on your vacation.</string>
 	<string name="server_unavailable_title">Server is unavailable</string>
 	<string name="server_unavailable_message">The purchase will be completed later. If the error persists, please contact support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Connect to the internet to filter hotels by dates.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
