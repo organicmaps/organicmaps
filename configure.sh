@@ -100,6 +100,8 @@ else
 #define BOOKMARKS_CATALOG_DOWNLOAD_URL ""
 #define GOOGLE_WEB_CLIENT_ID ""
 #define RUTAXI_APP_TOKEN ""
+#define ADS_REMOVAL_SERVER_ID ""
+#define ADS_REMOVAL_VENDOR ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
