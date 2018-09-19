@@ -102,6 +102,7 @@ else
 #define RUTAXI_APP_TOKEN ""
 #define ADS_REMOVAL_SERVER_ID ""
 #define ADS_REMOVAL_VENDOR ""
+#define PURCHASE_SERVER_URL ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
