@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
 import java.util.List;
@@ -53,33 +54,19 @@ public class TaxiAdapter extends PagerAdapter
     String separator;
     // We ignore all Yandex.Taxi product names until they do support of passing product parameters
     // to their app via deeplink.
-    if (mType == TaxiType.YANDEX || mType == TaxiType.MAXIM)
-    {
-      name.setText(mType.getTitle());
-      separator = " • ~";
-    }
-    else
-    {
-      name.setText(product.getName());
-      separator = " • ";
-    }
-    TextView timeAndPrice = (TextView) v.findViewById(R.id.arrival_time_price);
+    boolean isApproxPrice = mType.isApproximatePrice();
+    name.setText(isApproxPrice ? mContext.getString(mType.getTitle()) : product.getName());
+    separator = UiUtils.PHRASE_SEPARATOR  + (isApproxPrice ? UiUtils.APPROXIMATE_SYMBOL : "");
+    TextView timeAndPriceView = (TextView) v.findViewById(R.id.arrival_time_price);
     int time = Integer.parseInt(product.getTime());
     CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time,
                                                                 R.dimen.text_size_body_3);
-    timeAndPrice.setText(mContext.getString(R.string.taxi_wait, waitTime + separator
-                                                                + formatPrice(product)));
+    String formattedPrice = mType.getFormatPriceStrategy().format(product);
+    String timeAndPriceValue = waitTime + separator + formattedPrice;
+    String timeAndPrice = mContext.getString(mType.getWaitingTemplateResId(), timeAndPriceValue);
+    timeAndPriceView.setText(timeAndPrice);
     container.addView(v, 0);
     return v;
-  }
-
-  @NonNull
-  private String formatPrice(@NonNull TaxiInfo.Product product)
-  {
-    if (mType == TaxiType.YANDEX)
-      return Utils.formatCurrencyString(product.getPrice(), product.getCurrency());
-    // For Uber and Maxim we don't do formatting, because Uber and Maxim does it on its side.
-    return product.getPrice();
   }
 
   @Override

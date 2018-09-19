@@ -7,6 +7,11 @@ import android.support.annotation.StringRes;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Utils;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
 public enum TaxiType
 {
   UBER
@@ -41,7 +46,7 @@ public enum TaxiType
           return "Uber";
         }
       },
-  YANDEX
+  YANDEX(new LocaleDependentFormatPriceStrategy())
       {
         @NonNull
         public String getPackageName()
@@ -105,7 +110,7 @@ public enum TaxiType
           return "Maxim";
         }
       },
-  RUTAXI
+  RUTAXI(R.string.place_page_starting_from, new LocaleDependentFormatPriceStrategy())
       {
         @NonNull
         public String getPackageName()
@@ -122,13 +127,13 @@ public enum TaxiType
         @DrawableRes
         public int getIcon()
         {
-          return R.drawable.ic_taxi_logo_maksim;
+          return R.drawable.ic_taxi_logo_rutaxi;
         }
 
         @StringRes
         public int getTitle()
         {
-          return R.string.maxim_taxi_title;
+          return R.string.rutaxi_title;
         }
 
         @NonNull
@@ -137,6 +142,30 @@ public enum TaxiType
           return "Rutaxi";
         }
       };
+
+  private static final Collection<TaxiType> APPROXIMATE_PRICE_TAXI_TYPES =
+      Collections.unmodifiableSet(new HashSet<>(Arrays.asList(YANDEX, MAXIM, RUTAXI)));
+
+  @StringRes
+  private final int mWaitingTemplateResId;
+  @NonNull
+  private final FormatPriceStrategy mFormatPriceStrategy;
+
+  TaxiType(@StringRes int waitingTemplateResId, @NonNull FormatPriceStrategy strategy)
+  {
+    mWaitingTemplateResId = waitingTemplateResId;
+    mFormatPriceStrategy = strategy;
+  }
+
+  TaxiType(@NonNull FormatPriceStrategy strategy)
+  {
+    this(R.string.taxi_wait, strategy);
+  }
+
+  TaxiType()
+  {
+    this(R.string.taxi_wait, new DefaultFormatPriceStrategy());
+  }
 
   @NonNull
   public abstract String getPackageName();
@@ -152,4 +181,22 @@ public enum TaxiType
 
   @NonNull
   public abstract String getProviderName();
+
+  @StringRes
+  public int getWaitingTemplateResId()
+  {
+    return mWaitingTemplateResId;
+  }
+
+  public boolean isApproximatePrice()
+  {
+    return APPROXIMATE_PRICE_TAXI_TYPES.contains(this);
+  }
+
+  // For Uber and Maxim we don't do formatting, because Uber and Maxim does it on its side.
+  @NonNull
+  public FormatPriceStrategy getFormatPriceStrategy()
+  {
+    return mFormatPriceStrategy;
+  }
 }
