@@ -64,8 +64,7 @@ public:
 
   // For Type::Feature.
   Result(FeatureID const & id, m2::PointD const & pt, std::string const & str,
-         std::string const & address, std::string const & featureTypeName, uint32_t featureType,
-         Metadata const & meta);
+         std::string const & address, uint32_t featureType, Metadata const & meta);
 
   // For Type::LatLon.
   Result(m2::PointD const & pt, std::string const & latlon, std::string const & address);
@@ -80,7 +79,6 @@ public:
 
   std::string const & GetString() const { return m_str; }
   std::string const & GetAddress() const { return m_address; }
-  std::string const & GetFeatureTypeName() const { return m_featureTypeName; }
   std::string const & GetCuisine() const { return m_metadata.m_cuisine; }
   float GetHotelRating() const { return m_metadata.m_hotelRating; }
   std::string const & GetHotelApproximatePricing() const
@@ -98,6 +96,9 @@ public:
   // Feature id in mwm.
   // Precondition: GetResultType() == Type::Feature.
   FeatureID const & GetFeatureID() const;
+
+  // Precondition: GetResultType() == Type::Feature.
+  uint32_t GetFeatureType() const;
 
   // Center point of a feature.
   // Precondition: HasPoint() == true.
@@ -139,8 +140,7 @@ private:
   m2::PointD m_center;
   std::string m_str;
   std::string m_address;
-  std::string m_featureTypeName;
-  uint32_t m_featureType;
+  uint32_t m_featureType = 0;
   std::string m_suggestionStr;
   buffer_vector<std::pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 

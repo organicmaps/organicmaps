@@ -5,7 +5,7 @@ OMIM_PATH="$(dirname "$0")/../.."
 TWINE="$OMIM_PATH/tools/twine/twine"
 
 MERGED_FILE="$(mktemp)"
-cat "$OMIM_PATH/strings.txt" "$OMIM_PATH/partners_strings.txt" "$OMIM_PATH/data/strings_types.txt" > "$MERGED_FILE"
+cat "$OMIM_PATH/strings.txt" "$OMIM_PATH/partners_strings.txt" "$OMIM_PATH/data/types_strings.txt" > "$MERGED_FILE"
 
 # TODO: Add "--untagged --tags android" when tags are properly set.
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.

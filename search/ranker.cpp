@@ -425,9 +425,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     case RankerResult::Type::TYPE_BUILDING:
     {
       auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
-      return Result(r.GetID(), r.GetCenter(), name, address,
-                    m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
-                    r.GetMetadata());
+      return Result(r.GetID(), r.GetCenter(), name, address, type, r.GetMetadata());
     }
     case RankerResult::Type::TYPE_LATLON: return Result(r.GetCenter(), name, address);
     }

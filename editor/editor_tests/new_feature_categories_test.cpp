@@ -19,49 +19,31 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
   using namespace std;
 
   classificator::Load();
-  auto const & cl = classif();
 
   editor::EditorConfig config;
   osm::NewFeatureCategories categories(config);
 
   auto const & disabled = CategoriesHolder::kDisabledLanguages;
 
-  bool noDuplicates = true;
   for (auto const & locale : CategoriesHolder::kLocaleMapping)
   {
     string const lang(locale.m_name);
     if (find(disabled.begin(), disabled.end(), lang) != disabled.end())
       continue;
     categories.AddLanguage(lang);
-    auto const & names = categories.GetAllCategoryNames(lang);
+    auto names = categories.GetAllCategoryNames();
 
-    auto firstFn = bind(&pair<string, uint32_t>::first, placeholders::_1);
-    set<string> uniqueNames(make_transform_iterator(names.begin(), firstFn),
-                            make_transform_iterator(names.end(), firstFn));
-    if (uniqueNames.size() == names.size())
-      continue;
+    auto result = std::unique(names.begin(), names.end());
 
-    LOG(LWARNING, ("Invalid category translations", lang));
-
-    map<string, vector<uint32_t>> typesByName;
-    for (auto const & entry : names)
-      typesByName[entry.first].push_back(entry.second);
-
-    for (auto const & entry : typesByName)
+    if (result != names.end())
     {
-      if (entry.second.size() <= 1)
-        continue;
-      noDuplicates = false;
-      ostringstream str;
-      str << entry.first << ":";
-      for (auto const & type : entry.second)
-        str << " " << cl.GetReadableObjectName(type);
-      LOG(LWARNING, (str.str()));
+      LOG(LWARNING, ("Types duplication detected! The following types are duplicated:"));
+      do
+      {
+        LOG(LWARNING, (*result));
+      } while (++result != names.end());
+
+      TEST(false, ("Please look at output above"));
     }
-
-    LOG(LWARNING,
-        ("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"));
   };
-
-  TEST(noDuplicates, ());
 }

@@ -247,8 +247,15 @@ public class Holders
     public void bind(@NonNull Items.SearchItem item)
     {
       super.bind(item);
-      UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
-      UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
+
+      String featureType = item.getFeatureType();
+      String localizedType = TextUtils.isEmpty(featureType)
+                             ? ""
+                             : Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
+      String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
+
+      UiUtils.setTextAndHideIfEmpty(mTitle, title);
+      UiUtils.setTextAndHideIfEmpty(mSubtitle, localizedType);
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
       UiUtils.showIf(item.getPopularity().getType() == Popularity.Type.POPULAR, mPopularTagRating);
 
@@ -282,9 +289,15 @@ public class Holders
     @Override
     public void bind(@NonNull Items.SearchItem item)
     {
-      UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
+      String featureType = item.getFeatureType();
+      String localizedType = TextUtils.isEmpty(featureType)
+                             ? ""
+                             : Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
+      String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
+
+      UiUtils.setTextAndHideIfEmpty(mTitle, title);
       UiUtils.setTextAndHideIfEmpty(mSubtitle, formatDescription(item.getStars(),
-                                                                 item.getFeatureType(),
+                                                                 localizedType,
                                                                  item.getPrice(),
                                                                  mSubtitle.getResources()));
 

@@ -13,7 +13,7 @@ UNIT_TEST(Results_Sorting)
   for (uint32_t i = 5; i != 0; --i)
   {
     r.AddResultNoChecks({{id, i}, {} /* pt */, {} /* str */, {} /* address */,
-                         {} /* featureTypeName */, {} /* featureType */, {} /* metadata */});
+                         {} /* featureType */, {} /* metadata */});
   }
 
   for (auto it = r.begin(); it != r.end(); ++it)
@@ -42,7 +42,7 @@ UNIT_TEST(Result_PrependCity)
 
   {
     Result r(fid, m2::PointD::Zero(), "" /* str */, "Moscow, Russia" /* address */,
-             "" /* featureTypeName */, 0 /* featureType */, meta);
+             0 /* featureType */, meta);
 
     r.PrependCity("Moscow");
     TEST_EQUAL(r.GetAddress(), "Moscow, Russia", ());
@@ -50,8 +50,7 @@ UNIT_TEST(Result_PrependCity)
 
   {
     Result r(fid, m2::PointD::Zero(), "улица Михася Лынькова" /* str */,
-             "Минская область, Беларусь" /* address */, "" /* featureTypeName */,
-             0 /* featureType */, meta);
+             "Минская область, Беларусь" /* address */, 0 /* featureType */, meta);
 
     r.PrependCity("Минск");
     TEST_EQUAL(r.GetAddress(), "Минск, Минская область, Беларусь", ());

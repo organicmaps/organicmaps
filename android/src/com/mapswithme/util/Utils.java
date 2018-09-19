@@ -712,17 +712,12 @@ public class Utils
     void invoke(@NonNull T param);
   }
 
-  @StringRes
-  public static int getStringIdForFeatureType(@NonNull Context context, String type)
+  public static String getLocalizedFeatureType(@NonNull Context context, @NonNull String type)
   {
     String key = "type." + type.replace('-', '.');
-    return getStringIdByKey(context, key);
-  }
 
-  public static String getLocalizedFeatureType(@NonNull Context context, String type)
-  {
     @StringRes
-    int id = getStringIdForFeatureType(context, type);
+    int id = getStringIdByKey(context, key);
 
     try
     {

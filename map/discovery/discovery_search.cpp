@@ -25,14 +25,11 @@ search::Result MakeResultFromFeatureType(FeatureType & ft)
 
   feature::TypesHolder holder(ft);
   holder.SortBySpec();
-  CategoriesHolder const & categories = GetDefaultCategories();
-  auto const readableType = categories.GetReadableFeatureType(
-      holder.GetBestType(), categories.MapLocaleToInteger(languages::GetCurrentOrig()));
 
   search::Result::Metadata metadata;
   search::ProcessMetadata(ft, metadata);
 
-  return {ft.GetID(), feature::GetCenter(ft), name, "", readableType, holder.GetBestType(), metadata};
+  return {ft.GetID(), feature::GetCenter(ft), name, "", holder.GetBestType(), metadata};
 }
 
 FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet::MwmId & mwmId,

@@ -16,11 +16,10 @@ CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCatego
 
   QListWidget * allSortedList = new QListWidget();
 
-  auto const & categories = cats.GetAllCategoryNames(languages::GetCurrentNorm());
+  auto const & categories = cats.GetAllCategoryNames();
   for (auto const & entry : categories)
   {
-    QListWidgetItem * lwi = new QListWidgetItem(entry.first.c_str() /* name */, allSortedList);
-    lwi->setData(Qt::UserRole, entry.second /* type */);
+    new QListWidgetItem(entry.c_str() /* name */, allSortedList);
   }
   connect(allSortedList, SIGNAL(clicked(QModelIndex const &)), this,
           SLOT(OnListItemSelected(QModelIndex const &)));

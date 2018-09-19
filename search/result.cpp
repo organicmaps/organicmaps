@@ -3,6 +3,8 @@
 #include "search/common.hpp"
 #include "search/geometry_utils.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <sstream>
@@ -34,14 +36,12 @@ string Join(string const & s, Args &&... args)
 
 // Result ------------------------------------------------------------------------------------------
 Result::Result(FeatureID const & id, m2::PointD const & pt, string const & str,
-               string const & address, string const & featureTypeName, uint32_t featureType,
-               Metadata const & meta)
+               string const & address, uint32_t featureType, Metadata const & meta)
   : m_resultType(Type::Feature)
   , m_id(id)
   , m_center(pt)
-  , m_str(str.empty() ? featureTypeName : str)
+  , m_str(str)
   , m_address(address)
-  , m_featureTypeName(featureTypeName)
   , m_featureType(featureType)
   , m_metadata(meta)
 {
@@ -62,7 +62,6 @@ Result::Result(Result const & res, string const & suggest)
   , m_center(res.m_center)
   , m_str(res.m_str)
   , m_address(res.m_address)
-  , m_featureTypeName(res.m_featureTypeName)
   , m_featureType(res.m_featureType)
   , m_suggestionStr(suggest)
   , m_hightlightRanges(res.m_hightlightRanges)
@@ -84,6 +83,11 @@ FeatureID const & Result::GetFeatureID() const
 {
   ASSERT(m_resultType == Type::Feature, (m_resultType));
   return m_id;
+}
+
+uint32_t Result::GetFeatureType() const
+{
+  return m_featureType;
 }
 
 m2::PointD Result::GetFeatureCenter() const
@@ -146,10 +150,14 @@ void Result::PrependCity(string const & name)
 
 string Result::ToStringForStats() const
 {
+  string readableType;
+  if (GetResultType() == Type::Feature)
+    readableType = classif().GetReadableObjectName(m_featureType);
+
   string s;
   s.append(GetString());
   s.append("|");
-  s.append(GetFeatureTypeName());
+  s.append(readableType);
   s.append("|");
   s.append(IsSuggest() ? "1" : "0");
   return s;
@@ -170,10 +178,14 @@ string DebugPrint(Result::Type type)
 
 string DebugPrint(Result const & result)
 {
+  string readableType;
+  if (result.GetResultType() == Result::Type::Feature)
+    readableType = classif().GetReadableObjectName(result.GetFeatureType());
+
   ostringstream os;
   os << "Result [";
   os << "name: " << result.GetString() << ", ";
-  os << "type: " << result.GetFeatureTypeName() << ", ";
+  os << "type: " << readableType << ", ";
   os << "info: " << DebugPrint(result.GetRankingInfo());
   os << "]";
   return os.str();

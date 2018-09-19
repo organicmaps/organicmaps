@@ -29,6 +29,7 @@ import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -84,7 +85,18 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     {
       mResult = (SearchResult)result;
       mOrder = order;
-      SpannableStringBuilder builder = new SpannableStringBuilder(mResult.name);
+      TextView titleView = getTitleView();
+
+      String title = mResult.name;
+      if (TextUtils.isEmpty(title))
+      {
+        SearchResult.Description description = mResult.description;
+        title = description != null
+                ? Utils.getLocalizedFeatureType(titleView.getContext(), description.featureType)
+                : "";
+      }
+
+      SpannableStringBuilder builder = new SpannableStringBuilder(title);
       if (mResult.highlightRanges != null)
       {
         final int size = mResult.highlightRanges.length / 2;
@@ -99,7 +111,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
         }
       }
 
-      TextView titleView = getTitleView();
       if (titleView != null)
         titleView.setText(builder);
     }
@@ -201,7 +212,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     // FIXME: Better format based on result type
     private CharSequence formatDescription(SearchResult result, boolean isHotelAvailable)
     {
-      final SpannableStringBuilder res = new SpannableStringBuilder(result.description.featureType);
+
+      String localizedType = Utils.getLocalizedFeatureType(mFrame.getContext(),
+                                                           result.description.featureType);
+      final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);
       final SpannableStringBuilder tail = new SpannableStringBuilder();
 
       int stars = result.description.stars;

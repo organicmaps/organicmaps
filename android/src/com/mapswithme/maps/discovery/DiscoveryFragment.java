@@ -366,10 +366,15 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
   }
 
   @NonNull
-  private static MapObject createMapObject(@NonNull Items.SearchItem item)
+  private MapObject createMapObject(@NonNull Items.SearchItem item)
   {
-    String title = TextUtils.isEmpty(item.getTitle()) ? "" : item.getTitle();
-    String subtitle = TextUtils.isEmpty(item.getSubtitle()) ? "" : item.getSubtitle();
+    String featureType = item.getFeatureType();
+    String subtitle = TextUtils.isEmpty(featureType)
+                      ? ""
+                      : Utils.getLocalizedFeatureType(getContext(), featureType);
+
+    String title = TextUtils.isEmpty(item.getTitle()) ? subtitle : item.getTitle();
+
     return MapObject.createMapObject(FeatureId.EMPTY, MapObject.SEARCH, title, subtitle,
                                      item.getLat(), item.getLon());
   }

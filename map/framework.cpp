@@ -2792,8 +2792,8 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
       ft.GetReadableName(name);
       feature::TypesHolder const types(ft);
       search::Result::Metadata smd;
-      results.AddResultNoChecks(search::Result(fid, feature::GetCenter(ft), name, edit.second,
-                                               DebugPrint(types), types.GetBestType(), smd));
+      results.AddResultNoChecks(
+          search::Result(fid, feature::GetCenter(ft), name, edit.second, types.GetBestType(), smd));
     }
     params.m_onResults(results);
 

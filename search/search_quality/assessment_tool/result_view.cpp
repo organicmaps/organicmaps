@@ -3,6 +3,8 @@
 #include "search/result.hpp"
 #include "search/search_quality/assessment_tool/helpers.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include <memory>
 #include <utility>
 #include <vector>
@@ -39,6 +41,15 @@ string GetResultType(search::Sample::Result const & result)
 {
   return strings::JoinStrings(result.m_types, ", ");
 }
+
+string GetResultType(search::Result const & result)
+{
+  string readableType;
+  if (result.GetResultType() == search::Result::Type::Feature)
+    return readableType = classif().GetReadableObjectName(result.GetFeatureType());
+
+  return "";
+}
 }  // namespace
 
 ResultView::ResultView(string const & name, string const & type, string const & address,
@@ -52,7 +63,7 @@ ResultView::ResultView(string const & name, string const & type, string const & 
 }
 
 ResultView::ResultView(search::Result const & result, QWidget & parent)
-  : ResultView(result.GetString(), result.GetFeatureTypeName(), result.GetAddress(), parent)
+  : ResultView(result.GetString(), GetResultType(result), result.GetAddress(), parent)
 {
 }
 

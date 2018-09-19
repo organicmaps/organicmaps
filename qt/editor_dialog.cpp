@@ -39,11 +39,9 @@ EditorDialog::EditorDialog(QWidget * parent, osm::EditableMapObject & emo)
 
   {  // Feature types.
     grid->addWidget(new QLabel("Type:"), row, 0);
-    string localized = m_feature.GetLocalizedType();
+
     string const raw = DebugPrint(m_feature.GetTypes());
-    if (!strings::EqualNoCase(localized, raw))
-      localized += " (" + raw + ")";
-    QLabel * label = new QLabel(QString::fromStdString(localized));
+    QLabel * label = new QLabel(QString::fromStdString(raw));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }

@@ -337,7 +337,9 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef featureId(env, usermark_helper::CreateFeatureId(env, isFeature ?
                                                                             result.GetFeatureID() :
                                                                             kEmptyFeatureId));
-  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, result.GetFeatureTypeName()));
+  string readableType = isFeature ? classif().GetReadableObjectName(result.GetFeatureType()) : "";
+
+  jni::TScopedLocalRef featureType(env, jni::ToJavaString(env, readableType));
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
