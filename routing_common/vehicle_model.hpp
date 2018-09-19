@@ -202,7 +202,7 @@ protected:
 
   bool HasPassThroughType(feature::TypesHolder const & types) const;
 
-  SpeedKMpH GetMinTypeSpeed(feature::TypesHolder const & types) const;
+  SpeedKMpH GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const;
 
   InOutCitySpeedKMpH m_maxSpeed;
 
@@ -222,8 +222,7 @@ private:
   public:
     RoadLimits(InOutCitySpeedKMpH const & speed, bool isPassThroughAllowed);
 
-    // @TODO() GetSpeed() should return speed in city and outside.
-    SpeedKMpH const & GetSpeed() const { return m_speed.m_outCity; };
+    SpeedKMpH const & GetSpeed(bool inCity) const { return inCity ? m_speed.m_inCity : m_speed.m_outCity; };
     bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; };
     bool operator==(RoadLimits const & rhs) const
     {

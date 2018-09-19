@@ -94,34 +94,34 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool inCity) con
   feature::TypesHolder const types(f);
 
   RoadAvailability const restriction = GetRoadAvailability(types);
-  // TODO(bykoianko) If a road is available, a speed according to city status (CityRoads)
-  // should be returned.
   if (restriction == RoadAvailability::Available)
-    return GetMaxSpeed().m_outCity;
+    return inCity ? GetMaxSpeed().m_inCity : GetMaxSpeed().m_outCity;
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-    return GetMinTypeSpeed(types);
+    return GetMinTypeSpeed(types, inCity);
 
   return {};
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
+VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const
 {
-  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
-  VehicleModel::SpeedKMpH speed{m_maxSpeed.m_outCity.m_weight * 2.0, m_maxSpeed.m_outCity.m_eta * 2.0};
+  double const maxSpeedWeight = inCity ? m_maxSpeed.m_inCity.m_weight : m_maxSpeed.m_outCity.m_weight;
+  double const maxEtaWeight = inCity ? m_maxSpeed.m_inCity.m_eta : m_maxSpeed.m_outCity.m_eta;
+  VehicleModel::SpeedKMpH speed{maxSpeedWeight * 2.0, maxEtaWeight * 2.0};
   // Decreasing speed factor based on road surface (cover).
   VehicleModel::SpeedFactor factor;
   for (uint32_t t : types)
   {
-    // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto const itHighway = m_highwayTypes.find(type);
     if (itHighway != m_highwayTypes.cend())
-      speed = Pick<min>(speed, itHighway->second.GetSpeed());
+      speed = Pick<min>(speed, itHighway->second.GetSpeed(inCity));
 
     auto const addRoadInfoIter = FindRoadType(t);
-    // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
     if (addRoadInfoIter != m_addRoadTypes.cend())
-      speed = Pick<min>(speed, addRoadInfoIter->m_speed.m_outCity);
+    {
+      speed = Pick<min>(
+          speed, inCity ? addRoadInfoIter->m_speed.m_inCity : addRoadInfoIter->m_speed.m_outCity);
+    }
 
     auto const itFactor = find_if(m_surfaceFactors.cbegin(), m_surfaceFactors.cend(),
                                   [t](TypeFactor const & v) { return v.m_type == t; });
@@ -135,12 +135,10 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
   CHECK_GREATER_OR_EQUAL(factor.m_eta, 0.0, ());
 
   VehicleModel::SpeedKMpH ret;
-  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
-  if (speed.m_weight <= m_maxSpeed.m_outCity.m_weight)
+  if (speed.m_weight <= maxSpeedWeight)
     ret.m_weight = speed.m_weight * factor.m_weight;
 
-  // @TODO(bykoianko) Check if there's a feature in city or not and use correct speed.
-  if (speed.m_eta <= m_maxSpeed.m_outCity.m_eta)
+  if (speed.m_eta <= maxEtaWeight)
     ret.m_eta = speed.m_eta * factor.m_eta;
 
   return ret;

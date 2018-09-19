@@ -67,7 +67,7 @@ void CheckSpeed(initializer_list<uint32_t> const & types, SpeedKMpH && expectedS
   for (uint32_t t : types)
     h.Add(t);
 
-  TEST_EQUAL(vehicleModel.GetMinTypeSpeed(h), expectedSpeed, ());
+  TEST_EQUAL(vehicleModel.GetMinTypeSpeed(h, false /* in city */), expectedSpeed, ());
 }
 
 void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
