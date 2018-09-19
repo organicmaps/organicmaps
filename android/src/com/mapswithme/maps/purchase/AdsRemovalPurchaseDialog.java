@@ -12,12 +12,13 @@ import android.widget.TextView;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.maps.dialog.Detachable;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements AlertDialogCallback
@@ -28,9 +29,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
   private final static int WEEKS_IN_YEAR = 52;
   private final static int WEEKS_IN_MONTH = 4;
-  private final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
-  private final static int REQ_CODE_PAYMENT_FAILURE = 2;
-  private final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
+  final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
+  final static int REQ_CODE_PAYMENT_FAILURE = 2;
+  final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
 
   @Nullable
   private ProductDetails[] mProductDetails;
@@ -39,6 +40,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<AdsRemovalPurchaseCallback> mController;
+  @NonNull
+  private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPayButtonContainer;
@@ -55,7 +58,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     super.onAttach(context);
     LOGGER.d(TAG, "onAttach");
     mController = ((AdsRemovalPurchaseControllerProvider) context).getAdsRemovalPurchaseController();
-    mController.addCallback(new PurchaseCallback());
+    mController.addCallback(mPurchaseCallback);
   }
 
   @Nullable
@@ -77,7 +80,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     LOGGER.d(TAG, "onViewCreated savedInstanceState = " + savedInstanceState);
     if (savedInstanceState != null)
     {
-      AdsRemovalPaymentState savedState = AdsRemovalPaymentState.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
+      AdsRemovalPaymentState savedState
+          = AdsRemovalPaymentState.values()[savedInstanceState.getInt(EXTRA_CURRENT_STATE)];
       ProductDetails[] productDetails
           = (ProductDetails[]) savedInstanceState.getParcelableArray(EXTRA_PRODUCT_DETAILS);
       if (productDetails != null)
@@ -88,6 +92,20 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     }
 
     activateState(AdsRemovalPaymentState.LOADING);
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    mPurchaseCallback.attach(this);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    mPurchaseCallback.detach();
   }
 
   void queryPurchaseDetails()
@@ -103,6 +121,10 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
 
   private void activateState(@NonNull AdsRemovalPaymentState state)
   {
+    if (state == mState)
+      return;
+
+    LOGGER.i(TAG, "Activate state: " + state);
     mState = state;
     mState.activate(this);
   }
@@ -183,42 +205,57 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     }
   }
 
-  private class PurchaseCallback implements AdsRemovalPurchaseCallback
+  private void handleProductDetails(@NonNull List<SkuDetails> details)
   {
+    mProductDetails = new ProductDetails[Period.values().length];
+    for (SkuDetails sku: details)
+    {
+      float price = sku.getPriceAmountMicros() / 1000000;
+      String currencyCode = sku.getPriceCurrencyCode();
+      Period period = Period.valueOf(sku.getSubscriptionPeriod());
+      mProductDetails[period.ordinal()] = new ProductDetails(sku.getSku(), price, currencyCode);
+    }
+  }
+
+  private static class PurchaseCallback implements AdsRemovalPurchaseCallback,
+                                                   Detachable<AdsRemovalPurchaseDialog>
+  {
+    @Nullable
+    private AdsRemovalPurchaseDialog mDialog;
+    @Nullable
+    private List<SkuDetails> mPendingDetails;
+    @Nullable
+    private AdsRemovalPaymentState mPendingState;
+
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      mProductDetails = new ProductDetails[Period.values().length];
-      for (SkuDetails sku: details)
+      if (mDialog == null)
       {
-        float price = sku.getPriceAmountMicros() / 1000000;
-        String currencyCode = sku.getPriceCurrencyCode();
-        Period period = Period.valueOf(sku.getSubscriptionPeriod());
-        mProductDetails[period.ordinal()] = new ProductDetails(sku.getSku(), price, currencyCode);
+        mPendingDetails = Collections.unmodifiableList(details);
+        return;
       }
 
-      activateState(AdsRemovalPaymentState.PRICE_SELECTION);
+      mDialog.handleProductDetails(details);
+      activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
     }
 
     @Override
     public void onPaymentFailure()
     {
-      AlertDialog.show(R.string.bookmarks_convert_error_title, R.string.purchase_error_subtitle,
-                       R.string.back, AdsRemovalPurchaseDialog.this, REQ_CODE_PAYMENT_FAILURE);
+      activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
     }
 
     @Override
     public void onProductDetailsFailure()
     {
-      AlertDialog.show(R.string.bookmarks_convert_error_title,
-                       R.string.discovery_button_other_error_message, R.string.ok,
-                       AdsRemovalPurchaseDialog.this, REQ_CODE_PRODUCT_DETAILS_FAILURE);
+      activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
     }
 
     @Override
     public void onValidationStarted()
     {
-      activateState(AdsRemovalPaymentState.VALIDATION);
+      activateStateSafely(AdsRemovalPaymentState.VALIDATION);
     }
 
     @Override
@@ -226,13 +263,45 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     {
       if (status == AdsRemovalValidationStatus.SERVER_ERROR)
       {
-        AlertDialog.show(R.string.server_unavailable_title, R.string.server_unavailable_message,
-                         R.string.ok, AdsRemovalPurchaseDialog.this,
-                         REQ_CODE_VALIDATION_SERVER_ERROR);
+        activateStateSafely(AdsRemovalPaymentState.VALIDATION_SERVER_ERROR);
         return;
       }
 
-      dismissAllowingStateLoss();
+      activateStateSafely(AdsRemovalPaymentState.VALIDATION);
+    }
+
+    void activateStateSafely(@NonNull AdsRemovalPaymentState state)
+    {
+      if (mDialog == null)
+      {
+        mPendingState = state;
+        return;
+      }
+
+      mDialog.activateState(state);
+    }
+
+    @Override
+    public void attach(@NonNull AdsRemovalPurchaseDialog object)
+    {
+      mDialog = object;
+      if (mPendingDetails != null)
+      {
+        mDialog.handleProductDetails(mPendingDetails);
+        mPendingDetails = null;
+      }
+
+      if (mPendingState != null)
+      {
+        mDialog.activateState(mPendingState);
+        mPendingState = null;
+      }
+    }
+
+    @Override
+    public void detach()
+    {
+      mDialog = null;
     }
   }
 
