@@ -67,9 +67,11 @@
           android:gravity="start"
           android:layout_height="wrap_content">
           <TextView
+            android:id="@+id/checkIn_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_half"
+            android:textColor="?attr/bookingFilterTitleColor"
             android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
             android:text="@string/booking_filters_check_in"/>
           <TextView
@@ -89,9 +91,11 @@
           android:gravity="start"
           android:layout_height="wrap_content">
           <TextView
+            android:id="@+id/checkOut_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_half"
+            android:textColor="?attr/bookingFilterTitleColor"
             android:textAppearance="@style/MwmTextAppearance.BookingFilter.Title"
             android:text="@string/booking_filters_check_out"/>
           <TextView

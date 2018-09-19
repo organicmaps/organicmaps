@@ -221,8 +221,8 @@
   </style>
 
   <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
-    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
-    <item name="android:textColor">@color/button_red</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoRegular</item>
+    <item name="android:textColor">@color/dark_gray</item>
   </style>
 
   <style name="MwmTextAppearance.BookingFilter.DateTextView" parent="MwmTextAppearance.Body3">

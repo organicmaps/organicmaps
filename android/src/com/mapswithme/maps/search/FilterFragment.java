@@ -70,6 +70,12 @@ public class FilterFragment extends BaseMwmToolbarFragment
   private TextView mCheckOut;
   @SuppressWarnings("NullableProblems")
   @NonNull
+  private TextView mCheckInTitle;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mCheckOutTitle;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private TextView mOfflineWarning;
   @NonNull
   private final Drawable mTagsDecorator
@@ -242,8 +248,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
   {
     mCheckIn = root.findViewById(R.id.checkIn);
     mCheckIn.setOnClickListener(v -> onCheckInClicked());
+    mCheckInTitle = root.findViewById(R.id.checkIn_title);
     mCheckOut = root.findViewById(R.id.checkOut);
     mCheckOut.setOnClickListener(v -> onCheckOutClicked());
+    mCheckOutTitle = root.findViewById(R.id.checkOut_title);
 
 
     mOfflineWarning = root.findViewById(R.id.offlineWarning);
@@ -282,9 +290,12 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
   private void enableDateViewsIfConnected()
   {
-    UiUtils.showIf(!ConnectionState.isConnected(), mOfflineWarning);
-    mCheckIn.setEnabled(ConnectionState.isConnected());
-    mCheckOut.setEnabled(ConnectionState.isConnected());
+    boolean connected = ConnectionState.isConnected();
+    UiUtils.showIf(!connected, mOfflineWarning);
+    mCheckIn.setEnabled(connected);
+    mCheckOut.setEnabled(connected);
+    mCheckInTitle.setEnabled(connected);
+    mCheckOutTitle.setEnabled(connected);
   }
 
   @NonNull
