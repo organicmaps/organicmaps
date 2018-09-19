@@ -113,7 +113,7 @@
         android:layout_marginRight="@dimen/margin_base"
         android:layout_marginTop="@dimen/margin_half_plus"
         android:visibility="gone"
-        android:text="@string/booking_filters_offline"
+        android:text="@string/offline_fiters_check_in"
         android:textAppearance="@style/MwmTextAppearance.BookingFilter.Warning"/>
       <TextView
         android:layout_width="match_parent"
