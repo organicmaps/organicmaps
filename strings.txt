@@ -33291,5 +33291,5 @@ fa = دوباره نپرس
     ru = Покупка будет завершена позже. Если ошибка повторится, свяжитесь с support@maps.me.
     
   [offline_fiters_check_in]
-    en = Подключитесь к интернету, чтобы выбрать дату заезда и выезда.
-    ru = Connect to the internet to filter hotels by dates.
+    en = Connect to the internet to filter hotels by dates.
+    ru = Подключитесь к интернету, чтобы выбрать дату заезда и выезда.
