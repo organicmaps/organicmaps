@@ -19,7 +19,7 @@ void TestNearestOnMock1(m2::PointD const & point, size_t const candidatesCount,
   for (size_t i = 0; i < graph->GetRoadCount(); ++i)
   {
     FeatureID const featureId = MakeTestFeatureID(base::checked_cast<uint32_t>(i));
-    finder.AddInformationSource(featureId, graph->GetRoadInfo(featureId));
+    finder.AddInformationSource(featureId, graph->GetRoadInfo(featureId, false /* in city */));
   }
 
   vector<pair<Edge, Junction>> result;

@@ -47,9 +47,10 @@ FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
 {
 }
 
-VehicleModelInterface::SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(FeatureType & f) const
+VehicleModelInterface::SpeedKMpH FeaturesRoadGraph::CrossCountryVehicleModel::GetSpeed(
+    FeatureType & f, bool inCity) const
 {
-  return GetVehicleModel(f.GetID())->GetSpeed(f);
+  return GetVehicleModel(f.GetID())->GetSpeed(f, inCity);
 }
 
 double FeaturesRoadGraph::CrossCountryVehicleModel::GetOffroadSpeed() const
@@ -72,7 +73,8 @@ bool FeaturesRoadGraph::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureTy
   return GetVehicleModel(f.GetID())->IsPassThroughAllowed(f);
 }
 
-VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const
+VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(
+    FeatureID const & featureId) const
 {
   auto itr = m_cache.find(featureId.m_mwmId);
   if (itr != m_cache.end())
@@ -125,7 +127,9 @@ public:
     if (!m_graph.IsRoad(ft))
       return;
 
-    double const speedKMpH = m_graph.GetSpeedKMpHFromFt(ft);
+    // Note. RoadInfo::m_speedKMPH is not used in ICrossEdgesLoader::operator().
+    // @TODO(bykoianko) The code below should be rewritten to get rid of m_graph.GetSpeedKMpHFromFt().
+    double const speedKMpH = m_graph.GetSpeedKMpHFromFt(ft, false /* in city */);
     if (speedKMpH <= 0.0)
       return;
 
@@ -141,16 +145,16 @@ private:
   IRoadGraph::ICrossEdgesLoader & m_edgesLoader;
 };
 
-IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(FeatureID const & featureId) const
+IRoadGraph::RoadInfo FeaturesRoadGraph::GetRoadInfo(FeatureID const & featureId, bool inCity) const
 {
-  RoadInfo const & ri = GetCachedRoadInfo(featureId);
+  RoadInfo const & ri = GetCachedRoadInfo(featureId, inCity);
   ASSERT_GREATER(ri.m_speedKMPH, 0.0, ());
   return ri;
 }
 
-double FeaturesRoadGraph::GetSpeedKMpH(FeatureID const & featureId) const
+double FeaturesRoadGraph::GetSpeedKMpH(FeatureID const & featureId, bool inCity) const
 {
-  double const speedKMPH = GetCachedRoadInfo(featureId).m_speedKMPH;
+  double const speedKMPH = GetCachedRoadInfo(featureId, inCity).m_speedKMPH;
   ASSERT_GREATER(speedKMPH, 0.0, ());
   return speedKMPH;
 }
@@ -175,7 +179,8 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
-    double const speedKMpH = m_vehicleModel.GetSpeed(ft).m_weight;
+    // Note. RoadInfo::m_speedKMPH is not used in NearestEdgeFinder.
+    double const speedKMpH = m_vehicleModel.GetSpeed(ft, false /* in city */).m_weight;
     if (speedKMpH <= 0.0)
       return;
 
@@ -183,6 +188,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 
     IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, speedKMpH);
 
+    // @TODO(bykoianko) Rewrite the code to get rid of call m_vehicleModel.GetSpeed()
     finder.AddInformationSource(featureId, roadInfo);
   };
 
@@ -245,9 +251,9 @@ bool FeaturesRoadGraph::IsRoad(FeatureType & ft) const { return m_vehicleModel.I
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType & ft) const { return m_vehicleModel.IsOneWay(ft); }
 
-double FeaturesRoadGraph::GetSpeedKMpHFromFt(FeatureType & ft) const
+double FeaturesRoadGraph::GetSpeedKMpHFromFt(FeatureType & ft, bool inCity) const
 {
-  return m_vehicleModel.GetSpeed(ft).m_weight;
+  return m_vehicleModel.GetSpeed(ft, inCity).m_weight;
 }
 
 void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType & ft,
@@ -283,7 +289,8 @@ void FeaturesRoadGraph::ExtractRoadInfo(FeatureID const & featureId, FeatureType
     ri.m_junctions[i] = Junction(ft.GetPoint(i), altitudes[i]);
 }
 
-IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId) const
+IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID const & featureId,
+                                                                  bool inCity) const
 {
   bool found = false;
   RoadInfo & ri = m_cache.Find(featureId, found);
@@ -300,7 +307,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, ());
 
-  ExtractRoadInfo(featureId, ft, GetSpeedKMpHFromFt(ft), ri);
+  ExtractRoadInfo(featureId, ft, GetSpeedKMpHFromFt(ft, inCity), ri);
   return ri;
 }
 

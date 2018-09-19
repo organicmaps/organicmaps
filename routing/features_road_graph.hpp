@@ -30,7 +30,7 @@ private:
     CrossCountryVehicleModel(shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
     // VehicleModelInterface overrides:
-    VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f) const override;
+    VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const override;
     VehicleModelInterface::InOutCitySpeedKMpH GetMaxSpeed() const override { return m_maxSpeed; };
     double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
@@ -68,8 +68,8 @@ public:
   static int GetStreetReadScale();
 
   // IRoadGraph overrides:
-  RoadInfo GetRoadInfo(FeatureID const & featureId) const override;
-  double GetSpeedKMpH(FeatureID const & featureId) const override;
+  RoadInfo GetRoadInfo(FeatureID const & featureId, bool inCity) const override;
+  double GetSpeedKMpH(FeatureID const & featureId, bool inCity) const override;
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
@@ -97,11 +97,11 @@ private:
   };
 
   bool IsOneWay(FeatureType & ft) const;
-  double GetSpeedKMpHFromFt(FeatureType & ft) const;
+  double GetSpeedKMpHFromFt(FeatureType & ft, bool inCity) const;
 
   // Searches a feature RoadInfo in the cache, and if does not find then
   // loads feature from the index and takes speed for the feature from the vehicle model.
-  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId) const;
+  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, bool inCity) const;
   // Searches a feature RoadInfo in the cache, and if does not find then takes passed feature and speed.
   // This version is used to prevent redundant feature loading when feature speed is known.
   RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, FeatureType & ft,

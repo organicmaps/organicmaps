@@ -89,7 +89,7 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   }
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f) const
+VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool inCity) const
 {
   feature::TypesHolder const types(f);
 

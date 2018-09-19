@@ -72,7 +72,7 @@ public:
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   // @TODO(bykoianko) A param if feature in city or not should be added.
-  virtual SpeedKMpH GetSpeed(FeatureType & f) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const = 0;
 
   virtual InOutCitySpeedKMpH GetMaxSpeed() const = 0;
 
@@ -158,7 +158,7 @@ public:
                SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType & f) const override;
+  SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const override;
   InOutCitySpeedKMpH GetMaxSpeed() const override { return m_maxSpeed; }
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;

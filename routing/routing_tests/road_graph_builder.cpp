@@ -69,13 +69,13 @@ void RoadGraphMockSource::AddRoad(RoadInfo && ri)
   m_roads.push_back(move(ri));
 }
 
-IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId) const
+IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureId, bool /* inCity */) const
 {
   CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId.m_index];
 }
 
-double RoadGraphMockSource::GetSpeedKMpH(FeatureID const & featureId) const
+double RoadGraphMockSource::GetSpeedKMpH(FeatureID const & featureId, bool /* inCity */) const
 {
   CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId.m_index].m_speedKMPH;
