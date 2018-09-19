@@ -87,15 +87,16 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   SerializeCityRoads(mwmFullPath, move(cityRoadFeatureIds));
 
   auto const cityRoads = LoadCityRoads(country);
+  TEST(cityRoads, ());
 
   // Comparing loading form mwm and expected feature ids.
   if (originalCityRoadFeatureIds.empty())
   {
-    TEST(!cityRoads->HasCityRoads(), ());
+    TEST(!cityRoads->HaveCityRoads(), ());
     return;
   }
 
-  TEST(cityRoads->HasCityRoads(), ());
+  TEST(cityRoads->HaveCityRoads(), ());
 
   sort(originalCityRoadFeatureIds.begin(), originalCityRoadFeatureIds.end());
   size_t const kMaxRoadFeatureId = originalCityRoadFeatureIds.back();

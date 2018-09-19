@@ -42,7 +42,7 @@ FeaturesRoadGraph::Value::Value(DataSource const & dataSource, MwmSet::MwmHandle
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_vehicleModelFactory(vehicleModelFactory)
-  , m_maxSpeed(m_vehicleModelFactory->GetVehicleModel()->GetMaxSpeed())
+  , m_maxSpeed(m_vehicleModelFactory->GetVehicleModel()->GetMaxWeightSpeed())
   , m_offroadSpeedKMpH(m_vehicleModelFactory->GetVehicleModel()->GetOffroadSpeed())
 {
 }
@@ -84,7 +84,7 @@ VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleM
       featureId.m_mwmId.GetInfo()->GetCountryName());
 
   ASSERT(nullptr != vehicleModel, ());
-  ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxSpeed(), ());
+  ASSERT_EQUAL(m_maxSpeed, vehicleModel->GetMaxWeightSpeed(), ());
 
   itr = m_cache.insert(make_pair(featureId.m_mwmId, move(vehicleModel))).first;
   return itr->second.get();
@@ -159,7 +159,7 @@ double FeaturesRoadGraph::GetSpeedKMpH(FeatureID const & featureId, bool inCity)
   return speedKMPH;
 }
 
-double FeaturesRoadGraph::GetMaxSpeedKMpH() const { return GetMaxWeight(m_vehicleModel.GetMaxSpeed()); }
+double FeaturesRoadGraph::GetMaxSpeedKMpH() const { return m_vehicleModel.GetMaxWeightSpeed(); }
 
 void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
                                                      ICrossEdgesLoader & edgesLoader) const

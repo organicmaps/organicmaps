@@ -95,8 +95,6 @@ IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
                                    : *CreateIndexGraph(numMwmId, it->second).m_indexGraph;
   }
 
-  // @TODO(bykoianko) shared_prt<CityRoads> should be created and passed to CreateIndexGraph() to
-  // create IndexGraph.
   return *CreateIndexGraph(numMwmId, CreateGeometry(numMwmId)).m_indexGraph;
 }
 

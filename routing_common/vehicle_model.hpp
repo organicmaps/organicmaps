@@ -71,10 +71,10 @@ public:
 
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
-  // @TODO(bykoianko) A param if feature in city or not should be added.
+  /// @param inCity is true if |f| lies in a city of town.
   virtual SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const = 0;
 
-  virtual InOutCitySpeedKMpH GetMaxSpeed() const = 0;
+  virtual double GetMaxWeightSpeed() const = 0;
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
   /// e.g. to connect start point to nearest feature.
@@ -159,7 +159,7 @@ public:
 
   /// VehicleModelInterface overrides:
   SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const override;
-  InOutCitySpeedKMpH GetMaxSpeed() const override { return m_maxSpeed; }
+  double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;
   bool IsPassThroughAllowed(FeatureType & f) const override;
@@ -274,9 +274,6 @@ protected:
   std::unordered_map<std::string, std::shared_ptr<VehicleModelInterface>> m_models;
   CountryParentNameGetterFn m_countryParentNameGetterFn;
 };
-
-VehicleModel::SpeedKMpH GetMax(VehicleModel::InOutCitySpeedKMpH const & speed);
-double GetMaxWeight(VehicleModel::InOutCitySpeedKMpH const & speed);
 
 std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
 std::string DebugPrint(VehicleModelInterface::SpeedKMpH const & speed);

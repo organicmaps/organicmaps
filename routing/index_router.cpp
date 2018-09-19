@@ -72,7 +72,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
   numMwmIds.ForEachId([&](NumMwmId id) {
     string const & country = numMwmIds.GetFile(id).GetName();
     double const mwmMaxSpeed =
-        GetMaxWeight(vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxSpeed());
+        vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxWeightSpeed();
     maxSpeed = max(maxSpeed, mwmMaxSpeed);
   });
   CHECK_GREATER(maxSpeed, 0.0, ());

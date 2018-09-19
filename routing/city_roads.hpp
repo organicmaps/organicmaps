@@ -21,8 +21,11 @@ class CityRoads
                             CityRoads & cityRoads);
 
 public:
-  bool HasCityRoads() const { return m_cityRoads.size() > 0; }
-  // Returns true if |fid| is a feature id of a road (for cars, bicycles or pedestrians) in city.
+  bool HaveCityRoads() const { return m_cityRoads.size() > 0; }
+  /// \returns true if |fid| is a feature id of a road (for cars, bicycles or pedestrians) in city
+  /// or town.
+  /// \note if there's no section with city roads returns false. That means for maps without
+  /// city roads section features are considered as features outside cities.
   bool IsCityRoad(uint32_t fid) const;
 
 private:

@@ -49,7 +49,7 @@ InOutCitySpeedKMpH const kSpeedBridlewayKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0));
 InOutCitySpeedKMpH const kSpeedCyclewayKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
 InOutCitySpeedKMpH const kSpeedResidentialKMpH(SpeedKMpH(4.5), SpeedKMpH(4.5));
 InOutCitySpeedKMpH const kSpeedLivingStreetKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedStepsKMpH(SpeedKMpH(4.9), SpeedKMpH(4.9));
+InOutCitySpeedKMpH const kSpeedStepsKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0));
 InOutCitySpeedKMpH const kSpeedPedestrianKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
 InOutCitySpeedKMpH const kSpeedFootwayKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
 InOutCitySpeedKMpH const kSpeedPlatformKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));

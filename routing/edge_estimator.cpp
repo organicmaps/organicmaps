@@ -253,7 +253,7 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType,
                                                 VehicleModelInterface const & vehicleModel,
                                                 shared_ptr<TrafficStash> trafficStash)
 {
-  return Create(vehicleType, GetMaxWeight(vehicleModel.GetMaxSpeed()),
-                vehicleModel.GetOffroadSpeed(), trafficStash);
+  return Create(vehicleType, vehicleModel.GetMaxWeightSpeed(), vehicleModel.GetOffroadSpeed(),
+                trafficStash);
 }
 }  // namespace routing

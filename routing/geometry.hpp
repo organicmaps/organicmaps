@@ -65,7 +65,6 @@ public:
 
 private:
   buffer_vector<Junction, 32> m_junctions;
-  // @TODO(bykoianko) In |m_speed| should be kept speed according to city status of the road.
   VehicleModelInterface::SpeedKMpH m_speed;
   bool m_isOneWay = false;
   bool m_valid = false;

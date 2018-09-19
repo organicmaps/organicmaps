@@ -136,7 +136,6 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   m_valid = vehicleModel.IsRoad(feature);
   m_isOneWay = vehicleModel.IsOneWay(feature);
-  // @TODO(bykoianko) |inCity| should be used to get a correct speed.
   m_speed = vehicleModel.GetSpeed(feature, inCity);
   m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(feature);
 

@@ -94,12 +94,18 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool inCity) con
   feature::TypesHolder const types(f);
 
   RoadAvailability const restriction = GetRoadAvailability(types);
+  // @TODO(bykoianko) Consider using speed on feature |f| instead of using max speed below.
   if (restriction == RoadAvailability::Available)
-    return inCity ? GetMaxSpeed().m_inCity : GetMaxSpeed().m_outCity;
+    return inCity ? m_maxSpeed.m_inCity : m_maxSpeed.m_outCity;
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
     return GetMinTypeSpeed(types, inCity);
 
   return {};
+}
+
+double VehicleModel::GetMaxWeightSpeed() const
+{
+  return max(m_maxSpeed.m_inCity.m_weight, m_maxSpeed.m_outCity.m_weight);
 }
 
 VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const
@@ -263,16 +269,6 @@ string VehicleModelFactory::GetParent(string const & country) const
 double GetMaxWeight(VehicleModel::InOutCitySpeedKMpH const & speed)
 {
   return max(speed.m_inCity.m_weight, speed.m_outCity.m_weight);
-}
-
-double GetMaxEta(VehicleModel::InOutCitySpeedKMpH const & speed)
-{
-  return max(speed.m_inCity.m_eta, speed.m_outCity.m_eta);
-}
-
-VehicleModel::SpeedKMpH GetMax(VehicleModel::InOutCitySpeedKMpH const & speed)
-{
-  return {GetMaxWeight(speed), GetMaxEta(speed)};
 }
 
 string DebugPrint(VehicleModelInterface::RoadAvailability const l)

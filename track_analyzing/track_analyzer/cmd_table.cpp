@@ -46,13 +46,7 @@ public:
       m_tags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
 
     for (auto const & speedForType : CarModel::GetLimits())
-    {
-      vector<string> path;
-      for (auto const & type : speedForType.m_types)
-        path.push_back(type);
-
-      m_tags.push_back(classif().GetTypeByPath(path));
-    }
+      m_tags.push_back(classif().GetTypeByPath(speedForType.m_types));
   }
 
   uint32_t GetType(FeatureType & feature) const

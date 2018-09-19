@@ -94,10 +94,7 @@ void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expe
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_MaxSpeed)
 {
   TestVehicleModel vehicleModel;
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_inCity.m_weight, 100, ());
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_inCity.m_eta, 100, ());
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_outCity.m_weight, 150, ());
-  TEST_EQUAL(vehicleModel.GetMaxSpeed().m_outCity.m_eta, 150, ());
+  TEST_EQUAL(vehicleModel.GetMaxWeightSpeed(), 150.0, ());
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_Speed)
