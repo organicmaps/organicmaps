@@ -156,6 +156,7 @@ public:
   using Vertex = Junction;
   using Edge = routing::Edge;
   using Weight = double;
+  using JunctionVec = buffer_vector<Junction, 32>;
 
   enum class Mode
   {
@@ -173,7 +174,7 @@ public:
     RoadInfo(RoadInfo const &) = default;
     RoadInfo & operator=(RoadInfo const &) = default;
 
-    buffer_vector<Junction, 32> m_junctions;
+    JunctionVec m_junctions;
     double m_speedKMPH;
     bool m_bidirectional;
   };
@@ -189,39 +190,38 @@ public:
 
     virtual ~ICrossEdgesLoader() = default;
 
-    void operator()(FeatureID const & featureId, RoadInfo const & roadInfo)
+    void operator()(FeatureID const & featureId, JunctionVec const & junctions,
+                    bool bidirectional)
     {
-      LoadEdges(featureId, roadInfo);
+      LoadEdges(featureId, junctions, bidirectional);
     }
 
   private:
-    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) = 0;
+    virtual void LoadEdges(FeatureID const & featureId, JunctionVec const & junctions,
+                           bool bidirectional) = 0;
 
   protected:
     template <typename TFn>
-    void ForEachEdge(RoadInfo const & roadInfo, TFn && fn)
+    void ForEachEdge(JunctionVec const & junctions, TFn && fn)
     {
-      for (size_t i = 0; i < roadInfo.m_junctions.size(); ++i)
+      for (size_t i = 0; i < junctions.size(); ++i)
       {
-        if (!base::AlmostEqualAbs(m_cross.GetPoint(), roadInfo.m_junctions[i].GetPoint(),
-                                kPointsEqualEpsilon))
-        {
+        if (!base::AlmostEqualAbs(m_cross.GetPoint(), junctions[i].GetPoint(), kPointsEqualEpsilon))
           continue;
-        }
 
-        if (i + 1 < roadInfo.m_junctions.size())
+        if (i + 1 < junctions.size())
         {
           // Head of the edge.
           // m_cross
           //     o------------>o
-          fn(i, roadInfo.m_junctions[i + 1], true /* forward */);
+          fn(i, junctions[i + 1], true /* forward */);
         }
         if (i > 0)
         {
           // Tail of the edge.
           //                m_cross
           //     o------------>o
-          fn(i - 1, roadInfo.m_junctions[i - 1], false /* backward */);
+          fn(i - 1, junctions[i - 1], false /* backward */);
         }
       }
     }
@@ -241,7 +241,8 @@ public:
 
   private:
     // ICrossEdgesLoader overrides:
-    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
+    void LoadEdges(FeatureID const & featureId, JunctionVec const & junctions,
+                   bool bidirectional) override;
   };
 
   class CrossIngoingLoader : public ICrossEdgesLoader
@@ -254,14 +255,15 @@ public:
 
   private:
     // ICrossEdgesLoader overrides:
-    virtual void LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo) override;
+    void LoadEdges(FeatureID const & featureId, JunctionVec const & junctions,
+                   bool bidirectional) override;
   };
 
   virtual ~IRoadGraph() = default;
 
-  virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
+  void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
 
-  virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
+  void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
 
   /// Removes all fake turns and vertices from the graph.
   void ResetFakes();

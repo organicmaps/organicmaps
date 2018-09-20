@@ -42,7 +42,9 @@ public:
 
   inline bool HasCandidates() const { return !m_candidates.empty(); }
 
-  void AddInformationSource(FeatureID const & featureId, IRoadGraph::RoadInfo const & roadInfo);
+  void AddInformationSource(FeatureID const & featureId,
+                            IRoadGraph::JunctionVec const & junctions,
+                            bool bidirectiona);
 
   void MakeResult(std::vector<std::pair<Edge, Junction>> & res, size_t const maxCountFeatures);
 };

@@ -87,7 +87,10 @@ void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cro
                                                        ICrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
-    edgesLoader(MakeTestFeatureID(base::checked_cast<uint32_t>(roadId)), m_roads[roadId]);
+  {
+    edgesLoader(MakeTestFeatureID(base::checked_cast<uint32_t>(roadId)), m_roads[roadId]
+        .m_junctions, m_roads[roadId].m_bidirectional);
+  }
 }
 
 void RoadGraphMockSource::FindClosestEdges(m2::PointD const & point, uint32_t count,

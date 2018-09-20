@@ -15,24 +15,26 @@ NearestEdgeFinder::NearestEdgeFinder(m2::PointD const & point)
 {
 }
 
-void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadGraph::RoadInfo const & roadInfo)
+void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId,
+                                             IRoadGraph::JunctionVec const & junctions,
+                                             bool bidirectional)
 {
   Candidate res;
 
-  size_t const count = roadInfo.m_junctions.size();
+  size_t const count = junctions.size();
   ASSERT_GREATER(count, 1, ());
   for (size_t i = 1; i < count; ++i)
   {
     /// @todo Probably, we need to get exact projection distance in meters.
-    m2::ParametrizedSegment<m2::PointD> segment(roadInfo.m_junctions[i - 1].GetPoint(),
-                                                roadInfo.m_junctions[i].GetPoint());
+    m2::ParametrizedSegment<m2::PointD> segment(junctions[i - 1].GetPoint(),
+                                                junctions[i].GetPoint());
 
     m2::PointD const pt = segment.ClosestPointTo(m_point);
     double const d = m_point.SquaredLength(pt);
     if (d < res.m_dist)
     {
-      Junction const & segStart = roadInfo.m_junctions[i - 1];
-      Junction const & segEnd = roadInfo.m_junctions[i];
+      Junction const & segStart = junctions[i - 1];
+      Junction const & segEnd = junctions[i];
       feature::TAltitude const startAlt = segStart.GetAltitude();
       feature::TAltitude const endAlt = segEnd.GetAltitude();
 
@@ -54,7 +56,7 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
       res.m_segId = static_cast<uint32_t>(i - 1);
       res.m_segStart = segStart;
       res.m_segEnd = segEnd;
-      res.m_bidirectional = roadInfo.m_bidirectional;
+      res.m_bidirectional = bidirectional;
 
       ASSERT_NOT_EQUAL(res.m_segStart.GetAltitude() , feature::kInvalidAltitude, ());
       ASSERT_NOT_EQUAL(res.m_segEnd.GetAltitude(), feature::kInvalidAltitude, ());

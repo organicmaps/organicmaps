@@ -15,6 +15,8 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include "std/limits.hpp"
+
 namespace routing
 {
 
@@ -127,17 +129,13 @@ public:
     if (!m_graph.IsRoad(ft))
       return;
 
-    // Note. RoadInfo::m_speedKMPH is not used in ICrossEdgesLoader::operator().
-    // @TODO(bykoianko) The code below should be rewritten to get rid of m_graph.GetSpeedKMpHFromFt().
-    double const speedKMpH = m_graph.GetSpeedKMpHFromFt(ft, false /* in city */);
-    if (speedKMpH <= 0.0)
-      return;
-
     FeatureID const featureId = ft.GetID();
 
-    IRoadGraph::RoadInfo const & roadInfo = m_graph.GetCachedRoadInfo(featureId, ft, speedKMpH);
+    auto constexpr invalidSpeed = numeric_limits<double>::max();
+    IRoadGraph::RoadInfo const & roadInfo = m_graph.GetCachedRoadInfo(featureId, ft, invalidSpeed);
+    CHECK_EQUAL(roadInfo.m_speedKMPH, invalidSpeed, ());
 
-    m_edgesLoader(featureId, roadInfo);
+    m_edgesLoader(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
   }
 
 private:
@@ -179,17 +177,13 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
     if (!m_vehicleModel.IsRoad(ft))
       return;
 
-    // Note. RoadInfo::m_speedKMPH is not used in NearestEdgeFinder.
-    double const speedKMpH = m_vehicleModel.GetSpeed(ft, false /* in city */).m_weight;
-    if (speedKMpH <= 0.0)
-      return;
-
     FeatureID const featureId = ft.GetID();
 
-    IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, speedKMpH);
+    auto constexpr invalidSpeed = numeric_limits<double>::max();
+    IRoadGraph::RoadInfo const & roadInfo = GetCachedRoadInfo(featureId, ft, invalidSpeed);
+    CHECK_EQUAL(roadInfo.m_speedKMPH, invalidSpeed, ());
 
-    // @TODO(bykoianko) Rewrite the code to get rid of call m_vehicleModel.GetSpeed()
-    finder.AddInformationSource(featureId, roadInfo);
+    finder.AddInformationSource(featureId, roadInfo.m_junctions, roadInfo.m_bidirectional);
   };
 
   m_dataSource.ForEachInRect(

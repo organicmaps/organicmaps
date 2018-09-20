@@ -169,11 +169,12 @@ IRoadGraph::RoadInfo::RoadInfo(bool bidirectional, double speedKMPH,
 {}
 
 // IRoadGraph::CrossOutgoingLoader ---------------------------------------------
-void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
+void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId,
+                                                JunctionVec const & junctions, bool bidirectional)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
-                                                      bool forward) {
-    if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
+  ForEachEdge(junctions, [&featureId, bidirectional, this](
+                                        size_t segId, Junction const & endJunction, bool forward) {
+    if (forward || bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
     {
       m_edges.push_back(Edge::MakeReal(featureId, forward, base::asserted_cast<uint32_t>(segId),
                                        m_cross, endJunction));
@@ -182,11 +183,12 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
 }
 
 // IRoadGraph::CrossIngoingLoader ----------------------------------------------
-void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, RoadInfo const & roadInfo)
+void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId,
+                                               JunctionVec const & junctions, bool bidirectional)
 {
-  ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
-                                                      bool forward) {
-    if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
+  ForEachEdge(junctions, [&featureId, bidirectional, this](
+                                        size_t segId, Junction const & endJunction, bool forward) {
+    if (!forward || bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
     {
       m_edges.push_back(Edge::MakeReal(featureId, !forward, base::asserted_cast<uint32_t>(segId),
                                        endJunction, m_cross));
