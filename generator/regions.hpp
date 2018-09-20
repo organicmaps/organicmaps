@@ -98,6 +98,8 @@ private:
 class ToStringPolicyInterface
 {
 public:
+  virtual ~ToStringPolicyInterface() = default;
+
   virtual std::string ToString(Node::PtrList const & nodePtrList) = 0;
 };
 
