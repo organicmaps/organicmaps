@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.Detachable;
+import com.mapswithme.util.Graphics;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -44,7 +47,17 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private View mPayButtonContainer;
+  private View mYearlyButton;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mMonthlyButton;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mWeeklyButton;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mOptionsButton;
+  private boolean mOptionsOpened;
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -68,8 +81,16 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     LOGGER.d(TAG, "onCreateView savedInstanceState = " + savedInstanceState + "this " + this);
     View view = inflater.inflate(R.layout.fragment_ads_removal_purchase_dialog, container, false);
-    mPayButtonContainer = view.findViewById(R.id.pay_button_container);
-    mPayButtonContainer.setOnClickListener(v -> onYearlyProductClicked());
+    View payButtonContainer = view.findViewById(R.id.pay_button_container);
+    mYearlyButton = payButtonContainer.findViewById(R.id.yearly_button);
+    mYearlyButton.setOnClickListener(v -> onYearlyProductClicked());
+    mMonthlyButton = payButtonContainer.findViewById(R.id.monthly_button);
+    mMonthlyButton.setOnClickListener(v -> onMonthlyProductClicked());
+    mWeeklyButton = payButtonContainer.findViewById(R.id.weekly_button);
+    mWeeklyButton.setOnClickListener(v -> onWeeklyProductClicked());
+    mOptionsButton = payButtonContainer.findViewById(R.id.options);
+    mOptionsButton.setCompoundDrawablesWithIntrinsicBounds(null, null, getOptionsToggle(), null);
+    mOptionsButton.setOnClickListener(v -> onOptionsClicked());
     view.findViewById(R.id.explanation).setOnClickListener(v -> onExplanationClick());
     return view;
   }
@@ -95,6 +116,14 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     activateState(AdsRemovalPaymentState.LOADING);
   }
 
+  @NonNull
+  private Drawable getOptionsToggle()
+  {
+    return Graphics.tint(getContext(), mOptionsOpened ? R.drawable.ic_expand_less
+                                                      : R.drawable.ic_expand_more,
+                         android.R.attr.textColorSecondary);
+  }
+
   @Override
   public void onStart()
   {
@@ -116,7 +145,31 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
 
   void onYearlyProductClicked()
   {
-    ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
+    launchPurchaseFlowForPeriod(Period.P1Y);
+  }
+
+  void onMonthlyProductClicked()
+  {
+    launchPurchaseFlowForPeriod(Period.P1M);
+  }
+
+  void onWeeklyProductClicked()
+  {
+    launchPurchaseFlowForPeriod(Period.P1W);
+  }
+
+  void onOptionsClicked()
+  {
+    mOptionsOpened = !mOptionsOpened;
+    mOptionsButton.setCompoundDrawablesWithIntrinsicBounds(null, null, getOptionsToggle(), null);
+    View payContainer = getViewOrThrow().findViewById(R.id.pay_button_container);
+    UiUtils.showIf(mOptionsOpened, payContainer, R.id.monthly_button, R.id.monthly_divider,
+                   R.id.weekly_button, R.id.weekly_divider);
+  }
+
+  private void launchPurchaseFlowForPeriod(@NonNull Period period)
+  {
+    ProductDetails details = getProductDetailsForPeriod(period);
     mController.launchPurchaseFlow(details.getProductId());
   }
 
@@ -152,15 +205,37 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mController.removeCallback();
   }
 
-  void updateYearlyButton()
+  void updatePaymentButtons()
+  {
+    updateYearlyButton();
+    updateMonthlyButton();
+    updateWeeklyButton();
+  }
+
+  private void updateYearlyButton()
   {
     ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
     String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
-    TextView priceView = mPayButtonContainer.findViewById(R.id.price);
+    TextView priceView = mYearlyButton.findViewById(R.id.price);
     priceView.setText(getString(R.string.paybtn_title, price));
-    TextView savingView = mPayButtonContainer.findViewById(R.id.saving);
+    TextView savingView = mYearlyButton.findViewById(R.id.saving);
     String saving = Utils.formatCurrencyString(calculateYearlySaving(), details.getCurrencyCode());
     savingView.setText(getString(R.string.paybtn_subtitle, saving));
+  }
+
+  private void updateMonthlyButton()
+  {
+    ProductDetails details = getProductDetailsForPeriod(Period.P1M);
+    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+    String saving = Utils.formatCurrencyString(calculateMonthlySaving(), details.getCurrencyCode());
+    mMonthlyButton.setText(getString(R.string.options_dropdown_item1, price, saving));
+  }
+
+  private void updateWeeklyButton()
+  {
+    ProductDetails details = getProductDetailsForPeriod(Period.P1W);
+    String price = Utils.formatCurrencyString(details.getPrice(), details.getCurrencyCode());
+    mWeeklyButton.setText(getString(R.string.options_dropdown_item2, price));
   }
 
   @NonNull

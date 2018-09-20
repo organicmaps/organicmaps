@@ -48,7 +48,7 @@ enum AdsRemovalPaymentState
           title.setText(R.string.remove_ads_title);
           View image = view.findViewById(R.id.image);
           alignPayButtonBelow(view, image == null ? R.id.title : R.id.image);
-          dialog.updateYearlyButton();
+          dialog.updatePaymentButtons();
         }
       },
   EXPLANATION
@@ -62,7 +62,7 @@ enum AdsRemovalPaymentState
           TextView title = view.findViewById(R.id.title);
           title.setText(R.string.why_support);
           alignPayButtonBelow(view, R.id.explanation_items);
-          dialog.updateYearlyButton();
+          dialog.updatePaymentButtons();
         }
       },
   VALIDATION

@@ -139,6 +139,8 @@
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text</item>
     <item name="accentDot">@drawable/dot</item>
     <item name="filterPropertyTextColor">@color/filter_date_property_color</item>
+    <item name="adsRemovalOptionsBg">@drawable/bg_ads_removal_options</item>
+    <item name="adsRemovalOptionsDivider">@color/black_8</item>
   </style>
 
   <!-- Night theme -->
@@ -281,5 +283,7 @@
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_night</item>
     <item name="accentDot">@drawable/dot_night</item>
     <item name="filterPropertyTextColor">@color/filter_date_property_color_night</item>
+    <item name="adsRemovalOptionsBg">@drawable/bg_ads_removal_options_night</item>
+    <item name="adsRemovalOptionsDivider">@color/white_8</item>
   </style>
 </resources>

@@ -10,5 +10,7 @@
   android:text="@string/why_support"
   android:textAllCaps="true"
   android:background="?attr/clickableBackground"
+  android:padding="@dimen/margin_half_plus"
+  android:gravity="center"
   android:textAppearance="@style/MwmTextAppearance.Body3"
   tools:showIn="@layout/fragment_ads_removal_purchase_dialog"/>
