@@ -226,6 +226,7 @@ private:
   std::string GetBookmarkName();
   /// @returns empty string or GetStars() count of ★ symbol.
   std::string FormatStars() const;
+  void SetTitlesForBookmark();
 
   /// UI
   std::string m_uiTitle;

@@ -421,7 +421,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeStartEdit(JNIEnv *, jclass)
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass, jstring featureType)
+Java_com_mapswithme_maps_editor_Editor_nativeCreateMapObject(JNIEnv * env, jclass,
+                                                             jstring featureType)
 {
   ::Framework * frm = g_framework->NativeFramework();
   auto const type = classif().GetTypeByReadableObjectName(jni::ToNativeString(env, featureType));
@@ -453,7 +454,8 @@ Java_com_mapswithme_maps_editor_Editor_nativeRollbackMapObject(JNIEnv * env, jcl
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env, jclass clazz, jstring jLang)
+Java_com_mapswithme_maps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv * env, jclass clazz,
+                                                                         jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   GetFeatureCategories().AddLanguage(lang);
@@ -461,11 +463,14 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv 
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_mapswithme_maps_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env, jclass clazz, jstring query, jstring jLang)
+Java_com_mapswithme_maps_editor_Editor_nativeSearchCreatableFeatureTypes(JNIEnv * env, jclass clazz,
+                                                                         jstring query,
+                                                                         jstring jLang)
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaStringArray(env, GetFeatureCategories().Search(jni::ToNativeString(env, query)));
+  return jni::ToJavaStringArray(env,
+                                GetFeatureCategories().Search(jni::ToNativeString(env, query)));
 }
 
 JNIEXPORT jobjectArray JNICALL

@@ -162,19 +162,9 @@ std::string Info::GetBookmarkName()
 void Info::SetCustomName(std::string const & name)
 {
   if (IsBookmark())
-  {
-    m_uiTitle = GetBookmarkName();
-
-    std::vector<std::string> subtitle;
-    subtitle.push_back(m_bookmarkCategoryName);
-    if (!m_bookmarkData.m_featureTypes.empty())
-      subtitle.push_back(GetLocalizedBookmarkType(m_bookmarkData.m_featureTypes));
-    m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
-  }
+    SetTitlesForBookmark();
   else
-  {
     m_uiTitle = name;
-  }
 
   m_customName = name;
 }
@@ -183,13 +173,7 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
 {
   if (IsBookmark())
   {
-    m_uiTitle = GetBookmarkName();
-
-    std::vector<std::string> subtitle;
-    subtitle.push_back(m_bookmarkCategoryName);
-    if (!m_bookmarkData.m_featureTypes.empty())
-      subtitle.push_back(GetLocalizedBookmarkType(m_bookmarkData.m_featureTypes));
-    m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
+    SetTitlesForBookmark();
   }
   else
   {
@@ -253,6 +237,17 @@ string Info::FormatStars() const
   for (int i = 0; i < GetStars(); ++i)
     stars.append(kStarSymbol);
   return stars;
+}
+
+void Info::SetTitlesForBookmark()
+{
+  m_uiTitle = GetBookmarkName();
+
+  std::vector<std::string> subtitle;
+  subtitle.push_back(m_bookmarkCategoryName);
+  if (!m_bookmarkData.m_featureTypes.empty())
+    subtitle.push_back(GetLocalizedBookmarkType(m_bookmarkData.m_featureTypes));
+  m_uiSubtitle = strings::JoinStrings(subtitle, kSubtitleSeparator);
 }
 
 string Info::GetFormattedCoordinate(bool isDMS) const

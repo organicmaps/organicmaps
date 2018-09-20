@@ -12,9 +12,8 @@ namespace platform
 std::string GetLocalizedTypeName(std::string const & type)
 {
   JNIEnv * env = jni::GetEnv();
-  static auto const getLocalizedFeatureType =
-      jni::GetStaticMethodID(env, g_utilsClazz,
-                             "getLocalizedFeatureType", "(Ljava/lang/String;)Ljava/lang/String;");
+  static auto const getLocalizedFeatureType = jni::GetStaticMethodID(
+      env, g_utilsClazz, "getLocalizedFeatureType", "(Ljava/lang/String;)Ljava/lang/String;");
 
   jni::TScopedLocalRef typeRef(env, jni::ToJavaString(env, type));
   auto localizedFeatureType =

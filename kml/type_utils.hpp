@@ -82,7 +82,7 @@ std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string co
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
                                     std::string const & languageNorm);
-std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types, std::string const & languageOrig);
+std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types);
 
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
   IndexType m_collectionIndex;                         \

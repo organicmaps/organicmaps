@@ -465,7 +465,7 @@ std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature
 
 std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types)
 {
-  return kml::GetLocalizedBookmarkType(types, languages::GetCurrentOrig());
+  return kml::GetLocalizedBookmarkType(types);
 }
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
