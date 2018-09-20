@@ -14,10 +14,7 @@ namespace routing
 {
 bool CityRoads::IsCityRoad(uint32_t fid) const
 {
-  if (fid < m_cityRoads.size())
-    return m_cityRoads[fid];
-
-  return false;
+  return fid < m_cityRoads.size() ? m_cityRoads[fid] : false;
 }
 
 void LoadCityRoads(std::string const & fileName, FilesContainerR::TReader const & reader,
