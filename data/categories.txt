@@ -168,7 +168,7 @@ fa:پارکینگ
 
 @shop
 en:^Shop
-ru:^Магазин
+ru:2^Магазин
 ar:^متجر
 cs:^Obchod
 da:^Butik
@@ -190,7 +190,7 @@ es:^Tienda
 sv:^Butik|Affär
 th:^ร้านค้า
 tr:^Mağaza
-uk:^Крамниця
+uk:^Крамниця|магазин
 vi:^Cửa hàng
 zh-Hans:^商店
 zh-Hant:^購物
@@ -235,7 +235,7 @@ fa:هتل
 
 @tourism
 en:Attractions|3Tourism|Sights
-ru:Туризм|Достопримечательность
+ru:Туризм|Достопримечательность|достопримечательности
 ar:سياحة
 cs:Pamětihodnost
 da:Turisme|Seværdigheder|3sightseeing
@@ -431,7 +431,7 @@ fa:بانک
 
 amenity-bureau_de_change
 en:3^Currency Exchange|3exchange|money|U+1F4B1|U+1F4B2|U+1F4B4|U+1F4B5|U+1F4B6|U+1F4B7
-ru:3^Обмен валюты|обменник|4валюта|деньги
+ru:3^Обмен валюты|обмен валют|обменник|4валюта|деньги
 ar:^تحويل عملات|تغيير عملات|الصرف|الأموال|صرف عملات|صرف
 cs:3^Směnárna|peníze
 da:3^Vekselbureau|3penge
@@ -656,7 +656,7 @@ fa:جایگاه سوخت
 
 shop-bakery|@shop
 en:3^Bakery|U+1F35E
-ru:3^Булочная|магазин
+ru:3^Булочная
 ar:^مخبز|متجر
 cs:3^Pekárna
 da:2^Bager|bageri
@@ -678,7 +678,7 @@ es:3^Panadería
 sv:3^Bageri
 th:3^เบเกอรี่
 tr:3^Fırın
-uk:3^Пекарня|магазин|крамниця
+uk:3^Пекарня
 vi:^Hiệu bánh
 zh-Hans:1^面包店|商店
 zh-Hant:1^麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
@@ -697,7 +697,7 @@ ko:가게
 pl:towary
 pt:2Loja
 pt-BR:2Loja|compras
-uk:2Магазин|крамниця
+uk:2Магазин
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα
@@ -705,7 +705,7 @@ fa:مرکزخرید
 
 shop-cosmetics|@shop
 en:4^Beauty Care|home care|U+1F3EC|U+1F3EA
-ru:^Магазин косметики|4Косметика|бытовая химия|магазин
+ru:^Магазин косметики|4Косметика|бытовая химия
 ar:^مستحضرات تجميل|تجميل
 cs:4^Kosmetika|domácí péče
 da:4^Kosmetik
@@ -727,7 +727,7 @@ es:4^Productos cosméticos
 sv:^Kosmetika
 th:^เครื่องสำอาง
 tr:^Bakım ürünleri|güzellik merkezi
-uk:4^Косметика|крамниця
+uk:4^Косметика
 vi:^Mỹ phẩm
 zh-Hans:^化妝品|商店
 zh-Hant:^化妆品|美妝店|購物
@@ -739,7 +739,7 @@ fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@shop
 en:4^Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|supermarket|food store|food market
-ru:4^Продуктовый магазин|2магазин|продукты|еда|продуктовая лавка|магаз|универмаг|универсам|гастроном|продмаг|супермаркет
+ru:4^Продуктовый магазин|продукты|еда|продуктовая лавка|магаз|универмаг|универсам|гастроном|продмаг|супермаркет
 ar:^متجر صغير
 cs:^Smíšené zboží|koloniál
 da:^Døgnbutik|døgnkiosk|kiosk
@@ -761,7 +761,7 @@ es:^Tienda de barrio
 sv:^Närbutik
 th:^ร้านสะดวกซื้อ
 tr:^Bakkal
-uk:4^Міні-маркет|Продуктовий|крамниця
+uk:4^Міні-маркет|Продуктовий
 vi:^Cửa hàng tạp hóa
 zh-Hans:^便利店|商店
 zh-Hant:^便利商店|便利超商|購物
@@ -772,7 +772,7 @@ fa:بقالی
 
 shop-garden_centre|@shop
 en:^Garden Store|U+1F3EC|U+1F3EA|U+1F3E1
-ru:^Садовые товары|магазин
+ru:^Садовые товары
 ar:^حضانة|روضة
 cs:^Školka|zahradní centrum
 da:^Planteskole|havecenter|plantecenter|havebutik
@@ -794,7 +794,7 @@ es:^Vivero|tienda de jardinería
 sv:^Plantskola|trädgårdsbutik
 th:^สถานรับเลี้ยงเด็ก|เนอร์สเซอรี่
 tr:^Çocuk yuvası|kreş
-uk:^Товари для саду|крамниця
+uk:^Товари для саду
 vi:^Nhà trẻ
 zh-Hans:^幼儿园|商店
 zh-Hant:^園藝店|購物
@@ -804,7 +804,7 @@ fa:فروشگاه تجهیزات باغبانی
 
 shop-mobile_phone|@shop
 en:^Cell Phones|Mobile Phones|electronics store|U+1F3EC|U+1F3EA|U+1F4F1|U+1F4F2
-ru:^Магазин мобильных телефонов|Сотовые|3Мобильные телефоны|электроника|салон связи|магазин
+ru:^Магазин мобильных телефонов|Сотовые|3Мобильные телефоны|электроника|салон связи
 ar:^متجر هواتف محمولة|متجر إلكترونيات|متجر هواتف خلوية|هاتف
 cs:^Mobily|Obchod s mobilními telefony|obchod s elektronikou
 da:^Mobiltelefonbutik|elektronikforretning
@@ -826,7 +826,7 @@ es:^Móviles|Tienda de telefonía móvil|tienda de aparatos electrónicos
 sv:^Mobilbutik|elektronikaffär
 th:^ร้านขายโทรศัพท์มือถือ|ร้านขายอุปกรณ์อิเล็กโทรนิก
 tr:^Cep telefonu mağazası|elektronik mağazası
-uk:^Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів|крамниця
+uk:^Мобільні телефони|салон мобільного зв'язку|салон мобільних телефонів
 vi:^Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:^手机商店|商店
 zh-Hant:^手機專賣店|購物
@@ -859,7 +859,7 @@ es:^Floristería|tienda de flores
 sv:^Blomsteraffär
 th:^ร้านดอกไม้
 tr:^Çiçekçi
-uk:^Магазин квітів|2магазин|крамниця
+uk:^Магазин квітів
 vi:^Cửa hàng hoa|tiệm hoa
 zh-Hans:^花店|商店
 zh-Hant:^花店|1購物|店鋪|商店|雜貨店|便利商店
@@ -869,7 +869,7 @@ fa:گل فروشی
 
 shop-butcher|@shop
 en:^Butcher’s|U+1F356|U+1F357
-ru:^Мясная лавка|мясо|2магазин
+ru:^Мясная лавка|мясо
 ar:^جزار|جزارة|متجر لحوم|متجر
 cs:^Řeznictví
 da:^Slagter|slagterbutik
@@ -891,7 +891,7 @@ es:^Carnicería
 sv:^Slaktare
 th:^ร้านขายเนื้อ
 tr:^Kasap
-uk:^М'ясний магазин|2магазин|крамниця
+uk:^М'ясний магазин
 vi:^Cửa hàng thịt
 zh-Hans:^肉商|商店
 zh-Hant:^肉商|1購物|店鋪|商店|雜貨店|便利商店
@@ -901,7 +901,7 @@ fa:قصابی
 
 shop-furniture|@shop
 en:^Furniture Store
-ru:^Магазин мебели|2магазин
+ru:^Магазин мебели
 ar:^معرض أثاث|أثاث|متجر
 cs:^Nábytek
 da:^Møbelbutik|møbelforretning|møbelhandler
@@ -923,7 +923,7 @@ es:^Tienda de muebles
 sv:^Möbelaffär
 th:^ร้านเฟอร์นิเจอร์
 tr:^Mobilya mağazası
-uk:^Магазин меблів|2магазин|крамниця
+uk:^Магазин меблів
 vi:^Cửa hàng nội thất
 zh-Hans:^家具店|商店
 zh-Hant:^家具店|1購物|店鋪|商店|雜貨店|便利商店
@@ -933,7 +933,7 @@ fa:فروشگاه لوازم خانگی
 
 shop-alcohol|@shop
 en:^Liquor Store|liquor|U+1F377
-ru:^Магазин алкоголя|4алкоголь|3винный|3вино-водочный|2магазин
+ru:^Магазин алкоголя|4алкоголь|3винный|3вино-водочный
 ar:^متجر مشروبات كحولية|خمور|خمر|متجر
 cs:^Obchod s alkoholem
 da:^Alkohol|vinhandel|sprut|spiritus
@@ -955,7 +955,7 @@ es:^Licorería|licor
 sv:^Spritaffär|alkohol
 th:^ร้านขายเหล้า
 tr:^Içki dükkanı
-uk:^Винний магазин|крамниця спиртних напоїв|2магазин|крамниця
+uk:^Винний магазин|крамниця спиртних напоїв
 vi:^Cửa hàng rượu|rượu
 zh-Hans:^烈酒|商店
 zh-Hant:^烈酒|1購物|店鋪|商店|雜貨店|便利商店
@@ -965,7 +965,7 @@ fa:مشروب فروشی
 
 shop-books|@shop
 en:^Bookstore|bookshop|U+1F4D6|U+1F4DA|U+1F4D9|U+1F4D8|U+1F4D7|U+1F4D5
-ru:^Книжный магазин|книги|2магазин
+ru:^Книжный магазин|книги
 ar:^مكتبة لبيع الكتب|متجر
 cs:^Knihkupectví
 da:^Boghandel|boghandler|boglade
@@ -987,7 +987,7 @@ es:^Librería
 sv:^Bokaffär
 th:^ร้านหนังสือ
 tr:^Kitapçı
-uk:^Книгарня|2магазин|крамниця
+uk:^Книгарня
 vi:^Hiệu sách
 zh-Hans:^书店|商店
 zh-Hant:^書店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1019,7 +1019,7 @@ es:^Zapatería
 sv:^Skobutik
 th:^ร้านขายรองเท้า
 tr:^Ayakkabı mağazası
-uk:^Магазин взуття|2магазин|крамниця
+uk:^Магазин взуття
 vi:^Cửa hàng giày
 zh-Hans:^鞋店|商店
 zh-Hant:^鞋店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1029,7 +1029,7 @@ fa:کفش فروشی
 
 shop-electronics|@shop
 en:^Electronics|U+1F4F1|U+1F4BB|U+23F0|U+1F4F7|U+1F4F9|U+1F3A5|U+1F4FA|U+1F4FB|U+1F4DF|U+1F4DE|U+260E|U+1F4E0|U+1F4BD|U+1F4BE|U+1F4BF|U+1F4C0|U+1F4FC|U+1F50B|U+1F4E1
-ru:^Электротехника|2магазин
+ru:^Электротехника
 ar:^متجر إلكترونيات|متجر
 cs:^Elektronika
 da:^Elektronikbutik|elektronik
@@ -1051,7 +1051,7 @@ es:^Electrónica
 sv:^Elektronik|elektronikaffär
 th:^ร้านขายอุปกรณ์อิเล็กทรอนิกส์
 tr:^Elektronik mağazası
-uk:^Електротехнічний магазин|2магазин|крамниця
+uk:^Електротехнічний магазин
 vi:^Cửa hàng điện
 zh-Hans:^电子产品|商店
 zh-Hant:^電子產品|電器店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1061,7 +1061,7 @@ fa:فروشگاه تجهیزات الکترونیکی
 
 shop-hardware|shop-doityourself|@shop
 en:^Hardware Store|DIY|do it yourself|U+1F3EC|U+1F3EA|U+1F50B|U+1F50C|U+1F4A1|U+1F526|U+1F529|U+1F528|U+2614
-ru:^Хозяйственный|Стройтовары|магазин
+ru:^Хозяйственный|Стройтовары
 ar:^متجر عدد وأدوات|أدوات|عدة|متجر
 cs:^Železářství
 da:^Isenkræmmer|Byggemarked
@@ -1083,7 +1083,7 @@ es:^Ferretería|bricolaje
 sv:^Järnhandel
 th:^ร้านขายฮาร์ดแวร์|ร้านขายวัสดุอุปกรณ์
 tr:^Hırdavatçı|Nalbur
-uk:^Будматеріали|господарський|магазин|крамниця
+uk:^Будматеріали|господарський
 vi:^Cửa hàng phần cứng
 zh-Hans:^硬件店|自助商店|商店
 zh-Hant:^五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
@@ -1093,7 +1093,7 @@ fa:فروشگاه ابزار و یراق
 
 shop-jewelry|@shop
 en:^Jewelry|U+1F48D
-ru:^Ювелирный магазин|2магазин
+ru:^Ювелирный магазин
 ar:^مجوهرات
 cs:^Klenotnictví
 da:^Smykkebutik|smykker|juveler
@@ -1115,7 +1115,7 @@ es:^Joyería
 sv:^Smycken|juvelerare|guldsmed
 th:^ร้านขายเครื่องประดับ
 tr:^Kuyumcu
-uk:^Ювелірний магазин|2магазин|крамниця
+uk:^Ювелірний магазин
 vi:^Đồ trang sức
 zh-Hans:^珠宝店|商店
 zh-Hant:^珠寶店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1125,7 +1125,7 @@ fa:^طلا فروشی|جواهرفروشی
 
 shop-optician|@shop
 en:^Optician’s|U+1F453
-ru:^Оптика|2магазин
+ru:^Оптика
 ar:^مركز بصريات|نظارات|متجر
 cs:^Optika
 da:^Optiker
@@ -1147,7 +1147,7 @@ es:^Óptica
 sv:^Optiker|glasögonaffär
 th:^ร้านแว่น
 tr:^Gözlükçü
-uk:^Оптика|2магазин|крамниця
+uk:^Оптика
 vi:^Cửa hàng mắt kính
 zh-Hans:^眼镜店|商店
 zh-Hant:^眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1179,7 +1179,7 @@ es:^Tienda de regalos
 sv:^Presentaffär
 th:^ร้านของขวัญ
 tr:^Hediyelik eşya mağazası
-uk:^Магазин сувенірів|2магазин|крамниця
+uk:^Магазин сувенірів
 vi:^Cửa hàng quà tặng
 zh-Hans:^礼品店|商店
 zh-Hant:^禮品店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1223,7 +1223,7 @@ fa:سالن زیبایی
 
 shop-greengrocer|@shop
 en:4^Greengrocer's|greengrocers|3grocery|U+1F345|U+1F346|U+1F33D|U+1F360|U+1F348|U+1F347|U+1F349|U+1F34A|U+1F34C|U+1F34D|U+1F34E|U+1F34F|U+1F350|U+1F351|U+1F353
-ru:^Овощи и фрукты|овощи|фрукты|2магазин
+ru:^Овощи и фрукты|овощи|фрукты
 ar:^متجر خضروات وفواكه|خضار|فاكهة|متجر
 cs:^Ovoce a zelenina
 da:^Grønthandler|grønthandel|frugt og grønt
@@ -1245,7 +1245,7 @@ es:^Frutería
 sv:^Grönsakshandlare
 th:^ร้านขายผัด
 tr:^Manav
-uk:^Магазин овочів|овочі|фрукти|2магазин|крамниця
+uk:^Магазин овочів|овочі|фрукти
 vi:^Cửa hàng rau củ
 zh-Hans:^蔬果零售店|商店
 zh-Hant:^蔬果零售店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1255,7 +1255,7 @@ fa:میوه فروشی
 
 shop-sports|@shop
 en:^Sports Goods|U+1F3BF|U+1F3A3|U+1F3C2|U+1F6B4|U+26BD|U+1F3C0|U+1F3C8|U+26BE|U+1F3BE|U+1F3C9|U+26F3
-ru:^Магазин спорттоваров|Спорттовары|товары для спорта|2магазин
+ru:^Магазин спорттоваров|Спорттовары|товары для спорта
 ar:^أدوات رياضية|رياضة|متجر
 cs:^Sportovní zboží
 da:^Sportsudstyr|sport
@@ -1277,7 +1277,7 @@ es:^Artículos de deporte
 sv:^Sportaffär
 th:^สินค้ากีฬา
 tr:^Spor ürünleri
-uk:^Спортивні товари|2магазин|крамниця
+uk:^Спортивні товари
 vi:^Đồ dùng thể thao
 zh-Hans:^运动商品店|商店
 zh-Hant:^運動商品店|1購物|店鋪|商店|雜貨店|便利商店
@@ -1287,7 +1287,7 @@ fa:فروشگاه لوازم ورزشی
 
 shop-supermarket|@shop
 en:3^Supermarket|U+1F3EA|U+1F3EC
-ru:3^Супермаркет|3универсам|3гипермаркет|магазин
+ru:3^Супермаркет|3универсам|3гипермаркет
 ar:^سوبر ماركت|بقالة|متجر
 cs:3^Supermarket
 da:3^Supermarked|dagligvarebutik
@@ -1309,7 +1309,7 @@ es:3^Supermercado
 sv:3^Stormarknad|dagligvaruhandel
 th:3^ซูเปอร์มาร์เก็ต
 tr:3^Süpermarket
-uk:3^Супермаркет|3універсам|2магазин|крамниця
+uk:3^Супермаркет|3універсам
 vi:^Siêu thị
 zh-Hans:^超市|商店
 zh-Hant:1^超級市場|市場|購物
@@ -1319,7 +1319,7 @@ sw:^Supamaketi
 fa:سوپر مارکت
 
 shop-mall|@shop
-en:^Mall|5shopping mall|shopping gallery|shopping|shopping centre|shopping arcade|entertainment centre|retail
+en:^Mall|5shopping mall|shopping gallery|shopping|shopping centre|shopping center|shopping arcade|entertainment centre|entertainment center|retail
 ru:^Торговый центр|торговый комплекс|трц|трк|тц|покупки|развлекательный центр|молл|шопинг
 ar:^مركز تسوق|مجمع تجاري|مول|متجر
 cs:^Obchoďák
@@ -1342,7 +1342,7 @@ es:^Centro comercial
 sv:^Galleria|köpcentrum
 th:^เดอะมอลล์
 tr:^Alışveriş merkezi
-uk:^Торговий центр|крамниця
+uk:^Торговий центр
 vi:^Khu mua sắm
 zh-Hans:^商场|商店
 zh-Hant:^商场|購物
@@ -1354,7 +1354,7 @@ fa:مرکز خرید
 
 shop-department_store|@shop
 en:^Department Store|U+1F3EC|U+1F3EA|shopping|shopping centre|shopping arcade
-ru:^Универмаг|магазин|молл|покупки|торговый комплекс|универсам|шопинг
+ru:^Универмаг|молл|покупки|торговый комплекс|универсам|шопинг
 ar:^متجر شامل|مركز تجاري
 cs:^Obchodní dům
 da:^Stormagasin|varehus
@@ -1376,7 +1376,7 @@ es:^Grandes almacenes
 sv:^Varuhus
 th:^ห้างสรรพสินค้า
 tr:^Alışveriş merkezi
-uk:^Універмаг|крамниця
+uk:^Універмаг
 vi:^Cửa hàng bách hóa
 zh-Hans:^百货商店|商店
 zh-Hant:^百貨公司|購物
@@ -1386,7 +1386,7 @@ fa:^مرکز خرید|پاساژ
 
 shop-beverages|@shop
 en:^Beverages|drinks|U+1F379
-ru:^Напитки|соки|магазин
+ru:^Напитки|соки
 ar:^مشروبات|عصائر
 cs:^Nápoje|nápoje
 da:^Drikkevarer
@@ -1408,7 +1408,7 @@ es:^Bebidas
 sv:^Drinkar|drycker
 th:^เครื่องดื่ม
 tr:^Içecek
-uk:^Напої|крамниця
+uk:^Напої
 vi:^Đồ uống
 zh-Hans:^饮料|商店
 zh-Hant:^飲料|飲料店|購物
@@ -1418,7 +1418,7 @@ fa:نوشیدنی فروشی
 
 shop-computer|@shop
 en:^Computer Store|U+1F4BB
-ru:^Компьютерный магазин|магазин
+ru:^Компьютерный магазин
 ar:^متجر كمبيوتر
 cs:^Obchod s počítači
 da:^Computerforretning|computerbutik|computer
@@ -1440,7 +1440,7 @@ es:^Tienda de informática|tienda de ordenadores
 sv:^Datorbutik
 th:^ร้านขายคอมพิวเตอร์
 tr:^Bilgisayar mağazası
-uk:^Комп'ютерний магазин|комп'ютерна техніка|крамниця
+uk:^Комп'ютерний магазин|комп'ютерна техніка
 vi:^Cửa hàng máy tính
 zh-Hans:^电脑商店|商店
 zh-Hant:^電腦商店|電腦專賣店|購物
@@ -1472,7 +1472,7 @@ es:^Confitería|confitería
 sv:^Konditori|godisbutik
 th:^ร้านขายขนมหวาน|ร้านขายลูกกวาด
 tr:^Şekerci|tatlıcı
-uk:^Кондитерська|крамниця
+uk:^Кондитерська
 vi:^Cửa hàng kẹo
 zh-Hans:^糖果店|商店
 zh-Hant:^糕餅店|糕餅行|購物
@@ -1536,7 +1536,7 @@ es:^Tienda de juguetes|juguetería
 sv:^Leksaksaffär
 th:^ร้านขายของเล่น
 tr:^Oyuncakçı
-uk:^Магазин іграшок|крамниця
+uk:^Магазин іграшок
 vi:^Cửa hàng đồ chơi
 zh-Hans:^玩具店|商店
 zh-Hant:^玩具商店|購物
@@ -1546,7 +1546,7 @@ fa:اسباب بازی فروشی
 
 amenity-marketplace|@shop
 en:3^Marketplace|market
-ru:3^Рынок|базар|магазин
+ru:3^Рынок|базар
 ar:^سوق|السوق|متجر
 cs:4^Tržiště|samoobsluha|market
 da:3^Markedsplads|marked
@@ -1566,7 +1566,7 @@ es:3^Mercado
 sv:3^Marknadsplats|marknad
 th:2^ตลาดสินค้า|ตลาด|ร้าน
 tr:3^Pazaryeri
-uk:3^Ринок|магазин|базар|крамниця
+uk:3^Ринок|базар
 zh-Hans:2^市集|商店
 zh-Hant:1^市場|市集|購物
 el:^Αγορά|αγορά|κατάστημα
@@ -1598,7 +1598,7 @@ es:^Tienda de ropa|3ropa
 sv:^Klädbutik|klädaffär|4kläder
 th:^ร้านขายเสื้อผ้า|ร้าน
 tr:^Giyim mağazası
-uk:^Магазин одягу|речі|4одяг|2крамниця
+uk:^Магазин одягу|речі|4одяг
 vi:^Cửa hàng quần áo
 zh-Hans:^服装店|商店
 zh-Hant:1^買衣服|衣服|購物
@@ -1609,7 +1609,7 @@ fa:^لباس فروشی|بوتیک
 
 shop-car|@shop
 en:^Car Shop|U+1F697|U+1F698|U+1F699
-ru:^Автосалон|магазин
+ru:^Автосалон
 ar:^متجر سيارات|متجر
 cs:^Obchod s auty
 da:^Bilforhandler
@@ -1631,7 +1631,7 @@ es:^Venta de coches
 sv:^Bilåterförsäljare
 th:^ร้านค้ารถยนต์
 tr:^Otomobil mağazası
-uk:^Автосалон|магазин|крамниця
+uk:^Автосалон
 vi:^Cửa hàng xe
 zh-Hans:^车店|商店
 zh-Hant:1^買車|購車|購物
@@ -1642,7 +1642,7 @@ fa:فروشگاه خودرو
 
 shop-bicycle|@shop
 en:4^Bicycle Shop|cycle|bike|U+1F6B2|U+1F6B4|U+1F6B5
-ru:4^Веломагазин|велосипед|магазин
+ru:4^Веломагазин|велосипед
 ar:^متجر دراجات|متجر
 cs:3^Cyklistický obchod|jízdní kolo|3kolo
 da:3^Cykelforretning|cykelhandler|cykler
@@ -1664,7 +1664,7 @@ es:^Tienda de bicicletas|bicicleta|bici
 sv:4^Cykelaffär|cykel
 th:4^จักรยาน|ร้าน
 tr:^Bisiklet
-uk:4^Веломагазін|велосипед|магазин|крамниця
+uk:4^Веломагазін|велосипед
 vi:3^Cửa hàng xe đạp
 zh-Hans:^自行车店|商店
 zh-Hant:1^自行車店|腳踏車|單車|商店|購物
@@ -1675,7 +1675,7 @@ fa:فروشگاه دوچرخه
 
 shop-kiosk|@shop
 en:^Kiosk|U+1F4F0
-ru:^Киоск|магазин
+ru:^Киоск
 ar:^كشك|متجر
 cs:^Kiosk
 da:^Kiosk|pølsevogn
@@ -1693,7 +1693,7 @@ pt-BR:^Quiosque
 es:^Quiosco
 sv:^Kiosk
 th:^ร้าน
-uk:^Кіоск|магазин|крамниця
+uk:^Кіоск
 zh-Hans:^商店
 zh-Hant:1^小舖|小店|購物|商店|小攤|攤子|攤販
 el:^Περίπτερο|κατάστημα
@@ -1767,7 +1767,7 @@ sk:^Električková zastávka|3električka|4zastávka|stanica
 fa:^ایستگاه قطار|ایستگاه تراموا
 
 amenity-bus_station|@transport
-en:^Bus Station|2bus|station|U+1F68C|U+1F68F|U+1F68D
+en:^Bus Station|bus terminal|2bus|station|U+1F68C|U+1F68F|U+1F68D
 ru:^Автовокзал|Автостанция|4автобус|4остановка|4транспорт
 ar:^محطة حافلات|باص|حافلة|مواصلات|نقل
 cs:^Autobusové nádraží|zastávka|bus
@@ -1950,7 +1950,7 @@ sw:^Teksi|usafiri
 fa:^تاکسی|اژانس
 
 amenity-townhall|@tourism
-en:3^Town Hall
+en:3^Town Hall|city hall
 ru:3^Ратуша
 ar:^مبنى البلدية|مناظر|سياحة
 cs:3^Radnice
@@ -2785,7 +2785,7 @@ zh-Hant:^汽車共用
 
 amenity-car_rental
 en:3^Car Rental|car|rental|U+1F697|U+1F698|U+1F699|car hire|rent a car|auto rental|vehicle rent
-ru:4^Прокат авто|3авто|3машина|прокат|аренда авто|автомобиль аренда|авто напрокат|автопрокат
+ru:4^Прокат авто|3авто|3машина|прокат|авто напрокат|автопрокат|прокат машин|прокат машины|аренда авто|автомобиль аренда|аренда машин|аренда машины
 ar:^تأجير سيارات|سيارة|تأجير|إيجار
 cs:3^Půjčovna aut|auto|pronájem|nájemné
 da:4^Biludlejning|bil
@@ -2818,7 +2818,7 @@ fa:مکان اجاره ماشین
 
 amenity-cinema|@entertainment
 en:3^Cinema|U+1F3A6|U+1F3AC
-ru:^Кинотеатр|3кино|развлечения
+ru:^Кинотеатр|3кино
 ar:^سينما
 cs:3^Kino|biograf
 da:3^Biograf
@@ -2840,18 +2840,18 @@ es:3^Cine
 sv:3^Bio|biograf
 th:3^โรงภาพยนตร์
 tr:3^Sinema
-uk:3^Кіно|кінотеатр|розваги
+uk:3^Кіно|кінотеатр
 vi:^Rạp chiếu phim
-zh-Hans:1^电影院|娱乐
-zh-Hant:1^電影院|電影|娛樂
-el:^Κινηματογράφος|ψυχαγωγία
+zh-Hans:1^电影院
+zh-Hant:1^電影院|電影
+el:^Κινηματογράφος
 sk:3^Kino
 sw:^Sinema|burudani
 fa:سینما
 
 amenity-theatre|@entertainment
 en:3^Theatre|theater|U+1F3AD
-ru:3^Театр|развлечения
+ru:3^Театр
 ar:^مسرح
 cs:3^Divadlo
 da:3^Teater
@@ -2873,18 +2873,18 @@ es:3^Teatro
 sv:3^Teater|teater
 th:3^โรงละคร
 tr:3^Tiyatro
-uk:3^Театр|розваги
+uk:3^Театр
 vi:^Điểm trú ẩn
-zh-Hans:1^剧院|娱乐
-zh-Hant:1^劇場|戲院|劇院|娛樂
-el:^Θέατρο|θέατρο|ψυχαγωγία
+zh-Hans:1^剧院
+zh-Hant:1^劇場|戲院|劇院
+el:^Θέατρο|θέατρο
 sk:3^Divadlo
 sw:^Thieta|burudani|maonyesho
 fa:تئاتر
 
 amenity-nightclub|@entertainment
 en:3^Nightclub|night club|3disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483|club|nightspot|night bar
-ru:3^Ночной клуб|3дискотека|развлечения|ночной бар|диско|танцы
+ru:3^Ночной клуб|3дискотека|ночной бар|диско|танцы
 ar:^نادي ليلي|رقص
 cs:4^Noční klub|3disco|3klub
 da:3^Natklub|dans|danseklub
@@ -2906,19 +2906,19 @@ es:3^Discoteca
 sv:3^Nattklubb|3disco|dans
 th:3^ไนต์คลับ|การเต้นรำ
 tr:3^Gece kulübü|dans
-uk:3^Нічний клуб|3дискотека|розваги
+uk:3^Нічний клуб|3дискотека
 vi:^Câu lạc bộ đêm
-zh-Hans:3^夜总会|娱乐
-zh-Hant:1^夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
-el:^Νυχτερινό κέντρο διασκέδασης|ντίσκο|μπουζούκια|χορός|ψυχαγωγία
+zh-Hans:3^夜总会
+zh-Hant:1^夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活
+el:^Νυχτερινό κέντρο διασκέδασης|ντίσκο|μπουζούκια|χορός
 sk:4^Nočný klub|3disco|3nightclub|night club
 sw:^Ukumbi wa starehe|klabu|burudani
 fa:^کلوپ شبانه|کلوپ رقص
 
-amenity-brothel|@entertainment
-en:^Brothel|U+1F3E9
-ru:^Бордель|развлечения
-ar:^دعارة|تسلية
+amenity-brothel
+en:^Brothel|whorehouse|bordello|U+1F3E9
+ru:^Бордель|публичный дом
+ar:^دعارة
 cs:^Nevěstinec
 da:^Bordel
 nl:^Bordeel
@@ -2937,18 +2937,18 @@ es:^Burdel
 sv:^Bordell
 th:^ซ่อง
 tr:^Genelev
-uk:^Бордель|розваги
-zh-Hans:^妓院|娱乐
-zh-Hant:^妓院|娛樂
-el:^Πορνείο|οίκος ανοχής|ψυχαγωγία
+uk:^Бордель|Будинок розпусти|публiчний будинок
+zh-Hans:^妓院
+zh-Hant:^妓院
+el:^Πορνείο|οίκος ανοχής
 sk:^Nevestinec|verejný dom
 sw:^Danguro
 fa:^فاحشه خانه|جنده خانه
 
 amenity-casino|@entertainment
 en:^Casino|U+1F3B0|U+1F3B2|U+1F3B4
-ru:^Казино|развлечения
-ar:^كازينو|تسلية
+ru:^Казино
+ar:^كازينو
 cs:^Casino
 da:^Kasino
 nl:^Casino|goktent
@@ -2967,10 +2967,10 @@ es:^Casino
 sv:^Kasino
 th:^คาสิโน
 tr:^Casino
-uk:^Казино|розваги
-zh-Hans:^赌场|娱乐
-zh-Hant:^賭場|娛樂
-el:^Καζίνο|ψυχαγωγία
+uk:^Казино
+zh-Hans:^赌场
+zh-Hant:^賭場
+el:^Καζίνο
 sk:^Kasíno
 sw:^Kasino|burudani
 fa:^قمارخانه|کازینو
@@ -4881,7 +4881,7 @@ fa:فرودگاه
 
 leisure-stadium
 en:^Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9|olympic stadium|sports stadium|sports complex|arena
-ru:^Стадион|4спорт|матч|арена|спортивная арена|соревнования|чемпионат|cпорткомплекс|чм
+ru:^Стадион|4спорт|матч|арена|спортивная арена|соревнования|чемпионат|cпорткомплекс
 ar:^استاد|رياضة
 cs:^Stadion|4sport
 da:^Stadium|sport
@@ -6189,7 +6189,7 @@ fa:فروشگاه چاپ و تکثیر
 
 shop-photo|@shop
 en:^Photo Shop|frames
-ru:^Фототовары|магазин
+ru:^Фототовары
 ar:^محل صور|إطارات|محل
 cs:^Fotografický obchod|rámy
 da:^Fotobutik|rammer
@@ -6211,7 +6211,7 @@ es:^Artículos de fotografía
 sv:^Fotoaffär|ramar
 th:^ร้านถ่ายภาพ|กรอบ|ร้าน
 tr:^Fotoğrafçı|çerçeve
-uk:^Фототовари|магазин|крамниця
+uk:^Фототовари
 vi:^Hiệu Ảnh|khung ảnh
 zh-Hans:^照片店|画框|商店
 zh-Hant:^照片店|畫框|商店
@@ -6252,7 +6252,7 @@ fa:اژانس مسافرتی
 
 shop-outdoor|@shop
 en:^Outdoor Equipment|trekking|climbing|camping
-ru:^Магазин снаряжения|туристический магазин|магазин
+ru:^Магазин снаряжения|туристический магазин
 ar:^معدات خارجية|ترحال|تسلق|تخييم|محل
 cs:^Venkovní vybavení|trekking|lezení|kempování
 da:^Fritidsudstyr|vandring|klatring|camping
@@ -6274,7 +6274,7 @@ es:^Equipamiento|senderismo|escalada|acampada
 sv:^Fritidsutrustning|vandring|klättring|camping
 th:^อุปกรณ์กลางแจ้ง|เดินป่า|ปีนเขา|ตั้งแคมป์|ร้าน
 tr:^Dış Mekan Ekipmanları|yürüyüş|tırmanma|kamp
-uk:^Спорядження|магазин|крамниця
+uk:^Спорядження
 vi:^Thiết bị Ngoài trời|dã ngoại|leo|cắm trại
 zh-Hans:^室外设备|远足|攀岩|野营|商店
 zh-Hant:^室外設備|遠足|攀巖|野營|商店
@@ -6315,7 +6315,7 @@ fa:خشک شویی
 
 shop-tyres|@shop
 en:^Tyre Shop
-ru:^Магазин шин|магазин
+ru:^Магазин шин
 ar:^محل إطارات|محل
 cs:^Obchod s pneumatikami
 da:^Dækforretning
@@ -6337,7 +6337,7 @@ es:^Tienda de neumáticos
 sv:^Däckaffär
 th:^ร้านยาง
 tr:^Tekerlekçi|dükkanı
-uk:^Магазин шин|магазин|крамниця
+uk:^Магазин шин
 vi:^Cửa hàng Lốp
 zh-Hans:^轮胎店|商店
 zh-Hant:^輪胎店|商店
@@ -9083,7 +9083,7 @@ zh-Hant:^文具用品店
 fa:^لوازم التحریر|نوشت افزار
 
 shop-tattoo
-en:^Tattoo Parlour
+en:^Tattoo Parlour|tattoo
 ru:^Тату-салон
 ar:^قاعة رسم الوشم
 cs:^Tetovací salon
