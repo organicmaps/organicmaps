@@ -267,13 +267,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     @Override
     public void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status)
     {
-      if (status == AdsRemovalValidationStatus.SERVER_ERROR)
-      {
-        activateStateSafely(AdsRemovalPaymentState.VALIDATION_SERVER_ERROR);
-        return;
-      }
-
-      activateStateSafely(AdsRemovalPaymentState.VALIDATION);
+      activateStateSafely(AdsRemovalPaymentState.VALIDATION_FINISH);
     }
 
     void activateStateSafely(@NonNull AdsRemovalPaymentState state)

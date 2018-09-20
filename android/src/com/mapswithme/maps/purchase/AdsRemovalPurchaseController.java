@@ -64,10 +64,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     public void onValidate(@NonNull AdsRemovalValidationStatus status)
     {
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
-      if (status == AdsRemovalValidationStatus.VERIFIED)
-        Framework.nativeSetActiveRemoveAdsSubscription(true);
-      else if (status == AdsRemovalValidationStatus.NOT_VERIFIED)
-        Framework.nativeSetActiveRemoveAdsSubscription(false);
+      boolean activateSubscription = status != AdsRemovalValidationStatus.NOT_VERIFIED;
+      Framework.nativeSetActiveRemoveAdsSubscription(activateSubscription);
 
       if (getUiCallback() != null)
         getUiCallback().onValidationStatusObtained(status);

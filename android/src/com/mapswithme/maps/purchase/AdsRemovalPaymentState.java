@@ -98,16 +98,6 @@ enum AdsRemovalPaymentState
                             dialog, AdsRemovalPurchaseDialog.REQ_CODE_PRODUCT_DETAILS_FAILURE);
          }
        },
-    VALIDATION_SERVER_ERROR
-        {
-          @Override
-          void activate(@NonNull AdsRemovalPurchaseDialog dialog)
-          {
-            AlertDialog.show(R.string.server_unavailable_title, R.string.server_unavailable_message,
-                             R.string.ok, dialog,
-                             AdsRemovalPurchaseDialog.REQ_CODE_VALIDATION_SERVER_ERROR);
-          }
-        },
     VALIDATION_FINISH
         {
           @Override
