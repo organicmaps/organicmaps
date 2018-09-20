@@ -98,6 +98,6 @@
   <attr name="subwayMenuDisabled" format="reference"/>
   <attr name="accentTextColorSelector" format="color"/>
   <attr name="accentDot" format="reference"/>
-  <attr name="borderedBtnBgDisabled" format="color"/>
   <attr name="bookingFilterTitleColor" format="color"/>
+  <attr name="filterPropertyTextColor" format="color"/>
 </resources>

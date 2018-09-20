@@ -23,11 +23,11 @@
   <color name="black_8">#14000000</color> <!-- 8% black -->
   <color name="black_11">#1C000000</color> <!-- 11% black -->
   <color name="black_12">#1E000000</color> <!-- 12% black -->
+  <color name="black_16">#29000000</color> <!-- 16% black -->
   <color name="black_20">#33000000</color> <!-- 20% black -->
   <color name="black_24">#3D000000</color> <!-- 24% black -->
   <color name="black_38">#61000000</color>  <!-- 38% black -->
   <color name="black_40">#66000000</color>  <!-- 40% black -->
-  <color name="black_56">#8F000000</color>  <!-- 56% black -->
   <color name="black_60">#99000000</color> <!-- 60% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
@@ -36,11 +36,11 @@
   <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
   <color name="white_11">#1CFFFFFF</color> <!-- 11% white -->
   <color name="white_12">#1EFFFFFF</color> <!-- 12% white -->
+  <color name="white_16">#29FFFFFF</color> <!-- 16% white -->
   <color name="white_20">#33FFFFFF</color> <!-- 20% white -->
   <color name="white_24">#3DFFFFFF</color> <!-- 24% white -->
   <color name="white_38">#61FFFFFF</color>  <!-- 38% white -->
   <color name="white_40">#66FFFFFF</color>  <!-- 40% white -->
-  <color name="white_56">#8FFFFFFF</color>  <!-- 56% white -->
   <color name="white_60">#99FFFFFF</color> <!-- 60% white -->
   <color name="warm_gray">#FF999691</color>
   <color name="warm_gray_night">#FF999691</color>

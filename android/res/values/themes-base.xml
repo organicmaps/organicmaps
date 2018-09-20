@@ -18,7 +18,6 @@
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
     <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
-    <item name="borderedBtnBgDisabled">@color/white_40</item>
     <item name="cardFrame">@drawable/card_frame</item>
     <item name="cardBackground">@color/bg_cards</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
@@ -139,6 +138,7 @@
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text</item>
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text</item>
     <item name="accentDot">@drawable/dot</item>
+    <item name="filterPropertyTextColor">@color/filter_date_property_color</item>
   </style>
 
   <!-- Night theme -->
@@ -160,7 +160,6 @@
 
     <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
-    <item name="borderedBtnBgDisabled">@color/black_40</item>
     <item name="cardFrame">@drawable/card_frame_night</item>
     <item name="cardBackground">@color/bg_cards_night</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen.Night</item>
@@ -281,5 +280,6 @@
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_night</item>
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_night</item>
     <item name="accentDot">@drawable/dot_night</item>
+    <item name="filterPropertyTextColor">@color/filter_date_property_color_night</item>
   </style>
 </resources>

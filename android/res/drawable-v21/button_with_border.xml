@@ -2,21 +2,5 @@
 <ripple
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:color="?attr/colorControlHighlight">
-  <item>
-    <selector>
-      <item android:state_enabled="true">
-        <shape android:shape="rectangle">
-          <solid android:color="?cardBackground"/>
-          <stroke android:width="@dimen/divider_height" android:color="?dividerHorizontal"/>
-        </shape>
-      </item>
-
-      <item android:state_enabled="false">
-        <shape android:shape="rectangle">
-          <solid android:color="?borderedBtnBgDisabled"/>
-          <stroke android:width="@dimen/divider_height" android:color="?dividerHorizontal"/>
-        </shape>
-      </item>
-    </selector>
-  </item>
+  <item android:drawable="@drawable/button_with_border_internal"/>
 </ripple>

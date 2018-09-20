@@ -248,10 +248,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
   {
     mCheckIn = root.findViewById(R.id.checkIn);
     mCheckIn.setOnClickListener(v -> onCheckInClicked());
-    mCheckInTitle = root.findViewById(R.id.checkIn_title);
+    mCheckInTitle = root.findViewById(R.id.checkin_title);
     mCheckOut = root.findViewById(R.id.checkOut);
     mCheckOut.setOnClickListener(v -> onCheckOutClicked());
-    mCheckOutTitle = root.findViewById(R.id.checkOut_title);
+    mCheckOutTitle = root.findViewById(R.id.checkout_title);
 
 
     mOfflineWarning = root.findViewById(R.id.offlineWarning);

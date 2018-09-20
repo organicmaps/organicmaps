@@ -67,7 +67,7 @@
           android:gravity="start"
           android:layout_height="wrap_content">
           <TextView
-            android:id="@+id/checkIn_title"
+            android:id="@+id/checkin_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_half"
@@ -91,7 +91,7 @@
           android:gravity="start"
           android:layout_height="wrap_content">
           <TextView
-            android:id="@+id/checkOut_title"
+            android:id="@+id/checkout_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_half"

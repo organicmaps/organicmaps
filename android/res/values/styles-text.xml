@@ -233,6 +233,7 @@
     <item name="android:paddingTop">@dimen/margin_half_plus_eight</item>
     <item name="android:paddingBottom">@dimen/margin_half_plus_eight</item>
     <item name="android:gravity">start|center_vertical</item>
+    <item name="android:textColor">?attr/filterPropertyTextColor</item>
     <item name="android:background">?filterPropertyBackground</item>
   </style>
 </resources>
