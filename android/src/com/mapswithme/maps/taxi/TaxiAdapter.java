@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 
 import java.util.List;
 
@@ -51,12 +50,9 @@ public class TaxiAdapter extends PagerAdapter
 
     View v = LayoutInflater.from(mContext).inflate(R.layout.taxi_pager_item, container, false);
     TextView name = (TextView) v.findViewById(R.id.product_name);
-    String separator;
-    // We ignore all Yandex.Taxi product names until they do support of passing product parameters
-    // to their app via deeplink.
-    boolean isApproxPrice = mType.isApproximatePrice();
+    boolean isApproxPrice = mType.isPriceApproximated();
     name.setText(isApproxPrice ? mContext.getString(mType.getTitle()) : product.getName());
-    separator = UiUtils.PHRASE_SEPARATOR  + (isApproxPrice ? UiUtils.APPROXIMATE_SYMBOL : "");
+    String separator = UiUtils.PHRASE_SEPARATOR + (isApproxPrice ? UiUtils.APPROXIMATE_SYMBOL : "");
     TextView timeAndPriceView = (TextView) v.findViewById(R.id.arrival_time_price);
     int time = Integer.parseInt(product.getTime());
     CharSequence waitTime = RoutingController.formatRoutingTime(mContext, time,
