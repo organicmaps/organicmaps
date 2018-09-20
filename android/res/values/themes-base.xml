@@ -136,6 +136,7 @@
     <item name="tipsBgColor">@color/tips_and_triks_bg_night</item>
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text</item>
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text</item>
+    <item name="accentDot">@drawable/dot</item>
   </style>
 
   <!-- Night theme -->
@@ -275,5 +276,6 @@
     <item name="tipsBgColor">@color/tips_and_triks_bg</item>
     <item name="tipsPrimaryTextColor">@color/tips_and_triks_primary_text_night</item>
     <item name="tipsSecondaryTextColor">@color/tips_and_triks_secondary_text_night</item>
+    <item name="accentDot">@drawable/dot_night</item>
   </style>
 </resources>

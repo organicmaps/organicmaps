@@ -1,8 +1,10 @@
 package com.mapswithme.maps.purchase;
 
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -24,8 +26,9 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          View view = AdsRemovalPaymentState.getDialogViewOrThrow(dialog);
-          UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
+          View view = getDialogViewOrThrow(dialog);
+          UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container, R.id.explanation,
+                       R.id.explanation_items);
           View progressLayout = view.findViewById(R.id.progress_layout);
           TextView message = progressLayout.findViewById(R.id.message);
           message.setText(R.string.purchase_loading);
@@ -38,11 +41,13 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          View view = AdsRemovalPaymentState.getDialogViewOrThrow(dialog);
-          UiUtils.hide(view, R.id.progress_layout);
-          UiUtils.show(view, R.id.title, R.id.image, R.id.pay_button_container);
+          View view = getDialogViewOrThrow(dialog);
+          UiUtils.hide(view, R.id.progress_layout, R.id.explanation_items);
+          UiUtils.show(view, R.id.title, R.id.image, R.id.pay_button_container, R.id.explanation);
           TextView title = view.findViewById(R.id.title);
           title.setText(R.string.remove_ads_title);
+          View image = view.findViewById(R.id.image);
+          alignPayButtonBelow(view, image == null ? R.id.title : R.id.image);
           dialog.updateYearlyButton();
         }
       },
@@ -51,7 +56,13 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-
+          View view = getDialogViewOrThrow(dialog);
+          UiUtils.hide(view, R.id.image, R.id.explanation, R.id.progress_layout);
+          UiUtils.show(view, R.id.title, R.id.explanation_items, R.id.pay_button_container);
+          TextView title = view.findViewById(R.id.title);
+          title.setText(R.string.why_support);
+          alignPayButtonBelow(view, R.id.explanation_items);
+          dialog.updateYearlyButton();
         }
       },
   VALIDATION
@@ -59,8 +70,9 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          View view = AdsRemovalPaymentState.getDialogViewOrThrow(dialog);
-          UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container);
+          View view = getDialogViewOrThrow(dialog);
+          UiUtils.hide(view, R.id.title, R.id.image, R.id.pay_button_container, R.id.explanation,
+                       R.id.explanation_items);
           View progressLayout = view.findViewById(R.id.progress_layout);
           TextView message = progressLayout.findViewById(R.id.message);
           message.setText(R.string.please_wait);
@@ -104,6 +116,13 @@ enum AdsRemovalPaymentState
             dialog.dismissAllowingStateLoss();
           }
         };
+
+  private static void alignPayButtonBelow(@NonNull View view, @IdRes int anchor)
+  {
+    View payButton = view.findViewById(R.id.pay_button_container);
+    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) payButton.getLayoutParams();
+    params.addRule(RelativeLayout.BELOW, anchor);
+  }
 
   @NonNull
   private static View getDialogViewOrThrow(@NonNull DialogFragment dialog)

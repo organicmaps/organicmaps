@@ -22,6 +22,13 @@
       android:textAppearance="@style/MwmTextAppearance.Title"
       android:visibility="invisible"
       tools:visibility="visible"/>
+    <include
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/title"
+      android:layout_marginTop="@dimen/margin_base"
+      layout="@layout/ads_removal_explanation_items"/>
     <ImageView
       android:id="@+id/image"
       android:layout_centerHorizontal="true"
@@ -45,5 +52,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"/>
+    <include layout="@layout/ads_removal_explanation_button"/>
   </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -70,6 +70,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     View view = inflater.inflate(R.layout.fragment_ads_removal_purchase_dialog, container, false);
     mPayButtonContainer = view.findViewById(R.id.pay_button_container);
     mPayButtonContainer.setOnClickListener(v -> onYearlyProductClicked());
+    view.findViewById(R.id.explanation).setOnClickListener(v -> onExplanationClick());
     return view;
   }
 
@@ -117,6 +118,11 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     ProductDetails details = getProductDetailsForPeriod(Period.P1Y);
     mController.launchPurchaseFlow(details.getProductId());
+  }
+
+  void onExplanationClick()
+  {
+    activateState(AdsRemovalPaymentState.EXPLANATION);
   }
 
   private void activateState(@NonNull AdsRemovalPaymentState state)

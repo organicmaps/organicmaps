@@ -23,16 +23,29 @@
       android:visibility="invisible"
       tools:visibility="visible"/>
     <include
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@id/title"
+      android:layout_marginTop="@dimen/margin_base"
+      layout="@layout/ads_removal_explanation_items"/>
+    <include
       layout="@layout/ads_removal_pay_button_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
       android:layout_below="@id/title"
-      android:layout_marginTop="@dimen/margin_double_plus"/>
+      android:layout_marginTop="@dimen/margin_base_plus"/>
     <include
       layout="@layout/ads_removal_progress_container"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"/>
+    <include
+      layout="@layout/ads_removal_progress_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"/>
+    <include layout="@layout/ads_removal_explanation_button"/>
   </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

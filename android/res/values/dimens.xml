@@ -255,4 +255,5 @@
   <!-- Purchases-->
   <dimen name="ads_removal_dialog_min_height">508dp</dimen>
   <dimen name="ads_removal_pay_button_min_width">252dp</dimen>
+  <dimen name="dot_size">6dp</dimen>
 </resources>

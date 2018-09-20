@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/explanation_items"
+  android:orientation="vertical"
+  android:gravity="start"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  tools:showIn="@layout/fragment_ads_removal_purchase_dialog">
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawableLeft="?attr/accentDot"
+    android:drawableStart="?attr/accentDot"
+    android:drawablePadding="@dimen/margin_half"
+    android:text="@string/why_support_item1"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"/>
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:drawableLeft="?attr/accentDot"
+    android:drawableStart="?attr/accentDot"
+    android:drawablePadding="@dimen/margin_half"
+    android:text="@string/why_support_item2"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"/>
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:drawableLeft="?attr/accentDot"
+    android:drawableStart="?attr/accentDot"
+    android:drawablePadding="@dimen/margin_half"
+    android:text="@string/why_support_item3"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"/>
+</LinearLayout>
