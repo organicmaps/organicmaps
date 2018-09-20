@@ -45,7 +45,7 @@ public:
   // types corresponding to these names. The language must have been added before.
   // If |lang| is not supported, "en" is used.
   // The returned list is sorted.
-  TypeNames const & GetAllCategoryNames() const;
+  TypeNames const & GetAllCreatableTypeNames() const;
 
 private:
   indexer::CategoriesIndex m_index;

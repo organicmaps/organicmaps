@@ -75,7 +75,7 @@ NewFeatureCategories::TypeNames NewFeatureCategories::Search(string const & quer
   return result;
 }
 
-NewFeatureCategories::TypeNames const & NewFeatureCategories::GetAllCategoryNames() const
+NewFeatureCategories::TypeNames const & NewFeatureCategories::GetAllCreatableTypeNames() const
 {
   return m_types;
 }

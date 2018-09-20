@@ -1,9 +1,9 @@
 #include <jni.h>
 
-#include "platform/localization.hpp"
-
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/core/ScopedLocalRef.hpp"
+
+#include "platform/localization.hpp"
 
 #include <string>
 

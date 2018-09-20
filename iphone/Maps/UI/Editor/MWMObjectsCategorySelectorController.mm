@@ -74,7 +74,7 @@ string locale()
 
 - (void)setSelectedCategory:(string const &)category
 {
-  auto const & all = m_categories.GetAllCategoryNames(locale());
+  auto const & all = m_categories.GetAllCreatableTypeNames();
   auto const it = find_if(
       all.begin(), all.end(),
       [&category](NewFeatureCategories::TName const & name) { return name.first == category; });
@@ -209,7 +209,7 @@ string locale()
 {
   if (self.isSearch)
     return m_filteredCategories;
-  return m_categories.GetAllCategoryNames(locale());
+  return m_categories.GetAllCreatableTypeNames();
   // TODO(Vlad): Uncoment this line when we will be ready to show recent categories
   //    if (m_categories.m_lastUsed.empty())
   //      return m_categories.m_allSorted;

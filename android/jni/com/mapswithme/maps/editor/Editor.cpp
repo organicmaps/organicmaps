@@ -459,7 +459,7 @@ Java_com_mapswithme_maps_editor_Editor_nativeGetAllCreatableFeatureTypes(JNIEnv 
 {
   std::string const & lang = jni::ToNativeString(env, jLang);
   GetFeatureCategories().AddLanguage(lang);
-  return jni::ToJavaStringArray(env, GetFeatureCategories().GetAllCategoryNames());
+  return jni::ToJavaStringArray(env, GetFeatureCategories().GetAllCreatableTypeNames());
 }
 
 JNIEXPORT jobjectArray JNICALL

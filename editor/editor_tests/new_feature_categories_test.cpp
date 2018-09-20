@@ -31,7 +31,7 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
     if (find(disabled.begin(), disabled.end(), lang) != disabled.end())
       continue;
     categories.AddLanguage(lang);
-    auto names = categories.GetAllCategoryNames();
+    auto names = categories.GetAllCreatableTypeNames();
 
     auto result = std::unique(names.begin(), names.end());
 

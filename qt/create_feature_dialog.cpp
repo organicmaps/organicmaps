@@ -16,10 +16,10 @@ CreateFeatureDialog::CreateFeatureDialog(QWidget * parent, osm::NewFeatureCatego
 
   QListWidget * allSortedList = new QListWidget();
 
-  auto const & categories = cats.GetAllCategoryNames();
-  for (auto const & entry : categories)
+  auto const & typeNames = cats.GetAllCreatableTypeNames();
+  for (auto const & name : typeNames)
   {
-    new QListWidgetItem(entry.c_str() /* name */, allSortedList);
+    new QListWidgetItem(name.c_str() /* name */, allSortedList);
   }
   connect(allSortedList, SIGNAL(clicked(QModelIndex const &)), this,
           SLOT(OnListItemSelected(QModelIndex const &)));
