@@ -15,3 +15,10 @@ amenity=swimming_pool : leisure=swimming_pool
 building=garages : building=garage
 amenity=gym : leisure=fitness_centre
 amenity=sauna : leisure=sauna
+
+diet:vegetarian=yes : cuisine=vegetarian
+diet:vegetarian=only : cuisine=vegetarian
+diet=vegetarian : cuisine=vegetarian
+diet:vegan=yes : cuisine=vegan
+diet:vegan=only : cuisine=vegan
+diet=vegan : cuisine=vegan
