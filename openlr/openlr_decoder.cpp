@@ -24,6 +24,8 @@
 
 #include "platform/country_file.hpp"
 
+#include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
@@ -100,9 +102,11 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
     return;
 
   Graph::EdgeVector edges;
+  bool startIsFake = true;
   if (IsRealVertex(edgeIt->GetStartPoint(), edgeIt->GetFeatureId(), dataSource))
   {
     g.GetRegularOutgoingEdges(edgeIt->GetStartJunction(), edges);
+    startIsFake = false;
   }
   else
   {
@@ -112,11 +116,30 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
 
   CHECK(!edges.empty(), ());
 
-  auto const it = find_if(begin(edges), end(edges), [&edgeIt](Graph::Edge const & real) {
+  auto it = find_if(begin(edges), end(edges), [&edgeIt](Graph::Edge const & real) {
       if (real.GetFeatureId() == edgeIt->GetFeatureId() && real.GetSegId() == edgeIt->GetSegId())
         return true;
       return false;
     });
+
+  // For features which cross mwm border FeatureIds may not match. Check geometry.
+  if (it == end(edges))
+  {
+    it = find_if(begin(edges), end(edges), [&edgeIt, &startIsFake](Graph::Edge const & real) {
+      // Features from the same mwm should be already matched.
+      if (real.GetFeatureId().m_mwmId == edgeIt->GetFeatureId().m_mwmId)
+        return false;
+
+      auto const fakePoint = startIsFake ? edgeIt->GetStartPoint() : edgeIt->GetEndPoint();
+      m2::ParametrizedSegment<m2::PointD> const realGeometry(real.GetStartPoint(), real.GetEndPoint());
+      auto const projectedPoint = realGeometry.ClosestPointTo(fakePoint);
+
+      auto constexpr kCrossMwmMatchDistanceM = 1.0;
+      if (MercatorBounds::DistanceOnEarth(fakePoint, projectedPoint) < kCrossMwmMatchDistanceM)
+        return true;
+      return false;
+    });
+  }
 
   CHECK(it != end(edges), ());
 
