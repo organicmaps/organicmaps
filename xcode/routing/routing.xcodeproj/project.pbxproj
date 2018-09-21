@@ -84,8 +84,6 @@
 		44E5574C2136EED000B01439 /* speed_camera_ser_des.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */; };
 		44EB88C4214007AD004E2863 /* speed_camera_notification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */; };
 		44F45B282136B069001B1618 /* speed_cameras_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44F45B272136B069001B1618 /* speed_cameras_tests.cpp */; };
-		56085C3C21413222004159B4 /* city_roads_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56085C3A21413221004159B4 /* city_roads_loader.cpp */; };
-		56085C3D21413222004159B4 /* city_roads_loader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56085C3B21413222004159B4 /* city_roads_loader.hpp */; };
 		56099E291CC7C97D00A7772A /* loaded_path_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */; };
 		56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E261CC7C97D00A7772A /* routing_result_graph.hpp */; };
 		56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56099E271CC7C97D00A7772A /* turn_candidate.hpp */; };
@@ -106,6 +104,8 @@
 		567E9F7D1F5852C00064CB96 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F7C1F5852C00064CB96 /* libicu.a */; };
 		567E9F7F1F58530D0064CB96 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F7E1F58530D0064CB96 /* librouting_common.a */; };
 		567E9F811F5853370064CB96 /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567E9F801F5853370064CB96 /* libtraffic.a */; };
+		567F81942154D6FF0093C25B /* city_roads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 567F81922154D6FF0093C25B /* city_roads.cpp */; };
+		567F81952154D6FF0093C25B /* city_roads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 567F81932154D6FF0093C25B /* city_roads.hpp */; };
 		568194751F03A32400450EC3 /* road_access_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194731F03A32400450EC3 /* road_access_test.cpp */; };
 		568194761F03A32400450EC3 /* routing_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 568194741F03A32400450EC3 /* routing_helpers_tests.cpp */; };
 		5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */; };
@@ -368,8 +368,6 @@
 		44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_ser_des.cpp; sourceTree = "<group>"; };
 		44EB88C2214007A9004E2863 /* speed_camera_notification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_notification.cpp; sourceTree = "<group>"; };
 		44F45B272136B069001B1618 /* speed_cameras_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_cameras_tests.cpp; sourceTree = "<group>"; };
-		56085C3A21413221004159B4 /* city_roads_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city_roads_loader.cpp; sourceTree = "<group>"; };
-		56085C3B21413222004159B4 /* city_roads_loader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_roads_loader.hpp; sourceTree = "<group>"; };
 		56099E251CC7C97D00A7772A /* loaded_path_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = loaded_path_segment.hpp; sourceTree = "<group>"; };
 		56099E261CC7C97D00A7772A /* routing_result_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_result_graph.hpp; sourceTree = "<group>"; };
 		56099E271CC7C97D00A7772A /* turn_candidate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = turn_candidate.hpp; sourceTree = "<group>"; };
@@ -394,6 +392,8 @@
 		567E9F7C1F5852C00064CB96 /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = ../icu/build/Debug/libicu.a; sourceTree = "<group>"; };
 		567E9F7E1F58530D0064CB96 /* librouting_common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting_common.a; path = ../routing_common/build/Debug/librouting_common.a; sourceTree = "<group>"; };
 		567E9F801F5853370064CB96 /* libtraffic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtraffic.a; path = ../traffic/build/Debug/libtraffic.a; sourceTree = "<group>"; };
+		567F81922154D6FF0093C25B /* city_roads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = city_roads.cpp; path = ../../routing/city_roads.cpp; sourceTree = "<group>"; };
+		567F81932154D6FF0093C25B /* city_roads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = city_roads.hpp; path = ../../routing/city_roads.hpp; sourceTree = "<group>"; };
 		568194731F03A32400450EC3 /* road_access_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_test.cpp; sourceTree = "<group>"; };
 		568194741F03A32400450EC3 /* routing_helpers_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers_tests.cpp; sourceTree = "<group>"; };
 		5694CEC51EBA25F7004576D3 /* road_access_serialization.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_serialization.cpp; sourceTree = "<group>"; };
@@ -762,6 +762,8 @@
 		675343EF1A3F640D00A0A8C3 = {
 			isa = PBXGroup;
 			children = (
+				567F81922154D6FF0093C25B /* city_roads.cpp */,
+				567F81932154D6FF0093C25B /* city_roads.hpp */,
 				34F558351DBF2A2600A4FC11 /* common-debug.xcconfig */,
 				34F558361DBF2A2600A4FC11 /* common-release.xcconfig */,
 				6742AD251C68A923009CB89E /* libs */,
@@ -792,8 +794,6 @@
 				44AE4A10214FBB8D006321F5 /* speed_camera.cpp */,
 				44AE4A11214FBB8D006321F5 /* speed_camera.hpp */,
 				56473D72214825B4007E6FBA /* city_roads_serialization.hpp */,
-				56085C3A21413221004159B4 /* city_roads_loader.cpp */,
-				56085C3B21413222004159B4 /* city_roads_loader.hpp */,
 				44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */,
 				44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */,
 				562BDE1F20D14860008EFF6F /* routing_callbacks.hpp */,
@@ -947,7 +947,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C5FEC631DDE192A0017688C /* joint_index.hpp in Headers */,
-				56085C3D21413222004159B4 /* city_roads_loader.hpp in Headers */,
 				67C79BA21E2CEE1400C40034 /* restriction_loader.hpp in Headers */,
 				674F9BCB1B0A580E00704FFA /* async_router.hpp in Headers */,
 				0C08AA391DF8329B004195DD /* routing_exceptions.hpp in Headers */,
@@ -1014,6 +1013,7 @@
 				0C62BFE61E8ADC3100055A79 /* coding.hpp in Headers */,
 				674F9BD51B0A580E00704FFA /* road_graph.hpp in Headers */,
 				562BDE2020D14860008EFF6F /* routing_callbacks.hpp in Headers */,
+				567F81952154D6FF0093C25B /* city_roads.hpp in Headers */,
 				0C5FEC6B1DDE193F0017688C /* road_point.hpp in Headers */,
 				56099E2B1CC7C97D00A7772A /* turn_candidate.hpp in Headers */,
 				405F48DC1F6AD01C005BA81A /* routing_result.hpp in Headers */,
@@ -1247,6 +1247,7 @@
 				0C0DF9211DE898B70055A22F /* index_graph_starter.cpp in Sources */,
 				56C439281E93BF8C00998E29 /* cross_mwm_graph.cpp in Sources */,
 				670EE5731B664796001E8064 /* pedestrian_directions.cpp in Sources */,
+				567F81942154D6FF0093C25B /* city_roads.cpp in Sources */,
 				6753441B1A3F644F00A0A8C3 /* route.cpp in Sources */,
 				44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */,
 				674F9BCA1B0A580E00704FFA /* async_router.cpp in Sources */,
@@ -1265,7 +1266,6 @@
 				671F58BD1B874EC80032311E /* followed_polyline.cpp in Sources */,
 				670EE55D1B6001E7001E8064 /* routing_session.cpp in Sources */,
 				40C645161F8D167F002E05A0 /* fake_ending.cpp in Sources */,
-				56085C3C21413222004159B4 /* city_roads_loader.cpp in Sources */,
 				56099E331CC9247E00A7772A /* bicycle_directions.cpp in Sources */,
 				0C08AA341DF83223004195DD /* index_graph_serialization.cpp in Sources */,
 				5694CECA1EBA25F7004576D3 /* road_access_serialization.cpp in Sources */,
