@@ -1194,7 +1194,7 @@
 	<string name="expertise">專業</string>
 	<string name="equipment">設備</string>
 	<string name="quality">品質</string>
-	<string name="whats_new_ugc_title">評分與評論</string>
+	<string name="whats_new_ugc_title_updated_v840">評分與評論</string>
 	<string name="whats_new_ugc_message">現在即使離線，您也能留下評分和評論！別忘了更新地圖，才能看到變更。</string>
 	<string name="dialog_error_storage_title">儲存空間存取問題</string>
 	<string name="dialog_error_storage_message">外部儲存空間不可用，很可能是因為 SD 卡已移除、毀損，或檔案系統處於唯讀狀態。請進行檢查，然後以 support\@maps.me 方式聯繫我們</string>

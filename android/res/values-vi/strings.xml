@@ -1184,7 +1184,7 @@
 	<string name="expertise">Chuyên môn</string>
 	<string name="equipment">Thiết bị</string>
 	<string name="quality">Chất lượng</string>
-	<string name="whats_new_ugc_title">Điểm và đánh giá</string>
+	<string name="whats_new_ugc_title_updated_v840">Điểm và đánh giá</string>
 	<string name="whats_new_ugc_message">Giờ đây bạn có thể để lại điểm và đánh giá kể cả khi ngoại tuyến! Đừng quên cập nhật bản đồ của bạn để có thể thấy các thay đổi.</string>
 	<string name="dialog_error_storage_title">Vấn đề truy cập ổ lưu trữ</string>
 	<string name="dialog_error_storage_message">Ổ lưu trữ bên ngoài không khả dụng, có thể Thẻ SD đã bị tháo, bị hỏng hoặc hệ thống tập tin được thiết lập chỉ đọc. Hãy kiểm tra và liên hệ với chúng tôi qua support\@maps.me</string>

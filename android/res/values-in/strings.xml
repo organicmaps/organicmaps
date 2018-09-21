@@ -1183,7 +1183,7 @@
 	<string name="expertise">Keahlian</string>
 	<string name="equipment">Perlengkapan</string>
 	<string name="quality">Mutu</string>
-	<string name="whats_new_ugc_title">Peringkat dan ulasan</string>
+	<string name="whats_new_ugc_title_updated_v840">Peringkat dan ulasan</string>
 	<string name="whats_new_ugc_message">Kini Anda bisa memberikan peringkat dan ulasan, meskipun tanpa internet! Jangan lupa untuk memperbarui peta Anda agar dapat melihat perubahannya.</string>
 	<string name="dialog_error_storage_title">Masalah akses penyimpanan</string>
 	<string name="dialog_error_storage_message">Penyimpanan eksternal tidak tersedia, mungkin Kartu SD sudah dilepaskan, rusak, atau sistem berkasnya hanya dapat dibaca. Silakan periksa dan beri tahu kami di alamat support\@ maps.me</string>

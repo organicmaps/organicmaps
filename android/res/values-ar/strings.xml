@@ -1190,7 +1190,7 @@
 	<string name="expertise">الخبرة</string>
 	<string name="equipment">المعدات</string>
 	<string name="quality">الجودة</string>
-	<string name="whats_new_ugc_title">التقييمات والمراجعات</string>
+	<string name="whats_new_ugc_title_updated_v840">التقييمات والمراجعات</string>
 	<string name="whats_new_ugc_message">يمكنك الآن ترك تقييمات ومراجعات حتى عندما تكون بدون اتصال! لا تنس تحديث خرائطك لكي تتمكن من رؤية التغييرات.</string>
 	<string name="dialog_error_storage_title">مشكلة الوصول للتخزين</string>
 	<string name="dialog_error_storage_message">التخزين الخارجي غير متوفر، ربما تمت إزالة بطاقة SD، أو أنها تالفة أو ملف النظام للقراءة فقط. افحصه واتصل بنا على support\@maps.me</string>

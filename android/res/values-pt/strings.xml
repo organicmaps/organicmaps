@@ -1187,7 +1187,7 @@
 	<string name="expertise">Especialidade</string>
 	<string name="equipment">Equipamento</string>
 	<string name="quality">Qualidade</string>
-	<string name="whats_new_ugc_title">Classificações e avaliações</string>
+	<string name="whats_new_ugc_title_updated_v840">Classificações e avaliações</string>
 	<string name="whats_new_ugc_message">Agora pode efetuar classificações e avaliações mesmo estando offline! Não se esqueça de atualizar os seus mapas para que possa ver as alterações.</string>
 	<string name="dialog_error_storage_title">Problema de acesso ao armazenamento</string>
 	<string name="dialog_error_storage_message">Armazenamento externo não disponível. Provavelmente porque o Cartão SD foi removido, danificado ou o sistema de ficheiros é apenas para leitura. Verifique e entre em contacto conosco através do email support\@maps.me</string>

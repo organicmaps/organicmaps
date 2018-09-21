@@ -1190,7 +1190,7 @@
 	<string name="expertise">ความเชี่ยวชาญ</string>
 	<string name="equipment">อุปกรณ์</string>
 	<string name="quality">คุณภาพ</string>
-	<string name="whats_new_ugc_title">อันดับคะแนนและรีวิว</string>
+	<string name="whats_new_ugc_title_updated_v840">อันดับคะแนนและรีวิว</string>
 	<string name="whats_new_ugc_message">ขณะนี้คุณสามารถให้คะแนนและรีวิวได้แม้กระทั่งออฟไลน์อยู่! อย่าลืมอัปเดตแผนที่ของคุณเพื่อจะได้เห็นการเปลี่ยนแปลง</string>
 	<string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
 	<string name="dialog_error_storage_message">ที่เก็บข้อมูลภายนอกไม่พร้อมใช้งาน อาจเป็นเพราะการ์ด SD ถูกถอดออกไป ได้รับความเสียหาย หรือระบบไฟล์ให้เขียนได้อย่างเดียว กรุณาตรวจสอบและติดต่อเราได้ที่ support\@maps.me</string>

@@ -1227,7 +1227,7 @@
 	<string name="expertise">Expertise</string>
 	<string name="equipment">Equipment</string>
 	<string name="quality">Quality</string>
-	<string name="whats_new_ugc_title">Ratings and reviews</string>
+	<string name="whats_new_ugc_title_updated_v840">Ratings and reviews</string>
 	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
 	<string name="dialog_error_storage_message">External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support\@maps.me</string>

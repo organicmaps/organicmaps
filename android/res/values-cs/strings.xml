@@ -1191,7 +1191,7 @@
 	<string name="expertise">Odborné znalosti</string>
 	<string name="equipment">Vybavení</string>
 	<string name="quality">Kvalita</string>
-	<string name="whats_new_ugc_title">Hodnocení a recenze</string>
+	<string name="whats_new_ugc_title_updated_v840">Hodnocení a recenze</string>
 	<string name="whats_new_ugc_message">Hodnocení a recenze nyní můžete zanechat i offline! Nezapomeňte si aktualizovat své mapy, abyste viděli změny.</string>
 	<string name="dialog_error_storage_title">Problém s přístupem k úložišti</string>
 	<string name="dialog_error_storage_message">Externí úložiště není k dispozici, pravděpodobně byla vyjmuta nebo poškozena SD karta, nebo je systém souborů pouze pro čtení. Zkontrolujte to prosím a kontaktujte nás na support\@maps.me</string>

@@ -1184,7 +1184,7 @@
 	<string name="expertise">Asiantuntemus</string>
 	<string name="equipment">Laitteet</string>
 	<string name="quality">Laatu</string>
-	<string name="whats_new_ugc_title">Arviot ja arvostelut</string>
+	<string name="whats_new_ugc_title_updated_v840">Arviot ja arvostelut</string>
 	<string name="whats_new_ugc_message">Nyt voit jättää arvioita ja arvosteluja myös offline-tilassa! Älä unohda päivittää karttojasi, jotta näet muutokset.</string>
 	<string name="dialog_error_storage_title">Ongelma tallennustilan käyttämisessä</string>
 	<string name="dialog_error_storage_message">Ulkoinen tallennustila ei ole käytettävissä, SD-kortti on luultavasti poistettu tai vahingoittunut tai tiedostojärjestelmä on vain luku -tilassa. Tarkista ja ota yhteyttä osoitteeseen support\@maps.me</string>

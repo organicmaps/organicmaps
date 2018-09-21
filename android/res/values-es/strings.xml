@@ -1177,7 +1177,7 @@
 	<string name="expertise">Conocimiento</string>
 	<string name="equipment">Equipamiento</string>
 	<string name="quality">Calidad</string>
-	<string name="whats_new_ugc_title">Calificaciones y opiniones</string>
+	<string name="whats_new_ugc_title_updated_v840">Calificaciones y opiniones</string>
 	<string name="whats_new_ugc_message">Ahora puede dejar calificaciones y opiniones incluso sin conexión. No se olvide de actualizar los mapas para ver los cambios.</string>
 	<string name="dialog_error_storage_title">Problema de acceso al almacenamiento</string>
 	<string name="dialog_error_storage_message">El almacenamiento externo no está disponible; puede que se haya quitado o dañado la tarjeta SD, o el sistema de archivos solo permite lectura. Por favor, compruébelo y escríbanos a support\@maps.me</string>

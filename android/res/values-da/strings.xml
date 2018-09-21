@@ -1188,7 +1188,7 @@
 	<string name="expertise">Ekspertise</string>
 	<string name="equipment">Udstyr</string>
 	<string name="quality">Kvalitet</string>
-	<string name="whats_new_ugc_title">Vurderinger og anmeldelser</string>
+	<string name="whats_new_ugc_title_updated_v840">Vurderinger og anmeldelser</string>
 	<string name="whats_new_ugc_message">Du kan nu afgive vurderinger og anmeldelser, selv offline! Glem ikke at opdatere dit kort, så du kan se ændringerne.</string>
 	<string name="dialog_error_storage_title">Problem med lageradgang</string>
 	<string name="dialog_error_storage_message">Eksternt lager er ikke tilgængeligt, formentlig er SD-kortet blevet fjernet eller beskadiget, eller filsystemet er skrivebeskyttet. Kontroller det og kontakt os på support\@maps.me</string>

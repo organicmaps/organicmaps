@@ -948,7 +948,7 @@
 	<string name="expertise">Τεχνογνωσία</string>
 	<string name="equipment">Εξοπλισμός</string>
 	<string name="quality">Ποιότητα</string>
-	<string name="whats_new_ugc_title">Βαθμολογίες και κριτικές</string>
+	<string name="whats_new_ugc_title_updated_v840">Βαθμολογίες και κριτικές</string>
 	<string name="whats_new_ugc_message">Μπορείτε πλέον να αφήσετε βαθμολογίεςς και κριτικές ακόμα και όταν δεν είστε συνδεδεμένοι! Μην ξεχάσετε να ενημερώσετε τους χάρτες σας για να μπορείτε να δείτε τις αλλαγές.</string>
 	<string name="dialog_error_storage_title">Πρόβλημα πρόσβασης στον αποθηκευτικό χώρο</string>
 	<string name="dialog_error_storage_message">Ο εξωτερικός απθηκευτικός χώρος δεν είναι διαθέσιμος, πιθανότατα έχει αφαιρεθεί η κάρτα SD, είναι κατεστραμμένη ή το σύστημα αρχείων είναι μόνο για ανάγνωση. Ελέγξτε το και επικοινωνήστε μαζί μας στη διεύθυνση support\@maps.me</string>

@@ -1188,7 +1188,7 @@
 	<string name="expertise">Expertis</string>
 	<string name="equipment">Utrustning</string>
 	<string name="quality">Kvalitet</string>
-	<string name="whats_new_ugc_title">Betyg och omdömen</string>
+	<string name="whats_new_ugc_title_updated_v840">Betyg och omdömen</string>
 	<string name="whats_new_ugc_message">Nu kan du betygsätta och lämna omdömen offline! Glöm inte att uppdatera dina kartor så att du kan se ändringarna.</string>
 	<string name="dialog_error_storage_title">Lagringsåtkomstproblem</string>
 	<string name="dialog_error_storage_message">Extern lagring är inte tillgänglig. SD-kortet är borttaget, skadat eller så är filsystemet är skrivskyddat. Kontrollera det och kontakta oss på support\@maps.me</string>

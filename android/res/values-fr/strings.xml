@@ -1197,7 +1197,7 @@
 	<string name="expertise">Expertise</string>
 	<string name="equipment">Équipement</string>
 	<string name="quality">Qualité</string>
-	<string name="whats_new_ugc_title">Notes et revues</string>
+	<string name="whats_new_ugc_title_updated_v840">Notes et revues</string>
 	<string name="whats_new_ugc_message">Vous pouvez maintenant publier des évaluations et des avis même en étant hors ligne ! N\'oubliez pas de mettre vos cartes à jour pour voir les modifications.</string>
 	<string name="dialog_error_storage_title">Problème d\'accès au stockage</string>
 	<string name="dialog_error_storage_message">Le stockage externe n\'est pas disponible. La carte SD a probablement été enlevée, endommagée ou le système est en lecture seule. Veuillez vérifier et nous contacter via support\@maps.me</string>

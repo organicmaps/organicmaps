@@ -1198,7 +1198,7 @@
 	<string name="expertise">Kompetenz</string>
 	<string name="equipment">Ausstattung</string>
 	<string name="quality">Qualität</string>
-	<string name="whats_new_ugc_title">Bewertungen und Kommentare</string>
+	<string name="whats_new_ugc_title_updated_v840">Bewertungen und Kommentare</string>
 	<string name="whats_new_ugc_message">Sie können jetzt sogar offline Bewertungen und Kommentare abgeben! Vergessen Sie nicht, Ihre Karten zu aktualisieren, damit Sie die Änderungen sehen können.</string>
 	<string name="dialog_error_storage_title">Problem mit dem Zugreifen auf den Speicher</string>
 	<string name="dialog_error_storage_message">Der externe Speicher ist nicht verfügbar, möglicherweise wurde die SD-Karte entfernt oder sie ist beschädigt oder das Dateisystem ist schreibgeschützt. Überprüfen Sie das bitte und kontaktieren Sie uns unter support\@maps.me</string>

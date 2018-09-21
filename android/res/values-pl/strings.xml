@@ -1187,7 +1187,7 @@
 	<string name="expertise">Fachowość</string>
 	<string name="equipment">Wyposażenie</string>
 	<string name="quality">Jakość</string>
-	<string name="whats_new_ugc_title">Oceny i recenzje</string>
+	<string name="whats_new_ugc_title_updated_v840">Oceny i recenzje</string>
 	<string name="whats_new_ugc_message">Możesz od teraz zamieszczać oceny i recenzje offline! Nie zapomnij zaktualizować map, aby zobaczyć wprowadzone zmiany.</string>
 	<string name="dialog_error_storage_title">Problem z dostępem do pamięci masowej</string>
 	<string name="dialog_error_storage_message">Zewnętrzny nośnik pamięci masowej jest niedostępny. Prawdopodobnie usunięto lub uszkodzono kartę SD bądź jej system plików służy tylko do odczytu. Zweryfikuj to i skontaktuj się z nami pod adresem support\@maps.me</string>
