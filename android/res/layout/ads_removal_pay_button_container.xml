@@ -43,12 +43,13 @@
     android:layout_marginTop="@dimen/margin_base"
     android:background="?attr/adsRemovalOptionsBg"
     android:orientation="vertical">
-    <TextView
+    <ToggleButton
       android:id="@+id/options"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:minHeight="@dimen/primary_button_min_height"
-      android:text="@string/options_dropdown_title"
+      android:textOn="@string/options_dropdown_title"
+      android:textOff="@string/options_dropdown_title"
       android:textAppearance="@style/MwmTextAppearance.Body4"
       android:background="?attr/clickableBackground"
       android:gravity="start|center_vertical"

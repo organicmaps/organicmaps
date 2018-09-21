@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.billingclient.api.SkuDetails;
@@ -56,8 +57,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private TextView mWeeklyButton;
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private TextView mOptionsButton;
-  private boolean mOptionsOpened;
+  private CompoundButton mOptionsButton;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -90,7 +91,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mWeeklyButton.setOnClickListener(v -> onWeeklyProductClicked());
     mOptionsButton = payButtonContainer.findViewById(R.id.options);
     mOptionsButton.setCompoundDrawablesWithIntrinsicBounds(null, null, getOptionsToggle(), null);
-    mOptionsButton.setOnClickListener(v -> onOptionsClicked());
+    mOptionsButton.setOnCheckedChangeListener((buttonView, isChecked) -> onOptionsClicked());
     view.findViewById(R.id.explanation).setOnClickListener(v -> onExplanationClick());
     return view;
   }
@@ -119,8 +120,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   @NonNull
   private Drawable getOptionsToggle()
   {
-    return Graphics.tint(getContext(), mOptionsOpened ? R.drawable.ic_expand_less
-                                                      : R.drawable.ic_expand_more,
+    return Graphics.tint(getContext(), mOptionsButton.isChecked() ? R.drawable.ic_expand_less
+                                                                  : R.drawable.ic_expand_more,
                          android.R.attr.textColorSecondary);
   }
 
@@ -160,11 +161,10 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
 
   void onOptionsClicked()
   {
-    mOptionsOpened = !mOptionsOpened;
     mOptionsButton.setCompoundDrawablesWithIntrinsicBounds(null, null, getOptionsToggle(), null);
     View payContainer = getViewOrThrow().findViewById(R.id.pay_button_container);
-    UiUtils.showIf(mOptionsOpened, payContainer, R.id.monthly_button, R.id.monthly_divider,
-                   R.id.weekly_button, R.id.weekly_divider);
+    UiUtils.showIf(mOptionsButton.isChecked(), payContainer, R.id.monthly_button,
+                   R.id.monthly_divider, R.id.weekly_button, R.id.weekly_divider);
   }
 
   private void launchPurchaseFlowForPeriod(@NonNull Period period)
