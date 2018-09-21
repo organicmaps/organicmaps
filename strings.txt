@@ -27945,7 +27945,7 @@ fa = دوباره نپرس
     sk = Kvalita
     sw = Ubora
 
-  [whats_new_ugc_title]
+  [whats_new_ugc_title_updated_v840]
     en = Ratings and reviews
     ru = Оценки и отзывы
     ar = التقييمات والمراجعات
