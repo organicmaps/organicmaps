@@ -25,6 +25,12 @@ public class PrivateVariables
   public static native String adsRemovalServerId();
   @NonNull
   public static native String adsRemovalVendor();
+  @NonNull
+  public static native String adsRemovalYearlyProductId();
+  @NonNull
+  public static native String adsRemovalMonthlyProductId();
+  @NonNull
+  public static native String adsRemovalWeeklyProductId();
   /**
    * @return interval in seconds
    */
