@@ -3,50 +3,34 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whats_new_catalog</item>
-    <item>@drawable/img_whats_new_popular</item>
-    <item>@drawable/img_whats_hot_offers</item>
+    <item>@drawable/img_whats_new_leave_review</item>
   </integer-array>
 
   <string-array name="news_title_keys">
-    <item>whats_new_bookmarks_catalog_title</item>
-    <item>whats_new_popularity_label_title</item>
-    <item>whats_new_hot_offers_title</item>
+    <item>whats_new_ugc_title_updated_v840</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whats_new_bookmarks_catalog_message</item>
-    <item>@string/whats_new_popularity_label_message</item>
-    <item>@string/whats_new_hot_offers_message</item>
+    <item>@string/whats_new_leave_review</item>
   </string-array>
 
   <string-array name="news_messages_2">
-    <item/>
-    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_button_labels">
     <item/>
-    <item/>
-    <item/>
   </string-array>
 
   <string-array name="news_button_links">
-    <item/>
-    <item/>
     <item/>
   </string-array>
 
   <string-array name="news_switch_titles">
     <item/>
-    <item/>
-    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
-    <item/>
-    <item/>
     <item/>
   </string-array>
 </resources>
