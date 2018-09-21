@@ -38,3 +38,5 @@ res/drawable-mdpi/uk_england.png
 res/drawable-mdpi/uk_northern_ireland.png
 res/drawable-mdpi/uk_scotland.png
 res/drawable-mdpi/uk_wales.png
+
+res/xml/network_security_config.xml
