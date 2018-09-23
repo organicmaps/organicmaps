@@ -6,20 +6,16 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.appsflyer.AppsFlyerLib;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
-import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.content.EventLoggerProvider;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -39,21 +35,9 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.mopub.common.MoPub;
-import com.mopub.common.SdkConfiguration;
-import com.my.tracker.MyTracker;
-import com.my.tracker.MyTrackerParams;
-import com.pushwoosh.Pushwoosh;
-import io.fabric.sdk.android.Fabric;
-import ru.mail.libnotify.api.NotificationApi;
-import ru.mail.libnotify.api.NotificationFactory;
-import ru.mail.notify.core.api.BackgroundAwakeMode;
-import ru.mail.notify.core.api.NetworkSyncMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,21 +47,15 @@ public class MwmApplication extends Application
   private Logger mLogger;
   private final static String TAG = "MwmApplication";
 
-  private static final String PW_EMPTY_APP_ID = "XXXXX";
-
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private SubwayManager mSubwayManager;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private PushwooshHelper mPushwooshHelper;
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
-  private boolean mCrashlyticsInitialized;
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
@@ -90,6 +68,10 @@ public class MwmApplication extends Application
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   @NonNull
   private final AppBackgroundTracker.OnTransitionListener mBackgroundListener = new TransitionListener();
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ExternalLibrariesMediator mMediator;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -133,17 +115,6 @@ public class MwmApplication extends Application
     return context.getSharedPreferences(prefFile, MODE_PRIVATE);
   }
 
-  public boolean isCrashlyticsEnabled()
-  {
-    return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
-  }
-
-  private boolean isFabricEnabled()
-  {
-    String prefKey = getResources().getString(R.string.pref_opt_out_fabric_activated);
-    return mPrefs.getBoolean(prefKey, true);
-  }
-
   @Override
   protected void attachBaseContext(Context base)
   {
@@ -161,7 +132,7 @@ public class MwmApplication extends Application
     mMainLoopHandler = new Handler(getMainLooper());
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-    initCoreIndependentSdks();
+    mMediator = new ExternalLibrariesMediator(this);
     initNotificationChannels();
 
     mBackgroundTracker = new AppBackgroundTracker();
@@ -176,25 +147,6 @@ public class MwmApplication extends Application
     NotificationChannelProvider channelProvider = NotificationChannelFactory.createProvider(this);
     channelProvider.setAuthChannel();
     channelProvider.setDownloadingChannel();
-  }
-
-  private void initCoreIndependentSdks()
-  {
-    initMoPub();
-    initCrashlytics();
-    initLibnotify();
-    initPushWoosh();
-    initAppsFlyer();
-    initTracker();
-  }
-
-  private void initMoPub()
-  {
-    SdkConfiguration sdkConfiguration = new SdkConfiguration
-        .Builder(Framework.nativeMoPubInitializationBannerId())
-        .build();
-
-    MoPub.initializeSdk(this, sdkConfiguration, null);
   }
 
   /**
@@ -218,7 +170,7 @@ public class MwmApplication extends Application
     if (mPlatformInitialized)
       return;
 
-    final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
+    final boolean isInstallationIdFound = mMediator.setInstallationIdToCrashlytics();
 
     final String settingsPath = StorageUtils.getSettingsPath();
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
@@ -244,7 +196,7 @@ public class MwmApplication extends Application
     Statistics s = Statistics.INSTANCE;
 
     if (!isInstallationIdFound)
-      setInstallationIdToCrashlytics();
+      mMediator.setInstallationIdToCrashlytics();
 
     mBackgroundTracker.addListener(mBackgroundListener);
     TrackRecorder.init();
@@ -294,44 +246,6 @@ public class MwmApplication extends Application
     nativeAddLocalization("wifi", getString(R.string.wifi));
   }
 
-  public void initCrashlytics()
-  {
-    if (!isCrashlyticsEnabled())
-      return;
-
-    if (isCrashlyticsInitialized())
-      return;
-
-    Crashlytics core = new Crashlytics
-        .Builder()
-        .core(new CrashlyticsCore.Builder().disabled(!isFabricEnabled()).build())
-        .build();
-
-    Fabric.with(this, core, new CrashlyticsNdk());
-    nativeInitCrashlytics();
-    mCrashlyticsInitialized = true;
-  }
-
-  public boolean isCrashlyticsInitialized()
-  {
-    return mCrashlyticsInitialized;
-  }
-
-  private boolean setInstallationIdToCrashlytics()
-  {
-    if (!isCrashlyticsEnabled())
-      return false;
-
-    final String installationId = Utils.getInstallationId();
-    // If installation id is not found this means id was not
-    // generated by alohalytics yet and it is a first run.
-    if (TextUtils.isEmpty(installationId))
-      return false;
-
-    Crashlytics.setString("AlohalyticsInstallationId", installationId);
-    return true;
-  }
-
   public boolean arePlatformAndCoreInitialized()
   {
     return mFrameworkInitialized && mPlatformInitialized;
@@ -340,52 +254,6 @@ public class MwmApplication extends Application
   static
   {
     System.loadLibrary("mapswithme");
-  }
-
-  private void initPushWoosh()
-  {
-    try
-    {
-      if (BuildConfig.PW_APPID.equals(PW_EMPTY_APP_ID))
-        return;
-
-      Pushwoosh pushManager = Pushwoosh.getInstance();
-      pushManager.registerForPushNotifications();
-
-      NotificationApi api = NotificationFactory.get(this);
-      mPushwooshHelper = new PushwooshHelper(api);
-    }
-    catch(Exception e)
-    {
-      mLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
-    }
-  }
-
-  private void initLibnotify()
-  {
-    if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
-    {
-      NotificationFactory.enableDebugMode();
-      NotificationFactory.setLogReceiver(LoggerFactory.INSTANCE.createLibnotifyLogger());
-      NotificationFactory.setUncaughtExceptionListener((thread, throwable) -> {
-        Logger l = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
-        l.e("LIBNOTIFY", "Thread: " + thread, throwable);
-      });
-    }
-    NotificationFactory.setNetworkSyncMode(NetworkSyncMode.WIFI_ONLY);
-    NotificationFactory.setBackgroundAwakeMode(BackgroundAwakeMode.DISABLED);
-    NotificationFactory.initialize(this);
-  }
-
-  private void initAppsFlyer()
-  {
-    // There is no necessary to use a conversion data listener for a while.
-    // When it's needed keep in mind that the core can't be used from the mentioned listener unless
-    // the AppsFlyer sdk initializes after core initialization.
-    AppsFlyerLib.getInstance().init(PrivateVariables.appsFlyerKey(),
-                                    null /* conversionDataListener */);
-    AppsFlyerLib.getInstance().setDebugLog(BuildConfig.DEBUG);
-    AppsFlyerLib.getInstance().startTracking(this);
   }
 
   @SuppressWarnings("unused")
@@ -400,24 +268,13 @@ public class MwmApplication extends Application
   @SuppressWarnings("unused")
   void sendPushWooshTags(String tag, String[] values)
   {
-    try
-    {
-      mPushwooshHelper.sendTags(tag, values);
-    }
-    catch(Exception e)
-    {
-      mLogger.e("Pushwoosh", "Failed to send pushwoosh tags", e);
-    }
+    EventLoggerProvider.from(this).sendTags(tag, values);
   }
 
-  private void initTracker()
+  @NonNull
+  public ExternalLibrariesMediator getMediator()
   {
-    MyTracker.setDebugMode(BuildConfig.DEBUG);
-    MyTracker.createTracker(PrivateVariables.myTrackerKey(), this);
-    final MyTrackerParams myParams = MyTracker.getTrackerParams();
-    if (myParams != null)
-      myParams.setDefaultVendorAppPackage();
-    MyTracker.initTracker();
+    return mMediator;
   }
 
   public static void onUpgrade()
@@ -453,9 +310,6 @@ public class MwmApplication extends Application
   private static native void nativeInitFramework();
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);
-
-  @UiThread
-  private static native void nativeInitCrashlytics();
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
   {

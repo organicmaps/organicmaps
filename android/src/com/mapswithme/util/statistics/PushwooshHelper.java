@@ -9,22 +9,12 @@ import com.pushwoosh.Pushwoosh;
 import com.pushwoosh.exception.PushwooshException;
 import com.pushwoosh.function.Result;
 import com.pushwoosh.tags.TagsBundle;
-import ru.mail.libnotify.api.NotificationApi;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
 
 public final class PushwooshHelper
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  @NonNull
-  private final NotificationApi mNotificationApi;
-
-  public PushwooshHelper(@NonNull NotificationApi api)
-  {
-    mNotificationApi = api;
-  }
 
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
@@ -37,7 +27,6 @@ public final class PushwooshHelper
     TagsBundle tagsBundle = isSingleParam ? builder.putString(tag, params[0]).build()
                                           : builder.putList(tag, Arrays.asList(params)).build();
     Pushwoosh.getInstance().sendTags(tagsBundle, this::onPostExecute);
-    sendLibNotifyParams(tag, isSingleParam ? params[0] : params);
   }
 
   private void onPostExecute(@NonNull Result<Void, PushwooshException> result)
@@ -58,12 +47,6 @@ public final class PushwooshHelper
   private void onSuccess(@NonNull Result<Void, PushwooshException> result)
   {
     /* Do nothing by default */
-  }
-
-  private void sendLibNotifyParams(@NonNull String tag, @NonNull Object value)
-  {
-    Map<String, Object> map = Collections.singletonMap(tag, value);
-    mNotificationApi.collectEventBatch(map);
   }
 
   public static native void nativeProcessFirstLaunch();

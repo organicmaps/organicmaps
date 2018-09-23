@@ -7,8 +7,6 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
-crashlytics_context_t * g_crashlytics;
-
 extern "C"
 {
   // void nativeInitPlatform(String apkPath, String storagePath, String privatePath, String tmpPath,
@@ -46,14 +44,5 @@ extern "C"
   {
     g_framework->AddString(jni::ToNativeString(env, name),
                            jni::ToNativeString(env, value));
-  }
-
-  // @UiThread
-  // static void nativeInitCrashlytics();
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativeInitCrashlytics(JNIEnv * env, jclass clazz)
-  {
-    ASSERT(!g_crashlytics, ());
-    g_crashlytics = crashlytics_init();
   }
 }
