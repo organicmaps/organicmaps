@@ -1,5 +1,6 @@
 package com.mapswithme.maps.sound;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.speech.tts.TextToSpeech;
@@ -48,14 +49,17 @@ public enum TtsPlayer
 
   // TTS is locked down due to absence of supported languages
   private boolean mUnavailable;
+  private Statistics mStatistics;
 
   TtsPlayer() {}
 
-  private static void reportFailure(IllegalArgumentException e, String location)
+  private void reportFailure(@NonNull IllegalArgumentException e,
+                             @NonNull String location)
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.TTS_FAILURE_LOCATION,
-                                   Statistics.params().add(Statistics.EventParam.ERR_MSG, e.getMessage())
-                                                      .add(Statistics.EventParam.FROM, location));
+    mStatistics.trackEvent(Statistics.EventName.TTS_FAILURE_LOCATION,
+                                    Statistics.params()
+                                              .add(Statistics.EventParam.ERR_MSG, e.getMessage())
+                                              .add(Statistics.EventParam.FROM, location));
   }
 
   private static @Nullable LanguageData findSupportedLanguage(String internalCode, List<LanguageData> langs)
@@ -141,6 +145,8 @@ public enum TtsPlayer
       return;
 
     mInitializing = true;
+    Application app = (Application) context.getApplicationContext();
+    mStatistics = Statistics.from(app);
     mTts = new TextToSpeech(context, new TextToSpeech.OnInitListener()
     {
       @Override
@@ -166,7 +172,7 @@ public enum TtsPlayer
     return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
   }
 
-  private void speak(String textToSpeak)
+  private void speak(@NonNull String textToSpeak)
   {
     if (Config.isTtsEnabled())
       try
@@ -218,7 +224,8 @@ public enum TtsPlayer
 
   private boolean getUsableLanguages(List<LanguageData> outList)
   {
-    Resources resources = MwmApplication.get().getResources();
+    MwmApplication app = MwmApplication.get();
+    Resources resources = app.getResources();
     String[] codes = resources.getStringArray(R.array.tts_languages_supported);
     String[] names = resources.getStringArray(R.array.tts_language_names);
 

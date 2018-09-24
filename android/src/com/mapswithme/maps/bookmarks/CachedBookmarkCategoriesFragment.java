@@ -130,7 +130,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   private void openBookmarksCatalogScreen()
   {
     BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG);
-    Statistics.INSTANCE.trackOpenCatalogScreen();
+    Statistics.from(getActivity().getApplication()).trackOpenCatalogScreen();
   }
 
   @Override

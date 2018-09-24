@@ -472,7 +472,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     // TODO(yunikkk) think about refactoring. It probably should be called in editor.
     Editor.nativeStartEdit();
-    Statistics.INSTANCE.trackEditorLaunch(false);
+    Statistics.from(getApplication()).trackEditorLaunch(false);
     if (mIsTabletLayout)
       replaceFragment(EditorHostFragment.class, null, null);
     else
@@ -548,7 +548,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mIsLaunchByDeepLink = getIntent().getBooleanExtra(EXTRA_LAUNCH_BY_DEEP_LINK, false);
     initViews();
 
-    Statistics.INSTANCE.trackConnectionState();
+    Statistics.from(getApplication()).trackConnectionState();
 
     mSearchController = new FloatingSearchToolbarController(this, this);
     mSearchController.setVisibilityListener(this);
@@ -669,7 +669,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPositionChooser.findViewById(R.id.done).setOnClickListener(
         v ->
         {
-          Statistics.INSTANCE.trackEditorLaunch(true);
+          Statistics.from(getApplication()).trackEditorLaunch(true);
           hidePositionChooser();
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
@@ -1154,7 +1154,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     Toast.makeText(this, R.string.guide_downloaded_title, Toast.LENGTH_LONG).show();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
+    Statistics.from(getApplication()).trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
   }
 
   @Override
@@ -1353,8 +1353,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       @Framework.RouterType
       int type = RoutingController.get().getLastRouterType();
-      Statistics.INSTANCE.trackRoutingFinish(true, type,
-                                             TrafficManager.INSTANCE.isEnabled());
+      Statistics.from(getApplication()).trackRoutingFinish(true, type,
+                                                           TrafficManager.INSTANCE.isEnabled());
     }
 
     if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
@@ -1592,8 +1592,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mVisibleRectMeasurer != null)
       mVisibleRectMeasurer.setPlacePageVisible(isVisible);
 
-    Statistics.INSTANCE.trackEvent(isVisible ? Statistics.EventName.PP_OPEN
-                                             : Statistics.EventName.PP_CLOSE);
+    Statistics.from(getApplication()).trackEvent(isVisible ? Statistics.EventName.PP_OPEN
+                                                           : Statistics.EventName.PP_CLOSE);
     AlohaHelper.logClick(isVisible ? AlohaHelper.PP_OPEN
                                    : AlohaHelper.PP_CLOSE);
     if (mPlacePageTracker != null && isVisible)
@@ -1617,12 +1617,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     switch (v.getId())
     {
     case R.id.nav_zoom_in:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_IN);
+      Statistics.from(getApplication()).trackEvent(Statistics.EventName.ZOOM_IN);
       AlohaHelper.logClick(AlohaHelper.ZOOM_IN);
       MapFragment.nativeScalePlus();
       break;
     case R.id.nav_zoom_out:
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.ZOOM_OUT);
+      Statistics.from(getApplication()).trackEvent(Statistics.EventName.ZOOM_OUT);
       AlohaHelper.logClick(AlohaHelper.ZOOM_OUT);
       MapFragment.nativeScaleMinus();
       break;
@@ -2342,8 +2342,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onRoutingFinish()
   {
-    Statistics.INSTANCE.trackRoutingFinish(false, RoutingController.get().getLastRouterType(),
-                                           TrafficManager.INSTANCE.isEnabled());
+    Statistics.from(getApplication()).trackRoutingFinish(false, RoutingController.get().getLastRouterType(),
+                                                         TrafficManager.INSTANCE.isEnabled());
   }
 
   private void showLocationNotFoundDialog()
@@ -2382,7 +2382,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       RoutingController.get().waitForPoiPick(pointType);
       mNavigationController.performSearchClick();
-      Statistics.INSTANCE.trackRoutingTooltipEvent(pointType, true);
+      Statistics.from(getApplication()).trackRoutingTooltipEvent(pointType, true);
     }
   }
 
@@ -2391,7 +2391,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     @Framework.RouterType
     int routerType = RoutingController.get().getLastRouterType();
-    Statistics.INSTANCE.trackRoutingStart(routerType, TrafficManager.INSTANCE.isEnabled());
+    Statistics.from(getApplication()).trackRoutingStart(routerType, TrafficManager.INSTANCE.isEnabled());
     closeMenu(() -> RoutingController.get().start());
   }
 
@@ -2633,7 +2633,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onClick(View v)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
+      Statistics.from(getApplication()).trackEvent(Statistics.EventName.TOOLBAR_MY_POSITION);
       AlohaHelper.logClick(AlohaHelper.TOOLBAR_MY_POSITION);
 
       if (!PermissionsUtils.isLocationGranted())
@@ -2701,7 +2701,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       if (!getActivity().mMainMenu.isOpen())
       {
-        Statistics.INSTANCE.trackToolbarClick(getItem());
+        Statistics.from(getActivity().getApplication()).trackToolbarClick(getItem());
         if (getActivity().mPlacePage.isDocked() && getActivity().closePlacePage())
           return;
 
@@ -2722,7 +2722,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarMenu(getItem());
       getActivity().closePlacePage();
       if (getActivity().mIsTabletLayout)
         getActivity().closeSidePanel();
@@ -2740,7 +2740,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarClick(getItem());
       RoutingController.get().cancel();
       getActivity().closeMenu(() -> getActivity().showSearch(getActivity().mSearchController.getQuery()));
     }
@@ -2756,7 +2756,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarMenu(getItem());
       Intent intent = new Intent(getActivity(), SettingsActivity.class);
       getActivity().closeMenu(() -> getActivity().startActivity(intent));
     }
@@ -2772,7 +2772,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarMenu(getItem());
       int requestCode = BookmarkCategoriesActivity.REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY;
       getActivity().closeMenu(() -> BookmarksCatalogActivity.startForResult(getActivity(), requestCode));
     }
@@ -2788,7 +2788,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarMenu(getItem());
       RoutingController.get().cancel();
       getActivity().closeMenu(() -> getActivity().showDownloader(false));
     }
@@ -2804,7 +2804,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarClick(getItem());
       getActivity().closeMenu(getActivity()::showBookmarks);
     }
   }
@@ -2819,7 +2819,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarMenu(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarMenu(getItem());
       getActivity().closeMenu(getActivity()::shareMyLocation);
     }
   }
@@ -2834,7 +2834,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarClick(getItem());
       getActivity().showDiscovery();
     }
   }
@@ -2849,7 +2849,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public void onMenuItemClickInternal()
     {
-      Statistics.INSTANCE.trackToolbarClick(getItem());
+      Statistics.from(getActivity().getApplication()).trackToolbarClick(getItem());
       getActivity().startLocationToPoint(null, false);
     }
   }

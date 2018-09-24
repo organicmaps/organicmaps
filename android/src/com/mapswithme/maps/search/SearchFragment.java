@@ -435,7 +435,7 @@ public class SearchFragment extends BaseMwmFragment
 
     tabAdapter.setTabSelectedListener(tab ->
                                       {
-                                        Statistics.INSTANCE.trackSearchTabSelected(tab.name());
+                                        Statistics.from(getAppContextOrThrow()).trackSearchTabSelected(tab.name());
                                         mToolbarController.deactivate();
                                       });
 
@@ -569,7 +569,7 @@ public class SearchFragment extends BaseMwmFragment
 
     processSelected(result);
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.SEARCH_ITEM_CLICKED);
   }
 
   void showAllResultsOnMap()
@@ -598,7 +598,7 @@ public class SearchFragment extends BaseMwmFragment
     SearchEngine.INSTANCE.setQuery(query);
     Utils.navigateToParent(getActivity());
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
   }
 
   private void onSearchEnd()
@@ -715,7 +715,7 @@ public class SearchFragment extends BaseMwmFragment
       mPromoCategorySelected = true;
       mToolbarController.setQuery(category + " ");
 
-      Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
+      Statistics.from(getAppContextOrThrow()).trackSponsoredEventForCustomProvider(
           Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
           promoCategory.getStatisticValue());
       showAllResultsOnMap();

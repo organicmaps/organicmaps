@@ -94,9 +94,7 @@ public enum BookmarkManager
 
   public Bookmark addNewBookmark(double lat, double lon)
   {
-    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
-    Statistics.INSTANCE.trackBookmarkCreated();
-    return bookmark;
+    return nativeAddBookmarkToLastEditedCategory(lat, lon);
   }
 
   public void addLoadingListener(@NonNull BookmarksLoadingListener listener)

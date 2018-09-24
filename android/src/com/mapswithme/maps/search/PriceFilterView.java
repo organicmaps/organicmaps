@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -35,6 +36,9 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   static final int LOW = 1;
   static final int MEDIUM = 2;
   static final int HIGH = 3;
+
+  @NonNull
+  private final Statistics mStats;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ UNDEFINED, LOW, MEDIUM, HIGH })
@@ -99,6 +103,7 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   {
     super(context, attrs, defStyleAttr);
     init(context);
+    mStats = makeStatistics(context);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -106,12 +111,20 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   {
     super(context, attrs, defStyleAttr, defStyleRes);
     init(context);
+    mStats = makeStatistics(context);
   }
 
   private void init(Context context)
   {
     setOrientation(HORIZONTAL);
     LayoutInflater.from(context).inflate(R.layout.price_filter, this, true);
+  }
+
+  @NonNull
+  private static Statistics makeStatistics(@NonNull Context context)
+  {
+    Application app = (Application) context.getApplicationContext();
+    return Statistics.from(app);
   }
 
   @Override
@@ -201,23 +214,29 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
     switch (v.getId())
     {
       case R.id.low:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+        getStats().trackFilterClick(Statistics.EventParam.HOTEL,
+                                    new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
                                                         String.valueOf(LOW)));
         break;
       case R.id.medium:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+        getStats().trackFilterClick(Statistics.EventParam.HOTEL,
+                                    new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
                                                         String.valueOf(MEDIUM)));
         break;
       case R.id.high:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+        getStats().trackFilterClick(Statistics.EventParam.HOTEL,
+                                    new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
                                                         String.valueOf(HIGH)));
         break;
     }
 
     select(v.getId(), false);
+  }
+
+  @NonNull
+  private Statistics getStats()
+  {
+    return mStats;
   }
 
   public void updateFilter()

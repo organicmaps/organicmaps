@@ -54,7 +54,7 @@ public class HelpFragment extends BaseSettingsFragment
             {
               private void sendGeneralFeedback()
               {
-                Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.FEEDBACK_GENERAL);
+                Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.FEEDBACK_GENERAL);
                 AlohaHelper.logClick(AlohaHelper.Settings.FEEDBACK_GENERAL);
                 startActivity(new Intent(Intent.ACTION_SENDTO)
                                   .setData(Utils.buildMailUri(Constants.Email.FEEDBACK, "[" + BuildConfig.VERSION_NAME + "] Feedback", "")));
@@ -62,7 +62,7 @@ public class HelpFragment extends BaseSettingsFragment
 
               private void reportBug()
               {
-                Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.REPORT_BUG);
+                Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.REPORT_BUG);
                 AlohaHelper.logClick(AlohaHelper.Settings.REPORT_BUG);
                 Utils.sendSupportMail(getActivity(), "Bugreport from user");
               }

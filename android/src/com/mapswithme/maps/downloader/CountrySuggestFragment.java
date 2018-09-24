@@ -221,8 +221,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     case R.id.wpv__download_progress:
       MapManager.nativeCancel(mDownloadingCountry.id);
 
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                     Statistics.params().add(Statistics.EventParam.FROM, "search"));
+      Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                                         Statistics.params().add(Statistics.EventParam.FROM, "search"));
       break;
     }
   }

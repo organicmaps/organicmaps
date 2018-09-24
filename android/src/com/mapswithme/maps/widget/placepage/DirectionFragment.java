@@ -51,7 +51,7 @@ public class DirectionFragment extends BaseMwmDialogFragment
       public boolean onTouch(View v, MotionEvent event)
       {
         dismiss();
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW_CLOSE);
+        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.PP_DIRECTION_ARROW_CLOSE);
         AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW_CLOSE);
         return false;
       }

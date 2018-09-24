@@ -1,6 +1,7 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -150,6 +151,12 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 public enum Statistics
 {
   INSTANCE;
+
+  @NonNull
+  public static Statistics from(@NonNull Application application)
+  {
+    return INSTANCE;
+  }
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
@@ -761,8 +768,8 @@ public enum Statistics
                                    @NonNull MapObject mapObject)
   {
     String provider = restaurant.getType() == Sponsored.TYPE_OPENTABLE ? OPENTABLE : "Unknown restaurant";
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-                                   Statistics.params().add(PROVIDER, provider)
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+                                                 Statistics.params().add(PROVIDER, provider)
                                              .add(RESTAURANT, restaurant.getId())
                                              .add(RESTAURANT_LAT, mapObject.getLat())
                                              .add(RESTAURANT_LON, mapObject.getLon()).get());
@@ -772,8 +779,8 @@ public enum Statistics
                               @NonNull MapObject mapObject)
   {
     String provider = hotel.getType() == Sponsored.TYPE_BOOKING ? BOOKING_COM : "Unknown hotel";
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-                                   Statistics.params().add(PROVIDER, provider)
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+               Statistics.params().add(PROVIDER, provider)
                                              .add(HOTEL, hotel.getId())
                                              .add(HOTEL_LAT, mapObject.getLat())
                                              .add(HOTEL_LON, mapObject.getLon()).get());
@@ -1104,11 +1111,11 @@ public enum Statistics
                                         @NonNull MapObject mapObject)
   {
     // Here we code category by means of rating.
-    Statistics.INSTANCE.trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
-        Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj))
-            .add(CATEGORY, sponsoredObj.getRating())
-            .add(OBJECT_LAT, mapObject.getLat())
-            .add(OBJECT_LON, mapObject.getLon()).get());
+    trackEvent(eventName, LocationHelper.INSTANCE.getLastKnownLocation(),
+               Statistics.params().add(PROVIDER, convertToSponsor(sponsoredObj))
+                         .add(CATEGORY, sponsoredObj.getRating())
+                         .add(OBJECT_LAT, mapObject.getLat())
+                         .add(OBJECT_LON, mapObject.getLon()).get());
   }
 
   @NonNull

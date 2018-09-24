@@ -1,5 +1,6 @@
 package com.mapswithme.maps.downloader;
 
+import android.app.Application;
 import android.location.Location;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -151,12 +152,14 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
                     MapManager.nativeHasSpaceToDownloadCountry(country))
                 {
                   MapManager.nativeDownload(mCurrentCountry.id);
-
-                  Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                                 Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                                    .add(Statistics.EventParam.FROM, "map")
-                                                                    .add("is_auto", "true")
-                                                                    .add("scenario", "download"));
+                  Application app = mActivity.getApplication();
+                  Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                                  Statistics.params()
+                                                            .add(Statistics.EventParam.ACTION,
+                                                                 "download")
+                                                            .add(Statistics.EventParam.FROM, "map")
+                                                            .add("is_auto", "true")
+                                                            .add("scenario", "download"));
                 }
               }
             }
@@ -192,8 +195,9 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
       public void onClick(View v)
       {
         MapManager.nativeCancel(mCurrentCountry.id);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                       Statistics.params().add(Statistics.EventParam.FROM, "map"));
+        Application app = (Application) v.getContext().getApplicationContext();
+        Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                        Statistics.params().add(Statistics.EventParam.FROM, "map"));
         setAutodownloadLocked(true);
       }
     });
@@ -208,7 +212,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           mActivity.showDownloader(false);
           return;
         }
-
+        Application app = mActivity.getApplication();
         MapManager.warnOn3g(mActivity, mCurrentCountry.id, new Runnable()
         {
           @Override
@@ -226,8 +230,8 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
             else
               MapManager.nativeDownload(mCurrentCountry.id);
 
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                           Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
+            Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                                         Statistics.params().add(Statistics.EventParam.ACTION, (retry ? "retry" : "download"))
                                                               .add(Statistics.EventParam.FROM, "map")
                                                               .add("is_auto", "false")
                                                               .add("scenario", "download"));

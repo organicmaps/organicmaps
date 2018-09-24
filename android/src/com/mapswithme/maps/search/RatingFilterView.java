@@ -1,6 +1,7 @@
 package com.mapswithme.maps.search;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorRes;
@@ -149,29 +150,30 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
   @Override
   public void onClick(View v)
   {
+    Application app = (Application) v.getContext().getApplicationContext();
     switch (v.getId())
     {
       case R.id.any:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.RATING,
+        Statistics.from(app).trackFilterClick(Statistics.EventParam.HOTEL,
+                                                                                 new Pair<>(Statistics.EventParam.RATING,
                                                         Statistics.ParamValue.ANY));
         update(null);
         break;
       case R.id.good:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.RATING,
+        Statistics.from(app).trackFilterClick(Statistics.EventParam.HOTEL,
+                                                                                 new Pair<>(Statistics.EventParam.RATING,
                                                         String.valueOf(GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, GOOD));
         break;
       case R.id.very_good:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.RATING,
+        Statistics.from(app).trackFilterClick(Statistics.EventParam.HOTEL,
+                                                                                 new Pair<>(Statistics.EventParam.RATING,
                                                         String.valueOf(VERY_GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, VERY_GOOD));
         break;
       case R.id.excellent:
-        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                             new Pair<>(Statistics.EventParam.RATING,
+        Statistics.from(app).trackFilterClick(Statistics.EventParam.HOTEL,
+                                                                                 new Pair<>(Statistics.EventParam.RATING,
                                                         String.valueOf(EXCELLENT)));
         update(new HotelsFilter.RatingFilter(OP_GE, EXCELLENT));
         break;

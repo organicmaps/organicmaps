@@ -1,6 +1,8 @@
 package com.mapswithme.maps.downloader;
 
+import android.app.Application;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,16 +24,19 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-      MapManager.warn3gAndDownload(mFragment.getActivity(), mFragment.getCurrentRoot(), new Runnable()
+      FragmentActivity activity = mFragment.getActivity();
+      Application app = activity.getApplication();
+      MapManager.warn3gAndDownload(activity, mFragment.getCurrentRoot(), new Runnable()
       {
         @Override
         public void run()
         {
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                         Statistics.params().add(Statistics.EventParam.ACTION, "download")
-                                                            .add(Statistics.EventParam.FROM, "downloader")
-                                                            .add("is_auto", "false")
-                                                            .add("scenario", "download_group"));
+          Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                          Statistics.params()
+                                                    .add(Statistics.EventParam.ACTION, "download")
+                                                    .add(Statistics.EventParam.FROM, "downloader")
+                                                    .add("is_auto", "false")
+                                                    .add("scenario", "download_group"));
         }
       });
     }
@@ -43,18 +48,20 @@ class BottomPanel
     public void onClick(View v)
     {
       final String country = mFragment.getCurrentRoot();
-      MapManager.warnOn3gUpdate(mFragment.getActivity(), country, new Runnable()
+      FragmentActivity activity = mFragment.getActivity();
+      Application app = activity.getApplication();
+      MapManager.warnOn3gUpdate(activity, country, new Runnable()
       {
         @Override
         public void run()
         {
           MapManager.nativeUpdate(country);
-
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                         Statistics.params().add(Statistics.EventParam.ACTION, "update")
-                                                            .add(Statistics.EventParam.FROM, "downloader")
-                                                            .add("is_auto", "false")
-                                                            .add("scenario", "update_all"));
+          Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                          Statistics.params()
+                                                    .add(Statistics.EventParam.ACTION, "update")
+                                                    .add(Statistics.EventParam.FROM, "downloader")
+                                                    .add("is_auto", "false")
+                                                    .add("scenario", "update_all"));
         }
       });
     }
@@ -65,10 +72,12 @@ class BottomPanel
     @Override
     public void onClick(View v)
     {
-        MapManager.nativeCancel(mFragment.getCurrentRoot());
+      MapManager.nativeCancel(mFragment.getCurrentRoot());
 
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
+      Application app = mFragment.getActivity().getApplication();
+      Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                      Statistics.params()
+                                                .add(Statistics.EventParam.FROM, "downloader"));
     }
   };
 

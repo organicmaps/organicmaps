@@ -1,5 +1,6 @@
 package com.mapswithme.maps.gallery.impl;
 
+import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -29,14 +30,6 @@ public class Factory
   }
 
   @NonNull
-  public static GalleryAdapter createViatorOfflineAdapter
-      (@Nullable ItemSelectedListener<Items.Item> listener, @NonNull GalleryPlacement placement)
-  {
-    Statistics.INSTANCE.trackGalleryShown(VIATOR, OFFLINE, placement);
-    return new GalleryAdapter<>(new ViatorOfflineAdapterStrategy(null), listener);
-  }
-
-  @NonNull
   public static GalleryAdapter createViatorErrorAdapter(@Nullable String url,
                                                         @Nullable ItemSelectedListener<Items.Item>
                                                             listener)
@@ -49,9 +42,10 @@ public class Factory
                                                    @Nullable String cityUrl,
                                                    @Nullable ItemSelectedListener<Items.ViatorItem>
                                                          listener,
-                                                   @NonNull GalleryPlacement placement)
+                                                   @NonNull GalleryPlacement placement,
+                                                   @NonNull Application application)
   {
-    trackProductGalleryShownOrError(products, VIATOR, ONLINE, placement);
+    trackProductGalleryShownOrError(products, VIATOR, ONLINE, placement, application);
     return new GalleryAdapter<>(new ViatorAdapterStrategy(products, cityUrl), listener);
   }
 
@@ -61,9 +55,10 @@ public class Factory
                                                             .SearchItem> listener,
                                                         @NonNull GalleryType type,
                                                         @NonNull GalleryPlacement placement,
-                                                        @Nullable Items.MoreSearchItem item)
+                                                        @Nullable Items.MoreSearchItem item,
+                                                        @NonNull Application appContext)
   {
-    trackProductGalleryShownOrError(results, type, OFFLINE, placement);
+    trackProductGalleryShownOrError(results, type, OFFLINE, placement, appContext);
     return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results, item), listener);
   }
 
@@ -84,9 +79,10 @@ public class Factory
                                                   @Nullable ItemSelectedListener<Items
                                                       .SearchItem> listener,
                                                   @NonNull GalleryType type,
-                                                  @NonNull GalleryPlacement placement)
+                                                  @NonNull GalleryPlacement placement,
+                                                  @NonNull Application application)
   {
-    trackProductGalleryShownOrError(results, type, OFFLINE, placement);
+    trackProductGalleryShownOrError(results, type, OFFLINE, placement, application);
     return new GalleryAdapter<>(new HotelAdapterStrategy(results), listener);
   }
 
@@ -95,9 +91,10 @@ public class Factory
                                                          @Nullable String expertsUrl,
                                                          @Nullable ItemSelectedListener<Items
                                                              .LocalExpertItem> listener,
-                                                         @NonNull GalleryPlacement placement)
+                                                         @NonNull GalleryPlacement placement,
+                                                         @NonNull Application appContext)
   {
-    trackProductGalleryShownOrError(experts, LOCAL_EXPERTS, ONLINE, placement);
+    trackProductGalleryShownOrError(experts, LOCAL_EXPERTS, ONLINE, placement, appContext);
     return new GalleryAdapter<>(new LocalExpertsAdapterStrategy(experts, expertsUrl), listener);
   }
 
@@ -116,11 +113,12 @@ public class Factory
   private static <Product> void trackProductGalleryShownOrError(@NonNull Product[] products,
                                                                 @NonNull GalleryType type,
                                                                 @NonNull GalleryState state,
-                                                                @NonNull GalleryPlacement placement)
+                                                                @NonNull GalleryPlacement placement,
+                                                                @NonNull Application application)
   {
     if (products.length == 0)
-      Statistics.INSTANCE.trackGalleryError(type, placement, Statistics.ParamValue.NO_PRODUCTS);
+      Statistics.from(application).trackGalleryError(type, placement, Statistics.ParamValue.NO_PRODUCTS);
     else
-      Statistics.INSTANCE.trackGalleryShown(type, state, placement);
+      Statistics.from(application).trackGalleryShown(type, state, placement);
   }
 }

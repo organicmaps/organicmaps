@@ -1,5 +1,6 @@
 package com.mapswithme.maps.downloader;
 
+import android.app.Application;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,16 +36,19 @@ public class MigrationFragment extends BaseMwmFragment
     @Override
     public void onClick(final View v)
     {
+      Application app = getAppContextOrThrow();
       MapManager.warnOn3g(getActivity(), null, new Runnable()
       {
         @Override
         public void run()
         {
           boolean keepOld = (v == mButtonPrimary);
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_STARTED,
-                                         Statistics.params().add(Statistics.EventParam.TYPE, keepOld ? "all_maps"
-                                                                                                     : "current_map"));
-          MigrationController.get().start(keepOld);
+
+          Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_STARTED,
+                                          Statistics.params()
+                                                    .add(Statistics.EventParam.TYPE,
+                                                         keepOld ? "all_maps" : "current_map"));
+          MigrationController.get().start(app, keepOld);
         }
       });
     }
@@ -105,7 +109,7 @@ public class MigrationFragment extends BaseMwmFragment
       }
     });
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_DIALOG_SEEN);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_DIALOG_SEEN);
   }
 
   @Override
@@ -183,7 +187,7 @@ public class MigrationFragment extends BaseMwmFragment
     else
       getActivity().recreate();
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_COMPLETE);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.DOWNLOADER_MIGRATION_COMPLETE);
   }
 
   @Override

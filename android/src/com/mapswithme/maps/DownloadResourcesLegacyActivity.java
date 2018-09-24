@@ -84,23 +84,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     void onFinish(int errorCode);
   }
 
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final IntentProcessor[] mIntentProcessors = {
-      Factory.createGeoIntentProcessor(),
-      Factory.createHttpGe0IntentProcessor(),
-      Factory.createGe0IntentProcessor(),
-      Factory.createMapsWithMeIntentProcessor(),
-      Factory.createGoogleMapsIntentProcessor(),
-      Factory.createOldLeadUrlProcessor(),
-      Factory.createDlinkBookmarkCatalogueProcessor(),
-      Factory.createMapsmeBookmarkCatalogueProcessor(),
-      Factory.createOldCoreLinkAdapterProcessor(),
-      Factory.createOpenCountryTaskProcessor(),
-      Factory.createMapsmeProcessor(),
-      Factory.createKmzKmlProcessor(this),
-      Factory.createShowOnMapProcessor(),
-      Factory.createBuildRouteProcessor()
-  };
+  private IntentProcessor[] mIntentProcessors;
 
   private final LocationListener mLocationListener = new LocationListener.Simple()
   {
@@ -216,6 +202,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     super.safeOnCreate(savedInstanceState);
     setContentView(R.layout.activity_download_resources);
+    initIntentProcessors();
     initViewsAndListeners();
 
     if (prepareFilesDownload(false))
@@ -233,6 +220,26 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
     mMapTaskToForward = processIntent();
     showMap();
+  }
+
+  private void initIntentProcessors()
+  {
+    mIntentProcessors = new IntentProcessor[]{
+            Factory.createGeoIntentProcessor(),
+            Factory.createHttpGe0IntentProcessor(),
+            Factory.createGe0IntentProcessor(),
+            Factory.createMapsWithMeIntentProcessor(getApplication()),
+            Factory.createGoogleMapsIntentProcessor(),
+            Factory.createOldLeadUrlProcessor(),
+            Factory.createDlinkBookmarkCatalogueProcessor(),
+            Factory.createMapsmeBookmarkCatalogueProcessor(),
+            Factory.createOldCoreLinkAdapterProcessor(),
+            Factory.createOpenCountryTaskProcessor(),
+            Factory.createMapsmeProcessor(),
+            Factory.createKmzKmlProcessor(this),
+            Factory.createShowOnMapProcessor(),
+            Factory.createBuildRouteProcessor()
+        };
   }
 
   @Override

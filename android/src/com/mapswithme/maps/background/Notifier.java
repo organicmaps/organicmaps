@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 import com.mapswithme.maps.MwmActivity;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -53,7 +54,7 @@ public final class Notifier
 
     String channel = NotificationChannelFactory.createProvider(mContext).getDownloadingChannel();
     placeNotification(title, content, pi, ID_DOWNLOAD_FAILED, channel);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
+    Statistics.from(mContext).trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
   public void notifyAuthentication()
@@ -76,7 +77,7 @@ public final class Notifier
 
     getNotificationManager().notify(ID_IS_NOT_AUTHENTICATED, builder.build());
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_NOT_AUTH_NOTIFICATION_SHOWN);
+    Statistics.from(mContext).trackEvent(Statistics.EventName.UGC_NOT_AUTH_NOTIFICATION_SHOWN);
   }
 
   public void cancelNotification(@NotificationId int id)
@@ -102,7 +103,7 @@ public final class Notifier
     if (intent.hasExtra(Notifier.EXTRA_NOTIFICATION_CLICKED))
     {
       String eventName = intent.getStringExtra(Notifier.EXTRA_NOTIFICATION_CLICKED);
-      Statistics.INSTANCE.trackEvent(eventName);
+      Statistics.from(mContext).trackEvent(eventName);
     }
   }
 

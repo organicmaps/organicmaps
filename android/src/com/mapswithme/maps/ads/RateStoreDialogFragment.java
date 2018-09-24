@@ -49,7 +49,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
+            Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
           }
         });
 
@@ -60,7 +60,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
       @Override
       public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser)
       {
-        Statistics.INSTANCE.trackRatingDialog(rating);
+        Statistics.from(getAppContextOrThrow()).trackRatingDialog(rating);
         mRating = rating;
         if (rating >= BuildConfig.RATING_THRESHOLD)
         {
@@ -100,7 +100,7 @@ public class RateStoreDialogFragment extends BaseMwmDialogFragment implements Vi
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.RATE_DIALOG_LATER);
   }
 
   @Override

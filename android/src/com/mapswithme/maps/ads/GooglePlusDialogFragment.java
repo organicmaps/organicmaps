@@ -51,7 +51,7 @@ public class GooglePlusDialogFragment extends BaseMwmDialogFragment
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.PLUS_DIALOG_LATER);
+            Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.PLUS_DIALOG_LATER);
           }
         });
 
@@ -62,6 +62,6 @@ public class GooglePlusDialogFragment extends BaseMwmDialogFragment
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PLUS_DIALOG_LATER);
+    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.PLUS_DIALOG_LATER);
   }
 }

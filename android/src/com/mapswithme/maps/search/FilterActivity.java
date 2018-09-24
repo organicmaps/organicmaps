@@ -83,16 +83,16 @@ public class FilterActivity extends BaseMwmFragmentActivity
   @Override
   public void customOnNavigateUp()
   {
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
-                                         Statistics.EventParam.HOTEL);
+    Statistics.from(getApplication()).trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
+                                                       Statistics.EventParam.HOTEL);
     finish();
   }
 
   @Override
   public void onBackPressed()
   {
-    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
-                                         Statistics.EventParam.HOTEL);
+    Statistics.from(getApplication()).trackFilterEvent(Statistics.EventName.SEARCH_FILTER_CANCEL,
+                                                       Statistics.EventParam.HOTEL);
     super.onBackPressed();
   }
 }

@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget.placepage;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
@@ -126,6 +127,8 @@ final class BannerController
   private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
   @NonNull
   private final PurchaseController mPurchaseController;
+  @NonNull
+  private final Context mContext;
 
   BannerController(@NonNull ViewGroup bannerContainer, @Nullable BannerListener listener,
                    @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker,
@@ -141,6 +144,7 @@ final class BannerController
     Resources resources = mBannerView.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
     mPurchaseController = purchaseController;
+    mContext = bannerContainer.getContext().getApplicationContext();
     initBannerViews();
   }
 
@@ -273,7 +277,8 @@ final class BannerController
     if (mCurrentAd != null)
     {
       loadIcon(mCurrentAd);
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
+      Application context = (Application) mContext;
+      Statistics.from(context).trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
       mCurrentAd.registerView(mBannerView);
     }
 
@@ -361,7 +366,8 @@ final class BannerController
     else if (!mOpened)
     {
       close();
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
+      Application app = (Application) mContext;
+      Statistics.from(app).trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
     }
     else
     {
@@ -461,13 +467,15 @@ final class BannerController
       if (mListener != null && isNotCached)
         mListener.onSizeChanged();
 
-      Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
+      Application app = (Application) mContext;
+      Statistics.from(app).trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
     }
 
     @Override
     public void onClick(@NonNull MwmNativeAd ad)
     {
-      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
+      Application app = (Application) mContext;
+      Statistics.from(app).trackPPBanner(PP_BANNER_CLICK, ad,
                                         mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
     }
   }

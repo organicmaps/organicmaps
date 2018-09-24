@@ -1,5 +1,6 @@
 package com.mapswithme.maps.intent;
 
+import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -79,9 +80,9 @@ public class Factory
   }
 
   @NonNull
-  public static IntentProcessor createMapsWithMeIntentProcessor()
+  public static IntentProcessor createMapsWithMeIntentProcessor(@NonNull Application application)
   {
-    return new MapsWithMeIntentProcessor();
+    return new MapsWithMeIntentProcessor(application);
   }
 
   @NonNull
@@ -204,6 +205,14 @@ public class Factory
    */
   private static class MapsWithMeIntentProcessor implements IntentProcessor
   {
+    @NonNull
+    private final Application mApplication;
+
+    public MapsWithMeIntentProcessor(@NonNull Application application)
+    {
+      mApplication = application;
+    }
+
     @Override
     public boolean isSupported(@NonNull Intent intent)
     {
@@ -222,7 +231,7 @@ public class Factory
 
         final ParsedMwmRequest request = ParsedMwmRequest.extractFromIntent(intent);
         ParsedMwmRequest.setCurrentRequest(request);
-        Statistics.INSTANCE.trackApiCall(request);
+        Statistics.from(mApplication).trackApiCall(request);
 
         if (!ParsedMwmRequest.isPickPointMode())
           return new MwmActivity.OpenUrlTask(apiUrl);

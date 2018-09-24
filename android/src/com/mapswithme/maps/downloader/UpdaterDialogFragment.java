@@ -1,5 +1,6 @@
 package com.mapswithme.maps.downloader;
 
+import android.app.Application;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -93,9 +94,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private final View.OnClickListener mFinishClickListener = (View v) ->
   {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(mAutoUpdate ?
-                                                   DOWNLOADER_DIALOG_HIDE :
-                                                   DOWNLOADER_DIALOG_LATER, 0);
+    Statistics.from(getAppContextOrThrow()).trackDownloaderDialogEvent(mAutoUpdate ?
+                                                                       DOWNLOADER_DIALOG_HIDE :
+                                                                       DOWNLOADER_DIALOG_LATER, 0);
 
     finish();
   };
@@ -103,7 +104,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private final View.OnClickListener mCancelClickListener = (View v) ->
   {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL,
+    Statistics.from(getAppContextOrThrow()).trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL,
                                                    mTotalSizeBytes / Constants.MB);
 
     MapManager.nativeCancel(CountryItem.getRootId());
@@ -145,7 +146,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           UiUtils.show(mProgressBar, mInfo);
           UiUtils.hide(mUpdateBtn);
 
-          Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
+          Statistics.from(getAppContextOrThrow()).trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
                                                          mTotalSizeBytes / Constants.MB);
         }
       });
@@ -175,8 +176,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
         return false;
 
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW,
-                                                     info.totalSize / Constants.MB);
+      Application app = activity.getApplication();
+      Statistics.from(app).trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW,
+                                                      info.totalSize / Constants.MB);
     }
 
     final Bundle args = new Bundle();
@@ -284,7 +286,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           public void run()
           {
             MapManager.nativeUpdate(CountryItem.getRootId());
-            Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
+            Statistics.from(getAppContextOrThrow()).trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
                                                            mTotalSizeBytes / Constants.MB);
           }
         });
@@ -458,13 +460,17 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     private final String[] mOutdatedMaps;
     private int mListenerSlot = 0;
 
-    DetachableStorageCallback(@Nullable UpdaterDialogFragment fragment,
+    @NonNull
+    private final Application mApp;
+
+    DetachableStorageCallback(@NonNull UpdaterDialogFragment fragment,
                               @Nullable Set<String> leftoverMaps,
                               @Nullable String[] outdatedMaps)
     {
       mFragment = fragment;
       mLeftoverMaps = leftoverMaps;
       mOutdatedMaps = outdatedMaps;
+      mApp = fragment.getActivity().getApplication();
     }
 
     @Override
@@ -534,8 +540,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
           text = String.valueOf(item.errorCode);
       }
       //noinspection ConstantConditions
-      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.getTotalSizeBytes() / Constants.MB,
-                                                     text);
+      Statistics.from(mApp).trackDownloaderDialogError(mFragment.getTotalSizeBytes() / Constants.MB,
+                                                       text);
       MapManager.showErrorDialog(mFragment.getActivity(), item, new Utils.Proc<Boolean>()
       {
         @Override
