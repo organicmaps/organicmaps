@@ -24,7 +24,6 @@
 #include <chrono>
 #include <sstream>
 
-//#define STAGE_CLOUD_SERVER
 #include "private.h"
 
 using namespace std::chrono;

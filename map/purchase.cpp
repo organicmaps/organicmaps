@@ -15,7 +15,6 @@
 
 #include <utility>
 
-#define STAGE_PURCHASE_SERVER
 #include "private.h"
 
 namespace

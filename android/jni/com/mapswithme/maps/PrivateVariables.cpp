@@ -1,4 +1,3 @@
-#define STAGE_PURCHASE_SERVER
 #include "private.h"
 
 #include <jni.h>

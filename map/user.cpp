@@ -22,8 +22,6 @@
 #include <limits>
 #include <sstream>
 
-//#define STAGE_PASSPORT_SERVER
-//#define STAGE_UGC_SERVER
 #include "private.h"
 
 namespace
