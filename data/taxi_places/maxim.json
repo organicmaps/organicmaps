@@ -34,10 +34,6 @@
         "cities": [ "Aktobe", "Kostanay", "Semipalatinsk", "Temirtau", "Oskemen", "Oral" ]
       },
       {
-        "id": "Malaysia",
-        "cities": [ "Kuala Lumpur" ]
-      },
-      {
         "id": "Tajikistan",
         "cities": [ "Dushanbe", "Khujand" ]
       },
