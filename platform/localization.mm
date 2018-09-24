@@ -1,12 +1,15 @@
 #include "platform/localization.hpp"
 
+#include <algorithm>
+
+#import <Foundation/Foundation.h>
 namespace platform
 {
 std::string GetLocalizedTypeName(std::string const & type)
 {
-  // TODO: Add code here.
+  auto key = "type." + type;
+  std::replace(key.begin(), key.end(), '-', '.');
 
-  // Return type as is by default.
-  return type;
+  return [NSLocalizedString(@(key.c_str()), @"") UTF8String];
 }
 }  // namespace platform

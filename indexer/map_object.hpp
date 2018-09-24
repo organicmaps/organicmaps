@@ -103,7 +103,7 @@ public:
 protected:
   /// @returns "the best" type to display in UI.
   std::string GetLocalizedType() const;
-
+  
   FeatureID m_featureID;
   m2::PointD m_mercator;
   StringUtf8Multilang m_name;

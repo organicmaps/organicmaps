@@ -12,6 +12,7 @@
 
 #include "search/result.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -379,8 +380,12 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     auto const & pi = type == ItemType::Attractions ? model.GetAttractionProductInfoAt(indexPath.row)
                                                     : model.GetCafeProductInfoAt(indexPath.row);
     tie(ratingValue, ratingType) = FormattedRating(pi.m_ugcRating);
-    [cell configWithTitle:@(sr.GetString().c_str())
-                 subtitle:@(sr.GetFeatureTypeName().c_str())
+
+    auto const readableType = classif().GetReadableObjectName(sr.GetFeatureType());
+    auto const subtitle = platform::GetLocalizedTypeName(readableType);
+
+    [cell configWithTitle:sr.GetString().empty() ? @(subtitle.c_str()) : @(sr.GetString().c_str())
+                 subtitle:@(subtitle.c_str())
                  distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
                   popular:sr.GetRankingInfo().m_popularity > 0
               ratingValue:ratingValue
@@ -461,7 +466,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     auto starsCount = sr.GetStarsCount();
     if (starsCount == 0)
     {
-      subtitle = [@(sr.GetFeatureTypeName().c_str()) mutableCopy];
+      auto const readableType = classif().GetReadableObjectName(sr.GetFeatureType());
+      subtitle = [@(platform::GetLocalizedTypeName(readableType).c_str()) mutableCopy];
     }
     else
     {
@@ -473,7 +479,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
     tie(ratingValue, ratingType) = FormattedRating(sr.GetHotelRating());
 
     [cell configWithAvatarURL:nil
-                        title:@(sr.GetString().c_str())
+                        title:sr.GetString().empty() ? [subtitle copy] : @(sr.GetString().c_str())
                      subtitle:[subtitle copy]
                         price:@(sr.GetHotelApproximatePricing().c_str())
                   ratingValue:ratingValue

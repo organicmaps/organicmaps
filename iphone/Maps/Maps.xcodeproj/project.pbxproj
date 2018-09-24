@@ -331,6 +331,7 @@
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */; };
 		3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1958EA213804B6009A83EC /* libmetrics.a */; };
 		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
 		408645FC21495EB1000A4A1D /* categories_cuisines.txt in Resources */ = {isa = PBXBuildFile; fileRef = 408645FB21495EB1000A4A1D /* categories_cuisines.txt */; };
@@ -1292,6 +1293,8 @@
 		34FE4C431BCC013500066718 /* MWMMapWidgets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapWidgets.h; sourceTree = "<group>"; };
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
+		3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMObjectsCategorySelectorDataSource.mm; sourceTree = "<group>"; };
+		3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMObjectsCategorySelectorDataSource.h; sourceTree = "<group>"; };
 		3D1958EA213804B6009A83EC /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
 		3DF9C22A207CC14A00DA0793 /* taxi_places */ = {isa = PBXFileReference; lastKnownFileType = folder; name = taxi_places; path = ../../data/taxi_places; sourceTree = "<group>"; };
@@ -3626,6 +3629,8 @@
 				F6E2FC5D1E097B9F0083EBEC /* OpeningHours */,
 				F6E2FC821E097B9F0083EBEC /* Street */,
 				34763F0B1F30CCAC00F4D2D3 /* MWMEditorCellType.h */,
+				3D15ACED2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm */,
+				3D15ACEF2155118800F725D5 /* MWMObjectsCategorySelectorDataSource.h */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -4634,6 +4639,7 @@
 				34AB66471FC5AA330078E451 /* RouteManagerTableView.swift in Sources */,
 				F6E2FE611E097BA00083EBEC /* MWMBookmarkCell.mm in Sources */,
 				F6E2FEA31E097BA00083EBEC /* MWMPPView.mm in Sources */,
+				3D15ACEE2155117000F725D5 /* MWMObjectsCategorySelectorDataSource.mm in Sources */,
 				F69739B21FD197DB00FDA07D /* MWMDiscoveryTableManager.mm in Sources */,
 				3454D7D11E07F045004AF2AD /* UIImage+RGBAData.mm in Sources */,
 				6741A9B71BF340DE002C974C /* EAGLView.mm in Sources */,

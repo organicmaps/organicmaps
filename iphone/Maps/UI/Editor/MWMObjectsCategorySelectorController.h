@@ -17,6 +17,6 @@ class EditableMapObject;
 
 @property (weak, nonatomic) id<MWMObjectsCategorySelectorDelegate> delegate;
 
-- (void)setSelectedCategory:(string const &)category;
+- (void)setSelectedCategory:(string const &)type;
 
 @end

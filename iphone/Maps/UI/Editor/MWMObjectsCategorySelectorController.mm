@@ -1,5 +1,6 @@
 #import "MWMObjectsCategorySelectorController.h"
 #import "MWMAuthorizationCommon.h"
+#import "MWMObjectsCategorySelectorDataSource.h"
 #import "MWMCommon.h"
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
@@ -8,36 +9,26 @@
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
-#include "LocaleTranslator.h"
-
 #include "Framework.h"
-
-#include "editor/new_feature_categories.hpp"
 
 using namespace osm;
 
 namespace
 {
 NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
-
-string locale()
-{
-  return locale_translator::bcp47ToTwineLanguage(NSLocale.currentLocale.localeIdentifier);
-}
-
 }  // namespace
 
 @interface MWMObjectsCategorySelectorController ()<UISearchBarDelegate, UITableViewDelegate,
                                                    UITableViewDataSource, MWMKeyboardObserver>
 {
-  NewFeatureCategories m_categories;
-  NewFeatureCategories::TNames m_filteredCategories;
 }
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
+@property(nonatomic) NSString * selectedType;
 @property(nonatomic) NSIndexPath * selectedIndexPath;
 @property(nonatomic) BOOL isSearch;
+@property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
 
 @end
 
@@ -46,11 +37,6 @@ string locale()
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
   self = [super initWithCoder:aDecoder];
-  if (self)
-  {
-    m_categories = GetFramework().GetEditorCategories();
-    m_categories.AddLanguage(locale());
-  }
   return self;
 }
 
@@ -62,6 +48,12 @@ string locale()
   [self configNavBar];
   [self configSearchBar];
   [MWMKeyboard addObserver:self];
+  self.dataSource = [[MWMObjectsCategorySelectorDataSource alloc] init];
+  if (self.selectedType)
+  {
+    self.selectedIndexPath =
+      [NSIndexPath indexPathForRow:([self.dataSource getTypeIndex:self.selectedType])inSection:0];
+  }
 }
 
 - (void)configTable
@@ -72,14 +64,9 @@ string locale()
          forCellReuseIdentifier:[UITableViewCell className]];
 }
 
-- (void)setSelectedCategory:(string const &)category
+- (void)setSelectedCategory:(string const &)type
 {
-  auto const & all = m_categories.GetAllCreatableTypeNames();
-  auto const it = find_if(
-      all.begin(), all.end(),
-      [&category](NewFeatureCategories::TName const & name) { return name.first == category; });
-  NSAssert(it != all.end(), @"Incorrect category!");
-  self.selectedIndexPath = [NSIndexPath indexPathForRow:(distance(all.begin(), it)) inSection:0];
+  self.selectedType = @(type.c_str());
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -142,10 +129,11 @@ string locale()
 
 - (EditableMapObject)createdObject
 {
-  auto const & ds = [self dataSourceForSection:self.selectedIndexPath.section];
+  auto const & typeName = [self.dataSource getType:self.selectedIndexPath.row].UTF8String;
   EditableMapObject emo;
   auto & f = GetFramework();
-  if (!f.CreateMapObject(f.GetViewportCenter(), ds[self.selectedIndexPath.row].second, emo))
+  auto const type = classif().GetTypeByReadableObjectName(typeName);
+  if (!f.CreateMapObject(f.GetViewportCenter(), type, emo))
     NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is "
                     @"always called before!");
   return emo;
@@ -158,8 +146,7 @@ string locale()
 {
   auto cell =
       [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
-  cell.textLabel.text =
-      @([self dataSourceForSection:indexPath.section][indexPath.row].first.c_str());
+  cell.textLabel.text = [self.dataSource getTranslation:indexPath.row];
   if ([indexPath isEqual:self.selectedIndexPath])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   else
@@ -190,7 +177,7 @@ string locale()
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self dataSourceForSection:section].size();
+  return [self.dataSource size];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -205,33 +192,12 @@ string locale()
   //  L(@"editor_add_select_category_all_subtitle");
 }
 
-- (NewFeatureCategories::TNames const &)dataSourceForSection:(NSInteger)section
-{
-  if (self.isSearch)
-    return m_filteredCategories;
-  return m_categories.GetAllCreatableTypeNames();
-  // TODO(Vlad): Uncoment this line when we will be ready to show recent categories
-  //    if (m_categories.m_lastUsed.empty())
-  //      return m_categories.m_allSorted;
-  //    else
-  //      return section == 0 ? m_categories.m_lastUsed : m_categories.m_allSorted;
-}
-
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-  m_filteredCategories.clear();
-  if (!searchText.length)
-  {
-    self.isSearch = NO;
-    [self.tableView reloadData];
-    return;
-  }
-
-  self.isSearch = YES;
-  string const query{[searchText lowercaseStringWithLocale:NSLocale.currentLocale].UTF8String};
-  m_filteredCategories = m_categories.Search(query, locale());
+  self.isSearch = searchText.length == 0 ? NO : YES;
+  [self.dataSource search:[searchText lowercaseStringWithLocale:NSLocale.currentLocale]];
   [self.tableView reloadData];
 }
 
@@ -268,7 +234,7 @@ string locale()
   [searchBar setShowsCancelButton:isActiveState animated:YES];
   [self.navigationController setNavigationBarHidden:isActiveState animated:YES];
   if (!isActiveState)
-    m_filteredCategories.clear();
+    [self.dataSource search:@""];
 }
 
 @end

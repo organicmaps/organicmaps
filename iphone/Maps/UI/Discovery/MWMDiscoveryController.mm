@@ -22,6 +22,7 @@
 
 #include "search/result.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/platform.hpp"
 
 #include "geometry/point2d.hpp"
@@ -266,8 +267,12 @@ struct Callback
 
   auto getRoutePointInfo = ^(search::Result const & item) {
     point = item.GetFeatureCenter();
-    title = @(item.GetString().c_str());
-    subtitle = @(item.GetFeatureTypeName().c_str());
+
+    ASSERT(item.GetResultType() == search::Result::Type::Feature, ());
+    auto const readableType = classif().GetReadableObjectName(item.GetFeatureType());
+
+    subtitle = @(platform::GetLocalizedTypeName(readableType).c_str());
+    title = item.GetString().empty() ? subtitle : @(item.GetString().c_str());
   };
 
   switch (type)

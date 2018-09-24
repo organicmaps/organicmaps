@@ -49,8 +49,8 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     productInfo:(search::ProductInfo const &)productInfo
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureTypeName().c_str());
 
+  self.typeLabel.text = [self.class getLocalizedTypeName:result];
 
   auto const hotelRating = result.GetHotelRating();
   auto const ugcRating = productInfo.m_ugcRating;

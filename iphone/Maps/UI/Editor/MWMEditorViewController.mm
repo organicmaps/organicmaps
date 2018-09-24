@@ -27,7 +27,10 @@
 
 #include "editor/osm_editor.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/feature_source.hpp"
+
+#include "platform/localization.hpp"
 
 namespace
 {
@@ -451,9 +454,12 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
   case MWMEditorCellTypeCategory:
   {
+    auto types = m_mapObject.GetTypes();
+    types.SortBySpec();
+    auto const readableType = classif().GetReadableObjectName(*(types.begin()));
     MWMEditorCategoryCell * cCell = static_cast<MWMEditorCategoryCell *>(cell);
     [cCell configureWithDelegate:self
-                     detailTitle:@(m_mapObject.GetLocalizedType().c_str())
+                     detailTitle:@(platform::GetLocalizedTypeName(readableType).c_str())
                       isCreating:self.isCreating];
     break;
   }
@@ -1057,7 +1063,9 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
                               @"are creating feature!");
     MWMObjectsCategorySelectorController * dvc = segue.destinationViewController;
     dvc.delegate = self;
-    [dvc setSelectedCategory:m_mapObject.GetLocalizedType()];
+    auto const type = *(m_mapObject.GetTypes().begin());
+    auto const readableType = classif().GetReadableObjectName(type);
+    [dvc setSelectedCategory:readableType];
   }
   else if ([segue.identifier isEqualToString:kAdditionalNamesEditorSegue])
   {
