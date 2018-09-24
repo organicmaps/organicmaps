@@ -91,24 +91,19 @@ namespace
         MercatorBounds::FromLatLon(55.77691, 37.70428), 150.);
   }
 
-  // Geometry unpacking test.
   UNIT_TEST(RussiaFerryToCrimeaLoadCrossGeometryTest)
   {
-    // Forward
-    TRouteResult route =
-        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                    MercatorBounds::FromLatLon(45.34123, 36.67679), {0., 0.},
-                                    MercatorBounds::FromLatLon(45.36479, 36.62194));
-    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
-    CHECK(route.first, ());
-    integration::TestRoutePointsNumber(*route.first, 62 /* expected points number */);
-    // And backward case
-    route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                        MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
-                                        MercatorBounds::FromLatLon(45.34123, 36.67679));
-    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
-    CHECK(route.first, ());
-    integration::TestRoutePointsNumber(*route.first, 50 /* expected points number */);
+    // To Crimea.
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(45.34123, 36.67679), {0., 0.},
+        MercatorBounds::FromLatLon(45.36479, 36.62194), 5365.0);
+
+    // From Crimea.
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
+        MercatorBounds::FromLatLon(45.34123, 36.67679), 5400.0);
   }
 
   UNIT_TEST(PriceIslandLoadCrossGeometryTest)

@@ -240,6 +240,7 @@ namespace integration
         CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
     RouterResultCode const result = routeResult.second;
     TEST_EQUAL(result, RouterResultCode::NoError, ());
+    CHECK(routeResult.first, ());
     TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
   }
 
