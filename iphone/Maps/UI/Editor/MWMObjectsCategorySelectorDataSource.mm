@@ -27,14 +27,6 @@ std::string locale()
 {
   return locale_translator::bcp47ToTwineLanguage(NSLocale.currentLocale.localeIdentifier);
 }
-
-void SortByTranslation(Categories & result)
-{
-  std::sort(result.begin(), result.end(), [](Category const & lhs, Category const & rhs)
-  {
-    return lhs.first < rhs.first;
-  });
-}
 }  // namespace
 
 @interface MWMObjectsCategorySelectorDataSource()
@@ -67,7 +59,7 @@ void SortByTranslation(Categories & result)
   for (auto const & type : types)
     m_allCategories.emplace_back(platform::GetLocalizedTypeName(type), type);
 
-  SortByTranslation(m_allCategories);
+  std::sort(m_allCategories.begin(), m_allCategories.end());
 }
 
 - (void)search:(NSString *)query
@@ -83,7 +75,7 @@ void SortByTranslation(Categories & result)
   for (auto const & type : types)
     m_filteredCategories.emplace_back(platform::GetLocalizedTypeName(type), type);
   
-  SortByTranslation(m_filteredCategories);
+  std::sort(m_filteredCategories.begin(), m_filteredCategories.end());
 }
 
 - (NSString *)getTranslation:(NSInteger)row

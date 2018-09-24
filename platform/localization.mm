@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #import <Foundation/Foundation.h>
+
 namespace platform
 {
 std::string GetLocalizedTypeName(std::string const & type)

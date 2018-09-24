@@ -10,7 +10,6 @@
 
 #include "std/cstdint.hpp"
 #include "std/string.hpp"
-#include "std/unordered_set.hpp"
 #include "std/vector.hpp"
 
 namespace osm

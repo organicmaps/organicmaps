@@ -32,7 +32,7 @@ UNIT_TEST(NewFeatureCategories_UniqueNames)
       continue;
     categories.AddLanguage(lang);
     auto names = categories.GetAllCreatableTypeNames();
-
+    std::sort(names.begin(), names.end());
     auto result = std::unique(names.begin(), names.end());
 
     if (result != names.end())

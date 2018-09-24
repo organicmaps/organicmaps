@@ -87,6 +87,7 @@ FeatureID const & Result::GetFeatureID() const
 
 uint32_t Result::GetFeatureType() const
 {
+  ASSERT(m_resultType == Type::Feature, (m_resultType));
   return m_featureType;
 }
 

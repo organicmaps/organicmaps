@@ -44,9 +44,8 @@ string GetResultType(search::Sample::Result const & result)
 
 string GetResultType(search::Result const & result)
 {
-  string readableType;
   if (result.GetResultType() == search::Result::Type::Feature)
-    return readableType = classif().GetReadableObjectName(result.GetFeatureType());
+    return classif().GetReadableObjectName(result.GetFeatureType());
 
   return "";
 }

@@ -1,7 +1,6 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
@@ -738,7 +737,7 @@ public class Utils
   // Called from JNI.
   @NonNull
   @SuppressWarnings("unused")
-  public static String getLocalizedFeatureType(String type)
+  public static String getLocalizedFeatureType(@NonNull String type)
   {
     return getLocalizedFeatureType(MwmApplication.get(), type);
   }
