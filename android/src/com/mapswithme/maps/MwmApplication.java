@@ -73,6 +73,9 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ExternalLibrariesMediator mMediator;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Statistics mStatistics;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -131,10 +134,11 @@ public class MwmApplication extends Application
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
+    mMediator = new ExternalLibrariesMediator(this);
+    mStatistics = new Statistics(mMediator);
     mVisibleAppLaunchListener = new VisibleAppLaunchListener(this);
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-    mMediator = new ExternalLibrariesMediator(this);
     initNotificationChannels();
 
     mBackgroundTracker = new AppBackgroundTracker();
@@ -305,10 +309,15 @@ public class MwmApplication extends Application
     return mConnectivityListener;
   }
 
+  @NonNull
+  public Statistics getStatistics()
+  {
+    return mStatistics;
+  }
+
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
                                          String tmpPath, String obbGooglePath, String flavorName,
                                          String buildType, boolean isTablet);
-
   private static native void nativeInitFramework();
   private static native void nativeProcessTask(long taskPointer);
   private static native void nativeAddLocalization(String name, String value);

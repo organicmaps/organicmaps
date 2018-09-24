@@ -33,7 +33,7 @@ public class ExternalLibrariesMediator
   private final MwmApplication mApplication;
 
   @NonNull
-  private EventLogger mEventLogger;
+  private volatile EventLogger mEventLogger;
 
   public ExternalLibrariesMediator(@NonNull MwmApplication application)
   {
@@ -178,10 +178,7 @@ public class ExternalLibrariesMediator
     protected void onPostExecute(OperationStatus<Boolean, Throwable> status)
     {
       super.onPostExecute(status);
-      if (status.isOk()
-          && status.getResult() != null
-          && status.getResult()
-          && SharedPropertiesUtils.isStatisticsEnabled())
+      if (status.isOk() && status.getResult() != null && status.getResult())
         mMediator.initSensitiveDataStrictLibraries();
     }
   }

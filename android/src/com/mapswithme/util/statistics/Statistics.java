@@ -11,14 +11,13 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 
 import com.android.billingclient.api.BillingClient;
 import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
-import com.flurry.android.FlurryAgent;
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.ExternalLibrariesMediator;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
@@ -148,16 +147,8 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
-public enum Statistics
+public final class Statistics
 {
-  INSTANCE;
-
-  @NonNull
-  public static Statistics from(@NonNull Application application)
-  {
-    return INSTANCE;
-  }
-
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
   public @interface BannerState {}
@@ -500,8 +491,9 @@ public enum Statistics
   // avoid their initialization if user has disabled statistics collection.
   private final boolean mEnabled;
 
-  Statistics()
+  public Statistics(@NonNull ExternalLibrariesMediator mediator)
   {
+    mMediator = mediator;
     mEnabled = SharedPropertiesUtils.isStatisticsEnabled();
     final Context context = MwmApplication.get();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.
@@ -512,19 +504,18 @@ public enum Statistics
     configure(context);
   }
 
+  @NonNull
+  private final ExternalLibrariesMediator mMediator;
+
+  @NonNull
+  public static Statistics from(@NonNull Application application)
+  {
+    MwmApplication app = (MwmApplication) application;
+    return app.getStatistics();
+  }
+
   private void configure(Context context)
   {
-    if (mEnabled)
-    {
-      //noinspection ConstantConditions
-      FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
-      new FlurryAgent
-          .Builder()
-          .withLogEnabled(true)
-          .withLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR)
-          .withCaptureUncaughtExceptions(false)
-          .build(context, PrivateVariables.flurryKey());
-    }
     // At the moment, need to always initialize engine for correct JNI http part reusing.
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
     // TODO (AlexZ): Remove this initialization dependency from JNI part.
@@ -535,38 +526,33 @@ public enum Statistics
   public void trackEvent(@NonNull String name)
   {
     if (mEnabled)
-    {
-      FlurryAgent.logEvent(name);
       org.alohalytics.Statistics.logEvent(name);
-    }
+    mMediator.getEventLogger().logEvent(name, Collections.emptyMap());
   }
 
   public void trackEvent(@NonNull String name, @NonNull Map<String, String> params)
   {
     if (mEnabled)
-    {
-      FlurryAgent.logEvent(name, params);
       org.alohalytics.Statistics.logEvent(name, params);
-    }
+
+    mMediator.getEventLogger().logEvent(name, params);
   }
 
   public void trackEvent(@NonNull String name, @Nullable Location location, @NonNull Map<String, String> params)
   {
-    if (mEnabled)
+    List<String> eventDictionary = new ArrayList<String>();
+    for (Map.Entry<String, String> entry : params.entrySet())
     {
-      List<String> eventDictionary = new ArrayList<String>();
-      for (Map.Entry<String, String> entry : params.entrySet())
-      {
-        eventDictionary.add(entry.getKey());
-        eventDictionary.add(entry.getValue());
-      }
+      eventDictionary.add(entry.getKey());
+      eventDictionary.add(entry.getValue());
+    }
+    params.put("lat", (location == null ? "N/A" : String.valueOf(location.getLatitude())));
+    params.put("lon", (location == null ? "N/A" : String.valueOf(location.getLongitude())));
 
+    if (mEnabled)
       org.alohalytics.Statistics.logEvent(name, eventDictionary.toArray(new String[0]), location);
 
-      params.put("lat", (location == null ? "N/A" : String.valueOf(location.getLatitude())));
-      params.put("lon", (location == null ? "N/A" : String.valueOf(location.getLongitude())));
-      FlurryAgent.logEvent(name, params);
-    }
+    mMediator.getEventLogger().logEvent(name, params);
   }
 
   public void trackEvent(@NonNull String name, @NonNull ParameterBuilder builder)
@@ -578,20 +564,21 @@ public enum Statistics
   {
     if (mEnabled)
     {
-      FlurryAgent.onStartSession(activity);
       AppEventsLogger.activateApp(activity);
       org.alohalytics.Statistics.onStart(activity);
     }
+
+    mMediator.getEventLogger().startActivity(activity);
   }
 
   public void stopActivity(Activity activity)
   {
     if (mEnabled)
     {
-      FlurryAgent.onEndSession(activity);
       AppEventsLogger.deactivateApp(activity);
       org.alohalytics.Statistics.onStop(activity);
     }
+    mMediator.getEventLogger().stopActivity(activity);
   }
 
   public void setStatEnabled(boolean isEnabled)

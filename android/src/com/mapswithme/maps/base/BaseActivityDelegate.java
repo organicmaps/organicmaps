@@ -56,14 +56,12 @@ public class BaseActivityDelegate
   {
     logLifecycleMethod("onStart()");
     Statistics.from(mActivity.get().getApplication()).startActivity(mActivity.get());
-    MyTracker.onStartActivity(mActivity.get());
   }
 
   public void onStop()
   {
     logLifecycleMethod("onStop()");
     Statistics.from(mActivity.get().getApplication()).stopActivity(mActivity.get());
-    MyTracker.onStopActivity(mActivity.get());
   }
 
   public void onResume()
