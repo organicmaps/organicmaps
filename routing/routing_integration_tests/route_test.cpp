@@ -320,7 +320,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 15144.6);
+    integration::TestRouteTime(route, 16203.6);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -334,7 +334,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 730.);
+    integration::TestRouteTime(route, 1000.0);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -409,7 +409,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(60.23884, 29.71603), {0.0, 0.0},
-        MercatorBounds::FromLatLon(60.28975, 29.79399), 11618.1);
+        MercatorBounds::FromLatLon(60.29083, 29.80333), 16679.2);
   }
 
   // Test of decreasing speed factor on roads with bad cover.

@@ -64,7 +64,7 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   Route const & route = *routeResult.first;
   RouterResultCode const result = routeResult.second;
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  TEST(base::AlmostEqualAbs(route.GetTotalTimeSec(), 357.0, 1.0), (route.GetTotalTimeSec()));
+  TEST(base::AlmostEqualAbs(route.GetTotalTimeSec(), 268.3, 1.0), (route.GetTotalTimeSec()));
 }
 
 // This test on tag cycleway=opposite for a streets which have oneway=yes.
@@ -82,7 +82,7 @@ UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents<VehicleType::Bicycle>(),
       MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
-      MercatorBounds::FromLatLon(55.68927, 37.70356), 7726.0);
+      MercatorBounds::FromLatLon(55.68927, 37.70356), 7075.0);
 }
 
 // No pass through service road in Russia
