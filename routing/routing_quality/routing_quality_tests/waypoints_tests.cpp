@@ -39,7 +39,7 @@ UNIT_TEST(RoutingQuality_Zelegonrad2Domodedovo)
 
   ReferenceRoutes candidates;
 
-  // Through M-11 and MCA.
+  // Through M-11 and MKAD.
   ReferenceRoute first;
   first.m_waypoints = {{55.99751, 37.23804},
                        {56.00719, 37.28533},
@@ -49,7 +49,7 @@ UNIT_TEST(RoutingQuality_Zelegonrad2Domodedovo)
   first.m_factor = 1.0;
   candidates.emplace_back(move(first));
 
-  // Through M-10 and MCA.
+  // Through M-10 and MKAD.
   ReferenceRoute second;
   second.m_waypoints = {{55.99775, 37.24941},
                         {55.88627, 37.43915},
@@ -72,6 +72,14 @@ UNIT_TEST(RoutingQuality_Zelegonrad2Domodedovo)
                        {55.65615, 37.64623},
                        {55.57855, 37.75468}};
   third.m_factor = 1.0;
+
+  // Through M-10 and Sadovoe ring.
+  ReferenceRoute fourth;
+  third.m_waypoints = {{55.98974, 37.26966},
+                       {55.78288, 37.57118},
+                       {55.73677, 37.59012},
+                       {55.71785, 37.62237},
+                       {55.57855, 37.75468}};
   candidates.emplace_back(move(third));
 
   TEST_EQUAL(CheckWaypoints(move(params), move(candidates)), 1.0, ());
