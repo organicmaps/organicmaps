@@ -146,7 +146,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
-public enum Statistics
+public final class Statistics
 {
   INSTANCE;
 
@@ -492,8 +492,9 @@ public enum Statistics
   // avoid their initialization if user has disabled statistics collection.
   private final boolean mEnabled;
 
-  Statistics()
+  public Statistics(@NonNull ExternalLibrariesMediator mediator)
   {
+    mMediator = mediator;
     mEnabled = SharedPropertiesUtils.isStatisticsEnabled();
     final Context context = MwmApplication.get();
     // At the moment we need special handling for Alohalytics to enable/disable logging of events in core C++ code.

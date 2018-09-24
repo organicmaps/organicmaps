@@ -72,6 +72,9 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ExternalLibrariesMediator mMediator;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Statistics mStatistics;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -304,6 +307,12 @@ public class MwmApplication extends Application
   public ConnectivityListener getConnectivityListener()
   {
     return mConnectivityListener;
+  }
+
+  @NonNull
+  public Statistics getStatistics()
+  {
+    return mStatistics;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
