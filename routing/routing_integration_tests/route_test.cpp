@@ -17,7 +17,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(19.20789, 30.50663), {0., 0.},
-        MercatorBounds::FromLatLon(19.17289, 30.47315), 10283.7);
+        MercatorBounds::FromLatLon(19.17289, 30.47315), 7645.0);
   }
 
   UNIT_TEST(MoscowKashirskoeShosseCrossing)
@@ -94,7 +94,6 @@ namespace
   // Geometry unpacking test.
   UNIT_TEST(RussiaFerryToCrimeaLoadCrossGeometryTest)
   {
-    size_t constexpr kExpectedPointsNumber = 50;
     // Forward
     TRouteResult route =
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
@@ -102,14 +101,14 @@ namespace
                                     MercatorBounds::FromLatLon(45.36479, 36.62194));
     TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
-    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
+    integration::TestRoutePointsNumber(*route.first, 62 /* expected points number */);
     // And backward case
     route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                         MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
                                         MercatorBounds::FromLatLon(45.34123, 36.67679));
     TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
-    integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
+    integration::TestRoutePointsNumber(*route.first, 50 /* expected points number */);
   }
 
   UNIT_TEST(PriceIslandLoadCrossGeometryTest)

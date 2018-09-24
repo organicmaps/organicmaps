@@ -75,7 +75,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
         vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxWeightSpeed();
     maxSpeed = max(maxSpeed, mwmMaxSpeed);
   });
-  CHECK_GREATER(maxSpeed, 0.0, ());
+  CHECK_GREATER(maxSpeed, 0.0, ("Most likely |numMwmIds| is empty."));
   return maxSpeed;
 }
 
