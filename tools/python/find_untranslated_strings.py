@@ -23,7 +23,7 @@ class StringsTxt:
 
     def __init__(self, strings_path=None):
         if not strings_path:
-            self.strings_path = join(dirname(argv[0]), "..", "..", "strings.txt")
+            self.strings_path = join(dirname(argv[0]), "..", "..", "data","strings", "strings.txt")
         else:
             self.strings_path = strings_path
 

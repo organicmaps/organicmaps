@@ -3,9 +3,10 @@ set -e -u -x
 
 OMIM_PATH="$(dirname "$0")/../.."
 TWINE="$OMIM_PATH/tools/twine/twine"
+STRINGS_PATH="$OMIM_PATH/data/strings"
 
 MERGED_FILE="$(mktemp)"
-cat "$OMIM_PATH/strings.txt" "$OMIM_PATH/partners_strings.txt" "$OMIM_PATH/data/types_strings.txt" > "$MERGED_FILE"
+cat "$STRINGS_PATH/strings.txt" "$STRINGS_PATH/partners_strings.txt" "$STRINGS_PATH/types_strings.txt" > "$MERGED_FILE"
 
 # TODO: Add "--untagged --tags android" when tags are properly set.
 # TODO: Add validate-strings-file call to check for duplicates (and avoid Android build errors) when tags are properly set.
@@ -16,6 +17,6 @@ $TWINE generate-all-localization-files --format apple --file-name InfoPlist.stri
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/cuisines.txt" "$OMIM_PATH/data/cuisine-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/countries_names.txt" "$OMIM_PATH/data/countries-strings/"
 $TWINE generate-all-localization-files --format jquery "$OMIM_PATH/data/sound.txt" "$OMIM_PATH/data/sound-strings/"
-#$TWINE generate-all-localization-files --include translated --format tizen "$OMIM_PATH/strings.txt" "$OMIM_PATH/tizen/MapsWithMe/res/" --tags tizen
+#$TWINE generate-all-localization-files --include translated --format tizen "$STRINGS_PATH/strings.txt" "$OMIM_PATH/tizen/MapsWithMe/res/" --tags tizen
 
 rm $MERGED_FILE

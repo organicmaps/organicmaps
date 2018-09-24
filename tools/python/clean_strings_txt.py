@@ -154,7 +154,7 @@ def get_args():
 
     parser.add_argument(
         "-o", "--output",
-        dest="output", default="strings.txt",
+        dest="output", default="data/strings/strings.txt",
         help="""The name for the resulting file. It will be saved to the
         project folder. Only relevant if the -s option is set."""
     )

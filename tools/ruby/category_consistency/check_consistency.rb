@@ -6,7 +6,7 @@ ROOT = File.expand_path(File.dirname(__FILE__))
 OMIM_ROOT = File.join(ROOT, '..', '..', '..')
 CPP_CATEGORIES_FILENAME = File.join(OMIM_ROOT, 'search', 'displayed_categories.cpp')
 CATEGORIES_FILENAME = File.join(OMIM_ROOT, 'data', 'categories.txt')
-STRINGS_FILENAME = File.join(OMIM_ROOT, 'strings.txt')
+STRINGS_FILENAME = File.join(OMIM_ROOT, 'data', 'strings', 'strings.txt')
 CATEGORIES_MATCHER = /m_keys = \{(.*)\};/m
 
 def load_categories_from_cpp(filename)

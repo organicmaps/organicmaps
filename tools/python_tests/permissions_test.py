@@ -83,7 +83,6 @@ class TestPermissions(unittest.TestCase):
     def contains_correct_files(self, my_path):
         dir_contents = listdir(my_path)
         return (
-            "strings.txt" in dir_contents or
             "android" in dir_contents or
             "drape_frontend" in dir_contents
         )
