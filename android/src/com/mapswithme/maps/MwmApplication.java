@@ -268,7 +268,7 @@ public class MwmApplication extends Application
   @SuppressWarnings("unused")
   void sendPushWooshTags(String tag, String[] values)
   {
-    EventLoggerProvider.from(this).sendTags(tag, values);
+    EventLoggerProvider.obtainLogger(this).sendTags(tag, values);
   }
 
   @NonNull

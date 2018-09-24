@@ -17,24 +17,24 @@ public class DefaultEventLogger extends ContextDependentEventLogger
   @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
-
+    /* Do nothing */
   }
 
   @Override
   public void logEvent(@NonNull String event, @NonNull Map<String, String> params)
   {
-
+    /* Do nothing */
   }
 
   @Override
   public void startActivity(@NonNull Activity context)
   {
-
+    /* Do nothing */
   }
 
   @Override
   public void stopActivity(@NonNull Activity context)
   {
-
+    /* Do nothing */
   }
 }

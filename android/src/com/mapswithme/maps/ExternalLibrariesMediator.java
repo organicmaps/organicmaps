@@ -56,7 +56,7 @@ public class ExternalLibrariesMediator
     getAdInfoTask.execute();
   }
 
-  private void initStrictLibrariesImmediately()
+  private void initSensitiveDataStrictLibraries()
   {
     if (Looper.getMainLooper().getThread() != Thread.currentThread())
     {
@@ -182,7 +182,7 @@ public class ExternalLibrariesMediator
           && status.getResult() != null
           && status.getResult()
           && SharedPropertiesUtils.isStatisticsEnabled())
-        mMediator.initStrictLibrariesImmediately();
+        mMediator.initSensitiveDataStrictLibraries();
     }
   }
 

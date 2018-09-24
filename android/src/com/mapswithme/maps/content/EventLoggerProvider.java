@@ -8,7 +8,7 @@ import com.mapswithme.maps.MwmApplication;
 public class EventLoggerProvider
 {
   @NonNull
-  public static EventLogger from(@NonNull Application application)
+  public static EventLogger obtainLogger(@NonNull Application application)
   {
     MwmApplication app = (MwmApplication) application;
     return app.getMediator().getEventLogger();

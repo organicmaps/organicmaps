@@ -20,7 +20,6 @@ public class EventLoggerAggregator extends ContextDependentEventLogger
     mLoggers.put(LibnotifyEventLogger.class, new LibnotifyEventLogger(application));
     mLoggers.put(PushWooshEventLogger.class, new PushWooshEventLogger(application));
     mLoggers.put(MyTrackerEventLogger.class, new MyTrackerEventLogger(application));
-    mLoggers.put(AllohaEventLogger.class, new AllohaEventLogger(application));
     mLoggers.put(FlurryEventLogger.class, new FlurryEventLogger(application));
   }
 

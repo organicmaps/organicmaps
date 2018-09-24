@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class FlurryEventLogger extends DefaultEventLogger
 {
-  public FlurryEventLogger(@NonNull Application application)
+  FlurryEventLogger(@NonNull Application application)
   {
     super(application);
     initFlurry();

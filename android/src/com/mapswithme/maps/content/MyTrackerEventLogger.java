@@ -14,16 +14,16 @@ import java.util.Map;
 
 public class MyTrackerEventLogger extends ContextDependentEventLogger
 {
-  protected MyTrackerEventLogger(@NonNull Application application)
+  MyTrackerEventLogger(@NonNull Application application)
   {
     super(application);
-    initTracker(application);
+    initTracker();
   }
 
   @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
-
+    /* Do nothing */
   }
 
   @Override
@@ -44,10 +44,10 @@ public class MyTrackerEventLogger extends ContextDependentEventLogger
     MyTracker.onStopActivity(context);
   }
 
-  private void initTracker(@NonNull Application application)
+  private void initTracker()
   {
     MyTracker.setDebugMode(BuildConfig.DEBUG);
-    MyTracker.createTracker(PrivateVariables.myTrackerKey(), application);
+    MyTracker.createTracker(PrivateVariables.myTrackerKey(), getApplication());
     final MyTrackerParams myParams = MyTracker.getTrackerParams();
     if (myParams != null)
       myParams.setDefaultVendorAppPackage();

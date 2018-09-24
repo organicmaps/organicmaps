@@ -22,12 +22,10 @@ public class LibnotifyEventLogger extends DefaultEventLogger
   protected LibnotifyEventLogger(@NonNull Application application)
   {
     super(application);
-    initLibnotify(application);
-    mApi = NotificationFactory.get(application);
+    mApi = initLibnotify();
   }
 
-
-  private void initLibnotify(@NonNull Application application)
+  private NotificationApi initLibnotify()
   {
     if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
     {
@@ -40,21 +38,20 @@ public class LibnotifyEventLogger extends DefaultEventLogger
     }
     NotificationFactory.setNetworkSyncMode(NetworkSyncMode.WIFI_ONLY);
     NotificationFactory.setBackgroundAwakeMode(BackgroundAwakeMode.DISABLED);
-    NotificationFactory.initialize(application);
-  }
-
-  private void sendLibNotifyParams(@NonNull String tag, @NonNull Object value)
-  {
-    Map<String, Object> map = Collections.singletonMap(tag, value);
-    mApi.collectEventBatch(map);
+    NotificationFactory.initialize(getApplication());
+    return NotificationFactory.get(getApplication());
   }
 
   @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
     super.sendTags(tag, params);
+    if (params == null)
+      return;
 
     boolean isSingleParam = params.length == 1;
-    sendLibNotifyParams(tag, isSingleParam ? params[0] : params);
+    Object value = isSingleParam ? params[0] : params;
+    Map<String, Object> map = Collections.singletonMap(tag, value);
+    mApi.collectEventBatch(map);
   }
 }
