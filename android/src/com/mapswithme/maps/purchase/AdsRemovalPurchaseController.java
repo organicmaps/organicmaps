@@ -5,12 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -66,7 +69,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
       boolean activateSubscription = status != AdsRemovalValidationStatus.NOT_VERIFIED;
       Framework.nativeSetActiveRemoveAdsSubscription(activateSubscription);
-
+      if (activateSubscription)
+        Statistics.INSTANCE.trackPurchaseProductDelivered(PrivateVariables.adsRemovalVendor());
       if (getUiCallback() != null)
         getUiCallback().onValidationStatusObtained(status);
     }
@@ -95,10 +99,10 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     }
 
     @Override
-    public void onPurchaseFailure()
+    public void onPurchaseFailure(@BillingClient.BillingResponse int error)
     {
       if (getUiCallback() != null)
-        getUiCallback().onPaymentFailure();
+        getUiCallback().onPaymentFailure(error);
     }
 
     @Override

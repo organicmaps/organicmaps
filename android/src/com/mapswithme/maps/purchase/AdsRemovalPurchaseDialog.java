@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -21,6 +24,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Collections;
 import java.util.List;
@@ -171,6 +175,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     ProductDetails details = getProductDetailsForPeriod(period);
     mController.launchPurchaseFlow(details.getProductId());
+    Statistics.INSTANCE.trackPurchasePreviewSelect(details.getProductId());
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY);
   }
 
   void onExplanationClick()
@@ -195,6 +201,13 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     LOGGER.d(TAG, "onSaveInstanceState");
     outState.putInt(EXTRA_CURRENT_STATE, mState.ordinal());
     outState.putParcelableArray(EXTRA_PRODUCT_DETAILS, mProductDetails);
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL);
   }
 
   @Override
@@ -319,11 +332,14 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
 
       mDialog.handleProductDetails(details);
       activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
+      Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.adsRemovalVendor(),
+                                                   PrivateVariables.adsRemovalYearlyProductId());
     }
 
     @Override
-    public void onPaymentFailure()
+    public void onPaymentFailure(@BillingClient.BillingResponse int error)
     {
+      Statistics.INSTANCE.trackPurchaseStoreError(error);
       activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
     }
 
@@ -336,12 +352,17 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     @Override
     public void onValidationStarted()
     {
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS);
       activateStateSafely(AdsRemovalPaymentState.VALIDATION);
     }
 
     @Override
     public void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status)
     {
+      if (status == AdsRemovalValidationStatus.VERIFIED)
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS);
+      else
+        Statistics.INSTANCE.trackPurchaseValidationError(status);
       activateStateSafely(AdsRemovalPaymentState.VALIDATION_FINISH);
     }
 

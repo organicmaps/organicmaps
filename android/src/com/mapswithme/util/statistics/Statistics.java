@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
+import com.android.billingclient.api.BillingClient;
 import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
 import com.flurry.android.FlurryAgent;
@@ -29,6 +30,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.purchase.AdsRemovalValidationStatus;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
@@ -64,7 +66,13 @@ import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOS
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_TOGGLE;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SELECT;
+import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PREVIEW_SHOW;
+import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_PRODUCT_DELIVERED;
+import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_STORE_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.INAPP_PURCHASE_VALIDATION_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLOSE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
@@ -109,6 +117,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.NETWORK;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PLACEMENT;
+import static com.mapswithme.util.statistics.Statistics.EventParam.PRODUCT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
@@ -116,6 +125,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
+import static com.mapswithme.util.statistics.Statistics.EventParam.VENDOR;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BICYCLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
@@ -232,6 +242,7 @@ public enum Statistics
     public static final String PP_BANNER_SHOW = "Placepage_Banner_show";
     public static final String PP_BANNER_ERROR = "Placepage_Banner_error";
     public static final String PP_BANNER_BLANK = "Placepage_Banner_blank";
+    public static final String PP_BANNER_CLOSE = "Placepage_Banner_close";
     public static final String PP_HOTEL_GALLERY_OPEN = "PlacePage_Hotel_Gallery_open";
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
@@ -316,6 +327,17 @@ public enum Statistics
     public static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
     public static final String UGC_AUTH_ERROR = "UGC_Auth_error";
     public static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
+
+    // Purchases.
+    public static final String INAPP_PURCHASE_PREVIEW_SHOW = "InAppPurchase_Preview_show";
+    public static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
+    public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
+    public static final String INAPP_PURCHASE_PREVIEW_CANCEL = "InAppPurchase_Preview_cancel";
+    public static final String INAPP_PURCHASE_STORE_SUCCESS  = "InAppPurchase_Store_success";
+    public static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
+    public static final String INAPP_PURCHASE_VALIDATION_SUCCESS  = "InAppPurchase_Validation_success";
+    public static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
+    public static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
 
     public static class Settings
     {
@@ -405,6 +427,8 @@ public enum Statistics
     public static final String STATUS = "status";
     static final String INTERRUPTED = "interrupted";
     static final String BUTTON = "button";
+    static final String VENDOR = "vendor";
+    static final String PRODUCT = "product";
 
     private EventParam() {}
   }
@@ -1291,6 +1315,49 @@ public enum Statistics
   private static ParameterBuilder getToolbarParams(@NonNull MainMenu.Item button)
   {
     return params().add(BUTTON, button.name().toLowerCase());
+  }
+
+  public void trackPPBannerClose(@BannerState int state, boolean isCross)
+  {
+    trackEvent(PP_BANNER_CLOSE, params().add(BANNER, state)
+                                        .add(BUTTON, isCross ? 0 : 1));
+  }
+
+  public void trackPurchasePreviewShow(@NonNull String vendor, @NonNull String productId)
+  {
+    trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params().add(VENDOR, vendor)
+                                                    .add(PRODUCT, productId));
+  }
+
+  public void trackPurchasePreviewSelect(@NonNull String productId)
+  {
+    trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params().add(PRODUCT, productId));
+  }
+
+  public void trackPurchaseStoreError(@BillingClient.BillingResponse int error)
+  {
+    trackEvent(INAPP_PURCHASE_STORE_ERROR, params().add(ERROR, "Billing error: " + error));
+  }
+
+  public void trackPurchaseValidationError(@NonNull AdsRemovalValidationStatus status)
+  {
+    if (status == AdsRemovalValidationStatus.VERIFIED)
+      return;
+
+    int errorCode;
+    if (status == AdsRemovalValidationStatus.NOT_VERIFIED)
+      errorCode = 0;
+    else if (status == AdsRemovalValidationStatus.SERVER_ERROR)
+      errorCode = 2;
+    else
+      return;
+
+    trackEvent(INAPP_PURCHASE_VALIDATION_ERROR, params().add(ERROR_CODE, errorCode));
+  }
+
+  public void trackPurchaseProductDelivered(@NonNull String vendor)
+  {
+    trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor));
   }
 
   public static ParameterBuilder params()

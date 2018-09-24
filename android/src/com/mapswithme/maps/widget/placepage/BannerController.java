@@ -153,12 +153,12 @@ final class BannerController
     mActionContainer = mBannerView.findViewById(R.id.action_container);
     mActionLarge = mActionContainer.findViewById(R.id.tv__action_large);
     mAdsRemovalButton = mActionContainer.findViewById(R.id.tv__action_remove);
-    mAdsRemovalButton.setOnClickListener(v -> handleAdsRemoval());
+    mAdsRemovalButton.setOnClickListener(this::handleAdsRemoval);
     mAdChoices = mBannerView.findViewById(R.id.ad_choices_icon);
     mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
     mAdChoicesLabel = mBannerView.findViewById(R.id.ad_choices_label);
     mAdsRemovalIcon = mBannerView.findViewById(R.id.remove_btn);
-    mAdsRemovalIcon.setOnClickListener(v -> handleAdsRemoval());
+    mAdsRemovalIcon.setOnClickListener(this::handleAdsRemoval);
     Resources res = mBannerView.getResources();
     final int tapArea = res.getDimensionPixelSize(R.dimen.margin_quarter_plus);
     UiUtils.expandTouchAreaForViews(tapArea, mAdChoices, mAdsRemovalIcon);
@@ -176,8 +176,12 @@ final class BannerController
     Utils.openUrl(mBannerView.getContext(), privacyUrl);
   }
 
-  private void handleAdsRemoval()
+  private void handleAdsRemoval(@NonNull View clickedView)
   {
+    boolean isCross = clickedView.getId() == R.id.remove_btn;
+    @Statistics.BannerState
+    int state = mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW;
+    Statistics.INSTANCE.trackPPBannerClose(state, isCross);
     FragmentActivity activity = (FragmentActivity) mBannerView.getContext();
     AdsRemovalPurchaseDialog fragment
         = (AdsRemovalPurchaseDialog) Fragment.instantiate(activity, AdsRemovalPurchaseDialog.class.getName());

@@ -143,7 +143,7 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
     {
       LOGGER.e(TAG, "Billing failed. Response code: " + responseCode);
       if (mCallback != null)
-        mCallback.onPurchaseFailure();
+        mCallback.onPurchaseFailure(responseCode);
       return;
     }
 
@@ -187,6 +187,6 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
 
     mPendingRequests.clear();
     if (mCallback != null)
-      mCallback.onPurchaseFailure();
+      mCallback.onPurchaseFailure(BillingResponse.SERVICE_DISCONNECTED);
   }
 }
