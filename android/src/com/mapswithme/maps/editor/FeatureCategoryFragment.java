@@ -59,7 +59,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
                               ? Editor.nativeGetAllCreatableFeatureTypes(locale)
                               : Editor.nativeSearchCreatableFeatureTypes(query, locale);
 
-    FeatureCategory[] categories = MakeFeatureCategoriesFromTypes(creatableTypes);
+    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 
     getAdapter().setCategories(categories);
   }
@@ -71,13 +71,13 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
     String locale = Language.getDefaultLocale();
     String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(locale);
 
-    FeatureCategory[] categories = MakeFeatureCategoriesFromTypes(creatableTypes);
+    FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes);
 
     return new FeatureCategoryAdapter(this, categories, mSelectedCategory);
   }
 
   @NonNull
-  private FeatureCategory[] MakeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
+  private FeatureCategory[] makeFeatureCategoriesFromTypes(@NonNull String[] creatableTypes)
   {
     FeatureCategory[] categories = new FeatureCategory[creatableTypes.length];
 

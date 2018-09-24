@@ -46,7 +46,7 @@ void NewFeatureCategories::AddLanguage(string lang)
     lang = "en";
     langCode = CategoriesHolder::kEnglishCode;
   }
-  if (m_addedLangs.find(lang) != m_addedLangs.end())
+  if (m_addedLangs.Contains(langCode))
     return;
 
   auto const & c = classif();
@@ -55,7 +55,7 @@ void NewFeatureCategories::AddLanguage(string lang)
     m_index.AddCategoryByTypeAndLang(c.GetTypeByReadableObjectName(type), langCode);
   }
 
-  m_addedLangs.insert(lang);
+  m_addedLangs.Insert(langCode);
 }
 
 NewFeatureCategories::TypeNames NewFeatureCategories::Search(string const & query) const

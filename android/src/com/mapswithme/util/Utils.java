@@ -712,8 +712,12 @@ public class Utils
     void invoke(@NonNull T param);
   }
 
-  public static String getLocalizedFeatureType(@NonNull Context context, @NonNull String type)
+  @NonNull
+  public static String getLocalizedFeatureType(@NonNull Context context, @Nullable String type)
   {
+    if (TextUtils.isEmpty(type))
+      return "";
+
     String key = "type." + type.replace('-', '.');
 
     @StringRes
@@ -725,12 +729,15 @@ public class Utils
     }
     catch (Resources.NotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to get localized string for type'" + type + "'", e);
+      LOGGER.e(TAG, "Failed to get localized string for type '" + type + "'", e);
     }
 
     return type;
   }
 
+  // Called from JNI.
+  @NonNull
+  @SuppressWarnings("unused")
   public static String getLocalizedFeatureType(String type)
   {
     return getLocalizedFeatureType(MwmApplication.get(), type);

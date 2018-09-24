@@ -2,9 +2,11 @@
 
 #include "editor/editor_config.hpp"
 
+#include "indexer/categories_holder.hpp"
 #include "indexer/categories_index.hpp"
 
 #include "base/macros.hpp"
+#include "base/small_set.hpp"
 
 #include "std/cstdint.hpp"
 #include "std/string.hpp"
@@ -48,8 +50,11 @@ public:
   TypeNames const & GetAllCreatableTypeNames() const;
 
 private:
+  using Langs =
+      base::SmallSet<static_cast<uint64_t>(CategoriesHolder::kMaxSupportedLocaleIndex) + 1>;
+
   indexer::CategoriesIndex m_index;
-  unordered_set<string> m_addedLangs;
+  Langs m_addedLangs;
   TypeNames m_types;
 
   DISALLOW_COPY(NewFeatureCategories);

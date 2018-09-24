@@ -212,7 +212,6 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     // FIXME: Better format based on result type
     private CharSequence formatDescription(SearchResult result, boolean isHotelAvailable)
     {
-
       String localizedType = Utils.getLocalizedFeatureType(mFrame.getContext(),
                                                            result.description.featureType);
       final SpannableStringBuilder res = new SpannableStringBuilder(localizedType);

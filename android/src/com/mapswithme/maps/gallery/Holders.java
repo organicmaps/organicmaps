@@ -249,9 +249,7 @@ public class Holders
       super.bind(item);
 
       String featureType = item.getFeatureType();
-      String localizedType = TextUtils.isEmpty(featureType)
-                             ? ""
-                             : Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
+      String localizedType = Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
       String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
 
       UiUtils.setTextAndHideIfEmpty(mTitle, title);
@@ -290,9 +288,7 @@ public class Holders
     public void bind(@NonNull Items.SearchItem item)
     {
       String featureType = item.getFeatureType();
-      String localizedType = TextUtils.isEmpty(featureType)
-                             ? ""
-                             : Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
+      String localizedType = Utils.getLocalizedFeatureType(mSubtitle.getContext(), featureType);
       String title = TextUtils.isEmpty(item.getTitle()) ? localizedType : item.getTitle();
 
       UiUtils.setTextAndHideIfEmpty(mTitle, title);
