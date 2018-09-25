@@ -4,10 +4,6 @@
 
 #include "Framework.h"
 
-#include "indexer/classificator.hpp"
-
-#include "platform/localization.hpp"
-
 #include "base/logging.hpp"
 
 #include <string>
@@ -21,12 +17,16 @@
 @implementation MWMSearchCell
 
 - (void)config:(search::Result const &)result
+    localizedTypeName:(NSString *)localizedTypeName
 {
-  NSString * title = @(result.GetString().c_str());
+  NSString * title = result.GetString().empty() ? localizedTypeName : @(result.GetString().c_str());
+  
   if (title.length == 0)
   {
-    title = [self.class getLocalizedTypeName:result];
+    self.titleLabel.text = @"";
+    return;
   }
+  
   NSDictionary * selectedTitleAttributes = [self selectedTitleAttributes];
   NSDictionary * unselectedTitleAttributes = [self unselectedTitleAttributes];
   if (!selectedTitleAttributes || !unselectedTitleAttributes)
@@ -58,16 +58,6 @@
   [self.titleLabel sizeToFit];
 
   self.backgroundColor = [UIColor white];
-}
-
-+ (NSString *)getLocalizedTypeName:(search::Result const &)result
-{
-  if (result.GetResultType() != search::Result::Type::Feature)
-    return @"";
-
-  auto const readableType = classif().GetReadableObjectName(result.GetFeatureType());
-
-  return @(platform::GetLocalizedTypeName(readableType).c_str());
 }
 
 - (NSDictionary *)selectedTitleAttributes

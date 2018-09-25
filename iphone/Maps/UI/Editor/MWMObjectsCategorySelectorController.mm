@@ -26,7 +26,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
 @property(weak, nonatomic) IBOutlet UISearchBar * searchBar;
 @property(nonatomic) NSString * selectedType;
-@property(nonatomic) NSIndexPath * selectedIndexPath;
 @property(nonatomic) BOOL isSearch;
 @property(nonatomic) MWMObjectsCategorySelectorDataSource * dataSource;
 
@@ -49,11 +48,6 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   [self configSearchBar];
   [MWMKeyboard addObserver:self];
   self.dataSource = [[MWMObjectsCategorySelectorDataSource alloc] init];
-  if (self.selectedType)
-  {
-    self.selectedIndexPath =
-      [NSIndexPath indexPathForRow:([self.dataSource getTypeIndex:self.selectedType])inSection:0];
-  }
 }
 
 - (void)configTable
@@ -87,7 +81,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (void)onDone
 {
-  if (!self.selectedIndexPath)
+  if (!self.selectedType)
     return;
   [self performSegueWithIdentifier:kToEditorSegue sender:nil];
 }
@@ -129,10 +123,9 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (EditableMapObject)createdObject
 {
-  auto const & typeName = [self.dataSource getType:self.selectedIndexPath.row].UTF8String;
   EditableMapObject emo;
   auto & f = GetFramework();
-  auto const type = classif().GetTypeByReadableObjectName(typeName);
+  auto const type = classif().GetTypeByReadableObjectName(self.selectedType.UTF8String);
   if (!f.CreateMapObject(f.GetViewportCenter(), type, emo))
     NSAssert(false, @"This call should never fail, because IsPointCoveredByDownloadedMaps is "
                     @"always called before!");
@@ -147,7 +140,8 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   auto cell =
       [tableView dequeueReusableCellWithCellClass:[UITableViewCell class] indexPath:indexPath];
   cell.textLabel.text = [self.dataSource getTranslation:indexPath.row];
-  if ([indexPath isEqual:self.selectedIndexPath])
+  auto const type = [self.dataSource getType:indexPath.row];
+  if ([type isEqualToString:self.selectedType])
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   else
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -156,7 +150,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  self.selectedIndexPath = indexPath;
+  self.selectedType = [self.dataSource getType:indexPath.row];
 
   id<MWMObjectsCategorySelectorDelegate> delegate = self.delegate;
   if (delegate)

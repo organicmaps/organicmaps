@@ -5,6 +5,23 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
+#include "indexer/classificator.hpp"
+
+#include "platform/localization.hpp"
+
+namespace
+{
+NSString * GetLocalizedTypeName(search::Result const & result)
+{
+  if (result.GetResultType() != search::Result::Type::Feature)
+    return @"";
+
+  auto const readableType = classif().GetReadableObjectName(result.GetFeatureType());
+
+  return @(platform::GetLocalizedTypeName(readableType).c_str());
+}
+}
+
 @interface MWMSearchTableViewController ()<UITableViewDataSource, UITableViewDelegate, MWMGoogleFallbackBannerDynamicSizeDelegate>
 
 @property(weak, nonatomic) IBOutlet UITableView * tableView;
@@ -90,7 +107,9 @@
     auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
     auto const isDealAvailable = [MWMSearch isDealAvailableWithContainerIndex:containerIndex];
     auto const & productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
-    [cell config:result isAvailable:isBookingAvailable isHotOffer:isDealAvailable productInfo:productInfo];
+    auto const typeName = GetLocalizedTypeName(result);
+    [cell config:result isAvailable:isBookingAvailable isHotOffer:isDealAvailable productInfo:productInfo
+        localizedTypeName:typeName];
     return cell;
   }
   case MWMSearchItemTypeMopub:
@@ -114,7 +133,7 @@
         dequeueReusableCellWithCellClass:[MWMSearchSuggestionCell class]
                                indexPath:indexPath]);
     auto const & suggestion = [MWMSearch resultWithContainerIndex:containerIndex];
-    [cell config:suggestion];
+    [cell config:suggestion localizedTypeName:@""];
     cell.isLastCell = row == [MWMSearch suggestionsCount] - 1;
     return cell;
   }

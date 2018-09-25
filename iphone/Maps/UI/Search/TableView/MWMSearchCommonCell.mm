@@ -47,10 +47,11 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
     isAvailable:(BOOL)isAvailable
     isHotOffer:(BOOL)isHotOffer
     productInfo:(search::ProductInfo const &)productInfo
+    localizedTypeName:(NSString *)localizedTypeName
 {
-  [super config:result];
+  [super config:result localizedTypeName:localizedTypeName];
 
-  self.typeLabel.text = [self.class getLocalizedTypeName:result];
+  self.typeLabel.text = localizedTypeName;
 
   auto const hotelRating = result.GetHotelRating();
   auto const ugcRating = productInfo.m_ugcRating;

@@ -4,6 +4,6 @@
 
 @interface MWMSearchCell : MWMTableViewCell
 
-- (void)config:(search::Result const &)result;
-+ (NSString *)getLocalizedTypeName:(search::Result const &)result;
+- (void)config:(search::Result const &)result
+    localizedTypeName:(NSString *)localizedTypeName;
 @end
