@@ -25,8 +25,8 @@ public:
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
                                  storage::TCountriesVec const & countryIds,
                                  std::string const & userLanguage) const;
-  void AddAdProvider(Banner::Type const type, Banner::Place bannerPlace);
-  void RemoveAdProvider(Banner::Type const type, Banner::Place const place);
+  void EnableAdProvider(Banner::Type const type, Banner::Place bannerPlace);
+  void DisableAdProvider(Banner::Type const type, Banner::Place const place);
   bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;
 
@@ -39,13 +39,13 @@ private:
       : m_type(type), m_container(std::move(container))
     {
     }
-
+    bool m_enabled = true;
     Banner::Type m_type;
     ContainerPtr m_container;
   };
 
-  void RemoveAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
-  void AddAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
+  void SetAdProviderEnabled(std::vector<ContainerItem> & banners, Banner::Type const type,
+                            bool const isEnabled);
 
   std::vector<ContainerItem> m_banners;
   std::vector<ContainerItem> m_searchBanners;

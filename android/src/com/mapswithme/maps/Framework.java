@@ -224,9 +224,9 @@ public class Framework
     return FilterUtils.RATING_ANY;
   }
 
-  public static void addAdProvider(@NonNull Banner.Type type)
+  public static void setAdProviderDisabled(@NonNull Banner.Type type)
   {
-    nativeAddAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
+    nativeDisableAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -489,5 +489,5 @@ public class Framework
 
   private static native void nativeTipsShown(int tipType, int event);
 
-  private static native void nativeAddAdProvider(int provider, int bannerPlace);
+  private static native void nativeDisableAdProvider(int provider, int bannerPlace);
 }

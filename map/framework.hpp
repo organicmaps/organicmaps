@@ -352,7 +352,7 @@ public:
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
 
   ads::Engine const & GetAdsEngine() const;
-  void AddAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
+  void DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
 
 public:
   // SearchAPI::Delegate overrides:

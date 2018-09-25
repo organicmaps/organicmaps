@@ -14,6 +14,7 @@ namespace ads
 Engine::Engine()
 {
   // The banner systems are placed by priority. First has a top priority.
+  m_banners.emplace_back(Banner::Type::RB, std::make_unique<Rb>());
   m_banners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
 
   m_searchBanners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
@@ -27,7 +28,7 @@ bool Engine::HasBanner(feature::TypesHolder const & types,
   {
     for (auto const & item : m_banners)
     {
-      if (item.m_container->HasBanner(types, countryId, userLanguage))
+      if (item.m_enabled && item.m_container->HasBanner(types, countryId, userLanguage))
         return true;
     }
   }
@@ -43,14 +44,17 @@ std::vector<Banner> Engine::GetBanners(feature::TypesHolder const & types,
 
   for (auto const & item : m_banners)
   {
-    for (auto const & countryId : countryIds)
+    if (item.m_enabled)
     {
-      auto const bannerId = item.m_container->GetBannerId(types, countryId, userLanguage);
-      // We need to add banner for every banner system just once.
-      if (!bannerId.empty())
+      for (auto const & countryId : countryIds)
       {
-        result.emplace_back(item.m_type, bannerId);
-        break;
+        auto const bannerId = item.m_container->GetBannerId(types, countryId, userLanguage);
+        // We need to add banner for every banner system just once.
+        if (!bannerId.empty())
+        {
+          result.emplace_back(item.m_type, bannerId);
+          break;
+        }
       }
     }
   }
@@ -62,7 +66,7 @@ bool Engine::HasSearchBanner() const
 {
   for (auto const & item : m_searchBanners)
   {
-    if (item.m_container->HasSearchBanner())
+    if (item.m_enabled && item.m_container->HasSearchBanner())
       return true;
   }
 
@@ -84,46 +88,23 @@ std::vector<Banner> Engine::GetSearchBanners() const
   return result;
 }
 
-void Engine::RemoveAdProvider(Banner::Type const type, Banner::Place const place)
+void Engine::DisableAdProvider(Banner::Type const type, Banner::Place const place)
 {
-  RemoveAdProviderInternal(place == Banner::Place::Search ? m_searchBanners : m_banners, type);
+  SetAdProviderEnabled(place == Banner::Place::Search ? m_searchBanners : m_banners, type, false);
 }
 
-void Engine::AddAdProvider(Banner::Type const type, Banner::Place const place)
+void Engine::EnableAdProvider(Banner::Type const type, Banner::Place place)
 {
-  AddAdProviderInternal(place == Banner::Place::Search ? m_searchBanners : m_banners, type);
+  SetAdProviderEnabled(place == Banner::Place::Search ? m_searchBanners : m_banners, type, true);
 }
 
-void Engine::RemoveAdProviderInternal(std::vector<Engine::ContainerItem> & banners,
-                                      Banner::Type const type)
+void Engine::SetAdProviderEnabled(std::vector<Engine::ContainerItem> & banners,
+                                  Banner::Type const type, bool const isEnabled)
 {
-  banners.erase(std::remove_if(banners.begin(), banners.end(),
-                               [type](ContainerItem const & each) { return each.m_type == type; }),
-                banners.end());
-}
-
-void Engine::AddAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type)
-{
-  auto const hasItemIterator =
-      std::find_if(std::begin(banners), std::end(banners),
-                   [type](ContainerItem const & each) { return each.m_type == type; });
-
-  if (hasItemIterator != std::end(banners))
-    return;
-
-  switch (type)
+  for (auto & item : banners)
   {
-  case Banner::Type::Facebook:
-    banners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
-    break;
-  case Banner::Type::RB: banners.emplace_back(Banner::Type::RB, std::make_unique<Rb>()); break;
-  case Banner::Type::Mopub:
-    banners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
-    break;
-  case Banner::Type::Google:
-    banners.emplace_back(Banner::Type::None, std::make_unique<Google>());
-    break;
-  case Banner::Type::None: break;
+    if (item.m_type == type)
+      item.m_enabled = isEnabled;
   }
 }
 }  // namespace ads
