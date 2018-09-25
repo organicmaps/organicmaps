@@ -2480,3 +2480,1664 @@
 "sponsored_partner19_action" = "Lifehack";
 
 "sponsored_partner20_action" = "Lifehack";
+
+
+/********** Types **********/
+
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
+"type.aerialway.station" = "Канатна дорога";
+
+"type.aeroway" = "aeroway";
+
+"type.aeroway.aerodrome" = "Аеропорт";
+
+"type.aeroway.aerodrome.international" = "Аеропорт";
+
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
+"type.aeroway.helipad" = "Майданчик для гелікоптерів";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
+
+"type.amenity" = "amenity";
+
+"type.amenity.arts_centre" = "amenity-arts_centre";
+
+"type.amenity.atm" = "Банкомат";
+
+"type.amenity.bank" = "Банк";
+
+"type.amenity.bar" = "Бар";
+
+"type.amenity.bbq" = "Пікнік";
+
+"type.amenity.bench" = "Лавка";
+
+"type.amenity.bicycle_parking" = "Велостоянка";
+
+"type.amenity.bicycle_rental" = "Велопрокат";
+
+"type.amenity.biergarten" = "Пивна під відкритим небом";
+
+"type.amenity.brothel" = "Бордель";
+
+"type.amenity.bureau_de_change" = "Обмін валют";
+
+"type.amenity.bus_station" = "Автовокзал";
+
+"type.amenity.cafe" = "Кафе";
+
+"type.amenity.car_rental" = "Прокат авто";
+
+"type.amenity.car_sharing" = "Каршерінг";
+
+"type.amenity.car_wash" = "Автомийна";
+
+"type.amenity.casino" = "Казино";
+
+"type.amenity.charging_station" = "Зарядна станція";
+
+"type.amenity.childcare" = "Дитяча кімната";
+
+"type.amenity.cinema" = "Кіно";
+
+"type.amenity.clinic" = "Поліклініка";
+
+"type.amenity.college" = "Коледж";
+
+"type.amenity.community_centre" = "Центр культури та дозвілля, Дім культури";
+
+"type.amenity.courthouse" = "Суд";
+
+"type.amenity.dentist" = "Стоматолог";
+
+"type.amenity.doctors" = "Лікар";
+
+"type.amenity.drinking_water" = "Питна вода";
+
+"type.amenity.driving_school" = "Автошкола";
+
+"type.amenity.embassy" = "Посольство";
+
+"type.amenity.fast_food" = "Фастфуд";
+
+"type.amenity.ferry_terminal" = "Пором";
+
+"type.amenity.fire_station" = "Пожежна частина";
+
+"type.amenity.food_court" = "amenity-food_court";
+
+"type.amenity.fountain" = "Фонтан";
+
+"type.amenity.fuel" = "Заправка";
+
+"type.amenity.grave_yard" = "Цвинтар";
+
+"type.amenity.grave_yard.christian" = "Цвинтар";
+
+"type.amenity.hospital" = "Лікарня";
+
+"type.amenity.hunting_stand" = "Мисливська башта";
+
+"type.amenity.ice_cream" = "Кіоск з морозивом";
+
+"type.amenity.internet_cafe" = "Інтернет-кафе";
+
+"type.amenity.kindergarten" = "Дитячий садок";
+
+"type.amenity.library" = "Бібліотека";
+
+"type.amenity.marketplace" = "Ринок";
+
+"type.amenity.motorcycle_parking" = "Парковка для мотоциклів";
+
+"type.amenity.nightclub" = "Нічний клуб";
+
+"type.amenity.nursing_home" = "Будинок для людей похилого віку";
+
+"type.amenity.parking" = "Парковка";
+
+"type.amenity.parking.fee" = "Парковка";
+
+"type.amenity.parking.multi.storey" = "Парковка";
+
+"type.amenity.parking.multi.storey.fee" = "Парковка";
+
+"type.amenity.parking.no.access" = "Парковка";
+
+"type.amenity.parking.park_and_ride" = "Парковка";
+
+"type.amenity.parking.permissive" = "Парковка";
+
+"type.amenity.parking.permissive.fee" = "Парковка";
+
+"type.amenity.parking.private" = "Парковка";
+
+"type.amenity.parking.underground" = "Парковка";
+
+"type.amenity.parking.underground.fee" = "Парковка";
+
+"type.amenity.payment_terminal" = "Платіжний термінал";
+
+"type.amenity.pharmacy" = "Аптека";
+
+"type.amenity.place_of_worship" = "Храм";
+
+"type.amenity.place_of_worship.buddhist" = "Храм";
+
+"type.amenity.place_of_worship.christian" = "Церква";
+
+"type.amenity.place_of_worship.hindu" = "Храм";
+
+"type.amenity.place_of_worship.jewish" = "Синагога";
+
+"type.amenity.place_of_worship.muslim" = "Мечеть";
+
+"type.amenity.place_of_worship.shinto" = "Святиня";
+
+"type.amenity.place_of_worship.taoist" = "Храм";
+
+"type.amenity.police" = "Міліція";
+
+"type.amenity.post_box" = "Поштова скринька";
+
+"type.amenity.post_office" = "Пошта";
+
+"type.amenity.prison" = "amenity-prison";
+
+"type.amenity.pub" = "Паб";
+
+"type.amenity.public_bookcase" = "Книги";
+
+"type.amenity.recycling" = "Прийом вторсировини";
+
+"type.amenity.restaurant" = "Ресторан";
+
+"type.amenity.school" = "Школа";
+
+"type.amenity.shelter" = "Укриття";
+
+"type.amenity.shower" = "Душ";
+
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "Таксі";
+
+"type.amenity.telephone" = "Телефон";
+
+"type.amenity.theatre" = "Театр";
+
+"type.amenity.toilets" = "Туалет";
+
+"type.amenity.townhall" = "Ратуша";
+
+"type.amenity.university" = "Університет";
+
+"type.amenity.vending_machine" = "amenity-vending_machine";
+
+"type.amenity.vending_machine.cigarettes" = "Автомат з продажу сигарет";
+
+"type.amenity.vending_machine.drinks" = "Автомат з напоями";
+
+"type.amenity.vending_machine.parking_tickets" = "Паркомат";
+
+"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+
+"type.amenity.veterinary" = "Ветеринарна клініка";
+
+"type.amenity.waste_basket" = "Бак для сміття";
+
+"type.amenity.waste_disposal" = "Сміттєвий контейнер";
+
+"type.amenity.water_point" = "Пункт постачання води";
+
+"type.barrier" = "barrier";
+
+"type.barrier.block" = "Блок";
+
+"type.barrier.bollard" = "Стовпчик";
+
+"type.barrier.border_control" = "Прикордонний контроль";
+
+"type.barrier.city_wall" = "barrier-city_wall";
+
+"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+
+"type.barrier.entrance" = "Прохід";
+
+"type.barrier.fence" = "barrier-fence";
+
+"type.barrier.gate" = "Ворота";
+
+"type.barrier.hedge" = "barrier-hedge";
+
+"type.barrier.lift_gate" = "Шлагбаум";
+
+"type.barrier.retaining_wall" = "barrier-retaining_wall";
+
+"type.barrier.stile" = "Перелаз";
+
+"type.barrier.toll_booth" = "Пункт оплати";
+
+"type.barrier.wall" = "barrier-wall";
+
+"type.boundary" = "boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+
+"type.boundary.national_park" = "boundary-national_park";
+
+"type.building" = "Будівля";
+
+"type.building.address" = "Будівля";
+
+"type.building.garage" = "Гараж";
+
+"type.building.has_parts" = "Будівля";
+
+"type.building.train_station" = "Залізничний вокзал";
+
+"type.communication" = "communication";
+
+"type.communication.line" = "communication-line";
+
+"type.communication.line.underground" = "communication-line-underground";
+
+"type.craft" = "craft";
+
+"type.craft.brewery" = "Пивоварня";
+
+"type.craft.carpenter" = "Столяр";
+
+"type.craft.electrician" = "Електрик";
+
+"type.craft.gardener" = "Садівник";
+
+"type.craft.hvac" = "Кондиціонери";
+
+"type.craft.metal_construction" = "Кування металу";
+
+"type.craft.painter" = "Маляр";
+
+"type.craft.photographer" = "Фотограф";
+
+"type.craft.plumber" = "Сантехнік";
+
+"type.craft.shoemaker" = "Ремонт взуття";
+
+"type.craft.tailor" = "Ательє";
+
+"type.emergency" = "emergency";
+
+"type.emergency.defibrillator" = "Дефібрилятор";
+
+"type.emergency.fire_hydrant" = "Пожежний кран";
+
+"type.emergency.phone" = "Аварійний телефон";
+
+"type.entrance" = "Вхід";
+
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
+"type.highway.bus_stop" = "Зупинка";
+
+"type.highway.construction" = "highway-construction";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+
+"type.highway.footway" = "Пішохідна доріжка";
+
+"type.highway.footway.alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.area" = "Пішохідна доріжка";
+
+"type.highway.footway.bridge" = "Пішохідна доріжка";
+
+"type.highway.footway.demanding_alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.demanding_mountain_hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.difficult_alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.mountain_hiking" = "Пішохідна доріжка";
+
+"type.highway.footway.permissive" = "Пішохідна доріжка";
+
+"type.highway.footway.tunnel" = "Пішохідна доріжка";
+
+"type.highway.ford" = "highway-ford";
+
+"type.highway.living_street" = "Вулиця";
+
+"type.highway.living_street.bridge" = "Вулиця";
+
+"type.highway.living_street.tunnel" = "Вулиця";
+
+"type.highway.motorway" = "Вулиця";
+
+"type.highway.motorway.bridge" = "Вулиця";
+
+"type.highway.motorway.tunnel" = "Вулиця";
+
+"type.highway.motorway_junction" = "З'їзд";
+
+"type.highway.motorway_link" = "Вулиця";
+
+"type.highway.motorway_link.bridge" = "Вулиця";
+
+"type.highway.motorway_link.tunnel" = "Вулиця";
+
+"type.highway.path" = "Пішохідна доріжка";
+
+"type.highway.path.alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.path.bicycle" = "Пішохідна доріжка";
+
+"type.highway.path.bridge" = "Пішохідна доріжка";
+
+"type.highway.path.demanding_alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.path.demanding_mountain_hiking" = "Пішохідна доріжка";
+
+"type.highway.path.difficult_alpine_hiking" = "Пішохідна доріжка";
+
+"type.highway.path.hiking" = "Пішохідна доріжка";
+
+"type.highway.path.horse" = "Пішохідна доріжка";
+
+"type.highway.path.mountain_hiking" = "Пішохідна доріжка";
+
+"type.highway.path.permissive" = "Пішохідна доріжка";
+
+"type.highway.path.tunnel" = "Пішохідна доріжка";
+
+"type.highway.pedestrian" = "Вулиця";
+
+"type.highway.pedestrian.area" = "Вулиця";
+
+"type.highway.pedestrian.bridge" = "Вулиця";
+
+"type.highway.pedestrian.tunnel" = "Вулиця";
+
+"type.highway.platform" = "highway-platform";
+
+"type.highway.primary" = "Вулиця";
+
+"type.highway.primary.bridge" = "Вулиця";
+
+"type.highway.primary.tunnel" = "Вулиця";
+
+"type.highway.primary_link" = "Вулиця";
+
+"type.highway.primary_link.bridge" = "Вулиця";
+
+"type.highway.primary_link.tunnel" = "Вулиця";
+
+"type.highway.proposed" = "highway-proposed";
+
+"type.highway.raceway" = "Автодром";
+
+"type.highway.residential" = "Вулиця";
+
+"type.highway.residential.area" = "Вулиця";
+
+"type.highway.residential.bridge" = "Вулиця";
+
+"type.highway.residential.tunnel" = "Вулиця";
+
+"type.highway.rest_area" = "Зона відпочинку";
+
+"type.highway.road" = "Вулиця";
+
+"type.highway.road.bridge" = "Вулиця";
+
+"type.highway.road.tunnel" = "Вулиця";
+
+"type.highway.secondary" = "Вулиця";
+
+"type.highway.secondary.bridge" = "Вулиця";
+
+"type.highway.secondary.tunnel" = "Вулиця";
+
+"type.highway.secondary_link" = "Вулиця";
+
+"type.highway.secondary_link.bridge" = "Вулиця";
+
+"type.highway.secondary_link.tunnel" = "Вулиця";
+
+"type.highway.service" = "Вулиця";
+
+"type.highway.service.area" = "Вулиця";
+
+"type.highway.service.bridge" = "Вулиця";
+
+"type.highway.service.driveway" = "Вулиця";
+
+"type.highway.service.driveway.area" = "Вулиця";
+
+"type.highway.service.driveway.bridge" = "Вулиця";
+
+"type.highway.service.driveway.tunnel" = "Вулиця";
+
+"type.highway.service.parking_aisle" = "Вулиця";
+
+"type.highway.service.tunnel" = "Вулиця";
+
+"type.highway.services" = "highway-services";
+
+"type.highway.speed_camera" = "Камера безпеки дорожнього руху";
+
+"type.highway.steps" = "Пішохідна доріжка";
+
+"type.highway.steps.bridge" = "Пішохідна доріжка";
+
+"type.highway.steps.tunnel" = "Пішохідна доріжка";
+
+"type.highway.tertiary" = "Вулиця";
+
+"type.highway.tertiary.bridge" = "Вулиця";
+
+"type.highway.tertiary.tunnel" = "Вулиця";
+
+"type.highway.tertiary_link" = "Вулиця";
+
+"type.highway.tertiary_link.bridge" = "Вулиця";
+
+"type.highway.tertiary_link.tunnel" = "Вулиця";
+
+"type.highway.track" = "Вулиця";
+
+"type.highway.track.area" = "Вулиця";
+
+"type.highway.track.bridge" = "Вулиця";
+
+"type.highway.track.grade1" = "Вулиця";
+
+"type.highway.track.grade2" = "Вулиця";
+
+"type.highway.track.grade3" = "Вулиця";
+
+"type.highway.track.grade3.no.access" = "Вулиця";
+
+"type.highway.track.grade3.permissive" = "Вулиця";
+
+"type.highway.track.grade4" = "Вулиця";
+
+"type.highway.track.grade4.no.access" = "Вулиця";
+
+"type.highway.track.grade4.permissive" = "Вулиця";
+
+"type.highway.track.grade5" = "Вулиця";
+
+"type.highway.track.grade5.no.access" = "Вулиця";
+
+"type.highway.track.grade5.permissive" = "Вулиця";
+
+"type.highway.track.no.access" = "Вулиця";
+
+"type.highway.track.permissive" = "Вулиця";
+
+"type.highway.track.tunnel" = "Вулиця";
+
+"type.highway.traffic_signals" = "Світлофор";
+
+"type.highway.trunk" = "Вулиця";
+
+"type.highway.trunk.bridge" = "Вулиця";
+
+"type.highway.trunk.tunnel" = "Вулиця";
+
+"type.highway.trunk_link" = "Вулиця";
+
+"type.highway.trunk_link.bridge" = "Вулиця";
+
+"type.highway.trunk_link.tunnel" = "Вулиця";
+
+"type.highway.unclassified" = "Вулиця";
+
+"type.highway.unclassified.area" = "Вулиця";
+
+"type.highway.unclassified.bridge" = "Вулиця";
+
+"type.highway.unclassified.tunnel" = "Вулиця";
+
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
+"type.historic.archaeological_site" = "Розкопки";
+
+"type.historic.battlefield" = "historic-battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
+
+"type.historic.castle" = "Замок";
+
+"type.historic.castle.defensive" = "Замок";
+
+"type.historic.castle.stately" = "Замок";
+
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "Меморіал";
+
+"type.historic.memorial.plaque" = "Меморіал";
+
+"type.historic.memorial.sculpture" = "Меморіал";
+
+"type.historic.memorial.statue" = "Меморіал";
+
+"type.historic.monument" = "Пам'ятник";
+
+"type.historic.museum" = "historic-museum";
+
+"type.historic.ruins" = "Руїни";
+
+"type.historic.ship" = "Пам’ятні місця";
+
+"type.historic.tomb" = "Пам’ятні місця";
+
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "Інтернет";
+
+"type.internet_access.wlan" = "Інтернет";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "landuse-allotments";
+
+"type.landuse.basin" = "Водоймище";
+
+"type.landuse.brownfield" = "landuse-brownfield";
+
+"type.landuse.cemetery" = "Цвинтар";
+
+"type.landuse.cemetery.christian" = "Цвинтар";
+
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "landuse-construction";
+
+"type.landuse.farm" = "landuse-farm";
+
+"type.landuse.farmland" = "landuse-farmland";
+
+"type.landuse.farmyard" = "landuse-farmyard";
+
+"type.landuse.field" = "landuse-field";
+
+"type.landuse.forest" = "Ліс";
+
+"type.landuse.forest.coniferous" = "Ліс";
+
+"type.landuse.forest.deciduous" = "Ліс";
+
+"type.landuse.forest.mixed" = "Ліс";
+
+"type.landuse.garages" = "landuse-garages";
+
+"type.landuse.grass" = "landuse-grass";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "landuse-industrial";
+
+"type.landuse.landfill" = "landuse-landfill";
+
+"type.landuse.meadow" = "landuse-meadow";
+
+"type.landuse.military" = "landuse-military";
+
+"type.landuse.orchard" = "landuse-orchard";
+
+"type.landuse.quarry" = "landuse-quarry";
+
+"type.landuse.railway" = "landuse-railway";
+
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
+"type.landuse.reservoir" = "Водоймище";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.residential.rural" = "landuse-residential-rural";
+
+"type.landuse.residential.urban" = "landuse-residential-urban";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "landuse-vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
+
+"type.leisure.dog_park" = "Dog area";
+
+"type.leisure.dog_park.tennis" = "Dog area";
+
+"type.leisure.fitness_centre" = "Фітнес-зал";
+
+"type.leisure.fitness_station" = "Фітнес-зал";
+
+"type.leisure.garden" = "Садок";
+
+"type.leisure.golf_course" = "Майданчик для гольфу";
+
+"type.leisure.ice_rink" = "leisure-ice_rink";
+
+"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+
+"type.leisure.marina" = "leisure-marina";
+
+"type.leisure.nature_reserve" = "leisure-nature_reserve";
+
+"type.leisure.park" = "Парк";
+
+"type.leisure.park.no.access" = "Парк";
+
+"type.leisure.park.permissive" = "Парк";
+
+"type.leisure.park.private" = "Парк";
+
+"type.leisure.pitch" = "Спортмайданчик";
+
+"type.leisure.pitch.tennis" = "Спортмайданчик";
+
+"type.leisure.playground" = "Дитячий майданчик";
+
+"type.leisure.playground.tennis" = "Дитячий майданчик";
+
+"type.leisure.playing_fields" = "leisure-playing_fields";
+
+"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
+
+"type.leisure.recreation_ground" = "leisure-recreation_ground";
+
+"type.leisure.sauna" = "Лазня";
+
+"type.leisure.slipway" = "leisure-slipway";
+
+"type.leisure.sports_centre" = "Спорткомплекс";
+
+"type.leisure.sports_centre.climbing" = "Спортивний скеледром";
+
+"type.leisure.sports_centre.shooting" = "Тир";
+
+"type.leisure.sports_centre.swimming" = "Басейн";
+
+"type.leisure.sports_centre.yoga" = "Студія йоги";
+
+"type.leisure.stadium" = "Стадіон";
+
+"type.leisure.swimming_pool" = "Басейн";
+
+"type.leisure.track" = "leisure-track";
+
+"type.leisure.water_park" = "Аквапарк";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
+
+"type.man_made.chimney" = "Заводська труба";
+
+"type.man_made.cutline" = "man_made-cutline";
+
+"type.man_made.lighthouse" = "Маяк";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+
+"type.man_made.surveillance" = "Камера спостереження";
+
+"type.man_made.tower" = "Вежа";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
+
+"type.man_made.water_tap" = "Водопровідний кран";
+
+"type.man_made.water_tower" = "Водонапірна вежа";
+
+"type.man_made.water_well" = "Криниця";
+
+"type.man_made.windmill" = "Вітряк";
+
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.marking" = "marking";
+
+"type.marking.sport" = "marking-sport";
+
+"type.marking.sport.black" = "marking-sport-black";
+
+"type.marking.sport.blue" = "marking-sport-blue";
+
+"type.marking.sport.red" = "marking-sport-red";
+
+"type.marking.sport.white" = "marking-sport-white";
+
+"type.military" = "military";
+
+"type.military.bunker" = "Бункер";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "natural-bare_rock";
+
+"type.natural.bay" = "Затока";
+
+"type.natural.beach" = "Пляж";
+
+"type.natural.cape" = "natural-cape";
+
+"type.natural.cave_entrance" = "Печера";
+
+"type.natural.cliff" = "natural-cliff";
+
+"type.natural.coastline" = "natural-coastline";
+
+"type.natural.glacier" = "natural-glacier";
+
+"type.natural.grassland" = "natural-grassland";
+
+"type.natural.heath" = "natural-heath";
+
+"type.natural.lake" = "Озеро";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "natural-meadow";
+
+"type.natural.orchard" = "natural-orchard";
+
+"type.natural.peak" = "Гора";
+
+"type.natural.pond" = "Ставок";
+
+"type.natural.rock" = "natural-rock";
+
+"type.natural.salt_pond" = "natural-salt_pond";
+
+"type.natural.scrub" = "natural-scrub";
+
+"type.natural.spring" = "Джерело";
+
+"type.natural.tree" = "Дерево";
+
+"type.natural.tree_row" = "natural-tree_row";
+
+"type.natural.vineyard" = "natural-vineyard";
+
+"type.natural.volcano" = "Вулкан";
+
+"type.natural.water" = "Водоймище";
+
+"type.natural.wetland" = "natural-wetland";
+
+"type.natural.wetland.bog" = "natural-wetland-bog";
+
+"type.natural.wetland.marsh" = "natural-wetland-marsh";
+
+"type.natural.wood" = "Ліс";
+
+"type.natural.wood.coniferous" = "Ліс";
+
+"type.natural.wood.deciduous" = "Ліс";
+
+"type.natural.wood.mixed" = "Ліс";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+
+"type.office" = "Офіс";
+
+"type.office.company" = "Організація";
+
+"type.office.estate_agent" = "Агенція нерухомості/ріелтор";
+
+"type.office.government" = "Держустанова";
+
+"type.office.insurance" = "Офіс страхової компанії";
+
+"type.office.lawyer" = "Адвокат";
+
+"type.office.ngo" = "Офіс громадської організації";
+
+"type.office.telecommunication" = "Мобільний оператор";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
+"type.place.city" = "Місто";
+
+"type.place.city.capital" = "Столиця";
+
+"type.place.city.capital.10" = "Столиця";
+
+"type.place.city.capital.11" = "Столиця";
+
+"type.place.city.capital.2" = "Столиця";
+
+"type.place.city.capital.3" = "Столиця";
+
+"type.place.city.capital.4" = "Столиця";
+
+"type.place.city.capital.5" = "Столиця";
+
+"type.place.city.capital.6" = "Столиця";
+
+"type.place.city.capital.7" = "Столиця";
+
+"type.place.city.capital.8" = "Столиця";
+
+"type.place.city.capital.9" = "Столиця";
+
+"type.place.continent" = "Континент";
+
+"type.place.country" = "Країна";
+
+"type.place.county" = "Округ";
+
+"type.place.farm" = "Ферма";
+
+"type.place.hamlet" = "Поселення";
+
+"type.place.island" = "Острів";
+
+"type.place.islet" = "Острів";
+
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
+"type.place.locality" = "Місцевість";
+
+"type.place.neighbourhood" = "place-neighbourhood";
+
+"type.place.ocean" = "Океан";
+
+"type.place.region" = "Район";
+
+"type.place.sea" = "Море";
+
+"type.place.square" = "place-square";
+
+"type.place.state" = "Штат";
+
+"type.place.state.USA" = "Штат";
+
+"type.place.suburb" = "Район";
+
+"type.place.town" = "Місто";
+
+"type.place.village" = "Село";
+
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.generator.hydro" = "power-generator-hydro";
+
+"type.power.generator.photovoltaic" = "power-generator-photovoltaic";
+
+"type.power.generator.wind" = "power-generator-wind";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
+"type.power.pole" = "Стовп ЛЕП";
+
+"type.power.station" = "power-station";
+
+"type.power.substation" = "Підстанція";
+
+"type.power.tower" = "Стовп ЛЕП";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
+"type.railway.halt" = "Залізничний вокзал";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
+
+"type.railway.level_crossing" = "Level Crossing";
+
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
+"type.railway.monorail" = "railway-monorail";
+
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
+"type.railway.proposed" = "railway-proposed";
+
+"type.railway.rail" = "railway-rail";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
+
+"type.railway.station" = "Залізничний вокзал";
+
+"type.railway.station.light_rail" = "Залізничний вокзал";
+
+"type.railway.station.monorail" = "Залізничний вокзал";
+
+"type.railway.station.subway" = "Метро";
+
+"type.railway.station.subway.barcelona" = "Метро";
+
+"type.railway.station.subway.berlin" = "Метро";
+
+"type.railway.station.subway.blue" = "Метро";
+
+"type.railway.station.subway.brown" = "Метро";
+
+"type.railway.station.subway.darkgreen" = "Метро";
+
+"type.railway.station.subway.gray" = "Метро";
+
+"type.railway.station.subway.green" = "Метро";
+
+"type.railway.station.subway.grey" = "Метро";
+
+"type.railway.station.subway.kiev" = "Метро";
+
+"type.railway.station.subway.lightblue" = "Метро";
+
+"type.railway.station.subway.lightgreen" = "Метро";
+
+"type.railway.station.subway.london" = "Метро";
+
+"type.railway.station.subway.madrid" = "Метро";
+
+"type.railway.station.subway.minsk" = "Метро";
+
+"type.railway.station.subway.moscow" = "Метро";
+
+"type.railway.station.subway.newyork" = "Метро";
+
+"type.railway.station.subway.orange" = "Метро";
+
+"type.railway.station.subway.paris" = "Метро";
+
+"type.railway.station.subway.purple" = "Метро";
+
+"type.railway.station.subway.red" = "Метро";
+
+"type.railway.station.subway.roma" = "Метро";
+
+"type.railway.station.subway.spb" = "Метро";
+
+"type.railway.station.subway.violet" = "Метро";
+
+"type.railway.station.subway.yellow" = "Метро";
+
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
+"type.railway.subway_entrance" = "Метро";
+
+"type.railway.subway_entrance.barcelona" = "Метро";
+
+"type.railway.subway_entrance.berlin" = "Метро";
+
+"type.railway.subway_entrance.kiev" = "Метро";
+
+"type.railway.subway_entrance.london" = "Метро";
+
+"type.railway.subway_entrance.madrid" = "Метро";
+
+"type.railway.subway_entrance.minsk" = "Метро";
+
+"type.railway.subway_entrance.moscow" = "Метро";
+
+"type.railway.subway_entrance.newyork" = "Метро";
+
+"type.railway.subway_entrance.paris" = "Метро";
+
+"type.railway.subway_entrance.roma" = "Метро";
+
+"type.railway.subway_entrance.spb" = "Метро";
+
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
+"type.railway.tram_stop" = "Зупинка";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
+
+"type.shop" = "Крамниця";
+
+"type.shop.alcohol" = "Винний магазин";
+
+"type.shop.bakery" = "Пекарня";
+
+"type.shop.beauty" = "Салон краси";
+
+"type.shop.beverages" = "Напої";
+
+"type.shop.bicycle" = "Веломагазін";
+
+"type.shop.bookmaker" = "Букмекерська контора";
+
+"type.shop.books" = "Книгарня";
+
+"type.shop.butcher" = "М'ясний магазин";
+
+"type.shop.car" = "Автосалон";
+
+"type.shop.car_parts" = "Автозапчастини";
+
+"type.shop.car_repair" = "СТО";
+
+"type.shop.car_repair.tyres" = "Шиномонтаж";
+
+"type.shop.chemist" = "Магазин побутової хімії";
+
+"type.shop.chocolate" = "Крамниця";
+
+"type.shop.clothes" = "Магазин одягу";
+
+"type.shop.coffee" = "Крамниця";
+
+"type.shop.computer" = "Комп'ютерний магазин";
+
+"type.shop.confectionery" = "Кондитерська";
+
+"type.shop.convenience" = "Міні-маркет";
+
+"type.shop.copyshop" = "Копіювальний центр";
+
+"type.shop.cosmetics" = "Косметика";
+
+"type.shop.department_store" = "Універмаг";
+
+"type.shop.doityourself" = "Будматеріали";
+
+"type.shop.dry_cleaning" = "Хімчистка";
+
+"type.shop.electronics" = "Електротехнічний магазин";
+
+"type.shop.erotic" = "Секс-шоп";
+
+"type.shop.fabric" = "Крамниця";
+
+"type.shop.florist" = "Магазин квітів";
+
+"type.shop.funeral_directors" = "Ритуальна служба";
+
+"type.shop.furniture" = "Магазин меблів";
+
+"type.shop.garden_centre" = "Товари для саду";
+
+"type.shop.gift" = "Магазин сувенірів";
+
+"type.shop.greengrocer" = "Магазин овочів";
+
+"type.shop.hairdresser" = "Перукарня";
+
+"type.shop.hardware" = "Будматеріали";
+
+"type.shop.jewelry" = "Ювелірний магазин";
+
+"type.shop.kiosk" = "Кіоск";
+
+"type.shop.laundry" = "Пральня";
+
+"type.shop.mall" = "Торговий центр";
+
+"type.shop.massage" = "Масажний кабінет";
+
+"type.shop.mobile_phone" = "Мобільні телефони";
+
+"type.shop.money_lender" = "Крамниця";
+
+"type.shop.motorcycle" = "Магазин мотоциклів";
+
+"type.shop.music" = "Крамниця";
+
+"type.shop.musical_instrument" = "Крамниця";
+
+"type.shop.newsagent" = "Газетний кіоск";
+
+"type.shop.optician" = "Оптика";
+
+"type.shop.outdoor" = "Спорядження";
+
+"type.shop.pawnbroker" = "Ломбард";
+
+"type.shop.pet" = "Зоотовари";
+
+"type.shop.photo" = "Фототовари";
+
+"type.shop.seafood" = "Рибна крамниця";
+
+"type.shop.shoes" = "Магазин взуття";
+
+"type.shop.sports" = "Спортивні товари";
+
+"type.shop.stationery" = "Магазин канцелярських товарів";
+
+"type.shop.supermarket" = "Супермаркет";
+
+"type.shop.tattoo" = "Тату-салон";
+
+"type.shop.tea" = "Крамниця";
+
+"type.shop.ticket" = "Білетна каса";
+
+"type.shop.toys" = "Магазин іграшок";
+
+"type.shop.travel_agency" = "Турагентство";
+
+"type.shop.tyres" = "Магазин шин";
+
+"type.shop.variety_store" = "Магазин господарських товарів";
+
+"type.shop.video" = "Крамниця";
+
+"type.shop.wine" = "Винна крамниця";
+
+"type.sponsored" = "sponsored";
+
+"type.sponsored.banner" = "sponsored-banner";
+
+"type.sponsored.banner.deliveryclub" = "sponsored-banner-deliveryclub";
+
+"type.sponsored.banner.geerbest_de" = "sponsored-banner-geerbest_de";
+
+"type.sponsored.banner.geerbest_fr" = "sponsored-banner-geerbest_fr";
+
+"type.sponsored.banner.geerbest_uk" = "sponsored-banner-geerbest_uk";
+
+"type.sponsored.banner.lamoda_ru" = "sponsored-banner-lamoda_ru";
+
+"type.sponsored.banner.lamoda_ua" = "sponsored-banner-lamoda_ua";
+
+"type.sponsored.banner.raileurope" = "sponsored-banner-raileurope";
+
+"type.sponsored.banner.rentalcars" = "sponsored-banner-rentalcars";
+
+"type.sponsored.banner.tutu" = "sponsored-banner-tutu";
+
+"type.sponsored.banner.viator" = "sponsored-banner-viator";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "sponsored-partner18";
+
+"type.sponsored.partner19" = "sponsored-partner19";
+
+"type.sponsored.partner2" = "Luggage Storage";
+
+"type.sponsored.partner20" = "sponsored-partner20";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sponsored.viator" = "sponsored-viator";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
+"type.sport.athletics" = "Athletics";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
+
+"type.sport.basketball" = "Basketball";
+
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
+"type.sport.equestrian" = "Equestrian Sports";
+
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
+"type.sport.tennis" = "sport-tennis";
+
+"type.tourism" = "tourism";
+
+"type.tourism.alpine_hut" = "Гірський готель";
+
+"type.tourism.apartment" = "Апартаменти";
+
+"type.tourism.artwork" = "Твір мистецтва";
+
+"type.tourism.artwork.architecture" = "Твір мистецтва";
+
+"type.tourism.artwork.painting" = "Твір мистецтва";
+
+"type.tourism.artwork.sculpture" = "Твір мистецтва";
+
+"type.tourism.artwork.statue" = "Твір мистецтва";
+
+"type.tourism.attraction" = "Пам’ятка";
+
+"type.tourism.attraction.animal" = "Пам’ятка";
+
+"type.tourism.attraction.specified" = "Пам’ятка";
+
+"type.tourism.camp_site" = "Кемпінг";
+
+"type.tourism.caravan_site" = "Автокемпінг";
+
+"type.tourism.chalet" = "Шале";
+
+"type.tourism.gallery" = "Пам’ятні місця";
+
+"type.tourism.guest_house" = "Гостинний дім";
+
+"type.tourism.hostel" = "Хостел";
+
+"type.tourism.hotel" = "Готель";
+
+"type.tourism.information" = "Турінформація";
+
+"type.tourism.information.board" = "Інформаційний щит";
+
+"type.tourism.information.guidepost" = "Турінформація";
+
+"type.tourism.information.map" = "Мапа";
+
+"type.tourism.information.office" = "Туристичний офіс";
+
+"type.tourism.motel" = "Мотель";
+
+"type.tourism.museum" = "Музей";
+
+"type.tourism.picnic_site" = "Пікнік";
+
+"type.tourism.resort" = "Будинок відпочинку";
+
+"type.tourism.theme_park" = "Пам’ятні місця";
+
+"type.tourism.viewpoint" = "Оглядний майданчик";
+
+"type.tourism.wilderness_hut" = "Хибара";
+
+"type.tourism.zoo" = "Зоопарк";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "Канал";
+
+"type.waterway.canal.tunnel" = "Канал";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
+
+"type.waterway.lock_gate" = "Шлюз";
+
+"type.waterway.river" = "Річка";
+
+"type.waterway.river.tunnel" = "Річка";
+
+"type.waterway.riverbank" = "Річка";
+
+"type.waterway.stream" = "Річка";
+
+"type.waterway.stream.ephemeral" = "Річка";
+
+"type.waterway.stream.intermittent" = "Річка";
+
+"type.waterway.stream.tunnel" = "Річка";
+
+"type.waterway.waterfall" = "Водоспад";
+
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
+"type.wheelchair.limited" = "wheelchair-limited";
+
+"type.wheelchair.no" = "wheelchair-no";
+
+"type.wheelchair.yes" = "wheelchair-yes";

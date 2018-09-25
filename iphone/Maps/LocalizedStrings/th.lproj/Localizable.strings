@@ -2480,3 +2480,1664 @@
 "sponsored_partner19_action" = "Lifehack";
 
 "sponsored_partner20_action" = "Lifehack";
+
+
+/********** Types **********/
+
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
+"type.aerialway.station" = "สถานีกระเช้าลอยฟ้า";
+
+"type.aeroway" = "aeroway";
+
+"type.aeroway.aerodrome" = "สนามบิน";
+
+"type.aeroway.aerodrome.international" = "สนามบิน";
+
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
+"type.aeroway.helipad" = "ที่จอดเฮลิคอปเตอร์";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
+
+"type.amenity" = "amenity";
+
+"type.amenity.arts_centre" = "amenity-arts_centre";
+
+"type.amenity.atm" = "เอทีเอ็ม";
+
+"type.amenity.bank" = "ธนาคาร";
+
+"type.amenity.bar" = "บาร์";
+
+"type.amenity.bbq" = "เว็บไซต์ปิกนิก";
+
+"type.amenity.bench" = "ม้านั่ง";
+
+"type.amenity.bicycle_parking" = "ที่จอดจักรยาน";
+
+"type.amenity.bicycle_rental" = "จักรยานให้เช่า";
+
+"type.amenity.biergarten" = "ลานเบียร์";
+
+"type.amenity.brothel" = "ซ่อง";
+
+"type.amenity.bureau_de_change" = "แลกเปลี่ยนเงินตรา";
+
+"type.amenity.bus_station" = "สถานีขนส่ง";
+
+"type.amenity.cafe" = "คาเฟ่";
+
+"type.amenity.car_rental" = "รถยนต์";
+
+"type.amenity.car_sharing" = "การใช้รถร่วมกัน";
+
+"type.amenity.car_wash" = "ล้างรถ";
+
+"type.amenity.casino" = "คาสิโน";
+
+"type.amenity.charging_station" = "สถานีชาร์จ";
+
+"type.amenity.childcare" = "สถานรับเลี้ยงเด็ก";
+
+"type.amenity.cinema" = "โรงภาพยนตร์";
+
+"type.amenity.clinic" = "คลินิก";
+
+"type.amenity.college" = "วิทยาลัย";
+
+"type.amenity.community_centre" = "ศูนย์ชุมชน";
+
+"type.amenity.courthouse" = "ศาล";
+
+"type.amenity.dentist" = "ทันตแพทย์";
+
+"type.amenity.doctors" = "ห้องแพทย์";
+
+"type.amenity.drinking_water" = "น้ำดื่ม";
+
+"type.amenity.driving_school" = "โรงเรียนสอนขับรถ";
+
+"type.amenity.embassy" = "สถานทูต";
+
+"type.amenity.fast_food" = "อาหารจานด่วน";
+
+"type.amenity.ferry_terminal" = "เฟอร์รี่";
+
+"type.amenity.fire_station" = "สถานีดับเพลิง";
+
+"type.amenity.food_court" = "amenity-food_court";
+
+"type.amenity.fountain" = "น้ำพุ";
+
+"type.amenity.fuel" = "ปั๊มน้ำมัน";
+
+"type.amenity.grave_yard" = "สุสาน";
+
+"type.amenity.grave_yard.christian" = "สุสาน";
+
+"type.amenity.hospital" = "คลินิก";
+
+"type.amenity.hunting_stand" = "จุดล่าสัตว์";
+
+"type.amenity.ice_cream" = "แผงขายไอศกรีม";
+
+"type.amenity.internet_cafe" = "อินเทอร์เน็ตคาเฟ่";
+
+"type.amenity.kindergarten" = "โรงเรียนอนุบาล";
+
+"type.amenity.library" = "ห้องสมุด";
+
+"type.amenity.marketplace" = "ตลาดสินค้า";
+
+"type.amenity.motorcycle_parking" = "ที่จอดรถมอเตอร์ไซค์";
+
+"type.amenity.nightclub" = "ไนต์คลับ";
+
+"type.amenity.nursing_home" = "บ้านพักคนชรา";
+
+"type.amenity.parking" = "ที่จอดรถ";
+
+"type.amenity.parking.fee" = "ที่จอดรถ";
+
+"type.amenity.parking.multi.storey" = "ที่จอดรถ";
+
+"type.amenity.parking.multi.storey.fee" = "ที่จอดรถ";
+
+"type.amenity.parking.no.access" = "ที่จอดรถ";
+
+"type.amenity.parking.park_and_ride" = "ที่จอดรถ";
+
+"type.amenity.parking.permissive" = "ที่จอดรถ";
+
+"type.amenity.parking.permissive.fee" = "ที่จอดรถ";
+
+"type.amenity.parking.private" = "ที่จอดรถ";
+
+"type.amenity.parking.underground" = "ที่จอดรถ";
+
+"type.amenity.parking.underground.fee" = "ที่จอดรถ";
+
+"type.amenity.payment_terminal" = "จุดชำระเงิน";
+
+"type.amenity.pharmacy" = "ร้านขายยา";
+
+"type.amenity.place_of_worship" = "สถานที่ประกอบพิธีกรรม";
+
+"type.amenity.place_of_worship.buddhist" = "วัด";
+
+"type.amenity.place_of_worship.christian" = "โบสถ์";
+
+"type.amenity.place_of_worship.hindu" = "วัด";
+
+"type.amenity.place_of_worship.jewish" = "มัสยิดยิว";
+
+"type.amenity.place_of_worship.muslim" = "มัสยิด";
+
+"type.amenity.place_of_worship.shinto" = "ศาลเจ้า";
+
+"type.amenity.place_of_worship.taoist" = "วัด";
+
+"type.amenity.police" = "ตำรวจ";
+
+"type.amenity.post_box" = "ตู้จดหมาย";
+
+"type.amenity.post_office" = "ไปรษณีย์";
+
+"type.amenity.prison" = "amenity-prison";
+
+"type.amenity.pub" = "ผับ";
+
+"type.amenity.public_bookcase" = "ตู้หนังสือ สถานที่แลกเปลี่ยนหนังสือ";
+
+"type.amenity.recycling" = "ศูนย์รีไซเคิล";
+
+"type.amenity.restaurant" = "ร้านอาหาร";
+
+"type.amenity.school" = "โรงเรียน";
+
+"type.amenity.shelter" = "ที่อยู่อาศัย";
+
+"type.amenity.shower" = "ฝักบัวอาบน้ำ";
+
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "แท็กซี่";
+
+"type.amenity.telephone" = "โทรศัพท์";
+
+"type.amenity.theatre" = "โรงละคร";
+
+"type.amenity.toilets" = "ห้องน้ำ";
+
+"type.amenity.townhall" = "ศาลากลางจังหวัด";
+
+"type.amenity.university" = "มหาวิทยาลัย";
+
+"type.amenity.vending_machine" = "amenity-vending_machine";
+
+"type.amenity.vending_machine.cigarettes" = "เครื่องขายบุหรี่";
+
+"type.amenity.vending_machine.drinks" = "เครื่องขายเครื่องดื่มอัตโนมัติ";
+
+"type.amenity.vending_machine.parking_tickets" = "เครื่องชำระค่าที่จอดรถอัตโนมัติ";
+
+"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+
+"type.amenity.veterinary" = "สัตวแพทย์";
+
+"type.amenity.waste_basket" = "ถังขยะ";
+
+"type.amenity.waste_disposal" = "ขยะ";
+
+"type.amenity.water_point" = "จุดเติมน้ำ";
+
+"type.barrier" = "barrier";
+
+"type.barrier.block" = "บล็อก";
+
+"type.barrier.bollard" = "เสา";
+
+"type.barrier.border_control" = "ด่านตรวจคนเข้าเมือง";
+
+"type.barrier.city_wall" = "barrier-city_wall";
+
+"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+
+"type.barrier.entrance" = "ทางเข้า";
+
+"type.barrier.fence" = "barrier-fence";
+
+"type.barrier.gate" = "ประตู";
+
+"type.barrier.hedge" = "barrier-hedge";
+
+"type.barrier.lift_gate" = "ไม้กั้น";
+
+"type.barrier.retaining_wall" = "barrier-retaining_wall";
+
+"type.barrier.stile" = "บันไดข้าม";
+
+"type.barrier.toll_booth" = "ด่านเก็บเงิน";
+
+"type.barrier.wall" = "barrier-wall";
+
+"type.boundary" = "boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+
+"type.boundary.national_park" = "boundary-national_park";
+
+"type.building" = "อาคาร";
+
+"type.building.address" = "อาคาร";
+
+"type.building.garage" = "อาคารจอดรถ";
+
+"type.building.has_parts" = "อาคาร";
+
+"type.building.train_station" = "สถานีรถไฟ";
+
+"type.communication" = "communication";
+
+"type.communication.line" = "communication-line";
+
+"type.communication.line.underground" = "communication-line-underground";
+
+"type.craft" = "craft";
+
+"type.craft.brewery" = "โรงเบียร์";
+
+"type.craft.carpenter" = "ช่างไม้";
+
+"type.craft.electrician" = "ช่างไฟฟ้า";
+
+"type.craft.gardener" = "คนจัดสวน";
+
+"type.craft.hvac" = "ระบบปรับอากาศ";
+
+"type.craft.metal_construction" = "ช่างเหล็ก";
+
+"type.craft.painter" = "ช่างทาสี";
+
+"type.craft.photographer" = "ช่างภาพ";
+
+"type.craft.plumber" = "ช่างประปา";
+
+"type.craft.shoemaker" = "ช่างซ่อมรองเท้า";
+
+"type.craft.tailor" = "ช่างตัดเสื้อ";
+
+"type.emergency" = "emergency";
+
+"type.emergency.defibrillator" = "เครื่องกระตุ้นหัวใจ";
+
+"type.emergency.fire_hydrant" = "หัวจ่ายน้ำดับเพลิง";
+
+"type.emergency.phone" = "โทรศัพท์ฉุกเฉิน";
+
+"type.entrance" = "ทางเข้า";
+
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
+"type.highway.bus_stop" = "ป้ายรถเมล์";
+
+"type.highway.construction" = "highway-construction";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+
+"type.highway.footway" = "เส้นทาง";
+
+"type.highway.footway.alpine_hiking" = "เส้นทาง";
+
+"type.highway.footway.area" = "เส้นทาง";
+
+"type.highway.footway.bridge" = "เส้นทาง";
+
+"type.highway.footway.demanding_alpine_hiking" = "เส้นทาง";
+
+"type.highway.footway.demanding_mountain_hiking" = "เส้นทาง";
+
+"type.highway.footway.difficult_alpine_hiking" = "เส้นทาง";
+
+"type.highway.footway.hiking" = "เส้นทาง";
+
+"type.highway.footway.mountain_hiking" = "เส้นทาง";
+
+"type.highway.footway.permissive" = "เส้นทาง";
+
+"type.highway.footway.tunnel" = "เส้นทาง";
+
+"type.highway.ford" = "highway-ford";
+
+"type.highway.living_street" = "ถนน";
+
+"type.highway.living_street.bridge" = "ถนน";
+
+"type.highway.living_street.tunnel" = "ถนน";
+
+"type.highway.motorway" = "ถนน";
+
+"type.highway.motorway.bridge" = "ถนน";
+
+"type.highway.motorway.tunnel" = "ถนน";
+
+"type.highway.motorway_junction" = "ทางออก";
+
+"type.highway.motorway_link" = "ถนน";
+
+"type.highway.motorway_link.bridge" = "ถนน";
+
+"type.highway.motorway_link.tunnel" = "ถนน";
+
+"type.highway.path" = "เส้นทาง";
+
+"type.highway.path.alpine_hiking" = "เส้นทาง";
+
+"type.highway.path.bicycle" = "เส้นทาง";
+
+"type.highway.path.bridge" = "เส้นทาง";
+
+"type.highway.path.demanding_alpine_hiking" = "เส้นทาง";
+
+"type.highway.path.demanding_mountain_hiking" = "เส้นทาง";
+
+"type.highway.path.difficult_alpine_hiking" = "เส้นทาง";
+
+"type.highway.path.hiking" = "เส้นทาง";
+
+"type.highway.path.horse" = "เส้นทาง";
+
+"type.highway.path.mountain_hiking" = "เส้นทาง";
+
+"type.highway.path.permissive" = "เส้นทาง";
+
+"type.highway.path.tunnel" = "เส้นทาง";
+
+"type.highway.pedestrian" = "ถนน";
+
+"type.highway.pedestrian.area" = "ถนน";
+
+"type.highway.pedestrian.bridge" = "ถนน";
+
+"type.highway.pedestrian.tunnel" = "ถนน";
+
+"type.highway.platform" = "highway-platform";
+
+"type.highway.primary" = "ถนน";
+
+"type.highway.primary.bridge" = "ถนน";
+
+"type.highway.primary.tunnel" = "ถนน";
+
+"type.highway.primary_link" = "ถนน";
+
+"type.highway.primary_link.bridge" = "ถนน";
+
+"type.highway.primary_link.tunnel" = "ถนน";
+
+"type.highway.proposed" = "highway-proposed";
+
+"type.highway.raceway" = "สนามแข่ง";
+
+"type.highway.residential" = "ถนน";
+
+"type.highway.residential.area" = "ถนน";
+
+"type.highway.residential.bridge" = "ถนน";
+
+"type.highway.residential.tunnel" = "ถนน";
+
+"type.highway.rest_area" = "บริเวณพักผ่อน";
+
+"type.highway.road" = "ถนน";
+
+"type.highway.road.bridge" = "ถนน";
+
+"type.highway.road.tunnel" = "ถนน";
+
+"type.highway.secondary" = "ถนน";
+
+"type.highway.secondary.bridge" = "ถนน";
+
+"type.highway.secondary.tunnel" = "ถนน";
+
+"type.highway.secondary_link" = "ถนน";
+
+"type.highway.secondary_link.bridge" = "ถนน";
+
+"type.highway.secondary_link.tunnel" = "ถนน";
+
+"type.highway.service" = "ถนน";
+
+"type.highway.service.area" = "ถนน";
+
+"type.highway.service.bridge" = "ถนน";
+
+"type.highway.service.driveway" = "ถนน";
+
+"type.highway.service.driveway.area" = "ถนน";
+
+"type.highway.service.driveway.bridge" = "ถนน";
+
+"type.highway.service.driveway.tunnel" = "ถนน";
+
+"type.highway.service.parking_aisle" = "ถนน";
+
+"type.highway.service.tunnel" = "ถนน";
+
+"type.highway.services" = "highway-services";
+
+"type.highway.speed_camera" = "กล้องตรวจจับความเร็ว";
+
+"type.highway.steps" = "เส้นทาง";
+
+"type.highway.steps.bridge" = "เส้นทาง";
+
+"type.highway.steps.tunnel" = "เส้นทาง";
+
+"type.highway.tertiary" = "ถนน";
+
+"type.highway.tertiary.bridge" = "ถนน";
+
+"type.highway.tertiary.tunnel" = "ถนน";
+
+"type.highway.tertiary_link" = "ถนน";
+
+"type.highway.tertiary_link.bridge" = "ถนน";
+
+"type.highway.tertiary_link.tunnel" = "ถนน";
+
+"type.highway.track" = "ถนน";
+
+"type.highway.track.area" = "ถนน";
+
+"type.highway.track.bridge" = "ถนน";
+
+"type.highway.track.grade1" = "ถนน";
+
+"type.highway.track.grade2" = "ถนน";
+
+"type.highway.track.grade3" = "ถนน";
+
+"type.highway.track.grade3.no.access" = "ถนน";
+
+"type.highway.track.grade3.permissive" = "ถนน";
+
+"type.highway.track.grade4" = "ถนน";
+
+"type.highway.track.grade4.no.access" = "ถนน";
+
+"type.highway.track.grade4.permissive" = "ถนน";
+
+"type.highway.track.grade5" = "ถนน";
+
+"type.highway.track.grade5.no.access" = "ถนน";
+
+"type.highway.track.grade5.permissive" = "ถนน";
+
+"type.highway.track.no.access" = "ถนน";
+
+"type.highway.track.permissive" = "ถนน";
+
+"type.highway.track.tunnel" = "ถนน";
+
+"type.highway.traffic_signals" = "สัญญาณไฟจราจร";
+
+"type.highway.trunk" = "ถนน";
+
+"type.highway.trunk.bridge" = "ถนน";
+
+"type.highway.trunk.tunnel" = "ถนน";
+
+"type.highway.trunk_link" = "ถนน";
+
+"type.highway.trunk_link.bridge" = "ถนน";
+
+"type.highway.trunk_link.tunnel" = "ถนน";
+
+"type.highway.unclassified" = "ถนน";
+
+"type.highway.unclassified.area" = "ถนน";
+
+"type.highway.unclassified.bridge" = "ถนน";
+
+"type.highway.unclassified.tunnel" = "ถนน";
+
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
+"type.historic.archaeological_site" = "โบราณสถาน";
+
+"type.historic.battlefield" = "historic-battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
+
+"type.historic.castle" = "ปราสาท";
+
+"type.historic.castle.defensive" = "ปราสาท";
+
+"type.historic.castle.stately" = "ปราสาท";
+
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "ที่ระลึก";
+
+"type.historic.memorial.plaque" = "ที่ระลึก";
+
+"type.historic.memorial.sculpture" = "ที่ระลึก";
+
+"type.historic.memorial.statue" = "ที่ระลึก";
+
+"type.historic.monument" = "อนุสาวรีย์";
+
+"type.historic.museum" = "historic-museum";
+
+"type.historic.ruins" = "ซากปรักหักพัง";
+
+"type.historic.ship" = "สถานที่ท่องเที่ยว";
+
+"type.historic.tomb" = "สถานที่ท่องเที่ยว";
+
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "อินเทอร์เน็ต";
+
+"type.internet_access.wlan" = "อินเทอร์เน็ต";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "landuse-allotments";
+
+"type.landuse.basin" = "น้ำ";
+
+"type.landuse.brownfield" = "landuse-brownfield";
+
+"type.landuse.cemetery" = "สุสาน";
+
+"type.landuse.cemetery.christian" = "สุสาน";
+
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "landuse-construction";
+
+"type.landuse.farm" = "landuse-farm";
+
+"type.landuse.farmland" = "landuse-farmland";
+
+"type.landuse.farmyard" = "landuse-farmyard";
+
+"type.landuse.field" = "landuse-field";
+
+"type.landuse.forest" = "ป่า";
+
+"type.landuse.forest.coniferous" = "ป่า";
+
+"type.landuse.forest.deciduous" = "ป่า";
+
+"type.landuse.forest.mixed" = "ป่า";
+
+"type.landuse.garages" = "landuse-garages";
+
+"type.landuse.grass" = "landuse-grass";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "landuse-industrial";
+
+"type.landuse.landfill" = "landuse-landfill";
+
+"type.landuse.meadow" = "landuse-meadow";
+
+"type.landuse.military" = "landuse-military";
+
+"type.landuse.orchard" = "landuse-orchard";
+
+"type.landuse.quarry" = "landuse-quarry";
+
+"type.landuse.railway" = "landuse-railway";
+
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
+"type.landuse.reservoir" = "น้ำ";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.residential.rural" = "landuse-residential-rural";
+
+"type.landuse.residential.urban" = "landuse-residential-urban";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "landuse-vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
+
+"type.leisure.dog_park" = "Dog area";
+
+"type.leisure.dog_park.tennis" = "Dog area";
+
+"type.leisure.fitness_centre" = "ฟิตเนสเซ็นเตอร์";
+
+"type.leisure.fitness_station" = "ศูนย์ฟิตเนส";
+
+"type.leisure.garden" = "สวน";
+
+"type.leisure.golf_course" = "สนามกอล์ฟ";
+
+"type.leisure.ice_rink" = "leisure-ice_rink";
+
+"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+
+"type.leisure.marina" = "leisure-marina";
+
+"type.leisure.nature_reserve" = "leisure-nature_reserve";
+
+"type.leisure.park" = "สวนสาธารณะ";
+
+"type.leisure.park.no.access" = "สวนสาธารณะ";
+
+"type.leisure.park.permissive" = "สวนสาธารณะ";
+
+"type.leisure.park.private" = "สวนสาธารณะ";
+
+"type.leisure.pitch" = "พื้นสนามกีฬา";
+
+"type.leisure.pitch.tennis" = "พื้นสนามกีฬา";
+
+"type.leisure.playground" = "สนามเด็กเล่น";
+
+"type.leisure.playground.tennis" = "สนามเด็กเล่น";
+
+"type.leisure.playing_fields" = "leisure-playing_fields";
+
+"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
+
+"type.leisure.recreation_ground" = "leisure-recreation_ground";
+
+"type.leisure.sauna" = "ซาวน่า";
+
+"type.leisure.slipway" = "leisure-slipway";
+
+"type.leisure.sports_centre" = "กีฬา";
+
+"type.leisure.sports_centre.climbing" = "ศูนย์ปีนเขา";
+
+"type.leisure.sports_centre.shooting" = "สนามยิงปืน";
+
+"type.leisure.sports_centre.swimming" = "ศูนย์ว่ายน้ำ";
+
+"type.leisure.sports_centre.yoga" = "โยคะสตูดิโอ";
+
+"type.leisure.stadium" = "สนามกีฬา";
+
+"type.leisure.swimming_pool" = "สระว่ายน้ำ";
+
+"type.leisure.track" = "leisure-track";
+
+"type.leisure.water_park" = "สวนน้ำ";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
+
+"type.man_made.chimney" = "ปล่องควันโรงงาน";
+
+"type.man_made.cutline" = "man_made-cutline";
+
+"type.man_made.lighthouse" = "ประภาคาร";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+
+"type.man_made.surveillance" = "กล้องวงจรปิด";
+
+"type.man_made.tower" = "หอคอย";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
+
+"type.man_made.water_tap" = "ก๊อกน้ำ";
+
+"type.man_made.water_tower" = "อ่างเก็บน้ำ";
+
+"type.man_made.water_well" = "บ่อน้ำ";
+
+"type.man_made.windmill" = "กังหันลม";
+
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.marking" = "marking";
+
+"type.marking.sport" = "marking-sport";
+
+"type.marking.sport.black" = "marking-sport-black";
+
+"type.marking.sport.blue" = "marking-sport-blue";
+
+"type.marking.sport.red" = "marking-sport-red";
+
+"type.marking.sport.white" = "marking-sport-white";
+
+"type.military" = "military";
+
+"type.military.bunker" = "บังเกอร์";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "natural-bare_rock";
+
+"type.natural.bay" = "อ่าว";
+
+"type.natural.beach" = "ชายหาด";
+
+"type.natural.cape" = "natural-cape";
+
+"type.natural.cave_entrance" = "ทางเข้าถ้ำ";
+
+"type.natural.cliff" = "natural-cliff";
+
+"type.natural.coastline" = "natural-coastline";
+
+"type.natural.glacier" = "natural-glacier";
+
+"type.natural.grassland" = "natural-grassland";
+
+"type.natural.heath" = "natural-heath";
+
+"type.natural.lake" = "ทะเลสาบ";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "natural-meadow";
+
+"type.natural.orchard" = "natural-orchard";
+
+"type.natural.peak" = "จุดสูงสุด";
+
+"type.natural.pond" = "บ่อ";
+
+"type.natural.rock" = "natural-rock";
+
+"type.natural.salt_pond" = "natural-salt_pond";
+
+"type.natural.scrub" = "natural-scrub";
+
+"type.natural.spring" = "ฤดูใบไม้ผลิ";
+
+"type.natural.tree" = "ต้นไม้";
+
+"type.natural.tree_row" = "natural-tree_row";
+
+"type.natural.vineyard" = "natural-vineyard";
+
+"type.natural.volcano" = "ภูเขาไฟ";
+
+"type.natural.water" = "น้ำ";
+
+"type.natural.wetland" = "natural-wetland";
+
+"type.natural.wetland.bog" = "natural-wetland-bog";
+
+"type.natural.wetland.marsh" = "natural-wetland-marsh";
+
+"type.natural.wood" = "ป่า";
+
+"type.natural.wood.coniferous" = "ป่า";
+
+"type.natural.wood.deciduous" = "ป่า";
+
+"type.natural.wood.mixed" = "ป่า";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+
+"type.office" = "สำนักงาน";
+
+"type.office.company" = "สำนักงานบริษัท";
+
+"type.office.estate_agent" = "นายหน้าอสังหาริมทรัพย์";
+
+"type.office.government" = "หน่วยงานราชการ";
+
+"type.office.insurance" = "สำนักงานประกันภัย";
+
+"type.office.lawyer" = "สำนักงานทนายความ";
+
+"type.office.ngo" = "สำนักงานองค์กรพัฒนาเอกชน";
+
+"type.office.telecommunication" = "ผู้ให้บริการโทรศัพท์มือถือ";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
+"type.place.city" = "เมือง";
+
+"type.place.city.capital" = "เมือง";
+
+"type.place.city.capital.10" = "เมือง";
+
+"type.place.city.capital.11" = "เมือง";
+
+"type.place.city.capital.2" = "เมือง";
+
+"type.place.city.capital.3" = "เมือง";
+
+"type.place.city.capital.4" = "เมือง";
+
+"type.place.city.capital.5" = "เมือง";
+
+"type.place.city.capital.6" = "เมือง";
+
+"type.place.city.capital.7" = "เมือง";
+
+"type.place.city.capital.8" = "เมือง";
+
+"type.place.city.capital.9" = "เมือง";
+
+"type.place.continent" = "ทวีป";
+
+"type.place.country" = "ประเทศ";
+
+"type.place.county" = "เขต";
+
+"type.place.farm" = "ฟาร์ม";
+
+"type.place.hamlet" = "หมู่บ้านเล็ก ๆ";
+
+"type.place.island" = "เกาะ";
+
+"type.place.islet" = "เกาะ";
+
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
+"type.place.locality" = "ท้องถิ่น";
+
+"type.place.neighbourhood" = "place-neighbourhood";
+
+"type.place.ocean" = "มหาสมุทร";
+
+"type.place.region" = "ภูมิภาค";
+
+"type.place.sea" = "เห็น";
+
+"type.place.square" = "place-square";
+
+"type.place.state" = "รัฐ";
+
+"type.place.state.USA" = "รัฐ";
+
+"type.place.suburb" = "ชานเมือง";
+
+"type.place.town" = "เมือง";
+
+"type.place.village" = "หมู่บ้าน";
+
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.generator.hydro" = "power-generator-hydro";
+
+"type.power.generator.photovoltaic" = "power-generator-photovoltaic";
+
+"type.power.generator.wind" = "power-generator-wind";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
+"type.power.pole" = "เสาไฟฟ้า";
+
+"type.power.station" = "power-station";
+
+"type.power.substation" = "สถานีไฟฟ้า";
+
+"type.power.tower" = "เสาไฟฟ้า";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
+"type.railway.halt" = "สถานีรถไฟ";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
+
+"type.railway.level_crossing" = "Level Crossing";
+
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
+"type.railway.monorail" = "railway-monorail";
+
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
+"type.railway.proposed" = "railway-proposed";
+
+"type.railway.rail" = "railway-rail";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
+
+"type.railway.station" = "สถานีรถไฟ";
+
+"type.railway.station.light_rail" = "สถานีรถไฟ";
+
+"type.railway.station.monorail" = "สถานีรถไฟ";
+
+"type.railway.station.subway" = "รถไฟ";
+
+"type.railway.station.subway.barcelona" = "รถไฟ";
+
+"type.railway.station.subway.berlin" = "รถไฟ";
+
+"type.railway.station.subway.blue" = "รถไฟ";
+
+"type.railway.station.subway.brown" = "รถไฟ";
+
+"type.railway.station.subway.darkgreen" = "รถไฟ";
+
+"type.railway.station.subway.gray" = "รถไฟ";
+
+"type.railway.station.subway.green" = "รถไฟ";
+
+"type.railway.station.subway.grey" = "รถไฟ";
+
+"type.railway.station.subway.kiev" = "รถไฟ";
+
+"type.railway.station.subway.lightblue" = "รถไฟ";
+
+"type.railway.station.subway.lightgreen" = "รถไฟ";
+
+"type.railway.station.subway.london" = "รถไฟ";
+
+"type.railway.station.subway.madrid" = "รถไฟ";
+
+"type.railway.station.subway.minsk" = "รถไฟ";
+
+"type.railway.station.subway.moscow" = "รถไฟ";
+
+"type.railway.station.subway.newyork" = "รถไฟ";
+
+"type.railway.station.subway.orange" = "รถไฟ";
+
+"type.railway.station.subway.paris" = "รถไฟ";
+
+"type.railway.station.subway.purple" = "รถไฟ";
+
+"type.railway.station.subway.red" = "รถไฟ";
+
+"type.railway.station.subway.roma" = "รถไฟ";
+
+"type.railway.station.subway.spb" = "รถไฟ";
+
+"type.railway.station.subway.violet" = "รถไฟ";
+
+"type.railway.station.subway.yellow" = "รถไฟ";
+
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
+"type.railway.subway_entrance" = "รถไฟ";
+
+"type.railway.subway_entrance.barcelona" = "รถไฟ";
+
+"type.railway.subway_entrance.berlin" = "รถไฟ";
+
+"type.railway.subway_entrance.kiev" = "รถไฟ";
+
+"type.railway.subway_entrance.london" = "รถไฟ";
+
+"type.railway.subway_entrance.madrid" = "รถไฟ";
+
+"type.railway.subway_entrance.minsk" = "รถไฟ";
+
+"type.railway.subway_entrance.moscow" = "รถไฟ";
+
+"type.railway.subway_entrance.newyork" = "รถไฟ";
+
+"type.railway.subway_entrance.paris" = "รถไฟ";
+
+"type.railway.subway_entrance.roma" = "รถไฟ";
+
+"type.railway.subway_entrance.spb" = "รถไฟ";
+
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
+"type.railway.tram_stop" = "ป้ายรถราง";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
+
+"type.shop" = "ร้านค้า";
+
+"type.shop.alcohol" = "ร้านขายเหล้า";
+
+"type.shop.bakery" = "เบเกอรี่";
+
+"type.shop.beauty" = "ร้านเสริมสวย";
+
+"type.shop.beverages" = "เครื่องดื่ม";
+
+"type.shop.bicycle" = "จักรยาน";
+
+"type.shop.bookmaker" = "ร้านรับแทงพนัน";
+
+"type.shop.books" = "ร้านหนังสือ";
+
+"type.shop.butcher" = "ร้านขายเนื้อ";
+
+"type.shop.car" = "ร้านค้ารถยนต์";
+
+"type.shop.car_parts" = "อะไหล่รถยนต์";
+
+"type.shop.car_repair" = "ร้านซ่อมรถยนต์";
+
+"type.shop.car_repair.tyres" = "ร้านปะยาง";
+
+"type.shop.chemist" = "ร้านเคมีภัณฑ์";
+
+"type.shop.chocolate" = "ร้านค้า";
+
+"type.shop.clothes" = "ร้านขายเสื้อผ้า";
+
+"type.shop.coffee" = "ร้านค้า";
+
+"type.shop.computer" = "ร้านขายคอมพิวเตอร์";
+
+"type.shop.confectionery" = "ร้านขายขนมหวาน";
+
+"type.shop.convenience" = "ร้านสะดวกซื้อ";
+
+"type.shop.copyshop" = "ร้านถ่ายเอกสาร";
+
+"type.shop.cosmetics" = "เครื่องสำอาง";
+
+"type.shop.department_store" = "ห้างสรรพสินค้า";
+
+"type.shop.doityourself" = "ร้านขายฮาร์ดแวร์";
+
+"type.shop.dry_cleaning" = "ซักแห้ง";
+
+"type.shop.electronics" = "ร้านขายอุปกรณ์อิเล็กทรอนิกส์";
+
+"type.shop.erotic" = "ร้านเฉพาะผู้ใหญ่";
+
+"type.shop.fabric" = "ร้านค้า";
+
+"type.shop.florist" = "ร้านดอกไม้";
+
+"type.shop.funeral_directors" = "สัปเหร่อ";
+
+"type.shop.furniture" = "ร้านเฟอร์นิเจอร์";
+
+"type.shop.garden_centre" = "สถานรับเลี้ยงเด็ก";
+
+"type.shop.gift" = "ร้านของขวัญ";
+
+"type.shop.greengrocer" = "ร้านขายผัด";
+
+"type.shop.hairdresser" = "ช่างทำผม";
+
+"type.shop.hardware" = "ร้านขายฮาร์ดแวร์";
+
+"type.shop.jewelry" = "ร้านขายเครื่องประดับ";
+
+"type.shop.kiosk" = "ร้าน";
+
+"type.shop.laundry" = "ร้านซักรีด";
+
+"type.shop.mall" = "เดอะมอลล์";
+
+"type.shop.massage" = "สถานอาบอบนวด";
+
+"type.shop.mobile_phone" = "ร้านขายโทรศัพท์มือถือ";
+
+"type.shop.money_lender" = "ร้านค้า";
+
+"type.shop.motorcycle" = "ร้านรถมอเตอร์ไซค์";
+
+"type.shop.music" = "ร้านค้า";
+
+"type.shop.musical_instrument" = "ร้านค้า";
+
+"type.shop.newsagent" = "แผงขายหนังสือพิมพ์";
+
+"type.shop.optician" = "ร้านแว่น";
+
+"type.shop.outdoor" = "อุปกรณ์กลางแจ้ง";
+
+"type.shop.pawnbroker" = "ผู้รับจำนำ";
+
+"type.shop.pet" = "เพ็ทชอป";
+
+"type.shop.photo" = "ร้านถ่ายภาพ";
+
+"type.shop.seafood" = "ร้านขายปลา";
+
+"type.shop.shoes" = "ร้านขายรองเท้า";
+
+"type.shop.sports" = "สินค้ากีฬา";
+
+"type.shop.stationery" = "ร้านขายเครื่องเขียน";
+
+"type.shop.supermarket" = "ซูเปอร์มาร์เก็ต";
+
+"type.shop.tattoo" = "ร้านสัก";
+
+"type.shop.tea" = "ร้านค้า";
+
+"type.shop.ticket" = "จุดจำหน่ายตั๋ว";
+
+"type.shop.toys" = "ร้านขายของเล่น";
+
+"type.shop.travel_agency" = "สำนักงานการท่องเที่ยว";
+
+"type.shop.tyres" = "ร้านยาง";
+
+"type.shop.variety_store" = "ร้านค้าปลีกอิสระ";
+
+"type.shop.video" = "ร้านค้า";
+
+"type.shop.wine" = "ร้านขายไวน์";
+
+"type.sponsored" = "sponsored";
+
+"type.sponsored.banner" = "sponsored-banner";
+
+"type.sponsored.banner.deliveryclub" = "sponsored-banner-deliveryclub";
+
+"type.sponsored.banner.geerbest_de" = "sponsored-banner-geerbest_de";
+
+"type.sponsored.banner.geerbest_fr" = "sponsored-banner-geerbest_fr";
+
+"type.sponsored.banner.geerbest_uk" = "sponsored-banner-geerbest_uk";
+
+"type.sponsored.banner.lamoda_ru" = "sponsored-banner-lamoda_ru";
+
+"type.sponsored.banner.lamoda_ua" = "sponsored-banner-lamoda_ua";
+
+"type.sponsored.banner.raileurope" = "sponsored-banner-raileurope";
+
+"type.sponsored.banner.rentalcars" = "sponsored-banner-rentalcars";
+
+"type.sponsored.banner.tutu" = "sponsored-banner-tutu";
+
+"type.sponsored.banner.viator" = "sponsored-banner-viator";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "sponsored-partner18";
+
+"type.sponsored.partner19" = "sponsored-partner19";
+
+"type.sponsored.partner2" = "Luggage Storage";
+
+"type.sponsored.partner20" = "sponsored-partner20";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sponsored.viator" = "sponsored-viator";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
+"type.sport.athletics" = "Athletics";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
+
+"type.sport.basketball" = "Basketball";
+
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
+"type.sport.equestrian" = "Equestrian Sports";
+
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
+"type.sport.tennis" = "sport-tennis";
+
+"type.tourism" = "tourism";
+
+"type.tourism.alpine_hut" = "ที่พักบนภูเขาโรงแรม";
+
+"type.tourism.apartment" = "อพาร์ตเมนต์";
+
+"type.tourism.artwork" = "งานศิลปะ";
+
+"type.tourism.artwork.architecture" = "งานศิลปะ";
+
+"type.tourism.artwork.painting" = "งานศิลปะ";
+
+"type.tourism.artwork.sculpture" = "งานศิลปะ";
+
+"type.tourism.artwork.statue" = "งานศิลปะ";
+
+"type.tourism.attraction" = "การท่องเที่ยว";
+
+"type.tourism.attraction.animal" = "การท่องเที่ยว";
+
+"type.tourism.attraction.specified" = "การท่องเที่ยว";
+
+"type.tourism.camp_site" = "การตั้งแคมป์";
+
+"type.tourism.caravan_site" = "ขบวนนักเดินทาง";
+
+"type.tourism.chalet" = "ชาเลต์";
+
+"type.tourism.gallery" = "สถานที่ท่องเที่ยว";
+
+"type.tourism.guest_house" = "เกสท์เฮ้าส์";
+
+"type.tourism.hostel" = "หอพัก";
+
+"type.tourism.hotel" = "โรงแรม";
+
+"type.tourism.information" = "ข้อมูลการท่องเที่ยว";
+
+"type.tourism.information.board" = "บอร์ดประชาสัมพันธ์";
+
+"type.tourism.information.guidepost" = "ข้อมูลการท่องเที่ยว";
+
+"type.tourism.information.map" = "แผนที่ท่องเที่ยว";
+
+"type.tourism.information.office" = "ศูนย์บริการนักท่องเที่ยว";
+
+"type.tourism.motel" = "โมเทล";
+
+"type.tourism.museum" = "พิพิธภัณฑ์";
+
+"type.tourism.picnic_site" = "เว็บไซต์ปิกนิก";
+
+"type.tourism.resort" = "รีสอร์ต";
+
+"type.tourism.theme_park" = "สถานที่ท่องเที่ยว";
+
+"type.tourism.viewpoint" = "จุดชมวิว";
+
+"type.tourism.wilderness_hut" = "กระท่อมกลางป่า";
+
+"type.tourism.zoo" = "สวนสัตว์";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "คลอง";
+
+"type.waterway.canal.tunnel" = "คลอง";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
+
+"type.waterway.lock_gate" = "ประตูระบายน้ำ";
+
+"type.waterway.river" = "แม่น้ำ";
+
+"type.waterway.river.tunnel" = "แม่น้ำ";
+
+"type.waterway.riverbank" = "แม่น้ำ";
+
+"type.waterway.stream" = "แม่น้ำ";
+
+"type.waterway.stream.ephemeral" = "แม่น้ำ";
+
+"type.waterway.stream.intermittent" = "แม่น้ำ";
+
+"type.waterway.stream.tunnel" = "แม่น้ำ";
+
+"type.waterway.waterfall" = "น้ำตก";
+
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
+"type.wheelchair.limited" = "wheelchair-limited";
+
+"type.wheelchair.no" = "wheelchair-no";
+
+"type.wheelchair.yes" = "wheelchair-yes";

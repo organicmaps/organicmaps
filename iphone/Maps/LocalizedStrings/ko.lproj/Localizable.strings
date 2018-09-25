@@ -2480,3 +2480,1664 @@
 "sponsored_partner19_action" = "Lifehack";
 
 "sponsored_partner20_action" = "Lifehack";
+
+
+/********** Types **********/
+
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
+"type.aerialway.station" = "케이블카 역";
+
+"type.aeroway" = "aeroway";
+
+"type.aeroway.aerodrome" = "공항";
+
+"type.aeroway.aerodrome.international" = "공항";
+
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
+"type.aeroway.helipad" = "헬기착륙장";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
+
+"type.amenity" = "amenity";
+
+"type.amenity.arts_centre" = "amenity-arts_centre";
+
+"type.amenity.atm" = "ATM";
+
+"type.amenity.bank" = "은행";
+
+"type.amenity.bar" = "주점";
+
+"type.amenity.bbq" = "소풍 사이트";
+
+"type.amenity.bench" = "벤치";
+
+"type.amenity.bicycle_parking" = "자전거보관소";
+
+"type.amenity.bicycle_rental" = "자전거 대여";
+
+"type.amenity.biergarten" = "비어가르텐";
+
+"type.amenity.brothel" = "유곽";
+
+"type.amenity.bureau_de_change" = "환전";
+
+"type.amenity.bus_station" = "버스 정류장";
+
+"type.amenity.cafe" = "카페";
+
+"type.amenity.car_rental" = "자동차 공유";
+
+"type.amenity.car_sharing" = "카셰어링";
+
+"type.amenity.car_wash" = "세차";
+
+"type.amenity.casino" = "카지노";
+
+"type.amenity.charging_station" = "충전 역";
+
+"type.amenity.childcare" = "보육";
+
+"type.amenity.cinema" = "영화";
+
+"type.amenity.clinic" = "클리닉";
+
+"type.amenity.college" = "칼리지";
+
+"type.amenity.community_centre" = "커뮤니티센터";
+
+"type.amenity.courthouse" = "법원";
+
+"type.amenity.dentist" = "치과";
+
+"type.amenity.doctors" = "개인병원";
+
+"type.amenity.drinking_water" = "식수";
+
+"type.amenity.driving_school" = "운전학원";
+
+"type.amenity.embassy" = "대사관";
+
+"type.amenity.fast_food" = "패스트 푸드";
+
+"type.amenity.ferry_terminal" = "나룻배";
+
+"type.amenity.fire_station" = "소방서";
+
+"type.amenity.food_court" = "amenity-food_court";
+
+"type.amenity.fountain" = "분수";
+
+"type.amenity.fuel" = "가스가 역";
+
+"type.amenity.grave_yard" = "묘소";
+
+"type.amenity.grave_yard.christian" = "묘소";
+
+"type.amenity.hospital" = "병원";
+
+"type.amenity.hunting_stand" = "사냥 스탠드";
+
+"type.amenity.ice_cream" = "아이스크림 스탠드";
+
+"type.amenity.internet_cafe" = "인터넷 카페";
+
+"type.amenity.kindergarten" = "유치원";
+
+"type.amenity.library" = "도서관";
+
+"type.amenity.marketplace" = "시장";
+
+"type.amenity.motorcycle_parking" = "오토바이 주차";
+
+"type.amenity.nightclub" = "나이트 클럽";
+
+"type.amenity.nursing_home" = "요양원";
+
+"type.amenity.parking" = "주차";
+
+"type.amenity.parking.fee" = "주차";
+
+"type.amenity.parking.multi.storey" = "주차";
+
+"type.amenity.parking.multi.storey.fee" = "주차";
+
+"type.amenity.parking.no.access" = "주차";
+
+"type.amenity.parking.park_and_ride" = "주차";
+
+"type.amenity.parking.permissive" = "주차";
+
+"type.amenity.parking.permissive.fee" = "주차";
+
+"type.amenity.parking.private" = "주차";
+
+"type.amenity.parking.underground" = "주차";
+
+"type.amenity.parking.underground.fee" = "주차";
+
+"type.amenity.payment_terminal" = "결제 단말기";
+
+"type.amenity.pharmacy" = "약국";
+
+"type.amenity.place_of_worship" = "예배 장소";
+
+"type.amenity.place_of_worship.buddhist" = "절";
+
+"type.amenity.place_of_worship.christian" = "교회";
+
+"type.amenity.place_of_worship.hindu" = "절";
+
+"type.amenity.place_of_worship.jewish" = "유태교 회당";
+
+"type.amenity.place_of_worship.muslim" = "모스크";
+
+"type.amenity.place_of_worship.shinto" = "성지";
+
+"type.amenity.place_of_worship.taoist" = "절";
+
+"type.amenity.police" = "치안대";
+
+"type.amenity.post_box" = "포스트 박스";
+
+"type.amenity.post_office" = "우편";
+
+"type.amenity.prison" = "amenity-prison";
+
+"type.amenity.pub" = "술집";
+
+"type.amenity.public_bookcase" = "책장, 도서 교환";
+
+"type.amenity.recycling" = "재활용센터";
+
+"type.amenity.restaurant" = "레스토랑";
+
+"type.amenity.school" = "학교";
+
+"type.amenity.shelter" = "피난처";
+
+"type.amenity.shower" = "샤워기";
+
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "택시로 가다";
+
+"type.amenity.telephone" = "전화";
+
+"type.amenity.theatre" = "연극";
+
+"type.amenity.toilets" = "화장실";
+
+"type.amenity.townhall" = "시청사";
+
+"type.amenity.university" = "대학";
+
+"type.amenity.vending_machine" = "amenity-vending_machine";
+
+"type.amenity.vending_machine.cigarettes" = "담배자판기";
+
+"type.amenity.vending_machine.drinks" = "음료자동판매기";
+
+"type.amenity.vending_machine.parking_tickets" = "주차티켓판매기";
+
+"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+
+"type.amenity.veterinary" = "수의학 박사";
+
+"type.amenity.waste_basket" = "쓰레기통";
+
+"type.amenity.waste_disposal" = "쓰레기";
+
+"type.amenity.water_point" = "상수도";
+
+"type.barrier" = "barrier";
+
+"type.barrier.block" = "블록";
+
+"type.barrier.bollard" = "기둥";
+
+"type.barrier.border_control" = "국경통제소";
+
+"type.barrier.city_wall" = "barrier-city_wall";
+
+"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+
+"type.barrier.entrance" = "입구";
+
+"type.barrier.fence" = "barrier-fence";
+
+"type.barrier.gate" = "게이트";
+
+"type.barrier.hedge" = "barrier-hedge";
+
+"type.barrier.lift_gate" = "차량차단기";
+
+"type.barrier.retaining_wall" = "barrier-retaining_wall";
+
+"type.barrier.stile" = "디딤대";
+
+"type.barrier.toll_booth" = "톨게이트";
+
+"type.barrier.wall" = "barrier-wall";
+
+"type.boundary" = "boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+
+"type.boundary.national_park" = "boundary-national_park";
+
+"type.building" = "건물";
+
+"type.building.address" = "건물";
+
+"type.building.garage" = "정비소";
+
+"type.building.has_parts" = "건물";
+
+"type.building.train_station" = "기차역";
+
+"type.communication" = "communication";
+
+"type.communication.line" = "communication-line";
+
+"type.communication.line.underground" = "communication-line-underground";
+
+"type.craft" = "craft";
+
+"type.craft.brewery" = "양조장";
+
+"type.craft.carpenter" = "목수";
+
+"type.craft.electrician" = "전기기술자";
+
+"type.craft.gardener" = "조경사";
+
+"type.craft.hvac" = "냉난방기";
+
+"type.craft.metal_construction" = "금속공";
+
+"type.craft.painter" = "페인트공";
+
+"type.craft.photographer" = "사진작가";
+
+"type.craft.plumber" = "배관공";
+
+"type.craft.shoemaker" = "구두수선";
+
+"type.craft.tailor" = "양복점";
+
+"type.emergency" = "emergency";
+
+"type.emergency.defibrillator" = "제세동기";
+
+"type.emergency.fire_hydrant" = "소화전";
+
+"type.emergency.phone" = "긴급 전화";
+
+"type.entrance" = "입구";
+
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
+"type.highway.bus_stop" = "운송선";
+
+"type.highway.construction" = "highway-construction";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+
+"type.highway.footway" = "경로";
+
+"type.highway.footway.alpine_hiking" = "경로";
+
+"type.highway.footway.area" = "경로";
+
+"type.highway.footway.bridge" = "경로";
+
+"type.highway.footway.demanding_alpine_hiking" = "경로";
+
+"type.highway.footway.demanding_mountain_hiking" = "경로";
+
+"type.highway.footway.difficult_alpine_hiking" = "경로";
+
+"type.highway.footway.hiking" = "경로";
+
+"type.highway.footway.mountain_hiking" = "경로";
+
+"type.highway.footway.permissive" = "경로";
+
+"type.highway.footway.tunnel" = "경로";
+
+"type.highway.ford" = "highway-ford";
+
+"type.highway.living_street" = "거리";
+
+"type.highway.living_street.bridge" = "거리";
+
+"type.highway.living_street.tunnel" = "거리";
+
+"type.highway.motorway" = "거리";
+
+"type.highway.motorway.bridge" = "거리";
+
+"type.highway.motorway.tunnel" = "거리";
+
+"type.highway.motorway_junction" = "Exit";
+
+"type.highway.motorway_link" = "거리";
+
+"type.highway.motorway_link.bridge" = "거리";
+
+"type.highway.motorway_link.tunnel" = "거리";
+
+"type.highway.path" = "경로";
+
+"type.highway.path.alpine_hiking" = "경로";
+
+"type.highway.path.bicycle" = "경로";
+
+"type.highway.path.bridge" = "경로";
+
+"type.highway.path.demanding_alpine_hiking" = "경로";
+
+"type.highway.path.demanding_mountain_hiking" = "경로";
+
+"type.highway.path.difficult_alpine_hiking" = "경로";
+
+"type.highway.path.hiking" = "경로";
+
+"type.highway.path.horse" = "경로";
+
+"type.highway.path.mountain_hiking" = "경로";
+
+"type.highway.path.permissive" = "경로";
+
+"type.highway.path.tunnel" = "경로";
+
+"type.highway.pedestrian" = "거리";
+
+"type.highway.pedestrian.area" = "거리";
+
+"type.highway.pedestrian.bridge" = "거리";
+
+"type.highway.pedestrian.tunnel" = "거리";
+
+"type.highway.platform" = "highway-platform";
+
+"type.highway.primary" = "거리";
+
+"type.highway.primary.bridge" = "거리";
+
+"type.highway.primary.tunnel" = "거리";
+
+"type.highway.primary_link" = "거리";
+
+"type.highway.primary_link.bridge" = "거리";
+
+"type.highway.primary_link.tunnel" = "거리";
+
+"type.highway.proposed" = "highway-proposed";
+
+"type.highway.raceway" = "경마장";
+
+"type.highway.residential" = "거리";
+
+"type.highway.residential.area" = "거리";
+
+"type.highway.residential.bridge" = "거리";
+
+"type.highway.residential.tunnel" = "거리";
+
+"type.highway.rest_area" = "휴게소";
+
+"type.highway.road" = "거리";
+
+"type.highway.road.bridge" = "거리";
+
+"type.highway.road.tunnel" = "거리";
+
+"type.highway.secondary" = "거리";
+
+"type.highway.secondary.bridge" = "거리";
+
+"type.highway.secondary.tunnel" = "거리";
+
+"type.highway.secondary_link" = "거리";
+
+"type.highway.secondary_link.bridge" = "거리";
+
+"type.highway.secondary_link.tunnel" = "거리";
+
+"type.highway.service" = "거리";
+
+"type.highway.service.area" = "거리";
+
+"type.highway.service.bridge" = "거리";
+
+"type.highway.service.driveway" = "거리";
+
+"type.highway.service.driveway.area" = "거리";
+
+"type.highway.service.driveway.bridge" = "거리";
+
+"type.highway.service.driveway.tunnel" = "거리";
+
+"type.highway.service.parking_aisle" = "거리";
+
+"type.highway.service.tunnel" = "거리";
+
+"type.highway.services" = "highway-services";
+
+"type.highway.speed_camera" = "스피드 카메라";
+
+"type.highway.steps" = "경로";
+
+"type.highway.steps.bridge" = "경로";
+
+"type.highway.steps.tunnel" = "경로";
+
+"type.highway.tertiary" = "거리";
+
+"type.highway.tertiary.bridge" = "거리";
+
+"type.highway.tertiary.tunnel" = "거리";
+
+"type.highway.tertiary_link" = "거리";
+
+"type.highway.tertiary_link.bridge" = "거리";
+
+"type.highway.tertiary_link.tunnel" = "거리";
+
+"type.highway.track" = "거리";
+
+"type.highway.track.area" = "거리";
+
+"type.highway.track.bridge" = "거리";
+
+"type.highway.track.grade1" = "거리";
+
+"type.highway.track.grade2" = "거리";
+
+"type.highway.track.grade3" = "거리";
+
+"type.highway.track.grade3.no.access" = "거리";
+
+"type.highway.track.grade3.permissive" = "거리";
+
+"type.highway.track.grade4" = "거리";
+
+"type.highway.track.grade4.no.access" = "거리";
+
+"type.highway.track.grade4.permissive" = "거리";
+
+"type.highway.track.grade5" = "거리";
+
+"type.highway.track.grade5.no.access" = "거리";
+
+"type.highway.track.grade5.permissive" = "거리";
+
+"type.highway.track.no.access" = "거리";
+
+"type.highway.track.permissive" = "거리";
+
+"type.highway.track.tunnel" = "거리";
+
+"type.highway.traffic_signals" = "신호등";
+
+"type.highway.trunk" = "거리";
+
+"type.highway.trunk.bridge" = "거리";
+
+"type.highway.trunk.tunnel" = "거리";
+
+"type.highway.trunk_link" = "거리";
+
+"type.highway.trunk_link.bridge" = "거리";
+
+"type.highway.trunk_link.tunnel" = "거리";
+
+"type.highway.unclassified" = "거리";
+
+"type.highway.unclassified.area" = "거리";
+
+"type.highway.unclassified.bridge" = "거리";
+
+"type.highway.unclassified.tunnel" = "거리";
+
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
+"type.historic.archaeological_site" = "발굴";
+
+"type.historic.battlefield" = "historic-battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
+
+"type.historic.castle" = "대저택";
+
+"type.historic.castle.defensive" = "대저택";
+
+"type.historic.castle.stately" = "대저택";
+
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "기념비";
+
+"type.historic.memorial.plaque" = "기념비";
+
+"type.historic.memorial.sculpture" = "기념비";
+
+"type.historic.memorial.statue" = "기념비";
+
+"type.historic.monument" = "기념탑";
+
+"type.historic.museum" = "historic-museum";
+
+"type.historic.ruins" = "유적";
+
+"type.historic.ship" = "관광";
+
+"type.historic.tomb" = "관광";
+
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "인터넷";
+
+"type.internet_access.wlan" = "인터넷";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "landuse-allotments";
+
+"type.landuse.basin" = "연못";
+
+"type.landuse.brownfield" = "landuse-brownfield";
+
+"type.landuse.cemetery" = "묘소";
+
+"type.landuse.cemetery.christian" = "묘소";
+
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "landuse-construction";
+
+"type.landuse.farm" = "landuse-farm";
+
+"type.landuse.farmland" = "landuse-farmland";
+
+"type.landuse.farmyard" = "landuse-farmyard";
+
+"type.landuse.field" = "landuse-field";
+
+"type.landuse.forest" = "숲";
+
+"type.landuse.forest.coniferous" = "숲";
+
+"type.landuse.forest.deciduous" = "숲";
+
+"type.landuse.forest.mixed" = "숲";
+
+"type.landuse.garages" = "landuse-garages";
+
+"type.landuse.grass" = "landuse-grass";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "landuse-industrial";
+
+"type.landuse.landfill" = "landuse-landfill";
+
+"type.landuse.meadow" = "landuse-meadow";
+
+"type.landuse.military" = "landuse-military";
+
+"type.landuse.orchard" = "landuse-orchard";
+
+"type.landuse.quarry" = "landuse-quarry";
+
+"type.landuse.railway" = "landuse-railway";
+
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
+"type.landuse.reservoir" = "연못";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.residential.rural" = "landuse-residential-rural";
+
+"type.landuse.residential.urban" = "landuse-residential-urban";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "landuse-vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
+
+"type.leisure.dog_park" = "Dog area";
+
+"type.leisure.dog_park.tennis" = "Dog area";
+
+"type.leisure.fitness_centre" = "피트니스센터";
+
+"type.leisure.fitness_station" = "피트니스 센터";
+
+"type.leisure.garden" = "정원";
+
+"type.leisure.golf_course" = "골프장";
+
+"type.leisure.ice_rink" = "leisure-ice_rink";
+
+"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+
+"type.leisure.marina" = "leisure-marina";
+
+"type.leisure.nature_reserve" = "leisure-nature_reserve";
+
+"type.leisure.park" = "공원";
+
+"type.leisure.park.no.access" = "공원";
+
+"type.leisure.park.permissive" = "공원";
+
+"type.leisure.park.private" = "공원";
+
+"type.leisure.pitch" = "경기장";
+
+"type.leisure.pitch.tennis" = "경기장";
+
+"type.leisure.playground" = "운동장";
+
+"type.leisure.playground.tennis" = "운동장";
+
+"type.leisure.playing_fields" = "leisure-playing_fields";
+
+"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
+
+"type.leisure.recreation_ground" = "leisure-recreation_ground";
+
+"type.leisure.sauna" = "사우나";
+
+"type.leisure.slipway" = "leisure-slipway";
+
+"type.leisure.sports_centre" = "스포츠 센터";
+
+"type.leisure.sports_centre.climbing" = "등반 센터";
+
+"type.leisure.sports_centre.shooting" = "발사 범위";
+
+"type.leisure.sports_centre.swimming" = "수영 센터";
+
+"type.leisure.sports_centre.yoga" = "요가 스튜디오";
+
+"type.leisure.stadium" = "경기장";
+
+"type.leisure.swimming_pool" = "수영장";
+
+"type.leisure.track" = "leisure-track";
+
+"type.leisure.water_park" = "워터파크";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
+
+"type.man_made.chimney" = "공장 굴뚝";
+
+"type.man_made.cutline" = "man_made-cutline";
+
+"type.man_made.lighthouse" = "등대";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+
+"type.man_made.surveillance" = "감시 카메라";
+
+"type.man_made.tower" = "타워";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
+
+"type.man_made.water_tap" = "수도꼭지";
+
+"type.man_made.water_tower" = "급수탑";
+
+"type.man_made.water_well" = "우물";
+
+"type.man_made.windmill" = "풍차";
+
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.marking" = "marking";
+
+"type.marking.sport" = "marking-sport";
+
+"type.marking.sport.black" = "marking-sport-black";
+
+"type.marking.sport.blue" = "marking-sport-blue";
+
+"type.marking.sport.red" = "marking-sport-red";
+
+"type.marking.sport.white" = "marking-sport-white";
+
+"type.military" = "military";
+
+"type.military.bunker" = "벙커";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "natural-bare_rock";
+
+"type.natural.bay" = "만";
+
+"type.natural.beach" = "바닷가";
+
+"type.natural.cape" = "natural-cape";
+
+"type.natural.cave_entrance" = "동굴입구";
+
+"type.natural.cliff" = "natural-cliff";
+
+"type.natural.coastline" = "natural-coastline";
+
+"type.natural.glacier" = "natural-glacier";
+
+"type.natural.grassland" = "natural-grassland";
+
+"type.natural.heath" = "natural-heath";
+
+"type.natural.lake" = "호수";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "natural-meadow";
+
+"type.natural.orchard" = "natural-orchard";
+
+"type.natural.peak" = "피크";
+
+"type.natural.pond" = "연못이";
+
+"type.natural.rock" = "natural-rock";
+
+"type.natural.salt_pond" = "natural-salt_pond";
+
+"type.natural.scrub" = "natural-scrub";
+
+"type.natural.spring" = "샘";
+
+"type.natural.tree" = "나무";
+
+"type.natural.tree_row" = "natural-tree_row";
+
+"type.natural.vineyard" = "natural-vineyard";
+
+"type.natural.volcano" = "화산";
+
+"type.natural.water" = "연못";
+
+"type.natural.wetland" = "natural-wetland";
+
+"type.natural.wetland.bog" = "natural-wetland-bog";
+
+"type.natural.wetland.marsh" = "natural-wetland-marsh";
+
+"type.natural.wood" = "숲";
+
+"type.natural.wood.coniferous" = "숲";
+
+"type.natural.wood.deciduous" = "숲";
+
+"type.natural.wood.mixed" = "숲";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+
+"type.office" = "사무실";
+
+"type.office.company" = "회사";
+
+"type.office.estate_agent" = "부동산중개소";
+
+"type.office.government" = "관공서";
+
+"type.office.insurance" = "보험 사무실";
+
+"type.office.lawyer" = "법률 사무소";
+
+"type.office.ngo" = "NGO 사무실";
+
+"type.office.telecommunication" = "이동통신 사업자";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
+"type.place.city" = "도시";
+
+"type.place.city.capital" = "수도";
+
+"type.place.city.capital.10" = "수도";
+
+"type.place.city.capital.11" = "수도";
+
+"type.place.city.capital.2" = "수도";
+
+"type.place.city.capital.3" = "수도";
+
+"type.place.city.capital.4" = "수도";
+
+"type.place.city.capital.5" = "수도";
+
+"type.place.city.capital.6" = "수도";
+
+"type.place.city.capital.7" = "수도";
+
+"type.place.city.capital.8" = "수도";
+
+"type.place.city.capital.9" = "수도";
+
+"type.place.continent" = "대륙";
+
+"type.place.country" = "나라";
+
+"type.place.county" = "군";
+
+"type.place.farm" = "농장";
+
+"type.place.hamlet" = "햄릿";
+
+"type.place.island" = "섬";
+
+"type.place.islet" = "섬";
+
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
+"type.place.locality" = "장소";
+
+"type.place.neighbourhood" = "place-neighbourhood";
+
+"type.place.ocean" = "대양";
+
+"type.place.region" = "지방";
+
+"type.place.sea" = "바다";
+
+"type.place.square" = "place-square";
+
+"type.place.state" = "상태";
+
+"type.place.state.USA" = "상태";
+
+"type.place.suburb" = "교외";
+
+"type.place.town" = "타운";
+
+"type.place.village" = "마을";
+
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.generator.hydro" = "power-generator-hydro";
+
+"type.power.generator.photovoltaic" = "power-generator-photovoltaic";
+
+"type.power.generator.wind" = "power-generator-wind";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
+"type.power.pole" = "전봇대";
+
+"type.power.station" = "power-station";
+
+"type.power.substation" = "변전소";
+
+"type.power.tower" = "전봇대";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
+"type.railway.halt" = "기차역";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
+
+"type.railway.level_crossing" = "Level Crossing";
+
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
+"type.railway.monorail" = "railway-monorail";
+
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
+"type.railway.proposed" = "railway-proposed";
+
+"type.railway.rail" = "railway-rail";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
+
+"type.railway.station" = "기차역";
+
+"type.railway.station.light_rail" = "기차역";
+
+"type.railway.station.monorail" = "기차역";
+
+"type.railway.station.subway" = "지하철";
+
+"type.railway.station.subway.barcelona" = "지하철";
+
+"type.railway.station.subway.berlin" = "지하철";
+
+"type.railway.station.subway.blue" = "지하철";
+
+"type.railway.station.subway.brown" = "지하철";
+
+"type.railway.station.subway.darkgreen" = "지하철";
+
+"type.railway.station.subway.gray" = "지하철";
+
+"type.railway.station.subway.green" = "지하철";
+
+"type.railway.station.subway.grey" = "지하철";
+
+"type.railway.station.subway.kiev" = "지하철";
+
+"type.railway.station.subway.lightblue" = "지하철";
+
+"type.railway.station.subway.lightgreen" = "지하철";
+
+"type.railway.station.subway.london" = "지하철";
+
+"type.railway.station.subway.madrid" = "지하철";
+
+"type.railway.station.subway.minsk" = "지하철";
+
+"type.railway.station.subway.moscow" = "지하철";
+
+"type.railway.station.subway.newyork" = "지하철";
+
+"type.railway.station.subway.orange" = "지하철";
+
+"type.railway.station.subway.paris" = "지하철";
+
+"type.railway.station.subway.purple" = "지하철";
+
+"type.railway.station.subway.red" = "지하철";
+
+"type.railway.station.subway.roma" = "지하철";
+
+"type.railway.station.subway.spb" = "지하철";
+
+"type.railway.station.subway.violet" = "지하철";
+
+"type.railway.station.subway.yellow" = "지하철";
+
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
+"type.railway.subway_entrance" = "지하철";
+
+"type.railway.subway_entrance.barcelona" = "지하철";
+
+"type.railway.subway_entrance.berlin" = "지하철";
+
+"type.railway.subway_entrance.kiev" = "지하철";
+
+"type.railway.subway_entrance.london" = "지하철";
+
+"type.railway.subway_entrance.madrid" = "지하철";
+
+"type.railway.subway_entrance.minsk" = "지하철";
+
+"type.railway.subway_entrance.moscow" = "지하철";
+
+"type.railway.subway_entrance.newyork" = "지하철";
+
+"type.railway.subway_entrance.paris" = "지하철";
+
+"type.railway.subway_entrance.roma" = "지하철";
+
+"type.railway.subway_entrance.spb" = "지하철";
+
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
+"type.railway.tram_stop" = "트램";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
+
+"type.shop" = "쇼핑";
+
+"type.shop.alcohol" = "주류 샵";
+
+"type.shop.bakery" = "베이커리";
+
+"type.shop.beauty" = "미용실";
+
+"type.shop.beverages" = "음료";
+
+"type.shop.bicycle" = "자전거 가게";
+
+"type.shop.bookmaker" = "마권판매소";
+
+"type.shop.books" = "서점";
+
+"type.shop.butcher" = "정육점의";
+
+"type.shop.car" = "자동차 가게";
+
+"type.shop.car_parts" = "자동차 부품";
+
+"type.shop.car_repair" = "자동차 수리";
+
+"type.shop.car_repair.tyres" = "타이어수리점";
+
+"type.shop.chemist" = "드럭 스토어";
+
+"type.shop.chocolate" = "쇼핑";
+
+"type.shop.clothes" = "옷 가게";
+
+"type.shop.coffee" = "쇼핑";
+
+"type.shop.computer" = "컴퓨터 판매점";
+
+"type.shop.confectionery" = "제과점";
+
+"type.shop.convenience" = "편의점";
+
+"type.shop.copyshop" = "복사 상점";
+
+"type.shop.cosmetics" = "화장품";
+
+"type.shop.department_store" = "백화점";
+
+"type.shop.doityourself" = "철물점";
+
+"type.shop.dry_cleaning" = "드라이 클리닝";
+
+"type.shop.electronics" = "전자";
+
+"type.shop.erotic" = "성인용품 가게";
+
+"type.shop.fabric" = "쇼핑";
+
+"type.shop.florist" = "플로리스트의꽃가게";
+
+"type.shop.funeral_directors" = "장의사";
+
+"type.shop.furniture" = "가구 상점";
+
+"type.shop.garden_centre" = "종묘점";
+
+"type.shop.gift" = "선물 가게";
+
+"type.shop.greengrocer" = "청과물 상인의";
+
+"type.shop.hairdresser" = "이발사";
+
+"type.shop.hardware" = "철물점";
+
+"type.shop.jewelry" = "보석류";
+
+"type.shop.kiosk" = "정자";
+
+"type.shop.laundry" = "세탁소";
+
+"type.shop.mall" = "몰";
+
+"type.shop.massage" = "안마 시술소";
+
+"type.shop.mobile_phone" = "휴대폰 대리점";
+
+"type.shop.money_lender" = "쇼핑";
+
+"type.shop.motorcycle" = "오토바이 가게";
+
+"type.shop.music" = "쇼핑";
+
+"type.shop.musical_instrument" = "쇼핑";
+
+"type.shop.newsagent" = "신문 가판대";
+
+"type.shop.optician" = "안경점 의";
+
+"type.shop.outdoor" = "야외 장비";
+
+"type.shop.pawnbroker" = "전당포";
+
+"type.shop.pet" = "애완동물점";
+
+"type.shop.photo" = "사진 상점";
+
+"type.shop.seafood" = "생선가게";
+
+"type.shop.shoes" = "신발 가게";
+
+"type.shop.sports" = "스포츠 용품";
+
+"type.shop.stationery" = "문방구";
+
+"type.shop.supermarket" = "슈퍼마켓";
+
+"type.shop.tattoo" = "문신 시술소";
+
+"type.shop.tea" = "쇼핑";
+
+"type.shop.ticket" = "매표소";
+
+"type.shop.toys" = "장난감 가게";
+
+"type.shop.travel_agency" = "여행사";
+
+"type.shop.tyres" = "타이어 상점";
+
+"type.shop.variety_store" = "잡화점";
+
+"type.shop.video" = "쇼핑";
+
+"type.shop.wine" = "와인 샵";
+
+"type.sponsored" = "sponsored";
+
+"type.sponsored.banner" = "sponsored-banner";
+
+"type.sponsored.banner.deliveryclub" = "sponsored-banner-deliveryclub";
+
+"type.sponsored.banner.geerbest_de" = "sponsored-banner-geerbest_de";
+
+"type.sponsored.banner.geerbest_fr" = "sponsored-banner-geerbest_fr";
+
+"type.sponsored.banner.geerbest_uk" = "sponsored-banner-geerbest_uk";
+
+"type.sponsored.banner.lamoda_ru" = "sponsored-banner-lamoda_ru";
+
+"type.sponsored.banner.lamoda_ua" = "sponsored-banner-lamoda_ua";
+
+"type.sponsored.banner.raileurope" = "sponsored-banner-raileurope";
+
+"type.sponsored.banner.rentalcars" = "sponsored-banner-rentalcars";
+
+"type.sponsored.banner.tutu" = "sponsored-banner-tutu";
+
+"type.sponsored.banner.viator" = "sponsored-banner-viator";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "sponsored-partner18";
+
+"type.sponsored.partner19" = "sponsored-partner19";
+
+"type.sponsored.partner2" = "Luggage Storage";
+
+"type.sponsored.partner20" = "sponsored-partner20";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sponsored.viator" = "sponsored-viator";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
+"type.sport.athletics" = "Athletics";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
+
+"type.sport.basketball" = "Basketball";
+
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
+"type.sport.equestrian" = "Equestrian Sports";
+
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
+"type.sport.tennis" = "sport-tennis";
+
+"type.tourism" = "tourism";
+
+"type.tourism.alpine_hut" = "고산 오두막";
+
+"type.tourism.apartment" = "아파트";
+
+"type.tourism.artwork" = "작품";
+
+"type.tourism.artwork.architecture" = "작품";
+
+"type.tourism.artwork.painting" = "작품";
+
+"type.tourism.artwork.sculpture" = "작품";
+
+"type.tourism.artwork.statue" = "작품";
+
+"type.tourism.attraction" = "관광 명소";
+
+"type.tourism.attraction.animal" = "관광 명소";
+
+"type.tourism.attraction.specified" = "관광 명소";
+
+"type.tourism.camp_site" = "캠핑";
+
+"type.tourism.caravan_site" = "대상 사이트";
+
+"type.tourism.chalet" = "별장";
+
+"type.tourism.gallery" = "관광";
+
+"type.tourism.guest_house" = "영빈관";
+
+"type.tourism.hostel" = "호스텔";
+
+"type.tourism.hotel" = "호텔";
+
+"type.tourism.information" = "관광 정보";
+
+"type.tourism.information.board" = "안내소";
+
+"type.tourism.information.guidepost" = "관광 정보";
+
+"type.tourism.information.map" = "관광안내도";
+
+"type.tourism.information.office" = "관광정보센터";
+
+"type.tourism.motel" = "모텔";
+
+"type.tourism.museum" = "박물관";
+
+"type.tourism.picnic_site" = "소풍 사이트";
+
+"type.tourism.resort" = "리조트";
+
+"type.tourism.theme_park" = "관광";
+
+"type.tourism.viewpoint" = "관점";
+
+"type.tourism.wilderness_hut" = "황야 오두막";
+
+"type.tourism.zoo" = "동물원";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "운하";
+
+"type.waterway.canal.tunnel" = "운하";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
+
+"type.waterway.lock_gate" = "수문";
+
+"type.waterway.river" = "강";
+
+"type.waterway.river.tunnel" = "강";
+
+"type.waterway.riverbank" = "강";
+
+"type.waterway.stream" = "강";
+
+"type.waterway.stream.ephemeral" = "강";
+
+"type.waterway.stream.intermittent" = "강";
+
+"type.waterway.stream.tunnel" = "강";
+
+"type.waterway.waterfall" = "폭포";
+
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
+"type.wheelchair.limited" = "wheelchair-limited";
+
+"type.wheelchair.no" = "wheelchair-no";
+
+"type.wheelchair.yes" = "wheelchair-yes";

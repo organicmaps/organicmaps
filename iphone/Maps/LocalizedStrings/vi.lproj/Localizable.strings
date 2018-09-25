@@ -2480,3 +2480,1664 @@
 "sponsored_partner19_action" = "Lifehack";
 
 "sponsored_partner20_action" = "Lifehack";
+
+
+/********** Types **********/
+
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
+"type.aerialway.station" = "Trạm Cáp Treo";
+
+"type.aeroway" = "aeroway";
+
+"type.aeroway.aerodrome" = "Sân bay";
+
+"type.aeroway.aerodrome.international" = "Sân bay";
+
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
+"type.aeroway.helipad" = "Bãi đỗ trực thăng";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
+
+"type.amenity" = "amenity";
+
+"type.amenity.arts_centre" = "amenity-arts_centre";
+
+"type.amenity.atm" = "ATM";
+
+"type.amenity.bank" = "Ngân hàng";
+
+"type.amenity.bar" = "Quán bar";
+
+"type.amenity.bbq" = "Điểm cắm trại";
+
+"type.amenity.bench" = "Xe đạp";
+
+"type.amenity.bicycle_parking" = "Chỗ Đậu Xe Đạp";
+
+"type.amenity.bicycle_rental" = "Cho thuê xe đạp";
+
+"type.amenity.biergarten" = "Vườn bia";
+
+"type.amenity.brothel" = "Giải trí";
+
+"type.amenity.bureau_de_change" = "Tỉ giá hiện tại";
+
+"type.amenity.bus_station" = "Trạm xe buýt";
+
+"type.amenity.cafe" = "Cà phê";
+
+"type.amenity.car_rental" = "Ô tô";
+
+"type.amenity.car_sharing" = "Chia sẻ Xe";
+
+"type.amenity.car_wash" = "Rửa Xe";
+
+"type.amenity.casino" = "Giải trí";
+
+"type.amenity.charging_station" = "Trạm Sạc điện";
+
+"type.amenity.childcare" = "Nhà trẻ";
+
+"type.amenity.cinema" = "Rạp chiếu phim";
+
+"type.amenity.clinic" = "Phòng khám";
+
+"type.amenity.college" = "Trường đại học";
+
+"type.amenity.community_centre" = "Trung Tâm Cộng Đồng";
+
+"type.amenity.courthouse" = "Tòa án";
+
+"type.amenity.dentist" = "Nha sĩ";
+
+"type.amenity.doctors" = "Bác sĩ";
+
+"type.amenity.drinking_water" = "Nước uống";
+
+"type.amenity.driving_school" = "Trường lái xe";
+
+"type.amenity.embassy" = "Đại sứ quán";
+
+"type.amenity.fast_food" = "Thức ăn nhanh";
+
+"type.amenity.ferry_terminal" = "Phà";
+
+"type.amenity.fire_station" = "Trạm cứu hỏa";
+
+"type.amenity.food_court" = "amenity-food_court";
+
+"type.amenity.fountain" = "Đài phun nước";
+
+"type.amenity.fuel" = "Trạm xăng";
+
+"type.amenity.grave_yard" = "Bãi tha ma";
+
+"type.amenity.grave_yard.christian" = "Bãi tha ma";
+
+"type.amenity.hospital" = "Bệnhviện";
+
+"type.amenity.hunting_stand" = "Điểm săn bắn";
+
+"type.amenity.ice_cream" = "Quầy kem";
+
+"type.amenity.internet_cafe" = "Quán Internet";
+
+"type.amenity.kindergarten" = "Mẫu giáo";
+
+"type.amenity.library" = "Thư viện";
+
+"type.amenity.marketplace" = "Cửa hàng";
+
+"type.amenity.motorcycle_parking" = "Bãi đỗ xe máy";
+
+"type.amenity.nightclub" = "Câu lạc bộ đêm";
+
+"type.amenity.nursing_home" = "Nhà dưỡng lão";
+
+"type.amenity.parking" = "đỗ xe";
+
+"type.amenity.parking.fee" = "đỗ xe";
+
+"type.amenity.parking.multi.storey" = "đỗ xe";
+
+"type.amenity.parking.multi.storey.fee" = "đỗ xe";
+
+"type.amenity.parking.no.access" = "đỗ xe";
+
+"type.amenity.parking.park_and_ride" = "đỗ xe";
+
+"type.amenity.parking.permissive" = "đỗ xe";
+
+"type.amenity.parking.permissive.fee" = "đỗ xe";
+
+"type.amenity.parking.private" = "đỗ xe";
+
+"type.amenity.parking.underground" = "đỗ xe";
+
+"type.amenity.parking.underground.fee" = "đỗ xe";
+
+"type.amenity.payment_terminal" = "Thiết bị thanh toán";
+
+"type.amenity.pharmacy" = "3Hiệu thuốc";
+
+"type.amenity.place_of_worship" = "Chùa";
+
+"type.amenity.place_of_worship.buddhist" = "Đền";
+
+"type.amenity.place_of_worship.christian" = "Chùa";
+
+"type.amenity.place_of_worship.hindu" = "Đền";
+
+"type.amenity.place_of_worship.jewish" = "Giáo đường Do Thái";
+
+"type.amenity.place_of_worship.muslim" = "Nhà thờ Hồi Giáo";
+
+"type.amenity.place_of_worship.shinto" = "Miếu thờ";
+
+"type.amenity.place_of_worship.taoist" = "Đền";
+
+"type.amenity.police" = "Cảnh sát";
+
+"type.amenity.post_box" = "Hòm thư";
+
+"type.amenity.post_office" = "Bưu điện";
+
+"type.amenity.prison" = "amenity-prison";
+
+"type.amenity.pub" = "Quán rượu";
+
+"type.amenity.public_bookcase" = "Kệ sách";
+
+"type.amenity.recycling" = "Trung tâm tái sinh";
+
+"type.amenity.restaurant" = "Quán ăn";
+
+"type.amenity.school" = "Trường học";
+
+"type.amenity.shelter" = "Chổ nương thân";
+
+"type.amenity.shower" = "Nhà tắm";
+
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "Taxi";
+
+"type.amenity.telephone" = "Điện thoại";
+
+"type.amenity.theatre" = "Điểm trú ẩn";
+
+"type.amenity.toilets" = "Nhà vệ sinh";
+
+"type.amenity.townhall" = "Trung tâm thành phố";
+
+"type.amenity.university" = "Nhà hát";
+
+"type.amenity.vending_machine" = "amenity-vending_machine";
+
+"type.amenity.vending_machine.cigarettes" = "Máy bán thuốc lá";
+
+"type.amenity.vending_machine.drinks" = "Máy bán thức uống";
+
+"type.amenity.vending_machine.parking_tickets" = "Máy trả tiền vé đậu xe";
+
+"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+
+"type.amenity.veterinary" = "Bác sĩ Thú y";
+
+"type.amenity.waste_basket" = "Thùng rác";
+
+"type.amenity.waste_disposal" = "Xử lý chất thải";
+
+"type.amenity.water_point" = "Điểm cấp nước";
+
+"type.barrier" = "barrier";
+
+"type.barrier.block" = "Khối";
+
+"type.barrier.bollard" = "Trụ";
+
+"type.barrier.border_control" = "Biên Phòng";
+
+"type.barrier.city_wall" = "barrier-city_wall";
+
+"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+
+"type.barrier.entrance" = "Lối vào";
+
+"type.barrier.fence" = "barrier-fence";
+
+"type.barrier.gate" = "Cổng";
+
+"type.barrier.hedge" = "barrier-hedge";
+
+"type.barrier.lift_gate" = "Thanh Chắn";
+
+"type.barrier.retaining_wall" = "barrier-retaining_wall";
+
+"type.barrier.stile" = "Trụ chắn";
+
+"type.barrier.toll_booth" = "Quầy Soát Vé";
+
+"type.barrier.wall" = "barrier-wall";
+
+"type.boundary" = "boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+
+"type.boundary.national_park" = "boundary-national_park";
+
+"type.building" = "Tòa nhà";
+
+"type.building.address" = "Tòa nhà";
+
+"type.building.garage" = "Gara";
+
+"type.building.has_parts" = "Tòa nhà";
+
+"type.building.train_station" = "Đường tàu hỏa";
+
+"type.communication" = "communication";
+
+"type.communication.line" = "communication-line";
+
+"type.communication.line.underground" = "communication-line-underground";
+
+"type.craft" = "craft";
+
+"type.craft.brewery" = "Nhà máy bia";
+
+"type.craft.carpenter" = "Thợ mộc";
+
+"type.craft.electrician" = "Thợ điện";
+
+"type.craft.gardener" = "Người thiết kế và xây dựng cảnh quan";
+
+"type.craft.hvac" = "Điều hòa nhiệt độ";
+
+"type.craft.metal_construction" = "Nhà kim khí";
+
+"type.craft.painter" = "Họa sỹ";
+
+"type.craft.photographer" = "Thợ chụp ảnh";
+
+"type.craft.plumber" = "Thợ đường ống";
+
+"type.craft.shoemaker" = "Sửa giày";
+
+"type.craft.tailor" = "Thợ may";
+
+"type.emergency" = "emergency";
+
+"type.emergency.defibrillator" = "Máy khử rung tim";
+
+"type.emergency.fire_hydrant" = "Vòi chữa cháy";
+
+"type.emergency.phone" = "Điện thoại khẩn cấp";
+
+"type.entrance" = "Lối vào";
+
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
+"type.highway.bus_stop" = "Bến xe buýt";
+
+"type.highway.construction" = "highway-construction";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+
+"type.highway.footway" = "Đường";
+
+"type.highway.footway.alpine_hiking" = "Đường";
+
+"type.highway.footway.area" = "Đường";
+
+"type.highway.footway.bridge" = "Đường";
+
+"type.highway.footway.demanding_alpine_hiking" = "Đường";
+
+"type.highway.footway.demanding_mountain_hiking" = "Đường";
+
+"type.highway.footway.difficult_alpine_hiking" = "Đường";
+
+"type.highway.footway.hiking" = "Đường";
+
+"type.highway.footway.mountain_hiking" = "Đường";
+
+"type.highway.footway.permissive" = "Đường";
+
+"type.highway.footway.tunnel" = "Đường";
+
+"type.highway.ford" = "highway-ford";
+
+"type.highway.living_street" = "Phố";
+
+"type.highway.living_street.bridge" = "Phố";
+
+"type.highway.living_street.tunnel" = "Phố";
+
+"type.highway.motorway" = "Phố";
+
+"type.highway.motorway.bridge" = "Phố";
+
+"type.highway.motorway.tunnel" = "Phố";
+
+"type.highway.motorway_junction" = "Lối ra";
+
+"type.highway.motorway_link" = "Phố";
+
+"type.highway.motorway_link.bridge" = "Phố";
+
+"type.highway.motorway_link.tunnel" = "Phố";
+
+"type.highway.path" = "Đường";
+
+"type.highway.path.alpine_hiking" = "Đường";
+
+"type.highway.path.bicycle" = "Đường";
+
+"type.highway.path.bridge" = "Đường";
+
+"type.highway.path.demanding_alpine_hiking" = "Đường";
+
+"type.highway.path.demanding_mountain_hiking" = "Đường";
+
+"type.highway.path.difficult_alpine_hiking" = "Đường";
+
+"type.highway.path.hiking" = "Đường";
+
+"type.highway.path.horse" = "Đường";
+
+"type.highway.path.mountain_hiking" = "Đường";
+
+"type.highway.path.permissive" = "Đường";
+
+"type.highway.path.tunnel" = "Đường";
+
+"type.highway.pedestrian" = "Phố";
+
+"type.highway.pedestrian.area" = "Phố";
+
+"type.highway.pedestrian.bridge" = "Phố";
+
+"type.highway.pedestrian.tunnel" = "Phố";
+
+"type.highway.platform" = "highway-platform";
+
+"type.highway.primary" = "Phố";
+
+"type.highway.primary.bridge" = "Phố";
+
+"type.highway.primary.tunnel" = "Phố";
+
+"type.highway.primary_link" = "Phố";
+
+"type.highway.primary_link.bridge" = "Phố";
+
+"type.highway.primary_link.tunnel" = "Phố";
+
+"type.highway.proposed" = "highway-proposed";
+
+"type.highway.raceway" = "Đường đua";
+
+"type.highway.residential" = "Phố";
+
+"type.highway.residential.area" = "Phố";
+
+"type.highway.residential.bridge" = "Phố";
+
+"type.highway.residential.tunnel" = "Phố";
+
+"type.highway.rest_area" = "Khu Vực Thụt Vào Để Đỗ Xe";
+
+"type.highway.road" = "Phố";
+
+"type.highway.road.bridge" = "Phố";
+
+"type.highway.road.tunnel" = "Phố";
+
+"type.highway.secondary" = "Phố";
+
+"type.highway.secondary.bridge" = "Phố";
+
+"type.highway.secondary.tunnel" = "Phố";
+
+"type.highway.secondary_link" = "Phố";
+
+"type.highway.secondary_link.bridge" = "Phố";
+
+"type.highway.secondary_link.tunnel" = "Phố";
+
+"type.highway.service" = "Phố";
+
+"type.highway.service.area" = "Phố";
+
+"type.highway.service.bridge" = "Phố";
+
+"type.highway.service.driveway" = "Phố";
+
+"type.highway.service.driveway.area" = "Phố";
+
+"type.highway.service.driveway.bridge" = "Phố";
+
+"type.highway.service.driveway.tunnel" = "Phố";
+
+"type.highway.service.parking_aisle" = "Phố";
+
+"type.highway.service.tunnel" = "Phố";
+
+"type.highway.services" = "highway-services";
+
+"type.highway.speed_camera" = "Camera bắn tốc độ";
+
+"type.highway.steps" = "Đường";
+
+"type.highway.steps.bridge" = "Đường";
+
+"type.highway.steps.tunnel" = "Đường";
+
+"type.highway.tertiary" = "Phố";
+
+"type.highway.tertiary.bridge" = "Phố";
+
+"type.highway.tertiary.tunnel" = "Phố";
+
+"type.highway.tertiary_link" = "Phố";
+
+"type.highway.tertiary_link.bridge" = "Phố";
+
+"type.highway.tertiary_link.tunnel" = "Phố";
+
+"type.highway.track" = "Phố";
+
+"type.highway.track.area" = "Phố";
+
+"type.highway.track.bridge" = "Phố";
+
+"type.highway.track.grade1" = "Phố";
+
+"type.highway.track.grade2" = "Phố";
+
+"type.highway.track.grade3" = "Phố";
+
+"type.highway.track.grade3.no.access" = "Phố";
+
+"type.highway.track.grade3.permissive" = "Phố";
+
+"type.highway.track.grade4" = "Phố";
+
+"type.highway.track.grade4.no.access" = "Phố";
+
+"type.highway.track.grade4.permissive" = "Phố";
+
+"type.highway.track.grade5" = "Phố";
+
+"type.highway.track.grade5.no.access" = "Phố";
+
+"type.highway.track.grade5.permissive" = "Phố";
+
+"type.highway.track.no.access" = "Phố";
+
+"type.highway.track.permissive" = "Phố";
+
+"type.highway.track.tunnel" = "Phố";
+
+"type.highway.traffic_signals" = "Đèn Giao Thông";
+
+"type.highway.trunk" = "Phố";
+
+"type.highway.trunk.bridge" = "Phố";
+
+"type.highway.trunk.tunnel" = "Phố";
+
+"type.highway.trunk_link" = "Phố";
+
+"type.highway.trunk_link.bridge" = "Phố";
+
+"type.highway.trunk_link.tunnel" = "Phố";
+
+"type.highway.unclassified" = "Phố";
+
+"type.highway.unclassified.area" = "Phố";
+
+"type.highway.unclassified.bridge" = "Phố";
+
+"type.highway.unclassified.tunnel" = "Phố";
+
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
+"type.historic.archaeological_site" = "Điểm khảo cổ";
+
+"type.historic.battlefield" = "historic-battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
+
+"type.historic.castle" = "Pháo đài";
+
+"type.historic.castle.defensive" = "Pháo đài";
+
+"type.historic.castle.stately" = "Pháo đài";
+
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "Đài tưởng niệm";
+
+"type.historic.memorial.plaque" = "Đài tưởng niệm";
+
+"type.historic.memorial.sculpture" = "Đài tưởng niệm";
+
+"type.historic.memorial.statue" = "Đài tưởng niệm";
+
+"type.historic.monument" = "Tượng đài";
+
+"type.historic.museum" = "historic-museum";
+
+"type.historic.ruins" = "Phế tích";
+
+"type.historic.ship" = "Diểm tham quan";
+
+"type.historic.tomb" = "Diểm tham quan";
+
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "Internet";
+
+"type.internet_access.wlan" = "Internet";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "landuse-allotments";
+
+"type.landuse.basin" = "Nước";
+
+"type.landuse.brownfield" = "landuse-brownfield";
+
+"type.landuse.cemetery" = "Bãi tha ma";
+
+"type.landuse.cemetery.christian" = "Bãi tha ma";
+
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "landuse-construction";
+
+"type.landuse.farm" = "landuse-farm";
+
+"type.landuse.farmland" = "landuse-farmland";
+
+"type.landuse.farmyard" = "landuse-farmyard";
+
+"type.landuse.field" = "landuse-field";
+
+"type.landuse.forest" = "Rừng";
+
+"type.landuse.forest.coniferous" = "Rừng";
+
+"type.landuse.forest.deciduous" = "Rừng";
+
+"type.landuse.forest.mixed" = "Rừng";
+
+"type.landuse.garages" = "landuse-garages";
+
+"type.landuse.grass" = "landuse-grass";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "landuse-industrial";
+
+"type.landuse.landfill" = "landuse-landfill";
+
+"type.landuse.meadow" = "landuse-meadow";
+
+"type.landuse.military" = "landuse-military";
+
+"type.landuse.orchard" = "landuse-orchard";
+
+"type.landuse.quarry" = "landuse-quarry";
+
+"type.landuse.railway" = "landuse-railway";
+
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
+"type.landuse.reservoir" = "Nước";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.residential.rural" = "landuse-residential-rural";
+
+"type.landuse.residential.urban" = "landuse-residential-urban";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "landuse-vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
+
+"type.leisure.dog_park" = "Dog area";
+
+"type.leisure.dog_park.tennis" = "Dog area";
+
+"type.leisure.fitness_centre" = "Phòng Tập";
+
+"type.leisure.fitness_station" = "Trạm tập thể hình";
+
+"type.leisure.garden" = "Điểm khảo cổ";
+
+"type.leisure.golf_course" = "Sân gôn";
+
+"type.leisure.ice_rink" = "leisure-ice_rink";
+
+"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+
+"type.leisure.marina" = "leisure-marina";
+
+"type.leisure.nature_reserve" = "leisure-nature_reserve";
+
+"type.leisure.park" = "Công viên";
+
+"type.leisure.park.no.access" = "Công viên";
+
+"type.leisure.park.permissive" = "Công viên";
+
+"type.leisure.park.private" = "Công viên";
+
+"type.leisure.pitch" = "Sân vận động";
+
+"type.leisure.pitch.tennis" = "Sân vận động";
+
+"type.leisure.playground" = "Sân chơi";
+
+"type.leisure.playground.tennis" = "Sân chơi";
+
+"type.leisure.playing_fields" = "leisure-playing_fields";
+
+"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
+
+"type.leisure.recreation_ground" = "leisure-recreation_ground";
+
+"type.leisure.sauna" = "Phòng xông hơi";
+
+"type.leisure.slipway" = "leisure-slipway";
+
+"type.leisure.sports_centre" = "Thể thao";
+
+"type.leisure.sports_centre.climbing" = "Trung tâm leo núi";
+
+"type.leisure.sports_centre.shooting" = "Nơi bắn súng";
+
+"type.leisure.sports_centre.swimming" = "Trung tâm Bơi lội";
+
+"type.leisure.sports_centre.yoga" = "Phòng tập yoga";
+
+"type.leisure.stadium" = "Sân vận động";
+
+"type.leisure.swimming_pool" = "Bể bơi";
+
+"type.leisure.track" = "leisure-track";
+
+"type.leisure.water_park" = "Công Viên Nước";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
+
+"type.man_made.chimney" = "Ống Khói Nhà Máy";
+
+"type.man_made.cutline" = "man_made-cutline";
+
+"type.man_made.lighthouse" = "Hải đăng";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+
+"type.man_made.surveillance" = "Camera giám sát";
+
+"type.man_made.tower" = "Tháp";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
+
+"type.man_made.water_tap" = "Vòi nước";
+
+"type.man_made.water_tower" = "Tháp Nước";
+
+"type.man_made.water_well" = "Giếng Nước";
+
+"type.man_made.windmill" = "Cối xay gió";
+
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.marking" = "marking";
+
+"type.marking.sport" = "marking-sport";
+
+"type.marking.sport.black" = "marking-sport-black";
+
+"type.marking.sport.blue" = "marking-sport-blue";
+
+"type.marking.sport.red" = "marking-sport-red";
+
+"type.marking.sport.white" = "marking-sport-white";
+
+"type.military" = "military";
+
+"type.military.bunker" = "Boongke";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "natural-bare_rock";
+
+"type.natural.bay" = "Vịnh";
+
+"type.natural.beach" = "Bãi biển";
+
+"type.natural.cape" = "natural-cape";
+
+"type.natural.cave_entrance" = "Cửa Hang";
+
+"type.natural.cliff" = "natural-cliff";
+
+"type.natural.coastline" = "natural-coastline";
+
+"type.natural.glacier" = "natural-glacier";
+
+"type.natural.grassland" = "natural-grassland";
+
+"type.natural.heath" = "natural-heath";
+
+"type.natural.lake" = "Hồ";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "natural-meadow";
+
+"type.natural.orchard" = "natural-orchard";
+
+"type.natural.peak" = "Đỉnh";
+
+"type.natural.pond" = "Ao";
+
+"type.natural.rock" = "natural-rock";
+
+"type.natural.salt_pond" = "natural-salt_pond";
+
+"type.natural.scrub" = "natural-scrub";
+
+"type.natural.spring" = "Suối";
+
+"type.natural.tree" = "Cây";
+
+"type.natural.tree_row" = "natural-tree_row";
+
+"type.natural.vineyard" = "natural-vineyard";
+
+"type.natural.volcano" = "Núi lửa";
+
+"type.natural.water" = "Nước";
+
+"type.natural.wetland" = "natural-wetland";
+
+"type.natural.wetland.bog" = "natural-wetland-bog";
+
+"type.natural.wetland.marsh" = "natural-wetland-marsh";
+
+"type.natural.wood" = "Rừng";
+
+"type.natural.wood.coniferous" = "Rừng";
+
+"type.natural.wood.deciduous" = "Rừng";
+
+"type.natural.wood.mixed" = "Rừng";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+
+"type.office" = "Văn phòng";
+
+"type.office.company" = "Văn phòng công ty";
+
+"type.office.estate_agent" = "Đại Lý Bất Động Sản";
+
+"type.office.government" = "Văn phòng chính phủ";
+
+"type.office.insurance" = "Văn phòng bảo hiểm";
+
+"type.office.lawyer" = "Văn phòng luật sư";
+
+"type.office.ngo" = "Văn phòng NGO";
+
+"type.office.telecommunication" = "Điều hành di động";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
+"type.place.city" = "Đất nước";
+
+"type.place.city.capital" = "Thủ đô";
+
+"type.place.city.capital.10" = "Thủ đô";
+
+"type.place.city.capital.11" = "Thủ đô";
+
+"type.place.city.capital.2" = "Thủ đô";
+
+"type.place.city.capital.3" = "Thủ đô";
+
+"type.place.city.capital.4" = "Thủ đô";
+
+"type.place.city.capital.5" = "Thủ đô";
+
+"type.place.city.capital.6" = "Thủ đô";
+
+"type.place.city.capital.7" = "Thủ đô";
+
+"type.place.city.capital.8" = "Thủ đô";
+
+"type.place.city.capital.9" = "Thủ đô";
+
+"type.place.continent" = "Trường đại học";
+
+"type.place.country" = "Trường đại học";
+
+"type.place.county" = "Thị trấn";
+
+"type.place.farm" = "Nội hạt";
+
+"type.place.hamlet" = "Quận";
+
+"type.place.island" = "Tỉnh";
+
+"type.place.islet" = "Tỉnh";
+
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
+"type.place.locality" = "Thôn";
+
+"type.place.neighbourhood" = "place-neighbourhood";
+
+"type.place.ocean" = "Đại dương";
+
+"type.place.region" = "Vùng";
+
+"type.place.sea" = "Biển";
+
+"type.place.square" = "place-square";
+
+"type.place.state" = "Hạt";
+
+"type.place.state.USA" = "Hạt";
+
+"type.place.suburb" = "Đảo";
+
+"type.place.town" = "Thành phố";
+
+"type.place.village" = "Xóm";
+
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.generator.hydro" = "power-generator-hydro";
+
+"type.power.generator.photovoltaic" = "power-generator-photovoltaic";
+
+"type.power.generator.wind" = "power-generator-wind";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
+"type.power.pole" = "Trụ Điện";
+
+"type.power.station" = "power-station";
+
+"type.power.substation" = "Trạm biến áp";
+
+"type.power.tower" = "Trụ Điện";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
+"type.railway.halt" = "Đường tàu hỏa";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
+
+"type.railway.level_crossing" = "Level Crossing";
+
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
+"type.railway.monorail" = "railway-monorail";
+
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
+"type.railway.proposed" = "railway-proposed";
+
+"type.railway.rail" = "railway-rail";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
+
+"type.railway.station" = "Đường tàu hỏa";
+
+"type.railway.station.light_rail" = "Đường tàu hỏa";
+
+"type.railway.station.monorail" = "Đường tàu hỏa";
+
+"type.railway.station.subway" = "Ngầm";
+
+"type.railway.station.subway.barcelona" = "Ngầm";
+
+"type.railway.station.subway.berlin" = "Ngầm";
+
+"type.railway.station.subway.blue" = "Ngầm";
+
+"type.railway.station.subway.brown" = "Ngầm";
+
+"type.railway.station.subway.darkgreen" = "Ngầm";
+
+"type.railway.station.subway.gray" = "Ngầm";
+
+"type.railway.station.subway.green" = "Ngầm";
+
+"type.railway.station.subway.grey" = "Ngầm";
+
+"type.railway.station.subway.kiev" = "Ngầm";
+
+"type.railway.station.subway.lightblue" = "Ngầm";
+
+"type.railway.station.subway.lightgreen" = "Ngầm";
+
+"type.railway.station.subway.london" = "Ngầm";
+
+"type.railway.station.subway.madrid" = "Ngầm";
+
+"type.railway.station.subway.minsk" = "Ngầm";
+
+"type.railway.station.subway.moscow" = "Ngầm";
+
+"type.railway.station.subway.newyork" = "Ngầm";
+
+"type.railway.station.subway.orange" = "Ngầm";
+
+"type.railway.station.subway.paris" = "Ngầm";
+
+"type.railway.station.subway.purple" = "Ngầm";
+
+"type.railway.station.subway.red" = "Ngầm";
+
+"type.railway.station.subway.roma" = "Ngầm";
+
+"type.railway.station.subway.spb" = "Ngầm";
+
+"type.railway.station.subway.violet" = "Ngầm";
+
+"type.railway.station.subway.yellow" = "Ngầm";
+
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
+"type.railway.subway_entrance" = "Ngầm";
+
+"type.railway.subway_entrance.barcelona" = "Ngầm";
+
+"type.railway.subway_entrance.berlin" = "Ngầm";
+
+"type.railway.subway_entrance.kiev" = "Ngầm";
+
+"type.railway.subway_entrance.london" = "Ngầm";
+
+"type.railway.subway_entrance.madrid" = "Ngầm";
+
+"type.railway.subway_entrance.minsk" = "Ngầm";
+
+"type.railway.subway_entrance.moscow" = "Ngầm";
+
+"type.railway.subway_entrance.newyork" = "Ngầm";
+
+"type.railway.subway_entrance.paris" = "Ngầm";
+
+"type.railway.subway_entrance.roma" = "Ngầm";
+
+"type.railway.subway_entrance.spb" = "Ngầm";
+
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
+"type.railway.tram_stop" = "Bến tàu điện";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
+
+"type.shop" = "Cửa hàng";
+
+"type.shop.alcohol" = "Cửa hàng rượu";
+
+"type.shop.bakery" = "Hiệu bánh";
+
+"type.shop.beauty" = "Thẩm mỹ viện";
+
+"type.shop.beverages" = "Đồ uống";
+
+"type.shop.bicycle" = "Cửa hàng xe đạp";
+
+"type.shop.bookmaker" = "Người nhận cá cược";
+
+"type.shop.books" = "Hiệu sách";
+
+"type.shop.butcher" = "Cửa hàng thịt";
+
+"type.shop.car" = "Cửa hàng xe";
+
+"type.shop.car_parts" = "Những bộ phận xe hơi";
+
+"type.shop.car_repair" = "Cửa hàng sửa chữa ô tô";
+
+"type.shop.car_repair.tyres" = "Vá Lốp";
+
+"type.shop.chemist" = "Cửa hàng Hóa chất";
+
+"type.shop.chocolate" = "Cửa hàng";
+
+"type.shop.clothes" = "Cửa hàng quần áo";
+
+"type.shop.coffee" = "Cửa hàng";
+
+"type.shop.computer" = "Cửa hàng máy tính";
+
+"type.shop.confectionery" = "Cửa hàng kẹo";
+
+"type.shop.convenience" = "Cửa hàng tạp hóa";
+
+"type.shop.copyshop" = "Cửa hàng Copy";
+
+"type.shop.cosmetics" = "Mỹ phẩm";
+
+"type.shop.department_store" = "Cửa hàng bách hóa";
+
+"type.shop.doityourself" = "Cửa hàng phần cứng";
+
+"type.shop.dry_cleaning" = "Giặt Sấy";
+
+"type.shop.electronics" = "Cửa hàng điện";
+
+"type.shop.erotic" = "Cửa hàng người lớn";
+
+"type.shop.fabric" = "Cửa hàng";
+
+"type.shop.florist" = "Cửa hàng hoa";
+
+"type.shop.funeral_directors" = "Tổ chức tang lễ";
+
+"type.shop.furniture" = "Cửa hàng nội thất";
+
+"type.shop.garden_centre" = "Nhà trẻ";
+
+"type.shop.gift" = "Cửa hàng quà tặng";
+
+"type.shop.greengrocer" = "Cửa hàng rau củ";
+
+"type.shop.hairdresser" = "Tiệm làm tóc";
+
+"type.shop.hardware" = "Cửa hàng phần cứng";
+
+"type.shop.jewelry" = "Đồ trang sức";
+
+"type.shop.kiosk" = "Cửa hàng";
+
+"type.shop.laundry" = "Giặt là";
+
+"type.shop.mall" = "Khu mua sắm";
+
+"type.shop.massage" = "Quán massage";
+
+"type.shop.mobile_phone" = "Cửa hàng điện thoại di động";
+
+"type.shop.money_lender" = "Cửa hàng";
+
+"type.shop.motorcycle" = "Cửa hàng xe máy";
+
+"type.shop.music" = "Cửa hàng";
+
+"type.shop.musical_instrument" = "Cửa hàng";
+
+"type.shop.newsagent" = "Quầy báo";
+
+"type.shop.optician" = "Cửa hàng mắt kính";
+
+"type.shop.outdoor" = "Thiết bị Ngoài trời";
+
+"type.shop.pawnbroker" = "Cầm đồ";
+
+"type.shop.pet" = "Cửa Hàng Vật Nuôi";
+
+"type.shop.photo" = "Hiệu Ảnh";
+
+"type.shop.seafood" = "Người bán cá";
+
+"type.shop.shoes" = "Cửa hàng giày";
+
+"type.shop.sports" = "Đồ dùng thể thao";
+
+"type.shop.stationery" = "Cửa hàng văn phòng phẩm";
+
+"type.shop.supermarket" = "Siêu thị";
+
+"type.shop.tattoo" = "Tiệm xăm";
+
+"type.shop.tea" = "Cửa hàng";
+
+"type.shop.ticket" = "Phòng vé";
+
+"type.shop.toys" = "Cửa hàng đồ chơi";
+
+"type.shop.travel_agency" = "Đại lý Du lịch";
+
+"type.shop.tyres" = "Cửa hàng Lốp";
+
+"type.shop.variety_store" = "Cửa hàng tiện lợi";
+
+"type.shop.video" = "Cửa hàng";
+
+"type.shop.wine" = "Rượu";
+
+"type.sponsored" = "sponsored";
+
+"type.sponsored.banner" = "sponsored-banner";
+
+"type.sponsored.banner.deliveryclub" = "sponsored-banner-deliveryclub";
+
+"type.sponsored.banner.geerbest_de" = "sponsored-banner-geerbest_de";
+
+"type.sponsored.banner.geerbest_fr" = "sponsored-banner-geerbest_fr";
+
+"type.sponsored.banner.geerbest_uk" = "sponsored-banner-geerbest_uk";
+
+"type.sponsored.banner.lamoda_ru" = "sponsored-banner-lamoda_ru";
+
+"type.sponsored.banner.lamoda_ua" = "sponsored-banner-lamoda_ua";
+
+"type.sponsored.banner.raileurope" = "sponsored-banner-raileurope";
+
+"type.sponsored.banner.rentalcars" = "sponsored-banner-rentalcars";
+
+"type.sponsored.banner.tutu" = "sponsored-banner-tutu";
+
+"type.sponsored.banner.viator" = "sponsored-banner-viator";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "sponsored-partner18";
+
+"type.sponsored.partner19" = "sponsored-partner19";
+
+"type.sponsored.partner2" = "Luggage Storage";
+
+"type.sponsored.partner20" = "sponsored-partner20";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sponsored.viator" = "sponsored-viator";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
+"type.sport.athletics" = "Athletics";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
+
+"type.sport.basketball" = "Basketball";
+
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
+"type.sport.equestrian" = "Equestrian Sports";
+
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
+"type.sport.tennis" = "sport-tennis";
+
+"type.tourism" = "tourism";
+
+"type.tourism.alpine_hut" = "Nhà ở trên núi";
+
+"type.tourism.apartment" = "Căn hộ";
+
+"type.tourism.artwork" = "Du lịch";
+
+"type.tourism.artwork.architecture" = "Du lịch";
+
+"type.tourism.artwork.painting" = "Du lịch";
+
+"type.tourism.artwork.sculpture" = "Du lịch";
+
+"type.tourism.artwork.statue" = "Du lịch";
+
+"type.tourism.attraction" = "Hấp dẫn";
+
+"type.tourism.attraction.animal" = "Hấp dẫn";
+
+"type.tourism.attraction.specified" = "Hấp dẫn";
+
+"type.tourism.camp_site" = "Cắm trại";
+
+"type.tourism.caravan_site" = "Khu lễ hội hóa trang";
+
+"type.tourism.chalet" = "Khách sạn";
+
+"type.tourism.gallery" = "Diểm tham quan";
+
+"type.tourism.guest_house" = "Nhà khách";
+
+"type.tourism.hostel" = "Nhà trọ";
+
+"type.tourism.hotel" = "Khách sạn";
+
+"type.tourism.information" = "Thông tin du lịch";
+
+"type.tourism.information.board" = "Bảng Thông Tin";
+
+"type.tourism.information.guidepost" = "Thông tin du lịch";
+
+"type.tourism.information.map" = "Bản Đồ Du Lịch";
+
+"type.tourism.information.office" = "Văn Phòng Du Lịch";
+
+"type.tourism.motel" = "Nhà nghỉ";
+
+"type.tourism.museum" = "Bảo tàng";
+
+"type.tourism.picnic_site" = "Điểm cắm trại";
+
+"type.tourism.resort" = "Khu nghỉ dưỡng";
+
+"type.tourism.theme_park" = "Diểm tham quan";
+
+"type.tourism.viewpoint" = "Điểm nhìn";
+
+"type.tourism.wilderness_hut" = "Nhà tạm trú";
+
+"type.tourism.zoo" = "Vườn bách thú";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "Kênh";
+
+"type.waterway.canal.tunnel" = "Kênh";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
+
+"type.waterway.lock_gate" = "Cổng Khóa";
+
+"type.waterway.river" = "Sông";
+
+"type.waterway.river.tunnel" = "Sông";
+
+"type.waterway.riverbank" = "Sông";
+
+"type.waterway.stream" = "Sông";
+
+"type.waterway.stream.ephemeral" = "Sông";
+
+"type.waterway.stream.intermittent" = "Sông";
+
+"type.waterway.stream.tunnel" = "Sông";
+
+"type.waterway.waterfall" = "Thác nước";
+
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
+"type.wheelchair.limited" = "wheelchair-limited";
+
+"type.wheelchair.no" = "wheelchair-no";
+
+"type.wheelchair.yes" = "wheelchair-yes";

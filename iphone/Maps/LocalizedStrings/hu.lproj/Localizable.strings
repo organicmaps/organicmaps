@@ -2480,3 +2480,1664 @@
 "sponsored_partner19_action" = "Lifehack";
 
 "sponsored_partner20_action" = "Lifehack";
+
+
+/********** Types **********/
+
+"type.aerialway" = "aerialway";
+
+"type.aerialway.cable_car" = "aerialway-cable_car";
+
+"type.aerialway.chair_lift" = "aerialway-chair_lift";
+
+"type.aerialway.drag_lift" = "aerialway-drag_lift";
+
+"type.aerialway.gondola" = "aerialway-gondola";
+
+"type.aerialway.mixed_lift" = "aerialway-mixed_lift";
+
+"type.aerialway.station" = "Felvonóállomás";
+
+"type.aeroway" = "aeroway";
+
+"type.aeroway.aerodrome" = "Repülőtér";
+
+"type.aeroway.aerodrome.international" = "Repülőtér";
+
+"type.aeroway.apron" = "aeroway-apron";
+
+"type.aeroway.gate" = "aeroway-gate";
+
+"type.aeroway.helipad" = "Helikopterleszálló";
+
+"type.aeroway.runway" = "aeroway-runway";
+
+"type.aeroway.taxiway" = "aeroway-taxiway";
+
+"type.aeroway.terminal" = "aeroway-terminal";
+
+"type.amenity" = "amenity";
+
+"type.amenity.arts_centre" = "amenity-arts_centre";
+
+"type.amenity.atm" = "Pénzautomata";
+
+"type.amenity.bank" = "Bank";
+
+"type.amenity.bar" = "Bár";
+
+"type.amenity.bbq" = "Piknikező hely";
+
+"type.amenity.bench" = "Pad";
+
+"type.amenity.bicycle_parking" = "Kerékpárparkoló";
+
+"type.amenity.bicycle_rental" = "Kerékpárkölcsönző";
+
+"type.amenity.biergarten" = "Sörkert";
+
+"type.amenity.brothel" = "Bordélyház";
+
+"type.amenity.bureau_de_change" = "Pénzváltó";
+
+"type.amenity.bus_station" = "Buszpályaudvar";
+
+"type.amenity.cafe" = "Kávézó";
+
+"type.amenity.car_rental" = "Gépkocsi-kölcsönző";
+
+"type.amenity.car_sharing" = "Gépjármű megosztása";
+
+"type.amenity.car_wash" = "Autómosó";
+
+"type.amenity.casino" = "Kaszinó";
+
+"type.amenity.charging_station" = "Töltő állomás";
+
+"type.amenity.childcare" = "Bölcsőde";
+
+"type.amenity.cinema" = "Mozi";
+
+"type.amenity.clinic" = "Klinika";
+
+"type.amenity.college" = "Kollégium";
+
+"type.amenity.community_centre" = "Közösségi központ";
+
+"type.amenity.courthouse" = "Bíróság";
+
+"type.amenity.dentist" = "Fogorvos";
+
+"type.amenity.doctors" = "Rendelő";
+
+"type.amenity.drinking_water" = "Ivóvíz";
+
+"type.amenity.driving_school" = "Autósiskola";
+
+"type.amenity.embassy" = "Nagykövetség";
+
+"type.amenity.fast_food" = "Gyorsétterem";
+
+"type.amenity.ferry_terminal" = "Komp";
+
+"type.amenity.fire_station" = "Tűzoltóság";
+
+"type.amenity.food_court" = "amenity-food_court";
+
+"type.amenity.fountain" = "Szökőkút";
+
+"type.amenity.fuel" = "Benzinkút";
+
+"type.amenity.grave_yard" = "Temető";
+
+"type.amenity.grave_yard.christian" = "Temető";
+
+"type.amenity.hospital" = "Kórház";
+
+"type.amenity.hunting_stand" = "Vadászles";
+
+"type.amenity.ice_cream" = "Fagylaltárus";
+
+"type.amenity.internet_cafe" = "Internet kávézó";
+
+"type.amenity.kindergarten" = "Óvoda";
+
+"type.amenity.library" = "Könyvtár";
+
+"type.amenity.marketplace" = "Piac";
+
+"type.amenity.motorcycle_parking" = "Motorbicikli parkoló";
+
+"type.amenity.nightclub" = "Éjszakai mulató";
+
+"type.amenity.nursing_home" = "Idősek otthona";
+
+"type.amenity.parking" = "Parkoló";
+
+"type.amenity.parking.fee" = "Parkoló";
+
+"type.amenity.parking.multi.storey" = "Parkoló";
+
+"type.amenity.parking.multi.storey.fee" = "Parkoló";
+
+"type.amenity.parking.no.access" = "Parkoló";
+
+"type.amenity.parking.park_and_ride" = "Parkoló";
+
+"type.amenity.parking.permissive" = "Parkoló";
+
+"type.amenity.parking.permissive.fee" = "Parkoló";
+
+"type.amenity.parking.private" = "Parkoló";
+
+"type.amenity.parking.underground" = "Parkoló";
+
+"type.amenity.parking.underground.fee" = "Parkoló";
+
+"type.amenity.payment_terminal" = "Fizető terminál";
+
+"type.amenity.pharmacy" = "Gyógyszertár";
+
+"type.amenity.place_of_worship" = "Templom";
+
+"type.amenity.place_of_worship.buddhist" = "Templom";
+
+"type.amenity.place_of_worship.christian" = "Templom";
+
+"type.amenity.place_of_worship.hindu" = "Templom";
+
+"type.amenity.place_of_worship.jewish" = "Zsinagóga";
+
+"type.amenity.place_of_worship.muslim" = "Mecset";
+
+"type.amenity.place_of_worship.shinto" = "Kegyhely";
+
+"type.amenity.place_of_worship.taoist" = "Templom";
+
+"type.amenity.police" = "Rendőrség";
+
+"type.amenity.post_box" = "Levelesláda";
+
+"type.amenity.post_office" = "Posta";
+
+"type.amenity.prison" = "amenity-prison";
+
+"type.amenity.pub" = "Kocsma";
+
+"type.amenity.public_bookcase" = "Nyilvános könyvespolc";
+
+"type.amenity.recycling" = "Újrahasznosító központ";
+
+"type.amenity.restaurant" = "Étterem";
+
+"type.amenity.school" = "Iskola";
+
+"type.amenity.shelter" = "Menedék";
+
+"type.amenity.shower" = "Tusoló";
+
+"type.amenity.speed_trap" = "amenity-speed_trap";
+
+"type.amenity.taxi" = "Taxi";
+
+"type.amenity.telephone" = "Telefon";
+
+"type.amenity.theatre" = "Színház";
+
+"type.amenity.toilets" = "Mosdó";
+
+"type.amenity.townhall" = "Városháza";
+
+"type.amenity.university" = "Egyetem";
+
+"type.amenity.vending_machine" = "amenity-vending_machine";
+
+"type.amenity.vending_machine.cigarettes" = "Cigarettaautomata";
+
+"type.amenity.vending_machine.drinks" = "Italautomata";
+
+"type.amenity.vending_machine.parking_tickets" = "Parkolóautomata";
+
+"type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
+
+"type.amenity.veterinary" = "Állatorvos";
+
+"type.amenity.waste_basket" = "Szemétkosár";
+
+"type.amenity.waste_disposal" = "Szemét";
+
+"type.amenity.water_point" = "Vízvételi pont";
+
+"type.barrier" = "barrier";
+
+"type.barrier.block" = "Blokk";
+
+"type.barrier.bollard" = "Oszlop";
+
+"type.barrier.border_control" = "Határállomás";
+
+"type.barrier.city_wall" = "barrier-city_wall";
+
+"type.barrier.cycle_barrier" = "barrier-cycle_barrier";
+
+"type.barrier.entrance" = "Bejárat";
+
+"type.barrier.fence" = "barrier-fence";
+
+"type.barrier.gate" = "Kapu";
+
+"type.barrier.hedge" = "barrier-hedge";
+
+"type.barrier.lift_gate" = "Sorompó";
+
+"type.barrier.retaining_wall" = "barrier-retaining_wall";
+
+"type.barrier.stile" = "Átjáró";
+
+"type.barrier.toll_booth" = "Díjfizető kapu";
+
+"type.barrier.wall" = "barrier-wall";
+
+"type.boundary" = "boundary";
+
+"type.boundary.administrative" = "boundary-administrative";
+
+"type.boundary.administrative.10" = "boundary-administrative-10";
+
+"type.boundary.administrative.11" = "boundary-administrative-11";
+
+"type.boundary.administrative.2" = "boundary-administrative-2";
+
+"type.boundary.administrative.3" = "boundary-administrative-3";
+
+"type.boundary.administrative.4" = "boundary-administrative-4";
+
+"type.boundary.administrative.4.state" = "boundary-administrative-4-state";
+
+"type.boundary.administrative.5" = "boundary-administrative-5";
+
+"type.boundary.administrative.6" = "boundary-administrative-6";
+
+"type.boundary.administrative.7" = "boundary-administrative-7";
+
+"type.boundary.administrative.8" = "boundary-administrative-8";
+
+"type.boundary.administrative.9" = "boundary-administrative-9";
+
+"type.boundary.administrative.city" = "boundary-administrative-city";
+
+"type.boundary.administrative.country" = "boundary-administrative-country";
+
+"type.boundary.administrative.county" = "boundary-administrative-county";
+
+"type.boundary.administrative.municipality" = "boundary-administrative-municipality";
+
+"type.boundary.administrative.nation" = "boundary-administrative-nation";
+
+"type.boundary.administrative.region" = "boundary-administrative-region";
+
+"type.boundary.administrative.state" = "boundary-administrative-state";
+
+"type.boundary.administrative.suburb" = "boundary-administrative-suburb";
+
+"type.boundary.national_park" = "boundary-national_park";
+
+"type.building" = "Épület";
+
+"type.building.address" = "Épület";
+
+"type.building.garage" = "Garázs";
+
+"type.building.has_parts" = "Épület";
+
+"type.building.train_station" = "Vonatmegálló";
+
+"type.communication" = "communication";
+
+"type.communication.line" = "communication-line";
+
+"type.communication.line.underground" = "communication-line-underground";
+
+"type.craft" = "craft";
+
+"type.craft.brewery" = "Sörfőzde";
+
+"type.craft.carpenter" = "Ács";
+
+"type.craft.electrician" = "Villanyszerelő";
+
+"type.craft.gardener" = "Kertész";
+
+"type.craft.hvac" = "Hűtés-fűtés szerelő";
+
+"type.craft.metal_construction" = "Lakatos";
+
+"type.craft.painter" = "Festő";
+
+"type.craft.photographer" = "Fényképész";
+
+"type.craft.plumber" = "Vízvezeték-szerelő";
+
+"type.craft.shoemaker" = "Cipész";
+
+"type.craft.tailor" = "Szabó";
+
+"type.emergency" = "emergency";
+
+"type.emergency.defibrillator" = "Defibrillátor";
+
+"type.emergency.fire_hydrant" = "Tűzcsap";
+
+"type.emergency.phone" = "Sürgősségi telefon";
+
+"type.entrance" = "Bejárat";
+
+"type.highway" = "highway";
+
+"type.highway.bridleway" = "highway-bridleway";
+
+"type.highway.bridleway.bridge" = "highway-bridleway-bridge";
+
+"type.highway.bridleway.permissive" = "highway-bridleway-permissive";
+
+"type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
+
+"type.highway.bus_stop" = "Buszmegálló";
+
+"type.highway.construction" = "highway-construction";
+
+"type.highway.cycleway" = "highway-cycleway";
+
+"type.highway.cycleway.bridge" = "highway-cycleway-bridge";
+
+"type.highway.cycleway.permissive" = "highway-cycleway-permissive";
+
+"type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
+
+"type.highway.footway" = "Ösvény";
+
+"type.highway.footway.alpine_hiking" = "Ösvény";
+
+"type.highway.footway.area" = "Ösvény";
+
+"type.highway.footway.bridge" = "Ösvény";
+
+"type.highway.footway.demanding_alpine_hiking" = "Ösvény";
+
+"type.highway.footway.demanding_mountain_hiking" = "Ösvény";
+
+"type.highway.footway.difficult_alpine_hiking" = "Ösvény";
+
+"type.highway.footway.hiking" = "Ösvény";
+
+"type.highway.footway.mountain_hiking" = "Ösvény";
+
+"type.highway.footway.permissive" = "Ösvény";
+
+"type.highway.footway.tunnel" = "Ösvény";
+
+"type.highway.ford" = "highway-ford";
+
+"type.highway.living_street" = "Utca";
+
+"type.highway.living_street.bridge" = "Utca";
+
+"type.highway.living_street.tunnel" = "Utca";
+
+"type.highway.motorway" = "Utca";
+
+"type.highway.motorway.bridge" = "Utca";
+
+"type.highway.motorway.tunnel" = "Utca";
+
+"type.highway.motorway_junction" = "Kijárat";
+
+"type.highway.motorway_link" = "Utca";
+
+"type.highway.motorway_link.bridge" = "Utca";
+
+"type.highway.motorway_link.tunnel" = "Utca";
+
+"type.highway.path" = "Ösvény";
+
+"type.highway.path.alpine_hiking" = "Ösvény";
+
+"type.highway.path.bicycle" = "Ösvény";
+
+"type.highway.path.bridge" = "Ösvény";
+
+"type.highway.path.demanding_alpine_hiking" = "Ösvény";
+
+"type.highway.path.demanding_mountain_hiking" = "Ösvény";
+
+"type.highway.path.difficult_alpine_hiking" = "Ösvény";
+
+"type.highway.path.hiking" = "Ösvény";
+
+"type.highway.path.horse" = "Ösvény";
+
+"type.highway.path.mountain_hiking" = "Ösvény";
+
+"type.highway.path.permissive" = "Ösvény";
+
+"type.highway.path.tunnel" = "Ösvény";
+
+"type.highway.pedestrian" = "Utca";
+
+"type.highway.pedestrian.area" = "Utca";
+
+"type.highway.pedestrian.bridge" = "Utca";
+
+"type.highway.pedestrian.tunnel" = "Utca";
+
+"type.highway.platform" = "highway-platform";
+
+"type.highway.primary" = "Utca";
+
+"type.highway.primary.bridge" = "Utca";
+
+"type.highway.primary.tunnel" = "Utca";
+
+"type.highway.primary_link" = "Utca";
+
+"type.highway.primary_link.bridge" = "Utca";
+
+"type.highway.primary_link.tunnel" = "Utca";
+
+"type.highway.proposed" = "highway-proposed";
+
+"type.highway.raceway" = "Versenypálya";
+
+"type.highway.residential" = "Utca";
+
+"type.highway.residential.area" = "Utca";
+
+"type.highway.residential.bridge" = "Utca";
+
+"type.highway.residential.tunnel" = "Utca";
+
+"type.highway.rest_area" = "Pihenőzóna";
+
+"type.highway.road" = "Utca";
+
+"type.highway.road.bridge" = "Utca";
+
+"type.highway.road.tunnel" = "Utca";
+
+"type.highway.secondary" = "Utca";
+
+"type.highway.secondary.bridge" = "Utca";
+
+"type.highway.secondary.tunnel" = "Utca";
+
+"type.highway.secondary_link" = "Utca";
+
+"type.highway.secondary_link.bridge" = "Utca";
+
+"type.highway.secondary_link.tunnel" = "Utca";
+
+"type.highway.service" = "Utca";
+
+"type.highway.service.area" = "Utca";
+
+"type.highway.service.bridge" = "Utca";
+
+"type.highway.service.driveway" = "Utca";
+
+"type.highway.service.driveway.area" = "Utca";
+
+"type.highway.service.driveway.bridge" = "Utca";
+
+"type.highway.service.driveway.tunnel" = "Utca";
+
+"type.highway.service.parking_aisle" = "Utca";
+
+"type.highway.service.tunnel" = "Utca";
+
+"type.highway.services" = "highway-services";
+
+"type.highway.speed_camera" = "Traffipax";
+
+"type.highway.steps" = "Ösvény";
+
+"type.highway.steps.bridge" = "Ösvény";
+
+"type.highway.steps.tunnel" = "Ösvény";
+
+"type.highway.tertiary" = "Utca";
+
+"type.highway.tertiary.bridge" = "Utca";
+
+"type.highway.tertiary.tunnel" = "Utca";
+
+"type.highway.tertiary_link" = "Utca";
+
+"type.highway.tertiary_link.bridge" = "Utca";
+
+"type.highway.tertiary_link.tunnel" = "Utca";
+
+"type.highway.track" = "Utca";
+
+"type.highway.track.area" = "Utca";
+
+"type.highway.track.bridge" = "Utca";
+
+"type.highway.track.grade1" = "Utca";
+
+"type.highway.track.grade2" = "Utca";
+
+"type.highway.track.grade3" = "Utca";
+
+"type.highway.track.grade3.no.access" = "Utca";
+
+"type.highway.track.grade3.permissive" = "Utca";
+
+"type.highway.track.grade4" = "Utca";
+
+"type.highway.track.grade4.no.access" = "Utca";
+
+"type.highway.track.grade4.permissive" = "Utca";
+
+"type.highway.track.grade5" = "Utca";
+
+"type.highway.track.grade5.no.access" = "Utca";
+
+"type.highway.track.grade5.permissive" = "Utca";
+
+"type.highway.track.no.access" = "Utca";
+
+"type.highway.track.permissive" = "Utca";
+
+"type.highway.track.tunnel" = "Utca";
+
+"type.highway.traffic_signals" = "Közlekedési lámpák";
+
+"type.highway.trunk" = "Utca";
+
+"type.highway.trunk.bridge" = "Utca";
+
+"type.highway.trunk.tunnel" = "Utca";
+
+"type.highway.trunk_link" = "Utca";
+
+"type.highway.trunk_link.bridge" = "Utca";
+
+"type.highway.trunk_link.tunnel" = "Utca";
+
+"type.highway.unclassified" = "Utca";
+
+"type.highway.unclassified.area" = "Utca";
+
+"type.highway.unclassified.bridge" = "Utca";
+
+"type.highway.unclassified.tunnel" = "Utca";
+
+"type.highway.world_level" = "highway-world_level";
+
+"type.highway.world_towns_level" = "highway-world_towns_level";
+
+"type.historic" = "historic";
+
+"type.historic.archaeological_site" = "Ásatás";
+
+"type.historic.battlefield" = "historic-battlefield";
+
+"type.historic.boundary_stone" = "historic-boundary_stone";
+
+"type.historic.castle" = "Kastély";
+
+"type.historic.castle.defensive" = "Kastély";
+
+"type.historic.castle.stately" = "Kastély";
+
+"type.historic.citywalls" = "historic-citywalls";
+
+"type.historic.fort" = "historic-fort";
+
+"type.historic.memorial" = "Emlékmű";
+
+"type.historic.memorial.plaque" = "Emlékmű";
+
+"type.historic.memorial.sculpture" = "Emlékmű";
+
+"type.historic.memorial.statue" = "Emlékmű";
+
+"type.historic.monument" = "Műemlék";
+
+"type.historic.museum" = "historic-museum";
+
+"type.historic.ruins" = "Romok";
+
+"type.historic.ship" = "Túrizmus";
+
+"type.historic.tomb" = "Túrizmus";
+
+"type.historic.wayside_cross" = "historic-wayside_cross";
+
+"type.historic.wayside_shrine" = "historic-wayside_shrine";
+
+"type.hwtag" = "hwtag";
+
+"type.hwtag.bidir_bicycle" = "hwtag-bidir_bicycle";
+
+"type.hwtag.lit" = "hwtag-lit";
+
+"type.hwtag.nobicycle" = "hwtag-nobicycle";
+
+"type.hwtag.nocar" = "hwtag-nocar";
+
+"type.hwtag.nofoot" = "hwtag-nofoot";
+
+"type.hwtag.oneway" = "hwtag-oneway";
+
+"type.hwtag.private" = "hwtag-private";
+
+"type.hwtag.toll" = "hwtag-toll";
+
+"type.hwtag.yesbicycle" = "hwtag-yesbicycle";
+
+"type.hwtag.yescar" = "hwtag-yescar";
+
+"type.hwtag.yesfoot" = "hwtag-yesfoot";
+
+"type.internet_access" = "Internet";
+
+"type.internet_access.wlan" = "Internet";
+
+"type.junction" = "junction";
+
+"type.junction.roundabout" = "junction-roundabout";
+
+"type.landuse" = "landuse";
+
+"type.landuse.allotments" = "landuse-allotments";
+
+"type.landuse.basin" = "Víz";
+
+"type.landuse.brownfield" = "landuse-brownfield";
+
+"type.landuse.cemetery" = "Temető";
+
+"type.landuse.cemetery.christian" = "Temető";
+
+"type.landuse.commercial" = "landuse-commercial";
+
+"type.landuse.construction" = "landuse-construction";
+
+"type.landuse.farm" = "landuse-farm";
+
+"type.landuse.farmland" = "landuse-farmland";
+
+"type.landuse.farmyard" = "landuse-farmyard";
+
+"type.landuse.field" = "landuse-field";
+
+"type.landuse.forest" = "Erdő";
+
+"type.landuse.forest.coniferous" = "Erdő";
+
+"type.landuse.forest.deciduous" = "Erdő";
+
+"type.landuse.forest.mixed" = "Erdő";
+
+"type.landuse.garages" = "landuse-garages";
+
+"type.landuse.grass" = "landuse-grass";
+
+"type.landuse.greenfield" = "landuse-greenfield";
+
+"type.landuse.greenhouse_horticulture" = "landuse-greenhouse_horticulture";
+
+"type.landuse.industrial" = "landuse-industrial";
+
+"type.landuse.landfill" = "landuse-landfill";
+
+"type.landuse.meadow" = "landuse-meadow";
+
+"type.landuse.military" = "landuse-military";
+
+"type.landuse.orchard" = "landuse-orchard";
+
+"type.landuse.quarry" = "landuse-quarry";
+
+"type.landuse.railway" = "landuse-railway";
+
+"type.landuse.recreation_ground" = "landuse-recreation_ground";
+
+"type.landuse.reservoir" = "Víz";
+
+"type.landuse.residential" = "landuse-residential";
+
+"type.landuse.residential.rural" = "landuse-residential-rural";
+
+"type.landuse.residential.urban" = "landuse-residential-urban";
+
+"type.landuse.retail" = "landuse-retail";
+
+"type.landuse.salt_pond" = "landuse-salt_pond";
+
+"type.landuse.village_green" = "landuse-village_green";
+
+"type.landuse.vineyard" = "landuse-vineyard";
+
+"type.leisure" = "leisure";
+
+"type.leisure.common" = "leisure-common";
+
+"type.leisure.dog_park" = "Dog area";
+
+"type.leisure.dog_park.tennis" = "Dog area";
+
+"type.leisure.fitness_centre" = "Fitnesz-terem";
+
+"type.leisure.fitness_station" = "Fitness állomás";
+
+"type.leisure.garden" = "Kert";
+
+"type.leisure.golf_course" = "Golfpálya";
+
+"type.leisure.ice_rink" = "leisure-ice_rink";
+
+"type.leisure.landscape_reserve" = "leisure-landscape_reserve";
+
+"type.leisure.marina" = "leisure-marina";
+
+"type.leisure.nature_reserve" = "leisure-nature_reserve";
+
+"type.leisure.park" = "Park";
+
+"type.leisure.park.no.access" = "Park";
+
+"type.leisure.park.permissive" = "Park";
+
+"type.leisure.park.private" = "Park";
+
+"type.leisure.pitch" = "Sportpálya";
+
+"type.leisure.pitch.tennis" = "Sportpálya";
+
+"type.leisure.playground" = "Játszótér";
+
+"type.leisure.playground.tennis" = "Játszótér";
+
+"type.leisure.playing_fields" = "leisure-playing_fields";
+
+"type.leisure.playing_fields.tennis" = "leisure-playing_fields-tennis";
+
+"type.leisure.recreation_ground" = "leisure-recreation_ground";
+
+"type.leisure.sauna" = "Szauna";
+
+"type.leisure.slipway" = "leisure-slipway";
+
+"type.leisure.sports_centre" = "Sportközpont";
+
+"type.leisure.sports_centre.climbing" = "Hegymászó központ";
+
+"type.leisure.sports_centre.shooting" = "Lőtér";
+
+"type.leisure.sports_centre.swimming" = "Uszoda";
+
+"type.leisure.sports_centre.yoga" = "Jógastúdió";
+
+"type.leisure.stadium" = "Stadion";
+
+"type.leisure.swimming_pool" = "Úszómedence";
+
+"type.leisure.track" = "leisure-track";
+
+"type.leisure.water_park" = "Aquapark";
+
+"type.man_made" = "man_made";
+
+"type.man_made.breakwater" = "man_made-breakwater";
+
+"type.man_made.cairn" = "man_made-cairn";
+
+"type.man_made.chimney" = "Gyárkémény";
+
+"type.man_made.cutline" = "man_made-cutline";
+
+"type.man_made.lighthouse" = "Világítótorony";
+
+"type.man_made.pier" = "man_made-pier";
+
+"type.man_made.pipeline" = "man_made-pipeline";
+
+"type.man_made.pipeline.overground" = "man_made-pipeline-overground";
+
+"type.man_made.surveillance" = "Térfigyelő kamera";
+
+"type.man_made.tower" = "Torony";
+
+"type.man_made.wastewater_plant" = "man_made-wastewater_plant";
+
+"type.man_made.water_tap" = "Vízcsap";
+
+"type.man_made.water_tower" = "Víztorony";
+
+"type.man_made.water_well" = "Ivókút";
+
+"type.man_made.windmill" = "Szélmalom";
+
+"type.man_made.works" = "man_made-works";
+
+"type.mapswithme" = "mapswithme";
+
+"type.mapswithme.grid" = "mapswithme-grid";
+
+"type.marking" = "marking";
+
+"type.marking.sport" = "marking-sport";
+
+"type.marking.sport.black" = "marking-sport-black";
+
+"type.marking.sport.blue" = "marking-sport-blue";
+
+"type.marking.sport.red" = "marking-sport-red";
+
+"type.marking.sport.white" = "marking-sport-white";
+
+"type.military" = "military";
+
+"type.military.bunker" = "Bunker";
+
+"type.natural" = "natural";
+
+"type.natural.bare_rock" = "natural-bare_rock";
+
+"type.natural.bay" = "Öböl";
+
+"type.natural.beach" = "Strand";
+
+"type.natural.cape" = "natural-cape";
+
+"type.natural.cave_entrance" = "Barlangbejárat";
+
+"type.natural.cliff" = "natural-cliff";
+
+"type.natural.coastline" = "natural-coastline";
+
+"type.natural.glacier" = "natural-glacier";
+
+"type.natural.grassland" = "natural-grassland";
+
+"type.natural.heath" = "natural-heath";
+
+"type.natural.lake" = "Tó";
+
+"type.natural.land" = "natural-land";
+
+"type.natural.meadow" = "natural-meadow";
+
+"type.natural.orchard" = "natural-orchard";
+
+"type.natural.peak" = "Csúcs";
+
+"type.natural.pond" = "Tavacska";
+
+"type.natural.rock" = "natural-rock";
+
+"type.natural.salt_pond" = "natural-salt_pond";
+
+"type.natural.scrub" = "natural-scrub";
+
+"type.natural.spring" = "Forrás";
+
+"type.natural.tree" = "Fa";
+
+"type.natural.tree_row" = "natural-tree_row";
+
+"type.natural.vineyard" = "natural-vineyard";
+
+"type.natural.volcano" = "Tűzhányó";
+
+"type.natural.water" = "Víz";
+
+"type.natural.wetland" = "natural-wetland";
+
+"type.natural.wetland.bog" = "natural-wetland-bog";
+
+"type.natural.wetland.marsh" = "natural-wetland-marsh";
+
+"type.natural.wood" = "Erdő";
+
+"type.natural.wood.coniferous" = "Erdő";
+
+"type.natural.wood.deciduous" = "Erdő";
+
+"type.natural.wood.mixed" = "Erdő";
+
+"type.noexit" = "noexit";
+
+"type.noexit.motor_vehicle" = "noexit-motor_vehicle";
+
+"type.office" = "Hivatal";
+
+"type.office.company" = "Vállalati iroda";
+
+"type.office.estate_agent" = "Ingatlanügynök";
+
+"type.office.government" = "Állami iroda";
+
+"type.office.insurance" = "Biztosító iroda";
+
+"type.office.lawyer" = "Ügyvédi iroda";
+
+"type.office.ngo" = "Civil szervezet irodája";
+
+"type.office.telecommunication" = "Mobilüzemeltető";
+
+"type.olympics" = "olympics";
+
+"type.olympics.attraction" = "olympics-attraction";
+
+"type.olympics.bike_sport" = "olympics-bike_sport";
+
+"type.olympics.live_site" = "olympics-live_site";
+
+"type.olympics.official_building" = "olympics-official_building";
+
+"type.olympics.stadium" = "olympics-stadium";
+
+"type.olympics.stadium_main" = "olympics-stadium_main";
+
+"type.olympics.transport_airport" = "olympics-transport_airport";
+
+"type.olympics.transport_boat" = "olympics-transport_boat";
+
+"type.olympics.transport_bus" = "olympics-transport_bus";
+
+"type.olympics.transport_cable" = "olympics-transport_cable";
+
+"type.olympics.transport_railway" = "olympics-transport_railway";
+
+"type.olympics.transport_subway" = "olympics-transport_subway";
+
+"type.olympics.transport_tram" = "olympics-transport_tram";
+
+"type.olympics.water_sport" = "olympics-water_sport";
+
+"type.place" = "place";
+
+"type.place.city" = "Város";
+
+"type.place.city.capital" = "Főváros";
+
+"type.place.city.capital.10" = "Főváros";
+
+"type.place.city.capital.11" = "Főváros";
+
+"type.place.city.capital.2" = "Főváros";
+
+"type.place.city.capital.3" = "Főváros";
+
+"type.place.city.capital.4" = "Főváros";
+
+"type.place.city.capital.5" = "Főváros";
+
+"type.place.city.capital.6" = "Főváros";
+
+"type.place.city.capital.7" = "Főváros";
+
+"type.place.city.capital.8" = "Főváros";
+
+"type.place.city.capital.9" = "Főváros";
+
+"type.place.continent" = "Kontinens";
+
+"type.place.country" = "Ország";
+
+"type.place.county" = "Kerület";
+
+"type.place.farm" = "Tanya";
+
+"type.place.hamlet" = "Tanya";
+
+"type.place.island" = "Sziget";
+
+"type.place.islet" = "Sziget";
+
+"type.place.isolated_dwelling" = "place-isolated_dwelling";
+
+"type.place.locality" = "Falu";
+
+"type.place.neighbourhood" = "place-neighbourhood";
+
+"type.place.ocean" = "Óceán";
+
+"type.place.region" = "Régió";
+
+"type.place.sea" = "Tenger";
+
+"type.place.square" = "place-square";
+
+"type.place.state" = "Állam";
+
+"type.place.state.USA" = "Állam";
+
+"type.place.suburb" = "Kerület";
+
+"type.place.town" = "Város";
+
+"type.place.village" = "Falu";
+
+"type.power" = "power";
+
+"type.power.generator" = "power-generator";
+
+"type.power.generator.hydro" = "power-generator-hydro";
+
+"type.power.generator.photovoltaic" = "power-generator-photovoltaic";
+
+"type.power.generator.wind" = "power-generator-wind";
+
+"type.power.line" = "power-line";
+
+"type.power.line.underground" = "power-line-underground";
+
+"type.power.minor_line" = "power-minor_line";
+
+"type.power.pole" = "Villanyoszlop";
+
+"type.power.station" = "power-station";
+
+"type.power.substation" = "Kapcsolószekrény";
+
+"type.power.tower" = "Villanyoszlop";
+
+"type.psurface" = "psurface";
+
+"type.psurface.paved_bad" = "psurface-paved_bad";
+
+"type.psurface.paved_good" = "psurface-paved_good";
+
+"type.psurface.unpaved_bad" = "psurface-unpaved_bad";
+
+"type.psurface.unpaved_good" = "psurface-unpaved_good";
+
+"type.public_transport" = "public_transport";
+
+"type.public_transport.platform" = "public_transport-platform";
+
+"type.railway" = "railway";
+
+"type.railway.abandoned" = "railway-abandoned";
+
+"type.railway.abandoned.bridge" = "railway-abandoned-bridge";
+
+"type.railway.abandoned.tunnel" = "railway-abandoned-tunnel";
+
+"type.railway.construction" = "railway-construction";
+
+"type.railway.crossing" = "railway-crossing";
+
+"type.railway.disused" = "railway-disused";
+
+"type.railway.funicular" = "railway-funicular";
+
+"type.railway.funicular.bridge" = "railway-funicular-bridge";
+
+"type.railway.funicular.tunnel" = "railway-funicular-tunnel";
+
+"type.railway.halt" = "Vonatmegálló";
+
+"type.railway.incline" = "railway-incline";
+
+"type.railway.incline.bridge" = "railway-incline-bridge";
+
+"type.railway.incline.tunnel" = "railway-incline-tunnel";
+
+"type.railway.level_crossing" = "Útátjáró";
+
+"type.railway.light_rail" = "railway-light_rail";
+
+"type.railway.light_rail.bridge" = "railway-light_rail-bridge";
+
+"type.railway.light_rail.tunnel" = "railway-light_rail-tunnel";
+
+"type.railway.monorail" = "railway-monorail";
+
+"type.railway.monorail.bridge" = "railway-monorail-bridge";
+
+"type.railway.monorail.tunnel" = "railway-monorail-tunnel";
+
+"type.railway.narrow_gauge" = "railway-narrow_gauge";
+
+"type.railway.narrow_gauge.bridge" = "railway-narrow_gauge-bridge";
+
+"type.railway.narrow_gauge.tunnel" = "railway-narrow_gauge-tunnel";
+
+"type.railway.platform" = "railway-platform";
+
+"type.railway.preserved" = "railway-preserved";
+
+"type.railway.preserved.bridge" = "railway-preserved-bridge";
+
+"type.railway.preserved.tunnel" = "railway-preserved-tunnel";
+
+"type.railway.proposed" = "railway-proposed";
+
+"type.railway.rail" = "railway-rail";
+
+"type.railway.rail.bridge" = "railway-rail-bridge";
+
+"type.railway.rail.motor_vehicle" = "railway-rail-motor_vehicle";
+
+"type.railway.rail.tunnel" = "railway-rail-tunnel";
+
+"type.railway.razed" = "railway-razed";
+
+"type.railway.siding" = "railway-siding";
+
+"type.railway.siding.bridge" = "railway-siding-bridge";
+
+"type.railway.siding.tunnel" = "railway-siding-tunnel";
+
+"type.railway.spur" = "railway-spur";
+
+"type.railway.spur.bridge" = "railway-spur-bridge";
+
+"type.railway.spur.tunnel" = "railway-spur-tunnel";
+
+"type.railway.station" = "Vonatmegálló";
+
+"type.railway.station.light_rail" = "Vonatmegálló";
+
+"type.railway.station.monorail" = "Vonatmegálló";
+
+"type.railway.station.subway" = "Földalatti";
+
+"type.railway.station.subway.barcelona" = "Földalatti";
+
+"type.railway.station.subway.berlin" = "Földalatti";
+
+"type.railway.station.subway.blue" = "Földalatti";
+
+"type.railway.station.subway.brown" = "Földalatti";
+
+"type.railway.station.subway.darkgreen" = "Földalatti";
+
+"type.railway.station.subway.gray" = "Földalatti";
+
+"type.railway.station.subway.green" = "Földalatti";
+
+"type.railway.station.subway.grey" = "Földalatti";
+
+"type.railway.station.subway.kiev" = "Földalatti";
+
+"type.railway.station.subway.lightblue" = "Földalatti";
+
+"type.railway.station.subway.lightgreen" = "Földalatti";
+
+"type.railway.station.subway.london" = "Földalatti";
+
+"type.railway.station.subway.madrid" = "Földalatti";
+
+"type.railway.station.subway.minsk" = "Földalatti";
+
+"type.railway.station.subway.moscow" = "Földalatti";
+
+"type.railway.station.subway.newyork" = "Földalatti";
+
+"type.railway.station.subway.orange" = "Földalatti";
+
+"type.railway.station.subway.paris" = "Földalatti";
+
+"type.railway.station.subway.purple" = "Földalatti";
+
+"type.railway.station.subway.red" = "Földalatti";
+
+"type.railway.station.subway.roma" = "Földalatti";
+
+"type.railway.station.subway.spb" = "Földalatti";
+
+"type.railway.station.subway.violet" = "Földalatti";
+
+"type.railway.station.subway.yellow" = "Földalatti";
+
+"type.railway.subway" = "railway-subway";
+
+"type.railway.subway.blue" = "railway-subway-blue";
+
+"type.railway.subway.bridge" = "railway-subway-bridge";
+
+"type.railway.subway.brown" = "railway-subway-brown";
+
+"type.railway.subway.darkgreen" = "railway-subway-darkgreen";
+
+"type.railway.subway.gray" = "railway-subway-gray";
+
+"type.railway.subway.green" = "railway-subway-green";
+
+"type.railway.subway.grey" = "railway-subway-grey";
+
+"type.railway.subway.lightblue" = "railway-subway-lightblue";
+
+"type.railway.subway.lightgreen" = "railway-subway-lightgreen";
+
+"type.railway.subway.orange" = "railway-subway-orange";
+
+"type.railway.subway.purple" = "railway-subway-purple";
+
+"type.railway.subway.red" = "railway-subway-red";
+
+"type.railway.subway.tunnel" = "railway-subway-tunnel";
+
+"type.railway.subway.violet" = "railway-subway-violet";
+
+"type.railway.subway.yellow" = "railway-subway-yellow";
+
+"type.railway.subway_entrance" = "Földalatti";
+
+"type.railway.subway_entrance.barcelona" = "Földalatti";
+
+"type.railway.subway_entrance.berlin" = "Földalatti";
+
+"type.railway.subway_entrance.kiev" = "Földalatti";
+
+"type.railway.subway_entrance.london" = "Földalatti";
+
+"type.railway.subway_entrance.madrid" = "Földalatti";
+
+"type.railway.subway_entrance.minsk" = "Földalatti";
+
+"type.railway.subway_entrance.moscow" = "Földalatti";
+
+"type.railway.subway_entrance.newyork" = "Földalatti";
+
+"type.railway.subway_entrance.paris" = "Földalatti";
+
+"type.railway.subway_entrance.roma" = "Földalatti";
+
+"type.railway.subway_entrance.spb" = "Földalatti";
+
+"type.railway.tram" = "railway-tram";
+
+"type.railway.tram.bridge" = "railway-tram-bridge";
+
+"type.railway.tram.tunnel" = "railway-tram-tunnel";
+
+"type.railway.tram_stop" = "Villamosmegálló";
+
+"type.railway.yard" = "railway-yard";
+
+"type.railway.yard.bridge" = "railway-yard-bridge";
+
+"type.railway.yard.tunnel" = "railway-yard-tunnel";
+
+"type.route" = "route";
+
+"type.route.ferry" = "route-ferry";
+
+"type.route.ferry.motor_vehicle" = "route-ferry-motor_vehicle";
+
+"type.route.ferry.motorcar" = "route-ferry-motorcar";
+
+"type.route.shuttle_train" = "route-shuttle_train";
+
+"type.shop" = "Bolt";
+
+"type.shop.alcohol" = "Italbolt";
+
+"type.shop.bakery" = "Pékség";
+
+"type.shop.beauty" = "Szépségszalon";
+
+"type.shop.beverages" = "Italok";
+
+"type.shop.bicycle" = "Kerékpár üzlet";
+
+"type.shop.bookmaker" = "Fogadóiroda";
+
+"type.shop.books" = "Könyvesbolt";
+
+"type.shop.butcher" = "Hentes";
+
+"type.shop.car" = "Gépkocsi bolt";
+
+"type.shop.car_parts" = "Autó alkatrészek";
+
+"type.shop.car_repair" = "Gépkocsi szervíz";
+
+"type.shop.car_repair.tyres" = "Gumiszerviz";
+
+"type.shop.chemist" = "Drogéria";
+
+"type.shop.chocolate" = "Bolt";
+
+"type.shop.clothes" = "Ruhabolt";
+
+"type.shop.coffee" = "Bolt";
+
+"type.shop.computer" = "Számítógép üzlet";
+
+"type.shop.confectionery" = "Cukrászüzlet";
+
+"type.shop.convenience" = "Csemegebolt";
+
+"type.shop.copyshop" = "Fénymásoló üzlet";
+
+"type.shop.cosmetics" = "Kozmetikum";
+
+"type.shop.department_store" = "Áruház";
+
+"type.shop.doityourself" = "Vaskereskedés";
+
+"type.shop.dry_cleaning" = "Ruhatisztító";
+
+"type.shop.electronics" = "Elektronika";
+
+"type.shop.erotic" = "Erotikus bolt";
+
+"type.shop.fabric" = "Bolt";
+
+"type.shop.florist" = "Virágos";
+
+"type.shop.funeral_directors" = "Temetkezési vállalkozó";
+
+"type.shop.furniture" = "Bútoráruház";
+
+"type.shop.garden_centre" = "Faiskola";
+
+"type.shop.gift" = "Ajándékbolt";
+
+"type.shop.greengrocer" = "Zöldséges";
+
+"type.shop.hairdresser" = "Fodrász";
+
+"type.shop.hardware" = "Vaskereskedés";
+
+"type.shop.jewelry" = "Ékszer";
+
+"type.shop.kiosk" = "Trafik";
+
+"type.shop.laundry" = "Mosoda";
+
+"type.shop.mall" = "A pláza";
+
+"type.shop.massage" = "Masszázs szalon";
+
+"type.shop.mobile_phone" = "Mobiltelefon üzlet";
+
+"type.shop.money_lender" = "Bolt";
+
+"type.shop.motorcycle" = "Motorkerékpár üzlet";
+
+"type.shop.music" = "Bolt";
+
+"type.shop.musical_instrument" = "Bolt";
+
+"type.shop.newsagent" = "Újságárus";
+
+"type.shop.optician" = "Optika";
+
+"type.shop.outdoor" = "Kültéri felszerelés";
+
+"type.shop.pawnbroker" = "Zálogház";
+
+"type.shop.pet" = "Házikedvenc-üzlet";
+
+"type.shop.photo" = "Fénykép üzlet";
+
+"type.shop.seafood" = "Halüzlet";
+
+"type.shop.shoes" = "Cipőbolt";
+
+"type.shop.sports" = "Sporteszközök";
+
+"type.shop.stationery" = "Írószer bolt";
+
+"type.shop.supermarket" = "Bevásárlóközpont";
+
+"type.shop.tattoo" = "Tetováló szalon";
+
+"type.shop.tea" = "Bolt";
+
+"type.shop.ticket" = "Jegyiroda";
+
+"type.shop.toys" = "Játékbolt";
+
+"type.shop.travel_agency" = "Utazási iroda";
+
+"type.shop.tyres" = "Gumi szaküzlet";
+
+"type.shop.variety_store" = "Vegyeskereskedés";
+
+"type.shop.video" = "Bolt";
+
+"type.shop.wine" = "Szeszesital-üzlet";
+
+"type.sponsored" = "sponsored";
+
+"type.sponsored.banner" = "sponsored-banner";
+
+"type.sponsored.banner.deliveryclub" = "sponsored-banner-deliveryclub";
+
+"type.sponsored.banner.geerbest_de" = "sponsored-banner-geerbest_de";
+
+"type.sponsored.banner.geerbest_fr" = "sponsored-banner-geerbest_fr";
+
+"type.sponsored.banner.geerbest_uk" = "sponsored-banner-geerbest_uk";
+
+"type.sponsored.banner.lamoda_ru" = "sponsored-banner-lamoda_ru";
+
+"type.sponsored.banner.lamoda_ua" = "sponsored-banner-lamoda_ua";
+
+"type.sponsored.banner.raileurope" = "sponsored-banner-raileurope";
+
+"type.sponsored.banner.rentalcars" = "sponsored-banner-rentalcars";
+
+"type.sponsored.banner.tutu" = "sponsored-banner-tutu";
+
+"type.sponsored.banner.viator" = "sponsored-banner-viator";
+
+"type.sponsored.booking" = "sponsored-booking";
+
+"type.sponsored.holiday" = "Christmas or New Year Celebrations";
+
+"type.sponsored.opentable" = "sponsored-opentable";
+
+"type.sponsored.partner1" = "sponsored-partner1";
+
+"type.sponsored.partner10" = "sponsored-partner10";
+
+"type.sponsored.partner11" = "sponsored-partner11";
+
+"type.sponsored.partner12" = "sponsored-partner12";
+
+"type.sponsored.partner13" = "sponsored-partner13";
+
+"type.sponsored.partner14" = "sponsored-partner14";
+
+"type.sponsored.partner15" = "sponsored-partner15";
+
+"type.sponsored.partner16" = "sponsored-partner16";
+
+"type.sponsored.partner17" = "sponsored-partner17";
+
+"type.sponsored.partner18" = "sponsored-partner18";
+
+"type.sponsored.partner19" = "sponsored-partner19";
+
+"type.sponsored.partner2" = "Luggage Storage";
+
+"type.sponsored.partner20" = "sponsored-partner20";
+
+"type.sponsored.partner3" = "sponsored-partner3";
+
+"type.sponsored.partner4" = "sponsored-partner4";
+
+"type.sponsored.partner5" = "sponsored-partner5";
+
+"type.sponsored.partner6" = "sponsored-partner6";
+
+"type.sponsored.partner7" = "sponsored-partner7";
+
+"type.sponsored.partner8" = "sponsored-partner8";
+
+"type.sponsored.partner9" = "sponsored-partner9";
+
+"type.sponsored.viator" = "sponsored-viator";
+
+"type.sport" = "sport";
+
+"type.sport.american_football" = "sport-american_football";
+
+"type.sport.archery" = "sport-archery";
+
+"type.sport.athletics" = "Atlétika";
+
+"type.sport.australian_football" = "sport-australian_football";
+
+"type.sport.baseball" = "sport-baseball";
+
+"type.sport.basketball" = "Kosárlabda";
+
+"type.sport.bowls" = "sport-bowls";
+
+"type.sport.cricket" = "sport-cricket";
+
+"type.sport.curling" = "sport-curling";
+
+"type.sport.diving" = "sport-diving";
+
+"type.sport.equestrian" = "Lovassportok";
+
+"type.sport.football" = "sport-football";
+
+"type.sport.golf" = "sport-golf";
+
+"type.sport.gymnastics" = "sport-gymnastics";
+
+"type.sport.handball" = "sport-handball";
+
+"type.sport.multi" = "sport-multi";
+
+"type.sport.scuba_diving" = "sport-scuba_diving";
+
+"type.sport.shooting" = "sport-shooting";
+
+"type.sport.skiing" = "sport-skiing";
+
+"type.sport.soccer" = "sport-soccer";
+
+"type.sport.swimming" = "sport-swimming";
+
+"type.sport.tennis" = "sport-tennis";
+
+"type.tourism" = "tourism";
+
+"type.tourism.alpine_hut" = "Hegyi menedék";
+
+"type.tourism.apartment" = "Apartmanok";
+
+"type.tourism.artwork" = "Szobor";
+
+"type.tourism.artwork.architecture" = "Szobor";
+
+"type.tourism.artwork.painting" = "Szobor";
+
+"type.tourism.artwork.sculpture" = "Szobor";
+
+"type.tourism.artwork.statue" = "Szobor";
+
+"type.tourism.attraction" = "Látnivaló";
+
+"type.tourism.attraction.animal" = "Látnivaló";
+
+"type.tourism.attraction.specified" = "Látnivaló";
+
+"type.tourism.camp_site" = "Kemping";
+
+"type.tourism.caravan_site" = "Karaván pihenő";
+
+"type.tourism.chalet" = "Turistaház";
+
+"type.tourism.gallery" = "Túrizmus";
+
+"type.tourism.guest_house" = "Vendégház";
+
+"type.tourism.hostel" = "Hostel";
+
+"type.tourism.hotel" = "Szálloda";
+
+"type.tourism.information" = "Túrista információ";
+
+"type.tourism.information.board" = "Információs tábla";
+
+"type.tourism.information.guidepost" = "Túrista információ";
+
+"type.tourism.information.map" = "Turistatérkép";
+
+"type.tourism.information.office" = "Idegenforgalmi iroda";
+
+"type.tourism.motel" = "Motel";
+
+"type.tourism.museum" = "Múzeum";
+
+"type.tourism.picnic_site" = "Piknikező hely";
+
+"type.tourism.resort" = "Resort hotel";
+
+"type.tourism.theme_park" = "Túrizmus";
+
+"type.tourism.viewpoint" = "Kilátó";
+
+"type.tourism.wilderness_hut" = "Kunyhó a vadonban";
+
+"type.tourism.zoo" = "Állatkert";
+
+"type.traffic_calming" = "traffic_calming";
+
+"type.traffic_calming.bump" = "traffic_calming-bump";
+
+"type.traffic_calming.hump" = "traffic_calming-hump";
+
+"type.waterway" = "waterway";
+
+"type.waterway.canal" = "Csatorna";
+
+"type.waterway.canal.tunnel" = "Csatorna";
+
+"type.waterway.dam" = "waterway-dam";
+
+"type.waterway.ditch" = "waterway-ditch";
+
+"type.waterway.ditch.tunnel" = "waterway-ditch-tunnel";
+
+"type.waterway.dock" = "waterway-dock";
+
+"type.waterway.drain" = "waterway-drain";
+
+"type.waterway.drain.tunnel" = "waterway-drain-tunnel";
+
+"type.waterway.lock" = "waterway-lock";
+
+"type.waterway.lock_gate" = "Zsilip";
+
+"type.waterway.river" = "Folyó";
+
+"type.waterway.river.tunnel" = "Folyó";
+
+"type.waterway.riverbank" = "Folyó";
+
+"type.waterway.stream" = "Folyó";
+
+"type.waterway.stream.ephemeral" = "Folyó";
+
+"type.waterway.stream.intermittent" = "Folyó";
+
+"type.waterway.stream.tunnel" = "Folyó";
+
+"type.waterway.waterfall" = "Vízesés";
+
+"type.waterway.weir" = "waterway-weir";
+
+"type.wheelchair" = "wheelchair";
+
+"type.wheelchair.limited" = "wheelchair-limited";
+
+"type.wheelchair.no" = "wheelchair-no";
+
+"type.wheelchair.yes" = "wheelchair-yes";
