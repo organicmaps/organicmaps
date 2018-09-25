@@ -2,25 +2,10 @@ package com.mapswithme.maps.ads;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 public final class Banner implements Parcelable
 {
-  private static final int TYPE_NONE = 0;
-  private static final int TYPE_FACEBOOK = 1;
-  private static final int TYPE_RB = 2;
-  private static final int TYPE_MOPUB = 3;
-  private static final int TYPE_GOOGLE = 4;
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_NONE, TYPE_FACEBOOK, TYPE_RB, TYPE_MOPUB, TYPE_GOOGLE })
-
-  public @interface BannerType {}
-
   public static final Creator<Banner> CREATOR = new Creator<Banner>()
   {
     @Override
@@ -61,7 +46,7 @@ public final class Banner implements Parcelable
   @NonNull
   String getProvider()
   {
-    switch (mType)
+    switch (Type.values()[mType])
     {
       case TYPE_FACEBOOK:
         return Providers.FACEBOOK;
@@ -121,5 +106,20 @@ public final class Banner implements Parcelable
     int result = mId.hashCode();
     result = 31 * result + mType;
     return result;
+  }
+
+  public enum Type
+  {
+    TYPE_NONE,
+    TYPE_FACEBOOK,
+    TYPE_RB,
+    TYPE_MOPUB,
+    TYPE_GOOGLE
+  }
+
+  public enum Place
+  {
+    SEARCH,
+    DEFAULT
   }
 }

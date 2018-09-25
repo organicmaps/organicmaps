@@ -224,6 +224,11 @@ public class Framework
     return FilterUtils.RATING_ANY;
   }
 
+  public static void addAdProvider(@NonNull Banner.Type type)
+  {
+    nativeIncludeAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
+  }
+
   public static native void nativeShowTrackRect(long track);
 
   public static native int nativeGetDrawScale();
@@ -483,4 +488,8 @@ public class Framework
   public static native int nativeGetCurrentTipsApi();
 
   private static native void nativeTipsShown(int tipType, int event);
+
+  private static native void nativeIncludeAdProvider(int provider, int bannerPlace);
+
+
 }

@@ -8,6 +8,12 @@ namespace ads
 {
 struct Banner
 {
+  enum class Place : uint8_t
+  {
+    Search = 0,
+    Default = 1
+  };
+
   enum class Type : uint8_t
   {
     None = 0,
