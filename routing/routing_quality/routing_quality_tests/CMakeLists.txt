@@ -2,6 +2,9 @@ project(routing_quality_tests)
 
 set(
   SRC
+  bigger_roads_tests.cpp
+  ferry_tests.cpp
+  passby_roads_tests.cpp
   waypoints_tests.cpp
 )
 

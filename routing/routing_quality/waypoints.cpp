@@ -59,4 +59,28 @@ Similarity CheckWaypoints(RouteParams && params, ReferenceRoutes && candidates)
 {
   return metrics::CompareByNumberOfMatchedWaypoints(GetRouteFollowedPolyline(move(params)), move(candidates));
 }
+
+bool CheckRoute(routing::VehicleType type, ms::LatLon const & start, ms::LatLon const & finish,
+                vector<Coordinates> && referenceTracks)
+{
+  RouteParams params;
+  params.m_waypoints = {start, finish};
+  params.m_type = type;
+
+  ReferenceRoutes candidates(referenceTracks.size());
+
+  for (size_t i = 0; i < candidates.size(); ++i)
+  {
+    candidates[i].m_factor = 1.0;
+    candidates[i].m_waypoints = move(referenceTracks[i]);
+  }
+
+  return CheckWaypoints(move(params), move(candidates)) == 1.0;
+}
+
+bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
+                   std::vector<Coordinates> && referenceTracks)
+{
+  return CheckRoute(routing::VehicleType::Car, start, finish, move(referenceTracks));
+}
 }  // namespace routing_quality

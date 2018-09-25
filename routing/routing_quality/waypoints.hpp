@@ -13,18 +13,25 @@ struct RouteParams;
 
 struct ReferenceRoute
 {
-  /// Waypoints which the route passes through.
+  /// \brief Waypoints which the route passes through.
   Coordinates m_waypoints;
-  /// Value in range (0.0; 1.0] which indicates how desirable the route is.
+  /// \brief Value in range (0.0; 1.0] which indicates how desirable the route is.
   double m_factor = 1.0;
 };
 
-/// There can be more than one reference route.
+/// \brief There can be more than one reference route.
 using ReferenceRoutes = std::vector<ReferenceRoute>;
 
 using Similarity = double;
 
-/// Checks how many reference waypoints the route contains.
-/// Returns normalized value in range [0.0; 1.0].
+/// \brief Checks how many reference waypoints the route contains.
+/// \returns normalized value in range [0.0; 1.0].
 Similarity CheckWaypoints(RouteParams && params, ReferenceRoutes && candidates);
+
+/// \returns true if route from |start| to |finish| fully conforms one of |candidates|
+/// and false otherwise.
+bool CheckRoute(routing::VehicleType type, ms::LatLon const & start, ms::LatLon const & finish,
+                std::vector<Coordinates> && referenceTracks);
+bool CheckCarRoute(ms::LatLon const & start, ms::LatLon const & finish,
+                   std::vector<Coordinates> && referenceTracks);
 }  // namespace routing_quality
