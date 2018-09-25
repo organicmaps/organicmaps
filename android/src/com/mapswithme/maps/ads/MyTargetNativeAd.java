@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.my.target.ads.CustomParams;
+import com.my.target.common.CustomParams;
+import com.my.target.common.models.ImageData;
 import com.my.target.nativeads.NativeAd;
 import com.my.target.nativeads.banners.NativePromoBanner;
-import com.my.target.nativeads.models.ImageData;
 
 import java.util.Map;
 

@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.my.target.ads.CustomParams;
+import com.my.target.common.CustomParams;
 import com.my.target.nativeads.NativeAd;
 import net.jcip.annotations.NotThreadSafe;
 
@@ -62,6 +62,24 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
   public void onShow(NativeAd nativeAd)
   {
     // No op.
+  }
+
+  @Override
+  public void onVideoPlay(@NonNull NativeAd nativeAd)
+  {
+
+  }
+
+  @Override
+  public void onVideoPause(@NonNull NativeAd nativeAd)
+  {
+
+  }
+
+  @Override
+  public void onVideoComplete(@NonNull NativeAd nativeAd)
+  {
+
   }
 
   @NonNull

@@ -75,8 +75,11 @@ dependencies {
   implementation 'com.pushwoosh:pushwoosh:5.8.6'
   implementation 'com.pushwoosh:pushwoosh-gcm:5.8.6'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
-  implementation ('com.my.target:mytarget-sdk:4.6.14') {
+  implementation ('com.my.target:mytarget-sdk:5.2.2') {
     exclude group: 'com.android.support'
+    exclude group: 'com.google.android.exoplayer', module:'exoplayer-core'
+    exclude group: 'com.google.android.exoplayer', module:'exoplayer-dash'
+    exclude group: 'com.google.android.exoplayer', module:'exoplayer-hls'
   }
   implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
     exclude group: 'com.android.support'

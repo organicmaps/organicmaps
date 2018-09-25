@@ -21,6 +21,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
+import com.my.target.common.MyTargetPrivacy;
 import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
@@ -189,6 +190,7 @@ public class ExternalLibrariesMediator
     private void onDisabled()
     {
       Framework.disableAdProvider(Banner.Type.TYPE_RB);
+      MyTargetPrivacy.setUserConsent(false);
     }
 
     private void onEnabled()
