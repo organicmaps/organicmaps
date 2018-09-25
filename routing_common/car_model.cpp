@@ -22,24 +22,24 @@ using SpeedKMpH = VehicleModel::SpeedKMpH;
 // Speed of road features located inside and outside cities and towns polygons in km per hour.
 //                                                      in city            out city
 InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(115.37), SpeedKMpH(115.37));
-InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(75.0),   SpeedKMpH(75.0));
-InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(70.0),   SpeedKMpH(93.89));
-InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(50.0),   SpeedKMpH(70.0));
-InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(65.0),   SpeedKMpH(84.29));
-InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(55.0),   SpeedKMpH(60.0));
+InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(60.0),   SpeedKMpH(60.0));
+InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(80.0),   SpeedKMpH(93.89));
+InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(50.0),   SpeedKMpH(50.0));
+InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(60.0),   SpeedKMpH(84.29));
+InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(30.0),   SpeedKMpH(60.0));
 InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(45.0),   SpeedKMpH(72.23));
-InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(40.0),   SpeedKMpH(50.0));
+InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(50.0));
 InOutCitySpeedKMpH const             kSpeedTertiaryKMpH(SpeedKMpH(40.0),   SpeedKMpH(62.63));
-InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(30.0),   SpeedKMpH(30.0));
-InOutCitySpeedKMpH const          kSpeedResidentialKMpH(SpeedKMpH(25.0),   SpeedKMpH(25.0));
+InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0));
+InOutCitySpeedKMpH const          kSpeedResidentialKMpH(SpeedKMpH(20.0),   SpeedKMpH(25.0));
 InOutCitySpeedKMpH const         kSpeedUnclassifiedKMpH(SpeedKMpH(25.0),   SpeedKMpH(51.09));
 InOutCitySpeedKMpH const              kSpeedServiceKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
 InOutCitySpeedKMpH const         kSpeedLivingStreetKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
 InOutCitySpeedKMpH const                 kSpeedRoadKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
 InOutCitySpeedKMpH const                kSpeedTrackKMpH(SpeedKMpH(5.0),    SpeedKMpH(5.0));
-InOutCitySpeedKMpH const        kSpeedFerryMotorcarKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
-InOutCitySpeedKMpH const kSpeedFerryMotorcarVehicleKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
-InOutCitySpeedKMpH const  kSpeedRailMotorcarVehicleKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
+InOutCitySpeedKMpH const        kSpeedFerryMotorcarKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
+InOutCitySpeedKMpH const kSpeedFerryMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
+InOutCitySpeedKMpH const  kSpeedRailMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
 InOutCitySpeedKMpH const         kSpeedShuttleTrainKMpH(SpeedKMpH(25.0),   SpeedKMpH(25.0));
 InOutCitySpeedKMpH const                 kSpeedPierKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
 
