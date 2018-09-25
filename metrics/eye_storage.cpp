@@ -16,7 +16,7 @@ namespace eye
 // static
 std::string Storage::GetEyeFilePath()
 {
-  return GetPlatform().WritablePathForFile("eye");
+  return GetPlatform().WritablePathForFile("metrics");
 }
 
 // static
