@@ -25,8 +25,8 @@ public:
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
                                  storage::TCountriesVec const & countryIds,
                                  std::string const & userLanguage) const;
-  void IncludeAdProvider(Banner::Type const type, Banner::Place const bannerPlace);
-  void ExcludeAdProvider(Banner::Type type);
+  void AddAdProvider(Banner::Type const type, Banner::Place bannerPlace);
+  void RemoveAdProvider(Banner::Type const type, Banner::Place const place);
   bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;
 
@@ -44,8 +44,8 @@ private:
     ContainerPtr m_container;
   };
 
-  void ExcludeAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
-  void IncludeAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
+  void RemoveAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
+  void AddAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type);
 
   std::vector<ContainerItem> m_banners;
   std::vector<ContainerItem> m_searchBanners;

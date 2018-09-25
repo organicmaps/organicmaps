@@ -3336,10 +3336,10 @@ ads::Engine const & Framework::GetAdsEngine() const
   return *m_adsEngine;
 }
 
-void Framework::IncludeAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
+void Framework::AddAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
 {
   ASSERT(m_adsEngine, ());
-  m_adsEngine.get()->IncludeAdProvider(type, place);
+  m_adsEngine.get()->AddAdProvider(type, place);
 }
 
 void Framework::RunUITask(function<void()> fn)

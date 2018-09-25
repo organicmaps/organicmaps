@@ -86,7 +86,7 @@
 #include "std/vector.hpp"
 
 #include <boost/optional.hpp>
-#include <partners_api/banner.hpp>
+#include "partners_api/banner.hpp"
 
 namespace osm
 {
@@ -352,7 +352,7 @@ public:
   void VisualizeCityBoundariesInRect(m2::RectD const & rect);
 
   ads::Engine const & GetAdsEngine() const;
-  void IncludeAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
+  void AddAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
 
 public:
   // SearchAPI::Delegate overrides:

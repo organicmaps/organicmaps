@@ -84,51 +84,46 @@ std::vector<Banner> Engine::GetSearchBanners() const
   return result;
 }
 
-void Engine::ExcludeAdProvider(Banner::Type const type)
+void Engine::RemoveAdProvider(Banner::Type const type, Banner::Place const place)
 {
-  ExcludeAdProviderInternal(m_banners, type);
-  ExcludeAdProviderInternal(m_searchBanners, type);
+  RemoveAdProviderInternal(place == Banner::Place::Search ? m_searchBanners : m_banners, type);
 }
 
-void Engine::IncludeAdProvider(Banner::Type const type, Banner::Place place)
+void Engine::AddAdProvider(Banner::Type const type, Banner::Place const place)
 {
-  IncludeAdProviderInternal(place == Banner::Place::Search ? m_searchBanners : m_banners, type);
+  AddAdProviderInternal(place == Banner::Place::Search ? m_searchBanners : m_banners, type);
 }
 
-void Engine::ExcludeAdProviderInternal(std::vector<Engine::ContainerItem> & banners, Banner::Type const type)
+void Engine::RemoveAdProviderInternal(std::vector<Engine::ContainerItem> & banners,
+                                      Banner::Type const type)
 {
-  banners.erase(std::remove_if(banners.begin(), banners.end(), [type](ContainerItem const & each)
-  {
-    return each.m_type == type;
-  }), banners.end());
+  banners.erase(std::remove_if(banners.begin(), banners.end(),
+                               [type](ContainerItem const & each) { return each.m_type == type; }),
+                banners.end());
 }
 
-void Engine::IncludeAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type)
+void Engine::AddAdProviderInternal(std::vector<ContainerItem> & banners, Banner::Type const type)
 {
-  auto const hasItemIterator = std::find_if(std::begin(banners), std::end(banners), [type](ContainerItem const & each)
-  {
-    return each.m_type == type;
-  });
+  auto const hasItemIterator =
+      std::find_if(std::begin(banners), std::end(banners),
+                   [type](ContainerItem const & each) { return each.m_type == type; });
 
   if (hasItemIterator != std::end(banners))
     return;
 
   switch (type)
   {
-      case Banner::Type::Facebook :
-          banners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
-          break;
-      case Banner::Type::RB :
-          banners.emplace_back(Banner::Type::RB, std::make_unique<Rb>());
-          break;
-      case Banner::Type::Mopub :
-          banners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
-          break;
-      case Banner::Type::Google :
-          banners.emplace_back(Banner::Type::None, std::make_unique<Google>());
-          break;
-      case Banner::Type::None :
-          break;
+  case Banner::Type::Facebook:
+    banners.emplace_back(Banner::Type::Facebook, std::make_unique<Facebook>());
+    break;
+  case Banner::Type::RB: banners.emplace_back(Banner::Type::RB, std::make_unique<Rb>()); break;
+  case Banner::Type::Mopub:
+    banners.emplace_back(Banner::Type::Mopub, std::make_unique<Mopub>());
+    break;
+  case Banner::Type::Google:
+    banners.emplace_back(Banner::Type::None, std::make_unique<Google>());
+    break;
+  case Banner::Type::None: break;
   }
 }
 }  // namespace ads

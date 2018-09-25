@@ -226,7 +226,7 @@ public class Framework
 
   public static void addAdProvider(@NonNull Banner.Type type)
   {
-    nativeIncludeAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
+    nativeAddAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -489,7 +489,5 @@ public class Framework
 
   private static native void nativeTipsShown(int tipType, int event);
 
-  private static native void nativeIncludeAdProvider(int provider, int bannerPlace);
-
-
+  private static native void nativeAddAdProvider(int provider, int bannerPlace);
 }
