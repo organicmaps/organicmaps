@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 
@@ -26,19 +27,15 @@ public class AlertDialog extends BaseMwmDialogFragment
   @Nullable
   private AlertDialogCallback mTargetCallback;
 
-  public static void show(@StringRes int titleId, @StringRes int messageId,
-                          @StringRes int positiveBtnId, @NonNull Fragment parent,
-                          int requestCode)
+  public void show(@NonNull Fragment parent, @NonNull String tag)
   {
-    Bundle args = new Bundle();
-    args.putInt(ARG_TITLE_ID, titleId);
-    args.putInt(ARG_MESSAGE_ID, messageId);
-    args.putInt(ARG_POSITIVE_BUTTON_ID, positiveBtnId);
-    args.putInt(ARG_REQ_CODE, requestCode);
-    DialogFragment fragment = (DialogFragment) Fragment.instantiate(parent.getActivity(),
-                                                                    AlertDialog.class.getName());
-    fragment.setArguments(args);
-    fragment.show(parent.getChildFragmentManager(), AlertDialog.class.getName());
+    FragmentManager fm = parent.getChildFragmentManager();
+    if (fm.findFragmentByTag(tag) != null)
+      return;
+
+    FragmentTransaction transaction = fm.beginTransaction();
+    transaction.add(this, tag);
+    transaction.commitAllowingStateLoss();
   }
 
   private void onClick(int which)
@@ -91,5 +88,86 @@ public class AlertDialog extends BaseMwmDialogFragment
     super.onCancel(dialog);
     if (mTargetCallback != null)
       mTargetCallback.onAlertDialogCancel(getArguments().getInt(ARG_REQ_CODE));
+  }
+
+  @NonNull
+  private static AlertDialog createDialog(@NonNull Builder builder)
+  {
+    Bundle args = new Bundle();
+    args.putInt(ARG_TITLE_ID, builder.getTitleId());
+    args.putInt(ARG_MESSAGE_ID, builder.getMessageId());
+    args.putInt(ARG_POSITIVE_BUTTON_ID, builder.getPositiveBtnId());
+    args.putInt(ARG_REQ_CODE, builder.getReqCode());
+    AlertDialog dialog = new AlertDialog();
+    dialog.setArguments(args);
+    return dialog;
+  }
+
+  public static class Builder
+  {
+    private int mReqCode;
+    @StringRes
+    private int mTitleId;
+    @StringRes
+    private int mMessageId;
+    @StringRes
+    private int mPositiveBtn;
+
+    @NonNull
+    public Builder setReqCode(int reqCode)
+    {
+      mReqCode = reqCode;
+      return this;
+    }
+
+    int getReqCode()
+    {
+      return mReqCode;
+    }
+
+    @NonNull
+    public Builder setTitleId(@StringRes int titleId)
+    {
+      mTitleId = titleId;
+      return this;
+    }
+
+    @StringRes
+    int getTitleId()
+    {
+      return mTitleId;
+    }
+
+    @NonNull
+    public Builder setMessageId(@StringRes int messageId)
+    {
+      mMessageId = messageId;
+      return this;
+    }
+
+    @StringRes
+    int getMessageId()
+    {
+      return mMessageId;
+    }
+
+    @NonNull
+    public Builder setPositiveBtnId(@StringRes int positiveBtnId)
+    {
+      mPositiveBtn = positiveBtnId;
+      return this;
+    }
+
+    @StringRes
+    int getPositiveBtnId()
+    {
+      return mPositiveBtn;
+    }
+
+    @NonNull
+    public AlertDialog build()
+    {
+      return createDialog(this);
+    }
   }
 }

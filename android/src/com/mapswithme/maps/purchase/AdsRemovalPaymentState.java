@@ -79,33 +79,43 @@ enum AdsRemovalPaymentState
           UiUtils.show(progressLayout);
         }
       },
-   PAYMENT_FAILURE
-       {
-         @Override
-         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
-         {
-           AlertDialog.show(R.string.bookmarks_convert_error_title, R.string.purchase_error_subtitle,
-                            R.string.back, dialog, AdsRemovalPurchaseDialog.REQ_CODE_PAYMENT_FAILURE);
-         }
-       },
-   PRODUCT_DETAILS_FAILURE
-       {
-         @Override
-         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
-         {
-           AlertDialog.show(R.string.bookmarks_convert_error_title,
-                            R.string.discovery_button_other_error_message, R.string.ok,
-                            dialog, AdsRemovalPurchaseDialog.REQ_CODE_PRODUCT_DETAILS_FAILURE);
-         }
-       },
-    VALIDATION_FINISH
+  PAYMENT_FAILURE
+      {
+        @Override
+        void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          @Override
-          void activate(@NonNull AdsRemovalPurchaseDialog dialog)
-          {
-            dialog.dismissAllowingStateLoss();
-          }
-        };
+
+          AlertDialog alertDialog = new AlertDialog.Builder()
+              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PAYMENT_FAILURE)
+              .setTitleId(R.string.bookmarks_convert_error_title)
+              .setMessageId(R.string.purchase_error_subtitle)
+              .setPositiveBtnId(R.string.back)
+              .build();
+          alertDialog.show(dialog, name());
+        }
+      },
+  PRODUCT_DETAILS_FAILURE
+      {
+        @Override
+        void activate(@NonNull AdsRemovalPurchaseDialog dialog)
+        {
+          AlertDialog alertDialog = new AlertDialog.Builder()
+              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PAYMENT_FAILURE)
+              .setTitleId(R.string.bookmarks_convert_error_title)
+              .setMessageId(R.string.discovery_button_other_error_message)
+              .setPositiveBtnId(R.string.ok)
+              .build();
+          alertDialog.show(dialog, name());
+        }
+      },
+  VALIDATION_FINISH
+      {
+        @Override
+        void activate(@NonNull AdsRemovalPurchaseDialog dialog)
+        {
+          dialog.dismissAllowingStateLoss();
+        }
+      };
 
   private static void alignPayButtonBelow(@NonNull View view, @IdRes int anchor)
   {
