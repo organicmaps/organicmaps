@@ -24,6 +24,15 @@ public class EventLoggerAggregator extends ContextDependentEventLogger
   }
 
   @Override
+  public void initialize()
+  {
+    for (Map.Entry<Class<? extends EventLogger>, ? extends EventLogger> each : mLoggers.entrySet())
+    {
+      each.getValue().initialize();
+    }
+  }
+
+  @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
     for (Map.Entry<Class<? extends EventLogger>, ? extends EventLogger> each : mLoggers.entrySet())

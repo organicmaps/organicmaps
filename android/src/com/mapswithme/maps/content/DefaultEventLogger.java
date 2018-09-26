@@ -15,6 +15,12 @@ public class DefaultEventLogger extends ContextDependentEventLogger
   }
 
   @Override
+  public void initialize()
+  {
+    /* Do nothing */
+  }
+
+  @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
     /* Do nothing */

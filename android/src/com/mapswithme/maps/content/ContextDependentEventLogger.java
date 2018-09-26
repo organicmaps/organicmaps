@@ -8,7 +8,7 @@ abstract class ContextDependentEventLogger implements EventLogger
   @NonNull
   private final Application mApplication;
 
-  protected ContextDependentEventLogger(@NonNull Application application)
+  ContextDependentEventLogger(@NonNull Application application)
   {
     mApplication = application;
   }

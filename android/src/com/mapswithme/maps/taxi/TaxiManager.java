@@ -40,7 +40,7 @@ public class TaxiManager
   @MainThread
   void onTaxiProvidersReceived(@NonNull TaxiInfo[] providers)
   {
-    if (!UiThread.currentThreadIsUi())
+    if (!UiThread.isUiThreadNow())
       throw new AssertionError("Must be called from UI thread!");
 
     if (providers.length == 0)
@@ -64,7 +64,7 @@ public class TaxiManager
   @MainThread
   void onTaxiErrorsReceived(@NonNull TaxiInfoError[] errors)
   {
-    if (!UiThread.currentThreadIsUi())
+    if (!UiThread.isUiThreadNow())
       throw new AssertionError("Must be called from UI thread!");
 
     if (errors.length == 0)

@@ -135,6 +135,8 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
     mMediator = new ExternalLibrariesMediator(this);
+    mMediator.initSensitiveDataToleranceLibraries();
+    mMediator.initSensitiveDataStrictLibrariesAsync();
     mStatistics = new Statistics(mMediator);
     mVisibleAppLaunchListener = new VisibleAppLaunchListener(this);
 
@@ -325,9 +327,9 @@ public class MwmApplication extends Application
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
   {
     @NonNull
-    private final MwmApplication mApplication;
+    private final Application mApplication;
 
-    VisibleAppLaunchListener(@NonNull MwmApplication application)
+    VisibleAppLaunchListener(@NonNull Application application)
     {
       mApplication = application;
     }

@@ -224,22 +224,22 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private void initIntentProcessors()
   {
-    mIntentProcessors = new IntentProcessor[]{
-            Factory.createGeoIntentProcessor(),
-            Factory.createHttpGe0IntentProcessor(),
-            Factory.createGe0IntentProcessor(),
-            Factory.createMapsWithMeIntentProcessor(getApplication()),
-            Factory.createGoogleMapsIntentProcessor(),
-            Factory.createOldLeadUrlProcessor(),
-            Factory.createDlinkBookmarkCatalogueProcessor(),
-            Factory.createMapsmeBookmarkCatalogueProcessor(),
-            Factory.createOldCoreLinkAdapterProcessor(),
-            Factory.createOpenCountryTaskProcessor(),
-            Factory.createMapsmeProcessor(),
-            Factory.createKmzKmlProcessor(this),
-            Factory.createShowOnMapProcessor(),
-            Factory.createBuildRouteProcessor()
-        };
+    mIntentProcessors = new IntentProcessor[] {
+        Factory.createGeoIntentProcessor(),
+        Factory.createHttpGe0IntentProcessor(),
+        Factory.createGe0IntentProcessor(),
+        Factory.createMapsWithMeIntentProcessor(getApplication()),
+        Factory.createGoogleMapsIntentProcessor(),
+        Factory.createOldLeadUrlProcessor(),
+        Factory.createDlinkBookmarkCatalogueProcessor(),
+        Factory.createMapsmeBookmarkCatalogueProcessor(),
+        Factory.createOldCoreLinkAdapterProcessor(),
+        Factory.createOpenCountryTaskProcessor(),
+        Factory.createMapsmeProcessor(),
+        Factory.createKmzKmlProcessor(this),
+        Factory.createShowOnMapProcessor(),
+        Factory.createBuildRouteProcessor()
+    };
   }
 
   @Override

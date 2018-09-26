@@ -8,6 +8,7 @@ import java.util.Map;
 
 public interface EventLogger
 {
+  void initialize();
   void sendTags(@NonNull String tag, @Nullable String[] params);
   void logEvent(@NonNull String event, @NonNull Map<String, String> params);
   void startActivity(@NonNull Activity context);

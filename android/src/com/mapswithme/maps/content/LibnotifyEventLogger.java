@@ -17,15 +17,17 @@ import java.util.Map;
 
 public class LibnotifyEventLogger extends DefaultEventLogger
 {
-  private final NotificationApi mApi;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private NotificationApi mApi;
 
-  protected LibnotifyEventLogger(@NonNull Application application)
+  LibnotifyEventLogger(@NonNull Application application)
   {
     super(application);
-    mApi = initLibnotify();
   }
 
-  private NotificationApi initLibnotify()
+  @Override
+  public void initialize()
   {
     if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
     {
@@ -39,7 +41,7 @@ public class LibnotifyEventLogger extends DefaultEventLogger
     NotificationFactory.setNetworkSyncMode(NetworkSyncMode.WIFI_ONLY);
     NotificationFactory.setBackgroundAwakeMode(BackgroundAwakeMode.DISABLED);
     NotificationFactory.initialize(getApplication());
-    return NotificationFactory.get(getApplication());
+    mApi = NotificationFactory.get(getApplication());
   }
 
   @Override

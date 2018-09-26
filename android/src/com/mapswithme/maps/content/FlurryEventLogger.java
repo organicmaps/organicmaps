@@ -16,10 +16,10 @@ public class FlurryEventLogger extends DefaultEventLogger
   FlurryEventLogger(@NonNull Application application)
   {
     super(application);
-    initFlurry();
   }
 
-  private void initFlurry()
+  @Override
+  public void initialize()
   {
     //noinspection ConstantConditions
     FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
@@ -42,13 +42,13 @@ public class FlurryEventLogger extends DefaultEventLogger
   public void startActivity(@NonNull Activity context)
   {
     super.startActivity(context);
-    FlurryAgent.onEndSession(context.getApplicationContext());
+    FlurryAgent.onStartSession(context.getApplicationContext());
   }
 
   @Override
   public void stopActivity(@NonNull Activity context)
   {
     super.stopActivity(context);
-    FlurryAgent.onStartSession(context.getApplicationContext());
+    FlurryAgent.onEndSession(context.getApplicationContext());
   }
 }

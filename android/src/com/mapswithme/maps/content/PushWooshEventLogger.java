@@ -22,10 +22,10 @@ public class PushWooshEventLogger extends DefaultEventLogger
   PushWooshEventLogger(@NonNull Application application)
   {
     super(application);
-    initPushWoosh();
   }
 
-  private void initPushWoosh()
+  @Override
+  public void initialize()
   {
     try
     {

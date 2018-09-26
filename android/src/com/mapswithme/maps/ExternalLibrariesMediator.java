@@ -1,7 +1,7 @@
 package com.mapswithme.maps;
 
+import android.app.Application;
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
@@ -13,12 +13,13 @@ import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.mapswithme.maps.bookmarks.OperationStatus;
 import com.mapswithme.maps.content.DefaultEventLogger;
 import com.mapswithme.maps.content.EventLogger;
 import com.mapswithme.maps.content.EventLoggerAggregator;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
 import io.fabric.sdk.android.Fabric;
@@ -29,43 +30,45 @@ public class ExternalLibrariesMediator
 {
   private boolean mCrashlyticsInitialized;
 
+  private static final String TAG = ExternalLibrariesMediator.class.getSimpleName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+
   @NonNull
-  private final MwmApplication mApplication;
+  private final Application mApplication;
 
   @NonNull
   private volatile EventLogger mEventLogger;
 
-  public ExternalLibrariesMediator(@NonNull MwmApplication application)
+  public ExternalLibrariesMediator(@NonNull Application application)
   {
     mApplication = application;
     mEventLogger = new DefaultEventLogger(application);
-    initSensitiveDataToleranceLibraries();
-    initSensitiveDataStrictLibrariesAsync();
   }
 
-  private void initSensitiveDataToleranceLibraries()
+  public void initSensitiveDataToleranceLibraries()
   {
     initMoPub();
     initCrashlytics();
     initAppsFlyer();
   }
 
-  private void initSensitiveDataStrictLibrariesAsync()
+  public void initSensitiveDataStrictLibrariesAsync()
   {
     GetAdInfoTask getAdInfoTask = new GetAdInfoTask(this);
     getAdInfoTask.execute();
   }
 
-  private void initSensitiveDataStrictLibraries()
+  private void initSensitiveEventLogger()
   {
-    if (Looper.getMainLooper().getThread() != Thread.currentThread())
+    if (com.mapswithme.util.concurrency.UiThread.isUiThreadNow())
     {
-      throw new IllegalStateException("Must be call from Ui thread");
+      mEventLogger = new EventLoggerAggregator(mApplication);
+      mEventLogger.initialize();
+      return;
     }
 
-    mEventLogger = new EventLoggerAggregator(mApplication);
+    throw new IllegalStateException("Must be call from Ui thread");
   }
-
 
   private void initAppsFlyer()
   {
@@ -142,7 +145,7 @@ public class ExternalLibrariesMediator
     MoPub.initializeSdk(mApplication, sdkConfiguration, null);
   }
 
-  private static class GetAdInfoTask extends AsyncTask<Void, Void, OperationStatus<Boolean, Throwable>>
+  private static class GetAdInfoTask extends AsyncTask<Void, Void, Boolean>
   {
     @NonNull
     private final ExternalLibrariesMediator mMediator;
@@ -153,16 +156,16 @@ public class ExternalLibrariesMediator
     }
 
     @Override
-    protected OperationStatus<Boolean, Throwable> doInBackground(Void... voids)
+    protected Boolean doInBackground(Void... voids)
     {
       try
       {
-        boolean trackingEnabled = isAdvertisingTrackingEnabled();
-        return new OperationStatus<>(trackingEnabled, null);
+        return isAdvertisingTrackingEnabled();
       }
       catch (GooglePlayServicesNotAvailableException | IOException | GooglePlayServicesRepairableException e)
       {
-        return new OperationStatus<>(false, e);
+        LOGGER.e(TAG, e.getMessage());
+        return false;
       }
     }
 
@@ -175,11 +178,16 @@ public class ExternalLibrariesMediator
     }
 
     @Override
-    protected void onPostExecute(OperationStatus<Boolean, Throwable> status)
+    protected void onPostExecute(Boolean status)
     {
       super.onPostExecute(status);
-      if (status.isOk() && status.getResult() != null && status.getResult())
-        mMediator.initSensitiveDataStrictLibraries();
+      if (status != null && status)
+        onEnabled();
+    }
+
+    private void onEnabled()
+    {
+      mMediator.initSensitiveEventLogger();
     }
   }
 

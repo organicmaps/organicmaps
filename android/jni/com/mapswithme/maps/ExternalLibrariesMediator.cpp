@@ -16,6 +16,6 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_ExternalLibrariesMediator_nativeInitCrashlytics(JNIEnv * env, jclass clazz)
 {
-    ASSERT(!g_crashlytics, ());
-    g_crashlytics = crashlytics_init();
+  ASSERT(!g_crashlytics, ());
+  g_crashlytics = crashlytics_init();
 }

@@ -3,15 +3,13 @@ package com.mapswithme.util.concurrency;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.mapswithme.util.Utils;
-
 public class UiThread
 {
   private static final Handler sUiHandler = new Handler(Looper.getMainLooper());
 
-  public static boolean currentThreadIsUi()
+  public static boolean isUiThreadNow()
   {
-    return sUiHandler.getLooper().getThread() == Thread.currentThread();
+    return Looper.getMainLooper().getThread() == Thread.currentThread();
   }
 
   /**
@@ -21,7 +19,7 @@ public class UiThread
    */
   public static void run(Runnable task)
   {
-    if (currentThreadIsUi())
+    if (isUiThreadNow())
       task.run();
     else
       sUiHandler.post(task);
