@@ -23,9 +23,9 @@ using SpeedKMpH = VehicleModel::SpeedKMpH;
 //                                                      in city            out city
 InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(115.37), SpeedKMpH(115.37));
 InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(60.0),   SpeedKMpH(60.0));
-InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(80.0),   SpeedKMpH(93.89));
+InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(80.0),   SpeedKMpH(100.0));
 InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(50.0),   SpeedKMpH(50.0));
-InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(60.0),   SpeedKMpH(84.29));
+InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(60.0),   SpeedKMpH(90.0));
 InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(30.0),   SpeedKMpH(60.0));
 InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(45.0),   SpeedKMpH(72.23));
 InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(50.0));
