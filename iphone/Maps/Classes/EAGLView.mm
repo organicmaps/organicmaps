@@ -57,13 +57,14 @@ double getExactDPI(double contentScaleFactor)
 
 - (dp::ApiVersion)getSupportedApiVersion
 {
+#ifndef OMIM_OS_IPHONE_SIMULATOR
   if (GetFramework().LoadMetalAllowed())
   {
     id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
     if (tempDevice)
       return dp::ApiVersion::Metal;
   }
-  
+#endif
   EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
   if (tempContext != nil)
     return dp::ApiVersion::OpenGLES3;
@@ -95,10 +96,12 @@ double getExactDPI(double contentScaleFactor)
   m2::PointU const s = [self pixelSize];
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
+#ifndef OMIM_OS_IPHONE_SIMULATOR
     CHECK(self.metalView != nil, ());
     CHECK_EQUAL(self.bounds.size.width, self.metalView.bounds.size.width, ());
     CHECK_EQUAL(self.bounds.size.height, self.metalView.bounds.size.height, ());
     m_factory = make_unique_dp<MetalContextFactory>(self.metalView, s);
+#endif
   }
   else
   {

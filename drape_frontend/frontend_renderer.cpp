@@ -46,7 +46,7 @@
 
 using namespace std::placeholders;
 
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
 namespace dp
 {
 extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);

@@ -206,7 +206,7 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Metal)
     {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
       m_impl = CreateImplForMetal(make_ref(this));
 #endif
     }

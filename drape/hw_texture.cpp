@@ -253,7 +253,7 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     return CreateMetalAllocator();
 #endif
     CHECK(false, ("Metal rendering is supported now only on iOS."));
@@ -275,7 +275,7 @@ ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> con
   CHECK(context != nullptr, ());
   if (context->GetApiVersion() == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     return GetDefaultMetalAllocator();
 #endif
     CHECK(false, ("Metal rendering is supported now only on iOS."));

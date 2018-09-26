@@ -153,7 +153,7 @@ MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawP
   }
   else if (apiVersion == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     InitForMetal();
 #endif
   }

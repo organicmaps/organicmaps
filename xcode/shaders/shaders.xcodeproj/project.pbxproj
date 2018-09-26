@@ -425,6 +425,7 @@
 				4566606A20E254060085E8C1 /* Sources */,
 				4566606B20E254060085E8C1 /* Frameworks */,
 				4566606C20E254060085E8C1 /* CopyFiles */,
+				BB529C26215BE1CA0088A2A5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -533,6 +534,19 @@
 			shellPath = /bin/sh;
 			shellScript = "python ${SRCROOT}/../../shaders/gl_shaders_preprocessor.py ${SRCROOT}/../../shaders/GL shader_index.txt programs.hpp shaders_lib.glsl ${SRCROOT}/../../shaders gl_shaders";
 		};
+		BB529C26215BE1CA0088A2A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch ${BUILT_PRODUCTS_DIR}/shaders_metal.metallib";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -622,12 +636,23 @@
 		4566607820E254060085E8C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
 			};
 			name = Debug;
 		};
 		4566607920E254060085E8C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
 			};
 			name = Release;
 		};
@@ -647,6 +672,11 @@
 		4566607E20E2552D0085E8C1 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
 			};
 			name = "Production Full";
 		};
@@ -698,18 +728,21 @@
 		4598438021394BE000F8CAB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Debug;
 		};
 		4598438121394BE000F8CAB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Release;
 		};
 		4598438221394BE000F8CAB2 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = "Production Full";
 		};

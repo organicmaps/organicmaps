@@ -618,7 +618,7 @@
 /* Begin XCBuildConfiguration section */
 		6729A4FA1A691F6A007D5872 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34AF87C91DBE4F4900E5E7DC /* common-debug.xcconfig */;
+			baseConfigurationReference = 34AF87CA1DBE4F4900E5E7DC /* common-release.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				GCC_OPTIMIZATION_LEVEL = 2;
@@ -660,6 +660,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
@@ -671,6 +681,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
@@ -701,6 +721,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";

@@ -45,7 +45,7 @@ private:
     } \
   }
 
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
 #define ALIGNMENT __attribute__ ((aligned(16)))
 #else
 #define ALIGNMENT

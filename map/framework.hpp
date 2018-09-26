@@ -774,7 +774,7 @@ public:
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);
 
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
   bool LoadMetalAllowed();
   void SaveMetalAllowed(bool allowed);
 #endif

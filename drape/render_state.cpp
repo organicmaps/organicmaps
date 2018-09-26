@@ -14,7 +14,7 @@ std::string const kColorTextureName = "u_colorTex";
 std::string const kMaskTextureName = "u_maskTex";
 }  // namespace
 
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
 // Definitions of these methods are in a .mm-file.
 extern void ApplyDepthStencilStateForMetal(ref_ptr<GraphicsContext> context);
 extern void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,
@@ -220,7 +220,7 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
   }
   else if (apiVersion == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     ApplyTexturesForMetal(context, program, state);
 #endif
   }
@@ -245,7 +245,7 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
   if (apiVersion == dp::ApiVersion::Metal)
   {
     // For Metal rendering blending state is a part of the pipeline state.
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     ApplyPipelineStateForMetal(context, program, state.GetBlending().m_isEnabled);
 #endif
   }
@@ -261,7 +261,7 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
   if (apiVersion == dp::ApiVersion::Metal)
   {
     // For Metal rendering we have to apply depth-stencil state after SetX functions calls.
-#if defined(OMIM_OS_IPHONE)
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
     ApplyDepthStencilStateForMetal(context);
 #endif
   }
