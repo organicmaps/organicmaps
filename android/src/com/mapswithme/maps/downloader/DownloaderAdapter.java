@@ -1,7 +1,6 @@
 package com.mapswithme.maps.downloader;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -88,21 +87,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       @Override
       void invoke(final CountryItem item, DownloaderAdapter adapter)
       {
-        Activity activity = adapter.mActivity;
-        Application app = activity.getApplication();
-        MapManager.warn3gAndDownload(activity, item.id, new Runnable()
+        MapManager.warn3gAndDownload(adapter.mActivity, item.id, new Runnable()
         {
           @Override
           public void run()
           {
-            Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                            Statistics.params()
-                                                      .add(Statistics.EventParam.ACTION, "download")
-                                                      .add(Statistics.EventParam.FROM, "downloader")
-                                                      .add("is_auto", "false")
-                                                      .add("scenario", (item.isExpandable()
-                                                                        ? "download_group"
-                                                                        : "download")));
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "download")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (item.isExpandable() ? "download_group"
+                                                                                                    : "download")));
           }
         });
       }
@@ -110,22 +105,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
     DELETE(R.drawable.ic_delete, R.string.delete)
     {
-      private void deleteNode(@NonNull Application application, CountryItem item)
+      private void deleteNode(CountryItem item)
       {
         MapManager.nativeCancel(item.id);
         MapManager.nativeDelete(item.id);
         OnmapDownloader.setAutodownloadLocked(true);
 
-        Statistics.ParameterBuilder builder = Statistics.params()
-                                                    .add(Statistics.EventParam.ACTION,
-                                                         "delete")
-                                                    .add(Statistics.EventParam.FROM,
-                                                         "downloader")
-                                                    .add("scenario",
-                                                         (item.isExpandable()
-                                                          ? "delete_group"
-                                                          : "delete"));
-        Statistics.from(application).trackEvent(Statistics.EventName.DOWNLOADER_ACTION, builder);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "delete")
+                                                          .add(Statistics.EventParam.FROM, "downloader")
+                                                          .add("scenario", (item.isExpandable() ? "delete_group"
+                                                                                                : "delete")));
       }
 
       @Override
@@ -167,7 +157,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         {
           ((MwmActivity) adapter.mActivity).closePlacePage();
         }
-        deleteNode(adapter.mActivity.getApplication(), item);
+        deleteNode(item);
       }
     },
 
@@ -177,9 +167,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       void invoke(CountryItem item, DownloaderAdapter adapter)
       {
         MapManager.nativeCancel(item.id);
-        Application app = adapter.mActivity.getApplication();
-        Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                        Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                       Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
       }
     },
 
@@ -196,9 +185,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (!(adapter.mActivity instanceof MwmActivity))
           adapter.mActivity.finish();
 
-        Application app = adapter.mActivity.getApplication();
-        Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                                                       Statistics.params().add(Statistics.EventParam.ACTION, "explore")
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                       Statistics.params().add(Statistics.EventParam.ACTION, "explore")
                                                           .add(Statistics.EventParam.FROM, "downloader"));
       }
     },
@@ -213,22 +201,19 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         if (item.status != CountryItem.STATUS_UPDATABLE)
           return;
 
-        Activity activity = adapter.mActivity;
-        Application app = activity.getApplication();
-        MapManager.warnOn3gUpdate(activity, item.id, new Runnable()
+        MapManager.warnOn3gUpdate(adapter.mActivity, item.id, new Runnable()
         {
           @Override
           public void run()
           {
             MapManager.nativeUpdate(item.id);
 
-            Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                            Statistics.params()
-                                                      .add(Statistics.EventParam.ACTION, "update")
-                                                      .add(Statistics.EventParam.FROM, "downloader")
-                                                      .add("is_auto", "false")
-                                                      .add("scenario", (item.isExpandable() ?
-                                                                        "update_group" : "update")));
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (item.isExpandable() ? "update_group"
+                                                                                                    : "update")));
           }
         });
       }
@@ -412,33 +397,26 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_UPDATABLE:
-        onStatusUpdatable();
+        MapManager.warnOn3gUpdate(mActivity, mItem.id, new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            MapManager.nativeUpdate(mItem.id);
+
+            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                           Statistics.params().add(Statistics.EventParam.ACTION, "update")
+                                                              .add(Statistics.EventParam.FROM, "downloader")
+                                                              .add("is_auto", "false")
+                                                              .add("scenario", (mItem.isExpandable() ? "update_group"
+                                                                                                     : "update")));
+          }
+        });
         break;
 
       default:
         throw new IllegalArgumentException("Inappropriate item status: " + mItem.status);
       }
-    }
-
-    private void onStatusUpdatable()
-    {
-      MapManager.warnOn3gUpdate(mActivity, mItem.id, new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          MapManager.nativeUpdate(mItem.id);
-          Application app = mActivity.getApplication();
-          Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                          Statistics.params()
-                                                    .add(Statistics.EventParam.ACTION, "update")
-                                                    .add(Statistics.EventParam.FROM, "downloader")
-                                                    .add("is_auto", "false")
-                                                    .add("scenario", (mItem.isExpandable()
-                                                                      ? "update_group"
-                                                                      : "update")));
-        }
-      });
     }
 
     private void processLongClick()
@@ -541,10 +519,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         public void onClick(View v)
         {
           MapManager.nativeCancel(mItem.id);
-          Application app = mActivity.getApplication();
-          Statistics.from(app).trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                          Statistics.params()
-                                                    .add(Statistics.EventParam.FROM, "downloader"));
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                         Statistics.params().add(Statistics.EventParam.FROM, "downloader"));
         }
       });
 

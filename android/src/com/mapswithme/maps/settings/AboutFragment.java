@@ -88,37 +88,37 @@ public class AboutFragment extends BaseSettingsFragment
       switch (v.getId())
       {
       case R.id.web:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.WEB_SITE);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.WEB_SITE);
         AlohaHelper.logClick(AlohaHelper.Settings.WEB_SITE);
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
         break;
 
       case R.id.facebook:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.FACEBOOK);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.FACEBOOK);
         AlohaHelper.logClick(AlohaHelper.Settings.FACEBOOK);
         Utils.showFacebookPage(getActivity());
         break;
 
       case R.id.twitter:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.TWITTER);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TWITTER);
         AlohaHelper.logClick(AlohaHelper.Settings.TWITTER);
         Utils.showTwitterPage(getActivity());
         break;
 
       case R.id.rate:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.RATE);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.RATE);
         AlohaHelper.logClick(AlohaHelper.Settings.RATE);
         Utils.openAppInMarket(getActivity(), BuildConfig.REVIEW_URL);
         break;
 
       case R.id.share:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.TELL_FRIEND);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TELL_FRIEND);
         AlohaHelper.logClick(AlohaHelper.Settings.TELL_FRIEND);
         ShareOption.ANY.share(getActivity(), getString(R.string.tell_friends_text), R.string.tell_friends);
         break;
 
       case R.id.copyright:
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.Settings.COPYRIGHT);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.COPYRIGHT);
         AlohaHelper.logClick(AlohaHelper.Settings.COPYRIGHT);
         getSettingsActivity().replaceFragment(CopyrightFragment.class,
                                               getString(R.string.copyright), null);

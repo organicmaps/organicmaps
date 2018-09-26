@@ -59,9 +59,8 @@ public class MwmApplication extends Application
 
   private Handler mMainLoopHandler;
   private final Object mMainQueueToken = new Object();
-  @SuppressWarnings("NullableProblems")
   @NonNull
-  private AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener;
+  private final AppBackgroundTracker.OnVisibleAppLaunchListener mVisibleAppLaunchListener = new VisibleAppLaunchListener();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ConnectivityListener mConnectivityListener;
@@ -137,8 +136,7 @@ public class MwmApplication extends Application
     mMediator = new ExternalLibrariesMediator(this);
     mMediator.initSensitiveDataToleranceLibraries();
     mMediator.initSensitiveDataStrictLibrariesAsync();
-    mStatistics = new Statistics(mMediator);
-    mVisibleAppLaunchListener = new VisibleAppLaunchListener(this);
+    Statistics.INSTANCE.setMediator(mMediator);
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     initNotificationChannels();
@@ -201,7 +199,7 @@ public class MwmApplication extends Application
     Config.setStatisticsEnabled(SharedPropertiesUtils.isStatisticsEnabled());
 
     @SuppressWarnings("unused")
-    Statistics s = Statistics.from(this);
+    Statistics s = Statistics.INSTANCE;
 
     if (!isInstallationIdFound)
       mMediator.setInstallationIdToCrashlytics();
@@ -238,8 +236,8 @@ public class MwmApplication extends Application
     TtsPlayer.INSTANCE.init(this);
     ThemeSwitcher.restart(false);
     LocationHelper.INSTANCE.initialize();
-    RoutingController.get().initialize(this);
-    TrafficManager.INSTANCE.initialize(this);
+    RoutingController.get().initialize();
+    TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
     mFrameworkInitialized = true;
   }
@@ -326,18 +324,10 @@ public class MwmApplication extends Application
 
   private static class VisibleAppLaunchListener implements AppBackgroundTracker.OnVisibleAppLaunchListener
   {
-    @NonNull
-    private final Application mApplication;
-
-    VisibleAppLaunchListener(@NonNull Application application)
-    {
-      mApplication = application;
-    }
-
     @Override
     public void onVisibleAppLaunch()
     {
-      Statistics.from(mApplication).trackColdStartupInfo();
+      Statistics.INSTANCE.trackColdStartupInfo();
     }
   }
 
@@ -353,9 +343,7 @@ public class MwmApplication extends Application
           if (MapManager.nativeIsAutoretryFailed())
           {
             notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
-            Statistics statistics = Statistics.from(MwmApplication.this);
-            MapManager.sendErrorStat(statistics, Statistics.EventName.DOWNLOADER_ERROR,
-                                     MapManager.nativeGetError(item.countryId));
+            MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
           }
 
           return;

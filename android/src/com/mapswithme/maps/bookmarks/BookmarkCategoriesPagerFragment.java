@@ -78,7 +78,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     {
       SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), position);
       BookmarksPageFactory factory = mAdapter.getItemFactory(position);
-      Statistics.from(getAppContextOrThrow()).trackBookmarksTabEvent(factory.getAnalytics().getName());
+      Statistics.INSTANCE.trackBookmarksTabEvent(factory.getAnalytics().getName());
     }
   }
 }

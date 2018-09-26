@@ -1,7 +1,5 @@
 package com.mapswithme.util.statistics;
 
-import android.app.Application;
-import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +7,7 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -28,16 +27,12 @@ public class PlacePageTracker
   @Nullable
   private MapObject mMapObject;
   private boolean mTaxiTracked;
-  @NonNull
-  private final Statistics mStatistics;
 
   public PlacePageTracker(@NonNull PlacePageView placePageView)
   {
     mPlacePageView = placePageView;
     mBottomButtons = mPlacePageView.findViewById(R.id.pp__buttons);
     mTaxi = mPlacePageView.findViewById(R.id.ll__place_page_taxi);
-    Application context = (Application) placePageView.getContext().getApplicationContext();
-    mStatistics = Statistics.from(context);
   }
 
   public void setMapObject(@Nullable MapObject mapObject)
@@ -61,14 +56,8 @@ public class PlacePageTracker
     {
       Sponsored sponsored = mPlacePageView.getSponsored();
       if (sponsored != null)
-        getStats().trackSponsoredOpenEvent(sponsored);
+        Statistics.INSTANCE.trackSponsoredOpenEvent(sponsored);
     }
-  }
-
-  @NonNull
-  private Statistics getStats()
-  {
-    return mStatistics;
   }
 
   private void trackTaxiVisibility()
@@ -79,8 +68,8 @@ public class PlacePageTracker
       if (taxiTypes != null && !taxiTypes.isEmpty())
       {
         String providerName = taxiTypes.get(0).getProviderName();
-        getStats().trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP,
-                                  providerName);
+        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP,
+                                           providerName);
         mTaxiTracked = true;
       }
     }

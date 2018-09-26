@@ -1,6 +1,5 @@
 package com.mapswithme.maps.maplayer.traffic;
 
-import android.app.Application;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
@@ -101,13 +100,13 @@ enum TrafficState
     return mAnalyticsParamName;
   }
 
-  public void activate(@NonNull Application context, @NonNull List<TrafficManager.TrafficCallback> trafficCallbacks)
+  public void activate(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks)
   {
     for (TrafficManager.TrafficCallback callback : trafficCallbacks)
     {
       activateInternal(callback);
     }
-    Statistics.from(context).trackTrafficEvent(getAnalyticsParamName());
+    Statistics.INSTANCE.trackTrafficEvent(getAnalyticsParamName());
   }
 
   protected abstract void activateInternal(@NonNull TrafficManager.TrafficCallback callback);

@@ -63,7 +63,7 @@ public class ViralFragment extends BaseMwmDialogFragment
         dismiss();
         if (mDismissListener != null)
           mDismissListener.run();
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
       }
     });
     root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener()
@@ -76,8 +76,8 @@ public class ViralFragment extends BaseMwmDialogFragment
           mDismissListener.run();
       }
     });
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW,
-                                                       Statistics.params().add("showed", mViralText.equals(viralChangesMsg) ? "change" : "rating"));
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW,
+                                   Statistics.params().add("showed", mViralText.equals(viralChangesMsg) ? "change" : "rating"));
     return root;
   }
 

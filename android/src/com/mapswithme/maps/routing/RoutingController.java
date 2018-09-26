@@ -1,7 +1,6 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.DimenRes;
@@ -63,6 +62,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     BUILT,
     ERROR
   }
+
   public interface Container
   {
     FragmentActivity getActivity();
@@ -79,11 +79,11 @@ public class RoutingController implements TaxiManager.TaxiListener
     void onRemovedStop();
     void onBuiltRoute();
     boolean isSubwayEnabled();
+
     /**
      * @param progress progress to be displayed.
      * */
     void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, @Framework.RouterType int router);
-
   }
 
   private static final int NO_WAITING_POI_PICK = -1;
@@ -114,9 +114,6 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private int mInvalidRoutePointsTransactionId;
   private int mRemovingIntermediatePointsTransactionId;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Statistics mStatistics;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
@@ -258,7 +255,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     mContainer = container;
   }
 
-  public void initialize(@NonNull Application application)
+  public void initialize()
   {
     mLastRouterType = Framework.nativeGetLastUsedRouter();
     mInvalidRoutePointsTransactionId = Framework.nativeInvalidRoutePointsTransactionId();
@@ -269,7 +266,6 @@ public class RoutingController implements TaxiManager.TaxiListener
     Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
     TaxiManager.INSTANCE.setTaxiListener(this);
-    mStatistics = Statistics.from(application);
   }
 
   public void detach()
@@ -326,18 +322,12 @@ public class RoutingController implements TaxiManager.TaxiListener
     setBuildState(BuildState.BUILDING);
     updatePlan();
 
-    getStat().trackRouteBuild(mLastRouterType, getStartPoint(), getEndPoint());
+    Statistics.INSTANCE.trackRouteBuild(mLastRouterType, getStartPoint(), getEndPoint());
     org.alohalytics.Statistics.logEvent(AlohaHelper.ROUTING_BUILD,
             new String[]{Statistics.EventParam.FROM, Statistics.getPointType(getStartPoint()),
                          Statistics.EventParam.TO, Statistics.getPointType(getEndPoint())});
 
     Framework.nativeBuildRoute();
-  }
-
-  @NonNull
-  private Statistics getStat()
-  {
-    return mStatistics;
   }
 
   private void completeTaxiRequest()
@@ -488,20 +478,20 @@ public class RoutingController implements TaxiManager.TaxiListener
       trackPointAdd(endPoint, RoutePointInfo.ROUTE_MARK_FINISH, false, false, fromApi);
   }
 
-  private void trackPointAdd(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
+  private static void trackPointAdd(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
                           boolean isPlanning, boolean isNavigating, boolean fromApi)
   {
     boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
-    getStat().trackRoutingPoint(ROUTING_POINT_ADD, type, isPlanning, isNavigating,
-                                isMyPosition, fromApi);
+    Statistics.INSTANCE.trackRoutingPoint(ROUTING_POINT_ADD, type, isPlanning, isNavigating,
+                                          isMyPosition, fromApi);
   }
 
-  private void trackPointRemove(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
+  private static void trackPointRemove(@NonNull MapObject point, @RoutePointInfo.RouteMarkType int type,
                              boolean isPlanning, boolean isNavigating, boolean fromApi)
   {
     boolean isMyPosition = point.getMapObjectType() == MapObject.MY_POSITION;
-    getStat().trackRoutingPoint(ROUTING_POINT_REMOVE, type, isPlanning, isNavigating,
-                                isMyPosition, fromApi);
+    Statistics.INSTANCE.trackRoutingPoint(ROUTING_POINT_REMOVE, type, isPlanning, isNavigating,
+                                          isMyPosition, fromApi);
   }
 
   public void start()
@@ -516,7 +506,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
     if (my == null || !MapObject.isOfType(MapObject.MY_POSITION, getStartPoint()))
     {
-      getStat().trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_START_SUGGEST_REBUILD);
       AlohaHelper.logClick(AlohaHelper.ROUTING_START_SUGGEST_REBUILD);
       suggestRebuildRoute();
       return;
@@ -1019,7 +1009,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     startPoint = endPoint;
     endPoint = point;
 
-    getStat().trackEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SWAP_POINTS);
     AlohaHelper.logClick(AlohaHelper.ROUTING_SWAP_POINTS);
 
     setPointsInternal(startPoint, endPoint);
@@ -1174,8 +1164,8 @@ public class RoutingController implements TaxiManager.TaxiListener
     {
       mContainer.onTaxiInfoReceived(provider);
       completeTaxiRequest();
-      getStat().trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_ROUTE_BUILT,
-                               provider.getType().getProviderName());
+      Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_ROUTE_BUILT,
+                                         provider.getType().getProviderName());
     }
   }
 
@@ -1188,7 +1178,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     {
       mContainer.onTaxiError(error.getCode());
       completeTaxiRequest();
-      getStat().trackTaxiError(error);
+      Statistics.INSTANCE.trackTaxiError(error);
     }
   }
 
@@ -1201,7 +1191,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     {
       mContainer.onTaxiError(TaxiManager.ErrorCode.NoProviders);
       completeTaxiRequest();
-      getStat().trackNoTaxiProvidersError();
+      Statistics.INSTANCE.trackNoTaxiProvidersError();
     }
   }
 }

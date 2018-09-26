@@ -55,13 +55,13 @@ public class BaseActivityDelegate
   public void onStart()
   {
     logLifecycleMethod("onStart()");
-    Statistics.from(mActivity.get().getApplication()).startActivity(mActivity.get());
+    Statistics.INSTANCE.startActivity(mActivity.get());
   }
 
   public void onStop()
   {
     logLifecycleMethod("onStop()");
-    Statistics.from(mActivity.get().getApplication()).stopActivity(mActivity.get());
+    Statistics.INSTANCE.stopActivity(mActivity.get());
   }
 
   public void onResume()

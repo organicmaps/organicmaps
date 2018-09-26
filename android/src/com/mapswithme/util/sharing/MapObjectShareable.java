@@ -13,14 +13,11 @@ import com.mapswithme.util.statistics.Statistics;
 
 class MapObjectShareable extends BaseShareable
 {
-  private final Statistics mStatistics;
-
   MapObjectShareable(Activity context, @NonNull MapObject mapObject, @Nullable Sponsored sponsored)
   {
     super(context);
 
     final Activity activity = getActivity();
-
     final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(),
                                                     mapObject.getScale(), mapObject.getTitle());
     final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(),
@@ -54,7 +51,6 @@ class MapObjectShareable extends BaseShareable
 
     setSubject(subject);
     setText(text);
-    mStatistics = Statistics.from(activity.getApplication());
   }
 
   private String lineWithBreak(String title)
@@ -69,7 +65,7 @@ class MapObjectShareable extends BaseShareable
   public void share(SharingTarget target)
   {
     super.share(target);
-    mStatistics.trackPlaceShared(target.name);
+    Statistics.INSTANCE.trackPlaceShared(target.name);
   }
 
   @Override

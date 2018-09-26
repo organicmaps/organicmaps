@@ -1,8 +1,6 @@
 package com.mapswithme.maps.downloader;
 
-import android.app.Application;
 import android.location.Location;
-import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.statistics.Statistics;
@@ -35,6 +33,33 @@ final class MigrationController
   private String mPrefetchingCountry;
   private int mProgress;
   private int mError;
+
+  private final MapManager.MigrationListener mListener = new MapManager.MigrationListener()
+  {
+    @Override
+    public void onComplete()
+    {
+      mState = State.NOT_NECESSARY;
+      callOnComplete();
+    }
+
+    @Override
+    public void onProgress(int percent)
+    {
+      mProgress = percent;
+      callUpdateProgress();
+    }
+
+    @Override
+    public void onError(int code)
+    {
+      mState = State.ERROR;
+      mError = code;
+      callStateError();
+
+      MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_MIGRATION_ERROR, code);
+    }
+  };
 
   static MigrationController get()
   {
@@ -116,7 +141,7 @@ final class MigrationController
     }
   }
 
-  void start(@NonNull Application application, boolean keepOld)
+  void start(boolean keepOld)
   {
     if (mState == State.PROGRESS)
       return;
@@ -125,8 +150,7 @@ final class MigrationController
     double lat = (loc == null ? 0.0 : loc.getLatitude());
     double lon = (loc == null ? 0.0 : loc.getLongitude());
 
-    MigrationListenerImpl listener = new MigrationListenerImpl(application, this);
-    mPrefetchingCountry = MapManager.nativeMigrate(listener, lat, lon, (loc != null), keepOld);
+    mPrefetchingCountry = MapManager.nativeMigrate(mListener, lat, lon, (loc != null), keepOld);
     if (mPrefetchingCountry == null)
       return;
 
@@ -142,44 +166,5 @@ final class MigrationController
     callStateReady();
 
     MapManager.nativeCancelMigration();
-  }
-
-  private static class MigrationListenerImpl implements MapManager.MigrationListener
-  {
-    @NonNull
-    private final Statistics mStatistics;
-    @NonNull
-    private final MigrationController mMigrationController;
-
-    MigrationListenerImpl(@NonNull Application application,
-                          @NonNull MigrationController migrationController)
-    {
-      mStatistics = Statistics.from(application);
-      mMigrationController = migrationController;
-    }
-
-    @Override
-    public void onComplete()
-    {
-      mMigrationController.mState = State.NOT_NECESSARY;
-      mMigrationController.callOnComplete();
-    }
-
-    @Override
-    public void onProgress(int percent)
-    {
-      mMigrationController.mProgress = percent;
-      mMigrationController.callUpdateProgress();
-    }
-
-    @Override
-    public void onError(int code)
-    {
-      mMigrationController.mState = State.ERROR;
-      mMigrationController.mError = code;
-      mMigrationController.callStateError();
-
-      MapManager.sendErrorStat(mStatistics, Statistics.EventName.DOWNLOADER_MIGRATION_ERROR, code);
-    }
   }
 }

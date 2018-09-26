@@ -63,7 +63,7 @@ public final class MapManager
 
   private MapManager() {}
 
-  public static void sendErrorStat(@NonNull Statistics statistics, String event, int code)
+  public static void sendErrorStat(String event, int code)
   {
     String text;
     switch (code)
@@ -80,7 +80,7 @@ public final class MapManager
       text = "unknown_error";
     }
 
-    statistics.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
+    Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
   }
 
   public static void showError(final Activity activity, final StorageCallbackData errorData,

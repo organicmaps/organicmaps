@@ -110,7 +110,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
       mListener.onCategoryChanged(newCategory);
     }
     dismiss();
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.BM_GROUP_CREATED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CREATED);
   }
 
   @Override
@@ -123,7 +123,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
       mListener.onCategoryChanged(category);
     }
     dismiss();
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.BM_GROUP_CHANGED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CHANGED);
   }
 
   @Override

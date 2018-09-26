@@ -46,7 +46,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
 {
   private static final String TAG = BookmarkBackupController.class.getSimpleName();
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-
   @NonNull
   private final FragmentActivity mContext;
   @NonNull
@@ -60,7 +59,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     public void onClick(View v)
     {
       mAuthorizer.authorize();
-      getStat().trackBmSyncProposalApproved(false);
+      Statistics.INSTANCE.trackBmSyncProposalApproved(false);
     }
   };
   @NonNull
@@ -71,25 +70,22 @@ public class BookmarkBackupController implements Authorizer.Callback,
     {
       BookmarkManager.INSTANCE.setCloudEnabled(true);
       updateWidget();
-      getStat().trackBmSyncProposalApproved(mAuthorizer.isAuthorized());
+      Statistics.INSTANCE.trackBmSyncProposalApproved(mAuthorizer.isAuthorized());
     }
   };
   @NonNull
   private final View.OnClickListener mRestoreClickListener = v ->
   {
     requestRestoring();
-    getStat().trackBmRestoreProposalClick();
+    Statistics.INSTANCE.trackBmRestoreProposalClick();
   };
   @Nullable
   private ProgressDialog mRestoringProgressDialog;
   @NonNull
   private final DialogInterface.OnClickListener mRestoreCancelListener = (dialog, which) -> {
-    getStat().trackEvent(BM_RESTORE_PROPOSAL_CANCEL);
+    Statistics.INSTANCE.trackEvent(BM_RESTORE_PROPOSAL_CANCEL);
     BookmarkManager.INSTANCE.cancelRestoring();
   };
-
-  @NonNull
-  private final Statistics mStatistics;
 
   BookmarkBackupController(@NonNull FragmentActivity context, @NonNull BookmarkBackupView backupView,
                            @NonNull Authorizer authorizer)
@@ -97,13 +93,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
     mContext = context;
     mBackupView = backupView;
     mAuthorizer = authorizer;
-    mStatistics = Statistics.from(context.getApplication());
-  }
-
-  @NonNull
-  private Statistics getStat()
-  {
-    return mStatistics;
   }
 
   private void requestRestoring()
@@ -166,7 +155,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
         mBackupView.setBackupClickListener(mSignInClickListener);
         mBackupView.showBackupButton();
         mBackupView.hideRestoreButton();
-        getStat().trackBmSyncProposalShown(mAuthorizer.isAuthorized());
+        Statistics.INSTANCE.trackBmSyncProposalShown(mAuthorizer.isAuthorized());
       }
       return;
     }
@@ -200,7 +189,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     mBackupView.setBackupClickListener(mEnableClickListener);
     mBackupView.showBackupButton();
     mBackupView.hideRestoreButton();
-    getStat().trackBmSyncProposalShown(mAuthorizer.isAuthorized());
+    Statistics.INSTANCE.trackBmSyncProposalShown(mAuthorizer.isAuthorized());
   }
 
   public void onStart()
@@ -239,12 +228,12 @@ public class BookmarkBackupController implements Authorizer.Callback,
       final Notifier notifier = Notifier.from(mContext.getApplication());
       notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
       BookmarkManager.INSTANCE.setCloudEnabled(true);
-      getStat().trackEvent(Statistics.EventName.BM_SYNC_PROPOSAL_ENABLED);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_PROPOSAL_ENABLED);
     }
     else
     {
       Toast.makeText(mContext, R.string.profile_authorization_error, Toast.LENGTH_LONG).show();
-      getStat().trackBmSyncProposalError(Framework.TOKEN_MAPSME, "Unknown error");
+      Statistics.INSTANCE.trackBmSyncProposalError(Framework.TOKEN_MAPSME, "Unknown error");
     }
     updateWidget();
   }
@@ -254,14 +243,14 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.w(TAG, "onSocialAuthenticationError, type: " + Statistics.getAuthProvider(type) +
                   " error: " + error);
-    getStat().trackBmSyncProposalError(type, error);
+    Statistics.INSTANCE.trackBmSyncProposalError(type, error);
   }
 
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
     LOGGER.i(TAG, "onSocialAuthenticationCancel, type: " + Statistics.getAuthProvider(type));
-    getStat().trackBmSyncProposalError(type, "Cancel");
+    Statistics.INSTANCE.trackBmSyncProposalError(type, "Cancel");
   }
 
   @Override
@@ -271,7 +260,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     switch (type)
     {
       case CLOUD_BACKUP:
-        getStat().trackEvent(Statistics.EventName.BM_SYNC_STARTED);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_STARTED);
         break;
       case CLOUD_RESTORE:
         showRestoringProgressDialog();
@@ -289,7 +278,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.d(TAG, "onSynchronizationFinished, type: " + Statistics.getSynchronizationType(type)
                   + ", result: " + result + ", errorString = " + errorString);
-    getStat().trackBmSynchronizationFinish(type, result, errorString);
+    Statistics.INSTANCE.trackBmSynchronizationFinish(type, result, errorString);
     hideRestoringProgressDialog();
 
     updateWidget();
@@ -330,7 +319,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.d(TAG, "onRestoreRequested, result: " + result + ", deviceName = " + deviceName +
                   ", backupTimestampInMs = " + backupTimestampInMs);
-    getStat().trackBmRestoringRequestResult(result);
+    Statistics.INSTANCE.trackBmRestoringRequestResult(result);
     hideRestoringProgressDialog();
 
     switch (result)

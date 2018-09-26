@@ -1,6 +1,5 @@
 package com.mapswithme.maps.maplayer.traffic;
 
-import android.app.Application;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
@@ -29,16 +28,11 @@ public enum TrafficManager
 
   private boolean mInitialized = false;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Application mContext;
-
-  public void initialize(@NonNull Application context)
+  public void initialize()
   {
     mLogger.d(TAG, "Initialization of traffic manager and setting the listener for traffic state changes");
     TrafficState.nativeSetListener(mStateChangeListener);
     mInitialized = true;
-    mContext = context;
   }
 
   public void toggle()
@@ -139,7 +133,7 @@ public enum TrafficManager
         return;
 
       mState = newTrafficState;
-      mState.activate(mContext, mCallbacks);
+      mState.activate(mCallbacks);
     }
   }
 

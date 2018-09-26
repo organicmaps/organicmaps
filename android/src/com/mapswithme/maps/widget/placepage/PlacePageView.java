@@ -303,8 +303,8 @@ public class PlacePageView extends RelativeLayout
     private void onDownloadClick()
     {
       String scenario = mCurrentCountry.isExpandable() ? "download_group" : "download";
-      getStat().trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                           Statistics.params()
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                     Statistics.params()
                                                .add(Statistics.EventParam.ACTION, "download")
                                                .add(Statistics.EventParam.FROM, "placepage")
                                                .add("is_auto", "false")
@@ -319,14 +319,11 @@ public class PlacePageView extends RelativeLayout
     public void onClick(View v)
     {
       MapManager.nativeCancel(mCurrentCountry.id);
-      getStat().trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                           Statistics.params()
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                     Statistics.params()
                                                .add(Statistics.EventParam.FROM, "placepage"));
     }
   };
-
-  @NonNull
-  private final Statistics mStatistics;
 
   public enum State
   {
@@ -359,7 +356,6 @@ public class PlacePageView extends RelativeLayout
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
-    mStatistics = Statistics.from(activity.getApplication());
     init(attrs, defStyleAttr);
   }
 
@@ -559,7 +555,7 @@ public class PlacePageView extends RelativeLayout
             return;
           }
 
-          getStat().trackEvent(Statistics.EventName.PP_BOOKMARK);
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BOOKMARK);
           AlohaHelper.logClick(AlohaHelper.PP_BOOKMARK);
           toggleIsBookmark(mMapObject);
           break;
@@ -570,7 +566,7 @@ public class PlacePageView extends RelativeLayout
             LOGGER.e(TAG, "A map object cannot be shared, it's null!");
             return;
           }
-          getStat().trackEvent(Statistics.EventName.PP_SHARE);
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_SHARE);
           AlohaHelper.logClick(AlohaHelper.PP_SHARE);
           ShareOption.ANY.shareMapObject(getActivity(), mMapObject, mSponsored);
           break;
@@ -650,7 +646,7 @@ public class PlacePageView extends RelativeLayout
         case BOOKING_SEARCH:
           if (mMapObject != null && !TextUtils.isEmpty(mMapObject.getBookingSearchUrl()))
           {
-            getStat().trackBookingSearchEvent(mMapObject);
+            Statistics.INSTANCE.trackBookingSearchEvent(mMapObject);
             Utils.openUrl(getContext(), mMapObject.getBookingSearchUrl());
           }
           break;
@@ -679,12 +675,6 @@ public class PlacePageView extends RelativeLayout
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
     Viator.setViatorListener(this);
-  }
-
-  @NonNull
-  private Statistics getStat()
-  {
-    return mStatistics;
   }
 
   private void updateCatalogBookmarkBtn()
@@ -925,8 +915,8 @@ public class PlacePageView extends RelativeLayout
     {
       mRvSponsoredProducts.setAdapter(Factory.createViatorErrorAdapter(cityUrl,
                                                                        mDefaultGalleryItemListener));
-      Statistics.from(getActivity().getApplication()).trackGalleryError(GalleryType.VIATOR, GalleryPlacement.PLACEPAGE,
-                                                          Statistics.ParamValue.NO_PRODUCTS);
+      Statistics.INSTANCE.trackGalleryError(GalleryType.VIATOR, GalleryPlacement.PLACEPAGE,
+                                            Statistics.ParamValue.NO_PRODUCTS);
     }
     else
     {
@@ -934,8 +924,7 @@ public class PlacePageView extends RelativeLayout
           createSponsoredProductItemListener(GalleryType.VIATOR, ItemType.VIATOR);
 
       com.mapswithme.maps.gallery.GalleryAdapter adapter =
-          Factory.createViatorAdapter(products, cityUrl, listener, GalleryPlacement.PLACEPAGE,
-                                      getActivity().getApplication());
+          Factory.createViatorAdapter(products, cityUrl, listener, GalleryPlacement.PLACEPAGE);
 
       mRvSponsoredProducts.setAdapter(adapter);
     }
@@ -984,7 +973,7 @@ public class PlacePageView extends RelativeLayout
       return;
     }
 
-    getStat().trackHotelEvent(PP_HOTEL_GALLERY_OPEN, mSponsored, mMapObject);
+    Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_GALLERY_OPEN, mSponsored, mMapObject);
 
     if (position == com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT - 1
         && mGalleryAdapter.getItems().size() > com.mapswithme.maps.widget.placepage.GalleryAdapter.MAX_COUNT)
@@ -1029,21 +1018,21 @@ public class PlacePageView extends RelativeLayout
                 if (book)
                 {
                   partnerAppOpenMode = Utils.PartnerAppOpenMode.Direct;
-                  getStat().trackBookHotelEvent(info, mMapObject);
+                  Statistics.INSTANCE.trackBookHotelEvent(info, mMapObject);
                 }
                 else
                 {
                   String event = isMoreDetails ? PP_SPONSORED_DETAILS : PP_HOTEL_DESCRIPTION_LAND;
-                  getStat().trackHotelEvent(event, info, mMapObject);
+                  Statistics.INSTANCE.trackHotelEvent(event, info, mMapObject);
                 }
                 break;
               case Sponsored.TYPE_OPENTABLE:
                 if (mMapObject != null)
-                  getStat().trackRestaurantEvent(PP_SPONSORED_OPENTABLE, info, mMapObject);
+                  Statistics.INSTANCE.trackRestaurantEvent(PP_SPONSORED_OPENTABLE, info, mMapObject);
                 break;
               case Sponsored.TYPE_PARTNER:
                 if (mMapObject != null && !info.getPartnerName().isEmpty())
-                  getStat().trackSponsoredObjectEvent(PP_SPONSORED_ACTION, info, mMapObject);
+                  Statistics.INSTANCE.trackSponsoredObjectEvent(PP_SPONSORED_ACTION, info, mMapObject);
                 break;
               case Sponsored.TYPE_NONE:
                 break;
@@ -1551,7 +1540,7 @@ public class PlacePageView extends RelativeLayout
     logo.setImageResource(type.getIcon());
     TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
     title.setText(type.getTitle());
-    getStat().trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type.getProviderName());
+    Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type.getProviderName());
   }
 
   private void hideHotelViews()
@@ -1844,8 +1833,8 @@ public class PlacePageView extends RelativeLayout
 
   private void addOrganisation()
   {
-    getStat().trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
-                         Statistics.params()
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
+                                   Statistics.params()
                                              .add(Statistics.EventParam.FROM, "placepage"));
     getActivity().showPositionChooser(true, false);
   }
@@ -1879,7 +1868,7 @@ public class PlacePageView extends RelativeLayout
 
           if (!TextUtils.isEmpty(localAdInfo.getUrl()))
           {
-            getStat().trackPPOwnershipButtonClick(mMapObject);
+            Statistics.INSTANCE.trackPPOwnershipButtonClick(mMapObject);
             Utils.openUrl(getContext(), localAdInfo.getUrl());
           }
         }
@@ -1920,7 +1909,7 @@ public class PlacePageView extends RelativeLayout
         Utils.openUrl(getContext(), mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA));
         break;
       case R.id.direction_frame:
-        getStat().trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_DIRECTION_ARROW);
         AlohaHelper.logClick(AlohaHelper.PP_DIRECTION_ARROW);
         showBigDirection();
         break;
@@ -1933,7 +1922,7 @@ public class PlacePageView extends RelativeLayout
         break;
       case R.id.tv__place_hotel_facilities_more:
         if (mSponsored != null && mMapObject != null)
-          getStat().trackHotelEvent(PP_HOTEL_FACILITIES, mSponsored, mMapObject);
+          Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_FACILITIES, mSponsored, mMapObject);
         UiUtils.hide(mHotelMoreFacilities);
         mFacilitiesAdapter.setShowAll(true);
         break;
@@ -1944,7 +1933,7 @@ public class PlacePageView extends RelativeLayout
           //noinspection ConstantConditions
           Utils.openUrl(getContext(), mSponsored.getReviewUrl());
           if (mMapObject != null)
-            getStat().trackHotelEvent(PP_HOTEL_REVIEWS_LAND, mSponsored, mMapObject);
+            Statistics.INSTANCE.trackHotelEvent(PP_HOTEL_REVIEWS_LAND, mSponsored, mMapObject);
         }
         break;
       case R.id.tv__place_page_order_taxi:
@@ -1958,8 +1947,8 @@ public class PlacePageView extends RelativeLayout
           if (types != null && !types.isEmpty())
           {
             String providerName = types.get(0).getProviderName();
-            getStat().trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP,
-                                     providerName);
+            Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP,
+                                               providerName);
           }
         }
         break;
@@ -1972,8 +1961,8 @@ public class PlacePageView extends RelativeLayout
         if (!TextUtils.isEmpty(url))
         {
           Utils.openUrl(getContext(), url);
-          getStat().trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
-                                      GalleryType.VIATOR, GalleryPlacement.PLACEPAGE);
+          Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
+              GalleryType.VIATOR, GalleryPlacement.PLACEPAGE);
         }
         break;
       case R.id.search_hotels_btn:
@@ -1989,8 +1978,8 @@ public class PlacePageView extends RelativeLayout
         getActivity().onSearchSimilarHotels(filter);
         String provider = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_BOOKING
                           ? Statistics.ParamValue.BOOKING_COM : Statistics.ParamValue.OSM;
-        getStat().trackEvent(Statistics.EventName.PP_HOTEL_SEARCH_SIMILAR,
-                             Statistics.params().add(Statistics.EventParam.PROVIDER,
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_HOTEL_SEARCH_SIMILAR,
+                                       Statistics.params().add(Statistics.EventParam.PROVIDER,
                                                                provider));
         break;
     }
@@ -2001,10 +1990,7 @@ public class PlacePageView extends RelativeLayout
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
       setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
     else
-    {
       setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), true, null);
-      Statistics.from(getActivity().getApplication()).trackBookmarkCreated();
-    }
     post(new Runnable()
     {
       @Override
@@ -2084,7 +2070,7 @@ public class PlacePageView extends RelativeLayout
         final Context ctx = getContext();
         Utils.copyTextToClipboard(ctx, items.get(id));
         Utils.toastShortcut(ctx, ctx.getString(R.string.copied_to_clipboard, items.get(id)));
-        getStat().trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_METADATA_COPY + ":" + tagStr);
         AlohaHelper.logClick(AlohaHelper.PP_METADATA_COPY + ":" + tagStr);
         return true;
       }
@@ -2249,16 +2235,15 @@ public class PlacePageView extends RelativeLayout
       public void onItemSelected(@NonNull I item, int position)
       {
         super.onItemSelected(item, position);
-        getStat().trackGalleryProductItemSelected(type, PLACEPAGE,
-                                                  position, EXTERNAL);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(type, PLACEPAGE, position, EXTERNAL);
       }
 
       @Override
       public void onMoreItemSelected(@NonNull I item)
       {
         super.onMoreItemSelected(item);
-        getStat().trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,
-                                    PLACEPAGE);
+        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,
+                                              PLACEPAGE);
       }
     };
   }

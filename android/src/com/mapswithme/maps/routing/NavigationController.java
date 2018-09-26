@@ -1,7 +1,6 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
@@ -158,13 +157,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     {
     case STOP:
       mNavMenu.close(false);
-      Statistics.from(parent.getApplication()).trackRoutingFinish(true,
-                                                           RoutingController.get().getLastRouterType(),
-                                                           TrafficManager.INSTANCE.isEnabled());
+      Statistics.INSTANCE.trackRoutingFinish(true,
+                                             RoutingController.get().getLastRouterType(),
+                                             TrafficManager.INSTANCE.isEnabled());
       RoutingController.get().cancel();
       break;
     case SETTINGS:
-      Statistics.from(parent.getApplication()).trackEvent(Statistics.EventName.ROUTING_SETTINGS);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SETTINGS);
       parent.closeMenu(() -> parent.startActivity(new Intent(parent, SettingsActivity.class)));
       break;
     case TTS_VOLUME:
@@ -426,9 +425,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     {
       case R.id.btn_bookmarks:
         BookmarkCategoriesActivity.start(mFrame.getContext(), BookmarksPageFactory.PRIVATE.ordinal());
-
-        Application app = (Application) mFrame.getContext().getApplicationContext();
-        Statistics.from(app).trackRoutingEvent(ROUTING_BOOKMARKS_CLICK, RoutingController.get().isPlanning());
+        Statistics.INSTANCE.trackRoutingEvent(ROUTING_BOOKMARKS_CLICK,
+                                              RoutingController.get().isPlanning());
         break;
     }
   }

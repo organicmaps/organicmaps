@@ -144,7 +144,7 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
 
   private void recoverPassword()
   {
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_LOST_PASSWORD);
     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.OSM_RECOVER_PASSWORD)));
   }
 }

@@ -1,7 +1,6 @@
 package com.mapswithme.maps.auth;
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -186,7 +185,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
   }
 
   private void sendResult(int resultCode, @Nullable String socialToken,
@@ -263,18 +262,16 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     @NonNull
     private final WeakReference<SocialAuthDialogFragment> mFragmentRef;
-    private final Application mContext;
 
     private FBCallback(@NonNull SocialAuthDialogFragment fragment)
     {
       mFragmentRef = new WeakReference<>(fragment);
-      mContext = fragment.getAppContextOrThrow();
     }
 
     @Override
     public void onSuccess(LoginResult loginResult)
     {
-      Statistics.from(mContext).trackUGCExternalAuthSucceed(Statistics.ParamValue.FACEBOOK);
+      Statistics.INSTANCE.trackUGCExternalAuthSucceed(Statistics.ParamValue.FACEBOOK);
       LOGGER.d(TAG, "onSuccess");
     }
 

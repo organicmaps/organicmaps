@@ -312,7 +312,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     if (Editor.nativeSaveEditedFeature())
     {
-      Statistics.from(getAppContextOrThrow()).trackEditorSuccess(mIsNewObject);
+      Statistics.INSTANCE.trackEditorSuccess(mIsNewObject);
       if (OsmOAuth.isAuthorized() || !ConnectionState.isConnected())
         Utils.navigateToParent(getActivity());
       else
@@ -332,7 +332,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     }
     else
     {
-      Statistics.from(getAppContextOrThrow()).trackEditorError(mIsNewObject);
+      Statistics.INSTANCE.trackEditorError(mIsNewObject);
       DialogUtils.showAlertDialog(getActivity(), R.string.downloader_no_space_title);
     }
   }

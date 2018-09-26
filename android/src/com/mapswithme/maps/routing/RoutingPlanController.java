@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
@@ -45,8 +46,6 @@ public class RoutingPlanController extends ToolbarController
   private final RoutingBottomMenuController mRoutingBottomMenuController;
 
   int mFrameHeight;
-  @NonNull
-  private final Statistics mStatistics;
 
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
@@ -89,7 +88,6 @@ public class RoutingPlanController extends ToolbarController
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame, listener);
-    mStatistics = Statistics.from(activity.getApplication());
   }
 
   private void setupRouterButtons()
@@ -104,41 +102,35 @@ public class RoutingPlanController extends ToolbarController
   private void onTransitModeSelected()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_TRANSIT_SET);
-    getStats().trackEvent(Statistics.EventName.ROUTING_TRANSIT_SET);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TRANSIT_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TRANSIT);
   }
 
   private void onTaxiModeSelected(@NonNull View v)
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
-    getStats().trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
   }
 
   private void onBicycleModeSelected(@NonNull View v)
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_BICYCLE_SET);
-    getStats().trackEvent(Statistics.EventName.ROUTING_BICYCLE_SET);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_BICYCLE_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_BICYCLE);
-  }
-
-  @NonNull
-  private Statistics getStats()
-  {
-    return mStatistics;
   }
 
   private void onPedestrianModeSelected(@NonNull View v)
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_PEDESTRIAN_SET);
-    getStats().trackEvent(Statistics.EventName.ROUTING_PEDESTRIAN_SET);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_PEDESTRIAN_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
   }
 
   private void onVehicleModeSelected(@NonNull View v)
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_VEHICLE_SET);
-    getStats().trackEvent(Statistics.EventName.ROUTING_VEHICLE_SET);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_VEHICLE_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_VEHICLE);
   }
 
@@ -146,7 +138,7 @@ public class RoutingPlanController extends ToolbarController
   public void onUpClick()
   {
     AlohaHelper.logClick(AlohaHelper.ROUTING_CANCEL);
-    getStats().trackEvent(Statistics.EventName.ROUTING_CANCEL);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CANCEL);
     RoutingController.get().cancel();
   }
 

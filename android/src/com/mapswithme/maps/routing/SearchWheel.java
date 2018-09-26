@@ -2,7 +2,6 @@ package com.mapswithme.maps.routing;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -50,9 +49,6 @@ class SearchWheel implements View.OnClickListener
       toggleSearchLayout();
     }
   };
-
-  @NonNull
-  private final Statistics mStats;
 
   private enum SearchOption
   {
@@ -123,8 +119,6 @@ class SearchWheel implements View.OnClickListener
     for (SearchOption searchOption : SearchOption.values())
       mFrame.findViewById(searchOption.mResId).setOnClickListener(this);
     refreshSearchVisibility();
-    Application app = (Application) frame.getContext().getApplicationContext();
-    mStats = Statistics.from(app);
   }
 
   void saveState(@NonNull Bundle outState)
@@ -236,7 +230,7 @@ class SearchWheel implements View.OnClickListener
         if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
         {
           showSearchInParent();
-          getStat().trackRoutingEvent(ROUTING_SEARCH_CLICK, true);
+          Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, true);
         }
         else
         {
@@ -245,7 +239,7 @@ class SearchWheel implements View.OnClickListener
         return;
       }
 
-      getStat().trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
+      Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
       if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
       {
         SearchEngine.INSTANCE.cancelInteractiveSearch();
@@ -274,12 +268,6 @@ class SearchWheel implements View.OnClickListener
     case R.id.search_atm:
       startSearch(SearchOption.FromResId(v.getId()));
     }
-  }
-
-  @NonNull
-  private Statistics getStat()
-  {
-    return mStats;
   }
 
   private void showSearchInParent()

@@ -17,7 +17,7 @@ public class OptOutFragment extends Fragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    Statistics.from(getActivity().getApplication()).trackSettingsDetails();
+    Statistics.INSTANCE.trackSettingsDetails();
     return inflater.inflate(R.layout.fragment_gdpr, container, false);
   }
 }

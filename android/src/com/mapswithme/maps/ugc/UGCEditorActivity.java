@@ -1,7 +1,6 @@
 package com.mapswithme.maps.ugc;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,8 +15,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
   public static void start(@NonNull Activity activity, @NonNull EditParams params)
   {
-    Application app = activity.getApplication();
-    Statistics.from(app).trackUGCStart(false /* isEdit */, params.isFromPP());
+    Statistics.INSTANCE.trackUGCStart(false /* isEdit */, params.isFromPP());
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     Bundle args = new Bundle();
     args.putParcelable(UGCEditorFragment.ARG_FEATURE_ID, params.getFeatureId());
@@ -48,7 +46,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
   @Override
   public void onBackPressed()
   {
-    Statistics.from(getApplication()).trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
     super.onBackPressed();
   }
 }

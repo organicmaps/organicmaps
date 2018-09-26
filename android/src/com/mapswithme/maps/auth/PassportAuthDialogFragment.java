@@ -82,14 +82,14 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
     {
-      Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
     }
 
     @Override
     public void onSocialAuthenticationError(@Framework.AuthTokenType int type,
                                             @Nullable String error)
     {
-      Statistics.from(getAppContextOrThrow()).trackUGCAuthFailed(type, error);
+      Statistics.INSTANCE.trackUGCAuthFailed(type, error);
     }
   }
 }

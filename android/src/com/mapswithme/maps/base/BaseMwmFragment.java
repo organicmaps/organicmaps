@@ -1,8 +1,6 @@
 package com.mapswithme.maps.base;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.util.Utils;
@@ -40,14 +38,5 @@ public class BaseMwmFragment extends Fragment implements OnBackPressListener
   public boolean onBackPressed()
   {
     return false;
-  }
-
-  @NonNull
-  protected Application getAppContextOrThrow()
-  {
-    Context context = getContext();
-    if (context == null)
-      throw new IllegalStateException("Before call this method make sure that the context exists");
-    return (Application) context.getApplicationContext();
   }
 }

@@ -1,6 +1,5 @@
 package com.mapswithme.maps.search;
 
-import android.app.Application;
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -53,8 +52,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       PromoCategory promo = PromoCategory.findByKey(key);
       if (promo != null)
       {
-        Application app = fragment.getActivity().getApplication();
-        Statistics.from(app).trackSponsoredEventForCustomProvider(
+        Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
             Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
             promo.getStatisticValue());
         mCategoryResIds[i] = promo.getStringId();
@@ -134,8 +132,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     public void onClick(View v)
     {
       final int position = getAdapterPosition();
-      Application app = (Application) v.getContext().getApplicationContext();
-      Statistics.from(app).trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
+      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
       if (mListener != null)
         mListener.onCategorySelected(getSuggestionFromCategory(mCategoryResIds[position]));
     }

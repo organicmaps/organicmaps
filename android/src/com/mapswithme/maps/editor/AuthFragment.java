@@ -46,7 +46,7 @@ public class AuthFragment extends BaseMwmToolbarFragment
       @Override
       public void onUpClick()
       {
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.EDITOR_AUTH_DECLINED);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_AUTH_DECLINED);
         super.onUpClick();
       }
     };

@@ -197,7 +197,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
         if (TextUtils.equals(from, to))
           return;
 
-        Statistics.from(getAppContextOrThrow()).trackColorChanged(from, to);
+        Statistics.INSTANCE.trackColorChanged(from, to);
         mIcon = newIcon;
         refreshColorMarker();
       }

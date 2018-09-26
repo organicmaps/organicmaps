@@ -19,6 +19,7 @@ import android.support.v7.preference.TwoStatePreference;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -106,7 +107,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue)
     {
-      getStats().trackEvent(Statistics.EventName.Settings.VOICE_ENABLED, Statistics.params().add(Statistics.EventParam.ENABLED, newValue.toString()));
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_ENABLED, Statistics.params().add(Statistics.EventParam.ENABLED, newValue.toString()));
       Preference root = findPreference(getString(R.string.pref_tts_screen));
       boolean set = (Boolean)newValue;
       if (!set)
@@ -155,7 +156,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return false;
 
       mSelectedLanguage = (String)newValue;
-      getStats().trackEvent(Statistics.EventName.Settings.VOICE_LANGUAGE, Statistics.params().add(Statistics.EventParam.LANGUAGE, mSelectedLanguage));
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.VOICE_LANGUAGE, Statistics.params().add(Statistics.EventParam.LANGUAGE, mSelectedLanguage));
       LanguageData lang = mLanguages.get(mSelectedLanguage);
       if (lang == null)
         return false;
@@ -168,12 +169,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       return false;
     }
   };
-
-  @NonNull
-  private Statistics getStats()
-  {
-    return Statistics.from(getActivity().getApplication());
-  }
 
   private void enableListeners(boolean enable)
   {
@@ -317,7 +312,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private boolean onToggleOptOut(Object newValue)
   {
     boolean isEnabled = (boolean) newValue;
-    getStats().trackSettingsToggle(isEnabled);
+    Statistics.INSTANCE.trackSettingsToggle(isEnabled);
     return true;
   }
 
@@ -351,17 +346,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_help)))
     {
-      getStats().trackEvent(Statistics.EventName.Settings.HELP);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.HELP);
       AlohaHelper.logClick(AlohaHelper.Settings.HELP);
     }
     else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_about)))
     {
-      getStats().trackEvent(Statistics.EventName.Settings.ABOUT);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ABOUT);
       AlohaHelper.logClick(AlohaHelper.Settings.ABOUT);
     }
     else if (preference.getKey() != null && preference.getKey().equals(getString(R.string.pref_osm_profile)))
     {
-      getStats().trackEvent(Statistics.EventName.Settings.OSM_PROFILE);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.OSM_PROFILE);
       startActivity(new Intent(getActivity(), ProfileActivity.class));
     }
     return super.onPreferenceTreeClick(preference);
@@ -591,7 +586,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        getStats().setStatEnabled((Boolean) newValue);
+        Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
         return true;
       }
     });
@@ -618,7 +613,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       {
         boolean enabled = (Boolean) newValue;
         TrackRecorder.setEnabled(enabled);
-        getStats().setStatEnabled(enabled);
+        Statistics.INSTANCE.setStatEnabled(enabled);
         trackPref.setEnabled(enabled);
         if (root != null)
           root.setSummary(enabled ? R.string.on : R.string.off);
@@ -740,7 +735,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         {
           Boolean value = (Boolean) newValue;
           BookmarkManager.INSTANCE.setCloudEnabled(value);
-          getStats().trackBmSettingsToggle(value);
+          Statistics.INSTANCE.trackBmSettingsToggle(value);
           return true;
         });
   }
@@ -764,8 +759,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
           return true;
 
         ThemeSwitcher.restart(false);
-        getStats().trackEvent(Statistics.EventName.Settings.MAP_STYLE,
-                              Statistics.params().add(Statistics.EventParam.NAME, themeName));
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
+                                       Statistics.params().add(Statistics.EventParam.NAME, themeName));
 
         UiThread.runLater(new Runnable()
         {
@@ -793,7 +788,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        getStats().trackEvent(Statistics.EventName.Settings.ZOOM);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.ZOOM);
         Config.setShowZoomButtons((Boolean) newValue);
         return true;
       }
@@ -813,7 +808,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
         UnitLocale.setUnits(Integer.parseInt((String) newValue));
-        getStats().trackEvent(Statistics.EventName.Settings.UNITS);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.UNITS);
         AlohaHelper.logClick(AlohaHelper.Settings.CHANGE_UNITS);
         return true;
       }

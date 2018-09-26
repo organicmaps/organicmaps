@@ -231,8 +231,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
                                                                    mCheckoutDate.getTimeInMillis(),
                                                                    BookingFilterParams.Room.DEFAULT);
     mListener.onFilterApply(filter, params);
-    Statistics.from(getAppContextOrThrow()).trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
-                                                             Statistics.EventParam.HOTEL);
+    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
+                                         Statistics.EventParam.HOTEL);
     UserActionsLogger.logBookingFilterUsedEvent();
   }
 
@@ -240,8 +240,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
   public void onActivityCreated(@Nullable Bundle savedInstanceState)
   {
     super.onActivityCreated(savedInstanceState);
-    Statistics.from(getAppContextOrThrow()).trackFilterEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
-                                                             Statistics.EventParam.HOTEL);
+    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_OPEN,
+                                         Statistics.EventParam.HOTEL);
   }
 
   private void initDateViews(View root)
@@ -269,8 +269,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
     dialog.getDatePicker().setMinDate(getDayAfter(mCheckinDate).getTimeInMillis());
     dialog.getDatePicker().setMaxDate(getMaxDateForCheckout(mCheckinDate).getTimeInMillis());
     dialog.show();
-    Statistics.from(getAppContextOrThrow()).trackFilterClick(Statistics.EventParam.HOTEL,
-                                                             new Pair<>(Statistics.EventParam.DATE,
+    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                         new Pair<>(Statistics.EventParam.DATE,
                                                     Statistics.ParamValue.CHECKOUT));
   }
 
@@ -283,8 +283,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
     dialog.getDatePicker().setMinDate(getMinDateForCheckin().getTimeInMillis());
     dialog.getDatePicker().setMaxDate(getMaxDateForCheckin().getTimeInMillis());
     dialog.show();
-    Statistics.from(getAppContextOrThrow()).trackFilterClick(Statistics.EventParam.HOTEL,
-                                                             new Pair<>(Statistics.EventParam.DATE,
+    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                         new Pair<>(Statistics.EventParam.DATE,
                                                     Statistics.ParamValue.CHECKIN));
   }
 
@@ -346,8 +346,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
         .setOnClickListener(
             v ->
             {
-              Statistics.from(getAppContextOrThrow()).trackFilterEvent(Statistics.EventName.SEARCH_FILTER_RESET,
-                                                                       Statistics.EventParam.HOTEL);
+              Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_RESET,
+                                                   Statistics.EventParam.HOTEL);
               updateViews(null, null);
             });
   }
@@ -428,8 +428,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
   {
     if (selected)
     {
-      Statistics.from(getAppContextOrThrow()).trackFilterClick(Statistics.EventParam.HOTEL,
-                                                               new Pair<>(Statistics.EventParam.TYPE, type.getTag()));
+      Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                           new Pair<>(Statistics.EventParam.TYPE, type.getTag()));
       mHotelTypes.add(type);
     }
     else

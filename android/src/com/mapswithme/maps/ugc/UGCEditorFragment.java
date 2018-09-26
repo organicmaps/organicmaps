@@ -98,7 +98,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
       @Override
       public void onUpClick()
       {
-        Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_CANCEL);
         super.onUpClick();
       }
     };
@@ -131,14 +131,14 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
     finishActivity();
   }
 
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
-    Statistics.from(getAppContextOrThrow()).trackUGCAuthFailed(type, error);
+    Statistics.INSTANCE.trackUGCAuthFailed(type, error);
     finishActivity();
   }
 
@@ -161,6 +161,6 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
                                "; lon = " + getArguments().getDouble(ARG_LON));
     }
     UGC.setUGCUpdate(featureId, update);
-    Statistics.from(getAppContextOrThrow()).trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
   }
 }

@@ -2,7 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Application;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,16 +148,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     @NonNull
     private final WeakReference<BookmarksCatalogFragment> mReference;
 
-    @NonNull
-    private final Application mApp;
-
     @Nullable
     private Object mError;
 
     WebViewBookmarksCatalogClient(@NonNull BookmarksCatalogFragment frag)
     {
       mReference = new WeakReference<>(frag);
-      mApp = frag.getActivity().getApplication();
     }
 
     @Override
@@ -227,11 +222,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if (ConnectionState.isConnected())
       {
         LOGGER.e(TAG, "Failed to load catalog: " + mError + ", description: " + description);
-        Statistics.from(mApp).trackDownloadCatalogError(Statistics.ParamValue.UNKNOWN);
+        Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.UNKNOWN);
         return;
       }
 
-      Statistics.from(mApp).trackDownloadCatalogError(Statistics.ParamValue.NO_INTERNET);
+      Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.NO_INTERNET);
       Toast.makeText(frag.getContext(), R.string.common_check_internet_connection_dialog_title,
                      Toast.LENGTH_SHORT).show();
     }

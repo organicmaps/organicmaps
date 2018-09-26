@@ -1,6 +1,5 @@
 package com.mapswithme.maps.maplayer.subway;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -16,8 +15,7 @@ enum TransitSchemeState
         @Override
         public void activate(@NonNull Context context)
         {
-          Application app = (Application) context.getApplicationContext();
-          Statistics.from(app).trackSubwayEvent(Statistics.ParamValue.SUCCESS);
+          Statistics.INSTANCE.trackSubwayEvent(Statistics.ParamValue.SUCCESS);
         }
       },
   NO_DATA
@@ -26,8 +24,7 @@ enum TransitSchemeState
         public void activate(@NonNull Context context)
         {
           Toast.makeText(context, R.string.subway_data_unavailable, Toast.LENGTH_SHORT).show();
-          Application app = (Application) context.getApplicationContext();
-          Statistics.from(app).trackSubwayEvent(Statistics.ParamValue.UNAVAILABLE);
+          Statistics.INSTANCE.trackSubwayEvent(Statistics.ParamValue.UNAVAILABLE);
         }
       };
 

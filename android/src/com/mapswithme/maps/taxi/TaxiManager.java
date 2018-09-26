@@ -1,6 +1,5 @@
 package com.mapswithme.maps.taxi;
 
-import android.app.Application;
 import android.content.Context;
 import android.location.Location;
 import android.support.annotation.MainThread;
@@ -99,17 +98,15 @@ public class TaxiManager
     Utils.openPartner(context, links, type.getPackageName(), type.getOpenMode());
 
     boolean isTaxiInstalled = Utils.isAppInstalled(context, type.getPackageName());
-    trackTaxiStatistics(context, type.getProviderName(), isTaxiInstalled);
+    trackTaxiStatistics(type.getProviderName(), isTaxiInstalled);
   }
 
-  private static void trackTaxiStatistics(@NonNull Context context, @NonNull String taxiName,
-                                          boolean isTaxiAppInstalled)
+  private static void trackTaxiStatistics(@NonNull String taxiName, boolean isTaxiAppInstalled)
   {
     MapObject from = RoutingController.get().getStartPoint();
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Application app = (Application) context.getApplicationContext();
-    Statistics.from(app).trackTaxiInRoutePlanning(from, to, location, taxiName, isTaxiAppInstalled);
+    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, taxiName, isTaxiAppInstalled);
   }
 
   public void setTaxiListener(@Nullable TaxiListener listener)

@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.util.statistics.Statistics;
 
-public class ShowOnMapCatalogCategoryFragment extends BaseMwmDialogFragment
+public class ShowOnMapCatalogCategoryFragment extends DialogFragment
 {
   public static final String TAG = ShowOnMapCatalogCategoryFragment.class.getCanonicalName();
 
@@ -57,13 +57,13 @@ public class ShowOnMapCatalogCategoryFragment extends BaseMwmDialogFragment
 
   private void onDeclined()
   {
-    Statistics.from(getAppContextOrThrow()).trackDownloadBookmarkDialog(Statistics.ParamValue.NOT_NOW);
+    Statistics.INSTANCE.trackDownloadBookmarkDialog(Statistics.ParamValue.NOT_NOW);
     dismissAllowingStateLoss();
   }
 
   private void onAccepted()
   {
-    Statistics.from(getAppContextOrThrow()).trackDownloadBookmarkDialog(Statistics.ParamValue.VIEW_ON_MAP);
+    Statistics.INSTANCE.trackDownloadBookmarkDialog(Statistics.ParamValue.VIEW_ON_MAP);
     Intent result = new Intent().putExtra(BookmarksCatalogActivity.EXTRA_DOWNLOADED_CATEGORY,
                                           mCategory);
     getActivity().setResult(Activity.RESULT_OK, result);
@@ -75,7 +75,7 @@ public class ShowOnMapCatalogCategoryFragment extends BaseMwmDialogFragment
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.from(getAppContextOrThrow()).trackDownloadBookmarkDialog(Statistics.ParamValue.CLICK_OUTSIDE);
+    Statistics.INSTANCE.trackDownloadBookmarkDialog(Statistics.ParamValue.CLICK_OUTSIDE);
   }
 
   void setCategory(@NonNull BookmarkCategory category)
