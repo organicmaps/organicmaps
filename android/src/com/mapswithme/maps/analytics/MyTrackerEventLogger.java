@@ -27,6 +27,12 @@ class MyTrackerEventLogger extends ContextDependentEventLogger
   }
 
   @Override
+  public void initialize()
+  {
+
+  }
+
+  @Override
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
     /* Do nothing */
