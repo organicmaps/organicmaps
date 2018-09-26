@@ -84,8 +84,9 @@ fragment float4 fsTraffic(const TrafficFragment_T in [[stage_in]],
   color.rgb = mix(color.rgb, mask.rgb * mix(uniforms.u_lightArrowColor, uniforms.u_darkArrowColor, step(alphaCode, 0.6)), mask.a * kMaskOpacity);
   if (uniforms.u_outline > 0.0)
   {
-    color.rgb = mix(color.rgb, uniforms.u_outlineColor, step(kOutlineThreshold1, abs(in.halfLength)));
-    color.rgb = mix(color.rgb, uniforms.u_outlineColor, smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(in.halfLength)));
+    float3 outlineColor = uniforms.u_outlineColor;
+    color.rgb = mix(color.rgb, outlineColor, step(kOutlineThreshold1, abs(in.halfLength)));
+    color.rgb = mix(color.rgb, outlineColor, smoothstep(kOutlineThreshold2, kOutlineThreshold1, abs(in.halfLength)));
   }
   
   return color;
