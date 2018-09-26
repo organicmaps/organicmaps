@@ -1,18 +1,16 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <chrono>
 #include <fstream>
 #include <functional>
 #include <numeric>
-#include <memory>
 #include <queue>
-#include <string>
 #include <thread>
 #include <unordered_set>
-#include <vector>
 
 #include "3party/ThreadPool/ThreadPool.h"
 
@@ -29,10 +27,9 @@ RegionsBuilder::RegionsBuilder(Regions && regions,
   ASSERT(m_toStringPolicy, ());
   ASSERT(m_cpuCount != 0, ());
 
-  auto const isCountry = [](Region const & r){ return r.IsCountry(); };
+  auto const isCountry = [](Region const & r) { return r.IsCountry(); };
   std::copy_if(std::begin(regions), std::end(regions), std::back_inserter(m_countries), isCountry);
-  auto const it = std::remove_if(std::begin(regions), std::end(regions), isCountry);
-  regions.erase(it, std::end(regions));
+  base::EraseIf(regions, isCountry);
   auto const cmp = [](Region const & l, Region const & r) { return l.GetArea() > r.GetArea(); };
   std::sort(std::begin(m_countries), std::end(m_countries), cmp);
 
@@ -173,14 +170,14 @@ void RegionsBuilder::MakeCountryTrees(Regions const & regions)
     ThreadPool threadPool(cpuCount);
     for (auto const & country : GetCountries())
     {
-      auto f = threadPool.enqueue(&RegionsBuilder::BuildCountryRegionTree, country, regions);
-      results.emplace_back(std::move(f));
+      auto result = threadPool.enqueue(&RegionsBuilder::BuildCountryRegionTree, country, regions);
+      results.emplace_back(std::move(result));
     }
   }
 
-  for (auto & r : results)
+  for (auto & result : results)
   {
-    auto tree = r.get();
+    auto tree = result.get();
     m_countryTrees.emplace(tree->GetData().GetName(), std::move(tree));
   }
 }

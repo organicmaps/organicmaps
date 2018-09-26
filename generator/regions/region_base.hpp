@@ -12,7 +12,7 @@
 #include <cstdint>
 #include <string>
 
-#include "3party/boost/boost/geometry.hpp"
+#include <boost/geometry.hpp>
 
 namespace generator
 {
@@ -51,6 +51,7 @@ struct RegionWithData
   base::GeoObjectId GetAdminCenterId() const;
   bool HasIsoCode() const;
   std::string GetIsoCode() const;
+
   // Absolute rank values do not mean anything. But if the rank of the first object is more than the
   // rank of the second object, then the first object is considered more nested.
   uint8_t GetRank() const;

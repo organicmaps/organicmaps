@@ -89,8 +89,6 @@ set(SRC
   relation_tags.hpp
   region_meta.cpp
   region_meta.hpp
-  regions.cpp
-  regions.hpp
   regions/city.hpp
   regions/node.cpp
   regions/node.hpp
@@ -100,6 +98,8 @@ set(SRC
   regions/region_base.hpp
   regions/region_info_collector.cpp
   regions/region_info_collector.hpp
+  regions/regions.cpp
+  regions/regions.hpp
   regions/regions_builder.cpp
   regions/regions_builder.hpp
   regions/to_string_policy.cpp

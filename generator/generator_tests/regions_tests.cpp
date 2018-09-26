@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "generator/osm_element.hpp"
-#include "generator/regions.hpp"
 #include "generator/regions/region_info_collector.hpp"
+#include "generator/regions/regions.hpp"
 #include "generator/regions/regions_builder.hpp"
 #include "generator/regions/to_string_policy.hpp"
 

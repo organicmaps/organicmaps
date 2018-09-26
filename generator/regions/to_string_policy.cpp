@@ -2,8 +2,9 @@
 
 #include <memory>
 
+#include <boost/range/adaptor/reversed.hpp>
+
 #include "3party/jansson/myjansson.hpp"
-#include "3party/boost/boost/range/adaptor/reversed.hpp"
 
 namespace generator
 {

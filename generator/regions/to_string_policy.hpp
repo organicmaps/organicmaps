@@ -16,7 +16,6 @@ public:
   virtual std::string ToString(Node::PtrList const & nodePtrList) = 0;
 };
 
-
 class JsonPolicy : public ToStringPolicyInterface
 {
 public:

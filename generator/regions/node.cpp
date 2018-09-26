@@ -94,7 +94,7 @@ size_t MaxDepth(Node::Ptr node)
 void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string prefix = "",
                bool isTail = true)
 {
-  auto const & childern = node->GetChildren();
+  auto const & children = node->GetChildren();
   stream << prefix;
   if (isTail)
   {
@@ -115,8 +115,8 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
          << ";" << static_cast<size_t>(d.GetRank())
          << ";[" << point.get<0>() << "," << point.get<1>() << "])"
          << std::endl;
-  for (size_t i = 0, size = childern.size(); i < size; ++i)
-    PrintTree(childern[i], stream, prefix, i == size - 1);
+  for (size_t i = 0, size = children.size(); i < size; ++i)
+    PrintTree(children[i], stream, prefix, i == size - 1);
 }
 
 void DebugPrintTree(Node::Ptr tree, std::ostream & stream)

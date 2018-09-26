@@ -15,7 +15,7 @@
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/popular_places_section_builder.hpp"
-#include "generator/regions.hpp"
+#include "generator/regions/regions.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
@@ -397,7 +397,7 @@ int main(int argc, char ** argv)
     {
       CHECK(FLAGS_generate_region_features, ("Option --generate_regions_kv can be used only "
                                              "together with option --generate_region_features."));
-      if (!GenerateRegions(genInfo))
+      if (!regions::GenerateRegions(genInfo))
       {
         LOG(LCRITICAL, ("Error generating regions kv."));
         return EXIT_FAILURE;

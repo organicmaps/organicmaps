@@ -73,8 +73,6 @@ public:
   // Returns the source type of the object.
   Type GetType() const;
 
-  bool IsValid() const { return m_encodedId != kInvalid; }
-
   bool operator<(GeoObjectId const & other) const { return m_encodedId < other.m_encodedId; }
   bool operator==(GeoObjectId const & other) const { return m_encodedId == other.m_encodedId; }
   bool operator!=(GeoObjectId const & other) const { return !(*this == other); }

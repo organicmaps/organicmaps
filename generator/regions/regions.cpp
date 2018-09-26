@@ -1,4 +1,4 @@
-#include "generator/regions.hpp"
+#include "generator/regions/regions.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/generate_info.hpp"
@@ -13,6 +13,7 @@
 #include "coding/transliteration.hpp"
 
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
@@ -24,6 +25,7 @@
 #include <string>
 #include <thread>
 #include <tuple>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -68,14 +70,14 @@ struct RegionsFixer
       auto const placeType = adminCenter.GetPlaceType();
       if (placeType == PlaceType::Town || placeType == PlaceType::City)
       {
-        for (size_t j =  i + 1; j < m_regionsWithAdminCenter.size() - 1; ++j)
+        for (size_t j = i + 1; j + 1 < m_regionsWithAdminCenter.size(); ++j)
         {
           if (m_regionsWithAdminCenter[j].ContainsRect(regionWithAdminCenter))
             unsuitable[j] = true;
         }
       }
 
-      if (ExistsRegionAsCity(adminCenter))
+      if (RegionExistsAsCity(adminCenter))
         continue;
 
       regionWithAdminCenter.SetInfo(adminCenter);
@@ -88,7 +90,7 @@ struct RegionsFixer
   }
 
 private:
-  bool ExistsRegionAsCity(const City & city)
+  bool RegionExistsAsCity(City const & city)
   {
     auto const range = m_nameRegionMap.equal_range(city.GetName());
     for (auto it = range.first; it != range.second; ++it)
@@ -103,11 +105,10 @@ private:
 
   void SplitRegionsByAdminCenter()
   {
-    auto const pred = [](Region const & region) { return region.GetAdminCenterId().IsValid(); };
+    auto const pred = [](Region const & region) { return region.HasAdminCenter(); };
     std::copy_if(std::begin(m_regions), std::end(m_regions),
                  std::back_inserter(m_regionsWithAdminCenter), pred);
-    auto const it =  std::remove_if(std::begin(m_regions), std::end(m_regions), pred);
-    m_regions.erase(it, std::end(m_regions));
+    base::EraseIf(m_regions, pred);
   }
 
   void CreateNameRegionMap()
@@ -133,7 +134,7 @@ private:
 };
 
 std::tuple<RegionsBuilder::Regions, PointCitiesMap>
-ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfoCollector const & collector)
+ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfoCollector & collector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
@@ -154,7 +155,7 @@ ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfoCollector
   };
 
   feature::ForEachFromDatRawFormat(tmpMwmFilename, toDo);
-  return std::make_tuple(regions, pointCitiesMap);
+  return std::make_tuple(std::move(regions), std::move(pointCitiesMap));
 }
 
 void FilterRegions(RegionsBuilder::Regions & regions)
@@ -170,7 +171,7 @@ void FilterRegions(RegionsBuilder::Regions & regions)
 }
 
 RegionsBuilder::Regions ReadData(feature::GenerateInfo const & genInfo,
-                                 RegionInfoCollector const & regionsInfoCollector)
+                                 RegionInfoCollector & regionsInfoCollector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
@@ -180,9 +181,7 @@ RegionsBuilder::Regions ReadData(feature::GenerateInfo const & genInfo,
   FilterRegions(regions);
   return std::move(regions);
 }
-
 }  // namespace
-}  // namespace regions
 
 bool GenerateRegions(feature::GenerateInfo const & genInfo)
 {
@@ -207,6 +206,9 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
   for (auto const & countryName : kvBuilder->GetCountryNames())
   {
     auto const tree = kvBuilder->GetNormalizedCountryTree(countryName);
+    if (!tree)
+      continue;
+
     if (genInfo.m_verbose)
       DebugPrintTree(tree);
 
@@ -224,4 +226,5 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
   LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
   return true;
 }
+}  // namespace regions
 }  // namespace generator

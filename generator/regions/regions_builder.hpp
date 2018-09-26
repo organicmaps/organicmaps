@@ -4,7 +4,10 @@
 #include "generator/regions/region.hpp"
 #include "generator/regions/to_string_policy.hpp"
 
+#include <map>
 #include <memory>
+#include <string>
+#include <vector>
 
 namespace generator
 {
@@ -42,6 +45,5 @@ private:
   Regions m_countries;
   int m_cpuCount;
 };
-
 }  // namespace regions
 }  // namespace generator

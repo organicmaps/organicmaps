@@ -69,7 +69,7 @@ public:
   explicit RegionInfoCollector(std::string const & filename);
   explicit RegionInfoCollector(Platform::FilesList const & filenames);
   void Add(base::GeoObjectId const & osmId, OsmElement const & el);
-  RegionDataProxy Get(base::GeoObjectId const & osmId) const;
+  RegionDataProxy Get(base::GeoObjectId const & osmId);
   void Save(std::string const & filename);
 
 private:
@@ -98,12 +98,25 @@ private:
     char m_numeric[4] = {};
   };
 
+  struct AdminCenter
+  {
+    AdminCenter() : m_has(false) {}
+    AdminCenter(base::GeoObjectId const & id) : m_has(true), m_id(id) {}
+
+    bool HasId() const { return m_has; }
+    base::GeoObjectId GetId() const { return m_id; }
+
+  private:
+    bool m_has;
+    base::GeoObjectId m_id;
+  };
+
   struct RegionData
   {
     base::GeoObjectId m_osmId;
     AdminLevel m_adminLevel = AdminLevel::Unknown;
     PlaceType m_place = PlaceType::Unknown;
-    base::GeoObjectId m_osmIdAdminCenter;
+    AdminCenter m_osmIdAdminCenter;
   };
 
   using MapRegionData = std::unordered_map<base::GeoObjectId, RegionData>;
@@ -144,7 +157,7 @@ private:
 class RegionDataProxy
 {
 public:
-  RegionDataProxy(RegionInfoCollector const & regionInfoCollector, base::GeoObjectId const & osmId);
+  RegionDataProxy(RegionInfoCollector & regionInfoCollector, base::GeoObjectId const & osmId);
 
   base::GeoObjectId const & GetOsmId() const;
   AdminLevel GetAdminLevel() const;
@@ -169,11 +182,13 @@ public:
 
 private:
   bool HasIsoCode() const;
+  RegionInfoCollector & GetCollector();
   RegionInfoCollector const & GetCollector() const;
+  RegionInfoCollector::MapRegionData & GetMapRegionData();
   RegionInfoCollector::MapRegionData const & GetMapRegionData() const;
   RegionInfoCollector::MapIsoCode const & GetMapIsoCode() const;
 
-  std::reference_wrapper<RegionInfoCollector const> m_regionInfoCollector;
+  std::reference_wrapper<RegionInfoCollector> m_regionInfoCollector;
   base::GeoObjectId m_osmId;
 };
 

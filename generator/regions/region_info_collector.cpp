@@ -116,7 +116,7 @@ void RegionInfoCollector::Save(std::string const & filename)
   }
 }
 
-RegionDataProxy RegionInfoCollector::Get(base::GeoObjectId const & osmId) const
+RegionDataProxy RegionInfoCollector::Get(base::GeoObjectId const & osmId)
 {
   return RegionDataProxy(*this, osmId);
 }
@@ -161,7 +161,7 @@ void RegionInfoCollector::FillIsoCode(base::GeoObjectId const & osmId, OsmElemen
   rd.SetNumeric(el.GetTag("ISO3166-1:numeric"));
 }
 
-RegionDataProxy::RegionDataProxy(RegionInfoCollector const & regionInfoCollector,
+RegionDataProxy::RegionDataProxy(RegionInfoCollector & regionInfoCollector,
                                  base::GeoObjectId const & osmId)
   : m_regionInfoCollector(regionInfoCollector),
     m_osmId(osmId)
@@ -171,6 +171,16 @@ RegionDataProxy::RegionDataProxy(RegionInfoCollector const & regionInfoCollector
 RegionInfoCollector const & RegionDataProxy::GetCollector() const
 {
   return m_regionInfoCollector;
+}
+
+RegionInfoCollector & RegionDataProxy::GetCollector()
+{
+  return m_regionInfoCollector;
+}
+
+RegionInfoCollector::MapRegionData & RegionDataProxy::GetMapRegionData()
+{
+  return GetCollector().m_mapRegionData;
 }
 
 
@@ -202,12 +212,12 @@ PlaceType RegionDataProxy::GetPlaceType() const
 
 void RegionDataProxy::SetAdminLevel(AdminLevel adminLevel)
 {
-  const_cast<AdminLevel &>(GetMapRegionData().at(m_osmId).m_adminLevel) = adminLevel;
+  GetMapRegionData().at(m_osmId).m_adminLevel = adminLevel;
 }
 
 void RegionDataProxy::SetPlaceType(PlaceType placeType)
 {
-  const_cast<PlaceType &>(GetMapRegionData().at(m_osmId).m_place) = placeType;
+  GetMapRegionData().at(m_osmId).m_place = placeType;
 }
 
 bool RegionDataProxy::HasAdminLevel() const
@@ -260,12 +270,12 @@ std::string RegionDataProxy::GetIsoCodeAlphaNumeric() const
 bool RegionDataProxy::HasAdminCenter() const
 {
   return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.IsValid());
+      (GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.HasId());
 }
 
 base::GeoObjectId RegionDataProxy::GetAdminCenter() const
 {
-  return GetMapRegionData().at(m_osmId).m_osmIdAdminCenter;
+  return GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.GetId();
 }
 }  // namespace regions
 }  // namespace generator

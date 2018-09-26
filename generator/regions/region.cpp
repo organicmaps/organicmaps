@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <numeric>
 
-#include "3party/boost/boost/geometry.hpp"
+#include <boost/geometry.hpp>
 
 namespace generator
 {
@@ -81,7 +81,7 @@ double Region::CalculateOverlapPercentage(Region const & other) const
   boost::geometry::intersection(*other.m_polygon, *m_polygon, coll);
   auto const min = std::min(boost::geometry::area(*other.m_polygon),
                             boost::geometry::area(*m_polygon));
-  auto const binOp = [] (double x, BoostPolygon const & y) { return x + boost::geometry::area(y); };
+  auto const binOp = [](double x, BoostPolygon const & y) { return x + boost::geometry::area(y); };
   auto const sum = std::accumulate(std::begin(coll), std::end(coll), 0., binOp);
   return (sum / min) * 100;
 }
