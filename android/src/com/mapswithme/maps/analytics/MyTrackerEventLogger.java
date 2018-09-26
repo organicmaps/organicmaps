@@ -1,4 +1,4 @@
-package com.mapswithme.maps.content;
+package com.mapswithme.maps.analytics;
 
 import android.app.Activity;
 import android.app.Application;
@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.maps.analytics.ContextDependentEventLogger;
 import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 

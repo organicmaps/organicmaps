@@ -1,9 +1,11 @@
-package com.mapswithme.maps.content;
+package com.mapswithme.maps.analytics;
 
 import android.app.Activity;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.mapswithme.maps.analytics.ContextDependentEventLogger;
 
 import java.util.Map;
 

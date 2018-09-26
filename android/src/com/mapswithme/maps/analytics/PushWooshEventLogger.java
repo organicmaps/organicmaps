@@ -1,4 +1,4 @@
-package com.mapswithme.maps.content;
+package com.mapswithme.maps.analytics;
 
 import android.app.Application;
 import android.support.annotation.NonNull;

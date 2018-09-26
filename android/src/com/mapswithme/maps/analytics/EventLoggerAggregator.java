@@ -1,4 +1,4 @@
-package com.mapswithme.maps.content;
+package com.mapswithme.maps.analytics;
 
 import android.app.Activity;
 import android.app.Application;
@@ -55,7 +55,7 @@ public class EventLoggerAggregator extends ContextDependentEventLogger
   {
     for (Map.Entry<Class<? extends EventLogger>, ? extends EventLogger> each : mLoggers.entrySet())
     {
-      each.getValue().stopActivity(context);
+      each.getValue().startActivity(context);
     }
   }
 

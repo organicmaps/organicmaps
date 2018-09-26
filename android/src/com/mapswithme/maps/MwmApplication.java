@@ -15,7 +15,7 @@ import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.content.EventLoggerProvider;
+import com.mapswithme.maps.analytics.EventLoggerProvider;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
