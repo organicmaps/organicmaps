@@ -54,7 +54,7 @@ void mock_glGetActiveUniform(uint32_t programID, uint32_t index, int32_t * size,
   *size = 1;
   if (index < 9)
   {
-    static std::pair<string, glConst> mockUniforms[9] =
+    static std::pair<std::string, glConst> mockUniforms[9] =
     {
       std::make_pair("position0", gl_const::GLIntType),
       std::make_pair("position1", gl_const::GLIntVec2),

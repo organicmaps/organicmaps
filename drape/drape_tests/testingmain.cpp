@@ -100,13 +100,13 @@ int main(int argc, char * argv[])
     }
     catch (std::exception const & ex)
     {
-      std::cerr << "FAILED" << endl << "<<<Exception thrown [" << ex.what() << "].>>>" << std::endl;
+      std::cerr << "FAILED" << std::endl << "<<<Exception thrown [" << ex.what() << "].>>>" << std::endl;
       testResults[iTest] = false;
       ++numFailedTests;
     }
     catch (...)
     {
-      std::cerr << "FAILED" << endl << "<<<Unknown exception thrown.>>>" << std::endl;
+      std::cerr << "FAILED" << std::endl << "<<<Unknown exception thrown.>>>" << std::endl;
       testResults[iTest] = false;
       ++numFailedTests;
     }
@@ -126,7 +126,7 @@ int main(int argc, char * argv[])
       if (!testResults[i])
         std::cerr << testNames[i] << std::endl;
     }
-    std::cerr << "Some tests FAILED." << std::endl << flush;
+    std::cerr << "Some tests FAILED." << std::endl << std::flush;
     return 1;
   }
 }
