@@ -13,18 +13,17 @@ import com.my.tracker.MyTrackerParams;
 
 import java.util.Map;
 
-public class MyTrackerEventLogger extends ContextDependentEventLogger
+class MyTrackerEventLogger extends ContextDependentEventLogger
 {
   MyTrackerEventLogger(@NonNull Application application)
   {
     super(application);
-    initTracker();
   }
 
   @Override
   public void initialize()
   {
-
+    initTracker();
   }
 
   @Override

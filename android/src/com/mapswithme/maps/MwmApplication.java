@@ -15,7 +15,6 @@ import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.analytics.EventLoggerProvider;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -72,9 +71,6 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ExternalLibrariesMediator mMediator;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Statistics mStatistics;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -274,7 +270,7 @@ public class MwmApplication extends Application
   @SuppressWarnings("unused")
   void sendPushWooshTags(String tag, String[] values)
   {
-    EventLoggerProvider.obtainLogger(this).sendTags(tag, values);
+    getMediator().getEventLogger().sendTags(tag, values);
   }
 
   @NonNull
@@ -307,12 +303,6 @@ public class MwmApplication extends Application
   public ConnectivityListener getConnectivityListener()
   {
     return mConnectivityListener;
-  }
-
-  @NonNull
-  public Statistics getStatistics()
-  {
-    return mStatistics;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,

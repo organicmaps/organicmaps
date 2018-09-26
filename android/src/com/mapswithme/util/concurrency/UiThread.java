@@ -7,7 +7,7 @@ public class UiThread
 {
   private static final Handler sUiHandler = new Handler(Looper.getMainLooper());
 
-  public static boolean isUiThreadNow()
+  public static boolean isUiThread()
   {
     return Looper.getMainLooper().getThread() == Thread.currentThread();
   }
@@ -19,7 +19,7 @@ public class UiThread
    */
   public static void run(Runnable task)
   {
-    if (isUiThreadNow())
+    if (isUiThread())
       task.run();
     else
       sUiHandler.post(task);

@@ -28,7 +28,7 @@ final class Locals
   @MainThread
   void onLocalsReceived(@NonNull LocalExpert[] experts)
   {
-    if (!UiThread.isUiThreadNow())
+    if (!UiThread.isUiThread())
       throw new AssertionError("Must be called from UI thread!");
 
     if (mListener != null)
@@ -39,7 +39,7 @@ final class Locals
   @MainThread
   void onLocalsErrorReceived(@NonNull LocalsError error)
   {
-    if (!UiThread.isUiThreadNow())
+    if (!UiThread.isUiThread())
       throw new AssertionError("Must be called from UI thread!");
 
     if (mListener != null)

@@ -10,7 +10,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.pushwoosh.Pushwoosh;
 
-public class PushWooshEventLogger extends DefaultEventLogger
+class PushWooshEventLogger extends DefaultEventLogger
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String PW_EMPTY_APP_ID = "XXXXX";

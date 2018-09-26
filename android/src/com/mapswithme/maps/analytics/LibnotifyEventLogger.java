@@ -15,7 +15,7 @@ import ru.mail.notify.core.api.NetworkSyncMode;
 import java.util.Collections;
 import java.util.Map;
 
-public class LibnotifyEventLogger extends DefaultEventLogger
+class LibnotifyEventLogger extends DefaultEventLogger
 {
   @SuppressWarnings("NullableProblems")
   @NonNull

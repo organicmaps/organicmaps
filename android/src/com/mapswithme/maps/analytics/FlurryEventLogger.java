@@ -11,7 +11,7 @@ import com.mapswithme.maps.PrivateVariables;
 
 import java.util.Map;
 
-public class FlurryEventLogger extends DefaultEventLogger
+class FlurryEventLogger extends DefaultEventLogger
 {
   FlurryEventLogger(@NonNull Application application)
   {

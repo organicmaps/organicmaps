@@ -35,7 +35,6 @@ public class ExternalLibrariesMediator
 
   @NonNull
   private final Application mApplication;
-
   @NonNull
   private volatile EventLogger mEventLogger;
 
@@ -60,7 +59,7 @@ public class ExternalLibrariesMediator
 
   private void initSensitiveEventLogger()
   {
-    if (com.mapswithme.util.concurrency.UiThread.isUiThreadNow())
+    if (com.mapswithme.util.concurrency.UiThread.isUiThread())
     {
       mEventLogger = new EventLoggerAggregator(mApplication);
       mEventLogger.initialize();
@@ -164,7 +163,7 @@ public class ExternalLibrariesMediator
       }
       catch (GooglePlayServicesNotAvailableException | IOException | GooglePlayServicesRepairableException e)
       {
-        LOGGER.e(TAG, e.getMessage());
+        LOGGER.e(TAG, "Failed to obtain advertising id: ", e);
         CrashlyticsUtils.logException(e);
         return false;
       }
