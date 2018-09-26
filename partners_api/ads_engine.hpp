@@ -25,7 +25,6 @@ public:
   std::vector<Banner> GetBanners(feature::TypesHolder const & types,
                                  storage::TCountriesVec const & countryIds,
                                  std::string const & userLanguage) const;
-  void EnableAdProvider(Banner::Type const type, Banner::Place bannerPlace);
   void DisableAdProvider(Banner::Type const type, Banner::Place const place);
   bool HasSearchBanner() const;
   std::vector<Banner> GetSearchBanners() const;

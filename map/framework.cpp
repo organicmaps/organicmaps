@@ -3336,7 +3336,7 @@ ads::Engine const & Framework::GetAdsEngine() const
   return *m_adsEngine;
 }
 
-void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
+void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place) const
 {
   ASSERT(m_adsEngine, ());
   m_adsEngine.get()->DisableAdProvider(type, place);

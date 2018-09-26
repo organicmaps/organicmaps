@@ -197,7 +197,7 @@ namespace android
     bool IsAutoRetryDownloadFailed();
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
-
+    void DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place);
     uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                  ms::LatLon const & to, taxi::SuccessCallback const & onSuccess,
                                  taxi::ErrorCallback const & onError);
