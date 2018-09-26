@@ -57,6 +57,7 @@
 #include "partners_api/locals_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/viator_api.hpp"
+#include "partners_api/banner.hpp"
 
 #include "metrics/eye_info.hpp"
 
@@ -86,7 +87,6 @@
 #include "std/vector.hpp"
 
 #include <boost/optional.hpp>
-#include "partners_api/banner.hpp"
 
 namespace osm
 {

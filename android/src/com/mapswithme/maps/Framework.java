@@ -224,7 +224,7 @@ public class Framework
     return FilterUtils.RATING_ANY;
   }
 
-  public static void setAdProviderDisabled(@NonNull Banner.Type type)
+  public static void disableAdProvider(@NonNull Banner.Type type)
   {
     nativeDisableAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
   }

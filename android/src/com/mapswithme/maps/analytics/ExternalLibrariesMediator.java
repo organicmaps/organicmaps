@@ -182,6 +182,13 @@ public class ExternalLibrariesMediator
       super.onPostExecute(status);
       if (status != null && status)
         onEnabled();
+      else
+        onDisabled();
+    }
+
+    private void onDisabled()
+    {
+      Framework.disableAdProvider(Banner.Type.TYPE_RB);
     }
 
     private void onEnabled()

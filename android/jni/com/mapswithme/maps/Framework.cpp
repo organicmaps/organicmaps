@@ -1135,9 +1135,10 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
   return result;
 }
 
-JNIEXPORT void JNICALL Java_com_mapswithme_maps_Framework_nativeDisableAdProvider(JNIEnv * env,
-                                                                                  jclass, jint type,
-                                                                                  jint place)
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeDisableAdProvider(JNIEnv *env,
+                                                           jclass, jint type,
+                                                           jint place)
 {
   auto const & bannerType = static_cast<ads::Banner::Type>(type);
   auto const & bannerPlace = static_cast<ads::Banner::Place>(place);

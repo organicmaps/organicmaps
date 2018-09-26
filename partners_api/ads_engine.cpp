@@ -44,17 +44,17 @@ std::vector<Banner> Engine::GetBanners(feature::TypesHolder const & types,
 
   for (auto const & item : m_banners)
   {
-    if (item.m_enabled)
+    if (!item.m_enabled)
+      continue;
+
+    for (auto const & countryId : countryIds)
     {
-      for (auto const & countryId : countryIds)
+      auto const bannerId = item.m_container->GetBannerId(types, countryId, userLanguage);
+      // We need to add banner for every banner system just once.
+      if (!bannerId.empty())
       {
-        auto const bannerId = item.m_container->GetBannerId(types, countryId, userLanguage);
-        // We need to add banner for every banner system just once.
-        if (!bannerId.empty())
-        {
-          result.emplace_back(item.m_type, bannerId);
-          break;
-        }
+        result.emplace_back(item.m_type, bannerId);
+        break;
       }
     }
   }
@@ -93,18 +93,16 @@ void Engine::DisableAdProvider(Banner::Type const type, Banner::Place const plac
   SetAdProviderEnabled(place == Banner::Place::Search ? m_searchBanners : m_banners, type, false);
 }
 
-void Engine::EnableAdProvider(Banner::Type const type, Banner::Place place)
-{
-  SetAdProviderEnabled(place == Banner::Place::Search ? m_searchBanners : m_banners, type, true);
-}
-
 void Engine::SetAdProviderEnabled(std::vector<Engine::ContainerItem> & banners,
                                   Banner::Type const type, bool const isEnabled)
 {
   for (auto & item : banners)
   {
     if (item.m_type == type)
+    {
       item.m_enabled = isEnabled;
+      return;
+    }
   }
 }
 }  // namespace ads
