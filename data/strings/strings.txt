@@ -33293,3 +33293,6 @@ fa = دوباره نپرس
   [offline_fiters_check_in]
     en = Connect to the internet to filter hotels by dates.
     ru = Подключитесь к интернету, чтобы выбрать дату заезда и выезда.
+
+  [rutaxi_title]
+    en = RuTaxi

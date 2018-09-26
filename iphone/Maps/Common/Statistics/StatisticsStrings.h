@@ -301,6 +301,7 @@ static NSString * const kStatRoutingTooltipClicked = @"Routing_PlanTooltip_click
 static NSString * const kStatRoutingRouteStart = @"Routing_Route_start";
 static NSString * const kStatRoutingRouteFinish = @"Routing_Route_finish";
 static NSString * const kStatRoutingInterrupted = @"interrupted";
+static NSString * const kStatRutaxi = @"Rutaxi";
 static NSString * const kStatSave = @"Save";
 static NSString * const kStatScenario = @"scenario";
 static NSString * const kStatScreen = @"Screen";

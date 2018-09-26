@@ -110,6 +110,7 @@
 		<string>tel</string>
 		<string>booking</string>
 		<string>maximzakaz</string>
+		<string>rto</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

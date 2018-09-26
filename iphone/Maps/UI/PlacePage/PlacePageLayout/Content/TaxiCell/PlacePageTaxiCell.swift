@@ -40,6 +40,9 @@ final class PlacePageTaxiCell: MWMTableViewCell {
     case .maxim:
       icon.image = #imageLiteral(resourceName: "ic_taxi_logo_maksim")
       title.text = L("maxim_taxi_title")
+    case .rutaxi:
+      icon.image = #imageLiteral(resourceName: "ic_taxi_logo_rutaxi")
+      title.text = L("rutaxi_title")
     }
   }
 

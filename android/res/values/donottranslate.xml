@@ -91,6 +91,4 @@
   <string name="pref_opt_out_fabric_activated" translatable="false">pref_opt_out_fabric_activated</string>
   <string name="pref_opt_out_mopub" translatable="false">pref_opt_out_mopub</string>
   <string name="pref_opt_out_flurry" translatable="false">pref_opt_out_flurry</string>
-
-  <string name="rutaxi_title" translatable="false">RuTaxi</string>
 </resources>
