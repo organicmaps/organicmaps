@@ -16,6 +16,7 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.mapswithme.maps.analytics.DefaultEventLogger;
 import com.mapswithme.maps.analytics.EventLogger;
 import com.mapswithme.maps.analytics.EventLoggerAggregator;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -164,6 +165,7 @@ public class ExternalLibrariesMediator
       catch (GooglePlayServicesNotAvailableException | IOException | GooglePlayServicesRepairableException e)
       {
         LOGGER.e(TAG, e.getMessage());
+        CrashlyticsUtils.logException(e);
         return false;
       }
     }
