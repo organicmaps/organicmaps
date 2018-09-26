@@ -92,8 +92,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     {
       for (Purchase purchase : purchases)
       {
-        LOGGER.i(TAG, "Validating 'ads removal' purchased '" + purchase.getSku()
-                      + "' on backend server...");
+        LOGGER.i(TAG, "Validating purchase '" + purchase.getSku() + "' on backend server...");
         getValidator().validate(purchase.getOriginalJson());
         if (getUiCallback() != null)
           getUiCallback().onValidationStarted();

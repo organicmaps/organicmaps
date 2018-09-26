@@ -481,8 +481,8 @@ Framework::Framework(FrameworkParams const & params)
   // Local ads manager should be initialized after storage initialization.
   if (params.m_enableLocalAds)
   {
-    m_localAdsManager.Startup(m_bmManager.get(),
-      m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds));
+    auto const isActive = m_purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
+    m_localAdsManager.Startup(m_bmManager.get(), !isActive);
     m_purchase->RegisterSubscription(&m_localAdsManager);
   }
 
