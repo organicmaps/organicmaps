@@ -512,7 +512,6 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
 vector<string> Framework::GetPrintableFeatureTypes(FeatureType & ft) const
 {
   vector<string> results;
-  int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
 
   feature::TypesHolder types(ft);
   types.SortBySpec();
