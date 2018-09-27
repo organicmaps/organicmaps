@@ -34,4 +34,18 @@ UNIT_TEST(RoutingQuality_CzechiaPrague)
                      {{{50.15078, 14.49205}}} /* reference track */),
        ());
 }
+
+UNIT_TEST(RoutingQuality_FinlandHelsinki)
+{
+  TEST(CheckCarRoute({60.16741, 24.94255} /* start */, {64.13182, 28.38784} /* finish */,
+                     {{{60.95453, 25.6951}}} /* reference track */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_USAOklahoma)
+{
+  TEST(CheckCarRoute({35.39166, -97.55402} /* start */, {35.38452, -97.5742} /* finish */,
+                     {{{35.39912, -97.57622}}} /* reference track */),
+       ());
+}
 }  // namespace

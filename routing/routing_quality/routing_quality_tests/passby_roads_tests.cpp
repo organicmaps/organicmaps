@@ -8,7 +8,7 @@ using namespace routing_quality;
 // Test on such cases should be grouped in this file.
 namespace
 {
-UNIT_TEST(RoutingQuality_Zelegonrad2Domodedovo)
+UNIT_TEST(RoutingQuality_RussiaZelegonrad2Domodedovo)
 {
   // From Zelenograd to Domodedovo. MKAD should be preferred.
   TEST(CheckCarRoute({55.98301, 37.21141} /* start */, {55.42081, 37.89361} /* finish */,
