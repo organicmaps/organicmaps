@@ -12,4 +12,18 @@ UNIT_TEST(RoutingQuality_FinlandBridgeInsteadOfFerry)
                      {{{55.56602, 12.88537}}} /* reference track */),
        ());
 }
+
+UNIT_TEST(RoutingQuality_RussiaToCrimeaFerry)
+{
+  TEST(CheckCarRoute({45.34123, 36.67679} /* start */, {45.36479, 36.62194} /* finish */,
+                     {{{45.3532, 36.64912}}} /* reference track */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_RussiaFromCrimeaFerry)
+{
+  TEST(CheckCarRoute({45.36479, 36.62194} /* start */, {45.34123, 36.67679} /* finish */,
+                     {{{45.3532, 36.64912}}} /* reference track */),
+       ());
+}
 }  // namespace

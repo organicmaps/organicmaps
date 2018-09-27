@@ -91,21 +91,6 @@ namespace
         MercatorBounds::FromLatLon(55.77691, 37.70428), 150.);
   }
 
-  UNIT_TEST(RussiaFerryToCrimeaLoadCrossGeometryTest)
-  {
-    // To Crimea.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.34123, 36.67679), {0., 0.},
-        MercatorBounds::FromLatLon(45.36479, 36.62194), 5365.0);
-
-    // From Crimea.
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
-        MercatorBounds::FromLatLon(45.34123, 36.67679), 5400.0);
-  }
-
   UNIT_TEST(PriceIslandLoadCrossGeometryTest)
   {
     size_t constexpr kExpectedPointsNumber = 56;
