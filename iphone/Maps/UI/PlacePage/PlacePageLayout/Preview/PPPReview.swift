@@ -32,6 +32,7 @@ final class PPPReview: MWMTableViewCell {
 
   @objc func config(rating: UGCRatingValueType,
                     canAddReview: Bool,
+                    isReviewedByUser: Bool,
                     reviewsCount: UInt,
                     price: String,
                     discount: Int,
@@ -56,7 +57,7 @@ final class PPPReview: MWMTableViewCell {
     ratingSummaryView.value = rating.value
     ratingSummaryView.type = rating.type
     ratingSummaryView.backgroundOpacity = 0.05
-    if canAddReview {
+    if canAddReview && !isReviewedByUser {
       addReviewButton.isHidden = false
       addReviewButton.layer.cornerRadius = addReviewButton.height / 2
     } else {
@@ -65,15 +66,15 @@ final class PPPReview: MWMTableViewCell {
     pricingLabel.isHidden = true
     reviewsLabel.isHidden = false
     if rating.type == .noValue {
-      if canAddReview {
-        ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_rating_normal")
-        ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
-        reviewsLabel.text = L("placepage_no_reviews")
-      } else {
+      if isReviewedByUser {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_radio_on")
         ratingSummaryView.noValueColor = UIColor.linkBlue()
         reviewsLabel.text = L("placepage_reviewed")
         pricingLabel.isHidden = false
+      } else {
+        ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_rating_normal")
+        ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
+        reviewsLabel.text = L("placepage_no_reviews")
       }
     } else {
       ratingSummaryView.defaultConfig()

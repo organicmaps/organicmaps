@@ -154,8 +154,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
         if (!self.ugc.isUGCEmpty)
         {
-          length = 2;
-          it = sections.insert(it, Sections::UGCRating) + 1;
+          length = 1;
+          if (!self.ugc.isAggregatedRatingEmpty)
+          {
+            it = sections.insert(it, Sections::UGCRating) + 1;
+            length++;
+          }
           if (self.ugc.isUGCUpdateEmpty)
           {
             it = sections.insert(it, Sections::UGCAddReview) + 1;

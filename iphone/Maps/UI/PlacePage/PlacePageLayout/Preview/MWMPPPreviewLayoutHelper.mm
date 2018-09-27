@@ -237,6 +237,7 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     {
       [reviewCell configWithRating:data.bookingRating
                       canAddReview:NO
+                      isReviewedByUser:NO
                       reviewsCount:0
                              price:data.bookingPricing
                           discount:data.bookingDiscount
@@ -250,7 +251,8 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     {
       NSAssert(data.ugc, @"");
       [reviewCell configWithRating:data.ugc.summaryRating
-                      canAddReview:data.ugc.isUGCUpdateEmpty
+                      canAddReview:YES
+                      isReviewedByUser:!data.ugc.isUGCUpdateEmpty
                       reviewsCount:data.ugc.totalReviewsCount
                              price:@""
                           discount:0

@@ -76,6 +76,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 
 - (BOOL)isUGCEmpty { return static_cast<BOOL>(m_ugc.IsEmpty()); }
 - (BOOL)isUGCUpdateEmpty { return static_cast<BOOL>(m_ugcUpdate.IsEmpty()); }
+- (BOOL)isAggregatedRatingEmpty { return m_ugc.m_totalRating == kIncorrectRating; }
 - (NSUInteger)ratingCellsCount { return 1; }
 - (NSUInteger)addReviewCellsCount { return 1; }
 - (NSUInteger)totalReviewsCount { return static_cast<NSUInteger>(m_ugc.m_basedOn); }

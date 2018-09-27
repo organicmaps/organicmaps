@@ -36,6 +36,7 @@ enum class ReviewRow
 
 - (BOOL)isUGCEmpty;
 - (BOOL)isUGCUpdateEmpty;
+- (BOOL)isAggregatedRatingEmpty;
 
 - (NSUInteger)ratingCellsCount;
 - (NSUInteger)addReviewCellsCount;
