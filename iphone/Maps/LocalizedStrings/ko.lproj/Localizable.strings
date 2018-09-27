@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "양복점";
 
+"type.cuisine.african" = "아프리카식 음식";
+
+"type.cuisine.american" = "미국식 음식";
+
+"type.cuisine.arab" = "아랍식 음식";
+
+"type.cuisine.argentinian" = "아르헨티나식 음식";
+
+"type.cuisine.asian" = "아시아식 음식";
+
+"type.cuisine.austrian" = "오스트리아식 음식";
+
+"type.cuisine.bagel" = "베이글";
+
+"type.cuisine.balkan" = "발칸 반도식 음식";
+
+"type.cuisine.barbecue" = "바베큐";
+
+"type.cuisine.bavarian" = "바이에른식 음식";
+
+"type.cuisine.beef_bowl" = "쇠고기 덮밥";
+
+"type.cuisine.brazilian" = "브라질식 음식";
+
+"type.cuisine.breakfast" = "아침 식사";
+
+"type.cuisine.burger" = "햄버거";
+
+"type.cuisine.buschenschank" = "와인 레스토랑";
+
+"type.cuisine.cake" = "케이크";
+
+"type.cuisine.caribbean" = "카리브식 음식";
+
+"type.cuisine.chicken" = "닭고기";
+
+"type.cuisine.chinese" = "중국식 음식";
+
+"type.cuisine.coffee_shop" = "커피";
+
+"type.cuisine.crepe" = "크레이프";
+
+"type.cuisine.croatian" = "크로아티아식 음식";
+
+"type.cuisine.curry" = "카레";
+
+"type.cuisine.deli" = "델리";
+
+"type.cuisine.diner" = "식당";
+
+"type.cuisine.donut" = "도너츠";
+
+"type.cuisine.ethiopian" = "에티오피아식 음식";
+
+"type.cuisine.filipino" = "필리핀식 음식";
+
+"type.cuisine.fine_dining" = "고급 식당";
+
+"type.cuisine.fish" = "생선";
+
+"type.cuisine.fish_and_chips" = "피쉬 앤 칩스";
+
+"type.cuisine.french" = "프랑스식 음식";
+
+"type.cuisine.friture" = "튀김 요리";
+
+"type.cuisine.georgian" = "그루지야식 음식";
+
+"type.cuisine.german" = "독일식 음식";
+
+"type.cuisine.greek" = "그리스식 음식";
+
+"type.cuisine.grill" = "그릴";
+
+"type.cuisine.heuriger" = "호이리거";
+
+"type.cuisine.hotdog" = "핫도그";
+
+"type.cuisine.hungarian" = "헝가리식 음식";
+
+"type.cuisine.ice_cream" = "아이스크림";
+
+"type.cuisine.indian" = "인도식 음식";
+
+"type.cuisine.indonesian" = "인도네시아식 음식";
+
+"type.cuisine.international" = "국제 음식";
+
+"type.cuisine.irish" = "아일랜드식 음식";
+
+"type.cuisine.italian" = "이탈리아식 음식";
+
+"type.cuisine.italian_pizza" = "이탈리아식, 피자";
+
+"type.cuisine.japanese" = "일본식 음식";
+
+"type.cuisine.kebab" = "케밥";
+
+"type.cuisine.korean" = "한국식 음식";
+
+"type.cuisine.lao" = "라오식 음식";
+
+"type.cuisine.lebanese" = "레바논식 음식";
+
+"type.cuisine.local" = "현지식 음식";
+
+"type.cuisine.malagasy" = "마다가스카르식 음식";
+
+"type.cuisine.malaysian" = "말레이시아식 음식";
+
+"type.cuisine.mediterranean" = "지중해식 음식";
+
+"type.cuisine.mexican" = "멕시코식 음식";
+
+"type.cuisine.moroccan" = "모로코식 음식";
+
+"type.cuisine.noodles" = "국수";
+
+"type.cuisine.oriental" = "극동식 음식";
+
+"type.cuisine.pancake" = "팬케이크";
+
+"type.cuisine.pasta" = "파스타";
+
+"type.cuisine.persian" = "페르시아식 음식";
+
+"type.cuisine.peruvian" = "페루식 음식";
+
+"type.cuisine.pizza" = "피자";
+
+"type.cuisine.polish" = "폴란드식 음식";
+
+"type.cuisine.portuguese" = "포르투갈식 음식";
+
+"type.cuisine.ramen" = "라면";
+
+"type.cuisine.regional" = "지역적 음식";
+
+"type.cuisine.russian" = "러시아식 음식";
+
+"type.cuisine.sandwich" = "샌드위치";
+
+"type.cuisine.sausage" = "소시지";
+
+"type.cuisine.savory_pancakes" = "맛좋은 팬케이크";
+
+"type.cuisine.seafood" = "해산물";
+
+"type.cuisine.soba" = "메밀 국수";
+
+"type.cuisine.spanish" = "스페인식 음식";
+
+"type.cuisine.steak_house" = "스테이크 하우스";
+
+"type.cuisine.sushi" = "초밥";
+
+"type.cuisine.tapas" = "타파스";
+
+"type.cuisine.tea" = "차";
+
+"type.cuisine.thai" = "타이식 음식";
+
+"type.cuisine.turkish" = "터키식 음식";
+
+"type.cuisine.vegan" = "비건 음식";
+
+"type.cuisine.vegetarian" = "채식주의자 음식";
+
+"type.cuisine.vietnamese" = "베트남식 음식";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "제세동기";

@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Krejčí";
 
+"type.cuisine.african" = "Africká kuchyně";
+
+"type.cuisine.american" = "Americká kuchyně";
+
+"type.cuisine.arab" = "Arabská kuchyně";
+
+"type.cuisine.argentinian" = "Argentinská kuchyně";
+
+"type.cuisine.asian" = "Asijská kuchyně";
+
+"type.cuisine.austrian" = "Rakouská kuchyně";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkánská kuchyně";
+
+"type.cuisine.barbecue" = "Grilované pokrmy";
+
+"type.cuisine.bavarian" = "Bavorská kuchyně";
+
+"type.cuisine.beef_bowl" = "Miska hovězího";
+
+"type.cuisine.brazilian" = "Brazilská kuchyně";
+
+"type.cuisine.breakfast" = "Snídaně";
+
+"type.cuisine.burger" = "Burger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Dort";
+
+"type.cuisine.caribbean" = "Karibská kuchyně";
+
+"type.cuisine.chicken" = "Kuře";
+
+"type.cuisine.chinese" = "Čínská kuchyně";
+
+"type.cuisine.coffee_shop" = "Káva";
+
+"type.cuisine.crepe" = "Crêpe";
+
+"type.cuisine.croatian" = "Chorvatská kuchyně";
+
+"type.cuisine.curry" = "Kari";
+
+"type.cuisine.deli" = "Lahůdky";
+
+"type.cuisine.diner" = "Večeře";
+
+"type.cuisine.donut" = "Kobliha";
+
+"type.cuisine.ethiopian" = "Etiopská kuchyně";
+
+"type.cuisine.filipino" = "Filipínská kuchyně";
+
+"type.cuisine.fine_dining" = "Zážitková gastronomie";
+
+"type.cuisine.fish" = "Ryba";
+
+"type.cuisine.fish_and_chips" = "Ryba a hranolky";
+
+"type.cuisine.french" = "Francouzská kuchyně";
+
+"type.cuisine.friture" = "Smažené pokrmy";
+
+"type.cuisine.georgian" = "Gruzínská kuchyně";
+
+"type.cuisine.german" = "Německá kuchyně";
+
+"type.cuisine.greek" = "Řecká kuchyně";
+
+"type.cuisine.grill" = "Gril";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hot dog";
+
+"type.cuisine.hungarian" = "Maďarská kuchyně";
+
+"type.cuisine.ice_cream" = "Zmrzlina";
+
+"type.cuisine.indian" = "Indická kuchyně";
+
+"type.cuisine.indonesian" = "Indonéská kuchyně";
+
+"type.cuisine.international" = "Mezinárodní kuchyně";
+
+"type.cuisine.irish" = "Irská kuchyně";
+
+"type.cuisine.italian" = "Italská kuchyně";
+
+"type.cuisine.italian_pizza" = "Italská, pizza";
+
+"type.cuisine.japanese" = "Japonská kuchyně";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Korejská kuchyně";
+
+"type.cuisine.lao" = "Laoská kuchyně";
+
+"type.cuisine.lebanese" = "Libanonská kuchyně";
+
+"type.cuisine.local" = "Místní kuchyně";
+
+"type.cuisine.malagasy" = "Madagaskarská kuchyně";
+
+"type.cuisine.malaysian" = "Malajsijská kuchyně";
+
+"type.cuisine.mediterranean" = "Středomořská kuchyně";
+
+"type.cuisine.mexican" = "Mexická kuchyně";
+
+"type.cuisine.moroccan" = "Marocká kuchyně";
+
+"type.cuisine.noodles" = "Nudle";
+
+"type.cuisine.oriental" = "Orientální kuchyně";
+
+"type.cuisine.pancake" = "Palačinka";
+
+"type.cuisine.pasta" = "Těstoviny";
+
+"type.cuisine.persian" = "Perská kuchyně";
+
+"type.cuisine.peruvian" = "Peruánská kuchyně";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Polská kuchyně";
+
+"type.cuisine.portuguese" = "Portugalská kuchyně";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Regionální kuchyně";
+
+"type.cuisine.russian" = "Ruská kuchyně";
+
+"type.cuisine.sandwich" = "Sendvič";
+
+"type.cuisine.sausage" = "Klobása";
+
+"type.cuisine.savory_pancakes" = "Pikantní palačinky";
+
+"type.cuisine.seafood" = "Mořské plody";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Španělská kuchyně";
+
+"type.cuisine.steak_house" = "Steaková restaurace";
+
+"type.cuisine.sushi" = "Suši";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Čaj";
+
+"type.cuisine.thai" = "Thajská kuchyně";
+
+"type.cuisine.turkish" = "Turecká kuchyně";
+
+"type.cuisine.vegan" = "Veganská kuchyně";
+
+"type.cuisine.vegetarian" = "Vegetariánská kuchyně";
+
+"type.cuisine.vietnamese" = "Vietnamská kuchyně";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrilátor";

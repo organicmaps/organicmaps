@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Schneider";
 
+"type.cuisine.african" = "Afrikanische Küche";
+
+"type.cuisine.american" = "Amerikanische Küche";
+
+"type.cuisine.arab" = "Arabische Küche";
+
+"type.cuisine.argentinian" = "Argentinische Küche";
+
+"type.cuisine.asian" = "Asiatische Küche";
+
+"type.cuisine.austrian" = "Österreichische Küche";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkanküche";
+
+"type.cuisine.barbecue" = "Grill";
+
+"type.cuisine.bavarian" = "Bayerische Küche";
+
+"type.cuisine.beef_bowl" = "Gyūdon";
+
+"type.cuisine.brazilian" = "Brasilianische Küche";
+
+"type.cuisine.breakfast" = "Frühstück";
+
+"type.cuisine.burger" = "Burger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Kuchen";
+
+"type.cuisine.caribbean" = "Karibische Küche";
+
+"type.cuisine.chicken" = "Hühnchen";
+
+"type.cuisine.chinese" = "Chinesische Küche";
+
+"type.cuisine.coffee_shop" = "Kaffee";
+
+"type.cuisine.crepe" = "Crêpe";
+
+"type.cuisine.croatian" = "Kroatische Küche";
+
+"type.cuisine.curry" = "Curry";
+
+"type.cuisine.deli" = "Deli-Küche";
+
+"type.cuisine.diner" = "Diner";
+
+"type.cuisine.donut" = "Donuts";
+
+"type.cuisine.ethiopian" = "Äthiopische Küche";
+
+"type.cuisine.filipino" = "Philippinische Küche";
+
+"type.cuisine.fine_dining" = "Gehobene Küche";
+
+"type.cuisine.fish" = "Fisch";
+
+"type.cuisine.fish_and_chips" = "Fish and Chips";
+
+"type.cuisine.french" = "Französische Küche";
+
+"type.cuisine.friture" = "Friterie";
+
+"type.cuisine.georgian" = "Georgische Küche";
+
+"type.cuisine.german" = "Deutsche Küche";
+
+"type.cuisine.greek" = "Griechische Küche";
+
+"type.cuisine.grill" = "Grill";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Ungarische Küche";
+
+"type.cuisine.ice_cream" = "Eis";
+
+"type.cuisine.indian" = "Indische Küche";
+
+"type.cuisine.indonesian" = "Indonesische Küche";
+
+"type.cuisine.international" = "Internationale Küche";
+
+"type.cuisine.irish" = "Irische Küche";
+
+"type.cuisine.italian" = "Italienische Küche";
+
+"type.cuisine.italian_pizza" = "Italienische Küche; Pizza";
+
+"type.cuisine.japanese" = "Japanische Küche";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Koreanische Küche";
+
+"type.cuisine.lao" = "Laotische Küche";
+
+"type.cuisine.lebanese" = "Libanesische Küche";
+
+"type.cuisine.local" = "Lokale Küche";
+
+"type.cuisine.malagasy" = "Madegassische Küche";
+
+"type.cuisine.malaysian" = "Malaysische Küche";
+
+"type.cuisine.mediterranean" = "Mediterrane Küche";
+
+"type.cuisine.mexican" = "Mexikanische Küche";
+
+"type.cuisine.moroccan" = "Marokkanische Küche";
+
+"type.cuisine.noodles" = "Nudeln";
+
+"type.cuisine.oriental" = "Orientalische Küche";
+
+"type.cuisine.pancake" = "Pfannkuchen";
+
+"type.cuisine.pasta" = "Pasta";
+
+"type.cuisine.persian" = "Persische Küche";
+
+"type.cuisine.peruvian" = "Peruanische Küche";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Polnische Küche";
+
+"type.cuisine.portuguese" = "Portugiesische Küche";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Regionale Küche";
+
+"type.cuisine.russian" = "Russische Küche";
+
+"type.cuisine.sandwich" = "Sandwich";
+
+"type.cuisine.sausage" = "Wurst";
+
+"type.cuisine.savory_pancakes" = "Herzhafte Pfannkuchen";
+
+"type.cuisine.seafood" = "Meeresfrüchte";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Spanische Küche";
+
+"type.cuisine.steak_house" = "Steakhaus";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Tee";
+
+"type.cuisine.thai" = "Thai-Küche";
+
+"type.cuisine.turkish" = "Türkische Küche";
+
+"type.cuisine.vegan" = "Vegane Küche";
+
+"type.cuisine.vegetarian" = "Vegetarische Küche";
+
+"type.cuisine.vietnamese" = "Vietnamesische Küche";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillator";

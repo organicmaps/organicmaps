@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Tailor";
 
+"type.cuisine.african" = "African";
+
+"type.cuisine.american" = "American";
+
+"type.cuisine.arab" = "Arab";
+
+"type.cuisine.argentinian" = "Argentinian";
+
+"type.cuisine.asian" = "Asian";
+
+"type.cuisine.austrian" = "Austrian";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkan";
+
+"type.cuisine.barbecue" = "Barbecue";
+
+"type.cuisine.bavarian" = "Bavarian";
+
+"type.cuisine.beef_bowl" = "Beef Bowl";
+
+"type.cuisine.brazilian" = "Brazilian";
+
+"type.cuisine.breakfast" = "Breakfast";
+
+"type.cuisine.burger" = "Burger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Cake";
+
+"type.cuisine.caribbean" = "Caribbean";
+
+"type.cuisine.chicken" = "Chicken";
+
+"type.cuisine.chinese" = "Chinese";
+
+"type.cuisine.coffee_shop" = "Coffee";
+
+"type.cuisine.crepe" = "Crepe";
+
+"type.cuisine.croatian" = "Croatian";
+
+"type.cuisine.curry" = "Curry";
+
+"type.cuisine.deli" = "Deli";
+
+"type.cuisine.diner" = "Diner";
+
+"type.cuisine.donut" = "Donut";
+
+"type.cuisine.ethiopian" = "Ethiopian";
+
+"type.cuisine.filipino" = "Filipino";
+
+"type.cuisine.fine_dining" = "Fine Dining";
+
+"type.cuisine.fish" = "Fish";
+
+"type.cuisine.fish_and_chips" = "Fish and Chips";
+
+"type.cuisine.french" = "French";
+
+"type.cuisine.friture" = "Friture";
+
+"type.cuisine.georgian" = "Georgian";
+
+"type.cuisine.german" = "German";
+
+"type.cuisine.greek" = "Greek";
+
+"type.cuisine.grill" = "Grill";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Hungarian";
+
+"type.cuisine.ice_cream" = "Ice Cream";
+
+"type.cuisine.indian" = "Indian";
+
+"type.cuisine.indonesian" = "Indonesian";
+
+"type.cuisine.international" = "International";
+
+"type.cuisine.irish" = "Irish";
+
+"type.cuisine.italian" = "Italian";
+
+"type.cuisine.italian_pizza" = "Italian, Pizza";
+
+"type.cuisine.japanese" = "Japanese";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Korean";
+
+"type.cuisine.lao" = "Lao";
+
+"type.cuisine.lebanese" = "Lebanese";
+
+"type.cuisine.local" = "Local";
+
+"type.cuisine.malagasy" = "Malagasy";
+
+"type.cuisine.malaysian" = "Malaysian";
+
+"type.cuisine.mediterranean" = "Mediterranean";
+
+"type.cuisine.mexican" = "Mexican";
+
+"type.cuisine.moroccan" = "Moroccan";
+
+"type.cuisine.noodles" = "Noodles";
+
+"type.cuisine.oriental" = "Far Eastern";
+
+"type.cuisine.pancake" = "Pancake";
+
+"type.cuisine.pasta" = "Pasta";
+
+"type.cuisine.persian" = "Persian";
+
+"type.cuisine.peruvian" = "Peruvian";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Polish";
+
+"type.cuisine.portuguese" = "Portuguese";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Regional";
+
+"type.cuisine.russian" = "Russian";
+
+"type.cuisine.sandwich" = "Sandwich";
+
+"type.cuisine.sausage" = "Sausage";
+
+"type.cuisine.savory_pancakes" = "Savory Pancakes";
+
+"type.cuisine.seafood" = "Seafood";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Spanish";
+
+"type.cuisine.steak_house" = "Steak House";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Tea";
+
+"type.cuisine.thai" = "Thai";
+
+"type.cuisine.turkish" = "Turkish";
+
+"type.cuisine.vegan" = "Vegan";
+
+"type.cuisine.vegetarian" = "Vegetarian";
+
+"type.cuisine.vietnamese" = "Vietnamese";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillator";

@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Terzi";
 
+"type.cuisine.african" = "Afrika mutfağı";
+
+"type.cuisine.american" = "Amerikan mutfağı";
+
+"type.cuisine.arab" = "Arap mutfağı";
+
+"type.cuisine.argentinian" = "Arjantin mutfağı";
+
+"type.cuisine.asian" = "Asya mutfağı";
+
+"type.cuisine.austrian" = "Avusturya mutfağı";
+
+"type.cuisine.bagel" = "Simit";
+
+"type.cuisine.balkan" = "Balkan mutfağı";
+
+"type.cuisine.barbecue" = "Mangal";
+
+"type.cuisine.bavarian" = "Bavyera mutfağı";
+
+"type.cuisine.beef_bowl" = "Biftek tabağı";
+
+"type.cuisine.brazilian" = "Brezilya mutfağı";
+
+"type.cuisine.breakfast" = "Kahvaltı";
+
+"type.cuisine.burger" = "Hamburger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Pasta";
+
+"type.cuisine.caribbean" = "Karayip mutfağı";
+
+"type.cuisine.chicken" = "Tavuk";
+
+"type.cuisine.chinese" = "Çin mutfağı";
+
+"type.cuisine.coffee_shop" = "Kahve";
+
+"type.cuisine.crepe" = "Krep";
+
+"type.cuisine.croatian" = "Hırvat mutfağı";
+
+"type.cuisine.curry" = "Köri";
+
+"type.cuisine.deli" = "Şarküteri";
+
+"type.cuisine.diner" = "Vagon restoran";
+
+"type.cuisine.donut" = "Donut";
+
+"type.cuisine.ethiopian" = "Etiyopya mutfağı";
+
+"type.cuisine.filipino" = "Filipino mutfağı";
+
+"type.cuisine.fine_dining" = "Birinci sınıf restoran";
+
+"type.cuisine.fish" = "Balık";
+
+"type.cuisine.fish_and_chips" = "Balık ve patates cipsi";
+
+"type.cuisine.french" = "Fransız mutfağı";
+
+"type.cuisine.friture" = "Kızartma";
+
+"type.cuisine.georgian" = "Gürcistan mutfağı";
+
+"type.cuisine.german" = "Alman mutfağı";
+
+"type.cuisine.greek" = "Yunan mutfağı";
+
+"type.cuisine.grill" = "ızgara";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Sosisli";
+
+"type.cuisine.hungarian" = "Macar mutfağı";
+
+"type.cuisine.ice_cream" = "Dondurma";
+
+"type.cuisine.indian" = "Hint mutfağı";
+
+"type.cuisine.indonesian" = "Endonezya mutfağı";
+
+"type.cuisine.international" = "Uluslararası mutfak";
+
+"type.cuisine.irish" = "Irlanda mutfağı";
+
+"type.cuisine.italian" = "Italyan mutfağı";
+
+"type.cuisine.italian_pizza" = "Italyan, pizza";
+
+"type.cuisine.japanese" = "Japon mutfağı";
+
+"type.cuisine.kebab" = "Kebap";
+
+"type.cuisine.korean" = "Kore mutfağı";
+
+"type.cuisine.lao" = "Lao mutfağı";
+
+"type.cuisine.lebanese" = "Lübnan mutfağı";
+
+"type.cuisine.local" = "Yerel mutfak";
+
+"type.cuisine.malagasy" = "Malgaş mutfağı";
+
+"type.cuisine.malaysian" = "Malezya mutfağı";
+
+"type.cuisine.mediterranean" = "Akdeniz mutfağı";
+
+"type.cuisine.mexican" = "Meksika mutfağı";
+
+"type.cuisine.moroccan" = "Fas mutfağı";
+
+"type.cuisine.noodles" = "Erişte";
+
+"type.cuisine.oriental" = "Doğu mutfağı";
+
+"type.cuisine.pancake" = "Gözleme";
+
+"type.cuisine.pasta" = "Makarna";
+
+"type.cuisine.persian" = "Iran mutfağı";
+
+"type.cuisine.peruvian" = "Peru mutfağı";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Polonya mutfağı";
+
+"type.cuisine.portuguese" = "Portekiz mutfağı";
+
+"type.cuisine.ramen" = "Japon eriştesi";
+
+"type.cuisine.regional" = "Bölgesel mutfak";
+
+"type.cuisine.russian" = "Rus mutfağı";
+
+"type.cuisine.sandwich" = "Sandviç";
+
+"type.cuisine.sausage" = "Sucuk";
+
+"type.cuisine.savory_pancakes" = "Açma";
+
+"type.cuisine.seafood" = "Deniz ürünleri";
+
+"type.cuisine.soba" = "Erişte";
+
+"type.cuisine.spanish" = "Ispanyol mutfağı";
+
+"type.cuisine.steak_house" = "Et lokantası";
+
+"type.cuisine.sushi" = "Suşi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Çay";
+
+"type.cuisine.thai" = "Tayland mutfağı";
+
+"type.cuisine.turkish" = "Türk mutfağı";
+
+"type.cuisine.vegan" = "Vegan mutfağı";
+
+"type.cuisine.vegetarian" = "Vejetaryen mutfağı";
+
+"type.cuisine.vietnamese" = "Vietnam mutfağı";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrilatör";

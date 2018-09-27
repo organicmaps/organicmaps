@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "仕立て屋";
 
+"type.cuisine.african" = "アフリカ料理";
+
+"type.cuisine.american" = "アメリカ料理";
+
+"type.cuisine.arab" = "アラビア料理";
+
+"type.cuisine.argentinian" = "アルゼンチン料理";
+
+"type.cuisine.asian" = "アジア料理";
+
+"type.cuisine.austrian" = "オーストリア料理";
+
+"type.cuisine.bagel" = "ベーグル";
+
+"type.cuisine.balkan" = "バルカン料理";
+
+"type.cuisine.barbecue" = "バーベキュー";
+
+"type.cuisine.bavarian" = "ババロア料理";
+
+"type.cuisine.beef_bowl" = "ビーフボウル";
+
+"type.cuisine.brazilian" = "ブラジル料理";
+
+"type.cuisine.breakfast" = "朝食";
+
+"type.cuisine.burger" = "ハンバーガー";
+
+"type.cuisine.buschenschank" = "ブッシェンシャンク";
+
+"type.cuisine.cake" = "ケーキ";
+
+"type.cuisine.caribbean" = "カリブ料理";
+
+"type.cuisine.chicken" = "鶏肉";
+
+"type.cuisine.chinese" = "中華料理";
+
+"type.cuisine.coffee_shop" = "コーヒー";
+
+"type.cuisine.crepe" = "クレープ";
+
+"type.cuisine.croatian" = "クロアチア料理";
+
+"type.cuisine.curry" = "カレー";
+
+"type.cuisine.deli" = "デリ";
+
+"type.cuisine.diner" = "ダイナー";
+
+"type.cuisine.donut" = "ドーナッツ";
+
+"type.cuisine.ethiopian" = "エチオピア料理";
+
+"type.cuisine.filipino" = "フィリピン料理";
+
+"type.cuisine.fine_dining" = "高級料理";
+
+"type.cuisine.fish" = "魚料理";
+
+"type.cuisine.fish_and_chips" = "フィッシュ・アンド・チップス";
+
+"type.cuisine.french" = "フランス料理";
+
+"type.cuisine.friture" = "揚げ物";
+
+"type.cuisine.georgian" = "ジョージア料理";
+
+"type.cuisine.german" = "ドイツ料理";
+
+"type.cuisine.greek" = "ギリシャ料理";
+
+"type.cuisine.grill" = "グリル";
+
+"type.cuisine.heuriger" = "ホイリゲ";
+
+"type.cuisine.hotdog" = "ホットドッグ";
+
+"type.cuisine.hungarian" = "ハンガリー料理";
+
+"type.cuisine.ice_cream" = "アイスクリーム";
+
+"type.cuisine.indian" = "インド料理";
+
+"type.cuisine.indonesian" = "インドネシア料理";
+
+"type.cuisine.international" = "国際料理";
+
+"type.cuisine.irish" = "アイルランド料理";
+
+"type.cuisine.italian" = "イタリア料理";
+
+"type.cuisine.italian_pizza" = "イタリア料理；ピザ";
+
+"type.cuisine.japanese" = "日本料理";
+
+"type.cuisine.kebab" = "カバブ";
+
+"type.cuisine.korean" = "韓国料理";
+
+"type.cuisine.lao" = "ラオス料理";
+
+"type.cuisine.lebanese" = "レバノン料理";
+
+"type.cuisine.local" = "地元の料理";
+
+"type.cuisine.malagasy" = "マダガスカル料理";
+
+"type.cuisine.malaysian" = "マレーシア料理";
+
+"type.cuisine.mediterranean" = "地中海料理";
+
+"type.cuisine.mexican" = "メキシコ料理";
+
+"type.cuisine.moroccan" = "モロッコ料理";
+
+"type.cuisine.noodles" = "麺類";
+
+"type.cuisine.oriental" = "東洋の料理";
+
+"type.cuisine.pancake" = "ホットケーキ";
+
+"type.cuisine.pasta" = "パスタ";
+
+"type.cuisine.persian" = "ペルシャ料理";
+
+"type.cuisine.peruvian" = "ペルー料理";
+
+"type.cuisine.pizza" = "ピザ";
+
+"type.cuisine.polish" = "ポーランド料理";
+
+"type.cuisine.portuguese" = "ポルトガル料理";
+
+"type.cuisine.ramen" = "ラーメン";
+
+"type.cuisine.regional" = "郷土料理";
+
+"type.cuisine.russian" = "ロシア料理";
+
+"type.cuisine.sandwich" = "サンドイッチ";
+
+"type.cuisine.sausage" = "ソーセージ";
+
+"type.cuisine.savory_pancakes" = "おいしいホットケーキ";
+
+"type.cuisine.seafood" = "シーフード";
+
+"type.cuisine.soba" = "そば";
+
+"type.cuisine.spanish" = "スペイン料理";
+
+"type.cuisine.steak_house" = "ステーキハウス";
+
+"type.cuisine.sushi" = "寿司";
+
+"type.cuisine.tapas" = "タパス";
+
+"type.cuisine.tea" = "紅茶";
+
+"type.cuisine.thai" = "タイ料理";
+
+"type.cuisine.turkish" = "トルコ料理";
+
+"type.cuisine.vegan" = "ビーガン料理";
+
+"type.cuisine.vegetarian" = "ベジタリアン料理";
+
+"type.cuisine.vietnamese" = "ベトナム料理";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "除細動器";

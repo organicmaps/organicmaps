@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "ช่างตัดเสื้อ";
 
+"type.cuisine.african" = "อาหารแอฟริกัน";
+
+"type.cuisine.american" = "อาหารอเมริกัน";
+
+"type.cuisine.arab" = "อาหารอาหรับ";
+
+"type.cuisine.argentinian" = "อาหารอาเจนติน่า";
+
+"type.cuisine.asian" = "อาหารเอเชีย";
+
+"type.cuisine.austrian" = "อาหารออสเตรีย";
+
+"type.cuisine.bagel" = "เบเกิล";
+
+"type.cuisine.balkan" = "อาหารบอลข่าน";
+
+"type.cuisine.barbecue" = "บาร์บีคิว";
+
+"type.cuisine.bavarian" = "อาหารบาวาเรีย";
+
+"type.cuisine.beef_bowl" = "ชามเนื้อวัว";
+
+"type.cuisine.brazilian" = "อาหารบราซิล";
+
+"type.cuisine.breakfast" = "อาหารเช้า";
+
+"type.cuisine.burger" = "เบอร์เกอร์";
+
+"type.cuisine.buschenschank" = "โรงเหล้า";
+
+"type.cuisine.cake" = "เค้ก";
+
+"type.cuisine.caribbean" = "อาหารแคริบเบียน";
+
+"type.cuisine.chicken" = "ไก่";
+
+"type.cuisine.chinese" = "อาหารจีน";
+
+"type.cuisine.coffee_shop" = "กาแฟ";
+
+"type.cuisine.crepe" = "เครป";
+
+"type.cuisine.croatian" = "อาหารโครเอเชีย";
+
+"type.cuisine.curry" = "กะหรี่";
+
+"type.cuisine.deli" = "อาหารพิเศษ";
+
+"type.cuisine.diner" = "ร้านอาหาร";
+
+"type.cuisine.donut" = "โดนัท";
+
+"type.cuisine.ethiopian" = "อาหารเอธิโอเปีย";
+
+"type.cuisine.filipino" = "อาหารฟิลิปปินส์";
+
+"type.cuisine.fine_dining" = "อาหารหรูหรา";
+
+"type.cuisine.fish" = "ปลา";
+
+"type.cuisine.fish_and_chips" = "ปลาและมันฝรั่งทอด";
+
+"type.cuisine.french" = "อาหารฝรั่งเศส";
+
+"type.cuisine.friture" = "ปลาเล็กปลาน้อย";
+
+"type.cuisine.georgian" = "อาหารจอร์เจีย";
+
+"type.cuisine.german" = "อาหารเยอรมัน";
+
+"type.cuisine.greek" = "อาหารกรีก";
+
+"type.cuisine.grill" = "ย่าง";
+
+"type.cuisine.heuriger" = "โรงเหล้า";
+
+"type.cuisine.hotdog" = "ฮอทดอก";
+
+"type.cuisine.hungarian" = "อาหารฮังการี";
+
+"type.cuisine.ice_cream" = "ไอศกรีม";
+
+"type.cuisine.indian" = "อาหารอินเดีย";
+
+"type.cuisine.indonesian" = "อาหารอินโดนีเซีย";
+
+"type.cuisine.international" = "อาหารนานาชาติ";
+
+"type.cuisine.irish" = "อาหารไอริช";
+
+"type.cuisine.italian" = "อาหารอิตาเลียน";
+
+"type.cuisine.italian_pizza" = "อาหารอิตาเลียน; พิซซ่า";
+
+"type.cuisine.japanese" = "อาหารญี่ปุ่น";
+
+"type.cuisine.kebab" = "เคบับ";
+
+"type.cuisine.korean" = "อาหารเกาหลี";
+
+"type.cuisine.lao" = "อาหารลาว";
+
+"type.cuisine.lebanese" = "อาหารเลบานอน";
+
+"type.cuisine.local" = "อาหารท้องถิ่น";
+
+"type.cuisine.malagasy" = "มาดากัสการ์";
+
+"type.cuisine.malaysian" = "อาหารมาเลเซีย";
+
+"type.cuisine.mediterranean" = "อาหารเมดิเตอร์เรเนียน";
+
+"type.cuisine.mexican" = "อาหารเม็กซิกัน";
+
+"type.cuisine.moroccan" = "อาหารโมร็อกโก";
+
+"type.cuisine.noodles" = "บะหมี่";
+
+"type.cuisine.oriental" = "อาหารโอเรียนทอล";
+
+"type.cuisine.pancake" = "แพนเค้ก";
+
+"type.cuisine.pasta" = "พาสต้า";
+
+"type.cuisine.persian" = "อาหารเปอร์เซีย";
+
+"type.cuisine.peruvian" = "อาหารเปรู";
+
+"type.cuisine.pizza" = "พิซซ่า";
+
+"type.cuisine.polish" = "อาหารโปแลนด์";
+
+"type.cuisine.portuguese" = "อาหารโปรตุเกส";
+
+"type.cuisine.ramen" = "ราเม็ง";
+
+"type.cuisine.regional" = "อาหารพื้นเมือง";
+
+"type.cuisine.russian" = "อาหารรัสเซีย";
+
+"type.cuisine.sandwich" = "แซนด์วิช";
+
+"type.cuisine.sausage" = "ไส้กรอก";
+
+"type.cuisine.savory_pancakes" = "แพนเค้กแบบเค็ม";
+
+"type.cuisine.seafood" = "อาหารทะเล";
+
+"type.cuisine.soba" = "โซบะ";
+
+"type.cuisine.spanish" = "อาหารสเปน";
+
+"type.cuisine.steak_house" = "ร้านสเต๊ก";
+
+"type.cuisine.sushi" = "ซูชิ";
+
+"type.cuisine.tapas" = "ทาปาส";
+
+"type.cuisine.tea" = "ชา";
+
+"type.cuisine.thai" = "อาหารไทย";
+
+"type.cuisine.turkish" = "ตุรกีอาหารตุรกี";
+
+"type.cuisine.vegan" = "อาหารมังสวิรัติ";
+
+"type.cuisine.vegetarian" = "อาหารมังสวิรัติ";
+
+"type.cuisine.vietnamese" = "อาหารเวียดนาม";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "เครื่องกระตุ้นหัวใจ";

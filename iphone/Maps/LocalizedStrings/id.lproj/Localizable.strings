@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Tailor";
 
+"type.cuisine.african" = "Masakan afrika";
+
+"type.cuisine.american" = "Masakan amerika";
+
+"type.cuisine.arab" = "Masakan arab";
+
+"type.cuisine.argentinian" = "Masakan argentina";
+
+"type.cuisine.asian" = "Masakan asia";
+
+"type.cuisine.austrian" = "Masakan austria";
+
+"type.cuisine.bagel" = "Roti bagel";
+
+"type.cuisine.balkan" = "Masakan balkan";
+
+"type.cuisine.barbecue" = "Barbekyu";
+
+"type.cuisine.bavarian" = "Masakan bavaria";
+
+"type.cuisine.beef_bowl" = "Nasi daging sapi";
+
+"type.cuisine.brazilian" = "Masakan brasil";
+
+"type.cuisine.breakfast" = "Sarapan";
+
+"type.cuisine.burger" = "Burger";
+
+"type.cuisine.buschenschank" = "Taverna anggur";
+
+"type.cuisine.cake" = "Kue";
+
+"type.cuisine.caribbean" = "Masakan karibia";
+
+"type.cuisine.chicken" = "Ayam";
+
+"type.cuisine.chinese" = "Masakan tionghoa";
+
+"type.cuisine.coffee_shop" = "Kopi";
+
+"type.cuisine.crepe" = "Kue dadar";
+
+"type.cuisine.croatian" = "Masakan kroasia";
+
+"type.cuisine.curry" = "Kari";
+
+"type.cuisine.deli" = "Toko makanan jadi";
+
+"type.cuisine.diner" = "Makan malam";
+
+"type.cuisine.donut" = "Donat";
+
+"type.cuisine.ethiopian" = "Masakan etiopia";
+
+"type.cuisine.filipino" = "Masakan filipina";
+
+"type.cuisine.fine_dining" = "Adiboga";
+
+"type.cuisine.fish" = "Ikan";
+
+"type.cuisine.fish_and_chips" = "Ikan dan kentang goreng";
+
+"type.cuisine.french" = "Masakan prancis";
+
+"type.cuisine.friture" = "Gorengan";
+
+"type.cuisine.georgian" = "Masakan georgia";
+
+"type.cuisine.german" = "Masakan jerman";
+
+"type.cuisine.greek" = "Masakan yunani";
+
+"type.cuisine.grill" = "Panggangan";
+
+"type.cuisine.heuriger" = "Taverna anggur";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Masakan hongaria";
+
+"type.cuisine.ice_cream" = "Es_krim";
+
+"type.cuisine.indian" = "Masakan india";
+
+"type.cuisine.indonesian" = "Masakan indonesia";
+
+"type.cuisine.international" = "Masakan internasional";
+
+"type.cuisine.irish" = "Masakan irlandia";
+
+"type.cuisine.italian" = "Masakan italia";
+
+"type.cuisine.italian_pizza" = "Italia, pizza";
+
+"type.cuisine.japanese" = "Masakan jepang";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Korea";
+
+"type.cuisine.lao" = "Masakan laos";
+
+"type.cuisine.lebanese" = "Masakan lebanon";
+
+"type.cuisine.local" = "Masakan lokal";
+
+"type.cuisine.malagasy" = "Masakan madagaskar";
+
+"type.cuisine.malaysian" = "Masakan malaysia";
+
+"type.cuisine.mediterranean" = "Masakan mediterania";
+
+"type.cuisine.mexican" = "Masakan meksiko";
+
+"type.cuisine.moroccan" = "Masakan maroko";
+
+"type.cuisine.noodles" = "Bakmi";
+
+"type.cuisine.oriental" = "Masakan oriental";
+
+"type.cuisine.pancake" = "Panekuk";
+
+"type.cuisine.pasta" = "Pasta";
+
+"type.cuisine.persian" = "Masakan persia";
+
+"type.cuisine.peruvian" = "Masakan peru";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Masakan polandia";
+
+"type.cuisine.portuguese" = "Masakan portugis";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Masakan regional";
+
+"type.cuisine.russian" = "Masakan rusia";
+
+"type.cuisine.sandwich" = "Roti isi";
+
+"type.cuisine.sausage" = "Sosis";
+
+"type.cuisine.savory_pancakes" = "Panekuk gurih";
+
+"type.cuisine.seafood" = "Hidangan laut";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Masakan spanyol";
+
+"type.cuisine.steak_house" = "Restoran_steik";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Kudapan spanyol";
+
+"type.cuisine.tea" = "Teh";
+
+"type.cuisine.thai" = "Masakan thailand";
+
+"type.cuisine.turkish" = "Masakan turki";
+
+"type.cuisine.vegan" = "Masakan vegan";
+
+"type.cuisine.vegetarian" = "Masakan vegetarian";
+
+"type.cuisine.vietnamese" = "Masakan vietnam";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillator";

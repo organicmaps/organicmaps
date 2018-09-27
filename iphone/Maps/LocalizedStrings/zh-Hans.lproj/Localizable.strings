@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Tailor";
 
+"type.cuisine.african" = "非洲菜";
+
+"type.cuisine.american" = "美国菜";
+
+"type.cuisine.arab" = "阿拉伯菜";
+
+"type.cuisine.argentinian" = "阿根廷菜";
+
+"type.cuisine.asian" = "亚洲菜";
+
+"type.cuisine.austrian" = "奥地利菜";
+
+"type.cuisine.bagel" = "贝格";
+
+"type.cuisine.balkan" = "巴尔干菜";
+
+"type.cuisine.barbecue" = "烧烤";
+
+"type.cuisine.bavarian" = "巴伐利亚菜";
+
+"type.cuisine.beef_bowl" = "牛肉 碗";
+
+"type.cuisine.brazilian" = "巴西菜";
+
+"type.cuisine.breakfast" = "早餐";
+
+"type.cuisine.burger" = "汉堡包";
+
+"type.cuisine.buschenschank" = "酒庄";
+
+"type.cuisine.cake" = "蛋糕";
+
+"type.cuisine.caribbean" = "加勒比菜";
+
+"type.cuisine.chicken" = "鸡";
+
+"type.cuisine.chinese" = "中国菜";
+
+"type.cuisine.coffee_shop" = "咖啡";
+
+"type.cuisine.crepe" = "千层饼";
+
+"type.cuisine.croatian" = "克罗地亚的";
+
+"type.cuisine.curry" = "咖喱";
+
+"type.cuisine.deli" = "熟食店";
+
+"type.cuisine.diner" = "饭店";
+
+"type.cuisine.donut" = "甜甜圈";
+
+"type.cuisine.ethiopian" = "埃塞俄比亚菜";
+
+"type.cuisine.filipino" = "菲律宾菜";
+
+"type.cuisine.fine_dining" = "高级餐饮";
+
+"type.cuisine.fish" = "鱼";
+
+"type.cuisine.fish_and_chips" = "炸鱼 和 薯条";
+
+"type.cuisine.french" = "法国菜";
+
+"type.cuisine.friture" = "油炸";
+
+"type.cuisine.georgian" = "格鲁吉亚菜";
+
+"type.cuisine.german" = "德国菜";
+
+"type.cuisine.greek" = "希腊菜";
+
+"type.cuisine.grill" = "烤";
+
+"type.cuisine.heuriger" = "霍里格";
+
+"type.cuisine.hotdog" = "热狗";
+
+"type.cuisine.hungarian" = "匈牙利菜";
+
+"type.cuisine.ice_cream" = "冰淇淋";
+
+"type.cuisine.indian" = "印度菜";
+
+"type.cuisine.indonesian" = "印度尼西亚菜";
+
+"type.cuisine.international" = "国际菜肴";
+
+"type.cuisine.irish" = "爱尔兰菜";
+
+"type.cuisine.italian" = "意大利菜";
+
+"type.cuisine.italian_pizza" = "意大利菜；匹萨";
+
+"type.cuisine.japanese" = "日本菜";
+
+"type.cuisine.kebab" = "烤肉";
+
+"type.cuisine.korean" = "韩国菜";
+
+"type.cuisine.lao" = "老挝菜";
+
+"type.cuisine.lebanese" = "黎巴嫩菜";
+
+"type.cuisine.local" = "本地菜";
+
+"type.cuisine.malagasy" = "马达加斯加的";
+
+"type.cuisine.malaysian" = "马来西亚菜";
+
+"type.cuisine.mediterranean" = "地中海菜";
+
+"type.cuisine.mexican" = "墨西哥菜";
+
+"type.cuisine.moroccan" = "摩洛哥菜";
+
+"type.cuisine.noodles" = "面";
+
+"type.cuisine.oriental" = "东方菜";
+
+"type.cuisine.pancake" = "煎饼";
+
+"type.cuisine.pasta" = "意大利面";
+
+"type.cuisine.persian" = "波斯菜";
+
+"type.cuisine.peruvian" = "秘鲁的";
+
+"type.cuisine.pizza" = "匹萨";
+
+"type.cuisine.polish" = "波兰菜";
+
+"type.cuisine.portuguese" = "葡萄牙菜";
+
+"type.cuisine.ramen" = "拉面";
+
+"type.cuisine.regional" = "地方菜";
+
+"type.cuisine.russian" = "俄罗斯菜";
+
+"type.cuisine.sandwich" = "三明治";
+
+"type.cuisine.sausage" = "火腿";
+
+"type.cuisine.savory_pancakes" = "咸的_煎饼";
+
+"type.cuisine.seafood" = "海鲜";
+
+"type.cuisine.soba" = "荞麦面";
+
+"type.cuisine.spanish" = "西班牙菜";
+
+"type.cuisine.steak_house" = "牛排馆";
+
+"type.cuisine.sushi" = "寿司";
+
+"type.cuisine.tapas" = "塔帕斯";
+
+"type.cuisine.tea" = "茶";
+
+"type.cuisine.thai" = "泰国菜";
+
+"type.cuisine.turkish" = "土耳其菜";
+
+"type.cuisine.vegan" = "全素菜";
+
+"type.cuisine.vegetarian" = "素菜";
+
+"type.cuisine.vietnamese" = "越南菜";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillator";

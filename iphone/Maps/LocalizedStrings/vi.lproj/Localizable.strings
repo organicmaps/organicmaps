@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Thợ may";
 
+"type.cuisine.african" = "Ẩm thực châu phi";
+
+"type.cuisine.american" = "Ẩm thực mỹ";
+
+"type.cuisine.arab" = "Ẩm thực ả-rập";
+
+"type.cuisine.argentinian" = "Ẩm thực argentina";
+
+"type.cuisine.asian" = "Ẩm thực châu á";
+
+"type.cuisine.austrian" = "Ẩm thực áo";
+
+"type.cuisine.bagel" = "Bánh mì vòng bagel";
+
+"type.cuisine.balkan" = "Ẩm thực balkan";
+
+"type.cuisine.barbecue" = "Thịt nướng ngoài trời";
+
+"type.cuisine.bavarian" = "Ẩm thực bavarian";
+
+"type.cuisine.beef_bowl" = "Tô thịt bò";
+
+"type.cuisine.brazilian" = "Ẩm thực brazil";
+
+"type.cuisine.breakfast" = "Bữa ăn sáng";
+
+"type.cuisine.burger" = "Bánh hamburger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Bánh ngọt";
+
+"type.cuisine.caribbean" = "Ẩm thực caribê";
+
+"type.cuisine.chicken" = "Gà";
+
+"type.cuisine.chinese" = "Ẩm thực trung quốc";
+
+"type.cuisine.coffee_shop" = "Cà phê";
+
+"type.cuisine.crepe" = "Bánh crepe";
+
+"type.cuisine.croatian" = "Ẩm thực croatia";
+
+"type.cuisine.curry" = "Món cà ri";
+
+"type.cuisine.deli" = "Món ăn ngon";
+
+"type.cuisine.diner" = "Bữa tối";
+
+"type.cuisine.donut" = "Bánh rán";
+
+"type.cuisine.ethiopian" = "Ẩm thực ethiopia";
+
+"type.cuisine.filipino" = "Ẩm thực philipin";
+
+"type.cuisine.fine_dining" = "Chuỗi nhà hàng";
+
+"type.cuisine.fish" = "Cá";
+
+"type.cuisine.fish_and_chips" = "Cá và khoai tây chiên";
+
+"type.cuisine.french" = "Ẩm thực pháp";
+
+"type.cuisine.friture" = "Friture";
+
+"type.cuisine.georgian" = "Ẩm thực georgia";
+
+"type.cuisine.german" = "Ẩm thực đức";
+
+"type.cuisine.greek" = "Ẩm thực hy lạp";
+
+"type.cuisine.grill" = "Thịt nướng";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Ẩm thực hungary";
+
+"type.cuisine.ice_cream" = "Kem";
+
+"type.cuisine.indian" = "Ẩm thực ấn độ";
+
+"type.cuisine.indonesian" = "Ẩm thực indonesia";
+
+"type.cuisine.international" = "Ẩm thực quốc tế";
+
+"type.cuisine.irish" = "Ẩm thực ai-len";
+
+"type.cuisine.italian" = "Ẩm thực ý";
+
+"type.cuisine.italian_pizza" = "Ẩm thực ý, bánh pizza";
+
+"type.cuisine.japanese" = "Ẩm thực nhật bản";
+
+"type.cuisine.kebab" = "Thịt nướng kebab";
+
+"type.cuisine.korean" = "Ẩm thực hàn quốc";
+
+"type.cuisine.lao" = "Ẩm thực lào";
+
+"type.cuisine.lebanese" = "Ẩm thực lebanon";
+
+"type.cuisine.local" = "Ẩm thực địa phương";
+
+"type.cuisine.malagasy" = "Malagasy";
+
+"type.cuisine.malaysian" = "Ẩm thực malaysia";
+
+"type.cuisine.mediterranean" = "Ẩm thực địa trung hải";
+
+"type.cuisine.mexican" = "Ẩm thực mexico";
+
+"type.cuisine.moroccan" = "Ẩm thực ma-rốc";
+
+"type.cuisine.noodles" = "Mì";
+
+"type.cuisine.oriental" = "Ẩm thực phương đông";
+
+"type.cuisine.pancake" = "Bánh kếp";
+
+"type.cuisine.pasta" = "Mỳ ống";
+
+"type.cuisine.persian" = "Ẩm thực ba tư";
+
+"type.cuisine.peruvian" = "Ẩm thực Pê-ru";
+
+"type.cuisine.pizza" = "Bánh pizza";
+
+"type.cuisine.polish" = "Ẩm thực ba lan";
+
+"type.cuisine.portuguese" = "Ẩm thực bồ đào nha";
+
+"type.cuisine.ramen" = "Mì ramen";
+
+"type.cuisine.regional" = "Ẩm thực khu vực";
+
+"type.cuisine.russian" = "Ẩm thực nga";
+
+"type.cuisine.sandwich" = "Bánh sandwich";
+
+"type.cuisine.sausage" = "Xúc xích";
+
+"type.cuisine.savory_pancakes" = "Bánh kếp rau thơm";
+
+"type.cuisine.seafood" = "Hải sản";
+
+"type.cuisine.soba" = "Mì soba";
+
+"type.cuisine.spanish" = "Ẩm thực tây ban nha";
+
+"type.cuisine.steak_house" = "Steak house";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Trà";
+
+"type.cuisine.thai" = "Ẩm thực thái lan";
+
+"type.cuisine.turkish" = "Ẩm thực thổ nhĩ kỳ";
+
+"type.cuisine.vegan" = "Ẩm thực chay";
+
+"type.cuisine.vegetarian" = "Ẩm thực chay";
+
+"type.cuisine.vietnamese" = "Ẩm thực việt";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Máy khử rung tim";

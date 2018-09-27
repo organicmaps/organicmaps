@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Räätäli";
 
+"type.cuisine.african" = "Afrikkalainen keittiö";
+
+"type.cuisine.american" = "Amerikkalainen keittiö";
+
+"type.cuisine.arab" = "Arabialainen keittiö";
+
+"type.cuisine.argentinian" = "Argentiinalainen keittiö";
+
+"type.cuisine.asian" = "Aasialainen keittiö";
+
+"type.cuisine.austrian" = "Itävaltalainen keittiö";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkanilainen keittiö";
+
+"type.cuisine.barbecue" = "Grilli";
+
+"type.cuisine.bavarian" = "Baijerilainen keittiö";
+
+"type.cuisine.beef_bowl" = "Naudanlihakulho";
+
+"type.cuisine.brazilian" = "Brasilialainen keittiö";
+
+"type.cuisine.breakfast" = "Aamiainen";
+
+"type.cuisine.burger" = "Hampurilainen";
+
+"type.cuisine.buschenschank" = "Viinitaverna";
+
+"type.cuisine.cake" = "Kakku";
+
+"type.cuisine.caribbean" = "Karibialainen keittiö";
+
+"type.cuisine.chicken" = "Kana";
+
+"type.cuisine.chinese" = "Kiinalainen keittiö";
+
+"type.cuisine.coffee_shop" = "Kahvi";
+
+"type.cuisine.crepe" = "Kreppi";
+
+"type.cuisine.croatian" = "Kroatialainen keittiö";
+
+"type.cuisine.curry" = "Curry";
+
+"type.cuisine.deli" = "Herkkukauppa";
+
+"type.cuisine.diner" = "Lounaskahvila";
+
+"type.cuisine.donut" = "Donitsi";
+
+"type.cuisine.ethiopian" = "Etiopialainen keittiö";
+
+"type.cuisine.filipino" = "Filippiiniläinen keittiö";
+
+"type.cuisine.fine_dining" = "Hieno ravintola";
+
+"type.cuisine.fish" = "Kala";
+
+"type.cuisine.fish_and_chips" = "Fish & chips";
+
+"type.cuisine.french" = "Ranskalainen keittiö";
+
+"type.cuisine.friture" = "Uppopaistettu";
+
+"type.cuisine.georgian" = "Georgialainen keittiö";
+
+"type.cuisine.german" = "Saksalainen keittiö";
+
+"type.cuisine.greek" = "Kreikkalainen keittiö";
+
+"type.cuisine.grill" = "Grilli";
+
+"type.cuisine.heuriger" = "Viinitaverna";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Unkarilainen keittiö";
+
+"type.cuisine.ice_cream" = "Jäätelö";
+
+"type.cuisine.indian" = "Intialainen keittiö";
+
+"type.cuisine.indonesian" = "Indonesialainen keittiö";
+
+"type.cuisine.international" = "Kansainvälinen keittiö";
+
+"type.cuisine.irish" = "Irlantilainen keittiö";
+
+"type.cuisine.italian" = "Italialainen keittiö";
+
+"type.cuisine.italian_pizza" = "Italialainen, pizza";
+
+"type.cuisine.japanese" = "Japanilainen keittiö";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Korealainen";
+
+"type.cuisine.lao" = "Laosilainen keittiö";
+
+"type.cuisine.lebanese" = "Libanonilainen keittiö";
+
+"type.cuisine.local" = "Paikallinen keittiö";
+
+"type.cuisine.malagasy" = "Madagaskarilainen keittiö";
+
+"type.cuisine.malaysian" = "Malesialainen keittiö";
+
+"type.cuisine.mediterranean" = "Välimeren keittiö keittiö";
+
+"type.cuisine.mexican" = "Meksikolainen keittiö";
+
+"type.cuisine.moroccan" = "Marokkolainen keittiö";
+
+"type.cuisine.noodles" = "Nuudeli";
+
+"type.cuisine.oriental" = "Itämainen keittiö";
+
+"type.cuisine.pancake" = "Lettu";
+
+"type.cuisine.pasta" = "Pasta";
+
+"type.cuisine.persian" = "Persialainen keittiö";
+
+"type.cuisine.peruvian" = "Perulainen keittiö";
+
+"type.cuisine.pizza" = "Pitsa";
+
+"type.cuisine.polish" = "Puolalainen keittiö";
+
+"type.cuisine.portuguese" = "Portugalilainen keittiö";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Alueellinen keittiö";
+
+"type.cuisine.russian" = "Venäläinen keittiö";
+
+"type.cuisine.sandwich" = "Voileipä";
+
+"type.cuisine.sausage" = "Makkara";
+
+"type.cuisine.savory_pancakes" = "Suolaiset letut";
+
+"type.cuisine.seafood" = "Meren elävät";
+
+"type.cuisine.soba" = "Sobanuudeli";
+
+"type.cuisine.spanish" = "Espanjalainen keittiö";
+
+"type.cuisine.steak_house" = "Pihviravintola";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Tee";
+
+"type.cuisine.thai" = "Thaimaalainen keittiö";
+
+"type.cuisine.turkish" = "Turkkilainen keittiö";
+
+"type.cuisine.vegan" = "Vegaani keittiö";
+
+"type.cuisine.vegetarian" = "Kasvis keittiö";
+
+"type.cuisine.vietnamese" = "Vietnamilainen keittiö";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillaattori";

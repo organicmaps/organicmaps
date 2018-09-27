@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Ательє";
 
+"type.cuisine.african" = "Африканська кухня";
+
+"type.cuisine.american" = "Американська кухня";
+
+"type.cuisine.arab" = "Арабська кухня";
+
+"type.cuisine.argentinian" = "Аргентинська кухня";
+
+"type.cuisine.asian" = "Азіатська кухня";
+
+"type.cuisine.austrian" = "Австрійська кухня";
+
+"type.cuisine.bagel" = "Випічка";
+
+"type.cuisine.balkan" = "Балканська кухня";
+
+"type.cuisine.barbecue" = "Барбекю";
+
+"type.cuisine.bavarian" = "Баварська кухня";
+
+"type.cuisine.beef_bowl" = "Тарілка з яловичиною";
+
+"type.cuisine.brazilian" = "Бразильська кухня";
+
+"type.cuisine.breakfast" = "Сніданки";
+
+"type.cuisine.burger" = "Бургери";
+
+"type.cuisine.buschenschank" = "Домашня таверна (бушеншанк)";
+
+"type.cuisine.cake" = "Кондитерська";
+
+"type.cuisine.caribbean" = "Карибська кухня";
+
+"type.cuisine.chicken" = "Страви з курки";
+
+"type.cuisine.chinese" = "Китайська кухня";
+
+"type.cuisine.coffee_shop" = "Кава";
+
+"type.cuisine.crepe" = "Креп";
+
+"type.cuisine.croatian" = "Сербська кухня";
+
+"type.cuisine.curry" = "Каррі";
+
+"type.cuisine.deli" = "Делікатеси";
+
+"type.cuisine.diner" = "Дайнер";
+
+"type.cuisine.donut" = "Пончики";
+
+"type.cuisine.ethiopian" = "Ефіопська кухня";
+
+"type.cuisine.filipino" = "Філіппінська кухня";
+
+"type.cuisine.fine_dining" = "Ресторан високої кухні";
+
+"type.cuisine.fish" = "Рибний ресторан";
+
+"type.cuisine.fish_and_chips" = "Риба зі смаженою картоплею";
+
+"type.cuisine.french" = "Французька кухня";
+
+"type.cuisine.friture" = "Страви у фритюрі";
+
+"type.cuisine.georgian" = "Грузинська кухня";
+
+"type.cuisine.german" = "Німецька кухня";
+
+"type.cuisine.greek" = "Грецька кухня";
+
+"type.cuisine.grill" = "Гриль";
+
+"type.cuisine.heuriger" = "Винна таверна (хойригер)";
+
+"type.cuisine.hotdog" = "Хот-доги";
+
+"type.cuisine.hungarian" = "Угорська кухня";
+
+"type.cuisine.ice_cream" = "Морозиво";
+
+"type.cuisine.indian" = "Індійська кухня";
+
+"type.cuisine.indonesian" = "Індонезійська кухня";
+
+"type.cuisine.international" = "Міжнародна кухня";
+
+"type.cuisine.irish" = "Ірландська кухня";
+
+"type.cuisine.italian" = "Італійська кухня";
+
+"type.cuisine.italian_pizza" = "Італійська кухня, піцерія";
+
+"type.cuisine.japanese" = "Японська кухня";
+
+"type.cuisine.kebab" = "Кебаби";
+
+"type.cuisine.korean" = "Корейська кухня";
+
+"type.cuisine.lao" = "Лаоська кухня";
+
+"type.cuisine.lebanese" = "Ліванська кухня";
+
+"type.cuisine.local" = "Місцева кухня";
+
+"type.cuisine.malagasy" = "Малагасійська кухня";
+
+"type.cuisine.malaysian" = "Малайзійська кухня";
+
+"type.cuisine.mediterranean" = "Середземноморська кухня";
+
+"type.cuisine.mexican" = "Мексиканська кухня";
+
+"type.cuisine.moroccan" = "Марокканська кухня";
+
+"type.cuisine.noodles" = "Вермішель";
+
+"type.cuisine.oriental" = "Східна кухня";
+
+"type.cuisine.pancake" = "Млинці";
+
+"type.cuisine.pasta" = "Паста";
+
+"type.cuisine.persian" = "Перська кухня";
+
+"type.cuisine.peruvian" = "Перуанська кухня";
+
+"type.cuisine.pizza" = "Піцерія";
+
+"type.cuisine.polish" = "Польська кухня";
+
+"type.cuisine.portuguese" = "Португальська кухня";
+
+"type.cuisine.ramen" = "Рамен";
+
+"type.cuisine.regional" = "Регіональна кухня";
+
+"type.cuisine.russian" = "Російська кухня";
+
+"type.cuisine.sandwich" = "Сандвічі";
+
+"type.cuisine.sausage" = "Сосисочна";
+
+"type.cuisine.savory_pancakes" = "Пікантні оладки";
+
+"type.cuisine.seafood" = "Морська їжа";
+
+"type.cuisine.soba" = "Соба";
+
+"type.cuisine.spanish" = "Іспанська кухня";
+
+"type.cuisine.steak_house" = "Стейк-хаус";
+
+"type.cuisine.sushi" = "Суші";
+
+"type.cuisine.tapas" = "Тапас-бар";
+
+"type.cuisine.tea" = "Чайна";
+
+"type.cuisine.thai" = "Тайська кухня";
+
+"type.cuisine.turkish" = "Турецька кухня";
+
+"type.cuisine.vegan" = "Веганська кухня";
+
+"type.cuisine.vegetarian" = "Вегетаріанська кухня";
+
+"type.cuisine.vietnamese" = "В'єтнамська кухня";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Дефібрилятор";

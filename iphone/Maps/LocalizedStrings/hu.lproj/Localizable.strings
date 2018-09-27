@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Szabó";
 
+"type.cuisine.african" = "Afrikai konyha";
+
+"type.cuisine.american" = "Amerikai konyha";
+
+"type.cuisine.arab" = "Arab konyha";
+
+"type.cuisine.argentinian" = "Argentin konyha";
+
+"type.cuisine.asian" = "Ázsiai és közel-keleti konyha";
+
+"type.cuisine.austrian" = "Osztrák konyha";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkáni konyha";
+
+"type.cuisine.barbecue" = "Grill";
+
+"type.cuisine.bavarian" = "Bajor konyha";
+
+"type.cuisine.beef_bowl" = "Gyúdon";
+
+"type.cuisine.brazilian" = "Brazil konyha";
+
+"type.cuisine.breakfast" = "Reggeli";
+
+"type.cuisine.burger" = "Hamburger";
+
+"type.cuisine.buschenschank" = "Borozó";
+
+"type.cuisine.cake" = "Torta";
+
+"type.cuisine.caribbean" = "Karibi konyha";
+
+"type.cuisine.chicken" = "Csirke";
+
+"type.cuisine.chinese" = "Kínai konyha";
+
+"type.cuisine.coffee_shop" = "Kávé";
+
+"type.cuisine.crepe" = "Francia palacsinta";
+
+"type.cuisine.croatian" = "Horvát konyha";
+
+"type.cuisine.curry" = "Curry";
+
+"type.cuisine.deli" = "Csemege";
+
+"type.cuisine.diner" = "Étkező";
+
+"type.cuisine.donut" = "Fánk";
+
+"type.cuisine.ethiopian" = "Etióp konyha";
+
+"type.cuisine.filipino" = "Filippínó konyha";
+
+"type.cuisine.fine_dining" = "Exkluzív étterem";
+
+"type.cuisine.fish" = "Hal";
+
+"type.cuisine.fish_and_chips" = "Hal és sültkrumpli";
+
+"type.cuisine.french" = "Francia konyha";
+
+"type.cuisine.friture" = "Olajban sütött ételek";
+
+"type.cuisine.georgian" = "Grúz konyha";
+
+"type.cuisine.german" = "Német konyha";
+
+"type.cuisine.greek" = "Görög konyha";
+
+"type.cuisine.grill" = "Grill";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Magyar konyha";
+
+"type.cuisine.ice_cream" = "Jégkrém";
+
+"type.cuisine.indian" = "Indiai konyha";
+
+"type.cuisine.indonesian" = "Indonéz konyha";
+
+"type.cuisine.international" = "Nemzetközi konyha";
+
+"type.cuisine.irish" = "Ír konyha";
+
+"type.cuisine.italian" = "Olasz konyha";
+
+"type.cuisine.italian_pizza" = "Olasz konyha, pizza";
+
+"type.cuisine.japanese" = "Japán konyha";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Koreai konyha";
+
+"type.cuisine.lao" = "Laoszi konyha";
+
+"type.cuisine.lebanese" = "Libanoni konyha";
+
+"type.cuisine.local" = "Helyi konyha";
+
+"type.cuisine.malagasy" = "Madagaszkári konyha";
+
+"type.cuisine.malaysian" = "Maláj konyha";
+
+"type.cuisine.mediterranean" = "Mediterrán konyha";
+
+"type.cuisine.mexican" = "Mexikói konyha";
+
+"type.cuisine.moroccan" = "Marokkói konyha";
+
+"type.cuisine.noodles" = "Tészta";
+
+"type.cuisine.oriental" = "Keleti konyha";
+
+"type.cuisine.pancake" = "Palacsinta";
+
+"type.cuisine.pasta" = "Tészta";
+
+"type.cuisine.persian" = "Perzsa konyha";
+
+"type.cuisine.peruvian" = "Perui konyha";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Lengyel konyha";
+
+"type.cuisine.portuguese" = "Portugál konyha";
+
+"type.cuisine.ramen" = "Rámen";
+
+"type.cuisine.regional" = "Regionális konyha";
+
+"type.cuisine.russian" = "Orosz konyha";
+
+"type.cuisine.sandwich" = "Szendvics";
+
+"type.cuisine.sausage" = "Kolbász";
+
+"type.cuisine.savory_pancakes" = "Sós palacsinta";
+
+"type.cuisine.seafood" = "Tenger gyümölcsei";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Spanyol konyha";
+
+"type.cuisine.steak_house" = "Steak ház";
+
+"type.cuisine.sushi" = "Szusi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Tea";
+
+"type.cuisine.thai" = "Thai konyha";
+
+"type.cuisine.turkish" = "Török konyha";
+
+"type.cuisine.vegan" = "Vegán konyha";
+
+"type.cuisine.vegetarian" = "Vegetáriánus konyha";
+
+"type.cuisine.vietnamese" = "Vietnami konyha";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillátor";

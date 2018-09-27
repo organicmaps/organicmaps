@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Tailor";
 
+"type.cuisine.african" = "Afrikansk mat";
+
+"type.cuisine.american" = "Amerikansk mat";
+
+"type.cuisine.arab" = "Arabisk mat";
+
+"type.cuisine.argentinian" = "Argentinsk mat";
+
+"type.cuisine.asian" = "Asiatisk mat";
+
+"type.cuisine.austrian" = "Østerriksk mat";
+
+"type.cuisine.bagel" = "Bagel";
+
+"type.cuisine.balkan" = "Balkan mat";
+
+"type.cuisine.barbecue" = "Grillmat";
+
+"type.cuisine.bavarian" = "Bayersk mat";
+
+"type.cuisine.beef_bowl" = "Biffbolle";
+
+"type.cuisine.brazilian" = "Brasiliansk mat";
+
+"type.cuisine.breakfast" = "Frokost";
+
+"type.cuisine.burger" = "Burger";
+
+"type.cuisine.buschenschank" = "Buschenschank";
+
+"type.cuisine.cake" = "Kake";
+
+"type.cuisine.caribbean" = "Karibisk mat";
+
+"type.cuisine.chicken" = "Kylling";
+
+"type.cuisine.chinese" = "Kinesisk mat";
+
+"type.cuisine.coffee_shop" = "Kaffe";
+
+"type.cuisine.crepe" = "Crepe";
+
+"type.cuisine.croatian" = "Kroatisk mat";
+
+"type.cuisine.curry" = "Karri";
+
+"type.cuisine.deli" = "Delimat";
+
+"type.cuisine.diner" = "Middag";
+
+"type.cuisine.donut" = "Smultring";
+
+"type.cuisine.ethiopian" = "Etiopisk mat";
+
+"type.cuisine.filipino" = "Filippinsk mat";
+
+"type.cuisine.fine_dining" = "Gourmet";
+
+"type.cuisine.fish" = "Fisk";
+
+"type.cuisine.fish_and_chips" = "Fisk og pommes frites";
+
+"type.cuisine.french" = "Fransk mat";
+
+"type.cuisine.friture" = "Frityrt";
+
+"type.cuisine.georgian" = "Georgisk mat";
+
+"type.cuisine.german" = "Tysk mat";
+
+"type.cuisine.greek" = "Gresk mat";
+
+"type.cuisine.grill" = "Grill";
+
+"type.cuisine.heuriger" = "Heuriger";
+
+"type.cuisine.hotdog" = "Hotdog";
+
+"type.cuisine.hungarian" = "Ungarsk mat";
+
+"type.cuisine.ice_cream" = "Iskrem";
+
+"type.cuisine.indian" = "Indisk mat";
+
+"type.cuisine.indonesian" = "Indonesisk mat";
+
+"type.cuisine.international" = "Internasjonal mat";
+
+"type.cuisine.irish" = "Irsk mat";
+
+"type.cuisine.italian" = "Italiensk mat";
+
+"type.cuisine.italian_pizza" = "Italiensk mat;pizza";
+
+"type.cuisine.japanese" = "Japansk mat";
+
+"type.cuisine.kebab" = "Kebab";
+
+"type.cuisine.korean" = "Koreansk mat";
+
+"type.cuisine.lao" = "Lao mat";
+
+"type.cuisine.lebanese" = "Libanesisk mat";
+
+"type.cuisine.local" = "Lokal mat";
+
+"type.cuisine.malagasy" = "Gassisk";
+
+"type.cuisine.malaysian" = "Malaysisk mat";
+
+"type.cuisine.mediterranean" = "Middelhavsmat";
+
+"type.cuisine.mexican" = "Meksikansk mat";
+
+"type.cuisine.moroccan" = "Marokkansk mat";
+
+"type.cuisine.noodles" = "Nudler";
+
+"type.cuisine.oriental" = "Orientalsk mat";
+
+"type.cuisine.pancake" = "Pannekake";
+
+"type.cuisine.pasta" = "Pasta";
+
+"type.cuisine.persian" = "Persisk mat";
+
+"type.cuisine.peruvian" = "Peruansk mat";
+
+"type.cuisine.pizza" = "Pizza";
+
+"type.cuisine.polish" = "Polsk mat";
+
+"type.cuisine.portuguese" = "Portugisisk mat";
+
+"type.cuisine.ramen" = "Ramen";
+
+"type.cuisine.regional" = "Regional mat";
+
+"type.cuisine.russian" = "Russisk mat";
+
+"type.cuisine.sandwich" = "Smørbrød";
+
+"type.cuisine.sausage" = "Pølse";
+
+"type.cuisine.savory_pancakes" = "Fylte pannekaker";
+
+"type.cuisine.seafood" = "Sjømat";
+
+"type.cuisine.soba" = "Soba";
+
+"type.cuisine.spanish" = "Spansk mat";
+
+"type.cuisine.steak_house" = "Biffrestaurant";
+
+"type.cuisine.sushi" = "Sushi";
+
+"type.cuisine.tapas" = "Tapas";
+
+"type.cuisine.tea" = "Te";
+
+"type.cuisine.thai" = "Thaimat";
+
+"type.cuisine.turkish" = "Tyrkisk mat";
+
+"type.cuisine.vegan" = "Veganermat";
+
+"type.cuisine.vegetarian" = "Vegetar mat";
+
+"type.cuisine.vietnamese" = "Vietnamesisk mat";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Defibrillator";

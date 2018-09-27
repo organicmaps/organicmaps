@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "Ράφτης";
 
+"type.cuisine.african" = "Αφρικανική";
+
+"type.cuisine.american" = "Αμερικάνικη";
+
+"type.cuisine.arab" = "Αραβική";
+
+"type.cuisine.argentinian" = "Αργεντίνικη";
+
+"type.cuisine.asian" = "Ασιάτικη";
+
+"type.cuisine.austrian" = "Αυστριακή";
+
+"type.cuisine.bagel" = "Κουλούρι";
+
+"type.cuisine.balkan" = "Βαλκανίων";
+
+"type.cuisine.barbecue" = "Μπάρμπεκιου";
+
+"type.cuisine.bavarian" = "Βαυαρική";
+
+"type.cuisine.beef_bowl" = "Σούπα με βοδινό";
+
+"type.cuisine.brazilian" = "Βραζιλιάνικη";
+
+"type.cuisine.breakfast" = "Πρωινό";
+
+"type.cuisine.burger" = "Μπιφτέκι";
+
+"type.cuisine.buschenschank" = "Μπούσενσανκ (αυστριακή ταβέρνα)";
+
+"type.cuisine.cake" = "Κέικ";
+
+"type.cuisine.caribbean" = "Καραϊβική";
+
+"type.cuisine.chicken" = "Κοτόπουλο";
+
+"type.cuisine.chinese" = "Κινέζικη";
+
+"type.cuisine.coffee_shop" = "Καφές";
+
+"type.cuisine.crepe" = "Κρέπα";
+
+"type.cuisine.croatian" = "Κροατική";
+
+"type.cuisine.curry" = "Κάρι";
+
+"type.cuisine.deli" = "Εκλεκτά τρόφιμα";
+
+"type.cuisine.diner" = "Μικροεστιατόριο";
+
+"type.cuisine.donut" = "Ντόνατ";
+
+"type.cuisine.ethiopian" = "Αιθιοπίας";
+
+"type.cuisine.filipino" = "Φιλιππινέζικη";
+
+"type.cuisine.fine_dining" = "Εκλεκτά εστιατόρια";
+
+"type.cuisine.fish" = "Ψάρια";
+
+"type.cuisine.fish_and_chips" = "Ψάρια και πατάτες";
+
+"type.cuisine.french" = "Γαλλική";
+
+"type.cuisine.friture" = "Τηγανητά";
+
+"type.cuisine.georgian" = "Γεωργιανή";
+
+"type.cuisine.german" = "Γερμανική";
+
+"type.cuisine.greek" = "Ελληνική";
+
+"type.cuisine.grill" = "Ψησταριά";
+
+"type.cuisine.heuriger" = "Χόιριγκερ";
+
+"type.cuisine.hotdog" = "Χοτ Ντογκ";
+
+"type.cuisine.hungarian" = "Ουγγρική";
+
+"type.cuisine.ice_cream" = "Παγωτό";
+
+"type.cuisine.indian" = "Ινδική";
+
+"type.cuisine.indonesian" = "Ινδονησιακή";
+
+"type.cuisine.international" = "Διεθνής";
+
+"type.cuisine.irish" = "Ιρλανδέζικη";
+
+"type.cuisine.italian" = "Ιταλική";
+
+"type.cuisine.italian_pizza" = "Ιταλική, Πίτσα";
+
+"type.cuisine.japanese" = "Ιαπωνική";
+
+"type.cuisine.kebab" = "Κεμπάπ";
+
+"type.cuisine.korean" = "Κορεάτικη";
+
+"type.cuisine.lao" = "Λάος";
+
+"type.cuisine.lebanese" = "Λιβανέζικη";
+
+"type.cuisine.local" = "Τοπική";
+
+"type.cuisine.malagasy" = "Μαδαγασκάρης";
+
+"type.cuisine.malaysian" = "Μαλαισιανή";
+
+"type.cuisine.mediterranean" = "Μεσογειακή";
+
+"type.cuisine.mexican" = "Μεξικάνικη";
+
+"type.cuisine.moroccan" = "Μαροκινή";
+
+"type.cuisine.noodles" = "Χυλοπίτες";
+
+"type.cuisine.oriental" = "Άπω Ανατολής";
+
+"type.cuisine.pancake" = "Τηγανίτα";
+
+"type.cuisine.pasta" = "Ζυμαρικά";
+
+"type.cuisine.persian" = "Περσική";
+
+"type.cuisine.peruvian" = "Περουβιανή";
+
+"type.cuisine.pizza" = "Πίτσα";
+
+"type.cuisine.polish" = "Πολωνέζικη";
+
+"type.cuisine.portuguese" = "Πορτογαλική";
+
+"type.cuisine.ramen" = "Ράμεν";
+
+"type.cuisine.regional" = "Περιφερειακή";
+
+"type.cuisine.russian" = "Ρώσσικη";
+
+"type.cuisine.sandwich" = "Σάντουιτς";
+
+"type.cuisine.sausage" = "Λουκάνικο";
+
+"type.cuisine.savory_pancakes" = "Αλμυρές τηγανίτες";
+
+"type.cuisine.seafood" = "Θαλασσινά";
+
+"type.cuisine.soba" = "Σόμπα (λεπτά μακαρόνια)";
+
+"type.cuisine.spanish" = "Ισπανική";
+
+"type.cuisine.steak_house" = "Μπριζολάδικο";
+
+"type.cuisine.sushi" = "Σούσι";
+
+"type.cuisine.tapas" = "Τάπας";
+
+"type.cuisine.tea" = "Τσάι";
+
+"type.cuisine.thai" = "Ταϊλανδική";
+
+"type.cuisine.turkish" = "Τουρκική";
+
+"type.cuisine.vegan" = "Για χορτοφάγους";
+
+"type.cuisine.vegetarian" = "Χορτοφαγική";
+
+"type.cuisine.vietnamese" = "Βιετναμέζικη";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "Πρώτες βοήθειες";

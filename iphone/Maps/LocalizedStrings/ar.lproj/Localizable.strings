@@ -2824,6 +2824,176 @@
 
 "type.craft.tailor" = "خياط";
 
+"type.cuisine.african" = "مطبخ أفريقي";
+
+"type.cuisine.american" = "مطبخ أمريكي";
+
+"type.cuisine.arab" = "مطبخ عربي";
+
+"type.cuisine.argentinian" = "مطبخ أرجنتيني";
+
+"type.cuisine.asian" = "مطبخ آسيوي";
+
+"type.cuisine.austrian" = "مطبخ نمساوي";
+
+"type.cuisine.bagel" = "كعك بولندي";
+
+"type.cuisine.balkan" = "مطبخ بلقاني";
+
+"type.cuisine.barbecue" = "مشويات";
+
+"type.cuisine.bavarian" = "مطبخ بافاري";
+
+"type.cuisine.beef_bowl" = "طبق لحم البقر";
+
+"type.cuisine.brazilian" = "مطبخ برازيلي";
+
+"type.cuisine.breakfast" = "فطور";
+
+"type.cuisine.burger" = "برغر";
+
+"type.cuisine.buschenschank" = "البيرة";
+
+"type.cuisine.cake" = "كيك";
+
+"type.cuisine.caribbean" = "مطبخ كاريبي";
+
+"type.cuisine.chicken" = "دجاج";
+
+"type.cuisine.chinese" = "مطبخ صيني";
+
+"type.cuisine.coffee_shop" = "ﺓﻮﻬﻗ";
+
+"type.cuisine.crepe" = "كريب";
+
+"type.cuisine.croatian" = "مطبخ كرواتي";
+
+"type.cuisine.curry" = "كاري";
+
+"type.cuisine.deli" = "أطعمة مبردة";
+
+"type.cuisine.diner" = "العشاء";
+
+"type.cuisine.donut" = "الكعك المحلاة";
+
+"type.cuisine.ethiopian" = "مطبخ إثيوبي";
+
+"type.cuisine.filipino" = "مطبخ فلبيني";
+
+"type.cuisine.fine_dining" = "مطعم متكامل";
+
+"type.cuisine.fish" = "سمك";
+
+"type.cuisine.fish_and_chips" = "سمك و رقائق البطاطس";
+
+"type.cuisine.french" = "مطبخ فرنسي";
+
+"type.cuisine.friture" = "وجبات سريعة";
+
+"type.cuisine.georgian" = "مطبخ جورجي";
+
+"type.cuisine.german" = "مطبخ ألماني";
+
+"type.cuisine.greek" = "مطبخ يوناني";
+
+"type.cuisine.grill" = "شواء";
+
+"type.cuisine.heuriger" = "البيرة";
+
+"type.cuisine.hotdog" = "هوت دوغ";
+
+"type.cuisine.hungarian" = "مطبخ مجري";
+
+"type.cuisine.ice_cream" = "مُثَلّجات";
+
+"type.cuisine.indian" = "مطبخ هندي";
+
+"type.cuisine.indonesian" = "مطبخ إندونيسي";
+
+"type.cuisine.international" = "مطبخ عالمي";
+
+"type.cuisine.irish" = "مطبخ إيرلندي";
+
+"type.cuisine.italian" = "مطبخ إيطالي";
+
+"type.cuisine.italian_pizza" = "مطبخ إيطالي؛بيتزا";
+
+"type.cuisine.japanese" = "مطبخ ياباني";
+
+"type.cuisine.kebab" = "كباب";
+
+"type.cuisine.korean" = "مطبخ كوري";
+
+"type.cuisine.lao" = "مطبخ لاوي";
+
+"type.cuisine.lebanese" = "مطبخ لبناني";
+
+"type.cuisine.local" = "مطبخ محلي";
+
+"type.cuisine.malagasy" = "مدغشقر";
+
+"type.cuisine.malaysian" = "مطبخ ماليزي";
+
+"type.cuisine.mediterranean" = "مطبخ شرق أوسطي";
+
+"type.cuisine.mexican" = "مطبخ مكسيكي";
+
+"type.cuisine.moroccan" = "مطبخ مغربي";
+
+"type.cuisine.noodles" = "الشعرية";
+
+"type.cuisine.oriental" = "مطبخ شرقي";
+
+"type.cuisine.pancake" = "بان كيك";
+
+"type.cuisine.pasta" = "مَعْكَرُونَة";
+
+"type.cuisine.persian" = "مطبخ إيراني";
+
+"type.cuisine.peruvian" = "بيرو";
+
+"type.cuisine.pizza" = "بيتزا";
+
+"type.cuisine.polish" = "مطبخ بولندي";
+
+"type.cuisine.portuguese" = "مطبخ برتغالي";
+
+"type.cuisine.ramen" = "حساء رامن";
+
+"type.cuisine.regional" = "مطبخ إقليمي";
+
+"type.cuisine.russian" = "مطبخ روسي";
+
+"type.cuisine.sandwich" = "ساندوتش";
+
+"type.cuisine.sausage" = "سجق";
+
+"type.cuisine.savory_pancakes" = "بان كيك السافوري";
+
+"type.cuisine.seafood" = "مأكولات بحرية";
+
+"type.cuisine.soba" = "سوبا";
+
+"type.cuisine.spanish" = "مطبخ إسباني";
+
+"type.cuisine.steak_house" = "شرائح اللحم";
+
+"type.cuisine.sushi" = "سوشي";
+
+"type.cuisine.tapas" = "تاباس";
+
+"type.cuisine.tea" = "شاي";
+
+"type.cuisine.thai" = "مطبخ تايلندي";
+
+"type.cuisine.turkish" = "مطبخ تركي";
+
+"type.cuisine.vegan" = "مطبخ نباتي";
+
+"type.cuisine.vegetarian" = "مطبخ نباتي";
+
+"type.cuisine.vietnamese" = "مطبخ فيتنامي";
+
 "type.emergency" = "emergency";
 
 "type.emergency.defibrillator" = "مزيل الرجفان";
