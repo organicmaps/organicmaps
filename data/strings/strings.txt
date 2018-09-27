@@ -31624,7 +31624,7 @@ fa = دوباره نپرس
   [author_name_by_prefix]
     en = by %s
     ru = %s
-    ar = بواسطة٪ s
+    ar = بواسطة%s
     cs = %s
     da = af %s
     nl = volgens %s
@@ -33247,7 +33247,7 @@ fa = دوباره نپرس
   [paybtn_title]
     en = Pay %s/year
     ru = Заплатить %s/год
-    ar = دفع٪ s / سنة
+    ar = دفع%s / سنة
     cs = Zaplatit %s/ročně
     da = Betal %s/år
     nl = Betaal %s/jaar
@@ -33280,7 +33280,7 @@ fa = دوباره نپرس
   [paybtn_subtitle]
     en = Save %s/year
     ru = Экономия %s/год
-    ar = حفظ٪ s / سنة
+    ar = حفظ%s / سنة
     cs = Ušetříte %s/ročně
     da = Spar %s/år
     nl = Besparing %s/jaar
@@ -33379,7 +33379,7 @@ fa = دوباره نپرس
   [options_dropdown_item1]
     en = %s/month (save %s/year)
     ru = %s/месяц (экономия %s/год)
-    ar = ٪ s / الشهر (حفظ٪ s / سنة)
+    ar = %s / الشهر (حفظ%s / سنة)
     cs = %s/měsíčně (ušetříte %s/ročně)
     da = %s/måned (spar %s/år)
     nl = %s/maand (besparing %s/jaar)
@@ -33412,7 +33412,7 @@ fa = دوباره نپرس
   [options_dropdown_item2]
     en =  %s/week (no savings)
     ru = %s/неделя (экономии нет)
-    ar = ٪ s / أسبوع (بدون توفير)
+    ar = %s / أسبوع (بدون توفير)
     cs = %s/týdně (neušetříte)
     da = %s/uge (ingen rabat)
     nl = %s/week (geen besparing)
@@ -33544,35 +33544,35 @@ fa = دوباره نپرس
   [purchase_processing]
     en = Your purchase is being processed…
     ru = Ваша покупка обрабатывается…
-    ar = 
-    cs = 
-    da = 
-    nl = 
-    fi = 
-    fr = 
-    de = 
-    hu = 
-    id = 
-    it = 
-    ja = 
-    ko = 
-    no = 
-    pl = 
-    pt = 
-    pt-BR = 
-    ro = 
-    es = 
-    es_MX = 
-    sv = 
-    th = 
-    tr = 
-    uk = 
-    vi = 
-    el = 
-    sk = 
-    sw = 
-    zh-Hans = 
-    zh-Hant = 
+    ar = جار معالجة عملية الشراء الخاصة بك…
+    cs = Váš nákup se zpracovává…
+    da = Dit køb er under behandling…
+    nl = Uw aankoop wordt verwerkt…
+    fi = Ostostasi käsitellään…
+    fr = Votre commande est en cours de traitement…
+    de = Ihr Kauf wird bearbeitet…
+    hu = Vásárlása feldolgozás alatt van…
+    id = Pembelian Anda sedang dalam proses…
+    it = Il tuo acquisto è in fase di elaborazione…
+    ja = 購入の処理中です…
+    ko = 구매가 처리되고 있습니다…
+    no = Kjøpet ditt behandles…
+    pl = Twój zakup jest przetwarzany…
+    pt = A sua compra encontra-se em processo…
+    pt-BR = Sua compra está sendo processada…
+    ro = Achiziția dvs. este în curs de procesare…
+    es = Tu compra se está procesando…
+    es_MX = Su compra está siendo procesada…
+    sv = Ditt köp bearbetas…
+    th = กำลังประมวลผลการซื้อของคุณ…
+    tr = Alışverişin işleniyor…
+    uk = Ваша покупка в опрацюванні…
+    vi = Giao dịch mua của bạn đang được xử lý…
+    el = Γίνεται επεξεργασία της αγοράς σας…
+    sk = Váš nákup sa spracováva…
+    sw = Manunuzi yako yanatayarishwa.
+    zh-Hans = 正在处理您的购买订单……
+    zh-Hant = 正在處理您的購買訂單……
 
   [tips_bookmarks_catalog_title]
     en = Offline guides for every kind of journey
@@ -34101,10 +34101,7 @@ fa = دوباره نپرس
     sw = Ununuzi utakamilishwa baadaye. Shinda ikiendelea, tafadhali julisha support@maps.me.
     zh-Hans = 购买将在稍后完成。如果错误仍然存在，请联系support@maps.me
     zh-Hant = 購買將在稍後完成。如果錯誤仍然存在，請聯繫support@maps.me
-
-  [rutaxi_title]
-    en = RuTaxi
-
+    
   [offline_fiters_check_in]
     en = Connect to the internet to filter hotels by dates.
     ru = Подключитесь к интернету, чтобы выбрать дату заезда и выезда.
