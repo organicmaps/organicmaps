@@ -53,11 +53,11 @@
 
 #include "tracking/reporter.hpp"
 
+#include "partners_api/banner.hpp"
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/viator_api.hpp"
-#include "partners_api/banner.hpp"
 
 #include "metrics/eye_info.hpp"
 

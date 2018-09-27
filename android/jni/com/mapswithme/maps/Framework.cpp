@@ -669,6 +669,7 @@ void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double l
                          m_work.GetDrawScale(), local_ads::Clock::now(), lat, lon, accuracy);
   m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
+
 void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
 {
   m_work.DisableAdProvider(type, place);
@@ -1140,8 +1141,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeDisableAdProvider(JNIEnv * env,
-                                                           jclass, jint type,
+Java_com_mapswithme_maps_Framework_nativeDisableAdProvider(JNIEnv * env, jclass, jint type,
                                                            jint place)
 {
   auto const & bannerType = static_cast<ads::Banner::Type>(type);
