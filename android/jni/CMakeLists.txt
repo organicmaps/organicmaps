@@ -55,7 +55,7 @@ set(
   com/mapswithme/maps/MapFragment.cpp
   com/mapswithme/maps/MapManager.cpp
   com/mapswithme/maps/MwmApplication.cpp
-  com/mapswithme/maps/ExternalLibrariesMediator.cpp
+  com/mapswithme/maps/analytics/ExternalLibrariesMediator.cpp
   com/mapswithme/maps/PrivateVariables.cpp
   com/mapswithme/maps/SearchEngine.cpp
   com/mapswithme/maps/SearchRecents.cpp

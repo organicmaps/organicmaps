@@ -9,9 +9,9 @@ import com.mapswithme.maps.analytics.ContextDependentEventLogger;
 
 import java.util.Map;
 
-public class DefaultEventLogger extends ContextDependentEventLogger
+class DefaultEventLogger extends ContextDependentEventLogger
 {
-  public DefaultEventLogger(@NonNull Application application)
+  DefaultEventLogger(@NonNull Application application)
   {
     super(application);
   }

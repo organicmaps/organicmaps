@@ -1,4 +1,4 @@
-package com.mapswithme.maps;
+package com.mapswithme.maps.analytics;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -13,9 +13,8 @@ import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.mapswithme.maps.analytics.DefaultEventLogger;
-import com.mapswithme.maps.analytics.EventLogger;
-import com.mapswithme.maps.analytics.EventLoggerAggregator;
+import com.mapswithme.maps.*;
+import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -120,7 +119,7 @@ public class ExternalLibrariesMediator
     return mCrashlyticsInitialized;
   }
 
-  boolean setInstallationIdToCrashlytics()
+  public boolean setInstallationIdToCrashlytics()
   {
     if (!isCrashlyticsEnabled())
       return false;

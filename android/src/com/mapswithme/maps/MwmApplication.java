@@ -10,6 +10,7 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 
 import com.appsflyer.AppsFlyerLib;
+import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;

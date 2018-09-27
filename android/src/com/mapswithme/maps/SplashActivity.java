@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
@@ -29,7 +28,6 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.PushwooshHelper;
-import com.my.tracker.MyTracker;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener, BaseActivity
@@ -164,7 +162,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStart();
     mBaseDelegate.onStart();
-    MyTracker.onStartActivity(this);
   }
 
   @Override
@@ -218,7 +215,6 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onStop();
     mBaseDelegate.onStop();
-    MyTracker.onStopActivity(this);
   }
 
   @Override

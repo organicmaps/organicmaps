@@ -16,7 +16,7 @@ import com.android.billingclient.api.BillingClient;
 import com.facebook.ads.AdError;
 import com.facebook.appevents.AppEventsLogger;
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.ExternalLibrariesMediator;
+import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;

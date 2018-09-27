@@ -8,12 +8,12 @@ import android.support.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventLoggerAggregator extends ContextDependentEventLogger
+class EventLoggerAggregator extends ContextDependentEventLogger
 {
   @NonNull
   private final Map<Class<? extends EventLogger>, EventLogger> mLoggers;
 
-  public EventLoggerAggregator(@NonNull Application application)
+  EventLoggerAggregator(@NonNull Application application)
   {
     super(application);
     mLoggers = new HashMap<>();
