@@ -252,6 +252,8 @@ vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditiona
 {
   return kAdditionalTags;
 }
+// static
+VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return g_carSurface; }
 
 CarModelFactory::CarModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn)
   : VehicleModelFactory(countryParentNameGetterFn)

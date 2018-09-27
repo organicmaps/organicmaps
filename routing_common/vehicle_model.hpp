@@ -245,7 +245,7 @@ private:
   std::unordered_map<uint32_t, RoadLimits> m_highwayTypes;
   // Mapping surface types (psurface|paved_good, psurface|paved_bad, psurface|unpaved_good,
   // psurface|unpaved_bad) to surface speed factors.
-  // Note. It's a vector (not map or unordered_map) because of perfomance reasons.
+  // Note. It's an array (not map or unordered_map) because of perfomance reasons.
   std::array<TypeFactor, 4> m_surfaceFactors;
 
   std::vector<AdditionalRoadType> m_addRoadTypes;

@@ -1,6 +1,7 @@
 #include "track_analyzing/track.hpp"
 #include "track_analyzing/utils.hpp"
 
+#include "routing/city_roads.hpp"
 #include "routing/geometry.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -19,9 +20,12 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 
+#include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
 
 #include <iostream>
+
+#include "defines.hpp"
 
 using namespace routing;
 using namespace std;
@@ -29,12 +33,27 @@ using namespace track_analyzing;
 
 namespace
 {
-string RoadTypeToString(uint32_t type)
+string TypeToString(uint32_t type)
 {
   if (type == 0)
     return "unknown-type";
 
   return classif().GetReadableObjectName(type);
+}
+
+bool DayTimeToBool(DayTimeType type)
+{
+  switch (type)
+  {
+  case DayTimeType::Day:
+  case DayTimeType::PolarDay:
+    return true;
+  case DayTimeType::Night:
+  case DayTimeType::PolarNight:
+    return false;
+  }
+
+  CHECK_SWITCH();
 }
 
 class CarModelTypes final
@@ -43,26 +62,56 @@ public:
   CarModelTypes()
   {
     for (auto const & additionalTag : CarModel::GetAdditionalTags())
-      m_tags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
+      m_hwtags.push_back(classif().GetTypeByPath(additionalTag.m_hwtag));
 
     for (auto const & speedForType : CarModel::GetLimits())
-      m_tags.push_back(classif().GetTypeByPath(speedForType.m_types));
+      m_hwtags.push_back(classif().GetTypeByPath(speedForType.m_types));
+
+    for (auto const & surface : CarModel::GetSurfaces())
+      m_surfaceTags.push_back(classif().GetTypeByPath(vector<string>(surface.m_types, surface.m_types + 2)));
   }
 
-  uint32_t GetType(FeatureType & feature) const
+  struct Type
   {
+    uint32_t m_hwType = 0;
+    uint32_t m_surfaceType = 0;
+  };
+
+  Type GetType(FeatureType & feature) const
+  {
+    Type ret;
     feature::TypesHolder holder(feature);
-    for (uint32_t type : m_tags)
+    for (uint32_t type : m_hwtags)
     {
       if (holder.Has(type))
-        return type;
+      {
+        ret.m_hwType = type;
+        break;
+      }
     }
 
-    return 0;
+    for (uint32_t type : m_surfaceTags)
+    {
+      if (holder.Has(type))
+      {
+        ret.m_surfaceType = type;
+        break;
+      }
+    }
+
+    return ret;
   }
 
 private:
-  vector<uint32_t> m_tags;
+  vector<uint32_t> m_hwtags;
+  vector<uint32_t> m_surfaceTags;
+};
+
+struct RoadInfo
+{
+  CarModelTypes::Type m_type;
+  bool m_isCityRoad = false;
+  bool m_isOneWay = false;
 };
 
 class MoveType final
@@ -70,20 +119,25 @@ class MoveType final
 public:
   MoveType() = default;
 
-  MoveType(uint32_t roadType, traffic::SpeedGroup speedGroup)
-    : m_roadType(roadType), m_speedGroup(speedGroup)
+  MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup)
+    : m_roadInfo(roadType), m_speedGroup(speedGroup)
   {
   }
 
   bool operator==(MoveType const & rhs) const
   {
-    return m_roadType == rhs.m_roadType && m_speedGroup == rhs.m_speedGroup;
+    return m_roadInfo.m_type.m_hwType == rhs.m_roadInfo.m_type.m_hwType &&
+           m_roadInfo.m_type.m_surfaceType == rhs.m_roadInfo.m_type.m_surfaceType &&
+           m_speedGroup == rhs.m_speedGroup;
   }
 
   bool operator<(MoveType const & rhs) const
   {
-    if (m_roadType != rhs.m_roadType)
-      return m_roadType < rhs.m_roadType;
+    if (m_roadInfo.m_type.m_hwType != rhs.m_roadInfo.m_type.m_hwType)
+      return m_roadInfo.m_type.m_hwType < rhs.m_roadInfo.m_type.m_hwType;
+
+    if (m_roadInfo.m_type.m_surfaceType != rhs.m_roadInfo.m_type.m_surfaceType)
+      return m_roadInfo.m_type.m_surfaceType < rhs.m_roadInfo.m_type.m_surfaceType;
 
     return m_speedGroup < rhs.m_speedGroup;
   }
@@ -91,16 +145,21 @@ public:
   string ToString() const
   {
     ostringstream out;
-    out << RoadTypeToString(m_roadType) << "*" << traffic::DebugPrint(m_speedGroup);
+    out << TypeToString(m_roadInfo.m_type.m_hwType) << " " <<
+           TypeToString(m_roadInfo.m_type.m_surfaceType) << " " <<
+           m_roadInfo.m_isCityRoad << " " <<
+           m_roadInfo.m_isOneWay << " " <<
+           traffic::DebugPrint(m_speedGroup);
+
     return out.str();
   }
 
 private:
-  uint32_t m_roadType = 0;
+  RoadInfo m_roadInfo;
   traffic::SpeedGroup m_speedGroup = traffic::SpeedGroup::Unknown;
 };
 
-class MoveInfo final
+class SpeedInfo final
 {
 public:
   void Add(double distance, uint64_t time)
@@ -109,7 +168,7 @@ public:
     m_totalTime += time;
   }
 
-  void Add(MoveInfo const & rhs) { Add(rhs.m_totalDistance, rhs.m_totalTime); }
+  void Add(SpeedInfo const & rhs) { Add(rhs.m_totalDistance, rhs.m_totalTime); }
 
   double GetDistance() const { return m_totalDistance; }
   uint64_t GetTime() const { return m_totalTime; }
@@ -147,54 +206,60 @@ public:
     bool firstIteration = true;
     for (auto it : m_moveInfos)
     {
-      MoveInfo const & speedInfo = it.second;
+      SpeedInfo const & speedInfo = it.second;
       if (firstIteration)
         firstIteration = false;
       else
-        out << " ";
+        out << " * ";
 
-      out << it.first.ToString() << ": " << speedInfo.GetDistance() << " / " << speedInfo.GetTime();
+      out << it.first.ToString() << " " << speedInfo.GetDistance() << " " << speedInfo.GetTime();
     }
 
     return out.str();
   }
 
 private:
-  map<MoveType, MoveInfo> m_moveInfos;
+  map<MoveType, SpeedInfo> m_moveInfos;
 };
 
 class MatchedTrackPointToMoveType final
 {
 public:
-  MatchedTrackPointToMoveType(string const & mwmFile)
-    : m_featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)))
+  MatchedTrackPointToMoveType(FilesContainerR const & container, VehicleModelInterface & vehicleModel)
+    : m_featuresVector(container), m_vehicleModel(vehicleModel)
   {
+    if (container.IsExist(CITY_ROADS_FILE_TAG))
+      LoadCityRoads(container.GetFileName(), container.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
   }
 
   MoveType GetMoveType(MatchedTrackPoint const & point)
   {
-    return MoveType(GetRoadType(point.GetSegment().GetFeatureId()),
+    return MoveType(GetRoadInfo(point.GetSegment().GetFeatureId()),
                     static_cast<traffic::SpeedGroup>(point.GetDataPoint().m_traffic));
   }
 
 private:
-  uint32_t GetRoadType(uint32_t featureId)
+  RoadInfo GetRoadInfo(uint32_t featureId)
   {
     if (featureId == m_prevFeatureId)
-      return m_prevRoadType;
+      return m_prevRoadInfo;
 
     FeatureType feature;
     m_featuresVector.GetVector().GetByIndex(featureId, feature);
 
     m_prevFeatureId = featureId;
-    m_prevRoadType = m_carModelTypes.GetType(feature);
-    return m_prevRoadType;
+    m_prevRoadInfo = {m_carModelTypes.GetType(feature),
+                      m_cityRoads.IsCityRoad(featureId),
+                      m_vehicleModel.IsOneWay(feature)};
+    return m_prevRoadInfo;
   }
 
-  CarModelTypes const m_carModelTypes;
   FeaturesVectorTest m_featuresVector;
+  VehicleModelInterface & m_vehicleModel;
+  CarModelTypes const m_carModelTypes;
+  CityRoads m_cityRoads;
   uint32_t m_prevFeatureId = numeric_limits<uint32_t>::max();
-  uint32_t m_prevRoadType = numeric_limits<uint32_t>::max();
+  RoadInfo m_prevRoadInfo;
 };
 }  // namespace
 
@@ -203,9 +268,11 @@ namespace track_analyzing
 void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                   StringFilter userFilter)
 {
-  cout << "mwm user track_idx start length time speed ... type: meters / seconds" << endl;
+  cout << "mwm,user,track idx,is day,length in meters,time in seconds,speed in km/h,"
+          "track summary(hw type surface type is_city_road is_one_way traffic distance time)" << endl;
 
   storage::Storage storage;
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   auto numMwmIds = CreateNumMwmIds(storage);
 
   auto processMwm = [&](string const & mwmName, UserToMatchedTracks const & userToMatchedTracks) {
@@ -215,7 +282,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
     shared_ptr<VehicleModelInterface> vehicleModel =
         CarModelFactory({}).GetVehicleModelForCountry(mwmName);
     string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
-    MatchedTrackPointToMoveType pointToMoveType(mwmFile);
+    MatchedTrackPointToMoveType pointToMoveType(FilesContainerR(make_unique<FileReader>(mwmFile)), *vehicleModel);
     Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 
     for (auto const & kv : userToMatchedTracks)
@@ -230,7 +297,8 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
         if (track.size() <= 1)
           continue;
 
-        uint64_t const start = track.front().GetDataPoint().m_timestamp;
+        auto const & dataPoint = track.front().GetDataPoint();
+        uint64_t const start = dataPoint.m_timestamp;
         uint64_t const timeElapsed = track.back().GetDataPoint().m_timestamp - start;
         double const length = CalcTrackLength(track, geometry);
         double const speed = CalcSpeedKMpH(length, timeElapsed);
@@ -249,9 +317,10 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           subTrackBegin = subTrackEnd;
         }
 
-        cout << mwmName << " " << user << " " << trackIdx << " "
-             << base::SecondsSinceEpochToString(start) << " " << length << " " << timeElapsed << " "
-             << speed << " " << aggregator.GetSummary() << endl;
+        cout << mwmName << "," << user << "," << trackIdx << ","
+             << DayTimeToBool(GetDayTime(start, dataPoint.m_latLon.lat, dataPoint.m_latLon.lon))
+             << "," << length << "," << timeElapsed << ","
+             << speed << "," << aggregator.GetSummary() << endl;
       }
     }
   };

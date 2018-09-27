@@ -74,7 +74,6 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
       ("Matching finished, elapsed:", timer.ElapsedSeconds(), "seconds, tracks:", tracksCount,
        ", points:", pointsCount, ", non matched points:", nonMatchedPointsCount));
 }
-
 }  // namespace
 
 namespace track_analyzing
