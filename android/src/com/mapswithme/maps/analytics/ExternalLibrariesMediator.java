@@ -3,6 +3,7 @@ package com.mapswithme.maps.analytics;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
 
@@ -13,7 +14,11 @@ import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.mapswithme.maps.*;
+import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Utils;
@@ -21,7 +26,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
-import com.my.target.common.MyTargetPrivacy;
 import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
@@ -37,6 +41,8 @@ public class ExternalLibrariesMediator
   private final Application mApplication;
   @NonNull
   private volatile EventLogger mEventLogger;
+  @Nullable
+  private AdvertisingInfo mAdvertisingInfo;
 
   public ExternalLibrariesMediator(@NonNull Application application)
   {
@@ -57,7 +63,7 @@ public class ExternalLibrariesMediator
     getAdInfoTask.execute();
   }
 
-  private void initSensitiveEventLogger()
+  public void initSensitiveEventLogger()
   {
     if (com.mapswithme.util.concurrency.UiThread.isUiThread())
     {
@@ -144,7 +150,39 @@ public class ExternalLibrariesMediator
     MoPub.initializeSdk(mApplication, sdkConfiguration, null);
   }
 
-  private static class GetAdInfoTask extends AsyncTask<Void, Void, Boolean>
+  @UiThread
+  void setAdvertisingInfo(@NonNull AdvertisingInfo info)
+  {
+    mAdvertisingInfo = info;
+  }
+
+  @UiThread
+  public boolean isAdvertisingInfoObtained()
+  {
+    return mAdvertisingInfo != null;
+  }
+
+  @UiThread
+  public boolean isLimitAdTrackingEnabled()
+  {
+    if (mAdvertisingInfo == null)
+      throw new IllegalStateException("Advertising info must be obtained first!");
+
+    return mAdvertisingInfo.isLimitAdTrackingEnabled();
+  }
+
+  public void disableAdProvider(@NonNull Banner.Type type)
+  {
+    Framework.disableAdProvider(type);
+  }
+
+  @NonNull
+  Application getApplication()
+  {
+    return mApplication;
+  }
+
+  private static class GetAdInfoTask extends AsyncTask<Void, Void, AdvertisingInfo>
   {
     @NonNull
     private final ExternalLibrariesMediator mMediator;
@@ -155,47 +193,44 @@ public class ExternalLibrariesMediator
     }
 
     @Override
-    protected Boolean doInBackground(Void... voids)
+    protected AdvertisingInfo doInBackground(Void... voids)
     {
       try
       {
-        return isAdvertisingTrackingEnabled();
+        Application application = mMediator.getApplication();
+        AdvertisingIdClient.Info info = AdvertisingIdClient.getAdvertisingIdInfo(application);
+        return new AdvertisingInfo(info);
       }
       catch (GooglePlayServicesNotAvailableException | IOException | GooglePlayServicesRepairableException e)
       {
         LOGGER.e(TAG, "Failed to obtain advertising id: ", e);
         CrashlyticsUtils.logException(e);
-        return false;
+        return new AdvertisingInfo(null);
       }
     }
 
-    private boolean isAdvertisingTrackingEnabled() throws GooglePlayServicesNotAvailableException,
-                                                          IOException,
-                                                          GooglePlayServicesRepairableException
-    {
-      AdvertisingIdClient.Info info = AdvertisingIdClient.getAdvertisingIdInfo(mMediator.mApplication);
-      return info.isLimitAdTrackingEnabled();
-    }
-
     @Override
-    protected void onPostExecute(Boolean status)
+    protected void onPostExecute(@NonNull AdvertisingInfo info)
     {
-      super.onPostExecute(status);
-      if (status != null && status)
-        onEnabled();
-      else
-        onDisabled();
+      super.onPostExecute(info);
+      mMediator.setAdvertisingInfo(info);
+    }
+  }
+
+  private static class AdvertisingInfo
+  {
+    @Nullable
+    private final AdvertisingIdClient.Info mInfo;
+
+    private AdvertisingInfo(@Nullable AdvertisingIdClient.Info info)
+    {
+      mInfo = info;
     }
 
-    private void onDisabled()
+    @UiThread
+    boolean isLimitAdTrackingEnabled()
     {
-      Framework.disableAdProvider(Banner.Type.TYPE_RB);
-      MyTargetPrivacy.setUserConsent(false);
-    }
-
-    private void onEnabled()
-    {
-      mMediator.initSensitiveEventLogger();
+      return mInfo != null && mInfo.isLimitAdTrackingEnabled();
     }
   }
 

@@ -12,6 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.mapswithme.maps.ads.Banner;
+import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.base.BaseActivity;
 import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
@@ -27,11 +30,16 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener, BaseActivity
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = SplashActivity.class.getSimpleName();
+  private static final String EXTRA_CORE_INITIALIZED = "extra_core_initialized";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
   public static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
@@ -65,13 +73,47 @@ public class SplashActivity extends AppCompatActivity
     @Override
     public void run()
     {
+      if (mCoreInitialized)
+      {
+        UiThread.runLater(mFinalDelayedTask);
+        return;
+      }
+
+      ExternalLibrariesMediator mediator = ((MwmApplication) getApplicationContext()).getMediator();
+      if (!mediator.isAdvertisingInfoObtained())
+      {
+        UiThread.runLater(mInitCoreDelayedTask, DELAY);
+        return;
+      }
+
+      if (!mediator.isLimitAdTrackingEnabled())
+      {
+        LOGGER.i(TAG, "Limit ad tracking disabled, sensitive tracking initialized");
+        mediator.initSensitiveEventLogger();
+      }
+      else
+      {
+        LOGGER.i(TAG, "Limit ad tracking enabled, sensitive tracking not initialized");
+      }
+
       init();
+      LOGGER.i(TAG, "Core initialized: " + mCoreInitialized);
+      if (mCoreInitialized)
+      {
+        if (mediator.isLimitAdTrackingEnabled())
+        {
+          LOGGER.i(TAG, "Limit ad tracking enabled, rb banners disabled.");
+          mediator.disableAdProvider(Banner.Type.TYPE_RB);
+        }
+      }
+
 //    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
 //    since onPause() callback can be blocked because of UI thread is busy with framework
 //    initialization.
       UiThread.runLater(mFinalDelayedTask);
     }
   };
+
   @NonNull
   private final Runnable mFinalDelayedTask = new Runnable()
   {
@@ -109,12 +151,21 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
+    if (savedInstanceState != null)
+      mCoreInitialized = savedInstanceState.getBoolean(EXTRA_CORE_INITIALIZED);
     handleUpdateMapsFragmentCorrectly(savedInstanceState);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(EXTRA_CORE_INITIALIZED, mCoreInitialized);
   }
 
   @Override

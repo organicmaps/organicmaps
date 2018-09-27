@@ -132,6 +132,7 @@ public class MwmApplication extends Application
     mMainLoopHandler = new Handler(getMainLooper());
     mMediator = new ExternalLibrariesMediator(this);
     mMediator.initSensitiveDataToleranceLibraries();
+    mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.setMediator(mMediator);
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
@@ -236,7 +237,6 @@ public class MwmApplication extends Application
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
     mFrameworkInitialized = true;
-    mMediator.initSensitiveDataStrictLibrariesAsync();
   }
 
   private void initNativeStrings()
