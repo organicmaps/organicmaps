@@ -100,7 +100,7 @@ enum AdsRemovalPaymentState
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
           AlertDialog alertDialog = new AlertDialog.Builder()
-              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PAYMENT_FAILURE)
+              .setReqCode(AdsRemovalPurchaseDialog.REQ_CODE_PRODUCT_DETAILS_FAILURE)
               .setTitleId(R.string.bookmarks_convert_error_title)
               .setMessageId(R.string.discovery_button_other_error_message)
               .setPositiveBtnId(R.string.ok)
