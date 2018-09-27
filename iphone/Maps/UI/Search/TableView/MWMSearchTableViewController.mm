@@ -124,7 +124,12 @@ NSString * GetLocalizedTypeName(search::Result const & result)
       fallbackAd.cellIndexPath = indexPath;
       fallbackAd.dynamicSizeDelegate = self;
     }
-    [cell configWithAd:ad containerType:MWMAdBannerContainerTypeSearch];
+    [cell configWithAd:ad
+         containerType:MWMAdBannerContainerTypeSearch
+          canRemoveAds:[SubscriptionManager canMakePayments]
+           onRemoveAds: ^{
+             [[MapViewController sharedController] showRemoveAds];
+    }];
     return cell;
   }
   case MWMSearchItemTypeSuggestion:

@@ -1,17 +1,19 @@
-class AlertTransitioning: NSObject, UIViewControllerTransitioningDelegate {
+class FadeTransitioning<T: UIPresentationController>: NSObject, UIViewControllerTransitioningDelegate {
+  let presentedTransitioning = FadeInAnimatedTransitioning()
+  let dismissedTransitioning = FadeOutAnimatedTransitioning()
   func animationController(forPresented presented: UIViewController,
                            presenting: UIViewController,
                            source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return AlertPresentationAnimator()
+    return presentedTransitioning
   }
 
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return AlertDismissalAnimator()
+    return dismissedTransitioning
   }
 
   func presentationController(forPresented presented: UIViewController,
                               presenting: UIViewController?,
                               source: UIViewController) -> UIPresentationController? {
-    return AlertPresentationController(presentedViewController: presented, presenting: presenting)
+    return T(presentedViewController: presented, presenting: presenting)
   }
 }

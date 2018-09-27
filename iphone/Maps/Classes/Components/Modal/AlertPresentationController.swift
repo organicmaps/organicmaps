@@ -10,5 +10,18 @@ final class AlertPresentationController: DimmedModalPresentationController {
     super.presentationTransitionWillBegin()
     presentedViewController.view.layer.cornerRadius = 12
     presentedViewController.view.clipsToBounds = true
+    guard let containerView = containerView, let presentedView = presentedView else { return }
+    containerView.addSubview(presentedView)
+    presentedView.center = containerView.center
+    presentedView.frame = frameOfPresentedViewInContainerView
+    presentedView.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
+  }
+
+  override func dismissalTransitionDidEnd(_ completed: Bool) {
+    super.presentationTransitionDidEnd(completed)
+    guard let presentedView = presentedView else { return }
+    if completed {
+      presentedView.removeFromSuperview()
+    }
   }
 }

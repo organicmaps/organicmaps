@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,6 +19,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucm-4E-iB7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="109" id="9T6-aq-miV"/>
+                        </constraints>
+                    </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f76-qn-ne4">
                         <rect key="frame" x="4" y="4" width="367" height="101.5"/>
                         <subviews>
@@ -120,8 +127,30 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerButtonBackground"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-s3-8BF">
+                                <rect key="frame" x="12" y="101" width="165.5" height="36"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.92156862750000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="Sec-LO-NfY"/>
+                                </constraints>
+                                <state key="normal" title="Remove Ads">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerButtonBackground"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="removeAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="dCc-Ww-mvy"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKM-3R-3g1">
-                                <rect key="frame" x="12" y="101.5" width="343" height="36"/>
+                                <rect key="frame" x="189.5" y="101.5" width="165.5" height="36"/>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.92156862745098034" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="JMM-je-O9e"/>
@@ -150,39 +179,69 @@
                                     <action selector="privacyAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="ma2-uV-7hH"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ad_close" translatesAutoresizingMaskIntoConstraints="NO" id="D3u-BA-Ixx">
+                                <rect key="frame" x="352" y="2" width="13" height="13"/>
+                                <color key="tintColor" white="0.0" alpha="0.54168450338082197" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="13" id="AuT-Sc-FFo"/>
+                                    <constraint firstAttribute="height" constant="13" id="NRm-LU-MWL"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huL-pj-FQy">
+                                <rect key="frame" x="335" y="0.0" width="32" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="Bmc-z7-zKC"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="removeAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="Jtb-b8-Ihy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="leading" priority="250" id="5CH-Fo-S70"/>
+                            <constraint firstItem="huL-pj-FQy" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" id="9xd-8o-CPo"/>
                             <constraint firstAttribute="bottom" secondItem="Ev3-yY-ql1" secondAttribute="bottom" priority="500" constant="8" id="FJI-xF-QTM"/>
                             <constraint firstItem="NKM-3R-3g1" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EuF-Rm-DHQ" secondAttribute="bottom" constant="8" id="Fjs-IQ-LQv"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="250" constant="8" id="HHb-Vh-rIl"/>
                             <constraint firstItem="EuF-Rm-DHQ" firstAttribute="trailing" secondItem="f76-qn-ne4" secondAttribute="leading" priority="500" id="HLI-Zw-ETh"/>
                             <constraint firstItem="54O-iN-1Gg" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" id="JWc-kJ-RaK"/>
                             <constraint firstItem="EuF-Rm-DHQ" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="KEp-1t-yK0"/>
-                            <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" constant="12" id="Ls8-rz-N1Q"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="bottom" priority="700" constant="4" id="NmE-r2-ZNA"/>
                             <constraint firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" priority="250" constant="16" id="POq-M6-rLU"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="top" constant="2" id="Q0s-7L-aih"/>
+                            <constraint firstItem="D3u-BA-Ixx" firstAttribute="top" secondItem="huL-pj-FQy" secondAttribute="top" constant="2" id="QV1-rU-D4J"/>
                             <constraint firstAttribute="trailing" secondItem="54O-iN-1Gg" secondAttribute="trailing" id="S6I-ea-HJN"/>
                             <constraint firstItem="9qA-JC-fkn" firstAttribute="leading" secondItem="Ev3-yY-ql1" secondAttribute="trailing" priority="500" constant="4" id="YNA-Lu-LXQ"/>
                             <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="4" id="ZVP-Gs-m00"/>
                             <constraint firstAttribute="trailing" secondItem="NKM-3R-3g1" secondAttribute="trailing" constant="12" id="ZiW-Tk-SOB"/>
                             <constraint firstItem="kIR-cO-v6L" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="ajZ-XY-N1h"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="bottom" secondItem="zWu-Gh-Vf7" secondAttribute="bottom" constant="2" id="akC-Fs-8Iv"/>
+                            <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="EIT-s3-8BF" secondAttribute="trailing" priority="500" constant="12" id="b7c-4v-4PG"/>
+                            <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="huL-pj-FQy" secondAttribute="bottom" id="crO-Dv-apD"/>
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="trailing" priority="500" constant="16" id="dww-N9-1tY"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" id="eM3-Nv-zVj"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" constant="-2" id="fNs-FC-pga"/>
                             <constraint firstItem="EuF-Rm-DHQ" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="16" id="gJI-DA-6rn"/>
                             <constraint firstItem="54O-iN-1Gg" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" id="ge7-AI-110"/>
+                            <constraint firstItem="EIT-s3-8BF" firstAttribute="width" secondItem="NKM-3R-3g1" secondAttribute="width" id="gvb-Sb-VpY"/>
+                            <constraint firstItem="EIT-s3-8BF" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" constant="12" id="hHP-XI-N3c"/>
                             <constraint firstItem="NKM-3R-3g1" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="hn7-T4-7Zo"/>
                             <constraint firstAttribute="bottom" secondItem="NKM-3R-3g1" secondAttribute="bottom" priority="250" constant="12" id="hzn-4Y-A0H"/>
+                            <constraint firstItem="EIT-s3-8BF" firstAttribute="bottom" secondItem="NKM-3R-3g1" secondAttribute="bottom" id="iB4-7e-JCZ"/>
+                            <constraint firstAttribute="trailing" secondItem="huL-pj-FQy" secondAttribute="trailing" id="j1g-TD-yNF"/>
+                            <constraint firstItem="D3u-BA-Ixx" firstAttribute="trailing" secondItem="huL-pj-FQy" secondAttribute="trailing" constant="-2" id="lYj-xp-qLn"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="-2" id="sAg-zL-vMW"/>
                             <constraint firstAttribute="bottom" secondItem="54O-iN-1Gg" secondAttribute="bottom" id="tOj-8H-AsH"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                             <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="8" id="vlX-zx-nfP"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
+                            <constraint firstItem="EIT-s3-8BF" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="wEs-mb-MUF"/>
+                            <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="250" constant="12" id="ypZ-TK-ao1"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="trailing" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" id="zGz-Sf-G1b"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -194,13 +253,6 @@
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="bannerBackground"/>
                         </userDefinedRuntimeAttributes>
-                    </view>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucm-4E-iB7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="109" id="9T6-aq-miV"/>
-                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -231,11 +283,15 @@
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
                 <outlet property="adPrivacyImage" destination="042-9V-wU6" id="JLV-4K-UTc"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>
+                <outlet property="ctaButtonLeftConstraint" destination="ypZ-TK-ao1" id="Qjs-Rw-yKB"/>
                 <outlet property="fallbackAdView" destination="ucm-4E-iB7" id="dOb-SQ-pex"/>
                 <outlet property="fallbackAdViewBottom" destination="DdI-tM-5Yy" id="Tyv-gy-gf7"/>
                 <outlet property="fallbackAdViewHeight" destination="9T6-aq-miV" id="gze-UL-E6b"/>
                 <outlet property="nativeAdView" destination="f76-qn-ne4" id="9hb-za-zgw"/>
                 <outlet property="nativeAdViewBottom" destination="7c6-rR-ue5" id="8x7-ar-cxz"/>
+                <outlet property="removeAdsImage" destination="D3u-BA-Ixx" id="0qo-wO-cBR"/>
+                <outlet property="removeAdsLargeButton" destination="EIT-s3-8BF" id="Xdb-44-0cc"/>
+                <outlet property="removeAdsSmallButton" destination="huL-pj-FQy" id="dtr-Nq-1O0"/>
                 <outletCollection property="detailedModeConstraints" destination="w5K-BT-1ED" collectionClass="NSMutableArray" id="Lv4-E4-dYV"/>
                 <outletCollection property="detailedModeConstraints" destination="POq-M6-rLU" collectionClass="NSMutableArray" id="rqF-JD-SZe"/>
                 <outletCollection property="detailedModeConstraints" destination="gJI-DA-6rn" collectionClass="NSMutableArray" id="Bf5-KV-Yq1"/>
@@ -247,6 +303,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_ad_close" width="8" height="8"/>
         <image name="ic_ads_fb" width="20" height="12"/>
         <image name="img_ad_light" width="20" height="12"/>
     </resources>

@@ -30,6 +30,7 @@
 - (void)openCatalogDeeplink:(NSURL * _Nullable)deeplinkUrl animated:(BOOL)animated;
 - (void)searchText:(NSString *)text;
 
+- (void)showRemoveAds;
 - (void)setPlacePageTopBound:(CGFloat)bound;
 
 - (void)initialize;

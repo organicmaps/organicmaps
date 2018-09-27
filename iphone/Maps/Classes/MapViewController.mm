@@ -78,7 +78,8 @@ BOOL gIsFirstMyPositionMode = YES;
 @end
 
 @interface MapViewController ()<MWMFrameworkDrapeObserver, MWMFrameworkStorageObserver,
-                                MWMWelcomePageControllerProtocol, MWMKeyboardObserver>
+                                MWMWelcomePageControllerProtocol, MWMKeyboardObserver,
+                                RemoveAdsViewControllerDelegate>
 
 @property(nonatomic, readwrite) MWMMapViewControlsManager * controlsManager;
 
@@ -492,6 +493,13 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.controlsManager searchText:text forInputLocale:[[AppInfo sharedInfo] languageId]];
 }
 
+- (void)showRemoveAds
+{
+  auto removeAds = [[RemoveAdsViewController alloc] init];
+  removeAds.delegate = self;
+  [self.navigationController presentViewController:removeAds animated:YES completion:nil];
+}
+
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   [MWMLocationManager setMyPositionMode:mode];
@@ -529,6 +537,18 @@ BOOL gIsFirstMyPositionMode = YES;
   case location::FollowAndRotate: self.disableStandbyOnLocationStateMode = YES; break;
   }
   gIsFirstMyPositionMode = NO;
+}
+
+#pragma mark - MWMRemoveAdsViewControllerDelegate
+
+- (void)didCompleteSubscribtion:(RemoveAdsViewController *)viewController
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didCancelSubscribtion:(RemoveAdsViewController *)viewController
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - MWMFrameworkDrapeObserver

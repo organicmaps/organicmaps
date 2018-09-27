@@ -351,6 +351,12 @@
 		470A89FF2134517600D72FBF /* BookmarksTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */; };
 		470A8A012136097000D72FBF /* SubwayTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
+		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
+		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
+		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
+		474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */; };
+		474AC76D2139E4F2002F9BF9 /* RemoveAdsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */; };
+		474C9F5A213FF75800369009 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 474C9F59213FF75800369009 /* StoreKit.framework */; };
 		474C9F632141896800369009 /* MWMEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = 474C9F622141896800369009 /* MWMEye.mm */; };
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
@@ -368,12 +374,13 @@
 		47E3C72221108E9F008B3B27 /* BookmarksLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */; };
 		47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */; };
 		47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */; };
-		47E3C7292111E614008B3B27 /* AlertPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */; };
-		47E3C72B2111E62A008B3B27 /* AlertDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */; };
-		47E3C72D2111E6A2008B3B27 /* AlertTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */; };
+		47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */; };
+		47E3C72B2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */; };
+		47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72C2111E6A2008B3B27 /* FadeTransitioning.swift */; };
 		47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */; };
 		47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */; };
 		47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */; };
+		47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */; };
 		47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86CFE20C936FC00FEE291 /* TabView.swift */; };
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
@@ -1328,6 +1335,13 @@
 		470A89FE2134517600D72FBF /* BookmarksTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksTutorialBlur.xib; sourceTree = "<group>"; };
 		470A8A002136073000D72FBF /* SubwayTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubwayTutorialBlur.xib; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
+		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
+		472E3F4B2147D5700020E412 /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsViewController.swift; sourceTree = "<group>"; };
+		474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoveAdsViewController.xib; sourceTree = "<group>"; };
+		474C9F59213FF75800369009 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		474C9F612141896800369009 /* MWMEye.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMEye.h; sourceTree = "<group>"; };
 		474C9F622141896800369009 /* MWMEye.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEye.mm; sourceTree = "<group>"; };
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
@@ -1347,12 +1361,13 @@
 		47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksLoadedViewController.xib; sourceTree = "<group>"; };
 		47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedModalPresentationController.swift; sourceTree = "<group>"; };
 		47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentationController.swift; sourceTree = "<group>"; };
-		47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentationAnimator.swift; sourceTree = "<group>"; };
-		47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDismissalAnimator.swift; sourceTree = "<group>"; };
-		47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTransitioning.swift; sourceTree = "<group>"; };
+		47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOutAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		47E3C72C2111E6A2008B3B27 /* FadeTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeTransitioning.swift; sourceTree = "<group>"; };
 		47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalModalTransitioning.swift; sourceTree = "<group>"; };
 		47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationAnimator.swift; sourceTree = "<group>"; };
 		47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalDismissalAnimator.swift; sourceTree = "<group>"; };
+		47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsPresentationController.swift; sourceTree = "<group>"; };
 		47F86CFE20C936FC00FEE291 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		47F86D0020C93D8D00FEE291 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
@@ -1897,6 +1912,7 @@
 				34D1B6F11E95096B0057E9C7 /* libicu.a in Frameworks */,
 				671E78D31E6A423300B2859B /* librouting_common.a in Frameworks */,
 				34D808861E793F91002F0584 /* Pushwoosh.framework in Frameworks */,
+				474C9F5A213FF75800369009 /* StoreKit.framework in Frameworks */,
 				34D8087B1E793606002F0584 /* Alamofire.framework in Frameworks */,
 				34D8087D1E79360D002F0584 /* AlamofireImage.framework in Frameworks */,
 				67B78B551E42333C0018E590 /* AdSupport.framework in Frameworks */,
@@ -2050,6 +2066,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				474C9F59213FF75800369009 /* StoreKit.framework */,
 				3D1958EA213804B6009A83EC /* libmetrics.a */,
 				4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */,
 				BB8123CD212C264700ADE512 /* Metal.framework */,
@@ -2212,6 +2229,7 @@
 			isa = PBXGroup;
 			children = (
 				474C9F602141894300369009 /* Metrics */,
+				472E3F4221468AF40020E412 /* Subscriptions */,
 				3472B5E7200F8CEB00DC6CD5 /* UGC */,
 				3472B5DD200F868E00DC6CD5 /* Editor */,
 				3472B5C8200F436700DC6CD5 /* BackgroundFetchScheduler */,
@@ -2384,6 +2402,8 @@
 			children = (
 				3488B0101E9D0AEC0068AFD8 /* AdBanner.swift */,
 				3488B0111E9D0AEC0068AFD8 /* AdBanner.xib */,
+				474AC76A2139E4F2002F9BF9 /* RemoveAdsViewController.swift */,
+				474AC76B2139E4F2002F9BF9 /* RemoveAdsViewController.xib */,
 			);
 			path = Ads;
 			sourceTree = "<group>";
@@ -3188,6 +3208,17 @@
 			path = TipsAndTricks;
 			sourceTree = "<group>";
 		};
+		472E3F4221468AF40020E412 /* Subscriptions */ = {
+			isa = PBXGroup;
+			children = (
+				472E3F462146BCD30020E412 /* SubscriptionManager.swift */,
+				472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */,
+				472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */,
+				472E3F4B2147D5700020E412 /* Subscription.swift */,
+			);
+			path = Subscriptions;
+			sourceTree = "<group>";
+		};
 		474A450520EBA03900C10B4E /* Layers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3209,16 +3240,25 @@
 		47E3C7232111E2F8008B3B27 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				47EF05B12150383A00EAC269 /* RemoveAds */,
 				47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */,
 				47E3C7262111E5A8008B3B27 /* AlertPresentationController.swift */,
-				47E3C7282111E614008B3B27 /* AlertPresentationAnimator.swift */,
-				47E3C72A2111E62A008B3B27 /* AlertDismissalAnimator.swift */,
-				47E3C72C2111E6A2008B3B27 /* AlertTransitioning.swift */,
+				47E3C7282111E614008B3B27 /* FadeInAnimatedTransitioning.swift */,
+				47E3C72A2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift */,
+				47E3C72C2111E6A2008B3B27 /* FadeTransitioning.swift */,
 				47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */,
 				47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */,
 				47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		47EF05B12150383A00EAC269 /* RemoveAds */ = {
+			isa = PBXGroup;
+			children = (
+				47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */,
+			);
+			path = RemoveAds;
 			sourceTree = "<group>";
 		};
 		47F86CFD20C936B300FEE291 /* TabView */ = {
@@ -4244,6 +4284,9 @@
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -4410,6 +4453,7 @@
 				34D3B02D1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0331E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
 				F6E2FDCB1E097BA00083EBEC /* MWMEditorNotesFooter.xib in Resources */,
+				474AC76D2139E4F2002F9BF9 /* RemoveAdsViewController.xib in Resources */,
 				34D3B0391E389D05004100F9 /* MWMEditorSelectTableViewCell.xib in Resources */,
 				34AB663B1FC5AA330078E451 /* RouteManagerViewController.xib in Resources */,
 				34D3B03F1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
@@ -4601,6 +4645,7 @@
 				344BEAF31F66BDC30045DC45 /* RatingSummaryView.swift in Sources */,
 				6741A9A31BF340DE002C974C /* main.mm in Sources */,
 				34D3B04F1E38A20C004100F9 /* Bundle+Init.swift in Sources */,
+				47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */,
 				34AB666E1FC5AA330078E451 /* TransportTransitStepsCollectionView.swift in Sources */,
 				F6E2FF541E097BA00083EBEC /* MWMHelpController.mm in Sources */,
 				349FC5481F680DAE00968C9F /* ExpandableTextView.swift in Sources */,
@@ -4627,6 +4672,7 @@
 				340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */,
 				3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
 				F6E2FDF81E097BA00083EBEC /* MWMOpeningHoursAllDayTableViewCell.mm in Sources */,
+				472E3F4C2147D5700020E412 /* Subscription.swift in Sources */,
 				340B33C61F3AEFDB00A8C1B4 /* MWMRouter+RouteManager.mm in Sources */,
 				F6E2FE191E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.mm in Sources */,
 				F6E407D01FC45EF5001F7821 /* MWMDiscoveryController.mm in Sources */,
@@ -4704,10 +4750,10 @@
 				F6E2FEE51E097BA00083EBEC /* MWMSearchNoResults.mm in Sources */,
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
-				47E3C7292111E614008B3B27 /* AlertPresentationAnimator.swift in Sources */,
+				47E3C7292111E614008B3B27 /* FadeInAnimatedTransitioning.swift in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
 				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
-				47E3C72D2111E6A2008B3B27 /* AlertTransitioning.swift in Sources */,
+				47E3C72D2111E6A2008B3B27 /* FadeTransitioning.swift in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
@@ -4715,6 +4761,7 @@
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
 				6741A9CF1BF340DE002C974C /* MWMLocationAlert.mm in Sources */,
+				474AC76C2139E4F2002F9BF9 /* RemoveAdsViewController.swift in Sources */,
 				34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */,
 				F6E2FDA11E097BA00083EBEC /* MWMEditorAdditionalNamesTableViewController.mm in Sources */,
 				4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */,
@@ -4876,6 +4923,7 @@
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				F6E2FE671E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
+				472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */,
 				F6E2FE131E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.mm in Sources */,
 				344532311F6FE5880059FBCC /* UGCSummaryRatingStarsCell.swift in Sources */,
 				F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */,
@@ -4899,6 +4947,7 @@
 				34F1ADD31F6BC09E001CE79D /* PPPReview.swift in Sources */,
 				F6E2FF4B1E097BA00083EBEC /* SettingsTableViewSwitchCell.swift in Sources */,
 				F6E2FE791E097BA00083EBEC /* MWMOpeningHoursLayoutHelper.mm in Sources */,
+				472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */,
 				34ABA6211C2D517500FE1BEC /* MWMInputValidator.mm in Sources */,
 				34BBD6601F8270360070CA50 /* AuthorizationiPadPresentationController.swift in Sources */,
 				F6E2FD7D1E097BA00083EBEC /* MWMMapDownloaderExtendedDataSource.mm in Sources */,
@@ -5021,7 +5070,7 @@
 				34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
 				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
-				47E3C72B2111E62A008B3B27 /* AlertDismissalAnimator.swift in Sources */,
+				47E3C72B2111E62A008B3B27 /* FadeOutAnimatedTransitioning.swift in Sources */,
 				F5BD255A0838E70EC012748E /* DiscoverySearchCell.swift in Sources */,
 				F5BD2CA4DBEFACBC48195F39 /* DiscoveryCollectionHolderCell.swift in Sources */,
 			);

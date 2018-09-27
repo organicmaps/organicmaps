@@ -1,5 +1,5 @@
 class BookmarksLoadedViewController: UIViewController {
-  private let transitioning = AlertTransitioning()
+  private let transitioning = FadeTransitioning<AlertPresentationController>()
   @objc var onViewBlock: MWMVoidBlock?
   @objc var onCancelBlock: MWMVoidBlock?
 

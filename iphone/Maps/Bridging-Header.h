@@ -77,3 +77,4 @@
 #import "MWMCatalogCategory.h"
 #import "MWMCatalogCommon.h"
 #import "MWMEye.h"
+#import "MWMPurchaseManager.h"

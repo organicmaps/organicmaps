@@ -50,7 +50,8 @@ NSDictionary<NSString *, UIColor *> * night = @{
   @"blackOpaque": [UIColor colorWithWhite:1. alpha:alpha04],
   @"toastBackground": [UIColor colorWithWhite:0. alpha:alpha87],
   @"statusBarBackground": [UIColor colorWithWhite:0. alpha:alpha32],
-  @"bannerBackground" : [UIColor colorWithRed:scaled(71) green:scaled(75) blue:scaled(79) alpha:alpha100]
+  @"bannerBackground" : [UIColor colorWithRed:scaled(71) green:scaled(75) blue:scaled(79) alpha:alpha100],
+  @"border" : [UIColor colorWithWhite:1. alpha:alpha04]
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -97,7 +98,8 @@ NSDictionary<NSString *, UIColor *> * day = @{
   @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
   @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87],
   @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36],
-  @"bannerBackground" : [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100]
+  @"bannerBackground" : [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100],
+  @"border" : [UIColor colorWithWhite:0. alpha:alpha04]
 };
 
 UIColor * color(SEL cmd)
@@ -324,6 +326,11 @@ UIColor * color(SEL cmd)
 }
 
 + (UIColor *)bannerBackground
+{
+  return color(_cmd);
+}
+
++ (UIColor *)border
 {
   return color(_cmd);
 }

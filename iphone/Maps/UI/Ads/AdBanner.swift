@@ -54,11 +54,26 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
-  @IBOutlet private weak var nativeAdView: UIView!
+  @IBOutlet private weak var removeAdsSmallButton: UIButton!
+  @IBOutlet private weak var removeAdsLargeButton: UIButton!
+  @IBOutlet private weak var removeAdsImage: UIImageView! {
+    didSet {
+      removeAdsImage.mwm_coloring = .black
+    }
+  }
   @IBOutlet private weak var fallbackAdView: UIView!
   @IBOutlet private var nativeAdViewBottom: NSLayoutConstraint!
   @IBOutlet private var fallbackAdViewBottom: NSLayoutConstraint!
   @IBOutlet private var fallbackAdViewHeight: NSLayoutConstraint!
+  @IBOutlet private var ctaButtonLeftConstraint: NSLayoutConstraint!
+  @IBOutlet private weak var nativeAdView: UIView! {
+    didSet {
+      nativeAdView.layer.borderColor = UIColor.blackDividers().cgColor
+    }
+  }
+
+  @objc var onRemoveAds: MWMVoidBlock?
+
   @objc static let detailedBannerExcessHeight: Float = 36
 
   enum AdType {
@@ -123,6 +138,11 @@ final class AdBanner: UITableViewCell {
     UIViewController.topViewController().open(url)
   }
 
+  @IBAction
+  private func removeAction() {
+    onRemoveAds?()
+  }
+
   override func layoutSubviews() {
     super.layoutSubviews()
     switch nativeAd {
@@ -135,7 +155,7 @@ final class AdBanner: UITableViewCell {
     state = .unset
   }
 
-  @objc func config(ad: MWMBanner, containerType: AdBannerContainerType) {
+  @objc func config(ad: MWMBanner, containerType: AdBannerContainerType, canRemoveAds: Bool, onRemoveAds: (() -> Void)?) {
     reset()
     switch containerType {
     case .placePage:
@@ -153,6 +173,11 @@ final class AdBanner: UITableViewCell {
     case let ad as GoogleNativeBanner: configGoogleNativeBanner(ad: ad)
     default: assert(false)
     }
+    self.onRemoveAds = onRemoveAds
+    removeAdsSmallButton.isHidden = !canRemoveAds
+    removeAdsLargeButton.isHidden = !canRemoveAds
+    removeAdsImage.isHidden = !canRemoveAds
+    ctaButtonLeftConstraint.priority = canRemoveAds ? .defaultLow : .defaultHigh
   }
   
   override func setHighlighted(_ highlighted: Bool, animated: Bool) {

@@ -279,7 +279,13 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     return c;
   case PreviewRows::Banner:
     auto bannerCell = static_cast<MWMAdBanner *>(c);
-    [bannerCell configWithAd:data.nativeAd containerType:MWMAdBannerContainerTypePlacePage];
+    [bannerCell configWithAd:data.nativeAd
+               containerType:MWMAdBannerContainerTypePlacePage
+                canRemoveAds:[SubscriptionManager canMakePayments]
+                 onRemoveAds: ^{
+      [[MapViewController sharedController] showRemoveAds];
+    }];
+
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }
