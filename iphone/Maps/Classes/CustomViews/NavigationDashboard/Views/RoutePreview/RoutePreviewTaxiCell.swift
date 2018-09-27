@@ -58,14 +58,11 @@ final class RoutePreviewTaxiCell: UICollectionViewCell {
 
     let timeString = { () -> String in
       var timeValue = DateComponentsFormatter.etaString(from: TimeInterval(eta)!)!
-      switch type {
-      case .taxi: break
-      case .uber: break
-      case .yandex: break
-      case .maxim: break
-      case .rutaxi:
-        timeValue = String(coreFormat: L("place_page_starting_from"), arguments: [timeValue])
+      
+      if type == .rutaxi {
+        timeValue = String(coreFormat: L("place_page_starting_from"), arguments: [timeValue]);
       }
+      
       return String(coreFormat: L("taxi_wait"), arguments: [timeValue])
     }
 
