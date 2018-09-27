@@ -201,7 +201,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     UiUtils.show(mUgcRootView);
     UiUtils.showIf(ugc != null || canUserRate(ugcUpdate) || ugcUpdate != null, mPreviewUgcInfoView);
     UiUtils.showIf(canUserRate(ugcUpdate), mLeaveReviewButton, mUgcAddRatingView);
-    UiUtils.showIf(ugc != null, mSummaryRootView, mUgcMoreReviews);
+    UiUtils.showIf(ugc != null, mUgcMoreReviews);
+    UiUtils.showIf(ugc != null && impress != UGC.RATING_NONE, mSummaryRootView);
     RatingView ratingView = (RatingView) mPreviewUgcInfoView.findViewById(R.id.rating_view);
     if (ugc == null)
     {
@@ -213,10 +214,13 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
 
     Context context = mPlacePage.getContext();
     int reviewsCount = ugc.getBasedOnCount();
-    mReviewCount.setText(context.getResources().getQuantityString(
-        R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
+    if (impress != UGC.RATING_NONE)
+    {
+      mReviewCount.setText(context.getResources().getQuantityString(
+          R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
+      setSummaryViews(ugc, impress, rating);
+    }
     ratingView.setRating(Impress.values()[impress], rating);
-    setSummaryViews(ugc, impress, rating);
     setUserReviewAndRatingsView(ugcUpdate);
     List<UGC.Review> reviews = ugc.getReviews();
     if (reviews != null)
@@ -236,7 +240,6 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     mSummaryReviewCount.setText(context.getResources().getQuantityString(
         R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
-
   }
 
   private boolean canUserRate(@Nullable UGCUpdate ugcUpdate)
