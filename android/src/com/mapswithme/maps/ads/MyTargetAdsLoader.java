@@ -67,19 +67,19 @@ class MyTargetAdsLoader extends CachingNativeAdLoader implements NativeAd.Native
   @Override
   public void onVideoPlay(@NonNull NativeAd nativeAd)
   {
-
+    /* Do nothing */
   }
 
   @Override
   public void onVideoPause(@NonNull NativeAd nativeAd)
   {
-
+    /* Do nothing */
   }
 
   @Override
   public void onVideoComplete(@NonNull NativeAd nativeAd)
   {
-
+    /* Do nothing */
   }
 
   @NonNull

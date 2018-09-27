@@ -158,18 +158,16 @@ public final class MytargetHelper
       @Override
       public void onClick(NativeAppwallBanner nativeAppwallBanner, NativeAppwallAd nativeAppwallAd) {}
 
-
-
       @Override
       public void onDisplay(@NonNull NativeAppwallAd nativeAppwallAd)
       {
-
+        /* Do nothing */
       }
 
       @Override
       public void onDismiss(@NonNull NativeAppwallAd nativeAppwallAd)
       {
-
+        /* Do nothing */
       }
     });
 
