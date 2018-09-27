@@ -2108,9 +2108,8 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-  auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
 #ifdef DEBUG
-  scaleFpsHelper.SetVisible(true);
+  gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);
 #endif
 
   m_renderer.ScheduleOverlayCollecting();
