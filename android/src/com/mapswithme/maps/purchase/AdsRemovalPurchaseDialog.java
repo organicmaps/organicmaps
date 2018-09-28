@@ -350,6 +350,12 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     }
 
     @Override
+    public void onStoreConnectionFailed()
+    {
+      activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
+    }
+
+    @Override
     public void onValidationStarted()
     {
       Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS);

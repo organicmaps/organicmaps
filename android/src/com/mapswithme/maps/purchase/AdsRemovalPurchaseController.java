@@ -114,6 +114,13 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     }
 
     @Override
+    public void onStoreConnectionFailed()
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onStoreConnectionFailed();
+    }
+
+    @Override
     public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
     {
       String purchaseData = null;

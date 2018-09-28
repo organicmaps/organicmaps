@@ -182,11 +182,12 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   @Override
   public void onDisconnected()
   {
+    LOGGER.w(TAG, "Play store connection failed.");
     if (mPendingRequests.isEmpty())
       return;
 
     mPendingRequests.clear();
     if (mCallback != null)
-      mCallback.onPurchaseFailure(BillingResponse.SERVICE_DISCONNECTED);
+      mCallback.onStoreConnectionFailed();
   }
 }

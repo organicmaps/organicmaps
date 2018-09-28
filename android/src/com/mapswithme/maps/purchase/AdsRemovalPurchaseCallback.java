@@ -12,6 +12,7 @@ public interface AdsRemovalPurchaseCallback
   void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPaymentFailure(@BillingClient.BillingResponse int error);
   void onProductDetailsFailure();
+  void onStoreConnectionFailed();
   void onValidationStarted();
   void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status);
 }

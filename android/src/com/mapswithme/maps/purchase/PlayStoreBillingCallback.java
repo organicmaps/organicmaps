@@ -14,5 +14,6 @@ public interface PlayStoreBillingCallback
   void onPurchaseSuccessful(@NonNull List<Purchase> purchases);
   void onPurchaseFailure(@BillingClient.BillingResponse int error);
   void onPurchaseDetailsFailure();
+  void onStoreConnectionFailed();
   void onPurchasesLoaded(@NonNull List<Purchase> purchases);
 }
