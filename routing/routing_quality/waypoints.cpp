@@ -70,10 +70,7 @@ bool CheckRoute(routing::VehicleType type, ms::LatLon const & start, ms::LatLon 
   ReferenceRoutes candidates(referenceTracks.size());
 
   for (size_t i = 0; i < candidates.size(); ++i)
-  {
-    candidates[i].m_factor = 1.0;
     candidates[i].m_waypoints = move(referenceTracks[i]);
-  }
 
   return CheckWaypoints(move(params), move(candidates)) == 1.0;
 }
