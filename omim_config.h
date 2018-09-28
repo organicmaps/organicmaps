@@ -1,6 +1,6 @@
 #pragma once
 
-#define TEST_ADS_REMOVAL_IDS
+//#define TEST_ADS_REMOVAL_IDS
 //#define STAGE_BOOKMARKS_CATALOG_SERVER
 //#define STAGE_CLOUD_SERVER
 //#define STAGE_LOCALS_SERVER
