@@ -1011,6 +1011,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (MWMMyTarget *)myTarget
 {
+  if (![ASIdentifierManager sharedManager].advertisingTrackingEnabled)
+    return nil;
+  
   if (!_myTarget)
     _myTarget = [[MWMMyTarget alloc] init];
   return _myTarget;

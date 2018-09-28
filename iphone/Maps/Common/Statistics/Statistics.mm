@@ -8,6 +8,7 @@
 #import <MyTrackerSDK/MRMyTracker.h>
 #import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <AdSupport/ASIdentifierManager.h>
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -39,17 +40,20 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   // _enabled should be already correctly set up in init method.
   if ([MWMSettings statisticsEnabled])
   {
-    auto sessionBuilder = [[[FlurrySessionBuilder alloc] init]
-                           withAppVersion:[AppInfo sharedInfo].bundleVersion];
-    [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
-    [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
+    if ([ASIdentifierManager sharedManager].advertisingTrackingEnabled)
+    {
+      auto sessionBuilder = [[[FlurrySessionBuilder alloc] init]
+                             withAppVersion:[AppInfo sharedInfo].bundleVersion];
+      [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
+      [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
 
-    [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
-#ifdef DEBUG
-    [MRMyTracker setDebugMode:YES];
-#endif
-    [MRMyTracker trackerParams].trackLaunch = YES;
-    [MRMyTracker setupTracker];
+      [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
+  #ifdef DEBUG
+      [MRMyTracker setDebugMode:YES];
+  #endif
+      [MRMyTracker trackerParams].trackLaunch = YES;
+      [MRMyTracker setupTracker];
+    }
 
     [Alohalytics setup:@(ALOHALYTICS_URL) withLaunchOptions:launchOptions];
   }
