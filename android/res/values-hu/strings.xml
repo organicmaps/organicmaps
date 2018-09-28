@@ -1352,6 +1352,35 @@
 	<string name="error_already_downloaded_guide">Ez az útmutató már letöltésre került</string>
 	<string name="guide_downloaded_subtitle">Az Útmutató megtekintéséhez nyomd meg a „Megtekintés a térképen” lehetőséget</string>
 	<string name="bookmarks_guides">Könyvjelzők és útmutatók</string>
+	<string name="remove_ads">Reklámok eltávolítása</string>
+	<string name="remove_ads_title">Reklámok eltávolítása és MAPS.ME támogatása</string>
+	<string name="paybtn_title">Fizessen %s/év</string>
+	<string name="paybtn_subtitle">%s/év megtakarítás</string>
+	<string name="options_dropdown_title">További lehetőségek</string>
+	<string name="why_support">Miért éri meg támogatni a MAPS.ME-t?</string>
+	<string name="options_dropdown_item1">%1$s/hó (%2$s/év megtakarítás)</string>
+	<string name="options_dropdown_item2">%s/hét (nincs megtakarítás)</string>
+	<string name="why_support_item1">Eltávolítjuk a reklámokat</string>
+	<string name="why_support_item2">Ön segít a MAPS.ME-t fejleszteni</string>
+	<string name="why_support_item3">Segítsen a térkép fejlesztésében az OpenStreetMap.org-on</string>
+	<string name="purchase_processing">Vásárlása feldolgozás alatt van…</string>
+	<string name="tips_bookmarks_catalog_title">Kapcsolat nélküli útmutatók mindenféle utazáshoz</string>
+	<string name="tips_bookmarks_catalog_message">Töltse le és tervezzen érdekességeket érintő turistaútvonalakat a világ bármely országában.</string>
+	<string name="tips_discover_button_title">Népszerű érdekességeket keres a közelben?</string>
+	<string name="tips_discover_button_message">„A közelben felfedezi” résznél megtalálja a legjobb éttermeket, hoteleket és látnivalókat.</string>
+	<string name="tips_book_hotel_title">Foglaljon utazásához a legkényelmesebb hotelekben</string>
+	<string name="tips_book_hotel_message">Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.</string>
+	<string name="tips_map_layers_title">Nem tudja, melyik állomáson kell átszállni?</string>
+	<string name="tips_map_layers_message">Kapcsolja be a metró réteget a térképen, így könnyen eligazodhat egy új városban is.</string>
+	<string name="channels_map_update">Térképfrissítések</string>
+	<string name="channels_reviews">Elküldetlen értékelések</string>
+	<string name="purchase_loading">Vásárlási információk betöltése…</string>
+	<string name="purchase_error_subtitle">Hiba történt a vásárlás feldolgozása közben</string>
+	<string name="awaiting_approval">Szülői jóváhagyásra vár</string>
+	<string name="whats_new_leave_review">Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.</string>
+	<string name="server_unavailable_title">A szerver nem elérhető.</string>
+	<string name="server_unavailable_message">A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Csatlakozzon az internetre a hotelek dátum alapú szűréséhez.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

@@ -1356,6 +1356,35 @@
 	<string name="error_already_downloaded_guide">Táto príručka už bola stiahnutá</string>
 	<string name="guide_downloaded_subtitle">Stlačením tlačidla ,Zobraziť na mape\' si spustíte príručku</string>
 	<string name="bookmarks_guides">Záložky a príručky</string>
+	<string name="remove_ads">Odstrániť reklamy</string>
+	<string name="remove_ads_title">Odstráňte všetky reklamy a podporte MAPS.ME</string>
+	<string name="paybtn_title">Zaplaťte %s/rok</string>
+	<string name="paybtn_subtitle">Ušetrite %s/rok</string>
+	<string name="options_dropdown_title">Viac možností</string>
+	<string name="why_support">Prečo podporiť MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/mesačne (ušetrite %2$s/ročne)</string>
+	<string name="options_dropdown_item2">%s/týždenne (žiadne šetrenie)</string>
+	<string name="why_support_item1">Odstránime pre vás všetky reklamy</string>
+	<string name="why_support_item2">Pomôžete nám zlepšiť MAPS.ME</string>
+	<string name="why_support_item3">Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org</string>
+	<string name="purchase_processing">Váš nákup sa spracováva…</string>
+	<string name="tips_bookmarks_catalog_title">Offline sprievodcovia pre akýkoľvek druh cesty</string>
+	<string name="tips_bookmarks_catalog_message">Stiahnite si a naplánujte turistické trasy na zaujímavých miestach v rôznych mestách sveta.</string>
+	<string name="tips_discover_button_title">Chcete nájsť obľúbené miesta v okolí?</string>
+	<string name="tips_discover_button_message">Sekcia „Poznávajte svoje okolie“ obsahuje najlepšie reštaurácie, hotely a pamiatky.</string>
+	<string name="tips_book_hotel_title">Zarezervujte si najútulnejšie hotely pre svoje cesty</string>
+	<string name="tips_book_hotel_message">Pomocou vyhľadávania a filtrov nájdite pre Vás najvhodnejšie hotely. Použite tlačidlo „Rezervovať“ na mieste, kde si môžete rezervovať hotel okamžite.</string>
+	<string name="tips_map_layers_title">Neviete, na ktorú stanicu ísť, ak chcete chytiť spoj?</string>
+	<string name="tips_map_layers_message">Zapnite vrstvu metra a zobrazte mapu metra a v novom meste vždy nájdete cestu.</string>
+	<string name="channels_map_update">Aktualizácia máp</string>
+	<string name="channels_reviews">Neodoslané recenzie</string>
+	<string name="purchase_loading">Načítavajú sa informácie o nákupe…</string>
+	<string name="purchase_error_subtitle">Počas spracovania nákupu sa vyskytla chyba</string>
+	<string name="awaiting_approval">Očakáva sa schválenie rodiča</string>
+	<string name="whats_new_leave_review">Zanechať recenziu! Podeľte sa o svoj názor o miestach, ktoré ste navštívili počas dovolenky.</string>
+	<string name="server_unavailable_title">Server je nedostupný</string>
+	<string name="server_unavailable_message">Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

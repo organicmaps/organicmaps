@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "บุ๊กมาร์กและคู่มือใช้งาน";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "ซ่อนโฆษณา";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "ซ่อนโฆษณาทั้งหมดที่แสดงในแอพพลิเคชันด้วยการสนับสนุน MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "ในราคา %s/ปี";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "ประหยัดได้ %s/ปี";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "ทางเลือกอื่นๆ";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "ทำไมถึงควรใช้บริการ MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/เดือน (ประหยัดได้ %s/ปี)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/สัปดาห์ (ราคาไม่มีส่วนลด)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "เราจะซ่อนโฆษณาทั้งหมดบนแอพเพื่อคุณ";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "คุณช่วยเราพัฒนา MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "คุณช่วยเราพัฒนาแผนที่ที่เปิดให้คนทั่วไปเข้าใช้งานของ OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "กำลังประมวลผลการซื้อของคุณ…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "ไกด์แบบออฟไลน์เพื่อการท่องเที่ยวทุกประเภท";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "ดาวน์โหลดแผนและเส้นทางท่องเที่ยวของสถานที่น่าสนใจในเมืองต่างๆ ทั่วโลก";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "อยากหาแหล่งท่องเที่ยวยอดนิยมใกล้ๆ หรือเปล่า";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "ในหัวข้อ \"ค้นหาบริเวณใกล้เคียง\" นั้นมีข้อมูลของร้านอาหาร โรงแรม และแหล่งชมวิวที่ดีที่สุด";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "จองโรงแรมที่อยู่สบายที่สุดสำหรับการท่องเที่ยวของคุณ";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "ใช้การค้นหาและเครื่องมือคัดกรองข้อมูลเพื่อค้นหาโรงแรมที่ดีที่สุดสำหรับคุณ ใช้ปุ่ม \"จอง\" บนตำแหน่งของโรงแรมบนแผนที่เพื่อจองโรงแรมนั้นทันที";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "มีปัญหาเรื่องไม่รู้ว่าสถานีรถไฟใต้ดินสายไหนเชื่อมกับสายไหนอยู่หรือ?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "เปิดเลเยอร์ของรถไฟใต้ดินเพื่อแสดงแผนผังของรถไฟและคุณจะพบเส้นทางเพื่อไปเมืองใหม่ๆ ได้ทุกครั้ง";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "อัพเดตโรงแรม";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "รีวิวที่ยังไม่ได้ส่ง";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "กำลังโหลดข้อมูลเพื่อการชำระเงิน…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "มีข้อผิดพลาดเกิดขึ้นขณะดำเนินการชำระเงิน";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "กำลังรอให้ผู้ปกครองยืนยัน";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "รีวิวให้เรา! แบ่งปันความคิดเห็นเกี่ยวกับสถานที่ที่คุณไปเที่ยวในวันหยุดของคุณ";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "ไม่สามารถเข้าถึงเซิร์ฟเวอร์";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "การชำระเงินจะเสร็จสมบูรณ์ในภายหลัง หากข้อผิดพลาดยังคงเกิดขึ้นต่อเนื่อง โปรดติดต่อเราที่ support@maps.me";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "เชื่อมต่ออินเทอร์เน็ตเพื่อคัดกรองโรงแรมตามลำดับวันที่";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

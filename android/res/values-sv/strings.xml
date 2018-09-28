@@ -1356,6 +1356,35 @@
 	<string name="error_already_downloaded_guide">Denna guide har redan laddats ned</string>
 	<string name="guide_downloaded_subtitle">Tryck på ‘Visa på kartan’ för att utforska guiden</string>
 	<string name="bookmarks_guides">Bokmärken och guider</string>
+	<string name="remove_ads">Ta bort reklam</string>
+	<string name="remove_ads_title">Ta bort all reklam och stöd MAPS.ME</string>
+	<string name="paybtn_title">Betala %s/år</string>
+	<string name="paybtn_subtitle">Betala %s/år</string>
+	<string name="options_dropdown_title">Fler val</string>
+	<string name="why_support">Varför stödja MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/månad (spara %2$s/år)</string>
+	<string name="options_dropdown_item2">%s/vecka (inga besparingar)</string>
+	<string name="why_support_item1">Vi tar bort all reklam för dig</string>
+	<string name="why_support_item2">Du hjälper oss att förbättra MAPS.ME</string>
+	<string name="why_support_item3">Du hjälper oss att förbättra de offentliga kartorna OpenStreetMap.org</string>
+	<string name="purchase_processing">Ditt köp bearbetas…</string>
+	<string name="tips_bookmarks_catalog_title">Offline guider för alla typer av resor</string>
+	<string name="tips_bookmarks_catalog_message">Ladda ner och planera turistresor till intressanta ställen i olika städer i världen.</string>
+	<string name="tips_discover_button_title">Vill du hitta populära ställen i närheten?</string>
+	<string name="tips_discover_button_message">Avdelningen ”Upptäck i närheten” innehåller de bästa restaurangerna, hotellen och sevärdheterna.</string>
+	<string name="tips_book_hotel_title">Boka de mysigaste hotellen för dina resor</string>
+	<string name="tips_book_hotel_message">Använd sök- och filterfunktionerna för att hitta de bästa hotellen för dig. Använd ”Boka”-knappen på ställets platssida för att boka hotell på en gång.</string>
+	<string name="tips_map_layers_title">Vet du inte vid vilken station du ska byta?</string>
+	<string name="tips_map_layers_message">Använd lagret för tunnelbana för att visa tunnelbanenätverket, och du kommer alltid att hitta rätt i en ny stad.</string>
+	<string name="channels_map_update">Uppdatering av kartor</string>
+	<string name="channels_reviews">Ej skickade recensioner</string>
+	<string name="purchase_loading">Inköpsinformationen läses in…</string>
+	<string name="purchase_error_subtitle">Ett fel inträffade under hanteringen av ditt köp</string>
+	<string name="awaiting_approval">Inväntar förälders godkännande</string>
+	<string name="whats_new_leave_review">Lämna en recension! Dela med dig av dina åsikter om ställen du besökte på din semester.</string>
+	<string name="server_unavailable_title">Servern är inte tillgänglig</string>
+	<string name="server_unavailable_message">Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Koppla upp dig mot internet för att filtrera hotellen per datum.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

@@ -1366,6 +1366,35 @@
 	<string name="error_already_downloaded_guide">Dieser Leitfaden wurde bereits heruntergeladen</string>
 	<string name="guide_downloaded_subtitle">Drücken Sie ‚Auf der Karte ansehen‘, um den Leitfaden zu erkunden</string>
 	<string name="bookmarks_guides">Lesezeichengruppen und Leitfäden</string>
+	<string name="remove_ads">Werbung abschalten</string>
+	<string name="remove_ads_title">Schalten Sie die ganze Werbung ab und unterstützen Sie MAPS.ME</string>
+	<string name="paybtn_title">Bezahlen %s/Jahr</string>
+	<string name="paybtn_subtitle">Einsparungen %s/Jahr</string>
+	<string name="options_dropdown_title">Weitere Varianten</string>
+	<string name="why_support">Warum MAPS.ME unterstützen?</string>
+	<string name="options_dropdown_item1">%1$s/Monat (Einsparung %2$s/Jahr)</string>
+	<string name="options_dropdown_item2">%s/Woche (keine Einsparung)</string>
+	<string name="why_support_item1">Wir schalten für Sie die ganze Werbung ab</string>
+	<string name="why_support_item2">Sie helfen uns MAPS.ME zu verbesern</string>
+	<string name="why_support_item3">Sie helfen uns die Karten OpenStreetMaps.org zu verbessern</string>
+	<string name="purchase_processing">Ihr Kauf wird bearbeitet…</string>
+	<string name="tips_bookmarks_catalog_title">Offline-Reiseführer für alle Arten von Reisen</string>
+	<string name="tips_bookmarks_catalog_message">Laden Sie herunter und legen Sie die touristischen Reiserouten nach den interessanten Stellen in verschiedenen Städten der Welt an.</string>
+	<string name="tips_discover_button_title">Möchten Sie beliebte Anstalten im Bezirk finden?</string>
+	<string name="tips_discover_button_message">In der Rubrik „In der Nähe entdecken“ sind die besten Restaurants, Hotels und Sehenswürdigkeiten gesammelt.</string>
+	<string name="tips_book_hotel_title">Buchen Sie die komfortabelsten Hotels für Ihre Erholung</string>
+	<string name="tips_book_hotel_message">Mit Hilfe der Suche und der Filter werden Sie die besten Hotels finden. Drücken Sie die Schaltfläche „Buchen“ auf der Karte der Stelle für die sofortige Reservierung des Hotels.</string>
+	<string name="tips_map_layers_title">Wissen Sie nicht, in welchem U-Bahnhof umzusteigen?</string>
+	<string name="tips_map_layers_message">Schalten Sie die „U-Bahn“-Ebene auf der Karte ein, um das Metro-Schema anzuzeigen, und Sie werden immer in der neuen Stadt navigieren.</string>
+	<string name="channels_map_update">Kartenaktualisierungen</string>
+	<string name="channels_reviews">Nicht abgesandte Rückmeldungen</string>
+	<string name="purchase_loading">Kaufinformationen werden geladen…</string>
+	<string name="purchase_error_subtitle">Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten.</string>
+	<string name="awaiting_approval">Wir warten auf die Bestätigung der Eltern</string>
+	<string name="whats_new_leave_review">Geben Sie Rückmeldung! Teilen Sie Ihre Meinung über Orte, die Sie im Urlaub besucht haben.</string>
+	<string name="server_unavailable_title">Server unzugänglich</string>
+	<string name="server_unavailable_message">Der Kauf wird später abgeschlossen. Wenn der Fehler anhält, kontaktieren Sie support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Verbinden Sie sich mit dem Internet, um das Datum der Ankunft und der Abreise auszuwählen.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Seilbahn</string>

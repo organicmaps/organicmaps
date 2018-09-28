@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Мітки та путівники";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Відключити рекламу";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Відключіть всю рекламу та підтримайте MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Заплатити %s/рік";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Економія %s/рік";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Інші варіанти";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Навіщо підтримувати MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/місяць (економія %s/рік)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/тиждень (економії немає)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Ми відключимо для вас всю рекламу";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Ви допомагаєте нам покращувати MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Ви допомагаєте нам покращувати карти OpenStreetMaps.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Ваша покупка в опрацюванні…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Офлайн-путівники для всіх видів подорожей";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Завантажуйте та прокладайте туристичні маршрути цікавими місцями різних міст світу.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Хочете знайти популярні заклади навколо?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "У розділі «Поблизу» зібрані кращі найближчі ресторани, готелі й визначні місця.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Бронюйте найкомфортніші готелі для вашого відпочинку";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "За допомогою пошуку та фільтрів ви знайдете кращі готелі. Натисніть кнопку «Забронювати» в картці місця для миттєвого резервування готелю.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Не знаєте на якій станції метро пересісти?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Увімкніть шар метро на карті для відображення схеми метро та ви завжди будете орієнтуватися в новому місті.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Оновлення карт";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Невідправлені відгуки";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Завантажуємо інформацію про покупки…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Під час обробки вашої покупки сталася помилка";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Чекаємо підтвердження батьків";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Залиште відгук! Поділіться своєю думкою про місця, які відвідали у відпустці.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Сервер не доступний";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Купівля буде завершена пізніше. Якщо помилка повториться, зв’яжіться з support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Підключіться до Інтернету, щоб вибрати дату заїзду та виїзду.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

@@ -1116,6 +1116,35 @@
 	<string name="error_already_downloaded_guide">Αυτό το εγχειρίδιο έχει ήδη ληφθεί</string>
 	<string name="guide_downloaded_subtitle">Πατήστε ‘Προβολή στο χάρτη’ για να δείτε το εγχειρίδιο</string>
 	<string name="bookmarks_guides">Αγαπημένα και εγχειρίδια</string>
+	<string name="remove_ads">Αφαιρέστε τις διαφημίσεις</string>
+	<string name="remove_ads_title">Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το MAPS.ME</string>
+	<string name="paybtn_title">Πληρώστε %s/χρόνο</string>
+	<string name="paybtn_subtitle">Εξοικονομήστε %s/χρόνο</string>
+	<string name="options_dropdown_title">Περισσότερες επιλογές</string>
+	<string name="why_support">Γιατί να υποστηρίξετε το MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/το μήνα (εξοικονομήστε %2$s/χρόνο)</string>
+	<string name="options_dropdown_item2">%s/βδομάδα (καμία εξοικονόμηση)</string>
+	<string name="why_support_item1">Θα αφαιρέσουμε όλες τις διαφημίσεις για σας</string>
+	<string name="why_support_item2">Μας βοηθάτε να βελτιώσουμε το MAPS.ME</string>
+	<string name="why_support_item3">Μας βοηθάτε να βελτιώσουμε ανοιχτούς χάρτες στο OpenStreetMap.org</string>
+	<string name="purchase_processing">Γίνεται επεξεργασία της αγοράς σας…</string>
+	<string name="tips_bookmarks_catalog_title">Οδηγοί εκτός σύνδεσης για κάθε είδους ταξίδι</string>
+	<string name="tips_bookmarks_catalog_message">Κατεβάστε και σχεδιάστε τουριστικές διαδρομές για ενδιαφέρουσες τοποθεσίες σε διαφορετικές πόλεις του κόσμου.</string>
+	<string name="tips_discover_button_title">Θέλετε να βρείτε δημοφιλείς προορισμούς κοντά σας?</string>
+	<string name="tips_discover_button_message">Η ενότητα «Ανακαλύψτε κοντά» περιέχει τα καλύτερα εστιατόρια, ξενοδοχεία και αξιοθέατα.</string>
+	<string name="tips_book_hotel_title">Κλείστε τα πιο άνετα ξενοδοχεία για τα ταξίδια σας</string>
+	<string name="tips_book_hotel_message">Χρησιμοποιήστε την αναζήτηση και τα φίλτρα για να βρείτε τα καλύτερα ξενοδοχεία για εσάς. Χρησιμοποιήστε το κουμπί «Κράτηση» στην τοπική σελίδα για να κλείσετε άμεσα ένα εστιατόριο.</string>
+	<string name="tips_map_layers_title">Δεν ξέρετε σε ποια στάση να συνδεθείτε?</string>
+	<string name="tips_map_layers_message">Ενεργοποιήστε το επίπεδο του μετρό για να εμφανίσετε το χάρτη του μετρό, και θα βρίσκετε πάντα το δρόμο σας σε μια νέα πόλη.</string>
+	<string name="channels_map_update">Ενημερώσεις χάρτη</string>
+	<string name="channels_reviews">Μη απεσταλμένες κριτικές</string>
+	<string name="purchase_loading">Η αγορά πληροφοριών φορτώνει…</string>
+	<string name="purchase_error_subtitle">Ένα σφάλμα συνέβη καθώς επεξεργαζόμασταν την αγορά σας</string>
+	<string name="awaiting_approval">Αναμονή γονεϊκής συναίνεσης</string>
+	<string name="whats_new_leave_review">Αφήστε μια κριτική! Μοιραστείτε τη γνώμη σας για τις τοποθεσίες που επισκεφθήκατε στις διακοπές σας.</string>
+	<string name="server_unavailable_title">Ο εξυπηρετητής δεν είναι διαθέσιμος</string>
+	<string name="server_unavailable_message">Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Συνδεθείτε στο διαδίκτυο για να φιλτράρετε ξενοδοχεία με βάση τις ημερομηνίες.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

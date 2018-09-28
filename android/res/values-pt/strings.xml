@@ -1355,6 +1355,35 @@
 	<string name="error_already_downloaded_guide">Este guia já foi descarregado</string>
 	<string name="guide_downloaded_subtitle">Prima \'Ver no mapa\' para explorar o guia</string>
 	<string name="bookmarks_guides">Favoritos e guias</string>
+	<string name="remove_ads">Remover anúncios</string>
+	<string name="remove_ads_title">Remover todos os anúncios e apoie o MAPS.ME</string>
+	<string name="paybtn_title">Pague %s/ano</string>
+	<string name="paybtn_subtitle">Poupe %s/ano</string>
+	<string name="options_dropdown_title">Mais opções</string>
+	<string name="why_support">Porquê apoiar o MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/mês (poupa %2$s/ano)</string>
+	<string name="options_dropdown_item2">%s/semana (sem poupança)</string>
+	<string name="why_support_item1">Iremos remover os anúncios para si</string>
+	<string name="why_support_item2">Ajude-nos a melhorar o MAPS.ME</string>
+	<string name="why_support_item3">Ajude-nos a melhorar mapas livres em OpenStreeMap.org</string>
+	<string name="purchase_processing">A sua compra encontra-se em processo…</string>
+	<string name="tips_bookmarks_catalog_title">Guias offline para todo o tipo de viagem</string>
+	<string name="tips_bookmarks_catalog_message">Descarregue e planeie rotas turísticas de locais interessante em diferentes cidades do mundo.</string>
+	<string name="tips_discover_button_title">Quer encontrar lugares populares nas proximidades?</string>
+	<string name="tips_discover_button_message">A seção «Descobrir nas proximidades» contém os melhores restaurantes, hotéis e vistas.</string>
+	<string name="tips_book_hotel_title">Reserve os hotéis mais confortáveis para a sua jornada</string>
+	<string name="tips_book_hotel_message">Utilize a pesquisa e filtros para encontrar os melhores hotéis para si. Utilize o botão «Reservar» na página de locais para reservar o hotel instantaneamente.</string>
+	<string name="tips_map_layers_title">Não sabe em que estação tem de fazer uma conexão?</string>
+	<string name="tips_map_layers_message">Ligue a camada de metro para exibir o mapa do metro e encontrará o seu caminho numa cidade nova.</string>
+	<string name="channels_map_update">Atualizações de mapa</string>
+	<string name="channels_reviews">Avaliações não visualizadas</string>
+	<string name="purchase_loading">A informação de compra está a ser carregada…</string>
+	<string name="purchase_error_subtitle">Ocorreu um erro enquanto processava a sua compra</string>
+	<string name="awaiting_approval">A aguardar a aprovação parental</string>
+	<string name="whats_new_leave_review">Deixe uma avaliação! Partilhe a sua opinião sobre os locais que visitou nas suas férias.</string>
+	<string name="server_unavailable_title">O servidor está indisponível.</string>
+	<string name="server_unavailable_message">A compra será completada mais tarde. Se o error persistir, entre em contacto com support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Ligue-se à Internet para filtrar os hotéis por datas.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

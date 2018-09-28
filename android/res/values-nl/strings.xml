@@ -1352,6 +1352,35 @@
 	<string name="error_already_downloaded_guide">De handleiding is reeds gedownload</string>
 	<string name="guide_downloaded_subtitle">Druk op ‘Op kaart bekijken’ om de handleiding te verkennen</string>
 	<string name="bookmarks_guides">Bladwijzers en handleidingen</string>
+	<string name="remove_ads">Schakel advertenties uit</string>
+	<string name="remove_ads_title">Schakel alle advertenties uit en steun MAPS.ME</string>
+	<string name="paybtn_title">Betaal %s/jaar</string>
+	<string name="paybtn_subtitle">Besparing %s/jaar</string>
+	<string name="options_dropdown_title">Andere opties</string>
+	<string name="why_support">Waarom MAPS.ME ondersteunen?</string>
+	<string name="options_dropdown_item1">%1$s/maand (besparing %2$s/jaar)</string>
+	<string name="options_dropdown_item2">%s/week (geen besparing)</string>
+	<string name="why_support_item1">We zullen alle advertenties voor u uitschakelen</string>
+	<string name="why_support_item2">U helpt ons MAPS.ME te verbeteren</string>
+	<string name="why_support_item3">U helpt ons de kaarten van OpenStreetMaps.org te verbeteren</string>
+	<string name="purchase_processing">Uw aankoop wordt verwerkt…</string>
+	<string name="tips_bookmarks_catalog_title">Offline-handleidingen voor alle soorten reizen</string>
+	<string name="tips_bookmarks_catalog_message">Download en leg toeristische routes naar interessante plaatsen in verschillende steden over de hele wereld.</string>
+	<string name="tips_discover_button_title">Wilt u populaire plaatsen in de omgeving vinden?</string>
+	<string name="tips_discover_button_message">In de sectie „Ontdek in de buurt” worden de beste restaurants, hotels en bezienswaardigheden verzameld.</string>
+	<string name="tips_book_hotel_title">Boek de meest comfortabele hotels voor uw vakantie</string>
+	<string name="tips_book_hotel_message">Met behulp van de zoekfunctie en filters vindt u de beste hotels. Klik op „Boeken” in de plaatskaart voor onmiddellijke boeking van het hotel.</string>
+	<string name="tips_map_layers_title">Weet niet welk station van zitplaats moet veranderen?</string>
+	<string name="tips_map_layers_message">Zet de metrolaag op de kaart aan om het metroschema weer te geven, en je navigeert altijd in de nieuwe stad.</string>
+	<string name="channels_map_update">Kaartupdates</string>
+	<string name="channels_reviews">Niet-verzonden feedback</string>
+	<string name="purchase_loading">Aankoopinformatie laden…</string>
+	<string name="purchase_error_subtitle">Er is een fout opgetreden tijdens het verwerken van uw aankoop.</string>
+	<string name="awaiting_approval">We wachten op de bevestiging van de ouders</string>
+	<string name="whats_new_leave_review">Laat een beoordeling achter! Deel uw mening over de plaatsen die u op vakantie hebt bezocht.</string>
+	<string name="server_unavailable_title">Server niet beschikbaar</string>
+	<string name="server_unavailable_message">De aankoop zal later worden voltooid. Neem contact op met support\@maps.me als de fout aanhoudt.</string>
+	<string name="offline_fiters_check_in">Verbind met internet om de datum van aankomst en vertrek te selecteren.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

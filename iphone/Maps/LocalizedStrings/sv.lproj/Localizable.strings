@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Bokmärken och guider";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Ta bort reklam";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Ta bort all reklam och stöd MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Betala %s/år";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Betala %s/år";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Fler val";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Varför stödja MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/månad (spara %s/år)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/vecka (inga besparingar)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Vi tar bort all reklam för dig";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Du hjälper oss att förbättra MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Du hjälper oss att förbättra de offentliga kartorna OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Ditt köp bearbetas…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Offline guider för alla typer av resor";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Ladda ner och planera turistresor till intressanta ställen i olika städer i världen.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Vill du hitta populära ställen i närheten?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "Avdelningen ”Upptäck i närheten” innehåller de bästa restaurangerna, hotellen och sevärdheterna.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Boka de mysigaste hotellen för dina resor";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Använd sök- och filterfunktionerna för att hitta de bästa hotellen för dig. Använd ”Boka”-knappen på ställets platssida för att boka hotell på en gång.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Vet du inte vid vilken station du ska byta?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Använd lagret för tunnelbana för att visa tunnelbanenätverket, och du kommer alltid att hitta rätt i en ny stad.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Uppdatering av kartor";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Ej skickade recensioner";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Inköpsinformationen läses in…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Ett fel inträffade under hanteringen av ditt köp";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Inväntar förälders godkännande";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Lämna en recension! Dela med dig av dina åsikter om ställen du besökte på din semester.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Servern är inte tillgänglig";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Koppla upp dig mot internet för att filtrera hotellen per datum.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

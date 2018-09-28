@@ -1357,6 +1357,35 @@
 	<string name="error_already_downloaded_guide">มีการดาวน์โหลดคู่มือใช้งานนี้แล้ว</string>
 	<string name="guide_downloaded_subtitle">กด \'ดูบนแผนที่\' เพื่อสำรวจคู่มือใช้งาน</string>
 	<string name="bookmarks_guides">บุ๊กมาร์กและคู่มือใช้งาน</string>
+	<string name="remove_ads">ซ่อนโฆษณา</string>
+	<string name="remove_ads_title">ซ่อนโฆษณาทั้งหมดที่แสดงในแอพพลิเคชันด้วยการสนับสนุน MAPS.ME</string>
+	<string name="paybtn_title">ในราคา %s/ปี</string>
+	<string name="paybtn_subtitle">ประหยัดได้ %s/ปี</string>
+	<string name="options_dropdown_title">ทางเลือกอื่นๆ</string>
+	<string name="why_support">ทำไมถึงควรใช้บริการ MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/เดือน (ประหยัดได้ %2$s/ปี)</string>
+	<string name="options_dropdown_item2">%s/สัปดาห์ (ราคาไม่มีส่วนลด)</string>
+	<string name="why_support_item1">เราจะซ่อนโฆษณาทั้งหมดบนแอพเพื่อคุณ</string>
+	<string name="why_support_item2">คุณช่วยเราพัฒนา MAPS.ME</string>
+	<string name="why_support_item3">คุณช่วยเราพัฒนาแผนที่ที่เปิดให้คนทั่วไปเข้าใช้งานของ OpenStreetMap.org</string>
+	<string name="purchase_processing">กำลังประมวลผลการซื้อของคุณ…</string>
+	<string name="tips_bookmarks_catalog_title">ไกด์แบบออฟไลน์เพื่อการท่องเที่ยวทุกประเภท</string>
+	<string name="tips_bookmarks_catalog_message">ดาวน์โหลดแผนและเส้นทางท่องเที่ยวของสถานที่น่าสนใจในเมืองต่างๆ ทั่วโลก</string>
+	<string name="tips_discover_button_title">อยากหาแหล่งท่องเที่ยวยอดนิยมใกล้ๆ หรือเปล่า</string>
+	<string name="tips_discover_button_message">ในหัวข้อ \"ค้นหาบริเวณใกล้เคียง\" นั้นมีข้อมูลของร้านอาหาร โรงแรม และแหล่งชมวิวที่ดีที่สุด</string>
+	<string name="tips_book_hotel_title">จองโรงแรมที่อยู่สบายที่สุดสำหรับการท่องเที่ยวของคุณ</string>
+	<string name="tips_book_hotel_message">ใช้การค้นหาและเครื่องมือคัดกรองข้อมูลเพื่อค้นหาโรงแรมที่ดีที่สุดสำหรับคุณ ใช้ปุ่ม \"จอง\" บนตำแหน่งของโรงแรมบนแผนที่เพื่อจองโรงแรมนั้นทันที</string>
+	<string name="tips_map_layers_title">มีปัญหาเรื่องไม่รู้ว่าสถานีรถไฟใต้ดินสายไหนเชื่อมกับสายไหนอยู่หรือ?</string>
+	<string name="tips_map_layers_message">เปิดเลเยอร์ของรถไฟใต้ดินเพื่อแสดงแผนผังของรถไฟและคุณจะพบเส้นทางเพื่อไปเมืองใหม่ๆ ได้ทุกครั้ง</string>
+	<string name="channels_map_update">อัพเดตโรงแรม</string>
+	<string name="channels_reviews">รีวิวที่ยังไม่ได้ส่ง</string>
+	<string name="purchase_loading">กำลังโหลดข้อมูลเพื่อการชำระเงิน…</string>
+	<string name="purchase_error_subtitle">มีข้อผิดพลาดเกิดขึ้นขณะดำเนินการชำระเงิน</string>
+	<string name="awaiting_approval">กำลังรอให้ผู้ปกครองยืนยัน</string>
+	<string name="whats_new_leave_review">รีวิวให้เรา! แบ่งปันความคิดเห็นเกี่ยวกับสถานที่ที่คุณไปเที่ยวในวันหยุดของคุณ</string>
+	<string name="server_unavailable_title">ไม่สามารถเข้าถึงเซิร์ฟเวอร์</string>
+	<string name="server_unavailable_message">การชำระเงินจะเสร็จสมบูรณ์ในภายหลัง หากข้อผิดพลาดยังคงเกิดขึ้นต่อเนื่อง โปรดติดต่อเราที่ support\@maps.me</string>
+	<string name="offline_fiters_check_in">เชื่อมต่ออินเทอร์เน็ตเพื่อคัดกรองโรงแรมตามลำดับวันที่</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

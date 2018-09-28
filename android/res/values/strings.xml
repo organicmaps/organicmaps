@@ -1419,7 +1419,7 @@
 	<string name="why_support_item2">You help us to improve MAPS.ME</string>
 	<string name="why_support_item3">You help us improve open maps OpenStreetMap.org</string>
 	<string name="purchase_processing">Your purchase is being processed…</string>
-	<string name="tips_bookmarks_catalog_title">Can\'t plan a route over interesting locations?</string>
+	<string name="tips_bookmarks_catalog_title">Offline guides for every kind of journey</string>
 	<string name="tips_bookmarks_catalog_message">Download and plan tourist routes over interesting locations in different cities of the world.</string>
 	<string name="tips_discover_button_title">Want to find popular locations nearby?</string>
 	<string name="tips_discover_button_message">The \"Discover nearby\" section contains the best restaurants, hotels, and sights.</string>
@@ -1436,7 +1436,6 @@
 	<string name="server_unavailable_title">Server is unavailable</string>
 	<string name="server_unavailable_message">The purchase will be completed later. If the error persists, please contact support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Connect to the internet to filter hotels by dates.</string>
-	<string name="rutaxi_title">RuTaxi</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2269,7 +2268,7 @@
 	<string name="type.sponsored.partner17">sponsored-partner17</string>
 	<string name="type.sponsored.partner18">sponsored-partner18</string>
 	<string name="type.sponsored.partner19">sponsored-partner19</string>
-	<string name="type.sponsored.partner2">Luggage Storage</string>
+	<string name="type.sponsored.partner2">sponsored-partner2</string>
 	<string name="type.sponsored.partner20">sponsored-partner20</string>
 	<string name="type.sponsored.partner3">sponsored-partner3</string>
 	<string name="type.sponsored.partner4">sponsored-partner4</string>

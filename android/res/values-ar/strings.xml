@@ -1303,7 +1303,7 @@
 	<string name="cached_bookmarks_placeholder_subtitle">اضغط على الزر لتحميل الآلاف من الأماكن المثيرة للاهتمام والطرق التي تم إنشاؤها من قبل لمستخدمين MAPS.ME. سوف تحتاج إلى اتصال بالإنترنت.</string>
 	<string name="downloader_download_routers">تحميل الإشارات</string>
 	<string name="bookmarks_groups_cached">القوائم التي تم تنزيلها</string>
-	<string name="author_name_by_prefix">بواسطة٪ s</string>
+	<string name="author_name_by_prefix">بواسطة%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="other">%s العنصر</item>
 	</plurals>
@@ -1357,6 +1357,35 @@
 	<string name="error_already_downloaded_guide">تم بالفعل تنزيل هذا الدليل</string>
 	<string name="guide_downloaded_subtitle">اضغط \"العرض على الخريطة\" لاستكشاف الدليل</string>
 	<string name="bookmarks_guides">العلامات المرجعية والأدلة</string>
+	<string name="remove_ads">ازالة الاعلانات</string>
+	<string name="remove_ads_title">إزالة جميع الإعلانات ودعم MAPS.ME</string>
+	<string name="paybtn_title">دفع%s / سنة</string>
+	<string name="paybtn_subtitle">حفظ%s / سنة</string>
+	<string name="options_dropdown_title">مزيد من الخيارات</string>
+	<string name="why_support">لماذا تدعم MAPS.ME؟</string>
+	<string name="options_dropdown_item1">%1$s / الشهر (حفظ%2$s / سنة)</string>
+	<string name="options_dropdown_item2">%s / أسبوع (بدون توفير)</string>
+	<string name="why_support_item1">سنقوم بإزالة جميع الإعلانات لك</string>
+	<string name="why_support_item2">أنت تساعدنا على تحسين MAPS.ME</string>
+	<string name="why_support_item3">يمكنك مساعدتنا في تحسين خرائط مفتوحة OpenStreetMap.org</string>
+	<string name="purchase_processing">جار معالجة عملية الشراء الخاصة بك…</string>
+	<string name="tips_bookmarks_catalog_title">أدلة دون اتصال لكل نوع من الرحلة</string>
+	<string name="tips_bookmarks_catalog_message">قم بتنزيل وتخطيط الطرق السياحية على مواقع مثيرة للاهتمام في مدن مختلفة من العالم.</string>
+	<string name="tips_discover_button_title">تريد العثور على مواقع شعبية في مكان قريب؟</string>
+	<string name="tips_discover_button_message">يحتوي قسم «اكتشاف الجوار» على أفضل المطاعم والفنادق والمعالم السياحية.</string>
+	<string name="tips_book_hotel_title">حجز الفنادق الأكثر راحة للسفر الخاص بك</string>
+	<string name="tips_book_hotel_message">استخدم البحث و الاختيار للعثور على أفضل الفنادق لك. استخدم زر «حجز» في صفحة مكان الموقع لحجز فندق على الفور.</string>
+	<string name="tips_map_layers_title">لا يمكنك معرفة المحطة لاجراء الاتصال?</string>
+	<string name="tips_map_layers_message">قم بتشغيل طبقة المترو لعرض خريطة مترو الأنفاق ، وستجد طريقك دائمًا في مدينة جديدة.</string>
+	<string name="channels_map_update">تحديثات الخريطة</string>
+	<string name="channels_reviews">مراجعات لم يتم رسلها</string>
+	<string name="purchase_loading">يتم تحميل معلومات الشراء …</string>
+	<string name="purchase_error_subtitle">حدث خطأ أثناء معالجة عملية الشراء</string>
+	<string name="awaiting_approval">في انتظار موافقة الوالدين</string>
+	<string name="whats_new_leave_review">ترك التعليق! شارك برأيك حول المواقع التي زرتها في عطلتك.</string>
+	<string name="server_unavailable_title">الخدمة غير متوفرة</string>
+	<string name="server_unavailable_message">سيتم الانتهاء من الشراء في وقت لاحق. إذا استمر الخطأ ، يرجى الاتصال بـ support\@maps.me.</string>
+	<string name="offline_fiters_check_in">اتصل بالإنترنت لتصفية الفنادق حسب التواريخ.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

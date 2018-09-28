@@ -1348,6 +1348,35 @@
 	<string name="error_already_downloaded_guide">Hướng dẫn này đã được tải xuống</string>
 	<string name="guide_downloaded_subtitle">Nhấn “Xem trên bản đồ” để khám phá chỉ dẫn.</string>
 	<string name="bookmarks_guides">Đánh dấu trang và Hướng dẫn</string>
+	<string name="remove_ads">Xóa quảng cáo</string>
+	<string name="remove_ads_title">Xóa tất cả quảng cáo và hỗ trợ MAPS.ME</string>
+	<string name="paybtn_title">Thanh toán %s/năm</string>
+	<string name="paybtn_subtitle">Tiết kiệm %s/năm</string>
+	<string name="options_dropdown_title">Nhiều lựa chọn hơn</string>
+	<string name="why_support">Tại sao hỗ trợ MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/tháng (tiết kiệm %2$s/năm)</string>
+	<string name="options_dropdown_item2">%s/tuần (không tiết kiệm được gì)</string>
+	<string name="why_support_item1">Chúng tôi sẽ xóa tất cả quảng cáo cho bạn</string>
+	<string name="why_support_item2">You help us to improve MAPS.ME</string>
+	<string name="why_support_item3">Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org</string>
+	<string name="purchase_processing">Giao dịch mua của bạn đang được xử lý…</string>
+	<string name="tips_bookmarks_catalog_title">Hướng dẫn ngoại tuyến cho mọi loại hành trình</string>
+	<string name="tips_bookmarks_catalog_message">Tải xuống và lên kế hoạch cho các tuyến du lịch trên các địa điểm thú vị ở các thành phố khác nhau trên thế giới.</string>
+	<string name="tips_discover_button_title">Bạn muốn tìm các địa điểm phổ biến gần đó?</string>
+	<string name="tips_discover_button_message">Phần \"Khám phá gần đây\" chứa các nhà hàng, khách sạn và điểm tham quan tốt nhất.</string>
+	<string name="tips_book_hotel_title">Đặt những khách sạn ấm cúng nhất cho hành trình của bạn</string>
+	<string name="tips_book_hotel_message">Sử dụng tìm kiếm và bộ lọc để tìm khách sạn tốt nhất cho bạn. Sử dụng tìm kiếm và bộ lọc để tìm khách sạn tốt nhất cho bạn. Sử dụng nút \"Đặt trước\" trên trang địa điểm để đặt khách sạn ngay lập tức.</string>
+	<string name="tips_map_layers_title">Bạn không biết tại trạm nào để tạo kết nối không?</string>
+	<string name="tips_map_layers_message">Bật lớp tàu điện ngầm để hiển thị bản đồ tàu điện ngầm, và bạn sẽ luôn tìm đường đến một thành phố mới.</string>
+	<string name="channels_map_update">Cập nhật bản đồ</string>
+	<string name="channels_reviews">Đánh giá chưa được thực hiện</string>
+	<string name="purchase_loading">Thông tin mua đang tải…</string>
+	<string name="purchase_error_subtitle">Đã xảy ra lỗi trong khi xử lý giao dịch mua của bạn</string>
+	<string name="awaiting_approval">Đang chờ phê duyệt của phụ huynh</string>
+	<string name="whats_new_leave_review">Để lại một đánh giá! Chia sẻ ý kiến của bạn về các địa điểm bạn đã ghé thăm trong kỳ nghỉ của bạn</string>
+	<string name="server_unavailable_title">Máy chủ không khả dụng</string>
+	<string name="server_unavailable_message">Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Kết nối với internet để lọc khách sạn theo ngày tháng.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

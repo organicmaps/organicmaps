@@ -1360,6 +1360,35 @@
 	<string name="error_already_downloaded_guide">Tento průvodce byl již stažen</string>
 	<string name="guide_downloaded_subtitle">Stiskněte „Zobrazit na mapě“ a prozkoumejte průvodce</string>
 	<string name="bookmarks_guides">Záložky a průvodci</string>
+	<string name="remove_ads">Vypnout reklamu</string>
+	<string name="remove_ads_title">Vypněte veškeré reklamy a podpořte MAPS.ME</string>
+	<string name="paybtn_title">Zaplatit %s/ročně</string>
+	<string name="paybtn_subtitle">Ušetříte %s/ročně</string>
+	<string name="options_dropdown_title">Jiné varianty</string>
+	<string name="why_support">Proč podporovat MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/měsíčně (ušetříte %2$s/ročně)</string>
+	<string name="options_dropdown_item2">%s/týdně (neušetříte)</string>
+	<string name="why_support_item1">Vypneme vám veškerou reklamu</string>
+	<string name="why_support_item2">Pomáháte nám zlepšovat MAPS.ME</string>
+	<string name="why_support_item3">Pomáháte nám zlepšovat mapy OpenStreetMaps.org</string>
+	<string name="purchase_processing">Váš nákup se zpracovává…</string>
+	<string name="tips_bookmarks_catalog_title">Offline průvodce pro všechny typy cestování.</string>
+	<string name="tips_bookmarks_catalog_message">Stahujte a sestavujte turistické trasy po zajímavých místech v různých městech světa.</string>
+	<string name="tips_discover_button_title">Chcete najít oblíbené podniky v okolí?</string>
+	<string name="tips_discover_button_message">V sekci „Prozkoumat okolí“ jsou shromážděny nejlepší okolní restaurace, hotely a památky.</string>
+	<string name="tips_book_hotel_title">Rezervujte si pro váš odpočinek ty nejpohodlnější hotely.</string>
+	<string name="tips_book_hotel_message">Pomocí vyhledávání a filtrování najdete nejlepší hotely. Pro okamžitou rezervaci hotelu klikněte na tlačítko „Rezervace“ na kartě místa.</string>
+	<string name="tips_map_layers_title">Nevíte, na které stanici metra přestoupit?</string>
+	<string name="tips_map_layers_message">Zapněte na mapě šablonu metra, abyste viděli schéma metra a vždy se v novém městě orientovali.</string>
+	<string name="channels_map_update">Aktualizace map</string>
+	<string name="channels_reviews">Neodeslaná hodnocení</string>
+	<string name="purchase_loading">Stahujeme informace o nákupu…</string>
+	<string name="purchase_error_subtitle">Během zpracovávání vašeho nákupu se stala chyba</string>
+	<string name="awaiting_approval">Čekáme na souhlas rodičů</string>
+	<string name="whats_new_leave_review">Ohodnotit! Podělte se o svůj názor na místa, která jste během dovolené navštívili.</string>
+	<string name="server_unavailable_title">Sever je nedostupný</string>
+	<string name="server_unavailable_message">Nákup bude dokončen později. Pokud se bude chyba opakovat, kontaktujte nás na support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Připojte se k internetu, abyste si vybrali datum příjezdu a odjezdu.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

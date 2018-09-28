@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Kirjanmerkit ja oppaat";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Poista mainokset";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Poista kaikki mainokset ja tue MAPS.ME:tä";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Maksa %s/vuosi";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Säästä %s/vuosi";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Lisää vaihtoehtoja";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Miksi tukea MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/kuukausi (Säästä %s/vuosi)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/viikko (ei säästöä)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Poistamme kaikki mainokset sinulta";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Sinä autat meitä parantamaan MAPS.ME:tä";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Auta meitä parantamaan avoimia karttoja OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Ostostasi käsitellään…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Offline ohjeet kaikenlaisille matkoille";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Haluatko löytää suosittuja lähistöllä olevia kohteita";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "”Löydä lähistöllä olevia kohteita” osio sisältää parhaat ravintolat, hotellit ja nähtävyydet.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Varaa mukavimmat hotellit matkallesi";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Käytä hakua ja filttereitä löytääksesi parhaat hotellit sinulle. Käytä ”Varaa” nappulaa joka on paikka sivulla varataksesi hotellin välittömästi.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Etkö tiedä millä asemalla tehdä vaihto?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Laita metro taso päälle, nähdäksi metrokartan ja löydät reittisi aina uudessa kaupungissa.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Kartan päivitykset";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Lähettämättömät arviot";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Maksutietoja ladataan…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Ostosi käsittelyssä tapahtui virhe";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Odotetaan vanhemman hyväksyntää";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Jätä arvio! Jaa mielipiteesi paikoista joissa olet käynyt lomallasi.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Serveri ei ole saatavilla";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Yhdistä internettiin suodattaaksesi hotelleja päivillä";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

@@ -1357,6 +1357,35 @@
 	<string name="error_already_downloaded_guide">Цей путівник вже було завантажено</string>
 	<string name="guide_downloaded_subtitle">Натисніть на \"Подивитись на карті\", щоб дослідити путівник</string>
 	<string name="bookmarks_guides">Мітки та путівники</string>
+	<string name="remove_ads">Відключити рекламу</string>
+	<string name="remove_ads_title">Відключіть всю рекламу та підтримайте MAPS.ME</string>
+	<string name="paybtn_title">Заплатити %s/рік</string>
+	<string name="paybtn_subtitle">Економія %s/рік</string>
+	<string name="options_dropdown_title">Інші варіанти</string>
+	<string name="why_support">Навіщо підтримувати MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/місяць (економія %2$s/рік)</string>
+	<string name="options_dropdown_item2">%s/тиждень (економії немає)</string>
+	<string name="why_support_item1">Ми відключимо для вас всю рекламу</string>
+	<string name="why_support_item2">Ви допомагаєте нам покращувати MAPS.ME</string>
+	<string name="why_support_item3">Ви допомагаєте нам покращувати карти OpenStreetMaps.org</string>
+	<string name="purchase_processing">Ваша покупка в опрацюванні…</string>
+	<string name="tips_bookmarks_catalog_title">Офлайн-путівники для всіх видів подорожей</string>
+	<string name="tips_bookmarks_catalog_message">Завантажуйте та прокладайте туристичні маршрути цікавими місцями різних міст світу.</string>
+	<string name="tips_discover_button_title">Хочете знайти популярні заклади навколо?</string>
+	<string name="tips_discover_button_message">У розділі «Поблизу» зібрані кращі найближчі ресторани, готелі й визначні місця.</string>
+	<string name="tips_book_hotel_title">Бронюйте найкомфортніші готелі для вашого відпочинку</string>
+	<string name="tips_book_hotel_message">За допомогою пошуку та фільтрів ви знайдете кращі готелі. Натисніть кнопку «Забронювати» в картці місця для миттєвого резервування готелю.</string>
+	<string name="tips_map_layers_title">Не знаєте на якій станції метро пересісти?</string>
+	<string name="tips_map_layers_message">Увімкніть шар метро на карті для відображення схеми метро та ви завжди будете орієнтуватися в новому місті.</string>
+	<string name="channels_map_update">Оновлення карт</string>
+	<string name="channels_reviews">Невідправлені відгуки</string>
+	<string name="purchase_loading">Завантажуємо інформацію про покупки…</string>
+	<string name="purchase_error_subtitle">Під час обробки вашої покупки сталася помилка</string>
+	<string name="awaiting_approval">Чекаємо підтвердження батьків</string>
+	<string name="whats_new_leave_review">Залиште відгук! Поділіться своєю думкою про місця, які відвідали у відпустці.</string>
+	<string name="server_unavailable_title">Сервер не доступний</string>
+	<string name="server_unavailable_message">Купівля буде завершена пізніше. Якщо помилка повториться, зв’яжіться з support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Підключіться до Інтернету, щоб вибрати дату заїзду та виїзду.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

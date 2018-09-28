@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Signets et guides";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Retirer les publicités";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Supprimer toutes les annonces et soutenir MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Payez %s/an";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Économisez %s/an";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Plus d'options";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Pourquoi soutenir MAPS.ME ?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/mois (économisez %s/an)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/semaine (pas d'économies)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Nous allons supprimer toutes les annonces pour vous";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Vous nous aidez à améliorer MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Vous nous aidez à améliorer les cartes ouvertes OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Votre commande est en cours de traitement…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Guides hors ligne pour tout type de voyage";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Téléchargez et planifiez des itinéraires touristiques sur des sites intéressants dans différentes villes du monde.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Vous voulez trouver des endroits populaires à proximité ?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "La section «Découvrir les alentours» contient les meilleurs restaurants, hôtels et sites touristiques.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Réservez les hôtels les plus confortables pour vos voyages";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Utilisez la recherche et la sélection pour trouver les meilleurs hôtels pour vous. Utilisez le bouton «Réserver» sur la page d’emplacement pour réserver un hôtel instantanément.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Vous ne savez pas à quelle station réaliser une connexion ?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Activez le calque de métro pour afficher la carte de métro, et vous trouverez toujours votre chemin dans une nouvelle ville.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Mises à jour de la carte";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Commentaires non envoyés";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Les informations d'achat sont en cours de chargement…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Une erreur est survenue lors du traitement de votre achat";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "En attente de l'approbation d'un parent";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Laisser un avis Partagez votre opinion sur les lieux que vous avez visités pendant vos vacances.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Le serveur n'est pas disponible";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "L'achat sera complété plus tard. Si l'erreur persiste, veuillez contacter support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Connectez-vous à Internet pour sélectionner les hôtels par dates.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

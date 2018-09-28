@@ -1356,6 +1356,35 @@
 	<string name="error_already_downloaded_guide">Ten przewodnik został już pobrany</string>
 	<string name="guide_downloaded_subtitle">Naciśnij „Wyświetl na mapie”, by zapoznać się z przewodnikiem</string>
 	<string name="bookmarks_guides">Zakładki i przewodniki</string>
+	<string name="remove_ads">Wyłączyć reklamę</string>
+	<string name="remove_ads_title">Wyłącz wszystkie reklamy i wspieraj MAPS.ME</string>
+	<string name="paybtn_title">Zapłacić %s/rok</string>
+	<string name="paybtn_subtitle">Oszczędzaj %s/rok</string>
+	<string name="options_dropdown_title">Inne opcje</string>
+	<string name="why_support">Po co wspierać MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/miesiąc (oszczędzaj %2$s/rok)</string>
+	<string name="options_dropdown_item2">%s/tydzień (bez oszczędzania)</string>
+	<string name="why_support_item1">Wyłączymy wszystkie reklamy dla Ciebie</string>
+	<string name="why_support_item2">Pomagasz nam udoskonalać MAPS.ME</string>
+	<string name="why_support_item3">Pomagasz nam udoskonalać mapy OpenStreetMaps.org</string>
+	<string name="purchase_processing">Twój zakup jest przetwarzany…</string>
+	<string name="tips_bookmarks_catalog_title">Przewodniki offline dla wszystkich rodzajów podróży</string>
+	<string name="tips_bookmarks_catalog_message">Ściągaj i wyznaczaj trasy turystyczne do ciekawych miejsc w różnych miastach świata.</string>
+	<string name="tips_discover_button_title">Chcesz znaleźć popularne miejsca w okolicy?</string>
+	<string name="tips_discover_button_message">W rozdziale „Odkryj okolicę” zebrane najlepsze restauracje, hotele i atrakcje obok.</string>
+	<string name="tips_book_hotel_title">Rezerwuj najbardziej komfortowe hotele dla twojego odpoczynku</string>
+	<string name="tips_book_hotel_message">Za pomocą wyszukiwarki i filtrów znajdziesz najlepsze hotele. Kliknij przycisk „Zarezerwuj” we wkładce miejsca dla natychmiastowej rezerwacji hotelu.</string>
+	<string name="tips_map_layers_title">Nie wiesz na której stacji metra przesiąść?</string>
+	<string name="tips_map_layers_message">Włącz obszar metra na mapie dla wyświetlenia schematu metra i będziesz w stanie zawsze zorientować się w nowym mieście.</string>
+	<string name="channels_map_update">Aktualizacja map</string>
+	<string name="channels_reviews">Wiadomości niewysłane</string>
+	<string name="purchase_loading">Ładujemy informacje o zakupach…</string>
+	<string name="purchase_error_subtitle">Podczas przetwarzania twojego zakupu wystąpił błąd</string>
+	<string name="awaiting_approval">Czekamy na potwierdzenie od rodziców</string>
+	<string name="whats_new_leave_review">Podziel się opinią! Podziel się swoją opinią o miejscach, które odwiedziłeś podczas wyjazdu.</string>
+	<string name="server_unavailable_title">Serwer jest niedostępny</string>
+	<string name="server_unavailable_message">Zakup zostanie sfinalizowany później. Jeśli błąd wystąpi ponownie, prosimy o kontakt z support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Połącz się z Internetem aby wybrać datę zameldowania i wymeldowania.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

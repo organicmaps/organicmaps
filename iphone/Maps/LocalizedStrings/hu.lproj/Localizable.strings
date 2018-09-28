@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Könyvjelzők és útmutatók";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Reklámok eltávolítása";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Reklámok eltávolítása és MAPS.ME támogatása";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Fizessen %s/év";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "%s/év megtakarítás";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "További lehetőségek";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Miért éri meg támogatni a MAPS.ME-t?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/hó (%s/év megtakarítás)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/hét (nincs megtakarítás)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Eltávolítjuk a reklámokat";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Ön segít a MAPS.ME-t fejleszteni";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Segítsen a térkép fejlesztésében az OpenStreetMap.org-on";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Vásárlása feldolgozás alatt van…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Kapcsolat nélküli útmutatók mindenféle utazáshoz";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Töltse le és tervezzen érdekességeket érintő turistaútvonalakat a világ bármely országában.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Népszerű érdekességeket keres a közelben?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "„A közelben felfedezi” résznél megtalálja a legjobb éttermeket, hoteleket és látnivalókat.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Foglaljon utazásához a legkényelmesebb hotelekben";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Nem tudja, melyik állomáson kell átszállni?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Kapcsolja be a metró réteget a térképen, így könnyen eligazodhat egy új városban is.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Térképfrissítések";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Elküldetlen értékelések";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Vásárlási információk betöltése…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Hiba történt a vásárlás feldolgozása közben";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Szülői jóváhagyásra vár";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "A szerver nem elérhető.";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Csatlakozzon az internetre a hotelek dátum alapú szűréséhez.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

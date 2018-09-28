@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Penanda dan panduan";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Hapus iklan";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Hapus semua iklan dan dukungan MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Bayar %s/tahun";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Hemat %s/tahun";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Opsi lainnya";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Kenapa dukungan MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/bulan (hemat %s/tahun)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/minggu (tanpa penghematan)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Kami akan menghapus semua iklan untuk Anda";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Anda membantu kami meningkatkan MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Anda membantu kami meningkatkan peta terbuka OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Pembelian Anda sedang dalam proses…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Panduan offline untuk setiap jenis perjalanan";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Unduh dan rencanakan rute wisata di lokasi-lokasi menarik di berbagai kota di dunia.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Ingin menemukan lokasi yang populer di sekitar?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "Bagian “Temukan di sekitar” berisi restoran, hotel, dan pemandangan terbaik.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Pesan hotel ternyaman untuk perjalanan Anda";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Gunakan pencarian dan filter untuk menemukan hotel terbaik untuk Anda. Gunakan tombol “Pesan” pada placepage lokasi untuk memesan hotel secara instan.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Tidak tahu stasiun mana untuk menyambungkan perjalanan?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Aktifkan layer kereta bawah tanah untuk menampilkan peta kereta bawah tanah, dan Anda akan selalu menemukan jalan ke kota baru.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Pembaruan peta";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Ulasan tak terkirim";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Memuat informasi pembelian…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Kesalahan terjadi saat memproses pembelian Anda";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Menunggu persetujuan orang tua";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Tinggalkan ulasan! Bagikan opini tentang lokasi yang Anda kunjungi selama berlibur.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Server tidak tersedia";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Sambungkan ke internet untuk memfilter hotel berdasar tanggal.";
 
 
 /**********  Partners  **********/
@@ -2498,19 +2496,19 @@
 
 "type.aerialway.mixed_lift" = "aerialway-mixed_lift";
 
-"type.aerialway.station" = "Aerialway Station";
+"type.aerialway.station" = "Stasiun kereta gantung";
 
 "type.aeroway" = "aeroway";
 
-"type.aeroway.aerodrome" = "Airport";
+"type.aeroway.aerodrome" = "Bandar udara";
 
-"type.aeroway.aerodrome.international" = "Airport";
+"type.aeroway.aerodrome.international" = "Bandar udara";
 
 "type.aeroway.apron" = "aeroway-apron";
 
 "type.aeroway.gate" = "aeroway-gate";
 
-"type.aeroway.helipad" = "Helipad";
+"type.aeroway.helipad" = "Landasan helikopter";
 
 "type.aeroway.runway" = "aeroway-runway";
 
@@ -2528,215 +2526,215 @@
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnic Site";
+"type.amenity.bbq" = "Lokasi piknik";
 
-"type.amenity.bench" = "Bench";
+"type.amenity.bench" = "Bangku panjang";
 
-"type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking" = "Parkir Sepeda";
 
-"type.amenity.bicycle_rental" = "Bicycle Rental";
+"type.amenity.bicycle_rental" = "Penyewaan Sepeda";
 
 "type.amenity.biergarten" = "Biergarten";
 
-"type.amenity.brothel" = "Brothel";
+"type.amenity.brothel" = "Hiburan";
 
-"type.amenity.bureau_de_change" = "Currency Exchange";
+"type.amenity.bureau_de_change" = "Pertukaran valuta";
 
-"type.amenity.bus_station" = "Bus Station";
+"type.amenity.bus_station" = "Stasiun bus";
 
-"type.amenity.cafe" = "Cafe";
+"type.amenity.cafe" = "Kafe";
 
-"type.amenity.car_rental" = "Car Rental";
+"type.amenity.car_rental" = "Rental mobil";
 
-"type.amenity.car_sharing" = "Car Sharing";
+"type.amenity.car_sharing" = "Berbagi mobil";
 
-"type.amenity.car_wash" = "Car Wash";
+"type.amenity.car_wash" = "Cuci Mobil";
 
-"type.amenity.casino" = "Casino";
+"type.amenity.casino" = "Hiburan";
 
-"type.amenity.charging_station" = "Charging Station";
+"type.amenity.charging_station" = "Pusat Pengisian Daya";
 
-"type.amenity.childcare" = "Nursery";
+"type.amenity.childcare" = "Penitipan Anak";
 
-"type.amenity.cinema" = "Cinema";
+"type.amenity.cinema" = "Bioskop";
 
-"type.amenity.clinic" = "Clinic";
+"type.amenity.clinic" = "Klinik";
 
-"type.amenity.college" = "College";
+"type.amenity.college" = "Kampus";
 
-"type.amenity.community_centre" = "Community Centre";
+"type.amenity.community_centre" = "Pusat komunitas";
 
-"type.amenity.courthouse" = "Courthouse";
+"type.amenity.courthouse" = "Gedung pengadilan";
 
-"type.amenity.dentist" = "Dentist";
+"type.amenity.dentist" = "Dokter gigi";
 
-"type.amenity.doctors" = "Doctor";
+"type.amenity.doctors" = "Praktik dokter";
 
-"type.amenity.drinking_water" = "Drinking Water";
+"type.amenity.drinking_water" = "Air minum";
 
-"type.amenity.driving_school" = "Driving School";
+"type.amenity.driving_school" = "Sekolah Mengemudi";
 
-"type.amenity.embassy" = "Embassy";
+"type.amenity.embassy" = "Kedutaan";
 
-"type.amenity.fast_food" = "Fast Food";
+"type.amenity.fast_food" = "Cepat saji";
 
-"type.amenity.ferry_terminal" = "Ferry";
+"type.amenity.ferry_terminal" = "Terminal";
 
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.fire_station" = "Kantor pemadam kebakaran";
 
 "type.amenity.food_court" = "amenity-food_court";
 
-"type.amenity.fountain" = "Fountain";
+"type.amenity.fountain" = "Air mancur";
 
-"type.amenity.fuel" = "Gas Station";
+"type.amenity.fuel" = "Pompa bensin";
 
-"type.amenity.grave_yard" = "Graveyard";
+"type.amenity.grave_yard" = "Pemakaman";
 
-"type.amenity.grave_yard.christian" = "Graveyard";
+"type.amenity.grave_yard.christian" = "Pemakaman";
 
-"type.amenity.hospital" = "Hospital";
+"type.amenity.hospital" = "Rumahsakit";
 
-"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.hunting_stand" = "Lokasi berburu";
 
-"type.amenity.ice_cream" = "Ice Cream Stand";
+"type.amenity.ice_cream" = "Kios Es Krim";
 
-"type.amenity.internet_cafe" = "Internet Cafe";
+"type.amenity.internet_cafe" = "Kafe Internet";
 
-"type.amenity.kindergarten" = "Kindergarten";
+"type.amenity.kindergarten" = "Taman kanak-kanak";
 
-"type.amenity.library" = "Library";
+"type.amenity.library" = "Perpustakaan";
 
-"type.amenity.marketplace" = "Marketplace";
+"type.amenity.marketplace" = "Toko";
 
-"type.amenity.motorcycle_parking" = "Motorcycle Parking";
+"type.amenity.motorcycle_parking" = "Tempat Parkir Sepeda Motor";
 
-"type.amenity.nightclub" = "Nightclub";
+"type.amenity.nightclub" = "Kelab malam";
 
-"type.amenity.nursing_home" = "Nursing Home";
+"type.amenity.nursing_home" = "Panti Jompo";
 
-"type.amenity.parking" = "Parking";
+"type.amenity.parking" = "Parkir";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "Parkir";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "Parkir";
 
-"type.amenity.parking.multi.storey.fee" = "Parking";
+"type.amenity.parking.multi.storey.fee" = "Parkir";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "Parkir";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "Parkir";
 
-"type.amenity.parking.permissive" = "Parking";
+"type.amenity.parking.permissive" = "Parkir";
 
-"type.amenity.parking.permissive.fee" = "Parking";
+"type.amenity.parking.permissive.fee" = "Parkir";
 
-"type.amenity.parking.private" = "Parking";
+"type.amenity.parking.private" = "Parkir";
 
-"type.amenity.parking.underground" = "Parking";
+"type.amenity.parking.underground" = "Parkir";
 
-"type.amenity.parking.underground.fee" = "Parking";
+"type.amenity.parking.underground.fee" = "Parkir";
 
-"type.amenity.payment_terminal" = "Payment Terminal";
+"type.amenity.payment_terminal" = "Terminal Pembayaran";
 
-"type.amenity.pharmacy" = "Pharmacy";
+"type.amenity.pharmacy" = "Apotek";
 
-"type.amenity.place_of_worship" = "Place of Worship";
+"type.amenity.place_of_worship" = "Tempat ibadah";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "Kuil";
 
-"type.amenity.place_of_worship.christian" = "Church";
+"type.amenity.place_of_worship.christian" = "Gereja";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.hindu" = "Kuil";
 
-"type.amenity.place_of_worship.jewish" = "Synagogue";
+"type.amenity.place_of_worship.jewish" = "Sinagoge";
 
-"type.amenity.place_of_worship.muslim" = "Mosque";
+"type.amenity.place_of_worship.muslim" = "Masjid";
 
-"type.amenity.place_of_worship.shinto" = "Shrine";
+"type.amenity.place_of_worship.shinto" = "Kuil";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "Kuil";
 
-"type.amenity.police" = "Police";
+"type.amenity.police" = "Polisi";
 
-"type.amenity.post_box" = "Postbox";
+"type.amenity.post_box" = "Kotak pos";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "Pos";
 
 "type.amenity.prison" = "amenity-prison";
 
 "type.amenity.pub" = "Pub";
 
-"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.public_bookcase" = "Rak Buku";
 
-"type.amenity.recycling" = "Recycling Center";
+"type.amenity.recycling" = "TPA";
 
-"type.amenity.restaurant" = "Restaurant";
+"type.amenity.restaurant" = "Restoran";
 
-"type.amenity.school" = "School";
+"type.amenity.school" = "Sekolah";
 
-"type.amenity.shelter" = "Shelter";
+"type.amenity.shelter" = "Tempat penampungan";
 
-"type.amenity.shower" = "Shower";
+"type.amenity.shower" = "Pancuran";
 
 "type.amenity.speed_trap" = "amenity-speed_trap";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.taxi" = "Taksi";
 
-"type.amenity.telephone" = "Phone";
+"type.amenity.telephone" = "Telepon";
 
-"type.amenity.theatre" = "Theatre";
+"type.amenity.theatre" = "Teater";
 
 "type.amenity.toilets" = "Toilet";
 
-"type.amenity.townhall" = "Town Hall";
+"type.amenity.townhall" = "Balai kota";
 
-"type.amenity.university" = "University";
+"type.amenity.university" = "Universitas";
 
 "type.amenity.vending_machine" = "amenity-vending_machine";
 
-"type.amenity.vending_machine.cigarettes" = "Cigarette Dispenser";
+"type.amenity.vending_machine.cigarettes" = "Mesin rokok";
 
-"type.amenity.vending_machine.drinks" = "Drink Dispenser";
+"type.amenity.vending_machine.drinks" = "Mesin penjual minuman";
 
-"type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
+"type.amenity.vending_machine.parking_tickets" = "Mesin pembayaran tiket parkir";
 
 "type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
 
-"type.amenity.veterinary" = "Veterinary Doctor";
+"type.amenity.veterinary" = "Dokter Hewan";
 
-"type.amenity.waste_basket" = "Trash Bin";
+"type.amenity.waste_basket" = "Kotak sampah";
 
-"type.amenity.waste_disposal" = "Dumpster";
+"type.amenity.waste_disposal" = "Sampah";
 
-"type.amenity.water_point" = "Water Point";
+"type.amenity.water_point" = "Titik Air";
 
 "type.barrier" = "barrier";
 
-"type.barrier.block" = "Block";
+"type.barrier.block" = "Blok";
 
-"type.barrier.bollard" = "Pillar";
+"type.barrier.bollard" = "Pilar";
 
-"type.barrier.border_control" = "Border Control";
+"type.barrier.border_control" = "Gerbang perbatasan";
 
 "type.barrier.city_wall" = "barrier-city_wall";
 
 "type.barrier.cycle_barrier" = "barrier-cycle_barrier";
 
-"type.barrier.entrance" = "Entrance";
+"type.barrier.entrance" = "Pintu masuk";
 
 "type.barrier.fence" = "barrier-fence";
 
-"type.barrier.gate" = "Gate";
+"type.barrier.gate" = "Gerbang";
 
 "type.barrier.hedge" = "barrier-hedge";
 
-"type.barrier.lift_gate" = "Lift Gate";
+"type.barrier.lift_gate" = "Polisi tidur";
 
 "type.barrier.retaining_wall" = "barrier-retaining_wall";
 
-"type.barrier.stile" = "Stile";
+"type.barrier.stile" = "Undakan";
 
-"type.barrier.toll_booth" = "Toll Booth";
+"type.barrier.toll_booth" = "Gerbang tol";
 
 "type.barrier.wall" = "barrier-wall";
 
@@ -2784,15 +2782,15 @@
 
 "type.boundary.national_park" = "boundary-national_park";
 
-"type.building" = "Building";
+"type.building" = "Gedung";
 
-"type.building.address" = "Building";
+"type.building.address" = "Gedung";
 
-"type.building.garage" = "Garage";
+"type.building.garage" = "Garasi";
 
-"type.building.has_parts" = "Building";
+"type.building.has_parts" = "Gedung";
 
-"type.building.train_station" = "Train Station";
+"type.building.train_station" = "Rel kereta api";
 
 "type.communication" = "communication";
 
@@ -2802,27 +2800,27 @@
 
 "type.craft" = "craft";
 
-"type.craft.brewery" = "Craft brewery";
+"type.craft.brewery" = "Toko minuman";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "Tukang kayu";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "Tukang listrik";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "Tukang kebun";
 
 "type.craft.hvac" = "Hvac";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "Tukang besi";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "Tukang cat";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "Juru foto";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "Tukang pipa";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "Tukang sepatu";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "Tukang jahit";
 
 "type.cuisine.african" = "Masakan afrika";
 
@@ -2996,13 +2994,13 @@
 
 "type.emergency" = "emergency";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "Defibrilator";
 
-"type.emergency.fire_hydrant" = "Fire Hydrant";
+"type.emergency.fire_hydrant" = "Keran Kebakaran";
 
-"type.emergency.phone" = "Emergency Phone";
+"type.emergency.phone" = "Telepon darurat";
 
-"type.entrance" = "Entrance";
+"type.entrance" = "Pintu masuk";
 
 "type.highway" = "highway";
 
@@ -3014,7 +3012,7 @@
 
 "type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
 
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.bus_stop" = "Halte bus";
 
 "type.highway.construction" = "highway-construction";
 
@@ -3026,223 +3024,223 @@
 
 "type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
-"type.highway.footway" = "Path";
+"type.highway.footway" = "Jalur";
 
-"type.highway.footway.alpine_hiking" = "Path";
+"type.highway.footway.alpine_hiking" = "Jalur";
 
-"type.highway.footway.area" = "Path";
+"type.highway.footway.area" = "Jalur";
 
-"type.highway.footway.bridge" = "Path";
+"type.highway.footway.bridge" = "Jalur";
 
-"type.highway.footway.demanding_alpine_hiking" = "Path";
+"type.highway.footway.demanding_alpine_hiking" = "Jalur";
 
-"type.highway.footway.demanding_mountain_hiking" = "Path";
+"type.highway.footway.demanding_mountain_hiking" = "Jalur";
 
-"type.highway.footway.difficult_alpine_hiking" = "Path";
+"type.highway.footway.difficult_alpine_hiking" = "Jalur";
 
-"type.highway.footway.hiking" = "Path";
+"type.highway.footway.hiking" = "Jalur";
 
-"type.highway.footway.mountain_hiking" = "Path";
+"type.highway.footway.mountain_hiking" = "Jalur";
 
-"type.highway.footway.permissive" = "Path";
+"type.highway.footway.permissive" = "Jalur";
 
-"type.highway.footway.tunnel" = "Path";
+"type.highway.footway.tunnel" = "Jalur";
 
 "type.highway.ford" = "highway-ford";
 
-"type.highway.living_street" = "Street";
+"type.highway.living_street" = "Jalan";
 
-"type.highway.living_street.bridge" = "Street";
+"type.highway.living_street.bridge" = "Jalan";
 
-"type.highway.living_street.tunnel" = "Street";
+"type.highway.living_street.tunnel" = "Jalan";
 
-"type.highway.motorway" = "Street";
+"type.highway.motorway" = "Jalan";
 
-"type.highway.motorway.bridge" = "Street";
+"type.highway.motorway.bridge" = "Jalan";
 
-"type.highway.motorway.tunnel" = "Street";
+"type.highway.motorway.tunnel" = "Jalan";
 
-"type.highway.motorway_junction" = "Exit";
+"type.highway.motorway_junction" = "Keluar";
 
-"type.highway.motorway_link" = "Street";
+"type.highway.motorway_link" = "Jalan";
 
-"type.highway.motorway_link.bridge" = "Street";
+"type.highway.motorway_link.bridge" = "Jalan";
 
-"type.highway.motorway_link.tunnel" = "Street";
+"type.highway.motorway_link.tunnel" = "Jalan";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Jalur";
 
-"type.highway.path.alpine_hiking" = "Path";
+"type.highway.path.alpine_hiking" = "Jalur";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Jalur";
 
-"type.highway.path.bridge" = "Path";
+"type.highway.path.bridge" = "Jalur";
 
-"type.highway.path.demanding_alpine_hiking" = "Path";
+"type.highway.path.demanding_alpine_hiking" = "Jalur";
 
-"type.highway.path.demanding_mountain_hiking" = "Path";
+"type.highway.path.demanding_mountain_hiking" = "Jalur";
 
-"type.highway.path.difficult_alpine_hiking" = "Path";
+"type.highway.path.difficult_alpine_hiking" = "Jalur";
 
-"type.highway.path.hiking" = "Path";
+"type.highway.path.hiking" = "Jalur";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Jalur";
 
-"type.highway.path.mountain_hiking" = "Path";
+"type.highway.path.mountain_hiking" = "Jalur";
 
-"type.highway.path.permissive" = "Path";
+"type.highway.path.permissive" = "Jalur";
 
-"type.highway.path.tunnel" = "Path";
+"type.highway.path.tunnel" = "Jalur";
 
-"type.highway.pedestrian" = "Street";
+"type.highway.pedestrian" = "Jalan";
 
-"type.highway.pedestrian.area" = "Street";
+"type.highway.pedestrian.area" = "Jalan";
 
-"type.highway.pedestrian.bridge" = "Street";
+"type.highway.pedestrian.bridge" = "Jalan";
 
-"type.highway.pedestrian.tunnel" = "Street";
+"type.highway.pedestrian.tunnel" = "Jalan";
 
 "type.highway.platform" = "highway-platform";
 
-"type.highway.primary" = "Street";
+"type.highway.primary" = "Jalan";
 
-"type.highway.primary.bridge" = "Street";
+"type.highway.primary.bridge" = "Jalan";
 
-"type.highway.primary.tunnel" = "Street";
+"type.highway.primary.tunnel" = "Jalan";
 
-"type.highway.primary_link" = "Street";
+"type.highway.primary_link" = "Jalan";
 
-"type.highway.primary_link.bridge" = "Street";
+"type.highway.primary_link.bridge" = "Jalan";
 
-"type.highway.primary_link.tunnel" = "Street";
+"type.highway.primary_link.tunnel" = "Jalan";
 
 "type.highway.proposed" = "highway-proposed";
 
-"type.highway.raceway" = "Racetrack";
+"type.highway.raceway" = "Lintasan balap";
 
-"type.highway.residential" = "Street";
+"type.highway.residential" = "Jalan";
 
-"type.highway.residential.area" = "Street";
+"type.highway.residential.area" = "Jalan";
 
-"type.highway.residential.bridge" = "Street";
+"type.highway.residential.bridge" = "Jalan";
 
-"type.highway.residential.tunnel" = "Street";
+"type.highway.residential.tunnel" = "Jalan";
 
-"type.highway.rest_area" = "Highway Rest Area";
+"type.highway.rest_area" = "Tempat istirahat";
 
-"type.highway.road" = "Street";
+"type.highway.road" = "Jalan";
 
-"type.highway.road.bridge" = "Street";
+"type.highway.road.bridge" = "Jalan";
 
-"type.highway.road.tunnel" = "Street";
+"type.highway.road.tunnel" = "Jalan";
 
-"type.highway.secondary" = "Street";
+"type.highway.secondary" = "Jalan";
 
-"type.highway.secondary.bridge" = "Street";
+"type.highway.secondary.bridge" = "Jalan";
 
-"type.highway.secondary.tunnel" = "Street";
+"type.highway.secondary.tunnel" = "Jalan";
 
-"type.highway.secondary_link" = "Street";
+"type.highway.secondary_link" = "Jalan";
 
-"type.highway.secondary_link.bridge" = "Street";
+"type.highway.secondary_link.bridge" = "Jalan";
 
-"type.highway.secondary_link.tunnel" = "Street";
+"type.highway.secondary_link.tunnel" = "Jalan";
 
-"type.highway.service" = "Street";
+"type.highway.service" = "Jalan";
 
-"type.highway.service.area" = "Street";
+"type.highway.service.area" = "Jalan";
 
-"type.highway.service.bridge" = "Street";
+"type.highway.service.bridge" = "Jalan";
 
-"type.highway.service.driveway" = "Street";
+"type.highway.service.driveway" = "Jalan";
 
-"type.highway.service.driveway.area" = "Street";
+"type.highway.service.driveway.area" = "Jalan";
 
-"type.highway.service.driveway.bridge" = "Street";
+"type.highway.service.driveway.bridge" = "Jalan";
 
-"type.highway.service.driveway.tunnel" = "Street";
+"type.highway.service.driveway.tunnel" = "Jalan";
 
-"type.highway.service.parking_aisle" = "Street";
+"type.highway.service.parking_aisle" = "Jalan";
 
-"type.highway.service.tunnel" = "Street";
+"type.highway.service.tunnel" = "Jalan";
 
 "type.highway.services" = "highway-services";
 
-"type.highway.speed_camera" = "Speed Camera";
+"type.highway.speed_camera" = "Kamera Kecepatan";
 
-"type.highway.steps" = "Path";
+"type.highway.steps" = "Jalur";
 
-"type.highway.steps.bridge" = "Path";
+"type.highway.steps.bridge" = "Jalur";
 
-"type.highway.steps.tunnel" = "Path";
+"type.highway.steps.tunnel" = "Jalur";
 
-"type.highway.tertiary" = "Street";
+"type.highway.tertiary" = "Jalan";
 
-"type.highway.tertiary.bridge" = "Street";
+"type.highway.tertiary.bridge" = "Jalan";
 
-"type.highway.tertiary.tunnel" = "Street";
+"type.highway.tertiary.tunnel" = "Jalan";
 
-"type.highway.tertiary_link" = "Street";
+"type.highway.tertiary_link" = "Jalan";
 
-"type.highway.tertiary_link.bridge" = "Street";
+"type.highway.tertiary_link.bridge" = "Jalan";
 
-"type.highway.tertiary_link.tunnel" = "Street";
+"type.highway.tertiary_link.tunnel" = "Jalan";
 
-"type.highway.track" = "Street";
+"type.highway.track" = "Jalan";
 
-"type.highway.track.area" = "Street";
+"type.highway.track.area" = "Jalan";
 
-"type.highway.track.bridge" = "Street";
+"type.highway.track.bridge" = "Jalan";
 
-"type.highway.track.grade1" = "Street";
+"type.highway.track.grade1" = "Jalan";
 
-"type.highway.track.grade2" = "Street";
+"type.highway.track.grade2" = "Jalan";
 
-"type.highway.track.grade3" = "Street";
+"type.highway.track.grade3" = "Jalan";
 
-"type.highway.track.grade3.no.access" = "Street";
+"type.highway.track.grade3.no.access" = "Jalan";
 
-"type.highway.track.grade3.permissive" = "Street";
+"type.highway.track.grade3.permissive" = "Jalan";
 
-"type.highway.track.grade4" = "Street";
+"type.highway.track.grade4" = "Jalan";
 
-"type.highway.track.grade4.no.access" = "Street";
+"type.highway.track.grade4.no.access" = "Jalan";
 
-"type.highway.track.grade4.permissive" = "Street";
+"type.highway.track.grade4.permissive" = "Jalan";
 
-"type.highway.track.grade5" = "Street";
+"type.highway.track.grade5" = "Jalan";
 
-"type.highway.track.grade5.no.access" = "Street";
+"type.highway.track.grade5.no.access" = "Jalan";
 
-"type.highway.track.grade5.permissive" = "Street";
+"type.highway.track.grade5.permissive" = "Jalan";
 
-"type.highway.track.no.access" = "Street";
+"type.highway.track.no.access" = "Jalan";
 
-"type.highway.track.permissive" = "Street";
+"type.highway.track.permissive" = "Jalan";
 
-"type.highway.track.tunnel" = "Street";
+"type.highway.track.tunnel" = "Jalan";
 
-"type.highway.traffic_signals" = "Traffic Lights";
+"type.highway.traffic_signals" = "Lampu lalu lintas";
 
-"type.highway.trunk" = "Street";
+"type.highway.trunk" = "Jalan";
 
-"type.highway.trunk.bridge" = "Street";
+"type.highway.trunk.bridge" = "Jalan";
 
-"type.highway.trunk.tunnel" = "Street";
+"type.highway.trunk.tunnel" = "Jalan";
 
-"type.highway.trunk_link" = "Street";
+"type.highway.trunk_link" = "Jalan";
 
-"type.highway.trunk_link.bridge" = "Street";
+"type.highway.trunk_link.bridge" = "Jalan";
 
-"type.highway.trunk_link.tunnel" = "Street";
+"type.highway.trunk_link.tunnel" = "Jalan";
 
-"type.highway.unclassified" = "Street";
+"type.highway.unclassified" = "Jalan";
 
-"type.highway.unclassified.area" = "Street";
+"type.highway.unclassified.area" = "Jalan";
 
-"type.highway.unclassified.bridge" = "Street";
+"type.highway.unclassified.bridge" = "Jalan";
 
-"type.highway.unclassified.tunnel" = "Street";
+"type.highway.unclassified.tunnel" = "Jalan";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -3250,39 +3248,39 @@
 
 "type.historic" = "historic";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "Situs arkeologi";
 
 "type.historic.battlefield" = "historic-battlefield";
 
 "type.historic.boundary_stone" = "historic-boundary_stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "Kastel";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.defensive" = "Kastel";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.stately" = "Kastel";
 
 "type.historic.citywalls" = "historic-citywalls";
 
 "type.historic.fort" = "historic-fort";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Tugu peringatan";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "Tugu peringatan";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "Tugu peringatan";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "Tugu peringatan";
 
-"type.historic.monument" = "Monument";
+"type.historic.monument" = "Monumen";
 
 "type.historic.museum" = "historic-museum";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "Reruntuhan";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "Pemandangan";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "Pemandangan";
 
 "type.historic.wayside_cross" = "historic-wayside_cross";
 
@@ -3324,13 +3322,13 @@
 
 "type.landuse.allotments" = "landuse-allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "Air";
 
 "type.landuse.brownfield" = "landuse-brownfield";
 
-"type.landuse.cemetery" = "Graveyard";
+"type.landuse.cemetery" = "Pemakaman";
 
-"type.landuse.cemetery.christian" = "Graveyard";
+"type.landuse.cemetery.christian" = "Pemakaman";
 
 "type.landuse.commercial" = "landuse-commercial";
 
@@ -3344,13 +3342,13 @@
 
 "type.landuse.field" = "landuse-field";
 
-"type.landuse.forest" = "Forest";
+"type.landuse.forest" = "Hutan";
 
-"type.landuse.forest.coniferous" = "Forest";
+"type.landuse.forest.coniferous" = "Hutan";
 
-"type.landuse.forest.deciduous" = "Forest";
+"type.landuse.forest.deciduous" = "Hutan";
 
-"type.landuse.forest.mixed" = "Forest";
+"type.landuse.forest.mixed" = "Hutan";
 
 "type.landuse.garages" = "landuse-garages";
 
@@ -3376,7 +3374,7 @@
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "Air";
 
 "type.landuse.residential" = "landuse-residential";
 
@@ -3400,13 +3398,13 @@
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
-"type.leisure.fitness_centre" = "Fitness Centre";
+"type.leisure.fitness_centre" = "Pusat kebugaran";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "Stasiun Kebugaran";
 
-"type.leisure.garden" = "Garden";
+"type.leisure.garden" = "Situs arkeologi";
 
-"type.leisure.golf_course" = "Golf Course";
+"type.leisure.golf_course" = "Lapangan golf";
 
 "type.leisure.ice_rink" = "leisure-ice_rink";
 
@@ -3416,21 +3414,21 @@
 
 "type.leisure.nature_reserve" = "leisure-nature_reserve";
 
-"type.leisure.park" = "Park";
+"type.leisure.park" = "Taman";
 
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "Taman";
 
-"type.leisure.park.permissive" = "Park";
+"type.leisure.park.permissive" = "Taman";
 
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "Taman";
 
-"type.leisure.pitch" = "Sports Ground";
+"type.leisure.pitch" = "Lapangan olahraga";
 
-"type.leisure.pitch.tennis" = "Sports Ground";
+"type.leisure.pitch.tennis" = "Lapangan olahraga";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "Taman bermain";
 
-"type.leisure.playground.tennis" = "Playground";
+"type.leisure.playground.tennis" = "Taman bermain";
 
 "type.leisure.playing_fields" = "leisure-playing_fields";
 
@@ -3442,23 +3440,23 @@
 
 "type.leisure.slipway" = "leisure-slipway";
 
-"type.leisure.sports_centre" = "Sports Center";
+"type.leisure.sports_centre" = "Olahraga";
 
-"type.leisure.sports_centre.climbing" = "Climbing Centre";
+"type.leisure.sports_centre.climbing" = "Pusat Peralatan Mendaki";
 
-"type.leisure.sports_centre.shooting" = "Shooting Range";
+"type.leisure.sports_centre.shooting" = "Lapangan tembak";
 
-"type.leisure.sports_centre.swimming" = "Swimming Centre";
+"type.leisure.sports_centre.swimming" = "Kolam Renang";
 
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.leisure.sports_centre.yoga" = "Studio Yoga";
 
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "Stadion";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "Kolam renang";
 
 "type.leisure.track" = "leisure-track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "Taman air";
 
 "type.man_made" = "man_made";
 
@@ -3466,11 +3464,11 @@
 
 "type.man_made.cairn" = "man_made-cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Cerobong asap pabrik";
 
 "type.man_made.cutline" = "man_made-cutline";
 
-"type.man_made.lighthouse" = "Lighthouse";
+"type.man_made.lighthouse" = "Mercusuar";
 
 "type.man_made.pier" = "man_made-pier";
 
@@ -3478,19 +3476,19 @@
 
 "type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
-"type.man_made.surveillance" = "Surveillance Camera";
+"type.man_made.surveillance" = "Kamera Pengawas";
 
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "Menara";
 
 "type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "Keran Air";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "Menara air";
 
-"type.man_made.water_well" = "Water Well";
+"type.man_made.water_well" = "Sumur air";
 
-"type.man_made.windmill" = "Windmill";
+"type.man_made.windmill" = "Kincir angin";
 
 "type.man_made.works" = "man_made-works";
 
@@ -3518,13 +3516,13 @@
 
 "type.natural.bare_rock" = "natural-bare_rock";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Teluk";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Pantai";
 
 "type.natural.cape" = "natural-cape";
 
-"type.natural.cave_entrance" = "Cave Entrance";
+"type.natural.cave_entrance" = "Mulut gua";
 
 "type.natural.cliff" = "natural-cliff";
 
@@ -3536,7 +3534,7 @@
 
 "type.natural.heath" = "natural-heath";
 
-"type.natural.lake" = "Lake";
+"type.natural.lake" = "Danau";
 
 "type.natural.land" = "natural-land";
 
@@ -3544,9 +3542,9 @@
 
 "type.natural.orchard" = "natural-orchard";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Puncak";
 
-"type.natural.pond" = "Pond";
+"type.natural.pond" = "Kolam";
 
 "type.natural.rock" = "natural-rock";
 
@@ -3554,17 +3552,17 @@
 
 "type.natural.scrub" = "natural-scrub";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Mata air";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Pohon";
 
 "type.natural.tree_row" = "natural-tree_row";
 
 "type.natural.vineyard" = "natural-vineyard";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Gunung berapi";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "Air";
 
 "type.natural.wetland" = "natural-wetland";
 
@@ -3572,33 +3570,33 @@
 
 "type.natural.wetland.marsh" = "natural-wetland-marsh";
 
-"type.natural.wood" = "Forest";
+"type.natural.wood" = "Hutan";
 
-"type.natural.wood.coniferous" = "Forest";
+"type.natural.wood.coniferous" = "Hutan";
 
-"type.natural.wood.deciduous" = "Forest";
+"type.natural.wood.deciduous" = "Hutan";
 
-"type.natural.wood.mixed" = "Forest";
+"type.natural.wood.mixed" = "Hutan";
 
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
-"type.office" = "Office";
+"type.office" = "Kantor";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "Kantor perusahaan";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "Agen ril estat";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "Kantor pemerintah";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "Kantor Asuransi";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "Kantor pengacara";
 
-"type.office.ngo" = "NGO Office";
+"type.office.ngo" = "Kantor LSM";
 
-"type.office.telecommunication" = "Mobile Operator";
+"type.office.telecommunication" = "Operator seluler";
 
 "type.olympics" = "olympics";
 
@@ -3632,67 +3630,67 @@
 
 "type.place" = "place";
 
-"type.place.city" = "City";
+"type.place.city" = "Kota";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital" = "Ibu kota";
 
-"type.place.city.capital.10" = "Capital";
+"type.place.city.capital.10" = "Ibu kota";
 
-"type.place.city.capital.11" = "Capital";
+"type.place.city.capital.11" = "Ibu kota";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.2" = "Ibu kota";
 
-"type.place.city.capital.3" = "Capital";
+"type.place.city.capital.3" = "Ibu kota";
 
-"type.place.city.capital.4" = "Capital";
+"type.place.city.capital.4" = "Ibu kota";
 
-"type.place.city.capital.5" = "Capital";
+"type.place.city.capital.5" = "Ibu kota";
 
-"type.place.city.capital.6" = "Capital";
+"type.place.city.capital.6" = "Ibu kota";
 
-"type.place.city.capital.7" = "Capital";
+"type.place.city.capital.7" = "Ibu kota";
 
-"type.place.city.capital.8" = "Capital";
+"type.place.city.capital.8" = "Ibu kota";
 
-"type.place.city.capital.9" = "Capital";
+"type.place.city.capital.9" = "Ibu kota";
 
-"type.place.continent" = "Continent";
+"type.place.continent" = "Benua";
 
-"type.place.country" = "Country";
+"type.place.country" = "Benua";
 
-"type.place.county" = "County";
+"type.place.county" = "Kabupaten";
 
-"type.place.farm" = "Farm";
+"type.place.farm" = "Ladang";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.hamlet" = "Dusun";
 
-"type.place.island" = "Island";
+"type.place.island" = "Pulau";
 
-"type.place.islet" = "Island";
+"type.place.islet" = "Pulau";
 
 "type.place.isolated_dwelling" = "place-isolated_dwelling";
 
-"type.place.locality" = "Locality";
+"type.place.locality" = "Wilayah";
 
 "type.place.neighbourhood" = "place-neighbourhood";
 
-"type.place.ocean" = "Ocean";
+"type.place.ocean" = "Samudra";
 
-"type.place.region" = "Region";
+"type.place.region" = "Wilayah";
 
-"type.place.sea" = "Sea";
+"type.place.sea" = "Laut";
 
 "type.place.square" = "place-square";
 
-"type.place.state" = "State";
+"type.place.state" = "Negara bagian";
 
-"type.place.state.USA" = "State";
+"type.place.state.USA" = "Negara bagian";
 
-"type.place.suburb" = "Suburb";
+"type.place.suburb" = "Pinggiran kota";
 
-"type.place.town" = "Town";
+"type.place.town" = "Kota";
 
-"type.place.village" = "Village";
+"type.place.village" = "Desa";
 
 "type.power" = "power";
 
@@ -3710,13 +3708,13 @@
 
 "type.power.minor_line" = "power-minor_line";
 
-"type.power.pole" = "Power Tower";
+"type.power.pole" = "Menara listrik";
 
 "type.power.station" = "power-station";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "Stasiun bawah tanah";
 
-"type.power.tower" = "Power Tower";
+"type.power.tower" = "Menara listrik";
 
 "type.psurface" = "psurface";
 
@@ -3752,7 +3750,7 @@
 
 "type.railway.funicular.tunnel" = "railway-funicular-tunnel";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "Rel kereta api";
 
 "type.railway.incline" = "railway-incline";
 
@@ -3812,61 +3810,61 @@
 
 "type.railway.spur.tunnel" = "railway-spur-tunnel";
 
-"type.railway.station" = "Train Station";
+"type.railway.station" = "Rel kereta api";
 
-"type.railway.station.light_rail" = "Train Station";
+"type.railway.station.light_rail" = "Rel kereta api";
 
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.monorail" = "Rel kereta api";
 
-"type.railway.station.subway" = "Subway";
+"type.railway.station.subway" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.barcelona" = "Subway";
+"type.railway.station.subway.barcelona" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.berlin" = "Subway";
+"type.railway.station.subway.berlin" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.blue" = "Subway";
+"type.railway.station.subway.blue" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.brown" = "Subway";
+"type.railway.station.subway.brown" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.darkgreen" = "Subway";
+"type.railway.station.subway.darkgreen" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.gray" = "Subway";
+"type.railway.station.subway.gray" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.green" = "Subway";
+"type.railway.station.subway.green" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.grey" = "Subway";
+"type.railway.station.subway.grey" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.kiev" = "Subway";
+"type.railway.station.subway.kiev" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.lightblue" = "Subway";
+"type.railway.station.subway.lightblue" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.lightgreen" = "Subway";
+"type.railway.station.subway.lightgreen" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.london" = "Subway";
+"type.railway.station.subway.london" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.madrid" = "Subway";
+"type.railway.station.subway.madrid" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.minsk" = "Subway";
+"type.railway.station.subway.minsk" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.moscow" = "Subway";
+"type.railway.station.subway.moscow" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.newyork" = "Subway";
+"type.railway.station.subway.newyork" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.orange" = "Subway";
+"type.railway.station.subway.orange" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.paris" = "Subway";
+"type.railway.station.subway.paris" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.purple" = "Subway";
+"type.railway.station.subway.purple" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.red" = "Subway";
+"type.railway.station.subway.red" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.roma" = "Subway";
+"type.railway.station.subway.roma" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.spb" = "Subway";
+"type.railway.station.subway.spb" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.violet" = "Subway";
+"type.railway.station.subway.violet" = "Stasiun bawah tanah";
 
-"type.railway.station.subway.yellow" = "Subway";
+"type.railway.station.subway.yellow" = "Stasiun bawah tanah";
 
 "type.railway.subway" = "railway-subway";
 
@@ -3900,29 +3898,29 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Subway";
+"type.railway.subway_entrance" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.barcelona" = "Subway";
+"type.railway.subway_entrance.barcelona" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.berlin" = "Subway";
+"type.railway.subway_entrance.berlin" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.kiev" = "Subway";
+"type.railway.subway_entrance.kiev" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.london" = "Subway";
+"type.railway.subway_entrance.london" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.madrid" = "Subway";
+"type.railway.subway_entrance.madrid" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.minsk" = "Subway";
+"type.railway.subway_entrance.minsk" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.moscow" = "Subway";
+"type.railway.subway_entrance.moscow" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.newyork" = "Subway";
+"type.railway.subway_entrance.newyork" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.paris" = "Subway";
+"type.railway.subway_entrance.paris" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.roma" = "Subway";
+"type.railway.subway_entrance.roma" = "Stasiun bawah tanah";
 
-"type.railway.subway_entrance.spb" = "Subway";
+"type.railway.subway_entrance.spb" = "Stasiun bawah tanah";
 
 "type.railway.tram" = "railway-tram";
 
@@ -3930,7 +3928,7 @@
 
 "type.railway.tram.tunnel" = "railway-tram-tunnel";
 
-"type.railway.tram_stop" = "Tram Stop";
+"type.railway.tram_stop" = "Perhentian trem";
 
 "type.railway.yard" = "railway-yard";
 
@@ -3948,137 +3946,137 @@
 
 "type.route.shuttle_train" = "route-shuttle_train";
 
-"type.shop" = "Shop";
+"type.shop" = "Toko";
 
-"type.shop.alcohol" = "Liquor Store";
+"type.shop.alcohol" = "Toko alkohol";
 
-"type.shop.bakery" = "Bakery";
+"type.shop.bakery" = "Toko roti";
 
-"type.shop.beauty" = "Beauty Shop";
+"type.shop.beauty" = "Salon kecantikan";
 
-"type.shop.beverages" = "Beverages";
+"type.shop.beverages" = "Minuman";
 
-"type.shop.bicycle" = "Bicycle Shop";
+"type.shop.bicycle" = "Toko sepeda";
 
-"type.shop.bookmaker" = "Bookmaker";
+"type.shop.bookmaker" = "Bandar judi";
 
-"type.shop.books" = "Bookstore";
+"type.shop.books" = "Toko buku";
 
-"type.shop.butcher" = "Butcher’s";
+"type.shop.butcher" = "Tukang daging";
 
-"type.shop.car" = "Car Shop";
+"type.shop.car" = "Toko mobil";
 
-"type.shop.car_parts" = "Car Parts";
+"type.shop.car_parts" = "Bagian mobil";
 
-"type.shop.car_repair" = "Car Repair Shop";
+"type.shop.car_repair" = "Bengkel mobil";
 
-"type.shop.car_repair.tyres" = "Tyre Repair";
+"type.shop.car_repair.tyres" = "Tambal ban";
 
-"type.shop.chemist" = "Chemist Shop";
+"type.shop.chemist" = "Toko Bahan Kimia";
 
-"type.shop.chocolate" = "Shop";
+"type.shop.chocolate" = "Toko";
 
-"type.shop.clothes" = "Clothes Shop";
+"type.shop.clothes" = "Toko baju";
 
-"type.shop.coffee" = "Shop";
+"type.shop.coffee" = "Toko";
 
-"type.shop.computer" = "Computer Store";
+"type.shop.computer" = "Toko komputer";
 
-"type.shop.confectionery" = "Sweets";
+"type.shop.confectionery" = "Penganan";
 
-"type.shop.convenience" = "Convenience Store";
+"type.shop.convenience" = "Mini market";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Fotokopi";
 
-"type.shop.cosmetics" = "Beauty Care";
+"type.shop.cosmetics" = "Kosmetik";
 
-"type.shop.department_store" = "Department Store";
+"type.shop.department_store" = "Toko serba ada";
 
-"type.shop.doityourself" = "Hardware Store";
+"type.shop.doityourself" = "Toko perangkat keras";
 
-"type.shop.dry_cleaning" = "Dry Cleaning";
+"type.shop.dry_cleaning" = "Cuci Kering";
 
-"type.shop.electronics" = "Electronics";
+"type.shop.electronics" = "Elektronik";
 
-"type.shop.erotic" = "Erotic Shop";
+"type.shop.erotic" = "Toko Erotik";
 
-"type.shop.fabric" = "Shop";
+"type.shop.fabric" = "Toko";
 
-"type.shop.florist" = "Florist’s";
+"type.shop.florist" = "Tukang bunga";
 
-"type.shop.funeral_directors" = "Funeral Directors";
+"type.shop.funeral_directors" = "Direktur Pemakaman";
 
-"type.shop.furniture" = "Furniture Store";
+"type.shop.furniture" = "Toko mebel";
 
-"type.shop.garden_centre" = "Garden Store";
+"type.shop.garden_centre" = "Penitipan anak";
 
-"type.shop.gift" = "Gift Shop";
+"type.shop.gift" = "Toko hadiah";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Penjual sayuran";
 
-"type.shop.hairdresser" = "Hairdresser";
+"type.shop.hairdresser" = "Penata rambut";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Toko perangkat keras";
 
-"type.shop.jewelry" = "Jewelry";
+"type.shop.jewelry" = "Perhiasan";
 
-"type.shop.kiosk" = "Kiosk";
+"type.shop.kiosk" = "Toko";
 
-"type.shop.laundry" = "Laundry";
+"type.shop.laundry" = "Londri";
 
 "type.shop.mall" = "Mall";
 
-"type.shop.massage" = "Massage Parlour";
+"type.shop.massage" = "Tempat Pijat";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "Toko telepon";
 
-"type.shop.money_lender" = "Shop";
+"type.shop.money_lender" = "Toko";
 
-"type.shop.motorcycle" = "Motorcycle Shop";
+"type.shop.motorcycle" = "Toko Sepeda Motor";
 
-"type.shop.music" = "Shop";
+"type.shop.music" = "Toko";
 
-"type.shop.musical_instrument" = "Shop";
+"type.shop.musical_instrument" = "Toko";
 
-"type.shop.newsagent" = "Newspaper Stand";
+"type.shop.newsagent" = "Kios Surat Kabar";
 
-"type.shop.optician" = "Optician’s";
+"type.shop.optician" = "Toko kacamata";
 
-"type.shop.outdoor" = "Outdoor Equipment";
+"type.shop.outdoor" = "Peralatan Outdoor";
 
-"type.shop.pawnbroker" = "Pawnbroker";
+"type.shop.pawnbroker" = "Rumah Gadai";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Toko hewan";
 
-"type.shop.photo" = "Photo Shop";
+"type.shop.photo" = "Studio Foto";
 
-"type.shop.seafood" = "Seafood Shop";
+"type.shop.seafood" = "Penjual Ikan";
 
-"type.shop.shoes" = "Shoe Store";
+"type.shop.shoes" = "Toko sepatu";
 
-"type.shop.sports" = "Sports Goods";
+"type.shop.sports" = "Barang olahraga";
 
-"type.shop.stationery" = "Stationery Shop";
+"type.shop.stationery" = "Toko Alat Tulis";
 
 "type.shop.supermarket" = "Supermarket";
 
-"type.shop.tattoo" = "Tattoo Parlour";
+"type.shop.tattoo" = "Tempat Tato";
 
-"type.shop.tea" = "Shop";
+"type.shop.tea" = "Toko";
 
-"type.shop.ticket" = "Ticket Shop";
+"type.shop.ticket" = "Tempat penjualan karcis";
 
-"type.shop.toys" = "Toy Store";
+"type.shop.toys" = "Toko mainan";
 
-"type.shop.travel_agency" = "Travel Agency";
+"type.shop.travel_agency" = "Agen Perjalanan Wisata";
 
-"type.shop.tyres" = "Tyre Shop";
+"type.shop.tyres" = "Toko Ban";
 
-"type.shop.variety_store" = "Variety Store";
+"type.shop.variety_store" = "Toko Kelontong";
 
-"type.shop.video" = "Shop";
+"type.shop.video" = "Toko";
 
-"type.shop.wine" = "Wine Shop";
+"type.shop.wine" = "Toko anggur";
 
 "type.sponsored" = "sponsored";
 
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 
@@ -4200,65 +4198,65 @@
 
 "type.tourism" = "tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.alpine_hut" = "Penginapan di pegunungan";
 
-"type.tourism.apartment" = "Apartments";
+"type.tourism.apartment" = "Apartemen";
 
-"type.tourism.artwork" = "Artwork";
+"type.tourism.artwork" = "Pariwisata";
 
-"type.tourism.artwork.architecture" = "Artwork";
+"type.tourism.artwork.architecture" = "Pariwisata";
 
-"type.tourism.artwork.painting" = "Artwork";
+"type.tourism.artwork.painting" = "Pariwisata";
 
-"type.tourism.artwork.sculpture" = "Artwork";
+"type.tourism.artwork.sculpture" = "Pariwisata";
 
-"type.tourism.artwork.statue" = "Artwork";
+"type.tourism.artwork.statue" = "Pariwisata";
 
-"type.tourism.attraction" = "Attraction";
+"type.tourism.attraction" = "Atraksi";
 
-"type.tourism.attraction.animal" = "Attraction";
+"type.tourism.attraction.animal" = "Atraksi";
 
-"type.tourism.attraction.specified" = "Attraction";
+"type.tourism.attraction.specified" = "Atraksi";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Perkemahan";
 
-"type.tourism.caravan_site" = "Caravan Site";
+"type.tourism.caravan_site" = "Lokasi perkemahan";
 
 "type.tourism.chalet" = "Chalet";
 
-"type.tourism.gallery" = "Gallery";
+"type.tourism.gallery" = "Pemandangan";
 
-"type.tourism.guest_house" = "Guest House";
+"type.tourism.guest_house" = "Wisma tamu";
 
 "type.tourism.hostel" = "Hostel";
 
 "type.tourism.hotel" = "Hotel";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Informasi turis";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Papan informasi";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Informasi turis";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Peta wisata";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Kantor wisata";
 
 "type.tourism.motel" = "Motel";
 
 "type.tourism.museum" = "Museum";
 
-"type.tourism.picnic_site" = "Picnic Site";
+"type.tourism.picnic_site" = "Lokasi piknik";
 
-"type.tourism.resort" = "Resort";
+"type.tourism.resort" = "Sanggraloka";
 
-"type.tourism.theme_park" = "Theme park";
+"type.tourism.theme_park" = "Pemandangan";
 
-"type.tourism.viewpoint" = "Viewpoint";
+"type.tourism.viewpoint" = "Titik pandang";
 
-"type.tourism.wilderness_hut" = "Wilderness Hut";
+"type.tourism.wilderness_hut" = "Pondok Alam Liar";
 
-"type.tourism.zoo" = "Zoo";
+"type.tourism.zoo" = "Kebun binatang";
 
 "type.traffic_calming" = "traffic_calming";
 
@@ -4268,9 +4266,9 @@
 
 "type.waterway" = "waterway";
 
-"type.waterway.canal" = "Canal";
+"type.waterway.canal" = "Kanal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Kanal";
 
 "type.waterway.dam" = "waterway-dam";
 
@@ -4286,23 +4284,23 @@
 
 "type.waterway.lock" = "waterway-lock";
 
-"type.waterway.lock_gate" = "Lock Gate";
+"type.waterway.lock_gate" = "Gerbang pengunci";
 
-"type.waterway.river" = "River";
+"type.waterway.river" = "Sungai";
 
-"type.waterway.river.tunnel" = "River";
+"type.waterway.river.tunnel" = "Sungai";
 
-"type.waterway.riverbank" = "River";
+"type.waterway.riverbank" = "Sungai";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "Sungai";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "Sungai";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "Sungai";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "Sungai";
 
-"type.waterway.waterfall" = "Waterfall";
+"type.waterway.waterfall" = "Air terjun";
 
 "type.waterway.weir" = "waterway-weir";
 

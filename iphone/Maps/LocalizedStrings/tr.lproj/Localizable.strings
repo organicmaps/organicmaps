@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Yer imleri ve el kitapları";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Reklamları kaldır";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Tüm reklamları kaldırın ve MAPS.ME'ye destek olun";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Yıllık %s/ödeyin";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Yıllık %s tasarruf edin";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Diğer seçenekler";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "MAPS.ME'yi neden desteklemeliyim?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/ay (yıllık %s tasarruf)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/hafta (tasarruf yok)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Sizin için tüm reklamları kaldıracağız";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "MAPS.ME'yi geliştirmemize yardımcı oldunuz";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "OpenStreetMap.org'daki açık haritaları geliştirmemize yardımcı oldunuz";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Alışverişin işleniyor…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Her türlü seyahat için çevrimdışı kılavuzlar";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Dünyanın farklı kentlerindeki ilgi çekici noktaları kapsayan turist rotalarını indirin ve bu rotaları planlayın.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Yakın çevrenizdeki popüler yerleri bulmak ister misiniz?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "“Yakın çevreyi keşfedin” bölümünde en iyi restoranları, otelleri ve görülmesi gereken yerleri bulabilirsiniz.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Seyahatiniz için en konforlu otelleri rezerve edin";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Arama özelliğini ve filtreleri kullanarak sizin için en iyi otelleri bulun. Bir otelde rezervasyon yapmak için konum sayfasındaki “Rezervasyon” düğmesini kullanın.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Hangi istasyonda aktarma yapacağınızı bilmiyor musunuz?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Metro haritasını görmek için tek yapmanız gereken metro katmanını açmak, şehirde bir daha hiç kaybolmayacaksınız.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Harita güncellemeleri";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Gönderilmemiş incelemeler";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Satın alma bilgileri yükleniyor…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Satın alma işleminiz işleme koyulurken bir hata oluştu";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Ebeveyn onayı bekleniyor";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "İnceleme yazın! Tatiliniz boyunca ziyaret ettiğiniz yerler hakkındaki görüşlerinizi paylaşın.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Hizmet kullanılamıyor";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support@maps.me adresine ulaşın.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Otelleri tarihe göre filtrelemek için internete bağlanın.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

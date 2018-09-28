@@ -1345,6 +1345,35 @@
 	<string name="error_already_downloaded_guide">Ya se ha descargado esta guía</string>
 	<string name="guide_downloaded_subtitle">Pulsa \"Ver en el mapa\" para explorar la guía</string>
 	<string name="bookmarks_guides">Marcadores y guías</string>
+	<string name="remove_ads">Desactivar anuncios</string>
+	<string name="remove_ads_title">Desactive todos los anuncios y apoye a MAPS.ME</string>
+	<string name="paybtn_title">Pagar %s/por año</string>
+	<string name="paybtn_subtitle">Ahorre %s/por año</string>
+	<string name="options_dropdown_title">Otras opciones</string>
+	<string name="why_support">¿Por qué apoyar a MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/al mes (ahorro %2$s/por año)</string>
+	<string name="options_dropdown_item2">%s/por semana (sin ahorro)</string>
+	<string name="why_support_item1">Desactivaremos todos los anuncios para usted</string>
+	<string name="why_support_item2">Usted nos ayuda a mejorar a MAPS.ME</string>
+	<string name="why_support_item3">Nos está ayudando a mejorar los mapas de OpenStreetMaps.org</string>
+	<string name="purchase_processing">Tu compra se está procesando…</string>
+	<string name="tips_bookmarks_catalog_title">Guías turísticas offline para todo tipo de viajes</string>
+	<string name="tips_bookmarks_catalog_message">Descargue y organice rutas turísticas por lugares interesantes en diferentes ciudades del mundo.</string>
+	<string name="tips_discover_button_title">¿Quiere encontrar los lugares populares en el área?</string>
+	<string name="tips_discover_button_message">En la sección «Descubrir los alrededores», están recopilados los mejores restaurantes, hoteles y sitios de interés.</string>
+	<string name="tips_book_hotel_title">Reserve los hoteles más cómodos para sus vacaciones</string>
+	<string name="tips_book_hotel_message">Con la ayuda de la búsqueda y los filtros encontrará los mejores hoteles. Oprima el botón «Reservar» en la descripción de lugar para la reserva inmediata del hotel.</string>
+	<string name="tips_map_layers_title">¿No sabe en qué estación de metro hacer el transbordo?</string>
+	<string name="tips_map_layers_message">Active la opción de metro en el mapa, para ver el esquema del metro y siempre se orientará en una nueva ciudad.</string>
+	<string name="channels_map_update">Actualización de los mapas</string>
+	<string name="channels_reviews">Comentarios no enviados</string>
+	<string name="purchase_loading">Cargando la información de compras…</string>
+	<string name="purchase_error_subtitle">Se produjo un error durante el procesamiento de su compra</string>
+	<string name="awaiting_approval">Estamos esperando la confirmación de los padres</string>
+	<string name="whats_new_leave_review">¡Haga un comentario! Comparta su opinión sobre los lugares que visitó durante las vacaciones.</string>
+	<string name="server_unavailable_title">Servidor no disponible</string>
+	<string name="server_unavailable_message">La compra se completará más tarde. Si el error persiste, póngase en contacto con support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Conéctese a Internet para seleccionar la fecha de llegada y salida.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Đánh dấu trang và Hướng dẫn";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Xóa quảng cáo";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Xóa tất cả quảng cáo và hỗ trợ MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Thanh toán %s/năm";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Tiết kiệm %s/năm";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Nhiều lựa chọn hơn";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Tại sao hỗ trợ MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/tháng (tiết kiệm %s/năm)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/tuần (không tiết kiệm được gì)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Chúng tôi sẽ xóa tất cả quảng cáo cho bạn";
 
 "why_support_item2" = "You help us to improve MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Bạn giúp chúng tôi cải thiện bản đồ mở OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Giao dịch mua của bạn đang được xử lý…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Hướng dẫn ngoại tuyến cho mọi loại hành trình";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Tải xuống và lên kế hoạch cho các tuyến du lịch trên các địa điểm thú vị ở các thành phố khác nhau trên thế giới.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Bạn muốn tìm các địa điểm phổ biến gần đó?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "Phần \"Khám phá gần đây\" chứa các nhà hàng, khách sạn và điểm tham quan tốt nhất.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Đặt những khách sạn ấm cúng nhất cho hành trình của bạn";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Sử dụng tìm kiếm và bộ lọc để tìm khách sạn tốt nhất cho bạn. Sử dụng tìm kiếm và bộ lọc để tìm khách sạn tốt nhất cho bạn. Sử dụng nút \"Đặt trước\" trên trang địa điểm để đặt khách sạn ngay lập tức.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Bạn không biết tại trạm nào để tạo kết nối không?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Bật lớp tàu điện ngầm để hiển thị bản đồ tàu điện ngầm, và bạn sẽ luôn tìm đường đến một thành phố mới.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Cập nhật bản đồ";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Đánh giá chưa được thực hiện";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Thông tin mua đang tải…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Đã xảy ra lỗi trong khi xử lý giao dịch mua của bạn";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Đang chờ phê duyệt của phụ huynh";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Để lại một đánh giá! Chia sẻ ý kiến của bạn về các địa điểm bạn đã ghé thăm trong kỳ nghỉ của bạn";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Máy chủ không khả dụng";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Kết nối với internet để lọc khách sạn theo ngày tháng.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

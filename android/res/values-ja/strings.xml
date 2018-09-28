@@ -1350,6 +1350,35 @@
 	<string name="error_already_downloaded_guide">このガイドはすでにダウンロードされています</string>
 	<string name="guide_downloaded_subtitle">[地図に表示]を押して、ガイドをご覧ください。</string>
 	<string name="bookmarks_guides">ブックマークとガイド</string>
+	<string name="remove_ads">広告を削除</string>
+	<string name="remove_ads_title">すべての広告を削除してMAPS.MEをサポート</string>
+	<string name="paybtn_title">年間%sの支払い</string>
+	<string name="paybtn_subtitle">年間%sの節約</string>
+	<string name="options_dropdown_title">他のオプション</string>
+	<string name="why_support">MAPS.MEをサポートする理由</string>
+	<string name="options_dropdown_item1">%1$s／月（%2$s／年の節約）</string>
+	<string name="options_dropdown_item2">%s／週（節約なし）</string>
+	<string name="why_support_item1">お客さまのためにすべての広告を削除いたします。</string>
+	<string name="why_support_item2">MAPS.MEの改善にご協力いただいております</string>
+	<string name="why_support_item3">オープンマップOpenStreetMap.orgの改善にご協力いただいております</string>
+	<string name="purchase_processing">購入の処理中です…</string>
+	<string name="tips_bookmarks_catalog_title">さまざまな旅のオフラインガイド</string>
+	<string name="tips_bookmarks_catalog_message">世界の異なる都市の興味深い場所をめぐる観光コースをダウンロードして、旅を計画します。</string>
+	<string name="tips_discover_button_title">近隣の人気スポットをお探しですか？</string>
+	<string name="tips_discover_button_message">「近隣を探す」セクションには、最高のレストラン、ホテル、名所が含まれます。</string>
+	<string name="tips_book_hotel_title">旅に一番居心地の良いホテルを予約</string>
+	<string name="tips_book_hotel_message">検索と絞り込み機能を使用して、最高のホテルを見つけてください。場所ページの [予約] ボタンを使用して、ホテルを瞬時に予約します。</string>
+	<string name="tips_map_layers_title">乗り換えの駅が不明ですか？</string>
+	<string name="tips_map_layers_message">地下鉄レイヤーをオンにして地下鉄の路線図を表示すると、新しい街でどんな時でも行き方を見つけることができます。</string>
+	<string name="channels_map_update">地図の更新</string>
+	<string name="channels_reviews">未送信のレビュー</string>
+	<string name="purchase_loading">購入情報を読み込んでいます…</string>
+	<string name="purchase_error_subtitle">お客さまのご購入の処理中にエラーが発生しました</string>
+	<string name="awaiting_approval">ご両親の承認待ちです</string>
+	<string name="whats_new_leave_review">レビューをお書きください！休暇で訪れた場所についてのご意見を共有してください。</string>
+	<string name="server_unavailable_title">サーバーは利用できません</string>
+	<string name="server_unavailable_message">ご購入は後ほど完了します。エラーが続く場合は、support\@maps.meまでご連絡ください。</string>
+	<string name="offline_fiters_check_in">インターネットに接続して、ホテルを日付で絞り込み検索します。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

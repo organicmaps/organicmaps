@@ -1348,6 +1348,35 @@
 	<string name="error_already_downloaded_guide">Acest ghid a fost deja descărcat</string>
 	<string name="guide_downloaded_subtitle">Apasă butonul „Vizualizare pe hartă” pentru a explora ghidul</string>
 	<string name="bookmarks_guides">Marcaje și ghiduri</string>
+	<string name="remove_ads">Dezactivați reclama</string>
+	<string name="remove_ads_title">Dezactivați toată reclama și susțineți MAPS.ME</string>
+	<string name="paybtn_title">Achitați %s/an</string>
+	<string name="paybtn_subtitle">Economisiți %s/an</string>
+	<string name="options_dropdown_title">Alte variante</string>
+	<string name="why_support">Pentru ce să susțineți MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/lună (economia %2$s/an)</string>
+	<string name="options_dropdown_item2">%s/săptămână (nu există economie)</string>
+	<string name="why_support_item1">Vom dezactiva toate reclamele pentru dvs.</string>
+	<string name="why_support_item2">Voi ne ajutați să îmbunătățim MAPS.ME</string>
+	<string name="why_support_item3">Voi ne ajutați să îmbunătățim hărțile OpenStreetMaps.org</string>
+	<string name="purchase_processing">Achiziția dvs. este în curs de procesare…</string>
+	<string name="tips_bookmarks_catalog_title">Ghiduri offline pentru toate tipurile de călătorii</string>
+	<string name="tips_bookmarks_catalog_message">Descărcați și stabiliți rute turistice către locuri interesante din diferite orașe ale lumii.</string>
+	<string name="tips_discover_button_title">Doriți să găsiți localurile populare din zonă?</string>
+	<string name="tips_discover_button_message">În secțiunea „Descoperire în apropiere” sunt colectate cele mai bune și mai apropiate restaurante, hoteluri și locuri care merită văzute.</string>
+	<string name="tips_book_hotel_title">Rezervați cele mai confortabile hoteluri pentru odihna dumneavoastră</string>
+	<string name="tips_book_hotel_message">Cu ajutorul căutării și a filtrelor veți găsi cele mai bune hoteluri. Apăsați butonul „Rezervare” în cartea locului pentru rezervarea imediată a hotelului.</string>
+	<string name="tips_map_layers_title">Nu știți la care stație de metro să coborâți?</string>
+	<string name="tips_map_layers_message">Activați stratul de metrou de pe hartă pentru a afișa schema de metrou și vă veți putea orienta mereu într-un oraș nou.</string>
+	<string name="channels_map_update">Actualizarea hărților</string>
+	<string name="channels_reviews">Recenzii netrimise</string>
+	<string name="purchase_loading">Încărcăm informația despre cumpărături</string>
+	<string name="purchase_error_subtitle">În timpul procesării achiziției dumneavoastre a apărut o eroare</string>
+	<string name="awaiting_approval">Așteptăm confirmarea părinților</string>
+	<string name="whats_new_leave_review">Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.</string>
+	<string name="server_unavailable_title">Serverul nu este disponibil</string>
+	<string name="server_unavailable_message">Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Conectați-vă la internet pentru a putea alege data sosirii și plecării.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

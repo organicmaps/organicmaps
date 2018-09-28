@@ -1352,6 +1352,35 @@
 	<string name="error_already_downloaded_guide">Tämä opas on jo ladattu</string>
 	<string name="guide_downloaded_subtitle">Paina \'Näytä kartalla\' tutkiaksesi opasta</string>
 	<string name="bookmarks_guides">Kirjanmerkit ja oppaat</string>
+	<string name="remove_ads">Poista mainokset</string>
+	<string name="remove_ads_title">Poista kaikki mainokset ja tue MAPS.ME:tä</string>
+	<string name="paybtn_title">Maksa %s/vuosi</string>
+	<string name="paybtn_subtitle">Säästä %s/vuosi</string>
+	<string name="options_dropdown_title">Lisää vaihtoehtoja</string>
+	<string name="why_support">Miksi tukea MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/kuukausi (Säästä %2$s/vuosi)</string>
+	<string name="options_dropdown_item2">%s/viikko (ei säästöä)</string>
+	<string name="why_support_item1">Poistamme kaikki mainokset sinulta</string>
+	<string name="why_support_item2">Sinä autat meitä parantamaan MAPS.ME:tä</string>
+	<string name="why_support_item3">Auta meitä parantamaan avoimia karttoja OpenStreetMap.org</string>
+	<string name="purchase_processing">Ostostasi käsitellään…</string>
+	<string name="tips_bookmarks_catalog_title">Offline ohjeet kaikenlaisille matkoille</string>
+	<string name="tips_bookmarks_catalog_message">Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa</string>
+	<string name="tips_discover_button_title">Haluatko löytää suosittuja lähistöllä olevia kohteita</string>
+	<string name="tips_discover_button_message">”Löydä lähistöllä olevia kohteita” osio sisältää parhaat ravintolat, hotellit ja nähtävyydet.</string>
+	<string name="tips_book_hotel_title">Varaa mukavimmat hotellit matkallesi</string>
+	<string name="tips_book_hotel_message">Käytä hakua ja filttereitä löytääksesi parhaat hotellit sinulle. Käytä ”Varaa” nappulaa joka on paikka sivulla varataksesi hotellin välittömästi.</string>
+	<string name="tips_map_layers_title">Etkö tiedä millä asemalla tehdä vaihto?</string>
+	<string name="tips_map_layers_message">Laita metro taso päälle, nähdäksi metrokartan ja löydät reittisi aina uudessa kaupungissa.</string>
+	<string name="channels_map_update">Kartan päivitykset</string>
+	<string name="channels_reviews">Lähettämättömät arviot</string>
+	<string name="purchase_loading">Maksutietoja ladataan…</string>
+	<string name="purchase_error_subtitle">Ostosi käsittelyssä tapahtui virhe</string>
+	<string name="awaiting_approval">Odotetaan vanhemman hyväksyntää</string>
+	<string name="whats_new_leave_review">Jätä arvio! Jaa mielipiteesi paikoista joissa olet käynyt lomallasi.</string>
+	<string name="server_unavailable_title">Serveri ei ole saatavilla</string>
+	<string name="server_unavailable_message">Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Yhdistä internettiin suodattaaksesi hotelleja päivillä</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

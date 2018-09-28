@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Marcaje și ghiduri";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Dezactivați reclama";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Dezactivați toată reclama și susțineți MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Achitați %s/an";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Economisiți %s/an";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Alte variante";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Pentru ce să susțineți MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/lună (economia %s/an)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/săptămână (nu există economie)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Vom dezactiva toate reclamele pentru dvs.";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Voi ne ajutați să îmbunătățim MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Voi ne ajutați să îmbunătățim hărțile OpenStreetMaps.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Achiziția dvs. este în curs de procesare…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Ghiduri offline pentru toate tipurile de călătorii";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Descărcați și stabiliți rute turistice către locuri interesante din diferite orașe ale lumii.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Doriți să găsiți localurile populare din zonă?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "În secțiunea „Descoperire în apropiere” sunt colectate cele mai bune și mai apropiate restaurante, hoteluri și locuri care merită văzute.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Rezervați cele mai confortabile hoteluri pentru odihna dumneavoastră";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Cu ajutorul căutării și a filtrelor veți găsi cele mai bune hoteluri. Apăsați butonul „Rezervare” în cartea locului pentru rezervarea imediată a hotelului.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Nu știți la care stație de metro să coborâți?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Activați stratul de metrou de pe hartă pentru a afișa schema de metrou și vă veți putea orienta mereu într-un oraș nou.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Actualizarea hărților";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Recenzii netrimise";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Încărcăm informația despre cumpărături";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "În timpul procesării achiziției dumneavoastre a apărut o eroare";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Așteptăm confirmarea părinților";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Serverul nu este disponibil";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Conectați-vă la internet pentru a putea alege data sosirii și plecării.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

@@ -2434,7 +2434,7 @@
 
 "purchase_processing" = "Your purchase is being processed…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Offline guides for every kind of journey";
 
 "tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
 
@@ -2468,8 +2468,6 @@
 
 "offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
 
-"rutaxi_title" = "RuTaxi";
-
 
 /**********  Partners  **********/
 
@@ -2498,13 +2496,13 @@
 
 "type.aerialway.mixed_lift" = "aerialway-mixed_lift";
 
-"type.aerialway.station" = "Aerialway Station";
+"type.aerialway.station" = "Kabelbanestasjon";
 
 "type.aeroway" = "aeroway";
 
-"type.aeroway.aerodrome" = "Airport";
+"type.aeroway.aerodrome" = "Flyplass";
 
-"type.aeroway.aerodrome.international" = "Airport";
+"type.aeroway.aerodrome.international" = "Flyplass";
 
 "type.aeroway.apron" = "aeroway-apron";
 
@@ -2522,143 +2520,143 @@
 
 "type.amenity.arts_centre" = "amenity-arts_centre";
 
-"type.amenity.atm" = "ATM";
+"type.amenity.atm" = "Minibank";
 
 "type.amenity.bank" = "Bank";
 
 "type.amenity.bar" = "Bar";
 
-"type.amenity.bbq" = "Picnic Site";
+"type.amenity.bbq" = "Rasteplasser";
 
-"type.amenity.bench" = "Bench";
+"type.amenity.bench" = "Benk";
 
-"type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking" = "Sykkelparkering";
 
-"type.amenity.bicycle_rental" = "Bicycle Rental";
+"type.amenity.bicycle_rental" = "Sykkelutleie";
 
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "Uteservering";
 
-"type.amenity.brothel" = "Brothel";
+"type.amenity.brothel" = "Bordell";
 
-"type.amenity.bureau_de_change" = "Currency Exchange";
+"type.amenity.bureau_de_change" = "Valutaveksling";
 
-"type.amenity.bus_station" = "Bus Station";
+"type.amenity.bus_station" = "Busstasjon";
 
-"type.amenity.cafe" = "Cafe";
+"type.amenity.cafe" = "Kafé";
 
-"type.amenity.car_rental" = "Car Rental";
+"type.amenity.car_rental" = "Bilutleie";
 
-"type.amenity.car_sharing" = "Car Sharing";
+"type.amenity.car_sharing" = "Kjøre sammen";
 
-"type.amenity.car_wash" = "Car Wash";
+"type.amenity.car_wash" = "Bilvask";
 
-"type.amenity.casino" = "Casino";
+"type.amenity.casino" = "Kasino";
 
-"type.amenity.charging_station" = "Charging Station";
+"type.amenity.charging_station" = "Ladestasjon";
 
-"type.amenity.childcare" = "Nursery";
+"type.amenity.childcare" = "Førskole";
 
-"type.amenity.cinema" = "Cinema";
+"type.amenity.cinema" = "Kino";
 
-"type.amenity.clinic" = "Clinic";
+"type.amenity.clinic" = "Klinikk";
 
-"type.amenity.college" = "College";
+"type.amenity.college" = "Høyskole";
 
-"type.amenity.community_centre" = "Community Centre";
+"type.amenity.community_centre" = "Samfunnshus";
 
-"type.amenity.courthouse" = "Courthouse";
+"type.amenity.courthouse" = "Domstol";
 
-"type.amenity.dentist" = "Dentist";
+"type.amenity.dentist" = "Tannlege";
 
-"type.amenity.doctors" = "Doctor";
+"type.amenity.doctors" = "Legekontor";
 
-"type.amenity.drinking_water" = "Drinking Water";
+"type.amenity.drinking_water" = "Drikkevann";
 
-"type.amenity.driving_school" = "Driving School";
+"type.amenity.driving_school" = "Kjøreskole";
 
-"type.amenity.embassy" = "Embassy";
+"type.amenity.embassy" = "Ambassade";
 
-"type.amenity.fast_food" = "Fast Food";
+"type.amenity.fast_food" = "Hurtigmat";
 
-"type.amenity.ferry_terminal" = "Ferry";
+"type.amenity.ferry_terminal" = "Ferje";
 
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.fire_station" = "Brannstasjon";
 
 "type.amenity.food_court" = "amenity-food_court";
 
-"type.amenity.fountain" = "Fountain";
+"type.amenity.fountain" = "Fontene";
 
-"type.amenity.fuel" = "Gas Station";
+"type.amenity.fuel" = "Bensinstasjon";
 
-"type.amenity.grave_yard" = "Graveyard";
+"type.amenity.grave_yard" = "Gravplass";
 
-"type.amenity.grave_yard.christian" = "Graveyard";
+"type.amenity.grave_yard.christian" = "Gravplass";
 
-"type.amenity.hospital" = "Hospital";
+"type.amenity.hospital" = "Sykehus";
 
-"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.hunting_stand" = "Jaktpost";
 
-"type.amenity.ice_cream" = "Ice Cream Stand";
+"type.amenity.ice_cream" = "Iskrem";
 
-"type.amenity.internet_cafe" = "Internet Cafe";
+"type.amenity.internet_cafe" = "Internettkafé";
 
-"type.amenity.kindergarten" = "Kindergarten";
+"type.amenity.kindergarten" = "Barnehage";
 
-"type.amenity.library" = "Library";
+"type.amenity.library" = "Bibliotek";
 
-"type.amenity.marketplace" = "Marketplace";
+"type.amenity.marketplace" = "Torg";
 
-"type.amenity.motorcycle_parking" = "Motorcycle Parking";
+"type.amenity.motorcycle_parking" = "Motorsykkelparkering";
 
-"type.amenity.nightclub" = "Nightclub";
+"type.amenity.nightclub" = "Nattklubb";
 
-"type.amenity.nursing_home" = "Nursing Home";
+"type.amenity.nursing_home" = "Sykehjem";
 
-"type.amenity.parking" = "Parking";
+"type.amenity.parking" = "Parkering";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "Parkering";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "Parkering";
 
-"type.amenity.parking.multi.storey.fee" = "Parking";
+"type.amenity.parking.multi.storey.fee" = "Parkering";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "Parkering";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "Parkering";
 
-"type.amenity.parking.permissive" = "Parking";
+"type.amenity.parking.permissive" = "Parkering";
 
-"type.amenity.parking.permissive.fee" = "Parking";
+"type.amenity.parking.permissive.fee" = "Parkering";
 
-"type.amenity.parking.private" = "Parking";
+"type.amenity.parking.private" = "Parkering";
 
-"type.amenity.parking.underground" = "Parking";
+"type.amenity.parking.underground" = "Parkering";
 
-"type.amenity.parking.underground.fee" = "Parking";
+"type.amenity.parking.underground.fee" = "Parkering";
 
-"type.amenity.payment_terminal" = "Payment Terminal";
+"type.amenity.payment_terminal" = "Betalingsterminal";
 
-"type.amenity.pharmacy" = "Pharmacy";
+"type.amenity.pharmacy" = "Apotek";
 
-"type.amenity.place_of_worship" = "Place of Worship";
+"type.amenity.place_of_worship" = "Gudshus";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "Tempel";
 
-"type.amenity.place_of_worship.christian" = "Church";
+"type.amenity.place_of_worship.christian" = "Kirke";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.hindu" = "Tempel";
 
-"type.amenity.place_of_worship.jewish" = "Synagogue";
+"type.amenity.place_of_worship.jewish" = "Synagoge";
 
-"type.amenity.place_of_worship.muslim" = "Mosque";
+"type.amenity.place_of_worship.muslim" = "Moské";
 
-"type.amenity.place_of_worship.shinto" = "Shrine";
+"type.amenity.place_of_worship.shinto" = "Alter";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "Tempel";
 
-"type.amenity.police" = "Police";
+"type.amenity.police" = "Politi";
 
-"type.amenity.post_box" = "Postbox";
+"type.amenity.post_box" = "Postboks";
 
 "type.amenity.post_office" = "Post";
 
@@ -2666,77 +2664,77 @@
 
 "type.amenity.pub" = "Pub";
 
-"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.public_bookcase" = "Bokhylle";
 
-"type.amenity.recycling" = "Recycling Center";
+"type.amenity.recycling" = "Resirkuleringssenter";
 
 "type.amenity.restaurant" = "Restaurant";
 
-"type.amenity.school" = "School";
+"type.amenity.school" = "Skole";
 
-"type.amenity.shelter" = "Shelter";
+"type.amenity.shelter" = "Tilfluktsrom";
 
-"type.amenity.shower" = "Shower";
+"type.amenity.shower" = "Dusj";
 
 "type.amenity.speed_trap" = "amenity-speed_trap";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.taxi" = "Drosje";
 
-"type.amenity.telephone" = "Phone";
+"type.amenity.telephone" = "Telefon";
 
-"type.amenity.theatre" = "Theatre";
+"type.amenity.theatre" = "Teater";
 
-"type.amenity.toilets" = "Toilet";
+"type.amenity.toilets" = "Toalett";
 
-"type.amenity.townhall" = "Town Hall";
+"type.amenity.townhall" = "Rådhus";
 
-"type.amenity.university" = "University";
+"type.amenity.university" = "Universitet";
 
 "type.amenity.vending_machine" = "amenity-vending_machine";
 
-"type.amenity.vending_machine.cigarettes" = "Cigarette Dispenser";
+"type.amenity.vending_machine.cigarettes" = "Sigarettautomat";
 
-"type.amenity.vending_machine.drinks" = "Drink Dispenser";
+"type.amenity.vending_machine.drinks" = "Drikkeautomat";
 
-"type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
+"type.amenity.vending_machine.parking_tickets" = "Parkeringsautomat";
 
 "type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
 
-"type.amenity.veterinary" = "Veterinary Doctor";
+"type.amenity.veterinary" = "Veterinær";
 
-"type.amenity.waste_basket" = "Trash Bin";
+"type.amenity.waste_basket" = "Søppelkasse";
 
-"type.amenity.waste_disposal" = "Dumpster";
+"type.amenity.waste_disposal" = "Søppel";
 
-"type.amenity.water_point" = "Water Point";
+"type.amenity.water_point" = "Vannpunkt";
 
 "type.barrier" = "barrier";
 
-"type.barrier.block" = "Block";
+"type.barrier.block" = "Blokk";
 
-"type.barrier.bollard" = "Pillar";
+"type.barrier.bollard" = "Pullert";
 
-"type.barrier.border_control" = "Border Control";
+"type.barrier.border_control" = "Grensekontroll";
 
 "type.barrier.city_wall" = "barrier-city_wall";
 
 "type.barrier.cycle_barrier" = "barrier-cycle_barrier";
 
-"type.barrier.entrance" = "Entrance";
+"type.barrier.entrance" = "Inngangspassasje";
 
 "type.barrier.fence" = "barrier-fence";
 
-"type.barrier.gate" = "Gate";
+"type.barrier.gate" = "Port";
 
 "type.barrier.hedge" = "barrier-hedge";
 
-"type.barrier.lift_gate" = "Lift Gate";
+"type.barrier.lift_gate" = "Bom";
 
 "type.barrier.retaining_wall" = "barrier-retaining_wall";
 
-"type.barrier.stile" = "Stile";
+"type.barrier.stile" = "Sperre";
 
-"type.barrier.toll_booth" = "Toll Booth";
+"type.barrier.toll_booth" = "Bomstasjon";
 
 "type.barrier.wall" = "barrier-wall";
 
@@ -2784,15 +2782,15 @@
 
 "type.boundary.national_park" = "boundary-national_park";
 
-"type.building" = "Building";
+"type.building" = "Bygning";
 
-"type.building.address" = "Building";
+"type.building.address" = "Bygning";
 
-"type.building.garage" = "Garage";
+"type.building.garage" = "Verksted";
 
-"type.building.has_parts" = "Building";
+"type.building.has_parts" = "Bygning";
 
-"type.building.train_station" = "Train Station";
+"type.building.train_station" = "Togstasjon";
 
 "type.communication" = "communication";
 
@@ -2802,27 +2800,27 @@
 
 "type.craft" = "craft";
 
-"type.craft.brewery" = "Craft brewery";
+"type.craft.brewery" = "Bryggeri";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "Snekker";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "Elektriker";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "Anleggsgartner";
 
-"type.craft.hvac" = "Hvac";
+"type.craft.hvac" = "Klimaanlegg";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "Metallarbeider";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "Maler";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "Fotograf";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "Rørlegger";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "Skoreparasjon";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "Skredder";
 
 "type.cuisine.african" = "Afrikansk mat";
 
@@ -2996,13 +2994,13 @@
 
 "type.emergency" = "emergency";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "Hjertestarter";
 
-"type.emergency.fire_hydrant" = "Fire Hydrant";
+"type.emergency.fire_hydrant" = "Brannhydrant";
 
-"type.emergency.phone" = "Emergency Phone";
+"type.emergency.phone" = "Nødtelefon";
 
-"type.entrance" = "Entrance";
+"type.entrance" = "Inngang";
 
 "type.highway" = "highway";
 
@@ -3014,7 +3012,7 @@
 
 "type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
 
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.bus_stop" = "Busstopp";
 
 "type.highway.construction" = "highway-construction";
 
@@ -3026,223 +3024,223 @@
 
 "type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
-"type.highway.footway" = "Path";
+"type.highway.footway" = "Sti";
 
-"type.highway.footway.alpine_hiking" = "Path";
+"type.highway.footway.alpine_hiking" = "Sti";
 
-"type.highway.footway.area" = "Path";
+"type.highway.footway.area" = "Sti";
 
-"type.highway.footway.bridge" = "Path";
+"type.highway.footway.bridge" = "Sti";
 
-"type.highway.footway.demanding_alpine_hiking" = "Path";
+"type.highway.footway.demanding_alpine_hiking" = "Sti";
 
-"type.highway.footway.demanding_mountain_hiking" = "Path";
+"type.highway.footway.demanding_mountain_hiking" = "Sti";
 
-"type.highway.footway.difficult_alpine_hiking" = "Path";
+"type.highway.footway.difficult_alpine_hiking" = "Sti";
 
-"type.highway.footway.hiking" = "Path";
+"type.highway.footway.hiking" = "Sti";
 
-"type.highway.footway.mountain_hiking" = "Path";
+"type.highway.footway.mountain_hiking" = "Sti";
 
-"type.highway.footway.permissive" = "Path";
+"type.highway.footway.permissive" = "Sti";
 
-"type.highway.footway.tunnel" = "Path";
+"type.highway.footway.tunnel" = "Sti";
 
 "type.highway.ford" = "highway-ford";
 
-"type.highway.living_street" = "Street";
+"type.highway.living_street" = "Gate";
 
-"type.highway.living_street.bridge" = "Street";
+"type.highway.living_street.bridge" = "Gate";
 
-"type.highway.living_street.tunnel" = "Street";
+"type.highway.living_street.tunnel" = "Gate";
 
-"type.highway.motorway" = "Street";
+"type.highway.motorway" = "Gate";
 
-"type.highway.motorway.bridge" = "Street";
+"type.highway.motorway.bridge" = "Gate";
 
-"type.highway.motorway.tunnel" = "Street";
+"type.highway.motorway.tunnel" = "Gate";
 
-"type.highway.motorway_junction" = "Exit";
+"type.highway.motorway_junction" = "Utgang";
 
-"type.highway.motorway_link" = "Street";
+"type.highway.motorway_link" = "Gate";
 
-"type.highway.motorway_link.bridge" = "Street";
+"type.highway.motorway_link.bridge" = "Gate";
 
-"type.highway.motorway_link.tunnel" = "Street";
+"type.highway.motorway_link.tunnel" = "Gate";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "Sti";
 
-"type.highway.path.alpine_hiking" = "Path";
+"type.highway.path.alpine_hiking" = "Sti";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "Sti";
 
-"type.highway.path.bridge" = "Path";
+"type.highway.path.bridge" = "Sti";
 
-"type.highway.path.demanding_alpine_hiking" = "Path";
+"type.highway.path.demanding_alpine_hiking" = "Sti";
 
-"type.highway.path.demanding_mountain_hiking" = "Path";
+"type.highway.path.demanding_mountain_hiking" = "Sti";
 
-"type.highway.path.difficult_alpine_hiking" = "Path";
+"type.highway.path.difficult_alpine_hiking" = "Sti";
 
-"type.highway.path.hiking" = "Path";
+"type.highway.path.hiking" = "Sti";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "Sti";
 
-"type.highway.path.mountain_hiking" = "Path";
+"type.highway.path.mountain_hiking" = "Sti";
 
-"type.highway.path.permissive" = "Path";
+"type.highway.path.permissive" = "Sti";
 
-"type.highway.path.tunnel" = "Path";
+"type.highway.path.tunnel" = "Sti";
 
-"type.highway.pedestrian" = "Street";
+"type.highway.pedestrian" = "Gate";
 
-"type.highway.pedestrian.area" = "Street";
+"type.highway.pedestrian.area" = "Gate";
 
-"type.highway.pedestrian.bridge" = "Street";
+"type.highway.pedestrian.bridge" = "Gate";
 
-"type.highway.pedestrian.tunnel" = "Street";
+"type.highway.pedestrian.tunnel" = "Gate";
 
 "type.highway.platform" = "highway-platform";
 
-"type.highway.primary" = "Street";
+"type.highway.primary" = "Gate";
 
-"type.highway.primary.bridge" = "Street";
+"type.highway.primary.bridge" = "Gate";
 
-"type.highway.primary.tunnel" = "Street";
+"type.highway.primary.tunnel" = "Gate";
 
-"type.highway.primary_link" = "Street";
+"type.highway.primary_link" = "Gate";
 
-"type.highway.primary_link.bridge" = "Street";
+"type.highway.primary_link.bridge" = "Gate";
 
-"type.highway.primary_link.tunnel" = "Street";
+"type.highway.primary_link.tunnel" = "Gate";
 
 "type.highway.proposed" = "highway-proposed";
 
-"type.highway.raceway" = "Racetrack";
+"type.highway.raceway" = "Løpebane";
 
-"type.highway.residential" = "Street";
+"type.highway.residential" = "Gate";
 
-"type.highway.residential.area" = "Street";
+"type.highway.residential.area" = "Gate";
 
-"type.highway.residential.bridge" = "Street";
+"type.highway.residential.bridge" = "Gate";
 
-"type.highway.residential.tunnel" = "Street";
+"type.highway.residential.tunnel" = "Gate";
 
-"type.highway.rest_area" = "Highway Rest Area";
+"type.highway.rest_area" = "Rasteplass";
 
-"type.highway.road" = "Street";
+"type.highway.road" = "Gate";
 
-"type.highway.road.bridge" = "Street";
+"type.highway.road.bridge" = "Gate";
 
-"type.highway.road.tunnel" = "Street";
+"type.highway.road.tunnel" = "Gate";
 
-"type.highway.secondary" = "Street";
+"type.highway.secondary" = "Gate";
 
-"type.highway.secondary.bridge" = "Street";
+"type.highway.secondary.bridge" = "Gate";
 
-"type.highway.secondary.tunnel" = "Street";
+"type.highway.secondary.tunnel" = "Gate";
 
-"type.highway.secondary_link" = "Street";
+"type.highway.secondary_link" = "Gate";
 
-"type.highway.secondary_link.bridge" = "Street";
+"type.highway.secondary_link.bridge" = "Gate";
 
-"type.highway.secondary_link.tunnel" = "Street";
+"type.highway.secondary_link.tunnel" = "Gate";
 
-"type.highway.service" = "Street";
+"type.highway.service" = "Gate";
 
-"type.highway.service.area" = "Street";
+"type.highway.service.area" = "Gate";
 
-"type.highway.service.bridge" = "Street";
+"type.highway.service.bridge" = "Gate";
 
-"type.highway.service.driveway" = "Street";
+"type.highway.service.driveway" = "Gate";
 
-"type.highway.service.driveway.area" = "Street";
+"type.highway.service.driveway.area" = "Gate";
 
-"type.highway.service.driveway.bridge" = "Street";
+"type.highway.service.driveway.bridge" = "Gate";
 
-"type.highway.service.driveway.tunnel" = "Street";
+"type.highway.service.driveway.tunnel" = "Gate";
 
-"type.highway.service.parking_aisle" = "Street";
+"type.highway.service.parking_aisle" = "Gate";
 
-"type.highway.service.tunnel" = "Street";
+"type.highway.service.tunnel" = "Gate";
 
 "type.highway.services" = "highway-services";
 
-"type.highway.speed_camera" = "Speed Camera";
+"type.highway.speed_camera" = "Fotoboks";
 
-"type.highway.steps" = "Path";
+"type.highway.steps" = "Sti";
 
-"type.highway.steps.bridge" = "Path";
+"type.highway.steps.bridge" = "Sti";
 
-"type.highway.steps.tunnel" = "Path";
+"type.highway.steps.tunnel" = "Sti";
 
-"type.highway.tertiary" = "Street";
+"type.highway.tertiary" = "Gate";
 
-"type.highway.tertiary.bridge" = "Street";
+"type.highway.tertiary.bridge" = "Gate";
 
-"type.highway.tertiary.tunnel" = "Street";
+"type.highway.tertiary.tunnel" = "Gate";
 
-"type.highway.tertiary_link" = "Street";
+"type.highway.tertiary_link" = "Gate";
 
-"type.highway.tertiary_link.bridge" = "Street";
+"type.highway.tertiary_link.bridge" = "Gate";
 
-"type.highway.tertiary_link.tunnel" = "Street";
+"type.highway.tertiary_link.tunnel" = "Gate";
 
-"type.highway.track" = "Street";
+"type.highway.track" = "Gate";
 
-"type.highway.track.area" = "Street";
+"type.highway.track.area" = "Gate";
 
-"type.highway.track.bridge" = "Street";
+"type.highway.track.bridge" = "Gate";
 
-"type.highway.track.grade1" = "Street";
+"type.highway.track.grade1" = "Gate";
 
-"type.highway.track.grade2" = "Street";
+"type.highway.track.grade2" = "Gate";
 
-"type.highway.track.grade3" = "Street";
+"type.highway.track.grade3" = "Gate";
 
-"type.highway.track.grade3.no.access" = "Street";
+"type.highway.track.grade3.no.access" = "Gate";
 
-"type.highway.track.grade3.permissive" = "Street";
+"type.highway.track.grade3.permissive" = "Gate";
 
-"type.highway.track.grade4" = "Street";
+"type.highway.track.grade4" = "Gate";
 
-"type.highway.track.grade4.no.access" = "Street";
+"type.highway.track.grade4.no.access" = "Gate";
 
-"type.highway.track.grade4.permissive" = "Street";
+"type.highway.track.grade4.permissive" = "Gate";
 
-"type.highway.track.grade5" = "Street";
+"type.highway.track.grade5" = "Gate";
 
-"type.highway.track.grade5.no.access" = "Street";
+"type.highway.track.grade5.no.access" = "Gate";
 
-"type.highway.track.grade5.permissive" = "Street";
+"type.highway.track.grade5.permissive" = "Gate";
 
-"type.highway.track.no.access" = "Street";
+"type.highway.track.no.access" = "Gate";
 
-"type.highway.track.permissive" = "Street";
+"type.highway.track.permissive" = "Gate";
 
-"type.highway.track.tunnel" = "Street";
+"type.highway.track.tunnel" = "Gate";
 
-"type.highway.traffic_signals" = "Traffic Lights";
+"type.highway.traffic_signals" = "Trafikklys";
 
-"type.highway.trunk" = "Street";
+"type.highway.trunk" = "Gate";
 
-"type.highway.trunk.bridge" = "Street";
+"type.highway.trunk.bridge" = "Gate";
 
-"type.highway.trunk.tunnel" = "Street";
+"type.highway.trunk.tunnel" = "Gate";
 
-"type.highway.trunk_link" = "Street";
+"type.highway.trunk_link" = "Gate";
 
-"type.highway.trunk_link.bridge" = "Street";
+"type.highway.trunk_link.bridge" = "Gate";
 
-"type.highway.trunk_link.tunnel" = "Street";
+"type.highway.trunk_link.tunnel" = "Gate";
 
-"type.highway.unclassified" = "Street";
+"type.highway.unclassified" = "Gate";
 
-"type.highway.unclassified.area" = "Street";
+"type.highway.unclassified.area" = "Gate";
 
-"type.highway.unclassified.bridge" = "Street";
+"type.highway.unclassified.bridge" = "Gate";
 
-"type.highway.unclassified.tunnel" = "Street";
+"type.highway.unclassified.tunnel" = "Gate";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -3250,39 +3248,39 @@
 
 "type.historic" = "historic";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "Arkeologisk område";
 
 "type.historic.battlefield" = "historic-battlefield";
 
 "type.historic.boundary_stone" = "historic-boundary_stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "Slott";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.defensive" = "Slott";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.stately" = "Slott";
 
 "type.historic.citywalls" = "historic-citywalls";
 
 "type.historic.fort" = "historic-fort";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "Minnesmerke";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "Minnesmerke";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "Minnesmerke";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "Minnesmerke";
 
 "type.historic.monument" = "Monument";
 
 "type.historic.museum" = "historic-museum";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "Ruiner";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "Severdigheter";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "Severdigheter";
 
 "type.historic.wayside_cross" = "historic-wayside_cross";
 
@@ -3324,13 +3322,13 @@
 
 "type.landuse.allotments" = "landuse-allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "Vann";
 
 "type.landuse.brownfield" = "landuse-brownfield";
 
-"type.landuse.cemetery" = "Graveyard";
+"type.landuse.cemetery" = "Gravplass";
 
-"type.landuse.cemetery.christian" = "Graveyard";
+"type.landuse.cemetery.christian" = "Gravplass";
 
 "type.landuse.commercial" = "landuse-commercial";
 
@@ -3344,13 +3342,13 @@
 
 "type.landuse.field" = "landuse-field";
 
-"type.landuse.forest" = "Forest";
+"type.landuse.forest" = "Skog";
 
-"type.landuse.forest.coniferous" = "Forest";
+"type.landuse.forest.coniferous" = "Skog";
 
-"type.landuse.forest.deciduous" = "Forest";
+"type.landuse.forest.deciduous" = "Skog";
 
-"type.landuse.forest.mixed" = "Forest";
+"type.landuse.forest.mixed" = "Skog";
 
 "type.landuse.garages" = "landuse-garages";
 
@@ -3376,7 +3374,7 @@
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "Vann";
 
 "type.landuse.residential" = "landuse-residential";
 
@@ -3400,13 +3398,13 @@
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
-"type.leisure.fitness_centre" = "Fitness Centre";
+"type.leisure.fitness_centre" = "Treningssenter";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "Treningssenter";
 
-"type.leisure.garden" = "Garden";
+"type.leisure.garden" = "Hage";
 
-"type.leisure.golf_course" = "Golf Course";
+"type.leisure.golf_course" = "Golfbane";
 
 "type.leisure.ice_rink" = "leisure-ice_rink";
 
@@ -3424,13 +3422,13 @@
 
 "type.leisure.park.private" = "Park";
 
-"type.leisure.pitch" = "Sports Ground";
+"type.leisure.pitch" = "Sportssenter";
 
-"type.leisure.pitch.tennis" = "Sports Ground";
+"type.leisure.pitch.tennis" = "Sportssenter";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "Lekeplass";
 
-"type.leisure.playground.tennis" = "Playground";
+"type.leisure.playground.tennis" = "Lekeplass";
 
 "type.leisure.playing_fields" = "leisure-playing_fields";
 
@@ -3438,27 +3436,27 @@
 
 "type.leisure.recreation_ground" = "leisure-recreation_ground";
 
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "Badstu";
 
 "type.leisure.slipway" = "leisure-slipway";
 
-"type.leisure.sports_centre" = "Sports Center";
+"type.leisure.sports_centre" = "Sportssenter";
 
-"type.leisure.sports_centre.climbing" = "Climbing Centre";
+"type.leisure.sports_centre.climbing" = "Klatresenter";
 
-"type.leisure.sports_centre.shooting" = "Shooting Range";
+"type.leisure.sports_centre.shooting" = "Skytebane";
 
-"type.leisure.sports_centre.swimming" = "Swimming Centre";
+"type.leisure.sports_centre.swimming" = "Svømmehall";
 
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.leisure.sports_centre.yoga" = "Yogastudio";
 
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "Stadion";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "Svømmebasseng";
 
 "type.leisure.track" = "leisure-track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "Vannpark";
 
 "type.man_made" = "man_made";
 
@@ -3466,11 +3464,11 @@
 
 "type.man_made.cairn" = "man_made-cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "Fabrikkpipe";
 
 "type.man_made.cutline" = "man_made-cutline";
 
-"type.man_made.lighthouse" = "Lighthouse";
+"type.man_made.lighthouse" = "Fyr";
 
 "type.man_made.pier" = "man_made-pier";
 
@@ -3478,19 +3476,19 @@
 
 "type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
-"type.man_made.surveillance" = "Surveillance Camera";
+"type.man_made.surveillance" = "Overvåkingskamera";
 
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "Tårn";
 
 "type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "Vannkran";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "Vanntårn";
 
-"type.man_made.water_well" = "Water Well";
+"type.man_made.water_well" = "Brønn";
 
-"type.man_made.windmill" = "Windmill";
+"type.man_made.windmill" = "Vindmølle";
 
 "type.man_made.works" = "man_made-works";
 
@@ -3518,13 +3516,13 @@
 
 "type.natural.bare_rock" = "natural-bare_rock";
 
-"type.natural.bay" = "Bay";
+"type.natural.bay" = "Bukt";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "Strand";
 
 "type.natural.cape" = "natural-cape";
 
-"type.natural.cave_entrance" = "Cave Entrance";
+"type.natural.cave_entrance" = "Grotteåpning";
 
 "type.natural.cliff" = "natural-cliff";
 
@@ -3536,7 +3534,7 @@
 
 "type.natural.heath" = "natural-heath";
 
-"type.natural.lake" = "Lake";
+"type.natural.lake" = "Innsjø";
 
 "type.natural.land" = "natural-land";
 
@@ -3544,9 +3542,9 @@
 
 "type.natural.orchard" = "natural-orchard";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "Høydepunkt";
 
-"type.natural.pond" = "Pond";
+"type.natural.pond" = "Dam";
 
 "type.natural.rock" = "natural-rock";
 
@@ -3554,17 +3552,17 @@
 
 "type.natural.scrub" = "natural-scrub";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "Vår";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "Tre";
 
 "type.natural.tree_row" = "natural-tree_row";
 
 "type.natural.vineyard" = "natural-vineyard";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "Vulkan";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "Vann";
 
 "type.natural.wetland" = "natural-wetland";
 
@@ -3572,33 +3570,33 @@
 
 "type.natural.wetland.marsh" = "natural-wetland-marsh";
 
-"type.natural.wood" = "Forest";
+"type.natural.wood" = "Skog";
 
-"type.natural.wood.coniferous" = "Forest";
+"type.natural.wood.coniferous" = "Skog";
 
-"type.natural.wood.deciduous" = "Forest";
+"type.natural.wood.deciduous" = "Skog";
 
-"type.natural.wood.mixed" = "Forest";
+"type.natural.wood.mixed" = "Skog";
 
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
-"type.office" = "Office";
+"type.office" = "Kontor";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "Firmakontor";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "Eiendomsmegler";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "Offentlig kontor";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "Forsikring";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "Advokatkontor";
 
-"type.office.ngo" = "NGO Office";
+"type.office.ngo" = "NGO-kontor";
 
-"type.office.telecommunication" = "Mobile Operator";
+"type.office.telecommunication" = "Mobiloperatør";
 
 "type.olympics" = "olympics";
 
@@ -3632,67 +3630,67 @@
 
 "type.place" = "place";
 
-"type.place.city" = "City";
+"type.place.city" = "By";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital" = "Hovedstad";
 
-"type.place.city.capital.10" = "Capital";
+"type.place.city.capital.10" = "Hovedstad";
 
-"type.place.city.capital.11" = "Capital";
+"type.place.city.capital.11" = "Hovedstad";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.2" = "Hovedstad";
 
-"type.place.city.capital.3" = "Capital";
+"type.place.city.capital.3" = "Hovedstad";
 
-"type.place.city.capital.4" = "Capital";
+"type.place.city.capital.4" = "Hovedstad";
 
-"type.place.city.capital.5" = "Capital";
+"type.place.city.capital.5" = "Hovedstad";
 
-"type.place.city.capital.6" = "Capital";
+"type.place.city.capital.6" = "Hovedstad";
 
-"type.place.city.capital.7" = "Capital";
+"type.place.city.capital.7" = "Hovedstad";
 
-"type.place.city.capital.8" = "Capital";
+"type.place.city.capital.8" = "Hovedstad";
 
-"type.place.city.capital.9" = "Capital";
+"type.place.city.capital.9" = "Hovedstad";
 
-"type.place.continent" = "Continent";
+"type.place.continent" = "Kontinent";
 
-"type.place.country" = "Country";
+"type.place.country" = "Land";
 
-"type.place.county" = "County";
+"type.place.county" = "Fylke";
 
-"type.place.farm" = "Farm";
+"type.place.farm" = "Gård";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.hamlet" = "Landsby";
 
-"type.place.island" = "Island";
+"type.place.island" = "Øy";
 
-"type.place.islet" = "Island";
+"type.place.islet" = "Øy";
 
 "type.place.isolated_dwelling" = "place-isolated_dwelling";
 
-"type.place.locality" = "Locality";
+"type.place.locality" = "Lokalitet";
 
 "type.place.neighbourhood" = "place-neighbourhood";
 
-"type.place.ocean" = "Ocean";
+"type.place.ocean" = "Hav";
 
 "type.place.region" = "Region";
 
-"type.place.sea" = "Sea";
+"type.place.sea" = "Sjø";
 
 "type.place.square" = "place-square";
 
-"type.place.state" = "State";
+"type.place.state" = "Stat";
 
-"type.place.state.USA" = "State";
+"type.place.state.USA" = "Stat";
 
-"type.place.suburb" = "Suburb";
+"type.place.suburb" = "Forstad";
 
-"type.place.town" = "Town";
+"type.place.town" = "By";
 
-"type.place.village" = "Village";
+"type.place.village" = "Landsby";
 
 "type.power" = "power";
 
@@ -3710,13 +3708,13 @@
 
 "type.power.minor_line" = "power-minor_line";
 
-"type.power.pole" = "Power Tower";
+"type.power.pole" = "Strømmast";
 
 "type.power.station" = "power-station";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "Trafo";
 
-"type.power.tower" = "Power Tower";
+"type.power.tower" = "Strømmast";
 
 "type.psurface" = "psurface";
 
@@ -3752,7 +3750,7 @@
 
 "type.railway.funicular.tunnel" = "railway-funicular-tunnel";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "Togstasjon";
 
 "type.railway.incline" = "railway-incline";
 
@@ -3812,61 +3810,61 @@
 
 "type.railway.spur.tunnel" = "railway-spur-tunnel";
 
-"type.railway.station" = "Train Station";
+"type.railway.station" = "Togstasjon";
 
-"type.railway.station.light_rail" = "Train Station";
+"type.railway.station.light_rail" = "Togstasjon";
 
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.monorail" = "Togstasjon";
 
-"type.railway.station.subway" = "Subway";
+"type.railway.station.subway" = "T-bane";
 
-"type.railway.station.subway.barcelona" = "Subway";
+"type.railway.station.subway.barcelona" = "T-bane";
 
-"type.railway.station.subway.berlin" = "Subway";
+"type.railway.station.subway.berlin" = "T-bane";
 
-"type.railway.station.subway.blue" = "Subway";
+"type.railway.station.subway.blue" = "T-bane";
 
-"type.railway.station.subway.brown" = "Subway";
+"type.railway.station.subway.brown" = "T-bane";
 
-"type.railway.station.subway.darkgreen" = "Subway";
+"type.railway.station.subway.darkgreen" = "T-bane";
 
-"type.railway.station.subway.gray" = "Subway";
+"type.railway.station.subway.gray" = "T-bane";
 
-"type.railway.station.subway.green" = "Subway";
+"type.railway.station.subway.green" = "T-bane";
 
-"type.railway.station.subway.grey" = "Subway";
+"type.railway.station.subway.grey" = "T-bane";
 
-"type.railway.station.subway.kiev" = "Subway";
+"type.railway.station.subway.kiev" = "T-bane";
 
-"type.railway.station.subway.lightblue" = "Subway";
+"type.railway.station.subway.lightblue" = "T-bane";
 
-"type.railway.station.subway.lightgreen" = "Subway";
+"type.railway.station.subway.lightgreen" = "T-bane";
 
-"type.railway.station.subway.london" = "Subway";
+"type.railway.station.subway.london" = "T-bane";
 
-"type.railway.station.subway.madrid" = "Subway";
+"type.railway.station.subway.madrid" = "T-bane";
 
-"type.railway.station.subway.minsk" = "Subway";
+"type.railway.station.subway.minsk" = "T-bane";
 
-"type.railway.station.subway.moscow" = "Subway";
+"type.railway.station.subway.moscow" = "T-bane";
 
-"type.railway.station.subway.newyork" = "Subway";
+"type.railway.station.subway.newyork" = "T-bane";
 
-"type.railway.station.subway.orange" = "Subway";
+"type.railway.station.subway.orange" = "T-bane";
 
-"type.railway.station.subway.paris" = "Subway";
+"type.railway.station.subway.paris" = "T-bane";
 
-"type.railway.station.subway.purple" = "Subway";
+"type.railway.station.subway.purple" = "T-bane";
 
-"type.railway.station.subway.red" = "Subway";
+"type.railway.station.subway.red" = "T-bane";
 
-"type.railway.station.subway.roma" = "Subway";
+"type.railway.station.subway.roma" = "T-bane";
 
-"type.railway.station.subway.spb" = "Subway";
+"type.railway.station.subway.spb" = "T-bane";
 
-"type.railway.station.subway.violet" = "Subway";
+"type.railway.station.subway.violet" = "T-bane";
 
-"type.railway.station.subway.yellow" = "Subway";
+"type.railway.station.subway.yellow" = "T-bane";
 
 "type.railway.subway" = "railway-subway";
 
@@ -3900,29 +3898,29 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Subway";
+"type.railway.subway_entrance" = "T-bane";
 
-"type.railway.subway_entrance.barcelona" = "Subway";
+"type.railway.subway_entrance.barcelona" = "T-bane";
 
-"type.railway.subway_entrance.berlin" = "Subway";
+"type.railway.subway_entrance.berlin" = "T-bane";
 
-"type.railway.subway_entrance.kiev" = "Subway";
+"type.railway.subway_entrance.kiev" = "T-bane";
 
-"type.railway.subway_entrance.london" = "Subway";
+"type.railway.subway_entrance.london" = "T-bane";
 
-"type.railway.subway_entrance.madrid" = "Subway";
+"type.railway.subway_entrance.madrid" = "T-bane";
 
-"type.railway.subway_entrance.minsk" = "Subway";
+"type.railway.subway_entrance.minsk" = "T-bane";
 
-"type.railway.subway_entrance.moscow" = "Subway";
+"type.railway.subway_entrance.moscow" = "T-bane";
 
-"type.railway.subway_entrance.newyork" = "Subway";
+"type.railway.subway_entrance.newyork" = "T-bane";
 
-"type.railway.subway_entrance.paris" = "Subway";
+"type.railway.subway_entrance.paris" = "T-bane";
 
-"type.railway.subway_entrance.roma" = "Subway";
+"type.railway.subway_entrance.roma" = "T-bane";
 
-"type.railway.subway_entrance.spb" = "Subway";
+"type.railway.subway_entrance.spb" = "T-bane";
 
 "type.railway.tram" = "railway-tram";
 
@@ -3930,7 +3928,7 @@
 
 "type.railway.tram.tunnel" = "railway-tram-tunnel";
 
-"type.railway.tram_stop" = "Tram Stop";
+"type.railway.tram_stop" = "Trikkestopp";
 
 "type.railway.yard" = "railway-yard";
 
@@ -3948,137 +3946,137 @@
 
 "type.route.shuttle_train" = "route-shuttle_train";
 
-"type.shop" = "Shop";
+"type.shop" = "Butikk";
 
-"type.shop.alcohol" = "Liquor Store";
+"type.shop.alcohol" = "Vinmonopol";
 
-"type.shop.bakery" = "Bakery";
+"type.shop.bakery" = "Bakeri";
 
-"type.shop.beauty" = "Beauty Shop";
+"type.shop.beauty" = "Skjønnhetssalong";
 
-"type.shop.beverages" = "Beverages";
+"type.shop.beverages" = "Drinker";
 
-"type.shop.bicycle" = "Bicycle Shop";
+"type.shop.bicycle" = "Sykkel";
 
 "type.shop.bookmaker" = "Bookmaker";
 
-"type.shop.books" = "Bookstore";
+"type.shop.books" = "Bokhandel";
 
-"type.shop.butcher" = "Butcher’s";
+"type.shop.butcher" = "Slakter";
 
-"type.shop.car" = "Car Shop";
+"type.shop.car" = "Bil butikk";
 
-"type.shop.car_parts" = "Car Parts";
+"type.shop.car_parts" = "Bildeler";
 
-"type.shop.car_repair" = "Car Repair Shop";
+"type.shop.car_repair" = "Bilverksted";
 
-"type.shop.car_repair.tyres" = "Tyre Repair";
+"type.shop.car_repair.tyres" = "Dekkreparasjon";
 
-"type.shop.chemist" = "Chemist Shop";
+"type.shop.chemist" = "Husholdningsartikler";
 
-"type.shop.chocolate" = "Shop";
+"type.shop.chocolate" = "Butikk";
 
-"type.shop.clothes" = "Clothes Shop";
+"type.shop.clothes" = "Klesbutikk";
 
-"type.shop.coffee" = "Shop";
+"type.shop.coffee" = "Butikk";
 
-"type.shop.computer" = "Computer Store";
+"type.shop.computer" = "Databutikk";
 
-"type.shop.confectionery" = "Sweets";
+"type.shop.confectionery" = "Søtsaker";
 
-"type.shop.convenience" = "Convenience Store";
+"type.shop.convenience" = "Nærbutikk";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "Kopieringsbutikk";
 
-"type.shop.cosmetics" = "Beauty Care";
+"type.shop.cosmetics" = "Kosmetikk";
 
-"type.shop.department_store" = "Department Store";
+"type.shop.department_store" = "Varehus";
 
-"type.shop.doityourself" = "Hardware Store";
+"type.shop.doityourself" = "Jernvareforretning";
 
-"type.shop.dry_cleaning" = "Dry Cleaning";
+"type.shop.dry_cleaning" = "Renseri";
 
-"type.shop.electronics" = "Electronics";
+"type.shop.electronics" = "Elektronikk forhandler";
 
-"type.shop.erotic" = "Erotic Shop";
+"type.shop.erotic" = "Erotisk butikk";
 
-"type.shop.fabric" = "Shop";
+"type.shop.fabric" = "Butikk";
 
-"type.shop.florist" = "Florist’s";
+"type.shop.florist" = "Blomsterhandler";
 
-"type.shop.funeral_directors" = "Funeral Directors";
+"type.shop.funeral_directors" = "Begravelsebyrå";
 
-"type.shop.furniture" = "Furniture Store";
+"type.shop.furniture" = "Møbelbutikk";
 
-"type.shop.garden_centre" = "Garden Store";
+"type.shop.garden_centre" = "Planteskole";
 
-"type.shop.gift" = "Gift Shop";
+"type.shop.gift" = "Gavebutikk";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "Frukt- og grønnsakshandler";
 
-"type.shop.hairdresser" = "Hairdresser";
+"type.shop.hairdresser" = "Frisør";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "Jernvareforretning";
 
-"type.shop.jewelry" = "Jewelry";
+"type.shop.jewelry" = "Gullsmed";
 
-"type.shop.kiosk" = "Kiosk";
+"type.shop.kiosk" = "Butikk";
 
-"type.shop.laundry" = "Laundry";
+"type.shop.laundry" = "Vaskeri";
 
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "Kjøpesenteret";
 
-"type.shop.massage" = "Massage Parlour";
+"type.shop.massage" = "Massasjesalong";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "Mobiltelefonbutikk";
 
-"type.shop.money_lender" = "Shop";
+"type.shop.money_lender" = "Butikk";
 
-"type.shop.motorcycle" = "Motorcycle Shop";
+"type.shop.motorcycle" = "Motorsykkelforretning";
 
-"type.shop.music" = "Shop";
+"type.shop.music" = "Butikk";
 
-"type.shop.musical_instrument" = "Shop";
+"type.shop.musical_instrument" = "Butikk";
 
-"type.shop.newsagent" = "Newspaper Stand";
+"type.shop.newsagent" = "Aviskiosk";
 
-"type.shop.optician" = "Optician’s";
+"type.shop.optician" = "Optiker";
 
-"type.shop.outdoor" = "Outdoor Equipment";
+"type.shop.outdoor" = "Fritidsutstyr";
 
-"type.shop.pawnbroker" = "Pawnbroker";
+"type.shop.pawnbroker" = "Pantelåner";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "Dyrebutikk";
 
-"type.shop.photo" = "Photo Shop";
+"type.shop.photo" = "Fotobutikk";
 
-"type.shop.seafood" = "Seafood Shop";
+"type.shop.seafood" = "Fiskehandler";
 
-"type.shop.shoes" = "Shoe Store";
+"type.shop.shoes" = "Skobutikk";
 
-"type.shop.sports" = "Sports Goods";
+"type.shop.sports" = "Sportsutstyr";
 
-"type.shop.stationery" = "Stationery Shop";
+"type.shop.stationery" = "Bokhandel";
 
-"type.shop.supermarket" = "Supermarket";
+"type.shop.supermarket" = "Supermarked";
 
-"type.shop.tattoo" = "Tattoo Parlour";
+"type.shop.tattoo" = "Tatovør";
 
-"type.shop.tea" = "Shop";
+"type.shop.tea" = "Butikk";
 
-"type.shop.ticket" = "Ticket Shop";
+"type.shop.ticket" = "Billettkontor";
 
-"type.shop.toys" = "Toy Store";
+"type.shop.toys" = "Legebutikk";
 
-"type.shop.travel_agency" = "Travel Agency";
+"type.shop.travel_agency" = "Reisebyrå";
 
-"type.shop.tyres" = "Tyre Shop";
+"type.shop.tyres" = "Dekkforretning";
 
-"type.shop.variety_store" = "Variety Store";
+"type.shop.variety_store" = "Billigbutikk";
 
-"type.shop.video" = "Shop";
+"type.shop.video" = "Butikk";
 
-"type.shop.wine" = "Wine Shop";
+"type.shop.wine" = "Alkoholutsalg";
 
 "type.sponsored" = "sponsored";
 
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 
@@ -4200,65 +4198,65 @@
 
 "type.tourism" = "tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.alpine_hut" = "Fjellstue";
 
-"type.tourism.apartment" = "Apartments";
+"type.tourism.apartment" = "Leiligheter";
 
-"type.tourism.artwork" = "Artwork";
+"type.tourism.artwork" = "Kunstverk";
 
-"type.tourism.artwork.architecture" = "Artwork";
+"type.tourism.artwork.architecture" = "Kunstverk";
 
-"type.tourism.artwork.painting" = "Artwork";
+"type.tourism.artwork.painting" = "Kunstverk";
 
-"type.tourism.artwork.sculpture" = "Artwork";
+"type.tourism.artwork.sculpture" = "Kunstverk";
 
-"type.tourism.artwork.statue" = "Artwork";
+"type.tourism.artwork.statue" = "Kunstverk";
 
-"type.tourism.attraction" = "Attraction";
+"type.tourism.attraction" = "Attraksjon";
 
-"type.tourism.attraction.animal" = "Attraction";
+"type.tourism.attraction.animal" = "Attraksjon";
 
-"type.tourism.attraction.specified" = "Attraction";
+"type.tourism.attraction.specified" = "Attraksjon";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "Overnatting i bobiler";
 
-"type.tourism.caravan_site" = "Caravan Site";
+"type.tourism.caravan_site" = "Camping";
 
 "type.tourism.chalet" = "Chalet";
 
-"type.tourism.gallery" = "Gallery";
+"type.tourism.gallery" = "Severdigheter";
 
-"type.tourism.guest_house" = "Guest House";
+"type.tourism.guest_house" = "Gjestehus";
 
-"type.tourism.hostel" = "Hostel";
+"type.tourism.hostel" = "Vandrerhjem";
 
-"type.tourism.hotel" = "Hotel";
+"type.tourism.hotel" = "Hotell";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "Turistinformasjon";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "Informasjonstavle";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "Turistinformasjon";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "Turistkart";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "Turistkontor";
 
-"type.tourism.motel" = "Motel";
+"type.tourism.motel" = "Motell";
 
 "type.tourism.museum" = "Museum";
 
-"type.tourism.picnic_site" = "Picnic Site";
+"type.tourism.picnic_site" = "Rasteplasser";
 
-"type.tourism.resort" = "Resort";
+"type.tourism.resort" = "Ferieresort";
 
-"type.tourism.theme_park" = "Theme park";
+"type.tourism.theme_park" = "Severdigheter";
 
-"type.tourism.viewpoint" = "Viewpoint";
+"type.tourism.viewpoint" = "Utsiktspunkt";
 
-"type.tourism.wilderness_hut" = "Wilderness Hut";
+"type.tourism.wilderness_hut" = "Villmarkshytte";
 
-"type.tourism.zoo" = "Zoo";
+"type.tourism.zoo" = "Dyrehage";
 
 "type.traffic_calming" = "traffic_calming";
 
@@ -4268,9 +4266,9 @@
 
 "type.waterway" = "waterway";
 
-"type.waterway.canal" = "Canal";
+"type.waterway.canal" = "Kanal";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "Kanal";
 
 "type.waterway.dam" = "waterway-dam";
 
@@ -4286,23 +4284,23 @@
 
 "type.waterway.lock" = "waterway-lock";
 
-"type.waterway.lock_gate" = "Lock Gate";
+"type.waterway.lock_gate" = "Sluseport";
 
-"type.waterway.river" = "River";
+"type.waterway.river" = "Elv";
 
-"type.waterway.river.tunnel" = "River";
+"type.waterway.river.tunnel" = "Elv";
 
-"type.waterway.riverbank" = "River";
+"type.waterway.riverbank" = "Elv";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "Elv";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "Elv";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "Elv";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "Elv";
 
-"type.waterway.waterfall" = "Waterfall";
+"type.waterway.waterfall" = "Foss";
 
 "type.waterway.weir" = "waterway-weir";
 

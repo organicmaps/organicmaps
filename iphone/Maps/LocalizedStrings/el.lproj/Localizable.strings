@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Αγαπημένα και εγχειρίδια";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Αφαιρέστε τις διαφημίσεις";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Αφαιρέστε όλες τις διαφημίσεις και υποστηρίξτε το MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Πληρώστε %s/χρόνο";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Εξοικονομήστε %s/χρόνο";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Περισσότερες επιλογές";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Γιατί να υποστηρίξετε το MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/το μήνα (εξοικονομήστε %s/χρόνο)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/βδομάδα (καμία εξοικονόμηση)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Θα αφαιρέσουμε όλες τις διαφημίσεις για σας";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Μας βοηθάτε να βελτιώσουμε το MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Μας βοηθάτε να βελτιώσουμε ανοιχτούς χάρτες στο OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Γίνεται επεξεργασία της αγοράς σας…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Οδηγοί εκτός σύνδεσης για κάθε είδους ταξίδι";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Κατεβάστε και σχεδιάστε τουριστικές διαδρομές για ενδιαφέρουσες τοποθεσίες σε διαφορετικές πόλεις του κόσμου.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Θέλετε να βρείτε δημοφιλείς προορισμούς κοντά σας?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "Η ενότητα «Ανακαλύψτε κοντά» περιέχει τα καλύτερα εστιατόρια, ξενοδοχεία και αξιοθέατα.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Κλείστε τα πιο άνετα ξενοδοχεία για τα ταξίδια σας";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Χρησιμοποιήστε την αναζήτηση και τα φίλτρα για να βρείτε τα καλύτερα ξενοδοχεία για εσάς. Χρησιμοποιήστε το κουμπί «Κράτηση» στην τοπική σελίδα για να κλείσετε άμεσα ένα εστιατόριο.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Δεν ξέρετε σε ποια στάση να συνδεθείτε?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Ενεργοποιήστε το επίπεδο του μετρό για να εμφανίσετε το χάρτη του μετρό, και θα βρίσκετε πάντα το δρόμο σας σε μια νέα πόλη.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Ενημερώσεις χάρτη";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Μη απεσταλμένες κριτικές";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Η αγορά πληροφοριών φορτώνει…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Ένα σφάλμα συνέβη καθώς επεξεργαζόμασταν την αγορά σας";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Αναμονή γονεϊκής συναίνεσης";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Αφήστε μια κριτική! Μοιραστείτε τη γνώμη σας για τις τοποθεσίες που επισκεφθήκατε στις διακοπές σας.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Ο εξυπηρετητής δεν είναι διαθέσιμος";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Συνδεθείτε στο διαδίκτυο για να φιλτράρετε ξενοδοχεία με βάση τις ημερομηνίες.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

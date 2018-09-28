@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "ブックマークとガイド";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "広告を削除";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "すべての広告を削除してMAPS.MEをサポート";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "年間%sの支払い";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "年間%sの節約";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "他のオプション";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "MAPS.MEをサポートする理由";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s／月（%s／年の節約）";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s／週（節約なし）";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "お客さまのためにすべての広告を削除いたします。";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "MAPS.MEの改善にご協力いただいております";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "オープンマップOpenStreetMap.orgの改善にご協力いただいております";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "購入の処理中です…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "さまざまな旅のオフラインガイド";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "世界の異なる都市の興味深い場所をめぐる観光コースをダウンロードして、旅を計画します。";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "近隣の人気スポットをお探しですか？";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "「近隣を探す」セクションには、最高のレストラン、ホテル、名所が含まれます。";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "旅に一番居心地の良いホテルを予約";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "検索と絞り込み機能を使用して、最高のホテルを見つけてください。場所ページの [予約] ボタンを使用して、ホテルを瞬時に予約します。";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "乗り換えの駅が不明ですか？";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "地下鉄レイヤーをオンにして地下鉄の路線図を表示すると、新しい街でどんな時でも行き方を見つけることができます。";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "地図の更新";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "未送信のレビュー";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "購入情報を読み込んでいます…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "お客さまのご購入の処理中にエラーが発生しました";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "ご両親の承認待ちです";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "レビューをお書きください！休暇で訪れた場所についてのご意見を共有してください。";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "サーバーは利用できません";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "ご購入は後ほど完了します。エラーが続く場合は、support@maps.meまでご連絡ください。";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "インターネットに接続して、ホテルを日付で絞り込み検索します。";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

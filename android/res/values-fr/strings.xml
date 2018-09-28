@@ -1366,6 +1366,35 @@
 	<string name="error_already_downloaded_guide">Ce guide a déjà été téléchargé</string>
 	<string name="guide_downloaded_subtitle">Cliquez sur « Voir sur la carte » pour explorer le guide.</string>
 	<string name="bookmarks_guides">Signets et guides</string>
+	<string name="remove_ads">Retirer les publicités</string>
+	<string name="remove_ads_title">Supprimer toutes les annonces et soutenir MAPS.ME</string>
+	<string name="paybtn_title">Payez %s/an</string>
+	<string name="paybtn_subtitle">Économisez %s/an</string>
+	<string name="options_dropdown_title">Plus d\'options</string>
+	<string name="why_support">Pourquoi soutenir MAPS.ME ?</string>
+	<string name="options_dropdown_item1">%1$s/mois (économisez %2$s/an)</string>
+	<string name="options_dropdown_item2">%s/semaine (pas d\'économies)</string>
+	<string name="why_support_item1">Nous allons supprimer toutes les annonces pour vous</string>
+	<string name="why_support_item2">Vous nous aidez à améliorer MAPS.ME</string>
+	<string name="why_support_item3">Vous nous aidez à améliorer les cartes ouvertes OpenStreetMap.org</string>
+	<string name="purchase_processing">Votre commande est en cours de traitement…</string>
+	<string name="tips_bookmarks_catalog_title">Guides hors ligne pour tout type de voyage</string>
+	<string name="tips_bookmarks_catalog_message">Téléchargez et planifiez des itinéraires touristiques sur des sites intéressants dans différentes villes du monde.</string>
+	<string name="tips_discover_button_title">Vous voulez trouver des endroits populaires à proximité ?</string>
+	<string name="tips_discover_button_message">La section «Découvrir les alentours» contient les meilleurs restaurants, hôtels et sites touristiques.</string>
+	<string name="tips_book_hotel_title">Réservez les hôtels les plus confortables pour vos voyages</string>
+	<string name="tips_book_hotel_message">Utilisez la recherche et la sélection pour trouver les meilleurs hôtels pour vous. Utilisez le bouton «Réserver» sur la page d’emplacement pour réserver un hôtel instantanément.</string>
+	<string name="tips_map_layers_title">Vous ne savez pas à quelle station réaliser une connexion ?</string>
+	<string name="tips_map_layers_message">Activez le calque de métro pour afficher la carte de métro, et vous trouverez toujours votre chemin dans une nouvelle ville.</string>
+	<string name="channels_map_update">Mises à jour de la carte</string>
+	<string name="channels_reviews">Commentaires non envoyés</string>
+	<string name="purchase_loading">Les informations d\'achat sont en cours de chargement…</string>
+	<string name="purchase_error_subtitle">Une erreur est survenue lors du traitement de votre achat</string>
+	<string name="awaiting_approval">En attente de l\'approbation d\'un parent</string>
+	<string name="whats_new_leave_review">Laisser un avis Partagez votre opinion sur les lieux que vous avez visités pendant vos vacances.</string>
+	<string name="server_unavailable_title">Le serveur n\'est pas disponible</string>
+	<string name="server_unavailable_message">L\'achat sera complété plus tard. Si l\'erreur persiste, veuillez contacter support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Connectez-vous à Internet pour sélectionner les hôtels par dates.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

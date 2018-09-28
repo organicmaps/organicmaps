@@ -1357,6 +1357,35 @@
 	<string name="error_already_downloaded_guide">Bu el kitabı zaten indirildi</string>
 	<string name="guide_downloaded_subtitle">El kitabını keşfetmek için ‘Haritada görüntüle’ düğmesine bas</string>
 	<string name="bookmarks_guides">Yer imleri ve el kitapları</string>
+	<string name="remove_ads">Reklamları kaldır</string>
+	<string name="remove_ads_title">Tüm reklamları kaldırın ve MAPS.ME\'ye destek olun</string>
+	<string name="paybtn_title">Yıllık %s/ödeyin</string>
+	<string name="paybtn_subtitle">Yıllık %s tasarruf edin</string>
+	<string name="options_dropdown_title">Diğer seçenekler</string>
+	<string name="why_support">MAPS.ME\'yi neden desteklemeliyim?</string>
+	<string name="options_dropdown_item1">%1$s/ay (yıllık %2$s tasarruf)</string>
+	<string name="options_dropdown_item2">%s/hafta (tasarruf yok)</string>
+	<string name="why_support_item1">Sizin için tüm reklamları kaldıracağız</string>
+	<string name="why_support_item2">MAPS.ME\'yi geliştirmemize yardımcı oldunuz</string>
+	<string name="why_support_item3">OpenStreetMap.org\'daki açık haritaları geliştirmemize yardımcı oldunuz</string>
+	<string name="purchase_processing">Alışverişin işleniyor…</string>
+	<string name="tips_bookmarks_catalog_title">Her türlü seyahat için çevrimdışı kılavuzlar</string>
+	<string name="tips_bookmarks_catalog_message">Dünyanın farklı kentlerindeki ilgi çekici noktaları kapsayan turist rotalarını indirin ve bu rotaları planlayın.</string>
+	<string name="tips_discover_button_title">Yakın çevrenizdeki popüler yerleri bulmak ister misiniz?</string>
+	<string name="tips_discover_button_message">“Yakın çevreyi keşfedin” bölümünde en iyi restoranları, otelleri ve görülmesi gereken yerleri bulabilirsiniz.</string>
+	<string name="tips_book_hotel_title">Seyahatiniz için en konforlu otelleri rezerve edin</string>
+	<string name="tips_book_hotel_message">Arama özelliğini ve filtreleri kullanarak sizin için en iyi otelleri bulun. Bir otelde rezervasyon yapmak için konum sayfasındaki “Rezervasyon” düğmesini kullanın.</string>
+	<string name="tips_map_layers_title">Hangi istasyonda aktarma yapacağınızı bilmiyor musunuz?</string>
+	<string name="tips_map_layers_message">Metro haritasını görmek için tek yapmanız gereken metro katmanını açmak, şehirde bir daha hiç kaybolmayacaksınız.</string>
+	<string name="channels_map_update">Harita güncellemeleri</string>
+	<string name="channels_reviews">Gönderilmemiş incelemeler</string>
+	<string name="purchase_loading">Satın alma bilgileri yükleniyor…</string>
+	<string name="purchase_error_subtitle">Satın alma işleminiz işleme koyulurken bir hata oluştu</string>
+	<string name="awaiting_approval">Ebeveyn onayı bekleniyor</string>
+	<string name="whats_new_leave_review">İnceleme yazın! Tatiliniz boyunca ziyaret ettiğiniz yerler hakkındaki görüşlerinizi paylaşın.</string>
+	<string name="server_unavailable_title">Hizmet kullanılamıyor</string>
+	<string name="server_unavailable_message">Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support\@maps.me adresine ulaşın.</string>
+	<string name="offline_fiters_check_in">Otelleri tarihe göre filtrelemek için internete bağlanın.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

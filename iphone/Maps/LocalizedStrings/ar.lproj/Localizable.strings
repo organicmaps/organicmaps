@@ -2314,7 +2314,7 @@
 
 "bookmarks_groups_cached" = "القوائم التي تم تنزيلها";
 
-"author_name_by_prefix" = "بواسطة٪ s";
+"author_name_by_prefix" = "بواسطة%s";
 
 "subtittle_opt_out" = "إعدادات التتبع";
 
@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "العلامات المرجعية والأدلة";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "ازالة الاعلانات";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "إزالة جميع الإعلانات ودعم MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "دفع%s / سنة";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "حفظ%s / سنة";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "مزيد من الخيارات";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "لماذا تدعم MAPS.ME؟";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s / الشهر (حفظ%s / سنة)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s / أسبوع (بدون توفير)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "سنقوم بإزالة جميع الإعلانات لك";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "أنت تساعدنا على تحسين MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "يمكنك مساعدتنا في تحسين خرائط مفتوحة OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "جار معالجة عملية الشراء الخاصة بك…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "أدلة دون اتصال لكل نوع من الرحلة";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "قم بتنزيل وتخطيط الطرق السياحية على مواقع مثيرة للاهتمام في مدن مختلفة من العالم.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "تريد العثور على مواقع شعبية في مكان قريب؟";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "يحتوي قسم «اكتشاف الجوار» على أفضل المطاعم والفنادق والمعالم السياحية.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "حجز الفنادق الأكثر راحة للسفر الخاص بك";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "استخدم البحث و الاختيار للعثور على أفضل الفنادق لك. استخدم زر «حجز» في صفحة مكان الموقع لحجز فندق على الفور.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "لا يمكنك معرفة المحطة لاجراء الاتصال?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "قم بتشغيل طبقة المترو لعرض خريطة مترو الأنفاق ، وستجد طريقك دائمًا في مدينة جديدة.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "تحديثات الخريطة";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "مراجعات لم يتم رسلها";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "يتم تحميل معلومات الشراء …";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "حدث خطأ أثناء معالجة عملية الشراء";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "في انتظار موافقة الوالدين";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "ترك التعليق! شارك برأيك حول المواقع التي زرتها في عطلتك.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "الخدمة غير متوفرة";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "سيتم الانتهاء من الشراء في وقت لاحق. إذا استمر الخطأ ، يرجى الاتصال بـ support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "اتصل بالإنترنت لتصفية الفنادق حسب التواريخ.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

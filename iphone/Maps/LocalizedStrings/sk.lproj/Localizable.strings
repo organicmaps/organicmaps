@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "Záložky a príručky";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "Odstrániť reklamy";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "Odstráňte všetky reklamy a podporte MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "Zaplaťte %s/rok";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "Ušetrite %s/rok";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "Viac možností";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "Prečo podporiť MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/mesačne (ušetrite %s/ročne)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/týždenne (žiadne šetrenie)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "Odstránime pre vás všetky reklamy";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "Pomôžete nám zlepšiť MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "Pomôžete nám vylepšiť otvorené mapy OpenStreetMap.org";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "Váš nákup sa spracováva…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "Offline sprievodcovia pre akýkoľvek druh cesty";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "Stiahnite si a naplánujte turistické trasy na zaujímavých miestach v rôznych mestách sveta.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "Chcete nájsť obľúbené miesta v okolí?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "Sekcia „Poznávajte svoje okolie“ obsahuje najlepšie reštaurácie, hotely a pamiatky.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "Zarezervujte si najútulnejšie hotely pre svoje cesty";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "Pomocou vyhľadávania a filtrov nájdite pre Vás najvhodnejšie hotely. Použite tlačidlo „Rezervovať“ na mieste, kde si môžete rezervovať hotel okamžite.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "Neviete, na ktorú stanicu ísť, ak chcete chytiť spoj?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "Zapnite vrstvu metra a zobrazte mapu metra a v novom meste vždy nájdete cestu.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "Aktualizácia máp";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "Neodoslané recenzie";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "Načítavajú sa informácie o nákupe…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "Počas spracovania nákupu sa vyskytla chyba";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "Očakáva sa schválenie rodiča";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "Zanechať recenziu! Podeľte sa o svoj názor o miestach, ktoré ste navštívili počas dovolenky.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "Server je nedostupný";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support@maps.me.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

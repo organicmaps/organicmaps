@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "书签和导览";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "关闭广告";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "关闭所有广告并支持MAPS.ME";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "支付％s /年";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "节省％s /年";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "其他选择";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "为什么支持MAPS.ME?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/月 (节省％s /年)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/周 (未节省)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "我们将为您关闭所有广告";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "您帮助我们改进MAPS.ME";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "您帮助我们改进OpenStreetMaps.org地图";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "正在处理您的购买订单……";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "所有类型旅行的离线指南";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "下载并设置到世界各地各个城市景点的旅游路线。";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "想在该地区找到受欢迎的机构吗？";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "在“探索周围”部分中收集了最近最好的餐馆、酒店和名胜古迹。";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "请为您的假期预订最舒适的酒店";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "在搜索和过滤器的帮助下，您将找到最好的酒店。点击地点卡中的“预約”键即可立即预订酒店。";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "不知道在哪个地铁站换乘？";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "请打开地图上的地铁图层以显示地铁图，您在新的城市中始终有导航。";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "更新地图";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "未发送的意见";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "加载购买信息……";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "处理购买时出错。";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "我们正在等待父母的确认";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "请留言！分享您对度假时所去过的地方的看法";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "服务不可用";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "购买将在稍后完成。如果错误仍然存在，请联系support@maps.me";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "连接到网络来选择到达和离开的日期。";
 
 
 /**********  Partners  **********/
@@ -2498,19 +2496,19 @@
 
 "type.aerialway.mixed_lift" = "aerialway-mixed_lift";
 
-"type.aerialway.station" = "Aerialway Station";
+"type.aerialway.station" = "缆车车站";
 
 "type.aeroway" = "aeroway";
 
-"type.aeroway.aerodrome" = "Airport";
+"type.aeroway.aerodrome" = "机场";
 
-"type.aeroway.aerodrome.international" = "Airport";
+"type.aeroway.aerodrome.international" = "机场";
 
 "type.aeroway.apron" = "aeroway-apron";
 
 "type.aeroway.gate" = "aeroway-gate";
 
-"type.aeroway.helipad" = "Helipad";
+"type.aeroway.helipad" = "直升机停机坪";
 
 "type.aeroway.runway" = "aeroway-runway";
 
@@ -2522,221 +2520,221 @@
 
 "type.amenity.arts_centre" = "amenity-arts_centre";
 
-"type.amenity.atm" = "ATM";
+"type.amenity.atm" = "自动取款机";
 
-"type.amenity.bank" = "Bank";
+"type.amenity.bank" = "银行";
 
-"type.amenity.bar" = "Bar";
+"type.amenity.bar" = "酒吧";
 
-"type.amenity.bbq" = "Picnic Site";
+"type.amenity.bbq" = "野餐地点";
 
-"type.amenity.bench" = "Bench";
+"type.amenity.bench" = "长凳";
 
-"type.amenity.bicycle_parking" = "Bicycle Parking";
+"type.amenity.bicycle_parking" = "自行车存放处";
 
-"type.amenity.bicycle_rental" = "Bicycle Rental";
+"type.amenity.bicycle_rental" = "自行车租赁";
 
-"type.amenity.biergarten" = "Biergarten";
+"type.amenity.biergarten" = "啤酒花园";
 
-"type.amenity.brothel" = "Brothel";
+"type.amenity.brothel" = "妓院";
 
-"type.amenity.bureau_de_change" = "Currency Exchange";
+"type.amenity.bureau_de_change" = "货币兑换";
 
-"type.amenity.bus_station" = "Bus Station";
+"type.amenity.bus_station" = "公车站";
 
-"type.amenity.cafe" = "Cafe";
+"type.amenity.cafe" = "咖啡馆่";
 
-"type.amenity.car_rental" = "Car Rental";
+"type.amenity.car_rental" = "汽车出租์";
 
-"type.amenity.car_sharing" = "Car Sharing";
+"type.amenity.car_sharing" = "拼车点";
 
-"type.amenity.car_wash" = "Car Wash";
+"type.amenity.car_wash" = "洗车";
 
-"type.amenity.casino" = "Casino";
+"type.amenity.casino" = "赌场";
 
-"type.amenity.charging_station" = "Charging Station";
+"type.amenity.charging_station" = "充电站";
 
-"type.amenity.childcare" = "Nursery";
+"type.amenity.childcare" = "托儿所";
 
-"type.amenity.cinema" = "Cinema";
+"type.amenity.cinema" = "电影院";
 
-"type.amenity.clinic" = "Clinic";
+"type.amenity.clinic" = "诊所";
 
-"type.amenity.college" = "College";
+"type.amenity.college" = "学院";
 
-"type.amenity.community_centre" = "Community Centre";
+"type.amenity.community_centre" = "社区中心";
 
-"type.amenity.courthouse" = "Courthouse";
+"type.amenity.courthouse" = "法院";
 
-"type.amenity.dentist" = "Dentist";
+"type.amenity.dentist" = "牙科医生";
 
-"type.amenity.doctors" = "Doctor";
+"type.amenity.doctors" = "医师办公室";
 
-"type.amenity.drinking_water" = "Drinking Water";
+"type.amenity.drinking_water" = "饮用水";
 
-"type.amenity.driving_school" = "Driving School";
+"type.amenity.driving_school" = "驾校";
 
-"type.amenity.embassy" = "Embassy";
+"type.amenity.embassy" = "使馆";
 
-"type.amenity.fast_food" = "Fast Food";
+"type.amenity.fast_food" = "快餐";
 
-"type.amenity.ferry_terminal" = "Ferry";
+"type.amenity.ferry_terminal" = "渡轮";
 
-"type.amenity.fire_station" = "Fire Station";
+"type.amenity.fire_station" = "消防局";
 
 "type.amenity.food_court" = "amenity-food_court";
 
-"type.amenity.fountain" = "Fountain";
+"type.amenity.fountain" = "喷泉";
 
-"type.amenity.fuel" = "Gas Station";
+"type.amenity.fuel" = "加油站";
 
-"type.amenity.grave_yard" = "Graveyard";
+"type.amenity.grave_yard" = "墓地";
 
-"type.amenity.grave_yard.christian" = "Graveyard";
+"type.amenity.grave_yard.christian" = "墓地";
 
-"type.amenity.hospital" = "Hospital";
+"type.amenity.hospital" = "医院";
 
-"type.amenity.hunting_stand" = "Hunting Stand";
+"type.amenity.hunting_stand" = "狩猎屋";
 
-"type.amenity.ice_cream" = "Ice Cream Stand";
+"type.amenity.ice_cream" = "冰淇淋摊";
 
-"type.amenity.internet_cafe" = "Internet Cafe";
+"type.amenity.internet_cafe" = "网吧";
 
-"type.amenity.kindergarten" = "Kindergarten";
+"type.amenity.kindergarten" = "幼儿园";
 
-"type.amenity.library" = "Library";
+"type.amenity.library" = "图书馆";
 
-"type.amenity.marketplace" = "Marketplace";
+"type.amenity.marketplace" = "市集";
 
-"type.amenity.motorcycle_parking" = "Motorcycle Parking";
+"type.amenity.motorcycle_parking" = "摩托车停车场";
 
-"type.amenity.nightclub" = "Nightclub";
+"type.amenity.nightclub" = "夜总会";
 
-"type.amenity.nursing_home" = "Nursing Home";
+"type.amenity.nursing_home" = "养老院";
 
-"type.amenity.parking" = "Parking";
+"type.amenity.parking" = "停车";
 
-"type.amenity.parking.fee" = "Parking";
+"type.amenity.parking.fee" = "停车";
 
-"type.amenity.parking.multi.storey" = "Parking";
+"type.amenity.parking.multi.storey" = "停车";
 
-"type.amenity.parking.multi.storey.fee" = "Parking";
+"type.amenity.parking.multi.storey.fee" = "停车";
 
-"type.amenity.parking.no.access" = "Parking";
+"type.amenity.parking.no.access" = "停车";
 
-"type.amenity.parking.park_and_ride" = "Parking";
+"type.amenity.parking.park_and_ride" = "停车";
 
-"type.amenity.parking.permissive" = "Parking";
+"type.amenity.parking.permissive" = "停车";
 
-"type.amenity.parking.permissive.fee" = "Parking";
+"type.amenity.parking.permissive.fee" = "停车";
 
-"type.amenity.parking.private" = "Parking";
+"type.amenity.parking.private" = "停车";
 
-"type.amenity.parking.underground" = "Parking";
+"type.amenity.parking.underground" = "停车";
 
-"type.amenity.parking.underground.fee" = "Parking";
+"type.amenity.parking.underground.fee" = "停车";
 
-"type.amenity.payment_terminal" = "Payment Terminal";
+"type.amenity.payment_terminal" = "支付终端";
 
-"type.amenity.pharmacy" = "Pharmacy";
+"type.amenity.pharmacy" = "药店";
 
-"type.amenity.place_of_worship" = "Place of Worship";
+"type.amenity.place_of_worship" = "礼拜场所";
 
-"type.amenity.place_of_worship.buddhist" = "Temple";
+"type.amenity.place_of_worship.buddhist" = "寺庙";
 
-"type.amenity.place_of_worship.christian" = "Church";
+"type.amenity.place_of_worship.christian" = "教堂";
 
-"type.amenity.place_of_worship.hindu" = "Temple";
+"type.amenity.place_of_worship.hindu" = "寺庙";
 
-"type.amenity.place_of_worship.jewish" = "Synagogue";
+"type.amenity.place_of_worship.jewish" = "犹太教堂";
 
-"type.amenity.place_of_worship.muslim" = "Mosque";
+"type.amenity.place_of_worship.muslim" = "清真寺";
 
-"type.amenity.place_of_worship.shinto" = "Shrine";
+"type.amenity.place_of_worship.shinto" = "圣殿";
 
-"type.amenity.place_of_worship.taoist" = "Temple";
+"type.amenity.place_of_worship.taoist" = "寺庙";
 
-"type.amenity.police" = "Police";
+"type.amenity.police" = "警察";
 
-"type.amenity.post_box" = "Postbox";
+"type.amenity.post_box" = "邮箱";
 
-"type.amenity.post_office" = "Post";
+"type.amenity.post_office" = "邮政";
 
 "type.amenity.prison" = "amenity-prison";
 
-"type.amenity.pub" = "Pub";
+"type.amenity.pub" = "酒馆";
 
-"type.amenity.public_bookcase" = "Book Exchange";
+"type.amenity.public_bookcase" = "书架";
 
-"type.amenity.recycling" = "Recycling Center";
+"type.amenity.recycling" = "回收中心";
 
-"type.amenity.restaurant" = "Restaurant";
+"type.amenity.restaurant" = "餐厅";
 
-"type.amenity.school" = "School";
+"type.amenity.school" = "学校";
 
-"type.amenity.shelter" = "Shelter";
+"type.amenity.shelter" = "庇护所";
 
-"type.amenity.shower" = "Shower";
+"type.amenity.shower" = "淋浴";
 
 "type.amenity.speed_trap" = "amenity-speed_trap";
 
-"type.amenity.taxi" = "Taxi";
+"type.amenity.taxi" = "出租车";
 
-"type.amenity.telephone" = "Phone";
+"type.amenity.telephone" = "手机";
 
-"type.amenity.theatre" = "Theatre";
+"type.amenity.theatre" = "剧院";
 
-"type.amenity.toilets" = "Toilet";
+"type.amenity.toilets" = "厕所";
 
-"type.amenity.townhall" = "Town Hall";
+"type.amenity.townhall" = "市政厅";
 
-"type.amenity.university" = "University";
+"type.amenity.university" = "大学";
 
 "type.amenity.vending_machine" = "amenity-vending_machine";
 
-"type.amenity.vending_machine.cigarettes" = "Cigarette Dispenser";
+"type.amenity.vending_machine.cigarettes" = "自动售烟机";
 
-"type.amenity.vending_machine.drinks" = "Drink Dispenser";
+"type.amenity.vending_machine.drinks" = "饮料售卖机";
 
-"type.amenity.vending_machine.parking_tickets" = "Parking Tickets";
+"type.amenity.vending_machine.parking_tickets" = "停车场付费机";
 
 "type.amenity.vending_machine.public_transport_tickets" = "amenity-vending_machine-public_transport_tickets";
 
-"type.amenity.veterinary" = "Veterinary Doctor";
+"type.amenity.veterinary" = "兽医";
 
-"type.amenity.waste_basket" = "Trash Bin";
+"type.amenity.waste_basket" = "垃圾篓";
 
-"type.amenity.waste_disposal" = "Dumpster";
+"type.amenity.waste_disposal" = "垃圾";
 
-"type.amenity.water_point" = "Water Point";
+"type.amenity.water_point" = "取水点";
 
 "type.barrier" = "barrier";
 
-"type.barrier.block" = "Block";
+"type.barrier.block" = "障碍";
 
-"type.barrier.bollard" = "Pillar";
+"type.barrier.bollard" = "柱子";
 
-"type.barrier.border_control" = "Border Control";
+"type.barrier.border_control" = "边检";
 
 "type.barrier.city_wall" = "barrier-city_wall";
 
 "type.barrier.cycle_barrier" = "barrier-cycle_barrier";
 
-"type.barrier.entrance" = "Entrance";
+"type.barrier.entrance" = "入口";
 
 "type.barrier.fence" = "barrier-fence";
 
-"type.barrier.gate" = "Gate";
+"type.barrier.gate" = "门";
 
 "type.barrier.hedge" = "barrier-hedge";
 
-"type.barrier.lift_gate" = "Lift Gate";
+"type.barrier.lift_gate" = "水栅门";
 
 "type.barrier.retaining_wall" = "barrier-retaining_wall";
 
-"type.barrier.stile" = "Stile";
+"type.barrier.stile" = "台阶";
 
-"type.barrier.toll_booth" = "Toll Booth";
+"type.barrier.toll_booth" = "收费亭";
 
 "type.barrier.wall" = "barrier-wall";
 
@@ -2784,15 +2782,15 @@
 
 "type.boundary.national_park" = "boundary-national_park";
 
-"type.building" = "Building";
+"type.building" = "建筑";
 
-"type.building.address" = "Building";
+"type.building.address" = "建筑";
 
-"type.building.garage" = "Garage";
+"type.building.garage" = "车库";
 
-"type.building.has_parts" = "Building";
+"type.building.has_parts" = "建筑";
 
-"type.building.train_station" = "Train Station";
+"type.building.train_station" = "火车站ี";
 
 "type.communication" = "communication";
 
@@ -2802,27 +2800,27 @@
 
 "type.craft" = "craft";
 
-"type.craft.brewery" = "Craft brewery";
+"type.craft.brewery" = "酿酒厂";
 
-"type.craft.carpenter" = "Carpenter";
+"type.craft.carpenter" = "木工";
 
-"type.craft.electrician" = "Electrician";
+"type.craft.electrician" = "电工";
 
-"type.craft.gardener" = "Gardener";
+"type.craft.gardener" = "园林设计师";
 
-"type.craft.hvac" = "Hvac";
+"type.craft.hvac" = "暖通工程师";
 
-"type.craft.metal_construction" = "Metal Worker";
+"type.craft.metal_construction" = "金属制造工";
 
-"type.craft.painter" = "Painter";
+"type.craft.painter" = "油漆匠";
 
-"type.craft.photographer" = "Photographer";
+"type.craft.photographer" = "摄影师";
 
-"type.craft.plumber" = "Plumber";
+"type.craft.plumber" = "管道工";
 
-"type.craft.shoemaker" = "Shoe Repair";
+"type.craft.shoemaker" = "修鞋匠";
 
-"type.craft.tailor" = "Tailor";
+"type.craft.tailor" = "裁缝";
 
 "type.cuisine.african" = "非洲菜";
 
@@ -2996,13 +2994,13 @@
 
 "type.emergency" = "emergency";
 
-"type.emergency.defibrillator" = "Defibrillator";
+"type.emergency.defibrillator" = "除颤器";
 
-"type.emergency.fire_hydrant" = "Fire Hydrant";
+"type.emergency.fire_hydrant" = "消防栓";
 
-"type.emergency.phone" = "Emergency Phone";
+"type.emergency.phone" = "紧急电话";
 
-"type.entrance" = "Entrance";
+"type.entrance" = "入口";
 
 "type.highway" = "highway";
 
@@ -3014,7 +3012,7 @@
 
 "type.highway.bridleway.tunnel" = "highway-bridleway-tunnel";
 
-"type.highway.bus_stop" = "Bus Stop";
+"type.highway.bus_stop" = "公交车站";
 
 "type.highway.construction" = "highway-construction";
 
@@ -3026,223 +3024,223 @@
 
 "type.highway.cycleway.tunnel" = "highway-cycleway-tunnel";
 
-"type.highway.footway" = "Path";
+"type.highway.footway" = "路径";
 
-"type.highway.footway.alpine_hiking" = "Path";
+"type.highway.footway.alpine_hiking" = "路径";
 
-"type.highway.footway.area" = "Path";
+"type.highway.footway.area" = "路径";
 
-"type.highway.footway.bridge" = "Path";
+"type.highway.footway.bridge" = "路径";
 
-"type.highway.footway.demanding_alpine_hiking" = "Path";
+"type.highway.footway.demanding_alpine_hiking" = "路径";
 
-"type.highway.footway.demanding_mountain_hiking" = "Path";
+"type.highway.footway.demanding_mountain_hiking" = "路径";
 
-"type.highway.footway.difficult_alpine_hiking" = "Path";
+"type.highway.footway.difficult_alpine_hiking" = "路径";
 
-"type.highway.footway.hiking" = "Path";
+"type.highway.footway.hiking" = "路径";
 
-"type.highway.footway.mountain_hiking" = "Path";
+"type.highway.footway.mountain_hiking" = "路径";
 
-"type.highway.footway.permissive" = "Path";
+"type.highway.footway.permissive" = "路径";
 
-"type.highway.footway.tunnel" = "Path";
+"type.highway.footway.tunnel" = "路径";
 
 "type.highway.ford" = "highway-ford";
 
-"type.highway.living_street" = "Street";
+"type.highway.living_street" = "街头";
 
-"type.highway.living_street.bridge" = "Street";
+"type.highway.living_street.bridge" = "街头";
 
-"type.highway.living_street.tunnel" = "Street";
+"type.highway.living_street.tunnel" = "街头";
 
-"type.highway.motorway" = "Street";
+"type.highway.motorway" = "街头";
 
-"type.highway.motorway.bridge" = "Street";
+"type.highway.motorway.bridge" = "街头";
 
-"type.highway.motorway.tunnel" = "Street";
+"type.highway.motorway.tunnel" = "街头";
 
-"type.highway.motorway_junction" = "Exit";
+"type.highway.motorway_junction" = "出口";
 
-"type.highway.motorway_link" = "Street";
+"type.highway.motorway_link" = "街头";
 
-"type.highway.motorway_link.bridge" = "Street";
+"type.highway.motorway_link.bridge" = "街头";
 
-"type.highway.motorway_link.tunnel" = "Street";
+"type.highway.motorway_link.tunnel" = "街头";
 
-"type.highway.path" = "Path";
+"type.highway.path" = "路径";
 
-"type.highway.path.alpine_hiking" = "Path";
+"type.highway.path.alpine_hiking" = "路径";
 
-"type.highway.path.bicycle" = "Path";
+"type.highway.path.bicycle" = "路径";
 
-"type.highway.path.bridge" = "Path";
+"type.highway.path.bridge" = "路径";
 
-"type.highway.path.demanding_alpine_hiking" = "Path";
+"type.highway.path.demanding_alpine_hiking" = "路径";
 
-"type.highway.path.demanding_mountain_hiking" = "Path";
+"type.highway.path.demanding_mountain_hiking" = "路径";
 
-"type.highway.path.difficult_alpine_hiking" = "Path";
+"type.highway.path.difficult_alpine_hiking" = "路径";
 
-"type.highway.path.hiking" = "Path";
+"type.highway.path.hiking" = "路径";
 
-"type.highway.path.horse" = "Path";
+"type.highway.path.horse" = "路径";
 
-"type.highway.path.mountain_hiking" = "Path";
+"type.highway.path.mountain_hiking" = "路径";
 
-"type.highway.path.permissive" = "Path";
+"type.highway.path.permissive" = "路径";
 
-"type.highway.path.tunnel" = "Path";
+"type.highway.path.tunnel" = "路径";
 
-"type.highway.pedestrian" = "Street";
+"type.highway.pedestrian" = "街头";
 
-"type.highway.pedestrian.area" = "Street";
+"type.highway.pedestrian.area" = "街头";
 
-"type.highway.pedestrian.bridge" = "Street";
+"type.highway.pedestrian.bridge" = "街头";
 
-"type.highway.pedestrian.tunnel" = "Street";
+"type.highway.pedestrian.tunnel" = "街头";
 
 "type.highway.platform" = "highway-platform";
 
-"type.highway.primary" = "Street";
+"type.highway.primary" = "街头";
 
-"type.highway.primary.bridge" = "Street";
+"type.highway.primary.bridge" = "街头";
 
-"type.highway.primary.tunnel" = "Street";
+"type.highway.primary.tunnel" = "街头";
 
-"type.highway.primary_link" = "Street";
+"type.highway.primary_link" = "街头";
 
-"type.highway.primary_link.bridge" = "Street";
+"type.highway.primary_link.bridge" = "街头";
 
-"type.highway.primary_link.tunnel" = "Street";
+"type.highway.primary_link.tunnel" = "街头";
 
 "type.highway.proposed" = "highway-proposed";
 
-"type.highway.raceway" = "Racetrack";
+"type.highway.raceway" = "跑马场";
 
-"type.highway.residential" = "Street";
+"type.highway.residential" = "街头";
 
-"type.highway.residential.area" = "Street";
+"type.highway.residential.area" = "街头";
 
-"type.highway.residential.bridge" = "Street";
+"type.highway.residential.bridge" = "街头";
 
-"type.highway.residential.tunnel" = "Street";
+"type.highway.residential.tunnel" = "街头";
 
-"type.highway.rest_area" = "Highway Rest Area";
+"type.highway.rest_area" = "休息区";
 
-"type.highway.road" = "Street";
+"type.highway.road" = "街头";
 
-"type.highway.road.bridge" = "Street";
+"type.highway.road.bridge" = "街头";
 
-"type.highway.road.tunnel" = "Street";
+"type.highway.road.tunnel" = "街头";
 
-"type.highway.secondary" = "Street";
+"type.highway.secondary" = "街头";
 
-"type.highway.secondary.bridge" = "Street";
+"type.highway.secondary.bridge" = "街头";
 
-"type.highway.secondary.tunnel" = "Street";
+"type.highway.secondary.tunnel" = "街头";
 
-"type.highway.secondary_link" = "Street";
+"type.highway.secondary_link" = "街头";
 
-"type.highway.secondary_link.bridge" = "Street";
+"type.highway.secondary_link.bridge" = "街头";
 
-"type.highway.secondary_link.tunnel" = "Street";
+"type.highway.secondary_link.tunnel" = "街头";
 
-"type.highway.service" = "Street";
+"type.highway.service" = "街头";
 
-"type.highway.service.area" = "Street";
+"type.highway.service.area" = "街头";
 
-"type.highway.service.bridge" = "Street";
+"type.highway.service.bridge" = "街头";
 
-"type.highway.service.driveway" = "Street";
+"type.highway.service.driveway" = "街头";
 
-"type.highway.service.driveway.area" = "Street";
+"type.highway.service.driveway.area" = "街头";
 
-"type.highway.service.driveway.bridge" = "Street";
+"type.highway.service.driveway.bridge" = "街头";
 
-"type.highway.service.driveway.tunnel" = "Street";
+"type.highway.service.driveway.tunnel" = "街头";
 
-"type.highway.service.parking_aisle" = "Street";
+"type.highway.service.parking_aisle" = "街头";
 
-"type.highway.service.tunnel" = "Street";
+"type.highway.service.tunnel" = "街头";
 
 "type.highway.services" = "highway-services";
 
-"type.highway.speed_camera" = "Speed Camera";
+"type.highway.speed_camera" = "测速照相机";
 
-"type.highway.steps" = "Path";
+"type.highway.steps" = "路径";
 
-"type.highway.steps.bridge" = "Path";
+"type.highway.steps.bridge" = "路径";
 
-"type.highway.steps.tunnel" = "Path";
+"type.highway.steps.tunnel" = "路径";
 
-"type.highway.tertiary" = "Street";
+"type.highway.tertiary" = "街头";
 
-"type.highway.tertiary.bridge" = "Street";
+"type.highway.tertiary.bridge" = "街头";
 
-"type.highway.tertiary.tunnel" = "Street";
+"type.highway.tertiary.tunnel" = "街头";
 
-"type.highway.tertiary_link" = "Street";
+"type.highway.tertiary_link" = "街头";
 
-"type.highway.tertiary_link.bridge" = "Street";
+"type.highway.tertiary_link.bridge" = "街头";
 
-"type.highway.tertiary_link.tunnel" = "Street";
+"type.highway.tertiary_link.tunnel" = "街头";
 
-"type.highway.track" = "Street";
+"type.highway.track" = "街头";
 
-"type.highway.track.area" = "Street";
+"type.highway.track.area" = "街头";
 
-"type.highway.track.bridge" = "Street";
+"type.highway.track.bridge" = "街头";
 
-"type.highway.track.grade1" = "Street";
+"type.highway.track.grade1" = "街头";
 
-"type.highway.track.grade2" = "Street";
+"type.highway.track.grade2" = "街头";
 
-"type.highway.track.grade3" = "Street";
+"type.highway.track.grade3" = "街头";
 
-"type.highway.track.grade3.no.access" = "Street";
+"type.highway.track.grade3.no.access" = "街头";
 
-"type.highway.track.grade3.permissive" = "Street";
+"type.highway.track.grade3.permissive" = "街头";
 
-"type.highway.track.grade4" = "Street";
+"type.highway.track.grade4" = "街头";
 
-"type.highway.track.grade4.no.access" = "Street";
+"type.highway.track.grade4.no.access" = "街头";
 
-"type.highway.track.grade4.permissive" = "Street";
+"type.highway.track.grade4.permissive" = "街头";
 
-"type.highway.track.grade5" = "Street";
+"type.highway.track.grade5" = "街头";
 
-"type.highway.track.grade5.no.access" = "Street";
+"type.highway.track.grade5.no.access" = "街头";
 
-"type.highway.track.grade5.permissive" = "Street";
+"type.highway.track.grade5.permissive" = "街头";
 
-"type.highway.track.no.access" = "Street";
+"type.highway.track.no.access" = "街头";
 
-"type.highway.track.permissive" = "Street";
+"type.highway.track.permissive" = "街头";
 
-"type.highway.track.tunnel" = "Street";
+"type.highway.track.tunnel" = "街头";
 
-"type.highway.traffic_signals" = "Traffic Lights";
+"type.highway.traffic_signals" = "交通信号灯";
 
-"type.highway.trunk" = "Street";
+"type.highway.trunk" = "街头";
 
-"type.highway.trunk.bridge" = "Street";
+"type.highway.trunk.bridge" = "街头";
 
-"type.highway.trunk.tunnel" = "Street";
+"type.highway.trunk.tunnel" = "街头";
 
-"type.highway.trunk_link" = "Street";
+"type.highway.trunk_link" = "街头";
 
-"type.highway.trunk_link.bridge" = "Street";
+"type.highway.trunk_link.bridge" = "街头";
 
-"type.highway.trunk_link.tunnel" = "Street";
+"type.highway.trunk_link.tunnel" = "街头";
 
-"type.highway.unclassified" = "Street";
+"type.highway.unclassified" = "街头";
 
-"type.highway.unclassified.area" = "Street";
+"type.highway.unclassified.area" = "街头";
 
-"type.highway.unclassified.bridge" = "Street";
+"type.highway.unclassified.bridge" = "街头";
 
-"type.highway.unclassified.tunnel" = "Street";
+"type.highway.unclassified.tunnel" = "街头";
 
 "type.highway.world_level" = "highway-world_level";
 
@@ -3250,39 +3248,39 @@
 
 "type.historic" = "historic";
 
-"type.historic.archaeological_site" = "Archaeological Site";
+"type.historic.archaeological_site" = "考古遗址";
 
 "type.historic.battlefield" = "historic-battlefield";
 
 "type.historic.boundary_stone" = "historic-boundary_stone";
 
-"type.historic.castle" = "Castle";
+"type.historic.castle" = "城堡";
 
-"type.historic.castle.defensive" = "Castle";
+"type.historic.castle.defensive" = "城堡";
 
-"type.historic.castle.stately" = "Castle";
+"type.historic.castle.stately" = "城堡";
 
 "type.historic.citywalls" = "historic-citywalls";
 
 "type.historic.fort" = "historic-fort";
 
-"type.historic.memorial" = "Memorial";
+"type.historic.memorial" = "纪念馆";
 
-"type.historic.memorial.plaque" = "Memorial";
+"type.historic.memorial.plaque" = "纪念馆";
 
-"type.historic.memorial.sculpture" = "Memorial";
+"type.historic.memorial.sculpture" = "纪念馆";
 
-"type.historic.memorial.statue" = "Memorial";
+"type.historic.memorial.statue" = "纪念馆";
 
-"type.historic.monument" = "Monument";
+"type.historic.monument" = "纪念碑";
 
 "type.historic.museum" = "historic-museum";
 
-"type.historic.ruins" = "Ruins";
+"type.historic.ruins" = "废墟";
 
-"type.historic.ship" = "Ship";
+"type.historic.ship" = "景点";
 
-"type.historic.tomb" = "Tomb";
+"type.historic.tomb" = "景点";
 
 "type.historic.wayside_cross" = "historic-wayside_cross";
 
@@ -3312,9 +3310,9 @@
 
 "type.hwtag.yesfoot" = "hwtag-yesfoot";
 
-"type.internet_access" = "Internet";
+"type.internet_access" = "互联网";
 
-"type.internet_access.wlan" = "Internet";
+"type.internet_access.wlan" = "互联网";
 
 "type.junction" = "junction";
 
@@ -3324,13 +3322,13 @@
 
 "type.landuse.allotments" = "landuse-allotments";
 
-"type.landuse.basin" = "Water";
+"type.landuse.basin" = "水";
 
 "type.landuse.brownfield" = "landuse-brownfield";
 
-"type.landuse.cemetery" = "Graveyard";
+"type.landuse.cemetery" = "墓地";
 
-"type.landuse.cemetery.christian" = "Graveyard";
+"type.landuse.cemetery.christian" = "墓地";
 
 "type.landuse.commercial" = "landuse-commercial";
 
@@ -3344,13 +3342,13 @@
 
 "type.landuse.field" = "landuse-field";
 
-"type.landuse.forest" = "Forest";
+"type.landuse.forest" = "森林";
 
-"type.landuse.forest.coniferous" = "Forest";
+"type.landuse.forest.coniferous" = "森林";
 
-"type.landuse.forest.deciduous" = "Forest";
+"type.landuse.forest.deciduous" = "森林";
 
-"type.landuse.forest.mixed" = "Forest";
+"type.landuse.forest.mixed" = "森林";
 
 "type.landuse.garages" = "landuse-garages";
 
@@ -3376,7 +3374,7 @@
 
 "type.landuse.recreation_ground" = "landuse-recreation_ground";
 
-"type.landuse.reservoir" = "Water";
+"type.landuse.reservoir" = "水";
 
 "type.landuse.residential" = "landuse-residential";
 
@@ -3400,13 +3398,13 @@
 
 "type.leisure.dog_park.tennis" = "Dog area";
 
-"type.leisure.fitness_centre" = "Fitness Centre";
+"type.leisure.fitness_centre" = "健身中心";
 
-"type.leisure.fitness_station" = "Fitness Station";
+"type.leisure.fitness_station" = "健身驿站";
 
-"type.leisure.garden" = "Garden";
+"type.leisure.garden" = "花园";
 
-"type.leisure.golf_course" = "Golf Course";
+"type.leisure.golf_course" = "高尔夫球场";
 
 "type.leisure.ice_rink" = "leisure-ice_rink";
 
@@ -3416,21 +3414,21 @@
 
 "type.leisure.nature_reserve" = "leisure-nature_reserve";
 
-"type.leisure.park" = "Park";
+"type.leisure.park" = "公园";
 
-"type.leisure.park.no.access" = "Park";
+"type.leisure.park.no.access" = "公园";
 
-"type.leisure.park.permissive" = "Park";
+"type.leisure.park.permissive" = "公园";
 
-"type.leisure.park.private" = "Park";
+"type.leisure.park.private" = "公园";
 
-"type.leisure.pitch" = "Sports Ground";
+"type.leisure.pitch" = "球场";
 
-"type.leisure.pitch.tennis" = "Sports Ground";
+"type.leisure.pitch.tennis" = "球场";
 
-"type.leisure.playground" = "Playground";
+"type.leisure.playground" = "操场";
 
-"type.leisure.playground.tennis" = "Playground";
+"type.leisure.playground.tennis" = "操场";
 
 "type.leisure.playing_fields" = "leisure-playing_fields";
 
@@ -3438,27 +3436,27 @@
 
 "type.leisure.recreation_ground" = "leisure-recreation_ground";
 
-"type.leisure.sauna" = "Sauna";
+"type.leisure.sauna" = "桑拿";
 
 "type.leisure.slipway" = "leisure-slipway";
 
-"type.leisure.sports_centre" = "Sports Center";
+"type.leisure.sports_centre" = "运动";
 
-"type.leisure.sports_centre.climbing" = "Climbing Centre";
+"type.leisure.sports_centre.climbing" = "攀登中心";
 
-"type.leisure.sports_centre.shooting" = "Shooting Range";
+"type.leisure.sports_centre.shooting" = "射击域";
 
-"type.leisure.sports_centre.swimming" = "Swimming Centre";
+"type.leisure.sports_centre.swimming" = "游泳中心";
 
-"type.leisure.sports_centre.yoga" = "Yoga Studio";
+"type.leisure.sports_centre.yoga" = "瑜伽工作室";
 
-"type.leisure.stadium" = "Stadium";
+"type.leisure.stadium" = "体育场";
 
-"type.leisure.swimming_pool" = "Swimming Pool";
+"type.leisure.swimming_pool" = "游泳池";
 
 "type.leisure.track" = "leisure-track";
 
-"type.leisure.water_park" = "Water Park";
+"type.leisure.water_park" = "水上乐园";
 
 "type.man_made" = "man_made";
 
@@ -3466,11 +3464,11 @@
 
 "type.man_made.cairn" = "man_made-cairn";
 
-"type.man_made.chimney" = "Factory Chimney";
+"type.man_made.chimney" = "工厂烟囱";
 
 "type.man_made.cutline" = "man_made-cutline";
 
-"type.man_made.lighthouse" = "Lighthouse";
+"type.man_made.lighthouse" = "灯塔";
 
 "type.man_made.pier" = "man_made-pier";
 
@@ -3478,19 +3476,19 @@
 
 "type.man_made.pipeline.overground" = "man_made-pipeline-overground";
 
-"type.man_made.surveillance" = "Surveillance Camera";
+"type.man_made.surveillance" = "监控摄像头";
 
-"type.man_made.tower" = "Tower";
+"type.man_made.tower" = "高塔";
 
 "type.man_made.wastewater_plant" = "man_made-wastewater_plant";
 
-"type.man_made.water_tap" = "Water Tap";
+"type.man_made.water_tap" = "水龙头";
 
-"type.man_made.water_tower" = "Water Tower";
+"type.man_made.water_tower" = "水塔";
 
-"type.man_made.water_well" = "Water Well";
+"type.man_made.water_well" = "水井";
 
-"type.man_made.windmill" = "Windmill";
+"type.man_made.windmill" = "风车";
 
 "type.man_made.works" = "man_made-works";
 
@@ -3512,7 +3510,7 @@
 
 "type.military" = "military";
 
-"type.military.bunker" = "Bunker";
+"type.military.bunker" = "地堡";
 
 "type.natural" = "natural";
 
@@ -3520,11 +3518,11 @@
 
 "type.natural.bay" = "Bay";
 
-"type.natural.beach" = "Beach";
+"type.natural.beach" = "海滩";
 
 "type.natural.cape" = "natural-cape";
 
-"type.natural.cave_entrance" = "Cave Entrance";
+"type.natural.cave_entrance" = "山洞入口";
 
 "type.natural.cliff" = "natural-cliff";
 
@@ -3536,7 +3534,7 @@
 
 "type.natural.heath" = "natural-heath";
 
-"type.natural.lake" = "Lake";
+"type.natural.lake" = "湖";
 
 "type.natural.land" = "natural-land";
 
@@ -3544,9 +3542,9 @@
 
 "type.natural.orchard" = "natural-orchard";
 
-"type.natural.peak" = "Peak";
+"type.natural.peak" = "峰";
 
-"type.natural.pond" = "Pond";
+"type.natural.pond" = "池塘";
 
 "type.natural.rock" = "natural-rock";
 
@@ -3554,17 +3552,17 @@
 
 "type.natural.scrub" = "natural-scrub";
 
-"type.natural.spring" = "Spring";
+"type.natural.spring" = "海湾";
 
-"type.natural.tree" = "Tree";
+"type.natural.tree" = "树";
 
 "type.natural.tree_row" = "natural-tree_row";
 
 "type.natural.vineyard" = "natural-vineyard";
 
-"type.natural.volcano" = "Volcano";
+"type.natural.volcano" = "火山";
 
-"type.natural.water" = "Water";
+"type.natural.water" = "水";
 
 "type.natural.wetland" = "natural-wetland";
 
@@ -3572,33 +3570,33 @@
 
 "type.natural.wetland.marsh" = "natural-wetland-marsh";
 
-"type.natural.wood" = "Forest";
+"type.natural.wood" = "森林";
 
-"type.natural.wood.coniferous" = "Forest";
+"type.natural.wood.coniferous" = "森林";
 
-"type.natural.wood.deciduous" = "Forest";
+"type.natural.wood.deciduous" = "森林";
 
-"type.natural.wood.mixed" = "Forest";
+"type.natural.wood.mixed" = "森林";
 
 "type.noexit" = "noexit";
 
 "type.noexit.motor_vehicle" = "noexit-motor_vehicle";
 
-"type.office" = "Office";
+"type.office" = "办公室";
 
-"type.office.company" = "Company Office";
+"type.office.company" = "公司办公室";
 
-"type.office.estate_agent" = "Estate Agent";
+"type.office.estate_agent" = "房屋中介";
 
-"type.office.government" = "Government Office";
+"type.office.government" = "政府机构";
 
-"type.office.insurance" = "Insurance Office";
+"type.office.insurance" = "保险机构";
 
-"type.office.lawyer" = "Lawyer";
+"type.office.lawyer" = "律师事务所";
 
-"type.office.ngo" = "NGO Office";
+"type.office.ngo" = "非政府组织办公室";
 
-"type.office.telecommunication" = "Mobile Operator";
+"type.office.telecommunication" = "移动运营商";
 
 "type.olympics" = "olympics";
 
@@ -3632,67 +3630,67 @@
 
 "type.place" = "place";
 
-"type.place.city" = "City";
+"type.place.city" = "城市";
 
-"type.place.city.capital" = "Capital";
+"type.place.city.capital" = "资本";
 
-"type.place.city.capital.10" = "Capital";
+"type.place.city.capital.10" = "资本";
 
-"type.place.city.capital.11" = "Capital";
+"type.place.city.capital.11" = "资本";
 
-"type.place.city.capital.2" = "Capital";
+"type.place.city.capital.2" = "资本";
 
-"type.place.city.capital.3" = "Capital";
+"type.place.city.capital.3" = "资本";
 
-"type.place.city.capital.4" = "Capital";
+"type.place.city.capital.4" = "资本";
 
-"type.place.city.capital.5" = "Capital";
+"type.place.city.capital.5" = "资本";
 
-"type.place.city.capital.6" = "Capital";
+"type.place.city.capital.6" = "资本";
 
-"type.place.city.capital.7" = "Capital";
+"type.place.city.capital.7" = "资本";
 
-"type.place.city.capital.8" = "Capital";
+"type.place.city.capital.8" = "资本";
 
-"type.place.city.capital.9" = "Capital";
+"type.place.city.capital.9" = "资本";
 
-"type.place.continent" = "Continent";
+"type.place.continent" = "大陆";
 
-"type.place.country" = "Country";
+"type.place.country" = "国家";
 
-"type.place.county" = "County";
+"type.place.county" = "国家";
 
-"type.place.farm" = "Farm";
+"type.place.farm" = "农场";
 
-"type.place.hamlet" = "Hamlet";
+"type.place.hamlet" = "村庄";
 
-"type.place.island" = "Island";
+"type.place.island" = "岛";
 
-"type.place.islet" = "Island";
+"type.place.islet" = "岛";
 
 "type.place.isolated_dwelling" = "place-isolated_dwelling";
 
-"type.place.locality" = "Locality";
+"type.place.locality" = "地方";
 
 "type.place.neighbourhood" = "place-neighbourhood";
 
-"type.place.ocean" = "Ocean";
+"type.place.ocean" = "海洋";
 
-"type.place.region" = "Region";
+"type.place.region" = "区域";
 
-"type.place.sea" = "Sea";
+"type.place.sea" = "是";
 
 "type.place.square" = "place-square";
 
-"type.place.state" = "State";
+"type.place.state" = "州";
 
-"type.place.state.USA" = "State";
+"type.place.state.USA" = "州";
 
-"type.place.suburb" = "Suburb";
+"type.place.suburb" = "市郊";
 
-"type.place.town" = "Town";
+"type.place.town" = "镇";
 
-"type.place.village" = "Village";
+"type.place.village" = "村";
 
 "type.power" = "power";
 
@@ -3710,13 +3708,13 @@
 
 "type.power.minor_line" = "power-minor_line";
 
-"type.power.pole" = "Power Tower";
+"type.power.pole" = "电线杆";
 
 "type.power.station" = "power-station";
 
-"type.power.substation" = "Substation";
+"type.power.substation" = "变电站";
 
-"type.power.tower" = "Power Tower";
+"type.power.tower" = "电线杆";
 
 "type.psurface" = "psurface";
 
@@ -3752,7 +3750,7 @@
 
 "type.railway.funicular.tunnel" = "railway-funicular-tunnel";
 
-"type.railway.halt" = "Train Station";
+"type.railway.halt" = "火车站ี";
 
 "type.railway.incline" = "railway-incline";
 
@@ -3812,61 +3810,61 @@
 
 "type.railway.spur.tunnel" = "railway-spur-tunnel";
 
-"type.railway.station" = "Train Station";
+"type.railway.station" = "火车站ี";
 
-"type.railway.station.light_rail" = "Train Station";
+"type.railway.station.light_rail" = "火车站ี";
 
-"type.railway.station.monorail" = "Train Station";
+"type.railway.station.monorail" = "火车站ี";
 
-"type.railway.station.subway" = "Subway";
+"type.railway.station.subway" = "地铁";
 
-"type.railway.station.subway.barcelona" = "Subway";
+"type.railway.station.subway.barcelona" = "地铁";
 
-"type.railway.station.subway.berlin" = "Subway";
+"type.railway.station.subway.berlin" = "地铁";
 
-"type.railway.station.subway.blue" = "Subway";
+"type.railway.station.subway.blue" = "地铁";
 
-"type.railway.station.subway.brown" = "Subway";
+"type.railway.station.subway.brown" = "地铁";
 
-"type.railway.station.subway.darkgreen" = "Subway";
+"type.railway.station.subway.darkgreen" = "地铁";
 
-"type.railway.station.subway.gray" = "Subway";
+"type.railway.station.subway.gray" = "地铁";
 
-"type.railway.station.subway.green" = "Subway";
+"type.railway.station.subway.green" = "地铁";
 
-"type.railway.station.subway.grey" = "Subway";
+"type.railway.station.subway.grey" = "地铁";
 
-"type.railway.station.subway.kiev" = "Subway";
+"type.railway.station.subway.kiev" = "地铁";
 
-"type.railway.station.subway.lightblue" = "Subway";
+"type.railway.station.subway.lightblue" = "地铁";
 
-"type.railway.station.subway.lightgreen" = "Subway";
+"type.railway.station.subway.lightgreen" = "地铁";
 
-"type.railway.station.subway.london" = "Subway";
+"type.railway.station.subway.london" = "地铁";
 
-"type.railway.station.subway.madrid" = "Subway";
+"type.railway.station.subway.madrid" = "地铁";
 
-"type.railway.station.subway.minsk" = "Subway";
+"type.railway.station.subway.minsk" = "地铁";
 
-"type.railway.station.subway.moscow" = "Subway";
+"type.railway.station.subway.moscow" = "地铁";
 
-"type.railway.station.subway.newyork" = "Subway";
+"type.railway.station.subway.newyork" = "地铁";
 
-"type.railway.station.subway.orange" = "Subway";
+"type.railway.station.subway.orange" = "地铁";
 
-"type.railway.station.subway.paris" = "Subway";
+"type.railway.station.subway.paris" = "地铁";
 
-"type.railway.station.subway.purple" = "Subway";
+"type.railway.station.subway.purple" = "地铁";
 
-"type.railway.station.subway.red" = "Subway";
+"type.railway.station.subway.red" = "地铁";
 
-"type.railway.station.subway.roma" = "Subway";
+"type.railway.station.subway.roma" = "地铁";
 
-"type.railway.station.subway.spb" = "Subway";
+"type.railway.station.subway.spb" = "地铁";
 
-"type.railway.station.subway.violet" = "Subway";
+"type.railway.station.subway.violet" = "地铁";
 
-"type.railway.station.subway.yellow" = "Subway";
+"type.railway.station.subway.yellow" = "地铁";
 
 "type.railway.subway" = "railway-subway";
 
@@ -3900,29 +3898,29 @@
 
 "type.railway.subway.yellow" = "railway-subway-yellow";
 
-"type.railway.subway_entrance" = "Subway";
+"type.railway.subway_entrance" = "地铁";
 
-"type.railway.subway_entrance.barcelona" = "Subway";
+"type.railway.subway_entrance.barcelona" = "地铁";
 
-"type.railway.subway_entrance.berlin" = "Subway";
+"type.railway.subway_entrance.berlin" = "地铁";
 
-"type.railway.subway_entrance.kiev" = "Subway";
+"type.railway.subway_entrance.kiev" = "地铁";
 
-"type.railway.subway_entrance.london" = "Subway";
+"type.railway.subway_entrance.london" = "地铁";
 
-"type.railway.subway_entrance.madrid" = "Subway";
+"type.railway.subway_entrance.madrid" = "地铁";
 
-"type.railway.subway_entrance.minsk" = "Subway";
+"type.railway.subway_entrance.minsk" = "地铁";
 
-"type.railway.subway_entrance.moscow" = "Subway";
+"type.railway.subway_entrance.moscow" = "地铁";
 
-"type.railway.subway_entrance.newyork" = "Subway";
+"type.railway.subway_entrance.newyork" = "地铁";
 
-"type.railway.subway_entrance.paris" = "Subway";
+"type.railway.subway_entrance.paris" = "地铁";
 
-"type.railway.subway_entrance.roma" = "Subway";
+"type.railway.subway_entrance.roma" = "地铁";
 
-"type.railway.subway_entrance.spb" = "Subway";
+"type.railway.subway_entrance.spb" = "地铁";
 
 "type.railway.tram" = "railway-tram";
 
@@ -3930,7 +3928,7 @@
 
 "type.railway.tram.tunnel" = "railway-tram-tunnel";
 
-"type.railway.tram_stop" = "Tram Stop";
+"type.railway.tram_stop" = "电车站";
 
 "type.railway.yard" = "railway-yard";
 
@@ -3948,137 +3946,137 @@
 
 "type.route.shuttle_train" = "route-shuttle_train";
 
-"type.shop" = "Shop";
+"type.shop" = "商店";
 
-"type.shop.alcohol" = "Liquor Store";
+"type.shop.alcohol" = "烈酒";
 
-"type.shop.bakery" = "Bakery";
+"type.shop.bakery" = "面包店";
 
-"type.shop.beauty" = "Beauty Shop";
+"type.shop.beauty" = "美容院";
 
-"type.shop.beverages" = "Beverages";
+"type.shop.beverages" = "饮料";
 
-"type.shop.bicycle" = "Bicycle Shop";
+"type.shop.bicycle" = "自行车店";
 
-"type.shop.bookmaker" = "Bookmaker";
+"type.shop.bookmaker" = "做书店";
 
-"type.shop.books" = "Bookstore";
+"type.shop.books" = "书店";
 
-"type.shop.butcher" = "Butcher’s";
+"type.shop.butcher" = "肉商";
 
-"type.shop.car" = "Car Shop";
+"type.shop.car" = "车店";
 
-"type.shop.car_parts" = "Car Parts";
+"type.shop.car_parts" = "汽车零件";
 
-"type.shop.car_repair" = "Car Repair Shop";
+"type.shop.car_repair" = "汽车修理店";
 
-"type.shop.car_repair.tyres" = "Tyre Repair";
+"type.shop.car_repair.tyres" = "轮胎修理";
 
-"type.shop.chemist" = "Chemist Shop";
+"type.shop.chemist" = "药妆店";
 
-"type.shop.chocolate" = "Shop";
+"type.shop.chocolate" = "商店";
 
-"type.shop.clothes" = "Clothes Shop";
+"type.shop.clothes" = "服装店";
 
-"type.shop.coffee" = "Shop";
+"type.shop.coffee" = "商店";
 
-"type.shop.computer" = "Computer Store";
+"type.shop.computer" = "电脑商店";
 
-"type.shop.confectionery" = "Sweets";
+"type.shop.confectionery" = "糖果店";
 
-"type.shop.convenience" = "Convenience Store";
+"type.shop.convenience" = "便利店";
 
-"type.shop.copyshop" = "Copy Shop";
+"type.shop.copyshop" = "复印店";
 
-"type.shop.cosmetics" = "Beauty Care";
+"type.shop.cosmetics" = "化妝品";
 
-"type.shop.department_store" = "Department Store";
+"type.shop.department_store" = "百货商店";
 
-"type.shop.doityourself" = "Hardware Store";
+"type.shop.doityourself" = "硬件店";
 
-"type.shop.dry_cleaning" = "Dry Cleaning";
+"type.shop.dry_cleaning" = "干洗";
 
-"type.shop.electronics" = "Electronics";
+"type.shop.electronics" = "电子产品";
 
-"type.shop.erotic" = "Erotic Shop";
+"type.shop.erotic" = "成人用品店";
 
-"type.shop.fabric" = "Shop";
+"type.shop.fabric" = "商店";
 
-"type.shop.florist" = "Florist’s";
+"type.shop.florist" = "花店";
 
-"type.shop.funeral_directors" = "Funeral Directors";
+"type.shop.funeral_directors" = "殡仪馆";
 
-"type.shop.furniture" = "Furniture Store";
+"type.shop.furniture" = "家具店";
 
-"type.shop.garden_centre" = "Garden Store";
+"type.shop.garden_centre" = "幼儿园";
 
-"type.shop.gift" = "Gift Shop";
+"type.shop.gift" = "礼品店";
 
-"type.shop.greengrocer" = "Greengrocer's";
+"type.shop.greengrocer" = "蔬果零售店";
 
-"type.shop.hairdresser" = "Hairdresser";
+"type.shop.hairdresser" = "理发师";
 
-"type.shop.hardware" = "Hardware Store";
+"type.shop.hardware" = "硬件店";
 
-"type.shop.jewelry" = "Jewelry";
+"type.shop.jewelry" = "珠宝店";
 
-"type.shop.kiosk" = "Kiosk";
+"type.shop.kiosk" = "商店";
 
-"type.shop.laundry" = "Laundry";
+"type.shop.laundry" = "洗衣店";
 
-"type.shop.mall" = "Mall";
+"type.shop.mall" = "商场";
 
-"type.shop.massage" = "Massage Parlour";
+"type.shop.massage" = "按摩院";
 
-"type.shop.mobile_phone" = "Cell Phones";
+"type.shop.mobile_phone" = "手机商店";
 
-"type.shop.money_lender" = "Shop";
+"type.shop.money_lender" = "商店";
 
-"type.shop.motorcycle" = "Motorcycle Shop";
+"type.shop.motorcycle" = "摩托车商店";
 
-"type.shop.music" = "Shop";
+"type.shop.music" = "商店";
 
-"type.shop.musical_instrument" = "Shop";
+"type.shop.musical_instrument" = "商店";
 
-"type.shop.newsagent" = "Newspaper Stand";
+"type.shop.newsagent" = "报刊亭";
 
-"type.shop.optician" = "Optician’s";
+"type.shop.optician" = "眼镜店";
 
-"type.shop.outdoor" = "Outdoor Equipment";
+"type.shop.outdoor" = "室外设备";
 
-"type.shop.pawnbroker" = "Pawnbroker";
+"type.shop.pawnbroker" = "典当行";
 
-"type.shop.pet" = "Petshop";
+"type.shop.pet" = "宠物店";
 
-"type.shop.photo" = "Photo Shop";
+"type.shop.photo" = "照片店";
 
-"type.shop.seafood" = "Seafood Shop";
+"type.shop.seafood" = "鱼商";
 
-"type.shop.shoes" = "Shoe Store";
+"type.shop.shoes" = "鞋店";
 
-"type.shop.sports" = "Sports Goods";
+"type.shop.sports" = "运动商品店";
 
-"type.shop.stationery" = "Stationery Shop";
+"type.shop.stationery" = "文具店";
 
-"type.shop.supermarket" = "Supermarket";
+"type.shop.supermarket" = "超市";
 
-"type.shop.tattoo" = "Tattoo Parlour";
+"type.shop.tattoo" = "纹身店";
 
-"type.shop.tea" = "Shop";
+"type.shop.tea" = "商店";
 
-"type.shop.ticket" = "Ticket Shop";
+"type.shop.ticket" = "售票处";
 
-"type.shop.toys" = "Toy Store";
+"type.shop.toys" = "玩具店";
 
-"type.shop.travel_agency" = "Travel Agency";
+"type.shop.travel_agency" = "旅行社";
 
-"type.shop.tyres" = "Tyre Shop";
+"type.shop.tyres" = "轮胎店";
 
-"type.shop.variety_store" = "Variety Store";
+"type.shop.variety_store" = "杂货店";
 
-"type.shop.video" = "Shop";
+"type.shop.video" = "商店";
 
-"type.shop.wine" = "Wine Shop";
+"type.shop.wine" = "酒店";
 
 "type.sponsored" = "sponsored";
 
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 
@@ -4200,65 +4198,65 @@
 
 "type.tourism" = "tourism";
 
-"type.tourism.alpine_hut" = "Mountains Lodging";
+"type.tourism.alpine_hut" = "山上住宿";
 
-"type.tourism.apartment" = "Apartments";
+"type.tourism.apartment" = "公寓";
 
-"type.tourism.artwork" = "Artwork";
+"type.tourism.artwork" = "旅游";
 
-"type.tourism.artwork.architecture" = "Artwork";
+"type.tourism.artwork.architecture" = "旅游";
 
-"type.tourism.artwork.painting" = "Artwork";
+"type.tourism.artwork.painting" = "旅游";
 
-"type.tourism.artwork.sculpture" = "Artwork";
+"type.tourism.artwork.sculpture" = "旅游";
 
-"type.tourism.artwork.statue" = "Artwork";
+"type.tourism.artwork.statue" = "旅游";
 
-"type.tourism.attraction" = "Attraction";
+"type.tourism.attraction" = "景点";
 
-"type.tourism.attraction.animal" = "Attraction";
+"type.tourism.attraction.animal" = "景点";
 
-"type.tourism.attraction.specified" = "Attraction";
+"type.tourism.attraction.specified" = "景点";
 
-"type.tourism.camp_site" = "Camping";
+"type.tourism.camp_site" = "露营";
 
-"type.tourism.caravan_site" = "Caravan Site";
+"type.tourism.caravan_site" = "房车宿营地";
 
-"type.tourism.chalet" = "Chalet";
+"type.tourism.chalet" = "木屋";
 
-"type.tourism.gallery" = "Gallery";
+"type.tourism.gallery" = "景点";
 
-"type.tourism.guest_house" = "Guest House";
+"type.tourism.guest_house" = "招待所์";
 
-"type.tourism.hostel" = "Hostel";
+"type.tourism.hostel" = "旅馆";
 
-"type.tourism.hotel" = "Hotel";
+"type.tourism.hotel" = "旅店";
 
-"type.tourism.information" = "Tourist Information";
+"type.tourism.information" = "旅游信息";
 
-"type.tourism.information.board" = "Information Board";
+"type.tourism.information.board" = "公告板";
 
-"type.tourism.information.guidepost" = "Tourist Information";
+"type.tourism.information.guidepost" = "旅游信息";
 
-"type.tourism.information.map" = "Tourist Map";
+"type.tourism.information.map" = "旅游地图";
 
-"type.tourism.information.office" = "Tourist Office";
+"type.tourism.information.office" = "旅游服务处";
 
-"type.tourism.motel" = "Motel";
+"type.tourism.motel" = "汽车旅馆";
 
-"type.tourism.museum" = "Museum";
+"type.tourism.museum" = "博物馆";
 
-"type.tourism.picnic_site" = "Picnic Site";
+"type.tourism.picnic_site" = "野餐地点";
 
-"type.tourism.resort" = "Resort";
+"type.tourism.resort" = "度假村";
 
-"type.tourism.theme_park" = "Theme park";
+"type.tourism.theme_park" = "景点";
 
-"type.tourism.viewpoint" = "Viewpoint";
+"type.tourism.viewpoint" = "观点";
 
-"type.tourism.wilderness_hut" = "Wilderness Hut";
+"type.tourism.wilderness_hut" = "荒野小屋";
 
-"type.tourism.zoo" = "Zoo";
+"type.tourism.zoo" = "动物园";
 
 "type.traffic_calming" = "traffic_calming";
 
@@ -4268,9 +4266,9 @@
 
 "type.waterway" = "waterway";
 
-"type.waterway.canal" = "Canal";
+"type.waterway.canal" = "运河";
 
-"type.waterway.canal.tunnel" = "Canal";
+"type.waterway.canal.tunnel" = "运河";
 
 "type.waterway.dam" = "waterway-dam";
 
@@ -4286,23 +4284,23 @@
 
 "type.waterway.lock" = "waterway-lock";
 
-"type.waterway.lock_gate" = "Lock Gate";
+"type.waterway.lock_gate" = "锁门";
 
-"type.waterway.river" = "River";
+"type.waterway.river" = "河";
 
-"type.waterway.river.tunnel" = "River";
+"type.waterway.river.tunnel" = "河";
 
-"type.waterway.riverbank" = "River";
+"type.waterway.riverbank" = "河";
 
-"type.waterway.stream" = "River";
+"type.waterway.stream" = "河";
 
-"type.waterway.stream.ephemeral" = "River";
+"type.waterway.stream.ephemeral" = "河";
 
-"type.waterway.stream.intermittent" = "River";
+"type.waterway.stream.intermittent" = "河";
 
-"type.waterway.stream.tunnel" = "River";
+"type.waterway.stream.tunnel" = "河";
 
-"type.waterway.waterfall" = "Waterfall";
+"type.waterway.waterfall" = "瀑布";
 
 "type.waterway.weir" = "waterway-weir";
 

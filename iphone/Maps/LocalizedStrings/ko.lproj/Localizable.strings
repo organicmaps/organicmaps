@@ -2410,65 +2410,63 @@
 
 "bookmarks_guides" = "북마크 및 안내";
 
-"remove_ads" = "Remove ads";
+"remove_ads" = "광고 없애기";
 
-"remove_ads_title" = "Remove all ads and support MAPS.ME";
+"remove_ads_title" = "모든 광고를 없애고 MAPS.ME를 지원";
 
-"paybtn_title" = "Pay %s/year";
+"paybtn_title" = "%s/년 내세요";
 
-"paybtn_subtitle" = "Save %s/year";
+"paybtn_subtitle" = "%s/년마다 저축하세요";
 
-"options_dropdown_title" = "More options";
+"options_dropdown_title" = "더 많은 옵션";
 
-"why_support" = "Why support MAPS.ME?";
+"why_support" = "왜 MAPS.ME를 지원하죠?";
 
-"options_dropdown_item1" = "%s/month (save %s/year)";
+"options_dropdown_item1" = "%s/달 ( %s/년 저축)";
 
-"options_dropdown_item2" = "%s/week (no savings)";
+"options_dropdown_item2" = "%s/week (저축금 없음)";
 
-"why_support_item1" = "We will remove all ads for you";
+"why_support_item1" = "당신을 위해 모든 광고를 없애줄께요";
 
-"why_support_item2" = "You help us to improve MAPS.ME";
+"why_support_item2" = "당신은 MAPS.ME를 개선하는데 우리를 도와주세요";
 
-"why_support_item3" = "You help us improve open maps OpenStreetMap.org";
+"why_support_item3" = "오픈 지도들 OpenStreetMap.org를 개선하는데 도와주세요";
 
-"purchase_processing" = "Your purchase is being processed…";
+"purchase_processing" = "구매가 처리되고 있습니다…";
 
-"tips_bookmarks_catalog_title" = "Can't plan a route over interesting locations?";
+"tips_bookmarks_catalog_title" = "모든 종류의 여행을 위한 오프라인 가이드";
 
-"tips_bookmarks_catalog_message" = "Download and plan tourist routes over interesting locations in different cities of the world.";
+"tips_bookmarks_catalog_message" = "다운로드해서 세계 여러 도시의 흥미로운 지역의 여행 경로를 계획하세요.";
 
-"tips_discover_button_title" = "Want to find popular locations nearby?";
+"tips_discover_button_title" = "근처의 인기있는 장소들을 찾고싶은가요?";
 
-"tips_discover_button_message" = "The \"Discover nearby\" section contains the best restaurants, hotels, and sights.";
+"tips_discover_button_message" = "근처에 대해 알아보기 섹션은 최고의 레스토랑, 호텔들 및 명소가 포함되있습니다.";
 
-"tips_book_hotel_title" = "Book the cosiest hotels for your journeys";
+"tips_book_hotel_title" = "당신의 여행을 위해 제일 편한 호텔들을 예약하세요";
 
-"tips_book_hotel_message" = "Use the search and filters to find the best hotels for you. Use the \"Book\" button in the location placepage to book a hotel instantly.";
+"tips_book_hotel_message" = "검색과 필터를 이용해 당신만의 최고의 호텔을 찾으세요. 장소 플레이스 페이지에 있는 \"예약\" 버튼을 이용해 호텔을 바로 예약하세요.";
 
-"tips_map_layers_title" = "Don't know at which station to make a connection?";
+"tips_map_layers_title" = "어떤 역에서 연결해야되는지 모른다고요?";
 
-"tips_map_layers_message" = "Turn on the subway layer to display the subway map, and you will always find your way in a new city.";
+"tips_map_layers_message" = "지하철 레이어를 켜서 지하철 지도를 보면, 언제나 새로운 도시에서 길을 찾을 수 있어요.";
 
-"channels_map_update" = "Map updates";
+"channels_map_update" = "지도 업데이트";
 
-"channels_reviews" = "Unsent reviews";
+"channels_reviews" = "보내지 않은 리뷰";
 
-"purchase_loading" = "Purchase information is loading…";
+"purchase_loading" = "구매정보 로딩중…";
 
-"purchase_error_subtitle" = "An error occurred while processing your purchase";
+"purchase_error_subtitle" = "구매 처리 중 오류가 발생했습니다";
 
-"awaiting_approval" = "Awaiting a parent's approval";
+"awaiting_approval" = "부모의 승인을 기다리는 중입니다";
 
-"whats_new_leave_review" = "Leave a review! Share your opinion about the locations you visited on your vacation.";
+"whats_new_leave_review" = "리뷰를 남기세요! 휴가를 통해 방문한 장소에 대한 당신의 의견을 공유하십시오.";
 
-"server_unavailable_title" = "Server is unavailable";
+"server_unavailable_title" = "서버를 사용할 수 없습니다";
 
-"server_unavailable_message" = "The purchase will be completed later. If the error persists, please contact support@maps.me.";
+"server_unavailable_message" = "구매가 나중에 완료됩니다. 계속 에러 지속시, support@maps.me로 연락 바랍니다.";
 
-"offline_fiters_check_in" = "Connect to the internet to filter hotels by dates.";
-
-"rutaxi_title" = "RuTaxi";
+"offline_fiters_check_in" = "인터넷에 연결해 날짜를 통해서 호텔들을 필터 하세요.";
 
 
 /**********  Partners  **********/
@@ -4132,7 +4130,7 @@
 
 "type.sponsored.partner19" = "sponsored-partner19";
 
-"type.sponsored.partner2" = "Luggage Storage";
+"type.sponsored.partner2" = "sponsored-partner2";
 
 "type.sponsored.partner20" = "sponsored-partner20";
 

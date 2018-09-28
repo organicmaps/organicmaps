@@ -1351,6 +1351,35 @@
 	<string name="error_already_downloaded_guide">La guida è già stata scaricata</string>
 	<string name="guide_downloaded_subtitle">Premi \"Visualizza sulla mappa\" per esplorare la guida</string>
 	<string name="bookmarks_guides">Segnalibri e guide</string>
+	<string name="remove_ads">Disattivare la pubblicità</string>
+	<string name="remove_ads_title">Disattiva tutta la pubblicità e sostieni MAPS.ME</string>
+	<string name="paybtn_title">Pagare %s/anno</string>
+	<string name="paybtn_subtitle">Risparmio %s/anno</string>
+	<string name="options_dropdown_title">Altre opzioni</string>
+	<string name="why_support">Perché sostenere MAPS.ME?</string>
+	<string name="options_dropdown_item1">%1$s/mese (risparmio %2$s/anno)</string>
+	<string name="options_dropdown_item2">%s/settimana (nessun risparmio)</string>
+	<string name="why_support_item1">Noi disattiviamo tutta la pubblicità</string>
+	<string name="why_support_item2">Voi ci aiutate a migliorare MAPS.ME</string>
+	<string name="why_support_item3">Ci aiutate a migliorare le mappe OpenStreetMaps.org</string>
+	<string name="purchase_processing">Il tuo acquisto è in fase di elaborazione…</string>
+	<string name="tips_bookmarks_catalog_title">La guida offline per i vostri viaggi</string>
+	<string name="tips_bookmarks_catalog_message">Potete scaricare l\'applicazione e fare itinerari turistici nelle diverse città del mondo.</string>
+	<string name="tips_discover_button_title">Volete trovare i locali più belli nelle vicinanze?</string>
+	<string name="tips_discover_button_message">Nella pagina «Scopri nelle vicinanze» troverete le migliori scelte di ristoranti, alberghi e punti di interesse.</string>
+	<string name="tips_book_hotel_title">Potete prenotare gli alberghi più confortevoli</string>
+	<string name="tips_book_hotel_message">Applicare i filtri per effettuare la ricerca personalizzata dei migliori alberghi. Per effettuare la prenotazione diretta basta scegliere l\'albergo e cliccare sul tasto «Prenota».</string>
+	<string name="tips_map_layers_title">Non conoscete la stazione metropolitana, dove è possibile cambiare la linea?</string>
+	<string name="tips_map_layers_message">E\' possibile visualizzare la mappa di metropolitana attivando l\'apposito livello. Non vi perderete mai in una nuova città.</string>
+	<string name="channels_map_update">Rinnovare la carta</string>
+	<string name="channels_reviews">Recensioni non inviate</string>
+	<string name="purchase_loading">Caricare informazioni sugli acquisti…</string>
+	<string name="purchase_error_subtitle">Si è verificato un errore durante l\'elaborazione dell\'acquisto</string>
+	<string name="awaiting_approval">Aspettiamo la conferma dei genitor</string>
+	<string name="whats_new_leave_review">Scrivere la recensione Condividete le vostre emozioni sui luoghi visitati in vacanza.</string>
+	<string name="server_unavailable_title">Server non è disponibile</string>
+	<string name="server_unavailable_message">L\'acquisto verrà completato più tardi Se l\'errore persiste, si prega di contattare support\@maps.me.</string>
+	<string name="offline_fiters_check_in">Per scegliere la data di check-in e check-out bisogna collegarsi a internet.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>
@@ -1809,7 +1838,7 @@
 	<string name="type.shop.bookmaker">Centro scommesse</string>
 	<string name="type.shop.books">Libreria</string>
 	<string name="type.shop.butcher">Macellaio</string>
-	<string name="type.shop.car">Car negozio</string>
+	<string name="type.shop.car">Concessionaria</string>
 	<string name="type.shop.car_parts">Ricambi auto</string>
 	<string name="type.shop.car_repair">Riparazione auto</string>
 	<string name="type.shop.car_repair.tyres">Gommista</string>
