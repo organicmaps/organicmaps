@@ -55,7 +55,6 @@ public class SplashActivity extends AppCompatActivity
   private boolean mPermissionsGranted;
   private boolean mNeedStoragePermission;
   private boolean mCanceled;
-  private boolean mCoreInitialized;
 
   @NonNull
   private final Runnable mPermissionsDelayedTask = new Runnable()
@@ -73,7 +72,8 @@ public class SplashActivity extends AppCompatActivity
     @Override
     public void run()
     {
-      if (mCoreInitialized)
+      MwmApplication app = (MwmApplication) getApplication();
+      if (app.arePlatformAndCoreInitialized())
       {
         UiThread.runLater(mFinalDelayedTask);
         return;
@@ -97,8 +97,8 @@ public class SplashActivity extends AppCompatActivity
       }
 
       init();
-      LOGGER.i(TAG, "Core initialized: " + mCoreInitialized);
-      if (mCoreInitialized)
+      LOGGER.i(TAG, "Core initialized: " + app.arePlatformAndCoreInitialized());
+      if (app.arePlatformAndCoreInitialized())
       {
         if (mediator.isLimitAdTrackingEnabled())
         {
@@ -151,21 +151,12 @@ public class SplashActivity extends AppCompatActivity
   {
     super.onCreate(savedInstanceState);
     mBaseDelegate.onCreate();
-    if (savedInstanceState != null)
-      mCoreInitialized = savedInstanceState.getBoolean(EXTRA_CORE_INITIALIZED);
     handleUpdateMapsFragmentCorrectly(savedInstanceState);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
-  }
-
-  @Override
-  protected void onSaveInstanceState(Bundle outState)
-  {
-    super.onSaveInstanceState(outState);
-    outState.putBoolean(EXTRA_CORE_INITIALIZED, mCoreInitialized);
   }
 
   @Override
@@ -280,7 +271,8 @@ public class SplashActivity extends AppCompatActivity
     if (mCanceled)
       return;
 
-    if (!mCoreInitialized)
+    MwmApplication app = (MwmApplication) getApplication();
+    if (!app.arePlatformAndCoreInitialized())
     {
       showExternalStorageErrorDialog();
       return;
@@ -375,7 +367,7 @@ public class SplashActivity extends AppCompatActivity
 
   private void init()
   {
-    mCoreInitialized = MwmApplication.get().initCore();
+    MwmApplication.get().initCore();
   }
 
   @SuppressWarnings("unchecked")
