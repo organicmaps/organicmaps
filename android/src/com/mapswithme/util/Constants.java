@@ -64,7 +64,7 @@ public final class Constants
 
   public static class Rating
   {
-    public static final float RATING_INCORRECT_VALUE = -1.0f;
+    public static final float RATING_INCORRECT_VALUE = 0.0f;
 
     private Rating() {};
   }
