@@ -18,6 +18,7 @@ public:
   static LimitsInitList const & GetLimits();
   static std::vector<AdditionalRoadTags> const & GetAdditionalTags();
   static VehicleModel::SurfaceInitList const & GetSurfaces();
+
 private:
   void InitAdditionalRoadTypes();
 };

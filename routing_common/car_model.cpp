@@ -247,11 +247,13 @@ CarModel const & CarModel::AllLimitsInstance()
 
 // static
 routing::VehicleModel::LimitsInitList const & CarModel::GetLimits() { return g_carLimitsDefault; }
+
 // static
 vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditionalTags()
 {
   return kAdditionalTags;
 }
+
 // static
 VehicleModel::SurfaceInitList const & CarModel::GetSurfaces() { return g_carSurface; }
 

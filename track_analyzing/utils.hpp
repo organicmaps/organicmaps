@@ -11,6 +11,7 @@
 
 #include "platform/platform.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -41,7 +42,7 @@ void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmId
   mwmNames.reserve(mwmToTracks.size());
   for (auto const & it : mwmToTracks)
     mwmNames.push_back(numMwmIds.GetFile(it.first).GetName());
-  sort(mwmNames.begin(), mwmNames.end());
+  std::sort(mwmNames.begin(), mwmNames.end());
 
   for (auto const & mwmName : mwmNames)
   {
@@ -54,6 +55,6 @@ void ForTracksSortedByMwmName(MwmToTracks const & mwmToTracks, routing::NumMwmId
 
 void ForEachTrackFile(
     std::string const & filepath, std::string const & extension,
-    shared_ptr<routing::NumMwmIds> numMwmIds,
+    std::shared_ptr<routing::NumMwmIds> numMwmIds,
     std::function<void(std::string const & filename, MwmToMatchedTracks const &)> && toDo);
 }  // namespace track_analyzing

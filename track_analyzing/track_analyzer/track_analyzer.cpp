@@ -30,6 +30,8 @@ DEFINE_string_ext(cmd, "",
                   "match - based on raw logs gathers points to tracks and matches them to "
                   "features. To use the tool raw logs should be taken from \"trafin\" production "
                   "project in gz files and extracted.\n"
+                  "match_dir - the same as match but applies to the directory with raw logs in gz format."
+                  "Process files in several threads.\n"
                   "unmatched_tracks - based on raw logs gathers points to tracks\n"
                   "and save tracks to csv. Track points save as lat, log, timestamp in seconds\n"
                   "tracks - prints track statistics\n"
@@ -80,6 +82,8 @@ void CmdCppTrack(string const & trackFile, string const & mwmName, string const 
                  size_t trackIdx);
 // Match raw gps logs to tracks.
 void CmdMatch(string const & logFile, string const & trackFile);
+// The same as match but applies for the directory with raw logs.
+void CmdMatchDir(string const & logDir, string const & trackExt);
 // Parse |logFile| and save tracks (mwm name, aloha id, lats, lons, timestamps in seconds in csv).
 void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv);
 // Print aggregated tracks to csv table.
@@ -110,6 +114,11 @@ int main(int argc, char ** argv)
     {
       string const & logFile = Checked_in();
       CmdMatch(logFile, FLAGS_out.empty() ? logFile + ".track" : FLAGS_out);
+    }
+    if (cmd == "match_dir")
+    {
+      string const & logDir = Checked_in();
+      CmdMatchDir(logDir, FLAGS_track_extension);
     }
     else if (cmd == "unmatched_tracks")
     {

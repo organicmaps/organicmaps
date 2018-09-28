@@ -20,10 +20,18 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
 
+#include <cstdint>
 #include <iostream>
+#include <limits>
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include "defines.hpp"
 
@@ -68,11 +76,29 @@ public:
       m_hwtags.push_back(classif().GetTypeByPath(speedForType.m_types));
 
     for (auto const & surface : CarModel::GetSurfaces())
-      m_surfaceTags.push_back(classif().GetTypeByPath(vector<string>(surface.m_types, surface.m_types + 2)));
+      m_surfaceTags.push_back(classif().GetTypeByPath(surface.m_types));
   }
 
   struct Type
   {
+    bool operator<(Type const & rhs) const
+    {
+      if (m_hwType != rhs.m_hwType)
+        return m_hwType < rhs.m_hwType;
+
+      return m_surfaceType < rhs.m_surfaceType;
+    }
+
+    bool operator==(Type const & rhs) const
+    {
+      return m_hwType == rhs.m_hwType && m_surfaceType == rhs.m_surfaceType;
+    }
+
+    bool operator!=(Type const & rhs) const
+    {
+      return !(*this == rhs);
+    }
+
     uint32_t m_hwType = 0;
     uint32_t m_surfaceType = 0;
   };
@@ -109,6 +135,27 @@ private:
 
 struct RoadInfo
 {
+  bool operator==(RoadInfo const & rhs) const
+  {
+    return m_type == rhs.m_type && m_isCityRoad == rhs.m_isCityRoad && m_isOneWay == rhs.m_isOneWay;
+  }
+
+  bool operator!=(RoadInfo const & rhs) const
+  {
+    return !(*this == rhs);
+  }
+
+  bool operator<(RoadInfo const & rhs) const
+  {
+    if (m_type != rhs.m_type)
+      return m_type < rhs.m_type;
+
+    if (m_isCityRoad != rhs.m_isCityRoad)
+      return !m_isCityRoad;
+
+    return !m_isOneWay;
+  }
+
   CarModelTypes::Type m_type;
   bool m_isCityRoad = false;
   bool m_isOneWay = false;
@@ -119,37 +166,43 @@ class MoveType final
 public:
   MoveType() = default;
 
-  MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup)
-    : m_roadInfo(roadType), m_speedGroup(speedGroup)
+  MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup, bool isDayTime)
+    : m_roadInfo(roadType), m_speedGroup(speedGroup), m_isDayTime(isDayTime)
   {
   }
 
   bool operator==(MoveType const & rhs) const
   {
-    return m_roadInfo.m_type.m_hwType == rhs.m_roadInfo.m_type.m_hwType &&
-           m_roadInfo.m_type.m_surfaceType == rhs.m_roadInfo.m_type.m_surfaceType &&
-           m_speedGroup == rhs.m_speedGroup;
+    return m_roadInfo == rhs.m_roadInfo && m_speedGroup == rhs.m_speedGroup && m_isDayTime == rhs.m_isDayTime;
   }
 
   bool operator<(MoveType const & rhs) const
   {
-    if (m_roadInfo.m_type.m_hwType != rhs.m_roadInfo.m_type.m_hwType)
-      return m_roadInfo.m_type.m_hwType < rhs.m_roadInfo.m_type.m_hwType;
+    if (m_roadInfo != rhs.m_roadInfo)
+      return m_roadInfo < rhs.m_roadInfo;
 
-    if (m_roadInfo.m_type.m_surfaceType != rhs.m_roadInfo.m_type.m_surfaceType)
-      return m_roadInfo.m_type.m_surfaceType < rhs.m_roadInfo.m_type.m_surfaceType;
+    if (m_speedGroup != rhs.m_speedGroup)
+      return m_speedGroup < rhs.m_speedGroup;
 
-    return m_speedGroup < rhs.m_speedGroup;
+    return !m_isDayTime;
   }
 
-  string ToString() const
+  bool IsValid() const
+  {
+    // In order to collect cleaner data we don't use speed group lower than G5.
+    return m_roadInfo.m_type.m_hwType != 0 &&
+           m_roadInfo.m_type.m_surfaceType != 0 &&
+           m_speedGroup == traffic::SpeedGroup::G5;
+  }
+
+  string GetSummary() const
   {
     ostringstream out;
-    out << TypeToString(m_roadInfo.m_type.m_hwType) << " " <<
-           TypeToString(m_roadInfo.m_type.m_surfaceType) << " " <<
-           m_roadInfo.m_isCityRoad << " " <<
-           m_roadInfo.m_isOneWay << " " <<
-           traffic::DebugPrint(m_speedGroup);
+    out << TypeToString(m_roadInfo.m_type.m_hwType) << ","
+        << TypeToString(m_roadInfo.m_type.m_surfaceType) << ","
+        << m_roadInfo.m_isCityRoad << ","
+        << m_roadInfo.m_isOneWay << ","
+        << m_isDayTime;
 
     return out.str();
   }
@@ -157,6 +210,7 @@ public:
 private:
   RoadInfo m_roadInfo;
   traffic::SpeedGroup m_speedGroup = traffic::SpeedGroup::Unknown;
+  bool m_isDayTime;
 };
 
 class SpeedInfo final
@@ -170,8 +224,12 @@ public:
 
   void Add(SpeedInfo const & rhs) { Add(rhs.m_totalDistance, rhs.m_totalTime); }
 
-  double GetDistance() const { return m_totalDistance; }
-  uint64_t GetTime() const { return m_totalTime; }
+  string GetSummary() const
+  {
+    ostringstream out;
+    out << m_totalDistance << "," << m_totalTime << "," << CalcSpeedKMpH(m_totalDistance, m_totalTime);
+    return out.str();
+  }
 
 private:
   double m_totalDistance = 0.0;
@@ -181,7 +239,9 @@ private:
 class MoveTypeAggregator final
 {
 public:
-  void Add(MoveType const moveType, MatchedTrack::const_iterator begin,
+  MoveTypeAggregator(string const & mwmName) : m_mwmName(mwmName) {}
+
+  void Add(MoveType && moveType, MatchedTrack::const_iterator begin,
            MatchedTrack::const_iterator end, Geometry & geometry)
   {
     if (begin + 1 >= end)
@@ -201,18 +261,12 @@ public:
   string GetSummary() const
   {
     ostringstream out;
-    out << std::fixed << std::setprecision(1);
-
-    bool firstIteration = true;
-    for (auto it : m_moveInfos)
+    for (auto const & it : m_moveInfos)
     {
-      SpeedInfo const & speedInfo = it.second;
-      if (firstIteration)
-        firstIteration = false;
-      else
-        out << " * ";
+      if (!it.first.IsValid())
+        continue;
 
-      out << it.first.ToString() << " " << speedInfo.GetDistance() << " " << speedInfo.GetTime();
+      out << m_mwmName << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
     }
 
     return out.str();
@@ -220,6 +274,7 @@ public:
 
 private:
   map<MoveType, SpeedInfo> m_moveInfos;
+  string const & m_mwmName;
 };
 
 class MatchedTrackPointToMoveType final
@@ -234,8 +289,10 @@ public:
 
   MoveType GetMoveType(MatchedTrackPoint const & point)
   {
+    auto const & dataPoint = point.GetDataPoint();
     return MoveType(GetRoadInfo(point.GetSegment().GetFeatureId()),
-                    static_cast<traffic::SpeedGroup>(point.GetDataPoint().m_traffic));
+                    static_cast<traffic::SpeedGroup>(dataPoint.m_traffic),
+                    DayTimeToBool(GetDayTime(dataPoint.m_timestamp, dataPoint.m_latLon.lat, dataPoint.m_latLon.lon)));
   }
 
 private:
@@ -268,8 +325,7 @@ namespace track_analyzing
 void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                   StringFilter userFilter)
 {
-  cout << "mwm,user,track idx,is day,length in meters,time in seconds,speed in km/h,"
-          "track summary(hw type surface type is_city_road is_one_way traffic distance time)" << endl;
+  cout << "mwm,hw type,surface type,is city road,is one way,is day,distance,time,speed km/h\n";
 
   storage::Storage storage;
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
@@ -297,13 +353,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
         if (track.size() <= 1)
           continue;
 
-        auto const & dataPoint = track.front().GetDataPoint();
-        uint64_t const start = dataPoint.m_timestamp;
-        uint64_t const timeElapsed = track.back().GetDataPoint().m_timestamp - start;
-        double const length = CalcTrackLength(track, geometry);
-        double const speed = CalcSpeedKMpH(length, timeElapsed);
-
-        MoveTypeAggregator aggregator;
+        MoveTypeAggregator aggregator(mwmName);
 
         for (auto subTrackBegin = track.begin(); subTrackBegin != track.end();)
         {
@@ -313,14 +363,13 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
                  pointToMoveType.GetMoveType(*subTrackEnd) == moveType)
             ++subTrackEnd;
 
-          aggregator.Add(moveType, subTrackBegin, subTrackEnd, geometry);
+          aggregator.Add(move(moveType), subTrackBegin, subTrackEnd, geometry);
           subTrackBegin = subTrackEnd;
         }
 
-        cout << mwmName << "," << user << "," << trackIdx << ","
-             << DayTimeToBool(GetDayTime(start, dataPoint.m_latLon.lat, dataPoint.m_latLon.lon))
-             << "," << length << "," << timeElapsed << ","
-             << speed << "," << aggregator.GetSummary() << endl;
+        auto const summary = aggregator.GetSummary();
+        if (!summary.empty())
+          cout << summary;
       }
     }
   };

@@ -73,9 +73,7 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
     CHECK_GREATER_OR_EQUAL(speedFactor.m_eta, 0.0, ());
     double const weightFactor = base::clamp(speedFactor.m_weight, 0.0, 1.0);
     double const etaFactor = base::clamp(speedFactor.m_eta, 0.0, 1.0);
-
-    m_surfaceFactors[i++] = {c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                             {weightFactor, etaFactor}};
+    m_surfaceFactors[i++] = {c.GetTypeByPath(v.m_types), {weightFactor, etaFactor}};
   }
 }
 

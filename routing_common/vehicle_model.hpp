@@ -133,7 +133,7 @@ public:
   // psurface|unpaved_good and psurface|unpaved_bad.
   struct FeatureTypeSurface
   {
-    char const * m_types[2];  // 2-arity road type
+    std::vector<std::string> m_types;  // 2-arity road type
     SpeedFactor m_factor;
   };
 

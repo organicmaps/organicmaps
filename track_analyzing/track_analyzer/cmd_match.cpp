@@ -8,20 +8,31 @@
 
 #include "storage/storage.hpp"
 
+#include "coding/file_name_utils.hpp"
+#include "coding/file_reader.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/zlib.hpp"
+
 #include "platform/platform.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <memory>
 #include <string>
+#include <thread>
 
 using namespace routing;
 using namespace std;
+using namespace storage;
 using namespace track_analyzing;
 
 namespace
 {
+using Iter = typename vector<string>::iterator;
+
 void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & storage,
                  NumMwmIds const & numMwmIds, MwmToMatchedTracks & mwmToMatchedTracks)
 {
@@ -78,11 +89,8 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
 
 namespace track_analyzing
 {
-void CmdMatch(string const & logFile, string const & trackFile)
+void CmdMatch(string const & logFile, string const & trackFile, shared_ptr<NumMwmIds> numMwmIds, Storage & storage)
 {
-  LOG(LINFO, ("Matching", logFile));
-  shared_ptr<NumMwmIds> numMwmIds;
-  storage::Storage storage;
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, storage, mwmToTracks);
 
@@ -93,5 +101,104 @@ void CmdMatch(string const & logFile, string const & trackFile)
   MwmToMatchedTracksSerializer serializer(numMwmIds);
   serializer.Serialize(mwmToMatchedTracks, writer);
   LOG(LINFO, ("Matched tracks were saved to", trackFile));
+}
+
+void CmdMatch(string const & logFile, string const & trackFile)
+{
+  LOG(LINFO, ("Matching", logFile));
+  shared_ptr<NumMwmIds> numMwmIds;
+  Storage storage;
+  CmdMatch(logFile, trackFile, numMwmIds, storage);
+}
+
+void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, shared_ptr<NumMwmIds> numMwmIds)
+{
+  Storage storage;
+  for (auto it = begin; it != end; ++it)
+  {
+    auto & file = *it;
+    string data;
+    try
+    {
+      auto const r = GetPlatform().GetReader(file);
+      r->ReadAsString(data);
+    }
+    catch (FileReader::ReadException const & e)
+    {
+      LOG(LWARNING, (e.what()));
+      continue;
+    }
+
+    using Inflate = coding::ZLib::Inflate;
+    Inflate inflate(Inflate::Format::GZip);
+    string track;
+    inflate(data.data(), data.size(), back_inserter(track));
+    base::GetNameWithoutExt(file);
+    try
+    {
+      FileWriter w(file);
+      w.Write(track.data(), track.size());
+    }
+    catch (FileWriter::WriteException const & e)
+    {
+      LOG(LWARNING, (e.what()));
+      continue;
+    }
+
+    CmdMatch(file, file + trackExt, numMwmIds, storage);
+    FileWriter::DeleteFileX(file);
+  }
+}
+
+void CmdMatchDir(string const & logDir, string const & trackExt)
+{
+  Platform::EFileType fileType = Platform::FILE_TYPE_UNKNOWN;
+  Platform::EError const result = Platform::GetFileType(logDir, fileType);
+
+  if (result == Platform::ERR_FILE_DOES_NOT_EXIST)
+  {
+    LOG(LINFO, ("Directory doesn't exist", logDir));
+    return;
+  }
+
+  if (result != Platform::ERR_OK)
+  {
+    LOG(LINFO, ("Can't get file type for", logDir));
+    return;
+  }
+
+  if (fileType != Platform::FILE_TYPE_DIRECTORY)
+  {
+    LOG(LINFO, (logDir, "is not a directory."));
+    return;
+  }
+
+  Platform::FilesList filesList;
+  Platform::GetFilesRecursively(logDir, filesList);
+  if (filesList.empty())
+  {
+    LOG(LINFO, (logDir, "is empty."));
+    return;
+  }
+
+  shared_ptr<NumMwmIds> numMwmIds;
+  auto const size = filesList.size();
+  auto const hardwareConcurrency = static_cast<size_t>(thread::hardware_concurrency());
+  CHECK_GREATER(hardwareConcurrency, 0, ("No available threads."));
+  LOG(LINFO, ("Number of available threads =", hardwareConcurrency));
+  auto const threadsCount = min(size, hardwareConcurrency);
+  auto const blockSize = size / threadsCount;
+  vector<thread> threads(threadsCount - 1);
+  auto begin = filesList.begin();
+  for (size_t i = 0; i < threadsCount - 1; ++i)
+  {
+    auto end = begin + blockSize;
+    threads[i] = thread(UnzipAndMatch, begin, end, trackExt, numMwmIds);
+    begin = end;
+  }
+
+  UnzipAndMatch(begin, filesList.end(), trackExt, numMwmIds);
+  for (auto & t : threads)
+    t.join();
 }
 }  // namespace track_analyzing
