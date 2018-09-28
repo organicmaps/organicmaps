@@ -17,7 +17,7 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeTipShown(JNIEnv * env, 
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_metrics_UserActionsLogger_BookingFilterUsed(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeBookingFilterUsed(JNIEnv * env, jclass clazz)
 {
   eye::Eye::Event::BookingFilterUsed();
 }
