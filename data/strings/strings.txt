@@ -204,7 +204,7 @@
     zh-Hant = 不再詢問
     he = אל תשאל פעם נוספת
     sk = Už sa nepýtať
-fa = دوباره نپرس
+    fa = دوباره نپرس
 
   [do_nothing]
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -23166,6 +23166,7 @@ fa = دوباره نپرس
     zh-Hant = 4,000 家餐廳的快速外送。向 Delivery Club 訂餐。
     el = Γρήγορη παράδοση από 4.000 εστιατόρια. Παραγγείλετε από το Delivery Club.
     sk = Rýchle dodanie zo 4 000 reštaurácií. Objednávky od spoločnosti Delivery Club.
+    fa = تحویل سریع از 4000 رستوران. سفارش از تحویل باشگاه.
 
   [banner_lamoda_title]
     en = Online clothing and shoe store
@@ -23196,6 +23197,7 @@ fa = دوباره نپرس
     zh-Hant = 線上服飾與鞋店
     el = Κατάστημα υποδημάτων και ρούχων online
     sk = Online obchod s odevmi a obuvou
+    fa = فروشگاه آنلاین پوشاک و کفش
 
   [banner_lamoda_message]
     en = More than 1,000 brands. Up to 70% off. Free delivery all over the country.
@@ -23226,6 +23228,7 @@ fa = دوباره نپرس
     zh-Hant = 超過 1,000 個品牌。最低三折起。全國免運費。
     el = Περισσότερα από 1.000 επώνυμα προϊόντα. Έκπτωση έως και 70%. Δωρεάν παράδοση σε όλη τη χώρα.
     sk = Viac ako 1 000 značiek. Zľavy až 70%. Doručenie zdarma po celej krajine.
+    fa = بیش از 1000 علامت تجاری تا 70٪ تخفیف. تحویل رایگان در سراسر کشور.
 
   [banner_tutu_title]
     en = Train tickets online
@@ -23256,6 +23259,7 @@ fa = دوباره نپرس
     zh-Hant = 線上火車票
     el = Εισιτήρια τρένων online
     sk = Lístky na vlak online
+    fa = بلیط های قطار آنلاین
 
   [banner_tutu_message]
     en = Train tickets to any city online - prices, search, and booking.
@@ -23286,6 +23290,7 @@ fa = دوباره نپرس
     zh-Hant = 線上訂購前往任何城市的火車票 - 瞭解價格、搜尋並預訂。
     el = Σιδηροδρομικά εισιτήρια για οποιαδήποτε πόλη online - τιμές, αναζήτηση και κράτηση.
     sk = Lístky vlak do ktoréhokoľvek mesta online - ceny, vyhľadávanie a rezervácia.
+    fa = بلیط های قطار به هر شهر آنلاین - قیمت ها، جستجو و رزرو.
 
   [banner_geerbest_title]
     en = Online electronics store
@@ -23316,6 +23321,7 @@ fa = دوباره نپرس
     zh-Hant = 線上電器行
     el = Κατάστημα ηλεκτρονικών online
     sk = Online predajňa elektroniky
+    fa = فروشگاه الکترونیک آنلاین
 
   [banner_geerbest_message]
     en = Instant search in over 50,000 items at low prices.
@@ -23346,6 +23352,7 @@ fa = دوباره نپرس
     zh-Hant = 立即搜尋超過 50,000 樣低價品項。
     el = Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.
     sk = Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.
+    fa = جستجوی سریع در بیش از 50،000 مورد با قیمت پایین.
 
   [banner_rentalcars_title]
     en = Renting cars online
@@ -23376,6 +23383,7 @@ fa = دوباره نپرس
     zh-Hant = 線上租車
     el = Ενοικίαση αυτοκινήτων online
     sk = Prenájom auta online
+    fa = اجاره اتومبیل ها آنلاین
 
   [banner_rentalcars_message]
     en = 800 car rental companies in more than 49,000 car rental locations.
@@ -23406,6 +23414,7 @@ fa = دوباره نپرس
     zh-Hant = 營運 49,000 多個租車地點的 800 家租車公司。
     el = 800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.
     sk = 800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.
+    fa =  شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.
 
   [banner_viator_title]
     en = Online tour search
@@ -23436,6 +23445,7 @@ fa = دوباره نپرس
     zh-Hant = 線上行程搜尋
     el = Αναζήτηση οργανωμένων εκδρομών online
     sk = Online vyhľadávanie zájazdov
+    fa = جستجوی آنلاین تور
 
   [banner_viator_message]
     en = Search in over 50,000 tours all over the world.
@@ -23466,6 +23476,7 @@ fa = دوباره نپرس
     zh-Hant = 搜尋全世界 50,000 多個行程。
     el = Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.
     sk = Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.
+    fa = جستجو در بیش از 50،000 تور در سراسر جهان.
 
   [whatsnew_traffic]
     comment = december
@@ -23543,6 +23554,7 @@ fa = دوباره نپرس
     he = נתוני תנועה מעודכנים ומסלולי הנהיגה המהירים ביותר!
     hi = अप-टू-डेट ट्रैफिक जानकारी और इस पर आधारित सबसे फ़ास्ट ड्राइविंग रूट!
     sk = Aktuálne dopravné informácie a na základe nich najrýchlejšie trasy!
+    fa = تا به امروز اطلاعات ترافیک و سریعترین مسیرهای رانندگی بر اساس آن!
 
   [whatsnew_traffic_roaming]
     comment = december
@@ -23581,6 +23593,7 @@ fa = دوباره نپرس
     he = נתוני תנועה במצב נדידה
     hi = रोमिंग में यातायात जानकारी
     sk = Dopravné informácie v roamingu
+    fa = اطلاعات ترافیکی در رومینگ
 
   [whatsnew_traffic_roaming_text]
     comment = december
@@ -23619,6 +23632,7 @@ fa = دوباره نپرس
     he = דורש פחות מ-1MB של תעבורת נתונים סלולריים בכל נסיעה.
     hi = प्रति यात्रा 1 MB से भी कम मोबाइल बैंडविड्थ की ज़रूरत होती है।
     sk = Vyžaduje menej ako 1 MB mobilných dát na jazdu.
+    fa = نیاز به کمتر از 1 مگابایت پهنای باند تلفن همراه در هر سفر.
 
   [whatsnew_order_taxi]
     comment = december
@@ -23657,6 +23671,7 @@ fa = دوباره نپرس
     he = הזמן מונית
     hi = टैक्सी के लिए ऑर्डर करें
     sk = Objednajte si taxík
+    fa = سفارش تاکسی
 
   [whatsnew_order_taxi_text]
     comment = december
@@ -23695,6 +23710,7 @@ fa = دوباره نپرس
     he = מרבית דפי המיקום כוללים כעת כפתור להזמנת מונית.
     hi = अधिकांश लोकेशन पृष्ठों पर टैक्सी ऑर्डर करने का बटन रहता है।
     sk = Väčšina stránok o lokalite odteraz obsahuje aj tlačidlo na objednávanie taxíka.
+    fa = در حال حاضر اکثر صفحات مکان دارای یک دکمه برای سفارش تاکسی هستند.
 
   [whatsnew_improved_search]
     comment = january
@@ -23733,6 +23749,7 @@ fa = دوباره نپرس
     he = חיפוש משופר
     hi = बेहतर खोज
     sk = Vylepšené vyhľadávanie
+    fa = جستجوی پیشرفته
 
   [whatsnew_improved_search_text]
     comment = january
@@ -23771,6 +23788,7 @@ fa = دوباره نپرس
     he = אפילו חיפושים עם שגיאות כתיב מספקים תוצאות מדויקות.
     hi = यहाँ तक कि अशुद्ध वर्तनी (स्पेलिंग) वाले प्रश्नों या खोजों में भी सटीक खोज परिणाम मिलते हैं।
     sk = Presné výsledky vyhľadávania aj s nesprávne zadanými dotazmi.
+    fa = اشتباهات در جستجوها بر نتایج جستجو تاثیر نمی گذارد.
 
   [whatsnew_filters_in_search]
     comment = january
@@ -23809,6 +23827,7 @@ fa = دوباره نپرس
     he = מסנני חיפוש
     hi = खोज फ़िल्टर
     sk = Vyhľadávacie filtre
+    fa = فیلترهای جستجو
 
   [whatsnew_filters_in_search_text]
     comment = january
@@ -23847,6 +23866,7 @@ fa = دوباره نپرس
     he = חיפוש מלונות על פי מחיר ודירוג.
     hi = कीमत और रेटिंग के आधार पर होटल खोजें।
     sk = Hľadať hotely podľa ceny a hodnotenia.
+    fa = جستجوی هتل ها براساس قیمت و امتیاز.
 
   [whatsnew_font_size]
     comment = january
@@ -23885,6 +23905,7 @@ fa = دوباره نپرس
     he = גודל גופן
     hi = फ़ॉन्ट आकार
     sk = Veľkosť písma
+    fa = اندازه فونت
 
   [whatsnew_font_size_text]
     comment = january
@@ -23923,6 +23944,7 @@ fa = دوباره نپرس
     he = ניתן להגדיל תוויות על המפה.
     hi = नक्शे पर लेबलों को बड़ा किया जा सकता है।
     sk = Nápisy na mape je možné zväčšiť.
+    fa = برچسب ها در نقشه می توانند بزرگتر شوند
 
   [uber]
     comment = "Translation is no needed, because it's a company name"
@@ -24095,6 +24117,7 @@ fa = دوباره نپرس
     zh-Hant = 啟用記錄
     el = Ενεργοποίηση δυνατότητας καταγραφής
     sk = Zapnúť zaznamenávanie
+    fa = ورود به سیستم را فعال کنید
 
   [whatsnew_more_info_on_hotels_title]
     en = More Information on Hotels
@@ -24125,6 +24148,7 @@ fa = دوباره نپرس
     zh-Hant = 了解飯店更多資訊
     el = Περισσότερες πληροφορίες για τα ξενοδοχεία
     sk = Viac informácií o hoteloch
+    fa = اطلاعات بیشتر در مورد هتل ها
 
   [whatsnew_more_info_on_hotels_message]
     en = Brand new look for hotel pages: check out photos, user reviews and other information online.
@@ -24155,6 +24179,7 @@ fa = دوباره نپرس
     zh-Hant = 飯店換新裝：線上查看相片、使用者評論和其他資訊。
     el = Ολοκαίνουργια εμφάνιση για τις σελίδες των ξενοδοχείων: Δείτε φωτογραφίες, κριτικές χρηστών και άλλες πληροφορίες online.
     sk = Úplne nový vzhľad stránok o hoteloch: pozrite si fotografie, recenzie a ďalšie informácie online.
+    fa = نگاهی به نام تجاری جدید برای صفحات هتل: بررسی عکس، بررسی کاربر و سایر اطلاعات آنلاین.
 
   [whatsnew_better_routing_title]
     en = Improved Route Planning
@@ -24185,6 +24210,7 @@ fa = دوباره نپرس
     zh-Hant = 經過改良的路線規劃
     el = Βελτιωμένη σχεδίαση διαδρομής
     sk = Zlepšené plánovanie trás
+    fa = بهبود مسیر برنامه ریزی
 
   [whatsnew_better_routing_message]
     en = • More accurate estimation of arrival time.\n• The app takes into account restricted areas and road signs.
@@ -24215,6 +24241,7 @@ fa = دوباره نپرس
     zh-Hant = • 更精準估計到達時間。\n• 該應用程式已經考慮到限制性區域和道路標誌。
     el = • Ακριβέστερη εκτίμηση ώρας άφιξης. \n• Η εφαρμογή λαμβάνει υπόψη τις περιοχές που απαγορεύονται και την οδική σήμανση.
     sk = • Presnejší odhad času príchodu.\\n • Aplikácia berie do úvahy obmedzenia a dopravné značky.
+    fa = تخمین دقیق تر از زمان ورود. \n • برنامه به مناطق محدود و نشانه های جاده اشاره دارد.
 
   [whatsnew_smaller_mwm_title]
     en = Maps Got Smaller
@@ -24245,6 +24272,7 @@ fa = دوباره نپرس
     zh-Hant = Maps 變小
     el = Μικρότερο μέγεθος χαρτών
     sk = Mapy Maps sa zmenšili
+    fa = نقشه کوچکتر شده است
 
   [whatsnew_smaller_mwm_message]
     en = Maps require up to 20% less storage.
@@ -24275,6 +24303,7 @@ fa = دوباره نپرس
     zh-Hant = Maps 所需存儲空間減少 20%。
     el = Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.
     sk = Mapy Maps vyžadujú až o 20% menej ukladacieho priestoru.
+    fa = نقشه ها نیاز به ذخیره سازی 20٪ کمتر دارند.
 
   [whatsnew_waypoints_title]
     en = Waypoints in Routing
@@ -24305,6 +24334,7 @@ fa = دوباره نپرس
     zh-Hant = 在路線中新增路徑點
     el = Ενδιάμεσα σημεία στη διαδρομή
     sk = Trasovanie cez určené body
+    fa = مسیرهای مسیریابی
 
   [whatsnew_waypoints_message]
     en = Tap places to add waypoints to your route.
@@ -24335,6 +24365,7 @@ fa = دوباره نپرس
     zh-Hant = 點按地點，即可向您的路線新增路徑點。
     el = Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.
     sk = Ťuknite na miesta, ak chcete do trasy pridať body.
+    fa = مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.
 
   [whatsnew_viator_title]
     en = Book a tour
@@ -24366,6 +24397,7 @@ fa = دوباره نپرس
     el = Κάντε κράτηση σε μια ξενάγηση
     sk = Rezervovať prehliadku
     sw = Hifadhi nafasi ya kutalii
+    fa = رزرو تور
 
   [whatsnew_viator_message]
     en = Choose popular tours in tourist cities all over the world.
@@ -24397,6 +24429,7 @@ fa = دوباره نپرس
     el = Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.
     sk = Vyberte si obľúbené prehliadky po turistických mestách po celom svete.
     sw = Chagua utalii maarufu katika miji ya kitalii kote ulimwenguni.
+    fa = تورهای محبوب را در شهرهای توریستی در سراسر جهان انتخاب کنید.
 
   [whatsnew_driving_style_title]
     en = New Map Style for Driving
@@ -24427,6 +24460,7 @@ fa = دوباره نپرس
     zh-Hant = 新的駕駛地圖模式
     el = Νέο στυλ χάρτη για την οδήγηση
     sk = Nový štýl máp pre jazdu
+    fa = نقشه جدید برای رانندگی
 
   [whatsnew_driving_style_message]
     en = Car navigation mode got easier to use.
@@ -24457,6 +24491,7 @@ fa = دوباره نپرس
     zh-Hant = 汽車導航模式更好用。
     el = Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.
     sk = Režim navigácie v aute sa zjednodušil.
+    fa = حالت ناوبری خودرو برای استفاده آسان تر شد.
 
   [more_on_bookingcom]
     en = More on Booking.com
@@ -24487,6 +24522,7 @@ fa = دوباره نپرس
     zh-Hant = Booking.com 上的更多資訊
     el = Περισσότερα στο Booking.com
     sk = Viac na Booking.com
+    fa = بیشتر در Booking.com
 
   [details_on_bookingcom]
     en = Details on Booking.com
@@ -24517,6 +24553,7 @@ fa = دوباره نپرس
     zh-Hant = Booking.com 上的詳細資訊
     el = Λεπτομέρειες στο Booking.com
     sk = Podrobnosti na Booking.com
+    fa = جزئیات در Booking.com
 
   [reviews_on_bookingcom]
     en = More reviews on Booking.com
@@ -24547,6 +24584,7 @@ fa = دوباره نپرس
     zh-Hant = Booking.com 上的更多評價
     el = Περισσότερες κριτικές στο Booking.com
     sk = Viac recenzií na Booking.com
+    fa = بررسی بیشتر در Booking.com
 
   [offline_place_page_more_information]
     en = Connect to the internet to get more information about the place.
@@ -24577,6 +24615,7 @@ fa = دوباره نپرس
     zh-Hant = 連上網路以取得關於地點的更多資訊。
     el = Συνδεθείτε στο Internet για να λάβετε περισσότερες πληροφορίες για αυτό το μέρος.
     sk = Viac informácií o mieste získate po pripojení na internet.
+    fa = برای کسب اطلاعات بیشتر در مورد مکان، به اینترنت متصل شوید.
 
   [failed_load_information]
     en = Failed to load information.
@@ -24607,6 +24646,7 @@ fa = دوباره نپرس
     zh-Hant = 無法載入資訊。
     el = Η φόρτωση πληροφοριών απέτυχε.
     sk = Nepodarilo sa načítať informácie.
+    fa = اطلاعات بارگیری نشد.
 
   [booking_search]
     en = Booking.com
@@ -24648,6 +24688,7 @@ fa = دوباره نپرس
     hi = मानचित्र अपडेट हो रहे
     sk = Prebieha aktualizácia máp
     sw = Inasasisha ramani
+    fa = به روز رسانی نقشه ها
 
   [whats_new_auto_update_title]
     en = Update your downloaded maps
@@ -24686,6 +24727,7 @@ fa = دوباره نپرس
     hi = अपने डाउनलोड किए गए मानचित्र अपडेट करें
     sk = Aktualizujte svoje stiahnuté mapy
     sw = Sasisha ramani zako ulizopakua
+    fa = نقشه های دانلود شده خود را به روز کنید
 
   [whats_new_auto_update_message]
     en = Updating maps keeps the information about objects up to date
@@ -24724,6 +24766,7 @@ fa = دوباره نپرس
     hi = मानचित्रों का अपडेट होना ऑब्जेक्ट्स के बारे में जानकारी अप टू डेट रखता है
     sk = Vďaka aktualizácii máp budú informácie o objektoch na mape aktualizované
     sw = Kusasisha ramani kunaweka taarifa kuhusu vipengee ikiwa ya hivi sasa zaidi
+    fa = به روز رسانی نقشه ها اطلاعات مربوط به اشیا را به روز نگه می دارد
 
   [whats_new_auto_update_button_size]
     en = Update (%s)
@@ -24762,6 +24805,7 @@ fa = دوباره نپرس
     hi = (%s) अपडेट करें
     sk = Aktualizovať (%s)
     sw = Sasisha (%s)
+    fa = بروزرسانی (%s)
 
   [whats_new_auto_update_button_later]
     en = Manually update later
@@ -24800,6 +24844,7 @@ fa = دوباره نپرس
     hi = बाद में मैनुअल रूप से अपडेट करें
     sk = Manuálne aktualizovať neskôr
     sw = Sasisha mwenyewe baadaye
+    fa = بعدا به صورت دستی به روزرسانی کنید
 
   [search_hotel_filter_apartment]
     en = Apartments
@@ -24830,6 +24875,7 @@ fa = دوباره نپرس
     zh-Hant = 公寓
     el = Διαμερίσματα
     sk = Apartmány
+    fa = آپارتمان ها
 
   [search_hotel_filter_camp_site]
     en = Camping
@@ -24861,6 +24907,7 @@ fa = دوباره نپرس
     el = Κάμπινγκ
     sk = Camping
     sw = Kambi
+    fa = چادر زدن
 
   [search_hotel_filter_chalet]
     en = Chalet
@@ -24891,6 +24938,7 @@ fa = دوباره نپرس
     zh-Hant = 木屋
     el = Σαλέ
     sk = Chata
+    fa = کلبه
 
   [search_hotel_filter_guest_house]
     en = Guest House
@@ -24922,6 +24970,7 @@ fa = دوباره نپرس
     el = Ξενώνας
     sk = Penzión
     sw = Gesti
+    fa = مهمان خانه
 
   [search_hotel_filter_hostel]
     en = Hostel
@@ -24953,6 +25002,7 @@ fa = دوباره نپرس
     el = Πανδοχείο
     sk = Hostel
     sw = Bweni
+    fa = خوابگاه
 
   [search_hotel_filter_resort]
     en = Resort
@@ -24983,6 +25033,7 @@ fa = دوباره نپرس
     zh-Hant = 度假酒店
     el = Θέρετρο
     sk = Rezort
+    fa = مجتمع گردشگری
 
   [search_hotel_filter_hotel]
     en = Hotel
@@ -25014,6 +25065,7 @@ fa = دوباره نپرس
     el = Ξενοδοχείο
     he = מלון
     sk = Hotel
+    fa = هتل
 
   [search_hotel_filter_motel]
     en = Motel
@@ -25045,6 +25097,7 @@ fa = دوباره نپرس
     el = Μοτέλ
     sk = Motel
     sw = Moteli
+    fa = متل
 
   [create_campaign_button]
     en = Claim this business
@@ -25076,6 +25129,7 @@ fa = دوباره نپرس
     el = Καταχωρήστε αυτήν την επιχείρηση
     sk = Nárokovať záznam firmy
     sw = Miliki biashara hii
+    fa = ادعای این کسب و کار
 
   [view_campaign_button]
     en = Business is advertised
@@ -25107,6 +25161,7 @@ fa = دوباره نپرس
     el = Η επιχείριση διαφημίζεται
     sk = Firma sa inzeruje
     sw = Biashara imetangazwa
+    fa = کسب و کار تبلیغ می شود
 
   [search_hotel_filters_type]
     en = Type
@@ -25138,6 +25193,7 @@ fa = دوباره نپرس
     el = Τύπος
     sk = Typ
     sw = Aina
+    fa = نوع
 
   [feedback_general]
     comment = Settings: "Send general feedback" button
@@ -25171,6 +25227,7 @@ fa = دوباره نپرس
     el = Γενικό σχόλιο
     sk = Všeobecné pripomienky
     sw = Maoni Jumla
+    fa =  "تنظیمات: دکمه "ارسال بازخورد کلی
 
   [on]
     en = On
@@ -25202,6 +25259,7 @@ fa = دوباره نپرس
     el = Ενεργ.
     sk = Zap.
     sw = Washa
+    fa = روشن
 
   [off]
     en = Off
@@ -25233,6 +25291,7 @@ fa = دوباره نپرس
     el = Απενεργ.
     sk = Vyp.
     sw = Zima
+    fa = خاموش
 
   [prefs_languages_information]
     en = We use system TTS for voice instructions. Many Android devices use Google TTS, you can download or update it from Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
@@ -25264,6 +25323,7 @@ fa = دوباره نپرس
     el = Χρησιμοποιούμε σύστημα TTS για τις φωνητικές οδηγίες. Αρκετές συσκευές Android χρησιμοποιούν Google TTS, μπορείτε να το κατεβάσετε ή να το ενημερώσετε από το Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sk = Na hlasové pokyny používame systém TTS. Mnohé zariadenia s Adroidom používajú Google TTS, ktorý si môžete stiahnuť alebo aktualizovať z obchodu Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
     sw = Tunatumia maagizo ya sautii ya TTS ya mfumo. Vifaa vingi vya Android vinatumia Google TTS, unaweza kuipakua au kuisasisha kwenye Google Play (https://play.google.com/store/apps/details?id=com.google.android.tts)
+    fa = ما از TTS سیستم برای دستورالعمل های صوتی استفاده می کنیم. بسیاری از دستگاه های Android از Google TTS استفاده می کنند، شما می توانید آن را از Google Play دانلود کنید (https://play.google.com/store/apps/details؟id=com.google.android.tts)
 
   [prefs_languages_information_off]
     en = For some languages, you will need to install a speech synthesizer or an additional language pack from the app store (Google Play Market, Samsung Apps).\nOpen your device's settings → Language and input → Speech → Text to speech output.\nHere you can manage settings for speech synthesis (for example, download language pack for offline use) and select another text-to-speech engine.
@@ -25295,6 +25355,7 @@ fa = دوباره نپرس
     el = Για μερικές γλώσσες θα χρειαστεί να εγκαταστήσετε συνθεσάιζερ ομιλίας ή συμπληρωματικό πακέτο γλώσσας από το app store (Google Play Market, Samsung Apps).\nΑνοίξτε τις Ρυθμίσεις της συσκευής σας → Γλώσσα και εισαγωγή → Ομιλία → Μετατροπή κειμένου σε ομιλία.\nΕδώ μπορείτε να διαχειριστείτε τις ρυθμίσεις της σύνθεσης ομιλίας (για παράδειγμα, μπορείτε να κατεβάσετε πακέτο γλώσσας για χρήση εκτός σύνδεσης) και να επιλέξετε άλλη μηχανή μετατροπής κειμένου σε ομιλία.
     sk = Pre niektoré jazyky bude potrebné nainštalovať syntetizátor reči alebo balík doplnkového jazyka z obchodu s aplikáciami (Google Play, Samsung Apps). Otvorte nastavenia zariadenia → Jazyk a vstup → Reč → Prevod textu na reč. Tu môžete spravovať nastavenia pre syntézu reči (napríklad stiahnuť jazykový balík pre použitie v režime offline) a vybrať iný jazyk.
     sw = Kwa baadhi ya lugha, utahitaji kusakinisha programu nyingine ya kusanidi usemi au kifurushi cha ziada cha lugha kutoka kwenye duka la programu-tumizi (Google Play Market, Samsung Apps).\nFungua mipangilio ya kifaa chako → Lugha na Ingizo → Usemi → Tokeo la maandishi kuwa usemi.\nHapa unaweza kusimamia usanidi wa usemi (kwa mfano, kupakua kifurushi cha lugha ili utumie nje ya mtandao) na uchague injini nyingine ya maandishi-kuwa-usemi.
+    fa = برای بعضی از زبان ها، شما باید speech synthesizer یا یک بسته زبان دیگر را از فروشگاه برنامه (بازار Google Play، Samsung Apps) نصب کنید. \n تنظیمات دستگاه خود را باز کنید. → زبان و ورودی → گفتار → خروجی متن به گفتار. می توانید تنظیمات برای ترکیب گفتار (به عنوان مثال، بسته های زبان را برای استفاده آفلاین دانلود کنید) را مدیریت کنید و یک موتور دیگر متن به گفتار را انتخاب کنید.
 
   [prefs_languages_information_off_link]
     en = For more information please check this guide.
@@ -25326,6 +25387,7 @@ fa = دوباره نپرس
     el = Για περισσότερες πληροφορίες δείτε αυτό τον οδηγό.
     sk = Viac informácií nájdete v tomto návode.
     sw = Kwa maelezo zaidi tafadhali tazama mwongozo huu.
+    fa = برای اطلاعات بیشتر لطفا این راهنما را بررسی کنید.
 
   [whatsnew_transliteration_title]
     en = Transliteration into Latin
@@ -25365,6 +25427,7 @@ fa = دوباره نپرس
     ms = Transliterasi kepada Latin
     sk = Prepis do latinčiny
     sw = Tafsiri kwa lugha ya Kilatini
+    fa = ترجمه به لاتین
 
   [whatsnew_transliteration_message]
     en = If a street or an object doesn't have a name in your language, it will be spelt using the Latin alphabet.
@@ -25404,6 +25467,7 @@ fa = دوباره نپرس
     ms = Jika objek atau jalan yang tidak mempunyai nama dalam bahasa anda, ia akan dieja menggunakan huruf Rumi.
     sk = Ak ulica alebo objekt nemá názov vo vašom jazyku, prepíše sa tento názov latinkou.
     sw = Ikiwa mtaa au kipengee hakina jina kwa lugha yako, kitaandikwa kwa herufi za alfabeti ya Kilatini.
+    fa = اگر یک خیابان یا یک شیء یک نام در زبان شما نداشته باشد، با استفاده از الفبای لاتین، املای آن نوشته می شود.
 
   [yandex_taxi_title]
     en = Yandex.Taxi
@@ -25439,6 +25503,7 @@ fa = دوباره نپرس
     el = Μάθετε περισσότερα
     sk = Zistiť viac
     sw = Jua mengi zaidi
+    fa = بیشتر بدانید
 
   [core_exit]
     en = Exit
@@ -25470,6 +25535,7 @@ fa = دوباره نپرس
     el = Έξοδος
     sk = Ukončiť
     sw = Toka
+    fa = خروج
 
   [routing_add_start_point]
     en = Add a starting point to plan a route
@@ -25501,6 +25567,7 @@ fa = دوباره نپرس
     el = Προσθέστε αφετηρία για να σχεδιάσετε μια διαδρομή
     sk = Pridaním počiatočného bodu začnite plánovať trasu
     sw = Ongeza eneo la kuanzia ili kupanga njia ya kufuata
+    fa = یک نقطه شروع برای برنامه ریزی یک مسیر اضافه کنید
 
   [routing_add_finish_point]
     en = Add a destination to plan a route
@@ -25532,6 +25599,7 @@ fa = دوباره نپرس
     el = Προσθέστε τελικό προορισμό, για να σχεδιάσετε μια διαδρομή
     sk = Pridaním cieľového bodu naplánujete trasu
     sw = Ongeza eneo la kumalizia ili kupanga njia ya kufuata
+    fa = یک مقصد برای برنامه ریزی یک مسیر اضافه کنید
 
   [onboarding_welcome_message]
     en = Free, fast, detailed and entirely offline maps with turn-by-turn navigation.
@@ -25563,6 +25631,7 @@ fa = دوباره نپرس
     el = Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.
     sk = Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.
     sw = Ramani za bila malipo, za haraka, za kina na za nje ya mtandao kikamilifu zenye urambazaji wa kona baada ya kona.
+    fa = نقشه های رایگان، سریع، دقیق و کاملا آفلاین با ناوبری نقطه به نقطه.
 
   [onboarding_welcome_agree]
     comment = нужно как-то выделять документы, чтобы привязать позже ссылки.
@@ -25595,6 +25664,7 @@ fa = دوباره نپرس
     el = Με την εκκίνηση αυτής της εφαρμογής, συμφωνείτε με τους όρους χρήσης και την πολιτική προστασίας προσωπικών δεδομένων.
     sk = Spustením aplikácie súhlasíte s našimi podmienkami používania a zásadami ochrany osobných údajov.
     sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na Sheria za Utumizi na Sera ya Faragha.
+    fa = با راه اندازی برنامه، شما با شرایط استفاده و خطمشی رازداری موافقید.
 
   [button_accept_and_continue]
     en = Accept and continue
@@ -25626,6 +25696,7 @@ fa = دوباره نپرس
     el = Αποδοχή και συνέχεια
     sk = Prijať a pokračovať
     sw = Kubali na uendelee
+    fa = پذیرش و ادامه
 
   [button_learn_more]
     en = Learn more
@@ -25657,6 +25728,7 @@ fa = دوباره نپرس
     el = Μάθετε περισσότερα
     sk = Zistiť viac
     sw = Jua mengi zaidi
+    fa = بیشتر بدانید
 
   [onboarding_storage_permissions_title]
     en = Grant Access
@@ -25688,6 +25760,7 @@ fa = دوباره نپرس
     el = Εκχώρηση άδειας
     sk = Prideliť prístup
     sw = Ruhusu ufikiaji
+    fa = مجوز دسترسی
 
   [onboarding_storage_permissions_message]
     en = Please grant MAPS.ME the permission to use storage in your device settings, otherwise you will not be able to use MAPS.ME.
@@ -25719,6 +25792,7 @@ fa = دوباره نپرس
     el = Αλλάξτε τις ρυθμίσεις άδειας στη συσκευή σας. Χρειάζεται πρόσβαση στον αποθηκευτικό χώρο για τη χρήση του MAPS.ME
     sk = Zmeňte si nastavenia povolení vo svojom zariadení. Na používanie aplikácie MAPS.ME je potrebné povoliť prístup do ukladacieho priestoru.
     sw = Badilisha mipangilio ya ruhusa kwenye kifaa chako. Inahitaji kufikia hifadhi ili kutumia MAPS.ME.
+    fa = لطفا MAPS.ME را مجاز به استفاده از ذخیره سازی در تنظیمات دستگاه خود کنید، در غیر این صورت نمی توانید از MAPS.ME استفاده کنید.
 
   [button_exit]
     en = Exit
@@ -25750,6 +25824,7 @@ fa = دوباره نپرس
     el = Έξοδος
     sk = Ukončiť
     sw = Toka
+    fa = خروج
 
   [onboarding_detail_permissions_title]
     en = MAPS.ME needs access to
@@ -25781,6 +25856,7 @@ fa = دوباره نپرس
     el = Το MAPS.ME χρειάζεται πρόσβαση στο
     sk = Aplikácia MAPS.ME si vyžaduje prístup k
     sw = MAPS.ME inahitaji kufikia
+    fa = MAPS.ME نیاز به دسترسی دارد
 
   [onboarding_detail_permissions_storage_title]
     comment = Default permission's name from Android settings.
@@ -25813,6 +25889,7 @@ fa = دوباره نپرس
     el = Αποθηκευτικός χώρος
     sk = Ukladací priestor
     sw = Hifadhi
+    fa = ذخیره سازی
 
   [onboarding_detail_permissions_storage_message]
     en = To save and use downloaded maps offline and store bookmarks.
@@ -25844,6 +25921,7 @@ fa = دوباره نپرس
     el = Για την αποθήκευση και τη χρήση των χαρτών εκτός σύνδεσης, και την αποθήκευση αγαπημένων.
     sk = Na ukladanie a používanie máp v režime offline a na ukladanie záložiek.
     sw = Ili kuhifadhi na kutumia ramani zilizopakuliwa ukiwa nje ya mtandao na ili kuhifadhi alamisho.
+    fa = برای ذخیره و استفاده از نقشه های دانلود شده به صورت آفلاین و ذخیره بوک مارک ها.
 
   [onboarding_detail_permissions_location_title]
     comment = Default permission's name from Android settings.
@@ -25876,6 +25954,7 @@ fa = دوباره نپرس
     el = Τοποθεσία
     sk = Poloha
     sw = Eneo
+    fa = موقعیت
 
   [onboarding_detail_permissions_location_message]
     en = To see places and traffic near you and use navigation.
@@ -25907,6 +25986,7 @@ fa = دوباره نپرس
     el = Για την προβολή μερών και της κυκλοφορίας κοντά σας εσάς και τη χρήση της πλοήγησης.
     sk = Na zobrazovanie miest a dopravnej situácie v okolí a používanie navigácie.
     sw = Ili kuona maeneo na trafiki karibu nawe na ili utumie urambazaji.
+    fa = برای دیدن مکان ها و ترافیک در نزدیکی شما و استفاده از ناوبری.
 
   [onboarding_detail_permissions_storage_path_message]
     en = You can also change the location for downloaded maps in settings.
@@ -25938,6 +26018,7 @@ fa = دوباره نپرس
     el = Μπορείτε επίσης να αλλάξετε τον προορισμό για τους χάρτες που έχετε κατεβάσει από τις ρυθμίσεις.
     sk = V nastaveniach tiež môžete zmeniť cieľové umiestnenie stiahnutých máp.
     sw = Pia katika mipangilio unaweza kubadilisha mahali pakuhifadhia ramani zilizopakuliwa.
+    fa = شما همچنین می توانید موقعیت مکانی برای نقشه های دانلود شده را در تنظیمات تغییر دهید.
 
   [settings_device_memory]
     en = Device memory
@@ -25969,6 +26050,7 @@ fa = دوباره نپرس
     el = Μνήμη συσκευής
     sk = Pamäť zariadenia
     sw = Kumbukumbu ya kifaa
+    fa = حافظه دستگاه
 
   [settings_card_memory]
     en = Card memory
@@ -26000,6 +26082,7 @@ fa = دوباره نپرس
     el = Κάρτα μνήμης
     sk = Pamäť na karte
     sw = Kumbukumbu ya kadi
+    fa = کارت حافظه
 
   [settings_storage_available]
     en = %s available
@@ -26031,6 +26114,7 @@ fa = دوباره نپرس
     el = %s διαθέσιμα
     sk = K dispozícii %s
     sw = %s zinapatikana
+    fa = %s موجود
 
   [toast_location_permission_denied]
     en = App location permission denied
@@ -26062,6 +26146,7 @@ fa = دوباره نپرس
     el = Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας
     sk = Zamietnutý prístup aplikácie k lokalite
     sw = Ruhusu ya programu-tumizi kufikia maeneo imekataliwa
+    fa = مجوز مکان برنامه صادر نشد
 
   [place_page_viator_title]
     en = Attractions and Tours
@@ -26093,6 +26178,7 @@ fa = دوباره نپرس
     el = Αξιοθέατα και περιηγήσεις
     sk = Atrakcie a prehliadky
     sw = Vivutio na utalii
+    fa = جاذبه ها و تورها
 
   [button_use]
     en = Use
@@ -26124,6 +26210,7 @@ fa = دوباره نپرس
     el = Χρήση
     sk = Použiť
     sw = Tumia
+    fa = استفاده
 
   [planning_route_manage_route]
     en = Manage Route
@@ -26155,6 +26242,7 @@ fa = دوباره نپرس
     el = Διαχείριση διαδρομής
     sk = Spravovať trasu
     sw = Dhibiti njia ya kufuata
+    fa = مدیریت مسیر
 
   [button_plan]
     en = Plan
@@ -26186,6 +26274,7 @@ fa = دوباره نپرس
     el = Σχέδιο
     sk = Naplánovať
     sw = Panga
+    fa = برنامه
 
   [button_add]
     en = Add
@@ -26217,6 +26306,7 @@ fa = دوباره نپرس
     el = Προσθήκη
     sk = Pridať
     sw = Ongeza
+    fa = افزودن
 
   [placepage_remove_stop]
     en = Remove
@@ -26248,6 +26338,7 @@ fa = دوباره نپرس
     el = Κατάργηση
     sk = Odstrániť
     sw = Ondoa
+    fa = حذف
 
   [planning_route_remove_title]
     en = Drag here to remove
@@ -26279,6 +26370,7 @@ fa = دوباره نپرس
     el = Σύρετε εδώ για κατάργηση
     sk = Presunutím sem odstránite
     sw = Vuta hapa ili kuondoa
+    fa = برای حذف اینجا بکشید
 
   [dialog_change_start_point_message]
     en = Set the current location as the starting point?
@@ -26310,6 +26402,7 @@ fa = دوباره نپرس
     el = Θέλετε να αλλάξετε την αφετηρία στην τρέχουσα θέση;
     sk = Nahradiť štart na aktuálnou polohou?
     sw = Ungependa kubadilisha eneo la kuanzia liwe eneo lako la sasa?
+    fa = مکان فعلی را به عنوان نقطه شروع تعیین کنید؟
 
   [button_replace]
     en = Replace
@@ -26341,6 +26434,7 @@ fa = دوباره نپرس
     el = Αλλαγή
     sk = Nahradiť
     sw = Badilisha
+    fa = جایگزین کردن
 
   [placepage_add_stop]
     en = Add Stop
@@ -26372,6 +26466,7 @@ fa = دوباره نپرس
     el = Προσθήκη στάσης
     sk = Pridať zastávku
     sw = Ongeza eneo la kusimama
+    fa = اضافه کردن توقف
 
   [whatsnew_intermediate_point_title]
     en = Additional stop
@@ -26403,6 +26498,7 @@ fa = دوباره نپرس
     el = Επιπλέον στάση
     sk = Ďalšie zastávky
     sw = Eneo la kusimama la ziada
+    fa = توقف اضافی
 
   [whatsnew_intermediate_point_message]
     en = Plan a route with an intermediate point.
@@ -26434,6 +26530,7 @@ fa = دوباره نپرس
     el = Σχεδιάστε μια διαδρομή με ενδιάμεσο προορισμό.
     sk = Naplánujte si trasu s zastávkou.
     sw = Panga njia ya kufuata yenye eneo la kati.
+    fa = یک مسیر را با یک نقطه متوسط طراحی کنید.
 
   [subtitle_rent]
     comment = Only ru/en are needed
@@ -26485,6 +26582,7 @@ fa = دوباره نپرس
     el = Πρόσθεσε τη θέση μου
     sk = Pridať moju polohu
     sw = Ongeza mahali nipo sasa
+    fa = موقعیت من را اضافه کنید
 
   [choose_start_point]
     en = Choose a starting point
@@ -26516,6 +26614,7 @@ fa = دوباره نپرس
     el = Επιλέξτε αφετηρία
     sk = Vyberte počiatočný bod
     sw = Chagua eneo unakoanzia
+    fa = نقطه شروع را انتخاب کنید
 
   [choose_destination]
     en = Choose a destination
@@ -26547,6 +26646,7 @@ fa = دوباره نپرس
     el = Επιλέξτε προορισμό
     sk = Vyberte cieľ
     sw = Chagua eneo unakoelekea
+    fa = یک مقصد را انتخاب کنید
 
   [preloader_viator_title]
     en = Discover tours and unusual activities
@@ -26578,6 +26678,7 @@ fa = دوباره نپرس
     el = Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες
     sk = Objavte výlety a nezvyčajné aktivity
     sw = Gundua safari za utalii na shughuli zisizo za kawaida
+    fa = تور و فعالیت های غیر معمول را کشف کنید
 
   [preloader_viator_message]
     en = Tours, activities, sightseeing and more
@@ -26609,6 +26710,7 @@ fa = دوباره نپرس
     el = Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα
     sk = Výlety, aktivity, prehliadky a ďalšie
     sw = Utalii, shughuli, kutazama maeneo ya kuvutia na mengi zaidi
+    fa = تور، فعالیت ها، گشت و گذار و ...
 
   [preloader_viator_button]
     en = Learn more
@@ -26640,6 +26742,7 @@ fa = دوباره نپرس
     el = Μάθετε περισσότερα
     sk = Zistiť viac
     sw = Jua mengi zaidi
+    fa = بیشتر بدانید
 
   [whats_new_title_route]
     en = Bicycle routes and pedestrian routes were improved
@@ -26671,6 +26774,7 @@ fa = دوباره نپرس
     el = Βελτιωμένες διαδρομές ποδηλάτων και πεζών
     sk = Vylepšili sme cyklotrasy a pešie trasy
     sw = Njia za baisikeli na nija za wanatembea kwa miguu ziliimarishwa
+    fa = مسیرهای دوچرخه و مسیرهای پیاده روی بهبود یافته است
 
   [whats_new_message_route]
     en = We fixed errors, made route building several times faster, and added intermediate stops
@@ -26702,6 +26806,7 @@ fa = دوباره نپرس
     el = Επιδιορθώσαμε σφάλματα, κάναμε την δημιουργία διαδρομής αρκετές φορές γρηγορότερη, και προσθέσαμε ενδιάμεσες στάσεις
     sk = Opravili sme chyby, niekoľkonásobne sme zrýchlili zostavovanie trasy a pridali sme zastávky na trase
     sw = Tumerekebisha hitilafu, tumefanya ujengaji njia kuwa haraka zaidi, na tumeongeza maeneo ya kati
+    fa = ما خطاهایی را برطرف کردیم، محاسبه مسیر چندین بار سریعتر  شده و ایستگاه‌های بین راهی اضافه شد
 
   [whats_new_message_title_update]
     en = We made map updates 10 times smaller
@@ -26733,6 +26838,7 @@ fa = دوباره نپرس
     el = Κάναμε τις ενημερώσεις χάρτη 10 φορές μικρότερες
     sk = Desaťnásobne sme zmenšili veľkosť aktualizácií máp
     sw = Tumefanya sasisho za ramani kuwa ndogo zaidi mara 10
+    fa = ما به روز رسانی نقشه 10 بار کوچکتر انجام دادیم
 
   [whats_new_message_maps_update]
     en = To update a map, now you need to download just the missing data
@@ -26764,6 +26870,7 @@ fa = دوباره نپرس
     el = Για να ενημερώσετε ένα χάρτη, χρειάζεται πλέον να κατεβάσετε μόνο τα δεδομένα που λείπουν
     sk = Odteraz na aktualizáciu máp stačí prevziať len chýbajúce dáta
     sw = Ili kusasisha ramani, sasa unahitaji kupakua tu data inayokosa
+    fa = برای به روز رسانی نقشه، در حال حاضر شما باید فقط داده های از دست رفته را دانلود کنید
 
   [start_from_my_position]
     en = Start from
@@ -26795,6 +26902,7 @@ fa = دوباره نپرس
     el = Έναρξη από
     sk = Začať od
     sw = Anzia
+    fa = شروع از
 
   [rating]
     en = Rating
@@ -26826,6 +26934,7 @@ fa = دوباره نپرس
     el = Βαθμολογία
     sk = Hodnotenie
     sw = Kadirio
+    fa = رتبه بندی
 
   [placepage_no_reviews]
     en = No reviews
@@ -26857,6 +26966,7 @@ fa = دوباره نپرس
     el = Δεν υπάρχουν κριτικές
     sk = Žiadne hodnotenie
     sw = Hakuna maoni
+    fa = بررسی موجود نیست
 
   [placepage_reviewed]
     en = You have already reviewed this place
@@ -26888,6 +26998,7 @@ fa = دوباره نپرس
     el = Έχετε ήδη παρέχει μια κριτική για αυτό το μέρος
     sk = Už ste hodnotili toto miesto
     sw = Tayari umetoa maoni kuhusu mahalai hapa
+    fa = شما در حال حاضر روی این مکان ارزیابی ثبت کرده اید
 
   [placepage_summary_rating]
     en = Summary rating
@@ -26919,6 +27030,7 @@ fa = دوباره نپرس
     el = Σύνοψη κριτικών
     sk = Súhrnné hodnotenie
     sw = Kadirio wastani
+    fa = خلاصه ای از ارزیابی
 
   [placepage_summary_rating_description]
     en:one = Based on %d review
@@ -26952,6 +27064,7 @@ fa = دوباره نپرس
     el = Σύμφωνα με %d κριτικές
     sk = Na základe %d recenzií
     sw = Kulingana na maoni %d
+    fa = براساس %d ارزیابی
 
   [placepage_rate_comment]
     en = Tap to rate and review this place.
@@ -26983,6 +27096,7 @@ fa = دوباره نپرس
     el = Πατήστε για να βαθμολογήσετε και να γράψετε μια κριτική για αυτό το μέρος.
     sk = Ťuknutím ohodnoťte a preskúmajte toto miesto.
     sw = Gusa ili kukadiria na kutoa maoni kuhusu mahali hapa.
+    fa = برای رای دادن و ارزیابی این مکان ضربه بزنید.
 
   [placepage_rate_horrible]
     en = Horrible
@@ -27014,6 +27128,7 @@ fa = دوباره نپرس
     el = Απαίσιο
     sk = Hrozné
     sw = Mbaya sana
+    fa = ناگوار
 
   [placepage_rate_bad]
     en = Bad
@@ -27045,6 +27160,7 @@ fa = دوباره نپرس
     el = Κακό
     sk = Zlé
     sw = Mbaya
+    fa = ضعیف
 
   [placepage_rate_normal]
     en = Normal
@@ -27076,6 +27192,7 @@ fa = دوباره نپرس
     el = Ουδέτερο
     sk = Normálne
     sw = Kawaida
+    fa = معمولی
 
   [placepage_rate_good]
     en = Good
@@ -27107,6 +27224,7 @@ fa = دوباره نپرس
     el = Καλή
     sk = Dobré
     sw = Nzuri
+    fa = خوب
 
   [placepage_rate_excellent]
     en = Excellent
@@ -27138,6 +27256,7 @@ fa = دوباره نپرس
     el = Τέλεια
     sk = Výborné
     sw = Nzuri sana
+    fa = عالی
 
   [placepage_reviews_most_recent]
     en = Most recent
@@ -27169,6 +27288,7 @@ fa = دوباره نپرس
     el = Πιο πρόσφατες
     sk = Najnovšie
     sw = Hivi majuzi zaidi
+    fa = جدیدترین
 
   [placepage_reviews_most_useful]
     en = Most useful
@@ -27200,6 +27320,7 @@ fa = دوباره نپرس
     el = Πιο χρήσιμες
     sk = Najužitočnejšie
     sw = Muhimu zaidi
+    fa = مفید ترین
 
   [placepage_reviews_highest_rated]
     en = Highest rated
@@ -27231,6 +27352,7 @@ fa = دوباره نپرس
     el = Με την υψηλότερη βαθμολογία
     sk = Najvyššie hodnotené
     sw = Kadirio la juu zaidi
+    fa = بالاترین امتیاز
 
   [placepage_reviews_lowest_rated]
     en = Lowest rated
@@ -27262,6 +27384,7 @@ fa = دوباره نپرس
     el = Με τη χαμηλότερη βαθμολογία
     sk = Najnižšie hodnotené
     sw = Kadirio la chini zaidi
+    fa =  پایین‌ترین امتیاز
 
   [placepage_reviews_offline_comment]
     en = Only the most useful reviews are showed in the offline mode
@@ -27293,6 +27416,7 @@ fa = دوباره نپرس
     el = Στη λειτουργία εκτός σύνδεσης, εμφανίζονται μόνο οι πιο χρήσιμες κριτικές
     sk = V režime offline sa zobrazujú len najužitočnejšie recenzie
     sw = Ni maoni muhimu zaidi pekee yanaonyeshwa ikiwa nje ya mtandaoni
+    fa = تنها بررسی های مفید در حالت آفلاین نشان داده شده است
 
   [placepage_reviews_your_comment]
     en = Your review
@@ -27324,6 +27448,7 @@ fa = دوباره نپرس
     el = Η κριτική σας
     sk = Vaša recenzia
     sw = Maoni yako
+    fa = ارزیابی شما
 
   [placepage_reviews_unhelpful]
     en = Unhelpful
@@ -27355,6 +27480,7 @@ fa = دوباره نپرس
     el = Άχρηστη
     sk = Neužitočné
     sw = Haisaidii
+    fa = بی فایده
 
   [placepage_reviews_inappropriate]
     en = Inappropriate
@@ -27386,6 +27512,7 @@ fa = دوباره نپرس
     el = Ακατάλληλη
     sk = Nevhodné
     sw = Si mwafaka
+    fa = نامناسب
 
   [placepage_reviews_spam]
     en = Spam
@@ -27417,6 +27544,7 @@ fa = دوباره نپرس
     el = Spam
     sk = Spam
     sw = Taka
+    fa = هرزنامه
 
   [placepage_reviews_hint]
     en = What's good or bad here?
@@ -27448,6 +27576,7 @@ fa = دوباره نپرس
     el = Τι είναι καλό ή κακό εδώ;
     sk = Čo je tu dobré alebo zlé?
     sw = Ni nini kizuri au mbaya hapa?
+    fa = اینجا چه چیزی خوب یا بد است؟
 
   [placepage_reviews_edit_your_review]
     en = Edit your review
@@ -27479,6 +27608,7 @@ fa = دوباره نپرس
     el = Επεξεργαστείτε την κριτική σας
     sk = Upraviť svoju recenziu
     sw = Hariri maoni yako
+    fa = ارزیابی خود را ویرایش کنید
 
   [placepage_reviews_new_review]
     en = New review
@@ -27510,6 +27640,7 @@ fa = دوباره نپرس
     el = Νέα κριτική
     sk = Nová recenzia
     sw = Maoni mapya
+    fa = ارزیابی جدید
 
   [placepage_translate_button]
     en = Translate
@@ -27541,6 +27672,7 @@ fa = دوباره نپرس
     el = Μετάφραση
     sk = Preložiť
     sw = Tafsiri
+    fa = ترجمه
 
   [placepage_show_original_button]
     en = Show original
@@ -27572,6 +27704,7 @@ fa = دوباره نپرس
     el = Εμφάνιση αρχικής
     sk = Zobraziť originál
     sw = Onyesha asilia
+    fa = نمایش اصل
 
   [placepage_more_reviews_booking_button]
     en = More reviews on Booking.com
@@ -27603,6 +27736,7 @@ fa = دوباره نپرس
     el = Περισσότερες κριτικές στο Booking.com
     sk = Viac recenzií na Booking.com
     sw = Maoni zaidi kwenye Booking.com
+    fa = ارزیابی ‌های بیشتر در Booking.com
 
   [profile_authorization_title]
     en = Sign in with
@@ -27634,6 +27768,7 @@ fa = دوباره نپرس
     el = Συνδεθείτε με
     sk = Prihlásiť sa pomocou
     sw = Ingia ndani ukitumia
+    fa = پیوستن با
 
   [profile_authorization_message]
     en = Easy sign in without login and password in a couple of seconds
@@ -27665,6 +27800,7 @@ fa = دوباره نپرس
     el = Εύκολη σύνδεση χωρίς όνομα χρήστη και κωδικό πρόσβασης σε λίγα δευτερόλεπτα
     sk = Jednoduché prihlásenie bez zadávania mena a hesla za pár sekúnd
     sw = Ingia ndani kwa urahisi bila kuweka nenosiri ukicukua sekunde mbili
+    fa = وارد شدن آسان بدون ورود به سیستم و رمز عبور در چند ثانیه
 
   [profile_authorization_error]
     en = Oops, there was an error. Try to sign in again.
@@ -27696,6 +27832,7 @@ fa = دوباره نپرس
     el = Ωχ, παρουσιάστηκε σφάλμα. Προσπαθήστε να συνδεθείτε ξανά.
     sk = Ups, vyskytla sa chyba. Skúste sa prihlásiť znova.
     sw = Lo, kumekuwa na hitilafu. Jaribu tena kuingia ndani.
+    fa = اوه، یک خطا وجود داشت سعی کنید دوباره وارد سیستم شوید
 
   [service]
     en = Service
@@ -27727,6 +27864,7 @@ fa = دوباره نپرس
     el = Εξυπηρέτηση
     sk = Služba
     sw = Huduma
+    fa = سرویس
 
   [atmosphere]
     en = Atmosphere
@@ -27758,6 +27896,7 @@ fa = دوباره نپرس
     el = Ατμόσφαιρα
     sk = Atmosféra
     sw = Hewa
+    fa = جو
 
   [value_for_money]
     en = Value for money
@@ -27789,6 +27928,7 @@ fa = دوباره نپرس
     el = Αξία για τα χρήματα
     sk = Hodnota za peniaze
     sw = Thamani halisi ya pesa
+    fa = ارزش پول
 
   [experience]
     en = Experience
@@ -27820,6 +27960,7 @@ fa = دوباره نپرس
     el = Εμπειρία
     sk = Skúsenosti
     sw = Uzoefu
+    fa = تجربه
 
   [assortment]
     en = Assortment
@@ -27851,6 +27992,7 @@ fa = دوباره نپرس
     el = Κατάταξη
     sk = Sortiment
     sw = Mchanganyiko
+    fa = انتخابی
 
   [expertise]
     en = Expertise
@@ -27882,6 +28024,7 @@ fa = دوباره نپرس
     el = Τεχνογνωσία
     sk = Odbornosť
     sw = Ustadi
+    fa = تجربه و تخصص
 
   [equipment]
     en = Equipment
@@ -27913,6 +28056,7 @@ fa = دوباره نپرس
     el = Εξοπλισμός
     sk = Vybavenie
     sw = Vifaa
+    fa = تجهیزات
 
   [quality]
     en = Quality
@@ -27944,6 +28088,7 @@ fa = دوباره نپرس
     el = Ποιότητα
     sk = Kvalita
     sw = Ubora
+    fa = کیفیت
 
   [whats_new_ugc_title_updated_v840]
     en = Ratings and reviews
@@ -27983,6 +28128,7 @@ fa = دوباره نپرس
     ms = Penarafan dan ulasan
     sk = Hodnotenia a recenzie
     sw = Kadirio na maoni
+    fa = رأی ها و نظرات
 
   [whats_new_ugc_message]
     en = You can now leave ratings and reviews even offline! Don't forget to update your maps so you can see the changes.
@@ -28022,6 +28168,7 @@ fa = دوباره نپرس
     ms = Kini anda boleh meninggalkan penarafan dan ulasan luar talian pun! Jangan lupa untuk mengemaskini peta anda supaya anda boleh melihat perubahan.
     sk = Teraz môžete napísať hodnotenia a recenzie aj offline! Nezabudnite si aktualizovať mapy, aby ste videli zmeny.
     sw = Sasa unaweza kutoa kadiro na maoni hata ukiwa nje ya mtandao! Usisahau kusasisha ramani zako ili uweze kuona mabadiliko.
+    fa = شما هم اکنون می توانید رتبه بندی و بررسی حتی آنلاین را ترک کنید! فراموش نکنید که نقشه های خود را به روز کنید تا بتوانید تغییرات را مشاهده کنید.
 
   [dialog_error_storage_title]
     en = Storage access problem
@@ -28055,6 +28202,7 @@ fa = دوباره نپرس
     pt-BR = Problema de acesso ao armazenamento
     sk = Problém s prístupom k úložisku
     sw = Tatizo la kufikia hifadhi
+    fa = مشکل دسترسی به ذخیره سازی
 
   [dialog_error_storage_message]
     en = External storage is not accessible. The SD Card may have been removed, damaged, or the file system is read-only. Please, check your SD Card or contact us at support@maps.me
@@ -28088,6 +28236,7 @@ fa = دوباره نپرس
     pt-BR = O armazenamento externo não está disponível, é provável que o Cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support@maps.me
     sk = Externý úložný priestor nie je dostupný, pravdepodobne je vytiahnutá alebo poškodená SD karta alebo je systém súborov určený iba na čítanie. Skontrolujte to, prosím, a kontaktujte nás na support@maps.me
     sw = Hifadhi ya nje haipatikani, pengine Kadi ya SD imeondolewa, imeharibika au mfumo wa faili ni wa kusoma pekee. Tafadhali ikague na uwasiliane nasi kwa kutumia support@maps.me
+    fa = ذخیره سازی خارجی در دسترس نیست کارت SD ممکن است برداشته شده باشد، آسیب دیده باشد یا سیستم فایل فقط خواندنی باشد. لطفا کارت SD خود را بررسی کنید یا با ما در support@maps.me تماس بگیرید
 
   [setting_emulate_bad_storage]
     en = Emulate bad storage
@@ -28121,6 +28270,7 @@ fa = دوباره نپرس
     pt-BR = Emular memória ruim
     sk = Imitovať poškodené úložisko
     sw = Onyeshana hifadhi mbaya
+    fa = شبیه سازی ذخیره سازی بد
 
   [discovery_button_title]
     en = Discover nearby
@@ -28154,6 +28304,7 @@ fa = دوباره نپرس
     pt-BR = Descobrir nas proximidades
     sk = Poznávajte svoje okolie
     sw = Gundua yaliyo karibu
+    fa = در نزدیکی کشف کنید
 
   [discovery_button_subtitle_things_to_do]
     en = Things to do
@@ -28187,6 +28338,7 @@ fa = دوباره نپرس
     pt-BR = Coisas a fazer
     sk = Aktivity
     sw = Mambo ya kufanya
+    fa = چیزهایی که باید انجام شود
 
   [discovery_button_subtitle_attractions]
     en = Attractions
@@ -28223,6 +28375,7 @@ fa = دوباره نپرس
     pt-BR = Atrações
     sk = Atrakcie
     sw = Vivutio
+    fa = جاذبه ها
 
   [discovery_button_subtitle_eat_and_drink]
     en = Eat and drink
@@ -28256,6 +28409,7 @@ fa = دوباره نپرس
     pt-BR = Comer e beber
     sk = Jedlo a pitie
     sw = Kula na kunywa
+    fa = خوردن و آشامیدن
 
   [discovery_button_subtitle_local_guides]
     en = Local Guides
@@ -28289,6 +28443,7 @@ fa = دوباره نپرس
     pt-BR = Guias locais
     sk = Miestni sprievodcovia
     sw = Miongozo ya ndani
+    fa = راهنماهای محلی
 
   [discovery_button_viator_offline_title]
     en = Discover tours and unusual things to do
@@ -28322,6 +28477,7 @@ fa = دوباره نپرس
     pt-BR = Descobrir excursões e atividades incomuns
     sk = Objavte výlety a nezvyčajné aktivity
     sw = Gundua safari za utalii na mambo ya kufanya yasiyo ya kawaida
+    fa = تورها را پیدا کنید و چیزهای غیر معمول را انجام دهید
 
   [discovery_button_viator_offline_message]
     en = Tours, things to do, sightseeing tours and more.
@@ -28355,6 +28511,7 @@ fa = دوباره نپرس
     pt-BR = Excursões, atividades, passeios turísticos e muito mais.
     sk = Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.
     sw = Utalii, mambo ya kufanya, utalii wa kutazama maeneo ya kuvutia na mengi zaidi.
+    fa = تور، چیزهایی که باید انجام شود، تورهای گشت و گذار و بیشتر.
 
   [discovery_button_viator_error_title]
     en = Error loading data
@@ -28388,6 +28545,7 @@ fa = دوباره نپرس
     pt-BR = Erro no carregamento de dados
     sk = Chyba pri načítaní dat
     sw = Hitilafu katika kuleta data
+    fa = خطای بارگذاری داده
 
   [discovery_button_other_error_message]
     en = Error loading data
@@ -28487,6 +28645,7 @@ fa = دوباره نپرس
     pt-BR = Não encontrado
     sk = Nič nebolo nájdené
     sw = Haipatikani
+    fa = یافت نشد
 
   [discovery_button_404_error_message]
     en = Oops, we did not find anything interesting around.
@@ -28520,6 +28679,7 @@ fa = دوباره نپرس
     pt-BR = Opa, não encontramos nada de interessante por aí.
     sk = Ejha, nenašli sme v okolí nič zaujímavé.
     sw = Lo, hatukupata chochote cha kuvutia hapa.
+    fa = متأسفیم، ما چیزی جالب در اطراف پیدا نکردیم.
 
   [booking_filters_check_in]
     en = Check in
@@ -28553,6 +28713,7 @@ fa = دوباره نپرس
     pt-BR = Check-in
     sk = Prihlásiť sa
     sw = Ingia
+    fa = ورود
 
   [booking_filters_check_out]
     en = Check out
@@ -28586,6 +28747,7 @@ fa = دوباره نپرس
     pt-BR = Check-out
     sk = Odhlásiť sa
     sw = Ondoka
+    fa = خروج
 
   [booking_filters_offline]
     en = Not available offline.
@@ -28619,6 +28781,7 @@ fa = دوباره نپرس
     nb = Ikke tilgjengelig offline.
     sk = Nie sú k dispozícii offline.
     sw = Haipatikani nje ya mtandao.
+    fa = در دسترس نیست.
 
   [directions_finish]
     en = Destination
@@ -28652,6 +28815,7 @@ fa = دوباره نپرس
     pt-BR = Destino
     sk = Ciel
     sw = Eneo unakoelekea
+    fa = مقصد
 
   [directions_on_foot]
     en = Walk %s
@@ -28685,6 +28849,7 @@ fa = دوباره نپرس
     pt-BR = Caminhar %s
     sk = Chôdza %s
     sw = Tembea %s
+    fa = پیاده روی %s
 
   [core_entrance]
     en = Entrance
@@ -28718,6 +28883,7 @@ fa = دوباره نپرس
     pt-BR = Entrada
     sk = Vchod  | vjazd
     sw = Kiingilio
+    fa = ورودی
 
   [coffee]
     en = Coffee
@@ -28754,6 +28920,7 @@ fa = دوباره نپرس
     pt-BR = Café
     sk = Káva
     sw = Kahawa
+    fa = قهوه
 
   [cleanliness]
     en = Cleanliness
@@ -28787,6 +28954,7 @@ fa = دوباره نپرس
     pt-BR = Limpeza
     sk = Čistota
     sw = Usafi
+    fa = پاکیزگی
 
   [crowdedness]
     en = Crowdedness
@@ -28820,6 +28988,7 @@ fa = دوباره نپرس
     pt-BR = Lotação
     sk = Preplnenosť
     sw = Watu kusongamana
+    fa = ازدحام بیش از حد
 
   [error_enter_correct_name]
     en = Please, enter a correct name
@@ -28853,6 +29022,7 @@ fa = دوباره نپرس
     pt-BR = Por favor, digite um nome correto
     sk = Prosím, zadajte správne meno
     sw = Tafadhali, weka jina sahihi
+    fa = لطفا نام صحیح را وارد کنید
 
   [hotel_available]
     en = Available
@@ -28886,6 +29056,7 @@ fa = دوباره نپرس
     pt-BR = Disponível
     sk = K dispozícii
     sw = Inapatikana
+    fa = در دسترس
 
   [whats_new_transit_title]
     en = Subways available
@@ -28925,6 +29096,7 @@ fa = دوباره نپرس
     pt-BR = Metrôs disponíveis
     sk = Metro k dispozícii
     sw = Reli za chini ya ardhi zinapatikana
+    fa = مترو موجود است
 
   [whats_new_transit_message]
     en = Build your routes using subways! Please update maps to see changes.
@@ -28964,6 +29136,7 @@ fa = دوباره نپرس
     pt-BR = Monte suas rotas utilizando os metrôs! Atualize os mapas para visualizar as alterações.
     sk = Vyhľadávajte trasy aj s využitím metra! Pre zobrazenie zmien, prosím, zaktualizujte mapy.
     sw = Tengeneza njia ukitumia reli za chini ya ardhi! Tafadhali sasisha ramani ili kuona mabadiliko.
+    fa = ساختن مسیرهای خود را با استفاده از مترو! لطفا نقشه ها را برای دیدن تغییرات به روز کنید
 
   [whats_new_discovery_title]
     en = Discovery button
@@ -29003,6 +29176,7 @@ fa = دوباره نپرس
     pt-BR = Botão descoberta
     sk = Tlačidlo Priezkum
     sw = Kitufe cha ugunduaji
+    fa = دکمه اکتشاف
 
   [whats_new_discovery_message]
     en = Discover things around in one click!
@@ -29042,6 +29216,7 @@ fa = دوباره نپرس
     pt-BR = Descubra as coisas ao seu redor com apenas um clique!
     sk = Preskúmajte veci okolo Vás pomocou jedného kliku!
     sw = Gundua mambo yaliyo karibu kwa kubonyeza mara moja!
+    fa = همه چیز را در یک کلیک کشف کنید!
 
   [price_per_hour]
     en = %s/hour
@@ -29073,6 +29248,7 @@ fa = دوباره نپرس
     zh-Hant = %s/小時
     el = %s/ώρα
     sk = %s/hodina
+    fa =  %s/ساعت
 
   [bookmarks_backup]
     en = Enable backup
@@ -29106,6 +29282,7 @@ fa = دوباره نپرس
     sw = Wezesha uwekaji hifadhi rudufu
     zh-Hans = 啟用備份功能
     zh-Hant = 入口
+    fa = پشتیبانگیری را فعال کنید
 
   [authorization_button_sign_in]
     en = Sign in
@@ -29139,6 +29316,7 @@ fa = دوباره نپرس
     sw = Ingia ndani
     zh-Hans = 登入
     zh-Hant = 登錄
+    fa = ورود
 
   [bookmarks_message_authorized_user]
     en = Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?
@@ -29172,6 +29350,7 @@ fa = دوباره نپرس
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Ungependa kuwezesha uwekaji hifadhi rudufu?
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。是否想要啟用備份功能？
     zh-Hant = 您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？
+    fa = بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آیا می خواهید نسخه پشتیبان تهیه کنید؟
 
   [bookmarks_message_unauthorized_user]
     en = Your bookmarks are backed up automatically in a secure cloud storage. Sign in to enable backup.
@@ -29205,6 +29384,7 @@ fa = دوباره نپرس
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama kwenye wingu. Ingia ndani ili kuwezesha uwekaji hifadhi rudufu.
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。登入以啟用備份功能。
     zh-Hant = 您的書籤自動備份在安全的云儲存中。登錄以啟用備份。
+    fa = بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. برای فعال کردن پشتیبان وارد سیستم شوید
 
   [bookmarks_message_unbackuped_user]
     en = Your bookmarks are backed up automatically in a secure cloud storage.
@@ -29238,6 +29418,7 @@ fa = دوباره نپرس
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu.
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。
     zh-Hant = 您的書籤自動備份在安全的云儲存中。
+    fa = بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند.
 
   [bookmarks_message_backuped_user]
     en = Your bookmarks are backed up automatically in a secure cloud storage. Last backup was %s
@@ -29271,6 +29452,7 @@ fa = دوباره نپرس
     sw = Hifadhi rudufu ya alamisho zako inawekwa kiotomatiki katika hifadhi salama ya wingu. Hifadhi rudufu ya mwisho %s
     zh-Hans = 您的書籤將自動備份在安全的雲端儲存空間。上次備份：%s
     zh-Hant = 每週您的書籤都自動備份在安全的云儲存中。上次備份是%s
+    fa = بوک مارک های شما به صورت خودکار در یک حافظه ذخیره سازی امن پشتیبان گیری می شوند. آخرین پشتیبان %s بود
 
   [settings_backup_bookmarks]
     en = Backup Bookmarks
@@ -29304,6 +29486,7 @@ fa = دوباره نپرس
     sw = Weka Hifadhi Rudufu ya Alamisho
     zh-Hans = 備份書籤
     zh-Hant = 備份書籤
+    fa = نشانکهای پشتیبان
 
   [bookmarks_groups]
     en = Lists
@@ -29337,6 +29520,7 @@ fa = دوباره نپرس
     sw = Orodha
     zh-Hans = 清單
     zh-Hant = 列表
+    fa = لیست ها
 
   [bookmarks_groups_hide_all]
     en = Hide all
@@ -29370,6 +29554,7 @@ fa = دوباره نپرس
     sw = Ficha zote
     zh-Hans = 全部隱藏
     zh-Hant = 隱藏全部
+    fa = پنهان کردن همه
 
   [bookmarks_groups_show_all]
     en = Show all
@@ -29403,6 +29588,7 @@ fa = دوباره نپرس
     sw = Onyesha zote
     zh-Hans = 全部顯示
     zh-Hant = 顯示全部
+    fa = نمایش همه
 
   [bookmarks_places]
     en:one = %d bookmark
@@ -29439,6 +29625,8 @@ fa = دوباره نپرس
     sw = Alamisho %d
     zh-Hans = %d 個書籤
     zh-Hant = %d個書籤
+    fa:one = %d نشانه
+    fa:other = %d نشانه‌ها
 
   [bookmarks_create_new_group]
     en = Create new list
@@ -29472,6 +29660,7 @@ fa = دوباره نپرس
     sw = Unda orodha mpya
     zh-Hans = 创建新的列表
     zh-Hant = 創建新列表
+    fa = ایجاد لیست جدید
 
   [downloader_hide_screen]
     en = Hide Screen
@@ -29505,6 +29694,7 @@ fa = دوباره نپرس
     sw = Ficha skrini
     zh-Hans = 隱藏畫面
     zh-Hant = 隱藏屏幕
+    fa = پنهان کردن صفحه
 
   [downloader_percent]
     en = %s (%s of %s)
@@ -29538,6 +29728,7 @@ fa = دوباره نپرس
     sw = %s (%s kati ya %s)
     zh-Hans = %s (%s / %s)
     zh-Hant = %s (%s，共%s)
+    fa =  %s (%s از %s)
 
   [downloader_process]
     en = Downloading %s...
@@ -29571,6 +29762,7 @@ fa = دوباره نپرس
     sw = Inapakua %s...
     zh-Hans = 正在下載 %s...
     zh-Hant = 下載 %s 中……
+    fa = در حال دانلود %s...
 
   [downloader_applying]
     en = Applying %s...
@@ -29604,6 +29796,7 @@ fa = دوباره نپرس
     sw = Inatekeleza %s...
     zh-Hans = 正在套用 %s...
     zh-Hant = 應用 %s 中……
+    fa = اعمال %s...
 
   [transit_not_found]
     tags = ios,android
@@ -29638,6 +29831,7 @@ fa = دوباره نپرس
     sw = Urambazaji usafiri katika eneo hili bado haupatikani
     zh-Hans = 尚無法使用本區域的過境導航
     zh-Hant = 本區域還沒有交通導航
+    fa = ناوبری حمل و نقل در این منطقه هنوز در دسترس نیست
 
   [whats_new_title_hotel_filter]
     en = New hotel filters available!
@@ -29671,6 +29865,7 @@ fa = دوباره نپرس
     sw = Chujio jipya za hoteli zinapatikana!
     zh-Hans = 新的飯店篩選條件可用！
     zh-Hant = 有新的賓館篩選！
+    fa = فیلترهای جدید هتل در دسترس است!
 
   [whats_new_message_hotel_filter]
     en = Book hotels available for your dates! Use check in and check out filters
@@ -29704,6 +29899,7 @@ fa = دوباره نپرس
     sw = Hifadhi nafasi katika hoteli zinazopatikana kwenye tarehe zako! Tumia chujio za kuingia na kuondoka
     zh-Hans = 為您的日期安排預訂飯店！使用入住和退房篩選條件
     zh-Hant = 預訂在您所選日期有空的賓館！用入住和離店篩選
+    fa = رزرو هتل در دسترس برای تاریخ خود را! از چک کردن استفاده کنید و فیلتر کنید
 
   [whats_new_title_ugc_travel]
     en = Share your experience with other travellers!
@@ -29737,6 +29933,7 @@ fa = دوباره نپرس
     sw = Shiriki hisia zako na wasafiri wengine!
     zh-Hans = 與其他旅客分享您的體驗！
     zh-Hant = 和其他旅客分享您的體驗！
+    fa = تجربه خود را با مسافران دیگر به اشتراک بگذارید!
 
   [whats_new_message_ugc_travel]
     en = Rate and review places you visited!
@@ -29770,6 +29967,7 @@ fa = دوباره نپرس
     sw = Kadiria na utoe maoni kuhusu maeneo uliyotembelea!
     zh-Hans = 評價您參觀過的地方！
     zh-Hant = 給您訪問過的地方打分和評價！
+    fa = مکانهایی را که بازدید کرده اید رتبه بندی کنید و بررسی کنید
 
   [dialog_pedestrian_route_is_long]
     tags = ios,android
@@ -29804,6 +30002,7 @@ fa = دوباره نپرس
     sw = Njia ya waenda kwa miguu ni ndefu sana
     zh-Hans = 步行路线太长
     zh-Hant = 步行路線太長
+    fa = مسیر عابر پیاده خیلی طولانی است
 
   [dialog_message_transit_not_found_connection]
     tags = ios,android
@@ -29838,6 +30037,7 @@ fa = دوباره نپرس
     sw = Panga njia katika mtandao mmoja wa usafiri
     zh-Hans = 规划一个交通网络内的路线
     zh-Hant = 規劃一個交通網絡內的路線
+    fa = یک مسیر را در یک شبکه حمل و نقل برنامه ریزی کنید
 
   [bookmarks_error_message_share_general]
     en = Unable to share due to an application error
@@ -29871,6 +30071,7 @@ fa = دوباره نپرس
     sw = Haiwezekani kushiriki kutokana na hitilafu ya programu
     zh-Hans = 由于应用程序出错而无法分享
     zh-Hant = 由於應用程序出錯而無法分享
+    fa = با توجه به خطای برنامه، امکان اشتراک گذاری وجود ندارد
 
   [bookmarks_error_title_share_empty]
     en = Sharing error
@@ -29904,6 +30105,7 @@ fa = دوباره نپرس
     sw = Hitilafu ya kushiriki
     zh-Hans = 分享错误
     zh-Hant = 分享錯誤
+    fa = خطای اشتراک
 
   [bookmarks_error_message_share_empty]
     en = Cannot share an empty list
@@ -29937,6 +30139,7 @@ fa = دوباره نپرس
     sw = Haiwezekani kushiriki orodha tupu
     zh-Hans = 无法分享空列表
     zh-Hant = 無法分享空列表
+    fa = یک لیست خالی را نمی توان به اشتراک گذاشت
 
  [discovery_button_subtitle_book_hotels]
     en = Book hotels
@@ -29970,6 +30173,7 @@ fa = دوباره نپرس
     sw = Hifadhi hoteli
     zh-Hans = 订宾馆
     zh-Hant = 訂賓館
+    fa = رزرو هتل
 
   [maxim_taxi_title]
     en = maxim
@@ -30006,6 +30210,7 @@ fa = دوباره نپرس
     sw = Jina halikuweza kuwa tupu
     zh-Hans = 名字不能为空
     zh-Hant = 名字不能為空
+    fa = نام نمیتواند خالی باشد
 
   [bookmarks_error_message_empty_list_name]
     en = Please enter the list name
@@ -30039,6 +30244,7 @@ fa = دوباره نپرس
     sw = Tafadhali ingiza jina la orodha
     zh-Hans = 请输入列表名称
     zh-Hant = 請輸入列表名稱
+    fa = لطفا نام لیست را وارد کنید
 
   [bookmarks_new_list_hint]
     en = New list
@@ -30072,6 +30278,7 @@ fa = دوباره نپرس
     sw = Orodha mpya
     zh-Hans = 新的列表
     zh-Hant = 新的列表
+    fa = لیست جدید
 
   [bookmarks_error_title_list_name_already_taken]
     en = This name is already taken
@@ -30105,6 +30312,7 @@ fa = دوباره نپرس
     sw = Jina hili tayari limechukuliwa
     zh-Hans = 这个名字已经被使用了
     zh-Hant = 這個名字已經被使用了
+    fa = این اسم قبلا انتخاب شده است
 
   [bookmarks_error_message_list_name_already_taken]
     en = Please choose another name
@@ -30138,6 +30346,7 @@ fa = دوباره نپرس
     sw = Tafadhali chagua jina lingine
     zh-Hans = 请选择其他名称
     zh-Hant = 請選擇其他名稱
+    fa = لطفا نام دیگری را انتخاب کنید
 
   [bookmarks_error_title_list_name_too_long]
     en = This name is too long
@@ -30171,6 +30380,7 @@ fa = دوباره نپرس
     sw = Jina hili ni muda mrefu sana
     zh-Hans = 这个名字太长了
     zh-Hant = 這個名字太長了
+    fa = این نام خیلی طولانی است
 
   [bookmarks_error_message_list_name_too_long]
     en = Please choose another name
@@ -30204,6 +30414,7 @@ fa = دوباره نپرس
     sw = Tafadhali chagua jina lingine
     zh-Hans = 请选择其他名称
     zh-Hant = 請選擇其他名稱
+    fa = لطفا نام دیگری را انتخاب کنید
 
   [please_wait]
     en = Please wait...
@@ -30237,6 +30448,7 @@ fa = دوباره نپرس
     sw = Tafadhali subiri...
     zh-Hans = 请稍候...
     zh-Hant = 請稍候...
+    fa = لطفا صبر کنید...
 
   [phone_number]
     en = Phone number
@@ -30270,6 +30482,7 @@ fa = دوباره نپرس
     sw = Nambari ya simu
     zh-Hans = 电话号码
     zh-Hant = 電話號碼
+    fa = شماره تلفن
 
   [notification_unsent_reviews_title]
     en = You have several unsent reviews
@@ -30303,6 +30516,7 @@ fa = دوباره نپرس
     sw = Una maoni mapitio kadhaa
     zh-Hans = 你有几个未发表的评论
     zh-Hant = 你有幾個未發表的評論
+    fa = شما چند نظر ارسال نشده دارید
 
   [notification_unsent_reviews_message]
     en = Please sign in to share reviews with other travelers
@@ -30336,6 +30550,7 @@ fa = دوباره نپرس
     sw = Tafadhali ingia ili ushiriki mapitio na wasafiri wengine
     zh-Hans = 请登录与其他旅客分享评论
     zh-Hant = 請登錄與其他旅客分享評論
+    fa = لطفا برای اشتراک‌گذاری نظرات با سایر مسافرین وارد شوید
 
   [profile]
     tags = ios, android
@@ -30402,6 +30617,7 @@ fa = دوباره نپرس
     sw = Tafuta hoteli sawa
     zh-Hans = 搜索类似的酒店
     zh-Hant = 搜索類似的酒店
+    fa = جست‌وجوی هتل‌های مشابه
 
   [bookmarks_detect_title]
     en = New files detected
@@ -30435,6 +30651,7 @@ fa = دوباره نپرس
     sw = Faili mpya zimegunduliwa
     zh-Hans = 检测到新文件
     zh-Hant = 檢測到新文件
+    fa = فایل‌های جدید پیدا شد
 
   [bookmarks_detect_message]
     en:one = %d file was found. You can see it after conversion.
@@ -30498,6 +30715,8 @@ fa = دوباره نپرس
     sw:other = Files %d zimepatikana. Utawaona baada ya uongofu.
     zh-Hans = 找到%d个文件。 转换后你会看到它。
     zh-Hant = 找到%d個文件。 轉換後你會看到它。
+    fa:one = %d فایل پیدا شد. بعد از تبدیل آن را می‌بینید.
+    fa:other = %d فایل پیدا شد. بعد از تبدیل آن‌ها را می‌بینید.
 
   [button_convert]
     en = Convert
@@ -30531,6 +30750,7 @@ fa = دوباره نپرس
     sw = Badilisha
     zh-Hans = 兑换
     zh-Hant = 兌換
+    fa = تبدیل
 
   [bookmarks_convert_error_title]
     en = Error
@@ -30564,6 +30784,7 @@ fa = دوباره نپرس
     sw = Hitilafu
     zh-Hans = 错误
     zh-Hant = 錯誤
+    fa = خطا
 
   [bookmarks_convert_error_message]
     en = Some files were not converted.
@@ -30597,6 +30818,7 @@ fa = دوباره نپرس
     sw = Baadhi ya faili hazibadilishwa.
     zh-Hans = 有些文件未被转换。
     zh-Hant = 有些文件未被轉換。
+    fa = بعضی از فایل‌ها تبدیل نشد.
 
   [converting]
     en = Converting...
@@ -30630,6 +30852,7 @@ fa = دوباره نپرس
     sw = Inabadilisha...
     zh-Hans = 转换...
     zh-Hant = 轉換...
+    fa = در حال تبدیل...
 
   [wn_reinvented_bookmarks_title]
     en = We reinvented bookmarks!
@@ -30663,6 +30886,7 @@ fa = دوباره نپرس
     sw = Tuliongeza tena alama za alama!
     zh-Hans = 我们改造了书签！
     zh-Hant = 我們改造了書籤！
+    fa = نشانه‌ها را بازآفرینی کردیم!
 
   [wn_reinvented_bookmarks_message]
     en = You can backup them, create lists...It’s amazing...
@@ -30696,6 +30920,7 @@ fa = دوباره نپرس
     sw = Unaweza kushirikisha alama, unda orodha... Ni ajabu...
     zh-Hans = 你可以备份书签，创建列表...这太神奇了...
     zh-Hant = 你可以備份書籤，創建列表...這太神奇了...
+    fa = می‌توانید از آن‌ها پشتیبان بگیرید، لیست درست کنید... عالی شده...
 
   [wn_way_of_booking_title]
     en = We reimagined the way of booking!
@@ -30729,6 +30954,7 @@ fa = دوباره نپرس
     sw = Sisi kufikiri njia ya booking!
     zh-Hans = 我们重新定位了预订方式！
     zh-Hant = 我們重新定位了預訂方式！
+    fa = در شیوهٔ رزورو بازاندیشی کردیم!
 
   [wn_way_of_booking_message]
     en = Just find a hotel on the map and book it, or select the similar one.
@@ -30762,6 +30988,7 @@ fa = دوباره نپرس
     sw = Tafuta tu hoteli kwenye ramani na ukikeke, au chagua sawa.
     zh-Hans = 只需在地图上找到一家酒店并预订，或选择类似的酒店即可。
     zh-Hant = 只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。
+    fa = کافی است هتلی را روی نقشه بیابید و رزروش کنید یا هتل مشابه آن را انتخاب کنید.
 
   [bookmarks_restore]
     en = Restore bookmarks
@@ -30795,6 +31022,7 @@ fa = دوباره نپرس
     sw = Rejesha marudio
     zh-Hans = 恢复书签
     zh-Hant = 恢復書籤
+    fa = بازگردانی نشانه‌ها
 
   [bookmarks_restore_process]
     en = Restoring...
@@ -30828,6 +31056,7 @@ fa = دوباره نپرس
     sw = Inarudi...
     zh-Hans = 恢复...
     zh-Hant = 恢復...
+    fa = در حال بازگردانی...
 
   [bookmarks_restore_title]
     en = Restore this version?
@@ -30861,6 +31090,7 @@ fa = دوباره نپرس
     sw = Rejesha toleo hili?
     zh-Hans = 还原这个版本？
     zh-Hant = 還原這個版本？
+    fa = این نسخه برگردد؟
 
   [bookmarks_restore_message]
     en = Your bookmarks will be restored from %s (%s)
@@ -30894,6 +31124,7 @@ fa = دوباره نپرس
     sw = Vitambulisho vyako vitaburudisha kutoka %s (%s)
     zh-Hans = 您的书签将从%s (%s)个恢复
     zh-Hant = 您的書籤將從%s (%s)個恢復
+    fa = نشانه‌های شما از %s (%s) بازگردانده می‌شود
 
   [bookmarks_restore_empty_title]
     en = You don’t have any backups
@@ -30927,6 +31158,7 @@ fa = دوباره نپرس
     sw = Huna salama
     zh-Hans = 你没有备份
     zh-Hant = 你沒有備份
+    fa = فایل پشتیبان ندارید
 
   [bookmarks_restore_empty_message]
     en = The server couldn't find previously made backups
@@ -30960,6 +31192,7 @@ fa = دوباره نپرس
     sw = Seva haipata vidokezo vya awali zilizofanywa
     zh-Hans = 服务器没有找到以前做的备份
     zh-Hant = 服務器沒有找到以前做的備份
+    fa = سرور پشتیبان‌هایی را که قبلا ساخته شده بودند پیدا نکرد
 
   [common_check_internet_connection_dialog_title]
     en = No internet connection
@@ -30993,6 +31226,7 @@ fa = دوباره نپرس
     sw = Hakuna uhusiano wa internet
     zh-Hans = 没有互联网连接
     zh-Hant = 沒有互聯網連接
+    fa = اتصال اینترنتی برقرار نیست
 
   [error_server_title]
     en = Server error
@@ -31026,6 +31260,7 @@ fa = دوباره نپرس
     sw = Hitilafu ya seva
     zh-Hans = 服务器错误
     zh-Hant = 服務器錯誤
+    fa = خطای سرور
 
   [error_server_message]
     en = There was an error on the server, please try again later
@@ -31059,6 +31294,7 @@ fa = دوباره نپرس
     sw = Kulikuwa na hitilafu kwenye seva, tafadhali jaribu tena baadaye
     zh-Hans = 服务器发生错误，请稍后重试
     zh-Hant = 服務器發生錯誤，請稍後重試
+    fa = روی سرور خطایی رخ داد. لطفا بعدا امتحان کنید
 
   [error_system_message]
     en = An unknown error occurred
@@ -31092,6 +31328,7 @@ fa = دوباره نپرس
     sw = Hitilafu isiyojulikana ilitokea
     zh-Hans = 出现未知错误
     zh-Hant = 出現未知錯誤
+    fa = خطای ناشناخته‌ای رخ داد
 
   [restore]
     en = Restore
@@ -31125,6 +31362,7 @@ fa = دوباره نپرس
     sw = Rejesha
     zh-Hans = 恢复
     zh-Hant = 恢復
+    fa = بازیابی
 
   [sign_message_gdpr]
     en = To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. 
@@ -31158,6 +31396,7 @@ fa = دوباره نپرس
     sw = Lazima ufikie Masharti yetu ya Kutumia na Sera ya Faragha. Tafadhali soma kwa makini.
     zh-Hans = 您必须接受我们的使用条款和隐私政策。 请仔细阅读。
     zh-Hant = 您必須接受我們的使用條款和隱私政策。 請仔細閱讀。
+    fa = برای ادامه باید شرایط استفاده و سیاست حریم خصوصی را بپذیرید. لطفا آن‌ها را با دقت بخوانید.
 
   [sign_agree_pp_gdpr]
     en = I agree to the <a href="%s">Privacy Policy</a>
@@ -31191,6 +31430,7 @@ fa = دوباره نپرس
     sw = Nakubali <a href="%s">Sera ya Faragha</a>
     zh-Hans = 我同意<a href="%s">隐私政策</a>
     zh-Hant = 我同意<a href="%s">隱私政策</a>
+    fa = من <a href="%s">سیاست حریم خصوصی</a> را می‌پذیرم
 
   [sign_agree_tof_gdpr]
     en = I agree to the <a href="%s">Terms of Use</a>
@@ -31224,6 +31464,7 @@ fa = دوباره نپرس
     sw = Ninakubali <a href="%s">Sheria ya Matumizi</a>
     zh-Hans = 我同意<a href="%s">使用条款</a>
     zh-Hant = 我同意<a href="%s">使用條款</a>
+    fa = من <a href="%s">شرایط استفاده</a> را می‌پذیرم
 
   [sign_agree_news_gdpr]
     en = I agree to receive the latest news about MAPS.ME products
@@ -31257,6 +31498,7 @@ fa = دوباره نپرس
     sw = Nakubali kupokea habari za hivi karibuni kuhusu bidhaa za MAPS.ME
     zh-Hans = 我同意接收有关MAPS.ME产品的最新消息
     zh-Hant = 我同意接收有關MAPS.ME產品的最新消息
+    fa = می‌پذیرم که جدیدترین خبرها از محصولات MAPS.ME برایم ارسال شود
 
   [whats_new_localbiz_title]
     en = Small business deserves attention
@@ -31290,6 +31532,7 @@ fa = دوباره نپرس
     sw = Biashara ndogo zinahitaji kuzingatiwa
     zh-hans = 小企业值得关注
     zh-hant = 小企業值得關注
+    fa = کسب‌وکار کوچک شایستهٔ حمایت است
 
   [whats_new_localbiz_message]
     en = It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.
@@ -31323,6 +31566,7 @@ fa = دوباره نپرس
     sw = Ni mikahawa, hosteli nzuri na maduka ya ndani ambayo yanafanya safari zetu ziwe za kukumbukwa. Tutaboresha ukurasa wako katika MAP.ME ili kuufanya uwe bora.
     zh-Hans = 当地的咖啡馆、旅馆和小商店让旅行难以忘怀。我们在MAPS.ME中免费优化您的商家页面，让它能够被看见。
     zh-Hant = 當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在MAPS.ME中免費優化您的商家頁面，以便它可以被看見。
+    fa = حرف از کافه‌های محلی، مسافرخانه‌های گرم‌ودنج و مغازه‌هایی است که سفرمان را به‌یادماندنی می‌کنند. ما صفحه‌های شما را در MAPS.ME بهینه می‌کنیم تا برجسته باشد.
 
   [whats_new_order_button]
     en = Leave a request
@@ -31356,6 +31600,7 @@ fa = دوباره نپرس
     sw = Acha ombi
     zh-Hans = 留下申请表
     zh-Hant = 留下申請表
+    fa = درخواستی ثبت کنید
 
   [bookmarks_page_downloaded]
     en = Downloaded
@@ -31389,6 +31634,7 @@ fa = دوباره نپرس
     sw = Imepakuliwa
     zh-Hans = 加载
     zh-Hant = 加載
+    fa = دانلود شد
 
   [bookmarks_page_my]
     en = My
@@ -31422,6 +31668,7 @@ fa = دوباره نپرس
     sw = Yangu
     zh-Hans = 我的
     zh-Hant = 我的
+    fa = مال من
 
   [routes_and_bookmarks]
     en = Routes and bookmarks
@@ -31455,6 +31702,7 @@ fa = دوباره نپرس
     sw = Njia na vialamisho
     zh-Hans = 路线和标签
     zh-Hant = 路線和標籤
+    fa = مسیرها و نشانه‌ها
 
   [bookmarks_webview_success_toast]
     en = Bookmarks succesfully downloaded
@@ -31488,6 +31736,7 @@ fa = دوباره نپرس
     sw = Vialamisho vimefanikiwa kupakuliwa
     zh-Hans = 标签已成功下载
     zh-Hant = 標籤已成功加載
+    fa = نشانه‌ها با موفقیت دانلود شد
 
   [cached_bookmarks_placeholder_title]
     en = Download new places
@@ -31521,6 +31770,7 @@ fa = دوباره نپرس
     sw = Pakua maeneo mapya
     zh-Hans = 上传新地点
     zh-Hant = 上傳新地點
+    fa = دانلود مکان‌های جدید
 
   [cached_bookmarks_placeholder_subtitle]
     en = Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.
@@ -31554,6 +31804,7 @@ fa = دوباره نپرس
     sw = Bonyeza kitufe ili upakue maelefu ya maeneo na njia za kuvutia zilizoundwa na watumiaji wa MAPS.ME Utahitaji muunganisho wa intaneti.
     zh-Hans = 单击按钮下载MAPS.ME用户创建的数千个有趣的地点和路线。您需要连接网络。
     zh-Hant = 單擊按鈕下載MAPS.ME用戶創建的數千個有趣的地點和路線。您需要網絡連接。
+    fa = دکمه را بزنید تا هزاران مکان و مسیر جالبی که دیگران کاربران MAPS.ME ساخته‌اند را ببینید. به اتصال اینترنتی نیاز خواهید داشت.
 
   [downloader_download_routers]
     en = Download bookmarks
@@ -31587,6 +31838,7 @@ fa = دوباره نپرس
     sw = Pakua vialamisho
     zh-Hans = 下载标签
     zh-Hant = 加載標籤
+    fa = دانلود نشانه‌ها
 
   [bookmarks_groups_cached]
     en = Downloaded lists
@@ -31620,6 +31872,7 @@ fa = دوباره نپرس
     sw = Orodha zilizopakuliwa
     zh-Hans = 上传的列表
     zh-Hant = 加載的列表
+    fa = لیست‌های دانلودشده
 
   [author_name_by_prefix]
     en = by %s
@@ -31653,6 +31906,7 @@ fa = دوباره نپرس
     sw = na %s
     zh-Hans = %s
     zh-Hant = %s
+    fa = توسط %s
 
   [bookmarks_objects]
     en:one = %s object
@@ -31690,6 +31944,8 @@ fa = دوباره نپرس
     sw = Kipengee %s
     zh-Hans = %s 对象
     zh-Hant = %s 對象
+    fa:one = %s شیء
+    fa:other = %s شیء
 
   [objects]
     en:one = %d object
@@ -31727,6 +31983,8 @@ fa = دوباره نپرس
     sw = Eneo %d
     zh-Hans = %d 地点
     zh-Hant = %d 地點
+    fa:one = %s شیء
+    fa:other = %s شیء
 
   [places]
     en:one = %d place
@@ -31764,6 +32022,8 @@ fa = دوباره نپرس
     sw = Maeneo %d
     zh-Hans = %d 地点
     zh-Hant = %d 地點
+    fa:one = %d مکان
+    fa:other = %d مکان
 
   [tracks]
     en:one = %d track
@@ -31801,6 +32061,8 @@ fa = دوباره نپرس
     sw = Njia %s
     zh-Hans = %d 跟踪
     zh-Hant = %d 軌跡
+    fa:one = %d رد
+    fa:other = %d رد
 
   [subtittle_opt_out]
     en = Tracking settings
@@ -31834,6 +32096,7 @@ fa = دوباره نپرس
     sw = Mipangilio ya ufuatiliaji
     zh-Hans = 支持设置
     zh-Hant = 跟蹤設置
+    fa = تنظیمات ردیابی
 
   [opt_out_flurry]
     en = Statistic
@@ -31867,6 +32130,7 @@ fa = دوباره نپرس
     sw = Takwimu
     zh-Hans = 统计
     zh-Hant = 統計
+    fa = آمار
 
   [opt_out_mopub]
     en = Personalised advertising
@@ -31900,6 +32164,7 @@ fa = دوباره نپرس
     sw = Utangazaji uliobinafsishwa
     zh-Hans = 个性化广告
     zh-Hant = 個性化廣告
+    fa = تبلیغات شخصی‌شده
 
   [opt_out_fabric]
     en = Crash report
@@ -31933,6 +32198,7 @@ fa = دوباره نپرس
     sw = Ripoti ya kuharibika
     zh-Hans = 错误报告
     zh-Hant = 錯誤報告
+    fa = گزارش خرابی
 
   [opt_out_fabric_description]
     en = We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.
@@ -31966,6 +32232,7 @@ fa = دوباره نپرس
     sw = Tunaweza kutumia data yako kuboresha uzoefu wa MAPS.ME Mabadiliko yataanza kutumika baada ya kuwasha upya programu.
     zh-Hans = 我们可以使用您的数据来开发和改进MAPS.ME.更改将在重新启动应用程序后生效。
     zh-Hant = 我們可以使用您的數據來開發和改進MAPS.ME。更改將再重新啟動應用程序后生效。
+    fa = ما از داده‌های شما برای بهبود MAPS.ME استفاده می‌کنیم. تغییرات پس از راه‌اندازی مجدد برنامه به‌کار می‌افتد.
 
   [opt_out_pushwoosh]
     en = Pushwoosh
@@ -32005,6 +32272,7 @@ fa = دوباره نپرس
     sw = Huenda kifaa chako cha mkononi kikatoa mpangilio wa 'Zuia Ufuatiliaji wa Matangazo"" au ""Chagua kutoka kwenye utangazaji unaotegemea mapendeleo"".
     zh-Hans = 您可以选择停止在设备设置中接收定位广告。
     zh-Hant = 您可以選擇停止在設備設置中接受定向廣告。
+    fa = در دستگاه همراهتان تنظیمی با نام “Limit Ad Tracking” یا “Opt out of interest-based advertising” وجود دارد.
 
   [opt_out_help_ios_2]
     en = iOS 9 or Higher
@@ -32038,6 +32306,7 @@ fa = دوباره نپرس
     sw = iOS 9 au Juu zaidi
     zh-Hans = iOS 9或更高版本
     zh-Hant = iOS 9或更高版本
+    fa = آی‌اواس ۹ یا بالاتر
 
   [opt_out_help_ios_3]
     en = Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting
@@ -32071,6 +32340,7 @@ fa = دوباره نپرس
     sw = Nenda kwenye Mipangilio yako → Faragha→ Utangazaji → Wezesha mpangilio wa “Zuia Ufuatiliaji wa Matangazo”
     zh-Hans = 打开设置→隐私→广告→启用“跟踪限制”
     zh-Hant = 請打開設置 → 隱私 → 廣告 → 啟用“跟蹤限制”
+    fa = به تنظیمات خود بروید ← حریم خصوصی ← تبلیغات ← گزینه  «محدود کردن ردیابی آگهی» را فعال کنید
 
   [opt_out_help_android]
     en = Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization
@@ -32104,6 +32374,7 @@ fa = دوباره نپرس
     sw = Kifaa chako cha mkononi kinaweza kutoa mpangilio wa “Zuia Ufuatiliaji wa Matangazo” au “Chagua kutoka kwenye utangazaji unaotegemea mapendeleo”.\n\nKwa Huduma za Android na Google Play toleo 4.0 na zaidi:\nMipangilio → Google → Matangazo → Chagua kutoka kwa Ubinafsishaji wa Matangazo\nau\nMipangilio → Google → Akaunti ya Google → Maelezo ya kibinafsi na faragha → Mipangilio ya Matangazo → Ubinafsishaji wa Matangazo
     zh-Hans = 您可以选择不在设备设置中接收定向广告。\ NAndroid和Google Play Services 4.0或更高版本\ n \ n电话设置→Google→广告→停用广告个性化\ n或\ n手机设置→Google→Google帐户→隐私→首选项设置→ 广告的个性化
     zh-Hant = 您可以選擇停止在設備設置中接受定向廣告。Android и Google Play Services 4.0或更高版本\n\n電話設置 → Google → 廣告 → 停用廣告個性化\n或\n電話設置 → Google → Google賬戶 → 隱私 → 首選項設置 → 廣告個性化
+    fa = دستگاه تلفن همراه شما ممکن است یک «ردیابی محدود آگهی» یا «لغو تبلیغات مبتنی بر علاقه» ارائه کند. \n \n برای Android و Google Play Services نسخه 4.0 و بالاتر: \n تنظیمات → Google → آگهی → غیرفعال کردن تبلیغات شخصی سازی \ یا \n تنظیمات → Google → حساب Google → اطلاعات شخصی و حریم خصوصی → تنظیمات تبلیغات → شخصی سازی تبلیغات
 
   [privacy_policy]
     en = Privacy policy
@@ -32137,6 +32408,7 @@ fa = دوباره نپرس
     sw = Sera ya faragha
     zh-Hans = 隐私政策
     zh-Hant = 隱私政策
+    fa = سیاست حریم خصوصی
 
   [terms_of_use]
     en = Terms of use
@@ -32170,6 +32442,7 @@ fa = دوباره نپرس
     sw = Masharti ya matumizi
     zh-Hans = 使用条款
     zh-Hant = 使用條款
+    fa = شرایط استفاده
 
   [backup_notification_failed]
     ru = Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.
@@ -32203,6 +32476,7 @@ fa = دوباره نپرس
     sw = Kucheleza vialamisho vyako kumesitishwa. Ingia ili kuiwasha tena.
     zh-Hans = 标签备份已暂停。登录以启用备份。
     zh-Hant = 標籤的備份已暫停。請登錄以啟用設備。
+    fa = پشتیبانگیری از نشانکهای شما به حالت تعلیق درآمده است وارد شوید تا آن را دوباره روشن کنید
 
   [banner_megafon_banner_message]
     ru = Скажи международному роумингу гудбай!
@@ -32236,6 +32510,7 @@ fa = دوباره نپرس
     sw = Sema kwaheri kwa urandaji wa kimataifa!
     zh-Hans = 请对Goodbye国际漫游说！
     zh-Hant = 請向國際漫遊說再見！
+    fa = خداحافظی با رومینگ بین المللی!
 
   [banner_megafon_banner_button]
     ru = Гудбай!
@@ -32269,6 +32544,7 @@ fa = دوباره نپرس
     sw = Kwaheri!
     zh-Hans = Goodbye！
     zh-Hant = Goodbye！
+    fa = خداحافظ!
 
   [button_layer_traffic]
     ru = Пробки
@@ -32302,6 +32578,7 @@ fa = دوباره نپرس
     sw = Trafiki
     zh-Hans = 堵塞
     zh-Hant = 堵塞
+    fa = ترافیک
 
   [button_layer_subway]
     ru = Метро
@@ -32335,6 +32612,7 @@ fa = دوباره نپرس
     sw = Njia ya chini
     zh-Hans = 地铁
     zh-Hant = 地鐵
+    fa = مترو
 
   [layers_title]
     ru = Слои карты
@@ -32368,6 +32646,7 @@ fa = دوباره نپرس
     sw = Tabaka za ramani
     zh-Hans = 地图图层
     zh-Hant = 地圖圖層
+    fa = لایه های نقشه
 
   [layers_message]
     ru = Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации
@@ -32401,6 +32680,7 @@ fa = دوباره نپرس
     sw = Tumia tabaka za ramani ili kuonyesha trafiki, ramani ya njia ya chini, na maelezo mengine muhimu
     zh-Hans = 打开在地图上的图层以显示交通状况、地铁图或其他有用信息
     zh-Hant = 請打開地圖圖層、地鐵圖及其他有用信息來顯示交通狀況。
+    fa = از لایه های نقشه برای نمایش ترافیک، نقشه مترو و سایر اطلاعات مفید استفاده کنید
 
   [button_layer_got_it]
     en = Got it
@@ -32434,6 +32714,7 @@ fa = دوباره نپرس
     sw = Nimeelewa
     zh-Hans = 明白
     zh-Hant = 明白
+    fa = متوجه شدم
 
   [subway_data_unavailable]
     ru = Карта метро недоступна
@@ -32467,6 +32748,7 @@ fa = دوباره نپرس
     sw = Ramani ya njia ya chini haipatikani
     zh-Hans = 地铁地图不可用
     zh-Hant = 地鐵圖不可用
+    fa = نقشه مترو موجود نیست
 
   [bookmarks_empty_list_title]
     en = This list is empty
@@ -32500,6 +32782,7 @@ fa = دوباره نپرس
     sw = Orodha hii ni tupu
     zh-Hans = 该列表为空
     zh-Hant = 列表為空
+    fa = این لیست خالی است
 
   [bookmarks_empty_list_message]
     en = To add a bookmark, tap a place on the map and then tap the star icon
@@ -32533,6 +32816,7 @@ fa = دوباره نپرس
     sw = Ili kuongeza ramani, gusa mahali kwenye ramani na kisha gusa ikoni ya nyota
     zh-Hans = 要添加新标签，请单击对象卡中的星形图标
     zh-Hant = 要添加新標籤，請單擊對象卡片中的星型圖標
+    fa = برای افزودن یک نشانه، روی یک مکان روی نقشه ضربه بزنید و سپس روی نماد ستاره ضربه بزنید
 
   [category_desc_more]
     en = …more
@@ -32566,6 +32850,7 @@ fa = دوباره نپرس
     sw = …zaidi
     zh-Hans = …更多
     zh-Hant = …更多
+    fa = بیشتر...
 
   [title_error_downloading_bookmarks]
     en = An error occured
@@ -32599,6 +32884,7 @@ fa = دوباره نپرس
     sw = Kosa limetokea
     zh-Hans = 发生错误
     zh-Hant = 發生錯誤
+    fa = خطایی رخ داد
 
   [subtitle_error_downloading_bookmarks]
     en = Bookmarks were not downloaded
@@ -32632,6 +32918,7 @@ fa = دوباره نپرس
     sw = Vialamisho havikupakuliwa
     zh-Hans = 标签尚未上传
     zh-Hant = 標籤未加載
+    fa = نشانه ها دانلود نشدند
 
   [whats_new_bookmarks_catalog_title]
     en = MAPS.ME now has a route library
@@ -32665,6 +32952,7 @@ fa = دوباره نپرس
     sw = Sasa MAPS.ME ina katalogi ya njia
     zh-Hans = MAPS.ME有一个路线目录
     zh-Hant = 在MAPS.ME中有路線目錄
+    fa = MAPS.ME در حال حاضر یک کتابخانه مسیر دارد
 
   [whats_new_bookmarks_catalog_message]
     en = Hundreds of detailed routes all around the world: where to go, what to see, where to eat.
@@ -32698,6 +32986,7 @@ fa = دوباره نپرس
     sw = Mamia ya maelezo ya njia toka kote duniani: mahali pa kwenda, cha kuona, mahali pa kula.
     zh-Hans = 世界各地数十条详细路线：去哪里、看什么、在哪里吃饭。
     zh-Hant = 全球數十條詳細路線去哪裡、看什麼、在哪吃飯。
+    fa = صدها مسیر دقیق در سراسر جهان: به کجا بروید، چه چیزی را ببینید، کجا غذا بخورید.
 
   [whats_new_popularity_label_title]
     en = Popular locations nearby
@@ -32731,6 +33020,7 @@ fa = دوباره نپرس
     sw = Maeneo maarufu yaliyo karibu
     zh-Hans = 附近景点
     zh-Hant = 附近景點
+    fa = جاذبه های نزدیک
 
   [whats_new_popularity_label_message]
     en = Discover nearby section will help you find the most popular places in the city.
@@ -32764,6 +33054,7 @@ fa = دوباره نپرس
     sw = Sehemu ya "Gundua yaliyo karibu" itakusaidia kupata maeneo maarufu zaidi jijini.
     zh-Hans = “探索周围”部分将帮助您找到该市最受欢迎的地方。
     zh-Hant = “探索鄰近區域”部分將幫您找到該城市最受歡迎的地方。
+    fa = بخش کشف نزدیک به شما کمک خواهد کرد که مکان های محبوب شهر را پیدا کنید.
 
   [whats_new_hot_offers_title]
     en = Attractive offers from hotels
@@ -32797,6 +33088,7 @@ fa = دوباره نپرس
     sw = Matokeo ya kuvutia kutoka kwa hoteli
     zh-Hans = 优惠的酒店建议
     zh-Hant = 酒店的優惠報價
+    fa = پیشنهادات جذاب از هتل ها
 
   [whats_new_hot_offers_message]
     en = You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.
@@ -32830,6 +33122,7 @@ fa = دوباره نپرس
     sw = Unaweza kuzitafuta kwa kutumia kategoria ya hoteli katika utafutaji. Matoleo yatawekwa alama na ishara ya asilimia katika ramani na katika matokeo ya utafutaji.
     zh-Hans = 使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。
     zh-Hant = 使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。
+    fa = شما می توانید آنها را از دسته هتل ها در پانل جستجو پیدا کنید. پیشنهادات با نماد درصد بر روی نقشه و در نتایج جستجو مشخص می شود.
 
   [error_already_downloaded]
     en = This list has already been downloaded
@@ -32863,23 +33156,28 @@ fa = دوباره نپرس
     sw = Orodha hii imepakuliwa tayari
     zh-Hans = 这个列表已被下载
     zh-Hant =  這個列表已被下載
+    fa = این لیست قبلا دانلود شده است
 
 
   [popular_place]
     en = Popular
     ru = Популярно
+    fa = مشهور
 
   [download_routes]
     en = Download routes
     ru = Загрузить маршруты
+    fa = دانلود مسیر
 
   [bookmarks_downloaded_title]
     en = Bookmarks have been downloaded successfully
     ru = Метки были успешно загружены
+    fa = نشانکها با موفقیت دانلود شدند
 
   [bookmarks_downloaded_subtitle]
     en = Press ‘View on map’ to explore new places from the list
     ru = Нажмите «Посмотреть на карте» чтобы посмотреть новые места из списка
+    fa = 'نمایش بر روی نقشه' را فشار دهید تا مکان های جدید را از لیست کاوش کنید
 
   [guides]
     en = Guides
@@ -32913,6 +33211,7 @@ fa = دوباره نپرس
     sw = Kiongozi/Viongozi
     zh-Hans = 导览
     zh-Hant = 指南
+    fa = راهنما
 
   [guide_downloaded_title]
     en = The guide has been downloaded successfully
@@ -32946,6 +33245,7 @@ fa = دوباره نپرس
     sw = Mwongozo umepakuliwa kwa mafanikio
     zh-Hans = 导览已被成功下载
     zh-Hant = 指南已被成功下載
+    fa = راهنمای با موفقیت دانلود شده است
 
   [download_guides]
     en = Download guides
@@ -32979,6 +33279,7 @@ fa = دوباره نپرس
     sw = Pakua viongozi/miongozo
     zh-Hans = 下载导览
     zh-Hant = 下載指南
+    fa = دانلود راهنما
 
   [cached_guides_placeholder_subtitle]
     en = Detailed offline guides for any kind of a journey. Choose the one that suits you best and download it directly to the map. You will need the internet connection to download guides.
@@ -33012,6 +33313,7 @@ fa = دوباره نپرس
     sw = Viongozi/Miongozo ya nje ya mtandao ya aina yoyote ya safari. Chagua ule unaofaa kwako bora na uupakue moja kwa moja kwenye ramani. Utahitaji uunganisho wa intaneti ili kupakua viongozi/miongozo.
     zh-Hans = 适合任何旅行种类的详细的离线导览。选择最适合您的那个，直接下载到地图上。您需要网络连接来下载导览。
     zh-Hant = 適合任何旅行種類的詳細的離線指南。選擇最適合您的那個，直接下載到地圖上。您需要網絡連接來下載指南。
+    fa = راهنماهای آفلاین مفصل برای هر نوع سفر. یکی از بهترین ها را انتخاب کنید و آن را به طور مستقیم به نقشه دانلود کنید. برای دریافت راهنماها به اتصال اینترنت نیاز دارید.
 
   [guides_groups_cached]
     en = Downloaded guides
@@ -33045,6 +33347,7 @@ fa = دوباره نپرس
     sw = Viongozi/miongozo iliyopakuliwa
     zh-Hans = 已下载的导览
     zh-Hant = 已下載的指南
+    fa = راهنما‌های دانلود شده
 
   [subtitle_error_downloading_guide]
     en = The guide was not downloaded
@@ -33078,6 +33381,7 @@ fa = دوباره نپرس
     sw = Mwongozo haukupakuliwa
     zh-Hans = 该导览没有被下载
     zh-Hant = 該指南沒有被下載
+    fa = راهنما دانلود نشد
 
   [error_already_downloaded_guide]
     en = This guide has already been downloaded
@@ -33111,6 +33415,7 @@ fa = دوباره نپرس
     sw = Mwongozo huu tayari umepakuliwa
     zh-Hans = 这个导览已被下载过了
     zh-Hant = 這個指南已被下載過了
+    fa = این راهنمای قبلا دانلود شده است
 
   [guide_downloaded_subtitle]
     en = Press ‘View on map’ to explore the guide
@@ -33144,6 +33449,7 @@ fa = دوباره نپرس
     sw = Bonyeza 'Angalia kwenye ramani' ili kuchunguza mwongozo
     zh-Hans = 按‘在地图上查看’探索导览
     zh-Hant = 按下‘在地圖上查看’探索指南
+    fa = برای کاوش در راهنما 'نمایش بر روی نقشه' را فشار دهید
 
   [bookmarks_guides]
     en = Bookmarks and guides
@@ -33177,6 +33483,7 @@ fa = دوباره نپرس
     sw = Vitambulisho na viongozi/miongozo
     zh-Hans = 书签和导览
     zh-Hant = 書籤和指南
+    fa = نشانکها و راهنماها
 
   [remove_ads]
     en = Remove ads
@@ -33210,6 +33517,7 @@ fa = دوباره نپرس
     sw = Toa matangazo
     zh-Hans = 关闭广告
     zh-Hant = 關閉廣告
+    fa = حذف تبلیغات
 
   [remove_ads_title]
     en = Remove all ads and support MAPS.ME
@@ -33243,6 +33551,7 @@ fa = دوباره نپرس
     sw = Toa matangazo yote na msaada MAPS.ME
     zh-Hans = 关闭所有广告并支持MAPS.ME
     zh-Hant = 關閉所有廣告并支持 MAPS.ME
+    fa = تمام تبلیغات را حذف کنید و MAPS.ME را پشتیبانی کنید
 
   [paybtn_title]
     en = Pay %s/year
@@ -33276,6 +33585,7 @@ fa = دوباره نپرس
     sw = Lipa %s/mwaka
     zh-Hans = 支付%s/年
     zh-Hant = 支付%s/年
+    fa = هزینه %s/سال
 
   [paybtn_subtitle]
     en = Save %s/year
@@ -33309,6 +33619,7 @@ fa = دوباره نپرس
     sw = Okoa %s/mwaka
     zh-Hans = 节省%s/年
     zh-Hant = 節省%s/年
+    fa = صرفه جویی %s/سال
 
   [options_dropdown_title]
     en = More options
@@ -33342,6 +33653,7 @@ fa = دوباره نپرس
     sw = Nafasi saidi
     zh-Hans = 其他选择
     zh-Hant = 其他選擇
+    fa = گزینه های بیشتر
 
   [why_support]
     en = Why support MAPS.ME?
@@ -33375,6 +33687,7 @@ fa = دوباره نپرس
     sw = Kwa nini unapenda MAPS.ME?
     zh-Hans = 为什么支持MAPS.ME?
     zh-Hant = 為什麼支持MAPS.ME?
+    fa = چرا پشتیبانی از MAPS.ME؟
 
   [options_dropdown_item1]
     en = %s/month (save %s/year)
@@ -33408,6 +33721,7 @@ fa = دوباره نپرس
     sw = %s/mwezi (okoa %s/mwaka)
     zh-Hans = %s/月 (节省%s/年)
     zh-Hant = %s/月 (節省%s/年)
+    fa = ماه (صرفه جویی %s/ سال)
 
   [options_dropdown_item2]
     en = %s/week (no savings)
@@ -33441,6 +33755,7 @@ fa = دوباره نپرس
     sw = %s/wiki (hakuna kuokoa)
     zh-Hans = %s/周 (未节省)
     zh-Hant = %s/周 (未節省)
+    fa = %s/یک هفته (بدون صرفه جویی)
 
   [why_support_item1]
     en = We will remove all ads for you
@@ -33474,6 +33789,7 @@ fa = دوباره نپرس
     sw = Tutakutolea matangozo yote
     zh-Hans = 我们将为您关闭所有广告
     zh-Hant = 我們將為您關閉所有廣告
+    fa = ما همه تبلیغات را برای شما حذف خواهیم کرد
 
   [why_support_item2]
     en = You help us to improve MAPS.ME
@@ -33507,6 +33823,7 @@ fa = دوباره نپرس
     sw = Tusaidie kuboresha MAPS.ME
     zh-Hans = 您帮助我们改进MAPS.ME
     zh-Hant = 您幫助我們改進MAPS.ME
+    fa = شما برای بهبود MAPS.ME به ما کمک میکنید
 
   [why_support_item3]
     en = You help us improve open maps OpenStreetMap.org
@@ -33540,6 +33857,7 @@ fa = دوباره نپرس
     sw = Tusaidie kuboresha ramani huria OpenStreetMap.org
     zh-Hans = 您帮助我们改进OpenStreetMaps.org地图
     zh-Hant = 您幫助我們改進OpenStreetMaps.org地圖
+    fa = شما به ما در بهبود نقشه OpenStreetMap.org کمک میکنید.
 
   [purchase_processing]
     en = Your purchase is being processed…
@@ -33573,6 +33891,7 @@ fa = دوباره نپرس
     sw = Manunuzi yako yanatayarishwa.
     zh-Hans = 正在处理您的购买订单……
     zh-Hant = 正在處理您的購買訂單……
+    fa = خرید شما در حال پردازش است ...
 
   [tips_bookmarks_catalog_title]
     en = Offline guides for every kind of journey
@@ -33606,6 +33925,7 @@ fa = دوباره نپرس
     sw = Miongozo ya safari za aina yoyote isiyotumia mtandao
     zh-Hans = 所有类型旅行的离线指南
     zh-Hant = 所有類型旅行的離線指南
+    fa = نمیتوانید یک مسیر برای مکان های دیدنی برنامه ریزی کنید؟
 
   [tips_bookmarks_catalog_message]
     en = Download and plan tourist routes over interesting locations in different cities of the world.
@@ -33639,6 +33959,7 @@ fa = دوباره نپرس
     sw = Pakua na upange safari za watarii wanaozuru sehemu za kuvutia katika miji mbali mbali ya ndunia.
     zh-Hans = 下载并设置到世界各地各个城市景点的旅游路线。
     zh-Hant = 下載并設置到世界各地各個城市景點的旅遊路線。
+    fa = دانلود و برنامه ریزی مسیرهای توریستی در مکان های جالب در شهرهای مختلف جهان  .
 
   [tips_discover_button_title]
     en = Want to find popular locations nearby?
@@ -33672,6 +33993,7 @@ fa = دوباره نپرس
     sw = Je ungetaka kupata maeneo yanayo pendwa saidi hapa karibu?
     zh-Hans = 想在该地区找到受欢迎的机构吗？
     zh-Hant = 想在該地區找到受歡迎的機構嗎？
+    fa = آیا می خواهید مکان های محبوب را در نزدیکی پیدا کنید؟
 
   [tips_discover_button_message]
     en = The "Discover nearby" section contains the best restaurants, hotels, and sights.
@@ -33705,6 +34027,7 @@ fa = دوباره نپرس
     sw = Sehemu ya "Gundua hapa karibu" ina mikahawa na mahoteli mazuri pamoja mahanthari. 
     zh-Hans = 在“探索周围”部分中收集了最近最好的餐馆、酒店和名胜古迹。
     zh-Hant = 在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。
+    fa = بخش «کشف مجاور» شامل بهترین رستورانها، هتلها و مناظر است.
 
   [tips_book_hotel_title]
     en = Book the cosiest hotels for your journeys
@@ -33738,6 +34061,7 @@ fa = دوباره نپرس
     sw = Ifadhi nafasi katika hoteli nzuri kwa ajili ya safari zako
     zh-Hans = 请为您的假期预订最舒适的酒店
     zh-Hant = 請為您的假期預訂最舒適的酒店
+    fa = هتل های راحت را برای سفرهای خود رزرو کنید
 
   [tips_book_hotel_message]
     en = Use the search and filters to find the best hotels for you. Use the "Book" button in the location placepage to book a hotel instantly.
@@ -33771,6 +34095,7 @@ fa = دوباره نپرس
     sw = Tumia kifaa cha tafuta na chujio ili kupata hoteli nzuri. Tumia kutufe cha "Ifadhi Nafasi" katika ukurasa wa mahali ili kuhifadhi nafasi ya hoteli hapo kwa hapo.
     zh-Hans = 在搜索和过滤器的帮助下，您将找到最好的酒店。点击地点卡中的“预約”键即可立即预订酒店。
     zh-Hant = 在搜索和过滤器的帮助下，您将找到最好的酒店。在搜索和過濾器的幫助下，您將找到最好的酒店。點擊地點卡中“預約”鍵即可立即預訂酒店。
+    fa = برای پیدا کردن بهترین هتلها برای شما از جستجو و فیلترها استفاده کنید. از دکمه "Book" در محل مکان استفاده کنید تا فورا هتل را رزرو کنید.
 
   [tips_map_layers_title]
     en = Don't know at which station to make a connection?
@@ -33804,6 +34129,7 @@ fa = دوباره نپرس
     sw = Haujui ni katika kituo gani uta abiri gari lingine la moshi?
     zh-Hans = 不知道在哪个地铁站换乘？
     zh-Hant = 不知道在哪個地鐵站換乘？
+    fa = نمی‌دانید کدام ایستگاه باید خط عوض کنید؟
 
   [tips_map_layers_message]
     en = Turn on the subway layer to display the subway map, and you will always find your way in a new city.
@@ -33837,6 +34163,7 @@ fa = دوباره نپرس
     sw = Bofia sehemu ya gari la moshi ili kuonyesha ramani ya gari la moshi, na utapata kufahamu jinsi ya kufika popote kwenye mji ule.
     zh-Hans = 请打开地图上的地铁图层以显示地铁图，您在新的城市中始终有导航。
     zh-Hant = 請打開地圖上的地鐵圖層以顯示地鐵圖，您在新的城市中始終有導航。
+    fa = لایه مترو را برای نمایش نقشه مترو روشن کنید و همیشه راه خود را در یک شهر جدید پیدا خواهید کرد.
 
   [channels_map_update]
     en = Map updates
@@ -33870,6 +34197,7 @@ fa = دوباره نپرس
     sw = Sasisho za ramani
     zh-Hans = 更新地图
     zh-Hant = 更新地圖
+    fa = بروزرسانی های نقشه
 
   [channels_reviews]
     en = Unsent reviews
@@ -33903,6 +34231,7 @@ fa = دوباره نپرس
     sw = Maoni ambayo haiyatumwa
     zh-Hans = 未发送的意见
     zh-Hant = 未發送的意見
+    fa = بازبینی نشده
 
   [purchase_loading]
     en = Purchase information is loading…
@@ -33936,6 +34265,7 @@ fa = دوباره نپرس
     sw = Ujumbe kuhusu kununua unapakua…
     zh-Hans = 加载购买信息……
     zh-Hant = 加載購買信息……
+    fa = اطلاعات خرید در حال بارگیری است ...
 
   [purchase_error_subtitle]
     en = An error occurred while processing your purchase
@@ -33969,6 +34299,7 @@ fa = دوباره نپرس
     sw = Shinda imetokea wakati wa kununua
     zh-Hans = 处理购买时出错
     zh-Hant = 處理購買時出錯
+    fa = هنگام پردازش خرید شما خطایی روی داد
 
   [awaiting_approval]
     en = Awaiting a parent's approval
@@ -34002,6 +34333,7 @@ fa = دوباره نپرس
     sw = Inasubiri ruhusa ya mzazi
     zh-Hans = 我们正在等待父母的确认
     zh-Hant = 我們正在等待父母確認
+    fa = در انتظار تأیید پدر و مادر
 
   [whats_new_leave_review]
     en = Leave a review! Share your opinion about the locations you visited on your vacation.
@@ -34035,6 +34367,7 @@ fa = دوباره نپرس
     sw = Acha maoni yako! Ambia wengine kuhusu sehemu ulizozitembelea wakati wa mapumziko.
     zh-Hans = 请留言！分享您对度假时所去过的地方的看法。
     zh-Hant = 請留言！請分享您對度假時索取過的地方的看法。
+    fa = یک دیدگاه بگذارید ، نظر خود را درباره مکانهایی که در تعطیلات خود بازدید کرده اید، به اشتراک بگذارید.
 
   [server_unavailable_title]
     en = Server is unavailable
@@ -34068,6 +34401,7 @@ fa = دوباره نپرس
     sw = Seva haipatikani
     zh-Hans = 服务不可用
     zh-Hant = 服務不可用
+    fa = سرویس موجود نیست
 
   [server_unavailable_message]
     en = The purchase will be completed later. If the error persists, please contact support@maps.me.
@@ -34101,6 +34435,7 @@ fa = دوباره نپرس
     sw = Ununuzi utakamilishwa baadaye. Shinda ikiendelea, tafadhali julisha support@maps.me.
     zh-Hans = 购买将在稍后完成。如果错误仍然存在，请联系support@maps.me。
     zh-Hant = 購買將在稍後完成。如果錯誤仍然存在，請聯繫support@maps.me。
+    fa = خرید بعدا تکمیل خواهد شد. اگر خطا همچنان ادامه دارد، لطفا با support@maps.me تماس بگیرید.
     
   [offline_fiters_check_in]
     en = Connect to the internet to filter hotels by dates.
@@ -34134,6 +34469,8 @@ fa = دوباره نپرس
     sw = Ingia kwa mtandao ili kuchuja mahoteli kulingana na siku.
     zh-Hans = 连接到网络来选择到达和离开的日期。
     zh-Hant = 連接到網絡已選擇到達和離開的日期。
+    fa = برای فیلتر کردن هتل ها با تاریخ، به اینترنت متصل شوید.
 
   [rutaxi_title]
     en = RuTaxi
+    fa = RuTaxi
