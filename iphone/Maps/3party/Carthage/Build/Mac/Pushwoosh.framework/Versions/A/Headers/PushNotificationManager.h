@@ -12,7 +12,7 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-#define PUSHWOOSH_VERSION @"5.5.3"
+#define PUSHWOOSH_VERSION @"5.9.0"
 
 
 @class PushNotificationManager;
@@ -122,14 +122,28 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  
  @param code In-App code
  */
-- (void)onInAppClosed:(NSString *)code;
+- (void)onInAppClosed:(NSString *)code __attribute__((deprecated("Use PWRichMediaPresentingDelegate protocol from PWRichMediaManager.h")));
 
 /**
  Tells the delegate that In-App with specified code has been displayed
  
  @param code In-App code
  */
-- (void)onInAppDisplayed:(NSString *)code;
+- (void)onInAppDisplayed:(NSString *)code __attribute__((deprecated("Use PWRichMediaPresentingDelegate protocol from PWRichMediaManager.h")));
+
+
+#if TARGET_OS_IPHONE
+/**
+ The method will be called on the delegate when the application is launched in response to the user's request to view in-app notification settings.
+ Add UNAuthorizationOptionProvidesAppNotificationSettings as an option in [PushNotificationManager pushManager].additionalAuthorizationOptions to add a button to inline notification settings view and the notification settings view in Settings.
+ The notification will be nil when opened from Settings.
+ 
+ @param pushManager PushNotificationManager instance
+ @param notification Source notification
+ */
+- (void)pushManager:(PushNotificationManager *)pushManager openSettingsForNotification:(UNNotification *)notification __IOS_AVAILABLE(12.0);
+
+#endif
 
 @end
 
@@ -160,7 +174,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 @end
 
 /**
- `PushNotificationManager` class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
+ `PushNotificationManager` class offers access to the singleton-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
  */
 @interface PushNotificationManager : NSObject {
 }
@@ -187,6 +201,11 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  Show push notifications alert when push notification is received while the app is running, default is `YES`
  */
 @property (nonatomic, assign) BOOL showPushnotificationAlert;
+
+/**
+ Authorization options in addition to UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay.
+ */
+@property (nonatomic) UNAuthorizationOptions additionalAuthorizationOptions __IOS_AVAILABLE(12.0);
 
 #endif
 
@@ -229,19 +248,24 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 - (void)registerForPushNotifications;
 
 /**
- Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.
+ Unregisters from push notifications.
  */
-- (void)unregisterForPushNotifications;
+- (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *error))completion;
 
 /**
- Deprecated. Use initializeWithAppCode:appName: method class
+ Deprecated. Use unregisterForPushNotificationsWithCompletion: method instead
+ */
+- (void)unregisterForPushNotifications __attribute__((deprecated));
+
+/**
+ Deprecated. Use initializeWithAppCode:appName: method instead
  */
 - (instancetype)initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName __attribute__((deprecated));
 
 #if TARGET_OS_IPHONE
 
 /**
- Deprecated. Use initializeWithAppCode:appName: method class
+ Deprecated. Use initializeWithAppCode:appName: method instead
  */
 - (id)initWithApplicationCode:(NSString *)appCode navController:(UIViewController *)navController appName:(NSString *)appName __attribute__((deprecated));
 
@@ -367,7 +391,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 - (void)handlePushRegistrationFailure:(NSError *)error;
 
-//if the push is received while the app is running.
+//If the push is received while the app is running. Call it only for iOS version < 10. For iOS 10 and higher use notificationCenterDelegate.
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo;
 
 /**

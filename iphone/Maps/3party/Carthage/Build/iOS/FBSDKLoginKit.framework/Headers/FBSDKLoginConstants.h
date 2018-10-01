@@ -74,3 +74,26 @@ typedef NS_ENUM(NSInteger, FBSDKLoginErrorCode)
   */
   FBSDKLoginBadChallengeString,
 };
+
+/**
+ NS_ENUM(NSInteger, FBSDKDeviceLoginErrorCode)
+ Error codes for FBSDKDeviceLoginErrorDomain.
+ */
+typedef NS_ENUM(NSUInteger, FBSDKDeviceLoginErrorSubcode) {
+  /**
+   Your device is polling too frequently.
+   */
+  FBSDKDeviceLoginExcessivePollingErrorSubcode = 1349172,
+  /**
+   User has declined to authorize your application.
+   */
+  FBSDKDeviceLoginAuthorizationDeclinedErrorSubcode = 1349173,
+  /**
+   User has not yet authorized your application. Continue polling.
+   */
+  FBSDKDeviceLoginAuthorizationPendingErrorSubcode = 1349174,
+  /**
+   The code you entered has expired.
+   */
+  FBSDKDeviceLoginCodeExpiredErrorSubcode = 1349152
+};

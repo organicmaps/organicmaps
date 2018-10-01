@@ -79,12 +79,19 @@
 
 #endif
 
+
 /*
- `PWInAppManager` class offers access to the singletone-instance of the inapp messages manager responsible for sending events and managing inapp message notifications.
+ `PWInAppManager` class offers access to the singleton-instance of the inapp messages manager responsible for sending events and managing inapp message notifications.
  */
 @interface PWInAppManager : NSObject
 
+
 + (instancetype)sharedManager;
+
+/**
+ Resets capping of the Pushwoosh out-of-the-box In-App solutions.
+ */
+- (void)resetBusinessCasesFrequencyCapping;
 
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.

@@ -60,6 +60,12 @@ FBSDK_EXTERN NSString *const FBSDKAccessTokenChangeOldKey;
  */
 FBSDK_EXTERN NSString *const FBSDKAccessTokenChangeNewKey;
 
+/*
+ A key in the notification's userInfo that will be set
+ if and only if the token has expired.
+ */
+FBSDK_EXTERN NSString *const FBSDKAccessTokenDidExpire;
+
 
 /**
   Represents an immutable access token for using Facebook services.
@@ -101,20 +107,25 @@ FBSDK_EXTERN NSString *const FBSDKAccessTokenChangeNewKey;
  */
 @property (readonly, copy, nonatomic) NSString *userID;
 
+/**
+ Returns whether the access token is expired by checking its expirationDate property
+ */
+@property (readonly, assign, nonatomic, getter = isExpired) BOOL expired;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
 /**
   Initializes a new instance.
- - Parameter tokenString: the opaque token string.
- - Parameter permissions: the granted permissions. Note this is converted to NSSet and is only
+ @param tokenString the opaque token string.
+ @param permissions the granted permissions. Note this is converted to NSSet and is only
  an NSArray for the convenience of literal syntax.
- - Parameter declinedPermissions: the declined permissions. Note this is converted to NSSet and is only
+ @param declinedPermissions the declined permissions. Note this is converted to NSSet and is only
  an NSArray for the convenience of literal syntax.
- - Parameter appID: the app ID.
- - Parameter userID: the user ID.
- - Parameter expirationDate: the optional expiration date (defaults to distantFuture).
- - Parameter refreshDate: the optional date the token was last refreshed (defaults to today).
+ @param appID the app ID.
+ @param userID the user ID.
+ @param expirationDate the optional expiration date (defaults to distantFuture).
+ @param refreshDate the optional date the token was last refreshed (defaults to today).
 
  This initializer should only be used for advanced apps that
  manage tokens explicitly. Typical login flows only need to use `FBSDKLoginManager`
@@ -131,14 +142,14 @@ NS_DESIGNATED_INITIALIZER;
 
 /**
   Convenience getter to determine if a permission has been granted
- - Parameter permission:  The permission to check.
+ @param permission  The permission to check.
  */
 - (BOOL)hasGranted:(NSString *)permission;
 
 /**
   Compares the receiver to another FBSDKAccessToken
- - Parameter token: The other token
- - Returns: YES if the receiver's values are equal to the other token's values; otherwise NO
+ @param token The other token
+ @return YES if the receiver's values are equal to the other token's values; otherwise NO
  */
 - (BOOL)isEqualToAccessToken:(FBSDKAccessToken *)token;
 
@@ -151,8 +162,14 @@ NS_DESIGNATED_INITIALIZER;
 + (FBSDKAccessToken *)currentAccessToken;
 
 /**
+ Returns YES if currentAccessToken is not nil AND currentAccessToken is not expired
+
+ */
++ (BOOL)currentAccessTokenIsActive;
+
+/**
   Sets the "global" access token that represents the currently logged in user.
- - Parameter token: The access token to set.
+ @param token The access token to set.
 
  This will broadcast a notification and save the token to the app keychain.
  */
@@ -161,7 +178,7 @@ NS_DESIGNATED_INITIALIZER;
 /**
   Refresh the current access token's permission state and extend the token's expiration date,
   if possible.
- - Parameter completionHandler: an optional callback handler that can surface any errors related to permission refreshing.
+ @param completionHandler an optional callback handler that can surface any errors related to permission refreshing.
 
  On a successful refresh, the currentAccessToken will be updated so you typically only need to
   observe the `FBSDKAccessTokenDidChangeNotification` notification.

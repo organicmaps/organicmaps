@@ -1,4 +1,4 @@
 framework module FacebookCore {
-    header "FacebookCore-Swift.h"
-    requires objc
+  header "FacebookCore-Swift.h"
+  requires objc
 }

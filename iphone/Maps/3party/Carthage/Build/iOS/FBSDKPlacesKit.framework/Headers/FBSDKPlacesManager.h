@@ -73,7 +73,7 @@ typedef void (^FBSDKCurrentPlaceGraphRequestCompletion)(FBSDKGraphRequest *_Null
 
  @param fields A list of fields that you might want the request to return. See
  `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see
- https://developers.intern.facebook.com/docs/places/fields" for the most up to date list.
+ https://developers.facebook.com/docs/places/fields" for the most up to date list.
 
  @param distance The search radius. For an unlimited radius, use 0.
 
@@ -104,7 +104,7 @@ typedef void (^FBSDKCurrentPlaceGraphRequestCompletion)(FBSDKGraphRequest *_Null
  for the most up to date list.
 
  @param fields A list of fields that you might want the request to return. See
- `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.intern.facebook.com/docs/places/fields
+ `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.facebook.com/docs/places/fields
  for the most up to date list.
 
  @param distance The search radius. For an unlimited radius, use 0.
@@ -129,14 +129,38 @@ typedef void (^FBSDKCurrentPlaceGraphRequestCompletion)(FBSDKGraphRequest *_Null
  @param minimumConfidence The Minimum Confidence level place estimate candidates must meet.
 
  @param fields A list of fields that you might want the request to return. See
- `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.intern.facebook.com/docs/places/fields
+ `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.facebook.com/docs/places/fields
  for the most up to date list.
 
  @param completion A `FBSDKCurrentPlaceGraphRequestCompletion` block, that contains the graph request.
  */
 - (void)generateCurrentPlaceRequestWithMinimumConfidenceLevel:(FBSDKPlaceLocationConfidence)minimumConfidence
-                                                       fields:(nullable NSArray *)fields
+                                                       fields:(nullable NSArray<NSString *> *)fields
                                                    completion:(nonnull FBSDKCurrentPlaceGraphRequestCompletion)completion;
+
+/**
+ Method for generating a graph request to query for places the device is likely
+ located in. This method allows the user to pass in a CLLocation, as the above method
+ can be real-world slow at obtaining a location from device (on the order of multiple
+ seconds). This is still an asynchronous call, as the bluetooth scan still needs to
+ happen, however it is relatively fast (0.5 seconds). Note that the results of the
+ graph request are improved if the user has both Wi-Fi and Bluetooth enabled.
+
+ @param currentLocation The current location of the device. If the location passed in here
+ isn't actually the current location, accuracy of results will be diminished.
+
+ @param minimumConfidence The Minimum Confidence level place estimate candidates must meet.
+
+ @param fields A list of fields that you might want the request to return. See
+ `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.facebook.com/docs/places/fields
+ for the most up to date list.
+
+ @param completion A `FBSDKCurrentPlaceGraphRequestCompletion` block, that contains the graph request.
+ */
+- (void)generateCurrentPlaceRequestForCurrentLocation:(nonnull CLLocation *)currentLocation
+                           withMinimumConfidenceLevel:(FBSDKPlaceLocationConfidence)minimumConfidence
+                                               fields:(nullable NSArray<NSString *> *)fields
+                                           completion:(nonnull FBSDKCurrentPlaceGraphRequestCompletion)completion;
 
 /**
  Method for generating a graph request to provide feedback to the Places Graph about
@@ -163,7 +187,7 @@ typedef void (^FBSDKCurrentPlaceGraphRequestCompletion)(FBSDKGraphRequest *_Null
  @param placeID The ID of the place.
 
  @param fields A list of fields that you might want the request to return. See
- `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.intern.facebook.com/docs/places/fields
+ `FBSDKPlacesKitConstants.h` for the fields exposed by the SDK, and see https://developers.facebook.com/docs/places/fields
  for the most up to date list.
 
  @return An `FBSDKGraphRequest` for the given parameters.

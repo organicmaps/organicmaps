@@ -47,13 +47,6 @@ extern NSString *const FBSDKPlacesFieldKeyCategories;
 extern NSString *const FBSDKPlacesFieldKeyCheckins;
 
 /**
- Field Key for the OpenGraphContext of the place, including friends who were at this
- place, or who liked to its page. This field requires authentication with a user token.
- An error will be thrown if this field is requested using a client token.
- */
-extern NSString *const FBSDKPlacesFieldKeyContext;
-
-/**
  Field Key for the confidence level for a current place estimate candidate.
  */
 extern NSString *const FBSDKPlacesFieldKeyConfidence;
@@ -74,11 +67,6 @@ extern NSString *const FBSDKPlacesFieldKeyDescription;
  the same information used for the Like button.
  */
 extern NSString *const FBSDKPlacesFieldKeyEngagement;
-
-/**
- Field Key for the number of people who like the place.
- */
-extern NSString *const FBSDKPlacesFieldKeyFanCount;
 
 /**
  Field Key for hour ranges for when the Place is open. Each day can have two different
@@ -129,6 +117,11 @@ extern NSString *const FBSDKPlacesFieldKeyName;
  user ratings.
  */
 extern NSString *const FBSDKPlacesFieldKeyOverallStarRating;
+
+/**
+ Field Key for the Facebook Page information.
+ */
+extern NSString *const FBSDKPlacesFieldKeyPage;
 
 /**
  Field Key for PageParking information for the Place.

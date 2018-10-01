@@ -1,9 +1,7 @@
 //
 //  PWInbox.h
-//  Pushwoosh
-//
-//  Created by Pushwoosh on 18/10/2017.
-//  Copyright © 2017 Pushwoosh. All rights reserved.
+//  Pushwoosh SDK
+//  (c) Pushwoosh 2017
 //
 
 #import <Foundation/Foundation.h>
