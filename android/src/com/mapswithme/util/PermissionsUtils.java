@@ -48,9 +48,20 @@ public final class PermissionsUtils
     return getPermissionsResult(result);
   }
 
+  public static boolean isLocationGranted(@NonNull Context context)
+  {
+    return checkPermissions(context).isExternalStorageGranted();
+  }
+
+  /**
+   *
+   * Use {@link #isLocationGranted(Context)} instead.
+   */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public static boolean isLocationGranted()
   {
-    return checkPermissions().isLocationGranted();
+    return checkPermissions(MwmApplication.get()).isLocationGranted();
   }
 
   public static boolean isLocationExplanationNeeded(@NonNull Activity activity)
@@ -61,19 +72,18 @@ public final class PermissionsUtils
 
   public static boolean isExternalStorageGranted()
   {
-    return checkPermissions().isExternalStorageGranted();
+    return checkPermissions(MwmApplication.get()).isExternalStorageGranted();
   }
 
   @NonNull
-  private static PermissionsResult checkPermissions()
+  private static PermissionsResult checkPermissions(@NonNull Context context)
   {
-    Context context = MwmApplication.get().getApplicationContext();
+    Context appContext = context.getApplicationContext();
     Map<String, Boolean> result = new HashMap<>();
     for (String permission: PERMISSIONS)
     {
-      result.put(permission,
-                 Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-                 || context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
+      result.put(permission, Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                 || appContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
 
     return getPermissionsResult(result);

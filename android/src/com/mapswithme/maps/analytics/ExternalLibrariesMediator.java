@@ -21,6 +21,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -64,7 +65,7 @@ public class ExternalLibrariesMediator
     getAdInfoTask.execute();
   }
 
-  public void initSensitiveEventLogger()
+  private void initSensitiveEventLogger()
   {
     if (com.mapswithme.util.concurrency.UiThread.isUiThread())
     {
@@ -182,6 +183,15 @@ public class ExternalLibrariesMediator
   Application getApplication()
   {
     return mApplication;
+  }
+
+  public void initSensitiveData()
+  {
+    initSensitiveEventLogger();
+    if (PermissionsUtils.isLocationGranted(getApplication()))
+      return;
+
+    MyTargetPrivacy.setUserConsent(false);
   }
 
   private static class GetAdInfoTask extends AsyncTask<Void, Void, AdvertisingInfo>

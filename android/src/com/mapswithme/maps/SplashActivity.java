@@ -89,7 +89,7 @@ public class SplashActivity extends AppCompatActivity
       if (!mediator.isLimitAdTrackingEnabled())
       {
         LOGGER.i(TAG, "Limit ad tracking disabled, sensitive tracking initialized");
-        mediator.initSensitiveEventLogger();
+        mediator.initSensitiveData();
       }
       else
       {
@@ -98,13 +98,10 @@ public class SplashActivity extends AppCompatActivity
 
       init();
       LOGGER.i(TAG, "Core initialized: " + app.arePlatformAndCoreInitialized());
-      if (app.arePlatformAndCoreInitialized())
+      if (app.arePlatformAndCoreInitialized() && mediator.isLimitAdTrackingEnabled())
       {
-        if (mediator.isLimitAdTrackingEnabled())
-        {
-          LOGGER.i(TAG, "Limit ad tracking enabled, rb banners disabled.");
-          mediator.disableAdProvider(Banner.Type.TYPE_RB);
-        }
+        LOGGER.i(TAG, "Limit ad tracking enabled, rb banners disabled.");
+        mediator.disableAdProvider(Banner.Type.TYPE_RB);
       }
 
 //    Run delayed task because resumeDialogs() must see the actual value of mCanceled flag,
