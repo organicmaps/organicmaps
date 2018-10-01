@@ -72,8 +72,8 @@ dependencies {
     exclude group: 'com.android.support'
   }
   implementation 'com.google.code.gson:gson:2.6.1'
-  implementation 'com.pushwoosh:pushwoosh:5.8.6'
-  implementation 'com.pushwoosh:pushwoosh-gcm:5.8.6'
+  implementation 'com.pushwoosh:pushwoosh:5.9.0'
+  implementation 'com.pushwoosh:pushwoosh-gcm:5.9.0'
   implementation 'com.my.tracker:mytracker-sdk:1.5.3'
   implementation ('com.my.target:mytarget-sdk:5.2.2') {
     exclude group: 'com.android.support'
