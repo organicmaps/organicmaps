@@ -11850,6 +11850,10 @@
   [type.natural.coastline]
     en = natural-coastline
 
+  [type.natural.geyser]
+    en = Geyser
+    ru = Гейзер
+
   [type.natural.glacier]
     en = natural-glacier
 

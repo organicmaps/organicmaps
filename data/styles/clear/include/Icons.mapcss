@@ -43,6 +43,8 @@ area[amenity=fountain]
 {z-index: 2000;}
 node[natural=spring],
 area[natural=spring],
+node[natural=geyser],
+area[natural=geyser],
 node[amenity=drinking_water],
 area[amenity=drinking_water],
 node[man_made=water_tap],
@@ -646,6 +648,8 @@ node|z13-[natural=peak],
 area|z13-[natural=peak],
 node|z14-[natural=spring],
 area|z14-[natural=spring],
+node|z14-[natural=geyser],
+area|z14-[natural=geyser],
 node|z16-[natural=beach],
 area|z16-[natural=beach]
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;text-optional: true;}
@@ -780,6 +784,13 @@ area|z14[natural=spring]
 node|z15-[natural=spring],
 area|z15-[natural=spring]
 {icon-image: drinking-water-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
+
+node|z14[natural=geyser],
+area|z14[natural=geyser]
+{icon-image: geyser-s.svg;text-offset:6;font-size: 10;icon-min-distance: 24;text-optional: true;}
+node|z15-[natural=geyser],
+area|z15-[natural=geyser]
+{icon-image: geyser-m.svg;text-offset:8;font-size: 10;icon-min-distance: 24;text-optional: true;}
 
 node|z15-[amenity=water_point],
 area|z15-[amenity=water_point],

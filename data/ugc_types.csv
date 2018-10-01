@@ -70,6 +70,7 @@ leisure-water_park,1,1,0,experience service value_for_money
 man_made-lighthouse,1,1,0,experience value_for_money
 natural-beach,1,1,0,experience cleanliness crowdedness
 natural-cave_entrance,1,1,0,experience cleanliness crowdedness
+natural-geyser,1,1,0,rating
 natural-peak,1,1,0,rating
 natural-spring,1,1,0,rating
 natural-volcano,1,1,0,rating
