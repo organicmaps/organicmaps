@@ -211,26 +211,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
       case BookmarkListAdapter.TYPE_TRACK:
         final Track track = (Track) adapter.getItem(mSelectedPosition);
-        BottomSheet bottomSheet = BottomSheetHelper.create(getActivity(), track.getName())
-                                                   .sheet(Menu.NONE, R.drawable.ic_delete,
-                                                          R.string.delete)
-                                                   .listener(new MenuItem.OnMenuItemClickListener()
-                                                   {
-                                                     @Override
-                                                     public boolean onMenuItemClick(MenuItem
-                                                                                        menuItem)
-                                                     {
-                                                       BookmarkManager.INSTANCE.deleteTrack(track
-                                                                                                .getTrackId());
-                                                       adapter.notifyDataSetChanged();
-                                                       return false;
-                                                     }
-                                                   }).build();
+        BottomSheet bottomSheet = BottomSheetHelper
+            .create(getActivity(), track.getName())
+            .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
+            .listener(menuItem -> onMenuItemClicked(adapter, track))
+            .build();
 
         BottomSheetHelper.tint(bottomSheet);
         bottomSheet.show();
         break;
     }
+  }
+
+  private boolean onMenuItemClicked(@NonNull BookmarkListAdapter adapter, @NonNull Track track)
+  {
+    BookmarkManager.INSTANCE.deleteTrack(track.getTrackId());
+    adapter.notifyDataSetChanged();
+    return false;
   }
 
   @Override
