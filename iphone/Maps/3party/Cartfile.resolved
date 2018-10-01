@@ -1,5 +1,5 @@
-github "Alamofire/Alamofire" "4.7.0"
-github "Alamofire/AlamofireImage" "3.3.0"
+github "Alamofire/Alamofire" "4.7.3"
+github "Alamofire/AlamofireImage" "3.4.1"
 github "AppsFlyerSDK/AppsFlyerFramework" "4.8.3"
 github "BoltsFramework/Bolts-ObjC" "1.9.0"
 github "Pushwoosh/pushwoosh-ios-sdk" "5.5.4"
