@@ -163,6 +163,16 @@ static NSString * const kStatHotel = @"hotel";
 static NSString * const kStatHotelLocation = @"hotel_location";
 static NSString * const kStatImport = @"Import";
 static NSString * const kStatIn = @"In";
+static NSString * const kStatInappBannerClose = @"Placepage_Banner_close";
+static NSString * const kStatInappCancel = @"InAppPurchase_Preview_cancel";
+static NSString * const kStatInappPay = @"InAppPurchase_Preview_pay";
+static NSString * const kStatInappPaymentError = @"InAppPurchase_Store_error";
+static NSString * const kStatInappPaymentSuccess = @"InAppPurchase_Store_success";
+static NSString * const kStatInappProductDelivered = @"InAppPurchase_Product_delivered";
+static NSString * const kStatInappSelect = @"InAppPurchase_Preview_select";
+static NSString * const kStatInappShow = @"InAppPurchase_Preview_show";
+static NSString * const kStatInappValidationSuccess = @"InAppPurchase_Validation_success";
+static NSString * const kStatInappValidationError = @"InAppPurchase_Validation_error";
 static NSString * const kStatInvalidCall = @"invalid_call";
 static NSString * const kStatIsAuthenticated = @"is_authenticated";
 static NSString * const kStatIsAuto = @"is_auto";
@@ -255,6 +265,7 @@ static NSString * const kStatPortrait = @"Portrait";
 static NSString * const kStatPosition = @"position";
 static NSString * const kStatPriceCategory = @"price_category";
 static NSString * const kStatProblem = @"Problem";
+static NSString * const kStatProduct = @"product";
 static NSString * const kStatProfile = @"Profile";
 static NSString * const kStatProgress = @"Progress";
 static NSString * const kStatProvider = @"Provider";
@@ -376,6 +387,7 @@ static NSString * const kStatUpdateAll = @"update_all";
 static NSString * const kStatUserInterrupted = @"user_interrupted";
 static NSString * const kStatValue = @"Value";
 static NSString * const kStatVehicle = @"Vehicle";
+static NSString * const kStatVendor = @"vendor";
 static NSString * const kStatViator = @"Viator.com";
 static NSString * const kStatVisible = @"Visible";
 static NSString * const kStatWhatsNew = @"What's New";
@@ -385,6 +397,7 @@ static NSString * const kStatYes = @"Yes";
 static NSString * const kStatZoom = @"Zoom";
 static NSString * const kStatiPad = @"iPad";
 static NSString * const kStatiPhone = @"iPhone";
+
 
 static inline NSString * const kStatEventName(NSString * component, NSString * action)
 {

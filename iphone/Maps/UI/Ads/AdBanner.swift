@@ -139,7 +139,10 @@ final class AdBanner: UITableViewCell {
   }
 
   @IBAction
-  private func removeAction() {
+  private func removeAction(_ sender: UIButton) {
+    Statistics.logEvent(kStatInappBannerClose, withParameters: [
+      kStatBanner : state == .detailed ? 1 : 0,
+      kStatButton : sender == removeAdsLargeButton ? 1 : 0])
     onRemoveAds?()
   }
 

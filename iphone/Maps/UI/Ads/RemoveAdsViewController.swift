@@ -95,6 +95,8 @@
                                                    VC.formatPrice(monthlyDiscount, locale: locale)]), for: .normal)
       self.weekButton.setTitle(String(coreFormat: L("options_dropdown_item2"),
                                       arguments: [VC.formatPrice(weeklyPrice ?? 0, locale: locale)]), for: .normal)
+      Statistics.logEvent(kStatInappShow, withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId(),
+                                                           kStatProduct : subscriptions[0].productId])
     }
   }
 
@@ -107,6 +109,7 @@
   }
 
   @IBAction func onClose(_ sender: Any) {
+    Statistics.logEvent(kStatInappCancel)
     delegate?.didCancelSubscribtion(self)
   }
 
@@ -147,6 +150,8 @@
       self.delegate?.didCancelSubscribtion(self)
       return
     }
+    Statistics.logEvent(kStatInappSelect, withParameters: [kStatProduct : subscription.productId])
+    Statistics.logEvent(kStatInappPay)
     showPurchaseProgress()
     SubscriptionManager.shared.subscribe(to: subscription)
   }

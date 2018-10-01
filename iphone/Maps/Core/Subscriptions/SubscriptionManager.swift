@@ -57,8 +57,16 @@ class SubscriptionManager: NSObject {
     MWMPurchaseManager.shared()
       .validateReceipt(MWMPurchaseManager.adsRemovalServerId()) { (serverId, validationResult) in
         if validationResult == .error {
+          Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2])
           return
         } else {
+          if validationResult == .valid {
+            Statistics.logEvent(kStatInappValidationSuccess)
+            Statistics.logEvent(kStatInappProductDelivered,
+                                withParameters: [kStatVendor : MWMPurchaseManager.adsRemovalVendorId()])
+          } else {
+            Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 0])
+          }
           MWMPurchaseManager.shared().setAdsDisabled(validationResult == .valid)
           self.paymentQueue.transactions
             .filter { $0.transactionState == .purchased || $0.transactionState == .restored }
@@ -70,6 +78,8 @@ class SubscriptionManager: NSObject {
 
 extension SubscriptionManager: SKProductsRequestDelegate {
   func request(_ request: SKRequest, didFailWithError error: Error) {
+    Statistics.logEvent(kStatInappPaymentError,
+                        withParameters: [kStatError : error.localizedDescription])
     subscriptionsComplection?(nil, error)
     subscriptionsComplection = nil
     productsRequest = nil
@@ -121,6 +131,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
     MWMPurchaseManager.shared().setAdsDisabled(true)
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
+      Statistics.logEvent(kStatInappPaymentSuccess)
       listeners.allObjects.forEach { $0.didSubsribe(ps) }
     }
   }
@@ -136,6 +147,8 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
   private func processFailed(_ transaction: SKPaymentTransaction, error: Error?) {
     paymentQueue.finishTransaction(transaction)
     if let ps = pendingSubscription, transaction.payment.productIdentifier == ps.productId {
+      Statistics.logEvent(kStatInappPaymentError,
+                          withParameters: [kStatError : error?.localizedDescription ?? ""])
       listeners.allObjects.forEach { $0.didFailToSubscribe(ps, error: error) }
     }
   }

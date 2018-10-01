@@ -12,6 +12,7 @@ typedef void (^ValidateReceiptCallback)(NSString * _Nonnull serverId, MWMValidat
 @interface MWMPurchaseManager : NSObject
 
 + (NSString * _Nonnull)adsRemovalServerId;
++ (NSString * _Nonnull)adsRemovalVendorId;
 + (NSArray<NSString *> * _Nonnull)productIds;
 + (MWMPurchaseManager * _Nonnull)sharedManager;
 

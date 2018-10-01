@@ -21,6 +21,11 @@
   return @(ADS_REMOVAL_SERVER_ID);
 }
 
++ (NSString *)adsRemovalVendorId
+{
+  return @(ADS_REMOVAL_VENDOR);
+}
+
 + (NSArray *)productIds
 {
   return @[@(ADS_REMOVAL_WEEKLY_PRODUCT_ID),

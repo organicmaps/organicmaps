@@ -146,7 +146,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="removeAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="dCc-Ww-mvy"/>
+                                    <action selector="removeAction:" destination="WK2-gA-ocn" eventType="touchUpInside" id="NKe-Xb-A8N"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKM-3R-3g1">
@@ -196,7 +196,7 @@
                                     <constraint firstAttribute="width" constant="32" id="Bmc-z7-zKC"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="removeAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="Jtb-b8-Ihy"/>
+                                    <action selector="removeAction:" destination="WK2-gA-ocn" eventType="touchUpInside" id="4YU-ca-y1D"/>
                                 </connections>
                             </button>
                         </subviews>
