@@ -105,7 +105,6 @@ final class CatalogWebViewController: WebViewController {
 
   override func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
     if !statSent {
-      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_open")
       statSent = true
       MWMEye.boomarksCatalogShown()
     }
