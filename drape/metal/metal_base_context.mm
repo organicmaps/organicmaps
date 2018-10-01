@@ -82,13 +82,21 @@ std::string MetalBaseContext::GetRendererVersion() const
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v3, "iOS_GPUFamily1_v3");
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v3, "iOS_GPUFamily2_v3");
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v2, "iOS_GPUFamily3_v2");
-      features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v1, "iOS_GPUFamily4_v1");
     }
     if (@available(iOS 11.0, *))
     {
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v4, "iOS_GPUFamily1_v4");
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v4, "iOS_GPUFamily2_v4");
       features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v3, "iOS_GPUFamily3_v3");
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v1, "iOS_GPUFamily4_v1");
+    }
+    if (@available(iOS 12.0, *))
+    {
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily1_v5, "iOS_GPUFamily1_v5");
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily2_v5, "iOS_GPUFamily2_v5");
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily3_v4, "iOS_GPUFamily3_v4");
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily4_v2, "iOS_GPUFamily4_v2");
+      features.emplace_back(MTLFeatureSet_iOS_GPUFamily5_v1, "iOS_GPUFamily5_v1");
     }
     std::sort(features.begin(), features.end(), [](auto const & s1, auto const & s2)
     {
