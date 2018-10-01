@@ -14,5 +14,5 @@ public interface AdsRemovalPurchaseCallback
   void onProductDetailsFailure();
   void onStoreConnectionFailed();
   void onValidationStarted();
-  void onValidationStatusObtained(@NonNull AdsRemovalValidationStatus status);
+  void onValidationFinish(boolean success);
 }

@@ -73,6 +73,7 @@ import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
+import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -150,7 +151,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  OnTrafficLayerToggleListener,
                                  OnSubwayLayerToggleListener,
                                  BookmarkManager.BookmarksCatalogListener,
-                                 AdsRemovalPurchaseControllerProvider
+                                 AdsRemovalPurchaseControllerProvider,
+                                 AdsRemovalActivationCallback
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -1835,6 +1837,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
+  }
+
+  @Override
+  public void onAdsRemovalActivation()
+  {
+    closePlacePage();
   }
 
   private void adjustMenuLineFrameVisibility(@Nullable final Runnable completion)

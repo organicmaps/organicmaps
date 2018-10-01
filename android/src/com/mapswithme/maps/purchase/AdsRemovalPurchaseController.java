@@ -67,6 +67,10 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     public void onValidate(@NonNull AdsRemovalValidationStatus status)
     {
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
+      if (status == AdsRemovalValidationStatus.VERIFIED)
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS);
+      else
+        Statistics.INSTANCE.trackPurchaseValidationError(status);
       boolean activateSubscription = status != AdsRemovalValidationStatus.NOT_VERIFIED;
       LOGGER.i(TAG, "Ads removal subscription "
                     + (activateSubscription ? "activated" : "deactivated"));
@@ -74,7 +78,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
       if (activateSubscription)
         Statistics.INSTANCE.trackPurchaseProductDelivered(PrivateVariables.adsRemovalVendor());
       if (getUiCallback() != null)
-        getUiCallback().onValidationStatusObtained(status);
+        getUiCallback().onValidationFinish(activateSubscription);
     }
   }
 

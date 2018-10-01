@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 enum AdsRemovalPaymentState
 {
@@ -49,6 +51,8 @@ enum AdsRemovalPaymentState
           View image = view.findViewById(R.id.image);
           alignPayButtonBelow(view, image == null ? R.id.title : R.id.image);
           dialog.updatePaymentButtons();
+          Statistics.INSTANCE.trackPurchasePreviewShow(PrivateVariables.adsRemovalVendor(),
+                                                       PrivateVariables.adsRemovalYearlyProductId());
         }
       },
   EXPLANATION
@@ -113,7 +117,7 @@ enum AdsRemovalPaymentState
         @Override
         void activate(@NonNull AdsRemovalPurchaseDialog dialog)
         {
-          dialog.dismissAllowingStateLoss();
+          dialog.finishValidation();
         }
       };
 
