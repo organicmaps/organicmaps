@@ -179,7 +179,7 @@ RegionsBuilder::Regions ReadData(feature::GenerateInfo const & genInfo,
   RegionsFixer fixer(regions, pointCitiesMap);
   regions = fixer.FixRegions();
   FilterRegions(regions);
-  return std::move(regions);
+  return regions;
 }
 }  // namespace
 

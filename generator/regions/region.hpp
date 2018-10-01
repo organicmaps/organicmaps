@@ -13,7 +13,7 @@ class RegionDataProxy;
 
 namespace regions
 {
-class City;
+struct City;
 
 // This is a helper class that is needed to represent the region.
 // With this view, further processing is simplified.
