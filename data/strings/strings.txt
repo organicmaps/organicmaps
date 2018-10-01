@@ -33247,7 +33247,7 @@ fa = دوباره نپرس
   [paybtn_title]
     en = Pay %s/year
     ru = Заплатить %s/год
-    ar = دفع%s/سنة
+    ar = دفع%s/ سنة
     cs = Zaplatit %s/ročně
     da = Betal %s/år
     nl = Betaal %s/jaar
@@ -33280,7 +33280,7 @@ fa = دوباره نپرس
   [paybtn_subtitle]
     en = Save %s/year
     ru = Экономия %s/год
-    ar = حفظ%s/سنة
+    ar = حفظ%s/ سنة
     cs = Ušetříte %s/ročně
     da = Spar %s/år
     nl = Besparing %s/jaar
