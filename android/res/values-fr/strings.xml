@@ -1391,7 +1391,7 @@
 	<string name="purchase_loading">Les informations d\'achat sont en cours de chargement…</string>
 	<string name="purchase_error_subtitle">Une erreur est survenue lors du traitement de votre achat</string>
 	<string name="awaiting_approval">En attente de l\'approbation d\'un parent</string>
-	<string name="whats_new_leave_review">Laisser un avis Partagez votre opinion sur les lieux que vous avez visités pendant vos vacances.</string>
+	<string name="whats_new_leave_review">Laisser un avis ! Partagez votre opinion sur les lieux que vous avez visités pendant vos vacances.</string>
 	<string name="server_unavailable_title">Le serveur n\'est pas disponible</string>
 	<string name="server_unavailable_message">L\'achat sera complété plus tard. Si l\'erreur persiste, veuillez contacter support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Connectez-vous à Internet pour sélectionner les hôtels par dates.</string>

@@ -1375,7 +1375,7 @@
 	<string name="channels_map_update">Kaartupdates</string>
 	<string name="channels_reviews">Niet-verzonden feedback</string>
 	<string name="purchase_loading">Aankoopinformatie laden…</string>
-	<string name="purchase_error_subtitle">Er is een fout opgetreden tijdens het verwerken van uw aankoop.</string>
+	<string name="purchase_error_subtitle">Er is een fout opgetreden tijdens het verwerken van uw aankoop</string>
 	<string name="awaiting_approval">We wachten op de bevestiging van de ouders</string>
 	<string name="whats_new_leave_review">Laat een beoordeling achter! Deel uw mening over de plaatsen die u op vakantie hebt bezocht.</string>
 	<string name="server_unavailable_title">Server niet beschikbaar</string>

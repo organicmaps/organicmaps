@@ -1381,9 +1381,9 @@
 	<string name="purchase_error_subtitle">Ocorreu um erro enquanto processava a sua compra</string>
 	<string name="awaiting_approval">A aguardar a aprovação parental</string>
 	<string name="whats_new_leave_review">Deixe uma avaliação! Partilhe a sua opinião sobre os locais que visitou nas suas férias.</string>
-	<string name="server_unavailable_title">O servidor está indisponível.</string>
+	<string name="server_unavailable_title">O servidor está indisponível</string>
 	<string name="server_unavailable_message">A compra será completada mais tarde. Se o error persistir, entre em contacto com support\@maps.me.</string>
-	<string name="offline_fiters_check_in">Ligue-se à Internet para filtrar os hotéis por datas.</string>
+	<string name="offline_fiters_check_in">Ligue-se à іnternet para filtrar os hotéis por datas.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

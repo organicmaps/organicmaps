@@ -1384,7 +1384,7 @@
 	<string name="whats_new_leave_review">Podziel się opinią! Podziel się swoją opinią o miejscach, które odwiedziłeś podczas wyjazdu.</string>
 	<string name="server_unavailable_title">Serwer jest niedostępny</string>
 	<string name="server_unavailable_message">Zakup zostanie sfinalizowany później. Jeśli błąd wystąpi ponownie, prosimy o kontakt z support\@maps.me.</string>
-	<string name="offline_fiters_check_in">Połącz się z Internetem aby wybrać datę zameldowania i wymeldowania.</string>
+	<string name="offline_fiters_check_in">Połącz się z іnternetem aby wybrać datę zameldowania i wymeldowania.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

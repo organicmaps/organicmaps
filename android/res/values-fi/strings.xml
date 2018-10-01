@@ -1365,8 +1365,8 @@
 	<string name="why_support_item3">Auta meitä parantamaan avoimia karttoja OpenStreetMap.org</string>
 	<string name="purchase_processing">Ostostasi käsitellään…</string>
 	<string name="tips_bookmarks_catalog_title">Offline ohjeet kaikenlaisille matkoille</string>
-	<string name="tips_bookmarks_catalog_message">Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa</string>
-	<string name="tips_discover_button_title">Haluatko löytää suosittuja lähistöllä olevia kohteita</string>
+	<string name="tips_bookmarks_catalog_message">Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa.</string>
+	<string name="tips_discover_button_title">Haluatko löytää suosittuja lähistöllä olevia kohteita?</string>
 	<string name="tips_discover_button_message">”Löydä lähistöllä olevia kohteita” osio sisältää parhaat ravintolat, hotellit ja nähtävyydet.</string>
 	<string name="tips_book_hotel_title">Varaa mukavimmat hotellit matkallesi</string>
 	<string name="tips_book_hotel_message">Käytä hakua ja filttereitä löytääksesi parhaat hotellit sinulle. Käytä ”Varaa” nappulaa joka on paikka sivulla varataksesi hotellin välittömästi.</string>
@@ -1380,7 +1380,7 @@
 	<string name="whats_new_leave_review">Jätä arvio! Jaa mielipiteesi paikoista joissa olet käynyt lomallasi.</string>
 	<string name="server_unavailable_title">Serveri ei ole saatavilla</string>
 	<string name="server_unavailable_message">Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support\@maps.me.</string>
-	<string name="offline_fiters_check_in">Yhdistä internettiin suodattaaksesi hotelleja päivillä</string>
+	<string name="offline_fiters_check_in">Yhdistä internettiin suodattaaksesi hotelleja päivillä.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

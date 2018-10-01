@@ -2436,9 +2436,9 @@
 
 "tips_bookmarks_catalog_title" = "Offline ohjeet kaikenlaisille matkoille";
 
-"tips_bookmarks_catalog_message" = "Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa";
+"tips_bookmarks_catalog_message" = "Lataa ja suunnittele turistireitit mielenkiintoisin paikkoihin maailman eri kaupungeissa.";
 
-"tips_discover_button_title" = "Haluatko löytää suosittuja lähistöllä olevia kohteita";
+"tips_discover_button_title" = "Haluatko löytää suosittuja lähistöllä olevia kohteita?";
 
 "tips_discover_button_message" = "”Löydä lähistöllä olevia kohteita” osio sisältää parhaat ravintolat, hotellit ja nähtävyydet.";
 
@@ -2466,7 +2466,7 @@
 
 "server_unavailable_message" = "Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support@maps.me.";
 
-"offline_fiters_check_in" = "Yhdistä internettiin suodattaaksesi hotelleja päivillä";
+"offline_fiters_check_in" = "Yhdistä internettiin suodattaaksesi hotelleja päivillä.";
 
 "rutaxi_title" = "RuTaxi";
 

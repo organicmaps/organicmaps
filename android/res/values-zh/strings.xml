@@ -1358,11 +1358,11 @@
 	<string name="bookmarks_guides">书签和导览</string>
 	<string name="remove_ads">关闭广告</string>
 	<string name="remove_ads_title">关闭所有广告并支持MAPS.ME</string>
-	<string name="paybtn_title">支付％s /年</string>
-	<string name="paybtn_subtitle">节省％s /年</string>
+	<string name="paybtn_title">支付%s/年</string>
+	<string name="paybtn_subtitle">节省%s/年</string>
 	<string name="options_dropdown_title">其他选择</string>
 	<string name="why_support">为什么支持MAPS.ME?</string>
-	<string name="options_dropdown_item1">%s/月 (节省％s /年)</string>
+	<string name="options_dropdown_item1">%1$s/月 (节省%2$s/年)</string>
 	<string name="options_dropdown_item2">%s/周 (未节省)</string>
 	<string name="why_support_item1">我们将为您关闭所有广告</string>
 	<string name="why_support_item2">您帮助我们改进MAPS.ME</string>
@@ -1379,11 +1379,11 @@
 	<string name="channels_map_update">更新地图</string>
 	<string name="channels_reviews">未发送的意见</string>
 	<string name="purchase_loading">加载购买信息……</string>
-	<string name="purchase_error_subtitle">处理购买时出错。</string>
+	<string name="purchase_error_subtitle">处理购买时出错</string>
 	<string name="awaiting_approval">我们正在等待父母的确认</string>
-	<string name="whats_new_leave_review">请留言！分享您对度假时所去过的地方的看法</string>
+	<string name="whats_new_leave_review">请留言！分享您对度假时所去过的地方的看法。</string>
 	<string name="server_unavailable_title">服务不可用</string>
-	<string name="server_unavailable_message">购买将在稍后完成。如果错误仍然存在，请联系support\@maps.me</string>
+	<string name="server_unavailable_message">购买将在稍后完成。如果错误仍然存在，请联系support\@maps.me。</string>
 	<string name="offline_fiters_check_in">连接到网络来选择到达和离开的日期。</string>
 
 	<!-- SECTION: Types -->

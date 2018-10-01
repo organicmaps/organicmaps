@@ -1355,10 +1355,10 @@
 	<string name="paybtn_title">年間%sの支払い</string>
 	<string name="paybtn_subtitle">年間%sの節約</string>
 	<string name="options_dropdown_title">他のオプション</string>
-	<string name="why_support">MAPS.MEをサポートする理由</string>
-	<string name="options_dropdown_item1">%1$s／月（%2$s／年の節約）</string>
-	<string name="options_dropdown_item2">%s／週（節約なし）</string>
-	<string name="why_support_item1">お客さまのためにすべての広告を削除いたします。</string>
+	<string name="why_support">MAPS.MEをサポートする理由？</string>
+	<string name="options_dropdown_item1">%1$s/月（%2$s/年の節約）</string>
+	<string name="options_dropdown_item2">%s/週（節約なし）</string>
+	<string name="why_support_item1">お客さまのためにすべての広告を削除いたします</string>
 	<string name="why_support_item2">MAPS.MEの改善にご協力いただいております</string>
 	<string name="why_support_item3">オープンマップOpenStreetMap.orgの改善にご協力いただいております</string>
 	<string name="purchase_processing">購入の処理中です…</string>

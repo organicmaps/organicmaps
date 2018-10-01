@@ -2414,17 +2414,17 @@
 
 "remove_ads_title" = "إزالة جميع الإعلانات ودعم MAPS.ME";
 
-"paybtn_title" = "دفع%s / سنة";
+"paybtn_title" = "دفع%s/ سنة";
 
-"paybtn_subtitle" = "حفظ%s / سنة";
+"paybtn_subtitle" = "حفظ%s/ سنة";
 
 "options_dropdown_title" = "مزيد من الخيارات";
 
 "why_support" = "لماذا تدعم MAPS.ME؟";
 
-"options_dropdown_item1" = "%s / الشهر (حفظ%s / سنة)";
+"options_dropdown_item1" = "%s/الشهر (حفظ%s/سنة)";
 
-"options_dropdown_item2" = "%s / أسبوع (بدون توفير)";
+"options_dropdown_item2" = "%s/أسبوع  (بدون توفير)";
 
 "why_support_item1" = "سنقوم بإزالة جميع الإعلانات لك";
 
@@ -2446,7 +2446,7 @@
 
 "tips_book_hotel_message" = "استخدم البحث و الاختيار للعثور على أفضل الفنادق لك. استخدم زر «حجز» في صفحة مكان الموقع لحجز فندق على الفور.";
 
-"tips_map_layers_title" = "لا يمكنك معرفة المحطة لاجراء الاتصال?";
+"tips_map_layers_title" = "لا يمكنك معرفة المحطة لاجراء الاتصال؟";
 
 "tips_map_layers_message" = "قم بتشغيل طبقة المترو لعرض خريطة مترو الأنفاق ، وستجد طريقك دائمًا في مدينة جديدة.";
 

@@ -2414,15 +2414,15 @@
 
 "remove_ads_title" = "關閉所有廣告并支持 MAPS.ME";
 
-"paybtn_title" = "支付％s /年";
+"paybtn_title" = "支付%s/年";
 
-"paybtn_subtitle" = "節省％s /年";
+"paybtn_subtitle" = "節省%s/年";
 
 "options_dropdown_title" = "其他選擇";
 
 "why_support" = "為什麼支持MAPS.ME?";
 
-"options_dropdown_item1" = "%s/月 (節省％s /年)";
+"options_dropdown_item1" = "%s/月 (節省%s/年)";
 
 "options_dropdown_item2" = "%s/周 (未節省)";
 
@@ -2442,7 +2442,7 @@
 
 "tips_discover_button_message" = "在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。";
 
-"tips_book_hotel_title" = "請為您的假期預訂最舒適的酒店。";
+"tips_book_hotel_title" = "請為您的假期預訂最舒適的酒店";
 
 "tips_book_hotel_message" = "在搜索和过滤器的帮助下，您将找到最好的酒店。在搜索和過濾器的幫助下，您將找到最好的酒店。點擊地點卡中“預約”鍵即可立即預訂酒店。";
 
@@ -2460,11 +2460,11 @@
 
 "awaiting_approval" = "我們正在等待父母確認";
 
-"whats_new_leave_review" = "請留言！請分享您對度假時索取過的地方的看法";
+"whats_new_leave_review" = "請留言！請分享您對度假時索取過的地方的看法。";
 
 "server_unavailable_title" = "服務不可用";
 
-"server_unavailable_message" = "購買將在稍後完成。如果錯誤仍然存在，請聯繫support@maps.me";
+"server_unavailable_message" = "購買將在稍後完成。如果錯誤仍然存在，請聯繫support@maps.me。";
 
 "offline_fiters_check_in" = "連接到網絡已選擇到達和離開的日期。";
 

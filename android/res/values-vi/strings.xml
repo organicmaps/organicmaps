@@ -1373,7 +1373,7 @@
 	<string name="purchase_loading">Thông tin mua đang tải…</string>
 	<string name="purchase_error_subtitle">Đã xảy ra lỗi trong khi xử lý giao dịch mua của bạn</string>
 	<string name="awaiting_approval">Đang chờ phê duyệt của phụ huynh</string>
-	<string name="whats_new_leave_review">Để lại một đánh giá! Chia sẻ ý kiến của bạn về các địa điểm bạn đã ghé thăm trong kỳ nghỉ của bạn</string>
+	<string name="whats_new_leave_review">Để lại một đánh giá! Chia sẻ ý kiến của bạn về các địa điểm bạn đã ghé thăm trong kỳ nghỉ của bạn.</string>
 	<string name="server_unavailable_title">Máy chủ không khả dụng</string>
 	<string name="server_unavailable_message">Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Kết nối với internet để lọc khách sạn theo ngày tháng.</string>

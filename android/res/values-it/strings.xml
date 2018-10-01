@@ -1375,10 +1375,10 @@
 	<string name="channels_reviews">Recensioni non inviate</string>
 	<string name="purchase_loading">Caricare informazioni sugli acquisti…</string>
 	<string name="purchase_error_subtitle">Si è verificato un errore durante l\'elaborazione dell\'acquisto</string>
-	<string name="awaiting_approval">Aspettiamo la conferma dei genitor</string>
-	<string name="whats_new_leave_review">Scrivere la recensione Condividete le vostre emozioni sui luoghi visitati in vacanza.</string>
+	<string name="awaiting_approval">Aspettiamo la conferma dei genitori</string>
+	<string name="whats_new_leave_review">Scrivere la recensione! Condividete le vostre emozioni sui luoghi visitati in vacanza.</string>
 	<string name="server_unavailable_title">Server non è disponibile</string>
-	<string name="server_unavailable_message">L\'acquisto verrà completato più tardi Se l\'errore persiste, si prega di contattare support\@maps.me.</string>
+	<string name="server_unavailable_message">L\'acquisto verrà completato più tardi. Se l\'errore persiste, si prega di contattare support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Per scegliere la data di check-in e check-out bisogna collegarsi a internet.</string>
 
 	<!-- SECTION: Types -->

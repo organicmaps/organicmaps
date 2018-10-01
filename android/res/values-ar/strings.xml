@@ -1359,12 +1359,12 @@
 	<string name="bookmarks_guides">العلامات المرجعية والأدلة</string>
 	<string name="remove_ads">ازالة الاعلانات</string>
 	<string name="remove_ads_title">إزالة جميع الإعلانات ودعم MAPS.ME</string>
-	<string name="paybtn_title">دفع%s / سنة</string>
-	<string name="paybtn_subtitle">حفظ%s / سنة</string>
+	<string name="paybtn_title">دفع%s/ سنة</string>
+	<string name="paybtn_subtitle">حفظ%s/ سنة</string>
 	<string name="options_dropdown_title">مزيد من الخيارات</string>
 	<string name="why_support">لماذا تدعم MAPS.ME؟</string>
-	<string name="options_dropdown_item1">%1$s / الشهر (حفظ%2$s / سنة)</string>
-	<string name="options_dropdown_item2">%s / أسبوع (بدون توفير)</string>
+	<string name="options_dropdown_item1">%1$s/الشهر (حفظ%2$s/سنة)</string>
+	<string name="options_dropdown_item2">%s/أسبوع  (بدون توفير)</string>
 	<string name="why_support_item1">سنقوم بإزالة جميع الإعلانات لك</string>
 	<string name="why_support_item2">أنت تساعدنا على تحسين MAPS.ME</string>
 	<string name="why_support_item3">يمكنك مساعدتنا في تحسين خرائط مفتوحة OpenStreetMap.org</string>
@@ -1375,7 +1375,7 @@
 	<string name="tips_discover_button_message">يحتوي قسم «اكتشاف الجوار» على أفضل المطاعم والفنادق والمعالم السياحية.</string>
 	<string name="tips_book_hotel_title">حجز الفنادق الأكثر راحة للسفر الخاص بك</string>
 	<string name="tips_book_hotel_message">استخدم البحث و الاختيار للعثور على أفضل الفنادق لك. استخدم زر «حجز» في صفحة مكان الموقع لحجز فندق على الفور.</string>
-	<string name="tips_map_layers_title">لا يمكنك معرفة المحطة لاجراء الاتصال?</string>
+	<string name="tips_map_layers_title">لا يمكنك معرفة المحطة لاجراء الاتصال؟</string>
 	<string name="tips_map_layers_message">قم بتشغيل طبقة المترو لعرض خريطة مترو الأنفاق ، وستجد طريقك دائمًا في مدينة جديدة.</string>
 	<string name="channels_map_update">تحديثات الخريطة</string>
 	<string name="channels_reviews">مراجعات لم يتم رسلها</string>

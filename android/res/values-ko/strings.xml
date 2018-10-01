@@ -1354,7 +1354,7 @@
 	<string name="options_dropdown_title">더 많은 옵션</string>
 	<string name="why_support">왜 MAPS.ME를 지원하죠?</string>
 	<string name="options_dropdown_item1">%1$s/달 ( %2$s/년 저축)</string>
-	<string name="options_dropdown_item2">%s/week (저축금 없음)</string>
+	<string name="options_dropdown_item2">%s/주 (저축금 없음)</string>
 	<string name="why_support_item1">당신을 위해 모든 광고를 없애줄께요</string>
 	<string name="why_support_item2">당신은 MAPS.ME를 개선하는데 우리를 도와주세요</string>
 	<string name="why_support_item3">오픈 지도들 OpenStreetMap.org를 개선하는데 도와주세요</string>

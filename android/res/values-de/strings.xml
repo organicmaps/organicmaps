@@ -1389,7 +1389,7 @@
 	<string name="channels_map_update">Kartenaktualisierungen</string>
 	<string name="channels_reviews">Nicht abgesandte Rückmeldungen</string>
 	<string name="purchase_loading">Kaufinformationen werden geladen…</string>
-	<string name="purchase_error_subtitle">Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten.</string>
+	<string name="purchase_error_subtitle">Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten</string>
 	<string name="awaiting_approval">Wir warten auf die Bestätigung der Eltern</string>
 	<string name="whats_new_leave_review">Geben Sie Rückmeldung! Teilen Sie Ihre Meinung über Orte, die Sie im Urlaub besucht haben.</string>
 	<string name="server_unavailable_title">Server unzugänglich</string>

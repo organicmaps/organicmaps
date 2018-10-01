@@ -2456,7 +2456,7 @@
 
 "purchase_loading" = "Kaufinformationen werden geladen…";
 
-"purchase_error_subtitle" = "Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten.";
+"purchase_error_subtitle" = "Bei der Bearbeitung Ihres Kaufs ist ein Fehler aufgetreten";
 
 "awaiting_approval" = "Wir warten auf die Bestätigung der Eltern";
 

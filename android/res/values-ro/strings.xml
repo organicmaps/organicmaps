@@ -1356,7 +1356,7 @@
 	<string name="why_support">Pentru ce să susțineți MAPS.ME?</string>
 	<string name="options_dropdown_item1">%1$s/lună (economia %2$s/an)</string>
 	<string name="options_dropdown_item2">%s/săptămână (nu există economie)</string>
-	<string name="why_support_item1">Vom dezactiva toate reclamele pentru dvs.</string>
+	<string name="why_support_item1">Vom dezactiva toate reclamele pentru dvs</string>
 	<string name="why_support_item2">Voi ne ajutați să îmbunătățim MAPS.ME</string>
 	<string name="why_support_item3">Voi ne ajutați să îmbunătățim hărțile OpenStreetMaps.org</string>
 	<string name="purchase_processing">Achiziția dvs. este în curs de procesare…</string>
@@ -1370,7 +1370,7 @@
 	<string name="tips_map_layers_message">Activați stratul de metrou de pe hartă pentru a afișa schema de metrou și vă veți putea orienta mereu într-un oraș nou.</string>
 	<string name="channels_map_update">Actualizarea hărților</string>
 	<string name="channels_reviews">Recenzii netrimise</string>
-	<string name="purchase_loading">Încărcăm informația despre cumpărături</string>
+	<string name="purchase_loading">Încărcăm informația despre cumpărături…</string>
 	<string name="purchase_error_subtitle">În timpul procesării achiziției dumneavoastre a apărut o eroare</string>
 	<string name="awaiting_approval">Așteptăm confirmarea părinților</string>
 	<string name="whats_new_leave_review">Lăsați un comentariu! Împărtășiți părerea dumneavoastră despre locurile pe care le-ați vizitat în vacanță.</string>

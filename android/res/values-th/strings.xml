@@ -1371,7 +1371,7 @@
 	<string name="purchase_processing">กำลังประมวลผลการซื้อของคุณ…</string>
 	<string name="tips_bookmarks_catalog_title">ไกด์แบบออฟไลน์เพื่อการท่องเที่ยวทุกประเภท</string>
 	<string name="tips_bookmarks_catalog_message">ดาวน์โหลดแผนและเส้นทางท่องเที่ยวของสถานที่น่าสนใจในเมืองต่างๆ ทั่วโลก</string>
-	<string name="tips_discover_button_title">อยากหาแหล่งท่องเที่ยวยอดนิยมใกล้ๆ หรือเปล่า</string>
+	<string name="tips_discover_button_title">อยากหาแหล่งท่องเที่ยวยอดนิยมใกล้ๆ หรือเปล่า?</string>
 	<string name="tips_discover_button_message">ในหัวข้อ \"ค้นหาบริเวณใกล้เคียง\" นั้นมีข้อมูลของร้านอาหาร โรงแรม และแหล่งชมวิวที่ดีที่สุด</string>
 	<string name="tips_book_hotel_title">จองโรงแรมที่อยู่สบายที่สุดสำหรับการท่องเที่ยวของคุณ</string>
 	<string name="tips_book_hotel_message">ใช้การค้นหาและเครื่องมือคัดกรองข้อมูลเพื่อค้นหาโรงแรมที่ดีที่สุดสำหรับคุณ ใช้ปุ่ม \"จอง\" บนตำแหน่งของโรงแรมบนแผนที่เพื่อจองโรงแรมนั้นทันที</string>

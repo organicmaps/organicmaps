@@ -1362,11 +1362,11 @@
 	<string name="bookmarks_guides">書籤和指南</string>
 	<string name="remove_ads">關閉廣告</string>
 	<string name="remove_ads_title">關閉所有廣告并支持 MAPS.ME</string>
-	<string name="paybtn_title">支付％s /年</string>
-	<string name="paybtn_subtitle">節省％s /年</string>
+	<string name="paybtn_title">支付%s/年</string>
+	<string name="paybtn_subtitle">節省%s/年</string>
 	<string name="options_dropdown_title">其他選擇</string>
 	<string name="why_support">為什麼支持MAPS.ME?</string>
-	<string name="options_dropdown_item1">%s/月 (節省％s /年)</string>
+	<string name="options_dropdown_item1">%1$s/月 (節省%2$s/年)</string>
 	<string name="options_dropdown_item2">%s/周 (未節省)</string>
 	<string name="why_support_item1">我們將為您關閉所有廣告</string>
 	<string name="why_support_item2">您幫助我們改進MAPS.ME</string>
@@ -1376,7 +1376,7 @@
 	<string name="tips_bookmarks_catalog_message">下載并設置到世界各地各個城市景點的旅遊路線。</string>
 	<string name="tips_discover_button_title">想在該地區找到受歡迎的機構嗎？</string>
 	<string name="tips_discover_button_message">在“探索鄰近區域“部分中收集了最近最好的餐館、酒店和名勝古跡。</string>
-	<string name="tips_book_hotel_title">請為您的假期預訂最舒適的酒店。</string>
+	<string name="tips_book_hotel_title">請為您的假期預訂最舒適的酒店</string>
 	<string name="tips_book_hotel_message">在搜索和过滤器的帮助下，您将找到最好的酒店。在搜索和過濾器的幫助下，您將找到最好的酒店。點擊地點卡中“預約”鍵即可立即預訂酒店。</string>
 	<string name="tips_map_layers_title">不知道在哪個地鐵站換乘？</string>
 	<string name="tips_map_layers_message">請打開地圖上的地鐵圖層以顯示地鐵圖，您在新的城市中始終有導航。</string>
@@ -1385,9 +1385,9 @@
 	<string name="purchase_loading">加載購買信息……</string>
 	<string name="purchase_error_subtitle">處理購買時出錯</string>
 	<string name="awaiting_approval">我們正在等待父母確認</string>
-	<string name="whats_new_leave_review">請留言！請分享您對度假時索取過的地方的看法</string>
+	<string name="whats_new_leave_review">請留言！請分享您對度假時索取過的地方的看法。</string>
 	<string name="server_unavailable_title">服務不可用</string>
-	<string name="server_unavailable_message">購買將在稍後完成。如果錯誤仍然存在，請聯繫support\@maps.me</string>
+	<string name="server_unavailable_message">購買將在稍後完成。如果錯誤仍然存在，請聯繫support\@maps.me。</string>
 	<string name="offline_fiters_check_in">連接到網絡已選擇到達和離開的日期。</string>
 
 	<!-- SECTION: Types -->

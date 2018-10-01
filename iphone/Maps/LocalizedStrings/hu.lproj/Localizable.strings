@@ -2444,7 +2444,7 @@
 
 "tips_book_hotel_title" = "Foglaljon utazásához a legkényelmesebb hotelekben";
 
-"tips_book_hotel_message" = "Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.";
+"tips_book_hotel_message" = "Használja a keresés és szűrés lehetőségeket a legjobb hotel megtalálásához. A helyek oldalon a „Foglalás” gombbal azonnal foglalhat hotelt.";
 
 "tips_map_layers_title" = "Nem tudja, melyik állomáson kell átszállni?";
 
@@ -2462,7 +2462,7 @@
 
 "whats_new_leave_review" = "Hagyjon értékelést! Ossza meg véleményét a meglátogatott helyekkel kapcsolatban.";
 
-"server_unavailable_title" = "A szerver nem elérhető.";
+"server_unavailable_title" = "A szerver nem elérhető";
 
 "server_unavailable_message" = "A vásárlás később kerül befejezésre. Ha továbbra is fennáll a hiba írjon ide: support@maps.me.";
 

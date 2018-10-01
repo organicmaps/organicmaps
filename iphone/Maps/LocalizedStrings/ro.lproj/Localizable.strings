@@ -2426,7 +2426,7 @@
 
 "options_dropdown_item2" = "%s/săptămână (nu există economie)";
 
-"why_support_item1" = "Vom dezactiva toate reclamele pentru dvs.";
+"why_support_item1" = "Vom dezactiva toate reclamele pentru dvs";
 
 "why_support_item2" = "Voi ne ajutați să îmbunătățim MAPS.ME";
 
@@ -2454,7 +2454,7 @@
 
 "channels_reviews" = "Recenzii netrimise";
 
-"purchase_loading" = "Încărcăm informația despre cumpărături";
+"purchase_loading" = "Încărcăm informația despre cumpărături…";
 
 "purchase_error_subtitle" = "În timpul procesării achiziției dumneavoastre a apărut o eroare";
 
