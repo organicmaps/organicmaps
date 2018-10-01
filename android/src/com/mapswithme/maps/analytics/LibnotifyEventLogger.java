@@ -18,8 +18,6 @@ import java.util.Map;
 class LibnotifyEventLogger extends DefaultEventLogger
 {
   @SuppressWarnings("NullableProblems")
-  @NonNull
-  private NotificationApi mApi;
 
   LibnotifyEventLogger(@NonNull Application application)
   {
@@ -41,7 +39,8 @@ class LibnotifyEventLogger extends DefaultEventLogger
     NotificationFactory.setNetworkSyncMode(NetworkSyncMode.WIFI_ONLY);
     NotificationFactory.setBackgroundAwakeMode(BackgroundAwakeMode.DISABLED);
     NotificationFactory.initialize(getApplication());
-    mApi = NotificationFactory.get(getApplication());
+    NotificationApi api = NotificationFactory.get(getApplication());
+    api.allowDeviceIdTracking(false, false);
   }
 
   @Override
@@ -54,6 +53,7 @@ class LibnotifyEventLogger extends DefaultEventLogger
     boolean isSingleParam = params.length == 1;
     Object value = isSingleParam ? params[0] : params;
     Map<String, Object> map = Collections.singletonMap(tag, value);
-    mApi.collectEventBatch(map);
+    NotificationApi api = NotificationFactory.get(getApplication());
+    api.collectEventBatch(map);
   }
 }
