@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
@@ -157,10 +157,10 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  protected void prepareBottomMenuItems(@NonNull BottomSheetHelper.Builder builder)
+  protected void prepareBottomMenuItems(@NonNull BottomSheet bottomSheet)
   {
-    setEnableForMenuItem(R.id.delete_list, builder, true);
-    setEnableForMenuItem(R.id.share_list, builder, false);
+    setEnableForMenuItem(R.id.delete_list, bottomSheet, true);
+    setEnableForMenuItem(R.id.share_list, bottomSheet, false);
   }
 
   private class CloseHeaderClickListener implements View.OnClickListener

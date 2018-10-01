@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
@@ -200,26 +201,34 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
       case BookmarkListAdapter.TYPE_BOOKMARK:
         final Bookmark bookmark = (Bookmark) adapter.getItem(mSelectedPosition);
         int menuResId = isCatalogCategory() ? R.menu.menu_bookmarks_catalog : R.menu.menu_bookmarks;
-        BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), bookmark.getTitle())
-                                                        .sheet(menuResId)
-                                                        .listener(this);
-        bs.tint().show();
+        BottomSheet bs = BottomSheetHelper.create(getActivity(), bookmark.getTitle())
+                                          .sheet(menuResId)
+                                          .listener(this)
+                                          .build();
+        BottomSheetHelper.tint(bs);
+        bs.show();
         break;
 
       case BookmarkListAdapter.TYPE_TRACK:
         final Track track = (Track) adapter.getItem(mSelectedPosition);
-        BottomSheetHelper.create(getActivity(), track.getName())
-                         .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
-                         .listener(new MenuItem.OnMenuItemClickListener()
-                         {
-                           @Override
-                           public boolean onMenuItemClick(MenuItem menuItem)
-                           {
-                             BookmarkManager.INSTANCE.deleteTrack(track.getTrackId());
-                             adapter.notifyDataSetChanged();
-                             return false;
-                           }
-                         }).tint().show();
+        BottomSheet bottomSheet = BottomSheetHelper.create(getActivity(), track.getName())
+                                                   .sheet(Menu.NONE, R.drawable.ic_delete,
+                                                          R.string.delete)
+                                                   .listener(new MenuItem.OnMenuItemClickListener()
+                                                   {
+                                                     @Override
+                                                     public boolean onMenuItemClick(MenuItem
+                                                                                        menuItem)
+                                                     {
+                                                       BookmarkManager.INSTANCE.deleteTrack(track
+                                                                                                .getTrackId());
+                                                       adapter.notifyDataSetChanged();
+                                                       return false;
+                                                     }
+                                                   }).build();
+
+        BottomSheetHelper.tint(bottomSheet);
+        bottomSheet.show();
         break;
     }
   }

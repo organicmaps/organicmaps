@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
@@ -468,7 +469,7 @@ public final class PlacePageButtons
       bs.sheet(i, iconRes, bsItem.getTitle());
     }
 
-    bs.listener(new MenuItem.OnMenuItemClickListener()
+    BottomSheet bottomSheet = bs.listener(new MenuItem.OnMenuItemClickListener()
     {
       @Override
       public boolean onMenuItemClick(MenuItem item)
@@ -476,9 +477,9 @@ public final class PlacePageButtons
         mItemListener.onItemClick(buttons.get(item.getItemId()));
         return true;
       }
-    });
-
-    bs.tint().show();
+    }).build();
+    BottomSheetHelper.tint(bottomSheet);
+    bottomSheet.show();
   }
 
   private View createButton(@NonNull final List<PlacePageButton> items,

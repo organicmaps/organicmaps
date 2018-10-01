@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -472,7 +473,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       for (MenuItem item: items)
         bs.sheet(item.ordinal(), item.icon, item.title);
 
-      bs.listener(new android.view.MenuItem.OnMenuItemClickListener()
+      BottomSheet bottomSheet = bs.listener(new android.view.MenuItem.OnMenuItemClickListener()
       {
         @Override
         public boolean onMenuItemClick(android.view.MenuItem item)
@@ -480,7 +481,9 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           MenuItem.values()[item.getItemId()].invoke(mItem, DownloaderAdapter.this);
           return false;
         }
-      }).tint().show();
+      }).build();
+      BottomSheetHelper.tint(bottomSheet);
+      bottomSheet.show();
     }
 
     ItemViewHolder(View frame)

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.editor.data.UserStats;
 import com.mapswithme.util.BottomSheetHelper;
@@ -179,7 +180,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
     for (MenuItem item: items)
       bs.sheet(item.ordinal(), item.icon, item.title);
 
-    bs.listener(new android.view.MenuItem.OnMenuItemClickListener()
+    BottomSheet bottomSheet = bs.listener(new android.view.MenuItem.OnMenuItemClickListener()
     {
       @Override
       public boolean onMenuItemClick(android.view.MenuItem item)
@@ -187,6 +188,8 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
         MenuItem.values()[item.getItemId()].invoke(ProfileFragment.this);
         return false;
       }
-    }).tint().show();
+    }).build();
+    BottomSheetHelper.tint(bottomSheet);
+    bottomSheet.show();
   }
 }

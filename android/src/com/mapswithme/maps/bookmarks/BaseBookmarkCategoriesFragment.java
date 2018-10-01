@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
@@ -161,16 +162,18 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                                                     .sheet(getCategoryMenuResId())
                                                     .listener(this);
 
-    bs.getItemByIndex(0)
-      .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
-      .setTitle(item.isVisible() ? R.string.hide : R.string.show);
 
-    prepareBottomMenuItems(bs);
-
-    bs.tint().show();
+    BottomSheet bottomSheet = bs.build();
+    prepareBottomMenuItems(bottomSheet);
+    bottomSheet
+        .getMenu().getItem(0)
+        .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
+        .setTitle(item.isVisible() ? R.string.hide : R.string.show);
+    BottomSheetHelper.tint(bottomSheet);
+    bottomSheet.show();
   }
 
-  protected abstract void prepareBottomMenuItems(@NonNull BottomSheetHelper.Builder builder);
+  protected abstract void prepareBottomMenuItems(@NonNull BottomSheet bottomSheet);
 
   @MenuRes
   protected int getCategoryMenuResId()
@@ -285,12 +288,13 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     showBottomMenu(category);
   }
 
-  static void setEnableForMenuItem(@IdRes int id, @NonNull BottomSheetHelper.Builder builder,
+  static void setEnableForMenuItem(@IdRes int id, @NonNull BottomSheet bottomSheet,
                                    boolean enable)
   {
-    builder.getItemById(id)
-           .setVisible(enable)
-           .setEnabled(enable);
+    BottomSheetHelper
+        .findItemById(bottomSheet, id)
+        .setVisible(enable)
+        .setEnabled(enable);
   }
 
   private void onSaveText(@NonNull String text)
