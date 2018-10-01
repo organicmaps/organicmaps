@@ -1,6 +1,7 @@
 package com.mapswithme.util;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.Surface;
 
@@ -135,10 +137,20 @@ public class LocationUtils
     LOGGER.i(TAG, sb.toString());
   }
 
+  /**
+   *
+   * Use {@link #checkProvidersAvailability(Application)} instead.
+   */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public static boolean checkProvidersAvailability()
   {
-    Context context = MwmApplication.get();
-    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+    return checkProvidersAvailability(MwmApplication.get());
+  }
+
+  public static boolean checkProvidersAvailability(@NonNull Application application)
+  {
+    LocationManager locationManager = (LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
     if (locationManager == null)
     {
       LOGGER.e(TAG, "This device doesn't support the location service.");

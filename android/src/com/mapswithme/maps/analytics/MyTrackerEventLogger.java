@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.PrivateVariables;
-import com.mapswithme.maps.analytics.ContextDependentEventLogger;
+import com.mapswithme.util.LocationUtils;
 import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 
@@ -56,7 +56,15 @@ class MyTrackerEventLogger extends ContextDependentEventLogger
     MyTracker.createTracker(PrivateVariables.myTrackerKey(), getApplication());
     final MyTrackerParams myParams = MyTracker.getTrackerParams();
     if (myParams != null)
-      myParams.setDefaultVendorAppPackage();
+      initParams(myParams);
     MyTracker.initTracker();
+  }
+
+  private void initParams(@NonNull MyTrackerParams myParams)
+  {
+    myParams.setDefaultVendorAppPackage();
+    boolean isProviderAvailable = LocationUtils.checkProvidersAvailability(getApplication());
+    myParams.setTrackingLocationEnabled(isProviderAvailable);
+    myParams.setTrackingEnvironmentEnabled(isProviderAvailable);
   }
 }
