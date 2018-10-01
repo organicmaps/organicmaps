@@ -1809,6 +1809,7 @@
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Пляж</string>
 	<string name="type.natural.cave_entrance">Пещера</string>
+	<string name="type.natural.geyser">Гейзер</string>
 	<string name="type.natural.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.pond">Пруд</string>

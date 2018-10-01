@@ -1968,6 +1968,7 @@
 	<string name="type.natural.cave_entrance">Cave Entrance</string>
 	<string name="type.natural.cliff">natural-cliff</string>
 	<string name="type.natural.coastline">natural-coastline</string>
+	<string name="type.natural.geyser">Geyser</string>
 	<string name="type.natural.glacier">natural-glacier</string>
 	<string name="type.natural.grassland">natural-grassland</string>
 	<string name="type.natural.heath">natural-heath</string>

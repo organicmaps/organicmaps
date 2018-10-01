@@ -3530,6 +3530,8 @@
 
 "type.natural.coastline" = "natural-coastline";
 
+"type.natural.geyser" = "Гейзер";
+
 "type.natural.glacier" = "natural-glacier";
 
 "type.natural.grassland" = "natural-grassland";
