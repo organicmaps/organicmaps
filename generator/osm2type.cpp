@@ -224,85 +224,91 @@ private:
 class CachedTypes
 {
 public:
-  enum Type
+  enum class Type
   {
-    ENTRANCE,
-    HIGHWAY,
-    ADDRESS,
-    ONEWAY,
-    PRIVATE,
-    LIT,
-    NOFOOT,
-    YESFOOT,
-    NOBICYCLE,
-    YESBICYCLE,
-    BICYCLE_BIDIR,
-    SURFPGOOD,
-    SURFPBAD,
-    SURFUGOOD,
-    SURFUBAD,
-    HASPARTS,
-    NOCAR,
-    YESCAR,
-    WLAN,
-    RW_STATION,
-    RW_STATION_SUBWAY,
-    WHEELCHAIR_YES,
-    BARRIER_GATE,
-    TOLL
+    Entrance,
+    Highway,
+    Address,
+    OneWay,
+    Private,
+    Lit,
+    NoFoot,
+    YesFoot,
+    NoBicycle,
+    YesBicycle,
+    BicycleBidir,
+    SurfacePavedGood,
+    SurfacePavedBad,
+    SurfaceUnpavedGood,
+    SurfaceUnpavedBad,
+    HasParts,
+    NoCar,
+    YesCar,
+    Wlan,
+    RailwayStation,
+    SubwayStation,
+    WheelchairYes,
+    BarrierGate,
+    Toll,
+    Count
   };
 
   CachedTypes()
   {
     Classificator const & c = classif();
 
-    base::StringIL arr[] = {{"entrance"},
-                            {"highway"},
-                            {"building", "address"},
-                            {"hwtag", "oneway"},
-                            {"hwtag", "private"},
-                            {"hwtag", "lit"},
-                            {"hwtag", "nofoot"},
-                            {"hwtag", "yesfoot"},
-                            {"hwtag", "nobicycle"},
-                            {"hwtag", "yesbicycle"},
-                            {"hwtag", "bidir_bicycle"},
-                            {"psurface", "paved_good"},
-                            {"psurface", "paved_bad"},
-                            {"psurface", "unpaved_good"},
-                            {"psurface", "unpaved_bad"},
-                            {"building", "has_parts"},
-                            {"hwtag", "nocar"},
-                            {"hwtag", "yescar"},
-                            {"internet_access", "wlan"},
-                            {"railway", "station"},
-                            {"railway", "station", "subway"},
-                            {"wheelchair", "yes"},
-                            {"barrier", "gate"},
-                            {"hwtag", "toll"}};
+    static map<Type, vector<string>> const kTypeToName = {
+        {Type::Entrance,           {"entrance"}},
+        {Type::Highway,            {"highway"}},
+        {Type::Address,            {"building", "address"}},
+        {Type::OneWay,             {"hwtag", "oneway"}},
+        {Type::Private,            {"hwtag", "private"}},
+        {Type::Lit,                {"hwtag", "lit"}},
+        {Type::NoFoot,             {"hwtag", "nofoot"}},
+        {Type::YesFoot,            {"hwtag", "yesfoot"}},
+        {Type::NoBicycle,          {"hwtag", "nobicycle"}},
+        {Type::YesBicycle,         {"hwtag", "yesbicycle"}},
+        {Type::BicycleBidir,       {"hwtag", "bidir_bicycle"}},
+        {Type::SurfacePavedGood,   {"psurface", "paved_good"}},
+        {Type::SurfacePavedBad,    {"psurface", "paved_bad"}},
+        {Type::SurfaceUnpavedGood, {"psurface", "unpaved_good"}},
+        {Type::SurfaceUnpavedBad,  {"psurface", "unpaved_bad"}},
+        {Type::HasParts,           {"building", "has_parts"}},
+        {Type::NoCar,              {"hwtag", "nocar"}},
+        {Type::YesCar,             {"hwtag", "yescar"}},
+        {Type::Wlan,               {"internet_access", "wlan"}},
+        {Type::RailwayStation,     {"railway", "station"}},
+        {Type::SubwayStation,      {"railway", "station", "subway"}},
+        {Type::WheelchairYes,      {"wheelchair", "yes"}},
+        {Type::BarrierGate,        {"barrier", "gate"}},
+        {Type::Toll,               {"hwtag", "toll"}}};
 
-    for (auto const & e : arr)
-      m_types.push_back(c.GetTypeByPath(e));
+    m_types.resize(static_cast<size_t>(Type::Count));
+    for (auto const & kv : kTypeToName)
+      m_types[static_cast<size_t>(kv.first)] = c.GetTypeByPath(kv.second);
   }
 
-  uint32_t Get(Type t) const { return m_types[t]; }
+  uint32_t Get(CachedTypes::Type t) const
+  {
+    return m_types[static_cast<size_t>(t)];
+  }
 
   bool IsHighway(uint32_t t) const
   {
     ftype::TruncValue(t, 1);
-    return t == Get(HIGHWAY);
+    return t == Get(Type::Highway);
   }
 
-  bool IsRwStation(uint32_t t) const { return t == Get(RW_STATION); }
+  bool IsRailwayStation(uint32_t t) const { return t == Get(Type::RailwayStation); }
 
-  bool IsRwSubway(uint32_t t) const
+  bool IsSubwayStation(uint32_t t) const
   {
     ftype::TruncValue(t, 3);
-    return t == Get(RW_STATION_SUBWAY);
+    return t == Get(Type::SubwayStation);
   }
 
 private:
-  buffer_vector<uint32_t, 16> m_types;
+  buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
 void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterDrawableType)
@@ -653,22 +659,22 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
   {
     // Delete "entrance" type for house number (use it only with refs).
     // Add "address" type if we have house number but no valid types.
-    if (params.PopExactType(types.Get(CachedTypes::ENTRANCE)))
+    if (params.PopExactType(types.Get(CachedTypes::Type::Entrance)))
     {
       params.name.Clear();
       // If we have address (house name or number), we should assign valid type.
       // There are a lot of features like this in Czech Republic.
-      params.AddType(types.Get(CachedTypes::ADDRESS));
+      params.AddType(types.Get(CachedTypes::Type::Address));
     }
   }
 
   // Process yes/no tags.
   TagProcessor(p).ApplyRules({
       {"wheelchair", "designated",
-       [&params] { params.AddType(types.Get(CachedTypes::WHEELCHAIR_YES)); }},
-      {"wifi", "~", [&params] { params.AddType(types.Get(CachedTypes::WLAN)); }},
-      {"building:part", "no", [&params] { params.AddType(types.Get(CachedTypes::HASPARTS)); }},
-      {"building:parts", "~", [&params] { params.AddType(types.Get(CachedTypes::HASPARTS)); }},
+       [&params] { params.AddType(types.Get(CachedTypes::Type::WheelchairYes)); }},
+      {"wifi", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Wlan)); }},
+      {"building:part", "no", [&params] { params.AddType(types.Get(CachedTypes::Type::HasParts)); }},
+      {"building:parts", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::HasParts)); }},
   });
 
   bool highwayDone = false;
@@ -695,48 +701,48 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
           {"oneway", "!", [&noOneway] { noOneway = true; }},
           {"junction", "roundabout", [&addOneway] { addOneway = true; }},
 
-          {"access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
-          {"access", "!", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
+          {"access", "private", [&params] { params.AddType(types.Get(CachedTypes::Type::Private)); }},
+          {"access", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::Private)); }},
 
-          {"barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::BARRIER_GATE)); }},
+          {"barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::Type::BarrierGate)); }},
 
-          {"lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
-          {"toll", "~", [&params] { params.AddType(types.Get(CachedTypes::TOLL)); }},
+          {"lit", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Lit)); }},
+          {"toll", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::Toll)); }},
 
-          {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-          {"foot", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
-          {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
-          {"sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
+          {"foot", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
+          {"foot", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::Type::NoFoot)); }},
+          {"foot", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
+          {"sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesFoot)); }},
 
-          {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOBICYCLE)); }},
-          {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
-          {"cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+          {"bicycle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoBicycle)); }},
+          {"bicycle", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
+          {"cycleway", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
           {"cycleway:right", "~",
-           [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
-          {"cycleway:left", "~", [&params] { params.AddType(types.Get(CachedTypes::YESBICYCLE)); }},
+           [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
+          {"cycleway:left", "~", [&params] { params.AddType(types.Get(CachedTypes::Type::YesBicycle)); }},
           {"oneway:bicycle", "!",
-           [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
+           [&params] { params.AddType(types.Get(CachedTypes::Type::BicycleBidir)); }},
           {"cycleway", "opposite",
-           [&params] { params.AddType(types.Get(CachedTypes::BICYCLE_BIDIR)); }},
+           [&params] { params.AddType(types.Get(CachedTypes::Type::BicycleBidir)); }},
 
           {"motor_vehicle", "private",
-           [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
-          {"motor_vehicle", "!", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
-          {"motor_vehicle", "yes", [&params] { params.AddType(types.Get(CachedTypes::YESCAR)); }},
-          {"motorcar", "private", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
-          {"motorcar", "!", [&params] { params.AddType(types.Get(CachedTypes::NOCAR)); }},
-          {"motorcar", "yes", [&params] { params.AddType(types.Get(CachedTypes::YESCAR)); }},
+           [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
+          {"motor_vehicle", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
+          {"motor_vehicle", "yes", [&params] { params.AddType(types.Get(CachedTypes::Type::YesCar)); }},
+          {"motorcar", "private", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
+          {"motorcar", "!", [&params] { params.AddType(types.Get(CachedTypes::Type::NoCar)); }},
+          {"motorcar", "yes", [&params] { params.AddType(types.Get(CachedTypes::Type::YesCar)); }},
       });
 
       if (addOneway && !noOneway)
-        params.AddType(types.Get(CachedTypes::ONEWAY));
+        params.AddType(types.Get(CachedTypes::Type::OneWay));
 
       highwayDone = true;
     }
 
     /// @todo Probably, we can delete this processing because cities
     /// are matched by limit rect in MatchCity.
-    if (!subwayDone && types.IsRwSubway(vTypes[i]))
+    if (!subwayDone && types.IsSubwayStation(vTypes[i]))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
@@ -764,7 +770,7 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
       subwayDone = true;
     }
 
-    if (!subwayDone && !railwayDone && types.IsRwStation(vTypes[i]))
+    if (!subwayDone && !railwayDone && types.IsRailwayStation(vTypes[i]))
     {
       TagProcessor(p).ApplyRules({
           {"network", "London Underground", [&params] { params.SetRwSubwayType("london"); }},
