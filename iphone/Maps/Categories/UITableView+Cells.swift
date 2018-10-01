@@ -15,7 +15,7 @@ extension UITableView {
     register(UINib(cell), forCellReuseIdentifier: toString(cell))
   }
 
-  func registerNibs<Cell>(cells: [Cell.Type]) where Cell: UITableViewCell {
+  func registerNibs<Cell>(_ cells: [Cell.Type]) where Cell: UITableViewCell {
     cells.forEach { registerNib(cell: $0) }
   }
 

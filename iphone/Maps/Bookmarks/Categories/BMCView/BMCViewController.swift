@@ -8,13 +8,14 @@ final class BMCViewController: MWMViewController {
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
-      tableView.registerNibs(cells: [
+      let cells = [
         BMCPermissionsCell.self,
         BMCPermissionsPendingCell.self,
         BMCCategoryCell.self,
         BMCActionsCreateCell.self,
         BMCNotificationsCell.self,
-      ])
+      ]
+      tableView.registerNibs(cells)
       tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
     }
   }
