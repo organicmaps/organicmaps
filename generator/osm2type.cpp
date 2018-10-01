@@ -649,6 +649,46 @@ void PreprocessElement(OsmElement * p)
     if (!value.empty() && value != "animal")
       value = "specified";
   });
+
+  // todo(@t.yan): remove this code from osm2meta.cpp when types'll be used for cuisines translation.
+  string const kCuisineKey = "cuisine";
+  auto cuisines = p->GetTag(kCuisineKey);
+  if (!cuisines.empty())
+  {
+    strings::MakeLowerCaseInplace(cuisines);
+    strings::SimpleTokenizer iter(cuisines, ",;");
+    auto const collapse = [](char c, string & str) {
+      auto const comparator = [c](char lhs, char rhs) { return lhs == rhs && lhs == c; };
+      str.erase(unique(str.begin(), str.end(), comparator), str.end());
+    };
+
+    bool first = true;
+    while (iter)
+    {
+      string normalized = *iter;
+      strings::Trim(normalized, " ");
+      collapse(' ', normalized);
+      replace(normalized.begin(), normalized.end(), ' ', '_');
+
+      // Avoid duplication for some cuisines.
+      if (normalized == "bbq" || normalized == "barbeque")
+        normalized = "barbecue";
+      else if (normalized == "doughnut")
+        normalized = "donut";
+      else if (normalized == "steak")
+        normalized = "steak_house";
+      else if (normalized == "coffee")
+        normalized = "coffee_shop";
+
+      if (first)
+        p->UpdateTag(kCuisineKey, [&normalized](string & value) { value = normalized; });
+      else
+        p->AddTag(kCuisineKey, normalized);
+
+      first = false;
+      ++iter;
+    }
+  }
 }
 
 void PostprocessElement(OsmElement * p, FeatureParams & params)
