@@ -614,6 +614,7 @@ world  +
         cave_entrance  -
         cliff  -
         coastline  -
+        geyser  -
         glacier  -
         grassland  -
         heath  -

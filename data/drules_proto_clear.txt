@@ -38333,6 +38333,111 @@ cont {
   }
 }
 cont {
+  name: "natural-geyser"
+  element {
+    scale: 14
+    symbol {
+      name: "geyser-s"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 6
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "geyser-m"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 8
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "geyser-m"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 8
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "geyser-m"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 8
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "geyser-m"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 8
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "geyser-m"
+      priority: 16436
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 8
+        is_optional: true
+      }
+      priority: 15436
+    }
+  }
+}
+cont {
   name: "natural-glacier"
   element {
     area {
