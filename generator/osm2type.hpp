@@ -3,6 +3,7 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include <cstdint>
 #include <functional>
 
 struct OsmElement;

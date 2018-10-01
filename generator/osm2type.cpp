@@ -5,7 +5,6 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_impl.hpp"
-#include "indexer/feature_visibility.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -13,8 +12,6 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include <cstdint>
-#include <functional>
 #include <initializer_list>
 #include <set>
 #include <string>
@@ -75,10 +72,10 @@ bool IgnoreTag(string const & k, string const & v)
   return false;
 }
 
-template <typename TResult, class ToDo>
-TResult ForEachTag(OsmElement * p, ToDo && toDo)
+template <typename Result, class ToDo>
+Result ForEachTag(OsmElement * p, ToDo && toDo)
 {
-  TResult res = TResult();
+  Result res = {};
   for (auto & e : p->m_tags)
   {
     if (IgnoreTag(e.key, e.value))
@@ -91,20 +88,20 @@ TResult ForEachTag(OsmElement * p, ToDo && toDo)
   return res;
 }
 
-template <typename TResult, class ToDo>
-TResult ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
+template <typename Result, class ToDo>
+Result ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
 {
   int id = 0;
-  return ForEachTag<TResult>(p, [&](string const & k, string const & v) {
+  return ForEachTag<Result>(p, [&](string const & k, string const & v) {
     int currentId = id++;
     if (skipTags.count(currentId) != 0)
-      return TResult();
+      return Result();
     if (string::npos != k.find("name"))
     {
       skipTags.insert(currentId);
-      return TResult();
+      return Result();
     }
-    TResult res = toDo(k, v);
+    Result res = toDo(k, v);
     if (res)
       skipTags.insert(currentId);
     return res;
@@ -113,9 +110,6 @@ TResult ForEachTagEx(OsmElement * p, set<int> & skipTags, ToDo && toDo)
 
 class NamesExtractor
 {
-  set<string> m_savedNames;
-  FeatureParams & m_params;
-
 public:
   NamesExtractor(FeatureParams & params) : m_params(params) {}
 
@@ -161,11 +155,18 @@ public:
     v.clear();
     return false;
   }
+
+private:
+  set<string> m_savedNames;
+  FeatureParams & m_params;
 };
 
 class TagProcessor
 {
-  template <typename FuncT>
+public:
+  TagProcessor(OsmElement * elem) : m_element(elem) {}
+
+  template <typename Function>
   struct Rule
   {
     char const * key;
@@ -173,24 +174,11 @@ class TagProcessor
     // ! - take only negative values
     // ~ - take only positive values
     char const * value;
-    function<FuncT> func;
+    function<Function> func;
   };
 
-  static bool IsNegative(string const & value)
-  {
-    for (char const * s : {"no", "none", "false"})
-      if (value == s)
-        return true;
-    return false;
-  }
-
-  OsmElement * m_element;
-
-public:
-  TagProcessor(OsmElement * elem) : m_element(elem) {}
-
-  template <typename FuncT = void()>
-  void ApplyRules(initializer_list<Rule<FuncT>> const & rules) const
+  template <typename Function = void()>
+  void ApplyRules(initializer_list<Rule<Function>> const & rules) const
   {
     for (auto & e : m_element->m_tags)
     {
@@ -207,26 +195,36 @@ public:
           take = !IsNegative(e.value);
 
         if (take || e.value == rule.value)
-          call(rule.func, e.key, e.value);
+          Call(rule.func, e.key, e.value);
       }
     }
   }
 
 protected:
-  static void call(function<void()> const & f, string &, string &) { f(); }
-  static void call(function<void(string &, string &)> const & f, string & k, string & v)
+  static void Call(function<void()> const & f, string &, string &) { f(); }
+  static void Call(function<void(string &, string &)> const & f, string & k, string & v)
   {
     f(k, v);
   }
+
+private:
+  static bool IsNegative(string const & value)
+  {
+    for (char const * s : {"no", "none", "false"})
+    {
+      if (value == s)
+        return true;
+    }
+    return false;
+  }
+
+  OsmElement * m_element;
 };
-}  // namespace
 
 class CachedTypes
 {
-  buffer_vector<uint32_t, 16> m_types;
-
 public:
-  enum EType
+  enum Type
   {
     ENTRANCE,
     HIGHWAY,
@@ -287,7 +285,7 @@ public:
       m_types.push_back(c.GetTypeByPath(e));
   }
 
-  uint32_t Get(EType t) const { return m_types[t]; }
+  uint32_t Get(Type t) const { return m_types[t]; }
 
   bool IsHighway(uint32_t t) const
   {
@@ -302,6 +300,9 @@ public:
     ftype::TruncValue(t, 3);
     return t == Get(RW_STATION_SUBWAY);
   }
+
+private:
+  buffer_vector<uint32_t, 16> m_types;
 };
 
 void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterDrawableType)
@@ -359,11 +360,10 @@ void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)>
       {
         path.push_back(pObj);
       }
-      else
+      else if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
       {
         // If no - try find object by key (in case of k = "area", v = "yes").
-        if (!ForEachTagEx<bool>(p, skipRows, matchTagToClassificator))
-          break;
+        break;
       }
     } while (true);
 
@@ -446,7 +446,7 @@ string MatchCity(OsmElement const * p)
     if (city.second.IsPointInside(pt))
       return city.first;
   }
-  return string();
+  return {};
 }
 
 string DetermineSurface(OsmElement * p)
@@ -469,7 +469,7 @@ string DetermineSurface(OsmElement * p)
   }
 
   if (!isHighway || (surface.empty() && smoothness.empty()))
-    return string();
+    return {};
 
   static base::StringIL pavedSurfaces = {
       "paved",    "asphalt",        "cobblestone",     "cobblestone:flattened", "sett",
@@ -487,28 +487,40 @@ string DetermineSurface(OsmElement * p)
   if (!surface.empty())
   {
     for (auto const & value : pavedSurfaces)
+    {
       if (surface == value)
         isPaved = true;
+    }
   }
   else
+  {
     isPaved = smoothness == "excellent" || smoothness == "good";
+  }
 
   if (!smoothness.empty())
   {
     for (auto const & value : badSmoothness)
+    {
       if (smoothness == value)
         isGood = false;
+    }
     if (smoothness == "bad" && !isPaved)
       isGood = true;
   }
   else if (surface_grade == "0" || surface_grade == "1")
+  {
     isGood = false;
+  }
   else
   {
     if (surface_grade != "3")
+    {
       for (auto const & value : badSurfaces)
+      {
         if (surface == value)
           isGood = false;
+      }
+    }
   }
 
   string psurface = isPaved ? "paved_" : "unpaved_";
@@ -566,7 +578,9 @@ void PreprocessElement(OsmElement * p)
           p->AddTag("highway", "platform");
       }
       else if (tag.value == "stop_position" && isTram && p->type == OsmElement::EntityType::Node)
+      {
         p->AddTag("railway", "tram_stop");
+      }
       break;
     }
   }
@@ -594,22 +608,33 @@ void PreprocessElement(OsmElement * p)
     }
 
     if (value == "blue_plaque" || value == "stolperstein")
+    {
       value = "plaque";
+    }
     else if (value == "war_memorial" || value == "stele" || value == "obelisk" ||
              value == "stone" || value == "cross")
+    {
       value = "sculpture";
+    }
     else if (value == "bust" || value == "person")
+    {
       value = "statue";
+    }
   });
 
   p->UpdateTag("castle_type", [](string & value) {
     if (value.empty())
       return;
+
     if (value == "fortress" || value == "kremlin" || value == "castrum" || value == "shiro" ||
         value == "citadel")
+    {
       value = "defensive";
+    }
     else if (value == "manor" || value == "palace")
+    {
       value = "stately";
+    }
   });
 
   p->UpdateTag("attraction", [](string & value) {
@@ -749,6 +774,7 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
     }
   }
 }
+}  // namespace
 
 void GetNameAndType(OsmElement * p, FeatureParams & params,
                     function<bool(uint32_t)> filterDrawableType)
