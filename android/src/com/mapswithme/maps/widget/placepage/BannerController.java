@@ -159,9 +159,16 @@ final class BannerController
     mAdChoicesLabel = mBannerView.findViewById(R.id.ad_choices_label);
     mAdsRemovalIcon = mBannerView.findViewById(R.id.remove_btn);
     mAdsRemovalIcon.setOnClickListener(this::handleAdsRemoval);
+    expandTouchArea();
+  }
+
+  private void expandTouchArea()
+  {
     Resources res = mBannerView.getResources();
     final int tapArea = res.getDimensionPixelSize(R.dimen.margin_quarter_plus);
-    UiUtils.expandTouchAreaForViews(tapArea, mAdChoices, mAdsRemovalIcon);
+    UiUtils.expandTouchAreaForViews(tapArea, mAdChoices);
+    int crossArea = res.getDimensionPixelSize(R.dimen.margin_base_plus);
+    UiUtils.expandTouchAreaForView(mAdsRemovalIcon,  tapArea, crossArea, tapArea, crossArea);
   }
 
   private void handlePrivacyInfoUrl()

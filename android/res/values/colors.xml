@@ -180,6 +180,7 @@
   <color name="text_ads_color_night">#FFFFFBF2</color>
   <color name="megafon_button">@color/bg_brand_partner19</color>
   <color name="megafon_button_pressed">@color/bg_brand_partner19_pressed</color>
+  <color name="red_cross_background">#FFE53935</color>
 
   <!-- Rating colors -->
   <color name="rating_excellent">#43A047</color>

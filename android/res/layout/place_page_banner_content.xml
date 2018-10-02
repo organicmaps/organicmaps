@@ -160,6 +160,5 @@
     android:layout_alignParentEnd="true"
     android:scaleType="centerCrop"
     android:src="@drawable/ic_clear"
-    android:tint="?android:textColorSecondary"
-    android:background="?attr/bannerButtonBackgroundColor"/>
+    android:background="@color/red_cross_background"/>
 </merge>
