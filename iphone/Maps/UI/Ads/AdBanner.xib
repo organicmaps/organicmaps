@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,7 +106,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="551" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qA-JC-fkn">
-                                <rect key="frame" x="282" y="18" width="69" height="24"/>
+                                <rect key="frame" x="282" y="24" width="69" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="N7a-ng-e6p"/>
@@ -128,7 +128,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIT-s3-8BF">
-                                <rect key="frame" x="12" y="101" width="165.5" height="36"/>
+                                <rect key="frame" x="12" y="101.5" width="165.5" height="36"/>
                                 <color key="backgroundColor" red="0.95294117649999999" green="0.92156862750000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="Sec-LO-NfY"/>
@@ -142,7 +142,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="2"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -164,7 +164,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="blackSecondaryText"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="2"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -181,19 +181,17 @@
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ad_close" translatesAutoresizingMaskIntoConstraints="NO" id="D3u-BA-Ixx">
                                 <rect key="frame" x="352" y="2" width="13" height="13"/>
-                                <color key="tintColor" white="0.0" alpha="0.54168450338082197" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.89683702256944442" green="0.22233072916666666" blue="0.20819769965277779" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="13" id="AuT-Sc-FFo"/>
                                     <constraint firstAttribute="height" constant="13" id="NRm-LU-MWL"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huL-pj-FQy">
-                                <rect key="frame" x="335" y="0.0" width="32" height="18"/>
+                                <rect key="frame" x="327" y="0.0" width="40" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="Bmc-z7-zKC"/>
+                                    <constraint firstAttribute="width" constant="40" id="Bmc-z7-zKC"/>
                                 </constraints>
                                 <connections>
                                     <action selector="removeAction:" destination="WK2-gA-ocn" eventType="touchUpInside" id="4YU-ca-y1D"/>
@@ -221,7 +219,7 @@
                             <constraint firstItem="kIR-cO-v6L" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="ajZ-XY-N1h"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="bottom" secondItem="zWu-Gh-Vf7" secondAttribute="bottom" constant="2" id="akC-Fs-8Iv"/>
                             <constraint firstItem="NKM-3R-3g1" firstAttribute="leading" secondItem="EIT-s3-8BF" secondAttribute="trailing" priority="500" constant="12" id="b7c-4v-4PG"/>
-                            <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="huL-pj-FQy" secondAttribute="bottom" id="crO-Dv-apD"/>
+                            <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="huL-pj-FQy" secondAttribute="bottom" constant="-5" id="crO-Dv-apD"/>
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="trailing" priority="500" constant="16" id="dww-N9-1tY"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="trailing" secondItem="kIR-cO-v6L" secondAttribute="trailing" id="eM3-Nv-zVj"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" constant="-2" id="fNs-FC-pga"/>
@@ -237,7 +235,7 @@
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="-2" id="sAg-zL-vMW"/>
                             <constraint firstAttribute="bottom" secondItem="54O-iN-1Gg" secondAttribute="bottom" id="tOj-8H-AsH"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
-                            <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
+                            <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="24" id="u8g-fp-l2o"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="8" id="vlX-zx-nfP"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
                             <constraint firstItem="EIT-s3-8BF" firstAttribute="top" secondItem="Ev3-yY-ql1" secondAttribute="bottom" constant="8" id="wEs-mb-MUF"/>

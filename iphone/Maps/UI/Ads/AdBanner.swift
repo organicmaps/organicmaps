@@ -56,11 +56,7 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
   @IBOutlet private weak var removeAdsSmallButton: UIButton!
   @IBOutlet private weak var removeAdsLargeButton: UIButton!
-  @IBOutlet private weak var removeAdsImage: UIImageView! {
-    didSet {
-      removeAdsImage.mwm_coloring = .black
-    }
-  }
+  @IBOutlet private weak var removeAdsImage: UIImageView!
   @IBOutlet private weak var fallbackAdView: UIView!
   @IBOutlet private var nativeAdViewBottom: NSLayoutConstraint!
   @IBOutlet private var fallbackAdViewBottom: NSLayoutConstraint!
