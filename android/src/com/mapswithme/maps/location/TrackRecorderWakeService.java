@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -61,6 +63,12 @@ public class TrackRecorderWakeService extends JobIntentService
     Context app = context.getApplicationContext();
     Intent intent = new Intent(app, TrackRecorderWakeService.class);
     final int jobId = TrackRecorderWakeService.class.hashCode();
+    if (Utils.isLollipopOrLater())
+    {
+      JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+      if (scheduler != null)
+        scheduler.cancel(jobId);
+    }
     JobIntentService.enqueueWork(app, TrackRecorderWakeService.class, jobId, intent);
   }
 
