@@ -552,9 +552,8 @@ using namespace osm_auth_ios;
 }
 
 - (BOOL)application:(UIApplication *)application
-    continueUserActivity:(NSUserActivity *)userActivity
-      restorationHandler:(void (^)(NSArray * restorableObjects))restorationHandler
-{
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
   if ([userActivity.activityType isEqualToString:CSSearchableItemActionType])
   {
     NSString * searchStringKey = userActivity.userInfo[CSSearchableItemActivityIdentifier];
@@ -749,7 +748,8 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 {
   m_sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
 
-  if ([self checkLaunchURL:url])
+  if ([self checkLaunchURL:[url.host rangeOfString:@"dlink.maps.me"].location != NSNotFound
+       ? [self convertUniversalLink:url] : url])
   {
     [self handleURLs];
     return YES;
