@@ -843,10 +843,18 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
                {"mwm_version", strings::to_string(fti.m_feature.GetID().GetMwmVersion())}},
               alohalytics::Location::FromLatLon(ll.lat, ll.lon));
         }
-        GetPlatform().RunTask(Platform::Thread::Gui, [this, id = fti.m_feature.GetID(), uploadInfo]()
+
+        // TODO (@milchakov): We can't call RunTask on Platform::Thread::Gui from async(launch::async, ...),
+        // since the thread must be attached to JVM to post tasks on gui thread.
+        // Now here is a workaround to prevent crash, but we have to consider the possibility to get rid of
+        // async(launch::async, ...) here.
+        GetPlatform().RunTask(Platform::Thread::Network, [this, id = fti.m_feature.GetID(), uploadInfo]()
         {
-          // Call Save every time we modify each feature's information.
-          SaveUploadedInformation(id, uploadInfo);
+          GetPlatform().RunTask(Platform::Thread::Gui, [this, id, uploadInfo]()
+          {
+            // Call Save every time we modify each feature's information.
+            SaveUploadedInformation(id, uploadInfo);
+          });
         });
       }
     }
