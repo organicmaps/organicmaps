@@ -236,9 +236,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private Bundle mSavedForTabletState;
   @Nullable
   private PlacePageTracker mPlacePageTracker;
-  @NonNull
-  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController =
-      PurchaseFactory.createPurchaseController();
+  @Nullable
+  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -557,6 +556,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize();
 
+    mAdsRemovalPurchaseController = PurchaseFactory.createPurchaseController();
     mAdsRemovalPurchaseController.initialize(this);
 
     //TODO: uncomment after correct visible rect calculation.
@@ -1328,7 +1328,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onDestroy()
   {
     super.onDestroy();
-    mAdsRemovalPurchaseController.destroy();
+    if (mAdsRemovalPurchaseController != null)
+      mAdsRemovalPurchaseController.destroy();
   }
 
   @Override
