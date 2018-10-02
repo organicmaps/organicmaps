@@ -903,3 +903,23 @@ UNIT_TEST(OsmType_Translations)
   TEST(params.name.GetString("ru", name), (params));
   TEST_EQUAL(name, "Париж", (params));
 }
+
+UNIT_TEST(OsmType_Cuisine)
+{
+  {
+    char const * arr[][2] = {
+      { "cuisine", "indian ; steak,coffee  shop " },
+    };
+
+    OsmElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "indian"})), (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "steak_house"})), (params));
+    TEST(params.IsTypeExist(GetType({"cuisine", "coffee_shop"})), (params));
+  }
+}
