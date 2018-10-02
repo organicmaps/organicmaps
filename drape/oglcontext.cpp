@@ -87,8 +87,10 @@ void OGLContext::SetClearColor(dp::Color const & color)
   GLFunctions::glClearColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
 }
 
-void OGLContext::Clear(uint32_t clearBits)
+void OGLContext::Clear(uint32_t clearBits, uint32_t storeBits)
 {
+  UNUSED_VALUE(storeBits);
+  
   glConst glBits = 0;
   if (clearBits & ClearBits::ColorBit)
     glBits |= gl_const::GLColorBit;

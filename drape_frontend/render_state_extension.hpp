@@ -49,4 +49,26 @@ public:
 
 extern DepthLayer GetDepthLayer(dp::RenderState const & state);
 extern dp::RenderState CreateRenderState(gpu::Program program, DepthLayer depthLayer);
+
+inline std::string DebugPrint(DepthLayer layer)
+{
+  switch (layer)
+  {
+  case DepthLayer::GeometryLayer: return "GeometryLayer";
+  case DepthLayer::Geometry3dLayer: return "Geometry3dLayer";
+  case DepthLayer::UserLineLayer: return "UserLineLayer";
+  case DepthLayer::OverlayLayer: return "OverlayLayer";
+  case DepthLayer::LocalAdsMarkLayer: return "LocalAdsMarkLayer";
+  case DepthLayer::TransitSchemeLayer: return "TransitSchemeLayer";
+  case DepthLayer::UserMarkLayer: return "UserMarkLayer";
+  case DepthLayer::NavigationLayer: return "NavigationLayer";
+  case DepthLayer::TransitMarkLayer: return "TransitMarkLayer";
+  case DepthLayer::RoutingMarkLayer: return "RoutingMarkLayer";
+  case DepthLayer::SearchMarkLayer: return "SearchMarkLayer";
+  case DepthLayer::GuiLayer: return "GuiLayer";
+  case DepthLayer::LayersCount: CHECK(false, ("Try to output LayersCount"));
+  }
+  CHECK(false, ("Unknown layer"));
+  return {};
+}
 }  // namespace df

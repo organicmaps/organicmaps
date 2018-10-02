@@ -728,6 +728,7 @@
 		4598438021394BE000F8CAB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Debug;

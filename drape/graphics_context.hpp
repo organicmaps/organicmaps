@@ -7,12 +7,14 @@
 
 namespace dp
 {
-enum ClearBits: uint32_t
+enum ClearBits : uint32_t
 {
   ColorBit = 1,
   DepthBit = 1 << 1,
   StencilBit = 1 << 2
 };
+  
+uint32_t constexpr kClearBitsStoreAll = ClearBits::ColorBit | ClearBits::DepthBit | ClearBits::StencilBit;
 
 enum class TestFunction : uint8_t
 {
@@ -65,9 +67,12 @@ public:
   virtual ApiVersion GetApiVersion() const = 0;
   virtual std::string GetRendererName() const = 0;
   virtual std::string GetRendererVersion() const = 0;
+  
+  virtual void PushDebugLabel(std::string const & label) = 0;
+  virtual void PopDebugLabel() = 0;
 
   virtual void SetClearColor(Color const & color) = 0;
-  virtual void Clear(uint32_t clearBits) = 0;
+  virtual void Clear(uint32_t clearBits, uint32_t storeBits) = 0;
   virtual void Flush() = 0;
   virtual void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) = 0;
   virtual void SetDepthTestEnabled(bool enabled) = 0;
@@ -76,5 +81,6 @@ public:
   virtual void SetStencilFunction(StencilFace face, TestFunction stencilFunction) = 0;
   virtual void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
                                  StencilAction depthFailAction, StencilAction passAction) = 0;
+  virtual void SetStencilReferenceValue(uint32_t stencilReferenceValue) = 0;
 };
 }  // namespace dp

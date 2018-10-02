@@ -199,7 +199,7 @@ fragment TrafficCircleOut_T fsTrafficCircle(const TrafficCircleFragment_T in [[s
   if (color.a < 0.001)
     out.depth = 1.0;
   else
-    out.depth = in.position.z;
+    out.depth = in.position.z * in.position.w;
   out.color = color;
   return out;
 }

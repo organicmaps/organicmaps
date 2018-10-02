@@ -543,7 +543,7 @@ void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context, 
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
-  uint32_t const kBatchSize = 5000;
+  uint32_t const kBatchSize = 65000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
     dp::SessionGuard guard(context, batcher, [this, &mwmId, &scheme](dp::RenderState const & state,

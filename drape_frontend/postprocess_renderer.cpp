@@ -283,10 +283,14 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     // Render edges to texture.
     {
       context->SetFramebuffer(make_ref(m_edgesFramebuffer));
-      context->Clear(dp::ClearBits::ColorBit);
-      context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::NotEqual);
+      context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit | dp::ClearBits::StencilBit /* storeBits */);
+      if (m_apiVersion == dp::ApiVersion::Metal)
+        context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Greater);
+      else
+        context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::NotEqual);
       context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Zero,
                                  dp::StencilAction::Zero, dp::StencilAction::Replace);
+      context->SetStencilReferenceValue(1);
       context->ApplyFramebuffer("SMAA edges");
       viewport.Apply(context);
 
@@ -301,7 +305,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     // Render blending weight to texture.
     {
       context->SetFramebuffer(make_ref(m_blendingWeightFramebuffer));
-      context->Clear(dp::ClearBits::ColorBit);
+      context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit | dp::ClearBits::StencilBit /* storeBits */);
       context->SetStencilFunction(dp::StencilFace::FrontAndBack, dp::TestFunction::Equal);
       context->SetStencilActions(dp::StencilFace::FrontAndBack, dp::StencilAction::Keep,
                                  dp::StencilAction::Keep, dp::StencilAction::Keep);
@@ -323,7 +327,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
     context->SetStencilTestEnabled(false);
     {
       context->SetFramebuffer(make_ref(m_smaaFramebuffer));
-      context->Clear(dp::ClearBits::ColorBit);
+      context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
       context->ApplyFramebuffer("SMAA final");
       viewport.Apply(context);
 
@@ -350,7 +354,7 @@ bool PostprocessRenderer::EndFrame(ref_ptr<dp::GraphicsContext> context,
   bool m_wasRendered = false;
   if (m_framebufferFallback())
   {
-    context->Clear(dp::ClearBits::ColorBit);
+    context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
     context->ApplyFramebuffer("Dynamic frame");
     viewport.Apply(context);
     

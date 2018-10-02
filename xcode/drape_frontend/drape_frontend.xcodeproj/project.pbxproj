@@ -959,6 +959,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"U_DISABLE_RENAMING=1",
+					DEBUG_DRAPE_XCODE,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(OMIM_ROOT)",

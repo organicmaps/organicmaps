@@ -40,7 +40,7 @@ public:
   }
   
   void SetClearColor(dp::Color const & color) override {}
-  void Clear(uint32_t clearBits) override {}
+  void Clear(uint32_t clearBits, uint32_t storeBits) override {}
   void Flush() override {}
   void SetDepthTestEnabled(bool enabled) override {}
   void SetDepthTestFunction(dp::TestFunction depthFunction) override {}

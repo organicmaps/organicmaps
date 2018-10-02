@@ -38,8 +38,11 @@ public:
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
   
+  void PushDebugLabel(std::string const & label) override;
+  void PopDebugLabel() override;
+  
   void SetClearColor(Color const & color) override;
-  void Clear(uint32_t clearBits) override;
+  void Clear(uint32_t clearBits, uint32_t storeBits) override;
   void Flush() override {}
   void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
   void SetDepthTestEnabled(bool enabled) override;
@@ -48,6 +51,7 @@ public:
   void SetStencilFunction(StencilFace face, TestFunction stencilFunction) override;
   void SetStencilActions(StencilFace face, StencilAction stencilFailAction,
                          StencilAction depthFailAction, StencilAction passAction) override;
+  void SetStencilReferenceValue(uint32_t stencilReferenceValue) override { m_stencilReferenceValue = stencilReferenceValue; }
   
   id<MTLDevice> GetMetalDevice() const;
   id<MTLRenderCommandEncoder> GetCommandEncoder() const;
@@ -81,6 +85,8 @@ protected:
   id<MTLRenderCommandEncoder> m_currentCommandEncoder;
   
   MetalCleaner m_cleaner;
+  
+  uint32_t m_stencilReferenceValue = 1;
 };
 }  // namespace metal
 }  // namespace dp

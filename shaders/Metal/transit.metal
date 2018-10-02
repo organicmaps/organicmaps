@@ -146,7 +146,7 @@ fragment TransitCircleOut_T fsTransitCircle(const TransitCircleFragment_T in [[s
   if (finalColor.a < 0.001)
     out.depth = 1.0;
   else
-    out.depth = in.position.z;
+    out.depth = in.position.z * in.position.w;
   
   out.color = finalColor;
   

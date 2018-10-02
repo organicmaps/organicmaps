@@ -3,9 +3,11 @@
 #include "std/target_os.hpp"
 
 #if defined(OMIM_OS_IPHONE)
+  #define GL_SILENCE_DEPRECATION
   #include <OpenGLES/ES2/glext.h>
   #include <OpenGLES/ES3/gl.h>
 #elif defined(OMIM_OS_MAC)
+  #define GL_SILENCE_DEPRECATION
   #include <OpenGL/glext.h>
   #include <OpenGL/gl3.h>
 #elif defined(OMIM_OS_WINDOWS)

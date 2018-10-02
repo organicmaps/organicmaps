@@ -114,6 +114,30 @@ struct RemoveTilePredicate
     return false;
   }
 };
+
+class DebugLabelGuard
+{
+public:
+  DebugLabelGuard(ref_ptr<dp::GraphicsContext> context, std::string const & label)
+    : m_context(context)
+  {
+    m_context->PushDebugLabel(label);
+  }
+
+  ~DebugLabelGuard()
+  {
+    m_context->PopDebugLabel();
+  }
+
+private:
+  ref_ptr<dp::GraphicsContext> m_context;
+};
+
+#if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE)
+#define DEBUG_LABEL(labelName, context, labelText) DebugLabelGuard labelName(context, labelText);
+#else
+#define DEBUG_LABEL(labelName, context, labelText)
+#endif
 }  // namespace
   
 FrontendRenderer::FrontendRenderer(Params && params)
@@ -1242,10 +1266,26 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 #endif
 
   CHECK(m_context != nullptr, ());
+  
+  PreRender3dLayer(modelView);
+
   if (m_postprocessRenderer->BeginFrame(m_context, activeFrame))
   {
     RefreshBgColor();
-    m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit | dp::ClearBits::StencilBit);
+    
+    uint32_t clearBits = dp::ClearBits::ColorBit | dp::ClearBits::DepthBit;
+    if (m_apiVersion == dp::ApiVersion::OpenGLES2 || m_apiVersion == dp::ApiVersion::OpenGLES3)
+      clearBits = clearBits | dp::ClearBits::StencilBit;
+
+    uint32_t storeBits = dp::ClearBits::ColorBit;
+    if (m_postprocessRenderer->IsEffectEnabled(PostprocessRenderer::Effect::Antialiasing))
+    {
+      clearBits = clearBits | dp::ClearBits::StencilBit;
+      storeBits = storeBits | dp::ClearBits::StencilBit;
+      m_context->SetStencilReferenceValue(2 /* write this value to the stencil buffer */);
+    }
+
+    m_context->Clear(clearBits, storeBits);
     m_context->ApplyFramebuffer("Static frame");
     m_viewport.Apply(m_context);
 
@@ -1257,17 +1297,17 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderTrafficLayer(modelView);
       if (!HasTransitRouteData())
         RenderRouteLayer(modelView);
-      Render3dLayer(modelView, true /* useFramebuffer */);
+      Render3dLayer(modelView);
     }
     else
     {
-      Render3dLayer(modelView, false /* useFramebuffer */);
+      Render3dLayer(modelView);
       RenderTrafficLayer(modelView);
       if (!HasTransitRouteData())
         RenderRouteLayer(modelView);
     }
 
-    m_context->Clear(dp::ClearBits::DepthBit);
+    m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
     if (m_selectionShape != nullptr)
     {
@@ -1345,52 +1385,61 @@ void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
   layer2d.Sort(make_ref(m_overlayTree));
 
   CHECK(m_context != nullptr, ());
+  DEBUG_LABEL(render2dLayerLabel, m_context, "2D Layer");
   for (drape_ptr<RenderGroup> const & group : layer2d.m_renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
 }
 
-void FrontendRenderer::Render3dLayer(ScreenBase const & modelView, bool useFramebuffer)
+void FrontendRenderer::PreRender3dLayer(ScreenBase const & modelView)
+{
+  if (!m_buildingsFramebuffer->IsSupported())
+    return;
+  
+  RenderLayer & layer = m_layers[static_cast<size_t>(DepthLayer::Geometry3dLayer)];
+  if (layer.m_renderGroups.empty())
+    return;
+  
+  m_context->SetFramebuffer(make_ref(m_buildingsFramebuffer));
+  m_context->SetClearColor(dp::Color::Transparent());
+  m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, dp::ClearBits::ColorBit /* storeBits */);
+  m_context->ApplyFramebuffer("Buildings");
+  m_viewport.Apply(m_context);
+  
+  layer.Sort(make_ref(m_overlayTree));
+  for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
+    RenderSingleGroup(m_context, modelView, make_ref(group));
+}
+  
+void FrontendRenderer::Render3dLayer(ScreenBase const & modelView)
 {
   RenderLayer & layer = m_layers[static_cast<size_t>(DepthLayer::Geometry3dLayer)];
   if (layer.m_renderGroups.empty())
     return;
 
-  CHECK(m_context != nullptr, ());
-  float const kOpacity = 0.7f;
-  if (useFramebuffer)
+  DEBUG_LABEL(render3dLayerLabel, m_context, "3D Layer");
+  if (m_buildingsFramebuffer->IsSupported())
   {
-    ASSERT(m_buildingsFramebuffer->IsSupported(), ());
-    m_context->SetFramebuffer(make_ref(m_buildingsFramebuffer));
-    m_context->SetClearColor(dp::Color::Transparent());
-    m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit);
-    m_context->ApplyFramebuffer("Buildings");
-    m_viewport.Apply(m_context);
-  }
-  else
-  {
-    m_context->Clear(dp::ClearBits::DepthBit);
-  }
-
-  layer.Sort(make_ref(m_overlayTree));
-  for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
-    RenderSingleGroup(m_context, modelView, make_ref(group));
-
-  if (useFramebuffer)
-  {
-    m_buildingsFramebuffer->ApplyFallback();
-    m_context->Clear(dp::ClearBits::DepthBit);
-    m_context->ApplyFramebuffer("Static frame (after buildings)");
-    m_viewport.Apply(m_context);
-
+    float const kOpacity = 0.7f;
     m_screenQuadRenderer->RenderTexture(m_context, make_ref(m_gpuProgramManager),
                                         m_buildingsFramebuffer->GetTexture(),
                                         kOpacity);
+  }
+  else
+  {
+    // Fallback for devices which do not support rendering to the texture.
+    CHECK(m_context != nullptr, ());
+    m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
+    
+    layer.Sort(make_ref(m_overlayTree));
+    for (drape_ptr<RenderGroup> const & group : layer.m_renderGroups)
+      RenderSingleGroup(m_context, modelView, make_ref(group));
   }
 }
 
 void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 {
   CHECK(m_context != nullptr, ());
+  DEBUG_LABEL(renderOverlayLayerLabel, m_context, "Overlay Layer");
   RenderLayer & overlay = m_layers[static_cast<size_t>(DepthLayer::OverlayLayer)];
   BuildOverlayTree(modelView);
   for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
@@ -1403,6 +1452,7 @@ void FrontendRenderer::RenderOverlayLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView)
 {
   CHECK(m_context != nullptr, ());
+  DEBUG_LABEL(renderNavigationOverlayLayerLabel, m_context, "Navigation Overlay Layer");
   RenderLayer & navOverlayLayer = m_layers[static_cast<size_t>(DepthLayer::NavigationLayer)];
   for (auto & group : navOverlayLayer.m_renderGroups)
   {
@@ -1426,7 +1476,8 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
   CHECK(m_context != nullptr, ());
   if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
-    m_context->Clear(dp::ClearBits::DepthBit);
+    DEBUG_LABEL(renderTransitSchemeLayerLabel, m_context, "Transit Scheme");
+    m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(m_context, make_ref(m_gpuProgramManager), modelView,
                                            make_ref(m_postprocessRenderer), m_frameValues,
@@ -1439,7 +1490,8 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
   CHECK(m_context != nullptr, ());
   if (m_trafficRenderer->HasRenderData())
   {
-    m_context->Clear(dp::ClearBits::DepthBit);
+    DEBUG_LABEL(renderTrafficLayerLabel, m_context, "Traffic Layer");
+    m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
     m_trafficRenderer->RenderTraffic(m_context, make_ref(m_gpuProgramManager), modelView,
                                      m_currentZoomLevel, 1.0f /* opacity */, m_frameValues);
   }
@@ -1450,13 +1502,15 @@ void FrontendRenderer::RenderTransitBackground()
   if (!m_finishTexturesInitialization)
     return;
 
+  CHECK(m_context != nullptr, ());
+  DEBUG_LABEL(renderTransitBackgroundLabel, m_context, "Transit Background");
+
   dp::TextureManager::ColorRegion region;
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
   CHECK(region.GetTexture() != nullptr, ("Texture manager is not initialized"));
   if (!m_transitBackground->IsInitialized())
     m_transitBackground->SetTextureRect(region.GetTexRect());
 
-  CHECK(m_context != nullptr, ());
   m_transitBackground->RenderTexture(m_context, make_ref(m_gpuProgramManager),
                                      region.GetTexture(), 1.0f /* opacity */, false /* invertV */);
 }
@@ -1469,7 +1523,8 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   if (m_routeRenderer->HasData() || m_routeRenderer->HasPreviewData())
   {
     CHECK(m_context != nullptr, ());
-    m_context->Clear(dp::ClearBits::DepthBit);
+    DEBUG_LABEL(renderRouteLayerLabel, m_context, "Route Layer");
+    m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
     m_routeRenderer->RenderRoute(m_context, make_ref(m_gpuProgramManager), modelView,
                                  m_trafficRenderer->HasRenderData(), m_frameValues);
   }
@@ -1482,7 +1537,8 @@ void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthL
     return;
 
   CHECK(m_context != nullptr, ());
-  m_context->Clear(dp::ClearBits::DepthBit);
+  DEBUG_LABEL(renderUserMarksLayerLabel, m_context, "User Marks: " + DebugPrint(layerId));
+  m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
 
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(m_context, modelView, make_ref(group));
@@ -1509,7 +1565,7 @@ void FrontendRenderer::RenderEmptyFrame()
   m_context->SetFramebuffer(nullptr /* default */);
   auto const c = dp::Extract(drule::rules().GetBgColor(1 /* scale */), 255);
   m_context->SetClearColor(c);
-  m_context->Clear(dp::ClearBits::ColorBit);
+  m_context->Clear(dp::ClearBits::ColorBit, dp::ClearBits::ColorBit /* storeBits */);
   m_context->ApplyFramebuffer("Empty frame");
   m_viewport.Apply(m_context);
 
@@ -2108,7 +2164,7 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE)
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);
 #endif
 

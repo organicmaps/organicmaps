@@ -112,6 +112,20 @@ std::string MetalBaseContext::GetRendererVersion() const
   return "Unknown";
 }
   
+void MetalBaseContext::PushDebugLabel(std::string const & label)
+{
+  if (m_currentCommandEncoder == nil)
+    return;
+  [m_currentCommandEncoder pushDebugGroup:@(label.c_str())];
+}
+  
+void MetalBaseContext::PopDebugLabel()
+{
+  if (m_currentCommandEncoder == nil)
+    return;
+  [m_currentCommandEncoder popDebugGroup];
+}
+  
 void MetalBaseContext::Resize(int w, int h)
 {
   if (m_depthTexture && m_depthTexture->GetWidth() == w && m_depthTexture->GetHeight() == h)
@@ -177,7 +191,7 @@ void MetalBaseContext::ApplyFramebuffer(std::string const & framebufferLabel)
   // Default rendering options.
   [m_currentCommandEncoder setFrontFacingWinding:MTLWindingClockwise];
   [m_currentCommandEncoder setCullMode:MTLCullModeBack];
-  [m_currentCommandEncoder setStencilReferenceValue:1];
+  [m_currentCommandEncoder setStencilReferenceValue:m_stencilReferenceValue];
 }
 
 void MetalBaseContext::SetClearColor(dp::Color const & color)
@@ -187,7 +201,7 @@ void MetalBaseContext::SetClearColor(dp::Color const & color)
     MTLClearColorMake(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());
 }
   
-void MetalBaseContext::Clear(uint32_t clearBits)
+void MetalBaseContext::Clear(uint32_t clearBits, uint32_t storeBits)
 {
   if (m_currentCommandEncoder != nil)
   {
@@ -203,20 +217,38 @@ void MetalBaseContext::Clear(uint32_t clearBits)
   }
   else
   {
+    // Here, if we do not clear attachments, we load data ONLY if we store it afterwards, otherwise we use 'DontCare' option
+    // to improve performance.
     if (clearBits & ClearBits::ColorBit)
       m_renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+      m_renderPassDescriptor.colorAttachments[0].loadAction = (storeBits & ClearBits::ColorBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
     
     if (clearBits & ClearBits::DepthBit)
       m_renderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+      m_renderPassDescriptor.depthAttachment.loadAction = (storeBits & ClearBits::DepthBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
     
     if (clearBits & ClearBits::StencilBit)
       m_renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
     else
-      m_renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+      m_renderPassDescriptor.stencilAttachment.loadAction = (storeBits & ClearBits::StencilBit) ? MTLLoadActionLoad : MTLLoadActionDontCare;
+    
+    // Apply storing mode.
+    if (storeBits & ClearBits::ColorBit)
+      m_renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+    else
+      m_renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionDontCare;
+    
+    if (storeBits & ClearBits::DepthBit)
+      m_renderPassDescriptor.depthAttachment.storeAction = MTLStoreActionStore;
+    else
+      m_renderPassDescriptor.depthAttachment.storeAction = MTLStoreActionDontCare;
+    
+    if (storeBits & ClearBits::StencilBit)
+      m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+    else
+      m_renderPassDescriptor.stencilAttachment.storeAction = MTLStoreActionDontCare;
   }
 }
   

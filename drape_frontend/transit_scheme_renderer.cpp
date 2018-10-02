@@ -187,7 +187,7 @@ void TransitSchemeRenderer::RenderLinesCaps(ref_ptr<dp::GraphicsContext> context
                                             ScreenBase const & screen,
                                             FrameValues const & frameValues, float pixelHalfWidth)
 {
-  context->Clear(dp::ClearBits::DepthBit);
+  context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
   for (auto & renderData : m_linesCapsRenderData)
   {
     ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
@@ -232,7 +232,7 @@ void TransitSchemeRenderer::RenderMarkers(ref_ptr<dp::GraphicsContext> context,
                                           ScreenBase const & screen,
                                           FrameValues const & frameValues, float pixelHalfWidth)
 {
-  context->Clear(dp::ClearBits::DepthBit);
+  context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
   for (auto & renderData : m_markersRenderData)
   {
     auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
