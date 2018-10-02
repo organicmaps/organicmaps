@@ -1,5 +1,6 @@
 #include "drape/vertex_array_buffer.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/gl_gpu_program.hpp"
 #include "drape/index_storage.hpp"
@@ -206,7 +207,7 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
     }
     else if (apiVersion == dp::ApiVersion::Metal)
     {
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
       m_impl = CreateImplForMetal(make_ref(this));
 #endif
     }

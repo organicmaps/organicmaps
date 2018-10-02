@@ -6,7 +6,13 @@
 
 #include "base/assert.hpp"
 
+#include "std/target_os.hpp"
+
 #include <cstdint>
+
+#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR) && !defined(OMIM_OS_MAC)
+#define OMIM_METAL_AVAILABLE
+#endif
 
 namespace dp
 {

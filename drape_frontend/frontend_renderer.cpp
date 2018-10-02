@@ -16,6 +16,7 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/support_manager.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
@@ -46,7 +47,7 @@
 
 using namespace std::placeholders;
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
 namespace dp
 {
 extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);

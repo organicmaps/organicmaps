@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
 #include "drape/graphics_context.hpp"
 #include "drape/pointers.hpp"
 #include "drape/render_state.hpp"
@@ -99,8 +100,11 @@ private:
   };
 
   void InitForOpenGL();
+
+#if defined(OMIM_METAL_AVAILABLE)
   // Definition of this method is in a .mm-file.
   void InitForMetal();
+#endif
 
   void Bind(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> program);
   void Unbind(ref_ptr<dp::GpuProgram> program);

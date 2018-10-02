@@ -27,9 +27,12 @@ public:
 
 private:
   void InitForOpenGL(ref_ptr<dp::GraphicsContext> context);
+
+#if defined(OMIM_METAL_AVAILABLE)
   // Definition of this method is in a .mm-file.
   void InitForMetal(ref_ptr<dp::GraphicsContext> context);
-  
+#endif
+
   using Programs = std::array<drape_ptr<dp::GpuProgram>,
                               static_cast<size_t>(Program::ProgramsCount)>;
   Programs m_programs;

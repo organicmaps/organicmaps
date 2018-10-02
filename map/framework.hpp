@@ -27,6 +27,7 @@
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/graphics_context_factory.hpp"
 
 #include "kml/type_utils.hpp"
@@ -776,7 +777,7 @@ public:
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
   bool LoadMetalAllowed();
   void SaveMetalAllowed(bool allowed);
 #endif

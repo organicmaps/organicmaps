@@ -2,6 +2,7 @@
 
 #include "shaders/programs.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/graphics_context.hpp"
 #include "drape/gpu_program.hpp"
@@ -45,7 +46,7 @@ private:
     } \
   }
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
 #define ALIGNMENT __attribute__ ((aligned(16)))
 #else
 #define ALIGNMENT

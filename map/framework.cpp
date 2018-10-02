@@ -136,7 +136,7 @@ char const kTrafficSimplifiedColorsKey[] = "TrafficSimplifiedColors";
 char const kLargeFontsSize[] = "LargeFontsSize";
 char const kTranslitMode[] = "TransliterationMode";
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
 char const kMetalAllowed[] = "MetalAllowed";
 #endif
 
@@ -2497,7 +2497,7 @@ void Framework::UpdateSavedDataVersion()
 
 int64_t Framework::GetCurrentDataVersion() const { return m_storage.GetCurrentDataVersion(); }
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
 bool Framework::LoadMetalAllowed()
 {
   bool allowed;
@@ -2786,7 +2786,7 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
     m_drapeEngine->EnableDebugRectRendering(false /* shown */);
     return true;
   }
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
   if (query == "?metal")
   {
     SaveMetalAllowed(true);

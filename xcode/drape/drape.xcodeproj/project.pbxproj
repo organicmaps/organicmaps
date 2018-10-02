@@ -671,7 +671,17 @@
 					render_state_metal.mm,
 					metal_cleaner.mm,
 				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					hw_texture_ios.mm,
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -692,7 +702,17 @@
 					render_state_metal.mm,
 					metal_cleaner.mm,
 				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					hw_texture_ios.mm,
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -732,7 +752,17 @@
 					render_state_metal.mm,
 					metal_cleaner.mm,
 				);
-				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = hw_texture_ios.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					hw_texture_ios.mm,
+					metal_base_context.mm,
+					metal_gpu_buffer_impl.mm,
+					metal_mesh_object_impl.mm,
+					metal_states.mm,
+					metal_texture.mm,
+					metal_vertex_array_buffer_impl.mm,
+					render_state_metal.mm,
+					metal_cleaner.mm,
+				);
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "$(OMIM_ROOT)/precompiled_headers.hpp";
 				PRODUCT_NAME = "$(TARGET_NAME)";

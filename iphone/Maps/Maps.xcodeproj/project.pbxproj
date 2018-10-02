@@ -5204,6 +5204,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
@@ -5220,6 +5221,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",
@@ -5236,6 +5238,7 @@
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3party/GoogleSignIn",

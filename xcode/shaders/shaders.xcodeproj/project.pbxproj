@@ -641,6 +641,11 @@
 					metal_program_pool.mm,
 					program_manager_metal.mm,
 				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
 			};
 			name = Debug;
 		};
@@ -649,6 +654,11 @@
 			buildSettings = {
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					metal_program_params.mm,
 					metal_program_pool.mm,
 					program_manager_metal.mm,
@@ -673,6 +683,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
+					metal_program_params.mm,
+					metal_program_pool.mm,
+					program_manager_metal.mm,
+				);
+				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = (
 					metal_program_params.mm,
 					metal_program_pool.mm,
 					program_manager_metal.mm,

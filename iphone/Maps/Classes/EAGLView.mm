@@ -9,6 +9,7 @@
 
 #include "Framework.h"
 
+#include "drape/drape_global.hpp"
 #include "drape/visual_scale.hpp"
 
 #include "base/assert.hpp"
@@ -57,7 +58,7 @@ double getExactDPI(double contentScaleFactor)
 
 - (dp::ApiVersion)getSupportedApiVersion
 {
-#ifndef OMIM_OS_IPHONE_SIMULATOR
+#ifdef OMIM_METAL_AVAILABLE
   if (GetFramework().LoadMetalAllowed())
   {
     id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
@@ -96,7 +97,7 @@ double getExactDPI(double contentScaleFactor)
   m2::PointU const s = [self pixelSize];
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
-#ifndef OMIM_OS_IPHONE_SIMULATOR
+#ifdef OMIM_METAL_AVAILABLE
     CHECK(self.metalView != nil, ());
     CHECK_EQUAL(self.bounds.size.width, self.metalView.bounds.size.width, ());
     CHECK_EQUAL(self.bounds.size.height, self.metalView.bounds.size.height, ());

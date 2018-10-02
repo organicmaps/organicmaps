@@ -1,5 +1,6 @@
 #include "drape/hw_texture.hpp"
 
+#include "drape/drape_global.hpp"
 #include "drape/gl_functions.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
@@ -12,7 +13,9 @@
 
 #if defined(OMIM_OS_IPHONE)
 #include "drape/hw_texture_ios.hpp"
+#endif
 
+#if defined(OMIM_METAL_AVAILABLE)
 extern drape_ptr<dp::HWTextureAllocator> CreateMetalAllocator();
 extern ref_ptr<dp::HWTextureAllocator> GetDefaultMetalAllocator();
 #endif
@@ -253,7 +256,7 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
     return CreateMetalAllocator();
 #endif
     CHECK(false, ("Metal rendering is supported now only on iOS."));
@@ -263,7 +266,7 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
   if (apiVersion == dp::ApiVersion::OpenGLES3)
     return make_unique_dp<OpenGLHWTextureAllocator>();
 
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
   return make_unique_dp<HWTextureAllocatorApple>();
 #else
   return make_unique_dp<OpenGLHWTextureAllocator>();
@@ -275,7 +278,7 @@ ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> con
   CHECK(context != nullptr, ());
   if (context->GetApiVersion() == dp::ApiVersion::Metal)
   {
-#if defined(OMIM_OS_IPHONE) && !defined(OMIM_OS_IPHONE_SIMULATOR)
+#if defined(OMIM_METAL_AVAILABLE)
     return GetDefaultMetalAllocator();
 #endif
     CHECK(false, ("Metal rendering is supported now only on iOS."));
