@@ -300,7 +300,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 15250.8);
+    integration::TestRouteTime(route, 15001.2);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)
@@ -314,7 +314,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 1059.2);
+    integration::TestRouteTime(route, 945.4);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22SubrouteTest)
@@ -381,23 +381,5 @@ namespace
                                     MercatorBounds::FromLatLon(53.09271, 25.3467));
     RouterResultCode const result = routeResult.second;
     TEST_EQUAL(result, RouterResultCode::NoError, ());
-  }
-
-  // Test of decreasing speed factor on roads with bad cover.
-  UNIT_TEST(RussiaLenOblSpeedFactorsTest)
-  {
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(60.23884, 29.71603), {0.0, 0.0},
-        MercatorBounds::FromLatLon(60.29083, 29.80333), 16679.2);
-  }
-
-  // Test of decreasing speed factor on roads with bad cover.
-  UNIT_TEST(RussiaMosOblSpeedFactorsTest)
-  {
-    integration::CalculateRouteAndTestRouteLength(
-        integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(55.93843, 36.02782), {0., 0.},
-        MercatorBounds::FromLatLon(55.9375, 36.04195), 4819.1);
   }
 }  // namespace

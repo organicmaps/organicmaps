@@ -21,18 +21,18 @@ using SpeedKMpH = VehicleModel::SpeedKMpH;
 //   https://wiki.openstreetmap.org/wiki/Key:highway
 // Speed of road features located inside and outside cities and towns polygons in km per hour.
 //                                                      in city            out city
-InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(115.37), SpeedKMpH(115.37));
-InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(60.0),   SpeedKMpH(60.0));
-InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(80.0),   SpeedKMpH(100.0));
-InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(50.0),   SpeedKMpH(50.0));
-InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(60.0),   SpeedKMpH(90.0));
-InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(30.0),   SpeedKMpH(60.0));
-InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(45.0),   SpeedKMpH(72.23));
-InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(50.0));
-InOutCitySpeedKMpH const             kSpeedTertiaryKMpH(SpeedKMpH(40.0),   SpeedKMpH(62.63));
+InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(117.8), SpeedKMpH(123.4));
+InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(82.0),   SpeedKMpH(81.2));
+InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(83.4),   SpeedKMpH(100.2));
+InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(73.0),   SpeedKMpH(77.2));
+InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(63.1),   SpeedKMpH(75.2));
+InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(66.5),   SpeedKMpH(64.8));
+InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(52.8),   SpeedKMpH(60.3));
+InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(50.2),   SpeedKMpH(60.0));
+InOutCitySpeedKMpH const             kSpeedTertiaryKMpH(SpeedKMpH(45.5),   SpeedKMpH(50.5));
 InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0));
 InOutCitySpeedKMpH const          kSpeedResidentialKMpH(SpeedKMpH(20.0),   SpeedKMpH(25.0));
-InOutCitySpeedKMpH const         kSpeedUnclassifiedKMpH(SpeedKMpH(25.0),   SpeedKMpH(51.09));
+InOutCitySpeedKMpH const         kSpeedUnclassifiedKMpH(SpeedKMpH(51.3),   SpeedKMpH(66.0));
 InOutCitySpeedKMpH const              kSpeedServiceKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
 InOutCitySpeedKMpH const         kSpeedLivingStreetKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
 InOutCitySpeedKMpH const                 kSpeedRoadKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
