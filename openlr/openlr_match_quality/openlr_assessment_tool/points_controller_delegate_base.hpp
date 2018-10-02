@@ -23,6 +23,8 @@ public:
     Remove
   };
 
+  virtual ~PointsControllerDelegateBase() = default;
+
   virtual std::vector<m2::PointD> GetAllJunctionPointsInViewport() const = 0;
   /// Returns all junction points at a given location in the form of feature id and
   /// point index in the feature.
