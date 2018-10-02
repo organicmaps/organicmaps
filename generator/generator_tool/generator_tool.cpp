@@ -96,6 +96,8 @@ DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(generate_region_features, false,
             "Generate intermediate features for regions to use in regions index and borders generation.");
+DEFINE_bool(generate_geo_objects_features, false,
+            "Generate intermediate features for geo objects to use in geo objects index.");
 DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
@@ -247,7 +249,7 @@ int main(int argc, char ** argv)
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_city_roads || FLAGS_generate_traffic_keys || FLAGS_transit_path != "" ||
-      FLAGS_ugc_data != "" || FLAGS_popular_places_data != "")
+      FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" || FLAGS_generate_geo_objects_features)
   {
     classificator::Load();
     classif().SortClassificator();
@@ -294,17 +296,25 @@ int main(int argc, char ** argv)
     }
   }
 
-  if (FLAGS_generate_region_features)
+  if (FLAGS_generate_region_features || FLAGS_generate_geo_objects_features)
   {
     CHECK(!FLAGS_generate_features && !FLAGS_make_coasts,
           ("FLAGS_generate_features and FLAGS_make_coasts should "
            "not be used with FLAGS_generate_region_features"));
+    CHECK(!(FLAGS_generate_region_features && FLAGS_generate_geo_objects_features), ());
 
     genInfo.m_fileName = FLAGS_output;
+    if (FLAGS_generate_region_features)
+    {
+      if (!GenerateRegionFeatures(genInfo))
+        return -1;
+    }
 
-    auto emitter = CreateEmitter(EmitterType::Region, genInfo);
-    if (!GenerateRegionFeatures(genInfo, emitter))
-      return -1;
+    if (FLAGS_generate_geo_objects_features)
+    {
+      if (!GenerateGeoObjectsFeatures(genInfo))
+        return -1;
+    }
   }
 
   if (genInfo.m_bucketNames.empty() && !FLAGS_output.empty())

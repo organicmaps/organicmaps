@@ -31,6 +31,7 @@ set(SRC
   city_roads_generator.hpp
   coastlines_generator.cpp
   coastlines_generator.hpp
+  collector_interface.hpp
   dumper.cpp
   dumper.hpp
   emitter_booking.hpp
@@ -38,10 +39,10 @@ set(SRC
   emitter_interface.hpp
   emitter_planet.cpp
   emitter_planet.hpp
-  emitter_region.hpp
-  emitter_region.cpp
   emitter_restaurants.hpp
   emitter_restaurants.cpp
+  emitter_simple.hpp
+  emitter_simple.cpp
   factory_utils.hpp
   feature_builder.cpp
   feature_builder.hpp
@@ -77,6 +78,8 @@ set(SRC
   osm2type.hpp
   osm_element.cpp
   osm_element.hpp
+  osm_element_helpers.cpp
+  osm_element_helpers.hpp
   osm_o5m_source.hpp
   osm_source.cpp
   osm_xml_source.hpp
@@ -90,14 +93,14 @@ set(SRC
   region_meta.cpp
   region_meta.hpp
   regions/city.hpp
+  regions/collector_region_info.cpp
+  regions/collector_region_info.hpp
   regions/node.cpp
   regions/node.hpp
   regions/region.cpp
   regions/region.hpp
   regions/region_base.cpp
   regions/region_base.hpp
-  regions/region_info_collector.cpp
-  regions/region_info_collector.hpp
   regions/regions.cpp
   regions/regions.hpp
   regions/regions_builder.cpp
@@ -138,6 +141,10 @@ set(SRC
   transit_generator.cpp
   transit_generator.hpp
   translator_factory.hpp
+  translator_geo_objects.cpp
+  translator_geo_objects.hpp
+  translator_geocoder_base.hpp
+  translator_geocoder_base.cpp
   translator_interface.hpp
   translator_planet.cpp
   translator_planet.hpp

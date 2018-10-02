@@ -92,7 +92,7 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
     fb.SetCenter(center);
   }
 
-  if (!fb.PreSerialize())
+  if (!fb.PreSerializeAndRemoveUselessNames())
   {
     LOG(LWARNING, ("Can't pre-serialize feature."));
     return false;

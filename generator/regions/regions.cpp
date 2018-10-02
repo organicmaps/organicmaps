@@ -134,7 +134,7 @@ private:
 };
 
 std::tuple<RegionsBuilder::Regions, PointCitiesMap>
-ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfoCollector & collector)
+ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfo & collector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
@@ -171,7 +171,7 @@ void FilterRegions(RegionsBuilder::Regions & regions)
 }
 
 RegionsBuilder::Regions ReadData(feature::GenerateInfo const & genInfo,
-                                 RegionInfoCollector & regionsInfoCollector)
+                                 RegionInfo & regionsInfoCollector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
@@ -192,8 +192,8 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
 
   Transliteration::Instance().Init(GetPlatform().ResourcesDir());
   auto const collectorFilename = genInfo.GetTmpFileName(genInfo.m_fileName,
-                                                        RegionInfoCollector::kDefaultExt);
-  RegionInfoCollector regionsInfoCollector(collectorFilename);
+                                                        CollectorRegionInfo::kDefaultExt);
+  RegionInfo regionsInfoCollector(collectorFilename);
   RegionsBuilder::Regions regions = ReadData(genInfo, regionsInfoCollector);
   auto jsonPolicy = std::make_unique<JsonPolicy>(genInfo.m_verbose);
   auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions), std::move(jsonPolicy));
@@ -215,7 +215,7 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
     auto const idStringList = kvBuilder->ToIdStringList(tree);
     for (auto const & s : idStringList)
     {
-      ofs << static_cast<int64_t>(s.first.GetEncodedId()) << " " << s.second << std::endl;
+      ofs << static_cast<int64_t>(s.first.GetEncodedId()) << " " << s.second << "\n";
       ++countIds;
       if (!setIds.insert(s.first).second)
         LOG(LWARNING, ("Id alredy exists:",  s.first));

@@ -1,4 +1,4 @@
-#include "generator/regions/region_info_collector.hpp"
+#include "generator/regions/collector_region_info.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/osm_element.hpp"
@@ -21,7 +21,7 @@ namespace generator
 {
 namespace regions
 {
-std::string const RegionInfoCollector::kDefaultExt = ".regions.bin";
+std::string const CollectorRegionInfo::kDefaultExt = ".regions.bin";
 
 PlaceType EncodePlaceType(std::string const & place)
 {
@@ -40,54 +40,9 @@ PlaceType EncodePlaceType(std::string const & place)
   return it == m.end() ? PlaceType::Unknown : it->second;
 }
 
-void RegionInfoCollector::IsoCode::SetAlpha2(std::string const & alpha2)
-{
-  CHECK_LESS_OR_EQUAL(alpha2.size() + 1, ARRAY_SIZE(m_alpha2), ());
-  std::strcpy(m_alpha2, alpha2.data());
-}
+CollectorRegionInfo::CollectorRegionInfo(std::string const & filename) : m_filename(filename) {}
 
-void RegionInfoCollector::IsoCode::SetAlpha3(std::string const & alpha3)
-{
-  CHECK_LESS_OR_EQUAL(alpha3.size() + 1, ARRAY_SIZE(m_alpha3), ());
-  std::strcpy(m_alpha3, alpha3.data());
-}
-
-void RegionInfoCollector::IsoCode::SetNumeric(std::string const & numeric)
-{
-  CHECK_LESS_OR_EQUAL(numeric.size() + 1, ARRAY_SIZE(m_numeric), ());
-  std::strcpy(m_numeric, numeric.data());
-}
-
-RegionInfoCollector::RegionInfoCollector(std::string const & filename)
-{
-  ParseFile(filename);
-}
-
-RegionInfoCollector::RegionInfoCollector(Platform::FilesList const & filenames)
-{
-  for (auto const & filename : filenames)
-    ParseFile(filename);
-}
-
-void RegionInfoCollector::ParseFile(std::string const & filename)
-{
-  try
-  {
-    FileReader reader(filename);
-    ReaderSource<FileReader> src(reader);
-    uint8_t version;
-    ReadPrimitiveFromSource(src, version);
-    CHECK_EQUAL(version, kVersion, ("Versions do not match."));
-    ReadMap(src, m_mapRegionData);
-    ReadMap(src, m_mapIsoCode);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LCRITICAL, ("Failed to parse regions info:", e.Msg()));
-  }
-}
-
-void RegionInfoCollector::Add(base::GeoObjectId const & osmId, OsmElement const & el)
+void CollectorRegionInfo::Collect(base::GeoObjectId const & osmId, OsmElement const & el)
 {
   RegionData regionData;
   FillRegionData(osmId, el, regionData);
@@ -101,11 +56,11 @@ void RegionInfoCollector::Add(base::GeoObjectId const & osmId, OsmElement const 
   }
 }
 
-void RegionInfoCollector::Save(std::string const & filename)
+void CollectorRegionInfo::Save()
 {
   try
   {
-    FileWriter writer(filename);
+    FileWriter writer(m_filename);
     WriteToSink(writer, kVersion);
     WriteMap(writer, m_mapRegionData);
     WriteMap(writer, m_mapIsoCode);
@@ -116,12 +71,7 @@ void RegionInfoCollector::Save(std::string const & filename)
   }
 }
 
-RegionDataProxy RegionInfoCollector::Get(base::GeoObjectId const & osmId)
-{
-  return RegionDataProxy(*this, osmId);
-}
-
-void RegionInfoCollector::FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el,
+void CollectorRegionInfo::FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el,
                                          RegionData & rd)
 {
   rd.m_osmId = osmId;
@@ -152,7 +102,7 @@ void RegionInfoCollector::FillRegionData(base::GeoObjectId const & osmId, OsmEle
   }
 }
 
-void RegionInfoCollector::FillIsoCode(base::GeoObjectId const & osmId, OsmElement const & el,
+void CollectorRegionInfo::FillIsoCode(base::GeoObjectId const & osmId, OsmElement const & el,
                                       IsoCode & rd)
 {
   rd.m_osmId = osmId;
@@ -161,36 +111,88 @@ void RegionInfoCollector::FillIsoCode(base::GeoObjectId const & osmId, OsmElemen
   rd.SetNumeric(el.GetTag("ISO3166-1:numeric"));
 }
 
-RegionDataProxy::RegionDataProxy(RegionInfoCollector & regionInfoCollector,
+void IsoCode::SetAlpha2(std::string const & alpha2)
+{
+  CHECK_LESS_OR_EQUAL(alpha2.size() + 1, ARRAY_SIZE(m_alpha2), ());
+  std::strcpy(m_alpha2, alpha2.data());
+}
+
+void IsoCode::SetAlpha3(std::string const & alpha3)
+{
+  CHECK_LESS_OR_EQUAL(alpha3.size() + 1, ARRAY_SIZE(m_alpha3), ());
+  std::strcpy(m_alpha3, alpha3.data());
+}
+
+void IsoCode::SetNumeric(std::string const & numeric)
+{
+  CHECK_LESS_OR_EQUAL(numeric.size() + 1, ARRAY_SIZE(m_numeric), ());
+  std::strcpy(m_numeric, numeric.data());
+}
+
+RegionInfo::RegionInfo(std::string const & filename)
+{
+  ParseFile(filename);
+}
+
+RegionInfo::RegionInfo(Platform::FilesList const & filenames)
+{
+  for (auto const & filename : filenames)
+    ParseFile(filename);
+}
+
+void RegionInfo::ParseFile(std::string const & filename)
+{
+  try
+  {
+    FileReader reader(filename);
+    ReaderSource<FileReader> src(reader);
+    uint8_t version;
+    ReadPrimitiveFromSource(src, version);
+    CHECK_EQUAL(version, kVersion, ("Versions do not match."));
+    ReadMap(src, m_mapRegionData);
+    ReadMap(src, m_mapIsoCode);
+  }
+  catch (FileReader::Exception const & e)
+  {
+    LOG(LCRITICAL, ("Failed to parse regions info:", e.Msg()));
+  }
+}
+
+RegionDataProxy RegionInfo::Get(base::GeoObjectId const & osmId)
+{
+  return RegionDataProxy(*this, osmId);
+}
+
+RegionDataProxy::RegionDataProxy(RegionInfo & regionInfoCollector,
                                  base::GeoObjectId const & osmId)
   : m_regionInfoCollector(regionInfoCollector),
     m_osmId(osmId)
 {
 }
 
-RegionInfoCollector const & RegionDataProxy::GetCollector() const
+RegionInfo const & RegionDataProxy::GetCollector() const
 {
   return m_regionInfoCollector;
 }
 
-RegionInfoCollector & RegionDataProxy::GetCollector()
+RegionInfo & RegionDataProxy::GetCollector()
 {
   return m_regionInfoCollector;
 }
 
-RegionInfoCollector::MapRegionData & RegionDataProxy::GetMapRegionData()
+MapRegionData & RegionDataProxy::GetMapRegionData()
 {
   return GetCollector().m_mapRegionData;
 }
 
 
-RegionInfoCollector::MapRegionData const & RegionDataProxy::GetMapRegionData() const
+MapRegionData const & RegionDataProxy::GetMapRegionData() const
 {
   return GetCollector().m_mapRegionData;
 }
 
 
-RegionInfoCollector::MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
+MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
 {
   return GetCollector().m_mapIsoCode;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
-#include "generator/regions/region_info_collector.hpp"
+#include "generator/regions/collector_region_info.hpp"
 
 #include "geometry/rect2d.hpp"
 

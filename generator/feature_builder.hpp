@@ -162,6 +162,8 @@ public:
 
   bool PreSerialize();
 
+  bool PreSerializeAndRemoveUselessNames();
+
   /// @note This function overrides all previous assigned types.
   /// Set all the parameters, except geometry type (it's set by other functions).
   void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
@@ -259,7 +261,7 @@ public:
 
   /// @name Overwrite from base_type.
   //@{
-  bool PreSerialize(SupportingData const & data);
+  bool PreSerializeAndRemoveUselessNames(SupportingData const & data);
   bool IsLocalityObject() const;
   void SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                SupportingData & data) const;

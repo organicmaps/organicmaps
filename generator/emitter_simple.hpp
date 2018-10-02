@@ -8,15 +8,15 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 namespace generator
 {
-class EmitterRegion : public EmitterInterface
+// EmitterSimple class is a simple emitter. It does not filter objects.
+class EmitterSimple : public EmitterInterface
 {
-  using RegionGenerator = CountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
-
 public:
-  explicit EmitterRegion(feature::GenerateInfo const & info);
+  explicit EmitterSimple(feature::GenerateInfo const & info);
 
   // EmitterInterface overrides:
   void GetNames(std::vector<std::string> & names) const override;
@@ -24,6 +24,8 @@ public:
   bool Finish() override { return true; }
 
 private:
-  std::unique_ptr<RegionGenerator> m_regionGenerator;
+  using SimpleGenerator = SimpleCountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
+
+  std::unique_ptr<SimpleGenerator> m_regionGenerator;
 };
 }  // namespace generator

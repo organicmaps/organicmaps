@@ -38,6 +38,8 @@ public:
 
   // The main entry point for parsing process.
   void EmitElement(OsmElement * p) override;
+  bool Finish() override;
+  void GetNames(std::vector<std::string> & names) const override;
 
 private:
   bool ParseType(OsmElement * p, FeatureParams & params);

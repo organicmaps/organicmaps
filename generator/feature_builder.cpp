@@ -17,6 +17,7 @@
 #include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -31,7 +32,7 @@ using namespace std;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 FeatureBuilder1::FeatureBuilder1()
-: m_coastCell(-1)
+  : m_coastCell(-1)
 {
   m_polygons.push_back(PointSeq());
 }
@@ -189,36 +190,29 @@ TypesHolder FeatureBuilder1::GetTypesHolder() const
 
 namespace
 {
-  bool is_equal(double d1, double d2)
-  {
-    //return base::AlmostEqualULPs(d1, d2, 100000000);
-    return (fabs(d1 - d2) < MercatorBounds::GetCellID2PointAbsEpsilon());
-  }
+bool IsEqual(double d1, double d2)
+{
+  return base::AlmostEqualAbs(d1, d2, MercatorBounds::GetCellID2PointAbsEpsilon());
+}
 
-  bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
-  {
-    return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
-  }
+bool IsEqual(m2::PointD const & p1, m2::PointD const & p2)
+{
+  return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+}
 
-  bool is_equal(m2::RectD const & r1, m2::RectD const & r2)
-  {
-    return (is_equal(r1.minX(), r2.minX()) &&
-            is_equal(r1.minY(), r2.minY()) &&
-            is_equal(r1.maxX(), r2.maxX()) &&
-            is_equal(r1.maxY(), r2.maxY()));
-  }
+bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)
+{
+  return (IsEqual(r1.minX(), r2.minX()) &&
+          IsEqual(r1.minY(), r2.minY()) &&
+          IsEqual(r1.maxX(), r2.maxX()) &&
+          IsEqual(r1.maxY(), r2.maxY()));
+}
 
-  bool is_equal(vector<m2::PointD> const & v1, vector<m2::PointD> const & v2)
-  {
-    if (v1.size() != v2.size())
-      return false;
-
-    for (size_t i = 0; i < v1.size(); ++i)
-      if (!is_equal(v1[i], v2[i]))
-        return false;
-
-    return true;
-  }
+bool IsEqual(vector<m2::PointD> const & v1, vector<m2::PointD> const & v2)
+{
+  return equal(cbegin(v1), cend(v1), cbegin(v2), cend(v2),
+               [](m2::PointD const & p1, m2::PointD const & p2) { return IsEqual(p1, p2); });
+}
 }
 
 bool FeatureBuilder1::IsRoad() const
@@ -267,6 +261,14 @@ bool FeatureBuilder1::PreSerialize()
   default:
     return false;
   }
+
+  return true;
+}
+
+bool FeatureBuilder1::PreSerializeAndRemoveUselessNames()
+{
+  if (!PreSerialize())
+    return false;
 
   // Clear name for features with invisible texts.
   // AlexZ: Commented this line to enable captions on subway exits, which
@@ -324,10 +326,10 @@ bool FeatureBuilder1::operator==(FeatureBuilder1 const & fb) const
   if (m_coastCell != fb.m_coastCell)
     return false;
 
-  if (m_params.GetGeomType() == GEOM_POINT && !is_equal(m_center, fb.m_center))
+  if (m_params.GetGeomType() == GEOM_POINT && !IsEqual(m_center, fb.m_center))
     return false;
 
-  if (!is_equal(m_limitRect, fb.m_limitRect))
+  if (!IsEqual(m_limitRect, fb.m_limitRect))
     return false;
 
   if (m_polygons.size() != fb.m_polygons.size())
@@ -337,7 +339,7 @@ bool FeatureBuilder1::operator==(FeatureBuilder1 const & fb) const
     return false;
 
   for (auto i = m_polygons.cbegin(), j = fb.m_polygons.cbegin(); i != m_polygons.cend(); ++i, ++j)
-    if (!is_equal(*i, *j))
+    if (!IsEqual(*i, *j))
       return false;
 
   return true;
@@ -585,7 +587,7 @@ string DebugPrint(FeatureBuilder2 const & f)
   return DebugPrint(static_cast<FeatureBuilder1 const &>(f));
 }
 
-bool FeatureBuilder2::PreSerialize(SupportingData const & data)
+bool FeatureBuilder2::PreSerializeAndRemoveUselessNames(SupportingData const & data)
 {
   // make flags actual before header serialization
   EGeomType const geoType = m_params.GetGeomType();
@@ -601,13 +603,13 @@ bool FeatureBuilder2::PreSerialize(SupportingData const & data)
   }
 
   // we don't need empty features without geometry
-  return Base::PreSerialize();
+  return Base::PreSerializeAndRemoveUselessNames();
 }
 
 bool FeatureBuilder2::IsLocalityObject() const
 {
   return (m_params.GetGeomType() == GEOM_POINT || m_params.GetGeomType() == GEOM_AREA) &&
-         !m_params.house.IsEmpty();
+      !m_params.house.IsEmpty();
 }
 
 void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const & params,

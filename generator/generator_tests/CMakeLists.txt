@@ -16,6 +16,8 @@ set(
   osm_o5m_source_test.cpp
   osm_type_test.cpp
   region_info_collector_tests.cpp
+  regions_common.cpp
+  regions_common.hpp
   regions_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
+#include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/region_base.hpp"
-#include "generator/regions/region_info_collector.hpp"
 
 namespace generator
 {

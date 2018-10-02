@@ -143,7 +143,7 @@ public:
     }
 
     auto & buffer = holder.GetBuffer();
-    if (fb2.PreSerialize(buffer))
+    if (fb2.PreSerializeAndRemoveUselessNames(buffer))
     {
       fb2.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
       WriteFeatureBase(buffer.m_buffer, fb2);

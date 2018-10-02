@@ -48,7 +48,7 @@ UNIT_TEST(FBuilder_ManyTypes)
   TEST(fb1.CheckValid(), ());
 
   FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerialize(), ());
+  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
   fb1.Serialize(buffer);
 
   FeatureBuilder1 fb2;
@@ -84,7 +84,7 @@ UNIT_TEST(FBuilder_LineTypes)
   TEST(fb1.CheckValid(), ());
 
   FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerialize(), ());
+  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
   fb1.Serialize(buffer);
 
   FeatureBuilder1 fb2;
@@ -113,7 +113,7 @@ UNIT_TEST(FBuilder_Waterfall)
   TEST(fb1.CheckValid(), ());
 
   FeatureBuilder1::Buffer buffer;
-  TEST(fb1.PreSerialize(), ());
+  TEST(fb1.PreSerializeAndRemoveUselessNames(), ());
   fb1.Serialize(buffer);
 
   FeatureBuilder1 fb2;

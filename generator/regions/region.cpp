@@ -1,7 +1,7 @@
 #include "generator/regions/region.hpp"
 
 #include "generator/regions/city.hpp"
-#include "generator/regions/region_info_collector.hpp"
+#include "generator/regions/collector_region_info.hpp"
 
 #include "base/assert.hpp"
 

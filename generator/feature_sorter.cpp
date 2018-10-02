@@ -205,7 +205,7 @@ public:
 
     uint32_t featureId = kInvalidFeatureId;
     auto & buffer = holder.GetBuffer();
-    if (fb.PreSerialize(buffer))
+    if (fb.PreSerializeAndRemoveUselessNames(buffer))
     {
       fb.Serialize(buffer, m_header.GetDefGeometryCodingParams());
 
