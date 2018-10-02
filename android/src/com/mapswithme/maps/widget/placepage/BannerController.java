@@ -214,18 +214,19 @@ final class BannerController
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoices,
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge, mAdChoices,
                    mAdChoicesLabel, mAdsRemovalIcon, mAdsRemovalButton);
     }
     else if (mCurrentAd != null)
     {
       UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
       UiUtils.showIf(mPurchaseController.isPurchaseSupported(), mAdsRemovalIcon, mAdsRemovalButton);
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mAdChoicesLabel);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge,
+                   mAdsRemovalButton, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
-        UiUtils.hide(mActionContainer, mIcon);
+        UiUtils.hide(mActionContainer, mActionLarge, mAdsRemovalButton, mIcon);
     }
   }
 
