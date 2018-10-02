@@ -43,6 +43,7 @@ public class ExternalLibrariesMediator
   private final Application mApplication;
   @NonNull
   private volatile EventLogger mEventLogger;
+  private boolean mEventLoggerInitialized;
   @Nullable
   private AdvertisingInfo mAdvertisingInfo;
 
@@ -67,14 +68,15 @@ public class ExternalLibrariesMediator
 
   private void initSensitiveEventLogger()
   {
-    if (com.mapswithme.util.concurrency.UiThread.isUiThread())
-    {
-      mEventLogger = new EventLoggerAggregator(mApplication);
-      mEventLogger.initialize();
-      return;
-    }
+    if (!com.mapswithme.util.concurrency.UiThread.isUiThread())
+      throw new IllegalStateException("Must be call from Ui thread");
 
-    throw new IllegalStateException("Must be call from Ui thread");
+    if (mEventLoggerInitialized)
+      return;
+
+    mEventLogger = new EventLoggerAggregator(mApplication);
+    mEventLogger.initialize();
+    mEventLoggerInitialized = true;
   }
 
   private void initAppsFlyer()
@@ -185,6 +187,7 @@ public class ExternalLibrariesMediator
     return mApplication;
   }
 
+  @UiThread
   public void initSensitiveData()
   {
     initSensitiveEventLogger();
