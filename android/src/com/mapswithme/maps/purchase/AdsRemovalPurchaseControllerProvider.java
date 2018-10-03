@@ -1,9 +1,9 @@
 package com.mapswithme.maps.purchase;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public interface AdsRemovalPurchaseControllerProvider
 {
-  @NonNull
+  @Nullable
   PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController();
 }

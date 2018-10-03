@@ -1834,7 +1834,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  @NonNull
+  @Nullable
   public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;

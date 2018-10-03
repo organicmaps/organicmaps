@@ -23,6 +23,7 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.util.Config;
@@ -125,11 +126,11 @@ final class BannerController
   @NonNull
   private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
   @NonNull
-  private final PurchaseController mPurchaseController;
+  private final AdsRemovalPurchaseControllerProvider mAdsRemovalProvider;
 
   BannerController(@NonNull ViewGroup bannerContainer, @Nullable BannerListener listener,
                    @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker,
-                   @NonNull PurchaseController purchaseController)
+                   @NonNull AdsRemovalPurchaseControllerProvider adsRemovalProvider)
   {
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
@@ -140,7 +141,7 @@ final class BannerController
     mAdTracker = tracker;
     Resources resources = mBannerView.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
-    mPurchaseController = purchaseController;
+    mAdsRemovalProvider = adsRemovalProvider;
     initBannerViews();
   }
 
@@ -220,7 +221,11 @@ final class BannerController
     else if (mCurrentAd != null)
     {
       UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
-      UiUtils.showIf(mPurchaseController.isPurchaseSupported(), mAdsRemovalIcon, mAdsRemovalButton);
+      PurchaseController<?> purchaseController
+          = mAdsRemovalProvider.getAdsRemovalPurchaseController();
+      boolean showRemovalButtons = purchaseController != null
+                                   && purchaseController.isPurchaseSupported();
+      UiUtils.showIf(showRemovalButtons, mAdsRemovalIcon, mAdsRemovalButton);
       UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionContainer, mActionLarge,
                    mAdsRemovalButton, mAdChoicesLabel);
       if (mOpened)

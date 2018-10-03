@@ -495,7 +495,7 @@ public class PlacePageView extends RelativeLayout
       DefaultAdTracker tracker = new DefaultAdTracker();
       CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
       mBannerController = new BannerController(bannerContainer, this, loader, tracker,
-                                               getActivity().getAdsRemovalPurchaseController());
+                                               getActivity());
     }
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
