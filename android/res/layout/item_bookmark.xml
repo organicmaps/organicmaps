@@ -23,7 +23,6 @@
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:weightSum="2"
     android:orientation="vertical"
     android:layout_centerVertical="true"
     android:layout_toRightOf="@id/iv__bookmark_color"
@@ -33,16 +32,14 @@
     <TextView
       android:id="@+id/tv__bookmark_name"
       android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_height="wrap_content"
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body1"/>
 
     <TextView
       android:id="@+id/tv__bookmark_distance"
       android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:layout_weight="1"
+      android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"/>
   </LinearLayout>
 </RelativeLayout>
