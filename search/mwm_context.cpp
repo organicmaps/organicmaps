@@ -39,6 +39,7 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
     return true;
   }
   CHECK_SWITCH();
+  return false;
 }
 
 bool MwmContext::GetOriginalFeature(uint32_t index, FeatureType & ft) const

@@ -133,7 +133,7 @@ bool LevenshteinDFA::Position::SubsumedBy(Position const & rhs) const
   if (m_errorsLeft >= rhs.m_errorsLeft)
     return false;
 
-  auto const errorsAvail = rhs.m_errorsLeft - m_errorsLeft;
+  auto const errorsAvail = static_cast<size_t>(rhs.m_errorsLeft - m_errorsLeft);
 
   if (IsStandard() && rhs.IsStandard())
     return AbsDiff(m_offset, rhs.m_offset) <= errorsAvail;
