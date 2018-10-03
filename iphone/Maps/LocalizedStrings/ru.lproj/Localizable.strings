@@ -2470,6 +2470,14 @@
 
 "rutaxi_title" = "RuTaxi";
 
+"restore_subscription" = "Восстановить подписку";
+
+"restore_success_alert" = "Подписка была успешно восстановлена";
+
+"restore_error_alert" = "Во время восстановления покупок произошла ошибка";
+
+"restore_no_subscription_alert" = "У вас нет активных подписок";
+
 
 /**********  Partners  **********/
 
