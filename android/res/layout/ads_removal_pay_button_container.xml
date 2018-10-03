@@ -38,7 +38,8 @@
       android:gravity="center"/>
   </LinearLayout>
   <LinearLayout
-    android:layout_width="@dimen/ads_removal_pay_button_min_width"
+    android:layout_width="wrap_content"
+    android:minWidth="@dimen/ads_removal_pay_button_min_width"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
     android:background="?attr/adsRemovalOptionsBg"
@@ -57,12 +58,6 @@
       android:drawableRight="@drawable/ic_expand_more"
       android:padding="@dimen/margin_half_plus"
       android:textAllCaps="true"/>
-    <View
-      android:id="@+id/monthly_divider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"
-      android:background="?attr/adsRemovalOptionsDivider"
-      android:visibility="gone"/>
     <TextView
       android:id="@+id/monthly_button"
       android:layout_width="match_parent"
@@ -72,12 +67,6 @@
       android:background="?attr/clickableBackground"
       android:gravity="start|center_vertical"
       android:padding="@dimen/margin_half_plus"
-      android:visibility="gone"/>
-    <View
-      android:id="@+id/weekly_divider"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/divider_height"
-      android:background="?attr/adsRemovalOptionsDivider"
       android:visibility="gone"/>
     <TextView
       android:id="@+id/weekly_button"

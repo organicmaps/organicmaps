@@ -175,7 +175,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mOptionsButton.setCompoundDrawablesWithIntrinsicBounds(null, null, getOptionsToggle(), null);
     View payContainer = getViewOrThrow().findViewById(R.id.pay_button_container);
     UiUtils.showIf(mOptionsButton.isChecked(), payContainer, R.id.monthly_button,
-                   R.id.monthly_divider, R.id.weekly_button, R.id.weekly_divider);
+                   R.id.weekly_button);
   }
 
   private void launchPurchaseFlowForPeriod(@NonNull Period period)
