@@ -9,6 +9,11 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/file_name_utils.hpp"
+#include "coding/reader.hpp"
+
+#include "geometry/mercator.hpp"
+
 #include "3party/jansson/myjansson.hpp"
 
 #include <algorithm>
@@ -79,19 +84,29 @@ void RunGraphicsBenchmark(Framework * framework)
 #ifdef SCENARIO_ENABLE
   using namespace df;
 
-  // Request scenarios from the server.
-  platform::HttpClient request("http://osmz.ru/mwm/graphics_benchmark.json");
-  if (!request.RunHttpRequest())
+  // Load scenario from file.
+  auto const fn = base::JoinPath(GetPlatform().SettingsDir(), "graphics_benchmark.json");
+  if (!GetPlatform().IsFileExistsByFullPath(fn))
     return;
-
+  
+  std::string benchmarkData;
+  try
+  {
+    ReaderPtr<Reader>(GetPlatform().GetReader(fn)).ReadAsString(benchmarkData);
+  }
+  catch (RootException const & e)
+  {
+    LOG(LCRITICAL, ("Error reading benchmark file: ", e.what()));
+    return;
+  }
+  
   std::shared_ptr<BenchmarkHandle> handle = std::make_shared<BenchmarkHandle>();
 
   // Parse scenarios.
   std::vector<m2::PointD> points;
-  string const & result = request.ServerResponse();
   try
   {
-    base::Json root(result.c_str());
+    base::Json root(benchmarkData.c_str());
     json_t * scenariosNode = json_object_get(root.get(), "scenarios");
     if (scenariosNode == nullptr || !json_is_array(scenariosNode))
       return;
@@ -128,12 +143,12 @@ void RunGraphicsBenchmark(Framework * framework)
             json_t * centerNode = json_object_get(stepElem, "center");
             if (centerNode == nullptr)
               return;
-            double x = 0.0, y = 0.0;
-            FromJSONObject(centerNode, "x", x);
-            FromJSONObject(centerNode, "y", y);
+            double lat = 0.0, lon = 0.0;
+            FromJSONObject(centerNode, "lat", lat);
+            FromJSONObject(centerNode, "lon", lon);
             json_int_t zoomLevel = -1;
             FromJSONObject(stepElem, "zoomLevel", zoomLevel);
-            m2::PointD const pt(x, y);
+            m2::PointD const pt = MercatorBounds::FromLatLon(lat, lon);
             points.push_back(pt);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
                                  new ScenarioManager::CenterViewportAction(pt, static_cast<int>(zoomLevel))));

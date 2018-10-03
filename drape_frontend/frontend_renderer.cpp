@@ -1262,12 +1262,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
 
 void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
-  DrapeMeasurer::Instance().BeforeRenderFrame();
-#endif
-
   CHECK(m_context != nullptr, ());
-  
   PreRender3dLayer(modelView);
 
   if (m_postprocessRenderer->BeginFrame(m_context, activeFrame))
@@ -1374,10 +1369,6 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(),
                           modelView);
   }
-
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
-  DrapeMeasurer::Instance().AfterRenderFrame();
-#endif
 }
 
 void FrontendRenderer::Render2dLayer(ScreenBase const & modelView)
@@ -1575,6 +1566,10 @@ void FrontendRenderer::RenderEmptyFrame()
   
 void FrontendRenderer::RenderFrame()
 {
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().BeforeRenderFrame();
+#endif
+  
   CHECK(m_context != nullptr, ());
   if (!m_context->Validate())
   {
@@ -1618,6 +1613,9 @@ void FrontendRenderer::RenderFrame()
 
   auto const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
   isActiveFrame |= hasForceUpdate;
+#if defined(SCENARIO_ENABLE)
+  isActiveFrame = true;
+#endif
 
   if (m_frameData.m_modelViewChanged || hasForceUpdate)
     UpdateScene(modelView);
@@ -1679,6 +1677,10 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_frameTime = m_frameData.m_timer.ElapsedSeconds();
   scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
     m_frameData.m_inactiveFramesCounter + 1 < FrameData::kMaxInactiveFrames);
+  
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeMeasurer::Instance().AfterRenderFrame();
+#endif
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -2165,7 +2167,7 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-#if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE)
+#if defined(DEBUG) || defined(DEBUG_DRAPE_XCODE) || defined(SCENARIO_ENABLE)
   gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);
 #endif
 
