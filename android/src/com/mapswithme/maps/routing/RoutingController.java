@@ -370,8 +370,12 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   public void restoreRoute()
   {
-    if (Framework.nativeHasSavedRoutePoints())
-      Framework.nativeLoadRoutePoints();
+    Framework.nativeLoadRoutePoints();
+  }
+
+  public boolean hasSavedRoute()
+  {
+    return Framework.nativeHasSavedRoutePoints();
   }
 
   public void saveRoute()

@@ -559,20 +559,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mAdsRemovalPurchaseController = PurchaseFactory.createPurchaseController();
     mAdsRemovalPurchaseController.initialize(this);
 
-    //TODO: uncomment after correct visible rect calculation.
-    //mVisibleRectMeasurer = new VisibleRectMeasurer(new VisibleRectListener() {
-    //  @Override
-    //  public void onVisibleRectChanged(Rect rect) {
-    //    Framework.nativeSetVisibleRect(rect.left, rect.top, rect.right, rect.bottom);
-    //  }
-    //});
-    //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
-    // we haven't to try restoring the route. Also, if savedInstanceState != null it means that
-    // the app is being restored by the system at the moment, so we don't need to restore the route.
-    if (!isConsumed && savedInstanceState == null)
+    // we haven't to try restoring the route, showing the tips, etc.
+    if (isConsumed)
+      return;
+
+    if (savedInstanceState == null && RoutingController.get().hasSavedRoute())
+    {
       addTask(new RestoreRouteTask());
+      return;
+    }
+
+    initTips();
   }
 
   private void initViews()
@@ -596,7 +595,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     initOnmapDownloader();
     initPositionChooser();
     initFilterViews();
-    initTips();
   }
 
   private void initTips()
