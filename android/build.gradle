@@ -513,3 +513,11 @@ task obbPush(dependsOn: ['obbGenerate', 'obbPushMain', 'obbPushPatch']) {
     commandLine android.getAdbExe(), 'push', propObbWorldsOutput, "${obbPath}worlds.obb"
   }
 }
+
+android.buildTypes.all { buildType ->
+  def suffix = applicationIdSuffix != null ? applicationIdSuffix : "";
+  def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
+  def authority = "\"" + authorityValue + "\""
+  buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
+  manifestPlaceholders += ['FILE_PROVIDER_PLACEHOLDER' : authorityValue]
+}
