@@ -159,8 +159,9 @@ class ScaleFpsLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
 public:
-  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures)
-    : TBase(id, dp::LeftBottom, m2::PointF::Zero(), textures), m_scale(0)
+  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel)
+    : TBase(id, dp::LeftBottom, m2::PointF::Zero(), textures)
+    , m_apiLabel(apiLabel)
   {
     SetIsVisible(true);
   }
@@ -177,7 +178,7 @@ public:
       m_fps = helper.GetFps();
       m_isPaused = helper.IsPaused();
       std::stringstream ss;
-      ss << "Scale: " << m_scale << " / FPS: " << m_fps;
+      ss << m_apiLabel << ": Scale: " << m_scale << " / FPS: " << m_fps;
       if (m_isPaused)
         ss << " (PAUSED)";
       SetContent(ss.str());
@@ -191,6 +192,7 @@ public:
   }
 
 private:
+  std::string const m_apiLabel;
   int m_scale = 1;
   uint32_t m_fps = 0;
   bool m_isPaused = false;
@@ -374,14 +376,23 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
                                            ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
-  params.m_alphabet = "FPSAUEDcale: 1234567890/()";
+  params.m_alphabet = "MGLFPSAUEDcale: 1234567890/()";
   params.m_maxLength = 30;
   params.m_anchor = position.m_anchor;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = position.m_pixelPivot;
-  params.m_handleCreator = [textures](dp::Anchor, m2::PointF const &)
+  auto const apiVersion = context->GetApiVersion();
+  params.m_handleCreator = [textures, apiVersion](dp::Anchor, m2::PointF const &)
   {
-    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures);
+    std::string apiLabel;
+    switch (apiVersion)
+    {
+    case dp::ApiVersion::OpenGLES2: apiLabel = "GL2"; break;
+    case dp::ApiVersion::OpenGLES3: apiLabel = "GL3"; break;
+    case dp::ApiVersion::Metal: apiLabel = "M"; break;
+    case dp::ApiVersion::Invalid: CHECK(false, ("Invalid API version.")); break;
+    }
+    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();

@@ -729,6 +729,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				MTL_OPTIMIZATION_LEVEL = 0;
 				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Debug;
@@ -736,6 +738,8 @@
 		4598438121394BE000F8CAB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MTL_FAST_MATH = YES;
+				MTL_OPTIMIZATION_LEVEL = 3;
 				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = Release;
@@ -743,6 +747,8 @@
 		4598438221394BE000F8CAB2 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				MTL_FAST_MATH = YES;
+				MTL_OPTIMIZATION_LEVEL = 3;
 				SUPPORTED_PLATFORMS = "macosx iphoneos";
 			};
 			name = "Production Full";
