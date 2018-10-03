@@ -549,6 +549,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)didCompleteSubscribtion:(RemoveAdsViewController *)viewController
 {
   [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+  GetFramework().DeactivateMapSelection(true);
 }
 
 - (void)didCancelSubscribtion:(RemoveAdsViewController *)viewController
