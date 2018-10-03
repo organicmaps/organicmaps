@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -47,8 +46,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private ProductDetails[] mProductDetails;
   @NonNull
   private AdsRemovalPaymentState mState = AdsRemovalPaymentState.NONE;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
+  @Nullable
   private PurchaseController<AdsRemovalPurchaseCallback> mController;
   @NonNull
   private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
@@ -80,7 +78,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     super.onAttach(context);
     LOGGER.d(TAG, "onAttach");
     mController = ((AdsRemovalPurchaseControllerProvider) context).getAdsRemovalPurchaseController();
-    mController.addCallback(mPurchaseCallback);
+    if (mController != null)
+      mController.addCallback(mPurchaseCallback);
     if (context instanceof AdsRemovalActivationCallback)
       mActivationCallback = (AdsRemovalActivationCallback) context;
   }
@@ -152,7 +151,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
 
   void queryPurchaseDetails()
   {
-    mController.queryPurchaseDetails();
+    getControllerOrThrow().queryPurchaseDetails();
   }
 
   void onYearlyProductClicked()
@@ -181,7 +180,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private void launchPurchaseFlowForPeriod(@NonNull Period period)
   {
     ProductDetails details = getProductDetailsForPeriod(period);
-    mController.launchPurchaseFlow(details.getProductId());
+    getControllerOrThrow().launchPurchaseFlow(details.getProductId());
     Statistics.INSTANCE.trackPurchasePreviewSelect(details.getProductId());
     Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY);
   }
@@ -199,6 +198,15 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     LOGGER.i(TAG, "Activate state: " + state);
     mState = state;
     mState.activate(this);
+  }
+
+  @NonNull
+  private PurchaseController<AdsRemovalPurchaseCallback> getControllerOrThrow()
+  {
+    if (mController == null)
+      throw new IllegalStateException("Controller must be non-null at this point!");
+
+    return mController;
   }
 
   @Override
@@ -223,7 +231,11 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     LOGGER.d(TAG, "onDetach");
     super.onDetach();
-    mController.removeCallback();
+    if (mController != null)
+    {
+      mController.removeCallback();
+      mController = null;
+    }
   }
 
   void finishValidation()
