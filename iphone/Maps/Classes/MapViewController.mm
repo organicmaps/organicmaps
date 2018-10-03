@@ -239,6 +239,9 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewWillAppear:animated];
 
+  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
+    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
   [self.welcomePageController show];
