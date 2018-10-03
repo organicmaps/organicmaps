@@ -405,7 +405,21 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)showTutorialIfNeeded
 {
+  auto ownerController = self.ownerController;
+
   if ([MWMRouter isRoutingActive] || [MWMRouter hasSavedRoute])
+    return;
+
+  if (self.searchManager.state != MWMSearchManagerStateHidden)
+    return;
+
+  if (self.menuState != MWMBottomMenuStateInactive)
+    return;
+
+  if (ownerController.navigationController.viewControllers.count > 1)
+    return;
+
+  if (ownerController.isLaunchByDeepLink)
     return;
   
   self.tutorialType = [MWMEye getTipType];
@@ -413,7 +427,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   if (!tutorial)
     return;
 
-  auto ownerController = self.ownerController;
   [ownerController addChildViewController:tutorial];
   tutorial.view.frame = ownerController.view.bounds;
   tutorial.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

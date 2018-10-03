@@ -102,6 +102,11 @@ BOOL gIsFirstMyPositionMode = YES;
 @implementation MapViewController
 
 + (MapViewController *)sharedController { return [MapsAppDelegate theApp].mapViewController; }
+
+- (BOOL)isLaunchByDeepLink { return [(EAGLView *)self.view isLaunchByDeepLink]; }
+
+- (void)setLaunchByDeepLink:(BOOL)launchByDeepLink { [(EAGLView *)self.view setLaunchByDeepLink:launchByDeepLink]; }
+
 #pragma mark - Map Navigation
 
 - (void)dismissPlacePage { [self.controlsManager dismissPlacePage]; }
@@ -260,19 +265,16 @@ BOOL gIsFirstMyPositionMode = YES;
   if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
     self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
-  if (!self.welcomePageController)
-    [self.controlsManager showTutorialIfNeeded];
-
   [NSNotificationCenter.defaultCenter addObserver:self
-                                         selector:@selector(willBecomeActive)
-                                             name:UIApplicationWillEnterForegroundNotification
+                                         selector:@selector(didBecomeActive)
+                                             name:UIApplicationDidBecomeActiveNotification
                                            object:nil];
 }
 
-- (void)willBecomeActive
+- (void)didBecomeActive
 {
   if (!self.welcomePageController)
-      [self.controlsManager showTutorialIfNeeded];
+    [self.controlsManager showTutorialIfNeeded];
 }
 
 - (void)viewDidLayoutSubviews

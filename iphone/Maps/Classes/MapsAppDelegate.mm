@@ -184,7 +184,7 @@ using namespace osm_auth_ios;
 - (BOOL)hasApiURL { return m_geoURL || m_mwmURL; }
 - (void)handleURLs
 {
-  static_cast<EAGLView *>(self.mapViewController.view).isLaunchByDeepLink = self.hasApiURL;
+  self.mapViewController.launchByDeepLink = self.hasApiURL;
 
   if (!self.isDrapeEngineCreated)
   {
@@ -487,6 +487,7 @@ using namespace osm_auth_ios;
 {
   LOG(LINFO, ("applicationWillResignActive - begin"));
   [self.mapViewController onGetFocus:NO];
+  self.mapViewController.launchByDeepLink = NO;
   auto & f = GetFramework();
   // On some devices we have to free all belong-to-graphics memory
   // because of new OpenGL driver powered by Metal.

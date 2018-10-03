@@ -26,7 +26,7 @@ namespace dp
 @property(weak, nonatomic) IBOutlet MetalView * metalView;
 
 @property(nonatomic, readonly) BOOL drapeEngineCreated;
-@property(nonatomic) BOOL isLaunchByDeepLink;
+@property(nonatomic, getter=isLaunchByDeepLink) BOOL launchByDeepLink;
 @property(nonatomic, readonly) m2::PointU pixelSize;
 
 - (void)createDrapeEngine;
