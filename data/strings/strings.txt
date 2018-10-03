@@ -34473,4 +34473,19 @@
 
   [rutaxi_title]
     en = RuTaxi
-    fa = RuTaxi
+
+  [restore_subscription]
+    en = Restore the subscription
+    ru = Восстановить подписку
+
+  [restore_success_alert]
+    en = The subscription has been successfully restored
+    ru = Подписка была успешно восстановлена
+
+  [restore_error_alert]
+    en = An error occurred while restoring the subscription
+    ru = Во время восстановления покупок произошла ошибка
+
+  [restore_no_subscription_alert]
+    en = There are no active subscriptions
+    ru = У вас нет активных подписок
