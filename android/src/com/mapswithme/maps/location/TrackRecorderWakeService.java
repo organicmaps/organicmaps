@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,9 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -61,13 +65,29 @@ public class TrackRecorderWakeService extends JobIntentService
   public static void start(@NonNull Context context)
   {
     Context app = context.getApplicationContext();
+
     Intent intent = new Intent(app, TrackRecorderWakeService.class);
     final int jobId = TrackRecorderWakeService.class.hashCode();
     if (Utils.isLollipopOrLater())
     {
       JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-      if (scheduler != null)
-        scheduler.cancel(jobId);
+      Objects.requireNonNull(scheduler);
+      List<JobInfo> pendingJobs = scheduler.getAllPendingJobs();
+      for (JobInfo each : pendingJobs)
+      {
+        if (TrackRecorderWakeService.class.getName().equals(each.getService().getClassName()))
+        {
+          scheduler.cancel(each.getId());
+          String jobsRepresentation = Arrays.toString(pendingJobs.toArray());
+          IllegalStateException exception = new IllegalStateException("Canceled job" +
+                                                                      " : " + each
+                                                                      + ". All jobs" +
+                                                                      " :" +
+                                                                      jobsRepresentation);
+          CrashlyticsUtils.logException(exception);
+          LOGGER.e(TAG, "Job was cancelled", exception);
+        }
+      }
     }
     JobIntentService.enqueueWork(app, TrackRecorderWakeService.class, jobId, intent);
   }
