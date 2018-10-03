@@ -17,7 +17,9 @@ typedef void (^ValidateReceiptCallback)(NSString * _Nonnull serverId, MWMValidat
 + (MWMPurchaseManager * _Nonnull)sharedManager;
 
 - (void)validateReceipt:(NSString * _Nonnull)serverId
+         refreshReceipt:(BOOL)refresh
                callback:(ValidateReceiptCallback _Nonnull)callback;
 - (void)setAdsDisabled:(BOOL)disabled;
+- (void)refreshReceipt;
 
 @end

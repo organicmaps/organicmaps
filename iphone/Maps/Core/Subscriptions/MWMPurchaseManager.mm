@@ -1,16 +1,15 @@
 #import "MWMPurchaseManager.h"
 
 #include "Framework.h"
-#include "Private.h"
+#include "private.h"
 
 #import <StoreKit/StoreKit.h>
 
 @interface MWMPurchaseManager() <SKRequestDelegate>
 
-@property (nonatomic) BOOL didRefreshReceipt;
-@property (nonatomic, copy) ValidateReceiptCallback callback;
-@property (nonatomic) SKReceiptRefreshRequest *receiptRequest;
-@property (nonatomic, copy) NSString * serverId;
+@property(nonatomic, copy) ValidateReceiptCallback callback;
+@property(nonatomic) SKReceiptRefreshRequest *receiptRequest;
+@property(nonatomic, copy) NSString * serverId;
 
 @end
 
@@ -48,24 +47,28 @@
   self.receiptRequest = [[SKReceiptRefreshRequest alloc] init];
   self.receiptRequest.delegate = self;
   [self.receiptRequest start];
-  self.didRefreshReceipt = YES;
 }
 
-- (void)validateReceipt:(NSString *)serverId callback:(ValidateReceiptCallback)callback
+- (void)validateReceipt:(NSString *)serverId
+         refreshReceipt:(BOOL)refresh
+               callback:(ValidateReceiptCallback)callback
 {
   self.callback = callback;
   self.serverId = serverId;
-  [self validateReceipt];
+  [self validateReceipt:refresh];
 }
 
-- (void)validateReceipt
+- (void)validateReceipt:(BOOL)refresh
 {
   NSURL * receiptUrl = [NSBundle mainBundle].appStoreReceiptURL;
   NSData * receiptData = [NSData dataWithContentsOfURL:receiptUrl];
 
   if (!receiptData)
   {
-    [self noReceipt];
+    if (refresh)
+      [self refreshReceipt];
+    else
+      [self noReceipt];
     return;
   }
 
@@ -130,7 +133,7 @@
 
 - (void)requestDidFinish:(SKRequest *)request
 {
-  [self validateReceipt];
+  [self validateReceipt:NO];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error

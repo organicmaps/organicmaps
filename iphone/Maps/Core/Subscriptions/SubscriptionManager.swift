@@ -8,6 +8,7 @@
 
 class SubscriptionManager: NSObject {
   typealias SuscriptionsCompletion = ([ISubscription]?, Error?) -> Void
+  typealias RestorationCompletion = (MWMValidationResult) -> Void
 
   @objc static var shared: SubscriptionManager = { return SubscriptionManager() }()
 
@@ -18,6 +19,7 @@ class SubscriptionManager: NSObject {
   private var products: [String: SKProduct]?
   private var pendingSubscription: ISubscription?
   private var listeners = NSHashTable<SubscriptionManagerListener>.weakObjects()
+  private var restorationCallback: RestorationCompletion?
 
   override private init() {
     super.init()
@@ -54,10 +56,22 @@ class SubscriptionManager: NSObject {
   }
 
   @objc func validate() {
+    validate(false)
+  }
+
+  @objc func restore(_ callback: @escaping RestorationCompletion) {
+    restorationCallback = callback
+    validate(true)
+  }
+
+  private func validate(_ refreshReceipt: Bool) {
     MWMPurchaseManager.shared()
-      .validateReceipt(MWMPurchaseManager.adsRemovalServerId()) { (serverId, validationResult) in
+      .validateReceipt(MWMPurchaseManager.adsRemovalServerId(),
+                       refreshReceipt: refreshReceipt) { (serverId, validationResult) in
         if validationResult == .error {
           Statistics.logEvent(kStatInappValidationError, withParameters: [kStatErrorCode : 2])
+          self.restorationCallback?(.error)
+          self.restorationCallback = nil
           return
         } else {
           if validationResult == .valid {
@@ -71,6 +85,8 @@ class SubscriptionManager: NSObject {
           self.paymentQueue.transactions
             .filter { $0.transactionState == .purchased || $0.transactionState == .restored }
             .forEach { self.paymentQueue.finishTransaction($0) }
+          self.restorationCallback?(validationResult)
+          self.restorationCallback = nil
         }
     }
   }
@@ -114,7 +130,7 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
         .forEach { processPurchased($0) }
       transactions.filter { $0.transactionState == .restored }
         .forEach { processRestored($0) }
-      validate()
+      validate(false)
     }
 
     transactions.filter { $0.transactionState == .deferred }

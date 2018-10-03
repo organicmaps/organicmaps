@@ -36,6 +36,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
+
+@property(nonatomic) BOOL restoringSubscription;
 
 @end
 
@@ -186,6 +189,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self.helpCell configWithTitle:L(@"help") info:nil];
   [self.aboutCell configWithTitle:L(@"about_menu_title") info:nil];
+  [self.restoreSubscriptionCell configWithTitle:L(@"restore_subscription")];
 }
 
 #pragma mark - SettingsTableViewSwitchCellDelegate
@@ -281,7 +285,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  auto cell = static_cast<SettingsTableViewLinkCell *>([tableView cellForRowAtIndexPath:indexPath]);
+  auto cell = [tableView cellForRowAtIndexPath:indexPath];
   if (cell == self.profileCell)
   {
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAuthorization}];
@@ -328,6 +332,42 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatAbout}];
     [self performSegueWithIdentifier:@"SettingsToAbout" sender:nil];
   }
+  else if (cell == self.restoreSubscriptionCell)
+  {
+    self.restoreSubscriptionCell.selected = false;
+    [self.restoreSubscriptionCell.progress startAnimating];
+    self.restoringSubscription = YES;
+    __weak auto s = self;
+    [[SubscriptionManager shared] restore:^(MWMValidationResult result) {
+      __strong auto self = s;
+      self.restoringSubscription = NO;
+      [self.restoreSubscriptionCell.progress stopAnimating];
+      NSString *alertText;
+      switch (result)
+      {
+        case MWMValidationResultValid:
+          alertText = L(@"restore_success_alert");
+          break;
+        case MWMValidationResultNotValid:
+          alertText = L(@"restore_no_subscription_alert");
+          break;
+        case MWMValidationResultError:
+          alertText = L(@"restore_error_alert");
+          break;
+      }
+      [MWMAlertViewController.activeAlertController presentInfoAlert:L(@"restore_subscription")
+                                                                text:alertText];
+    }];
+  }
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto cell = [tableView cellForRowAtIndexPath:indexPath];
+  if (cell == self.restoreSubscriptionCell)
+    return self.restoringSubscription ? nil : indexPath;
+
+  return indexPath;
 }
 
 #pragma mark - UITableViewDataSource
