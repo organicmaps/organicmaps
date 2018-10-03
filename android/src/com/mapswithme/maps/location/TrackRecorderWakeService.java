@@ -73,19 +73,14 @@ public class TrackRecorderWakeService extends JobIntentService
       JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
       Objects.requireNonNull(scheduler);
       List<JobInfo> pendingJobs = scheduler.getAllPendingJobs();
+      String jobsRepresentation = Arrays.toString(pendingJobs.toArray());
       for (JobInfo each : pendingJobs)
       {
         if (TrackRecorderWakeService.class.getName().equals(each.getService().getClassName()))
         {
           scheduler.cancel(each.getId());
-          String jobsRepresentation = Arrays.toString(pendingJobs.toArray());
-          IllegalStateException exception = new IllegalStateException("Canceled job" +
-                                                                      " : " + each
-                                                                      + ". All jobs" +
-                                                                      " :" +
-                                                                      jobsRepresentation);
-          CrashlyticsUtils.logException(exception);
-          LOGGER.e(TAG, "Job was cancelled", exception);
+          String logMsg = "Canceled job: " + each + ". All jobs: " + jobsRepresentation;
+          CrashlyticsUtils.log(Log.INFO, TAG, logMsg);
         }
       }
     }
