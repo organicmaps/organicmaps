@@ -738,7 +738,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if ([MapsAppDelegate theApp].isDrapeEngineCreated)
   {
     auto & rm = GetFramework().GetRoutingManager();
-    if ([self isRoutingActive] || !rm.HasSavedRoutePoints())
+    if ([self isRoutingActive] || ![self hasSavedRoute])
       return;
     rm.LoadRoutePoints([self](bool success)
     {
@@ -752,6 +752,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       [self restoreRouteIfNeeded];
     });
   }
+}
+
++ (BOOL)hasSavedRoute
+{
+  return GetFramework().GetRoutingManager().HasSavedRoutePoints();
 }
 
 @end

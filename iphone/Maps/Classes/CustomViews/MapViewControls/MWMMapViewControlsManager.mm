@@ -405,6 +405,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)showTutorialIfNeeded
 {
+  if ([MWMRouter isRoutingActive] || [MWMRouter hasSavedRoute])
+    return;
+  
   self.tutorialType = [MWMEye getTipType];
   auto tutorial = [self tutorialWithType:self.tutorialType];
   if (!tutorial)

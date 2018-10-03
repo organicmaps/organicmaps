@@ -52,6 +52,7 @@ typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 + (void)saveRouteIfNeeded;
 + (void)restoreRouteIfNeeded;
++ (BOOL)hasSavedRoute;
 
 @end
 
