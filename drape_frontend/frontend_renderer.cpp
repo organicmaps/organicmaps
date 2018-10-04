@@ -139,6 +139,22 @@ private:
 #else
 #define DEBUG_LABEL(context, labelText)
 #endif
+
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+class DrapeMeasurerGuard
+{
+public:
+  DrapeMeasurerGuard()
+  {
+    DrapeMeasurer::Instance().BeforeRenderFrame();
+  }
+
+  ~DrapeMeasurerGuard()
+  {
+    DrapeMeasurer::Instance().AfterRenderFrame();
+  }
+};
+#endif
 }  // namespace
   
 FrontendRenderer::FrontendRenderer(Params && params)
@@ -1563,11 +1579,11 @@ void FrontendRenderer::RenderEmptyFrame()
 
   m_context->Present();
 }
-  
+
 void FrontendRenderer::RenderFrame()
 {
 #if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
-  DrapeMeasurer::Instance().BeforeRenderFrame();
+  DrapeMeasurerGuard drapeMeasurerGuard;
 #endif
   
   CHECK(m_context != nullptr, ());
@@ -1677,10 +1693,6 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_frameTime = m_frameData.m_timer.ElapsedSeconds();
   scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
     m_frameData.m_inactiveFramesCounter + 1 < FrameData::kMaxInactiveFrames);
-  
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
-  DrapeMeasurer::Instance().AfterRenderFrame();
-#endif
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
