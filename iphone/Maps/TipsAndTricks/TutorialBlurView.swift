@@ -11,6 +11,7 @@ class TutorialBlurView: UIVisualEffectView {
     layoutView.translatesAutoresizingMaskIntoConstraints = false
     layoutView.isUserInteractionEnabled = false
     contentView.addSubview(layoutView)
+    effect = nil
   }
 
   override init(effect: UIVisualEffect?) {
@@ -35,21 +36,27 @@ class TutorialBlurView: UIVisualEffectView {
     if superview != nil {
       targetView?.centerXAnchor.constraint(equalTo: layoutView.centerXAnchor).isActive = true
       targetView?.centerYAnchor.constraint(equalTo: layoutView.centerYAnchor).isActive = true
+      guard #available(iOS 11.0, *) else {
+        DispatchQueue.main.async {
+          self.setNeedsLayout()
+        }
+        return
+      }
     }
   }
 
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    let targetCenter = self.layoutView.center
+    let targetCenter = layoutView.center
     let r: CGFloat = 40
     let targetRect = CGRect(x: targetCenter.x - r, y: targetCenter.y - r, width: r * 2, height: r * 2)
-    maskPath = UIBezierPath(rect: self.bounds)
+    maskPath = UIBezierPath(rect: bounds)
     maskPath!.append(UIBezierPath(ovalIn: targetRect))
     maskPath!.usesEvenOddFillRule = true
-    maskLayer.path = self.maskPath!.cgPath
+    maskLayer.path = maskPath!.cgPath
 
-    let pulsationPath = UIBezierPath(rect: self.bounds)
+    let pulsationPath = UIBezierPath(rect: bounds)
     pulsationPath.append(UIBezierPath(ovalIn: targetRect.insetBy(dx: -10, dy: -10)))
     pulsationPath.usesEvenOddFillRule = true
     addPulsation(pulsationPath)
@@ -65,25 +72,33 @@ class TutorialBlurView: UIVisualEffectView {
 
   func animateFadeOut(_ duration: TimeInterval, completion: @escaping () -> Void) {
     UIView.animate(withDuration: duration, animations: {
-      self.effect = nil
+      if #available(iOS 10.0, *) {
+        self.effect = nil
+      }
       self.contentView.alpha = 0
     }) { _ in
+      self.contentView.backgroundColor = .clear
       completion()
     }
   }
 
   func animateAppearance(_ duration: TimeInterval) {
-    contentView.alpha = 0
-    UIView.animate(withDuration: duration) {
-      self.contentView.alpha = 1
-      self.effect = UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark)
+      contentView.alpha = 0
+      UIView.animate(withDuration: duration) {
+        self.contentView.alpha = 1
+        if #available(iOS 10.0, *) {
+          self.effect = UIBlurEffect(style: UIColor.isNightMode() ? .light : .dark)
+        } else {
+          let bgColor = UIColor.isNightMode() ? UIColor.gray : UIColor.black
+          self.contentView.backgroundColor = bgColor.withAlphaComponent(0.5)
+        }
     }
   }
 
   private func addPulsation(_ path: UIBezierPath) {
     let animation = CABasicAnimation(keyPath: "path")
     animation.duration = kDefaultAnimationDuration
-    animation.fromValue = self.maskLayer.path
+    animation.fromValue = maskLayer.path
     animation.toValue = path.cgPath
     animation.autoreverses = true
     animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
