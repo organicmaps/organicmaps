@@ -124,7 +124,7 @@ void CameraNodeProcessor::Process(OsmElement & p, FeatureParams const & params,
 
   int32_t maxSpeedKmPH = 0;
   if (!strings::to_int(maxSpeedStringKmPH.c_str(), maxSpeedKmPH))
-    LOG(LWARNING, ("Bad speed format:", maxSpeedStringKmPH));
+    LOG(LWARNING, ("Bad speed format of camera:", maxSpeedStringKmPH, ", osmId:", p.id));
 
   CHECK_GREATER_OR_EQUAL(maxSpeedKmPH, 0, ());
 
