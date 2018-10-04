@@ -1,5 +1,7 @@
 #include "drape_frontend/drape_measurer.hpp"
 
+#include <iomanip>
+
 namespace df
 {
 DrapeMeasurer & DrapeMeasurer::Instance()
@@ -42,6 +44,7 @@ void DrapeMeasurer::StartBenchmark()
   m_totalTPFCount = 0;
 
   m_minFPS = std::numeric_limits<uint32_t>::max();
+  m_fpsDistribution.clear();
   m_totalFPS = 0.0;
   m_totalFPSCount = 0;
 #endif
@@ -149,6 +152,15 @@ std::string DrapeMeasurer::RenderStatistic::ToString() const
   ss << " FPS = " << m_FPS << "\n";
   ss << " min FPS = " << m_minFPS << "\n";
   ss << " Frame render time, ms = " << m_frameRenderTimeInMs << "\n";
+  if (!m_fpsDistribution.empty())
+  {
+    ss << " FPS Distribution:\n";
+    for (auto const & fps : m_fpsDistribution)
+    {
+      ss << "   " << fps.first << "-" << (fps.first + 10) << ": " << std::setprecision(4)
+         << fps.second * 100.0f << "%\n";
+    }
+  }
   ss << " ----- Render statistic report ----- \n";
 
   return ss.str();
@@ -159,10 +171,20 @@ DrapeMeasurer::RenderStatistic DrapeMeasurer::GetRenderStatistic()
   using namespace std::chrono;
 
   RenderStatistic statistic;
-  statistic.m_FPS = m_totalFPS / m_totalFPSCount;
+  statistic.m_FPS = static_cast<uint32_t>(m_totalFPS / m_totalFPSCount);
   statistic.m_minFPS = m_minFPS;
   statistic.m_frameRenderTimeInMs =
       static_cast<uint32_t>(duration_cast<milliseconds>(m_totalTPF).count()) / m_totalTPFCount;
+
+  uint32_t totalCount = 0;
+  for (auto const & fps : m_fpsDistribution)
+    totalCount += fps.second;
+
+  if (totalCount != 0)
+  {
+    for (auto const & fps : m_fpsDistribution)
+      statistic.m_fpsDistribution[fps.first] = static_cast<float>(fps.second) / totalCount;
+  }
 
   return statistic;
 }
@@ -199,6 +221,9 @@ void DrapeMeasurer::AfterRenderFrame()
 
     m_totalTPF += m_totalFrameRenderTime / m_totalFramesCount;
     ++m_totalTPFCount;
+
+    auto const fpsGroup = (static_cast<uint32_t>(fps) / 10) * 10;
+    m_fpsDistribution[fpsGroup]++;
 #endif
 
     m_totalFramesCount = 0;

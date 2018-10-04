@@ -13,10 +13,10 @@
 #include <mutex>
 #include <numeric>
 #include <vector>
+#include <unordered_map>
 
 namespace df
 {
-
 class DrapeMeasurer
 {
 public:
@@ -33,6 +33,7 @@ public:
     uint32_t m_FPS = 0;
     uint32_t m_minFPS = 0;
     uint32_t m_frameRenderTimeInMs = 0;
+    std::map<uint32_t, float> m_fpsDistribution;
   };
 
   RenderStatistic GetRenderStatistic();
@@ -155,6 +156,7 @@ private:
   uint32_t m_minFPS = std::numeric_limits<uint32_t>::max();
   double m_totalFPS = 0.0;
   uint32_t m_totalFPSCount = 0;
+  std::unordered_map<uint32_t, uint32_t> m_fpsDistribution;
 #endif
 
 #if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
@@ -171,5 +173,4 @@ private:
   uint32_t m_numberOfSnapshots = 0;
 #endif
 };
-
-}
+}  // namespace df
