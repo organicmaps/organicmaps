@@ -58,6 +58,8 @@ set(SRC
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp
+  geo_objects/geo_objects.cpp
+  geo_objects/geo_objects.hpp
   holes.cpp
   holes.hpp
   intermediate_data.cpp

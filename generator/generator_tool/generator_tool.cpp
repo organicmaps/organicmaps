@@ -11,6 +11,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/geo_objects/geo_objects.hpp"
 #include "generator/locality_sorter.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
@@ -168,6 +169,13 @@ DEFINE_bool(generate_addresses_file, false, "Generate .addr file (for '--output'
 DEFINE_bool(generate_traffic_keys, false,
             "Generate keys for the traffic map (road segment -> speed group).");
 
+// Generating geo objects key-value.
+DEFINE_string(regions_index, "", "Input regions index file.");
+DEFINE_string(regions_key_value, "", "Input regions key-value file.");
+DEFINE_string(geo_objects_features, "", "Input geo_objects tmp.mwm file.");
+DEFINE_string(ids_without_address, "", "Output file with objects ids without adresses.");
+DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
+
 // Common.
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
@@ -249,7 +257,8 @@ int main(int argc, char ** argv)
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_city_roads || FLAGS_generate_traffic_keys || FLAGS_transit_path != "" ||
-      FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" || FLAGS_generate_geo_objects_features)
+      FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" || FLAGS_generate_geo_objects_features ||
+      FLAGS_geo_objects_key_value != "")
   {
     classificator::Load();
     classif().SortClassificator();
@@ -315,6 +324,14 @@ int main(int argc, char ** argv)
       if (!GenerateGeoObjectsFeatures(genInfo))
         return -1;
     }
+  }
+
+  if (!FLAGS_geo_objects_key_value.empty())
+  {
+    if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
+                                         FLAGS_geo_objects_features, FLAGS_ids_without_address,
+                                         FLAGS_geo_objects_key_value, FLAGS_verbose))
+      return -1;
   }
 
   if (genInfo.m_bucketNames.empty() && !FLAGS_output.empty())
