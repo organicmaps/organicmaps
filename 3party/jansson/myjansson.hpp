@@ -38,6 +38,12 @@ public:
   explicit Json(std::string const & s) { ParseFrom(s); }
   explicit Json(char const * s) { ParseFrom(s); }
 
+  Json GetDeepCopy() const
+  {
+    Json copy;
+    copy.m_handle = JsonHandle(get_deep_copy());
+    return copy;
+  }
   void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }
   void ParseFrom(char const * s)
   {
