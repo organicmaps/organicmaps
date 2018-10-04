@@ -104,7 +104,7 @@ public class ToggleMapLayerDialog extends DialogFragment
 
     Fragment oldInstance = fm.findFragmentByTag(tag);
     if (oldInstance != null)
-      fm.beginTransaction().remove(oldInstance).commit();
+      fm.beginTransaction().remove(oldInstance).commitAllowingStateLoss();
 
     frag.show(fm, tag);
   }
