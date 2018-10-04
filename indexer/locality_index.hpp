@@ -15,6 +15,8 @@
 #include <memory>
 #include <set>
 
+#include "defines.hpp"
+
 namespace indexer
 {
 // Geometry index which stores base::GeoObjectId as object identifier.
@@ -39,10 +41,10 @@ public:
     for (auto const & i : intervals)
     {
       m_intervalIndex->ForEach(
-          [&processObject](uint64_t storedId) {
-            processObject(LocalityObject::FromStoredId(storedId));
-          },
-          i.first, i.second);
+            [&processObject](uint64_t storedId) {
+        processObject(LocalityObject::FromStoredId(storedId));
+      },
+      i.first, i.second);
     }
   }
 
@@ -75,8 +77,20 @@ private:
 };
 
 template <typename Reader>
-using GeoObjectsIndex = LocalityIndex<Reader, kGeoObjectsDepthLevels>;
+struct GeoObjectsIndex
+{
+  static constexpr const char * kFileTag = GEO_OBJECTS_INDEX_FILE_TAG;
+
+  using ReaderType = Reader;
+  using Type = LocalityIndex<ReaderType, kGeoObjectsDepthLevels>;
+};
 
 template <typename Reader>
-using RegionsIndex = LocalityIndex<Reader, kRegionsDepthLevels>;
+struct RegionsIndex
+{
+  static constexpr const char * kFileTag = REGIONS_INDEX_FILE_TAG;
+
+  using ReaderType = Reader;
+  using Type = LocalityIndex<ReaderType, kRegionsDepthLevels>;
+};
 }  // namespace indexer
