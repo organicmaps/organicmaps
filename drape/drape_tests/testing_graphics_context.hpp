@@ -19,8 +19,11 @@ public:
   std::string GetRendererName() const override { return {}; }
   std::string GetRendererVersion() const override { return {}; }
 
+  void PushDebugLabel(std::string const & label) override {}
+  void PopDebugLabel() override {}
+
   void SetClearColor(dp::Color const & color) override {}
-  void Clear(uint32_t clearBits) override {}
+  void Clear(uint32_t clearBits, uint32_t storeBits) override {}
   void Flush() override {}
   void SetViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override {}
   void SetDepthTestEnabled(bool enabled) override {}
@@ -29,6 +32,7 @@ public:
   void SetStencilFunction(dp::StencilFace face, dp::TestFunction stencilFunction) override {}
   void SetStencilActions(dp::StencilFace face, dp::StencilAction stencilFailAction,
                          dp::StencilAction depthFailAction, dp::StencilAction passAction) override {}
+  void SetStencilReferenceValue(uint32_t stencilReferenceValue) override {}
 
 private:
   dp::ApiVersion m_apiVersion = dp::ApiVersion::OpenGLES2;
