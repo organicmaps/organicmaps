@@ -1376,6 +1376,10 @@
 	<string name="server_unavailable_title">서버를 사용할 수 없습니다</string>
 	<string name="server_unavailable_message">구매가 나중에 완료됩니다. 계속 에러 지속시, support\@maps.me로 연락 바랍니다.</string>
 	<string name="offline_fiters_check_in">인터넷에 연결해 날짜를 통해서 호텔들을 필터 하세요.</string>
+	<string name="restore_subscription">구독 복구</string>
+	<string name="restore_success_alert">구독이 성공적으로 복구 되었습니다</string>
+	<string name="restore_error_alert">구독을 복구하는 동안 오류가 발생했습니다</string>
+	<string name="restore_no_subscription_alert">활성화 된 구독이 없습니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

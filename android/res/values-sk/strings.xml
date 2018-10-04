@@ -1385,6 +1385,10 @@
 	<string name="server_unavailable_title">Server je nedostupný</string>
 	<string name="server_unavailable_message">Nákup bude dokončený neskôr. Ak chyba pretrváva, kontaktujte support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Pripojte sa na internet, aby ste filtrovali hotely podľa dátumov.</string>
+	<string name="restore_subscription">Obnovte si predplatné</string>
+	<string name="restore_success_alert">Predplatné bolo úspešne obnovené</string>
+	<string name="restore_error_alert">Pri obnovení predplatného sa vyskytla chyba</string>
+	<string name="restore_no_subscription_alert">Neexistuje žiadne aktívne predplatné</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

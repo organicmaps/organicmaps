@@ -1145,6 +1145,10 @@
 	<string name="server_unavailable_title">Ο εξυπηρετητής δεν είναι διαθέσιμος</string>
 	<string name="server_unavailable_message">Η αγορά θα ολοκληρωθεί αργότερα. Αν το σφάλμα επιμένει, παρακαλώ επικοινωνήστε στο support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Συνδεθείτε στο διαδίκτυο για να φιλτράρετε ξενοδοχεία με βάση τις ημερομηνίες.</string>
+	<string name="restore_subscription">Επαναφορά της συνδρομής</string>
+	<string name="restore_success_alert">Η συνδρομή έχει αποκατασταθεί με επιτυχία</string>
+	<string name="restore_error_alert">Παρουσιάστηκε σφάλμα κατά την επαναφορά της συνδρομής</string>
+	<string name="restore_no_subscription_alert">Δεν υπάρχουν ενεργές συνδρομές</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Επαναφορά της συνδρομής";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "Η συνδρομή έχει αποκατασταθεί με επιτυχία";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Παρουσιάστηκε σφάλμα κατά την επαναφορά της συνδρομής";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Δεν υπάρχουν ενεργές συνδρομές";
 
 
 /**********  Partners  **********/

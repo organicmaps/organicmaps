@@ -1389,6 +1389,10 @@
 	<string name="server_unavailable_title">Sever je nedostupný</string>
 	<string name="server_unavailable_message">Nákup bude dokončen později. Pokud se bude chyba opakovat, kontaktujte nás na support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Připojte se k internetu, abyste si vybrali datum příjezdu a odjezdu.</string>
+	<string name="restore_subscription">Obnovit předplatné</string>
+	<string name="restore_success_alert">Předplatné bylo úspěšně obnoveno</string>
+	<string name="restore_error_alert">Během obnovování předplatného došlo k chybě</string>
+	<string name="restore_no_subscription_alert">Neexistuje žádné aktivní předplatné</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

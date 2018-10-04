@@ -1380,6 +1380,10 @@
 	<string name="server_unavailable_title">Server tidak tersedia</string>
 	<string name="server_unavailable_message">Pembelian akan diselesaikan nanti. Jika kesalahan tetap terjadi, silakan hubungi support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Sambungkan ke internet untuk memfilter hotel berdasar tanggal.</string>
+	<string name="restore_subscription">Pulihkan langganan</string>
+	<string name="restore_success_alert">Langganan telah berhasil dipulihkan</string>
+	<string name="restore_error_alert">Terjadi kesalahan saat sedang memulihkan langganan</string>
+	<string name="restore_no_subscription_alert">Tidak ada langganan yang aktif</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

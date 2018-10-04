@@ -1380,6 +1380,10 @@
 	<string name="server_unavailable_title">Server non è disponibile</string>
 	<string name="server_unavailable_message">L\'acquisto verrà completato più tardi. Se l\'errore persiste, si prega di contattare support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Per scegliere la data di check-in e check-out bisogna collegarsi a internet.</string>
+	<string name="restore_subscription">Ripristina l\'abbonamento</string>
+	<string name="restore_success_alert">L\'abbonamento è stato ripristinato correttamente</string>
+	<string name="restore_error_alert">Si è verificato un errore durante il ripristino dell\'abbonamento</string>
+	<string name="restore_no_subscription_alert">Non vi sono abbonamenti attivi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

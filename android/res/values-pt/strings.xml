@@ -1384,6 +1384,10 @@
 	<string name="server_unavailable_title">O servidor está indisponível</string>
 	<string name="server_unavailable_message">A compra será completada mais tarde. Se o error persistir, entre em contacto com support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Ligue-se à іnternet para filtrar os hotéis por datas.</string>
+	<string name="restore_subscription">Restaurar a subscrição</string>
+	<string name="restore_success_alert">A subscrição foi restaurada com sucesso</string>
+	<string name="restore_error_alert">Ocorreu um erro ao restaurar a subscrição</string>
+	<string name="restore_no_subscription_alert">Não há subscrições ativas</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

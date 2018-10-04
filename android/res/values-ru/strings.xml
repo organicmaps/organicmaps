@@ -1433,7 +1433,7 @@
 	<string name="offline_fiters_check_in">Подключитесь к интернету, чтобы выбрать дату заезда и выезда.</string>
 	<string name="restore_subscription">Восстановить подписку</string>
 	<string name="restore_success_alert">Подписка была успешно восстановлена</string>
-	<string name="restore_error_alert">Во время восстановления покупок произошла ошибка</string>
+	<string name="restore_error_alert">Во время восстановления подписки произошла ошибка</string>
 	<string name="restore_no_subscription_alert">У вас нет активных подписок</string>
 
 	<!-- SECTION:  Partners  -->

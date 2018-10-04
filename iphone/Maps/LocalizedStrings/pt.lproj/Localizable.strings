@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Restaurar a subscrição";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "A subscrição foi restaurada com sucesso";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Ocorreu um erro ao restaurar a subscrição";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Não há subscrições ativas";
 
 
 /**********  Partners  **********/

@@ -1374,6 +1374,10 @@
 	<string name="server_unavailable_title">Servidor no disponible</string>
 	<string name="server_unavailable_message">La compra se completará más tarde. Si el error persiste, póngase en contacto con support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Conéctese a Internet para seleccionar la fecha de llegada y salida.</string>
+	<string name="restore_subscription">Restablecer la suscripción</string>
+	<string name="restore_success_alert">La suscripción se ha restablecido correctamente</string>
+	<string name="restore_error_alert">Se ha producido un error al restablecer la suscripción</string>
+	<string name="restore_no_subscription_alert">No hay suscripciones activas</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1385,6 +1385,10 @@
 	<string name="server_unavailable_title">Serwer jest niedostępny</string>
 	<string name="server_unavailable_message">Zakup zostanie sfinalizowany później. Jeśli błąd wystąpi ponownie, prosimy o kontakt z support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Połącz się z іnternetem aby wybrać datę zameldowania i wymeldowania.</string>
+	<string name="restore_subscription">Przywróć subskrypcję</string>
+	<string name="restore_success_alert">Subskrypcja została pomyślnie przywrócona</string>
+	<string name="restore_error_alert">Podczas przywracania subskrypcji wystąpił błąd</string>
+	<string name="restore_no_subscription_alert">Brak aktywnych subskrypcji</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

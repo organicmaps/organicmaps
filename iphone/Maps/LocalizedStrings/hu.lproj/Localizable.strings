@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Előfizetés visszaállítása";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "Az előfizetés sikeresen visszaállításra került";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Hiba lépett fel az előfizetés visszaállítása során";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Nincs aktív előfizetés";
 
 
 /**********  Partners  **********/

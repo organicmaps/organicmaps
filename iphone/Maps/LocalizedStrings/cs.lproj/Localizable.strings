@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Obnovit předplatné";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "Předplatné bylo úspěšně obnoveno";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Během obnovování předplatného došlo k chybě";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Neexistuje žádné aktivní předplatné";
 
 
 /**********  Partners  **********/

@@ -1381,6 +1381,10 @@
 	<string name="server_unavailable_title">Server niet beschikbaar</string>
 	<string name="server_unavailable_message">De aankoop zal later worden voltooid. Neem contact op met support\@maps.me als de fout aanhoudt.</string>
 	<string name="offline_fiters_check_in">Verbind met internet om de datum van aankomst en vertrek te selecteren.</string>
+	<string name="restore_subscription">Herstel het abonnement</string>
+	<string name="restore_success_alert">Het abonnement is met succes hersteld</string>
+	<string name="restore_error_alert">Er deed zich een fout voor bij het herstellen van het abonnement</string>
+	<string name="restore_no_subscription_alert">Er zijn geen actieve abonnementen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

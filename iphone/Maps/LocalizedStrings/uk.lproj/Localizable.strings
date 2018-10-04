@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Відновити підписку";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "Підписку успішно відновлено";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Під час відновлення підписки сталася помилка";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Активних підписок немає";
 
 
 /**********  Partners  **********/

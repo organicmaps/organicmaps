@@ -1386,6 +1386,10 @@
 	<string name="server_unavailable_title">Hizmet kullanılamıyor</string>
 	<string name="server_unavailable_message">Satın alma işlemi daha sonra tamamlanacak. Sorun devam ederse lütfen support\@maps.me adresine ulaşın.</string>
 	<string name="offline_fiters_check_in">Otelleri tarihe göre filtrelemek için internete bağlanın.</string>
+	<string name="restore_subscription">Aboneliği geri yükle</string>
+	<string name="restore_success_alert">Abonelik başarılı bir şekilde geri yüklendi</string>
+	<string name="restore_error_alert">Abonelik geri yüklenirken bir hata oluştu</string>
+	<string name="restore_no_subscription_alert">Aktif abonelik yok</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

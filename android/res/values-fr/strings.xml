@@ -1395,6 +1395,10 @@
 	<string name="server_unavailable_title">Le serveur n\'est pas disponible</string>
 	<string name="server_unavailable_message">L\'achat sera complété plus tard. Si l\'erreur persiste, veuillez contacter support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Connectez-vous à Internet pour sélectionner les hôtels par dates.</string>
+	<string name="restore_subscription">Restaurer l\'abonnement</string>
+	<string name="restore_success_alert">L\'abonnement a été restauré avec succès</string>
+	<string name="restore_error_alert">Une erreur s\'est produite lors de la restauration de l\'abonnement</string>
+	<string name="restore_no_subscription_alert">Il n\'y a aucun abonnement actif</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

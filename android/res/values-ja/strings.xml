@@ -1379,6 +1379,10 @@
 	<string name="server_unavailable_title">サーバーは利用できません</string>
 	<string name="server_unavailable_message">ご購入は後ほど完了します。エラーが続く場合は、support\@maps.meまでご連絡ください。</string>
 	<string name="offline_fiters_check_in">インターネットに接続して、ホテルを日付で絞り込み検索します。</string>
+	<string name="restore_subscription">サブスクリプションを復元</string>
+	<string name="restore_success_alert">サブスクリプションの復元が完了しました</string>
+	<string name="restore_error_alert">サブスクリプションの復元中にエラーが発生しました</string>
+	<string name="restore_no_subscription_alert">有効なサブスクリプションはありません</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

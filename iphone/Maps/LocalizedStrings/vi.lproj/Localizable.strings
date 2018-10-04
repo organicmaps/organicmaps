@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "Khôi phục đăng ký";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "Đăng ký đã được khôi phục thành công";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "Đã xảy ra lỗi khi khôi phục đăng ký";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "Không có đăng ký đang hoạt động";
 
 
 /**********  Partners  **********/

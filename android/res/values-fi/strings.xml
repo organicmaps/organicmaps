@@ -1381,6 +1381,10 @@
 	<string name="server_unavailable_title">Serveri ei ole saatavilla</string>
 	<string name="server_unavailable_message">Ostos viimeistellään myöhemmin. Jos virhe jatkuu, ota yhteyttä support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Yhdistä internettiin suodattaaksesi hotelleja päivillä.</string>
+	<string name="restore_subscription">Palauta tilaus</string>
+	<string name="restore_success_alert">Tilaus on palautettu onnistuneesti</string>
+	<string name="restore_error_alert">Tilausta palautettaessa ilmeni ongelma</string>
+	<string name="restore_no_subscription_alert">Aktiivisia tilauksia ei ole</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

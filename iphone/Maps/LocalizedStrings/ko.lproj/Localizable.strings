@@ -2470,13 +2470,13 @@
 
 "rutaxi_title" = "RuTaxi";
 
-"restore_subscription" = "Restore the subscription";
+"restore_subscription" = "구독 복구";
 
-"restore_success_alert" = "The subscription has been successfully restored";
+"restore_success_alert" = "구독이 성공적으로 복구 되었습니다";
 
-"restore_error_alert" = "An error occurred while restoring the subscription";
+"restore_error_alert" = "구독을 복구하는 동안 오류가 발생했습니다";
 
-"restore_no_subscription_alert" = "There are no active subscriptions";
+"restore_no_subscription_alert" = "활성화 된 구독이 없습니다";
 
 
 /**********  Partners  **********/

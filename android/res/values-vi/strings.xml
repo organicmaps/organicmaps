@@ -1377,6 +1377,10 @@
 	<string name="server_unavailable_title">Máy chủ không khả dụng</string>
 	<string name="server_unavailable_message">Giao dịch mua sẽ được hoàn thành sau. Nếu vẫn còn lỗi, vui lòng liên hệ với support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Kết nối với internet để lọc khách sạn theo ngày tháng.</string>
+	<string name="restore_subscription">Khôi phục đăng ký</string>
+	<string name="restore_success_alert">Đăng ký đã được khôi phục thành công</string>
+	<string name="restore_error_alert">Đã xảy ra lỗi khi khôi phục đăng ký</string>
+	<string name="restore_no_subscription_alert">Không có đăng ký đang hoạt động</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

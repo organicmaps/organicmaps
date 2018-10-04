@@ -1385,6 +1385,10 @@
 	<string name="server_unavailable_title">Server er utilgængelig</string>
 	<string name="server_unavailable_message">Købet vil blive gennemført senere. Hvis fejlen bliver ved med at opstå, så kontakt venligst support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Tilslutter til internettet for at filtrere hoteller efter datoer.</string>
+	<string name="restore_subscription">Genopret abonnementet</string>
+	<string name="restore_success_alert">Abonnementet er blevet genoprettet</string>
+	<string name="restore_error_alert">Der er sket en fejl under genoprettelsen af abonnementet</string>
+	<string name="restore_no_subscription_alert">Der er ingen aktive abonnementer</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

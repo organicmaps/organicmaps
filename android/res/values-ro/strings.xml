@@ -1377,6 +1377,10 @@
 	<string name="server_unavailable_title">Serverul nu este disponibil</string>
 	<string name="server_unavailable_message">Achiziția va fi finalizată mai târziu. Dacă eroarea se repetă, contactați support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Conectați-vă la internet pentru a putea alege data sosirii și plecării.</string>
+	<string name="restore_subscription">Restabiliți abonamentul</string>
+	<string name="restore_success_alert">Abonamentul a fost restabilit</string>
+	<string name="restore_error_alert">A apărut o eroare la restabilirea abonamentului</string>
+	<string name="restore_no_subscription_alert">Nu există abonamente active</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

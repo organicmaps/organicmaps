@@ -1385,6 +1385,10 @@
 	<string name="server_unavailable_title">Servern är inte tillgänglig</string>
 	<string name="server_unavailable_message">Köpet fullbordas senare. Om felet kvarstår, vänligen kontakta support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Koppla upp dig mot internet för att filtrera hotellen per datum.</string>
+	<string name="restore_subscription">Återställ prenumerationen</string>
+	<string name="restore_success_alert">Prenumerationen har återställts</string>
+	<string name="restore_error_alert">Ett fel uppstod vid återställning av prenumerationen</string>
+	<string name="restore_no_subscription_alert">Det finns inga aktiva prenumerationer</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

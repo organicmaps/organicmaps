@@ -1395,6 +1395,10 @@
 	<string name="server_unavailable_title">Server unzugänglich</string>
 	<string name="server_unavailable_message">Der Kauf wird später abgeschlossen. Wenn der Fehler anhält, kontaktieren Sie support\@maps.me.</string>
 	<string name="offline_fiters_check_in">Verbinden Sie sich mit dem Internet, um das Datum der Ankunft und der Abreise auszuwählen.</string>
+	<string name="restore_subscription">Stellen Sie das Abonnement wieder her</string>
+	<string name="restore_success_alert">Das Abonnement wurde erfolgreich wiederhergestellt</string>
+	<string name="restore_error_alert">Ein Fehler ist bei der Wiederherstellung des Abonnements aufgetreten</string>
+	<string name="restore_no_subscription_alert">Es gibt keine aktiven Abonnements</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Seilbahn</string>
