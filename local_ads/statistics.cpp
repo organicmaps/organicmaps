@@ -130,7 +130,7 @@ local_ads::Timestamp GetMaxTimestamp(std::list<local_ads::Event> const & events,
 
 std::string GetPath(std::string const & fileName)
 {
-  return base::JoinFoldersToPath({GetPlatform().WritableDir(), kStatisticsFolderName}, fileName);
+  return base::JoinFoldersToPath({GetPlatform().SettingsDir(), kStatisticsFolderName}, fileName);
 }
 
 std::string GetPath(local_ads::Event const & event)
@@ -268,6 +268,12 @@ void Statistics::RegisterEvents(std::list<Event> && events)
     return;
   GetPlatform().RunTask(Platform::Thread::File,
                         std::bind(&Statistics::ProcessEvents, this, std::move(events)));
+}
+
+void Statistics::RegisterEventSync(Event && event)
+{
+  std::list<Event> events = {std::move(event)};
+  ProcessEvents(events);
 }
 
 void Statistics::SetEnabled(bool isEnabled)

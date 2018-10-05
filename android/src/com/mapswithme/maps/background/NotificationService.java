@@ -44,16 +44,19 @@ public class NotificationService extends JobIntentService
 
   private boolean notifyIsNotAuthenticated()
   {
+    final boolean isAuthenticated = LightFramework.nativeIsAuthenticated();
+    final int numberUnsentUgc = LightFramework.nativeGetNumberUnsentUGC();
+
     if (!PermissionsUtils.isExternalStorageGranted() ||
         !NetworkPolicy.getCurrentNetworkUsageStatus() ||
-        LightFramework.nativeIsAuthenticated() ||
-        LightFramework.nativeGetNumberUnsentUGC() < MIN_COUNT_UNSENT_UGC)
+        isAuthenticated ||
+        numberUnsentUgc < MIN_COUNT_UNSENT_UGC)
     {
       LOGGER.d(TAG, "Authentication notification is rejected. External storage granted: " +
                     PermissionsUtils.isExternalStorageGranted() + ". Is user authenticated: " +
-                    LightFramework.nativeIsAuthenticated() + ". Current network usage status: " +
+                    isAuthenticated + ". Current network usage status: " +
                     NetworkPolicy.getCurrentNetworkUsageStatus() + ". Number of unsent UGC: " +
-                    LightFramework.nativeGetNumberUnsentUGC());
+                    numberUnsentUgc);
       return false;
     }
 

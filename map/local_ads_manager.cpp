@@ -22,6 +22,7 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/multilang_utf8_string.hpp"
+#include "coding/point_to_integer.hpp"
 #include "coding/url_encode.hpp"
 
 #include "base/url_helpers.hpp"
@@ -42,6 +43,7 @@ std::string const kServerUrl = LOCAL_ADS_SERVER_URL;
 std::string const kCampaignPageUrl = LOCAL_ADS_COMPANY_PAGE_URL;
 
 std::string const kCampaignFile = "local_ads_campaigns.dat";
+std::string const kCampaignFeaturesFile = "local_ads_features.dat";
 std::string const kLocalAdsSymbolsFile = "local_ads_symbols.txt";
 auto constexpr kWWanUpdateTimeout = std::chrono::hours(12);
 uint8_t constexpr kRequestMinZoomLevel = 12;
@@ -49,6 +51,11 @@ auto constexpr kFailedDownloadingTimeout = std::chrono::seconds(2);
 auto constexpr kMaxDownloadingAttempts = 5;
 
 auto constexpr kHiddenFeaturePriority = 1;
+
+double constexpr kMinCheckDistanceInMeters = 10.0;
+double constexpr kMinSearchRadiusInMeters = 20.0;
+uint32_t constexpr kMaxHitCount = 3;
+auto const kMinCheckInterval = std::chrono::minutes(1);
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
@@ -69,7 +76,7 @@ void DeserializeCampaign(ReaderSource<FileReader> & src, std::string & countryNa
 
 std::string GetPath(std::string const & fileName)
 {
-  return base::JoinFoldersToPath(GetPlatform().WritableDir(), fileName);
+  return base::JoinFoldersToPath(GetPlatform().SettingsDir(), fileName);
 }
 
 std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
@@ -133,126 +140,6 @@ std::string GetCustomIcon(FeatureType & featureType)
   return {};
 }
 
-using CampaignData = std::map<FeatureID, std::shared_ptr<LocalAdsMarkData>>;
-
-CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
-                           LocalAdsManager::Timestamp timestamp,
-                           LocalAdsManager::GetFeatureByIdFn const & getFeatureByIdFn)
-{
-  ASSERT(getFeatureByIdFn != nullptr, ());
-  CampaignData data;
-  auto campaigns = local_ads::Deserialize(rawData);
-  for (local_ads::Campaign const & campaign : campaigns)
-  {
-    FeatureID featureId(mwmId, campaign.m_featureId);
-    if (!featureId.IsValid())
-      continue;
-
-    if (campaign.m_priority == kHiddenFeaturePriority)
-    {
-      data.insert(std::make_pair(featureId, nullptr));
-      continue;
-    }
-
-    std::string iconName = campaign.GetIconName();
-    auto const expiration = timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired);
-    if (iconName.empty() || local_ads::Clock::now() > expiration)
-      continue;
-
-    FeatureType featureType;
-    if (getFeatureByIdFn(featureId, featureType))
-    {
-      auto const customIcon = GetCustomIcon(featureType);
-      if (!customIcon.empty())
-        iconName = customIcon;
-    }
-
-    auto markData = std::make_shared<LocalAdsMarkData>();
-    markData->m_symbolName = iconName;
-    markData->m_minZoomLevel = campaign.m_minZoomLevel;
-    data.insert(std::make_pair(featureId, std::move(markData)));
-  }
-
-  return data;
-}
-
-df::CustomFeatures ReadCampaignFeatures(LocalAdsManager::ReadFeaturesFn const & reader,
-                                        CampaignData & campaignData)
-{
-  ASSERT(reader != nullptr, ());
-
-  std::vector<FeatureID> features;
-  features.reserve(campaignData.size());
-  df::CustomFeatures customFeatures;
-  for (auto const & data : campaignData)
-  {
-    if (data.second)
-      features.push_back(data.first);
-    customFeatures.insert(std::make_pair(data.first, data.second != nullptr));
-  }
-
-  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
-  reader(
-      [&campaignData, deviceLang](FeatureType & ft) {
-        auto it = campaignData.find(ft.GetID());
-        CHECK(it != campaignData.end(), ());
-        CHECK(it->second != nullptr, ());
-        it->second->m_position = feature::GetCenter(ft, scales::GetUpperScale());
-        ft.GetPreferredNames(true /* allowTranslit */, deviceLang, it->second->m_mainText,
-                             it->second->m_auxText);
-      },
-      features);
-
-  return customFeatures;
-}
-
-void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData && campaignData)
-{
-  if (bmManager == nullptr)
-    return;
-
-  // Here we copy campaign data, because we can create user marks only from UI thread.
-  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData = std::move(campaignData)]()
-  {
-    auto editSession = bmManager->GetEditSession();
-    for (auto const & data : campaignData)
-    {
-      if (data.second == nullptr)
-        continue;
-
-      auto * mark = editSession.CreateUserMark<LocalAdsMark>(data.second->m_position);
-      mark->SetData(LocalAdsMarkData(*data.second));
-      mark->SetFeatureId(data.first);
-    }
-  });
-}
-
-void DeleteLocalAdsMarks(BookmarkManager * bmManager, MwmSet::MwmId const & mwmId)
-{
-  if (bmManager == nullptr)
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, mwmId]()
-  {
-    bmManager->GetEditSession().DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
-                                                              [&mwmId](LocalAdsMark const * mark)
-                                                              {
-                                                                return mark->GetFeatureID().m_mwmId == mwmId;
-                                                              });
-  });
-}
-
-void DeleteAllLocalAdsMarks(BookmarkManager * bmManager)
-{
-  if (bmManager == nullptr)
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager]()
-  {
-    bmManager->GetEditSession().ClearGroup(UserMark::Type::LOCAL_ADS);
-  });
-}
-
 std::string MakeCampaignPageURL(FeatureID const & featureId)
 {
   if (kCampaignPageUrl.empty() || !featureId.m_mwmId.IsAlive())
@@ -276,6 +163,74 @@ std::string MakeCampaignPageURL(FeatureID const & featureId)
   return url::Make(ss.str(), params);
 }
 }  // namespace
+
+namespace features_cache
+{
+enum class Version : uint8_t
+{
+  V0 = 0,
+  Latest = V0
+};
+
+struct PackedCampaignFeature
+{
+  PackedCampaignFeature() = default;
+  PackedCampaignFeature(uint32_t featureIndex, int64_t mercator)
+    : m_featureIndex(featureIndex)
+    , m_mercator(mercator)
+  {}
+
+  uint32_t m_featureIndex = 0;
+  int64_t m_mercator = 0;
+};
+
+void SerializeVersion(FileWriter & writer, Version version)
+{
+  WriteToSink(writer, static_cast<uint8_t>(version));
+}
+
+void SerializeMwmData(FileWriter & writer, std::string const & countryId, int64_t mwmVersion)
+{
+  local_ads::WriteCountryName(writer, countryId);
+  local_ads::WriteZigZag(writer, mwmVersion);
+}
+
+void SerializePackedFeatures(FileWriter & writer, std::vector<PackedCampaignFeature> const & packedFeatures)
+{
+  auto const featuresCount = static_cast<uint32_t>(packedFeatures.size());
+  WriteToSink(writer, featuresCount);
+  for (auto const & data : packedFeatures)
+  {
+    WriteToSink(writer, data.m_featureIndex);
+    local_ads::WriteZigZag(writer, data.m_mercator);
+  }
+}
+
+Version DeserializeVersion(ReaderSource<FileReader> & src)
+{
+  return static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(src));
+}
+
+void DeserializeMwmData(ReaderSource<FileReader> & src, std::string & countryId, int64_t & mwmVersion)
+{
+  countryId = local_ads::ReadCountryName(src);
+  mwmVersion = local_ads::ReadZigZag(src);
+}
+
+void DeserializePackedFeatures(ReaderSource<FileReader> & src, std::vector<PackedCampaignFeature> & packedFeatures)
+{
+  auto const featuresCount = ReadPrimitiveFromSource<uint32_t>(src);
+  packedFeatures.clear();
+  packedFeatures.reserve(static_cast<size_t>(featuresCount));
+  for (uint32_t i = 0; i < featuresCount; ++i)
+  {
+    PackedCampaignFeature data;
+    data.m_featureIndex = ReadPrimitiveFromSource<uint32_t>(src);
+    data.m_mercator = local_ads::ReadZigZag(src);
+    packedFeatures.push_back(data);
+  }
+}
+}  // namespace features_cache
 
 LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
                                  GetMwmIdByNameFn && getMwmIdByName,
@@ -341,6 +296,11 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
   if (mwms.empty())
     return;
+
+  if (m_lastMwms == mwms)
+    return;
+
+  m_lastMwms = mwms;
 
   // Request local ads campaigns.
   GetPlatform().RunTask(Platform::Thread::File, [this, mwms = std::move(mwms)]()
@@ -461,7 +421,6 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
 {
   GetPlatform().RunTask(Platform::Thread::Network, [this, requests = std::move(requests)]
   {
-    std::string const campaignFile = GetPath(kCampaignFile);
     for (auto const & request : requests)
     {
       auto const & mwm = request.first;
@@ -486,8 +445,8 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
           auto campaignData = ParseCampaign(info.m_data, mwm, info.m_created, m_getFeatureByIdFn);
           if (!campaignData.empty())
           {
-            UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
-            CreateLocalAdsMarks(m_bmManager, std::move(campaignData));
+            UpdateFeaturesCache(ReadCampaignFeatures(campaignData));
+            CreateLocalAdsMarks(std::move(campaignData));
           }
         }
         
@@ -503,17 +462,22 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
         ClearLocalAdsForMwm(mwm);
       }
     }
-    
+
+    auto const campaignFile = GetPath(kCampaignFile);
+    auto const featureFile = GetPath(kCampaignFeaturesFile);
+
     // Save data persistently.
-    GetPlatform().RunTask(Platform::Thread::File, [this, campaignFile]
+    GetPlatform().RunTask(Platform::Thread::File, [this, campaignFile, featureFile]
     {
       WriteCampaignFile(campaignFile);
+      WriteFeaturesFile(featureFile);
     });
   });
 }
 
 void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 {
+  m_lastMwms.clear();
   GetPlatform().RunTask(Platform::Thread::File, [this, countryName]
   {
     std::lock_guard<std::mutex> lock(m_campaignsMutex);
@@ -524,6 +488,7 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 
 void LocalAdsManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 {
+  m_lastMwms.clear();
   MwmSet::MwmId mwmId;
   {
     std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
@@ -587,11 +552,45 @@ void LocalAdsManager::WriteCampaignFile(std::string const & campaignFile)
   }
 }
 
+void LocalAdsManager::WriteFeaturesFile(std::string const & featuresFile)
+{
+  std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+  try
+  {
+    FileWriter writer(featuresFile);
+    features_cache::SerializeVersion(writer, features_cache::Version::V0);
+
+    MwmSet::MwmId lastMwm;
+    std::vector<features_cache::PackedCampaignFeature> packedData;
+    for (auto const & entry : m_featuresCache)
+    {
+      FeatureID const & fid = entry.first;
+      if (lastMwm != fid.m_mwmId && !packedData.empty())
+      {
+        features_cache::SerializeMwmData(writer, lastMwm.GetInfo()->GetCountryName(), lastMwm.GetInfo()->GetVersion());
+        features_cache::SerializePackedFeatures(writer, packedData);
+        packedData.clear();
+      }
+      lastMwm = fid.m_mwmId;
+      packedData.emplace_back(fid.m_index, PointToInt64Obsolete(entry.second.m_position, POINT_COORD_BITS));
+    }
+    if (!packedData.empty())
+    {
+      features_cache::SerializeMwmData(writer, lastMwm.GetInfo()->GetCountryName(), lastMwm.GetInfo()->GetVersion());
+      features_cache::SerializePackedFeatures(writer, packedData);
+    }
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Error writing file:", featuresFile, ex.Msg()));
+  }
+}
+
 void LocalAdsManager::Invalidate()
 {
   GetPlatform().RunTask(Platform::Thread::File, [this]
   {
-    DeleteAllLocalAdsMarks(m_bmManager);
+    DeleteAllLocalAdsMarks();
     m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
 
     CampaignData campaignData;
@@ -604,21 +603,142 @@ void LocalAdsManager::Invalidate()
         campaignData.insert(data.begin(), data.end());
       }
     }
-    UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
-    CreateLocalAdsMarks(m_bmManager, std::move(campaignData));
+    UpdateFeaturesCache(ReadCampaignFeatures(campaignData));
+    CreateLocalAdsMarks(std::move(campaignData));
   });
 }
 
-void LocalAdsManager::UpdateFeaturesCache(df::CustomFeatures && features)
+LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t> const & rawData,
+                                                             MwmSet::MwmId const & mwmId,
+                                                             Timestamp timestamp,
+                                                             GetFeatureByIdFn const & getFeatureByIdFn) const
 {
-  df::CustomFeatures featuresCache;
+  ASSERT(getFeatureByIdFn != nullptr, ());
+  CampaignData data;
+  auto campaigns = local_ads::Deserialize(rawData);
+  for (local_ads::Campaign const & campaign : campaigns)
+  {
+    FeatureID featureId(mwmId, campaign.m_featureId);
+    if (!featureId.IsValid())
+      continue;
+
+    if (campaign.m_priority == kHiddenFeaturePriority)
+    {
+      data.insert(std::make_pair(featureId, nullptr));
+      continue;
+    }
+
+    std::string iconName = campaign.GetIconName();
+    auto const expiration = timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired);
+    if (iconName.empty() || local_ads::Clock::now() > expiration)
+      continue;
+
+    FeatureType featureType;
+    if (getFeatureByIdFn(featureId, featureType))
+    {
+      auto const customIcon = GetCustomIcon(featureType);
+      if (!customIcon.empty())
+        iconName = customIcon;
+    }
+
+    auto markData = std::make_shared<LocalAdsMarkData>();
+    markData->m_symbolName = iconName;
+    markData->m_minZoomLevel = campaign.m_minZoomLevel;
+    data.insert(std::make_pair(featureId, std::move(markData)));
+  }
+
+  return data;
+}
+
+void LocalAdsManager::CreateLocalAdsMarks(CampaignData && campaignData)
+{
+  if (m_bmManager == nullptr)
+    return;
+
+  // Here we copy campaign data, because we can create user marks only from UI thread.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, campaignData = std::move(campaignData)]()
+  {
+    auto editSession = m_bmManager->GetEditSession();
+    for (auto const & data : campaignData)
+    {
+      if (data.second == nullptr)
+        continue;
+
+      auto * mark = editSession.CreateUserMark<LocalAdsMark>(data.second->m_position);
+      mark->SetData(LocalAdsMarkData(*data.second));
+      mark->SetFeatureId(data.first);
+    }
+  });
+}
+
+void LocalAdsManager::DeleteLocalAdsMarks(MwmSet::MwmId const & mwmId)
+{
+  if (m_bmManager == nullptr)
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]()
+  {
+    m_bmManager->GetEditSession().DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
+                                                                [&mwmId](LocalAdsMark const * mark)
+                                                                {
+                                                                  return mark->GetFeatureID().m_mwmId == mwmId;
+                                                                });
+  });
+}
+
+void LocalAdsManager::DeleteAllLocalAdsMarks()
+{
+  if (m_bmManager == nullptr)
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_bmManager->GetEditSession().ClearGroup(UserMark::Type::LOCAL_ADS);
+  });
+}
+
+LocalAdsManager::FeaturesCache LocalAdsManager::ReadCampaignFeatures(CampaignData & campaignData) const
+{
+  ASSERT(m_readFeaturesFn != nullptr, ());
+
+  LocalAdsManager::FeaturesCache cache;
+
+  std::vector<FeatureID> features;
+  features.reserve(campaignData.size());
+  for (auto const & data : campaignData)
+    features.push_back(data.first);
+
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  m_readFeaturesFn(
+    [&campaignData, &cache, deviceLang](FeatureType & ft) {
+      auto it = campaignData.find(ft.GetID());
+      CHECK(it != campaignData.end(), ());
+
+      LocalAdsManager::CacheEntry entry;
+      entry.m_position = feature::GetCenter(ft, scales::GetUpperScale());
+      entry.m_isCustom = it->second != nullptr;
+      if (it->second != nullptr)
+      {
+        it->second->m_position = entry.m_position;
+        ft.GetPreferredNames(true /* allowTranslit */, deviceLang, it->second->m_mainText, it->second->m_auxText);
+      }
+      cache.insert(std::make_pair(it->first, entry));
+    },
+    features);
+  return cache;
+}
+
+void LocalAdsManager::UpdateFeaturesCache(FeaturesCache && features)
+{
+  df::CustomFeatures customFeatures;
   {
     std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
     if (!features.empty())
       m_featuresCache.insert(features.begin(), features.end());
-    featuresCache = m_featuresCache;
+    for (auto const & entry : m_featuresCache)
+      customFeatures.insert(std::make_pair(entry.first, entry.second.m_isCustom));
   }
-  m_drapeEngine.SafeCall(&df::DrapeEngine::SetCustomFeatures, std::move(featuresCache));
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetCustomFeatures, std::move(customFeatures));
 }
 
 void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const & mwmId)
@@ -639,7 +759,7 @@ void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const & mwmId)
   m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveCustomFeatures, mwmId);
 
   // Delete marks.
-  DeleteLocalAdsMarks(m_bmManager, mwmId);
+  DeleteLocalAdsMarks(mwmId);
 }
 
 bool LocalAdsManager::Contains(FeatureID const & featureId) const
@@ -668,6 +788,7 @@ void LocalAdsManager::OnSubscriptionChanged(SubscriptionType type, bool isActive
     return;
 
   m_isEnabled = enabled;
+  m_lastMwms.clear();
   if (enabled)
   {
     if (!m_isStarted)
@@ -695,7 +816,7 @@ void LocalAdsManager::OnSubscriptionChanged(SubscriptionType type, bool isActive
       }
 
       // Clear all graphics.
-      DeleteAllLocalAdsMarks(m_bmManager);
+      DeleteAllLocalAdsMarks();
       m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
     });
 
@@ -704,8 +825,147 @@ void LocalAdsManager::OnSubscriptionChanged(SubscriptionType type, bool isActive
   }
 }
 
+void LocalAdsManager::OnLocationUpdate(location::GpsInfo const & info, int zoomLevel)
+{
+  if (!m_isEnabled)
+    return;
+
+  if (std::chrono::steady_clock::now() < (m_lastCheckTime + kMinCheckInterval))
+    return;
+
+  auto const pt = MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude);
+
+  if ((m_foundFeatureHitCount == 0 || m_foundFeatureHitCount == kMaxHitCount) &&
+    MercatorBounds::DistanceOnEarth(m_lastCheckedPos, pt) < kMinCheckDistanceInMeters)
+  {
+    return;
+  }
+
+  auto const radius = std::max(info.m_horizontalAccuracy, kMinSearchRadiusInMeters);
+  auto searchRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, radius);
+
+  FeatureID fid;
+  {
+    std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+    double minDist = numeric_limits<double>::max();
+    for (auto const & pair : m_featuresCache)
+    {
+      auto const & pos = pair.second.m_position;
+      if (!searchRect.IsPointInside(pos))
+        continue;
+      auto const dist = MercatorBounds::DistanceOnEarth(pos, pt);
+      if (dist < radius && dist < minDist)
+      {
+        minDist = dist;
+        fid = pair.first;
+      }
+    }
+  }
+
+  m_lastCheckTime = std::chrono::steady_clock::now();
+  m_lastCheckedPos = pt;
+
+  if (fid.IsValid())
+  {
+    m_statistics.RegisterEvent(local_ads::Event(local_ads::EventType::Visit, fid.m_mwmId.GetInfo()->GetVersion(),
+                                                fid.m_mwmId.GetInfo()->GetCountryName(), fid.m_index,
+                                                static_cast<uint8_t>(zoomLevel), local_ads::Clock::now(),
+                                                info.m_latitude, info.m_longitude,
+                                                static_cast<uint16_t>(info.m_horizontalAccuracy)));
+    if (m_lastFoundFeature != fid)
+      m_foundFeatureHitCount = 1;
+    else if (m_foundFeatureHitCount < kMaxHitCount)
+      ++m_foundFeatureHitCount;
+  }
+  else
+  {
+    m_foundFeatureHitCount = 0;
+  }
+  m_lastFoundFeature = fid;
+}
+
 bool LocalAdsManager::BackoffStats::CanRetry() const
 {
   return !m_fileIsAbsent && m_attemptsCount < kMaxDownloadingAttempts &&
          std::chrono::steady_clock::now() > (m_lastDownloading + m_currentTimeout);
 }
+
+namespace lightweight
+{
+void LocalAdsFeaturesReader::ReadCampaignFeaturesFile()
+{
+  m_features.clear();
+  std::string const featuresFile = GetPath(kCampaignFeaturesFile);
+  try
+  {
+    FileReader reader(featuresFile);
+    ReaderSource<FileReader> src(reader);
+
+    auto const version = features_cache::DeserializeVersion(src);
+    if (version != features_cache::Version::V0)
+      return;
+
+    std::string countryId;
+    int64_t mwmVersion;
+    std::vector<features_cache::PackedCampaignFeature> packedData;
+    while (src.Size() > 0)
+    {
+      features_cache::DeserializeMwmData(src, countryId, mwmVersion);
+      features_cache::DeserializePackedFeatures(src, packedData);
+
+      for (auto const & data : packedData)
+      {
+        auto const pos = Int64ToPointObsolete(data.m_mercator, POINT_COORD_BITS);
+        m_features.push_back(CampaignFeature(mwmVersion, countryId, data.m_featureIndex,
+                                             MercatorBounds::YToLat(pos.y), MercatorBounds::XToLon(pos.x)));
+      }
+    }
+  }
+  catch (Reader::Exception const & ex)
+  {
+    LOG(LWARNING, ("Error reading file:", featuresFile, ex.Msg()));
+    FileWriter::DeleteFileX(featuresFile);
+  }
+}
+
+std::vector<CampaignFeature> LocalAdsFeaturesReader::GetCampaignFeatures(double lat, double lon, double radiusInMeters,
+                                                                         uint32_t maxCount)
+{
+  if (!m_initialized)
+  {
+    ReadCampaignFeaturesFile();
+    m_initialized = true;
+  }
+
+  if (m_features.empty())
+    return {};
+
+  auto const pt = MercatorBounds::FromLatLon(lat, lon);
+  auto searchRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, radiusInMeters);
+
+  std::multimap<uint32_t, CampaignFeature> sortedFeatures;
+  for (auto const & f : m_features)
+  {
+    auto const pos = MercatorBounds::FromLatLon(f.m_lat, f.m_lon);
+    if (!searchRect.IsPointInside(pos))
+      continue;
+    auto const dist = static_cast<uint32_t>(MercatorBounds::DistanceOnEarth(pos, pt));
+    sortedFeatures.insert(std::make_pair(dist, f));
+  }
+
+  std::vector<CampaignFeature> filteredFeatures;
+  filteredFeatures.reserve(std::min(sortedFeatures.size(), static_cast<size_t>(maxCount)));
+  for (auto const & pair : sortedFeatures)
+  {
+    filteredFeatures.push_back(pair.second);
+    if (filteredFeatures.size() == maxCount)
+      break;
+  }
+  return filteredFeatures;
+}
+
+void Statistics::RegisterEvent(local_ads::Event && event)
+{
+  m_statistics.RegisterEventSync(std::move(event));
+}
+}  // namespace lightweight

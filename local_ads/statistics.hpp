@@ -37,6 +37,8 @@ public:
   void Startup();
   void RegisterEvent(Event && event);
   void RegisterEvents(std::list<Event> && events);
+  // Save the event synchronously (for lightweight frawework only).
+  void RegisterEventSync(Event && event);
   void SetEnabled(bool isEnabled);
 
   std::list<Event> WriteEventsForTesting(std::list<Event> const & events,

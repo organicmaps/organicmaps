@@ -229,6 +229,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
 #endif
 
   m_routingManager.OnLocationUpdate(rInfo);
+  m_localAdsManager.OnLocationUpdate(rInfo, GetDrawScale());
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)

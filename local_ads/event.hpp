@@ -13,7 +13,8 @@ enum class EventType
   ShowPoint = 0,
   OpenInfo,
   ClickedPhone,
-  ClickedWebsite
+  ClickedWebsite,
+  Visit
 };
 
 struct Event

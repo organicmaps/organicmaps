@@ -16,6 +16,8 @@
 #include "indexer/ftypes_mapping.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "platform/location.hpp"
+
 #include "base/thread.hpp"
 
 #include <atomic>
@@ -33,6 +35,21 @@ class TypesHolder;
 }
 
 class BookmarkManager;
+struct LocalAdsMarkData;
+
+struct CampaignFeature
+{
+  CampaignFeature() = default;
+  CampaignFeature(int64_t const & mwmVersion, std::string const & countryId, uint32_t featureIndex,
+                  double lat, double lon)
+    : m_mwmVersion(mwmVersion), m_countryId(countryId), m_featureIndex(featureIndex), m_lat(lat), m_lon(lon) {}
+
+  int64_t m_mwmVersion = FeatureID::kInvalidMwmVersion;
+  std::string m_countryId;
+  uint32_t m_featureIndex = 0;
+  double m_lat = 0.0;
+  double m_lon = 0.0;
+};
 
 class LocalAdsManager : public SubscriptionListener
 {
@@ -43,6 +60,7 @@ public:
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
                                             std::vector<FeatureID> const & features)>;
   using GetFeatureByIdFn = std::function<bool(FeatureID const &, FeatureType &)>;
+  using OnCampaignFeaturesFn = std::function<void(std::vector<FeatureID> const & features)>;
   using Timestamp = local_ads::Timestamp;
 
   LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn, GetMwmIdByNameFn && getMwmIdByName,
@@ -67,6 +85,7 @@ public:
   std::string GetCompanyUrl(FeatureID const & featureId) const;
 
   void OnSubscriptionChanged(SubscriptionType type, bool isActive) override;
+  void OnLocationUpdate(location::GpsInfo const & info, int zoomLevel);
 
 private:
   enum class RequestType
@@ -76,6 +95,13 @@ private:
   };
   using Request = std::pair<MwmSet::MwmId, RequestType>;
 
+  struct CacheEntry
+  {
+    bool m_isCustom = false;
+    m2::PointD m_position;
+  };
+  using FeaturesCache = std::map<FeatureID, CacheEntry>;
+
   void Start();
 
   void ProcessRequests(std::set<Request> && campaignMwms);
@@ -83,7 +109,18 @@ private:
   void ReadCampaignFile(std::string const & campaignFile);
   void WriteCampaignFile(std::string const & campaignFile);
 
-  void UpdateFeaturesCache(df::CustomFeatures && features);
+  void WriteFeaturesFile(std::string const & featuresFile);
+
+  using CampaignData = std::map<FeatureID, std::shared_ptr<LocalAdsMarkData>>;
+  CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
+                             Timestamp timestamp, GetFeatureByIdFn const & getFeatureByIdFn) const;
+  FeaturesCache ReadCampaignFeatures(CampaignData & campaignData) const;
+
+  void CreateLocalAdsMarks(CampaignData && campaignData);
+  void DeleteLocalAdsMarks(MwmSet::MwmId const & mwmId);
+  void DeleteAllLocalAdsMarks();
+
+  void UpdateFeaturesCache(FeaturesCache && features);
   void ClearLocalAdsForMwm(MwmSet::MwmId const &mwmId);
 
   void FillSupportedTypes();
@@ -101,7 +138,7 @@ private:
 
   std::atomic<bool> m_isStarted;
 
-  std::atomic<BookmarkManager *> m_bmManager;
+  BookmarkManager * m_bmManager;
 
   df::DrapeEngineSafePtr m_drapeEngine;
 
@@ -114,7 +151,7 @@ private:
   std::map<std::string, CampaignInfo> m_info;
   std::mutex m_campaignsMutex;
 
-  df::CustomFeatures m_featuresCache;
+  FeaturesCache m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
 
   ftypes::HashSetMatcher<uint32_t> m_supportedTypes;
@@ -140,7 +177,37 @@ private:
   };
   std::map<MwmSet::MwmId, BackoffStats> m_failedDownloads;
   std::set<MwmSet::MwmId> m_downloadingMwms;
-  
+  std::vector<MwmSet::MwmId> m_lastMwms;
+
   local_ads::Statistics m_statistics;
   std::atomic<bool> m_isEnabled;
+
+  m2::PointD m_lastCheckedPos;
+  std::chrono::steady_clock::time_point m_lastCheckTime;
+  FeatureID m_lastFoundFeature;
+  uint32_t m_foundFeatureHitCount = 0;
 };
+
+namespace lightweight
+{
+class LocalAdsFeaturesReader
+{
+public:
+  std::vector<CampaignFeature> GetCampaignFeatures(double lat, double lon,
+                                                   double radiusInMeters, uint32_t maxCount);
+private:
+  void ReadCampaignFeaturesFile();
+
+  bool m_initialized = false;
+  std::vector<CampaignFeature> m_features;
+};
+
+class Statistics
+{
+public:
+  void RegisterEvent(local_ads::Event && event);
+
+private:
+  local_ads::Statistics m_statistics;
+};
+}  // namespace lightweight

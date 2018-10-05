@@ -75,13 +75,14 @@ public class Framework
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({LOCAL_ADS_EVENT_SHOW_POINT, LOCAL_ADS_EVENT_OPEN_INFO, LOCAL_ADS_EVENT_CLICKED_PHONE,
-           LOCAL_ADS_EVENT_CLICKED_WEBSITE})
+           LOCAL_ADS_EVENT_CLICKED_WEBSITE, LOCAL_ADS_EVENT_VISIT})
   public @interface LocalAdsEventType {}
 
   public static final int LOCAL_ADS_EVENT_SHOW_POINT = 0;
   public static final int LOCAL_ADS_EVENT_OPEN_INFO = 1;
   public static final int LOCAL_ADS_EVENT_CLICKED_PHONE = 2;
   public static final int LOCAL_ADS_EVENT_CLICKED_WEBSITE = 3;
+  public static final int LOCAL_ADS_EVENT_VISIT = 4;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ROUTE_REBUILD_AFTER_POINTS_LOADING})
