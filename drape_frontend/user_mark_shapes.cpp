@@ -5,6 +5,7 @@
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
+#include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -113,16 +114,50 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
                                  m2::PointD const & tileCenter, ref_ptr<dp::TextureManager> textures,
                                  m2::PointF & symbolSize, dp::Batcher & batcher)
 {
-  for (auto itSym = renderInfo.m_coloredSymbols->rbegin();
-       itSym != renderInfo.m_coloredSymbols->rend(); ++itSym)
+  auto const needOverlay = renderInfo.m_coloredSymbols->m_needOverlay;
+  m2::PointF sizeInc(0.0, 0.0);
+  UserPointMark::SymbolSizes symbolSizesInc;
+  auto const isTextBg = renderInfo.m_coloredSymbols->m_addTextSize;
+  if (isTextBg)
+  {
+    auto const & titleDecl = renderInfo.m_titleDecl->at(0);
+    dp::FontDecl const & fontDecl = titleDecl.m_primaryTextFont;
+    auto isSdf = df::VisualParams::Instance().IsSdfPrefered();
+    isSdf = fontDecl.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+    auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+    TextLayout textLayout;
+    textLayout.Init(strings::MakeUniString(titleDecl.m_primaryText), fontDecl.m_size * vs, isSdf, textures);
+    sizeInc.x = textLayout.GetPixelLength();
+    sizeInc.y = textLayout.GetPixelHeight();
+
+    if (renderInfo.m_symbolSizes != nullptr)
+    {
+      symbolSizesInc.reserve(renderInfo.m_symbolSizes->size());
+      for (auto const & sz : *renderInfo.m_symbolSizes)
+        symbolSizesInc.push_back(sz + sizeInc);
+    }
+  }
+
+  for (auto itSym = renderInfo.m_coloredSymbols->m_zoomInfo.rbegin();
+       itSym != renderInfo.m_coloredSymbols->m_zoomInfo.rend(); ++itSym)
   {
     if (itSym->first <= tileKey.m_zoomLevel)
     {
       ColoredSymbolViewParams params = itSym->second;
+
       if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
-        symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+      {
+        params.m_radiusInPixels = params.m_radiusInPixels + std::max(sizeInc.x, sizeInc.y) / 2.0f;
+        if (!isTextBg)
+          symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+      }
       else
-        symbolSize = params.m_sizeInPixels;
+      {
+        params.m_sizeInPixels = params.m_sizeInPixels + sizeInc;
+        if (!isTextBg)
+          symbolSize = params.m_sizeInPixels;
+      }
 
       params.m_featureID = renderInfo.m_featureId;
       params.m_tileCenter = tileCenter;
@@ -136,13 +171,13 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
       {
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
                            kStartUserMarkOverlayIndex + renderInfo.m_index,
-                           *renderInfo.m_symbolSizes.get())
+                           isTextBg ? symbolSizesInc : *renderInfo.m_symbolSizes.get())
             .Draw(context, &batcher, textures);
       }
       else
       {
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                           kStartUserMarkOverlayIndex + renderInfo.m_index)
+                           kStartUserMarkOverlayIndex + renderInfo.m_index, needOverlay)
             .Draw(context, &batcher, textures);
       }
       break;
@@ -166,8 +201,10 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context,
   params.m_specialPriority = renderInfo.m_priority;
   params.m_symbolName = symbolName;
   params.m_anchor = renderInfo.m_anchor;
-  params.m_startOverlayRank =
-      renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
+
+  bool const hasColoredOverlay = renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay;
+  params.m_startOverlayRank = hasColoredOverlay ? dp::OverlayRank1 : dp::OverlayRank0;
+
   if (renderInfo.m_symbolOffsets != nullptr)
   {
     ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
@@ -227,11 +264,11 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context,
       params.m_specialDisplacement = SpecialDisplacement::UserMark;
       params.m_specialPriority = renderInfo.m_priority;
       params.m_startOverlayRank = dp::OverlayRank0;
-      if (renderInfo.m_hasSymbolPriority)
+      if (renderInfo.m_hasSymbolShapes)
       {
         if (renderInfo.m_symbolNames != nullptr)
           params.m_startOverlayRank++;
-        if (renderInfo.m_coloredSymbols != nullptr)
+        if (renderInfo.m_coloredSymbols != nullptr && renderInfo.m_coloredSymbols->m_needOverlay)
           params.m_startOverlayRank++;
         ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
       }
@@ -327,7 +364,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     if (!renderInfo.m_color.empty())
       color = df::GetColorConstant(renderInfo.m_color);
 
-    if (renderInfo.m_hasSymbolPriority)
+    if (renderInfo.m_hasSymbolShapes)
     {
       if (renderInfo.m_coloredSymbols != nullptr)
       {
@@ -400,7 +437,7 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     if (renderInfo.m_badgeNames != nullptr)
     {
-      ASSERT(!renderInfo.m_hasSymbolPriority || renderInfo.m_symbolNames == nullptr,
+      ASSERT(!renderInfo.m_hasSymbolShapes || renderInfo.m_symbolNames == nullptr,
              ("Multiple POI shapes in an usermark are not supported yet"));
       auto const badgeName = GetSymbolNameForZoomLevel(renderInfo.m_badgeNames, tileKey);
       if (!badgeName.empty())

@@ -37,7 +37,12 @@ struct IDCollections
 class UserPointMark
 {
 public:
-  using ColoredSymbolZoomInfo = std::map<int, df::ColoredSymbolViewParams>;
+  struct ColoredSymbolZoomInfo
+  {
+    std::map<int, df::ColoredSymbolViewParams> m_zoomInfo;
+    bool m_needOverlay = true;
+    bool m_addTextSize = false;
+  };
   using SymbolNameZoomInfo = std::map<int, std::string>;
   using TitlesInfo = std::vector<dp::TitleDecl>;
   using SymbolSizes = std::vector<m2::PointF>;
@@ -67,7 +72,7 @@ public:
   virtual drape_ptr<SymbolOffsets> GetSymbolOffsets() const = 0;
   virtual uint16_t GetPriority() const = 0;
   virtual uint32_t GetIndex() const = 0;
-  virtual bool HasSymbolPriority() const = 0;
+  virtual bool HasSymbolShapes() const = 0;
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;
   virtual int GetMinTitleZoom() const = 0;

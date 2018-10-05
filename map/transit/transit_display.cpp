@@ -543,8 +543,11 @@ void TransitRouteDisplay::CreateTransitMarks()
         df::ColoredSymbolViewParams params;
         params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
         params.m_color = dp::Color::Transparent();
-        if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
-          coloredSymbol.insert(make_pair(zoomLevel, params));
+        if (coloredSymbol.m_zoomInfo.empty() ||
+            coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
+        {
+          coloredSymbol.m_zoomInfo.insert(make_pair(zoomLevel, params));
+        }
       }
       transitMark->SetColoredSymbols(coloredSymbol);
       transitMark->SetPriority(UserMark::Priority::TransitTransfer);
@@ -574,11 +577,11 @@ void TransitRouteDisplay::CreateTransitMarks()
 
         auto sz = m_symbolSizes.at(symbolNames[kSmallIconZoom]);
         params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
-        coloredSymbol[kSmallIconZoom] = params;
+        coloredSymbol.m_zoomInfo[kSmallIconZoom] = params;
 
         sz = m_symbolSizes.at(symbolNames[kMediumIconZoom]);
         params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
-        coloredSymbol[kMediumIconZoom] = params;
+        coloredSymbol.m_zoomInfo[kMediumIconZoom] = params;
 
         transitMark->SetColoredSymbols(coloredSymbol);
         transitMark->SetPriority(UserMark::Priority::TransitKeyStop);
@@ -593,8 +596,11 @@ void TransitRouteDisplay::CreateTransitMarks()
           df::ColoredSymbolViewParams params;
           params.m_radiusInPixels = max(sz.x, sz.y) * 0.5f;
           params.m_color = dp::Color::Transparent();
-          if (coloredSymbol.empty() || coloredSymbol.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
-            coloredSymbol.insert(make_pair(zoomLevel, params));
+          if (coloredSymbol.m_zoomInfo.empty() ||
+              coloredSymbol.m_zoomInfo.rbegin()->second.m_radiusInPixels != params.m_radiusInPixels)
+          {
+            coloredSymbol.m_zoomInfo.insert(make_pair(zoomLevel, params));
+          }
         }
         transitMark->SetSymbolSizes(stopMarkerSizes);
         transitMark->SetColoredSymbols(coloredSymbol);

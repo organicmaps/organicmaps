@@ -27,7 +27,8 @@ public:
     TransitStop,
     TransitGate,
     TransitTransfer,
-    TransitKeyStop
+    TransitKeyStop,
+    SpeedCamera,
   };
 
   enum Type: uint32_t
@@ -37,6 +38,7 @@ public:
     SEARCH,
     STATIC,
     ROUTING,
+    SPEED_CAM,
     TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK,
@@ -69,7 +71,7 @@ public:
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override { return nullptr; }
   uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
   uint32_t GetIndex() const override { return 0; }
-  bool HasSymbolPriority() const override { return false; }
+  bool HasSymbolShapes() const override { return false; }
   bool HasTitlePriority() const override { return false; }
   int GetMinZoom() const override { return 1; }
   int GetMinTitleZoom() const override { return GetMinZoom(); }
@@ -124,6 +126,20 @@ public:
   DebugMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+};
+
+class ColoredDebugMarkPoint : public UserMark
+{
+public:
+  ColoredDebugMarkPoint(m2::PointD const & ptOrg);
+
+  void SetColor(dp::Color const & color);
+  bool HasSymbolShapes() const override { return true; }
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+
+private:
+  ColoredSymbolZoomInfo m_coloredSymbols;
 };
 
 string DebugPrint(UserMark::Type type);

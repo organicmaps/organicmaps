@@ -62,7 +62,7 @@ public:
 
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 
-  bool HasSymbolPriority() const override { return false; }
+  bool HasSymbolShapes() const override { return false; }
   bool HasTitlePriority() const override { return true; }
 
   void SetFollowingMode(bool enabled);
@@ -109,7 +109,7 @@ public:
 
   df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::TransitMarkLayer; }
 
-  bool HasSymbolPriority() const override { return !m_symbolNames.empty() || !m_coloredSymbols.empty(); }
+  bool HasSymbolShapes() const override { return !m_symbolNames.empty() || !m_coloredSymbols.m_zoomInfo.empty(); }
   bool HasTitlePriority() const override { return true; }
 
   void SetAnchor(dp::Anchor anchor);
@@ -159,4 +159,38 @@ private:
   SymbolSizes m_symbolSizes;
   SymbolOffsets m_symbolOffsets;
   dp::Anchor m_anchor = dp::Center;
+};
+
+class SpeedCameraMark : public UserMark
+{
+public:
+  explicit SpeedCameraMark(m2::PointD const & ptOrg);
+  void SetTitle(std::string const & title);
+
+  void SetFeatureId(FeatureID featureId);
+  FeatureID GetFeatureID() const override { return m_featureId; }
+
+  void SetIndex(uint32_t index);
+  uint32_t GetIndex() const override { return m_index; }
+
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingMarkLayer; }
+  bool HasSymbolShapes() const override { return true; }
+  bool HasTitlePriority() const override { return true; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::SpeedCamera); }
+
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+
+  int GetMinZoom() const override;
+  int GetMinTitleZoom() const override;
+  dp::Anchor GetAnchor() const override;
+
+private:
+  uint32_t m_index = 0;
+  FeatureID m_featureId;
+  SymbolNameZoomInfo m_symbolNames;
+  ColoredSymbolZoomInfo m_textBg;
+  std::string m_title;
+  dp::TitleDecl m_titleDecl;
 };

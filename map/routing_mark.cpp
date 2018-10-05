@@ -1,6 +1,7 @@
 #include "map/routing_mark.hpp"
 
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
 
@@ -20,6 +21,14 @@ float const kRouteMarkPrimaryTextSize = 11.0f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
 float const kRouteMarkSecondaryOffsetY = 2.0f;
 float const kTransitMarkTextSize = 12.0f;
+
+// TODO(darina): Add to style colors for speed camera marks.
+static std::string const kSpeedCameraMarkText = "TransitMarkPrimaryTextOutline";
+float constexpr kSpeedCameraMarkTextSize = 10.0f;
+float constexpr kSpeedCameraBorderWidth = 2.0f;
+int constexpr kSpeedCameraZoomS = 11;
+int constexpr kSpeedCameraZoomM = 16;
+int constexpr kMinSpeedCameraTitleZoom = 15;
 }  // namespace
 
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg)
@@ -449,7 +458,7 @@ void TransitMark::SetSymbolNames(std::map<int, std::string> const & symbolNames)
   m_symbolNames = symbolNames;
 }
 
-void TransitMark::SetColoredSymbols(std::map<int, df::ColoredSymbolViewParams> const & symbolParams)
+void TransitMark::SetColoredSymbols(ColoredSymbolZoomInfo const & symbolParams)
 {
   SetDirty();
   m_coloredSymbols = symbolParams;
@@ -457,7 +466,7 @@ void TransitMark::SetColoredSymbols(std::map<int, df::ColoredSymbolViewParams> c
 
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> TransitMark::GetColoredSymbols() const
 {
-  if (m_coloredSymbols.empty())
+  if (m_coloredSymbols.m_zoomInfo.empty())
     return nullptr;
   return make_unique_dp<ColoredSymbolZoomInfo>(m_coloredSymbols);
 }
@@ -513,4 +522,79 @@ void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
   titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkSecondaryText);
   titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkSecondaryTextOutline);
   titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
+}
+
+SpeedCameraMark::SpeedCameraMark(m2::PointD const & ptOrg)
+  : UserMark(ptOrg, Type::SPEED_CAM)
+{
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kSpeedCameraMarkText);
+  m_titleDecl.m_primaryTextFont.m_size = kSpeedCameraMarkTextSize;
+  m_titleDecl.m_anchor = dp::Right;
+  m_titleDecl.m_primaryOffset.x = -kSpeedCameraBorderWidth;
+
+  m_symbolNames.insert(std::make_pair(kSpeedCameraZoomS, "speedcam-s"));
+  m_symbolNames.insert(std::make_pair(kSpeedCameraZoomM, "speedcam-m"));
+
+  df::ColoredSymbolViewParams params;
+  params.m_color = dp::Color::Red();
+  params.m_anchor = dp::Right;
+  params.m_shape = df::ColoredSymbolViewParams::Shape::RoundedRectangle;
+  params.m_radiusInPixels = kSpeedCameraBorderWidth * vs;
+  params.m_sizeInPixels = m2::PointF(2.0f * kSpeedCameraBorderWidth, 2.0f * kSpeedCameraBorderWidth) * vs;
+  m_textBg.m_zoomInfo[kMinSpeedCameraTitleZoom] = params;
+  m_textBg.m_addTextSize = true;
+}
+
+void SpeedCameraMark::SetTitle(std::string const & title)
+{
+  SetDirty();
+  m_titleDecl.m_primaryText = title;
+}
+
+void SpeedCameraMark::SetFeatureId(FeatureID featureId)
+{
+  SetDirty();
+  m_featureId = featureId;
+}
+
+void SpeedCameraMark::SetIndex(uint32_t index)
+{
+  SetDirty();
+  m_index = index;
+}
+
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SpeedCameraMark::GetSymbolNames() const
+{
+  return make_unique_dp<SymbolNameZoomInfo>(m_symbolNames);
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> SpeedCameraMark::GetTitleDecl() const
+{
+  if (m_titleDecl.m_primaryText.empty())
+    return nullptr;
+  auto titleInfo = make_unique_dp<TitlesInfo>();
+  titleInfo->push_back(m_titleDecl);
+  return titleInfo;
+}
+
+drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> SpeedCameraMark::GetColoredSymbols() const
+{
+  return make_unique_dp<ColoredSymbolZoomInfo>(m_textBg);
+}
+
+int SpeedCameraMark::GetMinZoom() const
+{
+  return kSpeedCameraZoomS;
+}
+
+int SpeedCameraMark::GetMinTitleZoom() const
+{
+  return kMinSpeedCameraTitleZoom;
+}
+
+dp::Anchor SpeedCameraMark::GetAnchor() const
+{
+  return dp::Left;
 }

@@ -27,7 +27,7 @@ public:
 
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
   uint16_t GetPriority() const override { return m_data.m_priority; }
-  bool HasSymbolPriority() const override { return true; }
+  bool HasSymbolShapes() const override { return true; }
   bool HasTitlePriority() const override { return true; }
   int GetMinZoom() const override { return static_cast<int>(m_data.m_minZoomLevel); }
   FeatureID GetFeatureID() const override { return m_featureId; }
