@@ -144,6 +144,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="remove_ads"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="removeAction:" destination="WK2-gA-ocn" eventType="touchUpInside" id="NKe-Xb-A8N"/>
