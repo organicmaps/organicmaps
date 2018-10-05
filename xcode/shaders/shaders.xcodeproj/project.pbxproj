@@ -545,7 +545,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "touch ${BUILT_PRODUCTS_DIR}/shaders_metal.metallib";
+			shellScript = "touch \"${BUILT_PRODUCTS_DIR}/shaders_metal.metallib\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
