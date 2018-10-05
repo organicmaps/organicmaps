@@ -24,6 +24,8 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include <atomic>
+
 namespace editor
 {
 namespace testing
@@ -267,6 +269,8 @@ private:
   shared_ptr<editor::Notes> m_notes;
 
   unique_ptr<editor::StorageBase> m_storage;
+  
+  std::atomic<bool> m_isUploadingNow;
 
   DECLARE_THREAD_CHECKER(MainThreadChecker);
 };  // class Editor

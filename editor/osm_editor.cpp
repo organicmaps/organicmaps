@@ -36,7 +36,6 @@
 #include "std/algorithm.hpp"
 #include "std/array.hpp"
 #include "std/chrono.hpp"
-#include "std/future.hpp"
 #include "std/sstream.hpp"
 #include "std/target_os.hpp"
 #include "std/tuple.hpp"
@@ -176,7 +175,10 @@ namespace osm
 // TODO(AlexZ): Normalize osm multivalue strings for correct merging
 // (e.g. insert/remove spaces after ';' delimeter);
 
-Editor::Editor() : m_configLoader(m_config), m_notes(editor::Notes::MakeNotes())
+Editor::Editor()
+  : m_configLoader(m_config)
+  , m_notes(editor::Notes::MakeNotes())
+  , m_isUploadingNow(false)
 {
   SetDefaultStorage();
 }
@@ -308,28 +310,30 @@ void Editor::ClearAllLocalEdits()
 
 void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 {
-  CHECK_THREAD_CHECKER(MainThreadChecker, (""));
-
-  using FeaturePair = FeaturesContainer::value_type;
-
-  auto const findMwm = [](FeaturesContainer const & src, platform::LocalCountryFile const & localFile)
+  // Can be called on non-main-thread in case of simultaneous uploading process.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, localFile]
   {
-    // Cannot search by MwmId because country already removed. So, search by country name.
-    return find_if(cbegin(src), cend(src), [&localFile](FeaturePair const & item) {
-      return item.first.GetInfo()->GetCountryName() == localFile.GetCountryName();
-    });
-  };
+    using FeaturePair = FeaturesContainer::value_type;
 
-  auto const features = m_features.Get();
-  auto const matchedMwm = findMwm(*features, localFile);
+    auto const findMwm = [](FeaturesContainer const & src, platform::LocalCountryFile const & localFile)
+    {
+      // Cannot search by MwmId because country already removed. So, search by country name.
+      return find_if(cbegin(src), cend(src), [&localFile](FeaturePair const & item) {
+        return item.first.GetInfo()->GetCountryName() == localFile.GetCountryName();
+      });
+    };
 
-  if (features->cend() != matchedMwm)
-  {
-    auto editableFeatures = make_shared<FeaturesContainer>(*features);
-    editableFeatures->erase(findMwm(*editableFeatures, localFile));
+    auto const features = m_features.Get();
+    auto const matchedMwm = findMwm(*features, localFile);
 
-    SaveTransaction(editableFeatures);
-  }
+    if (features->cend() != matchedMwm)
+    {
+      auto editableFeatures = make_shared<FeaturesContainer>(*features);
+      editableFeatures->erase(findMwm(*editableFeatures, localFile));
+
+      SaveTransaction(editableFeatures);
+    }
+  });
 }
 
 FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
@@ -672,7 +676,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
 
   alohalytics::LogEvent("Editor_DataSync_started");
 
-  auto const upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callback)
+  auto upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callback)
   {
     int uploadedFeaturesCount = 0, errorsCount = 0;
     ChangesetWrapper changeset({key, secret}, tags);
@@ -844,17 +848,10 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
               alohalytics::Location::FromLatLon(ll.lat, ll.lon));
         }
 
-        // TODO (@milchakov): We can't call RunTask on Platform::Thread::Gui from async(launch::async, ...),
-        // since the thread must be attached to JVM to post tasks on gui thread.
-        // Now here is a workaround to prevent crash, but we have to consider the possibility to get rid of
-        // async(launch::async, ...) here.
-        GetPlatform().RunTask(Platform::Thread::Network, [this, id = fti.m_feature.GetID(), uploadInfo]()
+        GetPlatform().RunTask(Platform::Thread::Gui, [this, id = fti.m_feature.GetID(), uploadInfo]()
         {
-          GetPlatform().RunTask(Platform::Thread::Gui, [this, id, uploadInfo]()
-          {
-            // Call Save every time we modify each feature's information.
-            SaveUploadedInformation(id, uploadInfo);
-          });
+          // Call Save every time we modify each feature's information.
+          SaveUploadedInformation(id, uploadInfo);
         });
       }
     }
@@ -872,13 +869,20 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
         result = UploadResult::Error;
       callback(result);
     }
+
+    m_isUploadingNow = false;
   };
 
-  // Do not run more than one upload thread at a time.
-  static auto future = async(launch::async, upload, key, secret, tags, callback);
-  auto const status = future.wait_for(milliseconds(0));
-  if (status == future_status::ready)
-    future = async(launch::async, upload, key, secret, tags, callback);
+  // Do not run more than one uploading task at a time.
+  if (!m_isUploadingNow)
+  {
+    m_isUploadingNow = true;
+    GetPlatform().RunTask(Platform::Thread::Network, [upload = std::move(upload), key, secret,
+                                                      tags = std::move(tags), callback = std::move(callback)]()
+    {
+      upload(std::move(key), std::move(secret), std::move(tags), std::move(callback));
+    });
+  }
 }
 
 void Editor::SaveUploadedInformation(FeatureID const & fid, UploadInfo const & uploadInfo)
