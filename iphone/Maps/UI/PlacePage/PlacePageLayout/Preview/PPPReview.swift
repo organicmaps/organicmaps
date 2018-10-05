@@ -34,6 +34,7 @@ final class PPPReview: MWMTableViewCell {
                     canAddReview: Bool,
                     isReviewedByUser: Bool,
                     reviewsCount: UInt,
+                    ratingsCount: UInt,
                     price: String,
                     discount: Int,
                     smartDeal: Bool,
@@ -74,18 +75,13 @@ final class PPPReview: MWMTableViewCell {
       } else {
         ratingSummaryView.noValueImage = #imageLiteral(resourceName: "ic_12px_rating_normal")
         ratingSummaryView.noValueColor = UIColor.blackSecondaryText()
-        reviewsLabel.text = L("placepage_no_reviews")
+        reviewsLabel.text = reviewsCount == 0 ? L("placepage_no_reviews") : ""
       }
     } else {
       ratingSummaryView.defaultConfig()
 
-      if reviewsCount > 0 {
-        reviewsLabel.text = String(format:L("placepage_summary_rating_description"), reviewsCount)
-        reviewsLabel.isHidden = false
-      } else {
-        reviewsLabel.text = ""
-        reviewsLabel.isHidden = true
-      }
+      reviewsLabel.text = ratingsCount > 0
+        ? String(format:L("placepage_summary_rating_description"), ratingsCount) : ""
       pricingLabel.isHidden = false
     }
   }

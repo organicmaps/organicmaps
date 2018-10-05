@@ -79,7 +79,7 @@ MWMUGCRatingValueType * ratingValueType(float rating)
 - (BOOL)isAggregatedRatingEmpty { return m_ugc.m_totalRating == kIncorrectRating; }
 - (NSUInteger)ratingCellsCount { return 1; }
 - (NSUInteger)addReviewCellsCount { return 1; }
-- (NSUInteger)totalReviewsCount { return static_cast<NSUInteger>(m_ugc.m_basedOn); }
+- (NSUInteger)numberOfRatings { return static_cast<NSUInteger>(m_ugc.m_basedOn); }
 - (MWMUGCRatingValueType *)summaryRating { return ratingValueType(m_ugc.m_totalRating); }
 - (NSArray<MWMUGCRatingStars *> *)ratings { return starsRatings(m_ugc.m_ratings); }
 - (std::vector<ugc::view_model::ReviewRow> const &)reviewRows { return m_reviewRows; }

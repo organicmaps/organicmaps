@@ -239,6 +239,7 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
                       canAddReview:NO
                       isReviewedByUser:NO
                       reviewsCount:0
+                      ratingsCount:0
                              price:data.bookingPricing
                           discount:data.bookingDiscount
                          smartDeal:data.isSmartDeal
@@ -253,7 +254,8 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
       [reviewCell configWithRating:data.ugc.summaryRating
                       canAddReview:YES
                       isReviewedByUser:!data.ugc.isUGCUpdateEmpty
-                      reviewsCount:data.ugc.totalReviewsCount
+                      reviewsCount:data.ugc.numberOfReviews
+                      ratingsCount:data.ugc.numberOfRatings
                              price:@""
                           discount:0
                          smartDeal:NO

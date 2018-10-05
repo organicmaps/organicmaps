@@ -42,7 +42,7 @@ enum class ReviewRow
 - (NSUInteger)addReviewCellsCount;
 - (std::vector<ugc::view_model::ReviewRow> const &)reviewRows;
 
-- (NSUInteger)totalReviewsCount;
+- (NSUInteger)numberOfRatings;
 - (MWMUGCRatingValueType *)summaryRating;
 - (NSArray<MWMUGCRatingStars *> *)ratings;
 

@@ -533,7 +533,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       auto c = static_cast<MWMUGCSummaryRatingCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       auto ugc = data.ugc;
-      [c configWithReviewsCount:[ugc totalReviewsCount]
+      [c configWithReviewsCount:[ugc numberOfRatings]
                    summaryRating:[ugc summaryRating]
                          ratings:[ugc ratings]];
       return c;
