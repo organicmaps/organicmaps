@@ -292,6 +292,9 @@ public class SearchFragment extends BaseMwmFragment
 
   private void hideDownloadSuggest()
   {
+    if (!isAdded())
+      return;
+
     final FragmentManager manager = getChildFragmentManager();
     final Fragment fragment = manager.findFragmentByTag(CountrySuggestFragment.class.getName());
     if (fragment != null && !fragment.isDetached() && !fragment.isRemoving())
