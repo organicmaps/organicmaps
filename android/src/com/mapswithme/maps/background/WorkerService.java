@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.editor.Editor;
+import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.log.Logger;
@@ -32,7 +33,7 @@ public class WorkerService extends JobIntentService
     final Intent intent = new Intent(context, WorkerService.class);
     intent.setAction(WorkerService.ACTION_UPLOAD_OSM_CHANGES);
     JobIntentService.enqueueWork(context.getApplicationContext(), WorkerService.class,
-                                 WorkerService.class.hashCode(), intent);
+                                 JobIdMap.getId(WorkerService.class), intent);
   }
 
   /**
@@ -42,7 +43,7 @@ public class WorkerService extends JobIntentService
   {
     final Intent intent = new Intent(context, WorkerService.class);
     intent.setAction(WorkerService.ACTION_UPLOAD_UGC);
-    final int jobId = WorkerService.class.hashCode();
+    final int jobId = JobIdMap.getId(WorkerService.class);
     JobIntentService.enqueueWork(context, WorkerService.class, jobId, intent);
   }
 

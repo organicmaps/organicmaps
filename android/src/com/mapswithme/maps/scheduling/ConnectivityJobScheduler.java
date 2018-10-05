@@ -84,7 +84,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
     public void listen()
     {
       ComponentName component = new ComponentName(mContext, NativeJobService.class);
-      int jobId = NativeJobService.class.hashCode();
+      int jobId = JobIdMap.getId(NativeJobService.class);
       JobInfo jobInfo = new JobInfo
           .Builder(jobId, component)
           .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
@@ -108,7 +108,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
     @Override
     public void listen()
     {
-      String tag = String.valueOf(FirebaseJobService.class.hashCode());
+      String tag = String.valueOf(JobIdMap.getId(FirebaseJobService.class));
       int executionWindowStart = (int) TimeUnit.HOURS.toSeconds(SCHEDULE_PERIOD_IN_HOURS);
       Job job = mJobDispatcher.newJobBuilder()
                               .setTag(tag)

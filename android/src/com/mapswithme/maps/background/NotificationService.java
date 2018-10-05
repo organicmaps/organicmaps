@@ -9,6 +9,7 @@ import android.support.v4.app.JobIntentService;
 import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.routing.RoutingController;
+import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
@@ -37,8 +38,8 @@ public class NotificationService extends JobIntentService
     final Intent intent = new Intent(context, NotificationService.class)
         .setAction(CONNECTIVITY_ACTION);
 
-    final int jobId = NotificationService.class.hashCode();
-    JobIntentService.enqueueWork(context, NotificationService.class, jobId, intent);
+    int id = JobIdMap.getId(NotificationService.class);
+    JobIntentService.enqueueWork(context, NotificationService.class, id, intent);
   }
 
   private boolean notifyIsNotAuthenticated()
