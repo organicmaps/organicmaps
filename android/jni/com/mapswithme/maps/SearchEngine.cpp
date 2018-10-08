@@ -308,13 +308,13 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   ms::LatLon ll = ms::LatLon::Zero();
   string distance;
   double distanceInMeters = 0.0;
-  if (hasPosition)
-  {
-    if (result.HasPoint())
-    {
-      auto const center = result.GetFeatureCenter();
-      ll = MercatorBounds::ToLatLon(center);
 
+  if (result.HasPoint())
+  {
+    auto const center = result.GetFeatureCenter();
+    ll = MercatorBounds::ToLatLon(center);
+    if (hasPosition)
+    {
       distanceInMeters = ms::DistanceOnEarth(lat, lon,
                                              MercatorBounds::YToLat(center.y),
                                              MercatorBounds::XToLon(center.x));
