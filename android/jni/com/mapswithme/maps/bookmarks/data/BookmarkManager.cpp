@@ -778,33 +778,39 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
 {
   auto const & bm = frm()->GetBookmarkManager();
   kml::GroupIdCollection const & categories = bm.GetBmGroupsIdList();
+  auto const bookmarkConverter = [](JNIEnv * env, kml::MarkGroupId const & item)
+  {
+    auto const & manager = frm()->GetBookmarkManager();
+    auto const & data = manager.GetCategoryData(item);
+    auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
+    auto const tracksCount = manager.GetTrackIds(data.m_id).size();
+    auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
+    auto const isMyCategory = manager.IsMyCategory(item);
+    auto const isVisible = manager.IsVisible(data.m_id);
+    auto const preferBookmarkStr = GetPreferredBookmarkStr(data.m_name);
+    auto const annotation = GetPreferredBookmarkStr(data.m_annotation);
+    auto const description = GetPreferredBookmarkStr(data.m_description);
 
-  return ToJavaArray(env,
-                     g_bookmarkCategoryClass,
-                     categories,
-                     [](JNIEnv * env, kml::MarkGroupId const & item)
-                     {
-                       auto const & manager = frm()->GetBookmarkManager();
-                       auto const & data = manager.GetCategoryData(item);
-                       auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
-                       auto const tracksCount = manager.GetTrackIds(data.m_id).size();
-                       auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
-                       auto const isMyCategory = manager.IsMyCategory(item);
-                       auto const isVisible = manager.IsVisible(data.m_id);
-
-                       return env->NewObject(g_bookmarkCategoryClass,
-                                             g_bookmarkCategoryConstructor,
-                                             static_cast<jlong>(data.m_id),
-                                             jni::ToJavaString(env, GetPreferredBookmarkStr(data.m_name)),
-                                             jni::ToJavaString(env, data.m_authorId),
-                                             jni::ToJavaString(env, data.m_authorName),
-                                             jni::ToJavaString(env, GetPreferredBookmarkStr(data.m_annotation)),
-                                             jni::ToJavaString(env, GetPreferredBookmarkStr(data.m_description)),
-                                             static_cast<jint>(tracksCount),
-                                             static_cast<jint>(bookmarksCount),
-                                             static_cast<jboolean>(isFromCatalog),
-                                             static_cast<jboolean>(isMyCategory),
-                                             static_cast<jboolean>(isVisible));
-                     });
+    jni::TScopedLocalRef preferBookmarkStrRef(env, jni::ToJavaString(env, preferBookmarkStr));
+    jni::TScopedLocalRef authorIdRef(env, jni::ToJavaString(env, data.m_authorId));
+    jni::TScopedLocalRef authorNameRef(env, jni::ToJavaString(env, data.m_authorName));
+    jni::TScopedLocalRef annotationRef(env, jni::ToJavaString(env, annotation));
+    jni::TScopedLocalRef descriptionRef(env, jni::ToJavaString(env, description));
+      
+    return env->NewObject(g_bookmarkCategoryClass,
+                          g_bookmarkCategoryConstructor,
+                          static_cast<jlong>(data.m_id),
+                          preferBookmarkStrRef.get(),
+                          authorIdRef.get(),
+                          authorNameRef.get(),
+                          annotationRef.get(),
+                          descriptionRef.get(),
+                          static_cast<jint>(tracksCount),
+                          static_cast<jint>(bookmarksCount),
+                          static_cast<jboolean>(isFromCatalog),
+                          static_cast<jboolean>(isMyCategory),
+                          static_cast<jboolean>(isVisible));
+  };
+  return ToJavaArray(env, g_bookmarkCategoryClass, categories, bookmarkConverter);
 }
 }  // extern "C"
