@@ -749,6 +749,16 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 {
   m_sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
 
+  BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
+                                         sourceApplication:m_sourceApplication
+                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+  if (isGoogleURL)
+    return YES;
+
+  BOOL isFBURL = [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+  if (isFBURL)
+    return YES;
+
   if ([self checkLaunchURL:[url.host rangeOfString:@"dlink.maps.me"].location != NSNotFound
        ? [self convertUniversalLink:url] : url])
   {
@@ -756,13 +766,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     return YES;
   }
 
-  BOOL isGoogleURL = [[GIDSignIn sharedInstance] handleURL:url
-                                         sourceApplication:m_sourceApplication
-                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-  if (isGoogleURL)
-    return YES;
-
-  return [[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options];
+  return NO;
 }
 
 - (BOOL)checkLaunchURL:(NSURL *)url
