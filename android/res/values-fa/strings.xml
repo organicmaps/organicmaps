@@ -1338,7 +1338,6 @@
 	<string name="server_unavailable_title">سرویس موجود نیست</string>
 	<string name="server_unavailable_message">خرید بعدا تکمیل خواهد شد. اگر خطا همچنان ادامه دارد، لطفا با support\@maps.me تماس بگیرید.</string>
 	<string name="offline_fiters_check_in">برای فیلتر کردن هتل ها با تاریخ، به اینترنت متصل شوید.</string>
-	<string name="rutaxi_title">RuTaxi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
