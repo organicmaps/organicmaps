@@ -1,5 +1,5 @@
 #pragma once
-#import "MetalView.h"
+#import <MetalKit/MetalKit.h>
 
 #include "drape/graphics_context_factory.hpp"
 #include "drape/metal/metal_base_context.hpp"
@@ -8,7 +8,7 @@
 class MetalContextFactory: public dp::GraphicsContextFactory
 {
 public:
-  MetalContextFactory(MetalView * metalView, m2::PointU const & screenSize);
+  MetalContextFactory(CAMetalLayer * metalLayer, m2::PointU const & screenSize);
   dp::GraphicsContext * GetDrawContext() override;
   dp::GraphicsContext * GetResourcesUploadContext() override;
   bool IsDrawContextCreated() const override { return true; }

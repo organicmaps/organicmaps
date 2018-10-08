@@ -1,7 +1,6 @@
 #include "drape/pointers.hpp"
 #include "drape/drape_global.hpp"
 
-@class MetalView;
 @class MWMMapWidgets;
 
 namespace dp
@@ -23,7 +22,6 @@ namespace dp
 }
 
 @property(nonatomic) MWMMapWidgets * widgetsManager;
-@property(weak, nonatomic) IBOutlet MetalView * metalView;
 
 @property(nonatomic, readonly) BOOL drapeEngineCreated;
 @property(nonatomic, getter=isLaunchByDeepLink) BOOL launchByDeepLink;

@@ -1,7 +1,6 @@
 #import "EAGLView.h"
 #import "iosOGLContextFactory.h"
 #import "MetalContextFactory.h"
-#import "MetalView.h"
 #import "MWMDirectionView.h"
 #import "MWMMapWidgets.h"
 
@@ -14,6 +13,10 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+
+#ifdef OMIM_METAL_AVAILABLE
+#import <MetalKit/MetalKit.h>
+#endif
 
 @implementation EAGLView
 
@@ -38,10 +41,38 @@ double getExactDPI(double contentScaleFactor)
 }
 } //  namespace
 
++ (dp::ApiVersion)getSupportedApiVersion
+{
+  static dp::ApiVersion apiVersion = dp::ApiVersion::Invalid;
+  if (apiVersion != dp::ApiVersion::Invalid)
+    return apiVersion;
+  
+#ifdef OMIM_METAL_AVAILABLE
+  if (GetFramework().LoadMetalAllowed())
+  {
+    id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
+    if (tempDevice)
+      apiVersion = dp::ApiVersion::Metal;
+  }
+#endif
+  
+  if (apiVersion == dp::ApiVersion::Invalid)
+  {
+    EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+    if (tempContext != nil)
+      apiVersion = dp::ApiVersion::OpenGLES3;
+    else
+      apiVersion = dp::ApiVersion::OpenGLES2;
+  }
+  
+  return apiVersion;
+}
+
 // You must implement this method
 + (Class)layerClass
 {
-  return [CAEAGLLayer class];
+  auto const apiVersion = [EAGLView getSupportedApiVersion];
+  return apiVersion == dp::ApiVersion::Metal ? [CAMetalLayer class] : [CAEAGLLayer class];
 }
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
@@ -56,59 +87,47 @@ double getExactDPI(double contentScaleFactor)
   return self;
 }
 
-- (dp::ApiVersion)getSupportedApiVersion
-{
-#ifdef OMIM_METAL_AVAILABLE
-  if (GetFramework().LoadMetalAllowed())
-  {
-    id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
-    if (tempDevice)
-      return dp::ApiVersion::Metal;
-  }
-#endif
-  EAGLContext * tempContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-  if (tempContext != nil)
-    return dp::ApiVersion::OpenGLES3;
-  
-  return dp::ApiVersion::OpenGLES2;;
-}
-
 - (void)initialize
 {
   m_presentAvailable = false;
   m_lastViewSize = CGRectZero;
-  m_apiVersion = [self getSupportedApiVersion];
+  m_apiVersion = [EAGLView getSupportedApiVersion];
 
   // Correct retina display support in renderbuffer.
   self.contentScaleFactor = [[UIScreen mainScreen] nativeScale];
   
-  if (m_apiVersion != dp::ApiVersion::Metal)
+  if (m_apiVersion == dp::ApiVersion::Metal)
   {
-    // Setup Layer Properties
-    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
-    eaglLayer.opaque = YES;
-    eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
-                                     kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
+#ifdef OMIM_METAL_AVAILABLE
+    CAMetalLayer * layer = (CAMetalLayer *)self.layer;
+    layer.device = MTLCreateSystemDefaultDevice();
+    NSAssert(layer.device != NULL, @"Metal is not supported on this device");
+    layer.opaque = YES;
+#endif
+  }
+  else
+  {
+    CAEAGLLayer * layer = (CAEAGLLayer *)self.layer;
+    layer.opaque = YES;
+    layer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO,
+                                 kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGBA8};
   }
 }
 
 - (void)createDrapeEngine
 {
   m2::PointU const s = [self pixelSize];
+  
   if (m_apiVersion == dp::ApiVersion::Metal)
   {
 #ifdef OMIM_METAL_AVAILABLE
-    CHECK(self.metalView != nil, ());
-    CHECK_EQUAL(self.bounds.size.width, self.metalView.bounds.size.width, ());
-    CHECK_EQUAL(self.bounds.size.height, self.metalView.bounds.size.height, ());
-    m_factory = make_unique_dp<MetalContextFactory>(self.metalView, s);
+    m_factory = make_unique_dp<MetalContextFactory>((CAMetalLayer *)self.layer, s);
 #endif
   }
   else
   {
-    CAEAGLLayer * eaglLayer = (CAEAGLLayer *)self.layer;
     m_factory = make_unique_dp<dp::ThreadSafeFactory>(
-                  new iosOGLContextFactory(eaglLayer, m_apiVersion, m_presentAvailable));
+      new iosOGLContextFactory((CAEAGLLayer *)self.layer, m_apiVersion, m_presentAvailable));
   }
   [self createDrapeEngineWithWidth:s.x height:s.y];
 }

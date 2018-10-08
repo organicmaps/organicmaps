@@ -51,9 +51,8 @@ public:
 };
 }  // namespace
 
-MetalContextFactory::MetalContextFactory(MetalView * metalView, m2::PointU const & screenSize)
+MetalContextFactory::MetalContextFactory(CAMetalLayer * metalLayer, m2::PointU const & screenSize)
 {
-  CAMetalLayer * metalLayer = (CAMetalLayer *)metalView.layer;
   m_drawContext = make_unique_dp<DrawMetalContext>(metalLayer, screenSize);
   m_uploadContext = make_unique_dp<UploadMetalContext>(m_drawContext->GetMetalDevice());
 }
