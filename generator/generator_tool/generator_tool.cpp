@@ -172,8 +172,8 @@ DEFINE_bool(generate_traffic_keys, false,
 // Generating geo objects key-value.
 DEFINE_string(regions_index, "", "Input regions index file.");
 DEFINE_string(regions_key_value, "", "Input regions key-value file.");
-DEFINE_string(geo_objects_features, "", "Input geo_objects tmp.mwm file.");
-DEFINE_string(ids_without_address, "", "Output file with objects ids without adresses.");
+DEFINE_string(geo_objects_features, "", "Input tmp.mwm file with geo objects.");
+DEFINE_string(ids_without_addresses, "", "Output file with objects ids without addresses.");
 DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
 
 // Common.
@@ -329,7 +329,7 @@ int main(int argc, char ** argv)
   if (!FLAGS_geo_objects_key_value.empty())
   {
     if (!geo_objects::GenerateGeoObjects(FLAGS_regions_index, FLAGS_regions_key_value,
-                                         FLAGS_geo_objects_features, FLAGS_ids_without_address,
+                                         FLAGS_geo_objects_features, FLAGS_ids_without_addresses,
                                          FLAGS_geo_objects_key_value, FLAGS_verbose))
       return -1;
   }

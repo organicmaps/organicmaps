@@ -6,6 +6,8 @@
 #include "indexer/locality_object.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/file_container.hpp"
+
 #include "geometry/rect2d.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -14,6 +16,7 @@
 #include <functional>
 #include <memory>
 #include <set>
+#include <string>
 
 #include "defines.hpp"
 
@@ -77,20 +80,37 @@ private:
 };
 
 template <typename Reader>
-struct GeoObjectsIndex
+using GeoObjectsIndex = LocalityIndex<Reader, kGeoObjectsDepthLevels>;
+
+template <typename Reader>
+using RegionsIndex = LocalityIndex<Reader, kRegionsDepthLevels>;
+
+template <typename Reader>
+struct GeoObjectsIndexBox
 {
   static constexpr const char * kFileTag = GEO_OBJECTS_INDEX_FILE_TAG;
 
   using ReaderType = Reader;
-  using Type = LocalityIndex<ReaderType, kGeoObjectsDepthLevels>;
+  using IndexType = GeoObjectsIndex<ReaderType>;
 };
 
 template <typename Reader>
-struct RegionsIndex
+struct RegionsIndexBox
 {
   static constexpr const char * kFileTag = REGIONS_INDEX_FILE_TAG;
 
   using ReaderType = Reader;
-  using Type = LocalityIndex<ReaderType, kRegionsDepthLevels>;
+  using IndexType = RegionsIndex<ReaderType>;
 };
+
+template <typename IndexBox, typename Reader>
+typename IndexBox::IndexType ReadIndex(std::string const & pathIndx)
+{
+  FilesContainerR cont(pathIndx);
+  auto const offsetSize = cont.GetAbsoluteOffsetAndSize(IndexBox::kFileTag);
+  Reader reader(pathIndx);
+  typename IndexBox::ReaderType subReader(reader.CreateSubReader(offsetSize.first, offsetSize.second));
+  typename IndexBox::IndexType index(subReader);
+  return index;
+}
 }  // namespace indexer

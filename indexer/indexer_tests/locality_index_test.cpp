@@ -83,7 +83,7 @@ UNIT_TEST(BuildLocalityIndexTest)
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::GeoObjectsIndex<MemReader>::Type index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
 
   TEST_EQUAL(GetIds(index, m2::RectD{-0.5, -0.5, 0.5, 0.5}), (Ids{1}), ());
   TEST_EQUAL(GetIds(index, m2::RectD{0.5, -0.5, 1.5, 1.5}), (Ids{2, 3}), ());
@@ -104,7 +104,7 @@ UNIT_TEST(LocalityIndexRankTest)
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::GeoObjectsIndex<MemReader>::Type index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
   TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{4, 0} /* border */,
                           4 /* topSize */),
              (vector<uint64_t>{1, 2, 3, 4}), ());
@@ -136,7 +136,7 @@ UNIT_TEST(LocalityIndexTopSizeTest)
   BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::GeoObjectsIndex<MemReader>::Type index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
   TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{0, 0} /* border */,
                           4 /* topSize */)
                  .size(),

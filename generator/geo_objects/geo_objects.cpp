@@ -5,7 +5,6 @@
 
 #include "indexer/locality_index.hpp"
 
-#include "coding/file_container.hpp"
 #include "coding/mmap_reader.hpp"
 
 #include "base/geo_object_id.hpp"
@@ -22,89 +21,77 @@ namespace
 using KeyValue = std::map<uint64_t, base::Json>;
 using IndexReader = ReaderPtr<Reader>;
 
-template <typename Index>
-typename Index::Type ReadIndex(std::string const & pathIndx)
-{
-  FilesContainerR cont(pathIndx);
-  auto const offsetSize = cont.GetAbsoluteOffsetAndSize(Index::kFileTag);
-  MmapReader reader(pathIndx);
-  typename Index::ReaderType subReader(reader.CreateSubReader(offsetSize.first, offsetSize.second));
-  typename Index::Type index(subReader);
-  return index;
-}
-
-std::vector<FeatureBuilder1> ReadTmpMwm(std::string const & pathInGeoObjectsTmpMwm)
+std::vector<FeatureBuilder1> ReadTmpMwm(std::string const & pathToGeoObjectsTmpMwm)
 {
   std::vector<FeatureBuilder1> geoObjects;
   auto const toDo = [&geoObjects](FeatureBuilder1 & fb, uint64_t /* currPos */)
   {
     geoObjects.emplace_back(std::move(fb));
   };
-  feature::ForEachFromDatRawFormat(pathInGeoObjectsTmpMwm, toDo);
+  feature::ForEachFromDatRawFormat(pathToGeoObjectsTmpMwm, toDo);
   return geoObjects;
 }
 
-KeyValue ReadRegionsKv(std::string const & pathInRegionsKv)
+KeyValue ReadRegionsKv(std::string const & pathToRegionsKv)
 {
   KeyValue regionKv;
-  std::ifstream stream(pathInRegionsKv);
+  std::ifstream stream(pathToRegionsKv);
   std::string line;
   while (std::getline(stream, line))
   {
     auto const pos = line.find(" ");
     if (pos == std::string::npos)
     {
-      LOG(LWARNING, ("Can not find separator."));
+      LOG(LWARNING, ("Cannot find separator."));
       continue;
     }
 
-    int64_t tmpId;
-    if (!strings::to_int64(line.substr(0, pos), tmpId))
+    int64_t id;
+    if (!strings::to_int64(line.substr(0, pos), id))
     {
-      LOG(LWARNING, ("Can not parse id."));
+      LOG(LWARNING, ("Cannot parse id."));
       continue;
     }
 
     base::Json json;
     try
     {
-      json = base::Json(line.substr(pos + 1, line.size()));
+      json = base::Json(line.substr(pos + 1));
       if (!json.get())
         continue;
     }
-    catch (...)
+    catch (base::Json::Exception const &)
     {
-      LOG(LWARNING, ("Can not create base::Json."));
+      LOG(LWARNING, ("Cannot create base::Json."));
       continue;
     }
-    regionKv.emplace(static_cast<uint64_t>(tmpId), json);
+    regionKv.emplace(static_cast<uint64_t>(id), json);
   }
 
   return regionKv;
 }
 
-template<typename Index>
+template <typename Index>
 std::vector<base::GeoObjectId> SearchObjectsInIndex(FeatureBuilder1 const & fb, Index const & index)
 {
   std::vector<base::GeoObjectId> ids;
-  auto const fn = [&ids] (const base::GeoObjectId & osmid) { ids.emplace_back(osmid); };
+  auto const fn = [&ids] (base::GeoObjectId const & osmid) { ids.emplace_back(osmid); };
   auto const center = fb.GetLimitRect().Center();
   auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, 0 /* meters */);
   index.ForEachInRect(fn, rect);
   return ids;
 }
 
-int GetRankFromValue(const base::Json & json)
+int GetRankFromValue(base::Json const & json)
 {
-  int tempRank;
+  int rank;
   auto properties = json_object_get(json.get(), "properties");
-  FromJSONObject(properties, "rank", tempRank);
-  return tempRank;
+  FromJSONObject(properties, "rank", rank);
+  return rank;
 }
 
 base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids, KeyValue const & regionKv)
 {
-
   base::Json deepest;
   int deepestRank = 0;
   for (auto const & id : ids)
@@ -113,13 +100,16 @@ base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids, KeyValue
     auto const it = regionKv.find(id.GetEncodedId());
     if (it == std::end(regionKv))
     {
-      LOG(LWARNING, ("Not found id in region key-value:", id));
+      LOG(LWARNING, ("Id not found in region key-value:", id));
       continue;
     }
 
     temp = it->second;
     if (!json_is_object(temp.get()))
+    {
+      LOG(LWARNING, ("Value is not a json object in region key-value:", id));
       continue;
+    }
 
     if (!deepest.get())
     {
@@ -129,7 +119,7 @@ base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids, KeyValue
     else
     {
       int tempRank = GetRankFromValue(temp);
-      if (tempRank > deepestRank)
+      if (deepestRank < tempRank)
       {
         deepest = temp;
         deepestRank = tempRank;
@@ -140,7 +130,7 @@ base::Json GetDeepestRegion(std::vector<base::GeoObjectId> const & ids, KeyValue
   return deepest;
 }
 
-base::Json AddAddress(FeatureBuilder1 const & fb, base::Json const regionJson)
+base::Json AddAddress(FeatureBuilder1 const & fb, base::Json const & regionJson)
 {
   base::Json result = regionJson.GetDeepCopy();
   int const kHouseRank = 30;
@@ -153,7 +143,7 @@ base::Json AddAddress(FeatureBuilder1 const & fb, base::Json const regionJson)
   if (!street.empty())
     ToJSONObject(*address, "street", street);
 
-  // auto localies = json_object_get(result.get(), "localies");
+  // auto locales = json_object_get(result.get(), "locales");
   // auto en = json_object_get(result.get(), "en");
   // todo(maksimandrianov): Add en locales.
   return result;
@@ -161,7 +151,7 @@ base::Json AddAddress(FeatureBuilder1 const & fb, base::Json const regionJson)
 
 std::unique_ptr<char, JSONFreeDeleter>
 MakeGeoObjectValue(FeatureBuilder1 const & fb,
-                   typename indexer::RegionsIndex<IndexReader>::Type const & regionIndex,
+                   typename indexer::RegionsIndexBox<IndexReader>::IndexType const & regionIndex,
                    KeyValue const & regionKv)
 {
   auto const ids = SearchObjectsInIndex(fb, regionIndex);
@@ -173,7 +163,7 @@ MakeGeoObjectValue(FeatureBuilder1 const & fb,
   return buffer;
 }
 
-bool GenerateGeoObjects(typename indexer::RegionsIndex<IndexReader>::Type const & regionIndex,
+bool GenerateGeoObjects(typename indexer::RegionsIndexBox<IndexReader>::IndexType const & regionIndex,
                         KeyValue const & regionKv,
                         std::vector<FeatureBuilder1> const & geoObjects,
                         std::ostream & streamIdsWithoutAddress,
@@ -184,14 +174,14 @@ bool GenerateGeoObjects(typename indexer::RegionsIndex<IndexReader>::Type const 
     if (fb.GetParams().house.IsEmpty())
       continue;
 
-    const auto value = MakeGeoObjectValue(fb, regionIndex, regionKv);
+    auto const value = MakeGeoObjectValue(fb, regionIndex, regionKv);
     streamGeoObjectsKv << static_cast<int64_t>(fb.GetMostGenericOsmId().GetEncodedId()) << " "
                        << value.get() << "\n";
   }
 
   return true;
 }
-}
+}  // namespace
 
 namespace generator
 {
@@ -203,7 +193,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
                         std::string const & pathOutIdsWithoutAddress,
                         std::string const & pathOutGeoObjectsKv, bool verbose)
 {
-  auto const index = ReadIndex<indexer::RegionsIndex<IndexReader>>(pathInRegionsIndx);
+  auto const index = indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(pathInRegionsIndx);
   auto const regionsKv = ReadRegionsKv(pathInRegionsKv);
   auto geoObjects = ReadTmpMwm(pathInGeoObjectsTmpMwm);
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
