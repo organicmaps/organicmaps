@@ -191,37 +191,30 @@ bool ParseNodes(string nodesFile, set<uint64_t> & nodeIds)
 
 using NeedSerialize = function<bool(FeatureBuilder1 & fb1)>;
 bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const & needSerialize,
-                              string const & featuresDir, string const & dataFile)
+                              string const & featuresFile, string const & dataFile)
 {
   // Transform features from raw format to LocalityObject format.
   try
   {
-    Platform::FilesList files;
-    Platform::GetFilesByExt(featuresDir, DATA_FILE_EXTENSION_TMP, files);
+    LOG(LINFO, ("Processing", featuresFile));
 
-    for (auto const & filename : files)
+    CalculateMidPoints midPoints;
+    ForEachFromDatRawFormat(featuresFile, midPoints);
+
+    // Sort features by their middle point.
+    midPoints.Sort();
+
+    FileReader reader(featuresFile);
+    for (auto const & point : midPoints.GetVector())
     {
-      auto const file = base::JoinFoldersToPath(featuresDir, filename);
-      LOG(LINFO, ("Processing", file));
+      ReaderSource<FileReader> src(reader);
+      src.Skip(point.second);
 
-      CalculateMidPoints midPoints;
-      ForEachFromDatRawFormat(file, midPoints);
-
-      // Sort features by their middle point.
-      midPoints.Sort();
-
-      FileReader reader(file);
-      for (auto const & point : midPoints.GetVector())
-      {
-        ReaderSource<FileReader> src(reader);
-        src.Skip(point.second);
-
-        FeatureBuilder1 f;
-        ReadFromSourceRowFormat(src, f);
-        // Emit object.
-        if (needSerialize(f))
-          collector(f);
-      }
+      FeatureBuilder1 f;
+      ReadFromSourceRowFormat(src, f);
+      // Emit object.
+      if (needSerialize(f))
+        collector(f);
     }
 
     collector.Finish();
@@ -238,7 +231,7 @@ bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const
 
 namespace feature
 {
-bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile,
+bool GenerateGeoObjectsData(string const & featuresFile, string const & nodesFile,
                             string const & dataFile)
 {
   set<uint64_t> nodeIds;
@@ -248,7 +241,7 @@ bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile
   auto const needSerialize = [&nodeIds](FeatureBuilder1 & fb) {
     auto & fb2 = static_cast<FeatureBuilder2 &>(fb);
     return fb2.IsLocalityObject() ||
-           (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId()) != 0);
+        (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId()) != 0);
   };
 
   DataHeader header;
@@ -257,10 +250,10 @@ bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile
 
   LocalityCollector localityCollector(dataFile, header,
                                       static_cast<uint32_t>(base::SecondsSinceEpoch()));
-  return GenerateLocalityDataImpl(localityCollector, needSerialize, featuresDir, dataFile);
+  return GenerateLocalityDataImpl(localityCollector, needSerialize, featuresFile, dataFile);
 }
 
-bool GenerateRegionsData(string const & featuresDir, string const & dataFile)
+bool GenerateRegionsData(string const & featuresFile, string const & dataFile)
 {
   DataHeader header;
   header.SetGeometryCodingParams(serial::GeometryCodingParams());
@@ -269,13 +262,13 @@ bool GenerateRegionsData(string const & featuresDir, string const & dataFile)
   LocalityCollector regionsCollector(dataFile, header,
                                      static_cast<uint32_t>(base::SecondsSinceEpoch()));
   auto const needSerialize = [](FeatureBuilder1 const & fb) { return fb.IsArea(); };
-  return GenerateLocalityDataImpl(regionsCollector, needSerialize, featuresDir, dataFile);
+  return GenerateLocalityDataImpl(regionsCollector, needSerialize, featuresFile, dataFile);
 }
 
-bool GenerateBorders(string const & featuresDir, string const & dataFile)
+bool GenerateBorders(string const & featuresFile, string const & dataFile)
 {
   BordersCollector bordersCollector(dataFile);
   auto const needSerialize = [](FeatureBuilder1 const & fb) { return fb.IsArea(); };
-  return GenerateLocalityDataImpl(bordersCollector, needSerialize, featuresDir, dataFile);
+  return GenerateLocalityDataImpl(bordersCollector, needSerialize, featuresFile, dataFile);
 }
 }  // namespace feature

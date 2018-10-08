@@ -31,6 +31,7 @@ class LocalityIndex
 public:
   using ProcessObject = std::function<void(base::GeoObjectId const &)>;
 
+  LocalityIndex() = default;
   explicit LocalityIndex(Reader const & reader)
   {
     m_intervalIndex = std::make_unique<IntervalIndex<Reader, uint64_t>>(reader);
