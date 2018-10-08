@@ -6,7 +6,8 @@ using namespace std;
 
 namespace base
 {
-WorkerThread::WorkerThread(size_t threadsCount)
+WorkerThread::WorkerThread(size_t threadsCount /* = 1 */, Exit e /* = Exit::SkipPending */)
+  : m_exit(e)
 {
   for (size_t i = 0; i < threadsCount; ++i)
     m_threads.emplace_back(threads::SimpleThread(&WorkerThread::ProcessTasks, this));
@@ -143,7 +144,7 @@ bool WorkerThread::Shutdown(Exit e)
 void WorkerThread::ShutdownAndJoin()
 {
   ASSERT(m_checker.CalledOnOriginalThread(), ());
-  Shutdown(Exit::SkipPending);
+  Shutdown(m_exit);
   for (auto & thread : m_threads)
   {
     if (thread.joinable())

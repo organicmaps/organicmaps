@@ -14,6 +14,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/platform_tests_support/async_gui_thread.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -607,7 +608,10 @@ void EditorTest::OnMapDeregisteredTest()
   TEST(!editor.m_features.Get()->empty(), ());
   TEST_EQUAL(editor.m_features.Get()->size(), 2, ());
 
-  editor.OnMapDeregistered(gbMwmId.GetInfo()->GetLocalFile());
+  {
+    platform::tests_support::AsyncGuiThread guiThread;
+    editor.OnMapDeregistered(gbMwmId.GetInfo()->GetLocalFile());
+  }
 
   TEST_EQUAL(editor.m_features.Get()->size(), 1, ());
   auto const editedMwmId = editor.m_features.Get()->find(rfMwmId);
@@ -1251,7 +1255,10 @@ void EditorTest::SaveTransactionTest()
   }
 
   {
-    editor.OnMapDeregistered(mwmId.GetInfo()->GetLocalFile());
+    {
+      platform::tests_support::AsyncGuiThread guiThread;
+      editor.OnMapDeregistered(mwmId.GetInfo()->GetLocalFile());
+    }
 
     auto const features = editor.m_features.Get();
     auto const mwmIt = features->find(mwmId);

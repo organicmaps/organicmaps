@@ -31,7 +31,7 @@ public:
     SkipPending
   };
 
-  explicit WorkerThread(size_t threadsCount = 1);
+  explicit WorkerThread(size_t threadsCount = 1, Exit e = Exit::SkipPending);
   ~WorkerThread() override;
 
   // Pushes task to the end of the thread's queue of immediate tasks.
