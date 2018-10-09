@@ -527,6 +527,11 @@ public class PlacePageView extends RelativeLayout
             color = Color.WHITE;
             break;
 
+          case PARTNER2:
+            frame.setBackgroundResource(item.getBackgroundResource());
+            color = Color.BLACK;
+            break;
+
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
             updateBookmarkBtn();
@@ -633,6 +638,7 @@ public class PlacePageView extends RelativeLayout
         // Do NOT change it manually.
         // %PartnersExtender.SwitchClick
         case PARTNER1:
+        case PARTNER2:
         case PARTNER3:
         case PARTNER18:
         case PARTNER19:

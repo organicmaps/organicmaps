@@ -33,6 +33,7 @@ public final class PlacePageButtons
     // Do NOT change it manually.
     // %PartnersExtender.PartnerItemMap
     put(PartnerItem.PARTNER1.getIndex(), PartnerItem.PARTNER1);
+    put(PartnerItem.PARTNER2.getIndex(), PartnerItem.PARTNER2);
     put(PartnerItem.PARTNER3.getIndex(), PartnerItem.PARTNER3);
     put(PartnerItem.PARTNER18.getIndex(), PartnerItem.PARTNER18);
     put(PartnerItem.PARTNER19.getIndex(), PartnerItem.PARTNER19);
@@ -121,6 +122,7 @@ public final class PlacePageButtons
     // Do NOT change it manually.
     // %PartnersExtender.ButtonType
     PARTNER1,
+    PARTNER2,
     PARTNER3,
     PARTNER18,
     PARTNER19,
@@ -154,6 +156,12 @@ public final class PlacePageButtons
         new ImageResources(R.drawable.ic_24px_logo_partner1),
         R.drawable.button_partner1,
         ButtonType.PARTNER1),
+    PARTNER2(
+        2,
+        R.string.sponsored_partner2_action,
+        new ImageResources(R.drawable.ic_24px_logo_partner2),
+        R.drawable.button_partner2,
+        ButtonType.PARTNER2),
     PARTNER3(
         3,
         R.string.sponsored_partner3_action,

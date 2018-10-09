@@ -6,6 +6,8 @@
 std::vector<PartnerInfo> const kPartners = {
   PartnerInfo(1, "McArthurGlen", true /* m_hasButton */,
               "https://localads.maps.me/redirects/mcarthurglen", 180705),
+  PartnerInfo(2, "Sixt", true /* m_hasButton */,
+              "https://localads.maps.me/redirects/sixt", 180912),
   PartnerInfo(3, "BurgerKing", true /* m_hasButton */),
   PartnerInfo(18, "MegafonGreenDot", true /* m_hasButton */,
               "https://localads.maps.me/redirects/megafon_green"),

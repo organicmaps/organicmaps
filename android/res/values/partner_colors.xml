@@ -4,6 +4,8 @@
 
   <color name="bg_brand_partner1">#FF303438</color>
   <color name="bg_brand_partner1_pressed">#FF25282B</color>
+  <color name="bg_brand_partner2">#FFD7D7D7</color>
+  <color name="bg_brand_partner2_pressed">#FFD7D7D7</color>
   <color name="bg_brand_partner3">#FFE61717</color>
   <color name="bg_brand_partner3_pressed">#FFB31212</color>
   <color name="bg_brand_partner18">#FF00B956</color>

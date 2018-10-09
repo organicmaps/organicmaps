@@ -3,6 +3,8 @@
 
 + (UIColor *)partner1Background;
 + (UIColor *)partner1TextColor;
++ (UIColor *)partner2Background;
++ (UIColor *)partner2TextColor;
 + (UIColor *)partner3Background;
 + (UIColor *)partner3TextColor;
 + (UIColor *)partner18Background;
