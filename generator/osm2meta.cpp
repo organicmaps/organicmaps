@@ -299,3 +299,18 @@ string MetadataTagProcessorImpl::ValidateAndFormat_wikipedia(string v) const
   replace(normalized.begin() + colonIndex, normalized.end(), '_', ' ');
   return normalized;
 }
+
+string MetadataTagProcessorImpl::ValidateAndFormat_airport_iata(string const & v) const
+{
+  if (v.size() != 3)
+    return {};
+
+  auto str = v;
+  for (auto & c : str)
+  {
+    if (!isalpha(c))
+      return {};
+    c = toupper(c);
+  }
+  return str;
+}

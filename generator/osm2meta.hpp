@@ -36,6 +36,7 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_price_rate(std::string const & v) const;
   std::string ValidateAndFormat_sponsored_id(std::string const & v) const;
   std::string ValidateAndFormat_rating(std::string const & v) const;
+  std::string ValidateAndFormat_airport_iata(std::string const & v) const;
 
 protected:
   FeatureParams & m_params;
@@ -99,6 +100,7 @@ public:
     case Metadata::FMD_RATING: valid = ValidateAndFormat_rating(v); break;
     case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
+    case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
     }
