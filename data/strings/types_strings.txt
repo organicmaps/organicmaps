@@ -1980,6 +1980,7 @@
     zh-Hant = 付款終端
     el = Τερματικό πληρωμών
     sk = Platobný terminál
+    fa = دستگاه کارتخوان
 
   [type.amenity.pharmacy]
     en = Pharmacy
@@ -3001,6 +3002,7 @@
     zh-Hant = 飲水站
     el = Παροχή νερού
     sk = Voda
+    fa = شیر آب قابل شرب
 
   [type.barrier]
     en = barrier
@@ -6577,7 +6579,7 @@
     zh-Hant = 消防栓
     el = Πυροσβεστικός κρουνός
     sk = Požiarny hydrant
-    fa = شیراتش نشانی
+    fa = شیر آتش‌نشانی
 
   [type.emergency.phone]
     en = Emergency Phone
@@ -16726,6 +16728,7 @@
     zh-Hant = 葬儀社
     el = Γραφεία τελετών
     sk = Pohrebníctvo
+    fa = مسئول تشییع جنازه
 
   [type.shop.furniture]
     en = Furniture Store
@@ -17357,6 +17360,7 @@
     zh-Hant = 當舖
     el = Ενεχυροδανειστήριο
     sk = Záložňa
+    fa = عتیقه فروشی
 
   [type.shop.pet]
     en = Petshop
@@ -18602,7 +18606,7 @@
     zh-Hant = 旅遊景點
     el = Αξιοθέατο
     sk = Pamätihodnosť
-    fa = گردشگری
+    fa = گالری
 
   [type.tourism.guest_house]
     en = Guest House
@@ -19034,7 +19038,7 @@
     zh-Hant = 山屋
     el = Καλύβα
     sk = Chata
-    fa = هتل
+    fa = کلبه‌ی صحرایی
 
   [type.tourism.zoo]
     en = Zoo
