@@ -290,6 +290,13 @@ public:
     if (types.Empty())
       return;
 
+    if (ftypes::IsAirportChecker::Instance()(types))
+    {
+      string const iata = f.GetMetadata().Get(feature::Metadata::FMD_AIRPORT_IATA);
+      if (!iata.empty())
+        inserter(StringUtf8Multilang::kDefaultCode, iata);
+    }
+
     Classificator const & c = classif();
 
     vector<uint32_t> categoryTypes;
