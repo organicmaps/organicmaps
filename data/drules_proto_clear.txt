@@ -64138,6 +64138,69 @@ cont {
   }
 }
 cont {
+  name: "sponsored-partner2"
+  element {
+    scale: 14
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15548
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner2-l"
+      priority: 16548
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15548
+    }
+  }
+}
+cont {
   name: "sponsored-partner20"
   element {
     scale: 15

@@ -40754,6 +40754,69 @@ cont {
   }
 }
 cont {
+  name: "sponsored-partner2"
+  element {
+    scale: 14
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15732
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner2-l"
+      priority: 16732
+    }
+    caption {
+      primary {
+        height: 10
+        color: 6710886
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15732
+    }
+  }
+}
+cont {
   name: "sponsored-partner20"
   element {
     scale: 15
