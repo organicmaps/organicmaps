@@ -2,9 +2,11 @@ package com.mapswithme.util;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -181,5 +183,12 @@ public class StorageUtils
   {
     File file = new File(path);
     return file.length();
+  }
+
+  @NonNull
+  public static Uri getUriForFilePath(@NonNull Context context, @NonNull String path)
+  {
+    return FileProvider.getUriForFile(context.getApplicationContext(),
+                                      BuildConfig.FILE_PROVIDER_AUTHORITY, new File(path));
   }
 }

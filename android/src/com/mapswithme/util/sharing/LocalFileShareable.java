@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 
-import com.mapswithme.maps.BuildConfig;
-
-import java.io.File;
+import com.mapswithme.util.StorageUtils;
 
 public class LocalFileShareable extends BaseShareable
 {
@@ -26,8 +23,7 @@ public class LocalFileShareable extends BaseShareable
   protected void modifyIntent(Intent intent, @Nullable SharingTarget target)
   {
     super.modifyIntent(intent, target);
-    Uri fileUri = FileProvider.getUriForFile(getActivity(), BuildConfig.FILE_PROVIDER_AUTHORITY,
-                                             new File(mFileName));
+    Uri fileUri = StorageUtils.getUriForFilePath(getActivity(), mFileName);
     intent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
   }
 

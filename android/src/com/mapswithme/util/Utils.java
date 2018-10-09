@@ -650,7 +650,10 @@ public class Utils
           {
             String logsZipFile = StorageUtils.getLogsZipPath();
             if (!TextUtils.isEmpty(logsZipFile))
-              intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + logsZipFile));
+            {
+              Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);
+              intent.putExtra(Intent.EXTRA_STREAM, uri);
+            }
           }
           intent.putExtra(Intent.EXTRA_TEXT, ""); // do this so some email clients don't complain about empty body.
           intent.setType("message/rfc822");
