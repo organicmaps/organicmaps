@@ -193,7 +193,8 @@ public class PlacePageView extends RelativeLayout
   private boolean mBookmarkSet;
   // Place page buttons
   private PlacePageButtons mButtons;
-  private ImageView mBookmarkButtonIcon;
+  @Nullable
+  private BottomButtonHolder mBookmarkBtnHolder;
   // Hotel
   private View mHotelDescription;
   private LineCountTextView mTvHotelDescription;
@@ -533,7 +534,7 @@ public class PlacePageView extends RelativeLayout
             break;
 
           case BOOKMARK:
-            mBookmarkButtonIcon = icon;
+            mBookmarkBtnHolder = new BottomButtonHolder(frame);
             updateBookmarkBtn();
             frame.setEnabled(isEditableMapObject());
             color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
@@ -685,11 +686,17 @@ public class PlacePageView extends RelativeLayout
 
   private void updateCatalogBookmarkBtn()
   {
-    if (isEditableMapObject() || mBookmarkButtonIcon == null)
+    if (mBookmarkBtnHolder == null)
+      return;
+
+    boolean isEditable = isEditableMapObject();
+    mBookmarkBtnHolder.frame.setEnabled(isEditable);
+
+    if (isEditable)
       return;
     final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
     Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
-    mBookmarkButtonIcon.setImageDrawable(drawable);
+    mBookmarkBtnHolder.image.setImageDrawable(drawable);
   }
 
   private void initEditMapObjectBtn()
@@ -1631,13 +1638,13 @@ public class PlacePageView extends RelativeLayout
 
   private void updateBookmarkBtn()
   {
-    if (mBookmarkButtonIcon == null)
+    if (mBookmarkBtnHolder == null)
       return;
 
     if (mBookmarkSet)
-      mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
+      mBookmarkBtnHolder.image.setImageResource(R.drawable.ic_bookmarks_on);
     else
-      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+      mBookmarkBtnHolder.image.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
     updateCatalogBookmarkBtn();
   }
 
@@ -2270,6 +2277,20 @@ public class PlacePageView extends RelativeLayout
                                         getActivity(),
                                         getActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
+    }
+  }
+
+  private static class BottomButtonHolder
+  {
+    @NonNull
+    private final View frame;
+    @NonNull
+    private final ImageView image;
+
+    BottomButtonHolder(@NonNull View frame)
+    {
+      this.frame = frame;
+      this.image = frame.findViewById(R.id.icon);
     }
   }
 }
