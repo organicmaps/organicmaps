@@ -1444,6 +1444,7 @@
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
+	<string name="sponsored_partner2_action">Discount</string>
 	<string name="sponsored_partner3_action">Coupon</string>
 	<string name="sponsored_partner18_action">Lifehack</string>
 	<string name="sponsored_partner19_action">Lifehack</string>

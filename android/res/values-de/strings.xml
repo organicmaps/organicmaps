@@ -1400,6 +1400,9 @@
 	<string name="restore_error_alert">Ein Fehler ist bei der Wiederherstellung des Abonnements aufgetreten</string>
 	<string name="restore_no_subscription_alert">Es gibt keine aktiven Abonnements</string>
 
+	<!-- SECTION:  Partners  -->
+	<string name="sponsored_partner2_action">Rabatt</string>
+
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Seilbahn</string>
 	<string name="type.aeroway.aerodrome">Flughafen</string>
