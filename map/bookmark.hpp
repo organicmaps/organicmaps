@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 class Bookmark : public UserMark
 {
@@ -90,6 +91,7 @@ public:
 
   void SetAuthor(std::string const & name, std::string const & id);
   void SetAccessRules(kml::AccessRules accessRules);
+  void SetTags(std::vector<std::string> const & tags);
 
 private:
   void SetDirty() override;

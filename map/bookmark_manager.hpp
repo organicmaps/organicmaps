@@ -125,6 +125,7 @@ public:
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
+    void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     bool DeleteBmCategory(kml::MarkGroupId groupId);
 
     void NotifyChanges();
@@ -425,6 +426,7 @@ private:
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
+  void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   bool DeleteBmCategory(kml::MarkGroupId groupId);
   void ClearCategories();
 

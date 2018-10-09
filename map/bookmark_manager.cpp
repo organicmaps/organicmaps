@@ -811,6 +811,14 @@ void BookmarkManager::SetCategoryName(kml::MarkGroupId categoryId, std::string c
   category->SetName(name);
 }
 
+void BookmarkManager::SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  category->SetTags(tags);
+}
+
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2507,6 +2515,12 @@ void BookmarkManager::EditSession::SetCategoryName(kml::MarkGroupId categoryId, 
 {
   CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryName(categoryId, name);
+}
+
+void BookmarkManager::EditSession::SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags)
+{
+  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
+  m_bmManager.SetCategoryTags(categoryId, tags);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)

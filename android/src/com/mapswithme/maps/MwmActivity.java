@@ -47,6 +47,7 @@ import com.mapswithme.maps.bookmarks.BookmarksDownloadManager;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.dialog.DialogUtils;
@@ -1155,6 +1156,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     Toast.makeText(this, R.string.guide_downloaded_title, Toast.LENGTH_LONG).show();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GUIDEDOWNLOADTOAST_SHOWN);
+  }
+
+  @Override
+  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  {
+    //TODO(@alexzatsepin): Implement me if necessary
   }
 
   @Override

@@ -260,6 +260,15 @@ public enum BookmarkManager
       listener.onImportFinished(id, catId, successful);
   }
 
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onTagsReceived(successful, tagsGroups);
+  }
+
   public boolean isVisible(long catId)
   {
     return nativeIsVisible(catId);
@@ -576,6 +585,8 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryName(long catId, @NonNull String n);
 
+  private native void nativeSetCategoryTags(long catId, @NonNull String[] tagsIds);
+
   @NonNull
   private native String nativeGetCategoryAuthor(long catId);
 
@@ -658,6 +669,8 @@ public enum BookmarkManager
 
   private static native boolean nativeIsCategoryFromCatalog(long catId);
 
+  private static native void nativeRequestCatalogTags();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -730,11 +743,18 @@ public enum BookmarkManager
      * @param successful is result of the importing.
      */
     void onImportFinished(@NonNull String serverId, long catId, boolean successful);
+
+    /**
+     * The method is called when the tags were received from the server.
+     *
+     * @param successful is the result of the receiving.
+     * @param tagsGroups is the tags collection.
+     */
+    void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups);
   }
 
   public static class DefaultBookmarksCatalogListener implements BookmarksCatalogListener
   {
-
     @Override
     public void onImportStarted(@NonNull String serverId)
     {
@@ -743,6 +763,12 @@ public enum BookmarkManager
 
     @Override
     public void onImportFinished(@NonNull String serverId, long catId, boolean successful)
+    {
+      /* do noting by default */
+    }
+
+    @Override
+    public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
     {
       /* do noting by default */
     }

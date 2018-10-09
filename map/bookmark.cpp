@@ -249,6 +249,15 @@ void BookmarkCategory::SetServerId(std::string const & serverId)
   m_serverId = serverId;
 }
 
+void BookmarkCategory::SetTags(std::vector<std::string> const & tags)
+{
+  if (m_data.m_tags == tags)
+    return;
+
+  SetDirty();
+  m_data.m_tags = tags;
+}
+
 std::string BookmarkCategory::GetName() const
 {
   return GetPreferredBookmarkStr(m_data.m_name);

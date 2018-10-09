@@ -1,13 +1,17 @@
 #include "map/bookmark_catalog.hpp"
 
+#include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/serdes_json.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
+#include "base/visitor.hpp"
 
+#include <cstring>
 #include <sstream>
 #include <utility>
 
@@ -17,12 +21,58 @@ namespace
 {
 std::string const kCatalogFrontendServer = BOOKMARKS_CATALOG_FRONT_URL;
 std::string const kCatalogDownloadServer = BOOKMARKS_CATALOG_DOWNLOAD_URL;
+std::string const kCatalogEditorServer = BOOKMARKS_CATALOG_EDITOR_URL;
 
 std::string BuildCatalogDownloadUrl(std::string const & serverId)
 {
   if (kCatalogDownloadServer.empty())
     return {};
   return kCatalogDownloadServer + serverId;
+}
+
+std::string BuildTagsUrl(std::string const & language)
+{
+  if (kCatalogEditorServer.empty())
+    return {};
+  return kCatalogEditorServer + "editor/tags/?lang=" + language;
+}
+
+struct SubtagData
+{
+  std::string m_name;
+  std::string m_color;
+  std::string m_translation;
+  DECLARE_VISITOR(visitor(m_name, "name"),
+                  visitor(m_color, "color"),
+                  visitor(m_translation, "translation"))
+};
+
+struct TagData
+{
+  std::string m_name;
+  std::vector<SubtagData> m_subtags;
+  DECLARE_VISITOR(visitor(m_name, "name"),
+                  visitor(m_subtags, "subtags"))
+};
+
+struct TagsResponseData
+{
+  std::vector<TagData> m_tags;
+
+  DECLARE_VISITOR(visitor(m_tags))
+};
+
+BookmarkCatalog::Tag::Color ExtractColor(std::string const & c)
+{
+  BookmarkCatalog::Tag::Color result;
+
+  auto const components = c.size() / 2;
+  if (components < result.size())
+    return {};
+
+  for (size_t i = 0; i < result.size(); i++)
+    result[i] = static_cast<float>(std::stoi(c.substr(i * 2, 2), nullptr, 16)) / 255;
+  return result;
 }
 }  // namespace
 
@@ -100,4 +150,62 @@ std::string BookmarkCatalog::GetDownloadUrl(std::string const & serverId) const
 std::string BookmarkCatalog::GetFrontendUrl() const
 {
   return kCatalogFrontendServer + languages::GetCurrentNorm() + "/mobilefront/";
+}
+
+void BookmarkCatalog::RequestTagGroups(std::string const & language,
+                                       BookmarkCatalog::TagGroupsCallback && callback) const
+{
+  auto const tagsUrl = BuildTagsUrl(language);
+  if (tagsUrl.empty())
+  {
+    if (callback)
+      callback(false /* success */, {});
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [tagsUrl, callback = std::move(callback)]()
+  {
+    platform::HttpClient request(tagsUrl);
+    request.SetRawHeader("Accept", "application/json");
+    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+    if (request.RunHttpRequest())
+    {
+      auto const resultCode = request.ErrorCode();
+      if (resultCode >= 200 && resultCode < 300)  // Ok.
+      {
+        TagsResponseData tagsResponseData;
+        {
+          coding::DeserializerJson des(request.ServerResponse());
+          des(tagsResponseData);
+        }
+        TagGroups result;
+        result.reserve(tagsResponseData.m_tags.size());
+        for (auto const & t : tagsResponseData.m_tags)
+        {
+          TagGroup group;
+          group.m_name = t.m_name;
+          group.m_tags.reserve(t.m_subtags.size());
+          for (auto const & st : t.m_subtags)
+          {
+            Tag tag;
+            tag.m_id = st.m_name;
+            tag.m_name = st.m_translation;
+            tag.m_color = ExtractColor(st.m_color);
+            group.m_tags.push_back(std::move(tag));
+          }
+          result.push_back(std::move(group));
+        }
+        if (callback)
+          callback(true /* success */, result);
+        return;
+      }
+      else
+      {
+        LOG(LWARNING, ("Tags request error. Code =", resultCode,
+                       "Response =", request.ServerResponse()));
+      }
+    }
+    if (callback)
+      callback(false /* success */, {});
+  });
 }

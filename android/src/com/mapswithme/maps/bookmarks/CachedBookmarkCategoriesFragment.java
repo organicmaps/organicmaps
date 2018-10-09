@@ -14,6 +14,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
@@ -208,6 +209,12 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
         UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
         UiUtils.hideIf(isEmptyAdapter, mPayloadContainer);
       }
+    }
+
+    @Override
+    public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    {
+      //TODO(@alexzatsepin): Implement me if necessary
     }
   }
 }
