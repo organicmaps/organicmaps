@@ -33,6 +33,7 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
+import com.my.tracker.MyTracker;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener, BaseActivity
@@ -90,6 +91,7 @@ public class SplashActivity extends AppCompatActivity
       {
         LOGGER.i(TAG, "Limit ad tracking disabled, sensitive tracking initialized");
         mediator.initSensitiveData();
+        MyTracker.trackLaunchManually(SplashActivity.this);
       }
       else
       {
