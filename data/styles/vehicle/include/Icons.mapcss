@@ -82,6 +82,8 @@ area[amenity=pub]
 
 node[sponsored=partner1],
 area[sponsored=partner1],
+node[sponsored=partner2],
+area[sponsored=partner2],
 node[sponsored=partner18],
 area[sponsored=partner18],
 node[sponsored=partner19],
@@ -1079,6 +1081,16 @@ area|z14-[sponsored=partner1]
 node|z18-[sponsored=partner1],
 area|z18-[sponsored=partner1]
 {icon-image: partner1-l.svg;font-size: 11;text-optional: true;}
+
+/* Sixt */
+
+node|z14-[sponsored=partner2],
+area|z14-[sponsored=partner2]
+{icon-image: partner2-l.svg;font-size: 11;text-optional: true;}
+
+node|z18-[sponsored=partner2],
+area|z18-[sponsored=partner2]
+{icon-image: partner2-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
 
 /* MegafonGreenDot */
 
