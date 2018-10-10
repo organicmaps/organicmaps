@@ -137,6 +137,7 @@ public:
 
   static bool IsFileExistsByFullPath(std::string const & filePath);
   static void DisableBackupForFile(std::string const & filePath);
+  static bool RemoveFileIfExists(std::string const & filePath);
 
   /// @returns path to current working directory.
   /// @note In case of an error returns an empty std::string.
@@ -176,6 +177,8 @@ public:
   std::string const & TmpDir() const { return m_tmpDir; }
   /// @return full path to file in the temporary directory
   std::string TmpPathForFile(std::string const & file) const { return TmpDir() + file; }
+  /// @return full path to temporary file
+  std::string TmpPathForFile() const;
 
   /// @return full path to the file where data for unit tests is stored.
   std::string TestsDataPathForFile(std::string const & file) const { return ReadPathForFile(file); }

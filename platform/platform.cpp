@@ -10,7 +10,9 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <thread>
+#include <string>
 
 #include "std/target_os.hpp"
 
@@ -22,6 +24,23 @@ using namespace std;
 
 namespace
 {
+std::string RandomString(size_t length)
+{
+  auto const randchar = []()
+  {
+    static std::string const charset =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+    size_t const maxIndex = sizeof(charset) - 1;
+    return charset[rand() % maxIndex];
+  };
+
+  std::string str(length, 0);
+  std::generate_n(str.begin(), length, randchar);
+  return str;
+}
+
 bool IsSpecialDirName(string const & dirName)
 {
   return dirName == "." || dirName == "..";
@@ -44,24 +63,24 @@ Platform::EError Platform::ErrnoToError()
 {
   switch (errno)
   {
-    case ENOENT:
-      return ERR_FILE_DOES_NOT_EXIST;
-    case EACCES:
-      return ERR_ACCESS_FAILED;
-    case ENOTEMPTY:
-      return ERR_DIRECTORY_NOT_EMPTY;
-    case EEXIST:
-      return ERR_FILE_ALREADY_EXISTS;
-    case ENAMETOOLONG:
-      return ERR_NAME_TOO_LONG;
-    case ENOTDIR:
-      return ERR_NOT_A_DIRECTORY;
-    case ELOOP:
-      return ERR_SYMLINK_LOOP;
-    case EIO:
-      return ERR_IO_ERROR;
-    default:
-      return ERR_UNKNOWN;
+  case ENOENT:
+    return ERR_FILE_DOES_NOT_EXIST;
+  case EACCES:
+    return ERR_ACCESS_FAILED;
+  case ENOTEMPTY:
+    return ERR_DIRECTORY_NOT_EMPTY;
+  case EEXIST:
+    return ERR_FILE_ALREADY_EXISTS;
+  case ENAMETOOLONG:
+    return ERR_NAME_TOO_LONG;
+  case ENOTDIR:
+    return ERR_NOT_A_DIRECTORY;
+  case ELOOP:
+    return ERR_SYMLINK_LOOP;
+  case EIO:
+    return ERR_IO_ERROR;
+  default:
+    return ERR_UNKNOWN;
   }
 }
 
@@ -144,6 +163,17 @@ string Platform::MetaServerUrl() const
 string Platform::DefaultUrlsJSON() const
 {
   return DEFAULT_URLS_JSON;
+}
+
+bool Platform::RemoveFileIfExists(std::string const & filePath)
+{
+  return IsFileExistsByFullPath(filePath) ? base::DeleteFileX(filePath) : true;
+}
+
+std::string Platform::TmpPathForFile() const
+{
+  size_t const kNameLen = 32;
+  return TmpDir() + RandomString(kNameLen);
 }
 
 void Platform::GetFontNames(FilesList & res) const
