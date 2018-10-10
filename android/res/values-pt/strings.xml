@@ -1388,6 +1388,9 @@
 	<string name="restore_success_alert">A subscrição foi restaurada com sucesso</string>
 	<string name="restore_error_alert">Ocorreu um erro ao restaurar a subscrição</string>
 	<string name="restore_no_subscription_alert">Não há subscrições ativas</string>
+	<string name="subscription_terms">O pagamento será cobrado na sua conta do iTunes na confirmação da compra. A subscrição será automaticamente renovada, exceto se a renovação automática for desativada, pelo menos, 24 horas antes do fim do período atual. A sua conta será cobrada de acordo com o seu plano de renovação no prazo de 24 horas antes do fim do período atual. Pode gerir ou desativar a renovação automática nas definições da sua conta de ID da Apple, a qualquer momento, após a sua compra.</string>
+	<string name="subscriptions_title">Subscrições</string>
+	<string name="manage_subscription">Gerir a subscrição</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

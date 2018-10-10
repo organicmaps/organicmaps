@@ -1385,6 +1385,9 @@
 	<string name="restore_success_alert">Tilaus on palautettu onnistuneesti</string>
 	<string name="restore_error_alert">Tilausta palautettaessa ilmeni ongelma</string>
 	<string name="restore_no_subscription_alert">Aktiivisia tilauksia ei ole</string>
+	<string name="subscription_terms">Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.</string>
+	<string name="subscriptions_title">Tilaukset</string>
+	<string name="manage_subscription">Hallitse tilausta</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

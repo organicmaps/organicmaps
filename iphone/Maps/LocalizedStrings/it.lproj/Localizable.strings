@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Non vi sono abbonamenti attivi";
 
+"subscription_terms" = "Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell'acquisto. L'abbonamento verrà rinnovato automaticamente a meno che l'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell'attuale periodo di fatturazione. L'addebito sull'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell'account Apple ID in qualsiasi momento.";
+
+"subscriptions_title" = "Abbonamenti";
+
+"manage_subscription" = "Gestisci abbonamento";
+
 
 /**********  Partners  **********/
 

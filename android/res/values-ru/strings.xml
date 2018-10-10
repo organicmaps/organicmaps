@@ -1435,6 +1435,9 @@
 	<string name="restore_success_alert">Подписка была успешно восстановлена</string>
 	<string name="restore_error_alert">Во время восстановления подписки произошла ошибка</string>
 	<string name="restore_no_subscription_alert">У вас нет активных подписок</string>
+	<string name="subscription_terms">Оплата будет списана с вашего счета iTunes при подтверждении покупки. Подписка автоматически возобновится, если автоматическое продление не будет отключено по крайней мере за 24 часа до окончания текущего периода. Деньги будут списываться с вашей учетной записи в соответствии с вашим планом продления в течение 24 часов до конца текущего периода. Вы можете управлять или отключать автоматическое продление в настройках учетной записи Apple ID в любое время после покупки.</string>
+	<string name="subscriptions_title">Подписки</string>
+	<string name="manage_subscription">Управление подпиской</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Det finns inga aktiva prenumerationer";
 
+"subscription_terms" = "Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.";
+
+"subscriptions_title" = "Prenumerationer";
+
+"manage_subscription" = "Hantera prenumeration";
+
 
 /**********  Partners  **********/
 

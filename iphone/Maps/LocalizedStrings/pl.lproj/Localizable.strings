@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Brak aktywnych subskrypcji";
 
+"subscription_terms" = "Po zatwierdzeniu płatności zostanie nią obciążone Twoje konto iTunes. Subskrypcja odnowi się automatycznie, chyba że opcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu rozliczeniowego. Twoje konto zostanie obciążone kwotą za odnowienie subskrypcji zgodnie z wybranym planem w przeciągu 24 godzin przed końcem bieżącego okresu rozliczeniowego. Automatycznym odnawianiem zarządzać można lub wyłączyć je w ustawieniach konta Apple ID w dowolnej chwili po dokonaniu zakupu.";
+
+"subscriptions_title" = "Subskrypcje";
+
+"manage_subscription" = "Zarządzaj subskrypcją";
+
 
 /**********  Partners  **********/
 

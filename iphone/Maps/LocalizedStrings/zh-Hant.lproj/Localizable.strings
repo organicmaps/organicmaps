@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "沒有有效訂閱";
 
+"subscription_terms" = "確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。";
+
+"subscriptions_title" = "訂購";
+
+"manage_subscription" = "管理訂購";
+
 
 /**********  Partners  **********/
 

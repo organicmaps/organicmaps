@@ -1389,6 +1389,9 @@
 	<string name="restore_success_alert">Predplatné bolo úspešne obnovené</string>
 	<string name="restore_error_alert">Pri obnovení predplatného sa vyskytla chyba</string>
 	<string name="restore_no_subscription_alert">Neexistuje žiadne aktívne predplatné</string>
+	<string name="subscription_terms">Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.</string>
+	<string name="subscriptions_title">Predplatné</string>
+	<string name="manage_subscription">Správa predplatného</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

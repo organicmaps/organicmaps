@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Der er ingen aktive abonnementer";
 
+"subscription_terms" = "Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.";
+
+"subscriptions_title" = "Abonnementer";
+
+"manage_subscription" = "Administrer abonnementet";
+
 
 /**********  Partners  **********/
 

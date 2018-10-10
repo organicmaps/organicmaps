@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Tidak ada langganan yang aktif";
 
+"subscription_terms" = "Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.";
+
+"subscriptions_title" = "Langganan";
+
+"manage_subscription" = "Kelola langganan";
+
 
 /**********  Partners  **********/
 

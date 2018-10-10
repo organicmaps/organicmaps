@@ -1381,6 +1381,9 @@
 	<string name="restore_success_alert">Abonamentul a fost restabilit</string>
 	<string name="restore_error_alert">A apărut o eroare la restabilirea abonamentului</string>
 	<string name="restore_no_subscription_alert">Nu există abonamente active</string>
+	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
+	<string name="subscriptions_title">Abonamente</string>
+	<string name="manage_subscription">Administrare abonament</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

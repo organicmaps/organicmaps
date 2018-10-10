@@ -1384,6 +1384,9 @@
 	<string name="restore_success_alert">Langganan telah berhasil dipulihkan</string>
 	<string name="restore_error_alert">Terjadi kesalahan saat sedang memulihkan langganan</string>
 	<string name="restore_no_subscription_alert">Tidak ada langganan yang aktif</string>
+	<string name="subscription_terms">Pembayaran akan dibebankan ke akun iTunes Anda pada konfirmasi pembelian. Langganan akan diperbarui secara otomatis kecuali jika langganan otomatis dinonaktifkan setidaknya 24 jam sebelum akhir periode berjalan. Akun Anda akan dikenakan biaya sesuai dengan paket langganan Anda untuk perpanjangan dalam 24 jam sebelum akhir periode berjalan. Anda dapat mengelola atau menonaktifkan perpanjangan otomatis pada pengaturan akun ID Apple Anda kapan saja dari pembelian Anda.</string>
+	<string name="subscriptions_title">Langganan</string>
+	<string name="manage_subscription">Kelola langganan</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

@@ -1390,6 +1390,9 @@
 	<string name="restore_success_alert">Підписку успішно відновлено</string>
 	<string name="restore_error_alert">Під час відновлення підписки сталася помилка</string>
 	<string name="restore_no_subscription_alert">Активних підписок немає</string>
+	<string name="subscription_terms">Оплату буде стягнуто з вашого облікового запису iTunes при підтвердженні покупки. Передплату буде автоматично поновлено, якщо автоматичне оновлення не буде вимкнено принаймні за 24 години до кінця поточного періоду. З вашого обліквого запису буде стягнуто плату відповідно до вашого плану про поновлення протягом 24 годин до кінця поточного періоду. Ви можете керувати або вимкнути автоматичне оновлення у налаштуваннях облікового запису Apple ID у будь-який час вашої покупки.</string>
+	<string name="subscriptions_title">Передплати</string>
+	<string name="manage_subscription">Керувати передплатою</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

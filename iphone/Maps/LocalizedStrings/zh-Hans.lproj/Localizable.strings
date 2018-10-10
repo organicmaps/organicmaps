@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "没有有效订阅";
 
+"subscription_terms" = "确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。";
+
+"subscriptions_title" = "订购";
+
+"manage_subscription" = "管理订购";
+
 
 /**********  Partners  **********/
 

@@ -1393,6 +1393,9 @@
 	<string name="restore_success_alert">訂閱已成功恢復</string>
 	<string name="restore_error_alert">恢復訂閱時發生錯誤</string>
 	<string name="restore_no_subscription_alert">沒有有效訂閱</string>
+	<string name="subscription_terms">確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。</string>
+	<string name="subscriptions_title">訂購</string>
+	<string name="manage_subscription">管理訂購</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

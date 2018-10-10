@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Es gibt keine aktiven Abonnements";
 
+"subscription_terms" = "Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.";
+
+"subscriptions_title" = "Abonnements";
+
+"manage_subscription" = "Abonnements verwalten";
+
 
 /**********  Partners  **********/
 

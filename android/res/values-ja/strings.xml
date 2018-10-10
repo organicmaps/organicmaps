@@ -1383,6 +1383,9 @@
 	<string name="restore_success_alert">サブスクリプションの復元が完了しました</string>
 	<string name="restore_error_alert">サブスクリプションの復元中にエラーが発生しました</string>
 	<string name="restore_no_subscription_alert">有効なサブスクリプションはありません</string>
+	<string name="subscription_terms">ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。</string>
+	<string name="subscriptions_title">サブスクリプション</string>
+	<string name="manage_subscription">サブスクリプション管理</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

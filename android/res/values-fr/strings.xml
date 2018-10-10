@@ -1399,6 +1399,9 @@
 	<string name="restore_success_alert">L\'abonnement a été restauré avec succès</string>
 	<string name="restore_error_alert">Une erreur s\'est produite lors de la restauration de l\'abonnement</string>
 	<string name="restore_no_subscription_alert">Il n\'y a aucun abonnement actif</string>
+	<string name="subscription_terms">Le paiement sera débité de votre compte iTunes lors de la confirmation d\'achat. L\'abonnement sera automatiquement renouvelé à moins que le renouvellement automatique ne soit désactivé au moins 24 heures avant la fin de la période en cours. Votre compte sera débité selon votre forfait pour un renouvellement dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer ou désactiver le renouvellement automatique depuis les paramètres de votre compte Apple ID à tout moment lors de votre achat.</string>
+	<string name="subscriptions_title">Abonnements</string>
+	<string name="manage_subscription">Gérer l\'abonnement</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

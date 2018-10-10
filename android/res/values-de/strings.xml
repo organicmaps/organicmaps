@@ -1399,6 +1399,9 @@
 	<string name="restore_success_alert">Das Abonnement wurde erfolgreich wiederhergestellt</string>
 	<string name="restore_error_alert">Ein Fehler ist bei der Wiederherstellung des Abonnements aufgetreten</string>
 	<string name="restore_no_subscription_alert">Es gibt keine aktiven Abonnements</string>
+	<string name="subscription_terms">Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.</string>
+	<string name="subscriptions_title">Abonnements</string>
+	<string name="manage_subscription">Abonnements verwalten</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

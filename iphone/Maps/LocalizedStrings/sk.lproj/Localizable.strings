@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Neexistuje žiadne aktívne predplatné";
 
+"subscription_terms" = "Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.";
+
+"subscriptions_title" = "Predplatné";
+
+"manage_subscription" = "Správa predplatného";
+
 
 /**********  Partners  **********/
 

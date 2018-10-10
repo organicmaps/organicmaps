@@ -1389,6 +1389,9 @@
 	<string name="restore_success_alert">Prenumerationen har återställts</string>
 	<string name="restore_error_alert">Ett fel uppstod vid återställning av prenumerationen</string>
 	<string name="restore_no_subscription_alert">Det finns inga aktiva prenumerationer</string>
+	<string name="subscription_terms">Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.</string>
+	<string name="subscriptions_title">Prenumerationer</string>
+	<string name="manage_subscription">Hantera prenumeration</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

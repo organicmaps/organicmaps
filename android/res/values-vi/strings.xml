@@ -1381,6 +1381,9 @@
 	<string name="restore_success_alert">Đăng ký đã được khôi phục thành công</string>
 	<string name="restore_error_alert">Đã xảy ra lỗi khi khôi phục đăng ký</string>
 	<string name="restore_no_subscription_alert">Không có đăng ký đang hoạt động</string>
+	<string name="subscription_terms">Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.</string>
+	<string name="subscriptions_title">Đăng ký</string>
+	<string name="manage_subscription">Quản lý đăng ký</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

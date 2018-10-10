@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "No hay suscripciones activas";
 
+"subscription_terms" = "El pago se cobrará en tu cuenta de iTunes a la confirmación de la compra. La suscripción se renovará automáticamente a menos que se desactive la renovación automática al menos 24 horas antes del final del periodo actual. Se cobrará en tu cuenta según tu plan de renovación dentro de las 24 horas antes del final del periodo actual. Puedes gestionar o desactivar la renovación automática en los ajustes de cuenta de tu Apple ID en cualquier momento de tu compra.";
+
+"subscriptions_title" = "Suscripciones";
+
+"manage_subscription" = "Gestionar suscripción";
+
 
 /**********  Partners  **********/
 

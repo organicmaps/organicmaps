@@ -2478,6 +2478,12 @@
 
 "restore_no_subscription_alert" = "Nu există abonamente active";
 
+"subscription_terms" = "Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.";
+
+"subscriptions_title" = "Abonamente";
+
+"manage_subscription" = "Administrare abonament";
+
 
 /**********  Partners  **********/
 

@@ -1390,6 +1390,9 @@
 	<string name="restore_success_alert">تم استعادة الاشتراك بنجاح</string>
 	<string name="restore_error_alert">حدث خطأ أثناء استعادة الاشتراك</string>
 	<string name="restore_no_subscription_alert">لا توجد اشتراكات نشطة</string>
+	<string name="subscription_terms">سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.</string>
+	<string name="subscriptions_title">الاشتراكات</string>
+	<string name="manage_subscription">إدارة الاشتراك</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

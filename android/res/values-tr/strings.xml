@@ -1390,6 +1390,9 @@
 	<string name="restore_success_alert">Abonelik başarılı bir şekilde geri yüklendi</string>
 	<string name="restore_error_alert">Abonelik geri yüklenirken bir hata oluştu</string>
 	<string name="restore_no_subscription_alert">Aktif abonelik yok</string>
+	<string name="subscription_terms">Ödeme, satın alma onayında iTunes hesabınızdan alınacaktır. Otomatik yenileme geçerli dönemin sona ermesinden en az 24 saat önce kapatılmadıkça abonelik otomatik olarak yenilenecektir. Hesabınızdan, geçerli dönemin sona ermesinden önce 24 saat içinde planınıza göre yenileme için ücret alınacaktır. Otomatik yenilemeyi satın alma işleminizde dilediğiniz zaman Apple ID hesap ayarlarınızda yönetebilir veya kapatabilirsiniz.</string>
+	<string name="subscriptions_title">Abonelikler</string>
+	<string name="manage_subscription">Aboneliği yönet</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>
