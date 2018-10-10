@@ -234,7 +234,7 @@ public final class HttpClient
     }
 
     if ((connection instanceof HttpsURLConnection)) {
-      SSLSocketFactory socketFactory = TLSSocketFactory.create();
+      SSLSocketFactory socketFactory = TLSSocketFactory.create(MwmApplication.get(), R.raw.cert);
       ((HttpsURLConnection)connection).setSSLSocketFactory(socketFactory);
     }
   }

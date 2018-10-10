@@ -30,6 +30,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -304,14 +305,27 @@ public class TLSSocketFactory extends SSLSocketFactory {
   public static SSLSocketFactory create(Context context, @RawRes int caRawFile) {
     InputStream caInput = null;
     try {
+
+
+
       // Generate the CA Certificate from the raw resource file
       caInput = context.getResources().openRawResource(caRawFile);
-      Certificate ca = CertificateFactory.getInstance("X.509", "BC").generateCertificate(caInput);
-
+      CertificateFactory factory = CertificateFactory.getInstance("X.509");
       // Load the key store using the CA
-      KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+      KeyStore keyStore = KeyStore.getInstance("PKCS12");
       keyStore.load(null, null);
-      keyStore.setCertificateEntry("ca", ca);
+
+
+      Certificate cert = factory.generateCertificate(caInput);
+
+      // Put the certificates a key store.
+      char[] password = "password".toCharArray(); // Any password will work.
+      int index = 0;
+      keyStore.setCertificateEntry(Integer.toString(index++), cert);
+
+      caInput = context.getResources().openRawResource(R.raw.devroot);
+      cert = factory.generateCertificate(caInput);
+      keyStore.setCertificateEntry(Integer.toString(index++), cert);
 
       // Initialize the TrustManager with this CA
       TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -328,8 +342,12 @@ public class TLSSocketFactory extends SSLSocketFactory {
       trustManagerFactory.init(keyStore);
     }*/
       // Create an SSL context that uses the created trust manager
+      KeyStore ksClient = KeyStore.getInstance("PKCS12");
+      ksClient.load(MwmApplication.get().getResources().openRawResource(R.raw.my_cret), "123".toCharArray());
+      KeyManagerFactory kmf = KeyManagerFactory.getInstance("X509");
+      kmf.init(ksClient, "123".toCharArray());
       SSLContext sslContext = SSLContext.getInstance("TLS");
-      sslContext.init(null, tmf.getTrustManagers(), new SecureRandom());
+      sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), new SecureRandom());
       return sslContext.getSocketFactory();
 
     } catch (Exception ex) {
