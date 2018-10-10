@@ -759,7 +759,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   if (isFBURL)
     return YES;
 
-  if ([self checkLaunchURL:[url.host rangeOfString:@"dlink.maps.me"].location != NSNotFound
+  if ([self checkLaunchURL:(url.host.length > 0 && [url.host rangeOfString:@"dlink.maps.me"].location != NSNotFound)
        ? [self convertUniversalLink:url] : url])
   {
     [self handleURLs];
