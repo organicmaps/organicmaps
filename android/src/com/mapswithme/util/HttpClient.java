@@ -24,15 +24,21 @@
 
 package com.mapswithme.util;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -44,6 +50,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +83,7 @@ public final class HttpClient
 
     try
     {
-      connection = (HttpURLConnection) new URL(p.url).openConnection();
+      connection = (HttpURLConnection) new URL("https://user-request.mapsme.devmail.ru/binding_request").openConnection();
       setupTLSForPreLollipop(connection);
 
       // NullPointerException, MalformedUrlException, IOException
@@ -195,6 +207,9 @@ public final class HttpClient
       ostream.close(); // IOException
       if (ostream instanceof ByteArrayOutputStream)
         p.data = ((ByteArrayOutputStream) ostream).toByteArray();
+    } catch (IOException e)
+    {
+      throw new IOException(e);
     }
     finally
     {
@@ -216,6 +231,11 @@ public final class HttpClient
       HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
       SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
       sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
+    }
+
+    if ((connection instanceof HttpsURLConnection)) {
+      SSLSocketFactory socketFactory = TLSSocketFactory.create();
+      ((HttpsURLConnection)connection).setSSLSocketFactory(socketFactory);
     }
   }
 
