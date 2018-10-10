@@ -279,23 +279,26 @@ public:
   void operator()(FeatureBuilder1 fb)
   {
     auto const isPopularAttraction = IsPopularAttraction(fb);
+    auto const isInternationalAirport =
+        fb.HasType(classif().GetTypeByPath({"aeroway", "aerodrome", "international"}));
+    auto const forcePushToWorld = isPopularAttraction || isInternationalAirport;
 
-    if (!m_worldBucket.NeedPushToWorld(fb) && !isPopularAttraction)
+    if (!m_worldBucket.NeedPushToWorld(fb) && !forcePushToWorld)
       return;
 
     m_worldBucket.CalcStatistics(fb);
 
     if (!m_boundaryChecker.IsBoundaries(fb))
     {
-      // Save original feature iff it is a popular attraction before PushFeature(fb) modifies fb.
-      auto originalFeature = isPopularAttraction ? fb : FeatureBuilder1();
+      // Save original feature iff we need to force push it before PushFeature(fb) modifies fb.
+      auto originalFeature = forcePushToWorld ? fb : FeatureBuilder1();
 
-      if (PushFeature(fb) || !isPopularAttraction)
+      if (PushFeature(fb) || !forcePushToWorld)
         return;
 
       // We push GEOM_POINT with all the same tags, names and center instead of GEOM_WAY/GEOM_AREA
-      // because we do not need geometry for attractions (just search index and placepage data)
-      // and want to avoid size checks applied to areas.
+      // because we do not need geometry for invisible features (just search index and placepage
+      // data) and want to avoid size checks applied to areas.
       if (originalFeature.GetGeomType() != feature::GEOM_POINT)
         originalFeature.SetCenter(originalFeature.GetGeometryCenter());
 
