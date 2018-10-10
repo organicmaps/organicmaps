@@ -29,6 +29,9 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showOffersCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * statisticsCell;
 
+@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * manageSubscriptionsCell;
+
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * nightModeCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
@@ -36,7 +39,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSelectableProgressCell *restoreSubscriptionCell;
 
 @property(nonatomic) BOOL restoringSubscription;
 
@@ -60,6 +62,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self configProfileSection];
   [self configCommonSection];
+  [self configSubsriptionsSection];
   [self configNavigationSection];
   [self configInfoSection];
 }
@@ -147,6 +150,11 @@ extern NSString * const kAlohalyticsTapEventKey;
                                      isOn:[MWMSettings statisticsEnabled]];
 }
 
+- (void)configSubsriptionsSection {
+  [self.restoreSubscriptionCell configWithTitle:L(@"restore_subscription")];
+  [self.manageSubscriptionsCell configWithTitle:L(@"manage_subscription") info:nil];
+}
+
 - (void)configNavigationSection
 {
   NSString * nightMode = nil;
@@ -189,7 +197,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   [self.helpCell configWithTitle:L(@"help") info:nil];
   [self.aboutCell configWithTitle:L(@"about_menu_title") info:nil];
-  [self.restoreSubscriptionCell configWithTitle:L(@"restore_subscription")];
 }
 
 #pragma mark - SettingsTableViewSwitchCellDelegate
@@ -359,6 +366,10 @@ extern NSString * const kAlohalyticsTapEventKey;
                                                                 text:alertText];
     }];
   }
+  else if (cell == self.manageSubscriptionsCell)
+  {
+    [UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions"]];
+  }
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -377,8 +388,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   switch (section)
   {
   case 1: return L(@"general_settings");
-  case 2: return L(@"prefs_group_route");
-  case 3: return L(@"info");
+  case 2: return L(@"subscriptions_title");
+  case 3: return L(@"prefs_group_route");
+  case 4: return L(@"info");
   default: return nil;
   }
 }

@@ -5,6 +5,7 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 
 @implementation UIFont (MapsMeFonts)
 
++ (UIFont *)regular9 { return [UIFont systemFontOfSize:9]; }
 + (UIFont *)regular10 { return [UIFont systemFontOfSize:10]; }
 + (UIFont *)regular11 { return [UIFont systemFontOfSize:11]; }
 + (UIFont *)regular12 { return [UIFont systemFontOfSize:12]; }

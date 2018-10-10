@@ -1,3 +1,5 @@
+import SafariServices
+
 @objc protocol RemoveAdsViewControllerDelegate: AnyObject {
   func didCompleteSubscribtion(_ viewController: RemoveAdsViewController)
   func didCancelSubscribtion(_ viewController: RemoveAdsViewController)
@@ -24,6 +26,26 @@
     didSet {
       optionsView.layer.borderColor = UIColor.blackDividers().cgColor
       optionsView.layer.borderWidth = 1
+    }
+  }
+  @IBOutlet weak var moreOptionsButton: UIButton! {
+    didSet {
+      moreOptionsButton.setTitle(L("options_dropdown_title").uppercased(), for: .normal)
+    }
+  }
+  @IBOutlet weak var moreOptionsButtonImage: UIImageView! {
+    didSet {
+      moreOptionsButtonImage.tintColor = UIColor.blackSecondaryText()
+    }
+  }
+  @IBOutlet weak var titleLabel: UILabel! {
+    didSet {
+      titleLabel.text = L("remove_ads_title").uppercased()
+    }
+  }
+  @IBOutlet weak var whySupportLabel: UILabel! {
+    didSet {
+      whySupportLabel.text = L("why_support").uppercased()
     }
   }
   @IBOutlet weak var optionsHeightConstraint: NSLayoutConstraint!
@@ -128,6 +150,7 @@
   @IBAction func onMoreOptions(_ sender: UIButton) {
     view.layoutIfNeeded()
     UIView.animate(withDuration: kDefaultAnimationDuration) {
+      self.moreOptionsButtonImage.transform = CGAffineTransform(rotationAngle: -CGFloat.pi + 0.01)
       self.optionsHeightConstraint.constant = 109
       self.view.layoutIfNeeded()
     }
@@ -141,6 +164,18 @@
       self.whySupportView.alpha = 1
       self.whySupportButton.alpha = 0
     }
+  }
+
+  @IBAction func onTerms(_ sender: UIButton) {
+    guard let url = URL(string: MWMAuthorizationViewModel.termsOfUseLink()) else { return }
+    let safari = SFSafariViewController(url: url)
+    self.present(safari, animated: true, completion: nil)
+  }
+
+  @IBAction func onPrivacy(_ sender: UIButton) {
+    guard let url = URL(string: MWMAuthorizationViewModel.privacyPolicyLink()) else { return }
+    let safari = SFSafariViewController(url: url)
+    self.present(safari, animated: true, completion: nil)
   }
 
   private func subscribe(_ subscription: ISubscription?) {

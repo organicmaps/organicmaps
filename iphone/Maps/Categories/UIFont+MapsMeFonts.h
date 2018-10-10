@@ -1,5 +1,6 @@
 @interface UIFont (MapsMeFonts)
 
++ (UIFont *)regular9;
 + (UIFont *)regular10;
 + (UIFont *)regular11;
 + (UIFont *)regular12;
