@@ -441,7 +441,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
     df::DrapeEngineLockGuard lock(m_drapeEngine);
     if (lock)
     {
-      lock_guard<mutex> l(m_drapeSubroutesMutex);
+      lock_guard<mutex> lockSubroutes(m_drapeSubroutesMutex);
       for (auto const & subrouteId : m_drapeSubroutes)
         lock.Get()->RemoveSubroute(subrouteId, false /* deactivateFollowing */);
     }
@@ -1345,7 +1345,7 @@ void RoutingManager::SetSubroutesVisibility(bool visible)
   if (!lock)
     return;
 
-  lock_guard<mutex> l(m_drapeSubroutesMutex);
+  lock_guard<mutex> lockSubroutes(m_drapeSubroutesMutex);
   for (auto const & subrouteId : m_drapeSubroutes)
     lock.Get()->SetSubrouteVisibility(subrouteId, visible);
 }
