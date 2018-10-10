@@ -45,6 +45,9 @@ public:
     // Valid only if not empty, used for restaurants.
     std::string m_cuisine;
 
+    // Valid only if not empty, used for airport iata codes.
+    std::string m_airportIata;
+
     // Following fields are used for hotels only.
     int m_hotelPricing = 0;
     std::string m_hotelApproximatePricing;
@@ -80,6 +83,7 @@ public:
   std::string const & GetString() const { return m_str; }
   std::string const & GetAddress() const { return m_address; }
   std::string const & GetCuisine() const { return m_metadata.m_cuisine; }
+  std::string const & GetAirportIata() const { return m_metadata.m_airportIata; }
   float GetHotelRating() const { return m_metadata.m_hotelRating; }
   std::string const & GetHotelApproximatePricing() const
   {

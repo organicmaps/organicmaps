@@ -213,6 +213,13 @@ ftraits::WheelchairAvailability MapObject::GetWheelchairType() const
   return opt ? *opt : ftraits::WheelchairAvailability::No;
 }
 
+string MapObject::GetAirportIata() const
+{
+  if (m_metadata.Has(feature::Metadata::FMD_AIRPORT_IATA))
+    return m_metadata.Get(feature::Metadata::FMD_AIRPORT_IATA);
+  return {};
+}
+
 feature::Metadata const & MapObject::GetMetadata() const { return m_metadata; }
 bool MapObject::IsPointType() const { return m_geomType == feature::EGeomType::GEOM_POINT; }
 bool MapObject::IsBuilding() const { return ftypes::IsBuildingChecker::Instance()(m_types); }

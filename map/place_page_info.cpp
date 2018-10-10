@@ -106,6 +106,11 @@ string Info::FormatSubtitle(bool withType) const
   for (string const & cuisine : GetLocalizedCuisines())
     subtitle.push_back(cuisine);
 
+  // Airport IATA code.
+  string const iata = GetAirportIata();
+  if (!iata.empty())
+    subtitle.push_back(iata);
+
   // Stars.
   string const stars = FormatStars();
   if (!stars.empty())

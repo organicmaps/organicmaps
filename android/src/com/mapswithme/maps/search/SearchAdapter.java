@@ -249,6 +249,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       {
         tail.append(" • " + result.description.cuisine);
       }
+      else if (!TextUtils.isEmpty(result.description.airportIata))
+      {
+        tail.append(" • " + result.description.airportIata);
+      }
 
       res.append(tail);
 

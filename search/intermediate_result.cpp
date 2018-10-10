@@ -196,6 +196,7 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
   feature::Metadata const & src = ft.GetMetadata();
 
   meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
+  meta.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
 
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())

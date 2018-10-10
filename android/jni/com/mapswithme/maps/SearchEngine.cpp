@@ -343,6 +343,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
   jni::TScopedLocalRef address(env, jni::ToJavaString(env, result.GetAddress()));
   jni::TScopedLocalRef dist(env, jni::ToJavaString(env, distance));
   jni::TScopedLocalRef cuisine(env, jni::ToJavaString(env, result.GetCuisine()));
+  jni::TScopedLocalRef airportIata(env, jni::ToJavaString(env, result.GetAirportIata()));
   jni::TScopedLocalRef pricing(env, jni::ToJavaString(env, result.GetHotelApproximatePricing()));
 
 
@@ -353,7 +354,7 @@ jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, b
 
   jni::TScopedLocalRef desc(env, env->NewObject(g_descriptionClass, g_descriptionConstructor,
                                                 featureId.get(), featureType.get(), address.get(),
-                                                dist.get(), cuisine.get(),
+                                                dist.get(), cuisine.get(), airportIata.get(),
                                                 pricing.get(), rating,
                                                 result.GetStarsCount(),
                                                 static_cast<jint>(result.IsOpenNow()),
@@ -647,7 +648,7 @@ extern "C"
     g_descriptionConstructor = jni::GetConstructorID(env, g_descriptionClass,
                                                      "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;"
                                                      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
-                                                     "Ljava/lang/String;Ljava/lang/String;FIIZ)V");
+                                                     "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;FIIZ)V");
 
     g_popularityClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/Popularity");
     g_popularityConstructor = jni::GetConstructorID(env, g_popularityClass, "(I)V");

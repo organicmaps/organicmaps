@@ -78,10 +78,13 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
 
   NSUInteger const starsCount = result.GetStarsCount();
   NSString * cuisine = @(result.GetCuisine().c_str());
+  NSString * airportIata = @(result.GetAirportIata().c_str());
   if (starsCount > 0)
     [self setInfoRating:starsCount];
   else if (cuisine.length > 0)
     [self setInfoText:cuisine.capitalizedString];
+  else if (airportIata.length > 0)
+    [self setInfoText:airportIata];
   else
     [self clearInfo];
 
