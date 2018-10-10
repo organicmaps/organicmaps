@@ -15,7 +15,8 @@ typedef NS_ENUM(NSUInteger, MWMSynchronizationResult)
   MWMSynchronizationResultAuthError,
   MWMSynchronizationResultNetworkError,
   MWMSynchronizationResultDiskError,
-  MWMSynchronizationResultUserInterrupted
+  MWMSynchronizationResultUserInterrupted,
+  MWMSynchronizationResultInvalidCall
 };
 
 @protocol MWMBookmarksObserver<NSObject>

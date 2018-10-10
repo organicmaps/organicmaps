@@ -259,6 +259,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   func onSynchronizationFinished(_ result: MWMSynchronizationResult) {
     MWMAlertViewController.activeAlert().closeAlert() { [weak self] in
       switch result {
+        case .invalidCall: fallthrough
         case .networkError: fallthrough
         case .authError:
           MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
