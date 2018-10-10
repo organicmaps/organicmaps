@@ -438,11 +438,11 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   }
   else
   {
-    auto const subroutes = GetSubrouteIds();
     df::DrapeEngineLockGuard lock(m_drapeEngine);
     if (lock)
     {
-      for (auto const & subrouteId : subroutes)
+      lock_guard<mutex> l(m_drapeSubroutesMutex);
+      for (auto const & subrouteId : m_drapeSubroutes)
         lock.Get()->RemoveSubroute(subrouteId, false /* deactivateFollowing */);
     }
   }
@@ -1339,20 +1339,13 @@ TransitRouteInfo RoutingManager::GetTransitRouteInfo() const
   return m_transitRouteInfo;
 }
 
-vector<dp::DrapeID> RoutingManager::GetSubrouteIds() const
-{
-  lock_guard<mutex> lock(m_drapeSubroutesMutex);
-  return m_drapeSubroutes;
-}
-
 void RoutingManager::SetSubroutesVisibility(bool visible)
 {
-  auto const subroutes = GetSubrouteIds();
-
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (!lock)
     return;
 
-  for (auto const & subrouteId : subroutes)
+  lock_guard<mutex> l(m_drapeSubroutesMutex);
+  for (auto const & subrouteId : m_drapeSubroutes)
     lock.Get()->SetSubrouteVisibility(subrouteId, visible);
 }

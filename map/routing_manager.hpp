@@ -283,7 +283,6 @@ private:
   m2::RectD ShowPreviewSegments(std::vector<RouteMarkData> const & routePoints);
   void HidePreviewSegments();
 
-  std::vector<dp::DrapeID> GetSubrouteIds() const;
   void SetSubroutesVisibility(bool visible);
 
   void CancelRecommendation(Recommendation recommendation);
