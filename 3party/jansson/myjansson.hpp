@@ -41,7 +41,7 @@ public:
   Json GetDeepCopy() const
   {
     Json copy;
-    copy.m_handle = JsonHandle(get_deep_copy());
+    copy.m_handle.AttachNew(get_deep_copy());
     return copy;
   }
   void ParseFrom(std::string const & s) { ParseFrom(s.c_str()); }

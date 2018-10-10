@@ -357,7 +357,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
         src.Skip(point.second);
 
         FeatureBuilder1 f;
-        ReadFromSourceRowFormat(src, f);
+        ReadFromSourceRawFormat(src, f);
 
         // emit the feature
         collector(GetFeatureBuilder2(f));

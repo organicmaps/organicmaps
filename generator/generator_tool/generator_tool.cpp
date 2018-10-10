@@ -176,7 +176,7 @@ DEFINE_string(geo_objects_features, "", "Input tmp.mwm file with geo objects.");
 DEFINE_string(ids_without_addresses, "", "Output file with objects ids without addresses.");
 DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
 
-DEFINE_string(regions_features, "", "Input regions tmp.mwm file.");
+DEFINE_string(regions_features, "", "Input tmp.mwm file with regions.");
 
 // Common.
 DEFINE_bool(verbose, false, "Provide more detailed output.");
@@ -341,10 +341,9 @@ int main(int argc, char ** argv)
 
   if (FLAGS_generate_geo_objects_index || FLAGS_generate_regions)
   {
-    if (FLAGS_output.empty() || FLAGS_intermediate_data_path.empty())
+    if (FLAGS_output.empty())
     {
-      LOG(LCRITICAL, ("Bad output or intermediate_data_path. Output:", FLAGS_output,
-                      "intermediate_data_path:", FLAGS_intermediate_data_path));
+      LOG(LCRITICAL, ("Bad output or intermediate_data_path. Output:", FLAGS_output));
       return -1;
     }
 

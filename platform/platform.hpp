@@ -177,7 +177,7 @@ public:
   std::string const & TmpDir() const { return m_tmpDir; }
   /// @return full path to file in the temporary directory
   std::string TmpPathForFile(std::string const & file) const { return TmpDir() + file; }
-  /// @return full path to temporary file
+  /// @return full random path to temporary file.
   std::string TmpPathForFile() const;
 
   /// @return full path to the file where data for unit tests is stored.

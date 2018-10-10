@@ -11,8 +11,8 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <random>
 #include <thread>
-#include <string>
 
 #include "std/target_os.hpp"
 
@@ -24,20 +24,19 @@ using namespace std;
 
 namespace
 {
-std::string RandomString(size_t length)
+string RandomString(size_t length)
 {
-  auto const randchar = []()
-  {
-    static std::string const charset =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-    size_t const maxIndex = sizeof(charset) - 1;
-    return charset[rand() % maxIndex];
-  };
-
-  std::string str(length, 0);
-  std::generate_n(str.begin(), length, randchar);
+  static string const kCharset =
+      "0123456789"
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      "abcdefghijklmnopqrstuvwxyz";
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_int_distribution<size_t> dis(0, kCharset.size() - 1);
+  string str(length, 0);
+  generate_n(str.begin(), length, [&]() {
+    return kCharset[dis(gen)];
+  });
   return str;
 }
 
@@ -165,12 +164,12 @@ string Platform::DefaultUrlsJSON() const
   return DEFAULT_URLS_JSON;
 }
 
-bool Platform::RemoveFileIfExists(std::string const & filePath)
+bool Platform::RemoveFileIfExists(string const & filePath)
 {
   return IsFileExistsByFullPath(filePath) ? base::DeleteFileX(filePath) : true;
 }
 
-std::string Platform::TmpPathForFile() const
+string Platform::TmpPathForFile() const
 {
   size_t const kNameLen = 32;
   return TmpDir() + RandomString(kNameLen);

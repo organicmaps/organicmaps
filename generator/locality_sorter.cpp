@@ -211,7 +211,7 @@ bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const
       src.Skip(point.second);
 
       FeatureBuilder1 f;
-      ReadFromSourceRowFormat(src, f);
+      ReadFromSourceRawFormat(src, f);
       // Emit object.
       if (needSerialize(f))
         collector(f);
