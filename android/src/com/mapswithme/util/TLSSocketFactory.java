@@ -307,30 +307,6 @@ public class TLSSocketFactory extends SSLSocketFactory {
     try {
 
 
-
-      // Generate the CA Certificate from the raw resource file
-      caInput = context.getResources().openRawResource(caRawFile);
-      CertificateFactory factory = CertificateFactory.getInstance("X.509");
-      // Load the key store using the CA
-      KeyStore keyStore = KeyStore.getInstance("PKCS12");
-      keyStore.load(null, null);
-
-
-      Certificate cert = factory.generateCertificate(caInput);
-
-      // Put the certificates a key store.
-      char[] password = "password".toCharArray(); // Any password will work.
-      int index = 0;
-      keyStore.setCertificateEntry(Integer.toString(index++), cert);
-
-      caInput = context.getResources().openRawResource(R.raw.devroot);
-      cert = factory.generateCertificate(caInput);
-      keyStore.setCertificateEntry(Integer.toString(index++), cert);
-
-      // Initialize the TrustManager with this CA
-      TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-      tmf.init(keyStore);
-
       /*/*    InputStream stream = MwmApplication.get().getResources().openRawResource(R.raw.cert);
     String type = KeyStore.getDefaultType();
     try
@@ -347,7 +323,7 @@ public class TLSSocketFactory extends SSLSocketFactory {
       KeyManagerFactory kmf = KeyManagerFactory.getInstance("X509");
       kmf.init(ksClient, "123".toCharArray());
       SSLContext sslContext = SSLContext.getInstance("TLS");
-      sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), new SecureRandom());
+      sslContext.init(kmf.getKeyManagers(), null, new SecureRandom());
       return sslContext.getSocketFactory();
 
     } catch (Exception ex) {
