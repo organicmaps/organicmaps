@@ -128,6 +128,12 @@ int Platform::PreCachingDepth() const { return 2; }
 
 std::string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
+std::string Platform::AdvertisingId() const
+{
+  //TODO(@beloal): Implement me.
+  return {};
+}
+
 std::string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.

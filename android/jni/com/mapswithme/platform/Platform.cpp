@@ -28,7 +28,13 @@ std::string Platform::UniqueClientId() const
   return result;
 }
 
-string Platform::MacAddress(bool md5Decoded) const
+std::string Platform::AdvertisingId() const
+{
+  //TODO(@alexzatsepin): Implement me.
+  return {};
+}
+
+std::string Platform::MacAddress(bool md5Decoded) const
 {
   JNIEnv * env = jni::GetEnv();
   static jmethodID const getMacAddressMethod = jni::GetStaticMethodID(env, g_utilsClazz, "getMacAddress",

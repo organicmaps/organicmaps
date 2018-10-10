@@ -214,6 +214,11 @@ string Platform::UniqueClientId() const
   return "n0dbus0n0lsb00000000000000000000";
 }
 
+string Platform::AdvertisingId() const
+{
+  return {};
+}
+
 string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.

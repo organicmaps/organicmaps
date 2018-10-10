@@ -114,6 +114,11 @@ Platform::Platform()
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
+string Platform::AdvertisingId() const
+{
+  return {};
+}
+
 string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.

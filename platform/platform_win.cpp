@@ -136,6 +136,11 @@ string Platform::UniqueClientId() const
   return "@TODO";
 }
 
+string Platform::AdvertisingId() const
+{
+  return {};
+}
+
 string Platform::MacAddress(bool md5Decoded) const
 {
   // Not implemented.

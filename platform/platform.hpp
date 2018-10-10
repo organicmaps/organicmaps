@@ -256,6 +256,8 @@ public:
 
   std::string UniqueClientId() const;
 
+  std::string AdvertisingId() const;
+
   std::string MacAddress(bool md5Decoded) const;
 
   /// @return url for clients to download maps
