@@ -92,6 +92,29 @@ public:
 private:
   string m_cuisine;
 };
+
+class TestAirport : public TestPOI
+{
+public:
+  TestAirport(m2::PointD const & center, string const & name, string const & lang, string const & iata)
+    : TestPOI(center, name, lang), m_iata(iata)
+  {
+    SetTypes({{"aeroway", "aerodrome"}});
+  }
+
+  // TestPOI overrides:
+  void Serialize(FeatureBuilder1 & fb) const override
+  {
+    TestPOI::Serialize(fb);
+
+    auto & metadata = fb.GetMetadataForTesting();
+    metadata.Set(feature::Metadata::FMD_AIRPORT_IATA, m_iata);
+  }
+
+private:
+  string m_iata;
+};
+
 class ProcessorTest : public SearchTest
 {
 };
@@ -1501,6 +1524,31 @@ UNIT_CLASS_TEST(ProcessorTest, CuisineMetadataTest)
   {
     TRules rules{ExactMatch(countryId, tapas)};
     TEST(ResultsMatch("tapas ", "en", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, AirportTest)
+{
+  string const countryName = "Wonderland";
+
+  TestAirport vko(m2::PointD(1.0, 1.0), "Useless name", "en", "VKO");
+  TestAirport svo(m2::PointD(1.0, 1.0), "Useless name", "en", "SVO");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(vko);
+    builder.Add(svo);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  {
+    TRules rules{ExactMatch(countryId, vko)};
+    TEST(ResultsMatch("vko ", "en", rules), ());
+  }
+
+  {
+    TRules rules{ExactMatch(countryId, svo)};
+    TEST(ResultsMatch("svo ", "en", rules), ());
   }
 }
 }  // namespace

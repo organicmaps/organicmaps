@@ -13,6 +13,7 @@
 
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -76,6 +77,13 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
 
   if (type == Model::TYPE_BUILDING)
     UpdateNameScores(ft.GetHouseNumber(), sliceNoCategories, bestScores);
+
+  if (ftypes::IsAirportChecker::Instance()(ft))
+  {
+    string const iata = ft.GetMetadata().Get(feature::Metadata::FMD_AIRPORT_IATA);
+    if (!iata.empty())
+      UpdateNameScores(iata, sliceNoCategories, bestScores);
+  }
 
   return bestScores;
 }
