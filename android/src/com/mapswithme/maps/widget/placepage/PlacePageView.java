@@ -193,8 +193,7 @@ public class PlacePageView extends RelativeLayout
   private boolean mBookmarkSet;
   // Place page buttons
   private PlacePageButtons mButtons;
-  @Nullable
-  private BottomButtonHolder mBookmarkBtnHolder;
+  private ImageView mBookmarkButtonIcon;
   // Hotel
   private View mHotelDescription;
   private LineCountTextView mTvHotelDescription;
@@ -212,6 +211,8 @@ public class PlacePageView extends RelativeLayout
   private RecyclerView mRvSponsoredProducts;
   private TextView mTvSponsoredTitle;
   private ImageView mIvSponsoredLogo;
+  @Nullable
+  private View mBookmarkButtonFrame;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -534,9 +535,9 @@ public class PlacePageView extends RelativeLayout
             break;
 
           case BOOKMARK:
-            mBookmarkBtnHolder = new BottomButtonHolder(frame);
+            mBookmarkButtonIcon = icon;
+            mBookmarkButtonFrame = frame;
             updateBookmarkBtn();
-            frame.setEnabled(isEditableMapObject());
             color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
             break;
 
@@ -684,19 +685,16 @@ public class PlacePageView extends RelativeLayout
     Viator.setViatorListener(this);
   }
 
-  private void updateCatalogBookmarkBtn()
+  private void updateCatalogBookmarkButton()
   {
-    if (mBookmarkBtnHolder == null)
-      return;
-
     boolean isEditable = isEditableMapObject();
-    mBookmarkBtnHolder.frame.setEnabled(isEditable);
+    mBookmarkButtonFrame.setEnabled(isEditable);
 
     if (isEditable)
       return;
     final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
     Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
-    mBookmarkBtnHolder.image.setImageDrawable(drawable);
+    mBookmarkButtonIcon.setImageDrawable(drawable);
   }
 
   private void initEditMapObjectBtn()
@@ -1638,14 +1636,14 @@ public class PlacePageView extends RelativeLayout
 
   private void updateBookmarkBtn()
   {
-    if (mBookmarkBtnHolder == null)
+    if (mBookmarkButtonIcon == null || mBookmarkButtonFrame == null)
       return;
 
     if (mBookmarkSet)
-      mBookmarkBtnHolder.image.setImageResource(R.drawable.ic_bookmarks_on);
+      mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
     else
-      mBookmarkBtnHolder.image.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
-    updateCatalogBookmarkBtn();
+      mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+    updateCatalogBookmarkButton();
   }
 
   private void hideBookmarkDetails()
@@ -2277,20 +2275,6 @@ public class PlacePageView extends RelativeLayout
                                         getActivity(),
                                         getActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
-    }
-  }
-
-  private static class BottomButtonHolder
-  {
-    @NonNull
-    private final View frame;
-    @NonNull
-    private final ImageView image;
-
-    BottomButtonHolder(@NonNull View frame)
-    {
-      this.frame = frame;
-      this.image = frame.findViewById(R.id.icon);
     }
   }
 }
