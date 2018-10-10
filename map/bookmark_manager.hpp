@@ -126,6 +126,7 @@ public:
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
+    void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     bool DeleteBmCategory(kml::MarkGroupId groupId);
 
     void NotifyChanges();
@@ -427,6 +428,7 @@ private:
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
+  void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool DeleteBmCategory(kml::MarkGroupId groupId);
   void ClearCategories();
 

@@ -174,10 +174,19 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
       if (resultCode >= 200 && resultCode < 300)  // Ok.
       {
         TagsResponseData tagsResponseData;
+        try
         {
           coding::DeserializerJson des(request.ServerResponse());
           des(tagsResponseData);
         }
+        catch (coding::DeserializerJson::Exception const & ex)
+        {
+          LOG(LWARNING, ("Tags request deserialization error:", ex.Msg()));
+          if (callback)
+            callback(false /* success */, {});
+          return;
+        }
+
         TagGroups result;
         result.reserve(tagsResponseData.m_tags.size());
         for (auto const & t : tagsResponseData.m_tags)

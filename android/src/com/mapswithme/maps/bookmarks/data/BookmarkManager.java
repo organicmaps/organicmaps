@@ -47,6 +47,16 @@ public enum BookmarkManager
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ ACCESS_RULES_LOCAL, ACCESS_RULES_PUBLIC, ACCESS_RULES_DIRECT_LINK,
+            ACCESS_RULES_P2P, ACCESS_RULES_PAID })
+  public @interface AccessRules {}
+  public static final int ACCESS_RULES_LOCAL = 0;
+  public static final int ACCESS_RULES_PUBLIC = 1;
+  public static final int ACCESS_RULES_DIRECT_LINK = 2;
+  public static final int ACCESS_RULES_P2P = 3;
+  public static final int ACCESS_RULES_PAID = 4;
+
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
@@ -587,8 +597,13 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryTags(long catId, @NonNull String[] tagsIds);
 
+  private native void nativeSetCategoryAccessRules(long catId, @AccessRules int accessRules);
+
   @NonNull
   private native String nativeGetCategoryAuthor(long catId);
+
+  @AccessRules
+  private native int nativeGetCategoryAccessRules(long catId);
 
   private static native void nativeLoadBookmarks();
 

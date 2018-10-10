@@ -462,6 +462,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryTags(
                                                                categoryTags);
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryAccessRules(
+    JNIEnv * env, jobject, jlong catId, jint accessRules)
+{
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryAccessRules(
+    static_cast<kml::MarkGroupId>(catId), static_cast<kml::AccessRules>(accessRules));
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryName(
      JNIEnv * env, jobject thiz, jlong catId)
@@ -477,6 +485,15 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryAuthor(
   auto const & data = frm()->GetBookmarkManager().GetCategoryData(
     static_cast<kml::MarkGroupId>(catId));
   return ToJavaString(env, data.m_authorName);
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryAccessRules(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  auto const & data = frm()->GetBookmarkManager().GetCategoryData(
+    static_cast<kml::MarkGroupId>(catId));
+  return static_cast<jint>(data.m_accessRules);
 }
 
 JNIEXPORT jint JNICALL
