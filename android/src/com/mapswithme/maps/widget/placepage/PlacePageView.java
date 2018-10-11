@@ -537,7 +537,7 @@ public class PlacePageView extends RelativeLayout
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
             mBookmarkButtonFrame = frame;
-            updateBookmarkBtn();
+            updateBookmarkButton();
             color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
             break;
 
@@ -683,18 +683,6 @@ public class PlacePageView extends RelativeLayout
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
     Viator.setViatorListener(this);
-  }
-
-  private void updateCatalogBookmarkButton()
-  {
-    boolean isEditable = isEditableMapObject();
-    mBookmarkButtonFrame.setEnabled(isEditable);
-
-    if (isEditable)
-      return;
-    final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
-    Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
-    mBookmarkButtonIcon.setImageDrawable(drawable);
   }
 
   private void initEditMapObjectBtn()
@@ -1354,7 +1342,7 @@ public class PlacePageView extends RelativeLayout
       case MapObject.BOOKMARK:
         refreshDistanceToObject(mapObject, loc);
         showBookmarkDetails(mapObject);
-        updateBookmarkBtn();
+        updateBookmarkButton();
         setButtons(mapObject, false, true);
         break;
       case MapObject.POI:
@@ -1634,7 +1622,7 @@ public class PlacePageView extends RelativeLayout
     mTodayOpeningHours.setTextColor(color);
   }
 
-  private void updateBookmarkBtn()
+  private void updateBookmarkButton()
   {
     if (mBookmarkButtonIcon == null || mBookmarkButtonFrame == null)
       return;
@@ -1643,14 +1631,22 @@ public class PlacePageView extends RelativeLayout
       mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
     else
       mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
-    updateCatalogBookmarkButton();
+
+    boolean isEditable = isEditableMapObject();
+    mBookmarkButtonFrame.setEnabled(isEditable);
+
+    if (isEditable)
+      return;
+    final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
+    Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
+    mBookmarkButtonIcon.setImageDrawable(drawable);
   }
 
   private void hideBookmarkDetails()
   {
     mBookmarkSet = false;
     UiUtils.hide(mBookmarkFrame);
-    updateBookmarkBtn();
+    updateBookmarkButton();
   }
 
   private void showBookmarkDetails(@NonNull MapObject mapObject)
