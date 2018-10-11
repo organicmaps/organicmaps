@@ -11,6 +11,8 @@
 #include <cstdint>
 #include <functional>
 
+#include "private.h"
+
 namespace
 {
 platform::HttpUploader::Result ToNativeResult(JNIEnv * env, jobject const src)
@@ -44,7 +46,7 @@ HttpUploader::Result HttpUploader::Upload() const
     jni::GetConstructorID(env, g_httpUploaderClazz, "(Ljava/lang/String;Ljava/lang/String;"
                                                     "[Lcom/mapswithme/util/KeyValue;"
                                                     "[Lcom/mapswithme/util/KeyValue;"
-                                                    "Ljava/lang/String;Ljava/lang/String;)V");
+                                                    "Ljava/lang/String;Ljava/lang/String;Z)V");
 
   jni::ScopedLocalRef<jstring> const method(env, jni::ToJavaString(env, m_method));
   jni::ScopedLocalRef<jstring> const url(env, jni::ToJavaString(env, m_url));
@@ -55,7 +57,8 @@ HttpUploader::Result HttpUploader::Upload() const
 
   jni::ScopedLocalRef<jobject> const httpUploaderObject(
     env, env->NewObject(g_httpUploaderClazz, httpUploaderConstructor, method.get(), url.get(),
-                        params.get(), headers.get(), fileKey.get(), filePath.get()));
+                        params.get(), headers.get(), fileKey.get(), filePath.get(),
+                        static_cast<jboolean>(m_needClientAuth)));
 
   static jmethodID const uploadId = jni::GetMethodID(env, httpUploaderObject, "upload",
                                                      "()Lcom/mapswithme/util/HttpUploader$Result;");
@@ -74,3 +77,15 @@ HttpUploader::Result HttpUploader::Upload() const
   return ToNativeResult(env, result);
 }
 } // namespace platform
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_HttpUploader_nativeUserBindingCertificate(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, USER_BINDING_PKCS12);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_HttpUploader_nativeUserBindingPassword(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, USER_BINDING_PKCS12_PASSWORD);
+}

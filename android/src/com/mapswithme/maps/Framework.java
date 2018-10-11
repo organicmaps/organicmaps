@@ -18,6 +18,7 @@ import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.auth.AuthorizationListener;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.gdpr.UserBindingListener;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
@@ -490,4 +491,6 @@ public class Framework
   private static native void nativeTipsShown(int tipType, int event);
 
   private static native void nativeDisableAdProvider(int provider, int bannerPlace);
+
+  public static native void nativeBindUser(@NonNull UserBindingListener listener);
 }

@@ -50,9 +50,11 @@ public final class HttpUploader
   private final String mBoundary;
   @NonNull
   private final String mEndPart;
+  private final boolean mNeedClientAuth;
 
   public HttpUploader(@NonNull String method, @NonNull String url, @NonNull KeyValue[] params,
-                      @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath)
+                      @NonNull KeyValue[] headers, @NonNull String fileKey, @NonNull String filePath,
+                      boolean needClientAuth)
   {
     mMethod = method;
     mUrl = url;
@@ -62,6 +64,7 @@ public final class HttpUploader
     mParams = new ArrayList<>(Arrays.asList(params));
     mHeaders = new ArrayList<>(Arrays.asList(headers));
     mEndPart = LINE_FEED + "--" + mBoundary + "--" + LINE_FEED;
+    mNeedClientAuth = needClientAuth;
   }
 
   public Result upload()
@@ -269,4 +272,7 @@ public final class HttpUploader
       return mDescription;
     }
   }
+
+  public static native String nativeUserBindingCertificate();
+  public static native String nativeUserBindingPassword();
 }

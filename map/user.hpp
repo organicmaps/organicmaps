@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/safe_callback.hpp"
+
 #include <functional>
 #include <memory>
 #include <mutex>
@@ -47,7 +49,8 @@ public:
   using BuildRequestHandler = std::function<void(platform::HttpClient &)>;
   using SuccessHandler = std::function<void(std::string const &)>;
   using ErrorHandler = std::function<void(int, std::string const & response)>;
-  using CompleteUploadingHandler = std::function<void(bool)>;
+  using CompleteUploadingHandler = std::function<void(bool isSuccessful)>;
+  using CompleteUserBindingHandler = platform::SafeCallback<void(bool isSuccessful)>;
 
   User();
   void Authenticate(std::string const & socialToken, SocialTokenType socialTokenType,
@@ -70,6 +73,9 @@ public:
   static std::string GetPhoneAuthUrl(std::string const & redirectUri);
   static std::string GetPrivacyPolicyLink();
   static std::string GetTermsOfUseLink();
+
+  // Binds user with advertising id. It is necessary to prepare GDPR report.
+  void BindUser(CompleteUserBindingHandler && completionHandler);
 
 private:
   void Init();

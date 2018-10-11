@@ -1,15 +1,19 @@
 #include "map/user.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/http_uploader.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
+#include "coding/file_name_utils.hpp"
+#include "coding/file_writer.hpp"
+#include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/writer.hpp"
 
-#include "platform/preferred_languages.hpp"
-
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -21,6 +25,8 @@
 #include <chrono>
 #include <limits>
 #include <sstream>
+
+#include "std/target_os.hpp"
 
 #include "private.h"
 
@@ -35,6 +41,14 @@ std::string const kPassportServerUrl = PASSPORT_URL;
 std::string const kAppName = PASSPORT_APP_NAME;
 std::string const kUGCServerUrl = UGC_URL;
 std::string const kApplicationJson = "application/json";
+std::string const kUserBindingRequestUrl = USER_BINDING_REQUEST_URL;
+#if defined(OMIM_OS_IPHONE)
+std::string const kVendor = "apple";
+#elif defined(OMIM_OS_ANDROID)
+std::string const kVendor = "google";
+#else
+std::string const kVendor {};
+#endif
 
 enum class ReviewReceiverProtocol : uint8_t
 {
@@ -100,6 +114,18 @@ std::string ReviewReceiverUrl()
   ss << kUGCServerUrl << "/"
      << static_cast<int>(ReviewReceiverProtocol::LatestVersion)
      << "/receive/";
+  return ss.str();
+}
+
+std::string UserBindingRequestUrl(std::string const & advertisingId)
+{
+  if (kUserBindingRequestUrl.empty())
+    return {};
+
+  std::ostringstream ss;
+  ss << kUserBindingRequestUrl
+     << "?vendor=" << kVendor
+     << "&advertising_id=" << UrlEncode(advertisingId);
   return ss.str();
 }
 
@@ -515,6 +541,80 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
 
       if (onCompleteUploading != nullptr)
         onCompleteUploading(false /* isSuccessful */);
+    });
+  });
+}
+
+void User::BindUser(CompleteUserBindingHandler && completionHandler)
+{
+  auto const url = UserBindingRequestUrl(GetPlatform().AdvertisingId());
+  if (url.empty() || m_accessToken.empty())
+  {
+    if (completionHandler)
+      completionHandler(false /* isSuccessful */);
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, url, completionHandler = std::move(completionHandler)]() mutable
+  {
+    alohalytics::Stats::Instance().CollectBlobsToUpload(false /* delete files */,
+      [this, url, completionHandler = std::move(completionHandler)](std::vector<std::string> & blobs) mutable
+    {
+      if (blobs.empty())
+      {
+        LOG(LWARNING, ("Binding request error. There is no any statistics data blob."));
+        if (completionHandler)
+          completionHandler(false /* isSuccessful */);
+        return;
+      }
+
+      // Save data blob for sending to the temporary file.
+      size_t indexToSend = 0;
+      for (size_t i = 1; i < blobs.size(); i++)
+      {
+        if (blobs[i].size() > blobs[indexToSend].size())
+          indexToSend = i;
+      }
+      auto const filePath = base::JoinPath(GetPlatform().TmpDir(), "binding_request");
+      try
+      {
+        FileWriter writer(filePath);
+        writer.Write(blobs[indexToSend].data(), blobs[indexToSend].size());
+      }
+      catch (Writer::Exception const & e)
+      {
+        LOG(LWARNING, ("Binding request error. Blob writing error."));
+        if (completionHandler)
+          completionHandler(false /* isSuccessful */);
+        return;
+      }
+
+      // Send request.
+      GetPlatform().RunTask(Platform::Thread::Network,
+                            [this, url, filePath, completionHandler = std::move(completionHandler)]()
+      {
+        SCOPE_GUARD(tmpFileGuard, std::bind(&base::DeleteFileX, std::cref(filePath)));
+        platform::HttpUploader request;
+        request.SetUrl(url);
+        request.SetNeedClientAuth(true);
+        request.SetHeaders({{"Authorization", BuildAuthorizationToken(m_accessToken)},
+                            {"User-Agent", GetPlatform().GetAppUserAgent()}});
+        request.SetFilePath(filePath);
+
+        auto const result = request.Upload();
+        if (result.m_httpCode >= 200 && result.m_httpCode < 300)
+        {
+          if (completionHandler)
+            completionHandler(true /* isSuccessful */);
+        }
+        else
+        {
+          LOG(LWARNING, ("Binding request error. Code =", result.m_httpCode, result.m_description));
+          if (completionHandler)
+            completionHandler(false /* isSuccessful */);
+        }
+      });
     });
   });
 }
