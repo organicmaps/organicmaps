@@ -127,6 +127,7 @@ else() # neither iPhone nor Android
       platform_unix_impl.hpp
       secure_storage_qt.cpp
       socket_apple.mm
+      http_session_manager.mm
     )
   elseif(${PLATFORM_LINUX})
     append(
