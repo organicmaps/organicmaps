@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.4'
+    classpath 'com.android.tools.build:gradle:3.2.0'
     classpath 'io.fabric.tools:gradle:1.+'
   }
 }
@@ -519,5 +519,5 @@ android.buildTypes.all { buildType ->
   def authorityValue = android.defaultConfig.applicationId + suffix + ".provider"
   def authority = "\"" + authorityValue + "\""
   buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', authority
-  manifestPlaceholders += ['FILE_PROVIDER_PLACEHOLDER' : authorityValue]
+  manifestPlaceholders += [FILE_PROVIDER_PLACEHOLDER : authorityValue]
 }
