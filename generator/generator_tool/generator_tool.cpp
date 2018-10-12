@@ -113,8 +113,6 @@ DEFINE_bool(generate_regions_kv, false,
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
 DEFINE_string(cities_boundaries_data, "", "File with cities boundaries");
-DEFINE_string(cities_boundaries_data_for_routing, "",
-              "File with cities boundaries for generation city_roads section.");
 
 DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
