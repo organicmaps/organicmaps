@@ -47,7 +47,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   @NonNull
   private AdsRemovalPaymentState mState = AdsRemovalPaymentState.NONE;
   @Nullable
-  private PurchaseController<AdsRemovalPurchaseCallback> mController;
+  private AdsRemovalPurchaseControllerProvider mControllerProvider;
   @NonNull
   private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
   @Nullable
@@ -77,9 +77,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     super.onAttach(context);
     LOGGER.d(TAG, "onAttach");
-    mController = ((AdsRemovalPurchaseControllerProvider) context).getAdsRemovalPurchaseController();
-    if (mController != null)
-      mController.addCallback(mPurchaseCallback);
+    mControllerProvider = (AdsRemovalPurchaseControllerProvider) context;
     if (context instanceof AdsRemovalActivationCallback)
       mActivationCallback = (AdsRemovalActivationCallback) context;
   }
@@ -139,6 +137,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   public void onStart()
   {
     super.onStart();
+    getControllerOrThrow().addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
   }
 
@@ -146,6 +145,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   public void onStop()
   {
     super.onStop();
+    getControllerOrThrow().removeCallback();
     mPurchaseCallback.detach();
   }
 
@@ -203,10 +203,15 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   @NonNull
   private PurchaseController<AdsRemovalPurchaseCallback> getControllerOrThrow()
   {
-    if (mController == null)
+    if (mControllerProvider == null)
+      throw new IllegalStateException("Controller provider must be non-null at this point!");
+
+    PurchaseController<AdsRemovalPurchaseCallback> controller
+        = mControllerProvider.getAdsRemovalPurchaseController();
+    if (controller == null)
       throw new IllegalStateException("Controller must be non-null at this point!");
 
-    return mController;
+    return controller;
   }
 
   @Override
@@ -230,12 +235,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   public void onDetach()
   {
     LOGGER.d(TAG, "onDetach");
+    mControllerProvider = null;
     super.onDetach();
-    if (mController != null)
-    {
-      mController.removeCallback();
-      mController = null;
-    }
   }
 
   void finishValidation()
