@@ -1,6 +1,5 @@
 #import "EAGLView.h"
 #import "iosOGLContextFactory.h"
-#import "MetalContextFactory.h"
 #import "MWMDirectionView.h"
 #import "MWMMapWidgets.h"
 
@@ -15,6 +14,7 @@
 #include "base/logging.hpp"
 
 #ifdef OMIM_METAL_AVAILABLE
+#import "MetalContextFactory.h"
 #import <MetalKit/MetalKit.h>
 #endif
 
@@ -71,8 +71,12 @@ double getExactDPI(double contentScaleFactor)
 // You must implement this method
 + (Class)layerClass
 {
+#ifdef OMIM_METAL_AVAILABLE
   auto const apiVersion = [EAGLView getSupportedApiVersion];
   return apiVersion == dp::ApiVersion::Metal ? [CAMetalLayer class] : [CAEAGLLayer class];
+#else
+  return [CAEAGLLayer class];
+#endif
 }
 
 // The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
