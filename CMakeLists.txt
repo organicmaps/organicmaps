@@ -123,6 +123,16 @@ endif()
 
 # End of setting environment variables
 
+# Scripts
+
+execute_process(
+    COMMAND "${OMIM_ROOT}/tools/unix/check_cert.sh"
+    RESULT_VARIABLE CheckCertResult
+)
+if (CheckCertResult)
+    message(FATAL_ERROR "Certificate check failed")
+endif()
+
 # Find installed packages
 
 find_package(Threads)
