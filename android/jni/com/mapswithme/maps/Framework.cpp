@@ -1678,7 +1678,7 @@ Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, 
     GetPlatform().RunTask(Platform::Thread::Gui, [gListener, success]
     {
       auto e = jni::GetEnv();
-      static jmethodID const callback = jni::GetMethodID(e, gListener.get(), "onAuthorized", "(Z)V");
+      jmethodID const callback = jni::GetMethodID(e, gListener.get(), "onAuthorized", "(Z)V");
       e->CallVoidMethod(gListener.get(), callback, success);
     });
   };
@@ -1826,17 +1826,13 @@ Java_com_mapswithme_maps_Framework_nativeGetCurrentTipsApi(JNIEnv * env, jclass)
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeBindUser(JNIEnv * env, jclass, jobject listener)
 {
-  std::shared_ptr<_jobject> gListener(env->NewGlobalRef(listener), [](jobject l)
-  {
-    jni::GetEnv()->DeleteGlobalRef(l);
-  });
-
+  auto listenerRef = jni::make_global_ref(listener);
   auto & user = frm()->GetUser();
-  user.BindUser([gListener](bool success)
+  user.BindUser([listenerRef](bool success)
   {
     auto e = jni::GetEnv();
-    static jmethodID const callback = jni::GetMethodID(e, gListener.get(), "onUserBound", "(Z)V");
-    e->CallVoidMethod(gListener.get(), callback, static_cast<jboolean>(success));
+    jmethodID const callback = jni::GetMethodID(e, *listenerRef, "onUserBound", "(Z)V");
+    e->CallVoidMethod(*listenerRef, callback, static_cast<jboolean>(success));
   });
 }
 }  // extern "C"

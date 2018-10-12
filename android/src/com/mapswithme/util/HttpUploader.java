@@ -273,6 +273,9 @@ public final class HttpUploader
     }
   }
 
+  @NonNull
   public static native String nativeUserBindingCertificate();
+
+  @NonNull
   public static native String nativeUserBindingPassword();
 }
