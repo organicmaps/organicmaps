@@ -12,6 +12,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 class ClassifObject;
@@ -90,15 +91,15 @@ public:
 
   pair<int, int> GetDrawScaleRange() const;
 
-  template <class ToDo>
-  void ForEachObject(ToDo toDo)
+  template <typename ToDo>
+  void ForEachObject(ToDo && toDo)
   {
     for (size_t i = 0; i < m_objs.size(); ++i)
       toDo(&m_objs[i]);
   }
 
-  template <class ToDo>
-  void ForEachObjectInTree(ToDo & toDo, uint32_t const start) const
+  template <typename ToDo>
+  void ForEachObjectInTree(ToDo && toDo, uint32_t const start) const
   {
     for (size_t i = 0; i < m_objs.size(); ++i)
     {
@@ -187,7 +188,9 @@ public:
   /// path = ["natural", "caostline"].
   //@{
 private:
-  template <class IterT> uint32_t GetTypeByPathImpl(IterT beg, IterT end) const;
+  template <typename Iter>
+  uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;
+
 public:
   /// @return 0 in case of nonexisting type
   uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
@@ -214,15 +217,24 @@ public:
 
   /// Iterate through all classificator tree.
   /// Functor receives pointer to object and uint32 type.
-  template <class ToDo> void ForEachTree(ToDo & toDo) const
+  template <typename ToDo>
+  void ForEachTree(ToDo && toDo) const
   {
-    GetRoot()->ForEachObjectInTree(toDo, ftype::GetEmptyValue());
+    GetRoot()->ForEachObjectInTree(std::forward<ToDo>(toDo), ftype::GetEmptyValue());
+  }
+
+  template <typename ToDo>
+  void ForEachInSubtree(ToDo && toDo, uint32_t root) const
+  {
+    toDo(root);
+    GetObject(root)->ForEachObjectInTree([&toDo](ClassifObject const *, uint32_t c) { toDo(c); },
+                                         root);
   }
 
   /// @name Used only in feature_visibility.cpp, not for public use.
   //@{
-  template <class ToDo> typename ToDo::ResultType
-  ProcessObjects(uint32_t type, ToDo & toDo) const;
+  template <typename ToDo>
+  typename ToDo::ResultType ProcessObjects(uint32_t type, ToDo & toDo) const;
 
   ClassifObject const * GetObject(uint32_t type) const;
   std::string GetFullObjectName(uint32_t type) const;

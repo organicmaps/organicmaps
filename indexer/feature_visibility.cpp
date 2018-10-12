@@ -12,8 +12,8 @@
 
 using namespace std;
 
-template <class ToDo> typename ToDo::ResultType
-Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
+template <typename ToDo>
+typename ToDo::ResultType Classificator::ProcessObjects(uint32_t type, ToDo & toDo) const
 {
   typedef typename ToDo::ResultType ResultType;
   ResultType res = ResultType(); // default initialization

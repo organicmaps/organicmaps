@@ -378,7 +378,8 @@ void Classificator::SortClassificator()
   GetMutableRoot()->Sort();
 }
 
-template <class IterT> uint32_t Classificator::GetTypeByPathImpl(IterT beg, IterT end) const
+template <typename Iter>
+uint32_t Classificator::GetTypeByPathImpl(Iter beg, Iter end) const
 {
   ClassifObject const * p = GetRoot();
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 namespace search
 {
@@ -11,11 +12,13 @@ struct LocalitiesSource
   template <typename Fn>
   void ForEachType(Fn && fn) const
   {
-    fn(m_city);
-    fn(m_town);
+    for (auto const c : m_cities)
+      fn(c);
+    for (auto const t : m_towns)
+      fn(t);
   }
 
-  uint32_t m_city = 0;
-  uint32_t m_town = 0;
+  std::vector<uint32_t> m_cities;
+  std::vector<uint32_t> m_towns;
 };
 }  // namespace search
