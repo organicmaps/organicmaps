@@ -13,7 +13,9 @@ set(
   keyword_lang_matcher_test.cpp
   keyword_matcher_test.cpp
   latlon_match_test.cpp
-  locality_finder_test.cpp
+  localities_source_tests.cpp
+# Test requires World.mwm to be generated with new code.
+# locality_finder_test.cpp
   locality_scorer_test.cpp
   locality_selector_test.cpp
   mem_search_index_tests.cpp

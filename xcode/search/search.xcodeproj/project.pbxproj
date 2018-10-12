@@ -166,6 +166,7 @@
 		405DB10720FF472300EE3824 /* utils_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405DB10620FF472300EE3824 /* utils_test.cpp */; };
 		40AC86EA214A96EC003A96D1 /* cuisine_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40AC86E8214A96EB003A96D1 /* cuisine_filter.hpp */; };
 		40AC86EB214A96EC003A96D1 /* cuisine_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40AC86E9214A96EB003A96D1 /* cuisine_filter.cpp */; };
+		40DF582A2170F63E00E4E0FC /* localities_source_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DF58292170F63E00E4E0FC /* localities_source_tests.cpp */; };
 		453C623B2004BABE00467120 /* region_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453C62392004BABE00467120 /* region_info_getter.hpp */; };
 		453C623C2004BABE00467120 /* region_info_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 453C623A2004BABE00467120 /* region_info_getter.cpp */; };
 		456E1B3E1F9A3C8E009C32E1 /* cities_boundaries_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E1B3C1F9A3C8D009C32E1 /* cities_boundaries_table.cpp */; };
@@ -430,6 +431,7 @@
 		405DB10620FF472300EE3824 /* utils_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils_test.cpp; sourceTree = "<group>"; };
 		40AC86E8214A96EB003A96D1 /* cuisine_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cuisine_filter.hpp; sourceTree = "<group>"; };
 		40AC86E9214A96EB003A96D1 /* cuisine_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cuisine_filter.cpp; sourceTree = "<group>"; };
+		40DF58292170F63E00E4E0FC /* localities_source_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = localities_source_tests.cpp; sourceTree = "<group>"; };
 		453C62392004BABE00467120 /* region_info_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = region_info_getter.hpp; sourceTree = "<group>"; };
 		453C623A2004BABE00467120 /* region_info_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region_info_getter.cpp; sourceTree = "<group>"; };
 		456E1B3C1F9A3C8D009C32E1 /* cities_boundaries_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_table.cpp; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 		671C620D1AE9225100076BD0 /* search_tests */ = {
 			isa = PBXGroup;
 			children = (
+				40DF58292170F63E00E4E0FC /* localities_source_tests.cpp */,
 				392688B420B2D1BF00721762 /* bookmarks_processor_tests.cpp */,
 				392688B520B2D1BF00721762 /* mem_search_index_tests.cpp */,
 				392688B720B2D1BF00721762 /* region_info_getter_tests.cpp */,
@@ -1281,6 +1284,7 @@
 				F63CE2BB1FBB206800716AD3 /* city_finder.cpp in Sources */,
 				F652D9061CFDE21900FC29A0 /* ranking_info.cpp in Sources */,
 				39B2B94B1FB4620200AB85A1 /* ranker_test.cpp in Sources */,
+				40DF582A2170F63E00E4E0FC /* localities_source_tests.cpp in Sources */,
 				F652D9001CFDE21900FC29A0 /* nested_rects_cache.cpp in Sources */,
 				3936A61320EA2F5F00A68C09 /* text_index.cpp in Sources */,
 				3936A61020EA2F5F00A68C09 /* mem.cpp in Sources */,
