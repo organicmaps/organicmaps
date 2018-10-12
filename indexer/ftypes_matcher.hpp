@@ -261,13 +261,13 @@ public:
 };
 
 template <typename Types>
-bool IsTownOrCity(Types const & types)
+bool IsCityTownOrVillage(Types const & types)
 {
   feature::TypesHolder h;
   for (auto const t : types)
     h.Add(t);
   auto const type = IsLocalityChecker::Instance().GetType(h);
-  return type == TOWN || type == CITY;
+  return type == CITY || type == TOWN || type == VILLAGE;
 }
 
 /// @name Get city radius and population.

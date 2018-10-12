@@ -211,7 +211,7 @@ void TranslatorPlanet::EmitArea(FeatureBuilder1 & ft, FeatureParams params,
   if (!ft.IsGeometryClosed())
     return;
 
-  if (ftypes::IsTownOrCity(params.m_types))
+  if (ftypes::IsCityTownOrVillage(params.m_types))
   {
     auto fb = ft;
     fn(fb);
