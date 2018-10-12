@@ -157,16 +157,6 @@ inline void swap(ClassifObject & r1, ClassifObject & r2)
 
 class Classificator
 {
-  DISALLOW_COPY_AND_MOVE(Classificator);
-
-  ClassifObject m_root;
-
-  IndexAndTypeMapping m_mapping;
-
-  uint32_t m_coastType;
-
-  static ClassifObject * AddV(ClassifObject * parent, std::string const & key, std::string const & value);
-
 public:
   Classificator() : m_root("world") {}
 
@@ -184,14 +174,6 @@ public:
 
   bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
 
-  /// Return type by path in classificator tree, for example
-  /// path = ["natural", "caostline"].
-  //@{
-private:
-  template <typename Iter>
-  uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;
-
-public:
   /// @return 0 in case of nonexisting type
   uint32_t GetTypeByPathSafe(std::vector<std::string> const & path) const;
   /// Invokes ASSERT in case of nonexisting type
@@ -242,6 +224,22 @@ public:
 
   /// @return Object name to show in UI (not for debug purposes).
   std::string GetReadableObjectName(uint32_t type) const;
+
+private:
+  static ClassifObject * AddV(ClassifObject * parent, std::string const & key,
+                              std::string const & value);
+
+  /// Return type by path in classificator tree, for example
+  /// path = ["natural", "caostline"].
+  //@{
+  template <typename Iter>
+  uint32_t GetTypeByPathImpl(Iter beg, Iter end) const;
+
+  ClassifObject m_root;
+  IndexAndTypeMapping m_mapping;
+  uint32_t m_coastType;
+
+  DISALLOW_COPY_AND_MOVE(Classificator);
 };
 
 Classificator & classif();
