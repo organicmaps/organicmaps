@@ -7,7 +7,15 @@
 
 #include <memory>
 
-@interface MultipartUploadTask : NSObject
+#include "private.h"
+
+struct IdentityAndTrust
+{
+  SecIdentityRef identityRef;
+  NSArray * certArray;
+};
+
+@interface MultipartUploadTask : NSObject<NSURLSessionDelegate>
 
 @property(copy, nonatomic) NSString * method;
 @property(copy, nonatomic) NSString * urlString;
@@ -64,21 +72,86 @@
 
   NSData * postData = [self requestDataWithBoundary:boundary];
 
-  NSURLSessionUploadTask * uploadTask = [[NSURLSession sharedSession]
-                                        uploadTaskWithRequest:uploadRequest
-                                        fromData:postData
-                                        completionHandler:^(NSData * data,
-                                                            NSURLResponse * response,
-                                                            NSError * error) {
+  NSURLSession * session =
+      [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
+                                    delegate:self
+                               delegateQueue:nil];
+  NSURLSessionUploadTask * uploadTask = [session
+      uploadTaskWithRequest:uploadRequest
+                   fromData:postData
+          completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
             NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
-            if (error == nil) {
+            if (error == nil)
+            {
               NSString * description = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
               completion(httpResponse.statusCode, description);
-            } else {
+            }
+            else
+            {
               completion(-1, error.localizedDescription);
             }
           }];
   [uploadTask resume];
+}
+
+- (void)URLSession:(NSURLSession *)session
+    didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+      completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                                  NSURLCredential * _Nullable credential))completionHandler
+{
+  NSString * authenticationMethod = challenge.protectionSpace.authenticationMethod;
+  if (authenticationMethod == NSURLAuthenticationMethodClientCertificate)
+  {
+    completionHandler(NSURLSessionAuthChallengeUseCredential, [self getClientUrlCredential]);
+  }
+  else if (authenticationMethod == NSURLAuthenticationMethodServerTrust)
+  {
+    NSURLCredential * credential =
+        [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+    completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+  }
+}
+
+- (NSURLCredential *)getClientUrlCredential
+{
+  NSData * certData = [[NSData alloc] initWithBase64EncodedString:@USER_BINDING_PKCS12 options:0];
+  IdentityAndTrust identity = [self extractIdentityWithCertData:certData
+                                                   certPassword:@USER_BINDING_PKCS12_PASSWORD];
+
+  NSURLCredential * urlCredential =
+      [[NSURLCredential alloc] initWithIdentity:identity.identityRef
+                                   certificates:identity.certArray
+                                    persistence:NSURLCredentialPersistenceForSession];
+
+  return urlCredential;
+}
+
+- (IdentityAndTrust)extractIdentityWithCertData:(NSData *)certData
+                                   certPassword:(NSString *)certPassword
+{
+  IdentityAndTrust identityAndTrust;
+
+  NSDictionary * certOptions = @{(id)kSecImportExportPassphrase: certPassword};
+
+  CFArrayRef rawItems = NULL;
+  OSStatus status = SecPKCS12Import((__bridge CFDataRef)certData,
+                                    (__bridge CFDictionaryRef)certOptions, &rawItems);
+  NSArray * items = (NSArray *)CFBridgingRelease(rawItems);
+
+  if ((status == errSecSuccess) && ([items count] > 0))
+  {
+    NSDictionary * firstItem = items[0];
+
+    SecIdentityRef identity =
+        (SecIdentityRef)CFBridgingRetain(firstItem[(id)kSecImportItemIdentity]);
+
+    CFArrayRef certChain = (CFArrayRef)CFBridgingRetain(firstItem[(id)kSecImportItemCertChain]);
+    NSArray * certArray = CFBridgingRelease(certChain);
+
+    identityAndTrust = {.identityRef = identity, .certArray = certArray};
+  }
+
+  return identityAndTrust;
 }
 
 @end
