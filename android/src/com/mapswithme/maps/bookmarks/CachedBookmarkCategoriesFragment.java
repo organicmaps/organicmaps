@@ -216,5 +216,19 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     {
       //TODO(@alexzatsepin): Implement me if necessary
     }
+
+    @Override
+    public void onUploadStarted(long originCategoryId)
+    {
+      //TODO(@alexzatsepin): Implement me if necessary
+    }
+
+    @Override
+    public void onUploadFinished(@BookmarkManager.UploadResult int uploadResult,
+                                 @NonNull String description, long originCategoryId,
+                                 long resultCategoryId)
+    {
+      //TODO(@alexzatsepin): Implement me if necessary
+    }
   }
 }

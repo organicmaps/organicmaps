@@ -292,12 +292,21 @@ public:
   using OnCatalogImportFinishedHandler = platform::SafeCallback<void(std::string const & id,
                                                                      kml::MarkGroupId categoryId,
                                                                      bool successful)>;
+  using OnCatalogUploadStartedHandler = std::function<void(kml::MarkGroupId originCategoryId)>;
+  using OnCatalogUploadFinishedHandler = std::function<void(BookmarkCatalog::UploadResult uploadResult,
+                                                            std::string const & description,
+                                                            kml::MarkGroupId originCategoryId,
+                                                            kml::MarkGroupId resultCategoryId)>;
+
   void SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
                           OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,
                           OnCatalogImportStartedHandler && onCatalogImportStarted,
-                          OnCatalogImportFinishedHandler && onCatalogImportFinished);
+                          OnCatalogImportFinishedHandler && onCatalogImportFinished,
+                          OnCatalogUploadStartedHandler && onCatalogUploadStartedHandler,
+                          OnCatalogUploadFinishedHandler && onCatalogUploadFinishedHandler);
   void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
+  void UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
   BookmarkCatalog const & GetCatalog() const;
@@ -544,6 +553,8 @@ private:
   OnCatalogDownloadFinishedHandler m_onCatalogDownloadFinished;
   OnCatalogImportStartedHandler m_onCatalogImportStarted;
   OnCatalogImportFinishedHandler m_onCatalogImportFinished;
+  OnCatalogUploadStartedHandler m_onCatalogUploadStartedHandler;
+  OnCatalogUploadFinishedHandler m_onCatalogUploadFinishedHandler;
 
   struct RestoringCache
   {

@@ -499,10 +499,21 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
         [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
       }
     };
+    auto onUploadStarted = [](kml::MarkGroupId originCategoryId)
+    {
+      //TODO(@beloal): Implement me.
+    };
+    auto onUploadFinished = [](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
+                               kml::MarkGroupId originCategoryId, kml::MarkGroupId resultCategoryId)
+    {
+      //TODO(@beloal): Implement me.
+    };
     GetFramework().GetBookmarkManager().SetCatalogHandlers(std::move(onDownloadStarted),
                                                            std::move(onDownloadFinished),
                                                            std::move(onImportStarted),
-                                                           std::move(onImportFinished));
+                                                           std::move(onImportFinished),
+                                                           std::move(onUploadStarted),
+                                                           std::move(onUploadFinished));
   });
   auto observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = itemId;

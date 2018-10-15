@@ -2105,12 +2105,16 @@ bool BookmarkManager::AreNotificationsEnabled() const
 void BookmarkManager::SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
                                          OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,
                                          OnCatalogImportStartedHandler && onCatalogImportStarted,
-                                         OnCatalogImportFinishedHandler && onCatalogImportFinished)
+                                         OnCatalogImportFinishedHandler && onCatalogImportFinished,
+                                         OnCatalogUploadStartedHandler && onCatalogUploadStartedHandler,
+                                         OnCatalogUploadFinishedHandler && onCatalogUploadFinishedHandler)
 {
   m_onCatalogDownloadStarted = std::move(onCatalogDownloadStarted);
   m_onCatalogDownloadFinished = std::move(onCatalogDownloadFinished);
   m_onCatalogImportStarted = std::move(onCatalogImportStarted);
   m_onCatalogImportFinished = std::move(onCatalogImportFinished);
+  m_onCatalogUploadStartedHandler = std::move(onCatalogUploadStartedHandler);
+  m_onCatalogUploadFinishedHandler = std::move(onCatalogUploadFinishedHandler);
 }
 
 void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & name)
@@ -2202,6 +2206,111 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
       });
     }
   });
+}
+
+void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRules accessRules)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (m_onCatalogUploadStartedHandler)
+    m_onCatalogUploadStartedHandler(categoryId);
+
+  if (!migration::IsMigrationCompleted())
+  {
+    if (m_onCatalogUploadFinishedHandler)
+    {
+      m_onCatalogUploadFinishedHandler(BookmarkCatalog::UploadResult::InvalidCall,
+                                       "Bookmarks migration is not completed. Uploading is prohibited.",
+                                       categoryId, categoryId);
+    }
+    return;
+  }
+
+  auto cat = GetBmCategory(categoryId);
+  if (cat == nullptr)
+  {
+    if (m_onCatalogUploadFinishedHandler)
+    {
+      m_onCatalogUploadFinishedHandler(BookmarkCatalog::UploadResult::InvalidCall,
+                                       "Unknown category.", categoryId, categoryId);
+    }
+    return;
+  }
+
+  // Force save bookmarks before uploading.
+  SaveBookmarks({categoryId});
+
+  BookmarkCatalog::UploadData uploadData;
+  uploadData.m_accessRules = accessRules;
+  uploadData.m_userId = m_user.GetUserId();
+  uploadData.m_userName = m_user.GetUserName();
+  uploadData.m_serverId = cat->GetServerId();
+
+  auto kmlDataCollection = PrepareToSaveBookmarks({categoryId});
+  if (!kmlDataCollection || kmlDataCollection->empty())
+  {
+    if (m_onCatalogUploadFinishedHandler)
+    {
+      m_onCatalogUploadFinishedHandler(BookmarkCatalog::UploadResult::InvalidCall,
+                                       "Try to upload unsaved bookmarks.", categoryId, categoryId);
+    }
+    return;
+  }
+
+  auto onUploadSuccess = [this, categoryId](BookmarkCatalog::UploadResult result,
+                                            kml::FileData fileData, bool originalFileExists,
+                                            bool originalFileUnmodified)
+  {
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+    if (!originalFileExists || originalFileUnmodified)
+    {
+      if (m_onCatalogUploadFinishedHandler)
+        m_onCatalogUploadFinishedHandler(result, {}, categoryId, categoryId);
+      return;
+    }
+
+    // Until we cannot block UI to prevent bookmarks modification during uploading,
+    // we have to create a copy in this case.
+    for (auto & n : fileData.m_categoryData.m_name)
+      n.second += " (uploaded copy)";
+
+    CHECK(migration::IsMigrationCompleted(), ());
+    auto const name = RemoveInvalidSymbols(GetPreferredBookmarkStr(fileData.m_categoryData.m_name),
+                                           kDefaultBookmarksFileName);
+    auto const fileName = GenerateUniqueFileName(GetBookmarksDirectory(), name, kKmbExtension);
+
+    auto fileDataPtr = std::make_unique<kml::FileData>();
+    *fileDataPtr = fileData;
+    KMLDataCollection collection;
+    collection.emplace_back(std::make_pair(fileName, std::move(fileDataPtr)));
+    CreateCategories(std::move(collection), true /* autoSave */);
+
+    kml::MarkGroupId newCategoryId = categoryId;
+    for (auto const & cat : m_categories)
+    {
+      if (cat.second->GetServerId() == fileData.m_serverId)
+      {
+        newCategoryId = cat.first;
+        break;
+      }
+    }
+    CHECK_NOT_EQUAL(newCategoryId, categoryId, ());
+
+    if (m_onCatalogUploadFinishedHandler)
+      m_onCatalogUploadFinishedHandler(result, {}, categoryId, newCategoryId);
+  };
+
+  auto onUploadError = [this, categoryId](BookmarkCatalog::UploadResult result,
+                                          std::string const & description)
+  {
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+    if (m_onCatalogUploadFinishedHandler)
+      m_onCatalogUploadFinishedHandler(result, description, categoryId, categoryId);
+  };
+
+  auto & kmlData = kmlDataCollection->front();
+  m_bookmarkCatalog.Upload(uploadData, m_user.GetAccessToken(), *kmlData.second,
+                           kmlData.first, std::move(onUploadSuccess), std::move(onUploadError));
 }
 
 bool BookmarkManager::IsCategoryFromCatalog(kml::MarkGroupId categoryId) const

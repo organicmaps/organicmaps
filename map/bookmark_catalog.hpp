@@ -1,11 +1,14 @@
 #pragma once
 
+#include "kml/types.hpp"
+
 #include "platform/remote_file.hpp"
 #include "platform/safe_callback.hpp"
 
 #include <array>
 #include <functional>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -46,6 +49,36 @@ public:
   std::string GetFrontendUrl() const;
 
   void RequestTagGroups(std::string const & language, TagGroupsCallback && callback) const;
+
+  enum class UploadResult
+  {
+    Success,
+    NetworkError,
+    ServerError,
+    AuthError,
+    MalformedDataError,
+    AccessError,
+    InvalidCall
+  };
+  using UploadSuccessCallback = platform::SafeCallback<void(UploadResult result,
+                                                            kml::FileData fileData,
+                                                            bool originalFileExists,
+                                                            bool originalFileUnmodified)>;
+  using UploadErrorCallback = platform::SafeCallback<void(UploadResult result,
+                                                          std::string const & description)>;
+
+  struct UploadData
+  {
+    std::string m_serverId;
+    kml::AccessRules m_accessRules = kml::AccessRules::DirectLink;
+    std::string m_userName;
+    std::string m_userId;
+  };
+
+  void Upload(UploadData uploadData, std::string const & accessToken,
+              kml::FileData const & fileData, std::string const & pathToKmb,
+              UploadSuccessCallback && uploadSuccessCallback,
+              UploadErrorCallback && uploadErrorCallback);
 
 private:
   std::map<std::string, std::string> m_downloadingIds;

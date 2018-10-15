@@ -1165,6 +1165,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onUploadStarted(long originCategoryId)
+  {
+    //TODO(@alexzatsepin): Implement me if necessary
+  }
+
+  @Override
+  public void onUploadFinished(@BookmarkManager.UploadResult int uploadResult, @NonNull String description,
+                               long originCategoryId, long resultCategoryId)
+  {
+    //TODO(@alexzatsepin): Implement me if necessary
+  }
+
+  @Override
   protected void onNewIntent(Intent intent)
   {
     super.onNewIntent(intent);

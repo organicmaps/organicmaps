@@ -57,6 +57,19 @@ public enum BookmarkManager
   public static final int ACCESS_RULES_P2P = 3;
   public static final int ACCESS_RULES_PAID = 4;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ UPLOAD_RESULT_SUCCESS, UPLOAD_RESULT_NETWORK_ERROR, UPLOAD_RESULT_SERVER_ERROR,
+            UPLOAD_RESULT_AUTH_ERROR, UPLOAD_RESULT_MALFORMED_DATA_ERROR,
+            UPLOAD_RESULT_ACCESS_ERROR, UPLOAD_RESULT_INVALID_CALL })
+  public @interface UploadResult {}
+  public static final int UPLOAD_RESULT_SUCCESS = 0;
+  public static final int UPLOAD_RESULT_NETWORK_ERROR = 1;
+  public static final int UPLOAD_RESULT_SERVER_ERROR = 2;
+  public static final int UPLOAD_RESULT_AUTH_ERROR = 3;
+  public static final int UPLOAD_RESULT_MALFORMED_DATA_ERROR = 4;
+  public static final int UPLOAD_RESULT_ACCESS_ERROR = 5;
+  public static final int UPLOAD_RESULT_INVALID_CALL = 6;
+
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
@@ -277,6 +290,25 @@ public enum BookmarkManager
   {
     for (BookmarksCatalogListener listener : mCatalogListeners)
       listener.onTagsReceived(successful, tagsGroups);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onUploadStarted(long originCategoryId)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onUploadStarted(originCategoryId);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
+  public void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+                               long originCategoryId, long resultCategoryId)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onUploadFinished(uploadResult, description, originCategoryId, resultCategoryId);
   }
 
   public boolean isVisible(long catId)
@@ -673,6 +705,9 @@ public enum BookmarkManager
   private static native void nativeImportFromCatalog(@NonNull String serverId,
                                                      @NonNull String filePath);
 
+  private static native void nativeUploadToCatalog(@AccessRules int accessRules,
+                                                   long catId);
+
   @NonNull
   private static native String nativeGetCatalogDeeplink(long catId);
 
@@ -766,6 +801,26 @@ public enum BookmarkManager
      * @param tagsGroups is the tags collection.
      */
     void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups);
+
+    /**
+     * The method is called when the uploading to the catalog is started.
+     *
+     * @param originCategoryId is identifier of the uploading bookmarks category.
+     */
+    void onUploadStarted(long originCategoryId);
+
+    /**
+     * The method is called when the uploading to the catalog is finished.
+     *
+     * @param uploadResult is result of the uploading.
+     * @param description is detailed description of the uploading result.
+     * @param originCategoryId is original identifier of the uploading bookmarks category.
+     * @param resultCategoryId is identifier of the uploading category after finishing.
+     *                         In the case of bookmarks modification during uploading
+     *                         the identifier can be new.
+     */
+    void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+                          long originCategoryId, long resultCategoryId);
   }
 
   public static class DefaultBookmarksCatalogListener implements BookmarksCatalogListener
@@ -784,6 +839,19 @@ public enum BookmarkManager
 
     @Override
     public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    {
+      /* do noting by default */
+    }
+
+    @Override
+    public void onUploadStarted(long originCategoryId)
+    {
+      /* do noting by default */
+    }
+
+    @Override
+    public void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+                                 long originCategoryId, long resultCategoryId)
     {
       /* do noting by default */
     }

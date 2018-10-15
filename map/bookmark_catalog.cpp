@@ -1,12 +1,16 @@
 #include "map/bookmark_catalog.hpp"
+#include "map/bookmark_helpers.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/http_uploader.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/serdes_json.hpp"
+#include "coding/sha1.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 #include "base/visitor.hpp"
@@ -35,6 +39,20 @@ std::string BuildTagsUrl(std::string const & language)
   if (kCatalogEditorServer.empty())
     return {};
   return kCatalogEditorServer + "editor/tags/?lang=" + language;
+}
+
+std::string BuildHashUrl()
+{
+  if (kCatalogFrontendServer.empty())
+    return {};
+  return kCatalogFrontendServer + "kml/create";
+}
+
+std::string BuildUploadUrl()
+{
+  if (kCatalogFrontendServer.empty())
+    return {};
+  return kCatalogFrontendServer + "storage/upload";
 }
 
 struct SubtagData
@@ -73,6 +91,49 @@ BookmarkCatalog::Tag::Color ExtractColor(std::string const & c)
   for (size_t i = 0; i < result.size(); i++)
     result[i] = static_cast<float>(std::stoi(c.substr(i * 2, 2), nullptr, 16)) / 255;
   return result;
+}
+
+struct HashResponseData
+{
+  std::string m_hash;
+  DECLARE_VISITOR(visitor(m_hash, "hash"))
+};
+
+int constexpr kInvalidHash = -1;
+
+int RequestNewServerId(std::string const & accessToken,
+                       std::string & serverId, std::string & errorString)
+{
+  auto const hashUrl = BuildHashUrl();
+  if (hashUrl.empty())
+    return kInvalidHash;
+  platform::HttpClient request(hashUrl);
+  request.SetRawHeader("Accept", "application/json");
+  request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+  request.SetRawHeader("Authorization", "Bearer " + accessToken);
+  if (request.RunHttpRequest())
+  {
+    auto const resultCode = request.ErrorCode();
+    if (resultCode >= 200 && resultCode < 300)  // Ok.
+    {
+      HashResponseData hashResponseData;
+      try
+      {
+        coding::DeserializerJson des(request.ServerResponse());
+        des(hashResponseData);
+      }
+      catch (coding::DeserializerJson::Exception const & ex)
+      {
+        LOG(LWARNING, ("Hash request deserialization error:", ex.Msg()));
+        return kInvalidHash;
+      }
+
+      serverId = hashResponseData.m_hash;
+      return resultCode;
+    }
+    errorString = request.ServerResponse();
+  }
+  return kInvalidHash;
 }
 }  // namespace
 
@@ -216,5 +277,141 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
     }
     if (callback)
       callback(false /* success */, {});
+  });
+}
+
+void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessToken,
+                             kml::FileData const & fileData, std::string const & pathToKmb,
+                             UploadSuccessCallback && uploadSuccessCallback,
+                             UploadErrorCallback && uploadErrorCallback)
+{
+  CHECK_EQUAL(uploadData.m_serverId, fileData.m_serverId, ());
+
+  if (accessToken.empty())
+  {
+    if (uploadErrorCallback)
+      uploadErrorCallback(UploadResult::AuthError, {});
+    return;
+  }
+
+  if (fileData.m_categoryData.m_accessRules == kml::AccessRules::Paid)
+  {
+    if (uploadErrorCallback)
+      uploadErrorCallback(UploadResult::InvalidCall, "Could not upload paid bookmarks.");
+    return;
+  }
+
+  if (fileData.m_categoryData.m_accessRules == kml::AccessRules::Public &&
+      uploadData.m_accessRules != kml::AccessRules::Public)
+  {
+    if (uploadErrorCallback)
+    {
+      uploadErrorCallback(UploadResult::AccessError, "Could not upload public bookmarks with " +
+                                                     DebugPrint(uploadData.m_accessRules) + " access.");
+    }
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File, [uploadData = std::move(uploadData), accessToken, fileData,
+                                                 pathToKmb, uploadSuccessCallback = std::move(uploadSuccessCallback),
+                                                 uploadErrorCallback = std::move(uploadErrorCallback)]() mutable
+  {
+    if (!GetPlatform().IsFileExistsByFullPath(pathToKmb))
+    {
+      if (uploadErrorCallback)
+        uploadErrorCallback(UploadResult::InvalidCall, "Could not find the file to upload.");
+      return;
+    }
+
+    auto const originalSha1 = coding::SHA1::CalculateBase64(pathToKmb);
+    if (originalSha1.empty())
+    {
+      if (uploadErrorCallback)
+        uploadErrorCallback(UploadResult::InvalidCall, "Could not calculate hash for the uploading file.");
+      return;
+    }
+
+    GetPlatform().RunTask(Platform::Thread::Network, [uploadData = std::move(uploadData), accessToken,
+                                                      pathToKmb, fileData = std::move(fileData), originalSha1,
+                                                      uploadSuccessCallback = std::move(uploadSuccessCallback),
+                                                      uploadErrorCallback = std::move(uploadErrorCallback)]() mutable
+    {
+      if (uploadData.m_serverId.empty())
+      {
+        // Request new server id.
+        std::string serverId;
+        std::string errorString;
+        auto const resultCode = RequestNewServerId(accessToken, serverId, errorString);
+        if (resultCode == 403)
+        {
+          if (uploadErrorCallback)
+            uploadErrorCallback(UploadResult::AuthError, errorString);
+          return;
+        }
+        if (resultCode < 200 || resultCode >= 300)
+        {
+          if (uploadErrorCallback)
+            uploadErrorCallback(UploadResult::NetworkError, errorString);
+          return;
+        }
+        uploadData.m_serverId = serverId;
+      }
+
+      // Embed necessary data to KML.
+      fileData.m_serverId = uploadData.m_serverId;
+      fileData.m_categoryData.m_accessRules = uploadData.m_accessRules;
+      fileData.m_categoryData.m_authorName = uploadData.m_userName;
+      fileData.m_categoryData.m_authorId = uploadData.m_userId;
+
+      auto const filePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId);
+      if (!SaveKmlFile(fileData, filePath, KmlFileType::Text))
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::InvalidCall, "Could not save the uploading file.");
+        return;
+      }
+
+      platform::HttpUploader request;
+      request.SetUrl(BuildUploadUrl());
+      request.SetHeaders({{"Authorization", "Bearer " + accessToken},
+                          {"User-Agent", GetPlatform().GetAppUserAgent()}});
+      request.SetFilePath(filePath);
+      auto const uploadCode = request.Upload();
+      if (uploadCode.m_httpCode >= 200 && uploadCode.m_httpCode < 300)
+      {
+        // Update KML.
+        bool const originalFileExists = GetPlatform().IsFileExistsByFullPath(pathToKmb);
+        bool originalFileUnmodified = false;
+        if (originalFileExists)
+          originalFileUnmodified = (originalSha1 == coding::SHA1::CalculateBase64(pathToKmb));
+        if (uploadSuccessCallback)
+          uploadSuccessCallback(UploadResult::Success, fileData, originalFileExists, originalFileUnmodified);
+      }
+      else if (uploadCode.m_httpCode == 400)
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::MalformedDataError, uploadCode.m_description);
+      }
+      else if (uploadCode.m_httpCode == 403)
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::AuthError, uploadCode.m_description);
+      }
+      else if (uploadCode.m_httpCode == 409)
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::AccessError, uploadCode.m_description);
+      }
+      else if (uploadCode.m_httpCode >= 500 && uploadCode.m_httpCode < 600)
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::ServerError, uploadCode.m_description);
+      }
+      else
+      {
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::NetworkError, uploadCode.m_description);
+      }
+    });
   });
 }
