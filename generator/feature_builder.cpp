@@ -606,12 +606,6 @@ bool FeatureBuilder2::PreSerializeAndRemoveUselessNames(SupportingData const & d
   return Base::PreSerializeAndRemoveUselessNames();
 }
 
-bool FeatureBuilder2::IsLocalityObject() const
-{
-  return (m_params.GetGeomType() == GEOM_POINT || m_params.GetGeomType() == GEOM_AREA) &&
-      !m_params.house.IsEmpty();
-}
-
 void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                               SupportingData & data) const
 {

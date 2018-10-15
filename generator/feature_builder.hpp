@@ -262,7 +262,6 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerializeAndRemoveUselessNames(SupportingData const & data);
-  bool IsLocalityObject() const;
   void SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                SupportingData & data) const;
   void Serialize(SupportingData & data, serial::GeometryCodingParams const & params) const;

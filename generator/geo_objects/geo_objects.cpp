@@ -4,6 +4,8 @@
 #include "generator/locality_sorter.hpp"
 #include "generator/regions/region_base.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/locality_index.hpp"
 #include "indexer/locality_index_builder.hpp"
 
@@ -95,13 +97,14 @@ public:
 class KeyValueMem : public KeyValueInterface
 {
 public:
-  KeyValueMem(std::istream & stream)
+  KeyValueMem(std::istream & stream, std::function<bool(KeyValue const &)> pred =
+      [](KeyValue const &) { return true; })
   {
     std::string line;
     KeyValue kv;
     while (std::getline(stream, line))
     {
-      if (!ParseKeyValueLine(line, kv))
+      if (!ParseKeyValueLine(line, kv) || !pred(kv))
         continue;
 
       m_map.insert(kv);
@@ -178,6 +181,33 @@ private:
   std::unordered_map<uint64_t, std::istream::pos_type> m_map;
 };
 
+bool IsBuilding(FeatureBuilder1 const & fb)
+{
+  auto const & checker = ftypes::IsBuildingChecker::Instance();
+  return checker(fb.GetTypes());
+}
+
+bool HasHouse(FeatureBuilder1 const & fb)
+{
+  return !fb.GetParams().house.IsEmpty();
+}
+
+bool HouseHasAddress(base::Json json)
+{
+  auto properties = json_object_get(json.get(), "properties");
+  auto address = json_object_get(properties, "address");
+  std::string const kHouseField = "building";
+  char const * key = nullptr;
+  json_t * value = nullptr;
+  json_object_foreach(address, key, value)
+  {
+    if (key == kHouseField && !json_is_null(value))
+      return true;
+  }
+
+  return false;
+}
+
 template <typename Index>
 std::vector<base::GeoObjectId> SearchObjectsInIndex(FeatureBuilder1 const & fb, Index const & index)
 {
@@ -252,15 +282,22 @@ void UpdateCoordinates(m2::PointD const & point, base::Json json)
 base::Json AddAddress(FeatureBuilder1 const & fb, base::Json regionJson)
 {
   base::Json result = regionJson.GetDeepCopy();
-  int const kHouseRank = 30;
-  ToJSONObject(*result.get(), "rank", kHouseRank);
+  int const kHouseOrPoiRank = 30;
+  ToJSONObject(*result.get(), "rank", kHouseOrPoiRank);
   UpdateCoordinates(fb.GetLimitRect().Center(), result);
   auto properties = json_object_get(result.get(), "properties");
   auto address = json_object_get(properties, "address");
-  ToJSONObject(*address, "house", fb.GetParams().house.Get());
+
   auto const street = fb.GetParams().GetStreet();
   if (!street.empty())
     ToJSONObject(*address, "street", street);
+
+  // By writing home null in the field we can understand that the house has no address.
+  auto const house = fb.GetParams().house.Get();
+  if (!house.empty())
+    ToJSONObject(*address, "building", house);
+  else
+    ToJSONObject(*address, "building", base::NewJSONNull());
 
   // auto locales = json_object_get(result.get(), "locales");
   // auto en = json_object_get(result.get(), "en");
@@ -303,7 +340,7 @@ FindHousePoi(FeatureBuilder1 const & fb,
 
     auto properties = json_object_get(house->get(), "properties");
     auto address = json_object_get(properties, "address");
-    std::string const kHouseField = "house";
+    std::string const kHouseField = "building";
     char const * key = nullptr;
     json_t * value = nullptr;
     json_object_foreach(address, key, value)
@@ -359,7 +396,7 @@ bool BuildGeoObjectsWithAddresses(indexer::RegionsIndex<IndexReader> const & reg
   size_t countGeoObjects = 0;
   auto const fn = [&](FeatureBuilder1 & fb, uint64_t /* currPos */)
   {
-    if (fb.GetParams().house.IsEmpty())
+    if (!(IsBuilding(fb) || HasHouse(fb)))
       return;
 
     auto region = FindRegion(fb, regionIndex, regionKv);
@@ -395,11 +432,14 @@ bool BuildGeoObjectsWithoutAddresses(indexer::GeoObjectsIndex<IndexReader> const
   size_t countGeoObjects = 0;
   auto const fn  = [&](FeatureBuilder1 & fb, uint64_t /* currPos */)
   {
-    if (!fb.GetParams().house.IsEmpty())
+    if (IsBuilding(fb) || HasHouse(fb))
       return;
 
     auto const house = FindHousePoi(fb, geoObjectsIndex, geoObjectsKv);
     if (!house)
+      return;
+
+    if (!HouseHasAddress(*house))
       return;
 
     auto const value = MakeGeoObjectValueWithoutAddress(fb, *house);
@@ -446,7 +486,7 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
       indexer::ReadIndex<indexer::RegionsIndexBox<IndexReader>, MmapReader>(pathInRegionsIndx);
   // Regions key-value storage is small (~150 Mb). We will load everything into memory.
   std::fstream streamRegionKv(pathInRegionsKv);
-  auto const regionsKv = KeyValueMem(streamRegionKv);
+  KeyValueMem const regionsKv(streamRegionKv);
   LOG(LINFO, ("Size of regions key-value storage:", regionsKv.Size()));
   std::ofstream streamIdsWithoutAddress(pathOutIdsWithoutAddress);
   std::ofstream streamGeoObjectsKv(pathOutGeoObjectsKv);
@@ -461,7 +501,8 @@ bool GenerateGeoObjects(std::string const & pathInRegionsIndx,
   // This can be slow.
   // todo(maksimandrianov1): Investigate the issue of performance and if necessary improve.
   std::ifstream tempStream(pathOutGeoObjectsKv);
-  auto const geoObjectsKv = KeyValueMem(tempStream);
+  auto const pred = [](KeyValue const & kv) { return HouseHasAddress(kv.second); };
+  KeyValueMem const geoObjectsKv(tempStream, pred);
   LOG(LINFO, ("Size of geo objects key-value storage:", geoObjectsKv.Size()));
   auto const geoObjectIndex = geoObjectIndexFuture.get();
   LOG(LINFO, ("Index was built."));

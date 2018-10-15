@@ -131,19 +131,45 @@ inline void ToJSONArray(json_t & parent, json_t & child)
 }
 
 template <typename T>
+void ToJSONObject(json_t & root, char const * field, T const & value)
+{
+  json_object_set_new(&root, field, ToJSON(value).release());
+}
+
+inline void ToJSONObject(json_t & parent, char const * field, base::JSONPtr && child)
+{
+  json_object_set_new(&parent, field, child.release());
+}
+
+inline void ToJSONObject(json_t & parent, char const * field, base::JSONPtr & child)
+{
+  json_object_set_new(&parent, field, child.release());
+}
+
+inline void ToJSONObject(json_t & parent, char const * field, json_t & child)
+{
+  json_object_set_new(&parent, field, &child);
+}
+
+template <typename T>
 void ToJSONObject(json_t & root, std::string const & field, T const & value)
 {
-  json_object_set_new(&root, field.c_str(), ToJSON(value).release());
+  ToJSONObject(root, field.c_str(), value);
+}
+
+inline void ToJSONObject(json_t & parent, std::string const & field, base::JSONPtr && child)
+{
+  ToJSONObject(parent, field.c_str(), std::move(child));
 }
 
 inline void ToJSONObject(json_t & parent, std::string const & field, base::JSONPtr & child)
 {
-  json_object_set_new(&parent, field.c_str(), child.release());
+  ToJSONObject(parent, field.c_str(), child);
 }
 
 inline void ToJSONObject(json_t & parent, std::string const & field, json_t & child)
 {
-  json_object_set_new(&parent, field.c_str(), &child);
+  ToJSONObject(parent, field.c_str(), child);
 }
 
 template <typename T>
@@ -183,12 +209,18 @@ bool FromJSONObjectOptional(json_t * root, std::string const & field, std::vecto
 }
 
 template <typename T>
-void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const & values)
+void ToJSONObject(json_t & root, char const * field, std::vector<T> const & values)
 {
   auto arr = base::NewJSONArray();
   for (auto const & value : values)
     json_array_append_new(arr.get(), ToJSON(value).release());
-  json_object_set_new(&root, field.c_str(), arr.release());
+  json_object_set_new(&root, field, arr.release());
+}
+
+template <typename T>
+void ToJSONObject(json_t & root, std::string const & field, std::vector<T> const & values)
+{
+  ToJSONObject(root, field.c_str(), values);
 }
 
 template <typename T>

@@ -240,7 +240,7 @@ bool GenerateGeoObjectsData(string const & featuresFile, string const & nodesFil
 
   auto const needSerialize = [&nodeIds](FeatureBuilder1 & fb) {
     auto & fb2 = static_cast<FeatureBuilder2 &>(fb);
-    return fb2.IsLocalityObject() ||
+    return fb2.IsPoint() || fb2.IsArea() ||
         (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId()) != 0);
   };
 
