@@ -281,11 +281,12 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
 }
 
 void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessToken,
-                             kml::FileData const & fileData, std::string const & pathToKmb,
+                             std::shared_ptr<kml::FileData> fileData, std::string const & pathToKmb,
                              UploadSuccessCallback && uploadSuccessCallback,
                              UploadErrorCallback && uploadErrorCallback)
 {
-  CHECK_EQUAL(uploadData.m_serverId, fileData.m_serverId, ());
+  CHECK(fileData != nullptr, ());
+  CHECK_EQUAL(uploadData.m_serverId, fileData->m_serverId, ());
 
   if (accessToken.empty())
   {
@@ -294,14 +295,14 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
     return;
   }
 
-  if (fileData.m_categoryData.m_accessRules == kml::AccessRules::Paid)
+  if (fileData->m_categoryData.m_accessRules == kml::AccessRules::Paid)
   {
     if (uploadErrorCallback)
       uploadErrorCallback(UploadResult::InvalidCall, "Could not upload paid bookmarks.");
     return;
   }
 
-  if (fileData.m_categoryData.m_accessRules == kml::AccessRules::Public &&
+  if (fileData->m_categoryData.m_accessRules == kml::AccessRules::Public &&
       uploadData.m_accessRules != kml::AccessRules::Public)
   {
     if (uploadErrorCallback)
@@ -332,7 +333,7 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
     }
 
     GetPlatform().RunTask(Platform::Thread::Network, [uploadData = std::move(uploadData), accessToken,
-                                                      pathToKmb, fileData = std::move(fileData), originalSha1,
+                                                      pathToKmb, fileData, originalSha1,
                                                       uploadSuccessCallback = std::move(uploadSuccessCallback),
                                                       uploadErrorCallback = std::move(uploadErrorCallback)]() mutable
     {
@@ -358,13 +359,13 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       }
 
       // Embed necessary data to KML.
-      fileData.m_serverId = uploadData.m_serverId;
-      fileData.m_categoryData.m_accessRules = uploadData.m_accessRules;
-      fileData.m_categoryData.m_authorName = uploadData.m_userName;
-      fileData.m_categoryData.m_authorId = uploadData.m_userId;
+      fileData->m_serverId = uploadData.m_serverId;
+      fileData->m_categoryData.m_accessRules = uploadData.m_accessRules;
+      fileData->m_categoryData.m_authorName = uploadData.m_userName;
+      fileData->m_categoryData.m_authorId = uploadData.m_userId;
 
       auto const filePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId);
-      if (!SaveKmlFile(fileData, filePath, KmlFileType::Text))
+      if (!SaveKmlFile(*fileData, filePath, KmlFileType::Text))
       {
         if (uploadErrorCallback)
           uploadErrorCallback(UploadResult::InvalidCall, "Could not save the uploading file.");
@@ -380,12 +381,20 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       if (uploadCode.m_httpCode >= 200 && uploadCode.m_httpCode < 300)
       {
         // Update KML.
-        bool const originalFileExists = GetPlatform().IsFileExistsByFullPath(pathToKmb);
-        bool originalFileUnmodified = false;
-        if (originalFileExists)
-          originalFileUnmodified = (originalSha1 == coding::SHA1::CalculateBase64(pathToKmb));
-        if (uploadSuccessCallback)
-          uploadSuccessCallback(UploadResult::Success, fileData, originalFileExists, originalFileUnmodified);
+        GetPlatform().RunTask(Platform::Thread::File,
+                              [pathToKmb, fileData, originalSha1,
+                               uploadSuccessCallback = std::move(uploadSuccessCallback)]() mutable
+        {
+          bool const originalFileExists = GetPlatform().IsFileExistsByFullPath(pathToKmb);
+          bool originalFileUnmodified = false;
+          if (originalFileExists)
+            originalFileUnmodified = (originalSha1 == coding::SHA1::CalculateBase64(pathToKmb));
+          if (uploadSuccessCallback)
+          {
+            uploadSuccessCallback(UploadResult::Success, fileData,
+                                  originalFileExists, originalFileUnmodified);
+          }
+        });
       }
       else if (uploadCode.m_httpCode == 400)
       {

@@ -304,8 +304,9 @@ void OnUploadFinished(JNIEnv * env, BookmarkCatalog::UploadResult uploadResult,
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
+  jni::TScopedLocalRef const descriptionStr(env, jni::ToJavaString(env, description));
   env->CallVoidMethod(bookmarkManagerInstance, g_onUploadFinishedMethod,
-                      static_cast<jint>(uploadResult), jni::ToJavaString(env, description),
+                      static_cast<jint>(uploadResult), descriptionStr.get(),
                       static_cast<jlong>(originCategoryId), static_cast<jlong>(resultCategoryId));
   jni::HandleJavaException(env);
 }

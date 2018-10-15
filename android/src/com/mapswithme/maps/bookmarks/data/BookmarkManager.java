@@ -814,8 +814,8 @@ public enum BookmarkManager
      *
      * @param uploadResult is result of the uploading.
      * @param description is detailed description of the uploading result.
-     * @param originCategoryId is original identifier of the uploading bookmarks category.
-     * @param resultCategoryId is identifier of the uploading category after finishing.
+     * @param originCategoryId is original identifier of the uploaded bookmarks category.
+     * @param resultCategoryId is identifier of the uploaded category after finishing.
      *                         In the case of bookmarks modification during uploading
      *                         the identifier can be new.
      */

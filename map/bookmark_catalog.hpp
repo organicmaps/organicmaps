@@ -61,7 +61,7 @@ public:
     InvalidCall
   };
   using UploadSuccessCallback = platform::SafeCallback<void(UploadResult result,
-                                                            kml::FileData fileData,
+                                                            std::shared_ptr<kml::FileData> fileData,
                                                             bool originalFileExists,
                                                             bool originalFileUnmodified)>;
   using UploadErrorCallback = platform::SafeCallback<void(UploadResult result,
@@ -76,7 +76,7 @@ public:
   };
 
   void Upload(UploadData uploadData, std::string const & accessToken,
-              kml::FileData const & fileData, std::string const & pathToKmb,
+              std::shared_ptr<kml::FileData> fileData, std::string const & pathToKmb,
               UploadSuccessCallback && uploadSuccessCallback,
               UploadErrorCallback && uploadErrorCallback);
 

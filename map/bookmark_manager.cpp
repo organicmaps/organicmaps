@@ -2258,12 +2258,27 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
   }
 
   auto onUploadSuccess = [this, categoryId](BookmarkCatalog::UploadResult result,
-                                            kml::FileData fileData, bool originalFileExists,
-                                            bool originalFileUnmodified)
+                                            std::shared_ptr<kml::FileData> fileData, bool originalFileExists,
+                                            bool originalFileUnmodified) mutable
   {
     CHECK_THREAD_CHECKER(m_threadChecker, ());
-    if (!originalFileExists || originalFileUnmodified)
+    CHECK(fileData != nullptr, ());
+
+    auto cat = GetBmCategory(categoryId);
+    if (!originalFileExists || originalFileUnmodified ||
+        (cat != nullptr && cat->GetServerId() == fileData->m_serverId))
     {
+      // Update bookmarks category.
+      {
+        auto session = GetEditSession();
+        if (cat != nullptr)
+        {
+          cat->SetServerId(fileData->m_serverId);
+          cat->SetAccessRules(fileData->m_categoryData.m_accessRules);
+          cat->SetAuthor(fileData->m_categoryData.m_authorName, fileData->m_categoryData.m_authorId);
+        }
+      }
+
       if (m_onCatalogUploadFinishedHandler)
         m_onCatalogUploadFinishedHandler(result, {}, categoryId, categoryId);
       return;
@@ -2271,24 +2286,21 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
 
     // Until we cannot block UI to prevent bookmarks modification during uploading,
     // we have to create a copy in this case.
-    for (auto & n : fileData.m_categoryData.m_name)
+    for (auto & n : fileData->m_categoryData.m_name)
       n.second += " (uploaded copy)";
 
     CHECK(migration::IsMigrationCompleted(), ());
-    auto const name = RemoveInvalidSymbols(GetPreferredBookmarkStr(fileData.m_categoryData.m_name),
-                                           kDefaultBookmarksFileName);
-    auto const fileName = GenerateUniqueFileName(GetBookmarksDirectory(), name, kKmbExtension);
-
     auto fileDataPtr = std::make_unique<kml::FileData>();
-    *fileDataPtr = fileData;
+    auto const serverId = fileData->m_serverId;
+    *fileDataPtr = std::move(*fileData);
     KMLDataCollection collection;
-    collection.emplace_back(std::make_pair(fileName, std::move(fileDataPtr)));
+    collection.emplace_back(std::make_pair("", std::move(fileDataPtr)));
     CreateCategories(std::move(collection), true /* autoSave */);
 
     kml::MarkGroupId newCategoryId = categoryId;
     for (auto const & cat : m_categories)
     {
-      if (cat.second->GetServerId() == fileData.m_serverId)
+      if (cat.second->GetServerId() == serverId)
       {
         newCategoryId = cat.first;
         break;
@@ -2309,7 +2321,8 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
   };
 
   auto & kmlData = kmlDataCollection->front();
-  m_bookmarkCatalog.Upload(uploadData, m_user.GetAccessToken(), *kmlData.second,
+  std::shared_ptr<kml::FileData> fileData = std::move(kmlData.second);
+  m_bookmarkCatalog.Upload(uploadData, m_user.GetAccessToken(), fileData,
                            kmlData.first, std::move(onUploadSuccess), std::move(onUploadError));
 }
 
