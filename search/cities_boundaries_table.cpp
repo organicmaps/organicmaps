@@ -70,11 +70,13 @@ bool CitiesBoundariesTable::Load()
     return false;
   }
 
-  ASSERT_EQUAL(all.size(), localities.PopCount(), ());
+  // Disabled until World.mwm generation with new code.
+  // ASSERT_EQUAL(all.size(), localities.PopCount(), ());
   if (all.size() != localities.PopCount())
   {
-    LOG(LERROR,
-        ("Wrong number of boundaries, expected:", localities.PopCount(), "actual:", all.size()));
+    // Disabled until World.mwm generation with new code.
+    // LOG(LERROR,
+    //    ("Wrong number of boundaries, expected:", localities.PopCount(), "actual:", all.size()));
     return false;
   }
 
