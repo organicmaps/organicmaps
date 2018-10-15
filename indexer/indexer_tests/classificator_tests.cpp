@@ -1,30 +1,18 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/classificator_loader.hpp"
+
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include <algorithm>
 #include <cstdint>
 #include <string>
 #include <vector>
 
+using namespace generator::tests_support;
 using namespace std;
 
-namespace
-{
-class ClassificatorTest
-{
-public: 
- ClassificatorTest()
- {
-   classificator::Load();
- }
-
- ~ClassificatorTest() = default;
-};
-}  // namespace
-
-UNIT_CLASS_TEST(ClassificatorTest, Classificator_GetType)
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_GetType)
 {
   Classificator const & c = classif();
 
@@ -43,7 +31,7 @@ UNIT_CLASS_TEST(ClassificatorTest, Classificator_GetType)
   TEST(!c.IsTypeValid(0), ());
 }
 
-UNIT_CLASS_TEST(ClassificatorTest, Classificator_CoastlineType)
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_CoastlineType)
 {
   Classificator const & c = classif();
 
@@ -52,7 +40,7 @@ UNIT_CLASS_TEST(ClassificatorTest, Classificator_CoastlineType)
   TEST_EQUAL(type, c.GetCoastType(), ());
 }
 
-UNIT_CLASS_TEST(ClassificatorTest, Classificator_GetIndex)
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_GetIndex)
 {
   Classificator const & c = classif();
 
@@ -62,7 +50,7 @@ UNIT_CLASS_TEST(ClassificatorTest, Classificator_GetIndex)
   TEST_EQUAL(type, c.GetTypeForIndex(index), ());
 }
 
-UNIT_CLASS_TEST(ClassificatorTest, Classificator_Subtree)
+UNIT_CLASS_TEST(TestWithClassificator, Classificator_Subtree)
 {
   Classificator const & c = classif();
 

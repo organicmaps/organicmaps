@@ -1,9 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "types_helper.hpp"
-
-#include "platform/platform.hpp"
-
+#include "generator/generator_tests/types_helper.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/tag_admixer.hpp"
@@ -14,31 +12,14 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
+#include "platform/platform.hpp"
+
 #include <iostream>
+#include <string>
+#include <vector>
 
+using namespace generator::tests_support;
 using namespace tests;
-
-UNIT_TEST(OsmType_SkipDummy)
-{
-  classificator::Load();
-
-  char const * arr[][2] = {
-    { "abutters", "residential" },
-    { "highway", "primary" },
-    { "osmarender:renderRef", "no" },
-    { "ref", "E51" }
-  };
-
-  OsmElement e;
-  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
-
-  FeatureParams params;
-  ftype::GetNameAndType(&e, params);
-
-  TEST_EQUAL ( params.m_types.size(), 1, (params) );
-  TEST_EQUAL ( params.m_types[0], GetType(arr[1]), () );
-}
-
 
 namespace
 {
@@ -83,12 +64,29 @@ namespace
     }
     TEST(params.IsTypeExist(GetType({"psurface", value})), ("Surface:", surface, "Smoothness:", smoothness, "Grade:", grade, "Expected:", value, "Got:", psurface));
   }
+}  // namespace
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_SkipDummy)
+{
+  char const * arr[][2] = {
+    { "abutters", "residential" },
+    { "highway", "primary" },
+    { "osmarender:renderRef", "no" },
+    { "ref", "E51" }
+  };
+
+  OsmElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_types.size(), 1, (params));
+  TEST_EQUAL(params.m_types[0], GetType(arr[1]), ());
 }
 
-UNIT_TEST(OsmType_Check)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Check)
 {
-  classificator::Load();
-
   char const * arr1[][2] = {
     { "highway", "primary" },
     { "motorroad", "yes" },
@@ -121,7 +119,7 @@ UNIT_TEST(OsmType_Check)
   DumpParsedTypes(arr4, ARRAY_SIZE(arr4));
 }
 
-UNIT_TEST(OsmType_Combined)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Combined)
 {
   char const * arr[][2] = {
     { "addr:housenumber", "84" },
@@ -149,7 +147,7 @@ UNIT_TEST(OsmType_Combined)
   TEST_EQUAL(params.house.Get(), "84", ());
 }
 
-UNIT_TEST(OsmType_Address)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Address)
 {
   char const * arr[][2] = {
     { "addr:conscriptionnumber", "223" },
@@ -173,7 +171,7 @@ UNIT_TEST(OsmType_Address)
   TEST_EQUAL(params.house.Get(), "223/5", ());
 }
 
-UNIT_TEST(OsmType_PlaceState)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_PlaceState)
 {
   char const * arr[][2] = {
     { "alt_name:vi", "California" },
@@ -202,7 +200,7 @@ UNIT_TEST(OsmType_PlaceState)
   TEST_GREATER(params.rank, 1, ());
 }
 
-UNIT_TEST(OsmType_AlabamaRiver)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_AlabamaRiver)
 {
   char const * arr1[][2] = {
     { "NHD:FCode", "55800" },
@@ -247,7 +245,7 @@ UNIT_TEST(OsmType_AlabamaRiver)
   TEST(params.IsTypeExist(GetType({"waterway", "river"})), ());
 }
 
-UNIT_TEST(OsmType_Synonyms)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Synonyms)
 {
   // Smoke test.
   {
@@ -321,7 +319,7 @@ UNIT_TEST(OsmType_Synonyms)
   }
 }
 
-UNIT_TEST(OsmType_Capital)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Capital)
 {
   {
     char const * arr[][2] = {
@@ -378,7 +376,7 @@ UNIT_TEST(OsmType_Capital)
   }
 }
 
-UNIT_TEST(OsmType_Route)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Route)
 {
   {
     char const * arr[][2] = {
@@ -398,7 +396,7 @@ UNIT_TEST(OsmType_Route)
   }
 }
 
-UNIT_TEST(OsmType_Layer)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Layer)
 {
   {
     char const * arr[][2] = {
@@ -487,7 +485,7 @@ UNIT_TEST(OsmType_Layer)
   }
 }
 
-UNIT_TEST(OsmType_Amenity)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Amenity)
 {
   {
     char const * arr[][2] = {
@@ -506,7 +504,7 @@ UNIT_TEST(OsmType_Amenity)
   }
 }
 
-UNIT_TEST(OsmType_Hwtag)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 {
   char const * tags[][2] = {
       {"hwtag", "oneway"}, {"hwtag", "private"}, {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
@@ -574,7 +572,7 @@ UNIT_TEST(OsmType_Hwtag)
   }
 }
 
-UNIT_TEST(OsmType_Surface)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Surface)
 {
   TestSurfaceTypes("asphalt", "", "", "paved_good");
   TestSurfaceTypes("asphalt", "bad", "", "paved_bad");
@@ -594,7 +592,7 @@ UNIT_TEST(OsmType_Surface)
   TestSurfaceTypes("", "unknown", "", "unpaved_good");
 }
 
-UNIT_TEST(OsmType_Ferry)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Ferry)
 {
   routing::CarModel const & carModel = routing::CarModel::AllLimitsInstance();
 
@@ -629,7 +627,7 @@ UNIT_TEST(OsmType_Ferry)
   TEST(params.IsTypeExist(type), ());
 }
 
-UNIT_TEST(OsmType_Boundary)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Boundary)
 {
   char const * arr[][2] = {
     { "admin_level", "4" },
@@ -649,7 +647,7 @@ UNIT_TEST(OsmType_Boundary)
   TEST(params.IsTypeExist(GetType({"boundary", "administrative", "4"})), ());
 }
 
-UNIT_TEST(OsmType_Dibrugarh)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Dibrugarh)
 {
   char const * arr[][2] = {
     { "AND_a_c", "10001373" },
@@ -676,7 +674,7 @@ UNIT_TEST(OsmType_Dibrugarh)
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
 
-UNIT_TEST(OsmType_Subway)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
 {
   {
     char const * arr[][2] = {
@@ -778,7 +776,7 @@ UNIT_TEST(OsmType_Subway)
   }
 }
 
-UNIT_TEST(OsmType_Hospital)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hospital)
 {
   {
     char const * arr[][2] = {
@@ -813,7 +811,7 @@ UNIT_TEST(OsmType_Hospital)
   }
 }
 
-UNIT_TEST(OsmType_Entrance)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Entrance)
 {
   {
     char const * arr[][2] = {
@@ -836,7 +834,7 @@ UNIT_TEST(OsmType_Entrance)
   }
 }
 
-UNIT_TEST(OsmType_Moscow)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Moscow)
 {
   {
     char const * arr[][2] = {
@@ -873,7 +871,7 @@ UNIT_TEST(OsmType_Moscow)
   }
 }
 
-UNIT_TEST(OsmType_Translations)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
 {
   char const * arr[][2] = {
     { "name", "Paris" },
@@ -904,7 +902,7 @@ UNIT_TEST(OsmType_Translations)
   TEST_EQUAL(name, "Париж", (params));
 }
 
-UNIT_TEST(OsmType_Cuisine)
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
 {
   {
     char const * arr[][2] = {

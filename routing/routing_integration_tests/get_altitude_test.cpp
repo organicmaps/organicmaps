@@ -56,9 +56,6 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
   unique_ptr<AltitudeLoader> altitudeLoader =
       make_unique<AltitudeLoader>(dataSource, regResult.first /* mwmId */);
 
-  classificator::Load();
-  classif().SortClassificator();
-
   ForEachFromDat(country.GetPath(MapOptions::Map), [&](FeatureType & f, uint32_t const & id) {
     if (!routing::IsRoad(TypesHolder(f)))
       return;
@@ -82,6 +79,8 @@ void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const alti
 
 UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
 {
+  classificator::Load();
+
   TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */,
                                300 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* altitudeLowerBoundMeters */,

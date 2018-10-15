@@ -3,6 +3,7 @@
 #include "types_helper.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/osm2type.hpp"
 
 #include "indexer/classificator_loader.hpp"
@@ -10,13 +11,11 @@
 
 #include "base/geo_object_id.hpp"
 
+using namespace generator::tests_support;
 using namespace tests;
 
-
-UNIT_TEST(FBuilder_ManyTypes)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
 {
-  classificator::Load();
-
   FeatureBuilder1 fb1;
   FeatureParams params;
 
@@ -59,7 +58,7 @@ UNIT_TEST(FBuilder_ManyTypes)
   TEST_EQUAL(fb2.GetTypesCount(), 6, ());
 }
 
-UNIT_TEST(FBuilder_LineTypes)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_LineTypes)
 {
   FeatureBuilder1 fb1;
   FeatureParams params;
@@ -95,10 +94,8 @@ UNIT_TEST(FBuilder_LineTypes)
   TEST_EQUAL(fb2.GetTypesCount(), 5, ());
 }
 
-UNIT_TEST(FBuilder_Waterfall)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_Waterfall)
 {
-  classificator::Load();
-
   FeatureBuilder1 fb1;
   FeatureParams params;
 
@@ -124,7 +121,7 @@ UNIT_TEST(FBuilder_Waterfall)
   TEST_EQUAL(fb2.GetTypesCount(), 1, ());
 }
 
-UNIT_TEST(FBbuilder_GetMostGeneralOsmId)
+UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
 {
   FeatureBuilder1 fb;
 
@@ -141,9 +138,8 @@ UNIT_TEST(FBbuilder_GetMostGeneralOsmId)
   TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmRelation(1), ());
 }
 
-UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
+UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveNoDrawableTypes)
 {
-  classificator::Load();
   Classificator const & c = classif();
 
   {
@@ -166,10 +162,8 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   }
 }
 
-UNIT_TEST(FBuilder_RemoveUselessNames)
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_RemoveUselessNames)
 {
-  classificator::Load();
-
   FeatureParams params;
 
   char const * arr3[][3] = { { "boundary", "administrative", "2" } };
@@ -199,10 +193,8 @@ UNIT_TEST(FBuilder_RemoveUselessNames)
   TEST(fb1.CheckValid(), ());
 }
 
-UNIT_TEST(FeatureParams_Parsing)
+UNIT_CLASS_TEST(TestWithClassificator, FeatureParams_Parsing)
 {
-  classificator::Load();
-
   {
     FeatureParams params;
     params.AddStreet("Embarcadero\nstreet");
