@@ -6,6 +6,7 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/cuisines.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -16,8 +17,8 @@
 
 #include "platform/measurement_utils.hpp"
 
-#include "base/string_utils.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <cstddef>
@@ -195,7 +196,18 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
 
   feature::Metadata const & src = ft.GetMetadata();
 
-  meta.m_cuisine = src.Get(feature::Metadata::FMD_CUISINE);
+  auto const cuisinesMeta = src.Get(feature::Metadata::FMD_CUISINE);
+  if (cuisinesMeta.empty())
+  {
+    meta.m_cuisine = "";
+  }
+  else
+  {
+    vector<string> cuisines;
+    osm::Cuisines::Instance().ParseAndLocalize(cuisinesMeta, cuisines);
+    meta.m_cuisine = strings::JoinStrings(cuisines, " • ");
+  }
+
   meta.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
 
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
