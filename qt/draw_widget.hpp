@@ -74,6 +74,7 @@ public:
 
   void SetSelectionMode(bool mode);
   void SetCityBoundariesSelectionMode(bool mode);
+  void SetCityRoadsSelectionMode(bool mode);
 
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
   void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
@@ -116,6 +117,7 @@ private:
 
   bool m_selectionMode = false;
   bool m_cityBoundariesSelectionMode = false;
+  bool m_cityRoadsSelectionMode = false;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 };
 }  // namespace qt
