@@ -285,20 +285,3 @@ UNIT_TEST(Classificator_PoiPriority)
     CheckPriority(types, {2, 5}, drule::symbol);
   }
 }
-
-UNIT_TEST(Classificator_GetType)
-{
-  classificator::Load();
-  Classificator const & c = classif();
-
-  uint32_t const type1 = c.GetTypeByPath({"natural", "coastline"});
-  TEST_NOT_EQUAL(0, type1, ());
-  TEST_EQUAL(type1, c.GetTypeByReadableObjectName("natural-coastline"), ());
-
-  uint32_t const type2 = c.GetTypeByPath({"amenity", "parking", "private"});
-  TEST_NOT_EQUAL(0, type2, ());
-  TEST_EQUAL(type2, c.GetTypeByReadableObjectName("amenity-parking-private"), ());
-
-  TEST_EQUAL(0, c.GetTypeByPathSafe({"nonexisting", "type"}), ());
-  TEST_EQUAL(0, c.GetTypeByReadableObjectName("nonexisting-type"), ());
-}

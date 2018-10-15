@@ -10,6 +10,7 @@ set(
   centers_table_test.cpp
   checker_test.cpp
   cities_boundaries_serdes_tests.cpp
+  classificator_tests.cpp
   data_source_test.cpp
   drules_selector_parser_test.cpp
   editable_map_object_test.cpp
