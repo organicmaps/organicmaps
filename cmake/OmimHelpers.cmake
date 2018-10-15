@@ -93,6 +93,7 @@ function(omim_link_platform_deps target)
         "-framework Foundation"
         "-framework IOKit"
         "-framework SystemConfiguration"
+        "-framework Security"
       )
     endif()
   endif()

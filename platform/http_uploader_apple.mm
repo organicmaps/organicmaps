@@ -9,11 +9,33 @@
 
 #include "private.h"
 
-struct IdentityAndTrust
+@interface IdentityAndTrust : NSObject
+
+@property(nonatomic) SecIdentityRef identityRef;
+@property(nonatomic) NSArray * certArray;
+
+@end
+
+@implementation IdentityAndTrust
+
+- (instancetype)initWithIdentity:(CFTypeRef)identity certChain:(CFTypeRef)certs
 {
-  SecIdentityRef identityRef;
-  NSArray * certArray;
-};
+  self = [super init];
+  if (self)
+  {
+    _identityRef = (SecIdentityRef)CFRetain(identity);
+    _certArray = (__bridge_transfer NSArray *)CFRetain(certs);
+  }
+  
+  return self;
+}
+
+- (void)dealloc
+{
+  CFRelease(_identityRef);
+}
+
+@end
 
 @interface MultipartUploadTask : NSObject<NSURLSessionDelegate>
 
@@ -106,17 +128,21 @@ struct IdentityAndTrust
   }
   else if (authenticationMethod == NSURLAuthenticationMethodServerTrust)
   {
+#if DEBUG
     NSURLCredential * credential =
         [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
     completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+#else
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+#endif
   }
 }
 
 - (NSURLCredential *)getClientUrlCredential
 {
   NSData * certData = [[NSData alloc] initWithBase64EncodedString:@USER_BINDING_PKCS12 options:0];
-  IdentityAndTrust identity = [self extractIdentityWithCertData:certData
-                                                   certPassword:@USER_BINDING_PKCS12_PASSWORD];
+  IdentityAndTrust * identity = [self extractIdentityWithCertData:certData
+                                                     certPassword:@USER_BINDING_PKCS12_PASSWORD];
 
   NSURLCredential * urlCredential =
       [[NSURLCredential alloc] initWithIdentity:identity.identityRef
@@ -126,29 +152,27 @@ struct IdentityAndTrust
   return urlCredential;
 }
 
-- (IdentityAndTrust)extractIdentityWithCertData:(NSData *)certData
-                                   certPassword:(NSString *)certPassword
+- (IdentityAndTrust *)extractIdentityWithCertData:(NSData *)certData
+                                     certPassword:(NSString *)certPassword
 {
-  IdentityAndTrust identityAndTrust;
+  IdentityAndTrust * identityAndTrust;
 
-  NSDictionary * certOptions = @{(id)kSecImportExportPassphrase: certPassword};
+  NSDictionary * certOptions = @{(NSString *)kSecImportExportPassphrase : certPassword};
 
-  CFArrayRef rawItems = NULL;
-  OSStatus status = SecPKCS12Import((__bridge CFDataRef)certData,
-                                    (__bridge CFDictionaryRef)certOptions, &rawItems);
-  NSArray * items = (NSArray *)CFBridgingRelease(rawItems);
-
-  if ((status == errSecSuccess) && ([items count] > 0))
+  CFArrayRef items = nullptr;
+  OSStatus status = SecPKCS12Import((CFDataRef)certData, (CFDictionaryRef)certOptions, &items);
+  
+  if (status == errSecSuccess && CFArrayGetCount(items) > 0)
   {
-    NSDictionary * firstItem = items[0];
+    CFDictionaryRef firstItem = (CFDictionaryRef)CFArrayGetValueAtIndex(items, 0);
+    
+    CFTypeRef identityRef = CFDictionaryGetValue(firstItem, kSecImportItemIdentity);
+    CFTypeRef certChainRef = CFDictionaryGetValue(firstItem, kSecImportItemCertChain);
 
-    SecIdentityRef identity =
-        (SecIdentityRef)CFBridgingRetain(firstItem[(id)kSecImportItemIdentity]);
-
-    CFArrayRef certChain = (CFArrayRef)CFBridgingRetain(firstItem[(id)kSecImportItemCertChain]);
-    NSArray * certArray = CFBridgingRelease(certChain);
-
-    identityAndTrust = {.identityRef = identity, .certArray = certArray};
+    identityAndTrust = [[IdentityAndTrust alloc] initWithIdentity:identityRef
+                                                        certChain:certChainRef];
+    
+    CFRelease(items);
   }
 
   return identityAndTrust;
