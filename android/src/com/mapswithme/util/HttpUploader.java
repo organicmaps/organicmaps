@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import android.util.Base64;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.util.log.Logger;
@@ -149,7 +150,8 @@ public final class HttpUploader
   {
     String cert = HttpUploader.nativeUserBindingCertificate();
     String pwd = HttpUploader.nativeUserBindingPassword();
-    SSLSocketFactory socketFactory = ClientCertTLSSocketFactory.create(cert.getBytes(), pwd.toCharArray());
+    byte[] decodedCert = Base64.decode(cert, Base64.DEFAULT);
+    SSLSocketFactory socketFactory = ClientCertTLSSocketFactory.create(decodedCert, pwd.toCharArray());
     connection.setSSLSocketFactory(socketFactory);
   }
 

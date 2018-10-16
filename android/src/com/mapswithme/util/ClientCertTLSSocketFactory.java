@@ -3,27 +3,21 @@ package com.mapswithme.util;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
-
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 
 public class ClientCertTLSSocketFactory {
 
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
-  private static final String TAG = ClientCertTLSSocketFactory.class.getSimpleName();
-
   private static final String PROTOCOL = "TLS";
   private static final String ALGORITHM = "X509";
   private static final String KEY_STORE_TYPE = "PKCS12";
 
+  @NonNull
   public static SSLSocketFactory create(@NonNull byte[] payload, @Nullable char[] password)
   {
     InputStream inputStream = null;
@@ -44,17 +38,7 @@ public class ClientCertTLSSocketFactory {
     }
     finally
     {
-      if (inputStream != null)
-      {
-        try
-        {
-          inputStream.close();
-        }
-        catch (IOException e)
-        {
-          LOGGER.d(TAG, "Stream not closed", e);
-        }
-      }
+      Utils.closeSafely(inputStream);
     }
   }
 }
