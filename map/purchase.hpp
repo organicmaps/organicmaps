@@ -46,13 +46,20 @@ public:
   };
 
   using ValidationCallback = std::function<void(ValidationCode, ValidationInfo const &)>;
+  using StartTransactionCallback = std::function<void(bool success, std::string const & serverId,
+                                                      std::string const & vendorId)>;
 
   void SetValidationCallback(ValidationCallback && callback);
   void Validate(ValidationInfo const & validationInfo, std::string const & accessToken);
 
+  void SetStartTransactionCallback(StartTransactionCallback && callback);
+  void StartTransaction(std::string const & serverId, std::string const & vendorId,
+                        std::string const & accessToken);
+
 private:
   void ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
-                    std::string const & accessToken, uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
+                    std::string const & accessToken, bool startTransaction,
+                    uint8_t attemptIndex, uint32_t waitingTimeInSeconds);
 
   struct RemoveAdsSubscriptionData
   {
@@ -64,6 +71,7 @@ private:
   std::vector<SubscriptionListener *> m_listeners;
 
   ValidationCallback m_validationCallback;
+  StartTransactionCallback m_startTransactionCallback;
 
   ThreadChecker m_threadChecker;
 };

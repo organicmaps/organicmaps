@@ -55,6 +55,13 @@ std::string ValidationUrl()
   return kServerUrl + "registrar/register";
 }
 
+std::string StartTransactionUrl()
+{
+  if (kServerUrl.empty())
+    return {};
+  return kServerUrl + "registrar/start_transaction";
+}
+
 struct ReceiptData
 {
   ReceiptData(std::string const & data, std::string const & type)
@@ -121,6 +128,12 @@ void Purchase::SetValidationCallback(ValidationCallback && callback)
   m_validationCallback = std::move(callback);
 }
 
+void Purchase::SetStartTransactionCallback(StartTransactionCallback && callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  m_startTransactionCallback = std::move(callback);
+}
+
 bool Purchase::IsSubscriptionActive(SubscriptionType type) const
 {
   switch (type)
@@ -170,12 +183,39 @@ void Purchase::Validate(ValidationInfo const & validationInfo, std::string const
 
   GetPlatform().RunTask(Platform::Thread::Network, [this, url, validationInfo, accessToken]()
   {
-    ValidateImpl(url, validationInfo, accessToken, 0 /* attemptIndex */, kFirstWaitingTimeInSec);
+    ValidateImpl(url, validationInfo, accessToken, false /* startTransaction */,
+                 0 /* attemptIndex */, kFirstWaitingTimeInSec);
+  });
+}
+
+void Purchase::StartTransaction(std::string const & serverId, std::string const & vendorId,
+                                std::string const & accessToken)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  ValidationInfo info;
+  info.m_serverId = serverId;
+  info.m_vendorId = vendorId;
+
+  std::string const url = StartTransactionUrl();
+  auto const status = GetPlatform().ConnectionStatus();
+  if (url.empty() || status == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    if (m_startTransactionCallback)
+      m_startTransactionCallback(false /* success */, serverId, vendorId);
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [this, url, info, accessToken]()
+  {
+    ValidateImpl(url, info, accessToken, true /* startTransaction */,
+                 0 /* attemptIndex */, kFirstWaitingTimeInSec);
   });
 }
 
 void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & validationInfo,
-                            std::string const & accessToken, uint8_t attemptIndex, uint32_t waitingTimeInSeconds)
+                            std::string const & accessToken, bool startTransaction,
+                            uint8_t attemptIndex, uint32_t waitingTimeInSeconds)
 {
   platform::HttpClient request(url);
   request.SetRawHeader("Accept", "application/json");
@@ -232,17 +272,30 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     ++attemptIndex;
     waitingTimeInSeconds *= kWaitingTimeScaleFactor;
     GetPlatform().RunDelayedTask(Platform::Thread::Network, delayTime,
-                                 [this, url, validationInfo, accessToken, attemptIndex, waitingTimeInSeconds]()
+                                 [this, url, validationInfo, accessToken, startTransaction,
+                                  attemptIndex, waitingTimeInSeconds]()
     {
-      ValidateImpl(url, validationInfo, accessToken, attemptIndex, waitingTimeInSeconds);
+      ValidateImpl(url, validationInfo, accessToken, startTransaction,
+                   attemptIndex, waitingTimeInSeconds);
     });
   }
   else
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, validationInfo]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, code, startTransaction, validationInfo]()
     {
-      if (m_validationCallback)
-        m_validationCallback(code, validationInfo);
+      if (startTransaction)
+      {
+        if (m_startTransactionCallback)
+        {
+          m_startTransactionCallback(code == ValidationCode::Verified /* success */,
+                                     validationInfo.m_serverId, validationInfo.m_vendorId);
+        }
+      }
+      else
+      {
+        if (m_validationCallback)
+          m_validationCallback(code, validationInfo);
+      }
     });
   }
 }

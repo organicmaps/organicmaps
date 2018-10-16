@@ -150,6 +150,12 @@ public class Framework
                             @NonNull String vendorId, @NonNull String purchaseToken);
   }
 
+  @SuppressWarnings("unused")
+  public interface StartTransactionListener
+  {
+    void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String vendorId);
+  }
+
   public static class Params3dMode
   {
     public boolean enabled;
@@ -478,6 +484,11 @@ public class Framework
   public static native boolean nativeHasRuTaxiCategoryBanner();
 
   public static native void nativeMakeCrash();
+
+  public static native void nativeStartPurchaseTransaction(@NonNull String serverId,
+                                                           @NonNull String vendorId);
+  public static native void nativeStartPurchaseTransactionListener(@Nullable
+    StartTransactionListener listener);
 
   public static native void nativeValidatePurchase(@NonNull String serverId,
                                                    @NonNull String vendorId,

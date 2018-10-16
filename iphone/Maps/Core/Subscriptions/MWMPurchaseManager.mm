@@ -91,7 +91,8 @@
   vi.m_receiptData = [receiptData base64EncodedStringWithOptions:0].UTF8String;
   vi.m_serverId = self.serverId.UTF8String;
   vi.m_vendorId = ADS_REMOVAL_VENDOR;
-  GetFramework().GetPurchase()->Validate(vi, {} /* accessToken */);
+  auto const accessToken = GetFramework().GetUser().GetAccessToken();
+  GetFramework().GetPurchase()->Validate(vi, accessToken);
 }
 
 - (void)validReceipt
