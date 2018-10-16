@@ -211,6 +211,14 @@ void TranslatorPlanet::EmitArea(FeatureBuilder1 & ft, FeatureParams params,
   if (!ft.IsGeometryClosed())
     return;
 
+  // @TODO(bykoianko) Now if a feature (a relation in most cases and a way in a rare case) has tag
+  // place with a value city, town or village (IsCityTownOrVillage() returns true) city boundary
+  // will be emitted. It's correct according to osm documentation but very often city boundaries
+  // are mapped in another way. City boundary may be mapped with a relation of a few lines and
+  // one point (town of city name). And only this point has tag place with an appropriate value.
+  // For example almost all cities and towns in Poland are mapped this way. It's wrong to consider
+  // such relations as a city boundaries directly because sometimes it may cover much bigger area.
+  // But to use information about such city boundaries some investigation should be made.
   if (ftypes::IsCityTownOrVillage(params.m_types))
   {
     auto fb = ft;
