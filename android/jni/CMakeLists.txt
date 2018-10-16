@@ -74,7 +74,6 @@ set(
   com/mapswithme/opengl/androidoglcontextfactory.cpp
   com/mapswithme/opengl/gl3stub.c
   com/mapswithme/platform/HttpThread.cpp
-  com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/platform/HttpUserAgent.cpp
   com/mapswithme/platform/GuiThread.cpp
   com/mapswithme/platform/Language.cpp
@@ -85,6 +84,7 @@ set(
   com/mapswithme/platform/SecureStorage.cpp
   com/mapswithme/platform/SocketImpl.cpp
   com/mapswithme/util/Config.cpp
+  com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/util/HttpClient.cpp
   com/mapswithme/util/Language.cpp
   com/mapswithme/util/LoggerFactory.cpp

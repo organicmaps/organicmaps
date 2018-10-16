@@ -11,8 +11,8 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.SecureRandom;
 
-public class ClientCertTLSSocketFactory {
-
+public class ClientCertTLSSocketFactory
+{
   private static final String PROTOCOL = "TLS";
   private static final String ALGORITHM = "X509";
   private static final String KEY_STORE_TYPE = "PKCS12";

@@ -23,7 +23,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -82,7 +81,20 @@ public final class HttpUploader
     {
       URL url = new URL(mUrl);
       connection = (HttpURLConnection) url.openConnection();
-      onPrepareConnection(connection);
+      connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT_MS);
+      connection.setReadTimeout(Constants.READ_TIMEOUT_MS);
+      connection.setUseCaches(false);
+      connection.setRequestMethod(mMethod);
+      connection.setDoOutput(mMethod.equals("POST"));
+      if ("https".equals(connection.getURL().getProtocol()) && mNeedClientAuth)
+      {
+        HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
+        String cert = HttpUploader.nativeUserBindingCertificate();
+        String pwd = HttpUploader.nativeUserBindingPassword();
+        byte[] decodedCert = Base64.decode(cert, Base64.DEFAULT);
+        SSLSocketFactory socketFactory = ClientCertTLSSocketFactory.create(decodedCert, pwd.toCharArray());
+        httpsConnection.setSSLSocketFactory(socketFactory);
+      }
 
       long fileSize = StorageUtils.getFileSize(mFilePath);
       StringBuilder paramsBuilder = new StringBuilder();
@@ -130,29 +142,6 @@ public final class HttpUploader
         connection.disconnect();
     }
     return new Result(status, message);
-  }
-
-  private void onPrepareConnection(@NonNull HttpURLConnection connection) throws ProtocolException
-  {
-    connection.setConnectTimeout(Constants.CONNECTION_TIMEOUT_MS);
-    connection.setReadTimeout(Constants.READ_TIMEOUT_MS);
-    connection.setUseCaches(false);
-    connection.setRequestMethod(mMethod);
-    connection.setDoOutput(mMethod.equals("POST"));
-    if ("https".equals(connection.getURL().getProtocol()) && mNeedClientAuth)
-    {
-      HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
-      setupClientCert(httpsConnection);
-    }
-  }
-
-  private void setupClientCert(@NonNull HttpsURLConnection connection)
-  {
-    String cert = HttpUploader.nativeUserBindingCertificate();
-    String pwd = HttpUploader.nativeUserBindingPassword();
-    byte[] decodedCert = Base64.decode(cert, Base64.DEFAULT);
-    SSLSocketFactory socketFactory = ClientCertTLSSocketFactory.create(decodedCert, pwd.toCharArray());
-    connection.setSSLSocketFactory(socketFactory);
   }
 
   private static void setStreamingMode(@NonNull HttpURLConnection connection, long bodyLength)
