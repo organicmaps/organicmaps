@@ -101,6 +101,7 @@
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
+#include "std/map.hpp"
 #include "std/target_os.hpp"
 
 #include "api/internal/c/api-client-internals.h"
@@ -3344,6 +3345,9 @@ void Framework::VisualizeCityRoadsInRect(m2::RectD const & rect)
   size_t counter = 0;
   GetDataSource().ForEachInRect(
       [this, &rect, &cityRoads, &counter](FeatureType & ft) {
+        if (ft.GetFeatureType() != feature::GEOM_LINE)
+          return;
+
         auto const & mwmId = ft.GetID().m_mwmId;
         auto const it = cityRoads.find(mwmId);
         if (it == cityRoads.cend())

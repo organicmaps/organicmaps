@@ -563,42 +563,33 @@ void MainWindow::OnCreateFeatureClicked()
 
 void MainWindow::OnSwitchSelectionMode()
 {
-  if (m_selectionCityBoundariesMode->isChecked() || m_selectionCityRoadsMode->isChecked())
-  {
-    m_selectionCityBoundariesMode->setChecked(false);
-    m_pDrawWidget->SetCityBoundariesSelectionMode(false);
+  m_selectionCityBoundariesMode->setChecked(false);
+  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
 
-    m_selectionCityRoadsMode->setChecked(false);
-    m_pDrawWidget->SetCityRoadsSelectionMode(false);
-  }
+  m_selectionCityRoadsMode->setChecked(false);
+  m_pDrawWidget->SetCityRoadsSelectionMode(false);
 
   m_pDrawWidget->SetSelectionMode(m_selectionMode->isChecked());
 }
 
 void MainWindow::OnSwitchCityBoundariesSelectionMode()
 {
-  if (m_selectionMode->isChecked() || m_selectionCityRoadsMode->isChecked())
-  {
-    m_selectionMode->setChecked(false);
-    m_pDrawWidget->SetSelectionMode(false);
+  m_selectionMode->setChecked(false);
+  m_pDrawWidget->SetSelectionMode(false);
 
-    m_selectionCityRoadsMode->setChecked(false);
-    m_pDrawWidget->SetCityRoadsSelectionMode(false);
-  }
+  m_selectionCityRoadsMode->setChecked(false);
+  m_pDrawWidget->SetCityRoadsSelectionMode(false);
 
   m_pDrawWidget->SetCityBoundariesSelectionMode(m_selectionCityBoundariesMode->isChecked());
 }
 
 void MainWindow::OnSwitchCityRoadsSelectionMode()
 {
-  if (m_selectionMode->isChecked() || m_selectionCityBoundariesMode->isChecked())
-  {
-    m_selectionMode->setChecked(false);
-    m_pDrawWidget->SetSelectionMode(false);
+  m_selectionMode->setChecked(false);
+  m_pDrawWidget->SetSelectionMode(false);
 
-    m_selectionCityBoundariesMode->setChecked(false);
-    m_pDrawWidget->SetCityBoundariesSelectionMode(false);
-  }
+  m_selectionCityBoundariesMode->setChecked(false);
+  m_pDrawWidget->SetCityBoundariesSelectionMode(false);
 
   m_pDrawWidget->SetCityRoadsSelectionMode(m_selectionCityRoadsMode->isChecked());
 }

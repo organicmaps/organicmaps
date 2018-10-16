@@ -237,7 +237,7 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
     {
       CHECK(!m_cityBoundariesSelectionMode, ());
       CHECK(!m_cityRoadsSelectionMode, ());
-      m_framework.VisualizeCityRoadsInRect(rect);
+      m_framework.VisualizeRoadsInRect(rect);
     }
     else if (m_cityBoundariesSelectionMode)
     {
