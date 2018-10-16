@@ -475,6 +475,8 @@ public class Framework
   @NonNull
   public static native String nativeGetMegafonDownloaderBannerUrl();
 
+  public static native boolean nativeHasRuTaxiCategoryBanner();
+
   public static native void nativeMakeCrash();
 
   public static native void nativeValidatePurchase(@NonNull String serverId,

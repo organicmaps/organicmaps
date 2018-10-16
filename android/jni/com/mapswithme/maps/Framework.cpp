@@ -1749,6 +1749,12 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env
                                                                languages::GetCurrentNorm()));
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasRuTaxiCategoryBanner(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->HasRuTaxiCategoryBanner());
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetMegafonDownloaderBannerUrl(JNIEnv * env, jclass)
 {
