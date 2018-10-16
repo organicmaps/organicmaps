@@ -7,8 +7,11 @@ set(
   cities_boundaries_checker_tests.cpp
   city_roads_tests.cpp
   coasts_test.cpp
+  common.cpp
+  common.hpp
   feature_builder_test.cpp
   feature_merger_test.cpp
+  filter_elements_tests.cpp
   intermediate_data_test.cpp
   metadata_parser_test.cpp
   node_mixer_test.cpp
@@ -16,8 +19,6 @@ set(
   osm_o5m_source_test.cpp
   osm_type_test.cpp
   region_info_collector_tests.cpp
-  regions_common.cpp
-  regions_common.hpp
   regions_tests.cpp
   restriction_collector_test.cpp
   restriction_test.cpp

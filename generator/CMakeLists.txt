@@ -55,6 +55,8 @@ set(SRC
   feature_merger.hpp
   feature_sorter.cpp
   feature_sorter.hpp
+  filter_elements.cpp
+  filter_elements.hpp
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp

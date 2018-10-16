@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests/regions_common.hpp"
+#include "generator/generator_tests/common.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/regions/collector_region_info.hpp"
 
@@ -16,23 +16,12 @@
 #include <utility>
 #include <vector>
 
+using namespace generator_tests;
 using namespace generator::regions;
 using namespace base;
 
 namespace
 {
-using Tags = std::vector<std::pair<std::string, std::string>>;
-
-OsmElement MakeOsmElement(uint64_t id, Tags const & tags)
-{
-  OsmElement el;
-  el.id = id;
-  for (const auto & t : tags)
-    el.AddTag(t.first, t.second);
-
-  return el;
-}
-
 auto const kNotExistingId = std::numeric_limits<uint64_t>::max();
 auto const kOsmElementEmpty = MakeOsmElement(0, {});
 auto const kOsmElementCity = MakeOsmElement(1, {{"place", "city"},
@@ -46,13 +35,14 @@ auto const kOsmElementCountry = MakeOsmElement(2, {{"admin_level", "2"},
 
 UNIT_TEST(RegionInfoCollector_Collect)
 {
-  CollectorRegionInfo regionInfoCollector(GetFileName());
+  auto const filename = GetFileName();
+  CollectorRegionInfo regionInfoCollector(filename);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementCity.id), kOsmElementCity);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementCountry.id), kOsmElementCountry);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementEmpty.id), kOsmElementEmpty);
   regionInfoCollector.Save();
 
-  RegionInfo regionInfo(GetFileName());
+  RegionInfo regionInfo(filename);
   {
     auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.id));
     TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.id), ());
@@ -90,11 +80,12 @@ UNIT_TEST(RegionInfoCollector_Collect)
 
 UNIT_TEST(RegionInfoCollector_Get)
 {
-  CollectorRegionInfo regionInfoCollector(GetFileName());
+  auto const filename = GetFileName();
+  CollectorRegionInfo regionInfoCollector(filename);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementCity.id), kOsmElementCity);
   regionInfoCollector.Save();
 
-  RegionInfo regionInfo(GetFileName());
+  RegionInfo regionInfo(filename);
   auto const regionData = regionInfo.Get(MakeOsmRelation(kOsmElementCity.id));
   TEST_EQUAL(regionData.GetOsmId(), MakeOsmRelation(kOsmElementCity.id), ());
   TEST_EQUAL(regionData.GetAdminLevel(), AdminLevel::Six, ());
@@ -103,12 +94,13 @@ UNIT_TEST(RegionInfoCollector_Get)
 
 UNIT_TEST(RegionInfoCollector_Exists)
 {
-  CollectorRegionInfo regionInfoCollector(GetFileName());
+  auto const filename = GetFileName();
+  CollectorRegionInfo regionInfoCollector(filename);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementCity.id), kOsmElementCity);
   regionInfoCollector.Collect(MakeOsmRelation(kOsmElementCountry.id), kOsmElementCountry);
   regionInfoCollector.Save();
 
-  RegionInfo regionInfo(GetFileName());
+  RegionInfo regionInfo(filename);
   {
     auto const rg = regionInfo.Get(MakeOsmRelation(kOsmElementCountry.id));
     TEST(rg.HasAdminLevel(), ());

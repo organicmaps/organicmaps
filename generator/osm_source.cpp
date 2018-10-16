@@ -5,6 +5,7 @@
 #include "generator/coastlines_generator.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/filter_elements.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/intermediate_elements.hpp"
 #include "generator/node_mixer.hpp"
@@ -294,8 +295,12 @@ bool GenerateFeatures(feature::GenerateInfo & info, shared_ptr<EmitterInterface>
                         info.GetIntermediateFileName("towns", ".csv"));
   TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
   OsmTagMixer osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE);
+  FilterElements filterElements(GetPlatform().ResourcesDir() + SKIPPED_ELEMENTS_FILE);
 
   auto preEmit = [&](OsmElement * e) {
+    if (filterElements.NeedSkip(*e))
+      return false;
+
     // Here we can add new tags to the elements!
     tagReplacer(e);
     tagAdmixer(e);

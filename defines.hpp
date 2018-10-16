@@ -104,6 +104,8 @@
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 
+#define SKIPPED_ELEMENTS_FILE "skipped_elements.json"
+
 #define REPLACED_TAGS_FILE "replaced_tags.txt"
 #define MIXED_TAGS_FILE "mixed_tags.txt"
 #define MIXED_NODES_FILE "mixed_nodes.txt"

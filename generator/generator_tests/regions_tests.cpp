@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests/regions_common.hpp"
+#include "generator/generator_tests/common.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/regions.hpp"
@@ -21,6 +21,7 @@
 #include <vector>
 #include <utility>
 
+using namespace generator_tests;
 using namespace generator::regions;
 using namespace base;
 
@@ -39,9 +40,10 @@ OsmElement MakeOsmElement(uint64_t id, std::string const & adminLevel,
   return el;
 }
 
-void MakeCollectorData()
+std::string MakeCollectorData()
 {
-  CollectorRegionInfo collector(GetFileName());
+  auto const filename = GetFileName();
+  CollectorRegionInfo collector(filename);
   collector.Collect(MakeOsmRelation(1 /* id */), MakeOsmElement(1 /* id */, "2" /* adminLevel */));
   collector.Collect(MakeOsmRelation(2 /* id */), MakeOsmElement(2 /* id */, "2" /* adminLevel */));
   collector.Collect(MakeOsmRelation(3 /* id */), MakeOsmElement(3 /* id */, "4" /* adminLevel */));
@@ -51,6 +53,7 @@ void MakeCollectorData()
   collector.Collect(MakeOsmRelation(7 /* id */), MakeOsmElement(7 /* id */, "6" /* adminLevel */));
   collector.Collect(MakeOsmRelation(8 /* id */), MakeOsmElement(8 /* id */, "4" /* adminLevel */));
   collector.Save();
+  return filename;
 }
 
 RegionsBuilder::Regions MakeTestDataSet1(RegionInfo & collector)
@@ -172,8 +175,8 @@ bool ExistsName(std::vector<std::string> const & coll, std::string const name)
 
 UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 {
-  MakeCollectorData();
-  RegionInfo collector(GetFileName());
+  auto const filename = MakeCollectorData();
+  RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector));
   auto const countryNames = builder.GetCountryNames();
   TEST_EQUAL(countryNames.size(), 2, ());
@@ -183,8 +186,8 @@ UNIT_TEST(RegionsBuilderTest_GetCountryNames)
 
 UNIT_TEST(RegionsBuilderTest_GetCountries)
 {
-  MakeCollectorData();
-  RegionInfo collector(GetFileName());
+  auto const filename = MakeCollectorData();
+  RegionInfo collector(filename);
   RegionsBuilder builder(MakeTestDataSet1(collector));
   auto const countries = builder.GetCountries();
   TEST_EQUAL(countries.size(), 3, ());
@@ -196,8 +199,8 @@ UNIT_TEST(RegionsBuilderTest_GetCountries)
 
 UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
 {
-  MakeCollectorData();
-  RegionInfo collector(GetFileName());
+  auto const filename = MakeCollectorData();
+  RegionInfo collector(filename);
   std::vector<std::string> bankOfNames;
   RegionsBuilder builder(MakeTestDataSet1(collector), std::make_unique<Helper>(bankOfNames));
 
