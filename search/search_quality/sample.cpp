@@ -200,7 +200,7 @@ void Sample::FillSearchParams(search::SearchParams & params) const
   params.m_needHighlighting = false;
 }
 
-void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)
+void FromJSONObject(json_t * root, char const * field, Sample::Result::Relevance & relevance)
 {
   string r;
   FromJSONObject(root, field, r);
@@ -214,7 +214,7 @@ void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevan
     CHECK(false, ("Unknown relevance:", r));
 }
 
-void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance relevance)
+void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance relevance)
 {
   using Relevance = Sample::Result::Relevance;
 
@@ -226,7 +226,17 @@ void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance
   case Relevance::Irrelevant: r = "irrelevant"; break;
   }
 
-  json_object_set_new(&root, field.c_str(), json_string(r.c_str()));
+  json_object_set_new(&root, field, json_string(r.c_str()));
+}
+
+void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance)
+{
+  FromJSONObject(root, field.c_str(), relevance);
+}
+
+void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance relevance)
+{
+  ToJSONObject(root, field.c_str(), relevance);
 }
 
 void FromJSON(json_t * root, Sample::Result & result)

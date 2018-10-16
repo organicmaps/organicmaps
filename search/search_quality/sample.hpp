@@ -65,6 +65,9 @@ struct Sample
   std::vector<strings::UniString> m_relatedQueries;
 };
 
+void FromJSONObject(json_t * root, char const * field,
+                    Sample::Result::Relevance & relevance);
+void ToJSONObject(json_t & root, char const * field, Sample::Result::Relevance relevance);
 void FromJSONObject(json_t * root, std::string const & field,
                     Sample::Result::Relevance & relevance);
 void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance);
