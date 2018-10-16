@@ -106,7 +106,6 @@ int main(int argc, char ** argv)
   string const & cmd = Checked_cmd();
 
   classificator::Load();
-  classif().SortClassificator();
 
   try
   {

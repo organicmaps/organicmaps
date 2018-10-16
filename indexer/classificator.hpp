@@ -166,8 +166,6 @@ public:
   //@{
   void ReadClassificator(std::istream & s);
   void ReadTypesMapping(std::istream & s);
-
-  void SortClassificator();
   //@}
 
   void Clear();

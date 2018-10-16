@@ -263,7 +263,6 @@ int main(int argc, char ** argv)
       FLAGS_geo_objects_key_value != "")
   {
     classificator::Load();
-    classif().SortClassificator();
   }
 
   // Load mwm tree only if we need it

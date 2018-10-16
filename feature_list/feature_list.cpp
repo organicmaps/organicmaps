@@ -337,7 +337,6 @@ int main(int argc, char ** argv)
 
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
   classificator::Load();
-  classif().SortClassificator();
 
   FrozenDataSource dataSource;
   vector<platform::LocalCountryFile> mwms;
