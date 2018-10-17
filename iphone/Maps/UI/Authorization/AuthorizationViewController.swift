@@ -305,9 +305,3 @@ extension AuthorizationViewController: UITextViewDelegate {
     return false;
   }
 }
-
-extension AuthorizationViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-    return !contentView.point(inside: touch.location(in: contentView), with: nil)
-  }
-}

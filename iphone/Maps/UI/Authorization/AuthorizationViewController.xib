@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -33,6 +33,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEd-Ve-1pc">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="h3R-bf-65K" appends="YES" id="E4L-r9-oxS"/>
+                    </connections>
+                </view>
                 <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mb9-vK-FLE">
                     <rect key="frame" x="0.0" y="212.5" width="375" height="454.5"/>
                     <subviews>
@@ -50,10 +58,10 @@
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1g-0v-suZ">
-                            <rect key="frame" x="0.0" y="45" width="375" height="410"/>
+                            <rect key="frame" x="0.0" y="45" width="375" height="409.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSu-cK-AZG">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="409.5"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-p5-Bbb">
                                             <rect key="frame" x="32" y="59" width="311" height="55.5"/>
@@ -101,7 +109,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHd-bd-GsP">
-                                            <rect key="frame" x="32" y="115" width="311" height="55.5"/>
+                                            <rect key="frame" x="32" y="114.5" width="311" height="55.5"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="55.5"/>
@@ -143,7 +151,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NF-GO-a8Q">
-                                            <rect key="frame" x="32" y="170.5" width="311" height="55.5"/>
+                                            <rect key="frame" x="32" y="170" width="311" height="55.5"/>
                                             <subviews>
                                                 <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="55.5"/>
@@ -182,7 +190,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
-                                            <rect key="frame" x="32" y="238" width="311" height="40"/>
+                                            <rect key="frame" x="32" y="237.5" width="311" height="40"/>
                                             <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="Google" image="login_google_button"/>
                                             <connections>
@@ -199,7 +207,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDx-fj-xoO">
-                                            <rect key="frame" x="32" y="350" width="311" height="40"/>
+                                            <rect key="frame" x="32" y="349.5" width="311" height="40"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="jEe-rd-j73"/>
@@ -283,20 +291,20 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="dEd-Ve-1pc" secondAttribute="trailing" id="4FR-oe-ZlF"/>
+                <constraint firstAttribute="bottom" secondItem="dEd-Ve-1pc" secondAttribute="bottom" id="AD3-6p-7sq"/>
                 <constraint firstAttribute="bottom" secondItem="mb9-vK-FLE" secondAttribute="bottom" id="Dma-Bm-O11"/>
                 <constraint firstItem="mb9-vK-FLE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="ISc-Du-Svk"/>
+                <constraint firstItem="dEd-Ve-1pc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PE9-N8-vUP"/>
+                <constraint firstItem="dEd-Ve-1pc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="PYv-Iy-bRv"/>
                 <constraint firstItem="mb9-vK-FLE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S7z-xe-BcP"/>
                 <constraint firstAttribute="trailing" secondItem="mb9-vK-FLE" secondAttribute="trailing" id="cjh-uT-fAL"/>
             </constraints>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="h3R-bf-65K" appends="YES" id="8sz-cx-4Za"/>
-            </connections>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
         <tapGestureRecognizer cancelsTouchesInView="NO" id="h3R-bf-65K">
             <connections>
                 <action selector="onCancel" destination="-1" id="xbp-Y6-A46"/>
-                <outlet property="delegate" destination="-1" id="CFc-rf-awe"/>
             </connections>
         </tapGestureRecognizer>
     </objects>
