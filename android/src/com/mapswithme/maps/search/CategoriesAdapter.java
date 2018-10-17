@@ -2,6 +2,7 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -16,8 +17,17 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ TYPE_CATEGORY, TYPE_PROMO_CATEGORY })
+  @interface ViewType {}
+  private static final int TYPE_CATEGORY = 0;
+  private static final int TYPE_PROMO_CATEGORY = 1;
+
   @StringRes
   private final int mCategoryResIds[];
   @DrawableRes
@@ -28,18 +38,19 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   interface OnCategorySelectedListener
   {
-    void onCategorySelected(@Nullable String category);
+    void onSearchCategorySelected(@Nullable String category);
+    void onPromoCategorySelected(@NonNull PromoCategory promo);
   }
 
   private OnCategorySelectedListener mListener;
 
-  CategoriesAdapter(Fragment fragment)
+  CategoriesAdapter(@NonNull Fragment fragment)
   {
     final String packageName = fragment.getActivity().getPackageName();
     final boolean isNightTheme = ThemeUtils.isNightTheme();
     final Resources resources = fragment.getActivity().getResources();
 
-    final String[] keys = DisplayedCategories.getKeys();
+    final String[] keys = getAllCategories();
     final int numKeys = keys.length;
 
     mCategoryResIds = new int[numKeys];
@@ -47,16 +58,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     for (int i = 0; i < numKeys; i++)
     {
       String key = keys[i];
-
       mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
-      PromoCategory promo = PromoCategory.findByKey(key);
-      if (promo != null)
-      {
-        Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
-            Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
-            promo.getStatisticValue());
-        mCategoryResIds[i] = promo.getStringId();
-      }
 
       if (mCategoryResIds[i] == 0)
         throw new IllegalStateException("Can't get string resource id for category:" + key);
@@ -75,24 +77,58 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     mInflater = LayoutInflater.from(fragment.getActivity());
   }
 
-  @Override
-  public int getItemViewType(int position)
+  @NonNull
+  private static String[] getAllCategories()
   {
-    return R.layout.item_search_category;
+    String[] searchCategories = DisplayedCategories.getKeys();
+    PromoCategory[] promos = PromoCategory.values();
+    int amountSize = searchCategories.length + promos.length;
+    String[] allCategories = new String[amountSize];
+    for (PromoCategory promo : promos)
+    {
+      if (promo.getPosition() >= amountSize)
+        throw new AssertionError("Promo position must in range: "
+                                 + "[0 - " + amountSize + ")");
+
+      allCategories[promo.getPosition()] = promo.getKey();
+    }
+
+    for (int i = 0, j = 0; i < amountSize; i++)
+    {
+      if (allCategories[i] == null)
+      {
+        allCategories[i] = searchCategories[j];
+        j++;
+      }
+    }
+
+    return allCategories;
   }
 
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  @ViewType
+  public int getItemViewType(int position)
+  {
+    PromoCategory promo = PromoCategory.findByStringId(mCategoryResIds[position]);
+    if (promo != null)
+      return TYPE_PROMO_CATEGORY;
+    return TYPE_CATEGORY;
+  }
+
+  @Override
+  public ViewHolder onCreateViewHolder(ViewGroup parent, @ViewType int viewType)
   {
     final View view;
-    if (viewType == R.layout.item_search_category_luggage)
-    {
-      view = mInflater.inflate(R.layout.item_search_category_luggage, parent, false);
-      return new ViewHolder(view, (TextView) view.findViewById(R.id.tv__category));
-    }
-
     view = mInflater.inflate(R.layout.item_search_category, parent, false);
-    return new ViewHolder(view, (TextView)view);
+    switch (viewType)
+    {
+      case TYPE_CATEGORY:
+        return new ViewHolder(view, (TextView) view);
+      case TYPE_PROMO_CATEGORY:
+        return new PromoViewHolder(view, (TextView) view);
+      default:
+        throw new AssertionError("Unsupported type detected: " + viewType);
+    }
   }
 
   @Override
@@ -107,16 +143,44 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return mCategoryResIds.length;
   }
 
-  @NonNull
-  private String getSuggestionFromCategory(@StringRes int resId)
+  private class PromoViewHolder extends ViewHolder
   {
-    PromoCategory promoCategory = PromoCategory.findByStringId(resId);
-    if (promoCategory != null)
-      return promoCategory.getKey();
-    return mResources.getString(resId) + ' ';
+    PromoViewHolder(@NonNull View v, @NonNull TextView tv)
+    {
+      super(v, tv);
+    }
+
+    @Override
+    void onItemClicked(int position)
+    {
+      @StringRes
+      int categoryId = mCategoryResIds[position];
+      PromoCategory promo = PromoCategory.findByStringId(categoryId);
+      if (promo != null)
+      {
+        String event = Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED;
+        Statistics.INSTANCE.trackSearchPromoCategory(event, promo.getProvider());
+        if (mListener != null)
+          mListener.onPromoCategorySelected(promo);
+      }
+    }
+
+    @Override
+    void setTextAndIcon(int textResId, int iconResId)
+    {
+      super.setTextAndIcon(textResId, iconResId);
+      @StringRes
+      int categoryId = mCategoryResIds[getAdapterPosition()];
+      PromoCategory promo = PromoCategory.findByStringId(categoryId);
+      if (promo != null)
+      {
+        String event = Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN;
+        Statistics.INSTANCE.trackSearchPromoCategory(event, promo.getProvider());
+      }
+    }
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     @NonNull
     private final TextView mTitle;
@@ -129,12 +193,22 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     }
 
     @Override
-    public void onClick(View v)
+    public final void onClick(View v)
     {
       final int position = getAdapterPosition();
-      Statistics.INSTANCE.trackSearchCategoryClicked(mResources.getResourceEntryName(mCategoryResIds[position]));
+      onItemClicked(position);
+    }
+
+    void onItemClicked(int position)
+    {
+      String categoryEntryName = mResources.getResourceEntryName(mCategoryResIds[position]);
+      Statistics.INSTANCE.trackSearchCategoryClicked(categoryEntryName);
       if (mListener != null)
-        mListener.onCategorySelected(getSuggestionFromCategory(mCategoryResIds[position]));
+      {
+        @StringRes
+        int categoryId = mCategoryResIds[position];
+        mListener.onSearchCategorySelected(mResources.getString(categoryId) + " ");
+      }
     }
 
     void setTextAndIcon(@StringRes int textResId, @DrawableRes int iconResId)

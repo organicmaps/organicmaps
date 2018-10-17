@@ -1,8 +1,15 @@
 package com.mapswithme.maps.search;
 
+import android.support.annotation.NonNull;
+
 class DisplayedCategories
 {
-  public static String[] getKeys() { return nativeGetKeys(); }
+  @NonNull
+  public static String[] getKeys()
+  {
+    return nativeGetKeys();
+  }
 
+  @NonNull
   private static native String[] nativeGetKeys();
 }

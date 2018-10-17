@@ -129,9 +129,6 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      if (mPromoCategorySelected)
-        return;
-
       if (mAdsLoader != null && !isTabletSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
       {
         mAdsRequested = true;
@@ -211,7 +208,6 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
-  private boolean mPromoCategorySelected;
   private String mInitialQuery;
   @Nullable
   private String mInitialLocale;
@@ -710,24 +706,15 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onCategorySelected(@Nullable String category)
+  public void onSearchCategorySelected(@Nullable String category)
   {
-    PromoCategory promoCategory = PromoCategory.findByKey(category);
-    if (promoCategory != null)
-    {
-      mPromoCategorySelected = true;
-      mToolbarController.setQuery(category + " ");
+    mToolbarController.setQuery(category);
+  }
 
-      Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
-          Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
-          promoCategory.getStatisticValue());
-      showAllResultsOnMap();
-      mPromoCategorySelected = false;
-    }
-    else
-    {
-      mToolbarController.setQuery(category);
-    }
+  @Override
+  public void onPromoCategorySelected(@NonNull PromoCategory promo)
+  {
+    // Do nothing by default.
   }
 
   private void refreshSearchResults()

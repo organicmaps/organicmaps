@@ -1,34 +1,47 @@
 package com.mapswithme.maps.search;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.text.TextUtils;
 
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.maps.R;
 
 public enum PromoCategory
 {
-  STUB
+  RUTAXI
       {
         @NonNull
         @Override
         String getKey()
         {
-          return "";
+          return "taxi";
         }
 
         @Override
         int getStringId()
         {
-          return UiUtils.NO_ID;
+          return R.string.taxi;
         }
 
         @NonNull
         @Override
-        String getStatisticValue()
+        String getProvider()
         {
-          return "";
+          return "RuTaxi";
+        }
+
+        @Override
+        int getPosition()
+        {
+          return 4;
+        }
+
+        @NonNull
+        @Override
+        PromoCategoryProcessor createProcessor(@NonNull Context context)
+        {
+          return new RutaxiPromoProcessor(context);
         }
       };
 
@@ -39,7 +52,12 @@ public enum PromoCategory
   abstract int getStringId();
 
   @NonNull
-  abstract String getStatisticValue();
+  abstract String getProvider();
+
+  abstract int getPosition();
+
+  @NonNull
+  abstract PromoCategoryProcessor createProcessor(@NonNull Context context);
 
   @Nullable
   static PromoCategory findByStringId(@StringRes int nameId)
@@ -48,20 +66,6 @@ public enum PromoCategory
     {
       if (category.getStringId() == nameId)
         return category;
-    }
-    return null;
-  }
-
-  @Nullable
-  static PromoCategory findByKey(@Nullable String key)
-  {
-    if (TextUtils.isEmpty(key))
-      return null;
-
-    for (PromoCategory cat : values())
-    {
-      if (cat.getKey().equals(key))
-        return cat;
     }
     return null;
   }
