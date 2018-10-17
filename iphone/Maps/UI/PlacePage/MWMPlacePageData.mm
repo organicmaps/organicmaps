@@ -211,14 +211,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
                                                      .decimalSeparator]];
       NSString * currencyString = [self.currencyFormatter stringFromNumber:currencyNumber];
 
-      dispatch_async(dispatch_get_main_queue(), ^{
-        self.cachedMinPrice = [NSString stringWithCoreFormat:L(@"place_page_starting_from")
-                                                   arguments:@[currencyString]];
-        self.bookingDiscount = blocks.m_maxDiscount;
-        self.isSmartDeal = blocks.m_hasSmartDeal;
-        if (self.bookingDataUpdatedCallback)
-          self.bookingDataUpdatedCallback();
-      });
+      self.cachedMinPrice = [NSString stringWithCoreFormat:L(@"place_page_starting_from")
+                                                 arguments:@[currencyString]];
+      self.bookingDiscount = blocks.m_maxDiscount;
+      self.isSmartDeal = blocks.m_hasSmartDeal;
+      if (self.bookingDataUpdatedCallback)
+        self.bookingDataUpdatedCallback();
     };
 
     auto params = booking::BlockParams::MakeDefault();

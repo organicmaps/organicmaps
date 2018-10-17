@@ -235,17 +235,23 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     auto reviewCell = static_cast<MWMPPPReview *>(c);
     if (data.isBooking)
     {
-      [reviewCell configWithRating:data.bookingRating
-                      canAddReview:NO
-                      isReviewedByUser:NO
-                      reviewsCount:0
-                      ratingsCount:0
-                             price:data.bookingPricing
-                          discount:data.bookingDiscount
-                         smartDeal:data.isSmartDeal
-                       onAddReview:nil];
+      auto configCellBlock = ^(MWMPlacePageData *data) {
+        [reviewCell configWithRating:data.bookingRating
+                        canAddReview:NO
+                    isReviewedByUser:NO
+                        reviewsCount:0
+                        ratingsCount:0
+                               price:data.bookingPricing
+                            discount:data.bookingDiscount
+                           smartDeal:data.isSmartDeal
+                         onAddReview:nil];
+      };
+      configCellBlock(data);
+      __weak __typeof(data) weakData = data;
       data.bookingDataUpdatedCallback = ^{
-        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        __strong __typeof(weakData) data = weakData;
+        if (data)
+          configCellBlock(data);
       };
     }
     else
