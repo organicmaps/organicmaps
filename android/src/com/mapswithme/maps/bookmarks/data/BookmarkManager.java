@@ -600,6 +600,11 @@ public enum BookmarkManager
     return nativeGetCatalogFrontendUrl();
   }
 
+  public void requestRouteTags()
+  {
+    nativeRequestCatalogTags();
+  }
+
   public boolean isCategoryFromCatalog(long catId)
   {
     return nativeIsCategoryFromCatalog(catId);

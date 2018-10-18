@@ -114,6 +114,7 @@ dependencies {
   implementation 'com.android.billingclient:billing:1.1'
   implementation 'uk.co.samuelwall:material-tap-target-prompt:2.12.1'
   implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+  implementation 'com.google.android:flexbox:1.0.0'
 }
 
 def getDate() {

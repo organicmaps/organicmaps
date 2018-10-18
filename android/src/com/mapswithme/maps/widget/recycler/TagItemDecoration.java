@@ -80,4 +80,10 @@ public class TagItemDecoration extends RecyclerView.ItemDecoration
     outRect.left = mDivider.getIntrinsicWidth();
     outRect.top = mDivider.getIntrinsicHeight();
   }
+
+  @NonNull
+  protected Drawable getDivider()
+  {
+    return mDivider;
+  }
 }

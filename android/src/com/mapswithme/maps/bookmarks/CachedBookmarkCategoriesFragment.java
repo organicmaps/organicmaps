@@ -16,6 +16,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
+import com.mapswithme.maps.ugc.routes.UgcRouteTagsActivity;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
@@ -131,8 +132,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
   private void openBookmarksCatalogScreen()
   {
-    BookmarksCatalogActivity.startForResult(this, BookmarksCatalogActivity.REQ_CODE_CATALOG);
-    Statistics.INSTANCE.trackOpenCatalogScreen();
+    Intent intent = new Intent(getContext(), UgcRouteTagsActivity.class);
+    startActivity(intent);
   }
 
   @Override
