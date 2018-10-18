@@ -61,7 +61,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
     df::DrapeMeasurer::Instance().StartBenchmark();
 #endif
   },
-                                           [framework, handle](std::string const & name)
+  [framework, handle](std::string const & name)
   {
 #ifdef DRAPE_MEASURER
     df::DrapeMeasurer::Instance().StopBenchmark();

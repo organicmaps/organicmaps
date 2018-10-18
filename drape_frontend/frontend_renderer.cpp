@@ -154,6 +154,27 @@ public:
     DrapeMeasurer::Instance().AfterRenderFrame();
   }
 };
+
+class DrapeImmediateRenderingMeasurerGuard
+{
+public:
+  DrapeImmediateRenderingMeasurerGuard(ref_ptr<dp::GraphicsContext> context)
+    : m_context(context)
+  {
+    DrapeMeasurer::Instance().BeforeImmediateRendering();
+  }
+
+  ~DrapeImmediateRenderingMeasurerGuard()
+  {
+    DrapeMeasurer::Instance().AfterImmediateRendering();
+#ifdef DISABLE_SCREEN_PRESENTATION
+    m_context->DebugSynchronizeWithCPU();
+#endif
+  }
+
+private:
+  ref_ptr<dp::GraphicsContext> m_context;
+};
 #endif
 }  // namespace
   
@@ -1279,6 +1300,10 @@ void FrontendRenderer::EndUpdateOverlayTree()
 void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
   CHECK(m_context != nullptr, ());
+#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+  DrapeImmediateRenderingMeasurerGuard drapeMeasurerGuard(m_context);
+#endif
+
   PreRender3dLayer(modelView);
 
   if (m_postprocessRenderer->BeginFrame(m_context, activeFrame))
@@ -1679,7 +1704,9 @@ void FrontendRenderer::RenderFrame()
     while (availableTime > 0.0);
   }
 
+#ifndef DISABLE_SCREEN_PRESENTATION
   m_context->Present();
+#endif
 
   // Limit fps in following mode.
   double constexpr kFrameTime = 1.0 / 30.0;

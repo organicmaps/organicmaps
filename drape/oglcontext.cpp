@@ -82,6 +82,11 @@ std::string OGLContext::GetRendererVersion() const
   return GLFunctions::glGetString(gl_const::GLVersion);
 }
 
+void OGLContext::DebugSynchronizeWithCPU()
+{
+  GLFunctions::glFinish();
+}
+
 void OGLContext::SetClearColor(dp::Color const & color)
 {
   GLFunctions::glClearColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), color.GetAlphaF());

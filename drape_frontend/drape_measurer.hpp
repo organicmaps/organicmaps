@@ -34,6 +34,8 @@ public:
     uint32_t m_minFPS = 0;
     uint32_t m_frameRenderTimeInMs = 0;
     std::map<uint32_t, float> m_fpsDistribution;
+    uint32_t m_immediateRenderingFPS = 0;
+    uint32_t m_immediateRenderingMinFPS = 0;
   };
 
   RenderStatistic GetRenderStatistic();
@@ -94,6 +96,8 @@ public:
 
 #if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
   void BeforeRenderFrame();
+  void BeforeImmediateRendering();
+  void AfterImmediateRendering();
   void AfterRenderFrame();
 #endif
 
@@ -157,10 +161,15 @@ private:
   double m_totalFPS = 0.0;
   uint32_t m_totalFPSCount = 0;
   std::unordered_map<uint32_t, uint32_t> m_fpsDistribution;
+
+  uint32_t m_immediateRenderingMinFps = std::numeric_limits<uint32_t>::max();
+  std::chrono::nanoseconds m_immediateRenderingTimeSum;
+  uint64_t m_immediateRenderingFramesCount = 0;
 #endif
 
 #if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
   std::chrono::time_point<std::chrono::steady_clock> m_startFrameRenderTime;
+  std::chrono::time_point<std::chrono::steady_clock> m_startImmediateRenderingTime;
   std::chrono::nanoseconds m_totalFrameRenderTime;
   uint32_t m_totalFramesCount = 0;
 #endif

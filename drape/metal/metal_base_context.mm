@@ -372,6 +372,16 @@ void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearCo
   m_cleaner.Init(make_ref(this), std::move(programClearColor), std::move(programClearDepth),
                  std::move(programClearColorAndDepth));
 }
+  
+void MetalBaseContext::DebugSynchronizeWithCPU()
+{
+  FinishCurrentEncoding();
+  RequestFrameDrawable();
+  [m_frameCommandBuffer commit];
+  m_frameDrawable = nil;
+  [m_frameCommandBuffer waitUntilCompleted];
+  m_frameCommandBuffer = nil;
+}
 }  // namespace metal
 
 void RenderFrameMediator(std::function<void()> && renderFrameFunction)

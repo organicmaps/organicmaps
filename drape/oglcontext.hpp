@@ -12,7 +12,8 @@ public:
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
   void ApplyFramebuffer(std::string const & framebufferLabel) override {}
-  
+
+  void DebugSynchronizeWithCPU() override;
   void PushDebugLabel(std::string const & label) override {}
   void PopDebugLabel() override {}
 

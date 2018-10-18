@@ -37,7 +37,8 @@ public:
   ApiVersion GetApiVersion() const override;
   std::string GetRendererName() const override;
   std::string GetRendererVersion() const override;
-  
+
+  void DebugSynchronizeWithCPU() override;
   void PushDebugLabel(std::string const & label) override;
   void PopDebugLabel() override;
   

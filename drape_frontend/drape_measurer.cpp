@@ -53,6 +53,10 @@ void DrapeMeasurer::StartBenchmark()
   m_startFrameRenderTime = currentTime;
   m_totalFrameRenderTime = steady_clock::duration::zero();
   m_totalFramesCount = 0;
+
+  m_immediateRenderingFramesCount = 0;
+  m_immediateRenderingTimeSum = steady_clock::duration::zero();
+  m_immediateRenderingMinFps = std::numeric_limits<uint32_t>::max();
 #endif
 
 #ifdef TRACK_GPU_MEM
@@ -150,7 +154,9 @@ std::string DrapeMeasurer::RenderStatistic::ToString() const
   std::ostringstream ss;
   ss << " ----- Render statistic report ----- \n";
   ss << " FPS = " << m_FPS << "\n";
-  ss << " min FPS = " << m_minFPS << "\n";
+  ss << " Min FPS = " << m_minFPS << "\n";
+  ss << " Immediate rendering FPS = " << m_immediateRenderingFPS << "\n";
+  ss << " Immediate rendering min FPS = " << m_immediateRenderingMinFPS << "\n";
   ss << " Frame render time, ms = " << m_frameRenderTimeInMs << "\n";
   if (!m_fpsDistribution.empty())
   {
@@ -186,6 +192,14 @@ DrapeMeasurer::RenderStatistic DrapeMeasurer::GetRenderStatistic()
       statistic.m_fpsDistribution[fps.first] = static_cast<float>(fps.second) / totalCount;
   }
 
+  statistic.m_immediateRenderingMinFPS = m_immediateRenderingMinFps;
+  if (m_immediateRenderingFramesCount > 0)
+  {
+    auto const timeSumMs = duration_cast<milliseconds>(m_immediateRenderingTimeSum).count();
+    auto const avgFrameTimeMs = static_cast<double>(timeSumMs) / m_immediateRenderingFramesCount;
+    statistic.m_immediateRenderingFPS = static_cast<uint32_t>(1000.0 / avgFrameTimeMs);
+  }
+
   return statistic;
 }
 #endif
@@ -199,6 +213,33 @@ void DrapeMeasurer::BeforeRenderFrame()
   m_startFrameRenderTime = std::chrono::steady_clock::now();
 }
 
+void DrapeMeasurer::BeforeImmediateRendering()
+{
+  if (!m_isEnabled)
+    return;
+
+  m_startImmediateRenderingTime = std::chrono::steady_clock::now();
+}
+
+void DrapeMeasurer::AfterImmediateRendering()
+{
+  using namespace std::chrono;
+
+  if (!m_isEnabled)
+    return;
+
+  ++m_immediateRenderingFramesCount;
+
+  auto const elapsed = steady_clock::now() - m_startImmediateRenderingTime;
+  m_immediateRenderingTimeSum += elapsed;
+  auto const elapsedMs = duration_cast<milliseconds>(elapsed).count();
+  if (elapsedMs > 0)
+  {
+    auto const fps = static_cast<uint32_t>(1000 / elapsedMs);
+    m_immediateRenderingMinFps = std::min(m_immediateRenderingMinFps, fps);
+  }
+}
+
 void DrapeMeasurer::AfterRenderFrame()
 {
   using namespace std::chrono;
@@ -207,10 +248,10 @@ void DrapeMeasurer::AfterRenderFrame()
     return;
 
   ++m_totalFramesCount;
-  m_totalFrameRenderTime += steady_clock::now() - m_startFrameRenderTime;
+  m_totalFrameRenderTime += (steady_clock::now() - m_startFrameRenderTime);
 
-  auto elapsed = duration_cast<milliseconds>(m_totalFrameRenderTime).count();
-  if (elapsed > 1000)
+  auto const elapsed = duration_cast<milliseconds>(m_totalFrameRenderTime).count();
+  if (elapsed >= 30)
   {
 #ifdef RENDER_STATISTIC
     double fps = m_totalFramesCount * 1000.0 / elapsed;
