@@ -102,6 +102,7 @@
 #define ROAD_ACCESS_FILENAME "road_access.csv"
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
+#define MAXSPEED_FILENAME "maxspeed.csv"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

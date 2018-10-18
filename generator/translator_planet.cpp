@@ -29,7 +29,8 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
   m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0),
   m_nodeRelations(m_routingTagsProcessor),
   m_wayRelations(m_routingTagsProcessor),
-  m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))
+  m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME)),
+  m_maxspeedBuilder(info.GetIntermediateFileName(MAXSPEED_FILENAME))
 {
   auto const addrFilePath = info.GetAddressesFileName();
   if (!addrFilePath.empty())
@@ -95,6 +96,9 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
       break;
 
     ft.SetOsmId(base::MakeOsmWay(p->id));
+
+    m_maxspeedBuilder(*p);
+
     bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
     EmitArea(ft, params, [&] (FeatureBuilder1 & ft)

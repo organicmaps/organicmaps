@@ -69,6 +69,8 @@ set(SRC
   intermediate_elements.hpp
   locality_sorter.cpp
   locality_sorter.hpp
+  maxspeed_builder.cpp
+  maxspeed_builder.hpp
   metalines_builder.cpp
   metalines_builder.hpp
   node_mixer.cpp
