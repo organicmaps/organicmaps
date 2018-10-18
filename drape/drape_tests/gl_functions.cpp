@@ -15,9 +15,9 @@ void GLFunctions::Init(dp::ApiVersion apiVersion)
   MOCK_CALL(Init(apiVersion));
 }
 
-void GLFunctions::glFlush()
-{
-}
+void GLFunctions::glFlush() {}
+
+void GLFunctions::glFinish() {}
 
 uint32_t GLFunctions::glGenVertexArray()
 {
