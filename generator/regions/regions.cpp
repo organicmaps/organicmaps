@@ -1,6 +1,7 @@
 #include "generator/regions/regions.hpp"
 
 #include "generator/feature_builder.hpp"
+#include "generator/feature_generator.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/regions/city.hpp"
 #include "generator/regions/node.hpp"
@@ -22,7 +23,6 @@
 #include <memory>
 #include <queue>
 #include <set>
-#include <string>
 #include <thread>
 #include <tuple>
 #include <unordered_map>
@@ -134,11 +134,10 @@ private:
 };
 
 std::tuple<RegionsBuilder::Regions, PointCitiesMap>
-ReadDatasetFromTmpMwm(feature::GenerateInfo const & genInfo, RegionInfo & collector)
+ReadDatasetFromTmpMwm(std::string const & tmpMwmFilename, RegionInfo & collector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
-  auto const tmpMwmFilename = genInfo.GetTmpFileName(genInfo.m_fileName);
   auto const toDo = [&regions, &pointCitiesMap, &collector](FeatureBuilder1 const & fb, uint64_t /* currPos */)
   {
     if (fb.IsArea() && fb.IsGeometryClosed())
@@ -170,37 +169,50 @@ void FilterRegions(RegionsBuilder::Regions & regions)
   regions.erase(it, std::end(regions));
 }
 
-RegionsBuilder::Regions ReadData(feature::GenerateInfo const & genInfo,
+RegionsBuilder::Regions ReadData(std::string const & tmpMwmFilename,
                                  RegionInfo & regionsInfoCollector)
 {
   RegionsBuilder::Regions regions;
   PointCitiesMap pointCitiesMap;
-  std::tie(regions, pointCitiesMap) = ReadDatasetFromTmpMwm(genInfo, regionsInfoCollector);
+  std::tie(regions, pointCitiesMap) = ReadDatasetFromTmpMwm(tmpMwmFilename, regionsInfoCollector);
   RegionsFixer fixer(regions, pointCitiesMap);
   regions = fixer.FixRegions();
   FilterRegions(regions);
   return regions;
 }
+
+void RepackTmpMwm(std::string const & srcFilename, std::string const & repackedFilename,
+                  std::set<base::GeoObjectId> const & ids)
+{
+  feature::FeaturesCollector collector(repackedFilename);
+  auto const toDo = [&collector, &ids](FeatureBuilder1 const & fb, uint64_t /* currPos */)
+  {
+    if (ids.find(fb.GetMostGenericOsmId()) != std::end(ids))
+      collector(fb);
+  };
+
+  feature::ForEachFromDatRawFormat(srcFilename, toDo);
+}
 }  // namespace
 
-bool GenerateRegions(feature::GenerateInfo const & genInfo)
+bool GenerateRegions(std::string const & pathInRegionsTmpMwm,
+                     std::string const & pathInRegionsCollector,
+                     std::string const & pathOutRegionsKv,
+                     std::string const & pathOutRepackedRegionsTmpMwm, bool verbose)
 {
   using namespace regions;
 
-  LOG(LINFO, ("Start generating regions.."));
+  LOG(LINFO, ("Start generating regions from ", pathInRegionsTmpMwm));
   auto timer = base::Timer();
-
   Transliteration::Instance().Init(GetPlatform().ResourcesDir());
-  auto const collectorFilename = genInfo.GetTmpFileName(genInfo.m_fileName,
-                                                        CollectorRegionInfo::kDefaultExt);
-  RegionInfo regionsInfoCollector(collectorFilename);
-  RegionsBuilder::Regions regions = ReadData(genInfo, regionsInfoCollector);
-  auto jsonPolicy = std::make_unique<JsonPolicy>(genInfo.m_verbose);
+
+  RegionInfo regionsInfoCollector(pathInRegionsCollector);
+  RegionsBuilder::Regions regions = ReadData(pathInRegionsTmpMwm, regionsInfoCollector);
+  auto jsonPolicy = std::make_unique<JsonPolicy>(verbose);
   auto kvBuilder = std::make_unique<RegionsBuilder>(std::move(regions), std::move(jsonPolicy));
   auto const countryTrees = kvBuilder->GetCountryTrees();
 
-  auto const jsonlName = genInfo.GetIntermediateFileName(genInfo.m_fileName, ".jsonl");
-  std::ofstream ofs(jsonlName, std::ofstream::out);
+  std::ofstream ofs(pathOutRegionsKv, std::ofstream::out);
   std::set<base::GeoObjectId> setIds;
   size_t countIds = 0;
   for (auto const & countryName : kvBuilder->GetCountryNames())
@@ -209,7 +221,7 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
     if (!tree)
       continue;
 
-    if (genInfo.m_verbose)
+    if (verbose)
       DebugPrintTree(tree);
 
     auto const idStringList = kvBuilder->ToIdStringList(tree);
@@ -222,6 +234,15 @@ bool GenerateRegions(feature::GenerateInfo const & genInfo)
     }
   }
 
+  // todo(maksimandrianov1): Perhaps this is not the best solution. This is a hot fix. Perhaps it
+  // is better to transfer this to index generation(function GenerateRegionsData),
+  // or to combine index generation and key-value storage generation in
+  // generator_tool(generator_tool.cpp).
+  if (!pathOutRepackedRegionsTmpMwm.empty())
+    RepackTmpMwm(pathInRegionsTmpMwm, pathOutRepackedRegionsTmpMwm, setIds);
+
+  LOG(LINFO, ("Regions objects key-value storage saved to",  pathOutRegionsKv));
+  LOG(LINFO, ("Repacked regions temprory mwm saved to",  pathOutRepackedRegionsTmpMwm));
   LOG(LINFO, (countIds, "total ids.", setIds.size(), "unique ids."));
   LOG(LINFO, ("Finish generating regions.", timer.ElapsedSeconds(), "seconds."));
   return true;
