@@ -5,7 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PromoCategory
 {
@@ -43,6 +47,12 @@ public enum PromoCategory
         {
           return new RutaxiPromoProcessor(context);
         }
+
+        @Override
+        boolean isSupported()
+        {
+          return Framework.nativeHasRuTaxiCategoryBanner();
+        }
       };
 
   @NonNull
@@ -56,6 +66,8 @@ public enum PromoCategory
 
   abstract int getPosition();
 
+  abstract boolean isSupported();
+
   @NonNull
   abstract PromoCategoryProcessor createProcessor(@NonNull Context context);
 
@@ -68,5 +80,18 @@ public enum PromoCategory
         return category;
     }
     return null;
+  }
+
+  @NonNull
+  static List<PromoCategory> supportedValues()
+  {
+    List<PromoCategory> result = new ArrayList<>();
+    for (PromoCategory category : values())
+    {
+      if (category.isSupported())
+        result.add(category);
+    }
+
+    return result;
   }
 }

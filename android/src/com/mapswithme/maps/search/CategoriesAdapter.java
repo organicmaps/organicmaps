@@ -19,6 +19,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
@@ -81,8 +82,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private static String[] getAllCategories()
   {
     String[] searchCategories = DisplayedCategories.getKeys();
-    PromoCategory[] promos = PromoCategory.values();
-    int amountSize = searchCategories.length + promos.length;
+    List<PromoCategory> promos = PromoCategory.supportedValues();
+    int amountSize = searchCategories.length + promos.size();
     String[] allCategories = new String[amountSize];
     for (PromoCategory promo : promos)
     {
