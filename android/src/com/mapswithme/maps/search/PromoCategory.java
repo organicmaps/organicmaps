@@ -38,7 +38,7 @@ public enum PromoCategory
         @Override
         int getPosition()
         {
-          return 4;
+          return 6;
         }
 
         @NonNull

@@ -11,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
@@ -30,22 +32,31 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   private static final int TYPE_PROMO_CATEGORY = 1;
 
   @StringRes
-  private final int mCategoryResIds[];
+  private int mCategoryResIds[];
   @DrawableRes
-  private final int mIconResIds[];
+  private int mIconResIds[];
 
   private final LayoutInflater mInflater;
   private final Resources mResources;
 
-  interface OnCategorySelectedListener
+  interface CategoriesUiListener
   {
     void onSearchCategorySelected(@Nullable String category);
     void onPromoCategorySelected(@NonNull PromoCategory promo);
+    void onAdsRemovalSelected();
   }
 
-  private OnCategorySelectedListener mListener;
+  private CategoriesUiListener mListener;
 
   CategoriesAdapter(@NonNull Fragment fragment)
+  {
+    if (fragment instanceof CategoriesUiListener)
+      mListener = (CategoriesUiListener) fragment;
+    mResources = fragment.getResources();
+    mInflater = LayoutInflater.from(fragment.getActivity());
+  }
+
+  void updateCategories(@NonNull Fragment fragment)
   {
     final String packageName = fragment.getActivity().getPackageName();
     final boolean isNightTheme = ThemeUtils.isNightTheme();
@@ -71,11 +82,6 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       if (mIconResIds[i] == 0)
         throw new IllegalStateException("Can't get icon resource id:" + iconId);
     }
-
-    if (fragment instanceof OnCategorySelectedListener)
-      mListener = (OnCategorySelectedListener) fragment;
-    mResources = fragment.getResources();
-    mInflater = LayoutInflater.from(fragment.getActivity());
   }
 
   @NonNull
@@ -88,7 +94,7 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     for (PromoCategory promo : promos)
     {
       if (promo.getPosition() >= amountSize)
-        throw new AssertionError("Promo position must in range: "
+        throw new AssertionError("Promo position must be in range: "
                                  + "[0 - " + amountSize + ")");
 
       allCategories[promo.getPosition()] = promo.getKey();
@@ -119,17 +125,24 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, @ViewType int viewType)
   {
-    final View view;
-    view = mInflater.inflate(R.layout.item_search_category, parent, false);
+    View view;
+    ViewHolder viewHolder;
     switch (viewType)
     {
       case TYPE_CATEGORY:
-        return new ViewHolder(view, (TextView) view);
+        view = mInflater.inflate(R.layout.item_search_category, parent, false);
+        viewHolder = new ViewHolder(view, (TextView) view);
+        break;
       case TYPE_PROMO_CATEGORY:
-        return new PromoViewHolder(view, (TextView) view);
+        view = mInflater.inflate(R.layout.item_search_promo_category, parent, false);
+        viewHolder = new PromoViewHolder(view, view.findViewById(R.id.promo_title));
+        break;
       default:
         throw new AssertionError("Unsupported type detected: " + viewType);
     }
+
+    viewHolder.setupClickListeners();
+    return viewHolder;
   }
 
   @Override
@@ -146,9 +159,27 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
 
   private class PromoViewHolder extends ViewHolder
   {
+    @NonNull
+    private final ImageView mIcon;
+    @NonNull
+    private final View mRemoveAds;
+
     PromoViewHolder(@NonNull View v, @NonNull TextView tv)
     {
       super(v, tv);
+      mIcon = v.findViewById(R.id.promo_icon);
+      mRemoveAds = v.findViewById(R.id.remove_ads);
+      Resources res = v.getResources();
+      int crossArea = res.getDimensionPixelSize(R.dimen.margin_base);
+      UiUtils.expandTouchAreaForView(mRemoveAds, crossArea);
+    }
+
+    @Override
+    void setupClickListeners()
+    {
+      View action = getView().findViewById(R.id.promo_action);
+      action.setOnClickListener(this);
+      mRemoveAds.setOnClickListener(new RemoveAdsClickListener());
     }
 
     @Override
@@ -169,7 +200,8 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     @Override
     void setTextAndIcon(int textResId, int iconResId)
     {
-      super.setTextAndIcon(textResId, iconResId);
+      getTitle().setText(textResId);
+      mIcon.setImageResource(iconResId);
       @StringRes
       int categoryId = mCategoryResIds[getAdapterPosition()];
       PromoCategory promo = PromoCategory.findByStringId(categoryId);
@@ -179,18 +211,35 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
         Statistics.INSTANCE.trackSearchPromoCategory(event, promo.getProvider());
       }
     }
+
+    private class RemoveAdsClickListener implements View.OnClickListener
+    {
+      @Override
+      public void onClick(View v)
+      {
+        if (mListener != null)
+          mListener.onAdsRemovalSelected();
+      }
+    }
   }
 
   class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
   {
     @NonNull
     private final TextView mTitle;
+    @NonNull
+    private final View mView;
 
     ViewHolder(@NonNull View v, @NonNull TextView tv)
     {
       super(v);
-      v.setOnClickListener(this);
+      mView = v;
       mTitle = tv;
+    }
+
+    void setupClickListeners()
+    {
+      mView.setOnClickListener(this);
     }
 
     @Override
@@ -216,6 +265,18 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     {
       mTitle.setText(textResId);
       mTitle.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
+    }
+
+    @NonNull
+    TextView getTitle()
+    {
+      return mTitle;
+    }
+
+    @NonNull
+    View getView()
+    {
+      return mView;
     }
   }
 }

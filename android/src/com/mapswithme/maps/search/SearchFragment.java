@@ -53,7 +53,7 @@ public class SearchFragment extends BaseMwmFragment
                          implements OnBackPressListener,
                                     NativeSearchListener,
                                     SearchToolbarController.Container,
-                                    CategoriesAdapter.OnCategorySelectedListener,
+                                    CategoriesAdapter.CategoriesUiListener,
                                     HotelsFilterHolder, NativeBookingFilterListener
 {
   private static final int MIN_QUERY_LENGTH_FOR_AD = 3;
@@ -713,6 +713,12 @@ public class SearchFragment extends BaseMwmFragment
 
   @Override
   public void onPromoCategorySelected(@NonNull PromoCategory promo)
+  {
+    // Do nothing by default.
+  }
+
+  @Override
+  public void onAdsRemovalSelected()
   {
     // Do nothing by default.
   }

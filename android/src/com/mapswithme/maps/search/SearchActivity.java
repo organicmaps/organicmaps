@@ -14,13 +14,21 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.PurchaseController;
+import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.util.ThemeUtils;
 
-public class SearchActivity extends BaseMwmFragmentActivity implements CustomNavigateUpListener
+public class SearchActivity extends BaseMwmFragmentActivity
+    implements CustomNavigateUpListener, AdsRemovalPurchaseControllerProvider
 {
   public static final String EXTRA_QUERY = "search_query";
   public static final String EXTRA_LOCALE = "locale";
   public static final String EXTRA_SEARCH_ON_MAP = "search_on_map";
+
+  @Nullable
+  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController;
 
   public static void start(@NonNull Activity activity, @Nullable String query,
                            @Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
@@ -43,6 +51,22 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
     i.putExtras(args);
     activity.startActivity(i);
     activity.overridePendingTransition(R.anim.search_fade_in, R.anim.search_fade_out);
+  }
+
+  @Override
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
+  {
+    super.safeOnCreate(savedInstanceState);
+    mAdsRemovalPurchaseController = PurchaseFactory.createPurchaseController();
+    mAdsRemovalPurchaseController.initialize(this);
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    if (mAdsRemovalPurchaseController != null)
+      mAdsRemovalPurchaseController.destroy();
   }
 
   @Override
@@ -110,5 +134,12 @@ public class SearchActivity extends BaseMwmFragmentActivity implements CustomNav
 
     super.onBackPressed();
     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+  }
+
+  @Nullable
+  @Override
+  public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
+  {
+    return mAdsRemovalPurchaseController;
   }
 }

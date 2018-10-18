@@ -483,7 +483,7 @@ public final class UiUtils
     view.setBackgroundResource(getStyledResourceId(view.getContext(), res));
   }
 
-  private static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
+  public static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
   {
     final View parent = (View) view.getParent();
     parent.post(() ->

@@ -25,6 +25,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,8 +51,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private AdsRemovalPurchaseControllerProvider mControllerProvider;
   @NonNull
   private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
-  @Nullable
-  private AdsRemovalActivationCallback mActivationCallback;
+  @NonNull
+  private List<AdsRemovalActivationCallback> mActivationCallbacks = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mYearlyButton;
@@ -79,7 +80,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     LOGGER.d(TAG, "onAttach");
     mControllerProvider = (AdsRemovalPurchaseControllerProvider) context;
     if (context instanceof AdsRemovalActivationCallback)
-      mActivationCallback = (AdsRemovalActivationCallback) context;
+      mActivationCallbacks.add((AdsRemovalActivationCallback) context);
+    if (getParentFragment() instanceof AdsRemovalActivationCallback)
+      mActivationCallbacks.add((AdsRemovalActivationCallback) getParentFragment());
   }
 
   @Nullable
@@ -236,13 +239,17 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     LOGGER.d(TAG, "onDetach");
     mControllerProvider = null;
+    mActivationCallbacks.clear();
     super.onDetach();
   }
 
   void finishValidation()
   {
-    if (mActivationResult && mActivationCallback != null)
-      mActivationCallback.onAdsRemovalActivation();
+    if (mActivationResult)
+    {
+      for (AdsRemovalActivationCallback callback : mActivationCallbacks)
+        callback.onAdsRemovalActivation();
+    }
 
     dismissAllowingStateLoss();
   }
