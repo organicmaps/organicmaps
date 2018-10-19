@@ -1,6 +1,7 @@
 #pragma once
 
 #include "generator/camera_node_processor.hpp"
+#include "generator/maxspeed_collector.hpp"
 #include "generator/restriction_writer.hpp"
 #include "generator/road_access_generator.hpp"
 
@@ -16,9 +17,12 @@ namespace routing
 {
 struct TagsProcessor
 {
+  explicit TagsProcessor(std::string const & maxspeedFilePath) : m_maxspeedCollector(maxspeedFilePath) {}
+
   RoadAccessWriter m_roadAccessWriter;
   RestrictionWriter m_restrictionWriter;
   CameraNodeProcessor m_cameraNodeWriter;
+  feature::MaxspeedCollector m_maxspeedCollector;
 };
 
 // Adds feature id and corresponding |osmId| to |osmIdToFeatureId|.

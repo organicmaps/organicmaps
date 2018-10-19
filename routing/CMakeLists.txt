@@ -63,6 +63,8 @@ set(
   joint_index.cpp
   joint_index.hpp
   loaded_path_segment.hpp
+  maxspeed_serialization.cpp
+  maxspeed_serialization.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
   online_absent_fetcher.cpp

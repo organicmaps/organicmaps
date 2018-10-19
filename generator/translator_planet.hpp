@@ -1,7 +1,6 @@
 #pragma once
 
 #include "generator/camera_info_collector.hpp"
-#include "generator/maxspeed_collector.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/relation_tags.hpp"
 #include "generator/routing_helpers.hpp"
@@ -59,6 +58,5 @@ private:
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
   feature::MetalinesBuilder m_metalinesBuilder;
-  feature::MaxspeedCollector m_maxspeedCollector;
 };
 }  // namespace generator

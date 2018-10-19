@@ -13,6 +13,7 @@
 #include "generator/generate_info.hpp"
 #include "generator/geo_objects/geo_objects.hpp"
 #include "generator/locality_sorter.hpp"
+#include "generator/maxspeed_builder.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 #include "generator/popular_places_section_builder.hpp"
@@ -530,6 +531,9 @@ int main(int argc, char ** argv)
     if (FLAGS_generate_maxspeed)
     {
       LOG(LINFO, ("Generating maxspeed section for", datFile));
+      string const maxspeedFilename = genInfo.GetIntermediateFileName(MAXSPEED_FILENAME);
+      CHECK(BuildMaxspeed(datFile, osmToFeatureFilename, maxspeedFilename),
+            ("Generating maxspeed section error."));
     }
 
     if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)

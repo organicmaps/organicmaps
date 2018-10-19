@@ -53,7 +53,10 @@ void MaxspeedCollector::Flush()
   ofstream stream(m_filePath);
 
   if (!stream.is_open())
+  {
     LOG(LERROR, ("Cannot open file", m_filePath));
+    return;
+  }
 
   for (auto const & s : m_data)
     stream << s << '\n';

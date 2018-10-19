@@ -7,16 +7,16 @@
 
 namespace feature
 {
-/// \brief Saves csv file. Every line describe maxspeed, maxspeed:forward and maxspeed:backward
+/// \brief Saves csv file. Every line describes maxspeed, maxspeed:forward and maxspeed:backward
 /// tags of linear features. The format of the lines is described below.
 class MaxspeedCollector
 {
 public:
-  /// \pram filePath path to csv file.
+  /// \param filePath path to csv file.
   explicit MaxspeedCollector(std::string const & filePath) : m_filePath(filePath) {}
   ~MaxspeedCollector() { Flush(); }
 
-  void Process(OsmElement const & el);
+  void Process(OsmElement const & p);
 
 private:
   void Flush();
@@ -26,7 +26,7 @@ private:
   // 1. osm id,maxspeed value
   // 2. osm id,maxspeed:forward value
   // 3. osm id,maxspeed:forward value,maxspeed:backward value
-  // There's possble examples of strings contained in the list |m_data|:
+  // There are possible examples of strings contained in the list |m_data|:
   // 2343313,60
   // 3243245345,60,80
   // 32453452,RU:urban

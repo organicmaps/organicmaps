@@ -23,14 +23,14 @@ namespace generator
 {
 TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
                                    cache::IntermediateDataReader & holder,
-                                   feature::GenerateInfo const & info) :
-  m_emitter(emitter),
-  m_cache(holder),
-  m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0),
-  m_nodeRelations(m_routingTagsProcessor),
-  m_wayRelations(m_routingTagsProcessor),
-  m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME)),
-  m_maxspeedCollector(info.GetIntermediateFileName(MAXSPEED_FILENAME))
+                                   feature::GenerateInfo const & info)
+  : m_emitter(emitter)
+  , m_cache(holder)
+  , m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0)
+  , m_routingTagsProcessor(info.GetIntermediateFileName(MAXSPEED_FILENAME))
+  , m_nodeRelations(m_routingTagsProcessor)
+  , m_wayRelations(m_routingTagsProcessor)
+  , m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))
 {
   auto const addrFilePath = info.GetAddressesFileName();
   if (!addrFilePath.empty())
@@ -97,7 +97,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
 
     ft.SetOsmId(base::MakeOsmWay(p->id));
 
-    m_maxspeedCollector.Process(*p);
+    m_routingTagsProcessor.m_maxspeedCollector.Process(*p);
 
     bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
