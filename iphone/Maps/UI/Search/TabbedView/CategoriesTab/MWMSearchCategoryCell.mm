@@ -6,7 +6,6 @@
 
 @property(weak, nonatomic) IBOutlet UIImageView * icon;
 @property(weak, nonatomic) IBOutlet UILabel * label;
-@property(weak, nonatomic) IBOutlet UIImageView * adIcon;
 
 @end
 
@@ -28,7 +27,6 @@
   label.textColor = [UIColor blackPrimaryText];
   self.icon.mwm_name = [NSString stringWithFormat:@"ic_%@", category];
   label.text = L(category);
-  self.adIcon.hidden = YES;
 }
 
 @end

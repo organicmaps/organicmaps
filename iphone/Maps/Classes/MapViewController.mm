@@ -550,6 +550,7 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [self.navigationController dismissViewControllerAnimated:YES completion:nil];
   GetFramework().DeactivateMapSelection(true);
+  [self.controlsManager hideSearch];
 }
 
 - (void)didCancelSubscribtion:(RemoveAdsViewController *)viewController

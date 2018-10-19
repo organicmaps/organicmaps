@@ -381,6 +381,8 @@
 		47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */; };
 		47E3C7312111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */; };
 		47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */; };
+		47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6CB092178BA3600EA102B /* SearchBannerCell.swift */; };
+		47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */; };
 		47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */; };
 		47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86CFE20C936FC00FEE291 /* TabView.swift */; };
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
@@ -1368,6 +1370,8 @@
 		47E3C72E2111F472008B3B27 /* CoverVerticalModalTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalModalTransitioning.swift; sourceTree = "<group>"; };
 		47E3C7302111F4C2008B3B27 /* CoverVerticalPresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalPresentationAnimator.swift; sourceTree = "<group>"; };
 		47E3C7322111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverVerticalDismissalAnimator.swift; sourceTree = "<group>"; };
+		47E6CB092178BA3600EA102B /* SearchBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBannerCell.swift; sourceTree = "<group>"; };
+		47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBannerCell.xib; sourceTree = "<group>"; };
 		47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsPresentationController.swift; sourceTree = "<group>"; };
 		47F86CFE20C936FC00FEE291 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		47F86D0020C93D8D00FEE291 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -4037,6 +4041,8 @@
 				F6E2FD0C1E097B9F0083EBEC /* MWMSearchCategoryCell.h */,
 				F6E2FD0D1E097B9F0083EBEC /* MWMSearchCategoryCell.mm */,
 				F6E2FD0E1E097B9F0083EBEC /* MWMSearchCategoryCell.xib */,
+				47E6CB092178BA3600EA102B /* SearchBannerCell.swift */,
+				47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */,
 			);
 			path = CategoriesTab;
 			sourceTree = "<group>";
@@ -4545,6 +4551,7 @@
 				F6E2FE2E1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.xib in Resources */,
 				3463BA691DE81DB90082417F /* MWMTrafficButtonViewController.xib in Resources */,
 				F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */,
+				47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */,
 				344532341F6FE5880059FBCC /* UGCSummaryRatingStarsCell.xib in Resources */,
 				6741A9761BF340DE002C974C /* packed_polygons.bin in Resources */,
 				671182E51C7F0DDB00CB8177 /* packed_polygons_obsolete.bin in Resources */,
@@ -5039,6 +5046,7 @@
 				34E776101F14B165003040B3 /* VisibleArea.swift in Sources */,
 				34C0A69D1F4C1B380007CE5B /* GoogleNativeBanner.swift in Sources */,
 				3454D7D71E07F045004AF2AD /* UIKitCategories.mm in Sources */,
+				47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */,
 				34AB39C21D2BD8310021857D /* MWMStopButton.mm in Sources */,
 				3488B01A1E9D0B230068AFD8 /* UIColor+Modifications.swift in Sources */,
 				34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,

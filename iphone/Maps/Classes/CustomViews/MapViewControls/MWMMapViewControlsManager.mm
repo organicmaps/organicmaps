@@ -144,6 +144,11 @@ extern NSString * const kAlohalyticsTapEventKey;
   return YES;
 }
 
+- (void)hideSearch
+{
+  self.searchManager.state = MWMSearchManagerStateHidden;
+}
+
 #pragma mark - MWMBottomMenuControllerProtocol
 
 - (void)actionDownloadMaps:(MWMMapDownloaderMode)mode
