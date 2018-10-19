@@ -1,6 +1,7 @@
 package com.mapswithme.maps.ugc.routes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -9,6 +10,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.flexbox.FlexboxItemDecoration;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -31,6 +32,7 @@ import com.mapswithme.maps.widget.recycler.UgcRouteTagItemDecorator;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +43,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
 {
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private List<RecyclerView> mRecycler = new ArrayList<>();
+  private RecyclerView mRecycler;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -70,6 +72,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     mProgress = root.findViewById(R.id.progress_container);
     mTagsContainer = root.findViewById(R.id.tags_container);
     mRetryBtnContainer = root.findViewById(R.id.retry_btn_container);
+    mRecycler = root.findViewById(R.id.recycler);
     View retryBtn = mRetryBtnContainer.findViewById(R.id.retry_btn);
     retryBtn.setOnClickListener(v -> onRetryClicked());
     UiUtils.hide(mTagsContainer, mRetryBtnContainer);
@@ -148,9 +151,179 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     addTags(tagsGroups);
   }
 
+
+  private static final class CategoryViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TextView mText;
+
+    public CategoryViewHolder(View itemView)
+    {
+      super(itemView);
+      mText = itemView.findViewById(R.id.text);
+    }
+  }
+
+  private static class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder>
+  {
+    @NonNull
+    private final List<CatalogTagsGroup> mCatalogTagsGroups;
+
+    private CategoryAdapter(@NonNull List<CatalogTagsGroup> catalogTagsGroups)
+    {
+      mCatalogTagsGroups = catalogTagsGroups;
+    }
+
+    @Override
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+      LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+      return new CategoryViewHolder(inflater.inflate(R.layout.tags_category, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(CategoryViewHolder holder, int position)
+    {
+      CatalogTagsGroup item = mCatalogTagsGroups.get(position);
+      holder.mText.setText(item.getLocalizedName());
+    }
+
+    @Override
+    public int getItemCount()
+    {
+      return mCatalogTagsGroups.size();
+    }
+  }
+
+
+  private static class TagsRecyclerHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final RecyclerView mRecyclerView;
+
+    public TagsRecyclerHolder(View itemView)
+    {
+      super(itemView);
+      mRecyclerView = itemView.findViewById(R.id.recycler);
+    }
+  }
+
+  private static class TagsCompositeAdapter extends RecyclerView.Adapter<TagsRecyclerHolder>
+  {
+    @NonNull
+    private final Context mContext;
+    @NonNull
+    private final List<CatalogTagsGroup> mCatalogTagsGroups;
+    private final List<ComponentHolder> mComponentHolders;
+
+    private TagsCompositeAdapter(@NonNull Context context,
+                                 @NonNull List<CatalogTagsGroup> catalogTagsGroups)
+    {
+      mContext = context;
+      mCatalogTagsGroups = catalogTagsGroups;
+      mComponentHolders = makeComponents(context, catalogTagsGroups);
+    }
+
+    @NonNull
+    private static List<ComponentHolder> makeComponents(@NonNull Context context,
+                                                        @NonNull List<CatalogTagsGroup> groups)
+    {
+
+      List<ComponentHolder> result = new ArrayList<>();
+
+      for (CatalogTagsGroup each : groups)
+      {
+        TagsAdapter adapter = new TagsAdapter((v, item) -> {});
+        adapter.setTags(each.getTags());
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(context);
+        Resources res = context.getResources();
+        Drawable divider = res.getDrawable(R.drawable.flexbox_divider);
+        TagItemDecoration decor = new UgcRouteTagItemDecorator(divider);
+
+        ComponentHolder holder = new ComponentHolder(adapter, layoutManager, decor);
+        result.add(holder);
+      }
+      return result;
+    }
+
+    @Override
+    public TagsRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
+      LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+      return new TagsRecyclerHolder(inflater.inflate(R.layout.tags_recycler, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(TagsRecyclerHolder holder, int position)
+    {
+      ComponentHolder componentHolder = mComponentHolders.get(position);
+      holder.mRecyclerView.setLayoutManager(new FlexboxLayoutManager(mContext));
+      holder.mRecyclerView.setItemAnimator(null);
+      initDecor(holder, componentHolder);
+      componentHolder.mAdapter.setTags(mCatalogTagsGroups.get(position).getTags());
+      holder.mRecyclerView.setAdapter(componentHolder.mAdapter);
+    }
+
+    private void initDecor(TagsRecyclerHolder holder, ComponentHolder componentHolder)
+    {
+      RecyclerView.ItemDecoration itemDecoration;
+      int i = 0;
+      while ((itemDecoration = holder.mRecyclerView.getItemDecorationAt(i)) != null )
+      {
+        holder.mRecyclerView.removeItemDecoration(itemDecoration);
+        i++;
+      }
+      holder.mRecyclerView.addItemDecoration(componentHolder.mDecoration);
+    }
+
+    @Override
+    public int getItemCount()
+    {
+      return mCatalogTagsGroups.size();
+    }
+
+
+    private static class ComponentHolder
+    {
+      @NonNull
+      private final TagsAdapter mAdapter;
+      @NonNull
+      private final RecyclerView.LayoutManager mLayoutManager;
+      @NonNull
+      private final RecyclerView.ItemDecoration mDecoration;
+
+      private ComponentHolder(@NonNull TagsAdapter adapter,
+                              @NonNull RecyclerView.LayoutManager layoutManager,
+                              @NonNull RecyclerView.ItemDecoration decoration)
+      {
+        mAdapter = adapter;
+        mLayoutManager = layoutManager;
+        mDecoration = decoration;
+      }
+    }
+
+  }
+
   private void addTags(@NonNull CatalogTagsGroup[] tagsGroups)
   {
-    for (CatalogTagsGroup tagsGroup : tagsGroups)
+    List<CatalogTagsGroup> catalogTagsGroups = new ArrayList<>(Arrays.asList(tagsGroups));
+    CatalogTagsGroup[] copyOf = Arrays.copyOf(tagsGroups, tagsGroups.length);
+    catalogTagsGroups.addAll(Arrays.asList(copyOf));
+    catalogTagsGroups.addAll(Arrays.asList(copyOf));
+    CategoryAdapter categoryAdapter = new CategoryAdapter(catalogTagsGroups);
+    TagsCompositeAdapter tagsCompositeAdapter = new TagsCompositeAdapter(getContext(),
+                                                                         catalogTagsGroups);
+    RecyclerCompositeAdapter.RepeatablePairIndexConverter converter = new
+        RecyclerCompositeAdapter.RepeatablePairIndexConverter(categoryAdapter, tagsCompositeAdapter);
+
+    RecyclerCompositeAdapter compositeAdapter = new RecyclerCompositeAdapter(converter,
+                                                                             categoryAdapter,
+                                                                             tagsCompositeAdapter);
+    mRecycler.setItemAnimator(null);
+    mRecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    mRecycler.setAdapter(compositeAdapter);
+
+ /*   for (CatalogTagsGroup tagsGroup : tagsGroups)
     {
       RecyclerView recycler = (RecyclerView) getLayoutInflater().inflate(R.layout.tags_recycler,
                                                                          mTagsContainer,
@@ -169,8 +342,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
       recycler.setNestedScrollingEnabled(false);
       adapter.setTags(tagsGroup.getTags());
       mAdapter.add(adapter);
-      mRecycler.add(recycler);
-    }
+    }*/
   }
 
   @Override

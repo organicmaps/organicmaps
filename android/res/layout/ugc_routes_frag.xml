@@ -1,71 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/main_area"
   android:orientation="vertical"
-  android:fillViewport="true"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+  <TextView
+    android:text="@string/ugc_route_tags_desc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:paddingTop="@dimen/margin_base"
+    android:paddingBottom="@dimen/margin_base"
+    android:paddingRight="@dimen/ugc_route_tags_desc_padding_right"
+    android:paddingLeft="@dimen/margin_half_double_plus"
+    android:paddingEnd="@dimen/ugc_route_tags_desc_padding_right"
+    android:paddingStart="@dimen/margin_half_double_plus"/>
+  <View
+    android:background="?android:attr/listDivider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/divider_height"/>
   <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_area"
+    android:id="@+id/progress_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ProgressBar
+      android:id="@+id/progress"
+      android:minWidth="@dimen/search_progress_size"
+      android:minHeight="@dimen/search_progress_size"
+      android:paddingTop="@dimen/ugc_route_tags_progress_padding_top"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"/>
+    <TextView
+      android:text="@string/ugc_route_tags_progress_msg"
+      android:textAppearance="?android:attr/textAppearanceMedium"
+      android:layout_gravity="center_horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+  </LinearLayout>
+  <FrameLayout
+    android:id="@+id/retry_btn_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+      android:id="@+id/retry_btn"
+      android:layout_marginLeft="@dimen/margin_double"
+      android:layout_marginRight="@dimen/margin_double"
+      android:layout_gravity="center"
+      android:visibility="gone"
+      style="@style/MwmWidget.Button.Primary"
+      android:text="@string/downloader_retry"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+  </FrameLayout>
+  <LinearLayout
+    android:id="@+id/tags_container"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-      android:text="@string/ugc_route_tags_desc"
+    <android.support.v7.widget.RecyclerView
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/recycler"
+      android:paddingLeft="@dimen/margin_base"
+      android:paddingStart="@dimen/margin_base"
+      android:paddingEnd="@dimen/margin_base"
+      android:paddingRight="@dimen/margin_base"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textAppearance="?android:attr/textAppearanceSmall"
-      android:paddingTop="@dimen/margin_base"
-      android:paddingBottom="@dimen/margin_base"
-      android:paddingRight="@dimen/ugc_route_tags_desc_padding_right"
-      android:paddingLeft="@dimen/margin_half_double_plus"
-      android:paddingEnd="@dimen/ugc_route_tags_desc_padding_right"
-      android:paddingStart="@dimen/margin_half_double_plus"/>
-    <View
-      android:background="?android:attr/listDivider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"/>
-    <LinearLayout
-      android:id="@+id/progress_container"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-      <ProgressBar
-        android:id="@+id/progress"
-        android:minWidth="@dimen/search_progress_size"
-        android:minHeight="@dimen/search_progress_size"
-        android:paddingTop="@dimen/ugc_route_tags_progress_padding_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
-      <TextView
-        android:text="@string/ugc_route_tags_progress_msg"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <FrameLayout
-      android:id="@+id/retry_btn_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-      <Button
-        android:id="@+id/retry_btn"
-        android:layout_marginLeft="@dimen/margin_double"
-        android:layout_marginRight="@dimen/margin_double"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        style="@style/MwmWidget.Button.Primary"
-        android:text="@string/downloader_retry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    </FrameLayout>
-
-    <LinearLayout
-      android:id="@+id/tags_container"
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"></LinearLayout>
+      android:layout_height="wrap_content"/>
   </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

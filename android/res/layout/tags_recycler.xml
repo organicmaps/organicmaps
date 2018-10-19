@@ -2,10 +2,5 @@
 <android.support.v7.widget.RecyclerView
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/recycler"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingStart="@dimen/margin_base"
-  android:paddingEnd="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:scrollbars="vertical"/>
+  android:layout_height="wrap_content"/>
