@@ -8,41 +8,29 @@ import android.view.View;
 
 public class UgcRouteTagItemDecorator extends TagItemDecoration
 {
+  private int mCurrentOffset;
+
   public UgcRouteTagItemDecorator(@NonNull Drawable divider)
   {
     super(divider);
   }
 
-  private int mCurrentOffset;
-
   @Override
   public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
   {
     super.getItemOffsets(outRect, view, parent, state);
-
-    if (isLineFull(outRect, view, parent))
-    {
-      mCurrentOffset = 0;
-    }
-    else
-    {
+    if (hasSpaceFromRight(outRect, view, parent))
       mCurrentOffset += view.getWidth() + outRect.left;
-    }
-
-    if (mCurrentOffset == 0)
-    {
-      outRect.left = 0;
-      outRect.right = getDivider().getIntrinsicWidth() / 2;
-    }
     else
-    {
-      outRect.left = getDivider().getIntrinsicWidth() / 2;
-      outRect.right = getDivider().getIntrinsicWidth() / 2;
-    }
+      mCurrentOffset = 0;
+
+    outRect.left = mCurrentOffset == 0 ? 0 : getDivider().getIntrinsicWidth() / 2;
+    outRect.right = getDivider().getIntrinsicWidth() / 2;
   }
 
-  private boolean isLineFull(Rect outRect, View view, RecyclerView parent)
+  private boolean hasSpaceFromRight(Rect outRect, View view, RecyclerView parent)
   {
-    return mCurrentOffset + view.getWidth() + outRect.left > parent.getWidth() - (parent.getPaddingLeft() + parent.getRight());
+    int padding = parent.getPaddingLeft() + parent.getRight();
+    return mCurrentOffset + view.getWidth() + outRect.left < parent.getWidth() - padding;
   }
 }

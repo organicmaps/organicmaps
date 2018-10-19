@@ -15,17 +15,19 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.R;
 
-public class TagsResFactory
+class TagsResFactory
 {
-  public static StateListDrawable makeSelector(@NonNull Context context, int color)
+  @NonNull
+  static StateListDrawable makeSelector(@NonNull Context context, int color)
   {
     StateListDrawable drawable = new StateListDrawable();
-    drawable.addState(new int[] { android.R.attr.state_selected }, getSelectedDrawable(color));
-    drawable.addState(new int[] {}, getDefaultDrawable(context, color));
+    drawable.addState(new int[] { android.R.attr.state_selected }, makeSelectedDrawable(color));
+    drawable.addState(new int[] {}, makeDefaultDrawable(context, color));
     return drawable;
   }
 
-  private static Drawable getDefaultDrawable(@NonNull Context context, int color)
+  @NonNull
+  private static Drawable makeDefaultDrawable(@NonNull Context context, int color)
   {
     Resources res = context.getResources();
     GradientDrawable gradientDrawable = new GradientDrawable();
@@ -37,13 +39,7 @@ public class TagsResFactory
   }
 
   @NonNull
-  private static ColorDrawable getSelectedDrawable(int color)
-  {
-    return new ColorDrawable(color);
-  }
-
-  @NonNull
-  public static ColorStateList makeColor(@NonNull Context context, int color)
+  static ColorStateList makeColor(@NonNull Context context, int color)
   {
     return new ColorStateList(
         new int[][] {
@@ -55,5 +51,11 @@ public class TagsResFactory
             color
         }
     );
+  }
+
+  @NonNull
+  private static ColorDrawable makeSelectedDrawable(int color)
+  {
+    return new ColorDrawable(color);
   }
 }
