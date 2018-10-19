@@ -16,7 +16,7 @@ public:
   explicit MaxspeedBuilder(std::string const & filePath) : m_filePath(filePath) {}
   ~MaxspeedBuilder() { Flush(); }
 
-  void operator()(OsmElement const & el);
+  void Process(OsmElement const & el);
 
 private:
   void Flush();

@@ -137,6 +137,7 @@ DEFINE_bool(generate_cameras, false, "Generate section with speed cameras info."
 DEFINE_bool(
     make_city_roads, false,
     "Calculates which roads lie inside cities and makes a section with ids of these roads.");
+DEFINE_bool(generate_maxspeed, false, "Generate section with maxspeed of road features.");
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");

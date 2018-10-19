@@ -13,7 +13,7 @@ namespace feature
 using namespace base;
 using namespace std;
 
-void MaxspeedBuilder::operator()(OsmElement const & p)
+void MaxspeedBuilder::Process(OsmElement const & p)
 {
   ostringstream ss;
   ss << p.id << ",";
@@ -24,17 +24,16 @@ void MaxspeedBuilder::operator()(OsmElement const & p)
 
   for (auto const & t : tags)
   {
-    if (t.key == string("maxspeed"))
+    if (t.key == "maxspeed")
     {
       ss << t.value;
       m_data.push_back(ss.str());
       return;
     }
 
-    if (t.key == string("maxspeed:forward"))
+    if (t.key == "maxspeed:forward")
       maxspeedForward = t.value;
-
-    if (t.key == string("maxspeed:backward"))
+    else if (t.key == "maxspeed:backward")
       maxspeedBackward = t.value;
   }
 
@@ -50,22 +49,18 @@ void MaxspeedBuilder::operator()(OsmElement const & p)
 
 void MaxspeedBuilder::Flush()
 {
-  try
-  {
-    LOG(LINFO, ("Saving maxspeed tag values to", m_filePath));
-    ofstream stream(m_filePath);
+  LOG(LINFO, ("Saving maxspeed tag values to", m_filePath));
+  ofstream stream(m_filePath);
 
-    if (!stream.is_open())
-      LOG(LERROR, ("Cannot open file", m_filePath));
+  if (!stream.is_open())
+    LOG(LERROR, ("Cannot open file", m_filePath));
 
-    for (auto const & s : m_data)
-      stream << s << '\n';
+  for (auto const & s : m_data)
+    stream << s << '\n';
 
+  if (stream.fail())
+    LOG(LERROR, ("Cannot write to file", m_filePath));
+  else
     LOG(LINFO, ("Wrote", m_data.size(), "maxspeed tags to", m_filePath));
-  }
-  catch (RootException const & e)
-  {
-    LOG(LERROR, ("An exception happened while saving tags to", m_filePath, ":", e.what()));
-  }
 }
 }  // namespace feature

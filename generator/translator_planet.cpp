@@ -97,7 +97,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
 
     ft.SetOsmId(base::MakeOsmWay(p->id));
 
-    m_maxspeedBuilder(*p);
+    m_maxspeedBuilder.Process(*p);
 
     bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 
