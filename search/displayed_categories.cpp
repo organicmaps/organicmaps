@@ -8,8 +8,25 @@ namespace search
 {
 DisplayedCategories::DisplayedCategories(CategoriesHolder const & holder) : m_holder(holder)
 {
-  m_keys = {"food", "hotel", "tourism",       "wifi",     "transport", "fuel",   "parking", "shop",
-            "atm",  "bank",  "entertainment", "hospital", "pharmacy",  "police", "toilet",  "post"};
+  m_keys = {"eat",
+            "hotel",
+            "food",
+            "tourism",
+            "wifi",
+            "transport",
+            "fuel",
+            "parking",
+            "shopping",
+            "atm",
+            "nightlife",
+            "children",
+            "bank",
+            "entertainment",
+            "hospital",
+            "pharmacy",
+            "police",
+            "toilet",
+            "post"};
 }
 
 void DisplayedCategories::Modify(CategoriesModifier & modifier)

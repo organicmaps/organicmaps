@@ -3464,43 +3464,25 @@
     sk = Na obrazovke
     fa = روی صفحه نمایش بده
 
-  [food]
-    comment = Search Suggestion
+  [eat]
+    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
+    comment = Search team review required on any change
+    comment = Search category for cafes, bars, restaurants
     tags = ios,android,tizen
-    en = Food
-    ru = Еда
-    ar = طعام
-    cs = Jídlo
-    da = Mad
-    nl = Eten
-    fi = Ruoka
-    fr = Nourriture
-    de = Essen
-    hu = Élelmiszer
-    id = Makanan
-    it = Cibo
-    ja = 飲食
-    ko = 음식
-    nb = Mat
-    pl = Jedzenie
-    pt = Alimentação
-    pt-BR = Alimentação
-    ro = Alimentație
-    es = Comer
-    sv = Mat
-    th = อาหาร
-    tr = Yemek
-    uk = Їжа
-    vi = ẩm thực
-    zh-Hans = 食物
-    zh-Hant = 飲食
-    el = Φαγητό
-    he = אוכל
-    sk = Jedlo
-    fa = غذا
+    en = Where to eat
+    ru = Поесть
+
+  [food]
+    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
+    comment = Search team review required on any change
+    comment = Search category for grocery stores
+    tags = ios,android,tizen
+    en = Groceries
+    ru = Продукты
 
   [transport]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Transport
     ru = Транспорт
@@ -3535,7 +3517,8 @@
     fa = حمل و نقل
 
   [fuel]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Gas
     en-GB = Petrol
@@ -3571,7 +3554,8 @@
     fa = سوخت
 
   [parking]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Parking
     ru = Парковка
@@ -3605,44 +3589,17 @@
     sk = Parkovisko
     fa = پارکینگ
 
-  [shop]
-    comment = Search Suggestion
+  [shopping]
+    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
+    comment = Search team review required on any change
+    comment = Search category for clothes/shoes/gifts/jewellery/sport shops
     tags = ios,android,tizen
-    en = Shop
-    ru = Магазин
-    ar = متجر
-    cs = Obchod
-    da = Butik
-    nl = Winkel
-    fi = Kauppa
-    fr = Magasin
-    de = Geschäft
-    hu = Bolt
-    id = Toko
-    it = Negozio
-    ja = 買い物
-    ko = 쇼핑
-    nb = Butikk
-    pl = Sklep
-    pt = Compras
-    pt-BR = Compras
-    ro = Magazin
-    es = Tienda
-    sv = Butik
-    th = ร้านค้า
-    tr = Mağaza
-    uk = Крамниця
-    vi = Cửa hàng
-    zh-Hans = 商店
-    zh-Hant = 購物
-    el = Κατάστημα
-    he = חנות
-    sk = Obchod
-    sw = Duka
-    fa = فروشگاه
+    en = Shopping
+    ru = Шоппинг
 
   [hotel]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Hotel
     ru = Гостиница
@@ -3677,7 +3634,8 @@
     fa = هتل
 
   [tourism]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Sights
     ru = Достопримечательность
@@ -3712,7 +3670,8 @@
     fa = منظره
 
   [entertainment]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Entertainment
     ru = Развлечения
@@ -3747,7 +3706,8 @@
     fa = سرگرمی
 
   [atm]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = ATM
     ru = Банкомат
@@ -3781,8 +3741,25 @@
     sk = Bankomat
     fa = خود پرداز
 
+  [nightlife]
+    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
+    comment = Search team review required on any change
+    comment = Search category for nightclubs/bars
+    tags = ios,android,tizen
+    en = Nightlife
+    ru = Ночная жизнь
+
+  [children]
+    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
+    comment = Search team review required on any change
+    comment = Search category for water park/disneyland/playground/toys store
+    tags = ios,android,tizen
+    en = Family holiday
+    ru = Отдых с детьми
+
   [bank]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Bank
     ru = Банк
@@ -3817,7 +3794,8 @@
     fa = بانک
 
   [pharmacy]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Pharmacy
     ru = Аптека
@@ -3852,7 +3830,8 @@
     fa = داروخانه
 
   [hospital]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Hospital
     ru = Больница
@@ -3888,7 +3867,8 @@
     fa = بیمارستان
 
   [toilet]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Toilet
     ru = Туалет
@@ -3923,7 +3903,8 @@
     fa = توالت
 
   [post]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Post
     ru = Почта
@@ -3958,7 +3939,8 @@
     fa = صندوق پست
 
   [police]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = Police
     ru = Полиция
@@ -7662,7 +7644,8 @@
     fa = تنظیم کردن قظب نما
 
   [wifi]
-    comment = Search Suggestion
+    comment = Search team review required on any change
+    comment = Search category
     tags = ios,android,tizen
     en = WiFi
     ru = WiFi

@@ -1,3 +1,4 @@
+eat
 food
 hotel
 tourism
@@ -5,8 +6,10 @@ wifi
 transport
 fuel
 parking
-shop
+shopping
 atm
+nightlife
+children
 bank
 entertainment
 hospital

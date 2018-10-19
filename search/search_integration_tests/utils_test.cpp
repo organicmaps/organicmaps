@@ -55,7 +55,7 @@ UNIT_CLASS_TEST(SearchUtilsTest, Utils)
   auto const typesCafe = GetCategoryTypes("Cafe", "en", categories);
   auto const typesRestaurant = GetCategoryTypes("Restaurant", "en", categories);
   auto const typesBar = GetCategoryTypes("Bar", "en", categories);
-  auto const typesFood = GetCategoryTypes("Food", "en", categories);
+  auto const typesFood = GetCategoryTypes("Eat", "en", categories);
 
   // GetCategoryTypes must return sorted vector of types.
   TEST(is_sorted(typesCafe.begin(), typesCafe.end()), ());
