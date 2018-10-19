@@ -347,7 +347,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="zJa-b8-ObU">
                                                     <rect key="frame" x="0.0" y="0.0" width="215" height="109"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KI-mu-vBe">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7KI-mu-vBe">
                                                             <rect key="frame" x="0.0" y="0.0" width="215" height="35.5"/>
                                                             <color key="backgroundColor" white="0.92827492952346802" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -367,7 +367,7 @@
                                                                 <action selector="onMoreOptions:" destination="-1" eventType="touchUpInside" id="XWb-f3-MaZ"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-Wb-dwQ">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-Wb-dwQ">
                                                             <rect key="frame" x="0.0" y="36.5" width="215" height="36"/>
                                                             <color key="backgroundColor" white="0.92827492952346802" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -387,7 +387,7 @@
                                                                 <action selector="onMonth:" destination="-1" eventType="touchUpInside" id="4ir-Kn-VPR"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XY6-tA-B1U">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XY6-tA-B1U">
                                                             <rect key="frame" x="0.0" y="73.5" width="215" height="35.5"/>
                                                             <color key="backgroundColor" white="0.92827492952346802" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>

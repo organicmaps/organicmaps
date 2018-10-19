@@ -72,7 +72,7 @@ import SafariServices
     case .week:
       return 0
     case .month:
-      return weeklyPrice.multiplying(by: 4).subtracting(price)
+      return weeklyPrice.multiplying(by: 52).subtracting(price.multiplying(by: 12))
     case .year:
       return weeklyPrice.multiplying(by: 52).subtracting(price)
     case .unknown:
