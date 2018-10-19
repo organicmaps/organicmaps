@@ -37,7 +37,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   private final static String EXTRA_PRODUCT_DETAILS = "extra_product_details";
   private final static String EXTRA_ACTIVATION_RESULT = "extra_activation_result";
   private final static int WEEKS_IN_YEAR = 52;
-  private final static int WEEKS_IN_MONTH = 4;
+  private final static int MONTHS_IN_YEAR = 12;
   final static int REQ_CODE_PRODUCT_DETAILS_FAILURE = 1;
   final static int REQ_CODE_PAYMENT_FAILURE = 2;
   final static int REQ_CODE_VALIDATION_SERVER_ERROR = 3;
@@ -306,7 +306,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
   {
     float pricePerWeek = getProductDetailsForPeriod(Period.P1W).getPrice();
     float pricePerMonth = getProductDetailsForPeriod(Period.P1M).getPrice();
-    return pricePerWeek * WEEKS_IN_MONTH - pricePerMonth;
+    return pricePerWeek * WEEKS_IN_YEAR - pricePerMonth * MONTHS_IN_YEAR;
   }
 
   @Override
