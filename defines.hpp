@@ -55,6 +55,7 @@
 #define UGC_FILE_TAG "ugc"
 #define CITY_ROADS_FILE_TAG "city_roads"
 #define DESCRIPTIONS_FILE_TAG "descriptions"
+#define MAXSPEED_FILE_TAG "maxspeed"
 
 #define LOCALITY_DATA_FILE_TAG "locdata"
 #define GEO_OBJECTS_INDEX_FILE_TAG "locidx"

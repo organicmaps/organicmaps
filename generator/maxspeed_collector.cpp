@@ -1,4 +1,4 @@
-#include "generator/maxspeed_builder.hpp"
+#include "generator/maxspeed_collector.hpp"
 
 #include "coding/file_writer.hpp"
 
@@ -13,7 +13,7 @@ namespace feature
 using namespace base;
 using namespace std;
 
-void MaxspeedBuilder::Process(OsmElement const & p)
+void MaxspeedCollector::Process(OsmElement const & p)
 {
   ostringstream ss;
   ss << p.id << ",";
@@ -47,7 +47,7 @@ void MaxspeedBuilder::Process(OsmElement const & p)
   m_data.push_back(ss.str());
 }
 
-void MaxspeedBuilder::Flush()
+void MaxspeedCollector::Flush()
 {
   LOG(LINFO, ("Saving maxspeed tag values to", m_filePath));
   ofstream stream(m_filePath);
