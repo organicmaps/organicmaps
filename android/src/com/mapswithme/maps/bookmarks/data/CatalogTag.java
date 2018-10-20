@@ -80,4 +80,14 @@ public class CatalogTag implements Parcelable
   {
     return mId.hashCode();
   }
+
+  @Override
+  public String toString()
+  {
+    final StringBuilder sb = new StringBuilder("CatalogTag{");
+    sb.append("mId='").append(mId).append('\'');
+    sb.append(", mLocalizedName='").append(mLocalizedName).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
 }
