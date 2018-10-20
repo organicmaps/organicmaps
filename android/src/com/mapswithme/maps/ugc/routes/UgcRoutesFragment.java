@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import com.mapswithme.maps.adapter.AdapterIndexConverter;
 import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.adapter.RepeatablePairIndexConverter;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
@@ -29,7 +31,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener
+public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
+                                                                  OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>
 {
   private static final String BUNDLE_SAVED_TAGS = "bundle_saved_tags";
 
@@ -164,7 +167,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     List<CatalogTag> savedStateTags = validateSavedState(mSavedInstanceState);
     List<CatalogTagsGroup> groups = Collections.unmodifiableList(Arrays.asList(tagsGroups));
     CategoryAdapter categoryAdapter = new CategoryAdapter(groups);
-    mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags);
+    mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags, this);
     RecyclerCompositeAdapter compositeAdapter = makeCompositeAdapter(categoryAdapter, mTagsAdapter);
     mRecycler.setItemAnimator(null);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -203,5 +206,14 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
                                long originCategoryId, long resultCategoryId)
   {
     /* Do nothing by default */
+  }
+
+  @Override
+  public void onItemClick(@NonNull View v,
+                          @NonNull Pair<TagsAdapter, TagsAdapter.TagViewHolder> item)
+  {
+    TagsAdapter adapter = item.first;
+    int position = item.second.getAdapterPosition();
+    adapter.notifyItemChanged(position);
   }
 }

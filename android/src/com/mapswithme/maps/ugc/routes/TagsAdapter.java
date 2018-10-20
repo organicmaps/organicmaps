@@ -135,9 +135,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
       for (CatalogTag each : savedTags)
       {
         if (src.getTags().contains(each))
-        {
           state.addAll(each);
-        }
       }
       return state;
     }
@@ -186,9 +184,6 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
         mState.addAll(item.getEntity());
 
       mListener.onItemClick(v, item);
-
-      /*FIXME*/
-      notifyItemChanged(item.getAdapterPosition());
     }
   }
 }

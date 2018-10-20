@@ -5,12 +5,14 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
@@ -31,25 +33,29 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
 
   TagsCompositeAdapter(@NonNull Context context,
                        @NonNull List<CatalogTagsGroup> groups,
-                       @NonNull List<CatalogTag> savedState)
+                       @NonNull List<CatalogTag> savedState,
+                       @NonNull OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> clickListener)
   {
     mContext = context;
     mCatalogTagsGroups = groups;
-    mComponentHolders = makeComponents(context, groups, savedState);
+    mComponentHolders = makeRecyclerComponents(context, groups, savedState, clickListener);
     setHasStableIds(true);
   }
 
   @NonNull
-  private static List<ComponentHolder> makeComponents(@NonNull Context context,
-                                                      @NonNull List<CatalogTagsGroup> groups,
-                                                      @NonNull List<CatalogTag> savedState)
+  private List<ComponentHolder> makeRecyclerComponents(@NonNull Context context,
+                                                       @NonNull List<CatalogTagsGroup> groups,
+                                                       @NonNull List<CatalogTag> savedState,
+                                                       @NonNull OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> externalListener)
   {
     List<ComponentHolder> result = new ArrayList<>();
 
-    for (CatalogTagsGroup each : groups)
+    for (int i = 0; i < groups.size(); i++)
     {
+      CatalogTagsGroup each = groups.get(i);
       TagsAdapter.SelectionState state = TagsAdapter.SelectionState.from(savedState, each);
-      TagsAdapter adapter = new TagsAdapter((v, item) -> {}, state);
+      OnItemClickListener<TagsAdapter.TagViewHolder> listener = new TagsListClickListener(externalListener, i);
+      TagsAdapter adapter = new TagsAdapter(listener, state);
       adapter.setTags(each.getTags());
       Resources res = context.getResources();
       Drawable divider = res.getDrawable(R.drawable.flexbox_divider);
@@ -140,6 +146,29 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
     {
       super(itemView);
       mRecycler = itemView.findViewById(R.id.recycler);
+    }
+  }
+
+  private class TagsListClickListener implements OnItemClickListener<TagsAdapter.TagViewHolder>
+  {
+    @NonNull
+    private final OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> mListener;
+    private final int mIndex;
+
+    TagsListClickListener(@NonNull OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> clickListener,
+                          int index)
+    {
+      mListener = clickListener;
+      mIndex = index;
+    }
+
+    @Override
+    public void onItemClick(@NonNull View v, @NonNull TagsAdapter.TagViewHolder item)
+    {
+      item.getAdapterPosition();
+      ComponentHolder components = mComponentHolders.get(mIndex);
+      Pair<TagsAdapter, TagsAdapter.TagViewHolder> pair = new Pair<>(components.mAdapter, item);
+      mListener.onItemClick(v, pair);
     }
   }
 }
