@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -24,6 +25,7 @@ import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
+import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     mProgress = root.findViewById(R.id.progress_container);
     mTagsContainer = root.findViewById(R.id.tags_container);
     mRetryBtnContainer = root.findViewById(R.id.retry_btn_container);
-    mRecycler = root.findViewById(R.id.recycler);
+    initRecycler(root);
     View retryBtn = mRetryBtnContainer.findViewById(R.id.retry_btn);
     retryBtn.setOnClickListener(v -> onRetryClicked());
     UiUtils.hide(mTagsContainer, mRetryBtnContainer);
@@ -78,6 +80,16 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     BookmarkManager.INSTANCE.requestRouteTags();
     mSavedInstanceState = savedInstanceState;
     return root;
+  }
+
+  private void initRecycler(@NonNull ViewGroup root)
+  {
+    mRecycler = root.findViewById(R.id.recycler);
+    mRecycler.setItemAnimator(null);
+    RecyclerView.ItemDecoration decor = ItemDecoratorFactory.createRatingRecordDecorator(
+        getContext().getApplicationContext(),
+        DividerItemDecoration.VERTICAL);
+    mRecycler.addItemDecoration(decor);
   }
 
   private void onRetryClicked()

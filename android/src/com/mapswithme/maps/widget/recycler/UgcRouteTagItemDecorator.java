@@ -6,6 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.android.flexbox.FlexLine;
+import com.google.android.flexbox.FlexboxLayoutManager;
+
+import java.util.List;
+
 public class UgcRouteTagItemDecorator extends TagItemDecoration
 {
   private int mCurrentOffset;
@@ -26,6 +31,19 @@ public class UgcRouteTagItemDecorator extends TagItemDecoration
 
     outRect.left = mCurrentOffset == 0 ? 0 : getDivider().getIntrinsicWidth() / 2;
     outRect.right = getDivider().getIntrinsicWidth() / 2;
+    FlexboxLayoutManager flexboxLayoutManager = (FlexboxLayoutManager) parent.getLayoutManager();
+    List<FlexLine> flexLines = flexboxLayoutManager.getFlexLines();
+    if (flexLines == null || flexLines.isEmpty())
+    {
+      outRect.top = 0;
+      return;
+    }
+
+    FlexLine flexLine = flexLines.get(0);
+    int position = parent.getLayoutManager().getPosition(view);
+    int itemCount = flexLine.getItemCount();
+    if (position < itemCount)
+      outRect.top = 0;
   }
 
   private boolean hasSpaceFromRight(Rect outRect, View view, RecyclerView parent)

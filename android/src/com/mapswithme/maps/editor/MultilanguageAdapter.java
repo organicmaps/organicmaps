@@ -117,7 +117,7 @@ public class MultilanguageAdapter extends RecyclerView.Adapter<MultilanguageAdap
                                                               public void onClick(View v)
                                                               {
                                                                 // TODO(mgsergio): Implement item deletion.
-                                                                // int position = getRelativePosition();
+                                                                // int position = getAdapterPosition();
                                                                 // mHostFragment.removeLocalizedName(position + 1);
                                                                 // mNames.remove(position);
                                                                 // notifyItemRemoved(position);

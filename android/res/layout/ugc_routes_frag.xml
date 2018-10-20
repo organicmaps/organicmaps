@@ -67,6 +67,7 @@
       android:paddingStart="@dimen/margin_base"
       android:paddingEnd="@dimen/margin_base"
       android:paddingRight="@dimen/margin_base"
+      android:overScrollMode="never"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
   </LinearLayout>

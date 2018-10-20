@@ -165,7 +165,6 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
     @Override
     public void onItemClick(@NonNull View v, @NonNull TagsAdapter.TagViewHolder item)
     {
-      item.getAdapterPosition();
       ComponentHolder components = mComponentHolders.get(mIndex);
       Pair<TagsAdapter, TagsAdapter.TagViewHolder> pair = new Pair<>(components.mAdapter, item);
       mListener.onItemClick(v, pair);
