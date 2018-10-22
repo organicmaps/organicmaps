@@ -5,6 +5,7 @@
 #include "Framework.h"
 
 #include "base/sunrise_sunset.hpp"
+#include "platform/network_policy.hpp"
 
 @implementation MWMFrameworkHelper
 
@@ -66,4 +67,11 @@
 }
 
 + (void)createFramework { UNUSED_VALUE(GetFramework()); }
+
++ (BOOL)canUseNetwork
+{
+  return platform::GetCurrentNetworkPolicy().CanUse() ||
+         GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WWAN;
+}
+
 @end

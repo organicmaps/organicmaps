@@ -10,4 +10,6 @@
 
 + (void)createFramework;
 
++ (BOOL)canUseNetwork;
+
 @end

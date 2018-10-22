@@ -390,7 +390,9 @@ using namespace osm_auth_ios;
   if (@available(iOS 10, *))
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
-  [[SubscriptionManager shared] validate];
+  if ([MWMFrameworkHelper canUseNetwork])
+    [[SubscriptionManager shared] validate];
+  
   return YES;
 }
 
