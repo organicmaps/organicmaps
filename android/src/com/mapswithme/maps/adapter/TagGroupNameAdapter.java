@@ -1,4 +1,4 @@
-package com.mapswithme.maps.ugc.routes;
+package com.mapswithme.maps.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +12,12 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 
 import java.util.List;
 
-class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
+public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapter.CategoryViewHolder>
 {
   @NonNull
   private final List<CatalogTagsGroup> mTagsGroups;
 
-  CategoryAdapter(@NonNull List<CatalogTagsGroup> tagsGroups)
+  public TagGroupNameAdapter(@NonNull List<CatalogTagsGroup> tagsGroups)
   {
     mTagsGroups = tagsGroups;
     setHasStableIds(true);

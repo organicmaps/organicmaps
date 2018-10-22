@@ -1,4 +1,4 @@
-package com.mapswithme.maps.ugc.routes;
+package com.mapswithme.maps.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.TagsRecyclerHolder>
+public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.TagsRecyclerHolder>
 {
   @NonNull
   private final Context mContext;
@@ -31,10 +31,10 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
   @NonNull
   private final List<ComponentHolder> mComponentHolders;
 
-  TagsCompositeAdapter(@NonNull Context context,
-                       @NonNull List<CatalogTagsGroup> groups,
-                       @NonNull List<CatalogTag> savedState,
-                       @NonNull OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> clickListener)
+  public TagsCompositeAdapter(@NonNull Context context,
+                              @NonNull List<CatalogTagsGroup> groups,
+                              @NonNull List<CatalogTag> savedState,
+                              @NonNull OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>> clickListener)
   {
     mContext = context;
     mCatalogTagsGroups = groups;
@@ -55,8 +55,7 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
       CatalogTagsGroup each = groups.get(i);
       TagsAdapter.SelectionState state = TagsAdapter.SelectionState.from(savedState, each);
       OnItemClickListener<TagsAdapter.TagViewHolder> listener = new TagsListClickListener(externalListener, i);
-      TagsAdapter adapter = new TagsAdapter(listener, state);
-      adapter.setTags(each.getTags());
+      TagsAdapter adapter = new TagsAdapter(listener, state, each.getTags());
       Resources res = context.getResources();
       Drawable divider = res.getDrawable(R.drawable.flexbox_divider);
       TagItemDecoration decor = new UgcRouteTagItemDecorator(divider);
@@ -81,8 +80,6 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
     holder.mRecycler.setLayoutManager(new FlexboxLayoutManager(mContext));
     holder.mRecycler.setItemAnimator(null);
     initDecor(holder, componentHolder);
-    CatalogTagsGroup group = mCatalogTagsGroups.get(position);
-    componentHolder.mAdapter.setTags(group.getTags());
     holder.mRecycler.setAdapter(componentHolder.mAdapter);
   }
 
@@ -112,7 +109,7 @@ class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.Tag
   }
 
   @NonNull
-  Collection<CatalogTag> getSelectedTags()
+  public Collection<CatalogTag> getSelectedTags()
   {
     List<CatalogTag> tags = new ArrayList<>();
     for (ComponentHolder each : mComponentHolders)

@@ -15,10 +15,10 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.R;
 
-class TagsResFactory
+public class TagsResFactory
 {
   @NonNull
-  static StateListDrawable makeSelector(@NonNull Context context, int color)
+  public static StateListDrawable makeSelector(@NonNull Context context, int color)
   {
     StateListDrawable drawable = new StateListDrawable();
     drawable.addState(new int[] { android.R.attr.state_selected }, makeSelectedDrawable(color));
@@ -39,7 +39,7 @@ class TagsResFactory
   }
 
   @NonNull
-  static ColorStateList makeColor(@NonNull Context context, int color)
+  public static ColorStateList makeColor(@NonNull Context context, int color)
   {
     return new ColorStateList(
         new int[][] {

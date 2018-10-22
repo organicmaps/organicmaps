@@ -1,4 +1,4 @@
-package com.mapswithme.maps.ugc.routes;
+package com.mapswithme.maps.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -15,6 +15,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
+import com.mapswithme.maps.ugc.routes.TagsResFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,12 +33,14 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
   private final OnItemClickListener<TagViewHolder> mListener;
 
   @NonNull
-  private List<CatalogTag> mTags = Collections.emptyList();
+  private final List<CatalogTag> mTags;
 
-  TagsAdapter(@NonNull OnItemClickListener<TagViewHolder> listener, @NonNull SelectionState state)
+  TagsAdapter(@NonNull OnItemClickListener<TagViewHolder> listener, @NonNull SelectionState state,
+              @NonNull List<CatalogTag> tags)
   {
     mListener = new ClickListenerWrapper(listener);
     mState = state;
+    mTags = tags;
     setHasStableIds(true);
   }
 
@@ -73,12 +76,6 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
   public int getItemCount()
   {
     return mTags.size();
-  }
-
-  public void setTags(@NonNull List<CatalogTag> tags)
-  {
-    mTags = tags;
-    notifyDataSetChanged();
   }
 
   @NonNull
@@ -141,7 +138,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
     }
   }
 
-  static class TagViewHolder extends RecyclerView.ViewHolder
+  public static class TagViewHolder extends RecyclerView.ViewHolder
   {
     @NonNull
     private final TextView mText;

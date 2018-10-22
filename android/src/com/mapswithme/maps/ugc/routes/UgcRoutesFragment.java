@@ -18,8 +18,11 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.AdapterIndexConverter;
+import com.mapswithme.maps.adapter.TagGroupNameAdapter;
 import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.adapter.RepeatablePairIndexConverter;
+import com.mapswithme.maps.adapter.TagsAdapter;
+import com.mapswithme.maps.adapter.TagsCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -178,7 +181,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   {
     List<CatalogTag> savedStateTags = validateSavedState(mSavedInstanceState);
     List<CatalogTagsGroup> groups = Collections.unmodifiableList(Arrays.asList(tagsGroups));
-    CategoryAdapter categoryAdapter = new CategoryAdapter(groups);
+    TagGroupNameAdapter categoryAdapter = new TagGroupNameAdapter(groups);
     mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags, this);
     RecyclerCompositeAdapter compositeAdapter = makeCompositeAdapter(categoryAdapter, mTagsAdapter);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -197,7 +200,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   }
 
   @NonNull
-  private static RecyclerCompositeAdapter makeCompositeAdapter(@NonNull CategoryAdapter categoryAdapter,
+  private static RecyclerCompositeAdapter makeCompositeAdapter(@NonNull TagGroupNameAdapter categoryAdapter,
                                                                @NonNull TagsCompositeAdapter tagsCompositeAdapter)
 
   {
