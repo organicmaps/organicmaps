@@ -22,6 +22,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <unordered_map>
 #include <utility>
 
 using namespace routing;
@@ -125,8 +126,8 @@ bool ParseRoadAccess(string const & roadAccessPath,
 
   vector<uint32_t> privateRoads;
 
-  map<uint32_t, RoadAccess::Type> featureType[static_cast<size_t>(VehicleType::Count)];
-  map<RoadPoint, RoadAccess::Type> pointType[static_cast<size_t>(VehicleType::Count)];
+  unordered_map<uint32_t, RoadAccess::Type> featureType[static_cast<size_t>(VehicleType::Count)];
+  unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> pointType[static_cast<size_t>(VehicleType::Count)];
 
   auto addFeature = [&](uint32_t featureId, VehicleType vehicleType,
                         RoadAccess::Type roadAccessType, uint64_t osmId) {

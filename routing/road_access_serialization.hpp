@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <array>
 #include <cstdint>
-#include <map>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -28,8 +28,8 @@ namespace routing
 class RoadAccessSerializer final
 {
 public:
-  using RoadAccessTypesFeatureMap = std::map<uint32_t, RoadAccess::Type>;
-  using RoadAccessTypesPointMap = std::map<RoadPoint, RoadAccess::Type>;
+  using RoadAccessTypesFeatureMap = std::unordered_map<uint32_t, RoadAccess::Type>;
+  using RoadAccessTypesPointMap = std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash>;
   using RoadAccessByVehicleType = std::array<RoadAccess, static_cast<size_t>(VehicleType::Count)>;
 
   RoadAccessSerializer() = delete;

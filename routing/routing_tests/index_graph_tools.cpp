@@ -10,6 +10,8 @@
 
 #include "base/assert.hpp"
 
+#include <unordered_map>
+
 namespace routing_test
 {
 using namespace routing;
@@ -275,8 +277,8 @@ void TestIndexGraphTopology::Builder::BuildJoints()
 
 void TestIndexGraphTopology::Builder::BuildGraphFromRequests(vector<EdgeRequest> const & requests)
 {
-  map<uint32_t, RoadAccess::Type> featureTypes;
-  map<RoadPoint, RoadAccess::Type> pointTypes;
+  unordered_map<uint32_t, RoadAccess::Type> featureTypes;
+  unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> pointTypes;
   for (auto const & request : requests)
   {
     BuildSegmentFromEdge(request);

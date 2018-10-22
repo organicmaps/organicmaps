@@ -255,7 +255,7 @@ string DebugPrint(PronouncedNotification const notificationProgress)
   }
 
   ASSERT(false, ());
-  stringstream out;
+  std::stringstream out;
   out << "unknown PronouncedNotification (" << static_cast<int>(notificationProgress) << ")";
   return out.str();
 }

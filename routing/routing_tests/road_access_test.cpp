@@ -9,7 +9,7 @@
 
 #include <algorithm>
 #include <cstdint>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 using namespace routing;
@@ -23,12 +23,12 @@ namespace
 UNIT_TEST(RoadAccess_Serialization)
 {
   // Segment is (numMwmId, featureId, segmentIdx, isForward).
-  map<uint32_t, RoadAccess::Type> const m0 = {
+  unordered_map<uint32_t, RoadAccess::Type> const m0 = {
       {1, RoadAccess::Type::No},
       {2, RoadAccess::Type::Private},
   };
 
-  map<uint32_t, RoadAccess::Type> const m1 = {
+  unordered_map<uint32_t, RoadAccess::Type> const m1 = {
       {1, RoadAccess::Type::Private},
       {2, RoadAccess::Type::Destination},
   };

@@ -105,7 +105,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
       if (next(it) != end(p.m_path))
         ost << kSegmentSep;
     }
-    ost << endl;
+    ost << std::endl;
   }
 }
 

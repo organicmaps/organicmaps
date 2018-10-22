@@ -174,7 +174,7 @@ void SaveNonMatchedIds(std::string const & filename, std::vector<DecodedPath> co
   for (auto const & p : paths)
   {
     if (p.m_path.empty())
-      ofs << p.m_segmentId << endl;
+      ofs << p.m_segmentId << std::endl;
   }
 }
 

@@ -6,8 +6,8 @@
 #include "base/assert.hpp"
 
 #include <cstdint>
-#include <map>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -41,8 +41,15 @@ public:
     Count
   };
 
-  std::map<uint32_t, RoadAccess::Type> const & GetFeatureTypes() const { return m_featureTypes; }
-  std::map<RoadPoint, RoadAccess::Type> const & GetPointTypes() const { return m_pointTypes; }
+  std::unordered_map<uint32_t, RoadAccess::Type> const & GetFeatureTypes() const
+  {
+    return m_featureTypes;
+  }
+
+  std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> const & GetPointTypes() const
+  {
+    return m_pointTypes;
+  }
 
   Type GetFeatureType(uint32_t featureId) const;
   Type GetPointType(RoadPoint const & point) const;
@@ -70,8 +77,8 @@ private:
   // If segmentIdx of a key in this map is 0, it means the
   // entire feature has the corresponding access type.
   // Otherwise, the information is about the segment with number (segmentIdx-1).
-  std::map<uint32_t, RoadAccess::Type> m_featureTypes;
-  std::map<RoadPoint, RoadAccess::Type> m_pointTypes;
+  std::unordered_map<uint32_t, RoadAccess::Type> m_featureTypes;
+  std::unordered_map<RoadPoint, RoadAccess::Type, RoadPoint::Hash> m_pointTypes;
 };
 
 std::string ToString(RoadAccess::Type type);
