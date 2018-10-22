@@ -16,11 +16,12 @@ public class UgcRouteTagsActivity extends BaseToolbarActivity
   protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
     super.safeOnCreate(savedInstanceState);
-    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+    Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
     if (fragment == null)
-      getSupportFragmentManager().beginTransaction()
-                                 .add(R.id.fragment_container, new UgcRoutesFragment(), FRAGMENT_TAG)
-                                 .commit();
+      getSupportFragmentManager()
+          .beginTransaction()
+          .add(R.id.fragment_container, new UgcRoutesFragment(), FRAGMENT_TAG)
+          .commit();
   }
 
   @Override

@@ -88,7 +88,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     mRecycler.setItemAnimator(null);
     RecyclerView.ItemDecoration decor = ItemDecoratorFactory.createRatingRecordDecorator(
         getContext().getApplicationContext(),
-        DividerItemDecoration.VERTICAL);
+        DividerItemDecoration.VERTICAL, R.drawable.divider_transparent_half_plus_eight);
     mRecycler.addItemDecoration(decor);
   }
 

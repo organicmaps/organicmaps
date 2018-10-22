@@ -32,21 +32,26 @@ public class UgcRouteTagItemDecorator extends TagItemDecoration
     outRect.left = mCurrentOffset == 0 ? 0 : getDivider().getIntrinsicWidth() / 2;
     outRect.right = getDivider().getIntrinsicWidth() / 2;
     FlexboxLayoutManager flexboxLayoutManager = (FlexboxLayoutManager) parent.getLayoutManager();
-    List<FlexLine> flexLines = flexboxLayoutManager.getFlexLines();
-    if (flexLines == null || flexLines.isEmpty())
-    {
-      outRect.top = 0;
-      return;
-    }
-
-    FlexLine flexLine = flexLines.get(0);
-    int position = parent.getLayoutManager().getPosition(view);
-    int itemCount = flexLine.getItemCount();
-    if (position < itemCount)
+    boolean isFirstLine = isFirstLineItem(view, parent, flexboxLayoutManager);
+    if (isFirstLine)
       outRect.top = 0;
   }
 
-  private boolean hasSpaceFromRight(Rect outRect, View view, RecyclerView parent)
+  private static boolean isFirstLineItem(@NonNull View view, @NonNull RecyclerView parent,
+                                         @NonNull FlexboxLayoutManager layoutManager)
+  {
+    List<FlexLine> flexLines = layoutManager.getFlexLines();
+    if (flexLines == null || flexLines.isEmpty())
+      return true;
+
+    FlexLine flexLine = flexLines.iterator().next();
+    int position = parent.getLayoutManager().getPosition(view);
+    int itemCount = flexLine.getItemCount();
+    return position < itemCount;
+  }
+
+  private boolean hasSpaceFromRight(@NonNull Rect outRect, @NonNull View view,
+                                    @NonNull RecyclerView parent)
   {
     int padding = parent.getPaddingLeft() + parent.getRight();
     return mCurrentOffset + view.getWidth() + outRect.left < parent.getWidth() - padding;
