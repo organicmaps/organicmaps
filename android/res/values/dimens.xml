@@ -256,4 +256,5 @@
   <dimen name="ads_removal_dialog_min_height">508dp</dimen>
   <dimen name="ads_removal_pay_button_min_width">240dp</dimen>
   <dimen name="dot_size">6dp</dimen>
+  <dimen name="sharing_options_img_size">18dp</dimen>
 </resources>

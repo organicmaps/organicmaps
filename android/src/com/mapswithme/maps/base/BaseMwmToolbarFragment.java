@@ -21,4 +21,10 @@ public class BaseMwmToolbarFragment extends BaseMwmFragment
   {
     return new ToolbarController(root, getActivity());
   }
+
+  @NonNull
+  protected ToolbarController getToolbarController()
+  {
+    return mToolbarController;
+  }
 }

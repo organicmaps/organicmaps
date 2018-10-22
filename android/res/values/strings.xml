@@ -2370,4 +2370,13 @@
 	<string name="type.wheelchair.limited">wheelchair-limited</string>
 	<string name="type.wheelchair.no">wheelchair-no</string>
 	<string name="type.wheelchair.yes">wheelchair-yes</string>
+	<string name="public_access">Public access</string>
+	<string name="limited_access">Limited access</string>
+	<string name="upload_and_publish_desc">This list will be uploaded in the public  catalog at MAPS.ME as guide and will be easily shared with others</string>
+	<string name="upload_and_publish">Upload and publish</string>
+	<string name="upload_and_get_direct_link">Upload and get a direct link</string>
+	<string name="get_direct_link_desc">Anyone this the link will see your list</string>
+	<string name="upload_and_publish_progress_text">Publishing your guide…</string>
+	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;font color="#249cf2">&lt;a href="%1$s">license agreement&lt;/font>&lt;/a></string>
+	<string name="sharing_options">Sharing options</string>
 </resources>
