@@ -526,7 +526,6 @@ line|z13-[waterway=canal],
 node|z14-[natural=water],
 node|z14-[natural=bay],
 area|z14-[natural=water],
-area|z14-[natural=bay],
 node|z16-[natural=wetland],
 area|z16-[natural=wetland],
 {text:name;text-color: @water_label;}
@@ -547,14 +546,12 @@ node|z4-[place=sea]
 
 node|z14-15[natural=water],
 node|z14-15[natural=bay],
-area|z14-15[natural=water],
-area|z14-15[natural=bay]
+area|z14-15[natural=water]
 {font-size: 10;}
 node|z16-[natural=water],
 node|z16-[natural=bay],
 node|z16-[natural=wetland],
 area|z16-[natural=water],
-area|z16-[natural=bay],
 area|z16-[natural=wetland],
 {font-size: 11;}
 
