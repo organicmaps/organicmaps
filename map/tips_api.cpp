@@ -4,8 +4,10 @@
 
 #include "platform/platform.hpp"
 
+#include "base/logging.hpp"
 #include "base/timer.hpp"
 
+#include <sstream>
 #include <type_traits>
 #include <utility>
 
@@ -47,6 +49,13 @@ boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
   }
 
   auto const info = Eye::Instance().GetInfo();
+
+  CHECK(info, ("Eye info must be initialized"));
+  LOG(LINFO, ("Eye info ptr use count:", info.use_count(), "Info", *info, "Info::m_booking ref:",
+    &(info->m_booking), "Info::m_bookmarks ref:", &(info->m_bookmarks), "Info::m_discovery ref:",
+    &(info->m_discovery), "Info::m_layers ref:", &(info->m_layers), "Info::m_tips ref:",
+    &(info->m_tips)));
+
   auto const & tips = info->m_tips;
   auto constexpr totalTipsCount = static_cast<size_t>(Tip::Type::Count);
 
@@ -78,7 +87,22 @@ boost::optional<eye::Tip::Type> GetTipImpl(TipsApi::Duration showAnyTipPeriod,
     for (auto const & c : candidates)
     {
       if (c.second && conditions[ToIndex(c.first)](*info))
+      {
+        {
+          std::ostringstream os;
+          os << "Condition for tip " << DebugPrint(c.first)
+             << " returns true. Previously shown tips: [ ";
+          for (auto const & candidate : candidates)
+          {
+            if (!candidate.second)
+              os << DebugPrint(candidate.first) << " ";
+          }
+          os << "]";
+          LOG(LINFO, (os.str()));
+        }
+
         return c.first;
+      }
     }
   }
 
@@ -164,10 +188,12 @@ TipsApi::TipsApi(Delegate const & delegate)
     {
       for (auto const & layer : info.m_layers)
       {
-        if (layer.m_type == Layer::Type::PublicTransport &&
-            layer.m_lastTimeUsed.time_since_epoch().count() != 0)
+        if (layer.m_type == Layer::Type::PublicTransport)
         {
-          return false;
+          if (layer.m_lastTimeUsed.time_since_epoch().count() != 0)
+          {
+            return false;
+          }
         }
       }
 
