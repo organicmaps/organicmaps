@@ -37860,115 +37860,63 @@ cont {
 cont {
   name: "natural-bay"
   element {
-    scale: 10
-    area {
-      color: 8738
-      priority: -15880
-    }
-  }
-  element {
-    scale: 11
-    area {
-      color: 8738
-      priority: -15880
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 8738
-      priority: -15880
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 8738
-      priority: -15880
-    }
-  }
-  element {
     scale: 14
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 10
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
   element {
     scale: 15
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 10
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
   element {
     scale: 16
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 11
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
   element {
     scale: 17
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 11
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
   element {
     scale: 18
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 11
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
   element {
     scale: 19
-    area {
-      color: 8738
-      priority: -15880
-    }
     caption {
       primary {
         height: 11
         color: 19033
       }
-      priority: 15120
+      priority: 15000
     }
   }
 }
