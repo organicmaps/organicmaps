@@ -21,6 +21,7 @@ void MaxspeedCollector::Process(OsmElement const & p)
   auto const & tags = p.Tags();
   string maxspeedForward;
   string maxspeedBackward;
+  bool isReverse = false;
 
   for (auto const & t : tags)
   {
@@ -35,7 +36,17 @@ void MaxspeedCollector::Process(OsmElement const & p)
       maxspeedForward = t.value;
     else if (t.key == "maxspeed:backward")
       maxspeedBackward = t.value;
+    else if (t.key == "oneway")
+      isReverse = (t.value == "-1");
   }
+
+  // Note 1. isReverse == true means feature |p| has tag "oneway" with value "-1". Now (10.2018)
+  // no feature with a tag oneway==-1 and a tag maxspeed:forward/backward is found. But to
+  // be on the safe side the case is processed.
+  // Note 2. If oneway==-1 the order of points is changed while conversion to mwm. So it's
+  // necessary to swap forward and backward as well.
+  if (isReverse)
+    maxspeedForward.swap(maxspeedBackward);
 
   if (maxspeedForward.empty())
     return;
