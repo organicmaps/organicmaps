@@ -32,6 +32,7 @@
 #include "defines.hpp"
 
 #include <list>
+#include <limits>
 #include <memory>
 #include <vector>
 
@@ -62,6 +63,13 @@ public:
     m_helperFile[SEARCH_TOKENS] = make_unique<TmpFile>(fName + SEARCH_TOKENS_FILE_TAG);
   }
 
+  ~FeaturesCollector2()
+  {
+    // Check file size.
+    auto const unused = CheckedFilePosCast(m_datFile);
+    UNUSED_VALUE(unused);
+  }
+
   void Finish()
   {
     // write version information
@@ -90,7 +98,7 @@ public:
 
     // File Writer finalization function with appending to the main mwm file.
     auto const finalizeFn = [this](unique_ptr<TmpFile> w, string const & tag,
-                                   string const & postfix = string()) {
+        string const & postfix = string()) {
       w->Flush();
       m_writer.Write(w->GetName(), tag + postfix);
     };
@@ -129,7 +137,7 @@ public:
   uint32_t operator()(FeatureBuilder2 & fb)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
-                          [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
+    [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
 
     bool const isLine = fb.IsLine();
     bool const isArea = fb.IsArea();

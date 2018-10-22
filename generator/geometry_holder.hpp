@@ -14,6 +14,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <limits>
 #include <list>
 #include <vector>
 
@@ -163,7 +164,9 @@ private:
     Points toSave(points.begin() + 1, points.end());
 
     m_buffer.m_ptsMask |= (1 << i);
-    m_buffer.m_ptsOffset.push_back(feature::FeaturesCollector::GetFileSize(m_geoFileGetter(i)));
+    auto const pos = feature::CheckedFilePosCast(m_geoFileGetter(i));
+    m_buffer.m_ptsOffset.push_back(pos);
+
     serial::SaveOuterPath(toSave, cp, m_geoFileGetter(i));
   }
 
@@ -200,7 +203,8 @@ private:
 
     // saving to file
     m_buffer.m_trgMask |= (1 << i);
-    m_buffer.m_trgOffset.push_back(feature::FeaturesCollector::GetFileSize(m_trgFileGetter(i)));
+    auto const pos = feature::CheckedFilePosCast(m_trgFileGetter(i));
+    m_buffer.m_trgOffset.push_back(pos);
     saver.Save(m_trgFileGetter(i));
   }
 

@@ -15,10 +15,10 @@ public:
   bool Add(T const & key)
   {
     if (Contains(key))
-      return true;
+      return false;
 
     m_vec.push_back(key);
-    return false;
+    return true;
   }
 
   bool Contains(T const & key) const

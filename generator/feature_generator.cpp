@@ -26,27 +26,11 @@ namespace feature
 {
 
 FeaturesCollector::FeaturesCollector(std::string const & fName)
-  : m_datFile(fName)
-{
-  CHECK_EQUAL(GetFileSize(m_datFile), 0, ());
-}
+  : m_datFile(fName), m_writeBuffer(kBufferSize) {}
 
 FeaturesCollector::~FeaturesCollector()
 {
   FlushBuffer();
-  // Check file size
-  (void)GetFileSize(m_datFile);
-}
-
-// static
-uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
-{
-  // .dat file should be less than 4Gb
-  uint64_t const pos = f.Pos();
-  uint32_t const ret = static_cast<uint32_t>(pos);
-
-  CHECK_EQUAL(static_cast<uint64_t>(ret), pos, ("Feature offset is out of 32bit boundary!"));
-  return ret;
 }
 
 template <typename ValueT, size_t ValueSizeT = sizeof(ValueT) + 1>
@@ -68,7 +52,7 @@ pair<char[ValueSizeT], uint8_t> PackValue(ValueT v)
 
 void FeaturesCollector::FlushBuffer()
 {
-  m_datFile.Write(m_writeBuffer, m_writePosition);
+  m_datFile.Write(m_writeBuffer.data(), m_writePosition);
   m_writePosition = 0;
 }
 
@@ -82,9 +66,10 @@ void FeaturesCollector::Write(char const * src, size_t size)
 {
   do
   {
-    if (m_writePosition == sizeof(m_writeBuffer))
+    if (m_writePosition == kBufferSize)
       FlushBuffer();
-    size_t const part_size = min(size, sizeof(m_writeBuffer) - m_writePosition);
+
+    size_t const part_size = min(size, kBufferSize - m_writePosition);
     memcpy(&m_writeBuffer[m_writePosition], src, part_size);
     m_writePosition += part_size;
     size -= part_size;
@@ -116,10 +101,7 @@ uint32_t FeaturesCollector::operator()(FeatureBuilder1 const & fb)
 
 FeaturesAndRawGeometryCollector::FeaturesAndRawGeometryCollector(std::string const & featuresFileName,
                                                                  std::string const & rawGeometryFileName)
-  : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName)
-{
-  CHECK_EQUAL(GetFileSize(m_rawGeometryFileStream), 0, ());
-}
+  : FeaturesCollector(featuresFileName), m_rawGeometryFileStream(rawGeometryFileName) {}
 
 FeaturesAndRawGeometryCollector::~FeaturesAndRawGeometryCollector()
 {
@@ -147,5 +129,13 @@ uint32_t FeaturesAndRawGeometryCollector::operator()(FeatureBuilder1 const & fb)
                                   sizeof(FeatureBuilder1::PointSeq::value_type) * points.size());
   }
   return featureId;
+}
+
+uint32_t CheckedFilePosCast(FileWriter const & f)
+{
+  uint64_t pos = f.Pos();
+  CHECK_LESS_OR_EQUAL(pos, static_cast<uint64_t>(std::numeric_limits<uint32_t>::max()),
+                      ("Feature offset is out of 32bit boundary!"));
+  return static_cast<uint32_t>(pos);
 }
 }
