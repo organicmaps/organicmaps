@@ -84,8 +84,8 @@ set(
   com/mapswithme/platform/SecureStorage.cpp
   com/mapswithme/platform/SocketImpl.cpp
   com/mapswithme/util/Config.cpp
-  com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/util/HttpClient.cpp
+  com/mapswithme/util/HttpUploader.cpp
   com/mapswithme/util/Language.cpp
   com/mapswithme/util/LoggerFactory.cpp
   com/mapswithme/util/NetworkPolicy.cpp
