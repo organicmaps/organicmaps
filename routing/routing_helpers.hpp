@@ -21,7 +21,6 @@
 namespace routing
 {
 inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
-inline double MilesPH2KMPH(double mph) { return mph / 0.621371192237334; }
 
 template <typename Types>
 bool IsCarRoad(Types const & types)

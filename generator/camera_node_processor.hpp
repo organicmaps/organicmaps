@@ -19,7 +19,6 @@
 #include <memory>
 #include <set>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 // TODO (@gmoryes) move members of m_routingTagsProcessor to generator

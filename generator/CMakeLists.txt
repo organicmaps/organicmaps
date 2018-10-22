@@ -19,6 +19,8 @@ set(SRC
   camera_info_collector.hpp
   camera_node_processor.cpp
   camera_node_processor.hpp
+  category_to_speed.cpp
+  category_to_speed.hpp
   centers_table_builder.cpp
   centers_table_builder.hpp
   check_model.cpp

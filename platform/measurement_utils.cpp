@@ -52,6 +52,16 @@ bool FormatDistanceImpl(double m, string & res,
   return true;
 }
 
+double ToSpeedKmPH(double speed, measurement_utils::Units units)
+{
+  switch (units)
+  {
+  case Units::Imperial: return MphToKmph(speed);
+  case Units::Metric: return speed;
+  }
+  CHECK_SWITCH();
+}
+
 bool FormatDistance(double m, string & res)
 {
   auto units = Units::Metric;

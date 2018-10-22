@@ -3,6 +3,8 @@
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
 
+#include "base/math.hpp"
+
 #include "std/utility.hpp"
 
 using namespace measurement_utils;
@@ -190,4 +192,17 @@ UNIT_TEST(OSMDistanceToMetersString)
   TEST_EQUAL(OSMDistanceToMetersString("15.12345", false, 1), "15.1", ());
   TEST_EQUAL(OSMDistanceToMetersString("15.123", false, 4), "15.123", ());
   TEST_EQUAL(OSMDistanceToMetersString("15.654321", true, 1), "15.7", ());
+}
+
+UNIT_TEST(ConversionUnits)
+{
+  double const kEps = 0.00001;
+  TEST(base::AlmostEqualAbs(MilesToMeters(MetersToMiles(1000.0)), 1000.0, kEps), ());
+  TEST(base::AlmostEqualAbs(MilesToMeters(1.0), 1609.344, kEps), ());
+
+  TEST(base::AlmostEqualAbs(MphToKmph(KmphToMph(100.0)), 100.0, kEps), ());
+  TEST(base::AlmostEqualAbs(MphToKmph(100.0), 160.934, kEps), ());
+
+  TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Imperial), 160.934, kEps), ());
+  TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Metric), 100.0, kEps), ());
 }
