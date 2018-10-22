@@ -181,7 +181,6 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     CategoryAdapter categoryAdapter = new CategoryAdapter(groups);
     mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags, this);
     RecyclerCompositeAdapter compositeAdapter = makeCompositeAdapter(categoryAdapter, mTagsAdapter);
-    mRecycler.setItemAnimator(null);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
     mRecycler.setLayoutManager(layoutManager);
     mRecycler.setAdapter(compositeAdapter);
