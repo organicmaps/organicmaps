@@ -77,8 +77,8 @@ FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreetsImp
   if (!entry.second)
     return entry.first;
 
-  if (!feature.GetID().IsValid())
-    GetByIndex(featureId, feature);
+  if (!feature.GetID().IsValid() && !GetByIndex(featureId, feature))
+    return {};
 
   auto & streets = entry.first;
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
@@ -107,8 +107,8 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
     return entry.first;
 
   // Load feature if needed.
-  if (!houseFeature.GetID().IsValid())
-    GetByIndex(houseId, houseFeature);
+  if (!houseFeature.GetID().IsValid() && !GetByIndex(houseId, houseFeature))
+    return kInvalidId;
 
   // Get nearby streets and calculate the resulting index.
   auto const & streets = GetNearbyStreets(houseId, houseFeature);

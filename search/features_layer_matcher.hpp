@@ -9,6 +9,7 @@
 #include "search/point_rect_matcher.hpp"
 #include "search/projection_on_street.hpp"
 #include "search/reverse_geocoder.hpp"
+#include "search/stats_cache.hpp"
 #include "search/street_vicinity_loader.hpp"
 
 #include "indexer/feature.hpp"
@@ -120,8 +121,8 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       FeatureType poiFt;
-      GetByIndex(pois[i], poiFt);
-      poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
+      if (GetByIndex(pois[i], poiFt))
+        poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
     }
 
     vector<PointRectMatcher::RectIdPair> buildingRects;
@@ -129,7 +130,9 @@ private:
     for (size_t i = 0; i < buildings.size(); ++i)
     {
       FeatureType buildingFt;
-      GetByIndex(buildings[i], buildingFt);
+      if (!GetByIndex(buildings[i], buildingFt))
+        continue;
+
       if (buildingFt.GetFeatureType() == feature::GEOM_POINT)
       {
         auto const center = feature::GetCenter(buildingFt, FeatureType::WORST_GEOMETRY);
@@ -198,8 +201,8 @@ private:
     for (size_t i = 0; i < pois.size(); ++i)
     {
       FeatureType poiFt;
-      GetByIndex(pois[i], poiFt);
-      poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
+      if (GetByIndex(pois[i], poiFt))
+        poiCenters.emplace_back(feature::GetCenter(poiFt, FeatureType::WORST_GEOMETRY), i /* id */);
     }
 
     vector<PointRectMatcher::RectIdPair> streetRects;
@@ -211,7 +214,8 @@ private:
     for (size_t i = 0; i < streets.size(); ++i)
     {
       FeatureType streetFt;
-      GetByIndex(streets[i], streetFt);
+      if (!GetByIndex(streets[i], streetFt))
+        continue;
 
       streetFt.ParseGeometry(FeatureType::WORST_GEOMETRY);
 
@@ -295,10 +299,10 @@ private:
         return false;
 
       if (!loaded)
-      {
-        GetByIndex(id, feature);
-        loaded = true;
-      }
+        loaded = GetByIndex(id, feature);
+
+      if (!loaded)
+        return false;
 
       if (!child.m_hasDelayedFeatures)
         return false;
@@ -334,8 +338,8 @@ private:
         if (!cachingHouseNumberFilter(houseId, feature, loaded))
           continue;
 
-        if (!loaded)
-          GetByIndex(houseId, feature);
+        if (!loaded && !GetByIndex(houseId, feature))
+          continue;
 
         // Best geometry is used here as feature::GetCenter(feature)
         // actually modifies internal state of a |feature| by caching
@@ -368,17 +372,16 @@ private:
   TStreets const & GetNearbyStreets(uint32_t featureId, FeatureType & feature);
   TStreets const & GetNearbyStreetsImpl(uint32_t featureId, FeatureType & feature);
 
-  inline void GetByIndex(uint32_t id, FeatureType & ft) const
+  inline bool GetByIndex(uint32_t id, FeatureType & ft) const
   {
     /// @todo Add Cache for feature id -> (point, name / house number).
-    /// TODO(vng): GetFeature below can return false if feature was deleted by user in the Editor.
-    /// This code should be fixed to take that into an account.
-    /// Until we don't show "Delete" button to our users, this code will work correctly.
-    /// Correct fix would be injection into ForEachInIntervalAndScale, so deleted features will
-    /// never
-    /// be emitted and used in other code.
-    if (!m_context->GetFeature(id, ft))
-        LOG(LWARNING, ("GetFeature() returned false."));
+    if (m_context->GetFeature(id, ft))
+      return true;
+
+    // It may happen to features deleted by the editor. We do not get them from EditableDataSource
+    // but we still have ids of these features in the search index.
+    LOG(LWARNING, ("GetFeature() returned false.", id));
+    return false;
   }
 
   MwmContext * m_context;
