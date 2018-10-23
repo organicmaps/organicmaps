@@ -103,7 +103,7 @@ static NSInteger const kRutaxiIndex = 6;
 - (void)cellDidPressAction:(MWMSearchBannerCell *)cell
 {
   [[UIApplication sharedApplication] openURL:
-   [NSURL URLWithString:@"https://go.onelink.me/757212956/a81b5d7c"]];
+   [NSURL URLWithString:@"https://go.onelink.me/2944814706/86db6339"]];
 }
 
 - (void)cellDidPressClose:(MWMSearchBannerCell *)cell

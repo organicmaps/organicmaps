@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_vezet_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="ic_rutaxi_light" translatesAutoresizingMaskIntoConstraints="NO" id="a9s-eh-L10" userLabel="Icon">
                         <rect key="frame" x="16" y="8" width="28" height="28"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="UkL-Ob-9dH"/>
@@ -113,11 +113,14 @@
                 </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="taxiImageView" destination="a9s-eh-L10" id="Lga-SX-Sev"/>
+            </connections>
             <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="ic_ad_close" width="8" height="8"/>
-        <image name="ic_vezet_light" width="28" height="28"/>
+        <image name="ic_rutaxi_light" width="40" height="40"/>
     </resources>
 </document>

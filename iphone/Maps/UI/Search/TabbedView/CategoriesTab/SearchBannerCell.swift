@@ -7,8 +7,14 @@ protocol SearchBannerCellDelegate: AnyObject {
 @objc(MWMSearchBannerCell)
 class SearchBannerCell: MWMTableViewCell {
 
+  @IBOutlet var taxiImageView: UIImageView!
   @objc weak var delegate: SearchBannerCellDelegate?
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    taxiImageView.mwm_name = "ic_rutaxi"
+  }
+  
   @IBAction private func onInstall(_ sender: UIButton) {
     delegate?.cellDidPressAction(self)
   }
