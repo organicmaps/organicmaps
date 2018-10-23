@@ -377,6 +377,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                      item.getLat(), item.getLon());
   }
 
+  @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {

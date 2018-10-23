@@ -173,6 +173,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     super.onStop();
   }
 
+  @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {

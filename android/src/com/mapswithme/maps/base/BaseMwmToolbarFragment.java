@@ -9,6 +9,8 @@ import com.mapswithme.maps.widget.ToolbarController;
 
 public class BaseMwmToolbarFragment extends BaseMwmFragment
 {
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private ToolbarController mToolbarController;
 
   @Override
@@ -17,13 +19,14 @@ public class BaseMwmToolbarFragment extends BaseMwmFragment
     mToolbarController = onCreateToolbarController(view);
   }
 
+  @NonNull
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
     return new ToolbarController(root, getActivity());
   }
 
   @NonNull
-  public ToolbarController getToolbarController()
+  protected ToolbarController getToolbarController()
   {
     return mToolbarController;
   }

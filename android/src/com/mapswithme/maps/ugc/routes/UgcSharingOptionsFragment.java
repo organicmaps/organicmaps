@@ -8,26 +8,35 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.mapswithme.maps.DisabledBrowserMovementMethod;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 
 public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
 {
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
 
+  @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new ToolbarController(root);
+    return new ToolbarController(root, getActivity())
+    {
+      @Override
+      public void onUpClick()
+      {
+        getActivity().finish();
+      }
+    };
   }
 
   @Nullable
@@ -40,10 +49,9 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
     TextView licenceAgreementText = root.findViewById(R.id.license_agreement_message);
 
     String src = getResources().getString(R.string.ugc_routes_user_agreement,
-                                          /* FIXME */
                                           Framework.nativeGetPrivacyPolicyLink());
     Spanned spanned = Html.fromHtml(src);
-    licenceAgreementText.setMovementMethod(DisabledBrowserMovementMethod.getInstance());
+    licenceAgreementText.setMovementMethod(LinkMovementMethod.getInstance());
     licenceAgreementText.setText(spanned);
     return root;
   }
@@ -71,10 +79,10 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
       return;
     }
 
-    if (hasAuthToken())
+    if (isAuthorized())
       openTagsScreen();
     else
-      requestAuth();
+      authorize();
   }
 
   private void showNoNetworkConnectionDialog()
@@ -96,19 +104,9 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
     return !ConnectionState.isConnected();
   }
 
-  private void requestAuth()
-  {
-    getAuthorizer().authorize();
-  }
-
   private void openTagsScreen()
   {
 
-  }
-
-  private boolean hasAuthToken()
-  {
-    return getAuthorizer().isAuthorized();
   }
 
   private void onGetDirectLinkClicked()
@@ -120,7 +118,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    /*FIXME*/
     if (requestCode == 1 && resultCode == Activity.RESULT_OK)
       requestPublishing(data);
   }
@@ -152,19 +149,5 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
 
-  }
-
-  private class ToolbarController extends com.mapswithme.maps.widget.ToolbarController
-  {
-    public ToolbarController(View root)
-    {
-      super(root, UgcSharingOptionsFragment.this.getActivity());
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      getActivity().finish();
-    }
   }
 }

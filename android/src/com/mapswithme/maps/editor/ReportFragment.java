@@ -2,6 +2,7 @@ package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   }
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.editor_report_problem_title);

@@ -90,6 +90,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
                                     });
   }
 
+  @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {

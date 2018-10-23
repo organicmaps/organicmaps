@@ -150,6 +150,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
     return mIsNewObject ? R.string.editor_add_place_title : R.string.editor_edit_place_title;
   }
 
+  @NonNull
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
