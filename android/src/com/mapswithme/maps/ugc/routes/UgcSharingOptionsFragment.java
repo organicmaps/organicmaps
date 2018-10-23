@@ -25,17 +25,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
 {
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Authorizer mAuthorizer;
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState)
-  {
-    super.onCreate(savedInstanceState);
-    mAuthorizer = new Authorizer(this);
-  }
-
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
@@ -67,26 +56,12 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
     getToolbarController().setTitle(R.string.sharing_options);
   }
 
-  private void initClickListeners(View root)
+  private void initClickListeners(@NonNull View root)
   {
     View getDirectLinkView = root.findViewById(R.id.get_direct_link_text);
     getDirectLinkView.setOnClickListener(directLinkListener -> onGetDirectLinkClicked());
     View uploadAndPublishView = root.findViewById(R.id.upload_and_publish_text);
     uploadAndPublishView.setOnClickListener(uploadListener -> onUploadAndPublishBtnClicked());
-  }
-
-  @Override
-  public void onStart()
-  {
-    super.onStart();
-    mAuthorizer.attach(this);
-  }
-
-  @Override
-  public void onStop()
-  {
-    super.onStop();
-    mAuthorizer.detach();
   }
 
   private void onUploadAndPublishBtnClicked()
@@ -124,7 +99,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
 
   private void requestAuth()
   {
-    mAuthorizer.authorize();
+    getAuthorizer().authorize();
   }
 
   private void openTagsScreen()
@@ -134,7 +109,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
 
   private boolean hasAuthToken()
   {
-    return mAuthorizer.isAuthorized();
+    return getAuthorizer().isAuthorized();
   }
 
   private void onGetDirectLinkClicked()

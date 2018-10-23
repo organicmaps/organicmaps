@@ -9,7 +9,6 @@
   <TextView
     android:text="@string/upload_and_publish_progress_text"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:background="?selectableItemBackground"
     android:textAllCaps="true"
     android:minHeight="@dimen/height_block_base"
     android:gravity="center_vertical"
@@ -23,4 +22,3 @@
     android:layout_width="@dimen/margin_base_plus"
     android:layout_height="@dimen/margin_base_plus"/>
 </LinearLayout>
-
