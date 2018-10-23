@@ -64,7 +64,7 @@ public:
   void SaveIndex() { m_speedCameraNodeToWays.WriteAll(); }
 
 private:
-  /// \brief Gets text with speed, returns formated speed string in kmh.
+  /// \brief Gets text with speed, returns formatted speed string in kmh.
   /// \param maxSpeedString - text with speed. Possible format:
   ///                         "130" - means 130 kmh.
   ///                         "130 mph" - means 130 mph.

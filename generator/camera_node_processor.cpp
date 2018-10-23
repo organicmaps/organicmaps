@@ -114,10 +114,15 @@ void CameraNodeIntermediateDataProcessor::ProcessWay(uint64_t id, WayElement con
 
 std::string CameraNodeIntermediateDataProcessor::ValidateMaxSpeedString(std::string const & maxSpeedString)
 {
-  double speed = 0.0;
+  uint16_t speed = 0;
   measurement_utils::Units units = measurement_utils::Units::Metric;
   if (RoadCategoryToSpeed(maxSpeedString, speed, units))
-    return strings::to_string(static_cast<int32_t>(measurement_utils::ToSpeedKmPH(speed, units)));
+  {
+    if (speed == kNoneMaxSpeed)
+      return string(); // Speed cam with no restriction on speed.
+    else
+      return strings::to_string(static_cast<int32_t>(measurement_utils::ToSpeedKmPH(speed, units)));
+  }
 
   // strings::to_int doesn't work here because of bad errno.
   std::string result;
