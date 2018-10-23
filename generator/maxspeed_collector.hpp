@@ -2,8 +2,8 @@
 
 #include "generator/osm_element.hpp"
 
-#include <list>
 #include <string>
+#include <vector>
 
 namespace feature
 {
@@ -36,7 +36,7 @@ private:
   // Note. Saying osm id means osm id of features with OsmElement::EntityType::Way type without
   // any prefixes. It's done so to simplify the debugging process. This way it's very easy knowing
   // osm id to see the feature on the web.
-  std::list<std::string> m_data;
+  std::vector<std::string> m_data;
   std::string m_filePath;
 };
 }  // namespace feature

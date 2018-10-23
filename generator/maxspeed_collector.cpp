@@ -42,7 +42,7 @@ void MaxspeedCollector::Process(OsmElement const & p)
 
   // Note 1. isReverse == true means feature |p| has tag "oneway" with value "-1". Now (10.2018)
   // no feature with a tag oneway==-1 and a tag maxspeed:forward/backward is found. But to
-  // be on the safe side the case is processed.
+  // be on the safe side this case is handled.
   // Note 2. If oneway==-1 the order of points is changed while conversion to mwm. So it's
   // necessary to swap forward and backward as well.
   if (isReverse)
@@ -63,7 +63,7 @@ void MaxspeedCollector::Flush()
   LOG(LINFO, ("Saving maxspeed tag values to", m_filePath));
   ofstream stream(m_filePath);
 
-  if (!stream.is_open())
+  if (!stream)
   {
     LOG(LERROR, ("Cannot open file", m_filePath));
     return;

@@ -7,6 +7,6 @@ namespace generator
 bool BuildMaxspeed(std::string const & dataPath, std::string const & osmToFeaturePath,
                    std::string const & maxspeedFilename)
 {
-  return true;
+  return false;
 }
 }  // namespace generator

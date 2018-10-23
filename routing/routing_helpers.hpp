@@ -89,4 +89,4 @@ bool CheckGraphConnectivity(typename Graph::Vertex const & start, size_t limit, 
 
   return marked.size() >= limit;
 }
-}  // namespace rouing
+}  // namespace routing

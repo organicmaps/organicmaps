@@ -10,8 +10,8 @@ struct Speed
 {
   Speed() = delete;
 
-  uint16_t m_speed;
-  Units m_units;
+  uint16_t m_speed = 0;
+  Units m_units = Units::Metric;
 };
 
 std::unordered_map<std::string, Speed> const kRoadCategoryToSpeedKMpH = {
