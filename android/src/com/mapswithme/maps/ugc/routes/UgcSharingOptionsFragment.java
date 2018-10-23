@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.DisabledBrowserMovementMethod;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.util.ConnectionState;
@@ -36,7 +35,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.ugc_routes_sharing_options_frag, container, false);
+    View root = inflater.inflate(R.layout.fragment_ugc_routes_sharing_options, container, false);
     initClickListeners(root);
     TextView licenceAgreementText = root.findViewById(R.id.license_agreement_message);
 
