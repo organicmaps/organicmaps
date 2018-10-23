@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:mapsme="http://schemas.android.com/apk/res-auto"
+  android:background="?cardBackground"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_centerHorizontal="true"
+  android:gravity="center_horizontal"
+  android:paddingTop="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base">
+  <ImageView
+    android:id="@+id/close_btn"
+    android:minHeight="@dimen/margin_base_plus"
+    android:minWidth="@dimen/margin_base_plus"
+    android:src="@drawable/ic_clear"
+    android:tint="?iconTint"
+    android:layout_gravity="end"
+    android:background="?selectableItemBackgroundBorderless"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+  <com.mapswithme.maps.widget.PlaceholderView
+    android:id="@+id/placeholder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_weight="1"
+    mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
+    mapsme:titleDefault="@string/ugc_route_send_link_placeholder_title"
+    mapsme:subTitleDefault="@string/ugc_route_send_link_placeholder_subtitle"/>
+  <Button
+    android:id="@+id/send_me_link_btn"
+    android:layout_width="@dimen/button_width"
+    android:layout_height="wrap_content"
+    style="@style/MwmWidget.Button.Accent"
+    android:layout_weight="0"
+    android:layout_marginTop="@dimen/margin_base_plus"
+    android:text="@string/send_me_a_link"
+    android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
+</LinearLayout>

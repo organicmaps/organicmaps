@@ -448,6 +448,7 @@
     </activity>
     <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"/>
     <activity android:name=".purchase.BookmarkPaymentActivity"/>
+    <activity android:name="com.mapswithme.maps.ugc.route.SendLinkPlaceholderActivity"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"
