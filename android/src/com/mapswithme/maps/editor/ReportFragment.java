@@ -35,9 +35,9 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle(R.string.editor_report_problem_title);
+    getToolbarController().setTitle(R.string.editor_report_problem_title);
 
-    mSave = mToolbarController.findViewById(R.id.save);
+    mSave = getToolbarController().findViewById(R.id.save);
     mSave.setOnClickListener(this);
     mSimpleProblems = view.findViewById(R.id.ll__problems);
     mSimpleProblems.findViewById(R.id.problem_not_exist).setOnClickListener(this);
@@ -58,13 +58,13 @@ public class ReportFragment extends BaseMwmToolbarFragment implements View.OnCli
   private void send(String text)
   {
     Editor.nativeCreateNote(text);
-    mToolbarController.onUpClick();
+    getToolbarController().onUpClick();
   }
 
   private void sendNotExist()
   {
     Editor.nativePlaceDoesNotExist("");
-    mToolbarController.onUpClick();
+    getToolbarController().onUpClick();
   }
 
   @Override

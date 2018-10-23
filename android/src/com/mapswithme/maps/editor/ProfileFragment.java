@@ -10,12 +10,10 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
@@ -84,7 +82,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle(R.string.profile);
+    getToolbarController().setTitle(R.string.profile);
     initViews(view);
     refreshViews();
     OsmOAuth.setUserStatsListener(this);
@@ -93,7 +91,7 @@ public class ProfileFragment extends AuthFragment implements View.OnClickListene
 
   private void initViews(View view)
   {
-    mMore = mToolbarController.findViewById(R.id.more);
+    mMore = getToolbarController().findViewById(R.id.more);
     mMore.setOnClickListener(this);
     View editsBlock = view.findViewById(R.id.block_edits);
     UiUtils.show(editsBlock);

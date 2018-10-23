@@ -76,8 +76,8 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    mToolbarController.setTitle(getArguments().getString(ARG_TITLE));
-    View submitButton = mToolbarController.findViewById(R.id.submit);
+    getToolbarController().setTitle(getArguments().getString(ARG_TITLE));
+    View submitButton = getToolbarController().findViewById(R.id.submit);
     submitButton.setOnClickListener(v ->
                                     {
                                       onSubmitButtonClick();

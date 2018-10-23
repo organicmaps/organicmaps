@@ -127,8 +127,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mToolbarController.findViewById(R.id.save).setOnClickListener(this);
-    mToolbarController.getToolbar().setNavigationOnClickListener(new View.OnClickListener()
+    getToolbarController().findViewById(R.id.save).setOnClickListener(this);
+    getToolbarController().getToolbar().setNavigationOnClickListener(new View.OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -139,7 +139,7 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
 
     if (getArguments() != null)
       mIsNewObject = getArguments().getBoolean(EditorActivity.EXTRA_NEW_OBJECT, false);
-    mToolbarController.setTitle(getTitle());
+    getToolbarController().setTitle(getTitle());
 
     fillNames(true /* addFakes */);
   }
@@ -190,9 +190,9 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
   protected void editMapObject(boolean focusToLastName)
   {
     mMode = Mode.MAP_OBJECT;
-    ((SearchToolbarController) mToolbarController).showControls(false);
-    mToolbarController.setTitle(getTitle());
-    UiUtils.show(mToolbarController.findViewById(R.id.save));
+    ((SearchToolbarController) getToolbarController()).showControls(false);
+    getToolbarController().setTitle(getTitle());
+    UiUtils.show(getToolbarController().findViewById(R.id.save));
     Bundle args = new Bundle();
     if (focusToLastName)
       args.putInt(EditorFragment.LAST_INDEX_OF_NAMES_ARRAY, sNames.size() - 1);
@@ -235,8 +235,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
       return;
 
     mMode = newMode;
-    mToolbarController.setTitle(toolbarTitle);
-    ((SearchToolbarController) mToolbarController).showControls(showSearch);
+    getToolbarController().setTitle(toolbarTitle);
+    ((SearchToolbarController) getToolbarController()).showControls(showSearch);
     final Fragment fragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), args);
     getChildFragmentManager().beginTransaction()
                              .replace(R.id.fragment_container, fragment, fragmentClass.getName())

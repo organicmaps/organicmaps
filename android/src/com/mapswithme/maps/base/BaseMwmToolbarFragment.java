@@ -9,7 +9,7 @@ import com.mapswithme.maps.widget.ToolbarController;
 
 public class BaseMwmToolbarFragment extends BaseMwmFragment
 {
-  protected ToolbarController mToolbarController;
+  private ToolbarController mToolbarController;
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -23,7 +23,7 @@ public class BaseMwmToolbarFragment extends BaseMwmFragment
   }
 
   @NonNull
-  protected ToolbarController getToolbarController()
+  public ToolbarController getToolbarController()
   {
     return mToolbarController;
   }
