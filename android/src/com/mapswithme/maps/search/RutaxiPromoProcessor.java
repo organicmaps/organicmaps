@@ -18,7 +18,6 @@ public class RutaxiPromoProcessor implements PromoCategoryProcessor
   @Override
   public void process()
   {
-    // TODO: add app launch when product decision about input params for vezet app is ready.
-    Utils.openUrl(mContext, "https://go.onelink.me/757212956/a81b5d7c");
+    Utils.openUrl(mContext, "https://go.onelink.me/2944814706/86db6339");
   }
 }
