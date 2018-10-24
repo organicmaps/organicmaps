@@ -119,13 +119,13 @@ std::unordered_map<std::string, Speed> const kRoadCategoryToSpeed = {
     {"SE:trunk", {90, Units::Metric}},
     {"SE:motorway", {110, Units::Metric}},
 
-    {"GB:motorway", {70, Units::Imperial}},  // 70 mph = 112.65408 kmph
-    {"GB:nsl_dual", {70, Units::Imperial}},  // 70 mph = 112.65408 kmph
-    {"GB:nsl_single", {60, Units::Imperial}},   // 60 mph = 96.56064 kmph
+    {"GB:motorway", {70, Units::Imperial}},   // 70 mph = 112.65408 kmph
+    {"GB:nsl_dual", {70, Units::Imperial}},   // 70 mph = 112.65408 kmph
+    {"GB:nsl_single", {60, Units::Imperial}}, // 60 mph = 96.56064 kmph
 
-    {"UK:motorway", {70, Units::Imperial}},  // 70 mph
-    {"UK:nsl_dual", {70, Units::Imperial}},  // 70 mph
-    {"UK:nsl_single", {60, Units::Imperial}},   // 60 mph
+    {"UK:motorway", {70, Units::Imperial}},   // 70 mph
+    {"UK:nsl_dual", {70, Units::Imperial}},   // 70 mph
+    {"UK:nsl_single", {60, Units::Imperial}}, // 60 mph
 
     {"UA:urban", {50, Units::Metric}},
     {"UA:rural", {90, Units::Metric}},

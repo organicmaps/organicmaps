@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/camera_info_collector.hpp"
+#include "generator/category_to_speed.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
@@ -16,6 +17,7 @@
 #include "indexer/map_style_reader.hpp"
 
 #include "platform/local_country_file.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
@@ -42,6 +44,7 @@
 
 using namespace feature;
 using namespace generator;
+using namespace measurement_utils;
 using namespace platform::tests_support;
 using namespace platform;
 using namespace routing;
@@ -451,5 +454,21 @@ UNIT_TEST(SpeedCameraGenerationTest_CameraIsNearFeature_2)
     {SegmentCoord(0, 0), std::vector<RouteSegment::SpeedCamera>{{0.2289881, 100}}}
   };
   TestSpeedCameraSectionBuilding(osmContent, answer);
+}
+
+UNIT_TEST(RoadCategoryToSpeedTest)
+{
+  uint16_t speed = 0;
+  Units units = Units::Metric;
+
+  TEST(RoadCategoryToSpeed("RU:rural", speed, units), ());
+  TEST_EQUAL(speed, 90, ());
+  TEST_EQUAL(units, Units::Metric, ());
+
+  TEST(RoadCategoryToSpeed("UK:motorway", speed, units), ());
+  TEST_EQUAL(speed, 70, ());
+  TEST_EQUAL(units, Units::Imperial, ());
+
+  TEST(!RoadCategoryToSpeed("UNKNOWN:unknown", speed, units), ());
 }
 }  // namespace
