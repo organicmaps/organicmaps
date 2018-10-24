@@ -458,17 +458,73 @@ UNIT_TEST(SpeedCameraGenerationTest_CameraIsNearFeature_2)
 
 UNIT_TEST(RoadCategoryToSpeedTest)
 {
-  uint16_t speed = 0;
-  Units units = Units::Metric;
+  SpeedInUnits speed;
 
-  TEST(RoadCategoryToSpeed("RU:rural", speed, units), ());
-  TEST_EQUAL(speed, 90, ());
-  TEST_EQUAL(units, Units::Metric, ());
+  TEST(RoadCategoryToSpeed("RU:rural", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+  TEST(speed.IsNumeric(), ());
 
-  TEST(RoadCategoryToSpeed("UK:motorway", speed, units), ());
-  TEST_EQUAL(speed, 70, ());
-  TEST_EQUAL(units, Units::Imperial, ());
+  TEST(RoadCategoryToSpeed("DE:motorway", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(kNoneMaxSpeed, Units::Metric), ());
+  TEST(!speed.IsNumeric(), ());
 
-  TEST(!RoadCategoryToSpeed("UNKNOWN:unknown", speed, units), ());
+  TEST(RoadCategoryToSpeed("UK:motorway", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(70, Units::Imperial), ());
+  TEST(speed.IsNumeric(), ());
+
+  TEST(!RoadCategoryToSpeed("UNKNOWN:unknown", speed), ());
+}
+
+UNIT_TEST(MaxspeedValueToSpeedTest)
+{
+  SpeedInUnits speed;
+
+  TEST(MaxspeedValueToSpeed("RU:rural", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("90", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("90      ", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("60kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("60 kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("60     kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("60     kmh and some other string", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(MaxspeedValueToSpeed("75mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75 mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75     mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75     mph and some other string", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75 mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75     mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(MaxspeedValueToSpeed("75     mph and some other string", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(!MaxspeedValueToSpeed("some other string", speed), ());
+  TEST(!MaxspeedValueToSpeed("60 kmph", speed), ());
 }
 }  // namespace

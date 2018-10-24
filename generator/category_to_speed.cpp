@@ -1,21 +1,18 @@
 #include "generator/category_to_speed.hpp"
 
+#include "base/string_utils.hpp"
+
+#include <cctype>
+#include <sstream>
 #include <unordered_map>
 
 namespace
 {
 using namespace generator;
 using namespace measurement_utils;
+using namespace std;
 
-struct Speed
-{
-  Speed() = delete;
-
-  uint16_t m_speed = 0;
-  Units m_units = Units::Metric;
-};
-
-std::unordered_map<std::string, Speed> const kRoadCategoryToSpeed = {
+unordered_map<string, SpeedInUnits> const kRoadCategoryToSpeed = {
     {"AR:urban", {40, Units::Metric}},
     {"AR:urban:primary", {60, Units::Metric}},
     {"AR:urban:secondary", {60, Units::Metric}},
@@ -140,15 +137,80 @@ std::unordered_map<std::string, Speed> const kRoadCategoryToSpeed = {
 
 namespace generator
 {
-bool RoadCategoryToSpeed(std::string const & category, uint16_t & speed,
-                         measurement_utils::Units & units)
+bool RoadCategoryToSpeed(string const & category, SpeedInUnits & speed)
 {
   auto const it = kRoadCategoryToSpeed.find(category);
   if (it == kRoadCategoryToSpeed.cend())
     return false;
 
-  speed = it->second.m_speed;
-  units = it->second.m_units;
+  speed = it->second;
   return true;
+}
+
+bool MaxspeedValueToSpeed(string const & maxspeedValue, SpeedInUnits & speed)
+{
+  if (RoadCategoryToSpeed(maxspeedValue, speed))
+    return true;
+
+  if (maxspeedValue == "none")
+  {
+    speed.m_speed = kNoneMaxSpeed;
+    speed.m_units = Units::Metric; // It's dummy value in case of kNoneMaxSpeed
+    return true;
+  }
+
+  if (maxspeedValue == "walk")
+  {
+    speed.m_speed = kWalkMaxSpeed;
+    speed.m_units = Units::Metric; // It's dummy value in case of kWalkMaxSpeed
+    return true;
+  }
+
+  // strings::to_int doesn't work here because of bad errno.
+  string speedStr;
+  size_t i;
+  for (i = 0; i < maxspeedValue.size(); ++i)
+  {
+    if (!isdigit(maxspeedValue[i]))
+      break;
+
+    speedStr += maxspeedValue[i];
+  }
+
+  while (i < maxspeedValue.size() && isspace(maxspeedValue[i]))
+    ++i;
+
+  if (maxspeedValue.size() == i ||
+      strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "kmh"))
+  {
+    int32_t kmph = 0;
+    if (!strings::to_int(speedStr.c_str(), kmph) || kmph == 0)
+      return false;
+
+    speed.m_speed = static_cast<uint16_t>(kmph);
+    speed.m_units = Units::Metric;
+    return true;
+  }
+
+  if (strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "mph"))
+  {
+    int32_t mph = 0;
+    if (!strings::to_int(speedStr.c_str(), mph) || mph == 0)
+      return false;
+
+    speed.m_speed = static_cast<uint16_t>(mph);
+    speed.m_units = Units::Imperial;
+    return true;
+  }
+
+  return false;
+}
+
+string DebugPrint(SpeedInUnits const & speed)
+{
+  ostringstream oss;
+  oss << "SpeedInUnits [ m_speed == " << speed.m_speed
+      << ", m_units == " << DebugPrint(speed.m_units) << " ]";
+  return oss.str();
 }
 }  // generator

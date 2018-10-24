@@ -7,6 +7,7 @@
 #include "base/assert.hpp"
 #include "base/control_flow.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <array>
 
@@ -17,7 +18,6 @@ size_t const CameraNodeIntermediateDataProcessor::kMaxSpeedSpeedStringLength = 3
 
 namespace routing
 {
-
 void CameraNodeProcessor::Open(std::string const & writerFile, std::string const & readerFile,
                                std::string const & speedFile)
 {
@@ -114,44 +114,18 @@ void CameraNodeIntermediateDataProcessor::ProcessWay(uint64_t id, WayElement con
 
 std::string CameraNodeIntermediateDataProcessor::ValidateMaxSpeedString(std::string const & maxSpeedString)
 {
-  uint16_t speed = 0;
-  measurement_utils::Units units = measurement_utils::Units::Metric;
-  if (RoadCategoryToSpeed(maxSpeedString, speed, units))
+  SpeedInUnits speed;
+  if (!MaxspeedValueToSpeed(maxSpeedString, speed) || !speed.IsNumeric())
+    return std::string();
+
+  switch (speed.m_units)
   {
-    if (speed == kNoneMaxSpeed)
-      return string(); // Speed cam with no restriction on speed.
-    else
-      return strings::to_string(static_cast<int32_t>(measurement_utils::ToSpeedKmPH(speed, units)));
+  case measurement_utils::Units::Metric: return strings::to_string(speed.m_speed);
+  case measurement_utils::Units::Imperial:
+    return strings::to_string(measurement_utils::MphToKmph(speed.m_speed));
   }
-
-  // strings::to_int doesn't work here because of bad errno.
-  std::string result;
-  size_t i;
-  for (i = 0; i < maxSpeedString.size(); ++i)
-  {
-    if (!isdigit(maxSpeedString[i]))
-      break;
-
-    result += maxSpeedString[i];
-  }
-
-  while (i < maxSpeedString.size() && isspace(maxSpeedString[i]))
-    ++i;
-
-  if (strings::StartsWith(string(maxSpeedString.begin() + i, maxSpeedString.end()), "kmh"))
-    return result;
-
-  if (strings::StartsWith(string(maxSpeedString.begin() + i, maxSpeedString.end()), "mph"))
-  {
-    int32_t mph = 0;
-    if (!strings::to_int(result.c_str(), mph))
-      return string();
-
-    auto const kmh = static_cast<int32_t>(measurement_utils::MphToKmph(mph));
-    return strings::to_string(kmh);
-  }
-
-  return result;
+  CHECK_SWITCH();
+  return std::string();
 }
 
 void CameraNodeIntermediateDataProcessor::ProcessNode(OsmElement & em)
