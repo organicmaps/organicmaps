@@ -198,8 +198,6 @@ std::vector<uint8_t> SerializeForServer(std::list<local_ads::Event> const & even
   ASSERT(!events.empty(), ());
   auto root = base::NewJSONObject();
   ToJSONObject(*root, "userId", userId);
-  static std::string offlineId = GetPlatform().MacAddress(true /* md5Decoded */);
-  ToJSONObject(*root, "offlineId", offlineId);
   ToJSONObject(*root, "countryId", events.front().m_countryId);
   ToJSONObject(*root, "mwmVersion", events.front().m_mwmVersion);
   auto eventsNode = base::NewJSONArray();

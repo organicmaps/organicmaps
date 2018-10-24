@@ -104,6 +104,8 @@ private:
 
   void Start();
 
+  void InvalidateImpl();
+
   void ProcessRequests(std::set<Request> && campaignMwms);
 
   void ReadCampaignFile(std::string const & campaignFile);

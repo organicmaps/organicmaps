@@ -52,10 +52,11 @@ auto constexpr kMaxDownloadingAttempts = 5;
 
 auto constexpr kHiddenFeaturePriority = 1;
 
-double constexpr kMinCheckDistanceInMeters = 10.0;
+auto constexpr kMinCheckInterval = std::chrono::minutes(1);
+double constexpr kMinCheckDistanceInMeters = 5.0;
 double constexpr kMinSearchRadiusInMeters = 20.0;
+double constexpr kMaxAllowableAccuracyInMeters = 20.0;
 uint32_t constexpr kMaxHitCount = 3;
-auto const kMinCheckInterval = std::chrono::minutes(1);
 
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
@@ -270,7 +271,7 @@ void LocalAdsManager::Start()
 
     // Read persistence data.
     ReadCampaignFile(campaignFile);
-    Invalidate();
+    InvalidateImpl();
   });
 
   m_statistics.Startup();
@@ -588,24 +589,30 @@ void LocalAdsManager::WriteFeaturesFile(std::string const & featuresFile)
 
 void LocalAdsManager::Invalidate()
 {
+  m_lastMwms.clear();
   GetPlatform().RunTask(Platform::Thread::File, [this]
   {
-    DeleteAllLocalAdsMarks();
-    m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
-
-    CampaignData campaignData;
-    {
-      std::lock_guard<std::mutex> lock(m_campaignsMutex);
-      for (auto const & info : m_info)
-      {
-        auto data = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
-                                  info.second.m_created, m_getFeatureByIdFn);
-        campaignData.insert(data.begin(), data.end());
-      }
-    }
-    UpdateFeaturesCache(ReadCampaignFeatures(campaignData));
-    CreateLocalAdsMarks(std::move(campaignData));
+    InvalidateImpl();
   });
+}
+
+void LocalAdsManager::InvalidateImpl()
+{
+  DeleteAllLocalAdsMarks();
+  m_drapeEngine.SafeCall(&df::DrapeEngine::RemoveAllCustomFeatures);
+
+  CampaignData campaignData;
+  {
+    std::lock_guard<std::mutex> lock(m_campaignsMutex);
+    for (auto const & info : m_info)
+    {
+      auto data = ParseCampaign(info.second.m_data, m_getMwmIdByNameFn(info.first),
+                                info.second.m_created, m_getFeatureByIdFn);
+      campaignData.insert(data.begin(), data.end());
+    }
+  }
+  UpdateFeaturesCache(ReadCampaignFeatures(campaignData));
+  CreateLocalAdsMarks(std::move(campaignData));
 }
 
 LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t> const & rawData,
@@ -652,12 +659,12 @@ LocalAdsManager::CampaignData LocalAdsManager::ParseCampaign(std::vector<uint8_t
 
 void LocalAdsManager::CreateLocalAdsMarks(CampaignData && campaignData)
 {
-  if (m_bmManager == nullptr)
-    return;
-
   // Here we copy campaign data, because we can create user marks only from UI thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [this, campaignData = std::move(campaignData)]()
   {
+    if (m_bmManager == nullptr)
+      return;
+
     auto editSession = m_bmManager->GetEditSession();
     for (auto const & data : campaignData)
     {
@@ -673,11 +680,11 @@ void LocalAdsManager::CreateLocalAdsMarks(CampaignData && campaignData)
 
 void LocalAdsManager::DeleteLocalAdsMarks(MwmSet::MwmId const & mwmId)
 {
-  if (m_bmManager == nullptr)
-    return;
-
   GetPlatform().RunTask(Platform::Thread::Gui, [this, mwmId]()
   {
+    if (m_bmManager == nullptr)
+      return;
+
     m_bmManager->GetEditSession().DeleteUserMarks<LocalAdsMark>(UserMark::Type::LOCAL_ADS,
                                                                 [&mwmId](LocalAdsMark const * mark)
                                                                 {
@@ -688,11 +695,11 @@ void LocalAdsManager::DeleteLocalAdsMarks(MwmSet::MwmId const & mwmId)
 
 void LocalAdsManager::DeleteAllLocalAdsMarks()
 {
-  if (m_bmManager == nullptr)
-    return;
-
   GetPlatform().RunTask(Platform::Thread::Gui, [this]()
   {
+    if (m_bmManager == nullptr)
+      return;
+
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::LOCAL_ADS);
   });
 }
@@ -828,6 +835,9 @@ void LocalAdsManager::OnSubscriptionChanged(SubscriptionType type, bool isActive
 void LocalAdsManager::OnLocationUpdate(location::GpsInfo const & info, int zoomLevel)
 {
   if (!m_isEnabled)
+    return;
+
+  if (info.m_horizontalAccuracy > kMaxAllowableAccuracyInMeters)
     return;
 
   if (std::chrono::steady_clock::now() < (m_lastCheckTime + kMinCheckInterval))
