@@ -366,4 +366,24 @@
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">2</item>
   </style>
+
+  <style name="TextAppearance" parent="MwmTextAppearance.Body3"/>
+
+  <style name="TextAppearance.Small" parent="MwmTextAppearance.Body4"/>
+
+  <style name="TextAppearance.Medium" parent="MwmTextAppearance.Body2"/>
+
+  <style name="TextAppearance.Large" parent="MwmTextAppearance.Body1">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+  </style>
+
+  <style name="TextAppearance.Inverse" parent="MwmTextAppearance.Body3.Light"/>
+
+  <style name="TextAppearance.Small.Inverse" parent="MwmTextAppearance.Body4.Light"/>
+
+  <style name="TextAppearance.Medium.Inverse" parent="MwmTextAppearance.Body2.Light"/>
+
+  <style name="TextAppearance.Large.Inverse" parent="MwmTextAppearance.Body1.Light">
+    <item name="android:textSize">@dimen/text_size_toolbar</item>
+  </style>
 </resources>

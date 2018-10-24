@@ -919,7 +919,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
     jni::TScopedLocalRef authorNameRef(env, jni::ToJavaString(env, data.m_authorName));
     jni::TScopedLocalRef annotationRef(env, jni::ToJavaString(env, annotation));
     jni::TScopedLocalRef descriptionRef(env, jni::ToJavaString(env, description));
-      
+
     return env->NewObject(g_bookmarkCategoryClass,
                           g_bookmarkCategoryConstructor,
                           static_cast<jlong>(data.m_id),
