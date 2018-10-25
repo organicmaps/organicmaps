@@ -100,10 +100,10 @@ public:
   auto Get(m2::PointD const & pt) const;
 
   template <RequestTypeMask Type>
-  auto Get(double lat, double lon, double radiusInMeters, uint32_t maxCount);
+  auto GetNonConst(double lat, double lon, double radiusInMeters, uint32_t maxCount);
 
   template <RequestTypeMask Type>
-  auto Get();
+  auto GetNonConst();
 
 private:
   RequestTypeMask m_request;
@@ -155,8 +155,8 @@ auto Framework::Get<REQUEST_TYPE_LOCATION>(m2::PointD const & pt) const
 }
 
 template <>
-auto Framework::Get<REQUEST_TYPE_LOCAL_ADS_FEATURES>(double lat, double lon,
-                                                     double radiusInMeters, uint32_t maxCount)
+auto Framework::GetNonConst<REQUEST_TYPE_LOCAL_ADS_FEATURES>(double lat, double lon,
+                                                             double radiusInMeters, uint32_t maxCount)
 {
   ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_FEATURES, (m_request));
 
@@ -166,7 +166,7 @@ auto Framework::Get<REQUEST_TYPE_LOCAL_ADS_FEATURES>(double lat, double lon,
 }
 
 template <>
-auto Framework::Get<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()
+auto Framework::GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()
 {
   ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_STATISTICS, (m_request));
 

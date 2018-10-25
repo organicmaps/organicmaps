@@ -28,8 +28,8 @@ Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, 
                                                                   jint maxCount)
 {
   Framework framework(REQUEST_TYPE_LOCAL_ADS_FEATURES);
-  auto const features = framework.Get<REQUEST_TYPE_LOCAL_ADS_FEATURES>(lat, lon, radiusInMeters,
-                                                                       maxCount);
+  auto const features = framework.GetNonConst<REQUEST_TYPE_LOCAL_ADS_FEATURES>(
+    lat, lon, radiusInMeters, maxCount);
 
   static jclass const geoFenceFeatureClazz =
           jni::GetGlobalClassRef(env, "com/mapswithme/maps/geofence/GeoFenceFeature");
@@ -64,6 +64,6 @@ Java_com_mapswithme_maps_LightFramework_nativeLogLocalAdsEvent(JNIEnv * env, jcl
                          static_cast<uint8_t>(1) /* zoom level */, local_ads::Clock::now(),
                          static_cast<double>(lat), static_cast<double>(lon),
                          static_cast<uint16_t>(accuracyInMeters));
-  framework.Get<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()->RegisterEvent(std::move(event));
+  framework.GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()->RegisterEvent(std::move(event));
 }
 }  // extern "C"
