@@ -1,6 +1,6 @@
 #include "generator/maxspeed_builder.hpp"
 
-#include "routing/maxspeed_serialization.hpp"
+#include "routing/maxspeed_conversion.hpp"
 
 namespace generator
 {

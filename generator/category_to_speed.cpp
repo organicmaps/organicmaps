@@ -1,15 +1,16 @@
 #include "generator/category_to_speed.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <cctype>
-#include <sstream>
 #include <unordered_map>
 
 namespace
 {
-using namespace generator;
 using namespace measurement_utils;
+using namespace routing;
 using namespace std;
 
 unordered_map<string, SpeedInUnits> const kRoadCategoryToSpeed = {
@@ -204,13 +205,5 @@ bool MaxspeedValueToSpeed(string const & maxspeedValue, SpeedInUnits & speed)
   }
 
   return false;
-}
-
-string DebugPrint(SpeedInUnits const & speed)
-{
-  ostringstream oss;
-  oss << "SpeedInUnits [ m_speed == " << speed.m_speed
-      << ", m_units == " << DebugPrint(speed.m_units) << " ]";
-  return oss.str();
 }
 }  // generator

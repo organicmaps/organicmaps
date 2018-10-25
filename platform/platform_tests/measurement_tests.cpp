@@ -201,8 +201,8 @@ UNIT_TEST(ConversionUnits)
   TEST(base::AlmostEqualAbs(MilesToMeters(1.0), 1609.344, kEps), ());
 
   TEST(base::AlmostEqualAbs(MphToKmph(KmphToMph(100.0)), 100.0, kEps), ());
-  TEST(base::AlmostEqualAbs(MphToKmph(100.0), 160.934, kEps), ());
+  TEST(base::AlmostEqualAbs(MphToKmph(100.0), 160.9344, kEps), (MphToKmph(100.0)));
 
-  TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Imperial), 160.934, kEps), ());
+  TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Imperial), 160.9344, kEps), ());
   TEST(base::AlmostEqualAbs(ToSpeedKmPH(100.0, Units::Metric), 100.0, kEps), ());
 }

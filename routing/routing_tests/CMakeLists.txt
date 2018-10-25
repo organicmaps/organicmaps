@@ -16,6 +16,7 @@ set(
   index_graph_test.cpp
   index_graph_tools.cpp
   index_graph_tools.hpp
+  maxspeed_tests.cpp
   nearest_edge_finder_tests.cpp
   online_cross_fetcher_test.cpp
   restriction_test.cpp
