@@ -32,7 +32,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
 
-public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
+public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements BookmarkDownloadHandler
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
 
@@ -59,6 +59,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkManager.BookmarksCatalogListener mCatalogListener;
+  @NonNull
+  private final BookmarkDownloadReceiver mDownloadCompleteReceiver = new BookmarkDownloadReceiver();
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -72,6 +74,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStart()
   {
     super.onStart();
+    mDownloadCompleteReceiver.attach(this);
+    mDownloadCompleteReceiver.register(getActivity().getApplication());
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
@@ -79,6 +83,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStop()
   {
     super.onStop();
+    mDownloadCompleteReceiver.detach();
+    mDownloadCompleteReceiver.unregister(getActivity().getApplication());
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
   }
 
@@ -138,6 +144,20 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     if (result == null)
       throw new IllegalArgumentException("Catalog url not found in bundle");
     return result;
+  }
+
+  @Override
+  public void onAuthorizationRequired()
+  {
+    Toast.makeText(getActivity(), "Authorization required. Ui coming soon!",
+                   Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void onPaymentRequired()
+  {
+    Toast.makeText(getActivity(), "Payment required. Ui coming soon!",
+                   Toast.LENGTH_SHORT).show();
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient

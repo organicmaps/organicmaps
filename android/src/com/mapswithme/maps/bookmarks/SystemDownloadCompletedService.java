@@ -8,12 +8,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
-import android.text.TextUtils;
-import android.widget.Toast;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
 import com.mapswithme.util.Utils;
@@ -23,6 +20,9 @@ import java.io.IOException;
 
 public class SystemDownloadCompletedService extends JobIntentService
 {
+  public final static String ACTION_DOWNLOAD_COMPLETED = "action_download_completed";
+  public final static String EXTRA_DOWNLOAD_STATUS = "extra_download_status";
+
   @Override
   public void onCreate()
   {
@@ -142,28 +142,9 @@ public class SystemDownloadCompletedService extends JobIntentService
     @Override
     public void run()
     {
-      Result result = mStatus.getResult();
-      if (mStatus.isOk() && result != null && !TextUtils.isEmpty(result.getArchiveId())
-          && !TextUtils.isEmpty(result.getFilePath()))
-      {
-
-        BookmarkManager.INSTANCE.importFromCatalog(result.getArchiveId(), result.getFilePath());
-        return;
-      }
-
-      Error error = mStatus.getError();
-      if (error != null)
-      {
-        if (error.isForbidden())
-        {
-          Toast.makeText(mAppContext, "Authorization needed. Ui coming soon!",
-                         Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-          Toast.makeText(mAppContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
-        }
-      }
+      Intent intent = new Intent(ACTION_DOWNLOAD_COMPLETED);
+      intent.putExtra(EXTRA_DOWNLOAD_STATUS, mStatus);
+      LocalBroadcastManager.getInstance(mAppContext).sendBroadcast(intent);
     }
   }
 }
