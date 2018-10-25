@@ -35,7 +35,6 @@ Info MakeDefaultInfoForTesting()
   layer.m_type = Layer::Type::PublicTransport;
   info.m_layers.emplace_back(std::move(layer));
 
-
   info.m_discovery.m_lastOpenedTime = Time(std::chrono::hours(30000));
   info.m_discovery.m_eventCounters.Increment(Discovery::Event::MoreAttractionsClicked);
   info.m_discovery.m_lastClickedTime = Time(std::chrono::hours(30005));
@@ -83,8 +82,8 @@ void CompareWithDefaultInfo(Info const & lhs)
   auto const & lPoi = *(lhs.m_mapObjects.begin());
   auto const & rPoi = *(rhs.m_mapObjects.begin());
   TEST(lPoi.first.m_pos.EqualDxDy(rPoi.first.m_pos, 1e-6), ());
-  TEST_EQUAL(lPoi.first.m_bestType, rPoi.first.m_bestType,());
-  TEST_EQUAL(lPoi.second.size(), rPoi.second.size(),());
+  TEST_EQUAL(lPoi.first.m_bestType, rPoi.first.m_bestType, ());
+  TEST_EQUAL(lPoi.second.size(), rPoi.second.size(), ());
   TEST(lPoi.second[0].m_userPos.EqualDxDy(rPoi.second[0].m_userPos, 1e-6), ());
   TEST_EQUAL(lPoi.second[0].m_eventTime, rPoi.second[0].m_eventTime, ());
   TEST_EQUAL(lPoi.second[0].m_type, rPoi.second[0].m_type, ());

@@ -8,8 +8,8 @@
 #include "base/visitor.hpp"
 
 #include <array>
-#include <cstdint>
 #include <chrono>
+#include <cstdint>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -185,16 +185,14 @@ struct MapObject
   {
     size_t operator()(MapObject const & p) const
     {
-      return base::Hash(
-        base::Hash(p.m_pos.lat, p.m_pos.lon),
-        base::Hash(p.m_bestType, p.m_bestType));
+      return base::Hash(base::Hash(p.m_pos.lat, p.m_pos.lon),
+                        base::Hash(p.m_bestType, p.m_bestType));
     }
   };
 
   bool operator==(MapObject const & rhs) const
   {
-    return m_pos.EqualDxDy(rhs.m_pos, 1e-6) &&
-      m_bestType == rhs.m_bestType;
+    return m_pos.EqualDxDy(rhs.m_pos, 1e-6) && m_bestType == rhs.m_bestType;
   }
 
   std::string m_bestType;

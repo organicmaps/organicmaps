@@ -6,8 +6,8 @@
 
 #include "coding/file_writer.hpp"
 
-#include "base/logging.hpp"
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <algorithm>
 #include <memory>
@@ -50,7 +50,7 @@ bool Save(Info const & info)
 }
 
 // TODO: use to trim old map object events.
-//bool SaveMapObjects(Info const & info)
+// bool SaveMapObjects(Info const & info)
 //{
 //  std::vector<int8_t> fileData;
 //  Serdes::SerializeMapObjects(info.m_mapObjects, fileData);
@@ -58,7 +58,7 @@ bool Save(Info const & info)
 //}
 //
 // TODO: use it to save map object events with append only flag.
-//bool SaveMapObjectEvent(MapObject const & mapObject, MapObject::Event const & event)
+// bool SaveMapObjectEvent(MapObject const & mapObject, MapObject::Event const & event)
 //{
 //  std::vector<int8_t> eventData;
 //  Serdes::SerializeMapObjectEvent(mapObject, event, eventData);
@@ -334,7 +334,7 @@ void Eye::Event::UgcEditorOpened()
   });
 }
 
-//static
+// static
 void Eye::Event::UgcSaved()
 {
   GetPlatform().RunTask(Platform::Thread::File, []

@@ -12,16 +12,16 @@ namespace eye
 class Subscriber
 {
 public:
-  virtual ~Subscriber() {};
+  virtual ~Subscriber(){};
 
 public:
-  virtual void OnTipClicked(Tip const & tip) {};
-  virtual void OnBookingFilterUsed(Time const & time) {};
-  virtual void OnBookmarksCatalogShown(Time const & time) {};
-  virtual void OnDiscoveryShown(Time const & time) {};
-  virtual void OnDiscoveryItemClicked(Discovery::Event event) {};
-  virtual void OnLayerUsed(Layer const & layer) {};
-  virtual void OnPlacePageOpened(MapObject const & poi) {};
+  virtual void OnTipClicked(Tip const & tip){};
+  virtual void OnBookingFilterUsed(Time const & time){};
+  virtual void OnBookmarksCatalogShown(Time const & time){};
+  virtual void OnDiscoveryShown(Time const & time){};
+  virtual void OnDiscoveryItemClicked(Discovery::Event event){};
+  virtual void OnLayerUsed(Layer const & layer){};
+  virtual void OnPlacePageOpened(MapObject const & poi){};
 };
 
 // Note This class IS thread-safe.

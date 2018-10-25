@@ -133,9 +133,8 @@ void Serdes::DeserializeMapObjects(std::vector<int8_t> const & bytes, MapObjects
   }
   catch (base::Json::Exception & ex)
   {
-    LOG(LERROR, ("Cannot deserialize map objects. Exception:", ex.Msg(),
-                 ". Event string:", eventString,
-                 ". Content:", std::string(bytes.begin(), bytes.end())));
+    LOG(LERROR, ("Cannot deserialize map objects. Exception:", ex.Msg(), ". Event string:",
+                 eventString, ". Content:", std::string(bytes.begin(), bytes.end())));
   }
 }
 
