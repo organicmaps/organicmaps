@@ -125,6 +125,7 @@ public:
     void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
 
     void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
+    void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);
     void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
     void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
     void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
@@ -438,6 +439,7 @@ private:
   void SetIsVisible(kml::MarkGroupId groupId, bool visible);
 
   void SetCategoryName(kml::MarkGroupId categoryId, std::string const & name);
+  void SetCategoryDescription(kml::MarkGroupId categoryId, std::string const & desc);
   void SetCategoryTags(kml::MarkGroupId categoryId, std::vector<std::string> const & tags);
   void SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::AccessRules accessRules);
   void SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,

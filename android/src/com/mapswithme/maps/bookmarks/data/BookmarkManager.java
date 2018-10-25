@@ -340,7 +340,7 @@ public enum BookmarkManager
 
   public void setCategoryDesc(long id, @NonNull String categoryDesc)
   {
-    nativeSetCategoryDesc(id, categoryDesc);
+    nativeSetCategoryDescription(id, categoryDesc);
   }
 
   public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
@@ -658,7 +658,7 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryName(long catId, @NonNull String n);
 
-  private native void nativeSetCategoryDesc(long catId, @NonNull String n);
+  private native void nativeSetCategoryDescription(long catId, @NonNull String n);
 
   private native void nativeSetCategoryTags(long catId, @NonNull String[] tagsIds);
 

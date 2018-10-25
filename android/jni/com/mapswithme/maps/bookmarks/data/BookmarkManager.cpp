@@ -109,8 +109,9 @@ void PrepareClassRefs(JNIEnv * env)
 //                          boolean isMyCategory,
 //                          boolean isVisible)
   g_bookmarkCategoryConstructor =
-    jni::GetConstructorID(env, g_bookmarkCategoryClass, "(JLjava/lang/String;Ljava/lang/String;"
-      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZ)V");
+      jni::GetConstructorID(env, g_bookmarkCategoryClass,
+                            "(JLjava/lang/String;Ljava/lang/String;"
+                            "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZZI)V");
 
   g_catalogTagClass =
     jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/CatalogTag");
@@ -540,6 +541,16 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryName(
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryDesc(JNIEnv * env,
+                                                                              jobject thiz,
+                                                                              jlong catId,
+                                                                              jstring desc)
+{
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryDescription(
+      static_cast<kml::MarkGroupId>(catId), jni::ToNativeString(env, desc));
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryTags(
     JNIEnv * env, jobject, jlong catId, jobjectArray tagsIds)
 {
@@ -587,15 +598,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryAuthor(
   auto const & data = frm()->GetBookmarkManager().GetCategoryData(
     static_cast<kml::MarkGroupId>(catId));
   return ToJavaString(env, data.m_authorName);
-}
-
-JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryAccessRules(
-        JNIEnv * env, jobject thiz, jlong catId)
-{
-  auto const & data = frm()->GetBookmarkManager().GetCategoryData(
-    static_cast<kml::MarkGroupId>(catId));
-  return static_cast<jint>(data.m_accessRules);
 }
 
 JNIEXPORT jint JNICALL
@@ -913,6 +915,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
     auto const preferBookmarkStr = GetPreferredBookmarkStr(data.m_name);
     auto const annotation = GetPreferredBookmarkStr(data.m_annotation);
     auto const description = GetPreferredBookmarkStr(data.m_description);
+    auto const accessRules = data.m_accessRules;
 
     jni::TScopedLocalRef preferBookmarkStrRef(env, jni::ToJavaString(env, preferBookmarkStr));
     jni::TScopedLocalRef authorIdRef(env, jni::ToJavaString(env, data.m_authorId));
@@ -932,7 +935,8 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                           static_cast<jint>(bookmarksCount),
                           static_cast<jboolean>(isFromCatalog),
                           static_cast<jboolean>(isMyCategory),
-                          static_cast<jboolean>(isVisible));
+                          static_cast<jboolean>(isVisible),
+                          static_cast<jint>(accessRules));
   };
   return ToJavaArray(env, g_bookmarkCategoryClass, categories, bookmarkConverter);
 }

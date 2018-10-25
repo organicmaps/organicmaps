@@ -74,6 +74,7 @@ public:
 
   void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
+  void SetDescription(std::string const & desc);
   void SetFileName(std::string const & fileName) { m_file = fileName; }
   std::string GetName() const;
   std::string const & GetFileName() const { return m_file; }

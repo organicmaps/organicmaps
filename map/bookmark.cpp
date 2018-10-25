@@ -240,6 +240,12 @@ void BookmarkCategory::SetName(std::string const & name)
   kml::SetDefaultStr(m_data.m_name, name);
 }
 
+void BookmarkCategory::SetDescription(std::string const & desc)
+{
+  SetDirty();
+  kml::SetDefaultStr(m_data.m_description, desc);
+}
+
 void BookmarkCategory::SetServerId(std::string const & serverId)
 {
   if (m_serverId == serverId)
