@@ -42,17 +42,31 @@ public abstract class AbstractCategoriesSnapshot
 
     public int indexOfOrThrow(@NonNull BookmarkCategory category)
     {
-      List<BookmarkCategory> items = getItems();
-      int indexOf = items.indexOf(category);
+      return indexOfThrowInternal(getItems(), category);
+    }
+
+    private static int indexOfThrowInternal(@NonNull List<BookmarkCategory> categories,
+                                            @NonNull BookmarkCategory category)
+    {
+      int indexOf = categories.indexOf(category);
       if (indexOf < 0)
       {
-        throw new UnsupportedOperationException(new StringBuilder("This category absent in current snapshot ")
+        throw new UnsupportedOperationException(new StringBuilder("This category absent in " +
+                                                                  "current snapshot ")
                                                     .append(category)
                                                     .append("all items : ")
-                                                    .append(Arrays.toString(items.toArray()))
+                                                    .append(Arrays.toString(categories.toArray()))
                                                     .toString());
       }
       return indexOf;
+    }
+
+    @NonNull
+    public BookmarkCategory refresh(@NonNull BookmarkCategory category)
+    {
+      List<BookmarkCategory> items = getItems();
+      int index = indexOfThrowInternal(items, category);
+      return items.get(index);
     }
   }
 }

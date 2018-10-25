@@ -7,11 +7,13 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.util.TypeConverter;
+import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategory implements Parcelable
 {
@@ -27,13 +29,16 @@ public class BookmarkCategory implements Parcelable
   private final int mTracksCount;
   private final int mBookmarksCount;
   private final int mTypeIndex;
+  private final int mAccessRulesIndex;
   private final boolean mIsMyCategory;
   private final boolean mIsVisible;
+
 
   public BookmarkCategory(long id, @NonNull String name, @NonNull String authorId,
                           @NonNull String authorName, @NonNull String annotation,
                           @NonNull String description, int tracksCount, int bookmarksCount,
-                          boolean fromCatalog, boolean isMyCategory, boolean isVisible)
+                          boolean fromCatalog, boolean isMyCategory, boolean isVisible,
+                          int accessRulesIndex)
   {
     mId = id;
     mName = name;
@@ -47,6 +52,7 @@ public class BookmarkCategory implements Parcelable
     mAuthor = TextUtils.isEmpty(authorId) || TextUtils.isEmpty(authorName)
               ? null
               : new Author(authorId, authorName);
+    mAccessRulesIndex = accessRulesIndex;
   }
 
   @Override
@@ -91,9 +97,16 @@ public class BookmarkCategory implements Parcelable
     return mBookmarksCount;
   }
 
+  @NonNull
   public Type getType()
   {
     return Type.values()[mTypeIndex];
+  }
+
+  @NonNull
+  public AccessRules getAccessRules()
+  {
+    return AccessRules.values()[mAccessRulesIndex];
   }
 
   public boolean isFromCatalog()
@@ -270,6 +283,7 @@ public class BookmarkCategory implements Parcelable
     sb.append(", mType=").append(Type.values()[mTypeIndex]);
     sb.append(", mIsMyCategory=").append(mIsMyCategory);
     sb.append(", mIsVisible=").append(mIsVisible);
+    sb.append(", mAccessRules=").append(getAccessRules());
     sb.append('}');
     return sb.toString();
   }
@@ -331,6 +345,7 @@ public class BookmarkCategory implements Parcelable
     dest.writeInt(this.mTypeIndex);
     dest.writeByte(this.mIsMyCategory ? (byte) 1 : (byte) 0);
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
+    dest.writeInt(this.mAccessRulesIndex);
   }
 
   protected BookmarkCategory(Parcel in)
@@ -345,6 +360,7 @@ public class BookmarkCategory implements Parcelable
     this.mTypeIndex = in.readInt();
     this.mIsMyCategory = in.readByte() != 0;
     this.mIsVisible = in.readByte() != 0;
+    this.mAccessRulesIndex = in.readInt();
   }
 
   public static final Creator<BookmarkCategory> CREATOR = new Creator<BookmarkCategory>()
@@ -361,4 +377,40 @@ public class BookmarkCategory implements Parcelable
       return new BookmarkCategory[size];
     }
   };
+
+  public enum AccessRules
+  {
+    ACCESS_RULES_LOCAL(R.string.not_shared),
+    ACCESS_RULES_PUBLIC(R.string.public_access),
+    ACCESS_RULES_DIRECT_LINK(R.string.limited_access),
+    ACCESS_RULES_P2P(UiUtils.NO_ID)
+        {
+          @Override
+          public int getResId()
+          {
+            throw new IllegalStateException("Unsupported here");
+          }
+        },
+    ACCESS_RULES_PAID(UiUtils.NO_ID)
+        {
+          @Override
+          public int getResId()
+          {
+            throw new IllegalStateException("Unsupported here");
+          }
+        };
+
+    private final int mResId;
+
+    AccessRules(int resId)
+    {
+      mResId = resId;
+    }
+
+    @StringRes
+    public int getResId()
+    {
+      return mResId;
+    }
+  }
 }

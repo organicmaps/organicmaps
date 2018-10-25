@@ -50,16 +50,6 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ACCESS_RULES_LOCAL, ACCESS_RULES_PUBLIC, ACCESS_RULES_DIRECT_LINK,
-            ACCESS_RULES_P2P, ACCESS_RULES_PAID })
-  public @interface AccessRules {}
-  public static final int ACCESS_RULES_LOCAL = 0;
-  public static final int ACCESS_RULES_PUBLIC = 1;
-  public static final int ACCESS_RULES_DIRECT_LINK = 2;
-  public static final int ACCESS_RULES_P2P = 3;
-  public static final int ACCESS_RULES_PAID = 4;
-
-  @Retention(RetentionPolicy.SOURCE)
   @IntDef({ UPLOAD_RESULT_SUCCESS, UPLOAD_RESULT_NETWORK_ERROR, UPLOAD_RESULT_SERVER_ERROR,
             UPLOAD_RESULT_AUTH_ERROR, UPLOAD_RESULT_MALFORMED_DATA_ERROR,
             UPLOAD_RESULT_ACCESS_ERROR, UPLOAD_RESULT_INVALID_CALL })
@@ -346,6 +336,21 @@ public enum BookmarkManager
   public void setCategoryName(long catId, @NonNull String name)
   {
     nativeSetCategoryName(catId, name);
+  }
+
+  public void setCategoryDesc(long id, @NonNull String categoryDesc)
+  {
+    nativeSetCategoryDesc(id, categoryDesc);
+  }
+
+  public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
+  {
+    nativeSetCategoryAccessRules(id, rules.ordinal());
+  }
+
+  public void uploadToCatalog(@NonNull BookmarkCategory.AccessRules rules, long id)
+  {
+    nativeUploadToCatalog(rules.ordinal(), id);
   }
 
   /**
@@ -653,17 +658,16 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryName(long catId, @NonNull String n);
 
+  private native void nativeSetCategoryDesc(long catId, @NonNull String n);
+
   private native void nativeSetCategoryTags(long catId, @NonNull String[] tagsIds);
 
-  private native void nativeSetCategoryAccessRules(long catId, @AccessRules int accessRules);
+  private native void nativeSetCategoryAccessRules(long catId, int accessRules);
 
   private native void nativeSetCategoryCustomProperty(long catId, String key, String value);
 
   @NonNull
   private native String nativeGetCategoryAuthor(long catId);
-
-  @AccessRules
-  private native int nativeGetCategoryAccessRules(long catId);
 
   private static native void nativeLoadBookmarks();
 
@@ -733,7 +737,7 @@ public enum BookmarkManager
   private static native void nativeImportFromCatalog(@NonNull String serverId,
                                                      @NonNull String filePath);
 
-  private static native void nativeUploadToCatalog(@AccessRules int accessRules,
+  private static native void nativeUploadToCatalog(int accessRules,
                                                    long catId);
 
   @NonNull

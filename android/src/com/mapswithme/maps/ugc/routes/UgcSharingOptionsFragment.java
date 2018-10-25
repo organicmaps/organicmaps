@@ -22,6 +22,7 @@ import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.widget.ToolbarController;
@@ -29,9 +30,11 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment implements BookmarkManager.BookmarksCatalogListener
 {
+  public static final String EXTRA_BOOKMARK_CATEGORY = "bookmark_category";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
 
@@ -39,18 +42,16 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @NonNull
   private View mGetDirectLinkContainer;
 
+  @SuppressWarnings("NullableProblems")
   @NonNull
+  private BookmarkCategory mCategory;
+
   @Override
-  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  public void onCreate(@Nullable Bundle savedInstanceState)
   {
-    return new ToolbarController(root, getActivity())
-    {
-      @Override
-      public void onUpClick()
-      {
-        getActivity().finish();
-      }
-    };
+    super.onCreate(savedInstanceState);
+    Bundle args = Objects.requireNonNull(getArguments());
+    mCategory = Objects.requireNonNull(args.getParcelable(EXTRA_BOOKMARK_CATEGORY));
   }
 
   @Nullable
@@ -76,6 +77,13 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.sharing_options);
+  }
+
+  @NonNull
+  @Override
+  protected ToolbarController onCreateToolbarController(@NonNull View root)
+  {
+    return new SharingOptionsController(root);
   }
 
   private void initClickListeners(@NonNull View root)
@@ -286,5 +294,22 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private boolean isOkResult(int uploadResult)
   {
     return true;
+  }
+
+  private class SharingOptionsController extends ToolbarController
+  {
+    SharingOptionsController(@NonNull View root)
+    {
+      super(root, getActivity());
+    }
+
+    @Override
+    public void onUpClick()
+    {
+      if (getFragmentManager().getBackStackEntryCount() == 0)
+        getActivity().finish();
+      else
+        getFragmentManager().popBackStackImmediate();
+    }
   }
 }

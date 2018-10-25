@@ -447,6 +447,7 @@
       android:label="@string/ugc_route_tags_screen_label">
     </activity>
     <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"/>
+    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"/>
     <activity android:name=".purchase.BookmarkPaymentActivity"/>
     <activity android:name="com.mapswithme.maps.ugc.route.SendLinkPlaceholderActivity"/>
     <service
