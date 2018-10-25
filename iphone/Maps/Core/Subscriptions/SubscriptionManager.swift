@@ -119,21 +119,27 @@ extension SubscriptionManager: SKProductsRequestDelegate {
 
 extension SubscriptionManager: SKPaymentTransactionObserver {
   func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-    transactions
+    let subscriptionTransactions = transactions.filter {
+      Subscription.productIds.contains($0.payment.productIdentifier)
+    }
+    subscriptionTransactions
       .filter { $0.transactionState == .failed }
       .forEach { processFailed($0, error: $0.error) }
 
-    if transactions.contains(where: {
+    if subscriptionTransactions.contains(where: {
       $0.transactionState == .purchased || $0.transactionState == .restored
     }) {
-      transactions.filter { $0.transactionState == .purchased }
+      subscriptionTransactions
+        .filter { $0.transactionState == .purchased }
         .forEach { processPurchased($0) }
-      transactions.filter { $0.transactionState == .restored }
+      subscriptionTransactions
+        .filter { $0.transactionState == .restored }
         .forEach { processRestored($0) }
       validate(false)
     }
 
-    transactions.filter { $0.transactionState == .deferred }
+    subscriptionTransactions
+      .filter { $0.transactionState == .deferred }
       .forEach { processDeferred($0) }
   }
 

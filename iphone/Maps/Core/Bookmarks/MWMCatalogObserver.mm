@@ -18,7 +18,7 @@
         self.progressBlock(MWMCategoryProgressDownloadFinished);
       return;
     case BookmarkCatalog::DownloadResult::AuthError:
-      downloadStatus = MWMCategoryDownloadStatusForbidden;
+      downloadStatus = MWMCategoryDownloadStatusNeedAuth;
       break;
     case BookmarkCatalog::DownloadResult::ServerError:
       downloadStatus = MWMCategoryDownloadStatusNotFound;
@@ -30,7 +30,7 @@
       downloadStatus = MWMCategoryDownloadStatusDiskError;
       break;
     case BookmarkCatalog::DownloadResult::NeedPayment:
-      //TODO(@beloal)
+      downloadStatus = MWMCategoryDownloadStatusNeedPayment;
       break;
   }
   if (self.downloadCompletionBlock)

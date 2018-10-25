@@ -95,6 +95,18 @@
   GetFramework().GetPurchase()->Validate(vi, accessToken);
 }
 
+- (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback {
+  GetFramework().GetPurchase()->SetStartTransactionCallback([callback](bool success,
+                                                                       std::string const & serverId,
+                                                                       std::string const & vendorId)
+  {
+    callback(success, @(serverId.c_str()));
+  });
+  GetFramework().GetPurchase()->StartTransaction(serverId.UTF8String,
+                                                 BOOKMARKS_VENDOR,
+                                                 GetFramework().GetUser().GetAccessToken());
+}
+
 - (void)validReceipt
 {
   if (self.callback)

@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSUInteger, MWMValidationResult)
 {
   MWMValidationResultValid,
@@ -7,19 +9,24 @@ typedef NS_ENUM(NSUInteger, MWMValidationResult)
   MWMValidationResultError,
 };
 
-typedef void (^ValidateReceiptCallback)(NSString * _Nonnull serverId, MWMValidationResult validationResult);
+typedef void (^ValidateReceiptCallback)(NSString * serverId, MWMValidationResult validationResult);
+
+typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 
 @interface MWMPurchaseManager : NSObject
 
-+ (NSString * _Nonnull)adsRemovalServerId;
-+ (NSString * _Nonnull)adsRemovalVendorId;
-+ (NSArray<NSString *> * _Nonnull)productIds;
-+ (MWMPurchaseManager * _Nonnull)sharedManager;
++ (NSString *)adsRemovalServerId;
++ (NSString *)adsRemovalVendorId;
++ (NSArray<NSString *> *)productIds;
++ (MWMPurchaseManager *)sharedManager;
 
-- (void)validateReceipt:(NSString * _Nonnull)serverId
+- (void)validateReceipt:(NSString *)serverId
          refreshReceipt:(BOOL)refresh
-               callback:(ValidateReceiptCallback _Nonnull)callback;
+               callback:(ValidateReceiptCallback)callback;
+- (void)startTransaction:(NSString *)serverId callback:(StartTransactionCallback)callback;
 - (void)setAdsDisabled:(BOOL)disabled;
 - (void)refreshReceipt;
 
 @end
+
+NS_ASSUME_NONNULL_END

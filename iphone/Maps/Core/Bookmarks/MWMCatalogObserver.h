@@ -2,8 +2,6 @@
 
 #include "map/bookmark_catalog.hpp"
 
-#include "platform/remote_file.hpp"
-
 @interface MWMCatalogObserver : NSObject
 
 @property (copy, nonatomic) NSString * categoryId;

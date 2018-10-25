@@ -78,3 +78,5 @@
 #import "MWMCatalogCommon.h"
 #import "MWMEye.h"
 #import "MWMPurchaseManager.h"
+#import "MWMPurchaseValidation.h"
+

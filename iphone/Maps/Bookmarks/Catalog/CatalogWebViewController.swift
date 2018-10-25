@@ -1,3 +1,22 @@
+struct CatalogCategoryInfo {
+  var id: String
+  var name: String
+  var author: String
+  var productId: String?
+  var imageUrl: String?
+
+  init?(_ components: [String : String]) {
+    guard let id = components["id"],
+      let name = components["name"],
+      let author = components["author_name"] else { return nil }
+    self.id = id
+    self.name = name
+    self.author = author
+    productId = components["tier"]
+    imageUrl = components["img"]
+  }
+}
+
 @objc(MWMCatalogWebViewController)
 final class CatalogWebViewController: WebViewController {
 
@@ -94,9 +113,10 @@ final class CatalogWebViewController: WebViewController {
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-    guard let url = navigationAction.request.url, url.scheme == "mapsme" else {
-      super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
-      return
+    guard let url = navigationAction.request.url,
+      url.scheme == "mapsme" || url.path == "/mobilefront/buy_kml" else {
+        super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
+        return
     }
 
     processDeeplink(url)
@@ -127,20 +147,21 @@ final class CatalogWebViewController: WebViewController {
     loadingIndicator.stopAnimating()
   }
 
+  private func parseUrl(_ url: URL) -> CatalogCategoryInfo? {
+    guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
+    guard let components = urlComponents.queryItems?.reduce(into: [:], { $0[$1.name] = $1.value })
+      else { return nil }
+
+    return CatalogCategoryInfo(components)
+  }
+
   func processDeeplink(_ url: URL) {
-    let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-    var id = ""
-    var name = ""
-    components?.queryItems?.forEach {
-      if $0.name == "name" {
-        name = $0.value ?? ""
-      }
-      if $0.name == "id" {
-        id = $0.value ?? ""
-      }
+    guard let categoryInfo = parseUrl(url) else {
+      //TODO: handle error
+      return
     }
 
-    if MWMBookmarksManager.shared().isCategoryDownloading(id) || MWMBookmarksManager.shared().hasCategoryDownloaded(id) {
+    if MWMBookmarksManager.shared().isCategoryDownloading(categoryInfo.id) || MWMBookmarksManager.shared().hasCategoryDownloaded(categoryInfo.id) {
       MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded_guide"),
                                                                message: nil,
                                                                rightButtonTitle: L("ok"),
@@ -149,7 +170,7 @@ final class CatalogWebViewController: WebViewController {
       return
     }
 
-    MWMBookmarksManager.shared().downloadItem(withId: id, name: name, progress: { [weak self] (progress) in
+    MWMBookmarksManager.shared().downloadItem(withId: categoryInfo.id, name: categoryInfo.name, progress: { [weak self] (progress) in
       self?.updateProgress()
     }) { [weak self] (categoryId, error) in
       if let error = error as NSError? {
@@ -163,8 +184,16 @@ final class CatalogWebViewController: WebViewController {
             return
           }
           switch (status) {
-          case .forbidden:
-            fallthrough
+          case .needAuth:
+            if let s = self {
+              s.signup(anchor: s.view) {
+                if $0 { s.processDeeplink(url) }
+              }
+            }
+            break
+          case .needPayment:
+            self?.showPaymentScreen(categoryInfo)
+            break
           case .notFound:
             self?.showServerError(url)
             break
@@ -185,6 +214,24 @@ final class CatalogWebViewController: WebViewController {
       }
       self?.updateProgress()
     }
+  }
+
+  private func showPaymentScreen(_ productInfo: CatalogCategoryInfo) {
+    guard let productId = productInfo.productId else {
+      //TODO: handle error
+      return
+    }
+
+    let purchase = InAppPurchase.paidRoutePurchase(serverId: productInfo.id,
+                                                   productId: productId)
+
+    let paymentVC = PaidRouteViewController(name: productInfo.name,
+                                            author: productInfo.author,
+                                            imageUrl: URL(string: productInfo.imageUrl ?? ""),
+                                            purchase: purchase)
+    paymentVC.delegate = self
+    paymentVC.modalTransitionStyle = .coverVertical
+    self.navigationController?.present(paymentVC, animated: true)
   }
 
   private func showDiskError() {
@@ -231,5 +278,15 @@ final class CatalogWebViewController: WebViewController {
 
   @objc private func onFwd() {
     forward()
+  }
+}
+
+extension CatalogWebViewController: PaidRouteViewControllerDelegate {
+  func didCompletePurchase(_ viewController: PaidRouteViewController) {
+    dismiss(animated: true)
+  }
+
+  func didCancelPurchase(_ viewController: PaidRouteViewController) {
+    dismiss(animated: true)
   }
 }
