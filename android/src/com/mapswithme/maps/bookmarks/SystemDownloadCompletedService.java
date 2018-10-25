@@ -40,12 +40,12 @@ public class SystemDownloadCompletedService extends JobIntentService
     if (manager == null)
       throw new IllegalStateException("Failed to get a download manager");
 
-    final OperationStatus<Result, Error> status = doInBackground(manager, intent);
+    final OperationStatus status = doInBackground(manager, intent);
     UiThread.run(new NotifyCoreTask(getApplicationContext(), status));
   }
 
   @NonNull
-  private OperationStatus<Result, Error> doInBackground(@NonNull DownloadManager manager,
+  private OperationStatus doInBackground(@NonNull DownloadManager manager,
                                                         @NonNull Intent intent)
   {
     try
@@ -54,12 +54,12 @@ public class SystemDownloadCompletedService extends JobIntentService
     }
     catch (Exception e)
     {
-      return new OperationStatus<>(null, new Error(e.getMessage()));
+      return new OperationStatus(null, new Error(e.getMessage()));
     }
   }
 
   @NonNull
-  private static OperationStatus<Result, Error> doInBackgroundInternal(
+  private static OperationStatus doInBackgroundInternal(
       @NonNull DownloadManager manager, @NonNull Intent intent) throws IOException
   {
     Cursor cursor = null;
@@ -74,11 +74,11 @@ public class SystemDownloadCompletedService extends JobIntentService
         if (isDownloadFailed(cursor))
         {
           Error error = new Error(getHttpStatus(cursor), getErrorMessage(cursor));
-          return new OperationStatus<>(null, error);
+          return new OperationStatus(null, error);
         }
 
         Result result = new Result(getFilePath(cursor), getArchiveId(cursor));
-        return new OperationStatus<>(result, null);
+        return new OperationStatus(result, null);
       }
       throw new IOException("Failed to move the cursor at first row");
     }
@@ -130,10 +130,10 @@ public class SystemDownloadCompletedService extends JobIntentService
     @NonNull
     private final Context mAppContext;
     @NonNull
-    private final OperationStatus<Result, Error> mStatus;
+    private final OperationStatus mStatus;
 
     private NotifyCoreTask(@NonNull Context applicationContext,
-                           @NonNull OperationStatus<Result, Error> status)
+                           @NonNull OperationStatus status)
     {
       mAppContext = applicationContext;
       mStatus = status;

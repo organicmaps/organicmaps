@@ -1,8 +1,10 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
-public class Result
+public class Result implements Parcelable
 {
   @Nullable
   private final String mFilePath;
@@ -13,6 +15,12 @@ public class Result
   {
     mFilePath = filePath;
     mArchiveId = archiveId;
+  }
+
+  protected Result(Parcel in)
+  {
+    mFilePath = in.readString();
+    mArchiveId = in.readString();
   }
 
   @Nullable
@@ -26,4 +34,32 @@ public class Result
   {
     return mArchiveId;
   }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mFilePath);
+    dest.writeString(mArchiveId);
+  }
+
+  public static final Creator<Result> CREATOR = new Creator<Result>()
+  {
+    @Override
+    public Result createFromParcel(Parcel in)
+    {
+      return new Result(in);
+    }
+
+    @Override
+    public Result[] newArray(int size)
+    {
+      return new Result[size];
+    }
+  };
 }
