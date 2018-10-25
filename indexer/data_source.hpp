@@ -27,6 +27,7 @@ class DataSource : public MwmSet
 public:
   using FeatureCallback = std::function<void(FeatureType &)>;
   using FeatureIdCallback = std::function<void(FeatureID const &)>;
+  using StopSearchCallback = std::function<bool(void)>;
 
   ~DataSource() override = default;
 
@@ -42,6 +43,12 @@ public:
 
   void ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect, int scale) const;
   void ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const;
+  // Calls |f| for features closest to |center| until |stopCallback| returns true or distance
+  // |sizeM| from has been reached. Then for EditableDataSource calls |f| for each edited feature
+  // inside square with center |center| and side |2 * sizeM|. Edited features are not in the same
+  // hierarchy and there is no fast way to merge frozen and edited features.
+  void ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stopCallback,
+                         m2::PointD const & center, double sizeM, int scale) const;
   void ForEachInScale(FeatureCallback const & f, int scale) const;
   void ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const & rect, int scale,
                            MwmId const & id) const;

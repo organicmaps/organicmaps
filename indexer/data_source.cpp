@@ -18,6 +18,13 @@ public:
 
   ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn) : m_factory(factory), m_fn(fn)
   {
+    m_stop = []() { return false; };
+  }
+
+  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn,
+                 DataSource::StopSearchCallback const & stop)
+    : m_factory(factory), m_fn(fn), m_stop(stop)
+  {
   }
 
   // Reads features visible at |scale| covered by |cov| from mwm and applies |m_fn| to them.
@@ -53,6 +60,8 @@ public:
             return;
           m_fn(index, *src);
         });
+        if (m_stop())
+          break;
       }
     }
     // Check created features container.
@@ -65,6 +74,7 @@ public:
 private:
   FeatureSourceFactory const & m_factory;
   Fn m_fn;
+  DataSource::StopSearchCallback m_stop;
 };
 
 void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
@@ -242,6 +252,18 @@ void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
 }
 
+void DataSource::ForClosestToPoint(FeatureCallback const & f, StopSearchCallback const & stop,
+                                   m2::PointD const & center, double sizeM, int scale) const
+{
+  auto const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(center, sizeM);
+
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
+    ReadFeatureType(f, src, index);
+  };
+  ReadMWMFunctor readFunctor(*m_factory, readFeatureType, stop);
+  ForEachInIntervals(readFunctor, covering::CoveringMode::Spiral, rect, scale);
+}
+
 void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
 {
   auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
@@ -262,6 +284,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
     auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
       ReadFeatureType(f, src, index);
     };
+
     ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
     readFunctor(handle, cov, scale);
   }

@@ -72,6 +72,7 @@ public:
     string const & GetHouseNumber() const { return m_building.m_name; }
     string const & GetStreetName() const { return m_street.m_name; }
     double GetDistance() const { return m_building.m_distanceMeters; }
+    bool IsValid() const { return m_building.IsValid() && m_street.IsValid(); }
   };
 
   friend string DebugPrint(Address const & addr);
@@ -94,6 +95,9 @@ public:
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;
+  /// @return The nearest exact address where building is at most |maxDistanceM| far from |center|,
+  /// has house number and valid street match.
+  void GetNearbyAddress(m2::PointD const & center, double maxDistanceM, Address & addr) const;
   /// @param addr (out) the exact address of a feature.
   /// @returns false if  can't extruct address or ft have no house number.
   bool GetExactAddress(FeatureType & ft, Address & addr) const;
@@ -114,7 +118,8 @@ private:
   bool GetNearbyAddress(HouseTable & table, Building const & bld, Address & addr) const;
 
   /// @return Sorted by distance houses vector with valid house number.
-  void GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const;
+  void GetNearbyBuildings(m2::PointD const & center, double maxDistanceM,
+                          vector<Building> & buildings) const;
 
   static Building FromFeature(FeatureType & ft, double distMeters);
 };

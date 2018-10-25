@@ -160,7 +160,10 @@ public:
         };
 
         for (auto const & id : ids)
-          AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
+        {
+          if (cellDepth > id.Level())
+            AppendLowerLevels<DEPTH_LEVELS>(id, cellDepth, insertInterval);
+        }
       }
       }
     }

@@ -204,20 +204,38 @@ public:
   {
   }
 
-  ReverseGeocoder::Address const & GetAddress()
+  ReverseGeocoder::Address const & GetNearbyAddress()
   {
-    if (m_computed)
+    if (m_computedNearby)
       return m_address;
     m_reverseGeocoder.GetNearbyAddress(m_center, m_address);
-    m_computed = true;
+    m_computedNearby = true;
     return m_address;
+  }
+
+  bool GetExactAddress(ReverseGeocoder::Address & address)
+  {
+    if (m_computedExact)
+    {
+      address = m_address;
+      return true;
+    }
+    m_reverseGeocoder.GetNearbyAddress(m_center, 0.0, m_address);
+    if (m_address.IsValid())
+    {
+      m_computedExact = true;
+      m_computedNearby = true;
+      address = m_address;
+    }
+    return m_computedExact;
   }
 
 private:
   ReverseGeocoder const & m_reverseGeocoder;
   m2::PointD const m_center;
   ReverseGeocoder::Address m_address;
-  bool m_computed = false;
+  bool m_computedExact = false;
+  bool m_computedNearby = false;
 };
 }  // namespace
 
@@ -417,8 +435,8 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     // Insert exact address (street and house number) instead of empty result name.
     if (name.empty())
     {
-      auto const & addr = addressGetter.GetAddress();
-      if (addr.GetDistance() == 0)
+      ReverseGeocoder::Address addr;
+      if (addressGetter.GetExactAddress(addr))
         name = FormatStreetAndHouse(addr);
     }
 
@@ -426,7 +444,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
 
     // Format full address only for suitable results.
     if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
-      address = FormatFullAddress(addressGetter.GetAddress(), address);
+      address = FormatFullAddress(addressGetter.GetNearbyAddress(), address);
   }
 
   // todo(@m) Used because Result does not have a default constructor. Factor out?

@@ -176,8 +176,14 @@ ReverseGeocoder::GetNearbyOriginalFeatureStreets(FeatureType & ft) const
 
 void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr) const
 {
+  return GetNearbyAddress(center, kLookupRadiusM, addr);
+}
+
+void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, double maxDistanceM,
+                                       Address & addr) const
+{
   vector<Building> buildings;
-  GetNearbyBuildings(center, buildings);
+  GetNearbyBuildings(center, maxDistanceM, buildings);
 
   HouseTable table(m_dataSource);
   size_t triesCount = 0;
@@ -229,17 +235,18 @@ bool ReverseGeocoder::GetNearbyAddress(HouseTable & table, Building const & bld,
   }
 }
 
-void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Building> & buildings) const
+void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, double radius,
+                                         vector<Building> & buildings) const
 {
-  m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);
-
-  auto const addBuilding = [&](FeatureType & ft)
-  {
-    if (!ft.GetHouseNumber().empty())
-      buildings.push_back(FromFeature(ft, feature::GetMinDistanceMeters(ft, center)));
+  auto const addBuilding = [&](FeatureType & ft) {
+    auto const distance = feature::GetMinDistanceMeters(ft, center);
+    if (!ft.GetHouseNumber().empty() && distance <= radius)
+      buildings.push_back(FromFeature(ft, distance));
   };
 
-  m_dataSource.ForEachInRect(addBuilding, rect, kQueryScale);
+  auto const stop = [&]() { return buildings.size() >= kMaxNumTriesToApproxAddress; };
+
+  m_dataSource.ForClosestToPoint(addBuilding, stop, center, radius, kQueryScale);
   sort(buildings.begin(), buildings.end(), base::LessBy(&Building::m_distanceMeters));
 }
 
