@@ -24,7 +24,7 @@ public abstract class AbstractClickInterceptor implements ClickInterceptor
   @Override
   public final void onInterceptClick(@NonNull MwmActivity activity)
   {
-    UserActionsLogger.logTipShownEvent(getType(), TipsAction.ACTION_CLICKED);
+    UserActionsLogger.logTipClickedEvent(getType(), TipsAction.ACTION_CLICKED);
     onInterceptClickInternal(activity);
   }
 

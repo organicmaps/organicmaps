@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, MWMEyeDiscoveryEvent)
 @interface MWMEye : NSObject
 
 + (MWMTip)getTipType;
-+ (void)tipShownWithType:(MWMTip)type event:(MWMTipEvent)event;
++ (void)tipClickedWithType:(MWMTip)type event:(MWMTipEvent)event;
 + (void)bookingFilterUsed;
 + (void)boomarksCatalogShown;
 + (void)discoveryShown;

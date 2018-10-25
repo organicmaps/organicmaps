@@ -9,9 +9,9 @@ import com.mapswithme.maps.tips.TipsApi;
 
 public class UserActionsLogger
 {
-  public static void logTipShownEvent(@NonNull TipsApi provider, @NonNull TipsAction action)
+  public static void logTipClickedEvent(@NonNull TipsApi provider, @NonNull TipsAction action)
   {
-    nativeTipShown(provider.ordinal(), action.ordinal());
+    nativeTipClicked(provider.ordinal(), action.ordinal());
   }
 
   public static void logBookingFilterUsedEvent()
@@ -39,7 +39,7 @@ public class UserActionsLogger
     nativeDiscoveryItemClicked(event.ordinal());
   }
 
-  private static native void nativeTipShown(int type, int event);
+  private static native void nativeTipClicked(int type, int event);
   private static native void nativeBookingFilterUsed();
   private static native void nativeBookmarksCatalogShown();
   private static native void nativeDiscoveryShown();

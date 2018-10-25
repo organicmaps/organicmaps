@@ -147,7 +147,7 @@ public enum TipsApi
   private void onPromptStateChanged(int state)
   {
     if (state == MaterialTapTargetPrompt.STATE_DISMISSED)
-      UserActionsLogger.logTipShownEvent(TipsApi.this, TipsAction.GOT_IT_CLICKED);
+      UserActionsLogger.logTipClickedEvent(TipsApi.this, TipsAction.GOT_IT_CLICKED);
   }
 
   @Nullable

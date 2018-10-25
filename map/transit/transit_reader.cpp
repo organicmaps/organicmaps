@@ -300,7 +300,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
 
   if (hasData && m_trackFirstSchemeData)
   {
-    eye::Eye::Event::LayerUsed(eye::Layer::Type::PublicTransport);
+    eye::Eye::Event::LayerShown(eye::Layer::Type::PublicTransport);
     m_trackFirstSchemeData = false;
   }
   

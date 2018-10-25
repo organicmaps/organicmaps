@@ -11,9 +11,9 @@
   return tutorialType ? (MWMTip)*tutorialType : MWMTipNone;
 }
 
-+ (void)tipShownWithType:(MWMTip)type event:(MWMTipEvent)event
++ (void)tipClickedWithType:(MWMTip)type event:(MWMTipEvent)event
 {
-  eye::Eye::Event::TipShown((eye::Tip::Type)type, (eye::Tip::Event)event);
+  eye::Eye::Event::TipClicked((eye::Tip::Type)type, (eye::Tip::Event)event);
 }
 
 + (void)bookingFilterUsed
