@@ -1,6 +1,7 @@
 #import "MWMFrameworkHelper.h"
 #import "MWMLocationManager.h"
 #import "MapViewController.h"
+#import "MWMAlertViewController.h"
 
 #include "Framework.h"
 
@@ -63,6 +64,34 @@
   case DayTimeType::PolarDay: return MWMDayTimeDay;
   case DayTimeType::Night:
   case DayTimeType::PolarNight: return MWMDayTimeNight;
+  }
+}
+
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action
+{
+  switch (Platform::ConnectionStatus())
+  {
+    case Platform::EConnectionType::CONNECTION_NONE:
+      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+      break;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      action();
+      break;
+    case Platform::EConnectionType::CONNECTION_WWAN:
+    {
+      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
+      {
+        [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
+          GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
+          action();
+        }];
+      }
+      else
+      {
+        action();
+      }
+      break;
+    }
   }
 }
 

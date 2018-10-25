@@ -73,44 +73,17 @@ final class BMCViewController: MWMViewController {
   }
 
   private func shareCategory(category: BMCCategory, anchor: UIView) {
-    let shareOnSuccess = { [viewModel] (url: URL) in
-      typealias AVC = MWMActivityViewController
-      let message = L("share_bookmarks_email_body")
-      let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
-        viewModel?.finishShareCategory()
-      }
-      shareController!.present(inParentViewController: self, anchorView: anchor)
-    }
-
-    let showAlertOnError = { (title: String, text: String) in
-      MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
-    }
+    let storyboard = UIStoryboard.instance(.sharing)
+    let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
     
-    viewModel.shareCategory(category: category) { (status: BMCShareCategoryStatus) in
-      switch status {
-      case let .success(url): shareOnSuccess(url)
-      case let .error(title, text): showAlertOnError(title, text)
-      }
-    }
+    MapViewController.topViewController().navigationController?.pushViewController(shareController,
+                                                                                   animated: true)
   }
 
   private func openCategory(category: BMCCategory) {
     let bmViewController = BookmarksVC(category: category.identifier)!
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
-  }
-
-  private func signup(anchor: UIView, onComplete: @escaping (Bool) -> Void) {
-    if MWMAuthorizationViewModel.isAuthenticated() {
-      onComplete(true)
-    } else {
-      let authVC = AuthorizationViewController(popoverSourceView: anchor,
-                                               sourceComponent: .bookmarks,
-                                               permittedArrowDirections: .any,
-                                               successHandler: { _ in onComplete(true) },
-                                               errorHandler: { _ in onComplete(false) })
-      present(authVC, animated: true, completion: nil)
-    }
   }
 
   private func editCategory(category: BMCCategory, anchor: UIView) {

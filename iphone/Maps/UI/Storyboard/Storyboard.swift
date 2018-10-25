@@ -9,6 +9,7 @@ enum Storyboard: Int {
   case searchFilters
   case settings
   case welcome
+  case sharing
 }
 
 extension UIStoryboard {
@@ -21,6 +22,7 @@ extension UIStoryboard {
     case .searchFilters: name = "SearchFilters"
     case .settings: name = "Settings"
     case .welcome: name = "Welcome"
+    case .sharing: name = "BookmarksSharingFlow"
     }
     return UIStoryboard(name: name, bundle: nil)
   }

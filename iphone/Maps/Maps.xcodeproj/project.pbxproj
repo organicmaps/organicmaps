@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */; };
+		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
+		33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */; };
+		33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C558E2217F6CF100299E70 /* UploadActionCell.swift */; };
+		33E905462180C40900868CAC /* UIViewController+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E905452180C40900868CAC /* UIViewController+Authorization.swift */; };
 		3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
 		340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
 		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
@@ -767,6 +771,10 @@
 		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSharingViewController.swift; sourceTree = "<group>"; };
+		33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookmarksSharingFlow.storyboard; sourceTree = "<group>"; };
+		33C558E2217F6CF100299E70 /* UploadActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadActionCell.swift; sourceTree = "<group>"; };
+		33E905452180C40900868CAC /* UIViewController+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Authorization.swift"; sourceTree = "<group>"; };
 		3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTransitionAnimator.swift; sourceTree = "<group>"; };
 		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
@@ -2120,6 +2128,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		33C49D5C21774222000F8B6A /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */,
+				33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */,
+				33C558E2217F6CF100299E70 /* UploadActionCell.swift */,
+			);
+			path = Sharing;
+			sourceTree = "<group>";
+		};
 		340416391E7BDFB800E2B6D6 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
@@ -2340,6 +2358,7 @@
 		3404F4A02028A6C00090E401 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				33C49D5C21774222000F8B6A /* Sharing */,
 				343D7B6D202AF4CA007D56A8 /* Actions */,
 				3404F48F202898CC0090E401 /* BMCModels.swift */,
 				343D7B6F202AF7AC007D56A8 /* BMCView */,
@@ -2546,6 +2565,7 @@
 				349D1CE21E3F836900A878FD /* UIViewController+Hierarchy.swift */,
 				34F7422F1E0834F400AC1FD6 /* UIViewController+Navigation.h */,
 				34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */,
+				33E905452180C40900868CAC /* UIViewController+Authorization.swift */,
 				347E03981FAC5F1D00426032 /* UIWindow+InputLanguage.swift */,
 				4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */,
 			);
@@ -4495,6 +4515,7 @@
 				4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */,
 				F6E2FE761E097BA00083EBEC /* MWMOpeningHoursCell.xib in Resources */,
 				34AB66351FC5AA330078E451 /* RouteManagerCell.xib in Resources */,
+				33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
@@ -4845,6 +4866,7 @@
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
 				4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */,
 				F6E2FD981E097BA00083EBEC /* MWMBookmarkTitleCell.m in Sources */,
+				33E905462180C40900868CAC /* UIViewController+Authorization.swift in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,
 				349D1ADE1E2E325C004A2006 /* MWMBottomMenuViewController.mm in Sources */,
@@ -4874,6 +4896,7 @@
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
 				B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */,
 				3404754A1E081A4600C92850 /* AppInfo.mm in Sources */,
+				3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */,
 				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,
 				34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */,
@@ -4999,6 +5022,7 @@
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
 				34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
+				33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */,
 				347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,

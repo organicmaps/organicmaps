@@ -8,6 +8,8 @@
 
 + (MWMDayTime)daytime;
 
++ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action;
+
 + (void)createFramework;
 
 + (BOOL)canUseNetwork;

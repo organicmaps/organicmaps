@@ -3,18 +3,12 @@
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMigrationView.h"
 #import "MWMMigrationViewController.h"
-#import "MWMStorage.h"
+#import "MWMFrameworkHelper.h"
 #import "Statistics.h"
 
 #include "Framework.h"
 
 using namespace storage;
-
-@interface MWMStorage ()
-
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action;
-
-@end
 
 @interface MWMMigrationViewController () <MWMCircularProgressProtocol>
 
@@ -101,7 +95,7 @@ using namespace storage;
     [view setProgress:static_cast<CGFloat>(progress.first) / progress.second];
   };
 
-  [MWMStorage checkConnectionAndPerformAction:^{
+  [MWMFrameworkHelper checkConnectionAndPerformAction:^{
     self->m_countryId = f.PreMigrate(position, onStatusChanged, onProgressChanged);
     if (self->m_countryId != kInvalidCountryId)
       [self setState:MWMMigrationViewState::Processing];

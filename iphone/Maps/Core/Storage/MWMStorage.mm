@@ -1,6 +1,7 @@
 #import "MWMStorage.h"
 #import "MWMAlertViewController.h"
 #import "MWMRouter.h"
+#import "MWMFrameworkHelper.h"
 
 #include "Framework.h"
 
@@ -16,7 +17,7 @@ using namespace storage;
 {
   if (IsEnoughSpaceForDownload(countryId, GetFramework().GetStorage()))
   {
-    [self checkConnectionAndPerformAction:[countryId, onSuccess] {
+    [MWMFrameworkHelper checkConnectionAndPerformAction:[countryId, onSuccess] {
       GetFramework().GetStorage().DownloadNode(countryId);
       if (onSuccess)
         onSuccess();
@@ -30,7 +31,7 @@ using namespace storage;
 
 + (void)retryDownloadNode:(TCountryId const &)countryId
 {
-  [self checkConnectionAndPerformAction:[countryId] {
+  [MWMFrameworkHelper checkConnectionAndPerformAction:[countryId] {
     GetFramework().GetStorage().RetryDownloadNode(countryId);
   }];
 }
@@ -39,7 +40,7 @@ using namespace storage;
 {
   if (IsEnoughSpaceForUpdate(countryId, GetFramework().GetStorage()))
   {
-    [self checkConnectionAndPerformAction:[countryId] {
+    [MWMFrameworkHelper checkConnectionAndPerformAction:[countryId] {
       GetFramework().GetStorage().UpdateNode(countryId);
     }];
   }
@@ -92,7 +93,7 @@ using namespace storage;
                                      });
   if (storage::IsEnoughSpaceForDownload(requiredSize))
   {
-    [self checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {
+    [MWMFrameworkHelper checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {
       for (auto const & countryId : countryIds)
         s.DownloadNode(countryId);
       if (onSuccess)
@@ -102,34 +103,6 @@ using namespace storage;
   else
   {
     [[MWMAlertViewController activeAlertController] presentNotEnoughSpaceAlert];
-  }
-}
-
-+ (void)checkConnectionAndPerformAction:(MWMVoidBlock)action
-{
-  switch (Platform::ConnectionStatus())
-  {
-    case Platform::EConnectionType::CONNECTION_NONE:
-      [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-      break;
-    case Platform::EConnectionType::CONNECTION_WIFI:
-      action();
-      break;
-    case Platform::EConnectionType::CONNECTION_WWAN:
-    {
-      if (!GetFramework().GetDownloadingPolicy().IsCellularDownloadEnabled())
-      {
-        [[MWMAlertViewController activeAlertController] presentNoWiFiAlertWithOkBlock:[action] {
-          GetFramework().GetDownloadingPolicy().EnableCellularDownload(true);
-          action();
-        }];
-      }
-      else
-      {
-        action();
-      }
-      break;
-    }
   }
 }
 
