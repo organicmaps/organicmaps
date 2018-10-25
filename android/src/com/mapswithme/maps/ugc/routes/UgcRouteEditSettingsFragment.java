@@ -67,7 +67,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     mEditCategoryNameView.setText(mCategory.getName());
     mEditCategoryNameView.requestFocus();
     mAccessRulesView = root.findViewById(R.id.sharing_options_desc);
-    mAccessRulesView.setText(mCategory.getAccessRules().getResId());
+    mAccessRulesView.setText(mCategory.getAccessRules().getNameResId());
     mEditDescView = root.findViewById(R.id.edit_description);
     mEditDescView.setText(mCategory.getDescription());
     View clearNameBtn = root.findViewById(R.id.edit_text_clear_btn);
@@ -81,7 +81,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   {
     super.onActivityResult(requestCode, resultCode, data);
     mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
-    mAccessRulesView.setText(mCategory.getAccessRules().getResId());
+    mAccessRulesView.setText(mCategory.getAccessRules().getNameResId());
   }
 
   private void onSharingOptionsClicked()
@@ -126,11 +126,10 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     String categoryName = mEditCategoryNameView.getEditableText().toString().trim();
 
     if (!TextUtils.equals(categoryName, mCategory.getName()))
-      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(),  categoryName);
+      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), categoryName);
 
     String categoryDesc = mEditDescView.getEditableText().toString().trim();
     if (!TextUtils.equals(mCategory.getDescription(), categoryDesc))
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), categoryDesc);
-
   }
 }

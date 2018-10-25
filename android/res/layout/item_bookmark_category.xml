@@ -29,35 +29,55 @@
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>
-  <TextView
-    android:id="@+id/size"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+  <LinearLayout
+    android:id="@+id/bottom_line_container"
+    android:orientation="horizontal"
     android:layout_below="@id/name"
     android:layout_alignLeft="@id/name"
     android:layout_alignStart="@id/name"
-    android:layout_marginBottom="@dimen/margin_half_plus"
-    android:ellipsize="end"
-    android:singleLine="true"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:text="42000000"/>
-
-  <TextView
-    android:id="@+id/author_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/name"
-    android:layout_toRightOf="@id/size"
-    android:layout_toEndOf="@id/size"
-    android:layout_marginBottom="@dimen/margin_half_plus"
-    android:layout_alignEnd="@id/name"
-    android:layout_alignRight="@id/name"
     android:layout_toStartOf="@id/more"
     android:layout_toLeftOf="@id/more"
-    android:ellipsize="end"
-    android:singleLine="true"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    tools:text="42000000"/>
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+      android:id="@+id/access_rule_img"
+      android:layout_gravity="center_vertical"
+      android:tint="?iconTint"
+      android:layout_width="@dimen/margin_half_plus_eight"
+      android:layout_height="@dimen/margin_half_plus_eight"/>
+    <TextView
+      android:id="@+id/access_rule"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="42000000"
+      android:layout_marginLeft="@dimen/margin_half"
+      android:layout_marginStart="@dimen/margin_half"/>
+    <TextView
+      android:id="@+id/size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="42000000"/>
+
+    <TextView
+      android:id="@+id/author_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:ellipsize="end"
+      android:singleLine="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="42000000"/>
+  </LinearLayout>
+
   <ImageView
     android:id="@id/more"
     android:layout_width="wrap_content"

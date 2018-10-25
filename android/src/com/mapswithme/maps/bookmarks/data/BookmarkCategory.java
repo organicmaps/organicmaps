@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
@@ -46,7 +47,7 @@ public class BookmarkCategory implements Parcelable
     mDescription = description;
     mTracksCount = tracksCount;
     mBookmarksCount = bookmarksCount;
-    mTypeIndex = fromCatalog ? Type.CATALOG.ordinal() : Type.PRIVATE.ordinal();
+    mTypeIndex = fromCatalog ? Type.DOWNLOADED.ordinal() : Type.PRIVATE.ordinal();
     mIsMyCategory = isMyCategory;
     mIsVisible = isVisible;
     mAuthor = TextUtils.isEmpty(authorId) || TextUtils.isEmpty(authorName)
@@ -111,7 +112,7 @@ public class BookmarkCategory implements Parcelable
 
   public boolean isFromCatalog()
   {
-    return Type.values()[mTypeIndex] == Type.CATALOG;
+    return Type.values()[mTypeIndex] == Type.DOWNLOADED;
   }
 
   public boolean isVisible()
@@ -288,19 +289,19 @@ public class BookmarkCategory implements Parcelable
     return sb.toString();
   }
 
-  public static class IsFromCatalog implements TypeConverter<BookmarkCategory, Boolean>
+  public static class Downloaded implements TypeConverter<BookmarkCategory, Boolean>
   {
     @Override
     public Boolean convert(@NonNull BookmarkCategory data)
     {
-      return data.isFromCatalog();
+      return data.isFromCatalog() && !data.isMyCategory();
     }
   }
 
   public enum Type
   {
     PRIVATE(BookmarksPageFactory.PRIVATE, FilterStrategy.PredicativeStrategy.makePrivateInstance()),
-    CATALOG(BookmarksPageFactory.CATALOG, FilterStrategy.PredicativeStrategy.makeCatalogInstance());
+    DOWNLOADED(BookmarksPageFactory.DOWNLOADED, FilterStrategy.PredicativeStrategy.makeDownloadedInstance());
 
     @NonNull
     private BookmarksPageFactory mFactory;
@@ -380,35 +381,43 @@ public class BookmarkCategory implements Parcelable
 
   public enum AccessRules
   {
-    ACCESS_RULES_LOCAL(R.string.not_shared),
-    ACCESS_RULES_PUBLIC(R.string.public_access),
-    ACCESS_RULES_DIRECT_LINK(R.string.limited_access),
-    ACCESS_RULES_P2P(UiUtils.NO_ID)
+    ACCESS_RULES_LOCAL(R.string.not_shared, R.drawable.ic_globe),
+    ACCESS_RULES_PUBLIC(R.string.public_access, R.drawable.ic_globe),
+    ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_globe),
+    ACCESS_RULES_P2P(UiUtils.NO_ID, R.drawable.ic_globe)
         {
           @Override
-          public int getResId()
+          public int getNameResId()
           {
             throw new IllegalStateException("Unsupported here");
           }
         },
-    ACCESS_RULES_PAID(UiUtils.NO_ID)
+    ACCESS_RULES_PAID(UiUtils.NO_ID, R.drawable.ic_globe)
         {
           @Override
-          public int getResId()
+          public int getNameResId()
           {
             throw new IllegalStateException("Unsupported here");
           }
         };
 
     private final int mResId;
+    private final int mDrawableResId;
 
-    AccessRules(int resId)
+    AccessRules(int resId, int drawableResId)
     {
       mResId = resId;
+      mDrawableResId = drawableResId;
+    }
+
+    @DrawableRes
+    public int getDrawableResId()
+    {
+      return mDrawableResId;
     }
 
     @StringRes
-    public int getResId()
+    public int getNameResId()
     {
       return mResId;
     }

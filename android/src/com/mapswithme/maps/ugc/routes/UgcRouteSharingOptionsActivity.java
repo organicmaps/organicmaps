@@ -1,11 +1,15 @@
 package com.mapswithme.maps.ugc.routes;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 public class UgcRouteSharingOptionsActivity extends BaseMwmFragmentActivity
 {
@@ -34,5 +38,12 @@ public class UgcRouteSharingOptionsActivity extends BaseMwmFragmentActivity
   protected int getContentLayoutResId()
   {
     return R.layout.fragment_container_layout;
+  }
+
+  public static void start(@NonNull Context context, @NonNull BookmarkCategory category)
+  {
+    Intent intent = new Intent(context, UgcRouteSharingOptionsActivity.class)
+        .putExtra(UgcSharingOptionsFragment.EXTRA_BOOKMARK_CATEGORY, category);
+    context.startActivity(intent);
   }
 }

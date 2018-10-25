@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
   <item android:id="@+id/set_show"/>
 
   <item android:id="@+id/set_share"
@@ -9,7 +10,12 @@
   <item android:id="@+id/set_edit"
         android:title="@string/rename"
         android:icon="@drawable/ic_edit"/>
-
+  <item android:id="@+id/list_settings"
+        android:title="@string/list_settings"
+        android:icon="@drawable/ic_menu_settings"/>
+  <item android:id="@+id/sharing_options"
+        android:title="@string/sharing_options"
+        android:icon="@drawable/ic_menu_settings"/>
   <item android:id="@+id/set_delete"
         android:title="@string/delete"
         android:icon="@drawable/ic_delete"/>

@@ -138,6 +138,10 @@ public class Holders
     View mMore;
     @NonNull
     TextView mAuthorName;
+    @NonNull
+    TextView mAccessRule;
+    @NonNull
+    ImageView mAccessRuleImage;
     @Nullable
     private BookmarkCategory mEntity;
 
@@ -152,6 +156,8 @@ public class Holders
       mSize = root.findViewById(R.id.size);
       mMore = root.findViewById(R.id.more);
       mAuthorName = root.findViewById(R.id.author_name);
+      mAccessRule = root.findViewById(R.id.access_rule);
+      mAccessRuleImage = root.findViewById(R.id.access_rule_img);
     }
 
     void setVisibilityState(boolean visible)

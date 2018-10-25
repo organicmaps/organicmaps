@@ -10,7 +10,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 public enum BookmarksPageFactory
 {
-  PRIVATE(new Analytics(Statistics.ParamValue.MY), true)
+  PRIVATE(new Analytics(Statistics.ParamValue.MY),
+          true)
       {
         @NonNull
         @Override
@@ -22,10 +23,13 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.bookmarks;
+          return R.string.bookmarks_page_my;
         }
       },
-  CATALOG(new Analytics(Statistics.ParamValue.DOWNLOADED), new BookmarkCategoriesPageResProvider.Catalog(), false)
+
+  DOWNLOADED(new Analytics(Statistics.ParamValue.DOWNLOADED),
+             new BookmarkCategoriesPageResProvider.Catalog(),
+             false)
       {
         @NonNull
         @Override
@@ -37,7 +41,7 @@ public enum BookmarksPageFactory
         @Override
         public int getTitle()
         {
-          return R.string.guides;
+          return R.string.downloader_downloaded_subtitle;
         }
       };
 

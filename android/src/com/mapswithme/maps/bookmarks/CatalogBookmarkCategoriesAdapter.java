@@ -12,13 +12,13 @@ public class CatalogBookmarkCategoriesAdapter extends BookmarkCategoriesAdapter
 {
   CatalogBookmarkCategoriesAdapter(@NonNull Context context)
   {
-    super(context, BookmarkCategory.Type.CATALOG);
+    super(context, BookmarkCategory.Type.DOWNLOADED);
   }
 
   @Override
   @NonNull
   public List<BookmarkCategory> getBookmarkCategories()
   {
-    return BookmarkManager.INSTANCE.getCatalogCategoriesSnapshot().getItems();
+    return BookmarkManager.INSTANCE.getDownloadedCategoriesSnapshot().getItems();
   }
 }

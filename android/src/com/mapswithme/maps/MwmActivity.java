@@ -1699,7 +1699,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       try
       {
         BookmarksDownloadManager.from(target).enqueueRequest(mUrl);
-        BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.CATALOG.ordinal());
+        BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal());
       }
       catch (MalformedURLException e)
       {

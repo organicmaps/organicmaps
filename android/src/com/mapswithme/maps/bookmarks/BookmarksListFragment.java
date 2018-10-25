@@ -27,6 +27,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.Track;
+import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -152,7 +153,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     BookmarkListAdapter adapter = getAdapter();
     adapter.registerAdapterDataObserver(mCategoryDataSource);
     adapter.setOnClickListener(this);
-    adapter.setOnLongClickListener(isCatalogCategory() ? null : this);
+    adapter.setOnLongClickListener(isCategorySharingRestricted() ? null : this);
   }
 
   @Override
@@ -200,7 +201,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
         final Bookmark bookmark = (Bookmark) adapter.getItem(mSelectedPosition);
-        int menuResId = isCatalogCategory() ? R.menu.menu_bookmarks_catalog : R.menu.menu_bookmarks;
+        int menuResId = isCategorySharingRestricted() ? R.menu.menu_bookmarks_catalog
+                                                      : R.menu.menu_bookmarks;
         BottomSheet bs = BottomSheetHelper.create(getActivity(), bookmark.getTitle())
                                           .sheet(menuResId)
                                           .listener(this)
@@ -272,14 +274,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    if (isCatalogCategory())
+    if (isCategorySharingRestricted())
       return;
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
   }
 
-  private boolean isCatalogCategory()
+  private boolean isCategorySharingRestricted()
   {
-    return mCategoryDataSource.getData().getType() == BookmarkCategory.Type.CATALOG;
+    BookmarkCategory category = mCategoryDataSource.getData();
+    return category.getType() == BookmarkCategory.Type.DOWNLOADED
+           || category.getAccessRules() != BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
   }
 
   @Override
@@ -287,11 +291,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (item.getItemId() == R.id.set_share)
     {
-      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(),
-                                                               mCategoryDataSource.getData().getId());
+      openSharingOptionsScreen();
       return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void openSharingOptionsScreen()
+  {
+    UgcRouteSharingOptionsActivity.start(getContext(), getCategoryOrThrow());
   }
 }

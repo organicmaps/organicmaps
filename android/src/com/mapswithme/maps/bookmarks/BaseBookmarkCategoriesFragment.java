@@ -20,6 +20,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity;
+import com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
@@ -312,6 +314,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     return new BookmarkManager.DefaultBookmarksCatalogListener();
   }
 
+  @NonNull
+  protected BookmarkCategory getSelectedCategory()
+  {
+    return mSelectedCategory;
+  }
+
   interface CategoryEditor
   {
     void commit(@NonNull String newName);
@@ -340,7 +348,21 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     SET_EDIT(R.id.set_edit, editAction()),
     SHOW_ON_MAP(R.id.show_on_map, showAction()),
     SHARE_LIST(R.id.share_list, shareAction()),
+    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions()),
+    LIST_SETTINGS(R.id.list_settings, showListSettings()),
     DELETE_LIST(R.id.delete_list, deleteAction());
+
+    @NonNull
+    private static MenuClickProcessorBase showSharingOptions()
+    {
+      return new MenuClickProcessorBase.OpenSharingOptions();
+    }
+
+    @NonNull
+    private static MenuClickProcessorBase showListSettings()
+    {
+      return new MenuClickProcessorBase.OpenListSettings();
+    }
 
     @NonNull
     private static MenuClickProcessorBase.ShowAction showAction()
@@ -414,6 +436,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                           @NonNull BookmarkCategory category)
       {
         frag.onShareActionSelected(category);
+        Intent intent = new Intent(frag.getContext(), UgcRouteEditSettingsActivity.class);
+        intent.putExtra(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY, frag.mSelectedCategory);
+        frag.startActivity(intent);
       }
     }
 
@@ -443,6 +468,26 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                                     frag.getString(R.string.cancel),
                                     MAX_CATEGORY_NAME_LENGTH,
                                     frag);
+      }
+    }
+
+    protected static class OpenSharingOptions extends MenuClickProcessorBase
+    {
+      @Override
+      public void process(@NonNull BaseBookmarkCategoriesFragment frag,
+                          @NonNull BookmarkCategory category)
+      {
+        UgcRouteSharingOptionsActivity.start(frag.getContext(), category);
+      }
+    }
+
+    protected static class OpenListSettings extends MenuClickProcessorBase
+    {
+      @Override
+      public void process(@NonNull BaseBookmarkCategoriesFragment frag,
+                          @NonNull BookmarkCategory category)
+      {
+
       }
     }
   }

@@ -12,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.UiUtils;
 
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
@@ -131,13 +132,27 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     categoryHolder.setName(category.getName());
     bindSize(categoryHolder, category);
     bindAuthor(categoryHolder, category);
+    bindAccessRules(category, categoryHolder);
     categoryHolder.setVisibilityState(category.isVisible());
     ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(categoryHolder);
     categoryHolder.setVisibilityListener(listener);
-    categoryHolder.setMoreListener(v -> {
-      if (mCategoryListCallback != null)
-        mCategoryListCallback.onMoreOperationClick(category);
-    });
+    categoryHolder.setMoreListener(v -> onMoreOperationClicked(category));
+  }
+
+  private void bindAccessRules(@NonNull BookmarkCategory category,
+                               @NonNull CategoryViewHolder categoryHolder)
+  {
+    BookmarkCategory.AccessRules rules = category.getAccessRules();
+    categoryHolder.mAccessRuleImage.setImageResource(rules.getDrawableResId());
+    String representation = categoryHolder.itemView.getResources().getString(rules.getNameResId())
+                            + UiUtils.PHRASE_SEPARATOR;
+    categoryHolder.mAccessRule.setText(representation);
+  }
+
+  private void onMoreOperationClicked(BookmarkCategory category)
+  {
+    if (mCategoryListCallback != null)
+      mCategoryListCallback.onMoreOperationClick(category);
   }
 
   private void bindSize(@NonNull CategoryViewHolder categoryHolder,

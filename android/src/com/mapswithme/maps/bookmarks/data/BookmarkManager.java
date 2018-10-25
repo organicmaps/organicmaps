@@ -461,10 +461,10 @@ public enum BookmarkManager
   }
 
   @NonNull
-  public AbstractCategoriesSnapshot.Default getCatalogCategoriesSnapshot()
+  public AbstractCategoriesSnapshot.Default getDownloadedCategoriesSnapshot()
   {
     BookmarkCategory[] items = nativeGetBookmarkCategories();
-    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Catalog());
+    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Downloaded());
   }
 
   @NonNull
@@ -500,7 +500,7 @@ public enum BookmarkManager
 
   public boolean areAllCatalogCategoriesVisible()
   {
-    return areAllCategoriesVisible(BookmarkCategory.Type.CATALOG);
+    return areAllCategoriesVisible(BookmarkCategory.Type.DOWNLOADED);
   }
 
   public boolean areAllOwnedCategoriesVisible()
@@ -520,7 +520,7 @@ public enum BookmarkManager
 
   public boolean areAllCatalogCategoriesInvisible()
   {
-    return areAllCategoriesInvisible(BookmarkCategory.Type.CATALOG);
+    return areAllCategoriesInvisible(BookmarkCategory.Type.DOWNLOADED);
   }
 
   public boolean areAllOwnedCategoriesInvisible()

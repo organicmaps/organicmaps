@@ -27,15 +27,15 @@ public interface FilterStrategy
   {
     public Private()
     {
-      super(new Predicate.Equals<>(new BookmarkCategory.IsFromCatalog(), false));
+      super(new Predicate.Equals<>(new BookmarkCategory.Downloaded(), false));
     }
   }
 
-  class Catalog extends PredicativeStrategy<Boolean>
+  class Downloaded extends PredicativeStrategy<Boolean>
   {
-    Catalog()
+    Downloaded()
     {
-      super(new Predicate.Equals<>(new BookmarkCategory.IsFromCatalog(), true));
+      super(new Predicate.Equals<>(new BookmarkCategory.Downloaded(), true));
     }
   }
 
@@ -63,9 +63,9 @@ public interface FilterStrategy
     }
 
     @NonNull
-    public static FilterStrategy makeCatalogInstance()
+    public static FilterStrategy makeDownloadedInstance()
     {
-      return new Catalog();
+      return new Downloaded();
     }
 
     @NonNull
