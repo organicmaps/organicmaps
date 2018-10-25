@@ -165,16 +165,43 @@ struct SpeedInUnits
   SpeedInUnits() = default;
   SpeedInUnits(uint16_t speed, measurement_utils::Units units) noexcept : m_speed(speed), m_units(units) {}
 
-  bool operator==(SpeedInUnits const & s) const;
+  bool operator==(SpeedInUnits const & rhs) const;
   /// \note While comparing speeds are not converted to the same units. So according to
   /// this compare operator 80 km per hour is more then 79 mile per hour.
-  bool operator<(SpeedInUnits const & s) const;
+  bool operator<(SpeedInUnits const & rhs) const;
 
   bool IsNumeric() const;
   bool IsValid() const { return m_speed != kInvalidSpeed; }
 
   uint16_t m_speed = kInvalidSpeed; // Speed in km per hour or mile per hour depends on m_units value.
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
+};
+
+/// \breif Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect the fact
+/// that a feature may have different maxspeed tag value for different directions.
+/// If |m_backward| is invalid it means that |m_forward| tag contains maxspeed for the both
+/// directions.
+class FeatureMaxspeed
+{
+public:
+  FeatureMaxspeed(uint32_t fid, SpeedInUnits const & forward,
+                  SpeedInUnits const & backward = SpeedInUnits());
+
+  /// \note operator==() and operator<() do not correspond to each other.
+  bool operator==(FeatureMaxspeed const & rhs) const;
+  bool operator<(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
+
+  bool IsValid() const { return m_forward.IsValid(); }
+  bool IsBidirectional() const { return IsValid() && m_backward.IsValid(); }
+
+  uint32_t GetFeatureId() const { return m_featureId; }
+  SpeedInUnits const & GetForward() const { return m_forward; }
+  SpeedInUnits const & GetBackward() const { return m_backward; }
+
+private:
+  uint32_t m_featureId = 0;
+  SpeedInUnits m_forward;
+  SpeedInUnits m_backward;
 };
 
 class MaxspeedConverter
@@ -198,6 +225,7 @@ private:
 
 MaxspeedConverter const & GetMaxspeedConverter();
 
-std::string DebugPrint(SpeedInUnits const & speed);
 std::string DebugPrint(Maxspeed maxspeed);
+std::string DebugPrint(SpeedInUnits const & speed);
+std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed);
 }  // namespace routing

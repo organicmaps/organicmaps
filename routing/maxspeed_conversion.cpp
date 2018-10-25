@@ -9,21 +9,33 @@ namespace routing
 using namespace measurement_utils;
 
 // SpeedInUnits ------------------------------------------------------------------------------------
-bool SpeedInUnits::operator==(SpeedInUnits const & s) const
+bool SpeedInUnits::operator==(SpeedInUnits const & rhs) const
 {
-  return m_speed == s.m_speed && m_units == s.m_units;
+  return m_speed == rhs.m_speed && m_units == rhs.m_units;
 }
 
-bool SpeedInUnits::operator<(SpeedInUnits const & s) const
+bool SpeedInUnits::operator<(SpeedInUnits const & rhs) const
 {
-  if (m_speed != s.m_speed)
-    return m_speed < s.m_speed;
-  return m_units < s.m_units;
+  if (m_speed != rhs.m_speed)
+    return m_speed < rhs.m_speed;
+  return m_units < rhs.m_units;
 }
 
 bool SpeedInUnits::IsNumeric() const
 {
   return m_speed != kNoneMaxSpeed && m_speed != kWalkMaxSpeed && m_speed != kInvalidSpeed;
+}
+
+// FeatureMaxspeed ---------------------------------------------------------------------------------
+FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, SpeedInUnits const & forward,
+                                 SpeedInUnits const & backward /* = SpeedInUnits() */)
+  : m_featureId(fid), m_forward(forward), m_backward(backward)
+{
+}
+
+bool FeatureMaxspeed::operator==(FeatureMaxspeed const & rhs) const
+{
+  return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
 }
 
 // MaxspeedConverter -------------------------------------------------------------------------------
@@ -205,6 +217,14 @@ MaxspeedConverter const & GetMaxspeedConverter()
   return inst;
 }
 
+std::string DebugPrint(Maxspeed maxspeed)
+{
+  std::ostringstream oss;
+  oss << "Maxspeed:" << static_cast<int>(maxspeed) << " Decoded:"
+      << DebugPrint(GetMaxspeedConverter().MacroToSpeed(maxspeed));
+  return oss.str();
+}
+
 std::string DebugPrint(SpeedInUnits const & speed)
 {
   std::ostringstream oss;
@@ -213,11 +233,12 @@ std::string DebugPrint(SpeedInUnits const & speed)
   return oss.str();
 }
 
-std::string DebugPrint(Maxspeed maxspeed)
+std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
 {
   std::ostringstream oss;
-  oss << "Maxspeed:" << static_cast<int>(maxspeed) << " Decoded:"
-      << DebugPrint(GetMaxspeedConverter().MacroToSpeed(maxspeed));
+  oss << "FeatureMaxspeed [ m_featureId:" << featureMaxspeed.GetFeatureId()
+      << " m_forward:" << DebugPrint(featureMaxspeed.GetForward())
+      << " m_backward:" << DebugPrint(featureMaxspeed.GetBackward()) << " ]";
   return oss.str();
 }
 }  // namespace routing
