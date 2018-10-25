@@ -18,11 +18,42 @@ namespace
 Info MakeDefaultInfoForTesting()
 {
   Info info;
+
   Tip tip;
   tip.m_type = Tip::Type::DiscoverButton;
   tip.m_eventCounters.Increment(Tip::Event::GotitClicked);
   tip.m_lastShownTime = Time(std::chrono::hours(101010));
   info.m_tips.emplace_back(std::move(tip));
+
+  info.m_booking.m_lastFilterUsedTime = Time(std::chrono::minutes(100100));
+
+  info.m_bookmarks.m_lastOpenedTime = Time(std::chrono::minutes(10000));
+
+  Layer layer;
+  layer.m_useCount = 3;
+  layer.m_lastTimeUsed = Time(std::chrono::hours(20000));
+  layer.m_type = Layer::Type::PublicTransport;
+  info.m_layers.emplace_back(std::move(layer));
+
+
+  info.m_discovery.m_lastOpenedTime = Time(std::chrono::hours(30000));
+  info.m_discovery.m_eventCounters.Increment(Discovery::Event::MoreAttractionsClicked);
+  info.m_discovery.m_lastClickedTime = Time(std::chrono::hours(30005));
+
+  MapObject poi;
+  poi.m_bestType = "shop";
+  poi.m_pos = {53.652007, 108.143443};
+  MapObject::Event eventInfo;
+  std::vector<MapObject::Event> events;
+  eventInfo.m_eventTime = Time(std::chrono::hours(90000));
+  eventInfo.m_userPos = {72.045507, 81.408095};
+  eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
+  events.emplace_back(eventInfo);
+  eventInfo.m_eventTime = Time(std::chrono::hours(80000));
+  eventInfo.m_userPos = {53.016347, 158.683327};
+  eventInfo.m_type = MapObject::Event::Type::Open;
+  events.emplace_back(eventInfo);
+  info.m_mapObjects.emplace(poi, events);
 
   return info;
 }
@@ -37,6 +68,29 @@ void CompareWithDefaultInfo(Info const & lhs)
   TEST_EQUAL(lhs.m_tips[0].m_lastShownTime, rhs.m_tips[0].m_lastShownTime, ());
   TEST_EQUAL(lhs.m_tips[0].m_eventCounters.Get(Tip::Event::GotitClicked),
              rhs.m_tips[0].m_eventCounters.Get(Tip::Event::GotitClicked), ());
+  TEST_EQUAL(lhs.m_booking.m_lastFilterUsedTime, rhs.m_booking.m_lastFilterUsedTime, ());
+  TEST_EQUAL(lhs.m_bookmarks.m_lastOpenedTime, rhs.m_bookmarks.m_lastOpenedTime, ());
+  TEST_EQUAL(lhs.m_layers.size(), rhs.m_layers.size(), ());
+  TEST_EQUAL(lhs.m_layers.back().m_type, rhs.m_layers.back().m_type, ());
+  TEST_EQUAL(lhs.m_layers.back().m_lastTimeUsed, rhs.m_layers.back().m_lastTimeUsed, ());
+  TEST_EQUAL(lhs.m_layers.back().m_useCount, rhs.m_layers.back().m_useCount, ());
+  TEST_EQUAL(lhs.m_discovery.m_lastOpenedTime, rhs.m_discovery.m_lastOpenedTime, ());
+  TEST_EQUAL(lhs.m_discovery.m_lastClickedTime, rhs.m_discovery.m_lastClickedTime, ());
+  TEST_EQUAL(lhs.m_discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked),
+             rhs.m_discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), ());
+  TEST_EQUAL(lhs.m_mapObjects.size(), rhs.m_mapObjects.size(), ());
+
+  auto const & lPoi = *(lhs.m_mapObjects.begin());
+  auto const & rPoi = *(rhs.m_mapObjects.begin());
+  TEST(lPoi.first.m_pos.EqualDxDy(rPoi.first.m_pos, 1e-6), ());
+  TEST_EQUAL(lPoi.first.m_bestType, rPoi.first.m_bestType,());
+  TEST_EQUAL(lPoi.second.size(), rPoi.second.size(),());
+  TEST(lPoi.second[0].m_userPos.EqualDxDy(rPoi.second[0].m_userPos, 1e-6), ());
+  TEST_EQUAL(lPoi.second[0].m_eventTime, rPoi.second[0].m_eventTime, ());
+  TEST_EQUAL(lPoi.second[0].m_type, rPoi.second[0].m_type, ());
+  TEST(lPoi.second[1].m_userPos.EqualDxDy(rPoi.second[1].m_userPos, 1e-6), ());
+  TEST_EQUAL(lPoi.second[1].m_eventTime, rPoi.second[1].m_eventTime, ());
+  TEST_EQUAL(lPoi.second[1].m_type, rPoi.second[1].m_type, ());
 }
 
 Time GetLastShownTipTime(Tips const & tips)
@@ -68,27 +122,36 @@ UNIT_TEST(Eye_SerdesTest)
 {
   auto const info = MakeDefaultInfoForTesting();
 
-  std::vector<int8_t> s;
-  eye::Serdes::Serialize(info, s);
-  Info d;
-  eye::Serdes::Deserialize(s, d);
+  std::vector<int8_t> infoData;
+  std::vector<int8_t> mapObjectsData;
+  eye::Serdes::SerializeInfo(info, infoData);
+  eye::Serdes::SerializeMapObjects(info.m_mapObjects, mapObjectsData);
+  Info result;
+  eye::Serdes::DeserializeInfo(infoData, result);
+  eye::Serdes::DeserializeMapObjects(mapObjectsData, result.m_mapObjects);
 
-  CompareWithDefaultInfo(d);
+  CompareWithDefaultInfo(result);
 }
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, SaveLoadTest)
 {
   auto const info = MakeDefaultInfoForTesting();
 
-  std::vector<int8_t> s;
-  eye::Serdes::Serialize(info, s);
-  TEST(eye::Storage::Save(eye::Storage::GetEyeFilePath(), s), ());
-  s.clear();
-  TEST(eye::Storage::Load(eye::Storage::GetEyeFilePath(), s), ());
-  Info d;
-  eye::Serdes::Deserialize(s, d);
+  std::vector<int8_t> infoData;
+  std::vector<int8_t> mapObjectsData;
+  eye::Serdes::SerializeInfo(info, infoData);
+  eye::Serdes::SerializeMapObjects(info.m_mapObjects, mapObjectsData);
+  TEST(eye::Storage::SaveInfo(infoData), ());
+  TEST(eye::Storage::SaveMapObjects(mapObjectsData), ());
+  infoData.clear();
+  mapObjectsData.clear();
+  TEST(eye::Storage::LoadInfo(infoData), ());
+  TEST(eye::Storage::LoadMapObjects(mapObjectsData), ());
+  Info result;
+  eye::Serdes::DeserializeInfo(infoData, result);
+  eye::Serdes::DeserializeMapObjects(mapObjectsData, result.m_mapObjects);
 
-  CompareWithDefaultInfo(d);
+  CompareWithDefaultInfo(result);
 }
 
 UNIT_CLASS_TEST(ScopedEyeForTesting, AppendTipTest)

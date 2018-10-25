@@ -14,7 +14,11 @@ class Serdes
 public:
   DECLARE_EXCEPTION(UnknownVersion, RootException);
 
-  static void Serialize(Info const & info, std::vector<int8_t> & result);
-  static void Deserialize(std::vector<int8_t> const & bytes, Info & result);
+  static void SerializeInfo(Info const & info, std::vector<int8_t> & result);
+  static void DeserializeInfo(std::vector<int8_t> const & bytes, Info & result);
+  static void SerializeMapObjects(MapObjects const & mapObjects, std::vector<int8_t> & result);
+  static void DeserializeMapObjects(std::vector<int8_t> const & bytes, MapObjects & result);
+  static void SerializeMapObjectEvent(MapObject const & poi, MapObject::Event const & poiEvent,
+                                      std::vector<int8_t> & result);
 };
 }  // namespace eye

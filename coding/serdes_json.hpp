@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geometry/latlon.hpp"
+
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
 
@@ -130,6 +132,14 @@ public:
     (*this)(static_cast<std::underlying_type_t<T>>(t), name);
   }
 
+  void operator()(ms::LatLon const & ll, char const * name = nullptr)
+  {
+    NewScopeWith(base::NewJSONObject(), name, [this, &ll] {
+      (*this)(ll.lat, "lat");
+      (*this)(ll.lon, "lon");
+    });
+  }
+
 protected:
   template <typename Fn>
   void NewScopeWith(base::JSONPtr json_object, char const * name, Fn && fn)
@@ -218,8 +228,8 @@ public:
     RestoreContext(outerContext);
   }
 
-  template <typename T>
-  void operator()(std::unordered_set<T> & dest, char const * name = nullptr)
+  template <typename T, typename H>
+  void operator()(std::unordered_set<T, H> & dest, char const * name = nullptr)
   {
     json_t * outerContext = SaveContext(name);
 
@@ -239,6 +249,12 @@ public:
     }
 
     RestoreContext(outerContext);
+  }
+
+  template <typename T>
+  void operator()(std::unordered_set<T> & dest, char const * name = nullptr)
+  {
+    (*this)<std::unordered_set<T>::key_type, std::unordered_set<T>::hasher>(dest, name);
   }
 
   template <typename T, size_t N>
@@ -312,6 +328,14 @@ public:
     UnderlyingType res;
     FromJSONObject(m_json, name, res);
     t = static_cast<T>(res);
+  }
+
+  void operator()(ms::LatLon & ll, char const * name = nullptr)
+  {
+    json_t * outerContext = SaveContext(name);
+    (*this)(ll.lat, "lat");
+    (*this)(ll.lon, "lon");
+    RestoreContext(outerContext);
   }
 
 protected:

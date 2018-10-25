@@ -12,6 +12,7 @@ omim_link_libraries(
   metrics
   platform
   coding
+  geometry
   base
   stats_client
   jansson

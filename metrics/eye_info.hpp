@@ -2,6 +2,7 @@
 
 #include "storage/index.hpp"
 
+#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/visitor.hpp"
@@ -11,6 +12,7 @@
 #include <chrono>
 #include <string>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
 
 namespace eye
@@ -158,6 +160,49 @@ struct Tip
 
 using Tips = std::vector<Tip>;
 
+struct MapObject
+{
+  struct Event
+  {
+    enum Type
+    {
+      Open,
+      AddToBookmark,
+      UgcEditorOpened,
+      UgcSaved,
+      RouteToCreated
+    };
+
+    DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_userPos, "user_pos"),
+                    visitor(m_eventTime, "event_time"));
+
+    Type m_type;
+    ms::LatLon m_userPos;
+    Time m_eventTime;
+  };
+
+  struct Hash
+  {
+    size_t operator()(MapObject const & p) const
+    {
+      return base::Hash(
+        base::Hash(p.m_pos.lat, p.m_pos.lon),
+        base::Hash(p.m_bestType, p.m_bestType));
+    }
+  };
+
+  bool operator==(MapObject const & rhs) const
+  {
+    return m_pos.EqualDxDy(rhs.m_pos, 1e-6) &&
+      m_bestType == rhs.m_bestType;
+  }
+
+  std::string m_bestType;
+  ms::LatLon m_pos;
+};
+
+using MapObjects = std::unordered_map<MapObject, std::vector<MapObject::Event>, MapObject::Hash>;
+
 struct InfoV0
 {
   static Version GetVersion() { return Version::V0; }
@@ -170,6 +215,7 @@ struct InfoV0
   Discovery m_discovery;
   Layers m_layers;
   Tips m_tips;
+  MapObjects m_mapObjects;
 };
 
 using Info = InfoV0;

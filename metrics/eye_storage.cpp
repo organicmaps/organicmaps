@@ -11,18 +11,11 @@
 
 #include <type_traits>
 
-namespace eye
+namespace
 {
-// static
-std::string Storage::GetEyeFilePath()
+bool Save(std::string const & filename, std::vector<int8_t> const & src)
 {
-  return GetPlatform().WritablePathForFile("metrics");
-}
-
-// static
-bool Storage::Save(std::string const & filePath, std::vector<int8_t> const & src)
-{
-  return base::WriteToTempAndRenameToFile(filePath, [&src](string const & fileName)
+  return base::WriteToTempAndRenameToFile(filename, [&src](string const & fileName)
   {
     try
     {
@@ -38,24 +31,112 @@ bool Storage::Save(std::string const & filePath, std::vector<int8_t> const & src
   });
 }
 
-// static
-bool Storage::Load(std::string const & filePath, std::vector<int8_t> & dst)
+bool Load(std::string const & filename, std::vector<int8_t> & dst)
 {
   try
   {
-    FileReader reader(filePath);
+    FileReader reader(filename);
 
     dst.clear();
     dst.resize(reader.Size());
 
     reader.Read(0, dst.data(), dst.size());
   }
-  catch (FileReader::Exception const &)
+  catch (FileReader::Exception const & ex)
   {
     dst.clear();
     return false;
   }
 
   return true;
+}
+
+bool Append(std::string const & filename, std::vector<int8_t> const & src)
+{
+  try
+  {
+    FileWriter writer(filename, FileWriter::Op::OP_APPEND);
+    writer.Write(src.data(), src.size());
+  }
+  catch (FileWriter::Exception const &)
+  {
+    return false;
+  }
+
+  return true;
+}
+}  // namespace
+
+namespace eye
+{
+// static
+std::string Storage::GetEyeDir()
+{
+  return base::JoinPath(GetPlatform().SettingsDir(), "metric");
+}
+
+// static
+std::string Storage::GetInfoFilePath()
+{
+  return base::JoinPath(GetEyeDir(), "info");
+}
+
+// static
+std::string Storage::GetPoiEventsFilePath()
+{
+  return base::JoinPath(GetEyeDir(), "pevents");
+}
+
+
+// static
+bool Storage::SaveInfo(std::vector<int8_t> const & src)
+{
+  return Save(GetInfoFilePath(), src);
+}
+
+// static
+bool Storage::LoadInfo(std::vector<int8_t> & dst)
+{
+  return Load(GetInfoFilePath(), dst);
+}
+
+// static
+bool Storage::SaveMapObjects(std::vector<int8_t> const & src)
+{
+  return Save(GetPoiEventsFilePath(), src);
+}
+
+// static
+bool Storage::LoadMapObjects(std::vector<int8_t> & dst)
+{
+  return Load(GetPoiEventsFilePath(), dst);
+}
+
+// static
+bool Storage::AppendMapObjectEvent(std::vector<int8_t> const & src)
+{
+  return Append(GetPoiEventsFilePath(), src);
+}
+
+// static
+void Storage::Migrate()
+{
+  auto const oldPath = GetPlatform().WritablePathForFile("metrics");
+  if (!GetPlatform().IsFileExistsByFullPath(oldPath))
+    return;
+
+  if (GetPlatform().IsFileExistsByFullPath(GetInfoFilePath()))
+  {
+    base::DeleteFileX(oldPath);
+    return;
+  }
+
+  if (!GetPlatform().MkDirChecked(GetEyeDir()))
+    return;
+
+  if (!base::CopyFileX(oldPath, GetInfoFilePath()))
+    return;
+
+  base::DeleteFileX(oldPath);
 }
 }  // namespace eye

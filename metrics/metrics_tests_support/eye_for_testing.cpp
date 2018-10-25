@@ -3,7 +3,11 @@
 #include "metrics/eye.hpp"
 #include "metrics/eye_storage.hpp"
 
+#include "platform/platform.hpp"
+
 #include "coding/internal/file_data.hpp"
+
+#include "base/macros.hpp"
 
 #include <memory>
 
@@ -12,10 +16,16 @@ namespace eye
 // static
 void EyeForTesting::ResetEye()
 {
+  UNUSED_VALUE(GetPlatform().MkDirChecked(Storage::GetEyeDir()));
+
   SetInfo({});
 
-  auto const path = Storage::GetEyeFilePath();
+  auto path = Storage::GetInfoFilePath();
   uint64_t unused;
+  if (base::GetFileSize(path, unused))
+    base::DeleteFileX(path);
+
+  path = Storage::GetPoiEventsFilePath();
   if (base::GetFileSize(path, unused))
     base::DeleteFileX(path);
 }
@@ -29,7 +39,7 @@ void EyeForTesting::SetInfo(Info const & info)
 // static
 void EyeForTesting::AppendTip(Tip::Type type, Tip::Event event)
 {
-  Eye::Instance().AppendTip(type, event);
+  Eye::Instance().RegisterTipClick(type, event);
 }
 
 // static
@@ -59,6 +69,6 @@ void EyeForTesting::IncrementDiscoveryItem(Discovery::Event event)
 // static
 void EyeForTesting::AppendLayer(Layer::Type type)
 {
-  Eye::Instance().AppendLayer(type);
+  Eye::Instance().RegisterLayerShown(type);
 }
 }  // namespace eye
