@@ -36,7 +36,7 @@ public:
     {}
   };
 
-  explicit RemoteFile(std::string url, bool allowRedirection = true);
+  explicit RemoteFile(std::string url, std::string accessToken = {}, bool allowRedirection = true);
 
   Result Download(std::string const & filePath) const;
 
@@ -48,6 +48,7 @@ public:
 
 private:
   std::string const m_url;
+  std::string const m_accessToken;
   bool const m_allowRedirection;
 };
 }  // namespace platform

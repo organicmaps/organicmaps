@@ -2119,7 +2119,7 @@ void BookmarkManager::SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCa
 
 void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & name)
 {
-  m_bookmarkCatalog.Download(id, name, [this, id]()
+  m_bookmarkCatalog.Download(id, name, m_user.GetAccessToken(), [this, id]()
   {
     if (m_onCatalogDownloadStarted)
       m_onCatalogDownloadStarted(id);

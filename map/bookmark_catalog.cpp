@@ -173,6 +173,7 @@ std::vector<std::string> BookmarkCatalog::GetDownloadingNames() const
 }
 
 void BookmarkCatalog::Download(std::string const & id, std::string const & name,
+                               std::string const & accessToken,
                                std::function<void()> && startHandler,
                                platform::RemoteFile::ResultHandler && finishHandler)
 {
@@ -184,7 +185,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
   static uint32_t counter = 0;
   auto const path = base::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));
 
-  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id));
+  platform::RemoteFile remoteFile(BuildCatalogDownloadUrl(id), accessToken);
   remoteFile.DownloadAsync(path, [startHandler = std::move(startHandler)](std::string const &)
   {
     if (startHandler)

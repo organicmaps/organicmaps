@@ -37,6 +37,7 @@ public:
   void RegisterByServerId(std::string const & id);
   void UnregisterByServerId(std::string const & id);
   void Download(std::string const & id, std::string const & name,
+                std::string const & accessToken,
                 std::function<void()> && startHandler,
                 platform::RemoteFile::ResultHandler && finishHandler);
 
