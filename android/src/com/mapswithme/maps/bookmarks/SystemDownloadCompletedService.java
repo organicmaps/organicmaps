@@ -46,27 +46,21 @@ public class SystemDownloadCompletedService extends JobIntentService
 
   @NonNull
   private OperationStatus<Result, Error> doInBackground(@NonNull DownloadManager manager,
-                                                        @Nullable Intent intent)
+                                                        @NonNull Intent intent)
   {
-    if (intent == null)
-    {
-      NullPointerException npe = new NullPointerException("Intent is null");
-      return new OperationStatus<>(null, new Error(npe));
-    }
     try
     {
-      Result result = doInBackgroundInternal(manager, intent);
-      return new OperationStatus<>(result, null);
+      return doInBackgroundInternal(manager, intent);
     }
-    catch (IOException e)
+    catch (Exception e)
     {
-      return new OperationStatus<>(null, new Error(e));
+      return new OperationStatus<>(null, new Error(e.getMessage()));
     }
   }
 
   @NonNull
-  private static Result doInBackgroundInternal(@NonNull DownloadManager manager,
-                                               @NonNull Intent intent) throws IOException
+  private static OperationStatus<Result, Error> doInBackgroundInternal(
+      @NonNull DownloadManager manager, @NonNull Intent intent) throws IOException
   {
     Cursor cursor = null;
     try
@@ -76,7 +70,15 @@ public class SystemDownloadCompletedService extends JobIntentService
       cursor = manager.query(query);
       if (cursor.moveToFirst())
       {
-        return new Result(getFilePath(cursor), getArchiveId(cursor));
+
+        if (isDownloadFailed(cursor))
+        {
+          Error error = new Error(getHttpStatus(cursor), getErrorMessage(cursor));
+          return new OperationStatus<>(null, error);
+        }
+
+        Result result = new Result(getFilePath(cursor), getArchiveId(cursor));
+        return new OperationStatus<>(result, null);
       }
       throw new IOException("Failed to move the cursor at first row");
     }
@@ -86,31 +88,41 @@ public class SystemDownloadCompletedService extends JobIntentService
     }
   }
 
+  private static boolean isDownloadFailed(@NonNull Cursor cursor)
+  {
+    int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+    return status != DownloadManager.STATUS_SUCCESSFUL;
+  }
+
   @Nullable
-  private static String getFilePath(@NonNull Cursor cursor) throws IOException
+  private static String getFilePath(@NonNull Cursor cursor)
   {
     String localUri = getColumnValue(cursor, DownloadManager.COLUMN_LOCAL_URI);
     return localUri == null ? null : Uri.parse(localUri).getPath();
   }
 
   @Nullable
-  private static String getArchiveId(@NonNull Cursor cursor) throws IOException
+  private static String getArchiveId(@NonNull Cursor cursor)
   {
     return Uri.parse(getColumnValue(cursor, DownloadManager.COLUMN_URI)).getLastPathSegment();
   }
 
   @Nullable
   private static String getColumnValue(@NonNull Cursor cursor, @NonNull String columnName)
-      throws IOException
   {
-    int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
-    if (status == DownloadManager.STATUS_SUCCESSFUL)
-    {
-      return cursor.getString(cursor.getColumnIndex(columnName));
-    }
-    throw new IOException(new StringBuilder().append("Failed to download archive, status code = ")
-                                             .append(status)
-                                             .toString());
+    return cursor.getString(cursor.getColumnIndex(columnName));
+  }
+
+  private static int getHttpStatus(@NonNull Cursor cursor)
+  {
+    String rawStatus = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+    return Integer.parseInt(rawStatus);
+  }
+
+  @Nullable
+  private static String getErrorMessage(@NonNull Cursor cursor)
+  {
+    return cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
   }
 
   private static class NotifyCoreTask implements Runnable
@@ -136,10 +148,21 @@ public class SystemDownloadCompletedService extends JobIntentService
       {
 
         BookmarkManager.INSTANCE.importFromCatalog(result.getArchiveId(), result.getFilePath());
+        return;
       }
-      else
+
+      Error error = mStatus.getError();
+      if (error != null)
       {
-        Toast.makeText(mAppContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
+        if (error.isForbidden())
+        {
+          Toast.makeText(mAppContext, "Authorization needed. Ui coming soon!",
+                         Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+          Toast.makeText(mAppContext, R.string.download_failed, Toast.LENGTH_SHORT).show();
+        }
       }
     }
   }
