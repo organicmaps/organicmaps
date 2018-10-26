@@ -287,8 +287,7 @@ public:
 
   using OnCatalogDownloadStartedHandler = platform::SafeCallback<void(std::string const & id)>;
   using OnCatalogDownloadFinishedHandler = platform::SafeCallback<void(std::string const & id,
-                                                                       BookmarkCatalog::DownloadResult result,
-                                                                       std::string const & description)>;
+                                                                       BookmarkCatalog::DownloadResult result)>;
   using OnCatalogImportStartedHandler = platform::SafeCallback<void(std::string const & id)>;
   using OnCatalogImportFinishedHandler = platform::SafeCallback<void(std::string const & id,
                                                                      kml::MarkGroupId categoryId,

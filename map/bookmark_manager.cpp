@@ -2127,8 +2127,10 @@ void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::
     [this, id](BookmarkCatalog::DownloadResult result, std::string const & desc,
                std::string const & filePath)
   {
+    UNUSED_VALUE(desc);
+
     if (m_onCatalogDownloadFinished)
-      m_onCatalogDownloadFinished(id, result, desc);
+      m_onCatalogDownloadFinished(id, result);
 
     if (result == BookmarkCatalog::DownloadResult::Success)
       ImportDownloadedFromCatalog(id, filePath);

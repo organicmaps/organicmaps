@@ -473,8 +473,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       if (observer)
         [observer onDownloadStart];
     };
-    auto onDownloadFinished = [](std::string const & serverCatId, BookmarkCatalog::DownloadResult result,
-                                 std::string const & description)
+    auto onDownloadFinished = [](std::string const & serverCatId, BookmarkCatalog::DownloadResult result)
     {
       auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
