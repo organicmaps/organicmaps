@@ -30,6 +30,7 @@
 #include "search/locality_finder.hpp"
 #include "search/reverse_geocoder.hpp"
 
+#include "storage/country_info_getter.hpp"
 #include "storage/downloader_search_params.hpp"
 #include "storage/routing_helpers.hpp"
 #include "storage/storage_helpers.hpp"
@@ -49,19 +50,15 @@
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
+#include "indexer/feature_algo.hpp"
 #include "indexer/feature_source.hpp"
+#include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
-/// @todo Probably it's better to join this functionality.
-//@{
-#include "indexer/feature_algo.hpp"
-#include "indexer/feature_utils.hpp"
-//@}
-
-#include "storage/country_info_getter.hpp"
+#include "metrics/eye.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/measurement_utils.hpp"
@@ -536,6 +533,7 @@ Framework::~Framework()
   m_user.ClearSubscribers();
   // Must be destroyed implicitly, since it stores reference to m_user.
   m_bmManager.reset();
+  eye::Eye::Instance().UnsubscribeAll();
 }
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)

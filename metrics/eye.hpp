@@ -12,16 +12,16 @@ namespace eye
 class Subscriber
 {
 public:
-  virtual ~Subscriber(){};
+  virtual ~Subscriber() = default;
 
 public:
-  virtual void OnTipClicked(Tip const & tip){};
-  virtual void OnBookingFilterUsed(Time const & time){};
-  virtual void OnBookmarksCatalogShown(Time const & time){};
-  virtual void OnDiscoveryShown(Time const & time){};
-  virtual void OnDiscoveryItemClicked(Discovery::Event event){};
-  virtual void OnLayerUsed(Layer const & layer){};
-  virtual void OnPlacePageOpened(MapObject const & poi){};
+  virtual void OnTipClicked(Tip const & tip) {}
+  virtual void OnBookingFilterUsed(Time const & time) {}
+  virtual void OnBookmarksCatalogShown(Time const & time) {}
+  virtual void OnDiscoveryShown(Time const & time) {}
+  virtual void OnDiscoveryItemClicked(Discovery::Event event) {}
+  virtual void OnLayerShown(Layer const & layer) {}
+  virtual void OnPlacePageOpened(MapObject const & poi) {}
 };
 
 // Note This class IS thread-safe.
@@ -53,12 +53,15 @@ public:
   static Eye & Instance();
 
   InfoType GetInfo() const;
+
+  // Subscribe/Unsubscribe must be called from main thread only.
   void Subscribe(Subscriber * subscriber);
+  void UnsubscribeAll();
 
 private:
   Eye();
 
-  void Save(InfoType const & info);
+  bool Save(InfoType const & info);
 
   // Event processing:
   void RegisterTipClick(Tip::Type type, Tip::Event event);

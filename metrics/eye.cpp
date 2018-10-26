@@ -90,16 +90,21 @@ Eye::InfoType Eye::GetInfo() const
 
 void Eye::Subscribe(Subscriber * subscriber)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, subscriber]
-  {
-    m_subscribers.push_back(subscriber);
-  });
+  m_subscribers.push_back(subscriber);
 }
 
-void Eye::Save(InfoType const & info)
+void Eye::UnsubscribeAll()
 {
-  if (::Save(*info))
-    m_info.Set(info);
+  m_subscribers.clear();
+}
+
+bool Eye::Save(InfoType const & info)
+{
+  if (!::Save(*info))
+    return false;
+
+  m_info.Set(info);
+  return true;
 }
 
 void Eye::RegisterTipClick(Tip::Type type, Tip::Event event)
@@ -126,15 +131,19 @@ void Eye::RegisterTipClick(Tip::Type type, Tip::Event event)
     tip.m_type = type;
     tip.m_eventCounters.Increment(event);
     tip.m_lastShownTime = now;
-    editableTips.emplace_back(tip);
+    editableTips.push_back(tip);
   }
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, tip]
   {
-    subscriber->OnTipClicked(tip);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnTipClicked(tip);
+    }
+  });
 }
 
 void Eye::UpdateBookingFilterUsedTime()
@@ -145,12 +154,16 @@ void Eye::UpdateBookingFilterUsedTime()
 
   editableInfo->m_booking.m_lastFilterUsedTime = now;
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, now]
   {
-    subscriber->OnBookingFilterUsed(now);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnBookingFilterUsed(now);
+    }
+  });
 }
 
 void Eye::UpdateBoomarksCatalogShownTime()
@@ -161,12 +174,16 @@ void Eye::UpdateBoomarksCatalogShownTime()
 
   editableInfo->m_bookmarks.m_lastOpenedTime = now;
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, now]
   {
-    subscriber->OnBookmarksCatalogShown(now);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnBookmarksCatalogShown(now);
+    }
+  });
 }
 
 void Eye::UpdateDiscoveryShownTime()
@@ -177,12 +194,16 @@ void Eye::UpdateDiscoveryShownTime()
 
   editableInfo->m_discovery.m_lastOpenedTime = now;
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, now]
   {
-    subscriber->OnDiscoveryShown(now);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnDiscoveryShown(now);
+    }
+  });
 }
 
 void Eye::IncrementDiscoveryItem(Discovery::Event event)
@@ -193,12 +214,16 @@ void Eye::IncrementDiscoveryItem(Discovery::Event event)
   editableInfo->m_discovery.m_lastClickedTime = Clock::now();
   editableInfo->m_discovery.m_eventCounters.Increment(event);
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, event]
   {
-    subscriber->OnDiscoveryItemClicked(event);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnDiscoveryItemClicked(event);
+    }
+  });
 }
 
 void Eye::RegisterLayerShown(Layer::Type type)
@@ -228,12 +253,16 @@ void Eye::RegisterLayerShown(Layer::Type type)
     editableLayers.emplace_back(layer);
   }
 
-  Save(editableInfo);
+  if (!Save(editableInfo))
+    return;
 
-  for (auto subscriber : m_subscribers)
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, layer]
   {
-    subscriber->OnLayerUsed(layer);
-  }
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnLayerShown(layer);
+    }
+  });
 }
 
 void Eye::RegisterPlacePageOpened()

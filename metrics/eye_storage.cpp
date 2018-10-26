@@ -22,8 +22,9 @@ bool Save(std::string const & filename, std::vector<int8_t> const & src)
       FileWriter writer(fileName);
       writer.Write(src.data(), src.size());
     }
-    catch (FileWriter::Exception const &)
+    catch (FileWriter::Exception const & ex)
     {
+      LOG(LERROR, (ex.what(), ex.Msg()));
       return false;
     }
 
@@ -42,7 +43,7 @@ bool Load(std::string const & filename, std::vector<int8_t> & dst)
 
     reader.Read(0, dst.data(), dst.size());
   }
-  catch (FileReader::Exception const & ex)
+  catch (FileReader::Exception const &)
   {
     dst.clear();
     return false;

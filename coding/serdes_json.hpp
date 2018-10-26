@@ -14,6 +14,7 @@
 #include <cstring>
 #include <memory>
 #include <type_traits>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -228,7 +229,7 @@ public:
     RestoreContext(outerContext);
   }
 
-  template <typename T, typename H>
+  template <typename T, class H = std::hash<T>>
   void operator()(std::unordered_set<T, H> & dest, char const * name = nullptr)
   {
     json_t * outerContext = SaveContext(name);
@@ -249,12 +250,6 @@ public:
     }
 
     RestoreContext(outerContext);
-  }
-
-  template <typename T>
-  void operator()(std::unordered_set<T> & dest, char const * name = nullptr)
-  {
-    (*this)<std::unordered_set<T>::key_type, std::unordered_set<T>::hasher>(dest, name);
   }
 
   template <typename T, size_t N>

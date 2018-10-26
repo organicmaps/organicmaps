@@ -164,7 +164,7 @@ struct MapObject
 {
   struct Event
   {
-    enum Type
+    enum class Type : uint8_t
     {
       Open,
       AddToBookmark,
@@ -246,6 +246,18 @@ inline std::string DebugPrint(Layer::Type const & type)
   {
   case Layer::Type::TrafficJams: return "TrafficJams";
   case Layer::Type::PublicTransport: return "PublicTransport";
+  }
+}
+
+inline std::string DebugPrint(MapObject::Event::Type const & type)
+{
+  switch (type)
+  {
+  case MapObject::Event::Type::Open: return "Open";
+  case MapObject::Event::Type::AddToBookmark: return "AddToBookmark";
+  case MapObject::Event::Type::UgcEditorOpened: return "UgcEditorOpened";
+  case MapObject::Event::Type::UgcSaved: return "UgcSaved";
+  case MapObject::Event::Type::RouteToCreated: return "RouteToCreated";
   }
 }
 }  // namespace eye

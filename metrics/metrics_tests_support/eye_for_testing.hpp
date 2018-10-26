@@ -2,6 +2,8 @@
 
 #include "metrics/eye_info.hpp"
 
+#include "platform/platform.hpp"
+
 namespace eye
 {
 class EyeForTesting
@@ -22,5 +24,8 @@ class ScopedEyeForTesting
 public:
   ScopedEyeForTesting() { EyeForTesting::ResetEye(); }
   ~ScopedEyeForTesting() { EyeForTesting::ResetEye(); }
+
+private:
+  Platform::ThreadRunner m_runner;
 };
 }  // namespace eye
