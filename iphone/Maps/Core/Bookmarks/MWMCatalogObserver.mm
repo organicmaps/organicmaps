@@ -8,26 +8,29 @@
     self.progressBlock(MWMCategoryProgressDownloadStarted);
 }
 
-- (void)onDownloadComplete:(platform::RemoteFile::Status)status
+- (void)onDownloadComplete:(BookmarkCatalog::DownloadResult)result
 {
   MWMCategoryDownloadStatus downloadStatus;
-  switch (status)
+  switch (result)
   {
-    case platform::RemoteFile::Status::Ok:
+    case BookmarkCatalog::DownloadResult::Success:
       if (self.progressBlock)
         self.progressBlock(MWMCategoryProgressDownloadFinished);
       return;
-    case platform::RemoteFile::Status::Forbidden:
+    case BookmarkCatalog::DownloadResult::AuthError:
       downloadStatus = MWMCategoryDownloadStatusForbidden;
       break;
-    case platform::RemoteFile::Status::NotFound:
+    case BookmarkCatalog::DownloadResult::ServerError:
       downloadStatus = MWMCategoryDownloadStatusNotFound;
       break;
-    case platform::RemoteFile::Status::NetworkError:
+    case BookmarkCatalog::DownloadResult::NetworkError:
       downloadStatus = MWMCategoryDownloadStatusNetworkError;
       break;
-    case platform::RemoteFile::Status::DiskError:
+    case BookmarkCatalog::DownloadResult::DiskError:
       downloadStatus = MWMCategoryDownloadStatusDiskError;
+      break;
+    case BookmarkCatalog::DownloadResult::NeedPayment:
+      //TODO(@beloal)
       break;
   }
   if (self.completionBlock)

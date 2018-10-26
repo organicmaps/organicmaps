@@ -36,10 +36,24 @@ public:
 
   void RegisterByServerId(std::string const & id);
   void UnregisterByServerId(std::string const & id);
+
+  enum class DownloadResult
+  {
+    Success,
+    NetworkError,
+    ServerError,
+    AuthError,
+    DiskError,
+    NeedPayment
+  };
+  using DownloadStartCallback = std::function<void()>;
+  using DownloadFinishCallback = std::function<void(DownloadResult result,
+                                                    std::string const & description,
+                                                    std::string const & filePath)>;
   void Download(std::string const & id, std::string const & name,
                 std::string const & accessToken,
-                std::function<void()> && startHandler,
-                platform::RemoteFile::ResultHandler && finishHandler);
+                DownloadStartCallback && startHandler,
+                DownloadFinishCallback && finishHandler);
 
   bool IsDownloading(std::string const & id) const;
   bool HasDownloaded(std::string const & id) const;

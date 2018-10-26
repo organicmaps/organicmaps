@@ -2124,12 +2124,13 @@ void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::
     if (m_onCatalogDownloadStarted)
       m_onCatalogDownloadStarted(id);
   },
-    [this, id](platform::RemoteFile::Result && result, std::string const & filePath)
+    [this, id](BookmarkCatalog::DownloadResult result, std::string const & desc,
+               std::string const & filePath)
   {
     if (m_onCatalogDownloadFinished)
-      m_onCatalogDownloadFinished(id, result);
+      m_onCatalogDownloadFinished(id, result, desc);
 
-    if (result.m_status == platform::RemoteFile::Status::Ok)
+    if (result == BookmarkCatalog::DownloadResult::Success)
       ImportDownloadedFromCatalog(id, filePath);
   });
 }

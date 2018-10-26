@@ -473,13 +473,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       if (observer)
         [observer onDownloadStart];
     };
-    auto onDownloadFinished = [](std::string const & serverCatId, platform::RemoteFile::Result const & result)
+    auto onDownloadFinished = [](std::string const & serverCatId, BookmarkCatalog::DownloadResult result,
+                                 std::string const & description)
     {
       auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
       if (observer)
       {
-        [observer onDownloadComplete:result.m_status];
-        if (result.m_status != platform::RemoteFile::Status::Ok) {
+        [observer onDownloadComplete:result];
+        if (result != BookmarkCatalog::DownloadResult::Success) {
           [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
         }
       }

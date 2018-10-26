@@ -174,8 +174,8 @@ std::vector<std::string> BookmarkCatalog::GetDownloadingNames() const
 
 void BookmarkCatalog::Download(std::string const & id, std::string const & name,
                                std::string const & accessToken,
-                               std::function<void()> && startHandler,
-                               platform::RemoteFile::ResultHandler && finishHandler)
+                               DownloadStartCallback && startHandler,
+                               DownloadFinishCallback && finishHandler)
 {
   if (IsDownloading(id) || HasDownloaded(id))
     return;
@@ -198,8 +198,31 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
     {
       m_downloadingIds.erase(id);
 
+      DownloadResult downloadResult;
+      switch (result.m_status)
+      {
+      case platform::RemoteFile::Status::Ok:
+        downloadResult = DownloadResult::Success;
+        break;
+      case platform::RemoteFile::Status::Forbidden:
+        downloadResult = DownloadResult::AuthError;
+        break;
+      case platform::RemoteFile::Status::NotFound:
+        downloadResult = DownloadResult::ServerError;
+        break;
+      case platform::RemoteFile::Status::NetworkError:
+        if (result.m_httpCode == 402)
+          downloadResult = DownloadResult::NeedPayment;
+        else
+          downloadResult = DownloadResult::NetworkError;
+        break;
+      case platform::RemoteFile::Status::DiskError:
+        downloadResult = DownloadResult::DiskError;
+        break;
+      }
+
       if (finishHandler)
-        finishHandler(std::move(result), filePath);
+        finishHandler(downloadResult, result.m_description, filePath);
     });
   });
 }
