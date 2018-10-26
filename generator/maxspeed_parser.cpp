@@ -1,7 +1,6 @@
-#include "generator/category_to_speed.hpp"
+#include "generator/maxspeed_parser.hpp"
 
-#include "platform/measurement_utils.hpp"
-
+#include "base/assert.hpp"
 #include "base/string_utils.hpp"
 
 #include <cctype>
@@ -148,7 +147,7 @@ bool RoadCategoryToSpeed(string const & category, SpeedInUnits & speed)
   return true;
 }
 
-bool MaxspeedValueToSpeed(string const & maxspeedValue, SpeedInUnits & speed)
+bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
 {
   if (RoadCategoryToSpeed(maxspeedValue, speed))
     return true;
@@ -205,5 +204,27 @@ bool MaxspeedValueToSpeed(string const & maxspeedValue, SpeedInUnits & speed)
   }
 
   return false;
+}
+
+string UnitsToString(Units units)
+{
+  switch (units)
+  {
+  case Units::Metric: return "Metric";
+  case Units::Imperial: return "Imperial";
+  }
+  CHECK_SWITCH();
+}
+
+Units StringToUnits(string const & units)
+{
+
+  if (units == "Metric")
+    return Units::Metric;
+  else if (units == "Imperial")
+    return Units::Imperial;
+  else
+    CHECK(false, (units));
+  return Units::Metric;
 }
 }  // generator

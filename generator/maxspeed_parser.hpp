@@ -2,6 +2,8 @@
 
 #include "routing/maxspeed_conversion.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include <cstdint>
 #include <string>
 
@@ -23,5 +25,8 @@ bool RoadCategoryToSpeed(std::string const & category, routing::SpeedInUnits & s
 /// \note speed.m_speed will be filled with kNoneMaxSpeed or kWalkMaxSpeed if
 /// maxspeedValue is equal to "none" or "walk". The value of speed.m_units does not
 /// matter in this case.
-bool MaxspeedValueToSpeed(std::string const & maxspeedValue, routing::SpeedInUnits & speed);
+bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits & speed);
+
+std::string UnitsToString(measurement_utils::Units units);
+measurement_utils::Units StringToUnits(std::string const & units);
 }  // generator

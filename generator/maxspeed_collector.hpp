@@ -23,19 +23,26 @@ private:
 
   // |m_data| contains strings with maxspeed tags value for corresponding features in one of the
   // following formats
-  // 1. osm id,maxspeed value
-  // 2. osm id,maxspeed:forward value
-  // 3. osm id,maxspeed:forward value,maxspeed:backward value
+  // 1. osm id,units kmh or mph,maxspeed value
+  // 2. osm id,units kmh or mph,maxspeed:forward value
+  // 3. osm id,units kmh or mph,maxspeed:forward value,maxspeed:backward value
   // There are possible examples of strings contained in the list |m_data|:
-  // 2343313,60
-  // 3243245345,60,80
-  // 32453452,RU:urban
-  // 45432423,GE:urban,walk
-  // 53445423,US:urban,40_mph
+  // 2343313,Metric,60
+  // 13243214,Imperial,60
+  // 3243245345,Metric,60,80
+  // 134243,Imperial,30,50
+  // 45432423,Metric,60,65535
+  // 53445423,Metric,60,65534
   //
-  // Note. Saying osm id means osm id of features with OsmElement::EntityType::Way type without
+  // Note 1. 65535 means kNoneMaxSpeed and 65534 means kWalkMaxSpeed. They are constants for
+  // maxspeed tag value "none" and "walk" correspondingly.
+  // Note 2. Saying osm id means osm id of features with OsmElement::EntityType::Way type without
   // any prefixes. It's done so to simplify the debugging process. This way it's very easy knowing
   // osm id to see the feature on the web.
+  // Note 3. A string is saved in |m_data| only if it's valid and parsed successfully
+  // with ParseMaxspeedTag() function. That means all macro like RU:urban or GE:rural
+  // are converted to an appropriate speed value and macro "none" and "walk" are converted
+  // to |kNoneMaxSpeed| and |kWalkMaxSpeed|.
   std::vector<std::string> m_data;
   std::string m_filePath;
 };

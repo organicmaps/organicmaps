@@ -1,41 +1,62 @@
 #include "generator/maxspeed_collector.hpp"
 
+#include "generator/maxspeed_parser.hpp"
+
+#include "routing/maxspeed_conversion.hpp"
+
 #include "coding/file_writer.hpp"
 
 #include "base/geo_object_id.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <fstream>
 #include <sstream>
 
-namespace feature
-{
 using namespace base;
+using namespace generator;
+using namespace routing;
 using namespace std;
 
+namespace
+{
+bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed, ostringstream & ss)
+{
+  if (!ParseMaxspeedTag(maxspeed, speed))
+    return false;
+
+  ss << UnitsToString(speed.m_units) << "," << strings::to_string(speed.m_speed);
+  return true;
+}
+}  // namespace
+
+namespace feature
+{
 void MaxspeedCollector::Process(OsmElement const & p)
 {
   ostringstream ss;
   ss << p.id << ",";
 
   auto const & tags = p.Tags();
-  string maxspeedForward;
-  string maxspeedBackward;
+  string maxspeedForwardStr;
+  string maxspeedBackwardStr;
   bool isReverse = false;
 
   for (auto const & t : tags)
   {
     if (t.key == "maxspeed")
     {
-      ss << t.value;
+      SpeedInUnits dummySpeed;
+      if (!ParseMaxspeedAndWriteToStream(t.value, dummySpeed, ss))
+        return;
       m_data.push_back(ss.str());
       return;
     }
 
     if (t.key == "maxspeed:forward")
-      maxspeedForward = t.value;
+      maxspeedForwardStr = t.value;
     else if (t.key == "maxspeed:backward")
-      maxspeedBackward = t.value;
+      maxspeedBackwardStr = t.value;
     else if (t.key == "oneway")
       isReverse = (t.value == "-1");
   }
@@ -46,14 +67,26 @@ void MaxspeedCollector::Process(OsmElement const & p)
   // Note 2. If oneway==-1 the order of points is changed while conversion to mwm. So it's
   // necessary to swap forward and backward as well.
   if (isReverse)
-    maxspeedForward.swap(maxspeedBackward);
+    maxspeedForwardStr.swap(maxspeedBackwardStr);
 
-  if (maxspeedForward.empty())
+  if (maxspeedForwardStr.empty())
     return;
 
-  ss << maxspeedForward;
-  if (!maxspeedBackward.empty())
-    ss << "," << maxspeedBackward;
+  SpeedInUnits maxspeedForward;
+  if (!ParseMaxspeedAndWriteToStream(maxspeedForwardStr, maxspeedForward, ss))
+    return;
+
+  if (!maxspeedBackwardStr.empty())
+  {
+    SpeedInUnits maxspeedBackward;
+    if (!ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward))
+      return;
+
+    if (maxspeedForward.m_units != maxspeedBackward.m_units)
+      return;
+
+    ss << "," << strings::to_string(maxspeedBackward.m_speed);
+  }
 
   m_data.push_back(ss.str());
 }

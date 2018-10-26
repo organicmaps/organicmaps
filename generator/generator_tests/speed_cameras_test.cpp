@@ -1,12 +1,12 @@
 #include "testing/testing.hpp"
 
 #include "generator/camera_info_collector.hpp"
-#include "generator/category_to_speed.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/maxspeed_parser.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 
@@ -480,52 +480,52 @@ UNIT_TEST(MaxspeedValueToSpeedTest)
 {
   SpeedInUnits speed;
 
-  TEST(MaxspeedValueToSpeed("RU:rural", speed), ());
+  TEST(ParseMaxspeedTag("RU:rural", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("90", speed), ());
+  TEST(ParseMaxspeedTag("90", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("90      ", speed), ());
+  TEST(ParseMaxspeedTag("90      ", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("60kmh", speed), ());
+  TEST(ParseMaxspeedTag("60kmh", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("60 kmh", speed), ());
+  TEST(ParseMaxspeedTag("60 kmh", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("60     kmh", speed), ());
+  TEST(ParseMaxspeedTag("60     kmh", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("60     kmh and some other string", speed), ());
+  TEST(ParseMaxspeedTag("60     kmh and some other string", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
 
-  TEST(MaxspeedValueToSpeed("75mph", speed), ());
+  TEST(ParseMaxspeedTag("75mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75 mph", speed), ());
+  TEST(ParseMaxspeedTag("75 mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75     mph", speed), ());
+  TEST(ParseMaxspeedTag("75     mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75     mph and some other string", speed), ());
+  TEST(ParseMaxspeedTag("75     mph and some other string", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75mph", speed), ());
+  TEST(ParseMaxspeedTag("75mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75 mph", speed), ());
+  TEST(ParseMaxspeedTag("75 mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75     mph", speed), ());
+  TEST(ParseMaxspeedTag("75     mph", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(MaxspeedValueToSpeed("75     mph and some other string", speed), ());
+  TEST(ParseMaxspeedTag("75     mph and some other string", speed), ());
   TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
 
-  TEST(!MaxspeedValueToSpeed("some other string", speed), ());
-  TEST(!MaxspeedValueToSpeed("60 kmph", speed), ());
+  TEST(!ParseMaxspeedTag("some other string", speed), ());
+  TEST(!ParseMaxspeedTag("60 kmph", speed), ());
 }
 }  // namespace
