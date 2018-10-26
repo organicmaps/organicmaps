@@ -52,27 +52,55 @@ public:
     }
   }
 
-  // Applies |processObject| to at most |topSize| object closest to |center| with maximal distance |sizeM|.
-  // Closest objects are first. Due to perfomance reasons far objects have approximate order.
-  void ForClosestToPoint(ProcessObject const & processObject, m2::PointD const & center, double sizeM,
-                         uint32_t topSize) const
+  // Applies |processObject| to the objects located within |radiusM| meters from |center|.
+  // Application to the closest objects and only to them is not guaranteed and the order
+  // of the objects is not specified.
+  // However, the method attempts to process objects that are closer to |center| first
+  // and stop after |sizeHint| objects have been processed. For stability, if an object from
+  // an index cell has been processed, all other objects from this cell will be processed too,
+  // thus probably overflowing the |sizeHint| limit.
+  void ForClosestToPoint(ProcessObject const & processObject, m2::PointD const & center,
+                         double radiusM, uint32_t sizeHint) const
   {
     auto const rect =
-        MercatorBounds::RectByCenterXYAndSizeInMeters(center, sizeM);
+        MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
     covering::CoveringGetter cov(rect, covering::CoveringMode::Spiral);
     covering::Intervals const & intervals = cov.Get<DEPTH_LEVELS>(scales::GetUpperScale());
 
     std::set<uint64_t> objects;
-    auto process = [topSize, &objects, &processObject](uint64_t storedId) {
-      if (objects.insert(storedId).second && objects.size() <= topSize)
+    auto processAll = [&objects, &processObject](uint64_t storedId) {
+      if (objects.insert(storedId).second)
         processObject(LocalityObject::FromStoredId(storedId));
     };
 
+    auto process = [&](uint64_t storedId) {
+      if (objects.size() < sizeHint)
+        processAll(storedId);
+    };
+
+    CHECK_EQUAL(intervals.begin()->first, intervals.begin()->second - 1, ());
+    auto cellDepth = covering::GetCodingDepth<DEPTH_LEVELS>(scales::GetUpperScale());
+    auto bestCell = m2::CellId<DEPTH_LEVELS>::FromInt64(intervals.begin()->first, cellDepth);
+    std::set<int64_t> bestCells;
+    while (bestCell.Level() > 0)
+    {
+      bestCells.insert(bestCell.ToInt64(cellDepth));
+      bestCell = bestCell.Parent();
+      --cellDepth;
+    }
+
     for (auto const & i : intervals)
     {
-      if (objects.size() >= topSize)
-        return;
-      m_intervalIndex->ForEach(process, i.first, i.second);
+      if (bestCells.find(i.first) != bestCells.end())
+      {
+        m_intervalIndex->ForEach(processAll, i.first, i.second);
+      }
+      else
+      {
+        m_intervalIndex->ForEach(process, i.first, i.second);
+        if (objects.size() >= sizeHint)
+          return;
+      }
     }
   }
 

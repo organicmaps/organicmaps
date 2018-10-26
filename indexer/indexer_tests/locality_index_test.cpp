@@ -125,11 +125,17 @@ UNIT_TEST(LocalityIndexRankTest)
 UNIT_TEST(LocalityIndexTopSizeTest)
 {
   LocalityObjectVector objects;
-  objects.m_objects.resize(4);
-  objects.m_objects[0].SetForTests(1, m2::PointD{1, 0});
-  objects.m_objects[1].SetForTests(2, m2::PointD{1, 0});
-  objects.m_objects[2].SetForTests(3, m2::PointD{1, 0});
-  objects.m_objects[3].SetForTests(4, m2::PointD{1, 0});
+  objects.m_objects.resize(7);
+  // Same cell.
+  objects.m_objects[0].SetForTests(1, m2::PointD{1.0, 0.0});
+  objects.m_objects[1].SetForTests(2, m2::PointD{1.0, 0.0});
+  objects.m_objects[2].SetForTests(3, m2::PointD{1.0, 0.0});
+  objects.m_objects[3].SetForTests(4, m2::PointD{1.0, 0.0});
+  // Another close cell.
+  objects.m_objects[4].SetForTests(5, m2::PointD{1.0, 1.0});
+  objects.m_objects[5].SetForTests(6, m2::PointD{1.0, 1.0});
+  // Far cell.
+  objects.m_objects[6].SetForTests(7, m2::PointD{10.0, 10.0});
 
   vector<char> localityIndex;
   MemWriter<vector<char>> writer(localityIndex);
@@ -137,18 +143,35 @@ UNIT_TEST(LocalityIndexTopSizeTest)
   MemReader reader(localityIndex.data(), localityIndex.size());
 
   indexer::GeoObjectsIndex<MemReader> index(reader);
-  TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{0, 0} /* border */,
-                          4 /* topSize */)
+  TEST_EQUAL(GetRankedIds(index, m2::PointD{1.0, 0.0} /* center */,
+                          m2::PointD{10.0, 10.0} /* border */, 4 /* topSize */)
                  .size(),
              4, ());
-  TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{0, 0} /* border */,
-                          3 /* topSize */)
-                 .size(),
-             3, ());
-  TEST_EQUAL(GetRankedIds(index, m2::PointD{4, 0} /* center */, m2::PointD{0, 0} /* border */,
-                          1 /* topSize */)
-                 .size(),
-             1, ());
-}
 
+  // 4 objects are indexed at the central cell. Index does not guarantee the order but must
+  // return 4 objects.
+  TEST_EQUAL(GetRankedIds(index, m2::PointD{1.0, 0.0} /* center */,
+                          m2::PointD{10.0, 10.0} /* border */, 3 /* topSize */)
+                 .size(),
+             4, ());
+
+  // At the {1.0, 1.0} point there are also 2 objects, but it's not a central cell, index must
+  // return 5 (topSize) objects.
+  TEST_EQUAL(GetRankedIds(index, m2::PointD{1.0, 0.0} /* center */,
+                          m2::PointD{10.0, 10.0} /* border */, 5 /* topSize */)
+                 .size(),
+             5, ());
+
+  // The same here. There are not too many objects in central cell. Index must return 5 (topSize)
+  // objects.
+  TEST_EQUAL(GetRankedIds(index, m2::PointD{4.0, 0.0} /* center */,
+                          m2::PointD{10.0, 10.0} /* border */, 5 /* topSize */)
+                 .size(),
+             5, ());
+
+  TEST_EQUAL(GetRankedIds(index, m2::PointD{4.0, 0.0} /* center */,
+                          m2::PointD{10.0, 10.0} /* border */, 7 /* topSize */)
+                 .size(),
+             7, ());
+}
 }  // namespace
