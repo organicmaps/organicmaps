@@ -567,6 +567,11 @@ public enum BookmarkManager
     nativeImportFromCatalog(serverId, filePath);
   }
 
+  public void uploadRoutes(int accessRules, @NonNull BookmarkCategory bookmarkCategory)
+  {
+    nativeUploadToCatalog(accessRules, bookmarkCategory.getId());
+  }
+
   @NonNull
   public String getCatalogDeeplink(long catId)
   {
