@@ -532,7 +532,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating maxspeed section for", datFile));
       string const maxspeedFilename = genInfo.GetIntermediateFileName(MAXSPEED_FILENAME);
-      CHECK(BuildMaxspeed(datFile, osmToFeatureFilename, maxspeedFilename),
+      CHECK(routing::BuildMaxspeed(datFile, osmToFeatureFilename, maxspeedFilename),
             ("Generating maxspeed section error."));
     }
 
