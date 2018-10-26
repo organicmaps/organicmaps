@@ -338,7 +338,7 @@ public enum BookmarkManager
     nativeSetCategoryName(catId, name);
   }
 
-  public void setCategoryDesc(long id, @NonNull String categoryDesc)
+  public void setCategoryDescription(long id, @NonNull String categoryDesc)
   {
     nativeSetCategoryDescription(id, categoryDesc);
   }
@@ -658,7 +658,7 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryName(long catId, @NonNull String n);
 
-  private native void nativeSetCategoryDescription(long catId, @NonNull String n);
+  private native void nativeSetCategoryDescription(long catId, @NonNull String desc);
 
   private native void nativeSetCategoryTags(long catId, @NonNull String[] tagsIds);
 

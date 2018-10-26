@@ -12,7 +12,6 @@
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MwmWidget.ToolbarTheme"/>
   <android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:scrollbars="none"
     android:fillViewport="true"
     android:layout_width="match_parent"
@@ -59,7 +58,7 @@
           android:layout_height="@dimen/margin_base_plus"/>
       </LinearLayout>
       <View
-        android:background="@color/black_38"
+        android:background="?attr/iconTintDisabled"
         android:layout_marginTop="@dimen/margin_half"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"/>

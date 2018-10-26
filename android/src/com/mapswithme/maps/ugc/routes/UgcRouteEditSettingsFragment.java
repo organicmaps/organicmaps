@@ -1,10 +1,9 @@
 package com.mapswithme.maps.ugc.routes;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,18 +15,15 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.base.DataObservable;
-import com.mapswithme.maps.base.ObservableHost;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.content.BookmarkCategoryObservable;
 import com.mapswithme.maps.widget.ToolbarController;
 
 import java.util.Objects;
 
 public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 {
-  private static final String SHARING_OPTIONS_FRAGMENT_TAG = "sharing_options_fragment";
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
@@ -42,22 +38,11 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private ObservableHost<DataObservable> mObserverHost;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
   private EditText mEditDescView;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
   private EditText mEditCategoryNameView;
-
-  @Override
-  public void onAttach(Context context)
-  {
-    super.onAttach(context);
-    mObserverHost = (ObservableHost<DataObservable>) context;
-  }
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -77,13 +62,12 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     View root = inflater.inflate(R.layout.fragment_ugc_route_edit, container, false);
     initViews(root);
     mObserver = new CategoryObserver();
-    mObserverHost.getObservable().registerObserver(mObserver);
+    BookmarkCategoryObservable.from(getActivity().getApplication()).registerObserver(mObserver);
     return root;
   }
 
   private void initViews(@NonNull View root)
   {
-    View sharingOptionsBtn = root.findViewById(R.id.open_sharing_options_screen_btn_container);
     mEditCategoryNameView = root.findViewById(R.id.edit_category_name_view);
     mEditCategoryNameView.setText(mCategory.getName());
     mEditCategoryNameView.requestFocus();
@@ -93,6 +77,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     mEditDescView.setText(mCategory.getDescription());
     View clearNameBtn = root.findViewById(R.id.edit_text_clear_btn);
     clearNameBtn.setOnClickListener(v -> mEditCategoryNameView.getEditableText().clear());
+    View sharingOptionsBtn = root.findViewById(R.id.open_sharing_options_screen_btn_container);
     sharingOptionsBtn.setOnClickListener(v -> onSharingOptionsClicked());
   }
 
@@ -100,7 +85,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   public void onDestroyView()
   {
     super.onDestroyView();
-    mObserverHost.getObservable().unregisterObserver(mObserver);
+    BookmarkCategoryObservable.from(getActivity().getApplication()).unregisterObserver(mObserver);
   }
 
   private void onSharingOptionsClicked()
@@ -110,12 +95,9 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
   private void openSharingOptionsScreen()
   {
-    Fragment fragment = UgcSharingOptionsFragment.makeInstance(mCategory);
-    getFragmentManager()
-        .beginTransaction()
-        .replace(R.id.fragment_container, fragment, SHARING_OPTIONS_FRAGMENT_TAG)
-        .addToBackStack(null)
-        .commit();
+    Intent intent = new Intent(getContext(), UgcRouteSharingOptionsActivity.class)
+        .putExtra(UgcSharingOptionsFragment.EXTRA_BOOKMARK_CATEGORY, mCategory);
+    startActivity(intent);
   }
 
   @Override
@@ -152,7 +134,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
     String categoryDesc = mEditDescView.getEditableText().toString().trim();
     if (!TextUtils.equals(mCategory.getDescription(), categoryDesc))
-      BookmarkManager.INSTANCE.setCategoryDesc(mCategory.getId(), categoryDesc);
+      BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), categoryDesc);
 
   }
 

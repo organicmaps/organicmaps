@@ -105,7 +105,7 @@
         android:id="@+id/download_routers_btn"
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
-        style="@style/MwmWidget.Button.Accent"
+        style="@style/MwmWidget.Button.Primary"
         android:layout_weight="0"
         android:layout_marginTop="@dimen/margin_half"
         android:text="@string/download_guides"

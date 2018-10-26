@@ -16,6 +16,7 @@ import com.mapswithme.maps.background.NotificationChannelFactory;
 import com.mapswithme.maps.background.NotificationChannelProvider;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.content.BookmarkCategoryObservable;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -73,10 +74,20 @@ public class MwmApplication extends Application
   @NonNull
   private ExternalLibrariesMediator mMediator;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarkCategoryObservable mBookmarkCategoryObservable;
+
   @NonNull
   public SubwayManager getSubwayManager()
   {
     return mSubwayManager;
+  }
+
+  @NonNull
+  public BookmarkCategoryObservable getBookmarkCategoryObservable()
+  {
+    return mBookmarkCategoryObservable;
   }
 
   public MwmApplication()
@@ -134,6 +145,7 @@ public class MwmApplication extends Application
     mMediator.initSensitiveDataToleranceLibraries();
     mMediator.initSensitiveDataStrictLibrariesAsync();
     Statistics.INSTANCE.setMediator(mMediator);
+    initAppComponents();
 
     mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     initNotificationChannels();
@@ -143,6 +155,11 @@ public class MwmApplication extends Application
     mSubwayManager = new SubwayManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
+  }
+
+  private void initAppComponents()
+  {
+    mBookmarkCategoryObservable = new BookmarkCategoryObservable();
   }
 
   private void initNotificationChannels()
