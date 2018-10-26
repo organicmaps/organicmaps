@@ -6,12 +6,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
   @IBOutlet weak var uploadAndPublishCell: UploadActionCell!
   @IBOutlet weak var getDirectLinkCell: UploadActionCell!
   
-  @IBOutlet weak var uploadAndPublishDescLabel: UILabel! {
-    didSet {
-      uploadAndPublishDescLabel.text = L("upload_and_publish_desc")
-    }
-  }
-  
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
       let htmlString = String(coreFormat: L("ugc_routes_user_agreement"), arguments: [ViewModel.termsOfUseLink()])
@@ -20,12 +14,6 @@ final class BookmarksSharingViewController: MWMTableViewController {
       licenseAgreementTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
                                                                     defaultAttributes: attributes)
       licenseAgreementTextView.delegate = self
-    }
-  }
-  
-  @IBOutlet weak var getDirectLinkDescLabel: UILabel! {
-    didSet {
-      getDirectLinkDescLabel.text = L("get_direct_link_desc")
     }
   }
   
@@ -55,14 +43,32 @@ final class BookmarksSharingViewController: MWMTableViewController {
     tableView.deselectRow(at: indexPath, animated: true)
     
     let cell = tableView.cellForRow(at: indexPath)
-    if (cell == self.uploadAndPublishCell || cell == self.getDirectLinkCell) {
-      MWMFrameworkHelper.checkConnectionAndPerformAction { [unowned self] in 
-        self.signup(anchor: self.view, onComplete: { success in
-          if (success) {
-            //impl uploading
-          }
-        })
-      }
+    if (cell == self.uploadAndPublishCell) {
+      self.uploadAndPublish()
+    } else if (cell == self.getDirectLinkCell) {
+      self.getDirectLink()
+    }
+  }
+  
+  func uploadAndPublish() {
+    self.performAfterValidation {
+      //implementation
+    }
+  }
+  
+  func getDirectLink() {
+    self.performAfterValidation {
+      //implementation
+    }
+  }
+  
+  func performAfterValidation(action: @escaping MWMVoidBlock) {
+    MWMFrameworkHelper.checkConnectionAndPerformAction { [unowned self] in
+      self.signup(anchor: self.view, onComplete: { success in
+        if (success) {
+          action()
+        }
+      })
     }
   }
 }
