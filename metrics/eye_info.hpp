@@ -192,7 +192,7 @@ struct MapObject
 
   bool operator==(MapObject const & rhs) const
   {
-    return m_pos.EqualDxDy(rhs.m_pos, 1e-6) && m_bestType == rhs.m_bestType;
+    return m_pos == rhs.m_pos && m_bestType == rhs.m_bestType;
   }
 
   std::string m_bestType;

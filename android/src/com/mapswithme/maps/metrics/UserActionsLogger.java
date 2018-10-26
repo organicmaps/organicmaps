@@ -3,7 +3,6 @@ package com.mapswithme.maps.metrics;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.discovery.DiscoveryUserEvent;
-import com.mapswithme.maps.maplayer.Mode;
 import com.mapswithme.maps.tips.TipsAction;
 import com.mapswithme.maps.tips.TipsApi;
 

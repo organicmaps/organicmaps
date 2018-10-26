@@ -82,6 +82,7 @@ void Serdes::SerializeMapObjects(MapObjects const & mapObjects, std::vector<int8
   {
     for (auto const & poiEvent : poi.second)
     {
+      // Additional scope is added because of the coding::SerializerJson dumps result at destruction.
       {
         coding::SerializerJson<Sink> ser(writer);
         event.m_bestPoiType = poi.first.m_bestType;
