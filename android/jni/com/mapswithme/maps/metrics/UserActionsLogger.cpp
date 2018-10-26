@@ -42,12 +42,4 @@ Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeDiscoveryItemClicked(JN
   auto const & event = static_cast<eye::Discovery::Event>(eventType);
   eye::Eye::Event::DiscoveryItemClicked(event);
 }
-
-JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_metrics_UserActionsLogger_nativeLayerUsed(JNIEnv * env, jclass clazz,
-                                                                   jint layerType)
-{
-  auto const & layer = static_cast<eye::Layer::Type>(layerType);
-  eye::Eye::Event::LayerUsed(layer);
-}
 }

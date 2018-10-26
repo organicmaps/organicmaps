@@ -208,7 +208,6 @@ public class ToggleMapLayerDialog extends DialogFragment
     {
       OnSubwayLayerToggleListener listener = (OnSubwayLayerToggleListener) getActivity();
       listener.onSubwayLayerSelected();
-      UserActionsLogger.logLayerUsedEvent(Mode.SUBWAY);
     }
   }
 
@@ -219,7 +218,6 @@ public class ToggleMapLayerDialog extends DialogFragment
     {
       OnTrafficLayerToggleListener listener = (OnTrafficLayerToggleListener) getActivity();
       listener.onTrafficLayerSelected();
-      UserActionsLogger.logLayerUsedEvent(Mode.TRAFFIC);
     }
   }
 }

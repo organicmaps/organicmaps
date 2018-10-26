@@ -29,11 +29,6 @@ public class UserActionsLogger
     nativeBookmarksCatalogShown();
   }
 
-  public static void logLayerUsedEvent(@NonNull Mode mode)
-  {
-    nativeLayerUsed(mode.ordinal());
-  }
-
   public static void logDiscoveryItemClickedEvent(@NonNull DiscoveryUserEvent event)
   {
     nativeDiscoveryItemClicked(event.ordinal());
@@ -44,5 +39,4 @@ public class UserActionsLogger
   private static native void nativeBookmarksCatalogShown();
   private static native void nativeDiscoveryShown();
   private static native void nativeDiscoveryItemClicked(int event);
-  private static native void nativeLayerUsed(int layerType);
 }
