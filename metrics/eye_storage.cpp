@@ -122,6 +122,9 @@ bool Storage::AppendMapObjectEvent(std::vector<int8_t> const & src)
 // static
 void Storage::Migrate()
 {
+  if (!GetPlatform().MkDirChecked(GetEyeDir()))
+    return;
+
   auto const oldPath = GetPlatform().WritablePathForFile("metrics");
   if (!GetPlatform().IsFileExistsByFullPath(oldPath))
     return;
@@ -131,9 +134,6 @@ void Storage::Migrate()
     base::DeleteFileX(oldPath);
     return;
   }
-
-  if (!GetPlatform().MkDirChecked(GetEyeDir()))
-    return;
 
   if (!base::CopyFileX(oldPath, GetInfoFilePath()))
     return;
