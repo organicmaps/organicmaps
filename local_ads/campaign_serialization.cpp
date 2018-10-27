@@ -93,6 +93,10 @@ uint8_t ZoomValue(uint8_t zoomIndex) { return zoomIndex + kMinZoomLevel; }
 
 uint8_t PackZoomAndPriority(uint8_t minZoomLevel, uint8_t priority)
 {
+  UNUSED_VALUE(kMaxZoomLevel);
+  UNUSED_VALUE(kMaxPriority);
+  UNUSED_VALUE(kHalfByteMaxValue);
+
   ASSERT_GREATER_OR_EQUAL(minZoomLevel, kMinZoomLevel, ("Unsupported zoom level"));
   ASSERT_LESS_OR_EQUAL(minZoomLevel, kMaxZoomLevel, ("Unsupported zoom level"));
   ASSERT_LESS_OR_EQUAL(priority, kMaxPriority, ("Unsupported priority value"));
@@ -135,6 +139,9 @@ std::vector<uint8_t> SerializeV2(std::vector<Campaign> const & campaigns)
 
 std::vector<Campaign> DeserializeV2(std::vector<uint8_t> const & bytes)
 {
+  UNUSED_VALUE(kMaxZoomLevel);
+  UNUSED_VALUE(kMaxPriority);
+
   ReaderSource<MemReaderWithExceptions> src({bytes.data(), bytes.size()});
 
   CHECK_EQUAL(ReadPrimitiveFromSource<Version>(src), Version::V2, ());
