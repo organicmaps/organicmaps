@@ -305,7 +305,6 @@ UNIT_TEST(ChunksDownloadStrategyFAIL)
   string const S2 = "UrlOfServer2";
 
   typedef pair<int64_t, int64_t> RangeT;
-  RangeT const R1(0, 249), R2(250, 499), R3(500, 749), R4(750, 800);
 
   vector<string> servers;
   servers.push_back(S1);
