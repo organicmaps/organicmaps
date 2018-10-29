@@ -280,12 +280,12 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(49.85015, 2.24296), {0., 0.},
-        MercatorBounds::FromLatLon(48.85860, 2.34784), 126000.);
+        MercatorBounds::FromLatLon(48.85458, 2.36291), 127162.0);
     // And backward case
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
-        MercatorBounds::FromLatLon(48.85860, 2.34784), {0., 0.},
-        MercatorBounds::FromLatLon(49.85015, 2.24296), 126000.);
+        MercatorBounds::FromLatLon(48.85458, 2.36291), {0., 0.},
+        MercatorBounds::FromLatLon(49.85015, 2.24296), 137009.0);
   }
 
   UNIT_TEST(RussiaSmolenskRussiaMoscowTimeTest)
