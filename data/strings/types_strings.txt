@@ -17275,16 +17275,19 @@
     en = sponsored-partner17
 
   [type.sponsored.partner18]
-    en = sponsored-partner18
+    en = MegaFon
+    ru = МегаФон
 
   [type.sponsored.partner19]
-    en = sponsored-partner19
+    en = MegaFon
+    ru = МегаФон
 
   [type.sponsored.partner2]
     en = sponsored-partner2
 
   [type.sponsored.partner20]
-    en = sponsored-partner20
+    en = MegaFon
+    ru = МегаФон
 
   [type.sponsored.partner3]
     en = sponsored-partner3

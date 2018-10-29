@@ -1978,6 +1978,9 @@
 	<string name="type.shop.video">Магазин</string>
 	<string name="type.shop.wine">Винный магазин</string>
 	<string name="type.sponsored.holiday">Празднование Рождества или Нового года</string>
+	<string name="type.sponsored.partner18">МегаФон</string>
+	<string name="type.sponsored.partner19">МегаФон</string>
+	<string name="type.sponsored.partner20">МегаФон</string>
 	<string name="type.sport.athletics">Лёгкая атлетика</string>
 	<string name="type.sport.basketball">Баскетбол</string>
 	<string name="type.sport.equestrian">Конный спорт</string>
