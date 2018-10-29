@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
@@ -31,14 +30,13 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
+import java.net.MalformedURLException;
 
-public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements BookmarkDownloadHandler
+public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private String mCatalogUrl;
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -58,34 +56,28 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private BookmarkManager.BookmarksCatalogListener mCatalogListener;
-  @NonNull
-  private final BookmarkDownloadReceiver mDownloadCompleteReceiver = new BookmarkDownloadReceiver();
+  private BookmarkCatalogController mController;
+
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCatalogUrl = getCatalogUrlOrThrow();
-    mCatalogListener = new CatalogListenerDecorator(this);
+    mController = new DefaultBookmarkCatalogController(new CatalogListenerDecorator(this));
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    mDownloadCompleteReceiver.attach(this);
-    mDownloadCompleteReceiver.register(getActivity().getApplication());
-    BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
+    mController.attach(getActivity());
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
-    mDownloadCompleteReceiver.detach();
-    mDownloadCompleteReceiver.unregister(getActivity().getApplication());
-    BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
+    mController.detach();
   }
 
   @Override
@@ -106,7 +98,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
     mProgressView = root.findViewById(R.id.progress);
     initWebView(mWebView);
     mRetryBtn.setOnClickListener(v -> onRetryClick());
-    mWebView.loadUrl(mCatalogUrl);
+    mWebView.loadUrl(getCatalogUrlOrThrow());
     UserActionsLogger.logBookmarksCatalogShownEvent();
     return root;
   }
@@ -116,7 +108,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
     mWebViewClient.retry();
     mRetryBtn.setVisibility(View.GONE);
     mProgressView.setVisibility(View.VISIBLE);
-    mWebView.loadUrl(mCatalogUrl);
+    mWebView.loadUrl(getCatalogUrlOrThrow());
   }
 
   @SuppressLint("SetJavaScriptEnabled")
@@ -146,18 +138,18 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
     return result;
   }
 
-  @Override
-  public void onAuthorizationRequired()
+  private boolean downloadBookmark(@NonNull String url)
   {
-    Toast.makeText(getActivity(), "Authorization required. Ui coming soon!",
-                   Toast.LENGTH_SHORT).show();
-  }
-
-  @Override
-  public void onPaymentRequired()
-  {
-    Toast.makeText(getActivity(), "Payment required. Ui coming soon!",
-                   Toast.LENGTH_SHORT).show();
+    try
+    {
+      mController.downloadBookmark(url);
+      return true;
+    }
+    catch (MalformedURLException e)
+    {
+      LOGGER.e(TAG, "Failed to download bookmark, url: " + url, e);
+      return false;
+    }
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
@@ -179,14 +171,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url)
     {
-      try
-      {
-        return requestArchive(view, url);
-      }
-      catch (BookmarksDownloadManager.UnprocessedUrlException e)
-      {
+      BookmarksCatalogFragment fragment = mReference.get();
+      if (fragment == null)
         return false;
-      }
+
+      return fragment.downloadBookmark(url);
     }
 
     @Override
@@ -254,14 +243,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment implements 
     private void retry()
     {
       mError = null;
-    }
-
-    private boolean requestArchive(@NonNull WebView view,
-                                   @NonNull String url) throws BookmarksDownloadManager.UnprocessedUrlException
-    {
-      BookmarksDownloadManager dm = BookmarksDownloadManager.from(view.getContext());
-      dm.enqueueRequest(url);
-      return true;
     }
 
     public void clear()

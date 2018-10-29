@@ -41,7 +41,7 @@ public class SystemDownloadCompletedService extends JobIntentService
       throw new IllegalStateException("Failed to get a download manager");
 
     final OperationStatus status = doInBackground(manager, intent);
-    UiThread.run(new NotifyCoreTask(getApplicationContext(), status));
+    UiThread.run(new SendStatusTask(getApplicationContext(), status));
   }
 
   @NonNull
@@ -125,14 +125,14 @@ public class SystemDownloadCompletedService extends JobIntentService
     return cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
   }
 
-  private static class NotifyCoreTask implements Runnable
+  private static class SendStatusTask implements Runnable
   {
     @NonNull
     private final Context mAppContext;
     @NonNull
     private final OperationStatus mStatus;
 
-    private NotifyCoreTask(@NonNull Context applicationContext,
+    private SendStatusTask(@NonNull Context applicationContext,
                            @NonNull OperationStatus status)
     {
       mAppContext = applicationContext;

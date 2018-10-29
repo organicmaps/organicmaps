@@ -128,6 +128,7 @@ import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -1691,7 +1692,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         BookmarksDownloadManager.from(target).enqueueRequest(mUrl);
         BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.CATALOG.ordinal());
       }
-      catch (BookmarksDownloadManager.UnprocessedUrlException e)
+      catch (MalformedURLException e)
       {
         LOGGER.e(TAG,"Failed to download catalogue by '" + mUrl + "'", e);
       }

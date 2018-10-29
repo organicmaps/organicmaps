@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -13,6 +14,7 @@ import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.net.MalformedURLException;
 import java.net.URLEncoder;
 
 public class BookmarksDownloadManager
@@ -30,7 +32,7 @@ public class BookmarksDownloadManager
   }
 
   @SuppressWarnings("UnusedReturnValue")
-  public long enqueueRequest(@NonNull String url) throws UnprocessedUrlException
+  public long enqueueRequest(@NonNull String url) throws MalformedURLException
   {
     Pair<Uri, Uri> uriPair = prepareUriPair(url);
 
@@ -46,18 +48,21 @@ public class BookmarksDownloadManager
     Uri srcUri = uriPair.first;
     Uri dstUri = uriPair.second;
 
-    String title = makeTitle(srcUri);
     LOGGER.d("Bookmarks catalog url", "Value = " + dstUri);
     DownloadManager.Request request = new DownloadManager
         .Request(dstUri)
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-        .setTitle(title)
         .addRequestHeader(HttpClient.USER_AGENT, Framework.nativeGetUserAgent())
         .setDestinationInExternalFilesDir(mContext, null, dstUri.getLastPathSegment());
+
+    String title = makeTitle(srcUri);
+    if (!TextUtils.isEmpty(title))
+      request.setTitle(title);
+
     return downloadManager.enqueue(request);
   }
 
-  @NonNull
+  @Nullable
   private static String makeTitle(@NonNull Uri srcUri)
   {
     String title = srcUri.getQueryParameter(QUERY_PARAM_NAME_KEY);
@@ -65,12 +70,12 @@ public class BookmarksDownloadManager
   }
 
   @NonNull
-  private static Pair<Uri, Uri> prepareUriPair(@NonNull String url) throws UnprocessedUrlException
+  private static Pair<Uri, Uri> prepareUriPair(@NonNull String url) throws MalformedURLException
   {
     Uri srcUri = Uri.parse(url);
     String fileId = srcUri.getQueryParameter(QUERY_PARAM_ID_KEY);
     if (TextUtils.isEmpty(fileId))
-      throw new UnprocessedUrlException("File id not found");
+      throw new MalformedURLException("File id not found");
 
     String downloadUrl = BookmarkManager.INSTANCE.getCatalogDownloadUrl(fileId);
     Uri.Builder builder = Uri.parse(downloadUrl).buildUpon();
@@ -88,15 +93,5 @@ public class BookmarksDownloadManager
   public static BookmarksDownloadManager from(@NonNull Context context)
   {
     return new BookmarksDownloadManager(context);
-  }
-
-  public static class UnprocessedUrlException extends Exception
-  {
-    private static final long serialVersionUID = -8641309036628295064L;
-
-    UnprocessedUrlException(@NonNull String msg)
-    {
-      super(msg);
-    }
   }
 }
