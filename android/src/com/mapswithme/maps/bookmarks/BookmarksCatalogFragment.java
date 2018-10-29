@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
+import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
@@ -33,6 +36,7 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
+    implements TargetFragmentCallback
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -58,12 +62,17 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @NonNull
   private BookmarkCatalogController mController;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Authorizer mAuthorizer;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mController = new DefaultBookmarkCatalogController(new CatalogListenerDecorator(this));
+    mAuthorizer = new Authorizer(this);
+    mController = new DefaultBookmarkCatalogController(mAuthorizer,
+                                                       new CatalogListenerDecorator(this));
   }
 
   @Override
@@ -150,6 +159,18 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       LOGGER.e(TAG, "Failed to download bookmark, url: " + url, e);
       return false;
     }
+  }
+
+  @Override
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
+  {
+    mAuthorizer.onTargetFragmentResult(resultCode, data);
+  }
+
+  @Override
+  public boolean isTargetAdded()
+  {
+    return isAdded();
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
