@@ -14,6 +14,7 @@ import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
@@ -213,6 +214,13 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
     @Override
     public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    {
+      //TODO(@alexzatsepin): Implement me if necessary
+    }
+
+    @Override
+    public void onCustomPropertiesReceived(boolean successful,
+                                           @NonNull CatalogCustomProperty[] properties)
     {
       //TODO(@alexzatsepin): Implement me if necessary
     }

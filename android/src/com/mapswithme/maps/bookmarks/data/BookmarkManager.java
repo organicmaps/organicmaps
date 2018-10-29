@@ -295,6 +295,16 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
+  public void onCustomPropertiesReceived(boolean successful,
+                                         @NonNull CatalogCustomProperty[] properties)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onCustomPropertiesReceived(successful, properties);
+  }
+
+  // Called from JNI.
+  @SuppressWarnings("unused")
+  @MainThread
   public void onUploadStarted(long originCategoryId)
   {
     for (BookmarksCatalogListener listener : mCatalogListeners)
@@ -726,6 +736,8 @@ public enum BookmarkManager
 
   private static native void nativeRequestCatalogTags();
 
+  private static native void nativeRequestCatalogCustomProperties();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -808,6 +820,15 @@ public enum BookmarkManager
     void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups);
 
     /**
+     * The method is called when the custom properties were received from the server.
+     *
+     * @param successful is the result of the receiving.
+     * @param properties is the properties collection.
+     */
+    void onCustomPropertiesReceived(boolean successful,
+                                    @NonNull CatalogCustomProperty[] properties);
+
+    /**
      * The method is called when the uploading to the catalog is started.
      *
      * @param originCategoryId is identifier of the uploading bookmarks category.
@@ -844,6 +865,13 @@ public enum BookmarkManager
 
     @Override
     public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    {
+      /* do noting by default */
+    }
+
+    @Override
+    public void onCustomPropertiesReceived(boolean successful,
+                                           @NonNull CatalogCustomProperty[] properties)
     {
       /* do noting by default */
     }

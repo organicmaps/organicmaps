@@ -47,6 +47,7 @@ import com.mapswithme.maps.bookmarks.BookmarksDownloadManager;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -1161,6 +1162,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  {
+    //TODO(@alexzatsepin): Implement me if necessary
+  }
+
+  @Override
+  public void onCustomPropertiesReceived(boolean successful,
+                                         @NonNull CatalogCustomProperty[] properties)
   {
     //TODO(@alexzatsepin): Implement me if necessary
   }
