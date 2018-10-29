@@ -45,7 +45,7 @@ public class ProgressDialogFragment extends DialogFragment
     return fr;
   }
 
-  public static Bundle getArgs(@NonNull String title, boolean cancelable, boolean retainInstance)
+  private static Bundle getArgs(@NonNull String title, boolean cancelable, boolean retainInstance)
   {
     Bundle args = new Bundle();
     args.putString(EXTRA_TITLE, title);
