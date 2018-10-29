@@ -245,6 +245,7 @@
 
     <activity
       android:name="com.mapswithme.maps.bookmarks.BookmarksCatalogActivity"
+      android:configChanges="orientation|screenLayout|screenSize"
       android:label="@string/guides"/>
 
     <activity-alias
