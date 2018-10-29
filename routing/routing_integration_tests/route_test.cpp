@@ -300,7 +300,7 @@ namespace
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
-    integration::TestRouteTime(route, 15001.2);
+    integration::TestRouteTime(route, 15246.6);
   }
 
   UNIT_TEST(RussiaMoscowLenigradskiy39GeroevPanfilovtsev22TimeTest)

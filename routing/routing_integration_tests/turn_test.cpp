@@ -372,7 +372,7 @@ UNIT_TEST(BelarusMKADShosseinai)
 
 // Test case: a route goes straight along a big road when joined small road.
 // An end user shall not be informed about such manoeuvres.
-// But at the and of the route an end user shall be informed about junction of two big roads.
+// But at the end of the route an end user shall be informed about junction of two big roads.
 UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 {
   TRouteResult const routeResult =
@@ -385,7 +385,7 @@ UNIT_TEST(ThailandPhuketNearPrabarameeRoad)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToLeft);
 }
 
 // Test case: a route goes in Moscow from Varshavskoe shosse (from the city center direction)
