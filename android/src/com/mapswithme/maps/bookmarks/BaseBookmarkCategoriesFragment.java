@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.cocosw.bottomsheet.BottomSheet;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;

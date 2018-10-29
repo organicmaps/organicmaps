@@ -35,13 +35,13 @@ public final class RepeatablePairPositionConverter extends RecyclerCompositeAdap
     List<AdapterIndexAndPosition> indexAndPositions = new ArrayList<>();
     List<AdapterIndexAndViewType> indexAndViewTypes = new ArrayList<>();
 
-    int tagsListsCount = second.getItemCount();
-    int categoriesListCount = first.getItemCount();
-    if (tagsListsCount != categoriesListCount)
-      throw new IllegalArgumentException("tagsListsCount different from categoriesListCount");
+    int secondAdapterCount = second.getItemCount();
+    int firstAdapterCount = first.getItemCount();
+    if (secondAdapterCount != firstAdapterCount)
+      throw new IllegalArgumentException("firstAdapterCount different from secondAdapterCount");
 
 
-    for (int i = 0; i < tagsListsCount; i++)
+    for (int i = 0; i < secondAdapterCount; i++)
     {
       indexAndPositions.add(new AdapterIndexAndPositionImpl(FIRST_ADAPTER_INDEX, i));
       indexAndPositions.add(new AdapterIndexAndPositionImpl(SECOND_ADAPTER_INDEX, i));

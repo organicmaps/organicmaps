@@ -12,9 +12,9 @@
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:paddingTop="@dimen/margin_base"
     android:paddingBottom="@dimen/margin_base"
-    android:paddingRight="@dimen/ugc_route_tags_desc_padding_right"
+    android:paddingRight="@dimen/margin_half_double_plus"
+    android:paddingEnd="@dimen/margin_half_double_plus"
     android:paddingLeft="@dimen/margin_half_double_plus"
-    android:paddingEnd="@dimen/ugc_route_tags_desc_padding_right"
     android:paddingStart="@dimen/margin_half_double_plus"/>
   <View
     android:background="?android:attr/listDivider"
@@ -65,7 +65,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
-      xmlns:android="http://schemas.android.com/apk/res/android"
       android:id="@+id/recycler"
       android:overScrollMode="never"
       android:layout_width="match_parent"

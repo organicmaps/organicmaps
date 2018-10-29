@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.widget.recycler.TagItemDecoration;
@@ -20,6 +19,7 @@ import com.mapswithme.maps.widget.recycler.UgcRouteTagItemDecorator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdapter.TagsRecyclerHolder>
@@ -57,7 +57,7 @@ public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdap
       OnItemClickListener<TagsAdapter.TagViewHolder> listener = new TagsListClickListener(externalListener, i);
       TagsAdapter adapter = new TagsAdapter(listener, state, each.getTags());
       Resources res = context.getResources();
-      Drawable divider = res.getDrawable(R.drawable.flexbox_divider);
+      Drawable divider = res.getDrawable(R.drawable.divider_transparent_base);
       TagItemDecoration decor = new UgcRouteTagItemDecorator(divider);
 
       ComponentHolder holder = new ComponentHolder(adapter, decor);
@@ -116,7 +116,7 @@ public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdap
     {
       tags.addAll(each.mAdapter.getSelectedTags());
     }
-    return tags;
+    return Collections.unmodifiableList(tags);
   }
 
   private static class ComponentHolder

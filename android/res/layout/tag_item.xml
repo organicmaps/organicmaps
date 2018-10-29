@@ -11,9 +11,9 @@
   android:paddingRight="@dimen/margin_half">
   <TextView
     android:id="@+id/text"
-    android:singleLine="true"
-    android:ellipsize="middle"
-    android:textAppearance="?android:attr/textAppearanceSmall"
+    android:lines="1"
+    android:ellipsize="end"
+    android:textAppearance="?android:attr/textAppearance"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
   </TextView>

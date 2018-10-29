@@ -1,6 +1,7 @@
 package com.mapswithme.maps.widget.recycler;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -31,7 +32,7 @@ public class ItemDecoratorFactory
   @NonNull
   public static RecyclerView.ItemDecoration createRatingRecordDecorator(@NonNull Context context,
                                                                         int orientation,
-                                                                        int dividerResId)
+                                                                        @DrawableRes int dividerResId)
   {
     DividerItemDecoration decoration = new DividerItemDecoration(context, orientation);
     decoration.setDrawable(ContextCompat.getDrawable(context, dividerResId));

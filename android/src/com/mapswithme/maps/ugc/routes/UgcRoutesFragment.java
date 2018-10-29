@@ -24,7 +24,7 @@ import com.mapswithme.maps.adapter.RepeatablePairPositionConverter;
 import com.mapswithme.maps.adapter.TagsAdapter;
 import com.mapswithme.maps.adapter.TagsCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.bookmarks.OnItemClickListener;
+import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
@@ -39,7 +39,7 @@ import java.util.List;
 public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
                                                                   OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>
 {
-  private static final String BUNDLE_SAVED_TAGS = "bundle_saved_tags";
+  private static final String BUNDLE_SELECTED_TAGS = "bundle_saved_tags";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -68,15 +68,13 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-    ViewGroup root = (ViewGroup) layoutInflater.inflate(R.layout.ugc_routes_frag, container,
-                                                         false);
+    ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_ugc_routes, container,false);
     setHasOptionsMenu(true);
     mProgress = root.findViewById(R.id.progress_container);
     mTagsContainer = root.findViewById(R.id.tags_container);
     mRetryBtnContainer = root.findViewById(R.id.retry_btn_container);
-    initRecycler(root);
     View retryBtn = mRetryBtnContainer.findViewById(R.id.retry_btn);
+    initRecycler(root);
     retryBtn.setOnClickListener(v -> onRetryClicked());
     UiUtils.hide(mTagsContainer, mRetryBtnContainer);
     UiUtils.show(mProgress);
@@ -136,7 +134,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   {
     super.onSaveInstanceState(outState);
     if (mTagsAdapter != null)
-      outState.putParcelableArrayList(BUNDLE_SAVED_TAGS, new ArrayList<>(mTagsAdapter.getSelectedTags()));
+      outState.putParcelableArrayList(BUNDLE_SELECTED_TAGS, new ArrayList<>(mTagsAdapter.getSelectedTags()));
   }
 
   @Override
@@ -184,7 +182,9 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     TagGroupNameAdapter categoryAdapter = new TagGroupNameAdapter(groups);
     mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags, this);
     RecyclerCompositeAdapter compositeAdapter = makeCompositeAdapter(categoryAdapter, mTagsAdapter);
-    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                                                                LinearLayoutManager.VERTICAL,
+                                                                false);
     mRecycler.setLayoutManager(layoutManager);
     mRecycler.setAdapter(compositeAdapter);
   }
@@ -193,7 +193,7 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   private static List<CatalogTag> validateSavedState(@Nullable Bundle savedState)
   {
     List<CatalogTag> tags;
-    if (savedState == null || (tags = savedState.getParcelableArrayList(BUNDLE_SAVED_TAGS)) == null)
+    if (savedState == null || (tags = savedState.getParcelableArrayList(BUNDLE_SELECTED_TAGS)) == null)
       return Collections.emptyList();
 
     return tags;

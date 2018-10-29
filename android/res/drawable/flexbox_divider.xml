@@ -1,6 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-  <size
-    android:width="@dimen/margin_base"
-    android:height="@dimen/margin_base" />
-  <solid android:color="@android:color/transparent" />
-</shape>

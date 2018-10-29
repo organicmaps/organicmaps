@@ -442,10 +442,11 @@
       android:label="@string/subtittle_opt_out"
       android:configChanges="keyboardHidden|orientation|screenSize">
     </activity>
-    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"/>
-    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteTagsActivity"
-              android:label="@string/ugc_route_tags_screen_label">
+    <activity
+      android:name="com.mapswithme.maps.ugc.routes.UgcRouteTagsActivity"
+      android:label="@string/ugc_route_tags_screen_label">
     </activity>
+    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"/>
     <service
       android:name="com.mapswithme.maps.background.WorkerService"
       android:permission="android.permission.BIND_JOB_SERVICE"

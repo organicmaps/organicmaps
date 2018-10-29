@@ -10,29 +10,30 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 
+import java.util.Collections;
 import java.util.List;
 
-public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapter.CategoryViewHolder>
+public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapter.TagGroupNameHolder>
 {
   @NonNull
   private final List<CatalogTagsGroup> mTagsGroups;
 
   public TagGroupNameAdapter(@NonNull List<CatalogTagsGroup> tagsGroups)
   {
-    mTagsGroups = tagsGroups;
+    mTagsGroups = Collections.unmodifiableList(tagsGroups);
     setHasStableIds(true);
   }
 
   @Override
-  public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  public TagGroupNameHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     View itemView = inflater.inflate(R.layout.tags_category, parent, false);
-    return new CategoryViewHolder(itemView);
+    return new TagGroupNameHolder(itemView);
   }
 
   @Override
-  public void onBindViewHolder(CategoryViewHolder holder, int position)
+  public void onBindViewHolder(TagGroupNameHolder holder, int position)
   {
     CatalogTagsGroup item = mTagsGroups.get(position);
     holder.mText.setText(item.getLocalizedName());
@@ -50,12 +51,12 @@ public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapte
     return mTagsGroups.size();
   }
 
-  static final class CategoryViewHolder extends RecyclerView.ViewHolder
+  static final class TagGroupNameHolder extends RecyclerView.ViewHolder
   {
     @NonNull
     private final TextView mText;
 
-    CategoryViewHolder(@NonNull View itemView)
+    TagGroupNameHolder(@NonNull View itemView)
     {
       super(itemView);
       mText = itemView.findViewById(R.id.text);
