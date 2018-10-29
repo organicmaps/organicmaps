@@ -29,7 +29,7 @@
       android:id="@+id/progress"
       android:minWidth="@dimen/search_progress_size"
       android:minHeight="@dimen/search_progress_size"
-      android:paddingTop="@dimen/ugc_route_tags_progress_padding_top"
+      android:paddingTop="@dimen/direction_frame_min_height"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"/>

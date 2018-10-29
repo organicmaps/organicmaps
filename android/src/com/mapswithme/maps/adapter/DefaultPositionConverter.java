@@ -7,14 +7,14 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DefaultIndexConverter extends RecyclerCompositeAdapter.AbstractAdapterIndexConverter
+public final class DefaultPositionConverter extends RecyclerCompositeAdapter.AbstractAdapterPositionConverter
 {
   @NonNull
   private final List<AdapterIndexAndPosition> mIndexAndPositions;
   @NonNull
   private final List<AdapterIndexAndViewType> mIndexAndViewTypes;
 
-  public DefaultIndexConverter(@NonNull List<RecyclerView.Adapter<RecyclerView.ViewHolder>> adapters)
+  public DefaultPositionConverter(@NonNull List<RecyclerView.Adapter<RecyclerView.ViewHolder>> adapters)
   {
     Pair<List<AdapterIndexAndPosition>, List<AdapterIndexAndViewType>> pair = makeDataSet(adapters);
     mIndexAndPositions = pair.first;

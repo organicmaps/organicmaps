@@ -13,10 +13,10 @@ public class RecyclerCompositeAdapter extends RecyclerView.Adapter<RecyclerView.
   @NonNull
   private final List<RecyclerView.Adapter<? extends RecyclerView.ViewHolder>> mAdapters = new ArrayList<>();
   @NonNull
-  private final AdapterIndexConverter mIndexConverter;
+  private final AdapterPositionConverter mIndexConverter;
 
   @SafeVarargs
-  public RecyclerCompositeAdapter(@NonNull AdapterIndexConverter indexConverter,
+  public RecyclerCompositeAdapter(@NonNull AdapterPositionConverter indexConverter,
                                   @NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder>... adapters)
   {
     mIndexConverter = indexConverter;
@@ -36,33 +36,37 @@ public class RecyclerCompositeAdapter extends RecyclerView.Adapter<RecyclerView.
   }
 
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int absViewType)
   {
-    AdapterIndexAndViewType entity = mIndexConverter.getRelativeViewType(viewType);
-    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(entity.getIndex());
-    return adapter.onCreateViewHolder(parent, entity.getRelativeViewType());
+    AdapterIndexAndViewType indexAndViewType = mIndexConverter.toRelativeViewTypeAndAdapterIndex(absViewType);
+
+    int adapterIndex = indexAndViewType.getIndex();
+    int relViewType = indexAndViewType.getRelativeViewType();
+    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(adapterIndex);
+    return adapter.onCreateViewHolder(parent, relViewType);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    AdapterIndexAndPosition entity = mIndexConverter.getRelativePosition(position);
-    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(entity.getIndex());
+    AdapterIndexAndPosition indexAndPosition = mIndexConverter.toRelativePositionAndAdapterIndex(position);
 
-    int relativeViewType = adapter.getItemViewType(entity.getRelativePosition());
-    AdapterIndexAndViewType type = new AdapterIndexAndViewTypeImpl(entity.getIndex(),
-                                                                   relativeViewType);
-    int absoluteViewType = mIndexConverter.getAbsoluteViewType(type);
+    int adapterIndex = indexAndPosition.getIndex();
+    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(adapterIndex);
+    int relViewType = adapter.getItemViewType(indexAndPosition.getRelativePosition());
+    int absViewType = mIndexConverter.toAbsoluteViewType(relViewType, adapterIndex);
 
-    return absoluteViewType;
+    return absViewType;
   }
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
   {
-    AdapterIndexAndPosition index = mIndexConverter.getRelativePosition(position);
-    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(index.getIndex());
-    bindViewHolder(adapter, holder, index.getRelativePosition());
+    AdapterIndexAndPosition indexAndPosition = mIndexConverter.toRelativePositionAndAdapterIndex(position);
+    int adapterIndex = indexAndPosition.getIndex();
+    RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter = mAdapters.get(adapterIndex);
+    int relPosition = indexAndPosition.getRelativePosition();
+    bindViewHolder(adapter, holder, relPosition);
   }
 
   private <Holder extends RecyclerView.ViewHolder> void bindViewHolder(@NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter,
@@ -72,27 +76,28 @@ public class RecyclerCompositeAdapter extends RecyclerView.Adapter<RecyclerView.
     ((RecyclerView.Adapter<Holder>) adapter).onBindViewHolder(holder, position);
   }
 
-  protected static abstract class AbstractAdapterIndexConverter implements AdapterIndexConverter
+  protected static abstract class AbstractAdapterPositionConverter implements AdapterPositionConverter
   {
     @NonNull
     @Override
-    public AdapterIndexAndPosition getRelativePosition(int absPosition)
+    public AdapterIndexAndPosition toRelativePositionAndAdapterIndex(int absPosition)
     {
       return getIndexAndPositionItems().get(absPosition);
     }
 
     @NonNull
     @Override
-    public AdapterIndexAndViewType getRelativeViewType(int absViewType)
+    public AdapterIndexAndViewType toRelativeViewTypeAndAdapterIndex(int absViewType)
     {
       return getIndexAndViewTypeItems().get(absViewType);
     }
 
     @Override
-    public int getAbsoluteViewType(@NonNull AdapterIndexAndViewType relViewType)
+    public int toAbsoluteViewType(int relViewType, int adapterIndex)
     {
+      AdapterIndexAndViewType type = new AdapterIndexAndViewTypeImpl(adapterIndex, relViewType);
       List<AdapterIndexAndViewType> items = getIndexAndViewTypeItems();
-      int indexOf = items.indexOf(relViewType);
+      int indexOf = items.indexOf(type);
       if (indexOf < 0)
       {
         throw new IllegalArgumentException("Item " + relViewType + " not found in list : " +

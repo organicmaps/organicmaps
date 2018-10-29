@@ -17,10 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.adapter.AdapterIndexConverter;
+import com.mapswithme.maps.adapter.AdapterPositionConverter;
 import com.mapswithme.maps.adapter.TagGroupNameAdapter;
 import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
-import com.mapswithme.maps.adapter.RepeatablePairIndexConverter;
+import com.mapswithme.maps.adapter.RepeatablePairPositionConverter;
 import com.mapswithme.maps.adapter.TagsAdapter;
 import com.mapswithme.maps.adapter.TagsCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -204,8 +204,8 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
                                                                @NonNull TagsCompositeAdapter tagsCompositeAdapter)
 
   {
-    AdapterIndexConverter converter = new RepeatablePairIndexConverter(categoryAdapter,
-                                                                       tagsCompositeAdapter);
+    AdapterPositionConverter converter = new RepeatablePairPositionConverter(categoryAdapter,
+                                                                             tagsCompositeAdapter);
     return new RecyclerCompositeAdapter(converter, categoryAdapter, tagsCompositeAdapter);
   }
 

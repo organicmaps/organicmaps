@@ -7,7 +7,7 @@ import android.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class RepeatablePairIndexConverter extends RecyclerCompositeAdapter.AbstractAdapterIndexConverter
+public final class RepeatablePairPositionConverter extends RecyclerCompositeAdapter.AbstractAdapterPositionConverter
 {
   private static final int FIRST_ADAPTER_INDEX = 0;
   private static final int SECOND_ADAPTER_INDEX = 1;
@@ -17,8 +17,8 @@ public final class RepeatablePairIndexConverter extends RecyclerCompositeAdapter
   @NonNull
   private final List<AdapterIndexAndViewType> mIndexAndViewTypes;
 
-  public RepeatablePairIndexConverter(@NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> first,
-                                      @NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> second)
+  public RepeatablePairPositionConverter(@NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> first,
+                                         @NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> second)
   {
     Pair<List<AdapterIndexAndPosition>, List<AdapterIndexAndViewType>> pair = mixDataSet(first,
                                                                                          second);
