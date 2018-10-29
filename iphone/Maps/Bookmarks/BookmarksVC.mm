@@ -249,7 +249,7 @@ CGFloat const kPinDiameter = 18.0f;
     else
     {
       kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
-      [MWMBookmarksManager deleteBookmark:bmId];
+      [[MWMBookmarksManager sharedManager] deleteBookmark:bmId];
     }
   }
 
@@ -353,7 +353,7 @@ CGFloat const kPinDiameter = 18.0f;
   // Disable all notifications in BM on appearance of this view.
   // It allows to significantly improve performance in case of bookmarks
   // modification. All notifications will be sent on controller's disappearance.
-  [MWMBookmarksManager setNotificationsEnabled: NO];
+  [[MWMBookmarksManager sharedManager] setNotificationsEnabled: NO];
   
   [super viewDidAppear:animated];
 }
@@ -361,7 +361,7 @@ CGFloat const kPinDiameter = 18.0f;
 - (void)viewDidDisappear:(BOOL)animated
 {
   // Allow to send all notifications in BM.
-  [MWMBookmarksManager setNotificationsEnabled: YES];
+  [[MWMBookmarksManager sharedManager] setNotificationsEnabled: YES];
   
   [super viewDidDisappear:animated];
 }

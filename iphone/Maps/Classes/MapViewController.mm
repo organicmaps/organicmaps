@@ -377,7 +377,7 @@ BOOL gIsFirstMyPositionMode = YES;
   });
 
   self.userTouchesAction = UserTouchesActionNone;
-  [MWMBookmarksManager loadBookmarks];
+  [[MWMBookmarksManager sharedManager] loadBookmarks];
   [MWMFrameworkListener addObserver:self];
 }
 

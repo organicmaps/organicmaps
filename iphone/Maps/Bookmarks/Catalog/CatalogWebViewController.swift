@@ -12,7 +12,7 @@ final class CatalogWebViewController: WebViewController {
   var toolbar = UIToolbar()
 
   @objc init() {
-    super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("guides"))!
+    super.init(url: MWMBookmarksManager.shared().catalogFrontendUrl()!, title: L("guides"))!
     backButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_back"), style: .plain, target: self, action: #selector(onBack))
     fwdButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_fwd"), style: .plain, target: self, action: #selector(onFwd))
     backButton.tintColor = .blackSecondaryText()
@@ -140,7 +140,7 @@ final class CatalogWebViewController: WebViewController {
       }
     }
 
-    if MWMBookmarksManager.isCategoryDownloading(id) || MWMBookmarksManager.hasCategoryDownloaded(id) {
+    if MWMBookmarksManager.shared().isCategoryDownloading(id) || MWMBookmarksManager.shared().hasCategoryDownloaded(id) {
       MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded_guide"),
                                                                message: nil,
                                                                rightButtonTitle: L("ok"),
@@ -149,7 +149,7 @@ final class CatalogWebViewController: WebViewController {
       return
     }
 
-    MWMBookmarksManager.downloadItem(withId: id, name: name, progress: { [weak self] (progress) in
+    MWMBookmarksManager.shared().downloadItem(withId: id, name: name, progress: { [weak self] (progress) in
       self?.updateProgress()
     }) { [weak self] (categoryId, error) in
       if let error = error as NSError? {
@@ -179,7 +179,7 @@ final class CatalogWebViewController: WebViewController {
           self?.showImportError()
         }
       } else {
-        if MWMBookmarksManager.getCatalogDownloadsCount() == 0 {
+        if MWMBookmarksManager.shared().getCatalogDownloadsCount() == 0 {
           MapViewController.shared().showBookmarksLoadedAlert(categoryId)
         }
       }
@@ -210,7 +210,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   private func updateProgress() {
-    let numberOfTasks = MWMBookmarksManager.getCatalogDownloadsCount()
+    let numberOfTasks = MWMBookmarksManager.shared().getCatalogDownloadsCount()
     numberOfTasksLabel.text = "\(numberOfTasks)"
     progressView.isHidden = numberOfTasks == 0
   }

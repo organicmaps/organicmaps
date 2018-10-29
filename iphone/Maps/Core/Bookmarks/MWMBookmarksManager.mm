@@ -12,13 +12,6 @@
 
 #include <utility>
 
-namespace
-{
-using Observer = id<MWMBookmarksObserver>;
-using Observers = NSHashTable<Observer>;
-
-using TLoopBlock = void (^)(Observer observer);
-  
 NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 {
   switch (result)
@@ -31,11 +24,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   case Cloud::SynchronizationResult::InvalidCall: return kStatInvalidCall;
   }
 }
-}  // namespace
 
 @interface MWMBookmarksManager ()
 
-@property(nonatomic) Observers * observers;
+@property(nonatomic, readonly) BookmarkManager & bm;
+
+@property(nonatomic) NSHashTable<id<MWMBookmarksObserver>> * observers;
 @property(nonatomic) BOOL areBookmarksLoaded;
 @property(nonatomic) NSURL * shareCategoryURL;
 
@@ -45,7 +39,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 @implementation MWMBookmarksManager
 
-+ (instancetype)manager
++ (instancetype)sharedManager
 {
   static MWMBookmarksManager * manager;
   static dispatch_once_t onceToken;
@@ -55,17 +49,22 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return manager;
 }
 
-+ (void)addObserver:(Observer)observer
+- (BookmarkManager &)bm
+{
+  return GetFramework().GetBookmarkManager();
+}
+
+- (void)addObserver:(id<MWMBookmarksObserver>)observer
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[MWMBookmarksManager manager].observers addObject:observer];
+    [self.observers addObject:observer];
   });
 }
 
-+ (void)removeObserver:(Observer)observer
+- (void)removeObserver:(id<MWMBookmarksObserver>)observer
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[MWMBookmarksManager manager].observers removeObject:observer];
+    [self.observers removeObject:observer];
   });
 }
 
@@ -74,8 +73,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   self = [super init];
   if (self)
   {
-    _observers = [Observers weakObjectsHashTable];
+    _observers = [NSHashTable<id<MWMBookmarksObserver>> weakObjectsHashTable];
     [self registerBookmarksObserver];
+    [self registerCatalogObservers];
   }
   return self;
 }
@@ -96,7 +96,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       if (!self)
         return;
       self.areBookmarksLoaded = YES;
-      [self loopObservers:^(Observer observer) {
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
         if ([observer respondsToSelector:@selector(onBookmarksLoadFinished)])
           [observer onBookmarksLoadFinished];
       }];
@@ -110,7 +110,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       if (!self)
         return;
       [self processFileEvent:YES];
-      [self loopObservers:^(Observer observer) {
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
         if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
           [observer onBookmarksFileLoadSuccess];
       }];
@@ -124,18 +124,71 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       [wSelf processFileEvent:NO];
     };
   }
-  GetFramework().GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
+  self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
 }
 
-+ (BOOL)areBookmarksLoaded { return [MWMBookmarksManager manager].areBookmarksLoaded; }
-
-+ (void)loadBookmarks
+- (void)registerCatalogObservers
 {
-  [MWMBookmarksManager manager];
-  
-  auto & bm = GetFramework().GetBookmarkManager();
-  
-  auto onSynchronizationStarted = [](Cloud::SynchronizationType type)
+  self.catalogObservers = [NSMutableDictionary dictionary];
+  auto onDownloadStarted = [self](std::string const & serverCatId)
+  {
+    auto observer = self.catalogObservers[@(serverCatId.c_str())];
+    if (observer)
+      [observer onDownloadStart];
+  };
+  auto onDownloadFinished = [self](std::string const & serverCatId, platform::RemoteFile::Result const & result)
+  {
+    auto observer = self.catalogObservers[@(serverCatId.c_str())];
+    if (observer)
+    {
+      [observer onDownloadComplete:result.m_status];
+      if (result.m_status != platform::RemoteFile::Status::Ok) {
+        [self.catalogObservers removeObjectForKey:observer.categoryId];
+      }
+    }
+  };
+  auto onImportStarted = [self](std::string const & serverCatId)
+  {
+    auto observer = self.catalogObservers[@(serverCatId.c_str())];
+    if (observer)
+      [observer onImportStart];
+  };
+  auto onImportFinished = [self](std::string const & serverCatId, kml::MarkGroupId categoryId, bool successful)
+  {
+    auto observer = self.catalogObservers[@(serverCatId.c_str())];
+    if (observer)
+    {
+      [observer onImportCompleteSuccessful:successful forCategoryId:categoryId];
+      [self.catalogObservers removeObjectForKey:observer.categoryId];
+    }
+  };
+  auto onUploadStarted = [](kml::MarkGroupId originCategoryId)
+  {
+    //TODO(@beloal): Implement me.
+  };
+  auto onUploadFinished = [](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
+                             kml::MarkGroupId originCategoryId, kml::MarkGroupId resultCategoryId)
+  {
+    //TODO(@beloal): Implement me.
+  };
+  GetFramework().GetBookmarkManager().SetCatalogHandlers(std::move(onDownloadStarted),
+                                                         std::move(onDownloadFinished),
+                                                         std::move(onImportStarted),
+                                                         std::move(onImportFinished),
+                                                         std::move(onUploadStarted),
+                                                         std::move(onUploadFinished));
+}
+
+#pragma mark - Bookmarks loading
+
+- (BOOL)areBookmarksLoaded
+{
+  return _areBookmarksLoaded;
+}
+
+- (void)loadBookmarks
+{
+  auto onSynchronizationStarted = [self](Cloud::SynchronizationType type)
   {
     if (type == Cloud::SynchronizationType::Backup)
     {
@@ -143,14 +196,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     }
     else
     {
-      [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
         if ([observer respondsToSelector:@selector(onRestoringStarted)])
           [observer onRestoringStarted];
       }];
     }
   };
   
-  auto onSynchronizationFinished = [](Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
+  auto onSynchronizationFinished = [self](Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
                                       std::string const & errorStr)
   {
     if (result == Cloud::SynchronizationResult::Success)
@@ -165,13 +218,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
             withParameters:@{kStatType: error, kStatError: @(errorStr.c_str())}];
     }
 
-    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onSynchronizationFinished:)])
         [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(base::Key(result))];
     }];
   };
   
-  auto onRestoreRequested = [](Cloud::RestoringRequestResult result, std::string const & deviceName,
+  auto onRestoreRequested = [self](Cloud::RestoringRequestResult result, std::string const & deviceName,
                                uint64_t backupTimestampInMs)
   {
     auto const res = static_cast<MWMRestoringRequestResult>(base::Key(result));
@@ -193,26 +246,28 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
             withParameters:@{kStatType: kStatDisk, kStatError: @("Not enough disk space")}];
     }
 
-    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
         [observer onRestoringRequest:res deviceName:@(deviceName.c_str()) backupDate:date];
     }];
   };
   
-  auto onRestoredFilesPrepared = []
+  auto onRestoredFilesPrepared = [self]
   {
-    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onRestoringFilesPrepared)])
         [observer onRestoringFilesPrepared];
     }];
   };
   
-  bm.SetCloudHandlers(std::move(onSynchronizationStarted), std::move(onSynchronizationFinished),
+  self.bm.SetCloudHandlers(std::move(onSynchronizationStarted), std::move(onSynchronizationFinished),
                       std::move(onRestoreRequested), std::move(onRestoredFilesPrepared));
-  bm.LoadBookmarks();
+  self.bm.LoadBookmarks();
 }
 
-+ (MWMGroupIDCollection)groupsIdList
+#pragma mark - Categories
+
+- (MWMGroupIDCollection)groupsIdList
 {
   auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
   NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
@@ -224,89 +279,90 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return collection.copy;
 }
 
-+ (NSString *)getCategoryName:(MWMMarkGroupID)groupId
+- (NSString *)getCategoryName:(MWMMarkGroupID)groupId
 {
   return @(GetFramework().GetBookmarkManager().GetCategoryName(groupId).c_str());
 }
 
-+ (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId
+- (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId
 {
   return GetFramework().GetBookmarkManager().GetUserMarkIds(groupId).size();
 }
 
-+ (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId
+- (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId
 {
   return GetFramework().GetBookmarkManager().GetTrackIds(groupId).size();
 }
 
-+ (MWMMarkGroupID)createCategoryWithName:(NSString *)name
+- (MWMMarkGroupID)createCategoryWithName:(NSString *)name
 {
   auto groupId = GetFramework().GetBookmarkManager().CreateBookmarkCategory(name.UTF8String);
   GetFramework().GetBookmarkManager().SetLastEditedBmCategory(groupId);
   return groupId;
 }
 
-+ (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name
+- (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name
 {
   GetFramework().GetBookmarkManager().GetEditSession().SetCategoryName(groupId, name.UTF8String);
 }
 
-+ (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId
+- (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId
 {
   return GetFramework().GetBookmarkManager().IsVisible(groupId);
 }
 
-+ (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible
+- (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible
 {
   GetFramework().GetBookmarkManager().GetEditSession().SetIsVisible(groupId, isVisible);
 }
 
-+ (void)setUserCategoriesVisible:(BOOL)isVisible {
+- (void)setUserCategoriesVisible:(BOOL)isVisible {
   GetFramework().GetBookmarkManager()
   .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Private, isVisible);
 }
 
-+ (void)setCatalogCategoriesVisible:(BOOL)isVisible {
+- (void)setCatalogCategoriesVisible:(BOOL)isVisible {
   GetFramework().GetBookmarkManager()
   .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Public, isVisible);
 }
 
-+ (void)deleteCategory:(MWMMarkGroupID)groupId
+- (void)deleteCategory:(MWMMarkGroupID)groupId
 {
   GetFramework().GetBookmarkManager().GetEditSession().DeleteBmCategory(groupId);
-  [[self manager] loopObservers:^(Observer observer) {
+  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
   }];
 }
 
-+ (void)deleteBookmark:(MWMMarkID)bookmarkId
+- (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
   GetFramework().GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
-  [[self manager] loopObservers:^(Observer observer) {
+  [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
       [observer onBookmarkDeleted:bookmarkId];
   }];
 }
 
-+ (BOOL)checkCategoryName:(NSString *)name
+- (BOOL)checkCategoryName:(NSString *)name
 {
   return !GetFramework().GetBookmarkManager().IsUsedCategoryName(name.UTF8String);
 }
 
-+ (void)shareCategory:(MWMMarkGroupID)groupId
+#pragma mark - Category sharing
+
+- (void)shareCategory:(MWMMarkGroupID)groupId
 {
-  GetFramework().GetBookmarkManager().PrepareFileForSharing(groupId, [](auto sharingResult)
+  GetFramework().GetBookmarkManager().PrepareFileForSharing(groupId, [self](auto sharingResult)
   {
     MWMBookmarksShareStatus status;
-    MWMBookmarksManager * manager = [MWMBookmarksManager manager];
     switch (sharingResult.m_code)
     {
     case BookmarkManager::SharingResult::Code::Success:
     {
-      manager.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str())
+      self.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str())
                                             isDirectory:NO];
-      ASSERT(manager.shareCategoryURL, ("Invalid share category url"));
+      ASSERT(self.shareCategoryURL, ("Invalid share category url"));
       status = MWMBookmarksShareStatusSuccess;
       break;
     }
@@ -321,45 +377,47 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       break;
     }
     
-    [manager loopObservers:^(Observer observer) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onBookmarksCategoryFilePrepared:)])
         [observer onBookmarksCategoryFilePrepared:status];
     }];
   });
 }
 
-+ (NSUInteger)filesCountForConversion
+- (NSURL *)shareCategoryURL
+{
+  NSAssert(_shareCategoryURL != nil, @"Invalid share category url");
+  return _shareCategoryURL;
+}
+
+- (void)finishShareCategory
+{
+  if (!self.shareCategoryURL)
+    return;
+  
+  base::DeleteFileX(self.shareCategoryURL.path.UTF8String);
+  self.shareCategoryURL = nil;
+}
+
+#pragma mark - klm conversion
+
+- (NSUInteger)filesCountForConversion
 {
   return GetFramework().GetBookmarkManager().GetKmlFilesCountForConversion();
 }
 
-+ (void)convertAll
+- (void)convertAll
 {
-  GetFramework().GetBookmarkManager().ConvertAllKmlFiles([](bool success) {
-    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+  GetFramework().GetBookmarkManager().ConvertAllKmlFiles([self](bool success) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       [observer onConversionFinish:success];
     }];
   });
 }
 
-+ (NSURL *)shareCategoryURL
-{
-  MWMBookmarksManager * manager = [MWMBookmarksManager manager];
-  NSAssert(manager.shareCategoryURL != nil, @"Invalid share category url");
-  return manager.shareCategoryURL;
-}
+#pragma mark - Cloud sync
 
-+ (void)finishShareCategory
-{
-  MWMBookmarksManager * manager = [MWMBookmarksManager manager];
-  if (!manager.shareCategoryURL)
-    return;
-  
-  base::DeleteFileX(manager.shareCategoryURL.path.UTF8String);
-  manager.shareCategoryURL = nil;
-}
-
-+ (NSDate *)lastSynchronizationDate
+- (NSDate *)lastSynchronizationDate
 {
   auto timestampInMs = GetFramework().GetBookmarkManager().GetLastSynchronizationTimestampInMs();
   if (timestampInMs == 0)
@@ -367,14 +425,17 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return [NSDate dateWithTimeIntervalSince1970:timestampInMs / 1000];
 }
 
-+ (BOOL)isCloudEnabled { return GetFramework().GetBookmarkManager().IsCloudEnabled(); }
+- (BOOL)isCloudEnabled
+{
+  return GetFramework().GetBookmarkManager().IsCloudEnabled();
+}
 
-+ (void)setCloudEnabled:(BOOL)enabled
+- (void)setCloudEnabled:(BOOL)enabled
 {
   GetFramework().GetBookmarkManager().SetCloudEnabled(enabled);
 }
 
-+ (void)requestRestoring
+- (void)requestRestoring
 {
   auto const status = Platform::ConnectionStatus();
   auto statusStr = [](Platform::EConnectionType type) -> NSString * {
@@ -394,7 +455,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
   if (status == Platform::EConnectionType::CONNECTION_NONE)
   {
-    [self.manager loopObservers:^(Observer observer) {
+    [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
         [observer onRestoringRequest:MWMRestoringRequestResultNoInternet deviceName:nil backupDate:nil];
     }];
@@ -404,131 +465,62 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   GetFramework().GetBookmarkManager().RequestCloudRestoring();
 }
 
-+ (void)applyRestoring
+- (void)applyRestoring
 {
   GetFramework().GetBookmarkManager().ApplyCloudRestoring();
 }
 
-+ (void)cancelRestoring
+- (void)cancelRestoring
 {
   [Statistics logEvent:kStatBookmarksRestoreProposalCancel];
   GetFramework().GetBookmarkManager().CancelCloudRestoring();
 }
 
-- (void)loopObservers:(TLoopBlock)block
-{
-  for (Observer observer in self.observers)
-  {
-    if (observer)
-      block(observer);
-  }
-}
+#pragma mark - Notifications
 
-- (void)processFileEvent:(BOOL)success
-{
-  UIAlertController * alert = [UIAlertController
-      alertControllerWithTitle:L(@"load_kmz_title")
-                       message:success ? L(@"load_kmz_successful") : L(@"load_kmz_failed")
-                preferredStyle:UIAlertControllerStyleAlert];
-  UIAlertAction * action =
-      [UIAlertAction actionWithTitle:L(@"ok") style:UIAlertActionStyleDefault handler:nil];
-  [alert addAction:action];
-  alert.preferredAction = action;
-  [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
-}
-
-+ (void)setNotificationsEnabled:(BOOL)enabled
+- (void)setNotificationsEnabled:(BOOL)enabled
 {
   GetFramework().GetBookmarkManager().SetNotificationsEnabled(enabled);
 }
 
-+ (BOOL)areNotificationsEnabled
+- (BOOL)areNotificationsEnabled
 {
   return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
 }
 
-+ (NSURL *)catalogFrontendUrl
+#pragma mark - Catalog
+
+- (NSURL *)catalogFrontendUrl
 {
   NSString * urlString = @(GetFramework().GetBookmarkManager().GetCatalog().GetFrontendUrl().c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-+ (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
+- (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
 {
   NSString * urlString = @(GetFramework().GetBookmarkManager().GetCategoryCatalogDeeplink(groupId).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-+ (void)downloadItemWithId:(NSString *)itemId
+- (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(ProgressBlock)progress
                 completion:(CompletionBlock)completion
 {
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    [MWMBookmarksManager manager].catalogObservers = [NSMutableDictionary dictionary];
-    auto onDownloadStarted = [](std::string const & serverCatId)
-    {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
-      if (observer)
-        [observer onDownloadStart];
-    };
-    auto onDownloadFinished = [](std::string const & serverCatId, BookmarkCatalog::DownloadResult result)
-    {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
-      if (observer)
-      {
-        [observer onDownloadComplete:result];
-        if (result != BookmarkCatalog::DownloadResult::Success) {
-          [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
-        }
-      }
-    };
-    auto onImportStarted = [](std::string const & serverCatId)
-    {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
-      if (observer)
-        [observer onImportStart];
-    };
-    auto onImportFinished = [](std::string const & serverCatId, kml::MarkGroupId categoryId, bool successful)
-    {
-      auto observer = [MWMBookmarksManager manager].catalogObservers[@(serverCatId.c_str())];
-      if (observer)
-      {
-        [observer onImportCompleteSuccessful:successful forCategoryId:categoryId];
-        [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
-      }
-    };
-    auto onUploadStarted = [](kml::MarkGroupId originCategoryId)
-    {
-      //TODO(@beloal): Implement me.
-    };
-    auto onUploadFinished = [](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
-                               kml::MarkGroupId originCategoryId, kml::MarkGroupId resultCategoryId)
-    {
-      //TODO(@beloal): Implement me.
-    };
-    GetFramework().GetBookmarkManager().SetCatalogHandlers(std::move(onDownloadStarted),
-                                                           std::move(onDownloadFinished),
-                                                           std::move(onImportStarted),
-                                                           std::move(onImportFinished),
-                                                           std::move(onUploadStarted),
-                                                           std::move(onUploadFinished));
-  });
   auto observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = itemId;
   observer.progressBlock = progress;
   observer.completionBlock = completion;
-  [[MWMBookmarksManager manager].catalogObservers setObject:observer forKey:itemId];
+  [self.catalogObservers setObject:observer forKey:itemId];
   GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
 }
 
-+ (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
+- (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
 {
   return GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId);
 }
 
-+ (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog
+- (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog
 {
   NSMutableArray * result = [NSMutableArray array];
   auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
@@ -546,19 +538,43 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return [result copy];
 }
 
-+ (NSInteger)getCatalogDownloadsCount
+- (NSInteger)getCatalogDownloadsCount
 {
   return GetFramework().GetBookmarkManager().GetCatalog().GetDownloadingCount();
 }
 
-+ (BOOL)isCategoryDownloading:(NSString *)itemId
+- (BOOL)isCategoryDownloading:(NSString *)itemId
 {
   return GetFramework().GetBookmarkManager().GetCatalog().IsDownloading(itemId.UTF8String);
 }
 
-+ (BOOL)hasCategoryDownloaded:(NSString *)itemId
+- (BOOL)hasCategoryDownloaded:(NSString *)itemId
 {
   return GetFramework().GetBookmarkManager().GetCatalog().HasDownloaded(itemId.UTF8String);
+}
+
+#pragma mark - Helpers
+
+- (void)loopObservers:(void (^)(id<MWMBookmarksObserver> observer))block
+{
+  for (id<MWMBookmarksObserver> observer in self.observers)
+  {
+    if (observer)
+      block(observer);
+  }
+}
+
+- (void)processFileEvent:(BOOL)success
+{
+  UIAlertController * alert = [UIAlertController
+                               alertControllerWithTitle:L(@"load_kmz_title")
+                               message:success ? L(@"load_kmz_successful") : L(@"load_kmz_failed")
+                               preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction * action =
+  [UIAlertAction actionWithTitle:L(@"ok") style:UIAlertActionStyleDefault handler:nil];
+  [alert addAction:action];
+  alert.preferredAction = action;
+  [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
 }
 
 @end

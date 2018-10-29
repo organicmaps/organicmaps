@@ -1,5 +1,5 @@
 class DownloadedBookmarksDataSource {
-
+  
   private var categories: [MWMCatalogCategory] = []
   var categoriesCount: NSInteger {
     get {
@@ -17,7 +17,7 @@ class DownloadedBookmarksDataSource {
       categories.forEach {
         $0.visible = !newValue
       }
-      MWMBookmarksManager.setCatalogCategoriesVisible(!newValue)
+      MWMBookmarksManager.shared().setCatalogCategoriesVisible(!newValue)
     }
   }
 
@@ -30,17 +30,17 @@ class DownloadedBookmarksDataSource {
   }
 
   func reloadData() {
-    categories = MWMBookmarksManager.categoriesFromCatalog()
+    categories = MWMBookmarksManager.shared().categoriesFromCatalog()
   }
 
   func setCategory(visible: Bool, at index: Int) {
     let category = categories[index]
     category.visible = visible
-    MWMBookmarksManager.setCategory(category.categoryId, isVisible: visible)
+    MWMBookmarksManager.shared().setCategory(category.categoryId, isVisible: visible)
   }
 
   func deleteCategory(at index: Int) {
-    MWMBookmarksManager.deleteCategory(category(at: index).categoryId)
+    MWMBookmarksManager.shared().deleteCategory(category(at: index).categoryId)
     reloadData()
   }
 }

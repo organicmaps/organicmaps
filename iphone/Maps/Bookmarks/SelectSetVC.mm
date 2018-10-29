@@ -42,7 +42,7 @@
 
 - (void)reloadData
 {
-  self.groupIds = [MWMBookmarksManager groupsIdList];
+  self.groupIds = [[MWMBookmarksManager sharedManager] groupsIdList];
   [self.tableView reloadData];
 }
 
@@ -102,10 +102,10 @@
                                                             isNewCategory:YES
                                                                  callback:^BOOL (NSString * name)
      {
-       if (![MWMBookmarksManager checkCategoryName:name])
+       if (![[MWMBookmarksManager sharedManager] checkCategoryName:name])
          return false;
 
-       auto const id = [MWMBookmarksManager createCategoryWithName:name];
+       auto const id = [[MWMBookmarksManager sharedManager] createCategoryWithName:name];
        [self moveBookmarkToSetWithCategoryId:id];
        return true;
     }];

@@ -1,5 +1,7 @@
 final class BMCDefaultViewModel: NSObject {
-  typealias BM = MWMBookmarksManager
+  var manager: MWMBookmarksManager {
+    return MWMBookmarksManager.shared()
+  }
 
   var view: BMCView!
 
@@ -34,21 +36,22 @@ final class BMCDefaultViewModel: NSObject {
     if !isAuthenticated {
       Statistics.logEvent(kStatBookmarksSyncProposalShown, withParameters: [kStatHasAuthorization: 0])
       permissions = [.signup]
-    } else if !BM.isCloudEnabled() {
+    } else if !manager.isCloudEnabled() {
       Statistics.logEvent(kStatBookmarksSyncProposalShown, withParameters: [kStatHasAuthorization: 1])
       isPendingPermission = false
       permissions = [.backup]
     } else {
       isPendingPermission = false
-      permissions = [.restore(BM.lastSynchronizationDate())]
+      permissions = [.restore(manager.lastSynchronizationDate())]
     }
   }
 
   private func setCategories() {
-    categories = BM.groupsIdList().map { categoryId -> BMCCategory in
-      let title = BM.getCategoryName(categoryId)!
-      let count = BM.getCategoryMarksCount(categoryId) + BM.getCategoryTracksCount(categoryId)
-      let isVisible = BM.isCategoryVisible(categoryId)
+    categories = manager.groupsIdList().map { 
+      let categoryId = $0.uint64Value
+      let title = manager.getCategoryName(categoryId)
+      let count = manager.getCategoryMarksCount(categoryId) + manager.getCategoryTracksCount(categoryId)
+      let isVisible = manager.isCategoryVisible(categoryId)
       return BMCCategory(identifier: categoryId, title: title, count: count, isVisible: isVisible)
     }
   }
@@ -67,7 +70,7 @@ final class BMCDefaultViewModel: NSObject {
     sections.append(.permissions)
     setPermissions()
 
-    if BM.areBookmarksLoaded() {
+    if manager.areBookmarksLoaded() {
       sections.append(.categories)
       setCategories()
 
@@ -127,12 +130,12 @@ extension BMCDefaultViewModel: BMCViewModel {
     categories.forEach {
       $0.isVisible = isShowAll
     }
-    BM.setUserCategoriesVisible(isShowAll)
+    manager.setUserCategoriesVisible(isShowAll)
   }
 
   func updateCategoryVisibility(category: BMCCategory) {
     category.isVisible = !category.isVisible
-    BM.setCategory(category.identifier, isVisible: category.isVisible)
+    manager.setCategory(category.identifier, isVisible: category.isVisible)
   }
 
   func addCategory(name: String) {
@@ -141,13 +144,13 @@ extension BMCDefaultViewModel: BMCViewModel {
       return
     }
     
-    categories.append(BMCCategory(identifier: BM.createCategory(withName: name), title: name))
+    categories.append(BMCCategory(identifier: manager.createCategory(withName: name), title: name))
     view.insert(at: [IndexPath(row: categories.count - 1, section: section)])
   }
 
   func renameCategory(category: BMCCategory, name: String) {
     category.title = name
-    BM.setCategory(category.identifier, name: name)
+    manager.setCategory(category.identifier, name: name)
   }
 
   func deleteCategory(category: BMCCategory) {
@@ -158,21 +161,21 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
 
     categories.remove(at: row)
-    BM.deleteCategory(category.identifier)
+    manager.deleteCategory(category.identifier)
     view.delete(at: [IndexPath(row: row, section: section)])
   }
 
   func checkCategory(name: String) -> Bool {
-    return BM.checkCategoryName(name)
+    return manager.checkCategoryName(name)
   }
 
   func shareCategory(category: BMCCategory, handler: @escaping onPreparedToShareHandler) {
     onPreparedToShareCategory = handler
-    BM.shareCategory(category.identifier)
+    manager.shareCategory(category.identifier)
   }
 
   func finishShareCategory() {
-    BM.finishShareCategory()
+    manager.finishShareCategory()
     onPreparedToShareCategory = nil
   }
 
@@ -193,7 +196,7 @@ extension BMCDefaultViewModel: BMCViewModel {
                               kStatNetwork: Statistics.connectionTypeString(),
                               kStatHasAuthorization: isAuthenticated ? 1 : 0,
         ])
-        BM.setCloudEnabled(true)
+        manager.setCloudEnabled(true)
       case .restore:
         assertionFailure("Not implemented")
       }
@@ -202,38 +205,38 @@ extension BMCDefaultViewModel: BMCViewModel {
   }
 
   func convertAllKMLIfNeeded() {
-    let count = BM.filesCountForConversion()
+    let count = manager.filesCountForConversion()
     if count > 0 {
-      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count) {
+      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count) { [weak self] in
         MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("converting"),
                                                                  cancel: nil)
-        BM.convertAll()
+        self?.manager.convertAll()
       }
     }
   }
 
   func addToObserverList() {
-    BM.add(self)
+    manager.add(self)
   }
 
   func removeFromObserverList() {
-    BM.remove(self)
+    manager.remove(self)
   }
   
   func setNotificationsEnabled(_ enabled: Bool) {
-    BM.setNotificationsEnabled(enabled)
+    manager.setNotificationsEnabled(enabled)
   }
   
   func areNotificationsEnabled() -> Bool {
-    return BM.areNotificationsEnabled()
+    return manager.areNotificationsEnabled()
   }
 
   func requestRestoring() {
-    BM.requestRestoring()
+    manager.requestRestoring()
   }
 
   func applyRestoring() {
-    BM.applyRestoring()
+    manager.applyRestoring()
   }
 
   func cancelRestoring() {
@@ -241,7 +244,7 @@ extension BMCDefaultViewModel: BMCViewModel {
       return
     }
 
-    BM.cancelRestoring()
+    manager.cancelRestoring()
   }
 }
 
@@ -334,7 +337,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
   func onBookmarksCategoryFilePrepared(_ status: MWMBookmarksShareStatus) {
     switch status {
     case .success:
-      onPreparedToShareCategory?(.success(BM.shareCategoryURL()))
+      onPreparedToShareCategory?(.success(manager.shareCategoryURL()))
     case .emptyCategory:
       onPreparedToShareCategory?(.error(title: L("bookmarks_error_title_share_empty"), text: L("bookmarks_error_message_share_empty")))
     case .archiveError: fallthrough

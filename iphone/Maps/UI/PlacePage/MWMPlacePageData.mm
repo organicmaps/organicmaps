@@ -519,7 +519,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     if (bookmark)
     {
       f.ResetBookmarkInfo(*bookmark, m_info);
-      [MWMBookmarksManager deleteBookmark:bookmarkId];
+      [[MWMBookmarksManager sharedManager] deleteBookmark:bookmarkId];
     }
 
     m_sections.erase(remove(m_sections.begin(), m_sections.end(), Sections::Bookmark));
@@ -749,7 +749,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
 - (BOOL)isBookmarkFromCatalog
 {
-  return self.isBookmark && [MWMBookmarksManager isCategoryFromCatalog:self.bookmarkCategoryId];
+  return self.isBookmark && [[MWMBookmarksManager sharedManager] isCategoryFromCatalog:self.bookmarkCategoryId];
 }
 
 #pragma mark - Local Ads

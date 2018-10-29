@@ -78,7 +78,7 @@ class DownloadedBookmarksViewController: MWMViewController {
 
   private func shareCategory(at index: Int) {
     let category = dataSource.category(at: index)
-    guard let url = MWMBookmarksManager.sharingUrl(forCategoryId: category.categoryId) else {
+    guard let url = MWMBookmarksManager.shared().sharingUrl(forCategoryId: category.categoryId) else {
       assertionFailure()
       return
     }

@@ -100,7 +100,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   }
 
   [MWMLocationManager addObserver:self];
-  [MWMBookmarksManager addObserver:self];
+  [[MWMBookmarksManager sharedManager] addObserver:self];
 
   [self setupSpeedAndDistance];
 
@@ -114,7 +114,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 {
   [self.layout close];
   self.data = nil;
-  [MWMBookmarksManager removeObserver:self];
+  [[MWMBookmarksManager sharedManager] removeObserver:self];
   [MWMLocationManager removeObserver:self];
   [MWMFrameworkListener removeObserver:self];
 }

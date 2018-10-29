@@ -97,7 +97,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   [self.backupBookmarksCell configWithDelegate:self
                                          title:L(@"settings_backup_bookmarks")
-                                          isOn:[MWMBookmarksManager isCloudEnabled]];
+                                          isOn:[[MWMBookmarksManager sharedManager] isCloudEnabled]];
 
   NSString * mobileInternet = nil;
   switch (network_policy::GetStage())
@@ -232,7 +232,7 @@ extern NSString * const kAlohalyticsTapEventKey;
           withParameters:@{
             kStatState: (value ? @1 : @0)
           }];
-    [MWMBookmarksManager setCloudEnabled:value];
+    [[MWMBookmarksManager sharedManager] setCloudEnabled:value];
   }
   else if (cell == self.fontScaleCell)
   {
