@@ -56,16 +56,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)addObserver:(id<MWMBookmarksObserver>)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self.observers addObject:observer];
-  });
+  [self.observers addObject:observer];
 }
 
 - (void)removeObserver:(id<MWMBookmarksObserver>)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self.observers removeObject:observer];
-  });
+  [self.observers removeObject:observer];
 }
 
 - (instancetype)initManager
@@ -171,12 +167,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   {
     //TODO(@beloal): Implement me.
   };
-  GetFramework().GetBookmarkManager().SetCatalogHandlers(std::move(onDownloadStarted),
-                                                         std::move(onDownloadFinished),
-                                                         std::move(onImportStarted),
-                                                         std::move(onImportFinished),
-                                                         std::move(onUploadStarted),
-                                                         std::move(onUploadFinished));
+  self.bm.SetCatalogHandlers(std::move(onDownloadStarted),
+                             std::move(onDownloadFinished),
+                             std::move(onImportStarted),
+                             std::move(onImportFinished),
+                             std::move(onUploadStarted),
+                             std::move(onUploadFinished));
 }
 
 #pragma mark - Bookmarks loading
@@ -269,11 +265,11 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (MWMGroupIDCollection)groupsIdList
 {
-  auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
+  auto const & list = self.bm.GetBmGroupsIdList();
   NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
   for (auto const & groupId : list)
   {
-    if (!GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId))
+    if (!self.bm.IsCategoryFromCatalog(groupId))
       [collection addObject:@(groupId)];
   }
   return collection.copy;
@@ -281,54 +277,52 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId
 {
-  return @(GetFramework().GetBookmarkManager().GetCategoryName(groupId).c_str());
+  return @(self.bm.GetCategoryName(groupId).c_str());
 }
 
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId
 {
-  return GetFramework().GetBookmarkManager().GetUserMarkIds(groupId).size();
+  return self.bm.GetUserMarkIds(groupId).size();
 }
 
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId
 {
-  return GetFramework().GetBookmarkManager().GetTrackIds(groupId).size();
+  return self.bm.GetTrackIds(groupId).size();
 }
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name
 {
-  auto groupId = GetFramework().GetBookmarkManager().CreateBookmarkCategory(name.UTF8String);
-  GetFramework().GetBookmarkManager().SetLastEditedBmCategory(groupId);
+  auto groupId = self.bm.CreateBookmarkCategory(name.UTF8String);
+  self.bm.SetLastEditedBmCategory(groupId);
   return groupId;
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name
 {
-  GetFramework().GetBookmarkManager().GetEditSession().SetCategoryName(groupId, name.UTF8String);
+  self.bm.GetEditSession().SetCategoryName(groupId, name.UTF8String);
 }
 
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId
 {
-  return GetFramework().GetBookmarkManager().IsVisible(groupId);
+  return self.bm.IsVisible(groupId);
 }
 
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible
 {
-  GetFramework().GetBookmarkManager().GetEditSession().SetIsVisible(groupId, isVisible);
+  self.bm.GetEditSession().SetIsVisible(groupId, isVisible);
 }
 
 - (void)setUserCategoriesVisible:(BOOL)isVisible {
-  GetFramework().GetBookmarkManager()
-  .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Private, isVisible);
+  self.bm.SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Private, isVisible);
 }
 
 - (void)setCatalogCategoriesVisible:(BOOL)isVisible {
-  GetFramework().GetBookmarkManager()
-  .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Public, isVisible);
+  self.bm.SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Public, isVisible);
 }
 
 - (void)deleteCategory:(MWMMarkGroupID)groupId
 {
-  GetFramework().GetBookmarkManager().GetEditSession().DeleteBmCategory(groupId);
+  self.bm.GetEditSession().DeleteBmCategory(groupId);
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarksCategoryDeleted:)])
       [observer onBookmarksCategoryDeleted:groupId];
@@ -337,7 +331,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)deleteBookmark:(MWMMarkID)bookmarkId
 {
-  GetFramework().GetBookmarkManager().GetEditSession().DeleteBookmark(bookmarkId);
+  self.bm.GetEditSession().DeleteBookmark(bookmarkId);
   [self loopObservers:^(id<MWMBookmarksObserver> observer) {
     if ([observer respondsToSelector:@selector(onBookmarkDeleted:)])
       [observer onBookmarkDeleted:bookmarkId];
@@ -346,14 +340,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (BOOL)checkCategoryName:(NSString *)name
 {
-  return !GetFramework().GetBookmarkManager().IsUsedCategoryName(name.UTF8String);
+  return !self.bm.IsUsedCategoryName(name.UTF8String);
 }
 
 #pragma mark - Category sharing
 
 - (void)shareCategory:(MWMMarkGroupID)groupId
 {
-  GetFramework().GetBookmarkManager().PrepareFileForSharing(groupId, [self](auto sharingResult)
+  self.bm.PrepareFileForSharing(groupId, [self](auto sharingResult)
   {
     MWMBookmarksShareStatus status;
     switch (sharingResult.m_code)
@@ -403,12 +397,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSUInteger)filesCountForConversion
 {
-  return GetFramework().GetBookmarkManager().GetKmlFilesCountForConversion();
+  return self.bm.GetKmlFilesCountForConversion();
 }
 
 - (void)convertAll
 {
-  GetFramework().GetBookmarkManager().ConvertAllKmlFiles([self](bool success) {
+  self.bm.ConvertAllKmlFiles([self](bool success) {
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
       [observer onConversionFinish:success];
     }];
@@ -419,7 +413,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSDate *)lastSynchronizationDate
 {
-  auto timestampInMs = GetFramework().GetBookmarkManager().GetLastSynchronizationTimestampInMs();
+  auto timestampInMs = self.bm.GetLastSynchronizationTimestampInMs();
   if (timestampInMs == 0)
     return nil;
   return [NSDate dateWithTimeIntervalSince1970:timestampInMs / 1000];
@@ -427,12 +421,12 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (BOOL)isCloudEnabled
 {
-  return GetFramework().GetBookmarkManager().IsCloudEnabled();
+  return self.bm.IsCloudEnabled();
 }
 
 - (void)setCloudEnabled:(BOOL)enabled
 {
-  GetFramework().GetBookmarkManager().SetCloudEnabled(enabled);
+  self.bm.SetCloudEnabled(enabled);
 }
 
 - (void)requestRestoring
@@ -462,43 +456,43 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     return;
   }
 
-  GetFramework().GetBookmarkManager().RequestCloudRestoring();
+  self.bm.RequestCloudRestoring();
 }
 
 - (void)applyRestoring
 {
-  GetFramework().GetBookmarkManager().ApplyCloudRestoring();
+  self.bm.ApplyCloudRestoring();
 }
 
 - (void)cancelRestoring
 {
   [Statistics logEvent:kStatBookmarksRestoreProposalCancel];
-  GetFramework().GetBookmarkManager().CancelCloudRestoring();
+  self.bm.CancelCloudRestoring();
 }
 
 #pragma mark - Notifications
 
 - (void)setNotificationsEnabled:(BOOL)enabled
 {
-  GetFramework().GetBookmarkManager().SetNotificationsEnabled(enabled);
+  self.bm.SetNotificationsEnabled(enabled);
 }
 
 - (BOOL)areNotificationsEnabled
 {
-  return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
+  return self.bm.AreNotificationsEnabled();
 }
 
 #pragma mark - Catalog
 
 - (NSURL *)catalogFrontendUrl
 {
-  NSString * urlString = @(GetFramework().GetBookmarkManager().GetCatalog().GetFrontendUrl().c_str());
+  NSString * urlString = @(self.bm.GetCatalog().GetFrontendUrl().c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
 - (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
 {
-  NSString * urlString = @(GetFramework().GetBookmarkManager().GetCategoryCatalogDeeplink(groupId).c_str());
+  NSString * urlString = @(self.bm.GetCategoryCatalogDeeplink(groupId).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
@@ -512,23 +506,23 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   observer.progressBlock = progress;
   observer.completionBlock = completion;
   [self.catalogObservers setObject:observer forKey:itemId];
-  GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
+  self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
 }
 
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
 {
-  return GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId);
+  return self.bm.IsCategoryFromCatalog(groupId);
 }
 
 - (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog
 {
   NSMutableArray * result = [NSMutableArray array];
-  auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
+  auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
     if ([self isCategoryFromCatalog:groupId])
     {
-      kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(groupId);
+      kml::CategoryData categoryData = self.bm.GetCategoryData(groupId);
       uint64_t bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
       MWMCatalogCategory * category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
                                                                        bookmarksCount:bookmarksCount];
@@ -540,17 +534,17 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (NSInteger)getCatalogDownloadsCount
 {
-  return GetFramework().GetBookmarkManager().GetCatalog().GetDownloadingCount();
+  return self.bm.GetCatalog().GetDownloadingCount();
 }
 
 - (BOOL)isCategoryDownloading:(NSString *)itemId
 {
-  return GetFramework().GetBookmarkManager().GetCatalog().IsDownloading(itemId.UTF8String);
+  return self.bm.GetCatalog().IsDownloading(itemId.UTF8String);
 }
 
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId
 {
-  return GetFramework().GetBookmarkManager().GetCatalog().HasDownloaded(itemId.UTF8String);
+  return self.bm.GetCatalog().HasDownloaded(itemId.UTF8String);
 }
 
 #pragma mark - Helpers
