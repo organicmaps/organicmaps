@@ -136,13 +136,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     if (observer)
       [observer onDownloadStart];
   };
-  auto onDownloadFinished = [self](std::string const & serverCatId, platform::RemoteFile::Result const & result)
+  auto onDownloadFinished = [self](std::string const & serverCatId, BookmarkCatalog::DownloadResult result)
   {
     auto observer = self.catalogObservers[@(serverCatId.c_str())];
     if (observer)
     {
-      [observer onDownloadComplete:result.m_status];
-      if (result.m_status != platform::RemoteFile::Status::Ok) {
+      [observer onDownloadComplete:result];
+      if (result != BookmarkCatalog::DownloadResult::Success) {
         [self.catalogObservers removeObjectForKey:observer.categoryId];
       }
     }
