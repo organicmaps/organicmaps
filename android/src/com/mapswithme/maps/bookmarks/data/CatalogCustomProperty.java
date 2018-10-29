@@ -10,17 +10,17 @@ public class CatalogCustomProperty
   @NonNull
   private final String mLocalizedName;
 
-  private final boolean mIsRequired;
+  private final boolean mRequired;
 
   @NonNull
   private final CatalogCustomPropertyOption[] mOptions;
 
   public CatalogCustomProperty(@NonNull String key, @NonNull String localizedName,
-                               boolean isRequired, @NonNull CatalogCustomPropertyOption[] options)
+                               boolean required, @NonNull CatalogCustomPropertyOption[] options)
   {
     mKey = key;
     mLocalizedName = localizedName;
-    mIsRequired = isRequired;
+    mRequired = required;
     mOptions = options;
   }
 
@@ -30,7 +30,7 @@ public class CatalogCustomProperty
   @NonNull
   public String getLocalizedName() { return mLocalizedName; }
 
-  public boolean isRequired() { return mIsRequired; }
+  public boolean isRequired() { return mRequired; }
 
   @NonNull
   public CatalogCustomPropertyOption[] getOptions() { return mOptions; }
