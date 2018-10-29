@@ -18,6 +18,7 @@ omim_link_libraries(
   geometry
   base
   jansson
+  oauthcpp
   stats_client
   ${LIBZ}
 )
