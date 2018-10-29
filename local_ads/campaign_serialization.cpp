@@ -139,9 +139,6 @@ std::vector<uint8_t> SerializeV2(std::vector<Campaign> const & campaigns)
 
 std::vector<Campaign> DeserializeV2(std::vector<uint8_t> const & bytes)
 {
-  UNUSED_VALUE(kMaxZoomLevel);
-  UNUSED_VALUE(kMaxPriority);
-
   ReaderSource<MemReaderWithExceptions> src({bytes.data(), bytes.size()});
 
   CHECK_EQUAL(ReadPrimitiveFromSource<Version>(src), Version::V2, ());
