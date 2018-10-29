@@ -31,8 +31,25 @@ public:
     std::vector<Tag> m_tags;
   };
 
+  struct CustomProperty
+  {
+    std::string m_key;
+    std::string m_name;
+    bool m_isRequired = true;
+
+    struct Option
+    {
+      std::string m_value;
+      std::string m_name;
+    };
+    std::vector<Option> m_options;
+  };
+
   using TagGroups = std::vector<TagGroup>;
   using TagGroupsCallback = platform::SafeCallback<void(bool success, TagGroups const &)>;
+
+  using CustomProperties = std::vector<CustomProperty>;
+  using CustomPropertiesCallback = platform::SafeCallback<void(bool success, CustomProperties const &)>;
 
   void RegisterByServerId(std::string const & id);
   void UnregisterByServerId(std::string const & id);
@@ -64,6 +81,9 @@ public:
   std::string GetFrontendUrl() const;
 
   void RequestTagGroups(std::string const & language, TagGroupsCallback && callback) const;
+
+  void RequestCustomProperties(std::string const & language,
+                               CustomPropertiesCallback && callback) const;
 
   enum class UploadResult
   {

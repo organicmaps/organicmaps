@@ -41,6 +41,13 @@ std::string BuildTagsUrl(std::string const & language)
   return kCatalogEditorServer + "editor/tags/?lang=" + language;
 }
 
+std::string BuildCustomPropertiesUrl(std::string const & language)
+{
+  if (kCatalogEditorServer.empty())
+    return {};
+  return kCatalogEditorServer + "editor/properties/?lang=" + language;
+}
+
 std::string BuildHashUrl()
 {
   if (kCatalogFrontendServer.empty())
@@ -92,6 +99,33 @@ BookmarkCatalog::Tag::Color ExtractColor(std::string const & c)
     result[i] = static_cast<float>(std::stoi(c.substr(i * 2, 2), nullptr, 16)) / 255;
   return result;
 }
+
+struct CustomPropertyOptionData
+{
+  std::string m_value;
+  std::string m_name;
+  DECLARE_VISITOR(visitor(m_value, "value"),
+                  visitor(m_name, "name"))
+};
+
+struct CustomPropertyData
+{
+  std::string m_key;
+  std::string m_name;
+  bool m_isRequired;
+  std::vector<CustomPropertyOptionData> m_options;
+  DECLARE_VISITOR(visitor(m_key, "key"),
+                  visitor(m_name, "name"),
+                  visitor(m_isRequired, "required"),
+                  visitor(m_options, "options"))
+};
+
+struct CustomPropertiesData
+{
+  std::vector<CustomPropertyData> m_properties;
+
+  DECLARE_VISITOR(visitor(m_properties))
+};
 
 struct HashResponseData
 {
@@ -297,6 +331,74 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
       {
         LOG(LWARNING, ("Tags request error. Code =", resultCode,
                        "Response =", request.ServerResponse()));
+      }
+    }
+    if (callback)
+      callback(false /* success */, {});
+  });
+}
+
+void BookmarkCatalog::RequestCustomProperties(std::string const & language,
+                                              CustomPropertiesCallback && callback) const
+{
+  auto const url = BuildCustomPropertiesUrl(language);
+  if (url.empty())
+  {
+    if (callback)
+      callback(false /* success */, {});
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network, [url, callback = std::move(callback)]()
+  {
+    platform::HttpClient request(url);
+    request.SetRawHeader("Accept", "application/json");
+    request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
+    if (request.RunHttpRequest())
+    {
+      auto const resultCode = request.ErrorCode();
+      if (resultCode >= 200 && resultCode < 300)  // Ok.
+      {
+        CustomPropertiesData responseData;
+        try
+        {
+          coding::DeserializerJson des(request.ServerResponse());
+          des(responseData);
+        }
+        catch (coding::DeserializerJson::Exception const & ex)
+        {
+          LOG(LWARNING, ("Custom properties request deserialization error:", ex.Msg()));
+          if (callback)
+            callback(false /* success */, {});
+          return;
+        }
+
+        CustomProperties result;
+        result.reserve(responseData.m_properties.size());
+        for (auto const & p : responseData.m_properties)
+        {
+          CustomProperty prop;
+          prop.m_key = p.m_key;
+          prop.m_name = p.m_name;
+          prop.m_isRequired = p.m_isRequired;
+          prop.m_options.reserve(p.m_options.size());
+          for (auto const & o : p.m_options)
+          {
+            CustomProperty::Option option;
+            option.m_value = o.m_value;
+            option.m_name = o.m_name;
+            prop.m_options.push_back(std::move(option));
+          }
+          result.push_back(std::move(prop));
+        }
+        if (callback)
+          callback(true /* success */, result);
+        return;
+      }
+      else
+      {
+        LOG(LWARNING, ("Custom properties request error. Code =", resultCode,
+          "Response =", request.ServerResponse()));
       }
     }
     if (callback)
