@@ -11,6 +11,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
+#include "platform/platform_tests_support/writable_dir_changer.hpp"
 
 #include "generator/camera_node_processor.hpp"
 #include "generator/generate_info.hpp"
@@ -39,6 +40,7 @@ using namespace std;
 namespace
 {
 string const kSpeedCameraTag = "<tag k=\"highway\" v=\"speed_camera\"/>";
+string const kTestDir = "camera_generation_test";
 
 void TestIntermediateData_SpeedCameraNodesToWays(
   string const & osmSourceXML,
@@ -51,8 +53,7 @@ void TestIntermediateData_SpeedCameraNodesToWays(
 
   Platform & platform = GetPlatform();
 
-  string const tmpDir = platform.TmpDir();
-  platform.SetWritableDirForTests(tmpDir);
+  WritableDirChanger writableDirChanger(kTestDir);
 
   string const & writableDir = platform.WritableDir();
 
@@ -65,7 +66,7 @@ void TestIntermediateData_SpeedCameraNodesToWays(
   GenerateInfo genInfo;
   genInfo.m_intermediateDir = writableDir;
   genInfo.m_nodeStorageType = feature::GenerateInfo::NodeStorageType::Index;
-  genInfo.m_osmFileName = base::JoinPath(tmpDir, osmRelativePath);
+  genInfo.m_osmFileName = base::JoinPath(writableDir, osmRelativePath);
   genInfo.m_osmFileType = feature::GenerateInfo::OsmSourceType::XML;
 
   // Test save intermediate data is OK.
