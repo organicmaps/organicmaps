@@ -123,7 +123,7 @@ void Serdes::DeserializeMapObjects(std::vector<int8_t> const & bytes, MapObjects
       auto it = result.find(poi);
       if (it == result.end())
       {
-        std::vector<MapObject::Event> events = {event.m_event};
+        MapObject::Events events = {event.m_event};
         result.emplace(poi, std::move(events));
       }
       else

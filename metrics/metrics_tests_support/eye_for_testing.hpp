@@ -17,6 +17,9 @@ public:
   static void UpdateDiscoveryShownTime();
   static void IncrementDiscoveryItem(Discovery::Event event);
   static void AppendLayer(Layer::Type type);
+  static void TrimExpiredMapObjectEvents();
+  static void RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
+                                     ms::LatLon const & userPos);
 };
 
 class ScopedEyeForTesting

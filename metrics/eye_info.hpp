@@ -10,6 +10,7 @@
 #include <array>
 #include <chrono>
 #include <cstdint>
+#include <deque>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
@@ -181,6 +182,8 @@ struct MapObject
     Time m_eventTime;
   };
 
+  using Events = std::deque<Event>;
+
   struct Hash
   {
     size_t operator()(MapObject const & p) const
@@ -199,7 +202,7 @@ struct MapObject
   ms::LatLon m_pos;
 };
 
-using MapObjects = std::unordered_map<MapObject, std::vector<MapObject::Event>, MapObject::Hash>;
+using MapObjects = std::unordered_map<MapObject, MapObject::Events, MapObject::Hash>;
 
 struct InfoV0
 {

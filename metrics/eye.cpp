@@ -10,6 +10,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -18,6 +19,9 @@ using namespace eye;
 
 namespace
 {
+// Three months.
+auto constexpr kMapObjectEventsExpirePeriod = std::chrono::hours(24 * 30 * 3);
+
 void Load(Info & info)
 {
   Storage::Migrate();
@@ -49,22 +53,20 @@ bool Save(Info const & info)
   return Storage::SaveInfo(fileData);
 }
 
-// TODO: use to trim old map object events.
-// bool SaveMapObjects(Info const & info)
-//{
-//  std::vector<int8_t> fileData;
-//  Serdes::SerializeMapObjects(info.m_mapObjects, fileData);
-//  return Storage::SaveMapObjects(fileData);
-//}
-//
-// TODO: use it to save map object events with append only flag.
-// bool SaveMapObjectEvent(MapObject const & mapObject, MapObject::Event const & event)
-//{
-//  std::vector<int8_t> eventData;
-//  Serdes::SerializeMapObjectEvent(mapObject, event, eventData);
-//
-//  return Storage::AppendMapObjectEvent(eventData);
-//}
+bool SaveMapObjects(MapObjects const & mapObjects)
+{
+  std::vector<int8_t> fileData;
+  Serdes::SerializeMapObjects(mapObjects, fileData);
+  return Storage::SaveMapObjects(fileData);
+}
+
+bool SaveMapObjectEvent(MapObject const & mapObject, MapObject::Event const & event)
+{
+  std::vector<int8_t> eventData;
+  Serdes::SerializeMapObjectEvent(mapObject, event, eventData);
+
+  return Storage::AppendMapObjectEvent(eventData);
+}
 }  // namespace
 
 namespace eye
@@ -74,6 +76,11 @@ Eye::Eye()
   Info info;
   Load(info);
   m_info.Set(std::make_shared<Info>(info));
+
+  GetPlatform().RunTask(Platform::Thread::File, [this]
+  {
+    TrimExpiredMapObjectEvents();
+  });
 }
 
 // static
@@ -105,6 +112,37 @@ bool Eye::Save(InfoType const & info)
 
   m_info.Set(info);
   return true;
+}
+
+void Eye::TrimExpiredMapObjectEvents()
+{
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+  auto changed = false;
+
+  for (auto it = editableInfo->m_mapObjects.begin(); it != editableInfo->m_mapObjects.end();)
+  {
+    auto & events = it->second;
+    events.erase(std::remove_if(events.begin(), events.end(), [&changed](auto const & item)
+    {
+      if (Clock::now() - item.m_eventTime >= kMapObjectEventsExpirePeriod)
+      {
+        if (!changed)
+          changed = true;
+
+        return true;
+      }
+      return false;
+    }), events.end());
+
+    if (events.empty())
+      it = editableInfo->m_mapObjects.erase(it);
+    else
+      ++it;
+  }
+
+  if (changed && SaveMapObjects(editableInfo->m_mapObjects))
+    m_info.Set(editableInfo);
 }
 
 void Eye::RegisterTipClick(Tip::Type type, Tip::Event event)
@@ -265,29 +303,42 @@ void Eye::RegisterLayerShown(Layer::Type type)
   });
 }
 
-void Eye::RegisterPlacePageOpened()
+void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
+                                 ms::LatLon const & userPos)
 {
+  auto const info = m_info.Get();
+  auto editableInfo = std::make_shared<Info>(*info);
+  auto & mapObjects = editableInfo->m_mapObjects;
 
-}
+  MapObject::Event event;
+  event.m_type = type;
+  event.m_userPos = userPos;
+  event.m_eventTime = Clock::now();
 
-void Eye::RegisterUgcEditorOpened()
-{
+  MapObject::Events events;
+  auto it = mapObjects.find(mapObject);
+  if (it == mapObjects.end())
+  {
+    events = {event};
+    mapObjects.emplace(mapObject, std::move(events));
+  }
+  else
+  {
+    it->second.push_back(event);
+    events = it->second;
+  }
 
-}
+  if (!SaveMapObjectEvent(mapObject, event))
+    return;
 
-void Eye::RegisterUgcSaved()
-{
-
-}
-
-void Eye::RegisterAddToBookmarkClicked()
-{
-
-}
-
-void Eye::RegisterRouteCreatedToObject()
-{
-
+  m_info.Set(editableInfo);
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, mapObject, events]
+  {
+    for (auto subscriber : m_subscribers)
+    {
+      subscriber->OnMapObjectEvent(mapObject, events);
+    }
+  });
 }
 
 // Eye::Event methods ------------------------------------------------------------------------------
@@ -346,47 +397,56 @@ void Eye::Event::LayerShown(Layer::Type type)
 }
 
 // static
-void Eye::Event::PlacePageOpened()
+void Eye::Event::PlacePageOpened(std::string const & bestType, ms::LatLon const & latLon,
+                                 ms::LatLon const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
   {
-    Instance().RegisterPlacePageOpened();
+    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::Open, userPos);
   });
 }
 
 // static
-void Eye::Event::UgcEditorOpened()
+void Eye::Event::UgcEditorOpened(std::string const & bestType, ms::LatLon const & latLon,
+                                 ms::LatLon const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
   {
-    Instance().RegisterUgcEditorOpened();
+    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::UgcEditorOpened,
+                                      userPos);
   });
 }
 
 // static
-void Eye::Event::UgcSaved()
+void Eye::Event::UgcSaved(std::string const & bestType, ms::LatLon const & latLon,
+                          ms::LatLon const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
   {
-    Instance().RegisterUgcSaved();
+    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::UgcSaved,
+                                      userPos);
   });
 }
 
 // static
-void Eye::Event::AddToBookmarkClicked()
+void Eye::Event::AddToBookmarkClicked(std::string const & bestType, ms::LatLon const & latLon,
+                                      ms::LatLon const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
   {
-    Instance().RegisterAddToBookmarkClicked();
+    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::AddToBookmark,
+                                      userPos);
   });
 }
 
 // static
-void Eye::Event::RouteCreatedToObject()
+void Eye::Event::RouteCreatedToObject(std::string const & bestType, ms::LatLon const & latLon,
+                                      ms::LatLon const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, []
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
   {
-    Instance().RegisterRouteCreatedToObject();
+    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::RouteToCreated,
+                                      userPos);
   });
 }
 }  // namespace eye

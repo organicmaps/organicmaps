@@ -7,6 +7,7 @@
 
 #include "metrics/metrics_tests_support/eye_for_testing.hpp"
 
+#include <chrono>
 #include <cstdint>
 #include <utility>
 #include <vector>
@@ -43,7 +44,7 @@ Info MakeDefaultInfoForTesting()
   poi.m_bestType = "shop";
   poi.m_pos = {53.652007, 108.143443};
   MapObject::Event eventInfo;
-  std::vector<MapObject::Event> events;
+  MapObject::Events events;
   eventInfo.m_eventTime = Time(std::chrono::hours(90000));
   eventInfo.m_userPos = {72.045507, 81.408095};
   eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
@@ -383,5 +384,218 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, AppendLayerTest)
     TEST_EQUAL(layers[1].m_useCount, 2, ());
     TEST_EQUAL(layers[1].m_lastTimeUsed, lastShownLayerTime, ());
     TEST_NOT_EQUAL(prevShowTime, lastShownLayerTime, ());
+  }
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
+{
+  Info info;
+  {
+    MapObject poi;
+    poi.m_bestType = "shop";
+    poi.m_pos = {53.652007, 108.143443};
+    MapObject::Event eventInfo;
+    MapObject::Events events;
+
+    eventInfo.m_eventTime = Clock::now() - std::chrono::hours((24 * 30 * 3) + 1);
+    eventInfo.m_userPos = {72.045507, 81.408095};
+    eventInfo.m_type = MapObject::Event::Type::Open;
+    events.emplace_back(eventInfo);
+
+    eventInfo.m_eventTime =
+        Clock::now() - (std::chrono::hours(24 * 30 * 3) + std::chrono::seconds(1));
+    eventInfo.m_userPos = {72.045400, 81.408200};
+    eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
+    events.emplace_back(eventInfo);
+
+    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
+    eventInfo.m_userPos = {72.045450, 81.408201};
+    eventInfo.m_type = MapObject::Event::Type::RouteToCreated;
+    events.emplace_back(eventInfo);
+
+    info.m_mapObjects.emplace(poi, events);
+  }
+
+  {
+    MapObject poi;
+    poi.m_bestType = "cafe";
+    poi.m_pos = {53.652005, 108.143448};
+    MapObject::Event eventInfo;
+    MapObject::Events events;
+
+    eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
+    eventInfo.m_userPos = {53.016347, 158.683327};
+    eventInfo.m_type = MapObject::Event::Type::Open;
+    events.emplace_back(eventInfo);
+
+    eventInfo.m_eventTime = Clock::now() - std::chrono::seconds(30);
+    eventInfo.m_userPos = {53.016347, 158.683327};
+    eventInfo.m_type = MapObject::Event::Type::UgcEditorOpened;
+    events.emplace_back(eventInfo);
+
+    eventInfo.m_eventTime = Clock::now();
+    eventInfo.m_userPos = {53.116347, 158.783327};
+    eventInfo.m_type = MapObject::Event::Type::UgcSaved;
+    events.emplace_back(eventInfo);
+
+    info.m_mapObjects.emplace(poi, events);
+  }
+
+  EyeForTesting::SetInfo(info);
+
+  {
+    auto const resultInfo = Eye::Instance().GetInfo();
+    auto const & mapObjects = resultInfo->m_mapObjects;
+    TEST_EQUAL(mapObjects.size(), 2, ());
+
+    {
+      MapObject poi;
+      poi.m_bestType = "shop";
+      poi.m_pos = {53.652007, 108.143443};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 3, ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(72.045400, 81.408200), ());
+      TEST_EQUAL(it->second[2].m_userPos, ms::LatLon(72.045450, 81.408201), ());
+    }
+
+    {
+      MapObject poi;
+      poi.m_bestType = "cafe";
+      poi.m_pos = {53.652005, 108.143448};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 3, ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[2].m_userPos, ms::LatLon(53.116347, 158.783327), ());
+    }
+  }
+
+  EyeForTesting::TrimExpiredMapObjectEvents();
+
+  {
+    auto const resultInfo = Eye::Instance().GetInfo();
+    auto const & mapObjects = resultInfo->m_mapObjects;
+    TEST_EQUAL(mapObjects.size(), 1, ());
+
+    {
+      MapObject poi;
+      poi.m_bestType = "shop";
+      poi.m_pos = {53.652007, 108.143443};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it == mapObjects.end(), ());
+    }
+
+    {
+      MapObject poi;
+      poi.m_bestType = "cafe";
+      poi.m_pos = {53.652005, 108.143448};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 2, ());
+      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::UgcEditorOpened, ());
+
+      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.116347, 158.783327), ());
+      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::UgcSaved, ());
+    }
+  }
+}
+
+UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
+{
+  {
+    MapObject poi;
+    poi.m_bestType = "cafe";
+    poi.m_pos = {53.652005, 108.143448};
+    ms::LatLon userPos = {53.016347, 158.683327};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
+
+    userPos = {53.016345, 158.683329};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
+  }
+  {
+    MapObject poi;
+    poi.m_bestType = "shop";
+    poi.m_pos = {53.652005, 108.143448};
+    ms::LatLon userPos = {0.0, 0.0};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
+
+    userPos = {158.016345, 53.683329};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::AddToBookmark, userPos);
+  }
+
+  {
+    MapObject poi;
+    poi.m_bestType = "amenity-bench";
+    poi.m_pos = {53.652005, 108.143448};
+    ms::LatLon userPos = {0.0, 0.0};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
+  }
+
+  {
+    auto const resultInfo = Eye::Instance().GetInfo();
+    auto const & mapObjects = resultInfo->m_mapObjects;
+    TEST_EQUAL(mapObjects.size(), 3, ());
+
+    {
+      MapObject poi;
+      poi.m_bestType = "cafe";
+      poi.m_pos = {53.652005, 108.143448};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 2, ());
+      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+
+      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.016345, 158.683329), ());
+      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::RouteToCreated, ());
+    }
+
+    {
+      MapObject poi;
+      poi.m_bestType = "shop";
+      poi.m_pos = {53.652005, 108.143448};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 2, ());
+      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(0.0, 0.0), ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::RouteToCreated, ());
+
+      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(158.016345, 53.683329), ());
+      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::AddToBookmark, ());
+    }
+
+    {
+      MapObject poi;
+      poi.m_bestType = "amenity-bench";
+      poi.m_pos = {53.652005, 108.143448};
+
+      auto const it = mapObjects.find(poi);
+
+      TEST(it != mapObjects.end(), ());
+      TEST_EQUAL(it->second.size(), 1, ());
+      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(0.0, 0.0), ());
+      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+    }
   }
 }

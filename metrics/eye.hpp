@@ -5,6 +5,7 @@
 #include "base/atomic_shared_ptr.hpp"
 #include "base/macros.hpp"
 
+#include <string>
 #include <vector>
 
 namespace eye
@@ -21,7 +22,7 @@ public:
   virtual void OnDiscoveryShown(Time const & time) {}
   virtual void OnDiscoveryItemClicked(Discovery::Event event) {}
   virtual void OnLayerShown(Layer const & layer) {}
-  virtual void OnPlacePageOpened(MapObject const & poi) {}
+  virtual void OnMapObjectEvent(MapObject const & poi, MapObject::Events const & events) {}
 };
 
 // Note This class IS thread-safe.
@@ -43,11 +44,16 @@ public:
     static void DiscoveryShown();
     static void DiscoveryItemClicked(Discovery::Event event);
     static void LayerShown(Layer::Type type);
-    static void PlacePageOpened();
-    static void UgcEditorOpened();
-    static void UgcSaved();
-    static void AddToBookmarkClicked();
-    static void RouteCreatedToObject();
+    static void PlacePageOpened(std::string const & bestType, ms::LatLon const & latLon,
+                                ms::LatLon const & userPos);
+    static void UgcEditorOpened(std::string const & bestType, ms::LatLon const & latLon,
+                                ms::LatLon const & userPos);
+    static void UgcSaved(std::string const & bestType, ms::LatLon const & latLon,
+                         ms::LatLon const & userPos);
+    static void AddToBookmarkClicked(std::string const & bestType, ms::LatLon const & latLon,
+                                     ms::LatLon const & userPos);
+    static void RouteCreatedToObject(std::string const & bestType, ms::LatLon const & latLon,
+                                     ms::LatLon const & userPos);
   };
 
   static Eye & Instance();
@@ -62,6 +68,7 @@ private:
   Eye();
 
   bool Save(InfoType const & info);
+  void TrimExpiredMapObjectEvents();
 
   // Event processing:
   void RegisterTipClick(Tip::Type type, Tip::Event event);
@@ -70,11 +77,8 @@ private:
   void UpdateDiscoveryShownTime();
   void IncrementDiscoveryItem(Discovery::Event event);
   void RegisterLayerShown(Layer::Type type);
-  void RegisterPlacePageOpened();
-  void RegisterUgcEditorOpened();
-  void RegisterUgcSaved();
-  void RegisterAddToBookmarkClicked();
-  void RegisterRouteCreatedToObject();
+  void RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
+                              ms::LatLon const & userPos);
 
   base::AtomicSharedPtr<Info> m_info;
   std::vector<Subscriber *> m_subscribers;
