@@ -198,8 +198,12 @@ struct MapObject
     return m_pos == rhs.m_pos && m_bestType == rhs.m_bestType;
   }
 
+  DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
+                  visitor(m_readableName, "name"));
+
   std::string m_bestType;
   ms::LatLon m_pos;
+  std::string m_readableName;
 };
 
 using MapObjects = std::unordered_map<MapObject, MapObject::Events, MapObject::Hash>;

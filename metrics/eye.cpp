@@ -28,7 +28,7 @@ void Load(Info & info)
 
   std::vector<int8_t> infoFileData;
   std::vector<int8_t> mapObjectsFileData;
-  if (!Storage::LoadInfo(infoFileData) || !Storage::LoadMapObjects(mapObjectsFileData))
+  if (!Storage::LoadInfo(infoFileData) && !Storage::LoadMapObjects(mapObjectsFileData))
   {
     info = {};
     return;
@@ -36,8 +36,11 @@ void Load(Info & info)
 
   try
   {
-    Serdes::DeserializeInfo(infoFileData, info);
-    Serdes::DeserializeMapObjects(mapObjectsFileData, info.m_mapObjects);
+    if (!infoFileData.empty())
+      Serdes::DeserializeInfo(infoFileData, info);
+
+    if (!mapObjectsFileData.empty())
+      Serdes::DeserializeMapObjects(mapObjectsFileData, info.m_mapObjects);
   }
   catch (Serdes::UnknownVersion const & ex)
   {

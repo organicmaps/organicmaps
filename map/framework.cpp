@@ -510,6 +510,8 @@ Framework::Framework(FrameworkParams const & params)
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
+
+  eye::Eye::Instance().Subscribe(&m_notificationManager);
 }
 
 Framework::~Framework()

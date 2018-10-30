@@ -2,6 +2,7 @@
 
 #include "map/bookmark_manager.hpp"
 #include "map/local_ads_manager.hpp"
+#include "map/notifications/notification_manager.hpp"
 #include "map/user.hpp"
 
 #include "ugc/storage.hpp"
@@ -31,6 +32,7 @@ enum RequestType
   REQUEST_TYPE_LOCATION = 1u << 4,
   REQUEST_TYPE_LOCAL_ADS_FEATURES = 1u << 5,
   REQUEST_TYPE_LOCAL_ADS_STATISTICS = 1u << 6,
+  REQUEST_TYPE_NOTIFICATION = 1u << 7,
 };
 
 using RequestTypeMask = unsigned;
@@ -90,6 +92,13 @@ public:
       request ^= REQUEST_TYPE_LOCAL_ADS_STATISTICS;
     }
 
+    if (request & REQUEST_TYPE_NOTIFICATION)
+    {
+      m_notificationManager = std::make_unique<notifications::NotificationManager>();
+      m_notificationManager->Load();
+      request ^= REQUEST_TYPE_NOTIFICATION;
+    }
+
     CHECK_EQUAL(request, REQUEST_TYPE_EMPTY, ("Incorrect mask type:", request));
   }
 
@@ -114,6 +123,7 @@ private:
   std::unique_ptr<CountryInfoReader> m_countryInfoReader;
   std::unique_ptr<LocalAdsFeaturesReader> m_localAdsFeaturesReader;
   std::unique_ptr<Statistics> m_localAdsStatistics;
+  std::unique_ptr<notifications::NotificationManager> m_notificationManager;
 };
 
 template<>
@@ -173,5 +183,11 @@ auto Framework::GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()
   CHECK(m_localAdsStatistics, ());
 
   return m_localAdsStatistics.get();
+}
+
+template <>
+auto Framework::Get<REQUEST_TYPE_NOTIFICATION>() const
+{
+  return m_notificationManager->GetNotification();
 }
 }  // namespace lightweight

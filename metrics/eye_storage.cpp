@@ -9,8 +9,6 @@
 
 #include "base/logging.hpp"
 
-#include <type_traits>
-
 namespace
 {
 bool Save(std::string const & filename, std::vector<int8_t> const & src)

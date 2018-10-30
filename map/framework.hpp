@@ -10,6 +10,7 @@
 #include "map/feature_vec_model.hpp"
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
+#include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
 #include "map/purchase.hpp"
 #include "map/routing_manager.hpp"
@@ -897,6 +898,7 @@ public:
 private:
   std::unique_ptr<Purchase> m_purchase;
   TipsApi m_tipsApi;
+  notifications::NotificationManager m_notificationManager;
 
 public:
   TipsApi const & GetTipsApi() const;

@@ -20,6 +20,7 @@ set(
   gps_track_test.cpp
   kmz_unarchive_test.cpp
   mwm_url_tests.cpp
+  notification_tests.cpp
   search_api_tests.cpp
   tips_tests.cpp
   transliteration_test.cpp

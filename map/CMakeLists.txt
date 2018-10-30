@@ -77,6 +77,13 @@ set(
   local_ads_supported_types.cpp
   mwm_url.cpp
   mwm_url.hpp
+  notifications/notification_manager.cpp
+  notifications/notification_manager.hpp
+  notifications/notification_queue.hpp
+  notifications/notification_queue_serdes.cpp
+  notifications/notification_queue_serdes.hpp
+  notifications/notification_queue_storage.cpp
+  notifications/notification_queue_storage.hpp
   place_page_info.cpp
   place_page_info.hpp
   purchase.cpp
