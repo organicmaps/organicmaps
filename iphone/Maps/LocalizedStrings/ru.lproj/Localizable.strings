@@ -2486,6 +2486,72 @@
 
 "taxi" = "Такси";
 
+"sharing_options" = "Настройки доступа";
+
+"export_file" = "Экспортировать файл";
+
+"hide_from_map" = "Скрыть с карты";
+
+"ugc_route_tags_screen_label" = "Выберите теги";
+
+"ugc_route_tags_progress_msg" = "Загружаем теги…";
+
+"ugc_route_tags_desc" = "Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.";
+
+"public_access" = "Публичный доступ";
+
+"limited_access" = "Ограниченный доступ";
+
+"upload_and_publish_desc" = "Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям";
+
+"upload_and_publish" = "Загрузить и опубликовать";
+
+"upload_and_get_direct_link" = "Загрузить и получить ссылку";
+
+"get_direct_link_desc" = "Ваш список будет доступен по прямой ссылке";
+
+"upload_and_publish_progress_text" = "Путеводитель публикуется…";
+
+"upload_and_publish_success" = "Путеводитель опубликован";
+
+"ugc_routes_user_agreement" = "<b>ОБРАТИТЕ ВНИМАНИЕ:</b> продолжая, вы принимаете <a href=\"%s\">лицензионное соглашение</a>";
+
+"ugc_route_edit_list_name" = "Название списка";
+
+"ugc_route_edit_description_hint" = "Добавьте описание (текст или html)";
+
+"not_shared" = "Личный";
+
+"direct_link_progress_text" = "Загружаем ваш файл…";
+
+"direct_link_success" = "Ссылка создана";
+
+"edit_guide_title" = "Редактируйте ваш путеводитель в интернете";
+
+"edit_guide_subtitle" = "Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое";
+
+"send_a_link_btn" = "Отправить ссылку";
+
+"upload_error_toast" = "Во время загрузки файла произошла ошибка";
+
+"title_error_downloading_bookmarks" = "Произошла ошибка";
+
+"tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
+
+"unable_upload_errorr_title" = "Не удалось загрузить файл";
+
+"unable_upload_error_subtitle_edited" = "Файл был отредактирован через веб-приложение";
+
+"unable_upload_error_subtitle_broken" = "Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.";
+
+"buy_btn" = "Купить за %s";
+
+"download_guide_progress" = "Путеводитель загружается…";
+
+"price_error_title" = "Невозможно получить цену";
+
+"price_error_subtitle" = "Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.";
+
 
 /**********  Partners  **********/
 

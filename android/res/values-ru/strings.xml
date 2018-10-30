@@ -1439,6 +1439,39 @@
 	<string name="subscriptions_title">Подписки</string>
 	<string name="manage_subscription">Управление подпиской</string>
 	<string name="taxi">Такси</string>
+	<string name="sharing_options">Настройки доступа</string>
+	<string name="export_file">Экспортировать файл</string>
+	<string name="hide_from_map">Скрыть с карты</string>
+	<string name="ugc_route_tags_screen_label">Выберите теги</string>
+	<string name="ugc_route_tags_progress_msg">Загружаем теги…</string>
+	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.</string>
+	<string name="public_access">Публичный доступ</string>
+	<string name="limited_access">Ограниченный доступ</string>
+	<string name="upload_and_publish_desc">Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям</string>
+	<string name="upload_and_publish">Загрузить и опубликовать</string>
+	<string name="upload_and_get_direct_link">Загрузить и получить ссылку</string>
+	<string name="get_direct_link_desc">Ваш список будет доступен по прямой ссылке</string>
+	<string name="upload_and_publish_progress_text">Путеводитель публикуется…</string>
+	<string name="upload_and_publish_success">Путеводитель опубликован</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ОБРАТИТЕ ВНИМАНИЕ:&lt;/b> продолжая, вы принимаете &lt;a href="%s">лицензионное соглашение&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Название списка</string>
+	<string name="ugc_route_edit_description_hint">Добавьте описание (текст или html)</string>
+	<string name="not_shared">Личный</string>
+	<string name="direct_link_progress_text">Загружаем ваш файл…</string>
+	<string name="direct_link_success">Ссылка создана</string>
+	<string name="edit_guide_title">Редактируйте ваш путеводитель в интернете</string>
+	<string name="edit_guide_subtitle">Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое</string>
+	<string name="send_a_link_btn">Отправить ссылку</string>
+	<string name="upload_error_toast">Во время загрузки файла произошла ошибка</string>
+	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
+	<string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз</string>
+	<string name="unable_upload_errorr_title">Не удалось загрузить файл</string>
+	<string name="unable_upload_error_subtitle_edited">Файл был отредактирован через веб-приложение</string>
+	<string name="unable_upload_error_subtitle_broken">Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.</string>
+	<string name="buy_btn">Купить за %s</string>
+	<string name="download_guide_progress">Путеводитель загружается…</string>
+	<string name="price_error_title">Невозможно получить цену</string>
+	<string name="price_error_subtitle">Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

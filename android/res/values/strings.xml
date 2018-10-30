@@ -1445,6 +1445,39 @@
 	<string name="subscriptions_title">Subscriptions</string>
 	<string name="manage_subscription">Manage subscription</string>
 	<string name="taxi">Taxi</string>
+	<string name="sharing_options">Sharing options</string>
+	<string name="export_file">Export file</string>
+	<string name="hide_from_map">Hide from map</string>
+	<string name="ugc_route_tags_screen_label">Select tags</string>
+	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
+	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory.</string>
+	<string name="public_access">Public access</string>
+	<string name="limited_access">Limited access</string>
+	<string name="upload_and_publish_desc">This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users</string>
+	<string name="upload_and_publish">Upload and publish</string>
+	<string name="upload_and_get_direct_link">Upload and get a direct link</string>
+	<string name="get_direct_link_desc">Your list will be available to anyone who has the link</string>
+	<string name="upload_and_publish_progress_text">Publishing your guide…</string>
+	<string name="upload_and_publish_success">The guide has been published</string>
+	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;a href="%s">license agreement&lt;/a></string>
+	<string name="ugc_route_edit_list_name">List name</string>
+	<string name="ugc_route_edit_description_hint">Type a description (text or html)</string>
+	<string name="not_shared">Not shared</string>
+	<string name="direct_link_progress_text">Uploading your file…</string>
+	<string name="direct_link_success">The link has been created</string>
+	<string name="edit_guide_title">Edit your guide on the web</string>
+	<string name="edit_guide_subtitle">Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more</string>
+	<string name="send_a_link_btn">Send me a link</string>
+	<string name="upload_error_toast">An error occurred while uploading your file</string>
+	<string name="title_error_downloading_bookmarks">An error occurred</string>
+	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again later</string>
+	<string name="unable_upload_errorr_title">File upload failed</string>
+	<string name="unable_upload_error_subtitle_edited">This file has been edited via the web app</string>
+	<string name="unable_upload_error_subtitle_broken">This file is invalid and couldn\'t be uploaded. Please upload another file.</string>
+	<string name="buy_btn">Buy for %s</string>
+	<string name="download_guide_progress">Downloading your guide…</string>
+	<string name="price_error_title">Unable to get price</string>
+	<string name="price_error_subtitle">An error occured while getting price. Please, try again later.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2370,13 +2403,4 @@
 	<string name="type.wheelchair.limited">wheelchair-limited</string>
 	<string name="type.wheelchair.no">wheelchair-no</string>
 	<string name="type.wheelchair.yes">wheelchair-yes</string>
-	<string name="public_access">Public access</string>
-	<string name="limited_access">Limited access</string>
-	<string name="upload_and_publish_desc">This list will be uploaded in the public  catalog at MAPS.ME as guide and will be easily shared with others</string>
-	<string name="upload_and_publish">Upload and publish</string>
-	<string name="upload_and_get_direct_link">Upload and get a direct link</string>
-	<string name="get_direct_link_desc">Anyone this the link will see your list</string>
-	<string name="upload_and_publish_progress_text">Publishing your guide…</string>
-	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;font color="#249cf2">&lt;a href="%1$s">license agreement&lt;/font>&lt;/a></string>
-	<string name="sharing_options">Sharing options</string>
 </resources>
