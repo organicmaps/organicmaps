@@ -2486,6 +2486,72 @@
 
 "taxi" = "Taxi";
 
+"sharing_options" = "Sharing options";
+
+"export_file" = "Export file";
+
+"hide_from_map" = "Hide from map";
+
+"ugc_route_tags_screen_label" = "Select tags";
+
+"ugc_route_tags_progress_msg" = "Loading tags…";
+
+"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+
+"public_access" = "Public access";
+
+"limited_access" = "Limited access";
+
+"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+
+"upload_and_publish" = "Upload and publish";
+
+"upload_and_get_direct_link" = "Upload and get a direct link";
+
+"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+
+"upload_and_publish_progress_text" = "Publishing your guide…";
+
+"upload_and_publish_success" = "The guide has been published";
+
+"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+
+"ugc_route_edit_list_name" = "List name";
+
+"ugc_route_edit_description_hint" = "Type a description (text or html)";
+
+"not_shared" = "Not shared";
+
+"direct_link_progress_text" = "Uploading your file…";
+
+"direct_link_success" = "The link has been created";
+
+"edit_guide_title" = "Edit your guide on the web";
+
+"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+
+"send_a_link_btn" = "Send me a link";
+
+"upload_error_toast" = "An error occurred while uploading your file";
+
+"title_error_downloading_bookmarks" = "An error occurred";
+
+"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+
+"unable_upload_errorr_title" = "File upload failed";
+
+"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+
+"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+
+"buy_btn" = "Buy for %s";
+
+"download_guide_progress" = "Downloading your guide…";
+
+"price_error_title" = "Unable to get price";
+
+"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+
 
 /**********  Partners  **********/
 
