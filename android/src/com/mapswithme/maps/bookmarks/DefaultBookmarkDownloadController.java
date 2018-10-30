@@ -15,11 +15,11 @@ import com.mapswithme.util.log.LoggerFactory;
 
 import java.net.MalformedURLException;
 
-class DefaultBookmarkCatalogController implements BookmarkCatalogController,
-                                                  BookmarkDownloadHandler, Authorizer.Callback
+class DefaultBookmarkDownloadController implements BookmarkDownloadController,
+                                                   BookmarkDownloadHandler, Authorizer.Callback
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = DefaultBookmarkCatalogController.class.getSimpleName();
+  private static final String TAG = DefaultBookmarkDownloadController.class.getSimpleName();
   @NonNull
   private final BookmarkDownloadReceiver mDownloadCompleteReceiver = new BookmarkDownloadReceiver();
   @NonNull
@@ -31,8 +31,8 @@ class DefaultBookmarkCatalogController implements BookmarkCatalogController,
   @Nullable
   private Activity mActivity;
 
-  DefaultBookmarkCatalogController(@NonNull Authorizer authorizer,
-                                   @NonNull BookmarkManager.BookmarksCatalogListener catalogListener)
+  DefaultBookmarkDownloadController(@NonNull Authorizer authorizer,
+                                    @NonNull BookmarkManager.BookmarksCatalogListener catalogListener)
   {
     mCatalogListener = catalogListener;
     mAuthorizer = authorizer;

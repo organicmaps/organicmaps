@@ -7,7 +7,7 @@ import com.mapswithme.maps.dialog.Detachable;
 
 import java.net.MalformedURLException;
 
-public interface BookmarkCatalogController extends Detachable<Activity>
+public interface BookmarkDownloadController extends Detachable<Activity>
 {
   void downloadBookmark(@NonNull String url) throws MalformedURLException;
 }

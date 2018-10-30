@@ -60,7 +60,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private BookmarkCatalogController mController;
+  private BookmarkDownloadController mController;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -71,8 +71,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onCreate(savedInstanceState);
     mAuthorizer = new Authorizer(this);
-    mController = new DefaultBookmarkCatalogController(mAuthorizer,
-                                                       new CatalogListenerDecorator(this));
+    mController = new DefaultBookmarkDownloadController(mAuthorizer,
+                                                        new CatalogListenerDecorator(this));
   }
 
   @Override
