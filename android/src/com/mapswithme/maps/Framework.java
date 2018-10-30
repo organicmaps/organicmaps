@@ -507,4 +507,7 @@ public class Framework
   private static native void nativeDisableAdProvider(int provider, int bannerPlace);
 
   public static native void nativeBindUser(@NonNull UserBindingListener listener);
+
+  @Nullable
+  public static native String nativeGetAccessToken();
 }

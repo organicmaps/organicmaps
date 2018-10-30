@@ -147,7 +147,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Integer>
       urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);
 
       // Set user agent with unique client id
-      urlConnection.setRequestProperty(HttpClient.USER_AGENT, mUserAgent);
+      urlConnection.setRequestProperty(HttpClient.HEADER_USER_AGENT, mUserAgent);
 
       // Provide authorization credentials
       String creds = url.getUserInfo();

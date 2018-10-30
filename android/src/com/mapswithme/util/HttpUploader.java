@@ -202,7 +202,7 @@ public final class HttpUploader
 
   private void setHeaders(@NonNull URLConnection connection, long bodyLength)
   {
-    mHeaders.add(new KeyValue(HttpClient.USER_AGENT, Framework.nativeGetUserAgent()));
+    mHeaders.add(new KeyValue(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent()));
     mHeaders.add(new KeyValue("App-Version", BuildConfig.VERSION_NAME));
     mHeaders.add(new KeyValue("Content-Type", "multipart/form-data; boundary=" + mBoundary));
     mHeaders.add(new KeyValue("Content-Length", String.valueOf(bodyLength)));

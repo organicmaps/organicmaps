@@ -52,8 +52,15 @@ public class BookmarksDownloadManager
     DownloadManager.Request request = new DownloadManager
         .Request(dstUri)
         .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-        .addRequestHeader(HttpClient.USER_AGENT, Framework.nativeGetUserAgent())
+        .addRequestHeader(HttpClient.HEADER_USER_AGENT, Framework.nativeGetUserAgent())
         .setDestinationInExternalFilesDir(mContext, null, dstUri.getLastPathSegment());
+
+    String accessToken = Framework.nativeGetAccessToken();
+    if (!TextUtils.isEmpty(accessToken))
+    {
+      String headerValue = HttpClient.HEADER_BEARER_PREFFIX + accessToken;
+      request.addRequestHeader(HttpClient.HEADER_AUTHORIZATION, headerValue);
+    }
 
     String title = makeTitle(srcUri);
     if (!TextUtils.isEmpty(title))

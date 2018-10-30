@@ -1889,4 +1889,11 @@ Java_com_mapswithme_maps_Framework_nativeBindUser(JNIEnv * env, jclass, jobject 
     e->CallVoidMethod(*listenerRef, callback, static_cast<jboolean>(success));
   });
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetAccessToken(JNIEnv * env, jclass)
+{
+  auto & user = frm()->GetUser();
+  return jni::ToJavaString(env, user.GetAccessToken());
+}
 }  // extern "C"
