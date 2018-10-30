@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)shareCategoryURL;
 - (void)finishShareCategory;
 
-- (NSDate *)lastSynchronizationDate;
+- (NSDate * _Nullable)lastSynchronizationDate;
 - (BOOL)isCloudEnabled;
 - (void)setCloudEnabled:(BOOL)enabled;
 - (void)requestRestoring;
