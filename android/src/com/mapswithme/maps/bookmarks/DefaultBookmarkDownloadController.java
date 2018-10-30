@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -87,6 +89,12 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     dm.enqueueRequest(url);
   }
 
+  @NonNull
+  private static PaymentDataParser createPaymentDataParser()
+  {
+    return new BookmarkPaymentDataParser();
+  }
+
   @Override
   public void onAuthorizationRequired()
   {
@@ -96,9 +104,20 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void onPaymentRequired()
   {
+    if (TextUtils.isEmpty(mDownloadUrl))
+      throw new IllegalStateException("Download url must be non-null if payment required!");
+
+    PaymentData data = parsePaymentData(mDownloadUrl);
+    //TODO: pass data and show payment UI.
     Toast.makeText(getActivityOrThrow(), "Payment required. Ui coming soon!",
                    Toast.LENGTH_SHORT).show();
+  }
 
+  @NonNull
+  private static PaymentData parsePaymentData(@NonNull String url)
+  {
+    PaymentDataParser parser = createPaymentDataParser();
+    return parser.parse(url);
   }
 
   @Override
@@ -140,5 +159,37 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
     // Do nothing by default.
+  }
+
+  private static class BookmarkPaymentDataParser implements PaymentDataParser
+  {
+    private final static String SERVER_ID = "id";
+    private final static String PRODUCT_ID = "tier";
+    private final static String NAME = "name";
+    private final static String IMG_URL = "img";
+    private final static String AUTHOR_NAME = "author_name";
+
+    @NonNull
+    @Override
+    public PaymentData parse(@NonNull String url)
+    {
+      Uri uri = Uri.parse(url);
+      String serverId = getQueryRequiredParameter(uri, SERVER_ID);
+      String productId = getQueryRequiredParameter(uri, PRODUCT_ID);
+      String name = getQueryRequiredParameter(uri, NAME);
+      String authorName = getQueryRequiredParameter(uri, AUTHOR_NAME);
+      String imgUrl = uri.getQueryParameter(IMG_URL);
+      return new PaymentData(serverId, productId, name, imgUrl, authorName);
+    }
+
+    @NonNull
+    private static String getQueryRequiredParameter(@NonNull Uri uri, @NonNull String name)
+    {
+      String parameter = uri.getQueryParameter(name);
+      if (TextUtils.isEmpty(parameter))
+        throw new AssertionError("'" + parameter + "' parameter is required!");
+
+      return parameter;
+    }
   }
 }
