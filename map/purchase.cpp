@@ -59,7 +59,7 @@ std::string StartTransactionUrl()
 {
   if (kServerUrl.empty())
     return {};
-  return kServerUrl + "registrar/start_transaction";
+  return kServerUrl + "registrar/preorder";
 }
 
 struct ReceiptData
