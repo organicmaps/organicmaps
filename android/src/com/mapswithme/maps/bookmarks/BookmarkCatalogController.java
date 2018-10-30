@@ -10,10 +10,4 @@ import java.net.MalformedURLException;
 public interface BookmarkCatalogController extends Detachable<Activity>
 {
   void downloadBookmark(@NonNull String url) throws MalformedURLException;
-
-  @Override
-  void attach(@NonNull Activity activity);
-
-  @Override
-  void detach();
 }
