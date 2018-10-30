@@ -827,6 +827,15 @@ void BookmarkManager::SetCategoryAccessRules(kml::MarkGroupId categoryId, kml::A
   category->SetAccessRules(accessRules);
 }
 
+void BookmarkManager::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
+                                                std::string const & value)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  category->SetCustomProperty(key, value);
+}
+
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2660,6 +2669,13 @@ void BookmarkManager::EditSession::SetCategoryAccessRules(kml::MarkGroupId categ
 {
   CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryAccessRules(categoryId, accessRules);
+}
+
+void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId categoryId, std::string const & key,
+                                                             std::string const & value)
+{
+  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
+  m_bmManager.SetCategoryCustomProperty(categoryId, key, value);
 }
 
 bool BookmarkManager::EditSession::DeleteBmCategory(kml::MarkGroupId groupId)

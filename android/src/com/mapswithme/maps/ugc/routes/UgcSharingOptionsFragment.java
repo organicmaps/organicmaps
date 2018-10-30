@@ -20,6 +20,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
@@ -244,6 +245,13 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   @Override
   public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  {
+
+  }
+
+  @Override
+  public void onCustomPropertiesReceived(boolean successful,
+                                         @NonNull CatalogCustomProperty[] properties)
   {
 
   }

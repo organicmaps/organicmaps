@@ -258,6 +258,16 @@ void BookmarkCategory::SetTags(std::vector<std::string> const & tags)
   m_data.m_tags = tags;
 }
 
+void BookmarkCategory::SetCustomProperty(std::string const & key, std::string const & value)
+{
+  auto it = m_data.m_properties.find(key);
+  if (it != m_data.m_properties.end() && it->second == value)
+    return;
+
+  SetDirty();
+  m_data.m_properties[key] = value;
+}
+
 std::string BookmarkCategory::GetName() const
 {
   return GetPreferredBookmarkStr(m_data.m_name);

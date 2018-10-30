@@ -564,6 +564,14 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryAccessR
     static_cast<kml::MarkGroupId>(catId), static_cast<kml::AccessRules>(accessRules));
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryCustomProperty(
+    JNIEnv * env, jobject, jlong catId, jstring key, jstring value)
+{
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryCustomProperty(
+    static_cast<kml::MarkGroupId>(catId), ToNativeString(env, key), ToNativeString(env, value));
+}
+
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryName(
      JNIEnv * env, jobject thiz, jlong catId)

@@ -646,6 +646,8 @@ public enum BookmarkManager
 
   private native void nativeSetCategoryAccessRules(long catId, @AccessRules int accessRules);
 
+  private native void nativeSetCategoryCustomProperty(long catId, String key, String value);
+
   @NonNull
   private native String nativeGetCategoryAuthor(long catId);
 
