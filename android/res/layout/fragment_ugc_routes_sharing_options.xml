@@ -89,10 +89,9 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               layout="@layout/ugc_routes_progress_container"/>
-            <View
-              android:background="?android:attr/listDivider"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/divider_height"/>
+            <include layout="@layout/divider_horizontal"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/divider_height"/>
             <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -101,10 +100,9 @@
               android:text="@string/upload_and_publish_desc"
               android:paddingTop="@dimen/margin_half_double_plus"
               android:paddingBottom="@dimen/margin_half_double_plus"/>
-            <View
-              android:background="?android:attr/listDivider"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/divider_height"/>
+            <include layout="@layout/divider_horizontal"
+                     android:layout_width="match_parent"
+                     android:layout_height="@dimen/divider_height"/>
             <TextView
               android:id="@+id/license_agreement_message"
               android:minHeight="@dimen/downloader_status_size"
@@ -117,10 +115,9 @@
           </LinearLayout>
         </RelativeLayout>
       </LinearLayout>
-      <View
-        android:background="?android:attr/listDivider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"/>
+      <include layout="@layout/divider_horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/divider_height"/>
       <LinearLayout
         android:id="@+id/get_direct_link_container"
         android:orientation="vertical"
@@ -136,10 +133,9 @@
           android:paddingRight="@dimen/margin_base"
           android:paddingEnd="@dimen/margin_base"
           android:paddingLeft="@dimen/margin_base"/>
-        <View
-          android:background="?android:attr/listDivider"
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/divider_height"/>
+        <include layout="@layout/divider_horizontal"
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/divider_height"/>
         <RelativeLayout
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="match_parent"
@@ -188,10 +184,6 @@
               android:layout_height="wrap_content"
               android:id="@+id/get_direct_link_progress_container"
               layout="@layout/ugc_routes_progress_container"/>
-            <View
-              android:background="?android:attr/listDivider"
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/divider_height"/>
             <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -203,10 +195,9 @@
           </LinearLayout>
         </RelativeLayout>
       </LinearLayout>
-      <View
-        android:background="?android:attr/listDivider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"/>
+      <include layout="@layout/divider_horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/divider_height"/>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
