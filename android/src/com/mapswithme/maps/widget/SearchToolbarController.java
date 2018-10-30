@@ -28,7 +28,7 @@ public class SearchToolbarController extends ToolbarController
   private final View mClear;
   private final View mVoiceInput;
 
-  private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(mActivity);
+  private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(getActivity());
 
   private final TextWatcher mTextWatcher = new StringUtils.SimpleTextWatcher()
   {
@@ -49,7 +49,7 @@ public class SearchToolbarController extends ToolbarController
   {
     super(root, activity);
 
-    mContainer = mToolbar.findViewById(R.id.frame);
+    mContainer = getToolbar().findViewById(R.id.frame);
 
     mQuery = mContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
@@ -115,7 +115,7 @@ public class SearchToolbarController extends ToolbarController
   {
     try
     {
-      startVoiceRecognition(InputUtils.createIntentForVoiceRecognition(mActivity.getString(getVoiceInputPrompt())), REQUEST_VOICE_RECOGNITION);
+      startVoiceRecognition(InputUtils.createIntentForVoiceRecognition(getActivity().getString(getVoiceInputPrompt())), REQUEST_VOICE_RECOGNITION);
     } catch (ActivityNotFoundException e)
     {
       AlohaHelper.logException(e);

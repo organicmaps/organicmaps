@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 
-public class BaseMwmExtraTitleActivity extends BaseMwmFragmentActivity
+public abstract class BaseMwmExtraTitleActivity extends BaseMwmFragmentActivity
 {
   protected static final String EXTRA_TITLE = "activity_title";
 

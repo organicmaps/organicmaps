@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
+import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.content.BookmarkCategoryObservable;
@@ -24,6 +25,8 @@ import java.util.Objects;
 
 public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 {
+  public static final String EXTRA_BOOKMARK_CATEGORY = "bookmark_category";
+
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
@@ -51,7 +54,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     Bundle args = getArguments();
     if (args == null)
       throw new IllegalArgumentException("Args must be not null");
-    mCategory = Objects.requireNonNull(args.getParcelable(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY));
+    mCategory = Objects.requireNonNull(args.getParcelable(EXTRA_BOOKMARK_CATEGORY));
   }
 
   @Nullable
@@ -111,7 +114,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new EditSettingsController(root);
+    return new FinishActivityToolbarController(root, getActivity());
   }
 
   @Override
@@ -153,20 +156,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     {
       mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
       mAccessRulesView.setText(mCategory.getAccessRules().getResId());
-    }
-  }
-
-  private class EditSettingsController extends ToolbarController
-  {
-    EditSettingsController(@NonNull View root)
-    {
-      super(root, getActivity());
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      getActivity().finish();
     }
   }
 }

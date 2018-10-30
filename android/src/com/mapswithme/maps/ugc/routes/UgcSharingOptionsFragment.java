@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
+import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
@@ -83,7 +84,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @Override
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
-    return new SharingOptionsController(root);
+    return new FinishActivityToolbarController(root, getActivity());
   }
 
   private void initClickListeners(@NonNull View root)
@@ -294,22 +295,5 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private boolean isOkResult(int uploadResult)
   {
     return true;
-  }
-
-  private class SharingOptionsController extends ToolbarController
-  {
-    SharingOptionsController(@NonNull View root)
-    {
-      super(root, getActivity());
-    }
-
-    @Override
-    public void onUpClick()
-    {
-      if (getFragmentManager().getBackStackEntryCount() == 0)
-        getActivity().finish();
-      else
-        getFragmentManager().popBackStackImmediate();
-    }
   }
 }

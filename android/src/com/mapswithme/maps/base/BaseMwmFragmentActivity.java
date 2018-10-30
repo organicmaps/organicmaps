@@ -269,26 +269,30 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     Class<? extends Fragment> clazz = getFragmentClass();
     if (clazz != null)
-      replaceFragment(clazz, getIntent().getExtras(), null);
+      replace(clazz, getIntent().getExtras(), null);
   }
 
   /**
    * Replace attached fragment with the new one.
    */
-  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
+  public void replace(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)
       throw new IllegalStateException("Fragment can't be added, since getFragmentContentResId() isn't implemented or returns wrong resourceId.");
 
     String name = fragmentClass.getName();
-    final Fragment fragment = Fragment.instantiate(this, name, args);
-    getSupportFragmentManager().beginTransaction()
-                               .replace(resId, fragment, name)
-                               .commitAllowingStateLoss();
-    getSupportFragmentManager().executePendingTransactions();
-    if (completionListener != null)
-      completionListener.run();
+    Fragment potentialInstance = getSupportFragmentManager().findFragmentByTag(name);
+    if (potentialInstance == null)
+    {
+      final Fragment fragment = Fragment.instantiate(this, name, args);
+      getSupportFragmentManager().beginTransaction()
+                                 .replace(resId, fragment, name)
+                                 .commitAllowingStateLoss();
+      getSupportFragmentManager().executePendingTransactions();
+      if (completionListener != null)
+        completionListener.run();
+    }
   }
 
   /**

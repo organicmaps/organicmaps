@@ -40,8 +40,8 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
     AuthToolbarController(View root, Activity activity)
     {
       super(root, activity);
-      mToolbar.setNavigationIcon(Graphics.tint(activity, activity.getResources().getDrawable(R.drawable.ic_cancel)));
-      mToolbar.setTitleTextColor(ThemeUtils.getColor(activity, android.R.attr.textColorPrimary));
+      getToolbar().setNavigationIcon(Graphics.tint(activity, activity.getResources().getDrawable(R.drawable.ic_cancel)));
+      getToolbar().setTitleTextColor(ThemeUtils.getColor(activity, android.R.attr.textColorPrimary));
     }
   }
 
@@ -64,7 +64,7 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
       @Override
       protected void loginOsm()
       {
-        ((BaseMwmFragmentActivity) getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
+        ((BaseMwmFragmentActivity) getActivity()).replace(OsmAuthFragment.class, null, null);
       }
     };
     mDelegate.onViewCreated(view, savedInstanceState);

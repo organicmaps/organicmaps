@@ -59,7 +59,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
     if (ParsedMwmRequest.hasRequest())
     {
-      Animations.appearSliding(mToolbar, Animations.TOP, new Runnable()
+      Animations.appearSliding(getToolbar(), Animations.TOP, new Runnable()
       {
         @Override
         public void run()
@@ -72,7 +72,7 @@ public class FloatingSearchToolbarController extends SearchToolbarController
     }
     else if (!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
     {
-      Animations.appearSliding(mToolbar, Animations.TOP, new Runnable()
+      Animations.appearSliding(getToolbar(), Animations.TOP, new Runnable()
       {
         @Override
         public void run()
@@ -102,10 +102,10 @@ public class FloatingSearchToolbarController extends SearchToolbarController
 
   public boolean hide()
   {
-    if (!UiUtils.isVisible(mToolbar))
+    if (!UiUtils.isVisible(getToolbar()))
       return false;
 
-    Animations.disappearSliding(mToolbar, Animations.TOP, new Runnable()
+    Animations.disappearSliding(getToolbar(), Animations.TOP, new Runnable()
     {
       @Override
       public void run()

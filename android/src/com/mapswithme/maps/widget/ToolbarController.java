@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.app.Activity;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,8 +13,10 @@ import com.mapswithme.util.Utils;
 
 public class ToolbarController
 {
-  protected final Activity mActivity;
-  protected final Toolbar mToolbar;
+  @NonNull
+  private final Activity mActivity;
+  @NonNull
+  private final Toolbar mToolbar;
   private final View.OnClickListener mNavigationClickListener = new View.OnClickListener()
   {
     @Override
@@ -23,13 +26,13 @@ public class ToolbarController
     }
   };
 
-  public ToolbarController(View root, Activity activity)
+  public ToolbarController(@NonNull View root, @NonNull Activity activity)
   {
     mActivity = activity;
     mToolbar = root.findViewById(getToolbarId());
 
     if (useExtendedToolbar())
-      UiUtils.extendViewWithStatusBar(mToolbar);
+      UiUtils.extendViewWithStatusBar(getToolbar());
     setupNavigationListener();
   }
 
@@ -40,15 +43,15 @@ public class ToolbarController
 
   private void setupNavigationListener()
   {
-    View customNavigationButton = mToolbar.findViewById(R.id.back);
+    View customNavigationButton = getToolbar().findViewById(R.id.back);
     if (customNavigationButton != null)
     {
       customNavigationButton.setOnClickListener(mNavigationClickListener);
     }
     else
     {
-      UiUtils.showHomeUpButton(mToolbar);
-      mToolbar.setNavigationOnClickListener(mNavigationClickListener);
+      UiUtils.showHomeUpButton(getToolbar());
+      getToolbar().setNavigationOnClickListener(mNavigationClickListener);
     }
   }
 
@@ -60,28 +63,35 @@ public class ToolbarController
 
   public void onUpClick()
   {
-    Utils.navigateToParent(mActivity);
+    Utils.navigateToParent(getActivity());
   }
 
   public ToolbarController setTitle(CharSequence title)
   {
-    mToolbar.setTitle(title);
+    getToolbar().setTitle(title);
     return this;
   }
 
   public ToolbarController setTitle(@StringRes int title)
   {
-    mToolbar.setTitle(title);
+    getToolbar().setTitle(title);
     return this;
-  }
-
-  public Toolbar getToolbar()
-  {
-    return mToolbar;
   }
 
   public View findViewById(@IdRes int res)
   {
-    return mToolbar.findViewById(res);
+    return getToolbar().findViewById(res);
+  }
+
+  @NonNull
+  public Activity getActivity()
+  {
+    return mActivity;
+  }
+
+  @NonNull
+  public Toolbar getToolbar()
+  {
+    return mToolbar;
   }
 }

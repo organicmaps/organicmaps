@@ -15,7 +15,6 @@ import android.widget.RadioGroup;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.widget.RoutingToolbarButton;
@@ -76,18 +75,18 @@ public class RoutingPlanController extends ToolbarController
     super(root, activity);
     mFrame = root;
 
-    mRouterTypes = (RadioGroup) mToolbar.findViewById(R.id.route_type);
+    mRouterTypes = (RadioGroup) getToolbar().findViewById(R.id.route_type);
 
     setupRouterButtons();
 
-    View progressFrame = mToolbar.findViewById(R.id.progress_frame);
+    View progressFrame = getToolbar().findViewById(R.id.progress_frame);
     mProgressVehicle = (WheelProgressView) progressFrame.findViewById(R.id.progress_vehicle);
     mProgressPedestrian = (WheelProgressView) progressFrame.findViewById(R.id.progress_pedestrian);
     mProgressTransit = (WheelProgressView) progressFrame.findViewById(R.id.progress_transit);
     mProgressBicycle = (WheelProgressView) progressFrame.findViewById(R.id.progress_bicycle);
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
-    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame, listener);
+    mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(getActivity(), mFrame, listener);
   }
 
   private void setupRouterButtons()
