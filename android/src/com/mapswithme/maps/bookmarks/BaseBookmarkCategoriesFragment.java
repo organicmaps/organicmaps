@@ -40,6 +40,8 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
+  private static final int SHOW_ON_MAP_ITEM_MENU_INDEX = 1;
+
   @NonNull
   private BookmarkCategory mSelectedCategory;
   @Nullable
@@ -169,7 +171,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     BottomSheet bottomSheet = bs.build();
     prepareBottomMenuItems(bottomSheet);
     bottomSheet
-        .getMenu().getItem(0)
+        .getMenu().getItem(SHOW_ON_MAP_ITEM_MENU_INDEX)
         .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
         .setTitle(item.isVisible() ? R.string.hide : R.string.show);
     BottomSheetHelper.tint(bottomSheet);
@@ -436,9 +438,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                           @NonNull BookmarkCategory category)
       {
         frag.onShareActionSelected(category);
-        Intent intent = new Intent(frag.getContext(), UgcRouteEditSettingsActivity.class);
-        intent.putExtra(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY, frag.mSelectedCategory);
-        frag.startActivity(intent);
       }
     }
 
@@ -487,7 +486,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-
+        Intent intent = new Intent(frag.getContext(), UgcRouteEditSettingsActivity.class);
+        intent.putExtra(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY, frag.mSelectedCategory);
+        frag.startActivity(intent);
       }
     }
   }
