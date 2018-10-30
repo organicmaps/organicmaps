@@ -34708,3 +34708,135 @@
   [taxi]
     en = Taxi
     ru = Такси
+
+  [sharing_options]
+    en = Sharing options
+    ru = Настройки доступа
+
+  [export_file]
+    en = Export file
+    ru = Экспортировать файл
+
+  [hide_from_map]
+    en = Hide from map
+    ru = Скрыть с карты
+
+  [ugc_route_tags_screen_label]
+    en = Select tags
+    ru = Выберите теги
+
+  [ugc_route_tags_progress_msg]
+    en = Loading tags…
+    ru = Загружаем теги…
+
+  [ugc_route_tags_desc]
+    en = Please, select tags to help other travellers find your guide. This is mandatory.
+    ru = Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.
+
+  [public_access]
+    en = Public access
+    ru = Публичный доступ
+
+  [limited_access]
+    en = Limited access
+    ru = Ограниченный доступ
+
+  [upload_and_publish_desc]
+    en = This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users
+    ru = Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям
+
+  [upload_and_publish]
+    en = Upload and publish
+    ru = Загрузить и опубликовать
+
+  [upload_and_get_direct_link]
+    en = Upload and get a direct link
+    ru = Загрузить и получить ссылку
+
+  [get_direct_link_desc]
+    en = Your list will be available to anyone who has the link
+    ru = Ваш список будет доступен по прямой ссылке
+
+  [upload_and_publish_progress_text]
+    en = Publishing your guide…
+    ru = Путеводитель публикуется…
+
+  [upload_and_publish_success]
+    en = The guide has been published
+    ru = Путеводитель опубликован
+
+  [ugc_routes_user_agreement]
+    en = <b>PLEASE NOTE:</b> by proceeding, you accept the <a href="%s">license agreement</a>
+    ru = <b>ОБРАТИТЕ ВНИМАНИЕ:</b> продолжая, вы принимаете <a href="%s">лицензионное соглашение</a>
+
+  [ugc_route_edit_list_name]
+    en = List name
+    ru = Название списка
+
+  [ugc_route_edit_description_hint]
+    en = Type a description (text or html)
+    ru = Добавьте описание (текст или html)
+
+  [not_shared]
+    en = Not shared
+    ru = Личный
+
+  [direct_link_progress_text]
+    en = Uploading your file…
+    ru = Загружаем ваш файл…
+
+  [direct_link_success]
+    en = The link has been created
+    ru = Ссылка создана
+
+  [edit_guide_title]
+    en = Edit your guide on the web
+    ru = Редактируйте ваш путеводитель в интернете
+
+  [edit_guide_subtitle]
+    en = Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more
+    ru = Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое
+
+  [send_a_link_btn]
+    en = Send me a link
+    ru = Отправить ссылку
+
+  [upload_error_toast]
+    en = An error occurred while uploading your file
+    ru = Во время загрузки файла произошла ошибка
+
+  [title_error_downloading_bookmarks]
+    en = An error occurred
+    ru = Произошла ошибка
+
+  [tags_loading_error_subtitle]
+    en = An error occurred while loading tags, please try again later
+    ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз
+
+  [unable_upload_errorr_title]
+    en = File upload failed
+    ru = Не удалось загрузить файл
+
+  [unable_upload_error_subtitle_edited]
+    en = This file has been edited via the web app
+    ru = Файл был отредактирован через веб-приложение
+
+  [unable_upload_error_subtitle_broken]
+    en = This file is invalid and couldn't be uploaded. Please upload another file.
+    ru = Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.
+
+  [buy_btn]
+    en = Buy for %s
+    ru = Купить за %s
+
+  [download_guide_progress]
+    en = Downloading your guide…
+    ru = Путеводитель загружается…
+
+  [price_error_title]
+    en = Unable to get price
+    ru = Невозможно получить цену
+
+  [price_error_subtitle]
+    en = An error occured while getting price. Please, try again later.
+    ru = Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.
