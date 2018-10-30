@@ -1,6 +1,7 @@
 #pragma once
 
 #include "geometry/latlon.hpp"
+#include "geometry/point2d.hpp"
 
 #include "base/exception.hpp"
 #include "base/scope_guard.hpp"
@@ -131,6 +132,14 @@ public:
   void operator()(T const & t, char const * name = nullptr)
   {
     (*this)(static_cast<std::underlying_type_t<T>>(t), name);
+  }
+
+  void operator()(m2::PointD const & p, char const * name = nullptr)
+  {
+    NewScopeWith(base::NewJSONObject(), name, [this, &p] {
+      (*this)(p.x, "x");
+      (*this)(p.y, "y");
+    });
   }
 
   void operator()(ms::LatLon const & ll, char const * name = nullptr)
@@ -323,6 +332,14 @@ public:
     UnderlyingType res;
     FromJSONObject(m_json, name, res);
     t = static_cast<T>(res);
+  }
+
+  void operator()(m2::PointD & p, char const * name = nullptr)
+  {
+    json_t * outerContext = SaveContext(name);
+    (*this)(p.x, "x");
+    (*this)(p.y, "y");
+    RestoreContext(outerContext);
   }
 
   void operator()(ms::LatLon & ll, char const * name = nullptr)

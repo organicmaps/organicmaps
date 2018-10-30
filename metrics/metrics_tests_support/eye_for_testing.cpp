@@ -80,7 +80,7 @@ void EyeForTesting::TrimExpiredMapObjectEvents()
 
 // static
 void EyeForTesting::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
-                                           ms::LatLon const & userPos)
+                                           m2::PointD const & userPos)
 {
   Eye::Instance().RegisterMapObjectEvent(mapObject, type, userPos);
 }

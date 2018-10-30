@@ -5,6 +5,8 @@
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/logging.hpp"
 
 #include <sstream>
@@ -19,7 +21,7 @@ struct MapObjectEvent
                   visitor(m_event, "event"));
 
   std::string m_bestPoiType;
-  ms::LatLon m_poiPos;
+  m2::PointD m_poiPos;
   eye::MapObject::Event m_event;
 };
 }  // namespace

@@ -307,7 +307,7 @@ void Eye::RegisterLayerShown(Layer::Type type)
 }
 
 void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
-                                 ms::LatLon const & userPos)
+                                 m2::PointD const & userPos)
 {
   auto const info = m_info.Get();
   auto editableInfo = std::make_shared<Info>(*info);
@@ -400,55 +400,55 @@ void Eye::Event::LayerShown(Layer::Type type)
 }
 
 // static
-void Eye::Event::PlacePageOpened(std::string const & bestType, ms::LatLon const & latLon,
-                                 ms::LatLon const & userPos)
+void Eye::Event::PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
+                                 m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::Open, userPos);
+    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::Open, userPos);
   });
 }
 
 // static
-void Eye::Event::UgcEditorOpened(std::string const & bestType, ms::LatLon const & latLon,
-                                 ms::LatLon const & userPos)
+void Eye::Event::UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
+                                 m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::UgcEditorOpened,
+    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::UgcEditorOpened,
                                       userPos);
   });
 }
 
 // static
-void Eye::Event::UgcSaved(std::string const & bestType, ms::LatLon const & latLon,
-                          ms::LatLon const & userPos)
+void Eye::Event::UgcSaved(std::string const & bestType, m2::PointD const & pos,
+                          m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::UgcSaved,
+    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::UgcSaved,
                                       userPos);
   });
 }
 
 // static
-void Eye::Event::AddToBookmarkClicked(std::string const & bestType, ms::LatLon const & latLon,
-                                      ms::LatLon const & userPos)
+void Eye::Event::AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
+                                      m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::AddToBookmark,
+    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::AddToBookmark,
                                       userPos);
   });
 }
 
 // static
-void Eye::Event::RouteCreatedToObject(std::string const & bestType, ms::LatLon const & latLon,
-                                      ms::LatLon const & userPos)
+void Eye::Event::RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
+                                      m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, latLon, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, latLon}, MapObject::Event::Type::RouteToCreated,
+    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::RouteToCreated,
                                       userPos);
   });
 }

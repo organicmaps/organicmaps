@@ -44,16 +44,16 @@ public:
     static void DiscoveryShown();
     static void DiscoveryItemClicked(Discovery::Event event);
     static void LayerShown(Layer::Type type);
-    static void PlacePageOpened(std::string const & bestType, ms::LatLon const & latLon,
-                                ms::LatLon const & userPos);
-    static void UgcEditorOpened(std::string const & bestType, ms::LatLon const & latLon,
-                                ms::LatLon const & userPos);
-    static void UgcSaved(std::string const & bestType, ms::LatLon const & latLon,
-                         ms::LatLon const & userPos);
-    static void AddToBookmarkClicked(std::string const & bestType, ms::LatLon const & latLon,
-                                     ms::LatLon const & userPos);
-    static void RouteCreatedToObject(std::string const & bestType, ms::LatLon const & latLon,
-                                     ms::LatLon const & userPos);
+    static void PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
+                                m2::PointD const & userPos);
+    static void UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
+                                m2::PointD const & userPos);
+    static void UgcSaved(std::string const & bestType, m2::PointD const & pos,
+                         m2::PointD const & userPos);
+    static void AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
+                                     m2::PointD const & userPos);
+    static void RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
+                                     m2::PointD const & userPos);
   };
 
   static Eye & Instance();
@@ -78,7 +78,7 @@ private:
   void IncrementDiscoveryItem(Discovery::Event event);
   void RegisterLayerShown(Layer::Type type);
   void RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
-                              ms::LatLon const & userPos);
+                              m2::PointD const & userPos);
 
   base::AtomicSharedPtr<Info> m_info;
   std::vector<Subscriber *> m_subscribers;

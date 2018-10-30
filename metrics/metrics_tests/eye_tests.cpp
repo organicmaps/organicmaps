@@ -458,8 +458,8 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 3, ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
-      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(72.045400, 81.408200), ());
-      TEST_EQUAL(it->second[2].m_userPos, ms::LatLon(72.045450, 81.408201), ());
+      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(72.045400, 81.408200), ());
+      TEST_EQUAL(it->second[2].m_userPos, m2::PointD(72.045450, 81.408201), ());
     }
 
     {
@@ -472,8 +472,8 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 3, ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
-      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.016347, 158.683327), ());
-      TEST_EQUAL(it->second[2].m_userPos, ms::LatLon(53.116347, 158.783327), ());
+      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[2].m_userPos, m2::PointD(53.116347, 158.783327), ());
     }
   }
 
@@ -503,10 +503,10 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
 
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::UgcEditorOpened, ());
 
-      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.116347, 158.783327), ());
+      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.116347, 158.783327), ());
       TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::UgcSaved, ());
     }
   }
@@ -518,7 +518,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
     MapObject poi;
     poi.m_bestType = "cafe";
     poi.m_pos = {53.652005, 108.143448};
-    ms::LatLon userPos = {53.016347, 158.683327};
+    m2::PointD userPos = {53.016347, 158.683327};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
 
@@ -530,7 +530,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
     MapObject poi;
     poi.m_bestType = "shop";
     poi.m_pos = {53.652005, 108.143448};
-    ms::LatLon userPos = {0.0, 0.0};
+    m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
 
@@ -543,7 +543,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
     MapObject poi;
     poi.m_bestType = "amenity-bench";
     poi.m_pos = {53.652005, 108.143448};
-    ms::LatLon userPos = {0.0, 0.0};
+    m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
   }
@@ -562,10 +562,10 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(53.016347, 158.683327), ());
+      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
 
-      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(53.016345, 158.683329), ());
+      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.016345, 158.683329), ());
       TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::RouteToCreated, ());
     }
 
@@ -578,10 +578,10 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(0.0, 0.0), ());
+      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(0.0, 0.0), ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::RouteToCreated, ());
 
-      TEST_EQUAL(it->second[1].m_userPos, ms::LatLon(158.016345, 53.683329), ());
+      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(158.016345, 53.683329), ());
       TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::AddToBookmark, ());
     }
 
@@ -594,7 +594,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 
       TEST(it != mapObjects.end(), ());
       TEST_EQUAL(it->second.size(), 1, ());
-      TEST_EQUAL(it->second[0].m_userPos, ms::LatLon(0.0, 0.0), ());
+      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(0.0, 0.0), ());
       TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
     }
   }

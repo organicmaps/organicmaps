@@ -2,7 +2,6 @@
 
 #include "storage/index.hpp"
 
-#include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
 #include "base/visitor.hpp"
@@ -178,7 +177,7 @@ struct MapObject
                     visitor(m_eventTime, "event_time"));
 
     Type m_type;
-    ms::LatLon m_userPos;
+    m2::PointD m_userPos;
     Time m_eventTime;
   };
 
@@ -188,7 +187,7 @@ struct MapObject
   {
     size_t operator()(MapObject const & p) const
     {
-      return base::Hash(base::Hash(p.m_pos.lat, p.m_pos.lon),
+      return base::Hash(base::Hash(p.m_pos.x, p.m_pos.y),
                         base::Hash(p.m_bestType, p.m_bestType));
     }
   };
@@ -202,7 +201,7 @@ struct MapObject
                   visitor(m_readableName, "name"));
 
   std::string m_bestType;
-  ms::LatLon m_pos;
+  m2::PointD m_pos;
   std::string m_readableName;
 };
 
