@@ -57,7 +57,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
   protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
     super.safeOnCreate(savedInstanceState);
-    mAdsRemovalPurchaseController = PurchaseFactory.createPurchaseController();
+    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController();
     mAdsRemovalPurchaseController.initialize(this);
   }
 

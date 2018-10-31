@@ -13,7 +13,7 @@ public class PurchaseFactory
   }
 
   @NonNull
-  public static PurchaseController<AdsRemovalPurchaseCallback> createPurchaseController()
+  public static PurchaseController<AdsRemovalPurchaseCallback> createAdsRemovalPurchaseController()
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
@@ -23,5 +23,15 @@ public class PurchaseFactory
     String weeklyProduct = PrivateVariables.adsRemovalWeeklyProductId();
     return new AdsRemovalPurchaseController(validator, billingManager, yearlyProduct,
                                             monthlyProduct, weeklyProduct);
+  }
+
+  @NonNull
+  public static PurchaseController<BookmarkPurchaseCallback> createBookmarkPurchaseController(
+      @NonNull String productId)
+  {
+    BillingManager<PlayStoreBillingCallback> billingManager
+        = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
+    return new BookmarkPurchaseController(validator, billingManager, productId);
   }
 }
