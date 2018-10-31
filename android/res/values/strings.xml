@@ -2402,7 +2402,4 @@
 	<string name="type.wheelchair.limited">wheelchair-limited</string>
 	<string name="type.wheelchair.no">wheelchair-no</string>
 	<string name="type.wheelchair.yes">wheelchair-yes</string>
-  <string name="ugc_route_tags_desc">Please, select tags to help other travelers find your guide. This is mandatory.</string>
-	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
-	<string name="ugc_route_tags_screen_label">Select tags</string>
 </resources>

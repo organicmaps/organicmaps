@@ -222,7 +222,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
 
     @Override
     public void onCustomPropertiesReceived(boolean successful,
-                                           @NonNull CatalogCustomProperty[] properties)
+                                           @NonNull List<CatalogCustomProperty> properties)
     {
       //TODO(@alexzatsepin): Implement me if necessary
     }

@@ -26,13 +26,13 @@ import com.mapswithme.maps.adapter.TagsCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -173,6 +173,13 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     if (tagsGroups.size() == 0)
       return;
     installTags(tagsGroups);
+  }
+
+  @Override
+  public void onCustomPropertiesReceived(boolean successful,
+                                         @NonNull List<CatalogCustomProperty> properties)
+  {
+    /* Not ready yet */
   }
 
   private void installTags(@NonNull List<CatalogTagsGroup> tagsGroups)

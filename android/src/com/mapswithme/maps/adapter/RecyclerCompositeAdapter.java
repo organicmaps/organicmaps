@@ -96,12 +96,12 @@ public class RecyclerCompositeAdapter extends RecyclerView.Adapter<RecyclerView.
     @Override
     public int toAbsoluteViewType(int relViewType, int adapterIndex)
     {
-      AdapterIndexAndViewType type = new AdapterIndexAndViewTypeImpl(adapterIndex, relViewType);
+      AdapterIndexAndViewType indexAndViewType = new AdapterIndexAndViewTypeImpl(adapterIndex, relViewType);
       List<AdapterIndexAndViewType> items = getIndexAndViewTypeItems();
-      int indexOf = items.indexOf(type);
+      int indexOf = items.indexOf(indexAndViewType);
       if (indexOf < 0)
       {
-        throw new IllegalArgumentException("Item " + relViewType + " not found in list : " +
+        throw new IllegalArgumentException("Item " + indexAndViewType + " not found in list : " +
                                            Arrays.toString(items.toArray()));
       }
       return indexOf;

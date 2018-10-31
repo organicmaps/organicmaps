@@ -303,8 +303,9 @@ public enum BookmarkManager
   public void onCustomPropertiesReceived(boolean successful,
                                          @NonNull CatalogCustomProperty[] properties)
   {
+    List<CatalogCustomProperty> unmodifiableProperties = Collections.unmodifiableList(Arrays.asList(properties));
     for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onCustomPropertiesReceived(successful, properties);
+      listener.onCustomPropertiesReceived(successful, unmodifiableProperties);
   }
 
   // Called from JNI.
@@ -832,12 +833,11 @@ public enum BookmarkManager
 
     /**
      * The method is called when the custom properties were received from the server.
-     *
-     * @param successful is the result of the receiving.
+     *  @param successful is the result of the receiving.
      * @param properties is the properties collection.
      */
     void onCustomPropertiesReceived(boolean successful,
-                                    @NonNull CatalogCustomProperty[] properties);
+                                    @NonNull List<CatalogCustomProperty> properties);
 
     /**
      * The method is called when the uploading to the catalog is started.
@@ -882,7 +882,7 @@ public enum BookmarkManager
 
     @Override
     public void onCustomPropertiesReceived(boolean successful,
-                                           @NonNull CatalogCustomProperty[] properties)
+                                           @NonNull List<CatalogCustomProperty> properties)
     {
       /* do noting by default */
     }

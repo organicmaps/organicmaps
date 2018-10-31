@@ -2,6 +2,10 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.NonNull;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class CatalogCustomProperty
 {
   @NonNull
@@ -13,7 +17,7 @@ public class CatalogCustomProperty
   private final boolean mRequired;
 
   @NonNull
-  private final CatalogCustomPropertyOption[] mOptions;
+  private final List<CatalogCustomPropertyOption> mOptions;
 
   public CatalogCustomProperty(@NonNull String key, @NonNull String localizedName,
                                boolean required, @NonNull CatalogCustomPropertyOption[] options)
@@ -21,7 +25,7 @@ public class CatalogCustomProperty
     mKey = key;
     mLocalizedName = localizedName;
     mRequired = required;
-    mOptions = options;
+    mOptions = Collections.unmodifiableList(Arrays.asList(options));
   }
 
   @NonNull
@@ -33,5 +37,5 @@ public class CatalogCustomProperty
   public boolean isRequired() { return mRequired; }
 
   @NonNull
-  public CatalogCustomPropertyOption[] getOptions() { return mOptions; }
+  public List<CatalogCustomPropertyOption> getOptions() { return mOptions; }
 }

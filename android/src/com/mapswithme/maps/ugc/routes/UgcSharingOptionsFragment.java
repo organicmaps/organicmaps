@@ -28,6 +28,8 @@ import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 
+import java.util.List;
+
 public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment implements BookmarkManager.BookmarksCatalogListener
 {
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
@@ -244,14 +246,14 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
   {
 
   }
 
   @Override
   public void onCustomPropertiesReceived(boolean successful,
-                                         @NonNull CatalogCustomProperty[] properties)
+                                         @NonNull List<CatalogCustomProperty> properties)
   {
 
   }
