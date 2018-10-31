@@ -52,7 +52,7 @@ std::string BuildHashUrl()
 {
   if (kCatalogFrontendServer.empty())
     return {};
-  return kCatalogFrontendServer + "kml/create";
+  return kCatalogFrontendServer + "storage/create_hash";
 }
 
 std::string BuildUploadUrl()
