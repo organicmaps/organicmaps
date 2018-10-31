@@ -269,13 +269,13 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     Class<? extends Fragment> clazz = getFragmentClass();
     if (clazz != null)
-      replace(clazz, getIntent().getExtras(), null);
+      replaceFragment(clazz, getIntent().getExtras(), null);
   }
 
   /**
    * Replace attached fragment with the new one.
    */
-  public void replace(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
+  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     final int resId = getFragmentContentResId();
     if (resId <= 0 || findViewById(resId) == null)

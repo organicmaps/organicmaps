@@ -107,7 +107,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    getToolbarController().setTitle(R.string.edit_list);
+    getToolbarController().setTitle(R.string.edit);
   }
 
   @NonNull
@@ -139,14 +139,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     if (!TextUtils.equals(mCategory.getDescription(), categoryDesc))
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), categoryDesc);
 
-  }
-
-  @NonNull
-  public static UgcRouteEditSettingsFragment makeInstance(@Nullable Bundle extras)
-  {
-    UgcRouteEditSettingsFragment fragment = new UgcRouteEditSettingsFragment();
-    fragment.setArguments(extras);
-    return fragment;
   }
 
   public class CategoryObserver extends RecyclerView.AdapterDataObserver

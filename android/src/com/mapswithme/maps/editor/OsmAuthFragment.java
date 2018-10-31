@@ -64,7 +64,7 @@ public class OsmAuthFragment extends BaseMwmToolbarFragment implements View.OnCl
       @Override
       protected void loginOsm()
       {
-        ((BaseMwmFragmentActivity) getActivity()).replace(OsmAuthFragment.class, null, null);
+        ((BaseMwmFragmentActivity) getActivity()).replaceFragment(OsmAuthFragment.class, null, null);
       }
     };
     mDelegate.onViewCreated(view, savedInstanceState);

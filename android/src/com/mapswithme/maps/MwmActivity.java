@@ -405,11 +405,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   void replaceFragmentInternal(Class<? extends Fragment> fragmentClass, Bundle args)
   {
-    super.replace(fragmentClass, args, null);
+    super.replaceFragment(fragmentClass, args, null);
   }
 
   @Override
-  public void replace(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
+  public void replaceFragment(@NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle args, @Nullable Runnable completionListener)
   {
     if (mPanelAnimator.isVisible() && getFragment(fragmentClass) != null)
     {
@@ -456,7 +456,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         args.putParcelable(FilterActivity.EXTRA_FILTER, mFilterController.getFilter());
         args.putParcelable(FilterActivity.EXTRA_FILTER_PARAMS, mFilterController.getBookingFilterParams());
       }
-      replace(SearchFragment.class, args, null);
+      replaceFragment(SearchFragment.class, args, null);
     }
     else
     {
@@ -479,7 +479,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Editor.nativeStartEdit();
     Statistics.INSTANCE.trackEditorLaunch(false);
     if (mIsTabletLayout)
-      replace(EditorHostFragment.class, null, null);
+      replaceFragment(EditorHostFragment.class, null, null);
     else
       EditorActivity.start(this);
   }
@@ -515,7 +515,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       SearchEngine.INSTANCE.cancel();
       mSearchController.refreshToolbar();
-      replace(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
+      replaceFragment(MapManager.nativeIsLegacyMode() ? MigrationFragment.class : DownloaderFragment.class, args, null);
     }
     else
     {
@@ -867,7 +867,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mIsTabletLayout)
     {
-      replace(DiscoveryFragment.class, null, null);
+      replaceFragment(DiscoveryFragment.class, null, null);
     }
     else
     {
@@ -2043,7 +2043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
       if (mIsTabletLayout)
       {
-        replace(RoutingPlanFragment.class, null, completionListener);
+        replaceFragment(RoutingPlanFragment.class, null, completionListener);
         if (mRestoreRoutingPlanFragmentNeeded && mSavedForTabletState != null)
         {
           RoutingPlanFragment fragment = (RoutingPlanFragment) getFragment(RoutingPlanFragment.class);

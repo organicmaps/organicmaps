@@ -63,10 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"/>
     </LinearLayout>
-    <View
-      android:background="?android:attr/listDivider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"/>
+    <include layout="@layout/list_divider"/>
     <LinearLayout
       android:id="@+id/open_sharing_options_screen_btn_container"
       android:orientation="vertical"
@@ -94,10 +91,7 @@
         android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <View
-      android:background="?android:attr/listDivider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"/>
+    <include layout="@layout/list_divider"/>
     <EditText
       android:id="@+id/edit_description"
       android:background="@null"
