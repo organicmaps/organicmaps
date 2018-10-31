@@ -10,7 +10,7 @@ public class UgcRouteEditSettingsActivity extends BaseMwmFragmentActivity
   @Override
   protected int getContentLayoutResId()
   {
-    return R.layout.ugc_route_edit_settings_activity;
+    return R.layout.fragment_container_layout;
   }
 
   @Override
