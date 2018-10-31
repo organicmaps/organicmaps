@@ -75,6 +75,7 @@ final class BMCViewController: MWMViewController {
   private func shareCategory(category: BMCCategory, anchor: UIView) {
     let storyboard = UIStoryboard.instance(.sharing)
     let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
+    shareController.categoryId = category.identifier
     
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
                                                                                    animated: true)

@@ -91,6 +91,10 @@
   NSString * boundary = [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
   NSString * contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
   [uploadRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
+  
+  [self.headers enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * value, BOOL * stop) {
+    [uploadRequest setValue:value forHTTPHeaderField:key];
+  }];
 
   NSData * postData = [self requestDataWithBoundary:boundary];
 

@@ -158,14 +158,22 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       [self.catalogObservers removeObjectForKey:observer.categoryId];
     }
   };
-  auto onUploadStarted = [](kml::MarkGroupId originCategoryId)
+  auto onUploadStarted = [self](kml::MarkGroupId originCategoryId)
   {
-    //TODO(@beloal): Implement me.
+    auto observer = self.catalogObservers[[NSString stringWithFormat:@"%lld", originCategoryId]];
+    if (observer)
+      [observer onUploadStart];
   };
-  auto onUploadFinished = [](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
+  auto onUploadFinished = [self](BookmarkCatalog::UploadResult uploadResult,std::string const & description,
                              kml::MarkGroupId originCategoryId, kml::MarkGroupId resultCategoryId)
   {
-    //TODO(@beloal): Implement me.
+    auto observer = self.catalogObservers[[NSString stringWithFormat:@"%lld", originCategoryId]];
+    if (observer)
+    {
+      NSURL * url = [self sharingUrlForCategoryId:resultCategoryId];
+      [observer onUploadComplete:uploadResult withUrl:url];
+      [self.catalogObservers removeObjectForKey:observer.categoryId];
+    }
   };
   self.bm.SetCatalogHandlers(std::move(onDownloadStarted),
                              std::move(onDownloadFinished),
@@ -499,14 +507,26 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(ProgressBlock)progress
-                completion:(CompletionBlock)completion
+                completion:(DownloadCompletionBlock)completion
 {
   auto observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = itemId;
   observer.progressBlock = progress;
-  observer.completionBlock = completion;
+  observer.downloadCompletionBlock = completion;
   [self.catalogObservers setObject:observer forKey:itemId];
   self.bm.DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
+}
+
+- (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
+                                    progress:(ProgressBlock)progress
+                                  completion:(UploadCompletionBlock)completion
+{
+  auto observer = [[MWMCatalogObserver alloc] init];
+  observer.categoryId = [NSString stringWithFormat:@"%lld", itemId];
+  observer.progressBlock = progress;
+  observer.uploadCompletionBlock = completion;
+  [self.catalogObservers setObject:observer forKey:observer.categoryId];
+  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::DirectLink);
 }
 
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId

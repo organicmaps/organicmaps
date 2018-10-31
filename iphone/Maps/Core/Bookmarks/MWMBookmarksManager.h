@@ -53,12 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
                   progress:(_Nullable ProgressBlock)progress
-                completion:(_Nullable CompletionBlock)completion;
+                completion:(_Nullable DownloadCompletionBlock)completion;
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
 - (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog;
 - (NSInteger)getCatalogDownloadsCount;
 - (BOOL)isCategoryDownloading:(NSString *)itemId;
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId;
+
+- (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
+                                    progress:(ProgressBlock)progress
+                                  completion:(UploadCompletionBlock)completion;
 
 @end
 NS_ASSUME_NONNULL_END

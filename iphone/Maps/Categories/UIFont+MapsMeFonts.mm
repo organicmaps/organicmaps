@@ -44,6 +44,7 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 + (UIFont *)bold28 { return [UIFont boldSystemFontOfSize:28]; }
 + (UIFont *)bold36 { return [UIFont boldSystemFontOfSize:26]; }
 + (UIFont *)bold48 { return [UIFont boldSystemFontOfSize:48]; }
++ (UIFont *)italic16 { return [UIFont italicSystemFontOfSize:16]; }
 + (UIFont *)fontWithName:(NSString *)fontName
 {
 #pragma clang diagnostic push
