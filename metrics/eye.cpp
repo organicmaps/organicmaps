@@ -79,11 +79,6 @@ Eye::Eye()
   Info info;
   Load(info);
   m_info.Set(std::make_shared<Info>(info));
-
-  GetPlatform().RunTask(Platform::Thread::File, [this]
-  {
-    TrimExpiredMapObjectEvents();
-  });
 }
 
 // static
@@ -106,6 +101,14 @@ void Eye::Subscribe(Subscriber * subscriber)
 void Eye::UnsubscribeAll()
 {
   m_subscribers.clear();
+}
+
+void Eye::TrimExpired()
+{
+  GetPlatform().RunTask(Platform::Thread::File, [this]
+  {
+    TrimExpiredMapObjectEvents();
+  });
 }
 
 bool Eye::Save(InfoType const & info)

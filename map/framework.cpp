@@ -511,11 +511,14 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
+  eye::Eye::Instance().TrimExpired();
   eye::Eye::Instance().Subscribe(&m_notificationManager);
 }
 
 Framework::~Framework()
 {
+  eye::Eye::Instance().UnsubscribeAll();
+
   m_threadRunner.reset();
 
   // Must be destroyed implicitly at the start of destruction,
@@ -535,7 +538,6 @@ Framework::~Framework()
   m_user.ClearSubscribers();
   // Must be destroyed implicitly, since it stores reference to m_user.
   m_bmManager.reset();
-  eye::Eye::Instance().UnsubscribeAll();
 }
 
 booking::Api * Framework::GetBookingApi(platform::NetworkPolicy const & policy)

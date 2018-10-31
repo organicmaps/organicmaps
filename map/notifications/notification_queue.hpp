@@ -22,7 +22,7 @@ struct Notification
   std::unique_ptr<eye::MapObject> m_mapObject;
 };
 
-using Candidates = std::vector<Notification>;
+using Candidates = std::deque<Notification>;
 
 enum class Version : int8_t
 {

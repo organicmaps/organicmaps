@@ -64,6 +64,8 @@ public:
   void Subscribe(Subscriber * subscriber);
   void UnsubscribeAll();
 
+  void TrimExpired();
+
 private:
   Eye();
 

@@ -1,4 +1,5 @@
 #include "map/notifications/notification_manager.hpp"
+
 #include "map/notifications/notification_queue_serdes.hpp"
 #include "map/notifications/notification_queue_storage.hpp"
 
