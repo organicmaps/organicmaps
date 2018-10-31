@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
-                                                                  OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>
+public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
+                                                                     OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>
 {
   private static final String BUNDLE_SELECTED_TAGS = "bundle_saved_tags";
 

@@ -20,7 +20,7 @@ public class UgcRouteTagsActivity extends BaseToolbarActivity
     if (fragment == null)
       getSupportFragmentManager()
           .beginTransaction()
-          .add(R.id.fragment_container, new UgcRoutesFragment(), FRAGMENT_TAG)
+          .add(R.id.fragment_container, new UgcRouteTagsFragment(), FRAGMENT_TAG)
           .commit();
   }
 
