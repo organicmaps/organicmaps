@@ -96,6 +96,8 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
   Platform::GetFilesByExt(inputDir, ".kml", files);
   CHECK(!files.empty(), ("Input directory doesn't contain kmls."));
 
+  size_t numberOfTracks = 0;
+  size_t numberOfNotConverted = 0;
   for (auto const & file : files)
   {
     LOG(LINFO, ("Start generating tracks for file", file));
@@ -115,14 +117,21 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
       CHECK(false, ("Can't deserialize file", file, "\nException:", ex.what()));
     }
 
-    CHECK(!data.m_tracksData.empty(), ("No tracks in file", file));
+    if (data.m_tracksData.empty())
+    {
+      LOG(LINFO, ("No tracks in file", file));
+      continue;
+    }
+
+    numberOfTracks += data.m_tracksData.size();
     for (auto & track : data.m_tracksData)
     {
       auto waypoints = track.m_points;
       auto result = routing_quality::GetRoute(move(waypoints), type);
       if (result.m_code != routing::RouterResultCode::NoError)
       {
-        LOG(LINFO, ("Can't convert track", track.m_id, "from file", file));
+        LOG(LINFO, ("Can't convert track", track.m_id, "from file:", file, "Error:", result.m_code));
+        ++numberOfNotConverted;
         continue;
       }
 
@@ -146,5 +155,8 @@ void GenerateTracks(string const & inputDir, string const & outputDir, routing::
 
     LOG(LINFO, ("Finished generating tracks for file", file));
   }
+
+  LOG(LINFO, ("Total tracks number:", numberOfTracks));
+  LOG(LINFO, ("Number of not converted tracks:", numberOfNotConverted));
 }
 }  // namespace track_generator_tool

@@ -26,9 +26,9 @@ int main(int argc, char ** argv)
                           "than the specific path will be untouched. Multiple kmls into "
                           " the directory are supported.\n\n"
                           "Usage example: "
-                          "./track_generator_tool -cmd=generate -inputDir=path/to/input/ -outputDir=/path/to/output");
+                          "./track_generator_tool -inputDir=path/to/input/ -outputDir=/path/to/output/");
 
-  google::ParseCommandLineFlags(&argc, &argv, true /* remove_flags */);
+  google::ParseCommandLineFlags(&argc, &argv, false /* remove_flags */);
 
   if (argc == 1 || FLAGS_showHelp)
   {
