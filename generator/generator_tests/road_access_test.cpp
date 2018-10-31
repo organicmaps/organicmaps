@@ -41,7 +41,7 @@ using namespace std;
 namespace
 {
 string const kTestDir = "road_access_generation_test";
-string const kTestMwm = "test";
+string const kTest = "test";
 string const kRoadAccessFilename = "road_access_in_osm_ids.csv";
 string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
@@ -89,10 +89,10 @@ RoadAccessCollector::RoadAccessByVehicleType SaveAndLoadRoadAccess(string const 
   string const & writableDir = platform.WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
+  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTest),
                            0 /* version */);
   ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildTestMwmWithRoads(country);
 

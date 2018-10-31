@@ -57,7 +57,7 @@ namespace
 string const kTestDir = "speed_camera_generation_test";
 
 // Temporary mwm name for testing.
-string const kTestMwm = "test";
+string const kTest = "test";
 
 string const kSpeedCameraDataFileName = "speedcamera_in_osm_ids.bin";
 string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
@@ -154,8 +154,8 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
 
   // Step 1. Generate intermediate data.
   GenerateInfo genInfo;
-  genInfo.m_fileName = kTestMwm;
-  genInfo.m_bucketNames.push_back(kTestMwm);
+  genInfo.m_fileName = kTest;
+  genInfo.m_bucketNames.push_back(kTest);
   genInfo.m_tmpDir = testDirFullPath;
   genInfo.m_targetDir = testDirFullPath;
   genInfo.m_intermediateDir = testDirFullPath;
@@ -166,8 +166,8 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   TEST(GenerateIntermediateData(genInfo), ("Can not generate intermediate data for speed cam"));
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(tmpDir, kTestDir), CountryFile(kTestMwm), 0 /* version */);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  LocalCountryFile country(base::JoinPath(tmpDir, kTestDir), CountryFile(kTest), 0 /* version */);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
 
   // Step 2. Generate binary file about cameras.
@@ -204,7 +204,7 @@ void TestSpeedCameraSectionBuilding(string const & osmContent, CameraMap const &
   }
 
   string const osmToFeatureFilename =
-    genInfo.GetTargetFileName(kTestMwm) + OSM2FEATURE_FILE_EXTENSION;
+    genInfo.GetTargetFileName(kTest) + OSM2FEATURE_FILE_EXTENSION;
 
   BuildCamerasInfo(mwmFullPath, camerasFilename, osmToFeatureFilename);
 

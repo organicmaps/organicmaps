@@ -43,7 +43,7 @@ namespace
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "city_roads_generation_test";
 // Temporary mwm name for testing.
-string const kTestMwm = "test";
+string const kTest = "test";
 
 void BuildEmptyMwm(LocalCountryFile & country)
 {
@@ -73,11 +73,11 @@ void TestCityRoadsBuilding(vector<uint64_t> && cityRoadFeatureIds)
   string const writableDir = GetPlatform().WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
+  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTest),
                            0 /* version */);
   ScopedDir const scopedDir(kTestDir);
 
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildEmptyMwm(country);
 

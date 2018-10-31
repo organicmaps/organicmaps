@@ -5,6 +5,7 @@
 
 #include "base/geo_object_id.hpp"
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
@@ -16,14 +17,25 @@ struct ParsedMaxspeed
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
   uint16_t m_forward = routing::kInvalidSpeed;
   uint16_t m_backward = routing::kInvalidSpeed;
+
+  bool operator==(ParsedMaxspeed const & rhs) const
+  {
+    return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
+  }
 };
 
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, ParsedMaxspeed>;
 
+/// \brief Parses csv file with path |maxspeedFilename| and keep the result in |osmIdToMaxspeed|.
+/// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
 bool ParseMaxspeeds(std::string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
 
 /// \brief Write |speeds| to maxspeed section to mwm with |dataPath|.
 void SerializeMaxspeed(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
+
+void BuildMaxspeed(std::string const & dataPath,
+                   std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                   std::string const & maxspeedFilename);
 
 /// \brief Builds maxspeed section in mwm with |dataPath|. This section contains max speed limits
 /// if it's available.
@@ -32,6 +44,8 @@ void SerializeMaxspeed(std::string const & dataPath, std::vector<FeatureMaxspeed
 /// 1. GenerateIntermediateData(). Saves to a file data about maxspeed tags value of road features
 /// 2. GenerateFeatures()
 /// 3. Generates geometry
-bool BuildMaxspeed(std::string const & dataPath, std::string const & osmToFeaturePath,
+void BuildMaxspeed(std::string const & dataPath, std::string const & osmToFeaturePath,
                    std::string const & maxspeedFilename);
+
+std::string DebugPrint(ParsedMaxspeed const & parsedMaxspeed);
 }  // namespace routing

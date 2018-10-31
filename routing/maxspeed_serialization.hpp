@@ -24,7 +24,7 @@ public:
     CHECK(std::is_sorted(speeds.cbegin(), speeds.cend()), ());
 
     // @TODO(bykoianko) Now serialization is implemented in the simplest way for research purposes.
-    // It should be rewrite in a better way using MaxspeedConverter before before the PR is merged.
+    // It should be rewrite in a better way using MaxspeedConverter before the PR is merged.
     Header header(static_cast<uint32_t>(speeds.size()));
     header.Serialize(sink);
 

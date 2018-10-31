@@ -166,8 +166,6 @@ struct SpeedInUnits
   SpeedInUnits(uint16_t speed, measurement_utils::Units units) noexcept : m_speed(speed), m_units(units) {}
 
   bool operator==(SpeedInUnits const & rhs) const;
-  /// \note While comparing speeds are not converted to the same units. So according to
-  /// this compare operator 80 km per hour is more then 79 mile per hour.
   bool operator<(SpeedInUnits const & rhs) const;
 
   bool IsNumeric() const;
@@ -177,7 +175,7 @@ struct SpeedInUnits
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
 };
 
-/// \breif Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect the fact
+/// \brief Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect the fact
 /// that a feature may have different maxspeed tag value for different directions.
 /// If |m_backward| is invalid it means that |m_forward| tag contains maxspeed for the both
 /// directions.

@@ -7,8 +7,9 @@
 
 namespace feature
 {
-/// \brief Saves csv file. Every line describes maxspeed, maxspeed:forward and maxspeed:backward
-/// tags of linear features. The format of the lines is described below.
+/// \brief Collects all maxspeed tags value and saves them to a csv file.
+/// Every line describes maxspeed, maxspeed:forward and maxspeed:backward
+/// tags of features. The format of the lines is described below.
 class MaxspeedCollector
 {
 public:
@@ -31,10 +32,10 @@ private:
   // 13243214,Imperial,60
   // 3243245345,Metric,60,80
   // 134243,Imperial,30,50
-  // 45432423,Metric,60,65535
-  // 53445423,Metric,60,65534
+  // 45432423,Metric,60,65534
+  // 53445423,Metric,60,65533
   //
-  // Note 1. 65535 means kNoneMaxSpeed and 65534 means kWalkMaxSpeed. They are constants for
+  // Note 1. 65534 means kNoneMaxSpeed and 65533 means kWalkMaxSpeed. They are constants for
   // maxspeed tag value "none" and "walk" correspondingly.
   // Note 2. Saying osm id means osm id of features with OsmElement::EntityType::Way type without
   // any prefixes. It's done so to simplify the debugging process. This way it's very easy knowing

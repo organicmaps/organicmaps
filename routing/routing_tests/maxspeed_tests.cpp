@@ -3,6 +3,7 @@
 #include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 

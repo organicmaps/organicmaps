@@ -16,9 +16,8 @@ bool SpeedInUnits::operator==(SpeedInUnits const & rhs) const
 
 bool SpeedInUnits::operator<(SpeedInUnits const & rhs) const
 {
-  if (m_speed != rhs.m_speed)
-    return m_speed < rhs.m_speed;
-  return m_units < rhs.m_units;
+  return (m_units == Units::Metric ? m_speed : MphToKmph(m_speed)) <
+         (rhs.m_units == Units::Metric ? rhs.m_speed : MphToKmph(rhs.m_speed));
 }
 
 bool SpeedInUnits::IsNumeric() const

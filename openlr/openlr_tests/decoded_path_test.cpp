@@ -34,7 +34,7 @@ using namespace std;
 namespace
 {
 string const kTestDir = "openlr_decoded_path_test";
-string const kTestMwm = "test";
+string const kTest = "test";
 
 double RoughUpToFive(double d)
 {
@@ -123,9 +123,9 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 
   auto const mwmPath = base::JoinPath(platform.WritableDir(), kTestDir);
 
-  LocalCountryFile country(mwmPath, CountryFile(kTestMwm), 0 /* version */);
+  LocalCountryFile country(mwmPath, CountryFile(kTest), 0 /* version */);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
+  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION),
                            ScopedFile::Mode::Create);
 
   {
