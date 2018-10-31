@@ -11,6 +11,8 @@ import java.io.File;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @MainThread
@@ -288,8 +290,11 @@ public enum BookmarkManager
   @MainThread
   public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
   {
+    List<CatalogTagsGroup> unmodifiableData = Collections.unmodifiableList(Arrays.asList(tagsGroups));
     for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onTagsReceived(successful, tagsGroups);
+    {
+      listener.onTagsReceived(successful, unmodifiableData);
+    }
   }
 
   // Called from JNI.
@@ -820,11 +825,10 @@ public enum BookmarkManager
 
     /**
      * The method is called when the tags were received from the server.
-     *
-     * @param successful is the result of the receiving.
+     *  @param successful is the result of the receiving.
      * @param tagsGroups is the tags collection.
      */
-    void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups);
+    void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups);
 
     /**
      * The method is called when the custom properties were received from the server.
@@ -871,7 +875,7 @@ public enum BookmarkManager
     }
 
     @Override
-    public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
     {
       /* do noting by default */
     }

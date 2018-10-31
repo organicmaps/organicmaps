@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 
-import java.util.Collections;
 import java.util.List;
 
 public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapter.TagGroupNameHolder>
@@ -20,7 +19,7 @@ public class TagGroupNameAdapter extends RecyclerView.Adapter<TagGroupNameAdapte
 
   public TagGroupNameAdapter(@NonNull List<CatalogTagsGroup> tagsGroups)
   {
-    mTagsGroups = Collections.unmodifiableList(tagsGroups);
+    mTagsGroups = tagsGroups;
     setHasStableIds(true);
   }
 

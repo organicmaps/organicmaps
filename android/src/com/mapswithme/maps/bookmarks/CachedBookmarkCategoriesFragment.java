@@ -21,6 +21,8 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.List;
+
 public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
 {
   @SuppressWarnings("NullableProblems")
@@ -213,7 +215,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     }
 
     @Override
-    public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+    public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
     {
       //TODO(@alexzatsepin): Implement me if necessary
     }

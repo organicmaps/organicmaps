@@ -130,6 +130,7 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -1161,7 +1162,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
   {
     //TODO(@alexzatsepin): Implement me if necessary
   }

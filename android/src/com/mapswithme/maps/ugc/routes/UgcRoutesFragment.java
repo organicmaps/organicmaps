@@ -74,8 +74,8 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
     mTagsContainer = root.findViewById(R.id.tags_container);
     mRetryBtnContainer = root.findViewById(R.id.retry_btn_container);
     View retryBtn = mRetryBtnContainer.findViewById(R.id.retry_btn);
-    initRecycler(root);
     retryBtn.setOnClickListener(v -> onRetryClicked());
+    initRecycler(root);
     UiUtils.hide(mTagsContainer, mRetryBtnContainer);
     UiUtils.show(mProgress);
     BookmarkManager.INSTANCE.requestRouteTags();
@@ -164,23 +164,22 @@ public class UgcRoutesFragment extends BaseMwmFragment implements BookmarkManage
   }
 
   @Override
-  public void onTagsReceived(boolean successful, @NonNull CatalogTagsGroup[] tagsGroups)
+  public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
   {
-    UiUtils.showIf(successful && tagsGroups.length != 0, mTagsContainer);
-    UiUtils.hideIf(successful && tagsGroups.length != 0, mRetryBtnContainer);
+    UiUtils.showIf(successful && tagsGroups.size() != 0, mTagsContainer);
+    UiUtils.hideIf(successful && tagsGroups.size() != 0, mRetryBtnContainer);
     UiUtils.hide(mProgress);
 
-    if (tagsGroups.length == 0)
+    if (tagsGroups.size() == 0)
       return;
     installTags(tagsGroups);
   }
 
-  private void installTags(@NonNull CatalogTagsGroup[] tagsGroups)
+  private void installTags(@NonNull List<CatalogTagsGroup> tagsGroups)
   {
     List<CatalogTag> savedStateTags = validateSavedState(mSavedInstanceState);
-    List<CatalogTagsGroup> groups = Collections.unmodifiableList(Arrays.asList(tagsGroups));
-    TagGroupNameAdapter categoryAdapter = new TagGroupNameAdapter(groups);
-    mTagsAdapter = new TagsCompositeAdapter(getContext(), groups, savedStateTags, this);
+    TagGroupNameAdapter categoryAdapter = new TagGroupNameAdapter(tagsGroups);
+    mTagsAdapter = new TagsCompositeAdapter(getContext(), tagsGroups, savedStateTags, this);
     RecyclerCompositeAdapter compositeAdapter = makeCompositeAdapter(categoryAdapter, mTagsAdapter);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                                                                 LinearLayoutManager.VERTICAL,

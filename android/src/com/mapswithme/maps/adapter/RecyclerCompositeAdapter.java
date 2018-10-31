@@ -69,6 +69,7 @@ public class RecyclerCompositeAdapter extends RecyclerView.Adapter<RecyclerView.
     bindViewHolder(adapter, holder, relPosition);
   }
 
+  @SuppressWarnings("unchecked")
   private <Holder extends RecyclerView.ViewHolder> void bindViewHolder(@NonNull RecyclerView.Adapter<? extends RecyclerView.ViewHolder> adapter,
                                                                        @NonNull Holder holder,
                                                                        int position)
