@@ -12,7 +12,6 @@ import com.mapswithme.util.log.LoggerFactory;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class NativeJobService extends JobService
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = NativeJobService.class.getSimpleName();
 
   @SuppressWarnings("NullableProblems")
@@ -29,7 +28,8 @@ public class NativeJobService extends JobService
   @Override
   public boolean onStartJob(JobParameters params)
   {
-    LOGGER.d(TAG, "onStartJob");
+    Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+    logger.d(TAG, "onStartJob");
     return mDelegate.onStartJob();
   }
 
