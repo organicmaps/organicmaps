@@ -9,6 +9,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/serdes_json.hpp"
 #include "coding/sha1.hpp"
+#include "coding/zip_creator.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -145,6 +146,7 @@ int RequestNewServerId(std::string const & accessToken,
   request.SetRawHeader("Accept", "application/json");
   request.SetRawHeader("User-Agent", GetPlatform().GetAppUserAgent());
   request.SetRawHeader("Authorization", "Bearer " + accessToken);
+  request.SetHttpMethod("POST");
   if (request.RunHttpRequest())
   {
     auto const resultCode = request.ErrorCode();
@@ -490,7 +492,8 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
       fileData->m_categoryData.m_authorName = uploadData.m_userName;
       fileData->m_categoryData.m_authorId = uploadData.m_userId;
 
-      auto const filePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId);
+      // Save KML.
+      auto const filePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId + kKmlExtension);
       if (!SaveKmlFile(*fileData, filePath, KmlFileType::Text))
       {
         if (uploadErrorCallback)
@@ -498,11 +501,26 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
         return;
       }
 
+      // Zip KML.
+      auto const zippedFilePath = base::JoinPath(GetPlatform().TmpDir(), uploadData.m_serverId + kKmzExtension);
+      if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, zippedFilePath))
+      {
+        FileWriter::DeleteFileX(filePath);
+        if (uploadErrorCallback)
+          uploadErrorCallback(UploadResult::InvalidCall, "Could not zip the uploading file.");
+        return;
+      }
+      FileWriter::DeleteFileX(filePath);
+
+      // Upload zipped KML.
       platform::HttpUploader request;
       request.SetUrl(BuildUploadUrl());
       request.SetHeaders({{"Authorization", "Bearer " + accessToken},
                           {"User-Agent", GetPlatform().GetAppUserAgent()}});
-      request.SetFilePath(filePath);
+      request.SetParam("author_id", uploadData.m_userId);
+      request.SetParam("bundle_hash", uploadData.m_serverId);
+      request.SetFileKey("file_contents");
+      request.SetFilePath(zippedFilePath);
       auto const uploadCode = request.Upload();
       if (uploadCode.m_httpCode >= 200 && uploadCode.m_httpCode < 300)
       {
@@ -547,6 +565,7 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
         if (uploadErrorCallback)
           uploadErrorCallback(UploadResult::NetworkError, uploadCode.m_description);
       }
+      FileWriter::DeleteFileX(zippedFilePath);
     });
   });
 }
