@@ -15,10 +15,10 @@ namespace
 // Constructs simple fake graph where vertex (i + 1) is child of vertex (i) with |numFake| fake
 // vertices and |numReal| real vertices. Checks vetex-to-segment, segment-to-vertex, fake-to-real,
 // real-to-fake mappings for each vertex. Checks ingoing and outgoing sets.
-FakeGraph<int32_t /* SegmentType */, m2::PointD /* VertexType */, int32_t /* RealType */>
+FakeGraph<int32_t /* SegmentType */, m2::PointD /* VertexType */>
 ConstructFakeGraph(uint32_t numerationStart, uint32_t numFake, uint32_t numReal)
 {
-  FakeGraph<int32_t, m2::PointD, int32_t> fakeGraph;
+  FakeGraph<int32_t, m2::PointD> fakeGraph;
 
   TEST_EQUAL(fakeGraph.GetSize(), 0, ("Constructed fake graph not empty"));
   if (numFake < 1)

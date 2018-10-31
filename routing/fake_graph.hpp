@@ -11,7 +11,7 @@
 
 namespace routing
 {
-template <typename SegmentType, typename VertexType, typename RealType>
+template <typename SegmentType, typename VertexType>
 class FakeGraph final
 {
 public:
@@ -27,7 +27,7 @@ public:
   // mapping if isPartOfReal is true.
   void AddVertex(SegmentType const & existentSegment, SegmentType const & newSegment,
                  VertexType const & newVertex, bool isOutgoing, bool isPartOfReal,
-                 RealType const & real)
+                 SegmentType const & real)
   {
     AddStandaloneVertex(newSegment, newVertex);
     auto const & segmentFrom = isOutgoing ? existentSegment : newSegment;
@@ -103,7 +103,7 @@ public:
 
   size_t GetSize() const { return m_segmentToVertex.size(); }
 
-  std::set<SegmentType> const & GetFake(RealType const & real) const
+  std::set<SegmentType> const & GetFake(SegmentType const & real) const
   {
     auto const it = m_realToFake.find(real);
     if (it != m_realToFake.end())
@@ -112,7 +112,7 @@ public:
     return kEmptySet;
   }
 
-  bool FindReal(SegmentType const & fake, RealType & real) const
+  bool FindReal(SegmentType const & fake, SegmentType & real) const
   {
     auto const it = m_fakeToReal.find(fake);
     if (it == m_fakeToReal.end())
@@ -142,10 +142,10 @@ private:
   // Key is fake vertex value is fake segment which corresponds fake vertex.
   std::map<VertexType, SegmentType> m_vertexToSegment;
   // Key is fake segment of type VertexType::Type::PartOfReal, value is corresponding real segment.
-  std::map<SegmentType, RealType> m_fakeToReal;
+  std::map<SegmentType, SegmentType> m_fakeToReal;
   // Key is real segment, value is set of fake segments with type VertexType::Type::PartOfReal
   // which are parts of this real segment.
-  std::map<RealType, std::set<SegmentType>> m_realToFake;
+  std::map<SegmentType, std::set<SegmentType>> m_realToFake;
   // To return empty set by const reference.
   std::set<SegmentType> const kEmptySet = std::set<SegmentType>();
 };

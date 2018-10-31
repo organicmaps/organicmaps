@@ -157,6 +157,6 @@ private:
   // Finish segment id
   Ending m_finish;
   double m_startToFinishDistanceM;
-  FakeGraph<Segment, FakeVertex, Segment> m_fake;
+  FakeGraph<Segment, FakeVertex> m_fake;
 };
 }  // namespace routing

@@ -34,6 +34,6 @@ public:
 private:
   // Finish ending.
   IndexGraphStarter::Ending m_finish;
-  FakeGraph<Segment, FakeVertex, Segment> m_fake;
+  FakeGraph<Segment, FakeVertex> m_fake;
 };
 }  // namespace routing
