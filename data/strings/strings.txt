@@ -34805,10 +34805,6 @@
     en = An error occurred while uploading your file
     ru = Во время загрузки файла произошла ошибка
 
-  [title_error_downloading_bookmarks]
-    en = An error occurred
-    ru = Произошла ошибка
-
   [tags_loading_error_subtitle]
     en = An error occurred while loading tags, please try again later
     ru = Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз
