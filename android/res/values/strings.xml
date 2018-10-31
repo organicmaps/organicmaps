@@ -1469,7 +1469,6 @@
 	<string name="edit_guide_subtitle">Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more</string>
 	<string name="send_a_link_btn">Send me a link</string>
 	<string name="upload_error_toast">An error occurred while uploading your file</string>
-	<string name="title_error_downloading_bookmarks">An error occurred</string>
 	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again later</string>
 	<string name="unable_upload_errorr_title">File upload failed</string>
 	<string name="unable_upload_error_subtitle_edited">This file has been edited via the web app</string>

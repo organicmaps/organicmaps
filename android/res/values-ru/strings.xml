@@ -1463,7 +1463,6 @@
 	<string name="edit_guide_subtitle">Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое</string>
 	<string name="send_a_link_btn">Отправить ссылку</string>
 	<string name="upload_error_toast">Во время загрузки файла произошла ошибка</string>
-	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
 	<string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз</string>
 	<string name="unable_upload_errorr_title">Не удалось загрузить файл</string>
 	<string name="unable_upload_error_subtitle_edited">Файл был отредактирован через веб-приложение</string>

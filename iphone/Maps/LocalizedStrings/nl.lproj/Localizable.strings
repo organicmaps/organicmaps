@@ -2534,8 +2534,6 @@
 
 "upload_error_toast" = "An error occurred while uploading your file";
 
-"title_error_downloading_bookmarks" = "An error occurred";
-
 "tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
 
 "unable_upload_errorr_title" = "File upload failed";

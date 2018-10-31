@@ -2534,8 +2534,6 @@
 
 "upload_error_toast" = "Во время загрузки файла произошла ошибка";
 
-"title_error_downloading_bookmarks" = "Произошла ошибка";
-
 "tags_loading_error_subtitle" = "Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз";
 
 "unable_upload_errorr_title" = "Не удалось загрузить файл";
