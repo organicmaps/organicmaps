@@ -90,7 +90,7 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   {
     if (!isBillingSupported())
     {
-      LOGGER.w(TAG, "Subscription is not supported by this device!");
+      LOGGER.w(TAG, "Purchase type '" + mProductType + "' is not supported by this device!");
       return;
     }
 
@@ -101,9 +101,14 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   @Override
   public boolean isBillingSupported()
   {
-    @BillingResponse
-    int result = getClientOrThrow().isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS);
-    return result != BillingResponse.FEATURE_NOT_SUPPORTED;
+    if (BillingClient.SkuType.SUBS.equals(mProductType))
+    {
+      @BillingResponse
+      int result = getClientOrThrow().isFeatureSupported(BillingClient.FeatureType.SUBSCRIPTIONS);
+      return result != BillingResponse.FEATURE_NOT_SUPPORTED;
+    }
+
+    return true;
   }
 
   @Override
