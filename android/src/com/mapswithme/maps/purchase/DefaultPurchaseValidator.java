@@ -5,17 +5,16 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
-class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidationCallback>,
-                                             Framework.PurchaseValidationListener
+class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
+                                          Framework.PurchaseValidationListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
-  private static final String TAG = AdsRemovalPurchaseValidator.class.getSimpleName();
+  private static final String TAG = DefaultPurchaseValidator.class.getSimpleName();
   @Nullable
-  private AdsRemovalValidationCallback mCallback;
+  private ValidationCallback mCallback;
 
   @Override
   public void initialize()
@@ -32,22 +31,15 @@ class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidat
   }
 
   @Override
-  public void validate(@NonNull String purchaseData)
+  public void validate(@NonNull String serverId, @NonNull String vendor,
+                       @NonNull String purchaseData)
   {
     String encodedData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
-    String serverId = PrivateVariables.adsRemovalServerId();
-    String vendor = PrivateVariables.adsRemovalVendor();
     Framework.nativeValidatePurchase(serverId, vendor, encodedData);
   }
 
   @Override
-  public boolean hasActivePurchase()
-  {
-    return Framework.nativeHasActiveRemoveAdsSubscription();
-  }
-
-  @Override
-  public void addCallback(@NonNull AdsRemovalValidationCallback callback)
+  public void addCallback(@NonNull ValidationCallback callback)
   {
     mCallback = callback;
   }
@@ -65,6 +57,6 @@ class AdsRemovalPurchaseValidator implements PurchaseValidator<AdsRemovalValidat
   {
     LOGGER.i(TAG, "Validation code: " + code);
     if (mCallback != null)
-      mCallback.onValidate(AdsRemovalValidationStatus.values()[code]);
+      mCallback.onValidate(ValidationStatus.values()[code]);
   }
 }

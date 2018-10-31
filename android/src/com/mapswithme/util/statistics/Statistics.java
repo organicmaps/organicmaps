@@ -29,7 +29,7 @@ import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.OsmOAuth;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.purchase.AdsRemovalValidationStatus;
+import com.mapswithme.maps.purchase.ValidationStatus;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
@@ -1331,15 +1331,15 @@ public enum Statistics
     trackEvent(INAPP_PURCHASE_STORE_ERROR, params().add(ERROR, "Billing error: " + error));
   }
 
-  public void trackPurchaseValidationError(@NonNull AdsRemovalValidationStatus status)
+  public void trackPurchaseValidationError(@NonNull ValidationStatus status)
   {
-    if (status == AdsRemovalValidationStatus.VERIFIED)
+    if (status == ValidationStatus.VERIFIED)
       return;
 
     int errorCode;
-    if (status == AdsRemovalValidationStatus.NOT_VERIFIED)
+    if (status == ValidationStatus.NOT_VERIFIED)
       errorCode = 0;
-    else if (status == AdsRemovalValidationStatus.SERVER_ERROR)
+    else if (status == ValidationStatus.SERVER_ERROR)
       errorCode = 2;
     else
       return;

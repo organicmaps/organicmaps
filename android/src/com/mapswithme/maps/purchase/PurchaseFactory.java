@@ -17,7 +17,7 @@ public class PurchaseFactory
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
-    PurchaseValidator<AdsRemovalValidationCallback> validator = new AdsRemovalPurchaseValidator();
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
     String monthlyProduct = PrivateVariables.adsRemovalMonthlyProductId();
     String weeklyProduct = PrivateVariables.adsRemovalWeeklyProductId();

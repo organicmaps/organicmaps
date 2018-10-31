@@ -24,14 +24,11 @@ interface PurchaseValidator<T>
   /**
    * Validates the purchase with specified purchase data.
    *
+   * @param serverId identifier of the purchase on the server.
+   * @param vendor vendor of the purchase.
    * @param purchaseData token which describes the validated purchase.
    */
-  void validate(@NonNull String purchaseData);
-
-  /**
-   * Indicates whether the app has active purchase or not.
-   */
-  boolean hasActivePurchase();
+  void validate(@NonNull String serverId, @NonNull String vendor, @NonNull String purchaseData);
 
   /**
    * Adds validation observer.

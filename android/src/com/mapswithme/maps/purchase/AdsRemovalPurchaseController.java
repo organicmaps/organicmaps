@@ -19,19 +19,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemovalValidationCallback,
+class AdsRemovalPurchaseController extends AbstractPurchaseController<ValidationCallback,
     PlayStoreBillingCallback, AdsRemovalPurchaseCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AdsRemovalPurchaseController.class.getSimpleName();
   @NonNull
-  private final AdsRemovalValidationCallback mValidationCallback = new AdValidationCallbackImpl();
+  private final ValidationCallback mValidationCallback = new AdValidationCallbackImpl();
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
   @NonNull
   private final List<String> mProductIds;
 
-  AdsRemovalPurchaseController(@NonNull PurchaseValidator<AdsRemovalValidationCallback> validator,
+  AdsRemovalPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
                                @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
                                @NonNull String... productIds)
   {
@@ -60,19 +60,26 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
     getBillingManager().queryProductDetails(mProductIds);
   }
 
-  private class AdValidationCallbackImpl implements AdsRemovalValidationCallback
+  private void validatePurchase(@NonNull String purchaseData)
+  {
+    String serverId = PrivateVariables.adsRemovalServerId();
+    String vendor = PrivateVariables.adsRemovalVendor();
+    getValidator().validate(serverId, vendor, purchaseData);
+  }
+
+  private class AdValidationCallbackImpl implements ValidationCallback
   {
 
     @Override
-    public void onValidate(@NonNull AdsRemovalValidationStatus status)
+    public void onValidate(@NonNull ValidationStatus status)
     {
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
-      if (status == AdsRemovalValidationStatus.VERIFIED)
+      if (status == ValidationStatus.VERIFIED)
         Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS);
       else
         Statistics.INSTANCE.trackPurchaseValidationError(status);
 
-      final boolean activateSubscription = status != AdsRemovalValidationStatus.NOT_VERIFIED;
+      final boolean activateSubscription = status != ValidationStatus.NOT_VERIFIED;
       final boolean hasActiveSubscription = Framework.nativeHasActiveRemoveAdsSubscription();
       if (!hasActiveSubscription && activateSubscription)
       {
@@ -106,7 +113,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
       for (Purchase purchase : purchases)
       {
         LOGGER.i(TAG, "Validating purchase '" + purchase.getSku() + "' on backend server...");
-        getValidator().validate(purchase.getOriginalJson());
+        validatePurchase(purchase.getOriginalJson());
         if (getUiCallback() != null)
           getUiCallback().onValidationStarted();
       }
@@ -163,7 +170,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<AdsRemoval
       }
 
       LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
-      getValidator().validate(purchaseData);
+      validatePurchase(purchaseData);
     }
 
     @Nullable
