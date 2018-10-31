@@ -43357,7 +43357,7 @@
 
 [Canada_Yukon_North Description]
   en = Ross River, Mayo, Dawson City
-  ru = Доусон-Сіті
+  ru = Доусон-Сити
   uk = Доусон-Сіті
   el = Ρος Ρίβερ, Μάγιο, Ντόσον Σίτι
 
