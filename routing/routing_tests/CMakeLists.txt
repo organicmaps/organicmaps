@@ -45,7 +45,6 @@ omim_link_libraries(
   routing_common
   transit
   kml
-  editor
   indexer
   platform
   oauthcpp

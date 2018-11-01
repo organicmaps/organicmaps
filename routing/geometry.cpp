@@ -3,9 +3,8 @@
 #include "routing/city_roads.hpp"
 #include "routing/routing_exceptions.hpp"
 
-#include "editor/editable_data_source.hpp"
-
 #include "indexer/altitude_loader.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/mercator.hpp"
 

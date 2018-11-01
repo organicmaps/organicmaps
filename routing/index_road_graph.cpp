@@ -3,7 +3,7 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "indexer/data_source.hpp"
 
 #include <cstdint>
 

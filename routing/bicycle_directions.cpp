@@ -12,8 +12,6 @@
 
 #include "routing_common/car_model.hpp"
 
-#include "editor/editable_data_source.hpp"
-
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 

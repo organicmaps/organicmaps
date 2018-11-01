@@ -4,9 +4,8 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "editor/editable_data_source.hpp"
-
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
