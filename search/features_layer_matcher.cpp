@@ -73,12 +73,14 @@ FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreets(ui
 FeaturesLayerMatcher::TStreets const & FeaturesLayerMatcher::GetNearbyStreetsImpl(
     uint32_t featureId, FeatureType & feature)
 {
+  static FeaturesLayerMatcher::TStreets const kEmptyStreets;
+
   auto entry = m_nearbyStreetsCache.Get(featureId);
   if (!entry.second)
     return entry.first;
 
   if (!feature.GetID().IsValid() && !GetByIndex(featureId, feature))
-    return {};
+    return kEmptyStreets;
 
   auto & streets = entry.first;
   m_reverseGeocoder.GetNearbyStreets(feature, streets);
