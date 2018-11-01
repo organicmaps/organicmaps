@@ -31,10 +31,9 @@ public:
     for (auto const & s : speeds)
     {
       WriteToSink(sink, s.GetFeatureId());
-      WriteToSink(sink, s.GetForward().m_speed);
-      WriteToSink(sink, static_cast<uint8_t>(s.GetForward().m_units));
-      WriteToSink(sink, s.GetBackward().m_speed);
-      WriteToSink(sink, static_cast<uint8_t>(s.GetBackward().m_units));
+      WriteToSink(sink, static_cast<uint8_t>(s.GetUnits()));
+      WriteToSink(sink, s.GetForward());
+      WriteToSink(sink, s.GetBackward());
     }
   }
 
@@ -48,16 +47,11 @@ public:
     for (size_t i = 0; i < header.GetSize(); ++i)
     {
       auto const fid = ReadPrimitiveFromSource<uint32_t>(src);
+      auto const units = static_cast<measurement_utils::Units>(ReadPrimitiveFromSource<uint8_t>(src));
+      auto const forwardSpeed = ReadPrimitiveFromSource<uint16_t>(src);
+      auto const backwardSpeed = ReadPrimitiveFromSource<uint16_t>(src);
 
-      SpeedInUnits forward;
-      forward.m_speed = ReadPrimitiveFromSource<decltype(forward.m_speed)>(src);
-      forward.m_units = static_cast<measurement_utils::Units>(ReadPrimitiveFromSource<uint8_t>(src));
-
-      SpeedInUnits backward;
-      backward.m_speed = ReadPrimitiveFromSource<decltype(backward.m_speed)>(src);
-      backward.m_units = static_cast<measurement_utils::Units>(ReadPrimitiveFromSource<uint8_t>(src));
-
-      speeds.emplace_back(fid, forward, backward);
+      speeds.emplace_back(fid, units, forwardSpeed, backwardSpeed);
     }
   }
 

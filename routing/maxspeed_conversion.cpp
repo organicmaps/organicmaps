@@ -26,15 +26,16 @@ bool SpeedInUnits::IsNumeric() const
 }
 
 // FeatureMaxspeed ---------------------------------------------------------------------------------
-FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, SpeedInUnits const & forward,
-                                 SpeedInUnits const & backward /* = SpeedInUnits() */)
-  : m_featureId(fid), m_forward(forward), m_backward(backward)
+FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
+                                 uint16_t backward /* = kInvalidSpeed */) noexcept
+  : m_featureId(fid), m_units(units), m_forward(forward), m_backward(backward)
 {
 }
 
 bool FeatureMaxspeed::operator==(FeatureMaxspeed const & rhs) const
 {
-  return m_featureId == rhs.m_featureId && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
+  return m_featureId == rhs.m_featureId && m_units == rhs.m_units &&
+         m_forward == rhs.m_forward && m_backward == rhs.m_backward;
 }
 
 // MaxspeedConverter -------------------------------------------------------------------------------
@@ -228,7 +229,7 @@ std::string DebugPrint(SpeedInUnits const & speed)
 {
   std::ostringstream oss;
   oss << "SpeedInUnits [ m_speed == " << speed.m_speed
-      << ", m_units == " << DebugPrint(speed.m_units) << " ]";
+      << ", m_units:" << DebugPrint(speed.m_units) << " ]";
   return oss.str();
 }
 
@@ -236,8 +237,9 @@ std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
 {
   std::ostringstream oss;
   oss << "FeatureMaxspeed [ m_featureId:" << featureMaxspeed.GetFeatureId()
-      << " m_forward:" << DebugPrint(featureMaxspeed.GetForward())
-      << " m_backward:" << DebugPrint(featureMaxspeed.GetBackward()) << " ]";
+      << " m_units:" << DebugPrint(featureMaxspeed.GetUnits())
+      << " m_forward:" << featureMaxspeed.GetForward()
+      << " m_backward:" << featureMaxspeed.GetBackward() << " ]";
   return oss.str();
 }
 }  // namespace routing

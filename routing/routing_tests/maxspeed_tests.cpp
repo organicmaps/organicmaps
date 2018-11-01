@@ -83,58 +83,52 @@ UNIT_TEST(MaxspeedSerializer_Smoke)
 UNIT_TEST(MaxspeedSerializer_OneForwardMetric)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(20 /* speed */, Units::Metric))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Metric, 20 /* speed */)});
 }
 
 UNIT_TEST(MaxspeedSerializer_OneNone)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(kNoneMaxSpeed, Units::Metric))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Metric, kNoneMaxSpeed)});
 }
 
 UNIT_TEST(MaxspeedSerializer_OneWalk)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(kWalkMaxSpeed, Units::Metric))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Metric, kWalkMaxSpeed)});
 }
 
 UNIT_TEST(MaxspeedSerializer_OneBidirectionalMetric_1)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(20 /* speed */, Units::Metric),
-                       SpeedInUnits(40 /* speed */, Units::Metric))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Metric, 20 /* speed */, 40 /* speed */)});
 }
 
 UNIT_TEST(MaxspeedSerializer_OneBidirectionalMetric_2)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(10 /* speed */, Units::Metric),
-                       SpeedInUnits(kWalkMaxSpeed, Units::Metric))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Metric, 10 /* speed */, kWalkMaxSpeed)});
 }
 
 UNIT_TEST(MaxspeedSerializer_OneBidirectionalImperial)
 {
   TestMaxspeedSerialization(
-      {FeatureMaxspeed(0 /* feature id */, SpeedInUnits(30 /* speed */, Units::Imperial),
-                       SpeedInUnits(50 /* speed */, Units::Imperial))});
+      {FeatureMaxspeed(0 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */)});
 }
 
 UNIT_TEST(MaxspeedSerializer_BigMetric)
 {
   std::vector<FeatureMaxspeed> const maxspeeds = {
-      FeatureMaxspeed(0 /* feature id */, SpeedInUnits(20 /* speed */, Units::Metric)),
-      FeatureMaxspeed(1 /* feature id */, SpeedInUnits(60 /* speed */, Units::Metric)),
-      FeatureMaxspeed(4 /* feature id */, SpeedInUnits(90 /* speed */, Units::Metric)),
-      FeatureMaxspeed(5 /* feature id */, SpeedInUnits(5 /* speed */, Units::Metric)),
-      FeatureMaxspeed(7 /* feature id */, SpeedInUnits(70 /* speed */, Units::Metric),
-                      SpeedInUnits(90 /* speed */, Units::Metric)),
-      FeatureMaxspeed(8 /* feature id */, SpeedInUnits(100 /* speed */, Units::Metric)),
-      FeatureMaxspeed(9 /* feature id */, SpeedInUnits(60 /* speed */, Units::Metric)),
-      FeatureMaxspeed(10 /* feature id */, SpeedInUnits(kNoneMaxSpeed, Units::Metric)),
-      FeatureMaxspeed(11 /* feature id */, SpeedInUnits(40 /* speed */, Units::Metric),
-                      SpeedInUnits(50 /* speed */, Units::Metric)),
-      FeatureMaxspeed(12 /* feature id */, SpeedInUnits(40 /* speed */, Units::Metric),
-                      SpeedInUnits(60 /* speed */, Units::Metric)),
+      {0 /* feature id */, Units::Metric, 20 /* speed */},
+      {1 /* feature id */, Units::Metric, 60 /* speed */},
+      {4 /* feature id */, Units::Metric, 90 /* speed */},
+      {5 /* feature id */, Units::Metric, 5 /* speed */},
+      {7 /* feature id */, Units::Metric, 70 /* speed */, 90 /* speed */},
+      {8 /* feature id */, Units::Metric, 100 /* speed */},
+      {9 /* feature id */, Units::Metric, 60 /* speed */},
+      {10 /* feature id */, Units::Metric, kNoneMaxSpeed},
+      {11 /* feature id */, Units::Metric, 40 /* speed */, 50 /* speed */},
+      {12 /* feature id */, Units::Metric, 40 /* speed */, 60 /* speed */},
   };
   TestMaxspeedSerialization(maxspeeds);
 }
@@ -142,18 +136,15 @@ UNIT_TEST(MaxspeedSerializer_BigMetric)
 UNIT_TEST(MaxspeedSerializer_BigImperial)
 {
   std::vector<FeatureMaxspeed> const maxspeeds = {
-      FeatureMaxspeed(0 /* feature id */, SpeedInUnits(30 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(1 /* feature id */, SpeedInUnits(5 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(4 /* feature id */, SpeedInUnits(1 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(5 /* feature id */, SpeedInUnits(5 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(7 /* feature id */, SpeedInUnits(30 /* speed */, Units::Imperial),
-                      SpeedInUnits(50 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(8 /* feature id */, SpeedInUnits(70 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(9 /* feature id */, SpeedInUnits(50 /* speed */, Units::Imperial)),
-      FeatureMaxspeed(10 /* feature id */, SpeedInUnits(40 /* speed */, Units::Imperial),
-                      SpeedInUnits(50 /* speed */, Units::Metric)),
-      FeatureMaxspeed(11 /* feature id */, SpeedInUnits(30 /* speed */, Units::Imperial),
-                      SpeedInUnits(50 /* speed */, Units::Metric)),
+      {0 /* feature id */, Units::Imperial, 30 /* speed */},
+      {1 /* feature id */, Units::Imperial, 5 /* speed */},
+      {4 /* feature id */, Units::Imperial, 1 /* speed */},
+      {5 /* feature id */, Units::Imperial, 5 /* speed */},
+      {7 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */},
+      {8 /* feature id */, Units::Imperial, 70 /* speed */},
+      {9 /* feature id */, Units::Imperial, 50 /* speed */},
+      {10 /* feature id */, Units::Imperial, 40 /* speed */, 50 /* speed */},
+      {11 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */},
   };
   TestMaxspeedSerialization(maxspeeds);
 }

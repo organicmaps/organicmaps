@@ -131,8 +131,8 @@ void TestMaxspeedSection(FeatureVector const & roads, string const & maxspeedCsv
 
     // Looking for maxspeed form mwm.
     // Note. FeatureMaxspeed::operator<() is base only on FeatureMaxspeed::m_featureId.
-    auto const it =
-        equal_range(maxspeeds.cbegin(), maxspeeds.cend(), FeatureMaxspeed(id, SpeedInUnits()));
+    auto const it = equal_range(maxspeeds.cbegin(), maxspeeds.cend(),
+                                FeatureMaxspeed(id, Units::Metric, kInvalidSpeed));
 
     TEST_EQUAL(it.second - it.first, 1,
                ("If there's no maxspeed in mwm for", id,
@@ -141,10 +141,9 @@ void TestMaxspeedSection(FeatureVector const & roads, string const & maxspeedCsv
 
     // Comparing maxspeed from csv and maxspeed from mwm section.
     TEST_EQUAL(id, maxspeedMwm.GetFeatureId(), ());
-    TEST_EQUAL(maxspeedCsv.m_units, maxspeedMwm.GetForward().m_units, ());
-    TEST_EQUAL(maxspeedCsv.m_units, maxspeedMwm.GetBackward().m_units, ());
-    TEST_EQUAL(maxspeedCsv.m_forward, maxspeedMwm.GetForward().m_speed, ());
-    TEST_EQUAL(maxspeedCsv.m_backward, maxspeedMwm.GetBackward().m_speed, ());
+    TEST_EQUAL(maxspeedCsv.m_units, maxspeedMwm.GetUnits(), ());
+    TEST_EQUAL(maxspeedCsv.m_forward, maxspeedMwm.GetForward(), ());
+    TEST_EQUAL(maxspeedCsv.m_backward, maxspeedMwm.GetBackward(), ());
   };
   feature::ForEachFromDat(testMwmFullPath, processor);
 }

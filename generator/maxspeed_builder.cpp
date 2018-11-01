@@ -53,6 +53,12 @@ bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, uint16_t & value)
   return true;
 }
 
+FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, ParsedMaxspeed const & parsedMaxspeed)
+{
+  return FeatureMaxspeed(featureId, parsedMaxspeed.m_units, parsedMaxspeed.m_forward,
+                         parsedMaxspeed.m_backward);
+}
+
 /// \brief Collects all maxspeed tag value of specified mwm based on maxspeed.csv file.
 class MaxspeedMwmCollector
 {
@@ -88,12 +94,7 @@ MaxspeedMwmCollector::MaxspeedMwmCollector(
       return;
 
     auto const & parsedMaxspeed = maxspeedIt->second;
-    // Note. It's wrong that by default if there's no maxspeed backward SpeedInUnits::m_units
-    // is Metric and according to this code it's be saved as Imperial for country
-    // with imperial metrics. Anyway this code should be rewritten before merge.
-    m_maxspeeds.push_back(
-        FeatureMaxspeed(fid, SpeedInUnits(parsedMaxspeed.m_forward, parsedMaxspeed.m_units),
-                        SpeedInUnits(parsedMaxspeed.m_backward, parsedMaxspeed.m_units)));
+    m_maxspeeds.push_back(ToFeatureMaxspeed(fid, parsedMaxspeed));
   });
 }
 }  // namespace

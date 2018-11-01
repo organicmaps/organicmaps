@@ -11,8 +11,8 @@ namespace routing
 {
 /// \brief This enum class contains most popular maxspeed value according to
 /// https://taginfo.openstreetmap.org/keys/maxspeed#values.
-/// \note Value of this enum is saved to mwm. So they should not be change because of backward
-/// compatibility. But it's possible to add some value to this enum.
+/// \note Value of this enum is saved to mwm. So they should not be changed because of backward
+/// compatibility. But it's possible to add some new values to this enum.
 enum class Maxspeed : uint8_t
 {
   // Special values.
@@ -175,31 +175,34 @@ struct SpeedInUnits
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
 };
 
-/// \brief Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect the fact
-/// that a feature may have different maxspeed tag value for different directions.
-/// If |m_backward| is invalid it means that |m_forward| tag contains maxspeed for the both
-/// directions.
+/// \brief Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect
+/// the fact that a feature may have different maxspeed tag value for different directions.
+/// If |m_backward| is invalid it means that |m_forward| tag contains maxspeed for
+/// the both directions. If a feature has maxspeed forward and maxspeed backward in different units
+/// it's considered as an invalid one and it's not saved into mwm.
 class FeatureMaxspeed
 {
 public:
-  FeatureMaxspeed(uint32_t fid, SpeedInUnits const & forward,
-                  SpeedInUnits const & backward = SpeedInUnits());
+  FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
+                  uint16_t backward = kInvalidSpeed) noexcept;
 
   /// \note operator==() and operator<() do not correspond to each other.
   bool operator==(FeatureMaxspeed const & rhs) const;
   bool operator<(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
 
-  bool IsValid() const { return m_forward.IsValid(); }
-  bool IsBidirectional() const { return IsValid() && m_backward.IsValid(); }
+  bool IsValid() const { return m_forward != kInvalidSpeed; }
+  measurement_utils::Units GetUnits() const { return m_units; }
+  bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
 
   uint32_t GetFeatureId() const { return m_featureId; }
-  SpeedInUnits const & GetForward() const { return m_forward; }
-  SpeedInUnits const & GetBackward() const { return m_backward; }
+  uint16_t const & GetForward() const { return m_forward; }
+  uint16_t const & GetBackward() const { return m_backward; }
 
 private:
   uint32_t m_featureId = 0;
-  SpeedInUnits m_forward;
-  SpeedInUnits m_backward;
+  measurement_utils::Units m_units = measurement_utils::Units::Metric;
+  uint16_t m_forward = kInvalidSpeed;  // Speed in km per hour or mile per hour depends on |m_units|.
+  uint16_t m_backward = kInvalidSpeed; // Speed in km per hour or mile per hour depends on |m_units|.
 };
 
 class MaxspeedConverter
