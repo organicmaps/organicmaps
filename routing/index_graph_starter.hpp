@@ -101,7 +101,6 @@ public:
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment) const;
-  RouteWeight CalcRouteSegmentWeight(std::vector<Segment> const & route, size_t segmentIndex) const;
   double CalcSegmentETA(Segment const & segment) const;
 
 private:

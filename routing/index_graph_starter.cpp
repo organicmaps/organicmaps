@@ -252,15 +252,6 @@ double IndexGraphStarter::CalcSegmentETA(Segment const & segment) const
   return m_graph.CalcSegmentETA(segment);
 }
 
-RouteWeight IndexGraphStarter::CalcRouteSegmentWeight(vector<Segment> const & route,
-                                                      size_t segmentIndex) const
-{
-  CHECK_LESS(
-      segmentIndex, route.size(),
-      ("Segment with index", segmentIndex, "does not exist in route with size", route.size()));
-  return CalcSegmentWeight(route[segmentIndex]);
-}
-
 void IndexGraphStarter::AddEnding(FakeEnding const & thisEnding, FakeEnding const & otherEnding,
                                   bool isStart, bool strictForward, uint32_t & fakeNumerationStart)
 {
