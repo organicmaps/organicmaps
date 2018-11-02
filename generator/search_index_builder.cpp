@@ -297,6 +297,11 @@ public:
         inserter(StringUtf8Multilang::kDefaultCode, iata);
     }
 
+    // Index operator to support "Sberbank ATM" for objects with amenity=atm and operator=Sberbank.
+    string const op = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
+    if (!op.empty())
+      inserter(StringUtf8Multilang::kDefaultCode, op);
+
     Classificator const & c = classif();
 
     vector<uint32_t> categoryTypes;

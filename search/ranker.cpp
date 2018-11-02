@@ -85,6 +85,10 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
       UpdateNameScores(iata, sliceNoCategories, bestScores);
   }
 
+  string const op = ft.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
+  if (!op.empty())
+    UpdateNameScores(op, sliceNoCategories, bestScores);
+
   return bestScores;
 }
 

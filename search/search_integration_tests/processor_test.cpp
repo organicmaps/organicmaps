@@ -115,6 +115,28 @@ private:
   string m_iata;
 };
 
+class TestATM : public TestPOI
+{
+public:
+  TestATM(m2::PointD const & center, string const & op, string const & lang)
+    : TestPOI(center, {} /* name */, lang), m_operator(op)
+  {
+    SetTypes({{"amenity", "atm"}});
+  }
+
+  // TestPOI overrides:
+  void Serialize(FeatureBuilder1 & fb) const override
+  {
+    TestPOI::Serialize(fb);
+
+    auto & metadata = fb.GetMetadataForTesting();
+    metadata.Set(feature::Metadata::FMD_OPERATOR, m_operator);
+  }
+
+private:
+  string m_operator;
+};
+
 class ProcessorTest : public SearchTest
 {
 };
@@ -1549,6 +1571,37 @@ UNIT_CLASS_TEST(ProcessorTest, AirportTest)
   {
     TRules rules{ExactMatch(countryId, svo)};
     TEST(ResultsMatch("svo ", "en", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, OperatorTest)
+{
+  string const countryName = "Wonderland";
+
+  TestATM sber(m2::PointD(1.0, 1.0), "Sberbank", "en");
+  TestATM alfa(m2::PointD(1.0, 1.0), "Alfa bank", "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(sber);
+    builder.Add(alfa);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  {
+    TRules rules{ExactMatch(countryId, sber)};
+    TEST(ResultsMatch("sberbank ", "en", rules), ());
+    TEST(ResultsMatch("sberbank atm ", "en", rules), ());
+    TEST(ResultsMatch("atm sberbank ", "en", rules), ());
+  }
+
+  {
+    TRules rules{ExactMatch(countryId, alfa)};
+    TEST(ResultsMatch("alfa bank ", "en", rules), ());
+    TEST(ResultsMatch("alfa bank atm ", "en", rules), ());
+    TEST(ResultsMatch("alfa atm ", "en", rules), ());
+    TEST(ResultsMatch("atm alfa bank ", "en", rules), ());
+    TEST(ResultsMatch("atm alfa ", "en", rules), ());
   }
 }
 }  // namespace
