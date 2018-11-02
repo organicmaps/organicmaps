@@ -79,21 +79,21 @@ void Serdes::SerializeMapObjects(MapObjects const & mapObjects, std::vector<int8
   std::string const nextLine = "\n";
   MapObjectEvent event;
 
-  for (auto const & poi : mapObjects)
+  mapObjects.ForEach([&writer, &event, &nextLine](MapObject const & item)
   {
-    for (auto const & poiEvent : poi.second)
+    for (auto const & poiEvent : item.GetEvents())
     {
       // Additional scope is added because of the coding::SerializerJson dumps result at destruction.
       {
         coding::SerializerJson<Sink> ser(writer);
-        event.m_bestPoiType = poi.first.m_bestType;
-        event.m_poiPos = poi.first.m_pos;
+        event.m_bestPoiType = item.GetBestType();
+        event.m_poiPos = item.GetPos();
         event.m_event = poiEvent;
         ser(event);
       }
       writer.Write(nextLine.data(), nextLine.size());
     }
-  }
+  });
 }
 
 // static
@@ -118,18 +118,25 @@ void Serdes::DeserializeMapObjects(std::vector<int8_t> const & bytes, MapObjects
 
       coding::DeserializerJson des(eventString);
       des(event);
-      poi.m_bestType = event.m_bestPoiType;
-      poi.m_pos = event.m_poiPos;
+      poi.SetBestType(event.m_bestPoiType);
+      poi.SetPos(event.m_poiPos);
 
-      auto it = result.find(poi);
-      if (it == result.end())
+      bool found = false;
+      result.ForEachInRect(poi.GetLimitRect(), [&found, &poi, &event](MapObject const & item)
       {
-        MapObject::Events events = {event.m_event};
-        result.emplace(poi, std::move(events));
-      }
-      else
+        if (item != poi)
+          return;
+
+        if (!found)
+          found = true;
+
+        item.GetEditableEvents().push_back(event.m_event);
+      });
+
+      if (!found)
       {
-        it->second.emplace_back(event.m_event);
+        poi.GetEditableEvents().push_back(event.m_event);
+        result.Add(poi);
       }
     }
   }
@@ -153,8 +160,8 @@ void Serdes::SerializeMapObjectEvent(MapObject const & poi, MapObject::Event con
   std::string const nextLine = "\n";
 
   MapObjectEvent event;
-  event.m_bestPoiType = poi.m_bestType;
-  event.m_poiPos = poi.m_pos;
+  event.m_bestPoiType = poi.GetBestType();
+  event.m_poiPos = poi.GetPos();
   event.m_event = poiEvent;
   ser(event);
   writer.Write(nextLine.data(), nextLine.size());

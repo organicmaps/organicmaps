@@ -33,9 +33,9 @@ Queue MakeDefaultQueueForTesting()
     notification.m_type = Notification::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
-    notification.m_mapObject->m_bestType = "cafe";
-    notification.m_mapObject->m_pos = {15.686299, 73.704084};
-    notification.m_mapObject->m_readableName = "Baba";
+    notification.m_mapObject->SetBestType("cafe");
+    notification.m_mapObject->SetPos({15.686299, 73.704084});
+    notification.m_mapObject->SetReadableName("Baba");
 
     queue.m_candidates.emplace_back(std::move(notification));
   }
@@ -45,9 +45,9 @@ Queue MakeDefaultQueueForTesting()
     notification.m_type = Notification::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
-    notification.m_mapObject->m_bestType = "shop";
-    notification.m_mapObject->m_pos = {12.923975, 100.776627};
-    notification.m_mapObject->m_readableName = "7eleven";
+    notification.m_mapObject->SetBestType("shop");
+    notification.m_mapObject->SetPos({12.923975, 100.776627});
+    notification.m_mapObject->SetReadableName("7eleven");
 
     queue.m_candidates.emplace_back(std::move(notification));
   }
@@ -57,9 +57,9 @@ Queue MakeDefaultQueueForTesting()
     notification.m_type = Notification::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
-    notification.m_mapObject->m_bestType = "viewpoint";
-    notification.m_mapObject->m_pos = {-45.943995, 167.619933};
-    notification.m_mapObject->m_readableName = "Waiau";
+    notification.m_mapObject->SetBestType("viewpoint");
+    notification.m_mapObject->SetPos({-45.943995, 167.619933});
+    notification.m_mapObject->SetReadableName("Waiau");
 
     queue.m_candidates.emplace_back(std::move(notification));
   }
@@ -79,9 +79,9 @@ void CompareWithDefaultQueue(Queue const & lhs)
     auto const & rhsItem = rhs.m_candidates[i];
     TEST_EQUAL(lhsItem.m_type, rhsItem.m_type, ());
     TEST(lhsItem.m_mapObject, ());
-    TEST_EQUAL(lhsItem.m_mapObject->m_bestType, rhsItem.m_mapObject->m_bestType, ());
-    TEST_EQUAL(lhsItem.m_mapObject->m_readableName, rhsItem.m_mapObject->m_readableName, ());
-    TEST_EQUAL(lhsItem.m_mapObject->m_pos, lhsItem.m_mapObject->m_pos, ());
+    TEST_EQUAL(lhsItem.m_mapObject->GetBestType(), rhsItem.m_mapObject->GetBestType(), ());
+    TEST_EQUAL(lhsItem.m_mapObject->GetReadableName(), rhsItem.m_mapObject->GetReadableName(), ());
+    TEST_EQUAL(lhsItem.m_mapObject->GetPos(), lhsItem.m_mapObject->GetPos(), ());
   }
 }
 

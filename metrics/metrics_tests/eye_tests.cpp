@@ -41,19 +41,18 @@ Info MakeDefaultInfoForTesting()
   info.m_discovery.m_lastClickedTime = Time(std::chrono::hours(30005));
 
   MapObject poi;
-  poi.m_bestType = "shop";
-  poi.m_pos = {53.652007, 108.143443};
+  poi.SetBestType("shop");
+  poi.SetPos({53.652007, 108.143443});
   MapObject::Event eventInfo;
-  MapObject::Events events;
   eventInfo.m_eventTime = Time(std::chrono::hours(90000));
   eventInfo.m_userPos = {72.045507, 81.408095};
   eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
-  events.emplace_back(eventInfo);
+  poi.GetEditableEvents().push_back(eventInfo);
   eventInfo.m_eventTime = Time(std::chrono::hours(80000));
   eventInfo.m_userPos = {53.016347, 158.683327};
   eventInfo.m_type = MapObject::Event::Type::Open;
-  events.emplace_back(eventInfo);
-  info.m_mapObjects.emplace(poi, events);
+  poi.GetEditableEvents().push_back(eventInfo);
+  info.m_mapObjects.Add(poi);
 
   return info;
 }
@@ -78,19 +77,23 @@ void CompareWithDefaultInfo(Info const & lhs)
   TEST_EQUAL(lhs.m_discovery.m_lastClickedTime, rhs.m_discovery.m_lastClickedTime, ());
   TEST_EQUAL(lhs.m_discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked),
              rhs.m_discovery.m_eventCounters.Get(Discovery::Event::MoreAttractionsClicked), ());
-  TEST_EQUAL(lhs.m_mapObjects.size(), rhs.m_mapObjects.size(), ());
+  TEST_EQUAL(lhs.m_mapObjects.GetSize(), rhs.m_mapObjects.GetSize(), ());
 
-  auto const & lPoi = *(lhs.m_mapObjects.begin());
-  auto const & rPoi = *(rhs.m_mapObjects.begin());
-  TEST(lPoi.first.m_pos.EqualDxDy(rPoi.first.m_pos, 1e-6), ());
-  TEST_EQUAL(lPoi.first.m_bestType, rPoi.first.m_bestType, ());
-  TEST_EQUAL(lPoi.second.size(), rPoi.second.size(), ());
-  TEST(lPoi.second[0].m_userPos.EqualDxDy(rPoi.second[0].m_userPos, 1e-6), ());
-  TEST_EQUAL(lPoi.second[0].m_eventTime, rPoi.second[0].m_eventTime, ());
-  TEST_EQUAL(lPoi.second[0].m_type, rPoi.second[0].m_type, ());
-  TEST(lPoi.second[1].m_userPos.EqualDxDy(rPoi.second[1].m_userPos, 1e-6), ());
-  TEST_EQUAL(lPoi.second[1].m_eventTime, rPoi.second[1].m_eventTime, ());
-  TEST_EQUAL(lPoi.second[1].m_type, rPoi.second[1].m_type, ());
+  lhs.m_mapObjects.ForEach([&rhs](MapObject const & lhsObj)
+  {
+    rhs.m_mapObjects.ForEach([&lhsObj](MapObject const & rhsObj)
+    {
+      TEST(lhsObj.GetPos().EqualDxDy(rhsObj.GetPos(), 1e-6), ());
+      TEST_EQUAL(lhsObj.GetBestType(), rhsObj.GetBestType(), ());
+      TEST_EQUAL(lhsObj.GetEvents().size(), rhsObj.GetEvents().size(), ());
+      TEST(lhsObj.GetEvents()[0].m_userPos.EqualDxDy(rhsObj.GetEvents()[0].m_userPos, 1e-6), ());
+      TEST_EQUAL(lhsObj.GetEvents()[0].m_eventTime, rhsObj.GetEvents()[0].m_eventTime, ());
+      TEST_EQUAL(lhsObj.GetEvents()[0].m_type, rhsObj.GetEvents()[0].m_type, ());
+      TEST(lhsObj.GetEvents()[1].m_userPos.EqualDxDy(rhsObj.GetEvents()[1].m_userPos, 1e-6), ());
+      TEST_EQUAL(lhsObj.GetEvents()[1].m_eventTime, rhsObj.GetEvents()[1].m_eventTime, ());
+      TEST_EQUAL(lhsObj.GetEvents()[1].m_type, rhsObj.GetEvents()[1].m_type, ());
+    });
+  });
 }
 
 Time GetLastShownTipTime(Tips const & tips)
@@ -392,53 +395,51 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
   Info info;
   {
     MapObject poi;
-    poi.m_bestType = "shop";
-    poi.m_pos = {53.652007, 108.143443};
+    poi.SetBestType("shop");
+    poi.SetPos({53.652007, 108.143443});
     MapObject::Event eventInfo;
-    MapObject::Events events;
 
     eventInfo.m_eventTime = Clock::now() - std::chrono::hours((24 * 30 * 3) + 1);
     eventInfo.m_userPos = {72.045507, 81.408095};
     eventInfo.m_type = MapObject::Event::Type::Open;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
     eventInfo.m_eventTime =
         Clock::now() - (std::chrono::hours(24 * 30 * 3) + std::chrono::seconds(1));
     eventInfo.m_userPos = {72.045400, 81.408200};
     eventInfo.m_type = MapObject::Event::Type::AddToBookmark;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
     eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
     eventInfo.m_userPos = {72.045450, 81.408201};
     eventInfo.m_type = MapObject::Event::Type::RouteToCreated;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
-    info.m_mapObjects.emplace(poi, events);
+    info.m_mapObjects.Add(poi);
   }
 
   {
     MapObject poi;
-    poi.m_bestType = "cafe";
-    poi.m_pos = {53.652005, 108.143448};
+    poi.SetBestType("cafe");
+    poi.SetPos({53.652005, 108.143448});
     MapObject::Event eventInfo;
-    MapObject::Events events;
 
     eventInfo.m_eventTime = Clock::now() - std::chrono::hours(24 * 30 * 3);
     eventInfo.m_userPos = {53.016347, 158.683327};
     eventInfo.m_type = MapObject::Event::Type::Open;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
     eventInfo.m_eventTime = Clock::now() - std::chrono::seconds(30);
     eventInfo.m_userPos = {53.016347, 158.683327};
     eventInfo.m_type = MapObject::Event::Type::UgcEditorOpened;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
     eventInfo.m_eventTime = Clock::now();
     eventInfo.m_userPos = {53.116347, 158.783327};
     eventInfo.m_type = MapObject::Event::Type::UgcSaved;
-    events.emplace_back(eventInfo);
+    poi.GetEditableEvents().emplace_back(eventInfo);
 
-    info.m_mapObjects.emplace(poi, events);
+    info.m_mapObjects.Add(poi);
   }
 
   EyeForTesting::SetInfo(info);
@@ -446,34 +447,52 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
   {
     auto const resultInfo = Eye::Instance().GetInfo();
     auto const & mapObjects = resultInfo->m_mapObjects;
-    TEST_EQUAL(mapObjects.size(), 2, ());
+    TEST_EQUAL(mapObjects.GetSize(), 2, ());
 
     {
       MapObject poi;
-      poi.m_bestType = "shop";
-      poi.m_pos = {53.652007, 108.143443};
+      poi.SetBestType("shop");
+      poi.SetPos({53.652007, 108.143443});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 3, ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
-      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(72.045400, 81.408200), ());
-      TEST_EQUAL(it->second[2].m_userPos, m2::PointD(72.045450, 81.408201), ());
+        if (!found)
+          found = true;
+
+        TEST_EQUAL(item.GetEvents().size(), 3, ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::Open, ());
+        TEST_EQUAL(item.GetEvents()[1].m_userPos, m2::PointD(72.045400, 81.408200), ());
+        TEST_EQUAL(item.GetEvents()[2].m_userPos, m2::PointD(72.045450, 81.408201), ());
+      });
+
+      TEST(found, ());
     }
 
     {
       MapObject poi;
-      poi.m_bestType = "cafe";
-      poi.m_pos = {53.652005, 108.143448};
+      poi.SetBestType("cafe");
+      poi.SetPos({53.652005, 108.143448});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 3, ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
-      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.016347, 158.683327), ());
-      TEST_EQUAL(it->second[2].m_userPos, m2::PointD(53.116347, 158.783327), ());
+        if (!found)
+          found = true;
+
+        TEST_EQUAL(item.GetEvents().size(), 3, ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::Open, ());
+        TEST_EQUAL(item.GetEvents()[1].m_userPos, m2::PointD(53.016347, 158.683327), ());
+        TEST_EQUAL(item.GetEvents()[2].m_userPos, m2::PointD(53.116347, 158.783327), ());
+      });
+
+      TEST(found, ());
     }
   }
 
@@ -482,32 +501,49 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, TrimExpiredMapObjectEvents)
   {
     auto const resultInfo = Eye::Instance().GetInfo();
     auto const & mapObjects = resultInfo->m_mapObjects;
-    TEST_EQUAL(mapObjects.size(), 1, ());
+    TEST_EQUAL(mapObjects.GetSize(), 1, ());
 
     {
       MapObject poi;
-      poi.m_bestType = "shop";
-      poi.m_pos = {53.652007, 108.143443};
+      poi.SetBestType("shop");
+      poi.SetPos({53.652007, 108.143443});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it == mapObjects.end(), ());
+        if (!found)
+          found = true;
+      });
+
+      TEST(!found, ());
     }
 
     {
       MapObject poi;
-      poi.m_bestType = "cafe";
-      poi.m_pos = {53.652005, 108.143448};
+      poi.SetBestType("cafe");
+      poi.SetPos({53.652005, 108.143448});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::UgcEditorOpened, ());
+        if (!found)
+          found = true;
 
-      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.116347, 158.783327), ());
-      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::UgcSaved, ());
+        TEST_EQUAL(item.GetEvents().size(), 2, ());
+        TEST_EQUAL(item.GetEvents()[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::UgcEditorOpened, ());
+
+        TEST_EQUAL(item.GetEvents()[1].m_userPos, m2::PointD(53.116347, 158.783327), ());
+        TEST_EQUAL(item.GetEvents()[1].m_type, MapObject::Event::Type::UgcSaved, ());
+      });
+
+      TEST(found, ());
     }
   }
 }
@@ -516,8 +552,8 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 {
   {
     MapObject poi;
-    poi.m_bestType = "cafe";
-    poi.m_pos = {53.652005, 108.143448};
+    poi.SetBestType("cafe");
+    poi.SetPos({53.652005, 108.143448});
     m2::PointD userPos = {53.016347, 158.683327};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
@@ -528,8 +564,8 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
   }
   {
     MapObject poi;
-    poi.m_bestType = "shop";
-    poi.m_pos = {53.652005, 108.143448};
+    poi.SetBestType("shop");
+    poi.SetPos({53.652005, 108.143448});
     m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
@@ -541,8 +577,8 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
 
   {
     MapObject poi;
-    poi.m_bestType = "amenity-bench";
-    poi.m_pos = {53.652005, 108.143448};
+    poi.SetBestType("amenity-bench");
+    poi.SetPos({53.652005, 108.143448});
     m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::Open, userPos);
@@ -551,51 +587,78 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
   {
     auto const resultInfo = Eye::Instance().GetInfo();
     auto const & mapObjects = resultInfo->m_mapObjects;
-    TEST_EQUAL(mapObjects.size(), 3, ());
+    TEST_EQUAL(mapObjects.GetSize(), 3, ());
 
     {
       MapObject poi;
-      poi.m_bestType = "cafe";
-      poi.m_pos = {53.652005, 108.143448};
+      poi.SetBestType("cafe");
+      poi.SetPos({53.652005, 108.143448});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+        if (!found)
+          found = true;
 
-      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(53.016345, 158.683329), ());
-      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::RouteToCreated, ());
+        TEST_EQUAL(item.GetEvents().size(), 2, ());
+        TEST_EQUAL(item.GetEvents()[0].m_userPos, m2::PointD(53.016347, 158.683327), ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::Open, ());
+
+        TEST_EQUAL(item.GetEvents()[1].m_userPos, m2::PointD(53.016345, 158.683329), ());
+        TEST_EQUAL(item.GetEvents()[1].m_type, MapObject::Event::Type::RouteToCreated, ());
+      });
+
+      TEST(found, ());
     }
 
     {
       MapObject poi;
-      poi.m_bestType = "shop";
-      poi.m_pos = {53.652005, 108.143448};
+      poi.SetBestType("shop");
+      poi.SetPos({53.652005, 108.143448});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 2, ());
-      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(0.0, 0.0), ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::RouteToCreated, ());
+        if (!found)
+          found = true;
 
-      TEST_EQUAL(it->second[1].m_userPos, m2::PointD(158.016345, 53.683329), ());
-      TEST_EQUAL(it->second[1].m_type, MapObject::Event::Type::AddToBookmark, ());
+        TEST_EQUAL(item.GetEvents().size(), 2, ());
+        TEST_EQUAL(item.GetEvents()[0].m_userPos, m2::PointD(0.0, 0.0), ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::RouteToCreated, ());
+
+        TEST_EQUAL(item.GetEvents()[1].m_userPos, m2::PointD(158.016345, 53.683329), ());
+        TEST_EQUAL(item.GetEvents()[1].m_type, MapObject::Event::Type::AddToBookmark, ());
+      });
+
+      TEST(found, ());
     }
 
     {
       MapObject poi;
-      poi.m_bestType = "amenity-bench";
-      poi.m_pos = {53.652005, 108.143448};
+      poi.SetBestType("amenity-bench");
+      poi.SetPos({53.652005, 108.143448});
 
-      auto const it = mapObjects.find(poi);
+      bool found = false;
+      mapObjects.ForEachInRect(poi.GetLimitRect(), [&poi, &found](MapObject const & item)
+      {
+        if (poi != item)
+          return;
 
-      TEST(it != mapObjects.end(), ());
-      TEST_EQUAL(it->second.size(), 1, ());
-      TEST_EQUAL(it->second[0].m_userPos, m2::PointD(0.0, 0.0), ());
-      TEST_EQUAL(it->second[0].m_type, MapObject::Event::Type::Open, ());
+        if (!found)
+          found = true;
+
+        TEST_EQUAL(item.GetEvents().size(), 1, ());
+        TEST_EQUAL(item.GetEvents()[0].m_userPos, m2::PointD(0.0, 0.0), ());
+        TEST_EQUAL(item.GetEvents()[0].m_type, MapObject::Event::Type::Open, ());
+      });
+
+      TEST(found, ());
     }
   }
 }

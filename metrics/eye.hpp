@@ -22,7 +22,7 @@ public:
   virtual void OnDiscoveryShown(Time const & time) {}
   virtual void OnDiscoveryItemClicked(Discovery::Event event) {}
   virtual void OnLayerShown(Layer const & layer) {}
-  virtual void OnMapObjectEvent(MapObject const & poi, MapObject::Events const & events) {}
+  virtual void OnMapObjectEvent(MapObject const & poi) {}
 };
 
 // Note This class IS thread-safe.
@@ -45,15 +45,15 @@ public:
     static void DiscoveryItemClicked(Discovery::Event event);
     static void LayerShown(Layer::Type type);
     static void PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
-                                m2::PointD const & userPos);
+                                std::string const & readableName, m2::PointD const & userPos);
     static void UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
-                                m2::PointD const & userPos);
+                                std::string const & readableName, m2::PointD const & userPos);
     static void UgcSaved(std::string const & bestType, m2::PointD const & pos,
-                         m2::PointD const & userPos);
+                         std::string const & readableName, m2::PointD const & userPos);
     static void AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
-                                     m2::PointD const & userPos);
+                                     std::string const & readableName, m2::PointD const & userPos);
     static void RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
-                                     m2::PointD const & userPos);
+                                     std::string const & readableName, m2::PointD const & userPos);
   };
 
   static Eye & Instance();

@@ -63,10 +63,12 @@ bool SaveMapObjects(MapObjects const & mapObjects)
   return Storage::SaveMapObjects(fileData);
 }
 
-bool SaveMapObjectEvent(MapObject const & mapObject, MapObject::Event const & event)
+bool SaveLastMapObjectEvent(MapObject const & mapObject)
 {
+  ASSERT(!mapObject.GetEvents().empty(), ());
+
   std::vector<int8_t> eventData;
-  Serdes::SerializeMapObjectEvent(mapObject, event, eventData);
+  Serdes::SerializeMapObjectEvent(mapObject, mapObject.GetEvents().back(), eventData);
 
   return Storage::AppendMapObjectEvent(eventData);
 }
@@ -126,9 +128,11 @@ void Eye::TrimExpiredMapObjectEvents()
   auto editableInfo = std::make_shared<Info>(*info);
   auto changed = false;
 
-  for (auto it = editableInfo->m_mapObjects.begin(); it != editableInfo->m_mapObjects.end();)
+  std::vector<MapObject> removeQueue;
+
+  editableInfo->m_mapObjects.ForEach([&removeQueue, &changed](MapObject const & item)
   {
-    auto & events = it->second;
+    auto & events = item.GetEditableEvents();
     events.erase(std::remove_if(events.begin(), events.end(), [&changed](auto const & item)
     {
       if (Clock::now() - item.m_eventTime >= kMapObjectEventsExpirePeriod)
@@ -142,9 +146,12 @@ void Eye::TrimExpiredMapObjectEvents()
     }), events.end());
 
     if (events.empty())
-      it = editableInfo->m_mapObjects.erase(it);
-    else
-      ++it;
+      removeQueue.push_back(item);
+  });
+
+  for (auto const & toRemove : removeQueue)
+  {
+    editableInfo->m_mapObjects.Erase(toRemove);
   }
 
   if (changed && SaveMapObjects(editableInfo->m_mapObjects))
@@ -316,33 +323,40 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
   auto editableInfo = std::make_shared<Info>(*info);
   auto & mapObjects = editableInfo->m_mapObjects;
 
+  MapObject result = mapObject;
   MapObject::Event event;
   event.m_type = type;
   event.m_userPos = userPos;
   event.m_eventTime = Clock::now();
 
-  MapObject::Events events;
-  auto it = mapObjects.find(mapObject);
-  if (it == mapObjects.end())
+  bool found = false;
+  mapObjects.ForEachInRect(result.GetLimitRect(), [&found, &event, &result](MapObject const & item)
   {
-    events = {event};
-    mapObjects.emplace(mapObject, std::move(events));
-  }
-  else
+    if (item != result)
+      return;
+
+    if (!found)
+      found = true;
+
+    item.GetEditableEvents().emplace_back(std::move(event));
+    result = item;
+  });
+
+  if (!found)
   {
-    it->second.push_back(event);
-    events = it->second;
+    result.GetEditableEvents() = {std::move(event)};
+    mapObjects.Add(result);
   }
 
-  if (!SaveMapObjectEvent(mapObject, event))
+  if (!SaveLastMapObjectEvent(result))
     return;
 
   m_info.Set(editableInfo);
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, mapObject, events]
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, result]
   {
     for (auto subscriber : m_subscribers)
     {
-      subscriber->OnMapObjectEvent(mapObject, events);
+      subscriber->OnMapObjectEvent(result);
     }
   });
 }
@@ -404,54 +418,54 @@ void Eye::Event::LayerShown(Layer::Type type)
 
 // static
 void Eye::Event::PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
-                                 m2::PointD const & userPos)
+                                 std::string const & readableName, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::Open, userPos);
+    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::Open, userPos);
   });
 }
 
 // static
 void Eye::Event::UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
-                                 m2::PointD const & userPos)
+                                 std::string const & readableName, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::UgcEditorOpened,
+    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::UgcEditorOpened,
                                       userPos);
   });
 }
 
 // static
 void Eye::Event::UgcSaved(std::string const & bestType, m2::PointD const & pos,
-                          m2::PointD const & userPos)
+                          std::string const & readableName, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::UgcSaved,
+    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::UgcSaved,
                                       userPos);
   });
 }
 
 // static
 void Eye::Event::AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
-                                      m2::PointD const & userPos)
+                                      std::string const & readableName, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::AddToBookmark,
+    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::AddToBookmark,
                                       userPos);
   });
 }
 
 // static
 void Eye::Event::RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
-                                      m2::PointD const & userPos)
+                                      std::string const & readableName, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos}, MapObject::Event::Type::RouteToCreated,
+    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::RouteToCreated,
                                       userPos);
   });
 }

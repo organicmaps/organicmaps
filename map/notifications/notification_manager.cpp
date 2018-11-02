@@ -37,8 +37,7 @@ boost::optional<Notification> NotificationManager::GetNotification() const
   return {};
 }
 
-void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi,
-                                           eye::MapObject::Events const & events)
+void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)
 {
   // Is not implemented yet. Coming soon.
 }

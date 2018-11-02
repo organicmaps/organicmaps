@@ -4,6 +4,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "geometry/tree4d.hpp"
+
 #include "base/visitor.hpp"
 
 #include <array>
@@ -12,7 +14,6 @@
 #include <deque>
 #include <string>
 #include <type_traits>
-#include <unordered_map>
 #include <vector>
 
 namespace eye
@@ -160,8 +161,9 @@ struct Tip
 
 using Tips = std::vector<Tip>;
 
-struct MapObject
+class MapObject
 {
+public:
   struct Event
   {
     enum class Type : uint8_t
@@ -183,29 +185,57 @@ struct MapObject
 
   using Events = std::deque<Event>;
 
-  struct Hash
+  MapObject() = default;
+
+  MapObject(std::string const & bestType, m2::PointD const & pos, std::string const & readableName)
+    : m_bestType(bestType)
+    , m_pos(pos)
+    , m_readableName(readableName)
+    , m_limitRect(pos.x - 1e-7, pos.y - 1e-7, pos.x + 1e-7, pos.y + 1e-7)
   {
-    size_t operator()(MapObject const & p) const
-    {
-      return base::Hash(base::Hash(p.m_pos.x, p.m_pos.y),
-                        base::Hash(p.m_bestType, p.m_bestType));
-    }
-  };
+  }
 
   bool operator==(MapObject const & rhs) const
   {
-    return m_pos == rhs.m_pos && m_bestType == rhs.m_bestType;
+    return m_pos.EqualDxDy(rhs.GetPos(), 1e-7) && GetBestType() == rhs.GetBestType();
   }
 
-  DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
-                  visitor(m_readableName, "name"));
+  bool operator!=(MapObject const & rhs) const { return !((*this) == rhs); }
 
+  std::string const & GetBestType() const { return m_bestType; }
+
+  void SetBestType(std::string const & bestType) { m_bestType = bestType; }
+
+  m2::PointD const & GetPos() const { return m_pos; }
+
+  void SetPos(m2::PointD const & pos)
+  {
+    m_pos = pos;
+    m_limitRect = {m_pos.x - 1e-7, m_pos.y - 1e-7, m_pos.x + 1e-7, m_pos.y + 1e-7};
+  }
+
+  std::string const & GetReadableName() const { return m_readableName; }
+
+  void SetReadableName(std::string const & readableName) { m_readableName = readableName; }
+
+  MapObject::Events & GetEditableEvents() const { return m_events; }
+
+  MapObject::Events const & GetEvents() const { return m_events; }
+
+  m2::RectD GetLimitRect() const { return m_limitRect; }
+
+  DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
+                  visitor(m_readableName, "name"), visitor(m_events, "events"));
+
+private:
   std::string m_bestType;
   m2::PointD m_pos;
   std::string m_readableName;
+  mutable MapObject::Events m_events;
+  m2::RectD m_limitRect;
 };
 
-using MapObjects = std::unordered_map<MapObject, MapObject::Events, MapObject::Hash>;
+using MapObjects = m4::Tree<MapObject>;
 
 struct InfoV0
 {

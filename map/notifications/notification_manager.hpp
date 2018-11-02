@@ -18,7 +18,7 @@ public:
   boost::optional<Notification> GetNotification() const;
 
   // eye::Subscriber overrides:
-  void OnMapObjectEvent(eye::MapObject const & poi, eye::MapObject::Events const & events) override;
+  void OnMapObjectEvent(eye::MapObject const & poi) override;
 
 private:
   bool Save();
