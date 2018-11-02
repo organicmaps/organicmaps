@@ -278,6 +278,7 @@ endif()
 
 add_subdirectory(base)
 add_subdirectory(coding)
+add_subdirectory(descriptions)
 add_subdirectory(drape)
 add_subdirectory(drape_frontend)
 add_subdirectory(editor)
