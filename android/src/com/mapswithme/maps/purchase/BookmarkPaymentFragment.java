@@ -35,7 +35,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       throw new IllegalStateException("Payment data must be provided for payment fragment!");
 
     mPaymentData = paymentData;
-    mPurchaseController = PurchaseFactory.createBookmarkPurchaseController(mPaymentData.getProductId());
+    mPurchaseController = PurchaseFactory.createBookmarkPurchaseController(mPaymentData.getProductId(),
+                                                                           mPaymentData.getServerId());
     mPurchaseController.initialize(getActivity());
   }
 

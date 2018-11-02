@@ -1,6 +1,7 @@
 package com.mapswithme.maps.purchase;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Represents a purchase validator. The main of purpose is to validate existing purchase and inform
@@ -28,7 +29,7 @@ interface PurchaseValidator<T>
    * @param vendor vendor of the purchase.
    * @param purchaseData token which describes the validated purchase.
    */
-  void validate(@NonNull String serverId, @NonNull String vendor, @NonNull String purchaseData);
+  void validate(@Nullable String serverId, @NonNull String vendor, @NonNull String purchaseData);
 
   /**
    * Adds validation observer.

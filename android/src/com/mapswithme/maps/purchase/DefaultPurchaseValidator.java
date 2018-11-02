@@ -31,7 +31,7 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   }
 
   @Override
-  public void validate(@NonNull String serverId, @NonNull String vendor,
+  public void validate(@Nullable String serverId, @NonNull String vendor,
                        @NonNull String purchaseData)
   {
     String encodedData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);

@@ -30,7 +30,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
                                @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
                                @NonNull String... productIds)
   {
-    super(validator, billingManager);
+    super(validator, billingManager, productIds);
   }
 
   @Override
@@ -52,13 +52,6 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   public void queryPurchaseDetails()
   {
     getBillingManager().queryProductDetails(getProductIds());
-  }
-
-  private void validatePurchase(@NonNull String purchaseData)
-  {
-    String serverId = PrivateVariables.adsRemovalServerId();
-    String vendor = PrivateVariables.adsRemovalVendor();
-    getValidator().validate(serverId, vendor, purchaseData);
   }
 
   private class AdValidationCallbackImpl implements ValidationCallback
@@ -104,13 +97,15 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     @Override
     public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
     {
-      for (Purchase purchase : filterByProductIds(purchases))
-      {
-        LOGGER.i(TAG, "Validating purchase '" + purchase.getSku() + "' on backend server...");
-        validatePurchase(purchase.getOriginalJson());
-        if (getUiCallback() != null)
-          getUiCallback().onValidationStarted();
-      }
+      Purchase target = findTargetPurchase(purchases);
+      if (target == null)
+        return;
+
+      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + "' on backend server...");
+      getValidator().validate(PrivateVariables.adsRemovalServerId(),
+                              PrivateVariables.adsRemovalVendor(), target.getOriginalJson());
+      if (getUiCallback() != null)
+        getUiCallback().onValidationStarted();
     }
 
     @Override
@@ -164,7 +159,8 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
       }
 
       LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
-      validatePurchase(purchaseData);
+      getValidator().validate(PrivateVariables.adsRemovalServerId(),
+                              PrivateVariables.adsRemovalVendor(), purchaseData);
     }
 
   }

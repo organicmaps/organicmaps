@@ -2,6 +2,7 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
@@ -13,12 +14,15 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
 {
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
+  @Nullable
+  private final String mServerId;
 
   BookmarkPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
                              @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
-                             @NonNull String... productIds)
+                             @NonNull String productId, @Nullable String serverId)
   {
-    super(validator, billingManager, productIds);
+    super(validator, billingManager, productId);
+    mServerId = serverId;
   }
 
   @Override
@@ -38,7 +42,9 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
   @Override
   public void queryPurchaseDetails()
   {
-    // TODO: coming soon.
+//    getBillingManager().queryProductDetails(mProductIds);
+    // TODO: just for testing.
+    getBillingManager().queryExistingPurchases();
   }
 
   private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
@@ -53,6 +59,12 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     @Override
     public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
     {
+      Purchase target = findTargetPurchase(purchases);
+      if (target == null)
+        return;
+
+      // TODO: use vendor from private.h
+      getValidator().validate(mServerId, "bookmarks", target.getOriginalJson());
     }
 
     @Override

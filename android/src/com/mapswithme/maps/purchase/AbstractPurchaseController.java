@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.Purchase;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -94,19 +93,6 @@ abstract class AbstractPurchaseController<V, B, UiCallback> implements PurchaseC
   public List<String> getProductIds()
   {
     return mProductIds;
-  }
-
-  @NonNull
-  final List<Purchase> filterByProductIds(@NonNull List<Purchase> purchases)
-  {
-    List<Purchase> result = new ArrayList<>();
-    for (Purchase purchase: purchases)
-    {
-      if (getProductIds().contains(purchase.getSku()))
-        result.add(purchase);
-    }
-
-    return Collections.unmodifiableList(result);
   }
 
   @Nullable

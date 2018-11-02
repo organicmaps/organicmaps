@@ -27,11 +27,11 @@ public class PurchaseFactory
 
   @NonNull
   public static PurchaseController<BookmarkPurchaseCallback> createBookmarkPurchaseController(
-      @NonNull String productId)
+      @NonNull String productId, @NonNull String serverId)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
-    return new BookmarkPurchaseController(validator, billingManager, productId);
+    return new BookmarkPurchaseController(validator, billingManager, productId, serverId);
   }
 }
