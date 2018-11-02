@@ -270,7 +270,7 @@ std::string BookmarkCatalog::GetDownloadUrl(std::string const & serverId) const
 
 std::string BookmarkCatalog::GetFrontendUrl() const
 {
-  return kCatalogFrontendServer + languages::GetCurrentNorm() + "/mobilefront/";
+  return kCatalogFrontendServer + languages::GetCurrentNorm() + "/v2/mobilefront/";
 }
 
 void BookmarkCatalog::RequestTagGroups(std::string const & language,
