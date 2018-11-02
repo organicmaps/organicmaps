@@ -12,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
+import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -66,11 +67,11 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     if (mActivity == null)
       throw new AssertionError("Already detached! Call attach.");
 
-    mActivity = null;
     mAuthorizer.detach();
     mDownloadCompleteReceiver.detach();
     mDownloadCompleteReceiver.unregister(getActivityOrThrow().getApplication());
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
+    mActivity = null;
   }
 
   @NonNull
@@ -108,9 +109,8 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
       throw new IllegalStateException("Download url must be non-null if payment required!");
 
     PaymentData data = parsePaymentData(mDownloadUrl);
-    //TODO: pass data and show payment UI.
-    Toast.makeText(getActivityOrThrow(), "Payment required. Ui coming soon!",
-                   Toast.LENGTH_SHORT).show();
+    BookmarkPaymentActivity.start(getActivityOrThrow(), data,
+                                  BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
   }
 
   @NonNull

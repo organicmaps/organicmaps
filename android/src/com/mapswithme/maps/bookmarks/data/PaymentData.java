@@ -1,9 +1,11 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class PaymentData
+public class PaymentData implements Parcelable
 {
   @NonNull
   private final String mServerId;
@@ -25,6 +27,30 @@ public class PaymentData
     mImgUrl = imgUrl;
     mAuthorName = authorName;
   }
+
+  private PaymentData(Parcel in)
+  {
+    mServerId = in.readString();
+    mProductId = in.readString();
+    mName = in.readString();
+    mImgUrl = in.readString();
+    mAuthorName = in.readString();
+  }
+
+  public static final Creator<PaymentData> CREATOR = new Creator<PaymentData>()
+  {
+    @Override
+    public PaymentData createFromParcel(Parcel in)
+    {
+      return new PaymentData(in);
+    }
+
+    @Override
+    public PaymentData[] newArray(int size)
+    {
+      return new PaymentData[size];
+    }
+  };
 
   @NonNull
   public String getServerId()
@@ -54,5 +80,21 @@ public class PaymentData
   public String getAuthorName()
   {
     return mAuthorName;
+  }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mServerId);
+    dest.writeString(mProductId);
+    dest.writeString(mName);
+    dest.writeString(mImgUrl);
+    dest.writeString(mAuthorName);
   }
 }

@@ -39,6 +39,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     implements TargetFragmentCallback
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
+  static final int REQ_CODE_PAY_BOOKMARK = 1;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
 
@@ -156,7 +157,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     }
     catch (MalformedURLException e)
     {
-      LOGGER.e(TAG, "Failed to download bookmark, url: " + url, e);
+      LOGGER.e(TAG, "Failed to download bookmark, url: " + url);
       return false;
     }
   }

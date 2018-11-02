@@ -2,7 +2,6 @@ package com.mapswithme.maps.purchase;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.billingclient.api.BillingClient;
@@ -15,8 +14,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class AdsRemovalPurchaseController extends AbstractPurchaseController<ValidationCallback,
@@ -28,15 +25,12 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   private final ValidationCallback mValidationCallback = new AdValidationCallbackImpl();
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
-  @NonNull
-  private final List<String> mProductIds;
 
   AdsRemovalPurchaseController(@NonNull PurchaseValidator<ValidationCallback> validator,
                                @NonNull BillingManager<PlayStoreBillingCallback> billingManager,
                                @NonNull String... productIds)
   {
     super(validator, billingManager);
-    mProductIds = Collections.unmodifiableList(Arrays.asList(productIds));
   }
 
   @Override
@@ -57,7 +51,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   @Override
   public void queryPurchaseDetails()
   {
-    getBillingManager().queryProductDetails(mProductIds);
+    getBillingManager().queryProductDetails(getProductIds());
   }
 
   private void validatePurchase(@NonNull String purchaseData)
@@ -110,7 +104,7 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     @Override
     public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
     {
-      for (Purchase purchase : purchases)
+      for (Purchase purchase : filterByProductIds(purchases))
       {
         LOGGER.i(TAG, "Validating purchase '" + purchase.getSku() + "' on backend server...");
         validatePurchase(purchase.getOriginalJson());
@@ -173,16 +167,5 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
       validatePurchase(purchaseData);
     }
 
-    @Nullable
-    private Purchase findTargetPurchase(@NonNull List<Purchase> purchases)
-    {
-      for (Purchase purchase: purchases)
-      {
-        if (mProductIds.contains(purchase.getSku()))
-          return purchase;
-      }
-
-      return null;
-    }
   }
 }
