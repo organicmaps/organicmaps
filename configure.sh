@@ -111,6 +111,7 @@ else
 #define USER_BINDING_REQUEST_URL ""
 #define USER_BINDING_PKCS12 ""
 #define USER_BINDING_PKCS12_PASSWORD ""
+#define BOOKMARKS_VENDOR ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
