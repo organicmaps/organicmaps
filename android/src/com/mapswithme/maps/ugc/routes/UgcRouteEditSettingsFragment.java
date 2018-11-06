@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.content.BookmarkCategoryObservable;
 import com.mapswithme.maps.widget.ToolbarController;
 
 import java.util.Objects;
@@ -30,10 +28,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private RecyclerView.AdapterDataObserver mObserver;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -64,8 +58,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   {
     View root = inflater.inflate(R.layout.fragment_ugc_route_edit, container, false);
     initViews(root);
-    mObserver = new CategoryObserver();
-    BookmarkCategoryObservable.from(getActivity().getApplication()).registerObserver(mObserver);
     return root;
   }
 
@@ -85,10 +77,11 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   }
 
   @Override
-  public void onDestroyView()
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
-    super.onDestroyView();
-    BookmarkCategoryObservable.from(getActivity().getApplication()).unregisterObserver(mObserver);
+    super.onActivityResult(requestCode, resultCode, data);
+    mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
+    mAccessRulesView.setText(mCategory.getAccessRules().getResId());
   }
 
   private void onSharingOptionsClicked()
@@ -100,7 +93,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   {
     Intent intent = new Intent(getContext(), UgcRouteSharingOptionsActivity.class)
         .putExtra(UgcSharingOptionsFragment.EXTRA_BOOKMARK_CATEGORY, mCategory);
-    startActivity(intent);
+    startActivityForResult(intent, UgcRouteSharingOptionsActivity.REQUEST_CODE);
   }
 
   @Override
@@ -139,15 +132,5 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     if (!TextUtils.equals(mCategory.getDescription(), categoryDesc))
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), categoryDesc);
 
-  }
-
-  public class CategoryObserver extends RecyclerView.AdapterDataObserver
-  {
-    @Override
-    public void onChanged()
-    {
-      mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
-      mAccessRulesView.setText(mCategory.getAccessRules().getResId());
-    }
   }
 }
