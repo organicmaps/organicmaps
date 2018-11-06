@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.PrivateVariables;
 
 import java.util.List;
 
@@ -63,8 +64,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
       if (target == null)
         return;
 
-      // TODO: use vendor from private.h
-      getValidator().validate(mServerId, "bookmarks", target.getOriginalJson());
+      getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
     }
 
     @Override

@@ -71,20 +71,26 @@ extern "C"
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_adsRemovalYearlyProductId(JNIEnv *env, jclass clazz)
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalYearlyProductId(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(ADS_REMOVAL_YEARLY_PRODUCT_ID);
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_adsRemovalMonthlyProductId(JNIEnv *env, jclass clazz)
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalMonthlyProductId(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(ADS_REMOVAL_MONTHLY_PRODUCT_ID);
   }
 
   JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_PrivateVariables_adsRemovalWeeklyProductId(JNIEnv *env, jclass clazz)
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalWeeklyProductId(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(ADS_REMOVAL_WEEKLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_bookmarksVendor(JNIEnv * env, jclass clazz)
+  {
+    return env->NewStringUTF(BOOKMARKS_VENDOR);
   }
 }
