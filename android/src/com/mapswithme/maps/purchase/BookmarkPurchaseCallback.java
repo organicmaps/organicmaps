@@ -1,6 +1,8 @@
 package com.mapswithme.maps.purchase;
 
-interface BookmarkPurchaseCallback
+import com.mapswithme.maps.Framework;
+
+interface BookmarkPurchaseCallback extends Framework.StartTransactionListener
 {
   // TODO: coming soon.
 }
