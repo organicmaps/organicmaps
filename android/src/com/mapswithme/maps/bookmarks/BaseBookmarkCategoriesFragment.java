@@ -344,10 +344,10 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected enum MenuItemClickProcessorWrapper
   {
-    SET_SHOW(R.id.set_show, showAction()),
-    SET_SHARE(R.id.set_share, shareAction()),
-    SET_DELETE(R.id.set_delete, deleteAction()),
-    SET_EDIT(R.id.set_edit, editAction()),
+    SET_SHOW(R.id.show, showAction()),
+    SET_SHARE(R.id.share, shareAction()),
+    SET_DELETE(R.id.delete, deleteAction()),
+    SET_EDIT(R.id.edit, editAction()),
     SHOW_ON_MAP(R.id.show_on_map, showAction()),
     SHARE_LIST(R.id.share_list, shareAction()),
     SHARING_OPTIONS(R.id.sharing_options, showSharingOptions()),

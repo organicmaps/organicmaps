@@ -149,7 +149,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     categoryHolder.mAccessRule.setText(representation);
   }
 
-  private void onMoreOperationClicked(BookmarkCategory category)
+  private void onMoreOperationClicked(@NonNull BookmarkCategory category)
   {
     if (mCategoryListCallback != null)
       mCategoryListCallback.onMoreOperationClick(category);

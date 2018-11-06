@@ -3,18 +3,18 @@
   <item android:id="@+id/list_settings"
         android:title="@string/settings"
         android:icon="@drawable/ic_24_px_settings"/>
-  <item android:id="@+id/set_show"/>
-  <item android:id="@+id/set_share"
+  <item android:id="@+id/show"/>
+  <item android:id="@+id/share"
         android:title="@string/share"
         android:icon="@drawable/ic_share"/>
 
-  <item android:id="@+id/set_edit"
+  <item android:id="@+id/edit"
         android:title="@string/rename"
         android:icon="@drawable/ic_edit"/>
   <item android:id="@+id/sharing_options"
         android:title="@string/sharing_options"
         android:icon="@drawable/ic_add_members"/>
-  <item android:id="@+id/set_delete"
+  <item android:id="@+id/delete"
         android:title="@string/delete"
         android:icon="@drawable/ic_delete"/>
 </menu>

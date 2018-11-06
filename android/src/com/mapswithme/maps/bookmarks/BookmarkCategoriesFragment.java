@@ -70,9 +70,9 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   protected void prepareBottomMenuItems(@NonNull BottomSheet bottomSheet)
   {
     boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
-    setEnableForMenuItem(R.id.set_delete, bottomSheet, isMultipleItems);
+    setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
     boolean isLocal = getSelectedCategory()
                           .getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
-    setEnableForMenuItem(R.id.set_share, bottomSheet, isLocal);
+    setEnableForMenuItem(R.id.share, bottomSheet, isLocal);
   }
 }

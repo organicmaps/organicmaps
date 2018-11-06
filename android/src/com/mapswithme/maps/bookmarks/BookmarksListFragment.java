@@ -289,7 +289,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    if (item.getItemId() == R.id.set_share)
+    if (item.getItemId() == R.id.share)
     {
       openSharingOptionsScreen();
       return true;
