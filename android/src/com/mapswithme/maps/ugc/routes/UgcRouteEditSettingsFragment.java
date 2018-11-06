@@ -23,8 +23,6 @@ import java.util.Objects;
 
 public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 {
-  public static final String EXTRA_BOOKMARK_CATEGORY = "bookmark_category";
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
@@ -48,7 +46,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     Bundle args = getArguments();
     if (args == null)
       throw new IllegalArgumentException("Args must be not null");
-    mCategory = Objects.requireNonNull(args.getParcelable(EXTRA_BOOKMARK_CATEGORY));
+    mCategory = Objects.requireNonNull(args.getParcelable(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY));
   }
 
   @Nullable
@@ -91,9 +89,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
 
   private void openSharingOptionsScreen()
   {
-    Intent intent = new Intent(getContext(), UgcRouteSharingOptionsActivity.class)
-        .putExtra(UgcSharingOptionsFragment.EXTRA_BOOKMARK_CATEGORY, mCategory);
-    startActivityForResult(intent, UgcRouteSharingOptionsActivity.REQUEST_CODE);
+    UgcRouteSharingOptionsActivity.startForResult(getActivity(), mCategory);
   }
 
   @Override

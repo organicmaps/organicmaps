@@ -300,6 +300,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private void openSharingOptionsScreen()
   {
-    UgcRouteSharingOptionsActivity.start(getContext(), getCategoryOrThrow());
+    UgcRouteSharingOptionsActivity.startForResult(getActivity(), getCategoryOrThrow());
   }
 }

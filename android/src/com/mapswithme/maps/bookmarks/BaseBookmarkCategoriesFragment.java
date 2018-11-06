@@ -476,7 +476,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-        UgcRouteSharingOptionsActivity.start(frag.getContext(), category);
+        UgcRouteSharingOptionsActivity.startForResult(frag.getActivity(), category);
       }
     }
 
@@ -486,9 +486,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-        Intent intent = new Intent(frag.getContext(), UgcRouteEditSettingsActivity.class);
-        intent.putExtra(UgcRouteEditSettingsActivity.EXTRA_BOOKMARK_CATEGORY, frag.mSelectedCategory);
-        frag.startActivity(intent);
+        UgcRouteEditSettingsActivity.startForResult(frag.getActivity(), category);
       }
     }
   }

@@ -66,7 +66,6 @@
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       tools:text="42000000"/>
-
     <TextView
       android:id="@+id/author_name"
       android:layout_width="wrap_content"

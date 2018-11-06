@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:id="@+id/list_settings"
-        android:title="@string/list_settings"
+        android:title="@string/settings"
         android:icon="@drawable/ic_24_px_settings"/>
   <item android:id="@+id/set_show"/>
   <item android:id="@+id/set_share"

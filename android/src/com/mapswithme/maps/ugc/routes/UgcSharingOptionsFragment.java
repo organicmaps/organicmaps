@@ -35,7 +35,6 @@ import java.util.Objects;
 
 public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment implements BookmarkManager.BookmarksCatalogListener
 {
-  public static final String EXTRA_BOOKMARK_CATEGORY = "bookmark_category";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
 
@@ -52,7 +51,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     super.onCreate(savedInstanceState);
     Bundle args = Objects.requireNonNull(getArguments());
-    mCategory = Objects.requireNonNull(args.getParcelable(EXTRA_BOOKMARK_CATEGORY));
+    mCategory = Objects.requireNonNull(args.getParcelable(UgcRouteSharingOptionsActivity.EXTRA_BOOKMARK_CATEGORY));
   }
 
   @Nullable
