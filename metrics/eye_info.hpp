@@ -2,8 +2,8 @@
 
 #include "storage/index.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
-
 #include "geometry/tree4d.hpp"
 
 #include "base/visitor.hpp"
@@ -191,16 +191,22 @@ public:
     : m_bestType(bestType)
     , m_pos(pos)
     , m_readableName(readableName)
-    , m_limitRect(pos.x - 1e-7, pos.y - 1e-7, pos.x + 1e-7, pos.y + 1e-7)
+    , m_limitRect(MercatorBounds::ClampX(pos.x - 1e-7), MercatorBounds::ClampY(pos.y - 1e-7),
+                  MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7))
   {
   }
 
   bool operator==(MapObject const & rhs) const
   {
-    return m_pos.EqualDxDy(rhs.GetPos(), 1e-7) && GetBestType() == rhs.GetBestType();
+    return GetPos() == rhs.GetPos() && GetBestType() == rhs.GetBestType();
   }
 
   bool operator!=(MapObject const & rhs) const { return !((*this) == rhs); }
+
+  bool AlmostEquals(MapObject const & rhs) const
+  {
+    return m_pos.EqualDxDy(rhs.GetPos(), 1e-7) && GetBestType() == rhs.GetBestType();
+  }
 
   std::string const & GetBestType() const { return m_bestType; }
 
@@ -211,7 +217,8 @@ public:
   void SetPos(m2::PointD const & pos)
   {
     m_pos = pos;
-    m_limitRect = {m_pos.x - 1e-7, m_pos.y - 1e-7, m_pos.x + 1e-7, m_pos.y + 1e-7};
+    m_limitRect = {MercatorBounds::ClampX(pos.x - 1e-7), MercatorBounds::ClampY(pos.y - 1e-7),
+                   MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7)};
   }
 
   std::string const & GetReadableName() const { return m_readableName; }
@@ -231,6 +238,9 @@ private:
   std::string m_bestType;
   m2::PointD m_pos;
   std::string m_readableName;
+  // Mutable because of interface of the m4::Tree provides constant references in ForEach methods,
+  // but we need to add events into existing objects to avoid some overhead (copy + change +
+  // remove + insert operations). The other solution is to use const_cast in ForEach methods.
   mutable MapObject::Events m_events;
   m2::RectD m_limitRect;
 };

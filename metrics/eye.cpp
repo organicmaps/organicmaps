@@ -332,7 +332,7 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
   bool found = false;
   mapObjects.ForEachInRect(result.GetLimitRect(), [&found, &event, &result](MapObject const & item)
   {
-    if (item != result)
+    if (!item.AlmostEquals(result))
       return;
 
     if (!found)

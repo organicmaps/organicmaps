@@ -569,10 +569,26 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
     m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
+  }
 
-    userPos = {158.016345, 53.683329};
+  {
+    MapObject poi;
+    poi.SetBestType("shop");
+    // Sould be concatenated with previous poi because of AlmostEquals method returns true.
+    poi.SetPos({53.6520051, 108.14344799999});
+    m2::PointD userPos = {158.016345, 53.683329};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::AddToBookmark, userPos);
+  }
+
+  {
+    MapObject poi;
+    poi.SetBestType("shop");
+    // Sould NOT be concatenated with previous poi because of AlmostEquals method returns false.
+    poi.SetPos({53.6520052, 108.143448});
+    m2::PointD userPos = {0.0, 0.0};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::UgcEditorOpened, userPos);
   }
 
   {
@@ -587,7 +603,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
   {
     auto const resultInfo = Eye::Instance().GetInfo();
     auto const & mapObjects = resultInfo->m_mapObjects;
-    TEST_EQUAL(mapObjects.GetSize(), 3, ());
+    TEST_EQUAL(mapObjects.GetSize(), 4, ());
 
     {
       MapObject poi;
