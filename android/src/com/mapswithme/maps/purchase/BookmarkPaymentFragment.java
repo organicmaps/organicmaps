@@ -17,6 +17,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 public class BookmarkPaymentFragment extends BaseMwmFragment
+    implements PurchaseStateActivator<BookmarkPaymentState>
 {
   static final String ARG_PAYMENT_DATA = "arg_payment_data";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
@@ -125,7 +126,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mPurchaseController.destroy();
   }
 
-  void activateState(@NonNull BookmarkPaymentState state)
+  @Override
+  public void activateState(@NonNull BookmarkPaymentState state)
   {
     if (state == mState)
       return;
@@ -135,14 +137,10 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mState.activate(this);
   }
 
-  private static class BookmarkPurchaseCallbackImpl implements BookmarkPurchaseCallback,
-                                                               Detachable<BookmarkPaymentFragment>
+  private static class BookmarkPurchaseCallbackImpl
+      extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
+      implements BookmarkPurchaseCallback, Detachable<BookmarkPaymentFragment>
   {
-    @Nullable
-    private BookmarkPaymentFragment mFragment;
-    @Nullable
-    private BookmarkPaymentState mPendingState;
-
     @Override
     public void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String
         vendorId)
@@ -154,35 +152,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       }
 
       activateStateSafely(BookmarkPaymentState.TRANSACTION_STARTED);
-    }
-
-    void activateStateSafely(@NonNull BookmarkPaymentState state)
-    {
-      if (mFragment == null)
-      {
-        mPendingState = state;
-        return;
-      }
-
-      mFragment.activateState(state);
-    }
-
-    @Override
-    public void attach(@NonNull BookmarkPaymentFragment fragment)
-    {
-      mFragment = fragment;
-
-      if (mPendingState == null)
-        return;
-
-      mFragment.activateState(mPendingState);
-      mPendingState = null;
-    }
-
-    @Override
-    public void detach()
-    {
-      mFragment = null;
     }
   }
 }

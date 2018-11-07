@@ -17,7 +17,6 @@ import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
-import com.mapswithme.maps.dialog.Detachable;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -29,7 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements AlertDialogCallback
+public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
+    implements AlertDialogCallback, PurchaseStateActivator<AdsRemovalPaymentState>
 {
   private final static Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private final static String TAG = AdsRemovalPurchaseDialog.class.getSimpleName();
@@ -193,7 +193,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     activateState(AdsRemovalPaymentState.EXPLANATION);
   }
 
-  private void activateState(@NonNull AdsRemovalPaymentState state)
+  @Override
+  public void activateState(@NonNull AdsRemovalPaymentState state)
   {
     if (state == mState)
       return;
@@ -352,24 +353,21 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     mActivationResult = result;
   }
 
-  private static class PurchaseCallback implements AdsRemovalPurchaseCallback,
-                                                   Detachable<AdsRemovalPurchaseDialog>
+  private static class PurchaseCallback
+      extends StatefulPurchaseCallback<AdsRemovalPaymentState, AdsRemovalPurchaseDialog>
+      implements AdsRemovalPurchaseCallback
   {
     @Nullable
-    private AdsRemovalPurchaseDialog mDialog;
-    @Nullable
     private List<SkuDetails> mPendingDetails;
-    @Nullable
-    private AdsRemovalPaymentState mPendingState;
     private Boolean mPendingActivationResult;
 
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      if (mDialog == null)
+      if (getUiContext() == null)
         mPendingDetails = Collections.unmodifiableList(details);
       else
-        mDialog.handleProductDetails(details);
+        getUiContext().handleProductDetails(details);
       activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
     }
 
@@ -402,52 +400,28 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment implements A
     @Override
     public void onValidationFinish(boolean success)
     {
-      if (mDialog == null)
+      if (getUiContext() == null)
         mPendingActivationResult = success;
       else
-        mDialog.handleActivationResult(success);
+        getUiContext().handleActivationResult(success);
 
       activateStateSafely(AdsRemovalPaymentState.VALIDATION_FINISH);
     }
 
-    void activateStateSafely(@NonNull AdsRemovalPaymentState state)
-    {
-      if (mDialog == null)
-      {
-        mPendingState = state;
-        return;
-      }
-
-      mDialog.activateState(state);
-    }
-
     @Override
-    public void attach(@NonNull AdsRemovalPurchaseDialog object)
+    void onAttach(@NonNull AdsRemovalPurchaseDialog context)
     {
-      mDialog = object;
       if (mPendingDetails != null)
       {
-        mDialog.handleProductDetails(mPendingDetails);
+        context.handleProductDetails(mPendingDetails);
         mPendingDetails = null;
       }
 
       if (mPendingActivationResult != null)
       {
-        mDialog.handleActivationResult(mPendingActivationResult);
+        context.handleActivationResult(mPendingActivationResult);
         mPendingActivationResult = null;
       }
-
-      if (mPendingState != null)
-      {
-        mDialog.activateState(mPendingState);
-        mPendingState = null;
-      }
-    }
-
-    @Override
-    public void detach()
-    {
-      mDialog = null;
     }
   }
 
