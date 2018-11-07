@@ -53,7 +53,7 @@ public class SendLinkPlaceholderFragment extends Fragment
                        mSharedLink;
     ShareCompat.IntentBuilder.from(getActivity())
                              .setType(MESSAGE_RFC_FORMAT)
-                             .setSubject(getString(R.string.edit_your_guide_email_subj))
+                             .setSubject(getString(R.string.edit_guide_title))
                              .setText(emailBody)
                              .setChooserTitle(getString(R.string.share_by_email))
                              .startChooser();

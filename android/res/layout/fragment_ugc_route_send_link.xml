@@ -29,8 +29,8 @@
     android:gravity="center_horizontal"
     android:layout_weight="1"
     mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
-    mapsme:titleDefault="@string/ugc_route_send_link_placeholder_title"
-    mapsme:subTitleDefault="@string/ugc_route_send_link_placeholder_subtitle"/>
+    mapsme:titleDefault="@string/edit_guide_title"
+    mapsme:subTitleDefault="@string/edit_guide_subtitle"/>
   <Button
     android:id="@+id/send_me_link_btn"
     android:layout_width="@dimen/button_width"
@@ -38,6 +38,6 @@
     style="@style/MwmWidget.Button.Accent"
     android:layout_weight="0"
     android:layout_marginTop="@dimen/margin_base_plus"
-    android:text="@string/send_me_a_link"
+    android:text="@string/send_a_link_btn"
     android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
 </LinearLayout>
