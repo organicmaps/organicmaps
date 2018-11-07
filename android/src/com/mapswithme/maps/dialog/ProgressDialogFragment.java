@@ -5,11 +5,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -18,39 +19,36 @@ import java.util.Objects;
 
 public class ProgressDialogFragment extends DialogFragment
 {
-  private static final String EXTRA_TITLE = "title";
-  private static final String EXTRA_CANCELABLE = "cancelable";
-  private static final String EXTRA_RETAIN_INSTANCE = "retain_instance";
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private TextView mMessageView;
+  private static final String ARG_MESSAGE = "title";
+  private static final String ARG_CANCELABLE = "cancelable";
+  private static final String ARG_RETAIN_INSTANCE = "retain_instance";
 
   public ProgressDialogFragment()
   {
+    // Do nothing by default.
   }
 
   @NonNull
-  public static ProgressDialogFragment newInstance(@NonNull String title)
+  public static ProgressDialogFragment newInstance(@NonNull String message)
   {
-    return newInstance(title, false, true);
+    return newInstance(message, false, true);
   }
 
   @NonNull
-  public static ProgressDialogFragment newInstance(@NonNull String title, boolean cancelable,
+  public static ProgressDialogFragment newInstance(@NonNull String message, boolean cancelable,
                                                    boolean retainInstance)
   {
     ProgressDialogFragment fr = new ProgressDialogFragment();
-    fr.setArguments(getArgs(title, cancelable, retainInstance));
+    fr.setArguments(getArgs(message, cancelable, retainInstance));
     return fr;
   }
 
   private static Bundle getArgs(@NonNull String title, boolean cancelable, boolean retainInstance)
   {
     Bundle args = new Bundle();
-    args.putString(EXTRA_TITLE, title);
-    args.putBoolean(EXTRA_CANCELABLE, cancelable);
-    args.putBoolean(EXTRA_RETAIN_INSTANCE, retainInstance);
+    args.putString(ARG_MESSAGE, title);
+    args.putBoolean(ARG_CANCELABLE, cancelable);
+    args.putBoolean(ARG_RETAIN_INSTANCE, retainInstance);
     return args;
   }
 
@@ -62,35 +60,24 @@ public class ProgressDialogFragment extends DialogFragment
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState)
+  public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     Bundle args = Objects.requireNonNull(getArguments());
-    boolean retainInstance = args.getBoolean(EXTRA_RETAIN_INSTANCE, true);
-    setRetainInstance(retainInstance);
+    setRetainInstance(args.getBoolean(ARG_RETAIN_INSTANCE, true));
+    setCancelable(args.getBoolean(ARG_CANCELABLE, false));
   }
 
-  @NonNull
+  @Nullable
   @Override
-  public final Dialog onCreateDialog(Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+      Bundle savedInstanceState)
   {
-    return onCreateProgressDialog();
-  }
-
-  @NonNull
-  protected AlertDialog onCreateProgressDialog()
-  {
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    LayoutInflater inflater = LayoutInflater.from(getActivity());
-    View view = inflater.inflate(R.layout.indeterminated_progress_dialog, null, false);
+    View view = inflater.inflate(R.layout.indeterminated_progress_dialog, container, false);
     Bundle args = Objects.requireNonNull(getArguments());
-    String title = args.getString(EXTRA_TITLE);
-    mMessageView = view.findViewById(R.id.message);
-    mMessageView.setText(title);
-    builder.setView(view);
-    AlertDialog dialog = builder.create();
-    dialog.setCanceledOnTouchOutside(args.getBoolean(EXTRA_CANCELABLE, false));
-    return dialog;
+    TextView messageView = view.findViewById(R.id.message);
+    messageView.setText(args.getString(ARG_MESSAGE));
+    return view;
   }
 
   @Override
@@ -103,11 +90,6 @@ public class ProgressDialogFragment extends DialogFragment
   {
     Dialog dialog = getDialog();
     return dialog != null && dialog.isShowing();
-  }
-
-  public void setMessage(@NonNull CharSequence message)
-  {
-    mMessageView.setText(message);
   }
 
   @Override
