@@ -3,6 +3,7 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -27,10 +28,11 @@ void CmdGPX(string const & logFile, string const & outputDirName, string const &
     return;
   }
 
-  shared_ptr<NumMwmIds> numMwmIds;
   storage::Storage storage;
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   MwmToTracks mwmToTracks;
-  ParseTracks(logFile, numMwmIds, storage, mwmToTracks);
+  ParseTracks(logFile, numMwmIds, mwmToTracks);
   for (auto const & kv : mwmToTracks)
   {
     auto const & mwmName = numMwmIds->GetFile(kv.first).GetName();

@@ -17,11 +17,9 @@ using namespace routing;
 using namespace std;
 using namespace storage;
 
-void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> & numMwmIds, Storage & storage,
+void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> const & numMwmIds,
                  MwmToTracks & mwmToTracks)
 {
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
-  numMwmIds = CreateNumMwmIds(storage);
   Platform const & platform = GetPlatform();
   string const dataDir = platform.WritableDir();
   unique_ptr<CountryInfoGetter> countryInfoGetter =

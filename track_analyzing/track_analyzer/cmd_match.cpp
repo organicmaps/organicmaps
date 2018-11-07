@@ -6,6 +6,7 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -89,10 +90,10 @@ void MatchTracks(MwmToTracks const & mwmToTracks, storage::Storage const & stora
 
 namespace track_analyzing
 {
-void CmdMatch(string const & logFile, string const & trackFile, shared_ptr<NumMwmIds> numMwmIds, Storage & storage)
+void CmdMatch(string const & logFile, string const & trackFile, shared_ptr<NumMwmIds> const & numMwmIds, Storage const & storage)
 {
   MwmToTracks mwmToTracks;
-  ParseTracks(logFile, numMwmIds, storage, mwmToTracks);
+  ParseTracks(logFile, numMwmIds, mwmToTracks);
 
   MwmToMatchedTracks mwmToMatchedTracks;
   MatchTracks(mwmToTracks, storage, *numMwmIds, mwmToMatchedTracks);
@@ -106,14 +107,17 @@ void CmdMatch(string const & logFile, string const & trackFile, shared_ptr<NumMw
 void CmdMatch(string const & logFile, string const & trackFile)
 {
   LOG(LINFO, ("Matching", logFile));
-  shared_ptr<NumMwmIds> numMwmIds;
   Storage storage;
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   CmdMatch(logFile, trackFile, numMwmIds, storage);
 }
 
-void UnzipAndMatch(Iter begin, Iter end, string const & trackExt, shared_ptr<NumMwmIds> numMwmIds)
+void UnzipAndMatch(Iter begin, Iter end, string const & trackExt)
 {
   Storage storage;
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
+  shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
   for (auto it = begin; it != end; ++it)
   {
     auto & file = *it;
@@ -181,7 +185,6 @@ void CmdMatchDir(string const & logDir, string const & trackExt)
     return;
   }
 
-  shared_ptr<NumMwmIds> numMwmIds;
   auto const size = filesList.size();
   auto const hardwareConcurrency = static_cast<size_t>(thread::hardware_concurrency());
   CHECK_GREATER(hardwareConcurrency, 0, ("No available threads."));
@@ -193,11 +196,11 @@ void CmdMatchDir(string const & logDir, string const & trackExt)
   for (size_t i = 0; i < threadsCount - 1; ++i)
   {
     auto end = begin + blockSize;
-    threads[i] = thread(UnzipAndMatch, begin, end, trackExt, numMwmIds);
+    threads[i] = thread(UnzipAndMatch, begin, end, trackExt);
     begin = end;
   }
 
-  UnzipAndMatch(begin, filesList.end(), trackExt, numMwmIds);
+  UnzipAndMatch(begin, filesList.end(), trackExt);
   for (auto & t : threads)
     t.join();
 }

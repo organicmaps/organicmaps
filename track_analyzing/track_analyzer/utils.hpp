@@ -13,6 +13,6 @@
 namespace track_analyzing
 {
 /// \brief Parses tracks from |logFile| and fills |numMwmIds|, |storage| and |mwmToTracks|.
-void ParseTracks(std::string const & logFile, std::shared_ptr<routing::NumMwmIds> & numMwmIds,
-                 storage::Storage & storage, MwmToTracks & mwmToTracks);
+void ParseTracks(std::string const & logFile, std::shared_ptr<routing::NumMwmIds> const & numMwmIds,
+                 MwmToTracks & mwmToTracks);
 }  // namespace track_analyzing
