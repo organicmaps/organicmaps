@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "A képernyőn";
 
-/* Search Suggestion */
-"food" = "Élelmiszer";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "Közlekedés";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Benzinkút";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Parkoló";
 
-/* Search Suggestion */
-"shop" = "Bolt";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Szálloda";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Látnivaló";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Szórakozás";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "Pénzautomata";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "Bank";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Gyógyszertár";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Kórház";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "Mosdó";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Posta";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Rendőrség";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Iránytű kalibrálás";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

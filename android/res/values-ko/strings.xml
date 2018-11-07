@@ -184,35 +184,31 @@
 	<string name="search_mode_nearme">근처 검색</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">화면에</string>
-	<!-- Search Suggestion -->
-	<string name="food">음식</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">수송</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">연료</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">주차</string>
-	<!-- Search Suggestion -->
-	<string name="shop">쇼핑</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">호텔</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">관광</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">엔터테인먼트</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">은행</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">약국</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">병원</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">화장실</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">우편</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">치안대</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">결과 없음</string>
@@ -398,7 +394,7 @@
 	<string name="email_error_title">메일 전송 중 오류</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">나침반 보정</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi 인터넷</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">경로를 생성하도록 지도를 업데이트하십시오.</string>

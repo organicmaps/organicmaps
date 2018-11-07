@@ -188,35 +188,31 @@
 	<string name="search_mode_nearme">بجواري</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">على الشاشة</string>
-	<!-- Search Suggestion -->
-	<string name="food">طعام</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">نقل</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">غاز</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">الاصطفاف</string>
-	<!-- Search Suggestion -->
-	<string name="shop">متجر</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">فندق</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">سياحة</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">التسلية</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ماكينة الصراف الآلي</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">بنك</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">صيدلية</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">مستشفى</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">حمام</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">بريد</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">شرطة</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">لم يتم العثور على أي نتائج</string>
@@ -408,7 +404,7 @@
 	<string name="email_error_title">هناك خطأ في إرسال البريد الإلكتروني</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">معايرة البوصلة</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">واي-فاي</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">يرجى تحديث الخريطة لإنشاء مسار.</string>

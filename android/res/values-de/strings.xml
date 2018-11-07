@@ -188,35 +188,31 @@
 	<string name="search_mode_nearme">In meiner Nähe</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Auf dem Bildschirm</string>
-	<!-- Search Suggestion -->
-	<string name="food">Essen</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Verkehr</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Tankstelle</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkplatz</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Geschäft</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Sehenswürdigkeit</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Unterhaltung</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Geldautomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotheke</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Krankenhaus</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilette</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Polizeistation</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Keine Ergebnisse gefunden</string>
@@ -416,7 +412,7 @@
 	<string name="email_error_title">Fehler beim Email-Versand</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WLAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erstellen.</string>

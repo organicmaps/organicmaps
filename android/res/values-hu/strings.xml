@@ -183,35 +183,31 @@
 	<string name="search_mode_nearme">A közelben</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">A képernyőn</string>
-	<!-- Search Suggestion -->
-	<string name="food">Élelmiszer</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Közlekedés</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Benzinkút</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkoló</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Bolt</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Szálloda</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Látnivaló</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Szórakozás</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Pénzautomata</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Gyógyszertár</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Kórház</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Mosdó</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Posta</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Rendőrség</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Nincs keresési találat</string>
@@ -403,7 +399,7 @@
 	<string name="email_error_title">Hiba az email küldése során</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>

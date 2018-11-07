@@ -182,35 +182,31 @@
 	<string name="measurement_units">Unități de măsură</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Alegeți între mile și kilometri</string>
-	<!-- Search Suggestion -->
-	<string name="food">Alimentație</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Benzină</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parcare</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Magazin</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Obiective turistice</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Divertisment</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Bancomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bancă</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Farmacie</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Spital</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toaletă</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Poştă</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Poliție</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Nu s-a găsit niciun rezultat.</string>
@@ -400,7 +396,7 @@
 	<string name="email_error_title">Eroare trimitere email.</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrare busolă</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vă rugăm să actualizați harta pentru a crea o rută.</string>

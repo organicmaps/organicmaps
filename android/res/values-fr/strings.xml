@@ -187,35 +187,31 @@
 	<string name="search_mode_nearme">Près de moi</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">À l\'écran</string>
-	<!-- Search Suggestion -->
-	<string name="food">Nourriture</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Essence</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Stationnement</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Magasin</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hôtel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Site touristique</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Divertissement</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">GAB</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Banque</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Pharmacie</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Hôpital</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilettes</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Poste</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Police</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Aucun résultat trouvé</string>
@@ -413,7 +409,7 @@
 	<string name="email_error_title">Erreur d\'envoi de courriel</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Étalonnage de la boussole</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Veuillez mettre à jour la carte pour créer un itinéraire.</string>

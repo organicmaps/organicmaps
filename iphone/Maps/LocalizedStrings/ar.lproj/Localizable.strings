@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "على الشاشة";
 
-/* Search Suggestion */
-"food" = "طعام";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "نقل";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "غاز";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "الاصطفاف";
 
-/* Search Suggestion */
-"shop" = "متجر";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "فندق";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "سياحة";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "التسلية";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "ماكينة الصراف الآلي";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "بنك";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "صيدلية";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "مستشفى";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "حمام";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "بريد";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "شرطة";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "معايرة البوصلة";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "واي-فاي";
 
 /* Update map suggestion */

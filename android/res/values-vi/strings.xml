@@ -182,35 +182,31 @@
 	<string name="measurement_units">Đơn vị đo</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
-	<!-- Search Suggestion -->
-	<string name="food">ẩm thực</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Giao thông</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Khí đốt</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">đỗ xe</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Cửa hàng</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Khách sạn</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Diểm tham quan</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Giải trí</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Ngân hàng</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Hiệu thuốc</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Bệnh viện</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Nhà vệ sinh</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Bưu điện</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Cảnh sát</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Không tìm thấy kết quả nào</string>
@@ -402,7 +398,7 @@
 	<string name="email_error_title">Lỗi gửi thư</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Chuẩn hóa la bàn</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Vui lòng cập nhật bản đồ để tạo tuyến đường</string>

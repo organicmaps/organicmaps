@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "Na obrazovce";
 
-/* Search Suggestion */
-"food" = "Jídlo";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "Doprava";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Čerpací stanice";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Parkoviště";
 
-/* Search Suggestion */
-"shop" = "Obchod";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Hotel";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Pamětihodnost";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Zábava";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "Bankomat";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "Banka";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Lékárna";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Nemocnice";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "Záchody";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Pošta";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Policie";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Kalibrace kompasu";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

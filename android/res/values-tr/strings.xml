@@ -188,35 +188,31 @@
 	<string name="search_mode_nearme">Yakınlarımda</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Ekranda</string>
-	<!-- Search Suggestion -->
-	<string name="food">Yemek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Ulaşım</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Benzin</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Otopark</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Mağaza</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Otel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Görülecek yerler</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Eğlence</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Bankamatik</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Banka</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Eczane</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Hastane</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Tuvalet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Posta</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Polis</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Sonuç bulunamadı</string>
@@ -408,7 +404,7 @@
 	<string name="email_error_title">Posta gönderme hatası</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>

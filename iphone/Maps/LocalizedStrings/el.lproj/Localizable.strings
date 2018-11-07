@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "On the Screen";
 
-/* Search Suggestion */
-"food" = "Φαγητό";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "Συγκοινωνία";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Βενζίνη";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Χώρος στάθμευσης";
 
-/* Search Suggestion */
-"shop" = "Κατάστημα";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Ξενοδοχείο";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Αξιοθέατα";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Ψυχαγωγία";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "ATM";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "Τράπεζα";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Φαρμακείο";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Νοσοκομείο";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "Τουαλέτα";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Ταχυδρομείο";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Αστυνομία";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Βαθμονόμηση πυξίδας";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

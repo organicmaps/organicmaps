@@ -182,35 +182,31 @@
 	<string name="search_mode_nearme">Dichtbij mij</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Op het scherm</string>
-	<!-- Search Suggestion -->
-	<string name="food">Eten</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Benzine</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkeerplaats</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Winkel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Toerisme</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Uitgaan</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Geldautomaat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotheek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Ziekenhuis</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Politie</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Geen resultaten gevonden</string>
@@ -402,7 +398,7 @@
 	<string name="email_error_title">Email verzendfout</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompascalibratie</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>

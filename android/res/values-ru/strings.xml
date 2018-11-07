@@ -188,35 +188,41 @@
 	<string name="search_mode_nearme">Возле меня</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На экране</string>
-	<!-- Search Suggestion -->
-	<string name="food">Еда</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Поесть</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Продукты</string>
+	<!-- Search category -->
 	<string name="transport">Транспорт</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Заправка</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Парковка</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Магазин</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Шоппинг</string>
+	<!-- Search category -->
 	<string name="hotel">Гостиница</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Достопримечательность</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Развлечения</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Банкомат</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Ночная жизнь</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Отдых с детьми</string>
+	<!-- Search category -->
 	<string name="bank">Банк</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Аптека</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Больница</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Туалет</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Почта</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Полиция</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Нет результатов поиска</string>
@@ -421,7 +427,7 @@
 	<string name="email_error_title">Ошибка при отправлении письма</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калибровка компаса</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>

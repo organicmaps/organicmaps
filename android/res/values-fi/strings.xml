@@ -182,35 +182,31 @@
 	<string name="measurement_units">Mittayksiköt</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Valitse mailit tai kilometrit</string>
-	<!-- Search Suggestion -->
-	<string name="food">Ruoka</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Liikenne</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Huoltoasema</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkkipaikka</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Kauppa</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotelli</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Nähtävyydet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Viihde</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Pankkiautomaatti</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Pankki</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apteekki</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Sairaala</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">WC</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Posti</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Poliisi</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Tuloksia ei löytynyt</string>
@@ -402,7 +398,7 @@
 	<string name="email_error_title">Virhe lähetettäessä viestiä</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompassin kalibrointi</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Päivitä kartta luodaksesi reitin</string>

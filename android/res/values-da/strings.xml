@@ -186,35 +186,31 @@
 	<string name="search_mode_nearme">Tæt på mig</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">På skærmen</string>
-	<!-- Search Suggestion -->
-	<string name="food">Mad</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Benzin</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkering</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Butik</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Seværdigheder</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Underholdning</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Hæveautomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Hospital</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Politi</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Ingen resultater</string>
@@ -406,7 +402,7 @@
 	<string name="email_error_title">Mailforsendelsesfejl</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrering af kompas</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>

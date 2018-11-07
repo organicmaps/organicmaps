@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "En la pantalla";
 
-/* Search Suggestion */
-"food" = "Comer";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "Transporte";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Gasolinera";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Aparcamiento";
 
-/* Search Suggestion */
-"shop" = "Tienda";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Hotel";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Turismo";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Entretenimiento";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "Cajero automático";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "Banco";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Farmacia";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Hospital";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "WC";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Oficina de correos";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Policía";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Calibrado de la brújula";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

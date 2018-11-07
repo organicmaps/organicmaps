@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "在屏幕上";
 
-/* Search Suggestion */
-"food" = "食物";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "交通";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "汽油";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "停车";
 
-/* Search Suggestion */
-"shop" = "商店";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "旅店";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "景点";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "娱乐";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "自动取款机";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "银行";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "药店";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "医院";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "厕所";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "邮政";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "警察";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "指南针校准";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "无线网络";
 
 /* Update map suggestion */

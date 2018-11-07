@@ -183,35 +183,31 @@
 	<string name="search_mode_nearme">V mojom okolí</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na obrazovke</string>
-	<!-- Search Suggestion -->
-	<string name="food">Jedlo</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Doprava</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Čerpacia stanica</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkovisko</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Obchod</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Pamätihodnosť</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Zábava</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Bankomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Banka</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Lekáreň</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Nemocnica</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Záchody</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Pošta</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Polícia</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Žiadne výsledky</string>
@@ -407,7 +403,7 @@
 	<string name="email_error_title">Chyba pri odosielaní emailu</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass kalibrácia</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>

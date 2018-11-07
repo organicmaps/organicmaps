@@ -176,35 +176,31 @@
 	<string name="search_mode_nearme">اطراف من</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">روی صفحه نمایش بده</string>
-	<!-- Search Suggestion -->
-	<string name="food">غذا</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">حمل و نقل</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">سوخت</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">پارکینگ</string>
-	<!-- Search Suggestion -->
-	<string name="shop">فروشگاه</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">هتل</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">منظره</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">سرگرمی</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">خود پرداز</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">بانک</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">داروخانه</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">بیمارستان</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">توالت</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">صندوق پست</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">پلیس</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">نتیجه ای یافت نشد</string>
@@ -381,7 +377,7 @@
 	<string name="email_error_title">خطا در ارسال ایمیل</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">تنظیم کردن قظب نما</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">وای فای</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">لطفا نقشه خود را برای ایجاد مسیر اپدیت نمایید</string>

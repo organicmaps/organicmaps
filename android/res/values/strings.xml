@@ -190,35 +190,41 @@
 	<string name="search_mode_nearme">Near Me</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">On the Screen</string>
-	<!-- Search Suggestion -->
-	<string name="food">Food</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Where to eat</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Groceries</string>
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Gas</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parking</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Shop</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Sights</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Entertainment</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nightlife</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Family holiday</string>
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Pharmacy</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Hospital</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Police</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">No results found</string>
@@ -423,7 +429,7 @@
 	<string name="email_error_title">Mail sending error</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Compass calibration</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Please update the map to create a route</string>

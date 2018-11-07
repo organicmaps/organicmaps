@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "На экране";
 
-/* Search Suggestion */
-"food" = "Еда";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Поесть";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Продукты";
+
+/* Search category */
 "transport" = "Транспорт";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Заправка";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Парковка";
 
-/* Search Suggestion */
-"shop" = "Магазин";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Шоппинг";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Гостиница";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Достопримечательность";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Развлечения";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "Банкомат";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Ночная жизнь";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Отдых с детьми";
+
+/* Search category */
 "bank" = "Банк";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Аптека";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Больница";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "Туалет";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Почта";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Полиция";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Калибровка компаса";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

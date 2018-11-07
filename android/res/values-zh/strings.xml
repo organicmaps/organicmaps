@@ -184,35 +184,31 @@
 	<string name="search_mode_nearme">靠近我的</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">在屏幕上</string>
-	<!-- Search Suggestion -->
-	<string name="food">食物</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">交通</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">汽油</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">停车</string>
-	<!-- Search Suggestion -->
-	<string name="shop">商店</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">旅店</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">景点</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">娱乐</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">自动取款机</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">银行</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">药店</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">医院</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">厕所</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">邮政</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">警察</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">没有找到结果</string>
@@ -410,7 +406,7 @@
 	<string name="email_error_title">电子邮件发送错误</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南针校准</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">无线网络</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">请更新地图以创建一条路线。</string>

@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "화면에";
 
-/* Search Suggestion */
-"food" = "음식";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "수송";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "연료";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "주차";
 
-/* Search Suggestion */
-"shop" = "쇼핑";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "호텔";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "관광";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "엔터테인먼트";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "ATM";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "은행";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "약국";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "병원";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "화장실";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "우편";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "치안대";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "나침반 보정";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi 인터넷";
 
 /* Update map suggestion */

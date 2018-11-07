@@ -183,35 +183,31 @@
 	<string name="search_mode_nearme">V mé blízkosti</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na obrazovce</string>
-	<!-- Search Suggestion -->
-	<string name="food">Jídlo</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Doprava</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Čerpací stanice</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkoviště</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Obchod</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Pamětihodnost</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Zábava</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Bankomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Banka</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Lékárna</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Nemocnice</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Záchody</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Pošta</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Policie</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Žádné výsledky</string>
@@ -409,7 +405,7 @@
 	<string name="email_error_title">Chyba při odesílání emailu</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Pro funkci vytváření tras je nutné aktualizovat mapu.</string>

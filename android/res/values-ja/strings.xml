@@ -183,35 +183,31 @@
 	<string name="search_mode_nearme">現在地周辺</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">マップ表示範囲</string>
-	<!-- Search Suggestion -->
-	<string name="food">飲食</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">交通機関</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">ガソリンスタンド</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">駐車場</string>
-	<!-- Search Suggestion -->
-	<string name="shop">買い物</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">ホテル</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">観光</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">エンターテイメント</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">銀行</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">薬局</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">病院</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">トイレ</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">郵便局</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">警察</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">検索結果が見つかりませんでした</string>
@@ -401,7 +397,7 @@
 	<string name="email_error_title">メール送信エラー</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">コンパスの調整</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">無線LAN</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">ルートを作成するためにマップを更新してください。</string>

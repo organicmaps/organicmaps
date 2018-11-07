@@ -182,35 +182,31 @@
 	<string name="measurement_units">Måleenheter</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Velg mellom miles og kilometer</string>
-	<!-- Search Suggestion -->
-	<string name="food">Mat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Drivstoff</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkering</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Butikk</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotell</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Severdigheter</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Underholdning</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Minibank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Sykehus</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toalett</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Politi</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Ingen resultater funnet</string>
@@ -402,7 +398,7 @@
 	<string name="email_error_title">Feil ved sending av e-post</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompasskalibrering</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Oppdater kartet for å opprette en rute</string>

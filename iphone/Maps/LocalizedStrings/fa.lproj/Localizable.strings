@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "روی صفحه نمایش بده";
 
-/* Search Suggestion */
-"food" = "غذا";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "حمل و نقل";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "سوخت";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "پارکینگ";
 
-/* Search Suggestion */
-"shop" = "فروشگاه";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "هتل";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "منظره";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "سرگرمی";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "خود پرداز";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "بانک";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "داروخانه";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "بیمارستان";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "توالت";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "صندوق پست";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "پلیس";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "تنظیم کردن قظب نما";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "وای فای";
 
 /* Update map suggestion */

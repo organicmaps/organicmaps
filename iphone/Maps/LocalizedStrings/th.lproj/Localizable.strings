@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "บนหน้าจอ";
 
-/* Search Suggestion */
-"food" = "อาหาร";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "การขนส่ง";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "ก๊าซ";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "ที่จอดรถ";
 
-/* Search Suggestion */
-"shop" = "ร้านค้า";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "โรงแรม";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "สถานที่ท่องเที่ยว";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "แหล่งบันเทิง";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "เอทีเอ็ม";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "ธนาคาร";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "ร้านขายยา";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "คลินิก";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "ห้องน้ำ";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "ไปรษณีย์";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "ตำรวจ";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "การปรับเทียบเข็มทิศ";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

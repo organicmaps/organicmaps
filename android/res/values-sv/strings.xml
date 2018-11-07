@@ -184,35 +184,31 @@
 	<string name="search_mode_nearme">I närheten</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">På skärmen</string>
-	<!-- Search Suggestion -->
-	<string name="food">Mat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transport</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Bensin</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkering</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Butik</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotell</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Sevärdheter</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Underhållning</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Bankomat</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Sjukhus</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toalett</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Post</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Polis</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Inga resultat</string>

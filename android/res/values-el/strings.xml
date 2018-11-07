@@ -132,35 +132,31 @@
 	<string name="measurement_units">Μονάδες μέτρησης</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
-	<!-- Search Suggestion -->
-	<string name="food">Φαγητό</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Συγκοινωνία</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Βενζίνη</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Χώρος στάθμευσης</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Κατάστημα</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Ξενοδοχείο</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Αξιοθέατα</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Ψυχαγωγία</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Τράπεζα</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Φαρμακείο</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Νοσοκομείο</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Τουαλέτα</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Ταχυδρομείο</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Αστυνομία</string>
 	<!-- Notes field in Bookmarks view -->
 	<string name="description">Σημειώσεις</string>
@@ -306,7 +302,7 @@
 	<string name="email_error_title">Αποστολή σφάλματος αλληλογραφίας</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Βαθμονόμηση πυξίδας</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all_button">Ενημέρωση όλων</string>

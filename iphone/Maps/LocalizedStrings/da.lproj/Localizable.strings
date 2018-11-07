@@ -298,49 +298,58 @@
 /* Do search in current viewport only */
 "search_mode_viewport" = "På skærmen";
 
-/* Search Suggestion */
-"food" = "Mad";
+/* Search category for cafes, bars, restaurants */
+"eat" = "Where to eat";
 
-/* Search Suggestion */
+/* Search category for grocery stores */
+"food" = "Groceries";
+
+/* Search category */
 "transport" = "Transport";
 
-/* Search Suggestion */
+/* Search category */
 "fuel" = "Benzin";
 
-/* Search Suggestion */
+/* Search category */
 "parking" = "Parkering";
 
-/* Search Suggestion */
-"shop" = "Butik";
+/* Search category for clothes/shoes/gifts/jewellery/sport shops */
+"shopping" = "Shopping";
 
-/* Search Suggestion */
+/* Search category */
 "hotel" = "Hotel";
 
-/* Search Suggestion */
+/* Search category */
 "tourism" = "Seværdigheder";
 
-/* Search Suggestion */
+/* Search category */
 "entertainment" = "Underholdning";
 
-/* Search Suggestion */
+/* Search category */
 "atm" = "Hæveautomat";
 
-/* Search Suggestion */
+/* Search category for nightclubs/bars */
+"nightlife" = "Nightlife";
+
+/* Search category for water park/disneyland/playground/toys store */
+"children" = "Family holiday";
+
+/* Search category */
 "bank" = "Bank";
 
-/* Search Suggestion */
+/* Search category */
 "pharmacy" = "Apotek";
 
-/* Search Suggestion */
+/* Search category */
 "hospital" = "Hospital";
 
-/* Search Suggestion */
+/* Search category */
 "toilet" = "Toilet";
 
-/* Search Suggestion */
+/* Search category */
 "post" = "Post";
 
-/* Search Suggestion */
+/* Search category */
 "police" = "Politi";
 
 /* String in search result list, when nothing found */
@@ -658,7 +667,7 @@
 /* Settings item title */
 "pref_calibration_title" = "Kalibrering af kompas";
 
-/* Search Suggestion */
+/* Search category */
 "wifi" = "WiFi";
 
 /* Update map suggestion */

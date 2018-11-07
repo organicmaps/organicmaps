@@ -188,35 +188,31 @@
 	<string name="search_mode_nearme">Поруч</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На екрані</string>
-	<!-- Search Suggestion -->
-	<string name="food">Їжа</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Транспорт</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Заправка</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Парковка</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Крамниця</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Готель</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Пам’ятні місця</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Розваги</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">Банкомат</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Банк</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Аптека</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Лікарня</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Туалет</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Пошта</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Міліція</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Результатів не знайдено</string>
@@ -406,7 +402,7 @@
 	<string name="email_error_title">Помилка при відправленні листа</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калібрування компаса</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Будь ласка, оновіть карту, щоб прокласти маршрут.</string>

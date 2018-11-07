@@ -188,35 +188,31 @@
 	<string name="search_mode_nearme">ใกล้ฉัน</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">บนหน้าจอ</string>
-	<!-- Search Suggestion -->
-	<string name="food">อาหาร</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">การขนส่ง</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">ก๊าซ</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">ที่จอดรถ</string>
-	<!-- Search Suggestion -->
-	<string name="shop">ร้านค้า</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">โรงแรม</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">สถานที่ท่องเที่ยว</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">แหล่งบันเทิง</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">เอทีเอ็ม</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">ธนาคาร</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">ร้านขายยา</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">คลินิก</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">ห้องน้ำ</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">ไปรษณีย์</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">ตำรวจ</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">ไม่พบผลลัพธ์</string>
@@ -408,7 +404,7 @@
 	<string name="email_error_title">จดหมายที่ส่งเกิดความผิดพลาด</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง</string>

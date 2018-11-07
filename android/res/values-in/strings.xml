@@ -182,35 +182,31 @@
 	<string name="measurement_units">Unit Pengukuran</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Pilihlah antara mil dan kilometer</string>
-	<!-- Search Suggestion -->
-	<string name="food">Makanan</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="transport">Transportasi</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="fuel">Bahan bakar</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="parking">Parkir</string>
-	<!-- Search Suggestion -->
-	<string name="shop">Toko</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hotel">Hotel</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="tourism">Pemandangan</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="entertainment">Hiburan</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="atm">ATM</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="bank">Bank</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="pharmacy">Apotek</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="hospital">Rumah sakit</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="toilet">Toilet</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="post">Pos</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="police">Polisi</string>
 	<!-- String in search result list, when nothing found -->
 	<string name="no_search_results_found">Tidak ada hasil yang ditemukan</string>
@@ -402,7 +398,7 @@
 	<string name="email_error_title">Gangguan pengiriman surel</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrasi kompas</string>
-	<!-- Search Suggestion -->
+	<!-- Search category -->
 	<string name="wifi">WiFi</string>
 	<!-- Update map suggestion -->
 	<string name="routing_map_outdated">Mohon perbarui peta untuk membuat rute</string>
