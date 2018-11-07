@@ -1,10 +1,12 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
+import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -32,7 +35,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @NonNull
   private final BookmarkManager.BookmarksCatalogListener mCatalogListener;
   @Nullable
-  private Activity mActivity;
+  private FragmentActivity mActivity;
 
   DefaultBookmarkDownloadController(@NonNull Authorizer authorizer,
                                     @NonNull BookmarkManager.BookmarksCatalogListener catalogListener)
@@ -49,7 +52,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   }
 
   @Override
-  public void attach(@NonNull Activity activity)
+  public void attach(@NonNull FragmentActivity activity)
   {
     if (mActivity != null)
       throw new AssertionError("Already attached! Call detach.");
@@ -75,7 +78,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   }
 
   @NonNull
-  Activity getActivityOrThrow()
+  FragmentActivity getActivityOrThrow()
   {
     if (mActivity == null)
       throw new IllegalStateException("Call this method only when controller is attached!");
@@ -123,6 +126,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void onAuthorizationFinish(boolean success)
   {
+    hideProgress();
     if (!success)
     {
       Toast.makeText(getActivityOrThrow(), R.string.profile_authorization_error,
@@ -143,10 +147,30 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     }
   }
 
+  private void showProgress()
+  {
+    String message = getActivityOrThrow().getString(R.string.please_wait);
+    ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(message, false, true);
+    getActivityOrThrow().getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(dialog, dialog.getClass().getCanonicalName())
+                        .commitAllowingStateLoss();
+  }
+
+
+  private void hideProgress()
+  {
+    FragmentManager fm = getActivityOrThrow().getSupportFragmentManager();
+    String tag = ProgressDialogFragment.class.getCanonicalName();
+    DialogFragment frag = (DialogFragment) fm.findFragmentByTag(tag);
+    if (frag != null)
+      frag.dismissAllowingStateLoss();
+  }
+
   @Override
   public void onAuthorizationStart()
   {
-    // Do nothing by default.
+    showProgress();
   }
 
   @Override
