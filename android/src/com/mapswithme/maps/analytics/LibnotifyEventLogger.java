@@ -17,8 +17,6 @@ import java.util.Map;
 
 class LibnotifyEventLogger extends DefaultEventLogger
 {
-  @SuppressWarnings("NullableProblems")
-
   LibnotifyEventLogger(@NonNull Application application)
   {
     super(application);

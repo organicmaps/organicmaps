@@ -15,8 +15,7 @@ class PushWooshEventLogger extends DefaultEventLogger
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String PW_EMPTY_APP_ID = "XXXXX";
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
+  @Nullable
   private PushwooshHelper mPushwooshHelper;
 
   PushWooshEventLogger(@NonNull Application application)
@@ -46,6 +45,7 @@ class PushWooshEventLogger extends DefaultEventLogger
   public void sendTags(@NonNull String tag, @Nullable String[] params)
   {
     super.sendTags(tag, params);
-    mPushwooshHelper.sendTags(tag, params);
+    if (mPushwooshHelper != null)
+      mPushwooshHelper.sendTags(tag, params);
   }
 }
