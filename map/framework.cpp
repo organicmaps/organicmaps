@@ -395,6 +395,7 @@ Framework::Framework(FrameworkParams const & params)
   , m_popularityLoader(m_model.GetDataSource())
   , m_purchase(std::make_unique<Purchase>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
+  , m_notificationManager(static_cast<notifications::NotificationManager::Delegate &>(*this))
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -511,6 +512,8 @@ Framework::Framework(FrameworkParams const & params)
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
 
+  m_notificationManager.Load();
+  m_notificationManager.TrimExpired();
   eye::Eye::Instance().TrimExpired();
   eye::Eye::Instance().Subscribe(&m_notificationManager);
 }

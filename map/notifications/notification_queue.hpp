@@ -8,7 +8,10 @@
 
 namespace notifications
 {
-struct Notification
+using Clock = std::chrono::system_clock;
+using Time = Clock::time_point;
+
+struct NotificationCandidate
 {
   enum class Type : uint8_t
   {
@@ -16,13 +19,17 @@ struct Notification
     UgcReview
   };
 
-  DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_mapObject, "object"));
+  DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_created, "created_time"),
+                  visitor(m_used, "used"), visitor(m_mapObject, "object"));
 
   Type m_type;
-  std::unique_ptr<eye::MapObject> m_mapObject;
+  Time m_created;
+  Time m_used;
+  Time m_timeOfLastEvent;
+  std::shared_ptr<eye::MapObject> m_mapObject;
 };
 
-using Candidates = std::deque<Notification>;
+using Candidates = std::deque<NotificationCandidate>;
 
 enum class Version : int8_t
 {
@@ -35,19 +42,20 @@ struct QueueV0
 {
   static Version GetVersion() { return Version::V0; }
 
-  DECLARE_VISITOR(visitor(m_candidates, "queue"))
+  DECLARE_VISITOR(visitor(m_candidates, "queue"));
 
+  Time m_lastNotificationProvidedTime;
   Candidates m_candidates;
 };
 
 using Queue = QueueV0;
 
-inline std::string DebugPrint(Notification::Type type)
+inline std::string DebugPrint(NotificationCandidate::Type type)
 {
   switch (type)
   {
-  case Notification::Type::UgcAuth: return "UgcAuth";
-  case Notification::Type::UgcReview: return "UgcReview";
+  case NotificationCandidate::Type::UgcAuth: return "UgcAuth";
+  case NotificationCandidate::Type::UgcReview: return "UgcReview";
   }
 }
 }  // namespace notifications

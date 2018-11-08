@@ -10,7 +10,6 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
-#include <chrono>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -103,6 +102,12 @@ void Eye::Subscribe(Subscriber * subscriber)
 void Eye::UnsubscribeAll()
 {
   m_subscribers.clear();
+}
+
+// static
+std::chrono::hours const & Eye::GetMapObjectEventsExpirePeriod()
+{
+  return kMapObjectEventsExpirePeriod;
 }
 
 void Eye::TrimExpired()
@@ -417,56 +422,47 @@ void Eye::Event::LayerShown(Layer::Type type)
 }
 
 // static
-void Eye::Event::PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
-                                 std::string const & readableName, m2::PointD const & userPos)
+void Eye::Event::PlacePageOpened(MapObject const & mapObject, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::Open, userPos);
+    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::Open, userPos);
   });
 }
 
 // static
-void Eye::Event::UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
-                                 std::string const & readableName, m2::PointD const & userPos)
+void Eye::Event::UgcEditorOpened(MapObject const & mapObject, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::UgcEditorOpened,
-                                      userPos);
+    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::UgcEditorOpened, userPos);
   });
 }
 
 // static
-void Eye::Event::UgcSaved(std::string const & bestType, m2::PointD const & pos,
-                          std::string const & readableName, m2::PointD const & userPos)
+void Eye::Event::UgcSaved(MapObject const & mapObject, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::UgcSaved,
-                                      userPos);
+    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::UgcSaved, userPos);
   });
 }
 
 // static
-void Eye::Event::AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
-                                      std::string const & readableName, m2::PointD const & userPos)
+void Eye::Event::AddToBookmarkClicked(MapObject const & mapObject, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::AddToBookmark,
-                                      userPos);
+    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::AddToBookmark, userPos);
   });
 }
 
 // static
-void Eye::Event::RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
-                                      std::string const & readableName, m2::PointD const & userPos)
+void Eye::Event::RouteCreatedToObject(MapObject const & mapObject, m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [bestType, pos, readableName, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent({bestType, pos, readableName}, MapObject::Event::Type::RouteToCreated,
-                                      userPos);
+    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
   });
 }
 }  // namespace eye

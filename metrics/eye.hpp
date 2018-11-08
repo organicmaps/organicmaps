@@ -5,6 +5,7 @@
 #include "base/atomic_shared_ptr.hpp"
 #include "base/macros.hpp"
 
+#include <chrono>
 #include <string>
 #include <vector>
 
@@ -44,16 +45,11 @@ public:
     static void DiscoveryShown();
     static void DiscoveryItemClicked(Discovery::Event event);
     static void LayerShown(Layer::Type type);
-    static void PlacePageOpened(std::string const & bestType, m2::PointD const & pos,
-                                std::string const & readableName, m2::PointD const & userPos);
-    static void UgcEditorOpened(std::string const & bestType, m2::PointD const & pos,
-                                std::string const & readableName, m2::PointD const & userPos);
-    static void UgcSaved(std::string const & bestType, m2::PointD const & pos,
-                         std::string const & readableName, m2::PointD const & userPos);
-    static void AddToBookmarkClicked(std::string const & bestType, m2::PointD const & pos,
-                                     std::string const & readableName, m2::PointD const & userPos);
-    static void RouteCreatedToObject(std::string const & bestType, m2::PointD const & pos,
-                                     std::string const & readableName, m2::PointD const & userPos);
+    static void PlacePageOpened(MapObject const & mapObject, m2::PointD const & userPos);
+    static void UgcEditorOpened(MapObject const & mapObject, m2::PointD const & userPos);
+    static void UgcSaved(MapObject const & mapObject, m2::PointD const & userPos);
+    static void AddToBookmarkClicked(MapObject const & mapObject, m2::PointD const & userPos);
+    static void RouteCreatedToObject(MapObject const & mapObject, m2::PointD const & userPos);
   };
 
   static Eye & Instance();
@@ -64,6 +60,7 @@ public:
   void Subscribe(Subscriber * subscriber);
   void UnsubscribeAll();
 
+  static std::chrono::hours const & GetMapObjectEventsExpirePeriod();
   void TrimExpired();
 
 private:

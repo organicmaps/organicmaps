@@ -137,7 +137,8 @@ struct FrameworkParams
 
 class Framework : public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
-                  public TipsApi::Delegate
+                  public TipsApi::Delegate,
+                  public notifications::NotificationManager::Delegate
 {
   DISALLOW_COPY(Framework);
 
@@ -852,7 +853,7 @@ private:
   //@}
 
 public:
-  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
+  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const override;
 
 private:
   unique_ptr<search::CityFinder> m_cityFinder;

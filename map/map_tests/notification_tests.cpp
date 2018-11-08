@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/notifications/notification_manager.hpp"
 #include "map/notifications/notification_queue.hpp"
 #include "map/notifications/notification_queue_serdes.hpp"
 #include "map/notifications/notification_queue_storage.hpp"
@@ -13,6 +14,20 @@
 
 using namespace notifications;
 
+namespace notifications
+{
+class NotificationManagerForTesting : public NotificationManager
+{
+public:
+  explicit NotificationManagerForTesting(NotificationManager::Delegate const & delegate)
+    : NotificationManager(delegate)
+  {
+  }
+
+  Queue & GetEditableQueue() { return m_queue; }
+};
+}  // namespace notifications
+
 namespace
 {
 class ScopedNotificationsQueue
@@ -24,13 +39,28 @@ public:
   }
 };
 
+class DelegateForTesting : public NotificationManager::Delegate
+{
+public:
+  // NotificationManager::Delegate overrides:
+  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const override
+  {
+    return m_countries;
+  }
+
+  void SetCountries(storage::TCountriesVec const & countries) { m_countries = countries; }
+
+private:
+  storage::TCountriesVec m_countries;
+};
+
 Queue MakeDefaultQueueForTesting()
 {
   Queue queue;
 
   {
-    Notification notification;
-    notification.m_type = Notification::Type::UgcReview;
+    NotificationCandidate notification;
+    notification.m_type = NotificationCandidate::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
     notification.m_mapObject->SetBestType("cafe");
@@ -41,8 +71,8 @@ Queue MakeDefaultQueueForTesting()
   }
 
   {
-    Notification notification;
-    notification.m_type = Notification::Type::UgcReview;
+    NotificationCandidate notification;
+    notification.m_type = NotificationCandidate::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
     notification.m_mapObject->SetBestType("shop");
@@ -53,8 +83,8 @@ Queue MakeDefaultQueueForTesting()
   }
 
   {
-    Notification notification;
-    notification.m_type = Notification::Type::UgcReview;
+    NotificationCandidate notification;
+    notification.m_type = NotificationCandidate::Type::UgcReview;
 
     notification.m_mapObject = std::make_unique<eye::MapObject>();
     notification.m_mapObject->SetBestType("viewpoint");
@@ -110,5 +140,171 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_QueueSaveLoadTest)
   QueueSerdes::Deserialize(queueData, result);
 
   CompareWithDefaultQueue(result);
+}
+
+UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckRouteToInSameGeoTrigger)
+{
+  DelegateForTesting delegate;
+  NotificationManagerForTesting notificationManager(delegate);
+
+  delegate.SetCountries({"Norway_Central"});
+
+  eye::MapObject mapObject;
+  mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
+  mapObject.SetReadableName("Visiting a Bjarne");
+  mapObject.SetBestType("amenity-bar");
+  mapObject.SetMwmNames({"Norway_Central"});
+
+  eye::MapObject::Event event;
+  event.m_type = eye::MapObject::Event::Type::RouteToCreated;
+  event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+  event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+  mapObject.GetEditableEvents().push_back(event);
+  notificationManager.OnMapObjectEvent(mapObject);
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
+  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent = event.m_eventTime;
+
+  auto result = notificationManager.GetNotification();
+
+  TEST(result.is_initialized(), ());
+  TEST_EQUAL(result.get().m_type, NotificationCandidate::Type::UgcReview, ());
+
+  result = notificationManager.GetNotification();
+  TEST(!result.is_initialized(), ());
+}
+
+UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedTrigger)
+{
+  DelegateForTesting delegate;
+  NotificationManagerForTesting notificationManager(delegate);
+
+  delegate.SetCountries({"Norway_Central"});
+
+  eye::MapObject mapObject;
+  mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
+  mapObject.SetReadableName("Visiting a Bjarne");
+  mapObject.SetBestType("amenity-bar");
+  mapObject.SetMwmNames({"Norway_Central"});
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::Open;
+    event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 0, ());
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::UgcEditorOpened;
+    event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
+
+  auto result = notificationManager.GetNotification();
+
+  TEST(!result.is_initialized(), ());
+
+  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent =
+      notifications::Clock::now() - std::chrono::hours(25);
+
+  result = notificationManager.GetNotification();
+
+  TEST(result.is_initialized(), ());
+  TEST_EQUAL(result.get().m_type, NotificationCandidate::Type::UgcReview, ());
+
+  result = notificationManager.GetNotification();
+  TEST(!result.is_initialized(), ());
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::UgcEditorOpened;
+    event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::UgcSaved;
+    event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  result = notificationManager.GetNotification();
+  TEST(!result.is_initialized(), ());
+}
+
+UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripTrigger)
+{
+  DelegateForTesting delegate;
+  NotificationManagerForTesting notificationManager(delegate);
+
+  delegate.SetCountries({"Norway_Central"});
+
+  eye::MapObject mapObject;
+  mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
+  mapObject.SetReadableName("Visiting a Bjarne");
+  mapObject.SetBestType("amenity-bar");
+  mapObject.SetMwmNames({"Norway_Central"});
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::Open;
+    event.m_userPos = MercatorBounds::FromLatLon({54.637300, 19.877731});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 0, ());
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::Open;
+    event.m_userPos = MercatorBounds::FromLatLon({54.637310, 19.877735});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 0, ());
+
+  {
+    eye::MapObject::Event event;
+    event.m_type = eye::MapObject::Event::Type::RouteToCreated;
+    event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
+    event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
+    mapObject.GetEditableEvents().push_back(event);
+    notificationManager.OnMapObjectEvent(mapObject);
+  }
+
+  TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
+
+  auto result = notificationManager.GetNotification();
+
+  TEST(!result.is_initialized(), ());
+
+  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent =
+      notifications::Clock::now() - std::chrono::hours(25);
+
+  result = notificationManager.GetNotification();
+
+  TEST(result.is_initialized(), ());
+  TEST_EQUAL(result.get().m_type, NotificationCandidate::Type::UgcReview, ());
+
+  result = notificationManager.GetNotification();
+  TEST(!result.is_initialized(), ());
 }
 }  // namespace

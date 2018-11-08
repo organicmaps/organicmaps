@@ -219,6 +219,10 @@ public:
                    MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7)};
   }
 
+  std::vector<std::string> const & GetMwmNames() const { return m_mwmNames; }
+
+  void SetMwmNames(std::vector<std::string> const & ids) { m_mwmNames = ids; }
+
   std::string const & GetReadableName() const { return m_readableName; }
 
   void SetReadableName(std::string const & readableName) { m_readableName = readableName; }
@@ -230,11 +234,13 @@ public:
   m2::RectD GetLimitRect() const { return m_limitRect; }
 
   DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
-                  visitor(m_readableName, "name"), visitor(m_events, "events"));
+                  visitor(m_mwmNames, "mwm_names"), visitor(m_readableName, "name"),
+                  visitor(m_events, "events"));
 
 private:
   std::string m_bestType;
   m2::PointD m_pos;
+  std::vector<std::string> m_mwmNames;
   std::string m_readableName;
   // Mutable because of interface of the m4::Tree provides constant references in ForEach methods,
   // but we need to add events into existing objects to avoid some overhead (copy + change +

@@ -94,8 +94,7 @@ public:
 
     if (request & REQUEST_TYPE_NOTIFICATION)
     {
-      m_notificationManager = std::make_unique<notifications::NotificationManager>();
-      m_notificationManager->Load();
+      m_notificationManager = std::make_unique<lightweight::NotificationManager>();
       request ^= REQUEST_TYPE_NOTIFICATION;
     }
 
@@ -123,7 +122,7 @@ private:
   std::unique_ptr<CountryInfoReader> m_countryInfoReader;
   std::unique_ptr<LocalAdsFeaturesReader> m_localAdsFeaturesReader;
   std::unique_ptr<Statistics> m_localAdsStatistics;
-  std::unique_ptr<notifications::NotificationManager> m_notificationManager;
+  std::unique_ptr<lightweight::NotificationManager> m_notificationManager;
 };
 
 template<>
