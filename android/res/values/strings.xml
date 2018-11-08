@@ -1479,6 +1479,8 @@
 	<string name="price_error_subtitle">An error occured while getting price. Please, try again later.</string>
 	<!-- TODO -->
 	<string name="edit_your_guide_email_body">edit_your_guide_email_body</string>
+	<!-- TODO -->
+	<string name="edit_on_web">edit_on_web</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
