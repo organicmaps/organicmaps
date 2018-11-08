@@ -63,6 +63,8 @@ set(
   joint_index.cpp
   joint_index.hpp
   loaded_path_segment.hpp
+  maxspeeds.cpp
+  maxspeeds.hpp
   maxspeed_conversion.cpp
   maxspeed_conversion.hpp
   maxspeed_serialization.cpp

@@ -1,0 +1,87 @@
+#include "routing/maxspeeds.hpp"
+
+#include "routing/maxspeed_serialization.hpp"
+
+#include "indexer/data_source.hpp"
+
+#include "platform/measurement_utils.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+
+#include "defines.hpp"
+
+#include <algorithm>
+
+namespace routing
+{
+bool Maxspeeds::IsEmpty() const
+{
+  return m_forwardMaxspeedsTable.size() == 0 && m_bidirectionalMaxspeeds.empty();
+}
+
+bool Maxspeeds::HasMaxspeed(uint32_t fid) const
+{
+  return HasForwardMaxspeed(fid) || HasBidirectionalMaxspeed(fid);
+}
+
+Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
+{
+  // Forward only maxspeeds.
+  if (HasForwardMaxspeed(fid))
+  {
+    auto const r = m_forwardMaxspeedsTable.rank(fid);
+    CHECK_LESS(r, m_forwardMaxspeeds.Size(), ());
+    uint8_t const forwardMaxspeedMacro = m_forwardMaxspeeds.Get(r);
+    CHECK(GetMaxspeedConverter().IsValidMacro(forwardMaxspeedMacro), ());
+    auto const forwardMaxspeed =
+        GetMaxspeedConverter().MacroToSpeed(static_cast<SpeedMacro>(forwardMaxspeedMacro));
+    return {forwardMaxspeed.m_units, forwardMaxspeed.m_speed, kInvalidSpeed};
+  }
+
+  // Bidirectional maxspeeds.
+  auto const range = std::equal_range(
+      m_bidirectionalMaxspeeds.cbegin(), m_bidirectionalMaxspeeds.cend(),
+      FeatureMaxspeed(fid, measurement_utils::Units::Metric, kInvalidSpeed, kInvalidSpeed));
+
+  if (range.second == range.first)
+    return {}; // No maxspeed for |fid| is set. Returns an invalid Maxspeed instance.
+
+  CHECK_EQUAL(range.second - range.first, 1, ());
+  return range.first->GetMaxspeed();
+}
+
+bool Maxspeeds::HasForwardMaxspeed(uint32_t fid) const
+{
+  return fid < m_forwardMaxspeedsTable.size() ? m_forwardMaxspeedsTable[fid] : false;
+}
+
+bool Maxspeeds::HasBidirectionalMaxspeed(uint32_t fid) const
+{
+  return std::binary_search(
+      m_bidirectionalMaxspeeds.cbegin(), m_bidirectionalMaxspeeds.cend(),
+      FeatureMaxspeed(fid, measurement_utils::Units::Metric, kInvalidSpeed, kInvalidSpeed));
+}
+
+std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource,
+                                         MwmSet::MwmHandle const & handle)
+{
+  auto maxspeeds = std::make_unique<Maxspeeds>();
+  auto const & mwmValue = *handle.GetValue<MwmValue>();
+  if (!mwmValue.m_cont.IsExist(MAXSPEED_FILE_TAG))
+    return maxspeeds;
+
+  try
+  {
+    ReaderSource<FilesContainerR::TReader> src(mwmValue.m_cont.GetReader(MAXSPEED_FILE_TAG));
+    MaxspeedSerializer::Deserialize(src, *maxspeeds);
+  }
+  catch (Reader::OpenException const & e)
+  {
+    LOG(LERROR, ("File", mwmValue.GetCountryFileName(), "Error while reading", MAXSPEED_FILE_TAG,
+        "section.", e.Msg()));
+  }
+
+  return maxspeeds;
+}
+}  // namespace routing

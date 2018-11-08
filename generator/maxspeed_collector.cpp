@@ -82,7 +82,11 @@ void MaxspeedCollector::Process(OsmElement const & p)
     if (!ParseMaxspeedTag(maxspeedBackwardStr, maxspeedBackward))
       return;
 
-    if (maxspeedForward.m_units != maxspeedBackward.m_units)
+    // Note. Keeping only maxspeed:forward and maxspeed:backward if they have the same units.
+    // The exception is maxspeed:forward or maxspeed:backward have a special values
+    // like "none" or "walk". In that case units mean nothing an the values should
+    // be processed in a special way.
+    if (!HaveSameUnits(maxspeedForward, maxspeedBackward))
       return;
 
     ss << "," << strings::to_string(maxspeedBackward.m_speed);

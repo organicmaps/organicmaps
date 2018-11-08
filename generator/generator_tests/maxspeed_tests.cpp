@@ -5,7 +5,9 @@
 #include "generator/maxspeed_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
+#include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
+#include "routing/maxspeeds.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
@@ -37,8 +39,8 @@
 namespace
 {
 using namespace measurement_utils;
-using namespace platform;
 using namespace platform::tests_support;
+using namespace platform;
 using namespace routing;
 using namespace std;
 
@@ -87,33 +89,21 @@ void TestMaxspeedSection(FeatureVector const & roads, string const & maxspeedCsv
   string const testMwmFullPath = base::JoinPath(testDirFullPath, testMwm);
   BuildMaxspeed(testMwmFullPath, featureIdToOsmId, csvFullPath);
 
-  // Deserializing maxspeed section.
-  // @TODO(bykoianko) When MaxspeedLoader is implemented it should be test here.
+  // Loading maxspeed section.
   FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   auto const & mwmId = regResult.first;
   auto const handle = dataSource.GetMwmHandleById(mwmId);
   TEST(handle.IsAlive(), ());
-  auto const & mwmValue = *handle.GetValue<MwmValue>();
 
-  vector<FeatureMaxspeed> maxspeeds;
-  if (mwmValue.m_cont.IsExist(MAXSPEED_FILE_TAG))
-  {
-    try
-    {
-      auto const & reader = mwmValue.m_cont.GetReader(MAXSPEED_FILE_TAG);
-      ReaderSource<FilesContainerR::TReader> src(reader);
-      MaxspeedSerializer::Deserialize(src, maxspeeds);
-      TEST(is_sorted(maxspeeds.cbegin(), maxspeeds.cend()), ());
-    }
-    catch (Reader::OpenException const & e)
-    {
-      TEST(false, ("Error while reading maxspeed section from", country));
-    }
-  }
+  auto const maxspeeds = LoadMaxspeeds(dataSource, handle);
+  TEST(maxspeeds, ());
 
   // Testing maxspeed section content.
+  auto const featureNumber = roads.size();
+  TEST(!maxspeeds->HasMaxspeed(static_cast<uint32_t>(featureNumber + 1)), ());
+
   OsmIdToMaxspeed osmIdToMaxspeed;
   TEST(ParseMaxspeeds(base::JoinPath(testDirFullPath, kCsv), osmIdToMaxspeed), ());
   auto processor = [&](FeatureType & f, uint32_t const & id) {
@@ -127,29 +117,18 @@ void TestMaxspeedSection(FeatureVector const & roads, string const & maxspeedCsv
     if (itMaxspeedCsv == osmIdToMaxspeed.cend())
       return; // No maxspeed for feature |id|.
 
-    ParsedMaxspeed const maxspeedCsv = itMaxspeedCsv->second;
-
-    // Looking for maxspeed form mwm.
-    // Note. FeatureMaxspeed::operator<() is base only on FeatureMaxspeed::m_featureId.
-    auto const it = equal_range(maxspeeds.cbegin(), maxspeeds.cend(),
-                                FeatureMaxspeed(id, Units::Metric, kInvalidSpeed));
-
-    TEST_EQUAL(it.second - it.first, 1,
-               ("If there's no maxspeed in mwm for", id,
-                "feature id, this maxspeed should not be found in csv."));
-    FeatureMaxspeed const maxspeedMwm = *it.first;
+    TEST(maxspeeds->HasMaxspeed(id), ());
+    Maxspeed const maxspeedCsv = itMaxspeedCsv->second;
+    Maxspeed const maxspeedMwm = maxspeeds->GetMaxspeed(id);
 
     // Comparing maxspeed from csv and maxspeed from mwm section.
-    TEST_EQUAL(id, maxspeedMwm.GetFeatureId(), ());
-    TEST_EQUAL(maxspeedCsv.m_units, maxspeedMwm.GetUnits(), ());
-    TEST_EQUAL(maxspeedCsv.m_forward, maxspeedMwm.GetForward(), ());
-    TEST_EQUAL(maxspeedCsv.m_backward, maxspeedMwm.GetBackward(), ());
+    TEST_EQUAL(maxspeedCsv, maxspeedMwm, ());
   };
   feature::ForEachFromDat(testMwmFullPath, processor);
 }
 
 // Note. ParseMaxspeeds() is not tested in TestMaxspeedSection() because it's used twice there.
-// So it's important to test the function separateю
+// So it's important to test the function separate.
 bool ParseCsv(string const & maxspeedCsvContent, OsmIdToMaxspeed & mapping)
 {
   string const testDirFullPath = base::JoinPath(GetPlatform().WritableDir(), kTestDir);
@@ -204,7 +183,7 @@ UNIT_TEST(ParseMaxspeeds3)
 
 UNIT_TEST(ParseMaxspeeds4)
 {
-    // Note. kNoneMaxSpeed == 65534 and kWalkMaxSpeed == 65533.
+  // Note. kNoneMaxSpeed == 65534 and kWalkMaxSpeed == 65533.
   string const maxspeedCsvContent = "1,Metric,200,65534\n2,Metric,65533\n";
   OsmIdToMaxspeed const expectedMapping = {
       {base::MakeOsmWay(1), {Units::Metric, 200, kNoneMaxSpeed}},
@@ -266,20 +245,20 @@ UNIT_TEST(MaxspeedSection_Smoke)
 
 UNIT_TEST(MaxspeedSection1)
 {
-  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}} /* Point of feature 0 */,
-                               {{1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}} /* Point of feature 1 */};
+  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}} /* Points of feature 0 */,
+                               {{1.0, 0.0}, {1.0, 1.0}, {1.0, 2.0}} /* Points of feature 1 */};
   string const maxspeedCsvContent = "25258932,Metric,60\n25258943,Metric,90\n";
   map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(25258932)},
       {1 /* feature id */, base::MakeOsmWay(25258943)}};
-    TestMaxspeedSection(roads, maxspeedCsvContent, featureIdToOsmId);
+  TestMaxspeedSection(roads, maxspeedCsvContent, featureIdToOsmId);
 }
 
 UNIT_TEST(MaxspeedSection2)
 {
-  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Point of feature 0 */,
-                               {{1.0, 0.0}, {1.0, 2.0}} /* Point of feature 1 */,
-                               {{1.0, 2.0}, {1.0, 3.0}} /* Point of feature 2 */};
+  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
+                               {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
+                               {{1.0, 2.0}, {1.0, 3.0}} /* Points of feature 2 */};
   string const maxspeedCsvContent = "25258932,Metric,60,40\n32424,Metric,120\n";
   map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(25258932)},
@@ -290,9 +269,9 @@ UNIT_TEST(MaxspeedSection2)
 
 UNIT_TEST(MaxspeedSection3)
 {
-  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Point of feature 0 */,
-                               {{1.0, 0.0}, {1.0, 2.0}} /* Point of feature 1 */,
-                               {{1.0, 2.0}, {1.0, 3.0}} /* Point of feature 2 */};
+  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
+                               {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
+                               {{1.0, 2.0}, {1.0, 3.0}} /* Points of feature 2 */};
   // Note. kNoneMaxSpeed == 65535 and kWalkMaxSpeed == 65534.
   string const maxspeedCsvContent =
       "25252,Metric,120,65534\n258943,Metric,65533\n32424,Metric,10,65533\n";
@@ -305,8 +284,8 @@ UNIT_TEST(MaxspeedSection3)
 
 UNIT_TEST(MaxspeedSection4)
 {
-  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Point of feature 0 */,
-                               {{1.0, 0.0}, {0.0, 0.0}} /* Point of feature 1 */};
+  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
+                               {{1.0, 0.0}, {0.0, 0.0}} /* Points of feature 1 */};
   string const maxspeedCsvContent = "50000000000,Imperial,30\n50000000001,Imperial,50\n";
   map<uint32_t, base::GeoObjectId> const featureIdToOsmId = {
       {0 /* feature id */, base::MakeOsmWay(50000000000)},
@@ -316,13 +295,13 @@ UNIT_TEST(MaxspeedSection4)
 
 UNIT_TEST(MaxspeedSection_Big)
 {
-  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Point of feature 0 */,
-                               {{1.0, 0.0}, {1.0, 2.0}} /* Point of feature 1 */,
-                               {{1.0, 2.0}, {1.0, 3.0}} /* Point of feature 2 */,
-                               {{1.0, 2.0}, {1.0, 4.0}} /* Point of feature 3 */,
-                               {{1.0, 2.0}, {2.0, 3.0}} /* Point of feature 4 */,
-                               {{1.0, 2.0}, {2.0, 7.0}} /* Point of feature 5 */,
-                               {{1.0, 2.0}, {7.0, 4.0}} /* Point of feature 6 */};
+  FeatureVector const roads = {{{0.0, 0.0}, {0.0, 1.0}} /* Points of feature 0 */,
+                               {{1.0, 0.0}, {1.0, 2.0}} /* Points of feature 1 */,
+                               {{1.0, 2.0}, {1.0, 3.0}} /* Points of feature 2 */,
+                               {{1.0, 2.0}, {1.0, 4.0}} /* Points of feature 3 */,
+                               {{1.0, 2.0}, {2.0, 3.0}} /* Points of feature 4 */,
+                               {{1.0, 2.0}, {2.0, 7.0}} /* Points of feature 5 */,
+                               {{1.0, 2.0}, {7.0, 4.0}} /* Points of feature 6 */};
   // Note. kNoneMaxSpeed == 65534.
   string const maxspeedCsvContent =
       "100,Imperial,100,65534\n200,Imperial,50\n300,Imperial,30\n400,Imperial,10,20\n600,"

@@ -2,6 +2,7 @@
 
 #include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
+#include "routing/maxspeeds.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
@@ -19,21 +20,25 @@ using namespace measurement_utils;
 using namespace routing;
 using namespace std;
 
-void TestMaxspeedSerialization(std::vector<FeatureMaxspeed> const & speed)
+void TestMaxspeedSerialization(std::vector<FeatureMaxspeed> const & speeds)
 {
   vector<char> buffer;
-  MemWriter<vector<char> > w(buffer);
+  MemWriter<vector<char>> w(buffer);
 
-  MaxspeedSerializer::Serialize(speed, w);
+  MaxspeedSerializer::Serialize(speeds, w);
 
   size_t const sz = buffer.size();
 
   MemReader r(buffer.data(), sz);
   ReaderSource<MemReader> src(r);
-  std::vector<FeatureMaxspeed> result;
-  MaxspeedSerializer::Deserialize(src, result);
+  Maxspeeds maxspeeds;
+  MaxspeedSerializer::Deserialize(src, maxspeeds);
 
-  TEST_EQUAL(speed, result, ());
+  for (auto const s : speeds)
+  {
+    TEST(maxspeeds.HasMaxspeed(s.GetFeatureId()), (s));
+    TEST_EQUAL(maxspeeds.GetMaxspeed(s.GetFeatureId()), s.GetMaxspeed(), (s));
+  }
 }
 
 UNIT_TEST(MaxspeedConverter)
@@ -43,36 +48,36 @@ UNIT_TEST(MaxspeedConverter)
   // All maxspeed limits conversion test.
   for (size_t i = 0; i < numeric_limits<uint8_t>::max(); ++i)
   {
-    auto const macro = static_cast<Maxspeed>(i);
+    auto const macro = static_cast<SpeedMacro>(i);
     auto const speed = conv.MacroToSpeed(macro);
     auto const backToMacro = conv.SpeedToMacro(speed);
     if (speed.IsValid())
       TEST_EQUAL(backToMacro, macro, (i));
     else
-      TEST_EQUAL(backToMacro, Maxspeed::Undefined, (i));
+      TEST_EQUAL(backToMacro, SpeedMacro::Undefined, (i));
   }
 
   // Test on conversion some maxspeed value to macro.
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kInvalidSpeed, Units::Metric)), Maxspeed::Undefined, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kNoneMaxSpeed, Units::Metric)), Maxspeed::None, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kWalkMaxSpeed, Units::Metric)), Maxspeed::Walk, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(60, Units::Metric)), Maxspeed::Speed60kph, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(90, Units::Metric)), Maxspeed::Speed90kph, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(30, Units::Imperial)), Maxspeed::Speed30mph, ());
-  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(33, Units::Metric)), Maxspeed::Undefined, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kInvalidSpeed, Units::Metric)), SpeedMacro::Undefined, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kNoneMaxSpeed, Units::Metric)), SpeedMacro::None, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(kWalkMaxSpeed, Units::Metric)), SpeedMacro::Walk, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(60, Units::Metric)), SpeedMacro::Speed60kph, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(90, Units::Metric)), SpeedMacro::Speed90kph, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(30, Units::Imperial)), SpeedMacro::Speed30mph, ());
+  TEST_EQUAL(conv.SpeedToMacro(SpeedInUnits(33, Units::Metric)), SpeedMacro::Undefined, ());
 
   // Test on conversion some maxspeed to macro to value.
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::Undefined), SpeedInUnits(kInvalidSpeed, Units::Metric), ());
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::None), SpeedInUnits(kNoneMaxSpeed, Units::Metric), ());
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::Walk), SpeedInUnits(kWalkMaxSpeed, Units::Metric), ());
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::Speed60kph), SpeedInUnits(60, Units::Metric), ());
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::Speed90kph), SpeedInUnits(90, Units::Metric), ());
-  TEST_EQUAL(conv.MacroToSpeed(Maxspeed::Speed30mph), SpeedInUnits(30, Units::Imperial), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Undefined), SpeedInUnits(kInvalidSpeed, Units::Metric), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::None), SpeedInUnits(kNoneMaxSpeed, Units::Metric), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Walk), SpeedInUnits(kWalkMaxSpeed, Units::Metric), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed60kph), SpeedInUnits(60, Units::Metric), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed90kph), SpeedInUnits(90, Units::Metric), ());
+  TEST_EQUAL(conv.MacroToSpeed(SpeedMacro::Speed30mph), SpeedInUnits(30, Units::Imperial), ());
 
   // Test on IsValidMacro() method.
   TEST(!conv.IsValidMacro(0), ());
   TEST(conv.IsValidMacro(1), ()); // static_cast<uint8_t>(None) == 1
-  TEST(!conv.IsValidMacro(9), ()); // A value which is undefined in Maxspeed enum class.
+  TEST(!conv.IsValidMacro(9), ()); // A value which is undefined in SpeedMacro enum class.
 }
 
 UNIT_TEST(MaxspeedSerializer_Smoke)
@@ -138,7 +143,7 @@ UNIT_TEST(MaxspeedSerializer_BigImperial)
   std::vector<FeatureMaxspeed> const maxspeeds = {
       {0 /* feature id */, Units::Imperial, 30 /* speed */},
       {1 /* feature id */, Units::Imperial, 5 /* speed */},
-      {4 /* feature id */, Units::Imperial, 1 /* speed */},
+      {4 /* feature id */, Units::Imperial, 3 /* speed */},
       {5 /* feature id */, Units::Imperial, 5 /* speed */},
       {7 /* feature id */, Units::Imperial, 30 /* speed */, 50 /* speed */},
       {8 /* feature id */, Units::Imperial, 70 /* speed */},

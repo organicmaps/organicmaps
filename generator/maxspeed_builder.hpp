@@ -12,19 +12,7 @@
 
 namespace routing
 {
-struct ParsedMaxspeed
-{
-  measurement_utils::Units m_units = measurement_utils::Units::Metric;
-  uint16_t m_forward = routing::kInvalidSpeed;
-  uint16_t m_backward = routing::kInvalidSpeed;
-
-  bool operator==(ParsedMaxspeed const & rhs) const
-  {
-    return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
-  }
-};
-
-using OsmIdToMaxspeed = std::map<base::GeoObjectId, ParsedMaxspeed>;
+using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 
 /// \brief Parses csv file with path |maxspeedFilename| and keep the result in |osmIdToMaxspeed|.
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
@@ -46,6 +34,4 @@ void BuildMaxspeed(std::string const & dataPath,
 /// 3. Generates geometry
 void BuildMaxspeed(std::string const & dataPath, std::string const & osmToFeaturePath,
                    std::string const & maxspeedFilename);
-
-std::string DebugPrint(ParsedMaxspeed const & parsedMaxspeed);
 }  // namespace routing

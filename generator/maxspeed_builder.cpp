@@ -46,39 +46,39 @@ bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, uint16_t & value)
   uint64_t parsedSpeed = 0;
   if (!strings::to_uint64(*iter, parsedSpeed))
     return false;
-  if (parsedSpeed > std::numeric_limits<uint16_t>::max())
+  if (parsedSpeed > numeric_limits<uint16_t>::max())
     return false;
   value = static_cast<uint16_t>(parsedSpeed);
   ++iter;
   return true;
 }
 
-FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, ParsedMaxspeed const & parsedMaxspeed)
+FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
 {
-  return FeatureMaxspeed(featureId, parsedMaxspeed.m_units, parsedMaxspeed.m_forward,
-                         parsedMaxspeed.m_backward);
+  return FeatureMaxspeed(featureId, maxspeed.m_units, maxspeed.m_forward,
+                         maxspeed.m_backward);
 }
 
 /// \brief Collects all maxspeed tag value of specified mwm based on maxspeed.csv file.
 class MaxspeedMwmCollector
 {
 public:
-  MaxspeedMwmCollector(std::string const & dataPath,
-                       std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                       std::string const & maxspeedFilename);
+  MaxspeedMwmCollector(string const & dataPath,
+                       map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                       string const & maxspeedCsvPath);
 
-  std::vector<FeatureMaxspeed> && StealMaxspeeds() { return move(m_maxspeeds); }
+  vector<FeatureMaxspeed> && StealMaxspeeds();
 
 private:
-  std::vector<FeatureMaxspeed> m_maxspeeds;
+  vector<FeatureMaxspeed> m_maxspeeds;
 };
 
 MaxspeedMwmCollector::MaxspeedMwmCollector(
     string const & dataPath, map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-    string const & maxspeedFilename)
+    string const & maxspeedCsvPath)
 {
   OsmIdToMaxspeed osmIdToMaxspeed;
-  CHECK(ParseMaxspeeds(maxspeedFilename, osmIdToMaxspeed), (maxspeedFilename));
+  CHECK(ParseMaxspeeds(maxspeedCsvPath, osmIdToMaxspeed), (maxspeedCsvPath));
 
   ForEachFromDat(dataPath, [&](FeatureType & ft, uint32_t fid) {
     if (!routing::IsCarRoad(TypesHolder(ft)))
@@ -93,9 +93,15 @@ MaxspeedMwmCollector::MaxspeedMwmCollector(
     if (maxspeedIt == osmIdToMaxspeed.cend())
       return;
 
-    auto const & parsedMaxspeed = maxspeedIt->second;
-    m_maxspeeds.push_back(ToFeatureMaxspeed(fid, parsedMaxspeed));
+    auto const & maxspeed = maxspeedIt->second;
+    m_maxspeeds.push_back(ToFeatureMaxspeed(fid, maxspeed));
   });
+}
+
+vector<FeatureMaxspeed> && MaxspeedMwmCollector::StealMaxspeeds()
+{
+  CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend()), ());
+  return move(m_maxspeeds);
 }
 }  // namespace
 
@@ -110,7 +116,7 @@ bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMa
     return false;
 
   string line;
-  while (std::getline(stream, line))
+  while (getline(stream, line))
   {
     strings::SimpleTokenizer iter(line, kDelim);
     if (!iter)  // the line is empty
@@ -125,7 +131,7 @@ bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMa
     if (!iter)
       return false;
 
-    ParsedMaxspeed speed;
+    Maxspeed speed;
     speed.m_units = StringToUnits(*iter);
     ++iter;
 
@@ -176,14 +182,5 @@ void BuildMaxspeed(string const & dataPath, string const & osmToFeaturePath,
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
   BuildMaxspeed(dataPath, featureIdToOsmId, maxspeedFilename);
-}
-
-std::string DebugPrint(ParsedMaxspeed const & parsedMaxspeed)
-{
-  std::ostringstream oss;
-  oss << "ParsedMaxspeed [ m_units:" << DebugPrint(parsedMaxspeed.m_units)
-      << " m_forward:" << parsedMaxspeed.m_forward
-      << " m_backward:" << parsedMaxspeed.m_backward << " ]";
-  return oss.str();
 }
 }  // namespace routing

@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <limits>
 #include <map>
+#include <string>
 
 namespace routing
 {
@@ -13,7 +14,7 @@ namespace routing
 /// https://taginfo.openstreetmap.org/keys/maxspeed#values.
 /// \note Value of this enum is saved to mwm. So they should not be changed because of backward
 /// compatibility. But it's possible to add some new values to this enum.
-enum class Maxspeed : uint8_t
+enum class SpeedMacro : uint8_t
 {
   // Special values.
   Undefined,
@@ -171,12 +172,31 @@ struct SpeedInUnits
   bool IsNumeric() const;
   bool IsValid() const { return m_speed != kInvalidSpeed; }
 
-  uint16_t m_speed = kInvalidSpeed; // Speed in km per hour or mile per hour depends on m_units value.
+  // Speed in km per hour or mile per hour depends on m_units value.
+  uint16_t m_speed = kInvalidSpeed;
+  // |m_units| is undefined in case of SpeedMacro::None and SpeedMacro::Walk.
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
 };
 
-/// \brief Maxspeed tag value for feature id. |m_forward| and |m_backward| fields reflect
-/// the fact that a feature may have different maxspeed tag value for different directions.
+struct Maxspeed
+{
+  measurement_utils::Units m_units = measurement_utils::Units::Metric;
+  // Speed in km per hour or mile per hour depends on |m_units|.
+  uint16_t m_forward = kInvalidSpeed;
+  // Speed in km per hour or mile per hour depends on |m_units|.
+  uint16_t m_backward = kInvalidSpeed;
+
+  bool operator==(Maxspeed const & rhs) const
+  {
+    return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
+  }
+
+  bool IsValid() const { return m_forward != kInvalidSpeed; }
+  bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
+};
+
+/// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
+/// reflect the fact that a feature may have different maxspeed tag value for different directions.
 /// If |m_backward| is invalid it means that |m_forward| tag contains maxspeed for
 /// the both directions. If a feature has maxspeed forward and maxspeed backward in different units
 /// it's considered as an invalid one and it's not saved into mwm.
@@ -190,19 +210,18 @@ public:
   bool operator==(FeatureMaxspeed const & rhs) const;
   bool operator<(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
 
-  bool IsValid() const { return m_forward != kInvalidSpeed; }
-  measurement_utils::Units GetUnits() const { return m_units; }
-  bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
+  bool IsValid() const { return m_maxspeed.IsValid(); }
+  bool IsBidirectional() const { return m_maxspeed.IsBidirectional(); }
 
   uint32_t GetFeatureId() const { return m_featureId; }
-  uint16_t const & GetForward() const { return m_forward; }
-  uint16_t const & GetBackward() const { return m_backward; }
+  Maxspeed const & GetMaxspeed() const { return m_maxspeed; }
+
+  SpeedInUnits GetForwardSpeedInUnits() const;
+  SpeedInUnits GetBackwardSpeedInUnits() const;
 
 private:
   uint32_t m_featureId = 0;
-  measurement_utils::Units m_units = measurement_utils::Units::Metric;
-  uint16_t m_forward = kInvalidSpeed;  // Speed in km per hour or mile per hour depends on |m_units|.
-  uint16_t m_backward = kInvalidSpeed; // Speed in km per hour or mile per hour depends on |m_units|.
+  Maxspeed m_maxspeed;
 };
 
 class MaxspeedConverter
@@ -211,22 +230,24 @@ class MaxspeedConverter
 public:
   MaxspeedConverter();
 
-  SpeedInUnits MacroToSpeed(Maxspeed macro) const ;
-  Maxspeed SpeedToMacro(SpeedInUnits const & speed) const;
+  SpeedInUnits MacroToSpeed(SpeedMacro macro) const;
+  SpeedMacro SpeedToMacro(SpeedInUnits const & speed) const;
 
-  /// \returns true if |macro| can be cast to a valid value of Maxspeed emum class.
-  /// \note Maxspeed::Undefined value and all value from 0 to 256 is no present in the enum
-  /// are considered as an invalid.
+  /// \returns true if |macro| can be cast to a valid value of SpeedMacro emum class.
+  /// \note SpeedMacro::Undefined value and all values from 1 to 256 which are not present
+  /// in SpeedMacro enum class are considered as an invalid.
   bool IsValidMacro(uint8_t macro) const;
 
 private:
   std::array<SpeedInUnits, std::numeric_limits<uint8_t>::max()> m_macroToSpeed;
-  std::map<SpeedInUnits, Maxspeed> m_speedToMacro;
+  std::map<SpeedInUnits, SpeedMacro> m_speedToMacro;
 };
 
 MaxspeedConverter const & GetMaxspeedConverter();
+bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs);
 
 std::string DebugPrint(Maxspeed maxspeed);
+std::string DebugPrint(SpeedMacro maxspeed);
 std::string DebugPrint(SpeedInUnits const & speed);
 std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed);
 }  // namespace routing

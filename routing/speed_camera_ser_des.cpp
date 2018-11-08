@@ -41,7 +41,7 @@ void SerializeSpeedCamera(FileWriter & writer, routing::SpeedCameraMetadata cons
   // We store number of conditions first, then each condition in 3 bytes:
   //    1. Type of condition (day, hour, month) + start value of range.
   //    2. End value of range.
-  //    3. Maxspeed in this time range.
+  //    3. SpeedMacro in this time range.
   WriteVarInt(writer, 0 /* number of time conditions */);
 }
 
