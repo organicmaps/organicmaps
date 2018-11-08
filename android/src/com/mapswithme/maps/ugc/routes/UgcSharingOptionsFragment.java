@@ -31,6 +31,7 @@ import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.UiUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,10 +49,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarkCategory mCategory;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mPublishCategoryContainer;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -110,8 +107,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void initViews(View root)
   {
     mGetDirectLinkContainer = root.findViewById(R.id.get_direct_link_container);
-    mPublishCategoryContainer = root.findViewById(R.id.upload_and_publish_container);
-    mPublishCategoryImage = mPublishCategoryContainer.findViewById(R.id.upload_and_publish_image);
+    View publishCategoryContainer = root.findViewById(R.id.upload_and_publish_container);
+    mPublishCategoryImage = publishCategoryContainer.findViewById(R.id.upload_and_publish_image);
     mGetDirectLinkImage = mGetDirectLinkContainer.findViewById(R.id.get_direct_link_image);
     mEditOnWebBtn = root.findViewById(R.id.edit_on_web_btn);
     mPublishingCompletedStatusContainer = root.findViewById(R.id.publishing_completed_status_container);
@@ -130,17 +127,13 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void toggleViewsVisibility()
   {
     boolean isPublished = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
-
-    mUploadAndPublishText.setVisibility(isPublished ? View.GONE : View.VISIBLE);
-    mPublishingCompletedStatusContainer.setVisibility(isPublished ? View.VISIBLE : View.GONE);
-    mGetDirectLinkContainer.setVisibility(isPublished ? View.GONE : View.VISIBLE);
-    mEditOnWebBtn.setVisibility(isPublished ? View.VISIBLE : View.GONE);
+    UiUtils.hideIf(isPublished, mUploadAndPublishText, mGetDirectLinkContainer);
+    UiUtils.showIf(isPublished, mPublishingCompletedStatusContainer, mEditOnWebBtn);
     mPublishCategoryImage.setSelected(!isPublished);
 
     boolean isLinkSuccessFormed = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
-
-    mGetDirectLinkText.setVisibility(isLinkSuccessFormed ? View.GONE : View.VISIBLE);
-    mGetDirectLinkCompletedStatusContainer.setVisibility(isLinkSuccessFormed ? View.VISIBLE : View.GONE);
+    UiUtils.hideIf(isLinkSuccessFormed, mGetDirectLinkText);
+    UiUtils.showIf(isLinkSuccessFormed, mGetDirectLinkCompletedStatusContainer);
     mGetDirectLinkImage.setSelected(!isLinkSuccessFormed);
   }
 
@@ -366,7 +359,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     hideProgress();
     if (isOkResult(uploadResult))
-      onUploadOk();
+      onUploadSuccess();
     else
       onUploadError(uploadResult);
   }
@@ -376,7 +369,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     /* not implemented yet */
   }
 
-  private void onUploadOk()
+  private void onUploadSuccess()
   {
     mCategory = BookmarkManager.INSTANCE.getAllCategoriesSnapshot().refresh(mCategory);
     checkSuccessUploadedCategoryAccessRules();

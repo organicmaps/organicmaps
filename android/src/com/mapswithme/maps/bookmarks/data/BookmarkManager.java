@@ -335,12 +335,12 @@ public enum BookmarkManager
 
   public void setCategoryTags(@NonNull BookmarkCategory category, @NonNull List<CatalogTag> tags)
   {
-    List<String> ids = new ArrayList<>();
-    for (CatalogTag each : tags)
+    String[] ids = new String[tags.size()];
+    for (int i = 0; i < tags.size(); i++)
     {
-      ids.add(each.getId());
+      ids[i] = tags.get(i).getId();
     }
-    nativeSetCategoryTags(category.getId(), ids.toArray(new String[tags.size()]));
+    nativeSetCategoryTags(category.getId(), ids);
   }
 
   public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
