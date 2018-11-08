@@ -85,8 +85,8 @@ public class ProgressDialogFragment extends DialogFragment
     View view = inflater.inflate(R.layout.indeterminated_progress_dialog, null, false);
     Bundle args = Objects.requireNonNull(getArguments());
     String title = args.getString(EXTRA_TITLE);
-    mMessageView.setText(title);
     mMessageView = view.findViewById(R.id.message);
+    mMessageView.setText(title);
     builder.setView(view);
     AlertDialog dialog = builder.create();
     dialog.setCanceledOnTouchOutside(args.getBoolean(EXTRA_CANCELABLE, false));

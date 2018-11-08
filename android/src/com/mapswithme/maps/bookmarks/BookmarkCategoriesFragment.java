@@ -73,6 +73,6 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
     boolean isLocal = getSelectedCategory()
                           .getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
-    setEnableForMenuItem(R.id.share, bottomSheet, isLocal);
+    setEnableForMenuItem(R.id.share, bottomSheet, isLocal && !isMultipleItems);
   }
 }

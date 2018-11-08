@@ -50,13 +50,14 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:tint="?colorAccent"
+            android:tint="?accentColorSelector"
             android:src="@drawable/ic_globe"
             android:layout_marginTop="@dimen/margin_half_plus"
             android:layout_marginBottom="@dimen/margin_half_plus"
             android:layout_marginStart="@dimen/margin_base"
             android:layout_marginLeft="@dimen/margin_base"/>
           <LinearLayout
+            android:id="@+id/upload_and_publish_desc_container"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,14 +79,33 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               tools:ignore="RtlSymmetry"/>
-            <include
-              android:visibility="gone"
-              android:id="@+id/upload_and_publish_progress_container"
-              android:layout_marginRight="@dimen/margin_base"
-              android:layout_marginEnd="@dimen/margin_base"
+            <LinearLayout
+              android:orientation="horizontal"
+              android:minHeight="@dimen/height_block_base"
+              android:paddingRight="@dimen/margin_base"
+              android:paddingEnd="@dimen/margin_base"
+              android:gravity="center_vertical"
+              android:id="@+id/publishing_completed_status_container"
+              tools:ignore="RtlSymmetry"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              layout="@layout/ugc_routes_progress_container"/>
+              android:layout_height="wrap_content">
+              <TextView
+                android:text="@string/upload_and_publish_success"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?iconTintDisabled"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                tools:ignore="RtlSymmetry"/>
+              <ImageView
+                android:src="@drawable/ic_share"
+                android:background="?selectableItemBackgroundBorderless"
+                android:tint="?colorAccent"
+                android:layout_width="@dimen/rating_view_height_small"
+                android:layout_height="@dimen/rating_view_height_small"/>
+            </LinearLayout>
             <include layout="@layout/list_divider"/>
             <TextView
               android:layout_width="match_parent"
@@ -105,6 +125,42 @@
               android:paddingBottom="@dimen/margin_half_double_plus"
               android:layout_marginRight="@dimen/margin_base"
               android:layout_marginEnd="@dimen/margin_base"/>
+          </LinearLayout>
+          <include
+            android:id="@+id/upload_and_publish_desc_container_divider"
+            android:layout_below="@id/upload_and_publish_desc_container"
+            android:layout_height="@dimen/divider_height"
+            android:layout_width="match_parent"
+            layout="@layout/list_divider"/>
+          <LinearLayout
+            android:id="@+id/edit_on_web_btn"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/height_block_base"
+            android:paddingTop="@dimen/margin_half_plus"
+            android:paddingBottom="@dimen/margin_half_plus"
+            android:layout_marginStart="@dimen/margin_base"
+            android:layout_marginLeft="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_base"
+            android:layout_marginRight="@dimen/margin_base"
+            android:layout_below="@id/upload_and_publish_desc_container_divider"
+            android:background="?selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+              android:layout_width="@dimen/sharing_options_img_size"
+              android:layout_height="@dimen/sharing_options_img_size"
+              android:tint="?colorAccent"
+              android:src="@drawable/ic_edit"/>
+            <TextView
+              android:text="@string/edit_on_web"
+              android:textAppearance="?android:attr/textAppearanceSmall"
+              android:layout_marginLeft="@dimen/margin_double_plus"
+              android:layout_marginStart="@dimen/margin_double_plus"
+              android:textColor="?colorAccent"
+              android:textAllCaps="true"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
           </LinearLayout>
         </RelativeLayout>
       </LinearLayout>
@@ -137,7 +193,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:tint="?colorAccent"
+            android:tint="?accentColorSelector"
             android:src="@drawable/ic_link"
             android:layout_marginTop="@dimen/margin_half_plus"
             android:layout_marginBottom="@dimen/margin_half_plus"
@@ -165,14 +221,33 @@
               android:paddingRight="@dimen/margin_base"
               android:paddingEnd="@dimen/margin_base"
               tools:ignore="RtlSymmetry"/>
-            <include
-              android:visibility="gone"
-              android:layout_marginRight="@dimen/margin_base"
-              android:layout_marginEnd="@dimen/margin_base"
+            <LinearLayout
+              android:orientation="horizontal"
+              android:minHeight="@dimen/height_block_base"
+              android:paddingRight="@dimen/margin_base"
+              android:paddingEnd="@dimen/margin_base"
+              android:gravity="center_vertical"
+              android:id="@+id/get_direct_link_completed_status_container"
+              tools:ignore="RtlSymmetry"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/get_direct_link_progress_container"
-              layout="@layout/ugc_routes_progress_container"/>
+              android:layout_height="wrap_content">
+              <TextView
+                android:text="@string/direct_link_success"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?iconTintDisabled"
+                android:textAllCaps="true"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                tools:ignore="RtlSymmetry"/>
+              <ImageView
+                android:src="@drawable/ic_share"
+                android:tint="?colorAccent"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_width="@dimen/rating_view_height_small"
+                android:layout_height="@dimen/rating_view_height_small"/>
+            </LinearLayout>
             <include layout="@layout/list_divider"/>
             <TextView
               android:layout_width="match_parent"

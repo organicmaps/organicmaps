@@ -222,7 +222,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   }
 
   @Override
-  public void onUploadFinished(int uploadResult, @NonNull String description,
+  public void onUploadFinished(@NonNull BookmarkManager.UploadResult uploadResult, @NonNull String description,
                                long originCategoryId, long resultCategoryId)
   {
     /* Do nothing by default */

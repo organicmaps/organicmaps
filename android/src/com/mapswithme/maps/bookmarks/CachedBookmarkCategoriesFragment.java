@@ -234,7 +234,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     }
 
     @Override
-    public void onUploadFinished(@BookmarkManager.UploadResult int uploadResult,
+    public void onUploadFinished(@NonNull BookmarkManager.UploadResult uploadResult,
                                  @NonNull String description, long originCategoryId,
                                  long resultCategoryId)
     {

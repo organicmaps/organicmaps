@@ -47,8 +47,8 @@ public class BookmarkCategory implements Parcelable
     mDescription = description;
     mTracksCount = tracksCount;
     mBookmarksCount = bookmarksCount;
-    mTypeIndex = fromCatalog ? Type.DOWNLOADED.ordinal() : Type.PRIVATE.ordinal();
     mIsMyCategory = isMyCategory;
+    mTypeIndex = fromCatalog && !isMyCategory ? Type.DOWNLOADED.ordinal() : Type.PRIVATE.ordinal();
     mIsVisible = isVisible;
     mAuthor = TextUtils.isEmpty(authorId) || TextUtils.isEmpty(authorName)
               ? null
@@ -294,7 +294,7 @@ public class BookmarkCategory implements Parcelable
     @Override
     public Boolean convert(@NonNull BookmarkCategory data)
     {
-      return data.isFromCatalog() && !data.isMyCategory();
+      return data.getType() == Type.DOWNLOADED;
     }
   }
 

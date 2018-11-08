@@ -49,19 +49,6 @@ public enum BookmarkManager
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ UPLOAD_RESULT_SUCCESS, UPLOAD_RESULT_NETWORK_ERROR, UPLOAD_RESULT_SERVER_ERROR,
-            UPLOAD_RESULT_AUTH_ERROR, UPLOAD_RESULT_MALFORMED_DATA_ERROR,
-            UPLOAD_RESULT_ACCESS_ERROR, UPLOAD_RESULT_INVALID_CALL })
-  public @interface UploadResult {}
-  public static final int UPLOAD_RESULT_SUCCESS = 0;
-  public static final int UPLOAD_RESULT_NETWORK_ERROR = 1;
-  public static final int UPLOAD_RESULT_SERVER_ERROR = 2;
-  public static final int UPLOAD_RESULT_AUTH_ERROR = 3;
-  public static final int UPLOAD_RESULT_MALFORMED_DATA_ERROR = 4;
-  public static final int UPLOAD_RESULT_ACCESS_ERROR = 5;
-  public static final int UPLOAD_RESULT_INVALID_CALL = 6;
-
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
@@ -310,11 +297,14 @@ public enum BookmarkManager
   // Called from JNI.
   @SuppressWarnings("unused")
   @MainThread
-  public void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+  public void onUploadFinished(int index, @NonNull String description,
                                long originCategoryId, long resultCategoryId)
   {
+    UploadResult result = UploadResult.values()[index];
     for (BookmarksCatalogListener listener : mCatalogListeners)
-      listener.onUploadFinished(uploadResult, description, originCategoryId, resultCategoryId);
+    {
+      listener.onUploadFinished(result, description, originCategoryId, resultCategoryId);
+    }
   }
 
   public boolean isVisible(long catId)
@@ -343,14 +333,24 @@ public enum BookmarkManager
     nativeSetCategoryDescription(id, categoryDesc);
   }
 
+  public void setCategoryTags(@NonNull BookmarkCategory category, @NonNull List<CatalogTag> tags)
+  {
+    List<String> ids = new ArrayList<>();
+    for (CatalogTag each : tags)
+    {
+      ids.add(each.getId());
+    }
+    nativeSetCategoryTags(category.getId(), ids.toArray(new String[tags.size()]));
+  }
+
   public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
   {
     nativeSetCategoryAccessRules(id, rules.ordinal());
   }
 
-  public void uploadToCatalog(@NonNull BookmarkCategory.AccessRules rules, long id)
+  public void uploadToCatalog(@NonNull BookmarkCategory.AccessRules rules, @NonNull BookmarkCategory category)
   {
-    nativeUploadToCatalog(rules.ordinal(), id);
+    nativeUploadToCatalog(rules.ordinal(), category.getId());
   }
 
   /**
@@ -852,15 +852,13 @@ public enum BookmarkManager
 
     /**
      * The method is called when the uploading to the catalog is finished.
-     *
-     * @param uploadResult is result of the uploading.
+     *  @param uploadResult is result of the uploading.
      * @param description is detailed description of the uploading result.
      * @param originCategoryId is original identifier of the uploaded bookmarks category.
      * @param resultCategoryId is identifier of the uploaded category after finishing.
-     *                         In the case of bookmarks modification during uploading
-     *                         the identifier can be new.
+*                         In the case of bookmarks modification during uploading
      */
-    void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+    void onUploadFinished(@NonNull UploadResult uploadResult, @NonNull String description,
                           long originCategoryId, long resultCategoryId);
   }
 
@@ -898,10 +896,21 @@ public enum BookmarkManager
     }
 
     @Override
-    public void onUploadFinished(@UploadResult int uploadResult, @NonNull String description,
+    public void onUploadFinished(@NonNull UploadResult uploadResult, @NonNull String description,
                                  long originCategoryId, long resultCategoryId)
     {
       /* do noting by default */
     }
+  }
+
+  public enum UploadResult
+  {
+    UPLOAD_RESULT_SUCCESS,
+    UPLOAD_RESULT_NETWORK_ERROR,
+    UPLOAD_RESULT_SERVER_ERROR,
+    UPLOAD_RESULT_AUTH_ERROR,
+    UPLOAD_RESULT_MALFORMED_DATA_ERROR,
+    UPLOAD_RESULT_ACCESS_ERROR,
+    UPLOAD_RESULT_INVALID_CALL;
   }
 }

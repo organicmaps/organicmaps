@@ -142,8 +142,8 @@ public class HoursMinutesPickerFragment extends BaseMwmDialogFragment
     TextView tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);
     // TODO @yunik add translations
     tabView.setText("From");
-    final ColorStateList textColor = getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.tab_text_night
-                                                                                                : R.color.tab_text);
+    final ColorStateList textColor = getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.accent_color_selector_night
+                                                                                                : R.color.accent_color_selector);
     tabView.setTextColor(textColor);
     mTabs.addTab(mTabs.newTab().setCustomView(tabView), true);
     tabView = (TextView) inflater.inflate(R.layout.tab_timepicker, mTabs, false);

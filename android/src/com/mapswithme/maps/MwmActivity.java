@@ -1181,7 +1181,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void onUploadFinished(@BookmarkManager.UploadResult int uploadResult, @NonNull String description,
+  public void onUploadFinished(@NonNull BookmarkManager.UploadResult uploadResult, @NonNull String description,
                                long originCategoryId, long resultCategoryId)
   {
     //TODO(@alexzatsepin): Implement me if necessary

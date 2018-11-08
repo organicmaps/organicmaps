@@ -137,8 +137,8 @@ class TabAdapter extends FragmentPagerAdapter
 
   private static ColorStateList getTabTextColor(Context context)
   {
-    return context.getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.tab_text_night
-                                                                              : R.color.tab_text);
+    return context.getResources().getColorStateList(ThemeUtils.isNightTheme() ? R.color.accent_color_selector_night
+                                                                              : R.color.accent_color_selector);
   }
 
   private void attachTo(TabLayout tabs)
