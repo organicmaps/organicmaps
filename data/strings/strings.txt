@@ -34836,3 +34836,7 @@
   [price_error_subtitle]
     en = An error occured while getting price. Please, try again later.
     ru = Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.
+
+  [edit_your_guide_email_body]
+    comment = TODO
+    en = edit_your_guide_email_body
