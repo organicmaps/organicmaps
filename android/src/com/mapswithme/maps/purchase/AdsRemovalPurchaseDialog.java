@@ -364,10 +364,10 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-      if (getUiContext() == null)
+      if (getUiObject() == null)
         mPendingDetails = Collections.unmodifiableList(details);
       else
-        getUiContext().handleProductDetails(details);
+        getUiObject().handleProductDetails(details);
       activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
     }
 
@@ -400,26 +400,26 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onValidationFinish(boolean success)
     {
-      if (getUiContext() == null)
+      if (getUiObject() == null)
         mPendingActivationResult = success;
       else
-        getUiContext().handleActivationResult(success);
+        getUiObject().handleActivationResult(success);
 
       activateStateSafely(AdsRemovalPaymentState.VALIDATION_FINISH);
     }
 
     @Override
-    void onAttach(@NonNull AdsRemovalPurchaseDialog context)
+    void onAttach(@NonNull AdsRemovalPurchaseDialog uiObject)
     {
       if (mPendingDetails != null)
       {
-        context.handleProductDetails(mPendingDetails);
+        uiObject.handleProductDetails(mPendingDetails);
         mPendingDetails = null;
       }
 
       if (mPendingActivationResult != null)
       {
-        context.handleActivationResult(mPendingActivationResult);
+        uiObject.handleActivationResult(mPendingActivationResult);
         mPendingActivationResult = null;
       }
     }

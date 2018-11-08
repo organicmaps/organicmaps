@@ -5,51 +5,51 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.dialog.Detachable;
 
-abstract class StatefulPurchaseCallback<State, UiContext extends PurchaseStateActivator<State>>
-    implements Detachable<UiContext>
+abstract class StatefulPurchaseCallback<State, UiObject extends PurchaseStateActivator<State>>
+    implements Detachable<UiObject>
 {
   @Nullable
   private State mPendingState;
   @Nullable
-  private UiContext mUiContext;
+  private UiObject mUiObject;
 
   void activateStateSafely(@NonNull State state)
   {
-    if (mUiContext == null)
+    if (mUiObject == null)
     {
       mPendingState = state;
       return;
     }
 
-    mUiContext.activateState(state);
+    mUiObject.activateState(state);
   }
 
   @Override
-  public final void attach(@NonNull UiContext context)
+  public final void attach(@NonNull UiObject uiObject)
   {
-    mUiContext = context;
+    mUiObject = uiObject;
     if (mPendingState != null)
     {
-      mUiContext.activateState(mPendingState);
+      mUiObject.activateState(mPendingState);
       mPendingState = null;
     }
-    onAttach(context);
+    onAttach(uiObject);
   }
 
   @Override
   public final void detach()
   {
     onDetach();
-    mUiContext = null;
+    mUiObject = null;
   }
 
   @Nullable
-  UiContext getUiContext()
+  UiObject getUiObject()
   {
-    return mUiContext;
+    return mUiObject;
   }
 
-  void onAttach(@NonNull UiContext context)
+  void onAttach(@NonNull UiObject uiObject)
   {
     // Do nothing by default.
   }
