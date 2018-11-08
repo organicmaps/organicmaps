@@ -379,20 +379,34 @@ IsWifiChecker::IsWifiChecker()
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
 }
 
-IsEatChecker:: IsEatChecker()
+IsEatChecker::IsEatChecker()
 {
   Classificator const & c = classif();
-  char const * const paths[][2] = {
-    {"amenity", "cafe"},
-    {"amenity", "bar"},
-    {"amenity", "biergarden"},
-    {"amenity", "pub"},
-    {"amenity", "fast_food"},
-    {"amenity", "restaurant"},
-    {"shop", "bakery"}
-  };
-  for (auto const & path : paths)
-    m_types.push_back(c.GetTypeByPath({path[0], path[1]}));
+  map<Type, vector<string>> const descriptions = {{Type::Cafe,       {"amenity", "cafe"}},
+                                                  {Type::Bakery,     {"shop", "bakery"}},
+                                                  {Type::FastFood,   {"amenity", "fast_food"}},
+                                                  {Type::Restaurant, {"amenity", "restaurant"}},
+                                                  {Type::Bar,        {"amenity", "bar"}},
+                                                  {Type::Pub,        {"amenity", "pub"}},
+                                                  {Type::Biergarten, {"amenity", "biergarten"}}};
+
+  for (auto const & desc : descriptions)
+  {
+    auto const type = c.GetTypeByPath(desc.second);
+    m_types.push_back(type);
+    m_sortedTypes[static_cast<size_t>(desc.first)] = {type, desc.first};
+  }
+}
+
+IsEatChecker::Type IsEatChecker::GetType(uint32_t t) const
+{
+  for (auto type : m_sortedTypes)
+  {
+    if (type.first == t)
+      return type.second;
+  }
+
+  return IsEatChecker::Type::Count;
 }
 
 IsCuisineChecker::IsCuisineChecker() : BaseChecker(1 /* level */)

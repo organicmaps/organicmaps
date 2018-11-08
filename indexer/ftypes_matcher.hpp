@@ -216,11 +216,29 @@ public:
 
 class IsEatChecker : public BaseChecker
 {
-  IsEatChecker();
 public:
+  enum class Type
+  {
+    Cafe,
+    Bakery,
+    FastFood,
+    Restaurant,
+    Bar,
+    Pub,
+    Biergarten,
+
+    Count
+  };
+
   DECLARE_CHECKER_INSTANCE(IsEatChecker);
 
   std::vector<uint32_t> const & GetTypes() const { return m_types; }
+  Type GetType(uint32_t t) const;
+
+private:
+  IsEatChecker();
+
+  std::array<std::pair<uint32_t, Type>, base::Key(Type::Count)> m_sortedTypes;
 };
 
 class IsCuisineChecker : public BaseChecker

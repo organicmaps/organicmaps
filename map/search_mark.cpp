@@ -18,7 +18,12 @@ std::vector<std::string> const kSymbols =
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
   "coloredmark-default-l",      // UGC.
-  "search-football",            // FC 2018.
+  "search-result-cafe",         // Cafe.
+  "search-result-bakery",       // Bakery.
+  "search-result-bar",          // Bar.
+  "search-result-pub",          // Pub.
+  "search-result-restaurant",   // Restaurant.
+  "search-result-fastfood",     // FastFood.
 
   "non-found-search-result",    // NotFound.
 };
@@ -30,7 +35,12 @@ std::vector<std::string> const kPreparingSymbols =
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
   "coloredmark-inactive",       // UGC.
-  "search-football",            // FC 2018.
+  "search-result-cafe",         // Cafe.
+  "search-result-bakery",       // Bakery.
+  "search-result-bar",          // Bar.
+  "search-result-pub",          // Pub.
+  "search-result-restaurant",   // Restaurant.
+  "search-result-fastfood",     // FastFood.
 
   "non-found-search-result",    // NotFound.
 };

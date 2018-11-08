@@ -1670,10 +1670,39 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     else if (isFeature)
     {
       auto product = GetProductInfo(r);
+      auto const type = r.GetFeatureType();
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
       {
         mark->SetMarkType(SearchMarkType::UGC);
         mark->SetRating(product.m_ugcRating);
+      }
+      else
+      {
+        auto const cafeType = ftypes::IsEatChecker::Instance().GetType(type);
+        switch (cafeType)
+        {
+        case ftypes::IsEatChecker::Type::Cafe:
+          mark->SetMarkType(SearchMarkType::Cafe);
+          break;
+        case ftypes::IsEatChecker::Type::Bakery:
+          mark->SetMarkType(SearchMarkType::Bakery);
+          break;
+        case ftypes::IsEatChecker::Type::FastFood:
+          mark->SetMarkType(SearchMarkType::FastFood);
+          break;
+        case ftypes::IsEatChecker::Type::Restaurant:
+          mark->SetMarkType(SearchMarkType::Restaurant);
+          break;
+        case ftypes::IsEatChecker::Type::Bar:
+          mark->SetMarkType(SearchMarkType::Bar);
+          break;
+        case ftypes::IsEatChecker::Type::Pub:
+        case ftypes::IsEatChecker::Type::Biergarten:
+          mark->SetMarkType(SearchMarkType::Pub);
+          break;
+        case ftypes::IsEatChecker::Type::Count:
+          break;
+        }
       }
     }
 

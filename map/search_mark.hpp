@@ -23,6 +23,12 @@ enum class SearchMarkType
   LocalAds,
   LocalAdsBooking,
   UGC,
+  Cafe,
+  Bakery,
+  Bar,
+  Pub,
+  Restaurant,
+  FastFood,
   NotFound, // Service value used in developer tools.
   Count
 };
