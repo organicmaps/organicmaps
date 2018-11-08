@@ -2550,6 +2550,9 @@
 
 "price_error_subtitle" = "Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.";
 
+/* TODO */
+"edit_your_guide_email_body" = "edit_your_guide_email_body";
+
 
 /**********  Partners  **********/
 

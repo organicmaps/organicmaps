@@ -1477,6 +1477,8 @@
 	<string name="download_guide_progress">Downloading your guide…</string>
 	<string name="price_error_title">Unable to get price</string>
 	<string name="price_error_subtitle">An error occured while getting price. Please, try again later.</string>
+	<!-- TODO -->
+	<string name="edit_your_guide_email_body">edit_your_guide_email_body</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -2402,9 +2404,4 @@
 	<string name="type.wheelchair.limited">wheelchair-limited</string>
 	<string name="type.wheelchair.no">wheelchair-no</string>
 	<string name="type.wheelchair.yes">wheelchair-yes</string>
-	<string name="send_me_a_link">Send me a link</string>
-	<string name="ugc_route_send_link_placeholder_subtitle">Get a link to edit your guide via web app: add descriptions for POI, upload photos and more</string>
-	<string name="ugc_route_send_link_placeholder_title">Edit your guide on the web</string>
-	<string name="edit_your_guide_email_body">Hi Edit your guide</string>
-	<string name="edit_your_guide_email_subj">Edit your gude on the web</string>
 </resources>
