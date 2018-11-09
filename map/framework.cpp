@@ -837,13 +837,6 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
   info.SetFeatureStatus(featureStatus);
-
-  ASSERT(m_cityFinder, ());
-  auto const city =
-      m_cityFinder->GetCityName(feature::GetCenter(ft), StringUtf8Multilang::kEnglishCode);
-  feature::TypesHolder buildingHolder;
-  buildingHolder.Assign(classif().GetTypeByPath({"building"}));
-
   info.SetLocalizedWifiString(m_stringsBundle.GetString("wifi"));
 
   if (ftypes::IsAddressObjectChecker::Instance()(ft))
@@ -884,6 +877,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
+    ASSERT(m_cityFinder, ());
     auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
     info.SetBookingSearchUrl(url);
     LOG(LINFO, (url));
