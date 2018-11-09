@@ -291,6 +291,34 @@ bool Platform::MkDirChecked(string const & dirName)
   }
 }
 
+// static
+bool Platform::MkDirRecursively(string const & dirName)
+{
+  auto const tokens = strings::Tokenize(dirName, base::GetNativeSeparator().c_str());
+  string path = base::GetNativeSeparator();
+  for (auto const & t : tokens)
+  {
+    path = base::JoinPath(path, t);
+    if (!IsFileExistsByFullPath(path))
+    {
+      auto const ret = MkDir(path);
+      switch (ret)
+      {
+      case ERR_OK: break;
+      case ERR_FILE_ALREADY_EXISTS:
+      {
+        if (!IsDirectory(path))
+          return false;
+        break;
+      }
+      default: return false;
+      }
+    }
+  }
+
+  return true;
+}
+
 unsigned Platform::CpuCores() const
 {
   unsigned const cores = thread::hardware_concurrency();

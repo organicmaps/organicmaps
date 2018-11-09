@@ -1,5 +1,7 @@
 #include "generator/osm_element_helpers.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
+
 #include <algorithm>
 #include <set>
 #include <string>
@@ -10,12 +12,9 @@ namespace osm_element
 {
 bool IsPoi(OsmElement const & osmElement)
 {
-  static std::set<std::string> const kPoiTypes = {"amenity", "shop", "tourism", "leisure",
-                                                  "sport", "craft", "man_made", "office",
-                                                  "historic", "railway", "aeroway"};
   auto const & tags = osmElement.Tags();
   return std::any_of(std::cbegin(tags), std::cend(tags), [](OsmElement::Tag const & t) {
-    return kPoiTypes.find(t.key) != std::end(kPoiTypes);
+    return ftypes::IsPoiChecker::kPoiTypes.find(t.key) != std::end(ftypes::IsPoiChecker::kPoiTypes);
   });
 }
 

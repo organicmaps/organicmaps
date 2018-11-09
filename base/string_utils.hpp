@@ -83,6 +83,12 @@ void Trim(std::string & s);
 /// Remove any characters that contain in "anyOf" on left and right side of string s
 void Trim(std::string & s, char const * anyOf);
 
+// Replace the first match of the search substring in the input with the format string.
+// str - An input string
+// from - A substring to be searched for
+// to - A substitute string
+bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to);
+
 void MakeLowerCaseInplace(std::string & s);
 std::string MakeLowerCase(std::string const & s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);

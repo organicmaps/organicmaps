@@ -6,7 +6,7 @@
 # Displayed when there are unknown options
 usage() {
   echo
-  echo "Usage: $0 [-c] [-u] [-l] [-w] [-r]"
+  echo "Usage: $0 [-c] [-u] [-l] [-w] [-r] [-d]"
   echo
   echo -e "-u\tUpdate planet until coastline is not broken"
   echo -e "-U\tDownload planet when it is missing"
@@ -14,7 +14,8 @@ usage() {
   echo -e "-w\tGenerate a world file"
   echo -e "-r\tGenerate routing files"
   echo -e "-o\tGenerate online routing files"
-  echo -e "-a\tEquivalent to -ulwr"
+  echo -e "-d\tGenerate descriptions"
+  echo -e "-a\tEquivalent to -ulwrd"
   echo -e "-p\tGenerate only countries, no world and no routing"
   echo -e "-c\tClean last pass results if there was an error, and start anew"
   echo -e "-v\tPrint all commands executed"
@@ -91,7 +92,8 @@ OPT_UPDATE=
 OPT_DOWNLOAD=
 OPT_ROUTING=
 OPT_ONLINE_ROUTING=
-while getopts ":couUlwrapvh" opt; do
+OPT_DESCRIPTIONS=
+while getopts ":couUlwrapvhd" opt; do
   case $opt in
     c)
       OPT_CLEAN=1
@@ -115,11 +117,15 @@ while getopts ":couUlwrapvh" opt; do
     o)
       OPT_ONLINE_ROUTING=1
       ;;
+    d)
+      OPT_DESCRIPTIONS=1
+      ;;
     a)
       OPT_COAST=1
       OPT_WORLD=1
       OPT_UPDATE=1
       OPT_ROUTING=1
+      OPT_DESCRIPTIONS=1
       ;;
     p)
       ;;
@@ -175,6 +181,7 @@ else
 fi
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
+DESCRIPTIONS_DOWNLOADER="$PYTHON_SCRIPTS_PATH/descriptions_downloader.py"
 LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
 UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
 POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"
@@ -187,6 +194,7 @@ VIATOR_FILE="${VIATOR_FILE:-$INTDIR/viator.csv}"
 CITIES_BOUNDARIES_DATA="${CITIES_BOUNDARIES_DATA:-$INTDIR/cities_boundaries.bin}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 PYTHON="$(which python2.7)"
+PYTHON36="$(which python36)" || PYTHON36="$(which python3.6)"
 MWM_VERSION_FORMAT="%s"
 COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
@@ -248,9 +256,9 @@ export LC_ALL=en_US.UTF-8
 
 if [ -r "$STATUS_FILE" ]; then
   # Read all control variables from file
-  IFS=, read -r OPT_ROUTING OPT_UPDATE OPT_COAST OPT_WORLD NO_REGIONS MODE < "$STATUS_FILE"
+  IFS=, read -r OPT_DESCRIPTIONS OPT_ROUTING OPT_UPDATE OPT_COAST OPT_WORLD NO_REGIONS MODE < "$STATUS_FILE"
 fi
-MFLAGS="$OPT_ROUTING,$OPT_UPDATE,$OPT_COAST,$OPT_WORLD,$NO_REGIONS,"
+MFLAGS="$OPT_DESCRIPTIONS,$OPT_ROUTING,$OPT_UPDATE,$OPT_COAST,$OPT_WORLD,$NO_REGIONS,"
 if [ -z "${MODE:-}" ]; then
   if [ -n "$OPT_COAST" -o -n "$OPT_UPDATE" ]; then
     MODE=coast
@@ -528,6 +536,8 @@ if [ "$MODE" == "mwm" ]; then
 
   if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
     MODE=routing
+  elif [ -n "$OPT_DESCRIPTIONS" -a -z "$NO_REGIONS" ]; then
+    MODE=descriptions
   else
     MODE=resources
   fi
@@ -551,6 +561,33 @@ if [ "$MODE" == "routing" ]; then
     fi
   done
   wait
+
+  if [ -n "$OPT_DESCRIPTIONS" -a -z "$NO_REGIONS" ]; then
+    MODE=descriptions
+  else
+    MODE=resources
+  fi
+fi
+
+if [ "$MODE" == "descriptions" ]; then
+  putmode "Step 7: Using freshly generated *.mwm to create descriptions files"
+
+  URLS_PATH="$INTDIR/wiki_urls.txt"
+  WIKI_PAGES_PATH="$INTDIR/descriptions"
+  LOG="$LOG_PATH/descriptions.log"
+
+  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" --dump_wikipedia_urls="$URLS_PATH" 2>> $LOG
+  $PYTHON36 $DESCRIPTIONS_DOWNLOADER --i="$URLS_PATH" "$WIKI_PAGES_PATH" 2>> $LOG
+
+  for file in "$TARGET"/*.mwm; do
+    if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
+      BASENAME="$(basename "$file" .mwm)"
+      "$GENERATOR_TOOL" --wikipedia_pages="$WIKI_PAGES_PATH/" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" \
+      --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log" &
+      forky
+    fi
+  done
+  wait
   MODE=resources
 fi
 
@@ -558,7 +595,7 @@ fi
 [ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
 
 if [ "$MODE" == "resources" ]; then
-  putmode "Step 7: Updating resource lists"
+  putmode "Step 8: Updating resource lists"
   # Update countries list
   $PYTHON $HIERARCHY_SCRIPT --target "$TARGET" --hierarchy "$DATA_PATH/hierarchy.txt" --version "$COUNTRIES_VERSION" \
     --old "$DATA_PATH/old_vs_new.csv" --osm "$DATA_PATH/borders_vs_osm.csv" --output "$TARGET/countries.txt" >> "$PLANET_LOG" 2>&1
@@ -609,7 +646,7 @@ if [ -n "${LOCALADS-}" ]; then
 fi
 
 if [ "$MODE" == "test" -a -z "${SKIP_TESTS-}" ]; then
-  putmode "Step 8: Testing data"
+  putmode "Step 9: Testing data"
   bash "$TESTING_SCRIPT" "$TARGET" "${DELTA_WITH-}" > "$TEST_LOG"
 else
   echo "Tests were skipped" > "$TEST_LOG"

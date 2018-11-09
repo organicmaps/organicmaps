@@ -32,6 +32,8 @@ set(SRC
   coastlines_generator.cpp
   coastlines_generator.hpp
   collector_interface.hpp
+  descriptions_section_builder.cpp
+  descriptions_section_builder.hpp
   dumper.cpp
   dumper.hpp
   emitter_booking.hpp
@@ -174,6 +176,8 @@ set(SRC
   viator_dataset.hpp
   ways_merger.hpp
   ways_merger.cpp
+  wiki_url_dumper.cpp
+  wiki_url_dumper.hpp
   world_map_generator.hpp
 )
 

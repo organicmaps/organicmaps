@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <functional>
 #include <initializer_list>
+#include <set>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -41,6 +42,7 @@ public:
   bool operator()(feature::TypesHolder const & types) const;
   bool operator()(FeatureType & ft) const;
   bool operator()(std::vector<uint32_t> const & types) const;
+  bool operator()(uint32_t type) const { return IsMatched(type); }
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 
@@ -150,6 +152,31 @@ class IsBuildingChecker : public BaseChecker
 public:
   uint32_t GetMainType() const { return m_types[0]; }
   DECLARE_CHECKER_INSTANCE(IsBuildingChecker);
+};
+
+class IsPoiChecker : public BaseChecker
+{
+  IsPoiChecker();
+public:
+  static std::set<std::string> const kPoiTypes;
+
+  DECLARE_CHECKER_INSTANCE(IsPoiChecker);
+};
+
+class WikiChecker : public BaseChecker
+{
+  WikiChecker();
+public:
+   static std::set<std::pair<std::string, std::string>> const kTypesForWiki;
+
+   DECLARE_CHECKER_INSTANCE(WikiChecker);
+};
+
+class IsPlaceChecker : public BaseChecker
+{
+  IsPlaceChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsPlaceChecker);
 };
 
 class IsBridgeChecker : public BaseChecker

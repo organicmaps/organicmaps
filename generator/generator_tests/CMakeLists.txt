@@ -9,6 +9,7 @@ set(
   coasts_test.cpp
   common.cpp
   common.hpp
+  descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp
   filter_elements_tests.cpp
@@ -54,6 +55,7 @@ omim_link_libraries(
   drape
   traffic
   routing_common
+  descriptions
   transit
   kml
   editor

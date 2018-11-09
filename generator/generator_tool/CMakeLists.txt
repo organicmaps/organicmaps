@@ -16,6 +16,7 @@ omim_link_libraries(
   routing
   traffic
   routing_common
+  descriptions
   transit
   ugc
   search

@@ -2,6 +2,7 @@
 
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "defines.hpp"
 
@@ -149,26 +150,26 @@ UNIT_TEST(GetFilesByType)
   SCOPE_GUARD(removeTestFile, bind(FileWriter::DeleteFileX, testFile));
 
   CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY,
-                     {{
-                       kTestDirBaseName, 1 /* present */
-                      },
-                      {
-                       kTestFileBaseName, 0 /* not present */
-                      }});
+  {{
+     kTestDirBaseName, 1 /* present */
+   },
+   {
+     kTestFileBaseName, 0 /* not present */
+   }});
   CheckFilesPresence(baseDir, Platform::FILE_TYPE_REGULAR,
-                     {{
-                       kTestDirBaseName, 0 /* not present */
-                      },
-                      {
-                       kTestFileBaseName, 1 /* present */
-                      }});
+  {{
+     kTestDirBaseName, 0 /* not present */
+   },
+   {
+     kTestFileBaseName, 1 /* present */
+   }});
   CheckFilesPresence(baseDir, Platform::FILE_TYPE_DIRECTORY | Platform::FILE_TYPE_REGULAR,
-                     {{
-                       kTestDirBaseName, 1 /* present */
-                      },
-                      {
-                       kTestFileBaseName, 1 /* present */
-                      }});
+  {{
+     kTestDirBaseName, 1 /* present */
+   },
+   {
+     kTestFileBaseName, 1 /* present */
+   }});
 }
 
 UNIT_TEST(GetFileSize)
@@ -253,4 +254,33 @@ UNIT_TEST(IsSingleMwm)
   TEST(version::IsSingleMwm(version::FOR_TESTING_SINGLE_MWM_LATEST), ());
   TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM1), ());
   TEST(!version::IsSingleMwm(version::FOR_TESTING_TWO_COMPONENT_MWM2), ());
+}
+
+UNIT_TEST(MkDirRecursively)
+{
+  using namespace platform::tests_support;
+  auto const writablePath = GetPlatform().WritableDir();
+  auto const workPath = base::JoinPath(writablePath, "MkDirRecursively");
+  auto const resetDir =  [](std::string const & path) {
+    if (Platform::IsFileExistsByFullPath(path) && !Platform::RmDirRecursively(path))
+       return false;
+
+    return Platform::MkDirChecked(path);
+  };
+
+  CHECK(resetDir(workPath), ());
+  auto const path = base::JoinPath(workPath, "test1", "test2", "test3");
+  TEST(Platform::MkDirRecursively(path), ());
+  TEST(Platform::IsFileExistsByFullPath(path), ());
+  TEST(Platform::IsDirectory(path), ());
+
+  CHECK(resetDir(workPath), ());
+  auto const filePath = base::JoinPath(workPath, "test1");
+  FileWriter testFile(filePath);
+  SCOPE_GUARD(removeTestFile, bind(&base::DeleteFileX, filePath));
+
+  TEST(!Platform::MkDirRecursively(path), ());
+  TEST(!Platform::IsFileExistsByFullPath(path), ());
+
+  CHECK(Platform::RmDirRecursively(workPath), ());
 }

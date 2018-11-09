@@ -6,6 +6,7 @@
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/city_roads_generator.hpp"
+#include "generator/descriptions_section_builder.hpp"
 #include "generator/dumper.hpp"
 #include "generator/emitter_factory.hpp"
 #include "generator/feature_generator.hpp"
@@ -28,6 +29,7 @@
 #include "generator/transit_generator.hpp"
 #include "generator/ugc_section_builder.hpp"
 #include "generator/unpack_mwm.hpp"
+#include "generator/wiki_url_dumper.hpp"
 
 #include "routing/cross_mwm_ids.hpp"
 
@@ -53,6 +55,7 @@
 #include "base/timer.hpp"
 
 #include <cstdlib>
+#include <fstream>
 #include <memory>
 #include <string>
 
@@ -147,6 +150,9 @@ DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
 DEFINE_string(ugc_data, "", "Input UGC source database file name.");
 
+DEFINE_string(wikipedia_pages, "", "Input dir with wikipedia pages.");
+DEFINE_string(dump_wikipedia_urls, "", "Output file with wikipedia urls.");
+
 DEFINE_bool(generate_popular_places, false, "Generate popular places section.");
 DEFINE_string(popular_places_data, "",
               "Input Popular Places source file name. Needed both for World intermediate features "
@@ -186,7 +192,7 @@ DEFINE_bool(verbose, false, "Provide more detailed output.");
 
 using namespace generator;
 
-int main(int argc, char ** argv)
+int GeneratorToolMain(int argc, char ** argv)
 {
   CHECK(IsLittleEndian(), ("Only little-endian architectures are supported."));
 
@@ -263,7 +269,8 @@ int main(int argc, char ** argv)
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_make_city_roads || FLAGS_generate_maxspeed || FLAGS_generate_traffic_keys ||
       FLAGS_transit_path != "" || FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" ||
-      FLAGS_generate_geo_objects_features || FLAGS_geo_objects_key_value != "")
+      FLAGS_generate_geo_objects_features || FLAGS_geo_objects_key_value != "" ||
+      FLAGS_dump_wikipedia_urls != "")
   {
     classificator::Load();
   }
@@ -406,6 +413,14 @@ int main(int argc, char ** argv)
       LOG(LCRITICAL, ("Error generating regions kv."));
       return EXIT_FAILURE;
     }
+  }
+
+  if (!FLAGS_dump_wikipedia_urls.empty())
+  {
+    auto const tmpPath = base::JoinPath(genInfo.m_intermediateDir, "tmp");
+    auto const datFiles = CountriesToDataFilePaths(tmpPath);
+    WikiUrlDumper wikiUrlDumper(FLAGS_dump_wikipedia_urls, datFiles);
+    wikiUrlDumper.Dump();
   }
 
   // Enumerate over all dat files that were created.
@@ -563,6 +578,9 @@ int main(int argc, char ** argv)
       }
     }
 
+    if (!FLAGS_wikipedia_pages.empty())
+      BuildDescriptionsSection(FLAGS_wikipedia_pages, datFile);
+
     if (FLAGS_generate_popular_places)
     {
       if (!BuildPopularPlacesMwmSection(genInfo.m_popularPlacesFilename, datFile,
@@ -630,4 +648,23 @@ int main(int argc, char ** argv)
     check_model::ReadFeatures(datFile);
 
   return 0;
+}
+
+
+int main(int argc, char ** argv)
+{
+  try
+  {
+    return GeneratorToolMain(argc, argv);
+  }
+  catch (std::fstream::failure const & e)
+  {
+    LOG(LERROR, ("Unhandled exception:", e.what()));
+    return EXIT_FAILURE;
+  }
+  catch (...)
+  {
+    LOG(LERROR, ("Unhandled unknown exception."));
+    return EXIT_FAILURE;
+  }
 }

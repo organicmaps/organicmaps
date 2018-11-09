@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -12,27 +13,29 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <set>
 #include <string>
 
 constexpr int32_t kRoundDigits = 1e6;
-std::set<std::string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "sport",
-                                         "craft",    "man_made", "office",  "historic",  "building"};
 
 std::string GetReadableType(FeatureBuilder1 const & f)
 {
-  uint32_t result = 0;
-  for (uint32_t type : f.GetTypes())
-  {
-    std::string fullName = classif().GetFullObjectName(type);
-    auto const pos = fullName.find("|");
-    if (pos != std::string::npos)
-      fullName = fullName.substr(0, pos);
-    if (kPoiTypes.find(fullName) != kPoiTypes.end())
-      result = type;
+  auto const isPoiOrBuilding = [](uint32_t type) {
+    auto const & poiChecker = ftypes::IsPoiChecker::Instance();
+    auto const & buildingChecker = ftypes::IsBuildingChecker::Instance();
+    return poiChecker(type) || buildingChecker(type);
   };
-  return result == 0 ? std::string() : classif().GetReadableObjectName(result);
+
+  std::string result;
+  auto const & types = f.GetTypes();
+  auto const it = std::find_if(std::begin(types), std::end(types), isPoiOrBuilding);
+  if (it != std::end(types))
+    result = classif().GetReadableObjectName(*it);
+
+  return result;
 }
 
 void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
@@ -42,7 +45,7 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
   std::string const & street = fb.GetParams().GetStreet();
   std::string const & house = fb.GetParams().house.Get();
   bool const isPOI = !name.empty() && !category.empty() &&
-      category.find("building") == std::string::npos;
+                     category.find("building") == std::string::npos;
 
   if ((house.empty() && !isPOI) || fb.GetGeomType() == feature::GEOM_LINE)
     return;

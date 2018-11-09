@@ -9,7 +9,10 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cmath>
+#include <functional>
+#include <iterator>
 #include <map>
 #include <sstream>
 #include <unordered_map>
@@ -130,8 +133,10 @@ bool BaseChecker::IsMatched(uint32_t type) const
 bool BaseChecker::operator()(feature::TypesHolder const & types) const
 {
   for (uint32_t t : types)
+  {
     if (IsMatched(t))
       return true;
+  }
 
   return false;
 }
@@ -143,11 +148,12 @@ bool BaseChecker::operator()(FeatureType & ft) const
 
 bool BaseChecker::operator()(vector<uint32_t> const & types) const
 {
-  for (size_t i = 0; i < types.size(); ++i)
+  for (uint32_t t : types)
   {
-    if (IsMatched(types[i]))
+    if (IsMatched(t))
       return true;
   }
+
   return false;
 }
 
@@ -272,6 +278,66 @@ IsLinkChecker::IsLinkChecker()
 IsBuildingChecker::IsBuildingChecker() : BaseChecker(1 /* level */)
 {
   m_types.push_back(classif().GetTypeByPath({"building"}));
+}
+
+// static
+set<string> const IsPoiChecker::kPoiTypes = {
+  "amenity",
+  "shop",
+  "tourism",
+  "leisure",
+  "sport",
+  "craft",
+  "man_made",
+  "emergency",
+  "office",
+  "historic",
+  "railway",
+  "highway",
+  "aeroway"
+};
+
+IsPoiChecker::IsPoiChecker() : BaseChecker(1 /* level */)
+{
+  for (auto const & type : IsPoiChecker::kPoiTypes)
+    m_types.push_back(classif().GetTypeByPath({type}));
+}
+
+// static
+set<pair<string, string>> const WikiChecker::kTypesForWiki = {
+  {"amenity", "place_of_worship"},
+  {"historic", "archaeological_site"},
+  {"historic", "castle"},
+  {"historic", "memorial"},
+  {"historic", "monument"},
+  {"historic", "museum"},
+  {"historic", "ruins"},
+  {"historic", "ship"},
+  {"historic", "tomb"},
+  {"tourism", "artwork"},
+  {"tourism", "attraction"},
+  {"tourism", "museum"},
+  {"tourism", "gallery"},
+  {"tourism", "viewpoint"},
+  {"tourism", "zoo"},
+  {"tourism", "theme_park"},
+  {"leisure", "park"},
+  {"leisure", "water_park"},
+  {"highway", "pedestrian"},
+  {"man_made", "lighthouse"},
+  {"waterway", "waterfall"},
+  {"leisure", "garden"},
+};
+
+WikiChecker::WikiChecker() : BaseChecker(2 /* level */)
+{
+  for (auto const & t : kTypesForWiki)
+    m_types.push_back(classif().GetTypeByPath({t.first, t.second}));
+}
+
+IsPlaceChecker::IsPlaceChecker() : BaseChecker(1 /* level */)
+{
+  m_types.push_back(classif().GetTypeByPath({"place"}));
 }
 
 IsBridgeChecker::IsBridgeChecker() : BaseChecker(3 /* level */) {}

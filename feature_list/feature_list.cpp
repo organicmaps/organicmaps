@@ -13,6 +13,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"
@@ -71,22 +72,16 @@ m2::PointD FindCenter(FeatureType & f)
 
 size_t const kLangCount = StringUtf8Multilang::GetSupportedLanguages().size();
 
-set<string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "sport",
-                               "craft",    "place",   "man_made", "emergency", "office",
-                               "historic", "railway", "highway",  "aeroway"};
-
 string GetReadableType(FeatureType & f)
 {
-  uint32_t result = 0;
-  f.ForEachType([&result](uint32_t type) {
-    string fullName = classif().GetFullObjectName(type);
-    auto pos = fullName.find("|");
-    if (pos != string::npos)
-      fullName = fullName.substr(0, pos);
-    if (kPoiTypes.find(fullName) != kPoiTypes.end())
-      result = type;
+  string result;
+  auto const & poiChecker = ftypes::IsPoiChecker::Instance();
+  auto const & placeChecker = ftypes::IsPlaceChecker::Instance();
+  f.ForEachType([&](uint32_t type) {
+    if (poiChecker(type) || placeChecker(type))
+      result = classif().GetReadableObjectName(type);
   });
-  return result == 0 ? string() : classif().GetReadableObjectName(result);
+  return result;
 }
 
 string GetWheelchairType(FeatureType & f)

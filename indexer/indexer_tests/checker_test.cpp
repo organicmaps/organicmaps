@@ -7,6 +7,14 @@
 
 #include "base/logging.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
+
+using namespace std;
+
 namespace
 {
 size_t const roadArrColumnCount = 3;
@@ -20,6 +28,27 @@ vector<uint32_t> GetTypes(char const * arr[][roadArrColumnCount], size_t const r
     types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + roadArrColumnCount)));
   return types;
 }
+
+vector<uint32_t> GetTypes(std::vector<std::pair<std::string, std::string>> const & t)
+{
+  Classificator const & c = classif();
+  vector<uint32_t> types;
+
+  for (auto const & k : t)
+    types.push_back(c.GetTypeByPath({k.first, k.second}));
+  return types;
+}
+
+vector<uint32_t> GetTypes(std::vector<std::string> const & t)
+{
+  Classificator const & c = classif();
+  vector<uint32_t> types;
+
+  for (auto const & k : t)
+    types.push_back(c.GetTypeByPath({k}));
+  return types;
+}
+
 
 vector<uint32_t> GetStreetTypes()
 {
@@ -80,7 +109,56 @@ vector<uint32_t> GetBridgeAndTunnelTypes()
   };
   return GetTypes(arr, ARRAY_SIZE(arr));
 }
+
+vector<uint32_t> GetPoiTypes()
+{
+  std::vector<std::string> const types = {
+    "amenity",
+    "shop",
+    "tourism",
+    "leisure",
+    "sport",
+    "craft",
+    "man_made",
+    "emergency",
+    "office",
+    "historic",
+    "railway",
+    "highway",
+    "aeroway"
+  };
+  return GetTypes(types);
 }
+
+vector<uint32_t> GetWikiTypes()
+{
+  vector<pair<string, string>> const types = {
+    {"amenity", "place_of_worship"},
+    {"historic", "archaeological_site"},
+    {"historic", "castle"},
+    {"historic", "memorial"},
+    {"historic", "monument"},
+    {"historic", "museum"},
+    {"historic", "ruins"},
+    {"historic", "ship"},
+    {"historic", "tomb"},
+    {"tourism", "artwork"},
+    {"tourism", "attraction"},
+    {"tourism", "museum"},
+    {"tourism", "gallery"},
+    {"tourism", "viewpoint"},
+    {"tourism", "zoo"},
+    {"tourism", "theme_park"},
+    {"leisure", "park"},
+    {"leisure", "water_park"},
+    {"highway", "pedestrian"},
+    {"man_made", "lighthouse"},
+    {"waterway", "waterfall"},
+    {"leisure", "garden"}
+  };
+  return GetTypes(types);
+}
+}  // namespace
 
 UNIT_TEST(IsTypeConformed)
 {
@@ -161,4 +239,28 @@ UNIT_TEST(GetHighwayClassTest)
   feature::TypesHolder types4;
   types4.Add(c.GetTypeByPath({"highway"}));
   TEST_EQUAL(ftypes::GetHighwayClass(types4), ftypes::HighwayClass::Error, ());
+}
+
+UNIT_TEST(IsPoiChecker)
+{
+  classificator::Load();
+  Classificator const & c = classif();
+  auto const & checker = ftypes::IsPoiChecker::Instance();
+
+  for (auto const & t : GetPoiTypes())
+    TEST(checker(t), ());
+
+  TEST(!checker(c.GetTypeByPath({"building"})), ());
+}
+
+UNIT_TEST(IsWikiChecker)
+{
+  classificator::Load();
+  Classificator const & c = classif();
+  auto const & checker = ftypes::WikiChecker::Instance();
+
+  for (auto const & t : GetWikiTypes())
+    TEST(checker(t), ());
+
+  TEST(!checker(c.GetTypeByPath({"route", "shuttle_train"})), ());
 }

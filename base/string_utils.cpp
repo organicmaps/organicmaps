@@ -217,6 +217,17 @@ char ascii_to_lower(char in)
 void AsciiToLower(std::string & s) { transform(s.begin(), s.end(), s.begin(), &ascii_to_lower); }
 void Trim(std::string & s) { boost::trim(s); }
 void Trim(std::string & s, char const * anyOf) { boost::trim_if(s, boost::is_any_of(anyOf)); }
+
+bool ReplaceFirst(std::string & str, std::string const & from, std::string const & to)
+{
+  auto const pos = str.find(from);
+  if (pos == std::string::npos)
+    return false;
+
+  str.replace(pos, from.length(), to);
+  return true;
+}
+
 bool EqualNoCase(std::string const & s1, std::string const & s2)
 {
   return MakeLowerCase(s1) == MakeLowerCase(s2);

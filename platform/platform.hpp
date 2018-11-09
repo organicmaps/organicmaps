@@ -165,6 +165,14 @@ public:
   /// Returns false and logs the reason on failure.
   WARN_UNUSED_RESULT static bool MkDirChecked(std::string const & dirName);
 
+  // Creates the directory path dirName.
+  // The function will create all parent directories necessary to create the directory.
+  // Returns true if successful; otherwise returns false.
+  // If the path already exists when this function is called, it will return true.
+  // If it was possible to create only a part of the directories, the function will returns false
+  // and will not restore the previous state of the file system.
+  WARN_UNUSED_RESULT static bool MkDirRecursively(std::string const & dirName);
+
   /// Removes empty directory from the filesystem.
   static EError RmDir(std::string const & dirName);
 
