@@ -4,14 +4,21 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-abstract class AbstractPurchaseController<V, B, UiCallback> implements PurchaseController<UiCallback>
+abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
+    implements PurchaseController<UiCallback>
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = AbstractPurchaseController.class.getSimpleName();
   @NonNull
   private final PurchaseValidator<V> mValidator;
   @NonNull
@@ -110,4 +117,50 @@ abstract class AbstractPurchaseController<V, B, UiCallback> implements PurchaseC
   abstract void onInitialize(@NonNull Activity activity);
 
   abstract void onDestroy();
+
+  abstract class AbstractPlayStoreBillingCallback implements PlayStoreBillingCallback
+  {
+    @Override
+    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
+    {
+      Purchase target = findTargetPurchase(purchases);
+      if (target == null)
+        return;
+
+      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + "' on backend server...");
+      validate(target.getOriginalJson());
+      if (getUiCallback() != null)
+        getUiCallback().onValidationStarted();
+    }
+
+    @Override
+    public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onProductDetailsLoaded(details);
+    }
+
+    @Override
+    public void onPurchaseFailure(@BillingClient.BillingResponse int error)
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onPaymentFailure(error);
+    }
+
+    @Override
+    public void onPurchaseDetailsFailure()
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onProductDetailsFailure();
+    }
+
+    @Override
+    public void onStoreConnectionFailed()
+    {
+      if (getUiCallback() != null)
+        getUiCallback().onStoreConnectionFailed();
+    }
+
+    abstract void validate(@NonNull String purchaseData);
+  }
 }

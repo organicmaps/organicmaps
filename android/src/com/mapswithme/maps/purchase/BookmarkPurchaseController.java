@@ -11,7 +11,7 @@ import com.mapswithme.maps.PrivateVariables;
 import java.util.List;
 
 class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCallback,
-    PlayStoreBillingCallback, BookmarkPurchaseCallback>
+    PlayStoreBillingCallback, PurchaseCallback>
 {
   @NonNull
   private final PlayStoreBillingCallback mBillingCallback = new PlayStoreBillingCallbackImpl();
@@ -48,47 +48,26 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     getBillingManager().queryExistingPurchases();
   }
 
-  private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
+  private class PlayStoreBillingCallbackImpl extends AbstractPlayStoreBillingCallback
   {
 
     @Override
     public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
     {
-
+      if (getUiCallback() != null)
+        getUiCallback().onProductDetailsFailure();
     }
 
     @Override
-    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
+    void validate(@NonNull String purchaseData)
     {
-      Purchase target = findTargetPurchase(purchases);
-      if (target == null)
-        return;
-
-      getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
-    }
-
-    @Override
-    public void onPurchaseFailure(int error)
-    {
-
-    }
-
-    @Override
-    public void onPurchaseDetailsFailure()
-    {
-
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-
+      getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), purchaseData);
     }
 
     @Override
     public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
     {
-
+      // TODO: coming soon.
     }
   }
 }

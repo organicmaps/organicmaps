@@ -3,18 +3,24 @@ package com.mapswithme.maps.purchase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
 import com.mapswithme.maps.dialog.Detachable;
+import com.mapswithme.maps.dialog.ProgressDialogFragment;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+
+import java.util.List;
 
 public class BookmarkPaymentFragment extends BaseMwmFragment
     implements PurchaseStateActivator<BookmarkPaymentState>
@@ -26,9 +32,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private PurchaseController<BookmarkPurchaseCallback> mPurchaseController;
+  private PurchaseController<PurchaseCallback> mPurchaseController;
   @NonNull
-  private BookmarkPurchaseCallbackImpl mPurchaseCallback = new BookmarkPurchaseCallbackImpl();
+  private BookmarkPurchaseCallback mPurchaseCallback = new BookmarkPurchaseCallback();
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PaymentData mPaymentData;
@@ -137,9 +143,28 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mState.activate(this);
   }
 
-  private static class BookmarkPurchaseCallbackImpl
+  void showProgress()
+  {
+    String message = getString(R.string.please_wait);
+    ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(message, false, true);
+    getActivity().getSupportFragmentManager()
+                 .beginTransaction()
+                 .add(dialog, dialog.getClass().getCanonicalName())
+                 .commitAllowingStateLoss();
+  }
+
+  void hideProgress()
+  {
+    FragmentManager fm = getActivity().getSupportFragmentManager();
+    String tag = ProgressDialogFragment.class.getCanonicalName();
+    DialogFragment frag = (DialogFragment) fm.findFragmentByTag(tag);
+    if (frag != null)
+      frag.dismissAllowingStateLoss();
+  }
+
+  private static class BookmarkPurchaseCallback
       extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
-      implements BookmarkPurchaseCallback, Detachable<BookmarkPaymentFragment>
+      implements PurchaseCallback, Detachable<BookmarkPaymentFragment>, Framework.StartTransactionListener
   {
     @Override
     public void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String
@@ -152,6 +177,43 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       }
 
       activateStateSafely(BookmarkPaymentState.TRANSACTION_STARTED);
+    }
+
+    @Override
+    public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
+    {
+      // TODO: store details and activate corresponding state.
+    }
+
+    @Override
+    public void onPaymentFailure(int error)
+    {
+      activateStateSafely(BookmarkPaymentState.PAYMENT_FAILURE);
+    }
+
+    @Override
+    public void onProductDetailsFailure()
+    {
+      activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
+    }
+
+    @Override
+    public void onStoreConnectionFailed()
+    {
+      activateStateSafely(BookmarkPaymentState.PRODUCT_DETAILS_FAILURE);
+    }
+
+    @Override
+    public void onValidationStarted()
+    {
+      activateStateSafely(BookmarkPaymentState.VALIDATION);
+    }
+
+    @Override
+    public void onValidationFinish(boolean success)
+    {
+      // TODO: store validation result.
+      activateStateSafely(BookmarkPaymentState.VALIDATION_FINISH);
     }
   }
 }

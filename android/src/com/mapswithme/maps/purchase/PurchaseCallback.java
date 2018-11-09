@@ -7,7 +7,7 @@ import com.android.billingclient.api.SkuDetails;
 
 import java.util.List;
 
-public interface AdsRemovalPurchaseCallback
+public interface PurchaseCallback
 {
   void onProductDetailsLoaded(@NonNull List<SkuDetails> details);
   void onPaymentFailure(@BillingClient.BillingResponse int error);

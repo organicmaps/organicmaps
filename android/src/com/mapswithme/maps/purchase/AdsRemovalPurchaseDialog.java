@@ -50,7 +50,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   @Nullable
   private AdsRemovalPurchaseControllerProvider mControllerProvider;
   @NonNull
-  private PurchaseCallback mPurchaseCallback = new PurchaseCallback();
+  private AdsRemovalPurchaseCallback mPurchaseCallback = new AdsRemovalPurchaseCallback();
   @NonNull
   private List<AdsRemovalActivationCallback> mActivationCallbacks = new ArrayList<>();
   @SuppressWarnings("NullableProblems")
@@ -205,12 +205,12 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   }
 
   @NonNull
-  private PurchaseController<AdsRemovalPurchaseCallback> getControllerOrThrow()
+  private PurchaseController<PurchaseCallback> getControllerOrThrow()
   {
     if (mControllerProvider == null)
       throw new IllegalStateException("Controller provider must be non-null at this point!");
 
-    PurchaseController<AdsRemovalPurchaseCallback> controller
+    PurchaseController<PurchaseCallback> controller
         = mControllerProvider.getAdsRemovalPurchaseController();
     if (controller == null)
       throw new IllegalStateException("Controller must be non-null at this point!");
@@ -353,9 +353,9 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     mActivationResult = result;
   }
 
-  private static class PurchaseCallback
+  private static class AdsRemovalPurchaseCallback
       extends StatefulPurchaseCallback<AdsRemovalPaymentState, AdsRemovalPurchaseDialog>
-      implements AdsRemovalPurchaseCallback
+      implements PurchaseCallback
   {
     @Nullable
     private List<SkuDetails> mPendingDetails;

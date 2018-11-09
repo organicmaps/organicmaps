@@ -76,7 +76,7 @@ import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
+import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
@@ -241,7 +241,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private PlacePageTracker mPlacePageTracker;
   @Nullable
-  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController;
+  private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -1863,7 +1863,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Override
   @Nullable
-  public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
+  public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
   }

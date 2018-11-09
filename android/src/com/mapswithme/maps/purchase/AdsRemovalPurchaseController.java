@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.SkuDetails;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
@@ -17,7 +15,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.List;
 
 class AdsRemovalPurchaseController extends AbstractPurchaseController<ValidationCallback,
-    PlayStoreBillingCallback, AdsRemovalPurchaseCallback>
+    PlayStoreBillingCallback, PurchaseCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AdsRemovalPurchaseController.class.getSimpleName();
@@ -85,48 +83,13 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     }
   }
 
-  private class PlayStoreBillingCallbackImpl implements PlayStoreBillingCallback
+  private class PlayStoreBillingCallbackImpl extends AbstractPlayStoreBillingCallback
   {
     @Override
-    public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
+    void validate(@NonNull String purchaseData)
     {
-      if (getUiCallback() != null)
-        getUiCallback().onProductDetailsLoaded(details);
-    }
-
-    @Override
-    public void onPurchaseSuccessful(@NonNull List<Purchase> purchases)
-    {
-      Purchase target = findTargetPurchase(purchases);
-      if (target == null)
-        return;
-
-      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + "' on backend server...");
       getValidator().validate(PrivateVariables.adsRemovalServerId(),
-                              PrivateVariables.adsRemovalVendor(), target.getOriginalJson());
-      if (getUiCallback() != null)
-        getUiCallback().onValidationStarted();
-    }
-
-    @Override
-    public void onPurchaseFailure(@BillingClient.BillingResponse int error)
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onPaymentFailure(error);
-    }
-
-    @Override
-    public void onPurchaseDetailsFailure()
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onProductDetailsFailure();
-    }
-
-    @Override
-    public void onStoreConnectionFailed()
-    {
-      if (getUiCallback() != null)
-        getUiCallback().onStoreConnectionFailed();
+                              PrivateVariables.adsRemovalVendor(), purchaseData);
     }
 
     @Override
@@ -162,6 +125,5 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
       getValidator().validate(PrivateVariables.adsRemovalServerId(),
                               PrivateVariables.adsRemovalVendor(), purchaseData);
     }
-
   }
 }

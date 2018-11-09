@@ -13,7 +13,7 @@ public class PurchaseFactory
   }
 
   @NonNull
-  public static PurchaseController<AdsRemovalPurchaseCallback> createAdsRemovalPurchaseController()
+  public static PurchaseController<PurchaseCallback> createAdsRemovalPurchaseController()
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
@@ -26,7 +26,7 @@ public class PurchaseFactory
   }
 
   @NonNull
-  public static PurchaseController<BookmarkPurchaseCallback> createBookmarkPurchaseController(
+  public static PurchaseController<PurchaseCallback> createBookmarkPurchaseController(
       @NonNull String productId, @NonNull String serverId)
   {
     BillingManager<PlayStoreBillingCallback> billingManager

@@ -14,7 +14,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
-import com.mapswithme.maps.purchase.AdsRemovalPurchaseCallback;
+import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
@@ -28,7 +28,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_SEARCH_ON_MAP = "search_on_map";
 
   @Nullable
-  private PurchaseController<AdsRemovalPurchaseCallback> mAdsRemovalPurchaseController;
+  private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
 
   public static void start(@NonNull Activity activity, @Nullable String query,
                            @Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
@@ -138,7 +138,7 @@ public class SearchActivity extends BaseMwmFragmentActivity
 
   @Nullable
   @Override
-  public PurchaseController<AdsRemovalPurchaseCallback> getAdsRemovalPurchaseController()
+  public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
   }
