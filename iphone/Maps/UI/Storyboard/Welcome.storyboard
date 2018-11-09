@@ -46,6 +46,7 @@
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-Ni-ms1" userLabel="NotNow">
                                                 <rect key="frame" x="17.5" y="297.5" width="280" height="44"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="welcome_storyboard.button_next2"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" priority="750" constant="280" id="66G-KS-XdJ"/>
                                                     <constraint firstAttribute="height" constant="44" id="iFJ-VB-wRd"/>
