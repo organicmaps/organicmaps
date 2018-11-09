@@ -100,6 +100,7 @@
                 android:layout_height="match_parent"
                 tools:ignore="RtlSymmetry"/>
               <ImageView
+                android:id="@+id/share_published_category_btn"
                 android:src="@drawable/ic_share"
                 android:background="?selectableItemBackgroundBorderless"
                 android:tint="?colorAccent"
@@ -126,41 +127,45 @@
               android:layout_marginRight="@dimen/margin_base"
               android:layout_marginEnd="@dimen/margin_base"/>
           </LinearLayout>
-          <include
-            android:id="@+id/upload_and_publish_desc_container_divider"
-            android:layout_below="@id/upload_and_publish_desc_container"
-            android:layout_height="@dimen/divider_height"
-            android:layout_width="match_parent"
-            layout="@layout/list_divider"/>
           <LinearLayout
             android:id="@+id/edit_on_web_btn"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:minHeight="@dimen/height_block_base"
-            android:paddingTop="@dimen/margin_half_plus"
-            android:paddingBottom="@dimen/margin_half_plus"
-            android:layout_marginStart="@dimen/margin_base"
-            android:layout_marginLeft="@dimen/margin_base"
-            android:layout_marginEnd="@dimen/margin_base"
-            android:layout_marginRight="@dimen/margin_base"
-            android:layout_below="@id/upload_and_publish_desc_container_divider"
+            android:orientation="vertical"
+            android:layout_below="@id/upload_and_publish_desc_container"
             android:background="?selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-              android:layout_width="@dimen/sharing_options_img_size"
-              android:layout_height="@dimen/sharing_options_img_size"
-              android:tint="?colorAccent"
-              android:src="@drawable/ic_edit"/>
-            <TextView
-              android:text="@string/edit_on_web"
-              android:textAppearance="?android:attr/textAppearanceSmall"
-              android:layout_marginLeft="@dimen/margin_double_plus"
-              android:layout_marginStart="@dimen/margin_double_plus"
-              android:textColor="?colorAccent"
-              android:textAllCaps="true"
+            <include
+              android:id="@+id/upload_and_publish_desc_container_divider"
+              android:layout_height="@dimen/divider_height"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
+              layout="@layout/list_divider"/>
+            <LinearLayout
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:minHeight="@dimen/height_block_base"
+              android:paddingTop="@dimen/margin_half_plus"
+              android:paddingBottom="@dimen/margin_half_plus"
+              android:layout_marginStart="@dimen/margin_base"
+              android:layout_marginLeft="@dimen/margin_base"
+              android:layout_marginEnd="@dimen/margin_base"
+              android:layout_marginRight="@dimen/margin_base"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <ImageView
+                android:layout_width="@dimen/sharing_options_img_size"
+                android:layout_height="@dimen/sharing_options_img_size"
+                android:tint="?colorAccent"
+                android:src="@drawable/ic_edit"/>
+              <TextView
+                android:text="@string/edit_on_web"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginLeft="@dimen/margin_double_plus"
+                android:layout_marginStart="@dimen/margin_double_plus"
+                android:textColor="?colorAccent"
+                android:textAllCaps="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
           </LinearLayout>
         </RelativeLayout>
       </LinearLayout>
@@ -242,6 +247,7 @@
                 android:layout_height="match_parent"
                 tools:ignore="RtlSymmetry"/>
               <ImageView
+                android:id="@+id/share_direct_link_btn"
                 android:src="@drawable/ic_share"
                 android:tint="?colorAccent"
                 android:background="?selectableItemBackgroundBorderless"

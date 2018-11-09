@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_ugc_route_edit, container, false);
+    setHasOptionsMenu(true);
     initViews(root);
     return root;
   }
@@ -104,6 +107,12 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   protected ToolbarController onCreateToolbarController(@NonNull View root)
   {
     return new FinishActivityToolbarController(root, getActivity());
+  }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+  {
+    inflater.inflate(R.menu.menu_done, menu);
   }
 
   @Override

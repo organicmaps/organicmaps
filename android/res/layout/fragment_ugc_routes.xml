@@ -40,21 +40,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
   </LinearLayout>
-  <FrameLayout
-    android:id="@+id/retry_btn_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-      android:id="@+id/retry_btn"
-      android:layout_marginLeft="@dimen/margin_double"
-      android:layout_marginRight="@dimen/margin_double"
-      android:layout_gravity="center"
-      android:visibility="gone"
-      style="@style/MwmWidget.Button.Primary"
-      android:text="@string/downloader_retry"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-  </FrameLayout>
   <LinearLayout
     android:id="@+id/tags_container"
     android:orientation="vertical"

@@ -28,14 +28,14 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:layout_weight="1"
-    mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
+    mapsme:imgSrcDefault="@drawable/img_guide_edit_on_web"
     mapsme:titleDefault="@string/edit_guide_title"
     mapsme:subTitleDefault="@string/edit_guide_subtitle"/>
   <Button
     android:id="@+id/send_me_link_btn"
     android:layout_width="@dimen/button_width"
     android:layout_height="wrap_content"
-    style="@style/MwmWidget.Button.Accent"
+    style="@style/MwmWidget.Button.Primary"
     android:layout_weight="0"
     android:layout_marginTop="@dimen/margin_base_plus"
     android:text="@string/send_a_link_btn"

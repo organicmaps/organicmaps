@@ -12,17 +12,18 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 public abstract class BaseUgcRouteActivity extends BaseMwmFragmentActivity
 {
   public static final String EXTRA_BOOKMARK_CATEGORY = "bookmark_category";
+  private static final String BUNDLE_HAS_CALLING_ACTIVITY = "has_calling_activity";
 
   @Override
   protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
     super.safeOnCreate(savedInstanceState);
-    checkForResultCall();
+    checkForResultCall(savedInstanceState);
   }
 
-  private void checkForResultCall()
+  private void checkForResultCall(@Nullable Bundle savedInstanceState)
   {
-    if (getCallingActivity() == null)
+    if (getCallingActivity() == null && savedInstanceState == null)
       throw new IllegalStateException(getClass().getSimpleName() + " must be started for result");
   }
 
@@ -33,5 +34,12 @@ public abstract class BaseUgcRouteActivity extends BaseMwmFragmentActivity
     Intent intent = new Intent(activity, targetClass)
         .putExtra(EXTRA_BOOKMARK_CATEGORY, category);
     activity.startActivityForResult(intent, requestCode);
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(BUNDLE_HAS_CALLING_ACTIVITY, getCallingActivity() != null);
   }
 }

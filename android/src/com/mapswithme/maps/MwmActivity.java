@@ -124,6 +124,7 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
+import com.mapswithme.util.sharing.TargetUtils;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
@@ -2297,14 +2298,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mLocationErrorDialogAnnoying)
       return;
 
-    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-    if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
-    {
-      intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-      if (intent.resolveActivity(MwmApplication.get().getPackageManager()) == null)
-        return;
-    }
-
+    Intent intent = TargetUtils.makeAppSettingsLocationIntent(getApplicationContext());
+    if (intent == null)
+      return;
     showLocationErrorDialog(intent);
   }
 

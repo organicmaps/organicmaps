@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,17 +20,19 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.adapter.AdapterPositionConverter;
-import com.mapswithme.maps.adapter.TagGroupNameAdapter;
+import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.adapter.RecyclerCompositeAdapter;
 import com.mapswithme.maps.adapter.RepeatablePairPositionConverter;
+import com.mapswithme.maps.adapter.TagGroupNameAdapter;
 import com.mapswithme.maps.adapter.TagsAdapter;
 import com.mapswithme.maps.adapter.TagsCompositeAdapter;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.adapter.OnItemClickListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
+import com.mapswithme.maps.dialog.AlertDialog;
+import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 
@@ -37,9 +41,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkManager.BookmarksCatalogListener,
-                                                                     OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>
+                                                                     OnItemClickListener<Pair<TagsAdapter, TagsAdapter.TagViewHolder>>,
+                                                                     AlertDialogCallback
 {
   private static final String BUNDLE_SELECTED_TAGS = "bundle_saved_tags";
+  private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
+  private static final int ERROR_LOADING_DIALOG_REQ_CODE = 205;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -48,10 +55,6 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mProgress;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private View mRetryBtnContainer;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -72,11 +75,8 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
     setHasOptionsMenu(true);
     mProgress = root.findViewById(R.id.progress_container);
     mTagsContainer = root.findViewById(R.id.tags_container);
-    mRetryBtnContainer = root.findViewById(R.id.retry_btn_container);
-    View retryBtn = mRetryBtnContainer.findViewById(R.id.retry_btn);
-    retryBtn.setOnClickListener(v -> onRetryClicked());
     initRecycler(root);
-    UiUtils.hide(mTagsContainer, mRetryBtnContainer);
+    UiUtils.hide(mTagsContainer);
     UiUtils.show(mProgress);
     BookmarkManager.INSTANCE.requestRouteTags();
     mSavedInstanceState = savedInstanceState;
@@ -95,9 +95,29 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
 
   private void onRetryClicked()
   {
-    UiUtils.hide(mTagsContainer, mRetryBtnContainer);
+    UiUtils.hide(mTagsContainer);
     UiUtils.show(mProgress);
     BookmarkManager.INSTANCE.requestRouteTags();
+  }
+
+
+  private void showErrorLoadingDialog()
+  {
+    FragmentManager fm = getActivity().getSupportFragmentManager();
+    Fragment fragment = fm.findFragmentByTag(ERROR_LOADING_DIALOG_TAG);
+    if (fragment != null)
+      return;
+
+    AlertDialog dialog = new AlertDialog.Builder()
+        .setTitleId(R.string.discovery_button_viator_error_title)
+        .setMessageId(R.string.tags_loading_error_subtitle)
+        .setPositiveBtnId(R.string.try_again)
+        .setNegativeBtnId(R.string.cancel)
+        .setReqCode(ERROR_LOADING_DIALOG_REQ_CODE)
+        .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
+        .build();
+    dialog.setTargetFragment(this, ERROR_LOADING_DIALOG_REQ_CODE);
+    dialog.show(this, ERROR_LOADING_DIALOG_TAG);
   }
 
   @Override
@@ -167,11 +187,13 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   public void onTagsReceived(boolean successful, @NonNull List<CatalogTagsGroup> tagsGroups)
   {
     UiUtils.showIf(successful && tagsGroups.size() != 0, mTagsContainer);
-    UiUtils.hideIf(successful && tagsGroups.size() != 0, mRetryBtnContainer);
     UiUtils.hide(mProgress);
 
-    if (tagsGroups.size() == 0)
+    if (tagsGroups.size() == 0 || !successful)
+    {
+      showErrorLoadingDialog();
       return;
+    }
     installTags(tagsGroups);
   }
 
@@ -235,5 +257,23 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
     TagsAdapter adapter = item.first;
     int position = item.second.getAdapterPosition();
     adapter.notifyItemChanged(position);
+  }
+
+  @Override
+  public void onAlertDialogPositiveClick(int requestCode, int which)
+  {
+    onRetryClicked();
+  }
+
+  @Override
+  public void onAlertDialogNegativeClick(int requestCode, int which)
+  {
+
+  }
+
+  @Override
+  public void onAlertDialogCancel(int requestCode)
+  {
+
   }
 }

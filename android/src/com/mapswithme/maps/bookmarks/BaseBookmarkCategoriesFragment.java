@@ -351,7 +351,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     SHOW_ON_MAP(R.id.show_on_map, showAction()),
     SHARE_LIST(R.id.share_list, shareAction()),
     SHARING_OPTIONS(R.id.sharing_options, showSharingOptions()),
-    LIST_SETTINGS(R.id.list_settings, showListSettings()),
+    LIST_SETTINGS(R.id.settings, showListSettings()),
     DELETE_LIST(R.id.delete_list, deleteAction());
 
     @NonNull

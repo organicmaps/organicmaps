@@ -18,7 +18,9 @@ public class AlertDialog extends BaseMwmDialogFragment
   private static final String ARG_TITLE_ID = "arg_title_id";
   private static final String ARG_MESSAGE_ID = "arg_message_id";
   private static final String ARG_POSITIVE_BUTTON_ID = "arg_positive_button_id";
+  private static final String ARG_NEGATIVE_BUTTON_ID = "arg_negative_button_id";
   private static final String ARG_REQ_CODE = "arg_req_code";
+  private static final int UNDEFINED_BUTTON_ID = -1;
 
   @NonNull
   private final DialogInterface.OnClickListener mPositiveClickListener
@@ -27,9 +29,13 @@ public class AlertDialog extends BaseMwmDialogFragment
   @Nullable
   private AlertDialogCallback mTargetCallback;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ResolveFragmentManagerStrategy mFragmentManagerStrategy = new ChildFragmentManagerStrategy();
+
   public void show(@NonNull Fragment parent, @NonNull String tag)
   {
-    FragmentManager fm = parent.getChildFragmentManager();
+    FragmentManager fm = mFragmentManagerStrategy.resolve(parent);
     if (fm.findFragmentByTag(tag) != null)
       return;
 
@@ -41,7 +47,7 @@ public class AlertDialog extends BaseMwmDialogFragment
   private void onClick(int which)
   {
     if (mTargetCallback != null)
-      mTargetCallback.onAlertDialogClick(getArguments().getInt(ARG_REQ_CODE), which);
+      mTargetCallback.onAlertDialogPositiveClick(getArguments().getInt(ARG_REQ_CODE), which);
   }
 
   @Override
@@ -50,7 +56,8 @@ public class AlertDialog extends BaseMwmDialogFragment
     super.onAttach(context);
     try
     {
-      mTargetCallback = (AlertDialogCallback) getParentFragment();
+      mTargetCallback = (AlertDialogCallback) (getParentFragment() == null ? getTargetFragment()
+                                                                           : getParentFragment());
     }
     catch (ClassCastException e)
     {
@@ -76,10 +83,20 @@ public class AlertDialog extends BaseMwmDialogFragment
     int titleId = args.getInt(ARG_TITLE_ID);
     int messageId = args.getInt(ARG_MESSAGE_ID);
     int positiveButtonId = args.getInt(ARG_POSITIVE_BUTTON_ID);
+    int negativeButtonId = args.getInt(ARG_NEGATIVE_BUTTON_ID);
     android.support.v7.app.AlertDialog.Builder builder =
         DialogUtils.buildAlertDialog(getContext(), titleId, messageId);
     builder.setPositiveButton(positiveButtonId, mPositiveClickListener);
+    if (negativeButtonId != UNDEFINED_BUTTON_ID)
+      builder.setNegativeButton(negativeButtonId, (dialog, which) -> onNegativeClicked(which));
+
     return builder.show();
+  }
+
+  private void onNegativeClicked(int which)
+  {
+    if (mTargetCallback != null)
+      mTargetCallback.onAlertDialogNegativeClick(getArguments().getInt(ARG_REQ_CODE), which);
   }
 
   @Override
@@ -97,10 +114,17 @@ public class AlertDialog extends BaseMwmDialogFragment
     args.putInt(ARG_TITLE_ID, builder.getTitleId());
     args.putInt(ARG_MESSAGE_ID, builder.getMessageId());
     args.putInt(ARG_POSITIVE_BUTTON_ID, builder.getPositiveBtnId());
+    args.putInt(ARG_NEGATIVE_BUTTON_ID, builder.getNegativeBtnId());
     args.putInt(ARG_REQ_CODE, builder.getReqCode());
     AlertDialog dialog = new AlertDialog();
     dialog.setArguments(args);
+    dialog.setFragmentManagerStrategy(builder.getFragManagerStrategy());
     return dialog;
+  }
+
+  private void setFragmentManagerStrategy(@NonNull ResolveFragmentManagerStrategy strategy)
+  {
+    mFragmentManagerStrategy = strategy;
   }
 
   public static class Builder
@@ -112,6 +136,10 @@ public class AlertDialog extends BaseMwmDialogFragment
     private int mMessageId;
     @StringRes
     private int mPositiveBtn;
+    @StringRes
+    private int mNegativeBtn = UNDEFINED_BUTTON_ID;
+    @NonNull
+    private ResolveFragmentManagerStrategy mFragManagerStrategy = new ChildFragmentManagerStrategy();
 
     @NonNull
     public Builder setReqCode(int reqCode)
@@ -152,9 +180,16 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
 
     @NonNull
-    public Builder setPositiveBtnId(@StringRes int positiveBtnId)
+    public Builder setPositiveBtnId(@StringRes int btnId)
     {
-      mPositiveBtn = positiveBtnId;
+      mPositiveBtn = btnId;
+      return this;
+    }
+
+    @NonNull
+    public Builder setNegativeBtnId(@StringRes int btnId)
+    {
+      mNegativeBtn = btnId;
       return this;
     }
 
@@ -164,10 +199,49 @@ public class AlertDialog extends BaseMwmDialogFragment
       return mPositiveBtn;
     }
 
+    @StringRes
+    int getNegativeBtnId()
+    {
+      return mNegativeBtn;
+    }
+
+    @NonNull
+    public Builder setFragManagerStrategy(@NonNull ResolveFragmentManagerStrategy fragManagerStrategy)
+    {
+      mFragManagerStrategy = fragManagerStrategy;
+      return this;
+    }
+
+    @NonNull
+    ResolveFragmentManagerStrategy getFragManagerStrategy()
+    {
+      return mFragManagerStrategy;
+    }
+
     @NonNull
     public AlertDialog build()
     {
       return createDialog(this);
+    }
+  }
+
+  public static class ChildFragmentManagerStrategy implements ResolveFragmentManagerStrategy
+  {
+    @NonNull
+    @Override
+    public FragmentManager resolve(@NonNull Fragment baseFragment)
+    {
+      return baseFragment.getChildFragmentManager();
+    }
+  }
+
+  public static class ActivityFragmentManagerStrategy implements ResolveFragmentManagerStrategy
+  {
+    @NonNull
+    @Override
+    public FragmentManager resolve(@NonNull Fragment baseFragment)
+    {
+      return baseFragment.getActivity().getSupportFragmentManager();
     }
   }
 }

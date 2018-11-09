@@ -1,7 +1,10 @@
 package com.mapswithme.util.sharing;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public final class TargetUtils
 {
@@ -17,5 +20,16 @@ public final class TargetUtils
   {
     smsIntent.setData(Uri.parse(URI_STRING_SMS));
     smsIntent.putExtra(EXTRA_SMS_BODY, body);
+  }
+
+  @Nullable
+  public static Intent makeAppSettingsLocationIntent(@NonNull Context context)
+  {
+    Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    if (intent.resolveActivity(context.getPackageManager()) != null)
+      return intent;
+
+    intent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+    return intent.resolveActivity(context.getPackageManager()) == null ? null : intent;
   }
 }
