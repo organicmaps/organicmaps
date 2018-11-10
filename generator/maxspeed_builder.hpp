@@ -1,5 +1,5 @@
 #pragma once
-#include "routing/maxspeed_conversion.hpp"
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "platform/measurement_utils.hpp"
 

@@ -3,8 +3,9 @@
 #include "generator/maxspeed_parser.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"

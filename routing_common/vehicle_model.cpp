@@ -1,5 +1,7 @@
 #include "routing_common/vehicle_model.hpp"
 
+#include "routing_common/maxspeed_conversion.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -87,7 +89,8 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   }
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool inCity) const
+VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool forward, bool inCity,
+                                               Maxspeed const & maxspeed) const
 {
   feature::TypesHolder const types(f);
 

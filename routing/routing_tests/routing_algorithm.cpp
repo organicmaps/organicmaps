@@ -1,6 +1,7 @@
 #include "routing/routing_tests/routing_algorithm.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/maxspeeds.hpp"
 #include "routing/routing_helpers.hpp"
 
 #include "geometry/mercator.hpp"
@@ -67,7 +68,8 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e, false /* in city */));
+      double const speedMPS = KMPH2MPS(
+          m_roadGraph.GetSpeedKMpH(e, true /* forward */, false /* in city */, Maxspeed()));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
@@ -84,7 +86,8 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e, false /* in city */));
+      double const speedMPS = KMPH2MPS(
+          m_roadGraph.GetSpeedKMpH(e, true /* forward */, false /* in city */, Maxspeed()));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }

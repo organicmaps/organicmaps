@@ -1,6 +1,6 @@
 #pragma once
 
-#include "routing/maxspeed_conversion.hpp"
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/mwm_set.hpp"
 
@@ -50,5 +50,6 @@ private:
   std::vector<FeatureMaxspeed> m_bidirectionalMaxspeeds;
 };
 
+void LoadMaxspeeds(FilesContainerR::TReader const & reader, Maxspeeds & maxspeeds);
 std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource, MwmSet::MwmHandle const & handle);
 }  // namespace routing

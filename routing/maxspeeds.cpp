@@ -63,6 +63,12 @@ bool Maxspeeds::HasBidirectionalMaxspeed(uint32_t fid) const
       FeatureMaxspeed(fid, measurement_utils::Units::Metric, kInvalidSpeed, kInvalidSpeed));
 }
 
+void LoadMaxspeeds(FilesContainerR::TReader const & reader, Maxspeeds & maxspeeds)
+{
+  ReaderSource<FilesContainerR::TReader> src(reader);
+  MaxspeedSerializer::Deserialize(src, maxspeeds);
+}
+
 std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource,
                                          MwmSet::MwmHandle const & handle)
 {
@@ -73,8 +79,7 @@ std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource,
 
   try
   {
-    ReaderSource<FilesContainerR::TReader> src(mwmValue.m_cont.GetReader(MAXSPEED_FILE_TAG));
-    MaxspeedSerializer::Deserialize(src, *maxspeeds);
+    LoadMaxspeeds(mwmValue.m_cont.GetReader(MAXSPEED_FILE_TAG), *maxspeeds);
   }
   catch (Reader::OpenException const & e)
   {

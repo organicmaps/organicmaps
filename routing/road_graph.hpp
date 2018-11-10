@@ -2,6 +2,8 @@
 
 #include "routing/segment.hpp"
 
+#include "routing_common/maxspeed_conversion.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include "base/string_utils.hpp"
@@ -275,13 +277,15 @@ public:
   void AddIngoingFakeEdge(Edge const & e);
 
   /// Returns RoadInfo for a road corresponding to featureId.
-  virtual RoadInfo GetRoadInfo(FeatureID const & featureId, bool inCity) const = 0;
+  virtual RoadInfo GetRoadInfo(FeatureID const & featureId, bool forward, bool inCity,
+                               Maxspeed const & maxspeed) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to featureId.
-  virtual double GetSpeedKMpH(FeatureID const & featureId, bool inCity) const = 0;
+  virtual double GetSpeedKMpH(FeatureID const & featureId, bool forward, bool inCity,
+                              Maxspeed const & maxspeed) const = 0;
 
   /// Returns speed in KM/H for a road corresponding to edge.
-  double GetSpeedKMpH(Edge const & edge, bool inCity) const;
+  double GetSpeedKMpH(Edge const & edge, bool forward, bool inCity, Maxspeed const & maxspeed) const;
 
   /// Calls edgesLoader on each feature which is close to cross.
   virtual void ForEachFeatureClosestToCross(m2::PointD const & cross,

@@ -10,8 +10,9 @@
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 
-#include "routing/maxspeed_conversion.hpp"
 #include "routing/speed_camera_ser_des.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/index_builder.hpp"

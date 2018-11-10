@@ -2,6 +2,7 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/index_graph_serialization.hpp"
+#include "routing/maxspeeds.hpp"
 #include "routing/restriction_loader.hpp"
 #include "routing/road_access_serialization.hpp"
 #include "routing/route.hpp"
@@ -185,7 +186,7 @@ IndexGraphLoaderImpl::GraphAttrs & IndexGraphLoaderImpl::CreateGeometry(NumMwmId
 
   auto & graph = m_graphs[numMwmId];
   graph.m_geometry = make_shared<Geometry>(GeometryLoader::Create(
-      m_dataSource, handle, vehicleModel, LoadCityRoads(m_dataSource, handle), m_loadAltitudes));
+      m_dataSource, handle, vehicleModel, AttrLoader(m_dataSource, handle), m_loadAltitudes));
   return graph;
 }
 

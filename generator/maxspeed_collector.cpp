@@ -2,7 +2,7 @@
 
 #include "generator/maxspeed_parser.hpp"
 
-#include "routing/maxspeed_conversion.hpp"
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "coding/file_writer.hpp"
 

@@ -5,6 +5,7 @@
 #include "routing/router.hpp"
 #include "routing/vehicle_mask.hpp"
 
+#include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
@@ -70,9 +71,10 @@ public:
     // max speed.
     using SpeedKMpH = typename Model::SpeedKMpH;
 
-    SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const override
+    SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
+                       routing::Maxspeed const & maxspeed) const override
     {
-      auto const speed = Model::GetSpeed(f, inCity);
+      auto const speed = Model::GetSpeed(f, forward, inCity, maxspeed);
       if (speed.m_weight <= 0.0)
         return SpeedKMpH();
 

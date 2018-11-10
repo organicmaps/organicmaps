@@ -16,6 +16,7 @@ namespace feature { class TypesHolder; }
 
 namespace routing
 {
+struct Maxspeed;
 
 class VehicleModelInterface
 {
@@ -38,6 +39,8 @@ public:
     {
       return m_weight == rhs.m_weight && m_eta == rhs.m_eta;
     }
+
+    bool IsValid() const { return m_weight >= 0 && m_eta >= 0; }
 
     double m_weight = 0.0; // KMpH
     double m_eta = 0.0;    // KMpH
@@ -72,7 +75,8 @@ public:
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   /// @param inCity is true if |f| lies in a city of town.
-  virtual SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
+                             Maxspeed const & maxspeed) const = 0;
 
   virtual double GetMaxWeightSpeed() const = 0;
 
@@ -158,7 +162,8 @@ public:
                SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType & f, bool inCity) const override;
+  SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
+                     Maxspeed const & maxspeed) const override;
   double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;

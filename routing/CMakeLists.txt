@@ -65,8 +65,6 @@ set(
   loaded_path_segment.hpp
   maxspeeds.cpp
   maxspeeds.hpp
-  maxspeed_conversion.cpp
-  maxspeed_conversion.hpp
   maxspeed_serialization.cpp
   maxspeed_serialization.hpp
   nearest_edge_finder.cpp

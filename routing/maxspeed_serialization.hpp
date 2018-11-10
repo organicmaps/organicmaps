@@ -1,7 +1,8 @@
 #pragma once
 
-#include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeeds.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"
@@ -117,7 +118,7 @@ public:
 
     LOG(LINFO, ("Serialized", serializedForwardNumber, "forward maxspeeds and",
                 header.m_bidirectionalMaxspeedNumber,
-                "maxspeeds. Section size:", endOffset - startOffset, "bytes."));
+                "bidirectional maxspeeds. Section size:", endOffset - startOffset, "bytes."));
   }
 
   template <class Source>

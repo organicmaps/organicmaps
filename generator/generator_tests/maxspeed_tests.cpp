@@ -5,9 +5,10 @@
 #include "generator/maxspeed_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
 #include "routing/maxspeeds.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_source.hpp"
@@ -31,6 +32,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <fstream>
 #include <map>
 #include <string>
@@ -128,7 +130,7 @@ void TestMaxspeedSection(FeatureVector const & roads, string const & maxspeedCsv
 }
 
 // Note. ParseMaxspeeds() is not tested in TestMaxspeedSection() because it's used twice there.
-// So it's important to test the function separate.
+// So it's important to test the function separately.
 bool ParseCsv(string const & maxspeedCsvContent, OsmIdToMaxspeed & mapping)
 {
   string const testDirFullPath = base::JoinPath(GetPlatform().WritableDir(), kTestDir);

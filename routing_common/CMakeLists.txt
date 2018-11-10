@@ -10,6 +10,8 @@ set(
   bicycle_model.hpp
   car_model.cpp
   car_model.hpp
+  maxspeed_conversion.cpp
+  maxspeed_conversion.hpp
   num_mwm_id.hpp
   pedestrian_model.cpp
   pedestrian_model.hpp

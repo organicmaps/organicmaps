@@ -1,8 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "routing/maxspeed_conversion.hpp"
 #include "routing/maxspeed_serialization.hpp"
 #include "routing/maxspeeds.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"

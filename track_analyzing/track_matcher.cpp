@@ -4,6 +4,7 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/index_graph_loader.hpp"
+#include "routing/maxspeeds.hpp"
 
 #include "routing_common/car_model.hpp"
 
@@ -66,7 +67,7 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
   MwmSet::MwmHandle const handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
   m_graph = make_unique<IndexGraph>(
       make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, m_vehicleModel,
-                                                   LoadCityRoads(m_dataSource, handle),
+                                                   AttrLoader(m_dataSource, handle),
                                                    false /* loadAltitudes */)),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
 
