@@ -71,10 +71,9 @@ public:
     // max speed.
     using SpeedKMpH = typename Model::SpeedKMpH;
 
-    SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
-                       routing::Maxspeed const & maxspeed) const override
+    SpeedKMpH GetSpeed(FeatureType & f, routing::SpeedParams const & speedParams) const override
     {
-      auto const speed = Model::GetSpeed(f, forward, inCity, maxspeed);
+      auto const speed = Model::GetSpeed(f, speedParams);
       if (speed.m_weight <= 0.0)
         return SpeedKMpH();
 

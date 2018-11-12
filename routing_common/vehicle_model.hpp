@@ -1,5 +1,7 @@
 #pragma once
 
+#include "routing_common/maxspeed_conversion.hpp"
+
 #include <array>
 #include <functional>
 #include <initializer_list>
@@ -16,7 +18,16 @@ namespace feature { class TypesHolder; }
 
 namespace routing
 {
-struct Maxspeed;
+/// \brief Params for calcualtion of an approximate speed on a feature.
+struct SpeedParams
+{
+  SpeedParams() = delete;
+
+  bool m_forward;
+  // |m_inCity| == true if a corresponding feature lies inside a city of a town.
+  bool m_inCity;
+  Maxspeed m_maxspeed;
+};
 
 class VehicleModelInterface
 {
@@ -75,8 +86,7 @@ public:
   /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
   /// @param inCity is true if |f| lies in a city of town.
-  virtual SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
-                             Maxspeed const & maxspeed) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const = 0;
 
   virtual double GetMaxWeightSpeed() const = 0;
 
@@ -162,8 +172,7 @@ public:
                SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
-  SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
-                     Maxspeed const & maxspeed) const override;
+  SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
   double GetMaxWeightSpeed() const override;
   bool IsOneWay(FeatureType & f) const override;
   bool IsRoad(FeatureType & f) const override;

@@ -31,8 +31,8 @@ private:
     CrossCountryVehicleModel(shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
     // VehicleModelInterface overrides:
-    VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f, bool forward, bool inCity,
-                                              Maxspeed const & maxspeed) const override;
+    VehicleModelInterface::SpeedKMpH GetSpeed(FeatureType & f,
+                                              SpeedParams const & speedParams) const override;
     double GetMaxWeightSpeed() const override { return m_maxSpeed; };
     double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType & f) const override;
@@ -70,10 +70,8 @@ public:
   static int GetStreetReadScale();
 
   // IRoadGraph overrides:
-  RoadInfo GetRoadInfo(FeatureID const & featureId, bool forward, bool inCity,
-                       Maxspeed const & maxspeed) const override;
-  double GetSpeedKMpH(FeatureID const & featureId, bool forward, bool inCity,
-                      Maxspeed const & maxspeed) const override;
+  RoadInfo GetRoadInfo(FeatureID const & featureId, SpeedParams const & speedParams) const override;
+  double GetSpeedKMpH(FeatureID const & featureId, SpeedParams const & speedParams) const override;
   double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgesLoader) const override;
@@ -101,13 +99,11 @@ private:
   };
 
   bool IsOneWay(FeatureType & ft) const;
-  double GetSpeedKMpHFromFt(FeatureType & ft, bool forward, bool inCity,
-                            Maxspeed const & maxspeed) const;
+  double GetSpeedKMpHFromFt(FeatureType & ft, SpeedParams const & speedParams) const;
 
   // Searches a feature RoadInfo in the cache, and if does not find then
   // loads feature from the index and takes speed for the feature from the vehicle model.
-  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, bool forward, bool inCity,
-                                     Maxspeed const & maxspeed) const;
+  RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, SpeedParams const & speedParams) const;
   // Searches a feature RoadInfo in the cache, and if does not find then takes passed feature and speed.
   // This version is used to prevent redundant feature loading when feature speed is known.
   RoadInfo const & GetCachedRoadInfo(FeatureID const & featureId, FeatureType & ft,

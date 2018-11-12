@@ -1,7 +1,5 @@
 #include "routing_common/vehicle_model.hpp"
 
-#include "routing_common/maxspeed_conversion.hpp"
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -89,17 +87,16 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   }
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, bool forward, bool inCity,
-                                               Maxspeed const & maxspeed) const
+VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
 {
   feature::TypesHolder const types(f);
 
   RoadAvailability const restriction = GetRoadAvailability(types);
   // @TODO(bykoianko) Consider using speed on feature |f| instead of using max speed below.
   if (restriction == RoadAvailability::Available)
-    return inCity ? m_maxSpeed.m_inCity : m_maxSpeed.m_outCity;
+    return speedParams.m_inCity ? m_maxSpeed.m_inCity : m_maxSpeed.m_outCity;
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-    return GetMinTypeSpeed(types, inCity);
+    return GetMinTypeSpeed(types, speedParams.m_inCity);
 
   return {};
 }
