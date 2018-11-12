@@ -26,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.CatalogCustomProperty;
+import com.mapswithme.maps.bookmarks.data.CatalogPropertyOptionAndKey;
 import com.mapswithme.maps.bookmarks.data.CatalogTag;
 import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
@@ -322,15 +323,19 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == UgcRouteTagsActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK)
+    if (requestCode == UgcRoutePropertiesActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK)
       requestPublishing(data);
   }
 
   private void requestPublishing(@NonNull Intent data)
   {
     showProgress();
-    List<CatalogTag> tags = data.getParcelableArrayListExtra(UgcRouteTagsActivity.EXTRA_TAGS);
+    Intent tagsActivityResult = data.getParcelableExtra(UgcRoutePropertiesFragment.EXTRA_TAGS_ACTIVITY_RESULT);
+
+    List<CatalogTag> tags = tagsActivityResult.getParcelableArrayListExtra(UgcRouteTagsActivity.EXTRA_TAGS);
+    List<CatalogPropertyOptionAndKey> options = data.getParcelableArrayListExtra(UgcRoutePropertiesFragment.EXTRA_CATEGORY_OPTIONS);
     BookmarkManager.INSTANCE.setCategoryTags(mCategory, tags);
+    BookmarkManager.INSTANCE.setCategoryProperties(mCategory, options);
     BookmarkManager.INSTANCE.uploadToCatalog(BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC, mCategory);
   }
 

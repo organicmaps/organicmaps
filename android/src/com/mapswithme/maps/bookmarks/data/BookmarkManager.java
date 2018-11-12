@@ -343,6 +343,15 @@ public enum BookmarkManager
     nativeSetCategoryTags(category.getId(), ids);
   }
 
+  public void setCategoryProperties(@NonNull BookmarkCategory category,
+                                    @NonNull List<CatalogPropertyOptionAndKey> properties)
+  {
+    for (CatalogPropertyOptionAndKey each : properties)
+    {
+      nativeSetCategoryCustomProperty(category.getId(), each.getKey(), each.getOption().getValue());
+    }
+  }
+
   public void setAccessRules(long id, @NonNull BookmarkCategory.AccessRules rules)
   {
     nativeSetCategoryAccessRules(id, rules.ordinal());
@@ -614,6 +623,11 @@ public enum BookmarkManager
   public void requestRouteTags()
   {
     nativeRequestCatalogTags();
+  }
+
+  public void requestCustomProperties()
+  {
+    nativeRequestCatalogCustomProperties();
   }
 
   public boolean isCategoryFromCatalog(long catId)

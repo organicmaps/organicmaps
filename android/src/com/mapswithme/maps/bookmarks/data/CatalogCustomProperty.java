@@ -1,12 +1,15 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CatalogCustomProperty
+public class CatalogCustomProperty implements Parcelable
 {
   @NonNull
   private final String mKey;
@@ -38,4 +41,43 @@ public class CatalogCustomProperty
 
   @NonNull
   public List<CatalogCustomPropertyOption> getOptions() { return mOptions; }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(this.mKey);
+    dest.writeString(this.mLocalizedName);
+    dest.writeByte(this.mRequired ? (byte) 1 : (byte) 0);
+    dest.writeList(this.mOptions);
+  }
+
+  protected CatalogCustomProperty(Parcel in)
+  {
+    this.mKey = in.readString();
+    this.mLocalizedName = in.readString();
+    this.mRequired = in.readByte() != 0;
+    this.mOptions = new ArrayList<>();
+    in.readList(this.mOptions, CatalogCustomPropertyOption.class.getClassLoader());
+  }
+
+  public static final Creator<CatalogCustomProperty> CREATOR = new Creator<CatalogCustomProperty>()
+  {
+    @Override
+    public CatalogCustomProperty createFromParcel(Parcel source)
+    {
+      return new CatalogCustomProperty(source);
+    }
+
+    @Override
+    public CatalogCustomProperty[] newArray(int size)
+    {
+      return new CatalogCustomProperty[size];
+    }
+  };
 }
