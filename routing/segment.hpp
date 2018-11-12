@@ -7,6 +7,7 @@
 #include "routing_common/num_mwm_id.hpp"
 
 #include <cstdint>
+#include <ios>
 #include <sstream>
 #include <string>
 
@@ -116,7 +117,7 @@ private:
 inline std::string DebugPrint(Segment const & segment)
 {
   std::ostringstream out;
-  out << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
+  out << std::boolalpha << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
       << segment.GetSegmentIdx() << ", " << segment.IsForward() << ")";
   return out.str();
 }
