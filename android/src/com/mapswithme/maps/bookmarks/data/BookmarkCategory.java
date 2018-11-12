@@ -157,6 +157,21 @@ public class BookmarkCategory implements Parcelable
     return new CountAndPlurals(size(), R.plurals.objects);
   }
 
+  public boolean isSharingOptionsAllowed()
+  {
+    BookmarkCategory.AccessRules rules = getAccessRules();
+    return rules != BookmarkCategory.AccessRules.ACCESS_RULES_PAID
+           && rules != BookmarkCategory.AccessRules.ACCESS_RULES_P2P
+           && size() > 0;
+  }
+
+  public boolean isExportAllowed()
+  {
+    BookmarkCategory.AccessRules rules = getAccessRules();
+    boolean isLocal = rules == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
+    return isLocal && size() > 0;
+  }
+
   public static class CountAndPlurals {
     private final int mCount;
     @PluralsRes
