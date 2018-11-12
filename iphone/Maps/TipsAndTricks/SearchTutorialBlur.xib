@@ -25,6 +25,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-Cp-6l4">
                         <rect key="frame" x="40" y="531" width="91" height="36"/>
                         <color key="backgroundColor" white="1" alpha="0.29981806506849318" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <accessibility key="accessibilityConfiguration" identifier="tips_search_got_it"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="NHs-R6-v4C"/>
                         </constraints>

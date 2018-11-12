@@ -60,7 +60,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-LD-odP" userLabel="Discover" customClass="MWMButton">
                             <rect key="frame" x="128" y="0.0" width="64" height="48"/>
-                            <accessibility key="accessibilityConfiguration" identifier="bookmarksButton"/>
+                            <accessibility key="accessibilityConfiguration" identifier="discoveryButton"/>
                             <state key="normal" image="ic_menu_discovery"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="coloringName" value="MWMBlack"/>
