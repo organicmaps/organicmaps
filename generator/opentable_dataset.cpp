@@ -40,7 +40,7 @@ bool OpentableDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & f
   if (fb.GetName(StringUtf8Multilang::kDefaultCode).empty())
     return false;
 
-  return ftypes::IsFoodChecker::Instance()(fb.GetTypes());
+  return ftypes::IsEatChecker::Instance()(fb.GetTypes());
 }
 
 template <>

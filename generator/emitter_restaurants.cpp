@@ -12,7 +12,7 @@ EmitterRestaurants::EmitterRestaurants(std::vector<FeatureBuilder1> & features)
 
 void EmitterRestaurants::operator()(FeatureBuilder1 & fb)
 {
-  if (!ftypes::IsFoodChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
+  if (!ftypes::IsEatChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
   {
     ++m_stats.m_unexpectedFeatures;
     return;

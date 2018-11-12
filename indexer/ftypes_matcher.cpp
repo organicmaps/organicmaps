@@ -379,15 +379,17 @@ IsWifiChecker::IsWifiChecker()
   m_types.push_back(classif().GetTypeByPath({"internet_access", "wlan"}));
 }
 
-IsFoodChecker:: IsFoodChecker()
+IsEatChecker:: IsEatChecker()
 {
   Classificator const & c = classif();
   char const * const paths[][2] = {
     {"amenity", "cafe"},
     {"amenity", "bar"},
+    {"amenity", "biergarden"},
     {"amenity", "pub"},
     {"amenity", "fast_food"},
-    {"amenity", "restaurant"}
+    {"amenity", "restaurant"},
+    {"shop", "bakery"}
   };
   for (auto const & path : paths)
     m_types.push_back(c.GetTypeByPath({path[0], path[1]}));

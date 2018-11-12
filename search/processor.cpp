@@ -288,7 +288,7 @@ void Processor::SetQuery(string const & query)
     if (isCuisineRequest)
     {
       m_isCategorialRequest = true;
-      m_preferredTypes = ftypes::IsFoodChecker::Instance().GetTypes();
+      m_preferredTypes = ftypes::IsEatChecker::Instance().GetTypes();
     }
   }
 

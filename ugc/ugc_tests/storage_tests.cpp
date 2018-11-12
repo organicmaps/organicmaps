@@ -126,7 +126,7 @@ public:
 
   FeatureID FeatureIdForCafeAtPoint(m2::PointD const & mercator)
   {
-    return FeatureIdForPoint(mercator, ftypes::IsFoodChecker::Instance());
+    return FeatureIdForPoint(mercator, ftypes::IsEatChecker::Instance());
   }
 
   FeatureID FeatureIdForRailwayAtPoint(m2::PointD const & mercator)

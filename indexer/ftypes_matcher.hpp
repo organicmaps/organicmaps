@@ -214,11 +214,11 @@ public:
   DECLARE_CHECKER_INSTANCE(IsWifiChecker);
 };
 
-class IsFoodChecker : public BaseChecker
+class IsEatChecker : public BaseChecker
 {
-  IsFoodChecker();
+  IsEatChecker();
 public:
-  DECLARE_CHECKER_INSTANCE(IsFoodChecker);
+  DECLARE_CHECKER_INSTANCE(IsEatChecker);
 
   std::vector<uint32_t> const & GetTypes() const { return m_types; }
 };
