@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -43,9 +43,9 @@ public enum PromoCategory
 
         @NonNull
         @Override
-        PromoCategoryProcessor createProcessor(@NonNull Context context)
+        PromoCategoryProcessor createProcessor(@NonNull Activity activity)
         {
-          return new RutaxiPromoProcessor(context);
+          return new RutaxiPromoProcessor(activity);
         }
 
         @Override
@@ -69,7 +69,7 @@ public enum PromoCategory
   abstract boolean isSupported();
 
   @NonNull
-  abstract PromoCategoryProcessor createProcessor(@NonNull Context context);
+  abstract PromoCategoryProcessor createProcessor(@NonNull Activity activity);
 
   @Nullable
   static PromoCategory findByStringId(@StringRes int nameId)

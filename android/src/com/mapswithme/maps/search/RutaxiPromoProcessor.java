@@ -1,6 +1,6 @@
 package com.mapswithme.maps.search;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.util.Utils;
@@ -8,16 +8,16 @@ import com.mapswithme.util.Utils;
 public class RutaxiPromoProcessor implements PromoCategoryProcessor
 {
   @NonNull
-  private final Context mContext;
+  private final Activity mActivity;
 
-  RutaxiPromoProcessor(@NonNull Context context)
+  RutaxiPromoProcessor(@NonNull Activity activity)
   {
-    mContext = context;
+    mActivity = activity;
   }
 
   @Override
   public void process()
   {
-    Utils.openUrl(mContext, "https://go.onelink.me/2944814706/86db6339");
+    Utils.openUrl(mActivity, "https://go.onelink.me/2944814706/86db6339");
   }
 }

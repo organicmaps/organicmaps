@@ -27,6 +27,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
+import android.util.AndroidRuntimeException;
 import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
@@ -217,23 +218,35 @@ public class Utils
     activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP)));
   }
 
-  public static void openUrl(@NonNull Context activity, @Nullable String url)
+  public static void openUrl(@NonNull Context context, @Nullable String url)
   {
     if (TextUtils.isEmpty(url))
       return;
 
+    final Intent intent = new Intent(Intent.ACTION_VIEW);
+    Uri uri = isHttpOrHttpsScheme(url)
+               ? Uri.parse(url)
+               : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
+    intent.setData(uri);
     try
     {
-      final Intent intent = new Intent(Intent.ACTION_VIEW);
-      if (!url.startsWith("http://") && !url.startsWith("https://"))
-        url = "http://" + url;
-      intent.setData(Uri.parse(url));
-      activity.startActivity(intent);
+      context.startActivity(intent);
     }
     catch (ActivityNotFoundException e)
     {
       CrashlyticsUtils.logException(e);
     }
+    catch (AndroidRuntimeException e)
+    {
+      CrashlyticsUtils.logException(e);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(intent);
+    }
+  }
+
+  private static boolean isHttpOrHttpsScheme(@NonNull String url)
+  {
+    return url.startsWith("http://") || url.startsWith("https://");
   }
 
   @NonNull
