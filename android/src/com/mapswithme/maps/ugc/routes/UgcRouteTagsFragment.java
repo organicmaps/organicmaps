@@ -100,14 +100,8 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
     BookmarkManager.INSTANCE.requestRouteTags();
   }
 
-
   private void showErrorLoadingDialog()
   {
-    FragmentManager fm = getActivity().getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(ERROR_LOADING_DIALOG_TAG);
-    if (fragment != null)
-      return;
-
     AlertDialog dialog = new AlertDialog.Builder()
         .setTitleId(R.string.discovery_button_viator_error_title)
         .setMessageId(R.string.tags_loading_error_subtitle)

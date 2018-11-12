@@ -51,10 +51,10 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
-  private static final int NO_NETWORK_CONNECTION_DIALOG_REQ_CODE = 200;
-  private static final int ERROR_BROKEN_FILE_DIALOG_REQ_CODE = 201;
-  private static final int ERROR_EDITED_ON_WEB_DIALOG_REQ_CODE = 202;
-  private static final int ERROR_COMMON_REQ_CODE = 203;
+  private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 200;
+  private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 201;
+  private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 202;
+  private static final int REQ_CODE_ERROR_COMMON = 203;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -197,10 +197,10 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onPublishedCategoryShared()
   {
-    shareDefault();
+    shareCategory();
   }
 
-  private void shareDefault()
+  private void shareCategory()
   {
     String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
     Intent intent = new Intent(Intent.ACTION_SEND)
@@ -212,7 +212,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onDirectLinkShared()
   {
-    shareDefault();
+    shareCategory();
   }
 
   private void showNoNetworkConnectionDialog()
@@ -227,9 +227,9 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)
         .setFragManagerStrategy(new AlertDialog.ActivityFragmentManagerStrategy())
-        .setReqCode(NO_NETWORK_CONNECTION_DIALOG_REQ_CODE)
+        .setReqCode(REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
         .build();
-    dialog.setTargetFragment(this, NO_NETWORK_CONNECTION_DIALOG_REQ_CODE);
+    dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
     dialog.show(this, NO_NETWORK_CONNECTION_DIALOG_TAG);
   }
 
@@ -437,7 +437,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void showCommonErrorDialog()
   {
     showErrorDialog(R.string.unable_upload_error_subtitle_broken,
-                    ERROR_COMMON_REQ_CODE,
+                    REQ_CODE_ERROR_COMMON,
                     ERROR_COMMON_DIALOG_TAG);
   }
 
@@ -466,7 +466,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void showErrorEditedOnWebDialog()
   {
     showErrorDialog(R.string.unable_upload_error_subtitle_edited,
-                    ERROR_EDITED_ON_WEB_DIALOG_REQ_CODE,
+                    REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG,
                     ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
   }
 
@@ -474,7 +474,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void showErrorBrokenFileDialog()
   {
     showErrorDialog(R.string.unable_upload_error_subtitle_broken,
-                    ERROR_BROKEN_FILE_DIALOG_REQ_CODE,
+                    REQ_CODE_ERROR_BROKEN_FILE_DIALOG,
                     ERROR_BROKEN_FILE_DIALOG_TAG);
   }
 
@@ -499,7 +499,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    if (requestCode == NO_NETWORK_CONNECTION_DIALOG_REQ_CODE)
+    if (requestCode == REQ_CODE_NO_NETWORK_CONNECTION_DIALOG)
       Utils.showSystemSettings(getContext());
 
   }
