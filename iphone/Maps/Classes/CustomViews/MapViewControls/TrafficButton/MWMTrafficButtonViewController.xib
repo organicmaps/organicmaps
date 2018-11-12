@@ -18,6 +18,7 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVx-0E-RoH" customClass="MWMButton" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+            <accessibility key="accessibilityConfiguration" identifier="layers_button"/>
             <constraints>
                 <constraint firstAttribute="height" constant="56" id="24f-V4-Vuf"/>
                 <constraint firstAttribute="width" constant="56" id="hko-xz-hRz"/>
