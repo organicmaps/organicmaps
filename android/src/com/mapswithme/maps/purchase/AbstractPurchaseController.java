@@ -17,7 +17,7 @@ import java.util.List;
 abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
     implements PurchaseController<UiCallback>
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = AbstractPurchaseController.class.getSimpleName();
   @NonNull
   private final PurchaseValidator<V> mValidator;
@@ -25,16 +25,17 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   private final BillingManager<B> mBillingManager;
   @Nullable
   private UiCallback mUiCallback;
-  @NonNull
+  @Nullable
   private final List<String> mProductIds;
 
   AbstractPurchaseController(@NonNull PurchaseValidator<V> validator,
                              @NonNull BillingManager<B> billingManager,
-                             @NonNull String... productIds)
+                             @Nullable String... productIds)
   {
     mValidator = validator;
     mBillingManager = billingManager;
-    mProductIds = Collections.unmodifiableList(Arrays.asList(productIds));
+    mProductIds = productIds != null ? Collections.unmodifiableList(Arrays.asList(productIds))
+                                     : null;
   }
 
   @Override
@@ -83,6 +84,15 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     mBillingManager.launchBillingFlowForProduct(productId);
   }
 
+  @Override
+  public void queryPurchaseDetails()
+  {
+    if (mProductIds == null)
+      throw new IllegalStateException("Product ids must be non-null!");
+
+    getBillingManager().queryProductDetails(mProductIds);
+  }
+
   @NonNull
   PurchaseValidator<V> getValidator()
   {
@@ -95,19 +105,15 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     return mBillingManager;
   }
 
-  @SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
-  @NonNull
-  public List<String> getProductIds()
-  {
-    return mProductIds;
-  }
-
   @Nullable
   final Purchase findTargetPurchase(@NonNull List<Purchase> purchases)
   {
+    if (mProductIds == null)
+      return null;
+
     for (Purchase purchase: purchases)
     {
-      if (getProductIds().contains(purchase.getSku()))
+      if (mProductIds.contains(purchase.getSku()))
         return purchase;
     }
 
@@ -159,6 +165,18 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
     {
       if (getUiCallback() != null)
         getUiCallback().onStoreConnectionFailed();
+    }
+
+    @Override
+    public void onConsumptionSuccess()
+    {
+      // Do nothing by default.
+    }
+
+    @Override
+    public void onConsumptionFailure()
+    {
+      // Do nothing by default.
     }
 
     abstract void validate(@NonNull String purchaseData);

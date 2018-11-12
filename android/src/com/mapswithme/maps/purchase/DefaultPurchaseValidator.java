@@ -53,10 +53,13 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   @Override
   public void onValidatePurchase(@Framework.PurchaseValidationCode int code,
                                  @NonNull String serverId, @NonNull String vendorId,
-                                 @NonNull String purchaseToken)
+                                 @NonNull String purchaseData)
   {
     LOGGER.i(TAG, "Validation code: " + code);
     if (mCallback != null)
-      mCallback.onValidate(ValidationStatus.values()[code]);
+    {
+      byte[] tokenBytes = Base64.decode(purchaseData, Base64.DEFAULT);
+      mCallback.onValidate(new String(tokenBytes), ValidationStatus.values()[code]);
+    }
   }
 }

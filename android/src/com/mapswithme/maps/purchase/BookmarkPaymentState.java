@@ -72,7 +72,7 @@ enum BookmarkPaymentState
         @Override
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
-          // TODO: coming soon.
+          fragment.hideProgress();
         }
       },
   PRODUCT_DETAILS_FAILURE

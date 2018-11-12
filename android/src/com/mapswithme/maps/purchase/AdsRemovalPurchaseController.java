@@ -46,17 +46,10 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     getBillingManager().removeCallback(mBillingCallback);
   }
 
-  @Override
-  public void queryPurchaseDetails()
-  {
-    getBillingManager().queryProductDetails(getProductIds());
-  }
-
   private class AdValidationCallbackImpl implements ValidationCallback
   {
-
     @Override
-    public void onValidate(@NonNull ValidationStatus status)
+    public void onValidate(@NonNull String purchaseData, @NonNull ValidationStatus status)
     {
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
       if (status == ValidationStatus.VERIFIED)

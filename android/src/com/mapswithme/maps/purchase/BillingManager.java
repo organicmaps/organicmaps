@@ -45,6 +45,14 @@ public interface BillingManager<T>
   void queryProductDetails(@NonNull List<String> productIds);
 
   /**
+   * Consumes the purchase with the specified token. Result of consumption will be delivered
+   * through callback {@link T}.
+   *
+   * @param purchaseToken purchase token that is going to be consumed.
+   */
+  void consumePurchase(@NonNull String purchaseToken);
+
+  /**
    * Adds a billing callback.
    */
   void addCallback(@NonNull T callback);

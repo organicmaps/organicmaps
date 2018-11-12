@@ -65,6 +65,13 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
                                                          mCallback, productIds));
   }
 
+  @Override
+  public void consumePurchase(@NonNull String purchaseToken)
+  {
+    executeBillingRequest(new ConsumePurchaseRequest(getClientOrThrow(), mProductType, mCallback,
+                                                     purchaseToken));
+  }
+
   private void executeBillingRequest(@NonNull BillingRequest request)
   {
     switch (mConnection.getState())
