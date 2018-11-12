@@ -25,7 +25,7 @@ public:
 
   /// \brief Loads value, if it's necessary, by |key| with |m_loader|, puts it to cache and
   /// returns the reference to the value to |m_map|.
-  Value const & GetValue(const Key & key)
+  Value const & GetValue(Key const & key)
   {
     auto const it = m_map.find(key);
     if (it != m_map.cend())
