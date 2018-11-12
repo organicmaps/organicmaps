@@ -71,8 +71,22 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   {
     boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
     setEnableForMenuItem(R.id.delete, bottomSheet, isMultipleItems);
-    boolean isLocal = getSelectedCategory()
-                          .getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
-    setEnableForMenuItem(R.id.share, bottomSheet, isLocal && !isMultipleItems);
+    setEnableForMenuItem(R.id.share, bottomSheet, isShareAllowed());
+    setEnableForMenuItem(R.id.sharing_options, bottomSheet, isSharingOptionsAllowed());
+  }
+
+  private boolean isSharingOptionsAllowed()
+  {
+    BookmarkCategory.AccessRules rules = getSelectedCategory().getAccessRules();
+    return rules != BookmarkCategory.AccessRules.ACCESS_RULES_PAID
+           && rules != BookmarkCategory.AccessRules.ACCESS_RULES_P2P
+           && getSelectedCategory().size() > 0;
+  }
+
+  private boolean isShareAllowed()
+  {
+    BookmarkCategory.AccessRules rules = getSelectedCategory().getAccessRules();
+    boolean isLocal = rules == BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
+    return isLocal && getSelectedCategory().size() > 0;
   }
 }
