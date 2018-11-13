@@ -292,8 +292,7 @@ UpdateIndexes::const_iterator Storage::FindIndex(FeatureID const & id) const
   return FindIndex(th.GetBestType(), mercator);
 }
 
-UpdateIndexes::const_iterator Storage::FindIndex(uint32_t bestType,
-                                                 m2::PointD const & point) const
+UpdateIndexes::const_iterator Storage::FindIndex(uint32_t bestType, m2::PointD const & point) const
 {
   auto const & c = classif();
   auto const typeIndex = c.GetIndexForType(bestType);
@@ -459,7 +458,7 @@ size_t Storage::GetNumberOfUnsynchronized() const
 
 bool Storage::HasUGCForPlace(uint32_t bestType, m2::PointD const & point) const
 {
-  return FindIndex(bestType, point) != m_indexes.end();
+  return FindIndex(bestType, point) != m_indexes.cend();
 }
 
 void Storage::MarkAllAsSynchronized()
