@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
-</LinearLayout>
+  android:layout_height="wrap_content"
+  android:fillViewport="true">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ProgressBar
+      android:id="@+id/progress"
+      android:minWidth="@dimen/search_progress_size"
+      android:minHeight="@dimen/search_progress_size"
+      android:paddingTop="@dimen/direction_frame_min_height"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+      android:id="@+id/properties_container"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <TextView
+        android:text="@string/custom_props_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_base"
+        android:paddingRight="@dimen/margin_half_double_plus"
+        android:paddingEnd="@dimen/margin_half_double_plus"
+        android:paddingLeft="@dimen/margin_half_double_plus"
+        android:paddingStart="@dimen/margin_half_double_plus"/>
+      <include layout="@layout/list_divider"/>
+      <TextView
+        android:text="@string/custom_props_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:background="?cardBackground"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_base"
+        android:paddingLeft="@dimen/margin_base"
+        android:paddingStart="@dimen/margin_base"
+        android:paddingEnd="@dimen/margin_base"
+        android:paddingRight="@dimen/margin_base"/>
+      <LinearLayout
+        android:id="@+id/btn_container"
+        android:paddingTop="@dimen/margin_base"
+        android:paddingBottom="@dimen/margin_base"
+        android:background="?cardBackground"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+          android:id="@+id/left_btn"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:text="@string/local"
+          style="@style/MwmWidget.Button.Primary"
+          android:layout_marginEnd="@dimen/margin_half"
+          android:layout_marginStart="@dimen/margin_base"
+          android:layout_marginLeft="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_half"/>
+        <Button
+          android:id="@+id/right_btn"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:text="@string/traveller"
+          style="@style/MwmWidget.Button.Primary"
+          android:layout_marginEnd="@dimen/margin_base"
+          android:layout_marginRight="@dimen/margin_base"
+          android:layout_marginStart="@dimen/margin_half"
+          android:layout_marginLeft="@dimen/margin_half"/>
+      </LinearLayout>
+      <include layout="@layout/list_divider"/>
+    </LinearLayout>
+  </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

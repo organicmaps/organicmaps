@@ -243,8 +243,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void openTagsScreen()
   {
-    Intent intent = new Intent(getContext(), UgcRouteTagsActivity.class);
-    startActivityForResult(intent, REQ_CODE_TAGS_ACTIVITY);
+    Intent intent = new Intent(getContext(), UgcRoutePropertiesActivity.class);
+    startActivityForResult(intent, REQ_CODE_CUSTOM_PROPERTIES);
   }
 
   private void onUploadAndPublishBtnClicked()
@@ -332,11 +332,11 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void requestPublishing(@NonNull Intent data)
   {
     showProgress();
-    Intent tagsActivityResult = data.getParcelableExtra(UgcRoutePropertiesFragment.EXTRA_TAGS_ACTIVITY_RESULT);
+    Bundle tagsActivityResult = data.getParcelableExtra(UgcRoutePropertiesFragment.EXTRA_TAGS_ACTIVITY_RESULT);
 
-    List<CatalogTag> tags = tagsActivityResult.getParcelableArrayListExtra(UgcRouteTagsActivity.EXTRA_TAGS);
+    List<CatalogTag> tags = tagsActivityResult.getParcelableArrayList(UgcRouteTagsActivity.EXTRA_TAGS);
     List<CatalogPropertyOptionAndKey> options = data.getParcelableArrayListExtra(UgcRoutePropertiesFragment.EXTRA_CATEGORY_OPTIONS);
-    BookmarkManager.INSTANCE.setCategoryTags(mCategory, tags);
+    BookmarkManager.INSTANCE.setCategoryTags(mCategory, Objects.requireNonNull(tags));
     BookmarkManager.INSTANCE.setCategoryProperties(mCategory, options);
     BookmarkManager.INSTANCE.uploadToCatalog(BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC, mCategory);
   }
@@ -425,7 +425,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onUploadError(@NonNull BookmarkManager.UploadResult uploadResult)
   {
-    /* FIXME later */
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
       showErrorBrokenFileDialog();

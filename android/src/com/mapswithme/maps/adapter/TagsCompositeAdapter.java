@@ -119,6 +119,16 @@ public class TagsCompositeAdapter extends RecyclerView.Adapter<TagsCompositeAdap
     return Collections.unmodifiableList(tags);
   }
 
+  public boolean hasSelectedItems()
+  {
+    for (ComponentHolder each : mComponentHolders)
+    {
+      if (!each.mAdapter.getSelectedTags().isEmpty())
+        return true;
+    }
+    return false;
+  }
+
   private static class ComponentHolder
   {
     @NonNull

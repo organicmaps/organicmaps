@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -117,7 +116,20 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
-    inflater.inflate(R.menu.menu_done, menu);
+    inflater.inflate(R.menu.menu_tags_done, menu);
+  }
+
+  @Override
+  public void onPrepareOptionsMenu(Menu menu)
+  {
+    super.onPrepareOptionsMenu(menu);
+    MenuItem item = menu.findItem(R.id.done);
+    item.setVisible(hasSelectedItems());
+  }
+
+  private boolean hasSelectedItems()
+  {
+    return mTagsAdapter != null && mTagsAdapter.hasSelectedItems();
   }
 
   @Override
@@ -248,6 +260,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   public void onItemClick(@NonNull View v,
                           @NonNull Pair<TagsAdapter, TagsAdapter.TagViewHolder> item)
   {
+    ActivityCompat.invalidateOptionsMenu(getActivity());
     TagsAdapter adapter = item.first;
     int position = item.second.getAdapterPosition();
     adapter.notifyItemChanged(position);
@@ -262,12 +275,14 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-
+    getActivity().setResult(Activity.RESULT_CANCELED);
+    getActivity().finish();
   }
 
   @Override
   public void onAlertDialogCancel(int requestCode)
   {
-
+    getActivity().setResult(Activity.RESULT_CANCELED);
+    getActivity().finish();
   }
 }

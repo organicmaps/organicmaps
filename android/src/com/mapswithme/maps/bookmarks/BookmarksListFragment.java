@@ -282,8 +282,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private boolean isCategorySharingRestricted()
   {
     BookmarkCategory category = mCategoryDataSource.getData();
-    return category.getType() == BookmarkCategory.Type.DOWNLOADED
-           || category.getAccessRules() != BookmarkCategory.AccessRules.ACCESS_RULES_LOCAL;
+    return !category.isSharingOptionsAllowed();
   }
 
   @Override

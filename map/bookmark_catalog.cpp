@@ -398,8 +398,7 @@ void BookmarkCatalog::RequestCustomProperties(std::string const & language,
       }
       else
       {
-        LOG(LWARNING, ("Custom properties request error. Code =", resultCode,
-          "Response =", request.ServerResponse()));
+        LOG(LWARNING, ("Custom properties request error. Code =", resultCode));
       }
     }
     if (callback)
