@@ -1481,6 +1481,22 @@
 	<string name="edit_your_guide_email_body">edit_your_guide_email_body</string>
 	<!-- TODO -->
 	<string name="edit_on_web">edit_on_web</string>
+	<!-- FIXME -->
+	<string name="properties_loading_error_subtitle">properties_loading_error_subtitle</string>
+	<!-- FIXME -->
+	<string name="traveller">traveller</string>
+	<!-- FIXME -->
+	<string name="local">local</string>
+	<!-- FIXME -->
+	<string name="custom_props_desc">custom_props_desc</string>
+	<!-- FIXME -->
+	<string name="custom_props_title">custom_props_title</string>
+	<!-- FIXME -->
+	<string name="select_properties">select_properties</string>
+	<!-- FIXME -->
+	<string name="access_rules_p_to_p">access_rules_p_to_p</string>
+	<!-- FIXME -->
+	<string name="access_rules_paid">access_rules_paid</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

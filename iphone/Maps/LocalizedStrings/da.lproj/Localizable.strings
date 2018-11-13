@@ -2556,6 +2556,30 @@
 /* TODO */
 "edit_on_web" = "edit_on_web";
 
+/* FIXME */
+"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+
+/* FIXME */
+"traveller" = "traveller";
+
+/* FIXME */
+"local" = "local";
+
+/* FIXME */
+"custom_props_desc" = "custom_props_desc";
+
+/* FIXME */
+"custom_props_title" = "custom_props_title";
+
+/* FIXME */
+"select_properties" = "select_properties";
+
+/* FIXME */
+"access_rules_p_to_p" = "access_rules_p_to_p";
+
+/* FIXME */
+"access_rules_paid" = "access_rules_paid";
+
 
 /**********  Partners  **********/
 
