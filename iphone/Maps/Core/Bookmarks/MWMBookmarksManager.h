@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)areBookmarksLoaded;
 - (void)loadBookmarks;
 
+- (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId;
+- (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId;
 - (MWMGroupIDCollection)groupsIdList;
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;

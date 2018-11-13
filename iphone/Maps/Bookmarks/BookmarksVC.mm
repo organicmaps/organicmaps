@@ -226,7 +226,7 @@ CGFloat const kPinDiameter = 18.0f;
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const s = m_sections.at(indexPath.section);
-  return !GetFramework().GetBookmarkManager().IsCategoryFromCatalog(m_categoryId) && s != Section::Info;
+  return [[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId] && s != Section::Info;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -330,9 +330,8 @@ CGFloat const kPinDiameter = 18.0f;
   [MWMLocationManager addObserver:self];
 
   // Display Edit button only if table is not empty
-  auto & bm = GetFramework().GetBookmarkManager();
-  if (bm.HasBmCategory(m_categoryId) && !bm.IsCategoryFromCatalog(m_categoryId)
-    && (bm.GetUserMarkIds(m_categoryId).size() + bm.GetTrackIds(m_categoryId).size()))
+  if ([[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId] &&
+      [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:m_categoryId])
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
     self.navigationItem.rightBarButtonItem = nil;

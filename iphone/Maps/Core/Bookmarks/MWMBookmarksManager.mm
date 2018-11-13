@@ -271,13 +271,22 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 #pragma mark - Categories
 
+- (BOOL)isCategoryEditable:(MWMMarkGroupID)groupId {
+  return self.bm.IsEditableCategory(groupId);
+}
+
+- (BOOL)isCategoryNotEmpty:(MWMMarkGroupID)groupId {
+  return self.bm.HasBmCategory(groupId) &&
+         (self.bm.GetUserMarkIds(groupId).size() + self.bm.GetTrackIds(groupId).size());
+}
+
 - (MWMGroupIDCollection)groupsIdList
 {
   auto const & list = self.bm.GetBmGroupsIdList();
   NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
   for (auto const & groupId : list)
   {
-    if (!self.bm.IsCategoryFromCatalog(groupId))
+    if ([self isCategoryEditable:groupId])
       [collection addObject:@(groupId)];
   }
   return collection.copy;
@@ -540,7 +549,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   auto const & list = self.bm.GetBmGroupsIdList();
   for (auto const & groupId : list)
   {
-    if ([self isCategoryFromCatalog:groupId])
+    if (![self isCategoryEditable:groupId])
     {
       kml::CategoryData categoryData = self.bm.GetCategoryData(groupId);
       uint64_t bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
