@@ -2,6 +2,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
 
   private var headersCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
   private var cellsCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
+
   fileprivate var contentHeight: CGFloat = 0
 
   fileprivate var contentWidth: CGFloat {
@@ -96,7 +97,7 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
         headersCache[originalAttributes.indexPath]?.size = preferredAttributes.size
       } else {
         cellsCache[originalAttributes.indexPath]?.size = CGSize(width: min(preferredAttributes.size.width, contentWidth),
-                                                                   height: preferredAttributes.size.height)
+                                                                height: preferredAttributes.size.height)
       }
       return true
     }
