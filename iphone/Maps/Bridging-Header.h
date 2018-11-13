@@ -79,4 +79,5 @@
 #import "MWMEye.h"
 #import "MWMPurchaseManager.h"
 #import "MWMPurchaseValidation.h"
-
+#import "MWMTag.h"
+#import "MWMTagGroup.h"

@@ -11,10 +11,19 @@
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
 		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
+		331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
+		33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */; };
+		33B19C67218B481700B323A7 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B19C66218B481700B323A7 /* TagCollectionViewCell.swift */; };
 		33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */; };
+		33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BCDF8A218C976D00EF5B74 /* TagsCollectionViewLayout.swift */; };
 		33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C558E2217F6CF100299E70 /* UploadActionCell.swift */; };
 		33E905462180C40900868CAC /* UIViewController+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E905452180C40900868CAC /* UIViewController+Authorization.swift */; };
+		33F8BA4121998BEB00ECA8EE /* MWMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA4021998BEB00ECA8EE /* MWMTag.m */; };
+		33F8BA4421998BFA00ECA8EE /* MWMTagGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA4321998BFA00ECA8EE /* MWMTagGroup.m */; };
+		33F8BA472199A91900ECA8EE /* MWMTag+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA462199A91900ECA8EE /* MWMTag+Convenience.mm */; };
+		33F8BA4A2199AA1300ECA8EE /* MWMTagGroup+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA492199AA1300ECA8EE /* MWMTagGroup+Convenience.mm */; };
+		33F8BA4E2199AB9500ECA8EE /* TagsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA4D2199AB9500ECA8EE /* TagsDataSource.swift */; };
 		3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
 		340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
 		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
@@ -786,10 +795,23 @@
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
 		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
+		331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSectionHeaderView.swift; sourceTree = "<group>"; };
 		3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSharingViewController.swift; sourceTree = "<group>"; };
+		33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTagsViewController.swift; sourceTree = "<group>"; };
+		33B19C66218B481700B323A7 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookmarksSharingFlow.storyboard; sourceTree = "<group>"; };
+		33BCDF8A218C976D00EF5B74 /* TagsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewLayout.swift; sourceTree = "<group>"; };
 		33C558E2217F6CF100299E70 /* UploadActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadActionCell.swift; sourceTree = "<group>"; };
 		33E905452180C40900868CAC /* UIViewController+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Authorization.swift"; sourceTree = "<group>"; };
+		33F8BA3F21998BEB00ECA8EE /* MWMTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTag.h; sourceTree = "<group>"; };
+		33F8BA4021998BEB00ECA8EE /* MWMTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMTag.m; sourceTree = "<group>"; };
+		33F8BA4221998BFA00ECA8EE /* MWMTagGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTagGroup.h; sourceTree = "<group>"; };
+		33F8BA4321998BFA00ECA8EE /* MWMTagGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMTagGroup.m; sourceTree = "<group>"; };
+		33F8BA452199A91900ECA8EE /* MWMTag+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTag+Convenience.h"; sourceTree = "<group>"; };
+		33F8BA462199A91900ECA8EE /* MWMTag+Convenience.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMTag+Convenience.mm"; sourceTree = "<group>"; };
+		33F8BA482199AA1300ECA8EE /* MWMTagGroup+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMTagGroup+Convenience.h"; sourceTree = "<group>"; };
+		33F8BA492199AA1300ECA8EE /* MWMTagGroup+Convenience.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "MWMTagGroup+Convenience.mm"; sourceTree = "<group>"; };
+		33F8BA4D2199AB9500ECA8EE /* TagsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsDataSource.swift; sourceTree = "<group>"; };
 		3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosTransitionAnimator.swift; sourceTree = "<group>"; };
 		340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Snapshot.swift"; sourceTree = "<group>"; };
@@ -2171,8 +2193,29 @@
 				3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */,
 				33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */,
 				33C558E2217F6CF100299E70 /* UploadActionCell.swift */,
+				33F8BA3B2199858B00ECA8EE /* Tags */,
 			);
 			path = Sharing;
+			sourceTree = "<group>";
+		};
+		33F8BA3B2199858B00ECA8EE /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */,
+				331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */,
+				33BCDF8A218C976D00EF5B74 /* TagsCollectionViewLayout.swift */,
+				33B19C66218B481700B323A7 /* TagCollectionViewCell.swift */,
+				33F8BA3F21998BEB00ECA8EE /* MWMTag.h */,
+				33F8BA4021998BEB00ECA8EE /* MWMTag.m */,
+				33F8BA452199A91900ECA8EE /* MWMTag+Convenience.h */,
+				33F8BA462199A91900ECA8EE /* MWMTag+Convenience.mm */,
+				33F8BA4221998BFA00ECA8EE /* MWMTagGroup.h */,
+				33F8BA4321998BFA00ECA8EE /* MWMTagGroup.m */,
+				33F8BA482199AA1300ECA8EE /* MWMTagGroup+Convenience.h */,
+				33F8BA492199AA1300ECA8EE /* MWMTagGroup+Convenience.mm */,
+				33F8BA4D2199AB9500ECA8EE /* TagsDataSource.swift */,
+			);
+			path = Tags;
 			sourceTree = "<group>";
 		};
 		340416391E7BDFB800E2B6D6 /* Photos */ = {
@@ -4882,6 +4925,7 @@
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				474C9F632141896800369009 /* MWMEye.mm in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
+				33F8BA4421998BFA00ECA8EE /* MWMTagGroup.m in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,
 				F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */,
 				34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */,
@@ -4896,10 +4940,12 @@
 				34AB66051FC5AA320078E451 /* MWMNavigationDashboardManager+Entity.mm in Sources */,
 				34ABA6171C2D185C00FE1BEC /* MWMAuthorizationOSMLoginViewController.mm in Sources */,
 				B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */,
+				33B19C67218B481700B323A7 /* TagCollectionViewCell.swift in Sources */,
 				6741A9D41BF340DE002C974C /* MWMAlertViewController.mm in Sources */,
 				F6E2FECD1E097BA00083EBEC /* MWMSearchFilterTransitioningManager.mm in Sources */,
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
 				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
+				33F8BA4121998BEB00ECA8EE /* MWMTag.m in Sources */,
 				F6EBB26F1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift in Sources */,
 				47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */,
 				F6E2FF121E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
@@ -5049,9 +5095,11 @@
 				34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */,
 				F6E2FF691E097BA00083EBEC /* MWMUnitsController.mm in Sources */,
 				6741AA031BF340DE002C974C /* MWMActivityViewController.mm in Sources */,
+				33F8BA472199A91900ECA8EE /* MWMTag+Convenience.mm in Sources */,
 				F6E2FE9D1E097BA00083EBEC /* MWMiPhonePlacePageLayoutImpl.mm in Sources */,
 				34AB668C1FC5AA330078E451 /* NavigationStreetNameView.swift in Sources */,
 				3454D7C81E07F045004AF2AD /* UIButton+RuntimeAttributes.mm in Sources */,
+				33F8BA4A2199AA1300ECA8EE /* MWMTagGroup+Convenience.mm in Sources */,
 				3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */,
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
@@ -5071,6 +5119,7 @@
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
+				33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */,
 				6741AA0B1BF340DE002C974C /* MWMMapViewControlsManager.mm in Sources */,
 				F6E2FED91E097BA00083EBEC /* MWMSearchContentView.mm in Sources */,
 				F6E2FD891E097BA00083EBEC /* MWMMapDownloaderViewController.mm in Sources */,
@@ -5119,8 +5168,10 @@
 				47E3C7332111F4D8008B3B27 /* CoverVerticalDismissalAnimator.swift in Sources */,
 				34AB661A1FC5AA330078E451 /* MWMTaxiCollectionLayout.mm in Sources */,
 				345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
+				33F8BA4E2199AB9500ECA8EE /* TagsDataSource.swift in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,
+				331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */,
 				F6E2FDA41E097BA00083EBEC /* MWMCuisineEditorViewController.mm in Sources */,
 				3454D7CB1E07F045004AF2AD /* UIColor+MapsMeColor.mm in Sources */,
 				34B127EA1FBDD410008713D9 /* MWMRouterTransitStepInfo.mm in Sources */,
@@ -5152,6 +5203,7 @@
 				47800D1D20BEEE2E00072F42 /* TermsOfUseController.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
+				33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.mm in Sources */,
 				3457C4261F680F1900028233 /* String+BoundingRect.swift in Sources */,
 				34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */,
