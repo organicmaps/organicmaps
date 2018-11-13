@@ -331,7 +331,7 @@ void BookmarkCatalog::RequestTagGroups(std::string const & language,
       }
       else
       {
-        LOG(LWARNING, ("Tags request error. Code =", resultCode);
+        LOG(LWARNING, ("Tags request error. Code =", resultCode));
       }
     }
     if (callback)
