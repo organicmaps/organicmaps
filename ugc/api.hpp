@@ -6,12 +6,19 @@
 
 #include "platform/safe_callback.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/worker_thread.hpp"
 
 #include <functional>
 
 class DataSource;
 struct FeatureID;
+
+namespace feature
+{
+class TypesHolder;
+}
 
 namespace ugc
 {
@@ -23,6 +30,7 @@ public:
   using UGCJsonToSendCallback = std::function<void(std::string && jsonStr, size_t numberOfUnsynchronized)>;
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
   using NumberOfUnsynchronizedCallback = std::function<void(size_t number)>;
+  using HasUGCForPlaceCallback = std::function<void(bool result)>;
 
   Api(DataSource const & dataSource, NumberOfUnsynchronizedCallback const & callback);
 
@@ -30,6 +38,8 @@ public:
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,
                     OnResultCallback const & callback = nullptr);
   void GetUGCToSend(UGCJsonToSendCallback const & callback);
+  void HasUGCForPlace(feature::TypesHolder const & types, m2::PointD const & point,
+                      HasUGCForPlaceCallback const & callback);
   void SendingCompleted();
   void SaveUGCOnDisk();
 
@@ -39,6 +49,8 @@ private:
   void GetUGCImpl(FeatureID const & id, UGCCallbackUnsafe const & callback);
   Storage::SettingResult SetUGCUpdateImpl(FeatureID const & id, UGCUpdate const & ugc);
   void GetUGCToSendImpl(UGCJsonToSendCallback const & callback);
+  void HasUGCForPlaceImpl(uint32_t bestType, m2::PointD const & point,
+                          HasUGCForPlaceCallback const & callback) const;
   void SendingCompletedImpl();
   void SaveUGCOnDiskImpl();
 

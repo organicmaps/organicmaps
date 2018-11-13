@@ -2,6 +2,8 @@
 
 #include "ugc/types.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/thread_checker.hpp"
 
 #include <memory>
@@ -10,6 +12,11 @@
 class DataSource;
 class FeatureType;
 struct FeatureID;
+
+namespace feature
+{
+class TypesHolder;
+}
 
 namespace ugc
 {
@@ -34,6 +41,7 @@ public:
   void Defragmentation();
   void Load();
   size_t GetNumberOfUnsynchronized() const;
+  bool HasUGCForPlace(uint32_t bestType, m2::PointD const & point) const;
 
   /// Testing
   UpdateIndexes & GetIndexesForTesting() { return m_indexes; }
@@ -46,6 +54,8 @@ private:
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
   void Migrate(std::string const & indexFilePath);
+  UpdateIndexes::const_iterator FindIndex(FeatureID const & id) const;
+  UpdateIndexes::const_iterator FindIndex(uint32_t bestType, m2::PointD const & point) const;
 
   DataSource const & m_dataSource;
   UpdateIndexes m_indexes;

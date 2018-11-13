@@ -7,6 +7,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/ftraits.hpp"
 
@@ -155,17 +156,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
   if (m_indexes.empty())
     return {};
 
-  auto const feature = GetFeature(id);
-  auto const mercator = feature::GetCenter(*feature);
-  feature::TypesHolder th(*feature);
-  th.SortBySpec();
-  auto const & c = classif();
-  auto const type = c.GetIndexForType(th.GetBestType());
-
-  auto const index = find_if(
-      m_indexes.begin(), m_indexes.end(), [type, &mercator](UpdateIndex const & index) -> bool {
-        return type == index.m_type && mercator == index.m_mercator && !index.m_deleted;
-      });
+  auto const index = FindIndex(id);
 
   if (index == m_indexes.end())
     return {};
@@ -289,6 +280,30 @@ void Storage::Migrate(string const & indexFilePath)
     LOG(LINFO, ("UGC index migration successful"));
     break;
   }
+}
+
+UpdateIndexes::const_iterator Storage::FindIndex(FeatureID const & id) const
+{
+  auto const feature = GetFeature(id);
+  auto const mercator = feature::GetCenter(*feature);
+  feature::TypesHolder th(*feature);
+  th.SortBySpec();
+
+  return FindIndex(th.GetBestType(), mercator);
+}
+
+UpdateIndexes::const_iterator Storage::FindIndex(uint32_t bestType,
+                                                 m2::PointD const & point) const
+{
+  auto const & c = classif();
+  auto const typeIndex = c.GetIndexForType(bestType);
+
+  return find_if(
+    m_indexes.begin(), m_indexes.end(), [typeIndex, &point](UpdateIndex const & index) -> bool {
+      // We are use 1e-5 eps because of points in mwm have this accuracy.
+      return typeIndex == index.m_type && point.EqualDxDy(index.m_mercator, 1e-5 /* eps */) &&
+             !index.m_deleted;
+    });
 }
 
 bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
@@ -440,6 +455,11 @@ size_t Storage::GetNumberOfUnsynchronized() const
   }
 
   return numberOfUnsynchronized;
+}
+
+bool Storage::HasUGCForPlace(uint32_t bestType, m2::PointD const & point) const
+{
+  return FindIndex(bestType, point) != m_indexes.end();
 }
 
 void Storage::MarkAllAsSynchronized()
