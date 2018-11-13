@@ -76,8 +76,9 @@ import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
-import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.FailedPurchaseChecker;
+import com.mapswithme.maps.purchase.PurchaseCallback;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.routing.NavigationController;
@@ -244,7 +245,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Nullable
   private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
   @Nullable
-  private PurchaseController<PurchaseCallback> mBookmarkPurchaseController;
+  private PurchaseController<FailedPurchaseChecker> mBookmarkPurchaseController;
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
@@ -567,8 +568,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mAdsRemovalPurchaseController.initialize(this);
     mAdsRemovalPurchaseController.validateExistingPurchases();
 
-    mBookmarkPurchaseController = PurchaseFactory.createBookmarkPurchaseController();
+    mBookmarkPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController();
     mBookmarkPurchaseController.initialize(this);
+    mBookmarkPurchaseController.validateExistingPurchases();
 
     boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)

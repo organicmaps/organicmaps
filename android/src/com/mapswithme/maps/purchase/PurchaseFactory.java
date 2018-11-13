@@ -41,4 +41,13 @@ public class PurchaseFactory
   {
     return createBookmarkPurchaseController(null, null);
   }
+
+  @NonNull
+  public static PurchaseController<FailedPurchaseChecker> createFailedBookmarkPurchaseController()
+  {
+    BillingManager<PlayStoreBillingCallback> billingManager
+      = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
+    return new FailedBookmarkPurchaseController(validator, billingManager);
+  }
 }

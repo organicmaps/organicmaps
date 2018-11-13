@@ -3,7 +3,6 @@ package com.mapswithme.maps.purchase;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
@@ -11,7 +10,6 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import org.json.JSONException;
 
 import java.util.List;
 
@@ -49,19 +47,6 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     getBillingManager().removeCallback(mBillingCallback);
   }
 
-  @NonNull
-  private static String parseToken(@NonNull String purchaseData)
-  {
-    try
-    {
-      return new Purchase(purchaseData, null).getPurchaseToken();
-    }
-    catch (JSONException e)
-    {
-      throw new IllegalArgumentException("Failed to parse purchase token!");
-    }
-  }
-
   private class ValidationCallbackImpl implements ValidationCallback
   {
 
@@ -72,7 +57,7 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
       if (status == ValidationStatus.VERIFIED)
       {
         LOGGER.i(TAG, "Bookmark purchase consuming...");
-        getBillingManager().consumePurchase(parseToken(purchaseData));
+        getBillingManager().consumePurchase(PurchaseUtils.parseToken(purchaseData));
         return;
       }
 
@@ -99,29 +84,23 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
     @Override
     public void onPurchasesLoaded(@NonNull List<Purchase> purchases)
     {
-      String purchaseData = null;
-      String productId = null;
-      Purchase target = findTargetPurchase(purchases);
-      if (target != null)
-      {
-        purchaseData = target.getOriginalJson();
-        productId = target.getSku();
-      }
-
-      if (TextUtils.isEmpty(purchaseData))
-      {
-        LOGGER.i(TAG, "Non-consumed bookmark purchases not found");
-        return;
-      }
-
       if (!ConnectionState.isWifiConnected())
       {
         LOGGER.i(TAG, "Validation postponed, connection not WI-FI.");
         return;
       }
 
-      LOGGER.i(TAG, "Validating existing purchase data for '" + productId + "'...");
-      getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), purchaseData);
+      if (purchases.isEmpty())
+      {
+        LOGGER.i(TAG, "Non-consumed bookmark purchases not found");
+        return;
+      }
+
+      for (Purchase target: purchases)
+      {
+        LOGGER.i(TAG, "Validating existing purchase data for '" + target.getSku() + "'...");
+        getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
+      }
     }
 
     @Override

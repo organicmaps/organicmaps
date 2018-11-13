@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-abstract class  AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
+abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
     implements PurchaseController<UiCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
