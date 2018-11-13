@@ -2580,6 +2580,9 @@
 /* FIXME */
 "access_rules_paid" = "access_rules_paid";
 
+/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
+"failed_purchase_support_message" = "failed_purchase_support_message";
+
 
 /**********  Partners  **********/
 
