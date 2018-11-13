@@ -24,6 +24,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
+import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseController;
@@ -45,6 +46,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   static final int REQ_CODE_PAY_BOOKMARK = 1;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
+  private static final String FAILED_PURCHASE_DIALOG_TAG = "failed_purchase_dialog_tag";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -297,8 +299,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       {
         UiUtils.hide(mProgressView);
         UiUtils.show(mRetryBtn);
-        Toast.makeText(getContext(), "Purchase are failed, go to support!",
-                       Toast.LENGTH_SHORT).show();
+        AlertDialog dialog = new AlertDialog.Builder()
+            .setTitleId(R.string.bookmarks_convert_error_title)
+            .setMessageId(R.string.failed_purchase_support_message)
+            .setPositiveBtnId(R.string.ok)
+            .build();
+        dialog.show(BookmarksCatalogFragment.this, FAILED_PURCHASE_DIALOG_TAG);
         return;
       }
 
