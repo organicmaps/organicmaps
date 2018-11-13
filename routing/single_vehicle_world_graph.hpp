@@ -5,6 +5,7 @@
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_loader.hpp"
+#include "routing/joint_segment.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
@@ -32,6 +33,10 @@ public:
 
   void GetEdgeList(Segment const & segment, bool isOutgoing,
                    std::vector<SegmentEdge> & edges) override;
+
+  void GetEdgeList(Segment const & parent, bool isOutgoing,
+                   std::vector<JointEdge> & jointEdges, std::vector<RouteWeight> & parentWeights) override;
+
   bool CheckLength(RouteWeight const &, double) const override { return true; }
   Junction const & GetJunction(Segment const & segment, bool front) override;
   m2::PointD const & GetPoint(Segment const & segment, bool front) override;
@@ -59,7 +64,17 @@ public:
     return m_loader->GetIndexGraph(numMwmId);
   }
 
+  IndexGraph & GetIndexGraph(NumMwmId numMwmId) override
+  {
+    return m_loader->GetIndexGraph(numMwmId);
+  }
+
 private:
+  // Retrieves the same |jointEdges|, but into others mwms.
+  // If they are cross mwm edges, of course.
+  void CheckAndProcessTransitFeatures(std::vector<JointEdge> & jointEdges,
+                                      std::vector<RouteWeight> & parentWeights,
+                                      bool isOutgoing);
   // WorldGraph overrides:
   void GetTwinsInner(Segment const & s, bool isOutgoing, std::vector<Segment> & twins) override;
 

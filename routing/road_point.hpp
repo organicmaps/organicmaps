@@ -51,6 +51,8 @@ public:
     }
   };
 
+  void SetPointId(uint32_t pointId) { m_pointId = pointId; }
+
 private:
   uint32_t m_featureId;
   uint32_t m_pointId;

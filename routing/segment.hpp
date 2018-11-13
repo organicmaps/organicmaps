@@ -81,6 +81,11 @@ public:
     return m_mwmId != kFakeNumMwmId && !FakeFeatureIds::IsTransitFeature(m_featureId);
   }
 
+  void Next(bool forward)
+  {
+    forward ? ++m_segmentIdx : --m_segmentIdx;
+  }
+
 private:
   uint32_t m_featureId = 0;
   uint32_t m_segmentIdx = 0;
@@ -91,6 +96,7 @@ private:
 class SegmentEdge final
 {
 public:
+  SegmentEdge() = default;
   SegmentEdge(Segment const & target, RouteWeight const & weight)
     : m_target(target), m_weight(weight)
   {

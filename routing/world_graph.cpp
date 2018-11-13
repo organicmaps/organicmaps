@@ -43,6 +43,8 @@ std::string DebugPrint(WorldGraph::Mode mode)
   case WorldGraph::Mode::LeapsOnly: return "LeapsOnly";
   case WorldGraph::Mode::NoLeaps: return "NoLeaps";
   case WorldGraph::Mode::SingleMwm: return "SingleMwm";
+  case WorldGraph::Mode::Joints: return "Joints";
+  case WorldGraph::Mode::JointSingleMwm: return "JointsSingleMwm";
   }
 
   UNREACHABLE();

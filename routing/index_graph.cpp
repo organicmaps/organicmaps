@@ -64,6 +64,11 @@ IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> 
   CHECK(m_estimator, ());
 }
 
+bool IndexGraph::IsJoint(RoadPoint const & roadPoint) const
+{
+  return m_roadIndex.GetJointId(roadPoint) != Joint::kInvalidId;
+}
+
 void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
 {
   RoadPoint const roadPoint = segment.GetRoadPoint(isOutgoing);
@@ -79,6 +84,45 @@ void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<Se
   {
     GetNeighboringEdges(segment, roadPoint, isOutgoing, edges);
   }
+}
+
+void IndexGraph::GetLastPointsForJoint(vector<Segment> const & children,
+                                       bool isOutgoing,
+                                       vector<uint32_t> & lastPoints)
+{
+  CHECK(lastPoints.empty(), ());
+
+  lastPoints.reserve(children.size());
+  for (auto const & child : children)
+  {
+    uint32_t const startPointId = child.GetPointId(!isOutgoing /* front */);
+    uint32_t const pointsNumber = m_geometry->GetRoad(child.GetFeatureId()).GetPointsCount();
+    CHECK_LESS(startPointId, pointsNumber, ());
+
+    uint32_t endPointId;
+    // child.IsForward() == isOutgoing
+    //   This is the direction, indicating the end of the road,
+    //   where we should go for building JointSegment.
+    // You can retrieve such result if bust possible options of |child.IsForward()| and |isOutgoing|.
+    std::tie(std::ignore, endPointId) =
+      GetRoad(child.GetFeatureId()).FindNeighbor(startPointId, child.IsForward() == isOutgoing,
+                                                 pointsNumber);
+
+    lastPoints.push_back(endPointId);
+  }
+}
+
+void IndexGraph::GetEdgeList(Segment const & parent, bool isOutgoing, vector<JointEdge> & edges,
+                             vector<RouteWeight> & parentWeights)
+{
+  vector<Segment> possibleChildren;
+  GetSegmentCandidateForJoint(parent, isOutgoing, possibleChildren);
+
+  vector<uint32_t> lastPoints;
+  GetLastPointsForJoint(possibleChildren, isOutgoing, lastPoints);
+
+  ReconstructJointSegment(parent, possibleChildren, lastPoints,
+                          isOutgoing, edges, parentWeights);
 }
 
 void IndexGraph::Build(uint32_t numJoints)
@@ -147,6 +191,144 @@ void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp,
     GetNeighboringEdge(
         from, Segment(from.GetMwmId(), rp.GetFeatureId(), rp.GetPointId() - 1, !isOutgoing),
         isOutgoing, edges);
+  }
+}
+
+void IndexGraph::GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing,
+                                             vector<Segment> & children)
+{
+  RoadPoint const roadPoint = parent.GetRoadPoint(isOutgoing);
+  Joint::Id const jointId = m_roadIndex.GetJointId(roadPoint);
+
+  if (jointId == Joint::kInvalidId)
+    return;
+
+  m_jointIndex.ForEachPoint(jointId, [&](RoadPoint const & rp)
+  {
+    RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
+    if (!road.IsValid())
+      return;
+
+    bool const bidirectional = !road.IsOneWay();
+    auto const pointId = rp.GetPointId();
+
+    if ((isOutgoing || bidirectional) && pointId + 1 < road.GetPointsCount())
+      children.emplace_back(parent.GetMwmId(), rp.GetFeatureId(), pointId, isOutgoing);
+
+    if ((!isOutgoing || bidirectional) && pointId > 0)
+      children.emplace_back(parent.GetMwmId(), rp.GetFeatureId(), pointId - 1, !isOutgoing);
+  });
+}
+
+/// \brief Prolongs segments from |parent| to |firstChildren| directions in order to
+///        create JointSegments.
+/// \param |firstChildren| - vecotor of neigbouring segments from parent.
+/// \param |lastPointIds| - vector of the end numbers of road points for |firstChildren|.
+/// \param |jointEdges| - the result vector with JointEdges.
+/// \param |parentWeights| - see |IndexGraphStarterJoints::GetEdgeList| method about this argument.
+///                          Shotly - in case of |isOutgoing| == false, method saves here the weights
+///                                   from parent to firstChildren.
+void IndexGraph::ReconstructJointSegment(Segment const & parent,
+                                         vector<Segment> const & firstChildren,
+                                         vector<uint32_t> const & lastPointIds,
+                                         bool isOutgoing,
+                                         vector<JointEdge> & jointEdges,
+                                         vector<RouteWeight> & parentWeights)
+{
+  CHECK_EQUAL(firstChildren.size(), lastPointIds.size(), ());
+
+  auto const step = [this](Segment const & from, Segment const & to, bool isOutgoing, SegmentEdge & edge)
+  {
+    if (IsRestricted(m_restrictions, from, to, isOutgoing))
+      return false;
+
+    RouteWeight weight = CalcSegmentWeight(isOutgoing ? to : from) +
+                         GetPenalties(isOutgoing ? from : to, isOutgoing ? to : from);
+    edge = SegmentEdge(to, weight);
+    return true;
+  };
+
+  for (size_t i = 0; i < firstChildren.size(); ++i)
+  {
+    auto const & firstChild = firstChildren[i];
+    auto const lastPointId = lastPointIds[i];
+
+    uint32_t currentPointId = firstChild.GetPointId(!isOutgoing /* front */);
+    CHECK_NOT_EQUAL(currentPointId, lastPointId,
+                    ("Invariant violated, can not build JointSegment,"
+                     "started and ended in the same point."));
+
+    auto const increment = [currentPointId, lastPointId](uint32_t pointId) {
+      return currentPointId < lastPointId ? pointId + 1 : pointId - 1;
+    };
+
+    if (m_roadAccess.GetFeatureType(firstChild.GetFeatureId()) == RoadAccess::Type::No)
+      continue;
+
+    if (m_roadAccess.GetPointType(parent.GetRoadPoint(isOutgoing)) == RoadAccess::Type::No)
+      continue;
+
+    // Check current JointSegment for bad road access between segments.
+    uint32_t start = currentPointId;
+    bool noRoadAccess = false;
+    RoadPoint rp = firstChild.GetRoadPoint(isOutgoing);
+    do
+    {
+      if (m_roadAccess.GetPointType(rp) == RoadAccess::Type::No)
+      {
+        noRoadAccess = true;
+        break;
+      }
+
+      start = increment(start);
+      rp.SetPointId(start);
+    } while (start != lastPointId);
+
+    if (noRoadAccess)
+      continue;
+
+    // Check firstChild for UTurn.
+    rp = parent.GetRoadPoint(isOutgoing);
+    if (IsUTurn(parent, firstChild) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
+        && !m_geometry->GetRoad(parent.GetFeatureId()).IsEndPointId(rp.GetPointId()))
+    {
+      continue;
+    }
+
+    bool forward = currentPointId < lastPointId;
+    Segment current = firstChild;
+    Segment prev = parent;
+    SegmentEdge edge;
+    RouteWeight summaryWeight;
+
+    bool hasRestriction = false;
+    do
+    {
+      if (step(prev, current, isOutgoing, edge)) // Access ok
+      {
+        if (isOutgoing || prev != parent)
+          summaryWeight += edge.GetWeight();
+
+        if (prev == parent)
+          parentWeights.emplace_back(edge.GetWeight());
+      }
+      else
+      {
+        hasRestriction = true;
+        break;
+      }
+
+      prev = current;
+      current.Next(forward);
+      currentPointId = increment(currentPointId);
+    } while (currentPointId != lastPointId);
+
+    if (hasRestriction)
+      continue;
+
+    jointEdges.emplace_back(isOutgoing ? JointSegment(firstChild, prev) :
+                                         JointSegment(prev, firstChild),
+                            summaryWeight);
   }
 }
 

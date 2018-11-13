@@ -17,13 +17,4 @@ void RoadIndex::Import(vector<Joint> const & joints)
     }
   }
 }
-
-pair<Joint::Id, uint32_t> RoadIndex::FindNeighbor(RoadPoint const & rp, bool forward) const
-{
-  auto const it = m_roads.find(rp.GetFeatureId());
-  if (it == m_roads.cend())
-    MYTHROW(RoutingException, ("RoadIndex doesn't contains feature", rp.GetFeatureId()));
-
-  return it->second.FindNeighbor(rp.GetPointId(), forward);
-}
 }  // namespace routing

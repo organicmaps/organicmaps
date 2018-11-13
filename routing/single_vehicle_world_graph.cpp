@@ -15,6 +15,58 @@ SingleVehicleWorldGraph::SingleVehicleWorldGraph(unique_ptr<CrossMwmGraph> cross
   CHECK(m_estimator, ());
 }
 
+void SingleVehicleWorldGraph::CheckAndProcessTransitFeatures(vector<JointEdge> & jointEdges,
+                                                             vector<RouteWeight> & parentWeights,
+                                                             bool isOutgoing)
+{
+  vector<JointEdge> newCrossMwmEdges;
+  for (size_t i = 0; i < jointEdges.size(); ++i)
+  {
+    auto const & jointEdge = jointEdges[i];
+    if (!m_crossMwmGraph->IsFeatureTransit(jointEdge.GetTarget().GetMwmId(),
+                                           jointEdge.GetTarget().GetFeatureId()))
+    {
+      continue;
+    }
+
+    JointSegment const & target = jointEdge.GetTarget();
+
+    vector<Segment> twins;
+    m_crossMwmGraph->GetTwinFeature(target.GetSegment(true /* start */), isOutgoing, twins);
+    for (auto const & twin : twins)
+    {
+      NumMwmId const twinMwmId = twin.GetMwmId();
+      uint32_t const twinFeatureId = twin.GetFeatureId();
+
+      Segment const start(twinMwmId, twinFeatureId, target.GetStartSegmentId(), target.IsForward());
+      Segment const end(twinMwmId, twinFeatureId, target.GetEndSegmentId(), target.IsForward());
+
+      JointSegment jointSegment(start, end);
+
+      newCrossMwmEdges.emplace_back(jointSegment, jointEdge.GetWeight());
+      parentWeights.emplace_back(parentWeights[i]);
+    }
+  }
+
+  jointEdges.insert(jointEdges.end(), newCrossMwmEdges.begin(), newCrossMwmEdges.end());
+}
+
+void SingleVehicleWorldGraph::GetEdgeList(Segment const & parent, bool isOutgoing,
+                                          vector<JointEdge> & jointEdges,
+                                          vector<RouteWeight> & parentWeights)
+{
+  // Fake segments aren't processed here. All work must be done
+  // on the IndexGraphStarterJoints abstraction-level.
+  if (!parent.IsRealSegment())
+    return;
+
+  auto & indexGraph = GetIndexGraph(parent.GetMwmId());
+  indexGraph.GetEdgeList(parent, isOutgoing, jointEdges, parentWeights);
+
+  if (m_mode != WorldGraph::Mode::JointSingleMwm)
+    CheckAndProcessTransitFeatures(jointEdges, parentWeights, isOutgoing);
+}
+
 void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
                                           vector<SegmentEdge> & edges)
 {
@@ -119,7 +171,7 @@ vector<Segment> const & SingleVehicleWorldGraph::GetTransitions(NumMwmId numMwmI
 
 unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &) { return {}; }
 
-std::vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
+vector<RouteSegment::SpeedCamera> SingleVehicleWorldGraph::GetSpeedCamInfo(Segment const & segment)
 {
   return m_loader->GetSpeedCameraInfo(segment);
 }

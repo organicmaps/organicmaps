@@ -8,6 +8,7 @@
 #include "routing/edge_estimator.hpp"
 #include "routing/fake_edges_container.hpp"
 #include "routing/features_road_graph.hpp"
+#include "routing/index_graph_starter_joints.hpp"
 #include "routing/joint.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -107,15 +108,20 @@ private:
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  RouterResultCode ProcessLeaps(std::vector<Segment> const & input,
-                                   RouterDelegate const & delegate, WorldGraph::Mode prevMode,
-                                   IndexGraphStarter & starter, std::vector<Segment> & output);
+  RouterResultCode ProcessLeapsJoints(vector<Segment> const & input, RouterDelegate const & delegate,
+                                      WorldGraph::Mode prevMode, IndexGraphStarter & starter,
+                                      vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
                                 Route & route) const;
 
+  void ProcessJointsBidirectional(std::vector<JointSegment> const & jointsPath,
+                                  IndexGraphStarterJoints & jointsStarter,
+                                  std::vector<Segment> & output);
+
   bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
+
   RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
                                         RouterResultCode resultCode) const;
 

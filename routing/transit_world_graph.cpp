@@ -25,6 +25,13 @@ TransitWorldGraph::TransitWorldGraph(unique_ptr<CrossMwmGraph> crossMwmGraph,
 }
 
 void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
+                                    std::vector<JointEdge> & edges,
+                                    std::vector<RouteWeight> & parentWeights)
+{
+  CHECK(false, ("TransitWorldGraph does not support Joints mode."));
+}
+
+void TransitWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
                                     vector<SegmentEdge> & edges)
 {
   auto & transitGraph = GetTransitGraph(segment.GetMwmId());
@@ -200,11 +207,6 @@ void TransitWorldGraph::AddRealEdges(Segment const & segment, bool isOutgoing,
   auto & indexGraph = GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
   GetTwins(segment, isOutgoing, edges);
-}
-
-IndexGraph & TransitWorldGraph::GetIndexGraph(NumMwmId mwmId)
-{
-  return m_indexLoader->GetIndexGraph(mwmId);
 }
 
 TransitGraph & TransitWorldGraph::GetTransitGraph(NumMwmId mwmId)

@@ -78,6 +78,10 @@
 		40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C645151F8D167E002E05A0 /* fake_ending.hpp */; };
 		40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */; };
 		40F7F3E51F7D246D0082D564 /* single_vehicle_world_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */; };
+		4408A63B21F1E7F0008171B8 /* index_graph_starter_joints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */; };
+		4408A63C21F1E7F0008171B8 /* joint_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4408A63821F1E7F0008171B8 /* joint_segment.hpp */; };
+		4408A63D21F1E7F0008171B8 /* index_graph_starter_joints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */; };
+		4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63A21F1E7F0008171B8 /* joint_segment.cpp */; };
 		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
 		44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44AE4A11214FBB8D006321F5 /* speed_camera.hpp */; };
 		44E5574A2136EEC900B01439 /* speed_camera_ser_des.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */; };
@@ -368,6 +372,10 @@
 		40C645151F8D167E002E05A0 /* fake_ending.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_ending.hpp; sourceTree = "<group>"; };
 		40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = single_vehicle_world_graph.hpp; sourceTree = "<group>"; };
 		40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = single_vehicle_world_graph.cpp; sourceTree = "<group>"; };
+		4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_graph_starter_joints.cpp; sourceTree = "<group>"; };
+		4408A63821F1E7F0008171B8 /* joint_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = joint_segment.hpp; sourceTree = "<group>"; };
+		4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_graph_starter_joints.hpp; sourceTree = "<group>"; };
+		4408A63A21F1E7F0008171B8 /* joint_segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = joint_segment.cpp; sourceTree = "<group>"; };
 		44AE4A10214FBB8D006321F5 /* speed_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera.cpp; sourceTree = "<group>"; };
 		44AE4A11214FBB8D006321F5 /* speed_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera.hpp; sourceTree = "<group>"; };
 		44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_ser_des.hpp; sourceTree = "<group>"; };
@@ -804,6 +812,10 @@
 		675343FA1A3F640D00A0A8C3 /* routing */ = {
 			isa = PBXGroup;
 			children = (
+				4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */,
+				4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */,
+				4408A63A21F1E7F0008171B8 /* joint_segment.cpp */,
+				4408A63821F1E7F0008171B8 /* joint_segment.hpp */,
 				56FEAA6D219E8A610073DF5F /* maxspeeds_serialization.cpp */,
 				56FEAA6C219E8A600073DF5F /* maxspeeds_serialization.hpp */,
 				5631B667219B125C009F47D4 /* maxspeeds.cpp */,
@@ -977,6 +989,7 @@
 				56099E2A1CC7C97D00A7772A /* routing_result_graph.hpp in Headers */,
 				0C5F5D231E798B0400307B98 /* cross_mwm_connector.hpp in Headers */,
 				40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */,
+				4408A63D21F1E7F0008171B8 /* index_graph_starter_joints.hpp in Headers */,
 				5670595E1F3AF97F0062672D /* checkpoint_predictor.hpp in Headers */,
 				6753441F1A3F644F00A0A8C3 /* turns.hpp in Headers */,
 				0C5FEC611DDE192A0017688C /* index_graph.hpp in Headers */,
@@ -1010,6 +1023,7 @@
 				0C090C821E4E274000D52AFD /* index_graph_loader.hpp in Headers */,
 				670EE5721B664796001E8064 /* directions_engine.hpp in Headers */,
 				56C439291E93BF8C00998E29 /* cross_mwm_graph.hpp in Headers */,
+				4408A63C21F1E7F0008171B8 /* joint_segment.hpp in Headers */,
 				0C81E1541F02589800DC66DF /* traffic_stash.hpp in Headers */,
 				40A111D01F2F9704005E6AD5 /* astar_weight.hpp in Headers */,
 				0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */,
@@ -1256,6 +1270,7 @@
 			files = (
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
+				4408A63B21F1E7F0008171B8 /* index_graph_starter_joints.cpp in Sources */,
 				0C5F5D201E798B0400307B98 /* cross_mwm_connector_serialization.cpp in Sources */,
 				56CA09E71E30E73B00D05C9A /* restriction_test.cpp in Sources */,
 				0C5BC9D11E28FD4E0071BFDD /* index_road_graph.cpp in Sources */,
@@ -1278,6 +1293,7 @@
 				0CF5E8AA1E8EA7A1001ED497 /* coding_test.cpp in Sources */,
 				40858A871F8CEAE60065CFF7 /* fake_feature_ids.cpp in Sources */,
 				40A111CD1F2F6776005E6AD5 /* route_weight.cpp in Sources */,
+				4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */,
 				670D049E1B0B4A970013A7AC /* nearest_edge_finder.cpp in Sources */,
 				0C5F5D251E798B3800307B98 /* cross_mwm_connector_test.cpp in Sources */,
 				674F9BD61B0A580E00704FFA /* turns_generator.cpp in Sources */,

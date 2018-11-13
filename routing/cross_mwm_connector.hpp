@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -81,6 +82,19 @@ public:
 
     m_transitions[Key(featureId, segmentIdx)] = transition;
     m_crossMwmIdToFeatureId.emplace(crossMwmId, featureId);
+    m_transitFeatureIdToSegmentId.emplace(featureId, segmentIdx);
+  }
+
+  bool IsFeatureCrossMwmConnector(uint32_t featureId) const
+  {
+    return m_transitFeatureIdToSegmentId.find(featureId) != m_transitFeatureIdToSegmentId.cend();
+  }
+
+  uint32_t GetTransitSegmentId(uint32_t featureId) const
+  {
+    auto it = m_transitFeatureIdToSegmentId.find(featureId);
+    CHECK(it != m_transitFeatureIdToSegmentId.cend(), ());
+    return it->second;
   }
 
   bool IsTransition(Segment const & segment, bool isOutgoing) const
@@ -291,6 +305,7 @@ private:
   NumMwmId const m_mwmId;
   std::vector<Segment> m_enters;
   std::vector<Segment> m_exits;
+  std::map<uint32_t, uint32_t> m_transitFeatureIdToSegmentId;
   std::unordered_map<Key, Transition<CrossMwmId>, HashKey> m_transitions;
   std::unordered_map<CrossMwmId, uint32_t, connector::HashKey> m_crossMwmIdToFeatureId;
   connector::WeightsLoadState m_weightsLoadState = connector::WeightsLoadState::Unknown;

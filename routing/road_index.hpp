@@ -2,6 +2,7 @@
 
 #include "routing/joint.hpp"
 
+#include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
 #include "std/algorithm.hpp"
@@ -73,37 +74,33 @@ public:
     }
   }
 
-  pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward) const
+  pair<Joint::Id, uint32_t> FindNeighbor(uint32_t pointId, bool forward, uint32_t pointsNumber) const
   {
-    uint32_t const size = static_cast<uint32_t>(m_jointIds.size());
-    pair<Joint::Id, uint32_t> result = make_pair(Joint::kInvalidId, 0);
+    CHECK_GREATER_OR_EQUAL(pointsNumber, 2, ("Number of points of road should be greater or equal 2"));
 
+    uint32_t index = 0;
     if (forward)
     {
-      for (uint32_t i = pointId + 1; i < size; ++i)
+      for (index = pointId + 1; index < pointsNumber; ++index)
       {
-        Joint::Id const jointId = m_jointIds[i];
+        Joint::Id const jointId = GetJointId(index);
         if (jointId != Joint::kInvalidId)
-        {
-          result = {jointId, i};
-          return result;
-        }
+          return {jointId, index};
       }
     }
     else
     {
-      for (uint32_t i = min(pointId, size) - 1; i < size; --i)
+      for (index = min(pointId, pointsNumber) - 1; index < pointsNumber; --index)
       {
-        Joint::Id const jointId = m_jointIds[i];
+        Joint::Id const jointId = GetJointId(index);
         if (jointId != Joint::kInvalidId)
-        {
-          result = {jointId, i};
-          return result;
-        }
+          return {jointId, index};
       }
     }
 
-    return result;
+    // Return the end or start of road, depends on forward flag.
+    index = forward ? pointsNumber - 1 : 0;
+    return {Joint::kInvalidId, index};
   }
 
 private:

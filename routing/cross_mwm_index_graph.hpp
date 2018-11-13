@@ -84,6 +84,16 @@ public:
     return c.IsTransition(s, isOutgoing);
   }
 
+  bool IsFeatureTransit(NumMwmId numMwmId, uint32_t featureId)
+  {
+    return GetCrossMwmConnectorWithTransitions(numMwmId).IsFeatureCrossMwmConnector(featureId);
+  }
+
+  uint32_t GetTransitSegmentId(NumMwmId numMwmId, uint32_t featureId)
+  {
+    return GetCrossMwmConnectorWithTransitions(numMwmId).GetTransitSegmentId(featureId);
+  }
+
   /// \brief Fills |twins| based on transitions defined in cross_mwm section.
   /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
   /// \note This method fills |twins| with all available twins iff all neighboring of mwm of |s|

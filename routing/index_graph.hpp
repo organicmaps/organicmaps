@@ -4,6 +4,7 @@
 #include "routing/geometry.hpp"
 #include "routing/joint.hpp"
 #include "routing/joint_index.hpp"
+#include "routing/joint_segment.hpp"
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_access.hpp"
 #include "routing/road_index.hpp"
@@ -33,6 +34,9 @@ public:
 
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
+
+  void GetEdgeList(Segment const & parent, bool isOutgoing, std::vector<JointEdge> & edges,
+                   std::vector<RouteWeight> & parentWeights);
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 
@@ -77,6 +81,8 @@ public:
     m_jointIndex.ForEachPoint(jointId, forward<F>(f));
   }
 
+  bool IsJoint(RoadPoint const & roadPoint) const;
+
 private:
   RouteWeight CalcSegmentWeight(Segment const & segment);
   void GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
@@ -88,6 +94,13 @@ private:
   {
     return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
   }
+
+  void GetLastPointsForJoint(std::vector<Segment> const & children, bool isOutgoing, std::vector<uint32_t> & lastPoints);
+  void GetSegmentCandidateForJoint(Segment const & parent, bool isOutgoing, std::vector<Segment> & children);
+  void ReconstructJointSegment(Segment const & parent, std::vector<Segment> const & firstChildren,
+                               std::vector<uint32_t> const & lastPointIds,
+                               bool isOutgoing, std::vector<JointEdge> & jointEdges,
+                               std::vector<RouteWeight> & parentWeights);
 
   shared_ptr<Geometry> m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;

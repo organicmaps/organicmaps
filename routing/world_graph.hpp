@@ -2,6 +2,7 @@
 
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
+#include "routing/joint_segment.hpp"
 #include "routing/road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/segment.hpp"
@@ -27,18 +28,22 @@ public:
 
   enum class Mode
   {
-    LeapsOnly,  // Mode for building a cross mwm route containing only leaps. In case of start and
-                // finish they (start and finish) will be connected with all transition segments of
-                // their mwm with leap (fake) edges.
-    NoLeaps,    // Mode for building route and getting outgoing/ingoing edges without leaps at all.
-    SingleMwm,  // Mode for building route and getting outgoing/ingoing edges within mwm source
-                // segment belongs to.
+    LeapsOnly,      // Mode for building a cross mwm route containing only leaps. In case of start and
+                    // finish they (start and finish) will be connected with all transition segments of
+                    // their mwm with leap (fake) edges.
+    NoLeaps,        // Mode for building route and getting outgoing/ingoing edges without leaps at all.
+    SingleMwm,      // Mode for building route and getting outgoing/ingoing edges within mwm source
+                    // segment belongs to.
+    Joints,         // Mode for building route with jumps between Joints.
+    JointSingleMwm  // Like |SingleMwm|, but in |Joints| mode.
   };
 
   virtual ~WorldGraph() = default;
 
   virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
                            std::vector<SegmentEdge> & edges) = 0;
+  virtual void GetEdgeList(Segment const & segment, bool isOutgoing,
+                           std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) = 0;
 
   // Checks whether path length meets restrictions. Restrictions may depend on the distance from
   // start to finish of the route.
@@ -75,6 +80,8 @@ public:
   virtual std::unique_ptr<TransitInfo> GetTransitInfo(Segment const & segment) = 0;
 
   virtual std::vector<RouteSegment::SpeedCamera> GetSpeedCamInfo(Segment const & segment) = 0;
+
+  virtual IndexGraph & GetIndexGraph(NumMwmId numMwmId) = 0;
 
 protected:
   void GetTwins(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges);
