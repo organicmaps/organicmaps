@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
+abstract class  AbstractPurchaseController<V, B, UiCallback extends PurchaseCallback>
     implements PurchaseController<UiCallback>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
@@ -91,6 +91,12 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
       throw new IllegalStateException("Product ids must be non-null!");
 
     getBillingManager().queryProductDetails(mProductIds);
+  }
+
+  @Override
+  public void validateExistingPurchases()
+  {
+    getBillingManager().queryExistingPurchases();
   }
 
   @NonNull

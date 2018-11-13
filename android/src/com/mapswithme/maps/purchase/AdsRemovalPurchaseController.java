@@ -36,7 +36,6 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
   {
     getValidator().addCallback(mValidationCallback);
     getBillingManager().addCallback(mBillingCallback);
-    getBillingManager().queryExistingPurchases();
   }
 
   @Override

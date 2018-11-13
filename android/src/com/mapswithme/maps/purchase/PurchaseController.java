@@ -39,6 +39,11 @@ public interface PurchaseController<T>
    */
   void queryPurchaseDetails();
 
+  /**
+   * Validates existing purchase. A validation result will be delivered through callback {@link T}.
+   */
+  void validateExistingPurchases();
+
   void addCallback(@NonNull T  callback);
 
   void removeCallback();

@@ -40,7 +40,6 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
   {
     getValidator().addCallback(mValidationCallback);
     getBillingManager().addCallback(mBillingCallback);
-    getBillingManager().queryExistingPurchases();
   }
 
   @Override

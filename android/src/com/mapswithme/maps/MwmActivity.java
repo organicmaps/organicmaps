@@ -565,6 +565,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController();
     mAdsRemovalPurchaseController.initialize(this);
+    mAdsRemovalPurchaseController.validateExistingPurchases();
 
     mBookmarkPurchaseController = PurchaseFactory.createBookmarkPurchaseController();
     mBookmarkPurchaseController.initialize(this);
