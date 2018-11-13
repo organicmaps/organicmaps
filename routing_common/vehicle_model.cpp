@@ -49,7 +49,7 @@ VehicleModel::RoadLimits::RoadLimits(VehicleModel::InOutCitySpeedKMpH const & sp
 
 VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface)
-  : m_maxSpeed({}, {}), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
+  : m_modelMaxSpeed({}, {}), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
 {
   CHECK_EQUAL(m_surfaceFactors.size(), 4,
               ("If you want to change the size of the container please take into account that it's "
@@ -58,7 +58,7 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
 
   for (auto const & v : featureTypeLimits)
   {
-    m_maxSpeed = Max(m_maxSpeed, v.m_speed);
+    m_modelMaxSpeed = Max(m_modelMaxSpeed, v.m_speed);
     m_highwayTypes.emplace(c.GetTypeByPath(v.m_types),
                            RoadLimits(v.m_speed, v.m_isPassThroughAllowed));
   }
@@ -83,7 +83,7 @@ void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
   for (auto const & tag : additionalTags)
   {
     m_addRoadTypes.emplace_back(c, tag);
-    m_maxSpeed = Max(m_maxSpeed, tag.m_speed);
+    m_modelMaxSpeed = Max(m_modelMaxSpeed, tag.m_speed);
   }
 }
 
@@ -94,22 +94,32 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams cons
   RoadAvailability const restriction = GetRoadAvailability(types);
   // @TODO(bykoianko) Consider using speed on feature |f| instead of using max speed below.
   if (restriction == RoadAvailability::Available)
-    return speedParams.m_inCity ? m_maxSpeed.m_inCity : m_maxSpeed.m_outCity;
+    return speedParams.m_inCity ? m_modelMaxSpeed.m_inCity : m_modelMaxSpeed.m_outCity;
+
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-    return GetMinTypeSpeed(types, speedParams.m_inCity);
+  {
+    uint16_t const speedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
+    // Note. It's the first rough attept using maxspeed tag value for speed calculation.
+    // It's used as a feature speed if it's valid and less then some value.
+    // @TODO maxspeed tag value should be used more sophisticated.
+    if (!speedParams.m_maxspeed.IsValid() || speedKmPH > 200)
+      return GetMinTypeSpeed(types, speedParams.m_inCity);
+
+    return {static_cast<double>(speedKmPH), static_cast<double>(speedKmPH)};
+  }
 
   return {};
 }
 
 double VehicleModel::GetMaxWeightSpeed() const
 {
-  return max(m_maxSpeed.m_inCity.m_weight, m_maxSpeed.m_outCity.m_weight);
+  return max(m_modelMaxSpeed.m_inCity.m_weight, m_modelMaxSpeed.m_outCity.m_weight);
 }
 
 VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const
 {
-  double const maxSpeedWeight = inCity ? m_maxSpeed.m_inCity.m_weight : m_maxSpeed.m_outCity.m_weight;
-  double const maxEtaWeight = inCity ? m_maxSpeed.m_inCity.m_eta : m_maxSpeed.m_outCity.m_eta;
+  double const maxSpeedWeight = inCity ? m_modelMaxSpeed.m_inCity.m_weight : m_modelMaxSpeed.m_outCity.m_weight;
+  double const maxEtaWeight = inCity ? m_modelMaxSpeed.m_inCity.m_eta : m_modelMaxSpeed.m_outCity.m_eta;
   VehicleModel::SpeedKMpH speed{maxSpeedWeight * 2.0, maxEtaWeight * 2.0};
   // Decreasing speed factor based on road surface (cover).
   VehicleModel::SpeedFactor factor;

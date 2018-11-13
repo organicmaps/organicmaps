@@ -183,16 +183,26 @@ struct Maxspeed
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
   // Speed in km per hour or mile per hour depends on |m_units|.
   uint16_t m_forward = kInvalidSpeed;
-  // Speed in km per hour or mile per hour depends on |m_units|.
+  // Speed in km per hour or mile per hour depends on |m_units|. If |m_backward| == kInvalidSpeed
+  // |m_forward| speed should be used for the both directions.
   uint16_t m_backward = kInvalidSpeed;
 
-  bool operator==(Maxspeed const & rhs) const
-  {
-    return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
-  }
+  bool operator==(Maxspeed const & rhs) const;
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
+  /// \returns true if Maxspeed is considered as Bidirectional(). It means different
+  /// speed is set for forward and backward direction. Otherwise returns false. It means
+  /// |m_forward| speed should be used for the both directions.
   bool IsBidirectional() const { return IsValid() && m_backward != kInvalidSpeed; }
+
+  /// \brief returns speed according to |m_units|. |kInvalidSpeed|, |kNoneMaxSpeed| or
+  /// |kWalkMaxSpeed| may be returned.
+  uint16_t GetSpeedInUnits(bool forward) const;
+
+  /// \brief returns speed in km per hour. If it's not valid |kInvalidSpeed| is
+  /// returned. Otherwise forward or backward speed in km per hour is returned. |kNoneMaxSpeed| and
+  /// |kWalkMaxSpeed| are converted to some numbers.
+  uint16_t GetSpeedKmPH(bool forward) const;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
@@ -245,6 +255,11 @@ private:
 
 MaxspeedConverter const & GetMaxspeedConverter();
 bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs);
+
+/// \returns false if |speed| is equal to |kInvalidSpeed|, |kNoneMaxSpeed| or
+/// |kWalkMaxSpeed|.
+/// \param speed in km per hour or mile per hour.
+bool IsNumeric(uint16_t speed);
 
 std::string DebugPrint(Maxspeed maxspeed);
 std::string DebugPrint(SpeedMacro maxspeed);

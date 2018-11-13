@@ -27,9 +27,6 @@
 
 #include "defines.hpp"
 
-// Important note. The code below in this file will be rewritten and covered by tests within the PR.
-// Now it's written quickly to make a test map build this weekend.
-
 using namespace feature;
 using namespace generator;
 using namespace routing;
@@ -123,7 +120,7 @@ bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMa
     if (!iter)  // the line is empty
       return false;
 
-    // @TODO(bykoianko) trings::to_uint64 returns not-zero value if |*iter| is equal to
+    // @TODO(bykoianko) strings::to_uint64 returns not-zero value if |*iter| is equal to
     // a too long string of numbers. But ParseMaxspeeds() should return false in this case.
     uint64_t osmId = 0;
     if (!strings::to_uint64(*iter, osmId))

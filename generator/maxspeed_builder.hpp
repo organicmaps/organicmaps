@@ -18,7 +18,7 @@ using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
 bool ParseMaxspeeds(std::string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
 
-/// \brief Write |speeds| to maxspeed section to mwm with |dataPath|.
+/// \brief Writes |speeds| to maxspeed section to mwm with |dataPath|.
 void SerializeMaxspeed(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
 
 void BuildMaxspeed(std::string const & dataPath,

@@ -218,7 +218,9 @@ protected:
 
   SpeedKMpH GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const;
 
-  InOutCitySpeedKMpH m_maxSpeed;
+  /// \brief maximum within all the speed limits set in a model (car model, bicycle modle and so on).
+  /// It shouldn't be mixed with maxspeed value tag which defines maximum legal speed on a feature.
+  InOutCitySpeedKMpH m_modelMaxSpeed;
 
 private:
   struct AdditionalRoadType final

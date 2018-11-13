@@ -21,7 +21,38 @@ bool SpeedInUnits::operator<(SpeedInUnits const & rhs) const
 
 bool SpeedInUnits::IsNumeric() const
 {
-  return m_speed != kNoneMaxSpeed && m_speed != kWalkMaxSpeed && m_speed != kInvalidSpeed;
+  return routing::IsNumeric(m_speed);
+}
+
+// Maxspeed ----------------------------------------------------------------------------------------
+bool Maxspeed::operator==(Maxspeed const & rhs) const
+{
+  return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
+}
+
+uint16_t Maxspeed::GetSpeedInUnits(bool forward) const
+{
+  return (forward || !IsBidirectional()) ? m_forward : m_backward;
+}
+
+uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
+{
+  auto speedInUnits = GetSpeedInUnits(forward);
+  if (speedInUnits == kInvalidSpeed)
+    return kInvalidSpeed; // That means IsValid() returns false.
+
+  if (IsNumeric(speedInUnits))
+    return ToSpeedKmPH(speedInUnits, m_units);
+
+  // A feature is marked as a feature without any speed limits. (maxspeed=="none").
+  if (kNoneMaxSpeed)
+    return 1000; // km per hour
+
+  // A feature is marked the a driver should drive with walking speed on it. (maxspeed=="walk").
+  if (kWalkMaxSpeed)
+    return 6; // km per hour
+
+  CHECK(false, ("Method IsNumeric() returns something wrong."));
 }
 
 // FeatureMaxspeed ---------------------------------------------------------------------------------
@@ -241,6 +272,11 @@ MaxspeedConverter const & GetMaxspeedConverter()
 bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs)
 {
   return lhs.m_units == rhs.m_units || !lhs.IsNumeric() || !rhs.IsNumeric();
+}
+
+bool IsNumeric(uint16_t speed)
+{
+  return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed;
 }
 
 std::string DebugPrint(Maxspeed maxspeed)
