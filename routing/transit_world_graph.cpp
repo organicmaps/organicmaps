@@ -192,7 +192,7 @@ std::vector<RouteSegment::SpeedCamera> TransitWorldGraph::GetSpeedCamInfo(Segmen
 void TransitWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
                                       vector<Segment> & twins)
 {
-  if (m_mode == Mode::SingleMwm || !m_crossMwmGraph ||
+  if (m_mode == WorldGraphMode::SingleMwm || !m_crossMwmGraph ||
       !m_crossMwmGraph->IsTransition(segment, isOutgoing))
   {
     return;

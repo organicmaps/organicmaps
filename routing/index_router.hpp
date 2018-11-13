@@ -111,7 +111,7 @@ private:
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
   RouterResultCode ProcessLeapsJoints(vector<Segment> const & input, RouterDelegate const & delegate,
-                                      WorldGraph::Mode prevMode, IndexGraphStarter & starter,
+                                      WorldGraphMode prevMode, IndexGraphStarter & starter,
                                       vector<Segment> & output);
   RouterResultCode RedressRoute(std::vector<Segment> const & segments,
                                 RouterDelegate const & delegate, IndexGraphStarter & starter,
@@ -146,7 +146,7 @@ private:
       RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult) const
   {
     AStarAlgorithm<Graph> algorithm;
-    if (params.m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+    if (params.m_graph.GetMode() == WorldGraphMode::LeapsOnly)
     {
       return ConvertTransitResult(mwmIds,
                                   ConvertResult<Graph>(algorithm.FindPath(params, routingResult)));

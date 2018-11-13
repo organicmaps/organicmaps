@@ -53,7 +53,7 @@ public:
   void Append(FakeEdgesContainer const & container);
 
   WorldGraph & GetGraph() const { return m_graph; }
-  WorldGraph::Mode GetMode() const { return m_graph.GetMode(); }
+  WorldGraphMode GetMode() const { return m_graph.GetMode(); }
   Junction const & GetStartJunction() const;
   Junction const & GetFinishJunction() const;
   Segment GetStartSegment() const { return GetFakeSegment(m_start.m_id); }
@@ -82,6 +82,12 @@ public:
   // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
   bool CheckLength(RouteWeight const & weight);
 
+  void GetEdgeList(Segment const & segment, bool isOutgoing,
+                   std::vector<JointEdge> & edges, std::vector<RouteWeight> & parentWeights) const
+  {
+    return m_graph.GetEdgeList(segment, isOutgoing, edges, parentWeights);
+  }
+
   void GetEdgesList(Segment const & segment, bool isOutgoing,
                     std::vector<SegmentEdge> & edges) const;
 
@@ -104,6 +110,11 @@ public:
   RouteWeight HeuristicCostEstimate(Vertex const & from, m2::PointD const & to) const
   {
     return m_graph.HeuristicCostEstimate(GetPoint(from, true /* front */), to);
+  }
+
+  bool IsJoint(Segment const & segment, bool fromStart)
+  {
+    return GetGraph().GetIndexGraph(segment.GetMwmId()).IsJoint(segment.GetRoadPoint(fromStart));
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment) const;

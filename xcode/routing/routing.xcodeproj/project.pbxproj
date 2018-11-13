@@ -78,7 +78,6 @@
 		40C645171F8D167F002E05A0 /* fake_ending.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40C645151F8D167E002E05A0 /* fake_ending.hpp */; };
 		40F7F3E41F7D246D0082D564 /* single_vehicle_world_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */; };
 		40F7F3E51F7D246D0082D564 /* single_vehicle_world_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */; };
-		4408A63B21F1E7F0008171B8 /* index_graph_starter_joints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */; };
 		4408A63C21F1E7F0008171B8 /* joint_segment.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4408A63821F1E7F0008171B8 /* joint_segment.hpp */; };
 		4408A63D21F1E7F0008171B8 /* index_graph_starter_joints.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */; };
 		4408A63E21F1E7F0008171B8 /* joint_segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4408A63A21F1E7F0008171B8 /* joint_segment.cpp */; };
@@ -377,7 +376,6 @@
 		40C645151F8D167E002E05A0 /* fake_ending.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fake_ending.hpp; sourceTree = "<group>"; };
 		40F7F3E21F7D246C0082D564 /* single_vehicle_world_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = single_vehicle_world_graph.hpp; sourceTree = "<group>"; };
 		40F7F3E31F7D246D0082D564 /* single_vehicle_world_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = single_vehicle_world_graph.cpp; sourceTree = "<group>"; };
-		4408A63721F1E7F0008171B8 /* index_graph_starter_joints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_graph_starter_joints.cpp; sourceTree = "<group>"; };
 		4408A63821F1E7F0008171B8 /* joint_segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = joint_segment.hpp; sourceTree = "<group>"; };
 		4408A63921F1E7F0008171B8 /* index_graph_starter_joints.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = index_graph_starter_joints.hpp; sourceTree = "<group>"; };
 		4408A63A21F1E7F0008171B8 /* joint_segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = joint_segment.cpp; sourceTree = "<group>"; };

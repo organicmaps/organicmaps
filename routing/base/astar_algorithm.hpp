@@ -139,6 +139,18 @@ public:
 
     void SetParent(Vertex const & parent, Vertex const & child) { m_parents[parent] = child; }
 
+    bool HasParent(Vertex const & child)
+    {
+      return m_parents.count(child) != 0;
+    }
+
+    Vertex const & GetParent(Vertex const & child)
+    {
+      auto const it = m_parents.find(child);
+      CHECK(it != m_parents.cend(), ("Can not find parent of child:", child));
+      return it->second;
+    }
+
     void ReconstructPath(Vertex const & v, std::vector<Vertex> & path) const;
 
   private:

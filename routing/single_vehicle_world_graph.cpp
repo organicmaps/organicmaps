@@ -73,14 +73,14 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & parent, bool isOutgoin
   auto & indexGraph = GetIndexGraph(parent.GetMwmId());
   indexGraph.GetEdgeList(parent, isOutgoing, jointEdges, parentWeights);
 
-  if (m_mode != WorldGraph::Mode::JointSingleMwm)
+  if (m_mode != WorldGraphMode::JointSingleMwm)
     CheckAndProcessTransitFeatures(parent, jointEdges, parentWeights, isOutgoing);
 }
 
 void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoing,
                                           vector<SegmentEdge> & edges)
 {
-  if (m_mode == Mode::LeapsOnly)
+  if (m_mode == WorldGraphMode::LeapsOnly)
   {
     CHECK(m_crossMwmGraph, ());
     // Ingoing edges listing is not supported for leaps because we do not have enough information
@@ -97,14 +97,14 @@ void SingleVehicleWorldGraph::GetEdgeList(Segment const & segment, bool isOutgoi
   IndexGraph & indexGraph = m_loader->GetIndexGraph(segment.GetMwmId());
   indexGraph.GetEdgeList(segment, isOutgoing, edges);
 
-  if (m_mode != Mode::JointSingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
+  if (m_mode != WorldGraphMode::SingleMwm && m_crossMwmGraph && m_crossMwmGraph->IsTransition(segment, isOutgoing))
     GetTwins(segment, isOutgoing, edges);
 }
 
 Junction const & SingleVehicleWorldGraph::GetJunction(Segment const & segment, bool front)
 {
   return GetRoadGeometry(segment.GetMwmId(), segment.GetFeatureId())
-      .GetJunction(segment.GetPointId(front));
+         .GetJunction(segment.GetPointId(front));
 }
 
 m2::PointD const & SingleVehicleWorldGraph::GetPoint(Segment const & segment, bool front)

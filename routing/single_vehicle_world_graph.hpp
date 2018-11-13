@@ -43,8 +43,8 @@ public:
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
   bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override { m_loader->Clear(); }
-  void SetMode(Mode mode) override { m_mode = mode; }
-  Mode GetMode() const override { return m_mode; }
+  void SetMode(WorldGraphMode mode) override { m_mode = mode; }
+  WorldGraphMode GetMode() const override { return m_mode; }
   void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
   void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
@@ -91,7 +91,7 @@ private:
   std::unique_ptr<CrossMwmGraph> m_crossMwmGraph;
   std::unique_ptr<IndexGraphLoader> m_loader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  Mode m_mode = Mode::NoLeaps;
   RoutingOptions m_avoidRoutingOptions = RoutingOptions();
+  WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
 };
 }  // namespace routing

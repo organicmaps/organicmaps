@@ -48,8 +48,8 @@ public:
   // All transit features are allowed for through passage.
   bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override;
-  void SetMode(Mode mode) override { m_mode = mode; }
-  Mode GetMode() const override { return m_mode; }
+  void SetMode(WorldGraphMode mode) override { m_mode = mode; }
+  WorldGraphMode GetMode() const override { return m_mode; }
   void GetOutgoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
   void GetIngoingEdgesList(Segment const & segment, std::vector<SegmentEdge> & edges) override;
   RouteWeight HeuristicCostEstimate(Segment const & from, Segment const & to) override;
@@ -92,7 +92,7 @@ private:
   std::unique_ptr<IndexGraphLoader> m_indexLoader;
   std::unique_ptr<TransitGraphLoader> m_transitLoader;
   std::shared_ptr<EdgeEstimator> m_estimator;
-  Mode m_mode = Mode::NoLeaps;
+  WorldGraphMode m_mode = WorldGraphMode::NoLeaps;
   std::vector<Segment> const kEmptyTransitions = {};
 };
 }  // namespace routing

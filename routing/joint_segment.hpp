@@ -38,6 +38,11 @@ public:
   bool operator<(JointSegment const & rhs) const;
   bool operator==(JointSegment const & rhs) const;
 
+  bool operator!=(JointSegment const & rhs) const
+  {
+    return !(*this == rhs);
+  }
+
 private:
   static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
   uint32_t m_featureId = kInvalidId;

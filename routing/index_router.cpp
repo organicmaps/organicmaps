@@ -315,7 +315,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
 unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
 {
   auto worldGraph = MakeWorldGraph();
-  worldGraph->SetMode(WorldGraph::Mode::SingleMwm);
+  worldGraph->SetMode(WorldGraphMode::SingleMwm);
   return worldGraph;
 }
 
@@ -491,7 +491,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
 }
 
 vector<Segment> ProcessJoints(vector<JointSegment> const & jointsPath,
-                              IndexGraphStarterJoints & jointStarter)
+                              IndexGraphStarterJoints<IndexGraphStarter> & jointStarter)
 {
   CHECK(!jointsPath.empty(), ());
 
@@ -529,14 +529,14 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   {
     case VehicleType::Pedestrian:
     case VehicleType::Bicycle:
-      starter.GetGraph().SetMode(WorldGraph::Mode::Joints);
+      starter.GetGraph().SetMode(WorldGraphMode::Joints);
       break;
     case VehicleType::Transit:
-      starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
+      starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
       break;
     case VehicleType::Car:
-      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraph::Mode::Joints
-                                                                : WorldGraph::Mode::LeapsOnly);
+      starter.GetGraph().SetMode(AreMwmsNear(starter.GetMwms()) ? WorldGraphMode::Joints
+                                                                : WorldGraphMode::LeapsOnly);
       break;
     case VehicleType::Count:
       CHECK(false, ("Unknown vehicle type:", m_vehicleType));
@@ -572,9 +572,9 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
   auto checkLength = [&starter](RouteWeight const & weight) { return starter.CheckLength(weight); };
 
   base::HighResTimer timer;
-  if (starter.GetGraph().GetMode() == WorldGraph::Mode::Joints)
+  if (starter.GetGraph().GetMode() == WorldGraphMode::Joints)
   {
-    IndexGraphStarterJoints jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
+    IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter, starter.GetStartSegment(), starter.GetFinishSegment());
     RoutingResult<JointSegment, RouteWeight> routingResult;
     auto const onVisitJunctionJoints = [&](JointSegment const & from, JointSegment const & to)
     {
@@ -594,12 +594,12 @@ RouterResultCode IndexRouter::CalculateSubroute(Checkpoints const & checkpoints,
       delegate.OnPointCheck(pointFrom);
     };
 
-    AStarAlgorithm<IndexGraphStarterJoints>::Params params(
+    AStarAlgorithm<IndexGraphStarterJoints<IndexGraphStarter>>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(), nullptr /* prevRoute */,
       delegate, onVisitJunctionJoints, checkLength);
 
     set<NumMwmId> const mwmIds = starter.GetMwms();
-    RouterResultCode const result = FindPath<IndexGraphStarterJoints>(params, mwmIds, routingResult);
+    RouterResultCode const result = FindPath<IndexGraphStarterJoints<IndexGraphStarter>>(params, mwmIds, routingResult);
     if (result != RouterResultCode::NoError)
       return result;
 
@@ -639,7 +639,7 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints,
   base::Timer timer;
   TrafficStash::Guard guard(m_trafficStash);
   auto graph = MakeWorldGraph();
-  graph->SetMode(WorldGraph::Mode::Joints);
+  graph->SetMode(WorldGraphMode::NoLeaps);
 
   Segment startSegment;
   m2::PointD const & pointFrom = checkpoints.GetPointFrom();
@@ -821,11 +821,11 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
 
 RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
                                                  RouterDelegate const & delegate,
-                                                 WorldGraph::Mode prevMode,
+                                                 WorldGraphMode prevMode,
                                                  IndexGraphStarter & starter,
                                                  vector<Segment> & output)
 {
-  if (prevMode != WorldGraph::Mode::LeapsOnly)
+  if (prevMode != WorldGraphMode::LeapsOnly)
   {
     output = input;
     return RouterResultCode::NoError;
@@ -886,9 +886,9 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
   };
 
   set<NumMwmId> mwmIds;
-  IndexGraphStarterJoints jointStarter(starter);
+  IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter);
 
-  auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraph::Mode mode,
+  auto const runAStarAlgorithm = [&](size_t start, size_t end, WorldGraphMode mode,
                                      RoutingResult<JointSegment, RouteWeight> & routingResult)
   {
     // Clear previous loaded graphs to not spend too much memory at one time.
@@ -903,17 +903,17 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
 
     fillMwmIds(start, end, mwmIds);
 
-    AStarAlgorithm<IndexGraphStarterJoints>::Params params(
+    AStarAlgorithm<IndexGraphStarterJoints<IndexGraphStarter>>::Params params(
       jointStarter, jointStarter.GetStartJoint(), jointStarter.GetFinishJoint(),
       nullptr /* prevRoute */, delegate,
       {} /* onVisitedVertexCallback */, checkLength);
 
-    return FindPath<IndexGraphStarterJoints>(params, mwmIds, routingResult);
+    return FindPath<IndexGraphStarterJoints<IndexGraphStarter>>(params, mwmIds, routingResult);
   };
 
   deque<vector<Segment>> paths;
   size_t prevStart = numeric_limits<size_t>::max();
-  auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraph::Mode mode,
+  auto const tryBuildRoute = [&](size_t start, size_t end, WorldGraphMode mode,
                                  RoutingResult<JointSegment, RouteWeight> & routingResult)
   {
     RouterResultCode const result = runAStarAlgorithm(start, end, mode, routingResult);
@@ -965,7 +965,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       next = i + 1;
     }
 
-    if (!tryBuildRoute(prev, next, WorldGraph::Mode::JointSingleMwm, routingResult))
+    if (!tryBuildRoute(prev, next, WorldGraphMode::JointSingleMwm, routingResult))
     {
       auto const prevPoint = starter.GetPoint(input[next], true);
       // |next + 1| - is the twin of |next|
@@ -989,7 +989,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
       else
         next += 2;
 
-      if (!tryBuildRoute(prev, next, WorldGraph::Mode::Joints, routingResult))
+      if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
       {
         // Already in start
         if (prev == 0)
@@ -1000,7 +1000,7 @@ RouterResultCode IndexRouter::ProcessLeapsJoints(vector<Segment> const & input,
           dropFirstSegment = false;
 
         CHECK_GREATER_OR_EQUAL(prev, 0, ());
-        if (!tryBuildRoute(prev, next, WorldGraph::Mode::Joints, routingResult))
+        if (!tryBuildRoute(prev, next, WorldGraphMode::Joints, routingResult))
           return RouterResultCode::RouteNotFound;
       }
     }
@@ -1034,7 +1034,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
     junctions.emplace_back(starter.GetRouteJunction(segments, i));
 
   IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_dataSource);
-  starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
+  starter.GetGraph().SetMode(WorldGraphMode::NoLeaps);
 
   Route::TTimes times;
   times.reserve(segments.size());

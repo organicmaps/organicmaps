@@ -7,7 +7,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, std::vector<
   std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);
 
-  if (GetMode() == Mode::LeapsOnly)
+  if (GetMode() == WorldGraphMode::LeapsOnly)
   {
     // Ingoing edges listing is not supported in LeapsOnly mode because we do not have enough
     // information to calculate |segment| weight. See https://jira.mail.ru/browse/MAPSME-5743 for details.
@@ -28,7 +28,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, std::vector<
   }
 
   auto prevMode = GetMode();
-  SetMode(Mode::SingleMwm);
+  SetMode(WorldGraphMode::SingleMwm);
 
   for (Segment const & twin : twins)
     GetEdgeList(twin, isOutgoing, edges);
@@ -48,15 +48,16 @@ bool WorldGraph::IsRoutingOptionsGood(Segment const & /* segment */)
 
 void WorldGraph::SetRoutingOptions(RoutingOptions /* routingOption */) {}
 
-std::string DebugPrint(WorldGraph::Mode mode)
+std::string DebugPrint(WorldGraphMode mode)
 {
   switch (mode)
   {
-  case WorldGraph::Mode::LeapsOnly: return "LeapsOnly";
-  case WorldGraph::Mode::NoLeaps: return "NoLeaps";
-  case WorldGraph::Mode::SingleMwm: return "SingleMwm";
-  case WorldGraph::Mode::Joints: return "Joints";
-  case WorldGraph::Mode::JointSingleMwm: return "JointsSingleMwm";
+  case WorldGraphMode::LeapsOnly: return "LeapsOnly";
+  case WorldGraphMode::NoLeaps: return "NoLeaps";
+  case WorldGraphMode::SingleMwm: return "SingleMwm";
+  case WorldGraphMode::Joints: return "Joints";
+  case WorldGraphMode::JointSingleMwm: return "JointsSingleMwm";
+  case WorldGraphMode::Undefined: return "Undefined";
   }
 
   UNREACHABLE();

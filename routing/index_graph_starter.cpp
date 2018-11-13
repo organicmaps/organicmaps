@@ -169,7 +169,7 @@ void IndexGraphStarter::GetEdgesList(Segment const & segment, bool isOutgoing,
   edges.clear();
 
   // If mode is LeapsOnly we need to connect start/finish segment to transitions.
-  if (m_graph.GetMode() == WorldGraph::Mode::LeapsOnly)
+  if (m_graph.GetMode() == WorldGraphMode::LeapsOnly)
   {
     if (segment.IsRealSegment() && !IsRoutingOptionsGood(segment))
       return;
