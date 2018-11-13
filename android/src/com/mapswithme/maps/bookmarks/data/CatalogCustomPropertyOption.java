@@ -18,11 +18,18 @@ public class CatalogCustomPropertyOption implements Parcelable
     mLocalizedName = localizedName;
   }
 
-  @NonNull
-  public String getValue() { return mValue; }
+  protected CatalogCustomPropertyOption(Parcel in)
+  {
+    mValue = in.readString();
+    mLocalizedName = in.readString();
+  }
 
-  @NonNull
-  public String getLocalizedName() { return mLocalizedName; }
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mValue);
+    dest.writeString(mLocalizedName);
+  }
 
   @Override
   public int describeContents()
@@ -30,25 +37,13 @@ public class CatalogCustomPropertyOption implements Parcelable
     return 0;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
-  {
-    dest.writeString(this.mValue);
-    dest.writeString(this.mLocalizedName);
-  }
-
-  protected CatalogCustomPropertyOption(Parcel in)
-  {
-    this.mValue = in.readString();
-    this.mLocalizedName = in.readString();
-  }
-
-  public static final Creator<CatalogCustomPropertyOption> CREATOR = new Creator<CatalogCustomPropertyOption>()
+  public static final Creator<CatalogCustomPropertyOption> CREATOR = new
+      Creator<CatalogCustomPropertyOption>()
   {
     @Override
-    public CatalogCustomPropertyOption createFromParcel(Parcel source)
+    public CatalogCustomPropertyOption createFromParcel(Parcel in)
     {
-      return new CatalogCustomPropertyOption(source);
+      return new CatalogCustomPropertyOption(in);
     }
 
     @Override
@@ -57,4 +52,10 @@ public class CatalogCustomPropertyOption implements Parcelable
       return new CatalogCustomPropertyOption[size];
     }
   };
+
+  @NonNull
+  public String getValue() { return mValue; }
+
+  @NonNull
+  public String getLocalizedName() { return mLocalizedName; }
 }

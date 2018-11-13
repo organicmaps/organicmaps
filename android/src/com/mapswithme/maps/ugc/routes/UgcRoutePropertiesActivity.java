@@ -7,7 +7,6 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 
 public class UgcRoutePropertiesActivity extends BaseMwmFragmentActivity
 {
-  public static final int REQUEST_CODE = 202;
 
   @Override
   protected int getContentLayoutResId()

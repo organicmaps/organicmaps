@@ -92,11 +92,11 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == UgcRouteTagsActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK)
+    if (requestCode == UgcSharingOptionsFragment.REQ_CODE_TAGS_ACTIVITY && resultCode == Activity.RESULT_OK)
     {
       Intent intent = new Intent().putExtra(EXTRA_TAGS_ACTIVITY_RESULT, data);
       ArrayList<CatalogPropertyOptionAndKey> options = new ArrayList<>(getSelectedOptions());
-      intent.putExtra(EXTRA_CATEGORY_OPTIONS, options);
+      intent.putParcelableArrayListExtra(EXTRA_CATEGORY_OPTIONS, options);
       getActivity().setResult(Activity.RESULT_OK, intent);
       getActivity().finish();
     }

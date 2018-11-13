@@ -9,7 +9,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 public class UgcRouteSharingOptionsActivity extends BaseUgcRouteActivity
 {
-  public static final int REQUEST_CODE = 307;
+  public static final int REQ_CODE_SHARING_OPTIONS = 307;
 
   @Override
   protected Class<? extends Fragment> getFragmentClass()
@@ -25,6 +25,6 @@ public class UgcRouteSharingOptionsActivity extends BaseUgcRouteActivity
 
   public static void startForResult(@NonNull Activity activity, @NonNull BookmarkCategory category)
   {
-    startForResult(activity, category, UgcRouteSharingOptionsActivity.class, REQUEST_CODE);
+    startForResult(activity, category, UgcRouteSharingOptionsActivity.class, REQ_CODE_SHARING_OPTIONS);
   }
 }

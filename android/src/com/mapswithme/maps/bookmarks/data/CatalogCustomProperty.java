@@ -31,6 +31,44 @@ public class CatalogCustomProperty implements Parcelable
     mOptions = Collections.unmodifiableList(Arrays.asList(options));
   }
 
+  protected CatalogCustomProperty(Parcel in)
+  {
+    mKey = in.readString();
+    mLocalizedName = in.readString();
+    mRequired = in.readByte() != 0;
+    mOptions = in.createTypedArrayList(CatalogCustomPropertyOption.CREATOR);
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mKey);
+    dest.writeString(mLocalizedName);
+    dest.writeByte((byte) (mRequired ? 1 : 0));
+    dest.writeTypedList(mOptions);
+  }
+
+  @Override
+  public int describeContents()
+  {
+    return 0;
+  }
+
+  public static final Creator<CatalogCustomProperty> CREATOR = new Creator<CatalogCustomProperty>()
+  {
+    @Override
+    public CatalogCustomProperty createFromParcel(Parcel in)
+    {
+      return new CatalogCustomProperty(in);
+    }
+
+    @Override
+    public CatalogCustomProperty[] newArray(int size)
+    {
+      return new CatalogCustomProperty[size];
+    }
+  };
+
   @NonNull
   public String getKey() { return mKey; }
 
@@ -41,43 +79,4 @@ public class CatalogCustomProperty implements Parcelable
 
   @NonNull
   public List<CatalogCustomPropertyOption> getOptions() { return mOptions; }
-
-  @Override
-  public int describeContents()
-  {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
-  {
-    dest.writeString(this.mKey);
-    dest.writeString(this.mLocalizedName);
-    dest.writeByte(this.mRequired ? (byte) 1 : (byte) 0);
-    dest.writeList(this.mOptions);
-  }
-
-  protected CatalogCustomProperty(Parcel in)
-  {
-    this.mKey = in.readString();
-    this.mLocalizedName = in.readString();
-    this.mRequired = in.readByte() != 0;
-    this.mOptions = new ArrayList<>();
-    in.readList(this.mOptions, CatalogCustomPropertyOption.class.getClassLoader());
-  }
-
-  public static final Creator<CatalogCustomProperty> CREATOR = new Creator<CatalogCustomProperty>()
-  {
-    @Override
-    public CatalogCustomProperty createFromParcel(Parcel source)
-    {
-      return new CatalogCustomProperty(source);
-    }
-
-    @Override
-    public CatalogCustomProperty[] newArray(int size)
-    {
-      return new CatalogCustomProperty[size];
-    }
-  };
 }

@@ -7,7 +7,6 @@ import com.mapswithme.maps.base.BaseToolbarActivity;
 public class UgcRouteTagsActivity extends BaseToolbarActivity
 {
   public static final String EXTRA_TAGS = "selected_tags";
-  public static final int REQUEST_CODE = 114;
 
   @Override
   protected Class<? extends Fragment> getFragmentClass()

@@ -46,16 +46,18 @@ import java.util.Objects;
 public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment implements BookmarkManager.BookmarksCatalogListener,
                                                                                        AlertDialogCallback
 {
+  public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
+  public static final int REQ_CODE_TAGS_ACTIVITY = 102;
+  private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
+  private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
+  private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 105;
+  private static final int REQ_CODE_ERROR_COMMON = 106;
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
   private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
-  private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 200;
-  private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 201;
-  private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 202;
-  private static final int REQ_CODE_ERROR_COMMON = 203;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -242,7 +244,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private void openTagsScreen()
   {
     Intent intent = new Intent(getContext(), UgcRouteTagsActivity.class);
-    startActivityForResult(intent, UgcRouteTagsActivity.REQUEST_CODE);
+    startActivityForResult(intent, REQ_CODE_TAGS_ACTIVITY);
   }
 
   private void onUploadAndPublishBtnClicked()
@@ -323,7 +325,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == UgcRoutePropertiesActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK)
+    if (requestCode == REQ_CODE_CUSTOM_PROPERTIES && resultCode == Activity.RESULT_OK)
       requestPublishing(data);
   }
 

@@ -19,11 +19,40 @@ public class CatalogPropertyOptionAndKey implements Parcelable
     mOption = option;
   }
 
+  protected CatalogPropertyOptionAndKey(Parcel in)
+  {
+    mPropertyKey = in.readString();
+    mOption = in.readParcelable(CatalogCustomPropertyOption.class.getClassLoader());
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags)
+  {
+    dest.writeString(mPropertyKey);
+    dest.writeParcelable(mOption, flags);
+  }
+
   @Override
   public int describeContents()
   {
     return 0;
   }
+
+  public static final Creator<CatalogPropertyOptionAndKey> CREATOR = new
+      Creator<CatalogPropertyOptionAndKey>()
+  {
+    @Override
+    public CatalogPropertyOptionAndKey createFromParcel(Parcel in)
+    {
+      return new CatalogPropertyOptionAndKey(in);
+    }
+
+    @Override
+    public CatalogPropertyOptionAndKey[] newArray(int size)
+    {
+      return new CatalogPropertyOptionAndKey[size];
+    }
+  };
 
   @NonNull
   public String getKey()
@@ -36,32 +65,4 @@ public class CatalogPropertyOptionAndKey implements Parcelable
   {
     return mOption;
   }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags)
-  {
-    dest.writeString(this.mPropertyKey);
-    dest.writeParcelable(this.mOption, flags);
-  }
-
-  protected CatalogPropertyOptionAndKey(Parcel in)
-  {
-    this.mPropertyKey = in.readString();
-    this.mOption = in.readParcelable(CatalogCustomPropertyOption.class.getClassLoader());
-  }
-
-  public static final Creator<CatalogPropertyOptionAndKey> CREATOR = new Creator<CatalogPropertyOptionAndKey>()
-  {
-    @Override
-    public CatalogPropertyOptionAndKey createFromParcel(Parcel source)
-    {
-      return new CatalogPropertyOptionAndKey(source);
-    }
-
-    @Override
-    public CatalogPropertyOptionAndKey[] newArray(int size)
-    {
-      return new CatalogPropertyOptionAndKey[size];
-    }
-  };
 }
