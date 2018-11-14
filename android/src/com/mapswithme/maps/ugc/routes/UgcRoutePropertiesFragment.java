@@ -29,14 +29,15 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
 {
   public static final String EXTRA_TAGS_ACTIVITY_RESULT = "tags_activity_result";
   public static final String EXTRA_CATEGORY_OPTIONS = "category_options";
+  public static final int REQ_CODE_TAGS_ACTIVITY = 102;
+  private static final int REQ_CODE_LOAD_FAILED = 101;
+  private static final int MAX_PROPS_COUNT = 1;
+  private static final int MAX_OPTIONS_COUNT = 2;
+  private static final int FIRST_OPTION_INDEX = 0;
+  private static final int SECOND_OPTION_INDEX = 1;
   private static final String BUNDLE_SELECTED_OPTION = "selected_property";
   private static final String BUNDLE_CUSTOM_PROPS = "custom_props";
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
-  private static final int REQ_CODE_LOAD_FAILED = 101;
-  private static final int MAGIC_MAX_PROPS_COUNT = 1;
-  private static final int MAGIC_MAX_OPTIONS_COUNT = 2;
-  private static final int FIRST_OPTION_INDEX = 0;
-  private static final int SECOND_OPTION_INDEX = 1;
 
   @NonNull
   private List<CatalogCustomProperty> mProps = Collections.emptyList();
@@ -58,15 +59,22 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_ugc_routes_properties, container, false);
-    mSelectedOption = getSelectedOption(savedInstanceState);
-    mProps = getCustomProps(savedInstanceState);
+    initPropsAndOptions(savedInstanceState);
     initViews(root);
     if (mProps.isEmpty())
       BookmarkManager.INSTANCE.requestCustomProperties();
     return root;
   }
 
-  private void initViews(View root)
+  private void initPropsAndOptions(@Nullable Bundle savedInstanceState)
+  {
+    if (savedInstanceState == null)
+      return;
+    mProps =  Objects.requireNonNull(savedInstanceState.getParcelableArrayList(BUNDLE_CUSTOM_PROPS));
+    mSelectedOption = savedInstanceState.getParcelable(BUNDLE_SELECTED_OPTION);
+  }
+
+  private void initViews(@NonNull View root)
   {
     View leftBtn = root.findViewById(R.id.left_btn);
     leftBtn.setOnClickListener(v -> onLeftBtnClicked());
@@ -76,22 +84,6 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
     UiUtils.hideIf(mProps.isEmpty(), mPropsContainer);
     mProgress = root.findViewById(R.id.progress);
     UiUtils.showIf(mProps.isEmpty(), mProgress);
-  }
-
-  @Nullable
-  private static CatalogPropertyOptionAndKey getSelectedOption(@Nullable Bundle savedInstanceState)
-  {
-    if (savedInstanceState == null)
-      return null;
-    return savedInstanceState.getParcelable(BUNDLE_SELECTED_OPTION);
-  }
-
-  @NonNull
-  private static List<CatalogCustomProperty> getCustomProps(@Nullable Bundle savedInstanceState)
-  {
-    if (savedInstanceState == null)
-      return Collections.emptyList();
-    return Objects.requireNonNull(savedInstanceState.getParcelableArrayList(BUNDLE_CUSTOM_PROPS));
   }
 
   @Override
@@ -110,7 +102,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
     CatalogCustomPropertyOption option = property.getOptions().get(index);
     mSelectedOption = new CatalogPropertyOptionAndKey(property.getKey(), option);
     Intent intent = new Intent(getContext(), UgcRouteTagsActivity.class);
-    startActivityForResult(intent, UgcSharingOptionsFragment.REQ_CODE_TAGS_ACTIVITY);
+    startActivityForResult(intent, REQ_CODE_TAGS_ACTIVITY);
   }
 
   private void onRightBtnClicked()
@@ -168,8 +160,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   private void onLoadFailed()
   {
     showLoadFailedDialog();
-    mProgress.setVisibility(View.GONE);
-    mPropsContainer.setVisibility(View.GONE);
+    UiUtils.hide(mProgress, mPropsContainer);
   }
 
   private void showLoadFailedDialog()
@@ -196,8 +187,8 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
 
   private static void checkPropsSize(@NonNull List<CatalogCustomProperty> properties)
   {
-    if ((properties.size() > MAGIC_MAX_PROPS_COUNT
-                       || properties.get(0).getOptions().size() != MAGIC_MAX_OPTIONS_COUNT))
+    if ((properties.size() > MAX_PROPS_COUNT
+                       || properties.get(0).getOptions().size() != MAX_OPTIONS_COUNT))
     {
       throw makeException(properties);
     }
@@ -234,7 +225,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == UgcSharingOptionsFragment.REQ_CODE_TAGS_ACTIVITY)
+    if (requestCode == REQ_CODE_TAGS_ACTIVITY)
     {
       if (resultCode == Activity.RESULT_OK)
       {
@@ -263,8 +254,8 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   @Override
   public void onAlertDialogPositiveClick(int requestCode, int which)
   {
-    mProgress.setVisibility(View.VISIBLE);
-    mPropsContainer.setVisibility(View.GONE);
+    UiUtils.show(mProgress);
+    UiUtils.hide(mPropsContainer);
     BookmarkManager.INSTANCE.requestCustomProperties();
   }
 

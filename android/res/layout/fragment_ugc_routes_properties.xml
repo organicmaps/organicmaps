@@ -50,7 +50,6 @@
         android:paddingTop="@dimen/margin_base"
         android:paddingBottom="@dimen/margin_base"
         android:background="?cardBackground"
-        android:weightSum="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

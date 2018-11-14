@@ -47,7 +47,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
                                                                                        AlertDialogCallback
 {
   public static final int REQ_CODE_CUSTOM_PROPERTIES = 101;
-  public static final int REQ_CODE_TAGS_ACTIVITY = 102;
   private static final int REQ_CODE_NO_NETWORK_CONNECTION_DIALOG = 103;
   private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
   private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 105;
