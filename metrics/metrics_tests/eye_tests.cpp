@@ -43,6 +43,8 @@ Info MakeDefaultInfoForTesting()
   MapObject poi;
   poi.SetBestType("shop");
   poi.SetPos({53.652007, 108.143443});
+  poi.SetDefaultName("Hello");
+  poi.SetReadableName("World");
   MapObject::Event eventInfo;
   eventInfo.m_eventTime = Time(std::chrono::hours(90000));
   eventInfo.m_userPos = {72.045507, 81.408095};
@@ -85,6 +87,8 @@ void CompareWithDefaultInfo(Info const & lhs)
     {
       TEST(lhsObj.GetPos().EqualDxDy(rhsObj.GetPos(), 1e-6), ());
       TEST_EQUAL(lhsObj.GetBestType(), rhsObj.GetBestType(), ());
+      TEST_EQUAL(lhsObj.GetDefaultName(), rhsObj.GetDefaultName(), ());
+      TEST_EQUAL(lhsObj.GetReadableName(), rhsObj.GetReadableName(), ());
       TEST_EQUAL(lhsObj.GetEvents().size(), rhsObj.GetEvents().size(), ());
       TEST(lhsObj.GetEvents()[0].m_userPos.EqualDxDy(rhsObj.GetEvents()[0].m_userPos, 1e-6), ());
       TEST_EQUAL(lhsObj.GetEvents()[0].m_eventTime, rhsObj.GetEvents()[0].m_eventTime, ());
@@ -574,8 +578,19 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
   {
     MapObject poi;
     poi.SetBestType("shop");
+    // Sould NOT be concatenated with previous poi because of different names method returns false.
+    poi.SetPos({53.652005, 108.143448});
+    poi.SetDefaultName("No");
+    m2::PointD userPos = {0.0, 0.0};
+
+    EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::RouteToCreated, userPos);
+  }
+
+  {
+    MapObject poi;
+    poi.SetBestType("shop");
     // Sould be concatenated with previous poi because of AlmostEquals method returns true.
-    poi.SetPos({53.6520051, 108.14344799999});
+    poi.SetPos({53.65201, 108.1434399999});
     m2::PointD userPos = {158.016345, 53.683329};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::AddToBookmark, userPos);
@@ -585,7 +600,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
     MapObject poi;
     poi.SetBestType("shop");
     // Sould NOT be concatenated with previous poi because of AlmostEquals method returns false.
-    poi.SetPos({53.6520052, 108.143448});
+    poi.SetPos({53.65202, 108.143448});
     m2::PointD userPos = {0.0, 0.0};
 
     EyeForTesting::RegisterMapObjectEvent(poi, MapObject::Event::Type::UgcEditorOpened, userPos);
@@ -603,7 +618,7 @@ UNIT_CLASS_TEST(ScopedEyeForTesting, RegisterMapObjectEvent)
   {
     auto const resultInfo = Eye::Instance().GetInfo();
     auto const & mapObjects = resultInfo->m_mapObjects;
-    TEST_EQUAL(mapObjects.GetSize(), 4, ());
+    TEST_EQUAL(mapObjects.GetSize(), 5, ());
 
     {
       MapObject poi;

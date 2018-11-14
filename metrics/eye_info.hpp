@@ -189,8 +189,10 @@ public:
     : m_bestType(bestType)
     , m_pos(pos)
     , m_readableName(readableName)
-    , m_limitRect(MercatorBounds::ClampX(pos.x - 1e-7), MercatorBounds::ClampY(pos.y - 1e-7),
-                  MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7))
+    , m_limitRect(MercatorBounds::ClampX(pos.x - kPointAccuracy),
+                  MercatorBounds::ClampY(pos.y - kPointAccuracy),
+                  MercatorBounds::ClampX(pos.x + kPointAccuracy),
+                  MercatorBounds::ClampY(pos.y + kPointAccuracy))
   {
   }
 
@@ -204,8 +206,7 @@ public:
 
   bool AlmostEquals(MapObject const & rhs) const
   {
-    // We are use 1e-5 eps because of points in mwm have this accuracy.
-    return GetPos().EqualDxDy(rhs.GetPos(), 1e-5 /* eps */) && GetBestType() == rhs.GetBestType() &&
+    return GetPos().EqualDxDy(rhs.GetPos(), kPointAccuracy) && GetBestType() == rhs.GetBestType() &&
            GetDefaultName() == rhs.GetDefaultName();
   }
 
@@ -218,17 +219,19 @@ public:
   void SetPos(m2::PointD const & pos)
   {
     m_pos = pos;
-    m_limitRect = {MercatorBounds::ClampX(pos.x - 1e-7), MercatorBounds::ClampY(pos.y - 1e-7),
-                   MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7)};
+    m_limitRect = {MercatorBounds::ClampX(pos.x - kPointAccuracy),
+                   MercatorBounds::ClampY(pos.y - kPointAccuracy),
+                   MercatorBounds::ClampX(pos.x + kPointAccuracy),
+                   MercatorBounds::ClampY(pos.y + kPointAccuracy)};
   }
+
+  std::string const & GetDefaultName() const { return m_defaultName; }
+
+  void SetDefaultName(std::string const & defaultName) { m_defaultName = defaultName; }
 
   std::string const & GetReadableName() const { return m_readableName; }
 
   void SetReadableName(std::string const & readableName) { m_readableName = readableName; }
-
-  std::string const & GetDefaultName() const { return m_readableName; }
-
-  void GetDefaultName(std::string const & readableName) { m_readableName = readableName; }
 
   MapObject::Events & GetEditableEvents() const { return m_events; }
 
@@ -237,13 +240,17 @@ public:
   m2::RectD GetLimitRect() const { return m_limitRect; }
 
   DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
-                  visitor(m_readableName, "name"), visitor(m_events, "events"));
+                  visitor(m_readableName, "readable_name"), visitor(m_defaultName, "default_name"),
+                  visitor(m_events, "events"));
 
 private:
+  // We are use 1e-5 eps because of points in mwm have this accuracy.
+  static double constexpr kPointAccuracy = 1e-5;
+
   std::string m_bestType;
   m2::PointD m_pos;
-  std::string m_readableName;
   std::string m_defaultName;
+  std::string m_readableName;
   // Mutable because of interface of the m4::Tree provides constant references in ForEach methods,
   // but we need to add events into existing objects to avoid some overhead (copy + change +
   // remove + insert operations). The other solution is to use const_cast in ForEach methods.
