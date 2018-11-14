@@ -34849,14 +34849,6 @@
     comment = FIXME
     en = properties_loading_error_subtitle
 
-  [traveller]
-    comment = FIXME
-    en = traveller
-
-  [local]
-    comment = FIXME
-    en = local
-
   [custom_props_desc]
     comment = FIXME
     en = custom_props_desc
