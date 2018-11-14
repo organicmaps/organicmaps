@@ -59,7 +59,7 @@ UNIT_TEST(RoutingQuality_IranSouth)
 UNIT_TEST(RoutingQuality_EindhovenNetherlands)
 {
   TEST(CheckCarRoute({50.91974, 5.33535} /* start */, {51.92532, 5.49066} /* finish */,
-                     {{{51.40579, 5.45578}, {51.44273, 5.42748}, {51.50230, 5.47485}}} /* reference track */),
+                     {{{51.40579, 5.45578}, {51.44316, 5.42723}, {51.50230, 5.47485}}} /* reference track */),
        ());
 }
 
