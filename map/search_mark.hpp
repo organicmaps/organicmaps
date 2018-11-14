@@ -11,27 +11,11 @@
 
 #include <boost/optional.hpp>
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <string>
 #include <vector>
-
-enum class SearchMarkType
-{
-  Default = 0,
-  Booking,
-  LocalAds,
-  LocalAdsBooking,
-  UGC,
-  Cafe,
-  Bakery,
-  Bar,
-  Pub,
-  Restaurant,
-  FastFood,
-  NotFound, // Service value used in developer tools.
-  Count
-};
 
 class BookmarkManager;
 
@@ -55,7 +39,11 @@ public:
   std::string const & GetMatchedName() const { return m_matchedName; }
   void SetMatchedName(std::string const & name);
 
-  void SetMarkType(SearchMarkType type);
+  void SetFromType(uint32_t type, bool hasLocalAds);
+  void SetBookingType(bool hasLocalAds);
+  void SetUGCType();
+  void SetNotFoundType();
+
   void SetPreparing(bool isPreparing);
   void SetRating(float rating);
   void SetPricing(int pricing);
@@ -75,7 +63,8 @@ protected:
   bool IsUGCMark() const;
   bool IsMarkWithRating() const;
 
-  SearchMarkType m_type = SearchMarkType::Default;
+  uint8_t m_type = 0;
+  bool m_hasLocalAds = false;
   FeatureID m_featureID;
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
@@ -102,7 +91,7 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetSales(std::vector<FeatureID> const & features, bool hasSale);
 
-  static m2::PointD GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView);
+  static bool HaveSizes() { return !m_searchMarksSizes.empty(); };
   static boost::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:

@@ -280,7 +280,7 @@ void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> co
       continue;
 
     auto * mark = editSession.CreateUserMark<SearchMarkPoint>(result.m_pos);
-    mark->SetMarkType(SearchMarkType::NotFound);
+    mark->SetNotFoundType();
   }
 }
 
