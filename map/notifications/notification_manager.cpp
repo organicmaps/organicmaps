@@ -3,6 +3,8 @@
 #include "map/notifications/notification_queue_serdes.hpp"
 #include "map/notifications/notification_queue_storage.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
@@ -18,8 +20,10 @@ auto constexpr kCandidatesExpirePeriod = std::chrono::hours(24 * 30);
 auto constexpr kPeriodBetweenNotifications = std::chrono::hours(24 * 7);
 auto constexpr kMinTimeSinceLastEventForUgcRate = std::chrono::hours(24);
 
-std::array<std::string, 4> const kUgcRateSupportedTypes = {"amenity-bar", "amenity-cafe",
-                                                           "amenity-pub", "amenity-restaurant"};
+std::array<std::string, 7> const kUgcRateSupportedTypes = {"amenity-bar", "amenity-cafe",
+                                                           "amenity-pub", "amenity-restaurant",
+                                                           "amenity-fast_food", "amenity-biergarden",
+                                                           "shop-bakery"};
 
 double constexpr kMinDistanceToTriggerUgcRateInMeters = 50000.0;  // 50 km
 
@@ -48,23 +52,13 @@ bool CheckUgcNotSavedTrigger(eye::MapObject const & poi)
   return false;
 }
 
-bool IsSmallDistanceAndSameMwm(eye::MapObject const & poi, eye::MapObject::Event const & event,
-                               storage::TCountriesVec const & userMwms)
+bool IsSmallDistance(eye::MapObject const & poi, eye::MapObject::Event const & event)
 {
   auto const distanceToUser = MercatorBounds::DistanceOnEarth(event.m_userPos, poi.GetPos());
-  if (distanceToUser > kMinDistanceToTriggerUgcRateInMeters)
-    return false;
-
-  auto const & poiMwms = poi.GetMwmNames();
-
-  return std::any_of(userMwms.cbegin(), userMwms.cend(), [&poiMwms](auto const & userMwm)
-  {
-    return std::find(poiMwms.cbegin(), poiMwms.cend(), userMwm) != poiMwms.cend();
-  });
+  return distanceToUser <= kMinDistanceToTriggerUgcRateInMeters;
 }
 
-bool CheckRouteToInSameGeoTrigger(eye::MapObject const & poi,
-                                  storage::TCountriesVec const & userMwms)
+bool CheckRouteToInSameGeoTrigger(eye::MapObject const & poi)
 {
   CHECK_GREATER(poi.GetEvents().size(), 0, ());
 
@@ -73,10 +67,10 @@ bool CheckRouteToInSameGeoTrigger(eye::MapObject const & poi,
   if (lastEvent.m_type != eye::MapObject::Event::Type::RouteToCreated)
     return false;
 
-  return IsSmallDistanceAndSameMwm(poi, lastEvent, userMwms);
+  return IsSmallDistance(poi, lastEvent);
 }
 
-bool CheckPlannedTripTrigger(eye::MapObject const & poi, storage::TCountriesVec const & userMwms)
+bool CheckPlannedTripTrigger(eye::MapObject const & poi)
 {
   CHECK_GREATER(poi.GetEvents().size(), 0, ());
 
@@ -85,7 +79,7 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi, storage::TCountriesVec 
   if (events.back().m_type != eye::MapObject::Event::Type::Open)
     return false;
 
-  if (!IsSmallDistanceAndSameMwm(poi, events.back(), userMwms))
+  if (!IsSmallDistance(poi, events.back()))
     return false;
 
   uint32_t openCounter = 0;
@@ -98,7 +92,7 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi, storage::TCountriesVec 
       continue;
     }
 
-    if (IsSmallDistanceAndSameMwm(poi, events[i], userMwms))
+    if (IsSmallDistance(poi, events[i]))
       continue;
 
     if (events[i].m_type == eye::MapObject::Event::Type::Open)
@@ -106,7 +100,8 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi, storage::TCountriesVec 
     else
       return true;
 
-    return openCounter >= kOpenCountForPlannedTripTrigger;
+    if (openCounter >= kOpenCountForPlannedTripTrigger)
+      return true;
   }
 
   return false;
@@ -115,7 +110,7 @@ bool CheckPlannedTripTrigger(eye::MapObject const & poi, storage::TCountriesVec 
 
 namespace notifications
 {
-NotificationManager::NotificationManager(NotificationManager::Delegate const & delegate)
+NotificationManager::NotificationManager(NotificationManager::Delegate & delegate)
   : m_delegate(delegate)
 {
 }
@@ -149,7 +144,6 @@ void NotificationManager::TrimExpired()
       return Clock::now() - item.m_used >= eye::Eye::GetMapObjectEventsExpirePeriod();
 
     return Clock::now() - item.m_created >= kCandidatesExpirePeriod;
-
   }), candidates.end());
 
   VERIFY(Save(), ());
@@ -180,7 +174,15 @@ boost::optional<NotificationCandidate> NotificationManager::GetNotification()
 
 void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)
 {
-  ProcessUgcRateCandidates(poi);
+  CHECK(m_delegate.GetUGCApi(), ());
+
+  auto const bestType = classif().GetTypeByReadableObjectName(poi.GetBestType());
+
+  m_delegate.GetUGCApi()->HasUGCForPlace(bestType, poi.GetPos(), [this, poi] (bool result)
+  {
+    if (!result)
+      ProcessUgcRateCandidates(poi);
+  });
 }
 
 bool NotificationManager::Save()
@@ -202,6 +204,8 @@ void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
       return;
   }
 
+  CHECK_GREATER(poi.GetEvents().size(), 0, ());
+
   auto it = m_queue.m_candidates.begin();
   for (; it != m_queue.m_candidates.end(); ++it)
   {
@@ -213,32 +217,25 @@ void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
 
     if (it->m_mapObject->AlmostEquals(poi))
     {
-      if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved &&
-          CheckUgcNotSavedTrigger(poi))
+      if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved)
       {
         m_queue.m_candidates.erase(it);
         VERIFY(Save(), ());
-        break;
       }
 
-      it->m_timeOfLastEvent = Clock::now();
-      VERIFY(Save(), ());
       return;
     }
   }
 
-  CHECK_GREATER(poi.GetEvents().size(), 0, ());
+  if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved)
+    return;
 
-  auto const latLon = MercatorBounds::ToLatLon(poi.GetEvents().back().m_userPos);
-  auto const userMwms = m_delegate.GetTopmostCountries(std::move(latLon));
-
-  if (CheckUgcNotSavedTrigger(poi) || CheckRouteToInSameGeoTrigger(poi, userMwms) ||
-      CheckPlannedTripTrigger(poi, userMwms))
+  if (CheckUgcNotSavedTrigger(poi) || CheckRouteToInSameGeoTrigger(poi) ||
+      CheckPlannedTripTrigger(poi))
   {
     NotificationCandidate candidate;
     candidate.m_type = NotificationCandidate::Type::UgcReview;
     candidate.m_created = Clock::now();
-    candidate.m_timeOfLastEvent = candidate.m_created;
     candidate.m_mapObject = std::make_shared<eye::MapObject>(poi);
     m_queue.m_candidates.emplace_back(std::move(candidate));
 
@@ -253,7 +250,7 @@ Candidates::iterator NotificationManager::GetUgcRateCandidate()
   {
     if (it->m_used.time_since_epoch().count() == 0 &&
         it->m_type == NotificationCandidate::Type::UgcReview &&
-        Clock::now() - it->m_timeOfLastEvent >= kMinTimeSinceLastEventForUgcRate)
+        Clock::now() - it->m_created >= kMinTimeSinceLastEventForUgcRate)
     {
       return it;
     }

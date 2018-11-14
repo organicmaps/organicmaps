@@ -25,7 +25,6 @@ struct NotificationCandidate
   Type m_type;
   Time m_created;
   Time m_used;
-  Time m_timeOfLastEvent;
   std::shared_ptr<eye::MapObject> m_mapObject;
 };
 
@@ -42,7 +41,8 @@ struct QueueV0
 {
   static Version GetVersion() { return Version::V0; }
 
-  DECLARE_VISITOR(visitor(m_candidates, "queue"));
+  DECLARE_VISITOR(visitor(m_candidates, "queue"),
+                  visitor(m_lastNotificationProvidedTime, "last_notification"));
 
   Time m_lastNotificationProvidedTime;
   Candidates m_candidates;

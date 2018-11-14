@@ -19,12 +19,17 @@ namespace notifications
 class NotificationManagerForTesting : public NotificationManager
 {
 public:
-  explicit NotificationManagerForTesting(NotificationManager::Delegate const & delegate)
+  explicit NotificationManagerForTesting(NotificationManager::Delegate & delegate)
     : NotificationManager(delegate)
   {
   }
 
   Queue & GetEditableQueue() { return m_queue; }
+
+  void OnMapObjectEvent(eye::MapObject const & poi) override
+  {
+    ProcessUgcRateCandidates(poi);
+  }
 };
 }  // namespace notifications
 
@@ -43,15 +48,10 @@ class DelegateForTesting : public NotificationManager::Delegate
 {
 public:
   // NotificationManager::Delegate overrides:
-  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const override
+  ugc::Api * GetUGCApi() override
   {
-    return m_countries;
+    return nullptr;
   }
-
-  void SetCountries(storage::TCountriesVec const & countries) { m_countries = countries; }
-
-private:
-  storage::TCountriesVec m_countries;
 };
 
 Queue MakeDefaultQueueForTesting()
@@ -147,13 +147,10 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckRouteToInSam
   DelegateForTesting delegate;
   NotificationManagerForTesting notificationManager(delegate);
 
-  delegate.SetCountries({"Norway_Central"});
-
   eye::MapObject mapObject;
   mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
   mapObject.SetReadableName("Visiting a Bjarne");
   mapObject.SetBestType("amenity-bar");
-  mapObject.SetMwmNames({"Norway_Central"});
 
   eye::MapObject::Event event;
   event.m_type = eye::MapObject::Event::Type::RouteToCreated;
@@ -163,7 +160,7 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckRouteToInSam
   notificationManager.OnMapObjectEvent(mapObject);
 
   TEST_EQUAL(notificationManager.GetEditableQueue().m_candidates.size(), 1, ());
-  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent = event.m_eventTime;
+  notificationManager.GetEditableQueue().m_candidates[0].m_created = event.m_eventTime;
 
   auto result = notificationManager.GetNotification();
 
@@ -179,13 +176,10 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedT
   DelegateForTesting delegate;
   NotificationManagerForTesting notificationManager(delegate);
 
-  delegate.SetCountries({"Norway_Central"});
-
   eye::MapObject mapObject;
   mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
   mapObject.SetReadableName("Visiting a Bjarne");
   mapObject.SetBestType("amenity-bar");
-  mapObject.SetMwmNames({"Norway_Central"});
 
   {
     eye::MapObject::Event event;
@@ -213,7 +207,7 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckUgcNotSavedT
 
   TEST(!result.is_initialized(), ());
 
-  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent =
+  notificationManager.GetEditableQueue().m_candidates[0].m_created =
       notifications::Clock::now() - std::chrono::hours(25);
 
   result = notificationManager.GetNotification();
@@ -251,13 +245,10 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripT
   DelegateForTesting delegate;
   NotificationManagerForTesting notificationManager(delegate);
 
-  delegate.SetCountries({"Norway_Central"});
-
   eye::MapObject mapObject;
   mapObject.SetPos(MercatorBounds::FromLatLon({59.909299, 10.769807}));
   mapObject.SetReadableName("Visiting a Bjarne");
   mapObject.SetBestType("amenity-bar");
-  mapObject.SetMwmNames({"Norway_Central"});
 
   {
     eye::MapObject::Event event;
@@ -283,7 +274,7 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripT
 
   {
     eye::MapObject::Event event;
-    event.m_type = eye::MapObject::Event::Type::RouteToCreated;
+    event.m_type = eye::MapObject::Event::Type::Open;
     event.m_userPos = MercatorBounds::FromLatLon({59.920333, 10.780793});
     event.m_eventTime = notifications::Clock::now() - std::chrono::hours(25);
     mapObject.GetEditableEvents().push_back(event);
@@ -296,7 +287,7 @@ UNIT_CLASS_TEST(ScopedNotificationsQueue, Notifications_UgcRateCheckPlannedTripT
 
   TEST(!result.is_initialized(), ());
 
-  notificationManager.GetEditableQueue().m_candidates[0].m_timeOfLastEvent =
+  notificationManager.GetEditableQueue().m_candidates[0].m_created =
       notifications::Clock::now() - std::chrono::hours(25);
 
   result = notificationManager.GetNotification();

@@ -30,7 +30,7 @@ public:
   using UGCJsonToSendCallback = std::function<void(std::string && jsonStr, size_t numberOfUnsynchronized)>;
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
   using NumberOfUnsynchronizedCallback = std::function<void(size_t number)>;
-  using HasUGCForPlaceCallback = std::function<void(bool result)>;
+  using HasUGCForPlaceCallback = platform::SafeCallback<void(bool result)>;
 
   Api(DataSource const & dataSource, NumberOfUnsynchronizedCallback const & callback);
 
@@ -38,7 +38,7 @@ public:
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,
                     OnResultCallback const & callback = nullptr);
   void GetUGCToSend(UGCJsonToSendCallback const & callback);
-  void HasUGCForPlace(feature::TypesHolder const & types, m2::PointD const & point,
+  void HasUGCForPlace(uint32_t bestType, m2::PointD const & point,
                       HasUGCForPlaceCallback const & callback);
   void SendingCompleted();
   void SaveUGCOnDisk();

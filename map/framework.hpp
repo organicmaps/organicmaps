@@ -259,7 +259,8 @@ public:
   viator::Api * GetViatorApi(platform::NetworkPolicy const & policy);
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
-  ugc::Api * GetUGCApi() { return m_ugcApi.get(); }
+  // NotificationManager::Delegate override.
+  ugc::Api * GetUGCApi() override { return m_ugcApi.get(); }
   ugc::Api const * GetUGCApi() const { return m_ugcApi.get(); }
 
   df::DrapeApi & GetDrapeApi() { return m_drapeApi; }
@@ -853,7 +854,7 @@ private:
   //@}
 
 public:
-  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const override;
+  storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const;
 
 private:
   unique_ptr<search::CityFinder> m_cityFinder;

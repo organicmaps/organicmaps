@@ -196,14 +196,17 @@ public:
 
   bool operator==(MapObject const & rhs) const
   {
-    return GetPos() == rhs.GetPos() && GetBestType() == rhs.GetBestType();
+    return GetPos() == rhs.GetPos() && GetBestType() == rhs.GetBestType() &&
+           GetDefaultName() == rhs.GetDefaultName();
   }
 
   bool operator!=(MapObject const & rhs) const { return !((*this) == rhs); }
 
   bool AlmostEquals(MapObject const & rhs) const
   {
-    return m_pos.EqualDxDy(rhs.GetPos(), 1e-7) && GetBestType() == rhs.GetBestType();
+    // We are use 1e-5 eps because of points in mwm have this accuracy.
+    return GetPos().EqualDxDy(rhs.GetPos(), 1e-5 /* eps */) && GetBestType() == rhs.GetBestType() &&
+           GetDefaultName() == rhs.GetDefaultName();
   }
 
   std::string const & GetBestType() const { return m_bestType; }
@@ -219,13 +222,13 @@ public:
                    MercatorBounds::ClampX(pos.x + 1e-7), MercatorBounds::ClampY(pos.y + 1e-7)};
   }
 
-  std::vector<std::string> const & GetMwmNames() const { return m_mwmNames; }
-
-  void SetMwmNames(std::vector<std::string> const & ids) { m_mwmNames = ids; }
-
   std::string const & GetReadableName() const { return m_readableName; }
 
   void SetReadableName(std::string const & readableName) { m_readableName = readableName; }
+
+  std::string const & GetDefaultName() const { return m_readableName; }
+
+  void GetDefaultName(std::string const & readableName) { m_readableName = readableName; }
 
   MapObject::Events & GetEditableEvents() const { return m_events; }
 
@@ -234,14 +237,13 @@ public:
   m2::RectD GetLimitRect() const { return m_limitRect; }
 
   DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
-                  visitor(m_mwmNames, "mwm_names"), visitor(m_readableName, "name"),
-                  visitor(m_events, "events"));
+                  visitor(m_readableName, "name"), visitor(m_events, "events"));
 
 private:
   std::string m_bestType;
   m2::PointD m_pos;
-  std::vector<std::string> m_mwmNames;
   std::string m_readableName;
+  std::string m_defaultName;
   // Mutable because of interface of the m4::Tree provides constant references in ForEach methods,
   // but we need to add events into existing objects to avoid some overhead (copy + change +
   // remove + insert operations). The other solution is to use const_cast in ForEach methods.

@@ -2,6 +2,8 @@
 
 #include "map/notifications/notification_queue.hpp"
 
+#include "ugc/api.hpp"
+
 #include "metrics/eye.hpp"
 
 #include <string>
@@ -19,11 +21,10 @@ public:
   {
   public:
     virtual ~Delegate() = default;
-
-    virtual storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const = 0;
+    virtual ugc::Api * GetUGCApi() = 0;
   };
 
-  explicit NotificationManager(Delegate const & delegate);
+  explicit NotificationManager(Delegate & delegate);
 
   void Load();
   void TrimExpired();
@@ -38,7 +39,7 @@ private:
   void ProcessUgcRateCandidates(eye::MapObject const & poi);
   Candidates::iterator GetUgcRateCandidate();
 
-  Delegate const & m_delegate;
+  Delegate & m_delegate;
   // Notification candidates queue.
   Queue m_queue;
 };
@@ -60,9 +61,9 @@ private:
   {
   public:
     // NotificationManager::Delegate overrides:
-    storage::TCountriesVec GetTopmostCountries(ms::LatLon const & latlon) const override
+    ugc::Api * GetUGCApi() override
     {
-      return {};
+      return nullptr;
     }
   };
 

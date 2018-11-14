@@ -40,13 +40,12 @@ void Api::GetUGCToSend(UGCJsonToSendCallback const & callback)
   m_thread.Push([callback, this] { GetUGCToSendImpl(callback); });
 }
 
-void Api::HasUGCForPlace(feature::TypesHolder const & types, m2::PointD const & point,
+void Api::HasUGCForPlace(uint32_t bestType, m2::PointD const & point,
                          HasUGCForPlaceCallback const & callback)
 {
-  m_thread.Push([this, editableTypes = types, point, callback]() mutable
+  m_thread.Push([=]() mutable
   {
-    editableTypes.SortBySpec();
-    HasUGCForPlaceImpl(editableTypes.GetBestType(), point, callback);
+    HasUGCForPlaceImpl(bestType, point, callback);
   });
 }
 
