@@ -25,7 +25,7 @@ import base64
 class CountryDict(dict):
   def __init__(self, *args, **kwargs):
     dict.__init__(self, *args, **kwargs)
-    self.order = ['id',  'n', 'f', 'v', 'c', 's', 'h', 'rs', 'g']
+    self.order = ['id',  'n', 'f', 'v', 'c', 's', 'sha1_base64', 'rs', 'g']
 
   def __iter__(self):
     for key in self.order:
@@ -47,7 +47,7 @@ def get_hash(path, name):
   with open(filename, 'rb') as f:
     for chunk in iter(lambda: f.read(4096), b""):
       h.update(chunk)
-    return base64.b64encode(h.hexdigest())
+  return base64.b64encode(h.digest())
 
 def get_size(path, name):
   if path == '0':
@@ -158,7 +158,7 @@ with open(options.hierarchy, 'r') as f:
         else:
           name = last['f' if 'f' in last else nameattr]
           last['s'] = get_size(mwmpath, name)
-          last['h'] = get_hash(mwmpath, name)
+          last['sha1_base64'] = get_hash(mwmpath, name)
           if options.legacy:
             last['rs'] = 0
           if last['s'] >= 0:
@@ -186,7 +186,7 @@ with open(options.hierarchy, 'r') as f:
 del last['d']
 name = last['f' if 'f' in last else nameattr]
 last['s'] = get_size(mwmpath, name)
-last['h'] = get_hash(mwmpath, name)
+last['sha1_base64'] = get_hash(mwmpath, name)
 if options.legacy:
   last['rs'] = 0
 if last['s'] >= 0:
