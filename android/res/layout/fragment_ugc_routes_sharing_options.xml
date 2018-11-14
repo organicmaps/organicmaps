@@ -265,8 +265,8 @@
               android:paddingBottom="@dimen/margin_half_double_plus"/>
           </LinearLayout>
         </RelativeLayout>
+        <include layout="@layout/list_divider"/>
       </LinearLayout>
-      <include layout="@layout/list_divider"/>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

@@ -399,22 +399,8 @@ public class BookmarkCategory implements Parcelable
     ACCESS_RULES_LOCAL(R.string.not_shared, R.drawable.ic_public_inline),
     ACCESS_RULES_PUBLIC(R.string.public_access, R.drawable.ic_public_inline),
     ACCESS_RULES_DIRECT_LINK(R.string.limited_access, R.drawable.ic_link_inline),
-    ACCESS_RULES_P2P(UiUtils.NO_ID, R.drawable.ic_public_inline)
-        {
-          @Override
-          public int getNameResId()
-          {
-            throw new IllegalStateException("Unsupported here");
-          }
-        },
-    ACCESS_RULES_PAID(UiUtils.NO_ID, R.drawable.ic_public_inline)
-        {
-          @Override
-          public int getNameResId()
-          {
-            throw new IllegalStateException("Unsupported here");
-          }
-        };
+    ACCESS_RULES_P2P(R.string.access_rules_p_to_p, R.drawable.ic_public_inline),
+    ACCESS_RULES_PAID(R.string.access_rules_paid, R.drawable.ic_public_inline);
 
     private final int mResId;
     private final int mDrawableResId;
