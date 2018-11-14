@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
@@ -51,6 +52,14 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   @NonNull
   private View mPropsContainer;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Button mLeftBtn;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Button mRightBtn;
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -74,14 +83,27 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
 
   private void initViews(@NonNull View root)
   {
-    View leftBtn = root.findViewById(R.id.left_btn);
-    leftBtn.setOnClickListener(v -> onLeftBtnClicked());
-    View rightBtn = root.findViewById(R.id.right_btn);
-    rightBtn.setOnClickListener(v -> onRightBtnClicked());
+    mLeftBtn = root.findViewById(R.id.left_btn);
+    mLeftBtn.setOnClickListener(v -> onLeftBtnClicked());
+    mRightBtn = root.findViewById(R.id.right_btn);
+    mRightBtn.setOnClickListener(v -> onRightBtnClicked());
     mPropsContainer = root.findViewById(R.id.properties_container);
     UiUtils.hideIf(mProps.isEmpty(), mPropsContainer);
     mProgress = root.findViewById(R.id.progress);
     UiUtils.showIf(mProps.isEmpty(), mProgress);
+    if (mProps.isEmpty())
+      return;
+
+    initButtons();
+  }
+
+  private void initButtons()
+  {
+    CatalogCustomProperty property = mProps.get(0);
+    CatalogCustomPropertyOption firstOption = property.getOptions().get(FIRST_OPTION_INDEX);
+    CatalogCustomPropertyOption secondOption = property.getOptions().get(SECOND_OPTION_INDEX);
+    mLeftBtn.setText(firstOption.getLocalizedName());
+    mRightBtn.setText(secondOption.getLocalizedName());
   }
 
   @Override
@@ -179,6 +201,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
     mProps = properties;
     mPropsContainer.setVisibility(View.VISIBLE);
     mProgress.setVisibility(View.GONE);
+    initButtons();
   }
 
   @Override
