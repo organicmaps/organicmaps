@@ -95,18 +95,8 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams cons
   // @TODO(bykoianko) Consider using speed on feature |f| instead of using max speed below.
   if (restriction == RoadAvailability::Available)
     return speedParams.m_inCity ? m_modelMaxSpeed.m_inCity : m_modelMaxSpeed.m_outCity;
-
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-  {
-    uint16_t const speedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
-    // Note. It's the first rough attept using maxspeed tag value for speed calculation.
-    // It's used as a feature speed if it's valid and less then some value.
-    // @TODO maxspeed tag value should be used more sophisticated.
-    if (!speedParams.m_maxspeed.IsValid() || speedKmPH > 200)
-      return GetMinTypeSpeed(types, speedParams.m_inCity);
-
-    return {static_cast<double>(speedKmPH), static_cast<double>(speedKmPH)};
-  }
+    return GetMinTypeSpeed(types, speedParams.m_inCity);
 
   return {};
 }

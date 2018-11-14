@@ -4,6 +4,7 @@
 
 #include "indexer/classificator.hpp"
 
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -229,6 +230,19 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   : VehicleModel(classif(), roadLimits, g_carSurface)
 {
   InitAdditionalRoadTypes();
+}
+
+SpeedKMpH CarModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
+{
+  if (!speedParams.m_maxspeed.IsValid())
+    return VehicleModel::GetSpeed(f, speedParams);
+
+  // Note. It's the first rough attempt using maxspeed tag value for speed calculation.
+  // It's used as a feature speed if it's valid and less then some value.
+  // @TODO maxspeed tag value should be used more sophisticated.
+  uint16_t const maxspeedBasedspeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
+  auto const speedKmPH = min(static_cast<double>(maxspeedBasedspeedKmPH), GetMaxWeightSpeed());
+  return {speedKmPH /* weight */, speedKmPH /* eta */};
 }
 
 double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
