@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -34,6 +35,13 @@ public class ToolbarController
     if (useExtendedToolbar())
       UiUtils.extendViewWithStatusBar(getToolbar());
     setupNavigationListener();
+    setSupportActionBar();
+  }
+
+  private void setSupportActionBar()
+  {
+    AppCompatActivity appCompatActivity = (AppCompatActivity) mActivity;
+    appCompatActivity.setSupportActionBar(mToolbar);
   }
 
   protected boolean useExtendedToolbar()

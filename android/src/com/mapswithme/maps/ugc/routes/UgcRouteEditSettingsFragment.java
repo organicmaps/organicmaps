@@ -122,6 +122,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     if (item.getItemId() == R.id.done)
     {
       onEditDoneClicked();
+      getActivity().finish();
       return true;
     }
     return super.onOptionsItemSelected(item);

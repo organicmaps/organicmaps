@@ -541,10 +541,10 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryName(
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryDesc(JNIEnv * env,
-                                                                              jobject thiz,
-                                                                              jlong catId,
-                                                                              jstring desc)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryDescription(JNIEnv * env,
+                                                                                     jobject thiz,
+                                                                                     jlong catId,
+                                                                                     jstring desc)
 {
   frm()->GetBookmarkManager().GetEditSession().SetCategoryDescription(
       static_cast<kml::MarkGroupId>(catId), jni::ToNativeString(env, desc));
