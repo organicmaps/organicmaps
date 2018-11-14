@@ -27,7 +27,7 @@ inline std::string DebugPrint(Units units)
 inline double MetersToMiles(double m) { return m * 0.000621371192; }
 inline double MilesToMeters(double mi) { return mi * 1609.344; }
 inline double MphToKmph(double mph) { return MilesToMeters(mph) / 1000.0; }
-inline double KmphToMph(double kmph) { return MetersToMiles(kmph) * 1000.0; }
+inline double KmphToMph(double kmph) { return MetersToMiles(kmph * 1000.0); }
 inline double MetersToFeet(double m) { return m * 3.2808399; }
 inline double FeetToMeters(double ft) { return ft * 0.3048; }
 inline double FeetToMiles(double ft) { return ft * 5280; }

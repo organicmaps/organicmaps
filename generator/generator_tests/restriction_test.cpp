@@ -34,7 +34,7 @@ namespace
 // Directory name for creating test mwm and temporary files.
 string const kTestDir = "restriction_generation_test";
 // Temporary mwm name for testing.
-string const kTest = "test";
+string const kTestMwm = "test";
 string const kRestrictionFileName = "restrictions_in_osm_ids.csv";
 string const kOsmIdsToFeatureIdsName = "osm_ids_to_feature_ids" OSM2FEATURE_FILE_EXTENSION;
 
@@ -76,10 +76,10 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
   string const writableDir = platform.WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTest),
+  LocalCountryFile country(base::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
                            0 /* version */);
   ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION);
+  string const mwmRelativePath = base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
   ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildEmptyMwm(country);
 

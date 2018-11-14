@@ -137,8 +137,8 @@ RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedK
                            Points const & points)
   : m_forwardSpeed{weightSpeedKMpH, etaSpeedKMpH}
   , m_backwardSpeed(m_forwardSpeed)
-  , m_isOneWay{oneWay}
-  , m_valid{true}
+  , m_isOneWay(oneWay)
+  , m_valid(true)
 {
   ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
   ASSERT_GREATER(etaSpeedKMpH, 0.0, ());

@@ -13,17 +13,17 @@ UNIT_TEST(GeoObjectId)
   GeoObjectId const node(GeoObjectId::Type::ObsoleteOsmNode, 12345);
   TEST_EQUAL(node.GetSerialId(), 12345ULL, ());
   TEST_EQUAL(node.GetType(), GeoObjectId::Type::ObsoleteOsmNode, ());
-  TEST_EQUAL(DebugPrint(node), "Obsolete Osm Node 12345", ());
+  TEST_EQUAL(DebugPrint(node), "Osm Node 12345", ());
 
   GeoObjectId const way(GeoObjectId::Type::ObsoleteOsmWay, 93245123456332ULL);
   TEST_EQUAL(way.GetSerialId(), 93245123456332ULL, ());
   TEST_EQUAL(way.GetType(), GeoObjectId::Type::ObsoleteOsmWay, ());
-  TEST_EQUAL(DebugPrint(way), "Obsolete Osm Way 93245123456332", ());
+  TEST_EQUAL(DebugPrint(way), "Osm Way 93245123456332", ());
 
   GeoObjectId const relation(GeoObjectId::Type::ObsoleteOsmRelation, 5);
   TEST_EQUAL(relation.GetSerialId(), 5ULL, ());
   TEST_EQUAL(relation.GetType(), GeoObjectId::Type::ObsoleteOsmRelation, ());
-  TEST_EQUAL(DebugPrint(relation), "Obsolete Osm Relation 5", ());
+  TEST_EQUAL(DebugPrint(relation), "Osm Relation 5", ());
 
   // 2^48 - 1, maximal possible serial id.
   GeoObjectId const surrogate(GeoObjectId::Type::OsmSurrogate, 281474976710655ULL);

@@ -1,10 +1,15 @@
 #include "routing_common/maxspeed_conversion.hpp"
 
+#include "base/assert.hpp"
+
 #include <sstream>
+#include <tuple>
 #include <utility>
+#include <vector>
 
 namespace routing
 {
+using namespace std;
 using namespace measurement_utils;
 
 // SpeedInUnits ------------------------------------------------------------------------------------
@@ -15,8 +20,7 @@ bool SpeedInUnits::operator==(SpeedInUnits const & rhs) const
 
 bool SpeedInUnits::operator<(SpeedInUnits const & rhs) const
 {
-  return (m_units == Units::Metric ? m_speed : MphToKmph(m_speed)) <
-         (rhs.m_units == Units::Metric ? rhs.m_speed : MphToKmph(rhs.m_speed));
+  return ToSpeedKmPH(m_speed, m_units) < ToSpeedKmPH(rhs.m_speed, rhs.m_units);
 }
 
 bool SpeedInUnits::IsNumeric() const
@@ -25,6 +29,11 @@ bool SpeedInUnits::IsNumeric() const
 }
 
 // Maxspeed ----------------------------------------------------------------------------------------
+Maxspeed::Maxspeed(Units units, uint16_t forward, uint16_t backward)
+  : m_units(units), m_forward(forward), m_backward(backward)
+{
+}
+
 bool Maxspeed::operator==(Maxspeed const & rhs) const
 {
   return m_units == rhs.m_units && m_forward == rhs.m_forward && m_backward == rhs.m_backward;
@@ -37,6 +46,9 @@ uint16_t Maxspeed::GetSpeedInUnits(bool forward) const
 
 uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 {
+  uint16_t constexpr kNoneSpeedLimitKmPH = 1000;
+  uint16_t constexpr kWalkSpeedLimitKmPH = 6;
+
   auto speedInUnits = GetSpeedInUnits(forward);
   if (speedInUnits == kInvalidSpeed)
     return kInvalidSpeed; // That means IsValid() returns false.
@@ -46,11 +58,12 @@ uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 
   // A feature is marked as a feature without any speed limits. (maxspeed=="none").
   if (kNoneMaxSpeed)
-    return 1000; // km per hour
+    return kNoneSpeedLimitKmPH;
 
-  // A feature is marked the a driver should drive with walking speed on it. (maxspeed=="walk").
+  // If a feature is marked with the maxspeed=="walk" tag (speed == kWalkMaxSpeed) a driver
+  // should drive with a speed of a walking person.
   if (kWalkMaxSpeed)
-    return 6; // km per hour
+    return kWalkSpeedLimitKmPH;
 
   CHECK(false, ("Method IsNumeric() returns something wrong."));
 }
@@ -58,7 +71,7 @@ uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 // FeatureMaxspeed ---------------------------------------------------------------------------------
 FeatureMaxspeed::FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
                                  uint16_t backward /* = kInvalidSpeed */) noexcept
-  : m_featureId(fid), m_maxspeed({units, forward, backward})
+  : m_featureId(fid), m_maxspeed(units, forward, backward)
 {
 }
 
@@ -69,165 +82,171 @@ bool FeatureMaxspeed::operator==(FeatureMaxspeed const & rhs) const
 
 SpeedInUnits FeatureMaxspeed::GetForwardSpeedInUnits() const
 {
-  return SpeedInUnits(GetMaxspeed().m_forward, GetMaxspeed().m_units);
+  return SpeedInUnits(GetMaxspeed().GetForward(), GetMaxspeed().GetUnits());
 }
 
 SpeedInUnits FeatureMaxspeed::GetBackwardSpeedInUnits() const
 {
-  return SpeedInUnits(GetMaxspeed().m_backward, GetMaxspeed().m_units);
+  return SpeedInUnits(GetMaxspeed().GetBackward(), GetMaxspeed().GetUnits());
 }
 
 // MaxspeedConverter -------------------------------------------------------------------------------
 MaxspeedConverter::MaxspeedConverter()
 {
-  // Special values.
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Undefined)] = SpeedInUnits(kInvalidSpeed, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::None)] = SpeedInUnits(kNoneMaxSpeed, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Walk)] = SpeedInUnits(kWalkMaxSpeed, Units::Metric);
+  vector<tuple<SpeedMacro, uint16_t, Units>> const table = {
+      // Special values.
+      {SpeedMacro::Undefined, kInvalidSpeed /* speed */, Units::Metric},
+      {SpeedMacro::None, kNoneMaxSpeed /* speed */, Units::Metric},
+      {SpeedMacro::Walk, kWalkMaxSpeed /* speed */, Units::Metric},
 
-  // Km per hour.
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed1kph)] = SpeedInUnits(1, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed2kph)] = SpeedInUnits(2, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed3kph)] = SpeedInUnits(3, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed4kph)] = SpeedInUnits(4, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed5kph)] = SpeedInUnits(5, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed6kph)] = SpeedInUnits(6, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed7kph)] = SpeedInUnits(7, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed8kph)] = SpeedInUnits(8, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed9kph)] = SpeedInUnits(9, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed10kph)] = SpeedInUnits(10, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed11kph)] = SpeedInUnits(11, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed12kph)] = SpeedInUnits(12, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed13kph)] = SpeedInUnits(13, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed14kph)] = SpeedInUnits(14, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed15kph)] = SpeedInUnits(15, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed16kph)] = SpeedInUnits(16, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed18kph)] = SpeedInUnits(18, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed20kph)] = SpeedInUnits(20, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed22kph)] = SpeedInUnits(22, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed25kph)] = SpeedInUnits(25, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed24kph)] = SpeedInUnits(24, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed28kph)] = SpeedInUnits(28, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed30kph)] = SpeedInUnits(30, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed32kph)] = SpeedInUnits(32, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed35kph)] = SpeedInUnits(35, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed36kph)] = SpeedInUnits(36, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed39kph)] = SpeedInUnits(39, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed40kph)] = SpeedInUnits(40, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed45kph)] = SpeedInUnits(45, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed50kph)] = SpeedInUnits(50, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed55kph)] = SpeedInUnits(55, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed56kph)] = SpeedInUnits(56, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed60kph)] = SpeedInUnits(60, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed64kph)] = SpeedInUnits(64, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed65kph)] = SpeedInUnits(65, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed70kph)] = SpeedInUnits(70, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed72kph)] = SpeedInUnits(72, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed75kph)] = SpeedInUnits(75, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed80kph)] = SpeedInUnits(80, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed82kph)] = SpeedInUnits(82, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed85kph)] = SpeedInUnits(85, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed89kph)] = SpeedInUnits(89, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed90kph)] = SpeedInUnits(90, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed93kph)] = SpeedInUnits(93, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed95kph)] = SpeedInUnits(95, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed96kph)] = SpeedInUnits(96, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed100kph)] = SpeedInUnits(100, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed104kph)] = SpeedInUnits(104, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed105kph)] = SpeedInUnits(105, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed106kph)] = SpeedInUnits(106, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed110kph)] = SpeedInUnits(110, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed112kph)] = SpeedInUnits(112, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed115kph)] = SpeedInUnits(115, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed120kph)] = SpeedInUnits(120, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed125kph)] = SpeedInUnits(125, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed127kph)] = SpeedInUnits(127, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed130kph)] = SpeedInUnits(130, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed135kph)] = SpeedInUnits(135, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed140kph)] = SpeedInUnits(140, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed141kph)] = SpeedInUnits(141, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed145kph)] = SpeedInUnits(145, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed150kph)] = SpeedInUnits(150, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed155kph)] = SpeedInUnits(155, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed160kph)] = SpeedInUnits(160, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed165kph)] = SpeedInUnits(165, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed170kph)] = SpeedInUnits(170, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed177kph)] = SpeedInUnits(177, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed180kph)] = SpeedInUnits(180, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed185kph)] = SpeedInUnits(185, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed190kph)] = SpeedInUnits(190, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed193kph)] = SpeedInUnits(193, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed195kph)] = SpeedInUnits(195, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed200kph)] = SpeedInUnits(200, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed201kph)] = SpeedInUnits(201, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed210kph)] = SpeedInUnits(210, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed217kph)] = SpeedInUnits(217, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed220kph)] = SpeedInUnits(220, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed230kph)] = SpeedInUnits(230, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed240kph)] = SpeedInUnits(240, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed250kph)] = SpeedInUnits(250, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed260kph)] = SpeedInUnits(260, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed270kph)] = SpeedInUnits(270, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed275kph)] = SpeedInUnits(275, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed280kph)] = SpeedInUnits(280, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed285kph)] = SpeedInUnits(285, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed300kph)] = SpeedInUnits(300, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed305kph)] = SpeedInUnits(305, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed310kph)] = SpeedInUnits(310, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed320kph)] = SpeedInUnits(320, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed350kph)] = SpeedInUnits(350, Units::Metric);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed380kph)] = SpeedInUnits(380, Units::Metric);
+      // Km per hour.
+      {SpeedMacro::Speed1KmPH, 1 /* speed */, Units::Metric},
+      {SpeedMacro::Speed2KmPH, 2 /* speed */, Units::Metric},
+      {SpeedMacro::Speed3KmPH, 3 /* speed */, Units::Metric},
+      {SpeedMacro::Speed4KmPH, 4 /* speed */, Units::Metric},
+      {SpeedMacro::Speed5KmPH, 5 /* speed */, Units::Metric},
+      {SpeedMacro::Speed6KmPH, 6 /* speed */, Units::Metric},
+      {SpeedMacro::Speed7KmPH, 7 /* speed */, Units::Metric},
+      {SpeedMacro::Speed8KmPH, 8 /* speed */, Units::Metric},
+      {SpeedMacro::Speed9KmPH, 9 /* speed */, Units::Metric},
+      {SpeedMacro::Speed10KmPH, 10 /* speed */, Units::Metric},
+      {SpeedMacro::Speed11KmPH, 11 /* speed */, Units::Metric},
+      {SpeedMacro::Speed12KmPH, 12 /* speed */, Units::Metric},
+      {SpeedMacro::Speed13KmPH, 13 /* speed */, Units::Metric},
+      {SpeedMacro::Speed14KmPH, 14 /* speed */, Units::Metric},
+      {SpeedMacro::Speed15KmPH, 15 /* speed */, Units::Metric},
+      {SpeedMacro::Speed16KmPH, 16 /* speed */, Units::Metric},
+      {SpeedMacro::Speed18KmPH, 18 /* speed */, Units::Metric},
+      {SpeedMacro::Speed20KmPH, 20 /* speed */, Units::Metric},
+      {SpeedMacro::Speed22KmPH, 22 /* speed */, Units::Metric},
+      {SpeedMacro::Speed25KmPH, 25 /* speed */, Units::Metric},
+      {SpeedMacro::Speed24KmPH, 24 /* speed */, Units::Metric},
+      {SpeedMacro::Speed28KmPH, 28 /* speed */, Units::Metric},
+      {SpeedMacro::Speed30KmPH, 30 /* speed */, Units::Metric},
+      {SpeedMacro::Speed32KmPH, 32 /* speed */, Units::Metric},
+      {SpeedMacro::Speed35KmPH, 35 /* speed */, Units::Metric},
+      {SpeedMacro::Speed36KmPH, 36 /* speed */, Units::Metric},
+      {SpeedMacro::Speed39KmPH, 39 /* speed */, Units::Metric},
+      {SpeedMacro::Speed40KmPH, 40 /* speed */, Units::Metric},
+      {SpeedMacro::Speed45KmPH, 45 /* speed */, Units::Metric},
+      {SpeedMacro::Speed50KmPH, 50 /* speed */, Units::Metric},
+      {SpeedMacro::Speed55KmPH, 55 /* speed */, Units::Metric},
+      {SpeedMacro::Speed56KmPH, 56 /* speed */, Units::Metric},
+      {SpeedMacro::Speed60KmPH, 60 /* speed */, Units::Metric},
+      {SpeedMacro::Speed64KmPH, 64 /* speed */, Units::Metric},
+      {SpeedMacro::Speed65KmPH, 65 /* speed */, Units::Metric},
+      {SpeedMacro::Speed70KmPH, 70 /* speed */, Units::Metric},
+      {SpeedMacro::Speed72KmPH, 72 /* speed */, Units::Metric},
+      {SpeedMacro::Speed75KmPH, 75 /* speed */, Units::Metric},
+      {SpeedMacro::Speed80KmPH, 80 /* speed */, Units::Metric},
+      {SpeedMacro::Speed82KmPH, 82 /* speed */, Units::Metric},
+      {SpeedMacro::Speed85KmPH, 85 /* speed */, Units::Metric},
+      {SpeedMacro::Speed89KmPH, 89 /* speed */, Units::Metric},
+      {SpeedMacro::Speed90KmPH, 90 /* speed */, Units::Metric},
+      {SpeedMacro::Speed93KmPH, 93 /* speed */, Units::Metric},
+      {SpeedMacro::Speed95KmPH, 95 /* speed */, Units::Metric},
+      {SpeedMacro::Speed96KmPH, 96 /* speed */, Units::Metric},
+      {SpeedMacro::Speed100KmPH, 100 /* speed */, Units::Metric},
+      {SpeedMacro::Speed104KmPH, 104 /* speed */, Units::Metric},
+      {SpeedMacro::Speed105KmPH, 105 /* speed */, Units::Metric},
+      {SpeedMacro::Speed106KmPH, 106 /* speed */, Units::Metric},
+      {SpeedMacro::Speed110KmPH, 110 /* speed */, Units::Metric},
+      {SpeedMacro::Speed112KmPH, 112 /* speed */, Units::Metric},
+      {SpeedMacro::Speed115KmPH, 115 /* speed */, Units::Metric},
+      {SpeedMacro::Speed120KmPH, 120 /* speed */, Units::Metric},
+      {SpeedMacro::Speed125KmPH, 125 /* speed */, Units::Metric},
+      {SpeedMacro::Speed127KmPH, 127 /* speed */, Units::Metric},
+      {SpeedMacro::Speed130KmPH, 130 /* speed */, Units::Metric},
+      {SpeedMacro::Speed135KmPH, 135 /* speed */, Units::Metric},
+      {SpeedMacro::Speed140KmPH, 140 /* speed */, Units::Metric},
+      {SpeedMacro::Speed141KmPH, 141 /* speed */, Units::Metric},
+      {SpeedMacro::Speed145KmPH, 145 /* speed */, Units::Metric},
+      {SpeedMacro::Speed150KmPH, 150 /* speed */, Units::Metric},
+      {SpeedMacro::Speed155KmPH, 155 /* speed */, Units::Metric},
+      {SpeedMacro::Speed160KmPH, 160 /* speed */, Units::Metric},
+      {SpeedMacro::Speed165KmPH, 165 /* speed */, Units::Metric},
+      {SpeedMacro::Speed170KmPH, 170 /* speed */, Units::Metric},
+      {SpeedMacro::Speed177KmPH, 177 /* speed */, Units::Metric},
+      {SpeedMacro::Speed180KmPH, 180 /* speed */, Units::Metric},
+      {SpeedMacro::Speed185KmPH, 185 /* speed */, Units::Metric},
+      {SpeedMacro::Speed190KmPH, 190 /* speed */, Units::Metric},
+      {SpeedMacro::Speed193KmPH, 193 /* speed */, Units::Metric},
+      {SpeedMacro::Speed195KmPH, 195 /* speed */, Units::Metric},
+      {SpeedMacro::Speed200KmPH, 200 /* speed */, Units::Metric},
+      {SpeedMacro::Speed201KmPH, 201 /* speed */, Units::Metric},
+      {SpeedMacro::Speed210KmPH, 210 /* speed */, Units::Metric},
+      {SpeedMacro::Speed217KmPH, 217 /* speed */, Units::Metric},
+      {SpeedMacro::Speed220KmPH, 220 /* speed */, Units::Metric},
+      {SpeedMacro::Speed230KmPH, 230 /* speed */, Units::Metric},
+      {SpeedMacro::Speed240KmPH, 240 /* speed */, Units::Metric},
+      {SpeedMacro::Speed250KmPH, 250 /* speed */, Units::Metric},
+      {SpeedMacro::Speed260KmPH, 260 /* speed */, Units::Metric},
+      {SpeedMacro::Speed270KmPH, 270 /* speed */, Units::Metric},
+      {SpeedMacro::Speed275KmPH, 275 /* speed */, Units::Metric},
+      {SpeedMacro::Speed280KmPH, 280 /* speed */, Units::Metric},
+      {SpeedMacro::Speed285KmPH, 285 /* speed */, Units::Metric},
+      {SpeedMacro::Speed300KmPH, 300 /* speed */, Units::Metric},
+      {SpeedMacro::Speed305KmPH, 305 /* speed */, Units::Metric},
+      {SpeedMacro::Speed310KmPH, 310 /* speed */, Units::Metric},
+      {SpeedMacro::Speed320KmPH, 320 /* speed */, Units::Metric},
+      {SpeedMacro::Speed350KmPH, 350 /* speed */, Units::Metric},
+      {SpeedMacro::Speed380KmPH, 380 /* speed */, Units::Metric},
 
-  // Mile per hours.
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed3mph)] = SpeedInUnits(3, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed4mph)] = SpeedInUnits(4, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed5mph)] = SpeedInUnits(5, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed6mph)] = SpeedInUnits(6, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed7mph)] = SpeedInUnits(7, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed8mph)] = SpeedInUnits(8, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed9mph)] = SpeedInUnits(9, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed10mph)] = SpeedInUnits(10, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed12mph)] = SpeedInUnits(12, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed13mph)] = SpeedInUnits(13, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed14mph)] = SpeedInUnits(14, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed15mph)] = SpeedInUnits(15, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed17mph)] = SpeedInUnits(17, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed18mph)] = SpeedInUnits(18, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed19mph)] = SpeedInUnits(19, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed20mph)] = SpeedInUnits(20, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed24mph)] = SpeedInUnits(24, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed25mph)] = SpeedInUnits(25, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed30mph)] = SpeedInUnits(30, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed35mph)] = SpeedInUnits(35, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed40mph)] = SpeedInUnits(40, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed45mph)] = SpeedInUnits(45, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed50mph)] = SpeedInUnits(50, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed55mph)] = SpeedInUnits(55, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed59mph)] = SpeedInUnits(59, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed60mph)] = SpeedInUnits(60, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed65mph)] = SpeedInUnits(65, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed70mph)] = SpeedInUnits(70, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed75mph)] = SpeedInUnits(75, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed79mph)] = SpeedInUnits(79, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed80mph)] = SpeedInUnits(80, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed85mph)] = SpeedInUnits(85, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed90mph)] = SpeedInUnits(90, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed95mph)] = SpeedInUnits(95, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed100mph)] = SpeedInUnits(100, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed105mph)] = SpeedInUnits(105, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed110mph)] = SpeedInUnits(110, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed115mph)] = SpeedInUnits(115, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed120mph)] = SpeedInUnits(120, Units::Imperial);
-  m_macroToSpeed[static_cast<uint8_t>(SpeedMacro::Speed125mph)] = SpeedInUnits(125, Units::Imperial);
+      // Miles per hour.
+      {SpeedMacro::Speed3MPH, 3 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed4MPH, 4 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed5MPH, 5 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed6MPH, 6 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed7MPH, 7 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed8MPH, 8 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed9MPH, 9 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed10MPH, 10 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed12MPH, 12 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed13MPH, 13 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed14MPH, 14 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed15MPH, 15 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed17MPH, 17 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed18MPH, 18 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed19MPH, 19 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed20MPH, 20 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed24MPH, 24 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed25MPH, 25 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed30MPH, 30 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed35MPH, 35 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed40MPH, 40 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed45MPH, 45 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed50MPH, 50 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed55MPH, 55 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed59MPH, 59 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed60MPH, 60 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed65MPH, 65 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed70MPH, 70 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed75MPH, 75 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed79MPH, 79 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed80MPH, 80 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed85MPH, 85 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed90MPH, 90 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed95MPH, 95 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed100MPH, 100 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed105MPH, 105 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed110MPH, 110 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed115MPH, 115 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed120MPH, 120 /* speed */, Units::Imperial},
+      {SpeedMacro::Speed125MPH, 125 /* speed */, Units::Imperial},
+  };
 
-  m_speedToMacro.insert(std::make_pair(SpeedInUnits(kInvalidSpeed, Units::Metric), SpeedMacro::Undefined));
-  for (size_t i = 1; i < std::numeric_limits<uint8_t>::max(); ++i)
+  for (auto const & e : table)
+    m_macroToSpeed[static_cast<uint8_t>(get<0>(e))] = SpeedInUnits(get<1>(e), get<2>(e));
+
+  CHECK_EQUAL(static_cast<uint8_t>(SpeedMacro::Undefined), 0, ());
+  m_speedToMacro.insert(make_pair(SpeedInUnits(kInvalidSpeed, Units::Metric), SpeedMacro::Undefined));
+  for (size_t i = 1; i < numeric_limits<uint8_t>::max(); ++i)
   {
     auto const & speed = m_macroToSpeed[i];
     if (!speed.IsValid())
       continue;
 
-    m_speedToMacro.insert(std::make_pair(speed, static_cast<SpeedMacro>(i)));
+    m_speedToMacro.insert(make_pair(speed, static_cast<SpeedMacro>(i)));
   }
 }
 
@@ -260,18 +279,30 @@ SpeedMacro MaxspeedConverter::SpeedToMacro(SpeedInUnits const & speed) const
 
 bool MaxspeedConverter::IsValidMacro(uint8_t macro) const
 {
+  CHECK_LESS(macro, numeric_limits<uint8_t>::max(), ());
   return m_macroToSpeed[macro].IsValid();
 }
 
-MaxspeedConverter const & GetMaxspeedConverter()
+// static
+MaxspeedConverter const & MaxspeedConverter::Instance()
 {
   static const MaxspeedConverter inst;
   return inst;
 }
 
+MaxspeedConverter const & GetMaxspeedConverter()
+{
+  return MaxspeedConverter::Instance();
+}
+
 bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs)
 {
-  return lhs.m_units == rhs.m_units || !lhs.IsNumeric() || !rhs.IsNumeric();
+  return lhs.GetUnits() == rhs.GetUnits() || !lhs.IsNumeric() || !rhs.IsNumeric();
+}
+
+bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs)
+{
+  return lhs.IsFeatureIdLess(rhs);
 }
 
 bool IsNumeric(uint16_t speed)
@@ -279,34 +310,34 @@ bool IsNumeric(uint16_t speed)
   return speed != kNoneMaxSpeed && speed != kWalkMaxSpeed && speed != kInvalidSpeed;
 }
 
-std::string DebugPrint(Maxspeed maxspeed)
+string DebugPrint(Maxspeed maxspeed)
 {
-  std::ostringstream oss;
-  oss << "Maxspeed [ m_units:" << DebugPrint(maxspeed.m_units)
-      << " m_forward:" << maxspeed.m_forward
-      << " m_backward:" << maxspeed.m_backward << " ]";
+  ostringstream oss;
+  oss << "Maxspeed [ m_units:" << DebugPrint(maxspeed.GetUnits())
+      << " m_forward:" << maxspeed.GetForward()
+      << " m_backward:" << maxspeed.GetBackward() << " ]";
   return oss.str();
 }
 
-std::string DebugPrint(SpeedMacro maxspeed)
+string DebugPrint(SpeedMacro maxspeed)
 {
-  std::ostringstream oss;
+  ostringstream oss;
   oss << "SpeedMacro:" << static_cast<int>(maxspeed) << " Decoded:"
       << DebugPrint(GetMaxspeedConverter().MacroToSpeed(maxspeed));
   return oss.str();
 }
 
-std::string DebugPrint(SpeedInUnits const & speed)
+string DebugPrint(SpeedInUnits const & speed)
 {
-  std::ostringstream oss;
-  oss << "SpeedInUnits [ m_speed == " << speed.m_speed
-      << ", m_units:" << DebugPrint(speed.m_units) << " ]";
+  ostringstream oss;
+  oss << "SpeedInUnits [ m_speed == " << speed.GetSpeed()
+      << ", m_units:" << DebugPrint(speed.GetUnits()) << " ]";
   return oss.str();
 }
 
-std::string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
+string DebugPrint(FeatureMaxspeed const & featureMaxspeed)
 {
-  std::ostringstream oss;
+  ostringstream oss;
   oss << "FeatureMaxspeed [ m_featureId:" << featureMaxspeed.GetFeatureId()
       << " m_maxspeed:" << DebugPrint(featureMaxspeed.GetMaxspeed()) << " ]";
   return oss.str();

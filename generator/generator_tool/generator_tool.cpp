@@ -532,7 +532,7 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating maxspeed section for", datFile));
       string const maxspeedFilename = genInfo.GetIntermediateFileName(MAXSPEED_FILENAME);
-      routing::BuildMaxspeed(datFile, osmToFeatureFilename, maxspeedFilename);
+      routing::BuildMaxspeedSection(datFile, osmToFeatureFilename, maxspeedFilename);
     }
 
     if (FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm)

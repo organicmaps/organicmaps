@@ -22,149 +22,156 @@ enum class SpeedMacro : uint8_t
   Walk,       // Driver should move as a walking person.
 
   // Km per hour.
-  Speed1kph = 10,
-  Speed2kph,
-  Speed3kph,
-  Speed4kph,
-  Speed5kph,
-  Speed6kph,
-  Speed7kph,
-  Speed8kph,
-  Speed9kph,
-  Speed10kph,
-  Speed11kph,
-  Speed12kph,
-  Speed13kph,
-  Speed14kph,
-  Speed15kph,
-  Speed16kph,
-  Speed18kph,
-  Speed20kph,
-  Speed22kph,
-  Speed25kph,
-  Speed24kph,
-  Speed28kph,
-  Speed30kph,
-  Speed32kph,
-  Speed35kph,
-  Speed36kph,
-  Speed39kph,
-  Speed40kph,
-  Speed45kph,
-  Speed50kph,
-  Speed55kph,
-  Speed56kph,
-  Speed60kph,
-  Speed64kph,
-  Speed65kph,
-  Speed70kph,
-  Speed72kph,
-  Speed75kph,
-  Speed80kph,
-  Speed82kph,
-  Speed85kph,
-  Speed89kph,
-  Speed90kph,
-  Speed93kph,
-  Speed95kph,
-  Speed96kph,
-  Speed100kph,
-  Speed104kph,
-  Speed105kph,
-  Speed106kph,
-  Speed110kph,
-  Speed112kph,
-  Speed115kph,
-  Speed120kph,
-  Speed125kph,
-  Speed127kph,
-  Speed130kph,
-  Speed135kph,
-  Speed140kph,
-  Speed141kph,
-  Speed145kph,
-  Speed150kph,
-  Speed155kph,
-  Speed160kph,
-  Speed165kph,
-  Speed170kph,
-  Speed177kph,
-  Speed180kph,
-  Speed185kph,
-  Speed190kph,
-  Speed193kph,
-  Speed195kph,
-  Speed200kph,
-  Speed201kph,
-  Speed210kph,
-  Speed217kph,
-  Speed220kph,
-  Speed230kph,
-  Speed240kph,
-  Speed250kph,
-  Speed260kph,
-  Speed270kph,
-  Speed275kph,
-  Speed280kph,
-  Speed285kph,
-  Speed300kph,
-  Speed305kph,
-  Speed310kph,
-  Speed320kph,
-  Speed350kph,
-  Speed380kph,
+  Speed1KmPH = 10,
+  Speed2KmPH,
+  Speed3KmPH,
+  Speed4KmPH,
+  Speed5KmPH,
+  Speed6KmPH,
+  Speed7KmPH,
+  Speed8KmPH,
+  Speed9KmPH,
+  Speed10KmPH,
+  Speed11KmPH,
+  Speed12KmPH,
+  Speed13KmPH,
+  Speed14KmPH,
+  Speed15KmPH,
+  Speed16KmPH,
+  Speed18KmPH,
+  Speed20KmPH,
+  Speed22KmPH,
+  Speed25KmPH,
+  Speed24KmPH,
+  Speed28KmPH,
+  Speed30KmPH,
+  Speed32KmPH,
+  Speed35KmPH,
+  Speed36KmPH,
+  Speed39KmPH,
+  Speed40KmPH,
+  Speed45KmPH,
+  Speed50KmPH,
+  Speed55KmPH,
+  Speed56KmPH,
+  Speed60KmPH,
+  Speed64KmPH,
+  Speed65KmPH,
+  Speed70KmPH,
+  Speed72KmPH,
+  Speed75KmPH,
+  Speed80KmPH,
+  Speed82KmPH,
+  Speed85KmPH,
+  Speed89KmPH,
+  Speed90KmPH,
+  Speed93KmPH,
+  Speed95KmPH,
+  Speed96KmPH,
+  Speed100KmPH,
+  Speed104KmPH,
+  Speed105KmPH,
+  Speed106KmPH,
+  Speed110KmPH,
+  Speed112KmPH,
+  Speed115KmPH,
+  Speed120KmPH,
+  Speed125KmPH,
+  Speed127KmPH,
+  Speed130KmPH,
+  Speed135KmPH,
+  Speed140KmPH,
+  Speed141KmPH,
+  Speed145KmPH,
+  Speed150KmPH,
+  Speed155KmPH,
+  Speed160KmPH,
+  Speed165KmPH,
+  Speed170KmPH,
+  Speed177KmPH,
+  Speed180KmPH,
+  Speed185KmPH,
+  Speed190KmPH,
+  Speed193KmPH,
+  Speed195KmPH,
+  Speed200KmPH,
+  Speed201KmPH,
+  Speed210KmPH,
+  Speed217KmPH,
+  Speed220KmPH,
+  Speed230KmPH,
+  Speed240KmPH,
+  Speed250KmPH,
+  Speed260KmPH,
+  Speed270KmPH,
+  Speed275KmPH,
+  Speed280KmPH,
+  Speed285KmPH,
+  Speed300KmPH,
+  Speed305KmPH,
+  Speed310KmPH,
+  Speed320KmPH,
+  Speed350KmPH,
+  Speed380KmPH,
 
-  // Mile per hours.
-  Speed3mph = 110,
-  Speed4mph,
-  Speed5mph,
-  Speed6mph,
-  Speed7mph,
-  Speed8mph,
-  Speed9mph,
-  Speed10mph,
-  Speed12mph,
-  Speed13mph,
-  Speed14mph,
-  Speed15mph,
-  Speed17mph,
-  Speed18mph,
-  Speed19mph,
-  Speed20mph,
-  Speed24mph,
-  Speed25mph,
-  Speed30mph,
-  Speed35mph,
-  Speed40mph,
-  Speed45mph,
-  Speed50mph,
-  Speed55mph,
-  Speed59mph,
-  Speed60mph,
-  Speed65mph,
-  Speed70mph,
-  Speed75mph,
-  Speed79mph,
-  Speed80mph,
-  Speed85mph,
-  Speed90mph,
-  Speed95mph,
-  Speed100mph,
-  Speed105mph,
-  Speed110mph,
-  Speed115mph,
-  Speed120mph,
-  Speed125mph,
+  // Miles per hour.
+  Speed3MPH = 110,
+  Speed4MPH,
+  Speed5MPH,
+  Speed6MPH,
+  Speed7MPH,
+  Speed8MPH,
+  Speed9MPH,
+  Speed10MPH,
+  Speed12MPH,
+  Speed13MPH,
+  Speed14MPH,
+  Speed15MPH,
+  Speed17MPH,
+  Speed18MPH,
+  Speed19MPH,
+  Speed20MPH,
+  Speed24MPH,
+  Speed25MPH,
+  Speed30MPH,
+  Speed35MPH,
+  Speed40MPH,
+  Speed45MPH,
+  Speed50MPH,
+  Speed55MPH,
+  Speed59MPH,
+  Speed60MPH,
+  Speed65MPH,
+  Speed70MPH,
+  Speed75MPH,
+  Speed79MPH,
+  Speed80MPH,
+  Speed85MPH,
+  Speed90MPH,
+  Speed95MPH,
+  Speed100MPH,
+  Speed105MPH,
+  Speed110MPH,
+  Speed115MPH,
+  Speed120MPH,
+  Speed125MPH,
 };
 
 uint16_t constexpr kInvalidSpeed = std::numeric_limits<uint16_t>::max();
 uint16_t constexpr kNoneMaxSpeed = std::numeric_limits<uint16_t>::max() - 1;
 uint16_t constexpr kWalkMaxSpeed = std::numeric_limits<uint16_t>::max() - 2;
 
-struct SpeedInUnits
+class SpeedInUnits
 {
+public:
   SpeedInUnits() = default;
   SpeedInUnits(uint16_t speed, measurement_utils::Units units) noexcept : m_speed(speed), m_units(units) {}
+
+  void SetSpeed(uint16_t speed) { m_speed = speed; }
+  void SetUnits(measurement_utils::Units units) { m_units = units; }
+
+  uint16_t GetSpeed() const { return m_speed; }
+  measurement_utils::Units GetUnits() const { return m_units; }
 
   bool operator==(SpeedInUnits const & rhs) const;
   bool operator<(SpeedInUnits const & rhs) const;
@@ -172,22 +179,28 @@ struct SpeedInUnits
   bool IsNumeric() const;
   bool IsValid() const { return m_speed != kInvalidSpeed; }
 
+private:
   // Speed in km per hour or mile per hour depends on m_units value.
   uint16_t m_speed = kInvalidSpeed;
   // |m_units| is undefined in case of SpeedMacro::None and SpeedMacro::Walk.
   measurement_utils::Units m_units = measurement_utils::Units::Metric;
 };
 
-struct Maxspeed
+class Maxspeed
 {
-  measurement_utils::Units m_units = measurement_utils::Units::Metric;
-  // Speed in km per hour or mile per hour depends on |m_units|.
-  uint16_t m_forward = kInvalidSpeed;
-  // Speed in km per hour or mile per hour depends on |m_units|. If |m_backward| == kInvalidSpeed
-  // |m_forward| speed should be used for the both directions.
-  uint16_t m_backward = kInvalidSpeed;
+public:
+  Maxspeed() = default;
+  Maxspeed(measurement_utils::Units units, uint16_t forward, uint16_t backward);
 
   bool operator==(Maxspeed const & rhs) const;
+
+  void SetUnits(measurement_utils::Units units) { m_units = units; }
+  void SetForward(uint16_t forward) { m_forward = forward; }
+  void SetBackward(uint16_t backward) { m_backward = backward; }
+
+  measurement_utils::Units GetUnits() const { return m_units; }
+  uint16_t GetForward() const { return m_forward; }
+  uint16_t GetBackward() const { return m_backward; }
 
   bool IsValid() const { return m_forward != kInvalidSpeed; }
   /// \returns true if Maxspeed is considered as Bidirectional(). It means different
@@ -203,6 +216,14 @@ struct Maxspeed
   /// returned. Otherwise forward or backward speed in km per hour is returned. |kNoneMaxSpeed| and
   /// |kWalkMaxSpeed| are converted to some numbers.
   uint16_t GetSpeedKmPH(bool forward) const;
+
+private:
+  measurement_utils::Units m_units = measurement_utils::Units::Metric;
+  // Speed in km per hour or mile per hour depends on |m_units|.
+  uint16_t m_forward = kInvalidSpeed;
+  // Speed in km per hour or mile per hour depends on |m_units|. If |m_backward| == kInvalidSpeed
+  // |m_forward| speed should be used for the both directions.
+  uint16_t m_backward = kInvalidSpeed;
 };
 
 /// \brief Feature id and corresponding maxspeed tag value. |m_forward| and |m_backward| fields
@@ -216,9 +237,8 @@ public:
   FeatureMaxspeed(uint32_t fid, measurement_utils::Units units, uint16_t forward,
                   uint16_t backward = kInvalidSpeed) noexcept;
 
-  /// \note operator==() and operator<() do not correspond to each other.
   bool operator==(FeatureMaxspeed const & rhs) const;
-  bool operator<(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
+  bool IsFeatureIdLess(FeatureMaxspeed const & rhs) const { return m_featureId < rhs.m_featureId; }
 
   bool IsValid() const { return m_maxspeed.IsValid(); }
   bool IsBidirectional() const { return m_maxspeed.IsBidirectional(); }
@@ -236,10 +256,7 @@ private:
 
 class MaxspeedConverter
 {
-  friend MaxspeedConverter const & GetMaxspeedConverter();
 public:
-  MaxspeedConverter();
-
   SpeedInUnits MacroToSpeed(SpeedMacro macro) const;
   SpeedMacro SpeedToMacro(SpeedInUnits const & speed) const;
 
@@ -248,13 +265,18 @@ public:
   /// in SpeedMacro enum class are considered as an invalid.
   bool IsValidMacro(uint8_t macro) const;
 
+  static MaxspeedConverter const & Instance();
+
 private:
+  MaxspeedConverter();
+
   std::array<SpeedInUnits, std::numeric_limits<uint8_t>::max()> m_macroToSpeed;
   std::map<SpeedInUnits, SpeedMacro> m_speedToMacro;
 };
 
 MaxspeedConverter const & GetMaxspeedConverter();
 bool HaveSameUnits(SpeedInUnits const & lhs, SpeedInUnits const & rhs);
+bool IsFeatureIdLess(FeatureMaxspeed const & lhs, FeatureMaxspeed const & rhs);
 
 /// \returns false if |speed| is equal to |kInvalidSpeed|, |kNoneMaxSpeed| or
 /// |kWalkMaxSpeed|.

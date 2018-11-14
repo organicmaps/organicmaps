@@ -25,12 +25,12 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
   if (!ParseMaxspeedTag(maxspeed, speed))
     return false;
 
-  ss << UnitsToString(speed.m_units) << "," << strings::to_string(speed.m_speed);
+  ss << UnitsToString(speed.GetUnits()) << "," << strings::to_string(speed.GetSpeed());
   return true;
 }
 }  // namespace
 
-namespace feature
+namespace generator
 {
 void MaxspeedCollector::Process(OsmElement const & p)
 {
@@ -89,7 +89,7 @@ void MaxspeedCollector::Process(OsmElement const & p)
     if (!HaveSameUnits(maxspeedForward, maxspeedBackward))
       return;
 
-    ss << "," << strings::to_string(maxspeedBackward.m_speed);
+    ss << "," << strings::to_string(maxspeedBackward.GetSpeed());
   }
 
   m_data.push_back(ss.str());
@@ -114,4 +114,4 @@ void MaxspeedCollector::Flush()
   else
     LOG(LINFO, ("Wrote", m_data.size(), "maxspeed tags to", m_filePath));
 }
-}  // namespace feature
+}  // namespace generator

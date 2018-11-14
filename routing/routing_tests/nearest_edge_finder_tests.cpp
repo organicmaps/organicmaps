@@ -2,8 +2,9 @@
 
 #include "routing/routing_tests/road_graph_builder.hpp"
 
-#include "routing_common/maxspeed_conversion.hpp"
 #include "routing/nearest_edge_finder.hpp"
+
+#include "routing_common/maxspeed_conversion.hpp"
 
 #include "base/checked_cast.hpp"
 

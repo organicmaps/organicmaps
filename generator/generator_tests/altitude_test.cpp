@@ -50,7 +50,7 @@ namespace
 // Directory name for creating test mwm and temporary files.
 std::string const kTestDir = "altitude_generation_test";
 // Temporary mwm name for testing.
-std::string const kTest = "test";
+std::string const kTestMwm = "test";
 
 struct Point3D
 {
@@ -169,9 +169,9 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   std::string const testDirFullPath = base::JoinPath(platform.WritableDir(), kTestDir);
 
   // Building mwm without altitude section.
-  LocalCountryFile country(testDirFullPath, CountryFile(kTest), 1);
+  LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
   ScopedDir testScopedDir(kTestDir);
-  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTest + DATA_FILE_EXTENSION),
+  ScopedFile testScopedMwm(base::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
                            ScopedFile::Mode::Create);
 
   BuildMwmWithoutAltitudes(roads, country);

@@ -84,9 +84,9 @@ std::string DebugPrint(GeoObjectId::Type const & t)
   case GeoObjectId::Type::BookingComNode: return "Booking.com";
   case GeoObjectId::Type::OsmSurrogate: return "Osm Surrogate";
   case GeoObjectId::Type::Fias: return "FIAS";
-  case GeoObjectId::Type::ObsoleteOsmNode: return "Obsolete Osm Node";
-  case GeoObjectId::Type::ObsoleteOsmWay: return "Obsolete Osm Way";
-  case GeoObjectId::Type::ObsoleteOsmRelation: return "Obsolete Osm Relation";
+  case GeoObjectId::Type::ObsoleteOsmNode: return "Osm Node";
+  case GeoObjectId::Type::ObsoleteOsmWay: return "Osm Way";
+  case GeoObjectId::Type::ObsoleteOsmRelation: return "Osm Relation";
   }
   CHECK_SWITCH();
 }

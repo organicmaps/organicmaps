@@ -18,10 +18,13 @@ namespace feature { class TypesHolder; }
 
 namespace routing
 {
-/// \brief Params for calcualtion of an approximate speed on a feature.
+/// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
-  SpeedParams() = delete;
+  SpeedParams(bool forward, bool inCity, Maxspeed maxspeed)
+    : m_forward(forward), m_inCity(inCity), m_maxspeed(maxspeed)
+  {
+  }
 
   bool m_forward;
   // |m_inCity| == true if a corresponding feature lies inside a city of a town.

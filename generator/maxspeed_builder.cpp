@@ -3,7 +3,7 @@
 #include "generator/maxspeed_parser.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "routing/maxspeed_serialization.hpp"
+#include "routing/maxspeeds_serialization.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 
@@ -53,8 +53,8 @@ bool ParseOneSpeedValue(strings::SimpleTokenizer & iter, uint16_t & value)
 
 FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
 {
-  return FeatureMaxspeed(featureId, maxspeed.m_units, maxspeed.m_forward,
-                         maxspeed.m_backward);
+  return FeatureMaxspeed(featureId, maxspeed.GetUnits(), maxspeed.GetForward(),
+                         maxspeed.GetBackward());
 }
 
 /// \brief Collects all maxspeed tag value of specified mwm based on maxspeed.csv file.
@@ -98,7 +98,7 @@ MaxspeedMwmCollector::MaxspeedMwmCollector(
 
 vector<FeatureMaxspeed> && MaxspeedMwmCollector::StealMaxspeeds()
 {
-  CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend()), ());
+  CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend(), IsFeatureIdLess), ());
   return move(m_maxspeeds);
 }
 }  // namespace
@@ -110,37 +110,43 @@ bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMa
   osmIdToMaxspeed.clear();
 
   ifstream stream(maxspeedFilename);
-  if (stream.fail())
+  if (!stream)
     return false;
 
   string line;
   while (getline(stream, line))
   {
     strings::SimpleTokenizer iter(line, kDelim);
+
     if (!iter)  // the line is empty
       return false;
-
     // @TODO(bykoianko) strings::to_uint64 returns not-zero value if |*iter| is equal to
     // a too long string of numbers. But ParseMaxspeeds() should return false in this case.
     uint64_t osmId = 0;
     if (!strings::to_uint64(*iter, osmId))
       return false;
     ++iter;
+
     if (!iter)
       return false;
-
     Maxspeed speed;
-    speed.m_units = StringToUnits(*iter);
+    speed.SetUnits(StringToUnits(*iter));
     ++iter;
 
-    if (!ParseOneSpeedValue(iter, speed.m_forward))
+    uint16_t forward = 0;
+    if (!ParseOneSpeedValue(iter, forward))
       return false;
+
+    speed.SetForward(forward);
 
     if (iter)
     {
       // There's backward maxspeed limit.
-      if (!ParseOneSpeedValue(iter, speed.m_backward))
+      uint16_t backward = 0;
+      if (!ParseOneSpeedValue(iter, backward))
         return false;
+
+      speed.SetBackward(backward);
 
       if (iter)
         return false;
@@ -153,7 +159,7 @@ bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMa
   return true;
 }
 
-void SerializeMaxspeed(string const & dataPath, vector<FeatureMaxspeed> && speeds)
+void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && speeds)
 {
   if (speeds.empty())
     return;
@@ -161,21 +167,21 @@ void SerializeMaxspeed(string const & dataPath, vector<FeatureMaxspeed> && speed
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(MAXSPEED_FILE_TAG);
 
-  MaxspeedSerializer::Serialize(speeds, writer);
-  LOG(LINFO, ("SerializeMaxspeed(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
+  MaxspeedsSerializer::Serialize(speeds, writer);
+  LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
 }
 
 void BuildMaxspeed(string const & dataPath, map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
                    string const & maxspeedFilename)
 {
   MaxspeedMwmCollector collector(dataPath, featureIdToOsmId, maxspeedFilename);
-  SerializeMaxspeed(dataPath, collector.StealMaxspeeds());
+  SerializeMaxspeeds(dataPath, collector.StealMaxspeeds());
 }
 
-void BuildMaxspeed(string const & dataPath, string const & osmToFeaturePath,
-                   string const & maxspeedFilename)
+void BuildMaxspeedSection(string const & dataPath, string const & osmToFeaturePath,
+                          string const & maxspeedFilename)
 {
-  LOG(LINFO, ("BuildMaxspeed(", dataPath, ",", osmToFeaturePath, ",", maxspeedFilename, ")"));
+  LOG(LINFO, ("BuildMaxspeedSection(", dataPath, ",", osmToFeaturePath, ",", maxspeedFilename, ")"));
 
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());

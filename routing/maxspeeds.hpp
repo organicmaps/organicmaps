@@ -19,19 +19,14 @@ class DataSource;
 
 namespace routing
 {
-class MaxspeedSerializer;
+class MaxspeedsSerializer;
 
 class Maxspeeds
 {
-  friend class MaxspeedSerializer;
-
+  friend class MaxspeedsSerializer;
 public:
   /// \returns false if there's no maxspeeds (forward or bidirectional) and true otherwise.
   bool IsEmpty() const;
-
-  /// \returns true if there's a maxspeed for feature id |fid| and false otherwise.
-  /// \note if there's no maxspeed section returns false for every |fid|.
-  bool HasMaxspeed(uint32_t fid) const;
 
   /// \returns Maxspeed for feature id |fid|. If there's no Maxspeed value for |fid|
   /// returns an invalid Maxspeed value.

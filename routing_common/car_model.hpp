@@ -11,7 +11,7 @@ public:
   CarModel();
   CarModel(VehicleModel::LimitsInitList const & roadLimits);
 
-  // VehicleModelInterface overrides
+  // VehicleModelInterface overrides:
   SpeedKMpH GetSpeed(FeatureType & f, SpeedParams const & speedParams) const override;
   double GetOffroadSpeed() const override;
 

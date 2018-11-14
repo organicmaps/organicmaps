@@ -194,7 +194,7 @@ UNIT_TEST(OSMDistanceToMetersString)
   TEST_EQUAL(OSMDistanceToMetersString("15.654321", true, 1), "15.7", ());
 }
 
-UNIT_TEST(ConversionUnits)
+UNIT_TEST(UnitsConversion)
 {
   double const kEps = 0.00001;
   TEST(base::AlmostEqualAbs(MilesToMeters(MetersToMiles(1000.0)), 1000.0, kEps), ());

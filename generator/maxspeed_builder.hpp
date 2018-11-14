@@ -1,4 +1,5 @@
 #pragma once
+
 #include "routing_common/maxspeed_conversion.hpp"
 
 #include "platform/measurement_utils.hpp"
@@ -14,12 +15,12 @@ namespace routing
 {
 using OsmIdToMaxspeed = std::map<base::GeoObjectId, Maxspeed>;
 
-/// \brief Parses csv file with path |maxspeedFilename| and keep the result in |osmIdToMaxspeed|.
+/// \brief Parses csv file with path |maxspeedFilename| and stores the result in |osmIdToMaxspeed|.
 /// \note There's a detailed description of the csv file in generator/maxspeed_collector.hpp.
 bool ParseMaxspeeds(std::string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMaxspeed);
 
 /// \brief Writes |speeds| to maxspeed section to mwm with |dataPath|.
-void SerializeMaxspeed(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
+void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
 
 void BuildMaxspeed(std::string const & dataPath,
                    std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
@@ -30,8 +31,8 @@ void BuildMaxspeed(std::string const & dataPath,
 /// \param maxspeedFilename file name to csv file with maxspeed tag values.
 /// \note To start building the section, the following data must be ready:
 /// 1. GenerateIntermediateData(). Saves to a file data about maxspeed tags value of road features
-/// 2. GenerateFeatures()
-/// 3. Generates geometry
-void BuildMaxspeed(std::string const & dataPath, std::string const & osmToFeaturePath,
-                   std::string const & maxspeedFilename);
+/// 2. Calls GenerateFeatures()
+/// 3. Generates geometry.
+void BuildMaxspeedSection(std::string const & dataPath, std::string const & osmToFeaturePath,
+                          std::string const & maxspeedFilename);
 }  // namespace routing

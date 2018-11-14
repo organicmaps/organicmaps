@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace feature
+namespace generator
 {
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
 /// Every line describes maxspeed, maxspeed:forward and maxspeed:backward
@@ -47,4 +47,4 @@ private:
   std::vector<std::string> m_data;
   std::string m_filePath;
 };
-}  // namespace feature
+}  // namespace generator

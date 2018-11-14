@@ -4,6 +4,7 @@
 #include "base/string_utils.hpp"
 
 #include <cctype>
+#include <limits>
 #include <unordered_map>
 
 namespace
@@ -154,15 +155,15 @@ bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
 
   if (maxspeedValue == "none")
   {
-    speed.m_speed = kNoneMaxSpeed;
-    speed.m_units = Units::Metric; // It's dummy value in case of kNoneMaxSpeed
+    speed.SetSpeed(kNoneMaxSpeed);
+    speed.SetUnits(Units::Metric); // It's dummy value in case of kNoneMaxSpeed
     return true;
   }
 
   if (maxspeedValue == "walk")
   {
-    speed.m_speed = kWalkMaxSpeed;
-    speed.m_units = Units::Metric; // It's dummy value in case of kWalkMaxSpeed
+    speed.SetSpeed(kWalkMaxSpeed);
+    speed.SetUnits(Units::Metric); // It's dummy value in case of kWalkMaxSpeed
     return true;
   }
 
@@ -183,23 +184,23 @@ bool ParseMaxspeedTag(string const & maxspeedValue, SpeedInUnits & speed)
   if (maxspeedValue.size() == i ||
       strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "kmh"))
   {
-    int32_t kmph = 0;
-    if (!strings::to_int(speedStr.c_str(), kmph) || kmph == 0)
+    uint64_t kmph = 0;
+    if (!strings::to_uint64(speedStr.c_str(), kmph) || kmph == 0 || kmph > numeric_limits<uint16_t>::max())
       return false;
 
-    speed.m_speed = static_cast<uint16_t>(kmph);
-    speed.m_units = Units::Metric;
+    speed.SetSpeed(static_cast<uint16_t>(kmph));
+    speed.SetUnits(Units::Metric);
     return true;
   }
 
   if (strings::StartsWith(string(maxspeedValue.begin() + i, maxspeedValue.end()), "mph"))
   {
-    int32_t mph = 0;
-    if (!strings::to_int(speedStr.c_str(), mph) || mph == 0)
+    uint64_t mph = 0;
+    if (!strings::to_uint64(speedStr.c_str(), mph) || mph == 0 || mph > numeric_limits<uint16_t>::max())
       return false;
 
-    speed.m_speed = static_cast<uint16_t>(mph);
-    speed.m_units = Units::Imperial;
+    speed.SetSpeed(static_cast<uint16_t>(mph));
+    speed.SetUnits(Units::Imperial);
     return true;
   }
 
@@ -221,10 +222,10 @@ Units StringToUnits(string const & units)
 
   if (units == "Metric")
     return Units::Metric;
-  else if (units == "Imperial")
+  if (units == "Imperial")
     return Units::Imperial;
-  else
-    CHECK(false, (units));
+
+  CHECK(false, (units));
   return Units::Metric;
 }
-}  // generator
+}  // namespace generator

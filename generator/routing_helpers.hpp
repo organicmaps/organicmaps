@@ -22,7 +22,7 @@ struct TagsProcessor
   RoadAccessWriter m_roadAccessWriter;
   RestrictionWriter m_restrictionWriter;
   CameraNodeProcessor m_cameraNodeWriter;
-  feature::MaxspeedCollector m_maxspeedCollector;
+  generator::MaxspeedCollector m_maxspeedCollector;
 };
 
 // Adds feature id and corresponding |osmId| to |osmIdToFeatureId|.

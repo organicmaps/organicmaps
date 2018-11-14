@@ -12,6 +12,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -24,7 +25,6 @@ namespace routing
 {
 void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
                              size_t & forwardMaxspeedsNumber, uint32_t & maxForwardFeatureId);
-void CheckSpeeds(std::vector<FeatureMaxspeed> const & speeds);
 
 /// \brief
 /// Section name: "maxspeed".
@@ -34,15 +34,16 @@ void CheckSpeeds(std::vector<FeatureMaxspeed> const & speeds);
 /// * elias_fano with feature ids which have maxspeed tag in forward direction only
 /// * SimpleDenseCoding with code of maxspeed
 /// * table with vector with feature ids and maxspeeds which have maxspeed for both directions.
-class MaxspeedSerializer
+class MaxspeedsSerializer
 {
 public:
-  MaxspeedSerializer() = delete;
+  MaxspeedsSerializer() = delete;
 
   template <class Sink>
   static void Serialize(std::vector<FeatureMaxspeed> const & speeds, Sink & sink)
   {
-    CheckSpeeds(speeds);
+    CHECK(base::IsSortedAndUnique(speeds.cbegin(), speeds.cend(), IsFeatureIdLess),
+          ("SpeedMacro feature ids should be unique."));
 
     auto const startOffset = sink.Pos();
     Header header;
@@ -125,8 +126,8 @@ public:
   static void Deserialize(Source & src, Maxspeeds & maxspeeds)
   {
     // Note. Now it's assumed that only little-endian architectures are supported.
-    // (See a check at the beginning of generator_tools.) If it's nessacery to support
-    // big-indian architectures code below should be modified.
+    // (See a check at the beginning of main method in generator_tools.cpp) If it's necessary
+    // to support big-endian architectures code below should be modified.
     CHECK(maxspeeds.IsEmpty(), ());
 
     Header header;
@@ -166,20 +167,18 @@ public:
 
       measurement_utils::Units units = measurement_utils::Units::Metric;
       if (forwardSpeed.IsNumeric())
-        units = forwardSpeed.m_units;
+        units = forwardSpeed.GetUnits();
       else if (backwardSpeed.IsNumeric())
-        units = backwardSpeed.m_units;
+        units = backwardSpeed.GetUnits();
       // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric it means
       // both of them have value "walk" or "none". So the units are not relevant for this case.
 
-      maxspeeds.m_bidirectionalMaxspeeds.emplace_back(fid, units, forwardSpeed.m_speed,
-                                                      backwardSpeed.m_speed);
+      maxspeeds.m_bidirectionalMaxspeeds.emplace_back(fid, units, forwardSpeed.GetSpeed(),
+                                                      backwardSpeed.GetSpeed());
     }
   }
 
 private:
-  static uint16_t constexpr kLastVersion = 0;
-
   struct Header
   {
   public:
@@ -210,6 +209,8 @@ private:
     uint32_t m_bidirectionalMaxspeedOffset = 0;
     uint32_t m_bidirectionalMaxspeedNumber = 0;
   };
+
+  static uint16_t constexpr kLastVersion = 0;
 
   static_assert(sizeof(Header) == 16, "Wrong header size of maxspeed section.");
 };

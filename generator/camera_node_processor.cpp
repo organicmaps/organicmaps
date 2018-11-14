@@ -120,14 +120,7 @@ std::string CameraNodeIntermediateDataProcessor::ValidateMaxSpeedString(std::str
   if (!ParseMaxspeedTag(maxSpeedString, speed) || !speed.IsNumeric())
     return std::string();
 
-  switch (speed.m_units)
-  {
-  case measurement_utils::Units::Metric: return strings::to_string(speed.m_speed);
-  case measurement_utils::Units::Imperial:
-    return strings::to_string(measurement_utils::MphToKmph(speed.m_speed));
-  }
-  CHECK_SWITCH();
-  return std::string();
+  return strings::to_string(measurement_utils::ToSpeedKmPH(speed.GetSpeed(), speed.GetUnits()));
 }
 
 void CameraNodeIntermediateDataProcessor::ProcessNode(OsmElement & em)
