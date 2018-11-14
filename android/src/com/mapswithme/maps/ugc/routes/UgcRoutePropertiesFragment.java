@@ -31,8 +31,6 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   public static final String EXTRA_CATEGORY_OPTIONS = "category_options";
   public static final int REQ_CODE_TAGS_ACTIVITY = 102;
   private static final int REQ_CODE_LOAD_FAILED = 101;
-  private static final int MAX_PROPS_COUNT = 1;
-  private static final int MAX_OPTIONS_COUNT = 2;
   private static final int FIRST_OPTION_INDEX = 0;
   private static final int SECOND_OPTION_INDEX = 1;
   private static final String BUNDLE_SELECTED_OPTION = "selected_property";
@@ -97,7 +95,6 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
 
   private void onBtnClicked(int index)
   {
-    checkPropsSize(mProps);
     CatalogCustomProperty property = mProps.get(0);
     CatalogCustomPropertyOption option = property.getOptions().get(index);
     mSelectedOption = new CatalogPropertyOptionAndKey(property.getKey(), option);
@@ -179,32 +176,9 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
 
   private void onLoadSuccess(@NonNull List<CatalogCustomProperty> properties)
   {
-    checkPropsSize(properties);
     mProps = properties;
     mPropsContainer.setVisibility(View.VISIBLE);
     mProgress.setVisibility(View.GONE);
-  }
-
-  private static void checkPropsSize(@NonNull List<CatalogCustomProperty> properties)
-  {
-    if ((properties.size() > MAX_PROPS_COUNT
-                       || properties.get(0).getOptions().size() != MAX_OPTIONS_COUNT))
-    {
-      throw makeException(properties);
-    }
-  }
-
-  @NonNull
-  private static IllegalArgumentException makeException(@NonNull List<CatalogCustomProperty> properties)
-  {
-    return new IllegalArgumentException("Workaround - multiple selection restricted, because " +
-                                       "interface doesn't supported that, " +
-                                       "and backend and core can not return single POJO " +
-                                       "instance. " +
-                                       "Props.size() = " + properties.size() +
-                                       (properties.isEmpty() ? ""
-                                                             : " Options.size() = "
-                                                               + properties.get(0).getOptions()));
   }
 
   @Override
