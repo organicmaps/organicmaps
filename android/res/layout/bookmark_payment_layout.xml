@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:showIn="@layout/fragment_bookmark_payment">
+  <TextView
+    android:id="@+id/product_store_name"
+    android:textAppearance="?android:textAppearanceSmall"
+    tools:text="Store name localized product id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_base_plus"
+    android:gravity="start"
+    android:textAllCaps="true"/>
+  <include layout="@layout/divider_horizontal"/>
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_base_plus">
+    <TextView
+      android:id="@+id/product_catalog_name"
+      android:textAppearance="?android:textAppearanceLarge"
+      tools:text="Have a dinner with Hemingway and Castro in Havana"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="start"/>
+    <TextView
+      android:id="@+id/author_name"
+      android:textAppearance="?android:textAppearanceSmall"
+      tools:text="by Julio Mulio"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base"
+      android:gravity="start"/>
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_base_plus"
+      android:layout_marginBottom="@dimen/margin_base"
+      android:layout_gravity="center">
+      <Button
+        android:id="@+id/buy_btn"
+        style="@style/MwmWidget.Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:text="BUY FOR $1.99"/>
+      <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="@dimen/margin_base_plus"
+        android:layout_height="@dimen/margin_base_plus"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        tools:visibility="visible"/>
+    </FrameLayout>
+    <TextView
+      android:id="@+id/cancel_btn"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_half_plus_eight"
+      android:textColor="?colorAccent"
+      android:text="@string/cancel"
+      android:gravity="center"
+      android:textAllCaps="true"/>
+  </LinearLayout>
+</LinearLayout>

@@ -4,7 +4,6 @@
   <dimen name="track_circle_size">40dp</dimen>
 
   <!-- margins -->
-
   <dimen name="margin_eighth">2dp</dimen>
   <dimen name="margin_quarter">4dp</dimen>
   <dimen name="margin_quarter_plus">6dp</dimen>
@@ -257,4 +256,6 @@
   <dimen name="ads_removal_pay_button_min_width">240dp</dimen>
   <dimen name="dot_size">6dp</dimen>
   <dimen name="sharing_options_img_size">18dp</dimen>
+  <dimen name="bookmark_purchase_img_height">258dp</dimen>
+  <dimen name="bookmark_purchase_img_width">280dp</dimen>
 </resources>

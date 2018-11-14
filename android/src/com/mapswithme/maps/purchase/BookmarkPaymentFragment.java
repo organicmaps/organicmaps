@@ -65,12 +65,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);
-    // TODO: temporary launch of billing flow.
-    root.findViewById(R.id.buy_inapp).setOnClickListener(v -> startPurchaseTransaction());
-    root.findViewById(R.id.query_inapps).setOnClickListener(v -> mPurchaseController.queryPurchaseDetails());
-    root.findViewById(R.id.consume_apps).setOnClickListener(v -> {
-
-    });
+    // TODO: implementation coming soon.
     return root;
   }
 

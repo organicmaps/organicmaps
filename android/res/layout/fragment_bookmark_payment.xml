@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:gravity="center">
-  <Button
-    android:id="@+id/query_inapps"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Query inapps"/>
-  <Button
-    android:id="@+id/buy_inapp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Buy inapps"/>
-  <Button
-    android:id="@+id/consume_apps"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Consume apps"/>
-</LinearLayout>
+  android:fillViewport="true">
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+      android:id="@+id/image"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bookmark_purchase_img_height"
+      android:scaleType="centerCrop"
+      android:src="@drawable/img_guides_placeholder"/>
+    <include layout="@layout/bookmark_payment_layout"/>
+  </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
