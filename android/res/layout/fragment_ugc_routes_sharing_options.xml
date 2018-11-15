@@ -52,8 +52,8 @@
             android:layout_alignParentTop="true"
             android:tint="?accentColorSelector"
             android:src="@drawable/ic_globe"
-            android:layout_marginTop="@dimen/margin_half_plus"
-            android:layout_marginBottom="@dimen/margin_half_plus"
+            android:layout_marginTop="@dimen/margin_half_double_plus"
+            android:layout_marginBottom="@dimen/margin_half_double_plus"
             android:layout_marginStart="@dimen/margin_base"
             android:layout_marginLeft="@dimen/margin_base"/>
           <LinearLayout
@@ -68,7 +68,7 @@
             <TextView
               android:id="@+id/upload_and_publish_text"
               android:text="@string/upload_and_publish"
-              android:textAppearance="?android:attr/textAppearanceSmall"
+              android:textAppearance="?android:attr/textAppearance"
               android:background="?selectableItemBackground"
               android:textColor="?colorAccent"
               android:textAllCaps="true"
@@ -78,7 +78,9 @@
               android:gravity="center_vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              tools:ignore="RtlSymmetry"/>
+              tools:ignore="RtlSymmetry"
+              android:fontFamily="@string/robotoMedium"
+              tools:targetApi="jelly_bean"/>
             <LinearLayout
               android:orientation="horizontal"
               android:minHeight="@dimen/height_block_base"
@@ -91,14 +93,16 @@
               android:layout_height="wrap_content">
               <TextView
                 android:text="@string/upload_and_publish_success"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearance"
+                android:fontFamily="@string/robotoMedium"
                 android:textColor="?iconTintDisabled"
                 android:textAllCaps="true"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry"
+                tools:targetApi="jelly_bean"/>
               <ImageView
                 android:id="@+id/share_published_category_btn"
                 android:src="@drawable/ic_share"
@@ -158,13 +162,15 @@
                 android:src="@drawable/ic_edit"/>
               <TextView
                 android:text="@string/edit_on_web"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearance"
                 android:layout_marginLeft="@dimen/margin_double_plus"
                 android:layout_marginStart="@dimen/margin_double_plus"
                 android:textColor="?colorAccent"
                 android:textAllCaps="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:fontFamily="@string/robotoMedium"
+                tools:targetApi="jelly_bean"/>
             </LinearLayout>
           </LinearLayout>
         </RelativeLayout>
@@ -200,8 +206,8 @@
             android:layout_alignParentTop="true"
             android:tint="?accentColorSelector"
             android:src="@drawable/ic_link"
-            android:layout_marginTop="@dimen/margin_half_plus"
-            android:layout_marginBottom="@dimen/margin_half_plus"
+            android:layout_marginTop="@dimen/margin_half_double_plus"
+            android:layout_marginBottom="@dimen/margin_half_double_plus"
             android:layout_marginStart="@dimen/margin_base"
             android:layout_marginLeft="@dimen/margin_base"/>
           <LinearLayout
@@ -217,7 +223,10 @@
               android:minHeight="@dimen/height_block_base"
               android:text="@string/upload_and_get_direct_link"
               android:background="?selectableItemBackground"
-              android:textAppearance="?android:attr/textAppearanceSmall"
+              android:textAppearance="?android:attr/textAppearance"
+              android:fontFamily="@string/robotoMedium"
+              android:textStyle="normal"
+              android:lineSpacingExtra="6sp"
               android:textColor="?colorAccent"
               android:textAllCaps="true"
               android:gravity="center_vertical"
@@ -225,7 +234,8 @@
               android:layout_height="wrap_content"
               android:paddingRight="@dimen/margin_base"
               android:paddingEnd="@dimen/margin_base"
-              tools:ignore="RtlSymmetry"/>
+              tools:ignore="RtlSymmetry"
+              tools:targetApi="jelly_bean"/>
             <LinearLayout
               android:orientation="horizontal"
               android:minHeight="@dimen/height_block_base"
@@ -238,14 +248,16 @@
               android:layout_height="wrap_content">
               <TextView
                 android:text="@string/direct_link_success"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearance"
+                android:fontFamily="@string/robotoMedium"
                 android:textColor="?iconTintDisabled"
                 android:textAllCaps="true"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                tools:ignore="RtlSymmetry"/>
+                tools:ignore="RtlSymmetry"
+                tools:targetApi="jelly_bean"/>
               <ImageView
                 android:id="@+id/share_direct_link_btn"
                 android:src="@drawable/ic_share"
