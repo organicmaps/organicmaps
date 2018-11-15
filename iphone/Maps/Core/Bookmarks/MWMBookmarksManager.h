@@ -21,9 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getCategoryName:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryMarksCount:(MWMMarkGroupID)groupId;
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId;
+- (MWMCategoryAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId;
+- (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId;
 
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name;
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;
+- (void)setCategory:(MWMMarkGroupID)groupId description:(NSString *)name;
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;

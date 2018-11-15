@@ -27,3 +27,10 @@ typedef NS_ENUM(NSUInteger, MWMBookmarksShareStatus) {
   MWMBookmarksShareStatusArchiveError,
   MWMBookmarksShareStatusFileError
 };
+
+typedef NS_ENUM(NSUInteger, MWMCategoryAccessStatus) {
+  MWMCategoryAccessStatusLocal,
+  MWMCategoryAccessStatusPublic,
+  MWMCategoryAccessStatusPrivate,
+  MWMCategoryAccessStatusOther
+};

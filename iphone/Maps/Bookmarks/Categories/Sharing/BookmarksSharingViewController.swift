@@ -1,10 +1,15 @@
 import SafariServices
 
+protocol BookmarksSharingViewControllerDelegate: AnyObject {
+  func didShareCategory()
+}
+
 final class BookmarksSharingViewController: MWMTableViewController {
   typealias ViewModel = MWMAuthorizationViewModel
   
   var categoryId: MWMMarkGroupID?
   var categoryUrl: URL?
+  weak var delegate: BookmarksSharingViewControllerDelegate?
   
   @IBOutlet weak var uploadAndPublishCell: UploadActionCell!
   @IBOutlet weak var getDirectLinkCell: UploadActionCell!
@@ -98,6 +103,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
         } else {
           self?.getDirectLinkCell.cellState = .completed
           self?.categoryUrl = url
+          self?.delegate?.didShareCategory()
         }
       })
     }

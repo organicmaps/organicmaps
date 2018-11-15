@@ -307,6 +307,28 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return self.bm.GetTrackIds(groupId).size();
 }
 
+- (MWMCategoryAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId
+{
+  switch (self.bm.GetCategoryData(groupId).m_accessRules)
+  {
+    case kml::AccessRules::Local:
+      return MWMCategoryAccessStatusLocal;
+    case kml::AccessRules::Public:
+      return MWMCategoryAccessStatusPublic;
+    case kml::AccessRules::DirectLink:
+      return MWMCategoryAccessStatusPrivate;
+    case kml::AccessRules::P2P:
+    case kml::AccessRules::Paid:
+    case kml::AccessRules::Count:
+      return MWMCategoryAccessStatusOther;
+  }
+}
+
+- (NSString *)getCategoryDescription:(MWMMarkGroupID)groupId
+{
+  return @(kml::GetDefaultStr(self.bm.GetCategoryData(groupId).m_description).c_str());
+}
+
 - (MWMMarkGroupID)createCategoryWithName:(NSString *)name
 {
   auto groupId = self.bm.CreateBookmarkCategory(name.UTF8String);
@@ -317,6 +339,11 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 - (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name
 {
   self.bm.GetEditSession().SetCategoryName(groupId, name.UTF8String);
+}
+
+- (void)setCategory:(MWMMarkGroupID)groupId description:(NSString *)name
+{
+  self.bm.GetEditSession().SetCategoryDescription(groupId, name.UTF8String);
 }
 
 - (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId

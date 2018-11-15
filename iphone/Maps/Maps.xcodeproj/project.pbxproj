@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */; };
+		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
+		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
 		33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */; };
 		33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C558E2217F6CF100299E70 /* UploadActionCell.swift */; };
@@ -782,6 +784,8 @@
 		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
+		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
 		3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSharingViewController.swift; sourceTree = "<group>"; };
 		33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookmarksSharingFlow.storyboard; sourceTree = "<group>"; };
 		33C558E2217F6CF100299E70 /* UploadActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadActionCell.swift; sourceTree = "<group>"; };
@@ -2152,6 +2156,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		33046837219C605E0041F3A8 /* Category settings */ = {
+			isa = PBXGroup;
+			children = (
+				33046831219C57180041F3A8 /* CategorySettingsViewController.swift */,
+				33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */,
+			);
+			path = "Category settings";
+			sourceTree = "<group>";
+		};
 		33C49D5C21774222000F8B6A /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
@@ -2384,6 +2397,7 @@
 		3404F4A02028A6C00090E401 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				33046837219C605E0041F3A8 /* Category settings */,
 				33C49D5C21774222000F8B6A /* Sharing */,
 				343D7B6D202AF4CA007D56A8 /* Actions */,
 				3404F48F202898CC0090E401 /* BMCModels.swift */,
@@ -4595,6 +4609,7 @@
 				F6E2FE8E1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */,
+				33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */,
 				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
 				F6E2FE941E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
@@ -5114,6 +5129,7 @@
 				33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */,
 				347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
+				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,
 				3404165C1E7C29AE00E2B6D6 /* PhotosInteractionAnimator.swift in Sources */,
 				34E50DE01F6FCBA1008EED49 /* UGCAddReviewCell.swift in Sources */,
 				34D4FA631E26572D003F53EF /* FirstLaunchController.swift in Sources */,

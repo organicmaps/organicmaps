@@ -63,6 +63,10 @@ final class BMCDefaultViewModel: NSObject {
   private func setNotifications() {
     notifications.append(.load)
   }
+  
+  func reloadData() {
+    loadData()
+  }
 
   private func loadData() {
     sections = []

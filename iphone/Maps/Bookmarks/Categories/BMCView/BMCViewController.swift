@@ -80,6 +80,18 @@ final class BMCViewController: MWMViewController {
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
                                                                                    animated: true)
   }
+  
+  private func openCategorySettings(category: BMCCategory) {
+    let storyboard = UIStoryboard.instance(.categorySettings)
+    let settingsController = storyboard.instantiateInitialViewController() as! CategorySettingsViewController
+    settingsController.categoryId = category.identifier
+    settingsController.maxCategoryNameLength = viewModel.maxCategoryNameLength
+    settingsController.minCategoryNameLength = viewModel.minCategoryNameLength
+    settingsController.delegate = self
+    
+    MapViewController.topViewController().navigationController?.pushViewController(settingsController,
+                                                                                   animated: true)
+  }
 
   private func openCategory(category: BMCCategory) {
     let bmViewController = BookmarksVC(category: category.identifier)!
@@ -97,6 +109,10 @@ final class BMCViewController: MWMViewController {
     let rename = L("rename").capitalized
     actionSheet.addAction(UIAlertAction(title: rename, style: .default, handler: { _ in
       self.updateCategoryName(category: category)
+    }))
+    let settings = L("settings").capitalized
+    actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
+      self.openCategorySettings(category: category)
     }))
     let showHide = L(category.isVisible ? "hide" : "show").capitalized
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
@@ -296,5 +312,19 @@ extension BMCViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
     viewModel.updateAllCategoriesVisibility(isShowAll: categoriesHeader.isShowAll)
     categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
+  }
+}
+
+extension BMCViewController: CategorySettingsViewControllerDelegate {
+  func categorySettingsController(_ viewController: CategorySettingsViewController,
+                                  didEndEditing categoryId: MWMMarkGroupID) {
+    navigationController?.popViewController(animated: true)
+    viewModel?.reloadData()
+  }
+  
+  func categorySettingsController(_ viewController: CategorySettingsViewController,
+                                  didDelete categoryId: MWMMarkGroupID) {
+    navigationController?.popViewController(animated: true)
+    viewModel?.reloadData()
   }
 }

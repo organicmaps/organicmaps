@@ -52,4 +52,6 @@ protocol BMCViewModel: AnyObject {
   func requestRestoring()
   func applyRestoring()
   func cancelRestoring()
+  
+  func reloadData()
 }
