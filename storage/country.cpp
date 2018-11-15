@@ -28,7 +28,8 @@ class StoreSingleMwmInterface
 {
 public:
   virtual ~StoreSingleMwmInterface() = default;
-  virtual Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, size_t depth,
+  virtual Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize,
+                                        string const & mapSha1, size_t depth,
                                         TCountryId const & parent) = 0;
   virtual void InsertOldMwmMapping(TCountryId const & newId, TCountryId const & oldId) = 0;
   virtual void InsertAffiliation(TCountryId const & countryId, string const & affilation) = 0;
@@ -53,14 +54,15 @@ public:
   }
 
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, size_t depth,
-                                TCountryId const & parent) override
+  Country * InsertToCountryTree(TCountryId const & id, TMwmSize mapSize, string const & mapSha1,
+                                size_t depth, TCountryId const & parent) override
   {
     Country country(id, parent);
     if (mapSize)
     {
       CountryFile countryFile(id);
       countryFile.SetRemoteSizes(mapSize, 0 /* routingSize */);
+      countryFile.SetSha1(mapSha1);
       country.SetFile(countryFile);
     }
     return &m_countries.AddAtDepth(depth, country);
@@ -90,7 +92,8 @@ class StoreFile2InfoSingleMwms : public StoreSingleMwmInterface
 public:
   StoreFile2InfoSingleMwms(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
   // StoreSingleMwmInterface overrides:
-  Country * InsertToCountryTree(TCountryId const & id, TMwmSize /* mapSize */, size_t /* depth */,
+  Country * InsertToCountryTree(TCountryId const & id, TMwmSize /* mapSize */,
+                                string const & /* mapSha1 */, size_t /* depth */,
                                 TCountryId const & /* parent */) override
   {
     CountryInfo info(id);
@@ -134,8 +137,12 @@ TMwmSubtreeAttrs LoadGroupSingleMwmsImpl(size_t depth, json_t * node, TCountryId
   int nodeSize;
   FromJSONObjectOptionalField(node, "s", nodeSize);
   ASSERT_LESS_OR_EQUAL(0, nodeSize, ());
+
+  string nodeHash;
+  FromJSONObjectOptionalField(node, "sha1_base64", nodeHash);
+
   // We expect that mwm and routing files should be less than 2GB.
-  Country * addedNode = store.InsertToCountryTree(id, nodeSize, depth, parent);
+  Country * addedNode = store.InsertToCountryTree(id, nodeSize, nodeHash, depth, parent);
 
   TMwmCounter mwmCounter = 0;
   TMwmSize mwmSize = 0;

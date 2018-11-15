@@ -73,6 +73,20 @@ TCountryTreeNode const & LeafNodeFromCountryId(TCountryTree const & root,
   CHECK(node, ("Node with id =", countryId, "not found in country tree as a leaf."));
   return *node;
 }
+
+bool ValidateIntegrity(TLocalFilePtr mapLocalFile, string const & countryId, int64_t version,
+                       string const & source)
+{
+  if (mapLocalFile->ValidateIntegrity())
+    return true;
+
+  alohalytics::LogEvent("$MapIntegrityFailure",
+                        alohalytics::TStringMap({{"mwm", countryId},
+                                                 {"version", strings::to_string(version)},
+                                                 {"source", source}}));
+  base::DeleteFileX(mapLocalFile->GetPath(MapOptions::Map));
+  return false;
+}
 }  // namespace
 
 void GetQueuedCountries(Storage::TQueue const & queue, TCountriesSet & resultCountries)
@@ -961,6 +975,13 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
     return;
   }
 
+  static string const kSourceKey = "map";
+  if (!ValidateIntegrity(localFile, countryId, GetCurrentDataVersion(), kSourceKey))
+  {
+    fn(false /* isSuccess */);
+    return;
+  }
+
   RegisterCountryFiles(localFile);
   fn(true);
 }
@@ -1531,14 +1552,22 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
 
   m_diffManager.ApplyDiff(move(params), [this, fn, diffFile] (bool const result)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, result]
+    bool applyResult = result;
+    static string const kSourceKey = "diff";
+    if (result && !ValidateIntegrity(diffFile, diffFile->GetCountryName(),
+                                     GetCurrentDataVersion(), kSourceKey))
     {
-      if (result)
+      applyResult = false;
+    }
+
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, fn, diffFile, applyResult]
+    {
+      if (applyResult)
       {
         RegisterCountryFiles(diffFile);
         Platform::DisableBackupForFile(diffFile->GetPath(MapOptions::Map));
       }
-      fn(result);
+      fn(applyResult);
     });
   });
 }
