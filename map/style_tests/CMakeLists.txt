@@ -19,15 +19,16 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  expat
   indexer
   platform
-  jansson
   geometry
   coding
   base
-  protobuf
+  expat
   icu
+  jansson
+  oauthcpp
+  protobuf
   stats_client
   ${LIBZ}
 )

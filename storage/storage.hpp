@@ -227,6 +227,8 @@ private:
   // For example {"http://new-search.mapswithme.com/"}.
   vector<string> m_downloadingUrlsForTesting;
 
+  bool m_integrityValidationEnabled = true;
+
   // |m_downloadMapOnTheMap| is called when an end user clicks on download map or retry button
   // on the map.
   TDownloadFn m_downloadMapOnTheMap;
@@ -556,6 +558,7 @@ public:
   TMwmSize GetMaxMwmSizeBytes() const { return m_maxMwmSizeBytes; }
 
   // for testing:
+  void SetEnabledIntegrityValidationForTesting(bool enabled);
   void SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && downloader);
   void SetCurrentDataVersionForTesting(int64_t currentVersion);
   void SetDownloadingUrlsForTesting(vector<string> const & downloadingUrls);

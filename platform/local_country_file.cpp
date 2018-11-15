@@ -109,7 +109,9 @@ bool LocalCountryFile::operator==(LocalCountryFile const & rhs) const
 
 bool LocalCountryFile::ValidateIntegrity() const
 {
-  return coding::SHA1::CalculateBase64(GetPath(MapOptions::Map)) == m_countryFile.GetSha1();
+  auto calculatedSha1 = coding::SHA1::CalculateBase64(GetPath(MapOptions::Map));
+  ASSERT_EQUAL(calculatedSha1, m_countryFile.GetSha1(), ("Integrity failure"));
+  return calculatedSha1 == m_countryFile.GetSha1();
 }
 
 // static

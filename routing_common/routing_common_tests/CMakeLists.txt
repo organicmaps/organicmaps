@@ -14,18 +14,17 @@ omim_link_libraries(
   editor
   routing_common
   platform
-  oauthcpp
   geometry
   coding
   base
-  protobuf
-  succinct
-  opening_hours
+  icu
   jansson
-  stats_client
+  oauthcpp
+  opening_hours
+  protobuf
   pugixml
   stats_client
-  icu
+  succinct
   ${LIBZ}
 )
 

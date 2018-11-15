@@ -554,6 +554,8 @@ void InitStorage(Storage & storage, TaskRunner & runner,
   storage.Init(update, [](TCountryId const &, TLocalFilePtr const){return false;});
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
+  // Disable because of FakeMapFilesDownloader.
+  storage.SetEnabledIntegrityValidationForTesting(false);
 }
 
 class StorageTest
@@ -1884,6 +1886,8 @@ UNIT_CLASS_TEST(StorageTest, MultipleMaps)
   storage.Init(&OnCountryDownloaded /* didDownload */,
                [](TCountryId const &, TLocalFilePtr const) { return false; } /* willDelete */);
   storage.SetDownloaderForTesting(make_unique<FakeMapFilesDownloader>(runner));
+  // Disable because of FakeMapFilesDownloader.
+  storage.SetEnabledIntegrityValidationForTesting(false);
   storage.DownloadNode(nodeId);
   runner.Run();
 

@@ -17,18 +17,18 @@ omim_link_libraries(
   routing_common
   indexer
   editor
-  pugixml
-  oauthcpp
-  opening_hours
   platform_tests_support
   platform
   coding
   geometry
   base
-  stats_client
-  jansson
-  protobuf
   icu
+  jansson
+  oauthcpp
+  opening_hours
+  protobuf
+  pugixml
+  stats_client
   ${LIBZ}
 )
 

@@ -74,9 +74,14 @@ TCountryTreeNode const & LeafNodeFromCountryId(TCountryTree const & root,
   return *node;
 }
 
-bool ValidateIntegrity(TLocalFilePtr mapLocalFile, string const & countryId, int64_t version,
-                       string const & source)
+bool ValidateIntegrity(TLocalFilePtr mapLocalFile, string const & countryId, string const & source)
 {
+  int64_t const version = mapLocalFile->GetVersion();
+
+  int64_t constexpr kMinSupportedVersion = 181030;
+  if (version < kMinSupportedVersion)
+    return true;
+
   if (mapLocalFile->ValidateIntegrity())
     return true;
 
@@ -84,7 +89,6 @@ bool ValidateIntegrity(TLocalFilePtr mapLocalFile, string const & countryId, int
                         alohalytics::TStringMap({{"mwm", countryId},
                                                  {"version", strings::to_string(version)},
                                                  {"source", source}}));
-  base::DeleteFileX(mapLocalFile->GetPath(MapOptions::Map));
   return false;
 }
 }  // namespace
@@ -976,8 +980,9 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
   }
 
   static string const kSourceKey = "map";
-  if (!ValidateIntegrity(localFile, countryId, GetCurrentDataVersion(), kSourceKey))
+  if (m_integrityValidationEnabled && !ValidateIntegrity(localFile, countryId, kSourceKey))
   {
+    base::DeleteFileX(localFile->GetPath(MapOptions::Map));
     fn(false /* isSuccess */);
     return;
   }
@@ -1160,6 +1165,11 @@ void Storage::SetDownloaderForTesting(unique_ptr<MapFilesDownloader> && download
 {
   m_downloader = move(downloader);
   LoadServerListForTesting();
+}
+
+void Storage::SetEnabledIntegrityValidationForTesting(bool enabled)
+{
+  m_integrityValidationEnabled = enabled;
 }
 
 void Storage::SetCurrentDataVersionForTesting(int64_t currentVersion)
@@ -1554,9 +1564,10 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
   {
     bool applyResult = result;
     static string const kSourceKey = "diff";
-    if (result && !ValidateIntegrity(diffFile, diffFile->GetCountryName(),
-                                     GetCurrentDataVersion(), kSourceKey))
+    if (result && m_integrityValidationEnabled &&
+        !ValidateIntegrity(diffFile, diffFile->GetCountryName(), kSourceKey))
     {
+      base::DeleteFileX(diffFile->GetPath(MapOptions::Map));
       applyResult = false;
     }
 

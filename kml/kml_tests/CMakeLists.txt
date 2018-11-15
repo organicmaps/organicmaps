@@ -18,6 +18,7 @@ omim_link_libraries(
   base
   icu
   jansson
+  oauthcpp
   protobuf
   pugixml
   expat

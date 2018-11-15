@@ -27,6 +27,7 @@ omim_link_libraries(
   base
   jansson
   minizip
+  oauthcpp
   stats_client
   ${LIBZ}
 )

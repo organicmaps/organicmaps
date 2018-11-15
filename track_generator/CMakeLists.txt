@@ -28,8 +28,9 @@ omim_link_libraries(
   coding
   base
   icu
-  protobuf
   expat
+  oauthcpp
+  protobuf
   stats_client
   gflags
   ${LIBZ}

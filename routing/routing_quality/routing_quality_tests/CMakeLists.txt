@@ -28,6 +28,7 @@ omim_link_libraries(
   base
   icu
   jansson
+  oauthcpp
   protobuf
   stats_client
   ${LIBZ}

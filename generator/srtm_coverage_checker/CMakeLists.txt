@@ -26,6 +26,7 @@ omim_link_libraries(
   icu
   jansson
   minizip
+  oauthcpp
   protobuf
   stats_client
   ${LIBZ}
