@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
@@ -87,16 +88,15 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     mAuthorizer = new Authorizer(this);
     mController = new DefaultBookmarkDownloadController(mAuthorizer,
                                                         new CatalogListenerDecorator(this));
-    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController();
-    mFailedPurchaseController.initialize(getActivity());
-    mPurchaseChecker = new FailedBookmarkPurchaseChecker();
+    if (savedInstanceState != null)
+      mController.onRestore(savedInstanceState);
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    mController.attach(getActivity());
+    mController.attach(this);
     mFailedPurchaseController.addCallback(mPurchaseChecker);
   }
 
@@ -113,6 +113,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onDestroyView();
     mWebViewClient.clear();
+    mFailedPurchaseController.destroy();
   }
 
   @Nullable
@@ -120,6 +121,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
+    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController();
+    mFailedPurchaseController.initialize(getActivity());
+    mPurchaseChecker = new FailedBookmarkPurchaseChecker();
     View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
     mWebView = root.findViewById(getWebViewResId());
     mRetryBtn = root.findViewById(R.id.retry_btn);
@@ -179,6 +183,18 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     }
   }
 
+  private void retryBookmarkDownload()
+  {
+    try
+    {
+      mController.retryDownloadBookmark();
+    }
+    catch (MalformedURLException e)
+    {
+      LOGGER.e(TAG, "Failed to retry bookmark downloading");
+    }
+  }
+
   @Override
   public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
@@ -189,6 +205,23 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public boolean isTargetAdded()
   {
     return isAdded();
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
+    {
+      retryBookmarkDownload();
+    }
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    mController.onSave(outState);
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient

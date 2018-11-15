@@ -11,17 +11,21 @@ class ProductDetails implements Parcelable
   private final float mPrice;
   @NonNull
   private final String mCurrencyCode;
+  @NonNull
+  private final String mTitle;
 
-  ProductDetails(@NonNull String productId, float price, @NonNull String currencyCode)
+  ProductDetails(@NonNull String productId, float price, @NonNull String currencyCode, @NonNull
+      String title)
   {
     mProductId = productId;
     mPrice = price;
     mCurrencyCode = currencyCode;
+    mTitle = title;
   }
 
   private ProductDetails(Parcel in)
   {
-    this(in.readString(), in.readFloat(), in.readString());
+    this(in.readString(), in.readFloat(), in.readString(), in.readString());
   }
 
   float getPrice()
@@ -39,6 +43,12 @@ class ProductDetails implements Parcelable
   String getProductId()
   {
     return mProductId;
+  }
+
+  @NonNull
+  public String getTitle()
+  {
+    return mTitle;
   }
 
   public static final Creator<ProductDetails> CREATOR = new Creator<ProductDetails>()
@@ -68,5 +78,6 @@ class ProductDetails implements Parcelable
     dest.writeString(mProductId);
     dest.writeFloat(mPrice);
     dest.writeString(mCurrencyCode);
+    dest.writeString(mTitle);
   }
 }

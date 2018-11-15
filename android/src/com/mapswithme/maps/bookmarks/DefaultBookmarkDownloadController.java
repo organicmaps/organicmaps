@@ -1,11 +1,13 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = DefaultBookmarkDownloadController.class.getSimpleName();
+  private static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
   @NonNull
   private final BookmarkDownloadReceiver mDownloadCompleteReceiver = new BookmarkDownloadReceiver();
   @NonNull
@@ -35,7 +38,10 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @NonNull
   private final BookmarkManager.BookmarksCatalogListener mCatalogListener;
   @Nullable
-  private FragmentActivity mActivity;
+  private Fragment mFragment;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Application mApplication;
 
   DefaultBookmarkDownloadController(@NonNull Authorizer authorizer,
                                     @NonNull BookmarkManager.BookmarksCatalogListener catalogListener)
@@ -47,43 +53,52 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void downloadBookmark(@NonNull String url) throws MalformedURLException
   {
-    downloadBookmarkInternal(getActivityOrThrow(), url);
+    downloadBookmarkInternal(mApplication, url);
     mDownloadUrl = url;
   }
 
   @Override
-  public void attach(@NonNull FragmentActivity activity)
+  public void retryDownloadBookmark() throws MalformedURLException
   {
-    if (mActivity != null)
+    if (mDownloadUrl == null)
+      throw new IllegalStateException("Download url must be non-null at this point");
+    downloadBookmarkInternal(mApplication, mDownloadUrl);
+  }
+
+  @Override
+  public void attach(@NonNull Fragment fragment)
+  {
+    if (mFragment != null)
       throw new AssertionError("Already attached! Call detach.");
 
-    mActivity = activity;
+    mFragment = fragment;
+    mApplication = mFragment.getActivity().getApplication();
     mAuthorizer.attach(this);
     mDownloadCompleteReceiver.attach(this);
-    mDownloadCompleteReceiver.register(getActivityOrThrow().getApplication());
+    mDownloadCompleteReceiver.register(getFragmentOrThrow().getActivity().getApplication());
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
   @Override
   public void detach()
   {
-    if (mActivity == null)
+    if (mFragment == null)
       throw new AssertionError("Already detached! Call attach.");
 
     mAuthorizer.detach();
     mDownloadCompleteReceiver.detach();
-    mDownloadCompleteReceiver.unregister(getActivityOrThrow().getApplication());
+    mDownloadCompleteReceiver.unregister(getFragmentOrThrow().getActivity().getApplication());
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
-    mActivity = null;
+    mFragment = null;
   }
 
   @NonNull
-  FragmentActivity getActivityOrThrow()
+  Fragment getFragmentOrThrow()
   {
-    if (mActivity == null)
+    if (mFragment == null)
       throw new IllegalStateException("Call this method only when controller is attached!");
 
-    return mActivity;
+    return mFragment;
   }
 
   private static void downloadBookmarkInternal(@NonNull Context context, @NonNull String url)
@@ -112,8 +127,8 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
       throw new IllegalStateException("Download url must be non-null if payment required!");
 
     PaymentData data = parsePaymentData(mDownloadUrl);
-    BookmarkPaymentActivity.start(getActivityOrThrow(), data,
-                                  BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
+    BookmarkPaymentActivity.startForResult(getFragmentOrThrow(), data,
+                                           BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
   }
 
   @NonNull
@@ -129,7 +144,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     hideProgress();
     if (!success)
     {
-      Toast.makeText(getActivityOrThrow(), R.string.profile_authorization_error,
+      Toast.makeText(getFragmentOrThrow().getContext(), R.string.profile_authorization_error,
                      Toast.LENGTH_LONG).show();
       return;
     }
@@ -139,7 +154,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
 
     try
     {
-      downloadBookmarkInternal(getActivityOrThrow(), mDownloadUrl);
+      downloadBookmarkInternal(mApplication, mDownloadUrl);
     }
     catch (MalformedURLException e)
     {
@@ -149,18 +164,17 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
 
   private void showProgress()
   {
-    String message = getActivityOrThrow().getString(R.string.please_wait);
+    String message = getFragmentOrThrow().getString(R.string.please_wait);
     ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(message, false, true);
-    getActivityOrThrow().getSupportFragmentManager()
+    getFragmentOrThrow().getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .add(dialog, dialog.getClass().getCanonicalName())
                         .commitAllowingStateLoss();
   }
 
-
   private void hideProgress()
   {
-    FragmentManager fm = getActivityOrThrow().getSupportFragmentManager();
+    FragmentManager fm = getFragmentOrThrow().getActivity().getSupportFragmentManager();
     String tag = ProgressDialogFragment.class.getCanonicalName();
     DialogFragment frag = (DialogFragment) fm.findFragmentByTag(tag);
     if (frag != null)
@@ -185,12 +199,24 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     // Do nothing by default.
   }
 
+  @Override
+  public void onSave(@NonNull Bundle outState)
+  {
+    outState.putString(EXTRA_DOWNLOAD_URL, mDownloadUrl);
+  }
+
+  @Override
+  public void onRestore(@NonNull Bundle inState)
+  {
+    mDownloadUrl = inState.getString(EXTRA_DOWNLOAD_URL);
+  }
+
   private static class BookmarkPaymentDataParser implements PaymentDataParser
   {
     private final static String SERVER_ID = "id";
     private final static String PRODUCT_ID = "tier";
     private final static String NAME = "name";
-    private final static String IMG_URL = "img";
+    private final static String IMG_URL = "img_url";
     private final static String AUTHOR_NAME = "author_name";
 
     @NonNull

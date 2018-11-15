@@ -8,13 +8,14 @@
   tools:showIn="@layout/fragment_bookmark_payment">
   <TextView
     android:id="@+id/product_store_name"
-    android:textAppearance="?android:textAppearanceSmall"
-    tools:text="Store name localized product id"
+    android:textAppearance="?android:textAppearance"
+    android:text="…"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_base_plus"
     android:gravity="start"
-    android:textAllCaps="true"/>
+    android:textAllCaps="true"
+    tools:ignore="HardcodedText"/>
   <include layout="@layout/divider_horizontal"/>
   <LinearLayout
     android:orientation="vertical"
@@ -30,7 +31,7 @@
       android:gravity="start"/>
     <TextView
       android:id="@+id/author_name"
-      android:textAppearance="?android:textAppearanceSmall"
+      android:textAppearance="?android:textAppearance"
       tools:text="by Julio Mulio"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -50,16 +51,16 @@
         tools:text="BUY FOR $1.99"/>
       <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="@dimen/margin_base_plus"
-        android:layout_height="@dimen/margin_base_plus"
-        style="@android:style/Widget.Holo.ProgressBar.Large"
+        android:layout_width="@dimen/primary_button_min_height"
+        android:layout_height="@dimen/primary_button_min_height"
         android:layout_gravity="center"
         android:visibility="visible"
         tools:visibility="visible"/>
     </FrameLayout>
     <TextView
       android:id="@+id/cancel_btn"
-      android:textAppearance="?android:textAppearanceSmall"
+      android:textAppearance="?android:textAppearance"
+      android:background="?clickableBackground"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:padding="@dimen/margin_half_plus_eight"

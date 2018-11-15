@@ -319,7 +319,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   @Override
   public void onAlertDialogNegativeClick(int requestCode, int which)
   {
-
+     // Do nothing by default.
   }
 
   @Override
@@ -347,10 +347,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     mProductDetails = new ProductDetails[Period.values().length];
     for (SkuDetails sku: details)
     {
-      float price = sku.getPriceAmountMicros() / 1000000;
-      String currencyCode = sku.getPriceCurrencyCode();
       Period period = Period.valueOf(sku.getSubscriptionPeriod());
-      mProductDetails[period.ordinal()] = new ProductDetails(sku.getSku(), price, currencyCode);
+      mProductDetails[period.ordinal()] = PurchaseUtils.toProductDetails(sku);
     }
   }
 

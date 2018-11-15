@@ -3,6 +3,7 @@ package com.mapswithme.maps.purchase;
 import android.support.annotation.NonNull;
 
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.SkuDetails;
 import org.json.JSONException;
 
 class PurchaseUtils
@@ -23,5 +24,13 @@ class PurchaseUtils
     {
       throw new IllegalArgumentException("Failed to parse purchase token!");
     }
+  }
+
+  @NonNull
+  static ProductDetails toProductDetails(@NonNull SkuDetails skuDetails)
+  {
+    float price = skuDetails.getPriceAmountMicros() / 1000000;
+    String currencyCode = skuDetails.getPriceCurrencyCode();
+    return new ProductDetails(skuDetails.getSku(), price, currencyCode, skuDetails.getTitle());
   }
 }

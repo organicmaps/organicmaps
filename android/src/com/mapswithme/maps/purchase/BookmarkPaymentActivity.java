@@ -1,6 +1,5 @@
 package com.mapswithme.maps.purchase;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,14 +10,14 @@ import com.mapswithme.maps.bookmarks.data.PaymentData;
 
 public class BookmarkPaymentActivity extends BaseMwmFragmentActivity
 {
-  public static void start(@NonNull Activity activity, @NonNull PaymentData paymentData,
-                           int requestCode)
+  public static void startForResult(@NonNull Fragment fragment, @NonNull PaymentData paymentData,
+                                    int requestCode)
   {
-    Intent intent = new Intent(activity, BookmarkPaymentActivity.class);
+    Intent intent = new Intent(fragment.getActivity(), BookmarkPaymentActivity.class);
     Bundle args = new Bundle();
     args.putParcelable(BookmarkPaymentFragment.ARG_PAYMENT_DATA, paymentData);
     intent.putExtras(args);
-    activity.startActivityForResult(intent, requestCode);
+    fragment.startActivityForResult(intent, requestCode);
   }
 
   @Override
