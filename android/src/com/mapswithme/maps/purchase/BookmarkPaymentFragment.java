@@ -15,8 +15,8 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
-import com.mapswithme.maps.dialog.Detachable;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
+import com.mapswithme.maps.base.Detachable;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 

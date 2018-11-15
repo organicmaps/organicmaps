@@ -3,7 +3,7 @@ package com.mapswithme.maps.bookmarks;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
-import com.mapswithme.maps.dialog.Detachable;
+import com.mapswithme.maps.base.Detachable;
 
 import java.net.MalformedURLException;
 

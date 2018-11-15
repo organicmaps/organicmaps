@@ -13,7 +13,7 @@ import com.mapswithme.maps.background.AbstractLogBroadcastReceiver;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Error;
 import com.mapswithme.maps.bookmarks.data.Result;
-import com.mapswithme.maps.dialog.Detachable;
+import com.mapswithme.maps.base.Detachable;
 
 public class BookmarkDownloadReceiver extends AbstractLogBroadcastReceiver implements Detachable<BookmarkDownloadHandler>
 {

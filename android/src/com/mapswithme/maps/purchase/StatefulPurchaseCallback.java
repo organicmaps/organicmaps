@@ -3,7 +3,7 @@ package com.mapswithme.maps.purchase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mapswithme.maps.dialog.Detachable;
+import com.mapswithme.maps.base.Detachable;
 
 abstract class StatefulPurchaseCallback<State, UiObject extends PurchaseStateActivator<State>>
     implements Detachable<UiObject>

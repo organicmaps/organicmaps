@@ -1,4 +1,4 @@
-package com.mapswithme.maps.dialog;
+package com.mapswithme.maps.base;
 
 import android.support.annotation.NonNull;
 
