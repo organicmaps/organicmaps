@@ -130,6 +130,7 @@ using namespace osm_auth_ios;
 
 @property(nonatomic) NSInteger standbyCounter;
 @property(nonatomic) MWMBackgroundFetchScheduler * backgroundFetchScheduler;
+@property(nonatomic) id<IPendingTransactionsHandler> pendingTransactionHandler;
 
 @end
 
@@ -390,8 +391,14 @@ using namespace osm_auth_ios;
   if (@available(iOS 10, *))
     [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
-  if ([MWMFrameworkHelper canUseNetwork])
+  if ([MWMFrameworkHelper canUseNetwork]) {
     [[SubscriptionManager shared] validate];
+    self.pendingTransactionHandler = [InAppPurchase pendingTransactionsHandler];
+    __weak __typeof(self) ws = self;
+    [self.pendingTransactionHandler handlePendingTransactions:^(PendingTransactionsStatus) {
+      ws.pendingTransactionHandler = nil;
+    }];
+  }
   
   return YES;
 }

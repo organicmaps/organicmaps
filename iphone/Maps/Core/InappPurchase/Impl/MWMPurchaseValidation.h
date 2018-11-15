@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMPurchaseValidation : NSObject <IMWMPurchaseValidation>
 
-- (instancetype)init __unavailable;
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithVendorId:(NSString *)vendorId;
 
 @end

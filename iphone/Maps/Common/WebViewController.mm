@@ -87,16 +87,26 @@
 
   self.webView.backgroundColor = UIColor.whiteColor;
 
-  if (self.m_htmlText)
-  {
-    [self.webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
-  }
-  else
-  {
-    auto request = [NSMutableURLRequest requestWithURL:self.m_url];
-    [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
-    [self.webView loadRequest:request];
-  }
+  __weak __typeof(self) ws = self;
+  [self willLoadUrl:^(BOOL load) {
+    __typeof(self) self = ws;
+    if (load) {
+      if (self.m_htmlText)
+      {
+        [self.webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
+      }
+      else
+      {
+        auto request = [NSMutableURLRequest requestWithURL:self.m_url];
+        [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
+        [self.webView loadRequest:request];
+      }
+    }
+  }];
+}
+
+- (void)willLoadUrl:(MWMBoolBlock)decisionHandler {
+  decisionHandler(YES);
 }
 
 - (void)viewDidDisappear:(BOOL)animated

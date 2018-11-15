@@ -1,4 +1,5 @@
-final class InAppPurchase {
+@objc
+final class InAppPurchase: NSObject {
   static func paidRoutePurchase(serverId: String,
                                 productId: String) -> IPaidRoutePurchase {
     let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
@@ -7,5 +8,12 @@ final class InAppPurchase {
                              productId: productId,
                              purchaseValidation: validation,
                              billing: billing)
+  }
+
+  @objc
+  static func pendingTransactionsHandler() -> IPendingTransactionsHandler {
+    let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
+    let pendingTransaction = BillingPendingTransaction()
+    return PendingTransactionsHandler(validation: validation, pendingTransaction: pendingTransaction)
   }
 }

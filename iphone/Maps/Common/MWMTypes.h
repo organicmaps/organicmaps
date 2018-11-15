@@ -2,6 +2,7 @@ typedef void (^MWMVoidBlock)(void);
 typedef void (^MWMStringBlock)(NSString *);
 typedef void (^MWMURLBlock)(NSURL *);
 typedef BOOL (^MWMCheckStringBlock)(NSString *);
+typedef void (^MWMBoolBlock)(BOOL);
 
 typedef NS_ENUM(NSUInteger, MWMDayTime) { MWMDayTimeDay, MWMDayTimeNight };
 

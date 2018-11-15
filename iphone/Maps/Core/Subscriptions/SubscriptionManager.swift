@@ -83,7 +83,8 @@ class SubscriptionManager: NSObject {
           }
           MWMPurchaseManager.shared().setAdsDisabled(validationResult == .valid)
           self.paymentQueue.transactions
-            .filter { $0.transactionState == .purchased || $0.transactionState == .restored }
+            .filter { Subscription.productIds.contains($0.payment.productIdentifier) &&
+              ($0.transactionState == .purchased || $0.transactionState == .restored) }
             .forEach { self.paymentQueue.finishTransaction($0) }
           self.restorationCallback?(validationResult)
           self.restorationCallback = nil

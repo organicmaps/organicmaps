@@ -357,6 +357,9 @@
 		470F5A5C2181DE7500754295 /* PaidRouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 470F5A5A2181DE7400754295 /* PaidRouteViewController.xib */; };
 		470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */; };
 		470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7E2189C30800754295 /* InAppPurchase.swift */; };
+		4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */; };
+		4719A645219CBD65009F9AA7 /* IPendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */; };
+		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
@@ -382,6 +385,7 @@
 		47B505552136B0CF009CBB55 /* SearchTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */; };
 		47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F9722191E15A00C2760C /* InAppBilling.swift */; };
 		47C7F97521930F5300C2760C /* IInAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F97421930F5300C2760C /* IInAppBilling.swift */; };
+		47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */; };
 		47E3C72121108E9F008B3B27 /* BookmarksLoadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */; };
 		47E3C72221108E9F008B3B27 /* BookmarksLoadedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */; };
 		47E3C7252111E41B008B3B27 /* DimmedModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */; };
@@ -1354,6 +1358,9 @@
 		470F5A5A2181DE7400754295 /* PaidRouteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaidRouteViewController.xib; sourceTree = "<group>"; };
 		470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutePurchase.swift; sourceTree = "<group>"; };
 		470F5A7E2189C30800754295 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
+		4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingPendingTransaction.swift; sourceTree = "<group>"; };
+		4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPendingTransactionsHandler.swift; sourceTree = "<group>"; };
+		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
@@ -1384,6 +1391,7 @@
 		47C7F9722191E15A00C2760C /* InAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBilling.swift; sourceTree = "<group>"; };
 		47C7F97421930F5300C2760C /* IInAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IInAppBilling.swift; sourceTree = "<group>"; };
 		47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMPurchaseValidation.h; sourceTree = "<group>"; };
+		47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTransactionsHandler.swift; sourceTree = "<group>"; };
 		47E3C71F21108E9F008B3B27 /* BookmarksLoadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLoadedViewController.swift; sourceTree = "<group>"; };
 		47E3C72021108E9F008B3B27 /* BookmarksLoadedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksLoadedViewController.xib; sourceTree = "<group>"; };
 		47E3C7242111E41B008B3B27 /* DimmedModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmedModalPresentationController.swift; sourceTree = "<group>"; };
@@ -3236,16 +3244,28 @@
 		470F5A7B2189BA7200754295 /* InappPurchase */ = {
 			isa = PBXGroup;
 			children = (
-				477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */,
-				470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */,
 				470F5A7E2189C30800754295 /* InAppPurchase.swift */,
-				47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */,
-				473464A5218B0BC000D6AF5B /* MWMPurchaseValidation.h */,
-				473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */,
+				4719A648219CBD9E009F9AA7 /* Impl */,
+				4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */,
 				47C7F97421930F5300C2760C /* IInAppBilling.swift */,
-				47C7F9722191E15A00C2760C /* InAppBilling.swift */,
+				477D7AC6218F1515007EE2CB /* IPaidRoutePurchase.swift */,
+				4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */,
+				47C7F976219310D800C2760C /* IMWMPurchaseValidation.h */,
 			);
 			path = InappPurchase;
+			sourceTree = "<group>";
+		};
+		4719A648219CBD9E009F9AA7 /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */,
+				47C7F9722191E15A00C2760C /* InAppBilling.swift */,
+				470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */,
+				47D0026621999DA900F651A2 /* PendingTransactionsHandler.swift */,
+				473464A5218B0BC000D6AF5B /* MWMPurchaseValidation.h */,
+				473464A6218B0BC000D6AF5B /* MWMPurchaseValidation.mm */,
+			);
+			path = Impl;
 			sourceTree = "<group>";
 		};
 		471BBD92213038E000EB17C9 /* TipsAndTricks */ = {
@@ -4768,6 +4788,7 @@
 				34BBD64C1F826DB10070CA50 /* AuthorizationViewController.swift in Sources */,
 				F6E2FE101E097BA00083EBEC /* MWMOpeningHoursTableViewCell.mm in Sources */,
 				6741A9B01BF340DE002C974C /* MapsAppDelegate.mm in Sources */,
+				4719A645219CBD65009F9AA7 /* IPendingTransactionsHandler.swift in Sources */,
 				34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */,
 				340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				34AB66561FC5AA330078E451 /* TransportTransitPedestrian.swift in Sources */,
@@ -4865,6 +4886,7 @@
 				34D3B0181E389D05004100F9 /* EditorAdditionalNamePlaceholderTableViewCell.swift in Sources */,
 				346DB8281E5C4F6700E3123E /* GalleryCell.swift in Sources */,
 				F6EBB26F1FD7E33300B69B6A /* DiscoveryNoResultsCell.swift in Sources */,
+				47D0026721999DA900F651A2 /* PendingTransactionsHandler.swift in Sources */,
 				F6E2FF121E097BA00083EBEC /* MWMSearchHistoryRequestCell.mm in Sources */,
 				F6FE3C391CC50FFD00A73196 /* MWMPlaceDoesntExistAlert.mm in Sources */,
 				F6E2FDFE1E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.mm in Sources */,
@@ -4948,6 +4970,7 @@
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
+				4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */,
 				F6E2FE881E097BA00083EBEC /* MWMPlacePageRegularCell.mm in Sources */,
 				34AB66771FC5AA330078E451 /* TransportRoutePreviewStatus.swift in Sources */,
 				F6E2FD801E097BA00083EBEC /* MWMMapDownloaderExtendedDataSourceWithAds.mm in Sources */,
@@ -4998,6 +5021,7 @@
 				F682249B1E5B104600BC1C18 /* PPHotelDescriptionCell.swift in Sources */,
 				F6E2FECA1E097BA00083EBEC /* MWMSearchFilterTransitioning.mm in Sources */,
 				3454D7DD1E07F045004AF2AD /* UISwitch+RuntimeAttributes.m in Sources */,
+				4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */,
 				340416581E7C0D4100E2B6D6 /* PhotosOverlayView.swift in Sources */,
 				F6E2FE821E097BA00083EBEC /* MWMPlacePageOpeningHoursDayView.mm in Sources */,
 				340FDC092031C39E00F140AD /* BMCPermissionsPendingCell.swift in Sources */,

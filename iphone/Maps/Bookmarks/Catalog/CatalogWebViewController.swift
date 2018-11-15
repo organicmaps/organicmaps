@@ -19,12 +19,13 @@ struct CatalogCategoryInfo {
 
 @objc(MWMCatalogWebViewController)
 final class CatalogWebViewController: WebViewController {
-
   let progressView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
   let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
   let numberOfTasksLabel = UILabel()
   let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+  let pendingTransactionsHandler = InAppPurchase.pendingTransactionsHandler()
   var deeplink: URL?
+  var categoryInfo: CatalogCategoryInfo?
   var statSent = false
   var backButton: UIBarButtonItem!
   var fwdButton: UIBarButtonItem!
@@ -90,7 +91,6 @@ final class CatalogWebViewController: WebViewController {
       progressView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
     }
 
-
     rotateProgress()
     updateProgress()
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_catalog_close"), style: .plain, target: self, action: #selector(goBack))
@@ -107,6 +107,23 @@ final class CatalogWebViewController: WebViewController {
     super.viewDidAppear(animated)
     if let deeplink = deeplink {
       processDeeplink(deeplink)
+    }
+  }
+
+  override func willLoadUrl(_ decisionHandler: @escaping (Bool) -> Void) {
+    pendingTransactionsHandler.handlePendingTransactions { [weak self] (status) in
+      switch status {
+      case .none:
+        fallthrough
+      case .success:
+        decisionHandler(true)
+        break
+      case .error:
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                              text: L("failed_purchase_support_message"))
+        decisionHandler(false)
+        self?.loadingIndicator.stopAnimating()
+      }
     }
   }
 
@@ -157,7 +174,18 @@ final class CatalogWebViewController: WebViewController {
 
   func processDeeplink(_ url: URL) {
     guard let categoryInfo = parseUrl(url) else {
-      //TODO: handle error
+      MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                            text: L("subtitle_error_downloading_guide"))
+      return
+    }
+    self.categoryInfo = categoryInfo
+
+    download()
+  }
+
+  private func download() {
+    guard let categoryInfo = self.categoryInfo else {
+      assert(false)
       return
     }
 
@@ -187,7 +215,7 @@ final class CatalogWebViewController: WebViewController {
           case .needAuth:
             if let s = self {
               s.signup(anchor: s.view) {
-                if $0 { s.processDeeplink(url) }
+                if $0 { s.download() }
               }
             }
             break
@@ -195,7 +223,7 @@ final class CatalogWebViewController: WebViewController {
             self?.showPaymentScreen(categoryInfo)
             break
           case .notFound:
-            self?.showServerError(url)
+            self?.showServerError()
             break
           case .networkError:
             self?.showNetworkError()
@@ -218,7 +246,8 @@ final class CatalogWebViewController: WebViewController {
 
   private func showPaymentScreen(_ productInfo: CatalogCategoryInfo) {
     guard let productId = productInfo.productId else {
-      //TODO: handle error
+      MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                            text: L("subtitle_error_downloading_guide"))
       return
     }
 
@@ -242,12 +271,12 @@ final class CatalogWebViewController: WebViewController {
     MWMAlertViewController.activeAlert().presentNoConnectionAlert();
   }
 
-  private func showServerError(_ url: URL) {
+  private func showServerError() {
     MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
                                                              message: L("error_server_message"),
                                                              rightButtonTitle: L("try_again"),
                                                              leftButtonTitle: L("cancel")) {
-                                                              self.processDeeplink(url)
+                                                              self.download()
     }
   }
 
@@ -284,6 +313,7 @@ final class CatalogWebViewController: WebViewController {
 extension CatalogWebViewController: PaidRouteViewControllerDelegate {
   func didCompletePurchase(_ viewController: PaidRouteViewController) {
     dismiss(animated: true)
+    download()
   }
 
   func didCancelPurchase(_ viewController: PaidRouteViewController) {

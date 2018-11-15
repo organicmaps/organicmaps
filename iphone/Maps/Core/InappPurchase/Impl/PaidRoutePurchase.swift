@@ -33,12 +33,12 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   }
 
   func requestStoreProduct(_ completion: @escaping StoreProductCompletion) {
-    billing.requestProduct([productId]) { [unowned self] (products, error) in
+    billing.requestProducts([productId]) { [weak self] (products, error) in
       guard let product = products?[0] else {
         completion(nil, error)
         return
       }
-      self.billingProduct = product
+      self?.billingProduct = product
       completion(StoreProduct(product), nil)
     }
   }
@@ -46,6 +46,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   func makePayment(_ completion: @escaping StorePaymentCompletion) {
     guard let product = billingProduct else {
       assert(false, "You must call requestStoreProduct() first")
+      return
     }
 
     storePaymentCompletion = completion
@@ -71,19 +72,19 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   }
 
   private func purchased() {
-    purchaseValidation.validateReceipt(serverId, callback: { [unowned self] result in
+    purchaseValidation.validateReceipt(serverId, callback: { [weak self] result in
       switch result {
       case .valid:
-        self.billing.finishTransaction()
-        self.storePaymentCompletion?(.success, nil)
+        self?.billing.finishTransaction()
+        self?.storePaymentCompletion?(.success, nil)
         break
       case .notValid:
         fallthrough
       case .error:
-        self.storePaymentCompletion?(.error, nil)
+        self?.storePaymentCompletion?(.error, nil)
         break
       }
-      self.storePaymentCompletion = nil
+      self?.storePaymentCompletion = nil
     })
   }
 

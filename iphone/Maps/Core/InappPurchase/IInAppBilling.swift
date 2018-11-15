@@ -16,7 +16,7 @@ protocol IInAppBilling {
   typealias ProductsCompletion = ([IBillingProduct]?, Error?) -> Void
   typealias PaymentCompletion = (PaymentStatus, Error?) -> Void
 
-  func requestProduct(_ productIds: Set<String>, completion: @escaping ProductsCompletion)
+  func requestProducts(_ productIds: Set<String>, completion: @escaping ProductsCompletion)
   func makePayment(_ product: IBillingProduct, completion: @escaping PaymentCompletion)
   func finishTransaction()
 }

@@ -38,7 +38,7 @@ final class InAppBilling: NSObject, IInAppBilling {
     SKPaymentQueue.default().remove(self)
   }
 
-  func requestProduct(_ productIds: Set<String>, completion: @escaping ProductsCompletion) {
+  func requestProducts(_ productIds: Set<String>, completion: @escaping ProductsCompletion) {
     productsCompletion = completion
     productRequest = SKProductsRequest(productIdentifiers: productIds)
     productRequest!.delegate = self

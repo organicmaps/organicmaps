@@ -40,7 +40,14 @@ class PaidRouteViewController: MWMViewController {
     routeTitleLabel.text = name
     routeAuthorLabel.text = author
     if let url = imageUrl {
-      previewImageView.af_setImage(withURL: url)
+      previewImageView.af_setImage(withURL: url,
+                                   placeholderImage: nil,
+                                   filter: nil,
+                                   progress: nil,
+                                   progressQueue: DispatchQueue.main,
+                                   imageTransition: .crossDissolve(0.25),
+                                   runImageTransitionIfCached: true,
+                                   completion: nil)
     }
 
     purchase.requestStoreProduct { [weak self] (product, error) in
@@ -52,9 +59,14 @@ class PaidRouteViewController: MWMViewController {
         return
       }
       self?.productNameLabel.text = product.localizedName
-      self?.buyButton.setTitle(product.formattedPrice, for: .normal)
+      self?.buyButton.setTitle(String(coreFormat: L("buy_btn"), arguments: [product.formattedPrice]),
+                               for: .normal)
       self?.buyButton.isEnabled = true
     }
+  }
+
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
   }
 
 // MARK: - Event handlers
