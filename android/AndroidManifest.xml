@@ -446,8 +446,12 @@
       android:name="com.mapswithme.maps.ugc.routes.UgcRouteTagsActivity"
       android:label="@string/ugc_route_tags_screen_label">
     </activity>
-    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"/>
-    <activity android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"/>
+    <activity
+      android:name="com.mapswithme.maps.ugc.routes.UgcRouteSharingOptionsActivity"
+      android:label="@string/sharing_options"/>
+    <activity
+      android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"
+      android:label="@string/settings"/>
     <activity android:name=".purchase.BookmarkPaymentActivity"/>
     <activity android:name="com.mapswithme.maps.ugc.route.SendLinkPlaceholderActivity"/>
     <activity
