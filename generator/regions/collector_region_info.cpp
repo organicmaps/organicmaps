@@ -4,7 +4,6 @@
 #include "generator/osm_element.hpp"
 
 #include "coding/file_writer.hpp"
-#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -58,17 +57,10 @@ void CollectorRegionInfo::Collect(base::GeoObjectId const & osmId, OsmElement co
 
 void CollectorRegionInfo::Save()
 {
-  try
-  {
-    FileWriter writer(m_filename);
-    WriteToSink(writer, kVersion);
-    WriteMap(writer, m_mapRegionData);
-    WriteMap(writer, m_mapIsoCode);
-  }
-  catch (FileWriter::Exception const & e)
-  {
-    LOG(LCRITICAL, ("Failed to save regions info:", e.Msg()));
-  }
+  FileWriter writer(m_filename);
+  WriteToSink(writer, kVersion);
+  WriteMap(writer, m_mapRegionData);
+  WriteMap(writer, m_mapIsoCode);
 }
 
 void CollectorRegionInfo::FillRegionData(base::GeoObjectId const & osmId, OsmElement const & el,
@@ -76,13 +68,6 @@ void CollectorRegionInfo::FillRegionData(base::GeoObjectId const & osmId, OsmEle
 {
   rd.m_osmId = osmId;
   rd.m_place = EncodePlaceType(el.GetTag("place"));
-
-  auto const & members = el.Members();
-  auto const it = std::find_if(std::begin(members), std::end(members),
-                               [](OsmElement::Member const & m) { return m.role == "admin_centre"; });
-  if (it != std::end(members))
-    rd.m_osmIdAdminCenter = base::MakeOsmNode(it->ref);
-
   auto const al = el.GetTag("admin_level");
   if (al.empty())
     return;
@@ -127,157 +112,6 @@ void IsoCode::SetNumeric(std::string const & numeric)
 {
   CHECK_LESS_OR_EQUAL(numeric.size() + 1, ARRAY_SIZE(m_numeric), ());
   std::strcpy(m_numeric, numeric.data());
-}
-
-RegionInfo::RegionInfo(std::string const & filename)
-{
-  ParseFile(filename);
-}
-
-RegionInfo::RegionInfo(Platform::FilesList const & filenames)
-{
-  for (auto const & filename : filenames)
-    ParseFile(filename);
-}
-
-void RegionInfo::ParseFile(std::string const & filename)
-{
-  try
-  {
-    FileReader reader(filename);
-    ReaderSource<FileReader> src(reader);
-    uint8_t version;
-    ReadPrimitiveFromSource(src, version);
-    CHECK_EQUAL(version, kVersion, ("Versions do not match."));
-    ReadMap(src, m_mapRegionData);
-    ReadMap(src, m_mapIsoCode);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LCRITICAL, ("Failed to parse regions info:", e.Msg()));
-  }
-}
-
-RegionDataProxy RegionInfo::Get(base::GeoObjectId const & osmId)
-{
-  return RegionDataProxy(*this, osmId);
-}
-
-RegionDataProxy::RegionDataProxy(RegionInfo & regionInfoCollector,
-                                 base::GeoObjectId const & osmId)
-  : m_regionInfoCollector(regionInfoCollector),
-    m_osmId(osmId)
-{
-}
-
-RegionInfo const & RegionDataProxy::GetCollector() const
-{
-  return m_regionInfoCollector;
-}
-
-RegionInfo & RegionDataProxy::GetCollector()
-{
-  return m_regionInfoCollector;
-}
-
-MapRegionData & RegionDataProxy::GetMapRegionData()
-{
-  return GetCollector().m_mapRegionData;
-}
-
-
-MapRegionData const & RegionDataProxy::GetMapRegionData() const
-{
-  return GetCollector().m_mapRegionData;
-}
-
-
-MapIsoCode const & RegionDataProxy::GetMapIsoCode() const
-{
-  return GetCollector().m_mapIsoCode;
-}
-
-base::GeoObjectId const & RegionDataProxy::GetOsmId() const
-{
-  return m_osmId;
-}
-
-AdminLevel RegionDataProxy::GetAdminLevel() const
-{
-  return GetMapRegionData().at(m_osmId).m_adminLevel;
-}
-
-PlaceType RegionDataProxy::GetPlaceType() const
-{
-  return GetMapRegionData().at(m_osmId).m_place;
-}
-
-void RegionDataProxy::SetAdminLevel(AdminLevel adminLevel)
-{
-  GetMapRegionData().at(m_osmId).m_adminLevel = adminLevel;
-}
-
-void RegionDataProxy::SetPlaceType(PlaceType placeType)
-{
-  GetMapRegionData().at(m_osmId).m_place = placeType;
-}
-
-bool RegionDataProxy::HasAdminLevel() const
-{
-  return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_adminLevel != AdminLevel::Unknown);
-}
-
-bool RegionDataProxy::HasPlaceType() const
-{
-  return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_place != PlaceType::Unknown);
-}
-
-bool RegionDataProxy::HasIsoCode() const
-{
-  return GetMapIsoCode().count(m_osmId) != 0;
-}
-
-bool RegionDataProxy::HasIsoCodeAlpha2() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha2();
-}
-
-bool RegionDataProxy::HasIsoCodeAlpha3() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasAlpha3();
-}
-
-bool RegionDataProxy::HasIsoCodeAlphaNumeric() const
-{
-  return HasIsoCode() && GetMapIsoCode().at(m_osmId).HasNumeric();
-}
-
-std::string RegionDataProxy::GetIsoCodeAlpha2() const
-{
-  return GetMapIsoCode().at(m_osmId).GetAlpha2();
-}
-
-std::string RegionDataProxy::GetIsoCodeAlpha3() const
-{
-  return GetMapIsoCode().at(m_osmId).GetAlpha3();
-}
-
-std::string RegionDataProxy::GetIsoCodeAlphaNumeric() const
-{
-  return GetMapIsoCode().at(m_osmId).GetNumeric();
-}
-
-bool RegionDataProxy::HasAdminCenter() const
-{
-  return (GetMapRegionData().count(m_osmId) != 0) &&
-      (GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.HasId());
-}
-
-base::GeoObjectId RegionDataProxy::GetAdminCenter() const
-{
-  return GetMapRegionData().at(m_osmId).m_osmIdAdminCenter.GetId();
 }
 }  // namespace regions
 }  // namespace generator

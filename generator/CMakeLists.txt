@@ -121,10 +121,14 @@ set(SRC
   regions/region.hpp
   regions/region_base.cpp
   regions/region_base.hpp
+  regions/region_info.cpp
+  regions/region_info.hpp
   regions/regions.cpp
   regions/regions.hpp
   regions/regions_builder.cpp
   regions/regions_builder.hpp
+  regions/regions_fixer.cpp
+  regions/regions_fixer.hpp
   regions/to_string_policy.cpp
   regions/to_string_policy.hpp
   restriction_collector.cpp

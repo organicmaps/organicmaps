@@ -203,17 +203,10 @@ UNIT_TEST(RegionsBuilderTest_GetCountryTrees)
   RegionInfo collector(filename);
   std::vector<std::string> bankOfNames;
   RegionsBuilder builder(MakeTestDataSet1(collector), std::make_unique<Helper>(bankOfNames));
-
-  auto const countryTrees = builder.GetCountryTrees();
-  for (auto const & countryName : builder.GetCountryNames())
-  {
-    auto const keyRange = countryTrees.equal_range(countryName);
-    for (auto it = keyRange.first; it != keyRange.second; ++it)
-    {
-      auto const unused = builder.ToIdStringList(it->second);
-      UNUSED_VALUE(unused);
-    }
-  }
+  builder.ForEachNormalizedCountry([&](std::string const & name, Node::Ptr tree) {
+    bankOfNames.push_back(name);
+    builder.ToIdStringList(tree);
+  });
 
   TEST_EQUAL(std::count(std::begin(bankOfNames), std::end(bankOfNames), "Country_2"), 2, ());
   TEST(ExistsName(bankOfNames, "Country_1"), ());

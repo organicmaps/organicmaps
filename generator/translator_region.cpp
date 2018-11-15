@@ -30,12 +30,6 @@ bool TranslatorRegion::IsSuitableElement(OsmElement const * p) const
     if (t.key == "place" && places.find(t.value) != places.end())
       return true;
 
-    auto const & members = p->Members();
-    auto const pred = [](OsmElement::Member const & m) { return m.role == "admin_centre"; };
-    if (t.key == "boundary" && t.value == "political" &&
-        std::find_if(std::begin(members), std::end(members), pred) != std::end(members))
-      return true;
-
     if (t.key == "boundary" && t.value == "administrative")
       return true;
   }

@@ -1,6 +1,9 @@
 #include "generator/regions/node.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <algorithm>
+#include <iomanip>
 #include <numeric>
 
 namespace generator
@@ -62,7 +65,9 @@ Node::Ptr MergeHelper(Node::Ptr l, Node::Ptr r, MergeFunc mergeTree)
 
   auto resultChildren = NormalizeChildren(children, mergeTree);
   l->SetChildren(std::move(resultChildren));
+  l->ShrinkToFitChildren();
   r->RemoveChildren();
+  r->ShrinkToFitChildren();
   return l;
 }
 }  // nmespace
@@ -109,11 +114,12 @@ void PrintTree(Node::Ptr node, std::ostream & stream = std::cout, std::string pr
 
   auto const & d = node->GetData();
   auto const point = d.GetCenter();
+  auto const center = MercatorBounds::ToLatLon({point.get<0>(), point.get<1>()});
   stream << d.GetName() << "<" << d.GetEnglishOrTransliteratedName() << "> ("
-         << d.GetId()
+         << DebugPrint(d.GetId())
          << ";" << d.GetLabel()
          << ";" << static_cast<size_t>(d.GetRank())
-         << ";[" << point.get<0>() << "," << point.get<1>() << "])"
+         << ";[" << std::fixed << std::setprecision(7) << center.lat << "," << center.lon << "])"
          << std::endl;
   for (size_t i = 0, size = children.size(); i < size; ++i)
     PrintTree(children[i], stream, prefix, i == size - 1);

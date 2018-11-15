@@ -3,6 +3,7 @@
 #include "generator/generator_tests/common.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/regions/collector_region_info.hpp"
+#include "generator/regions/region_info.hpp"
 
 #include "coding/file_name_utils.hpp"
 

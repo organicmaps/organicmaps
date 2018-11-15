@@ -1,7 +1,7 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
-#include "generator/regions/collector_region_info.hpp"
+#include "generator/regions/region_info.hpp"
 
 #include "geometry/rect2d.hpp"
 
@@ -33,8 +33,8 @@ struct RegionWithName
   // 3. Otherwise, return empty string.
   std::string GetEnglishOrTransliteratedName() const;
   std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
-  StringUtf8Multilang const & GetStringUtf8MultilangName() const;
-  void SetStringUtf8MultilangName(StringUtf8Multilang const & name);
+  StringUtf8Multilang const & GetMultilangName() const;
+  void SetMultilangName(StringUtf8Multilang const & name);
 
 protected:
   StringUtf8Multilang m_name;
@@ -47,8 +47,6 @@ struct RegionWithData
   RegionWithData(RegionDataProxy const & regionData) : m_regionData(regionData) {}
 
   base::GeoObjectId GetId() const;
-  bool HasAdminCenter() const;
-  base::GeoObjectId GetAdminCenterId() const;
   bool HasIsoCode() const;
   std::string GetIsoCode() const;
 
@@ -56,6 +54,7 @@ struct RegionWithData
   // rank of the second object, then the first object is considered more nested.
   uint8_t GetRank() const;
   std::string GetLabel() const;
+  size_t GetWeight() const;
 
   AdminLevel GetAdminLevel() const { return m_regionData.GetAdminLevel(); }
   PlaceType GetPlaceType() const { return m_regionData.GetPlaceType(); }
@@ -65,6 +64,8 @@ struct RegionWithData
 
   bool HasAdminLevel() const { return m_regionData.HasAdminLevel(); }
   bool HasPlaceType() const { return m_regionData.HasPlaceType(); }
+
+  RegionDataProxy const & GetRegionData() const { return m_regionData; }
 
 protected:
   RegionDataProxy m_regionData;

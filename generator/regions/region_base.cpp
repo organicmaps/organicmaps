@@ -22,8 +22,7 @@ std::string RegionWithName::GetEnglishOrTransliteratedName() const
   if (!s.empty())
     return s;
 
-  auto const fn = [&s](int8_t code, std::string const & name)
-  {
+  auto const fn = [&s](int8_t code, std::string const & name) {
     if (code != StringUtf8Multilang::kDefaultCode &&
         Transliteration::Instance().Transliterate(name, code, s))
     {
@@ -37,12 +36,12 @@ std::string RegionWithName::GetEnglishOrTransliteratedName() const
   return s;
 }
 
-StringUtf8Multilang const & RegionWithName::GetStringUtf8MultilangName() const
+StringUtf8Multilang const & RegionWithName::GetMultilangName() const
 {
   return m_name;
 }
 
-void RegionWithName::SetStringUtf8MultilangName(StringUtf8Multilang const & name)
+void RegionWithName::SetMultilangName(StringUtf8Multilang const & name)
 {
   m_name = name;
 }
@@ -50,16 +49,6 @@ void RegionWithName::SetStringUtf8MultilangName(StringUtf8Multilang const & name
 base::GeoObjectId RegionWithData::GetId() const
 {
   return m_regionData.GetOsmId();
-}
-
-bool RegionWithData::HasAdminCenter() const
-{
-  return m_regionData.HasAdminCenter();
-}
-
-base::GeoObjectId RegionWithData::GetAdminCenterId() const
-{
-  return m_regionData.GetAdminCenter();
 }
 
 bool RegionWithData::HasIsoCode() const
@@ -130,6 +119,35 @@ std::string RegionWithData::GetLabel() const
   }
 
   return "";
+}
+
+size_t RegionWithData::GetWeight() const
+{
+  auto const adminLevel = GetAdminLevel();
+  auto const placeType = GetPlaceType();
+
+  switch (placeType)
+  {
+  case PlaceType::City:
+  case PlaceType::Town:
+  case PlaceType::Village:
+  case PlaceType::Hamlet: return 3;
+  case PlaceType::Suburb:
+  case PlaceType::Neighbourhood: return 2;
+  case PlaceType::Locality:
+  case PlaceType::IsolatedDwelling: return 1;
+  default: break;
+  }
+
+  switch (adminLevel)
+  {
+  case AdminLevel::Two: return 6;
+  case AdminLevel::Four: return 5;
+  case AdminLevel::Six: return 4;
+  default: break;
+  }
+
+  return 0;
 }
 }  // namespace regions
 }  // namespace generator

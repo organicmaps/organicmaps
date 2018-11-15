@@ -259,6 +259,15 @@ int8_t StringUtf8Multilang::FindString(string const & utf8s) const
   return result;
 }
 
+size_t StringUtf8Multilang::CountLangs() const
+{
+  size_t count = 0;
+  for (size_t i = 0; i <  m_s.size(); i = GetNextIndex(i))
+    ++count;
+
+  return count;
+}
+
 string DebugPrint(StringUtf8Multilang const & s)
 {
   string result;

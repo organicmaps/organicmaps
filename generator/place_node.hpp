@@ -32,6 +32,8 @@ public:
   Data & GetData() { return m_data; }
   Data const & GetData() const { return m_data; }
 
+  void ShrinkToFitChildren() { PtrList(m_children).swap(m_children); }
+
 private:
   Data m_data;
   PtrList m_children;
