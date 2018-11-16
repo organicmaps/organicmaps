@@ -123,4 +123,5 @@ colors
   RatingExcellent-color: #3C8C3C;
   RatingLocalAds-color: #4BB9E6;
   RatingText-color: #FFFFFF;
+  UGCRatingText-color: #B8B8B8;
 }
