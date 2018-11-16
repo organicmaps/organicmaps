@@ -236,7 +236,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
     FragmentManager manager = getSupportFragmentManager();
     String name = getFragmentClass().getName();
-    Fragment fragment = manager.findFragmentByTag(name);
+    BaseMwmFragment fragment = (BaseMwmFragment) manager.findFragmentByTag(name);
 
     if (fragment == null)
     {
@@ -245,13 +245,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     if (onBackPressedInternal(fragment))
-    {
       return;
-    }
+
     super.onBackPressed();
   }
 
-  protected boolean onBackPressedInternal(@NonNull Fragment currentFragment)
+  protected boolean onBackPressedInternal(@NonNull BaseMwmFragment currentFragment)
   {
     return false;
   }

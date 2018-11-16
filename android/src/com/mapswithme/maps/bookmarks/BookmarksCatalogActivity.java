@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -43,9 +44,9 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
   }
 
   @Override
-  protected boolean onBackPressedInternal(@NonNull Fragment currentFragment)
+  protected boolean onBackPressedInternal(@NonNull BaseMwmFragment currentFragment)
   {
-    return Utils.<OnBackPressListener>castTo(currentFragment).onBackPressed();
+    return currentFragment.onBackPressed();
   }
 
   @Override

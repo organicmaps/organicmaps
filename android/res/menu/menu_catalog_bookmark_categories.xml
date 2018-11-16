@@ -5,7 +5,7 @@
     android:id="@+id/show_on_map"
     android:title="@string/search_show_on_map"/>
   <item
-    android:id="@+id/share_list"
+    android:id="@+id/share"
     android:title="@string/share"
     android:icon="@drawable/ic_share"/>
   <item

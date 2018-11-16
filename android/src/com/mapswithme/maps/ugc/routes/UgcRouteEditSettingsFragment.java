@@ -16,10 +16,9 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
-import com.mapswithme.maps.base.FinishActivityToolbarController;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -89,6 +88,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   private void onSharingOptionsClicked()
   {
     openSharingOptionsScreen();
+    Statistics.trackEditSettingsSharingOptionsClick();
   }
 
   private void openSharingOptionsScreen()
@@ -100,14 +100,6 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    getToolbarController().setTitle(R.string.edit);
-  }
-
-  @NonNull
-  @Override
-  protected ToolbarController onCreateToolbarController(@NonNull View root)
-  {
-    return new FinishActivityToolbarController(root, getActivity());
   }
 
   @Override
@@ -128,15 +120,47 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     return super.onOptionsItemSelected(item);
   }
 
+  @Override
+  public boolean onBackPressed()
+  {
+    if (isCategoryDescChanged())
+      Statistics.trackCategoryDescChanged();
+    return super.onBackPressed();
+  }
+
   private void onEditDoneClicked()
   {
-    String categoryName = mEditCategoryNameView.getEditableText().toString().trim();
+    if (isCategoryNameChanged())
+      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), getEditableCategoryName());
 
-    if (!TextUtils.equals(categoryName, mCategory.getName()))
-      BookmarkManager.INSTANCE.setCategoryName(mCategory.getId(), categoryName);
+    if (isCategoryDescChanged())
+    {
+      BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), getEditableCategoryDesc());
+      Statistics.trackCategoryDescChanged();
+    }
+  }
 
-    String categoryDesc = mEditDescView.getEditableText().toString().trim();
-    if (!TextUtils.equals(mCategory.getDescription(), categoryDesc))
-      BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), categoryDesc);
+  private boolean isCategoryNameChanged()
+  {
+    String categoryName = getEditableCategoryName();
+    return !TextUtils.equals(categoryName, mCategory.getName());
+  }
+
+  @NonNull
+  private String getEditableCategoryName()
+  {
+    return mEditCategoryNameView.getEditableText().toString().trim();
+  }
+
+  @NonNull
+  private String getEditableCategoryDesc()
+  {
+    return mEditDescView.getEditableText().toString().trim();
+  }
+
+  private boolean isCategoryDescChanged()
+  {
+    String categoryDesc = getEditableCategoryDesc();
+    return !TextUtils.equals(mCategory.getDescription(), categoryDesc);
   }
 }

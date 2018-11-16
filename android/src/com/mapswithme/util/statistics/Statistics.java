@@ -23,6 +23,7 @@ import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.analytics.ExternalLibrariesMediator;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
@@ -151,6 +152,54 @@ public enum Statistics
 {
   INSTANCE;
 
+  public static void trackCategoryDescChanged()
+  {
+    trackEditSettingsScreenOptionClick(ParamValue.ADD_DESC);
+  }
+
+  public static void trackSharingOptionsClick(@NonNull String value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
+    INSTANCE.trackEvent(EventName.BM_SHARING_OPTIONS_CLICK, builder);
+  }
+
+  public static void trackSharingOptionsError(@NonNull String error, 
+                                              @NonNull NetworkErrorType value)
+  {
+    trackSharingOptionsError(error, value.ordinal());
+  }
+
+  public static void trackSharingOptionsError(@NonNull String error, int value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.ERROR, value);
+    INSTANCE.trackEvent(error, builder);
+  }
+
+  public static void trackSharingOptionsUploadSuccess(@NonNull BookmarkCategory category)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.TRACKS, category.getTracksCount())
+                                                     .add(EventParam.POINTS, category.getBookmarksCount());
+    INSTANCE.trackEvent(EventName.BM_SHARING_OPTIONS_UPLOAD_SUCCESS, builder);
+  }
+
+
+  public void trackBookmarkListSettingsClick(@NonNull Analytics analytics)
+  {
+    ParameterBuilder builder = ParameterBuilder.from(EventParam.OPTION, analytics);
+    trackEvent(EventName.BM_BOOKMARKS_LIST_SETTINGS_CLICK, builder);
+  }
+
+  private static void trackEditSettingsScreenOptionClick(@NonNull String value)
+  {
+    ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
+    INSTANCE.trackEvent(EventName.BM_EDIT_SETTINGS_CLICK, builder);
+  }
+
+  public static void trackEditSettingsSharingOptionsClick()
+  {
+    trackEditSettingsScreenOptionClick(Statistics.ParamValue.SHARING_OPTIONS);
+  }
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({PP_BANNER_STATE_PREVIEW, PP_BANNER_STATE_DETAILS})
   public @interface BannerState {}
@@ -184,6 +233,13 @@ public enum Statistics
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
+    private static final String BM_SHARING_OPTIONS_UPLOAD_SUCCESS = "Bookmarks_SharingOptions_upload_success";
+    public static final String BM_SHARING_OPTIONS_UPLOAD_ERROR = "Bookmarks_SharingOptions_upload_error";
+    public static final String BM_SHARING_OPTIONS_ERROR = "Bookmarks_SharingOptions_error";
+    public static final String BM_SHARING_OPTIONS_CLICK = "Bookmarks_SharingOptions_click";
+    public static final String BM_EDIT_SETTINGS_CLICK = "Bookmarks_BookmarksListSettings_click";
+    public static final String BM_BOOKMARKS_LIST_SETTINGS_CLICK = "Bookmarks_BookmarksList_settings_click";
+    public static final String BM_BOOKMARKS_LIST_ITEM_SETTINGS = "Bookmarks_BookmarksListItem_settings";
     public static final String BM_GROUP_CREATED = "Bookmark. Group created";
     public static final String BM_GROUP_CHANGED = "Bookmark. Group changed";
     public static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
@@ -368,6 +424,9 @@ public enum Statistics
   {
     public static final String FROM = "from";
     public static final String TO = "to";
+    public static final String OPTION = "option";
+    public static final String TRACKS = "tracks";
+    public static final String POINTS = "points";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
@@ -442,6 +501,11 @@ public enum Statistics
     public static final String OFF = "off";
     public static final String CRASH_REPORTS = "crash_reports";
     public static final String PERSONAL_ADS = "personal_ads";
+    public static final String SHARING_OPTIONS = "sharing_options";
+    public static final String EDIT_ON_WEB = "edit_on_web";
+    public static final String PUBLIC = "public";
+    public static final String PRIVATE = "private";
+    public static final String COPY_LINK = "copy_link";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";
@@ -487,6 +551,11 @@ public enum Statistics
     public final static String VIEW_ON_MAP = "view on map";
     public final static String NOT_NOW = "not now";
     public final static String CLICK_OUTSIDE = "click outside pop-up";
+    public static final String ADD_DESC = "add_description";
+    public static final String SEND_AS_FILE = "send_as_file";
+    public static final String MAKE_INVISIBLE_ON_MAP = "make_invisible_on_map";
+    public static final String LIST_SETTINGS = "list_settings";
+    public static final String DELETE_GROUP = "delete_group";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1381,6 +1450,12 @@ public enum Statistics
   {
     private final Map<String, String> mParams = new HashMap<>();
 
+    @NonNull
+    public static ParameterBuilder from(String option, @NonNull Analytics analytics)
+    {
+      return new ParameterBuilder().add(option,analytics.getName());
+    }
+
     public ParameterBuilder add(String key, String value)
     {
       mParams.put(key, value);
@@ -1421,5 +1496,11 @@ public enum Statistics
   {
     return MapObject.isOfType(MapObject.MY_POSITION, point) ? Statistics.EventParam.MY_POSITION
                                                             : Statistics.EventParam.POINT;
+  }
+  
+  public enum NetworkErrorType 
+  {
+    NO_NETWORK,
+    AUTH_FAILED;
   }
 }

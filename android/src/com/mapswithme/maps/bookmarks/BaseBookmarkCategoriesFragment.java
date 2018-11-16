@@ -27,6 +27,8 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
+import com.mapswithme.util.statistics.Analytics;
+import com.mapswithme.util.statistics.Statistics;
 
 public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements EditTextDialogFragment.EditTextDialogInterface,
@@ -148,9 +150,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     MenuItemClickProcessorWrapper processor = MenuItemClickProcessorWrapper
         .getInstance(item.getItemId());
+
     processor
         .mInternalProcessor
         .process(this, mSelectedCategory);
+    Statistics.INSTANCE.trackBookmarkListSettingsClick(processor.getAnalytics());
     return true;
   }
 
@@ -344,15 +348,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected enum MenuItemClickProcessorWrapper
   {
-    SET_SHOW(R.id.show, showAction()),
-    SET_SHARE(R.id.share, shareAction()),
-    SET_DELETE(R.id.delete, deleteAction()),
-    SET_EDIT(R.id.edit, editAction()),
-    SHOW_ON_MAP(R.id.show_on_map, showAction()),
-    SHARE_LIST(R.id.share_list, shareAction()),
-    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions()),
-    LIST_SETTINGS(R.id.settings, showListSettings()),
-    DELETE_LIST(R.id.delete_list, deleteAction());
+    SET_SHARE(R.id.share, shareAction(), new Analytics(Statistics.ParamValue.SEND_AS_FILE)),
+    SET_EDIT(R.id.edit, editAction(), new Analytics(Statistics.ParamValue.EDIT)),
+    SHOW_ON_MAP(R.id.show_on_map, showAction(), new Analytics(Statistics.ParamValue.MAKE_INVISIBLE_ON_MAP)),
+    SHARING_OPTIONS(R.id.sharing_options, showSharingOptions(), new Analytics(Statistics.ParamValue.SHARING_OPTIONS)),
+    LIST_SETTINGS(R.id.settings, showListSettings(), new Analytics(Statistics.ParamValue.LIST_SETTINGS)),
+    DELETE_LIST(R.id.delete, deleteAction(), new Analytics(Statistics.ParamValue.DELETE_GROUP));
 
     @NonNull
     private static MenuClickProcessorBase showSharingOptions()
@@ -394,11 +395,15 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     private final int mId;
     @NonNull
     private MenuClickProcessorBase mInternalProcessor;
+    @NonNull
+    private final Analytics mAnalytics;
 
-    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase)
+    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase,
+                                  @NonNull Analytics analytics)
     {
       mId = id;
       mInternalProcessor = processorBase;
+      mAnalytics = analytics;
     }
 
     @NonNull
@@ -412,6 +417,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
         }
       }
       throw new IllegalArgumentException("Enum value for res id = " + resId + " not found");
+    }
+
+    @NonNull
+    public Analytics getAnalytics()
+    {
+      return mAnalytics;
     }
   }
 

@@ -163,8 +163,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   @Override
   protected void prepareBottomMenuItems(@NonNull BottomSheet bottomSheet)
   {
-    setEnableForMenuItem(R.id.delete_list, bottomSheet, true);
-    setEnableForMenuItem(R.id.share_list, bottomSheet, false);
+    setEnableForMenuItem(R.id.delete, bottomSheet, true);
+    setEnableForMenuItem(R.id.share, bottomSheet, false);
   }
 
   private class CloseHeaderClickListener implements View.OnClickListener

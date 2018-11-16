@@ -39,6 +39,7 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.sharing.TargetUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 import java.util.Objects;
@@ -116,7 +117,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     initViews(root);
     initClickListeners(root);
     mCurrentMode = getCurrentMode(savedInstanceState);
-    toggleViewsVisibility();
+    toggleViews();
     return root;
   }
 
@@ -140,7 +141,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     licenceAgreementText.setText(spanned);
   }
 
-  private void toggleViewsVisibility()
+  private void toggleViews()
   {
     boolean isPublished = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     UiUtils.hideIf(isPublished, mUploadAndPublishText, mGetDirectLinkContainer);
@@ -159,13 +160,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     return bundle != null && bundle.containsKey(BUNDLE_CURRENT_MODE)
                    ? BookmarkCategory.AccessRules.values()[bundle.getInt(BUNDLE_CURRENT_MODE)]
                    : null;
-  }
-
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-  {
-    super.onViewCreated(view, savedInstanceState);
-    getToolbarController().setTitle(R.string.sharing_options);
   }
 
   @NonNull
@@ -195,6 +189,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     Intent intent = new Intent(getContext(), SendLinkPlaceholderActivity.class)
         .putExtra(SendLinkPlaceholderFragment.EXTRA_SHARED_LINK, deepLink);
     startActivity(intent);
+    Statistics.trackSharingOptionsClick(Statistics.ParamValue.EDIT_ON_WEB);
   }
 
   private void onPublishedCategoryShared()
@@ -210,6 +205,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .putExtra(Intent.EXTRA_SUBJECT, deepLink)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
+    Statistics.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
   }
 
   private void onDirectLinkShared()
@@ -233,6 +229,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .build();
     dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
     dialog.show(this, NO_NETWORK_CONNECTION_DIALOG_TAG);
+    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
+                                        Statistics.NetworkErrorType.NO_NETWORK);
   }
 
   private boolean isNetworkConnectionAbsent()
@@ -250,12 +248,14 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     onUploadBtnClicked();
+    Statistics.trackSharingOptionsClick(Statistics.ParamValue.PUBLIC);
   }
 
   private void onGetDirectLinkClicked()
   {
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
     onUploadBtnClicked();
+    Statistics.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
   }
 
   private void onUploadBtnClicked()
@@ -376,7 +376,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
-
+    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
+                                        Statistics.NetworkErrorType.AUTH_FAILED);
   }
 
   @Override
@@ -424,6 +425,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onUploadError(@NonNull BookmarkManager.UploadResult uploadResult)
   {
+    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_UPLOAD_ERROR,
+                                        uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
       showErrorBrokenFileDialog();
@@ -456,7 +459,8 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     int successMsgResId = isDirectLinkMode ? R.string.direct_link_success
                                            : R.string.upload_and_publish_success;
     Toast.makeText(getContext(), successMsgResId, Toast.LENGTH_SHORT).show();
-    toggleViewsVisibility();
+    toggleViews();
+    Statistics.trackSharingOptionsUploadSuccess(mCategory);
   }
 
   private void checkSuccessUploadedCategoryAccessRules()

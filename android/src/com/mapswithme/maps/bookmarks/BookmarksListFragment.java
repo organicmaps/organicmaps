@@ -37,6 +37,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
+import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements RecyclerLongClickListener, RecyclerClickListener,
@@ -291,6 +292,10 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (item.getItemId() == R.id.share)
     {
       openSharingOptionsScreen();
+      Statistics.INSTANCE.trackEvent(
+          Statistics.EventName.BM_BOOKMARKS_LIST_ITEM_SETTINGS,
+          new Statistics.ParameterBuilder().add(Statistics.EventParam.OPTION,
+                                                Statistics.ParamValue.SHARING_OPTIONS));
       return true;
     }
 
