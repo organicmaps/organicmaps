@@ -38,6 +38,7 @@ struct UserMarkRenderParams
   bool m_justCreated = false;
   bool m_isVisible = true;
   FeatureID m_featureId;
+  bool m_isMarkAboveText = false;
 };
 
 struct LineLayer

@@ -29,6 +29,8 @@ RouteDash route.vsh.glsl route_dash.fsh.glsl
 RouteArrow route_arrow.vsh.glsl route_arrow.fsh.glsl
 RouteMarker route_marker.vsh.glsl route_marker.fsh.glsl
 CirclePoint circle_point.vsh.glsl circle_point.fsh.glsl
+BookmarkAboveText user_mark.vsh.glsl user_mark.fsh.glsl
+BookmarkAnimAboveText user_mark.vsh.glsl user_mark.fsh.glsl
 DebugRect debug_rect.vsh.glsl debug_rect.fsh.glsl
 ScreenQuad screen_quad.vsh.glsl texturing.fsh.glsl
 Arrow3d arrow3d.vsh.glsl arrow3d.fsh.glsl
@@ -39,6 +41,8 @@ TexturingBillboard texturing_billboard.vsh.glsl texturing.fsh.glsl
 MaskedTexturingBillboard masked_texturing_billboard.vsh.glsl masked_texturing.fsh.glsl
 BookmarkBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 BookmarkAnimBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
+BookmarkAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
+BookmarkAnimAboveTextBillboard user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 TextOutlinedBillboard text_outlined_billboard.vsh.glsl text.fsh.glsl
 TextBillboard text_billboard.vsh.glsl text.fsh.glsl
 TextFixedBillboard text_billboard.vsh.glsl text_fixed.fsh.glsl

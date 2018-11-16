@@ -79,6 +79,7 @@ public:
   virtual FeatureID GetFeatureID() const = 0;
   virtual bool HasCreationAnimation() const = 0;
   virtual df::ColorConstant GetColorConstant() const = 0;
+  virtual bool IsMarkAboveText() const = 0;
 
 private:
   kml::MarkId m_id;

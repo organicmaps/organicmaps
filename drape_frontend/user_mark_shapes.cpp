@@ -334,14 +334,8 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
                     UserMarksRenderCollection & renderParams, dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
-  size_t const vertexCount = marksId.size() * dp::Batcher::VertexPerQuad;
-  buffer_vector<UPV, 128> buffer;
-  bool isAnimated = false;
+  buffer_vector<UPV, dp::Batcher::VertexPerQuad> buffer;
 
-  dp::TextureManager::SymbolRegion region;
-  dp::TextureManager::SymbolRegion backgroundRegion;
-  DepthLayer depthLayer = DepthLayer::UserMarkLayer;
-  bool depthTestEnabled = true;
   for (auto const id : marksId)
   {
     auto const it = renderParams.find(id);
@@ -353,8 +347,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       continue;
 
     m2::PointD const tileCenter = tileKey.GetGlobalRect().Center();
-    depthLayer = renderInfo.m_depthLayer;
-    depthTestEnabled = renderInfo.m_depthTestEnabled;
 
     m2::PointF symbolSize(0.0f, 0.0f);
     m2::PointF symbolOffset(0.0f, 0.0f);
@@ -380,8 +372,10 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     }
     else if (renderInfo.m_symbolNames != nullptr)
     {
-      buffer.reserve(vertexCount);
+      dp::TextureManager::SymbolRegion region;
+      dp::TextureManager::SymbolRegion backgroundRegion;
 
+      buffer.clear();
       textures->GetSymbolRegion(symbolName, region);
       auto const backgroundSymbol = GetBackgroundForSymbol(symbolName, textures);
       if (!backgroundSymbol.empty())
@@ -395,7 +389,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
                                                      kShapeCoordScalar);
       glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
       bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
-      isAnimated |= runAnim;
 
       glsl::vec2 left, right, up, down;
       AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
@@ -420,10 +413,38 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       buffer.emplace_back(pos, right + up,
                           glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
                           colorAndAnimate);
+
+      gpu::Program program;
+      gpu::Program program3d;
+      if (renderInfo.m_isMarkAboveText)
+      {
+        program = runAnim ? gpu::Program::BookmarkAnimAboveText
+                          : gpu::Program::BookmarkAboveText;
+        program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard
+                            : gpu::Program::BookmarkAboveTextBillboard;
+      }
+      else
+      {
+        program = runAnim ? gpu::Program::BookmarkAnim
+                          : gpu::Program::Bookmark;
+        program3d = runAnim ? gpu::Program::BookmarkAnimBillboard
+                            : gpu::Program::BookmarkBillboard;
+      }
+      auto state = CreateRenderState(program, renderInfo.m_depthLayer);
+      state.SetProgram3d(program3d);
+      state.SetColorTexture(region.GetTexture());
+      state.SetTextureFilter(dp::TextureFilter::Nearest);
+      state.SetDepthTestEnabled(renderInfo.m_depthTestEnabled);
+
+      dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
+      attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
+
+      batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
     }
 
     if (!symbolName.empty())
     {
+      dp::TextureManager::SymbolRegion region;
       textures->GetSymbolRegion(symbolName, region);
       symbolSize.x = std::max(region.GetPixelSize().x, symbolSize.x);
       symbolSize.y = std::max(region.GetPixelSize().y, symbolSize.y);
@@ -448,22 +469,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     }
 
     renderInfo.m_justCreated = false;
-  }
-
-  if (!buffer.empty())
-  {
-    auto state = CreateRenderState(isAnimated ? gpu::Program::BookmarkAnim
-                                              : gpu::Program::Bookmark, depthLayer);
-    state.SetProgram3d(isAnimated ? gpu::Program::BookmarkAnimBillboard
-                                  : gpu::Program::BookmarkBillboard);
-    state.SetColorTexture(region.GetTexture());
-    state.SetTextureFilter(dp::TextureFilter::Nearest);
-    state.SetDepthTestEnabled(depthTestEnabled);
-
-    dp::AttributeProvider attribProvider(1, static_cast<uint32_t>(buffer.size()));
-    attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
-
-    batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
   }
 }
 

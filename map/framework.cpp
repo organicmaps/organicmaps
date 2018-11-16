@@ -1709,15 +1709,9 @@ void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
     {
       auto product = GetProductInfo(r);
       auto const type = r.GetFeatureType();
+      mark->SetFromType(type, m_localAdsManager.Contains(r.GetFeatureID()));
       if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
-      {
-        mark->SetUGCType();
         mark->SetRating(product.m_ugcRating);
-      }
-      else
-      {
-        mark->SetFromType(type, m_localAdsManager.Contains(r.GetFeatureID()));
-      }
     }
 
     if (fn)

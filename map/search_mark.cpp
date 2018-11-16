@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <array>
 #include <limits>
+#include <set>
 
 namespace
 {
@@ -19,7 +20,6 @@ enum class SearchMarkType
 {
   Default = 0,
   Booking,
-  UGC,
   Cafe,
   Bakery,
   Bar,
@@ -66,7 +66,6 @@ SearchMarkType SMT(uint8_t type)
 std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbols = {
     "search-result",                        // Default.
     "coloredmark-default-l",                // Booking.
-    "coloredmark-default-l",                // UGC.
     "search-result-cafe",                   // Cafe.
     "search-result-bakery",                 // Bakery.
     "search-result-bar",                    // Bar.
@@ -101,14 +100,17 @@ std::array<std::string, static_cast<size_t>(SearchMarkType::Count)> const kSymbo
     "non-found-search-result",  // NotFound.
 };
 
-std::string const kSaleBadgeName = "searchbooking-sale-1";
+std::string const kSaleBadgeName = "search-badge-booking-sale";
+std::string const kUGCRatingBadgeName = "search-badge-rating";
+std::string const kRatedDefaultSearchIcon = "rated-default-search-result";
+std::string const kLocalAdsRatedDefaultSearchIcon = "local_ads-rated-default-search-result";
 
 float const kRatingThreshold = 6.0f;
 float const kMetricThreshold = 0.38f;
 
-inline bool HasNoRating(float rating)
+inline bool HasRating(float rating)
 {
-  return fabs(rating) < 1e-5;
+  return rating > kInvalidRatingValue;
 }
 
 float CalculateAggregateMetric(float rating, int pricing)
@@ -126,7 +128,7 @@ std::string GetBookingBadgeName(int pricing)
   if (pricing == 0)
     return {};
 
-  return std::string("searchbooking-ext-") + strings::to_string(pricing);
+  return std::string("search-badge-booking-ext-") + strings::to_string(pricing);
 }
 
 bool NeedShowBookingBadge(float rating, int pricing)
@@ -145,8 +147,11 @@ std::string GetBookingSmallIcon(SearchMarkType type, bool hasLocalAds)
   return hasLocalAds ? "search-adv" : "coloredmark-default-s";
 }
 
-std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds)
+std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool isRated)
 {
+  if (searchMarkType == SearchMarkType::Default && isRated)
+    return hasLocalAds ? kLocalAdsRatedDefaultSearchIcon : kRatedDefaultSearchIcon;
+
   auto const index = static_cast<size_t>(searchMarkType);
   ASSERT_LESS(index, kSymbols.size(), ());
   if (!hasLocalAds)
@@ -160,28 +165,26 @@ std::string GetSymbol(SearchMarkType searchMarkType, bool hasLocalAds)
 
 bool HasLocalAdsVariant(SearchMarkType searchMarkType)
 {
-  if (searchMarkType == SearchMarkType::UGC || searchMarkType == SearchMarkType::NotFound)
+  if (searchMarkType == SearchMarkType::NotFound)
     return false;
   return true;
 }
 
-std::string GetPreparingSymbol(SearchMarkType searchMarkType, bool hasLocalAds)
+std::string GetPreparingSymbol(SearchMarkType searchMarkType, bool hasLocalAds, bool isRated)
 {
-  if (!hasLocalAds &&
-      (searchMarkType == SearchMarkType::Booking || searchMarkType == SearchMarkType::UGC))
-  {
+  if (!hasLocalAds && searchMarkType == SearchMarkType::Booking)
     return "coloredmark-inactive";
-  }
-  return GetSymbol(searchMarkType, hasLocalAds);
+  return GetSymbol(searchMarkType, hasLocalAds, isRated);
 }
 
-m2::PointD GetSize(SearchMarkType searchMarkType, bool hasLocalAds, ScreenBase const & modelView)
+m2::PointD GetSize(SearchMarkType searchMarkType, bool hasLocalAds, bool isRated,
+                   ScreenBase const & modelView)
 {
   if (!SearchMarks::HaveSizes())
     return {};
 
   auto const pixelSize =
-      SearchMarks::GetSize(GetSymbol(searchMarkType, hasLocalAds)).get_value_or({});
+      SearchMarks::GetSize(GetSymbol(searchMarkType, hasLocalAds, isRated)).get_value_or({});
   double const pixelToMercator = modelView.GetScale();
   return {pixelToMercator * pixelSize.x, pixelToMercator * pixelSize.y};
 }
@@ -272,27 +275,37 @@ SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant("RatingText");
   m_titleDecl.m_primaryTextFont.m_size =
       static_cast<float>(12.0 / df::VisualParams::Instance().GetFontScale());
+
+  m_ugcTitleDecl.m_anchor = dp::LeftTop;
+  m_ugcTitleDecl.m_primaryTextFont.m_color = df::GetColorConstant("UGCRatingText");
+  m_ugcTitleDecl.m_primaryTextFont.m_size =
+      static_cast<float>(14.0 / df::VisualParams::Instance().GetFontScale());
 }
 
-drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
+std::string SearchMarkPoint::GetSymbolName() const
 {
   std::string name;
   if (m_type >= static_cast<uint8_t>(SearchMarkType::Count))
   {
     ASSERT(false, ("Unknown search mark symbol."));
-    name = GetSymbol(SearchMarkType::Default, false /* hasLocalAds */);
+    name = GetSymbol(SearchMarkType::Default, false /* hasLocalAds */, HasRating(m_rating));
   }
   else if (m_isPreparing)
   {
-    name = GetPreparingSymbol(SMT(m_type), m_hasLocalAds);
+    name = GetPreparingSymbol(SMT(m_type), m_hasLocalAds, HasRating(m_rating));
   }
   else
   {
-    name = GetSymbol(SMT(m_type), m_hasLocalAds);
+    name = GetSymbol(SMT(m_type), m_hasLocalAds, HasRating(m_rating));
   }
+  return name;
+}
 
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
+{
+  auto const name = GetSymbolName();
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  if (IsMarkWithRating())
+  if (IsBookingSpecialMark())
   {
     symbol->insert(std::make_pair(
         1 /* zoomLevel */,
@@ -308,52 +321,69 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetBadgeNames() const
 {
-  if (!IsBookingSpecialMark())
+  auto const badgeName = GetBadgeName();
+  if (badgeName.empty())
     return nullptr;
-
-  auto const badgeName = m_hasSale ? kSaleBadgeName : GetBookingBadgeName(m_pricing);
-  if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
-    return nullptr;
-
-  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  if (NeedShowBookingBadge(m_rating, m_pricing) && m_rating >= kRatingThreshold)
+  
+  if (IsBookingSpecialMark())
+  {
+    auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+    if (NeedShowBookingBadge(m_rating, m_pricing) && m_rating >= kRatingThreshold)
+      symbol->insert(std::make_pair(10 /* zoomLevel */, badgeName));
+    else
+      symbol->insert(std::make_pair(17 /* zoomLevel */, badgeName));
+    return symbol;
+  }
+  
+  if (IsUGCMark())
+  {
+    auto symbol = make_unique_dp<SymbolNameZoomInfo>();
     symbol->insert(std::make_pair(10 /* zoomLevel */, badgeName));
-  else
-    symbol->insert(std::make_pair(17 /* zoomLevel */, badgeName));
-  return symbol;
+    return symbol;
+  }
+  
+  return nullptr;
 }
 
 drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() const
 {
-  if (!IsBookingSpecialMark())
+  auto const badgeName = GetBadgeName();
+  if (badgeName.empty())
     return nullptr;
 
-  auto const badgeName = m_hasSale ? kSaleBadgeName : GetBookingBadgeName(m_pricing);
-  if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
-    return nullptr;
-
-  auto const name = GetSymbol(SearchMarkType::Booking, false /* hasLocalAds */);
+  auto const name = GetSymbolName();
   auto const iconSz = SearchMarks::GetSize(name).get_value_or({});
 
+  float horizontalOffset = 0.0f;
+  if (SMT(m_type) != SearchMarkType::Booking && m_hasLocalAds)
+  {
+    float constexpr kLocalAdsSymbolOffset = 0.4f;
+    horizontalOffset = kLocalAdsSymbolOffset;
+  }
   SymbolOffsets offsets(scales::UPPER_STYLE_SCALE);
   for (size_t i = 0; i < offsets.size(); i++)
   {
     auto const badgeSz = SearchMarks::GetSize(badgeName).get_value_or({});
-    offsets[i] = {0.5f * static_cast<float>(badgeSz.x - iconSz.x), 0.0};
+    offsets[i] = {(0.5f + horizontalOffset) * static_cast<float>(badgeSz.x - iconSz.x), 0.0};
   }
 
   return make_unique_dp<SymbolOffsets>(offsets);
 }
 
+bool SearchMarkPoint::IsMarkAboveText() const
+{
+  return !IsBookingSpecialMark();
+}
+
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
-  if (!IsMarkWithRating())
+  if (!IsBookingSpecialMark())
     return {};
 
   if (SMT(m_type) == SearchMarkType::Booking && m_hasLocalAds)
     return "RatingLocalAds";
 
-  if (HasNoRating(m_rating))
+  if (!HasRating(m_rating))
     return "RatingNone";
   if (m_rating < 2.0f)
     return "RatingHorrible";
@@ -368,17 +398,34 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 {
-  if (!IsMarkWithRating() || fabs(m_rating) < 1e-5)
+  auto const isUGC = IsUGCMark();
+  if ((!IsBookingSpecialMark() && !isUGC) || !HasRating(m_rating))
     return nullptr;
 
   auto titles = make_unique_dp<TitlesInfo>();
-  titles->push_back(m_titleDecl);
+  if (isUGC)
+  {
+    auto titleDecl = m_ugcTitleDecl;
+    auto const sz = SearchMarks::GetSize(GetSymbolName());
+    if (!sz)
+      return nullptr;
+    auto constexpr kShadowOffset = 4.0;
+    auto const centerOffset = -0.5 * sz.get().y - kShadowOffset;
+    titleDecl.m_primaryOffset.y =
+        static_cast<float>(centerOffset / df::VisualParams::Instance().GetVisualScale()) -
+        0.5f * titleDecl.m_primaryTextFont.m_size;
+    titles->push_back(titleDecl);
+  }
+  else
+  {
+    titles->push_back(m_titleDecl);
+  }
   return titles;
 }
 
 int SearchMarkPoint::GetMinTitleZoom() const
 {
-  if (IsMarkWithRating() && m_rating < kRatingThreshold)
+  if (IsBookingSpecialMark() && m_rating < kRatingThreshold)
     return 17;
   return 1;
 }
@@ -410,12 +457,6 @@ void SearchMarkPoint::SetBookingType(bool hasLocalAds)
   SetAttributeValue(m_type, static_cast<uint8_t>(SearchMarkType::Booking));
 }
 
-void SearchMarkPoint::SetUGCType()
-{
-  SetAttributeValue(m_hasLocalAds, false);
-  SetAttributeValue(m_type, static_cast<uint8_t>(SearchMarkType::UGC));
-}
-
 void SearchMarkPoint::SetNotFoundType()
 {
   SetAttributeValue(m_hasLocalAds, false);
@@ -431,6 +472,7 @@ void SearchMarkPoint::SetRating(float rating)
 {
   SetAttributeValue(m_rating, rating);
   m_titleDecl.m_primaryText = place_page::rating::GetRatingFormatted(rating);
+  m_ugcTitleDecl.m_primaryText = m_titleDecl.m_primaryText;
 }
 
 void SearchMarkPoint::SetPricing(int pricing)
@@ -450,12 +492,21 @@ bool SearchMarkPoint::IsBookingSpecialMark() const
 
 bool SearchMarkPoint::IsUGCMark() const
 {
-  return SMT(m_type) == SearchMarkType::UGC;
+  return (SMT(m_type) != SearchMarkType::Booking) && HasRating(m_rating);
 }
 
-bool SearchMarkPoint::IsMarkWithRating() const
+std::string SearchMarkPoint::GetBadgeName() const
 {
-  return IsBookingSpecialMark() || IsUGCMark();
+  std::string badgeName;
+  if (IsBookingSpecialMark())
+    badgeName = m_hasSale ? kSaleBadgeName : GetBookingBadgeName(m_pricing);
+  else if (IsUGCMark())
+    badgeName = kUGCRatingBadgeName;
+  
+  if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
+    return {};
+  
+  return badgeName;
 }
 
 // static
@@ -473,18 +524,24 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 
   std::vector<std::string> symbols;
   auto const searchMarkTypesCount = static_cast<size_t>(SearchMarkType::Count);
-  symbols.reserve(searchMarkTypesCount * 2);
   for (size_t t = 0; t < searchMarkTypesCount; ++t)
   {
     auto const searchMarkType = SMT(t);
-    symbols.push_back(GetSymbol(searchMarkType, false /* hasLocalAds */));
+    symbols.emplace_back(GetSymbol(searchMarkType, false /* hasLocalAds */, false /* isRated */));
+    symbols.emplace_back(GetSymbol(searchMarkType, false /* hasLocalAds */, true /* isRated */));
     if (HasLocalAdsVariant(searchMarkType))
-      symbols.push_back(GetSymbol(searchMarkType, true /* hasLocalAds */));
+    {
+      symbols.emplace_back(GetSymbol(searchMarkType, true /* hasLocalAds */, false /* isRated */));
+      symbols.emplace_back(GetSymbol(searchMarkType, true /* hasLocalAds */, true /* isRated */));
+    }
   }
 
   for (int pricing = 1; pricing <= 3; pricing++)
-    symbols.push_back(GetBookingBadgeName(pricing));
-  symbols.push_back(kSaleBadgeName);
+    symbols.emplace_back(GetBookingBadgeName(pricing));
+  symbols.emplace_back(kSaleBadgeName);
+  symbols.emplace_back(kUGCRatingBadgeName);
+
+  base::SortUnique(symbols);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
                          [](std::map<std::string, m2::PointF> && sizes)
@@ -504,16 +561,25 @@ void SearchMarks::SetBookmarkManager(BookmarkManager * bmManager)
 double SearchMarks::GetMaxDimension(ScreenBase const & modelView) const
 {
   double dimension = 0.0;
+  m2::PointD markSize;
+  auto measurer = [&dimension, &markSize](SearchMarkType searchMarkType,
+                                          bool hasLocalAds,
+                                          ScreenBase const & modelView)
+  {
+    for (size_t j = 0; j < 2; ++j)
+    {
+      markSize = ::GetSize(searchMarkType, true /* hasLocalAds */,
+                           j > 0 /* isRated */, modelView);
+      dimension = std::max(dimension, std::max(markSize.x, markSize.y));
+    }
+  };
+
   for (size_t i = 0; i < static_cast<size_t>(SearchMarkType::Count); ++i)
   {
     auto const searchMarkType = SMT(i);
-    m2::PointD markSize = ::GetSize(searchMarkType, false /* hasLocalAds */, modelView);
-    dimension = std::max(dimension, std::max(markSize.x, markSize.y));
+    measurer(searchMarkType, false /* hasLocalAds */, modelView);
     if (HasLocalAdsVariant(searchMarkType))
-    {
-      markSize = ::GetSize(searchMarkType, true /* hasLocalAds */, modelView);
-      dimension = std::max(dimension, std::max(markSize.x, markSize.y));
-    }
+      measurer(searchMarkType, true /* hasLocalAds */, modelView);
   }
   return dimension;
 }

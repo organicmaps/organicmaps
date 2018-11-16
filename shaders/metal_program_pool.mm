@@ -78,6 +78,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsRouteArrow", "fsRouteArrow", {{0, 2}}),  // RouteArrow
   ProgramInfo("vsRouteMarker", "fsRouteMarker", {{0, 2}}),  // RouteMarker
   ProgramInfo("vsCirclePoint", "fsCirclePoint", {{0, 0}, {1, 2}}),  // CirclePoint
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),  // BookmarkAboveText
+  ProgramInfo("vsUserMark", "fsUserMark", {{0, 3}}),  // BookmarkAnimAboveText
   ProgramInfo("vsDebugRect", "fsDebugRect", {{0, 0}}),  // DebugRect
   ProgramInfo("vsScreenQuad", "fsScreenQuad", {{0, 1}}),  // ScreenQuad
   ProgramInfo("vsArrow3d", "fsArrow3d", {{0, 0}, {1, 1}}),  // Arrow3d
@@ -88,6 +90,8 @@ std::array<ProgramInfo, static_cast<size_t>(Program::ProgramsCount)> const kMeta
   ProgramInfo("vsMaskedTexturingBillboard", "fsMaskedTexturing", {{0, 3}}),  // MaskedTexturingBillboard
   ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkBillboard
   ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkAnimBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkAboveTextBillboard
+  ProgramInfo("vsUserMarkBillboard", "fsUserMark", {{0, 3}}),  // BookmarkAnimAboveTextBillboard
   ProgramInfo("vsTextOutlinedBillboard", "fsText", {{0, 2}, {3, 4}}),  // TextOutlinedBillboard
   ProgramInfo("vsTextBillboard", "fsText", {{0, 1}, {2, 3}}),  // TextBillboard
   ProgramInfo("vsTextBollboard", "fsTextFixed", {{0, 1}, {2, 3}}),  // TextFixedBillboard

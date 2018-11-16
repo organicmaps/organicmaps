@@ -40,6 +40,8 @@ enum class Program
   RouteArrow,
   RouteMarker,
   CirclePoint,
+  BookmarkAboveText,
+  BookmarkAnimAboveText,
   DebugRect,
   ScreenQuad,
   Arrow3d,
@@ -50,6 +52,8 @@ enum class Program
   MaskedTexturingBillboard,
   BookmarkBillboard,
   BookmarkAnimBillboard,
+  BookmarkAboveTextBillboard,
+  BookmarkAnimAboveTextBillboard,
   TextOutlinedBillboard,
   TextBillboard,
   TextFixedBillboard,
@@ -98,6 +102,8 @@ inline std::string DebugPrint(Program p)
   case Program::RouteArrow: return "RouteArrow";
   case Program::RouteMarker: return "RouteMarker";
   case Program::CirclePoint: return "CirclePoint";
+  case Program::BookmarkAboveText: return "BookmarkAboveText";
+  case Program::BookmarkAnimAboveText: return "BookmarkAnimAboveText";
   case Program::DebugRect: return "DebugRect";
   case Program::ScreenQuad: return "ScreenQuad";
   case Program::Arrow3d: return "Arrow3d";
@@ -108,6 +114,8 @@ inline std::string DebugPrint(Program p)
   case Program::MaskedTexturingBillboard: return "MaskedTexturingBillboard";
   case Program::BookmarkBillboard: return "BookmarkBillboard";
   case Program::BookmarkAnimBillboard: return "BookmarkAnimBillboard";
+  case Program::BookmarkAboveTextBillboard: return "BookmarkAboveTextBillboard";
+  case Program::BookmarkAnimAboveTextBillboard: return "BookmarkAnimAboveTextBillboard";
   case Program::TextOutlinedBillboard: return "TextOutlinedBillboard";
   case Program::TextBillboard: return "TextBillboard";
   case Program::TextFixedBillboard: return "TextFixedBillboard";

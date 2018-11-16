@@ -32,6 +32,7 @@ public:
   drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override;
   drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
   bool GetDepthTestEnabled() const override { return false; }
+  bool IsMarkAboveText() const override;
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);
@@ -41,7 +42,6 @@ public:
 
   void SetFromType(uint32_t type, bool hasLocalAds);
   void SetBookingType(bool hasLocalAds);
-  void SetUGCType();
   void SetNotFoundType();
 
   void SetPreparing(bool isPreparing);
@@ -61,7 +61,8 @@ protected:
 
   bool IsBookingSpecialMark() const;
   bool IsUGCMark() const;
-  bool IsMarkWithRating() const;
+  std::string GetSymbolName() const;
+  std::string GetBadgeName() const;
 
   uint8_t m_type = 0;
   bool m_hasLocalAds = false;
@@ -73,6 +74,7 @@ protected:
   int m_pricing = 0;
   bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
+  dp::TitleDecl m_ugcTitleDecl;
 };
 
 class SearchMarks

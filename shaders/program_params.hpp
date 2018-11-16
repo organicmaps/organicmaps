@@ -89,7 +89,11 @@ struct MapProgramParams
     Program::TextOutlined,
     Program::TextOutlinedBillboard,
     Program::Texturing,
-    Program::TexturingBillboard)
+    Program::TexturingBillboard,
+    Program::BookmarkAboveText,
+    Program::BookmarkAnimAboveText,
+    Program::BookmarkAnimAboveTextBillboard,
+    Program::BookmarkAboveTextBillboard)
 } ALIGNMENT;
 
 struct RouteProgramParams

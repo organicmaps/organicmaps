@@ -49,9 +49,9 @@ function BuildSkin() {
   echo "Building skin for $styleName/$resourceName"
   # Set environment
   STYLE_PATH="$DATA_PATH/styles/$styleType/style-$styleName"
-  PNG_PATH="$STYLE_PATH/symbols/png"
+  PNG_PATH="$STYLE_PATH/symbols$symbolsSuffix/png"
   rm -rf "$PNG_PATH" || true
-  ln -s "$STYLE_PATH/$resourceName" "$PNG_PATH"
+  ln -s "$STYLE_PATH/$resourceName$symbolsSuffix" "$PNG_PATH"
   # Run sking generator
   if [ $colorCorrection = "true" ]; then
     COLOR_CORR="--colorCorrection true"

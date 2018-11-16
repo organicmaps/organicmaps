@@ -78,6 +78,7 @@ public:
   FeatureID GetFeatureID() const override { return FeatureID(); }
   bool HasCreationAnimation() const override { return false; }
   df::ColorConstant GetColorConstant() const override { return {}; }
+  bool IsMarkAboveText() const override { return false; }
 
   ms::LatLon GetLatLon() const;
 
