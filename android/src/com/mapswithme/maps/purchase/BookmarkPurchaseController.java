@@ -10,6 +10,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.List;
 
@@ -56,11 +57,16 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
       LOGGER.i(TAG, "Validation status of 'paid bookmark': " + status);
       if (status == ValidationStatus.VERIFIED)
       {
+        //noinspection ConstantConditions
+        Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS,
+                                               mServerId);
         LOGGER.i(TAG, "Bookmark purchase consuming...");
         getBillingManager().consumePurchase(PurchaseUtils.parseToken(purchaseData));
         return;
       }
 
+      //noinspection ConstantConditions
+      Statistics.INSTANCE.trackPurchaseValidationError(mServerId, status);
       if (getUiCallback() != null)
         getUiCallback().onValidationFinish(false);
     }
@@ -68,6 +74,14 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
 
   private class PlayStoreBillingCallbackImpl extends AbstractPlayStoreBillingCallback
   {
+    @Override
+    public void onPurchaseFailure(int error)
+    {
+      super.onPurchaseFailure(error);
+      //noinspection ConstantConditions
+      Statistics.INSTANCE.trackPurchaseStoreError(mServerId, error);
+    }
+
     @Override
     public void onPurchaseDetailsLoaded(@NonNull List<SkuDetails> details)
     {

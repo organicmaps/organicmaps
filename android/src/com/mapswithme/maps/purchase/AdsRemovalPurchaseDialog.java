@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
@@ -184,8 +185,11 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   {
     ProductDetails details = getProductDetailsForPeriod(period);
     getControllerOrThrow().launchPurchaseFlow(details.getProductId());
-    Statistics.INSTANCE.trackPurchasePreviewSelect(details.getProductId());
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY);
+    String purchaseId = PrivateVariables.adsRemovalServerId();
+    Statistics.INSTANCE.trackPurchasePreviewSelect(PrivateVariables.adsRemovalServerId(),
+                                                   details.getProductId());
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
+                                           purchaseId);
   }
 
   void onExplanationClick()
@@ -232,7 +236,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
   public void onCancel(DialogInterface dialog)
   {
     super.onCancel(dialog);
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL);
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
+                                           PrivateVariables.adsRemovalServerId());
   }
 
   @Override
@@ -378,7 +383,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onPaymentFailure(@BillingClient.BillingResponse int error)
     {
-      Statistics.INSTANCE.trackPurchaseStoreError(error);
+      Statistics.INSTANCE.trackPurchaseStoreError(PrivateVariables.adsRemovalServerId(), error);
       activateStateSafely(AdsRemovalPaymentState.PAYMENT_FAILURE);
     }
 
@@ -397,7 +402,8 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onValidationStarted()
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS);
+      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
+                                             PrivateVariables.adsRemovalServerId());
       activateStateSafely(AdsRemovalPaymentState.VALIDATION);
     }
 

@@ -118,6 +118,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.OBJECT_LON;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PLACEMENT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PRODUCT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.PROVIDER;
+import static com.mapswithme.util.statistics.Statistics.EventParam.PURCHASE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LON;
@@ -328,15 +329,15 @@ public enum Statistics
     public static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
 
     // Purchases.
-    public static final String INAPP_PURCHASE_PREVIEW_SHOW = "InAppPurchase_Preview_show";
-    public static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
+    static final String INAPP_PURCHASE_PREVIEW_SHOW = "InAppPurchase_Preview_show";
+    static final String INAPP_PURCHASE_PREVIEW_SELECT = "InAppPurchase_Preview_select";
     public static final String INAPP_PURCHASE_PREVIEW_PAY = "InAppPurchase_Preview_pay";
     public static final String INAPP_PURCHASE_PREVIEW_CANCEL = "InAppPurchase_Preview_cancel";
     public static final String INAPP_PURCHASE_STORE_SUCCESS  = "InAppPurchase_Store_success";
-    public static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
+    static final String INAPP_PURCHASE_STORE_ERROR  = "InAppPurchase_Store_error";
     public static final String INAPP_PURCHASE_VALIDATION_SUCCESS  = "InAppPurchase_Validation_success";
-    public static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
-    public static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
+    static final String INAPP_PURCHASE_VALIDATION_ERROR  = "InAppPurchase_Validation_error";
+    static final String INAPP_PURCHASE_PRODUCT_DELIVERED  = "InAppPurchase_Product_delivered";
 
     public static class Settings
     {
@@ -428,6 +429,7 @@ public enum Statistics
     static final String BUTTON = "button";
     static final String VENDOR = "vendor";
     static final String PRODUCT = "product";
+    static final String PURCHASE = "purchase";
 
     private EventParam() {}
   }
@@ -1315,23 +1317,33 @@ public enum Statistics
                                         .add(BUTTON, isCross ? 0 : 1));
   }
 
-  public void trackPurchasePreviewShow(@NonNull String vendor, @NonNull String productId)
+  public void trackPurchasePreviewShow(@NonNull String purchaseId, @NonNull String vendor,
+                                       @NonNull String productId)
   {
     trackEvent(INAPP_PURCHASE_PREVIEW_SHOW, params().add(VENDOR, vendor)
-                                                    .add(PRODUCT, productId));
+                                                    .add(PRODUCT, productId)
+                                                    .add(PURCHASE, purchaseId));
   }
 
-  public void trackPurchasePreviewSelect(@NonNull String productId)
+  public void trackPurchaseEvent(@NonNull String event, @NonNull String purchaseId)
   {
-    trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params().add(PRODUCT, productId));
+    trackEvent(event, params().add(PURCHASE, purchaseId));
   }
 
-  public void trackPurchaseStoreError(@BillingClient.BillingResponse int error)
+  public void trackPurchasePreviewSelect(@NonNull String purchaseId, @NonNull String productId)
   {
-    trackEvent(INAPP_PURCHASE_STORE_ERROR, params().add(ERROR, "Billing error: " + error));
+    trackEvent(INAPP_PURCHASE_PREVIEW_SELECT, params().add(PRODUCT, productId)
+                                                      .add(PURCHASE, productId));
   }
 
-  public void trackPurchaseValidationError(@NonNull ValidationStatus status)
+  public void trackPurchaseStoreError(@NonNull String purchaseId,
+                                      @BillingClient.BillingResponse int error)
+  {
+    trackEvent(INAPP_PURCHASE_STORE_ERROR, params().add(ERROR, "Billing error: " + error)
+                                                   .add(PURCHASE, purchaseId));
+  }
+
+  public void trackPurchaseValidationError(@NonNull String purchaseId, @NonNull ValidationStatus status)
   {
     if (status == ValidationStatus.VERIFIED)
       return;
@@ -1344,12 +1356,14 @@ public enum Statistics
     else
       return;
 
-    trackEvent(INAPP_PURCHASE_VALIDATION_ERROR, params().add(ERROR_CODE, errorCode));
+    trackEvent(INAPP_PURCHASE_VALIDATION_ERROR, params().add(ERROR_CODE, errorCode)
+                                                        .add(PURCHASE, purchaseId));
   }
 
-  public void trackPurchaseProductDelivered(@NonNull String vendor)
+  public void trackPurchaseProductDelivered(@NonNull String purchaseId, @NonNull String vendor)
   {
-    trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor));
+    trackEvent(INAPP_PURCHASE_PRODUCT_DELIVERED, params().add(VENDOR, vendor)
+                                                         .add(PURCHASE, purchaseId));
   }
 
   public static ParameterBuilder params()

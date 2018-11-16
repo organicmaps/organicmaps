@@ -4,6 +4,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -258,6 +259,8 @@ public enum BookmarkManager
   @MainThread
   public void onImportFinished(@NonNull String id, long catId, boolean successful)
   {
+    if (successful)
+      Statistics.INSTANCE.trackPurchaseProductDelivered(id, PrivateVariables.bookmarksVendor());
     for (BookmarksCatalogListener listener : mCatalogListeners)
       listener.onImportFinished(id, catId, successful);
   }

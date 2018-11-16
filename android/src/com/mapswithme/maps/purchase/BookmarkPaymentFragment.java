@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
@@ -23,6 +24,7 @@ import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,8 +45,9 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<PurchaseCallback> mPurchaseController;
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private BookmarkPurchaseCallback mPurchaseCallback = new BookmarkPurchaseCallback();
+  private BookmarkPurchaseCallback mPurchaseCallback;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PaymentData mPaymentData;
@@ -67,6 +70,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       throw new IllegalStateException("Payment data must be provided for payment fragment!");
 
     mPaymentData = paymentData;
+    mPurchaseCallback = new BookmarkPurchaseCallback(mPaymentData.getServerId());
   }
 
   @Nullable
@@ -79,16 +83,44 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     mPurchaseController.initialize(getActivity());
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);
     TextView buyButton = root.findViewById(R.id.buy_btn);
-    buyButton.setOnClickListener(v -> startPurchaseTransaction());
+    buyButton.setOnClickListener(v -> onBuyClicked());
     TextView cancelButton = root.findViewById(R.id.cancel_btn);
-    cancelButton.setOnClickListener(v -> getActivity().finish());
+    cancelButton.setOnClickListener(v -> onCancelClicked());
     return root;
+  }
+
+  private void onBuyClicked()
+  {
+    Statistics.INSTANCE.trackPurchasePreviewSelect(mPaymentData.getServerId(),
+                                                   mPaymentData.getProductId());
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_PAY,
+                                           mPaymentData.getServerId());
+    startPurchaseTransaction();
+  }
+
+  private void onCancelClicked()
+  {
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
+                                           mPaymentData.getServerId());
+    getActivity().finish();
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_PREVIEW_CANCEL,
+                                           mPaymentData.getServerId());
+    return super.onBackPressed();
   }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    if (savedInstanceState == null)
+      Statistics.INSTANCE.trackPurchasePreviewShow(mPaymentData.getServerId(),
+                                                   PrivateVariables.bookmarksVendor(),
+                                                   mPaymentData.getProductId());
     LOGGER.d(TAG, "onViewCreated savedInstanceState = " + savedInstanceState);
     setInitialPaymentData();
     loadImage();
@@ -257,6 +289,13 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     @Nullable
     private List<SkuDetails> mPendingDetails;
     private Boolean mPendingValidationResult;
+    @NonNull
+    private final String mServerId;
+
+    private BookmarkPurchaseCallback(@NonNull String serverId)
+    {
+      mServerId = serverId;
+    }
 
     @Override
     public void onStartTransaction(boolean success, @NonNull String serverId, @NonNull String
@@ -284,7 +323,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     }
 
     @Override
-    public void onPaymentFailure(int error)
+    public void onPaymentFailure(@BillingClient.BillingResponse int error)
     {
       activateStateSafely(BookmarkPaymentState.PAYMENT_FAILURE);
     }
@@ -304,6 +343,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
     @Override
     public void onValidationStarted()
     {
+      Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_STORE_SUCCESS,
+                                             mServerId);
       activateStateSafely(BookmarkPaymentState.VALIDATION);
     }
 
