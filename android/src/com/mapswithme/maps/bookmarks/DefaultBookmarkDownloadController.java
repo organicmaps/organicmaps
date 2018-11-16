@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 class DefaultBookmarkDownloadController implements BookmarkDownloadController,
                                                    BookmarkDownloadHandler, Authorizer.Callback
 {
+  static final int REQ_CODE_PAY_BOOKMARK = 1;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = DefaultBookmarkDownloadController.class.getSimpleName();
   private static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
@@ -51,18 +52,35 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   }
 
   @Override
-  public void downloadBookmark(@NonNull String url) throws MalformedURLException
+  public boolean downloadBookmark(@NonNull String url)
   {
-    downloadBookmarkInternal(mApplication, url);
-    mDownloadUrl = url;
+    try
+    {
+      downloadBookmarkInternal(mApplication, url);
+      mDownloadUrl = url;
+      return true;
+    }
+    catch (MalformedURLException e)
+    {
+      LOGGER.e(TAG, "Failed to download bookmark, url: " + url, e);
+      return false;
+    }
   }
 
   @Override
-  public void retryDownloadBookmark() throws MalformedURLException
+  public void retryDownloadBookmark()
   {
     if (mDownloadUrl == null)
       throw new IllegalStateException("Download url must be non-null at this point");
-    downloadBookmarkInternal(mApplication, mDownloadUrl);
+
+    try
+    {
+      downloadBookmarkInternal(mApplication, mDownloadUrl);
+    }
+    catch (MalformedURLException e)
+    {
+      LOGGER.e(TAG, "Failed to retry bookmark downloading, url: " + mDownloadUrl, e);
+    }
   }
 
   @Override
@@ -127,8 +145,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
       throw new IllegalStateException("Download url must be non-null if payment required!");
 
     PaymentData data = parsePaymentData(mDownloadUrl);
-    BookmarkPaymentActivity.startForResult(getFragmentOrThrow(), data,
-                                           BookmarksCatalogFragment.REQ_CODE_PAY_BOOKMARK);
+    BookmarkPaymentActivity.startForResult(getFragmentOrThrow(), data, REQ_CODE_PAY_BOOKMARK);
   }
 
   @NonNull

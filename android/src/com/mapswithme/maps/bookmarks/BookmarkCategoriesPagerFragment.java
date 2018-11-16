@@ -1,16 +1,21 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.auth.Authorizer;
+import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -19,17 +24,47 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
+    implements TargetFragmentCallback
 {
   final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
+  final static String ARG_CATALOG_DEEPLINK = "arg_catalog_deeplink";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
   private BookmarksPagerAdapter mAdapter;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarkDownloadController mController;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private Authorizer mAuthorizer;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    mAuthorizer = new Authorizer(this);
+    mController = new DefaultBookmarkDownloadController(mAuthorizer,
+                                                        new CatalogListenerDecorator(this));
+    if (savedInstanceState != null)
+      mController.onRestore(savedInstanceState);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (resultCode == Activity.RESULT_OK && requestCode == DefaultBookmarkDownloadController.REQ_CODE_PAY_BOOKMARK)
+    {
+      mController.retryDownloadBookmark();
+    }
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    mController.onSave(outState);
   }
 
   @Nullable
@@ -37,6 +72,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
+    mController.attach(this);
     View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, container, false);
     ViewPager viewPager = root.findViewById(R.id.viewpager);
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
@@ -50,6 +86,28 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     viewPager.addOnPageChangeListener(new PageChangeListener());
 
     return root;
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated(view, savedInstanceState);
+    Bundle args = getArguments();
+    if (args == null)
+      return;
+
+    String deeplink = args.getString(ARG_CATALOG_DEEPLINK);
+    if (TextUtils.isEmpty(deeplink))
+      return;
+
+    mController.downloadBookmark(deeplink);
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    mController.detach();
+    super.onDestroyView();
   }
 
   private int saveAndGetInitialPage()
@@ -69,6 +127,18 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   private static List<BookmarksPageFactory> getAdapterDataSet()
   {
     return Arrays.asList(BookmarksPageFactory.values());
+  }
+
+  @Override
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
+  {
+    mAuthorizer.onTargetFragmentResult(resultCode, data);
+  }
+
+  @Override
+  public boolean isTargetAdded()
+  {
+    return isAdded();
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener

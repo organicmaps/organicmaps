@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
@@ -19,7 +20,7 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
   public static final int REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY = 102;
 
-  public static void start(@NonNull Context context, int initialPage)
+  public static void start(@NonNull Context context)
   {
     context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
   }
@@ -65,10 +66,12 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
     return R.layout.bookmarks_activity;
   }
 
-  public static void startForResult(@NonNull Activity context, int initialPage)
+  public static void startForResult(@NonNull Activity context, int initialPage,
+                                    @Nullable String catalogDeeplink)
   {
     Bundle args = new Bundle();
     args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
+    args.putString(BookmarkCategoriesPagerFragment.ARG_CATALOG_DEEPLINK, catalogDeeplink);
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).putExtras(args);
     context.startActivityForResult(intent, REQ_CODE_DOWNLOAD_BOOKMARK_CATEGORY);
@@ -77,6 +80,6 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   public static void startForResult(@NonNull Activity context)
   {
     int initialPage = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(context);
-    startForResult(context, initialPage);
+    startForResult(context, initialPage, null);
   }
 }

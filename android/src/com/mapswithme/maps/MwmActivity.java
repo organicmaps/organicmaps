@@ -43,7 +43,6 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksCatalogActivity;
-import com.mapswithme.maps.bookmarks.BookmarksDownloadManager;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -131,7 +130,6 @@ import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
@@ -1707,16 +1705,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(@NonNull MwmActivity target)
     {
-      try
-      {
-        BookmarksDownloadManager.from(target).enqueueRequest(mUrl);
-        BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal());
-      }
-      catch (MalformedURLException e)
-      {
-        LOGGER.e(TAG,"Failed to download catalogue by '" + mUrl + "'", e);
-      }
-      return false;
+      BookmarkCategoriesActivity.startForResult(target, BookmarksPageFactory.DOWNLOADED.ordinal(), mUrl);
+      return true;
     }
   }
 

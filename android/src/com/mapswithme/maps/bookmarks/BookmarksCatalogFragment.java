@@ -38,15 +38,11 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
 
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     implements TargetFragmentCallback
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
-  static final int REQ_CODE_PAY_BOOKMARK = 1;
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = BookmarksCatalogFragment.class.getSimpleName();
   private static final String FAILED_PURCHASE_DIALOG_TAG = "failed_purchase_dialog_tag";
 
   @SuppressWarnings("NullableProblems")
@@ -171,28 +167,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   private boolean downloadBookmark(@NonNull String url)
   {
-    try
-    {
-      mController.downloadBookmark(url);
-      return true;
-    }
-    catch (MalformedURLException e)
-    {
-      LOGGER.e(TAG, "Failed to download bookmark, url: " + url);
-      return false;
-    }
+   return mController.downloadBookmark(url);
   }
 
   private void retryBookmarkDownload()
   {
-    try
-    {
-      mController.retryDownloadBookmark();
-    }
-    catch (MalformedURLException e)
-    {
-      LOGGER.e(TAG, "Failed to retry bookmark downloading");
-    }
+    mController.retryDownloadBookmark();
   }
 
   @Override
@@ -211,7 +191,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == Activity.RESULT_OK && requestCode == REQ_CODE_PAY_BOOKMARK)
+    if (resultCode == Activity.RESULT_OK && requestCode == DefaultBookmarkDownloadController.REQ_CODE_PAY_BOOKMARK)
     {
       retryBookmarkDownload();
     }

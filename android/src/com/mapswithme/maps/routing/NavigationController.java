@@ -18,7 +18,6 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
-import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
@@ -424,7 +423,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     switch (v.getId())
     {
       case R.id.btn_bookmarks:
-        BookmarkCategoriesActivity.start(mFrame.getContext(), BookmarksPageFactory.PRIVATE.ordinal());
+        BookmarkCategoriesActivity.start(mFrame.getContext());
         Statistics.INSTANCE.trackRoutingEvent(ROUTING_BOOKMARKS_CLICK,
                                               RoutingController.get().isPlanning());
         break;
