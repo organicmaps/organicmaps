@@ -240,7 +240,7 @@
                         <outlet property="getDirectLinkCell" destination="90b-ef-VUJ" id="L7h-0r-eSe"/>
                         <outlet property="licenseAgreementTextView" destination="dsV-Vs-oCo" id="TtB-Uw-WGR"/>
                         <outlet property="uploadAndPublishCell" destination="YW0-jq-Isw" id="84h-vp-JdM"/>
-                        <segue destination="xf5-2c-0zi" kind="show" identifier="chooseTags" id="up0-G8-BIG"/>
+                        <segue destination="fDN-IN-IEc" kind="show" identifier="chooseProperties" id="I88-nm-PsT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ylv-YU-ujs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,7 +251,7 @@
         <!--Sharing Tags View Controller-->
         <scene sceneID="fwI-5y-8lb">
             <objects>
-                <viewController id="xf5-2c-0zi" customClass="SharingTagsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tags" id="xf5-2c-0zi" customClass="SharingTagsViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2YU-O5-UMg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -444,7 +444,114 @@
                     </connections>
                 </barButtonItem>
             </objects>
-            <point key="canvasLocation" x="607" y="-27"/>
+            <point key="canvasLocation" x="1534" y="-27"/>
+        </scene>
+        <!--Sharing Properties View Controller-->
+        <scene sceneID="zug-ko-B9e">
+            <objects>
+                <tableViewController storyboardIdentifier="chooseTags" id="fDN-IN-IEc" customClass="SharingPropertiesViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ibV-nf-9aS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="LOCAL OR TRAVELLER" id="M1K-Vf-5wl">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="115" id="BxX-r9-FhR">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="115"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BxX-r9-FhR" id="2z2-uI-iUF">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="114.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" text="You have visited places in this guide as" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RD2-dA-33d">
+                                                    <rect key="frame" x="0.0" y="16" width="375" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="custom_props_desc"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Aq-yf-HLJ" customClass="MWMButton">
+                                                    <rect key="frame" x="16" y="66.5" width="161.5" height="32"/>
+                                                    <color key="backgroundColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="qqI-Vk-fJA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <state key="normal" title="LOCAL">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="white"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="localButtonWasPressed:" destination="fDN-IN-IEc" eventType="touchUpInside" id="eY9-Ds-2Yj"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D7h-er-9Kx" customClass="MWMButton">
+                                                    <rect key="frame" x="197.5" y="66.5" width="161.5" height="32"/>
+                                                    <color key="backgroundColor" red="0.11764705882352941" green="0.58823529411764708" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="nKF-9s-YhE"/>
+                                                        <constraint firstAttribute="height" constant="32" id="rC4-He-W4d"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <state key="normal" title="TRAVELER">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="6"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="white"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="travelerButtonPressed:" destination="fDN-IN-IEc" eventType="touchUpInside" id="GcO-Mh-UZT"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="D7h-er-9Kx" firstAttribute="leading" secondItem="4Aq-yf-HLJ" secondAttribute="trailing" constant="20" id="8ys-06-LkB"/>
+                                                <constraint firstAttribute="trailing" secondItem="D7h-er-9Kx" secondAttribute="trailing" constant="16" id="BMq-ox-1qi"/>
+                                                <constraint firstItem="RD2-dA-33d" firstAttribute="leading" secondItem="2z2-uI-iUF" secondAttribute="leading" id="McD-Kk-xcf"/>
+                                                <constraint firstItem="RD2-dA-33d" firstAttribute="top" secondItem="2z2-uI-iUF" secondAttribute="top" constant="16" id="S5t-1W-Nyy"/>
+                                                <constraint firstItem="D7h-er-9Kx" firstAttribute="width" secondItem="4Aq-yf-HLJ" secondAttribute="width" id="inZ-7F-w2d"/>
+                                                <constraint firstAttribute="trailing" secondItem="RD2-dA-33d" secondAttribute="trailing" id="jTo-Jl-WHC"/>
+                                                <constraint firstItem="4Aq-yf-HLJ" firstAttribute="leading" secondItem="2z2-uI-iUF" secondAttribute="leading" constant="16" id="k2s-WP-pgR"/>
+                                                <constraint firstAttribute="bottom" secondItem="4Aq-yf-HLJ" secondAttribute="bottom" constant="16" id="kwq-HJ-VlI"/>
+                                                <constraint firstAttribute="bottom" secondItem="D7h-er-9Kx" secondAttribute="bottom" constant="16" id="t3c-76-Wzi"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="fDN-IN-IEc" id="BZY-UX-7N1"/>
+                            <outlet property="delegate" destination="fDN-IN-IEc" id="fEa-Wx-EL2"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="localButton" destination="4Aq-yf-HLJ" id="1Mf-1y-gyv"/>
+                        <outlet property="travelerButton" destination="D7h-er-9Kx" id="16g-nm-YdV"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WLW-hZ-FOD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="640.79999999999995" y="-27.436281859070466"/>
         </scene>
     </scenes>
     <resources>

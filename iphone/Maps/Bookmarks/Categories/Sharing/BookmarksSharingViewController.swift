@@ -14,7 +14,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
   @IBOutlet weak var uploadAndPublishCell: UploadActionCell!
   @IBOutlet weak var getDirectLinkCell: UploadActionCell!
   
-  let kTagsSegueIdentifier = "chooseTags"
+  let kPropertiesSegueIdentifier = "chooseProperties"
+  let kTagsControllerIdentifier = "tags"
   
   @IBOutlet private weak var licenseAgreementTextView: UITextView! {
     didSet {
@@ -83,13 +84,13 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   func uploadAndPublish() {
     performAfterValidation { [weak self] in
-      self?.performSegue(withIdentifier: "chooseTags", sender: self)
+      self?.performSegue(withIdentifier: "chooseProperties", sender: self)
     }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
-    if segue.identifier == kTagsSegueIdentifier {
-      if let vc = segue.destination as? SharingTagsViewController {
+    if segue.identifier == kPropertiesSegueIdentifier {
+      if let vc = segue.destination as? SharingPropertiesViewController {
         vc.delegate = self
       }
     }
@@ -151,10 +152,31 @@ extension BookmarksSharingViewController: UploadActionCellDelegate {
 extension BookmarksSharingViewController: SharingTagsViewControllerDelegate {
   func sharingTagsViewController(_ viewController: SharingTagsViewController, didSelect tags: [MWMTag]) {
     navigationController?.popViewController(animated: true)
-    //proceed with selected tags
+    // TODO: proceed with selected tags
   }
   
   func sharingTagsViewControllerDidCancel(_ viewController: SharingTagsViewController) {
     navigationController?.popViewController(animated: true)
+  }
+}
+
+extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegate {
+  func sharingPropertiesViewController(_ viewController: SharingPropertiesViewController,
+                                       didSelect userStatus: SharingPropertyUserStatus) {
+    // TODO: proceed with chosen user status
+    
+    let storyboard = UIStoryboard.instance(.sharing)
+    let tagsController = storyboard.instantiateViewController(withIdentifier: kTagsControllerIdentifier)
+      as! SharingTagsViewController
+    tagsController.delegate = self
+    
+    guard var viewControllers = navigationController?.viewControllers else {
+      assert(false)
+      return
+    }
+    
+    viewControllers.removeLast()
+    viewControllers.append(tagsController)
+    navigationController?.setViewControllers(viewControllers, animated: true)
   }
 }

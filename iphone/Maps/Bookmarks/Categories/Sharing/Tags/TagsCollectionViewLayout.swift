@@ -2,7 +2,6 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
 
   private var headersCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
   private var cellsCache: [IndexPath : UICollectionViewLayoutAttributes] = [:]
-
   fileprivate var contentHeight: CGFloat = 0
 
   fileprivate var contentWidth: CGFloat {

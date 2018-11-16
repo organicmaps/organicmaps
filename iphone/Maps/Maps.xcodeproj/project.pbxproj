@@ -13,6 +13,7 @@
 		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
 		331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
+		33603C85219F0F6300B11FFE /* SharingPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */; };
 		33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */; };
 		33B19C67218B481700B323A7 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B19C66218B481700B323A7 /* TagCollectionViewCell.swift */; };
 		33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */; };
@@ -799,6 +800,7 @@
 		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
 		331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSectionHeaderView.swift; sourceTree = "<group>"; };
 		3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSharingViewController.swift; sourceTree = "<group>"; };
+		33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingPropertiesViewController.swift; sourceTree = "<group>"; };
 		33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTagsViewController.swift; sourceTree = "<group>"; };
 		33B19C66218B481700B323A7 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
 		33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BookmarksSharingFlow.storyboard; sourceTree = "<group>"; };
@@ -2197,6 +2199,7 @@
 				3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */,
 				33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */,
 				33C558E2217F6CF100299E70 /* UploadActionCell.swift */,
+				33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */,
 				33F8BA3B2199858B00ECA8EE /* Tags */,
 			);
 			path = Sharing;
@@ -5262,6 +5265,7 @@
 				3454D7E31E07F045004AF2AD /* UITextView+RuntimeAttributes.mm in Sources */,
 				F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */,
 				F6E2FED61E097BA00083EBEC /* MWMSearchChangeModeView.mm in Sources */,
+				33603C85219F0F6300B11FFE /* SharingPropertiesViewController.swift in Sources */,
 				34845DB31E165E24003D55B9 /* SearchNoResultsViewController.swift in Sources */,
 				34AB660B1FC5AA320078E451 /* MWMNavigationDashboardEntity.mm in Sources */,
 				F5BD29FF26AD58255766C51A /* DiscoverySpinnerCell.swift in Sources */,
