@@ -175,5 +175,4 @@ qt/res/Info.plist
 designer_version.h
 
 # Vim files
-tags
 *.sw?
