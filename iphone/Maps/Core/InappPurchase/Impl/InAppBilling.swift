@@ -48,6 +48,7 @@ final class InAppBilling: NSObject, IInAppBilling {
   func makePayment(_ product: IBillingProduct, completion: @escaping PaymentCompletion) {
     guard let billingProduct = product as? BillingProduct else {
       assert(false, "Wrong product type")
+      return
     }
     
     paymentCompletion = completion
@@ -58,6 +59,7 @@ final class InAppBilling: NSObject, IInAppBilling {
   func finishTransaction() {
     guard let transaction = pendingTransaction else {
       assert(false, "You must call makePayment() first")
+      return
     }
 
     SKPaymentQueue.default().finishTransaction(transaction)
