@@ -34840,6 +34840,14 @@
     comment = FIXME
     en = custom_props_title
 
+  [custom_props_local]
+    comment = FIXME
+    en = custom_props_local
+
+  [custom_props_traveler]
+    comment = FIXME
+    en = custom_props_traveler
+
   [select_properties]
     comment = FIXME
     en = select_properties
