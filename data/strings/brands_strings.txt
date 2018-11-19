@@ -1,0 +1,607 @@
+[[Brands]]
+  [brand.aiya]
+    en = Aiya
+    ja = 藍屋
+
+  [brand.anrakutei]
+    en = Anrakutei
+    ja = 安楽亭
+
+  [brand.applebee_s]
+    en = Applebee's
+
+  [brand.aroma]
+    en = Aroma
+    ar = أروما
+    he = ארומה
+
+  [brand.bamiyan]
+    en = Bamiyan
+    ja = バーミヤン
+
+  [brand.banana_leaf]
+    en = Banana Leaf
+
+  [brand.baskin_robbins]
+    en = Baskin-Robbins
+    ru = Баскин Роббинс
+
+  [brand.big_boy]
+    en = Big Boy
+    ja = ビッグボーイ
+
+  [brand.bikkuridonkey]
+    en = Bikkuri-Donkey
+    ja = びっくりドンキー
+
+  [brand.blue_bottle_coffee]
+    en = Blue Bottle Coffee
+    ja = ブルーボトルコーヒー
+    ko = 블루버틀 커피
+    zh = 藍瓶咖啡
+
+  [brand.burger_king]
+    en = Burger King
+    ru = Бургер Кинг
+    ar = برغر كينغ
+    ja = バーガーキング
+    ko = 버거킹
+    zh = 汉堡王
+    zh_pinyin = Hànbǎo Wáng
+
+  [brand.cafe_amazon]
+    en = Café Amazon
+    th = คาเฟ อเมซอน
+
+  [brand.cafe_coffee_day]
+    en = Cafe Coffee Day
+
+  [brand.cafe_de_crie]
+    en = Cafe de Crie
+    ja = カフェドクリエ
+
+  [brand.capricchosa]
+    en = Capricchosa
+    ja = カプリチョーザ
+
+  [brand.carl_s_jr]
+    en = Carl's Jr.
+
+  [brand.celentano]
+    en = Celentano
+    ru = Челентано
+    uk = Челентано
+
+  [brand.chibo]
+    en = Chibo
+    ja = 千房
+
+  [brand.chick_fil_a]
+    en = Chick-fil-A
+
+  [brand.chilis]
+    en = Chili's
+
+  [brand.chipotle]
+    en = Chipotle
+
+  [brand.chowking]
+    en = Chowking
+
+  [brand.cinnabon]
+    en = Cinnabon
+
+  [brand.coco]
+    en = CoCo
+
+  [brand.coco_ichibanya]
+    en = Coco Ichibanya
+    ja = ここいちばんや
+
+  [brand.cocos]
+    en = COCO'S
+    ja = ココス
+
+  [brand.coffee_house]
+    en = Coffee House
+    ru = Кофе Хауз
+
+  [brand.coffee_world]
+    en = Coffee World
+
+  [brand.coffeeport]
+    en = Coffeeport
+    ru = Кофепорт
+
+  [brand.coffeeshop_company]
+    en = Coffeeshop Company
+
+  [brand.cofix]
+    en = Cofix
+    he = קופיקס
+
+  [brand.comic_buster]
+    en = Comic Buster
+
+  [brand.costa_coffee]
+    en = Costa Coffee
+    ar = كوستا
+
+  [brand.dairy_queen]
+    en = Dairy Queen
+
+  [brand.dennys]
+    en = Denny's
+    ja = デニーズ
+
+  [brand.doi_chaang]
+    en = Doi Chaang
+
+  [brand.dominos_pizza]
+    en = Domino's Pizza
+    ru = Домино'с Пицца
+    ar = دومينوز بيتزا
+    he = דומינוס פיצה
+    ja = ドミノ・ピザ
+    ko = 도미노피자
+
+  [brand.double_b]
+    en = Double B
+    ru = Даблби
+
+  [brand.doutor]
+    en = Doutor
+    ja = ドトールコーヒーショップ
+
+  [brand.dunkin_donuts]
+    en = Dunkin Donuts
+    ru = Данкин Донатс
+    ar = دنكن دونتس
+
+  [brand.espresso_house]
+    en = Espresso House
+
+  [brand.excelsior_caffe]
+    en = Excelsior Caffe
+    ja = エクセルシオール カフェ
+
+  [brand.first_kitchen]
+    en = First Kitchen
+
+  [brand.freshness_burger]
+    en = Freshness Burger
+    ja = フレッシュネスバーガー
+
+  [brand.fujisoba]
+    en = Fujisoba
+    ja = 富士そば
+
+  [brand.glowsubs]
+    en = GlowSubs
+
+  [brand.grazie_gardens]
+    en = Grazie Gardens
+    ja = グラッチェガーデンズ
+
+  [brand.gusto]
+    en = Gusto
+    ja = ガスト
+
+  [brand.gyukaku]
+    en = Gyu-Kaku
+    ja = 牛角
+
+  [brand.haagen_dazs]
+    en = Häagen-Dazs
+
+  [brand.hamazushi]
+    en = Hamazushi
+    ja = はま寿司
+
+  [brand.hanamaru]
+    en = Hanamaru
+    ja = はなまるうどん
+
+  [brand.hanaya_yohei]
+    en = Hanaya Yohei
+    ja = 華屋与兵衛
+
+  [brand.handaya]
+    en = Handaya
+    ja = 半田屋
+
+  [brand.hard_rock_cafe]
+    en = Hard Rock Cafe
+
+  [brand.havanna]
+    en = Havanna
+
+  [brand.hesburger]
+    en = Hesburger
+
+  [brand.hokkahokka_tei]
+    en = Hokka-Hokka Tei
+    ja = ほっかほっか亭
+
+  [brand.honkekamadoya]
+    en = Honkekamadoya
+    ja = 本家かまどや
+
+  [brand.hottomotto]
+    en = HottoMotto
+    ja = ほっともっと
+
+  [brand.ihop]
+    en = IHOP
+
+  [brand.ikinari_steak]
+    en = Ikinari Steak
+    ja = いきなりステーキ
+
+  [brand.il_patio]
+    en = IL Patio
+    ru = IL Патио
+
+  [brand.jack_in_the_box]
+    en = Jack in the Box
+
+  [brand.jiyu_kukan]
+    en = Jiyu Kukan
+    ja = 自遊空間
+
+  [brand.jollibee]
+    en = Jollibee
+
+  [brand.jolly_pasta]
+    en = Jolly Pasta
+    ja = ジョリーパスタ
+
+  [brand.jonathans]
+    en = Jonathan's
+    ja = ジョナサン
+
+  [brand.joyfull]
+    en = Joyfull
+    ja = ジョイフル
+
+  [brand.kappazushi]
+    en = Kappazushi
+    ja = かっぱ寿司
+
+  [brand.katsuya]
+    en = Katsuya
+    ja = かつや
+
+  [brand.kfc]
+    en = KFC
+    ar = دجاج كنتاكي
+    fr = PFC
+    ja = ケンタッキーフライドチキン
+    th = เค เอฟ ซ
+    zh = 肯德基
+    zh_pinyin = Kěn Dé Jī
+
+  [brand.kisoji]
+    en = Kisoji
+    ja = 木曽路
+
+  [brand.kobeya_restaurant]
+    en = Kobeya Restaurant
+    ja = 神戸屋レストラン
+
+  [brand.kohikan]
+    en = KO:HI:KAN
+    ja = 珈琲館
+
+  [brand.komeda]
+    en = Komeda
+    ja = コメダ珈琲店
+
+  [brand.komoro_soba]
+    en = Komoro Soba
+    ja = 小諸そば
+
+  [brand.kourakuen]
+    en = Kourakuen
+    ja = 幸楽苑
+
+  [brand.kroshka_kartoshka]
+    en = Kroshka Kartoshka
+    ru = Крошка Картошка
+
+  [brand.kurazushi]
+    en = Kurazushi
+    ja = くら寿司
+
+  [brand.little_caesars]
+    en = Little Caesars
+
+  [brand.lotteria]
+    en = Lotteria
+    ja = ロッテリア
+
+  [brand.maido_ohkini]
+    en = Maido-Ohkini
+    ja = まいどおおきに
+
+  [brand.marrybrown]
+    en = Marrybrown
+
+  [brand.marugame_seimen]
+    en = Marugame Seimen
+    ru = Марукамэ
+    be = Марукамэ
+    ja = 丸亀製麺
+
+  [brand.matsunoya]
+    en = Matsunoya
+    ja = 松乃家
+
+  [brand.matsuya]
+    en = Matsuya
+    ja = まつや
+
+  [brand.mcdonalds]
+    en = McDonald's
+    ru = Макдоналдс
+    ar = ماكدونالدز
+    bg = Макдоналдс
+    he = מקדונלד'ס
+    ja = マクドナルド
+    ka = მაკდონალდსი
+    ko = 디몰 맥도날드
+    sr = Мекдоналдс
+    th = แมคโดนลด
+    uk = МакДональдз
+    zh = 麥當勞
+    zh_pinyin = Màidāngláo
+
+  [brand.mister_donut]
+    en = Mister Donut
+    ja = ミスタードーナツ
+
+  [brand.miyakosoba]
+    en = Miyakosoba
+    ja = 都そば
+
+  [brand.miyoshino]
+    en = Miyoshino
+    ja = みよしの
+
+  [brand.mk_restaurants]
+    en = MK Restaurants
+
+  [brand.mos_burger]
+    en = MOS BURGER
+    ja = モスバーガー
+    zh = 摩斯漢堡
+
+  [brand.mr_sub]
+    en = Mr. Sub
+
+  [brand.mu_mu]
+    en = Mu-Mu
+    ru = Му-Му
+
+  [brand.nakau]
+    en = Nakau
+    ja = なか卯
+
+  [brand.ohsho]
+    en = Gyoza no Ohsho
+    ja = ぎょうざのおうしょう
+
+  [brand.onebuckscoffee]
+    en = OneBucksCoffee
+
+  [brand.origin_bento]
+    en = Origin Bento
+    ja = オリジン弁当
+
+  [brand.osaka_ohsho]
+    en = Osaka Ohsho
+    ja = 大阪王将
+
+  [brand.panda_express]
+    en = Panda Express
+
+  [brand.panera_bread]
+    en = Panera Bread
+
+  [brand.papa_johns]
+    en = Papa John's
+    ru = Папа Джонс
+
+  [brand.perkins]
+    en = Perkins
+
+  [brand.pizza_hut]
+    en = Pizza Hut
+    ru = Пицца Хат
+    ar = بيتزا هت
+    he = פיצה האט
+    ja = ピザハット
+    zh = 必胜客
+    zh_pinyin = Bì Shèng Kè
+
+  [brand.pizza_pizza]
+    en = Pizza Pizza
+
+  [brand.popeyes]
+    en = Popeyes
+
+  [brand.pronto]
+    en = Pronto
+    ja = Puronto
+
+  [brand.quiznos]
+    en = Quiznos
+
+  [brand.red_lobster]
+    en = Red Lobster
+
+  [brand.ringer_hut]
+    en = Ringer Hut
+    ja = リンガーハット
+
+  [brand.robin_sdobin]
+    en = Robin Sdobin
+    ru = Робин Сдобин
+
+  [brand.royal_host]
+    en = Royal Host
+    ja = ロイヤルホスト
+
+  [brand.ruby_tuesday]
+    en = Ruby Tuesday
+
+  [brand.saizeriya]
+    en = Saizeriya
+    ja = サイゼリヤ
+
+  [brand.sato]
+    en = Sato
+    ja = 和食さと
+
+  [brand.segafredo]
+    en = Segafredo
+
+  [brand.shake_shack]
+    en = Shake Shack
+
+  [brand.shokoladnitsa]
+    en = Shokoladnitsa
+    ru = Шоколадница
+
+  [brand.sizzler]
+    en = Sizzler
+
+  [brand.skuratov]
+    en = Skuratov
+
+  [brand.spur]
+    en = Spur
+
+  [brand.starbucks]
+    en = Starbucks
+    ru = Старбакс
+    ar = ستاربكس
+    ja = スターバックス
+    ko = 스타벅스
+    zh = 星巴克
+    zh_pinyin = Xīngbākè
+
+  [brand.stardogs]
+    en = Stardog!s
+    ru = Стардог!s
+
+  [brand.steak_n_shake]
+    en = Steak'n Shake
+
+  [brand.stmarc_cafe]
+    en = St. Marc Cafe
+    ja = サンマルクカフェ
+
+  [brand.subway]
+    en = Subway
+    ru = Сабвэй
+    ja = サブウェイ
+    zh = 赛百味
+
+  [brand.sukiya]
+    en = Sukiya
+    ja = すき家
+
+  [brand.sushi_wok]
+    en = Sushi Wok
+    ru = Суши Wok
+    uk = Суши Wok
+
+  [brand.sushiro]
+    en = Sushiro
+    ja = スシロー
+
+  [brand.swensens]
+    en = Swensen's
+
+  [brand.syabu_yo]
+    en = Syabu-yo
+    ja = しゃぶ葉
+
+  [brand.taco_bell]
+    en = Taco Bell
+
+  [brand.telepizza]
+    en = Telepizza
+
+  [brand.tenkaippin]
+    en = TenkaIppin
+    ja = 天下一品
+
+  [brand.teremok]
+    en = Teremok
+    ru = Теремок
+
+  [brand.tgi_fridays]
+    en = TGI Friday's
+
+  [brand.the_pizza_company]
+    en = The Pizza Company
+    th = เดอะ พซซา คอมปะน
+
+  [brand.tim_hortons]
+    en = Tim Hortons
+
+  [brand.tonden]
+    en = Tonden
+    ja = とんでん
+
+  [brand.tullys_coffee]
+    en = Tully's Coffee
+    ja = タリーズコーヒー
+
+  [brand.ueshima_coffee_ten]
+    en = Ueshima Coffee Ten
+    ja = 上島珈琲店
+
+  [brand.uobei]
+    en = Uobei
+    ja = 魚べい
+
+  [brand.vapiano]
+    en = Vapiano
+
+  [brand.victoria_station]
+    en = Victoria Station
+    ja = ヴィクトリアステーション
+
+  [brand.waffle_house]
+    en = Waffle House
+
+  [brand.wendys]
+    en = Wendy's
+
+  [brand.wokker]
+    en = Wokker
+    ru = Воккер
+
+  [brand.yakitoria]
+    en = Yakitoria
+    ru = Якитория
+
+  [brand.yomen_ya_goemon]
+    en = Yomenya Goemon
+    ja = 洋麺屋五右衛門
+
+  [brand.yoshinoya]
+    en = Yoshinoya
+    ja = 吉野家
+    zh = 吉野家
+
+  [brand.yudetaro]
+    en = Yudetaro
+    ja = ゆで太郎
+
+  [brand.yumean]
+    en = Yumean
+    ja = 夢庵
