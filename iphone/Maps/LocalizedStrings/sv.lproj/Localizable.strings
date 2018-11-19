@@ -2569,12 +2569,6 @@
 "properties_loading_error_subtitle" = "properties_loading_error_subtitle";
 
 /* FIXME */
-"traveller" = "traveller";
-
-/* FIXME */
-"local" = "local";
-
-/* FIXME */
 "custom_props_desc" = "custom_props_desc";
 
 /* FIXME */
@@ -2591,6 +2585,9 @@
 
 /* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
 "failed_purchase_support_message" = "failed_purchase_support_message";
+
+/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
+"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
 
 
 /**********  Partners  **********/

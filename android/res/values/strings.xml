@@ -1490,10 +1490,6 @@
 	<!-- FIXME -->
 	<string name="properties_loading_error_subtitle">properties_loading_error_subtitle</string>
 	<!-- FIXME -->
-	<string name="traveller">traveller</string>
-	<!-- FIXME -->
-	<string name="local">local</string>
-	<!-- FIXME -->
 	<string name="custom_props_desc">custom_props_desc</string>
 	<!-- FIXME -->
 	<string name="custom_props_title">custom_props_title</string>
@@ -1505,6 +1501,8 @@
 	<string name="access_rules_paid">access_rules_paid</string>
 	<!-- FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. -->
 	<string name="failed_purchase_support_message">failed_purchase_support_message</string>
+	<!-- FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes -->
+	<string name="ugc_routes_error_uploading_file_toast">ugc_routes_error_uploading_file_toast</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
