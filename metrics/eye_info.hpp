@@ -221,10 +221,7 @@ public:
   void SetPos(m2::PointD const & pos)
   {
     m_pos = pos;
-    m_limitRect = {MercatorBounds::ClampX(pos.x - kMwmPointAccuracy),
-                   MercatorBounds::ClampY(pos.y - kMwmPointAccuracy),
-                   MercatorBounds::ClampX(pos.x + kMwmPointAccuracy),
-                   MercatorBounds::ClampY(pos.y + kMwmPointAccuracy)};
+    m_limitRect = MercatorBounds::RectByCenterXYAndOffset(pos, kMwmPointAccuracy);
   }
 
   std::string const & GetDefaultName() const { return m_defaultName; }
@@ -248,9 +245,6 @@ public:
                   visitor(m_events, "events"));
 
 private:
-  // We are use 1e-5 eps because of points in mwm have this accuracy.
-  static double constexpr kMwmPointAccuracy = 1e-5;
-
   std::string m_bestType;
   m2::PointD m_pos;
   std::string m_defaultName;

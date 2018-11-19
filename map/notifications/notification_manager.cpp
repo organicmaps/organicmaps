@@ -9,7 +9,6 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <array>
 #include <utility>
 
 using namespace notifications;

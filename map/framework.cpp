@@ -200,16 +200,19 @@ void OnRouteStartBuild(DataSource const & dataSource,
     if (pt.m_isMyPosition || pt.m_pointType == RouteMarkType::Start)
       continue;
 
-    m2::RectD rect(MercatorBounds::ClampX(pt.m_position.x - kMwmPointAccuracy),
-                   MercatorBounds::ClampY(pt.m_position.y - kMwmPointAccuracy),
-                   MercatorBounds::ClampX(pt.m_position.x + kMwmPointAccuracy),
-                   MercatorBounds::ClampY(pt.m_position.y + kMwmPointAccuracy));
-
-    dataSource.ForEachInRect([&userPos](FeatureType & ft)
+    m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(pt.m_position, kMwmPointAccuracy);
+    bool found = false;
+    dataSource.ForEachInRect([&userPos, &pt, &found](FeatureType & ft)
     {
+      if (found || !feature::GetCenter(ft).EqualDxDy(pt.m_position, kMwmPointAccuracy))
+        return;
+
       auto const mapObject = utils::MakeEyeMapObject(ft);
       if (!mapObject.IsEmpty())
+      {
         eye::Eye::Event::MapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
+        found = true;
+      }
     },
     rect, scales::GetUpperScale());
   }
@@ -2440,7 +2443,7 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
     auto const userPos = GetCurrentPosition();
     if (userPos)
     {
-      eye::MapObject const mapObject = utils::MakeEyeMapObject(outInfo);
+      auto const mapObject = utils::MakeEyeMapObject(outInfo);
       if (!mapObject.IsEmpty())
       {
         eye::Eye::Event::MapObjectEvent(mapObject, eye::MapObject::Event::Type::Open,

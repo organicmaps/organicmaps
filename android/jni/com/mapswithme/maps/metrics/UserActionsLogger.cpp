@@ -13,12 +13,12 @@ namespace
 {
 void RegisterEventIfPossible(eye::MapObject::Event::Type const type)
 {
-  place_page::Info & info = g_framework->GetPlacePageInfo();
+  auto & info = g_framework->GetPlacePageInfo();
 
   auto const userPos = g_framework->NativeFramework()->GetCurrentPosition();
   if (userPos)
   {
-    eye::MapObject const mapObject = utils::MakeEyeMapObject(info);
+    auto const mapObject = utils::MakeEyeMapObject(info);
     if (!mapObject.IsEmpty())
       eye::Eye::Event::MapObjectEvent(mapObject, type, userPos.get());
   }

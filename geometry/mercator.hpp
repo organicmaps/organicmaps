@@ -64,6 +64,12 @@ struct MercatorBounds
     return RectByCenterXYAndSizeInMeters(center.x, center.y, size, size);
   }
 
+  static m2::RectD RectByCenterXYAndOffset(m2::PointD const & center, double offset)
+  {
+    return {ClampX(center.x - offset), ClampY(center.y - offset),
+            ClampX(center.x + offset), ClampY(center.y + offset)};
+  }
+
   static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
 
   static double constexpr GetCellID2PointAbsEpsilon() { return 1.0E-4; }

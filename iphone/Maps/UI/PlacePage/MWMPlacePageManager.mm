@@ -73,7 +73,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto const userPos = GetFramework().GetCurrentPosition();
   if (userPos)
   {
-    eye::MapObject const mapObject = utils::MakeEyeMapObject(info);
+    auto const mapObject = utils::MakeEyeMapObject(info);
     if (!mapObject.IsEmpty())
       eye::Eye::Event::MapObjectEvent(mapObject, type, userPos.get());
   }

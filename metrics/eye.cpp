@@ -10,6 +10,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <array>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -20,6 +21,7 @@ namespace
 {
 // Three months.
 auto constexpr kMapObjectEventsExpirePeriod = std::chrono::hours(24 * 30 * 3);
+auto constexpr kEventCooldown = std::chrono::seconds(2);
 
 std::array<std::string, 7> const kMapEventSupportedTypes = {"amenity-bar", "amenity-cafe",
                                                             "amenity-pub", "amenity-restaurant",
@@ -340,17 +342,29 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
   event.m_eventTime = Clock::now();
 
   bool found = false;
-  mapObjects.ForEachInRect(result.GetLimitRect(), [&found, &event, &result](MapObject const & item)
+  bool duplication = false;
+  mapObjects.ForEachInRect(
+    result.GetLimitRect(), [&found, &duplication, &event, &result](MapObject const & item)
   {
-    if (!item.AlmostEquals(result))
+    if (found || duplication || !item.AlmostEquals(result))
       return;
 
     if (!found)
       found = true;
 
+    auto & events = item.GetEditableEvents();
+    if (!events.empty() && events.back().m_type == event.m_type &&
+        event.m_eventTime - events.back().m_eventTime <= kEventCooldown)
+    {
+      duplication = true;
+    }
+
     item.GetEditableEvents().emplace_back(std::move(event));
     result = item;
   });
+
+  if (duplication)
+    return;
 
   if (!found)
   {

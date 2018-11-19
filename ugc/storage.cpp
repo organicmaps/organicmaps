@@ -29,6 +29,8 @@
 
 #include <boost/optional/optional.hpp>
 
+#include "defines.hpp"
+
 using namespace std;
 
 namespace
@@ -299,8 +301,7 @@ UpdateIndexes::const_iterator Storage::FindIndex(uint32_t bestType, m2::PointD c
 
   return find_if(
     m_indexes.begin(), m_indexes.end(), [typeIndex, &point](UpdateIndex const & index) -> bool {
-      // We are use 1e-5 eps because of points in mwm have this accuracy.
-      return typeIndex == index.m_type && point.EqualDxDy(index.m_mercator, 1e-5 /* eps */) &&
+      return typeIndex == index.m_type && point.EqualDxDy(index.m_mercator, kMwmPointAccuracy) &&
              !index.m_deleted;
     });
 }
