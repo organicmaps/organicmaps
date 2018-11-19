@@ -15,6 +15,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
@@ -162,6 +163,7 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
                                "; lon = " + getArguments().getDouble(ARG_LON));
     }
     UGC.setUGCUpdate(featureId, update);
+    UserActionsLogger.logUgcSaved();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_REVIEW_SUCCESS);
   }
 }

@@ -219,6 +219,7 @@ public:
 
   void SetPopularity(uint8_t popularity) { m_popularity = popularity; }
   uint8_t GetPopularity() const { return m_popularity; }
+  std::string const & GetPrimaryFeatureName() const { return m_primaryFeatureName; };
 
 private:
   std::string FormatSubtitle(bool withType) const;
@@ -309,6 +310,8 @@ private:
   boost::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 
   uint8_t m_popularity = 0;
+
+  std::string m_primaryFeatureName;
 };
 
 namespace rating

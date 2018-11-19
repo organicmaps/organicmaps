@@ -54,6 +54,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
   GetPrefferedNames(primaryName, secondaryName);
   m_sortedTypes = m_types;
   m_sortedTypes.SortBySpec();
+  m_primaryFeatureName = primaryName;
   if (IsBookmark())
   {
     m_uiTitle = GetBookmarkName();

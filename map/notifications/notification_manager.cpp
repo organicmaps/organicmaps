@@ -20,11 +20,6 @@ auto constexpr kCandidatesExpirePeriod = std::chrono::hours(24 * 30);
 auto constexpr kPeriodBetweenNotifications = std::chrono::hours(24 * 7);
 auto constexpr kMinTimeSinceLastEventForUgcRate = std::chrono::hours(24);
 
-std::array<std::string, 7> const kUgcRateSupportedTypes = {"amenity-bar", "amenity-cafe",
-                                                           "amenity-pub", "amenity-restaurant",
-                                                           "amenity-fast_food", "amenity-biergarden",
-                                                           "shop-bakery"};
-
 double constexpr kMinDistanceToTriggerUgcRateInMeters = 50000.0;  // 50 km
 
 uint32_t constexpr kOpenCountForPlannedTripTrigger = 2;
@@ -194,16 +189,6 @@ bool NotificationManager::Save()
 
 void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
 {
-  if (poi.GetReadableName().empty())
-    return;
-
-  {
-    auto const it = std::find(kUgcRateSupportedTypes.cbegin(), kUgcRateSupportedTypes.cend(),
-                              poi.GetBestType());
-    if (it == kUgcRateSupportedTypes.cend())
-      return;
-  }
-
   CHECK_GREATER(poi.GetEvents().size(), 0, ());
 
   auto it = m_queue.m_candidates.begin();

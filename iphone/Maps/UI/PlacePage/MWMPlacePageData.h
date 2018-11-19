@@ -159,6 +159,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
 
+- (place_page::Info const &)getRawData;
+
 - (void)fillSections;
 
 - (void)updateBookmarkStatus:(BOOL)isBookmark;

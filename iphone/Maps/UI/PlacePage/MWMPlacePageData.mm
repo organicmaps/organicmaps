@@ -70,6 +70,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return self;
 }
 
+- (place_page::Info const &)getRawData { return m_info; }
+
 #pragma mark - Filling sections
 
 - (void)fillSections

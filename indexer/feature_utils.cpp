@@ -155,10 +155,8 @@ void GetReadableNameImpl(feature::RegionData const & regionData, StringUtf8Multi
 
 namespace feature
 {
-
 namespace impl
 {
-
 class FeatureEstimator
 {
   template <size_t N>

@@ -21,6 +21,11 @@ namespace
 // Three months.
 auto constexpr kMapObjectEventsExpirePeriod = std::chrono::hours(24 * 30 * 3);
 
+std::array<std::string, 7> const kMapEventSupportedTypes = {"amenity-bar", "amenity-cafe",
+                                                            "amenity-pub", "amenity-restaurant",
+                                                            "amenity-fast_food", "amenity-biergarden",
+                                                            "shop-bakery"};
+
 void Load(Info & info)
 {
   Storage::Migrate();
@@ -422,47 +427,22 @@ void Eye::Event::LayerShown(Layer::Type type)
 }
 
 // static
-void Eye::Event::PlacePageOpened(MapObject const & mapObject, m2::PointD const & userPos)
+void Eye::Event::MapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
+                                m2::PointD const & userPos)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
-  {
-    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::Open, userPos);
-  });
-}
+  if (mapObject.GetReadableName().empty())
+    return;
 
-// static
-void Eye::Event::UgcEditorOpened(MapObject const & mapObject, m2::PointD const & userPos)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::UgcEditorOpened, userPos);
-  });
-}
+    auto const it = std::find(kMapEventSupportedTypes.cbegin(), kMapEventSupportedTypes.cend(),
+                              mapObject.GetBestType());
+    if (it == kMapEventSupportedTypes.cend())
+      return;
+  }
 
-// static
-void Eye::Event::UgcSaved(MapObject const & mapObject, m2::PointD const & userPos)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
+  GetPlatform().RunTask(Platform::Thread::File, [type, mapObject, userPos]
   {
-    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::UgcSaved, userPos);
-  });
-}
-
-// static
-void Eye::Event::AddToBookmarkClicked(MapObject const & mapObject, m2::PointD const & userPos)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
-  {
-    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::AddToBookmark, userPos);
-  });
-}
-
-// static
-void Eye::Event::RouteCreatedToObject(MapObject const & mapObject, m2::PointD const & userPos)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [mapObject, userPos]
-  {
-    Instance().RegisterMapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
+    Instance().RegisterMapObjectEvent(mapObject, type, userPos);
   });
 }
 }  // namespace eye

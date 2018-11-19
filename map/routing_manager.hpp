@@ -93,6 +93,8 @@ public:
   using RouteBuildingCallback =
       std::function<void(routing::RouterResultCode, storage::TCountriesVec const &)>;
 
+  using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
+
   enum class Recommendation
   {
     // It can be recommended if location is found almost immediately
@@ -130,6 +132,10 @@ public:
   void SetRouteBuildingListener(RouteBuildingCallback const & buildingCallback)
   {
     m_routingBuildingCallback = buildingCallback;
+  }
+  void SetRouteStartBuildListener(RouteStartBuildCallback const & startBuildCallback)
+  {
+    m_routingStartBuildCallback = startBuildCallback;
   }
   /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
@@ -209,6 +215,7 @@ public:
   void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo const & info);
+  void CallRouteBuildStart(std::vector<RouteMarkData> const & points);
   void SetAllowSendingPoints(bool isAllowed)
   {
     m_trackingReporter.SetAllowSendingPoints(isAllowed);
@@ -291,8 +298,9 @@ private:
 
   void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
 
-  RouteBuildingCallback m_routingBuildingCallback = nullptr;
-  RouteRecommendCallback m_routeRecommendCallback = nullptr;
+  RouteBuildingCallback m_routingBuildingCallback;
+  RouteRecommendCallback m_routeRecommendCallback;
+  RouteStartBuildCallback m_routingStartBuildCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;

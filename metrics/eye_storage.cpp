@@ -83,7 +83,7 @@ std::string Storage::GetInfoFilePath()
 // static
 std::string Storage::GetPoiEventsFilePath()
 {
-  return base::JoinPath(GetEyeDir(), "pevents");
+  return base::JoinPath(GetEyeDir(), "events");
 }
 
 

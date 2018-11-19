@@ -115,3 +115,4 @@
 #define BOOKING_EXCLUDED_FILE "booking_excluded.txt"
 
 auto constexpr kInvalidRatingValue = 0.0f;
+auto constexpr kMwmPointAccuracy = 1e-5;

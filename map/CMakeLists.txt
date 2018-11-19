@@ -119,6 +119,8 @@ set(
   user_mark_layer.hpp
   user_mark.cpp
   user_mark.hpp
+  utils.cpp
+  utils.hpp
   viewport_search_params.hpp
   viewport_search_callback.cpp
   viewport_search_callback.hpp

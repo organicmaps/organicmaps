@@ -45,11 +45,8 @@ public:
     static void DiscoveryShown();
     static void DiscoveryItemClicked(Discovery::Event event);
     static void LayerShown(Layer::Type type);
-    static void PlacePageOpened(MapObject const & mapObject, m2::PointD const & userPos);
-    static void UgcEditorOpened(MapObject const & mapObject, m2::PointD const & userPos);
-    static void UgcSaved(MapObject const & mapObject, m2::PointD const & userPos);
-    static void AddToBookmarkClicked(MapObject const & mapObject, m2::PointD const & userPos);
-    static void RouteCreatedToObject(MapObject const & mapObject, m2::PointD const & userPos);
+    static void MapObjectEvent(MapObject const & mapObject, MapObject::Event::Type type,
+                               m2::PointD const & userPos);
   };
 
   static Eye & Instance();

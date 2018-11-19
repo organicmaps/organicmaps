@@ -33,9 +33,27 @@ public class UserActionsLogger
     nativeDiscoveryItemClicked(event.ordinal());
   }
 
+  public static void logAddToBookmarkEvent()
+  {
+    nativeAddToBookmark();
+  }
+
+  public static void logUgcEditorOpened()
+  {
+    nativeUgcEditorOpened();
+  }
+
+  public static void logUgcSaved()
+  {
+    nativeUgcSaved();
+  }
+
   private static native void nativeTipClicked(int type, int event);
   private static native void nativeBookingFilterUsed();
   private static native void nativeBookmarksCatalogShown();
   private static native void nativeDiscoveryShown();
   private static native void nativeDiscoveryItemClicked(int event);
+  private static native void nativeAddToBookmark();
+  private static native void nativeUgcEditorOpened();
+  private static native void nativeUgcSaved();
 }

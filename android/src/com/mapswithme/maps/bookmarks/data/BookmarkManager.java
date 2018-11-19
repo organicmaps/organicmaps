@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.metrics.UserActionsLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
@@ -98,6 +99,7 @@ public enum BookmarkManager
   public Bookmark addNewBookmark(double lat, double lon)
   {
     final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
+    UserActionsLogger.logAddToBookmarkEvent();
     Statistics.INSTANCE.trackBookmarkCreated();
     return bookmark;
   }

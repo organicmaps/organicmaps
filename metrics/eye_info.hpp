@@ -14,6 +14,8 @@
 #include <type_traits>
 #include <vector>
 
+#include "defines.hpp"
+
 namespace eye
 {
 namespace traits
@@ -189,10 +191,10 @@ public:
     : m_bestType(bestType)
     , m_pos(pos)
     , m_readableName(readableName)
-    , m_limitRect(MercatorBounds::ClampX(pos.x - kPointAccuracy),
-                  MercatorBounds::ClampY(pos.y - kPointAccuracy),
-                  MercatorBounds::ClampX(pos.x + kPointAccuracy),
-                  MercatorBounds::ClampY(pos.y + kPointAccuracy))
+    , m_limitRect(MercatorBounds::ClampX(pos.x - kMwmPointAccuracy),
+                  MercatorBounds::ClampY(pos.y - kMwmPointAccuracy),
+                  MercatorBounds::ClampX(pos.x + kMwmPointAccuracy),
+                  MercatorBounds::ClampY(pos.y + kMwmPointAccuracy))
   {
   }
 
@@ -206,8 +208,8 @@ public:
 
   bool AlmostEquals(MapObject const & rhs) const
   {
-    return GetPos().EqualDxDy(rhs.GetPos(), kPointAccuracy) && GetBestType() == rhs.GetBestType() &&
-           GetDefaultName() == rhs.GetDefaultName();
+    return GetPos().EqualDxDy(rhs.GetPos(), kMwmPointAccuracy) &&
+           GetBestType() == rhs.GetBestType() && GetDefaultName() == rhs.GetDefaultName();
   }
 
   std::string const & GetBestType() const { return m_bestType; }
@@ -219,10 +221,10 @@ public:
   void SetPos(m2::PointD const & pos)
   {
     m_pos = pos;
-    m_limitRect = {MercatorBounds::ClampX(pos.x - kPointAccuracy),
-                   MercatorBounds::ClampY(pos.y - kPointAccuracy),
-                   MercatorBounds::ClampX(pos.x + kPointAccuracy),
-                   MercatorBounds::ClampY(pos.y + kPointAccuracy)};
+    m_limitRect = {MercatorBounds::ClampX(pos.x - kMwmPointAccuracy),
+                   MercatorBounds::ClampY(pos.y - kMwmPointAccuracy),
+                   MercatorBounds::ClampX(pos.x + kMwmPointAccuracy),
+                   MercatorBounds::ClampY(pos.y + kMwmPointAccuracy)};
   }
 
   std::string const & GetDefaultName() const { return m_defaultName; }
@@ -239,13 +241,15 @@ public:
 
   m2::RectD GetLimitRect() const { return m_limitRect; }
 
+  bool IsEmpty() const { return m_bestType.empty(); }
+
   DECLARE_VISITOR(visitor(m_bestType, "type"), visitor(m_pos, "pos"),
                   visitor(m_readableName, "readable_name"), visitor(m_defaultName, "default_name"),
                   visitor(m_events, "events"));
 
 private:
   // We are use 1e-5 eps because of points in mwm have this accuracy.
-  static double constexpr kPointAccuracy = 1e-5;
+  static double constexpr kMwmPointAccuracy = 1e-5;
 
   std::string m_bestType;
   m2::PointD m_pos;

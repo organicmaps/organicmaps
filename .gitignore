@@ -113,6 +113,10 @@ data/stats
 data/*/*.bftsegbits
 data/*/*.bftsegnodes
 data/*/*.offsets
+# metrics
+data/metric/*
+# notifications
+data/notifications/*
 
 # benchmark results
 data/benchmarks/*.trace

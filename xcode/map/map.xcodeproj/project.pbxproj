@@ -87,6 +87,8 @@
 		3DD1166C21888AAD007A2ED4 /* notification_queue_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DD1166521888AAC007A2ED4 /* notification_queue_serdes.hpp */; };
 		3DD122BB2135708900EDFB53 /* libmetrics_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */; };
 		3DD122BD2135708900EDFB53 /* libmetrics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD122BC2135708900EDFB53 /* libmetrics.a */; };
+		3DF54F80219DD21000D12E37 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF54F7E219DD21000D12E37 /* utils.cpp */; };
+		3DF54F81219DD21000D12E37 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF54F7F219DD21000D12E37 /* utils.hpp */; };
 		451E692921494C2700764A97 /* purchase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E692721494C2600764A97 /* purchase.hpp */; };
 		451E692A21494C2700764A97 /* purchase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E692821494C2700764A97 /* purchase.cpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
@@ -320,6 +322,8 @@
 		3DD1166521888AAC007A2ED4 /* notification_queue_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = notification_queue_serdes.hpp; sourceTree = "<group>"; };
 		3DD122BA2135708900EDFB53 /* libmetrics_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD122BC2135708900EDFB53 /* libmetrics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmetrics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DF54F7E219DD21000D12E37 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		3DF54F7F219DD21000D12E37 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		451E692721494C2600764A97 /* purchase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = purchase.hpp; sourceTree = "<group>"; };
 		451E692821494C2700764A97 /* purchase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = purchase.cpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
@@ -759,6 +763,8 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3DF54F7E219DD21000D12E37 /* utils.cpp */,
+				3DF54F7F219DD21000D12E37 /* utils.hpp */,
 				3DD1165E21888AAC007A2ED4 /* notifications */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
@@ -955,6 +961,7 @@
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
 				456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */,
 				BBD9E2C71EE9D01900DF189A /* routing_mark.hpp in Headers */,
+				3DF54F81219DD21000D12E37 /* utils.hpp in Headers */,
 				342D833B1D5233E8000D8AEA /* displacement_mode_manager.hpp in Headers */,
 				F6B283041C1B03320081957A /* gps_track_collection.hpp in Headers */,
 			);
@@ -1157,6 +1164,7 @@
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
 				45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */,
+				3DF54F80219DD21000D12E37 /* utils.cpp in Sources */,
 				3DA5723220C195ED007BDE27 /* everywhere_search_callback.cpp in Sources */,
 				BBD9E2C61EE9D01900DF189A /* routing_mark.cpp in Sources */,
 			);

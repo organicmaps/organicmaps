@@ -8,6 +8,7 @@
 #include "map/gps_tracker.hpp"
 #include "map/taxi_delegate.hpp"
 #include "map/user_mark.hpp"
+#include "map/utils.hpp"
 #include "map/viewport_search_params.hpp"
 
 #include "defines.hpp"
@@ -184,6 +185,34 @@ string MakeSearchBookingUrl(booking::Api const & bookingApi, search::CityFinder 
   string city = cityFinder.GetCityName(feature::GetCenter(ft), lang);
 
   return bookingApi.GetSearchUrl(city, name);
+}
+
+void OnRouteStartBuild(DataSource const & dataSource,
+                       std::vector<RouteMarkData> const & routePoints, m2::PointD const & userPos)
+{
+  using eye::MapObject;
+
+  if (routePoints.size() < 2)
+    return;
+
+  for (auto const & pt : routePoints)
+  {
+    if (pt.m_isMyPosition || pt.m_pointType == RouteMarkType::Start)
+      continue;
+
+    m2::RectD rect(MercatorBounds::ClampX(pt.m_position.x - kMwmPointAccuracy),
+                   MercatorBounds::ClampY(pt.m_position.y - kMwmPointAccuracy),
+                   MercatorBounds::ClampX(pt.m_position.x + kMwmPointAccuracy),
+                   MercatorBounds::ClampY(pt.m_position.y + kMwmPointAccuracy));
+
+    dataSource.ForEachInRect([&userPos](FeatureType & ft)
+    {
+      auto const mapObject = utils::MakeEyeMapObject(ft);
+      if (!mapObject.IsEmpty())
+        eye::Eye::Event::MapObjectEvent(mapObject, MapObject::Event::Type::RouteToCreated, userPos);
+    },
+    rect, scales::GetUpperScale());
+  }
 }
 }  // namespace
 
@@ -458,6 +487,12 @@ Framework::Framework(FrameworkParams const & params)
   m_user.AddSubscriber(m_bmManager->GetUserSubscriber());
 
   m_routingManager.SetTransitManager(&m_transitManager);
+  m_routingManager.SetRouteStartBuildListener([this](std::vector<RouteMarkData> const & points)
+  {
+    auto const userPos = GetCurrentPosition();
+    if (userPos)
+      OnRouteStartBuild(m_model.GetDataSource(), points, userPos.get());
+  });
 
   InitCityFinder();
   InitDiscoveryManager();
@@ -2401,6 +2436,18 @@ df::SelectionShape::ESelectedObject Framework::OnTapEventImpl(TapEvent const & t
   if (showMapSelection)
   {
     GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
+
+    auto const userPos = GetCurrentPosition();
+    if (userPos)
+    {
+      eye::MapObject const mapObject = utils::MakeEyeMapObject(outInfo);
+      if (!mapObject.IsEmpty())
+      {
+        eye::Eye::Event::MapObjectEvent(mapObject, eye::MapObject::Event::Type::Open,
+                                        userPos.get());
+      }
+    }
+
     return df::SelectionShape::OBJECT_POI;
   }
 

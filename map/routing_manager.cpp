@@ -868,6 +868,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     GetPlatform().GetMarketingService().SendPushWooshTag(tag);
   }
 
+  CallRouteBuildStart(routePoints);
+
   if (IsRoutingActive())
     CloseRouting(false /* remove route points */);
 
@@ -937,6 +939,11 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code,
                                       storage::TCountriesVec const & absentCountries)
 {
   m_routingBuildingCallback(code, absentCountries);
+}
+
+void RoutingManager::CallRouteBuildStart(std::vector<RouteMarkData> const & points)
+{
+  m_routingStartBuildCallback(points);
 }
 
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
