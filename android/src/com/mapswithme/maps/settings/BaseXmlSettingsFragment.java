@@ -1,5 +1,6 @@
 package com.mapswithme.maps.settings;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
@@ -11,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
 abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
 {
@@ -20,6 +22,13 @@ abstract class BaseXmlSettingsFragment extends PreferenceFragmentCompat
   public void onCreatePreferences(Bundle bundle, String root)
   {
     setPreferencesFromResource(getXmlResources(), root);
+  }
+
+  @Override
+  public void onAttach(Context context)
+  {
+    super.onAttach(context);
+    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override

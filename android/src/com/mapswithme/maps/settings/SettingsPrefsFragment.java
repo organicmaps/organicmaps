@@ -274,11 +274,17 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     return R.xml.prefs_main;
   }
 
-  @Override
-  public void onCreate(Bundle savedInstanceState)
+  private boolean onToggleOptOut(Object newValue)
   {
-    super.onCreate(savedInstanceState);
+    boolean isEnabled = (boolean) newValue;
+    Statistics.INSTANCE.trackSettingsToggle(isEnabled);
+    return true;
+  }
 
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated(view, savedInstanceState);
     mPreferenceScreen = getPreferenceScreen();
     mStoragePref = findPreference(getString(R.string.pref_storage));
     mPrefEnabled = (TwoStatePreference) findPreference(getString(R.string.pref_tts_enabled));
@@ -307,13 +313,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initUseMobileDataPrefsCallbacks();
     initOptOut();
     updateTts();
-  }
-
-  private boolean onToggleOptOut(Object newValue)
-  {
-    boolean isEnabled = (boolean) newValue;
-    Statistics.INSTANCE.trackSettingsToggle(isEnabled);
-    return true;
   }
 
   @Override
