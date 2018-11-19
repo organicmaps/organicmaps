@@ -1494,6 +1494,10 @@
 	<!-- FIXME -->
 	<string name="custom_props_title">custom_props_title</string>
 	<!-- FIXME -->
+	<string name="custom_props_local">custom_props_local</string>
+	<!-- FIXME -->
+	<string name="custom_props_traveler">custom_props_traveler</string>
+	<!-- FIXME -->
 	<string name="select_properties">select_properties</string>
 	<!-- FIXME -->
 	<string name="access_rules_p_to_p">access_rules_p_to_p</string>

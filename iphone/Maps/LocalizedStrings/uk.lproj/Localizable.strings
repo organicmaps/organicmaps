@@ -2575,6 +2575,12 @@
 "custom_props_title" = "custom_props_title";
 
 /* FIXME */
+"custom_props_local" = "custom_props_local";
+
+/* FIXME */
+"custom_props_traveler" = "custom_props_traveler";
+
+/* FIXME */
 "select_properties" = "select_properties";
 
 /* FIXME */
