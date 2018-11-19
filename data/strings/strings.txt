@@ -34855,3 +34855,7 @@
   [failed_purchase_support_message]
     comment = FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support.
     en = failed_purchase_support_message
+
+  [ugc_routes_error_uploading_file_toast]
+    comment = FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes
+    en = ugc_routes_error_uploading_file_toast
