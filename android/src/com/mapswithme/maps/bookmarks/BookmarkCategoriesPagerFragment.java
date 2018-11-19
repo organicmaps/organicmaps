@@ -38,6 +38,8 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private Authorizer mAuthorizer;
+  @Nullable
+  private String mCatalogDeeplink;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
@@ -48,6 +50,12 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
                                                         new CatalogListenerDecorator(this));
     if (savedInstanceState != null)
       mController.onRestore(savedInstanceState);
+
+    Bundle args = getArguments();
+    if (args == null)
+      return;
+
+    mCatalogDeeplink = args.getString(ARG_CATALOG_DEEPLINK);
   }
 
   @Override
@@ -72,7 +80,6 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    mController.attach(this);
     View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, container, false);
     ViewPager viewPager = root.findViewById(R.id.viewpager);
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
@@ -89,25 +96,22 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onStart()
   {
-    super.onViewCreated(view, savedInstanceState);
-    Bundle args = getArguments();
-    if (args == null)
-      return;
+    super.onStart();
+    mController.attach(this);
+    if (TextUtils.isEmpty(mCatalogDeeplink))
+     return;
 
-    String deeplink = args.getString(ARG_CATALOG_DEEPLINK);
-    if (TextUtils.isEmpty(deeplink))
-      return;
-
-    mController.downloadBookmark(deeplink);
+    mController.downloadBookmark(mCatalogDeeplink);
+    mCatalogDeeplink = null;
   }
 
   @Override
-  public void onDestroyView()
+  public void onStop()
   {
     mController.detach();
-    super.onDestroyView();
+    super.onStop();
   }
 
   private int saveAndGetInitialPage()

@@ -62,7 +62,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     }
     catch (MalformedURLException e)
     {
-      LOGGER.e(TAG, "Failed to download bookmark, url: " + url, e);
+      LOGGER.e(TAG, "Failed to download bookmark, url: " + url);
       return false;
     }
   }
@@ -79,7 +79,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     }
     catch (MalformedURLException e)
     {
-      LOGGER.e(TAG, "Failed to retry bookmark downloading, url: " + mDownloadUrl, e);
+      LOGGER.e(TAG, "Failed to retry bookmark downloading, url: " + mDownloadUrl);
     }
   }
 
