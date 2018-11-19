@@ -93,6 +93,7 @@ public:
       { "wheelchair" },
       { "sponsored" },
       { "entrance" },
+      { "cuisine" },
     };
 
     AddTypes(arr1);
