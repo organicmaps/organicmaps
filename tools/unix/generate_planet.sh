@@ -466,8 +466,7 @@ if [ "$MODE" == "features" ]; then
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
   [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
-  # Add popular_places_data to add popular attractions to World.mwm and World.mwm search index.
-  # [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --popular_places_data=$POPULAR_PLACES_FILE"
+  [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --popular_places_data=$POPULAR_PLACES_FILE"
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
                     --node_storage=$NODE_STORAGE \
                     --osm_file_type=o5m \
