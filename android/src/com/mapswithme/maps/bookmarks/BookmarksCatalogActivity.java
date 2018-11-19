@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.BaseToolbarActivity;
-import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.Utils;
 
 public class BookmarksCatalogActivity extends BaseToolbarActivity
 {

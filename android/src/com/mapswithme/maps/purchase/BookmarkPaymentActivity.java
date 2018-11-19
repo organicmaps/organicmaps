@@ -6,9 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
-import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
-import com.mapswithme.util.Utils;
 
 public class BookmarkPaymentActivity extends BaseMwmFragmentActivity
 {
@@ -26,11 +24,5 @@ public class BookmarkPaymentActivity extends BaseMwmFragmentActivity
   protected Class<? extends Fragment> getFragmentClass()
   {
     return BookmarkPaymentFragment.class;
-  }
-
-  @Override
-  protected boolean onBackPressedInternal(@NonNull Fragment currentFragment)
-  {
-    return Utils.<OnBackPressListener>castTo(currentFragment).onBackPressed();
   }
 }
