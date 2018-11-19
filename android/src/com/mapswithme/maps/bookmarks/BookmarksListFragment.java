@@ -292,14 +292,16 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (item.getItemId() == R.id.share)
     {
       openSharingOptionsScreen();
-      Statistics.INSTANCE.trackEvent(
-          Statistics.EventName.BM_BOOKMARKS_LIST_ITEM_SETTINGS,
-          new Statistics.ParameterBuilder().add(Statistics.EventParam.OPTION,
-                                                Statistics.ParamValue.SHARING_OPTIONS));
+      trackBookmarkListSharingOptions();
       return true;
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private void trackBookmarkListSharingOptions()
+  {
+    Statistics.INSTANCE.trackBookmarkListSharingOptions();
   }
 
   private void openSharingOptionsScreen()

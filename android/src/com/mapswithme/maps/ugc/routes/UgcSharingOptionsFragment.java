@@ -189,7 +189,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     Intent intent = new Intent(getContext(), SendLinkPlaceholderActivity.class)
         .putExtra(SendLinkPlaceholderFragment.EXTRA_SHARED_LINK, deepLink);
     startActivity(intent);
-    Statistics.trackSharingOptionsClick(Statistics.ParamValue.EDIT_ON_WEB);
+    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.EDIT_ON_WEB);
   }
 
   private void onPublishedCategoryShared()
@@ -205,7 +205,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .putExtra(Intent.EXTRA_SUBJECT, deepLink)
         .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
-    Statistics.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
+    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
   }
 
   private void onDirectLinkShared()
@@ -229,7 +229,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
         .build();
     dialog.setTargetFragment(this, REQ_CODE_NO_NETWORK_CONNECTION_DIALOG);
     dialog.show(this, NO_NETWORK_CONNECTION_DIALOG_TAG);
-    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
+    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
                                         Statistics.NetworkErrorType.NO_NETWORK);
   }
 
@@ -248,14 +248,14 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     onUploadBtnClicked();
-    Statistics.trackSharingOptionsClick(Statistics.ParamValue.PUBLIC);
+    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PUBLIC);
   }
 
   private void onGetDirectLinkClicked()
   {
     mCurrentMode = BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
     onUploadBtnClicked();
-    Statistics.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
+    Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.PRIVATE);
   }
 
   private void onUploadBtnClicked()
@@ -359,6 +359,14 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     if (success)
       onPostAuthCompleted();
+    else
+      onPostAuthFailed();
+  }
+
+  private void onPostAuthFailed()
+  {
+    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
+                                                 Statistics.NetworkErrorType.AUTH_FAILED);
   }
 
   @Override
@@ -376,8 +384,6 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
-    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_ERROR,
-                                        Statistics.NetworkErrorType.AUTH_FAILED);
   }
 
   @Override
@@ -425,7 +431,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void onUploadError(@NonNull BookmarkManager.UploadResult uploadResult)
   {
-    Statistics.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_UPLOAD_ERROR,
+    Statistics.INSTANCE.trackSharingOptionsError(Statistics.EventName.BM_SHARING_OPTIONS_UPLOAD_ERROR,
                                         uploadResult.ordinal());
     if (uploadResult == BookmarkManager.UploadResult.UPLOAD_RESULT_MALFORMED_DATA_ERROR)
     {
@@ -460,7 +466,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
                                            : R.string.upload_and_publish_success;
     Toast.makeText(getContext(), successMsgResId, Toast.LENGTH_SHORT).show();
     toggleViews();
-    Statistics.trackSharingOptionsUploadSuccess(mCategory);
+    Statistics.INSTANCE.trackSharingOptionsUploadSuccess(mCategory);
   }
 
   private void checkSuccessUploadedCategoryAccessRules()

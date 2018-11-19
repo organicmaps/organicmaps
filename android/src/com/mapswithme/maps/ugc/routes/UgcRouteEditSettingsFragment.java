@@ -88,7 +88,7 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   private void onSharingOptionsClicked()
   {
     openSharingOptionsScreen();
-    Statistics.trackEditSettingsSharingOptionsClick();
+    Statistics.INSTANCE.trackEditSettingsSharingOptionsClick();
   }
 
   private void openSharingOptionsScreen()
@@ -124,7 +124,8 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
   public boolean onBackPressed()
   {
     if (isCategoryDescChanged())
-      Statistics.trackCategoryDescChanged();
+      Statistics.INSTANCE.trackCategoryDescChanged();
+    Statistics.INSTANCE.trackEditSettingsCancel();
     return super.onBackPressed();
   }
 
@@ -136,8 +137,9 @@ public class UgcRouteEditSettingsFragment extends BaseMwmToolbarFragment
     if (isCategoryDescChanged())
     {
       BookmarkManager.INSTANCE.setCategoryDescription(mCategory.getId(), getEditableCategoryDesc());
-      Statistics.trackCategoryDescChanged();
+      Statistics.INSTANCE.trackCategoryDescChanged();
     }
+    Statistics.INSTANCE.trackEditSettingsConfirm();
   }
 
   private boolean isCategoryNameChanged()

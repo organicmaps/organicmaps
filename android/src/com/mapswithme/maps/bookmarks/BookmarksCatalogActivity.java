@@ -44,12 +44,6 @@ public class BookmarksCatalogActivity extends BaseToolbarActivity
   }
 
   @Override
-  protected boolean onBackPressedInternal(@NonNull BaseMwmFragment currentFragment)
-  {
-    return currentFragment.onBackPressed();
-  }
-
-  @Override
   protected void onHomeOptionItemSelected()
   {
     finish();

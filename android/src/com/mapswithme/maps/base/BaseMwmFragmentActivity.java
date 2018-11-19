@@ -252,7 +252,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   protected boolean onBackPressedInternal(@NonNull BaseMwmFragment currentFragment)
   {
-    return false;
+    return currentFragment.onBackPressed();
   }
 
   /**

@@ -152,36 +152,35 @@ public enum Statistics
 {
   INSTANCE;
 
-  public static void trackCategoryDescChanged()
+  public void trackCategoryDescChanged()
   {
     trackEditSettingsScreenOptionClick(ParamValue.ADD_DESC);
   }
 
-  public static void trackSharingOptionsClick(@NonNull String value)
+  public void trackSharingOptionsClick(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
-    INSTANCE.trackEvent(EventName.BM_SHARING_OPTIONS_CLICK, builder);
+    trackEvent(EventName.BM_SHARING_OPTIONS_CLICK, builder);
   }
 
-  public static void trackSharingOptionsError(@NonNull String error, 
+  public void trackSharingOptionsError(@NonNull String error,
                                               @NonNull NetworkErrorType value)
   {
     trackSharingOptionsError(error, value.ordinal());
   }
 
-  public static void trackSharingOptionsError(@NonNull String error, int value)
+  public void trackSharingOptionsError(@NonNull String error, int value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.ERROR, value);
-    INSTANCE.trackEvent(error, builder);
+    trackEvent(error, builder);
   }
 
-  public static void trackSharingOptionsUploadSuccess(@NonNull BookmarkCategory category)
+  public void trackSharingOptionsUploadSuccess(@NonNull BookmarkCategory category)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.TRACKS, category.getTracksCount())
                                                      .add(EventParam.POINTS, category.getBookmarksCount());
-    INSTANCE.trackEvent(EventName.BM_SHARING_OPTIONS_UPLOAD_SUCCESS, builder);
+    trackEvent(EventName.BM_SHARING_OPTIONS_UPLOAD_SUCCESS, builder);
   }
-
 
   public void trackBookmarkListSettingsClick(@NonNull Analytics analytics)
   {
@@ -189,15 +188,32 @@ public enum Statistics
     trackEvent(EventName.BM_BOOKMARKS_LIST_SETTINGS_CLICK, builder);
   }
 
-  private static void trackEditSettingsScreenOptionClick(@NonNull String value)
+  private void trackEditSettingsScreenOptionClick(@NonNull String value)
   {
     ParameterBuilder builder = new ParameterBuilder().add(EventParam.OPTION, value);
-    INSTANCE.trackEvent(EventName.BM_EDIT_SETTINGS_CLICK, builder);
+    trackEvent(EventName.BM_EDIT_SETTINGS_CLICK, builder);
   }
 
-  public static void trackEditSettingsSharingOptionsClick()
+  public void trackEditSettingsCancel()
+  {
+    trackEvent(EventName.BM_EDIT_SETTINGS_CANCEL);
+  }
+
+  public void trackEditSettingsConfirm()
+  {
+    trackEvent(EventName.BM_EDIT_SETTINGS_CONFIRM);
+  }
+
+  public void trackEditSettingsSharingOptionsClick()
   {
     trackEditSettingsScreenOptionClick(Statistics.ParamValue.SHARING_OPTIONS);
+  }
+
+  public void trackBookmarkListSharingOptions()
+  {
+    trackEvent(Statistics.EventName.BM_BOOKMARKS_LIST_ITEM_SETTINGS,
+               new Statistics.ParameterBuilder().add(Statistics.EventParam.OPTION,
+                                                     Statistics.ParamValue.SHARING_OPTIONS));
   }
 
   @Retention(RetentionPolicy.SOURCE)
@@ -237,7 +253,9 @@ public enum Statistics
     public static final String BM_SHARING_OPTIONS_UPLOAD_ERROR = "Bookmarks_SharingOptions_upload_error";
     public static final String BM_SHARING_OPTIONS_ERROR = "Bookmarks_SharingOptions_error";
     public static final String BM_SHARING_OPTIONS_CLICK = "Bookmarks_SharingOptions_click";
-    public static final String BM_EDIT_SETTINGS_CLICK = "Bookmarks_BookmarksListSettings_click";
+    public static final String BM_EDIT_SETTINGS_CLICK = "Bookmarks_Bookmark_Settings_click";
+    public static final String BM_EDIT_SETTINGS_CANCEL = "Bookmarks_Bookmark_Settings_cancel";
+    public static final String BM_EDIT_SETTINGS_CONFIRM = "Bookmarks_Bookmark_Settings_confirm";
     public static final String BM_BOOKMARKS_LIST_SETTINGS_CLICK = "Bookmarks_BookmarksList_settings_click";
     public static final String BM_BOOKMARKS_LIST_ITEM_SETTINGS = "Bookmarks_BookmarksListItem_settings";
     public static final String BM_GROUP_CREATED = "Bookmark. Group created";
@@ -1451,9 +1469,9 @@ public enum Statistics
     private final Map<String, String> mParams = new HashMap<>();
 
     @NonNull
-    public static ParameterBuilder from(String option, @NonNull Analytics analytics)
+    public static ParameterBuilder from(@NonNull String key, @NonNull Analytics analytics)
     {
-      return new ParameterBuilder().add(option,analytics.getName());
+      return new ParameterBuilder().add(key, analytics.getName());
     }
 
     public ParameterBuilder add(String key, String value)
