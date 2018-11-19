@@ -270,6 +270,7 @@ static NSString * const kStatProfile = @"Profile";
 static NSString * const kStatProgress = @"Progress";
 static NSString * const kStatProvider = @"Provider";
 static NSString * const kStatPublicTransport = @"Public Transport";
+static NSString * const kStatPurchase = @"purchase";
 static NSString * const kStatPushReceived = @"Push received";
 static NSString * const kStatRB = @"RB";
 static NSString * const kStatRate = @"Rate";

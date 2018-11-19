@@ -237,6 +237,8 @@ final class CatalogWebViewController: WebViewController {
         }
       } else {
         if MWMBookmarksManager.shared().getCatalogDownloadsCount() == 0 {
+          Statistics.logEvent(kStatInappProductDelivered, withParameters: [kStatVendor: BOOKMARKS_VENDOR,
+                                                                           kStatPurchase: categoryInfo.id])
           MapViewController.shared().showBookmarksLoadedAlert(categoryId)
         }
       }
@@ -253,11 +255,12 @@ final class CatalogWebViewController: WebViewController {
 
     let purchase = InAppPurchase.paidRoutePurchase(serverId: productInfo.id,
                                                    productId: productId)
-
+    let stats = InAppPurchase.paidRouteStatistics(serverId: productInfo.id, productId: productId)
     let paymentVC = PaidRouteViewController(name: productInfo.name,
                                             author: productInfo.author,
                                             imageUrl: URL(string: productInfo.imageUrl ?? ""),
-                                            purchase: purchase)
+                                            purchase: purchase,
+                                            statistics: stats)
     paymentVC.delegate = self
     paymentVC.modalTransitionStyle = .coverVertical
     self.navigationController?.present(paymentVC, animated: true)

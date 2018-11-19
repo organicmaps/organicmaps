@@ -16,17 +16,23 @@ class PaidRouteViewController: MWMViewController {
   weak var delegate: PaidRouteViewControllerDelegate?
 
   private let purchase: IPaidRoutePurchase
+  private let statistics: IPaidRouteStatistics
   private let name: String
   private let author: String
   private let imageUrl: URL?
 
   private var product: IStoreProduct?
 
-  init(name: String, author: String, imageUrl: URL?, purchase: IPaidRoutePurchase) {
+  init(name: String,
+       author: String,
+       imageUrl: URL?,
+       purchase: IPaidRoutePurchase,
+       statistics: IPaidRouteStatistics) {
     self.name = name
     self.author = author
     self.imageUrl = imageUrl
     self.purchase = purchase
+    self.statistics = statistics
     super.init(nibName: nil, bundle: nil)
   }
 
@@ -45,7 +51,7 @@ class PaidRouteViewController: MWMViewController {
                                    filter: nil,
                                    progress: nil,
                                    progressQueue: DispatchQueue.main,
-                                   imageTransition: .crossDissolve(0.25),
+                                   imageTransition: .crossDissolve(kDefaultAnimationDuration),
                                    runImageTransitionIfCached: true,
                                    completion: nil)
     }
@@ -63,6 +69,7 @@ class PaidRouteViewController: MWMViewController {
                                for: .normal)
       self?.buyButton.isEnabled = true
     }
+    statistics.logPreviewShow()
   }
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -72,25 +79,38 @@ class PaidRouteViewController: MWMViewController {
 // MARK: - Event handlers
 
   @IBAction func onBuy(_ sender: UIButton) {
+    statistics.logPay()
     loadingView.isHidden = false
     purchase.makePayment({ [weak self] (code, error) in
       self?.loadingView.isHidden = true
       switch(code) {
       case .success:
+        self?.statistics.logPaymentSuccess()
+        self?.statistics.logValidationSuccess()
         if let s = self { s.delegate?.didCompletePurchase(s) }
-        break
       case .userCancelled:
         // do nothing
         break
       case .error:
+        if let err = error as? RoutePurchaseError {
+          switch err {
+          case .paymentError:
+            self?.statistics.logPaymentError("")
+          case .validationFailed:
+            fallthrough
+          case .validationError:
+            self?.statistics.logPaymentSuccess()
+            self?.statistics.logValidationError(err == .validationFailed ? 0 : 2)
+          }
+        }
         MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
                                                               text: L("purchase_error_subtitle"))
-        break
       }
     })
   }
 
   @IBAction func onCancel(_ sender: UIButton) {
+    statistics.logCancel()
     delegate?.didCancelPurchase(self)
   }
 }

@@ -52,7 +52,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
     storePaymentCompletion = completion
     MWMPurchaseManager.shared().startTransaction(serverId) { [weak self] (success, serverId) in
       if !success {
-        self?.storePaymentCompletion?(.error, nil)
+        self?.storePaymentCompletion?(.error, RoutePurchaseError.paymentError)
         self?.storePaymentCompletion = nil
         return
       }
@@ -77,12 +77,11 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
       case .valid:
         self?.billing.finishTransaction()
         self?.storePaymentCompletion?(.success, nil)
-        break
       case .notValid:
-        fallthrough
+        self?.storePaymentCompletion?(.error, RoutePurchaseError.validationFailed)
       case .error:
-        self?.storePaymentCompletion?(.error, nil)
-        break
+        self?.storePaymentCompletion?(.error, RoutePurchaseError.validationError)
+
       }
       self?.storePaymentCompletion = nil
     })
@@ -95,7 +94,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
   }
 
   private func failed(_ error: Error?) {
-    storePaymentCompletion?(.error, error)
+    storePaymentCompletion?(.error, RoutePurchaseError.paymentError)
     billing.finishTransaction()
     storePaymentCompletion = nil
   }

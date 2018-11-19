@@ -4,6 +4,12 @@ enum StorePaymentStatus {
   case error
 }
 
+enum RoutePurchaseError: Error {
+  case paymentError
+  case validationFailed
+  case validationError
+}
+
 protocol IStoreProduct {
   var localizedName: String { get }
   var formattedPrice: String { get }

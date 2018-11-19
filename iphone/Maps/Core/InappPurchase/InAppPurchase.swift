@@ -10,6 +10,11 @@ final class InAppPurchase: NSObject {
                              billing: billing)
   }
 
+  static func paidRouteStatistics(serverId: String,
+                                  productId: String) -> IPaidRouteStatistics {
+    return PaidRouteStatistics(serverId: serverId, productId: productId, vendor: BOOKMARKS_VENDOR)
+  }
+
   @objc
   static func pendingTransactionsHandler() -> IPendingTransactionsHandler {
     let validation = MWMPurchaseValidation(vendorId: BOOKMARKS_VENDOR)
