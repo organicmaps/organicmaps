@@ -1,4 +1,4 @@
-package com.mapswithme.maps.ugc.route;
+package com.mapswithme.maps.ugc.routes;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

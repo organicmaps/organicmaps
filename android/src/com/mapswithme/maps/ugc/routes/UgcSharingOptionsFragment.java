@@ -32,8 +32,6 @@ import com.mapswithme.maps.bookmarks.data.CatalogTagsGroup;
 import com.mapswithme.maps.dialog.AlertDialog;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
 import com.mapswithme.maps.dialog.ProgressDialogFragment;
-import com.mapswithme.maps.ugc.route.SendLinkPlaceholderActivity;
-import com.mapswithme.maps.ugc.route.SendLinkPlaceholderFragment;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;

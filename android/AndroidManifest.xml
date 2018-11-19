@@ -453,7 +453,7 @@
       android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"
       android:label="@string/settings"/>
     <activity android:name=".purchase.BookmarkPaymentActivity"/>
-    <activity android:name="com.mapswithme.maps.ugc.route.SendLinkPlaceholderActivity"/>
+    <activity android:name="com.mapswithme.maps.ugc.routes.SendLinkPlaceholderActivity"/>
     <activity
       android:name="com.mapswithme.maps.ugc.routes.UgcRoutePropertiesActivity"
       android:label="@string/select_properties"/>
