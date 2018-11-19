@@ -248,8 +248,8 @@ void RoutingSession::Reset()
   m_isFollowing = false;
   m_lastCompletionPercent = 0;
   m_makeNotificationAboutSpeedCam = false;
-  m_warnedSpeedCameras = {};
-  m_cachedSpeedCameras = {};
+  m_warnedSpeedCameras = std::queue<SpeedCameraOnRoute>();
+  m_cachedSpeedCameras = std::queue<SpeedCameraOnRoute>();
   m_showWarningAboutSpeedCam = false;
 }
 
@@ -489,8 +489,8 @@ void RoutingSession::AssignRoute(shared_ptr<Route> route, RouterResultCode e)
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
   m_firstNotCheckedSpeedCameraIndex = 0;
-  m_cachedSpeedCameras = {};
-  m_warnedSpeedCameras = {};
+  m_cachedSpeedCameras = std::queue<SpeedCameraOnRoute>();
+  m_warnedSpeedCameras = std::queue<SpeedCameraOnRoute>();
 }
 
 void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
