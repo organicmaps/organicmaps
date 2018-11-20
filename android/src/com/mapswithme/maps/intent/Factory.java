@@ -423,7 +423,8 @@ public class Factory
           final String ext = getExtensionFromMime(resolver.getType(mData));
           if (ext != null)
           {
-            final String filePath = StorageUtils.getTempPath() + "Attachment" + ext;
+            final String filePath = StorageUtils.getTempPath(mActivity.getApplication())
+                                    + "Attachment" + ext;
 
             File tmpFile = new File(filePath);
             output = new FileOutputStream(tmpFile);

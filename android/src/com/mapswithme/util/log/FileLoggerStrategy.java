@@ -1,5 +1,6 @@
 package com.mapswithme.util.log;
 
+import android.app.Application;
 import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -9,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.Utils;
 import net.jcip.annotations.Immutable;
@@ -31,9 +31,13 @@ class FileLoggerStrategy implements LoggerStrategy
   private final String mFilePath;
   @NonNull
   private final Executor mExecutor;
+  @NonNull
+  private final Application mApplication;
 
-  FileLoggerStrategy(@NonNull String filePath, @NonNull Executor executor)
+  FileLoggerStrategy(@NonNull Application application, @NonNull String filePath,
+                     @NonNull Executor executor)
   {
+    mApplication = application;
     mFilePath = filePath;
     mExecutor = executor;
   }
@@ -107,7 +111,7 @@ class FileLoggerStrategy implements LoggerStrategy
 
   private void write(@NonNull final String data)
   {
-    mExecutor.execute(new WriteTask(mFilePath, data, Thread.currentThread().getName()));
+    mExecutor.execute(new WriteTask(mApplication, mFilePath, data, Thread.currentThread().getName()));
   }
 
   static class WriteTask implements Runnable
@@ -119,9 +123,13 @@ class FileLoggerStrategy implements LoggerStrategy
     private final String mData;
     @NonNull
     private final String mCallingThread;
+    @NonNull
+    private final Application mApplication;
 
-    private WriteTask(@NonNull String filePath, @NonNull String data, @NonNull String callingThread)
+    private WriteTask(@NonNull Application application, @NonNull String filePath,
+                      @NonNull String data, @NonNull String callingThread)
     {
+      mApplication = application;
       mFilePath = filePath;
       mData = data;
       mCallingThread = callingThread;
@@ -137,7 +145,7 @@ class FileLoggerStrategy implements LoggerStrategy
         if (!file.exists() || file.length() > MAX_SIZE)
         {
           fw = new FileWriter(file, false);
-          writeSystemInformation(fw);
+          writeSystemInformation(mApplication, fw);
         }
         else
         {
@@ -149,7 +157,7 @@ class FileLoggerStrategy implements LoggerStrategy
       catch (IOException e)
       {
         Log.e(TAG, "Failed to write the string: " + mData, e);
-        Log.i(TAG, "Is logs folder existent: " + StorageUtils.ensureLogsFolderExistence());
+        Log.i(TAG, "Logs folder exists: " + StorageUtils.ensureLogsFolderExistence(mApplication));
       }
       finally
       {
@@ -165,7 +173,8 @@ class FileLoggerStrategy implements LoggerStrategy
       }
     }
 
-    static void writeSystemInformation(FileWriter fw) throws IOException
+    static void writeSystemInformation(@NonNull Application application, @NonNull FileWriter fw)
+        throws IOException
     {
       fw.write("Android version: " + Build.VERSION.SDK_INT + "\n");
       fw.write("Device: " + Utils.getFullDeviceModel() + "\n");
@@ -173,11 +182,11 @@ class FileLoggerStrategy implements LoggerStrategy
       fw.write("Installation ID: " + Utils.getInstallationId() + "\n");
       fw.write("Locale : " + Locale.getDefault());
       fw.write("\nNetworks : ");
-      final ConnectivityManager manager = (ConnectivityManager) MwmApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+      final ConnectivityManager manager = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
       for (NetworkInfo info : manager.getAllNetworkInfo())
         fw.write(info.toString());
       fw.write("\nLocation providers: ");
-      final LocationManager locMngr = (android.location.LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
+      final LocationManager locMngr = (android.location.LocationManager) application.getSystemService(Context.LOCATION_SERVICE);
       for (String provider: locMngr.getProviders(true))
         fw.write(provider + " ");
       fw.write("\n\n");

@@ -127,6 +127,7 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
+    LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
@@ -177,9 +178,9 @@ public class MwmApplication extends Application
 
     final String settingsPath = StorageUtils.getSettingsPath();
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
-    final String filesPath = StorageUtils.getFilesPath();
+    final String filesPath = StorageUtils.getFilesPath(this);
     mLogger.d(TAG, "onCreate(), files path = " + filesPath);
-    final String tempPath = StorageUtils.getTempPath();
+    final String tempPath = StorageUtils.getTempPath(this);
     mLogger.d(TAG, "onCreate(), temp path = " + tempPath);
 
     // If platform directories are not created it means that native part of app will not be able
@@ -189,7 +190,7 @@ public class MwmApplication extends Application
       return;
 
     // First we need initialize paths and platform to have access to settings and other components.
-    nativeInitPlatform(StorageUtils.getApkPath(), StorageUtils.getStoragePath(settingsPath),
+    nativeInitPlatform(StorageUtils.getApkPath(this), StorageUtils.getStoragePath(settingsPath),
                        filesPath, tempPath, StorageUtils.getObbGooglePath(), BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet());
 

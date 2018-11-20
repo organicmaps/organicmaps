@@ -1,5 +1,6 @@
 package com.mapswithme.util.log;
 
+import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -29,10 +30,14 @@ class ZipLogsTask implements Runnable
   private final String mDestPath;
   @Nullable
   private final LoggerFactory.OnZipCompletedListener mOnCompletedListener;
+  @NonNull
+  private final Application mApplication;
 
-  ZipLogsTask(@NonNull String sourcePath, @NonNull String destPath,
+  ZipLogsTask(@NonNull Application application, @NonNull String sourcePath,
+              @NonNull String destPath,
               @Nullable LoggerFactory.OnZipCompletedListener onCompletedListener)
   {
+    mApplication = application;
     mSourcePath = sourcePath;
     mDestPath = destPath;
     mOnCompletedListener = onCompletedListener;
@@ -121,16 +126,16 @@ class ZipLogsTask implements Runnable
     return segments[segments.length - 1];
   }
 
-  private static void saveSystemLogcat()
+  private void saveSystemLogcat()
   {
-    String fullName = StorageUtils.getLogsFolder() + File.separator + "logcat.log";
+    String fullName = StorageUtils.getLogsFolder(mApplication) + File.separator + "logcat.log";
     final File file = new File(fullName);
     InputStreamReader reader = null;
     FileWriter writer = null;
     try
     {
       writer = new FileWriter(file);
-      FileLoggerStrategy.WriteTask.writeSystemInformation(writer);
+      FileLoggerStrategy.WriteTask.writeSystemInformation(mApplication, writer);
       String cmd = "logcat -d -v time";
       Process process = Runtime.getRuntime().exec(cmd);
       reader = new InputStreamReader(process.getInputStream());

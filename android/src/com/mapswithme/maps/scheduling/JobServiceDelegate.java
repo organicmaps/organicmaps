@@ -16,7 +16,7 @@ class JobServiceDelegate
     mApp = app;
   }
 
-  public boolean onStartJob()
+  boolean onStartJob()
   {
     ConnectionState.Type type = ConnectionState.requestCurrentType();
     if (type == ConnectionState.Type.WIFI)
@@ -31,7 +31,7 @@ class JobServiceDelegate
     ConnectivityJobScheduler.from(mApp).listen();
   }
 
-  public boolean onStopJob()
+  boolean onStopJob()
   {
     return false;
   }

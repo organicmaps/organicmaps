@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
@@ -662,7 +661,7 @@ public class Utils
           intent.putExtra(Intent.EXTRA_SUBJECT, "[" + BuildConfig.VERSION_NAME + "] " + mSubject);
           if (success)
           {
-            String logsZipFile = StorageUtils.getLogsZipPath();
+            String logsZipFile = StorageUtils.getLogsZipPath(activity.getApplication());
             if (!TextUtils.isEmpty(logsZipFile))
             {
               Uri uri = StorageUtils.getUriForFilePath(activity, logsZipFile);

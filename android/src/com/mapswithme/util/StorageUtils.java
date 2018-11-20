@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,7 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.mapswithme.maps.BuildConfig;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -43,12 +43,12 @@ public class StorageUtils
    * @see Context#getExternalFilesDir(String)
    */
   @Nullable
-  private static String getExternalFilesDir()
+  private static String getExternalFilesDir(@NonNull Application application)
   {
     if (!isExternalStorageWritable())
       return null;
 
-    File dir = MwmApplication.get().getExternalFilesDir(null);
+    File dir = application.getExternalFilesDir(null);
     if (dir != null)
       return dir.getAbsolutePath();
 
@@ -62,9 +62,9 @@ public class StorageUtils
    * try to create it and all missed parent folders.
    * @return true - if folder exists, otherwise - false
    */
-  public static boolean ensureLogsFolderExistence()
+  public static boolean ensureLogsFolderExistence(@NonNull Application application)
   {
-    String externalDir = StorageUtils.getExternalFilesDir();
+    String externalDir = StorageUtils.getExternalFilesDir(application);
     if (TextUtils.isEmpty(externalDir))
       return false;
 
@@ -76,30 +76,30 @@ public class StorageUtils
   }
 
   @Nullable
-  public static String getLogsFolder()
+  public static String getLogsFolder(@NonNull Application application)
   {
-    if (!ensureLogsFolderExistence())
+    if (!ensureLogsFolderExistence(application))
       return null;
 
-    String externalDir = StorageUtils.getExternalFilesDir();
+    String externalDir = StorageUtils.getExternalFilesDir(application);
     return externalDir + File.separator + LOGS_FOLDER;
   }
 
   @Nullable
-  static String getLogsZipPath()
+  static String getLogsZipPath(@NonNull Application application)
   {
-    String zipFile = getExternalFilesDir() + File.separator + LOGS_FOLDER + ".zip";
+    String zipFile = getExternalFilesDir(application) + File.separator + LOGS_FOLDER + ".zip";
     File file = new File(zipFile);
     return file.isFile() && file.exists() ? zipFile : null;
   }
 
   @NonNull
-  public static String getApkPath()
+  public static String getApkPath(@NonNull Application application)
   {
     try
     {
-      return  MwmApplication.get().getPackageManager().
-          getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
+      return application.getPackageManager()
+                        .getApplicationInfo(BuildConfig.APPLICATION_ID, 0).sourceDir;
     }
     catch (final PackageManager.NameNotFoundException e)
     {
@@ -133,9 +133,9 @@ public class StorageUtils
   }
 
   @NonNull
-  public static String getFilesPath()
+  public static String getFilesPath(@NonNull Application application)
   {
-    final File filesDir = MwmApplication.get().getExternalFilesDir(null);
+    final File filesDir = application.getExternalFilesDir(null);
     if (filesDir != null)
       return filesDir.getAbsolutePath();
 
@@ -144,9 +144,9 @@ public class StorageUtils
   }
 
   @NonNull
-  public static String getTempPath()
+  public static String getTempPath(@NonNull Application application)
   {
-    final File cacheDir =  MwmApplication.get().getExternalCacheDir();
+    final File cacheDir =  application.getExternalCacheDir();
     if (cacheDir != null)
       return cacheDir.getAbsolutePath();
 
@@ -179,7 +179,7 @@ public class StorageUtils
     return true;
   }
 
-  public static long getFileSize(@NonNull String path)
+  static long getFileSize(@NonNull String path)
   {
     File file = new File(path);
     return file.length();

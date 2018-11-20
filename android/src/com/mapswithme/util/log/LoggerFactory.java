@@ -1,5 +1,6 @@
 package com.mapswithme.util.log;
 
+import android.app.Application;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import ru.mail.notify.core.utils.LogReceiver;
 
 import java.io.File;
 import java.util.EnumMap;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,24 +50,41 @@ public class LoggerFactory
   @Nullable
   @GuardedBy("this")
   private ExecutorService mFileLoggerExecutor;
+  @Nullable
+  private Application mApplication;
 
   private LoggerFactory()
   {
   }
 
+  public void initialize(@NonNull Application application)
+  {
+    mApplication = application;
+  }
+
   public boolean isFileLoggingEnabled()
   {
-    SharedPreferences prefs = MwmApplication.prefs();
-    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
+    if (mApplication == null)
+    {
+      if (BuildConfig.DEBUG)
+        throw new IllegalStateException("Application is not created," +
+                                        "but logger is used!");
+      return false;
+    }
+
+    SharedPreferences prefs = MwmApplication.prefs(mApplication);
+    String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
+    //noinspection ConstantConditions
     return prefs.getBoolean(enableLoggingKey, BuildConfig.BUILD_TYPE.equals("beta"));
   }
 
   public void setFileLoggingEnabled(boolean enabled)
   {
+    Objects.requireNonNull(mApplication);
     nativeToggleCoreDebugLogs(enabled);
-    SharedPreferences prefs = MwmApplication.prefs();
+    SharedPreferences prefs = MwmApplication.prefs(mApplication);
     SharedPreferences.Editor editor = prefs.edit();
-    String enableLoggingKey = MwmApplication.get().getString(R.string.pref_enable_logging);
+    String enableLoggingKey = mApplication.getString(R.string.pref_enable_logging);
     editor.putBoolean(enableLoggingKey, enabled).apply();
     updateLoggers();
   }
@@ -93,7 +112,10 @@ public class LoggerFactory
 
   public synchronized void zipLogs(@Nullable OnZipCompletedListener listener)
   {
-    String logsFolder = StorageUtils.getLogsFolder();
+    if (mApplication == null)
+      return;
+
+    String logsFolder = StorageUtils.getLogsFolder(mApplication);
 
     if (TextUtils.isEmpty(logsFolder))
     {
@@ -102,7 +124,7 @@ public class LoggerFactory
       return;
     }
 
-    Runnable task = new ZipLogsTask(logsFolder, logsFolder + ".zip", listener);
+    Runnable task = new ZipLogsTask(mApplication, logsFolder, logsFolder + ".zip", listener);
     getFileLoggerExecutor().execute(task);
   }
 
@@ -116,12 +138,12 @@ public class LoggerFactory
   @NonNull
   private LoggerStrategy createLoggerStrategy(@NonNull Type type)
   {
-    if (isFileLoggingEnabled())
+    if (isFileLoggingEnabled() && mApplication != null)
     {
       nativeToggleCoreDebugLogs(true);
-      String logsFolder = StorageUtils.getLogsFolder();
+      String logsFolder = StorageUtils.getLogsFolder(mApplication);
       if (!TextUtils.isEmpty(logsFolder))
-        return new FileLoggerStrategy(logsFolder + File.separator
+        return new FileLoggerStrategy(mApplication,logsFolder + File.separator
                                       + type.name().toLowerCase() + ".log", getFileLoggerExecutor());
     }
 
