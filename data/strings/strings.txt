@@ -34859,3 +34859,19 @@
   [ugc_routes_error_uploading_file_toast]
     comment = FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes
     en = ugc_routes_error_uploading_file_toast
+
+  [notification_channel_ugc]
+    comment = FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected.
+    en = UGC
+
+  [notification_channel_downloader]
+    comment = FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected.
+    en = Map downloader
+
+  [notification_leave_review_title]
+    comment = FIXME
+    en = Have you been at %s?
+
+  [notification_leave_review_content]
+    comment = FIXME
+    en = Have you been at %s? Please help other travellers and rate it!

@@ -1503,6 +1503,14 @@
 	<string name="failed_purchase_support_message">failed_purchase_support_message</string>
 	<!-- FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes -->
 	<string name="ugc_routes_error_uploading_file_toast">ugc_routes_error_uploading_file_toast</string>
+	<!-- FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_ugc">UGC</string>
+	<!-- FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Map downloader</string>
+	<!-- FIXME -->
+	<string name="notification_leave_review_title">Have you been at %s?</string>
+	<!-- FIXME -->
+	<string name="notification_leave_review_content">Have you been at %s? Please help other travellers and rate it!</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

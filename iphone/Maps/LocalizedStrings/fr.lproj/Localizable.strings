@@ -2589,6 +2589,18 @@
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
 
+/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
+"notification_channel_ugc" = "UGC";
+
+/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Map downloader";
+
+/* FIXME */
+"notification_leave_review_title" = "Have you been at %s?";
+
+/* FIXME */
+"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+
 
 /**********  Partners  **********/
 
