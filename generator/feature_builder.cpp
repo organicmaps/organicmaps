@@ -192,12 +192,12 @@ namespace
 {
 bool IsEqual(double d1, double d2)
 {
-  return base::AlmostEqualAbs(d1, d2, MercatorBounds::GetCellID2PointAbsEpsilon());
+  return base::AlmostEqualAbs(d1, d2, kCellIdToPointEps);
 }
 
 bool IsEqual(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+  return p1.EqualDxDy(p2, kCellIdToPointEps);
 }
 
 bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)

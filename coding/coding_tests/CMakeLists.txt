@@ -25,8 +25,7 @@ set(
   mem_file_writer_test.cpp
   multilang_utf8_string_test.cpp
   png_decoder_test.cpp
-  point_to_integer_test.cpp
-  pointd_to_pointu_tests.cpp
+  point_coding_tests.cpp
   reader_cache_test.cpp
   reader_test.cpp
   reader_test.hpp

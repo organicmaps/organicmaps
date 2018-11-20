@@ -4,6 +4,8 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/scales.hpp"
 
+#include "coding/point_coding.hpp"
+
 #include "geometry/cellid.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
@@ -41,7 +43,7 @@ void SortAndMergeIntervals(Intervals v, Intervals & res);
 template <int DEPTH_LEVELS>
 m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
 {
-  double const eps = MercatorBounds::GetCellID2PointAbsEpsilon();
+  double const eps = kCellIdToPointEps;
   using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
 
   return Converter::Cover2PointsWithCell(

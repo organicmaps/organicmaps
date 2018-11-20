@@ -5,10 +5,12 @@ struct Bounds
 {
   enum
   {
-    minX = MinX,
-    maxX = MaxX,
-    minY = MinY,
-    maxY = MaxY
+    kMinX = MinX,
+    kMaxX = MaxX,
+    kMinY = MinY,
+    kMaxY = MaxY,
+    kRangeX = kMaxX - kMinX,
+    kRangeY = kMaxY - kMinY,
   };
 
   static m2::RectD FullRect() { return {MinX, MinY, MaxX, MaxY}; }

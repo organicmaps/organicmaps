@@ -5,7 +5,7 @@
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
 #include "coding/geometry_coding.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -390,7 +390,7 @@ struct CitiesBoundariesSerDes
     visitor(header);
 
     serial::GeometryCodingParams const params(
-        header.m_coordBits, m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+        header.m_coordBits, m2::PointD(MercatorBounds::kMinX, MercatorBounds::kMinY));
     CitiesBoundariesEncoder<Sink> encoder(sink, params);
     encoder(boundaries);
   }
@@ -409,12 +409,12 @@ struct CitiesBoundariesSerDes
     HeaderV0 header;
     visitor(header);
 
-    auto const wx = MercatorBounds::maxX - MercatorBounds::minX;
-    auto const wy = MercatorBounds::maxY - MercatorBounds::minY;
+    auto const wx = MercatorBounds::kRangeX;
+    auto const wy = MercatorBounds::kRangeY;
     precision = std::max(wx, wy) / pow(2, header.m_coordBits);
 
     serial::GeometryCodingParams const params(
-        header.m_coordBits, m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+        header.m_coordBits, m2::PointD(MercatorBounds::kMinX, MercatorBounds::kMinY));
     CitiesBoundariesDecoderV0<Source> decoder(source, params);
     decoder(boundaries);
   }

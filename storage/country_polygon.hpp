@@ -3,7 +3,7 @@
 #include "storage/country_decl.hpp"
 
 #include "coding/geometry_coding.hpp"
-#include "coding/point_to_integer.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/varint.hpp"
 

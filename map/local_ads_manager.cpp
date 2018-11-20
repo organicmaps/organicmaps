@@ -22,7 +22,7 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/multilang_utf8_string.hpp"
-#include "coding/point_to_integer.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/url_encode.hpp"
 
 #include "base/url_helpers.hpp"

@@ -8,8 +8,7 @@
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/point_to_integer.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/sha1.hpp"
 #include "coding/url_encode.hpp"
 #include "coding/write_to_sink.hpp"

@@ -3,7 +3,7 @@
 #include "generator/tesselator.hpp"
 
 #include "coding/geometry_coding.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
@@ -15,7 +15,7 @@ namespace
 
   bool is_equal(P const & p1, P const & p2)
   {
-    return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+    return p1.EqualDxDy(p2, kCellIdToPointEps);
   }
 
   bool FindTriangle(serial::OutPointsT const & test, P arr[])

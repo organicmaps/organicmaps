@@ -3,8 +3,7 @@
 #include "coding/byte_stream.hpp"
 #include "coding/coding_tests/test_polylines.hpp"
 #include "coding/geometry_coding.hpp"
-#include "coding/point_to_integer.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
@@ -23,7 +22,7 @@ namespace
 {
 m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS); }
 
-m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY)); }
+m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::kMaxX, MercatorBounds::kMaxY)); }
 
 void TestPolylineEncode(string testName, vector<m2::PointU> const & points,
                         m2::PointU const & maxPoint,

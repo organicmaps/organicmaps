@@ -197,7 +197,7 @@ int GetTileScaleBase(ScreenBase const & s)
 int GetTileScaleBase(m2::RectD const & r)
 {
   double const sz = std::max(r.SizeX(), r.SizeY());
-  return std::max(1, base::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / sz) / log(2.0)));
+  return std::max(1, base::rounds(log(MercatorBounds::kRangeX / sz) / log(2.0)));
 }
 
 double GetTileScaleBase(double drawScale)
@@ -221,7 +221,7 @@ m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t
   // +1 - we will calculate half length for each side
   double const factor = 1 << (std::max(1, drawScale - GetTileScaleIncrement(tileSize, visualScale)) + 1);
 
-  double const len = (MercatorBounds::maxX - MercatorBounds::minX) / factor;
+  double const len = MercatorBounds::kRangeX / factor;
 
   return m2::RectD(MercatorBounds::ClampX(center.x - len),
                    MercatorBounds::ClampY(center.y - len),
@@ -350,7 +350,7 @@ double GetScreenScale(double zoomLevel)
 {
   VisualParams const & p = VisualParams::Instance();
   auto const factor = pow(2.0, GetTileScaleBase(zoomLevel));
-  auto const len = (MercatorBounds::maxX - MercatorBounds::minX) / factor;
+  auto const len = MercatorBounds::kRangeX / factor;
   auto const pxLen = static_cast<double>(p.GetTileSize());
   return len / pxLen;
 }
@@ -360,7 +360,7 @@ double GetZoomLevel(double screenScale)
   VisualParams const & p = VisualParams::Instance();
   auto const pxLen = static_cast<double>(p.GetTileSize());
   auto const len = pxLen * screenScale;
-  auto const factor = (MercatorBounds::maxX - MercatorBounds::minX) / len;
+  auto const factor = MercatorBounds::kRangeX / len;
   static double const kLog2 = log(2.0);
   return base::clamp(GetDrawTileScale(fabs(log(factor) / kLog2)), 1.0, scales::GetUpperStyleScale() + 1.0);
 }

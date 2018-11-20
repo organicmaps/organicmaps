@@ -14,12 +14,12 @@ namespace
 {
 bool is_equal(double d1, double d2)
 {
-  return (fabs(d1 - d2) < MercatorBounds::GetCellID2PointAbsEpsilon());
+  return (fabs(d1 - d2) < kCellIdToPointEps);
 }
 
 bool is_equal(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return p1.EqualDxDy(p2, MercatorBounds::GetCellID2PointAbsEpsilon());
+  return p1.EqualDxDy(p2, kCellIdToPointEps);
 }
 
 bool is_equal(m2::RectD const & r1, m2::RectD const & r2)

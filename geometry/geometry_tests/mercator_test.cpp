@@ -39,8 +39,8 @@ UNIT_TEST(Mercator_DirectInferseF)
   double y = MercatorBounds::LatToY(lat);
   double lat1 = MercatorBounds::YToLat(y);
   TEST_LESS(fabs(lat - lat1), eps, ("Too big round error"));
-  TEST_LESS(fabs(MercatorBounds::maxX - MercatorBounds::maxY), eps, ("Non-square maxX and maxY"));
-  TEST_LESS(fabs(MercatorBounds::minX - MercatorBounds::minY), eps, ("Non-square minX and minY"));
+  TEST_LESS(fabs(MercatorBounds::kMaxX - MercatorBounds::kMaxY), eps, ("Non-square maxX and maxY"));
+  TEST_LESS(fabs(MercatorBounds::kMinX - MercatorBounds::kMinY), eps, ("Non-square minX and minY"));
 }
 
 UNIT_TEST(Mercator_ErrorToRadius)

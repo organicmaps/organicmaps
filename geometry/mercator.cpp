@@ -7,11 +7,6 @@
 
 using namespace std;
 
-double MercatorBounds::minX = -180;
-double MercatorBounds::maxX = 180;
-double MercatorBounds::minY = -180;
-double MercatorBounds::maxY = 180;
-
 m2::RectD MercatorBounds::MetresToXY(double lon, double lat, double lonMetresR, double latMetresR)
 {
   double const latDegreeOffset = latMetresR * degreeInMetres;

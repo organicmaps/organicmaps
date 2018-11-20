@@ -8,21 +8,23 @@
 
 struct MercatorBounds
 {
-  static double minX;
-  static double maxX;
-  static double minY;
-  static double maxY;
+  static double constexpr kMinX = -180.0;
+  static double constexpr kMaxX = 180.0;
+  static double constexpr kMinY = -180.0;
+  static double constexpr kMaxY = 180.0;
+  static double constexpr kRangeX = kMaxX - kMinX;
+  static double constexpr kRangeY = kMaxY - kMinY;
 
-  static m2::RectD FullRect() { return m2::RectD(minX, minY, maxX, maxY); }
+  static m2::RectD FullRect() { return m2::RectD(kMinX, kMinY, kMaxX, kMaxY); }
 
   static bool ValidLon(double d) { return base::between_s(-180.0, 180.0, d); }
   static bool ValidLat(double d) { return base::between_s(-90.0, 90.0, d); }
 
-  static bool ValidX(double d) { return base::between_s(minX, maxX, d); }
-  static bool ValidY(double d) { return base::between_s(minY, maxY, d); }
+  static bool ValidX(double d) { return base::between_s(kMinX, kMaxX, d); }
+  static bool ValidY(double d) { return base::between_s(kMinY, kMaxY, d); }
 
-  static double ClampX(double d) { return base::clamp(d, minX, maxX); }
-  static double ClampY(double d) { return base::clamp(d, minY, maxY); }
+  static double ClampX(double d) { return base::clamp(d, kMinX, kMaxX); }
+  static double ClampY(double d) { return base::clamp(d, kMinY, kMaxY); }
 
   static double YToLat(double y) { return base::RadToDeg(2.0 * atan(tanh(0.5 * base::DegToRad(y)))); }
 
@@ -71,8 +73,6 @@ struct MercatorBounds
   }
 
   static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
-
-  static double constexpr GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 
   static m2::PointD FromLatLon(double lat, double lon)
   {

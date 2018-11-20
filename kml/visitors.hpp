@@ -3,8 +3,7 @@
 #include "kml/types.hpp"
 
 #include "coding/geometry_coding.hpp"
-#include "coding/point_to_integer.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/text_storage.hpp"
 #include "coding/varint.hpp"
 

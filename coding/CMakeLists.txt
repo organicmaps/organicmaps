@@ -57,10 +57,8 @@ set(
   multilang_utf8_string.cpp
   multilang_utf8_string.hpp
   parse_xml.hpp
-  point_to_integer.cpp
-  point_to_integer.hpp
-  pointd_to_pointu.cpp
-  pointd_to_pointu.hpp
+  point_coding.cpp
+  point_coding.hpp
   polymorph_reader.hpp
   read_write_utils.hpp
   reader.cpp

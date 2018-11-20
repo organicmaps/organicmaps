@@ -25,8 +25,8 @@ namespace scales
   double GetScaleLevelD(m2::RectD const & r)
   {
     // TODO: fix scale factors for mercator projection
-    double const dx = (MercatorBounds::maxX - MercatorBounds::minX) / r.SizeX();
-    double const dy = (MercatorBounds::maxY - MercatorBounds::minY) / r.SizeY();
+    double const dx = MercatorBounds::kRangeX / r.SizeX();
+    double const dy = MercatorBounds::kRangeY / r.SizeY();
 
     // get the average ratio
     return GetScaleLevelD((dx + dy) / 2.0);
@@ -56,10 +56,10 @@ namespace scales
     ASSERT_GREATER ( dy, 0.0, () );
     ASSERT_GREATER ( dx, 0.0, () );
 
-    double const xL = (MercatorBounds::maxX - MercatorBounds::minX) / (2.0 * dx);
-    double const yL = (MercatorBounds::maxY - MercatorBounds::minY) / (2.0 * dy);
-    ASSERT_GREATER ( xL, 0.0, () );
-    ASSERT_GREATER ( yL, 0.0, () );
+    double const xL = MercatorBounds::kRangeX / (2.0 * dx);
+    double const yL = MercatorBounds::kRangeY / (2.0 * dy);
+    ASSERT_GREATER(xL, 0.0, ());
+    ASSERT_GREATER(yL, 0.0, ());
 
     return m2::RectD(MercatorBounds::ClampX(center.x - xL),
                      MercatorBounds::ClampY(center.y - yL),
@@ -71,7 +71,7 @@ namespace scales
   {
     double GetEpsilonImpl(long level, double pixelTolerance)
     {
-      return (MercatorBounds::maxX - MercatorBounds::minX) * pixelTolerance / double(256L << level);
+      return MercatorBounds::kRangeX * pixelTolerance / double(256L << level);
     }
   }
 

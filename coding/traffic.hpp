@@ -1,6 +1,6 @@
 #pragma once
 
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"

@@ -81,14 +81,14 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
 {
   int const zoomLevel = clipByDataMaxZoom ? ClipTileZoomByMaxDataZoom(m_zoomLevel) : m_zoomLevel;
   ASSERT_GREATER(zoomLevel, 0, ());
-  double const worldSizeDevisor = 1 << (zoomLevel - 1);
+  double const worldSizeDivisor = 1 << (zoomLevel - 1);
   // Mercator SizeX and SizeY are equal.
-  double const rectSize = (MercatorBounds::maxX - MercatorBounds::minX) / worldSizeDevisor;
+  double const rectSize = MercatorBounds::kRangeX / worldSizeDivisor;
 
   double const startX = m_x * rectSize;
   double const startY = m_y * rectSize;
 
-  return m2::RectD (startX, startY, startX + rectSize, startY + rectSize);
+  return m2::RectD(startX, startY, startX + rectSize, startY + rectSize);
 }
 
 m2::PointI TileKey::GetTileCoords() const

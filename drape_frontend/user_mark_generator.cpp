@@ -113,9 +113,8 @@ void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
     {
       if (zoomLevel < startZoom)
         continue;
-      // Process spline by segments that no longer than tile size.
-      double const range = MercatorBounds::maxX - MercatorBounds::minX;
-      double const maxLength = range / (1 << (zoomLevel - 1));
+      // Process spline by segments that are no longer than tile size.
+      double const maxLength = MercatorBounds::kRangeX / (1 << (zoomLevel - 1));
 
       df::ProcessSplineSegmentRects(params.m_spline, maxLength,
                                     [&](m2::RectD const & segmentRect)

@@ -5,8 +5,7 @@
 #include "geometry/point2d.hpp"
 
 #include "coding/geometry_coding.hpp"
-#include "coding/point_to_integer.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"

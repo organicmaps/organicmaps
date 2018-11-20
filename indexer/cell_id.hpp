@@ -23,20 +23,20 @@ class CellIdConverter
 public:
   static double XToCellIdX(double x)
   {
-    return (x - Bounds::minX) / StepX();
+    return (x - Bounds::kMinX) / StepX();
   }
   static double YToCellIdY(double y)
   {
-    return (y - Bounds::minY) / StepY();
+    return (y - Bounds::kMinY) / StepY();
   }
 
   static double CellIdXToX(double  x)
   {
-    return (x*StepX() + Bounds::minX);
+    return (x*StepX() + Bounds::kMinX);
   }
   static double CellIdYToY(double y)
   {
-    return (y*StepY() + Bounds::minY);
+    return (y*StepY() + Bounds::kMinY);
   }
 
   static CellId ToCellId(double x, double y)
@@ -87,19 +87,20 @@ public:
   {
     std::pair<uint32_t, uint32_t> const xy = id.XY();
     uint32_t const r = id.Radius();
-    minX = (xy.first - r) * StepX() + Bounds::minX;
-    maxX = (xy.first + r) * StepX() + Bounds::minX;
-    minY = (xy.second - r) * StepY() + Bounds::minY;
-    maxY = (xy.second + r) * StepY() + Bounds::minY;
+    minX = (xy.first - r) * StepX() + Bounds::kMinX;
+    maxX = (xy.first + r) * StepX() + Bounds::kMinX;
+    minY = (xy.second - r) * StepY() + Bounds::kMinY;
+    maxY = (xy.second + r) * StepY() + Bounds::kMinY;
   }
 
 private:
   inline static double StepX()
   {
-    return double(Bounds::maxX - Bounds::minX) / CellId::MAX_COORD;
+    return static_cast<double>(Bounds::kRangeX) / CellId::MAX_COORD;
   }
+
   inline static double StepY()
   {
-    return double(Bounds::maxY - Bounds::minY) / CellId::MAX_COORD;
+    return static_cast<double>(Bounds::kRangeY) / CellId::MAX_COORD;
   }
 };

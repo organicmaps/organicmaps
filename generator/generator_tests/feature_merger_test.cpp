@@ -4,7 +4,7 @@
 
 #include "indexer/classificator_loader.hpp"
 
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 
 namespace
 {

@@ -33,9 +33,9 @@ UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
 
   LOG(LINFO, ("Generating dataset..."));
   std::vector<PointAndCountry> dataset;
-  for (auto x = MercatorBounds::minX; x <= MercatorBounds::maxX; x += kStepInMercator)
+  for (auto x = MercatorBounds::kMinX; x <= MercatorBounds::kMaxX; x += kStepInMercator)
   {
-    for (auto y = MercatorBounds::minY; y <= MercatorBounds::maxY; y += kStepInMercator)
+    for (auto y = MercatorBounds::kMinY; y <= MercatorBounds::kMaxY; y += kStepInMercator)
     {
       m2::PointD pt(x, y);
       dataset.emplace_back(std::move(pt), reader->GetRegionCountryId(pt));

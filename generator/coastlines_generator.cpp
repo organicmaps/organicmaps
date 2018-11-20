@@ -2,7 +2,7 @@
 
 #include "generator/feature_builder.hpp"
 
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
 

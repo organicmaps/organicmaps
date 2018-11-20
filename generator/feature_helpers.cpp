@@ -4,7 +4,7 @@
 
 #include "indexer/feature_visibility.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/point_coding.hpp"
 
 #include "base/stl_helpers.hpp"
 

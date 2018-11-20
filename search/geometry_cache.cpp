@@ -10,7 +10,7 @@ namespace search
 {
 namespace
 {
-double constexpr kCellEps = MercatorBounds::GetCellID2PointAbsEpsilon();
+double constexpr kCellEps = kCellIdToPointEps;
 }  // namespace
 
 // GeometryCache -----------------------------------------------------------------------------------

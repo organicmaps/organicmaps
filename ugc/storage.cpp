@@ -17,6 +17,7 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/point_coding.hpp"
 
 #include "base/stl_helpers.hpp"
 
@@ -28,8 +29,6 @@
 #include "3party/jansson/myjansson.hpp"
 
 #include <boost/optional/optional.hpp>
-
-#include "defines.hpp"
 
 using namespace std;
 

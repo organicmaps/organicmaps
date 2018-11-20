@@ -1,6 +1,6 @@
 #include "coding/geometry_coding.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -326,14 +326,14 @@ m2::PointU D2U(m2::PointD const & p, uint32_t coordBits) { return PointDToPointU
 m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
 {
   m2::PointD const pt = PointUToPointD(p, coordBits);
-  ASSERT(MercatorBounds::minX <= pt.x && pt.y <= MercatorBounds::maxX, (p, pt, coordBits));
-  ASSERT(MercatorBounds::minY <= pt.x && pt.y <= MercatorBounds::maxY, (p, pt, coordBits));
+  ASSERT(MercatorBounds::kMinX <= pt.x && pt.y <= MercatorBounds::kMaxX, (p, pt, coordBits));
+  ASSERT(MercatorBounds::kMinY <= pt.x && pt.y <= MercatorBounds::kMaxY, (p, pt, coordBits));
   return pt;
 }
 
 m2::PointU GetMaxPoint(GeometryCodingParams const & params)
 {
-  return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY), params.GetCoordBits());
+  return D2U(m2::PointD(MercatorBounds::kMaxX, MercatorBounds::kMaxY), params.GetCoordBits());
 }
 
 m2::PointU GetBasePoint(GeometryCodingParams const & params) { return params.GetBasePoint(); }

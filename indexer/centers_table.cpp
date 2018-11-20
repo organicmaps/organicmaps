@@ -6,7 +6,7 @@
 #include "coding/file_container.hpp"
 #include "coding/geometry_coding.hpp"
 #include "coding/memory_region.hpp"
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"

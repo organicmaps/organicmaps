@@ -4,7 +4,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/point_coding.hpp"
 
 MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb), m_isRound(false)

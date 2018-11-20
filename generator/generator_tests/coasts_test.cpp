@@ -4,7 +4,7 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_helpers.hpp"
 
-#include "coding/pointd_to_pointu.hpp"
+#include "coding/point_coding.hpp"
 
 #include "geometry/cellid.hpp"
 #include "geometry/mercator.hpp"

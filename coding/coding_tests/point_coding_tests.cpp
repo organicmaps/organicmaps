@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "coding/coding_tests/test_polylines.hpp"
-#include "coding/point_to_integer.hpp"
-#include "coding/pointd_to_pointu.hpp"
+
+#include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -14,7 +14,7 @@ using namespace std;
 
 namespace
 {
-double const kEps = MercatorBounds::GetCellID2PointAbsEpsilon();
+double const kEps = kCellIdToPointEps;
 uint32_t const kCoordBits = POINT_COORD_BITS;
 uint32_t const kBig = uint32_t{1} << 30;
 
@@ -33,6 +33,44 @@ void CheckEqualPoints(m2::PointD const & p1, m2::PointD const & p2)
   TEST_LESS_OR_EQUAL(p2.y, 180.0, ());
 }
 }  // namespace
+
+UNIT_TEST(PointDToPointU_Epsilons)
+{
+  m2::PointD const arrPt[] = {{-180, -180}, {-180, 180}, {180, 180}, {180, -180}};
+  m2::PointD const arrD[] = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+  size_t const count = ARRAY_SIZE(arrPt);
+
+  double eps = 1.0;
+  while (true)
+  {
+    size_t i = 0;
+    for (; i < count; ++i)
+    {
+      m2::PointU p0 = PointDToPointU(arrPt[i].x, arrPt[i].y, kCoordBits);
+      m2::PointU p1 = PointDToPointU(arrPt[i].x + arrD[i].x * eps,
+                                     arrPt[i].y + arrD[i].y * eps,
+                                     kCoordBits);
+
+      if (p0 != p1)
+        break;
+    }
+    if (i == count)
+      break;
+
+    eps *= 0.1;
+  }
+
+  LOG(LINFO, ("Epsilon (relative error) =", eps));
+
+  for (size_t i = 0; i < count; ++i)
+  {
+    m2::PointU const p1 = PointDToPointU(arrPt[i].x, arrPt[i].y, kCoordBits);
+    m2::PointU const p2(p1.x + arrD[i].x, p1.y + arrD[i].y);
+    m2::PointD const p3 = PointUToPointD(p2, kCoordBits);
+
+    LOG(LINFO, ("Dx =", p3.x - arrPt[i].x, "Dy =", p3.y - arrPt[i].y));
+  }
+}
 
 UNIT_TEST(PointToInt64Obsolete_Smoke)
 {
@@ -112,7 +150,7 @@ UNIT_TEST(PointUToUint64Obsolete_1bit)
   TEST_EQUAL((1ULL << 60) - 1, PointUToUint64Obsolete(m2::PointU(kBig - 1, kBig - 1)), ());
 }
 
-UNIT_TEST(PointToInt64_DataSet1)
+UNIT_TEST(PointToInt64Obsolete_DataSet1)
 {
   using namespace geometry_coding_tests;
 

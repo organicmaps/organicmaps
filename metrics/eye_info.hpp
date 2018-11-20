@@ -1,5 +1,7 @@
 #pragma once
 
+#include "coding/point_coding.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/tree4d.hpp"
@@ -13,8 +15,6 @@
 #include <string>
 #include <type_traits>
 #include <vector>
-
-#include "defines.hpp"
 
 namespace eye
 {
