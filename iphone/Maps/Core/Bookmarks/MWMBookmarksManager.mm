@@ -560,12 +560,27 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
                                     progress:(ProgressBlock)progress
                                   completion:(UploadCompletionBlock)completion
 {
+  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
+  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::DirectLink);
+}
+
+- (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
+                              progress:(ProgressBlock)progress
+                            completion:(UploadCompletionBlock)completion
+{
+  [self registerUploadObserverForCategoryWithId:itemId progress:progress completion:completion];
+  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::Public);
+}
+
+- (void)registerUploadObserverForCategoryWithId:(MWMMarkGroupID)itemId
+                                       progress:(ProgressBlock)progress
+                                     completion:(UploadCompletionBlock)completion
+{
   auto observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = [NSString stringWithFormat:@"%lld", itemId];
   observer.progressBlock = progress;
   observer.uploadCompletionBlock = completion;
   [self.catalogObservers setObject:observer forKey:observer.categoryId];
-  GetFramework().GetBookmarkManager().UploadToCatalog(itemId, kml::AccessRules::DirectLink);
 }
 
 - (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
@@ -624,6 +639,30 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   };
   
   self.bm.GetCatalog().RequestTagGroups([[AppInfo sharedInfo] languageId].UTF8String, std::move(onTagsCompletion));
+}
+
+- (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags
+{
+  vector<string> tagIds;
+  for (MWMTag * tag in tags)
+  {
+    tagIds.push_back(tag.tagId.UTF8String);
+  }
+  
+  self.bm.GetEditSession().SetCategoryTags(groupId, tagIds);
+}
+
+- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author
+{
+  switch (author)
+  {
+    case MWMCategoryAuthorTypeLocal:
+      self.bm.GetEditSession().SetCategoryCustomProperty(groupId, @"author_type".UTF8String, @"local".UTF8String);
+      break;
+      
+    case MWMCategoryAuthorTypeTraveler:
+      self.bm.GetEditSession().SetCategoryCustomProperty(groupId, @"author_type".UTF8String, @"tourist".UTF8String);
+  }
 }
 
 #pragma mark - Helpers

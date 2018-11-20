@@ -1,11 +1,6 @@
-enum SharingPropertyUserStatus {
-  case local
-  case traveler
-}
-
 protocol SharingPropertiesViewControllerDelegate: AnyObject {
   func sharingPropertiesViewController(_ viewController: SharingPropertiesViewController,
-                                       didSelect userStatus: SharingPropertyUserStatus)
+                                       didSelect userStatus: MWMCategoryAuthorType)
 }
 
 final class SharingPropertiesViewController: MWMTableViewController {

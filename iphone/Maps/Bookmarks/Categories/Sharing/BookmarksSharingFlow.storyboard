@@ -55,9 +55,10 @@
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYo-PL-9Fc">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
+                                                    <color key="tintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button" image="ic24PxShare"/>
                                                     <connections>
-                                                        <action selector="shareButtonPressed:" destination="wpS-8c-SPb" eventType="touchUpInside" id="LGm-kR-yxB"/>
+                                                        <action selector="shareButtonPressed:" destination="YW0-jq-Isw" eventType="touchUpInside" id="j1d-qF-UIt"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -138,12 +139,48 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="y5U-AG-X4u">
+                                        <rect key="frame" x="0.0" y="292.5" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y5U-AG-X4u" id="2pY-Yp-mFr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic24PxEdit" translatesAutoresizingMaskIntoConstraints="NO" id="c7L-Ts-xbm">
+                                                    <rect key="frame" x="16" y="13" width="24" height="24"/>
+                                                    <color key="tintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="7mz-ea-yZR"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="TR3-jI-vFJ"/>
+                                                        <constraint firstAttribute="height" constant="24" id="aN1-2W-dVM"/>
+                                                        <constraint firstAttribute="width" constant="24" id="ikv-1p-fdU"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="coloring" value="MWMBlue"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit on web" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLX-hM-JLH">
+                                                    <rect key="frame" x="56" y="15" width="85" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wLX-hM-JLH" secondAttribute="trailing" constant="16" id="SL2-VO-qey"/>
+                                                <constraint firstItem="wLX-hM-JLH" firstAttribute="centerY" secondItem="2pY-Yp-mFr" secondAttribute="centerY" id="dej-se-4TT"/>
+                                                <constraint firstItem="c7L-Ts-xbm" firstAttribute="leading" secondItem="2pY-Yp-mFr" secondAttribute="leadingMargin" id="glD-Zf-gsX"/>
+                                                <constraint firstItem="c7L-Ts-xbm" firstAttribute="centerY" secondItem="2pY-Yp-mFr" secondAttribute="centerY" id="ldu-hm-6jT"/>
+                                                <constraint firstItem="wLX-hM-JLH" firstAttribute="leading" secondItem="c7L-Ts-xbm" secondAttribute="trailing" constant="16" id="xN9-GL-sN7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Limited access" id="GtE-jP-p4q">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="56" id="90b-ef-VUJ" customClass="UploadActionCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="348.5" width="375" height="56"/>
+                                        <rect key="frame" x="0.0" y="398.5" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="90b-ef-VUJ" id="AlV-ie-H63">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
@@ -176,6 +213,7 @@
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ept-QQ-o9W">
                                                     <rect key="frame" x="335" y="16" width="24" height="24"/>
+                                                    <color key="tintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Button" image="ic24PxShare"/>
                                                     <connections>
                                                         <action selector="shareButtonPressed:" destination="90b-ef-VUJ" eventType="touchUpInside" id="D5v-pl-bJ3"/>
@@ -204,7 +242,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="50" id="4dc-7Z-s7O">
-                                        <rect key="frame" x="0.0" y="404.5" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="454.5" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4dc-7Z-s7O" id="5YA-YS-3K5">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
@@ -237,6 +275,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="editOnWebCell" destination="y5U-AG-X4u" id="uSl-Py-gEm"/>
                         <outlet property="getDirectLinkCell" destination="90b-ef-VUJ" id="L7h-0r-eSe"/>
                         <outlet property="licenseAgreementTextView" destination="dsV-Vs-oCo" id="TtB-Uw-WGR"/>
                         <outlet property="uploadAndPublishCell" destination="YW0-jq-Isw" id="84h-vp-JdM"/>
@@ -244,7 +283,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ylv-YU-ujs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="wpS-8c-SPb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-198" y="-26"/>
         </scene>
@@ -555,6 +593,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic24PxEdit" width="24" height="24"/>
         <image name="ic24PxGlobe" width="24" height="24"/>
         <image name="ic24PxLink" width="24" height="24"/>
         <image name="ic24PxShare" width="24" height="24"/>

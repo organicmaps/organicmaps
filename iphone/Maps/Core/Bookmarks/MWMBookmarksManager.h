@@ -4,6 +4,7 @@
 
 @class MWMCatalogCategory;
 @class MWMTagGroup;
+@class MWMTag;
 
 typedef void (^LoadTagsCompletionBlock)(NSArray<MWMTagGroup *> * tags);
 
@@ -69,10 +70,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasCategoryDownloaded:(NSString *)itemId;
 
 - (void)loadTags:(LoadTagsCompletionBlock)completionBlock;
+- (void)setCategory:(MWMMarkGroupID)groupId tags:(NSArray<MWMTag *> *)tags;
+- (void)setCategory:(MWMMarkGroupID)groupId authorType:(MWMCategoryAuthorType)author;
 
 - (void)uploadAndGetDirectLinkCategoryWithId:(MWMMarkGroupID)itemId
                                     progress:(ProgressBlock)progress
                                   completion:(UploadCompletionBlock)completion;
+
+- (void)uploadAndPublishCategoryWithId:(MWMMarkGroupID)itemId
+                              progress:(ProgressBlock)progress
+                            completion:(UploadCompletionBlock)completion;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -34,3 +34,8 @@ typedef NS_ENUM(NSUInteger, MWMCategoryAccessStatus) {
   MWMCategoryAccessStatusPrivate,
   MWMCategoryAccessStatusOther
 };
+
+typedef NS_ENUM(NSUInteger, MWMCategoryAuthorType) {
+  MWMCategoryAuthorTypeLocal,
+  MWMCategoryAuthorTypeTraveler
+};
