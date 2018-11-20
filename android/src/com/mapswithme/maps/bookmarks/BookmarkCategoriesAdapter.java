@@ -147,6 +147,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     String representation = categoryHolder.itemView.getResources().getString(rules.getNameResId())
                             + UiUtils.PHRASE_SEPARATOR;
     categoryHolder.mAccessRule.setText(representation);
+    UiUtils.hideIf(rules == BookmarkCategory.AccessRules.ACCESS_RULES_P2P
+                   || rules == BookmarkCategory.AccessRules.ACCESS_RULES_PAID);
   }
 
   private void onMoreOperationClicked(@NonNull BookmarkCategory category)
