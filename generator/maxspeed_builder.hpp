@@ -22,12 +22,12 @@ bool ParseMaxspeeds(std::string const & maxspeedFilename, OsmIdToMaxspeed & osmI
 /// \brief Writes |speeds| to maxspeed section to mwm with |dataPath|.
 void SerializeMaxspeeds(std::string const & dataPath, std::vector<FeatureMaxspeed> && speeds);
 
-void BuildMaxspeed(std::string const & dataPath,
-                   std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                   std::string const & maxspeedFilename);
+void BuildMaxspeedSection(std::string const & dataPath,
+                          std::map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                          std::string const & maxspeedFilename);
 
 /// \brief Builds maxspeed section in mwm with |dataPath|. This section contains max speed limits
-/// if it's available.
+/// if they are available in file |maxspeedFilename|.
 /// \param maxspeedFilename file name to csv file with maxspeed tag values.
 /// \note To start building the section, the following data must be ready:
 /// 1. GenerateIntermediateData(). Saves to a file data about maxspeed tags value of road features

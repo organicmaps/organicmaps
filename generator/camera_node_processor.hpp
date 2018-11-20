@@ -67,7 +67,7 @@ private:
   /// \brief Gets text with speed, returns formatted speed string in km per hour.
   /// \param maxSpeedString - text with speed. Possible format:
   ///                         "130" - means 130 km per hour.
-  ///                         "130 mph" - means 130 mile per hour.
+  ///                         "130 mph" - means 130 miles per hour.
   ///                         "130 kmh" - means 130 km per hour.
   /// See https://wiki.openstreetmap.org/wiki/Key:maxspeed
   /// for more details about input string.

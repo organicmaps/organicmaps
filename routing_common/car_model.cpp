@@ -240,8 +240,8 @@ SpeedKMpH CarModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) c
   // Note. It's the first rough attempt using maxspeed tag value for speed calculation.
   // It's used as a feature speed if it's valid and less then some value.
   // @TODO maxspeed tag value should be used more sophisticated.
-  uint16_t const maxspeedBasedspeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
-  auto const speedKmPH = min(static_cast<double>(maxspeedBasedspeedKmPH), GetMaxWeightSpeed());
+  uint16_t const maxspeedBasedSpeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
+  auto const speedKmPH = min(static_cast<double>(maxspeedBasedSpeedKmPH), GetMaxWeightSpeed());
   return {speedKmPH /* weight */, speedKmPH /* eta */};
 }
 

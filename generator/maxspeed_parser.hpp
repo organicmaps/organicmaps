@@ -30,6 +30,6 @@ bool ParseMaxspeedTag(std::string const & maxspeedValue, routing::SpeedInUnits &
 std::string UnitsToString(measurement_utils::Units units);
 
 /// \brief Converts string to measurement_utils::Units.
-/// \note |units| should be equale to "Metric" or "Imperial".
+/// \note |units| should be "Metric" or "Imperial".
 measurement_utils::Units StringToUnits(std::string const & units);
 }  // namespace generator

@@ -80,7 +80,7 @@ void TestMaxspeedSection(Features const & roads, string const & maxspeedCsvConte
 
   // Creating maxspeed section in test.mwm.
   string const testMwmFullPath = base::JoinPath(testDirFullPath, testMwm);
-  BuildMaxspeed(testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
+  BuildMaxspeedSection(testMwmFullPath, featureIdToOsmId, base::JoinPath(testDirFullPath, kCsv));
 
   // Loading maxspeed section.
   FrozenDataSource dataSource;
@@ -137,7 +137,6 @@ UNIT_TEST(ParseMaxspeeds_Smoke)
 
 UNIT_TEST(ParseMaxspeeds1)
 {
-//  string const maxspeedCsvContent = "10,Metric,60\n11,Metric,90\n";
   string const maxspeedCsvContent = R"(10,Metric,60
                                        11,Metric,90)";
   OsmIdToMaxspeed const expectedMapping = {
@@ -150,7 +149,6 @@ UNIT_TEST(ParseMaxspeeds1)
 
 UNIT_TEST(ParseMaxspeeds2)
 {
-//  string const maxspeedCsvContent = "10,Metric,60,80\n11,Metric,120\n";
   string const maxspeedCsvContent = R"(10,Metric,60,80
                                        11,Metric,120)";
   OsmIdToMaxspeed const expectedMapping = {
@@ -163,7 +161,6 @@ UNIT_TEST(ParseMaxspeeds2)
 
 UNIT_TEST(ParseMaxspeeds3)
 {
-//  string const maxspeedCsvContent = "184467440737095516,Imperial,60,80\n184467440737095517,Metric,120\n";
   string const maxspeedCsvContent = R"(184467440737095516,Imperial,60,80
                                        184467440737095517,Metric,120)";
 

@@ -96,6 +96,7 @@ public:
     header.m_bidirectionalMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - startOffset);
 
     // Keeping bidirectional maxspeeds.
+    uint32_t prevFeatureId = 0;
     for (auto const & s : speeds)
     {
       if (!s.IsBidirectional())
@@ -107,7 +108,15 @@ public:
         continue; // No appropriate speed for |s| in SpeedMacro enum.
 
       ++header.m_bidirectionalMaxspeedNumber;
-      WriteToSink(sink, s.GetFeatureId());
+      // Note. |speeds| sorted by feature ids and they are unique. So the first item in |speed|
+      // has feature id 0 or greater. And the second item in |speed| has feature id grater than 0.
+      // This guarantees that for only first saved |s| the if branch below is called.
+      if (prevFeatureId != 0)
+        CHECK_GREATER(s.GetFeatureId(), prevFeatureId, ());
+      uint32_t delta = (prevFeatureId == 0 ? s.GetFeatureId() : s.GetFeatureId() - prevFeatureId);
+      prevFeatureId = s.GetFeatureId();
+
+      WriteToSink(sink, delta);
       WriteToSink(sink, static_cast<uint8_t>(forwardMacro));
       WriteToSink(sink, static_cast<uint8_t>(backwardMacro));
     }
@@ -120,13 +129,23 @@ public:
     LOG(LINFO, ("Serialized", serializedForwardNumber, "forward maxspeeds and",
                 header.m_bidirectionalMaxspeedNumber,
                 "bidirectional maxspeeds. Section size:", endOffset - startOffset, "bytes."));
+
+    size_t constexpr kBidirectionalMaxspeedLimit = 2000;
+    if (header.m_bidirectionalMaxspeedNumber > kBidirectionalMaxspeedLimit)
+    {
+      LOG(LWARNING,
+          ("There's to many bidirectional maxpeed tags:", header.m_bidirectionalMaxspeedNumber,
+           ". All maxpeed tags are serialized correctly but they may take too large space in mwm. "
+           "Consider about changing section format to keep bidirectional maxspeeds in another "
+           "way."));
+    }
   }
 
   template <class Source>
   static void Deserialize(Source & src, Maxspeeds & maxspeeds)
   {
     // Note. Now it's assumed that only little-endian architectures are supported.
-    // (See a check at the beginning of main method in generator_tools.cpp) If it's necessary
+    // (See a check at the beginning of main method in generator_tool.cpp) If it's necessary
     // to support big-endian architectures code below should be modified.
     CHECK(maxspeeds.IsEmpty(), ());
 
@@ -151,9 +170,10 @@ public:
     }
 
     maxspeeds.m_bidirectionalMaxspeeds.reserve(header.m_bidirectionalMaxspeedNumber);
+    uint32_t prevFeatureId = 0;
     for (size_t i = 0; i < header.m_bidirectionalMaxspeedNumber; ++i)
     {
-      auto const fid = ReadPrimitiveFromSource<uint32_t>(src);
+      auto const delta = ReadPrimitiveFromSource<uint32_t>(src);
       auto const forward = ReadPrimitiveFromSource<uint8_t>(src);
       auto const backward = ReadPrimitiveFromSource<uint8_t>(src);
       CHECK(GetMaxspeedConverter().IsValidMacro(forward), (i));
@@ -173,6 +193,8 @@ public:
       // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric it means
       // both of them have value "walk" or "none". So the units are not relevant for this case.
 
+      prevFeatureId += delta;
+      uint32_t fid = (i == 0 ? delta : prevFeatureId);
       maxspeeds.m_bidirectionalMaxspeeds.emplace_back(fid, units, forwardSpeed.GetSpeed(),
                                                       backwardSpeed.GetSpeed());
     }

@@ -171,8 +171,9 @@ void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && spee
   LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
 }
 
-void BuildMaxspeed(string const & dataPath, map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                   string const & maxspeedFilename)
+void BuildMaxspeedSection(string const & dataPath,
+                          map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                          string const & maxspeedFilename)
 {
   MaxspeedMwmCollector collector(dataPath, featureIdToOsmId, maxspeedFilename);
   SerializeMaxspeeds(dataPath, collector.StealMaxspeeds());
@@ -185,6 +186,6 @@ void BuildMaxspeedSection(string const & dataPath, string const & osmToFeaturePa
 
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
-  BuildMaxspeed(dataPath, featureIdToOsmId, maxspeedFilename);
+  BuildMaxspeedSection(dataPath, featureIdToOsmId, maxspeedFilename);
 }
 }  // namespace routing

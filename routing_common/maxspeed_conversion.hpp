@@ -10,7 +10,7 @@
 
 namespace routing
 {
-/// \brief This enum class contains most popular maxspeed value according to
+/// \brief This enum class contains the most popular maxspeed values according to
 /// https://taginfo.openstreetmap.org/keys/maxspeed#values.
 /// \note Value of this enum is saved to mwm. So they should not be changed because of backward
 /// compatibility. But it's possible to add some new values to this enum.
