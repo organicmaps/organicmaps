@@ -83,12 +83,9 @@
       android:summary="@string/pref_use_google_play"
       android:defaultValue="true"
       android:order="10"/>
-    <SwitchPreferenceCompat
+    <Preference
       android:key="@string/pref_showcase_switched_on"
-      android:title="@string/showcase_settings_title"
-      android:defaultValue="true"
-      android:switchTextOff=""
-      android:switchTextOn=""
+      android:title="@string/remove_ads"
       android:order="11"/>
     <SwitchPreferenceCompat
       android:key="@string/pref_enable_logging"

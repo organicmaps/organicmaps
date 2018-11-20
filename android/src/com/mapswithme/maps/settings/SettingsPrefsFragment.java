@@ -19,7 +19,9 @@ import android.support.v7.preference.TwoStatePreference;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -32,6 +34,12 @@ import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
+import com.mapswithme.maps.purchase.AdsRemovalActivationCallback;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
+import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
+import com.mapswithme.maps.purchase.PurchaseCallback;
+import com.mapswithme.maps.purchase.PurchaseController;
+import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.maps.sound.LanguageData;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.util.Config;
@@ -42,7 +50,6 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.HashMap;
@@ -50,6 +57,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SettingsPrefsFragment extends BaseXmlSettingsFragment
+    implements AdsRemovalActivationCallback, AdsRemovalPurchaseControllerProvider
 {
   private static final int REQUEST_INSTALL_DATA = 1;
   private static final String TTS_SCREEN_KEY = MwmApplication.get()
@@ -76,6 +84,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private final Map<String, LanguageData> mLanguages = new HashMap<>();
   private LanguageData mCurrentLanguage;
   private String mSelectedLanguage;
+  @Nullable
+  private PurchaseController<PurchaseCallback> mAdsRemovalPurchaseController;
 
   private boolean singleStorageOnly()
   {
@@ -282,6 +292,21 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   }
 
   @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+  {
+    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController();
+    mAdsRemovalPurchaseController.initialize(getActivity());
+    return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    mAdsRemovalPurchaseController.destroy();
+    super.onDestroyView();
+  }
+
+  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
@@ -363,14 +388,20 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
   private void initDisplayShowcasePrefs()
   {
-    if (MytargetHelper.isShowcaseSwitchedOnServer())
-      return;
-
     Preference pref = findPreference(getString(R.string.pref_showcase_switched_on));
     if (pref == null)
       return;
 
-    removePreference(getString(R.string.pref_settings_general), pref);
+    if (Framework.nativeHasActiveRemoveAdsSubscription())
+    {
+      removePreference(getString(R.string.pref_settings_general), pref);
+      return;
+    }
+
+    pref.setOnPreferenceClickListener(preference -> {
+      AdsRemovalPurchaseDialog.show(SettingsPrefsFragment.this);
+      return true;
+    });
   }
 
   private void initLangInfoLink()
@@ -881,5 +912,18 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onDetach();
     mPathManager.stopExternalStorageWatching();
+  }
+
+  @Override
+  public void onAdsRemovalActivation()
+  {
+    initDisplayShowcasePrefs();
+  }
+
+  @Nullable
+  @Override
+  public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
+  {
+    return mAdsRemovalPurchaseController;
   }
 }

@@ -344,7 +344,7 @@ public class SearchFragment extends BaseMwmFragment
     mSearchAdapter = new SearchAdapter(this);
     readArguments();
 
-    if (ConnectionState.isWifiConnected() && SharedPropertiesUtils.isShowcaseSwitchedOnLocal())
+    if (ConnectionState.isWifiConnected())
     {
       mAdsLoader = new GoogleAdsLoader(getContext(), ADS_DELAY_MS);
       mAdsLoader.attach(searchAdView ->

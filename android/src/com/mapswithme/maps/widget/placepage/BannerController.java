@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -26,7 +25,6 @@ import com.mapswithme.maps.ads.NativeAdListener;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseControllerProvider;
 import com.mapswithme.maps.purchase.AdsRemovalPurchaseDialog;
 import com.mapswithme.maps.purchase.PurchaseController;
-import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -38,7 +36,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
@@ -191,9 +188,7 @@ final class BannerController
     int state = mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW;
     Statistics.INSTANCE.trackPPBannerClose(state, isCross);
     FragmentActivity activity = (FragmentActivity) mBannerView.getContext();
-    AdsRemovalPurchaseDialog fragment
-        = (AdsRemovalPurchaseDialog) Fragment.instantiate(activity, AdsRemovalPurchaseDialog.class.getName());
-    fragment.show(activity.getSupportFragmentManager(), null);
+    AdsRemovalPurchaseDialog.show(activity);
   }
 
   private void setErrorStatus(boolean value)
@@ -247,11 +242,8 @@ final class BannerController
     setErrorStatus(false);
 
     mBanners = banners != null ? Collections.unmodifiableList(banners) : null;
-    if (mBanners == null || !isShowcaseSwitchedOnLocal()
-        || Config.getAdForbidden())
-    {
+    if (mBanners == null)
       return;
-    }
 
     UiUtils.show(mContainerView);
     mAdsLoader.loadAd(mContainerView.getContext(), mBanners);

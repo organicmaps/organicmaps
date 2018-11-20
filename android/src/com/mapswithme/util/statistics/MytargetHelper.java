@@ -19,7 +19,6 @@ import java.net.URL;
 import java.util.List;
 
 import static com.mapswithme.maps.MwmApplication.prefs;
-import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
 
 public final class MytargetHelper
 {
@@ -43,7 +42,7 @@ public final class MytargetHelper
 
   public MytargetHelper(final @NonNull Listener<Void> listener)
   {
-    if (!ConnectionState.isConnected() || !isShowcaseSwitchedOnLocal())
+    if (!ConnectionState.isConnected())
     {
       listener.onNoAds();
       return;

@@ -279,16 +279,6 @@ public final class Config
     setBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, ConnectionState.isInRoaming());
   }
 
-  public static boolean getAdForbidden()
-  {
-    return getBool(KEY_MISC_AD_FORBIDDEN, false);
-  }
-
-  public static void setAdForbidden(boolean value)
-  {
-    setBool(KEY_MISC_AD_FORBIDDEN, value);
-  }
-
   public static void setMobileDataTimeStamp(long timestamp)
   {
     setLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, timestamp);

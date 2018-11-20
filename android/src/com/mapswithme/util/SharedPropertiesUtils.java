@@ -28,12 +28,6 @@ public final class SharedPropertiesUtils
     throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
   }
 
-  public static boolean isShowcaseSwitchedOnLocal()
-  {
-    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-        .getBoolean(MwmApplication.get().getString(R.string.pref_showcase_switched_on), false);
-  }
-
   public static boolean isStatisticsEnabled()
   {
     return MwmApplication.prefs().getBoolean(KEY_PREF_STATISTICS, true);
