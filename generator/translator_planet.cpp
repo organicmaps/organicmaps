@@ -27,7 +27,7 @@ TranslatorPlanet::TranslatorPlanet(std::shared_ptr<EmitterInterface> emitter,
   : m_emitter(emitter)
   , m_cache(holder)
   , m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0)
-  , m_routingTagsProcessor(info.GetIntermediateFileName(MAXSPEED_FILENAME))
+  , m_routingTagsProcessor(info.GetIntermediateFileName(MAXSPEEDS_FILENAME))
   , m_nodeRelations(m_routingTagsProcessor)
   , m_wayRelations(m_routingTagsProcessor)
   , m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))

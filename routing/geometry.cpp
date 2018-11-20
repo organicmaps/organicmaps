@@ -106,13 +106,13 @@ FileGeometryLoader::FileGeometryLoader(string const & fileName,
     if (cont.IsExist(CITY_ROADS_FILE_TAG))
       LoadCityRoads(fileName, cont.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
 
-    if (cont.IsExist(MAXSPEED_FILE_TAG))
-      LoadMaxspeeds(cont.GetReader(MAXSPEED_FILE_TAG), m_maxspeeds);
+    if (cont.IsExist(MAXSPEEDS_FILE_TAG))
+      LoadMaxspeeds(cont.GetReader(MAXSPEEDS_FILE_TAG), m_maxspeeds);
   }
   catch (Reader::OpenException const & e)
   {
     LOG(LERROR, ("File", cont.GetFileName(), "Error while reading", CITY_ROADS_FILE_TAG, "or",
-                 MAXSPEED_FILE_TAG, "section.", e.Msg()));
+                 MAXSPEEDS_FILE_TAG, "section.", e.Msg()));
   }
 
   CHECK(m_vehicleModel, ());

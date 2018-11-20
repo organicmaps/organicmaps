@@ -55,7 +55,7 @@
 #define UGC_FILE_TAG "ugc"
 #define CITY_ROADS_FILE_TAG "city_roads"
 #define DESCRIPTIONS_FILE_TAG "descriptions"
-#define MAXSPEED_FILE_TAG "maxspeed"
+#define MAXSPEEDS_FILE_TAG "maxspeeds"
 
 #define LOCALITY_DATA_FILE_TAG "locdata"
 #define GEO_OBJECTS_INDEX_FILE_TAG "locidx"
@@ -103,7 +103,7 @@
 #define ROAD_ACCESS_FILENAME "road_access.csv"
 #define METALINES_FILENAME "metalines.bin"
 #define CAMERAS_TO_WAYS_FILENAME "cameras_to_ways.bin"
-#define MAXSPEED_FILENAME "maxspeed.csv"
+#define MAXSPEEDS_FILENAME "maxspeeds.csv"
 
 #define TRAFFIC_FILE_EXTENSION ".traffic"
 

@@ -57,7 +57,7 @@ FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
                          maxspeed.GetBackward());
 }
 
-/// \brief Collects all maxspeed tag value of specified mwm based on maxspeed.csv file.
+/// \brief Collects all maxspeed tag value of specified mwm based on maxspeeds.csv file.
 class MaxspeedMwmCollector
 {
 public:
@@ -165,7 +165,7 @@ void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && spee
     return;
 
   FilesContainerW cont(dataPath, FileWriter::OP_WRITE_EXISTING);
-  FileWriter writer = cont.GetWriter(MAXSPEED_FILE_TAG);
+  FileWriter writer = cont.GetWriter(MAXSPEEDS_FILE_TAG);
 
   MaxspeedsSerializer::Serialize(speeds, writer);
   LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));

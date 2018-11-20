@@ -27,7 +27,7 @@ void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
                              size_t & forwardMaxspeedsNumber, uint32_t & maxForwardFeatureId);
 
 /// \brief
-/// Section name: "maxspeed".
+/// Section name: "maxspeeds".
 /// Description: keeping value of maxspeed tag for roads.
 /// Section tables:
 /// * header

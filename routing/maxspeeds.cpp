@@ -73,16 +73,16 @@ std::unique_ptr<Maxspeeds> LoadMaxspeeds(DataSource const & dataSource,
   auto const value = handle.GetValue<MwmValue>();
   CHECK(value, ());
   auto const & mwmValue = *value;
-  if (!mwmValue.m_cont.IsExist(MAXSPEED_FILE_TAG))
+  if (!mwmValue.m_cont.IsExist(MAXSPEEDS_FILE_TAG))
     return maxspeeds;
 
   try
   {
-    LoadMaxspeeds(mwmValue.m_cont.GetReader(MAXSPEED_FILE_TAG), *maxspeeds);
+    LoadMaxspeeds(mwmValue.m_cont.GetReader(MAXSPEEDS_FILE_TAG), *maxspeeds);
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("File", mwmValue.GetCountryFileName(), "Error while reading", MAXSPEED_FILE_TAG,
+    LOG(LERROR, ("File", mwmValue.GetCountryFileName(), "Error while reading", MAXSPEEDS_FILE_TAG,
         "section.", e.Msg()));
     return std::make_unique<Maxspeeds>();
   }
