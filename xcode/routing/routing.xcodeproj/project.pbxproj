@@ -291,6 +291,8 @@
 		A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1616E291B6B60AB003F078E /* router_delegate.cpp */; };
 		A1616E2C1B6B60AB003F078E /* router_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2A1B6B60AB003F078E /* router_delegate.hpp */; };
 		A1616E2E1B6B60B3003F078E /* astar_progress.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A1616E2D1B6B60B3003F078E /* astar_progress.hpp */; };
+		F6C3A1B521AC298F0060EEC8 /* speed_camera_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */; };
+		F6C3A1B621AC298F0060EEC8 /* speed_camera_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -531,6 +533,8 @@
 		A1616E291B6B60AB003F078E /* router_delegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = router_delegate.cpp; sourceTree = "<group>"; };
 		A1616E2A1B6B60AB003F078E /* router_delegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = router_delegate.hpp; sourceTree = "<group>"; };
 		A1616E2D1B6B60B3003F078E /* astar_progress.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = astar_progress.hpp; sourceTree = "<group>"; };
+		F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = speed_camera_manager.hpp; sourceTree = "<group>"; };
+		F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = speed_camera_manager.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -806,6 +810,8 @@
 				56FEAA6C219E8A600073DF5F /* maxspeeds_serialization.hpp */,
 				5631B667219B125C009F47D4 /* maxspeeds.cpp */,
 				5631B668219B125C009F47D4 /* maxspeeds.hpp */,
+				F6C3A1B421AC298F0060EEC8 /* speed_camera_manager.cpp */,
+				F6C3A1B321AC298E0060EEC8 /* speed_camera_manager.hpp */,
 				44AE4A10214FBB8D006321F5 /* speed_camera.cpp */,
 				44AE4A11214FBB8D006321F5 /* speed_camera.hpp */,
 				56473D72214825B4007E6FBA /* city_roads_serialization.hpp */,
@@ -1012,6 +1018,7 @@
 				0C8705051E0182F200BCAF71 /* route_point.hpp in Headers */,
 				44AE4A13214FBB8E006321F5 /* speed_camera.hpp in Headers */,
 				56EA2FD51D8FD8590083F01A /* routing_helpers.hpp in Headers */,
+				F6C3A1B521AC298F0060EEC8 /* speed_camera_manager.hpp in Headers */,
 				0C15B8021F02A61B0058E253 /* checkpoints.hpp in Headers */,
 				0C5F5D211E798B0400307B98 /* cross_mwm_connector_serialization.hpp in Headers */,
 				0C0DF9221DE898B70055A22F /* index_graph_starter.hpp in Headers */,
@@ -1260,6 +1267,7 @@
 				349D1CE01E3F589900A878FD /* restrictions_serialization.cpp in Sources */,
 				56FEAA6F219E8A610073DF5F /* maxspeeds_serialization.cpp in Sources */,
 				5694CECC1EBA25F7004576D3 /* road_access.cpp in Sources */,
+				F6C3A1B621AC298F0060EEC8 /* speed_camera_manager.cpp in Sources */,
 				A1616E2B1B6B60AB003F078E /* router_delegate.cpp in Sources */,
 				6741AA9C1BF35331002C974C /* turns_notification_manager.cpp in Sources */,
 				0C0DF9211DE898B70055A22F /* index_graph_starter.cpp in Sources */,

@@ -6,6 +6,7 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
   @IBOutlet private weak var progressView: UIView!
   @IBOutlet private weak var routingProgress: NSLayoutConstraint!
   @IBOutlet private weak var speedLabel: UILabel!
+  @IBOutlet private weak var speedBackground: UIView!
   @IBOutlet private weak var speedLegendLabel: UILabel!
   @IBOutlet private weak var speedWithLegendLabel: UILabel!
   @IBOutlet private weak var timeLabel: UILabel!
@@ -188,6 +189,13 @@ final class NavigationControlView: SolidTouchView, MWMTextToSpeechObserver, MWMT
     let speedWithLegend = NSMutableAttributedString(string: speed, attributes: routingNumberAttributes)
     speedWithLegend.append(NSAttributedString(string: info.speedUnits, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
+
+    let speedLimitExceeded = info.isSpeedLimitExceeded
+    let textColor = speedLimitExceeded ? UIColor.white() : UIColor.blackPrimaryText()
+    speedBackground.backgroundColor = speedLimitExceeded ? UIColor.buttonRed() : UIColor.clear
+    speedLabel.textColor = textColor
+    speedLegendLabel.textColor = textColor
+    speedWithLegendLabel.textColor = textColor
 
     self.routingProgress.constant = self.progressView.width * info.progress / 100
   }

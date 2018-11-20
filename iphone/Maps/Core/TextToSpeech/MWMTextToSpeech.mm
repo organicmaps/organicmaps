@@ -7,8 +7,11 @@
 
 #include "LocaleTranslator.h"
 
+#include "Framework.h"
+
 #include "platform/languages.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 using namespace locale_translator;
@@ -54,6 +57,7 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) AVSpeechSynthesizer * speechSynthesizer;
 @property(nonatomic) AVSpeechSynthesisVoice * speechVoice;
+@property(nonatomic) AVAudioPlayer * audioPlayer;
 
 @property(nonatomic) Observers * observers;
 
@@ -271,6 +275,33 @@ using Observers = NSHashTable<Observer>;
     for (NSString * notification in turnNotifications)
       [self speakOneString:notification];
   }
+}
+
+- (void)playWarningSound
+{
+  if (!GetFramework().GetRoutingManager().GetSpeedCamManager().MakeBeepSignal())
+    return;
+
+  [self.audioPlayer play];
+}
+
+- (AVAudioPlayer *)audioPlayer
+{
+  if (!_audioPlayer)
+  {
+    if (auto url = [[NSBundle mainBundle] URLForResource:@"Alert 5" withExtension:@"m4a"])
+    {
+      NSError * error = nil;
+      _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+      CHECK(!error, (error.localizedDescription.UTF8String));
+    }
+    else
+    {
+      CHECK(false, ("Speed warning file not found"));
+    }
+  }
+
+  return _audioPlayer;
 }
 
 #pragma mark - MWMNavigationDashboardObserver

@@ -20,6 +20,7 @@
 @property(nonatomic, readonly) NSUInteger roundExitNumber;
 @property(nonatomic, readonly) UIImage * nextTurnImage;
 @property(nonatomic, readonly) UIImage * turnImage;
+@property(nonatomic, readonly) BOOL isSpeedLimitExceeded;
 
 + (instancetype) new __attribute__((unavailable("init is not available")));
 

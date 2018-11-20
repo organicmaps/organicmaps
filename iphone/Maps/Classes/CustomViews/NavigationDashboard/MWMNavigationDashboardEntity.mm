@@ -5,6 +5,10 @@
 #import "MWMSettings.h"
 #import "SwiftBridge.h"
 
+#include "Framework.h"
+
+#include "map/routing_manager.hpp"
+
 #include "platform/measurement_utils.hpp"
 
 @interface MWMNavigationDashboardEntity ()
@@ -35,6 +39,11 @@
     return nil;
   auto const units = coreUnits([MWMSettings measurementUnits]);
   return @(measurement_utils::FormatSpeed(lastLocation.speed, units).c_str());
+}
+
+- (BOOL)isSpeedLimitExceeded
+{
+  return GetFramework().GetRoutingManager().IsSpeedLimitExceeded();
 }
 
 - (NSString *)speedUnits

@@ -610,7 +610,10 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     return;
   auto tts = [MWMTextToSpeech tts];
   if ([MWMRouter isOnRoute] && tts.active)
+  {
     [tts playTurnNotifications];
+    [tts playWarningSound];
+  }
 
   [self updateFollowingInfo];
 }

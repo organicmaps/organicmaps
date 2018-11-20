@@ -15,6 +15,7 @@
 @property(nonatomic) BOOL active;
 - (void)setNotificationsLocale:(NSString *)locale;
 - (void)playTurnNotifications;
+- (void)playWarningSound;
 
 - (instancetype)init __attribute__((unavailable("call tts instead")));
 - (instancetype)copy __attribute__((unavailable("call tts instead")));
