@@ -23,6 +23,8 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public abstract class BaseMwmFragmentActivity extends AppCompatActivity
                                   implements BaseActivity
@@ -236,7 +238,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
     FragmentManager manager = getSupportFragmentManager();
     String name = getFragmentClass().getName();
-    BaseMwmFragment fragment = (BaseMwmFragment) manager.findFragmentByTag(name);
+    Fragment fragment = manager.findFragmentByTag(name);
 
     if (fragment == null)
     {
@@ -250,9 +252,20 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     super.onBackPressed();
   }
 
-  protected boolean onBackPressedInternal(@NonNull BaseMwmFragment currentFragment)
+  private boolean onBackPressedInternal(@NonNull Fragment currentFragment)
   {
-    return currentFragment.onBackPressed();
+    try
+    {
+      OnBackPressListener listener = (OnBackPressListener) currentFragment;
+      return listener.onBackPressed();
+    }
+    catch (ClassCastException e)
+    {
+      Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+      String tag = this.getClass().getSimpleName();
+      logger.i(tag, "Fragment '" + currentFragment + "' doesn't handle back press by itself.");
+      return false;
+    }
   }
 
   /**
