@@ -3,8 +3,10 @@
 
 #include "routing/city_roads.hpp"
 #include "routing/geometry.hpp"
+#include "routing/maxspeeds.hpp"
 
 #include "routing_common/car_model.hpp"
+#include "routing_common/maxspeed_conversion.hpp"
 #include "routing_common/vehicle_model.hpp"
 
 #include "traffic/speed_groups.hpp"
@@ -20,10 +22,13 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 
+#include "geometry/latlon.hpp"
+
 #include "base/assert.hpp"
 #include "base/sunrise_sunset.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <limits>
@@ -41,6 +46,9 @@ using namespace track_analyzing;
 
 namespace
 {
+uint16_t constexpr kWalkMaxspeedKMpHValue = 10;
+uint16_t constexpr kNoneMaxspeedKMpHValue = 200;
+
 string TypeToString(uint32_t type)
 {
   if (type == 0)
@@ -99,6 +107,13 @@ public:
       return !(*this == rhs);
     }
 
+    string GetSummary() const
+    {
+      ostringstream out;
+      out << TypeToString(m_hwType) << "," << TypeToString(m_surfaceType);
+      return out.str();
+    }
+
     uint32_t m_hwType = 0;
     uint32_t m_surfaceType = 0;
   };
@@ -137,7 +152,10 @@ struct RoadInfo
 {
   bool operator==(RoadInfo const & rhs) const
   {
-    return m_type == rhs.m_type && m_isCityRoad == rhs.m_isCityRoad && m_isOneWay == rhs.m_isOneWay;
+    return m_type == rhs.m_type &&
+           m_maxspeedKMpH == rhs.m_maxspeedKMpH &&
+           m_isCityRoad == rhs.m_isCityRoad &&
+           m_isOneWay == rhs.m_isOneWay;
   }
 
   bool operator!=(RoadInfo const & rhs) const
@@ -150,13 +168,29 @@ struct RoadInfo
     if (m_type != rhs.m_type)
       return m_type < rhs.m_type;
 
-    if (m_isCityRoad != rhs.m_isCityRoad)
-      return !m_isCityRoad;
+    if (m_maxspeedKMpH != rhs.m_maxspeedKMpH)
+      return m_maxspeedKMpH < rhs.m_maxspeedKMpH;
 
-    return !m_isOneWay;
+    if (m_isCityRoad != rhs.m_isCityRoad)
+      return m_isCityRoad < rhs.m_isCityRoad;
+
+    return m_isOneWay < rhs.m_isOneWay;
+  }
+
+  string GetSummary() const
+  {
+    ostringstream out;
+    out << TypeToString(m_type.m_hwType) << ","
+        << TypeToString(m_type.m_surfaceType) << ","
+        << m_maxspeedKMpH << ","
+        << m_isCityRoad << ","
+        << m_isOneWay;
+
+    return out.str();
   }
 
   CarModelTypes::Type m_type;
+  uint16_t m_maxspeedKMpH = kInvalidSpeed;
   bool m_isCityRoad = false;
   bool m_isOneWay = false;
 };
@@ -166,9 +200,10 @@ class MoveType final
 public:
   MoveType() = default;
 
-  MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup, bool isDayTime)
-    : m_roadInfo(roadType), m_speedGroup(speedGroup), m_isDayTime(isDayTime)
+  MoveType(RoadInfo const & roadType, traffic::SpeedGroup speedGroup, DataPoint const & dataPoint)
+    : m_roadInfo(roadType), m_speedGroup(speedGroup), m_latLon(dataPoint.m_latLon)
   {
+    m_isDayTime = DayTimeToBool(GetDayTime(dataPoint.m_timestamp, m_latLon.lat, m_latLon.lon));
   }
 
   bool operator==(MoveType const & rhs) const
@@ -184,7 +219,7 @@ public:
     if (m_speedGroup != rhs.m_speedGroup)
       return m_speedGroup < rhs.m_speedGroup;
 
-    return !m_isDayTime;
+    return m_isDayTime < rhs.m_isDayTime;
   }
 
   bool IsValid() const
@@ -198,11 +233,9 @@ public:
   string GetSummary() const
   {
     ostringstream out;
-    out << TypeToString(m_roadInfo.m_type.m_hwType) << ","
-        << TypeToString(m_roadInfo.m_type.m_surfaceType) << ","
-        << m_roadInfo.m_isCityRoad << ","
-        << m_roadInfo.m_isOneWay << ","
-        << m_isDayTime;
+    out << m_roadInfo.GetSummary() << ","
+        << m_isDayTime << ","
+        << m_latLon.lat << " " << m_latLon.lon;
 
     return out.str();
   }
@@ -210,7 +243,8 @@ public:
 private:
   RoadInfo m_roadInfo;
   traffic::SpeedGroup m_speedGroup = traffic::SpeedGroup::Unknown;
-  bool m_isDayTime;
+  ms::LatLon m_latLon;
+  bool m_isDayTime = false;
 };
 
 class SpeedInfo final
@@ -239,8 +273,6 @@ private:
 class MoveTypeAggregator final
 {
 public:
-  MoveTypeAggregator(string const & mwmName) : m_mwmName(mwmName) {}
-
   void Add(MoveType && moveType, MatchedTrack::const_iterator begin,
            MatchedTrack::const_iterator end, Geometry & geometry)
   {
@@ -258,7 +290,7 @@ public:
       m_moveInfos[it.first].Add(it.second);
   }
 
-  string GetSummary() const
+  string GetSummary(string const & user, string const & mwm) const
   {
     ostringstream out;
     for (auto const & it : m_moveInfos)
@@ -266,7 +298,7 @@ public:
       if (!it.first.IsValid())
         continue;
 
-      out << m_mwmName << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
+      out << user << "," << mwm << "," << it.first.GetSummary() << "," << it.second.GetSummary() << '\n';
     }
 
     return out.str();
@@ -274,7 +306,6 @@ public:
 
 private:
   map<MoveType, SpeedInfo> m_moveInfos;
-  string const & m_mwmName;
 };
 
 class MatchedTrackPointToMoveType final
@@ -285,29 +316,49 @@ public:
   {
     if (container.IsExist(CITY_ROADS_FILE_TAG))
       LoadCityRoads(container.GetFileName(), container.GetReader(CITY_ROADS_FILE_TAG), m_cityRoads);
+
+    if (container.IsExist(MAXSPEEDS_FILE_TAG))
+      LoadMaxspeeds(container.GetReader(MAXSPEEDS_FILE_TAG), m_maxspeeds);
   }
 
   MoveType GetMoveType(MatchedTrackPoint const & point)
   {
     auto const & dataPoint = point.GetDataPoint();
-    return MoveType(GetRoadInfo(point.GetSegment().GetFeatureId()),
+    return MoveType(GetRoadInfo(point.GetSegment()),
                     static_cast<traffic::SpeedGroup>(dataPoint.m_traffic),
-                    DayTimeToBool(GetDayTime(dataPoint.m_timestamp, dataPoint.m_latLon.lat, dataPoint.m_latLon.lon)));
+                    dataPoint);
   }
 
 private:
-  RoadInfo GetRoadInfo(uint32_t featureId)
+  RoadInfo GetRoadInfo(Segment const & segment)
   {
+    auto const featureId = segment.GetFeatureId();
     if (featureId == m_prevFeatureId)
       return m_prevRoadInfo;
 
     FeatureType feature;
     m_featuresVector.GetVector().GetByIndex(featureId, feature);
 
+    auto const maxspeed = m_maxspeeds.GetMaxspeed(featureId);
+    auto maxspeedValueKMpH = kInvalidSpeed;
+    if (maxspeed.IsValid())
+    {
+      maxspeedValueKMpH = maxspeed.GetSpeedKmPH(segment.IsForward());
+      if (maxspeedValueKMpH == kNoneMaxSpeed)
+        maxspeedValueKMpH = kNoneMaxspeedKMpHValue;
+
+      if (maxspeedValueKMpH == kWalkMaxSpeed)
+        maxspeedValueKMpH = kWalkMaxspeedKMpHValue;
+
+      maxspeedValueKMpH = min(maxspeedValueKMpH, kNoneMaxspeedKMpHValue);
+    }
+
     m_prevFeatureId = featureId;
     m_prevRoadInfo = {m_carModelTypes.GetType(feature),
+                      maxspeedValueKMpH,
                       m_cityRoads.IsCityRoad(featureId),
                       m_vehicleModel.IsOneWay(feature)};
+
     return m_prevRoadInfo;
   }
 
@@ -315,6 +366,7 @@ private:
   VehicleModelInterface & m_vehicleModel;
   CarModelTypes const m_carModelTypes;
   CityRoads m_cityRoads;
+  Maxspeeds m_maxspeeds;
   uint32_t m_prevFeatureId = numeric_limits<uint32_t>::max();
   RoadInfo m_prevRoadInfo;
 };
@@ -325,7 +377,7 @@ namespace track_analyzing
 void CmdTagsTable(string const & filepath, string const & trackExtension, StringFilter mwmFilter,
                   StringFilter userFilter)
 {
-  cout << "mwm,hw type,surface type,is city road,is one way,is day,distance,time,speed km/h\n";
+  cout << "user,mwm,hw type,surface type,maxspeed km/h,is city road,is one way,is day,lat lon,distance,time,mean speed km/h\n";
 
   storage::Storage storage;
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
@@ -353,8 +405,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
         if (track.size() <= 1)
           continue;
 
-        MoveTypeAggregator aggregator(mwmName);
-
+        MoveTypeAggregator aggregator;
         for (auto subTrackBegin = track.begin(); subTrackBegin != track.end();)
         {
           auto moveType = pointToMoveType.GetMoveType(*subTrackBegin);
@@ -367,7 +418,7 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
           subTrackBegin = subTrackEnd;
         }
 
-        auto const summary = aggregator.GetSummary();
+        auto const summary = aggregator.GetSummary(user, mwmName);
         if (!summary.empty())
           cout << summary;
       }
