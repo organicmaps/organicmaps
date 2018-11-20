@@ -22,6 +22,9 @@ bool Maxspeeds::IsEmpty() const
 
 Maxspeed Maxspeeds::GetMaxspeed(uint32_t fid) const
 {
+  if (IsEmpty())
+    return Maxspeed();
+
   // Forward only maxspeeds.
   if (HasForwardMaxspeed(fid))
   {
