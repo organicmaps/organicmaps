@@ -4,10 +4,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 
 import java.util.ArrayList;
 
-class EditParams
+public class EditParams
 {
   @NonNull
   private final String mTitle;
@@ -19,6 +20,7 @@ class EditParams
   private final int mDefaultRating;
   private final boolean mCanBeReviewed;
   private final boolean mFromPP;
+  private final boolean mFromNotification;
   // TODO: mLat, mLon, mAddress are added just for debugging null feature id for ugc object.
   // Remove they after problem is fixed.
   private double mLat;
@@ -34,6 +36,7 @@ class EditParams
     mDefaultRating = builder.mDefaultRating;
     mCanBeReviewed = builder.mCanBeReviewed;
     mFromPP = builder.mFromPP;
+    mFromNotification = builder.mFromNotification;
     mLat = builder.mLat;
     mLon = builder.mLon;
     mAddress = builder.mAddress;
@@ -72,6 +75,11 @@ class EditParams
     return mFromPP;
   }
 
+  boolean isFromNotification()
+  {
+    return mFromNotification;
+  }
+
   double getLat()
   {
     return mLat;
@@ -100,10 +108,22 @@ class EditParams
     private int mDefaultRating;
     private boolean mCanBeReviewed;
     private boolean mFromPP;
+    private boolean mFromNotification;
     private double mLat;
     private double mLon;
     @Nullable
     private String mAddress;
+
+    @NonNull
+    public static EditParams.Builder fromMapObject(@NonNull MapObject mapObject)
+    {
+      return new EditParams.Builder(mapObject.getTitle(), mapObject.getFeatureId())
+        .setRatings(mapObject.getDefaultRatings())
+        .setCanBeReviewed(mapObject.canBeReviewed())
+        .setLat(mapObject.getLat())
+        .setLon(mapObject.getLon())
+        .setAddress(mapObject.getAddress());
+    }
 
     public Builder(@NonNull String title, @NonNull FeatureId featureId)
     {
@@ -117,21 +137,27 @@ class EditParams
       return this;
     }
 
-    Builder setDefaultRating(@UGC.Impress int defaultRating)
+    public Builder setDefaultRating(@UGC.Impress int defaultRating)
     {
       mDefaultRating = defaultRating;
       return this;
     }
 
-    Builder setCanBeReviewed(boolean value)
+    public Builder setCanBeReviewed(boolean value)
     {
       mCanBeReviewed = value;
       return this;
     }
 
-    Builder setFromPP(boolean value)
+    public Builder setFromPP(boolean value)
     {
       mFromPP = value;
+      return this;
+    }
+
+    public Builder setFromNotification(boolean value)
+    {
+      mFromNotification = value;
       return this;
     }
 

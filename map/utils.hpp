@@ -6,10 +6,6 @@ namespace place_page
 {
 class Info;
 }
-namespace eye
-{
-class MapObject;
-}
 
 class FeatureType;
 

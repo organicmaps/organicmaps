@@ -1896,4 +1896,39 @@ Java_com_mapswithme_maps_Framework_nativeGetAccessToken(JNIEnv * env, jclass)
   auto & user = frm()->GetUser();
   return jni::ToJavaString(env, user.GetAccessToken());
 }
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
+                                                      jobject notificationMapObject)
+{
+  eye::MapObject mapObject;
+  auto const getBestTypeId =
+      jni::GetMethodID(env, notificationMapObject, "getBestType", "()Ljava/lang/String;");
+  auto const bestType =
+      static_cast<jstring>(env->CallObjectMethod(notificationMapObject, getBestTypeId));
+  mapObject.SetBestType(jni::ToNativeString(env, bestType));
+
+  auto const getMercatorPosXId =
+      jni::GetMethodID(env, notificationMapObject, "getMercatorPosX", "()D");
+  auto const getMercatorPosYId =
+      jni::GetMethodID(env, notificationMapObject, "getMercatorPosY", "()D");
+
+  auto const posX =
+      static_cast<double>(env->CallDoubleMethod(notificationMapObject, getMercatorPosXId));
+  auto const posY =
+      static_cast<double>(env->CallDoubleMethod(notificationMapObject, getMercatorPosYId));
+  mapObject.SetPos({posX, posY});
+
+  auto const getDefaultNameId =
+      jni::GetMethodID(env, notificationMapObject, "getDefaultName", "()Ljava/lang/String;");
+  auto const defaultName =
+      static_cast<jstring>(env->CallObjectMethod(notificationMapObject, getDefaultNameId));
+  mapObject.SetDefaultName(jni::ToNativeString(env, defaultName));
+
+  place_page::Info info;
+  if (frm()->MakePlacePageInfo(mapObject, info))
+    return usermark_helper::CreateMapObject(env, info);
+
+  return nullptr;
+}
 }  // extern "C"

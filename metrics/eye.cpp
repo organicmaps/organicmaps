@@ -23,10 +23,10 @@ namespace
 auto constexpr kMapObjectEventsExpirePeriod = std::chrono::hours(24 * 30 * 3);
 auto constexpr kEventCooldown = std::chrono::seconds(2);
 
-std::array<std::string, 7> const kMapEventSupportedTypes = {"amenity-bar", "amenity-cafe",
+std::array<std::string, 7> const kMapEventSupportedTypes = {{"amenity-bar", "amenity-cafe",
                                                             "amenity-pub", "amenity-restaurant",
                                                             "amenity-fast_food", "amenity-biergarden",
-                                                            "shop-bakery"};
+                                                            "shop-bakery"}};
 
 void Load(Info & info)
 {

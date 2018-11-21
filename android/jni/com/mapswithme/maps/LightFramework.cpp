@@ -1,6 +1,8 @@
 #include "map/framework_light.hpp"
 #include "map/local_ads_manager.hpp"
 
+#include "base/assert.hpp"
+
 #include "com/mapswithme/core/jni_helper.hpp"
 
 using namespace lightweight;
@@ -65,5 +67,37 @@ Java_com_mapswithme_maps_LightFramework_nativeLogLocalAdsEvent(JNIEnv * env, jcl
                          static_cast<double>(lat), static_cast<double>(lon),
                          static_cast<uint16_t>(accuracyInMeters));
   framework.GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()->RegisterEvent(std::move(event));
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_mapswithme_maps_LightFramework_nativeGetNotification(JNIEnv * env, jclass clazz)
+{
+  Framework framework(REQUEST_TYPE_NOTIFICATION);
+  auto const notification = framework.Get<REQUEST_TYPE_NOTIFICATION>();
+
+  if (!notification)
+    return nullptr;
+
+  // Type::UgcReview is only supported.
+  CHECK_EQUAL(notification.get().m_type, notifications::NotificationCandidate::Type::UgcReview, ());
+
+  static jclass const candidateId =
+      jni::GetGlobalClassRef(env, "com/mapswithme/maps/background/NotificationCandidate");
+  static jclass const mapObjectId =
+      jni::GetGlobalClassRef(env, "com/mapswithme/maps/background/NotificationCandidate$MapObject");
+  static jmethodID const candidateCtor = jni::GetConstructorID(
+      env, candidateId, "(ILcom/mapswithme/maps/background/NotificationCandidate$MapObject;)V");
+  static jmethodID const mapObjectCtor = jni::GetConstructorID(
+      env, mapObjectId, "(DDLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+  auto const & srcObject = notification.get().m_mapObject;
+  ASSERT(srcObject, ());
+  auto const readableName = jni::ToJavaString(env, srcObject->GetReadableName());
+  auto const defaultName = jni::ToJavaString(env, srcObject->GetDefaultName());
+  auto const type = jni::ToJavaString(env, srcObject->GetBestType());
+  auto const mapObject = env->NewObject(mapObjectId, mapObjectCtor, srcObject->GetPos().x,
+                                        srcObject->GetPos().y, readableName, defaultName, type);
+  return env->NewObject(candidateId, candidateCtor, static_cast<jint>(notification.get().m_type),
+                        mapObject);
 }
 }  // extern "C"

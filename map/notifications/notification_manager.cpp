@@ -132,6 +132,8 @@ void NotificationManager::Load()
 void NotificationManager::TrimExpired()
 {
   auto & candidates = m_queue.m_candidates;
+  size_t sizeBefore = candidates.size();
+
   candidates.erase(std::remove_if(candidates.begin(), candidates.end(), [](auto const & item)
   {
     if (item.m_used.time_since_epoch().count() != 0)
@@ -140,7 +142,8 @@ void NotificationManager::TrimExpired()
     return Clock::now() - item.m_created >= kCandidatesExpirePeriod;
   }), candidates.end());
 
-  VERIFY(Save(), ());
+  if (sizeBefore != candidates.size())
+    VERIFY(Save(), ());
 }
 
 boost::optional<NotificationCandidate> NotificationManager::GetNotification()
@@ -221,6 +224,7 @@ void NotificationManager::ProcessUgcRateCandidates(eye::MapObject const & poi)
     candidate.m_type = NotificationCandidate::Type::UgcReview;
     candidate.m_created = Clock::now();
     candidate.m_mapObject = std::make_shared<eye::MapObject>(poi);
+    candidate.m_mapObject->GetEditableEvents().clear();
     m_queue.m_candidates.emplace_back(std::move(candidate));
 
     VERIFY(Save(), ());

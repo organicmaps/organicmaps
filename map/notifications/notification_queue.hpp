@@ -15,8 +15,8 @@ struct NotificationCandidate
 {
   enum class Type : uint8_t
   {
-    UgcAuth,
-    UgcReview
+    UgcAuth = 0,
+    UgcReview = 1
   };
 
   DECLARE_VISITOR(visitor(m_type, "type"), visitor(m_created, "created_time"),

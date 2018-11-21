@@ -16,6 +16,7 @@ import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.auth.AuthorizationListener;
+import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gdpr.UserBindingListener;
@@ -510,4 +511,8 @@ public class Framework
 
   @Nullable
   public static native String nativeGetAccessToken();
+
+  @Nullable
+  public static native MapObject nativeGetMapObject(
+      @NonNull NotificationCandidate.MapObject mapObject);
 }

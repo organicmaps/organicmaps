@@ -38,6 +38,7 @@ import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
 import com.mapswithme.maps.auth.PassportAuthDialogFragment;
+import com.mapswithme.maps.background.NotificationCandidate;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
@@ -103,6 +104,9 @@ import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.tips.TipsApi;
+import com.mapswithme.maps.ugc.EditParams;
+import com.mapswithme.maps.ugc.UGC;
+import com.mapswithme.maps.ugc.UGCEditorActivity;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -340,13 +344,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @NonNull
-  public static Intent createAuthenticateIntent()
+  public static Intent createAuthenticateIntent(@NonNull Context context)
   {
-    return new Intent(MwmApplication.get(), MwmActivity.class)
+    return new Intent(context, MwmActivity.class)
         .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         .putExtra(MwmActivity.EXTRA_TASK,
                   new MwmActivity.ShowDialogTask(PassportAuthDialogFragment.class.getName()));
+  }
+
+  @NonNull
+  public static Intent createLeaveReviewIntent(@NonNull Context context,
+                                               @NonNull NotificationCandidate.MapObject mapObject)
+  {
+    return new Intent(context, MwmActivity.class)
+      .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+      .putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowUGCEditorTask(mapObject));
   }
 
   @Override
@@ -2657,6 +2671,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
     public boolean run(@NonNull MwmActivity target)
     {
       RoutingController.get().restoreRoute();
+      return true;
+    }
+  }
+
+  public static class ShowUGCEditorTask implements MapTask
+  {
+    @NonNull
+    private NotificationCandidate.MapObject mMapObject;
+
+    public ShowUGCEditorTask(@NonNull NotificationCandidate.MapObject mapObject)
+    {
+      mMapObject = mapObject;
+    }
+
+    @Override
+    public boolean run(@NonNull MwmActivity target)
+    {
+      MapObject mapObject = Framework.nativeGetMapObject(mMapObject);
+
+      if (mapObject == null)
+        return false;
+
+      EditParams.Builder builder = EditParams.Builder.fromMapObject(mapObject)
+                                                     .setDefaultRating(UGC.RATING_NONE)
+                                                     .setFromNotification(true);
+      UGCEditorActivity.start(target, builder.build());
       return true;
     }
   }

@@ -68,9 +68,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
       if (mMapObject == null)
         return;
 
-      EditParams.Builder builder = prepareEditParamsBuilder(mMapObject)
-          .setDefaultRating(UGC.RATING_NONE)
-          .setFromPP(true);
+      EditParams.Builder builder = EditParams.Builder.fromMapObject(mMapObject)
+                                                     .setDefaultRating(UGC.RATING_NONE)
+                                                     .setFromPP(true);
 
       UGCEditorActivity.start((Activity) mPlacePage.getContext(), builder.build());
     }
@@ -159,7 +159,8 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
   @Override
   public void onClick(View v)
   {
-    switch (v.getId()){
+    switch (v.getId())
+    {
       case R.id.ll__horrible:
         onAggRatingTapped(UGC.RATING_HORRIBLE);
         break;
@@ -252,21 +253,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     if (mMapObject == null)
       return;
 
-    EditParams.Builder builder = prepareEditParamsBuilder(mMapObject)
-        .setDefaultRating(rating)
-        .setFromPP(false);
+    EditParams.Builder builder = EditParams.Builder.fromMapObject(mMapObject)
+                                                   .setDefaultRating(rating);
     UGCEditorActivity.start((Activity) mPlacePage.getContext(), builder.build());
-  }
-
-  @NonNull
-  private static EditParams.Builder prepareEditParamsBuilder(@NonNull MapObject mapObject)
-  {
-    return new EditParams.Builder(mapObject.getTitle(), mapObject.getFeatureId())
-        .setRatings(mapObject.getDefaultRatings())
-        .setCanBeReviewed(mapObject.canBeReviewed())
-        .setLat(mapObject.getLat())
-        .setLon(mapObject.getLon())
-        .setAddress(mapObject.getAddress());
   }
 
   private void setUserReviewAndRatingsView(@Nullable UGCUpdate update)

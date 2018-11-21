@@ -26,13 +26,13 @@ public class UGC
   public @interface Impress
   {}
 
-  static final int RATING_NONE = 0;
-  static final int RATING_HORRIBLE = 1;
-  static final int RATING_BAD = 2;
-  static final int RATING_NORMAL = 3;
-  static final int RATING_GOOD = 4;
-  static final int RATING_EXCELLENT = 5;
-  static final int RATING_COMING_SOON = 6;
+  public static final int RATING_NONE = 0;
+  public static final int RATING_HORRIBLE = 1;
+  public static final int RATING_BAD = 2;
+  public static final int RATING_NORMAL = 3;
+  public static final int RATING_GOOD = 4;
+  public static final int RATING_EXCELLENT = 5;
+  public static final int RATING_COMING_SOON = 6;
 
   @NonNull
   private final Rating[] mRatings;

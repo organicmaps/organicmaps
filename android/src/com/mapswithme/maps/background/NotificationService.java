@@ -10,7 +10,6 @@ import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.JobIdMap;
-import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -44,24 +43,12 @@ public class NotificationService extends JobIntentService
 
   private boolean notifyIsNotAuthenticated()
   {
-    if (!PermissionsUtils.isExternalStorageGranted() ||
-        !NetworkPolicy.getCurrentNetworkUsageStatus() ||
-        LightFramework.nativeIsAuthenticated() ||
-        LightFramework.nativeGetNumberUnsentUGC() < MIN_COUNT_UNSENT_UGC)
+    if (LightFramework.nativeIsAuthenticated()
+        || LightFramework.nativeGetNumberUnsentUGC() < MIN_COUNT_UNSENT_UGC)
     {
-      LOGGER.d(TAG, "Authentication notification is rejected. External storage granted: " +
-                    PermissionsUtils.isExternalStorageGranted() + ". Is user authenticated: " +
-                    LightFramework.nativeIsAuthenticated() + ". Current network usage status: " +
-                    NetworkPolicy.getCurrentNetworkUsageStatus() + ". Number of unsent UGC: " +
+      LOGGER.d(TAG, "Authentication notification is rejected. Is user authenticated: " +
+                    LightFramework.nativeIsAuthenticated() + ". Number of unsent UGC: " +
                     LightFramework.nativeGetNumberUnsentUGC());
-      return false;
-    }
-
-    // Do not show push when user is in the navigation mode.
-    if (MwmApplication.get().arePlatformAndCoreInitialized() &&
-        RoutingController.get().isNavigating())
-    {
-      LOGGER.d(TAG, "Authentication notification is rejected. The user is in navigation mode.");
       return false;
     }
 
@@ -85,20 +72,58 @@ public class NotificationService extends JobIntentService
     return false;
   }
 
+  private boolean notifySmart()
+  {
+    if (!PermissionsUtils.isExternalStorageGranted()
+        || MwmApplication.backgroundTracker(getApplication()).isForeground())
+    {
+      return false;
+    }
+
+    NotificationCandidate candidate = LightFramework.nativeGetNotification();
+
+    if (candidate == null || candidate.getMapObject() == null)
+      return false;
+
+    if (candidate.getType() == NotificationCandidate.TYPE_UGC_REVIEW)
+    {
+      Notifier notifier = Notifier.from(getApplication());
+      notifier.notifyLeaveReview(candidate.getMapObject());
+      return true;
+    }
+
+    return false;
+  }
+
   @Override
   protected void onHandleWork(@NonNull Intent intent)
   {
     final String action = intent.getAction();
 
     if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
-      onConnectivityChanged();
+      TryToShowNotification();
   }
 
-  private void onConnectivityChanged()
+  private void TryToShowNotification()
   {
+    if (!PermissionsUtils.isExternalStorageGranted())
+    {
+      LOGGER.d(TAG, "Notification is rejected. External storage is not granted.");
+      return;
+    }
+
+    // Do not show push when user is in the navigation mode.
+    if (MwmApplication.get().arePlatformAndCoreInitialized()
+        && RoutingController.get().isNavigating())
+    {
+      LOGGER.d(TAG, "Notification is rejected. The user is in navigation mode.");
+      return;
+    }
+
     final NotificationExecutor notifyOrder[] =
     {
-        this::notifyIsNotAuthenticated
+      this::notifyIsNotAuthenticated,
+      this::notifySmart
     };
 
     // Only one notification should be shown at a time.

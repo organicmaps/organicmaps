@@ -90,9 +90,20 @@ public class MwmApplication extends Application
     return sSelf;
   }
 
+  /**
+   *
+   * Use {@link #backgroundTracker(Context)} instead.
+   */
+  @Deprecated
   public static AppBackgroundTracker backgroundTracker()
   {
     return sSelf.mBackgroundTracker;
+  }
+
+  @NonNull
+  public static AppBackgroundTracker backgroundTracker(@NonNull Context context)
+  {
+    return ((MwmApplication) context.getApplicationContext()).getBackgroundTracker();
   }
 
   /**
@@ -253,6 +264,12 @@ public class MwmApplication extends Application
   public boolean arePlatformAndCoreInitialized()
   {
     return mFrameworkInitialized && mPlatformInitialized;
+  }
+
+  @NonNull
+  public AppBackgroundTracker getBackgroundTracker()
+  {
+    return mBackgroundTracker;
   }
 
   static

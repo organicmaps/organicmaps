@@ -3841,3 +3841,25 @@ double Framework::GetLastBackgroundTime() const
 {
   return m_startBackgroundTime;
 }
+
+bool Framework::MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info)
+{
+  m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(mapObject.GetPos(), kMwmPointAccuracy);
+  bool found = false;
+
+  m_model.GetDataSource().ForEachInRect([this, &info, &mapObject, &found](FeatureType & ft)
+  {
+   if (found || !feature::GetCenter(ft).EqualDxDy(mapObject.GetPos(), kMwmPointAccuracy))
+     return;
+
+   auto const foundMapObject = utils::MakeEyeMapObject(ft);
+   if (!foundMapObject.IsEmpty() && mapObject.AlmostEquals(foundMapObject))
+   {
+     FillInfoFromFeatureType(ft, info);
+     found = true;
+   }
+  },
+  rect, scales::GetUpperScale());
+
+  return found;
+}

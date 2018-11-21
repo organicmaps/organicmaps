@@ -347,6 +347,8 @@ public enum Statistics
     public static final String TTS_FAILURE_LOCATION = "TTS failure location";
     public static final String UGC_NOT_AUTH_NOTIFICATION_SHOWN = "UGC_UnsentNotification_shown";
     public static final String UGC_NOT_AUTH_NOTIFICATION_CLICKED = "UGC_UnsentNotification_clicked";
+    public static final String UGC_REVIEW_NOTIFICATION_SHOWN = "UGC_ReviewNotification_shown";
+    public static final String UGC_REVIEW_NOTIFICATION_CLICKED = "UGC_ReviewNotification_clicked";
 
     // routing
     public static final String ROUTING_BUILD = "Routing. Build";
@@ -537,6 +539,7 @@ public enum Statistics
     static final String AFTER_SAVE = "after_save";
     static final String PLACEPAGE_PREVIEW = "placepage_preview";
     static final String PLACEPAGE = "placepage";
+    static final String NOTIFICATION = "notification";
     public static final String FACEBOOK = "facebook";
     public static final String CHECKIN = "check_in";
     public static final String CHECKOUT = "check_out";
@@ -1208,14 +1211,15 @@ public enum Statistics
     }
   }
 
-  public void trackUGCStart(boolean isEdit, boolean isPPPreview)
+  public void trackUGCStart(boolean isEdit, boolean isPPPreview, boolean isFromNotification)
   {
     trackEvent(UGC_REVIEW_START,
                params()
                    .add(EventParam.IS_AUTHENTICATED, Framework.nativeIsUserAuthenticated())
                    .add(EventParam.IS_ONLINE, ConnectionState.isConnected())
                    .add(EventParam.MODE, isEdit ? ParamValue.EDIT : ParamValue.ADD)
-                   .add(EventParam.FROM, isPPPreview ? ParamValue.PLACEPAGE_PREVIEW : ParamValue.PLACEPAGE)
+                   .add(EventParam.FROM, isPPPreview ? ParamValue.PLACEPAGE_PREVIEW :
+                                         isFromNotification ? ParamValue.NOTIFICATION : ParamValue.PLACEPAGE)
                    .get());
   }
 

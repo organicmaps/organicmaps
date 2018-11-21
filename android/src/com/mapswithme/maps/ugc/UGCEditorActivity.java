@@ -16,7 +16,7 @@ public class UGCEditorActivity extends BaseMwmFragmentActivity
 {
   public static void start(@NonNull Activity activity, @NonNull EditParams params)
   {
-    Statistics.INSTANCE.trackUGCStart(false /* isEdit */, params.isFromPP());
+    Statistics.INSTANCE.trackUGCStart(false, params.isFromPP(), params.isFromNotification());
     UserActionsLogger.logUgcEditorOpened();
     final Intent i = new Intent(activity, UGCEditorActivity.class);
     Bundle args = new Bundle();
