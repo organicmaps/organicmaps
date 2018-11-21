@@ -174,6 +174,9 @@
                                                 <constraint firstItem="wLX-hM-JLH" firstAttribute="leading" secondItem="c7L-Ts-xbm" secondAttribute="trailing" constant="16" id="xN9-GL-sN7"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="FPL-Dh-v8t" kind="presentation" identifier="editOnWeb" id="k7O-p8-5zO"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -591,11 +594,139 @@
             </objects>
             <point key="canvasLocation" x="640.79999999999995" y="-27.436281859070466"/>
         </scene>
+        <!--Edit On Web View Controller-->
+        <scene sceneID="tg9-wj-Lda">
+            <objects>
+                <viewController id="FPL-Dh-v8t" customClass="EditOnWebViewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XST-Aa-nm6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNH-ha-MaJ">
+                                <rect key="frame" x="20" y="93" width="335" height="501"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_guide_editonweb" translatesAutoresizingMaskIntoConstraints="NO" id="Q8X-cu-CGX">
+                                        <rect key="frame" x="47.5" y="0.0" width="240" height="240"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="240" id="8xg-II-AOR"/>
+                                            <constraint firstAttribute="width" constant="240" id="uat-gf-fZS"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your guide on the web" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqq-0d-RGh">
+                                        <rect key="frame" x="38" y="264" width="259" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <color key="textColor" white="0.0" alpha="0.87" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold22"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_guide_title"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZZ-eC-b5K">
+                                        <rect key="frame" x="0.0" y="306.5" width="335" height="64.5"/>
+                                        <string key="text">Get a link to edit your guide via web app: add descriptions for POI,
+upload photos and more</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular18"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_guide_subtitle"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-El-ftz" customClass="MWMButton">
+                                        <rect key="frame" x="16" y="395" width="303" height="48"/>
+                                        <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="b2Z-cP-PLt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <state key="normal" title="SEND ME A LINK">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="white"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="sendMeLinkButtonPressed:" destination="FPL-Dh-v8t" eventType="touchUpInside" id="azx-ep-f7p"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gt-S9-kRm" userLabel="Cancel">
+                                        <rect key="frame" x="139.5" y="453" width="56" height="48"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="gOT-uV-6tC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <state key="normal" title="CANCEL">
+                                            <color key="titleColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="FPL-Dh-v8t" eventType="touchUpInside" id="Dcz-Ke-Dqs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="oZZ-eC-b5K" firstAttribute="top" secondItem="pqq-0d-RGh" secondAttribute="bottom" constant="16" id="1by-bh-ar5"/>
+                                    <constraint firstAttribute="trailing" secondItem="PKE-El-ftz" secondAttribute="trailing" constant="16" id="2VL-dr-I0z"/>
+                                    <constraint firstItem="pqq-0d-RGh" firstAttribute="top" secondItem="Q8X-cu-CGX" secondAttribute="bottom" constant="24" id="87c-hQ-U0f"/>
+                                    <constraint firstItem="oZZ-eC-b5K" firstAttribute="leading" secondItem="YNH-ha-MaJ" secondAttribute="leading" id="B8g-jn-MbD"/>
+                                    <constraint firstItem="Q8X-cu-CGX" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="F0x-Xp-NE5"/>
+                                    <constraint firstAttribute="trailing" secondItem="oZZ-eC-b5K" secondAttribute="trailing" id="HPf-HB-MJa"/>
+                                    <constraint firstItem="Q8X-cu-CGX" firstAttribute="top" secondItem="YNH-ha-MaJ" secondAttribute="top" id="Stm-5W-v5r"/>
+                                    <constraint firstItem="pqq-0d-RGh" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="fcN-r1-eLk"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqq-0d-RGh" secondAttribute="trailing" id="jDf-Qj-cIP"/>
+                                    <constraint firstItem="2gt-S9-kRm" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="kg1-tq-q1x"/>
+                                    <constraint firstItem="PKE-El-ftz" firstAttribute="leading" secondItem="YNH-ha-MaJ" secondAttribute="leading" constant="16" id="kjl-NW-nHQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="2gt-S9-kRm" secondAttribute="bottom" id="qWz-Mv-m71"/>
+                                    <constraint firstItem="2gt-S9-kRm" firstAttribute="top" secondItem="PKE-El-ftz" secondAttribute="bottom" constant="10" id="szW-4p-PVS"/>
+                                    <constraint firstItem="PKE-El-ftz" firstAttribute="top" secondItem="oZZ-eC-b5K" secondAttribute="bottom" constant="24" id="uoB-lC-Vz9"/>
+                                    <constraint firstItem="pqq-0d-RGh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YNH-ha-MaJ" secondAttribute="leading" id="xrg-DA-3Bv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="leading" secondItem="S4c-kp-N1N" secondAttribute="leading" constant="20" id="INQ-4k-Yci"/>
+                            <constraint firstItem="S4c-kp-N1N" firstAttribute="trailing" secondItem="YNH-ha-MaJ" secondAttribute="trailing" constant="20" id="S8x-e5-GAC"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="centerY" secondItem="S4c-kp-N1N" secondAttribute="centerY" id="mPF-n6-C2H"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="S4c-kp-N1N"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="2gt-S9-kRm" id="0ga-Zq-IUh"/>
+                        <outlet property="sendMeLinkButton" destination="PKE-El-ftz" id="5Od-ey-qJ2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QOd-Rm-O5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="640.79999999999995" y="703.89805097451278"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic24PxEdit" width="24" height="24"/>
         <image name="ic24PxGlobe" width="24" height="24"/>
         <image name="ic24PxLink" width="24" height="24"/>
         <image name="ic24PxShare" width="24" height="24"/>
+        <image name="img_guide_editonweb" width="240" height="240"/>
     </resources>
 </document>

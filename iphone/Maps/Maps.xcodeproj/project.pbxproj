@@ -20,6 +20,7 @@
 		33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BCDF8A218C976D00EF5B74 /* TagsCollectionViewLayout.swift */; };
 		33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C558E2217F6CF100299E70 /* UploadActionCell.swift */; };
 		33E905462180C40900868CAC /* UIViewController+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E905452180C40900868CAC /* UIViewController+Authorization.swift */; };
+		33F7668F21A57CDF00A88B16 /* EditOnWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F7668E21A57CDF00A88B16 /* EditOnWebViewController.swift */; };
 		33F8BA4121998BEB00ECA8EE /* MWMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA4021998BEB00ECA8EE /* MWMTag.m */; };
 		33F8BA4421998BFA00ECA8EE /* MWMTagGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA4321998BFA00ECA8EE /* MWMTagGroup.m */; };
 		33F8BA472199A91900ECA8EE /* MWMTag+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33F8BA462199A91900ECA8EE /* MWMTag+Convenience.mm */; };
@@ -807,6 +808,7 @@
 		33BCDF8A218C976D00EF5B74 /* TagsCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewLayout.swift; sourceTree = "<group>"; };
 		33C558E2217F6CF100299E70 /* UploadActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadActionCell.swift; sourceTree = "<group>"; };
 		33E905452180C40900868CAC /* UIViewController+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Authorization.swift"; sourceTree = "<group>"; };
+		33F7668E21A57CDF00A88B16 /* EditOnWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOnWebViewController.swift; sourceTree = "<group>"; };
 		33F8BA3F21998BEB00ECA8EE /* MWMTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTag.h; sourceTree = "<group>"; };
 		33F8BA4021998BEB00ECA8EE /* MWMTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMTag.m; sourceTree = "<group>"; };
 		33F8BA4221998BFA00ECA8EE /* MWMTagGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMTagGroup.h; sourceTree = "<group>"; };
@@ -2200,6 +2202,7 @@
 				33BCD61521777A7400CA30B4 /* BookmarksSharingFlow.storyboard */,
 				33C558E2217F6CF100299E70 /* UploadActionCell.swift */,
 				33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */,
+				33F7668E21A57CDF00A88B16 /* EditOnWebViewController.swift */,
 				33F8BA3B2199858B00ECA8EE /* Tags */,
 			);
 			path = Sharing;
@@ -4970,6 +4973,7 @@
 				F6E2FF271E097BA00083EBEC /* MWMSearchTabButtonsView.mm in Sources */,
 				34BBD6581F826F810070CA50 /* AuthorizationTransitioningManager.swift in Sources */,
 				F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */,
+				33F7668F21A57CDF00A88B16 /* EditOnWebViewController.swift in Sources */,
 				34AB664A1FC5AA330078E451 /* RouteManageriPadPresentationController.swift in Sources */,
 				B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */,
 				349D1ACF1E2E325B004A2006 /* MWMBottomMenuCollectionViewCell.mm in Sources */,

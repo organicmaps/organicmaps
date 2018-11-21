@@ -258,6 +258,11 @@ final class BookmarksSharingViewController: MWMTableViewController {
       if let vc = segue.destination as? SharingPropertiesViewController {
         vc.delegate = self
       }
+    } else if segue.identifier == kEditOnWebSegueIdentifier {
+      if let vc = segue.destination as? EditOnWebViewController {
+        vc.delegate = self
+        vc.guideUrl = categoryUrl
+      }
     }
   }
 }
@@ -308,5 +313,11 @@ extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegat
     viewControllers.removeLast()
     viewControllers.append(tagsController)
     navigationController?.setViewControllers(viewControllers, animated: true)
+  }
+}
+
+extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
+  func editOnWebViewControllerDidFinish(_ viewController: EditOnWebViewController) {
+    dismiss(animated: true, completion: nil)
   }
 }

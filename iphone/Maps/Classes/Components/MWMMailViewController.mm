@@ -12,7 +12,7 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   setStatusBarBackgroundColor(UIColor.clearColor);
-  return [UIColor isNightMode] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+  return UIStatusBarStyleLightContent;
 }
 
 - (UIViewController *)childViewControllerForStatusBarStyle { return nil; }
