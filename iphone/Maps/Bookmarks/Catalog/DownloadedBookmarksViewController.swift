@@ -27,7 +27,7 @@ class DownloadedBookmarksViewController: MWMViewController {
     super.viewDidLoad()
     tableView.backgroundColor = UIColor.pressBackground()
     tableView.separatorColor = UIColor.blackDividers()
-    tableView.tableFooterView = bottomView
+    tableView.tableHeaderView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
     if #available(iOS 11, *) { return } // workaround for https://jira.mail.ru/browse/MAPSME-8101

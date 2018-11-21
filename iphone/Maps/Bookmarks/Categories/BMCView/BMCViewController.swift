@@ -51,20 +51,14 @@ final class BMCViewController: MWMViewController {
     viewModel.removeFromObserverList()
   }
 
-  private func updateCategoryName(category: BMCCategory?) {
-    let isNewCategory = (category == nil)
+  private func createNewCategory() {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
                                                        minCharacterNum: viewModel.minCategoryNameLength,
-                                                       isNewCategory: isNewCategory)
+                                                       isNewCategory: true)
     { [weak viewModel] (name: String!) -> Bool in
       guard let model = viewModel else { return false }
       if model.checkCategory(name: name) {
-        if isNewCategory {
-          model.addCategory(name: name)
-        } else {
-          model.renameCategory(category: category!, name: name)
-        }
-
+        model.addCategory(name: name)
         return true
       }
 
@@ -72,9 +66,27 @@ final class BMCViewController: MWMViewController {
     }
   }
 
+  private func shareCategoryFile(category: BMCCategory, anchor: UIView) {
+    viewModel.shareCategory(category: category) {
+      switch $0 {
+      case let .success(url):
+        let shareController = MWMActivityViewController.share(for: url,
+                                                              message: L("share_bookmarks_email_body"))
+        { [weak self] _, _, _, _ in
+          self?.viewModel?.finishShareCategory()
+        }
+        shareController?.present(inParentViewController: self, anchorView: anchor)
+      case let .error(title, text):
+        MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
+      }
+    }
+  }
+
+
   private func shareCategory(category: BMCCategory, anchor: UIView) {
     let storyboard = UIStoryboard.instance(.sharing)
     let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
+    shareController.delegate = self
     shareController.categoryId = category.identifier
     
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
@@ -106,23 +118,23 @@ final class BMCViewController: MWMViewController {
       ppc.sourceRect = anchor.bounds
     }
 
-    let rename = L("rename").capitalized
-    actionSheet.addAction(UIAlertAction(title: rename, style: .default, handler: { _ in
-      self.updateCategoryName(category: category)
-    }))
-    let settings = L("settings").capitalized
+    let settings = L("list_settings").capitalized
     actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
       self.openCategorySettings(category: category)
     }))
-    let showHide = L(category.isVisible ? "hide" : "show").capitalized
+    let showHide = L(category.isVisible ? "hide_from_map" : "show_on_map").capitalized
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
       self.visibilityAction(category: category)
     }))
-    let share = L("share").capitalized
+    let exportFile = L("export_file").capitalized
+    actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
+      self.shareCategoryFile(category: category, anchor: anchor)
+    }))
+    let share = L("sharing_options").capitalized
     actionSheet.addAction(UIAlertAction(title: share, style: .default, handler: { _ in
       self.shareCategory(category: category, anchor: anchor)
     }))
-    let delete = L("delete").capitalized
+    let delete = L("delete_list").capitalized
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(category: category)
     })
@@ -254,7 +266,7 @@ extension BMCViewController: UITableViewDelegate {
       openCategory(category: category)
     case let action as BMCAction:
       switch action {
-      case .create: updateCategoryName(category: nil)
+      case .create: createNewCategory()
       }
     default:
       assertionFailure()
@@ -325,6 +337,12 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didDelete categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
+    viewModel?.reloadData()
+  }
+}
+
+extension BMCViewController: BookmarksSharingViewControllerDelegate {
+  func didShareCategory() {
     viewModel?.reloadData()
   }
 }

@@ -38,11 +38,22 @@ class BMCCategory: BMCModel, Equatable {
     }
   }
 
-  init(identifier: MWMMarkGroupID = 0, title: String = L("core_my_places"), count: UInt64 = 0, isVisible: Bool = true) {
+  var accessStatus: MWMCategoryAccessStatus {
+    didSet {
+      notifyObservers()
+    }
+  }
+
+  init(identifier: MWMMarkGroupID = 0,
+       title: String = L("core_my_places"),
+       count: UInt64 = 0,
+       isVisible: Bool = true,
+       accessStatus: MWMCategoryAccessStatus = .local) {
     self.identifier = identifier
     self.title = title
     self.count = count
     self.isVisible = isVisible
+    self.accessStatus = accessStatus
   }
 
   private let observers = NSHashTable<BMCCategoryObserver>.weakObjects()

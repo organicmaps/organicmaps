@@ -52,7 +52,12 @@ final class BMCDefaultViewModel: NSObject {
       let title = manager.getCategoryName(categoryId)
       let count = manager.getCategoryMarksCount(categoryId) + manager.getCategoryTracksCount(categoryId)
       let isVisible = manager.isCategoryVisible(categoryId)
-      return BMCCategory(identifier: categoryId, title: title, count: count, isVisible: isVisible)
+      let accessStatus = manager.getCategoryAccessStatus(categoryId)
+      return BMCCategory(identifier: categoryId,
+                         title: title,
+                         count: count,
+                         isVisible: isVisible,
+                         accessStatus: accessStatus)
     }
   }
 
