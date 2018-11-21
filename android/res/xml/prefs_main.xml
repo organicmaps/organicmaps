@@ -152,6 +152,13 @@
         android:summary="@string/prefs_languages_information_off_link"
         android:order="4"/>
     </android.support.v7.preference.PreferenceScreen>
+    <ListPreference
+      android:key="@string/pref_speed_cameras"
+      android:title="@string/pref_speed_cameras_title"
+      android:entries="@array/speed_cameras"
+      android:entryValues="@array/speed_cameras_values"
+      android:defaultValue="@string/auto_enum_value"
+      android:order="5"/>
   </android.support.v7.preference.PreferenceCategory>
   <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_information"

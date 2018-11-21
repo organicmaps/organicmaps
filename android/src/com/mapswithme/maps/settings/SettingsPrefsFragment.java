@@ -322,6 +322,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initMeasureUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
     initMapStylePrefsCallbacks();
+    initSpeedCamerasPrefs();
     initAutoDownloadPrefsCallbacks();
     initBackupBookmarksPrefsCallbacks();
     initLargeFontSizePrefsCallbacks();
@@ -338,6 +339,37 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initUseMobileDataPrefsCallbacks();
     initOptOut();
     updateTts();
+  }
+
+  private void initSpeedCamerasPrefs()
+  {
+    String key = getString(R.string.pref_speed_cameras);
+    final ListPreference pref = (ListPreference) findPreference(key);
+    if (pref == null)
+      return;
+    pref.setSummary(pref.getEntry());
+    pref.setOnPreferenceChangeListener(this::onSpeedCamerasPrefSelected);
+  }
+
+  private boolean onSpeedCamerasPrefSelected(Preference preference, Object newValue)
+  {
+    String speedCamModeValue = (String) newValue;
+    ListPreference speedCamModeList = (ListPreference) preference;
+    SpeedCameraMode newCamMode = SpeedCameraMode.valueOf(speedCamModeValue);
+    CharSequence summary = speedCamModeList.getEntries()[newCamMode.ordinal()];
+    speedCamModeList.setSummary(summary);
+    if (speedCamModeList.getValue().equals(newValue))
+      return true;
+
+    SpeedCameraMode oldCamMode = SpeedCameraMode.valueOf(speedCamModeList.getValue());
+    onSpeedCamerasPrefChanged(oldCamMode, newCamMode);
+    return true;
+  }
+
+  private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode oldCamMode,
+                                         @NonNull SpeedCameraMode newCamMode)
+  {
+
   }
 
   @Override
@@ -779,31 +811,24 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     String curTheme = Config.getUiThemeSettings();
     pref.setValue(curTheme);
     pref.setSummary(pref.getEntry());
-    pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        String themeName = (String)newValue;
-        if (!Config.setUiThemeSettings(themeName))
-          return true;
+    pref.setOnPreferenceChangeListener(this::onMapStylePrefChanged);
+  }
 
-        ThemeSwitcher.restart(false);
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
-                                       Statistics.params().add(Statistics.EventParam.NAME, themeName));
+  private boolean onMapStylePrefChanged(@NonNull Preference pref, @NonNull Object newValue)
+  {
+    String themeName = (String) newValue;
+    if (!Config.setUiThemeSettings(themeName))
+      return true;
 
-        UiThread.runLater(new Runnable()
-        {
-          @Override
-          public void run()
-          {
-            pref.setSummary(pref.getEntry());
-          }
-        });
+    ThemeSwitcher.restart(false);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.MAP_STYLE,
+                                   Statistics.params().add(Statistics.EventParam.NAME, themeName));
+    ListPreference mapStyleModeList = (ListPreference) pref;
 
-        return true;
-      }
-    });
+    ThemeMode mode = ThemeMode.getInstance(getContext().getApplicationContext(), themeName);
+    CharSequence summary = mapStyleModeList.getEntries()[mode.ordinal()];
+    mapStyleModeList.setSummary(summary);
+    return true;
   }
 
   private void initZoomPrefsCallbacks()
@@ -925,5 +950,37 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   public PurchaseController<PurchaseCallback> getAdsRemovalPurchaseController()
   {
     return mAdsRemovalPurchaseController;
+  }
+
+  enum ThemeMode
+  {
+    DEFAULT(R.string.theme_default),
+    NIGHT(R.string.theme_night),
+    AUTO(R.string.theme_auto);
+
+    private final int mModeStringId;
+
+    ThemeMode(int modeStringId)
+    {
+      mModeStringId = modeStringId;
+    }
+
+    @NonNull
+    public static ThemeMode getInstance(@NonNull Context context, @NonNull String src)
+    {
+      for (ThemeMode each : values())
+      {
+        if (context.getResources().getString(each.mModeStringId).equals(src))
+          return each;
+      }
+      return AUTO;
+    }
+  }
+
+  enum SpeedCameraMode
+  {
+    AUTO,
+    ALWAYS,
+    NEVER
   }
 }
