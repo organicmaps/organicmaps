@@ -2507,9 +2507,6 @@
 
 "hide_from_map" = "Hide from map";
 
-/* FIXME */
-"show_on_map" = "show_on_map";
-
 "ugc_route_tags_screen_label" = "Select tags";
 
 "ugc_route_tags_progress_msg" = "Loading tags…";

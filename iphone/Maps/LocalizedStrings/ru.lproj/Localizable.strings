@@ -2507,9 +2507,6 @@
 
 "hide_from_map" = "Скрыть с карты";
 
-/* FIXME */
-"show_on_map" = "show_on_map";
-
 "ugc_route_tags_screen_label" = "Выберите теги";
 
 "ugc_route_tags_progress_msg" = "Загружаем теги…";

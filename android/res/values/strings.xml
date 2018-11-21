@@ -1458,8 +1458,6 @@
 	<!-- FIXME -->
 	<string name="delete_list">delete_list</string>
 	<string name="hide_from_map">Hide from map</string>
-	<!-- FIXME -->
-	<string name="show_on_map">show_on_map</string>
 	<string name="ugc_route_tags_screen_label">Select tags</string>
 	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
 	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory.</string>

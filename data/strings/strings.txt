@@ -34712,10 +34712,6 @@
     en = Hide from map
     ru = Скрыть с карты
 
-  [show_on_map]
-    comment = FIXME
-    en = show_on_map
-
   [ugc_route_tags_screen_label]
     en = Select tags
     ru = Выберите теги

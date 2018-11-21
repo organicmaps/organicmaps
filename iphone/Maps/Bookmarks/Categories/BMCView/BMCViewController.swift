@@ -122,7 +122,7 @@ final class BMCViewController: MWMViewController {
     actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
       self.openCategorySettings(category: category)
     }))
-    let showHide = L(category.isVisible ? "hide_from_map" : "show_on_map").capitalized
+    let showHide = L(category.isVisible ? "hide_from_map" : "zoom_to_country").capitalized
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
       self.visibilityAction(category: category)
     }))
