@@ -360,10 +360,10 @@ StraightTextLayout::StraightTextLayout(strings::UniString const & text, float fo
   CalculateOffsets(anchor, m_textSizeRatio, m_metrics, delimIndexes, m_offsets, m_pixelSize, m_rowsCount);
 }
 
-void StraightTextLayout::AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
-                                          glsl::vec2 & offset) const
+m2::PointF StraightTextLayout::GetSymbolBasedTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor,
+                                                        dp::Anchor symbolAnchor)
 {
-  offset = m_baseOffset;
+  m2::PointF offset(0.0f, 0.0f);
 
   float const halfSymbolW = symbolSize.x / 2.0f;
   float const halfSymbolH = symbolSize.y / 2.0f;
@@ -383,6 +383,15 @@ void StraightTextLayout::AdjustTextOffset(m2::PointF const & symbolSize, dp::Anc
 
   adjustOffset(textAnchor);
   adjustOffset(symbolAnchor);
+
+  return offset;
+}
+
+glsl::vec2 StraightTextLayout::GetTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor,
+                                             dp::Anchor symbolAnchor) const
+{
+  auto const symbolBasedOffset = GetSymbolBasedTextOffset(symbolSize, textAnchor, symbolAnchor);
+  return m_baseOffset + glsl::ToVec2(symbolBasedOffset);
 }
 
 void StraightTextLayout::CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,

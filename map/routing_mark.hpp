@@ -115,7 +115,7 @@ public:
   void SetAnchor(dp::Anchor anchor);
   dp::Anchor GetAnchor() const override;
 
-  void SetFeatureId(FeatureID featureId);
+  void SetFeatureId(FeatureID const & featureId);
   FeatureID GetFeatureID() const override { return m_featureId; }
 
   void SetIndex(uint32_t index);
@@ -167,9 +167,6 @@ public:
   explicit SpeedCameraMark(m2::PointD const & ptOrg);
   void SetTitle(std::string const & title);
 
-  void SetFeatureId(FeatureID featureId);
-  FeatureID GetFeatureID() const override { return m_featureId; }
-
   void SetIndex(uint32_t index);
   uint32_t GetIndex() const override { return m_index; }
 
@@ -188,7 +185,6 @@ public:
 
 private:
   uint32_t m_index = 0;
-  FeatureID m_featureId;
   SymbolNameZoomInfo m_symbolNames;
   ColoredSymbolZoomInfo m_textBg;
   std::string m_title;

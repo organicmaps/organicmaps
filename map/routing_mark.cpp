@@ -17,18 +17,22 @@ static std::string const kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTex
 static std::string const kTransitMarkSecondaryText = "TransitMarkSecondaryText";
 static std::string const kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
-float const kRouteMarkPrimaryTextSize = 11.0f;
+float const kRouteMarkPrimaryTextSize = 10.5f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
 float const kRouteMarkSecondaryOffsetY = 2.0f;
 float const kTransitMarkTextSize = 12.0f;
 
-// TODO(darina): Add to style colors for speed camera marks.
-static std::string const kSpeedCameraMarkText = "TransitMarkPrimaryTextOutline";
-float constexpr kSpeedCameraMarkTextSize = 10.0f;
-float constexpr kSpeedCameraBorderWidth = 2.0f;
-int constexpr kSpeedCameraZoomS = 11;
-int constexpr kSpeedCameraZoomM = 16;
-int constexpr kMinSpeedCameraTitleZoom = 15;
+static std::string const kSpeedCameraMarkText = "SpeedCameraMarkText";
+static std::string const kSpeedCameraMarkBg = "SpeedCameraMarkBg";
+static std::string const kSpeedCameraMarkOutline = "SpeedCameraMarkOutline";
+
+float constexpr kSpeedCameraMarkTextSize = 11.0f;
+float constexpr kSpeedCameraMarkTextMargin = 1.5f;
+float constexpr kSpeedCameraRadius = 3.5f;
+float constexpr kSpeedCameraOutlineWidth = 2.0f;
+
+int constexpr kMinSpeedCameraZoom = 13;
+int constexpr kMinSpeedCameraTitleZoom = 13;
 }  // namespace
 
 RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg)
@@ -410,7 +414,7 @@ TransitMark::TransitMark(m2::PointD const & ptOrg)
     : UserMark(ptOrg, Type::TRANSIT)
 {}
 
-void TransitMark::SetFeatureId(FeatureID featureId)
+void TransitMark::SetFeatureId(FeatureID const & featureId)
 {
   SetDirty();
   m_featureId = featureId;
@@ -531,18 +535,20 @@ SpeedCameraMark::SpeedCameraMark(m2::PointD const & ptOrg)
 
   m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kSpeedCameraMarkText);
   m_titleDecl.m_primaryTextFont.m_size = kSpeedCameraMarkTextSize;
-  m_titleDecl.m_anchor = dp::Right;
-  m_titleDecl.m_primaryOffset.x = -kSpeedCameraBorderWidth;
+  m_titleDecl.m_primaryOffset.x = kSpeedCameraOutlineWidth + kSpeedCameraMarkTextMargin;
+  m_titleDecl.m_anchor = dp::Left;
 
-  m_symbolNames.insert(std::make_pair(kSpeedCameraZoomS, "speedcam-s"));
-  m_symbolNames.insert(std::make_pair(kSpeedCameraZoomM, "speedcam-m"));
+  m_symbolNames.insert(std::make_pair(kMinSpeedCameraZoom, "speedcam-alert-l"));
 
   df::ColoredSymbolViewParams params;
-  params.m_color = dp::Color::Red();
-  params.m_anchor = dp::Right;
+  params.m_color = df::GetColorConstant(kSpeedCameraMarkBg);
+  params.m_anchor = dp::Left;
   params.m_shape = df::ColoredSymbolViewParams::Shape::RoundedRectangle;
-  params.m_radiusInPixels = kSpeedCameraBorderWidth * vs;
-  params.m_sizeInPixels = m2::PointF(2.0f * kSpeedCameraBorderWidth, 2.0f * kSpeedCameraBorderWidth) * vs;
+  params.m_radiusInPixels = kSpeedCameraRadius * vs;
+  auto const minSize = 2.0f * (kSpeedCameraOutlineWidth + kSpeedCameraMarkTextMargin);
+  params.m_sizeInPixels = m2::PointF(minSize, minSize) * vs;
+  params.m_outlineColor = df::GetColorConstant(kSpeedCameraMarkOutline);
+  params.m_outlineWidth = kSpeedCameraOutlineWidth;
   m_textBg.m_zoomInfo[kMinSpeedCameraTitleZoom] = params;
   m_textBg.m_addTextSize = true;
 }
@@ -551,12 +557,6 @@ void SpeedCameraMark::SetTitle(std::string const & title)
 {
   SetDirty();
   m_titleDecl.m_primaryText = title;
-}
-
-void SpeedCameraMark::SetFeatureId(FeatureID featureId)
-{
-  SetDirty();
-  m_featureId = featureId;
 }
 
 void SpeedCameraMark::SetIndex(uint32_t index)
@@ -586,7 +586,7 @@ drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> SpeedCameraMark::GetColoredS
 
 int SpeedCameraMark::GetMinZoom() const
 {
-  return kSpeedCameraZoomS;
+  return kMinSpeedCameraZoom;
 }
 
 int SpeedCameraMark::GetMinTitleZoom() const
@@ -596,5 +596,5 @@ int SpeedCameraMark::GetMinTitleZoom() const
 
 dp::Anchor SpeedCameraMark::GetAnchor() const
 {
-  return dp::Left;
+  return dp::Center;
 }

@@ -114,10 +114,12 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
                                  m2::PointD const & tileCenter, ref_ptr<dp::TextureManager> textures,
                                  m2::PointF & symbolSize, dp::Batcher & batcher)
 {
-  auto const needOverlay = renderInfo.m_coloredSymbols->m_needOverlay;
-  m2::PointF sizeInc(0.0, 0.0);
+  m2::PointF sizeInc(0.0f, 0.0f);
+  m2::PointF offset(0.0f, 0.0f);
   UserPointMark::SymbolSizes symbolSizesInc;
+
   auto const isTextBg = renderInfo.m_coloredSymbols->m_addTextSize;
+
   if (isTextBg)
   {
     auto const & titleDecl = renderInfo.m_titleDecl->at(0);
@@ -137,6 +139,8 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
       for (auto const & sz : *renderInfo.m_symbolSizes)
         symbolSizesInc.push_back(sz + sizeInc);
     }
+
+    offset = StraightTextLayout::GetSymbolBasedTextOffset(symbolSize, titleDecl.m_anchor, renderInfo.m_anchor);
   }
 
   for (auto itSym = renderInfo.m_coloredSymbols->m_zoomInfo.rbegin();
@@ -146,18 +150,19 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
     {
       ColoredSymbolViewParams params = itSym->second;
 
+      m2::PointF coloredSize(0.0f, 0.0f);
       if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
       {
         params.m_radiusInPixels = params.m_radiusInPixels + std::max(sizeInc.x, sizeInc.y) / 2.0f;
-        if (!isTextBg)
-          symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+        coloredSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
       }
       else
       {
         params.m_sizeInPixels = params.m_sizeInPixels + sizeInc;
-        if (!isTextBg)
-          symbolSize = params.m_sizeInPixels;
+        coloredSize = params.m_sizeInPixels;
       }
+      if (!isTextBg)
+        symbolSize = m2::PointF(std::max(coloredSize.x, symbolSize.x), std::max(coloredSize.y, symbolSize.y));
 
       params.m_featureID = renderInfo.m_featureId;
       params.m_tileCenter = tileCenter;
@@ -167,6 +172,7 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
       params.m_minVisibleScale = renderInfo.m_minZoom;
       params.m_specialDisplacement = SpecialDisplacement::UserMark;
       params.m_specialPriority = renderInfo.m_priority;
+      params.m_offset += offset;
       if (renderInfo.m_symbolSizes != nullptr)
       {
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
@@ -177,7 +183,7 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
       else
       {
         ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                           kStartUserMarkOverlayIndex + renderInfo.m_index, needOverlay)
+                           kStartUserMarkOverlayIndex + renderInfo.m_index, renderInfo.m_coloredSymbols->m_needOverlay)
             .Draw(context, &batcher, textures);
       }
       break;
@@ -350,7 +356,14 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     m2::PointF symbolSize(0.0f, 0.0f);
     m2::PointF symbolOffset(0.0f, 0.0f);
+
     auto const symbolName = GetSymbolNameForZoomLevel(renderInfo.m_symbolNames, tileKey);
+    if (!symbolName.empty())
+    {
+      dp::TextureManager::SymbolRegion region;
+      textures->GetSymbolRegion(symbolName, region);
+      symbolSize = region.GetPixelSize();
+    }
 
     dp::Color color = dp::Color::White();
     if (!renderInfo.m_color.empty())
@@ -440,14 +453,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       attribProvider.InitStream(0, UPV::GetBinding(), make_ref(buffer.data()));
 
       batcher.InsertListOfStrip(context, state, make_ref(&attribProvider), dp::Batcher::VertexPerQuad);
-    }
-
-    if (!symbolName.empty())
-    {
-      dp::TextureManager::SymbolRegion region;
-      textures->GetSymbolRegion(symbolName, region);
-      symbolSize.x = std::max(region.GetPixelSize().x, symbolSize.x);
-      symbolSize.y = std::max(region.GetPixelSize().y, symbolSize.y);
     }
 
     if (renderInfo.m_titleDecl != nullptr)

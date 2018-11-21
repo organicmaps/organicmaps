@@ -66,8 +66,7 @@ public:
       float lerpCoef = 0.0f;
       ExtractZoomFactors(screen, zoom, index, lerpCoef);
       m2::PointF symbolSize = InterpolateByZoomLevels(index, lerpCoef, m_symbolSizes);
-      glsl::vec2 offset;
-      m_layout->AdjustTextOffset(symbolSize, m_anchor, m_symbolAnchor, offset);
+      auto const offset = m_layout->GetTextOffset(symbolSize, m_anchor, m_symbolAnchor);
       m_buffer.clear();
       m_layout->CacheDynamicGeometry(offset, m_buffer);
       m_offset = glsl::ToPoint(offset);
@@ -311,8 +310,7 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  glm::vec2 finalOffset = baseOffset;
-  layout.AdjustTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor, finalOffset);
+  auto const finalOffset = layout.GetTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor);
   layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
 
   layout.CacheStaticGeometry(color, staticBuffer);
@@ -380,10 +378,9 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  glm::vec2 finalOffset = baseOffset;
-  layout.AdjustTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor, finalOffset);
-
+  auto const finalOffset = layout.GetTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor);
   layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
+
   layout.CacheStaticGeometry(color, outline, staticBuffer);
 
   auto state = CreateRenderState(gpu::Program::TextOutlined, m_params.m_depthLayer);

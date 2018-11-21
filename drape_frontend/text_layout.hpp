@@ -70,8 +70,12 @@ public:
   m2::PointF const & GetPixelSize() const { return m_pixelSize; }
   size_t GetRowsCount() const { return m_rowsCount; }
 
-  void AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
-                        glsl::vec2 & offset) const;
+  static m2::PointF GetSymbolBasedTextOffset(m2::PointF const & symbolSize,
+                                             dp::Anchor textAnchor,
+                                             dp::Anchor symbolAnchor);
+
+  glsl::vec2 GetTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor) const;
+
 private:
   template <typename TGenerator>
   void Cache(TGenerator & generator) const
