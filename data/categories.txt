@@ -35,69 +35,70 @@
 
 @eat
 en:Where to eat|eat|Food
-ru:Поесть|еда|Еда
-ar:طعام
-cs:Jídlo
-da:Mad
-nl:Eten
-fi:Ruoka
-fr:Nourriture
-de:Essen
-hu:Élelmiszer
-id:Makanan
-it:Cibo
-ja:飲食
-ko:음식
-nb:Mat
-pl:Jedzenie
-pt:Alimentação
-pt-BR:Alimentação
-ro:Alimentație
-es:Comer
-sv:Mat
-th:อาหาร
-tr:Yemek
-uk:Їжа
-vi:ẩm thực
-zh-Hans:食物
-zh-Hant:飲食
-el:Φαγητό
+ru:Где поесть|Поесть|Еда
+ar:طعام|مكان لتناول الطعام
+cs:Kde se najíst|Jídlo
+da:Spisesteder|Mad
+nl:Waar iets gaan eten|Eten
+fi:Missä syödä|Ruoka
+fr:Un endroit pour manger|Nourriture
+de:Essmöglichkeiten|Essen
+hu:Hol lehet enni valamit|Élelmiszer
+id:Tempat makan|Makanan
+it:Dove mangiare|Cibo
+ja:食事場所|飲食
+ko:어디서먹을까|음식
+nb:Spisesteder|Mat
+pl:Gdzie zjeść|Jedzenie
+pt:Onde lanchar|Alimentação
+pt-BR:Onde comer|Alimentação
+ro:Unde să mănânci|Alimentație
+es:Dónde comer|Comer
+sv:Var att äta|Mat
+th:กินร้านไหนดี|อาหาร
+tr:Nerede yenir|Yemek
+uk:Де поїсти|Їжа
+vi:Ăn ở đâu|ẩm thực
+zh-Hans:在哪儿吃|食物
+zh-Hant:在哪兒吃|飲食
+el:Πού να φάμε|Φαγητό
 he:אוכל
-sk:Jedlo
+sk:Kde sa najesť|Jedlo
+sw:Sehemu ya kula
 fa:غذا
 
 @food
 en:Groceries|Food|Shop
 ru:Продукты|Еда|Магазин
-ar:طعام|متجر
-cs:Jídlo|Obchod
-da:Mad|Butik
-nl:Eten|Winkel
-fi:Ruoka|Kauppa
-fr:Nourriture|Magasin
-de:Essen|Geschäft|Laden
-hu:Élelmiszer|Bolt
-id:Makanan|Toko
-it:Cibo|Negozio
-ja:飲食|買い物
-ko:음식|쇼핑
-nb:Mat|Butikk
-pl:Jedzenie|Sklep
-pt:Alimentação|Compras
-pt-BR:Alimentação|Loja
-ro:Alimentație|Magazin
-es:Comer|Tienda
-sv:Mat|Butik|Affär
-th:อาหาร|ร้านค้า
-tr:Yemek|Mağaza
-uk:Їжа|Крамниця|магазин
-vi:ẩm thực|Cửa hàng
-zh-Hans:食物|商店
-zh-Hant:飲食|購物
-el:Φαγητό|Κατάστημα
+ar:طعام|متجر|المشتريات
+cs:Potraviny|Jídlo|Obchod
+da:Dagligvarer|Mad|Butik
+nl:Kruidenierswinkels|Eten|Winkel
+fi:Tuotteet|Ruoka|Kauppa
+fr:Les courses|Nourriture|Magasin
+de:Lebensmittel|Essen|Geschäft|Laden
+hu:Termékek|Élelmiszer|Bolt
+id:Toserba|Makanan|Toko
+it:Alimentari|Cibo|Negozio
+ja:食料雑貨|飲食|買い物
+ko:식료품들|음식|쇼핑
+nb:Dagligvarer|Mat|Butikk
+pl:Produkty|Jedzenie|Sklep
+pt:Alimentos|Alimentação|Compras
+pt-BR:Mercados|Alimentação|Loja
+ro:Produse|Alimentație|Magazin
+es:Productos|Comer|Tienda
+sv:Produkter|Mat|Butik|Affär
+th:ซื้อของกินของใช้|อาหาร|ร้านค้า
+tr:Bakkaliye|Yemek|Mağaza
+uk:Продукти|Їжа|Крамниця|магазин
+vi:Cửa hàng tạp hóa|ẩm thực|Cửa hàng
+zh-Hans:食品|食物|商店
+zh-Hant:食物|飲食|購物
+el:Παντοπωλεία|Φαγητό|Κατάστημα
 he:חנות|חניה
-sk:Jedlo|Obchod
-sw:Duka
+sk:Potraviny|Jedlo|Obchod
+sw:Migahawani|Duka
 fa:غذا|فروشگاه
 
 @transport
@@ -203,35 +204,35 @@ fa:پارکینگ
 @shopping
 en:Shopping|Shop
 ru:Шоппинг|Магазин
-ar:متجر
-cs:Obchod
-da:Butik
-nl:Winkel
-fi:Kauppa
-fr:Magasin
-de:Geschäft|Laden
-hu:Bolt
-id:Toko
-it:Negozio
-ja:買い物
+ar:متجر|التسوق
+cs:Nákupy|Obchod
+da:Indkøb|Butik
+nl:Winkelen|Winkel
+fi:Ostokset|Kauppa
+fr:Shopping|Magasin
+de:Shopping|Geschäft|Laden
+hu:Bevásárlás|Bolt
+id:Berbelanja|Toko
+it:Shopping|Negozio
+ja:ショッピング|買い物
 ko:쇼핑
-nb:Butikk
-pl:Sklep
+nb:Shopping|Butikk
+pl:Shopping|Sklep
 pt:Compras
-pt-BR:Loja
-ro:Magazin
-es:Tienda
-sv:Butik|Affär
-th:ร้านค้า
-tr:Mağaza
-uk:Продукти|Крамниця|магазин
-vi:Cửa hàng
-zh-Hans:商店
+pt-BR:Compras|Loja
+ro:Cumpărături|Magazin
+es:Compras|Tienda
+sv:Shopping|Butik|Affär
+th:ช็อปปิง|ร้านค้า
+tr:Alışveriş|Mağaza
+uk:Шопінг|Крамниця|магазин
+vi:Đi mua sắm|Cửa hàng
+zh-Hans:购物|商店
 zh-Hant:購物
-el:Κατάστημα
+el:Ψώνια|Κατάστημα
 he:חנות
-sk:Obchod
-sw:Duka
+sk:Nakupovanie|Obchod
+sw:Manunuzi|Duka
 fa:فروشگاه
 
 @hotel
@@ -336,10 +337,66 @@ fa:سرگرمی
 @nightlife
 en:Nightlife
 ru:Ночная жизнь|С друзьями|Вечер с друзьями
+ar:أنشطة ترفيه ليلية
+cs:Noční život
+da:Natteliv
+nl:Nachtleven
+fi:Yöelämä
+fr:Vie nocturne
+de:Nachtleben
+hu:Éjjeli élet
+id:Kehidupan Malam
+it:Vita notturna
+ja:ナイトライフ
+ko:유흥
+nb:Nattliv
+pl:Życie nocne
+pt:Convívio à noite
+pt-BR:Vida Noturna
+ro:Viața nocturnă
+es:Vida nocturna
+sv:Nattliv
+th:ไนท์ไลฟ์
+tr:Gece hayatı
+uk:Нічне життя
+vi:Cuộc sống về đêm
+zh-Hans:夜生活
+zh-Hant:夜生活
+el:Νυχτερινή Ζωή
+sk:Nočný život
+sw:Shughuli za usiku
 
 @children
 en:Family holiday
 ru:Отдых с детьми
+ar:عطلة عائلية
+cs:Dovolená s dětmi
+da:Familieferie
+nl:Gezinsvakantie
+fi:Vapaa-aikaa lasten kanssa
+fr:Vacances en famille
+de:Freizeit mit Kindern
+hu:Pihenés a gyerekekkel
+id:Liburan keluarga
+it:Vacanze bambini
+ja:家族の休日
+ko:가족 기념일
+nb:Familieferie
+pl:Wypoczynek z dziećmi
+pt:Descanso com crianças
+pt-BR:Feriados em família
+ro:Odihnă cu copii
+es:Descanso con niños
+sv:Semester med barn
+th:วันหยุดสำหรับครอบครัว
+tr:Aile tatili
+uk:Відпочинок з дітьми
+vi:Kỳ nghỉ gia đình
+zh-Hans:亲子休闲
+zh-Hant:親子休閒
+el:Οικογενειακές Διακοπές
+sk:Rodinná dovolenka
+sw:Mapumziko ya familia
 
 @atm
 en:^ATM|Cash machine
