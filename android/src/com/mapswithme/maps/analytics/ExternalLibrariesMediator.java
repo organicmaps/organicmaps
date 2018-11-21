@@ -27,6 +27,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mopub.common.MoPub;
 import com.mopub.common.SdkConfiguration;
+import com.mopub.common.privacy.PersonalInfoManager;
 import com.my.target.common.MyTargetPrivacy;
 import io.fabric.sdk.android.Fabric;
 
@@ -152,6 +153,9 @@ public class ExternalLibrariesMediator
         .build();
 
     MoPub.initializeSdk(mApplication, sdkConfiguration, null);
+    PersonalInfoManager manager = MoPub.getPersonalInformationManager();
+    if (manager != null)
+      manager.grantConsent();
   }
 
   @UiThread
