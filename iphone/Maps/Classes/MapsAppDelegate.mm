@@ -399,6 +399,9 @@ using namespace osm_auth_ios;
       ws.pendingTransactionHandler = nil;
     }];
   }
+
+  if ([MoPubKit shouldShowConsentDialog])
+    [MoPubKit grantConsent];
   
   return YES;
 }
