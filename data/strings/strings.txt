@@ -34700,9 +34700,22 @@
     en = Export file
     ru = Экспортировать файл
 
+  [list_settings]
+    comment = FIXME
+    en = List settings
+
+  [delete_list]
+    comment = FIXME
+    en = Delete list
+
   [hide_from_map]
     en = Hide from map
     ru = Скрыть с карты
+
+  [show_on_map]
+    comment = FIXME
+    en = Show on map
+    ru = Показать на карте
 
   [ugc_route_tags_screen_label]
     en = Select tags
@@ -34723,6 +34736,18 @@
   [limited_access]
     en = Limited access
     ru = Ограниченный доступ
+
+  [bookmarks_public_access]
+    comment = FIXME
+    en = Public
+
+  [bookmarks_link_access]
+    comment = FIXME
+    en = Direct link
+
+  [bookmarks_private_access]
+    comment = FIXME
+    en = Private
 
   [upload_and_publish_desc]
     en = This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users
