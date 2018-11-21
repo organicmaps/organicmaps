@@ -2500,15 +2500,15 @@
 "export_file" = "Export file";
 
 /* FIXME */
-"list_settings" = "List settings";
+"list_settings" = "list_settings";
 
 /* FIXME */
-"delete_list" = "Delete list";
+"delete_list" = "delete_list";
 
 "hide_from_map" = "Hide from map";
 
 /* FIXME */
-"show_on_map" = "Show on map";
+"show_on_map" = "show_on_map";
 
 "ugc_route_tags_screen_label" = "Select tags";
 
@@ -2521,13 +2521,13 @@
 "limited_access" = "Limited access";
 
 /* FIXME */
-"bookmarks_public_access" = "Public";
+"bookmarks_public_access" = "bookmarks_public_access";
 
 /* FIXME */
-"bookmarks_link_access" = "Direct link";
+"bookmarks_link_access" = "bookmarks_link_access";
 
 /* FIXME */
-"bookmarks_private_access" = "Private";
+"bookmarks_private_access" = "bookmarks_private_access";
 
 "upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
 
