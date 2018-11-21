@@ -1453,12 +1453,24 @@
 	<string name="taxi">Taxi</string>
 	<string name="sharing_options">Sharing options</string>
 	<string name="export_file">Export file</string>
+	<!-- FIXME -->
+	<string name="list_settings">List settings</string>
+	<!-- FIXME -->
+	<string name="delete_list">Delete list</string>
 	<string name="hide_from_map">Hide from map</string>
+	<!-- FIXME -->
+	<string name="show_on_map">Show on map</string>
 	<string name="ugc_route_tags_screen_label">Select tags</string>
 	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
 	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory.</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>
+	<!-- FIXME -->
+	<string name="bookmarks_public_access">Public</string>
+	<!-- FIXME -->
+	<string name="bookmarks_link_access">Direct link</string>
+	<!-- FIXME -->
+	<string name="bookmarks_private_access">Private</string>
 	<string name="upload_and_publish_desc">This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users</string>
 	<string name="upload_and_publish">Upload and publish</string>
 	<string name="upload_and_get_direct_link">Upload and get a direct link</string>

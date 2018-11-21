@@ -1448,6 +1448,8 @@
 	<string name="sharing_options">Настройки доступа</string>
 	<string name="export_file">Экспортировать файл</string>
 	<string name="hide_from_map">Скрыть с карты</string>
+	<!-- FIXME -->
+	<string name="show_on_map">Показать на карте</string>
 	<string name="ugc_route_tags_screen_label">Выберите теги</string>
 	<string name="ugc_route_tags_progress_msg">Загружаем теги…</string>
 	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.</string>

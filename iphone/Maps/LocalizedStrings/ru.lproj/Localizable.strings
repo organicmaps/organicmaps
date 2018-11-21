@@ -2499,7 +2499,16 @@
 
 "export_file" = "Экспортировать файл";
 
+/* FIXME */
+"list_settings" = "List settings";
+
+/* FIXME */
+"delete_list" = "Delete list";
+
 "hide_from_map" = "Скрыть с карты";
+
+/* FIXME */
+"show_on_map" = "Показать на карте";
 
 "ugc_route_tags_screen_label" = "Выберите теги";
 
@@ -2510,6 +2519,15 @@
 "public_access" = "Публичный доступ";
 
 "limited_access" = "Ограниченный доступ";
+
+/* FIXME */
+"bookmarks_public_access" = "Public";
+
+/* FIXME */
+"bookmarks_link_access" = "Direct link";
+
+/* FIXME */
+"bookmarks_private_access" = "Private";
 
 "upload_and_publish_desc" = "Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям";
 
