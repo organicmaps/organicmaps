@@ -124,4 +124,7 @@ colors
   RatingLocalAds-color: #249CF2;
   RatingText-color: #FFFFFF;
   UGCRatingText-color: #000000;
+  SpeedCameraMarkText-color: #FFFFFF;
+  SpeedCameraMarkBg-color: #F51E30;
+  SpeedCameraMarkOutline-color: #FFFFFF;
 }
