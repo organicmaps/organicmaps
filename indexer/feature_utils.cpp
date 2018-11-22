@@ -15,7 +15,6 @@
 
 #include <unordered_map>
 #include <utility>
-#include <vector>
 
 using namespace std;
 
@@ -366,5 +365,11 @@ bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, string
 {
   auto const priorityList = MakePrimaryNamePriorityList(deviceLang, true /* preferDefault */);
   return GetBestName(src, priorityList, out);
+}
+
+vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang)
+{
+  bool const preferDefault = IsNativeLang(regionData, deviceLang);
+  return MakePrimaryNamePriorityList(deviceLang, preferDefault);
 }
 } // namespace feature

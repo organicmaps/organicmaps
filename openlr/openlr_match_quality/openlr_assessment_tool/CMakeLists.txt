@@ -44,6 +44,7 @@ omim_link_libraries(
   traffic
   routing_common
   transit
+  descriptions
   ugc
   drape
   partners_api

@@ -105,6 +105,7 @@ public:
   /// Convenient wrapper for type, cuisines, elevation, stars, wifi etc.
   std::string const & GetSubtitle() const { return m_uiSubtitle; };
   std::string const & GetAddress() const { return m_uiAddress; }
+  std::string const & GetDescription() const { return m_description; }
   /// @returns coordinate in DMS format if isDMS is true
   std::string GetFormattedCoordinate(bool isDMS) const;
   /// @return rating raw value or kInvalidRating if there is no data.
@@ -212,6 +213,8 @@ public:
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
 
+  void SetDescription(std::string && description) { m_description = std::move(description); }
+
   void SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
@@ -234,6 +237,7 @@ private:
   std::string m_uiSubtitle;
   std::string m_uiSecondaryTitle;
   std::string m_uiAddress;
+  std::string m_description;
   // TODO(AlexZ): Temporary solution. It's better to use a wifi icon in UI instead of text.
   std::string m_localizedWifiString;
   /// Booking rating string

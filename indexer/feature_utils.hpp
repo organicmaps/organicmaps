@@ -4,6 +4,8 @@
 
 #include "base/base.hpp"
 
+#include <vector>
+
 struct FeatureID;
 class StringUtf8Multilang;
 
@@ -64,4 +66,13 @@ namespace feature
 
   /// Returns preferred name when only the device language is available.
   bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, string & out);
+
+  /// Returns priority list of language codes for feature description,
+  /// the priority is the following:
+  /// - device language code;
+  /// - default language code if MWM contains user's language (or similar to device languages if provided);
+  /// - similar to device languages if provided;
+  /// - international language code;
+  /// - english language code;
+  std::vector<int8_t> GetDescriptionLangPriority(RegionData const & regionData, int8_t const deviceLang);
 }  // namespace feature

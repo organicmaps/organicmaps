@@ -119,6 +119,11 @@ namespace ads
 class Engine;
 }
 
+namespace descriptions
+{
+class Loader;
+}
+
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
 //#define FIXED_LOCATION
@@ -542,6 +547,8 @@ private:
 
   CachingPopularityLoader m_popularityLoader;
 
+  unique_ptr<descriptions::Loader> m_descriptionsLoader;
+
 public:
   using TSearchRequest = search::QuerySaver::TSearchRequest;
 
@@ -874,6 +881,8 @@ private:
   void InjectViator(place_page::Info & info);
 
   void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
+
+  void FillDescription(FeatureType & ft, place_page::Info & info) const;
 
 public:
   // UGC.

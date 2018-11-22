@@ -50,6 +50,7 @@ omim_link_libraries(
   metrics
   mwm_diff
   bsdiff
+  descriptions
   ugc
   partners_api
   local_ads

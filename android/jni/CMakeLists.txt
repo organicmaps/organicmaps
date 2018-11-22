@@ -115,6 +115,7 @@ target_link_libraries(
   shaders
   search
   storage
+  descriptions
   ugc
   drape
   kml

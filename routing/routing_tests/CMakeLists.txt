@@ -47,6 +47,7 @@ omim_link_libraries(
   routing_common
   transit
   kml
+  descriptions
   indexer
   platform
   geometry

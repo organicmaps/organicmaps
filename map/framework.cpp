@@ -45,6 +45,8 @@
 
 #include "editor/editable_data_source.hpp"
 
+#include "descriptions/loader.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -426,6 +428,7 @@ Framework::Framework(FrameworkParams const & params)
   })
   , m_lastReportedCountry(kInvalidCountryId)
   , m_popularityLoader(m_model.GetDataSource())
+  , m_descriptionsLoader(std::make_unique<descriptions::Loader>(m_model.GetDataSource()))
   , m_purchase(std::make_unique<Purchase>())
   , m_tipsApi(static_cast<TipsApi::Delegate &>(*this))
   , m_notificationManager(static_cast<notifications::NotificationManager::Delegate &>(*this))
@@ -947,6 +950,7 @@ void Framework::FillInfoFromFeatureType(FeatureType & ft, place_page::Info & inf
   }
 
   FillLocalExperts(ft, info);
+  FillDescription(ft, info);
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
@@ -3683,6 +3687,19 @@ void Framework::FillLocalExperts(FeatureType & ft, place_page::Info & info) cons
 
   info.SetLocalsStatus(place_page::LocalsStatus::Available);
   info.SetLocalsPageUrl(locals::Api::GetLocalsPageUrl());
+}
+
+void Framework::FillDescription(FeatureType & ft, place_page::Info & info) const
+{
+  if (!ft.GetID().m_mwmId.IsAlive())
+    return;
+  auto const & regionData = ft.GetID().m_mwmId.GetInfo()->GetRegionData();
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+  auto const langPriority = feature::GetDescriptionLangPriority(regionData, deviceLang);
+
+  std::string description;
+  if (m_descriptionsLoader->GetDescription(ft.GetID(), langPriority, description))
+    info.SetDescription(std::move(description));
 }
 
 void Framework::UploadUGC(User::CompleteUploadingHandler const & onCompleteUploading)

@@ -546,6 +546,7 @@
 		B3E3B4FD20D463B700DA8C13 /* BMCCategoriesHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */; };
 		B3E3B50220D485FA00DA8C13 /* DownloadedBookmarksDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E3B50120D485FA00DA8C13 /* DownloadedBookmarksDataSource.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
+		BB2C99B021B6AB4500F7371C /* libdescriptions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2C99AF21B6AB4500F7371C /* libdescriptions.a */; };
 		BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
 		BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CD212C264700ADE512 /* Metal.framework */; };
 		BB8123D0212C264700ADE512 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB8123CE212C264700ADE512 /* MetalKit.framework */; };
@@ -1551,6 +1552,7 @@
 		B3E3B4FC20D463B700DA8C13 /* BMCCategoriesHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BMCCategoriesHeader.xib; sourceTree = "<group>"; };
 		B3E3B50120D485FA00DA8C13 /* DownloadedBookmarksDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedBookmarksDataSource.swift; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
+		BB2C99AF21B6AB4500F7371C /* libdescriptions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libdescriptions.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB7626B41E8559980031D71C /* icudt57l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt57l.dat; path = ../../data/icudt57l.dat; sourceTree = "<group>"; };
 		BB8123CD212C264700ADE512 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		BB8123CE212C264700ADE512 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
@@ -1967,6 +1969,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB2C99B021B6AB4500F7371C /* libdescriptions.a in Frameworks */,
 				3D1958EB213804B6009A83EC /* libmetrics.a in Frameworks */,
 				4598438621394CFD00F8CAB2 /* MetalPerformanceShaders.framework in Frameworks */,
 				BB8123CF212C264700ADE512 /* Metal.framework in Frameworks */,
@@ -2142,6 +2145,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB2C99AF21B6AB4500F7371C /* libdescriptions.a */,
 				474C9F59213FF75800369009 /* StoreKit.framework */,
 				3D1958EA213804B6009A83EC /* libmetrics.a */,
 				4598438521394CFD00F8CAB2 /* MetalPerformanceShaders.framework */,
