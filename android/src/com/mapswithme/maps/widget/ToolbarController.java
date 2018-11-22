@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -76,14 +77,22 @@ public class ToolbarController
 
   public ToolbarController setTitle(CharSequence title)
   {
-    getToolbar().setTitle(title);
+    getSupportActionBar().setTitle(title);
     return this;
   }
 
   public ToolbarController setTitle(@StringRes int title)
   {
-    getToolbar().setTitle(title);
+    getSupportActionBar().setTitle(title);
     return this;
+  }
+
+  @SuppressWarnings("ConstantConditions")
+  @NonNull
+  private ActionBar getSupportActionBar()
+  {
+    AppCompatActivity appCompatActivity = (AppCompatActivity) mActivity;
+    return appCompatActivity.getSupportActionBar();
   }
 
   public View findViewById(@IdRes int res)
