@@ -219,7 +219,6 @@ string UnitsToString(Units units)
 
 Units StringToUnits(string const & units)
 {
-
   if (units == "Metric")
     return Units::Metric;
   if (units == "Imperial")

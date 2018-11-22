@@ -29,8 +29,9 @@ void BuildMaxspeedSection(std::string const & dataPath,
 /// \brief Builds maxspeeds section in mwm with |dataPath|. This section contains max speed limits
 /// if they are available in file |maxspeedFilename|.
 /// \param maxspeedFilename file name to csv file with maxspeed tag values.
-/// \note To start building the section, the following data must be ready:
-/// 1. GenerateIntermediateData(). Saves to a file data about maxspeed tags value of road features
+/// \note To start building the section, the following steps should be done:
+/// 1. Calls GenerateIntermediateData(). It stores data about maxspeed tags value of road features
+//     to a csv file.
 /// 2. Calls GenerateFeatures()
 /// 3. Generates geometry.
 void BuildMaxspeedSection(std::string const & dataPath, std::string const & osmToFeaturePath,

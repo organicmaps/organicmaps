@@ -96,7 +96,7 @@ public:
   static std::unique_ptr<GeometryLoader> Create(DataSource const & dataSource,
                                                 MwmSet::MwmHandle const & handle,
                                                 std::shared_ptr<VehicleModelInterface> vehicleModel,
-                                                AttrLoader attrLoader,
+                                                AttrLoader && attrLoader,
                                                 bool loadAltitudes);
 
   /// This is for stand-alone work.

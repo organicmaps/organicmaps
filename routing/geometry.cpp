@@ -207,7 +207,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 unique_ptr<GeometryLoader> GeometryLoader::Create(DataSource const & dataSource,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
-                                                  AttrLoader attrLoader,
+                                                  AttrLoader && attrLoader,
                                                   bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());

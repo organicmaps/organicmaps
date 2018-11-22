@@ -3,6 +3,7 @@
 #include "generator/generator_tests_support/test_feature.cpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/maxspeed_builder.hpp"
+#include "generator/maxspeed_parser.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/maxspeeds_serialization.hpp"
@@ -40,6 +41,7 @@
 
 namespace
 {
+using namespace generator;
 using namespace measurement_utils;
 using namespace platform::tests_support;
 using namespace platform;
@@ -125,6 +127,53 @@ bool ParseCsv(string const & maxspeedCsvContent, OsmIdToMaxspeed & mapping)
   ScopedFile testScopedMaxspeedCsv(base::JoinPath(kTestDir, kCsv), maxspeedCsvContent);
 
   return ParseMaxspeeds(base::JoinPath(testDirFullPath, kCsv), mapping);
+}
+
+UNIT_TEST(MaxspeedTagValueToSpeedTest)
+{
+  SpeedInUnits speed;
+
+  TEST(ParseMaxspeedTag("RU:rural", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("90", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("90      ", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(90, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("60kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("60 kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("60     kmh", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("60     kmh and some other string", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(60, Units::Metric), ());
+
+  TEST(ParseMaxspeedTag("75mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(ParseMaxspeedTag("75 mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(ParseMaxspeedTag("75     mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(ParseMaxspeedTag("75     mph and some other string", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(ParseMaxspeedTag("75mph", speed), ());
+  TEST_EQUAL(speed, SpeedInUnits(75, Units::Imperial), ());
+
+  TEST(!ParseMaxspeedTag("some other string", speed), ());
+  TEST(!ParseMaxspeedTag("60 kmph", speed), ());
+  TEST(!ParseMaxspeedTag("1234567890 kmh", speed), ());
+  TEST(!ParseMaxspeedTag("1234567890 mph", speed), ());
+  TEST(!ParseMaxspeedTag("1234567890", speed), ());
 }
 
 UNIT_TEST(ParseMaxspeeds_Smoke)

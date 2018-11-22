@@ -7,6 +7,7 @@
 #include "coding/reader.hpp"
 #include "coding/simple_dense_coding.hpp"
 #include "coding/succinct_mapper.hpp"
+#include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
 
@@ -34,6 +35,11 @@ void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
 /// * elias_fano with feature ids which have maxspeed tag in forward direction only
 /// * SimpleDenseCoding with code of maxspeed
 /// * table with vector with feature ids and maxspeeds which have maxspeed for both directions.
+///   The table is stored in the following format:
+///   <First feature id><Forward speed macro><Backward speed macro>
+///   <Second feature id><Forward speed macro><Backward speed macro>
+///   ...
+///   The number of such features is stored in the header.
 class MaxspeedsSerializer
 {
 public:
@@ -109,14 +115,14 @@ public:
 
       ++header.m_bidirectionalMaxspeedNumber;
       // Note. |speeds| sorted by feature ids and they are unique. So the first item in |speed|
-      // has feature id 0 or greater. And the second item in |speed| has feature id grater than 0.
+      // has feature id 0 or greater. And the second item in |speed| has feature id greater than 0.
       // This guarantees that for only first saved |s| the if branch below is called.
       if (prevFeatureId != 0)
         CHECK_GREATER(s.GetFeatureId(), prevFeatureId, ());
       uint32_t delta = (prevFeatureId == 0 ? s.GetFeatureId() : s.GetFeatureId() - prevFeatureId);
       prevFeatureId = s.GetFeatureId();
 
-      WriteToSink(sink, delta);
+      WriteVarUint(sink, delta);
       WriteToSink(sink, static_cast<uint8_t>(forwardMacro));
       WriteToSink(sink, static_cast<uint8_t>(backwardMacro));
     }
@@ -170,10 +176,10 @@ public:
     }
 
     maxspeeds.m_bidirectionalMaxspeeds.reserve(header.m_bidirectionalMaxspeedNumber);
-    uint32_t prevFeatureId = 0;
+    uint32_t featureId = 0;
     for (size_t i = 0; i < header.m_bidirectionalMaxspeedNumber; ++i)
     {
-      auto const delta = ReadPrimitiveFromSource<uint32_t>(src);
+      auto const delta = ReadVarUint<uint32_t>(src);
       auto const forward = ReadPrimitiveFromSource<uint8_t>(src);
       auto const backward = ReadPrimitiveFromSource<uint8_t>(src);
       CHECK(GetMaxspeedConverter().IsValidMacro(forward), (i));
@@ -193,9 +199,8 @@ public:
       // Note. If neither |forwardSpeed| nor |backwardSpeed| are numeric it means
       // both of them have value "walk" or "none". So the units are not relevant for this case.
 
-      prevFeatureId += delta;
-      uint32_t fid = (i == 0 ? delta : prevFeatureId);
-      maxspeeds.m_bidirectionalMaxspeeds.emplace_back(fid, units, forwardSpeed.GetSpeed(),
+      featureId += delta;
+      maxspeeds.m_bidirectionalMaxspeeds.emplace_back(featureId, units, forwardSpeed.GetSpeed(),
                                                       backwardSpeed.GetSpeed());
     }
   }
