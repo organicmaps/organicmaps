@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,21 +73,18 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
 
   public static void show(@NonNull FragmentActivity context)
   {
-    DialogFragment fragment = instantiateDialog(context);
-    fragment.show(context.getSupportFragmentManager(), AdsRemovalPurchaseDialog.class.getName());
+    show(context.getSupportFragmentManager());
   }
 
   public static void show(@NonNull Fragment parent)
   {
-    DialogFragment fragment = instantiateDialog(parent.getActivity());
-    fragment.show(parent.getChildFragmentManager(), AdsRemovalPurchaseDialog.class.getName());
+    show(parent.getChildFragmentManager());
   }
 
-  @NonNull
-  private static DialogFragment instantiateDialog(@NonNull Context context)
+  private static void show(@NonNull FragmentManager manager)
   {
-    String name = AdsRemovalPurchaseDialog.class.getName();
-    return (DialogFragment) Fragment.instantiate(context, name);
+    DialogFragment fragment = new AdsRemovalPurchaseDialog();
+    fragment.show(manager, AdsRemovalPurchaseDialog.class.getName());
   }
 
   @Override
