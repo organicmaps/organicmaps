@@ -29,6 +29,8 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "routing/speed_camera_manager.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -1098,6 +1100,35 @@ Java_com_mapswithme_maps_Framework_nativeGenerateNotifications(JNIEnv * env, jcl
     return nullptr;
 
   return jni::ToJavaStringArray(env, notifications);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetSpeedCamManagerMode(JNIEnv * env, jclass, jint mode)
+{
+  frm()->GetRoutingManager().GetSpeedCamManager().SetMode(
+    static_cast<routing::SpeedCameraManagerMode>(mode));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeShouldPlayWarningSignal(JNIEnv * env, jclass)
+{
+  return frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayWarningSignal();
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetSpeedCamManagerMode(JNIEnv * env, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().GetSpeedCamManager().GetMode());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsSpeedLimitExceeded(JNIEnv * env, jclass)
+{
+  auto fr = frm();
+  if (!fr->GetRoutingManager().IsRoutingActive())
+    return false;
+
+  return fr->GetRoutingManager().IsSpeedLimitExceeded();
 }
 
 JNIEXPORT jobject JNICALL

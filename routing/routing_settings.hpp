@@ -16,7 +16,7 @@ struct RoutingSettings
 
 private:
   RoutingSettings(bool matchRoute, bool soundDirection, double matchingThresholdM,
-                  bool keepPedestrianInfo, bool showTurnAfterNext, bool speedCameraWarning);
+                  bool keepPedestrianInfo, bool showTurnAfterNext);
 
 public:
   /// \brief if m_matchRoute is equal to true the bearing follows the
@@ -41,10 +41,6 @@ public:
   /// \brief if m_showTurnAfterNext is equal to true end users see a notification
   /// about the turn after the next in some cases.
   bool m_showTurnAfterNext;
-
-  /// \brief m_speedCameraWarningEnabled is a flag for enabling user notifications about speed
-  /// cameras.
-  bool m_speedCameraWarningEnabled;
 };
 
 RoutingSettings GetRoutingSettings(VehicleType vehicleType);

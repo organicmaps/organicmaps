@@ -270,6 +270,26 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
         OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
     });
   });
+
+  m_routingSession.SetSpeedCamShowCallback([this](m2::PointD const & point)
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, point]()
+    {
+      auto editSession = m_bmManager->GetEditSession();
+      auto mark = editSession.CreateUserMark<SpeedCameraMark>(point);
+      // TODO (@gmoryes) change speed
+      mark->SetTitle("80");
+      mark->SetIndex(0);
+    });
+  });
+
+  m_routingSession.SetSpeedCamClearCallback([this]()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+    {
+      m_bmManager->GetEditSession().ClearGroup(UserMark::Type::SPEED_CAM);
+    });
+  });
 }
 
 void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
@@ -1355,4 +1375,9 @@ void RoutingManager::SetSubroutesVisibility(bool visible)
   lock_guard<mutex> lockSubroutes(m_drapeSubroutesMutex);
   for (auto const & subrouteId : m_drapeSubroutes)
     lock.Get()->SetSubrouteVisibility(subrouteId, visible);
+}
+
+bool RoutingManager::IsSpeedLimitExceeded() const
+{
+  return m_routingSession.IsSpeedLimitExceeded();
 }

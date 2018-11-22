@@ -2888,11 +2888,14 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
 bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
 {
-  if (params.m_query == "?speedcams")
-  {
-    GetRoutingManager().RoutingSession().ToggleSpeedCameras(true /* enable */);
-    return true;
-  }
+  // This is an example.
+  /*
+    if (params.m_query == "?speedcams")
+    {
+      GetRoutingManager().RoutingSession().EnableMyFeature();
+      return true;
+    }
+  */
   return false;
 }
 

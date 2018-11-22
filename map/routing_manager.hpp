@@ -6,9 +6,10 @@
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
 
-#include "routing/routing_callbacks.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/routing_session.hpp"
+#include "routing/speed_camera_manager.hpp"
 
 #include "storage/index.hpp"
 
@@ -220,6 +221,9 @@ public:
   {
     m_trackingReporter.SetAllowSendingPoints(isAllowed);
   }
+
+  routing::SpeedCameraManager & GetSpeedCamManager() { return m_routingSession.GetSpeedCamManager(); }
+  bool IsSpeedLimitExceeded() const;
 
   void SetTurnNotificationsUnits(measurement_utils::Units const units)
   {
