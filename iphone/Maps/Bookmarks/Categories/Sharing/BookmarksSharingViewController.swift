@@ -28,6 +28,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   private let kPropertiesSegueIdentifier = "chooseProperties"
   private let kTagsControllerIdentifier = "tags"
+  private let kEditOnWebSegueIdentifier = "editOnWeb"
+  
   private let publicSectionIndex = 0
   private let privateSectionIndex = 1
   private let editOnWebCellIndex = 3
@@ -318,6 +320,6 @@ extension BookmarksSharingViewController: SharingPropertiesViewControllerDelegat
 
 extension BookmarksSharingViewController: EditOnWebViewControllerDelegate {
   func editOnWebViewControllerDidFinish(_ viewController: EditOnWebViewController) {
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: true)
   }
 }

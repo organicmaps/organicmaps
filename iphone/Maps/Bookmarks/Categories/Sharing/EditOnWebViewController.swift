@@ -24,31 +24,17 @@ final class EditOnWebViewController: MWMViewController {
       return
     }
     
-    if MWMMailViewController.canSendMail() {
-      let mailController = MWMMailViewController()
-      mailController.mailComposeDelegate = self
-      mailController.setSubject(L("edit_guide_title"))
-      
-      let text = String(format: "%@\n\n%@", L("edit_your_guide_email_body"), guide.absoluteString)
-      mailController.setMessageBody(text, isHTML: false)
-      mailController.navigationBar.titleTextAttributes = [
-        NSAttributedStringKey.foregroundColor : UIColor.white
-      ]
-      self.present(mailController, animated: true, completion: nil)
-    } else {
-      MWMAlertViewController.activeAlert().presentInfoAlert(L("email_error_title"),
-                                                            text: L("email_error_body"))
+    let message = L("share_bookmarks_email_body")
+    let shareController = MWMActivityViewController.share(for: guide, message: message) {
+      [weak self] _, _, _, _ in
+      if let self = self {
+        self.delegate?.editOnWebViewControllerDidFinish(self)
+      }
     }
+    shareController?.present(inParentViewController: self, anchorView: nil)
   }
   
   @IBAction func cancelButtonPressed(_ sender: Any) {
-    delegate?.editOnWebViewControllerDidFinish(self)
-  }
-}
-
-extension EditOnWebViewController: MFMailComposeViewControllerDelegate {
-  func mailComposeController(_ controller: MFMailComposeViewController,
-                             didFinishWith result: MFMailComposeResult, error: Error?) {
     delegate?.editOnWebViewControllerDidFinish(self)
   }
 }

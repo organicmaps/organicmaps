@@ -39,7 +39,6 @@
 #import "MWMFrameworkHelper.h"
 #import "MWMKeyboard.h"
 #import "MWMLocationManager.h"
-#import "MWMMailViewController.h"
 #import "MWMMapWidgetsHelper.h"
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
