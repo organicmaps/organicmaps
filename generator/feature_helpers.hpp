@@ -41,7 +41,7 @@ private:
   m2::PointD m_midAll;
   size_t m_locCount = 0;
   size_t m_allCount = 0;
-  uint32_t m_coordBits = serial::GeometryCodingParams().GetCoordBits();
+  uint8_t m_coordBits = serial::GeometryCodingParams().GetCoordBits();
   std::vector<CellAndOffset> m_vec;
 };
 

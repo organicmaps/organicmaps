@@ -141,7 +141,7 @@ private:
 
     for (size_t i = 0; i < f.GetPointsCount(); ++i)
     {
-      uint64_t const locationKey = PointToInt64Obsolete(f.GetPoint(i), POINT_COORD_BITS);
+      uint64_t const locationKey = PointToInt64Obsolete(f.GetPoint(i), kPointCoordBits);
       m_posToJoint[locationKey].AddPoint(RoadPoint(id, base::checked_cast<uint32_t>(i)));
     }
   }

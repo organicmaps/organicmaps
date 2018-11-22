@@ -143,7 +143,7 @@ namespace feature
   {
     ReaderSource<ModelReaderPtr> src(r);
     int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
-    m_codingParams = serial::GeometryCodingParams(POINT_COORD_BITS, base);
+    m_codingParams = serial::GeometryCodingParams(kPointCoordBits, base);
 
     m_bounds.first = ReadVarInt<int64_t>(src) + base;
     m_bounds.second = ReadVarInt<int64_t>(src) + base;

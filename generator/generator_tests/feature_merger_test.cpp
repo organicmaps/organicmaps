@@ -61,7 +61,7 @@ UNIT_TEST(FeatureMerger_MultipleTypes)
   arrF[1].AddType(4);
   arrF[2].AddType(4);
 
-  FeatureMergeProcessor processor(POINT_COORD_BITS);
+  FeatureMergeProcessor processor(kPointCoordBits);
 
   for (size_t i = 0; i < count; ++i)
     processor(arrF[i]);
@@ -124,7 +124,7 @@ UNIT_TEST(FeatureMerger_Branches)
   vF.back().AddPoint(P(1, 0));
   vF.back().AddPoint(P(2, 0));
 
-  FeatureMergeProcessor processor(POINT_COORD_BITS);
+  FeatureMergeProcessor processor(kPointCoordBits);
 
   for (size_t i = 0; i < vF.size(); ++i)
   {
@@ -174,7 +174,7 @@ UNIT_TEST(FeatureMerger_Rounds)
   vF.back().AddPoint(P(5, 0));
   vF.back().AddPoint(P(10, 0));
 
-  FeatureMergeProcessor processor(POINT_COORD_BITS);
+  FeatureMergeProcessor processor(kPointCoordBits);
 
   for (size_t i = 0; i < vF.size(); ++i)
   {

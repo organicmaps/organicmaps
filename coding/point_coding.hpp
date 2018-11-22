@@ -6,41 +6,48 @@
 #include <cstdint>
 #include <utility>
 
-#define POINT_COORD_BITS 30
+uint8_t constexpr kPointCoordBits = 30;
+
+uint8_t constexpr kFeatureSorterPointCoordBits = 27;
 
 // The absolute precision of the point encoding in the mwm files.
 // If both x and y coordinates of two points lie within |kMwmPointAccuracy| of one
 // another we consider the points equal. In other words, |kMwmPointAccuracy| may
 // be used as the eps value for both x and y in Point::EqualDxDy, base::AlmostEqualAbs and such.
 //
-// The constant is loosely tied to MercatorBounds::kRangeX / (1 << POINT_COORD_BITS):
+// The constant is loosely tied to MercatorBounds::kRangeX / (1 << kPointCoordBits):
 //   The range of possible values for point coordinates
 //      MercatorBounds::kRangeX = 360.0
 //   The number of distinct values for each coordinate after encoding
-//      (1 << POINT_COORD_BITS) = 1073741824 ≈ 1e9
+//      (1 << kPointCoordBits) = 1073741824 ≈ 1e9
 //   Distance between two discernible points in the uniform case
 //      360.0 / 1e9 ≈ 4e-7 ≈ 0.04 * |kMwmPointAccuracy|.
 //
 // On the other hand, this should be enough for most purposes because
-// 1e-5 difference in the coordinates of a mercator-proected point corresponds to roughly
+// 1e-5 difference in the coordinates of a mercator-projected point corresponds to roughly
 // 1 meter difference on the equator and we do not expect most OSM points to be mapped
 // with better precision.
 //
 // todo(@m) By this argument, it seems that 1e-6 is a better choice.
+//
+// Note. generator/feature_sorter.cpp uses |kFeatureSorterPointCoordBits|,
+// effectively overriding |kPointCoordBits|. Presumably it does so to guarantee a maximum of
+// 4 bytes in the varint encoding, (27+1 sign(?) bit) / 7 = 4.
+// todo(@m) Clarify how kPointCoordBits and kFeatureSorterPointCoordBits are related.
 double constexpr kMwmPointAccuracy = 1e-5;
 
 // todo(@m) Explain this constant.
 double constexpr kCellIdToPointEps = 1e-4;
 
-uint32_t DoubleToUint32(double x, double min, double max, uint32_t coordBits);
+uint32_t DoubleToUint32(double x, double min, double max, uint8_t coordBits);
 
-double Uint32ToDouble(uint32_t x, double min, double max, uint32_t coordBits);
+double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits);
 
-m2::PointU PointDToPointU(double x, double y, uint32_t coordBits);
+m2::PointU PointDToPointU(double x, double y, uint8_t coordBits);
 
-m2::PointU PointDToPointU(m2::PointD const & pt, uint32_t coordBits);
+m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits);
 
-m2::PointD PointUToPointD(m2::PointU const & p, uint32_t coordBits);
+m2::PointD PointUToPointD(m2::PointU const & p, uint8_t coordBits);
 
 // All functions below are deprecated and are left
 // only for backward compatibility.
@@ -62,15 +69,15 @@ m2::PointD PointUToPointD(m2::PointU const & p, uint32_t coordBits);
 // when implementing the Z-order curve but we have this
 // written elsewhere (see geometry/cellid.hpp).
 
-int64_t PointToInt64Obsolete(double x, double y, uint32_t coordBits);
+int64_t PointToInt64Obsolete(double x, double y, uint8_t coordBits);
 
-int64_t PointToInt64Obsolete(m2::PointD const & pt, uint32_t coordBits);
+int64_t PointToInt64Obsolete(m2::PointD const & pt, uint8_t coordBits);
 
-m2::PointD Int64ToPointObsolete(int64_t v, uint32_t coordBits);
+m2::PointD Int64ToPointObsolete(int64_t v, uint8_t coordBits);
 
-std::pair<int64_t, int64_t> RectToInt64Obsolete(m2::RectD const & r, uint32_t coordBits);
+std::pair<int64_t, int64_t> RectToInt64Obsolete(m2::RectD const & r, uint8_t coordBits);
 
-m2::RectD Int64ToRectObsolete(std::pair<int64_t, int64_t> const & p, uint32_t coordBits);
+m2::RectD Int64ToRectObsolete(std::pair<int64_t, int64_t> const & p, uint8_t coordBits);
 
 uint64_t PointUToUint64Obsolete(m2::PointU const & pt);
 

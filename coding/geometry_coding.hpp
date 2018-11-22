@@ -114,7 +114,7 @@ public:
 
   void SetBasePoint(m2::PointD const & pt);
 
-  uint32_t GetCoordBits() const { return m_CoordBits; }
+  uint8_t GetCoordBits() const { return m_CoordBits; }
 
   template <typename WriterT>
   void Save(WriterT & writer) const

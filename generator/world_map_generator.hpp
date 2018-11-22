@@ -254,9 +254,9 @@ class WorldMapGenerator
 
 public:
   explicit WorldMapGenerator(feature::GenerateInfo const & info)
-      : m_worldBucket(info),
-        m_merger(POINT_COORD_BITS - (scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2),
-        m_boundaryChecker(info)
+    : m_worldBucket(info)
+    , m_merger(kPointCoordBits - (scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2)
+    , m_boundaryChecker(info)
   {
     // Do not strip last types for given tags,
     // for example, do not cut 'admin_level' in  'boundary-administrative-XXX'.

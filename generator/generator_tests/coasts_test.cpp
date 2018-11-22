@@ -22,7 +22,7 @@ using namespace std;
 
 namespace
 {
-m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, y), POINT_COORD_BITS); }
+m2::PointU D2I(double x, double y) { return PointDToPointU(m2::PointD(x, y), kPointCoordBits); }
 
 class ProcessCoastsBase
 {

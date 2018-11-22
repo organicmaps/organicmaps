@@ -20,7 +20,7 @@ using PU = m2::PointU;
 
 namespace
 {
-m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS); }
+m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, kPointCoordBits); }
 
 m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::kMaxX, MercatorBounds::kMaxY)); }
 

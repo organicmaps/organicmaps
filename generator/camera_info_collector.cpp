@@ -123,8 +123,8 @@ bool CamerasInfoCollector::ParseIntermediateInfo(std::string const & camerasInfo
   {
     ReadPrimitiveFromSource(src, latInt);
     ReadPrimitiveFromSource(src, lonInt);
-    lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, POINT_COORD_BITS);
-    lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, POINT_COORD_BITS);
+    lat = Uint32ToDouble(latInt, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
+    lon = Uint32ToDouble(lonInt, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
 
     ReadPrimitiveFromSource(src, maxSpeedKmPH);
     ReadPrimitiveFromSource(src, relatedWaysNumber);

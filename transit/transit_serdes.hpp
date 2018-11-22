@@ -32,7 +32,7 @@ namespace transit
 // Let us assume that it takes less than 10^7 seconds (115 days) to get from one station to a neighboring one.
 double constexpr kMinDoubleAtTransitSection = kInvalidWeight;
 double constexpr kMaxDoubleAtTransitSection = 10000000.0;
-uint32_t constexpr kDoubleBits = 32;
+uint8_t constexpr kDoubleBits = 32;
 
 template <typename Sink>
 class Serializer
@@ -79,7 +79,7 @@ public:
 
   void operator()(m2::PointD const & p, char const * /* name */ = nullptr)
   {
-    WriteVarInt(m_sink, PointToInt64Obsolete(p, POINT_COORD_BITS));
+    WriteVarInt(m_sink, PointToInt64Obsolete(p, kPointCoordBits));
   }
 
   void operator()(std::vector<m2::PointD> const & vs, char const * /* name */ = nullptr)
@@ -89,7 +89,7 @@ public:
     m2::PointU lastEncodedPoint;
     for (auto const & p : vs)
     {
-      m2::PointU const pointU = PointDToPointU(p, POINT_COORD_BITS);
+      m2::PointU const pointU = PointDToPointU(p, kPointCoordBits);
       WriteVarUint(m_sink, coding::EncodePointDeltaAsUint(pointU, lastEncodedPoint));
       lastEncodedPoint = pointU;
     }
@@ -211,7 +211,7 @@ public:
 
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
-    p = Int64ToPointObsolete(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
+    p = Int64ToPointObsolete(ReadVarInt<int64_t, Source>(m_source), kPointCoordBits);
   }
 
   void operator()(Edge::WrappedEdgeId & id, char const * /* name */ = nullptr)
@@ -290,7 +290,7 @@ public:
     {
       m2::PointU const pointU = coding::DecodePointDeltaFromUint(
           ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
-      p = PointUToPointD(pointU, POINT_COORD_BITS);
+      p = PointUToPointD(pointU, kPointCoordBits);
       lastDecodedPoint = pointU;
     }
   }

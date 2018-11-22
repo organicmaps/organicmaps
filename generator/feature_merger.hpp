@@ -73,7 +73,7 @@ class FeatureMergeProcessor
   }
   void Remove(MergedFeatureBuilder1 const * p);
 
-  uint32_t m_coordBits;
+  uint8_t m_coordBits;
 
 public:
   FeatureMergeProcessor(uint32_t coordBits);

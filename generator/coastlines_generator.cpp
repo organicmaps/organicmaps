@@ -21,7 +21,7 @@ using PointT = m2::PointI;
 using RectT = m2::RectI;
 
 CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType)
-  : m_merger(POINT_COORD_BITS), m_coastType(coastType)
+  : m_merger(kPointCoordBits), m_coastType(coastType)
 {
 }
 
@@ -35,7 +35,7 @@ namespace
 
   inline PointT D2I(m2::PointD const & p)
   {
-    m2::PointU const pu = PointDToPointU(p, POINT_COORD_BITS);
+    m2::PointU const pu = PointDToPointU(p, kPointCoordBits);
     return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
   }
 
@@ -185,7 +185,7 @@ public:
   void operator()(PointT const & p)
   {
     m_points.push_back(PointUToPointD(
-        m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), POINT_COORD_BITS));
+        m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), kPointCoordBits));
   }
 
   size_t GetPointsCount() const

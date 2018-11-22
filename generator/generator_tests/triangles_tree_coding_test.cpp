@@ -61,7 +61,7 @@ namespace
     serial::TrianglesChainSaver saver(cp);
     tesselator::PointsInfo points;
 
-    m2::PointU (*D2U)(m2::PointD const &, uint32_t) = &PointDToPointU;
+    m2::PointU (*D2U)(m2::PointD const &, uint8_t) = &PointDToPointU;
     info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
                        std::bind(D2U, std::placeholders::_1, cp.GetCoordBits()), points);
 

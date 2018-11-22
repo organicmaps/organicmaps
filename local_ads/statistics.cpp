@@ -168,7 +168,7 @@ std::list<local_ads::Event> ReadEvents(std::string const & fileName)
     ReadPackedData(src, [&result](local_ads::Statistics::PackedData && data,
                                   std::string const & countryId, int64_t mwmVersion,
                                   local_ads::Timestamp const & baseTimestamp) {
-      auto const mercatorPt = Int64ToPointObsolete(data.m_mercator, POINT_COORD_BITS);
+      auto const mercatorPt = Int64ToPointObsolete(data.m_mercator, kPointCoordBits);
       result.emplace_back(static_cast<local_ads::EventType>(data.m_eventType), mwmVersion, countryId,
                           data.m_featureIndex, data.m_zoomLevel,
                           baseTimestamp + std::chrono::seconds(data.m_seconds),
@@ -343,7 +343,7 @@ std::list<Event> Statistics::WriteEvents(std::list<Event> & events, std::string 
       data.m_zoomLevel = event.m_zoomLevel;
       data.m_eventType = static_cast<uint8_t>(event.m_type);
       auto const mercatorPt = MercatorBounds::FromLatLon(event.m_latitude, event.m_longitude);
-      data.m_mercator = PointToInt64Obsolete(mercatorPt, POINT_COORD_BITS);
+      data.m_mercator = PointToInt64Obsolete(mercatorPt, kPointCoordBits);
       data.m_accuracy = event.m_accuracyInMeters;
       WritePackedData(*writer, std::move(data));
     }

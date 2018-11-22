@@ -296,7 +296,7 @@ void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint,
 namespace serial
 {
 // GeometryCodingParams ----------------------------------------------------------------------------
-GeometryCodingParams::GeometryCodingParams() : m_BasePointUint64(0), m_CoordBits(POINT_COORD_BITS)
+GeometryCodingParams::GeometryCodingParams() : m_BasePointUint64(0), m_CoordBits(kPointCoordBits)
 {
   m_BasePoint = Uint64ToPointUObsolete(m_BasePointUint64);
 }

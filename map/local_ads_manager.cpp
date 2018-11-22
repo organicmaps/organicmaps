@@ -573,7 +573,8 @@ void LocalAdsManager::WriteFeaturesFile(std::string const & featuresFile)
         packedData.clear();
       }
       lastMwm = fid.m_mwmId;
-      packedData.emplace_back(fid.m_index, PointToInt64Obsolete(entry.second.m_position, POINT_COORD_BITS));
+      packedData.emplace_back(fid.m_index,
+                              PointToInt64Obsolete(entry.second.m_position, kPointCoordBits));
     }
     if (!packedData.empty())
     {
@@ -925,7 +926,7 @@ void LocalAdsFeaturesReader::ReadCampaignFeaturesFile()
 
       for (auto const & data : packedData)
       {
-        auto const pos = Int64ToPointObsolete(data.m_mercator, POINT_COORD_BITS);
+        auto const pos = Int64ToPointObsolete(data.m_mercator, kPointCoordBits);
         m_features.push_back(CampaignFeature(mwmVersion, countryId, data.m_featureIndex,
                                              MercatorBounds::YToLat(pos.y), MercatorBounds::XToLon(pos.x)));
       }

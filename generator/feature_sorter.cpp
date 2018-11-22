@@ -21,6 +21,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/point_coding.hpp"
 
 #include "geometry/polygon.hpp"
 
@@ -333,7 +334,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
     // Fill mwm header.
     DataHeader header;
 
-    uint32_t coordBits = 27;
+    uint8_t coordBits = kFeatureSorterPointCoordBits;
     if (isWorld)
       coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 

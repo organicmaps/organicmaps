@@ -15,7 +15,7 @@ using namespace std;
 namespace
 {
 double const kEps = kCellIdToPointEps;
-uint32_t const kCoordBits = POINT_COORD_BITS;
+uint8_t const kCoordBits = kPointCoordBits;
 uint32_t const kBig = uint32_t{1} << 30;
 
 void CheckEqualPoints(m2::PointD const & p1, m2::PointD const & p2)

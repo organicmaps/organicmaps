@@ -128,10 +128,12 @@ void CameraNodeProcessor::Process(OsmElement & p, FeatureParams const & params,
 
   CHECK_GREATER_OR_EQUAL(maxSpeedKmPH, 0, ());
 
-  uint32_t const lat = DoubleToUint32(p.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, POINT_COORD_BITS);
+  uint32_t const lat =
+      DoubleToUint32(p.lat, ms::LatLon::kMinLat, ms::LatLon::kMaxLat, kPointCoordBits);
   WriteToSink(*m_fileWriter, lat);
 
-  uint32_t const lon = DoubleToUint32(p.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, POINT_COORD_BITS);
+  uint32_t const lon =
+      DoubleToUint32(p.lon, ms::LatLon::kMinLon, ms::LatLon::kMaxLon, kPointCoordBits);
   WriteToSink(*m_fileWriter, lon);
 
   WriteToSink(*m_fileWriter, static_cast<uint32_t>(maxSpeedKmPH));

@@ -8,27 +8,29 @@
 
 namespace
 {
-double CoordSize(uint32_t coordBits) { return (1 << coordBits) - 1; }
+double CoordSize(uint8_t coordBits)
+{
+  ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
+  return static_cast<double>((uint64_t{1} << coordBits) - 1);
+}
 }  // namespace
 
-uint32_t DoubleToUint32(double x, double min, double max, uint32_t coordBits)
+uint32_t DoubleToUint32(double x, double min, double max, uint8_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
   ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
   x = base::clamp(x, min, max);
-  uint64_t const fullMask = bits::GetFullMask(static_cast<uint8_t>(coordBits));
-  return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * fullMask);
+  return static_cast<uint32_t>(0.5 + (x - min) / (max - min) * bits::GetFullMask(coordBits));
 }
 
-double Uint32ToDouble(uint32_t x, double min, double max, uint32_t coordBits)
+double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(coordBits, 1, ());
   ASSERT_LESS_OR_EQUAL(coordBits, 32, ());
-  return min +
-         static_cast<double>(x) * (max - min) / bits::GetFullMask(static_cast<uint8_t>(coordBits));
+  return min + static_cast<double>(x) * (max - min) / bits::GetFullMask(coordBits);
 }
 
-m2::PointU PointDToPointU(double x, double y, uint32_t coordBits)
+m2::PointU PointDToPointU(double x, double y, uint8_t coordBits)
 {
   x = base::clamp(x, MercatorBounds::kMinX, MercatorBounds::kMaxX);
   y = base::clamp(y, MercatorBounds::kMinY, MercatorBounds::kMaxY);
@@ -44,12 +46,12 @@ m2::PointU PointDToPointU(double x, double y, uint32_t coordBits)
   return m2::PointU(ix, iy);
 }
 
-m2::PointU PointDToPointU(m2::PointD const & pt, uint32_t coordBits)
+m2::PointU PointDToPointU(m2::PointD const & pt, uint8_t coordBits)
 {
   return PointDToPointU(pt.x, pt.y, coordBits);
 }
 
-m2::PointD PointUToPointD(m2::PointU const & pt, uint32_t coordBits)
+m2::PointD PointUToPointD(m2::PointU const & pt, uint8_t coordBits)
 {
   return m2::PointD(static_cast<double>(pt.x) * MercatorBounds::kRangeX / CoordSize(coordBits) +
                         MercatorBounds::kMinX,
@@ -59,35 +61,35 @@ m2::PointD PointUToPointD(m2::PointU const & pt, uint32_t coordBits)
 
 // Obsolete functions ------------------------------------------------------------------------------
 
-int64_t PointToInt64Obsolete(double x, double y, uint32_t coordBits)
+int64_t PointToInt64Obsolete(double x, double y, uint8_t coordBits)
 {
   int64_t const res = static_cast<int64_t>(PointUToUint64Obsolete(PointDToPointU(x, y, coordBits)));
 
   ASSERT_GREATER_OR_EQUAL(res, 0, ("Highest bits of (ix, iy) are not used, so res should be > 0."));
-  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(res), uint64_t{3} << 2 * POINT_COORD_BITS, ());
+  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(res), uint64_t{3} << 2 * kPointCoordBits, ());
   return res;
 }
 
-int64_t PointToInt64Obsolete(m2::PointD const & pt, uint32_t coordBits)
+int64_t PointToInt64Obsolete(m2::PointD const & pt, uint8_t coordBits)
 {
   return PointToInt64Obsolete(pt.x, pt.y, coordBits);
 }
 
-m2::PointD Int64ToPointObsolete(int64_t v, uint32_t coordBits)
+m2::PointD Int64ToPointObsolete(int64_t v, uint8_t coordBits)
 {
   ASSERT_GREATER_OR_EQUAL(v, 0, ("Highest bits of (ix, iy) are not used, so res should be > 0."));
-  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v), uint64_t{3} << 2 * POINT_COORD_BITS, ());
+  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v), uint64_t{3} << 2 * kPointCoordBits, ());
   return PointUToPointD(Uint64ToPointUObsolete(static_cast<uint64_t>(v)), coordBits);
 }
 
-std::pair<int64_t, int64_t> RectToInt64Obsolete(m2::RectD const & r, uint32_t coordBits)
+std::pair<int64_t, int64_t> RectToInt64Obsolete(m2::RectD const & r, uint8_t coordBits)
 {
   int64_t const p1 = PointToInt64Obsolete(r.minX(), r.minY(), coordBits);
   int64_t const p2 = PointToInt64Obsolete(r.maxX(), r.maxY(), coordBits);
   return std::make_pair(p1, p2);
 }
 
-m2::RectD Int64ToRectObsolete(std::pair<int64_t, int64_t> const & p, uint32_t coordBits)
+m2::RectD Int64ToRectObsolete(std::pair<int64_t, int64_t> const & p, uint8_t coordBits)
 {
   m2::PointD const pt1 = Int64ToPointObsolete(p.first, coordBits);
   m2::PointD const pt2 = Int64ToPointObsolete(p.second, coordBits);
