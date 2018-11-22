@@ -23,10 +23,10 @@ public class OreoCompatNotificationChannelProvider extends StubNotificationChann
   }
 
   @Override
-  public void setAuthChannel()
+  public void setUGCChannel()
   {
-    String name = getApplication().getString(R.string.notification_unsent_reviews_title);
-    setChannelInternal(getAuthChannel(), name);
+    String name = getApplication().getString(R.string.notification_channel_ugc);
+    setChannelInternal(getUGCChannel(), name);
   }
 
   private void setChannelInternal(@NonNull String id, @NonNull String name)
@@ -44,7 +44,7 @@ public class OreoCompatNotificationChannelProvider extends StubNotificationChann
   @Override
   public void setDownloadingChannel()
   {
-    String name = "NEED STRING ID FOR CHANNEL";
+    String name = getApplication().getString(R.string.notification_channel_downloader);
     setChannelInternal(getDownloadingChannel(), name);
   }
 }

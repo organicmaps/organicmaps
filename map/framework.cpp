@@ -3842,7 +3842,7 @@ double Framework::GetLastBackgroundTime() const
   return m_startBackgroundTime;
 }
 
-bool Framework::MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info)
+bool Framework::MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const
 {
   m2::RectD rect = MercatorBounds::RectByCenterXYAndOffset(mapObject.GetPos(), kMwmPointAccuracy);
   bool found = false;

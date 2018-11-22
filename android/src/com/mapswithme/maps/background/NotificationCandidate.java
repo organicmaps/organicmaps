@@ -1,10 +1,11 @@
 package com.mapswithme.maps.background;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -19,18 +20,33 @@ public class NotificationCandidate
   @IntDef({ TYPE_UGC_AUTH, TYPE_UGC_REVIEW })
   @interface NotificationType {}
 
-  public static class MapObject implements Serializable
+  public static class MapObject implements Parcelable
   {
     private final double mMercatorPosX;
     private final double mMercatorPosY;
     @NonNull
     private final String mReadableName;
-
     @NonNull
     private final String mDefaultName;
     @NonNull
     private final String mBestType;
 
+    public static final Creator<MapObject> CREATOR = new Creator<MapObject>()
+    {
+      @Override
+      public MapObject createFromParcel(Parcel in)
+      {
+        return new MapObject(in);
+      }
+
+      @Override
+      public MapObject[] newArray(int size)
+      {
+        return new MapObject[size];
+      }
+    };
+
+    @SuppressWarnings("unused")
     MapObject(double posX, double posY, @NonNull String readableName, @NonNull String defaultName,
               @NonNull String bestType)
     {
@@ -39,6 +55,31 @@ public class NotificationCandidate
       mReadableName = readableName;
       mDefaultName = defaultName;
       mBestType = bestType;
+    }
+
+    protected MapObject(Parcel in)
+    {
+      mMercatorPosX = in.readDouble();
+      mMercatorPosY = in.readDouble();
+      mReadableName = in.readString();
+      mDefaultName = in.readString();
+      mBestType = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeDouble(mMercatorPosX);
+      dest.writeDouble(mMercatorPosY);
+      dest.writeString(mReadableName);
+      dest.writeString(mDefaultName);
+      dest.writeString(mBestType);
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
     }
 
     @SuppressWarnings("unused")

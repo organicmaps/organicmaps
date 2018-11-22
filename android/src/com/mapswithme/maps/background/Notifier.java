@@ -57,7 +57,7 @@ public final class Notifier
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
-  public void notifyAuthentication()
+  void notifyAuthentication()
   {
     Intent authIntent = MwmActivity.createAuthenticateIntent(mContext);
     authIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_IS_NOT_AUTHENTICATED);
@@ -67,7 +67,7 @@ public final class Notifier
     PendingIntent pi = PendingIntent.getActivity(mContext, 0, authIntent,
                                                  PendingIntent.FLAG_UPDATE_CURRENT);
 
-    String channel = NotificationChannelFactory.createProvider(mContext).getAuthChannel();
+    String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
     NotificationCompat.Builder builder =
         getBuilder(mContext.getString(R.string.notification_unsent_reviews_title),
                    mContext.getString(R.string.notification_unsent_reviews_message),
@@ -80,7 +80,7 @@ public final class Notifier
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_NOT_AUTH_NOTIFICATION_SHOWN);
   }
 
-  public void notifyLeaveReview(@NonNull NotificationCandidate.MapObject mapObject)
+  void notifyLeaveReview(@NonNull NotificationCandidate.MapObject mapObject)
   {
     Intent reviewIntent = MwmActivity.createLeaveReviewIntent(mContext, mapObject);
     reviewIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_LEAVE_REVIEW);
@@ -90,12 +90,12 @@ public final class Notifier
     PendingIntent pi =
         PendingIntent.getActivity(mContext, 0, reviewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-    String channel = NotificationChannelFactory.createProvider(mContext).getAuthChannel();
+    String channel = NotificationChannelFactory.createProvider(mContext).getUGCChannel();
     NotificationCompat.Builder builder =
-        getBuilder(String.format(mContext.getString(R.string.notification_leave_review_title),
-                                 mapObject.getReadableName()),
-                   String.format(mContext.getString(R.string.notification_leave_review_content),
-                                 mapObject.getReadableName()),
+        getBuilder(mContext.getString(R.string.notification_leave_review_title,
+                                      mapObject.getReadableName()),
+                   mContext.getString(R.string.notification_leave_review_content,
+                                      mapObject.getReadableName()),
                    pi, channel);
 
     builder.addAction(0, mContext.getString(R.string.leave_a_review), pi);
@@ -146,13 +146,13 @@ public final class Notifier
   {
 
     return new NotificationCompat.Builder(mContext, channel)
-      .setAutoCancel(true)
-      .setSmallIcon(R.drawable.ic_notification)
-      .setColor(mContext.getResources().getColor(R.color.base_accent))
-      .setContentTitle(title)
-      .setContentText(content)
-      .setTicker(getTicker(title, content))
-      .setContentIntent(pendingIntent);
+        .setAutoCancel(true)
+        .setSmallIcon(R.drawable.ic_notification)
+        .setColor(mContext.getResources().getColor(R.color.base_accent))
+        .setContentTitle(title)
+        .setContentText(content)
+        .setTicker(getTicker(title, content))
+        .setContentIntent(pendingIntent);
   }
 
   @NonNull

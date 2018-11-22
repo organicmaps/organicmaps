@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 public interface NotificationChannelProvider
 {
   @NonNull
-  String getAuthChannel();
+  String getUGCChannel();
 
-  void setAuthChannel();
+  void setUGCChannel();
 
   @NonNull
   String getDownloadingChannel();

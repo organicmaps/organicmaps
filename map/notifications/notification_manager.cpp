@@ -132,7 +132,7 @@ void NotificationManager::Load()
 void NotificationManager::TrimExpired()
 {
   auto & candidates = m_queue.m_candidates;
-  size_t sizeBefore = candidates.size();
+  size_t const sizeBefore = candidates.size();
 
   candidates.erase(std::remove_if(candidates.begin(), candidates.end(), [](auto const & item)
   {

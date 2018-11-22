@@ -32,13 +32,13 @@ public class StubNotificationChannelProvider implements NotificationChannelProvi
 
   @Override
   @NonNull
-  public String getAuthChannel()
+  public String getUGCChannel()
   {
     return mAuthChannel;
   }
 
   @Override
-  public void setAuthChannel()
+  public void setUGCChannel()
   {
     /*Do nothing */
   }

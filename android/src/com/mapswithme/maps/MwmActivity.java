@@ -2677,10 +2677,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public static class ShowUGCEditorTask implements MapTask
   {
+    private static final long serialVersionUID = 1636712824900113568L;
     @NonNull
-    private NotificationCandidate.MapObject mMapObject;
+    private final NotificationCandidate.MapObject mMapObject;
 
-    public ShowUGCEditorTask(@NonNull NotificationCandidate.MapObject mapObject)
+    ShowUGCEditorTask(@NonNull NotificationCandidate.MapObject mapObject)
     {
       mMapObject = mapObject;
     }

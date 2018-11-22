@@ -909,5 +909,5 @@ public:
   bool HaveTransit(m2::PointD const & pt) const override;
   double GetLastBackgroundTime() const override;
 
-  bool MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info);
+  bool MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const;
 };

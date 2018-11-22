@@ -74,11 +74,8 @@ public class NotificationService extends JobIntentService
 
   private boolean notifySmart()
   {
-    if (!PermissionsUtils.isExternalStorageGranted()
-        || MwmApplication.backgroundTracker(getApplication()).isForeground())
-    {
+    if (MwmApplication.backgroundTracker(getApplication()).isForeground())
       return false;
-    }
 
     NotificationCandidate candidate = LightFramework.nativeGetNotification();
 
@@ -101,10 +98,10 @@ public class NotificationService extends JobIntentService
     final String action = intent.getAction();
 
     if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action))
-      TryToShowNotification();
+      tryToShowNotification();
   }
 
-  private void TryToShowNotification()
+  private void tryToShowNotification()
   {
     if (!PermissionsUtils.isExternalStorageGranted())
     {
