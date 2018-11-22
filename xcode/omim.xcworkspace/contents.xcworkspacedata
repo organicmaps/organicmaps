@@ -254,6 +254,9 @@
       location = "container:coding/coding.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:descriptions/descriptions.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:drape/drape.xcodeproj">
    </FileRef>
    <FileRef
