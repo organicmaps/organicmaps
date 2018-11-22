@@ -28,7 +28,7 @@ using namespace storage;
 using namespace std;
 using namespace std::placeholders;
 
-// Uncomment to enable the test that requires network and downloads a mwm several times.
+// Uncomment to enable the test that requires network and downloads an mwm several times.
 //#define TEST_INTEGRITY
 #ifndef TEST_INTEGRITY_ITERATIONS
 #define TEST_INTEGRITY_ITERATIONS 5
