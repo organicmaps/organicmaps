@@ -299,7 +299,7 @@
 "search_mode_viewport" = "На экране";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Поесть";
+"eat" = "Где поесть";
 
 /* Search category for grocery stores */
 "food" = "Продукты";
@@ -2511,7 +2511,7 @@
 
 "ugc_route_tags_progress_msg" = "Загружаем теги…";
 
-"ugc_route_tags_desc" = "Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.";
+"ugc_route_tags_desc" = "Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.";
 
 "public_access" = "Публичный доступ";
 
@@ -2526,13 +2526,13 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям";
+"upload_and_publish_desc" = "Этот путеводитель будет загружен в публичный каталог MAPS.ME и будет доступен другим пользователям";
 
 "upload_and_publish" = "Загрузить и опубликовать";
 
 "upload_and_get_direct_link" = "Загрузить и получить ссылку";
 
-"get_direct_link_desc" = "Ваш список будет доступен по прямой ссылке";
+"get_direct_link_desc" = "Ваш путеводитель будет доступен по прямой ссылке";
 
 "upload_and_publish_progress_text" = "Путеводитель публикуется…";
 
@@ -2540,7 +2540,7 @@
 
 "ugc_routes_user_agreement" = "<b>ОБРАТИТЕ ВНИМАНИЕ:</b> продолжая, вы принимаете <a href=\"%s\">лицензионное соглашение</a>";
 
-"ugc_route_edit_list_name" = "Название списка";
+"ugc_route_edit_list_name" = "Название путеводителя";
 
 "ugc_route_edit_description_hint" = "Добавьте описание (текст или html)";
 
@@ -2550,9 +2550,9 @@
 
 "direct_link_success" = "Ссылка создана";
 
-"edit_guide_title" = "Редактируйте ваш путеводитель в интернете";
+"edit_guide_title" = "Редактируйте ваш путеводитель онлайн";
 
-"edit_guide_subtitle" = "Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое";
+"edit_guide_subtitle" = "Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.";
 
 "send_a_link_btn" = "Отправить ссылку";
 
@@ -2570,24 +2570,19 @@
 
 "download_guide_progress" = "Путеводитель загружается…";
 
-"price_error_title" = "Невозможно получить цену";
+"price_error_title" = "Невозможно узнать стоимость";
 
-"price_error_subtitle" = "Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.";
+"price_error_subtitle" = "Пожалуйста, попробуйте еще раз через пару минут";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Редактируйте ваш путеводитель на компьютере: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Редактировать онлайн";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Во время загрузки опций произошла ошибка, пожалуйста, попробуйте еще раз";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Этот путеводитель вы составили как";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Местный или турист";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Выбрать опции";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Специальный доступ";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Купленный";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Кажется, у вас есть незавершённая покупка. Пожалуйста, напишите в поддержку, и мы решим проблему.";
+
+"contact" = "Написать";
+
+"check_price_button" = "Узнать цену";
+
+"download_button" = "Скачать";
+
+"speedcams_alert_title" = "Камеры скорости";
+
+"speedcams_alert_subtitle" = "Предупреждать об ограничениях скорости";
+
+"speedcam_option_auto" = "Авто";
+
+"speedcam_option_always" = "Всегда";
+
+"speedcam_option_never" = "Никогда";
+
+"bookmark_description_title" = "Описание метки";
+
+"place_description_title" = "Описание места";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

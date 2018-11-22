@@ -186,12 +186,18 @@
 	<string name="search_mode_nearme">Tæt på mig</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">På skærmen</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Spisesteder</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Dagligvarer</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Benzin</string>
 	<!-- Search category -->
 	<string name="parking">Parkering</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Indkøb</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -200,6 +206,10 @@
 	<string name="entertainment">Underholdning</string>
 	<!-- Search category -->
 	<string name="atm">Hæveautomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Natteliv</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Familieferie</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1388,6 +1398,57 @@
 	<string name="subscription_terms">Betalingen opkræves via din iTunes-konto ved bekræftelse af købet. Abonnementet fornys automatisk, medmindre den automatiske fornyelse er slået fra senest 24 timer før udgangen af den aktuelle periode. Din konto debiteres i overensstemmelse med din plan for fornyelse indenfor 24 timer før udgangen af den aktuelle periode. Du kan administrere eller slukke for automatisk fornyelse i dine Apple ID-kontoindstillinger på ethvert tidspunkt af dit køb.</string>
 	<string name="subscriptions_title">Abonnementer</string>
 	<string name="manage_subscription">Administrer abonnementet</string>
+	<string name="sharing_options">Deling</string>
+	<string name="export_file">Eksporter fil</string>
+	<string name="hide_from_map">Skjul på kort</string>
+	<string name="ugc_route_tags_screen_label">Vælg tags</string>
+	<string name="ugc_route_tags_progress_msg">Indlæser tags…</string>
+	<string name="ugc_route_tags_desc">Vælg nogle tags for at gøre det nemmere for andre at finde din guide. Dette er obligatorisk.</string>
+	<string name="public_access">Offentlig adgang</string>
+	<string name="limited_access">Begrænset adgang</string>
+	<string name="upload_and_publish_desc">Denne guide vil blive uploadet til det offentlige MAPS.ME katalog, hvor den vil være tilgængelig for andre brugere</string>
+	<string name="upload_and_publish">Upload og offentliggør</string>
+	<string name="upload_and_get_direct_link">Upload og få et direkte link</string>
+	<string name="get_direct_link_desc">Din guide vil være tilgængelig for alle, som har linket</string>
+	<string name="upload_and_publish_progress_text">Offentliggør din guide…</string>
+	<string name="upload_and_publish_success">Guiden er blevet offentliggjort</string>
+	<string name="ugc_routes_user_agreement">&lt;b>BEMÆRK:&lt;/b> ved at fortsætte her, accepterer du &lt;a href="%s">licensaftalen&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Guidenavn</string>
+	<string name="ugc_route_edit_description_hint">Lav en beskrivelse (tekst eller html)</string>
+	<string name="not_shared">Ikke delt</string>
+	<string name="direct_link_progress_text">Uploader din fil…</string>
+	<string name="direct_link_success">Linket er blevet oprettet</string>
+	<string name="edit_guide_title">Rediger din guide på web</string>
+	<string name="edit_guide_subtitle">Få et link til at redigere din guide via web-app: tilføj beskrivelser, upload billeder og forbind dine bogmærker med streger.</string>
+	<string name="send_a_link_btn">Send mig et link</string>
+	<string name="upload_error_toast">Der skete en fejl under upload af filen</string>
+	<string name="tags_loading_error_subtitle">Der skete en fejl under hentning af tags, prøv igen</string>
+	<string name="unable_upload_errorr_title">Upload af fil fejlede</string>
+	<string name="unable_upload_error_subtitle_edited">Denne fil er redigeret ved hjælp af web-appen</string>
+	<string name="unable_upload_error_subtitle_broken">Denne fil er beskadiget og kunne ikke uploades. Upload venligst en anden fil.</string>
+	<string name="buy_btn">Køb til %s</string>
+	<string name="download_guide_progress">Henter din guide…</string>
+	<string name="price_error_title">Kunne ikke finde en pris</string>
+	<string name="price_error_subtitle">Prøv igen om lidt</string>
+	<string name="edit_your_guide_email_body">Rediger nemt din guide på web ved hjælp af din computer: tilføj beskrivelser, upload billeder og forbind bogmærker med streger.</string>
+	<string name="edit_on_web">Rediger på web</string>
+	<string name="properties_loading_error_subtitle">Der opstod en fejl under indlæsning af indstillinger, prøv igen</string>
+	<string name="custom_props_desc">I denne guide har du besøgt steder som</string>
+	<string name="custom_props_title">Lokal eller rejsende</string>
+	<string name="select_properties">Vælg indstillinger</string>
+	<string name="access_rules_p_to_p">Særlig adgang</string>
+	<string name="access_rules_paid">Købt</string>
+	<string name="failed_purchase_support_message">Beklager, men du har formentlig et igangværende køb, som ikke er blevet gennemført. Kontakt venligst support, så løser vi problemet for dig.</string>
+	<string name="contact">Kontakt</string>
+	<string name="check_price_button">Tjek pris</string>
+	<string name="download_button">Download</string>
+	<string name="speedcams_alert_title">Fartkameraer</string>
+	<string name="speedcams_alert_subtitle">Advar om hastighedsgrænser</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Altid</string>
+	<string name="speedcam_option_never">Aldrig</string>
+	<string name="bookmark_description_title">Beskrivelse af bogmærke</string>
+	<string name="place_description_title">Beskrivelse af sted</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

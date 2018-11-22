@@ -299,10 +299,10 @@
 "search_mode_viewport" = "화면에";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "어디서먹을까";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "식료품들";
 
 /* Search category */
 "transport" = "수송";
@@ -314,7 +314,7 @@
 "parking" = "주차";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "쇼핑";
 
 /* Search category */
 "hotel" = "호텔";
@@ -329,10 +329,10 @@
 "atm" = "ATM";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "유흥";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "가족 기념일";
 
 /* Search category */
 "bank" = "은행";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "옵션 공유";
 
-"export_file" = "Export file";
+"export_file" = "파일 내보내기";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "지도에서 숨기기";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "태그 선택하기";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "태그 불러오는 중…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "당신의 가이드에서 다른 여행객을 돕기 위한 태그를 선택하세요. 필수입니다.";
 
-"public_access" = "Public access";
+"public_access" = "일반 접근";
 
-"limited_access" = "Limited access";
+"limited_access" = "제한 접근";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "이 가이드는 MAPS.ME 카탈로그에 업로드되며 다른 사용자들에게 제공됩니다";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "업로드와 발간";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "업로드와 다이렉트 링크 얻기";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "당신의 가이드가 링크를 가진 모든 이에게 허락됩니다";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "당신의 가이드를 발간하는 중…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "가이드가 발간되었습니다";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>알고 계세요:</b> 진행하면, 당신은 <a href=\"%s\">라이센스에 동의</a>하는 것입니다.";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "가이드 이름";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "공유하지 않음";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "당신의 파일을 업로드 중…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "링크가 만들어졌습니다";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "웹에서 당신의 가이드 수정하기";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "링크를 타고 웹 앱을 통해 당신의 가이드를 수정하세요: 묘사 추가, 사진 올리기와 선으로 즐겨찾기들 연결하기.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "나에게 링크 보내기";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "당신의 파일을 업로드 중에 에러가 발생했습니다";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "태그를 불러오는 중 에러가 발생했습니다. 다시 시도해보세요";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "파일 업로드 실패";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "이 파일은 웹 앱을 통해 수정되었습니다";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "파일이 망가져서 업로드를 할 수 없습니다. 다른 파일을 업로드하세요.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "%s 구매";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "당신의 가이드를 다운로드 중…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "가격을 알 수 없습니다";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "몇 분 뒤 다시 시도해주세요";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "컴퓨터로 당신의 가이드를 쉽게 수정하세요: 묘사 추가, 사진 업로드, 선으로 즐겨찾기들 연결하기.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "웹에서 수정하기";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "옵션을 불러오는 도중 에러가 발생했습니다. 다시 시도해보세요";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "이 가이드에서 당신은 장소들을 방문 할 수 있습니다";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "현지인 혹은 여행자";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "옵션 선택";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "특수 접근";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "구매함";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "죄송합니다. 구매가 완료되지 않았습니다. 도우미와 연락하시면 문제를 해결해드립니다.";
+
+"contact" = "연락";
+
+"check_price_button" = "가격 확인";
+
+"download_button" = "다운로드";
+
+"speedcams_alert_title" = "속도 감시 카메라";
+
+"speedcams_alert_subtitle" = "속도 제한에 대한 경고";
+
+"speedcam_option_auto" = "자동";
+
+"speedcam_option_always" = "항상";
+
+"speedcam_option_never" = "절대 아님";
+
+"bookmark_description_title" = "즐겨찾기 묘사";
+
+"place_description_title" = "장소 묘사";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

@@ -183,12 +183,18 @@
 	<string name="search_mode_nearme">V mé blízkosti</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na obrazovce</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Kde se najíst</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Potraviny</string>
 	<!-- Search category -->
 	<string name="transport">Doprava</string>
 	<!-- Search category -->
 	<string name="fuel">Čerpací stanice</string>
 	<!-- Search category -->
 	<string name="parking">Parkoviště</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Nákupy</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -197,6 +203,10 @@
 	<string name="entertainment">Zábava</string>
 	<!-- Search category -->
 	<string name="atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Noční život</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Dovolená s dětmi</string>
 	<!-- Search category -->
 	<string name="bank">Banka</string>
 	<!-- Search category -->
@@ -1392,6 +1402,57 @@
 	<string name="subscription_terms">Platba bude automaticky zaúčtována na váš účet iTunes v době potvrzení nákupu. Předplatné se automaticky obnoví, pokud automatické obnovení nevypnete nejméně 24 hodin před koncem aktuálního období. Váš účet bude zpoplatněn podle plánu období během 24 hodin před koncem aktuálního období. Automatické obnovení můžete vypnout nebo spravovat kdykoliv v nastavení účtu Apple ID.</string>
 	<string name="subscriptions_title">Předplatné</string>
 	<string name="manage_subscription">Spravovat předplatné</string>
+	<string name="sharing_options">Nastavení přístupu</string>
+	<string name="export_file">Exportovat soubor</string>
+	<string name="hide_from_map">Neukazovat na mapě</string>
+	<string name="ugc_route_tags_screen_label">Vyberte tagy</string>
+	<string name="ugc_route_tags_progress_msg">Načítáme tagy…</string>
+	<string name="ugc_route_tags_desc">Vyberte prosím tagy, abyste ostatním cestovatelům pomohli najít váš průvodce. Povinné.</string>
+	<string name="public_access">Veřejně přístupné</string>
+	<string name="limited_access">Soukromé</string>
+	<string name="upload_and_publish_desc">Tento průvodce bude přidán do veřejného katalogu MAPS.ME a bude přístupný ostatním uživatelům</string>
+	<string name="upload_and_publish">Načíst a zveřejnit</string>
+	<string name="upload_and_get_direct_link">Načíst a získat odkaz</string>
+	<string name="get_direct_link_desc">Váš průvodce bude přístupný přes přímý odkaz</string>
+	<string name="upload_and_publish_progress_text">Zveřejňování průvodce…</string>
+	<string name="upload_and_publish_success">Průvodce byl zveřejněn</string>
+	<string name="ugc_routes_user_agreement">&lt;b>UPOZORNĚNÍ:&lt;/b> pokračováním souhlasíte s &lt;a href="%s">licenční smlouvou&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Název průvodce</string>
+	<string name="ugc_route_edit_description_hint">Přidejte popis (text nebo html)</string>
+	<string name="not_shared">Osobní</string>
+	<string name="direct_link_progress_text">Váš soubor se nahrává…</string>
+	<string name="direct_link_success">Odkaz byl vytvořen</string>
+	<string name="edit_guide_title">Upravujte váš průvodce online</string>
+	<string name="edit_guide_subtitle">Získejte odkaz pro úpravy vašeho průvodce pomocí webové aplikace: přidávejte popisy míst, nahrávejte fotografie a spojujte značky.</string>
+	<string name="send_a_link_btn">Poslat odkaz</string>
+	<string name="upload_error_toast">Během nahrávání souboru se stala chyba</string>
+	<string name="tags_loading_error_subtitle">Během nahrávání tagů se stala chyba, zkuste to prosím ještě jednou</string>
+	<string name="unable_upload_errorr_title">Soubor se nepodařilo nahrát</string>
+	<string name="unable_upload_error_subtitle_edited">Soubor byl upraven pomocí webové aplikace</string>
+	<string name="unable_upload_error_subtitle_broken">Soubor je poškozen a nemůže být nahrán. Nahrajte prosím jiný soubor.</string>
+	<string name="buy_btn">Koupit za %s</string>
+	<string name="download_guide_progress">Průvodce se načítá…</string>
+	<string name="price_error_title">Cenu se nepodařilo zjistit</string>
+	<string name="price_error_subtitle">Zkuste to prosím za pár minut znovu</string>
+	<string name="edit_your_guide_email_body">Upravujte váš průvodce na počítači: přidávejte popisy míst, nahrávejte fotografie a spojujte značky.</string>
+	<string name="edit_on_web">Upravit online</string>
+	<string name="properties_loading_error_subtitle">Během nahrávání možností se stala chyba, zkuste to prosím ještě jednou</string>
+	<string name="custom_props_desc">Tento průvodce jste vytvořili jako</string>
+	<string name="custom_props_title">Místní obyvatel nebo turista</string>
+	<string name="select_properties">Vybrat možnosti</string>
+	<string name="access_rules_p_to_p">Zvláštní přístup</string>
+	<string name="access_rules_paid">Zakoupený</string>
+	<string name="failed_purchase_support_message">Zdá se, že váš nákup není dokončen. Napiš prosím na podporu, problém vyřešíme.</string>
+	<string name="contact">Napsat</string>
+	<string name="check_price_button">Dozvědět se cenu</string>
+	<string name="download_button">Stáhnout</string>
+	<string name="speedcams_alert_title">Detektory rychlosti</string>
+	<string name="speedcams_alert_subtitle">Upozorňovat o omezeních rychlosti</string>
+	<string name="speedcam_option_auto">Automaticky</string>
+	<string name="speedcam_option_always">Vždy</string>
+	<string name="speedcam_option_never">Nikdy</string>
+	<string name="bookmark_description_title">Popis značky</string>
+	<string name="place_description_title">Popis místa</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

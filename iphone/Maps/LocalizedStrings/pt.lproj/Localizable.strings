@@ -299,10 +299,10 @@
 "search_mode_viewport" = "No ecrã";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Onde lanchar";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Alimentos";
 
 /* Search category */
 "transport" = "Transporte";
@@ -314,7 +314,7 @@
 "parking" = "Estacionamento";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Compras";
 
 /* Search category */
 "hotel" = "Hotel";
@@ -329,10 +329,10 @@
 "atm" = "Multibanco";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Convívio à noite";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Descanso com crianças";
 
 /* Search category */
 "bank" = "Banco";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Definições de acesso";
 
-"export_file" = "Export file";
+"export_file" = "Exportar o arquivo";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Remover do mapa";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Selecione tags";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "A carregar tags…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Por favor, selecione tags para ajudar aos outros viajantes encontrar o seu guia. É obrigatório.";
 
-"public_access" = "Public access";
+"public_access" = "Acesso público";
 
-"limited_access" = "Limited access";
+"limited_access" = "Acesso privado";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Esse guia será carregado para catalogo público de MAPS.ME e estará disponível para outros usuários";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Carregar e publicar";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Carregar e receber o link";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "O seu guia será disponível pelo link direto";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "A publicar guia…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Guia publicado";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>PRESTE ATENÇÃO:</b> a continuar você aceita <a href=\"%s\">o contrato de licença</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Nome de guia";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Adicionar uma descrição (texto ou html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Privado";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "A carregar o seu arquivo…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Link criado";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Edite seu guia de viagens on-line";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Recebe o link para editar seu guia de viagens através da uma aplicação web: adicione descrição de lugares, carregue fotografias e junte as marcas com linhas.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Enviar link";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Ocorreu um erro ao carregar o arquivo";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Ocorreu um erro ao carregar tags, por favor tente de novo";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Não foi possível carregar arquivo";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "O arquivo foi editado através da uma aplicação web";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Arquivo corrompido e não pode ser carregado. Por favor, carregue outro arquivo.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Comprar por %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "A carregar guia…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Impossível saber o custo";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Por favor, tente de novo mais tarde";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Edite o seu arquivo no computador: adicione descrição de lugares, carregue fotografias e junte as marcas com linhas.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Editar online";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Ocorreu um erro ao carregar opções, por favor tente de novo";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Você formou esse guia como";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Local ou turista";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Selecionar opções";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Acesso especial";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Comprado";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Parece que tem uma compra inacabada. Por favor, entre em contato com suporte e nos vamos resolver o seu problema.";
+
+"contact" = "Escrever";
+
+"check_price_button" = "Saber o custo";
+
+"download_button" = "Baixar";
+
+"speedcams_alert_title" = "Câmeras de velocidade";
+
+"speedcams_alert_subtitle" = "Avisar sobre limites de velocidade";
+
+"speedcam_option_auto" = "Auto";
+
+"speedcam_option_always" = "Sempre";
+
+"speedcam_option_never" = "Nunca";
+
+"bookmark_description_title" = "Descrição da marca";
+
+"place_description_title" = "Descrição do local";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

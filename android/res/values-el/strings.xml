@@ -132,12 +132,18 @@
 	<string name="measurement_units">Μονάδες μέτρησης</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Πού να φάμε</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Παντοπωλεία</string>
 	<!-- Search category -->
 	<string name="transport">Συγκοινωνία</string>
 	<!-- Search category -->
 	<string name="fuel">Βενζίνη</string>
 	<!-- Search category -->
 	<string name="parking">Χώρος στάθμευσης</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Ψώνια</string>
 	<!-- Search category -->
 	<string name="hotel">Ξενοδοχείο</string>
 	<!-- Search category -->
@@ -146,6 +152,10 @@
 	<string name="entertainment">Ψυχαγωγία</string>
 	<!-- Search category -->
 	<string name="atm">ATM</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Νυχτερινή Ζωή</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Οικογενειακές Διακοπές</string>
 	<!-- Search category -->
 	<string name="bank">Τράπεζα</string>
 	<!-- Search category -->
@@ -1148,6 +1158,57 @@
 	<string name="subscription_terms">Η πληρωμή θα χρεωθεί στον iTunes λογαριασμό σας κατά την επιβεβαίωση της αγοράς. Η συνδρομή θα ανανεωθεί αυτόματα εκτός εάν η αυτόματη ανανέωση είναι απενεργοποιημένη τουλάχιστον 24 ώρες πριν από το τέλος της τρέχουσας περιόδου. Ο λογαριασμός σας θα χρεωθεί σύμφωνα με το σχέδιο ανανέωσής σας εντός 24 ωρών πριν από το τέλος της τρέχουσας περιόδου. Μπορείτε να διαχειριστείτε ή να απενεργοποιήσετε την αυτόματη ανανέωση στις ρυθμίσεις του Apple ID λογαριασμού σας ανά πάσα στιγμή κατά την αγορά σας.</string>
 	<string name="subscriptions_title">Συνδρομές</string>
 	<string name="manage_subscription">Διαχείριση συνδρομής</string>
+	<string name="sharing_options">Επιλογές κοινοποίησης</string>
+	<string name="export_file">Αρχείο Εξαγωγής</string>
+	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
+	<string name="ugc_route_tags_screen_label">Επιλέξτε ετικέτες</string>
+	<string name="ugc_route_tags_progress_msg">Φόρτωση ετικετών…</string>
+	<string name="ugc_route_tags_desc">Παρακαλώ επιλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον οδηγό σας. Αυτό είναι υποχρεωτικό.</string>
+	<string name="public_access">Δημόσια πρόσβαση</string>
+	<string name="limited_access">Περιορισμένη πρόσβαση</string>
+	<string name="upload_and_publish_desc">Αυτός ο οδηγός θα ανέβει στο δημόσιο κατάλογο MAPS.ME και θα είναι διαθέσιμος για άλλους χρήστες</string>
+	<string name="upload_and_publish">Ανέβασμα και δημοσίευση</string>
+	<string name="upload_and_get_direct_link">Ανέβασμα και πάρτε έναν απευθείας σύνδεσμο</string>
+	<string name="get_direct_link_desc">Ο οδηγός σας θα είναι διαθέσιμος σε οποιονδήποτε έχει το σύνδεσμο</string>
+	<string name="upload_and_publish_progress_text">Δημοσιεύοντας τον οδηγό σας…</string>
+	<string name="upload_and_publish_success">Ο οδηγός δημοσιεύτηκε</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ΣΗΜΕΙΩΣΗ:&lt;/b> συνεχίζοντας, δέχεστε &lt;a href="%s">τη συμφωνία άδειας&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Όνομα οδηγού</string>
+	<string name="ugc_route_edit_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
+	<string name="not_shared">Μη κοινοποιημένο</string>
+	<string name="direct_link_progress_text">Ανεβάζουμε το αρχείο σας…</string>
+	<string name="direct_link_success">Ο σύνδεσμος δημιουργήθηκε</string>
+	<string name="edit_guide_title">Επεξεργαστείτε τον οδηγό σας στο δίκτυο</string>
+	<string name="edit_guide_subtitle">Πάρτε ένα σύνδεσμο να επεξεργαστείτε τον οδηγό σας μέσω της εφαρμογής: προσθέστε περιγραφές, ανεβάστε φωτογραφίες και συνδέστε σελιδοδείκτες με γραμμές.</string>
+	<string name="send_a_link_btn">Στείλε μου έναν σύνδεσμο</string>
+	<string name="upload_error_toast">Ένα σφάλμα συνέβη στο ανέβασμα του αρχείου σας</string>
+	<string name="tags_loading_error_subtitle">Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε</string>
+	<string name="unable_upload_errorr_title">Το ανέβασμα του αρχείου απέτυχε</string>
+	<string name="unable_upload_error_subtitle_edited">Το αρχείο επεξεργάστηκε μέσω της εφαρμογής</string>
+	<string name="unable_upload_error_subtitle_broken">Το αρχείο είναι κατεστραμμένο και δεν μπόρεσε να ανέβει. Παρακαλώ ανεβάστε ένα άλλο αρχείο.</string>
+	<string name="buy_btn">Αγοράστε για %s</string>
+	<string name="download_guide_progress">Κατεβάζοντας τον οδηγό σας…</string>
+	<string name="price_error_title">Δεν μπορέσαμε να βρούμε τιμή</string>
+	<string name="price_error_subtitle">Δοκιμάστε ξανά σε μερικά λεπτά παρακαλώ</string>
+	<string name="edit_your_guide_email_body">Επεξεργαστείτε τον οδηγό σας στο δίκτυο εύκολα χρησιμοποιώντας τον υπολογιστή σας: προσθέστε περιγραφές, ανεβάστε φωτογραφίες και συνδέστε σελιδοδείκτες με γραμμές.</string>
+	<string name="edit_on_web">Επεξεργαστείτε στο δίκτυο</string>
+	<string name="properties_loading_error_subtitle">Ένα σφάλμα συνέβη στο φόρτωμα των επιλογών, παρακαλώ ξαναπροσπαθήστε</string>
+	<string name="custom_props_desc">Σε αυτόν τον οδηγό επισκεφθήκατε μέρη σαν</string>
+	<string name="custom_props_title">Ντόπιος ή ταξιδιώτης</string>
+	<string name="select_properties">Διαλέξτε επιλογές</string>
+	<string name="access_rules_p_to_p">Ειδική πρόσβαση</string>
+	<string name="access_rules_paid">Αγοράσθηκε</string>
+	<string name="failed_purchase_support_message">Λυπάμαι, αλλά μάλλον έχετε μια ανολοκλήρωτη αγορά. Παρακαλώ επικοινωνήστε με την υποστήριξη και θα λύσουμε το πρόβλημα.</string>
+	<string name="contact">Επικοινωνία</string>
+	<string name="check_price_button">Έλεγχος τιμής</string>
+	<string name="download_button">Κατέβασμα</string>
+	<string name="speedcams_alert_title">Κάμερες Ταχύτητας</string>
+	<string name="speedcams_alert_subtitle">Ειδοποίηση για όρια ταχύτητας</string>
+	<string name="speedcam_option_auto">Αυτόματο</string>
+	<string name="speedcam_option_always">Πάντα</string>
+	<string name="speedcam_option_never">Ποτέ</string>
+	<string name="bookmark_description_title">Περιγραφή Σελιδοδείκτη</string>
+	<string name="place_description_title">Περιγραφή μέρους</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

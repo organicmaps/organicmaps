@@ -182,12 +182,18 @@
 	<string name="measurement_units">Unități de măsură</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Alegeți între mile și kilometri</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Unde să mănânci</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Produse</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Benzină</string>
 	<!-- Search category -->
 	<string name="parking">Parcare</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Cumpărături</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -196,6 +202,10 @@
 	<string name="entertainment">Divertisment</string>
 	<!-- Search category -->
 	<string name="atm">Bancomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Viața nocturnă</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Odihnă cu copii</string>
 	<!-- Search category -->
 	<string name="bank">Bancă</string>
 	<!-- Search category -->
@@ -1380,6 +1390,57 @@
 	<string name="subscription_terms">Plata va fi percepută din contul dvs. iTunes la confirmarea achiziției. Abonamentul va fi reînnoit în mod automat, cu excepția cazului în care reînnoirea automată este oprită cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Plata va fi percepută din contul dvs. în conformitate cu planul dvs. de reînnoire într-un interval de timp de 24 de ore înainte de încheierea perioadei curente. Puteți administra sau dezactiva reînnoirea automată din setările contului dvs. Apple ID în orice moment al achiziției.</string>
 	<string name="subscriptions_title">Abonamente</string>
 	<string name="manage_subscription">Administrare abonament</string>
+	<string name="sharing_options">Setările accesului</string>
+	<string name="export_file">Exportați fișierul</string>
+	<string name="hide_from_map">Ascundeți de pe hartă</string>
+	<string name="ugc_route_tags_screen_label">Alegeți tag-urile</string>
+	<string name="ugc_route_tags_progress_msg">Încărcăm tag-urile…</string>
+	<string name="ugc_route_tags_desc">Vă rugăm, alegeți tag-urile pentru a ajuta alți turiști să găsească ghidul dvs. Acest lucru este obligatoriu.</string>
+	<string name="public_access">Acces public</string>
+	<string name="limited_access">Acces privat</string>
+	<string name="upload_and_publish_desc">Acest ghid va fi încărcat în catalogul public MAPS.ME și va fi disponibil altor utilizatori</string>
+	<string name="upload_and_publish">Descărcați și publicați</string>
+	<string name="upload_and_get_direct_link">Descărcați și primiți linkul</string>
+	<string name="get_direct_link_desc">Ghidul dumneavoastră va fi disponibil printr-un link direct</string>
+	<string name="upload_and_publish_progress_text">Ghidul se publică…</string>
+	<string name="upload_and_publish_success">Ghidul a fost publicat</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ATRAGEȚI ATENȚIE:&lt;/b> continuând, dvs acceptați &lt;a href="%s">contractul de licență&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Denumirea ghidului</string>
+	<string name="ugc_route_edit_description_hint">Adăugați o descriere (text sau html)</string>
+	<string name="not_shared">Personal</string>
+	<string name="direct_link_progress_text">Încărcăm fișierul dumneavoastră…</string>
+	<string name="direct_link_success">Linkul a fost creat</string>
+	<string name="edit_guide_title">Redactați ghidul dvs online</string>
+	<string name="edit_guide_subtitle">Primiți linkul pentru editarea ghidului dvs prin intermediul aplicației web: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.</string>
+	<string name="send_a_link_btn">Trimiteți linkul</string>
+	<string name="upload_error_toast">În timpul încărcării fișierului s-a produs o eroare</string>
+	<string name="tags_loading_error_subtitle">În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată</string>
+	<string name="unable_upload_errorr_title">Încărcarea fișierului nu s-a primit</string>
+	<string name="unable_upload_error_subtitle_edited">Fișierul a fost editat prin intermediul aplicației web</string>
+	<string name="unable_upload_error_subtitle_broken">Fișierul a fost deteriorat și nu poate fi încărcat. Vă rugăm, alegeți alt fișier.</string>
+	<string name="buy_btn">Cumpărați pentru %s</string>
+	<string name="download_guide_progress">Ghidul de călătorie se încarcă…</string>
+	<string name="price_error_title">Imposibil de aflat prețul</string>
+	<string name="price_error_subtitle">Vă rugăm să încercați încă odată peste câteva minute</string>
+	<string name="edit_your_guide_email_body">Redactați ghidul dvs pe calculator: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.</string>
+	<string name="edit_on_web">Editați online</string>
+	<string name="properties_loading_error_subtitle">În timpul încărcării opțiunilor s-a produs o eroare, vă rugăm încercați încă o dată</string>
+	<string name="custom_props_desc">Acest ghid l-ați făcut în calitate de</string>
+	<string name="custom_props_title">Localnic sau turist</string>
+	<string name="select_properties">Alegeți opțiunile</string>
+	<string name="access_rules_p_to_p">Acces special</string>
+	<string name="access_rules_paid">Cumpărat</string>
+	<string name="failed_purchase_support_message">Se pare că aveți o achiziție nefinalizată. Vă rugăm să vă adresați la support, și noi vom rezolva problema.</string>
+	<string name="contact">Scrie</string>
+	<string name="check_price_button">Aflați prețul</string>
+	<string name="download_button">Descărcați</string>
+	<string name="speedcams_alert_title">Camere de supraveghere video a vitezei</string>
+	<string name="speedcams_alert_subtitle">Avertizați despre limitele de viteză</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Mereu</string>
+	<string name="speedcam_option_never">Niciodată</string>
+	<string name="bookmark_description_title">Descrierea semnului</string>
+	<string name="place_description_title">Descrierea locului</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

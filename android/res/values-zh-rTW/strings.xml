@@ -184,12 +184,18 @@
 	<string name="search_mode_nearme">我的附近</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">畫面中</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">在哪兒吃</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">食物</string>
 	<!-- Search category -->
 	<string name="transport">運輸</string>
 	<!-- Search category -->
 	<string name="fuel">加油站</string>
 	<!-- Search category -->
 	<string name="parking">停車場</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">購物</string>
 	<!-- Search category -->
 	<string name="hotel">飯店</string>
 	<!-- Search category -->
@@ -198,6 +204,10 @@
 	<string name="entertainment">娛樂</string>
 	<!-- Search category -->
 	<string name="atm">自動櫃員機</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">夜生活</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">親子休閒</string>
 	<!-- Search category -->
 	<string name="bank">銀行</string>
 	<!-- Search category -->
@@ -1392,6 +1402,57 @@
 	<string name="subscription_terms">確認購買後將向您的iTunes賬戶收費。除非在當前周期結束前至少24小時關閉自動續訂，訂購會自動延續。在當前周期結束前24小時內，我們會根據您的方案向您的賬戶收費。您能在購買後在Apple ID賬戶設置中隨時管理或關閉自動續訂。</string>
 	<string name="subscriptions_title">訂購</string>
 	<string name="manage_subscription">管理訂購</string>
+	<string name="sharing_options">登錄設置</string>
+	<string name="export_file">導出文件</string>
+	<string name="hide_from_map">從卡中隱藏</string>
+	<string name="ugc_route_tags_screen_label">請選擇標籤</string>
+	<string name="ugc_route_tags_progress_msg">正在加載標籤......</string>
+	<string name="ugc_route_tags_desc">請選擇標籤以幫助其他旅行者找到您的旅行指南。此為必填項。</string>
+	<string name="public_access">公共訪問</string>
+	<string name="limited_access">私人訪問</string>
+	<string name="upload_and_publish_desc">本指南將上傳到MAPS.ME公共目錄，並可供其他用戶使用</string>
+	<string name="upload_and_publish">加載並發布</string>
+	<string name="upload_and_get_direct_link">加載並獲取鏈接</string>
+	<string name="get_direct_link_desc">您的指南將通過直接鏈接提供</string>
+	<string name="upload_and_publish_progress_text">該指南正在發布......</string>
+	<string name="upload_and_publish_success">該指南已發布</string>
+	<string name="ugc_routes_user_agreement">&lt;b>請注意:&lt;/b>繼續，即表示您接受&lt;a href="%s">許可協議&lt;/a></string>
+	<string name="ugc_route_edit_list_name">指南名稱</string>
+	<string name="ugc_route_edit_description_hint">添加說明(文字或html)</string>
+	<string name="not_shared">個人</string>
+	<string name="direct_link_progress_text">正在上傳您的文件......</string>
+	<string name="direct_link_success">鏈接已創建</string>
+	<string name="edit_guide_title">請在線編輯旅行指南</string>
+	<string name="edit_guide_subtitle">請通過網絡應用獲取編輯指南的鏈接：請添加地點描述，上傳照片和用線條連接標籤。</string>
+	<string name="send_a_link_btn">發送鏈接</string>
+	<string name="upload_error_toast">加載文件時出錯</string>
+	<string name="tags_loading_error_subtitle">加載代碼時出錯，請重試</string>
+	<string name="unable_upload_errorr_title">無法上傳文件</string>
+	<string name="unable_upload_error_subtitle_edited">文件是通過Web應用程序編輯的</string>
+	<string name="unable_upload_error_subtitle_broken">該文件已損壞，無法上傳。請上傳其他文件。</string>
+	<string name="buy_btn">購買%s</string>
+	<string name="download_guide_progress">指南正在加載......</string>
+	<string name="price_error_title">無法得知價格</string>
+	<string name="price_error_subtitle">請在幾分鐘之後再試一次</string>
+	<string name="edit_your_guide_email_body">在計算機上編輯您的旅行指南：請添加地點描述，上傳照片和用線條連接標籤。</string>
+	<string name="edit_on_web">在線編輯</string>
+	<string name="properties_loading_error_subtitle">加載選項時出錯，請重試</string>
+	<string name="custom_props_desc">本指南您編制為</string>
+	<string name="custom_props_title">當地貨遊客</string>
+	<string name="select_properties">選擇選項</string>
+	<string name="access_rules_p_to_p">特殊訪問</string>
+	<string name="access_rules_paid">已購買</string>
+	<string name="failed_purchase_support_message">您似乎還有待定購買。請寫支持，我們將解決問題。</string>
+	<string name="contact">寫</string>
+	<string name="check_price_button">了解價格</string>
+	<string name="download_button">下載</string>
+	<string name="speedcams_alert_title">高速相機</string>
+	<string name="speedcams_alert_subtitle">警告速度限制</string>
+	<string name="speedcam_option_auto">自動</string>
+	<string name="speedcam_option_always">總是</string>
+	<string name="speedcam_option_never">從不</string>
+	<string name="bookmark_description_title">標籤說明</string>
+	<string name="place_description_title">地點說明</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

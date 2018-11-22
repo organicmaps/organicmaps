@@ -183,12 +183,18 @@
 	<string name="search_mode_nearme">V mojom okolí</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na obrazovke</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Kde sa najesť</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Potraviny</string>
 	<!-- Search category -->
 	<string name="transport">Doprava</string>
 	<!-- Search category -->
 	<string name="fuel">Čerpacia stanica</string>
 	<!-- Search category -->
 	<string name="parking">Parkovisko</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Nakupovanie</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -197,6 +203,10 @@
 	<string name="entertainment">Zábava</string>
 	<!-- Search category -->
 	<string name="atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nočný život</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Rodinná dovolenka</string>
 	<!-- Search category -->
 	<string name="bank">Banka</string>
 	<!-- Search category -->
@@ -1388,6 +1398,57 @@
 	<string name="subscription_terms">Platba bude účtovaná na váš účet iTunes pri potvrdení nákupu. Predplatné sa automaticky obnoví, pokiaľ nebude automatické obnovenie vypnuté minimálne 24 hodín pred koncom aktuálneho obdobia. Váš účet sa bude účtovať podľa vášho plánu obnovy do 24 hodín pred koncom aktuálneho obdobia. Automatickú obnovu vo vašom ID nastavení účtu Apple môžete spravovať alebo vypnúť kedykoľvek pri kúpe.</string>
 	<string name="subscriptions_title">Predplatné</string>
 	<string name="manage_subscription">Správa predplatného</string>
+	<string name="sharing_options">Možnosti zdieľania</string>
+	<string name="export_file">Exportovať súbor</string>
+	<string name="hide_from_map">Skryť z mapy</string>
+	<string name="ugc_route_tags_screen_label">Vyberte značky</string>
+	<string name="ugc_route_tags_progress_msg">Načítavanie značiek…</string>
+	<string name="ugc_route_tags_desc">Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť vášho sprievodcu. Toto je povinné.</string>
+	<string name="public_access">Verejný prístup</string>
+	<string name="limited_access">Obmedzený prístup</string>
+	<string name="upload_and_publish_desc">Táto príručka bude nahraná do verejného katalógu MAPS.ME a bude dostupná ostatným používateľom</string>
+	<string name="upload_and_publish">Nahrať a publikovať</string>
+	<string name="upload_and_get_direct_link">Nahrať a získať priamy odkaz</string>
+	<string name="get_direct_link_desc">Váš sprievodca bude dostupný každému, kto má odkaz</string>
+	<string name="upload_and_publish_progress_text">Publikovanie vášho sprievodcu…</string>
+	<string name="upload_and_publish_success">Sprievodca bol publikovaný</string>
+	<string name="ugc_routes_user_agreement">&lt;b>POZNÁMKA:&lt;/b> pokračovaním akceptujte &lt;a href="%s">licenčnú zmluvu&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Názov sprievodcu</string>
+	<string name="ugc_route_edit_description_hint">Zadajte popis (text alebo html)</string>
+	<string name="not_shared">Nezdieľané</string>
+	<string name="direct_link_progress_text">Nahrávanie váľho súboru…</string>
+	<string name="direct_link_success">Odkaz bol vytvorený</string>
+	<string name="edit_guide_title">Upravte vášho sprievodcu na webe</string>
+	<string name="edit_guide_subtitle">Získajte odkaz na úpravu sprievodcu prostredníctvom webovej aplikácie: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.</string>
+	<string name="send_a_link_btn">Poslať mi odkaz</string>
+	<string name="upload_error_toast">Počas nahrávania súboru sa vyskytla chyba</string>
+	<string name="tags_loading_error_subtitle">Počas načítavania značiek sa vyskytla chyba, skúste to znova</string>
+	<string name="unable_upload_errorr_title">Nahrávanie súboru zlyhalo</string>
+	<string name="unable_upload_error_subtitle_edited">Tento súbor bol upravený prostredníctvom webovej aplikácie</string>
+	<string name="unable_upload_error_subtitle_broken">Tento súbor je poškodený a nedá sa nahrať. Prosím nahrajte iný súbor.</string>
+	<string name="buy_btn">Kúpiť za %s</string>
+	<string name="download_guide_progress">Sťahovanie vášho sprievodcu…</string>
+	<string name="price_error_title">Nebolo možné získať cenu</string>
+	<string name="price_error_subtitle">Prosím skúste to znovu o pár minút</string>
+	<string name="edit_your_guide_email_body">Upravte svojho sprievodcu na webe jednoducho pomocou počítača: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.</string>
+	<string name="edit_on_web">Upraviť na webe</string>
+	<string name="properties_loading_error_subtitle">Pri načítavaní možností sa vyskytla chyba, skúste to znova</string>
+	<string name="custom_props_desc">V tomto sprievodcovi ste navštívili miesta ako</string>
+	<string name="custom_props_title">Miestny alebo cestovateľ</string>
+	<string name="select_properties">Vyberte možnosti</string>
+	<string name="access_rules_p_to_p">Špeciálny prístup</string>
+	<string name="access_rules_paid">Zakúpené</string>
+	<string name="failed_purchase_support_message">Je nám ľúto, ale pravdepodobne máte nedokončený nákup. Obráťte sa na podporu a my problém vyriešime.</string>
+	<string name="contact">Kontakt</string>
+	<string name="check_price_button">Skontrolovať cenu</string>
+	<string name="download_button">Stiahnuť</string>
+	<string name="speedcams_alert_title">Rýchlostné kamery</string>
+	<string name="speedcams_alert_subtitle">Upozornenie na rýchlostné obmedzenia</string>
+	<string name="speedcam_option_auto">Automaticky</string>
+	<string name="speedcam_option_always">Vždy</string>
+	<string name="speedcam_option_never">Nikdy</string>
+	<string name="bookmark_description_title">Popis záložiek</string>
+	<string name="place_description_title">Popis miesta</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

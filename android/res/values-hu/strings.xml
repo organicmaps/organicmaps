@@ -183,12 +183,18 @@
 	<string name="search_mode_nearme">A közelben</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">A képernyőn</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Hol lehet enni valamit</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Termékek</string>
 	<!-- Search category -->
 	<string name="transport">Közlekedés</string>
 	<!-- Search category -->
 	<string name="fuel">Benzinkút</string>
 	<!-- Search category -->
 	<string name="parking">Parkoló</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Bevásárlás</string>
 	<!-- Search category -->
 	<string name="hotel">Szálloda</string>
 	<!-- Search category -->
@@ -197,6 +203,10 @@
 	<string name="entertainment">Szórakozás</string>
 	<!-- Search category -->
 	<string name="atm">Pénzautomata</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Éjjeli élet</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Pihenés a gyerekekkel</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1384,6 +1394,57 @@
 	<string name="subscription_terms">A vásárlás megerősítésekor az összeg az iTunes számládra lesz terhelve. Az előfizetés automatikusan megújul, ha csak az automatikus megújítást 24 órával a jelenlegi időszak vége előtt ki nem kapcsolod. A számlád az előfizetésednek megfelelően a jelenlegi időszak lejárta előtti 24 órában lesz megterhelve. Az automatikus megújítást az Apple ID fiókod beállításaidban az előfizetés bármely szakaszában kikapcsolhatod.</string>
 	<string name="subscriptions_title">Előfizetések</string>
 	<string name="manage_subscription">Előfizetés kezelése</string>
+	<string name="sharing_options">A hozzáférés beállításai</string>
+	<string name="export_file">Fájl exportálása</string>
+	<string name="hide_from_map">Lefedés a térképen</string>
+	<string name="ugc_route_tags_screen_label">A tag-ek kiválasztása</string>
+	<string name="ugc_route_tags_progress_msg">Tag-ek betöltése…</string>
+	<string name="ugc_route_tags_desc">Kérjük, válassza ki a tag-ket, hogy segítsen a többi utazónak megtalálni az Ön útikalauzát. Ez kötelező.</string>
+	<string name="public_access">Nyílt hozzáférés</string>
+	<string name="limited_access">Személyes hozzáférés</string>
+	<string name="upload_and_publish_desc">Ez az útikalauz a MAPS.ME nyitott katalógusba lesz feltöltve, és mindenki számára elérhető lesz</string>
+	<string name="upload_and_publish">Feltöltés és megjelenítés</string>
+	<string name="upload_and_get_direct_link">Feltöltés és hivatkozás elérése</string>
+	<string name="get_direct_link_desc">Az Ön útikalauza egyenes hivatkozásban lesz elérhető</string>
+	<string name="upload_and_publish_progress_text">Az útikalauz megjelenítődik…</string>
+	<string name="upload_and_publish_success">Az útikalauz meg van jelenítve</string>
+	<string name="ugc_routes_user_agreement">&lt;b>FIGYELEM:&lt;/b> folytatva, Ön elfogadja &lt;a href="%s">licensz szerződést&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Az útikalauz megnevezése</string>
+	<string name="ugc_route_edit_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
+	<string name="not_shared">Személyes</string>
+	<string name="direct_link_progress_text">Betöltjük az Ön fájlát…</string>
+	<string name="direct_link_success">A hivatkozás létre van hozva</string>
+	<string name="edit_guide_title">Szerkessze az útikalauzát online</string>
+	<string name="edit_guide_subtitle">A web alkalmazáson keresztül kapjon hivatkozást az útikalauzának szerkesztésére: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.</string>
+	<string name="send_a_link_btn">Hivatkozás küldése</string>
+	<string name="upload_error_toast">A fájl feltöltésekor hiba történt</string>
+	<string name="tags_loading_error_subtitle">A tag-ek feltöltésekor hiba történt, kérjük próbálja meg még egyszer</string>
+	<string name="unable_upload_errorr_title">Nem sikerült a fájl feltöltése</string>
+	<string name="unable_upload_error_subtitle_edited">A fájl a web alkalmazáson keresztül volt újraszerkesztve</string>
+	<string name="unable_upload_error_subtitle_broken">A fájl sérült és nem lehet feltölteni. Kérjük, más fájlt töltsön fel.</string>
+	<string name="buy_btn">%s- ért vásárolni</string>
+	<string name="download_guide_progress">Az útikalauz töltődik…</string>
+	<string name="price_error_title">Lehetetlen megtudni az értékét</string>
+	<string name="price_error_subtitle">Kérem egy néhány perc múlva próbálkozzon újra</string>
+	<string name="edit_your_guide_email_body">Szerkessze az Ön útikalauzát a számítógépen: adjon hozzá helyek ismertetését, töltsön fel fényképeket és kösse össze a jeleket vonalakkal.</string>
+	<string name="edit_on_web">Online szerkesztés</string>
+	<string name="properties_loading_error_subtitle">Az opciók feltöltésekor hiba történt, kérjük, próbálja meg még egyszer</string>
+	<string name="custom_props_desc">Ezt az útikalauzt Ön úgy állította össze, mint</string>
+	<string name="custom_props_title">Helyi lakos vagy turista</string>
+	<string name="select_properties">Opció kiválasztása</string>
+	<string name="access_rules_p_to_p">Speciális hozzáférés</string>
+	<string name="access_rules_paid">Megvásárolt</string>
+	<string name="failed_purchase_support_message">Úgy látszik, hogy Önnek van egy be nem fejezett vásárlása. Kérjük, írjon a támogatásba, és mi megoldjuk az Ön problémáját.</string>
+	<string name="contact">Írás</string>
+	<string name="check_price_button">Az ár tudakolozása</string>
+	<string name="download_button">Letöltés</string>
+	<string name="speedcams_alert_title">Sebességmérő kamerák</string>
+	<string name="speedcams_alert_subtitle">Figyelmeztetés a sebessség korlátozására</string>
+	<string name="speedcam_option_auto">Autó</string>
+	<string name="speedcam_option_always">Mindig</string>
+	<string name="speedcam_option_never">Soha</string>
+	<string name="bookmark_description_title">A jel ismertetése</string>
+	<string name="place_description_title">A hely ismertetése</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

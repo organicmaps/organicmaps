@@ -299,10 +299,10 @@
 "search_mode_viewport" = "På skärmen";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Var att äta";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Produkter";
 
 /* Search category */
 "transport" = "Transport";
@@ -329,10 +329,10 @@
 "atm" = "Bankomat";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Nattliv";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Semester med barn";
 
 /* Search category */
 "bank" = "Bank";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Åtkomstinställningar";
 
-"export_file" = "Export file";
+"export_file" = "Exportera fil";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Dölj från kort";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Välj taggar";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Laddar upp taggar…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Var vänlig välj taggar för att hjälpa andra resenärer att hitta din reseguide. Detta är ett måste.";
 
-"public_access" = "Public access";
+"public_access" = "Allmänhetens åtkomst";
 
-"limited_access" = "Limited access";
+"limited_access" = "Privat åtkomst";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Den här reseguiden kommer att laddas upp i den offentliga katalogen MAPS.ME och kommer att vara tillgänglig för andra användare";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Ladda upp och publicera";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Ladda upp och få länk";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Din reseguide kommer att finnas tillgänglig via direktlänk";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Reseguiden publiceras…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Reseguiden har publicerat";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>OBS:</b> Genom att fortsätta accepterar du <a href=\"%s\">licensavtalet</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Namn av reseguiden";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Lägg till en beskrivning (text eller html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Personlig";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Laddar upp din fil…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Länk skapad";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Redigera din reseguide online";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Hämta en länk för att redigera din guidebok via webben: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Skicka länk";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Ett fel uppstod när du laddar filen";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Ett fel uppstod när du laddar taggarna, försök igen";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Det gick inte att ladda upp filen";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Filen har redigerats via webbapplikation";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Filen är skadad och kan inte laddas upp. Var vänlig ladda upp en annan fil.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Köp för %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Reseguiden laddar…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Det gick inte att ta reda på kostnaden";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Var vänlig försök igen om några minuter";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Redigera din reseguide på datorn: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Redigera online";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Ett fel uppstod när du laddar optioner, försök igen";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Den här reseguiden du har sammanställt som";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Lokal bosatt eller en turist";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Välj optioner";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Särskild åtkomst";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Köpte";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Det verkar som om du har ett pågående köp. Var vänlig kontakt support, och vi kommer att lösa problemet.";
+
+"contact" = "Kontakta";
+
+"check_price_button" = "Ta reda på priset";
+
+"download_button" = "Nedladdning";
+
+"speedcams_alert_title" = "Hastighetskameror";
+
+"speedcams_alert_subtitle" = "Varna om hastighetsbegränsningar";
+
+"speedcam_option_auto" = "Auto";
+
+"speedcam_option_always" = "Alltid";
+
+"speedcam_option_never" = "Aldrig";
+
+"bookmark_description_title" = "Etikettbeskrivning";
+
+"place_description_title" = "Beskrivning av platsen";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

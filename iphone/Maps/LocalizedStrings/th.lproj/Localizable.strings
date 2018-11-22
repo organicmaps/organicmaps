@@ -299,10 +299,10 @@
 "search_mode_viewport" = "บนหน้าจอ";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "กินร้านไหนดี";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "ซื้อของกินของใช้";
 
 /* Search category */
 "transport" = "การขนส่ง";
@@ -314,7 +314,7 @@
 "parking" = "ที่จอดรถ";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "ช็อปปิง";
 
 /* Search category */
 "hotel" = "โรงแรม";
@@ -329,10 +329,10 @@
 "atm" = "เอทีเอ็ม";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "ไนท์ไลฟ์";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "วันหยุดสำหรับครอบครัว";
 
 /* Search category */
 "bank" = "ธนาคาร";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "ตัวเลือกการแชร์";
 
-"export_file" = "Export file";
+"export_file" = "ส่งออกไฟล์";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "ซ่อนจากแผนที่";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "เลือกแท็ก";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "กำลังโหลดแท็ก…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "โปรดเลือกแท็กเพื่อช่วยให้นักท่องเที่ยวคนอื่นๆ พบไกด์ของคุณ จำเป็นต้องเลือก";
 
-"public_access" = "Public access";
+"public_access" = "เข้าถึงได้โดยสาธารณะ";
 
-"limited_access" = "Limited access";
+"limited_access" = "จำกัดการเข้าถึง";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "ไกด์นี้จะถูกอัพโหลดไปยังแคตตาล็อกสาธารณะของ MAPS.ME และเปิดให้ผู้ใช้งานคนอื่นเข้าถึงได้";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "อัพโหลดและเผยแพร่";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "อัพโหลดและรับไดเร็คต์ลิงค์";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "ทุกคนที่มีลิงค์จะเข้าสามารถเข้าใช้ไกด์ของคุณได้";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "กำลังเผยแพร่ไกด์ของคุณ";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "ไกด์ได้รับการเผยแพร่แล้ว";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>หมายเหตุ:</b> ด้วยการทำขั้นตอนดังกล่าว หมายความว่าคุณยอมรับ <a href=\"%s\">ข้อตกลงการอนุญาตใช้สิทธิ์</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "ชื่อของไกด์";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "พิมพ์รายละเอียด (ข้อความหรือ html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "ไม่แชร์";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "กำลังอัพโหลดไฟล์ของคุณ…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "ลิงค์ถูกสร้างแล้ว";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "แก้ไขไกด์ของคุณบนเว็บ";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "รับลิงค์เพื่อแก้ไขไกด์ของคุณผ่านเว็บแอพ: เพิ่มรายละเอียด อัพโหลดรูปภาพ หรือเชื่อมบุ๊คมาร์คด้วยการวาดเส้น";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "ส่งลิงค์ให้ฉัน";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "เกิดข้อผิดพลาดขณะอัพโหลดไฟล์ของคุณ";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "การอัพโหลดไฟล์ล้มเหลว";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "ไฟล์นั้นถูกแก้ไขผ่านทางเว็บแอพ";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "ไฟล์นั้นเสียหายและไม่สามารถอัพโหลดได้ โปรอัพโหลดไฟล์อื่นแทน";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "ซื้อในราคา %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "กำลังโหลดไกด์ของคุณ…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "ไม่สามารถโหลดข้อมูลราคาได้";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "โปรดลองใหม่อีกครั้งในสองถึงสามนาทีถัดไป";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "ใช้คอมพิวเตอร์แก้ไขไกด์ของคุณได้ง่ายๆ: เพิ่มรายละเอียด อัพโหลดรูปภาพ หรือเชื่อมบุ๊คมาร์คด้วยการวาดเส้น";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "แก้ไขบนเว็บ";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "เกิดข้อผิดพลาดขณะโหลดตัวเลือก โปรดลองใหม่อีกครั้ง";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "ในไกด์นี้คุณเยี่ยมชมสถานที่ในฐานะ";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "คนท้องที่หรือนักท่องเที่ยว";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "เลือกออพชั่น";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "การเข้าถึงแบบพิเศษ";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "ชำระเงินเรียบร้อย";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "ขออภัย แต่ขั้นตอนชำระเงินของคุณอาจยังไม่เสร็จสิ้น โปรดติดต่อฝ่ายสนับสนุนผู้ใช้งาน และเราจะแก้ไขปัญหาให้คุณ";
+
+"contact" = "ติดต่อ";
+
+"check_price_button" = "เช็คราคา";
+
+"download_button" = "ดาวน์โหลด";
+
+"speedcams_alert_title" = "กล้องตรวจจับความเร็ว";
+
+"speedcams_alert_subtitle" = "เตือนเรื่องการจำกัดความเร็ว";
+
+"speedcam_option_auto" = "อัตโนมัติ";
+
+"speedcam_option_always" = "ทุกครั้ง";
+
+"speedcam_option_never" = "ไม่ต้องเตือน";
+
+"bookmark_description_title" = "รายละเอียดของบุ๊คมาร์ค";
+
+"place_description_title" = "รายละเอียดของสถานที่";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

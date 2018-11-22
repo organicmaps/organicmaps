@@ -299,10 +299,10 @@
 "search_mode_viewport" = "On the Screen";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Πού να φάμε";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Παντοπωλεία";
 
 /* Search category */
 "transport" = "Συγκοινωνία";
@@ -314,7 +314,7 @@
 "parking" = "Χώρος στάθμευσης";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Ψώνια";
 
 /* Search category */
 "hotel" = "Ξενοδοχείο";
@@ -329,10 +329,10 @@
 "atm" = "ATM";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Νυχτερινή Ζωή";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Οικογενειακές Διακοπές";
 
 /* Search category */
 "bank" = "Τράπεζα";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Επιλογές κοινοποίησης";
 
-"export_file" = "Export file";
+"export_file" = "Αρχείο Εξαγωγής";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Κρύψε από τον χάρτη";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Επιλέξτε ετικέτες";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Φόρτωση ετικετών…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Παρακαλώ επιλέξτε ετικέτες για να βοηθήσετε άλλους ταξιδιώτες να βρουν τον οδηγό σας. Αυτό είναι υποχρεωτικό.";
 
-"public_access" = "Public access";
+"public_access" = "Δημόσια πρόσβαση";
 
-"limited_access" = "Limited access";
+"limited_access" = "Περιορισμένη πρόσβαση";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Αυτός ο οδηγός θα ανέβει στο δημόσιο κατάλογο MAPS.ME και θα είναι διαθέσιμος για άλλους χρήστες";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Ανέβασμα και δημοσίευση";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Ανέβασμα και πάρτε έναν απευθείας σύνδεσμο";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Ο οδηγός σας θα είναι διαθέσιμος σε οποιονδήποτε έχει το σύνδεσμο";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Δημοσιεύοντας τον οδηγό σας…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Ο οδηγός δημοσιεύτηκε";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>ΣΗΜΕΙΩΣΗ:</b> συνεχίζοντας, δέχεστε <a href=\"%s\">τη συμφωνία άδειας</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Όνομα οδηγού";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Πληκτρολογήστε μια περιγραφή (κείμενο ή html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Μη κοινοποιημένο";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Ανεβάζουμε το αρχείο σας…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Ο σύνδεσμος δημιουργήθηκε";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Επεξεργαστείτε τον οδηγό σας στο δίκτυο";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Πάρτε ένα σύνδεσμο να επεξεργαστείτε τον οδηγό σας μέσω της εφαρμογής: προσθέστε περιγραφές, ανεβάστε φωτογραφίες και συνδέστε σελιδοδείκτες με γραμμές.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Στείλε μου έναν σύνδεσμο";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Ένα σφάλμα συνέβη στο ανέβασμα του αρχείου σας";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Ένα σφάλμα συνέβη στο φόρτωμα των ετικετών, παρακαλώ ξαναπροσπαθήστε";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Το ανέβασμα του αρχείου απέτυχε";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Το αρχείο επεξεργάστηκε μέσω της εφαρμογής";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Το αρχείο είναι κατεστραμμένο και δεν μπόρεσε να ανέβει. Παρακαλώ ανεβάστε ένα άλλο αρχείο.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Αγοράστε για %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Κατεβάζοντας τον οδηγό σας…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Δεν μπορέσαμε να βρούμε τιμή";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Δοκιμάστε ξανά σε μερικά λεπτά παρακαλώ";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Επεξεργαστείτε τον οδηγό σας στο δίκτυο εύκολα χρησιμοποιώντας τον υπολογιστή σας: προσθέστε περιγραφές, ανεβάστε φωτογραφίες και συνδέστε σελιδοδείκτες με γραμμές.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Επεξεργαστείτε στο δίκτυο";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Ένα σφάλμα συνέβη στο φόρτωμα των επιλογών, παρακαλώ ξαναπροσπαθήστε";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Σε αυτόν τον οδηγό επισκεφθήκατε μέρη σαν";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Ντόπιος ή ταξιδιώτης";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Διαλέξτε επιλογές";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Ειδική πρόσβαση";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Αγοράσθηκε";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Λυπάμαι, αλλά μάλλον έχετε μια ανολοκλήρωτη αγορά. Παρακαλώ επικοινωνήστε με την υποστήριξη και θα λύσουμε το πρόβλημα.";
+
+"contact" = "Επικοινωνία";
+
+"check_price_button" = "Έλεγχος τιμής";
+
+"download_button" = "Κατέβασμα";
+
+"speedcams_alert_title" = "Κάμερες Ταχύτητας";
+
+"speedcams_alert_subtitle" = "Ειδοποίηση για όρια ταχύτητας";
+
+"speedcam_option_auto" = "Αυτόματο";
+
+"speedcam_option_always" = "Πάντα";
+
+"speedcam_option_never" = "Ποτέ";
+
+"bookmark_description_title" = "Περιγραφή Σελιδοδείκτη";
+
+"place_description_title" = "Περιγραφή μέρους";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

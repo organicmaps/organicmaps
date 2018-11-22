@@ -185,12 +185,18 @@
 	<string name="search_mode_nearme">W pobliżu mnie</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Na ekranie</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Gdzie zjeść</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Produkty</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Stacja benzynowa</string>
 	<!-- Search category -->
 	<string name="parking">Parking</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -199,6 +205,10 @@
 	<string name="entertainment">Rozrywka</string>
 	<!-- Search category -->
 	<string name="atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Życie nocne</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Wypoczynek z dziećmi</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1388,6 +1398,57 @@
 	<string name="subscription_terms">Po zatwierdzeniu płatności zostanie nią obciążone Twoje konto iTunes. Subskrypcja odnowi się automatycznie, chyba że opcja automatycznego odnawiania zostanie wyłączona co najmniej 24 godziny przed końcem bieżącego okresu rozliczeniowego. Twoje konto zostanie obciążone kwotą za odnowienie subskrypcji zgodnie z wybranym planem w przeciągu 24 godzin przed końcem bieżącego okresu rozliczeniowego. Automatycznym odnawianiem zarządzać można lub wyłączyć je w ustawieniach konta Apple ID w dowolnej chwili po dokonaniu zakupu.</string>
 	<string name="subscriptions_title">Subskrypcje</string>
 	<string name="manage_subscription">Zarządzaj subskrypcją</string>
+	<string name="sharing_options">Ustawienia dostępu</string>
+	<string name="export_file">Eksportuj plik</string>
+	<string name="hide_from_map">Ukryj mapy</string>
+	<string name="ugc_route_tags_screen_label">Wybierz tagi</string>
+	<string name="ugc_route_tags_progress_msg">Trwa pobieranie tagów…</string>
+	<string name="ugc_route_tags_desc">Proszę, wybierz tagi, aby ułatwić innym podróżnym odnalezienie Twojego przewodnika. Jest to obowiązkowe.</string>
+	<string name="public_access">Dostęp publiczny</string>
+	<string name="limited_access">Dostęp prywatny</string>
+	<string name="upload_and_publish_desc">Ten przewodnik zostanie pobrany do publicznego katalogu MAPS.ME i będzie dostępny dla innych użytkowników</string>
+	<string name="upload_and_publish">Prześlij i udostępnij</string>
+	<string name="upload_and_get_direct_link">Prześlij i udostępnij link</string>
+	<string name="get_direct_link_desc">Twój przewodnik będzie dostępny pod linkiem bezpośrednim</string>
+	<string name="upload_and_publish_progress_text">Trwa publikacja przewodnika…</string>
+	<string name="upload_and_publish_success">Przewodnik opublikowany</string>
+	<string name="ugc_routes_user_agreement">&lt;b>PROSZĘ ZWRÓCIĆ UWAGĘ:&lt;/b> kontynuując, akceptujesz &lt;a href="%s">umowę licencyjną&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Nazwa przewodnika</string>
+	<string name="ugc_route_edit_description_hint">Dodaj opis (tekst lub html)</string>
+	<string name="not_shared">Osobisty</string>
+	<string name="direct_link_progress_text">Trwa pobieranie Twojego pliku…</string>
+	<string name="direct_link_success">Link został utworzony</string>
+	<string name="edit_guide_title">Edytuj swój przewodnik online</string>
+	<string name="edit_guide_subtitle">Uzyskaj link do edycji przewodnika za pośrednictwem aplikacji internetowej: dodawaj opisy miejsc, pobieraj zdjęcia i połączaj znaczniki liniami.</string>
+	<string name="send_a_link_btn">Wyślij link</string>
+	<string name="upload_error_toast">Wystąpił błąd podczas pobierania pliku</string>
+	<string name="tags_loading_error_subtitle">Wystąpił błąd podczas pobierania tagów, spróbuj ponownie</string>
+	<string name="unable_upload_errorr_title">Nie udało się przesłać pliku</string>
+	<string name="unable_upload_error_subtitle_edited">Plik edytowano za pomocą aplikacji internetowej</string>
+	<string name="unable_upload_error_subtitle_broken">Plik jest uszkodzony i nie można go załadować. Proszę przesłać inny plik.</string>
+	<string name="buy_btn">Kup za %s</string>
+	<string name="download_guide_progress">Trwa pobieranie przewodnika…</string>
+	<string name="price_error_title">Brak możliwości dowiedzieć się wartości</string>
+	<string name="price_error_subtitle">Proszę spróbować ponownie za kilka minut</string>
+	<string name="edit_your_guide_email_body">Edytuj swój przewodnik na komputerze: dodawaj opisy miejsc, pobieraj zdjęcia i połączaj znaczniki liniami.</string>
+	<string name="edit_on_web">Edytuj online</string>
+	<string name="properties_loading_error_subtitle">Wystąpił błąd podczas ładowania opcji, spróbuj ponownie</string>
+	<string name="custom_props_desc">Ten przewodnik przygotowałeś jako</string>
+	<string name="custom_props_title">Miejscowy lub turysta</string>
+	<string name="select_properties">Wybierz opcje</string>
+	<string name="access_rules_p_to_p">Specjalny dostęp</string>
+	<string name="access_rules_paid">Kupiony</string>
+	<string name="failed_purchase_support_message">Wydaje się, że masz oczekujący zakup. Proszę, napisz do wsparcia, aby uzyskać pomoc w rozwiązaniu problemu.</string>
+	<string name="contact">Napisz</string>
+	<string name="check_price_button">Sprawdź cenę</string>
+	<string name="download_button">Pobierz</string>
+	<string name="speedcams_alert_title">Fotoradary</string>
+	<string name="speedcams_alert_subtitle">Ostrzegać o ograniczeniach prędkości</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Zawsze</string>
+	<string name="speedcam_option_never">Nigdy</string>
+	<string name="bookmark_description_title">Opis znacznika</string>
+	<string name="place_description_title">Opis miejsca</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

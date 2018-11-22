@@ -299,10 +299,10 @@
 "search_mode_viewport" = "На екрані";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Де поїсти";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Продукти";
 
 /* Search category */
 "transport" = "Транспорт";
@@ -314,7 +314,7 @@
 "parking" = "Парковка";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Шопінг";
 
 /* Search category */
 "hotel" = "Готель";
@@ -329,10 +329,10 @@
 "atm" = "Банкомат";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Нічне життя";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Відпочинок з дітьми";
 
 /* Search category */
 "bank" = "Банк";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Налаштування доступу";
 
-"export_file" = "Export file";
+"export_file" = "Експортувати файл";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Приховати з карти";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Виберіть теги";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Завантажуємо теги…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Просимо вибрати теги, або допомогти іншим мандрівникам знайти ваш путівник. Це обов’язково.";
 
-"public_access" = "Public access";
+"public_access" = "Публічний доступ";
 
-"limited_access" = "Limited access";
+"limited_access" = "Приватний доступ";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Цей путівник буде завантажено у публічний каталог MAPS.ME та буде доступний іншим користувачам";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Завантажити та опублікувати";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Завантажити та отримати посилання";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Ваш путівник буде доступний по прямому посиланні";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Путівник публікується…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Путівник опубліковано";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>ЗВЕРНІТЬ УВАГУ:</b> продовжуючи, ви приймаєте <a href=\"%s\">ліцензійну угоду</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Назва путівника";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Додайте опис (текст чи html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Особистий";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Завантажуємо ваш файл…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Посилання створено";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Редагуйте ваш путівник онлайн";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Отримайте посилання для редагування вашого путівника через веб-застосунок: додавайте описи місць, завантажуйте фотографії та об’єднуйте мітки лініями.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Надіслати посилання";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Під час завантаження файлу сталася помилка";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Не вдалося завантажити файл";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Файл було відредаговано через веб-застосунок";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Файл пошкоджено та не може бути завантажений. Прохання завантажити інший файл.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Купити за %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Путівник завантажується…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Неможливо дізнатися вартість";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Прохання спробувати ще раз за кілька хвилин";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Редагуйте ваш путівник на комп’ютері: додавайте описи місць, завантажуйте фотографії та об’єднуйте мітки лініями.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Редагувати онлайн";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Під час завантаження опцій сталася помилка, будь ласка, спробуйте ще раз";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Цей путівник ви склали як";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Місцевий або турист";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Вибрати опції";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Спеціальний доступ";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Придбаний";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Здається, у вас є не завершена покупка. Будь ласка, напишіть до служби підтримки, і ми вирішимо проблему.";
+
+"contact" = "Написати";
+
+"check_price_button" = "Дізнатися ціну";
+
+"download_button" = "Завантажити";
+
+"speedcams_alert_title" = "Камери швидкості";
+
+"speedcams_alert_subtitle" = "Попереджати про обмеження швидкості";
+
+"speedcam_option_auto" = "Авто";
+
+"speedcam_option_always" = "Завжди";
+
+"speedcam_option_never" = "Ніколи";
+
+"bookmark_description_title" = "Опис мітки";
+
+"place_description_title" = "Опис місця";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

@@ -188,12 +188,18 @@
 	<string name="search_mode_nearme">Поруч</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На екрані</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Де поїсти</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Продукти</string>
 	<!-- Search category -->
 	<string name="transport">Транспорт</string>
 	<!-- Search category -->
 	<string name="fuel">Заправка</string>
 	<!-- Search category -->
 	<string name="parking">Парковка</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Шопінг</string>
 	<!-- Search category -->
 	<string name="hotel">Готель</string>
 	<!-- Search category -->
@@ -202,6 +208,10 @@
 	<string name="entertainment">Розваги</string>
 	<!-- Search category -->
 	<string name="atm">Банкомат</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Нічне життя</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Відпочинок з дітьми</string>
 	<!-- Search category -->
 	<string name="bank">Банк</string>
 	<!-- Search category -->
@@ -1389,6 +1399,57 @@
 	<string name="subscription_terms">Оплату буде стягнуто з вашого облікового запису iTunes при підтвердженні покупки. Передплату буде автоматично поновлено, якщо автоматичне оновлення не буде вимкнено принаймні за 24 години до кінця поточного періоду. З вашого обліквого запису буде стягнуто плату відповідно до вашого плану про поновлення протягом 24 годин до кінця поточного періоду. Ви можете керувати або вимкнути автоматичне оновлення у налаштуваннях облікового запису Apple ID у будь-який час вашої покупки.</string>
 	<string name="subscriptions_title">Передплати</string>
 	<string name="manage_subscription">Керувати передплатою</string>
+	<string name="sharing_options">Налаштування доступу</string>
+	<string name="export_file">Експортувати файл</string>
+	<string name="hide_from_map">Приховати з карти</string>
+	<string name="ugc_route_tags_screen_label">Виберіть теги</string>
+	<string name="ugc_route_tags_progress_msg">Завантажуємо теги…</string>
+	<string name="ugc_route_tags_desc">Просимо вибрати теги, або допомогти іншим мандрівникам знайти ваш путівник. Це обов’язково.</string>
+	<string name="public_access">Публічний доступ</string>
+	<string name="limited_access">Приватний доступ</string>
+	<string name="upload_and_publish_desc">Цей путівник буде завантажено у публічний каталог MAPS.ME та буде доступний іншим користувачам</string>
+	<string name="upload_and_publish">Завантажити та опублікувати</string>
+	<string name="upload_and_get_direct_link">Завантажити та отримати посилання</string>
+	<string name="get_direct_link_desc">Ваш путівник буде доступний по прямому посиланні</string>
+	<string name="upload_and_publish_progress_text">Путівник публікується…</string>
+	<string name="upload_and_publish_success">Путівник опубліковано</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ЗВЕРНІТЬ УВАГУ:&lt;/b> продовжуючи, ви приймаєте &lt;a href="%s">ліцензійну угоду&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Назва путівника</string>
+	<string name="ugc_route_edit_description_hint">Додайте опис (текст чи html)</string>
+	<string name="not_shared">Особистий</string>
+	<string name="direct_link_progress_text">Завантажуємо ваш файл…</string>
+	<string name="direct_link_success">Посилання створено</string>
+	<string name="edit_guide_title">Редагуйте ваш путівник онлайн</string>
+	<string name="edit_guide_subtitle">Отримайте посилання для редагування вашого путівника через веб-застосунок: додавайте описи місць, завантажуйте фотографії та об’єднуйте мітки лініями.</string>
+	<string name="send_a_link_btn">Надіслати посилання</string>
+	<string name="upload_error_toast">Під час завантаження файлу сталася помилка</string>
+	<string name="tags_loading_error_subtitle">Під час завантаження тегів сталася помилка, будь ласка, спробуйте ще раз</string>
+	<string name="unable_upload_errorr_title">Не вдалося завантажити файл</string>
+	<string name="unable_upload_error_subtitle_edited">Файл було відредаговано через веб-застосунок</string>
+	<string name="unable_upload_error_subtitle_broken">Файл пошкоджено та не може бути завантажений. Прохання завантажити інший файл.</string>
+	<string name="buy_btn">Купити за %s</string>
+	<string name="download_guide_progress">Путівник завантажується…</string>
+	<string name="price_error_title">Неможливо дізнатися вартість</string>
+	<string name="price_error_subtitle">Прохання спробувати ще раз за кілька хвилин</string>
+	<string name="edit_your_guide_email_body">Редагуйте ваш путівник на комп’ютері: додавайте описи місць, завантажуйте фотографії та об’єднуйте мітки лініями.</string>
+	<string name="edit_on_web">Редагувати онлайн</string>
+	<string name="properties_loading_error_subtitle">Під час завантаження опцій сталася помилка, будь ласка, спробуйте ще раз</string>
+	<string name="custom_props_desc">Цей путівник ви склали як</string>
+	<string name="custom_props_title">Місцевий або турист</string>
+	<string name="select_properties">Вибрати опції</string>
+	<string name="access_rules_p_to_p">Спеціальний доступ</string>
+	<string name="access_rules_paid">Придбаний</string>
+	<string name="failed_purchase_support_message">Здається, у вас є не завершена покупка. Будь ласка, напишіть до служби підтримки, і ми вирішимо проблему.</string>
+	<string name="contact">Написати</string>
+	<string name="check_price_button">Дізнатися ціну</string>
+	<string name="download_button">Завантажити</string>
+	<string name="speedcams_alert_title">Камери швидкості</string>
+	<string name="speedcams_alert_subtitle">Попереджати про обмеження швидкості</string>
+	<string name="speedcam_option_auto">Авто</string>
+	<string name="speedcam_option_always">Завжди</string>
+	<string name="speedcam_option_never">Ніколи</string>
+	<string name="bookmark_description_title">Опис мітки</string>
+	<string name="place_description_title">Опис місця</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

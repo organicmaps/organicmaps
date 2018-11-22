@@ -182,12 +182,18 @@
 	<string name="search_mode_nearme">Dichtbij mij</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Op het scherm</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Waar iets gaan eten</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Kruidenierswinkels</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Benzine</string>
 	<!-- Search category -->
 	<string name="parking">Parkeerplaats</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Winkelen</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -196,6 +202,10 @@
 	<string name="entertainment">Uitgaan</string>
 	<!-- Search category -->
 	<string name="atm">Geldautomaat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nachtleven</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Gezinsvakantie</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1384,6 +1394,57 @@
 	<string name="subscription_terms">Payment will be charged to your iTunes account at confirmation of purchase. The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. Your account will be charged according to your plan for renewal within 24 hours prior to the end of the current period. You can manage or turn off auto-renew in your Apple ID account settings at any time of your purchase.</string>
 	<string name="subscriptions_title">Subscriptions</string>
 	<string name="manage_subscription">Manage subscription</string>
+	<string name="sharing_options">Opties voor delen</string>
+	<string name="export_file">Bestand exporteren</string>
+	<string name="hide_from_map">Van de kaart verbergen</string>
+	<string name="ugc_route_tags_screen_label">Selecteer tags</string>
+	<string name="ugc_route_tags_progress_msg">Tags aan het laden…</string>
+	<string name="ugc_route_tags_desc">Gelieve tags te kiezen om andere reizigers te helpen uw gids te vinden. Dit is verplicht.</string>
+	<string name="public_access">Publiek toegang</string>
+	<string name="limited_access">Beperkte toegang</string>
+	<string name="upload_and_publish_desc">Deze gids zal worden geüpload naar de openbare MAPS.ME catalogus en zal voor andere gebruikers beschikbaar zijn</string>
+	<string name="upload_and_publish">Upload en publiceer</string>
+	<string name="upload_and_get_direct_link">Upload en krijg een rechtstreekse link</string>
+	<string name="get_direct_link_desc">Uw gids zal beschikbaar zijn voor iedereen die de link heeft</string>
+	<string name="upload_and_publish_progress_text">Uw gids aan het publiceren…</string>
+	<string name="upload_and_publish_success">De gids is gepubliceerd</string>
+	<string name="ugc_routes_user_agreement">&lt;b>GELIEVE TE NOTEREN:&lt;/b> door verder te gaan, accepteert u de &lt;a href="%s">licentieovereenkomst&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Naam van de gids</string>
+	<string name="ugc_route_edit_description_hint">Maak een beschrijving aan (tekst of html)</string>
+	<string name="not_shared">Niet gedeeld</string>
+	<string name="direct_link_progress_text">Uw bestand aan het uploaden…</string>
+	<string name="direct_link_success">De link is aangemaakt</string>
+	<string name="edit_guide_title">Bewerk uw gids op internet</string>
+	<string name="edit_guide_subtitle">Ontvang een link om uw gids te bewerken via een web-app: beschrijvingen toevoegen, foto\'s uploaden en bladwijzers verbinden met lijnen.</string>
+	<string name="send_a_link_btn">Stuur mij een link</string>
+	<string name="upload_error_toast">Er is een fout opgetreden tijdens het uploaden van uw bestand</string>
+	<string name="tags_loading_error_subtitle">Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw</string>
+	<string name="unable_upload_errorr_title">Bestand uploaden mislukt</string>
+	<string name="unable_upload_error_subtitle_edited">Dit bestand is bewerkt via de web app</string>
+	<string name="unable_upload_error_subtitle_broken">Dit bestand is beschadigd en kon niet worden geüpload. Gelieve een ander bestand te uploaden.</string>
+	<string name="buy_btn">Kopen voor %s</string>
+	<string name="download_guide_progress">Uw gids aan het downloaden…</string>
+	<string name="price_error_title">Kon geen prijs krijgen</string>
+	<string name="price_error_subtitle">Gelieve in een paar minuten opnieuw te proberen</string>
+	<string name="edit_your_guide_email_body">Bewerk gemakkelijk uw handleiding op internet met behulp van uw computer: beschrijvingen toevoegen, foto\'s uploaden en bladwijzers verbinden met lijnen.</string>
+	<string name="edit_on_web">Bewerk op internet</string>
+	<string name="properties_loading_error_subtitle">Er is een fout opgetreden tijdens het laden van de opties, probeer het opnieuw</string>
+	<string name="custom_props_desc">In deze gids heeft u plaatsen bezocht zoals</string>
+	<string name="custom_props_title">Lokaal of reiziger</string>
+	<string name="select_properties">Selecteer opties</string>
+	<string name="access_rules_p_to_p">Speciale toegang</string>
+	<string name="access_rules_paid">Gekocht</string>
+	<string name="failed_purchase_support_message">Sorry, maar u heeft waarschijnlijk een onvoltooide aankoop. Neem contact op met de support en wij zullen het probleem oplossen.</string>
+	<string name="contact">Contact</string>
+	<string name="check_price_button">Controleer prijs</string>
+	<string name="download_button">Downloaden</string>
+	<string name="speedcams_alert_title">Snelheidscamera\'s</string>
+	<string name="speedcams_alert_subtitle">Waarschuw voor snelheidsbeperkingen</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Altijd</string>
+	<string name="speedcam_option_never">Nooit</string>
+	<string name="bookmark_description_title">Bladwijzer Beschrijving</string>
+	<string name="place_description_title">Plaats Beschrijving</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

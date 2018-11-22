@@ -184,12 +184,18 @@
 	<string name="search_mode_nearme">靠近我的</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">在屏幕上</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">在哪儿吃</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">食品</string>
 	<!-- Search category -->
 	<string name="transport">交通</string>
 	<!-- Search category -->
 	<string name="fuel">汽油</string>
 	<!-- Search category -->
 	<string name="parking">停车</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">购物</string>
 	<!-- Search category -->
 	<string name="hotel">旅店</string>
 	<!-- Search category -->
@@ -198,6 +204,10 @@
 	<string name="entertainment">娱乐</string>
 	<!-- Search category -->
 	<string name="atm">自动取款机</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">夜生活</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">亲子休闲</string>
 	<!-- Search category -->
 	<string name="bank">银行</string>
 	<!-- Search category -->
@@ -1388,6 +1398,57 @@
 	<string name="subscription_terms">确认购买后将向您的iTunes账户收费。除非在当前周期结束前至少24小时关闭自动续订，订购会自动延续。在当前周期结束前24小时内，我们会根据您的方案向您的账户收费。您能在购买后在Apple ID账户设置中随时管理或关闭自动续订。</string>
 	<string name="subscriptions_title">订购</string>
 	<string name="manage_subscription">管理订购</string>
+	<string name="sharing_options">登录设置</string>
+	<string name="export_file">导出文件</string>
+	<string name="hide_from_map">从卡中隐藏</string>
+	<string name="ugc_route_tags_screen_label">请选择标签</string>
+	<string name="ugc_route_tags_progress_msg">正在加载标签......</string>
+	<string name="ugc_route_tags_desc">请选择标签以帮助其他旅行者找到您的旅行指南。此为必填项。</string>
+	<string name="public_access">公共访问</string>
+	<string name="limited_access">私人访问</string>
+	<string name="upload_and_publish_desc">本指南将上传到MAPS.ME公共目录，并可供其他用户使用</string>
+	<string name="upload_and_publish">加载并发布</string>
+	<string name="upload_and_get_direct_link">加载并获取链接</string>
+	<string name="get_direct_link_desc">您的指南将通过直接链接提供</string>
+	<string name="upload_and_publish_progress_text">该指南正在发布......</string>
+	<string name="upload_and_publish_success">该指南已发布</string>
+	<string name="ugc_routes_user_agreement">&lt;b>注意:&lt;/b>继续，即表示您接受&lt;a href="%s">许可协议&lt;/a></string>
+	<string name="ugc_route_edit_list_name">指南名称</string>
+	<string name="ugc_route_edit_description_hint">请添加说明(文字或html)</string>
+	<string name="not_shared">個人</string>
+	<string name="direct_link_progress_text">正在上传您的文件......</string>
+	<string name="direct_link_success">链接已创建</string>
+	<string name="edit_guide_title">请在线编辑您的旅行指南</string>
+	<string name="edit_guide_subtitle">请通过网络应用获取编辑指南的链接：请添加地点描述，上传照片以及用线条连接标签。</string>
+	<string name="send_a_link_btn">发送链接</string>
+	<string name="upload_error_toast">加载文件时出错</string>
+	<string name="tags_loading_error_subtitle">加载标签时出错，请重试</string>
+	<string name="unable_upload_errorr_title">无法上传文件</string>
+	<string name="unable_upload_error_subtitle_edited">文件是通过Web应用程序编辑的</string>
+	<string name="unable_upload_error_subtitle_broken">该文件已损坏，无法上传。请上传其他文件。</string>
+	<string name="buy_btn">购买%s</string>
+	<string name="download_guide_progress">指南正在加载......</string>
+	<string name="price_error_title">无法得知价格</string>
+	<string name="price_error_subtitle">请在几分钟后再试一次</string>
+	<string name="edit_your_guide_email_body">在计算机上编辑您的旅行指南：请添加地点描述，上传照片以及用线条连接标签。</string>
+	<string name="edit_on_web">在线编辑</string>
+	<string name="properties_loading_error_subtitle">加载选项时出错，请重试</string>
+	<string name="custom_props_desc">本指南您编制为</string>
+	<string name="custom_props_title">当地或游客</string>
+	<string name="select_properties">选择选项</string>
+	<string name="access_rules_p_to_p">特殊访问</string>
+	<string name="access_rules_paid">已购买</string>
+	<string name="failed_purchase_support_message">您似乎还有未完成的购买。请写支持，我们将解决问题。</string>
+	<string name="contact">写</string>
+	<string name="check_price_button">了解价格</string>
+	<string name="download_button">下载</string>
+	<string name="speedcams_alert_title">高速摄像机</string>
+	<string name="speedcams_alert_subtitle">速度限制警告</string>
+	<string name="speedcam_option_auto">自动</string>
+	<string name="speedcam_option_always">总是</string>
+	<string name="speedcam_option_never">从不</string>
+	<string name="bookmark_description_title">标签说明</string>
+	<string name="place_description_title">地点说明</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

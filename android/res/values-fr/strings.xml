@@ -187,12 +187,18 @@
 	<string name="search_mode_nearme">Près de moi</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">À l\'écran</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Un endroit pour manger</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Les courses</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Essence</string>
 	<!-- Search category -->
 	<string name="parking">Stationnement</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hôtel</string>
 	<!-- Search category -->
@@ -201,6 +207,10 @@
 	<string name="entertainment">Divertissement</string>
 	<!-- Search category -->
 	<string name="atm">GAB</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Vie nocturne</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Vacances en famille</string>
 	<!-- Search category -->
 	<string name="bank">Banque</string>
 	<!-- Search category -->
@@ -1398,6 +1408,57 @@
 	<string name="subscription_terms">Le paiement sera débité de votre compte iTunes lors de la confirmation d\'achat. L\'abonnement sera automatiquement renouvelé à moins que le renouvellement automatique ne soit désactivé au moins 24 heures avant la fin de la période en cours. Votre compte sera débité selon votre forfait pour un renouvellement dans les 24 heures précédant la fin de la période en cours. Vous pouvez gérer ou désactiver le renouvellement automatique depuis les paramètres de votre compte Apple ID à tout moment lors de votre achat.</string>
 	<string name="subscriptions_title">Abonnements</string>
 	<string name="manage_subscription">Gérer l\'abonnement</string>
+	<string name="sharing_options">Options de partage</string>
+	<string name="export_file">Fichier d\'exportation</string>
+	<string name="hide_from_map">Masquer de la carte</string>
+	<string name="ugc_route_tags_screen_label">Sélectionner les tags</string>
+	<string name="ugc_route_tags_progress_msg">Chargement des tags en cours…</string>
+	<string name="ugc_route_tags_desc">Sélectionnez des tags pour aider les autres voyageurs à trouver votre guide. C\'est obligatoire.</string>
+	<string name="public_access">Accès publique</string>
+	<string name="limited_access">Accès limité</string>
+	<string name="upload_and_publish_desc">Ce guide sera chargé dans le catalogue public MAPS.ME et sera disponible pour les autres utilisateurs</string>
+	<string name="upload_and_publish">Télécharger et publier</string>
+	<string name="upload_and_get_direct_link">Télécharger et obtenir un lien direct</string>
+	<string name="get_direct_link_desc">Votre guide sera disponible pour toute personne ayant le lien</string>
+	<string name="upload_and_publish_progress_text">Publier votre guide…</string>
+	<string name="upload_and_publish_success">Le guide a été publié</string>
+	<string name="ugc_routes_user_agreement">&lt;b>REMARQUE:&lt;/b> en continuant, vous acceptez le &lt;a href="%s">contrat de licence&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Nom du guide</string>
+	<string name="ugc_route_edit_description_hint">Tapez une description (texte ou html)</string>
+	<string name="not_shared">Non partagé</string>
+	<string name="direct_link_progress_text">Télécharger votre fichier…</string>
+	<string name="direct_link_success">Le lien a été créé</string>
+	<string name="edit_guide_title">Éditez votre guide sur le web</string>
+	<string name="edit_guide_subtitle">Obtenez un lien pour modifier votre guide via une application Web: ajoutez des descriptions, téléchargez des photos et reliez des signets avec des lignes.</string>
+	<string name="send_a_link_btn">Envoyez moi un lien</string>
+	<string name="upload_error_toast">Une erreur s\'est produite lors du téléchargement de votre fichier</string>
+	<string name="tags_loading_error_subtitle">Une erreur s\'est produite lors du chargement des tags, veuillez réessayer</string>
+	<string name="unable_upload_errorr_title">Échec du téléchargement du fichier</string>
+	<string name="unable_upload_error_subtitle_edited">Ce fichier a été édité via l\'application Web</string>
+	<string name="unable_upload_error_subtitle_broken">Ce fichier est endommagé et n\'a pas pu être téléchargé. S\'il vous plaît télécharger un autre fichier.</string>
+	<string name="buy_btn">Acheter pour %s</string>
+	<string name="download_guide_progress">Télécharger votre guide…</string>
+	<string name="price_error_title">Impossible d\'obtenir un prix</string>
+	<string name="price_error_subtitle">S\'il vous plaît, réessayez dans quelques minutes</string>
+	<string name="edit_your_guide_email_body">Modifiez facilement votre guide sur le Web à l\'aide de votre ordinateur: ajoutez des descriptions, téléchargez des photos et connectez des signets avec des lignes.</string>
+	<string name="edit_on_web">Éditez sur le web</string>
+	<string name="properties_loading_error_subtitle">Une erreur s\'est produite lors du chargement des options, veuillez réessayer</string>
+	<string name="custom_props_desc">Dans ce guide, vous avez visité des endroits comme</string>
+	<string name="custom_props_title">Régional ou passager</string>
+	<string name="select_properties">Sélectionnez des options</string>
+	<string name="access_rules_p_to_p">Accès spécial</string>
+	<string name="access_rules_paid">Acheté</string>
+	<string name="failed_purchase_support_message">Désolé, mais vous avez probablement un achat inachevés. S\'il vous plaît contacter l\'assistance technique et nous allons résoudre le problème.</string>
+	<string name="contact">Contactez</string>
+	<string name="check_price_button">Vérifiez le prix</string>
+	<string name="download_button">Téléchargez</string>
+	<string name="speedcams_alert_title">Vitesse de caméras</string>
+	<string name="speedcams_alert_subtitle">Prévenir concernant les limites de vitesse</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Toujours</string>
+	<string name="speedcam_option_never">Jamais</string>
+	<string name="bookmark_description_title">Description du signet</string>
+	<string name="place_description_title">Description d\'endroit</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

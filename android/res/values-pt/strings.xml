@@ -183,12 +183,18 @@
 	<string name="search_mode_nearme">Perto de mim</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">No ecrã</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Onde lanchar</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Alimentos</string>
 	<!-- Search category -->
 	<string name="transport">Transporte</string>
 	<!-- Search category -->
 	<string name="fuel">Combustível</string>
 	<!-- Search category -->
 	<string name="parking">Estacionamento</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Compras</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -197,6 +203,10 @@
 	<string name="entertainment">Entretenimento</string>
 	<!-- Search category -->
 	<string name="atm">Multibanco</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Convívio à noite</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Descanso com crianças</string>
 	<!-- Search category -->
 	<string name="bank">Banco</string>
 	<!-- Search category -->
@@ -1387,6 +1397,57 @@
 	<string name="subscription_terms">O pagamento será cobrado na sua conta do iTunes na confirmação da compra. A subscrição será automaticamente renovada, exceto se a renovação automática for desativada, pelo menos, 24 horas antes do fim do período atual. A sua conta será cobrada de acordo com o seu plano de renovação no prazo de 24 horas antes do fim do período atual. Pode gerir ou desativar a renovação automática nas definições da sua conta de ID da Apple, a qualquer momento, após a sua compra.</string>
 	<string name="subscriptions_title">Subscrições</string>
 	<string name="manage_subscription">Gerir a subscrição</string>
+	<string name="sharing_options">Definições de acesso</string>
+	<string name="export_file">Exportar o arquivo</string>
+	<string name="hide_from_map">Remover do mapa</string>
+	<string name="ugc_route_tags_screen_label">Selecione tags</string>
+	<string name="ugc_route_tags_progress_msg">A carregar tags…</string>
+	<string name="ugc_route_tags_desc">Por favor, selecione tags para ajudar aos outros viajantes encontrar o seu guia. É obrigatório.</string>
+	<string name="public_access">Acesso público</string>
+	<string name="limited_access">Acesso privado</string>
+	<string name="upload_and_publish_desc">Esse guia será carregado para catalogo público de MAPS.ME e estará disponível para outros usuários</string>
+	<string name="upload_and_publish">Carregar e publicar</string>
+	<string name="upload_and_get_direct_link">Carregar e receber o link</string>
+	<string name="get_direct_link_desc">O seu guia será disponível pelo link direto</string>
+	<string name="upload_and_publish_progress_text">A publicar guia…</string>
+	<string name="upload_and_publish_success">Guia publicado</string>
+	<string name="ugc_routes_user_agreement">&lt;b>PRESTE ATENÇÃO:&lt;/b> a continuar você aceita &lt;a href="%s">o contrato de licença&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Nome de guia</string>
+	<string name="ugc_route_edit_description_hint">Adicionar uma descrição (texto ou html)</string>
+	<string name="not_shared">Privado</string>
+	<string name="direct_link_progress_text">A carregar o seu arquivo…</string>
+	<string name="direct_link_success">Link criado</string>
+	<string name="edit_guide_title">Edite seu guia de viagens on-line</string>
+	<string name="edit_guide_subtitle">Recebe o link para editar seu guia de viagens através da uma aplicação web: adicione descrição de lugares, carregue fotografias e junte as marcas com linhas.</string>
+	<string name="send_a_link_btn">Enviar link</string>
+	<string name="upload_error_toast">Ocorreu um erro ao carregar o arquivo</string>
+	<string name="tags_loading_error_subtitle">Ocorreu um erro ao carregar tags, por favor tente de novo</string>
+	<string name="unable_upload_errorr_title">Não foi possível carregar arquivo</string>
+	<string name="unable_upload_error_subtitle_edited">O arquivo foi editado através da uma aplicação web</string>
+	<string name="unable_upload_error_subtitle_broken">Arquivo corrompido e não pode ser carregado. Por favor, carregue outro arquivo.</string>
+	<string name="buy_btn">Comprar por %s</string>
+	<string name="download_guide_progress">A carregar guia…</string>
+	<string name="price_error_title">Impossível saber o custo</string>
+	<string name="price_error_subtitle">Por favor, tente de novo mais tarde</string>
+	<string name="edit_your_guide_email_body">Edite o seu arquivo no computador: adicione descrição de lugares, carregue fotografias e junte as marcas com linhas.</string>
+	<string name="edit_on_web">Editar online</string>
+	<string name="properties_loading_error_subtitle">Ocorreu um erro ao carregar opções, por favor tente de novo</string>
+	<string name="custom_props_desc">Você formou esse guia como</string>
+	<string name="custom_props_title">Local ou turista</string>
+	<string name="select_properties">Selecionar opções</string>
+	<string name="access_rules_p_to_p">Acesso especial</string>
+	<string name="access_rules_paid">Comprado</string>
+	<string name="failed_purchase_support_message">Parece que tem uma compra inacabada. Por favor, entre em contato com suporte e nos vamos resolver o seu problema.</string>
+	<string name="contact">Escrever</string>
+	<string name="check_price_button">Saber o custo</string>
+	<string name="download_button">Baixar</string>
+	<string name="speedcams_alert_title">Câmeras de velocidade</string>
+	<string name="speedcams_alert_subtitle">Avisar sobre limites de velocidade</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Sempre</string>
+	<string name="speedcam_option_never">Nunca</string>
+	<string name="bookmark_description_title">Descrição da marca</string>
+	<string name="place_description_title">Descrição do local</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

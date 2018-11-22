@@ -299,10 +299,10 @@
 "search_mode_viewport" = "Op het scherm";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Waar iets gaan eten";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Kruidenierswinkels";
 
 /* Search category */
 "transport" = "Transport";
@@ -314,7 +314,7 @@
 "parking" = "Parkeerplaats";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Winkelen";
 
 /* Search category */
 "hotel" = "Hotel";
@@ -329,10 +329,10 @@
 "atm" = "Geldautomaat";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Nachtleven";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Gezinsvakantie";
 
 /* Search category */
 "bank" = "Bank";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Opties voor delen";
 
-"export_file" = "Export file";
+"export_file" = "Bestand exporteren";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Van de kaart verbergen";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Selecteer tags";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Tags aan het laden…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Gelieve tags te kiezen om andere reizigers te helpen uw gids te vinden. Dit is verplicht.";
 
-"public_access" = "Public access";
+"public_access" = "Publiek toegang";
 
-"limited_access" = "Limited access";
+"limited_access" = "Beperkte toegang";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Deze gids zal worden geüpload naar de openbare MAPS.ME catalogus en zal voor andere gebruikers beschikbaar zijn";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Upload en publiceer";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Upload en krijg een rechtstreekse link";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Uw gids zal beschikbaar zijn voor iedereen die de link heeft";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Uw gids aan het publiceren…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "De gids is gepubliceerd";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>GELIEVE TE NOTEREN:</b> door verder te gaan, accepteert u de <a href=\"%s\">licentieovereenkomst</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Naam van de gids";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Maak een beschrijving aan (tekst of html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Niet gedeeld";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Uw bestand aan het uploaden…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "De link is aangemaakt";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Bewerk uw gids op internet";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Ontvang een link om uw gids te bewerken via een web-app: beschrijvingen toevoegen, foto's uploaden en bladwijzers verbinden met lijnen.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Stuur mij een link";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Er is een fout opgetreden tijdens het uploaden van uw bestand";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van tags, probeer het opnieuw";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Bestand uploaden mislukt";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Dit bestand is bewerkt via de web app";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Dit bestand is beschadigd en kon niet worden geüpload. Gelieve een ander bestand te uploaden.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Kopen voor %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Uw gids aan het downloaden…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Kon geen prijs krijgen";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Gelieve in een paar minuten opnieuw te proberen";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Bewerk gemakkelijk uw handleiding op internet met behulp van uw computer: beschrijvingen toevoegen, foto's uploaden en bladwijzers verbinden met lijnen.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Bewerk op internet";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Er is een fout opgetreden tijdens het laden van de opties, probeer het opnieuw";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "In deze gids heeft u plaatsen bezocht zoals";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Lokaal of reiziger";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Selecteer opties";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Speciale toegang";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Gekocht";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Sorry, maar u heeft waarschijnlijk een onvoltooide aankoop. Neem contact op met de support en wij zullen het probleem oplossen.";
+
+"contact" = "Contact";
+
+"check_price_button" = "Controleer prijs";
+
+"download_button" = "Downloaden";
+
+"speedcams_alert_title" = "Snelheidscamera's";
+
+"speedcams_alert_subtitle" = "Waarschuw voor snelheidsbeperkingen";
+
+"speedcam_option_auto" = "Auto";
+
+"speedcam_option_always" = "Altijd";
+
+"speedcam_option_never" = "Nooit";
+
+"bookmark_description_title" = "Bladwijzer Beschrijving";
+
+"place_description_title" = "Plaats Beschrijving";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

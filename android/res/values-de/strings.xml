@@ -188,12 +188,18 @@
 	<string name="search_mode_nearme">In meiner Nähe</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Auf dem Bildschirm</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Essmöglichkeiten</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Lebensmittel</string>
 	<!-- Search category -->
 	<string name="transport">Verkehr</string>
 	<!-- Search category -->
 	<string name="fuel">Tankstelle</string>
 	<!-- Search category -->
 	<string name="parking">Parkplatz</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hotel</string>
 	<!-- Search category -->
@@ -202,6 +208,10 @@
 	<string name="entertainment">Unterhaltung</string>
 	<!-- Search category -->
 	<string name="atm">Geldautomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nachtleben</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Freizeit mit Kindern</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1398,6 +1408,57 @@
 	<string name="subscription_terms">Die Zahlung erfolgt nach Kaufbestätigung über Ihr iTunes-Konto. Das Abonnement wird automatisch verlängert, sofern Sie die automatische Verlängerung nicht 24 Stunden vor Ende des aktuellen Zeitraums abgestellt haben. Ihr Konto wird gemäß Ihres Plans für die Verlängerung innerhalb von 24 Stunden vor dem Ende des aktuellen Zeitraums belastet. Sie können bei Kauf die automatisch Verlängerung über Ihre Apple-ID-Kontoeinstellungen jederzeit verwalten oder abstellen.</string>
 	<string name="subscriptions_title">Abonnements</string>
 	<string name="manage_subscription">Abonnements verwalten</string>
+	<string name="sharing_options">Zugriffseinstellungen</string>
+	<string name="export_file">Datei exportieren</string>
+	<string name="hide_from_map">Auf der Karte ausblenden</string>
+	<string name="ugc_route_tags_screen_label">Tags wählen</string>
+	<string name="ugc_route_tags_progress_msg">Tags werden geladen…</string>
+	<string name="ugc_route_tags_desc">Bitte wählen Sie Tags, um anderen Reisenden zu helfen, Ihr Reiseführer zu finden. Das ist obligatorisch.</string>
+	<string name="public_access">Öffentlicher Zugriff</string>
+	<string name="limited_access">Privater Zugriff</string>
+	<string name="upload_and_publish_desc">Dieser Reiseführer wird in das öffentliche Katalog MAPS.ME geladen und wird für andere Benutzer verfügbar sein</string>
+	<string name="upload_and_publish">Laden und veröffentlichen</string>
+	<string name="upload_and_get_direct_link">Laden und Link bekommen</string>
+	<string name="get_direct_link_desc">Ihr Reiseführer wird unter direktem Link verfügbar sein</string>
+	<string name="upload_and_publish_progress_text">Reiseführer wird veröffentlicht…</string>
+	<string name="upload_and_publish_success">Reiseführer wurde veröffentlicht</string>
+	<string name="ugc_routes_user_agreement">&lt;b>WICHTIG:&lt;/b> wenn Sie fortsetzen, stimmen Sie &lt;a href="%s">der Lizenzvereinbarung zu&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Reiseführer Name</string>
+	<string name="ugc_route_edit_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
+	<string name="not_shared">Privat</string>
+	<string name="direct_link_progress_text">Ihre Datei wird geladen…</string>
+	<string name="direct_link_success">Link erstellt</string>
+	<string name="edit_guide_title">Bearbeiten Sie Ihr Reiseführer online</string>
+	<string name="edit_guide_subtitle">Bekommen Sie den Link für die Bearbeitung Ihres Reiseführers per WebApp: Fügen Sie Ortsbeschreibung hinzu, laden Sie Fotos und verbinden Sie Markierungen mit Linien.</string>
+	<string name="send_a_link_btn">Link senden</string>
+	<string name="upload_error_toast">Während des Ladeprozesses ist ein Fehler aufgetreten</string>
+	<string name="tags_loading_error_subtitle">Während dem Laden der Tags ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut</string>
+	<string name="unable_upload_errorr_title">Laden der Datei fehlgeschlagen</string>
+	<string name="unable_upload_error_subtitle_edited">Datei wurde per WebApp bearbeitet</string>
+	<string name="unable_upload_error_subtitle_broken">Datei ist beschädigt und kann nicht geladen werden. Bitte laden Sie eine andere Datei.</string>
+	<string name="buy_btn">Für %s kaufen</string>
+	<string name="download_guide_progress">Reiseführer wird geladen…</string>
+	<string name="price_error_title">Der Preis ist momentan unbekannt</string>
+	<string name="price_error_subtitle">Bitte, versuchen Sie es in ein paar Minuten erneut</string>
+	<string name="edit_your_guide_email_body">Bearbeiten Sie Ihr Reiseführer auf PC: Fügen Sie Ortsbeschreibung hinzu, laden Sie Fotos und verbinden Sie Markierungen mit Linien.</string>
+	<string name="edit_on_web">Online bearbeiten</string>
+	<string name="properties_loading_error_subtitle">Während dem Laden der Optionen ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut</string>
+	<string name="custom_props_desc">Diesen Reiseführer haben Sie als</string>
+	<string name="custom_props_title">Einheimischer oder Tourist</string>
+	<string name="select_properties">Optionen wählen</string>
+	<string name="access_rules_p_to_p">Sonderzugriff</string>
+	<string name="access_rules_paid">Gekauft</string>
+	<string name="failed_purchase_support_message">Möglichkerweise haben Sie einen unvollzogenen Kauf. Bitte schreiben Sie unserem Support-Team und wir helfen Ihnen das Problem zu lösen.</string>
+	<string name="contact">Schreiben</string>
+	<string name="check_price_button">Preis erfahren</string>
+	<string name="download_button">Downloaden</string>
+	<string name="speedcams_alert_title">Geschwindigkeitskameras</string>
+	<string name="speedcams_alert_subtitle">Über Geschwindigkeitsbegrenzungen warnen</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Immer</string>
+	<string name="speedcam_option_never">Niemals</string>
+	<string name="bookmark_description_title">Markierungsbeschreibung</string>
+	<string name="place_description_title">Ortsbeschreibung</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

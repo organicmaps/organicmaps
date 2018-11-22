@@ -182,12 +182,18 @@
 	<string name="measurement_units">Måleenheter</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Velg mellom miles og kilometer</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Spisesteder</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Dagligvarer</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Drivstoff</string>
 	<!-- Search category -->
 	<string name="parking">Parkering</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hotell</string>
 	<!-- Search category -->
@@ -196,6 +202,10 @@
 	<string name="entertainment">Underholdning</string>
 	<!-- Search category -->
 	<string name="atm">Minibank</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nattliv</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Familieferie</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1281,6 +1291,57 @@
 	<string name="sign_agree_pp_gdpr">Jeg godtar &lt;a href="%s">personvernregler&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Jeg godtar &lt;a href="%s">bruksbetingelsene&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Jeg godtar å motta de siste nyhetene om MAPS.ME-produkter</string>
+	<string name="sharing_options">Delemuligheter</string>
+	<string name="export_file">Eksporter fil</string>
+	<string name="hide_from_map">Skjul fra kart</string>
+	<string name="ugc_route_tags_screen_label">Velg emneknagger</string>
+	<string name="ugc_route_tags_progress_msg">Laster inn emneknagger…</string>
+	<string name="ugc_route_tags_desc">Vennligst velg emneknagger for å hjelpe andre til å finne guiden din. Obligatorisk.</string>
+	<string name="public_access">Offentlig tilgang</string>
+	<string name="limited_access">Begrenset adgang</string>
+	<string name="upload_and_publish_desc">Denne veiledningen vil bli lastet opp til den offentlige MAPS.ME katalogen og vil være tilgjengelig for andre brukere</string>
+	<string name="upload_and_publish">Last opp og publiser</string>
+	<string name="upload_and_get_direct_link">Last opp og få direkte link</string>
+	<string name="get_direct_link_desc">Din guide vil være tilgjengelig for alle som har linken</string>
+	<string name="upload_and_publish_progress_text">Publiserer guiden din…</string>
+	<string name="upload_and_publish_success">Din guide har blitt publisert</string>
+	<string name="ugc_routes_user_agreement">&lt;b>MERK:&lt;/b> ved å fortsette, godtar du &lt;a href="%s">lisensavtalen &lt;/a></string>
+	<string name="ugc_route_edit_list_name">Navn på guide</string>
+	<string name="ugc_route_edit_description_hint">Lag en beskrivelse (text or html)</string>
+	<string name="not_shared">Ikke delt</string>
+	<string name="direct_link_progress_text">Laster opp filen din…</string>
+	<string name="direct_link_success">Lenken er opprettet</string>
+	<string name="edit_guide_title">Rediger din guide på nettet</string>
+	<string name="edit_guide_subtitle">Få en link for å redigere guiden din via nettapp: Legg til beskrivelser, last opp bilder og koble til bokmerker med linjer.</string>
+	<string name="send_a_link_btn">Send meg en link</string>
+	<string name="upload_error_toast">Det oppsto en feil under opplasting av filen</string>
+	<string name="tags_loading_error_subtitle">Det oppsto en feil under lasting av emneknagger, prøv igjen</string>
+	<string name="unable_upload_errorr_title">Filopplasting mislyktes</string>
+	<string name="unable_upload_error_subtitle_edited">Denne filen har blitt redigert via nettappappen</string>
+	<string name="unable_upload_error_subtitle_broken">Denne filen er skadet og kan ikke lastes opp. Vennligst last opp en annen fil.</string>
+	<string name="buy_btn">Kjøp for %s</string>
+	<string name="download_guide_progress">Laster ned guiden din…</string>
+	<string name="price_error_title">Kunne ikke finne pris</string>
+	<string name="price_error_subtitle">Vennligst vent noen minutter og forsøk igjen</string>
+	<string name="edit_your_guide_email_body">Rediger din guide på nettet enkelt ved hjelp av datamaskinen: Legg til beskrivelser, last opp bilder og koble til bokmerker med linjer.</string>
+	<string name="edit_on_web">Rediger på nettet</string>
+	<string name="properties_loading_error_subtitle">Det oppstod en feil under innlasting av alternativer, prøv igjen</string>
+	<string name="custom_props_desc">I denne veiledningen har du besøkt steder som</string>
+	<string name="custom_props_title">Lokalkjent eller turist</string>
+	<string name="select_properties">Velg alternativer</string>
+	<string name="access_rules_p_to_p">Spesiell tilgang</string>
+	<string name="access_rules_paid">Kjøpt</string>
+	<string name="failed_purchase_support_message">Beklager, men du har sannsynligvis et ukomplett kjøp. Ta kontakt med support og vi løser problemet.</string>
+	<string name="contact">Kontakt</string>
+	<string name="check_price_button">Sjekk pris</string>
+	<string name="download_button">Last ned</string>
+	<string name="speedcams_alert_title">Fartskamera</string>
+	<string name="speedcams_alert_subtitle">Advar om fartsgrenser</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Alltid</string>
+	<string name="speedcam_option_never">Aldri</string>
+	<string name="bookmark_description_title">Beskrivelse av bokmerke</string>
+	<string name="place_description_title">Plasser beskrivelse</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

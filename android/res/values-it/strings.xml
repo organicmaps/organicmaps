@@ -181,12 +181,18 @@
 	<string name="search_mode_nearme">Vicino a me</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">Nella schermata</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Dove mangiare</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Alimentari</string>
 	<!-- Search category -->
 	<string name="transport">Transporto</string>
 	<!-- Search category -->
 	<string name="fuel">Stazione di rifornimento</string>
 	<!-- Search category -->
 	<string name="parking">Parcheggio</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hôtel</string>
 	<!-- Search category -->
@@ -195,6 +201,10 @@
 	<string name="entertainment">Divertimento</string>
 	<!-- Search category -->
 	<string name="atm">Bancomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Vita notturna</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Vacanze bambini</string>
 	<!-- Search category -->
 	<string name="bank">Banca</string>
 	<!-- Search category -->
@@ -1383,6 +1393,57 @@
 	<string name="subscription_terms">Il pagamento verrà addebitato sul tuo account iTunes alla conferma dell\'acquisto. L\'abbonamento verrà rinnovato automaticamente a meno che l\'opzione di rinnovo automatico non venga disattivata almeno 24 ore prima del termine dell\'attuale periodo di fatturazione. L\'addebito sull\'account dipenderà dal piano di rinnovo e verrà effettuato nelle 24 ore precedenti alla fine del ciclo di fatturazione esistente. Puoi gestire o disattivare il rinnovo automatico dalle impostazioni dell\'account Apple ID in qualsiasi momento.</string>
 	<string name="subscriptions_title">Abbonamenti</string>
 	<string name="manage_subscription">Gestisci abbonamento</string>
+	<string name="sharing_options">Impostazione accesso</string>
+	<string name="export_file">Esportare il file</string>
+	<string name="hide_from_map">Nascondere sulla mappa</string>
+	<string name="ugc_route_tags_screen_label">Impostare tag</string>
+	<string name="ugc_route_tags_progress_msg">Stiamo caricando tag…</string>
+	<string name="ugc_route_tags_desc">Scegliere i tag per aiutare altri viaggiatori a trovare la tua guida. E\' obbligatorio.</string>
+	<string name="public_access">Accesso pubblico</string>
+	<string name="limited_access">Accesso privato</string>
+	<string name="upload_and_publish_desc">La seguente guida verrà caricata sul catalogo pubblico MAPS.ME in open access</string>
+	<string name="upload_and_publish">Caricare e pubblicare</string>
+	<string name="upload_and_get_direct_link">Caricare e ricevere il link</string>
+	<string name="get_direct_link_desc">La tua guida è accessibile tramite il link diretto</string>
+	<string name="upload_and_publish_progress_text">La guida si sta caricando…</string>
+	<string name="upload_and_publish_success">La guida è stata pubblicata</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ATTENZIONE!&lt;/b> Andando avanti accettate &lt;a href="%s">il contratto di licenza&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Nome della Guida</string>
+	<string name="ugc_route_edit_description_hint">Aggiungere la descrizione (testo o html)</string>
+	<string name="not_shared">Privato</string>
+	<string name="direct_link_progress_text">Il file si sta caricando…</string>
+	<string name="direct_link_success">Il link è stato creato</string>
+	<string name="edit_guide_title">Modificare la tua guida online</string>
+	<string name="edit_guide_subtitle">Ricevere il link per modificare la guida tramite l\'App: inserire una descrizione per il posto, caricare foto e collegare i tag.</string>
+	<string name="send_a_link_btn">Mandare il link</string>
+	<string name="upload_error_toast">Errore durante il caricamento</string>
+	<string name="tags_loading_error_subtitle">Si è verificato un errore durante il caricamento dei tag. Si prega di riprovare</string>
+	<string name="unable_upload_errorr_title">Il file non è stato caricato</string>
+	<string name="unable_upload_error_subtitle_edited">Il file è stato modificato tramite web App</string>
+	<string name="unable_upload_error_subtitle_broken">Il file è danneggiato e non può essere caricato. Si prega di caricare un altro file.</string>
+	<string name="buy_btn">Acquistare a %s</string>
+	<string name="download_guide_progress">La guida si sta caricando…</string>
+	<string name="price_error_title">Impossibile conoscere il prezzo</string>
+	<string name="price_error_subtitle">Si prega di riprovare più tardi</string>
+	<string name="edit_your_guide_email_body">Modificare sul PC: inserire una descrizione per il posto, caricare foto e collegare i tag.</string>
+	<string name="edit_on_web">Modificare online</string>
+	<string name="properties_loading_error_subtitle">Si è verificato un errore durante il caricamento delle opzioni. Si prega di riprovare</string>
+	<string name="custom_props_desc">La presente guida è stata creata da</string>
+	<string name="custom_props_title">Uno del posto o un turista</string>
+	<string name="select_properties">Scegliere opzioni</string>
+	<string name="access_rules_p_to_p">Accesso speciale</string>
+	<string name="access_rules_paid">Acquistato</string>
+	<string name="failed_purchase_support_message">Non hai terminato l\'acquisto. Per risolvere il problema si prega di contattare il servizio assistenza.</string>
+	<string name="contact">Scrivere</string>
+	<string name="check_price_button">Conoscere il prezzo</string>
+	<string name="download_button">Scaricare</string>
+	<string name="speedcams_alert_title">Atovelox o Tutor</string>
+	<string name="speedcams_alert_subtitle">Avvisare sul limite della velocità</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Sempre</string>
+	<string name="speedcam_option_never">Mai</string>
+	<string name="bookmark_description_title">Descrizione tag</string>
+	<string name="place_description_title">Descrizione luogo</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

@@ -182,12 +182,18 @@
 	<string name="measurement_units">Đơn vị đo</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Chọn giữa dặm và kilômét</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Ăn ở đâu</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Cửa hàng tạp hóa</string>
 	<!-- Search category -->
 	<string name="transport">Giao thông</string>
 	<!-- Search category -->
 	<string name="fuel">Khí đốt</string>
 	<!-- Search category -->
 	<string name="parking">đỗ xe</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Đi mua sắm</string>
 	<!-- Search category -->
 	<string name="hotel">Khách sạn</string>
 	<!-- Search category -->
@@ -196,6 +202,10 @@
 	<string name="entertainment">Giải trí</string>
 	<!-- Search category -->
 	<string name="atm">ATM</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Cuộc sống về đêm</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Kỳ nghỉ gia đình</string>
 	<!-- Search category -->
 	<string name="bank">Ngân hàng</string>
 	<!-- Search category -->
@@ -1380,6 +1390,57 @@
 	<string name="subscription_terms">Thanh toán sẽ được tính vào tài khoản iTunes của bạn khi xác nhận mua. Đăng ký sẽ tự động gia hạn trừ khi tính năng tự động gia hạn được tắt ít nhất 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Tài khoản của bạn sẽ được tính phí theo gói gia hạn trong vòng 24 giờ trước khi kết thúc kỳ đăng ký hiện tại. Bạn có thể quản lý hoặc tắt tính năng tự động gia hạn trong cài đặt tài khoản Apple ID của mình bất kỳ lúc nào sau khi mua.</string>
 	<string name="subscriptions_title">Đăng ký</string>
 	<string name="manage_subscription">Quản lý đăng ký</string>
+	<string name="sharing_options">Chia sẻ lựa chọn</string>
+	<string name="export_file">Xuất tập tin</string>
+	<string name="hide_from_map">Ẩn từ bản đồ</string>
+	<string name="ugc_route_tags_screen_label">Chọn thẻ</string>
+	<string name="ugc_route_tags_progress_msg">Đang tải thẻ…</string>
+	<string name="ugc_route_tags_desc">Vui lòng chọn thẻ để giúp những khách du lịch khác tìm thấy hướng dẫn của bạn. Điều này là bắt buộc.</string>
+	<string name="public_access">Truy cập công khai</string>
+	<string name="limited_access">Truy cập hạn chế</string>
+	<string name="upload_and_publish_desc">Hướng dẫn này sẽ được tải lên danh mục MAPS.ME công khai và sẽ có sẵn cho những người dùng khác</string>
+	<string name="upload_and_publish">Tải lên và phát hành</string>
+	<string name="upload_and_get_direct_link">Tải lên và nhận liên kết trực tiếp</string>
+	<string name="get_direct_link_desc">Hướng dẫn của bạn sẽ có sẵn cho bất kỳ ai có liên kết</string>
+	<string name="upload_and_publish_progress_text">Phát hành hướng dẫn của bạn…</string>
+	<string name="upload_and_publish_success">Hướng dẫn đã được phát hành</string>
+	<string name="ugc_routes_user_agreement">&lt;b>VUI LÒNG LƯU Ý:&lt;/b> với việc bắt đầu, bạn đã đồng ý với &lt;a href="%s">thỏa thuận cấp phép&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Hướng dẫn tên</string>
+	<string name="ugc_route_edit_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
+	<string name="not_shared">Không chia sẻ</string>
+	<string name="direct_link_progress_text">Đang tải tập tin của bạn…</string>
+	<string name="direct_link_success">Liên kết đã được tạo</string>
+	<string name="edit_guide_title">Chỉnh sửa hướng dẫn của bạn trên trang web</string>
+	<string name="edit_guide_subtitle">Nhận liên kết để chỉnh sửa hướng dẫn của bạn qua ứng dụng web: thêm mô tả, tải ảnh lên và kết nối dấu trang với các dòng.</string>
+	<string name="send_a_link_btn">Gửi cho tôi liên kết</string>
+	<string name="upload_error_toast">Đã xảy ra lỗi trong khi tải lên tập tin của bạn</string>
+	<string name="tags_loading_error_subtitle">Đã xảy ra lỗi khi tải thẻ, vui lòng thử lại</string>
+	<string name="unable_upload_errorr_title">Tải tập tin lên không thành công</string>
+	<string name="unable_upload_error_subtitle_edited">Tập tin này đã được chỉnh sửa qua ứng dụng web</string>
+	<string name="unable_upload_error_subtitle_broken">Tập tin này bị hỏng và không thể tải lên được. Vui lòng tải lên một tập tin khác.</string>
+	<string name="buy_btn">Mua với %s</string>
+	<string name="download_guide_progress">Đang tải xuống hướng dẫn của bạn…</string>
+	<string name="price_error_title">Không thể có được giá</string>
+	<string name="price_error_subtitle">Vui lòng thử lại trong vài phút</string>
+	<string name="edit_your_guide_email_body">Chỉnh sửa hướng dẫn của bạn trên web dễ dàng bằng máy tính của bạn: thêm mô tả, tải ảnh lên và kết nối dấu trang với các dòng.</string>
+	<string name="edit_on_web">Chỉnh sửa trên web</string>
+	<string name="properties_loading_error_subtitle">Đã xảy ra lỗi khi tải tùy chọn, vui lòng thử lại</string>
+	<string name="custom_props_desc">Trong hướng dẫn này, bạn đã ghé thăm các địa điểm như</string>
+	<string name="custom_props_title">Người địa phương hay du khách</string>
+	<string name="select_properties">Chọn tùy chọn</string>
+	<string name="access_rules_p_to_p">Kết nối đặc biệt</string>
+	<string name="access_rules_paid">Đã mua</string>
+	<string name="failed_purchase_support_message">Xin lỗi, nhưng có thể bạn chưa hoàn thành việc mua hàng. Vui lòng liên hệ với bộ phận hỗ trợ và chúng tôi sẽ giải quyết vấn đề.</string>
+	<string name="contact">Liên hệ</string>
+	<string name="check_price_button">Kiểm tra giá</string>
+	<string name="download_button">Tải</string>
+	<string name="speedcams_alert_title">Tăn tốc độ máy ảnh</string>
+	<string name="speedcams_alert_subtitle">Cảnh báo về giới hạn tốc độ</string>
+	<string name="speedcam_option_auto">Tự động</string>
+	<string name="speedcam_option_always">Luôn luôn</string>
+	<string name="speedcam_option_never">Không bao giờ</string>
+	<string name="bookmark_description_title">Mô tả dấu trang</string>
+	<string name="place_description_title">Mô tả Địa điểm</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

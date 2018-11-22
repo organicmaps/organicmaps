@@ -184,12 +184,18 @@
 	<string name="search_mode_nearme">I närheten</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">På skärmen</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Var att äta</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Produkter</string>
 	<!-- Search category -->
 	<string name="transport">Transport</string>
 	<!-- Search category -->
 	<string name="fuel">Bensin</string>
 	<!-- Search category -->
 	<string name="parking">Parkering</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Shopping</string>
 	<!-- Search category -->
 	<string name="hotel">Hotell</string>
 	<!-- Search category -->
@@ -198,6 +204,10 @@
 	<string name="entertainment">Underhållning</string>
 	<!-- Search category -->
 	<string name="atm">Bankomat</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Nattliv</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Semester med barn</string>
 	<!-- Search category -->
 	<string name="bank">Bank</string>
 	<!-- Search category -->
@@ -1388,6 +1398,57 @@
 	<string name="subscription_terms">Betalning kommer att debiteras ditt iTunes-konto vid bekräftelsen av köpet. Prenumerationen kommer att förnyas automatiskt om inte automat-förnyelse är avstängt minst 24 timmar före utgången av innevarande period. Ditt konto kommer att debiteras enligt din plan för förnyelse inom 24 timmar före utgången av innevarande period. Du kan hantera eller stänga av automatisk förnyelse för ditt inköp när som helst i ditt Apple-ID-konto.</string>
 	<string name="subscriptions_title">Prenumerationer</string>
 	<string name="manage_subscription">Hantera prenumeration</string>
+	<string name="sharing_options">Åtkomstinställningar</string>
+	<string name="export_file">Exportera fil</string>
+	<string name="hide_from_map">Dölj från kort</string>
+	<string name="ugc_route_tags_screen_label">Välj taggar</string>
+	<string name="ugc_route_tags_progress_msg">Laddar upp taggar…</string>
+	<string name="ugc_route_tags_desc">Var vänlig välj taggar för att hjälpa andra resenärer att hitta din reseguide. Detta är ett måste.</string>
+	<string name="public_access">Allmänhetens åtkomst</string>
+	<string name="limited_access">Privat åtkomst</string>
+	<string name="upload_and_publish_desc">Den här reseguiden kommer att laddas upp i den offentliga katalogen MAPS.ME och kommer att vara tillgänglig för andra användare</string>
+	<string name="upload_and_publish">Ladda upp och publicera</string>
+	<string name="upload_and_get_direct_link">Ladda upp och få länk</string>
+	<string name="get_direct_link_desc">Din reseguide kommer att finnas tillgänglig via direktlänk</string>
+	<string name="upload_and_publish_progress_text">Reseguiden publiceras…</string>
+	<string name="upload_and_publish_success">Reseguiden har publicerat</string>
+	<string name="ugc_routes_user_agreement">&lt;b>OBS:&lt;/b> Genom att fortsätta accepterar du &lt;a href="%s">licensavtalet&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Namn av reseguiden</string>
+	<string name="ugc_route_edit_description_hint">Lägg till en beskrivning (text eller html)</string>
+	<string name="not_shared">Personlig</string>
+	<string name="direct_link_progress_text">Laddar upp din fil…</string>
+	<string name="direct_link_success">Länk skapad</string>
+	<string name="edit_guide_title">Redigera din reseguide online</string>
+	<string name="edit_guide_subtitle">Hämta en länk för att redigera din guidebok via webben: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.</string>
+	<string name="send_a_link_btn">Skicka länk</string>
+	<string name="upload_error_toast">Ett fel uppstod när du laddar filen</string>
+	<string name="tags_loading_error_subtitle">Ett fel uppstod när du laddar taggarna, försök igen</string>
+	<string name="unable_upload_errorr_title">Det gick inte att ladda upp filen</string>
+	<string name="unable_upload_error_subtitle_edited">Filen har redigerats via webbapplikation</string>
+	<string name="unable_upload_error_subtitle_broken">Filen är skadad och kan inte laddas upp. Var vänlig ladda upp en annan fil.</string>
+	<string name="buy_btn">Köp för %s</string>
+	<string name="download_guide_progress">Reseguiden laddar…</string>
+	<string name="price_error_title">Det gick inte att ta reda på kostnaden</string>
+	<string name="price_error_subtitle">Var vänlig försök igen om några minuter</string>
+	<string name="edit_your_guide_email_body">Redigera din reseguide på datorn: lägg till beskrivningar av platser, ladda upp foton och anslut etiketter med rader.</string>
+	<string name="edit_on_web">Redigera online</string>
+	<string name="properties_loading_error_subtitle">Ett fel uppstod när du laddar optioner, försök igen</string>
+	<string name="custom_props_desc">Den här reseguiden du har sammanställt som</string>
+	<string name="custom_props_title">Lokal bosatt eller en turist</string>
+	<string name="select_properties">Välj optioner</string>
+	<string name="access_rules_p_to_p">Särskild åtkomst</string>
+	<string name="access_rules_paid">Köpte</string>
+	<string name="failed_purchase_support_message">Det verkar som om du har ett pågående köp. Var vänlig kontakt support, och vi kommer att lösa problemet.</string>
+	<string name="contact">Kontakta</string>
+	<string name="check_price_button">Ta reda på priset</string>
+	<string name="download_button">Nedladdning</string>
+	<string name="speedcams_alert_title">Hastighetskameror</string>
+	<string name="speedcams_alert_subtitle">Varna om hastighetsbegränsningar</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Alltid</string>
+	<string name="speedcam_option_never">Aldrig</string>
+	<string name="bookmark_description_title">Etikettbeskrivning</string>
+	<string name="place_description_title">Beskrivning av platsen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

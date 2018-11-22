@@ -299,10 +299,10 @@
 "search_mode_viewport" = "マップ表示範囲";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "食事場所";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "食料雑貨";
 
 /* Search category */
 "transport" = "交通機関";
@@ -314,7 +314,7 @@
 "parking" = "駐車場";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "ショッピング";
 
 /* Search category */
 "hotel" = "ホテル";
@@ -329,10 +329,10 @@
 "atm" = "ATM";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "ナイトライフ";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "家族の休日";
 
 /* Search category */
 "bank" = "銀行";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "オプションの共有";
 
-"export_file" = "Export file";
+"export_file" = "ファイルのエクスポート";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "マップから隠す";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "タグを選択";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "タグをロードしています…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "他の旅行者があなたのガイドを見つけられるようにタグを選択してください。これは必須です。";
 
-"public_access" = "Public access";
+"public_access" = "パブリック・アクセス";
 
-"limited_access" = "Limited access";
+"limited_access" = "制限されたアクセス";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "このガイドはパブリックのMAPS.MEカタログにアップロードされ、他のユーザーに対して利用可能になります";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "アップロードおよび公開";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "アップロードおよび直接リンクの取得";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "あなたのガイドはリンクを持っているあらゆる人物に利用可能になります";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "あなたのガイドを公開しています…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "ガイドが公開されました";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>ご注意ください:</b> この先へ進む事で <a href=\"%s\">利用許諾</a>に同意する事になります";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "ガイド名";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "説明(テキストまたはhtml)を記入してください";
 
-"not_shared" = "Not shared";
+"not_shared" = "共有されていません";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "あなたのファイルをアップロードしています…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "リンクが作成されました";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "ガイドをウェブ上で編集";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "ウェブアプリを通じてガイドを編集するためにリンクを取得しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "リンクを自分に送る";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "ファイルのアップロード中にエラーが起きました";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "タグのロード中にエラーが起きました。もう一度やり直してください";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "ファイルのアップロードができませんでした";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "このファイルはウェブアプリで編集されました";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "このファイルは損傷しており、アップロードできませんでした。別のファイルをアップロードしてください。";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "%sで購入";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "ガイドをダウンロードしています…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "価格を取得できませんでした";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "数分後にもう一度試してみてください";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "パソコンを使って簡単にウェブ上でガイドを編集しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "ウェブ上で編集";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "オプションのロード中にエラーが起きました。もう一度やり直してください";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "このガイドでは以下の立場で場所を訪れました";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "現地人または旅行者";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "オプションの選択";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "特別なアクセス";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "購入済み";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "申し訳ございませが、完了していない購入があるようです。サポートまでご連絡いただければ当社が問題を解決いたします。";
+
+"contact" = "連絡";
+
+"check_price_button" = "価格チェック";
+
+"download_button" = "ダウンロード";
+
+"speedcams_alert_title" = "自動速度違反取締装置";
+
+"speedcams_alert_subtitle" = "速度制限警告";
+
+"speedcam_option_auto" = "自動";
+
+"speedcam_option_always" = "常時";
+
+"speedcam_option_never" = "無効";
+
+"bookmark_description_title" = "ブックマークの説明";
+
+"place_description_title" = "場所の説明";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

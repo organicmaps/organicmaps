@@ -299,10 +299,10 @@
 "search_mode_viewport" = "On the Screen";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Unde să mănânci";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Produse";
 
 /* Search category */
 "transport" = "Transport";
@@ -314,7 +314,7 @@
 "parking" = "Parcare";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Cumpărături";
 
 /* Search category */
 "hotel" = "Hotel";
@@ -329,10 +329,10 @@
 "atm" = "Bancomat";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Viața nocturnă";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Odihnă cu copii";
 
 /* Search category */
 "bank" = "Bancă";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Setările accesului";
 
-"export_file" = "Export file";
+"export_file" = "Exportați fișierul";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Ascundeți de pe hartă";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Alegeți tag-urile";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Încărcăm tag-urile…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Vă rugăm, alegeți tag-urile pentru a ajuta alți turiști să găsească ghidul dvs. Acest lucru este obligatoriu.";
 
-"public_access" = "Public access";
+"public_access" = "Acces public";
 
-"limited_access" = "Limited access";
+"limited_access" = "Acces privat";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Acest ghid va fi încărcat în catalogul public MAPS.ME și va fi disponibil altor utilizatori";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Descărcați și publicați";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Descărcați și primiți linkul";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Ghidul dumneavoastră va fi disponibil printr-un link direct";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Ghidul se publică…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Ghidul a fost publicat";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>ATRAGEȚI ATENȚIE:</b> continuând, dvs acceptați <a href=\"%s\">contractul de licență</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Denumirea ghidului";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Adăugați o descriere (text sau html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Personal";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Încărcăm fișierul dumneavoastră…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Linkul a fost creat";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Redactați ghidul dvs online";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Primiți linkul pentru editarea ghidului dvs prin intermediul aplicației web: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Trimiteți linkul";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "În timpul încărcării fișierului s-a produs o eroare";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "În timpul încărcării tag-urilor s-a produs o eroare, vă rugăm să încercați încă odată";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Încărcarea fișierului nu s-a primit";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Fișierul a fost editat prin intermediul aplicației web";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Fișierul a fost deteriorat și nu poate fi încărcat. Vă rugăm, alegeți alt fișier.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Cumpărați pentru %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Ghidul de călătorie se încarcă…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Imposibil de aflat prețul";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Vă rugăm să încercați încă odată peste câteva minute";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Redactați ghidul dvs pe calculator: adăugați descrierea locurilor, încărcați fotografii și conectați etichetele cu linii.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Editați online";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "În timpul încărcării opțiunilor s-a produs o eroare, vă rugăm încercați încă o dată";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Acest ghid l-ați făcut în calitate de";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Localnic sau turist";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Alegeți opțiunile";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Acces special";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Cumpărat";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Se pare că aveți o achiziție nefinalizată. Vă rugăm să vă adresați la support, și noi vom rezolva problema.";
+
+"contact" = "Scrie";
+
+"check_price_button" = "Aflați prețul";
+
+"download_button" = "Descărcați";
+
+"speedcams_alert_title" = "Camere de supraveghere video a vitezei";
+
+"speedcams_alert_subtitle" = "Avertizați despre limitele de viteză";
+
+"speedcam_option_auto" = "Auto";
+
+"speedcam_option_always" = "Mereu";
+
+"speedcam_option_never" = "Niciodată";
+
+"bookmark_description_title" = "Descrierea semnului";
+
+"place_description_title" = "Descrierea locului";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

@@ -299,10 +299,10 @@
 "search_mode_viewport" = "在屏幕上";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "在哪儿吃";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "食品";
 
 /* Search category */
 "transport" = "交通";
@@ -314,7 +314,7 @@
 "parking" = "停车";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "购物";
 
 /* Search category */
 "hotel" = "旅店";
@@ -329,10 +329,10 @@
 "atm" = "自动取款机";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "夜生活";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "亲子休闲";
 
 /* Search category */
 "bank" = "银行";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "登录设置";
 
-"export_file" = "Export file";
+"export_file" = "导出文件";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "从卡中隐藏";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "请选择标签";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "正在加载标签......";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "请选择标签以帮助其他旅行者找到您的旅行指南。此为必填项。";
 
-"public_access" = "Public access";
+"public_access" = "公共访问";
 
-"limited_access" = "Limited access";
+"limited_access" = "私人访问";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "本指南将上传到MAPS.ME公共目录，并可供其他用户使用";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "加载并发布";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "加载并获取链接";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "您的指南将通过直接链接提供";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "该指南正在发布......";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "该指南已发布";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>注意:</b>继续，即表示您接受<a href=\"%s\">许可协议</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "指南名称";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "请添加说明(文字或html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "個人";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "正在上传您的文件......";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "链接已创建";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "请在线编辑您的旅行指南";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "请通过网络应用获取编辑指南的链接：请添加地点描述，上传照片以及用线条连接标签。";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "发送链接";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "加载文件时出错";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "加载标签时出错，请重试";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "无法上传文件";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "文件是通过Web应用程序编辑的";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "该文件已损坏，无法上传。请上传其他文件。";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "购买%s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "指南正在加载......";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "无法得知价格";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "请在几分钟后再试一次";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "在计算机上编辑您的旅行指南：请添加地点描述，上传照片以及用线条连接标签。";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "在线编辑";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "加载选项时出错，请重试";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "本指南您编制为";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "当地或游客";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "选择选项";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "特殊访问";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "已购买";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "您似乎还有未完成的购买。请写支持，我们将解决问题。";
+
+"contact" = "写";
+
+"check_price_button" = "了解价格";
+
+"download_button" = "下载";
+
+"speedcams_alert_title" = "高速摄像机";
+
+"speedcams_alert_subtitle" = "速度限制警告";
+
+"speedcam_option_auto" = "自动";
+
+"speedcam_option_always" = "总是";
+
+"speedcam_option_never" = "从不";
+
+"bookmark_description_title" = "标签说明";
+
+"place_description_title" = "地点说明";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

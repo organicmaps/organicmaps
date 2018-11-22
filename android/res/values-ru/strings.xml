@@ -189,7 +189,7 @@
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">На экране</string>
 	<!-- Search category for cafes, bars, restaurants -->
-	<string name="eat">Поесть</string>
+	<string name="eat">Где поесть</string>
 	<!-- Search category for grocery stores -->
 	<string name="food">Продукты</string>
 	<!-- Search category -->
@@ -1450,23 +1450,23 @@
 	<string name="hide_from_map">Скрыть с карты</string>
 	<string name="ugc_route_tags_screen_label">Выберите теги</string>
 	<string name="ugc_route_tags_progress_msg">Загружаем теги…</string>
-	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.</string>
+	<string name="ugc_route_tags_desc">Пожалуйста, выберите теги, чтобы помочь другим путешественникам найти ваш путеводитель. Это обязательно.</string>
 	<string name="public_access">Публичный доступ</string>
 	<string name="limited_access">Ограниченный доступ</string>
-	<string name="upload_and_publish_desc">Этот список будет загружен в публичный каталог MAPS.ME как путеводитель и будет доступен другим пользователям</string>
+	<string name="upload_and_publish_desc">Этот путеводитель будет загружен в публичный каталог MAPS.ME и будет доступен другим пользователям</string>
 	<string name="upload_and_publish">Загрузить и опубликовать</string>
 	<string name="upload_and_get_direct_link">Загрузить и получить ссылку</string>
-	<string name="get_direct_link_desc">Ваш список будет доступен по прямой ссылке</string>
+	<string name="get_direct_link_desc">Ваш путеводитель будет доступен по прямой ссылке</string>
 	<string name="upload_and_publish_progress_text">Путеводитель публикуется…</string>
 	<string name="upload_and_publish_success">Путеводитель опубликован</string>
 	<string name="ugc_routes_user_agreement">&lt;b>ОБРАТИТЕ ВНИМАНИЕ:&lt;/b> продолжая, вы принимаете &lt;a href="%s">лицензионное соглашение&lt;/a></string>
-	<string name="ugc_route_edit_list_name">Название списка</string>
+	<string name="ugc_route_edit_list_name">Название путеводителя</string>
 	<string name="ugc_route_edit_description_hint">Добавьте описание (текст или html)</string>
 	<string name="not_shared">Личный</string>
 	<string name="direct_link_progress_text">Загружаем ваш файл…</string>
 	<string name="direct_link_success">Ссылка создана</string>
-	<string name="edit_guide_title">Редактируйте ваш путеводитель в интернете</string>
-	<string name="edit_guide_subtitle">Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания к меткам, загружайте фотографии и многое другое</string>
+	<string name="edit_guide_title">Редактируйте ваш путеводитель онлайн</string>
+	<string name="edit_guide_subtitle">Получите ссылку для редактирования вашего путеводителя через веб-приложение: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.</string>
 	<string name="send_a_link_btn">Отправить ссылку</string>
 	<string name="upload_error_toast">Во время загрузки файла произошла ошибка</string>
 	<string name="tags_loading_error_subtitle">Во время загрузки тегов произошла ошибка, пожалуйста, попробуйте еще раз</string>
@@ -1475,8 +1475,27 @@
 	<string name="unable_upload_error_subtitle_broken">Файл поврежден и не может быть загружен. Пожалуйста, загрузите другой файл.</string>
 	<string name="buy_btn">Купить за %s</string>
 	<string name="download_guide_progress">Путеводитель загружается…</string>
-	<string name="price_error_title">Невозможно получить цену</string>
-	<string name="price_error_subtitle">Во время получения цены произошла ошибка. Пожалуйста, попробуйте позднее.</string>
+	<string name="price_error_title">Невозможно узнать стоимость</string>
+	<string name="price_error_subtitle">Пожалуйста, попробуйте еще раз через пару минут</string>
+	<string name="edit_your_guide_email_body">Редактируйте ваш путеводитель на компьютере: добавляйте описания мест, загружайте фотографии и соединяйте метки линиями.</string>
+	<string name="edit_on_web">Редактировать онлайн</string>
+	<string name="properties_loading_error_subtitle">Во время загрузки опций произошла ошибка, пожалуйста, попробуйте еще раз</string>
+	<string name="custom_props_desc">Этот путеводитель вы составили как</string>
+	<string name="custom_props_title">Местный или турист</string>
+	<string name="select_properties">Выбрать опции</string>
+	<string name="access_rules_p_to_p">Специальный доступ</string>
+	<string name="access_rules_paid">Купленный</string>
+	<string name="failed_purchase_support_message">Кажется, у вас есть незавершённая покупка. Пожалуйста, напишите в поддержку, и мы решим проблему.</string>
+	<string name="contact">Написать</string>
+	<string name="check_price_button">Узнать цену</string>
+	<string name="download_button">Скачать</string>
+	<string name="speedcams_alert_title">Камеры скорости</string>
+	<string name="speedcams_alert_subtitle">Предупреждать об ограничениях скорости</string>
+	<string name="speedcam_option_auto">Авто</string>
+	<string name="speedcam_option_always">Всегда</string>
+	<string name="speedcam_option_never">Никогда</string>
+	<string name="bookmark_description_title">Описание метки</string>
+	<string name="place_description_title">Описание места</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

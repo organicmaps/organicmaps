@@ -1307,7 +1307,7 @@
 	<string name="please_wait">Please wait...</string>
 	<string name="phone_number">Phone number</string>
 	<string name="notification_unsent_reviews_title"> You have several unsent reviews</string>
-	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travelers</string>
+	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travellers</string>
 	<string name="profile">OpenStreetMap profile</string>
 	<string name="place_page_search_similar_hotel">Search similar hotels</string>
 	<string name="bookmarks_detect_title">New files detected</string>
@@ -1391,7 +1391,7 @@
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
 	<string name="category_desc_more">…more</string>
-	<string name="title_error_downloading_bookmarks">An error occured</string>
+	<string name="title_error_downloading_bookmarks">An error occurred</string>
 	<string name="subtitle_error_downloading_bookmarks">Bookmarks were not downloaded</string>
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME now has a route library</string>
 	<string name="whats_new_bookmarks_catalog_message">Hundreds of detailed routes all around the world: where to go, what to see, where to eat.</string>
@@ -1460,7 +1460,7 @@
 	<string name="hide_from_map">Hide from map</string>
 	<string name="ugc_route_tags_screen_label">Select tags</string>
 	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
-	<string name="ugc_route_tags_desc">Please, select tags to help other travellers find your guide. This is mandatory.</string>
+	<string name="ugc_route_tags_desc">Please select tags to help other travellers find your guide. This is mandatory.</string>
 	<string name="public_access">Public access</string>
 	<string name="limited_access">Limited access</string>
 	<!-- FIXME -->
@@ -1469,52 +1469,53 @@
 	<string name="bookmarks_link_access">bookmarks_link_access</string>
 	<!-- FIXME -->
 	<string name="bookmarks_private_access">bookmarks_private_access</string>
-	<string name="upload_and_publish_desc">This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users</string>
+	<string name="upload_and_publish_desc">This guide will be uploaded to the public MAPS.ME catalog and will be available to other users</string>
 	<string name="upload_and_publish">Upload and publish</string>
 	<string name="upload_and_get_direct_link">Upload and get a direct link</string>
-	<string name="get_direct_link_desc">Your list will be available to anyone who has the link</string>
+	<string name="get_direct_link_desc">Your guide will be available to anyone who has the link</string>
 	<string name="upload_and_publish_progress_text">Publishing your guide…</string>
 	<string name="upload_and_publish_success">The guide has been published</string>
 	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;a href="%s">license agreement&lt;/a></string>
-	<string name="ugc_route_edit_list_name">List name</string>
+	<string name="ugc_route_edit_list_name">Guide name</string>
 	<string name="ugc_route_edit_description_hint">Type a description (text or html)</string>
 	<string name="not_shared">Not shared</string>
 	<string name="direct_link_progress_text">Uploading your file…</string>
 	<string name="direct_link_success">The link has been created</string>
-	<string name="edit_guide_title">Edit your guide on the web</string>
-	<string name="edit_guide_subtitle">Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more</string>
+	<string name="edit_guide_title">Edit your guide online</string>
+	<string name="edit_guide_subtitle">Get a link to edit your guide via web service: add descriptions, upload photos, and connect bookmarks with lines.</string>
 	<string name="send_a_link_btn">Send me a link</string>
 	<string name="upload_error_toast">An error occurred while uploading your file</string>
-	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again later</string>
+	<string name="tags_loading_error_subtitle">An error occurred while loading tags, please try again</string>
 	<string name="unable_upload_errorr_title">File upload failed</string>
 	<string name="unable_upload_error_subtitle_edited">This file has been edited via the web app</string>
-	<string name="unable_upload_error_subtitle_broken">This file is invalid and couldn\'t be uploaded. Please upload another file.</string>
+	<string name="unable_upload_error_subtitle_broken">This file is damaged and couldn\'t be uploaded. Please upload another file.</string>
 	<string name="buy_btn">Buy for %s</string>
 	<string name="download_guide_progress">Downloading your guide…</string>
-	<string name="price_error_title">Unable to get price</string>
-	<string name="price_error_subtitle">An error occured while getting price. Please, try again later.</string>
-	<!-- TODO -->
-	<string name="edit_your_guide_email_body">edit_your_guide_email_body</string>
-	<!-- TODO -->
-	<string name="edit_on_web">edit_on_web</string>
-	<!-- FIXME -->
-	<string name="properties_loading_error_subtitle">properties_loading_error_subtitle</string>
-	<!-- FIXME -->
-	<string name="custom_props_desc">custom_props_desc</string>
-	<!-- FIXME -->
-	<string name="custom_props_title">custom_props_title</string>
+	<string name="price_error_title">Could not get a price</string>
+	<string name="price_error_subtitle">Please try again in a few minutes</string>
+	<string name="edit_your_guide_email_body">Edit your guide on the web easily using your computer: add descriptions, upload photos, and connect bookmarks with lines.</string>
+	<string name="edit_on_web">Edit online</string>
+	<string name="properties_loading_error_subtitle">An error occurred while loading options, please try again</string>
+	<string name="custom_props_desc">In this guide you have visited places as</string>
+	<string name="custom_props_title">Local or traveller</string>
 	<!-- FIXME -->
 	<string name="custom_props_local">custom_props_local</string>
 	<!-- FIXME -->
 	<string name="custom_props_traveler">custom_props_traveler</string>
-	<!-- FIXME -->
-	<string name="select_properties">select_properties</string>
-	<!-- FIXME -->
-	<string name="access_rules_p_to_p">access_rules_p_to_p</string>
-	<!-- FIXME -->
-	<string name="access_rules_paid">access_rules_paid</string>
-	<!-- FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. -->
-	<string name="failed_purchase_support_message">failed_purchase_support_message</string>
+	<string name="select_properties">Select options</string>
+	<string name="access_rules_p_to_p">Special access</string>
+	<string name="access_rules_paid">Purchased</string>
+	<string name="failed_purchase_support_message">Sorry, but you probably have an uncompleted purchase. Please contact support and we will solve the problem.</string>
+	<string name="contact">Contact</string>
+	<string name="check_price_button">Check price</string>
+	<string name="download_button">Download</string>
+	<string name="speedcams_alert_title">Speed cameras</string>
+	<string name="speedcams_alert_subtitle">Warn about speed limits</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Always</string>
+	<string name="speedcam_option_never">Never</string>
+	<string name="bookmark_description_title">Bookmark Description</string>
+	<string name="place_description_title">Place Description</string>
 	<!-- FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes -->
 	<string name="ugc_routes_error_uploading_file_toast">ugc_routes_error_uploading_file_toast</string>
 	<!-- FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. -->

@@ -188,12 +188,18 @@
 	<string name="search_mode_nearme">بجواري</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">على الشاشة</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">مكان لتناول الطعام</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">المشتريات</string>
 	<!-- Search category -->
 	<string name="transport">نقل</string>
 	<!-- Search category -->
 	<string name="fuel">غاز</string>
 	<!-- Search category -->
 	<string name="parking">الاصطفاف</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">التسوق</string>
 	<!-- Search category -->
 	<string name="hotel">فندق</string>
 	<!-- Search category -->
@@ -202,6 +208,10 @@
 	<string name="entertainment">التسلية</string>
 	<!-- Search category -->
 	<string name="atm">ماكينة الصراف الآلي</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">أنشطة ترفيه ليلية</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">عطلة عائلية</string>
 	<!-- Search category -->
 	<string name="bank">بنك</string>
 	<!-- Search category -->
@@ -1389,6 +1399,57 @@
 	<string name="subscription_terms">سيتم خصم المبلغ من حساب iTunes الخاص بك عند تأكيد عملية الشراء. سيتم تجديد الاشتراك تلقائياً ما لم يتم إيقاف التجديد التلقائي قبل 24 ساعة على الأقل من نهاية الفترة الحالية. سيتم الخصم من حسابك وفقاً لخطة التجديد الخاصة بك وذلك خلال 24 ساعة قبل انتهاء الفترة الحالية. يمكنك إدارة أو إيقاف التجديد التلقائي عبر إعدادات حساب Apple ID الخاص بك في أي وقت عند الشراء.</string>
 	<string name="subscriptions_title">الاشتراكات</string>
 	<string name="manage_subscription">إدارة الاشتراك</string>
+	<string name="sharing_options">خيارات المشاركة</string>
+	<string name="export_file">ملف التصدير</string>
+	<string name="hide_from_map">إخفاء من الخريطة</string>
+	<string name="ugc_route_tags_screen_label">حدد العلامات</string>
+	<string name="ugc_route_tags_progress_msg">جارٍ تحميل العلامات…</string>
+	<string name="ugc_route_tags_desc">.يرجى تحديد العلامات لمساعدة المسافرين الآخرين في العثور على دليلك. وهذا إلزامي</string>
+	<string name="public_access">إطلاع الجمهور</string>
+	<string name="limited_access">محدودية فرص حصول</string>
+	<string name="upload_and_publish_desc">سيتم تحميل هذا الدليل إلى كتالوج MAPS.ME العام وسيكون متاحًا للمستخدمين الآخرين</string>
+	<string name="upload_and_publish">تحميل ونشر</string>
+	<string name="upload_and_get_direct_link">حمل واحصل على رابط مباشر</string>
+	<string name="get_direct_link_desc">سيكون دليلك متاحًا لأي شخص لديه الرابط</string>
+	<string name="upload_and_publish_progress_text">…نشر دليل الخاص بك</string>
+	<string name="upload_and_publish_success">تم نشر الدليل</string>
+	<string name="ugc_routes_user_agreement">&lt;a href="%s"> اتفاقية الترخيص&lt;/a>من خلال المتابعة ، فإنك تقبل &lt;b> الرجاء ملاحظة:&lt;/b></string>
+	<string name="ugc_route_edit_list_name">اسم الدليل</string>
+	<string name="ugc_route_edit_description_hint">اكتب وصفًا (نص أو html)</string>
+	<string name="not_shared">غير مشارك</string>
+	<string name="direct_link_progress_text">جارٍ تحميل ملفك…</string>
+	<string name="direct_link_success">لقد تم إنشاء الرابط</string>
+	<string name="edit_guide_title">قم بتحرير دليلك على الويب</string>
+	<string name="edit_guide_subtitle">.احصل على رابط لتعديل مرشدك عبر تطبيق الويب: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور</string>
+	<string name="send_a_link_btn">ارسل لي رابط</string>
+	<string name="upload_error_toast">حدث خطأ أثناء تحميل ملفك</string>
+	<string name="tags_loading_error_subtitle">حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى</string>
+	<string name="unable_upload_errorr_title">فشل تحميل الملف</string>
+	<string name="unable_upload_error_subtitle_edited">تم تحرير هذا الملف عبر تطبيق الويب</string>
+	<string name="unable_upload_error_subtitle_broken">هذا الملف تالف ولا يمكن تحميله. يرجى تحميل ملف آخر.</string>
+	<string name="buy_btn">شراء لـ%s</string>
+	<string name="download_guide_progress">تحميل الدليل الخاص بك…</string>
+	<string name="price_error_title">لا يمكن الحصول على السعر</string>
+	<string name="price_error_subtitle">يرجى المحاولة مرة أخرى في بضع دقائق</string>
+	<string name="edit_your_guide_email_body">عدّل دليلك على الويب بسهولة باستخدام جهاز الكمبيوتر: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور.</string>
+	<string name="edit_on_web">تعديل على الويب</string>
+	<string name="properties_loading_error_subtitle">حدث خطأ أثناء تحميل الخيارات ، يرجى المحاولة مرة أخرى</string>
+	<string name="custom_props_desc">في هذا الدليل ، قمت بزيارة الأماكن مثل</string>
+	<string name="custom_props_title">محلي أو مسافر</string>
+	<string name="select_properties">حدد الخيارات</string>
+	<string name="access_rules_p_to_p">وصول خاص</string>
+	<string name="access_rules_paid">تم شراؤه من</string>
+	<string name="failed_purchase_support_message">آسف، ولكن ربما لديك عملية شراء غير مكتملة. يرجى الاتصال بفريق الدعم وسوف نقوم بحل المشكلة.</string>
+	<string name="contact">الاتصال</string>
+	<string name="check_price_button">سعر الاختيار</string>
+	<string name="download_button">تحميل</string>
+	<string name="speedcams_alert_title">كاميرات السرعة</string>
+	<string name="speedcams_alert_subtitle">التحذير من حدود السرعة</string>
+	<string name="speedcam_option_auto">السيارات</string>
+	<string name="speedcam_option_always">دائما</string>
+	<string name="speedcam_option_never">مطلقا</string>
+	<string name="bookmark_description_title">وصف الإشارة المرجعية</string>
+	<string name="place_description_title">وصف المكان</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

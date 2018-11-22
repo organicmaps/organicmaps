@@ -183,12 +183,18 @@
 	<string name="search_mode_nearme">現在地周辺</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">マップ表示範囲</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">食事場所</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">食料雑貨</string>
 	<!-- Search category -->
 	<string name="transport">交通機関</string>
 	<!-- Search category -->
 	<string name="fuel">ガソリンスタンド</string>
 	<!-- Search category -->
 	<string name="parking">駐車場</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">ショッピング</string>
 	<!-- Search category -->
 	<string name="hotel">ホテル</string>
 	<!-- Search category -->
@@ -197,6 +203,10 @@
 	<string name="entertainment">エンターテイメント</string>
 	<!-- Search category -->
 	<string name="atm">ATM</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">ナイトライフ</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">家族の休日</string>
 	<!-- Search category -->
 	<string name="bank">銀行</string>
 	<!-- Search category -->
@@ -1382,6 +1392,57 @@
 	<string name="subscription_terms">ご購入確定時にお客様のiTunesアカウントにお支払いが請求されます。現在のご利用期間が終了する最低でも24時間前に自動更新が解除されなければ、サブスクリプションは自動的に更新されます。現在のご利用期間が終了する24時間以内に、ご利用プランの更新がアカウントに請求されます。ご購入期間中にApple IDアカウント設定より自動更新を管理または解除することができます。</string>
 	<string name="subscriptions_title">サブスクリプション</string>
 	<string name="manage_subscription">サブスクリプション管理</string>
+	<string name="sharing_options">オプションの共有</string>
+	<string name="export_file">ファイルのエクスポート</string>
+	<string name="hide_from_map">マップから隠す</string>
+	<string name="ugc_route_tags_screen_label">タグを選択</string>
+	<string name="ugc_route_tags_progress_msg">タグをロードしています…</string>
+	<string name="ugc_route_tags_desc">他の旅行者があなたのガイドを見つけられるようにタグを選択してください。これは必須です。</string>
+	<string name="public_access">パブリック・アクセス</string>
+	<string name="limited_access">制限されたアクセス</string>
+	<string name="upload_and_publish_desc">このガイドはパブリックのMAPS.MEカタログにアップロードされ、他のユーザーに対して利用可能になります</string>
+	<string name="upload_and_publish">アップロードおよび公開</string>
+	<string name="upload_and_get_direct_link">アップロードおよび直接リンクの取得</string>
+	<string name="get_direct_link_desc">あなたのガイドはリンクを持っているあらゆる人物に利用可能になります</string>
+	<string name="upload_and_publish_progress_text">あなたのガイドを公開しています…</string>
+	<string name="upload_and_publish_success">ガイドが公開されました</string>
+	<string name="ugc_routes_user_agreement">&lt;b>ご注意ください:&lt;/b> この先へ進む事で &lt;a href="%s">利用許諾&lt;/a>に同意する事になります</string>
+	<string name="ugc_route_edit_list_name">ガイド名</string>
+	<string name="ugc_route_edit_description_hint">説明(テキストまたはhtml)を記入してください</string>
+	<string name="not_shared">共有されていません</string>
+	<string name="direct_link_progress_text">あなたのファイルをアップロードしています…</string>
+	<string name="direct_link_success">リンクが作成されました</string>
+	<string name="edit_guide_title">ガイドをウェブ上で編集</string>
+	<string name="edit_guide_subtitle">ウェブアプリを通じてガイドを編集するためにリンクを取得しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。</string>
+	<string name="send_a_link_btn">リンクを自分に送る</string>
+	<string name="upload_error_toast">ファイルのアップロード中にエラーが起きました</string>
+	<string name="tags_loading_error_subtitle">タグのロード中にエラーが起きました。もう一度やり直してください</string>
+	<string name="unable_upload_errorr_title">ファイルのアップロードができませんでした</string>
+	<string name="unable_upload_error_subtitle_edited">このファイルはウェブアプリで編集されました</string>
+	<string name="unable_upload_error_subtitle_broken">このファイルは損傷しており、アップロードできませんでした。別のファイルをアップロードしてください。</string>
+	<string name="buy_btn">%sで購入</string>
+	<string name="download_guide_progress">ガイドをダウンロードしています…</string>
+	<string name="price_error_title">価格を取得できませんでした</string>
+	<string name="price_error_subtitle">数分後にもう一度試してみてください</string>
+	<string name="edit_your_guide_email_body">パソコンを使って簡単にウェブ上でガイドを編集しましょう：説明を追加し、写真をアップロードし、線でブックマークを繋げましょう。</string>
+	<string name="edit_on_web">ウェブ上で編集</string>
+	<string name="properties_loading_error_subtitle">オプションのロード中にエラーが起きました。もう一度やり直してください</string>
+	<string name="custom_props_desc">このガイドでは以下の立場で場所を訪れました</string>
+	<string name="custom_props_title">現地人または旅行者</string>
+	<string name="select_properties">オプションの選択</string>
+	<string name="access_rules_p_to_p">特別なアクセス</string>
+	<string name="access_rules_paid">購入済み</string>
+	<string name="failed_purchase_support_message">申し訳ございませが、完了していない購入があるようです。サポートまでご連絡いただければ当社が問題を解決いたします。</string>
+	<string name="contact">連絡</string>
+	<string name="check_price_button">価格チェック</string>
+	<string name="download_button">ダウンロード</string>
+	<string name="speedcams_alert_title">自動速度違反取締装置</string>
+	<string name="speedcams_alert_subtitle">速度制限警告</string>
+	<string name="speedcam_option_auto">自動</string>
+	<string name="speedcam_option_always">常時</string>
+	<string name="speedcam_option_never">無効</string>
+	<string name="bookmark_description_title">ブックマークの説明</string>
+	<string name="place_description_title">場所の説明</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

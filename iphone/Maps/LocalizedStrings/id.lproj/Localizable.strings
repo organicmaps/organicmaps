@@ -299,10 +299,10 @@
 "search_mode_viewport" = "On the Screen";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Tempat makan";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Toserba";
 
 /* Search category */
 "transport" = "Transportasi";
@@ -314,7 +314,7 @@
 "parking" = "Parkir";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Berbelanja";
 
 /* Search category */
 "hotel" = "Hotel";
@@ -329,10 +329,10 @@
 "atm" = "ATM";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Kehidupan Malam";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Liburan keluarga";
 
 /* Search category */
 "bank" = "Bank";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Opsi berbagi";
 
-"export_file" = "Export file";
+"export_file" = "File ekspor";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Sembunyikan dari peta";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Pilih tag";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Memuat tag…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Silakan pilih tag untuk membantu pelancong lain menemukan panduan Anda. Ini wajib.";
 
-"public_access" = "Public access";
+"public_access" = "Akses umum";
 
-"limited_access" = "Limited access";
+"limited_access" = "Akses terbatas";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Panduan ini akan diunggah ke katalog MAPS.ME umum dan akan tersedia untuk pengguna lain";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Unggah dan publikasikan";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Unggah dan dapatkan tautan langsung";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Panduan Anda akan tersedia untuk siapa pun yang memiliki tautan ini";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Mempublikasikan panduan Anda…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Panduan telah dipublikasikan";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>PERHATIAN:</b> dengan melanjutkan, Anda menerima <a href=\"%s\">perjanjian lisensi</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Nama panduan";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Ketikkan deskripsi (teks atau html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Tidak dibagikan";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Mengunggah file Anda…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Tautan telah dibuat";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Edit panduan Anda di web";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Dapatkan tautan untuk mengedit panduan Anda melalui aplikasi web: menambahkan deskripsi, mengunggah foto, dan menyambungkan bookmark dengan garis.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Kirim tautan ke saya";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Kesalahan terjadi saat mengunggah file Anda";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Kesalahan terjadi saat memuat tag, silakan coba lagi";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Gagal mengunggah file";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "File telah diedit melalui aplikasi web";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "File rusak dan tidak dapat diunggah. Silakan unggah file lain.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Beli seharga %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Mengunduh panduan Anda…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Tidak bisa mendapatkan harga";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Silakan coba beberapa saat lagi";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Edit panduan Anda di web dengan mudah menggunakan komputer: menambahkan deskripsi, mengunggah foto, dan menyambungkan bookmark dengan garis.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Edit di web";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Kesalahan terjadi saat memuat opsi, silakan coba lagi";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "Di panduan ini Anda telah mengunjungi tempat sebagai";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Warga lokal atau pelancong";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Pilih opsi";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Akses khusus";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Telah dibeli";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Maaf, Anda mungkin memiliki pembelian yang belum dilengkapi. Silakan hubungi dukungan dan kami akan memecahkan masalah Anda.";
+
+"contact" = "Kontak";
+
+"check_price_button" = "Cek harga";
+
+"download_button" = "Unduh";
+
+"speedcams_alert_title" = "Kamera cepat";
+
+"speedcams_alert_subtitle" = "Peringatan tentang batas kecepatan";
+
+"speedcam_option_auto" = "Auto";
+
+"speedcam_option_always" = "Selalu";
+
+"speedcam_option_never" = "Tidak pernah";
+
+"bookmark_description_title" = "Deskripsi Bookmark";
+
+"place_description_title" = "Deskripsi Tempat";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

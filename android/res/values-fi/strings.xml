@@ -182,12 +182,18 @@
 	<string name="measurement_units">Mittayksiköt</string>
 	<!-- Detailed description of Measurement Units settings button -->
 	<string name="measurement_units_summary">Valitse mailit tai kilometrit</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">Missä syödä</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">Tuotteet</string>
 	<!-- Search category -->
 	<string name="transport">Liikenne</string>
 	<!-- Search category -->
 	<string name="fuel">Huoltoasema</string>
 	<!-- Search category -->
 	<string name="parking">Parkkipaikka</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">Ostokset</string>
 	<!-- Search category -->
 	<string name="hotel">Hotelli</string>
 	<!-- Search category -->
@@ -196,6 +202,10 @@
 	<string name="entertainment">Viihde</string>
 	<!-- Search category -->
 	<string name="atm">Pankkiautomaatti</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">Yöelämä</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">Vapaa-aikaa lasten kanssa</string>
 	<!-- Search category -->
 	<string name="bank">Pankki</string>
 	<!-- Search category -->
@@ -1384,6 +1394,57 @@
 	<string name="subscription_terms">Maksu veloitetaan iTunes-tililtäsi maksuvahvistuksen yhteydessä. Tilauksesi uusitaan automaattisesti ellei automaattista uusintaa ole otettu pois käytöstä vähintään 24 tuntia ennen nykyisen tilausjakson päättymistä. Tilauksen uusinta veloitetaan tililtäsi 24 tunnin kuluessa ennen nykyisen tilausjakson päättymistä. Voit hallita tai ottaa tilausten automaattisen uusinnan pois käytöstä Apple ID -tilisi asetuksissa oston jälkeen.</string>
 	<string name="subscriptions_title">Tilaukset</string>
 	<string name="manage_subscription">Hallitse tilausta</string>
+	<string name="sharing_options">Käyttöasetukset</string>
+	<string name="export_file">Viedä tiedosto</string>
+	<string name="hide_from_map">Piilottaa kartalta</string>
+	<string name="ugc_route_tags_screen_label">Valitse tunnisteet</string>
+	<string name="ugc_route_tags_progress_msg">Lataamme tunnisteita…</string>
+	<string name="ugc_route_tags_desc">Ole hyvä, valitse tunnisteet, jotta muut matkustajat löytävät matkaoppaasi. Tämä on pakollista.</string>
+	<string name="public_access">Julkinen pääsy</string>
+	<string name="limited_access">Yksityinen pääsy</string>
+	<string name="upload_and_publish_desc">Tämä matkaopas lähetetään julkiseen hakemistoon MAPS.ME ja se on muiden käyttäjien käytettävissä</string>
+	<string name="upload_and_publish">Ladata ja julkaista</string>
+	<string name="upload_and_get_direct_link">Ladata ja saada linkki</string>
+	<string name="get_direct_link_desc">Matkaoppaanne on saatavana suoralla linkillä</string>
+	<string name="upload_and_publish_progress_text">Matkaopasta julkaistaan…</string>
+	<string name="upload_and_publish_success">Matkaopas on julkaistu</string>
+	<string name="ugc_routes_user_agreement">&lt;b>HUOMAA:&lt;/b> jatkamalla, te hyväksytte &lt;a href="%s">lisenssisopimuksen&lt;/a></string>
+	<string name="ugc_route_edit_list_name">Matkaopasnimi</string>
+	<string name="ugc_route_edit_description_hint">Lisää kuvaus (teksti tai html)</string>
+	<string name="not_shared">Henkilökohtainen</string>
+	<string name="direct_link_progress_text">Lataamme tiedostoanne…</string>
+	<string name="direct_link_success">Linkki on luotu</string>
+	<string name="edit_guide_title">Muokkaa matkaoppaasi verkossa</string>
+	<string name="edit_guide_subtitle">Hanki linkki muokataksesi oppaasi web-sovelluksen kautta: lisää paikkojen kuvauksia, lataa valokuvia ja yhdistä merkkejä viivoilla.</string>
+	<string name="send_a_link_btn">Lähetä linkki</string>
+	<string name="upload_error_toast">Tiedoston lataamisen aikana tapahtui virhe</string>
+	<string name="tags_loading_error_subtitle">Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen</string>
+	<string name="unable_upload_errorr_title">Tiedoston lataamisen epäonnistui</string>
+	<string name="unable_upload_error_subtitle_edited">Tiedosto muokattiin web-sovelluksen kautta</string>
+	<string name="unable_upload_error_subtitle_broken">Tiedosto on vioittunut eikä sitä voi ladata. Ole hyvä, lataa toinen tiedosto.</string>
+	<string name="buy_btn">Osta %s:sta</string>
+	<string name="download_guide_progress">Matkaopas latautuu…</string>
+	<string name="price_error_title">Hintaa ei voi selvittää</string>
+	<string name="price_error_subtitle">Yrittä uudelleen muutaman minuutin kuluttua</string>
+	<string name="edit_your_guide_email_body">Muokkaa matkaopastasi tietokoneella: lisää paikkojen kuvauksia, lataa valokuvia ja yhdistä merkkejä viivoilla.</string>
+	<string name="edit_on_web">Muokata verkossa</string>
+	<string name="properties_loading_error_subtitle">Vaihtoehtojen latauksen aikana tapahtui virhe, ole hyvä, yritä uudelleen</string>
+	<string name="custom_props_desc">Olet tehnyt tämä oppaan</string>
+	<string name="custom_props_title">Paikallisena tai matkailijana</string>
+	<string name="select_properties">Valitse vaihtoehdot</string>
+	<string name="access_rules_p_to_p">Erikoispääsy</string>
+	<string name="access_rules_paid">Ostettu</string>
+	<string name="failed_purchase_support_message">Näyttää siltä, että sinulla on osto, jota et ole suorittanut loppuun. Ole hyvä, kirjoita asiakastuelle, ja me ratkaisemme ongelman.</string>
+	<string name="contact">Kirjoita</string>
+	<string name="check_price_button">Saada hinta</string>
+	<string name="download_button">Ladata</string>
+	<string name="speedcams_alert_title">Nopeuskamerat</string>
+	<string name="speedcams_alert_subtitle">Varoita nopeusrajoituksista</string>
+	<string name="speedcam_option_auto">Auto</string>
+	<string name="speedcam_option_always">Aina</string>
+	<string name="speedcam_option_never">Ei koskaan</string>
+	<string name="bookmark_description_title">Merkin kuvaus</string>
+	<string name="place_description_title">Paikan kuvaus</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

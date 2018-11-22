@@ -299,10 +299,10 @@
 "search_mode_viewport" = "Na obrazovke";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "Kde sa najesť";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "Potraviny";
 
 /* Search category */
 "transport" = "Doprava";
@@ -314,7 +314,7 @@
 "parking" = "Parkovisko";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "Nakupovanie";
 
 /* Search category */
 "hotel" = "Hotel";
@@ -329,10 +329,10 @@
 "atm" = "Bankomat";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "Nočný život";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "Rodinná dovolenka";
 
 /* Search category */
 "bank" = "Banka";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "Možnosti zdieľania";
 
-"export_file" = "Export file";
+"export_file" = "Exportovať súbor";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "Skryť z mapy";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "Vyberte značky";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "Načítavanie značiek…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "Vyberte značky, ktoré pomáhajú ostatným cestovateľom nájsť vášho sprievodcu. Toto je povinné.";
 
-"public_access" = "Public access";
+"public_access" = "Verejný prístup";
 
-"limited_access" = "Limited access";
+"limited_access" = "Obmedzený prístup";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "Táto príručka bude nahraná do verejného katalógu MAPS.ME a bude dostupná ostatným používateľom";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "Nahrať a publikovať";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "Nahrať a získať priamy odkaz";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "Váš sprievodca bude dostupný každému, kto má odkaz";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "Publikovanie vášho sprievodcu…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "Sprievodca bol publikovaný";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>POZNÁMKA:</b> pokračovaním akceptujte <a href=\"%s\">licenčnú zmluvu</a>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "Názov sprievodcu";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "Zadajte popis (text alebo html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Nezdieľané";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "Nahrávanie váľho súboru…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "Odkaz bol vytvorený";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "Upravte vášho sprievodcu na webe";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = "Získajte odkaz na úpravu sprievodcu prostredníctvom webovej aplikácie: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "Poslať mi odkaz";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "Počas nahrávania súboru sa vyskytla chyba";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "Počas načítavania značiek sa vyskytla chyba, skúste to znova";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "Nahrávanie súboru zlyhalo";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "Tento súbor bol upravený prostredníctvom webovej aplikácie";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "Tento súbor je poškodený a nedá sa nahrať. Prosím nahrajte iný súbor.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "Kúpiť za %s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "Sťahovanie vášho sprievodcu…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "Nebolo možné získať cenu";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "Prosím skúste to znovu o pár minút";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "Upravte svojho sprievodcu na webe jednoducho pomocou počítača: pridajte popisy, odovzdajte fotografie a prepojte záložky s riadkami.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "Upraviť na webe";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "Pri načítavaní možností sa vyskytla chyba, skúste to znova";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "V tomto sprievodcovi ste navštívili miesta ako";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "Miestny alebo cestovateľ";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "Vyberte možnosti";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "Špeciálny prístup";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "Zakúpené";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "Je nám ľúto, ale pravdepodobne máte nedokončený nákup. Obráťte sa na podporu a my problém vyriešime.";
+
+"contact" = "Kontakt";
+
+"check_price_button" = "Skontrolovať cenu";
+
+"download_button" = "Stiahnuť";
+
+"speedcams_alert_title" = "Rýchlostné kamery";
+
+"speedcams_alert_subtitle" = "Upozornenie na rýchlostné obmedzenia";
+
+"speedcam_option_auto" = "Automaticky";
+
+"speedcam_option_always" = "Vždy";
+
+"speedcam_option_never" = "Nikdy";
+
+"bookmark_description_title" = "Popis záložiek";
+
+"place_description_title" = "Popis miesta";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";

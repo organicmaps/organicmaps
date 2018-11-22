@@ -188,12 +188,18 @@
 	<string name="search_mode_nearme">ใกล้ฉัน</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">บนหน้าจอ</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">กินร้านไหนดี</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">ซื้อของกินของใช้</string>
 	<!-- Search category -->
 	<string name="transport">การขนส่ง</string>
 	<!-- Search category -->
 	<string name="fuel">ก๊าซ</string>
 	<!-- Search category -->
 	<string name="parking">ที่จอดรถ</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">ช็อปปิง</string>
 	<!-- Search category -->
 	<string name="hotel">โรงแรม</string>
 	<!-- Search category -->
@@ -202,6 +208,10 @@
 	<string name="entertainment">แหล่งบันเทิง</string>
 	<!-- Search category -->
 	<string name="atm">เอทีเอ็ม</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">ไนท์ไลฟ์</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">วันหยุดสำหรับครอบครัว</string>
 	<!-- Search category -->
 	<string name="bank">ธนาคาร</string>
 	<!-- Search category -->
@@ -1389,6 +1399,57 @@
 	<string name="subscription_terms">จะเรียกเก็บการชำระเงินไปยังบัญชี iTunes ของคุณเมื่อทำการยืนยันการซื้อ การสมัครสมาชิกจะได้รับการต่ออายุโดยอัตโนมัติ เว้นเสียแต่จะมีการปิดการต่ออายุอัตโนมัติอย่างน้อย 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน บัญชีของของคุณจะได้รับการเรียกเก็บค่าบริการตามแผนสำหรับการต่ออายุของคุณภายใน 24 ชั่วโมงก่อนสิ้นสุดรอบปัจจุบัน คุณสามารถจัดการหรือปิดการต่ออายุอัตโนมัติได้ในการตั้งค่าบัญชี ID Apple ได้ทุกเมื่อเมื่อทำการซื้อของคุณ</string>
 	<string name="subscriptions_title">การสมัครสมาชิก</string>
 	<string name="manage_subscription">จัดการการสมัครสมาชิก</string>
+	<string name="sharing_options">ตัวเลือกการแชร์</string>
+	<string name="export_file">ส่งออกไฟล์</string>
+	<string name="hide_from_map">ซ่อนจากแผนที่</string>
+	<string name="ugc_route_tags_screen_label">เลือกแท็ก</string>
+	<string name="ugc_route_tags_progress_msg">กำลังโหลดแท็ก…</string>
+	<string name="ugc_route_tags_desc">โปรดเลือกแท็กเพื่อช่วยให้นักท่องเที่ยวคนอื่นๆ พบไกด์ของคุณ จำเป็นต้องเลือก</string>
+	<string name="public_access">เข้าถึงได้โดยสาธารณะ</string>
+	<string name="limited_access">จำกัดการเข้าถึง</string>
+	<string name="upload_and_publish_desc">ไกด์นี้จะถูกอัพโหลดไปยังแคตตาล็อกสาธารณะของ MAPS.ME และเปิดให้ผู้ใช้งานคนอื่นเข้าถึงได้</string>
+	<string name="upload_and_publish">อัพโหลดและเผยแพร่</string>
+	<string name="upload_and_get_direct_link">อัพโหลดและรับไดเร็คต์ลิงค์</string>
+	<string name="get_direct_link_desc">ทุกคนที่มีลิงค์จะเข้าสามารถเข้าใช้ไกด์ของคุณได้</string>
+	<string name="upload_and_publish_progress_text">กำลังเผยแพร่ไกด์ของคุณ</string>
+	<string name="upload_and_publish_success">ไกด์ได้รับการเผยแพร่แล้ว</string>
+	<string name="ugc_routes_user_agreement">&lt;b>หมายเหตุ:&lt;/b> ด้วยการทำขั้นตอนดังกล่าว หมายความว่าคุณยอมรับ &lt;a href="%s">ข้อตกลงการอนุญาตใช้สิทธิ์&lt;/a></string>
+	<string name="ugc_route_edit_list_name">ชื่อของไกด์</string>
+	<string name="ugc_route_edit_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
+	<string name="not_shared">ไม่แชร์</string>
+	<string name="direct_link_progress_text">กำลังอัพโหลดไฟล์ของคุณ…</string>
+	<string name="direct_link_success">ลิงค์ถูกสร้างแล้ว</string>
+	<string name="edit_guide_title">แก้ไขไกด์ของคุณบนเว็บ</string>
+	<string name="edit_guide_subtitle">รับลิงค์เพื่อแก้ไขไกด์ของคุณผ่านเว็บแอพ: เพิ่มรายละเอียด อัพโหลดรูปภาพ หรือเชื่อมบุ๊คมาร์คด้วยการวาดเส้น</string>
+	<string name="send_a_link_btn">ส่งลิงค์ให้ฉัน</string>
+	<string name="upload_error_toast">เกิดข้อผิดพลาดขณะอัพโหลดไฟล์ของคุณ</string>
+	<string name="tags_loading_error_subtitle">เกิดข้อผิดพลาดขณะโหลดแท็ก โปรดลองใหม่อีกครั้ง</string>
+	<string name="unable_upload_errorr_title">การอัพโหลดไฟล์ล้มเหลว</string>
+	<string name="unable_upload_error_subtitle_edited">ไฟล์นั้นถูกแก้ไขผ่านทางเว็บแอพ</string>
+	<string name="unable_upload_error_subtitle_broken">ไฟล์นั้นเสียหายและไม่สามารถอัพโหลดได้ โปรอัพโหลดไฟล์อื่นแทน</string>
+	<string name="buy_btn">ซื้อในราคา %s</string>
+	<string name="download_guide_progress">กำลังโหลดไกด์ของคุณ…</string>
+	<string name="price_error_title">ไม่สามารถโหลดข้อมูลราคาได้</string>
+	<string name="price_error_subtitle">โปรดลองใหม่อีกครั้งในสองถึงสามนาทีถัดไป</string>
+	<string name="edit_your_guide_email_body">ใช้คอมพิวเตอร์แก้ไขไกด์ของคุณได้ง่ายๆ: เพิ่มรายละเอียด อัพโหลดรูปภาพ หรือเชื่อมบุ๊คมาร์คด้วยการวาดเส้น</string>
+	<string name="edit_on_web">แก้ไขบนเว็บ</string>
+	<string name="properties_loading_error_subtitle">เกิดข้อผิดพลาดขณะโหลดตัวเลือก โปรดลองใหม่อีกครั้ง</string>
+	<string name="custom_props_desc">ในไกด์นี้คุณเยี่ยมชมสถานที่ในฐานะ</string>
+	<string name="custom_props_title">คนท้องที่หรือนักท่องเที่ยว</string>
+	<string name="select_properties">เลือกออพชั่น</string>
+	<string name="access_rules_p_to_p">การเข้าถึงแบบพิเศษ</string>
+	<string name="access_rules_paid">ชำระเงินเรียบร้อย</string>
+	<string name="failed_purchase_support_message">ขออภัย แต่ขั้นตอนชำระเงินของคุณอาจยังไม่เสร็จสิ้น โปรดติดต่อฝ่ายสนับสนุนผู้ใช้งาน และเราจะแก้ไขปัญหาให้คุณ</string>
+	<string name="contact">ติดต่อ</string>
+	<string name="check_price_button">เช็คราคา</string>
+	<string name="download_button">ดาวน์โหลด</string>
+	<string name="speedcams_alert_title">กล้องตรวจจับความเร็ว</string>
+	<string name="speedcams_alert_subtitle">เตือนเรื่องการจำกัดความเร็ว</string>
+	<string name="speedcam_option_auto">อัตโนมัติ</string>
+	<string name="speedcam_option_always">ทุกครั้ง</string>
+	<string name="speedcam_option_never">ไม่ต้องเตือน</string>
+	<string name="bookmark_description_title">รายละเอียดของบุ๊คมาร์ค</string>
+	<string name="place_description_title">รายละเอียดของสถานที่</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

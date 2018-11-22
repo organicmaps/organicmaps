@@ -299,10 +299,10 @@
 "search_mode_viewport" = "على الشاشة";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "مكان لتناول الطعام";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "المشتريات";
 
 /* Search category */
 "transport" = "نقل";
@@ -314,7 +314,7 @@
 "parking" = "الاصطفاف";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "التسوق";
 
 /* Search category */
 "hotel" = "فندق";
@@ -329,10 +329,10 @@
 "atm" = "ماكينة الصراف الآلي";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "أنشطة ترفيه ليلية";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "عطلة عائلية";
 
 /* Search category */
 "bank" = "بنك";
@@ -2495,9 +2495,9 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "خيارات المشاركة";
 
-"export_file" = "Export file";
+"export_file" = "ملف التصدير";
 
 /* FIXME */
 "list_settings" = "list_settings";
@@ -2505,17 +2505,17 @@
 /* FIXME */
 "delete_list" = "delete_list";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "إخفاء من الخريطة";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "حدد العلامات";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "جارٍ تحميل العلامات…";
 
-"ugc_route_tags_desc" = "Please, select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = ".يرجى تحديد العلامات لمساعدة المسافرين الآخرين في العثور على دليلك. وهذا إلزامي";
 
-"public_access" = "Public access";
+"public_access" = "إطلاع الجمهور";
 
-"limited_access" = "Limited access";
+"limited_access" = "محدودية فرص حصول";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,68 +2526,63 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This list will be uploaded to the public MAPS.ME catalog as a guide and will be available to other users";
+"upload_and_publish_desc" = "سيتم تحميل هذا الدليل إلى كتالوج MAPS.ME العام وسيكون متاحًا للمستخدمين الآخرين";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "تحميل ونشر";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "حمل واحصل على رابط مباشر";
 
-"get_direct_link_desc" = "Your list will be available to anyone who has the link";
+"get_direct_link_desc" = "سيكون دليلك متاحًا لأي شخص لديه الرابط";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "…نشر دليل الخاص بك";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "تم نشر الدليل";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<a href=\"%s\"> اتفاقية الترخيص</a>من خلال المتابعة ، فإنك تقبل <b> الرجاء ملاحظة:</b>";
 
-"ugc_route_edit_list_name" = "List name";
+"ugc_route_edit_list_name" = "اسم الدليل";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "اكتب وصفًا (نص أو html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "غير مشارك";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "جارٍ تحميل ملفك…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "لقد تم إنشاء الرابط";
 
-"edit_guide_title" = "Edit your guide on the web";
+"edit_guide_title" = "قم بتحرير دليلك على الويب";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web app: add descriptions for POIs, upload photos and more";
+"edit_guide_subtitle" = ".احصل على رابط لتعديل مرشدك عبر تطبيق الويب: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "ارسل لي رابط";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "حدث خطأ أثناء تحميل ملفك";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again later";
+"tags_loading_error_subtitle" = "حدث خطأ أثناء تحميل العلامات ، يرجى المحاولة مرة أخرى";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "فشل تحميل الملف";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "تم تحرير هذا الملف عبر تطبيق الويب";
 
-"unable_upload_error_subtitle_broken" = "This file is invalid and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "هذا الملف تالف ولا يمكن تحميله. يرجى تحميل ملف آخر.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "شراء لـ%s";
 
-"download_guide_progress" = "Downloading your guide…";
+"download_guide_progress" = "تحميل الدليل الخاص بك…";
 
-"price_error_title" = "Unable to get price";
+"price_error_title" = "لا يمكن الحصول على السعر";
 
-"price_error_subtitle" = "An error occured while getting price. Please, try again later.";
+"price_error_subtitle" = "يرجى المحاولة مرة أخرى في بضع دقائق";
 
-/* TODO */
-"edit_your_guide_email_body" = "edit_your_guide_email_body";
+"edit_your_guide_email_body" = "عدّل دليلك على الويب بسهولة باستخدام جهاز الكمبيوتر: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور.";
 
-/* TODO */
-"edit_on_web" = "edit_on_web";
+"edit_on_web" = "تعديل على الويب";
 
-/* FIXME */
-"properties_loading_error_subtitle" = "properties_loading_error_subtitle";
+"properties_loading_error_subtitle" = "حدث خطأ أثناء تحميل الخيارات ، يرجى المحاولة مرة أخرى";
 
-/* FIXME */
-"custom_props_desc" = "custom_props_desc";
+"custom_props_desc" = "في هذا الدليل ، قمت بزيارة الأماكن مثل";
 
-/* FIXME */
-"custom_props_title" = "custom_props_title";
+"custom_props_title" = "محلي أو مسافر";
 
 /* FIXME */
 "custom_props_local" = "custom_props_local";
@@ -2595,17 +2590,33 @@
 /* FIXME */
 "custom_props_traveler" = "custom_props_traveler";
 
-/* FIXME */
-"select_properties" = "select_properties";
+"select_properties" = "حدد الخيارات";
 
-/* FIXME */
-"access_rules_p_to_p" = "access_rules_p_to_p";
+"access_rules_p_to_p" = "وصول خاص";
 
-/* FIXME */
-"access_rules_paid" = "access_rules_paid";
+"access_rules_paid" = "تم شراؤه من";
 
-/* FIXME: when there is non-validated/non-consumed bookmark purchase we doesn't allow user go to the bookmark catalog and ask him email to support. */
-"failed_purchase_support_message" = "failed_purchase_support_message";
+"failed_purchase_support_message" = "آسف، ولكن ربما لديك عملية شراء غير مكتملة. يرجى الاتصال بفريق الدعم وسوف نقوم بحل المشكلة.";
+
+"contact" = "الاتصال";
+
+"check_price_button" = "سعر الاختيار";
+
+"download_button" = "تحميل";
+
+"speedcams_alert_title" = "كاميرات السرعة";
+
+"speedcams_alert_subtitle" = "التحذير من حدود السرعة";
+
+"speedcam_option_auto" = "السيارات";
+
+"speedcam_option_always" = "دائما";
+
+"speedcam_option_never" = "مطلقا";
+
+"bookmark_description_title" = "وصف الإشارة المرجعية";
+
+"place_description_title" = "وصف المكان";
 
 /* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
 "ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
