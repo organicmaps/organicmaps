@@ -12,7 +12,8 @@
 #include <algorithm>
 #include <array>
 #include <limits>
-#include <set>
+
+#include "defines.hpp"
 
 namespace
 {
