@@ -53,8 +53,7 @@ final class BMCViewController: MWMViewController {
 
   private func createNewCategory() {
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
-                                                       minCharacterNum: viewModel.minCategoryNameLength,
-                                                       isNewCategory: true)
+                                                       minCharacterNum: viewModel.minCategoryNameLength)
     { [weak viewModel] (name: String!) -> Bool in
       guard let model = viewModel else { return false }
       if model.checkCategory(name: name) {
@@ -67,7 +66,7 @@ final class BMCViewController: MWMViewController {
   }
 
   private func shareCategoryFile(category: BMCCategory, anchor: UIView) {
-    viewModel.shareCategory(category: category) {
+    viewModel.shareCategoryFile(category: category) {
       switch $0 {
       case let .success(url):
         let shareController = MWMActivityViewController.share(for: url,

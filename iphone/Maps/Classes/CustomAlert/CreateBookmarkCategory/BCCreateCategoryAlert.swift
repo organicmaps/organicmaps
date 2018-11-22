@@ -25,7 +25,6 @@ final class BCCreateCategoryAlert: MWMAlert {
 
   @objc static func alert(maxCharachersNum: UInt,
                     minCharactersNum: UInt,
-                    isNewCategory: Bool,
                     callback: @escaping MWMCheckStringBlock) -> BCCreateCategoryAlert? {
     guard let alert = Bundle.main.loadNibNamed(className(), owner: nil, options: nil)?.first
           as? BCCreateCategoryAlert else {
@@ -33,8 +32,8 @@ final class BCCreateCategoryAlert: MWMAlert {
       return nil
     }
 
-    alert.titleLabel.text = L(isNewCategory ? "bookmarks_create_new_group" : "rename")
-    let text = L(isNewCategory ? "create" : "ok").capitalized
+    alert.titleLabel.text = L("bookmarks_create_new_group")
+    let text = L("create").capitalized
     for s in [.normal, .highlighted, .disabled] as [UIControlState] {
       alert.rightButton.setTitle(text, for: s)
     }

@@ -99,7 +99,6 @@
   {
     [self.alertController presentCreateBookmarkCategoryAlertWithMaxCharacterNum:60
                                                           minCharacterNum:0
-                                                            isNewCategory:YES
                                                                  callback:^BOOL (NSString * name)
      {
        if (![[MWMBookmarksManager sharedManager] checkCategoryName:name])

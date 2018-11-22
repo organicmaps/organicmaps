@@ -161,12 +161,10 @@
 
 + (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                              minCharacterNum:(NSUInteger)min
-                                                       isNewCategory:(BOOL)isNewCategory
                                                     callback:(MWMCheckStringBlock)callback
 {
   return [MWMBCCreateCategoryAlert alertWithMaxCharachersNum:max
                                             minCharactersNum:min
-                                               isNewCategory:isNewCategory
                                                     callback:callback];
 }
 

@@ -178,7 +178,7 @@ extension BMCDefaultViewModel: BMCViewModel {
     return manager.checkCategoryName(name)
   }
 
-  func shareCategory(category: BMCCategory, handler: @escaping onPreparedToShareHandler) {
+  func shareCategoryFile(category: BMCCategory, handler: @escaping onPreparedToShareHandler) {
     onPreparedToShareCategory = handler
     manager.shareCategory(category.identifier)
   }

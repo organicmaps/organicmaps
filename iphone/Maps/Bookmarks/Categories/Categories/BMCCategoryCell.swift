@@ -20,10 +20,10 @@ final class BMCCategoryCell: MWMTableViewCell {
     }
   }
 
-  @IBOutlet private weak var more: UIButton! {
+  @IBOutlet private weak var moreButton: UIButton! {
     didSet {
-      more.tintColor = .blackSecondaryText()
-      more.setImage(#imageLiteral(resourceName: "ic24PxMore"), for: .normal)
+      moreButton.tintColor = .blackSecondaryText()
+      moreButton.setImage(#imageLiteral(resourceName: "ic24PxMore"), for: .normal)
     }
   }
 
@@ -52,7 +52,7 @@ final class BMCCategoryCell: MWMTableViewCell {
 
   @IBAction private func moreAction() {
     guard let category = category else { return }
-    delegate?.moreAction(category: category, anchor: more)
+    delegate?.moreAction(category: category, anchor: moreButton)
   }
 }
 
@@ -75,11 +75,11 @@ extension BMCCategoryCell: BMCCategoryObserver {
     case .other:
       assert(false, "We don't expect category with .other status here")
       accessImageView.image = nil
-      accessString = L("")
+      accessString = ""
     }
 
     let placesString = String(format: L("bookmarks_places"), category.count)
-    subtitleLabel.text = "\(accessString) • \(placesString)"
+    subtitleLabel.text = accessString.count > 0 ? "\(accessString) • \(placesString)" : placesString
 
     if category.isVisible {
       visibility.tintColor = .linkBlue()

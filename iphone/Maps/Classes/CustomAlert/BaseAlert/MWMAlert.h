@@ -37,7 +37,6 @@
 + (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;
 + (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
                                              minCharacterNum:(NSUInteger)min
-                                               isNewCategory:(BOOL)isNewCategory
                                                     callback:(MWMCheckStringBlock)callback;
 + (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block;
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
