@@ -42967,10 +42967,6 @@ cont {
 }
 colors {
   value {
-    name: "TrafficOutline"
-    color: 3684408
-  }
-  value {
     name: "RoadShieldWhiteText"
     color: 12039862
   }
@@ -43102,6 +43098,10 @@ colors {
   value {
     name: "BookmarkGray"
     color: 7697781
+  }
+  value {
+    name: "UGCRatingText"
+    color: 12105912
   }
   value {
     name: "RouteMarkSecondaryText"
@@ -43255,6 +43255,10 @@ colors {
     color: 1711276032
   }
   value {
+    name: "RoadShieldGreenBackground"
+    color: 1272880
+  }
+  value {
     name: "BookmarkBrown"
     color: 7951688
   }
@@ -43298,7 +43302,7 @@ colors {
     color: 7542806
   }
   value {
-    name: "RoadShieldGreenBackground"
-    color: 1272880
+    name: "TrafficOutline"
+    color: 3684408
   }
 }
