@@ -49,7 +49,7 @@ public:
   {
     int8_t m_currentLocaleCode = CategoriesHolder::kEnglishCode;
     m2::RectD m_viewport;
-    m2::PointD m_position;
+    m2::PointD m_pivot;
     string m_pivotRegion;
     std::vector<uint32_t> m_preferredTypes;
     bool m_suggestsEnabled = false;

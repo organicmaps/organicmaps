@@ -205,7 +205,8 @@ void PreRanker::Filter(bool viewportSearch)
     {
       double const kPedestrianRadiusMeters = 2500.0;
       PreRankerResult::CategoriesComparator comparator;
-      comparator.m_positionIsInsideViewport = m_params.m_viewport.IsPointInside(m_params.m_position);
+      comparator.m_positionIsInsideViewport =
+          m_params.m_position && m_params.m_viewport.IsPointInside(*m_params.m_position);
       comparator.m_detailedScale = MercatorBounds::DistanceOnEarth(
                                        m_params.m_viewport.LeftTop(),
                                        m_params.m_viewport.RightBottom()) < 2 * kPedestrianRadiusMeters;

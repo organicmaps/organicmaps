@@ -379,7 +379,7 @@ public:
     if (!LoadFeature(preRankerResult.GetId(), ft, center, name, country))
       return {};
 
-    RankerResult r(ft, center, m_ranker.m_params.m_position /* pivot */, name, country);
+    RankerResult r(ft, center, m_ranker.m_params.m_pivot, name, country);
 
     search::RankingInfo info;
     InitRankingInfo(ft, center, preRankerResult, info);

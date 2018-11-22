@@ -16,6 +16,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+#include <boost/optional.hpp>
+
 class DataSource;
 
 namespace search
@@ -39,7 +41,7 @@ public:
     // compute the distance from a feature to the pivot.
     m2::PointD m_accuratePivotCenter;
 
-    m2::PointD m_position;
+    boost::optional<m2::PointD> m_position;
     m2::RectD m_viewport;
 
     int m_scale = 0;

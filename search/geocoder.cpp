@@ -66,6 +66,7 @@ size_t constexpr kMaxNumCities = 5;
 size_t constexpr kMaxNumStates = 5;
 size_t constexpr kMaxNumVillages = 5;
 size_t constexpr kMaxNumCountries = 5;
+double constexpr kMaxViewportRadiusM = 50.0 * 1000;
 
 // This constant limits number of localities that will be extracted
 // from World map.  Villages are not counted here as they're not
@@ -275,14 +276,14 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 
 struct KeyedMwmInfo
 {
-  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, m2::PointD const & position,
+  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, boost::optional<m2::PointD> const & position,
                m2::RectD const & pivot, bool inViewport)
     : m_info(info)
   {
     auto const & rect = m_info->m_bordersRect;
     m_similarity = GetSimilarity(pivot, rect);
     m_distance = GetDistanceMeters(pivot.Center(), rect);
-    if (!inViewport && rect.IsPointInside(position))
+    if (!inViewport && position && rect.IsPointInside(*position))
       m_distance = 0.0;
   }
 
@@ -302,8 +303,8 @@ struct KeyedMwmInfo
 // with pivot, suffix consists of all other maps ordered by minimum
 // distance from pivot. Returns number of maps in prefix.
 // In viewport search mode, prefers mwms that contain the user's position.
-size_t OrderCountries(m2::PointD const & position, m2::RectD const & pivot, bool inViewport,
-                      vector<shared_ptr<MwmInfo>> & infos)
+size_t OrderCountries(boost::optional<m2::PointD> const & position, m2::RectD const & pivot,
+                      bool inViewport, vector<shared_ptr<MwmInfo>> & infos)
 {
   // TODO (@y): remove this if crashes in this function
   // disappear. Otherwise, remove null infos and re-check MwmSet
@@ -325,7 +326,7 @@ size_t OrderCountries(m2::PointD const & position, m2::RectD const & pivot, bool
     infos.emplace_back(info.m_info);
 
   auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool {
-    if (!inViewport && info->m_bordersRect.IsPointInside(position))
+    if (!inViewport && position && info->m_bordersRect.IsPointInside(*position))
       return true;
     return pivot.IsIntersect(info->m_bordersRect);
   };
@@ -350,7 +351,7 @@ Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter con
   , m_cuisineFilter(m_foodCache)
   , m_cancellable(cancellable)
   , m_citiesBoundaries(citiesBoundaries)
-  , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, Processor::kMaxViewportRadiusM)
+  , m_pivotRectsCache(kPivotRectsCacheSize, m_cancellable, kMaxViewportRadiusM)
   , m_localityRectsCache(kLocalityRectsCacheSize, m_cancellable)
   , m_filter(nullptr)
   , m_matcher(nullptr)

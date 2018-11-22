@@ -32,6 +32,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 class FeatureType;
 class CategoriesHolder;
 class DataSource;
@@ -59,9 +61,6 @@ public:
   // Maximum result candidates count for each viewport/criteria.
   static size_t const kPreResultsCount;
 
-  static double const kMinViewportRadiusM;
-  static double const kMaxViewportRadiusM;
-
   Processor(DataSource const & dataSource, CategoriesHolder const & categories,
             std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
@@ -69,9 +68,7 @@ public:
   void SetPreferredLocale(std::string const & locale);
   void SetInputLocale(std::string const & locale);
   void SetQuery(std::string const & query);
-  inline void SetPosition(m2::PointD const & position) { m_position = position; }
   inline std::string const & GetPivotRegion() const { return m_region; }
-  inline m2::PointD const & GetPosition() const { return m_position; }
 
   inline bool IsEmptyQuery() const { return m_prefix.empty() && m_tokens.empty(); }
 
@@ -127,7 +124,7 @@ protected:
   std::vector<uint32_t> m_cuisineTypes;
 
   m2::RectD m_viewport;
-  m2::PointD m_position;
+  boost::optional<m2::PointD> m_position;
 
   // Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode = StringUtf8Multilang::kUnsupportedLanguageCode;

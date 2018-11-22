@@ -69,18 +69,6 @@ enum LanguageTier
   LANGUAGE_TIER_COUNT
 };
 
-m2::RectD NormalizeViewport(m2::RectD viewport)
-{
-  m2::RectD minViewport = MercatorBounds::RectByCenterXYAndSizeInMeters(
-      viewport.Center(), Processor::kMinViewportRadiusM);
-  viewport.Add(minViewport);
-
-  m2::RectD maxViewport = MercatorBounds::RectByCenterXYAndSizeInMeters(
-      viewport.Center(), Processor::kMaxViewportRadiusM);
-  VERIFY(viewport.Intersect(maxViewport), ());
-  return viewport;
-}
-
 m2::RectD GetRectAroundPosition(m2::PointD const & position)
 {
   double constexpr kMaxPositionRadiusM = 50.0 * 1000;
@@ -139,15 +127,12 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 
 // static
 size_t const Processor::kPreResultsCount = 200;
-double const Processor::kMinViewportRadiusM = 5.0 * 1000;
-double const Processor::kMaxViewportRadiusM = 50.0 * 1000;
 
 Processor::Processor(DataSource const & dataSource, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
                      storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)
   , m_infoGetter(infoGetter)
-  , m_position(0, 0)
   , m_villagesCache(static_cast<base::Cancellable const &>(*this))
   , m_citiesBoundaries(dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
@@ -302,22 +287,22 @@ void Processor::SetQuery(string const & query)
 m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
 {
   auto const & viewport = GetViewport();
-  if (viewportSearch || !viewport.IsPointInside(GetPosition()))
+  if (viewportSearch || !m_position || !viewport.IsPointInside(*m_position))
     return viewport.Center();
-  return GetPosition();
+
+  CHECK(m_position, ());
+  return *m_position;
 }
 
 m2::RectD Processor::GetPivotRect(bool viewportSearch) const
 {
   auto const & viewport = GetViewport();
 
-  if (viewportSearch)
+  if (viewportSearch || !m_position || !viewport.IsPointInside(*m_position))
     return viewport;
 
-  if (viewport.IsPointInside(GetPosition()))
-    return GetRectAroundPosition(GetPosition());
-
-  return NormalizeViewport(viewport);
+  CHECK(m_position, ());
+  return GetRectAroundPosition(*m_position);
 }
 
 m2::RectD const & Processor::GetViewport() const
@@ -407,10 +392,7 @@ void Processor::Search(SearchParams const & params)
   auto const & viewport = params.m_viewport;
   ASSERT(viewport.IsValid(), ());
 
-  if (params.m_position)
-    SetPosition(*params.m_position);
-  else
-    SetPosition(viewport.Center());
+  m_position = params.m_position;
 
   SetInputLocale(params.m_inputLocale);
 
@@ -483,9 +465,9 @@ void Processor::SearchPlusCode()
   }
   else if (openlocationcode::IsShort(query))
   {
-    if (GetPosition().IsAlmostZero())
+    if (!m_position)
       return;
-    ms::LatLon const latLon = MercatorBounds::ToLatLon(GetPosition());
+    ms::LatLon const latLon = MercatorBounds::ToLatLon(*m_position);
     code = openlocationcode::RecoverNearest(query, {latLon.lat, latLon.lon});
   }
 
@@ -560,7 +542,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
 
   geocoderParams.m_mode = searchParams.m_mode;
   geocoderParams.m_pivot = GetPivotRect(viewportSearch);
-  geocoderParams.m_position = GetPosition();
+  geocoderParams.m_position = m_position;
   geocoderParams.m_categoryLocales = GetCategoryLocales();
   geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
   geocoderParams.m_cuisineTypes = m_cuisineTypes;
@@ -582,7 +564,7 @@ void Processor::InitPreRanker(Geocoder::Params const & geocoderParams,
 
   params.m_viewport = GetViewport();
   params.m_accuratePivotCenter = GetPivotPoint(viewportSearch);
-  params.m_position = GetPosition();
+  params.m_position = m_position;
   params.m_scale = geocoderParams.GetScale();
   params.m_limit = max(kPreResultsCount, searchParams.m_maxNumResults);
   params.m_viewportSearch = viewportSearch;
@@ -604,7 +586,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
     params.m_viewport = GetViewport();
 
   params.m_limit = searchParams.m_maxNumResults;
-  params.m_position = GetPosition();
+  params.m_pivot = m_position ? *m_position : GetViewport().Center();
   params.m_pivotRegion = GetPivotRegion();
   params.m_preferredTypes = m_preferredTypes;
   params.m_suggestsEnabled = searchParams.m_suggestsEnabled;

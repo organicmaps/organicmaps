@@ -44,6 +44,8 @@
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
+#include <boost/optional.hpp>
+
 class CategoriesHolder;
 class DataSource;
 class MwmValue;
@@ -83,7 +85,7 @@ public:
   {
     Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
-    m2::PointD m_position;
+    boost::optional<m2::PointD> m_position;
     Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     vector<uint32_t> m_cuisineTypes;
