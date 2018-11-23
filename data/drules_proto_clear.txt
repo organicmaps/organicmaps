@@ -69300,12 +69300,20 @@ colors {
     color: 9682745
   }
   value {
+    name: "SpeedCameraMarkBg"
+    color: 16064048
+  }
+  value {
     name: "RatingExcellent"
     color: 3968060
   }
   value {
     name: "BookmarkCyan"
     color: 113876
+  }
+  value {
+    name: "SpeedCameraMarkText"
+    color: 16777215
   }
   value {
     name: "TransitBackground"
@@ -69418,6 +69426,10 @@ colors {
   }
   value {
     name: "RoadShieldBlackText"
+  }
+  value {
+    name: "SpeedCameraMarkOutline"
+    color: 16777215
   }
   value {
     name: "TransitMarkPrimaryTextOutline"
