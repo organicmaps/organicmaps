@@ -1,6 +1,6 @@
 #include "generator/camera_node_processor.hpp"
 
-#include "generator/maxspeed_parser.hpp"
+#include "generator/maxspeeds_parser.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 

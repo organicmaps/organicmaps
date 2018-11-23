@@ -10,12 +10,12 @@ namespace generator
 /// \brief Collects all maxspeed tags value and saves them to a csv file.
 /// Every line describes maxspeed, maxspeed:forward and maxspeed:backward
 /// tags of features. The format of the lines is described below.
-class MaxspeedCollector
+class MaxspeedsCollector
 {
 public:
   /// \param filePath path to csv file.
-  explicit MaxspeedCollector(std::string const & filePath) : m_filePath(filePath) {}
-  ~MaxspeedCollector() { Flush(); }
+  explicit MaxspeedsCollector(std::string const & filePath) : m_filePath(filePath) {}
+  ~MaxspeedsCollector() { Flush(); }
 
   void Process(OsmElement const & p);
 

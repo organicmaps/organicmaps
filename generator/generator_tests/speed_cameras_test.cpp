@@ -6,7 +6,7 @@
 #include "generator/generate_info.hpp"
 #include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-#include "generator/maxspeed_parser.hpp"
+#include "generator/maxspeeds_parser.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
 

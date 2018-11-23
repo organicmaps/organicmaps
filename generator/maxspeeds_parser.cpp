@@ -1,4 +1,4 @@
-#include "generator/maxspeed_parser.hpp"
+#include "generator/maxspeeds_parser.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"

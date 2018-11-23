@@ -97,7 +97,7 @@ void TranslatorPlanet::EmitElement(OsmElement * p)
 
     ft.SetOsmId(base::MakeOsmWay(p->id));
 
-    m_routingTagsProcessor.m_maxspeedCollector.Process(*p);
+    m_routingTagsProcessor.m_maxspeedsCollector.Process(*p);
 
     bool isCoastline = (m_coastType != 0 && params.IsTypeExist(m_coastType));
 

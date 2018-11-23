@@ -1,6 +1,6 @@
-#include "generator/maxspeed_builder.hpp"
+#include "generator/maxspeeds_builder.hpp"
 
-#include "generator/maxspeed_parser.hpp"
+#include "generator/maxspeeds_parser.hpp"
 #include "generator/routing_helpers.hpp"
 
 #include "routing/maxspeeds_serialization.hpp"
@@ -57,11 +57,11 @@ FeatureMaxspeed ToFeatureMaxspeed(uint32_t featureId, Maxspeed const & maxspeed)
                          maxspeed.GetBackward());
 }
 
-/// \brief Collects all maxspeed tag value of specified mwm based on maxspeeds.csv file.
-class MaxspeedMwmCollector
+/// \brief Collects all maxspeed tag values of specified mwm based on maxspeeds.csv file.
+class MaxspeedsMwmCollector
 {
 public:
-  MaxspeedMwmCollector(string const & dataPath,
+  MaxspeedsMwmCollector(string const & dataPath,
                        map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
                        string const & maxspeedCsvPath);
 
@@ -71,7 +71,7 @@ private:
   vector<FeatureMaxspeed> m_maxspeeds;
 };
 
-MaxspeedMwmCollector::MaxspeedMwmCollector(
+MaxspeedsMwmCollector::MaxspeedsMwmCollector(
     string const & dataPath, map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
     string const & maxspeedCsvPath)
 {
@@ -96,7 +96,7 @@ MaxspeedMwmCollector::MaxspeedMwmCollector(
   });
 }
 
-vector<FeatureMaxspeed> && MaxspeedMwmCollector::StealMaxspeeds()
+vector<FeatureMaxspeed> && MaxspeedsMwmCollector::StealMaxspeeds()
 {
   CHECK(is_sorted(m_maxspeeds.cbegin(), m_maxspeeds.cend(), IsFeatureIdLess), ());
   return move(m_maxspeeds);
@@ -105,11 +105,11 @@ vector<FeatureMaxspeed> && MaxspeedMwmCollector::StealMaxspeeds()
 
 namespace routing
 {
-bool ParseMaxspeeds(string const & maxspeedFilename, OsmIdToMaxspeed & osmIdToMaxspeed)
+bool ParseMaxspeeds(string const & maxspeedsFilename, OsmIdToMaxspeed & osmIdToMaxspeed)
 {
   osmIdToMaxspeed.clear();
 
-  ifstream stream(maxspeedFilename);
+  ifstream stream(maxspeedsFilename);
   if (!stream)
     return false;
 
@@ -171,21 +171,21 @@ void SerializeMaxspeeds(string const & dataPath, vector<FeatureMaxspeed> && spee
   LOG(LINFO, ("SerializeMaxspeeds(", dataPath, ", ...) serialized:", speeds.size(), "maxspeed tags."));
 }
 
-void BuildMaxspeedSection(string const & dataPath,
-                          map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
-                          string const & maxspeedFilename)
+void BuildMaxspeedsSection(string const & dataPath,
+                           map<uint32_t, base::GeoObjectId> const & featureIdToOsmId,
+                           string const & maxspeedsFilename)
 {
-  MaxspeedMwmCollector collector(dataPath, featureIdToOsmId, maxspeedFilename);
+  MaxspeedsMwmCollector collector(dataPath, featureIdToOsmId, maxspeedsFilename);
   SerializeMaxspeeds(dataPath, collector.StealMaxspeeds());
 }
 
-void BuildMaxspeedSection(string const & dataPath, string const & osmToFeaturePath,
-                          string const & maxspeedFilename)
+void BuildMaxspeedsSection(string const & dataPath, string const & osmToFeaturePath,
+                           string const & maxspeedsFilename)
 {
-  LOG(LINFO, ("BuildMaxspeedSection(", dataPath, ",", osmToFeaturePath, ",", maxspeedFilename, ")"));
+  LOG(LINFO, ("BuildMaxspeedsSection(", dataPath, ",", osmToFeaturePath, ",", maxspeedsFilename, ")"));
 
   map<uint32_t, base::GeoObjectId> featureIdToOsmId;
   CHECK(ParseFeatureIdToOsmIdMapping(osmToFeaturePath, featureIdToOsmId), ());
-  BuildMaxspeedSection(dataPath, featureIdToOsmId, maxspeedFilename);
+  BuildMaxspeedsSection(dataPath, featureIdToOsmId, maxspeedsFilename);
 }
 }  // namespace routing

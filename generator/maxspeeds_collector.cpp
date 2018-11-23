@@ -1,6 +1,6 @@
-#include "generator/maxspeed_collector.hpp"
+#include "generator/maxspeeds_collector.hpp"
 
-#include "generator/maxspeed_parser.hpp"
+#include "generator/maxspeeds_parser.hpp"
 
 #include "routing_common/maxspeed_conversion.hpp"
 
@@ -32,7 +32,7 @@ bool ParseMaxspeedAndWriteToStream(string const & maxspeed, SpeedInUnits & speed
 
 namespace generator
 {
-void MaxspeedCollector::Process(OsmElement const & p)
+void MaxspeedsCollector::Process(OsmElement const & p)
 {
   ostringstream ss;
   ss << p.id << ",";
@@ -95,7 +95,7 @@ void MaxspeedCollector::Process(OsmElement const & p)
   m_data.push_back(ss.str());
 }
 
-void MaxspeedCollector::Flush()
+void MaxspeedsCollector::Flush()
 {
   LOG(LINFO, ("Saving maxspeed tag values to", m_filePath));
   ofstream stream(m_filePath);
