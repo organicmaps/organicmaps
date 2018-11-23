@@ -102,7 +102,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   private void showErrorLoadingDialog()
   {
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.discovery_button_viator_error_title)
+        .setTitleId(R.string.title_error_downloading_bookmarks)
         .setMessageId(R.string.tags_loading_error_subtitle)
         .setPositiveBtnId(R.string.try_again)
         .setNegativeBtnId(R.string.cancel)

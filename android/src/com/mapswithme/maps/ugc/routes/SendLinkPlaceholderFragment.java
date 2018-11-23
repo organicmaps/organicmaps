@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.sharing.TargetUtils;
 
 import java.util.Objects;
 
 public class SendLinkPlaceholderFragment extends Fragment
 {
   public static final String EXTRA_SHARED_LINK = "shared_link";
-  private static final String MESSAGE_RFC_FORMAT = "message/rfc822";
   private static final String BODY_STRINGS_SEPARATOR = "\n\n";
 
   @SuppressWarnings("NullableProblems")
@@ -43,19 +43,20 @@ public class SendLinkPlaceholderFragment extends Fragment
     View closeBtn = root.findViewById(R.id.close_btn);
     closeBtn.setOnClickListener(v -> getActivity().finish());
     View sendMeLinkBtn = root.findViewById(R.id.send_me_link_btn);
-    sendMeLinkBtn.setOnClickListener(v -> shareViaEmail());
+    sendMeLinkBtn.setOnClickListener(v -> shareLink());
     return root;
   }
 
-  private void shareViaEmail()
+  private void shareLink()
   {
     String emailBody = getString(R.string.edit_your_guide_email_body) + BODY_STRINGS_SEPARATOR +
                        mSharedLink;
+
     ShareCompat.IntentBuilder.from(getActivity())
-                             .setType(MESSAGE_RFC_FORMAT)
+                             .setType(TargetUtils.TYPE_TEXT_PLAIN)
                              .setSubject(getString(R.string.edit_guide_title))
                              .setText(emailBody)
-                             .setChooserTitle(getString(R.string.share_by_email))
+                             .setChooserTitle(getString(R.string.share))
                              .startChooser();
   }
 }

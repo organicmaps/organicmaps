@@ -451,7 +451,7 @@
       android:label="@string/sharing_options"/>
     <activity
       android:name="com.mapswithme.maps.ugc.routes.UgcRouteEditSettingsActivity"
-      android:label="@string/settings"/>
+      android:label="@string/list_settings"/>
     <activity android:name=".purchase.BookmarkPaymentActivity"/>
     <activity android:name="com.mapswithme.maps.ugc.routes.SendLinkPlaceholderActivity"/>
     <activity

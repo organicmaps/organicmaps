@@ -448,7 +448,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void showCommonErrorDialog()
   {
-    showErrorDialog(R.string.ugc_routes_error_uploading_file_toast,
+    showErrorDialog(R.string.upload_error_toast,
                     REQ_CODE_ERROR_COMMON,
                     ERROR_COMMON_DIALOG_TAG);
   }

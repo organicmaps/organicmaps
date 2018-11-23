@@ -42,7 +42,6 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
-  private static final int SHOW_ON_MAP_ITEM_MENU_INDEX = 1;
 
   @NonNull
   private BookmarkCategory mSelectedCategory;
@@ -171,13 +170,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                                                     .sheet(getCategoryMenuResId())
                                                     .listener(this);
 
-
     BottomSheet bottomSheet = bs.build();
     prepareBottomMenuItems(bottomSheet);
-    bottomSheet
-        .getMenu().getItem(SHOW_ON_MAP_ITEM_MENU_INDEX)
-        .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
-        .setTitle(item.isVisible() ? R.string.hide : R.string.show);
+    MenuItem menuItem = BottomSheetHelper.findItemById(bottomSheet, R.id.show_on_map);
+    menuItem.setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
+            .setTitle(item.isVisible() ? R.string.hide : R.string.show);
     BottomSheetHelper.tint(bottomSheet);
     bottomSheet.show();
   }

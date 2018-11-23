@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:id="@+id/settings"
+        android:title="@string/list_settings"
+        android:icon="@drawable/ic_24_px_settings"/>
+
   <item android:id="@+id/share"
         android:title="@string/share"
         android:icon="@drawable/ic_share"/>
