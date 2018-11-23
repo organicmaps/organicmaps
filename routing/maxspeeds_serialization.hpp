@@ -24,8 +24,8 @@
 
 namespace routing
 {
-using maxspeedsSectionLastVersionType = uint16_t;
-maxspeedsSectionLastVersionType constexpr kMaxspeedsSectionLastVersion = 0;
+using MaxspeedsSectionLastVersionType = uint16_t;
+MaxspeedsSectionLastVersionType constexpr kMaxspeedsSectionLastVersion = 0;
 
 void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
                              size_t & forwardMaxspeedsNumber, uint32_t & maxForwardFeatureId);
@@ -161,7 +161,7 @@ public:
     // (See a check at the beginning of main method in generator_tool.cpp) If it's necessary
     // to support big-endian architectures code below should be modified.
     CHECK(maxspeeds.IsEmpty(), ());
-    auto const v = ReadPrimitiveFromSource<maxspeedsSectionLastVersionType>(src);
+    auto const v = ReadPrimitiveFromSource<MaxspeedsSectionLastVersionType>(src);
     CHECK_EQUAL(v, kMaxspeedsSectionLastVersion, ());
 
     Header header;
