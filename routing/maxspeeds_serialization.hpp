@@ -24,6 +24,9 @@
 
 namespace routing
 {
+using maxspeedsSectionLastVersionType = uint16_t;
+maxspeedsSectionLastVersionType constexpr kMaxspeedsSectionLastVersion = 0;
+
 void GetForwardMaxspeedStats(std::vector<FeatureMaxspeed> const & speeds,
                              size_t & forwardMaxspeedsNumber, uint32_t & maxForwardFeatureId);
 
@@ -52,8 +55,12 @@ public:
           ("SpeedMacro feature ids should be unique."));
 
     auto const startOffset = sink.Pos();
+    WriteToSink(sink, kMaxspeedsSectionLastVersion);
+
+    auto const headerOffset = sink.Pos();
     Header header;
     header.Serialize(sink);
+    auto const forwardMaxspeedTableOffset = sink.Pos();
 
     size_t forwardNumber = 0;
     size_t serializedForwardNumber = 0;
@@ -89,7 +96,7 @@ public:
       coding::FreezeVisitor<Writer> visitor(sink);
       succinct::elias_fano(&builder).map(visitor);
 
-      header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - startOffset);
+      header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
 
       // Maxspeeds which have only forward value.
       coding::SimpleDenseCoding simpleDenseCoding(forwardMaxspeeds);
@@ -97,9 +104,9 @@ public:
     }
     else
     {
-      header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - startOffset);
+      header.m_forwardMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
     }
-    header.m_bidirectionalMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - startOffset);
+    header.m_bidirectionalMaxspeedOffset = static_cast<uint32_t>(sink.Pos() - forwardMaxspeedTableOffset);
 
     // Keeping bidirectional maxspeeds.
     uint32_t prevFeatureId = 0;
@@ -128,7 +135,7 @@ public:
     }
 
     auto const endOffset = sink.Pos();
-    sink.Seek(startOffset);
+    sink.Seek(headerOffset);
     header.Serialize(sink);
     sink.Seek(endOffset);
 
@@ -154,6 +161,8 @@ public:
     // (See a check at the beginning of main method in generator_tool.cpp) If it's necessary
     // to support big-endian architectures code below should be modified.
     CHECK(maxspeeds.IsEmpty(), ());
+    auto const v = ReadPrimitiveFromSource<maxspeedsSectionLastVersionType>(src);
+    CHECK_EQUAL(v, kMaxspeedsSectionLastVersion, ());
 
     Header header;
     header.Deserialize(src);
@@ -161,7 +170,7 @@ public:
     if (header.m_forwardMaxspeedOffset != header.m_bidirectionalMaxspeedOffset)
     {
       // Reading maxspeed information for features which have only forward maxspeed.
-      size_t const forwardTableSz = header.m_forwardMaxspeedOffset - sizeof(Header);
+      size_t const forwardTableSz = header.m_forwardMaxspeedOffset;
       std::vector<uint8_t> forwardTableData(forwardTableSz);
       src.Read(forwardTableData.data(), forwardTableData.size());
       maxspeeds.m_forwardMaxspeedTableRegion = std::make_unique<CopiedMemoryRegion>(std::move(forwardTableData));
@@ -212,7 +221,6 @@ private:
     template <class Sink>
     void Serialize(Sink & sink) const
     {
-      WriteToSink(sink, m_version);
       WriteToSink(sink, m_endianness);
       WriteToSink(sink, m_forwardMaxspeedOffset);
       WriteToSink(sink, m_bidirectionalMaxspeedOffset);
@@ -222,23 +230,17 @@ private:
     template <class Source>
     void Deserialize(Source & src)
     {
-      m_version = ReadPrimitiveFromSource<decltype(m_version)>(src);
       m_endianness = ReadPrimitiveFromSource<decltype(m_endianness)>(src);
       m_forwardMaxspeedOffset = ReadPrimitiveFromSource<decltype(m_forwardMaxspeedOffset)>(src);
       m_bidirectionalMaxspeedOffset = ReadPrimitiveFromSource<decltype(m_bidirectionalMaxspeedOffset)>(src);
       m_bidirectionalMaxspeedNumber = ReadPrimitiveFromSource<decltype(m_bidirectionalMaxspeedNumber)>(src);
     }
 
-    uint16_t m_version = kLastVersion;
     // Field |m_endianness| is reserved for endianness of the section.
     uint16_t m_endianness = 0;
     uint32_t m_forwardMaxspeedOffset = 0;
     uint32_t m_bidirectionalMaxspeedOffset = 0;
     uint32_t m_bidirectionalMaxspeedNumber = 0;
   };
-
-  static uint16_t constexpr kLastVersion = 0;
-
-  static_assert(sizeof(Header) == 16, "Wrong header size of maxspeed section.");
 };
 }  // namespace routing
