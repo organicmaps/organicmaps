@@ -250,8 +250,10 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
         coding::DeserializerJson deserializer(request.ServerResponse());
         deserializer(result);
       }
-      catch(coding::DeserializerJson::Exception const &) {}
-
+      catch(std::exception const & e)
+      {
+        LOG(LWARNING, ("Bad server response. Code =", resultCode, ". Reason =", e.what()));
+      }
       if (!result.m_reason.empty())
         LOG(LWARNING, ("Validation error:", result.m_reason));
     }
