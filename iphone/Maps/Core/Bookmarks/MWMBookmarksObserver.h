@@ -20,10 +20,8 @@ typedef NS_ENUM(NSUInteger, MWMSynchronizationResult)
 };
 
 @protocol MWMBookmarksObserver<NSObject>
-
-- (void)onConversionFinish:(BOOL)success;
-
 @optional
+- (void)onConversionFinish:(BOOL)success;
 - (void)onRestoringRequest:(MWMRestoringRequestResult)result deviceName:(NSString * _Nullable)name backupDate:(NSDate * _Nullable)date;
 - (void)onSynchronizationFinished:(MWMSynchronizationResult)result;
 - (void)onRestoringStarted;

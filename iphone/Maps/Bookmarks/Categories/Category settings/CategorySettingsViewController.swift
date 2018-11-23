@@ -1,3 +1,4 @@
+@objc
 protocol CategorySettingsViewControllerDelegate: AnyObject {
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didEndEditing categoryId: MWMMarkGroupID)
@@ -7,15 +8,15 @@ protocol CategorySettingsViewControllerDelegate: AnyObject {
 
 class CategorySettingsViewController: MWMTableViewController {
   
-  var categoryId: MWMMarkGroupID?
-  var maxCategoryNameLength: UInt?
-  var minCategoryNameLength: UInt?
+  @objc var categoryId = MWMFrameworkHelper.invalidCategoryId()
+  @objc var maxCategoryNameLength: UInt = 60
+  @objc var minCategoryNameLength: UInt = 0
   
   var manager: MWMBookmarksManager {
     return MWMBookmarksManager.shared()
   }
   
-  weak var delegate: CategorySettingsViewControllerDelegate?
+  @objc weak var delegate: CategorySettingsViewControllerDelegate?
   
   @IBOutlet private weak var accessStatusLabel: UILabel!
   @IBOutlet private weak var nameTextField: UITextField!
@@ -28,18 +29,17 @@ class CategorySettingsViewController: MWMTableViewController {
     
     title = L("settings")
     
-    assert(categoryId != nil && minCategoryNameLength != nil && maxCategoryNameLength != nil,
-           "must provide category info")
+    assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "must provide category info")
 
-    nameTextField.text = manager.getCategoryName(categoryId!)
-    descriptionTextView.text = manager.getCategoryDescription(categoryId!)
+    nameTextField.text = manager.getCategoryName(categoryId)
+    descriptionTextView.text = manager.getCategoryDescription(categoryId)
     configureAccessStatus()
     
     navigationItem.rightBarButtonItem = saveButton
   }
   
   func configureAccessStatus() {
-    switch MWMBookmarksManager.shared().getCategoryAccessStatus(categoryId!) {
+    switch MWMBookmarksManager.shared().getCategoryAccessStatus(categoryId) {
     case .local:
       accessStatusLabel.text = L("not_shared")
     case .public:
@@ -52,13 +52,13 @@ class CategorySettingsViewController: MWMTableViewController {
   }
   
   @IBAction func deleteListButtonPressed(_ sender: Any) {
-    guard let category = categoryId else {
+    guard categoryId != MWMFrameworkHelper.invalidCategoryId() else {
       assert(false)
       return
     }
     
-    manager.deleteCategory(category)
-    delegate?.categorySettingsController(self, didDelete: category)
+    manager.deleteCategory(categoryId)
+    delegate?.categorySettingsController(self, didDelete: categoryId)
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -69,16 +69,16 @@ class CategorySettingsViewController: MWMTableViewController {
   }
   
   @IBAction func onSave(_ sender: Any) {
-    guard let category = categoryId,
+    guard categoryId != MWMFrameworkHelper.invalidCategoryId(),
       let newName = nameTextField.text,
       !newName.isEmpty else {
         assert(false)
         return
     }
     
-    manager.setCategory(category, name: newName)
-    manager.setCategory(category, description: descriptionTextView.text)
-    delegate?.categorySettingsController(self, didEndEditing: category)
+    manager.setCategory(categoryId, name: newName)
+    manager.setCategory(categoryId, description: descriptionTextView.text)
+    delegate?.categorySettingsController(self, didEndEditing: categoryId)
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -116,21 +116,10 @@ extension CategorySettingsViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                  replacementString string: String) -> Bool {
     let currentText = textField.text ?? ""
-    
     guard let stringRange = Range(range, in: currentText) else { return false }
     let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-    
-    guard let maxAvailableLength = maxCategoryNameLength,
-          let minAvailableLength = minCategoryNameLength else {
-            assert(false)
-            return true
-    }
-    
-    saveButton.isEnabled = updatedText.count > minAvailableLength
-    
-    if updatedText.count > maxAvailableLength {
-        return false
-    }
+    saveButton.isEnabled = updatedText.count > minCategoryNameLength
+    if updatedText.count > maxCategoryNameLength { return false }
     return true
   }
   

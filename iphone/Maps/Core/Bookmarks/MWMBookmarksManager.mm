@@ -451,7 +451,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 {
   self.bm.ConvertAllKmlFiles([self](bool success) {
     [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-      [observer onConversionFinish:success];
+      if ([observer respondsToSelector:@selector(onConversionFinish:)])
+        [observer onConversionFinish:success];
     }];
   });
 }
@@ -669,7 +670,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 - (void)loopObservers:(void (^)(id<MWMBookmarksObserver> observer))block
 {
-  for (id<MWMBookmarksObserver> observer in self.observers)
+  for (id<MWMBookmarksObserver> observer in [self.observers copy])
   {
     if (observer)
       block(observer);

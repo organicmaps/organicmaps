@@ -371,6 +371,7 @@
 		470F5A7D2189BB2F00754295 /* PaidRoutePurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */; };
 		470F5A7F2189C30800754295 /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F5A7E2189C30800754295 /* InAppPurchase.swift */; };
 		4716EABA21A325310029B886 /* IPaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */; };
+		4716EAC121A6E0570029B886 /* BookmarksVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4716EAC021A6E0570029B886 /* BookmarksVC.xib */; };
 		4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */; };
 		4719A645219CBD65009F9AA7 /* IPendingTransactionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */; };
 		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
@@ -1391,6 +1392,7 @@
 		470F5A7C2189BB2F00754295 /* PaidRoutePurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRoutePurchase.swift; sourceTree = "<group>"; };
 		470F5A7E2189C30800754295 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
 		4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRouteStatistics.swift; sourceTree = "<group>"; };
+		4716EAC021A6E0570029B886 /* BookmarksVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksVC.xib; sourceTree = "<group>"; };
 		4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPendingTransactionsHandler.swift; sourceTree = "<group>"; };
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
@@ -4390,6 +4392,7 @@
 				B32FE73D20D283D600EF7446 /* Catalog */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
+				4716EAC021A6E0570029B886 /* BookmarksVC.xib */,
 				B33D21A920DA515800BAD749 /* MWMCategoryInfoCell.h */,
 				B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.mm */,
 				B33D21AB20DA515800BAD749 /* MWMCategoryInfoCell.xib */,
@@ -4543,6 +4546,7 @@
 				F6E2FE6D1E097BA00083EBEC /* _MWMOHHeaderCell.xib in Resources */,
 				F6E2FE701E097BA00083EBEC /* _MWMOHSubCell.xib in Resources */,
 				F6E2FEA91E097BA00083EBEC /* _MWMPPPAddress.xib in Resources */,
+				4716EAC121A6E0570029B886 /* BookmarksVC.xib in Resources */,
 				F6E2FEAC1E097BA00083EBEC /* PPPReview.xib in Resources */,
 				F60C8BEF1FCED15A00DCF5FB /* DiscoverySearchCell.xib in Resources */,
 				F65D1E1A20E4F11600FE31DD /* ugc_migration in Resources */,

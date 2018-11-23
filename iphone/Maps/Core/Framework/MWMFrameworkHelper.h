@@ -14,4 +14,6 @@
 
 + (BOOL)canUseNetwork;
 
++ (MWMMarkGroupID)invalidCategoryId;
+
 @end

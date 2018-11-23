@@ -103,4 +103,6 @@
          GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WWAN;
 }
 
++ (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
+
 @end

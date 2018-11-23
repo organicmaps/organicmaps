@@ -133,8 +133,6 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 #pragma mark - MWMBookmarksObserver
 
-- (void)onConversionFinish:(BOOL)success {}
-
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId
 {
   auto data = self.data;

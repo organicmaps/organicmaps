@@ -32,6 +32,7 @@ final class BMCViewController: MWMViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     viewModel = BMCDefaultViewModel()
+    tableView.separatorColor = UIColor.blackDividers()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -106,6 +107,7 @@ final class BMCViewController: MWMViewController {
 
   private func openCategory(category: BMCCategory) {
     let bmViewController = BookmarksVC(category: category.identifier)!
+    bmViewController.delegate = self
     MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
                                                                                    animated: true)
   }
@@ -342,6 +344,17 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
 
 extension BMCViewController: BookmarksSharingViewControllerDelegate {
   func didShareCategory() {
+    viewModel?.reloadData()
+  }
+}
+
+extension BMCViewController: BookmarksVCDelegate {
+  func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC!) {
+    viewModel?.reloadData()
+  }
+
+  func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC!) {
+    navigationController?.popViewController(animated: true)
     viewModel?.reloadData()
   }
 }

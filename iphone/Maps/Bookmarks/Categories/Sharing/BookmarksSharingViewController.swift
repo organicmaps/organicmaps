@@ -1,5 +1,6 @@
 import SafariServices
 
+@objc
 protocol BookmarksSharingViewControllerDelegate: AnyObject {
   func didShareCategory()
 }
@@ -7,23 +8,23 @@ protocol BookmarksSharingViewControllerDelegate: AnyObject {
 final class BookmarksSharingViewController: MWMTableViewController {
   typealias ViewModel = MWMAuthorizationViewModel
   
-  var categoryId: MWMMarkGroupID?
+  @objc var categoryId = MWMFrameworkHelper.invalidCategoryId()
   var categoryUrl: URL?
-  weak var delegate: BookmarksSharingViewControllerDelegate?
+  @objc weak var delegate: BookmarksSharingViewControllerDelegate?
   private var sharingTags: [MWMTag]?
   private var sharingUserStatus: MWMCategoryAuthorType?
-  
+
   private var manager: MWMBookmarksManager {
     return MWMBookmarksManager.shared()
   }
   
   private var categoryAccessStatus: MWMCategoryAccessStatus? {
-    guard let category = categoryId else {
+    guard categoryId != MWMFrameworkHelper.invalidCategoryId() else {
       assert(false)
       return nil
     }
     
-    return manager.getCategoryAccessStatus(category)
+    return manager.getCategoryAccessStatus(categoryId)
   }
   
   private let kPropertiesSegueIdentifier = "chooseProperties"
@@ -60,7 +61,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
     title = L("sharing_options")
     configureActionCells()
     
-    assert(categoryId != nil, "We can't share nothing")
+    assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "We can't share nothing")
 
     guard let categoryAccessStatus = categoryAccessStatus else { return }
 
@@ -68,10 +69,10 @@ final class BookmarksSharingViewController: MWMTableViewController {
     case .local:
       break
     case .public:
-      categoryUrl = manager.sharingUrl(forCategoryId: categoryId!)
+      categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
       uploadAndPublishCell.cellState = .completed
     case .private:
-      categoryUrl = manager.sharingUrl(forCategoryId: categoryId!)
+      categoryUrl = manager.sharingUrl(forCategoryId: categoryId)
       getDirectLinkCell.cellState = .completed
     case .other:
       break
@@ -149,16 +150,16 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   func uploadAndPublish() {
-    guard let category = categoryId,
+    guard categoryId != MWMFrameworkHelper.invalidCategoryId(),
       let tags = sharingTags,
       let userStatus = sharingUserStatus else {
         assert(false, "not enough data for public sharing")
         return
     }
     
-    manager.setCategory(category, authorType: userStatus)
-    manager.setCategory(category, tags: tags)
-    manager.uploadAndPublishCategory(withId: category, progress: { (progress) in
+    manager.setCategory(categoryId, authorType: userStatus)
+    manager.setCategory(categoryId, tags: tags)
+    manager.uploadAndPublishCategory(withId: categoryId, progress: { (progress) in
       self.uploadAndPublishCell.cellState = .inProgress
     }) { (url, error) in
       if let error = error as NSError? {
@@ -180,23 +181,23 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   func uploadAndGetDirectLink() {
     performAfterValidation { [weak self] in
-      guard let categoryId = self?.categoryId else {
-        assert(false, "categoryId must not be nil")
+      guard let s = self, s.categoryId != MWMFrameworkHelper.invalidCategoryId() else {
+        assert(false, "categoryId must be valid")
         return
       }
       
-      self?.manager.uploadAndGetDirectLinkCategory(withId: categoryId, progress: { (progress) in
+      s.manager.uploadAndGetDirectLinkCategory(withId: s.categoryId, progress: { (progress) in
         if progress == .uploadStarted {
-          self?.getDirectLinkCell.cellState = .inProgress
+          s.getDirectLinkCell.cellState = .inProgress
         }
       }, completion: { (url, error) in
         if let error = error as NSError? {
-          self?.getDirectLinkCell.cellState = .normal
-          self?.showErrorAlert(error)
+          s.getDirectLinkCell.cellState = .normal
+          s.showErrorAlert(error)
         } else {
-          self?.getDirectLinkCell.cellState = .completed
-          self?.categoryUrl = url
-          self?.delegate?.didShareCategory()
+          s.getDirectLinkCell.cellState = .completed
+          s.categoryUrl = url
+          s.delegate?.didShareCategory()
         }
       })
     }

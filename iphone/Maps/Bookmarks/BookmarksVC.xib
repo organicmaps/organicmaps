@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookmarksVC" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="downloadedCategoryToolbar" destination="lox-EJ-BTW" id="q8N-7N-FxS"/>
+                <outlet property="moreItem" destination="SzW-hJ-oy9" id="aRd-eB-gSj"/>
+                <outlet property="myCategoryToolbar" destination="uNd-fM-YVD" id="dYH-H1-P8u"/>
+                <outlet property="sharingOptionsItem" destination="U4v-rd-kcf" id="vlw-yQ-uUA"/>
+                <outlet property="tableView" destination="sBT-45-bnw" id="zSc-eX-NZC"/>
+                <outlet property="view" destination="iN0-l3-epB" id="jfu-i2-8ie"/>
+                <outlet property="viewOnMapItem" destination="zDI-L0-Fjj" id="O8a-cu-AsX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sBT-45-bnw">
+                    <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="pressBackground"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="iBs-44-PxC"/>
+                        <outlet property="delegate" destination="-1" id="2dq-o5-nMb"/>
+                    </connections>
+                </tableView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNd-fM-YVD">
+                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                    <items>
+                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="jsx-WU-dhT"/>
+                        <barButtonItem title="Sharing options" style="plain" id="U4v-rd-kcf">
+                            <connections>
+                                <action selector="onSharingOptions:" destination="-1" id="Nvj-G6-K6X"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Hpc-In-hqh"/>
+                        <barButtonItem title="More..." style="plain" id="SzW-hJ-oy9">
+                            <connections>
+                                <action selector="onMore:" destination="-1" id="lBH-EV-C9v"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="16" style="plain" systemItem="fixedSpace" id="YAt-eE-x2I"/>
+                    </items>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </toolbar>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lox-EJ-BTW">
+                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="mgA-WK-Be8"/>
+                        <barButtonItem title="View on map" id="zDI-L0-Fjj">
+                            <connections>
+                                <action selector="onViewOnMap:" destination="-1" id="93e-aP-Lza"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="tlq-gn-Jdq"/>
+                    </items>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                    </userDefinedRuntimeAttributes>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uNd-fM-YVD" secondAttribute="trailing" id="34g-uY-Sux"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="lox-EJ-BTW" secondAttribute="bottom" id="3A5-UK-ohJ"/>
+                <constraint firstItem="uNd-fM-YVD" firstAttribute="top" secondItem="sBT-45-bnw" secondAttribute="bottom" id="3Ki-Wg-en5"/>
+                <constraint firstItem="uNd-fM-YVD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DzR-ER-jD4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="sBT-45-bnw" secondAttribute="trailing" id="GS0-Rr-fBB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="uNd-fM-YVD" secondAttribute="bottom" id="Oxb-Wq-fvG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lox-EJ-BTW" secondAttribute="trailing" id="V1B-Y8-uLf"/>
+                <constraint firstItem="sBT-45-bnw" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="biK-L7-5qY"/>
+                <constraint firstItem="sBT-45-bnw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cPb-Wt-26Z"/>
+                <constraint firstItem="lox-EJ-BTW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="xFB-3S-laD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+        </view>
+    </objects>
+</document>

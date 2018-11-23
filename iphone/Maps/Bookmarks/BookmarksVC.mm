@@ -33,12 +33,24 @@ enum class Section
 CGFloat const kPinDiameter = 18.0f;
 }  // namespace
 
-@interface BookmarksVC() <MWMLocationObserver, MWMCategoryInfoCellDelegate>
+@interface BookmarksVC() <UITableViewDataSource,
+                          UITableViewDelegate,
+                          MWMBookmarksObserver,
+                          MWMLocationObserver,
+                          MWMCategoryInfoCellDelegate,
+                          BookmarksSharingViewControllerDelegate,
+                          CategorySettingsViewControllerDelegate>
 {
   vector<Section> m_sections;
 }
 
 @property(nonatomic) BOOL infoExpanded;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UIToolbar * myCategoryToolbar;
+@property(weak, nonatomic) IBOutlet UIToolbar * downloadedCategoryToolbar;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem * viewOnMapItem;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem * sharingOptionsItem;
+@property(weak, nonatomic) IBOutlet UIBarButtonItem * moreItem;
 
 @end
 
@@ -46,12 +58,10 @@ CGFloat const kPinDiameter = 18.0f;
 
 - (instancetype)initWithCategory:(MWMMarkGroupID)index
 {
-  self = [super initWithStyle:UITableViewStyleGrouped];
+  self = [super init];
   if (self)
   {
     m_categoryId = index;
-    auto const & bm = GetFramework().GetBookmarkManager();
-    self.title = @(bm.GetCategoryName(m_categoryId).c_str());
     [self calculateSections];
   }
   return self;
@@ -229,6 +239,16 @@ CGFloat const kPinDiameter = 18.0f;
   return [[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId] && s != Section::Info;
 }
 
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  self.editing = YES;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  self.editing = NO;
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const s = m_sections.at(indexPath.section);
@@ -295,10 +315,9 @@ CGFloat const kPinDiameter = 18.0f;
   if (!bm.HasBmCategory(m_categoryId))
     return;
 
-  auto table = (UITableView *)self.view;
-  [table.visibleCells enumerateObjectsUsingBlock:^(UITableViewCell * cell, NSUInteger idx, BOOL * stop)
+  [self.tableView.visibleCells enumerateObjectsUsingBlock:^(UITableViewCell * cell, NSUInteger idx, BOOL * stop)
   {
-    auto indexPath = [table indexPathForCell:cell];
+    auto indexPath = [self.tableView indexPathForCell:cell];
     auto const s = self->m_sections.at(indexPath.section);
     if (s != Section::Bookmark)
       return;
@@ -323,6 +342,23 @@ CGFloat const kPinDiameter = 18.0f;
   [super viewDidLoad];
   self.tableView.estimatedRowHeight = 44;
   [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
+  self.tableView.separatorColor = [UIColor blackDividers];
+
+  auto regularTitleAttributes = @{ NSFontAttributeName: [UIFont regular16],
+                                   NSForegroundColorAttributeName: [UIColor linkBlue] };
+  auto moreTitleAttributes = @{ NSFontAttributeName: [UIFont medium16],
+                                   NSForegroundColorAttributeName: [UIColor linkBlue] };
+
+  [self.moreItem setTitleTextAttributes:moreTitleAttributes forState:UIControlStateNormal];
+  [self.sharingOptionsItem setTitleTextAttributes:regularTitleAttributes forState:UIControlStateNormal];
+  [self.viewOnMapItem setTitleTextAttributes:regularTitleAttributes forState:UIControlStateNormal];
+
+  self.moreItem.title = L(@"placepage_more_button");
+  self.sharingOptionsItem.title = L(@"sharing_options");
+  self.viewOnMapItem.title = L(@"search_show_on_map");
+
+  self.myCategoryToolbar.barTintColor = [UIColor white];
+  self.downloadedCategoryToolbar.barTintColor = [UIColor white];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -330,13 +366,30 @@ CGFloat const kPinDiameter = 18.0f;
   [MWMLocationManager addObserver:self];
 
   // Display Edit button only if table is not empty
-  if ([[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId] &&
-      [[MWMBookmarksManager sharedManager] isCategoryNotEmpty:m_categoryId])
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  if ([[MWMBookmarksManager sharedManager] isCategoryEditable:m_categoryId])
+  {
+    self.myCategoryToolbar.hidden = NO;
+    self.downloadedCategoryToolbar.hidden = YES;
+    if ([[MWMBookmarksManager sharedManager] isCategoryNotEmpty:m_categoryId])
+    {
+      self.navigationItem.rightBarButtonItem = self.editButtonItem;
+      self.sharingOptionsItem.enabled = YES;
+    }
+    else
+    {
+      self.sharingOptionsItem.enabled = NO;
+    }
+  }
   else
-    self.navigationItem.rightBarButtonItem = nil;
+  {
+    self.myCategoryToolbar.hidden = YES;
+    self.downloadedCategoryToolbar.hidden = NO;
+  }
 
   [super viewWillAppear:animated];
+
+  auto const & bm = GetFramework().GetBookmarkManager();
+  self.title = @(bm.GetCategoryName(m_categoryId).c_str());
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -365,6 +418,12 @@ CGFloat const kPinDiameter = 18.0f;
   [super viewDidDisappear:animated];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  [super setEditing:editing animated:animated];
+  [self.tableView setEditing:editing animated:animated];
+}
+
 - (NSString *)categoryFileName
 {
   return @(GetFramework().GetBookmarkManager().GetCategoryFileName(m_categoryId).c_str());
@@ -382,6 +441,144 @@ CGFloat const kPinDiameter = 18.0f;
 
   if (bm.GetUserMarkIds(m_categoryId).size() > 0)
     m_sections.emplace_back(Section::Bookmark);
+}
+
+- (IBAction)onMore:(UIBarButtonItem *)sender
+{
+  auto actionSheet = [UIAlertController alertControllerWithTitle:nil
+                                                         message:nil
+                                                  preferredStyle:UIAlertControllerStyleActionSheet];
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"search_show_on_map").capitalizedString
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                            [self viewOnMap];
+                          }]];
+
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"list_settings").capitalizedString
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                            [self openCategorySettings];
+                          }]];
+
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file").capitalizedString
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                            [self exportFile];
+                          }]];
+
+  auto deleteAction = [UIAlertAction actionWithTitle:L(@"delete_list").capitalizedString
+                                               style:UIAlertActionStyleDestructive
+                                             handler:^(UIAlertAction * _Nonnull action)
+                       {
+                         [[MWMBookmarksManager sharedManager] deleteCategory:self->m_categoryId];
+                         [self.delegate bookmarksVCdidDeleteCategory:self];
+                       }];
+  deleteAction.enabled = [[MWMBookmarksManager sharedManager] groupsIdList].count > 1;
+  [actionSheet addAction:deleteAction];
+
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"cancel").capitalizedString
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+
+  [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+- (IBAction)onSharingOptions:(UIBarButtonItem *)sender
+{
+  [self shareCategory];
+}
+
+- (IBAction)onViewOnMap:(UIBarButtonItem *)sender
+{
+  [self viewOnMap];
+}
+
+- (void)openCategorySettings
+{
+  auto storyboard = [UIStoryboard instance:MWMStoryboardCategorySettings];
+  auto settingsController = (CategorySettingsViewController *)[storyboard instantiateInitialViewController];
+  settingsController.delegate = self;
+  settingsController.categoryId = m_categoryId;
+  [self.navigationController pushViewController:settingsController animated:YES];
+}
+
+- (void)exportFile
+{
+  [[MWMBookmarksManager sharedManager] addObserver:self];
+  [[MWMBookmarksManager sharedManager] shareCategory:m_categoryId];
+}
+
+- (void)shareCategory
+{
+  auto storyboard = [UIStoryboard instance:MWMStoryboardSharing];
+  auto shareController = (BookmarksSharingViewController *)[storyboard instantiateInitialViewController];
+  shareController.delegate = self;
+  shareController.categoryId = m_categoryId;
+  [self.navigationController pushViewController:shareController animated:YES];
+}
+
+- (void)viewOnMap
+{
+  [self.navigationController popToRootViewControllerAnimated:YES];
+  GetFramework().ShowBookmarkCategory(m_categoryId);
+}
+
+#pragma mark - MWMBookmarksObserver
+
+- (void)onBookmarksCategoryFilePrepared:(MWMBookmarksShareStatus)status
+{
+  switch (status)
+  {
+    case MWMBookmarksShareStatusSuccess:
+    {
+      auto shareController =
+      [MWMActivityViewController shareControllerForURL:[MWMBookmarksManager sharedManager].shareCategoryURL
+                                               message:L(@"share_bookmarks_email_body")
+                                     completionHandler:^(UIActivityType  _Nullable activityType,
+                                                         BOOL completed,
+                                                         NSArray * _Nullable returnedItems,
+                                                         NSError * _Nullable activityError) {
+                                       [[MWMBookmarksManager sharedManager] finishShareCategory];
+                                     }];
+      [shareController presentInParentViewController:self anchorView:self.view];
+      break;
+    }
+    case MWMBookmarksShareStatusEmptyCategory:
+      [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"bookmarks_error_title_share_empty")
+                                                                  text:L(@"bookmarks_error_message_share_empty")];
+      break;
+    case MWMBookmarksShareStatusArchiveError:
+    case MWMBookmarksShareStatusFileError:
+      [[MWMAlertViewController activeAlertController] presentInfoAlert:L(@"dialog_routing_system_error")
+                                                                  text:L(@"bookmarks_error_message_share_general")];
+      break;
+  }
+  [[MWMBookmarksManager sharedManager] removeObserver:self];
+}
+
+#pragma mark - BookmarksSharingViewControllerDelegate
+
+- (void)didShareCategory
+{
+  [self.tableView reloadData];
+}
+
+#pragma mark - CategorySettingsViewControllerDelegate
+
+- (void)categorySettingsController:(CategorySettingsViewController *)viewController didDelete:(MWMMarkGroupID)categoryId
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  [self.delegate bookmarksVCdidDeleteCategory:self];
+}
+
+- (void)categorySettingsController:(CategorySettingsViewController *)viewController didEndEditing:(MWMMarkGroupID)categoryId
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  [self.delegate bookmarksVCdidUpdateCategory:self];
+  [self.tableView reloadData];
 }
 
 @end
