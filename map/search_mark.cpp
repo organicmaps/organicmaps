@@ -109,6 +109,8 @@ std::string const kLocalAdsRatedDefaultSearchIcon = "local_ads-rated-default-sea
 float const kRatingThreshold = 6.0f;
 float const kMetricThreshold = 0.38f;
 
+int constexpr kUGCBadgeMinZoomLevel = 10;
+
 inline bool HasRating(float rating)
 {
   return rating > kInvalidRatingValue;
@@ -339,7 +341,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetBadgeNames(
   if (IsUGCMark())
   {
     auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-    symbol->insert(std::make_pair(10 /* zoomLevel */, badgeName));
+    symbol->insert(std::make_pair(kUGCBadgeMinZoomLevel /* zoomLevel */, badgeName));
     return symbol;
   }
   
@@ -428,6 +430,8 @@ int SearchMarkPoint::GetMinTitleZoom() const
 {
   if (IsBookingSpecialMark() && m_rating < kRatingThreshold)
     return 17;
+  if (IsUGCMark())
+    return kUGCBadgeMinZoomLevel;
   return 1;
 }
 
