@@ -255,6 +255,13 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                                               leftButtonAction:leftButton]];
 }
 
+- (void)presentTagsLoadingErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                    cancelBlock:(nonnull MWMVoidBlock)cancelBlock
+{
+  [self displayAlert:[MWMAlert tagsLoadingErrorAlertWithOkBlock:okBlock
+                                                    cancelBlock:cancelBlock]];
+}
+
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message
                     rightButtonTitle:(nonnull NSString *)rightButtonTitle

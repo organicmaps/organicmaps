@@ -34,14 +34,25 @@ final class SharingTagsViewController: MWMViewController {
     collectionView.allowsMultipleSelection = true
     collectionView.contentInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
+    loadTags()
+  }
+  
+  func loadTags() {
     progress.state = .spinner
+    self.loadingTagsView.isHidden = false
+    
     dataSource.loadTags { success in
-      self.progress.state = .completed
+      self.progress.state = .normal
       self.loadingTagsView.isHidden = true
+      
       if success {
         self.collectionView.reloadData()
       } else {
-        //TODO: handle errors
+        MWMAlertViewController.activeAlert().presentTagsLoadingErrorAlert(okBlock: { [weak self] in
+          self?.loadTags()
+        }, cancel: { [weak self] in
+          self?.onCancel()
+        })
       }
     }
   }

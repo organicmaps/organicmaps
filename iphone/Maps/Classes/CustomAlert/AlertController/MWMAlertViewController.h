@@ -57,6 +57,9 @@
                              rightButtonAction:(nonnull MWMVoidBlock)rightButton
                               leftButtonAction:(nonnull MWMVoidBlock)leftButton;
 
+- (void)presentTagsLoadingErrorAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
+                                    cancelBlock:(nonnull MWMVoidBlock)cancelBlock;
+
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message
                     rightButtonTitle:(nonnull NSString *)rightButtonTitle

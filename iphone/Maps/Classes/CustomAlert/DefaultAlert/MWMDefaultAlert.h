@@ -44,6 +44,8 @@
                               rightButtonAction:(MWMVoidBlock)rightButton
                                leftButtonAction:(MWMVoidBlock)leftButton;
 
++ (instancetype)tagsLoadingErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock;
+
 + (instancetype)defaultAlertWithTitle:(NSString *)title
                               message:(NSString *)message
                      rightButtonTitle:(NSString *)rightButtonTitle

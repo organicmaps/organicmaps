@@ -450,6 +450,20 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:nil];
 }
 
++ (instancetype)tagsLoadingErrorAlertWithOkBlock:(MWMVoidBlock)okBlock cancelBlock:(MWMVoidBlock)cancelBlock
+{
+  MWMDefaultAlert * alert =
+  [self defaultAlertWithTitle:L(@"title_error_downloading_bookmarks")
+                      message:L(@"tags_loading_error_subtitle")
+             rightButtonTitle:L(@"downloader_retry")
+              leftButtonTitle:L(@"cancel")
+            rightButtonAction:okBlock
+              statisticsEvent:nil];
+  alert.leftButtonAction = cancelBlock;
+  [alert setNeedsCloseAlertAfterEnterBackground];
+  return alert;
+}
+
 + (instancetype)defaultAlertWithTitle:(NSString *)title
                               message:(NSString *)message
                      rightButtonTitle:(NSString *)rightButtonTitle

@@ -44,6 +44,7 @@
 + (MWMAlert *)restoreBookmarkAlertWithMessage:(NSString *)message
                             rightButtonAction:(MWMVoidBlock)rightButton
                              leftButtonAction:(MWMVoidBlock)leftButton;
++ (MWMAlert *)tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock;
 
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message

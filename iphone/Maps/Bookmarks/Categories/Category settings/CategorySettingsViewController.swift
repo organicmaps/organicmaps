@@ -41,11 +41,11 @@ class CategorySettingsViewController: MWMTableViewController {
   func configureAccessStatus() {
     switch MWMBookmarksManager.shared().getCategoryAccessStatus(categoryId!) {
     case .local:
-      accessStatusLabel.text = "Not shared"
+      accessStatusLabel.text = L("not_shared")
     case .public:
-      accessStatusLabel.text = "Public"
+      accessStatusLabel.text = L("bookmarks_public_access")
     case .private:
-      accessStatusLabel.text = "Private"
+      accessStatusLabel.text = L("bookmarks_link_access")
     case .other:
       assert(false, "it's not ok that this category has such access status")
     }

@@ -192,6 +192,11 @@
                                          leftButtonAction:leftButton];
 }
 
++ (MWMAlert *)tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock
+{
+  return [MWMDefaultAlert tagsLoadingErrorAlertWithOkBlock:okBlock cancelBlock:cancelBlock];
+}
+
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                    rightButtonTitle:(NSString *)rightButtonTitle
