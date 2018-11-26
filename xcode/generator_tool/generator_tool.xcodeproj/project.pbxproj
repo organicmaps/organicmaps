@@ -232,7 +232,6 @@
 		56A6C3CF219AFDEE00A52855 /* common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
 		56A6C3D0219AFDEE00A52855 /* regions_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = regions_tests.cpp; sourceTree = "<group>"; };
 		56A6C3D1219AFDEE00A52855 /* region_info_collector_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region_info_collector_tests.cpp; sourceTree = "<group>"; };
-		56A6C3D6219AFE2300A52855 /* generator_tests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = generator_tests; sourceTree = "<group>"; };
 		56EE14CE1FE803EA0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		56EE14D01FE803FE0036F20C /* libtransit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtransit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		670E7BBB1EF9832200A8E9ED /* libicu.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libicu.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libicu.a"; sourceTree = "<group>"; };
@@ -502,7 +501,6 @@
 			isa = PBXGroup;
 			children = (
 				56A1B7A321A82BF700246F8C /* maxspeeds_tests.cpp */,
-				56A6C3D6219AFE2300A52855 /* generator_tests */,
 				56A6C3CF219AFDEE00A52855 /* common.cpp */,
 				56A6C3CE219AFDED00A52855 /* common.hpp */,
 				56A6C3CD219AFDED00A52855 /* filter_elements_tests.cpp */,
