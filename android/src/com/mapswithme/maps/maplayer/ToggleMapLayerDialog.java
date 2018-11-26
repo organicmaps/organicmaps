@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -104,9 +105,10 @@ public class ToggleMapLayerDialog extends DialogFragment
 
     Fragment oldInstance = fm.findFragmentByTag(tag);
     if (oldInstance != null)
-      fm.beginTransaction().remove(oldInstance).commitAllowingStateLoss();
+      return;
 
-    frag.show(fm, tag);
+    fm.beginTransaction().add(frag, tag).commitAllowingStateLoss();
+    fm.executePendingTransactions();
   }
 
   private static class ModeAdapter extends RecyclerView.Adapter<ModeHolder>
