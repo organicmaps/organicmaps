@@ -52,6 +52,7 @@ using DescriptionsCollection = std::vector<FeatureDescription>;
 /// Section name: "descriptions".
 /// Description: keeping text descriptions of features in different languages.
 /// Section tables:
+/// * version
 /// * header
 /// * sorted feature ids vector
 /// * vector of unordered maps with language codes and string indices of corresponding translations of a description
@@ -60,7 +61,8 @@ using DescriptionsCollection = std::vector<FeatureDescription>;
 class Serializer
 {
 public:
-  /// \param descriptions unsorted collection of feature descriptions.
+  /// \param descriptions A non-empty unsorted collection of feature descriptions.
+  ///                     FeatureDescription::m_description must contain non-empty translations.
   explicit Serializer(DescriptionsCollection && descriptions);
 
   template <typename Sink>
