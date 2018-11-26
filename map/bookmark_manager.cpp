@@ -1400,7 +1400,6 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = std::make_unique<BookmarkCategory>(name, groupId, autoSave);
-  m_categories[groupId]->SetAuthor(m_user.GetUserName(), m_user.GetUserId());
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
