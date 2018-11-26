@@ -269,7 +269,7 @@ int main(int argc, char * argv[])
         double const kHalfSquareSide = 100.0;
         // |kHalfSquareSide| is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
         // which is used calculation of projection in production code.
-        m2::RectD const posSquare = MercatorBounds::MetresToXY(
+        m2::RectD const posSquare = MercatorBounds::MetersToXY(
             extrapolated.m_longitude, extrapolated.m_latitude, kHalfSquareSide);
         // One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.

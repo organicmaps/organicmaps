@@ -36,9 +36,6 @@ uint8_t constexpr kFeatureSorterPointCoordBits = 27;
 // todo(@m) Clarify how kPointCoordBits and kFeatureSorterPointCoordBits are related.
 double constexpr kMwmPointAccuracy = 1e-5;
 
-// todo(@m) Explain this constant.
-double constexpr kCellIdToPointEps = 1e-4;
-
 uint32_t DoubleToUint32(double x, double min, double max, uint8_t coordBits);
 
 double Uint32ToDouble(uint32_t x, double min, double max, uint8_t coordBits);

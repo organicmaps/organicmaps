@@ -175,7 +175,8 @@ void Processor::SetViewport(m2::RectD const & viewport)
   if (m_viewport.IsValid())
   {
     double constexpr kEpsMeters = 10.0;
-    if (IsEqualMercator(m_viewport, viewport, kEpsMeters))
+    double const kEps = MercatorBounds::MetersToMercator(kEpsMeters);
+    if (IsEqualMercator(m_viewport, viewport, kEps))
       return;
   }
 

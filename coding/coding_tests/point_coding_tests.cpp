@@ -14,7 +14,7 @@ using namespace std;
 
 namespace
 {
-double const kEps = kCellIdToPointEps;
+double const kEps = kMwmPointAccuracy;
 uint8_t const kCoordBits = kPointCoordBits;
 uint32_t const kBig = uint32_t{1} << 30;
 

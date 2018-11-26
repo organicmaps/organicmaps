@@ -756,24 +756,24 @@ void Street::SortHousesProjection() { sort(m_houses.begin(), m_houses.end(), &Le
 HouseDetector::HouseDetector(DataSource const & dataSource)
   : m_loader(dataSource), m_streetNum(0)
 {
-  // default value for conversions
-  SetMetres2Mercator(360.0 / 40.0E06);
+  // Default value for conversions.
+  SetMetersToMercator(MercatorBounds::kDegreesInMeter);
 }
 
 HouseDetector::~HouseDetector() { ClearCaches(); }
 
-void HouseDetector::SetMetres2Mercator(double factor)
+void HouseDetector::SetMetersToMercator(double factor)
 {
-  m_metres2Mercator = factor;
+  m_metersToMercator = factor;
 
-  LOG(LDEBUG, ("Street join epsilon = ", m_metres2Mercator * STREET_CONNECTION_LENGTH_M));
+  LOG(LDEBUG, ("Street join epsilon =", m_metersToMercator * STREET_CONNECTION_LENGTH_M));
 }
 
 double HouseDetector::GetApprLengthMeters(int index) const
 {
   m2::PointD const & p1 = m_streets[index].m_cont.front()->m_points.front();
   m2::PointD const & p2 = m_streets[index].m_cont.back()->m_points.back();
-  return p1.Length(p2) / m_metres2Mercator;
+  return p1.Length(p2) / m_metersToMercator;
 }
 
 HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool beg) const
@@ -782,7 +782,7 @@ HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool b
 
   StreetPtr resStreet(0, false);
   double resDistance = numeric_limits<double>::max();
-  double const minSqDistance = pow(m_metres2Mercator * STREET_CONNECTION_LENGTH_M, 2);
+  double const minSqDistance = pow(m_metersToMercator * STREET_CONNECTION_LENGTH_M, 2);
 
   for (size_t i = 0; i < m_end2st.size(); ++i)
   {
@@ -913,7 +913,7 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
         m2::PointD const p1 = st->m_points.front();
         m2::PointD const p2 = st->m_points.back();
 
-        SetMetres2Mercator(p1.Length(p2) / GetDistanceMeters(p1, p2));
+        SetMetersToMercator(p1.Length(p2) / GetDistanceMeters(p1, p2));
       }
 
       m_id2st[ids[i]] = st;

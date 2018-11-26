@@ -192,12 +192,12 @@ namespace
 {
 bool IsEqual(double d1, double d2)
 {
-  return base::AlmostEqualAbs(d1, d2, kCellIdToPointEps);
+  return base::AlmostEqualAbs(d1, d2, kMwmPointAccuracy);
 }
 
 bool IsEqual(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return p1.EqualDxDy(p2, kCellIdToPointEps);
+  return p1.EqualDxDy(p2, kMwmPointAccuracy);
 }
 
 bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)
@@ -339,8 +339,10 @@ bool FeatureBuilder1::operator==(FeatureBuilder1 const & fb) const
     return false;
 
   for (auto i = m_polygons.cbegin(), j = fb.m_polygons.cbegin(); i != m_polygons.cend(); ++i, ++j)
+  {
     if (!IsEqual(*i, *j))
       return false;
+  }
 
   return true;
 }

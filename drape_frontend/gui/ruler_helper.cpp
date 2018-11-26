@@ -72,7 +72,7 @@ UnitValue g_arrYards[] = {
   { "500 mi", 500 * 1760 }
 };
 
-UnitValue g_arrMetres[] = {
+UnitValue g_arrMeters[] = {
   { "1 m", 1 },
   { "2 m", 2 },
   { "5 m", 5 },
@@ -114,10 +114,10 @@ void RulerHelper::Update(ScreenBase const & screen)
   m2::PointD pt1 = screen.PtoG(pivot);
   m2::PointD pt0 = screen.PtoG(pivot - m2::PointD(minPxWidth, 0));
 
-  double const distanceInMetres = MercatorBounds::DistanceOnEarth(pt0, pt1);
+  double const distanceInMeters = MercatorBounds::DistanceOnEarth(pt0, pt1);
 
   // convert metres to units for calculating m_metresDiff.
-  double metersDiff = CalcMetresDiff(distanceInMetres);
+  double metersDiff = CalcMetersDiff(distanceInMeters);
 
   bool const higherThanMax = metersDiff > kMaxMetersWidth;
   bool const lessThanMin = metersDiff < kMinMetersWidth;
@@ -205,7 +205,7 @@ void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
   };
 
   std::for_each(std::begin(g_arrFeets), std::end(g_arrFeets), functor);
-  std::for_each(std::begin(g_arrMetres), std::end(g_arrMetres), functor);
+  std::for_each(std::begin(g_arrMeters), std::end(g_arrMeters), functor);
   std::for_each(std::begin(g_arrYards), std::end(g_arrYards), functor);
 
   std::for_each(begin(symbols), end(symbols), [&alphabet](char c)
@@ -217,10 +217,10 @@ void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
   size = static_cast<uint32_t>(result) + 2; // add 2 char for symbols "< " and "> ".
 }
 
-double RulerHelper::CalcMetresDiff(double value)
+double RulerHelper::CalcMetersDiff(double value)
 {
-  UnitValue * arrU = g_arrMetres;
-  int count = ARRAY_SIZE(g_arrMetres);
+  UnitValue * arrU = g_arrMeters;
+  int count = ARRAY_SIZE(g_arrMeters);
 
   auto conversionFn = &Identity;
 

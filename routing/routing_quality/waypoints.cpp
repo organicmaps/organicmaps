@@ -31,7 +31,7 @@ Similarity CompareByNumberOfMatchedWaypoints(routing::FollowedPolyline && polyli
     for (size_t i = 0; i < size; ++i)
     {
       auto const & ll = waypoints[i];
-      m2::RectD const rect = MercatorBounds::MetresToXY(ll.lon, ll.lat, kMaxDistanceFromRouteM /* metresR */);
+      m2::RectD const rect = MercatorBounds::MetersToXY(ll.lon, ll.lat, kMaxDistanceFromRouteM /* metresR */);
       auto const iter = current.UpdateProjection(rect);
       if (iter.IsValid())
       {

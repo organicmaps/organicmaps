@@ -2478,7 +2478,7 @@ void Framework::PredictLocation(double & lat, double & lon, double accuracy,
   double offsetInM = speed * elapsedSeconds;
   double angle = base::DegToRad(90.0 - bearing);
 
-  m2::PointD mercatorPt = MercatorBounds::MetresToXY(lon, lat, accuracy).Center();
+  m2::PointD mercatorPt = MercatorBounds::MetersToXY(lon, lat, accuracy).Center();
   mercatorPt = MercatorBounds::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
   lon = MercatorBounds::XToLon(mercatorPt.x);
   lat = MercatorBounds::YToLat(mercatorPt.y);

@@ -33,7 +33,7 @@ void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureT
       auto limitRect = ft.GetLimitRect(kScale);
       // Be a little more tolerant. When used by editor mercator is given
       // with some error, so we must extend limit rect a bit.
-      limitRect.Inflate(kCellIdToPointEps, kCellIdToPointEps);
+      limitRect.Inflate(kMwmPointAccuracy, kMwmPointAccuracy);
       if (limitRect.IsPointInside(mercator) &&
           feature::GetMinDistanceMeters(ft, mercator) <= toleranceInMeters)
       {

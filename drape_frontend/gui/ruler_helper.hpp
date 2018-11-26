@@ -27,7 +27,7 @@ public:
   void GetTextInitInfo(std::string & alphabet, uint32_t & size) const;
 
 private:
-  double CalcMetresDiff(double value);
+  double CalcMetersDiff(double value);
   void SetTextDirty();
 
 private:

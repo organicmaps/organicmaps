@@ -43,7 +43,7 @@ void SortAndMergeIntervals(Intervals v, Intervals & res);
 template <int DEPTH_LEVELS>
 m2::CellId<DEPTH_LEVELS> GetRectIdAsIs(m2::RectD const & r)
 {
-  double const eps = kCellIdToPointEps;
+  double const eps = kMwmPointAccuracy;
   using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
 
   return Converter::Cover2PointsWithCell(

@@ -236,7 +236,7 @@ private:
 
   void ReadHouses(Street * st);
 
-  void SetMetres2Mercator(double factor);
+  void SetMetersToMercator(double factor);
 
   double GetApprLengthMeters(int index) const;
 
@@ -248,7 +248,7 @@ private:
   std::vector<pair<m2::PointD, Street *>> m_end2st;
   std::vector<MergedStreet> m_streets;
 
-  double m_metres2Mercator;
+  double m_metersToMercator;
   int m_streetNum;
   double m_houseOffsetM;
 };

@@ -296,10 +296,10 @@ void RuleDrawer::ProcessAreaStyle(FeatureType & f, Stylist const & s,
     double const lon = MercatorBounds::XToLon(featureCenter.x);
     double const lat = MercatorBounds::YToLat(featureCenter.y);
 
-    m2::RectD rectMercator = MercatorBounds::MetresToXY(lon, lat, heightInMeters);
+    m2::RectD rectMercator = MercatorBounds::MetersToXY(lon, lat, heightInMeters);
     areaHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
 
-    rectMercator = MercatorBounds::MetresToXY(lon, lat, minHeightInMeters);
+    rectMercator = MercatorBounds::MetersToXY(lon, lat, minHeightInMeters);
     areaMinHeight = static_cast<float>((rectMercator.SizeX() + rectMercator.SizeY()) * 0.5);
   }
   else

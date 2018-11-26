@@ -234,7 +234,7 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
-  m2::RectD const rect = MercatorBounds::MetresToXY(
+  m2::RectD const rect = MercatorBounds::MetersToXY(
         info.m_longitude, info.m_latitude,
         max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
   FollowedPolyline::Iter const res = m_poly.UpdateProjectionByPrediction(rect, -1.0 /* predictDistance */);

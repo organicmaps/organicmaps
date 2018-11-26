@@ -19,12 +19,12 @@ namespace
 {
 bool IsEqual(double d1, double d2)
 {
-  return base::AlmostEqualAbs(d1, d2, kCellIdToPointEps);
+  return base::AlmostEqualAbs(d1, d2, kMwmPointAccuracy);
 }
 
 bool IsEqual(m2::PointD const & p1, m2::PointD const & p2)
 {
-  return p1.EqualDxDy(p2, kCellIdToPointEps);
+  return p1.EqualDxDy(p2, kMwmPointAccuracy);
 }
 
 bool IsEqual(m2::RectD const & r1, m2::RectD const & r2)

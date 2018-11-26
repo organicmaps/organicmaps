@@ -4,15 +4,12 @@
 #include "search/mwm_context.hpp"
 #include "search/retrieval.hpp"
 
+#include "coding/point_coding.hpp"
+
 #include "geometry/mercator.hpp"
 
 namespace search
 {
-namespace
-{
-double constexpr kCellEps = kCellIdToPointEps;
-}  // namespace
-
 // GeometryCache -----------------------------------------------------------------------------------
 GeometryCache::GeometryCache(size_t maxNumEntries, base::Cancellable const & cancellable)
   : m_maxNumEntries(maxNumEntries), m_cancellable(cancellable)
@@ -43,7 +40,7 @@ CBV PivotRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int
       context.GetId(), [&rect, &scale](Entry const & entry)
       {
         return scale == entry.m_scale &&
-               (entry.m_rect.IsRectInside(rect) || IsEqualMercator(rect, entry.m_rect, kCellEps));
+               (entry.m_rect.IsRectInside(rect) || IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy));
       });
   auto & entry = p.first;
   if (p.second)
@@ -69,7 +66,7 @@ CBV LocalityRectsCache::Get(MwmContext const & context, m2::RectD const & rect, 
   auto p = FindOrCreateEntry(context.GetId(), [&rect, &scale](Entry const & entry)
                              {
                                return scale == entry.m_scale &&
-                                      IsEqualMercator(rect, entry.m_rect, kCellEps);
+                                      IsEqualMercator(rect, entry.m_rect, kMwmPointAccuracy);
                              });
   auto & entry = p.first;
   if (p.second)

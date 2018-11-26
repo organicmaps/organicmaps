@@ -99,7 +99,7 @@ namespace
       if (!types.Has(m_coastType) && NeedProcess(types))
       {
         // Convert from meters to degrees for backward compatibility.
-        double const d = feature::GetMinDistanceMeters(f, m_pt, m_scale) * MercatorBounds::degreeInMetres;
+        double const d = feature::GetMinDistanceMeters(f, m_pt, m_scale) * MercatorBounds::degreeInMeters;
         ASSERT_GREATER_OR_EQUAL(d, 0.0, ());
 
         if (IsInclude(d, types))
@@ -308,7 +308,7 @@ namespace
 
     virtual double GetResultDistance(double d, feature::TypesHolder const & types) const
     {
-      return (d + GetCompareEpsilonImpl(types.GetGeoType(), 5.0 * MercatorBounds::degreeInMetres));
+      return (d + GetCompareEpsilonImpl(types.GetGeoType(), 5.0 * MercatorBounds::degreeInMeters));
     }
 
     virtual double NeedProcess(feature::TypesHolder const & types) const

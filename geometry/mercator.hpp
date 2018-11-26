@@ -15,6 +15,11 @@ struct MercatorBounds
   static double constexpr kRangeX = kMaxX - kMinX;
   static double constexpr kRangeY = kMaxY - kMinY;
 
+  // The denominator is the Earth circumference at the Equator in meters.
+  // The value is a bit off for some reason; 40075160 seems to be correct.
+  static double constexpr kDegreesInMeter = 360.0 / 40008245.0;
+  static double constexpr kMetersInDegree = 40008245.0 / 360.0;
+
   static m2::RectD FullRect() { return m2::RectD(kMinX, kMinY, kMaxX, kMaxY); }
 
   static bool ValidLon(double d) { return base::between_s(-180.0, 180.0, d); }
@@ -39,16 +44,17 @@ struct MercatorBounds
 
   static double LonToX(double lon) { return lon; }
 
-  static double constexpr degreeInMetres = 360.0 / 40008245;
+  static double MetersToMercator(double meters) { return meters * kDegreesInMeter; }
+  static double MercatorToMeters(double mercator) { return mercator * kMetersInDegree; }
 
   /// @name Get rect for center point (lon, lat) and dimensions in metres.
   //@{
   /// @return mercator rect.
-  static m2::RectD MetresToXY(double lon, double lat, double lonMetresR, double latMetresR);
+  static m2::RectD MetersToXY(double lon, double lat, double lonMetersR, double latMetersR);
 
-  static m2::RectD MetresToXY(double lon, double lat, double metresR)
+  static m2::RectD MetersToXY(double lon, double lat, double metresR)
   {
-    return MetresToXY(lon, lat, metresR, metresR);
+    return MetersToXY(lon, lat, metresR, metresR);
   }
   //@}
 
@@ -58,7 +64,7 @@ struct MercatorBounds
     ASSERT_GREATER_OR_EQUAL(sizeX, 0, ());
     ASSERT_GREATER_OR_EQUAL(sizeY, 0, ());
 
-    return MetresToXY(XToLon(centerX), YToLat(centerY), sizeX, sizeY);
+    return MetersToXY(XToLon(centerX), YToLat(centerY), sizeX, sizeY);
   }
 
   static m2::RectD RectByCenterXYAndSizeInMeters(m2::PointD const & center, double size)
@@ -72,7 +78,7 @@ struct MercatorBounds
             ClampX(center.x + offset), ClampY(center.y + offset)};
   }
 
-  static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetresR, double latMetresR);
+  static m2::PointD GetSmPoint(m2::PointD const & pt, double lonMetersR, double latMetersR);
 
   static m2::PointD FromLatLon(double lat, double lon)
   {
