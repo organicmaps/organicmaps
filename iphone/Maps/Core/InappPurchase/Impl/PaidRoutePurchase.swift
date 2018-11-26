@@ -34,7 +34,7 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
 
   func requestStoreProduct(_ completion: @escaping StoreProductCompletion) {
     billing.requestProducts([productId]) { [weak self] (products, error) in
-      guard let product = products?[0] else {
+      guard let product = products?.first else {
         completion(nil, error)
         return
       }
