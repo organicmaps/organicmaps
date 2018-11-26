@@ -170,10 +170,33 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   public void onCustomPropertiesReceived(boolean successful,
                                          @NonNull List<CatalogCustomProperty> properties)
   {
-    if (successful && properties.size() != 0 && properties.iterator().next().getOptions().size() != 0)
-      onLoadSuccess(properties);
-    else
+    if (!successful)
+    {
       onLoadFailed();
+      return;
+    }
+
+    if (properties.isEmpty())
+    {
+      onLoadFailed();
+      return;
+    }
+
+    CatalogCustomProperty property = properties.iterator().next();
+    if (property == null)
+    {
+      onLoadFailed();
+      return;
+    }
+
+    List<CatalogCustomPropertyOption> options = property.getOptions();
+    if (options.size() <= SECOND_OPTION_INDEX)
+    {
+      onLoadFailed();
+      return;
+    }
+
+    onLoadSuccess(properties);
   }
 
   private void onLoadFailed()
