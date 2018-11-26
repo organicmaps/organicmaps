@@ -170,7 +170,7 @@ public class UgcRoutePropertiesFragment extends BaseMwmFragment implements Bookm
   public void onCustomPropertiesReceived(boolean successful,
                                          @NonNull List<CatalogCustomProperty> properties)
   {
-    if (successful)
+    if (successful && properties.size() != 0 && properties.iterator().next().getOptions().size() != 0)
       onLoadSuccess(properties);
     else
       onLoadFailed();
