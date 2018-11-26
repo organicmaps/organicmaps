@@ -52,7 +52,7 @@ string PrintBuilder(FeatureBuilder1 const & fb)
   s << "Id: " << DebugPrint(fb.GetMostGenericOsmId()) << '\t'
     << "Name: " << fb.GetName(StringUtf8Multilang::kDefaultCode) << '\t';
 
-  auto const params = fb.GetParams();
+  auto const & params = fb.GetParams();
   auto const street = params.GetStreet();
   auto const house = params.house.Get();
 

@@ -62,7 +62,7 @@ public:
   {
     TestPOI::Serialize(fb);
 
-    auto & metadata = fb.GetMetadataForTesting();
+    auto & metadata = fb.GetMetadata();
     metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(m_rating));
     metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(m_priceRate));
   }
@@ -85,7 +85,7 @@ public:
   {
     TestCafe::Serialize(fb);
 
-    auto & metadata = fb.GetMetadataForTesting();
+    auto & metadata = fb.GetMetadata();
     metadata.Set(feature::Metadata::FMD_CUISINE, m_cuisine);
   }
 
@@ -107,7 +107,7 @@ public:
   {
     TestPOI::Serialize(fb);
 
-    auto & metadata = fb.GetMetadataForTesting();
+    auto & metadata = fb.GetMetadata();
     metadata.Set(feature::Metadata::FMD_AIRPORT_IATA, m_iata);
   }
 
@@ -129,7 +129,7 @@ public:
   {
     TestPOI::Serialize(fb);
 
-    auto & metadata = fb.GetMetadataForTesting();
+    auto & metadata = fb.GetMetadata();
     metadata.Set(feature::Metadata::FMD_OPERATOR, m_operator);
   }
 

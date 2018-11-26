@@ -94,16 +94,13 @@ void ViatorDataset::PreprocessMatchedOsmObject(ViatorCity::ObjectId const matche
                                                FeatureBuilder1 & fb,
                                                function<void(FeatureBuilder1 &)> const fn) const
 {
-  FeatureParams params = fb.GetParams();
-
   auto const & city = m_storage.GetObjectById(matchedObjId);
-  auto & metadata = params.GetMetadata();
+  auto & metadata = fb.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(city.m_id.Get()));
 
   auto const & clf = classif();
+  FeatureParams & params = fb.GetParams();
   params.AddType(clf.GetTypeByPath({"sponsored", "viator"}));
-
-  fb.SetParams(params);
 
   fn(fb);
 }

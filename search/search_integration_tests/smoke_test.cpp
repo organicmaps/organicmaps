@@ -37,7 +37,7 @@ public:
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override
   {
-    fb.GetMetadataForTesting().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+    fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
     fb.SetCenter(m_center);
 
     if (!m_name.empty())

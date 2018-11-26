@@ -45,9 +45,9 @@ protected:
   virtual bool IsSuitableElement(OsmElement const * p) const = 0;
 
   bool ParseParams(OsmElement * p, FeatureParams & params) const;
-  void BuildFeatureAndEmitFromRelation(OsmElement const * p, FeatureParams & params);
-  void BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureParams & params);
-  void BuildFeatureAndEmitFromNode(OsmElement const * p, FeatureParams & params);
+  void BuildFeatureAndEmitFromRelation(OsmElement const * p, FeatureParams const & params);
+  void BuildFeatureAndEmitFromWay(OsmElement const * p, FeatureParams const & params);
+  void BuildFeatureAndEmitFromNode(OsmElement const * p, FeatureParams const & params);
 
 private:
   void Emit(FeatureBuilder1 & fb, OsmElement const * p);

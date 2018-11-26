@@ -42,7 +42,7 @@ public:
     FeatureBuilder1 fb;
     fb.SetParams(params);
     fb.SetCenter(pt);
-    fb.GetMetadataForTesting().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
+    fb.GetMetadata().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
     ++m_lastId;
 
     TEST(builder.Add(fb), (fb));

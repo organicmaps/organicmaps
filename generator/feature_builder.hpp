@@ -66,7 +66,7 @@ public:
 
 
   feature::Metadata const & GetMetadata() const { return m_params.GetMetadata(); }
-  feature::Metadata & GetMetadataForTesting() { return m_params.GetMetadata(); }
+  feature::Metadata & GetMetadata() { return m_params.GetMetadata(); }
   Geometry const & GetGeometry() const { return m_polygons; }
   PointSeq const & GetOuterGeometry() const { return m_polygons.front(); }
   feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
@@ -169,6 +169,7 @@ public:
   void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
 
   FeatureParams const & GetParams() const { return m_params; }
+  FeatureParams & GetParams() { return m_params; }
 
   /// @name For OSM debugging and osm objects replacement, store original OSM id
   //@{

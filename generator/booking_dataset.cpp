@@ -62,12 +62,13 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
   if (fb.GetGeomType() == feature::GEOM_AREA)
   {
     // Remove all information about the hotel.
-    auto params = fb.GetParams();
-    params.ClearName();
-    auto & meta = params.GetMetadata();
+    auto & meta = fb.GetMetadata();
     meta.Drop(feature::Metadata::EType::FMD_STARS);
     meta.Drop(feature::Metadata::EType::FMD_WEBSITE);
     meta.Drop(feature::Metadata::EType::FMD_PHONE_NUMBER);
+
+    auto & params = fb.GetParams();
+    params.ClearName();
 
     auto const tourism = classif().GetTypeByPath({"tourism"});
     base::EraseIf(params.m_types, [tourism](uint32_t type)
@@ -75,7 +76,6 @@ void BookingDataset::PreprocessMatchedOsmObject(ObjectId, FeatureBuilder1 & fb,
       ftype::TruncValue(type, 1);
       return type == tourism;
     });
-    fb.SetParams(params);
   }
 
   fn(fb);
@@ -86,17 +86,17 @@ void BookingDataset::BuildObject(Object const & hotel,
                                  std::function<void(FeatureBuilder1 &)> const & fn) const
 {
   FeatureBuilder1 fb;
-  FeatureParams params;
 
   fb.SetCenter(MercatorBounds::FromLatLon(hotel.m_latLon.lat, hotel.m_latLon.lon));
 
-  auto & metadata = params.GetMetadata();
+  auto & metadata = fb.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(hotel.m_id.Get()));
   metadata.Set(feature::Metadata::FMD_WEBSITE, hotel.m_descUrl);
   metadata.Set(feature::Metadata::FMD_RATING, strings::to_string(hotel.m_ratingUser));
   metadata.Set(feature::Metadata::FMD_STARS, strings::to_string(hotel.m_stars));
   metadata.Set(feature::Metadata::FMD_PRICE_RATE, strings::to_string(hotel.m_priceCategory));
 
+  auto & params = fb.GetParams();
   // params.AddAddress(hotel.address);
   // TODO(mgsergio): addr:full ???
 
@@ -174,8 +174,6 @@ void BookingDataset::BuildObject(Object const & hotel,
 
     default: params.AddType(clf.GetTypeByPath({"tourism", "hotel"})); break;
   }
-
-  fb.SetParams(params);
 
   fn(fb);
 }

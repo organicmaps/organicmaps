@@ -82,7 +82,7 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 
   if (ftypes::IsCityTownOrVillage(fb.GetTypes()) && fb.GetGeomType() == feature::GEOM_AREA)
   {
-    auto const & metadata = fb.GetMetadataForTesting();
+    auto const & metadata = fb.GetMetadata();
     uint64_t testId;
     CHECK(strings::to_uint64(metadata.Get(feature::Metadata::FMD_TEST_ID), testId), ());
     m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));

@@ -83,7 +83,7 @@ void TestFeature::Serialize(FeatureBuilder1 & fb) const
     if (m_metadata.Has(type))
     {
       auto const value = m_metadata.Get(type);
-      fb.GetMetadataForTesting().Set(type, value);
+      fb.GetMetadata().Set(type, value);
     }
   }
 

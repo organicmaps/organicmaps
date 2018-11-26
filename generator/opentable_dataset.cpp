@@ -47,12 +47,11 @@ template <>
 void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, FeatureBuilder1 & fb,
                                                   function<void(FeatureBuilder1 &)> const fn) const
 {
-  FeatureParams params = fb.GetParams();
-
   auto const & restaurant = m_storage.GetObjectById(matchedObjId);
-  auto & metadata = params.GetMetadata();
+  auto & metadata = fb.GetMetadata();
   metadata.Set(feature::Metadata::FMD_SPONSORED_ID, strings::to_string(restaurant.m_id.Get()));
 
+  FeatureParams & params = fb.GetParams();
   // params.AddAddress(restaurant.address);
   // TODO(mgsergio): addr:full ???
 
@@ -61,8 +60,6 @@ void OpentableDataset::PreprocessMatchedOsmObject(ObjectId const matchedObjId, F
 
   auto const & clf = classif();
   params.AddType(clf.GetTypeByPath({"sponsored", "opentable"}));
-
-  fb.SetParams(params);
 
   fn(fb);
 }

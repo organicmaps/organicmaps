@@ -90,7 +90,7 @@ void TranslatorGeocoderBase::Emit(FeatureBuilder1 & fb, OsmElement const * p)
 }
 
 void TranslatorGeocoderBase::BuildFeatureAndEmitFromRelation(OsmElement const * p,
-                                                             FeatureParams & params)
+                                                             FeatureParams const & params)
 {
   HolesRelation helper(m_holder);
   helper.Build(p);
@@ -117,7 +117,7 @@ void TranslatorGeocoderBase::BuildFeatureAndEmitFromRelation(OsmElement const * 
 }
 
 void TranslatorGeocoderBase::BuildFeatureAndEmitFromWay(OsmElement const * p,
-                                                        FeatureParams & params)
+                                                        FeatureParams const & params)
 {
   FeatureBuilder1 fb;
   m2::PointD pt;
@@ -139,7 +139,7 @@ void TranslatorGeocoderBase::BuildFeatureAndEmitFromWay(OsmElement const * p,
 }
 
 void TranslatorGeocoderBase::BuildFeatureAndEmitFromNode(OsmElement const * p,
-                                                         FeatureParams & params)
+                                                         FeatureParams const & params)
 {
   m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
   FeatureBuilder1 fb;
