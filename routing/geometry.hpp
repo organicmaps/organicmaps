@@ -110,6 +110,9 @@ public:
 /// On the other hand methods GetRoad() and GetPoint() return geometry information by reference.
 /// The reference may be invalid after the next call of GetRoad() or GetPoint() because the cache
 /// item which is referred by returned reference may be evicted. It's done for performance reasons.
+/// \note The cache |m_featureIdToRoad| is used for road geometry for single-directional
+/// and bidirectional A*. According to tests it's faster to use one cache for both directions
+/// in bidirectional A* case than two separate caches, one for each direction (one for each A* wave).
 class Geometry final
 {
 public:
