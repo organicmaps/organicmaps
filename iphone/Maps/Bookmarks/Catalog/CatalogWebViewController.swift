@@ -214,7 +214,7 @@ final class CatalogWebViewController: WebViewController {
           switch (status) {
           case .needAuth:
             if let s = self {
-              s.signup(anchor: s.view) {
+              s.signup(anchor: s.toolbar) {
                 if $0 { s.download() }
               }
             }
