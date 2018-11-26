@@ -11,6 +11,7 @@ omim_link_libraries(
   ${PROJECT_NAME}
   platform_tests_support
   geocoder
+  search
   indexer
   platform
   coding

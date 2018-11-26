@@ -60,9 +60,10 @@ UNIT_TEST(Geocoder_Smoke)
   base::GeoObjectId const florenciaId(0xc00000000059d6b5);
   base::GeoObjectId const cubaId(0xc00000000004b279);
 
-  TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
-  TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.5}});
-  TestGeocoder(geocoder, "florencia somewhere in cuba", {{cubaId, 0.25}, {florenciaId, 0.5}});
+  // todo(@m) Return the certainty levels back to the [0.0, 1.0] range.
+  TestGeocoder(geocoder, "florencia", {{florenciaId, 4.0}});
+  TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 14.0}, {cubaId, 10.0}});
+  TestGeocoder(geocoder, "florencia somewhere in cuba", {{cubaId, 10.0}, {florenciaId, 14.0}});
 }
 
 UNIT_TEST(Geocoder_Hierarchy)

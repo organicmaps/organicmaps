@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geocoder/beam.hpp"
 #include "geocoder/hierarchy.hpp"
 #include "geocoder/result.hpp"
 #include "geocoder/types.hpp"
@@ -9,6 +10,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace geocoder
@@ -78,13 +80,14 @@ public:
 
     size_t m_numUsedTokens = 0;
 
-    // The highest value of certainty for each retrieved osm id.
-    std::unordered_map<base::GeoObjectId, double> m_results;
+    // The highest value of certainty for a fixed amount of
+    // the most relevant retrieved osm ids.
+    Beam m_beam;
 
     std::vector<Layer> m_layers;
   };
 
-  explicit Geocoder(std::string pathToJsonHierarchy);
+  explicit Geocoder(std::string const & pathToJsonHierarchy);
 
   void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
 
@@ -93,7 +96,10 @@ public:
 private:
   void Go(Context & ctx, Type type) const;
 
-  void EmitResult() const;
+  void FillBuildingsLayer(Context const & ctx, Tokens const & subquery, Layer & curLayer) const;
+
+  void FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
+                        Layer & curLayer) const;
 
   Hierarchy m_hierarchy;
 };

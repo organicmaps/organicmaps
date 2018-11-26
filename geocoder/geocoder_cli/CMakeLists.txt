@@ -12,6 +12,7 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   geocoder
+  search
   indexer
   platform
   coding

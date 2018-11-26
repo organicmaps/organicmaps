@@ -19,6 +19,7 @@ enum class Type
   Locality,
   Suburb,
   Sublocality,
+  Street,
   Building,
 
   Count

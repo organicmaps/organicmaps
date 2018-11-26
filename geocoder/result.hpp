@@ -8,6 +8,8 @@ namespace geocoder
 {
 struct Result
 {
+  Result() = default;
+
   Result(base::GeoObjectId const & osmId, double certainty) : m_osmId(osmId), m_certainty(certainty)
   {
   }

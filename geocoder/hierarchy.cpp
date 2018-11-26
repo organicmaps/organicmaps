@@ -7,6 +7,9 @@
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
+
 #include <fstream>
 
 using namespace std;
@@ -81,8 +84,17 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   else if (m_nameTokens != m_address[static_cast<size_t>(m_type)])
   {
     ++stats.m_mismatchedNames;
-    LOG(LDEBUG, ("Hierarchy entry name is not the most detailed field in its address:", jsonStr));
   }
+}
+
+bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
+{
+  for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
+  {
+    if (!m_address[i].empty() && m_address[i] != e.m_address[i])
+      return false;
+  }
+  return true;
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
@@ -114,15 +126,21 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     if (!entry.DeserializeFromJSON(line, stats))
       continue;
 
-    // The entry is indexed only by its address.
+    // The entry is indexed only its address.
     // todo(@m) Index it by name too.
     if (entry.m_type != Type::Count)
     {
       ++stats.m_numLoaded;
       size_t const t = static_cast<size_t>(entry.m_type);
       m_entries[entry.m_address[t]].emplace_back(entry);
+
+      // Index every token but do not index prefixes.
+      // for (auto const & tok : entry.m_address[t])
+      //   m_entries[{tok}].emplace_back(entry);
     }
   }
+
+  IndexHouses();
 
   LOG(LINFO, ("Finished reading the hierarchy. Stats:"));
   LOG(LINFO, ("Entries indexed:", stats.m_numLoaded));
@@ -144,5 +162,28 @@ vector<Hierarchy::Entry> const * const Hierarchy::GetEntries(
     return {};
 
   return &it->second;
+}
+
+void Hierarchy::IndexHouses()
+{
+  for (auto const & it : m_entries)
+  {
+    for (auto const & be : it.second)
+    {
+      if (be.m_type != Type::Building)
+        continue;
+
+      size_t const t = static_cast<size_t>(Type::Street);
+      auto const * streetCandidates = GetEntries(be.m_address[t]);
+      if (streetCandidates == nullptr)
+        continue;
+
+      for (auto & se : *streetCandidates)
+      {
+        if (se.IsParentTo(be))
+          se.m_buildingsOnStreet.emplace_back(&be);
+      }
+    }
+  }
 }
 }  // namespace geocoder

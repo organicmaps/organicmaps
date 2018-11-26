@@ -1,10 +1,14 @@
 #include "geocoder/geocoder.hpp"
 
+#include "search/house_numbers_matcher.hpp"
+
 #include "indexer/search_string_utils.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
 #include <algorithm>
@@ -14,6 +18,20 @@ using namespace std;
 
 namespace
 {
+size_t const kMaxResults = 100;
+
+map<geocoder::Type, double> const kWeight = {
+    {geocoder::Type::Country, 10.0},
+    {geocoder::Type::Region, 5.0},
+    {geocoder::Type::Subregion, 4.0},
+    {geocoder::Type::Locality, 3.0},
+    {geocoder::Type::Suburb, 3.0},
+    {geocoder::Type::Sublocality, 2.0},
+    {geocoder::Type::Street, 1.0},
+    {geocoder::Type::Building, 0.1},
+    {geocoder::Type::Count, 0.0},
+};
+
 // todo(@m) This is taken from search/geocoder.hpp. Refactor.
 struct ScopedMarkTokens
 {
@@ -52,25 +70,29 @@ geocoder::Type NextType(geocoder::Type type)
 bool FindParent(vector<geocoder::Geocoder::Layer> const & layers,
                 geocoder::Hierarchy::Entry const & e)
 {
-  for (auto const & layer : layers)
+  CHECK(!layers.empty(), ());
+  auto const & layer = layers.back();
+  for (auto const * pe : layer.m_entries)
   {
-    for (auto const * pe : layer.m_entries)
-    {
-      // Note that the relationship is somewhat inverted: every ancestor
-      // is stored in the address but the nodes have no information
-      // about their children.
-      if (e.m_address[static_cast<size_t>(pe->m_type)] == pe->m_nameTokens)
-        return true;
-    }
+    // Note that the relationship is somewhat inverted: every ancestor
+    // is stored in the address but the nodes have no information
+    // about their children.
+    if (pe->IsParentTo(e))
+      return true;
   }
   return false;
+}
+
+strings::UniString MakeHouseNumber(geocoder::Tokens const & tokens)
+{
+  return strings::JoinStrings(tokens, strings::MakeUniString(""));
 }
 }  // namespace
 
 namespace geocoder
 {
 // Geocoder::Context -------------------------------------------------------------------------------
-Geocoder::Context::Context(string const & query)
+Geocoder::Context::Context(string const & query) : m_beam(kMaxResults)
 {
   search::NormalizeAndTokenizeString(query, m_tokens);
   m_tokenTypes.assign(m_tokens.size(), Type::Count);
@@ -116,15 +138,25 @@ bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_toke
 
 void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty)
 {
-  m_results[osmId] = max(m_results[osmId], certainty);
+  m_beam.Add(osmId, certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
 {
   results.clear();
-  results.reserve(m_results.size());
-  for (auto const & e : m_results)
-    results.emplace_back(e.first /* osmId */, e.second /* certainty */);
+  results.reserve(m_beam.GetEntries().size());
+
+  set<decltype(m_beam)::Key> seen;
+  for (auto const & e : m_beam.GetEntries())
+  {
+    if (!seen.insert(e.m_key).second)
+      continue;
+
+    results.emplace_back(e.m_key /* osmId */, e.m_value /* certainty */);
+  }
+
+  ASSERT(is_sorted(results.rbegin(), results.rend(), base::LessBy(&Result::m_certainty)), ());
+  ASSERT_LESS_OR_EQUAL(results.size(), kMaxResults, ());
 }
 
 vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
@@ -132,7 +164,7 @@ vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
 vector<Geocoder::Layer> const & Geocoder::Context::GetLayers() const { return m_layers; }
 
 // Geocoder ----------------------------------------------------------------------------------------
-Geocoder::Geocoder(string pathToJsonHierarchy) : m_hierarchy(pathToJsonHierarchy) {}
+Geocoder::Geocoder(string const & pathToJsonHierarchy) : m_hierarchy(pathToJsonHierarchy) {}
 
 void Geocoder::ProcessQuery(string const & query, vector<Result> & results) const
 {
@@ -172,39 +204,92 @@ void Geocoder::Go(Context & ctx, Type type) const
 
       subquery.push_back(ctx.GetToken(j));
 
-      auto const * entries = m_hierarchy.GetEntries(subquery);
-      if (!entries || entries->empty())
-        continue;
-
       Layer curLayer;
       curLayer.m_type = type;
-      for (auto const & e : *entries)
-      {
-        if (e.m_type != type)
-          continue;
 
-        if (ctx.GetLayers().empty() || FindParent(ctx.GetLayers(), e))
-          curLayer.m_entries.emplace_back(&e);
+      // Buildings are indexed separately.
+      if (type == Type::Building)
+      {
+        FillBuildingsLayer(ctx, subquery, curLayer);
+      }
+      else
+      {
+        FillRegularLayer(ctx, type, subquery, curLayer);
       }
 
-      if (!curLayer.m_entries.empty())
+      if (curLayer.m_entries.empty())
+        continue;
+
+      ScopedMarkTokens mark(ctx, type, i, j + 1);
+
+      // double const certainty =
+      //     static_cast<double>(ctx.GetNumUsedTokens()) /
+      //     static_cast<double>(ctx.GetNumTokens());
+
+      double certainty = 0;
+      for (auto const t : ctx.GetTokenTypes())
       {
-        ScopedMarkTokens mark(ctx, type, i, j + 1);
-
-        double const certainty =
-            static_cast<double>(ctx.GetNumUsedTokens()) / static_cast<double>(ctx.GetNumTokens());
-
-        for (auto const * e : curLayer.m_entries)
-          ctx.AddResult(e->m_osmId, certainty);
-
-        ctx.GetLayers().emplace_back(move(curLayer));
-        SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
-
-        Go(ctx, NextType(type));
+        auto const it = kWeight.find(t);
+        CHECK(it != kWeight.end(), ());
+        certainty += it->second;
       }
+      LOG(LINFO, (ctx.GetTokenTypes(), certainty));
+
+      for (auto const * e : curLayer.m_entries)
+      {
+        ctx.AddResult(e->m_osmId, certainty);
+      }
+
+      ctx.GetLayers().emplace_back(move(curLayer));
+      SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
+
+      Go(ctx, NextType(type));
     }
   }
 
   Go(ctx, NextType(type));
+}
+
+void Geocoder::FillBuildingsLayer(Context const & ctx, Tokens const & subquery,
+                                  Layer & curLayer) const
+{
+  if (ctx.GetLayers().empty())
+    return;
+  auto const & layer = ctx.GetLayers().back();
+  if (layer.m_type != Type::Street)
+    return;
+
+  auto const & subqueryHN = MakeHouseNumber(subquery);
+
+  if (!search::house_numbers::LooksLikeHouseNumber(subqueryHN, false /* isPrefix */))
+    return;
+
+  for (auto const & se : layer.m_entries)
+  {
+    for (auto const & be : se->m_buildingsOnStreet)
+    {
+      auto const bt = static_cast<size_t>(Type::Building);
+      auto const & realHN = MakeHouseNumber(be->m_address[bt]);
+      if (search::house_numbers::HouseNumbersMatch(realHN, subqueryHN, false /* queryIsPrefix */))
+        curLayer.m_entries.emplace_back(be);
+    }
+  }
+}
+
+void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
+                                Layer & curLayer) const
+{
+  auto const * entries = m_hierarchy.GetEntries(subquery);
+  if (!entries || entries->empty())
+    return;
+
+  for (auto const & e : *entries)
+  {
+    if (e.m_type != type)
+      continue;
+
+    if (ctx.GetLayers().empty() || FindParent(ctx.GetLayers(), e))
+      curLayer.m_entries.emplace_back(&e);
+  }
 }
 }  // namespace geocoder

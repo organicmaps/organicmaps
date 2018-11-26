@@ -57,17 +57,24 @@ public:
     void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
                                  ParsingStats & stats);
 
+    // Checks whether this entry is a parent of |e|.
+    bool IsParentTo(Entry const & e) const;
+
     base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
 
     // Original name of the entry. Useful for debugging.
     std::string m_name;
     // Tokenized and simplified name of the entry.
-    std::vector<strings::UniString> m_nameTokens;
+    Tokens m_nameTokens;
 
     Type m_type = Type::Count;
 
     // The address fields of this entry, one per Type.
     std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
+
+    // List of houses that belong to the street that is desribed by this entry.
+    // Only valid if |m_type| is Type::Street.
+    mutable std::vector<Entry const *> m_buildingsOnStreet;
   };
 
   explicit Hierarchy(std::string const & pathToJsonHierarchy);
@@ -77,10 +84,13 @@ public:
   //
   // todo This method (and the whole class, in fact) is in the
   //      prototype stage and may be too slow. Proper indexing should
-  //      be implemented to perform this type of queries.a
+  //      be implemented to perform this type of queries.
   std::vector<Entry> const * const GetEntries(std::vector<strings::UniString> const & tokens) const;
 
 private:
+  // Fills |m_buildingsOnStreet| field for all street entries.
+  void IndexHouses();
+
   std::map<Tokens, std::vector<Entry>> m_entries;
 };
 }  // namespace geocoder
