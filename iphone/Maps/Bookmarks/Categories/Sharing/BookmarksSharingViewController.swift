@@ -217,9 +217,10 @@ final class BookmarksSharingViewController: MWMTableViewController {
   
   func showErrorAlert(_ error: NSError) {
     guard error.code == kCategoryUploadFailedCode,
-      let status = error.userInfo[kCategoryUploadStatusKey] as? MWMCategoryUploadStatus else {
-      assert(false)
-      return
+      let statusCode = error.userInfo[kCategoryUploadStatusKey] as? Int,
+      let status = MWMCategoryUploadStatus(rawValue: statusCode) else {
+        assert(false)
+        return
     }
     
     switch (status) {
