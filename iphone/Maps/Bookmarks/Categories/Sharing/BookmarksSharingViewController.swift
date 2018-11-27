@@ -204,13 +204,18 @@ final class BookmarksSharingViewController: MWMTableViewController {
   }
   
   func performAfterValidation(action: @escaping MWMVoidBlock) {
-    MWMFrameworkHelper.checkConnectionAndPerformAction { [weak self] in
-      if let self = self, let view = self.view {
-        self.signup(anchor: view, onComplete: { success in
-          if success {
-            action()
-          }
-        })
+    if MWMFrameworkHelper.isNetworkConnected() {
+      signup(anchor: view, onComplete: { success in
+        if success {
+          action()
+        }
+      })
+    } else {
+      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("common_check_internet_connection_dialog_title"),
+                                                               message: L("common_check_internet_connection_dialog"),
+                                                               rightButtonTitle: L("try_again"),
+                                                               leftButtonTitle: L("downloader_retry")) {
+                                                                self.performAfterValidation(action: action)
       }
     }
   }

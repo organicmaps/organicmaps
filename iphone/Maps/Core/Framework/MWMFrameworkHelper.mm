@@ -103,6 +103,11 @@
          GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_WWAN;
 }
 
++ (BOOL)isNetworkConnected
+{
+  return GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE;
+}
+
 + (MWMMarkGroupID)invalidCategoryId { return kml::kInvalidMarkGroupId; }
 
 @end

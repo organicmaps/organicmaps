@@ -14,6 +14,8 @@
 
 + (BOOL)canUseNetwork;
 
++ (BOOL)isNetworkConnected;
+
 + (MWMMarkGroupID)invalidCategoryId;
 
 @end
