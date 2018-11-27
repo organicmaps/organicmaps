@@ -174,11 +174,14 @@ void Hierarchy::IndexHouses()
         continue;
 
       size_t const t = static_cast<size_t>(Type::Street);
-      auto const * streetCandidates = GetEntries(be.m_address[t]);
-      if (streetCandidates == nullptr)
+
+      // GetEntries() cannot be used here because one of the
+      // "consts" in it conflicts with the emplace_back below.
+      auto streetCandidatesIt = m_entries.find(be.m_address[t]);
+      if (streetCandidatesIt == m_entries.end())
         continue;
 
-      for (auto & se : *streetCandidates)
+      for (auto & se : streetCandidatesIt->second)
       {
         if (se.IsParentTo(be))
           se.m_buildingsOnStreet.emplace_back(&be);

@@ -12,6 +12,7 @@
 #include "base/timer.hpp"
 
 #include <algorithm>
+#include <set>
 #include <utility>
 
 using namespace std;

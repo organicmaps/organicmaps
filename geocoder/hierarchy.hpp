@@ -74,7 +74,7 @@ public:
 
     // List of houses that belong to the street that is desribed by this entry.
     // Only valid if |m_type| is Type::Street.
-    mutable std::vector<Entry const *> m_buildingsOnStreet;
+    std::vector<Entry const *> m_buildingsOnStreet;
   };
 
   explicit Hierarchy(std::string const & pathToJsonHierarchy);
