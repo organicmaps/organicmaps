@@ -38,6 +38,16 @@ class CategorySettingsViewController: MWMTableViewController {
     navigationItem.rightBarButtonItem = saveButton
   }
   
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    switch section {
+    case 0:
+      // if there are no bookmarks in category, hide 'sharing options' row
+      return MWMBookmarksManager.shared().isCategoryNotEmpty(categoryId) ? 2 : 1
+    default:
+      return 1
+    }
+  }
+  
   func configureAccessStatus() {
     switch MWMBookmarksManager.shared().getCategoryAccessStatus(categoryId) {
     case .local:

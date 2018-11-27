@@ -132,9 +132,11 @@ final class BMCViewController: MWMViewController {
       self.shareCategoryFile(category: category, anchor: anchor)
     }))
     let share = L("sharing_options").capitalized
-    actionSheet.addAction(UIAlertAction(title: share, style: .default, handler: { _ in
+    let shareAction = UIAlertAction(title: share, style: .default, handler: { _ in
       self.shareCategory(category: category, anchor: anchor)
-    }))
+    })
+    shareAction.isEnabled = MWMBookmarksManager.shared().isCategoryNotEmpty(category.identifier)
+    actionSheet.addAction(shareAction)
     let delete = L("delete_list").capitalized
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(category: category)
