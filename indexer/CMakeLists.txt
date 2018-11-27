@@ -8,6 +8,8 @@ set(
   altitude_loader.hpp
   borders.cpp
   borders.hpp
+  brands_holder.cpp
+  brands_holder.hpp
   categories_holder.cpp
   categories_holder.hpp
   categories_holder_loader.cpp

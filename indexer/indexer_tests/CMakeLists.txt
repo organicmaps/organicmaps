@@ -4,6 +4,7 @@ set(
   SRC
   borders_test.cpp
   bounds.hpp
+  brands_tests.cpp
   categories_test.cpp
   cell_coverer_test.cpp
   cell_id_test.cpp
