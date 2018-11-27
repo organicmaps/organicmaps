@@ -17,7 +17,7 @@ namespace feature
 {
   class TypesHolder;
 
-  bool IsDrawableAny(uint32_t type);
+  bool TypeIsUseful(uint32_t type);
   bool IsDrawableForIndex(FeatureType & ft, int level);
   bool IsDrawableForIndex(TypesHolder const & types, m2::RectD limitRect, int level);
 
@@ -32,7 +32,8 @@ namespace feature
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(std::vector<uint32_t> const & types, EGeomType geomType);
   /// For FEATURE_TYPE_AREA removes line-drawing only types.
-  bool RemoveNoDrawableTypes(std::vector<uint32_t> & types, EGeomType geomType, bool emptyName = false);
+  bool RemoveUselessTypes(std::vector<uint32_t> & types, EGeomType geomType,
+                          bool emptyName = false);
   //@}
 
   int GetMinDrawableScale(FeatureType & ft);

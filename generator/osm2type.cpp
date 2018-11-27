@@ -311,7 +311,7 @@ private:
   buffer_vector<uint32_t, static_cast<size_t>(Type::Count)> m_types;
 };
 
-void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterDrawableType)
+void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterType)
 {
   set<int> skipRows;
   vector<ClassifObjectPtr> path;
@@ -378,7 +378,7 @@ void MatchTypes(OsmElement * p, FeatureParams & params, function<bool(uint32_t)>
     for (auto const & e : path)
       ftype::PushValue(t, e.GetIndex());
 
-    if (filterDrawableType(t))
+    if (filterType(t))
       params.AddType(t);
   } while (true);
 }
@@ -822,8 +822,7 @@ void PostprocessElement(OsmElement * p, FeatureParams & params)
 }
 }  // namespace
 
-void GetNameAndType(OsmElement * p, FeatureParams & params,
-                    function<bool(uint32_t)> filterDrawableType)
+void GetNameAndType(OsmElement * p, FeatureParams & params, function<bool(uint32_t)> filterType)
 {
   // Stage1: Preprocess tags.
   PreprocessElement(p);
@@ -902,7 +901,7 @@ void GetNameAndType(OsmElement * p, FeatureParams & params,
   });
 
   // Stage4: Match tags in classificator to find feature types.
-  MatchTypes(p, params, filterDrawableType);
+  MatchTypes(p, params, filterType);
 
   // Stage5: Postprocess feature types.
   PostprocessElement(p, params);

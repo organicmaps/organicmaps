@@ -182,13 +182,14 @@ bool TranslatorPlanet::ParseType(OsmElement * p, FeatureParams & params)
 
   m_routingTagsProcessor.m_cameraNodeWriter.Process(*p, params, m_cache);
   m_routingTagsProcessor.m_roadAccessWriter.Process(*p);
+
   return true;
 }
 
 void TranslatorPlanet::EmitPoint(m2::PointD const & pt, FeatureParams params,
                                  base::GeoObjectId id) const
 {
-  if (!feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
+  if (!feature::RemoveUselessTypes(params.m_types, feature::GEOM_POINT))
     return;
 
   FeatureBuilder1 ft;
@@ -199,7 +200,7 @@ void TranslatorPlanet::EmitPoint(m2::PointD const & pt, FeatureParams params,
 
 void TranslatorPlanet::EmitLine(FeatureBuilder1 & ft, FeatureParams params, bool isCoastLine) const
 {
-  if (!isCoastLine && !feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_LINE))
+  if (!isCoastLine && !feature::RemoveUselessTypes(params.m_types, feature::GEOM_LINE))
     return;
 
   ft.SetLinear(params.m_reverseGeometry);
@@ -230,12 +231,12 @@ void TranslatorPlanet::EmitArea(FeatureBuilder1 & ft, FeatureParams params,
     m_emitter->EmitCityBoundary(fb, params);
   }
 
-  // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
-  // work a bit different for GEOM_AREA.
+  // Key point here is that IsDrawableLike and RemoveUselessTypes
+  // work a bit differently for GEOM_AREA.
   if (IsDrawableLike(params.m_types, GEOM_AREA))
   {
     // Make the area feature if it has unique area styles.
-    VERIFY(RemoveNoDrawableTypes(params.m_types, GEOM_AREA), (params));
+    VERIFY(RemoveUselessTypes(params.m_types, GEOM_AREA), (params));
     fn(ft);
     EmitFeatureBase(ft, params);
   }

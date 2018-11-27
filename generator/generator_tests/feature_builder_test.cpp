@@ -138,7 +138,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FBbuilder_GetMostGeneralOsmId)
   TEST_EQUAL(fb.GetMostGenericOsmId(), base::MakeOsmRelation(1), ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveNoDrawableTypes)
+UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveUselessTypes)
 {
   Classificator const & c = classif();
 
@@ -147,7 +147,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveNoDrawableTypes)
     types.push_back(c.GetTypeByPath({ "building" }));
     types.push_back(c.GetTypeByPath({ "amenity", "theatre" }));
 
-    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
+    TEST(feature::RemoveUselessTypes(types, feature::GEOM_AREA), ());
     TEST_EQUAL(types.size(), 2, ());
   }
 
@@ -156,7 +156,7 @@ UNIT_CLASS_TEST(TestWithClassificator, FVisibility_RemoveNoDrawableTypes)
     types.push_back(c.GetTypeByPath({ "highway", "primary" }));
     types.push_back(c.GetTypeByPath({ "building" }));
 
-    TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA, true), ());
+    TEST(feature::RemoveUselessTypes(types, feature::GEOM_AREA, true /* emptyName */), ());
     TEST_EQUAL(types.size(), 1, ());
     TEST_EQUAL(types[0], c.GetTypeByPath({ "building" }), ());
   }

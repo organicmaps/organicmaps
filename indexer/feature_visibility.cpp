@@ -217,7 +217,7 @@ namespace
 
   bool HasRoutingExceptionType(uint32_t t)
   {
-    static const uint32_t s = classif().GetTypeByPath({ "route", "shuttle_train" });
+    static uint32_t const s = classif().GetTypeByPath({"route", "shuttle_train"});
     return s == t;
   }
 
@@ -228,18 +228,11 @@ namespace
     if (!classif().IsTypeValid(type))
       return false;
 
-    static const uint32_t roundabout = classif().GetTypeByPath({ "junction", "roundabout" });
-    static const uint32_t hwtag = classif().GetTypeByPath({ "hwtag" });
-    static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
-    static const uint32_t wheelchair = classif().GetTypeByPath({ "wheelchair" });
-    static const uint32_t sponsored = classif().GetTypeByPath({ "sponsored" });
-    static const uint32_t cuisine = classif().GetTypeByPath({ "cuisine" });
+    static uint32_t const roundabout = classif().GetTypeByPath({"junction", "roundabout"});
+    static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
+    static uint32_t const sponsored = classif().GetTypeByPath({"sponsored"});
     // Reserved for custom event processing, i.e. fc2018.
-    //static const uint32_t event = classif().GetTypeByPath({ "event" });
-    static const uint32_t internet = classif().GetTypeByPath({ "internet_access" });
-
-    // Caching type length to exclude generic [wheelchair].
-    uint8_t const typeLength = ftype::GetLevel(type);
+    // static uint32_t const event = classif().GetTypeByPath({"event" });
 
     if (g == GEOM_LINE || g == GEOM_UNDEFINED)
     {
@@ -248,20 +241,9 @@ namespace
 
       if (HasRoutingExceptionType(type))
         return true;
-
-      ftype::TruncValue(type, 1);
-      if (hwtag == type || psurface == type)
-        return true;
     }
 
-    // We're okay with the type being already truncated above.
     ftype::TruncValue(type, 1);
-    if (wheelchair == type && typeLength == 2)
-      return true;
-
-    if (cuisine == type)
-      return true;
-
     if (g != GEOM_LINE)
     {
       if (sponsored == type || internet == type)
@@ -274,11 +256,45 @@ namespace
 
     return false;
   }
-}
 
-bool IsDrawableAny(uint32_t type)
+  /// Add here all exception classificator types: needed for algorithms,
+  /// but don't have drawing rules.
+  bool IsUsefulNondrawableType(uint32_t type, EGeomType g = GEOM_UNDEFINED)
+  {
+    if (!classif().IsTypeValid(type))
+      return false;
+
+    if (TypeAlwaysExists(type, g))
+      return true;
+
+    static uint32_t const hwtag = classif().GetTypeByPath({"hwtag"});
+    static uint32_t const psurface = classif().GetTypeByPath({"psurface"});
+    static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
+    static uint32_t const cuisine = classif().GetTypeByPath({"cuisine"});
+
+    // Caching type length to exclude generic [wheelchair].
+    uint8_t const typeLength = ftype::GetLevel(type);
+
+    ftype::TruncValue(type, 1);
+    if (g == GEOM_LINE || g == GEOM_UNDEFINED)
+    {
+      if (hwtag == type || psurface == type)
+        return true;
+    }
+
+    if (wheelchair == type && typeLength == 2)
+      return true;
+
+    if (cuisine == type)
+      return true;
+
+    return false;
+  }
+}  // namespace
+
+bool TypeIsUseful(uint32_t type)
 {
-  return (TypeAlwaysExists(type) || classif().GetObject(type)->IsDrawableAny());
+  return IsUsefulNondrawableType(type) || classif().GetObject(type)->IsDrawableAny();
 }
 
 bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType)
@@ -335,13 +351,13 @@ bool IsDrawableForIndexClassifOnly(TypesHolder const & types, int level)
   return false;
 }
 
-bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
+bool RemoveUselessTypes(vector<uint32_t> & types, EGeomType geomType, bool emptyName)
 {
   Classificator const & c = classif();
 
   types.erase(remove_if(types.begin(), types.end(), [&] (uint32_t t)
   {
-   if (TypeAlwaysExists(t, geomType))
+   if (IsUsefulNondrawableType(t, geomType))
      return false;
 
    IsDrawableLikeChecker doCheck(geomType, emptyName);

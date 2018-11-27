@@ -167,9 +167,8 @@ bool FeatureBuilder1::RemoveInvalidTypes()
   if (!m_params.FinishAddingTypes())
     return false;
 
-  return feature::RemoveNoDrawableTypes(m_params.m_types,
-                                        m_params.GetGeomType(),
-                                        m_params.IsEmptyNames());
+  return feature::RemoveUselessTypes(m_params.m_types, m_params.GetGeomType(),
+                                     m_params.IsEmptyNames());
 }
 
 bool FeatureBuilder1::FormatFullAddress(string & res) const
