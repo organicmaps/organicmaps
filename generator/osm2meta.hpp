@@ -100,8 +100,9 @@ public:
     case Metadata::FMD_SPONSORED_ID:
     case Metadata::FMD_PRICE_RATE:
     case Metadata::FMD_RATING:
+    case Metadata::FMD_BRAND:
     case Metadata::FMD_TEST_ID:
-    case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
+    case Metadata::FMD_COUNT: CHECK(false, (mdType, "should not be parsed from OSM"));
     }
     md.Set(mdType, valid);
     return false;

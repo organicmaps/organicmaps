@@ -62,7 +62,7 @@ class MWM:
                 "turn_lanes", "turn_lanes_forward", "turn_lanes_backward", "email", "postcode",
                 "wikipedia", "maxspeed", "flats", "height", "min_height",
                 "denomination", "building_levels", "test_id", "ref:sponsored", "price_rate",
-                "rating", "fuel", "routes"]
+                "rating", "banner_url", "level", "iata", "brand"]
 
     regiondata = ["languages", "driving", "timezone", "addr_fmt", "phone_fmt", "postcode_fmt", "holidays", "housenames"]
 

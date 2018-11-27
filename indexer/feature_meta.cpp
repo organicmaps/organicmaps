@@ -192,6 +192,7 @@ string ToString(feature::Metadata::EType type)
   case Metadata::FMD_BANNER_URL: return "banner_url";
   case Metadata::FMD_LEVEL: return "level";
   case Metadata::FMD_AIRPORT_IATA: return "iata";
+  case Metadata::FMD_BRAND: return "brand";
   case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
   };
 
