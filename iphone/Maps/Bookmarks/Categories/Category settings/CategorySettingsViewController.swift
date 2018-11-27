@@ -24,6 +24,7 @@ class CategorySettingsViewController: MWMTableViewController {
   @IBOutlet private weak var descriptionTextView: UITextView!
   @IBOutlet private weak var descriptionCell: UITableViewCell!
   @IBOutlet private weak var saveButton: UIBarButtonItem!
+  @IBOutlet private weak var deleteListButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,6 +33,7 @@ class CategorySettingsViewController: MWMTableViewController {
     
     assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "must provide category info")
 
+    deleteListButton.isEnabled = (manager.groupsIdList().count > 1)
     nameTextField.text = manager.getCategoryName(categoryId)
     descriptionTextView.text = manager.getCategoryDescription(categoryId)
     configureAccessStatus()

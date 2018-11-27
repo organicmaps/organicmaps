@@ -137,16 +137,18 @@
                             </tableViewSection>
                             <tableViewSection id="LeZ-S5-Rxs">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WjK-j0-RKa">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="WjK-j0-RKa">
                                         <rect key="frame" x="0.0" y="299" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WjK-j0-RKa" id="5HB-S5-Pl2">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u56-Jh-ACU">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u56-Jh-ACU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="43.5" id="1mi-1o-cIZ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <state key="normal" title="Delete List">
                                                         <color key="titleColor" red="0.95686274510000002" green="0.26274509800000001" blue="0.21176470589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -154,12 +156,20 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="red"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="delete_list"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="textColorDisabledName" value="blackHintText"/>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="deleteListButtonPressed:" destination="tgw-vx-qJ3" eventType="touchUpInside" id="hEg-uB-1pl"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="u56-Jh-ACU" firstAttribute="leading" secondItem="5HB-S5-Pl2" secondAttribute="leading" id="IuM-bU-Md7"/>
+                                                <constraint firstAttribute="trailing" secondItem="u56-Jh-ACU" secondAttribute="trailing" id="cOH-qJ-mS1"/>
+                                                <constraint firstItem="u56-Jh-ACU" firstAttribute="top" secondItem="5HB-S5-Pl2" secondAttribute="top" id="vyj-Ac-n3I"/>
+                                                <constraint firstAttribute="bottom" secondItem="u56-Jh-ACU" secondAttribute="bottom" id="wnb-Bb-HMW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -174,6 +184,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="accessStatusLabel" destination="hwp-Cw-qHJ" id="FFA-EU-pHx"/>
+                        <outlet property="deleteListButton" destination="u56-Jh-ACU" id="YGi-6E-uHB"/>
                         <outlet property="descriptionCell" destination="WFB-XH-2pJ" id="gBu-qU-6AM"/>
                         <outlet property="descriptionTextView" destination="2hT-xL-Vpf" id="ZGf-vb-TFO"/>
                         <outlet property="nameTextField" destination="cbH-NH-2Hd" id="NoV-HY-TxN"/>
