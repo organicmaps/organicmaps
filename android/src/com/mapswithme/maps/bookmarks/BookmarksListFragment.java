@@ -281,6 +281,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     if (isDownloadedCategory())
       return;
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
+    MenuItem item = menu.findItem(R.id.share);
+    item.setVisible(getCategoryOrThrow().isSharingOptionsAllowed());
   }
 
 
