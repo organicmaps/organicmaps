@@ -141,6 +141,9 @@ protected:
   void OnContextCreate() override;
   void OnContextDestroy() override;
 
+  void OnRenderingEnabled() override;
+  void OnRenderingDisabled() override;
+
 private:
   void OnResize(ScreenBase const & screen);
   void RenderScene(ScreenBase const & modelView, bool activeFrame);

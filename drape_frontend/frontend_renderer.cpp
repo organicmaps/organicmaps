@@ -140,7 +140,6 @@ private:
 #define DEBUG_LABEL(context, labelText)
 #endif
 
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
 class DrapeMeasurerGuard
 {
 public:
@@ -151,10 +150,21 @@ public:
 
   ~DrapeMeasurerGuard()
   {
-    DrapeMeasurer::Instance().AfterRenderFrame();
+    DrapeMeasurer::Instance().AfterRenderFrame(m_isActiveFrame, m_viewportCenter);
   }
+
+  void SetProperties(bool isActiveFrame, m2::PointD const & viewportCenter)
+  {
+    m_isActiveFrame = isActiveFrame;
+    m_viewportCenter = viewportCenter;
+  }
+
+private:
+  bool m_isActiveFrame = false;
+  m2::PointD m_viewportCenter = m2::PointD::Zero();
 };
 
+#if defined(DRAPE_MEASURER_BENCHMARK) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
 class DrapeImmediateRenderingMeasurerGuard
 {
 public:
@@ -345,7 +355,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
       if (m_notFinishedTiles.empty())
       {
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndScenePreparing();
 #endif
         m_trafficRenderer->OnGeometryReady(m_currentZoomLevel);
@@ -1300,7 +1310,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
 void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
 {
   CHECK(m_context != nullptr, ());
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
+#if defined(DRAPE_MEASURER_BENCHMARK) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
   DrapeImmediateRenderingMeasurerGuard drapeMeasurerGuard(m_context);
 #endif
 
@@ -1607,9 +1617,7 @@ void FrontendRenderer::RenderEmptyFrame()
 
 void FrontendRenderer::RenderFrame()
 {
-#if defined(DRAPE_MEASURER) && (defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM))
   DrapeMeasurerGuard drapeMeasurerGuard;
-#endif
   
   CHECK(m_context != nullptr, ());
   if (!m_context->Validate())
@@ -1648,6 +1656,10 @@ void FrontendRenderer::RenderFrame()
 #ifdef SHOW_FRAMES_STATS
   m_frameData.m_framesOverall += static_cast<uint64_t>(isActiveFrame);
   m_frameData.m_framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
+#endif
+
+#ifndef DRAPE_MEASURER_BENCHMARK
+  drapeMeasurerGuard.SetProperties(isActiveFrameForScene, modelView.GetOrg());
 #endif
 
   RenderScene(modelView, isActiveFrameForScene);
@@ -2081,7 +2093,7 @@ TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 
   m_trafficRenderer->OnUpdateViewport(result, m_currentZoomLevel, tilesToDelete);
 
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
   DrapeMeasurer::Instance().StartScenePreparing();
 #endif
 
@@ -2194,6 +2206,20 @@ void FrontendRenderer::OnContextCreate()
   m_transitBackground = make_unique_dp<ScreenQuadRenderer>(m_context);
 }
 
+void FrontendRenderer::OnRenderingEnabled()
+{
+#ifndef DRAPE_MEASURER_BENCHMARK
+  DrapeMeasurer::Instance().Start();
+#endif
+}
+
+void FrontendRenderer::OnRenderingDisabled()
+{
+#ifndef DRAPE_MEASURER_BENCHMARK
+  DrapeMeasurer::Instance().Stop();
+#endif
+}
+
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}
 
 void FrontendRenderer::Routine::Do()
@@ -2221,11 +2247,19 @@ void FrontendRenderer::Routine::Do()
   });
 #endif
 
+#ifndef DRAPE_MEASURER_BENCHMARK
+  DrapeMeasurer::Instance().SetApiVersion(m_renderer.m_apiVersion);
+  DrapeMeasurer::Instance().SetGpuName(m_renderer.m_context->GetRendererName());
+  DrapeMeasurer::Instance().Start();
+#endif
   while (!IsCancelled())
   {
     RENDER_FRAME(m_renderer.RenderFrame());
     m_renderer.CheckRenderingEnabled();
   }
+#ifndef DRAPE_MEASURER_BENCHMARK
+  DrapeMeasurer::Instance().Stop(true /* forceProcessRealtimeStats */);
+#endif
 
   m_renderer.CollectShowOverlaysEvents();
   m_renderer.ReleaseResources();

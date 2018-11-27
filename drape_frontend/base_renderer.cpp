@@ -123,6 +123,8 @@ void BaseRenderer::CheckRenderingEnabled()
       context->SetRenderingEnabled(false);
     }
 
+    OnRenderingDisabled();
+
     // notify initiator-thread about rendering disabling
     Notify();
 
@@ -151,6 +153,8 @@ void BaseRenderer::CheckRenderingEnabled()
     // notify initiator-thread about rendering enabling
     // m_renderingEnablingCompletionHandler will be setup before awakening of this thread
     Notify();
+
+    OnRenderingEnabled();
 
     if (needCreateContext)
     {

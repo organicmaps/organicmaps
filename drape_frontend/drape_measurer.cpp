@@ -1,5 +1,11 @@
 #include "drape_frontend/drape_measurer.hpp"
 
+#include "platform/platform.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "3party/Alohalytics/src/alohalytics.h"
+
 #include <iomanip>
 
 namespace df
@@ -10,14 +16,15 @@ DrapeMeasurer & DrapeMeasurer::Instance()
   return s_inst;
 }
 
-void DrapeMeasurer::StartBenchmark()
+void DrapeMeasurer::Start()
 {
   using namespace std::chrono;
+  if (m_isEnabled)
+    return;
+
   m_isEnabled = true;
 
-#if defined(GENERATING_STATISTIC) || defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
   auto currentTime = steady_clock::now();
-#endif
 
 #ifdef GENERATING_STATISTIC
   m_startScenePreparingTime = currentTime;
@@ -39,7 +46,7 @@ void DrapeMeasurer::StartBenchmark()
   }
 #endif
 
-#ifdef RENDER_STATISTIC
+#if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
   m_totalTPF = steady_clock::duration::zero();
   m_totalTPFCount = 0;
 
@@ -47,17 +54,26 @@ void DrapeMeasurer::StartBenchmark()
   m_fpsDistribution.clear();
   m_totalFPS = 0.0;
   m_totalFPSCount = 0;
-#endif
 
-#if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
-  m_startFrameRenderTime = currentTime;
-  m_totalFrameRenderTime = steady_clock::duration::zero();
-  m_totalFramesCount = 0;
-
+  m_startImmediateRenderingTime = currentTime;
   m_immediateRenderingFramesCount = 0;
   m_immediateRenderingTimeSum = steady_clock::duration::zero();
   m_immediateRenderingMinFps = std::numeric_limits<uint32_t>::max();
+
+  m_totalFrameRenderTime = steady_clock::duration::zero();
+  m_totalFramesCount = 0;
 #endif
+
+  m_startFrameRenderTime = currentTime;
+
+  if (m_realtimeTotalFramesCount == 0)
+  {
+    m_realtimeMinFrameRenderTime = steady_clock::duration::max();
+    m_realtimeMaxFrameRenderTime = steady_clock::duration::min();
+    m_realtimeTotalFrameRenderTime = steady_clock::duration::zero();
+    m_realtimeSlowFramesCount = 0;
+    m_realtimeRenderingBox = {};
+  }
 
 #ifdef TRACK_GPU_MEM
   m_maxSnapshotValues = dp::GPUMemTracker::GPUMemorySnapshot();
@@ -66,9 +82,51 @@ void DrapeMeasurer::StartBenchmark()
 #endif
 }
 
-void DrapeMeasurer::StopBenchmark()
+void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
 {
+  using namespace std::chrono;
+  if (!m_isEnabled)
+    return;
+
   m_isEnabled = false;
+
+#ifndef DRAPE_MEASURER_BENCHMARK
+  if ((forceProcessRealtimeStats && m_realtimeTotalFramesCount > 0) ||
+      m_realtimeTotalFramesCount >= 1000)
+  {
+    auto const minMs = duration_cast<milliseconds>(m_realtimeMinFrameRenderTime).count();
+    auto const maxMs = duration_cast<milliseconds>(m_realtimeMaxFrameRenderTime).count();
+    auto const avgMs = duration_cast<milliseconds>(m_realtimeTotalFrameRenderTime).count() /
+                       m_realtimeTotalFramesCount;
+
+    auto const latLonRect = MercatorBounds::ToLatLonRect(m_realtimeRenderingBox);
+    alohalytics::Stats::Instance().LogEvent(
+        "RenderingStats", {{"version", GetPlatform().GetAppUserAgent().GetAppVersion()},
+                           {"device", GetPlatform().DeviceModel()},
+                           {"gpu", m_gpuName},
+                           {"api", DebugPrint(m_apiVersion)},
+                           {"minFrameTime", strings::to_string(minMs)},
+                           {"maxFrameTime", strings::to_string(maxMs)},
+                           {"avgFrameTime", strings::to_string(avgMs)},
+                           {"slowFrames", strings::to_string(m_realtimeSlowFramesCount)},
+                           {"frames", strings::to_string(m_realtimeTotalFramesCount)},
+                           {"viewportMinLat", strings::to_string(latLonRect.minX())},
+                           {"viewportMinLon", strings::to_string(latLonRect.minY())},
+                           {"viewportMaxLat", strings::to_string(latLonRect.maxX())},
+                           {"viewportMaxLon", strings::to_string(latLonRect.maxY())}});
+    m_realtimeTotalFramesCount = 0;
+  }
+#endif
+}
+
+void DrapeMeasurer::SetApiVersion(dp::ApiVersion apiVersion)
+{
+  m_apiVersion = apiVersion;
+}
+
+void DrapeMeasurer::SetGpuName(std::string const & gpuName)
+{
+  m_gpuName = gpuName;
 }
 
 #ifdef GENERATING_STATISTIC
@@ -145,7 +203,6 @@ DrapeMeasurer::GeneratingStatistic DrapeMeasurer::GetGeneratingStatistic()
 
   return statistic;
 }
-
 #endif
 
 #ifdef RENDER_STATISTIC
@@ -204,7 +261,6 @@ DrapeMeasurer::RenderStatistic DrapeMeasurer::GetRenderStatistic()
 }
 #endif
 
-#if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
 void DrapeMeasurer::BeforeRenderFrame()
 {
   if (!m_isEnabled)
@@ -213,6 +269,59 @@ void DrapeMeasurer::BeforeRenderFrame()
   m_startFrameRenderTime = std::chrono::steady_clock::now();
 }
 
+void DrapeMeasurer::AfterRenderFrame(bool isActiveFrame, m2::PointD const & viewportCenter)
+{
+  using namespace std::chrono;
+
+  if (!m_isEnabled)
+    return;
+
+  auto const frameTime = steady_clock::now() - m_startFrameRenderTime;
+  if (isActiveFrame)
+  {
+    if (MercatorBounds::FullRect().IsPointInside(viewportCenter))
+      m_realtimeRenderingBox.Add(viewportCenter);
+    m_realtimeTotalFrameRenderTime += frameTime;
+    m_realtimeMinFrameRenderTime = std::min(m_realtimeMinFrameRenderTime, frameTime);
+    m_realtimeMaxFrameRenderTime = std::max(m_realtimeMaxFrameRenderTime, frameTime);
+
+    auto const frameTimeMs = duration_cast<milliseconds>(frameTime).count();
+    if (frameTimeMs <= 30)
+      ++m_realtimeSlowFramesCount;
+
+    ++m_realtimeTotalFramesCount;
+  }
+
+#if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
+  ++m_totalFramesCount;
+  m_totalFrameRenderTime += frameTime;
+
+  auto const elapsed = duration_cast<milliseconds>(m_totalFrameRenderTime).count();
+  if (elapsed >= 30)
+  {
+    double fps = m_totalFramesCount * 1000.0 / elapsed;
+    m_minFPS = std::min(m_minFPS, static_cast<uint32_t>(fps));
+
+    m_totalFPS += fps;
+    ++m_totalFPSCount;
+
+    m_totalTPF += m_totalFrameRenderTime / m_totalFramesCount;
+    ++m_totalTPFCount;
+
+    auto const fpsGroup = (static_cast<uint32_t>(fps) / 10) * 10;
+    m_fpsDistribution[fpsGroup]++;
+
+    m_totalFramesCount = 0;
+    m_totalFrameRenderTime = steady_clock::duration::zero();
+
+#ifdef TRACK_GPU_MEM
+    TakeGPUMemorySnapshot();
+#endif
+  }
+#endif
+}
+
+#if defined(RENDER_STATISTIC) || defined(TRACK_GPU_MEM)
 void DrapeMeasurer::BeforeImmediateRendering()
 {
   if (!m_isEnabled)
@@ -237,42 +346,6 @@ void DrapeMeasurer::AfterImmediateRendering()
   {
     auto const fps = static_cast<uint32_t>(1000 / elapsedMs);
     m_immediateRenderingMinFps = std::min(m_immediateRenderingMinFps, fps);
-  }
-}
-
-void DrapeMeasurer::AfterRenderFrame()
-{
-  using namespace std::chrono;
-
-  if (!m_isEnabled)
-    return;
-
-  ++m_totalFramesCount;
-  m_totalFrameRenderTime += (steady_clock::now() - m_startFrameRenderTime);
-
-  auto const elapsed = duration_cast<milliseconds>(m_totalFrameRenderTime).count();
-  if (elapsed >= 30)
-  {
-#ifdef RENDER_STATISTIC
-    double fps = m_totalFramesCount * 1000.0 / elapsed;
-    m_minFPS = std::min(m_minFPS, static_cast<uint32_t>(fps));
-
-    m_totalFPS += fps;
-    ++m_totalFPSCount;
-
-    m_totalTPF += m_totalFrameRenderTime / m_totalFramesCount;
-    ++m_totalTPFCount;
-
-    auto const fpsGroup = (static_cast<uint32_t>(fps) / 10) * 10;
-    m_fpsDistribution[fpsGroup]++;
-#endif
-
-    m_totalFramesCount = 0;
-    m_totalFrameRenderTime = steady_clock::duration::zero();
-
-#ifdef TRACK_GPU_MEM
-    TakeGPUMemorySnapshot();
-#endif
   }
 }
 #endif

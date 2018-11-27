@@ -228,7 +228,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         CHECK(m_context != nullptr, ());
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(tileKey);
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().StartShapesGeneration();
 #endif
         for (drape_ptr<MapShape> const & shape : msg->GetShapes())
@@ -236,7 +236,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
           batcher->SetFeatureMinZoom(shape->GetFeatureMinZoom());
           shape->Draw(m_context, batcher, m_texMng);
         }
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndShapesGeneration(static_cast<uint32_t>(msg->GetShapes().size()));
 #endif
       }
@@ -252,7 +252,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
         CHECK(m_context != nullptr, ());
         CleanupOverlays(tileKey);
 
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().StartOverlayShapesGeneration();
 #endif
         OverlayBatcher batcher(tileKey);
@@ -267,7 +267,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
           std::move(renderData.begin(), renderData.end(), back_inserter(m_overlays));
         }
 
-#if defined(DRAPE_MEASURER) && defined(GENERATING_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().EndOverlayShapesGeneration(
               static_cast<uint32_t>(msg->GetShapes().size()));
 #endif

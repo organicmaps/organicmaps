@@ -31,7 +31,7 @@ struct BenchmarkHandle
   std::vector<storage::TCountryId> m_regionsToDownload;
   size_t m_regionsToDownloadCounter = 0;
 
-#ifdef DRAPE_MEASURER
+#ifdef DRAPE_MEASURER_BENCHMARK
   std::vector<std::pair<string, df::DrapeMeasurer::DrapeStatistic>> m_drapeStatistic;
 #endif
 };
@@ -40,7 +40,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
 {
   if (handle->m_currentScenario >= handle->m_scenariosToRun.size())
   {
-#ifdef DRAPE_MEASURER
+#ifdef DRAPE_MEASURER_BENCHMARK
     for (auto const & it : handle->m_drapeStatistic)
     {
       LOG(LINFO, ("\n ***** Report for scenario", it.first, "*****\n",
@@ -57,14 +57,14 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
   framework->GetDrapeEngine()->RunScenario(std::move(scenarioData),
                                            [handle](std::string const & name)
   {
-#ifdef DRAPE_MEASURER
-    df::DrapeMeasurer::Instance().StartBenchmark();
+#ifdef DRAPE_MEASURER_BENCHMARK
+    df::DrapeMeasurer::Instance().Start();
 #endif
   },
   [framework, handle](std::string const & name)
   {
-#ifdef DRAPE_MEASURER
-    df::DrapeMeasurer::Instance().StopBenchmark();
+#ifdef DRAPE_MEASURER_BENCHMARK
+    df::DrapeMeasurer::Instance().Stop();
     auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
     handle->m_drapeStatistic.push_back(make_pair(name, drapeStatistic));
 #endif

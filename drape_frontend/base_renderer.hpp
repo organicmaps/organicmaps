@@ -63,6 +63,9 @@ protected:
   virtual void OnContextCreate() = 0;
   virtual void OnContextDestroy() = 0;
 
+  virtual void OnRenderingEnabled() {}
+  virtual void OnRenderingDisabled() {}
+
 private:
   using TCompletionHandler = std::function<void()>;
 

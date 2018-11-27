@@ -55,7 +55,7 @@ void TileInfo::ReadFeatureIndex(MapDataProvider const & model)
 
 void TileInfo::ReadFeatures(MapDataProvider const & model)
 {
-#if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(TILES_STATISTIC)
   DrapeMeasurer::Instance().StartTileReading();
 #endif
   m_context->BeginReadTile();
@@ -77,7 +77,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
                       model.GetFilter(), make_ref(m_context));
     model.ReadFeatures(std::bind<void>(std::ref(drawer), _1), m_featureInfo);
   }
-#if defined(DRAPE_MEASURER) && defined(TILES_STATISTIC)
+#if defined(DRAPE_MEASURER_BENCHMARK) && defined(TILES_STATISTIC)
   DrapeMeasurer::Instance().EndTileReading();
 #endif
 }
