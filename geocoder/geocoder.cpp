@@ -91,7 +91,7 @@ bool HasParent(vector<geocoder::Geocoder::Layer> const & layers,
 
 strings::UniString MakeHouseNumber(geocoder::Tokens const & tokens)
 {
-  return strings::JoinStrings(tokens, strings::MakeUniString(""));
+  return strings::MakeUniString(strings::JoinStrings(tokens, " "));
 }
 }  // namespace
 
@@ -100,7 +100,7 @@ namespace geocoder
 // Geocoder::Context -------------------------------------------------------------------------------
 Geocoder::Context::Context(string const & query) : m_beam(kMaxResults)
 {
-  search::NormalizeAndTokenizeString(query, m_tokens);
+  search::NormalizeAndTokenizeAsUtf8(query, m_tokens);
   m_tokenTypes.assign(m_tokens.size(), Type::Count);
   m_numUsedTokens = 0;
 }
@@ -115,7 +115,7 @@ size_t Geocoder::Context::GetNumUsedTokens() const
   return m_numUsedTokens;
 }
 
-strings::UniString const & Geocoder::Context::GetToken(size_t id) const
+string const & Geocoder::Context::GetToken(size_t id) const
 {
   CHECK_LESS(id, m_tokens.size(), ());
   return m_tokens[id];
@@ -210,7 +210,7 @@ void Geocoder::Go(Context & ctx, Type type) const
   if (type == Type::Count)
     return;
 
-  vector<strings::UniString> subquery;
+  Tokens subquery;
   for (size_t i = 0; i < ctx.GetNumTokens(); ++i)
   {
     subquery.clear();

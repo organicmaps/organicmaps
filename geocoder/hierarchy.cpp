@@ -19,6 +19,11 @@ namespace
 {
 // Information will be logged for every |kLogBatch| entries.
 size_t const kLogBatch = 100000;
+
+string MakeIndexKey(geocoder::Tokens const & tokens)
+{
+  return strings::JoinStrings(tokens, " ");
+}
 }  // namespace
 
 namespace geocoder
@@ -67,7 +72,8 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
       LOG(LDEBUG, ("Duplicate address field", type, "when parsing", jsonStr));
       hasDuplicateAddress = true;
     }
-    search::NormalizeAndTokenizeString(levelValue, m_address[i]);
+
+    search::NormalizeAndTokenizeAsUtf8(levelValue, m_address[i]);
 
     if (!m_address[i].empty())
       m_type = static_cast<Type>(i);
@@ -75,7 +81,7 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
 
   m_nameTokens.clear();
   FromJSONObjectOptionalField(properties, "name", m_name);
-  search::NormalizeAndTokenizeString(m_name, m_nameTokens);
+  search::NormalizeAndTokenizeAsUtf8(m_name, m_nameTokens);
 
   if (m_name.empty())
     ++stats.m_emptyNames;
@@ -140,6 +146,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     ++stats.m_numLoaded;
     if (stats.m_numLoaded % kLogBatch == 0)
       LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
+
     m_entriesStorage.emplace_back(move(entry));
   }
 
@@ -160,10 +167,9 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   LOG(LINFO, ("(End of stats.)"));
 }
 
-vector<Hierarchy::Entry *> const * const Hierarchy::GetEntries(
-    vector<strings::UniString> const & tokens) const
+vector<Hierarchy::Entry *> const * const Hierarchy::GetEntries(Tokens const & tokens) const
 {
-  auto it = m_entriesByTokens.find(tokens);
+  auto it = m_entriesByTokens.find(MakeIndexKey(tokens));
   if (it == m_entriesByTokens.end())
     return {};
 
@@ -181,7 +187,7 @@ void Hierarchy::IndexEntries()
       continue;
 
     size_t const t = static_cast<size_t>(e.m_type);
-    m_entriesByTokens[e.m_address[t]].emplace_back(&e);
+    m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
 
     // Index every token but do not index prefixes.
     // for (auto const & tok : entry.m_address[t])

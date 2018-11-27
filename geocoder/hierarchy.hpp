@@ -3,13 +3,12 @@
 #include "geocoder/types.hpp"
 
 #include "base/geo_object_id.hpp"
-#include "base/string_utils.hpp"
 
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <map>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -85,8 +84,7 @@ public:
   // todo This method (and the whole class, in fact) is in the
   //      prototype stage and may be too slow. Proper indexing should
   //      be implemented to perform this type of queries.
-  std::vector<Entry *> const * const GetEntries(
-      std::vector<strings::UniString> const & tokens) const;
+  std::vector<Entry *> const * const GetEntries(Tokens const & tokens) const;
 
 private:
   // Adds address information of entries to the index.
@@ -95,7 +93,7 @@ private:
   // Fills |m_buildingsOnStreet| field for all street entries.
   void IndexHouses();
 
-  std::map<Tokens, std::vector<Entry *>> m_entriesByTokens;
+  std::unordered_map<std::string, std::vector<Entry *>> m_entriesByTokens;
 
   std::vector<Entry> m_entriesStorage;
 };

@@ -30,7 +30,7 @@ string const kRegionsData = R"#(
 geocoder::Tokens Split(string const & s)
 {
   geocoder::Tokens result;
-  search::NormalizeAndTokenizeString(s, result);
+  search::NormalizeAndTokenizeAsUtf8(s, result);
   return result;
 }
 }  // namespace
@@ -71,7 +71,7 @@ UNIT_TEST(Geocoder_Hierarchy)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  auto entries = geocoder.GetHierarchy().GetEntries({strings::MakeUniString("florencia")});
+  auto entries = geocoder.GetHierarchy().GetEntries({("florencia")});
 
   TEST(entries, ());
   TEST_EQUAL(entries->size(), 1, ());

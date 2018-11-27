@@ -8,6 +8,7 @@
 #include "base/geo_object_id.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstddef>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -55,7 +56,7 @@ public:
     size_t GetNumTokens() const;
     size_t GetNumUsedTokens() const;
 
-    strings::UniString const & GetToken(size_t id) const;
+    std::string const & GetToken(size_t id) const;
 
     void MarkToken(size_t id, Type type);
 
@@ -74,8 +75,7 @@ public:
     std::vector<Layer> const & GetLayers() const;
 
   private:
-    // todo(@m) std::string?
-    std::vector<strings::UniString> m_tokens;
+    Tokens m_tokens;
     std::vector<Type> m_tokenTypes;
 
     size_t m_numUsedTokens = 0;

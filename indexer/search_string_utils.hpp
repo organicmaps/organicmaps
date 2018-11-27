@@ -36,6 +36,14 @@ void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens)
                  search::Delimiters());
 }
 
+template <typename Tokens>
+void NormalizeAndTokenizeAsUtf8(std::string const & s, Tokens & tokens)
+{
+  tokens.clear();
+  auto const fn = [&](strings::UniString const & s) { tokens.emplace_back(strings::ToUtf8(s)); };
+  SplitUniString(NormalizeAndSimplifyString(s), fn, search::Delimiters());
+}
+
 template <typename Fn>
 void ForEachNormalizedToken(std::string const & s, Fn && fn)
 {
