@@ -30,6 +30,7 @@ struct UserMarkRenderParams
   bool m_hasSymbolShapes = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
+  SpecialDisplacement m_displacement = SpecialDisplacement::UserMark;
   uint32_t m_index = 0;
   bool m_depthTestEnabled = true;
   float m_depth = 0.0;

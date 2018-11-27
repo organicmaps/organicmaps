@@ -30,21 +30,6 @@ m2::PointD const & UserMark::GetPivot() const
   return m_ptOrg;
 }
 
-m2::PointD UserMark::GetPixelOffset() const
-{
-  return {};
-}
-
-dp::Anchor UserMark::GetAnchor() const
-{
-  return dp::Center;
-}
-
-df::DepthLayer UserMark::GetDepthLayer() const
-{
-  return df::DepthLayer::UserMarkLayer;
-}
-
 ms::LatLon UserMark::GetLatLon() const
 {
   return MercatorBounds::ToLatLon(m_ptOrg);

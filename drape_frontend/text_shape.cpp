@@ -354,7 +354,7 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context,
 
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
-      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+      m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
   {
     handle->SetSpecialLayerOverlay(true);
   }
@@ -417,7 +417,7 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context,
 
   handle->SetExtendingSize(m_params.m_extendingSize);
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
-      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+      m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
   {
     handle->SetSpecialLayerOverlay(true);
   }
@@ -437,7 +437,7 @@ uint64_t TextShape::GetOverlayPriority() const
 
   // Special displacement mode.
   if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode ||
-      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+      m_params.m_specialDisplacement == SpecialDisplacement::SpecialModeUserMark)
   {
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
   }

@@ -29,13 +29,13 @@ struct CommonViewParams
   m2::PointD m_tileCenter;
 };
 
-enum class SpecialDisplacement
+enum class SpecialDisplacement : uint8_t
 {
   None,
   SpecialMode,
   UserMark,
+  SpecialModeUserMark,
   HouseNumber,
-  TransitScheme
 };
 
 struct CommonOverlayViewParams : public CommonViewParams

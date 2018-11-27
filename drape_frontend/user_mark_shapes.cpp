@@ -170,7 +170,7 @@ void GenerateColoredSymbolShapes(ref_ptr<dp::GraphicsContext> context,
       params.m_depth = renderInfo.m_depth;
       params.m_depthLayer = renderInfo.m_depthLayer;
       params.m_minVisibleScale = renderInfo.m_minZoom;
-      params.m_specialDisplacement = SpecialDisplacement::UserMark;
+      params.m_specialDisplacement = renderInfo.m_displacement;
       params.m_specialPriority = renderInfo.m_priority;
       params.m_offset += offset;
       if (renderInfo.m_symbolSizes != nullptr)
@@ -203,7 +203,7 @@ void GeneratePoiSymbolShape(ref_ptr<dp::GraphicsContext> context,
   params.m_depth = renderInfo.m_depth;
   params.m_depthLayer = renderInfo.m_depthLayer;
   params.m_minVisibleScale = renderInfo.m_minZoom;
-  params.m_specialDisplacement = SpecialDisplacement::UserMark;
+  params.m_specialDisplacement = renderInfo.m_displacement;
   params.m_specialPriority = renderInfo.m_priority;
   params.m_symbolName = symbolName;
   params.m_anchor = renderInfo.m_anchor;
@@ -267,7 +267,7 @@ void GenerateTextShapes(ref_ptr<dp::GraphicsContext> context,
     uint32_t const overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
     if (renderInfo.m_hasTitlePriority)
     {
-      params.m_specialDisplacement = SpecialDisplacement::UserMark;
+      params.m_specialDisplacement = renderInfo.m_displacement;
       params.m_specialPriority = renderInfo.m_priority;
       params.m_startOverlayRank = dp::OverlayRank0;
       if (renderInfo.m_hasSymbolShapes)

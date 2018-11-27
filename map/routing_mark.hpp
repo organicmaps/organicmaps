@@ -64,6 +64,7 @@ public:
 
   bool HasSymbolShapes() const override { return false; }
   bool HasTitlePriority() const override { return true; }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   void SetFollowingMode(bool enabled);
 
@@ -111,6 +112,7 @@ public:
 
   bool HasSymbolShapes() const override { return !m_symbolNames.empty() || !m_coloredSymbols.m_zoomInfo.empty(); }
   bool HasTitlePriority() const override { return true; }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   void SetAnchor(dp::Anchor anchor);
   dp::Anchor GetAnchor() const override;
@@ -174,6 +176,7 @@ public:
   bool HasSymbolShapes() const override { return true; }
   bool HasTitlePriority() const override { return true; }
   uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::SpeedCamera); }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override;

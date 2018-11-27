@@ -746,7 +746,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
     textParams.m_titleDecl.m_anchor = title.m_anchor;
     textParams.m_depthTestEnabled = false;
     textParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
-    textParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
+    textParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
     textParams.m_specialPriority = priority;
     textParams.m_startOverlayRank = dp::OverlayRank0;
     textParams.m_minVisibleScale = minVisibleScale;
@@ -762,7 +762,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context,
   colorParams.m_tileCenter = pivot;
   colorParams.m_depthTestEnabled = false;
   colorParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
-  colorParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
+  colorParams.m_specialDisplacement = SpecialDisplacement::SpecialModeUserMark;
   colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
 

@@ -71,6 +71,7 @@ public:
   virtual drape_ptr<SymbolSizes> GetSymbolSizes() const = 0;
   virtual drape_ptr<SymbolOffsets> GetSymbolOffsets() const = 0;
   virtual uint16_t GetPriority() const = 0;
+  virtual df::SpecialDisplacement GetDisplacement() const = 0;
   virtual uint32_t GetIndex() const = 0;
   virtual bool HasSymbolShapes() const = 0;
   virtual bool HasTitlePriority() const = 0;
