@@ -1,6 +1,7 @@
 #include "geocoder/beam.hpp"
 
 #include "base/assert.hpp"
+#include "base/macros.hpp"
 
 #include <algorithm>
 
@@ -10,7 +11,7 @@ Beam::Beam(size_t capacity) : m_capacity(capacity) { m_entries.reserve(m_capacit
 
 void Beam::Add(Key const & key, Value value)
 {
-  if (m_capacity == 0)
+  if (PREDICT_FALSE(m_capacity == 0))
     return;
 
   Entry const e(key, value);

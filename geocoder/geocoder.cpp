@@ -21,17 +21,22 @@ namespace
 {
 size_t const kMaxResults = 100;
 
-map<geocoder::Type, double> const kWeight = {
-    {geocoder::Type::Country, 10.0},
-    {geocoder::Type::Region, 5.0},
-    {geocoder::Type::Subregion, 4.0},
-    {geocoder::Type::Locality, 3.0},
-    {geocoder::Type::Suburb, 3.0},
-    {geocoder::Type::Sublocality, 2.0},
-    {geocoder::Type::Street, 1.0},
-    {geocoder::Type::Building, 0.1},
-    {geocoder::Type::Count, 0.0},
-};
+double GetWeight(geocoder::Type t)
+{
+  switch (t)
+  {
+  case geocoder::Type::Country: return 10.0;
+  case geocoder::Type::Region: return 5.0;
+  case geocoder::Type::Subregion: return 4.0;
+  case geocoder::Type::Locality: return 3.0;
+  case geocoder::Type::Suburb: return 3.0;
+  case geocoder::Type::Sublocality: return 2.0;
+  case geocoder::Type::Street: return 1.0;
+  case geocoder::Type::Building: return 0.1;
+  case geocoder::Type::Count: return 0.0;
+  }
+  CHECK_SWITCH();
+}
 
 // todo(@m) This is taken from search/geocoder.hpp. Refactor.
 struct ScopedMarkTokens
@@ -68,8 +73,8 @@ geocoder::Type NextType(geocoder::Type type)
   return static_cast<geocoder::Type>(t + 1);
 }
 
-bool FindParent(vector<geocoder::Geocoder::Layer> const & layers,
-                geocoder::Hierarchy::Entry const & e)
+bool HasParent(vector<geocoder::Geocoder::Layer> const & layers,
+               geocoder::Hierarchy::Entry const & e)
 {
   CHECK(!layers.empty(), ());
   auto const & layer = layers.back();
@@ -160,7 +165,11 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
   {
     auto const by = results.front().m_certainty;
     for (auto & r : results)
+    {
       r.m_certainty /= by;
+      ASSERT_GREATER_OR_EQUAL(r.m_certainty, 0.0, ());
+      ASSERT_LESS_OR_EQUAL(r.m_certainty, 1.0, ());
+    }
   }
 
   ASSERT(is_sorted(results.rbegin(), results.rend(), base::LessBy(&Result::m_certainty)), ());
@@ -230,17 +239,9 @@ void Geocoder::Go(Context & ctx, Type type) const
 
       ScopedMarkTokens mark(ctx, type, i, j + 1);
 
-      // double const certainty =
-      //     static_cast<double>(ctx.GetNumUsedTokens()) /
-      //     static_cast<double>(ctx.GetNumTokens());
-
       double certainty = 0;
       for (auto const t : ctx.GetTokenTypes())
-      {
-        auto const it = kWeight.find(t);
-        CHECK(it != kWeight.end(), ());
-        certainty += it->second;
-      }
+        certainty += GetWeight(t);
 
       for (auto const * e : curLayer.m_entries)
       {
@@ -292,10 +293,11 @@ void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & s
 
   for (auto const * e : *entries)
   {
+    CHECK(e, ());
     if (e->m_type != type)
       continue;
 
-    if (ctx.GetLayers().empty() || FindParent(ctx.GetLayers(), *e))
+    if (ctx.GetLayers().empty() || HasParent(ctx.GetLayers(), *e))
       curLayer.m_entries.emplace_back(e);
   }
 }

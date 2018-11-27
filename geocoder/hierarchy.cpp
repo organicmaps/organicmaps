@@ -111,7 +111,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   string line;
   ParsingStats stats;
 
-  LOG(LINFO, ("Reading entries"));
+  LOG(LINFO, ("Reading entries..."));
   while (getline(ifs, line))
   {
     if (line.empty())
@@ -143,9 +143,9 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     m_entriesStorage.emplace_back(move(entry));
   }
 
-  LOG(LINFO, ("Indexing entries"));
+  LOG(LINFO, ("Indexing entries..."));
   IndexEntries();
-  LOG(LINFO, ("Indexing houses"));
+  LOG(LINFO, ("Indexing houses..."));
   IndexHouses();
 
   LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
@@ -203,13 +203,9 @@ void Hierarchy::IndexHouses()
 
     size_t const t = static_cast<size_t>(Type::Street);
 
-    // GetEntries() cannot be used here because one of the
-    // "consts" in it conflicts with the emplace_back below.
-    auto streetCandidatesIt = m_entriesByTokens.find(be.m_address[t]);
-    if (streetCandidatesIt == m_entriesByTokens.end())
-      continue;
+    auto const * streetCandidates = GetEntries(be.m_address[t]);
 
-    for (auto & se : streetCandidatesIt->second)
+    for (auto & se : *streetCandidates)
     {
       if (se->IsParentTo(be))
         se->m_buildingsOnStreet.emplace_back(&be);
