@@ -581,6 +581,8 @@ drape_ptr<df::UserPointMark::TitlesInfo> SpeedCameraMark::GetTitleDecl() const
 
 drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> SpeedCameraMark::GetColoredSymbols() const
 {
+  if (m_titleDecl.m_primaryText.empty())
+    return nullptr;
   return make_unique_dp<ColoredSymbolZoomInfo>(m_textBg);
 }
 
