@@ -947,11 +947,6 @@ public class PlacePageView extends RelativeLayout
     mTvSponsoredTitle.setText(R.string.place_page_viator_title);
   }
 
-  private void hideSponsoredGalleryViews()
-  {
-    UiUtils.hide(mSponsoredGalleryView);
-  }
-
   private void clearSponsoredGalleryViews()
   {
     mRvSponsoredProducts.swapAdapter(null /* adapter */ , false);
@@ -1420,10 +1415,10 @@ public class PlacePageView extends RelativeLayout
     UiUtils.showIf(sponsored, mPreviewRatingInfo, mHotelDiscount);
     UiUtils.showIf(mapObject.getHotelType() != null, mPreview, R.id.search_hotels_btn);
     if (sponsored)
-      initSponsoredViews(priceInfo);
+      refreshSponsoredViews(priceInfo);
   }
 
-  private void initSponsoredViews(@Nullable HotelPriceInfo priceInfo)
+  private void refreshSponsoredViews(@Nullable HotelPriceInfo priceInfo)
   {
     boolean isPriceEmpty = TextUtils.isEmpty(mSponsoredPrice);
     @SuppressWarnings("ConstantConditions")
@@ -1432,7 +1427,7 @@ public class PlacePageView extends RelativeLayout
     mRatingView.setRating(impress, mSponsored.getRating());
     UiUtils.showIf(!isRatingEmpty, mRatingView);
     mTvSponsoredPrice.setText(mSponsoredPrice);
-    UiUtils.showIf(!isPriceEmpty, mTvSponsoredPrice);
+    UiUtils.showIf(!isPriceEmpty && ConnectionState.isConnected(), mTvSponsoredPrice);
     boolean isBookingInfoExist = (!isRatingEmpty || !isPriceEmpty) &&
                                  mSponsored.getType() == Sponsored.TYPE_BOOKING;
     UiUtils.showIf(isBookingInfoExist, mPreviewRatingInfo);
@@ -1466,24 +1461,7 @@ public class PlacePageView extends RelativeLayout
   {
     refreshLatLon(mapObject);
 
-    mGalleryAdapter.setItems(new ArrayList<Image>());
-    if (mSponsored == null)
-    {
-      hideHotelViews();
-      hideSponsoredGalleryViews();
-    }
-    else
-    {
-      if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
-      {
-        UiUtils.hide(mWebsite);
-        UiUtils.show(mHotelMore);
-      }
-      if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
-        hideHotelViews();
-      if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
-        hideSponsoredGalleryViews();
-    }
+    refreshHotelDetailViews();
 
     if (mSponsored == null || mSponsored.getType() != Sponsored.TYPE_BOOKING)
     {
@@ -1521,6 +1499,37 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
+  private void refreshHotelDetailViews()
+  {
+    mGalleryAdapter.setItems(new ArrayList<>());
+
+    if (mSponsored == null)
+    {
+      hideHotelDetailViews();
+      UiUtils.hide(mSponsoredGalleryView);
+      return;
+    }
+
+    boolean isConnected = ConnectionState.isConnected();
+    UiUtils.showIf(isConnected, mSponsoredGalleryView);
+    if (isConnected)
+      showHotelDetailViews();
+    else
+      hideHotelDetailViews();
+
+    if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
+    {
+      UiUtils.hide(mWebsite);
+      UiUtils.show(mHotelMore);
+    }
+
+    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
+      hideHotelDetailViews();
+
+    if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
+      UiUtils.hide(mSponsoredGalleryView);
+  }
+
   private void showTaxiOffer(@NonNull MapObject mapObject)
   {
     List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
@@ -1542,9 +1551,15 @@ public class PlacePageView extends RelativeLayout
     Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type.getProviderName());
   }
 
-  private void hideHotelViews()
+  private void hideHotelDetailViews()
   {
     UiUtils.hide(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
+                 mHotelReview, mHotelMore);
+  }
+
+  private void showHotelDetailViews()
+  {
+    UiUtils.show(mHotelDescription, mHotelFacilities, mHotelGallery, mHotelNearby,
                  mHotelReview, mHotelMore);
   }
 
