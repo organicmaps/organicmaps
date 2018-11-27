@@ -321,7 +321,6 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         return;
       }
 
-
       UiUtils.show(mProgressView);
       UiUtils.hide(mRetryBtn);
       mWebView.loadUrl(getCatalogUrlOrThrow());

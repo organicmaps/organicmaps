@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class AlertDialog extends BaseMwmDialogFragment
 {
@@ -61,7 +63,9 @@ public class AlertDialog extends BaseMwmDialogFragment
     }
     catch (ClassCastException e)
     {
-      throw new ClassCastException("Caller must implement AlertDialogCallback interface!");
+      Logger logger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+      logger.w(AlertDialog.class.getSimpleName(),
+               "Caller doesn't implement AlertDialogCallback interface.");
     }
   }
 

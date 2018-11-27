@@ -35,7 +35,7 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
                        @NonNull String purchaseData)
   {
     String encodedData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
-    Framework.nativeValidatePurchase(serverId, vendor, encodedData);
+    Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedData);
   }
 
   @Override

@@ -492,7 +492,7 @@ public class Framework
   public static native void nativeStartPurchaseTransactionListener(@Nullable
     StartTransactionListener listener);
 
-  public static native void nativeValidatePurchase(@Nullable String serverId,
+  public static native void nativeValidatePurchase(@NonNull String serverId,
                                                    @NonNull String vendorId,
                                                    @NonNull String purchaseData);
   public static native void nativeSetPurchaseValidationListener(@Nullable
