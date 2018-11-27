@@ -35,6 +35,11 @@ final class BMCViewController: MWMViewController {
     tableView.separatorColor = UIColor.blackDividers()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    viewModel.reloadData()
+  }
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     // Disable all notifications in BM on appearance of this view.
@@ -86,7 +91,6 @@ final class BMCViewController: MWMViewController {
   private func shareCategory(category: BMCCategory, anchor: UIView) {
     let storyboard = UIStoryboard.instance(.sharing)
     let shareController = storyboard.instantiateInitialViewController() as! BookmarksSharingViewController
-    shareController.delegate = self
     shareController.categoryId = category.identifier
     
     MapViewController.topViewController().navigationController?.pushViewController(shareController,
@@ -344,29 +348,20 @@ extension BMCViewController: CategorySettingsViewControllerDelegate {
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didEndEditing categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
-    viewModel?.reloadData()
   }
   
   func categorySettingsController(_ viewController: CategorySettingsViewController,
                                   didDelete categoryId: MWMMarkGroupID) {
     navigationController?.popViewController(animated: true)
-    viewModel?.reloadData()
-  }
-}
-
-extension BMCViewController: BookmarksSharingViewControllerDelegate {
-  func didShareCategory() {
-    viewModel?.reloadData()
   }
 }
 
 extension BMCViewController: BookmarksVCDelegate {
   func bookmarksVCdidUpdateCategory(_ viewController: BookmarksVC!) {
-    viewModel?.reloadData()
+    // for now we did necessary interface update in -viewWillAppear
   }
 
   func bookmarksVCdidDeleteCategory(_ viewController: BookmarksVC!) {
     navigationController?.popViewController(animated: true)
-    viewModel?.reloadData()
   }
 }
