@@ -1,5 +1,6 @@
 #include "generator/emitter_planet.hpp"
 
+#include "generator/brands_loader.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/emitter_interface.hpp"
 
@@ -20,6 +21,9 @@ EmitterPlanet::EmitterPlanet(feature::GenerateInfo const & info) :
   m_viatorDataset(info.m_viatorDatafileName),
   m_boundariesTable(info.m_boundariesTable)
 {
+  if (!info.m_brandsFilename.empty() && !info.m_brandsTranslationsFilename.empty())
+    CHECK(LoadBrands(info.m_brandsFilename, info.m_brandsTranslationsFilename, m_brands), ());
+
   Classificator const & c = classif();
   char const * arr[][2] = {
     {"natural", "coastline"}, {"natural", "land"}, {"place", "island"}, {"place", "islet"}};
@@ -103,6 +107,13 @@ void EmitterPlanet::operator()(FeatureBuilder1 & fb)
       Emit(fb);
     });
     return;
+  }
+
+  auto const it = m_brands.find(fb.GetMostGenericOsmId());
+  if (it != m_brands.cend())
+  {
+    auto & metadata = fb.GetMetadata();
+    metadata.Set(feature::Metadata::FMD_BRAND, it->second);
   }
 
   Emit(fb);

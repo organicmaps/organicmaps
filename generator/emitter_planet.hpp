@@ -14,10 +14,13 @@
 
 #include "indexer/feature_data.hpp"
 
+#include "base/geo_object_id.hpp"
+
 #include <cstdint>
 #include <memory>
-#include <string>
 #include <sstream>
+#include <string>
+#include <unordered_map>
 
 namespace generator
 {
@@ -65,6 +68,7 @@ private:
   BookingDataset m_bookingDataset;
   OpentableDataset m_opentableDataset;
   ViatorDataset m_viatorDataset;
+  std::unordered_map<base::GeoObjectId, std::string> m_brands;
   shared_ptr<OsmIdToBoundariesTable> m_boundariesTable;
   /// Used to prepare a list of cities to serve as a list of nodes
   /// for building a highway graph with OSRM for low zooms.

@@ -15,6 +15,8 @@ set(SRC
   borders_generator.hpp
   borders_loader.cpp
   borders_loader.hpp
+  brands_loader.cpp
+  brands_loader.hpp
   camera_info_collector.cpp
   camera_info_collector.hpp
   camera_node_processor.cpp

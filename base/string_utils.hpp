@@ -62,9 +62,11 @@ UniString MakeLowerCase(UniString const & s);
 
 /// Performs NFKD - Compatibility decomposition for Unicode according
 /// to rules in ftp://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt
-/// For implementation @see base/normilize_unicode.cpp
+/// For implementation @see base/normalize_unicode.cpp
 void NormalizeInplace(UniString & s);
+
 UniString Normalize(UniString const & s);
+std::string Normalize(std::string const & s);
 
 /// Replaces "full width" unicode digits with ascii ones.
 void NormalizeDigits(std::string & utf8);

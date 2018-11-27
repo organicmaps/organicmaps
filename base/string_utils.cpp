@@ -150,6 +150,13 @@ UniString Normalize(UniString const & s)
   return result;
 }
 
+std::string Normalize(std::string const & s)
+{
+  auto uniString = MakeUniString(s);
+  NormalizeInplace(uniString);
+  return ToUtf8(uniString);
+}
+
 void NormalizeDigits(std::string & utf8)
 {
   size_t const n = utf8.size();

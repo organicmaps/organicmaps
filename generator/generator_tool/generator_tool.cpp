@@ -158,6 +158,10 @@ DEFINE_string(popular_places_data, "",
               "Input Popular Places source file name. Needed both for World intermediate features "
               "generation (2nd pass for World) and popular places section generation (5th pass for "
               "countries).");
+DEFINE_string(brands_data, "",
+              "Path to json with OSM objects to brand ID map.");
+DEFINE_string(brands_translations_data, "",
+              "Path to json with brands translations and synonyms.");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -238,6 +242,8 @@ int GeneratorToolMain(int argc, char ** argv)
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
   genInfo.m_popularPlacesFilename = FLAGS_popular_places_data;
+  genInfo.m_brandsFilename = FLAGS_brands_data;
+  genInfo.m_brandsTranslationsFilename = FLAGS_brands_translations_data;
   genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
 
   genInfo.m_versionDate = static_cast<uint32_t>(FLAGS_planet_version);
