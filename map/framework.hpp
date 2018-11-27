@@ -671,7 +671,7 @@ private:
   /// @returns true if command was handled by drape.
   bool ParseDrapeDebugCommand(string const & query);
 
-  /// This function can be used for enabling some experimental features.
+  /// This function can be used for enabling some experimental features for routing.
   bool ParseRoutingDebugCommand(search::SearchParams const & params);
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;

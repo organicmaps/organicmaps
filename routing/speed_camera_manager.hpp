@@ -30,14 +30,25 @@ enum class SpeedCameraManagerMode
   MaxValue
 };
 
+// This class represents manager for speed cameras. On each changing of position
+// called the |OnLocationPositionChanged()| method, that finds cameras on the following
+// route and cache them.
+// We use next system of notifications:
+// 3 Modes:
+//   1) Auto - default
+//   2) Always
+//   3) Never
+// In |Auto| mode we warn about cameras only if user has a risk of exceeding speed limit.
+// In |Always| mode we warn about cameras no matter user exceed speed limit or not.
+// In |Never| we just cache cameras for highlighting in UI (in |Auto|, |Always| make highlighting too).
+//
+// Also we use different notifications for different zones, see |enum class Interval| for more details.
 class SpeedCameraManager
 {
 public:
   static std::string const kSpeedCamModeKey;
 
-  SpeedCameraManager() = delete;
-  explicit SpeedCameraManager(turns::sound::NotificationManager & notificationManager);
-  ~SpeedCameraManager() { m_speedCamClearCallback(); }
+  explicit SpeedCameraManager(turns::sound::NotificationManager & notificationManager); 
 
   enum class Interval
   {
@@ -69,21 +80,19 @@ public:
 
   void OnLocationPositionChanged(location::GpsInfo const & info);
 
+  // See comments in |enum class Interval|
+  /// \brief |GenerateNotifications| about |VoiceNotificationZone|
   void GenerateNotifications(std::vector<std::string> & notifications);
-  bool ShouldPlayWarningSignal();
+  /// \bried |ShouldPlayBeepSignal| about |BeepSignalZone|
+  bool ShouldPlayBeepSignal();
 
   void ResetNotifications();
   void Reset();
 
-  void SetMode(SpeedCameraManagerMode mode)
-  {
-    m_mode = mode;
-    settings::Set(kSpeedCamModeKey, static_cast<int>(mode));
-  }
-
+  void SetMode(SpeedCameraManagerMode mode);
   SpeedCameraManagerMode GetMode() const { return m_mode; }
-
   SpeedCameraOnRoute const & GetClosestCamForTests() const { return m_closestCamera; }
+  bool IsSpeedLimitExceeded() const;
 
 private:
   // According to https://en.wikibooks.org/wiki/Physics_Study_Guide/Frictional_coefficients
@@ -126,16 +135,9 @@ private:
 
   void FindCamerasOnRouteAndCache(double passedDistanceMeters);
 
-  void PassCameraToUI(SpeedCameraOnRoute const & camera)
-  {
-    // Clear previous speed cam in UI.
-    m_speedCamClearCallback();
+  void PassCameraToUI(SpeedCameraOnRoute const & camera);
 
-    m_currentHighlightedCamera = camera;
-    m_speedCamShowCallback(camera.m_position);
-  }
-
-  bool SetNotificationFlags(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
+  void SetNotificationFlags(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
   bool IsSpeedHigh(double distanceToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera) const;
   bool NeedUpdateClosestCamera(double distanceToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera);
   bool NeedChangeHighlightedCamera(double distToCameraMeters, bool needUpdateClosestCamera) const;
@@ -150,6 +152,9 @@ private:
   bool m_makeBeepSignal;
   bool m_makeVoiceSignal;
 
+  // Flag if we exceed speed limit now.
+  bool m_speedLimitExceeded;
+
   // Queue of speedCams, that we have found, but they are too far, to make warning about them.
   std::queue<SpeedCameraOnRoute> m_cachedSpeedCameras;
 
@@ -160,10 +165,11 @@ private:
   std::weak_ptr<Route> m_route;
   turns::sound::NotificationManager & m_notificationManager;
 
-  SpeedCameraShowCallback m_speedCamShowCallback = [](m2::PointD const & /* point */) {};
+  SpeedCameraShowCallback m_speedCamShowCallback = [](m2::PointD const & /* point */,
+                                                      double /* cameraSpeedKmPH */) {};
   SpeedCameraClearCallback m_speedCamClearCallback = []() {};
 
-  SpeedCameraManagerMode m_mode;
+  SpeedCameraManagerMode m_mode = SpeedCameraManagerMode::Auto;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

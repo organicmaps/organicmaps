@@ -135,7 +135,7 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  m_route = std::make_shared<Route>(string() /* router */, 0 /* route id */);
+  m_route = make_shared<Route>(string() /* router */, 0 /* route id */);
   m_speedCameraManager.Reset();
   m_speedCameraManager.SetRoute(m_route);
 }
@@ -288,8 +288,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
     {
       SetState(OnRoute);
 
-      if (m_speedCameraManager.Enable())
-        m_speedCameraManager.OnLocationPositionChanged(info);
+      m_speedCameraManager.OnLocationPositionChanged(info);
     }
 
     if (m_userCurrentPositionValid)

@@ -279,7 +279,7 @@ using Observers = NSHashTable<Observer>;
 
 - (void)playWarningSound
 {
-  if (!GetFramework().GetRoutingManager().GetSpeedCamManager().MakeBeepSignal())
+  if (!GetFramework().GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal())
     return;
 
   [self.audioPlayer play];

@@ -407,12 +407,6 @@ uint32_t Classificator::GetTypeByPath(vector<string> const & path) const
 
 uint32_t Classificator::GetTypeByPath(initializer_list<char const *> const & lst) const
 {
-  LOG(LINFO, ("===========[START]========"));
-  for (auto item : lst)
-  {
-    LOG(LINFO, (item));
-  }
-  LOG(LINFO, ("===========[END]========"));
   uint32_t const type = GetTypeByPathImpl(lst.begin(), lst.end());
   ASSERT_NOT_EQUAL(type, 0, (lst));
   return type;

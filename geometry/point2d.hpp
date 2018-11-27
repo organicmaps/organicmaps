@@ -8,6 +8,7 @@
 #include <array>
 #include <cmath>
 #include <functional>
+#include <limits>
 #include <sstream>
 #include <typeinfo>
 
@@ -31,6 +32,7 @@ public:
   }
 
   static Point<T> Zero() { return Point<T>(0, 0); }
+  static Point<T> Max() { return Point<T>(std::numeric_limits<T>::max(), std::numeric_limits<T>::max());}
 
   bool EqualDxDy(Point<T> const & p, T eps) const
   {

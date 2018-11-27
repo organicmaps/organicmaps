@@ -182,7 +182,7 @@ public:
 
   void AssignRouteForTesting(std::shared_ptr<Route> route, RouterResultCode e) { AssignRoute(route, e); }
 
-  bool IsSpeedLimitExceeded() const { return true; }
+  bool IsSpeedLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
 
   std::shared_ptr<Route> GetRouteForTests() { return m_route; }

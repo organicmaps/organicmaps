@@ -214,7 +214,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     info = L(@"speedcam_option_never");
     break;
   case SpeedCameraManagerMode::MaxValue:
-    CHECK(false, ());
+    CHECK(false, ("Unexpected mode SpeedCameraManagerMode::MaxValue."));
     break;
   }
 

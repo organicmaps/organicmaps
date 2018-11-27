@@ -12,6 +12,7 @@
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
+#include "routing/speed_camera.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
@@ -34,6 +35,7 @@
 #include "platform/socket.hpp"
 
 #include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
@@ -271,15 +273,26 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     });
   });
 
-  m_routingSession.SetSpeedCamShowCallback([this](m2::PointD const & point)
+  m_routingSession.SetSpeedCamShowCallback([this](m2::PointD const & point, double cameraSpeedKmPH)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, point]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, point, cameraSpeedKmPH]()
     {
       auto editSession = m_bmManager->GetEditSession();
       auto mark = editSession.CreateUserMark<SpeedCameraMark>(point);
-      // TODO (@gmoryes) change speed
-      mark->SetTitle("80");
+
       mark->SetIndex(0);
+      if (cameraSpeedKmPH == SpeedCameraOnRoute::kNoSpeedInfo)
+        return;
+
+      double speed = cameraSpeedKmPH;
+      measurement_utils::Units units = measurement_utils::Units::Metric;
+      if (!settings::Get(settings::kMeasurementUnits, units))
+        units = measurement_utils::Units::Metric;
+
+      if (units == measurement_utils::Units::Imperial)
+        speed = measurement_utils::KmphToMph(cameraSpeedKmPH);
+
+      mark->SetTitle(strings::to_string(static_cast<int>(speed + 0.5)));
     });
   });
 
@@ -444,6 +457,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
   GetPlatform().RunTask(Platform::Thread::Gui, [this, deactivateFollowing]()
   {
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
+    m_bmManager->GetEditSession().ClearGroup(UserMark::Type::SPEED_CAM);
 
     if (deactivateFollowing)
       SetPointsFollowingMode(false /* enabled */);

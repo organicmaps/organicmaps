@@ -1112,7 +1112,7 @@ Java_com_mapswithme_maps_Framework_nativeSetSpeedCamManagerMode(JNIEnv * env, jc
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeShouldPlayWarningSignal(JNIEnv * env, jclass)
 {
-  return frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayWarningSignal();
+  return frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
 }
 
 JNIEXPORT jint JNICALL
@@ -1124,11 +1124,8 @@ Java_com_mapswithme_maps_Framework_nativeGetSpeedCamManagerMode(JNIEnv * env, jc
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_Framework_nativeIsSpeedLimitExceeded(JNIEnv * env, jclass)
 {
-  auto fr = frm();
-  if (!fr->GetRoutingManager().IsRoutingActive())
-    return false;
-
-  return fr->GetRoutingManager().IsSpeedLimitExceeded();
+  auto const & rm = frm()->GetRoutingManager();
+  return rm.IsRoutingActive() ? rm.IsSpeedLimitExceeded() : false;
 }
 
 JNIEXPORT jobject JNICALL

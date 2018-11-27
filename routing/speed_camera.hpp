@@ -18,13 +18,13 @@ struct SpeedCameraOnRoute
 
   static uint8_t constexpr kNoSpeedInfo = std::numeric_limits<uint8_t>::max();
 
-  bool NoSpeed() const { return m_maxSpeedKmH == kNoSpeedInfo; }
+  bool NoSpeed() const;
 
   bool IsValid() const;
   void Invalidate();
 
   double m_distFromBeginMeters = 0.0;    // Distance from beginning of route to current camera.
   uint8_t m_maxSpeedKmH = kNoSpeedInfo;  // Maximum speed allowed by the camera.
-  m2::PointD m_position;                 // Equals m2::PointD::Zero() by default.
+  m2::PointD m_position = m2::PointD::Max();
 };
 }  // namespace routing

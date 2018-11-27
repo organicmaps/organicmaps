@@ -38,7 +38,7 @@ using namespace routing;
     _selectedCell = self.neverCell;
     break;
   case SpeedCameraManagerMode::MaxValue:
-    CHECK(false, ());
+    CHECK(false, ("Invalid SpeedCameraManagerMode."));
     break;
   }
 
