@@ -11,8 +11,15 @@
 #include "base/string_utils.hpp"
 
 #include <fstream>
+#include <utility>
 
 using namespace std;
+
+namespace
+{
+// Information will be logged for every |kLogBatch| entries.
+size_t const kLogBatch = 100000;
+}  // namespace
 
 namespace geocoder
 {
@@ -104,6 +111,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   string line;
   ParsingStats stats;
 
+  LOG(LINFO, ("Reading entries"));
   while (getline(ifs, line))
   {
     if (line.empty())
@@ -126,23 +134,21 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     if (!entry.DeserializeFromJSON(line, stats))
       continue;
 
-    // The entry is indexed only its address.
-    // todo(@m) Index it by name too.
-    if (entry.m_type != Type::Count)
-    {
-      ++stats.m_numLoaded;
-      size_t const t = static_cast<size_t>(entry.m_type);
-      m_entries[entry.m_address[t]].emplace_back(entry);
+    if (entry.m_type == Type::Count)
+      continue;
 
-      // Index every token but do not index prefixes.
-      // for (auto const & tok : entry.m_address[t])
-      //   m_entries[{tok}].emplace_back(entry);
-    }
+    ++stats.m_numLoaded;
+    if (stats.m_numLoaded % kLogBatch == 0)
+      LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
+    m_entriesStorage.emplace_back(move(entry));
   }
 
+  LOG(LINFO, ("Indexing entries"));
+  IndexEntries();
+  LOG(LINFO, ("Indexing houses"));
   IndexHouses();
 
-  LOG(LINFO, ("Finished reading the hierarchy. Stats:"));
+  LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
   LOG(LINFO, ("Entries indexed:", stats.m_numLoaded));
   LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
   LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
@@ -154,39 +160,64 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   LOG(LINFO, ("(End of stats.)"));
 }
 
-vector<Hierarchy::Entry> const * const Hierarchy::GetEntries(
+vector<Hierarchy::Entry *> const * const Hierarchy::GetEntries(
     vector<strings::UniString> const & tokens) const
 {
-  auto it = m_entries.find(tokens);
-  if (it == m_entries.end())
+  auto it = m_entriesByTokens.find(tokens);
+  if (it == m_entriesByTokens.end())
     return {};
 
   return &it->second;
 }
 
+void Hierarchy::IndexEntries()
+{
+  size_t numIndexed = 0;
+  for (Entry & e : m_entriesStorage)
+  {
+    // The entry is indexed only by its address.
+    // todo(@m) Index it by name too.
+    if (e.m_type == Type::Count)
+      continue;
+
+    size_t const t = static_cast<size_t>(e.m_type);
+    m_entriesByTokens[e.m_address[t]].emplace_back(&e);
+
+    // Index every token but do not index prefixes.
+    // for (auto const & tok : entry.m_address[t])
+    // 	m_entriesByTokens[{tok}].emplace_back(entry);
+
+    ++numIndexed;
+    if (numIndexed % kLogBatch == 0)
+      LOG(LINFO, ("Indexed", numIndexed, "entries"));
+  }
+}
+
 void Hierarchy::IndexHouses()
 {
-  for (auto const & it : m_entries)
+  size_t numIndexed = 0;
+  for (auto const & be : m_entriesStorage)
   {
-    for (auto const & be : it.second)
+    if (be.m_type != Type::Building)
+      continue;
+
+    size_t const t = static_cast<size_t>(Type::Street);
+
+    // GetEntries() cannot be used here because one of the
+    // "consts" in it conflicts with the emplace_back below.
+    auto streetCandidatesIt = m_entriesByTokens.find(be.m_address[t]);
+    if (streetCandidatesIt == m_entriesByTokens.end())
+      continue;
+
+    for (auto & se : streetCandidatesIt->second)
     {
-      if (be.m_type != Type::Building)
-        continue;
-
-      size_t const t = static_cast<size_t>(Type::Street);
-
-      // GetEntries() cannot be used here because one of the
-      // "consts" in it conflicts with the emplace_back below.
-      auto streetCandidatesIt = m_entries.find(be.m_address[t]);
-      if (streetCandidatesIt == m_entries.end())
-        continue;
-
-      for (auto & se : streetCandidatesIt->second)
-      {
-        if (se.IsParentTo(be))
-          se.m_buildingsOnStreet.emplace_back(&be);
-      }
+      if (se->IsParentTo(be))
+        se->m_buildingsOnStreet.emplace_back(&be);
     }
+
+    ++numIndexed;
+    if (numIndexed % kLogBatch == 0)
+      LOG(LINFO, ("Indexed", numIndexed, "houses"));
   }
 }
 }  // namespace geocoder

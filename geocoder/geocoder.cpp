@@ -156,6 +156,13 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
     results.emplace_back(e.m_key /* osmId */, e.m_value /* certainty */);
   }
 
+  if (!results.empty())
+  {
+    auto const by = results.front().m_certainty;
+    for (auto & r : results)
+      r.m_certainty /= by;
+  }
+
   ASSERT(is_sorted(results.rbegin(), results.rend(), base::LessBy(&Result::m_certainty)), ());
   ASSERT_LESS_OR_EQUAL(results.size(), kMaxResults, ());
 }
@@ -234,7 +241,6 @@ void Geocoder::Go(Context & ctx, Type type) const
         CHECK(it != kWeight.end(), ());
         certainty += it->second;
       }
-      LOG(LINFO, (ctx.GetTokenTypes(), certainty));
 
       for (auto const * e : curLayer.m_entries)
       {
@@ -284,13 +290,13 @@ void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & s
   if (!entries || entries->empty())
     return;
 
-  for (auto const & e : *entries)
+  for (auto const * e : *entries)
   {
-    if (e.m_type != type)
+    if (e->m_type != type)
       continue;
 
-    if (ctx.GetLayers().empty() || FindParent(ctx.GetLayers(), e))
-      curLayer.m_entries.emplace_back(&e);
+    if (ctx.GetLayers().empty() || FindParent(ctx.GetLayers(), *e))
+      curLayer.m_entries.emplace_back(e);
   }
 }
 }  // namespace geocoder

@@ -46,6 +46,7 @@ void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && e
   sort(expected.begin(), expected.end(), base::LessBy(&Result::m_osmId));
   for (size_t i = 0; i < actual.size(); ++i)
   {
+    TEST(actual[i].m_certainty >= 0.0 && actual[i].m_certainty <= 1.0, (actual[i].m_certainty));
     TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, ());
     TEST(base::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps),
          (query, actual[i].m_certainty, expected[i].m_certainty));
@@ -60,10 +61,9 @@ UNIT_TEST(Geocoder_Smoke)
   base::GeoObjectId const florenciaId(0xc00000000059d6b5);
   base::GeoObjectId const cubaId(0xc00000000004b279);
 
-  // todo(@m) Return the certainty levels back to the [0.0, 1.0] range.
-  TestGeocoder(geocoder, "florencia", {{florenciaId, 4.0}});
-  TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 14.0}, {cubaId, 10.0}});
-  TestGeocoder(geocoder, "florencia somewhere in cuba", {{cubaId, 10.0}, {florenciaId, 14.0}});
+  TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
+  TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.714286}});
+  TestGeocoder(geocoder, "florencia somewhere in cuba", {{cubaId, 0.714286}, {florenciaId, 1.0}});
 }
 
 UNIT_TEST(Geocoder_Hierarchy)
@@ -75,9 +75,10 @@ UNIT_TEST(Geocoder_Hierarchy)
 
   TEST(entries, ());
   TEST_EQUAL(entries->size(), 1, ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"),
+  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
+  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"),
              ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"), ());
+  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"),
+             ());
 }
 }  // namespace geocoder

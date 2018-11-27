@@ -85,12 +85,18 @@ public:
   // todo This method (and the whole class, in fact) is in the
   //      prototype stage and may be too slow. Proper indexing should
   //      be implemented to perform this type of queries.
-  std::vector<Entry> const * const GetEntries(std::vector<strings::UniString> const & tokens) const;
+  std::vector<Entry *> const * const GetEntries(
+      std::vector<strings::UniString> const & tokens) const;
 
 private:
+  // Adds address information of entries to the index.
+  void IndexEntries();
+
   // Fills |m_buildingsOnStreet| field for all street entries.
   void IndexHouses();
 
-  std::map<Tokens, std::vector<Entry>> m_entries;
+  std::map<Tokens, std::vector<Entry *>> m_entriesByTokens;
+
+  std::vector<Entry> m_entriesStorage;
 };
 }  // namespace geocoder
