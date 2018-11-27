@@ -3498,10 +3498,9 @@
     sw = Sehemu ya kula
     zh-Hans = 在哪儿吃
     zh-Hant = 在哪兒吃
+    fa = کجا غذا بخوریم
 
   [food]
-    comment = TODO FIXME @kgalushka: correction and translation; 30 symbols max (shorter better); deadline release 8.5
-    comment = Search team review required on any change
     comment = Search category for grocery stores
     tags = ios,android,tizen
     en = Groceries
@@ -3534,6 +3533,7 @@
     sw = Migahawani
     zh-Hans = 食品
     zh-Hant = 食物
+    fa = عطاری
 
   [transport]
     comment = Search team review required on any change
@@ -3678,6 +3678,7 @@
     sw = Manunuzi
     zh-Hans = 购物
     zh-Hant = 購物
+    fa = خرید کردن
 
   [hotel]
     comment = Search team review required on any change
@@ -3857,6 +3858,7 @@
     sw = Shughuli za usiku
     zh-Hans = 夜生活
     zh-Hant = 夜生活
+    fa = تفریحات شبانه
 
   [children]
     comment = Search team review required on any change
@@ -3892,6 +3894,7 @@
     sw = Mapumziko ya familia
     zh-Hans = 亲子休闲
     zh-Hant = 親子休閒
+    fa = تعطیلات خانوادگی
 
   [bank]
     comment = Search team review required on any change
@@ -34860,6 +34863,7 @@
     sw = Badilishana machaguo
     zh-Hans = 登录设置
     zh-Hant = 登錄設置
+    fa = گزینه های اشتراک گذاری
 
   [export_file]
     en = Export file
@@ -34893,14 +34897,75 @@
     sw = Tuma faili
     zh-Hans = 导出文件
     zh-Hant = 導出文件
+    fa = ارسال فایل
 
   [list_settings]
-    comment = FIXME
-    en = list_settings
+    en = List Settings
+    ru = Настройки списка
+    ar = قائمة الإعدادات
+    cs = Nástroje seznamu
+    da = Listeindstillinger
+    nl = Lijst Instellingen
+    fi = Listan asetukset
+    fr = Paramètres liste
+    de = Listeneinstellungen
+    hu = Lista beállításai
+    id = Pengaturan Daftar
+    it = Impostazioni elenco
+    ja = リスト設定
+    ko = 목록 세팅
+    nb = Liste Innstillinger
+    pl = Ustawienia listy
+    pt = Lista de configurações
+    pt-BR = Configurações de Lista
+    ro = Elaborarea listei
+    es = Configurar lista
+    es-MX = Ajustes de lista
+    sv = Listinställningar
+    th = การตั้งค่ารายการ
+    tr = Liste Ayarları
+    uk = Налаштування списку
+    vi = Cài đặt danh sách
+    el = Ρυθμίσεις Λίστας
+    sk = Nastavenie zoznamu
+    sw = Mipangilio ya Orodhesha
+    zh-Hans = 列表设置
+    zh-Hant = 列表設置
+    fa = تنظیمات لیست
 
   [delete_list]
-    comment = FIXME
-    en = delete_list
+    en = Delete list
+    ru = Удалить список
+    ar = حذف القائمة
+    cs = Smazat seznam
+    da = Slet liste
+    nl = Lijst verwijderen
+    fi = Poista lista
+    fr = Supprimer liste
+    de = Liste löschen
+    hu = Törölni a listát
+    id = Hapus Daftar
+    it = Cancella elenco
+    ja = リスト削除
+    ko = 리스트 삭제
+    nb = Slett liste
+    pl = Usuń listę
+    pt = Apagar lista
+    pt-BR = Deletar lista
+    ro = Ștergerea listei
+    es = Eliminar lista
+    es-MX = Eliminar lista
+    sv = Radera listan
+    th = ลบรายการ
+    tr = Listeyi sil
+    uk = Видалити список
+    vi = Xóa danh sách
+    el = Διαγραφή λίστας
+    sk = Vymazať zoznam
+    sw = Futa Orodha
+    zh-Hans = 删除列表
+    zh-Hant = 刪除列表
+    fa = حذف لیست
 
   [hide_from_map]
     en = Hide from map
@@ -34934,6 +34999,7 @@
     sw = Ficha kwenye ramani
     zh-Hans = 从卡中隐藏
     zh-Hant = 從卡中隱藏
+    fa = پنهان کردن از نقشه
 
   [ugc_route_tags_screen_label]
     en = Select tags
@@ -34967,6 +35033,7 @@
     sw = Chagua vibandiko
     zh-Hans = 请选择标签
     zh-Hant = 請選擇標籤
+    fa = انتخاب برچسبها
 
   [ugc_route_tags_progress_msg]
     en = Loading tags…
@@ -35000,6 +35067,7 @@
     sw = Inapakua vibandiko…
     zh-Hans = 正在加载标签......
     zh-Hant = 正在加載標籤......
+    fa = درحال بارگیری برچسبها…
 
   [ugc_route_tags_desc]
     en = Please select tags to help other travellers find your guide. This is mandatory.
@@ -35033,6 +35101,7 @@
     sw = Tafadhali chagua vibandiko ili kuwasaidia wasafiri wengine. Hii ni lazima.
     zh-Hans = 请选择标签以帮助其他旅行者找到您的旅行指南。此为必填项。
     zh-Hant = 請選擇標籤以幫助其他旅行者找到您的旅行指南。此為必填項。
+    fa = لطفا برچسبها را برای کمک به مسافران دیگر برای یافتن راهنمای شما، انتخاب نمایید. این الزامی است.
 
   [public_access]
     en = Public access
@@ -35066,6 +35135,7 @@
     sw = Matumizi ya umma
     zh-Hans = 公共访问
     zh-Hant = 公共訪問
+    fa = دسترسی عمومی
 
   [limited_access]
     en = Limited access
@@ -35099,6 +35169,7 @@
     sw = Matumizi yenye ukomo
     zh-Hans = 私人访问
     zh-Hant = 私人訪問
+    fa = دسترسی محدود
 
   [bookmarks_public_access]
     comment = FIXME
@@ -35144,6 +35215,7 @@
     sw = Mwongozo huu utapakiwa katika katalogi ya umma ya MAPS.ME na utapatikana kwa watumiaji wengine
     zh-Hans = 本指南将上传到MAPS.ME公共目录，并可供其他用户使用
     zh-Hant = 本指南將上傳到MAPS.ME公共目錄，並可供其他用戶使用
+    fa = این راهنما به کاتالوگ عمومی MAPS.ME ارسال خواهد شد و برای کاربران دیگر در دسترس خواهد بود
 
   [upload_and_publish]
     en = Upload and publish
@@ -35177,6 +35249,7 @@
     sw = Pakia na chapisha
     zh-Hans = 加载并发布
     zh-Hant = 加載並發布
+    fa = بارگذاری و انتشار
 
   [upload_and_get_direct_link]
     en = Upload and get a direct link
@@ -35210,6 +35283,7 @@
     sw = Pakia na upate kiunganishi cha moja kwa moja
     zh-Hans = 加载并获取链接
     zh-Hant = 加載並獲取鏈接
+    fa = بارگذاری و دریافت لینک مستقیم
 
   [get_direct_link_desc]
     en = Your guide will be available to anyone who has the link
@@ -35243,6 +35317,7 @@
     sw = Mwongozo wako utapatikana kwa kila mmoja mwenye kiunganishi
     zh-Hans = 您的指南将通过直接链接提供
     zh-Hant = 您的指南將通過直接鏈接提供
+    fa = راهنمای شما برای هر کسی که این لینک را داشته باشد، دردسترس خواهد بود
 
   [upload_and_publish_progress_text]
     en = Publishing your guide…
@@ -35276,6 +35351,7 @@
     sw = Inachapisha mwongozo wako…
     zh-Hans = 该指南正在发布......
     zh-Hant = 該指南正在發布......
+    fa = در حال انتشار راهنمای شما…
 
   [upload_and_publish_success]
     en = The guide has been published
@@ -35309,6 +35385,7 @@
     sw = Mwongozo umechapishwa
     zh-Hans = 该指南已发布
     zh-Hant = 該指南已發布
+    fa = راهنما انتشار یافت
 
   [ugc_routes_user_agreement]
     en = <b>PLEASE NOTE:</b> by proceeding, you accept the <a href="%s">license agreement</a>
@@ -35342,6 +35419,7 @@
     sw = <b>TAFADHALI TAMBUA:</b> kwa kuendelea, umekubali <a href="%s">makubaliano ya leseni</a>
     zh-Hans = <b>注意:</b>继续，即表示您接受<a href="%s">许可协议</a>
     zh-Hant = <b>請注意:</b>繼續，即表示您接受<a href="%s">許可協議</a>
+    fa = <b>لطفا توجه داشته باشید:<b/> با ادامه، شما موافقت خود با <a href="%s">مجوز توافقنامه، را اعلام نموده اید<a/>
 
   [ugc_route_edit_list_name]
     en = Guide name
@@ -35375,6 +35453,7 @@
     sw = Jina la mwongozo
     zh-Hans = 指南名称
     zh-Hant = 指南名稱
+    fa = نام راهنما
 
   [ugc_route_edit_description_hint]
     en = Type a description (text or html)
@@ -35408,6 +35487,7 @@
     sw = Andika maelezo (maneno au html)
     zh-Hans = 请添加说明(文字或html)
     zh-Hant = 添加說明(文字或html)
+    fa = یک توضیح (متن یا html) تایپ نمایید
 
   [not_shared]
     en = Not shared
@@ -35441,6 +35521,7 @@
     sw = Haijashirikisha
     zh-Hans = 個人
     zh-Hant = 個人
+    fa = به اشتراک گذاشته نشده است
 
   [direct_link_progress_text]
     en = Uploading your file…
@@ -35474,6 +35555,7 @@
     sw = Inapakia faili lako…
     zh-Hans = 正在上传您的文件......
     zh-Hant = 正在上傳您的文件......
+    fa = در حال بارگذاری فایل شما…
 
   [direct_link_success]
     en = The link has been created
@@ -35507,6 +35589,7 @@
     sw = Kiunganishi kimeundwa
     zh-Hans = 链接已创建
     zh-Hant = 鏈接已創建
+    fa = لینک ایجاد شده است
 
   [edit_guide_title]
     en = Edit your guide online
@@ -35540,6 +35623,7 @@
     sw = Hariri mwongozo wako katika mtandaoni
     zh-Hans = 请在线编辑您的旅行指南
     zh-Hant = 請在線編輯旅行指南
+    fa = راهنمای خود را در وب ویرایش کنید
 
   [edit_guide_subtitle]
     en = Get a link to edit your guide via web service: add descriptions, upload photos, and connect bookmarks with lines.
@@ -35573,6 +35657,7 @@
     sw = Pata kiunganishi kuhariri mwongozo wako kupitia programu ya mtandaoni: ongeza maelezo, pakia picha na unganisha kialamisho na mstari.
     zh-Hans = 请通过网络应用获取编辑指南的链接：请添加地点描述，上传照片以及用线条连接标签。
     zh-Hant = 請通過網絡應用獲取編輯指南的鏈接：請添加地點描述，上傳照片和用線條連接標籤。
+    fa = یک لینک برای ویرایش راهنمای خود از طریق برنامه وب، دریافت کنید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.
 
   [send_a_link_btn]
     en = Send me a link
@@ -35605,7 +35690,8 @@
     sk = Poslať mi odkaz
     sw = Nitumie kiunganishi
     zh-Hans = 发送链接
-    zh-Hant = 發送鏈接  
+    zh-Hant = 發送鏈接 
+    fa = یک لینک برای من ارسال کن 
 
   [upload_error_toast]
     en = An error occurred while uploading your file
@@ -35639,6 +35725,7 @@
     sw = Kosa limetokea wakati unapakia faili lako
     zh-Hans = 加载文件时出错
     zh-Hant = 加載文件時出錯
+    fa = هنگام بارگذاری فایل شما خطایی روی داد
 
   [tags_loading_error_subtitle]
     en = An error occurred while loading tags, please try again
@@ -35672,6 +35759,7 @@
     sw = Kosa limetokea wakati wa kupakua vibandiko, tafadhali jaribu tena
     zh-Hans = 加载标签时出错，请重试
     zh-Hant = 加載代碼時出錯，請重試
+    fa = هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید
 
   [unable_upload_errorr_title]
     en = File upload failed
@@ -35705,6 +35793,7 @@
     sw = Kupakia faili kumeshindikana
     zh-Hans = 无法上传文件
     zh-Hant = 無法上傳文件
+    fa = بارگذاری فایل انجام نشد
 
   [unable_upload_error_subtitle_edited]
     en = This file has been edited via the web app
@@ -35738,6 +35827,7 @@
     sw = Faili hili limehaririwa kupitia programu ya mtandaoni
     zh-Hans = 文件是通过Web应用程序编辑的
     zh-Hant = 文件是通過Web應用程序編輯的
+    fa = این فایل از طریق برنامه وب ویرایش شده است
 
   [unable_upload_error_subtitle_broken]
     en = This file is damaged and couldn't be uploaded. Please upload another file.
@@ -35771,6 +35861,7 @@
     sw = Faili hili limeharibika na haliwezi kupakiwa. Tafadhali pakia faili jingine.
     zh-Hans = 该文件已损坏，无法上传。请上传其他文件。
     zh-Hant = 該文件已損壞，無法上傳。請上傳其他文件。
+    fa = این فایل آسیب دیده است و امکان بارگذاری آن وجود ندارد. لطفا فایل دیگری را بارگذاری نمایید.
 
   [buy_btn]
     en = Buy for %s
@@ -35804,6 +35895,7 @@
     sw = Nunua kwa ajili ya %s
     zh-Hans = 购买%s
     zh-Hant = 購買%s
+    fa = با s% خرید نمایید
 
   [download_guide_progress]
     en = Downloading your guide…
@@ -35870,6 +35962,7 @@
     sw = Huwezi kupata bei
     zh-Hans = 无法得知价格
     zh-Hant = 無法得知價格
+    fa = نمی توان قیمت را دریافت کرد
 
   [price_error_subtitle]
     en = Please try again in a few minutes
@@ -35903,6 +35996,7 @@
     sw = Jaribu tena ndani ya dakika chache
     zh-Hans = 请在几分钟后再试一次
     zh-Hant = 請在幾分鐘之後再試一次
+    fa = لطفا چند دقیقه دیگر دوباره امتحان کنید
 
   [edit_your_guide_email_body]
     en = Edit your guide on the web easily using your computer: add descriptions, upload photos, and connect bookmarks with lines.
@@ -35936,6 +36030,7 @@
     sw = Hariri mwongozo wako katika mtandao kirahisi kwa kutumia kompyuta yako: ongeza maelezo, pakia picha na unganisha kialamisho na mstari.
     zh-Hans = 在计算机上编辑您的旅行指南：请添加地点描述，上传照片以及用线条连接标签。
     zh-Hant = 在計算機上編輯您的旅行指南：請添加地點描述，上傳照片和用線條連接標籤。
+    fa =راهنمای خود را به سادگی بر روی وب با استفاده از کامپیوتر خود ویرایش نمایید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.
 
   [edit_on_web]
     en = Edit online
@@ -35969,6 +36064,7 @@
     sw = Hariri mtandaoni
     zh-Hans = 在线编辑
     zh-Hant = 在線編輯
+    fa = ویرایش بر روی وب
 
   [properties_loading_error_subtitle]
     en = An error occurred while loading options, please try again
@@ -36002,6 +36098,7 @@
     sw = Kosa imetokea wakati wa kupakua machaguo, tafadhali jaribu tena
     zh-Hans = 加载选项时出错，请重试
     zh-Hant = 加載選項時出錯，請重試
+    fa = هنگام بارگیری گزینه ها خطایی روی داد، لطفا دوباره امتحان کنید
 
   [custom_props_desc]
     en = In this guide you have visited places as
@@ -36035,6 +36132,7 @@
     sw = Katika mwongozo huu uliyatembelea maeneo kama
     zh-Hans = 本指南您编制为
     zh-Hant = 本指南您編制為
+    fa = در این راهنما شما از مکان هایی بازدید کرده اید، به عنوان
 
   [custom_props_title]
     en = Local or traveller
@@ -36068,14 +36166,75 @@
     sw = Mwenyeji au msafiri
     zh-Hans = 当地或游客
     zh-Hant = 當地貨遊客
+    fa = ساکن محلی یا مسافر
 
   [custom_props_local]
-    comment = FIXME
-    en = custom_props_local
+    en = local
+    ru = местный
+    ar = محلي
+    cs = místní obyvatel
+    da = lokal
+    nl = local
+    fi = paikallinen
+    fr = Régional
+    de = Einheimischer
+    hu = helyi lakos
+    id = warga lokal
+    it = del posto
+    ja = 現地人
+    ko = 현지
+    nb = lokalkjent
+    pl = miejscowy
+    pt = local
+    pt-BR = local
+    ro = localnic
+    es = local
+    es-MX = local
+    sv = lokal bosatt
+    th = คนท้องที่
+    tr = yerli
+    uk = місцевий
+    vi = người địa phương
+    ei = ντόπιος
+    sk = miestny
+    sw = wenyeji
+    zh-Hans = 当地
+    zh-Hant = 當地
+    fa = محلی
 
   [custom_props_traveler]
-    comment = FIXME
-    en = custom_props_traveler
+    en = traveller
+    ru = турист
+    ar = المسافر
+    cs = turista
+    da = rejsende
+    nl = reiziger
+    fi = matkailija
+    fr = voyageur
+    de = Tourist
+    hu = turista
+    id = pelancong
+    it = turista
+    ja = 旅行者
+    ko = 여행자
+    nb = turist
+    pl = turysta
+    pt = turista
+    pt-BR = viajante
+    ro = turist
+    es = turista
+    es-MX = viajero
+    sv = en turist
+    th = นักท่องเที่ยว
+    tr = gezgin
+    uk = турист
+    vi = du khách
+    ei = ταξιδιώτης
+    sk = cestovateľ
+    sw = wasafiri
+    zh-Hans = 游客
+    zh-Hant = 遊客
+    fa = مسافر
 
   [select_properties]
     en = Select options
@@ -36109,6 +36268,7 @@
     sw = Chagua machaguo
     zh-Hans = 选择选项
     zh-Hant = 選擇選項
+    fa = انتخاب گزینه ها
 
   [access_rules_p_to_p]
     en = Special access
@@ -36142,6 +36302,7 @@
     sw = Matumizi maalum
     zh-Hans = 特殊访问
     zh-Hant = 特殊訪問
+    fa = دسترسی ویژه
 
   [access_rules_paid]
     en = Purchased
@@ -36175,6 +36336,7 @@
     sw = Iliyonunuliwa
     zh-Hans = 已购买
     zh-Hant = 已購買
+    fa = خریداری شده
 
   [failed_purchase_support_message]
     en = Sorry, but you probably have an uncompleted purchase. Please contact support and we will solve the problem.
@@ -36208,6 +36370,7 @@
     sw = Samahani, lakini inawezekana hujakamilisha ununuzi. Tafadhali wasiliana na dawati la msaada na tutatatua tatizo hilo.
     zh-Hans = 您似乎还有未完成的购买。请写支持，我们将解决问题。
     zh-Hant = 您似乎還有待定購買。請寫支持，我們將解決問題。
+    fa = با عرض پوزش، اما احتمالا یک خرید ناتمام دارید. لطفا با بخش پشتیبانی تماس بگیرید و ما مشکل را حل خواهیم کرد.
 
   [contact]
     en = Contact
@@ -36241,6 +36404,7 @@
     sw = Mawasiliano
     zh-Hans = 写
     zh-Hant = 寫
+    fa = تماس
 
   [check_price_button]
     en = Check price
@@ -36274,6 +36438,7 @@
     sw = Angalia bei
     zh-Hans = 了解价格
     zh-Hant = 了解價格
+    fa = بررسی قیمت
 
   [download_button]
     en = Download
@@ -36307,6 +36472,7 @@
     sw = Pakua
     zh-Hans = 下载
     zh-Hant = 下載
+    fa = دانلود
 
   [speedcams_alert_title]
     en = Speed cameras
@@ -36340,6 +36506,7 @@
     sw = Kamera za mwendo-kasi
     zh-Hans = 高速摄像机
     zh-Hant = 高速相機
+    fa = دوربین های سرعت
 
   [speedcams_alert_subtitle]
     en = Warn about speed limits
@@ -36373,6 +36540,7 @@
     sw = Onyo kuhusu ukomo wa mwendo-kasi
     zh-Hans = 速度限制警告
     zh-Hant = 警告速度限制
+    fa = هشدار درباره محدودیت سرعت
 
   [speedcam_option_auto]
     en = Auto
@@ -36406,6 +36574,7 @@
     sw = Auto
     zh-Hans = 自动
     zh-Hant = 自動
+    fa = خودکار
 
   [speedcam_option_always]
     en = Always
@@ -36439,6 +36608,7 @@
     sw = Mara kwa Mara
     zh-Hans = 总是
     zh-Hant = 總是
+    fa = همیشه
 
   [speedcam_option_never]
     en = Never
@@ -36454,7 +36624,7 @@
     id = Tidak pernah
     it = Mai
     ja = 無効
-    ko = 절대 아님
+    ko = 안함
     nb = Aldri
     pl = Nigdy
     pt = Nunca
@@ -36472,6 +36642,7 @@
     sw = Kamwe
     zh-Hans = 从不
     zh-Hant = 從不
+    fa = هرگز
 
   [bookmark_description_title]
     en = Bookmark Description
@@ -36505,6 +36676,7 @@
     sw = Maelezo ya Alamisho
     zh-Hans = 标签说明
     zh-Hant = 標籤說明
+    fa = توضیحات نشانه گذاری
 
   [place_description_title]
     en = Place Description
@@ -36538,23 +36710,348 @@
     sw = Maelezo ya Eneo
     zh-Hans = 地点说明
     zh-Hant = 地點說明
+    fa = توضیحات محل
 
   [ugc_routes_error_uploading_file_toast]
-    comment = FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes
-    en = ugc_routes_error_uploading_file_toast
+    en = Unfortunately, an error occurred while uploading your bookmarks. Please try again.
+    ru = К сожалению, при загрузке меток произошла ошибка. Пожалуйста, попробуйте еще раз.
+    ar = عدّل دليلك على الويب بسهولة باستخدام جهاز الكمبيوتر: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور. يرجى المحاولة مرة أخرى.
+    cs = Při nahrávání značek se bohužel stala chyba. Zkuste to prosím ještě jednou.
+    da = Der er desværre opstået en fejl ved upload af dine bogmærker. Prøv igen.
+    nl = Spijtig genoeg is er een fout opgetreden tijdens het uploaden van uw bladwijzers. Probeer het opnieuw.
+    fi = Valitettavasti, merkkien lataamisen aikana tapahtui virhe. Yritä uudelleen.
+    fr = Malheureusement, c'est une erreur qui s'est produite lors du téléchargement de vos signets. Veuillez réessayer.
+    de = Leider ist beim Hochladen der Markierungen ein Fehler aufgetreten. Bitte versuchen Sie es erneut.
+    hu = Sajnálatos módon, a jelek letöltésénél hiba történt. Kérem, próbálja meg még egyszer.
+    id = Sayang sekali, kesalahan terjadi saat mengunggah bookmark Anda. Silakan coba lagi.
+    it = Si è verificato un errore durante il caricamento. Si prega di riprovare.
+    ja = 残念ながらあなたのブックマークをアップロードしていいる最中にエラーが発生しました。もう一度お試しください。
+    ko = 안타깝게도, 즐겨찾기를 업로드하는 도중 오류가 발생했습니다. 다시 시도해보세요.
+    nb = Dessverre har det oppstått en feil under opplasting av bokmerkene dine. Vennligst prøv igjen.
+    pl = Przepraszamy, wystąpił błąd podczas ładowania znaczników. Spróbuj ponownie.
+    pt = Infelizmente, ocorreu um erro ao carregar os marcas. Por favor, tente novamente.
+    pt-BR = Infelizmente, um erro ocorreu enquanto carregávamos seus favoritos. Por favor, tente novamente.
+    ro = Din păcate, în timpul încărcării etichetelor a intervenit o greșeală. Vă rugăm să încercați încă o dată.
+    es = Lo sentimos, se produjo un error al cargar las etiquetas. Por favor intente de nuevo.
+    es-MX = Desafortunadamente, ocurrió un error al cargar sus marcadores. Por favor intente de nuevo.
+    sv = Tyvärr, ett fel uppstod vid uppladdning av etiketter. Vänligen försök igen.
+    th = ขออภัยค่ะ เกิดข้อผิดพลาดขณะอัพโหลดบุ๊กมาร์คของคุณ โปรดลองใหม่อีกครั้ง
+    tr = Maalesef yer işaretlerinizi yüklerken bir hata oluştu. Lütfen tekrar deneyin.
+    uk = На жаль, при завантаженні міток виникла помилка. Будь-ласка, спробуйте ще раз.
+    vi = Rất tiếc, đã xảy ra lỗi khi tải lên dấu trang của bạn. Vui lòng thử lại.
+    el = Δυστυχώς, συνέβη κάποιο σφάλμα ενώ φορτώνονταν οι σελιδοδείκτες σας. Παρακαλώ ξαναπροσπαθήστε.
+    sk = Bohužiaľ, počas nahrávania záložiek sa vyskytla chyba. Prosím skúste znova.
+    sw = Kwa bahati mbaya, kuna kosa limetokea wakati wa kupakia kialamisho chako. Tafadhali jaribu tena.
+    zh-Hans = 抱歉，加载代码时出错。请再试一次。
+    zh-Hant = 抱歉，加載代碼時出錯。請再試一次。
+    fa = متأسفانه، هنگام بارگذاری نشان شده های شما، خطایی رخ داد. لطفا دوباره تلاش کنید.
 
   [notification_channel_ugc]
-    comment = FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected.
-    en = UGC
+    en = Social content
+    ru = Пользовательский контент
+    ar = محتوى ينتجه المستخدم
+    cs = Uživatelský obsah
+    da = Socialt indhold
+    nl = Sociale inhoud
+    fi = Käyttäjäsisältö
+    fr = Contenu social
+    de = Nutzergenerierte Inhalte
+    hu = Felhasználói tartalom
+    id = Konten sosial
+    it = Contenuto creato dagli utenti
+    ja = ソーシャルコンテンツ
+    ko = 소셜 컨텐트
+    nb = Sosialt innhold
+    pl = Treść użytkownika
+    pt = Conteúdo
+    pt-BR = Redes Sociais
+    ro = Conținutul utilizatorului
+    es = Contenido del usuario
+    es-MX = Redes sociales
+    sv = Användarinnehåll
+    th = เนื้อหาทางโซเชียล
+    tr = Sosyal içerik
+    uk = Контент користувачів
+    vi = Nội dung xã hội
+    el = Κοινωνικό περιεχόμενο
+    sk = Sociálny obsah
+    sw = Mitandao ya kijamii
+    zh-Hans = 用户内容
+    zh-Hant = 用戶內容
+    fa = محتوای اجتماعی
 
   [notification_channel_downloader]
-    comment = FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected.
+    comment = this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected.
     en = Map downloader
+    ru = Загрузка карт
+    ar = محمل الخريطة
+    cs = Nahrávání map
+    da = Korthenter
+    nl = Kaart downloader
+    fi = Karttojen lataaminen
+    fr = Téléchargeur carte
+    de = Karten werden geladen
+    hu = Kártyák letöltése
+    id = Pengunduh peta
+    it = Caricamento mappe
+    ja = マップダウンローダー
+    ko = 맵 다운로더
+    nb = Nedlast kart
+    pl = Pobieranie map
+    pt = A carregar mapas
+    pt-BR = Downloader do mapa
+    ro = Încărcarea hărților
+    es = Cargando mapas
+    es-MX = Descargar mapas
+    sv = Kartladdning
+    th = ตัวดาวน์โหลดแผนที่
+    tr = Harita indiricisi
+    uk = Завантаження мап
+    vi = Trình tải xuống bản đồ
+    el = Κατέβασμα χαρτών
+    sk = Sťahovač máp
+    sw = Kipakua Ramani
+    zh-Hans = 加载地图
+    zh-Hant = 加載地圖
+    fa = دانلود کننده نقشه
 
   [notification_leave_review_title]
-    comment = FIXME
-    en = Have you been at %s?
+    en = %s - how was it?
+    ru = %s - как вам здесь?
+    ar = - كيف كان ذلك؟%s
+    cs = %s - jak se vám tady líbí?
+    da = %s - hvordan var det?
+    nl = %s - hoe vond u het?
+    fi = %s - miten on täällä?
+    fr = %s - c'était comment ?
+    de = %s - Gefällt es Ihnen hier?
+    hu = %s - hogy érzi itt magát?
+    id = %s - bagaimana?
+    it = %s - ti piace quì?
+    ja = %s - はいかがでしたか?
+    ko = %s - 어떠셨나요?
+    nb = %s - hvordan var det?
+    pl = %s - jak Tobie tu?
+    pt = %s - como está aqui?
+    pt-BR = %s - como foi?
+    ro = %s - cum vă place aici?
+    es = %s - ¿Cómo se siente aquí?
+    es-MX = %s - ¿Cómo estuvo?
+    sv = %s - hur mår du här?
+    th = %s - มันเป็นอย่างไร
+    tr = %s - nasıldı?
+    uk = %s - як вам тут?
+    vi = %s - nó như thế nào?
+    el = %s- πώς ήταν?
+    sk = %s - aké to bolo?
+    sw = %s - ulijisikiaje?
+    zh-Hans = %s - 您在这里怎么样？
+    zh-Hant = %s - 您在這裡怎麼樣?
+    fa = - چگونه بود؟%s
 
   [notification_leave_review_content]
-    comment = FIXME
-    en = Have you been at %s? Please help other travellers and rate it!
+    en = Help travellers by leaving a review!
+    ru = Оставьте отзыв и помогите путешественникам! 
+    ar = مساعدة المسافرين من خلال ترك رأي!
+    cs = Okomentujte místo a pomozte cestovatelům!
+    da = Hjælp rejsende ved at skrive en anmeldelse!
+    nl = Help reizigers door een beoordeling achter te laten!
+    fi = Kirjoita arvostelu ja auta matkustajia!
+    fr = Aidez les voyageurs en leur laissant un avis !
+    de = Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!
+    hu = Írja meg a véleményét és segítsen a kirándulóknak!
+    id = Bantu para pelancong dengan meninggalkan ulasan!
+    it = Lascia una recensione ed aiuta altri viaggiatori!
+    ja = レビューを残して旅行者を助けましょう！
+    ko = 리뷰를 남겨서 여행자들을 도와주세요!
+    nb = Hjelp andre ved å legge igjen en anmeldelse.
+    pl = Zostaw recenzję i pomóż podróżującym!
+    pt = Deixe um comentário e ajude os viajantes!
+    pt-BR = Ajude viajantes ao deixar uma avaliação!
+    ro = Lăsați comentariile dvs. și ajutați alți călători!
+    es = ¡Deje un comentario y ayude a otros viajeros!
+    es-MX = Ayude a otros viajeros al dejar sus comentarios!
+    sv = Lämna en recension och hjälp resenärer!
+    th = ช่วยนักเดินทางโดยการทิ้งรีวิว!
+    tr = Yorum bırakarak gezginlere yardım edin!
+    uk = Залиште відгук та допоможіть мандрівникам!
+    vi = Giúp khách du lịch bằng cách để lại đánh giá!
+    el = Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!
+    sk = Pomôžte cestujúcim tým, že zanecháte recenziu!
+    sw = Wasaidie wasafiri kwa kuandika mtazamo wako!
+    zh-Hans = 请发表评论并帮助游客！
+    zh-Hant = 請發表評論並幫助旅客！
+    fa = با بیان نظر خود به مسافران کمک نمایید!
+
+  [share_bookmarks_email_body_link]
+    en = Hello!\n\nHere is the link where you can download your bookmarks: %s. Open the list via MAPS.ME and enjoy your trip: http://maps.me/get?kmz
+    ru = Здравствуйте!\n\nВаши метки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой: http://maps.me/get?kmz
+    ar = مرحبًا!\n\nهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك: http://maps.me/get?kmz
+    cs = Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty: http://maps.me/get?kmz
+    da = Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen: http://maps.me/get?kmz
+    nl = Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis: http://maps.me/get?kmz
+    fi = Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta: http://maps.me/get?kmz
+    fr = Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage : http://maps.me/get?kmz
+    de = Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise: http://maps.me/get?kmz
+    hu = Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását: http://maps.me/get?kmz
+    id = Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda: http://maps.me/get?kmz
+    it = Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio: http://maps.me/get?kmz
+    ja = こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください: http://maps.me/get?kmz
+    ko = 안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요: http://maps.me/get?kmz
+    nb = Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via MAPS.ME og nyt reisen: http://maps.me/get?kmz
+    pl = Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą: http://maps.me/get?kmz
+    pt = Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando MAPS.ME e desfrute do passeio: http://maps.me/get?kmz
+    pt-BR = Olá!\n\nAqui está o link para baixar seus marcas: %s. Abra a lista através do MAPS.ME e curta sua viagem: http://maps.me/get?kmz
+    ro = Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie: http://maps.me/get?kmz
+    es = Hola!\n\nSus etiquetas se pueden descargar desde el enlace: %s. Abra la lista con la ayuda de MAPS.ME y disfrute del viaje: http://maps.me/get?kmz
+    es-MX = ¡Hola!\n\nAquí esta el enlace donde puede descargar sus marcadores: %s. Abra la lista a través de MAPS.ME y disfrute su viaje: http://maps.me/get?kmz
+    sv = Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan: http://maps.me/get?kmz
+    th = สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ: http://maps.me/get?kmz
+    tr = Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın: http://maps.me/get?kmz
+    uk = Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою MAPS.ME та насолоджуйтесь подорожжю: http://maps.me/get?kmz
+    vi = Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn: http://maps.me/get?kmz
+    el = Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας: http://maps.me/get?kmz
+    sk = Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet: http://maps.me/get?kmz
+    sw = Aise!\n\nKiunganishi hiki hapa ambapo unaweza kupakua vialamisho vyako: %s. Funua orodha kupitia MAPS.ME na ufurahie safari zako: http://maps.me/get?kmz
+    zh-Hans = 您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行：http://maps.me/get?kmz
+    zh-Hant = 您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行：http://maps.me/get?kmz
+    fa = سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید: http://maps.me/get?kmz
+
+  [camera_ahead_voiceover]
+    en = Camera ahead
+    ru = Впереди камера
+    ar = الكاميرا أمامك
+    cs = Radar vpředu
+    da = Kamera foran dig
+    nl = Camera in zicht
+    fi = Edessä on kamera
+    fr = Caméra devant
+    de = Kamera vorne
+    hu = Kamera elöl
+    id = Diawasi kamera
+    it = Autovelox in prossimità
+    ja = この先にある自動速度違反取締装置
+    ko = 전방에 카메라
+    nb = Kommer til kamera
+    pl = Kamera z przodu
+    pt = Câmera à frente
+    pt-BR = Radar à frente
+    ro = Cameră frontală
+    es = Cámara adelante
+    es-MX = Cámara próxima
+    sv = Kamera framför
+    th = มีกล้องอยู่ข้างหน้า
+    tr = İleride kamera var
+    uk = Попереду камера
+    vi = Máy ảnh phía trước
+    el = Κάμερα παρακάτω
+    sk = Kamera vpredu
+    sw = Kamera Mbele
+    zh-Hans = 在摄像头前
+    zh-Hant = 在攝像頭前
+    fa = به دوربین نزدیک می شوید
+
+  [warning_speedcams_title]
+  comment = FIXME next release 12.18
+    en = Navigator will warn you about cameras when you exceed the speed limit of %d km/h
+    ru = Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч
+    ar = سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س
+    cs = Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary
+    da = Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t
+    nl = Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt
+    fi = Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t
+    fr = Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h
+    de = Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren
+    hu = Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra
+    id = Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam
+    it = Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o
+    ja = %d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します
+    ko = 네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다
+    nb = Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t
+    pl = Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h
+    pt = O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h
+    pt-BR = O Navegador irá avisá-lo sobre radares quando você ultrapassar o limite de velocidade de %d km/h
+    ro = Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h
+    es = El navegador le notificará de las cámaras cuando se exceda el límite de velocidad en %d km/h
+    es-MX = El navegador le avisará de las cámaras cuando exceda el límite de velocidad de %d km/h
+    sv = Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h
+    th = เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม
+    tr = %d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak
+    uk = Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г
+    vi = Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h
+    el = Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h
+    sk = Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h
+    sw = Kiongoza-njia kitakuonya kuhusu kamera pindi umepita kikomo cha mwendo-kasi w %d km/h
+    zh-Hans = 当速度限制超过%d km / h时，导航会通知您的摄像机
+    zh-Hant = 當速度限制超過%d km / h時，導航會通知您的攝像機
+    fa = هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد
+
+
+  [warning_speedcams_subtitle]
+    en = Please mind driving regulations of the country you are travelling to.
+    ru = Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.
+    ar = يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.
+    cs = Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.
+    da = Vær opmærksom på færdselsreglerne i det land, du rejser til.
+    nl = Let op de rijvoorschriften van het land waar u naartoe reist.
+    fi = Muista tutustua matkustusmaan liikennesääntöihin.
+    fr = Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.
+    de = Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.
+    hu = Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.
+    id = Harap perhatikan aturan berkendara di negara tempat Anda bepergian.
+    it = Ricorda di informarti sul Codice della Strada del paese che visiti.
+    ja = 旅行先の国の道路交通法を考慮してください。
+    ko = 여행하시는 나라의 운전 법규를 준수하시길 바랍니다.
+    nb = Vær oppmerksom på kjøreregler for landet du reiser til.
+    pl = Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.
+    pt = Não esqueça de ler as regras da estrada no país de viagem.
+    pt-BR = Por favor, obedeça as leis de trânsito do país para o qual irá viajar.
+    ro = Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.
+    es = No de olvide de leer las reglas de carretera en el país de viaje.
+    es-MX = Por favor tenga en cuenta los reglamentos del país hacia el cual viaja.
+    sv = Glöm inte att bekanta sig med trafikregler i landet av resan.
+    th = โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป
+    tr = Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.
+    uk = Не забудьте ознайомитися з правилами дорожнього руху у країні подорожі.
+    vi = Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.
+    el = Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.
+    sk = Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.
+    sw = Tafadhali zingatia kanuni za uendeshaji gari za nchi unayoitembelea.
+    zh-Hans = 请不要忘记阅读旅行国的道路规则。
+    zh-Hant = 請不要忘記閱讀旅行國的道路規則。
+    fa = لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.
+
+  [speedcams_notice_message]
+    en = Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams
+    ru = Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах
+    ar = السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة
+    cs = Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary
+    da = Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer
+    nl = Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen
+    fi = Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista
+    fr = Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars
+    de = Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren
+    hu = Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról
+    id = Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan
+    it = Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox
+    ja = 自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません
+    ko = 자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기
+    nb = Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer
+    pl = Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach
+    pt = Auto - Avisa sobre radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - Sempre alerta sobre câmeras\nNunca - nunca avisar sobre câmeras
+    pt-BR = Automático - Avisar sobre radar se houver risco de ultrapassar o limite de velocidade\nSempre - Sempre avisar sobre radares\nNunca - Nunca avisar sobre radares
+    ro = Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video
+    es = Auto - advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - siempre alerta sobre las cámaras\nNunca - nunca advierte acerca de las cámaras
+    es-MX = Automático - Aviso de las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - Siempre dar aviso de las cámaras de velocidad\nNunca - Nunca dar aviso de las cámaras de velocidad
+    sv = Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror
+    th = อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว
+    tr = Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma
+    uk = Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери
+    vi = Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams
+    el = Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες
+    sk = Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery
+    sw = Auto - Onyo la kuhusu kamera ya mwendo-kasi iwapo kuna hatari yoyote ya kuzidi ukomo wa mwendo-kasi\nMara kwa Mara - Daima onya kuhusu kamera za mwendo-kasi\nKamwe - Kamwe usionye kuhusu kamera za mwendo-kasi
+    zh-Hans = 自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告
+    zh-Hant = 自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告
+    fa = خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد
+
