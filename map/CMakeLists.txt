@@ -55,6 +55,7 @@ set(
   feature_vec_model.hpp
   framework.cpp
   framework.hpp
+  framework_light.cpp
   framework_light.hpp
   ge0_parser.cpp
   ge0_parser.hpp

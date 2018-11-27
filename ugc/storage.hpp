@@ -76,5 +76,8 @@ inline std::string DebugPrint(Storage::SettingResult const & result)
 
 namespace lightweight
 {
+namespace impl
+{
 size_t GetNumberOfUnsentUGC();
+}  // namespace impl
 }  //namespace lightweight

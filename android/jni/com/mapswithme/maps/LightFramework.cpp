@@ -13,14 +13,14 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeIsAuthenticated(JNIEnv * env, jclass clazz)
 {
   Framework const framework(REQUEST_TYPE_USER_AUTH_STATUS);
-  return static_cast<jboolean>(framework.Get<REQUEST_TYPE_USER_AUTH_STATUS>());
+  return static_cast<jboolean>(framework.IsUserAuthenticated());
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeGetNumberUnsentUGC(JNIEnv * env, jclass clazz)
 {
   Framework const framework(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
-  return static_cast<jint>(framework.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_UGC>());
+  return static_cast<jint>(framework.GetNumberOfUnsentUGC());
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -30,8 +30,7 @@ Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, 
                                                                   jint maxCount)
 {
   Framework framework(REQUEST_TYPE_LOCAL_ADS_FEATURES);
-  auto const features = framework.GetNonConst<REQUEST_TYPE_LOCAL_ADS_FEATURES>(
-    lat, lon, radiusInMeters, maxCount);
+  auto const features = framework.GetLocalAdsFeatures(lat, lon, radiusInMeters, maxCount);
 
   static jclass const geoFenceFeatureClazz =
           jni::GetGlobalClassRef(env, "com/mapswithme/maps/geofence/GeoFenceFeature");
@@ -66,14 +65,14 @@ Java_com_mapswithme_maps_LightFramework_nativeLogLocalAdsEvent(JNIEnv * env, jcl
                          static_cast<uint8_t>(1) /* zoom level */, local_ads::Clock::now(),
                          static_cast<double>(lat), static_cast<double>(lon),
                          static_cast<uint16_t>(accuracyInMeters));
-  framework.GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>()->RegisterEvent(std::move(event));
+  framework.GetLocalAdsStatistics()->RegisterEvent(std::move(event));
 }
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeGetNotification(JNIEnv * env, jclass clazz)
 {
   Framework framework(REQUEST_TYPE_NOTIFICATION);
-  auto const notification = framework.Get<REQUEST_TYPE_NOTIFICATION>();
+  auto const notification = framework.GetNotification();
 
   if (!notification)
     return nullptr;

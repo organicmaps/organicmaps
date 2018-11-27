@@ -2704,8 +2704,11 @@ void BookmarkManager::EditSession::NotifyChanges()
 
 namespace lightweight
 {
+namespace impl
+{
 bool IsBookmarksCloudEnabled()
 {
   return Cloud::GetCloudState(kBookmarkCloudSettingsParam) == Cloud::State::Enabled;
 }
+}  // namespace impl
 }  // namespace lightweight

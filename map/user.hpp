@@ -105,5 +105,8 @@ private:
 
 namespace lightweight
 {
+namespace impl
+{
 bool IsUserAuthenticated();
+}  // namespace impl
 }  //namespace lightweight

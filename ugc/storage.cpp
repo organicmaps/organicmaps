@@ -544,6 +544,8 @@ void Storage::LoadForTesting(std::string const & testIndexFilePath)
 
 namespace lightweight
 {
+namespace impl
+{
 size_t GetNumberOfUnsentUGC()
 {
   auto const indexFilePath = GetIndexFilePath();
@@ -573,4 +575,5 @@ size_t GetNumberOfUnsentUGC()
 
   return number;
 }
+}  // namespace impl
 }  // namespace lightweight

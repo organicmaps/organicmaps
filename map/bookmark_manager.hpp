@@ -576,5 +576,8 @@ private:
 
 namespace lightweight
 {
+namespace impl
+{
 bool IsBookmarksCloudEnabled();
+}  // namespace impl
 }  //namespace lightweight

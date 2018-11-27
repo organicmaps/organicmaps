@@ -714,6 +714,8 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
 
 namespace lightweight
 {
+namespace impl
+{
 bool IsUserAuthenticated()
 {
   std::string token;
@@ -722,4 +724,5 @@ bool IsUserAuthenticated()
 
   return false;
 }
+}  // namespace impl
 }  // namespace lightweight

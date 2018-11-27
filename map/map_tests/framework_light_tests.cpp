@@ -12,8 +12,8 @@ struct LightFrameworkTest
       Framework f(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC | REQUEST_TYPE_USER_AUTH_STATUS);
       f.m_userAuthStatus = true;
       f.m_numberOfUnsentUGC = 30;
-      TEST_EQUAL(f.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_UGC>(), 30, ());
-      TEST(f.Get<REQUEST_TYPE_USER_AUTH_STATUS>(), ());
+      TEST_EQUAL(f.GetNumberOfUnsentUGC(), 30, ());
+      TEST(f.IsUserAuthenticated(), ());
     }
 
     {
@@ -22,17 +22,17 @@ struct LightFrameworkTest
                   REQUEST_TYPE_NUMBER_OF_UNSENT_UGC);
 
       f.m_numberOfUnsentEdits = 10;
-      TEST_EQUAL(f.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS>(), 10, ());
-      TEST_EQUAL(f.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_UGC>(), 0, ());
-      TEST(!f.Get<REQUEST_TYPE_USER_AUTH_STATUS>(), ());
+      TEST_EQUAL(f.GetNumberOfUnsentEdits(), 10, ());
+      TEST_EQUAL(f.GetNumberOfUnsentUGC(), 0, ());
+      TEST(!f.IsUserAuthenticated(), ());
     }
 
     {
       Framework f(REQUEST_TYPE_LOCAL_ADS_FEATURES | REQUEST_TYPE_LOCAL_ADS_STATISTICS);
-      auto const features = f.GetNonConst<REQUEST_TYPE_LOCAL_ADS_FEATURES>(0.0 /* lat */, 0.0 /* lon */,
+      auto const features = f.GetLocalAdsFeatures(0.0 /* lat */, 0.0 /* lon */,
                                                                            100 /* radiusInMeters */,
                                                                            0 /* maxCount */);
-      auto stats = f.GetNonConst<REQUEST_TYPE_LOCAL_ADS_STATISTICS>();
+      auto stats = f.GetLocalAdsStatistics();
       TEST(stats != nullptr, ());
       TEST_EQUAL(features.size(), 0, ());
     }

@@ -79,7 +79,7 @@ using namespace storage;
 
   using namespace lightweight;
   lightweight::Framework const f(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC | REQUEST_TYPE_USER_AUTH_STATUS);
-  if (f.Get<REQUEST_TYPE_USER_AUTH_STATUS>() || f.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_UGC>() < 2)
+  if (f.IsUserAuthenticated() || f.GetNumberOfUnsentUGC() < 2)
     return NO;
 
   return YES;
