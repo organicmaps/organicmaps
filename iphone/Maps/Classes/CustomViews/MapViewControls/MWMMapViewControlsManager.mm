@@ -126,6 +126,14 @@ extern NSString * const kAlohalyticsTapEventKey;
   });
 }
 
+- (void)showPlacePageReview:(place_page::Info const &)info
+{
+  network_policy::CallPartnersApi([self, info](auto const & /* canUseNetwork */) {
+    self.trafficButtonHidden = YES;
+    [self.placePageManager showReview:info];
+  });
+}
+
 - (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale
 {
   if (![self searchText:text forInputLocale:locale])

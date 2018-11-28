@@ -44,6 +44,7 @@ class Info;
 
 - (void)dismissPlacePage;
 - (void)showPlacePage:(place_page::Info const &)info;
+- (void)showPlacePageReview:(place_page::Info const &)info;
 - (void)addPlace:(BOOL)isBusiness hasPoint:(BOOL)hasPoint point:(m2::PointD const &)point;
 
 #pragma mark - MWMNavigationDashboardManager

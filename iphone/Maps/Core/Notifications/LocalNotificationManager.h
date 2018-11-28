@@ -11,6 +11,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 + (BOOL)isLocalNotification:(UNNotification *)notification;
 
 - (BOOL)showUGCNotificationIfNeeded:(MWMVoidBlock)onTap;
+- (void)showReviewNotificationForPlace:(NSString *)place onTap:(MWMVoidBlock)onReviewNotification;
 - (void)showDownloadMapNotificationIfNeeded:(CompletionHandler)completionHandler;
 - (void)processNotification:(NSDictionary *)userInfo onLaunch:(BOOL)onLaunch;
 

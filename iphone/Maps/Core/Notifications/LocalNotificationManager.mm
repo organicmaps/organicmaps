@@ -3,6 +3,7 @@
 #import "MWMStorage.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
@@ -18,6 +19,7 @@ namespace
 {
 NSString * const kLocalNotificationNameKey = @"LocalNotificationName";
 NSString * const kUGCNotificationValue = @"UGC";
+NSString * const kReviewNotificationValue = @"ReviewNotification";
 NSString * const kDownloadNotificationValue = @"Download";
 NSString * const kDownloadMapActionKey = @"DownloadMapActionKey";
 NSString * const kDownloadMapActionName = @"DownloadMapActionName";
@@ -38,6 +40,7 @@ using namespace storage;
 @property(copy, nonatomic) CompletionHandler downloadMapCompletionHandler;
 @property(weak, nonatomic) NSTimer * timer;
 @property(copy, nonatomic) MWMVoidBlock onTap;
+@property(copy, nonatomic) MWMVoidBlock onReviewNotification;
 
 @end
 
@@ -123,9 +126,28 @@ using namespace storage;
 
    [Statistics logEvent:@"UGC_UnsentNotification_clicked"];
   }
+  else if ([userInfo[kLocalNotificationNameKey] isEqualToString:kReviewNotificationValue])
+  {
+    if (self.onReviewNotification)
+      self.onReviewNotification();
+  }
 }
 
 #pragma mark - Location Notifications
+
+- (void)showReviewNotificationForPlace:(NSString *)place onTap:(MWMVoidBlock)onReviewNotification {
+  self.onReviewNotification = onReviewNotification;
+
+  UILocalNotification * notification = [[UILocalNotification alloc] init];
+  notification.alertTitle = [NSString stringWithCoreFormat:L(@"notification_leave_review_title")
+                                                 arguments:@[place]];
+  notification.alertBody = L(@"notification_leave_review_content");
+  notification.alertAction = L(@"leave_a_review");
+  notification.soundName = UILocalNotificationDefaultSoundName;
+  notification.userInfo = @{kLocalNotificationNameKey : kReviewNotificationValue};
+
+  [UIApplication.sharedApplication presentLocalNotificationNow:notification];
+}
 
 - (BOOL)showUGCNotificationIfNeeded:(MWMVoidBlock)onTap
 {

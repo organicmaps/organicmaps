@@ -33,6 +33,7 @@
 
 #include "Framework.h"
 
+#include "map/framework_light.hpp"
 #include "map/gps_tracker.hpp"
 
 #include "platform/http_thread_apple.h"
@@ -439,6 +440,24 @@ using namespace osm_auth_ios;
   {
     completionHandler(UIBackgroundFetchResultNewData);
     return;
+  }
+
+  lightweight::Framework const framework(lightweight::REQUEST_TYPE_NOTIFICATION);
+  auto const notificationCandidate = framework.GetNotification();
+  if (notificationCandidate)
+  {
+    auto const notification = notificationCandidate.get();
+    if (notification.m_type == notifications::NotificationCandidate::Type::UgcReview &&
+        notification.m_mapObject)
+    {
+      [LocalNotificationManager.sharedManager
+       showReviewNotificationForPlace:@(notification.m_mapObject->GetReadableName().c_str())
+       onTap: ^{
+         place_page::Info info;
+         if (GetFramework().MakePlacePageInfo(*notification.m_mapObject, info))
+           [[MapViewController sharedController].controlsManager showPlacePageReview:info];
+     }];
+    }
   }
 
   auto tasks = @[

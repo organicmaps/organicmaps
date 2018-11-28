@@ -95,6 +95,12 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 
 @implementation MWMPlacePageManager
 
+- (void)showReview:(place_page::Info const &)info
+{
+  [self show:info];
+  [self showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue fromPreview:YES];
+}
+
 - (void)show:(place_page::Info const &)info
 {
   self.isSponsoredOpenLogged = NO;
