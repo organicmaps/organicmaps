@@ -41,13 +41,14 @@ void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && e
 {
   vector<Result> actual;
   geocoder.ProcessQuery(query, actual);
-  TEST_EQUAL(actual.size(), expected.size(), (actual, expected));
+  TEST_EQUAL(actual.size(), expected.size(), (query, actual, expected));
   sort(actual.begin(), actual.end(), base::LessBy(&Result::m_osmId));
   sort(expected.begin(), expected.end(), base::LessBy(&Result::m_osmId));
   for (size_t i = 0; i < actual.size(); ++i)
   {
-    TEST(actual[i].m_certainty >= 0.0 && actual[i].m_certainty <= 1.0, (actual[i].m_certainty));
-    TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, ());
+    TEST(actual[i].m_certainty >= 0.0 && actual[i].m_certainty <= 1.0,
+         (query, actual[i].m_certainty));
+    TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, (query));
     TEST(base::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps),
          (query, actual[i].m_certainty, expected[i].m_certainty));
   }
@@ -80,5 +81,39 @@ UNIT_TEST(Geocoder_Hierarchy)
              ());
   TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"),
              ());
+}
+
+UNIT_TEST(Geocoder_OnlyBuildings)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Some Locality"}}}
+
+21 {"properties": {"address": {"street": "Good", "locality": "Some Locality"}}}
+22 {"properties": {"address": {"building": "5", "street": "Good", "locality": "Some Locality"}}}
+
+31 {"properties": {"address": {"street": "Bad", "locality": "Some Locality"}}}
+32 {"properties": {"address": {"building": "10", "street": "Bad", "locality": "Some Locality"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  base::GeoObjectId const localityId(10);
+  base::GeoObjectId const goodStreetId(21);
+  base::GeoObjectId const badStreetId(31);
+  base::GeoObjectId const building5(22);
+  base::GeoObjectId const building10(32);
+
+  TestGeocoder(geocoder, "some locality", {{localityId, 1.0}});
+  TestGeocoder(geocoder, "some locality good", {{goodStreetId, 1.0}, {localityId, 0.857143}});
+  TestGeocoder(geocoder, "some locality bad", {{badStreetId, 1.0}, {localityId, 0.857143}});
+
+  TestGeocoder(geocoder, "some locality good 5", {{building5, 1.0}});
+  TestGeocoder(geocoder, "some locality bad 10", {{building10, 1.0}});
+
+  // There is a building "10" on Bad Street but we should not return it.
+  // Another possible resolution would be to return just "Good Street" (relaxed matching)
+  // but at the time of writing the goal is to either have an exact match or no match at all.
+  TestGeocoder(geocoder, "some locality good 10", {});
 }
 }  // namespace geocoder

@@ -48,6 +48,14 @@ public:
   class Context
   {
   public:
+    struct BeamKey
+    {
+      BeamKey(base::GeoObjectId osmId, Type type) : m_osmId(osmId), m_type(type) {}
+
+      base::GeoObjectId m_osmId;
+      Type m_type;
+    };
+
     Context(std::string const & query);
 
     void Clear();
@@ -66,7 +74,7 @@ public:
     // Returns true iff all tokens are used.
     bool AllTokensUsed() const;
 
-    void AddResult(base::GeoObjectId const & osmId, double certainty);
+    void AddResult(base::GeoObjectId const & osmId, double certainty, Type type);
 
     void FillResults(std::vector<Result> & results) const;
 
@@ -74,15 +82,24 @@ public:
 
     std::vector<Layer> const & GetLayers() const;
 
+    void SetHouseNumberBit() { m_surelyGotHouseNumber = true; }
+
   private:
     Tokens m_tokens;
     std::vector<Type> m_tokenTypes;
 
     size_t m_numUsedTokens = 0;
 
+    // Sticky bit that records a heuristic check whether
+    // the current query contains a house number.
+    // The rationale is that we must only emit buildings in this case
+    // and implement a fallback to a more powerful geocoder if we
+    // could not find a building.
+    bool m_surelyGotHouseNumber = false;
+
     // The highest value of certainty for a fixed amount of
     // the most relevant retrieved osm ids.
-    Beam m_beam;
+    Beam<BeamKey, double> m_beam;
 
     std::vector<Layer> m_layers;
   };
@@ -96,7 +113,7 @@ public:
 private:
   void Go(Context & ctx, Type type) const;
 
-  void FillBuildingsLayer(Context const & ctx, Tokens const & subquery, Layer & curLayer) const;
+  void FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer & curLayer) const;
 
   void FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
                         Layer & curLayer) const;

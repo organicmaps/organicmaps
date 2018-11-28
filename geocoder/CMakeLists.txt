@@ -4,7 +4,6 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
-  beam.cpp
   beam.hpp
   geocoder.cpp
   geocoder.hpp

@@ -142,9 +142,9 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
-void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty)
+void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type)
 {
-  m_beam.Add(osmId, certainty);
+  m_beam.Add(BeamKey(osmId, type), certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
@@ -152,13 +152,15 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
   results.clear();
   results.reserve(m_beam.GetEntries().size());
 
-  set<decltype(m_beam)::Key> seen;
+  set<base::GeoObjectId> seen;
   for (auto const & e : m_beam.GetEntries())
   {
-    if (!seen.insert(e.m_key).second)
+    if (!seen.insert(e.m_key.m_osmId).second)
       continue;
 
-    results.emplace_back(e.m_key /* osmId */, e.m_value /* certainty */);
+    if (m_surelyGotHouseNumber && e.m_key.m_type != Type::Building)
+      continue;
+    results.emplace_back(e.m_key.m_osmId, e.m_value /* certainty */);
   }
 
   if (!results.empty())
@@ -245,7 +247,7 @@ void Geocoder::Go(Context & ctx, Type type) const
 
       for (auto const * e : curLayer.m_entries)
       {
-        ctx.AddResult(e->m_osmId, certainty);
+        ctx.AddResult(e->m_osmId, certainty, type);
       }
 
       ctx.GetLayers().emplace_back(move(curLayer));
@@ -258,8 +260,7 @@ void Geocoder::Go(Context & ctx, Type type) const
   Go(ctx, NextType(type));
 }
 
-void Geocoder::FillBuildingsLayer(Context const & ctx, Tokens const & subquery,
-                                  Layer & curLayer) const
+void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer & curLayer) const
 {
   if (ctx.GetLayers().empty())
     return;
@@ -271,6 +272,11 @@ void Geocoder::FillBuildingsLayer(Context const & ctx, Tokens const & subquery,
 
   if (!search::house_numbers::LooksLikeHouseNumber(subqueryHN, false /* isPrefix */))
     return;
+
+  // We've already filled a street layer and now see something that resembles
+  // a house number. While it still can be something else (a zip code, for example)
+  // let's stay on the safer side and set the house number bit.
+  ctx.SetHouseNumberBit();
 
   for (auto const & se : layer.m_entries)
   {

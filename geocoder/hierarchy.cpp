@@ -232,6 +232,8 @@ void Hierarchy::IndexHouses()
     size_t const t = static_cast<size_t>(Type::Street);
 
     auto const * streetCandidates = GetEntries(be.m_address[t]);
+    if (streetCandidates == nullptr)
+      continue;
 
     for (auto & se : *streetCandidates)
     {
