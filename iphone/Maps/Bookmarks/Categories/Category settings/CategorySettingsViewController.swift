@@ -11,6 +11,7 @@ class CategorySettingsViewController: MWMTableViewController {
   @objc var categoryId = MWMFrameworkHelper.invalidCategoryId()
   @objc var maxCategoryNameLength: UInt = 60
   @objc var minCategoryNameLength: UInt = 0
+  private var changesMade = false
   
   var manager: MWMBookmarksManager {
     return MWMBookmarksManager.shared()
@@ -36,6 +37,13 @@ class CategorySettingsViewController: MWMTableViewController {
     configureAccessStatus()
     
     navigationItem.rightBarButtonItem = saveButton
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    if isMovingFromParentViewController && !changesMade {
+      Statistics.logEvent(kStatBookmarkSettingsCancel)
+    }
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,12 +77,16 @@ class CategorySettingsViewController: MWMTableViewController {
     
     manager.deleteCategory(categoryId)
     delegate?.categorySettingsController(self, didDelete: categoryId)
+    Statistics.logEvent(kStatBookmarkSettingsClick,
+                        withParameters: [kStatOption : kStatDelete])
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let destinationVC = segue.destination as? BookmarksSharingViewController {
       destinationVC.categoryId = categoryId
       destinationVC.delegate = self
+      Statistics.logEvent(kStatBookmarkSettingsClick,
+                          withParameters: [kStatOption : kStatSharingOptions])
     }
   }
   
@@ -88,7 +100,9 @@ class CategorySettingsViewController: MWMTableViewController {
     
     manager.setCategory(categoryId, name: newName)
     manager.setCategory(categoryId, description: descriptionTextView.text)
+    changesMade = true
     delegate?.categorySettingsController(self, didEndEditing: categoryId)
+    Statistics.logEvent(kStatBookmarkSettingsConfirm)
   }
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -119,6 +133,11 @@ extension CategorySettingsViewController: UITextViewDelegate {
         tableView?.scrollToRow(at: thisIndexPath, at: .bottom, animated: false)
       }
     }
+  }
+  
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    Statistics.logEvent(kStatBookmarkSettingsClick,
+                        withParameters: [kStatOption : kStatAddDescription])
   }
 }
 

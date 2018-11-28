@@ -24,9 +24,13 @@ final class EditOnWebViewController: MWMViewController {
       return
     }
     
+    Statistics.logEvent(kStatEditOnWebClick, withParameters: [kStatItem : kStatCopyLink])
     let message = L("share_bookmarks_email_body")
     let shareController = MWMActivityViewController.share(for: guide, message: message) {
-      [weak self] _, _, _, _ in
+      [weak self] _, success, _, _ in
+      if success {
+        Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatEditOnWeb])
+      }
       if let self = self {
         self.delegate?.editOnWebViewControllerDidFinish(self)
       }

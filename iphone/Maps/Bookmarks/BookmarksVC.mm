@@ -453,6 +453,7 @@ CGFloat const kPinDiameter = 18.0f;
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
                             [self viewOnMap];
+                            [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatViewOnMap}];
                           }]];
 
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"list_settings").capitalizedString
@@ -460,6 +461,7 @@ CGFloat const kPinDiameter = 18.0f;
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
                             [self openCategorySettings];
+                            [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSettings}];
                           }]];
 
   [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file").capitalizedString
@@ -467,6 +469,7 @@ CGFloat const kPinDiameter = 18.0f;
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
                             [self exportFile];
+                            [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSendAsFile}];
                           }]];
 
   auto deleteAction = [UIAlertAction actionWithTitle:L(@"delete_list").capitalizedString
@@ -475,6 +478,7 @@ CGFloat const kPinDiameter = 18.0f;
                        {
                          [[MWMBookmarksManager sharedManager] deleteCategory:self->m_categoryId];
                          [self.delegate bookmarksVCdidDeleteCategory:self];
+                         [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatDelete}];
                        }];
   deleteAction.enabled = [[MWMBookmarksManager sharedManager] groupsIdList].count > 1;
   [actionSheet addAction:deleteAction];
@@ -484,11 +488,13 @@ CGFloat const kPinDiameter = 18.0f;
                                                 handler:nil]];
 
   [self presentViewController:actionSheet animated:YES completion:nil];
+  [Statistics logEvent:kStatBookmarksListItemSettings withParameters:@{kStatOption : kStatMore}];
 }
 
 - (IBAction)onSharingOptions:(UIBarButtonItem *)sender
 {
   [self shareCategory];
+  [Statistics logEvent:kStatBookmarksListItemSettings withParameters:@{kStatOption : kStatSharingOptions}];
 }
 
 - (IBAction)onViewOnMap:(UIBarButtonItem *)sender
