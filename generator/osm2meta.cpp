@@ -88,18 +88,6 @@ string MetadataTagProcessorImpl::ValidateAndFormat_stars(string const & v) const
   return string(1, v[0]);
 }
 
-string MetadataTagProcessorImpl::ValidateAndFormat_price_rate(string const & v) const
-{
-  if (v.size() != 1)
-    return string();
-
-  // Price rate is a single digit from 0 to 5.
-  if (v[0] < '0' || v[0] > '5')
-    return string();
-
-  return v;
-}
-
 string MetadataTagProcessorImpl::ValidateAndFormat_operator(string const & v) const
 {
   auto const & isATM = ftypes::IsATMChecker::Instance();
@@ -205,24 +193,6 @@ string MetadataTagProcessorImpl::ValidateAndFormat_level(string v) const
   }
 
   return {};
-}
-
-string MetadataTagProcessorImpl::ValidateAndFormat_sponsored_id(string const & v) const
-{
-  uint64_t id;
-  if (!strings::to_uint64(v, id))
-    return string();
-  return v;
-}
-
-string MetadataTagProcessorImpl::ValidateAndFormat_rating(string const & v) const
-{
-  double rating;
-  if (!strings::to_double(v, rating))
-    return string();
-  if (rating > 0 && rating <= 10)
-    return strings::to_string_dac(rating, 1);
-  return string();
 }
 
 string MetadataTagProcessorImpl::ValidateAndFormat_denomination(string const & v) const

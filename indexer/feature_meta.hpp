@@ -96,7 +96,7 @@ class Metadata : public MetadataBase
 public:
   /// @note! Do not change values here.
   /// Add new types to the end of list, before FMD_COUNT.
-  /// Please also modify MetadataTagProcessor::TypeFromString().
+  /// For types parsed from OSM get corresponding OSM tag to MetadataTagProcessor::TypeFromString().
   enum EType : int8_t
   {
     FMD_CUISINE = 1,

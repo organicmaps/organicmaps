@@ -86,12 +86,6 @@ bool Metadata::TypeFromString(string const & k, Metadata::EType & outType)
     outType = Metadata::FMD_BUILDING_LEVELS;
   else if (k == "denomination")
     outType = Metadata::FMD_DENOMINATION;
-  else if (k == "ref:sponsored")
-    outType = Metadata::FMD_SPONSORED_ID;
-  else if (k == "price_rate")
-    outType = Metadata::FMD_PRICE_RATE;
-  else if (k == "rating:sponsored")
-    outType = Metadata::FMD_RATING;
   else if (k == "banner_url")
     outType = Metadata::FMD_BANNER_URL;
   else if (k == "level")

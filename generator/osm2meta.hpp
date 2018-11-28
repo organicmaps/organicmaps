@@ -33,9 +33,6 @@ struct MetadataTagProcessorImpl
   std::string ValidateAndFormat_level(std::string v) const;
   std::string ValidateAndFormat_denomination(std::string const & v) const;
   std::string ValidateAndFormat_wikipedia(std::string v) const;
-  std::string ValidateAndFormat_price_rate(std::string const & v) const;
-  std::string ValidateAndFormat_sponsored_id(std::string const & v) const;
-  std::string ValidateAndFormat_rating(std::string const & v) const;
   std::string ValidateAndFormat_airport_iata(std::string const & v) const;
 
 protected:
@@ -95,12 +92,14 @@ public:
     case Metadata::FMD_HEIGHT: valid = ValidateAndFormat_height(v); break;
     case Metadata::FMD_DENOMINATION: valid = ValidateAndFormat_denomination(v); break;
     case Metadata::FMD_BUILDING_LEVELS: valid = ValidateAndFormat_building_levels(v); break;
-    case Metadata::FMD_SPONSORED_ID: valid = ValidateAndFormat_sponsored_id(v); break;
-    case Metadata::FMD_PRICE_RATE: valid = ValidateAndFormat_price_rate(v); break;
-    case Metadata::FMD_RATING: valid = ValidateAndFormat_rating(v); break;
+    // Parse banner_url tag added by TagsMixer.
     case Metadata::FMD_BANNER_URL: valid = ValidateAndFormat_url(v); break;
     case Metadata::FMD_LEVEL: valid = ValidateAndFormat_level(v); break;
     case Metadata::FMD_AIRPORT_IATA: valid = ValidateAndFormat_airport_iata(v); break;
+    // Metadata types we do not get from OSM.
+    case Metadata::FMD_SPONSORED_ID:
+    case Metadata::FMD_PRICE_RATE:
+    case Metadata::FMD_RATING:
     case Metadata::FMD_TEST_ID:
     case Metadata::FMD_COUNT: CHECK(false, ("FMD_COUNT can not be used as a type."));
     }
