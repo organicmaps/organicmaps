@@ -627,11 +627,11 @@
                                         <rect key="frame" x="47.5" y="0.0" width="240" height="240"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="240" id="8xg-II-AOR"/>
-                                            <constraint firstAttribute="width" constant="240" id="uat-gf-fZS"/>
+                                            <constraint firstAttribute="width" secondItem="Q8X-cu-CGX" secondAttribute="height" multiplier="1:1" id="18O-yd-NGO"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="240" id="lBW-13-AL5"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your guide on the web" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqq-0d-RGh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Edit your guide on the web" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqq-0d-RGh">
                                         <rect key="frame" x="38" y="264" width="259" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <color key="textColor" white="0.0" alpha="0.87" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -642,7 +642,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_guide_title"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZZ-eC-b5K">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZZ-eC-b5K">
                                         <rect key="frame" x="0.0" y="306.5" width="335" height="64.5"/>
                                         <string key="text">Get a link to edit your guide via web app: add descriptions for POI,
 upload photos and more</string>
@@ -655,7 +655,7 @@ upload photos and more</string>
                                             <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="edit_guide_subtitle"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-El-ftz" customClass="MWMButton">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-El-ftz" customClass="MWMButton">
                                         <rect key="frame" x="16" y="395" width="303" height="48"/>
                                         <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -723,6 +723,8 @@ upload photos and more</string>
                         <constraints>
                             <constraint firstItem="YNH-ha-MaJ" firstAttribute="leading" secondItem="S4c-kp-N1N" secondAttribute="leading" constant="20" id="INQ-4k-Yci"/>
                             <constraint firstItem="S4c-kp-N1N" firstAttribute="trailing" secondItem="YNH-ha-MaJ" secondAttribute="trailing" constant="20" id="S8x-e5-GAC"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="S4c-kp-N1N" secondAttribute="top" id="Wzf-4q-gB0"/>
+                            <constraint firstItem="S4c-kp-N1N" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YNH-ha-MaJ" secondAttribute="bottom" id="kki-Yo-pgn"/>
                             <constraint firstItem="YNH-ha-MaJ" firstAttribute="centerY" secondItem="S4c-kp-N1N" secondAttribute="centerY" id="mPF-n6-C2H"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S4c-kp-N1N"/>
