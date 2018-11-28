@@ -84,7 +84,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Rutaxi: return "Rutaxi";
   case Provider::Type::Count: ASSERT(false, ()); return "";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(ErrorCode code)
@@ -94,7 +94,7 @@ inline std::string DebugPrint(ErrorCode code)
   case ErrorCode::NoProducts: return "NoProducts";
   case ErrorCode::RemoteError: return "RemoteError";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 inline std::string DebugPrint(ProviderError error)

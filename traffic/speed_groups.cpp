@@ -34,6 +34,6 @@ string DebugPrint(SpeedGroup const & group)
   case SpeedGroup::Unknown: return "Unknown";
   case SpeedGroup::Count: return "Count";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace traffic

@@ -280,7 +280,7 @@ string ToString<measurement_utils::Units>(measurement_utils::Units const & v)
   case measurement_utils::Units::Imperial: return "Foot";
   case measurement_utils::Units::Metric: return "Metric";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 template <>
@@ -337,7 +337,7 @@ string ToString<Transliteration::Mode>(Transliteration::Mode const & mode)
   case Transliteration::Mode::Enabled: return "Enabled";
   case Transliteration::Mode::Disabled: return "Disabled";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 template <>

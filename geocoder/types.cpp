@@ -20,7 +20,7 @@ string ToString(Type type)
   case Type::Building: return "building";
   case Type::Count: return "count";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(Type type)

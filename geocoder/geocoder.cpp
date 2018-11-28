@@ -35,7 +35,7 @@ double GetWeight(geocoder::Type t)
   case geocoder::Type::Building: return 0.1;
   case geocoder::Type::Count: return 0.0;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 // todo(@m) This is taken from search/geocoder.hpp. Refactor.

@@ -42,7 +42,7 @@ string DebugPrint(Status status)
   case Status::Rejects: return "Rejects";
   case Status::Intermediate: return "Intermediate";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(Result const & result)

@@ -122,7 +122,7 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
   case PredefinedColor::Count:
     return {};
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
   
 BookmarkIcon GetIcon(std::string const & iconName)

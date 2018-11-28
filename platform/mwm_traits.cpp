@@ -46,7 +46,7 @@ string DebugPrint(MwmTraits::SearchIndexFormat format)
   case MwmTraits::SearchIndexFormat::CompressedBitVector:
     return "CompressedBitVector";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
@@ -58,6 +58,6 @@ string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
   case MwmTraits::HouseToStreetTableFormat::Unknown:
     return "Unknown";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace version

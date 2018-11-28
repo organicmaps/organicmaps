@@ -214,7 +214,7 @@ string UnitsToString(Units units)
   case Units::Metric: return "Metric";
   case Units::Imperial: return "Imperial";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 Units StringToUnits(string const & units)

@@ -98,7 +98,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
     CHECK(false, ("Can't create VehicleModelFactoryInterface for", vehicleType));
     return nullptr;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
@@ -117,7 +117,7 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
     return nullptr;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 shared_ptr<TrafficStash> CreateTrafficStash(VehicleType vehicleType, shared_ptr<NumMwmIds> numMwmIds,

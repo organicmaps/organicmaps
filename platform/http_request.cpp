@@ -417,6 +417,6 @@ string DebugPrint(HttpRequest::Status status)
   case HttpRequest::Status::FileNotFound:
     return "File not found";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 } // namespace downloader

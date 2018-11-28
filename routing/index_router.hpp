@@ -128,7 +128,7 @@ private:
     case AStarAlgorithm<Graph>::Result::Cancelled: return RouterResultCode::Cancelled;
     case AStarAlgorithm<Graph>::Result::OK: return RouterResultCode::NoError;
     }
-    CHECK_SWITCH();
+    UNREACHABLE();
   }
 
   template <typename Graph>

@@ -40,6 +40,6 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Mopub: return "Mopub";
   case Banner::Type::Google: return "Google";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace ads

@@ -33,6 +33,6 @@ std::shared_ptr<EmitterInterface> CreateEmitter(EmitterType type, Args&&... args
   case EmitterType::Restaurants:
     return create<EmitterRestaurants>(std::forward<Args>(args)...);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace generator

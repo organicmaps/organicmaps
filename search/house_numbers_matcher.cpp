@@ -166,7 +166,7 @@ public:
     case TStrings::Status::Prefix: return isPrefix;
     case TStrings::Status::Full: return true;
     }
-    CHECK_SWITCH();
+    UNREACHABLE();
   }
 
 private:
@@ -237,7 +237,7 @@ public:
     case TPatterns::Status::Prefix: return true;
     case TPatterns::Status::Full: return true;
     }
-    CHECK_SWITCH();
+    UNREACHABLE();
   }
 
 private:
@@ -252,7 +252,7 @@ private:
     case 'U': return Token::TYPE_BUILDING_PART_OR_LETTER;
     default: CHECK(false, ("Unexpected character:", c)); return Token::TYPE_SEPARATOR;
     }
-    CHECK_SWITCH();
+    UNREACHABLE();
   }
 
   static Token::Type TokenToType(Token const & token) { return token.m_type; }

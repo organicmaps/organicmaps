@@ -461,7 +461,7 @@ string DebugPrint(CompressedBitVector::StorageStrategy strat)
   case CompressedBitVector::StorageStrategy::Dense: return "Dense";
   case CompressedBitVector::StorageStrategy::Sparse: return "Sparse";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 // static

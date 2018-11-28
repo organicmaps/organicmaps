@@ -31,7 +31,7 @@ inline std::string DebugPrint(EPlaceState state)
     case EPlaceState::CloseSoon:
       return "EPlaceState::CloseSoon";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 inline EPlaceState PlaceStateCheck(std::string const & openingHours, time_t timestamp)

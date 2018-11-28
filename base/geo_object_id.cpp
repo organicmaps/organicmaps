@@ -49,7 +49,7 @@ GeoObjectId::Type GeoObjectId::GetType() const
   case 0x80: return GeoObjectId::Type::ObsoleteOsmWay;
   case 0xC0: return GeoObjectId::Type::ObsoleteOsmRelation;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 GeoObjectId MakeOsmNode(uint64_t id)
@@ -88,7 +88,7 @@ std::string DebugPrint(GeoObjectId::Type const & t)
   case GeoObjectId::Type::ObsoleteOsmWay: return "Osm Way";
   case GeoObjectId::Type::ObsoleteOsmRelation: return "Osm Relation";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 std::string DebugPrint(GeoObjectId const & id)

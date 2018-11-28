@@ -127,7 +127,7 @@ bool CanUpload(uint64_t totalUploadingSize)
     return platform::GetCurrentNetworkPolicy().CanUse() &&
            totalUploadingSize <= kMaxWwanUploadingSizeInBytes;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 struct SnapshotCreateRequestData

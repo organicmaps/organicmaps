@@ -64,7 +64,7 @@ void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
     CHECK(false, ());
     return;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 glConst DecodeTextureFilter(TextureFilter filter)
@@ -74,7 +74,7 @@ glConst DecodeTextureFilter(TextureFilter filter)
   case TextureFilter::Linear: return gl_const::GLLinear;
   case TextureFilter::Nearest: return gl_const::GLNearest;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 glConst DecodeTextureWrapping(TextureWrapping wrapping)
@@ -84,7 +84,7 @@ glConst DecodeTextureWrapping(TextureWrapping wrapping)
   case TextureWrapping::ClampToEdge: return gl_const::GLClampToEdge;
   case TextureWrapping::Repeat: return gl_const::GLRepeat;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 HWTexture::~HWTexture()

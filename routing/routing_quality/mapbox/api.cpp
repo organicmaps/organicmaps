@@ -40,7 +40,7 @@ string VehicleTypeToMapboxType(routing::VehicleType type)
     return ""s;
   }
 
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string LatLonsToString(vector<ms::LatLon> const & coords)

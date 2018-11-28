@@ -21,7 +21,7 @@ inline std::string DebugPrint(Units units)
   case Units::Imperial: return "Units::Imperial";
   case Units::Metric: return "Units::Metric";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }

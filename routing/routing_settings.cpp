@@ -40,6 +40,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
     // TODO (@gmoryes) make m_speedCameraWarningEnabled to true after tests ok. Now it can be on with:
     // TODO (@gmoryes) typing "?speedcams" in search panel.
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace routing

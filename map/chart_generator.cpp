@@ -63,7 +63,7 @@ agg::rgba8 GetLineColor(MapStyle mapStyle)
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 255);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 agg::rgba8 GetCurveColor(MapStyle mapStyle)
@@ -81,7 +81,7 @@ agg::rgba8 GetCurveColor(MapStyle mapStyle)
   case MapStyleMerged:
     return agg::rgba8(30, 150, 240, 20);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace
 

@@ -117,6 +117,6 @@ FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
   case XMLFeature::Type::Relation:
     return MigrateWayOrRelatonFeatureIndex(forEach, xml, featureStatus, generateID);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace editor

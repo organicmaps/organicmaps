@@ -13,7 +13,7 @@ std::string DebugPrint(WeightsLoadState state)
   case WeightsLoadState::NotExists: return "NotExists";
   case WeightsLoadState::Loaded: return "Loaded";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace connector
 }  // namespace routing

@@ -207,7 +207,7 @@ inline std::string DebugPrint(WheelchairAvailability wheelchair)
   case WheelchairAvailability::Yes: return "Yes";
   case WheelchairAvailability::Limited: return "Limited";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 class Wheelchair : public TraitsBase<Wheelchair, WheelchairAvailability>

@@ -314,7 +314,7 @@ string DebugPrint(IRoadGraph::Mode mode)
     case IRoadGraph::Mode::ObeyOnewayTag: return "ObeyOnewayTag";
     case IRoadGraph::Mode::IgnoreOnewayTag: return "IgnoreOnewayTag";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,

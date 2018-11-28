@@ -106,7 +106,7 @@ std::string DebugPrint(Cache::HotelStatus status)
   case Cache::HotelStatus::Unavailable: return "Unavailable";
   case Cache::HotelStatus::Available: return "Available";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace availability
 }  // namespace filter

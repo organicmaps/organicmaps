@@ -28,7 +28,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);

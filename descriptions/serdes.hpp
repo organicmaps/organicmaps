@@ -168,7 +168,7 @@ public:
     {
     case Version::V0: return DeserializeV0(*subReader, featureIndex, langPriority, description);
     }
-    CHECK_SWITCH();
+    UNREACHABLE();
 
     return false;
   }

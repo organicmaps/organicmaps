@@ -140,7 +140,7 @@ bool Purchase::IsSubscriptionActive(SubscriptionType type) const
   {
   case SubscriptionType::RemoveAds: return m_removeAdsSubscriptionData.m_isActive;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 void Purchase::SetSubscriptionEnabled(SubscriptionType type, bool isEnabled)

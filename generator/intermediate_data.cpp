@@ -407,7 +407,7 @@ CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, string con
   case feature::GenerateInfo::NodeStorageType::Memory:
     return make_shared<RawMemPointStorageReader>(name);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 shared_ptr<PointStorageWriterInterface>
@@ -422,7 +422,7 @@ CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, string con
   case feature::GenerateInfo::NodeStorageType::Memory:
     return make_shared<RawMemPointStorageWriter>(name);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace cache
 }  // namespace generator

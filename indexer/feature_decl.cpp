@@ -21,7 +21,7 @@ string DebugPrint(feature::EGeomType type)
   case EGeomType::GEOM_LINE: return "GEOM_LINE";
   case EGeomType::GEOM_AREA: return "GEOM_AREA";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 // static

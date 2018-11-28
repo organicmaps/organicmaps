@@ -38,7 +38,7 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
     ft.SetID(FeatureID(GetId(), index));
     return true;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 bool MwmContext::GetOriginalFeature(uint32_t index, FeatureType & ft) const

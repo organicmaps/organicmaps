@@ -56,7 +56,7 @@ std::string Loader::GetFileNameByProvider(Provider::Type const type)
   case Provider::Type::Yandex: return "taxi_places/yandex.json";
   case Provider::Type::Count: LOG(LERROR, ("Incorrect taxi provider")); return "";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 }  // namespace places
 }  // namespace taxi

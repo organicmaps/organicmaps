@@ -38,5 +38,5 @@ string DebugPrint(MapOptions options)
     case MapOptions::Diff:
       return "Diff";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }

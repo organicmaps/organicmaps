@@ -69,7 +69,7 @@ bool DayTimeToBool(DayTimeType type)
     return false;
   }
 
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 class CarModelTypes final

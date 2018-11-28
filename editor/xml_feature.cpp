@@ -365,7 +365,7 @@ string XMLFeature::TypeToString(Type type)
   case Type::Way: return kWayType;
   case Type::Relation: return kRelationType;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 // static

@@ -28,7 +28,7 @@ std::string DebugPrint(OsmElement::EntityType e)
     case OsmElement::EntityType::Member:
       return "member";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 

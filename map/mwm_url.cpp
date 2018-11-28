@@ -285,7 +285,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       return ParsingResult::Catalogue;
     }
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vector<string> & pattern)

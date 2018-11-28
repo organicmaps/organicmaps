@@ -99,9 +99,11 @@ AssertFailedFn SetAssertFunction(AssertFailedFn fn);
 #define ASSERT_GREATER_OR_EQUAL(X, Y, msg)
 #endif
 
-// The macro that causes the warning to be ignored: control reaches end of
-// non-void function.
-#define CHECK_SWITCH() do { \
-  CHECK(false, ("Incorrect value in the switch statement")); \
-  std::abort(); \
-} while(false)
+// The macro that causes this warning to be ignored:
+// "control reaches end of non-void function".
+#define UNREACHABLE()                         \
+  do                                          \
+  {                                           \
+    CHECK(false, ("Unreachable statement.")); \
+    std::abort();                             \
+  } while (false)

@@ -61,7 +61,7 @@ string DebugPrint(LineIntersector::Result::Type type)
   case Type::One: return "One";
   case Type::Infinity: return "Infinity";
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(LineIntersector::Result const & result)

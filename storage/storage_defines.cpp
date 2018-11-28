@@ -34,7 +34,7 @@ string DebugPrint(Status status)
   case Status::EOutOfMemFailed:
     return "OutOfMemFailed"s;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(NodeStatus status)
@@ -60,7 +60,7 @@ string DebugPrint(NodeStatus status)
   case NodeStatus::Partly:
     return "Partly"s;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(NodeErrorCode status)
@@ -76,7 +76,7 @@ string DebugPrint(NodeErrorCode status)
   case NodeErrorCode::NoInetConnection:
     return "NoInetConnection"s;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 StatusAndError ParseStatus(Status innerStatus)
@@ -104,7 +104,7 @@ StatusAndError ParseStatus(Status innerStatus)
   case Status::EOutOfMemFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 string DebugPrint(StatusAndError statusAndError)

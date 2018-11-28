@@ -99,7 +99,7 @@ bool IsValidFilterType(BookmarkManager::CategoryFilterType const filter,
   case BookmarkManager::CategoryFilterType::Public: return fromCatalog;
   case BookmarkManager::CategoryFilterType::Private: return !fromCatalog;
   }
-  CHECK_SWITCH();
+  UNREACHABLE();
 }
 
 class FindMarkFunctor
