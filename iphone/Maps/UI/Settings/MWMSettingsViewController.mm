@@ -17,7 +17,7 @@
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMSettingsViewController ()<SettingsTableViewSwitchCellDelegate>
+@interface MWMSettingsViewController ()<SettingsTableViewSwitchCellDelegate, RemoveAdsViewControllerDelegate>
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * profileCell;
 
@@ -147,9 +147,12 @@ extern NSString * const kAlohalyticsTapEventKey;
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
 
+  auto & purchase = GetFramework().GetPurchase();
+  bool const hasSubscription = purchase && purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
   [self.showOffersCell configWithDelegate:self
                                     title:L(@"showcase_settings_title")
-                                     isOn:![MWMSettings adForbidden]];
+                                     isOn:!hasSubscription];
+  self.showOffersCell.isEnabled = !hasSubscription;
 
   [self.statisticsCell configWithDelegate:self
                                     title:L(@"allow_statistics")
@@ -228,6 +231,13 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.aboutCell configWithTitle:L(@"about_menu_title") info:nil];
 }
 
+- (void)showRemoveAds
+{
+  auto removeAds = [[RemoveAdsViewController alloc] init];
+  removeAds.delegate = self;
+  [self.navigationController presentViewController:removeAds animated:YES completion:nil];
+}
+
 #pragma mark - SettingsTableViewSwitchCellDelegate
 
 - (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
@@ -283,9 +293,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   else if (cell == self.showOffersCell)
   {
+    [self showRemoveAds];
     [Statistics logEvent:kStatEventName(kStatSettings, kStatAd)
           withParameters:@{kStatAction : kStatAd, kStatValue : (value ? kStatOn : kStatOff)}];
-    [MWMSettings setAdForbidden:!value];
   }
   else if (cell == self.statisticsCell)
   {
@@ -436,6 +446,21 @@ extern NSString * const kAlohalyticsTapEventKey;
   case 1: return L(@"allow_statistics_hint");
   default: return nil;
   }
+}
+
+#pragma mark - RemoveAdsViewControllerDelegate
+
+- (void)didCompleteSubscribtion:(RemoveAdsViewController *)viewController
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+  self.showOffersCell.isEnabled = NO;
+}
+
+- (void)didCancelSubscribtion:(RemoveAdsViewController *)viewController
+{
+  [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    self.showOffersCell.isOn = YES;
+  }];
 }
 
 @end

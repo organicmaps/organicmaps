@@ -264,7 +264,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
   auto const & purchase = GetFramework().GetPurchase();
   bool const hasSubscription = purchase && !purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
   
-  if (hasSubscription && ![MWMSettings adForbidden] && adsEngine.HasSearchBanner())
+  if (hasSubscription && adsEngine.HasSearchBanner())
   {
     auto coreBanners = banner_helpers::MatchPriorityBanners(adsEngine.GetSearchBanners(), manager.lastQuery);
     [[MWMBannersCache cache] refreshWithCoreBanners:coreBanners];
@@ -414,7 +414,7 @@ booking::filter::Tasks MakeBookingFilterTasks(booking::filter::Params && availab
     auto const & purchase = GetFramework().GetPurchase();
     bool const hasSubscription = purchase && !purchase->IsSubscriptionActive(SubscriptionType::RemoveAds);
 
-    if (hasSubscription && ![MWMSettings adForbidden] && adsEngine.HasSearchBanner())
+    if (hasSubscription && adsEngine.HasSearchBanner())
     {
       self.banners = [[MWMSearchBanners alloc] initWithSearchIndex:itemsIndex];
       __weak auto weakSelf = self;

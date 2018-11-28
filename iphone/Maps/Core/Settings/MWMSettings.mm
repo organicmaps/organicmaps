@@ -11,7 +11,6 @@
 
 namespace
 {
-char const * kAdForbiddenSettingsKey = "AdForbidden";
 char const * kAdServerForbiddenKey = "AdServerForbidden";
 char const * kAutoDownloadEnabledKey = "AutoDownloadEnabled";
 char const * kZoomButtonsEnabledKey = "ZoomButtonsEnabled";
@@ -39,18 +38,6 @@ NSString * const kCrashReportingDisabled = @"CrashReportingDisabled";
 + (void)setAdServerForbidden:(BOOL)adServerForbidden
 {
   settings::Set(kAdServerForbiddenKey, static_cast<bool>(adServerForbidden));
-}
-
-+ (BOOL)adForbidden
-{
-  bool adForbidden = false;
-  UNUSED_VALUE(settings::Get(kAdForbiddenSettingsKey, adForbidden));
-  return adForbidden;
-}
-
-+ (void)setAdForbidden:(BOOL)adForbidden
-{
-  settings::Set(kAdForbiddenSettingsKey, static_cast<bool>(adForbidden));
 }
 
 + (BOOL)autoDownloadEnabled

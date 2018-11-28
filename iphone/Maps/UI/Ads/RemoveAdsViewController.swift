@@ -241,8 +241,11 @@ extension RemoveAdsViewController: SubscriptionManagerListener {
   }
 
   func didFailToSubscribe(_ subscription: ISubscription, error: Error?) {
-    MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
-                                                          text: L("purchase_error_subtitle"))
+    if let error = error as NSError?, error.code != SKError.paymentCancelled.rawValue {
+      MWMAlertViewController.activeAlert().presentInfoAlert(L("bookmarks_convert_error_title"),
+                                                            text: L("purchase_error_subtitle"))
+    }
+    
     hidePurchaseProgress()
   }
 }

@@ -250,8 +250,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   m_previewRows.push_back(PreviewRows::Space);
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
 
-  if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
-      ![self isViator])
+  if (network_policy::CanUseNetwork() && m_info.HasBanner() && ![self isViator])
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]

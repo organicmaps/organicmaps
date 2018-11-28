@@ -14,6 +14,20 @@ final class SettingsTableViewSwitchCell: MWMTableViewCell {
 
   weak var delegate: SettingsTableViewSwitchCellDelegate?
 
+  @objc
+  var isEnabled = true {
+    didSet {
+      styleTitle()
+      switchButton.isUserInteractionEnabled = isEnabled
+    }
+  }
+
+  @objc
+  var isOn: Bool {
+    get { return switchButton.isOn }
+    set { switchButton.isOn = newValue }
+  }
+
   @objc func config(delegate: SettingsTableViewSwitchCellDelegate, title: String, isOn: Bool) {
     backgroundColor = UIColor.white()
 
@@ -31,7 +45,7 @@ final class SettingsTableViewSwitchCell: MWMTableViewCell {
   }
 
   fileprivate func styleTitle() {
-    title.textColor = UIColor.blackPrimaryText()
+    title.textColor = isEnabled ? UIColor.blackPrimaryText() : UIColor.blackSecondaryText()
     title.font = UIFont.regular17()
   }
 
