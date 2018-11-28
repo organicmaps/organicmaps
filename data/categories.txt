@@ -65,7 +65,7 @@ el:Πού να φάμε|Φαγητό
 he:אוכל
 sk:Kde sa najesť|Jedlo
 sw:Sehemu ya kula
-fa:غذا
+fa:غذا|کجا غذا بخوریم
 
 @food
 en:Groceries|Food|Shop
@@ -99,7 +99,7 @@ el:Παντοπωλεία|Φαγητό|Κατάστημα
 he:חנות|חניה
 sk:Potraviny|Jedlo|Obchod
 sw:Migahawani|Duka
-fa:غذا|فروشگاه
+fa:غذا|فروشگاه|عطاری
 
 @transport
 en:Transport
@@ -233,7 +233,7 @@ el:Ψώνια|Κατάστημα
 he:חנות
 sk:Nakupovanie|Obchod
 sw:Manunuzi|Duka
-fa:فروشگاه
+fa:فروشگاه|خرید کردن
 
 @hotel
 en:^Hotel
@@ -365,6 +365,7 @@ zh-Hant:夜生活
 el:Νυχτερινή Ζωή
 sk:Nočný život
 sw:Shughuli za usiku
+fa:تفریحات شبانه
 
 @children
 en:Family holiday
@@ -397,6 +398,7 @@ zh-Hant:親子休閒
 el:Οικογενειακές Διακοπές
 sk:Rodinná dovolenka
 sw:Mapumziko ya familia
+fa:تعطیلات خانوادگی
 
 @atm
 en:^ATM|Cash machine
