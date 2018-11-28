@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.sharing.TargetUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Objects;
 
@@ -58,5 +59,6 @@ public class SendLinkPlaceholderFragment extends Fragment
                              .setText(emailBody)
                              .setChooserTitle(getString(R.string.share))
                              .startChooser();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_EDIT_ON_WEB_CLICK);
   }
 }

@@ -270,6 +270,7 @@ public enum Statistics
     public static final String BM_SYNC_STARTED = "Bookmarks_sync_started";
     public static final String BM_SYNC_ERROR = "Bookmarks_sync_error";
     public static final String BM_SYNC_SUCCESS = "Bookmarks_sync_success";
+    public static final String BM_EDIT_ON_WEB_CLICK = "Bookmarks_EditOnWeb_click";
     static final String BM_RESTORE_PROPOSAL_CLICK = "Bookmarks_RestoreProposal_click";
     public static final String BM_RESTORE_PROPOSAL_CANCEL = "Bookmarks_RestoreProposal_cancel";
     public static final String BM_RESTORE_PROPOSAL_SUCCESS = "Bookmarks_RestoreProposal_success";
