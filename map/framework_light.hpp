@@ -13,7 +13,11 @@
 
 #include "base/assert.hpp"
 
+#include <cstdint>
 #include <memory>
+#include <vector>
+
+#include <boost/optional.hpp>
 
 namespace lightweight
 {

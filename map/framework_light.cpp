@@ -85,7 +85,6 @@ bool Framework::IsBookmarksCloudEnabled() const
 CountryInfoReader::Info Framework::GetLocation(m2::PointD const & pt) const
 {
   ASSERT(m_request & REQUEST_TYPE_LOCATION, (m_request));
-
   CHECK(m_countryInfoReader, ());
 
   return m_countryInfoReader->GetMwmInfo(pt);
@@ -95,18 +94,14 @@ std::vector<CampaignFeature> Framework::GetLocalAdsFeatures(double lat, double l
                                                             double radiusInMeters, uint32_t maxCount)
 {
   ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_FEATURES, (m_request));
-
   CHECK(m_localAdsFeaturesReader, ());
-
   return m_localAdsFeaturesReader->GetCampaignFeatures(lat, lon, radiusInMeters, maxCount);
 }
 
 Statistics * Framework::GetLocalAdsStatistics()
 {
   ASSERT(m_request & REQUEST_TYPE_LOCAL_ADS_STATISTICS, (m_request));
-
   CHECK(m_localAdsStatistics, ());
-
   return m_localAdsStatistics.get();
 }
 
@@ -115,4 +110,3 @@ boost::optional<notifications::NotificationCandidate> Framework::GetNotification
   return m_notificationManager->GetNotification();
 }
 }  // namespace lightweight
-

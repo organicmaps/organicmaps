@@ -439,7 +439,7 @@ UNIT_CLASS_TEST(StorageTest, NumberOfUnsynchronized)
 
 UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
 {
-  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 0, ());
+  TEST_EQUAL(lightweight::impl::GetNumberOfUnsentUGC(), 0, ());
   auto & builder = MwmBuilder::Builder();
   m2::PointD const cafePoint(1.0, 1.0);
   builder.Build({TestCafe(cafePoint)});
@@ -454,7 +454,7 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
     TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 1, ());
   }
 
-  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 1, ());
+  TEST_EQUAL(lightweight::impl::GetNumberOfUnsentUGC(), 1, ());
 
   {
     Storage storage(builder.GetDataSource());
@@ -464,7 +464,7 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
     storage.SaveIndex();
   }
 
-  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 0, ());
+  TEST_EQUAL(lightweight::impl::GetNumberOfUnsentUGC(), 0, ());
   TEST(DeleteIndexFile(), ());
 }
 
