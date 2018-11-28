@@ -173,6 +173,9 @@
         <data
           android:host="dlink.maps.me"
           android:scheme="https"/>
+        <data
+          android:host="dlink.mapsme.devmail.ru"
+          android:scheme="https"/>
       </intent-filter>
 
       <intent-filter>

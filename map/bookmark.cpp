@@ -5,8 +5,12 @@
 
 #include <sstream>
 
+#include "private.h"
+
 namespace
 {
+std::string const kDeepLinkUrl = DLINK_URL;
+
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
 {
   switch (icon)
@@ -286,8 +290,11 @@ bool BookmarkCategory::IsCategoryFromCatalog() const
 
 std::string BookmarkCategory::GetCatalogDeeplink() const
 {
+  if (kDeepLinkUrl.empty())
+    return {};
+
   std::ostringstream ss;
-  ss << "https://dlink.maps.me/catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
+  ss << kDeepLinkUrl << "catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
   return ss.str();
 }
 

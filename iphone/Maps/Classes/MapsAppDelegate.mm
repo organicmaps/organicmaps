@@ -771,11 +771,15 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   if (isFBURL)
     return YES;
 
-  if ([self checkLaunchURL:(url.host.length > 0 && [url.host rangeOfString:@"dlink.maps.me"].location != NSNotFound)
-       ? [self convertUniversalLink:url] : url])
+  auto hosts = @[@"dlink.maps.me", @"dlink.mapsme.devmail.ru"];
+  for (auto host in hosts)
   {
-    [self handleURLs];
-    return YES;
+    if ([self checkLaunchURL:(url.host.length > 0 && [url.host rangeOfString:host].location != NSNotFound)
+         ? [self convertUniversalLink:url] : url])
+    {
+      [self handleURLs];
+      return YES;
+    }
   }
 
   return NO;
