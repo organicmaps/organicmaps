@@ -83,6 +83,7 @@
       [self invalidReceipt];
       break;
     case Purchase::ValidationCode::ServerError:
+    case Purchase::ValidationCode::AuthError:
       [self serverError];
       break;
     }

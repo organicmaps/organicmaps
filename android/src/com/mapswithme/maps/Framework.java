@@ -104,12 +104,14 @@ public class Framework
   public static final int TOKEN_MAPSME = 3;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ PURCHASE_VERIFIED, PURCHASE_NOT_VERIFIED, PURCHASE_VALIDATION_SERVER_ERROR })
+  @IntDef({ PURCHASE_VERIFIED, PURCHASE_NOT_VERIFIED,
+            PURCHASE_VALIDATION_SERVER_ERROR, PURCHASE_VALIDATION_AUTH_ERROR })
   public @interface PurchaseValidationCode {}
 
   public static final int PURCHASE_VERIFIED = 0;
   public static final int PURCHASE_NOT_VERIFIED = 1;
   public static final int PURCHASE_VALIDATION_SERVER_ERROR = 2;
+  public static final int PURCHASE_VALIDATION_AUTH_ERROR = 3;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener

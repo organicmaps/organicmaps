@@ -43,6 +43,9 @@
       case Purchase::ValidationCode::ServerError: {
         [self validationComplete:MWMPurchaseValidationResultError];
         break;
+      case Purchase::ValidationCode::AuthError:
+        [self validationComplete:MWMPurchaseValidationResultAuthError];
+        break;
       }
     }
     

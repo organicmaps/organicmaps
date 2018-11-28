@@ -240,6 +240,10 @@ void Purchase::ValidateImpl(std::string const & url, ValidationInfo const & vali
     {
       code = ValidationCode::Verified;
     }
+    else if (resultCode == 403)
+    {
+      code = ValidationCode::AuthError;
+    }
     else if (resultCode >= 400 && resultCode < 500)
     {
       code = ValidationCode::NotVerified;

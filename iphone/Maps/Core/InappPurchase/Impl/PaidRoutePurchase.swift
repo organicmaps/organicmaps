@@ -81,7 +81,8 @@ final class PaidRoutePurchase: NSObject, IPaidRoutePurchase {
         self?.storePaymentCompletion?(.error, RoutePurchaseError.validationFailed)
       case .error:
         self?.storePaymentCompletion?(.error, RoutePurchaseError.validationError)
-
+      case .authError:
+        break  // TODO(@beloal)
       }
       self?.storePaymentCompletion = nil
     })

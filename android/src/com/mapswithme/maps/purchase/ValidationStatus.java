@@ -4,5 +4,6 @@ public enum ValidationStatus
 {
   VERIFIED,
   NOT_VERIFIED,
-  SERVER_ERROR
+  SERVER_ERROR,
+  AUTH_ERROR
 }

@@ -22,6 +22,8 @@ final class PendingTransactionsHandler: IPendingTransactionsHandler {
           fallthrough
         case .error:
           completion(.error)
+        case .authError:
+          break  // TODO(@beloal)
         }
       }
       break
