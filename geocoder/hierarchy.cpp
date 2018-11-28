@@ -6,7 +6,6 @@
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
-
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
@@ -186,8 +185,15 @@ void Hierarchy::IndexEntries()
     if (e.m_type == Type::Count)
       continue;
 
-    size_t const t = static_cast<size_t>(e.m_type);
-    m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
+    if (e.m_type == Type::Street)
+    {
+      IndexStreet(e);
+    }
+    else
+    {
+      size_t const t = static_cast<size_t>(e.m_type);
+      m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
+    }
 
     // Index every token but do not index prefixes.
     // for (auto const & tok : entry.m_address[t])
@@ -196,6 +202,22 @@ void Hierarchy::IndexEntries()
     ++numIndexed;
     if (numIndexed % kLogBatch == 0)
       LOG(LINFO, ("Indexed", numIndexed, "entries"));
+  }
+}
+
+void Hierarchy::IndexStreet(Entry & e)
+{
+  CHECK_EQUAL(e.m_type, Type::Street, ());
+  size_t const t = static_cast<size_t>(e.m_type);
+  m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
+
+  for (size_t i = 0; i < e.m_address[t].size(); ++i)
+  {
+    if (!search::IsStreetSynonym(strings::MakeUniString(e.m_address[t][i])))
+      continue;
+    auto addr = e.m_address[t];
+    addr.erase(addr.begin() + i);
+    m_entriesByTokens[MakeIndexKey(addr)].emplace_back(&e);
   }
 }
 

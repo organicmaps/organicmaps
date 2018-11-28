@@ -90,6 +90,10 @@ private:
   // Adds address information of entries to the index.
   void IndexEntries();
 
+  // Adds the street |e| to the index, with and without synonyms
+  // of the word "street".
+  void IndexStreet(Entry & e);
+
   // Fills |m_buildingsOnStreet| field for all street entries.
   void IndexHouses();
 
