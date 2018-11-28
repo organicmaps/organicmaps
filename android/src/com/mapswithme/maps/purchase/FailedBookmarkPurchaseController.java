@@ -103,6 +103,13 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
         return;
       }
 
+      if (status == ValidationStatus.AUTH_ERROR)
+      {
+        if (mCallback != null)
+          mCallback.onAuthorizationRequired();
+        return;
+      }
+
       if (mCallback != null)
         mCallback.onFailedPurchaseDetected(true);
     }
@@ -176,7 +183,7 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
     {
       LOGGER.w(TAG, "Failed bookmark purchase not consumed");
       if (mCallback != null)
-        mCallback.onFailedPurchaseDetected(false);
+        mCallback.onFailedPurchaseDetected(true);
     }
   }
 }

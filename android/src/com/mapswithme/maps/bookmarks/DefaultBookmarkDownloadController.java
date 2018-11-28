@@ -6,49 +6,37 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.PaymentData;
-import com.mapswithme.maps.dialog.ProgressDialogFragment;
-import com.mapswithme.maps.purchase.BookmarkPaymentActivity;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.net.MalformedURLException;
 
 class DefaultBookmarkDownloadController implements BookmarkDownloadController,
-                                                   BookmarkDownloadHandler, Authorizer.Callback
+                                                   BookmarkDownloadHandler
 {
-  static final int REQ_CODE_PAY_BOOKMARK = 1;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = DefaultBookmarkDownloadController.class.getSimpleName();
   private static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
   @NonNull
   private final BookmarkDownloadReceiver mDownloadCompleteReceiver = new BookmarkDownloadReceiver();
-  @NonNull
-  private final Authorizer mAuthorizer;
   @Nullable
   private String mDownloadUrl;
   @NonNull
   private final BookmarkManager.BookmarksCatalogListener mCatalogListener;
   @Nullable
-  private Fragment mFragment;
-  @SuppressWarnings("NullableProblems")
+  private BookmarkDownloadCallback mCallback;
   @NonNull
-  private Application mApplication;
+  private final Application mApplication;
 
-  DefaultBookmarkDownloadController(@NonNull Authorizer authorizer,
+  DefaultBookmarkDownloadController(@NonNull Application application,
                                     @NonNull BookmarkManager.BookmarksCatalogListener catalogListener)
   {
+    mApplication = application;
     mCatalogListener = catalogListener;
-    mAuthorizer = authorizer;
   }
 
   @Override
@@ -70,8 +58,8 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void retryDownloadBookmark()
   {
-    if (mDownloadUrl == null)
-      throw new IllegalStateException("Download url must be non-null at this point");
+    if (TextUtils.isEmpty(mDownloadUrl))
+      return;
 
     try
     {
@@ -84,39 +72,27 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   }
 
   @Override
-  public void attach(@NonNull Fragment fragment)
+  public void attach(@NonNull BookmarkDownloadCallback callback)
   {
-    if (mFragment != null)
+    if (mCallback != null)
       throw new AssertionError("Already attached! Call detach.");
 
-    mFragment = fragment;
-    mApplication = mFragment.getActivity().getApplication();
-    mAuthorizer.attach(this);
+    mCallback = callback;
     mDownloadCompleteReceiver.attach(this);
-    mDownloadCompleteReceiver.register(getFragmentOrThrow().getActivity().getApplication());
+    mDownloadCompleteReceiver.register(mApplication);
     BookmarkManager.INSTANCE.addCatalogListener(mCatalogListener);
   }
 
   @Override
   public void detach()
   {
-    if (mFragment == null)
+    if (mCallback == null)
       throw new AssertionError("Already detached! Call attach.");
 
-    mAuthorizer.detach();
     mDownloadCompleteReceiver.detach();
-    mDownloadCompleteReceiver.unregister(getFragmentOrThrow().getActivity().getApplication());
+    mDownloadCompleteReceiver.unregister(mApplication);
     BookmarkManager.INSTANCE.removeCatalogListener(mCatalogListener);
-    mFragment = null;
-  }
-
-  @NonNull
-  Fragment getFragmentOrThrow()
-  {
-    if (mFragment == null)
-      throw new IllegalStateException("Call this method only when controller is attached!");
-
-    return mFragment;
+    mCallback = null;
   }
 
   private static void downloadBookmarkInternal(@NonNull Context context, @NonNull String url)
@@ -135,7 +111,8 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void onAuthorizationRequired()
   {
-    mAuthorizer.authorize();
+    if (mCallback != null)
+      mCallback.onAuthorizationRequired();
   }
 
   @Override
@@ -144,8 +121,11 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     if (TextUtils.isEmpty(mDownloadUrl))
       throw new IllegalStateException("Download url must be non-null if payment required!");
 
-    PaymentData data = parsePaymentData(mDownloadUrl);
-    BookmarkPaymentActivity.startForResult(getFragmentOrThrow(), data, REQ_CODE_PAY_BOOKMARK);
+    if (mCallback != null)
+    {
+      PaymentData data = parsePaymentData(mDownloadUrl);
+      mCallback.onPaymentRequired(data);
+    }
   }
 
   @NonNull
@@ -153,67 +133,6 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   {
     PaymentDataParser parser = createPaymentDataParser();
     return parser.parse(url);
-  }
-
-  @Override
-  public void onAuthorizationFinish(boolean success)
-  {
-    hideProgress();
-    if (!success)
-    {
-      Toast.makeText(getFragmentOrThrow().getContext(), R.string.profile_authorization_error,
-                     Toast.LENGTH_LONG).show();
-      return;
-    }
-
-    if (TextUtils.isEmpty(mDownloadUrl))
-      return;
-
-    try
-    {
-      downloadBookmarkInternal(mApplication, mDownloadUrl);
-    }
-    catch (MalformedURLException e)
-    {
-      LOGGER.e(TAG, "Failed to download bookmark after authorization, url: " + mDownloadUrl, e);
-    }
-  }
-
-  private void showProgress()
-  {
-    String message = getFragmentOrThrow().getString(R.string.please_wait);
-    ProgressDialogFragment dialog = ProgressDialogFragment.newInstance(message, false, true);
-    getFragmentOrThrow().getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .add(dialog, dialog.getClass().getCanonicalName())
-                        .commitAllowingStateLoss();
-  }
-
-  private void hideProgress()
-  {
-    FragmentManager fm = getFragmentOrThrow().getActivity().getSupportFragmentManager();
-    String tag = ProgressDialogFragment.class.getCanonicalName();
-    DialogFragment frag = (DialogFragment) fm.findFragmentByTag(tag);
-    if (frag != null)
-      frag.dismissAllowingStateLoss();
-  }
-
-  @Override
-  public void onAuthorizationStart()
-  {
-    showProgress();
-  }
-
-  @Override
-  public void onSocialAuthenticationCancel(int type)
-  {
-    // Do nothing by default.
-  }
-
-  @Override
-  public void onSocialAuthenticationError(int type, @Nullable String error)
-  {
-    // Do nothing by default.
   }
 
   @Override

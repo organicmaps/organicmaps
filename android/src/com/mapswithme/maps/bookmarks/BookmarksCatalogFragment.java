@@ -2,7 +2,6 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.dialog.AlertDialog;
@@ -48,51 +46,38 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private WebViewBookmarksCatalogClient mWebViewClient;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private WebView mWebView;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mRetryBtn;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private View mProgressView;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private BookmarkDownloadController mController;
-
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Authorizer mAuthorizer;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseController<FailedPurchaseChecker> mFailedPurchaseController;
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private FailedPurchaseChecker mPurchaseChecker;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarksDownloadFragmentDelegate mDelegate;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mAuthorizer = new Authorizer(this);
-    mController = new DefaultBookmarkDownloadController(mAuthorizer,
-                                                        new CatalogListenerDecorator(this));
-    if (savedInstanceState != null)
-      mController.onRestore(savedInstanceState);
+    mDelegate = new BookmarksDownloadFragmentDelegate(this);
+    mDelegate.onCreate(savedInstanceState);
   }
 
   @Override
   public void onStart()
   {
     super.onStart();
-    mController.attach(this);
+    mDelegate.onStart();
     mFailedPurchaseController.addCallback(mPurchaseChecker);
   }
 
@@ -100,7 +85,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStop()
   {
     super.onStop();
-    mController.detach();
+    mDelegate.onStop();
     mFailedPurchaseController.removeCallback();
   }
 
@@ -167,41 +152,26 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   private boolean downloadBookmark(@NonNull String url)
   {
-   return mController.downloadBookmark(url);
-  }
-
-  private void retryBookmarkDownload()
-  {
-    mController.retryDownloadBookmark();
-  }
-
-  @Override
-  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
-  {
-    mAuthorizer.onTargetFragmentResult(resultCode, data);
-  }
-
-  @Override
-  public boolean isTargetAdded()
-  {
-    return isAdded();
-  }
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == Activity.RESULT_OK && requestCode == DefaultBookmarkDownloadController.REQ_CODE_PAY_BOOKMARK)
-    {
-      retryBookmarkDownload();
-    }
+   return mDelegate.downloadBookmark(url);
   }
 
   @Override
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    mController.onSave(outState);
+    mDelegate.onSaveInstanceState(outState);
+  }
+
+  @Override
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
+  {
+    mDelegate.onTargetFragmentResult(resultCode, data);
+  }
+
+  @Override
+  public boolean isTargetAdded()
+  {
+    return mDelegate.isTargetAdded();
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
@@ -325,6 +295,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       UiUtils.hide(mRetryBtn);
       mWebView.loadUrl(getCatalogUrlOrThrow());
       UserActionsLogger.logBookmarksCatalogShownEvent();
+    }
+
+    @Override
+    public void onAuthorizationRequired()
+    {
+      mDelegate.authorize(() -> mFailedPurchaseController.validateExistingPurchases());
     }
   }
 }

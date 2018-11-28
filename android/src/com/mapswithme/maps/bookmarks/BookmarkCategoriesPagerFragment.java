@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.util.SharedPropertiesUtils;
@@ -33,23 +31,18 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @NonNull
   private BookmarksPagerAdapter mAdapter;
   @SuppressWarnings("NullableProblems")
-  @NonNull
-  private BookmarkDownloadController mController;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private Authorizer mAuthorizer;
   @Nullable
   private String mCatalogDeeplink;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookmarksDownloadFragmentDelegate mDelegate;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mAuthorizer = new Authorizer(this);
-    mController = new DefaultBookmarkDownloadController(mAuthorizer,
-                                                        new CatalogListenerDecorator(this));
-    if (savedInstanceState != null)
-      mController.onRestore(savedInstanceState);
+    mDelegate = new BookmarksDownloadFragmentDelegate(this);
+    mDelegate.onCreate(savedInstanceState);
 
     Bundle args = getArguments();
     if (args == null)
@@ -59,20 +52,10 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == Activity.RESULT_OK && requestCode == DefaultBookmarkDownloadController.REQ_CODE_PAY_BOOKMARK)
-    {
-      mController.retryDownloadBookmark();
-    }
-  }
-
-  @Override
   public void onSaveInstanceState(Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    mController.onSave(outState);
+    mDelegate.onSaveInstanceState(outState);
   }
 
   @Nullable
@@ -99,19 +82,19 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
-    mController.attach(this);
+    mDelegate.onStart();
     if (TextUtils.isEmpty(mCatalogDeeplink))
      return;
 
-    mController.downloadBookmark(mCatalogDeeplink);
+    mDelegate.downloadBookmark(mCatalogDeeplink);
     mCatalogDeeplink = null;
   }
 
   @Override
   public void onStop()
   {
-    mController.detach();
     super.onStop();
+    mDelegate.onStop();
   }
 
   private int saveAndGetInitialPage()
@@ -136,13 +119,13 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   @Override
   public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
-    mAuthorizer.onTargetFragmentResult(resultCode, data);
+    mDelegate.onTargetFragmentResult(resultCode, data);
   }
 
   @Override
   public boolean isTargetAdded()
   {
-    return isAdded();
+    return mDelegate.isTargetAdded();
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener
