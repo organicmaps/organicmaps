@@ -34,6 +34,7 @@ namespace
 using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
+double const kDistEqualQueryMercator = MercatorBounds::MetersToMercator(kDistEqualQueryMeters);
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
@@ -407,14 +408,14 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
     return false;
 
   if (!prevViewport.IsValid() ||
-      !IsEqualMercator(prevViewport, currViewport, kDistEqualQueryMeters))
+      !IsEqualMercator(prevViewport, currViewport, kDistEqualQueryMercator))
   {
     return false;
   }
 
   if (prevParams.m_position && currParams.m_position &&
       MercatorBounds::DistanceOnEarth(*prevParams.m_position, *currParams.m_position) >
-          kDistEqualQueryMeters)
+          kDistEqualQueryMercator)
   {
     return false;
   }
