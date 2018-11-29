@@ -23,7 +23,7 @@ final class PendingTransactionsHandler: IPendingTransactionsHandler {
         case .error:
           completion(.error)
         case .authError:
-          break  // TODO(@beloal)
+          completion(.needAuth)
         }
       }
       break

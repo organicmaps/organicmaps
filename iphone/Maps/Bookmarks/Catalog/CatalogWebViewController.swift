@@ -111,20 +111,7 @@ final class CatalogWebViewController: WebViewController {
   }
 
   override func willLoadUrl(_ decisionHandler: @escaping (Bool) -> Void) {
-    pendingTransactionsHandler.handlePendingTransactions { [weak self] (status) in
-      switch status {
-      case .none:
-        fallthrough
-      case .success:
-        decisionHandler(true)
-        break
-      case .error:
-        MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
-                                                              text: L("failed_purchase_support_message"))
-        decisionHandler(false)
-        self?.loadingIndicator.stopAnimating()
-      }
-    }
+    handlePendingTransactions { decisionHandler($0) }
   }
 
   override func webView(_ webView: WKWebView,
@@ -162,6 +149,36 @@ final class CatalogWebViewController: WebViewController {
     Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
                         withParameters: [kStatError : kStatUnknown])
     loadingIndicator.stopAnimating()
+  }
+
+  private func handlePendingTransactions(completion: @escaping (Bool) -> Void) {
+    pendingTransactionsHandler.handlePendingTransactions { [weak self] (status) in
+      switch status {
+      case .none:
+        fallthrough
+      case .success:
+        completion(true)
+      case .error:
+        MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                              text: L("failed_purchase_support_message"))
+        completion(false)
+        self?.loadingIndicator.stopAnimating()
+      case .needAuth:
+        if let s = self {
+          s.signup(anchor: s.toolbar, onComplete: {
+            if $0 {
+              s.handlePendingTransactions(completion: completion)
+            } else {
+              MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                                    text: L("failed_purchase_support_message"))
+              completion(false)
+              s.loadingIndicator.stopAnimating()
+            }
+          })
+        }
+        break;
+      }
+    }
   }
 
   private func parseUrl(_ url: URL) -> CatalogCategoryInfo? {

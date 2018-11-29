@@ -3,6 +3,7 @@ enum PendingTransactionsStatus: Int {
   case none
   case success
   case error
+  case needAuth
 }
 
 @objc
