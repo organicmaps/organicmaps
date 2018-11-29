@@ -200,8 +200,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
     String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(mCategory.getId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
-        .putExtra(Intent.EXTRA_SUBJECT, deepLink)
-        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body));
+        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body_link, deepLink));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
     Statistics.INSTANCE.trackSharingOptionsClick(Statistics.ParamValue.COPY_LINK);
   }
