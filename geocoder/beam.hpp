@@ -31,7 +31,7 @@ public:
 
   // O(log(n) + n) for |n| entries.
   // O(|m_capacity|) in the worst case.
-  void Add(Key const & key, Value value)
+  void Add(Key const & key, Value const & value)
   {
     if (PREDICT_FALSE(m_capacity == 0))
       return;

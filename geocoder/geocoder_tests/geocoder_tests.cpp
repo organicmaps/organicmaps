@@ -93,6 +93,10 @@ UNIT_TEST(Geocoder_OnlyBuildings)
 
 31 {"properties": {"address": {"street": "Bad", "locality": "Some Locality"}}}
 32 {"properties": {"address": {"building": "10", "street": "Bad", "locality": "Some Locality"}}}
+
+40 {"properties": {"address": {"street": "MaybeNumbered", "locality": "Some Locality"}}}
+41 {"properties": {"address": {"street": "MaybeNumbered-3", "locality": "Some Locality"}}}
+42 {"properties": {"address": {"building": "3", "street": "MaybeNumbered", "locality": "Some Locality"}}}
 )#";
 
   ScopedFile const regionsJsonFile("regions.jsonl", kData);
@@ -115,5 +119,12 @@ UNIT_TEST(Geocoder_OnlyBuildings)
   // Another possible resolution would be to return just "Good Street" (relaxed matching)
   // but at the time of writing the goal is to either have an exact match or no match at all.
   TestGeocoder(geocoder, "some locality good 10", {});
+
+  // Sometimes we may still emit a non-building.
+  // In this case it happens because all query tokens are used.
+  base::GeoObjectId const numberedStreet(41);
+  base::GeoObjectId const houseOnANonNumberedStreet(42);
+  TestGeocoder(geocoder, "some locality maybenumbered 3",
+               {{numberedStreet, 1.0}, {houseOnANonNumberedStreet, 0.8875}});
 }
 }  // namespace geocoder

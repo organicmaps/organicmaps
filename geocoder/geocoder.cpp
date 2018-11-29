@@ -142,9 +142,10 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
-void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type)
+void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
+                                  bool allTokensUsed)
 {
-  m_beam.Add(BeamKey(osmId, type), certainty);
+  m_beam.Add(BeamKey(osmId, type, allTokensUsed), certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
@@ -158,8 +159,9 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
     if (!seen.insert(e.m_key.m_osmId).second)
       continue;
 
-    if (m_surelyGotHouseNumber && e.m_key.m_type != Type::Building)
+    if (m_surelyGotHouseNumber && e.m_key.m_type != Type::Building && !e.m_key.m_allTokensUsed)
       continue;
+
     results.emplace_back(e.m_key.m_osmId, e.m_value /* certainty */);
   }
 
@@ -247,7 +249,7 @@ void Geocoder::Go(Context & ctx, Type type) const
 
       for (auto const * e : curLayer.m_entries)
       {
-        ctx.AddResult(e->m_osmId, certainty, type);
+        ctx.AddResult(e->m_osmId, certainty, type, ctx.AllTokensUsed());
       }
 
       ctx.GetLayers().emplace_back(move(curLayer));

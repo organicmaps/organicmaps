@@ -50,10 +50,14 @@ public:
   public:
     struct BeamKey
     {
-      BeamKey(base::GeoObjectId osmId, Type type) : m_osmId(osmId), m_type(type) {}
+      BeamKey(base::GeoObjectId osmId, Type type, bool allTokensUsed)
+        : m_osmId(osmId), m_type(type), m_allTokensUsed(allTokensUsed)
+      {
+      }
 
       base::GeoObjectId m_osmId;
       Type m_type;
+      bool m_allTokensUsed;
     };
 
     Context(std::string const & query);
@@ -74,7 +78,8 @@ public:
     // Returns true iff all tokens are used.
     bool AllTokensUsed() const;
 
-    void AddResult(base::GeoObjectId const & osmId, double certainty, Type type);
+    void AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
+                   bool allTokensUsed);
 
     void FillResults(std::vector<Result> & results) const;
 
