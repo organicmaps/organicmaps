@@ -448,7 +448,7 @@ CGFloat const kPinDiameter = 18.0f;
   auto actionSheet = [UIAlertController alertControllerWithTitle:nil
                                                          message:nil
                                                   preferredStyle:UIAlertControllerStyleActionSheet];
-  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"search_show_on_map").capitalizedString
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"search_show_on_map")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
@@ -456,7 +456,7 @@ CGFloat const kPinDiameter = 18.0f;
                             [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatViewOnMap}];
                           }]];
 
-  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"list_settings").capitalizedString
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"list_settings")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
@@ -464,7 +464,7 @@ CGFloat const kPinDiameter = 18.0f;
                             [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSettings}];
                           }]];
 
-  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file").capitalizedString
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action)
                           {
@@ -472,7 +472,7 @@ CGFloat const kPinDiameter = 18.0f;
                             [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSendAsFile}];
                           }]];
 
-  auto deleteAction = [UIAlertAction actionWithTitle:L(@"delete_list").capitalizedString
+  auto deleteAction = [UIAlertAction actionWithTitle:L(@"delete_list")
                                                style:UIAlertActionStyleDestructive
                                              handler:^(UIAlertAction * _Nonnull action)
                        {
@@ -483,7 +483,7 @@ CGFloat const kPinDiameter = 18.0f;
   deleteAction.enabled = [[MWMBookmarksManager sharedManager] groupsIdList].count > 1;
   [actionSheet addAction:deleteAction];
 
-  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"cancel").capitalizedString
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"cancel")
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
 

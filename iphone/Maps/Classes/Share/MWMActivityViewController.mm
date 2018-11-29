@@ -47,7 +47,9 @@
                     completionHandler:
                         (UIActivityViewControllerCompletionWithItemsHandler)completionHandler
 {
-  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[message, url]];
+  NSMutableArray * items = [NSMutableArray arrayWithObject:message];
+  if (url) [items addObject:url];
+  MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:items.copy];
   shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypePostToFacebook];
   shareVC.completionWithItemsHandler = completionHandler;
   return shareVC;

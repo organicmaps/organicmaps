@@ -301,9 +301,14 @@ extension BookmarksSharingViewController: UITextViewDelegate {
 
 extension BookmarksSharingViewController: UploadActionCellDelegate {
   func cellDidPressShareButton(_ cell: UploadActionCell) {
+    guard let url = categoryUrl else {
+      assert(false, "must provide guide url")
+      return
+    }
+    
     Statistics.logEvent(kStatSharingOptionsClick, withParameters: [kStatItem : kStatCopyLink])
-    let message = L("share_bookmarks_email_body")
-    let shareController = MWMActivityViewController.share(for: categoryUrl, message: message) {
+    let message = String(coreFormat: L("share_bookmarks_email_body_link"), arguments: [url.absoluteString])
+    let shareController = MWMActivityViewController.share(for: nil, message: message) {
       _, success, _, _ in
       if success {
         Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatSharingOptions])

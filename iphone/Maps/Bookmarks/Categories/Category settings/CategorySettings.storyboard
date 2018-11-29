@@ -67,22 +67,11 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not shared" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwp-Cw-qHJ">
-                                                    <rect key="frame" x="260" y="14" width="81" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.5607843137254902" green="0.55686274509803924" blue="0.58039215686274503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular16"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="hwp-Cw-qHJ" secondAttribute="trailing" id="9UI-T2-6P2"/>
                                                 <constraint firstItem="rM4-Nu-8WD" firstAttribute="leading" secondItem="0jc-u2-nKr" secondAttribute="leadingMargin" id="Bn3-If-XN5"/>
-                                                <constraint firstItem="hwp-Cw-qHJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rM4-Nu-8WD" secondAttribute="trailing" constant="10" id="ENS-hs-qEL"/>
                                                 <constraint firstItem="rM4-Nu-8WD" firstAttribute="centerY" secondItem="0jc-u2-nKr" secondAttribute="centerY" id="YvA-Kx-Bs8"/>
-                                                <constraint firstItem="hwp-Cw-qHJ" firstAttribute="centerY" secondItem="0jc-u2-nKr" secondAttribute="centerY" id="vtW-Xg-w0U"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="rM4-Nu-8WD" secondAttribute="trailing" constant="10" id="mwS-M1-1PZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -183,7 +172,6 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="accessStatusLabel" destination="hwp-Cw-qHJ" id="FFA-EU-pHx"/>
                         <outlet property="deleteListButton" destination="u56-Jh-ACU" id="YGi-6E-uHB"/>
                         <outlet property="descriptionCell" destination="WFB-XH-2pJ" id="gBu-qU-6AM"/>
                         <outlet property="descriptionTextView" destination="2hT-xL-Vpf" id="ZGf-vb-TFO"/>

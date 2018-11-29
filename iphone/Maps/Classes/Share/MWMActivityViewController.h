@@ -8,7 +8,7 @@
 
 + (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object;
 
-+ (instancetype)shareControllerForURL:(NSURL *)url
++ (instancetype)shareControllerForURL:(NSURL * _Nullable)url
                               message:(NSString *)message
                     completionHandler:
                         (_Nullable UIActivityViewControllerCompletionWithItemsHandler)completionHandler;

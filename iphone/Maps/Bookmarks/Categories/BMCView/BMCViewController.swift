@@ -123,25 +123,25 @@ final class BMCViewController: MWMViewController {
       ppc.sourceRect = anchor.bounds
     }
 
-    let settings = L("list_settings").capitalized
+    let settings = L("list_settings")
     actionSheet.addAction(UIAlertAction(title: settings, style: .default, handler: { _ in
       self.openCategorySettings(category: category)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatListSettings])
     }))
-    let showHide = L(category.isVisible ? "hide_from_map" : "zoom_to_country").capitalized
+    let showHide = L(category.isVisible ? "hide_from_map" : "zoom_to_country")
     actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
       self.visibilityAction(category: category)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatMakeInvisibleOnMap])
     }))
-    let exportFile = L("export_file").capitalized
+    let exportFile = L("export_file")
     actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
       self.shareCategoryFile(category: category, anchor: anchor)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatSendAsFile])
     }))
-    let share = L("sharing_options").capitalized
+    let share = L("sharing_options")
     let shareAction = UIAlertAction(title: share, style: .default, handler: { _ in
       self.shareCategory(category: category, anchor: anchor)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
@@ -149,7 +149,7 @@ final class BMCViewController: MWMViewController {
     })
     shareAction.isEnabled = MWMBookmarksManager.shared().isCategoryNotEmpty(category.identifier)
     actionSheet.addAction(shareAction)
-    let delete = L("delete_list").capitalized
+    let delete = L("delete_list")
     let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { [viewModel] _ in
       viewModel!.deleteCategory(category: category)
       Statistics.logEvent(kStatBookmarksListSettingsClick,
@@ -157,7 +157,7 @@ final class BMCViewController: MWMViewController {
     })
     deleteAction.isEnabled = (viewModel.numberOfRows(section: .categories) > 1)
     actionSheet.addAction(deleteAction)
-    let cancel = L("cancel").capitalized
+    let cancel = L("cancel")
     actionSheet.addAction(UIAlertAction(title: cancel, style: .cancel, handler: nil))
 
     present(actionSheet, animated: true, completion: nil)

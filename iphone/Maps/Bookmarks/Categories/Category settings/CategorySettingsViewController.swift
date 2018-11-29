@@ -19,7 +19,6 @@ class CategorySettingsViewController: MWMTableViewController {
   
   @objc weak var delegate: CategorySettingsViewControllerDelegate?
   
-  @IBOutlet private weak var accessStatusLabel: UILabel!
   @IBOutlet private weak var nameTextField: UITextField!
   @IBOutlet private weak var descriptionTextView: UITextView!
   @IBOutlet private weak var descriptionCell: UITableViewCell!
@@ -29,14 +28,13 @@ class CategorySettingsViewController: MWMTableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = L("settings")
+    title = L("list_settings")
     
     assert(categoryId != MWMFrameworkHelper.invalidCategoryId(), "must provide category info")
 
     deleteListButton.isEnabled = (manager.groupsIdList().count > 1)
     nameTextField.text = manager.getCategoryName(categoryId)
     descriptionTextView.text = manager.getCategoryDescription(categoryId)
-    configureAccessStatus()
     
     navigationItem.rightBarButtonItem = saveButton
   }
@@ -58,19 +56,6 @@ class CategorySettingsViewController: MWMTableViewController {
     }
   }
   
-  func configureAccessStatus() {
-    switch MWMBookmarksManager.shared().getCategoryAccessStatus(categoryId) {
-    case .local:
-      accessStatusLabel.text = L("not_shared")
-    case .public:
-      accessStatusLabel.text = L("bookmarks_public_access")
-    case .private:
-      accessStatusLabel.text = L("bookmarks_link_access")
-    case .other:
-      assert(false, "it's not ok that this category has such access status")
-    }
-  }
-  
   @IBAction func deleteListButtonPressed(_ sender: Any) {
     guard categoryId != MWMFrameworkHelper.invalidCategoryId() else {
       assert(false)
@@ -86,7 +71,6 @@ class CategorySettingsViewController: MWMTableViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let destinationVC = segue.destination as? BookmarksSharingViewController {
       destinationVC.categoryId = categoryId
-      destinationVC.delegate = self
       Statistics.logEvent(kStatBookmarkSettingsClick,
                           withParameters: [kStatOption : kStatSharingOptions])
     }
@@ -109,12 +93,6 @@ class CategorySettingsViewController: MWMTableViewController {
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return UITableViewAutomaticDimension
-  }
-}
-
-extension CategorySettingsViewController: BookmarksSharingViewControllerDelegate {
-  func didShareCategory() {
-    configureAccessStatus()
   }
 }
 
