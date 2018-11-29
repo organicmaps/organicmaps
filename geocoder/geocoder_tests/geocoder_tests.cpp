@@ -127,4 +127,28 @@ UNIT_TEST(Geocoder_OnlyBuildings)
   TestGeocoder(geocoder, "some locality maybenumbered 3",
                {{numberedStreet, 1.0}, {houseOnANonNumberedStreet, 0.8875}});
 }
+
+UNIT_TEST(Geocoder_MismatchedLocality)
+{
+  string const kData = R"#(
+10 {"properties": {"address": {"locality": "Moscow"}}}
+11 {"properties": {"address": {"locality": "Paris"}}}
+
+21 {"properties": {"address": {"street": "Street", "locality": "Moscow"}}}
+22 {"properties": {"address": {"building": "2", "street": "Street", "locality": "Moscow"}}}
+
+31 {"properties": {"address": {"street": "Street", "locality": "Paris"}}}
+32 {"properties": {"address": {"building": "3", "street": "Street", "locality": "Paris"}}}
+)#";
+
+  ScopedFile const regionsJsonFile("regions.jsonl", kData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
+
+  base::GeoObjectId const building2(22);
+
+  TestGeocoder(geocoder, "Moscow Street 2", {{building2, 1.0}});
+
+  // "Street 3" looks almost like a match to "Paris-Street-3" but we should not emit it.
+  TestGeocoder(geocoder, "Moscow Street 3", {});
+}
 }  // namespace geocoder

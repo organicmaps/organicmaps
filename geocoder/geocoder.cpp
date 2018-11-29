@@ -115,6 +115,12 @@ size_t Geocoder::Context::GetNumUsedTokens() const
   return m_numUsedTokens;
 }
 
+Type Geocoder::Context::GetTokenType(size_t id) const
+{
+  CHECK_LESS(id, m_tokenTypes.size(), ());
+  return m_tokenTypes[id];
+}
+
 string const & Geocoder::Context::GetToken(size_t id) const
 {
   CHECK_LESS(id, m_tokens.size(), ());
@@ -143,9 +149,9 @@ bool Geocoder::Context::IsTokenUsed(size_t id) const
 bool Geocoder::Context::AllTokensUsed() const { return m_numUsedTokens == m_tokens.size(); }
 
 void Geocoder::Context::AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                                  bool allTokensUsed)
+                                  vector<Type> && allTypes, bool allTokensUsed)
 {
-  m_beam.Add(BeamKey(osmId, type, allTokensUsed), certainty);
+  m_beam.Add(BeamKey(osmId, type, move(allTypes), allTokensUsed), certainty);
 }
 
 void Geocoder::Context::FillResults(vector<Result> & results) const
@@ -159,7 +165,25 @@ void Geocoder::Context::FillResults(vector<Result> & results) const
     if (!seen.insert(e.m_key.m_osmId).second)
       continue;
 
-    if (m_surelyGotHouseNumber && e.m_key.m_type != Type::Building && !e.m_key.m_allTokensUsed)
+    bool isGoodHouseHumber = false;
+    if (e.m_key.m_type == Type::Building)
+    {
+      bool gotLocality = false;
+      bool gotStreet = false;
+      bool gotBuilding = false;
+      for (Type t : e.m_key.m_allTypes)
+      {
+        if (t == Type::Region || t == Type::Subregion || t == Type::Locality)
+          gotLocality = true;
+        if (t == Type::Street)
+          gotStreet = true;
+        if (t == Type::Building)
+          gotBuilding = true;
+      }
+      isGoodHouseHumber = gotLocality && gotStreet && gotBuilding;
+    }
+
+    if (m_surelyGotHouseNumber && !isGoodHouseHumber && !e.m_key.m_allTokensUsed)
       continue;
 
     results.emplace_back(e.m_key.m_osmId, e.m_value /* certainty */);
@@ -244,13 +268,20 @@ void Geocoder::Go(Context & ctx, Type type) const
       ScopedMarkTokens mark(ctx, type, i, j + 1);
 
       double certainty = 0;
-      for (auto const t : ctx.GetTokenTypes())
+      vector<Type> allTypes;
+      for (size_t tokId = 0; tokId < ctx.GetNumTokens(); ++tokId)
+      {
+        if (search::IsStreetSynonym(strings::MakeUniString(ctx.GetToken(tokId))))
+          continue;
+
+        auto const t = ctx.GetTokenType(tokId);
         certainty += GetWeight(t);
+        if (t != Type::Count)
+          allTypes.push_back(t);
+      }
 
       for (auto const * e : curLayer.m_entries)
-      {
-        ctx.AddResult(e->m_osmId, certainty, type, ctx.AllTokensUsed());
-      }
+        ctx.AddResult(e->m_osmId, certainty, type, move(allTypes), ctx.AllTokensUsed());
 
       ctx.GetLayers().emplace_back(move(curLayer));
       SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });

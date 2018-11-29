@@ -6,6 +6,7 @@
 #include "geocoder/types.hpp"
 
 #include "base/geo_object_id.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include <cstddef>
@@ -50,13 +51,18 @@ public:
   public:
     struct BeamKey
     {
-      BeamKey(base::GeoObjectId osmId, Type type, bool allTokensUsed)
-        : m_osmId(osmId), m_type(type), m_allTokensUsed(allTokensUsed)
+      BeamKey(base::GeoObjectId osmId, Type type, std::vector<Type> && allTypes, bool allTokensUsed)
+        : m_osmId(osmId)
+        , m_type(type)
+        , m_allTypes(std::move(allTypes))
+        , m_allTokensUsed(allTokensUsed)
       {
+        base::SortUnique(m_allTypes);
       }
 
       base::GeoObjectId m_osmId;
       Type m_type;
+      std::vector<Type> m_allTypes;
       bool m_allTokensUsed;
     };
 
@@ -67,6 +73,8 @@ public:
     std::vector<Type> & GetTokenTypes();
     size_t GetNumTokens() const;
     size_t GetNumUsedTokens() const;
+
+    Type GetTokenType(size_t id) const;
 
     std::string const & GetToken(size_t id) const;
 
@@ -79,7 +87,7 @@ public:
     bool AllTokensUsed() const;
 
     void AddResult(base::GeoObjectId const & osmId, double certainty, Type type,
-                   bool allTokensUsed);
+                   std::vector<Type> && allTypes, bool allTokensUsed);
 
     void FillResults(std::vector<Result> & results) const;
 
