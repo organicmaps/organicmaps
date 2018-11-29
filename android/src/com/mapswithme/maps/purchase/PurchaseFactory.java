@@ -1,10 +1,12 @@
 package com.mapswithme.maps.purchase;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.maps.PurchaseValidationObservable;
 
 public class PurchaseFactory
 {
@@ -14,11 +16,13 @@ public class PurchaseFactory
   }
 
   @NonNull
-  public static PurchaseController<PurchaseCallback> createAdsRemovalPurchaseController()
+  public static PurchaseController<PurchaseCallback> createAdsRemovalPurchaseController(
+      @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
-    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
+    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
     String monthlyProduct = PrivateVariables.adsRemovalMonthlyProductId();
     String weeklyProduct = PrivateVariables.adsRemovalWeeklyProductId();
@@ -28,26 +32,30 @@ public class PurchaseFactory
 
   @NonNull
   public static PurchaseController<PurchaseCallback> createBookmarkPurchaseController(
-      @Nullable String productId, @Nullable String serverId)
+      @NonNull Context context, @Nullable String productId, @Nullable String serverId)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
-    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
+    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new BookmarkPurchaseController(validator, billingManager, productId, serverId);
   }
 
   @NonNull
-  public static PurchaseController<PurchaseCallback> createBookmarkPurchaseController()
+  public static PurchaseController<PurchaseCallback> createBookmarkPurchaseController(
+      @NonNull Context context)
   {
-    return createBookmarkPurchaseController(null, null);
+    return createBookmarkPurchaseController(context, null, null);
   }
 
   @NonNull
-  public static PurchaseController<FailedPurchaseChecker> createFailedBookmarkPurchaseController()
+  public static PurchaseController<FailedPurchaseChecker> createFailedBookmarkPurchaseController(
+      @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
       = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
-    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator();
+    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new FailedBookmarkPurchaseController(validator, billingManager);
   }
 }

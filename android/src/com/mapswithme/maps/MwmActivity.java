@@ -576,11 +576,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     SharingHelper.INSTANCE.initialize();
 
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController();
+    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(this);
     mAdsRemovalPurchaseController.initialize(this);
     mAdsRemovalPurchaseController.validateExistingPurchases();
 
-    mBookmarkPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController();
+    mBookmarkPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(this);
     mBookmarkPurchaseController.initialize(this);
     mBookmarkPurchaseController.validateExistingPurchases();
 

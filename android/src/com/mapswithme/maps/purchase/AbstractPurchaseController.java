@@ -41,7 +41,6 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   @Override
   public final void initialize(@NonNull Activity activity)
   {
-    mValidator.initialize();
     mBillingManager.initialize(activity);
     onInitialize(activity);
   }
@@ -49,7 +48,6 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
   @Override
   public final void destroy()
   {
-    mValidator.destroy();
     mBillingManager.destroy();
     onDestroy();
   }

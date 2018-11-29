@@ -78,7 +78,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
       Bundle savedInstanceState)
   {
-    mPurchaseController = PurchaseFactory.createBookmarkPurchaseController(mPaymentData.getProductId(),
+    mPurchaseController = PurchaseFactory.createBookmarkPurchaseController(getContext(),
+                                                                           mPaymentData.getProductId(),
                                                                            mPaymentData.getServerId());
     mPurchaseController.initialize(getActivity());
     View root = inflater.inflate(R.layout.fragment_bookmark_payment, container, false);

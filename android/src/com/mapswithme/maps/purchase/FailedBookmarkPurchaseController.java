@@ -37,7 +37,6 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   @Override
   public void initialize(@NonNull Activity activity)
   {
-    mValidator.initialize();
     mBillingManager.initialize(activity);
     mValidator.addCallback(mValidationCallback);
     mBillingManager.addCallback(mBillingCallback);
@@ -46,7 +45,6 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
   @Override
   public void destroy()
   {
-    mValidator.destroy();
     mBillingManager.destroy();
   }
 

@@ -5,37 +5,32 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.PurchaseValidationObservable;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
-                                          Framework.PurchaseValidationListener
+                                          CoreValidationObserver
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = DefaultPurchaseValidator.class.getSimpleName();
   @Nullable
   private ValidationCallback mCallback;
+  @NonNull
+  private final PurchaseValidationObservable mValidationObservable;
 
-  @Override
-  public void initialize()
+  DefaultPurchaseValidator(@NonNull PurchaseValidationObservable validationObservable)
   {
-    Framework.nativeSetPurchaseValidationListener(this);
-    LOGGER.i(TAG, "Initializing purchase validator...");
-  }
-
-  @Override
-  public void destroy()
-  {
-    Framework.nativeSetPurchaseValidationListener(null);
-    LOGGER.i(TAG, "Destroying purchase validator...");
+    mValidationObservable = validationObservable;
   }
 
   @Override
   public void validate(@Nullable String serverId, @NonNull String vendor,
                        @NonNull String purchaseData)
   {
-    String encodedData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
-    Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedData);
+    String encodedPurchaseData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
+    mValidationObservable.addObserver(encodedPurchaseData, this);
+    Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedPurchaseData);
   }
 
   @Override
@@ -51,15 +46,15 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   }
 
   @Override
-  public void onValidatePurchase(@Framework.PurchaseValidationCode int code,
-                                 @NonNull String serverId, @NonNull String vendorId,
-                                 @NonNull String purchaseData)
+  public void onValidatePurchase(@NonNull ValidationStatus status, @NonNull String serverId,
+                                 @NonNull String vendorId, @NonNull String encodedPurchaseData)
   {
-    LOGGER.i(TAG, "Validation code: " + code);
+    LOGGER.i(TAG, "Validation code: " + status);
+    mValidationObservable.removeObserver(encodedPurchaseData, this);
     if (mCallback != null)
     {
-      byte[] tokenBytes = Base64.decode(purchaseData, Base64.DEFAULT);
-      mCallback.onValidate(new String(tokenBytes), ValidationStatus.values()[code]);
+      byte[] tokenBytes = Base64.decode(encodedPurchaseData, Base64.DEFAULT);
+      mCallback.onValidate(new String(tokenBytes), status);
     }
   }
 }

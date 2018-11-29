@@ -68,10 +68,12 @@ public class MwmApplication extends Application
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
   @NonNull
   private final AppBackgroundTracker.OnTransitionListener mBackgroundListener = new TransitionListener();
-
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ExternalLibrariesMediator mMediator;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private PurchaseValidationObservable mPurchaseValidationObservable;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -156,6 +158,8 @@ public class MwmApplication extends Application
     mSubwayManager = new SubwayManager(this);
     mConnectivityListener = new ConnectivityJobScheduler(this);
     mConnectivityListener.listen();
+
+    mPurchaseValidationObservable = new PurchaseValidationObservable();
   }
 
   private void initNotificationChannels()
@@ -249,6 +253,7 @@ public class MwmApplication extends Application
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
     SubwayManager.from(this).initialize();
+    mPurchaseValidationObservable.initialize();
     mFrameworkInitialized = true;
   }
 
@@ -297,6 +302,12 @@ public class MwmApplication extends Application
   public ExternalLibrariesMediator getMediator()
   {
     return mMediator;
+  }
+
+  @NonNull
+  PurchaseValidationObservable getPurchaseValidationObservable()
+  {
+    return mPurchaseValidationObservable;
   }
 
   public static void onUpgrade()

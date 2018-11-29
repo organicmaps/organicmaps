@@ -13,16 +13,6 @@ import android.support.annotation.Nullable;
 interface PurchaseValidator<T>
 {
   /**
-   * Initializes the validator for further work.
-   */
-  void initialize();
-
-  /**
-   * Destroys this validator.
-   */
-  void destroy();
-
-  /**
    * Validates the purchase with specified purchase data.
    *
    * @param serverId identifier of the purchase on the server.

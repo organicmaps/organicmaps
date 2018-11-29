@@ -102,7 +102,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController();
+    mFailedPurchaseController = PurchaseFactory.createFailedBookmarkPurchaseController(getContext());
     mFailedPurchaseController.initialize(getActivity());
     mFailedPurchaseController.validateExistingPurchases();
     mPurchaseChecker = new FailedBookmarkPurchaseChecker();

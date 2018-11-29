@@ -295,7 +295,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController();
+    mAdsRemovalPurchaseController = PurchaseFactory.createAdsRemovalPurchaseController(getContext());
     mAdsRemovalPurchaseController.initialize(getActivity());
     return super.onCreateView(inflater, container, savedInstanceState);
   }
