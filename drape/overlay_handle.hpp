@@ -233,5 +233,6 @@ private:
 
 uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth);
 uint64_t CalculateSpecialModePriority(uint16_t specialPriority);
+uint64_t CalculateSpecialModeUserMarkPriority(uint16_t specialPriority);
 uint64_t CalculateUserMarkPriority(int minZoomLevel, uint16_t specialPriority);
 }  // namespace dp

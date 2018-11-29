@@ -284,6 +284,16 @@ uint64_t CalculateOverlayPriority(int minZoomLevel, uint8_t rank, float depth)
 
 uint64_t CalculateSpecialModePriority(uint16_t specialPriority)
 {
+  // [5 bytes - 0xFFFFFFFFFF][1 byte - 0x00][2 bytes - special priority]
+  static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFFFF);
+  uint64_t priority = dp::kPriorityMaskAll;
+  priority &= kMask;
+  priority |= specialPriority;
+  return priority;
+}
+
+uint64_t CalculateSpecialModeUserMarkPriority(uint16_t specialPriority)
+{
   // [6 bytes - 0xFFFFFFFFFFFF][2 bytes - special priority]
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::kPriorityMaskAll;
