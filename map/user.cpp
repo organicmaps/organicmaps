@@ -502,12 +502,7 @@ void User::RequestBasicUserDetails(std::string const & accessToken,
 
       if (onSuccess)
         onSuccess(accessToken);
-    },
-    [onError = std::move(onError)](int code, std::string const & response)
-    {
-      if (onError)
-        onError(code, response);
-    });
+    }, onError);
   });
 }
 
