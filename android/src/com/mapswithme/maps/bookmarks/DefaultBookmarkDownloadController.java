@@ -19,6 +19,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
                                                    BookmarkDownloadHandler
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final Logger BILLING_LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.BILLING);
   private static final String TAG = DefaultBookmarkDownloadController.class.getSimpleName();
   private static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
   @NonNull
@@ -111,6 +112,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void onAuthorizationRequired()
   {
+    BILLING_LOGGER.i(TAG, "Authorization required for bookmark purchase");
     if (mCallback != null)
       mCallback.onAuthorizationRequired();
   }
@@ -118,6 +120,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
   @Override
   public void onPaymentRequired()
   {
+    BILLING_LOGGER.i(TAG, "Payment required for bookmark purchase");
     if (TextUtils.isEmpty(mDownloadUrl))
       throw new IllegalStateException("Download url must be non-null if payment required!");
 

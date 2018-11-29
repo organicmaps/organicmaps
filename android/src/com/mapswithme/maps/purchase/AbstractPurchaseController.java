@@ -139,7 +139,8 @@ abstract class AbstractPurchaseController<V, B, UiCallback extends PurchaseCallb
       if (target == null)
         return;
 
-      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + "' on backend server...");
+      LOGGER.i(TAG, "Validating purchase '" + target.getSku() + " " + target.getOrderId()
+                    + "' on backend server...");
       validate(target.getOriginalJson());
       if (getUiCallback() != null)
         getUiCallback().onValidationStarted();

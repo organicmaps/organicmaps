@@ -166,7 +166,8 @@ public class FailedBookmarkPurchaseController implements PurchaseController<Fail
       }
 
       Purchase target = purchases.get(0);
-      LOGGER.i(TAG, "Validating failed purchase data for '" + target.getSku() + "'...");
+      LOGGER.i(TAG, "Validating failed purchase data for '" + target.getSku()
+                    + " " + target.getOrderId() + "'...");
       mValidator.validate(null, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
     }
 

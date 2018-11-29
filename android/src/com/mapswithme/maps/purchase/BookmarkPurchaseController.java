@@ -112,7 +112,8 @@ class BookmarkPurchaseController extends AbstractPurchaseController<ValidationCa
 
       for (Purchase target: purchases)
       {
-        LOGGER.i(TAG, "Validating existing purchase data for '" + target.getSku() + "'...");
+        LOGGER.i(TAG, "Validating existing purchase data for '" + target.getSku()
+                      + " " + target.getOrderId() + "'...");
         getValidator().validate(mServerId, PrivateVariables.bookmarksVendor(), target.getOriginalJson());
       }
     }
