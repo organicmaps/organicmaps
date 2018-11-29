@@ -367,9 +367,33 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
   {
     Request(url, authParams, [this](std::string const & response)
     {
-      SetAccessToken(ParseAccessToken(response));
-      FinishAuthentication();
-    }, [this](int code, std::string const & response)
+      // Parse access token.
+      std::string accessToken;
+      try
+      {
+        accessToken = ParseAccessToken(response);
+      }
+      catch (base::Json::Exception const & ex)
+      {
+        LOG(LWARNING, ("Access token parsing failed. ", ex.what()));
+        FinishAuthentication();
+        return;
+      }
+
+      // Request basic user details.
+      RequestBasicUserDetails(accessToken, [this](std::string const & accessToken)
+      {
+        SetAccessToken(accessToken);
+        FinishAuthentication();
+      },
+      [this](int code, std::string const & response)
+      {
+        LOG(LWARNING, ("Requesting of basic user details failed. Code =",
+                       code, "Response =", response));
+        FinishAuthentication();
+      });
+    },
+    [this](int code, std::string const & response)
     {
       LOG(LWARNING, ("Authentication failed. Code =", code, "Response =", response));
       FinishAuthentication();
@@ -435,7 +459,8 @@ void User::ClearSubscribersImpl()
   base::EraseIf(m_subscribers, [](auto const & s) { return s == nullptr; });
 }
 
-void User::RequestUserDetails()
+void User::RequestBasicUserDetails(std::string const & accessToken,
+                                   SuccessHandler && onSuccess, ErrorHandler && onError)
 {
   std::string const detailsUrl = UserDetailsUrl();
   if (detailsUrl.empty())
@@ -444,24 +469,15 @@ void User::RequestUserDetails()
     return;
   }
 
-  std::string const reviewsUrl = UserReviewsUrl();
-  if (reviewsUrl.empty())
+  GetPlatform().RunTask(Platform::Thread::Network, [this, detailsUrl, accessToken,
+                                                    onSuccess = std::move(onSuccess),
+                                                    onError = std::move(onError)]()
   {
-    LOG(LWARNING, ("User reviews service is unavailable."));
-    return;
-  }
-
-  if (m_accessToken.empty())
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::Network, [this, detailsUrl, reviewsUrl]()
-  {
-    // Request user details.
-    Request(detailsUrl, [this](platform::HttpClient & request)
+    Request(detailsUrl, [accessToken](platform::HttpClient & request)
     {
-      request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
+      request.SetRawHeader("Authorization", BuildAuthorizationToken(accessToken));
     },
-    [this](std::string const & response)
+    [this, accessToken, onSuccess = std::move(onSuccess)](std::string const & response)
     {
       UserDetailsResponseData userDetails;
       DeserializeFromJson(response, userDetails);
@@ -477,11 +493,38 @@ void User::RequestUserDetails()
       GetPlatform().GetSecureStorage().Save(kUserNameKey, userName);
       GetPlatform().GetSecureStorage().Save(kUserIdKey, userDetails.m_userId);
 
-      std::lock_guard<std::mutex> lock(m_mutex);
-      m_userName = userName;
-      m_userId = userDetails.m_userId;
-    });
+      // Set user credentials.
+      {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_userName = userName;
+        m_userId = userDetails.m_userId;
+      }
 
+      if (onSuccess)
+        onSuccess(accessToken);
+    },
+    [onError = std::move(onError)](int code, std::string const & response)
+    {
+      if (onError)
+        onError(code, response);
+    });
+  });
+}
+
+void User::RequestUserDetails()
+{
+  std::string const reviewsUrl = UserReviewsUrl();
+  if (reviewsUrl.empty())
+  {
+    LOG(LWARNING, ("User reviews service is unavailable."));
+    return;
+  }
+
+  if (m_accessToken.empty())
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::Network, [this, reviewsUrl]()
+  {
     // Request user's reviews.
     Request(reviewsUrl, [this](platform::HttpClient & request)
     {

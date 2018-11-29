@@ -80,6 +80,8 @@ public:
 private:
   void Init();
   void SetAccessToken(std::string const & accessToken);
+  void RequestBasicUserDetails(std::string const & accessToken,
+                               SuccessHandler && onSuccess, ErrorHandler && onError);
   void RequestUserDetails();
   void Request(std::string const & url, BuildRequestHandler const & onBuildRequest,
                SuccessHandler const & onSuccess, ErrorHandler const & onError = nullptr);
