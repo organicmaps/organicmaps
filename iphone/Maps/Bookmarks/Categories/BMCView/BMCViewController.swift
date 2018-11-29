@@ -135,12 +135,15 @@ final class BMCViewController: MWMViewController {
       Statistics.logEvent(kStatBookmarksListSettingsClick,
                           withParameters: [kStatOption : kStatMakeInvisibleOnMap])
     }))
-    let exportFile = L("export_file")
-    actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
-      self.shareCategoryFile(category: category, anchor: anchor)
-      Statistics.logEvent(kStatBookmarksListSettingsClick,
-                          withParameters: [kStatOption : kStatSendAsFile])
-    }))
+    if (!MWMBookmarksManager.shared().isCategory(fromCatalog: category.identifier))
+    {
+      let exportFile = L("export_file")
+      actionSheet.addAction(UIAlertAction(title: exportFile, style: .default, handler: { _ in
+        self.shareCategoryFile(category: category, anchor: anchor)
+        Statistics.logEvent(kStatBookmarksListSettingsClick,
+                            withParameters: [kStatOption : kStatSendAsFile])
+      }))
+    }
     let share = L("sharing_options")
     let shareAction = UIAlertAction(title: share, style: .default, handler: { _ in
       self.shareCategory(category: category, anchor: anchor)
