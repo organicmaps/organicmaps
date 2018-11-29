@@ -1,6 +1,7 @@
 #import "MWMPlacePageManagerHelper.h"
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageManager.h"
+#import "MWMUGCReviewSource.h"
 
 @interface MWMMapViewControlsManager ()
 
@@ -23,10 +24,10 @@
   [[MWMMapViewControlsManager manager].placePageManager updateAvailableArea:frame];
 }
 
-+ (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview
++ (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromSource:(MWMUGCReviewSource)source
 {
   [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:value
-                                                             fromPreview:fromPreview];
+                                                             fromSource:source];
 }
 
 + (void)searchSimilar

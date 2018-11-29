@@ -544,7 +544,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       auto c = static_cast<MWMUGCAddReviewCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       c.onRateTap = ^(MWMRatingSummaryViewValueType value) {
-        [delegate showUGCAddReview:value fromPreview:NO];
+        [delegate showUGCAddReview:value fromSource:MWMUGCReviewSourcePlacePage];
       };
       return c;
     }

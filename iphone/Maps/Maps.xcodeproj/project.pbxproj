@@ -1395,6 +1395,7 @@
 		470F5A7E2189C30800754295 /* InAppPurchase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
 		4716EAB921A325310029B886 /* IPaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPaidRouteStatistics.swift; sourceTree = "<group>"; };
 		4716EAC021A6E0570029B886 /* BookmarksVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksVC.xib; sourceTree = "<group>"; };
+		4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMUGCReviewSource.h; sourceTree = "<group>"; };
 		4719A642219CB61D009F9AA7 /* BillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A644219CBD65009F9AA7 /* IPendingTransactionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPendingTransactionsHandler.swift; sourceTree = "<group>"; };
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
@@ -3963,6 +3964,7 @@
 				34E776301F15FAC2003040B3 /* MWMPlacePageManagerHelper.h */,
 				34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */,
 				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
+				4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */,
 				F6E2FC9C1E097B9F0083EBEC /* PlacePageLayout */,
 			);
 			path = PlacePage;

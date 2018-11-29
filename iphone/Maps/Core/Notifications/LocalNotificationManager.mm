@@ -136,6 +136,7 @@ using namespace storage;
 #pragma mark - Location Notifications
 
 - (void)showReviewNotificationForPlace:(NSString *)place onTap:(MWMVoidBlock)onReviewNotification {
+  [Statistics logEvent:kStatUGCReviewNotificationShown];
   self.onReviewNotification = onReviewNotification;
 
   UILocalNotification * notification = [[UILocalNotification alloc] init];

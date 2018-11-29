@@ -452,7 +452,8 @@ using namespace osm_auth_ios;
     {
       [LocalNotificationManager.sharedManager
        showReviewNotificationForPlace:@(notification.m_mapObject->GetReadableName().c_str())
-       onTap: ^{
+       onTap:^{
+         [Statistics logEvent:kStatUGCReviewNotificationClicked];
          place_page::Info info;
          if (GetFramework().MakePlacePageInfo(*notification.m_mapObject, info))
            [[MapViewController sharedController].controlsManager showPlacePageReview:info];

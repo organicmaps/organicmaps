@@ -267,7 +267,7 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
                          smartDeal:NO
                        onAddReview:^{
                          [MWMPlacePageManagerHelper showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue
-                                                         fromPreview:YES];
+                                                         fromSource:MWMUGCReviewSourcePlacePagePreview];
                        }];
     }
     return reviewCell;

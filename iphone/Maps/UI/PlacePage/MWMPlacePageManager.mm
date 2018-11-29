@@ -98,7 +98,8 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
 - (void)showReview:(place_page::Info const &)info
 {
   [self show:info];
-  [self showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue fromPreview:YES];
+  [self showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue
+              fromSource:MWMUGCReviewSourceNotification];
 }
 
 - (void)show:(place_page::Info const &)info
@@ -595,7 +596,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   [[MapViewController sharedController].navigationController pushViewController:galleryVc animated:YES];
 }
 
-- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromSource:(MWMUGCReviewSource)source
 {
   auto data = self.data;
   if (!data)
@@ -609,13 +610,25 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   auto title = data.title;
 
   RegisterEventIfPossible(eye::MapObject::Event::Type::UgcEditorOpened, data.getRawData);
+  NSString * sourceString;
+  switch (source) {
+    case MWMUGCReviewSourcePlacePage:
+      sourceString = kStatPlacePage;
+      break;
+    case MWMUGCReviewSourcePlacePagePreview:
+      sourceString = kStatPlacePagePreview;
+      break;
+    case MWMUGCReviewSourceNotification:
+      sourceString = kStatNotification;
+      break;
+  }
   [Statistics logEvent:kStatUGCReviewStart
         withParameters:@{
           kStatIsAuthenticated: @([MWMAuthorizationViewModel isAuthenticated]),
           kStatIsOnline:
               @(GetPlatform().ConnectionStatus() != Platform::EConnectionType::CONNECTION_NONE),
           kStatMode: kStatAdd,
-          kStatFrom: fromPreview ? kStatPlacePagePreview : kStatPlacePage
+          kStatFrom: sourceString
         }];
   auto ugcReviewModel =
       [[MWMUGCReviewModel alloc] initWithReviewValue:value ratings:ratings title:title text:@""];

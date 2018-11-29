@@ -1,5 +1,6 @@
 #import "MWMPlacePageTaxiProvider.h"
 #import "MWMRatingSummaryViewValueType.h"
+#import "MWMUGCReviewSource.h"
 
 typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 
@@ -20,7 +21,7 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
     referenceViewWhenDismissingHandler:
         (nonnull MWMPlacePageButtonsDismissBlock)referenceViewWhenDismissingHandler;
 - (void)showGallery;
-- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview;
+- (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromSource:(MWMUGCReviewSource)source;
 - (void)searchSimilar;
 
 - (void)openLocalAdsURL;
