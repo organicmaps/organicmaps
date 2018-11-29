@@ -2499,11 +2499,9 @@
 
 "export_file" = "Exportovat soubor";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Nástroje seznamu";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Smazat seznam";
 
 "hide_from_map" = "Neukazovat na mapě";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Místní obyvatel nebo turista";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "místní obyvatel";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turista";
 
 "select_properties" = "Vybrat možnosti";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Popis místa";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Při nahrávání značek se bohužel stala chyba. Zkuste to prosím ještě jednou.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Uživatelský obsah";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Nahrávání map";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - jak se vám tady líbí?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Okomentujte místo a pomozte cestovatelům!";
+
+"share_bookmarks_email_body_link" = "Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Radar vpředu";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary";
+
+"warning_speedcams_subtitle" = "Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.";
+
+"speedcams_notice_message" = "Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary";
 
 
 /**********  Partners  **********/

@@ -2499,11 +2499,9 @@
 
 "export_file" = "Eksporter fil";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Liste Innstillinger";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Slett liste";
 
 "hide_from_map" = "Skjul fra kart";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Lokalkjent eller turist";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "lokalkjent";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turist";
 
 "select_properties" = "Velg alternativer";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Plasser beskrivelse";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Dessverre har det oppstått en feil under opplasting av bokmerkene dine. Vennligst prøv igjen.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Sosialt innhold";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Nedlast kart";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - hvordan var det?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Hjelp andre ved å legge igjen en anmeldelse.";
+
+"share_bookmarks_email_body_link" = "Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via MAPS.ME og nyt reisen: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Kommer til kamera";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t";
+
+"warning_speedcams_subtitle" = "Vær oppmerksom på kjøreregler for landet du reiser til.";
+
+"speedcams_notice_message" = "Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer";
 
 
 /**********  Partners  **********/

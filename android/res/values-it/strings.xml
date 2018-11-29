@@ -1395,6 +1395,8 @@
 	<string name="manage_subscription">Gestisci abbonamento</string>
 	<string name="sharing_options">Impostazione accesso</string>
 	<string name="export_file">Esportare il file</string>
+	<string name="list_settings">Impostazioni elenco</string>
+	<string name="delete_list">Cancella elenco</string>
 	<string name="hide_from_map">Nascondere sulla mappa</string>
 	<string name="ugc_route_tags_screen_label">Impostare tag</string>
 	<string name="ugc_route_tags_progress_msg">Stiamo caricando tag…</string>
@@ -1430,6 +1432,8 @@
 	<string name="properties_loading_error_subtitle">Si è verificato un errore durante il caricamento delle opzioni. Si prega di riprovare</string>
 	<string name="custom_props_desc">La presente guida è stata creata da</string>
 	<string name="custom_props_title">Uno del posto o un turista</string>
+	<string name="custom_props_local">del posto</string>
+	<string name="custom_props_traveler">turista</string>
 	<string name="select_properties">Scegliere opzioni</string>
 	<string name="access_rules_p_to_p">Accesso speciale</string>
 	<string name="access_rules_paid">Acquistato</string>
@@ -1444,6 +1448,18 @@
 	<string name="speedcam_option_never">Mai</string>
 	<string name="bookmark_description_title">Descrizione tag</string>
 	<string name="place_description_title">Descrizione luogo</string>
+	<string name="ugc_routes_error_uploading_file_toast">Si è verificato un errore durante il caricamento. Si prega di riprovare.</string>
+	<string name="notification_channel_ugc">Contenuto creato dagli utenti</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Caricamento mappe</string>
+	<string name="notification_leave_review_title">%s - ti piace quì?</string>
+	<string name="notification_leave_review_content">Lascia una recensione ed aiuta altri viaggiatori!</string>
+	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Autovelox in prossimità</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
+	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
+	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

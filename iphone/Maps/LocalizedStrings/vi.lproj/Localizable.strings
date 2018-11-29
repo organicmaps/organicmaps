@@ -2499,11 +2499,9 @@
 
 "export_file" = "Xuất tập tin";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Cài đặt danh sách";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Xóa danh sách";
 
 "hide_from_map" = "Ẩn từ bản đồ";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Người địa phương hay du khách";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "người địa phương";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "du khách";
 
 "select_properties" = "Chọn tùy chọn";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Mô tả Địa điểm";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Rất tiếc, đã xảy ra lỗi khi tải lên dấu trang của bạn. Vui lòng thử lại.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Nội dung xã hội";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Trình tải xuống bản đồ";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - nó như thế nào?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Giúp khách du lịch bằng cách để lại đánh giá!";
+
+"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Máy ảnh phía trước";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h";
+
+"warning_speedcams_subtitle" = "Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.";
+
+"speedcams_notice_message" = "Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams";
 
 
 /**********  Partners  **********/

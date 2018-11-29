@@ -1401,6 +1401,8 @@
 	<string name="manage_subscription">إدارة الاشتراك</string>
 	<string name="sharing_options">خيارات المشاركة</string>
 	<string name="export_file">ملف التصدير</string>
+	<string name="list_settings">قائمة الإعدادات</string>
+	<string name="delete_list">حذف القائمة</string>
 	<string name="hide_from_map">إخفاء من الخريطة</string>
 	<string name="ugc_route_tags_screen_label">حدد العلامات</string>
 	<string name="ugc_route_tags_progress_msg">جارٍ تحميل العلامات…</string>
@@ -1436,6 +1438,8 @@
 	<string name="properties_loading_error_subtitle">حدث خطأ أثناء تحميل الخيارات ، يرجى المحاولة مرة أخرى</string>
 	<string name="custom_props_desc">في هذا الدليل ، قمت بزيارة الأماكن مثل</string>
 	<string name="custom_props_title">محلي أو مسافر</string>
+	<string name="custom_props_local">محلي</string>
+	<string name="custom_props_traveler">المسافر</string>
 	<string name="select_properties">حدد الخيارات</string>
 	<string name="access_rules_p_to_p">وصول خاص</string>
 	<string name="access_rules_paid">تم شراؤه من</string>
@@ -1450,6 +1454,18 @@
 	<string name="speedcam_option_never">مطلقا</string>
 	<string name="bookmark_description_title">وصف الإشارة المرجعية</string>
 	<string name="place_description_title">وصف المكان</string>
+	<string name="ugc_routes_error_uploading_file_toast">عدّل دليلك على الويب بسهولة باستخدام جهاز الكمبيوتر: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور. يرجى المحاولة مرة أخرى.</string>
+	<string name="notification_channel_ugc">محتوى ينتجه المستخدم</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">محمل الخريطة</string>
+	<string name="notification_leave_review_title">- كيف كان ذلك؟%s</string>
+	<string name="notification_leave_review_content">مساعدة المسافرين من خلال ترك رأي!</string>
+	<string name="share_bookmarks_email_body_link">مرحبًا!\n\nهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">الكاميرا أمامك</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س</string>
+	<string name="warning_speedcams_subtitle">يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.</string>
+	<string name="speedcams_notice_message">السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

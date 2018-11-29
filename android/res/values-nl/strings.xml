@@ -1396,6 +1396,8 @@
 	<string name="manage_subscription">Manage subscription</string>
 	<string name="sharing_options">Opties voor delen</string>
 	<string name="export_file">Bestand exporteren</string>
+	<string name="list_settings">Lijst Instellingen</string>
+	<string name="delete_list">Lijst verwijderen</string>
 	<string name="hide_from_map">Van de kaart verbergen</string>
 	<string name="ugc_route_tags_screen_label">Selecteer tags</string>
 	<string name="ugc_route_tags_progress_msg">Tags aan het laden…</string>
@@ -1431,6 +1433,8 @@
 	<string name="properties_loading_error_subtitle">Er is een fout opgetreden tijdens het laden van de opties, probeer het opnieuw</string>
 	<string name="custom_props_desc">In deze gids heeft u plaatsen bezocht zoals</string>
 	<string name="custom_props_title">Lokaal of reiziger</string>
+	<string name="custom_props_local">local</string>
+	<string name="custom_props_traveler">reiziger</string>
 	<string name="select_properties">Selecteer opties</string>
 	<string name="access_rules_p_to_p">Speciale toegang</string>
 	<string name="access_rules_paid">Gekocht</string>
@@ -1445,6 +1449,18 @@
 	<string name="speedcam_option_never">Nooit</string>
 	<string name="bookmark_description_title">Bladwijzer Beschrijving</string>
 	<string name="place_description_title">Plaats Beschrijving</string>
+	<string name="ugc_routes_error_uploading_file_toast">Spijtig genoeg is er een fout opgetreden tijdens het uploaden van uw bladwijzers. Probeer het opnieuw.</string>
+	<string name="notification_channel_ugc">Sociale inhoud</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Kaart downloader</string>
+	<string name="notification_leave_review_title">%s - hoe vond u het?</string>
+	<string name="notification_leave_review_content">Help reizigers door een beoordeling achter te laten!</string>
+	<string name="share_bookmarks_email_body_link">Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Camera in zicht</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigator waarschuwt u over camera\'s wanneer u de maximumsnelheid van %d km/h overschrijdt</string>
+	<string name="warning_speedcams_subtitle">Let op de rijvoorschriften van het land waar u naartoe reist.</string>
+	<string name="speedcams_notice_message">Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

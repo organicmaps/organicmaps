@@ -176,12 +176,18 @@
 	<string name="search_mode_nearme">اطراف من</string>
 	<!-- Do search in current viewport only -->
 	<string name="search_mode_viewport">روی صفحه نمایش بده</string>
+	<!-- Search category for cafes, bars, restaurants -->
+	<string name="eat">کجا غذا بخوریم</string>
+	<!-- Search category for grocery stores -->
+	<string name="food">عطاری</string>
 	<!-- Search category -->
 	<string name="transport">حمل و نقل</string>
 	<!-- Search category -->
 	<string name="fuel">سوخت</string>
 	<!-- Search category -->
 	<string name="parking">پارکینگ</string>
+	<!-- Search category for clothes/shoes/gifts/jewellery/sport shops -->
+	<string name="shopping">خرید کردن</string>
 	<!-- Search category -->
 	<string name="hotel">هتل</string>
 	<!-- Search category -->
@@ -190,6 +196,10 @@
 	<string name="entertainment">سرگرمی</string>
 	<!-- Search category -->
 	<string name="atm">خود پرداز</string>
+	<!-- Search category for nightclubs/bars -->
+	<string name="nightlife">تفریحات شبانه</string>
+	<!-- Search category for water park/disneyland/playground/toys store -->
+	<string name="children">تعطیلات خانوادگی</string>
 	<!-- Search category -->
 	<string name="bank">بانک</string>
 	<!-- Search category -->
@@ -1334,6 +1344,72 @@
 	<string name="server_unavailable_title">سرویس موجود نیست</string>
 	<string name="server_unavailable_message">خرید بعدا تکمیل خواهد شد. اگر خطا همچنان ادامه دارد، لطفا با support\@maps.me تماس بگیرید.</string>
 	<string name="offline_fiters_check_in">برای فیلتر کردن هتل ها با تاریخ، به اینترنت متصل شوید.</string>
+	<string name="sharing_options">گزینه های اشتراک گذاری</string>
+	<string name="export_file">ارسال فایل</string>
+	<string name="list_settings">تنظیمات لیست</string>
+	<string name="delete_list">حذف لیست</string>
+	<string name="hide_from_map">پنهان کردن از نقشه</string>
+	<string name="ugc_route_tags_screen_label">انتخاب برچسبها</string>
+	<string name="ugc_route_tags_progress_msg">درحال بارگیری برچسبها…</string>
+	<string name="ugc_route_tags_desc">لطفا برچسبها را برای کمک به مسافران دیگر برای یافتن راهنمای شما، انتخاب نمایید. این الزامی است.</string>
+	<string name="public_access">دسترسی عمومی</string>
+	<string name="limited_access">دسترسی محدود</string>
+	<string name="upload_and_publish_desc">این راهنما به کاتالوگ عمومی MAPS.ME ارسال خواهد شد و برای کاربران دیگر در دسترس خواهد بود</string>
+	<string name="upload_and_publish">بارگذاری و انتشار</string>
+	<string name="upload_and_get_direct_link">بارگذاری و دریافت لینک مستقیم</string>
+	<string name="get_direct_link_desc">راهنمای شما برای هر کسی که این لینک را داشته باشد، دردسترس خواهد بود</string>
+	<string name="upload_and_publish_progress_text">در حال انتشار راهنمای شما…</string>
+	<string name="upload_and_publish_success">راهنما انتشار یافت</string>
+	<string name="ugc_routes_user_agreement">&lt;b>لطفا توجه داشته باشید:&lt;b/> با ادامه، شما موافقت خود با &lt;a href="%s">مجوز توافقنامه، را اعلام نموده اید&lt;a/></string>
+	<string name="ugc_route_edit_list_name">نام راهنما</string>
+	<string name="ugc_route_edit_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
+	<string name="not_shared">به اشتراک گذاشته نشده است</string>
+	<string name="direct_link_progress_text">در حال بارگذاری فایل شما…</string>
+	<string name="direct_link_success">لینک ایجاد شده است</string>
+	<string name="edit_guide_title">راهنمای خود را در وب ویرایش کنید</string>
+	<string name="edit_guide_subtitle">یک لینک برای ویرایش راهنمای خود از طریق برنامه وب، دریافت کنید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.</string>
+	<string name="send_a_link_btn">یک لینک برای من ارسال کن</string>
+	<string name="upload_error_toast">هنگام بارگذاری فایل شما خطایی روی داد</string>
+	<string name="tags_loading_error_subtitle">هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید</string>
+	<string name="unable_upload_errorr_title">بارگذاری فایل انجام نشد</string>
+	<string name="unable_upload_error_subtitle_edited">این فایل از طریق برنامه وب ویرایش شده است</string>
+	<string name="unable_upload_error_subtitle_broken">این فایل آسیب دیده است و امکان بارگذاری آن وجود ندارد. لطفا فایل دیگری را بارگذاری نمایید.</string>
+	<string name="buy_btn">با s% خرید نمایید</string>
+	<string name="price_error_title">نمی توان قیمت را دریافت کرد</string>
+	<string name="price_error_subtitle">لطفا چند دقیقه دیگر دوباره امتحان کنید</string>
+	<string name="edit_your_guide_email_body">راهنمای خود را به سادگی بر روی وب با استفاده از کامپیوتر خود ویرایش نمایید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.</string>
+	<string name="edit_on_web">ویرایش بر روی وب</string>
+	<string name="properties_loading_error_subtitle">هنگام بارگیری گزینه ها خطایی روی داد، لطفا دوباره امتحان کنید</string>
+	<string name="custom_props_desc">در این راهنما شما از مکان هایی بازدید کرده اید، به عنوان</string>
+	<string name="custom_props_title">ساکن محلی یا مسافر</string>
+	<string name="custom_props_local">محلی</string>
+	<string name="custom_props_traveler">مسافر</string>
+	<string name="select_properties">انتخاب گزینه ها</string>
+	<string name="access_rules_p_to_p">دسترسی ویژه</string>
+	<string name="access_rules_paid">خریداری شده</string>
+	<string name="failed_purchase_support_message">با عرض پوزش، اما احتمالا یک خرید ناتمام دارید. لطفا با بخش پشتیبانی تماس بگیرید و ما مشکل را حل خواهیم کرد.</string>
+	<string name="contact">تماس</string>
+	<string name="check_price_button">بررسی قیمت</string>
+	<string name="download_button">دانلود</string>
+	<string name="speedcams_alert_title">دوربین های سرعت</string>
+	<string name="speedcams_alert_subtitle">هشدار درباره محدودیت سرعت</string>
+	<string name="speedcam_option_auto">خودکار</string>
+	<string name="speedcam_option_always">همیشه</string>
+	<string name="speedcam_option_never">هرگز</string>
+	<string name="bookmark_description_title">توضیحات نشانه گذاری</string>
+	<string name="place_description_title">توضیحات محل</string>
+	<string name="ugc_routes_error_uploading_file_toast">متأسفانه، هنگام بارگذاری نشان شده های شما، خطایی رخ داد. لطفا دوباره تلاش کنید.</string>
+	<string name="notification_channel_ugc">محتوای اجتماعی</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">دانلود کننده نقشه</string>
+	<string name="notification_leave_review_title">- چگونه بود؟%s</string>
+	<string name="notification_leave_review_content">با بیان نظر خود به مسافران کمک نمایید!</string>
+	<string name="share_bookmarks_email_body_link">سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">به دوربین نزدیک می شوید</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد</string>
+	<string name="warning_speedcams_subtitle">لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.</string>
+	<string name="speedcams_notice_message">خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>

@@ -1401,6 +1401,8 @@
 	<string name="manage_subscription">Керувати передплатою</string>
 	<string name="sharing_options">Налаштування доступу</string>
 	<string name="export_file">Експортувати файл</string>
+	<string name="list_settings">Налаштування списку</string>
+	<string name="delete_list">Видалити список</string>
 	<string name="hide_from_map">Приховати з карти</string>
 	<string name="ugc_route_tags_screen_label">Виберіть теги</string>
 	<string name="ugc_route_tags_progress_msg">Завантажуємо теги…</string>
@@ -1436,6 +1438,8 @@
 	<string name="properties_loading_error_subtitle">Під час завантаження опцій сталася помилка, будь ласка, спробуйте ще раз</string>
 	<string name="custom_props_desc">Цей путівник ви склали як</string>
 	<string name="custom_props_title">Місцевий або турист</string>
+	<string name="custom_props_local">місцевий</string>
+	<string name="custom_props_traveler">турист</string>
 	<string name="select_properties">Вибрати опції</string>
 	<string name="access_rules_p_to_p">Спеціальний доступ</string>
 	<string name="access_rules_paid">Придбаний</string>
@@ -1450,6 +1454,18 @@
 	<string name="speedcam_option_never">Ніколи</string>
 	<string name="bookmark_description_title">Опис мітки</string>
 	<string name="place_description_title">Опис місця</string>
+	<string name="ugc_routes_error_uploading_file_toast">На жаль, при завантаженні міток виникла помилка. Будь-ласка, спробуйте ще раз.</string>
+	<string name="notification_channel_ugc">Контент користувачів</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Завантаження мап</string>
+	<string name="notification_leave_review_title">%s - як вам тут?</string>
+	<string name="notification_leave_review_content">Залиште відгук та допоможіть мандрівникам!</string>
+	<string name="share_bookmarks_email_body_link">Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою MAPS.ME та насолоджуйтесь подорожжю: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Попереду камера</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г</string>
+	<string name="warning_speedcams_subtitle">Не забудьте ознайомитися з правилами дорожнього руху у країні подорожі.</string>
+	<string name="speedcams_notice_message">Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

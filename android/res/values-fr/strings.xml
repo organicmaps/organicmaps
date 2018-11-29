@@ -1410,6 +1410,8 @@
 	<string name="manage_subscription">Gérer l\'abonnement</string>
 	<string name="sharing_options">Options de partage</string>
 	<string name="export_file">Fichier d\'exportation</string>
+	<string name="list_settings">Paramètres liste</string>
+	<string name="delete_list">Supprimer liste</string>
 	<string name="hide_from_map">Masquer de la carte</string>
 	<string name="ugc_route_tags_screen_label">Sélectionner les tags</string>
 	<string name="ugc_route_tags_progress_msg">Chargement des tags en cours…</string>
@@ -1445,6 +1447,8 @@
 	<string name="properties_loading_error_subtitle">Une erreur s\'est produite lors du chargement des options, veuillez réessayer</string>
 	<string name="custom_props_desc">Dans ce guide, vous avez visité des endroits comme</string>
 	<string name="custom_props_title">Régional ou passager</string>
+	<string name="custom_props_local">Régional</string>
+	<string name="custom_props_traveler">voyageur</string>
 	<string name="select_properties">Sélectionnez des options</string>
 	<string name="access_rules_p_to_p">Accès spécial</string>
 	<string name="access_rules_paid">Acheté</string>
@@ -1459,6 +1463,18 @@
 	<string name="speedcam_option_never">Jamais</string>
 	<string name="bookmark_description_title">Description du signet</string>
 	<string name="place_description_title">Description d\'endroit</string>
+	<string name="ugc_routes_error_uploading_file_toast">Malheureusement, c\'est une erreur qui s\'est produite lors du téléchargement de vos signets. Veuillez réessayer.</string>
+	<string name="notification_channel_ugc">Contenu social</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Téléchargeur carte</string>
+	<string name="notification_leave_review_title">%s - c\'était comment ?</string>
+	<string name="notification_leave_review_content">Aidez les voyageurs en leur laissant un avis !</string>
+	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage : http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Caméra devant</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h</string>
+	<string name="warning_speedcams_subtitle">Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.</string>
+	<string name="speedcams_notice_message">Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

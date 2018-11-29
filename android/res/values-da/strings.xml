@@ -1400,6 +1400,8 @@
 	<string name="manage_subscription">Administrer abonnementet</string>
 	<string name="sharing_options">Deling</string>
 	<string name="export_file">Eksporter fil</string>
+	<string name="list_settings">Listeindstillinger</string>
+	<string name="delete_list">Slet liste</string>
 	<string name="hide_from_map">Skjul på kort</string>
 	<string name="ugc_route_tags_screen_label">Vælg tags</string>
 	<string name="ugc_route_tags_progress_msg">Indlæser tags…</string>
@@ -1435,6 +1437,8 @@
 	<string name="properties_loading_error_subtitle">Der opstod en fejl under indlæsning af indstillinger, prøv igen</string>
 	<string name="custom_props_desc">I denne guide har du besøgt steder som</string>
 	<string name="custom_props_title">Lokal eller rejsende</string>
+	<string name="custom_props_local">lokal</string>
+	<string name="custom_props_traveler">rejsende</string>
 	<string name="select_properties">Vælg indstillinger</string>
 	<string name="access_rules_p_to_p">Særlig adgang</string>
 	<string name="access_rules_paid">Købt</string>
@@ -1449,6 +1453,18 @@
 	<string name="speedcam_option_never">Aldrig</string>
 	<string name="bookmark_description_title">Beskrivelse af bogmærke</string>
 	<string name="place_description_title">Beskrivelse af sted</string>
+	<string name="ugc_routes_error_uploading_file_toast">Der er desværre opstået en fejl ved upload af dine bogmærker. Prøv igen.</string>
+	<string name="notification_channel_ugc">Socialt indhold</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Korthenter</string>
+	<string name="notification_leave_review_title">%s - hvordan var det?</string>
+	<string name="notification_leave_review_content">Hjælp rejsende ved at skrive en anmeldelse!</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kamera foran dig</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
+	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
+	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

@@ -2499,11 +2499,9 @@
 
 "export_file" = "Exportați fișierul";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Elaborarea listei";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Ștergerea listei";
 
 "hide_from_map" = "Ascundeți de pe hartă";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Localnic sau turist";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "localnic";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turist";
 
 "select_properties" = "Alegeți opțiunile";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Descrierea locului";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Din păcate, în timpul încărcării etichetelor a intervenit o greșeală. Vă rugăm să încercați încă o dată.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Conținutul utilizatorului";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Încărcarea hărților";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - cum vă place aici?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Lăsați comentariile dvs. și ajutați alți călători!";
+
+"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Cameră frontală";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
+
+"warning_speedcams_subtitle" = "Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.";
+
+"speedcams_notice_message" = "Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video";
 
 
 /**********  Partners  **********/

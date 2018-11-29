@@ -2499,11 +2499,9 @@
 
 "export_file" = "Eksportuj plik";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Ustawienia listy";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Usuń listę";
 
 "hide_from_map" = "Ukryj mapy";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Miejscowy lub turysta";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "miejscowy";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turysta";
 
 "select_properties" = "Wybierz opcje";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Opis miejsca";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Przepraszamy, wystąpił błąd podczas ładowania znaczników. Spróbuj ponownie.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Treść użytkownika";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Pobieranie map";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - jak Tobie tu?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Zostaw recenzję i pomóż podróżującym!";
+
+"share_bookmarks_email_body_link" = "Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Kamera z przodu";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h";
+
+"warning_speedcams_subtitle" = "Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.";
+
+"speedcams_notice_message" = "Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach";
 
 
 /**********  Partners  **********/

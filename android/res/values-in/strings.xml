@@ -1395,6 +1395,8 @@
 	<string name="manage_subscription">Kelola langganan</string>
 	<string name="sharing_options">Opsi berbagi</string>
 	<string name="export_file">File ekspor</string>
+	<string name="list_settings">Pengaturan Daftar</string>
+	<string name="delete_list">Hapus Daftar</string>
 	<string name="hide_from_map">Sembunyikan dari peta</string>
 	<string name="ugc_route_tags_screen_label">Pilih tag</string>
 	<string name="ugc_route_tags_progress_msg">Memuat tag…</string>
@@ -1430,6 +1432,8 @@
 	<string name="properties_loading_error_subtitle">Kesalahan terjadi saat memuat opsi, silakan coba lagi</string>
 	<string name="custom_props_desc">Di panduan ini Anda telah mengunjungi tempat sebagai</string>
 	<string name="custom_props_title">Warga lokal atau pelancong</string>
+	<string name="custom_props_local">warga lokal</string>
+	<string name="custom_props_traveler">pelancong</string>
 	<string name="select_properties">Pilih opsi</string>
 	<string name="access_rules_p_to_p">Akses khusus</string>
 	<string name="access_rules_paid">Telah dibeli</string>
@@ -1444,6 +1448,18 @@
 	<string name="speedcam_option_never">Tidak pernah</string>
 	<string name="bookmark_description_title">Deskripsi Bookmark</string>
 	<string name="place_description_title">Deskripsi Tempat</string>
+	<string name="ugc_routes_error_uploading_file_toast">Sayang sekali, kesalahan terjadi saat mengunggah bookmark Anda. Silakan coba lagi.</string>
+	<string name="notification_channel_ugc">Konten sosial</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Pengunduh peta</string>
+	<string name="notification_leave_review_title">%s - bagaimana?</string>
+	<string name="notification_leave_review_content">Bantu para pelancong dengan meninggalkan ulasan!</string>
+	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Diawasi kamera</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam</string>
+	<string name="warning_speedcams_subtitle">Harap perhatikan aturan berkendara di negara tempat Anda bepergian.</string>
+	<string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

@@ -1410,6 +1410,8 @@
 	<string name="manage_subscription">Abonnements verwalten</string>
 	<string name="sharing_options">Zugriffseinstellungen</string>
 	<string name="export_file">Datei exportieren</string>
+	<string name="list_settings">Listeneinstellungen</string>
+	<string name="delete_list">Liste löschen</string>
 	<string name="hide_from_map">Auf der Karte ausblenden</string>
 	<string name="ugc_route_tags_screen_label">Tags wählen</string>
 	<string name="ugc_route_tags_progress_msg">Tags werden geladen…</string>
@@ -1445,6 +1447,8 @@
 	<string name="properties_loading_error_subtitle">Während dem Laden der Optionen ist ein Fehler aufgetreten, bitte, versuchen Sie es erneut</string>
 	<string name="custom_props_desc">Diesen Reiseführer haben Sie als</string>
 	<string name="custom_props_title">Einheimischer oder Tourist</string>
+	<string name="custom_props_local">Einheimischer</string>
+	<string name="custom_props_traveler">Tourist</string>
 	<string name="select_properties">Optionen wählen</string>
 	<string name="access_rules_p_to_p">Sonderzugriff</string>
 	<string name="access_rules_paid">Gekauft</string>
@@ -1459,6 +1463,18 @@
 	<string name="speedcam_option_never">Niemals</string>
 	<string name="bookmark_description_title">Markierungsbeschreibung</string>
 	<string name="place_description_title">Ortsbeschreibung</string>
+	<string name="ugc_routes_error_uploading_file_toast">Leider ist beim Hochladen der Markierungen ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</string>
+	<string name="notification_channel_ugc">Nutzergenerierte Inhalte</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Karten werden geladen</string>
+	<string name="notification_leave_review_title">%s - Gefällt es Ihnen hier?</string>
+	<string name="notification_leave_review_content">Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!</string>
+	<string name="share_bookmarks_email_body_link">Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kamera vorne</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren</string>
+	<string name="warning_speedcams_subtitle">Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.</string>
+	<string name="speedcams_notice_message">Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

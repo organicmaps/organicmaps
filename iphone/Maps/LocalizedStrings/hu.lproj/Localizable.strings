@@ -2499,11 +2499,9 @@
 
 "export_file" = "Fájl exportálása";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Lista beállításai";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Törölni a listát";
 
 "hide_from_map" = "Lefedés a térképen";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Helyi lakos vagy turista";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "helyi lakos";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turista";
 
 "select_properties" = "Opció kiválasztása";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "A hely ismertetése";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Sajnálatos módon, a jelek letöltésénél hiba történt. Kérem, próbálja meg még egyszer.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Felhasználói tartalom";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Kártyák letöltése";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - hogy érzi itt magát?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Írja meg a véleményét és segítsen a kirándulóknak!";
+
+"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Kamera elöl";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra";
+
+"warning_speedcams_subtitle" = "Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.";
+
+"speedcams_notice_message" = "Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
 
 
 /**********  Partners  **********/

@@ -2499,11 +2499,9 @@
 
 "export_file" = "Esportare il file";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Impostazioni elenco";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Cancella elenco";
 
 "hide_from_map" = "Nascondere sulla mappa";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Uno del posto o un turista";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "del posto";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turista";
 
 "select_properties" = "Scegliere opzioni";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Descrizione luogo";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Si è verificato un errore durante il caricamento. Si prega di riprovare.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Contenuto creato dagli utenti";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Caricamento mappe";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - ti piace quì?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Lascia una recensione ed aiuta altri viaggiatori!";
+
+"share_bookmarks_email_body_link" = "Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Autovelox in prossimità";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o";
+
+"warning_speedcams_subtitle" = "Ricorda di informarti sul Codice della Strada del paese che visiti.";
+
+"speedcams_notice_message" = "Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox";
 
 
 /**********  Partners  **********/

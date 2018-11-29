@@ -1404,6 +1404,8 @@
 	<string name="manage_subscription">Spravovat předplatné</string>
 	<string name="sharing_options">Nastavení přístupu</string>
 	<string name="export_file">Exportovat soubor</string>
+	<string name="list_settings">Nástroje seznamu</string>
+	<string name="delete_list">Smazat seznam</string>
 	<string name="hide_from_map">Neukazovat na mapě</string>
 	<string name="ugc_route_tags_screen_label">Vyberte tagy</string>
 	<string name="ugc_route_tags_progress_msg">Načítáme tagy…</string>
@@ -1439,6 +1441,8 @@
 	<string name="properties_loading_error_subtitle">Během nahrávání možností se stala chyba, zkuste to prosím ještě jednou</string>
 	<string name="custom_props_desc">Tento průvodce jste vytvořili jako</string>
 	<string name="custom_props_title">Místní obyvatel nebo turista</string>
+	<string name="custom_props_local">místní obyvatel</string>
+	<string name="custom_props_traveler">turista</string>
 	<string name="select_properties">Vybrat možnosti</string>
 	<string name="access_rules_p_to_p">Zvláštní přístup</string>
 	<string name="access_rules_paid">Zakoupený</string>
@@ -1453,6 +1457,18 @@
 	<string name="speedcam_option_never">Nikdy</string>
 	<string name="bookmark_description_title">Popis značky</string>
 	<string name="place_description_title">Popis místa</string>
+	<string name="ugc_routes_error_uploading_file_toast">Při nahrávání značek se bohužel stala chyba. Zkuste to prosím ještě jednou.</string>
+	<string name="notification_channel_ugc">Uživatelský obsah</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Nahrávání map</string>
+	<string name="notification_leave_review_title">%s - jak se vám tady líbí?</string>
+	<string name="notification_leave_review_content">Okomentujte místo a pomozte cestovatelům!</string>
+	<string name="share_bookmarks_email_body_link">Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Radar vpředu</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary</string>
+	<string name="warning_speedcams_subtitle">Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.</string>
+	<string name="speedcams_notice_message">Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

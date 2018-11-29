@@ -1400,6 +1400,8 @@
 	<string name="manage_subscription">Správa predplatného</string>
 	<string name="sharing_options">Možnosti zdieľania</string>
 	<string name="export_file">Exportovať súbor</string>
+	<string name="list_settings">Nastavenie zoznamu</string>
+	<string name="delete_list">Vymazať zoznam</string>
 	<string name="hide_from_map">Skryť z mapy</string>
 	<string name="ugc_route_tags_screen_label">Vyberte značky</string>
 	<string name="ugc_route_tags_progress_msg">Načítavanie značiek…</string>
@@ -1435,6 +1437,8 @@
 	<string name="properties_loading_error_subtitle">Pri načítavaní možností sa vyskytla chyba, skúste to znova</string>
 	<string name="custom_props_desc">V tomto sprievodcovi ste navštívili miesta ako</string>
 	<string name="custom_props_title">Miestny alebo cestovateľ</string>
+	<string name="custom_props_local">miestny</string>
+	<string name="custom_props_traveler">cestovateľ</string>
 	<string name="select_properties">Vyberte možnosti</string>
 	<string name="access_rules_p_to_p">Špeciálny prístup</string>
 	<string name="access_rules_paid">Zakúpené</string>
@@ -1449,6 +1453,18 @@
 	<string name="speedcam_option_never">Nikdy</string>
 	<string name="bookmark_description_title">Popis záložiek</string>
 	<string name="place_description_title">Popis miesta</string>
+	<string name="ugc_routes_error_uploading_file_toast">Bohužiaľ, počas nahrávania záložiek sa vyskytla chyba. Prosím skúste znova.</string>
+	<string name="notification_channel_ugc">Sociálny obsah</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Sťahovač máp</string>
+	<string name="notification_leave_review_title">%s - aké to bolo?</string>
+	<string name="notification_leave_review_content">Pomôžte cestujúcim tým, že zanecháte recenziu!</string>
+	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kamera vpredu</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
+	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
+	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

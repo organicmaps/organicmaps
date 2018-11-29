@@ -2499,11 +2499,9 @@
 
 "export_file" = "Exportar o arquivo";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Lista de configurações";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Apagar lista";
 
 "hide_from_map" = "Remover do mapa";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Local ou turista";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "local";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "turista";
 
 "select_properties" = "Selecionar opções";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Descrição do local";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Infelizmente, ocorreu um erro ao carregar os marcas. Por favor, tente novamente.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Conteúdo";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "A carregar mapas";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - como está aqui?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Deixe um comentário e ajude os viajantes!";
+
+"share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando MAPS.ME e desfrute do passeio: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Câmera à frente";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h";
+
+"warning_speedcams_subtitle" = "Não esqueça de ler as regras da estrada no país de viagem.";
+
+"speedcams_notice_message" = "Auto - Avisa sobre radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - Sempre alerta sobre câmeras\nNunca - nunca avisar sobre câmeras";
 
 
 /**********  Partners  **********/

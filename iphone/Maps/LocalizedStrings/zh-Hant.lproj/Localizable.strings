@@ -2499,11 +2499,9 @@
 
 "export_file" = "導出文件";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "列表設置";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "刪除列表";
 
 "hide_from_map" = "從卡中隱藏";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "當地貨遊客";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "當地";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "遊客";
 
 "select_properties" = "選擇選項";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "地點說明";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "抱歉，加載代碼時出錯。請再試一次。";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "用戶內容";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "加載地圖";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - 您在這裡怎麼樣?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "請發表評論並幫助旅客！";
+
+"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行：http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "在攝像頭前";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
+
+"warning_speedcams_subtitle" = "請不要忘記閱讀旅行國的道路規則。";
+
+"speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告";
 
 
 /**********  Partners  **********/

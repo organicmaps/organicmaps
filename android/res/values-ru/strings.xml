@@ -1447,6 +1447,8 @@
 	<string name="taxi">Такси</string>
 	<string name="sharing_options">Настройки доступа</string>
 	<string name="export_file">Экспортировать файл</string>
+	<string name="list_settings">Настройки списка</string>
+	<string name="delete_list">Удалить список</string>
 	<string name="hide_from_map">Скрыть с карты</string>
 	<string name="ugc_route_tags_screen_label">Выберите теги</string>
 	<string name="ugc_route_tags_progress_msg">Загружаем теги…</string>
@@ -1482,6 +1484,8 @@
 	<string name="properties_loading_error_subtitle">Во время загрузки опций произошла ошибка, пожалуйста, попробуйте еще раз</string>
 	<string name="custom_props_desc">Этот путеводитель вы составили как</string>
 	<string name="custom_props_title">Местный или турист</string>
+	<string name="custom_props_local">местный</string>
+	<string name="custom_props_traveler">турист</string>
 	<string name="select_properties">Выбрать опции</string>
 	<string name="access_rules_p_to_p">Специальный доступ</string>
 	<string name="access_rules_paid">Купленный</string>
@@ -1496,6 +1500,18 @@
 	<string name="speedcam_option_never">Никогда</string>
 	<string name="bookmark_description_title">Описание метки</string>
 	<string name="place_description_title">Описание места</string>
+	<string name="ugc_routes_error_uploading_file_toast">К сожалению, при загрузке меток произошла ошибка. Пожалуйста, попробуйте еще раз.</string>
+	<string name="notification_channel_ugc">Пользовательский контент</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Загрузка карт</string>
+	<string name="notification_leave_review_title">%s - как вам здесь?</string>
+	<string name="notification_leave_review_content">Оставьте отзыв и помогите путешественникам!</string>
+	<string name="share_bookmarks_email_body_link">Здравствуйте!\n\nВаши метки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Впереди камера</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч</string>
+	<string name="warning_speedcams_subtitle">Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.</string>
+	<string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Аутлеты</string>

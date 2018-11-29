@@ -2499,11 +2499,9 @@
 
 "export_file" = "Bestand exporteren";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Lijst Instellingen";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Lijst verwijderen";
 
 "hide_from_map" = "Van de kaart verbergen";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Lokaal of reiziger";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "local";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "reiziger";
 
 "select_properties" = "Selecteer opties";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Plaats Beschrijving";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Spijtig genoeg is er een fout opgetreden tijdens het uploaden van uw bladwijzers. Probeer het opnieuw.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Sociale inhoud";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Kaart downloader";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - hoe vond u het?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Help reizigers door een beoordeling achter te laten!";
+
+"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Camera in zicht";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
+
+"warning_speedcams_subtitle" = "Let op de rijvoorschriften van het land waar u naartoe reist.";
+
+"speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
 
 
 /**********  Partners  **********/

@@ -1160,6 +1160,8 @@
 	<string name="manage_subscription">Διαχείριση συνδρομής</string>
 	<string name="sharing_options">Επιλογές κοινοποίησης</string>
 	<string name="export_file">Αρχείο Εξαγωγής</string>
+	<string name="list_settings">Ρυθμίσεις Λίστας</string>
+	<string name="delete_list">Διαγραφή λίστας</string>
 	<string name="hide_from_map">Κρύψε από τον χάρτη</string>
 	<string name="ugc_route_tags_screen_label">Επιλέξτε ετικέτες</string>
 	<string name="ugc_route_tags_progress_msg">Φόρτωση ετικετών…</string>
@@ -1209,6 +1211,18 @@
 	<string name="speedcam_option_never">Ποτέ</string>
 	<string name="bookmark_description_title">Περιγραφή Σελιδοδείκτη</string>
 	<string name="place_description_title">Περιγραφή μέρους</string>
+	<string name="ugc_routes_error_uploading_file_toast">Δυστυχώς, συνέβη κάποιο σφάλμα ενώ φορτώνονταν οι σελιδοδείκτες σας. Παρακαλώ ξαναπροσπαθήστε.</string>
+	<string name="notification_channel_ugc">Κοινωνικό περιεχόμενο</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
+	<string name="notification_leave_review_title">%s- πώς ήταν?</string>
+	<string name="notification_leave_review_content">Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!</string>
+	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Κάμερα παρακάτω</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
+	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
+	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>

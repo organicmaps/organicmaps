@@ -2499,11 +2499,9 @@
 
 "export_file" = "ส่งออกไฟล์";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "การตั้งค่ารายการ";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "ลบรายการ";
 
 "hide_from_map" = "ซ่อนจากแผนที่";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "คนท้องที่หรือนักท่องเที่ยว";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "คนท้องที่";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "นักท่องเที่ยว";
 
 "select_properties" = "เลือกออพชั่น";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "รายละเอียดของสถานที่";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "ขออภัยค่ะ เกิดข้อผิดพลาดขณะอัพโหลดบุ๊กมาร์คของคุณ โปรดลองใหม่อีกครั้ง";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "เนื้อหาทางโซเชียล";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "ตัวดาวน์โหลดแผนที่";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - มันเป็นอย่างไร";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "ช่วยนักเดินทางโดยการทิ้งรีวิว!";
+
+"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "มีกล้องอยู่ข้างหน้า";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม";
+
+"warning_speedcams_subtitle" = "โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป";
+
+"speedcams_notice_message" = "อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว";
 
 
 /**********  Partners  **********/

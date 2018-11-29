@@ -2499,11 +2499,9 @@
 
 "export_file" = "Экспортировать файл";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Настройки списка";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Удалить список";
 
 "hide_from_map" = "Скрыть с карты";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Местный или турист";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "местный";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "турист";
 
 "select_properties" = "Выбрать опции";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Описание места";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "К сожалению, при загрузке меток произошла ошибка. Пожалуйста, попробуйте еще раз.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Пользовательский контент";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Загрузка карт";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - как вам здесь?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Оставьте отзыв и помогите путешественникам!";
+
+"share_bookmarks_email_body_link" = "Здравствуйте!\n\nВаши метки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Впереди камера";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
+
+"warning_speedcams_subtitle" = "Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.";
+
+"speedcams_notice_message" = "Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах";
 
 
 /**********  Partners  **********/

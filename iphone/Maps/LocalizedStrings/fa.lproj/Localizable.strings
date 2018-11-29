@@ -299,10 +299,10 @@
 "search_mode_viewport" = "روی صفحه نمایش بده";
 
 /* Search category for cafes, bars, restaurants */
-"eat" = "Where to eat";
+"eat" = "کجا غذا بخوریم";
 
 /* Search category for grocery stores */
-"food" = "Groceries";
+"food" = "عطاری";
 
 /* Search category */
 "transport" = "حمل و نقل";
@@ -314,7 +314,7 @@
 "parking" = "پارکینگ";
 
 /* Search category for clothes/shoes/gifts/jewellery/sport shops */
-"shopping" = "Shopping";
+"shopping" = "خرید کردن";
 
 /* Search category */
 "hotel" = "هتل";
@@ -329,10 +329,10 @@
 "atm" = "خود پرداز";
 
 /* Search category for nightclubs/bars */
-"nightlife" = "Nightlife";
+"nightlife" = "تفریحات شبانه";
 
 /* Search category for water park/disneyland/playground/toys store */
-"children" = "Family holiday";
+"children" = "تعطیلات خانوادگی";
 
 /* Search category */
 "bank" = "بانک";
@@ -2495,27 +2495,25 @@
 
 "taxi" = "Taxi";
 
-"sharing_options" = "Sharing options";
+"sharing_options" = "گزینه های اشتراک گذاری";
 
-"export_file" = "Export file";
+"export_file" = "ارسال فایل";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "تنظیمات لیست";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "حذف لیست";
 
-"hide_from_map" = "Hide from map";
+"hide_from_map" = "پنهان کردن از نقشه";
 
-"ugc_route_tags_screen_label" = "Select tags";
+"ugc_route_tags_screen_label" = "انتخاب برچسبها";
 
-"ugc_route_tags_progress_msg" = "Loading tags…";
+"ugc_route_tags_progress_msg" = "درحال بارگیری برچسبها…";
 
-"ugc_route_tags_desc" = "Please select tags to help other travellers find your guide. This is mandatory.";
+"ugc_route_tags_desc" = "لطفا برچسبها را برای کمک به مسافران دیگر برای یافتن راهنمای شما، انتخاب نمایید. این الزامی است.";
 
-"public_access" = "Public access";
+"public_access" = "دسترسی عمومی";
 
-"limited_access" = "Limited access";
+"limited_access" = "دسترسی محدود";
 
 /* FIXME */
 "bookmarks_public_access" = "bookmarks_public_access";
@@ -2526,112 +2524,117 @@
 /* FIXME */
 "bookmarks_private_access" = "bookmarks_private_access";
 
-"upload_and_publish_desc" = "This guide will be uploaded to the public MAPS.ME catalog and will be available to other users";
+"upload_and_publish_desc" = "این راهنما به کاتالوگ عمومی MAPS.ME ارسال خواهد شد و برای کاربران دیگر در دسترس خواهد بود";
 
-"upload_and_publish" = "Upload and publish";
+"upload_and_publish" = "بارگذاری و انتشار";
 
-"upload_and_get_direct_link" = "Upload and get a direct link";
+"upload_and_get_direct_link" = "بارگذاری و دریافت لینک مستقیم";
 
-"get_direct_link_desc" = "Your guide will be available to anyone who has the link";
+"get_direct_link_desc" = "راهنمای شما برای هر کسی که این لینک را داشته باشد، دردسترس خواهد بود";
 
-"upload_and_publish_progress_text" = "Publishing your guide…";
+"upload_and_publish_progress_text" = "در حال انتشار راهنمای شما…";
 
-"upload_and_publish_success" = "The guide has been published";
+"upload_and_publish_success" = "راهنما انتشار یافت";
 
-"ugc_routes_user_agreement" = "<b>PLEASE NOTE:</b> by proceeding, you accept the <a href=\"%s\">license agreement</a>";
+"ugc_routes_user_agreement" = "<b>لطفا توجه داشته باشید:<b/> با ادامه، شما موافقت خود با <a href=\"%s\">مجوز توافقنامه، را اعلام نموده اید<a/>";
 
-"ugc_route_edit_list_name" = "Guide name";
+"ugc_route_edit_list_name" = "نام راهنما";
 
-"ugc_route_edit_description_hint" = "Type a description (text or html)";
+"ugc_route_edit_description_hint" = "یک توضیح (متن یا html) تایپ نمایید";
 
-"not_shared" = "Not shared";
+"not_shared" = "به اشتراک گذاشته نشده است";
 
-"direct_link_progress_text" = "Uploading your file…";
+"direct_link_progress_text" = "در حال بارگذاری فایل شما…";
 
-"direct_link_success" = "The link has been created";
+"direct_link_success" = "لینک ایجاد شده است";
 
-"edit_guide_title" = "Edit your guide online";
+"edit_guide_title" = "راهنمای خود را در وب ویرایش کنید";
 
-"edit_guide_subtitle" = "Get a link to edit your guide via web service: add descriptions, upload photos, and connect bookmarks with lines.";
+"edit_guide_subtitle" = "یک لینک برای ویرایش راهنمای خود از طریق برنامه وب، دریافت کنید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.";
 
-"send_a_link_btn" = "Send me a link";
+"send_a_link_btn" = "یک لینک برای من ارسال کن";
 
-"upload_error_toast" = "An error occurred while uploading your file";
+"upload_error_toast" = "هنگام بارگذاری فایل شما خطایی روی داد";
 
-"tags_loading_error_subtitle" = "An error occurred while loading tags, please try again";
+"tags_loading_error_subtitle" = "هنگام بارگذاری برچسب خطایی رخ داد، لطفا دوباره امتحان کنید";
 
-"unable_upload_errorr_title" = "File upload failed";
+"unable_upload_errorr_title" = "بارگذاری فایل انجام نشد";
 
-"unable_upload_error_subtitle_edited" = "This file has been edited via the web app";
+"unable_upload_error_subtitle_edited" = "این فایل از طریق برنامه وب ویرایش شده است";
 
-"unable_upload_error_subtitle_broken" = "This file is damaged and couldn't be uploaded. Please upload another file.";
+"unable_upload_error_subtitle_broken" = "این فایل آسیب دیده است و امکان بارگذاری آن وجود ندارد. لطفا فایل دیگری را بارگذاری نمایید.";
 
-"buy_btn" = "Buy for %s";
+"buy_btn" = "با s% خرید نمایید";
 
 "download_guide_progress" = "Downloading your guide…";
 
-"price_error_title" = "Could not get a price";
+"price_error_title" = "نمی توان قیمت را دریافت کرد";
 
-"price_error_subtitle" = "Please try again in a few minutes";
+"price_error_subtitle" = "لطفا چند دقیقه دیگر دوباره امتحان کنید";
 
-"edit_your_guide_email_body" = "Edit your guide on the web easily using your computer: add descriptions, upload photos, and connect bookmarks with lines.";
+"edit_your_guide_email_body" = "راهنمای خود را به سادگی بر روی وب با استفاده از کامپیوتر خود ویرایش نمایید: توضیحاتی اضافه نمایید، تصاویر را بارگذاری کرده و نشانه گذاریها را با خطوط متصل نمایید.";
 
-"edit_on_web" = "Edit online";
+"edit_on_web" = "ویرایش بر روی وب";
 
-"properties_loading_error_subtitle" = "An error occurred while loading options, please try again";
+"properties_loading_error_subtitle" = "هنگام بارگیری گزینه ها خطایی روی داد، لطفا دوباره امتحان کنید";
 
-"custom_props_desc" = "In this guide you have visited places as";
+"custom_props_desc" = "در این راهنما شما از مکان هایی بازدید کرده اید، به عنوان";
 
-"custom_props_title" = "Local or traveller";
+"custom_props_title" = "ساکن محلی یا مسافر";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "محلی";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "مسافر";
 
-"select_properties" = "Select options";
+"select_properties" = "انتخاب گزینه ها";
 
-"access_rules_p_to_p" = "Special access";
+"access_rules_p_to_p" = "دسترسی ویژه";
 
-"access_rules_paid" = "Purchased";
+"access_rules_paid" = "خریداری شده";
 
-"failed_purchase_support_message" = "Sorry, but you probably have an uncompleted purchase. Please contact support and we will solve the problem.";
+"failed_purchase_support_message" = "با عرض پوزش، اما احتمالا یک خرید ناتمام دارید. لطفا با بخش پشتیبانی تماس بگیرید و ما مشکل را حل خواهیم کرد.";
 
-"contact" = "Contact";
+"contact" = "تماس";
 
-"check_price_button" = "Check price";
+"check_price_button" = "بررسی قیمت";
 
-"download_button" = "Download";
+"download_button" = "دانلود";
 
-"speedcams_alert_title" = "Speed cameras";
+"speedcams_alert_title" = "دوربین های سرعت";
 
-"speedcams_alert_subtitle" = "Warn about speed limits";
+"speedcams_alert_subtitle" = "هشدار درباره محدودیت سرعت";
 
-"speedcam_option_auto" = "Auto";
+"speedcam_option_auto" = "خودکار";
 
-"speedcam_option_always" = "Always";
+"speedcam_option_always" = "همیشه";
 
-"speedcam_option_never" = "Never";
+"speedcam_option_never" = "هرگز";
 
-"bookmark_description_title" = "Bookmark Description";
+"bookmark_description_title" = "توضیحات نشانه گذاری";
 
-"place_description_title" = "Place Description";
+"place_description_title" = "توضیحات محل";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "متأسفانه، هنگام بارگذاری نشان شده های شما، خطایی رخ داد. لطفا دوباره تلاش کنید.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "محتوای اجتماعی";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "دانلود کننده نقشه";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "- چگونه بود؟%s";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "با بیان نظر خود به مسافران کمک نمایید!";
+
+"share_bookmarks_email_body_link" = "سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "به دوربین نزدیک می شوید";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد";
+
+"warning_speedcams_subtitle" = "لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.";
+
+"speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد";
 
 
 /**********  Partners  **********/

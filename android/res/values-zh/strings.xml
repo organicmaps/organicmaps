@@ -1400,6 +1400,8 @@
 	<string name="manage_subscription">管理订购</string>
 	<string name="sharing_options">登录设置</string>
 	<string name="export_file">导出文件</string>
+	<string name="list_settings">列表设置</string>
+	<string name="delete_list">删除列表</string>
 	<string name="hide_from_map">从卡中隐藏</string>
 	<string name="ugc_route_tags_screen_label">请选择标签</string>
 	<string name="ugc_route_tags_progress_msg">正在加载标签......</string>
@@ -1435,6 +1437,8 @@
 	<string name="properties_loading_error_subtitle">加载选项时出错，请重试</string>
 	<string name="custom_props_desc">本指南您编制为</string>
 	<string name="custom_props_title">当地或游客</string>
+	<string name="custom_props_local">当地</string>
+	<string name="custom_props_traveler">游客</string>
 	<string name="select_properties">选择选项</string>
 	<string name="access_rules_p_to_p">特殊访问</string>
 	<string name="access_rules_paid">已购买</string>
@@ -1449,6 +1453,18 @@
 	<string name="speedcam_option_never">从不</string>
 	<string name="bookmark_description_title">标签说明</string>
 	<string name="place_description_title">地点说明</string>
+	<string name="ugc_routes_error_uploading_file_toast">抱歉，加载代码时出错。请再试一次。</string>
+	<string name="notification_channel_ugc">用户内容</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">加载地图</string>
+	<string name="notification_leave_review_title">%s - 您在这里怎么样？</string>
+	<string name="notification_leave_review_content">请发表评论并帮助游客！</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行：http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">在摄像头前</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">当速度限制超过%d km / h时，导航会通知您的摄像机</string>
+	<string name="warning_speedcams_subtitle">请不要忘记阅读旅行国的道路规则。</string>
+	<string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

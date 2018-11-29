@@ -2499,11 +2499,9 @@
 
 "export_file" = "Fichier d'exportation";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Paramètres liste";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Supprimer liste";
 
 "hide_from_map" = "Masquer de la carte";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Régional ou passager";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "Régional";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "voyageur";
 
 "select_properties" = "Sélectionnez des options";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Description d'endroit";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Malheureusement, c'est une erreur qui s'est produite lors du téléchargement de vos signets. Veuillez réessayer.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Contenu social";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Téléchargeur carte";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - c'était comment ?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Aidez les voyageurs en leur laissant un avis !";
+
+"share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage : http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Caméra devant";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h";
+
+"warning_speedcams_subtitle" = "Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.";
+
+"speedcams_notice_message" = "Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars";
 
 
 /**********  Partners  **********/

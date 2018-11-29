@@ -1401,6 +1401,8 @@
 	<string name="manage_subscription">Aboneliği yönet</string>
 	<string name="sharing_options">Paylaşma seçenekleri</string>
 	<string name="export_file">Dosyayı dışa aktar</string>
+	<string name="list_settings">Liste Ayarları</string>
+	<string name="delete_list">Listeyi sil</string>
 	<string name="hide_from_map">Haritadan gizle</string>
 	<string name="ugc_route_tags_screen_label">Etiketleri seç</string>
 	<string name="ugc_route_tags_progress_msg">Etiketler yükleniyor…</string>
@@ -1436,6 +1438,8 @@
 	<string name="properties_loading_error_subtitle">Seçenekler yüklenirken bir hata oluştu, lütfen tekrar deneyin</string>
 	<string name="custom_props_desc">Bu kılavuzda etrafı şu şekilde gezdiniz</string>
 	<string name="custom_props_title">Yerli veya gezgin</string>
+	<string name="custom_props_local">yerli</string>
+	<string name="custom_props_traveler">gezgin</string>
 	<string name="select_properties">Seçenekleri belirle</string>
 	<string name="access_rules_p_to_p">Özel erişim</string>
 	<string name="access_rules_paid">Satın alındı</string>
@@ -1450,6 +1454,18 @@
 	<string name="speedcam_option_never">Asla</string>
 	<string name="bookmark_description_title">Yer İmi Açıklaması</string>
 	<string name="place_description_title">Yer Açıklaması</string>
+	<string name="ugc_routes_error_uploading_file_toast">Maalesef yer işaretlerinizi yüklerken bir hata oluştu. Lütfen tekrar deneyin.</string>
+	<string name="notification_channel_ugc">Sosyal içerik</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Harita indiricisi</string>
+	<string name="notification_leave_review_title">%s - nasıldı?</string>
+	<string name="notification_leave_review_content">Yorum bırakarak gezginlere yardım edin!</string>
+	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">İleride kamera var</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
+	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
+	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

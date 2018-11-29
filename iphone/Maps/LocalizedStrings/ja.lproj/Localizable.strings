@@ -2499,11 +2499,9 @@
 
 "export_file" = "ファイルのエクスポート";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "リスト設定";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "リスト削除";
 
 "hide_from_map" = "マップから隠す";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "現地人または旅行者";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "現地人";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "旅行者";
 
 "select_properties" = "オプションの選択";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "場所の説明";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "残念ながらあなたのブックマークをアップロードしていいる最中にエラーが発生しました。もう一度お試しください。";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "ソーシャルコンテンツ";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "マップダウンローダー";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - はいかがでしたか?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "レビューを残して旅行者を助けましょう！";
+
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "この先にある自動速度違反取締装置";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
+
+"warning_speedcams_subtitle" = "旅行先の国の道路交通法を考慮してください。";
+
+"speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
 
 
 /**********  Partners  **********/

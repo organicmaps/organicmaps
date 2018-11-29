@@ -1392,6 +1392,8 @@
 	<string name="manage_subscription">Quản lý đăng ký</string>
 	<string name="sharing_options">Chia sẻ lựa chọn</string>
 	<string name="export_file">Xuất tập tin</string>
+	<string name="list_settings">Cài đặt danh sách</string>
+	<string name="delete_list">Xóa danh sách</string>
 	<string name="hide_from_map">Ẩn từ bản đồ</string>
 	<string name="ugc_route_tags_screen_label">Chọn thẻ</string>
 	<string name="ugc_route_tags_progress_msg">Đang tải thẻ…</string>
@@ -1427,6 +1429,8 @@
 	<string name="properties_loading_error_subtitle">Đã xảy ra lỗi khi tải tùy chọn, vui lòng thử lại</string>
 	<string name="custom_props_desc">Trong hướng dẫn này, bạn đã ghé thăm các địa điểm như</string>
 	<string name="custom_props_title">Người địa phương hay du khách</string>
+	<string name="custom_props_local">người địa phương</string>
+	<string name="custom_props_traveler">du khách</string>
 	<string name="select_properties">Chọn tùy chọn</string>
 	<string name="access_rules_p_to_p">Kết nối đặc biệt</string>
 	<string name="access_rules_paid">Đã mua</string>
@@ -1441,6 +1445,18 @@
 	<string name="speedcam_option_never">Không bao giờ</string>
 	<string name="bookmark_description_title">Mô tả dấu trang</string>
 	<string name="place_description_title">Mô tả Địa điểm</string>
+	<string name="ugc_routes_error_uploading_file_toast">Rất tiếc, đã xảy ra lỗi khi tải lên dấu trang của bạn. Vui lòng thử lại.</string>
+	<string name="notification_channel_ugc">Nội dung xã hội</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
+	<string name="notification_leave_review_title">%s - nó như thế nào?</string>
+	<string name="notification_leave_review_content">Giúp khách du lịch bằng cách để lại đánh giá!</string>
+	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Máy ảnh phía trước</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h</string>
+	<string name="warning_speedcams_subtitle">Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.</string>
+	<string name="speedcams_notice_message">Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

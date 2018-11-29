@@ -2499,11 +2499,9 @@
 
 "export_file" = "ملف التصدير";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "قائمة الإعدادات";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "حذف القائمة";
 
 "hide_from_map" = "إخفاء من الخريطة";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "محلي أو مسافر";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "محلي";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "المسافر";
 
 "select_properties" = "حدد الخيارات";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "وصف المكان";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "عدّل دليلك على الويب بسهولة باستخدام جهاز الكمبيوتر: أضف الأوصاف وتحميل الصور واربط الإشارات المرجعية بالسطور. يرجى المحاولة مرة أخرى.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "محتوى ينتجه المستخدم";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "محمل الخريطة";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "- كيف كان ذلك؟%s";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "مساعدة المسافرين من خلال ترك رأي!";
+
+"share_bookmarks_email_body_link" = "مرحبًا!\n\nهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "الكاميرا أمامك";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س";
+
+"warning_speedcams_subtitle" = "يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.";
+
+"speedcams_notice_message" = "السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة";
 
 
 /**********  Partners  **********/

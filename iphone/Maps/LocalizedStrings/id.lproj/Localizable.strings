@@ -2499,11 +2499,9 @@
 
 "export_file" = "File ekspor";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Pengaturan Daftar";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Hapus Daftar";
 
 "hide_from_map" = "Sembunyikan dari peta";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Warga lokal atau pelancong";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "warga lokal";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "pelancong";
 
 "select_properties" = "Pilih opsi";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Deskripsi Tempat";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Sayang sekali, kesalahan terjadi saat mengunggah bookmark Anda. Silakan coba lagi.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Konten sosial";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Pengunduh peta";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - bagaimana?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Bantu para pelancong dengan meninggalkan ulasan!";
+
+"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Diawasi kamera";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam";
+
+"warning_speedcams_subtitle" = "Harap perhatikan aturan berkendara di negara tempat Anda bepergian.";
+
+"speedcams_notice_message" = "Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan";
 
 
 /**********  Partners  **********/

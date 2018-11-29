@@ -2499,11 +2499,9 @@
 
 "export_file" = "Αρχείο Εξαγωγής";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Ρυθμίσεις Λίστας";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Διαγραφή λίστας";
 
 "hide_from_map" = "Κρύψε από τον χάρτη";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Ντόπιος ή ταξιδιώτης";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "local";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "traveller";
 
 "select_properties" = "Διαλέξτε επιλογές";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Περιγραφή μέρους";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Δυστυχώς, συνέβη κάποιο σφάλμα ενώ φορτώνονταν οι σελιδοδείκτες σας. Παρακαλώ ξαναπροσπαθήστε.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Κοινωνικό περιεχόμενο";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Κατέβασμα χαρτών";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s- πώς ήταν?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!";
+
+"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Κάμερα παρακάτω";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h";
+
+"warning_speedcams_subtitle" = "Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.";
+
+"speedcams_notice_message" = "Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες";
 
 
 /**********  Partners  **********/

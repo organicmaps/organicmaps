@@ -1396,6 +1396,8 @@
 	<string name="manage_subscription">Előfizetés kezelése</string>
 	<string name="sharing_options">A hozzáférés beállításai</string>
 	<string name="export_file">Fájl exportálása</string>
+	<string name="list_settings">Lista beállításai</string>
+	<string name="delete_list">Törölni a listát</string>
 	<string name="hide_from_map">Lefedés a térképen</string>
 	<string name="ugc_route_tags_screen_label">A tag-ek kiválasztása</string>
 	<string name="ugc_route_tags_progress_msg">Tag-ek betöltése…</string>
@@ -1431,6 +1433,8 @@
 	<string name="properties_loading_error_subtitle">Az opciók feltöltésekor hiba történt, kérjük, próbálja meg még egyszer</string>
 	<string name="custom_props_desc">Ezt az útikalauzt Ön úgy állította össze, mint</string>
 	<string name="custom_props_title">Helyi lakos vagy turista</string>
+	<string name="custom_props_local">helyi lakos</string>
+	<string name="custom_props_traveler">turista</string>
 	<string name="select_properties">Opció kiválasztása</string>
 	<string name="access_rules_p_to_p">Speciális hozzáférés</string>
 	<string name="access_rules_paid">Megvásárolt</string>
@@ -1445,6 +1449,18 @@
 	<string name="speedcam_option_never">Soha</string>
 	<string name="bookmark_description_title">A jel ismertetése</string>
 	<string name="place_description_title">A hely ismertetése</string>
+	<string name="ugc_routes_error_uploading_file_toast">Sajnálatos módon, a jelek letöltésénél hiba történt. Kérem, próbálja meg még egyszer.</string>
+	<string name="notification_channel_ugc">Felhasználói tartalom</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Kártyák letöltése</string>
+	<string name="notification_leave_review_title">%s - hogy érzi itt magát?</string>
+	<string name="notification_leave_review_content">Írja meg a véleményét és segítsen a kirándulóknak!</string>
+	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kamera elöl</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
+	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
+	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

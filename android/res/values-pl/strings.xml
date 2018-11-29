@@ -1400,6 +1400,8 @@
 	<string name="manage_subscription">Zarządzaj subskrypcją</string>
 	<string name="sharing_options">Ustawienia dostępu</string>
 	<string name="export_file">Eksportuj plik</string>
+	<string name="list_settings">Ustawienia listy</string>
+	<string name="delete_list">Usuń listę</string>
 	<string name="hide_from_map">Ukryj mapy</string>
 	<string name="ugc_route_tags_screen_label">Wybierz tagi</string>
 	<string name="ugc_route_tags_progress_msg">Trwa pobieranie tagów…</string>
@@ -1435,6 +1437,8 @@
 	<string name="properties_loading_error_subtitle">Wystąpił błąd podczas ładowania opcji, spróbuj ponownie</string>
 	<string name="custom_props_desc">Ten przewodnik przygotowałeś jako</string>
 	<string name="custom_props_title">Miejscowy lub turysta</string>
+	<string name="custom_props_local">miejscowy</string>
+	<string name="custom_props_traveler">turysta</string>
 	<string name="select_properties">Wybierz opcje</string>
 	<string name="access_rules_p_to_p">Specjalny dostęp</string>
 	<string name="access_rules_paid">Kupiony</string>
@@ -1449,6 +1453,18 @@
 	<string name="speedcam_option_never">Nigdy</string>
 	<string name="bookmark_description_title">Opis znacznika</string>
 	<string name="place_description_title">Opis miejsca</string>
+	<string name="ugc_routes_error_uploading_file_toast">Przepraszamy, wystąpił błąd podczas ładowania znaczników. Spróbuj ponownie.</string>
+	<string name="notification_channel_ugc">Treść użytkownika</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Pobieranie map</string>
+	<string name="notification_leave_review_title">%s - jak Tobie tu?</string>
+	<string name="notification_leave_review_content">Zostaw recenzję i pomóż podróżującym!</string>
+	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kamera z przodu</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
+	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
+	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

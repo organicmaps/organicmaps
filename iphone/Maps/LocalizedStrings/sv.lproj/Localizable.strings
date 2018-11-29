@@ -2499,11 +2499,9 @@
 
 "export_file" = "Exportera fil";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Listinställningar";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Radera listan";
 
 "hide_from_map" = "Dölj från kort";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Lokal bosatt eller en turist";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "lokal bosatt";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "en turist";
 
 "select_properties" = "Välj optioner";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Beskrivning av platsen";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Tyvärr, ett fel uppstod vid uppladdning av etiketter. Vänligen försök igen.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Användarinnehåll";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Kartladdning";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - hur mår du här?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Lämna en recension och hjälp resenärer!";
+
+"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "Kamera framför";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
+
+"warning_speedcams_subtitle" = "Glöm inte att bekanta sig med trafikregler i landet av resan.";
+
+"speedcams_notice_message" = "Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror";
 
 
 /**********  Partners  **********/

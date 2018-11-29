@@ -2499,11 +2499,9 @@
 
 "export_file" = "Dosyayı dışa aktar";
 
-/* FIXME */
-"list_settings" = "list_settings";
+"list_settings" = "Liste Ayarları";
 
-/* FIXME */
-"delete_list" = "delete_list";
+"delete_list" = "Listeyi sil";
 
 "hide_from_map" = "Haritadan gizle";
 
@@ -2584,11 +2582,9 @@
 
 "custom_props_title" = "Yerli veya gezgin";
 
-/* FIXME */
-"custom_props_local" = "custom_props_local";
+"custom_props_local" = "yerli";
 
-/* FIXME */
-"custom_props_traveler" = "custom_props_traveler";
+"custom_props_traveler" = "gezgin";
 
 "select_properties" = "Seçenekleri belirle";
 
@@ -2618,20 +2614,27 @@
 
 "place_description_title" = "Yer Açıklaması";
 
-/* FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes */
-"ugc_routes_error_uploading_file_toast" = "ugc_routes_error_uploading_file_toast";
+"ugc_routes_error_uploading_file_toast" = "Maalesef yer işaretlerinizi yüklerken bir hata oluştu. Lütfen tekrar deneyin.";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. */
-"notification_channel_ugc" = "UGC";
+"notification_channel_ugc" = "Sosyal içerik";
 
-/* FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. */
-"notification_channel_downloader" = "Map downloader";
+/* this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. */
+"notification_channel_downloader" = "Harita indiricisi";
 
-/* FIXME */
-"notification_leave_review_title" = "Have you been at %s?";
+"notification_leave_review_title" = "%s - nasıldı?";
 
-/* FIXME */
-"notification_leave_review_content" = "Have you been at %s? Please help other travellers and rate it!";
+"notification_leave_review_content" = "Yorum bırakarak gezginlere yardım edin!";
+
+"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın: http://maps.me/get?kmz";
+
+"camera_ahead_voiceover" = "İleride kamera var";
+
+/* FIXME next release 12.18 */
+"warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
+
+"warning_speedcams_subtitle" = "Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.";
+
+"speedcams_notice_message" = "Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma";
 
 
 /**********  Partners  **********/

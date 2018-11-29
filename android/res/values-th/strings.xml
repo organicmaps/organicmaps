@@ -1401,6 +1401,8 @@
 	<string name="manage_subscription">จัดการการสมัครสมาชิก</string>
 	<string name="sharing_options">ตัวเลือกการแชร์</string>
 	<string name="export_file">ส่งออกไฟล์</string>
+	<string name="list_settings">การตั้งค่ารายการ</string>
+	<string name="delete_list">ลบรายการ</string>
 	<string name="hide_from_map">ซ่อนจากแผนที่</string>
 	<string name="ugc_route_tags_screen_label">เลือกแท็ก</string>
 	<string name="ugc_route_tags_progress_msg">กำลังโหลดแท็ก…</string>
@@ -1436,6 +1438,8 @@
 	<string name="properties_loading_error_subtitle">เกิดข้อผิดพลาดขณะโหลดตัวเลือก โปรดลองใหม่อีกครั้ง</string>
 	<string name="custom_props_desc">ในไกด์นี้คุณเยี่ยมชมสถานที่ในฐานะ</string>
 	<string name="custom_props_title">คนท้องที่หรือนักท่องเที่ยว</string>
+	<string name="custom_props_local">คนท้องที่</string>
+	<string name="custom_props_traveler">นักท่องเที่ยว</string>
 	<string name="select_properties">เลือกออพชั่น</string>
 	<string name="access_rules_p_to_p">การเข้าถึงแบบพิเศษ</string>
 	<string name="access_rules_paid">ชำระเงินเรียบร้อย</string>
@@ -1450,6 +1454,18 @@
 	<string name="speedcam_option_never">ไม่ต้องเตือน</string>
 	<string name="bookmark_description_title">รายละเอียดของบุ๊คมาร์ค</string>
 	<string name="place_description_title">รายละเอียดของสถานที่</string>
+	<string name="ugc_routes_error_uploading_file_toast">ขออภัยค่ะ เกิดข้อผิดพลาดขณะอัพโหลดบุ๊กมาร์คของคุณ โปรดลองใหม่อีกครั้ง</string>
+	<string name="notification_channel_ugc">เนื้อหาทางโซเชียล</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
+	<string name="notification_leave_review_title">%s - มันเป็นอย่างไร</string>
+	<string name="notification_leave_review_content">ช่วยนักเดินทางโดยการทิ้งรีวิว!</string>
+	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">มีกล้องอยู่ข้างหน้า</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม</string>
+	<string name="warning_speedcams_subtitle">โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป</string>
+	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

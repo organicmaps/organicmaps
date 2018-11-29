@@ -1396,6 +1396,8 @@
 	<string name="manage_subscription">Hallitse tilausta</string>
 	<string name="sharing_options">Käyttöasetukset</string>
 	<string name="export_file">Viedä tiedosto</string>
+	<string name="list_settings">Listan asetukset</string>
+	<string name="delete_list">Poista lista</string>
 	<string name="hide_from_map">Piilottaa kartalta</string>
 	<string name="ugc_route_tags_screen_label">Valitse tunnisteet</string>
 	<string name="ugc_route_tags_progress_msg">Lataamme tunnisteita…</string>
@@ -1431,6 +1433,8 @@
 	<string name="properties_loading_error_subtitle">Vaihtoehtojen latauksen aikana tapahtui virhe, ole hyvä, yritä uudelleen</string>
 	<string name="custom_props_desc">Olet tehnyt tämä oppaan</string>
 	<string name="custom_props_title">Paikallisena tai matkailijana</string>
+	<string name="custom_props_local">paikallinen</string>
+	<string name="custom_props_traveler">matkailija</string>
 	<string name="select_properties">Valitse vaihtoehdot</string>
 	<string name="access_rules_p_to_p">Erikoispääsy</string>
 	<string name="access_rules_paid">Ostettu</string>
@@ -1445,6 +1449,18 @@
 	<string name="speedcam_option_never">Ei koskaan</string>
 	<string name="bookmark_description_title">Merkin kuvaus</string>
 	<string name="place_description_title">Paikan kuvaus</string>
+	<string name="ugc_routes_error_uploading_file_toast">Valitettavasti, merkkien lataamisen aikana tapahtui virhe. Yritä uudelleen.</string>
+	<string name="notification_channel_ugc">Käyttäjäsisältö</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Karttojen lataaminen</string>
+	<string name="notification_leave_review_title">%s - miten on täällä?</string>
+	<string name="notification_leave_review_content">Kirjoita arvostelu ja auta matkustajia!</string>
+	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Edessä on kamera</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t</string>
+	<string name="warning_speedcams_subtitle">Muista tutustua matkustusmaan liikennesääntöihin.</string>
+	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

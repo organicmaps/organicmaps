@@ -1453,10 +1453,8 @@
 	<string name="taxi">Taxi</string>
 	<string name="sharing_options">Sharing options</string>
 	<string name="export_file">Export file</string>
-	<!-- FIXME -->
-	<string name="list_settings">list_settings</string>
-	<!-- FIXME -->
-	<string name="delete_list">delete_list</string>
+	<string name="list_settings">List Settings</string>
+	<string name="delete_list">Delete list</string>
 	<string name="hide_from_map">Hide from map</string>
 	<string name="ugc_route_tags_screen_label">Select tags</string>
 	<string name="ugc_route_tags_progress_msg">Loading tags…</string>
@@ -1498,10 +1496,8 @@
 	<string name="properties_loading_error_subtitle">An error occurred while loading options, please try again</string>
 	<string name="custom_props_desc">In this guide you have visited places as</string>
 	<string name="custom_props_title">Local or traveller</string>
-	<!-- FIXME -->
-	<string name="custom_props_local">custom_props_local</string>
-	<!-- FIXME -->
-	<string name="custom_props_traveler">custom_props_traveler</string>
+	<string name="custom_props_local">local</string>
+	<string name="custom_props_traveler">traveller</string>
 	<string name="select_properties">Select options</string>
 	<string name="access_rules_p_to_p">Special access</string>
 	<string name="access_rules_paid">Purchased</string>
@@ -1516,16 +1512,18 @@
 	<string name="speedcam_option_never">Never</string>
 	<string name="bookmark_description_title">Bookmark Description</string>
 	<string name="place_description_title">Place Description</string>
-	<!-- FIXME https://confluence.mail.ru/display/MAPSME/UGC+Routes -->
-	<string name="ugc_routes_error_uploading_file_toast">ugc_routes_error_uploading_file_toast</string>
-	<!-- FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe ugc notifications. Devices on Android 8+ are affected. -->
-	<string name="notification_channel_ugc">UGC</string>
-	<!-- FIXME: this text will be shown in application notification preferences opposite checkbox which enable/disabe downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="ugc_routes_error_uploading_file_toast">Unfortunately, an error occurred while uploading your bookmarks. Please try again.</string>
+	<string name="notification_channel_ugc">Social content</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
 	<string name="notification_channel_downloader">Map downloader</string>
-	<!-- FIXME -->
-	<string name="notification_leave_review_title">Have you been at %s?</string>
-	<!-- FIXME -->
-	<string name="notification_leave_review_content">Have you been at %s? Please help other travellers and rate it!</string>
+	<string name="notification_leave_review_title">%s - how was it?</string>
+	<string name="notification_leave_review_content">Help travellers by leaving a review!</string>
+	<string name="share_bookmarks_email_body_link">Hello!\n\nHere is the link where you can download your bookmarks: %s. Open the list via MAPS.ME and enjoy your trip: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Camera ahead</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigator will warn you about cameras when you exceed the speed limit of %d km/h</string>
+	<string name="warning_speedcams_subtitle">Please mind driving regulations of the country you are travelling to.</string>
+	<string name="speedcams_notice_message">Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

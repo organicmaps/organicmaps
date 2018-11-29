@@ -1391,6 +1391,8 @@
 	<string name="manage_subscription">구독 관리</string>
 	<string name="sharing_options">옵션 공유</string>
 	<string name="export_file">파일 내보내기</string>
+	<string name="list_settings">목록 세팅</string>
+	<string name="delete_list">리스트 삭제</string>
 	<string name="hide_from_map">지도에서 숨기기</string>
 	<string name="ugc_route_tags_screen_label">태그 선택하기</string>
 	<string name="ugc_route_tags_progress_msg">태그 불러오는 중…</string>
@@ -1426,6 +1428,8 @@
 	<string name="properties_loading_error_subtitle">옵션을 불러오는 도중 에러가 발생했습니다. 다시 시도해보세요</string>
 	<string name="custom_props_desc">이 가이드에서 당신은 장소들을 방문 할 수 있습니다</string>
 	<string name="custom_props_title">현지인 혹은 여행자</string>
+	<string name="custom_props_local">현지</string>
+	<string name="custom_props_traveler">여행자</string>
 	<string name="select_properties">옵션 선택</string>
 	<string name="access_rules_p_to_p">특수 접근</string>
 	<string name="access_rules_paid">구매함</string>
@@ -1437,9 +1441,21 @@
 	<string name="speedcams_alert_subtitle">속도 제한에 대한 경고</string>
 	<string name="speedcam_option_auto">자동</string>
 	<string name="speedcam_option_always">항상</string>
-	<string name="speedcam_option_never">절대 아님</string>
+	<string name="speedcam_option_never">안함</string>
 	<string name="bookmark_description_title">즐겨찾기 묘사</string>
 	<string name="place_description_title">장소 묘사</string>
+	<string name="ugc_routes_error_uploading_file_toast">안타깝게도, 즐겨찾기를 업로드하는 도중 오류가 발생했습니다. 다시 시도해보세요.</string>
+	<string name="notification_channel_ugc">소셜 컨텐트</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">맵 다운로더</string>
+	<string name="notification_leave_review_title">%s - 어떠셨나요?</string>
+	<string name="notification_leave_review_content">리뷰를 남겨서 여행자들을 도와주세요!</string>
+	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">전방에 카메라</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다</string>
+	<string name="warning_speedcams_subtitle">여행하시는 나라의 운전 법규를 준수하시길 바랍니다.</string>
+	<string name="speedcams_notice_message">자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

@@ -1392,6 +1392,8 @@
 	<string name="manage_subscription">Administrare abonament</string>
 	<string name="sharing_options">Setările accesului</string>
 	<string name="export_file">Exportați fișierul</string>
+	<string name="list_settings">Elaborarea listei</string>
+	<string name="delete_list">Ștergerea listei</string>
 	<string name="hide_from_map">Ascundeți de pe hartă</string>
 	<string name="ugc_route_tags_screen_label">Alegeți tag-urile</string>
 	<string name="ugc_route_tags_progress_msg">Încărcăm tag-urile…</string>
@@ -1427,6 +1429,8 @@
 	<string name="properties_loading_error_subtitle">În timpul încărcării opțiunilor s-a produs o eroare, vă rugăm încercați încă o dată</string>
 	<string name="custom_props_desc">Acest ghid l-ați făcut în calitate de</string>
 	<string name="custom_props_title">Localnic sau turist</string>
+	<string name="custom_props_local">localnic</string>
+	<string name="custom_props_traveler">turist</string>
 	<string name="select_properties">Alegeți opțiunile</string>
 	<string name="access_rules_p_to_p">Acces special</string>
 	<string name="access_rules_paid">Cumpărat</string>
@@ -1441,6 +1445,18 @@
 	<string name="speedcam_option_never">Niciodată</string>
 	<string name="bookmark_description_title">Descrierea semnului</string>
 	<string name="place_description_title">Descrierea locului</string>
+	<string name="ugc_routes_error_uploading_file_toast">Din păcate, în timpul încărcării etichetelor a intervenit o greșeală. Vă rugăm să încercați încă o dată.</string>
+	<string name="notification_channel_ugc">Conținutul utilizatorului</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Încărcarea hărților</string>
+	<string name="notification_leave_review_title">%s - cum vă place aici?</string>
+	<string name="notification_leave_review_content">Lăsați comentariile dvs. și ajutați alți călători!</string>
+	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Cameră frontală</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
+	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
+	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

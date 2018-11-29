@@ -1293,6 +1293,8 @@
 	<string name="sign_agree_news_gdpr">Jeg godtar å motta de siste nyhetene om MAPS.ME-produkter</string>
 	<string name="sharing_options">Delemuligheter</string>
 	<string name="export_file">Eksporter fil</string>
+	<string name="list_settings">Liste Innstillinger</string>
+	<string name="delete_list">Slett liste</string>
 	<string name="hide_from_map">Skjul fra kart</string>
 	<string name="ugc_route_tags_screen_label">Velg emneknagger</string>
 	<string name="ugc_route_tags_progress_msg">Laster inn emneknagger…</string>
@@ -1328,6 +1330,8 @@
 	<string name="properties_loading_error_subtitle">Det oppstod en feil under innlasting av alternativer, prøv igjen</string>
 	<string name="custom_props_desc">I denne veiledningen har du besøkt steder som</string>
 	<string name="custom_props_title">Lokalkjent eller turist</string>
+	<string name="custom_props_local">lokalkjent</string>
+	<string name="custom_props_traveler">turist</string>
 	<string name="select_properties">Velg alternativer</string>
 	<string name="access_rules_p_to_p">Spesiell tilgang</string>
 	<string name="access_rules_paid">Kjøpt</string>
@@ -1342,6 +1346,18 @@
 	<string name="speedcam_option_never">Aldri</string>
 	<string name="bookmark_description_title">Beskrivelse av bokmerke</string>
 	<string name="place_description_title">Plasser beskrivelse</string>
+	<string name="ugc_routes_error_uploading_file_toast">Dessverre har det oppstått en feil under opplasting av bokmerkene dine. Vennligst prøv igjen.</string>
+	<string name="notification_channel_ugc">Sosialt innhold</string>
+	<!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->
+	<string name="notification_channel_downloader">Nedlast kart</string>
+	<string name="notification_leave_review_title">%s - hvordan var det?</string>
+	<string name="notification_leave_review_content">Hjelp andre ved å legge igjen en anmeldelse.</string>
+	<string name="share_bookmarks_email_body_link">Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via MAPS.ME og nyt reisen: http://maps.me/get?kmz</string>
+	<string name="camera_ahead_voiceover">Kommer til kamera</string>
+	<!-- FIXME next release 12.18 -->
+	<string name="warning_speedcams_title">Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t</string>
+	<string name="warning_speedcams_subtitle">Vær oppmerksom på kjøreregler for landet du reiser til.</string>
+	<string name="speedcams_notice_message">Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>
