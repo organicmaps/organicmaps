@@ -620,19 +620,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="img_guide_editonweb" translatesAutoresizingMaskIntoConstraints="NO" id="Q8X-cu-CGX">
+                                <rect key="frame" x="67.5" y="64" width="240" height="240"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Q8X-cu-CGX" secondAttribute="height" multiplier="1:1" id="18O-yd-NGO"/>
+                                    <constraint firstAttribute="width" priority="750" constant="240" id="lBW-13-AL5"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNH-ha-MaJ">
-                                <rect key="frame" x="20" y="93" width="335" height="501"/>
+                                <rect key="frame" x="20" y="328" width="335" height="237"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_guide_editonweb" translatesAutoresizingMaskIntoConstraints="NO" id="Q8X-cu-CGX">
-                                        <rect key="frame" x="47.5" y="0.0" width="240" height="240"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Q8X-cu-CGX" secondAttribute="height" multiplier="1:1" id="18O-yd-NGO"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="240" id="lBW-13-AL5"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Edit your guide on the web" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqq-0d-RGh">
-                                        <rect key="frame" x="38" y="264" width="259" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Edit your guide on the web" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqq-0d-RGh">
+                                        <rect key="frame" x="38" y="0.0" width="259" height="26.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                         <color key="textColor" white="0.0" alpha="0.87" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -643,7 +643,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oZZ-eC-b5K">
-                                        <rect key="frame" x="0.0" y="306.5" width="335" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="42.5" width="335" height="64.5"/>
                                         <string key="text">Get a link to edit your guide via web app: add descriptions for POI,
 upload photos and more</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -656,7 +656,7 @@ upload photos and more</string>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PKE-El-ftz" customClass="MWMButton">
-                                        <rect key="frame" x="16" y="395" width="303" height="48"/>
+                                        <rect key="frame" x="16" y="131" width="303" height="48"/>
                                         <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="b2Z-cP-PLt"/>
@@ -679,7 +679,7 @@ upload photos and more</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gt-S9-kRm" userLabel="Cancel">
-                                        <rect key="frame" x="139.5" y="453" width="56" height="48"/>
+                                        <rect key="frame" x="16" y="189" width="303" height="48"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="gOT-uV-6tC"/>
@@ -703,15 +703,14 @@ upload photos and more</string>
                                 <constraints>
                                     <constraint firstItem="oZZ-eC-b5K" firstAttribute="top" secondItem="pqq-0d-RGh" secondAttribute="bottom" constant="16" id="1by-bh-ar5"/>
                                     <constraint firstAttribute="trailing" secondItem="PKE-El-ftz" secondAttribute="trailing" constant="16" id="2VL-dr-I0z"/>
-                                    <constraint firstItem="pqq-0d-RGh" firstAttribute="top" secondItem="Q8X-cu-CGX" secondAttribute="bottom" constant="24" id="87c-hQ-U0f"/>
                                     <constraint firstItem="oZZ-eC-b5K" firstAttribute="leading" secondItem="YNH-ha-MaJ" secondAttribute="leading" id="B8g-jn-MbD"/>
-                                    <constraint firstItem="Q8X-cu-CGX" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="F0x-Xp-NE5"/>
                                     <constraint firstAttribute="trailing" secondItem="oZZ-eC-b5K" secondAttribute="trailing" id="HPf-HB-MJa"/>
-                                    <constraint firstItem="Q8X-cu-CGX" firstAttribute="top" secondItem="YNH-ha-MaJ" secondAttribute="top" id="Stm-5W-v5r"/>
+                                    <constraint firstItem="2gt-S9-kRm" firstAttribute="width" secondItem="PKE-El-ftz" secondAttribute="width" id="Q1q-1h-tCz"/>
                                     <constraint firstItem="pqq-0d-RGh" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="fcN-r1-eLk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="pqq-0d-RGh" secondAttribute="trailing" id="jDf-Qj-cIP"/>
                                     <constraint firstItem="2gt-S9-kRm" firstAttribute="centerX" secondItem="YNH-ha-MaJ" secondAttribute="centerX" id="kg1-tq-q1x"/>
                                     <constraint firstItem="PKE-El-ftz" firstAttribute="leading" secondItem="YNH-ha-MaJ" secondAttribute="leading" constant="16" id="kjl-NW-nHQ"/>
+                                    <constraint firstItem="pqq-0d-RGh" firstAttribute="top" secondItem="YNH-ha-MaJ" secondAttribute="top" id="ljk-2E-5Ss"/>
                                     <constraint firstAttribute="bottom" secondItem="2gt-S9-kRm" secondAttribute="bottom" id="qWz-Mv-m71"/>
                                     <constraint firstItem="2gt-S9-kRm" firstAttribute="top" secondItem="PKE-El-ftz" secondAttribute="bottom" constant="10" id="szW-4p-PVS"/>
                                     <constraint firstItem="PKE-El-ftz" firstAttribute="top" secondItem="oZZ-eC-b5K" secondAttribute="bottom" constant="24" id="uoB-lC-Vz9"/>
@@ -722,15 +721,87 @@ upload photos and more</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YNH-ha-MaJ" firstAttribute="leading" secondItem="S4c-kp-N1N" secondAttribute="leading" constant="20" id="INQ-4k-Yci"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="centerY" secondItem="S4c-kp-N1N" secondAttribute="centerY" id="Itn-ij-NNu"/>
                             <constraint firstItem="S4c-kp-N1N" firstAttribute="trailing" secondItem="YNH-ha-MaJ" secondAttribute="trailing" constant="20" id="S8x-e5-GAC"/>
-                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="S4c-kp-N1N" secondAttribute="top" id="Wzf-4q-gB0"/>
-                            <constraint firstItem="S4c-kp-N1N" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YNH-ha-MaJ" secondAttribute="bottom" id="kki-Yo-pgn"/>
-                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="centerY" secondItem="S4c-kp-N1N" secondAttribute="centerY" id="mPF-n6-C2H"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="centerY" secondItem="Q8X-cu-CGX" secondAttribute="centerY" id="TD1-qm-v0b"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="width" relation="greaterThanOrEqual" secondItem="XST-Aa-nm6" secondAttribute="width" multiplier="0.25" id="V17-YA-KDX"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="S4c-kp-N1N" secondAttribute="top" constant="20" id="Wc1-H3-gy4"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="centerX" secondItem="S4c-kp-N1N" secondAttribute="centerX" id="ZpD-6M-8sG"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="leading" secondItem="S4c-kp-N1N" secondAttribute="leading" constant="20" id="bsy-3z-QfK"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="centerY" secondItem="S4c-kp-N1N" secondAttribute="centerY" multiplier="1.3" priority="750" id="cBo-1E-Dv4"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="top" secondItem="Q8X-cu-CGX" secondAttribute="bottom" constant="24" id="exc-DL-XJ4"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="S4c-kp-N1N" secondAttribute="top" id="h0r-js-C6y"/>
+                            <constraint firstItem="Q8X-cu-CGX" firstAttribute="height" relation="greaterThanOrEqual" secondItem="XST-Aa-nm6" secondAttribute="height" multiplier="0.25" id="nCX-eC-0iD"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YNH-ha-MaJ" secondAttribute="bottom" id="sAn-HM-cd7"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="YNH-ha-MaJ" secondAttribute="bottom" constant="20" id="xS2-Jl-Utq"/>
+                            <constraint firstItem="YNH-ha-MaJ" firstAttribute="leading" secondItem="Q8X-cu-CGX" secondAttribute="trailing" constant="10" id="yxc-rG-1Lz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S4c-kp-N1N"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                         </userDefinedRuntimeAttributes>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Itn-ij-NNu"/>
+                                <exclude reference="V17-YA-KDX"/>
+                                <exclude reference="ZpD-6M-8sG"/>
+                                <exclude reference="bsy-3z-QfK"/>
+                                <exclude reference="h0r-js-C6y"/>
+                                <exclude reference="nCX-eC-0iD"/>
+                                <exclude reference="INQ-4k-Yci"/>
+                                <exclude reference="TD1-qm-v0b"/>
+                                <exclude reference="Wc1-H3-gy4"/>
+                                <exclude reference="cBo-1E-Dv4"/>
+                                <exclude reference="exc-DL-XJ4"/>
+                                <exclude reference="sAn-HM-cd7"/>
+                                <exclude reference="xS2-Jl-Utq"/>
+                                <exclude reference="yxc-rG-1Lz"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="Itn-ij-NNu"/>
+                                <include reference="V17-YA-KDX"/>
+                                <include reference="bsy-3z-QfK"/>
+                                <include reference="TD1-qm-v0b"/>
+                                <include reference="Wc1-H3-gy4"/>
+                                <include reference="xS2-Jl-Utq"/>
+                                <include reference="yxc-rG-1Lz"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="Itn-ij-NNu"/>
+                                <include reference="V17-YA-KDX"/>
+                                <include reference="bsy-3z-QfK"/>
+                                <include reference="TD1-qm-v0b"/>
+                                <include reference="Wc1-H3-gy4"/>
+                                <include reference="xS2-Jl-Utq"/>
+                                <include reference="yxc-rG-1Lz"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="ZpD-6M-8sG"/>
+                                <include reference="h0r-js-C6y"/>
+                                <include reference="nCX-eC-0iD"/>
+                                <include reference="INQ-4k-Yci"/>
+                                <include reference="cBo-1E-Dv4"/>
+                                <include reference="exc-DL-XJ4"/>
+                                <include reference="sAn-HM-cd7"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="ZpD-6M-8sG"/>
+                                <include reference="h0r-js-C6y"/>
+                                <include reference="nCX-eC-0iD"/>
+                                <include reference="INQ-4k-Yci"/>
+                                <include reference="cBo-1E-Dv4"/>
+                                <include reference="exc-DL-XJ4"/>
+                                <include reference="sAn-HM-cd7"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="2gt-S9-kRm" id="0ga-Zq-IUh"/>
@@ -739,7 +810,7 @@ upload photos and more</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QOd-Rm-O5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640.79999999999995" y="703.89805097451278"/>
+            <point key="canvasLocation" x="640.02998500749629" y="703.20000000000005"/>
         </scene>
     </scenes>
     <resources>
