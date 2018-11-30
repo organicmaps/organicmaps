@@ -2179,16 +2179,17 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
         for (auto const & group : m_categories)
         {
           if (id == group.second->GetServerId())
-          {
-            ClearGroup(group.first);
             idsToDelete.push_back(group.first);
-          }
         }
         for (auto const & categoryId : idsToDelete)
         {
+          ClearGroup(categoryId);
           m_changesTracker.OnDeleteGroup(categoryId);
+          auto const it = m_categories.find(categoryId);
+          FileWriter::DeleteFileX(it->second->GetFileName());
           m_categories.erase(categoryId);
         }
+        UpdateBmGroupIdList();
 
         CreateCategories(std::move(*collection));
 
