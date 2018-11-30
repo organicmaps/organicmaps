@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -351,7 +352,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     pref.setOnPreferenceChangeListener(this::onSpeedCamerasPrefSelected);
   }
 
-  private boolean onSpeedCamerasPrefSelected(Preference preference, Object newValue)
+  private boolean onSpeedCamerasPrefSelected(@NonNull Preference preference,
+                                             @NonNull Object newValue)
   {
     String speedCamModeValue = (String) newValue;
     ListPreference speedCamModeList = (ListPreference) preference;
@@ -960,7 +962,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
 
     private final int mModeStringId;
 
-    ThemeMode(int modeStringId)
+    ThemeMode(@StringRes int modeStringId)
     {
       mModeStringId = modeStringId;
     }

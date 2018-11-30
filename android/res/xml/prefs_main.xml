@@ -154,7 +154,7 @@
     </android.support.v7.preference.PreferenceScreen>
     <ListPreference
       android:key="@string/pref_speed_cameras"
-      android:title="@string/pref_speed_cameras_title"
+      android:title="@string/speedcams_alert_title"
       android:entries="@array/speed_cameras"
       android:entryValues="@array/speed_cameras_values"
       android:defaultValue="@string/auto_enum_value"
