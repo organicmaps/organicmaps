@@ -61,6 +61,23 @@ public:
     return false;
   }
 
+  bool IsEqual(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
+  {
+    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+
+    if (displayFlagLeft == displayFlagRight)
+    {
+      uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
+                            dp::kPriorityMaskAll;
+      uint64_t const priorityLeft = l->GetPriority() & mask;
+      uint64_t const priorityRight = r->GetPriority() & mask;
+
+      return priorityLeft == priorityRight;
+    }
+    return false;
+  }
+
 private:
   bool m_enableMask;
 };
@@ -236,18 +253,29 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     // But if some of already inserted elements have more priority, then we don't insert "handle".
     for (auto const & rivalHandle : rivals)
     {
-      bool const rejectBySelected = m_selectedFeatureID.IsValid() &&
-                                    rivalHandle->GetOverlayID().m_featureId == m_selectedFeatureID;
+      bool reject = m_selectedFeatureID.IsValid() && rivalHandle->GetOverlayID().m_featureId == m_selectedFeatureID;
 
-      bool rejectByDepth = false;
-      if (!rejectBySelected && modelView.isPerspective())
+      if (!reject)
       {
-        bool const pathTextComparation = handle->HasLinearFeatureShape() || rivalHandle->HasLinearFeatureShape();
-        rejectByDepth = !pathTextComparation &&
-                        handleToCompare->GetPivot(modelView, true).y > rivalHandle->GetPivot(modelView, true).y;
+        if (modelView.isPerspective())
+        {
+          bool const isEqual = comparator.IsEqual(rivalHandle, handleToCompare);
+          bool const pathTextComparation = handle->HasLinearFeatureShape() || rivalHandle->HasLinearFeatureShape();
+          bool const specialLayerComparation = handle->IsSpecialLayerOverlay() || rivalHandle->IsSpecialLayerOverlay();
+
+          if (isEqual && !pathTextComparation && !specialLayerComparation)
+            reject = handleToCompare->GetPivot(modelView, true).y < rivalHandle->GetPivot(modelView, true).y;
+          else
+            reject = comparator.IsGreater(rivalHandle, handleToCompare);
+        }
+        else
+        {
+          reject = comparator.IsGreater(rivalHandle, handleToCompare);
+        }
       }
 
-      if (rejectBySelected || rejectByDepth || comparator.IsGreater(rivalHandle, handleToCompare))
+
+      if (reject)
       {
         // Handle is displaced and bound to its parent, parent will be displaced too.
         if (boundToParent)
