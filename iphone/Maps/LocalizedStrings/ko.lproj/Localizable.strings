@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기";
 
+"whats_new_ugc_routes_title" = "당신의 감동을 공유하기 좋습니다";
+
+"whats_new_ugc_routes_subtitle" = "잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 MAPS.ME의 모두와 나눠보세요.";
+
+"whats_new_webeditor_title" = "당신의 지나온 길들을 이야기로 바꿔보세요";
+
+"whats_new_ugc_routes_message2" = "웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.";
+
 
 /**********  Partners  **********/
 

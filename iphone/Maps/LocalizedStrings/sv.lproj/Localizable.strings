@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror";
 
+"whats_new_ugc_routes_title" = "Det är lätt att dela dina intryck";
+
+"whats_new_ugc_routes_subtitle" = "Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i MAPS:ME katalogen.";
+
+"whats_new_webeditor_title" = "Gör dina rutter till berättelser";
+
+"whats_new_ugc_routes_message2" = "Lägg till fotografier och detaljerade berättelser i webeditorn.";
+
 
 /**********  Partners  **********/
 

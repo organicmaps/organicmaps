@@ -1465,6 +1465,10 @@
 	<string name="warning_speedcams_title">Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h</string>
 	<string name="warning_speedcams_subtitle">Glöm inte att bekanta sig med trafikregler i landet av resan.</string>
 	<string name="speedcams_notice_message">Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror</string>
+	<string name="whats_new_ugc_routes_title">Det är lätt att dela dina intryck</string>
+	<string name="whats_new_ugc_routes_subtitle">Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i MAPS:ME katalogen.</string>
+	<string name="whats_new_webeditor_title">Gör dina rutter till berättelser</string>
+	<string name="whats_new_ugc_routes_message2">Lägg till fotografier och detaljerade berättelser i webeditorn.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

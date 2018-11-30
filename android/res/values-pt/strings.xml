@@ -1464,6 +1464,10 @@
 	<string name="warning_speedcams_title">O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h</string>
 	<string name="warning_speedcams_subtitle">Não esqueça de ler as regras da estrada no país de viagem.</string>
 	<string name="speedcams_notice_message">Auto - Avisa sobre radares de velocidade se houver risco de exceder o limite de velocidade\nSempre - Sempre alerta sobre câmeras\nNunca - nunca avisar sobre câmeras</string>
+	<string name="whats_new_ugc_routes_title">É fácil compartilhar as impressões</string>
+	<string name="whats_new_ugc_routes_subtitle">Salve locais preferidos, crie percursos a partir de tags e compartilhe-os com todos no diretório de MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Transforma os percursos em história</string>
+	<string name="whats_new_ugc_routes_message2">Adicione fotos e descrições detalhadas no editor da web.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estação de teleférico</string>

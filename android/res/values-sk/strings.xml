@@ -1465,6 +1465,10 @@
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
+	<string name="whats_new_ugc_routes_title">Je ľahké podeliť sa o vaše dojmy</string>
+	<string name="whats_new_ugc_routes_subtitle">Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Premeňte svoje trasy na príbehy</string>
+	<string name="whats_new_ugc_routes_message2">Pridajte fotografie a podrobné príbehy do webového editora.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

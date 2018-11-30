@@ -1475,6 +1475,10 @@
 	<string name="warning_speedcams_title">Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren</string>
 	<string name="warning_speedcams_subtitle">Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.</string>
 	<string name="speedcams_notice_message">Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren</string>
+	<string name="whats_new_ugc_routes_title">Es ist einfach, Ihre Eindrücke zu teilen</string>
+	<string name="whats_new_ugc_routes_subtitle">Speichern Sie unvergessliche Orte, erstellen Sie Routen mithilfe von Lesezeichen und teilen Sie sie mit allen im MAPS.ME-Katalog.</string>
+	<string name="whats_new_webeditor_title">Verwandeln Sie Ihre Routen in Geschichten</string>
+	<string name="whats_new_ugc_routes_message2">Fügen Sie Fotos und ausführliche Geschichten im Web-Editor hinzu.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

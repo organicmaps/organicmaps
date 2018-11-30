@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません";
 
+"whats_new_ugc_routes_title" = "印象を共有するのは簡単です";
+
+"whats_new_ugc_routes_subtitle" = "記憶に残る場所を保存して、ブックマークでルートを作成し MAPS.MEカタログを利用するすべての人達と共有しましょう。";
+
+"whats_new_webeditor_title" = "ルートをストーリーに変えましょう";
+
+"whats_new_ugc_routes_message2" = "ウェブエディタで写真と詳細なストーリーを追加しましょう。";
+
 
 /**********  Partners  **********/
 

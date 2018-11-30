@@ -1460,6 +1460,10 @@
 	<string name="warning_speedcams_title">Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam</string>
 	<string name="warning_speedcams_subtitle">Harap perhatikan aturan berkendara di negara tempat Anda bepergian.</string>
 	<string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
+	<string name="whats_new_ugc_routes_title">Mudah untuk membagikan kesan Anda</string>
+	<string name="whats_new_ugc_routes_subtitle">Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Ubah rute Anda menjadi cerita</string>
+	<string name="whats_new_ugc_routes_message2">Tambahkan foto dan kisah detail di editor web.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>

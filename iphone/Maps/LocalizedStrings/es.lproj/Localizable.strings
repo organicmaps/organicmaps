@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - advierte sobre las cámaras de velocidad si existe el riesgo de exceder el límite de velocidad\nSiempre - siempre alerta sobre las cámaras\nNunca - nunca advierte acerca de las cámaras";
 
+"whats_new_ugc_routes_title" = "Compartir tus impresiones es fácil";
+
+"whats_new_ugc_routes_subtitle" = "Guarda lugares memorables, crea rutas mediante marcadores y compártelas con todo el mundo en el catálogo de MAPS.ME.";
+
+"whats_new_webeditor_title" = "Convierte tus rutas en historias";
+
+"whats_new_ugc_routes_message2" = "Añade fotos e historias detalladas en el editor web.";
+
 
 /**********  Partners  **********/
 

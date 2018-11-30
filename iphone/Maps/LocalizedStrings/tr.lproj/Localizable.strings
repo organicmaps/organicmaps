@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma";
 
+"whats_new_ugc_routes_title" = "İzlenimlerinizi paylaşmak çok kolay";
+
+"whats_new_ugc_routes_subtitle" = "nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları MAPS.ME kataloğundaki herkesle paylaşın.";
+
+"whats_new_webeditor_title" = "Rotalarınızı hikayelere dönüştürün";
+
+"whats_new_ugc_routes_message2" = "Web editöre fotoğraflar ve detaylı hikayeler ekleyin.";
+
 
 /**********  Partners  **********/
 

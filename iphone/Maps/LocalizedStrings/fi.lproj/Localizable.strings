@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista";
 
+"whats_new_ugc_routes_title" = "Voit helposti jakaa kokemuksiasi";
+
+"whats_new_ugc_routes_subtitle" = "Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa MAPS.ME-luettelossa.";
+
+"whats_new_webeditor_title" = "Muuta reittisi tarinoiksi";
+
+"whats_new_ugc_routes_message2" = "Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.";
+
 
 /**********  Partners  **********/
 

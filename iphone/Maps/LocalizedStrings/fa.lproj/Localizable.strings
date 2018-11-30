@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد";
 
+"whats_new_ugc_routes_title" = "Easy to share your impressions";
+
+"whats_new_ugc_routes_subtitle" = "Save memorable places, create routes from bookmarks and share them with everyone using MAPS.ME catalogue.";
+
+"whats_new_webeditor_title" = "Turn your routes into stories";
+
+"whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
+
 
 /**********  Partners  **********/
 

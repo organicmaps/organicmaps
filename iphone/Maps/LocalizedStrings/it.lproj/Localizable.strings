@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox";
 
+"whats_new_ugc_routes_title" = "È facile condividere le tue impressioni";
+
+"whats_new_ugc_routes_subtitle" = "Salva luoghi memorabili, crea itinerari utilizzando i segnalibri e condividili con tutti nel catalogo MAPS.ME.";
+
+"whats_new_webeditor_title" = "Trasforma i tuoi percorsi in storie";
+
+"whats_new_ugc_routes_message2" = "Aggiungi foto e storie dettagliate nell'editor web.";
+
 
 /**********  Partners  **********/
 

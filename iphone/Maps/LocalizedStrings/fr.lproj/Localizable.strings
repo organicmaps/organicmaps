@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars";
 
+"whats_new_ugc_routes_title" = "Il est facile de partager vos impressions";
+
+"whats_new_ugc_routes_subtitle" = "Sauvegardez des lieux mémorables, créez des itinéraires à l'aide des signets et partagez-les avec tout le monde dans le catalogue MAPS.ME.";
+
+"whats_new_webeditor_title" = "Transformez vos itinéraires en histoires";
+
+"whats_new_ugc_routes_message2" = "Ajoutez des photos et des histoires détaillées dans l'éditeur web.";
+
 
 /**********  Partners  **********/
 

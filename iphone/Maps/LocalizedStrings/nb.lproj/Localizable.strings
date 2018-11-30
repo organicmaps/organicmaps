@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Advarsel om fartskamera hvis det er fare for å overskride fartsgrensen\nAlltid - Advar alltid om farskameraer\nAldri - Advar aldri om fartskameraer";
 
+"whats_new_ugc_routes_title" = "Del inntrykkene dine med andre, enkelt";
+
+"whats_new_ugc_routes_subtitle" = "Lagre minneverdige steder, lag ruteveiledninger med bokmerker og del dem med alle på MAPS.ME-katalogen.";
+
+"whats_new_webeditor_title" = "Gjør rutene dine om til historier";
+
+"whats_new_ugc_routes_message2" = "Legg til bilder og detaljerte historier med redigeringsprogrammet for nettsider.";
+
 
 /**********  Partners  **********/
 

@@ -1461,6 +1461,10 @@
 	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
 	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
 	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
+	<string name="whats_new_ugc_routes_title">Könnyű megosztani a benyomásaidat</string>
+	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a MAPS.ME katalógusban.</string>
+	<string name="whats_new_webeditor_title">Alakítsd át az útvonalaidat történetekké</string>
+	<string name="whats_new_ugc_routes_message2">Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>

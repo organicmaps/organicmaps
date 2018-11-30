@@ -1524,6 +1524,10 @@
 	<string name="warning_speedcams_title">Navigator will warn you about cameras when you exceed the speed limit of %d km/h</string>
 	<string name="warning_speedcams_subtitle">Please mind driving regulations of the country you are travelling to.</string>
 	<string name="speedcams_notice_message">Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams</string>
+	<string name="whats_new_ugc_routes_title">Easy to share your impressions</string>
+	<string name="whats_new_ugc_routes_subtitle">Save memorable places, create routes from bookmarks and share them with everyone using MAPS.ME catalogue.</string>
+	<string name="whats_new_webeditor_title">Turn your routes into stories</string>
+	<string name="whats_new_ugc_routes_message2">Add photos and detailed stories in the web-editor.</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>

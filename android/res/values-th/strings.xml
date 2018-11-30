@@ -1466,6 +1466,10 @@
 	<string name="warning_speedcams_title">เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม</string>
 	<string name="warning_speedcams_subtitle">โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป</string>
 	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
+	<string name="whats_new_ugc_routes_title">แบ่งปันความประทับใจของคุณได้ง่าย ๆ</string>
+	<string name="whats_new_ugc_routes_subtitle">บันทึกสถานที่ที่น่าจดจำ สร้างสรรค์การเดินทางต่าง ๆโดยใช้บุ๊กมาร์ก และแบ่งปันกับทุกคนในแคตตาล็อก MAPS.ME</string>
+	<string name="whats_new_webeditor_title">เปลี่ยนการเดินทางต่าง ๆ ของคุณให้กลายเป็นเรื่องราว</string>
+	<string name="whats_new_ugc_routes_message2">เพิ่มรูปภาพและเรื่องราวอย่างละเอียดลงในโปรแกรมสำหรับเขียนเว็บ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

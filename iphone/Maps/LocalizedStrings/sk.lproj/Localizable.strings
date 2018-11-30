@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery";
 
+"whats_new_ugc_routes_title" = "Je ľahké podeliť sa o vaše dojmy";
+
+"whats_new_ugc_routes_subtitle" = "Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu MAPS.ME.";
+
+"whats_new_webeditor_title" = "Premeňte svoje trasy na príbehy";
+
+"whats_new_ugc_routes_message2" = "Pridajte fotografie a podrobné príbehy do webového editora.";
+
 
 /**********  Partners  **********/
 

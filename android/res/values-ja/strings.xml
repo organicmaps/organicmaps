@@ -1459,6 +1459,10 @@
 	<string name="warning_speedcams_title">%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します</string>
 	<string name="warning_speedcams_subtitle">旅行先の国の道路交通法を考慮してください。</string>
 	<string name="speedcams_notice_message">自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません</string>
+	<string name="whats_new_ugc_routes_title">印象を共有するのは簡単です</string>
+	<string name="whats_new_ugc_routes_subtitle">記憶に残る場所を保存して、ブックマークでルートを作成し MAPS.MEカタログを利用するすべての人達と共有しましょう。</string>
+	<string name="whats_new_webeditor_title">ルートをストーリーに変えましょう</string>
+	<string name="whats_new_ugc_routes_message2">ウェブエディタで写真と詳細なストーリーを追加しましょう。</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

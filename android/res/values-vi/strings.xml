@@ -1457,6 +1457,10 @@
 	<string name="warning_speedcams_title">Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h</string>
 	<string name="warning_speedcams_subtitle">Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.</string>
 	<string name="speedcams_notice_message">Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams</string>
+	<string name="whats_new_ugc_routes_title">Rất dễ để chia sẻ những sự ấn tượng của bạn</string>
+	<string name="whats_new_ugc_routes_subtitle">Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Biến tuyến đường của bạn thành câu chuyện</string>
+	<string name="whats_new_ugc_routes_message2">Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

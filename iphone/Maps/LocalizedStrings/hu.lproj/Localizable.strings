@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról";
 
+"whats_new_ugc_routes_title" = "Könnyű megosztani a benyomásaidat";
+
+"whats_new_ugc_routes_subtitle" = "Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a MAPS.ME katalógusban.";
+
+"whats_new_webeditor_title" = "Alakítsd át az útvonalaidat történetekké";
+
+"whats_new_ugc_routes_message2" = "Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.";
+
 
 /**********  Partners  **********/
 

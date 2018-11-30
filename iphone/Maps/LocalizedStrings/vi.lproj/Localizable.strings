@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams";
 
+"whats_new_ugc_routes_title" = "Rất dễ để chia sẻ những sự ấn tượng của bạn";
+
+"whats_new_ugc_routes_subtitle" = "Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục MAPS.ME.";
+
+"whats_new_webeditor_title" = "Biến tuyến đường của bạn thành câu chuyện";
+
+"whats_new_ugc_routes_message2" = "Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.";
+
 
 /**********  Partners  **********/
 

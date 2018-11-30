@@ -1465,6 +1465,10 @@
 	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
 	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
+	<string name="whats_new_ugc_routes_title">Chce się podzielić wrażeniami? To proste!</string>
+	<string name="whats_new_ugc_routes_subtitle">Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Przeistaczaj trasy w historii</string>
+	<string name="whats_new_ugc_routes_message2">Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

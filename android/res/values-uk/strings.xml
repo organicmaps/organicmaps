@@ -1466,6 +1466,10 @@
 	<string name="warning_speedcams_title">Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г</string>
 	<string name="warning_speedcams_subtitle">Не забудьте ознайомитися з правилами дорожнього руху у країні подорожі.</string>
 	<string name="speedcams_notice_message">Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери</string>
+	<string name="whats_new_ugc_routes_title">Ділитись враженнями легко</string>
+	<string name="whats_new_ugc_routes_subtitle">Зберігай пам\'ятні місця, створюй маршрути, використовуючи закладки, та ділись ними з усіма в каталозі MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Перетворюй свої маршрути у історії</string>
+	<string name="whats_new_ugc_routes_message2">Додавай фото та детальні історії у веб-редакторі.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>

@@ -1457,6 +1457,10 @@
 	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
 	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>
+	<string name="whats_new_ugc_routes_title">Este ușor să vă împărtășiți impresiile</string>
+	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Transformați-vă rutele în povești</string>
+	<string name="whats_new_ugc_routes_message2">Adăugați fotografii și povești detaliate în editorul web.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

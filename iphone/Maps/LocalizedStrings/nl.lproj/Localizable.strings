@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen";
 
+"whats_new_ugc_routes_title" = "Het is eenvoudig om je indrukken te delen";
+
+"whats_new_ugc_routes_subtitle" = "Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de MAPS.ME-catalogus.";
+
+"whats_new_webeditor_title" = "Maak verhalen van je routes";
+
+"whats_new_ugc_routes_message2" = "Voeg foto's en gedetailleerde verhalen toe in de webbewerker.";
+
 
 /**********  Partners  **********/
 

@@ -1465,6 +1465,10 @@
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
+	<string name="whats_new_ugc_routes_title">Det er nemt at dele dine indtryk</string>
+	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i MAPS.ME kataloget.</string>
+	<string name="whats_new_webeditor_title">Lav dine ruter om til historier</string>
+	<string name="whats_new_ugc_routes_message2">Tilføj fotos og detaljerede historier i webredaktøren.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

@@ -1466,6 +1466,10 @@
 	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
 	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
 	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>
+	<string name="whats_new_ugc_routes_title">İzlenimlerinizi paylaşmak çok kolay</string>
+	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları MAPS.ME kataloğundaki herkesle paylaşın.</string>
+	<string name="whats_new_webeditor_title">Rotalarınızı hikayelere dönüştürün</string>
+	<string name="whats_new_ugc_routes_message2">Web editöre fotoğraflar ve detaylı hikayeler ekleyin.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

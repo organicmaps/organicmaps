@@ -1461,6 +1461,10 @@
 	<string name="warning_speedcams_title">Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t</string>
 	<string name="warning_speedcams_subtitle">Muista tutustua matkustusmaan liikennesääntöihin.</string>
 	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>
+	<string name="whats_new_ugc_routes_title">Voit helposti jakaa kokemuksiasi</string>
+	<string name="whats_new_ugc_routes_subtitle">Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa MAPS.ME-luettelossa.</string>
+	<string name="whats_new_webeditor_title">Muuta reittisi tarinoiksi</string>
+	<string name="whats_new_ugc_routes_message2">Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

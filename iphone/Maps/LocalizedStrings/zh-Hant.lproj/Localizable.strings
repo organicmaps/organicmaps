@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告";
 
+"whats_new_ugc_routes_title" = "分享您的印象很容易";
+
+"whats_new_ugc_routes_subtitle" = "保存有印象的地点、用书签创建路线，并在MAPS.ME目录中和大家分享。";
+
+"whats_new_webeditor_title" = "把路线变成故事";
+
+"whats_new_ugc_routes_message2" = "在网页编辑工具里添加照片和详细的故事。";
+
 
 /**********  Partners  **********/
 

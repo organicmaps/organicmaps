@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach";
 
+"whats_new_ugc_routes_title" = "Chce się podzielić wrażeniami? To proste!";
+
+"whats_new_ugc_routes_subtitle" = "Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu MAPS.ME.";
+
+"whats_new_webeditor_title" = "Przeistaczaj trasy w historii";
+
+"whats_new_ugc_routes_message2" = "Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.";
+
 
 /**********  Partners  **********/
 

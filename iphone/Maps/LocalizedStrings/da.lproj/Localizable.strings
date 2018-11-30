@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer";
 
+"whats_new_ugc_routes_title" = "Det er nemt at dele dine indtryk";
+
+"whats_new_ugc_routes_subtitle" = "Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i MAPS.ME kataloget.";
+
+"whats_new_webeditor_title" = "Lav dine ruter om til historier";
+
+"whats_new_ugc_routes_message2" = "Tilføj fotos og detaljerede historier i webredaktøren.";
+
 
 /**********  Partners  **********/
 

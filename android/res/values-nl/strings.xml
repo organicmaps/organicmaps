@@ -1461,6 +1461,10 @@
 	<string name="warning_speedcams_title">Navigator waarschuwt u over camera\'s wanneer u de maximumsnelheid van %d km/h overschrijdt</string>
 	<string name="warning_speedcams_subtitle">Let op de rijvoorschriften van het land waar u naartoe reist.</string>
 	<string name="speedcams_notice_message">Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen</string>
+	<string name="whats_new_ugc_routes_title">Het is eenvoudig om je indrukken te delen</string>
+	<string name="whats_new_ugc_routes_subtitle">Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de MAPS.ME-catalogus.</string>
+	<string name="whats_new_webeditor_title">Maak verhalen van je routes</string>
+	<string name="whats_new_ugc_routes_message2">Voeg foto\'s en gedetailleerde verhalen toe in de webbewerker.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

@@ -2636,6 +2636,14 @@
 
 "speedcams_notice_message" = "Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες";
 
+"whats_new_ugc_routes_title" = "Easy to share your impressions";
+
+"whats_new_ugc_routes_subtitle" = "Save memorable places, create routes from bookmarks and share them with everyone using MAPS.ME catalogue.";
+
+"whats_new_webeditor_title" = "Turn your routes into stories";
+
+"whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
+
 
 /**********  Partners  **********/
 

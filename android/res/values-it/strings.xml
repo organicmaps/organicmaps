@@ -1460,6 +1460,10 @@
 	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
 	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
 	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>
+	<string name="whats_new_ugc_routes_title">È facile condividere le tue impressioni</string>
+	<string name="whats_new_ugc_routes_subtitle">Salva luoghi memorabili, crea itinerari utilizzando i segnalibri e condividili con tutti nel catalogo MAPS.ME.</string>
+	<string name="whats_new_webeditor_title">Trasforma i tuoi percorsi in storie</string>
+	<string name="whats_new_ugc_routes_message2">Aggiungi foto e storie dettagliate nell\'editor web.</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>
