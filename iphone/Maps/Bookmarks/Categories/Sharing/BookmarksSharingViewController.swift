@@ -224,8 +224,8 @@ final class BookmarksSharingViewController: MWMTableViewController {
       Statistics.logEvent(kStatSharingOptionsError, withParameters: [kStatError : 0])
       MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("common_check_internet_connection_dialog_title"),
                                                                message: L("common_check_internet_connection_dialog"),
-                                                               rightButtonTitle: L("try_again"),
-                                                               leftButtonTitle: L("downloader_retry")) {
+                                                               rightButtonTitle: L("downloader_retry"),
+                                                               leftButtonTitle: L("cancel")) {
                                                                 self.performAfterValidation(action: action)
       }
     }
