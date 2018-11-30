@@ -95,4 +95,32 @@ UNIT_TEST(RoutingQuality_ItalyParma)
                      {{{44.81625, 10.34545}}} /* reference point */),
        ());
 }
+
+UNIT_TEST(RoutingQuality_SlovenijaLjubljana)
+{
+  TEST(CheckCarRoute({45.99272, 14.59186} /* start */, {46.10318, 14.46829} /* finish */,
+                     {{{46.04449, 14.44669}}} /* reference point */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_FrancePoitiers)
+{
+  TEST(CheckCarRoute({46.63612, 0.35762} /* start */, {46.49, 0.36787} /* finish */,
+                     {{{46.58706, 0.39232}}} /* reference point */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_FranceLoudun)
+{
+  TEST(CheckCarRoute({47.03437, 0.04437} /* start */, {46.97887, 0.09692} /* finish */,
+                     {{{47.00307, 0.06713}}} /* reference point */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_FranceDoueIaFontaine)
+{
+  TEST(CheckCarRoute({47.22972, -0.30962} /* start */, {47.17023, -0.2185} /* finish */,
+                     {{{47.19117, -0.31334}}} /* reference point */),
+       ());
+}
 }  // namespace
