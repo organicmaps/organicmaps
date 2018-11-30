@@ -1029,9 +1029,9 @@ void BookmarkManager::LoadBookmarks()
     
     std::vector<std::string> cloudFilePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated ? KmlFileType::Binary : KmlFileType::Text,
-      [userId](kml::FileData const & kmlData)
+      [](kml::FileData const & kmlData)
     {
-      return ::IsMyCategory(userId, kmlData.m_categoryData) || !FromCatalog(kmlData);
+      return true;  // Allow to load any files from the bookmarks directory.
     }, cloudFilePaths);
     
     migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
