@@ -28,8 +28,9 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   public void validate(@Nullable String serverId, @NonNull String vendor,
                        @NonNull String purchaseData)
   {
+    String orderId = PurchaseUtils.parseOrderId(purchaseData);
+    mValidationObservable.addObserver(orderId, this);
     String encodedPurchaseData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
-    mValidationObservable.addObserver(encodedPurchaseData, this);
     Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedPurchaseData);
   }
 
@@ -47,14 +48,12 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
 
   @Override
   public void onValidatePurchase(@NonNull ValidationStatus status, @NonNull String serverId,
-                                 @NonNull String vendorId, @NonNull String encodedPurchaseData)
+                                 @NonNull String vendorId, @NonNull String purchaseData)
   {
     LOGGER.i(TAG, "Validation code: " + status);
-    mValidationObservable.removeObserver(encodedPurchaseData, this);
+    String orderId = PurchaseUtils.parseOrderId(purchaseData);
+    mValidationObservable.removeObserver(orderId);
     if (mCallback != null)
-    {
-      byte[] tokenBytes = Base64.decode(encodedPurchaseData, Base64.DEFAULT);
-      mCallback.onValidate(new String(tokenBytes), status);
-    }
+      mCallback.onValidate(purchaseData, status);
   }
 }

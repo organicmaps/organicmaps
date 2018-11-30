@@ -6,7 +6,7 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import org.json.JSONException;
 
-class PurchaseUtils
+public class PurchaseUtils
 {
   private PurchaseUtils()
   {
@@ -23,6 +23,19 @@ class PurchaseUtils
     catch (JSONException e)
     {
       throw new IllegalArgumentException("Failed to parse purchase token!");
+    }
+  }
+
+  @NonNull
+  public static String parseOrderId(@NonNull String purchaseData)
+  {
+    try
+    {
+      return new Purchase(purchaseData, null).getOrderId();
+    }
+    catch (JSONException e)
+    {
+      throw new IllegalArgumentException("Failed to parse purchase order id!");
     }
   }
 

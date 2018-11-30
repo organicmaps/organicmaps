@@ -2,8 +2,10 @@ package com.mapswithme.maps;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 
 import com.mapswithme.maps.purchase.CoreValidationObserver;
+import com.mapswithme.maps.purchase.PurchaseUtils;
 import com.mapswithme.maps.purchase.ValidationStatus;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -43,22 +45,25 @@ public class PurchaseValidationObservable implements Framework.PurchaseValidatio
   public void onValidatePurchase(int code, @NonNull String serverId, @NonNull String vendorId,
                                  @NonNull String encodedPurchaseData)
   {
-    CoreValidationObserver observer = mObservers.get(encodedPurchaseData);
+    byte[] tokenBytes = Base64.decode(encodedPurchaseData, Base64.DEFAULT);
+    String purchaseData = new String(tokenBytes);
+    String orderId = PurchaseUtils.parseOrderId(purchaseData);
+    CoreValidationObserver observer = mObservers.get(orderId);
     if (observer == null)
       return;
 
-    observer.onValidatePurchase(ValidationStatus.values()[code], serverId, vendorId, encodedPurchaseData);
+    observer.onValidatePurchase(ValidationStatus.values()[code], serverId, vendorId, purchaseData);
   }
 
-  public void addObserver(@NonNull String encodedPurchaseData, @NonNull CoreValidationObserver observer)
+  public void addObserver(@NonNull String orderId, @NonNull CoreValidationObserver observer)
   {
-    mLogger.d(TAG, "Add validation observer: " + observer);
-    mObservers.put(encodedPurchaseData, observer);
+    mLogger.d(TAG, "Add validation observer '" + observer + "' for '" + orderId + "'");
+    mObservers.put(orderId, observer);
   }
 
-  public void removeObserver(@NonNull String encodedPurchaseData, @NonNull CoreValidationObserver observer)
+  public void removeObserver(@NonNull String orderId)
   {
-    mLogger.d(TAG, "Remove validation observer: " + observer);
-    mObservers.remove(encodedPurchaseData);
+    mLogger.d(TAG, "Remove validation observer for '" + orderId + "'");
+    mObservers.remove(orderId);
   }
 }
