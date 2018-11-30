@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,15 +37,24 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Completed in 1926, iconic Route 66 connected Chicago and Los Angeles across the heartland of" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REU-RG-LGL">
-                        <rect key="frame" x="16" y="55" width="288" height="33.5"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="TopLeft" horizontalHuggingPriority="251" verticalCompressionResistancePriority="250" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXr-iD-TLp">
+                        <rect key="frame" x="16" y="55" width="288" height="34"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="b9I-Gg-XV4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <color key="highlightedColor" white="0.0" alpha="0.8652878852739726" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="textContainer.lineFragmentPadding">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
+                                <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
                         </userDefinedRuntimeAttributes>
-                    </label>
+                    </textView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdk-zR-sUE">
                         <rect key="frame" x="16" y="88.5" width="45" height="20"/>
                         <constraints>
@@ -63,34 +72,35 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="2Sb-Xn-590" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="06s-Nb-idM"/>
-                    <constraint firstItem="hdk-zR-sUE" firstAttribute="top" secondItem="REU-RG-LGL" secondAttribute="bottom" id="EdF-Vq-TKn"/>
-                    <constraint firstItem="REU-RG-LGL" firstAttribute="trailing" secondItem="mV8-w9-Csf" secondAttribute="trailing" id="FUx-8e-EA7"/>
-                    <constraint firstAttribute="bottom" secondItem="REU-RG-LGL" secondAttribute="bottom" priority="751" constant="11" id="Kiq-Xb-qLQ"/>
                     <constraint firstAttribute="bottom" secondItem="hdk-zR-sUE" secondAttribute="bottom" priority="750" constant="11" id="L6s-9n-X4B"/>
                     <constraint firstItem="mV8-w9-Csf" firstAttribute="top" secondItem="2Sb-Xn-590" secondAttribute="bottom" constant="4" id="Nlu-YT-Drx"/>
                     <constraint firstItem="mV8-w9-Csf" firstAttribute="trailing" secondItem="2Sb-Xn-590" secondAttribute="trailing" id="R0w-5g-kbu"/>
                     <constraint firstAttribute="trailing" secondItem="2Sb-Xn-590" secondAttribute="trailing" constant="16" id="VHn-ij-MgE"/>
-                    <constraint firstItem="REU-RG-LGL" firstAttribute="leading" secondItem="mV8-w9-Csf" secondAttribute="leading" id="m1J-7d-l0A"/>
+                    <constraint firstItem="nXr-iD-TLp" firstAttribute="trailing" secondItem="mV8-w9-Csf" secondAttribute="trailing" id="Z0r-dh-U9D"/>
+                    <constraint firstAttribute="bottom" secondItem="nXr-iD-TLp" secondAttribute="bottom" priority="751" constant="11" id="cZp-vV-kIq"/>
+                    <constraint firstItem="nXr-iD-TLp" firstAttribute="leading" secondItem="mV8-w9-Csf" secondAttribute="leading" id="cqc-Om-7lf"/>
                     <constraint firstItem="mV8-w9-Csf" firstAttribute="leading" secondItem="2Sb-Xn-590" secondAttribute="leading" id="myY-Va-fju"/>
-                    <constraint firstItem="hdk-zR-sUE" firstAttribute="leading" secondItem="REU-RG-LGL" secondAttribute="leading" id="nou-Xi-LNB"/>
-                    <constraint firstItem="REU-RG-LGL" firstAttribute="top" secondItem="mV8-w9-Csf" secondAttribute="bottom" constant="8" id="uMb-Nv-0Of"/>
+                    <constraint firstItem="hdk-zR-sUE" firstAttribute="leading" secondItem="nXr-iD-TLp" secondAttribute="leading" id="qeZ-Hh-dD3"/>
+                    <constraint firstItem="hdk-zR-sUE" firstAttribute="top" secondItem="nXr-iD-TLp" secondAttribute="bottom" constant="-0.5" id="saV-C2-mfC"/>
+                    <constraint firstItem="nXr-iD-TLp" firstAttribute="top" secondItem="mV8-w9-Csf" secondAttribute="bottom" constant="8" id="vir-vf-pxE"/>
                     <constraint firstItem="2Sb-Xn-590" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="yNi-iw-loo"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="Kiq-Xb-qLQ"/>
+                        <exclude reference="cZp-vV-kIq"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
                 <outlet property="authorLabel" destination="mV8-w9-Csf" id="a7D-rh-lb9"/>
-                <outlet property="infoLabel" destination="REU-RG-LGL" id="iYY-qf-S0N"/>
-                <outlet property="infoToBottomConstraint" destination="Kiq-Xb-qLQ" id="IGx-bb-Y5S"/>
+                <outlet property="infoHeightConstraint" destination="b9I-Gg-XV4" id="uNR-rA-F2b"/>
+                <outlet property="infoTextView" destination="nXr-iD-TLp" id="Lwc-Wq-YnD"/>
+                <outlet property="infoToBottomConstraint" destination="cZp-vV-kIq" id="P7x-hP-udH"/>
                 <outlet property="moreButton" destination="hdk-zR-sUE" id="z6v-GK-SiE"/>
                 <outlet property="titleLabel" destination="2Sb-Xn-590" id="2uv-OT-ljT"/>
             </connections>
-            <point key="canvasLocation" x="34" y="92"/>
+            <point key="canvasLocation" x="33.600000000000001" y="91.754122938530742"/>
         </tableViewCell>
     </objects>
 </document>
