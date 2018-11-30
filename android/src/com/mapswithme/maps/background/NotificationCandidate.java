@@ -6,6 +6,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -20,8 +21,9 @@ public class NotificationCandidate
   @IntDef({ TYPE_UGC_AUTH, TYPE_UGC_REVIEW })
   @interface NotificationType {}
 
-  public static class MapObject implements Parcelable
+  public static class MapObject implements Parcelable, Serializable
   {
+    private static final long serialVersionUID = -7443680760782198916L;
     private final double mMercatorPosX;
     private final double mMercatorPosY;
     @NonNull
