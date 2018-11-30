@@ -29,7 +29,7 @@ public enum ItemType
         }
       },
 
-  CAFES(R.string.food, DiscoveryUserEvent.MORE_CAFES_CLICKED, DiscoveryUserEvent.CAFES_CLICKED)
+  CAFES(R.string.eat, DiscoveryUserEvent.MORE_CAFES_CLICKED, DiscoveryUserEvent.CAFES_CLICKED)
       {
         @Override
         public void onResultReceived(@NonNull DiscoveryResultReceiver callback,

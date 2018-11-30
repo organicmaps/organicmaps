@@ -248,7 +248,7 @@ struct Callback
 - (void)searchFood
 {
   [self.navigationController popViewControllerAnimated:YES];
-  [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"food") stringByAppendingString:@" "]
+  [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"eat") stringByAppendingString:@" "]
                                       forInputLocale:[NSLocale currentLocale].localeIdentifier];
 }
 
