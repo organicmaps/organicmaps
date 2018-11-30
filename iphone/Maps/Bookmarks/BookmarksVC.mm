@@ -464,16 +464,13 @@ CGFloat const kPinDiameter = 18.0f;
                             [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSettings}];
                           }]];
 
-  if (![[MWMBookmarksManager sharedManager] isCategoryFromCatalog:self->m_categoryId])
-  {
-    [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file")
-                                                    style:UIAlertActionStyleDefault
-                                                  handler:^(UIAlertAction * _Nonnull action)
-                            {
-                              [self exportFile];
-                              [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSendAsFile}];
-                            }]];
-  }
+  [actionSheet addAction:[UIAlertAction actionWithTitle:L(@"export_file")
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action)
+                          {
+                            [self exportFile];
+                            [Statistics logEvent:kStatBookmarksListItemMoreClick withParameters:@{kStatOption : kStatSendAsFile}];
+                          }]];
 
   auto deleteAction = [UIAlertAction actionWithTitle:L(@"delete_list")
                                                style:UIAlertActionStyleDestructive
