@@ -2168,7 +2168,7 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
     {
       bool const isMyCategory = ::IsMyCategory(userId, kmlData->m_categoryData);
       auto const p = base::JoinPath(isMyCategory ? GetBookmarksDirectory() : GetPrivateBookmarksDirectory(),
-                                  id, kKmbExtension);
+                                    id + kKmbExtension);
       auto collection = std::make_shared<KMLDataCollection>();
       collection->emplace_back(p, std::move(kmlData));
 
