@@ -18,13 +18,13 @@ class PaidRouteViewController: MWMViewController {
   private let purchase: IPaidRoutePurchase
   private let statistics: IPaidRouteStatistics
   private let name: String
-  private let author: String
+  private let author: String?
   private let imageUrl: URL?
 
   private var product: IStoreProduct?
 
   init(name: String,
-       author: String,
+       author: String?,
        imageUrl: URL?,
        purchase: IPaidRoutePurchase,
        statistics: IPaidRouteStatistics) {

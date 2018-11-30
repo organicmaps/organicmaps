@@ -1,17 +1,16 @@
 struct CatalogCategoryInfo {
   var id: String
   var name: String
-  var author: String
+  var author: String?
   var productId: String?
   var imageUrl: String?
 
   init?(_ components: [String : String]) {
     guard let id = components["id"],
-      let name = components["name"],
-      let author = components["author_name"] else { return nil }
+      let name = components["name"] else { return nil }
     self.id = id
     self.name = name
-    self.author = author
+    author = components["author_name"]
     productId = components["tier"]
     imageUrl = components["img"]
   }
