@@ -11,9 +11,15 @@ final class WhatsNewController: WelcomeViewController {
   
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: #imageLiteral(resourceName: "img_whats_new_leave_review"),
-                   title: "whats_new_ugc_title_updated_v840",
-                   text: "whats_new_leave_review",
+    WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_1"),
+                   title: "whats_new_ugc_routes_title",
+                   text: "whats_new_ugc_routes_subtitle",
+                   buttonTitle: "next",
+                   ctaButtonTitle: nil,
+                   ctaButtonUrl: nil),
+    WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_2"),
+                   title: "whats_new_webeditor_title",
+                   text: "whats_new_ugc_routes_message2",
                    buttonTitle: "done",
                    ctaButtonTitle: nil,
                    ctaButtonUrl: nil)
