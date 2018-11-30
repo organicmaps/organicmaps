@@ -64,13 +64,13 @@ extension BMCCategoryCell: BMCCategoryObserver {
     let accessString: String
     switch category.accessStatus {
     case .local:
-      accessString = L("bookmarks_private_access")
+      accessString = L("not_shared")
       accessImageView.image = UIImage(named: "ic_category_private")
     case .public:
-      accessString = L("bookmarks_public_access")
+      accessString = L("public_access")
       accessImageView.image = UIImage(named: "ic_category_public")
    case .private:
-      accessString = L("bookmarks_link_access")
+      accessString = L("limited_access")
       accessImageView.image = UIImage(named: "ic_category_link")
     case .other:
       assert(false, "We don't expect category with .other status here")
