@@ -77,7 +77,7 @@ struct TagData
 {
   std::string m_name;
   std::vector<SubtagData> m_subtags;
-  DECLARE_VISITOR(visitor(m_name, "name"),
+  DECLARE_VISITOR(visitor(m_name, "translation"),
                   visitor(m_subtags, "subtags"))
 };
 
