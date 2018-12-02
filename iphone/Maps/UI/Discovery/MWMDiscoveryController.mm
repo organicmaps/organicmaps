@@ -240,7 +240,7 @@ struct Callback
   [MWMSearch showHotelFilterWithParams:{}
                       onFinishCallback:^{
                         [MWMMapViewControlsManager.manager
-                         searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
+                         searchTextOnMap:[L(@"hotel") stringByAppendingString:@" "]
                          forInputLocale:[NSLocale currentLocale].localeIdentifier];
                       }];
 }
