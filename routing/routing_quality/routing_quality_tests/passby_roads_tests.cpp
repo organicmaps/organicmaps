@@ -54,6 +54,13 @@ UNIT_TEST(RoutingQuality_BelarusMinsk)
        ());
 }
 
+UNIT_TEST(RoutingQuality_BelarusMinskMKAD)
+{
+  TEST(CheckCarRoute({53.81784, 27.76789} /* start */, {53.94655, 27.36398} /* finish */,
+                     {{{53.95037, 27.65361}}} /* reference point */),
+       ());
+}
+
 UNIT_TEST(RoutingQuality_EnglandLondon)
 {
   TEST(CheckCarRoute({51.90356, -0.20133} /* start */, {51.23253, -0.33076} /* finish */,
@@ -121,6 +128,13 @@ UNIT_TEST(RoutingQuality_FranceDoueIaFontaine)
 {
   TEST(CheckCarRoute({47.22972, -0.30962} /* start */, {47.17023, -0.2185} /* finish */,
                      {{{47.19117, -0.31334}}} /* reference point */),
+       ());
+}
+
+UNIT_TEST(RoutingQuality_BelgiumBrussel)
+{
+  TEST(CheckCarRoute({50.88374, 4.2195} /* start */, {50.91494, 4.38122} /* finish */,
+                     {{{50.91727, 4.36858}}} /* reference point */),
        ());
 }
 }  // namespace
