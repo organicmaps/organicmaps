@@ -11,7 +11,7 @@ public enum ItemType
 {
   VIATOR,
 
-  ATTRACTIONS(R.string.discovery_button_subtitle_attractions,
+  ATTRACTIONS(R.string.tourism,
               DiscoveryUserEvent.MORE_ATTRACTIONS_CLICKED,
               DiscoveryUserEvent.ATTRACTIONS_CLICKED)
       {
@@ -45,9 +45,14 @@ public enum ItemType
         }
       },
 
-  HOTELS(R.string.discovery_button_subtitle_attractions, DiscoveryUserEvent.MORE_HOTELS_CLICKED,
+  HOTELS(UiUtils.NO_ID, DiscoveryUserEvent.MORE_HOTELS_CLICKED,
          DiscoveryUserEvent.HOTELS_CLICKED)
       {
+        @Override
+        public int getSearchCategory()
+        {
+          throw new UnsupportedOperationException("Unsupported.");
+        }
         @Override
         public void onResultReceived(@NonNull DiscoveryResultReceiver callback,
                                      @NonNull SearchResult[] results)
@@ -56,9 +61,15 @@ public enum ItemType
         }
       },
 
-  LOCAL_EXPERTS(R.string.discovery_button_subtitle_attractions,
-                DiscoveryUserEvent.MORE_LOCALS_CLICKED,
-                DiscoveryUserEvent.LOCALS_CLICKED);
+  LOCAL_EXPERTS(UiUtils.NO_ID, DiscoveryUserEvent.MORE_LOCALS_CLICKED,
+                DiscoveryUserEvent.LOCALS_CLICKED)
+      {
+        @Override
+        public int getSearchCategory()
+        {
+          throw new UnsupportedOperationException("Unsupported.");
+        }
+      };
 
   @StringRes
   private final int mSearchCategory;
