@@ -389,6 +389,9 @@ void Eye::RegisterMapObjectEvent(MapObject const & mapObject, MapObject::Event::
 // static
 void Eye::Event::TipClicked(Tip::Type type, Tip::Event event)
 {
+  CHECK_NOT_EQUAL(type, Tip::Type::Count, ());
+  CHECK_NOT_EQUAL(event, Tip::Event::Count, ());
+
   GetPlatform().RunTask(Platform::Thread::File, [type, event]
   {
     Instance().RegisterTipClick(type, event);
@@ -425,6 +428,8 @@ void Eye::Event::DiscoveryShown()
 // static
 void Eye::Event::DiscoveryItemClicked(Discovery::Event event)
 {
+  CHECK_NOT_EQUAL(event, Discovery::Event::Count, ());
+
   GetPlatform().RunTask(Platform::Thread::File, [event]
   {
     Instance().IncrementDiscoveryItem(event);

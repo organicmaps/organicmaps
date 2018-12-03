@@ -47,6 +47,7 @@ class Counters<T, R, EnableIfIsEnumWithCount<T>>
 public:
   void Increment(T const key)
   {
+    CHECK_NOT_EQUAL(key, T::Count, ());
     ++m_counters[static_cast<size_t>(key)];
   }
 
