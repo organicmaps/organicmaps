@@ -34,6 +34,14 @@ double constexpr kMinIngoingDistMeters = 100.0;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
 double constexpr kNotSoCloseMaxDistMeters = 30.0;
 
+/// \brief Contains information about highway classes of the route goes through a turn
+/// and about highway classes of possible ways from the turn.
+struct TurnHighwayClasses
+{
+  ftypes::HighwayClass m_minClassForTheRoute = ftypes::HighwayClass::Error;
+  ftypes::HighwayClass m_maxClassForPossibleTurns = ftypes::HighwayClass::Error;
+};
+
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
 {
   return (hwClass == ftypes::HighwayClass::Trunk || hwClass == ftypes::HighwayClass::Primary) &&
@@ -102,14 +110,9 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
   return false;
 }
 
-/*!
- * \brief Returns false when
- * - the route leads from one big road to another one;
- * - and the other possible turns lead to small roads;
- * Returns true otherwise.
- */
-bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
-                            NumMwmIds const & numMwmIds)
+/// \brief If it's possible fills |turnHighwayClasses| and returns true, and returns false otherwise.
+bool GetTurnHighwayClasses(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+                           NumMwmIds const & numMwmIds, TurnHighwayClasses & turnHighwayClasses)
 {
   // The turn should be kept if there's no any information about feature id of outgoing segment
   // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
@@ -117,44 +120,65 @@ bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const
   if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
     return true;
 
-  ftypes::HighwayClass maxClassForPossibleTurns = ftypes::HighwayClass::Error;
+  turnHighwayClasses.m_maxClassForPossibleTurns = ftypes::HighwayClass::Error;
   for (auto const & t : possibleTurns.candidates)
   {
     if (t.m_segment == firstOutgoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.m_highwayClass;
-    if (static_cast<int>(highwayClass) > static_cast<int>(maxClassForPossibleTurns))
-      maxClassForPossibleTurns = highwayClass;
+    if (static_cast<int>(highwayClass) > static_cast<int>(turnHighwayClasses.m_maxClassForPossibleTurns))
+      turnHighwayClasses.m_maxClassForPossibleTurns = highwayClass;
   }
-  if (maxClassForPossibleTurns == ftypes::HighwayClass::Error)
+  if (turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Error)
   {
     ASSERT_GREATER(possibleTurns.candidates.size(), 1, ("No turn candidates or there's only one turn candidate."));
     ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
   }
-  if (maxClassForPossibleTurns == ftypes::HighwayClass::Undefined)
+  if (turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Undefined)
     return false; // Fake edges have HighwayClass::Undefined.
 
-  ftypes::HighwayClass const minClassForTheRoute =
+  turnHighwayClasses.m_minClassForTheRoute =
       static_cast<ftypes::HighwayClass>(min(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
                                             static_cast<int>(turnInfo.m_outgoing.m_highwayClass)));
 
-  if (minClassForTheRoute == ftypes::HighwayClass::Error)
+  if (turnHighwayClasses.m_minClassForTheRoute == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
     return false;
   }
-  if (minClassForTheRoute == ftypes::HighwayClass::Undefined)
+  if (turnHighwayClasses.m_minClassForTheRoute == ftypes::HighwayClass::Undefined)
     return false; // Fake edges have HighwayClass::Undefined.
 
-  // Maximum difference between HighwayClasses of route segments and possible way segments
-  // to keep the bifurcation point as a turn.
+  return true;
+}
+
+/// * \returns false when
+/// * - the route leads from one big road to another one;
+/// * - and the other possible turns lead to small roads;
+/// * Returns true otherwise.
+/// \param possibleTurns is all possible ways out from a junction.
+/// \param turnInfo is information about ingoing and outgoing segments of the route.
+/// \param carDirection is a direction about the current turn if it's available.
+/// If not, CarDirection::None should be passed.
+bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+                            NumMwmIds const & numMwmIds, CarDirection carDirection)
+{
+  // Maximum difference between HighwayClasses of the route segments and
+  // the possible way segments to keep the junction as a turn.
   int constexpr kMaxHighwayClassDiff = 2;
+  int constexpr kMaxHighwayClassDiffForGoStraight = 1;
   int constexpr kMaxHighwayClassDiffForService = 1;
+
+  TurnHighwayClasses turnHighwayClasses;
+  if (!GetTurnHighwayClasses(possibleTurns, turnInfo, numMwmIds, turnHighwayClasses))
+    return false;
+
   int const diff =
-      static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute);
+      static_cast<int>(turnHighwayClasses.m_maxClassForPossibleTurns) - static_cast<int>(turnHighwayClasses.m_minClassForTheRoute);
   if (diff >= kMaxHighwayClassDiff ||
-      (maxClassForPossibleTurns == ftypes::HighwayClass::Service && diff >= kMaxHighwayClassDiffForService))
+      (diff >= kMaxHighwayClassDiffForGoStraight && carDirection == CarDirection::GoStraight) ||
+      (diff >= kMaxHighwayClassDiffForService && turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Service))
   {
     // The turn shall be removed if the route goes near small roads.
     return false;
@@ -447,7 +471,7 @@ bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointInde
     return true;
   }
 
-  if (!KeepTurnByHighwayClass(possibleTurns, turnInfo, numMwmIds))
+  if (!KeepTurnByHighwayClass(possibleTurns, turnInfo, numMwmIds, CarDirection::None))
   {
     // Taking the next point of the next segment.
     nextIndex = {index.m_segmentIndex + 1, 1 /* m_pathIndex */};
@@ -912,7 +936,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   // Note 3. Keeping a turn at this point means that the decision to keep this turn or not
   // will be made after.
   if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1 &&
-      !KeepTurnByHighwayClass(nodes, turnInfo, numMwmIds))
+      !KeepTurnByHighwayClass(nodes, turnInfo, numMwmIds, turn.m_turn))
   {
     turn.m_turn = CarDirection::None;
     return;
