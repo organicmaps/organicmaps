@@ -517,6 +517,7 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
                           {"User-Agent", GetPlatform().GetAppUserAgent()}});
       request.SetParam("author_id", uploadData.m_userId);
       request.SetParam("bundle_hash", uploadData.m_serverId);
+      request.SetParam("locale", languages::GetCurrentOrig());
       request.SetFileKey("file_contents");
       request.SetFilePath(zippedFilePath);
       auto const uploadCode = request.Upload();
