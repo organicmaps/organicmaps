@@ -41,6 +41,7 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 @property(nonatomic) BOOL disableStandbyOnRouteFollowing;
 @property(nonatomic) MWMTip tutorialType;
+@property(nonatomic) MWMTutorialViewController * tutorialViewContoller;
 
 @end
 
@@ -410,6 +411,7 @@ extern NSString * const kAlohalyticsTapEventKey;
                                           delegate:self];
     break;
   case MWMTipNone:
+      tutorial = nil;
     break;
   }
   
@@ -434,17 +436,21 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   if (ownerController.isLaunchByDeepLink)
     return;
-  
-  self.tutorialType = [MWMEye getTipType];
-  auto tutorial = [self tutorialWithType:self.tutorialType];
-  if (!tutorial)
+
+  if (self.tutorialViewContoller != nil)
     return;
 
-  [ownerController addChildViewController:tutorial];
-  tutorial.view.frame = ownerController.view.bounds;
-  tutorial.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [ownerController.view addSubview:tutorial.view];
-  [tutorial didMoveToParentViewController:ownerController];
+  self.tutorialType = [MWMEye getTipType];
+  self.tutorialViewContoller = [self tutorialWithType:self.tutorialType];
+  if (!self.tutorialViewContoller)
+    return;
+
+  self.hidden = NO;
+  [ownerController addChildViewController:self.tutorialViewContoller];
+  self.tutorialViewContoller.view.frame = ownerController.view.bounds;
+  self.tutorialViewContoller.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  [ownerController.view addSubview:self.tutorialViewContoller.view];
+  [self.tutorialViewContoller didMoveToParentViewController:ownerController];
 }
 
 - (void)didPressCancel:(MWMTutorialViewController *)viewController
@@ -455,6 +461,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];
   }];
+  self.tutorialViewContoller = nil;
 }
 
 - (void)didPressTarget:(MWMTutorialViewController *)viewController
@@ -465,6 +472,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];
   }];
+  self.tutorialViewContoller = nil;
 }
 
 @end
