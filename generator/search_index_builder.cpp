@@ -7,6 +7,7 @@
 #include "search/search_trie.hpp"
 #include "search/types_skipper.hpp"
 
+#include "indexer/brands_holder.hpp"
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/data_source.hpp"
@@ -301,6 +302,15 @@ public:
     string const op = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
     if (!op.empty())
       inserter(StringUtf8Multilang::kDefaultCode, op);
+
+    string const brand = f.GetMetadata().Get(feature::Metadata::FMD_BRAND);
+    if (!brand.empty())
+    {
+      auto const & brands = indexer::GetDefaultBrands();
+      brands.ForEachNameByKey(brand, [&inserter](indexer::BrandsHolder::Brand::Name const & name) {
+        inserter(name.m_locale, name.m_name);
+      });
+    }
 
     Classificator const & c = classif();
 

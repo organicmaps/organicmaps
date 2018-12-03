@@ -11,6 +11,7 @@
 
 #include "editor/editable_data_source.hpp"
 
+#include "indexer/brands_holder.hpp"
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -88,6 +89,15 @@ NameScores GetNameScores(FeatureType & ft, Geocoder::Params const & params,
   string const op = ft.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
   if (!op.empty())
     UpdateNameScores(op, sliceNoCategories, bestScores);
+
+  string const brand = ft.GetMetadata().Get(feature::Metadata::FMD_BRAND);
+  if (!brand.empty())
+  {
+    auto const & brands = indexer::GetDefaultBrands();
+    brands.ForEachNameByKey(brand, [&](indexer::BrandsHolder::Brand::Name const & name) {
+      UpdateNameScores(name.m_name, sliceNoCategories, bestScores);
+    });
+  }
 
   return bestScores;
 }

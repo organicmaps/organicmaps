@@ -137,6 +137,27 @@ private:
   string m_operator;
 };
 
+class TestBrandFeature : public TestCafe
+{
+public:
+  TestBrandFeature(m2::PointD const & center, string const & brand, string const & lang)
+    : TestCafe(center, {} /* name */, lang), m_brand(brand)
+  {
+  }
+
+  // TestPOI overrides:
+  void Serialize(FeatureBuilder1 & fb) const override
+  {
+    TestCafe::Serialize(fb);
+
+    auto & metadata = fb.GetMetadata();
+    metadata.Set(feature::Metadata::FMD_BRAND, m_brand);
+  }
+
+private:
+  string m_brand;
+};
+
 class ProcessorTest : public SearchTest
 {
 };
@@ -1602,6 +1623,37 @@ UNIT_CLASS_TEST(ProcessorTest, OperatorTest)
     TEST(ResultsMatch("alfa atm ", "en", rules), ());
     TEST(ResultsMatch("atm alfa bank ", "en", rules), ());
     TEST(ResultsMatch("atm alfa ", "en", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(ProcessorTest, BrandTest)
+{
+  string const countryName = "Wonderland";
+
+  TestBrandFeature mac(m2::PointD(1.0, 1.0), "mcdonalds", "en");
+  TestBrandFeature sw(m2::PointD(1.0, 1.0), "subway", "en");
+
+  auto countryId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(mac);
+    builder.Add(sw);
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  {
+    TRules rules{ExactMatch(countryId, mac)};
+    TEST(ResultsMatch("McDonald's", "en", rules), ());
+    TEST(ResultsMatch("Mc Donalds", "en", rules), ());
+    TEST(ResultsMatch("МакДональд'с", "ru", rules), ());
+    TEST(ResultsMatch("Мак Доналдс", "ru", rules), ());
+    TEST(ResultsMatch("マクドナルド", "ja", rules), ());
+  }
+
+  {
+    TRules rules{ExactMatch(countryId, sw)};
+    TEST(ResultsMatch("Subway", "en", rules), ());
+    TEST(ResultsMatch("Сабвэй", "ru", rules), ());
+    TEST(ResultsMatch("サブウェイ", "ja", rules), ());
   }
 }
 }  // namespace
