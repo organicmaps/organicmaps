@@ -11,6 +11,7 @@ set(SRC
   booking_dataset.cpp
   booking_dataset.hpp
   booking_scoring.cpp
+  boost_helpers.hpp
   borders_generator.cpp
   borders_generator.hpp
   borders_loader.cpp
@@ -98,10 +99,15 @@ set(SRC
   osm_source.cpp
   osm_xml_source.hpp
   polygonizer.hpp
+  popularity.cpp
+  popularity.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
   place.hpp
   place.cpp
+  place_node.hpp
+  platform_helpers.cpp
+  platform_helpers.hpp
   relation_tags.cpp
   relation_tags.hpp
   region_meta.cpp

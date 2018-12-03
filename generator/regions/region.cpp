@@ -1,5 +1,6 @@
 #include "generator/regions/region.hpp"
 
+#include "generator/boost_helpers.hpp"
 #include "generator/regions/city.hpp"
 #include "generator/regions/collector_region_info.hpp"
 
@@ -14,17 +15,6 @@ namespace generator
 {
 namespace regions
 {
-namespace
-{
-template <typename BoostGeometry, typename FbGeometry>
-void FillBoostGeometry(BoostGeometry & geometry, FbGeometry const & fbGeometry)
-{
-  geometry.reserve(fbGeometry.size());
-  for (auto const & p : fbGeometry)
-    boost::geometry::append(geometry, BoostPoint{p.x, p.y});
-}
-}  // namespace
-
 Region::Region(FeatureBuilder1 const & fb, RegionDataProxy const & rd)
   : RegionWithName(fb.GetParams().name),
     RegionWithData(rd),
@@ -44,18 +34,7 @@ void Region::DeletePolygon()
 void Region::FillPolygon(FeatureBuilder1 const & fb)
 {
   CHECK(m_polygon, ());
-
-  auto const & fbGeometry = fb.GetGeometry();
-  CHECK(!fbGeometry.empty(), ());
-  auto it = std::begin(fbGeometry);
-  FillBoostGeometry(m_polygon->outer(), *it);
-  m_polygon->inners().resize(fbGeometry.size() - 1);
-  int i = 0;
-  ++it;
-  for (; it != std::end(fbGeometry); ++it)
-    FillBoostGeometry(m_polygon->inners()[i++], *it);
-
-  boost::geometry::correct(*m_polygon);
+  boost_helpers::FillPolygon(*m_polygon, fb);
 }
 
 bool Region::IsCountry() const

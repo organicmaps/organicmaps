@@ -402,6 +402,48 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
   return mask;
 }
 
+IsPopularityPlaceChecker::IsPopularityPlaceChecker()
+{
+  vector<pair<string, string>> const popularityPlaceTypes = {
+    {"amenity", "bar"},
+    {"amenity", "cafe"},
+    {"amenity", "fast_food"},
+    {"amenity", "pub"},
+    {"amenity", "restaurant"},
+    {"amenity", "place_of_worship"},
+    {"amenity", "grave_yard"},
+    {"historic", "archaeological_site"},
+    {"historic", "castle"},
+    {"historic", "memorial"},
+    {"historic", "monument"},
+    {"historic", "museum"},
+    {"historic", "ruins"},
+    {"historic", "ship"},
+    {"historic", "tomb"},
+    {"shop", "bakery"},
+    {"shop", "bicycle"},
+    {"shop", "department_store"},
+    {"shop", "outdoor"},
+    {"shop", "ticket"},
+    {"tourism", "artwork"},
+    {"tourism", "attraction"},
+    {"tourism", "museum"},
+    {"tourism", "gallery"},
+    {"tourism", "viewpoint"},
+    {"tourism", "zoo"},
+    {"tourism", "theme_park"},
+    {"leisure", "park"},
+    {"leisure", "water_park"},
+    {"landuse", "cemetery"},
+    {"highway", "pedestrian"},
+    {"man_made", "lighthouse"}
+  };
+
+  Classificator const & c = classif();
+  for (auto const & t : popularityPlaceTypes)
+    m_types.push_back(c.GetTypeByPath({t.first, t.second}));
+}
+
 boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType & ft) const
 {
   feature::TypesHolder types(ft);

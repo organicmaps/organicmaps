@@ -17,7 +17,9 @@
 #include "generator/maxspeeds_builder.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/platform_helpers.hpp"
 #include "generator/popular_places_section_builder.hpp"
+#include "generator/popularity.hpp"
 #include "generator/regions/collector_region_info.hpp"
 #include "generator/regions/regions.hpp"
 #include "generator/restriction_generator.hpp"
@@ -58,6 +60,7 @@
 #include <fstream>
 #include <memory>
 #include <string>
+#include <thread>
 
 #include "defines.hpp"
 
@@ -191,6 +194,8 @@ DEFINE_string(geo_objects_key_value, "", "Output geo objects key-value file.");
 
 DEFINE_string(regions_features, "", "Input tmp.mwm file with regions.");
 
+DEFINE_string(popularity_csv, "", "Output csv for popularity.");
+
 // Common.
 DEFINE_bool(verbose, false, "Provide more detailed output.");
 
@@ -204,6 +209,10 @@ int GeneratorToolMain(int argc, char ** argv)
         "Takes OSM XML data from stdin and creates data and index files in several passes.");
 
   google::ParseCommandLineFlags(&argc, &argv, true);
+
+  auto threadsCount = std::thread::hardware_concurrency();
+  if (threadsCount == 0)
+    threadsCount = 1;
 
   Platform & pl = GetPlatform();
 
@@ -276,7 +285,7 @@ int GeneratorToolMain(int argc, char ** argv)
       FLAGS_make_city_roads || FLAGS_generate_maxspeed || FLAGS_generate_traffic_keys ||
       FLAGS_transit_path != "" || FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" ||
       FLAGS_generate_geo_objects_features || FLAGS_geo_objects_key_value != "" ||
-      FLAGS_dump_wikipedia_urls != "" || FLAGS_wikipedia_pages != "")
+      FLAGS_dump_wikipedia_urls != "" || FLAGS_wikipedia_pages != "" || FLAGS_popularity_csv != "")
   {
     classificator::Load();
   }
@@ -421,10 +430,15 @@ int GeneratorToolMain(int argc, char ** argv)
     }
   }
 
+  if (!FLAGS_popularity_csv.empty())
+  {
+    popularity::BuildPopularitySrcFromAllData(genInfo.m_tmpDir, FLAGS_popularity_csv, threadsCount);
+  }
+
   if (!FLAGS_dump_wikipedia_urls.empty())
   {
     auto const tmpPath = base::JoinPath(genInfo.m_intermediateDir, "tmp");
-    auto const datFiles = CountriesToDataFilePaths(tmpPath);
+    auto const datFiles = platform_helpers::GetFullDataTmpFilePaths(tmpPath);
     WikiUrlDumper wikiUrlDumper(FLAGS_dump_wikipedia_urls, datFiles);
     wikiUrlDumper.Dump();
   }

@@ -6,25 +6,11 @@
 #include "indexer/feature_processor.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
-#include "platform/platform.hpp"
-
-#include "coding/file_name_utils.hpp"
-
 #include <cstdint>
 #include <fstream>
 
 namespace generator
 {
-std::vector<std::string> CountriesToDataFilePaths(std::string const & path)
-{
-  std::vector<std::string> result;
-  Platform::GetFilesByExt(path, DATA_FILE_EXTENSION_TMP, result);
-  for (auto & p : result)
-    p = base::JoinPath(path, p);
-
-  return result;
-}
-
 WikiUrlDumper::WikiUrlDumper(std::string const & path, std::vector<std::string> const & dataFiles)
   : m_path(path), m_dataFiles(dataFiles) {}
 

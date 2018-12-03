@@ -1,38 +1,15 @@
 #pragma once
 
+#include "generator/place_node.hpp"
 #include "generator/regions/region.hpp"
 
 #include <iostream>
-#include <memory>
-#include <vector>
 
 namespace generator
 {
 namespace regions
 {
-struct Node
-{
-  using Ptr = std::shared_ptr<Node>;
-  using WeakPtr = std::weak_ptr<Node>;
-  using PtrList = std::vector<Ptr>;
-
-  explicit Node(Region && region) : m_region(std::move(region)) {}
-
-  void AddChild(Ptr child) { m_children.push_back(child); }
-  PtrList const & GetChildren() const { return m_children; }
-  PtrList & GetChildren() { return m_children; }
-  void SetChildren(PtrList const children) { m_children = children; }
-  void RemoveChildren() { m_children.clear(); }
-  bool HasChildren() { return m_children.size(); }
-  void SetParent(Ptr parent) { m_parent = parent; }
-  Ptr GetParent() const { return m_parent.lock(); }
-  Region & GetData() { return m_region; }
-
-private:
-  Region m_region;
-  PtrList m_children;
-  WeakPtr m_parent;
-};
+using Node = PlaceNode<Region>;
 
 size_t TreeSize(Node::Ptr node);
 

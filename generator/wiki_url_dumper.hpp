@@ -6,8 +6,6 @@
 
 namespace generator
 {
-std::vector<std::string> CountriesToDataFilePaths(std::string const & path);
-
 class WikiUrlDumper
 {
 public:

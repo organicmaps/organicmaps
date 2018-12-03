@@ -208,6 +208,13 @@ public:
   DECLARE_CHECKER_INSTANCE(IsTunnelChecker);
 };
 
+class IsPopularityPlaceChecker : public BaseChecker
+{
+  IsPopularityPlaceChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsPopularityPlaceChecker);
+};
+
 class IsHotelChecker : public BaseChecker
 {
 public:
