@@ -14,7 +14,7 @@ final class WhatsNewController: WelcomeViewController {
     WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_1"),
                    title: "whats_new_ugc_routes_title",
                    text: "whats_new_ugc_routes_subtitle",
-                   buttonTitle: "next",
+                   buttonTitle: "whats_new_next_button",
                    ctaButtonTitle: nil,
                    ctaButtonUrl: nil),
     WhatsNewConfig(image: #imageLiteral(resourceName: "whatsnew_85_2"),
