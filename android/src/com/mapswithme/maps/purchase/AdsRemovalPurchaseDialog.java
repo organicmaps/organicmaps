@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -463,6 +464,17 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     // Order is important.
     P1Y,
     P1M,
-    P1W
+    P1W;
+
+    @Nullable
+    public static Period getInstance(@Nullable String subscriptionPeriod)
+    {
+      for (Period each : values())
+      {
+        if (TextUtils.equals(each.name(), subscriptionPeriod))
+          return each;
+      }
+      return null;
+    }
   }
 }

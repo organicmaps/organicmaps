@@ -48,7 +48,7 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
       return;
     }
 
-    if (skuDetails == null || skuDetails.isEmpty())
+    if (skuDetails == null || skuDetails.isEmpty() || hasIncorrectSkuDetails(skuDetails))
     {
       LOGGER.w(TAG, "Purchase details not found");
       if (getCallback() != null)
@@ -59,5 +59,15 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
     LOGGER.i(TAG, "Purchase details obtained: " + skuDetails);
     if (getCallback() != null)
       getCallback().onPurchaseDetailsLoaded(skuDetails);
+  }
+
+  private boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
+  {
+    for (SkuDetails each : skuDetails)
+    {
+      if (AdsRemovalPurchaseDialog.Period.getInstance(each.getSubscriptionPeriod()) == null)
+        return true;
+    }
+    return false;
   }
 }
