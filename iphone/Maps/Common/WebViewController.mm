@@ -86,6 +86,7 @@
   [self.webView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
 
   self.webView.backgroundColor = UIColor.whiteColor;
+  self.webView.allowsLinkPreview = NO;
 
   __weak __typeof(self) ws = self;
   [self willLoadUrl:^(BOOL load) {
