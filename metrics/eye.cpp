@@ -45,6 +45,12 @@ void Load(Info & info)
     if (!infoFileData.empty())
       Serdes::DeserializeInfo(infoFileData, info);
 
+    // Workaround to remove tips which were saved by mistake.
+    info.m_tips.erase(std::remove_if(info.m_tips.begin(), info.m_tips.end(), [](auto const & item)
+    {
+      return item.m_type == Tip::Type::Count;
+    }), info.m_tips.end());
+
     if (!mapObjectsFileData.empty())
       Serdes::DeserializeMapObjects(mapObjectsFileData, info.m_mapObjects);
   }
