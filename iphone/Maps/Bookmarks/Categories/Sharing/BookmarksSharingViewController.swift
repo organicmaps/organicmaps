@@ -136,9 +136,7 @@ final class BookmarksSharingViewController: MWMTableViewController {
       startUploadAndPublishFlow()
     } else if cell == getDirectLinkCell {
       uploadAndGetDirectLink()
-    } else if cell == editOnWebCell {
-      // TODO: show edit on web screen
-    }
+    } 
   }
   
   func startUploadAndPublishFlow() {
