@@ -2102,4 +2102,30 @@
 	<string name="type.waterway.stream.intermittent">Река</string>
 	<string name="type.waterway.stream.tunnel">Река</string>
 	<string name="type.waterway.waterfall">Водопад</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.baskin_robbins">Баскин Роббинс</string>
+	<string name="brand.burger_king">Бургер Кинг</string>
+	<string name="brand.celentano">Челентано</string>
+	<string name="brand.coffee_house">Кофе Хауз</string>
+	<string name="brand.coffeeport">Кофепорт</string>
+	<string name="brand.dominos_pizza">Домино\'с Пицца</string>
+	<string name="brand.double_b">Даблби</string>
+	<string name="brand.dunkin_donuts">Данкин Донатс</string>
+	<string name="brand.il_patio">IL Патио</string>
+	<string name="brand.kroshka_kartoshka">Крошка Картошка</string>
+	<string name="brand.marugame_seimen">Марукамэ</string>
+	<string name="brand.mcdonalds">Макдоналдс</string>
+	<string name="brand.mu_mu">Му-Му</string>
+	<string name="brand.papa_johns">Папа Джонс</string>
+	<string name="brand.pizza_hut">Пицца Хат</string>
+	<string name="brand.robin_sdobin">Робин Сдобин</string>
+	<string name="brand.shokoladnitsa">Шоколадница</string>
+	<string name="brand.starbucks">Старбакс</string>
+	<string name="brand.stardogs">Стардог!s</string>
+	<string name="brand.subway">Сабвэй</string>
+	<string name="brand.sushi_wok">Суши Wok</string>
+	<string name="brand.teremok">Теремок</string>
+	<string name="brand.wokker">Воккер</string>
+	<string name="brand.yakitoria">Якитория</string>
 </resources>

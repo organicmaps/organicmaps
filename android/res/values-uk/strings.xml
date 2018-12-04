@@ -2038,4 +2038,9 @@
 	<string name="type.waterway.stream.intermittent">Річка</string>
 	<string name="type.waterway.stream.tunnel">Річка</string>
 	<string name="type.waterway.waterfall">Водоспад</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.celentano">Челентано</string>
+	<string name="brand.mcdonalds">МакДональдз</string>
+	<string name="brand.sushi_wok">Суши Wok</string>
 </resources>

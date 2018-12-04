@@ -2038,4 +2038,15 @@
 	<string name="type.waterway.stream.intermittent">نهر</string>
 	<string name="type.waterway.stream.tunnel">نهر</string>
 	<string name="type.waterway.waterfall">شلال</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.aroma">أروما</string>
+	<string name="brand.burger_king">برغر كينغ</string>
+	<string name="brand.costa_coffee">كوستا</string>
+	<string name="brand.dominos_pizza">دومينوز بيتزا</string>
+	<string name="brand.dunkin_donuts">دنكن دونتس</string>
+	<string name="brand.kfc">دجاج كنتاكي</string>
+	<string name="brand.mcdonalds">ماكدونالدز</string>
+	<string name="brand.pizza_hut">بيتزا هت</string>
+	<string name="brand.starbucks">ستاربكس</string>
 </resources>

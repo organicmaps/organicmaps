@@ -2022,4 +2022,7 @@
 	<string name="type.waterway.stream.intermittent">Rivière</string>
 	<string name="type.waterway.stream.tunnel">Rivière</string>
 	<string name="type.waterway.waterfall">Cascade</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.kfc">PFC</string>
 </resources>

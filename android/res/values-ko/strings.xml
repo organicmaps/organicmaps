@@ -2026,4 +2026,11 @@
 	<string name="type.waterway.stream.intermittent">강</string>
 	<string name="type.waterway.stream.tunnel">강</string>
 	<string name="type.waterway.waterfall">폭포</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.blue_bottle_coffee">블루버틀 커피</string>
+	<string name="brand.burger_king">버거킹</string>
+	<string name="brand.dominos_pizza">도미노피자</string>
+	<string name="brand.mcdonalds">디몰 맥도날드</string>
+	<string name="brand.starbucks">스타벅스</string>
 </resources>

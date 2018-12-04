@@ -4491,3 +4491,312 @@
 "type.wheelchair.no" = "wheelchair-no";
 
 "type.wheelchair.yes" = "wheelchair-yes";
+
+
+/********** Brands **********/
+
+"brand.aiya" = "藍屋";
+
+"brand.anrakutei" = "安楽亭";
+
+"brand.applebee_s" = "Applebee's";
+
+"brand.aroma" = "Aroma";
+
+"brand.bamiyan" = "バーミヤン";
+
+"brand.banana_leaf" = "Banana Leaf";
+
+"brand.baskin_robbins" = "Baskin-Robbins";
+
+"brand.big_boy" = "ビッグボーイ";
+
+"brand.bikkuridonkey" = "びっくりドンキー";
+
+"brand.blue_bottle_coffee" = "ブルーボトルコーヒー";
+
+"brand.burger_king" = "バーガーキング";
+
+"brand.cafe_amazon" = "Café Amazon";
+
+"brand.cafe_coffee_day" = "Cafe Coffee Day";
+
+"brand.cafe_de_crie" = "カフェドクリエ";
+
+"brand.capricchosa" = "カプリチョーザ";
+
+"brand.carl_s_jr" = "Carl's Jr.";
+
+"brand.celentano" = "Celentano";
+
+"brand.chibo" = "千房";
+
+"brand.chick_fil_a" = "Chick-fil-A";
+
+"brand.chilis" = "Chili's";
+
+"brand.chipotle" = "Chipotle";
+
+"brand.chowking" = "Chowking";
+
+"brand.cinnabon" = "Cinnabon";
+
+"brand.coco" = "CoCo";
+
+"brand.coco_ichibanya" = "ここいちばんや";
+
+"brand.cocos" = "ココス";
+
+"brand.coffee_house" = "Coffee House";
+
+"brand.coffee_world" = "Coffee World";
+
+"brand.coffeeport" = "Coffeeport";
+
+"brand.coffeeshop_company" = "Coffeeshop Company";
+
+"brand.cofix" = "Cofix";
+
+"brand.comic_buster" = "Comic Buster";
+
+"brand.costa_coffee" = "Costa Coffee";
+
+"brand.dairy_queen" = "Dairy Queen";
+
+"brand.dennys" = "デニーズ";
+
+"brand.doi_chaang" = "Doi Chaang";
+
+"brand.dominos_pizza" = "ドミノ・ピザ";
+
+"brand.double_b" = "Double B";
+
+"brand.doutor" = "ドトールコーヒーショップ";
+
+"brand.dunkin_donuts" = "Dunkin Donuts";
+
+"brand.espresso_house" = "Espresso House";
+
+"brand.excelsior_caffe" = "エクセルシオール カフェ";
+
+"brand.first_kitchen" = "First Kitchen";
+
+"brand.freshness_burger" = "フレッシュネスバーガー";
+
+"brand.fujisoba" = "富士そば";
+
+"brand.glowsubs" = "GlowSubs";
+
+"brand.grazie_gardens" = "グラッチェガーデンズ";
+
+"brand.gusto" = "ガスト";
+
+"brand.gyukaku" = "牛角";
+
+"brand.haagen_dazs" = "Häagen-Dazs";
+
+"brand.hamazushi" = "はま寿司";
+
+"brand.hanamaru" = "はなまるうどん";
+
+"brand.hanaya_yohei" = "華屋与兵衛";
+
+"brand.handaya" = "半田屋";
+
+"brand.hard_rock_cafe" = "Hard Rock Cafe";
+
+"brand.havanna" = "Havanna";
+
+"brand.hesburger" = "Hesburger";
+
+"brand.hokkahokka_tei" = "ほっかほっか亭";
+
+"brand.honkekamadoya" = "本家かまどや";
+
+"brand.hottomotto" = "ほっともっと";
+
+"brand.ihop" = "IHOP";
+
+"brand.ikinari_steak" = "いきなりステーキ";
+
+"brand.il_patio" = "IL Patio";
+
+"brand.jack_in_the_box" = "Jack in the Box";
+
+"brand.jiyu_kukan" = "自遊空間";
+
+"brand.jollibee" = "Jollibee";
+
+"brand.jolly_pasta" = "ジョリーパスタ";
+
+"brand.jonathans" = "ジョナサン";
+
+"brand.joyfull" = "ジョイフル";
+
+"brand.kappazushi" = "かっぱ寿司";
+
+"brand.katsuya" = "かつや";
+
+"brand.kfc" = "ケンタッキーフライドチキン";
+
+"brand.kisoji" = "木曽路";
+
+"brand.kobeya_restaurant" = "神戸屋レストラン";
+
+"brand.kohikan" = "珈琲館";
+
+"brand.komeda" = "コメダ珈琲店";
+
+"brand.komoro_soba" = "小諸そば";
+
+"brand.kourakuen" = "幸楽苑";
+
+"brand.kroshka_kartoshka" = "Kroshka Kartoshka";
+
+"brand.kurazushi" = "くら寿司";
+
+"brand.little_caesars" = "Little Caesars";
+
+"brand.lotteria" = "ロッテリア";
+
+"brand.maido_ohkini" = "まいどおおきに";
+
+"brand.marrybrown" = "Marrybrown";
+
+"brand.marugame_seimen" = "丸亀製麺";
+
+"brand.matsunoya" = "松乃家";
+
+"brand.matsuya" = "まつや";
+
+"brand.mcdonalds" = "マクドナルド";
+
+"brand.mister_donut" = "ミスタードーナツ";
+
+"brand.miyakosoba" = "都そば";
+
+"brand.miyoshino" = "みよしの";
+
+"brand.mk_restaurants" = "MK Restaurants";
+
+"brand.mos_burger" = "モスバーガー";
+
+"brand.mr_sub" = "Mr. Sub";
+
+"brand.mu_mu" = "Mu-Mu";
+
+"brand.nakau" = "なか卯";
+
+"brand.ohsho" = "ぎょうざのおうしょう";
+
+"brand.onebuckscoffee" = "OneBucksCoffee";
+
+"brand.origin_bento" = "オリジン弁当";
+
+"brand.osaka_ohsho" = "大阪王将";
+
+"brand.panda_express" = "Panda Express";
+
+"brand.panera_bread" = "Panera Bread";
+
+"brand.papa_johns" = "Papa John's";
+
+"brand.perkins" = "Perkins";
+
+"brand.pizza_hut" = "ピザハット";
+
+"brand.pizza_pizza" = "Pizza Pizza";
+
+"brand.popeyes" = "Popeyes";
+
+"brand.pronto" = "Puronto";
+
+"brand.quiznos" = "Quiznos";
+
+"brand.red_lobster" = "Red Lobster";
+
+"brand.ringer_hut" = "リンガーハット";
+
+"brand.robin_sdobin" = "Robin Sdobin";
+
+"brand.royal_host" = "ロイヤルホスト";
+
+"brand.ruby_tuesday" = "Ruby Tuesday";
+
+"brand.saizeriya" = "サイゼリヤ";
+
+"brand.sato" = "和食さと";
+
+"brand.segafredo" = "Segafredo";
+
+"brand.shake_shack" = "Shake Shack";
+
+"brand.shokoladnitsa" = "Shokoladnitsa";
+
+"brand.sizzler" = "Sizzler";
+
+"brand.skuratov" = "Skuratov";
+
+"brand.spur" = "Spur";
+
+"brand.starbucks" = "スターバックス";
+
+"brand.stardogs" = "Stardog!s";
+
+"brand.steak_n_shake" = "Steak'n Shake";
+
+"brand.stmarc_cafe" = "サンマルクカフェ";
+
+"brand.subway" = "サブウェイ";
+
+"brand.sukiya" = "すき家";
+
+"brand.sushi_wok" = "Sushi Wok";
+
+"brand.sushiro" = "スシロー";
+
+"brand.swensens" = "Swensen's";
+
+"brand.syabu_yo" = "しゃぶ葉";
+
+"brand.taco_bell" = "Taco Bell";
+
+"brand.telepizza" = "Telepizza";
+
+"brand.tenkaippin" = "天下一品";
+
+"brand.teremok" = "Teremok";
+
+"brand.tgi_fridays" = "TGI Friday's";
+
+"brand.the_pizza_company" = "The Pizza Company";
+
+"brand.tim_hortons" = "Tim Hortons";
+
+"brand.tonden" = "とんでん";
+
+"brand.tullys_coffee" = "タリーズコーヒー";
+
+"brand.ueshima_coffee_ten" = "上島珈琲店";
+
+"brand.uobei" = "魚べい";
+
+"brand.vapiano" = "Vapiano";
+
+"brand.victoria_station" = "ヴィクトリアステーション";
+
+"brand.waffle_house" = "Waffle House";
+
+"brand.wendys" = "Wendy's";
+
+"brand.wokker" = "Wokker";
+
+"brand.yakitoria" = "Yakitoria";
+
+"brand.yomen_ya_goemon" = "洋麺屋五右衛門";
+
+"brand.yoshinoya" = "吉野家";
+
+"brand.yudetaro" = "ゆで太郎";
+
+"brand.yumean" = "夢庵";

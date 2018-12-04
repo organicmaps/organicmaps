@@ -2038,4 +2038,10 @@
 	<string name="type.waterway.stream.intermittent">แม่น้ำ</string>
 	<string name="type.waterway.stream.tunnel">แม่น้ำ</string>
 	<string name="type.waterway.waterfall">น้ำตก</string>
+
+	<!-- SECTION: Brands -->
+	<string name="brand.cafe_amazon">คาเฟ อเมซอน</string>
+	<string name="brand.kfc">เค เอฟ ซ</string>
+	<string name="brand.mcdonalds">แมคโดนลด</string>
+	<string name="brand.the_pizza_company">เดอะ พซซา คอมปะน</string>
 </resources>
