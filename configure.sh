@@ -113,6 +113,7 @@ else
 #define USER_BINDING_PKCS12 ""
 #define USER_BINDING_PKCS12_PASSWORD ""
 #define BOOKMARKS_VENDOR ""
+#define ADS_REMOVAL_NOT_USED_LIST {}
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {

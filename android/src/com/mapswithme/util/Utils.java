@@ -46,6 +46,7 @@ import java.lang.ref.WeakReference;
 import java.net.NetworkInterface;
 import java.security.MessageDigest;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
@@ -685,32 +686,14 @@ public class Utils
 
   public static <T> T[] concatArrays(T[] a, T... b)
   {
-    if (a == null && b == null)
-      return null;
-    else if (a == null)
+    if (a == null || a.length == 0)
       return b;
-    else if (b == null)
+    if (b == null || b.length == 0)
       return a;
-    else
-    {
-      final int alen = a.length;
-      final int blen = b.length;
 
-      if (alen == 0)
-      {
-        return b;
-      }
-      if (blen == 0)
-      {
-        return a;
-      }
-      final T[] result = (T[]) java.lang.reflect.Array.newInstance(a.getClass()
-                                                                    .getComponentType(), alen +
-                                                                                         blen);
-      System.arraycopy(a, 0, result, 0, alen);
-      System.arraycopy(b, 0, result, alen, blen);
-      return result;
-    }
+    T[] c = Arrays.copyOf(a, a.length + b.length);
+    System.arraycopy(b, 0, c, a.length, b.length);
+    return c;
   }
 
   public static void detachFragmentIfCoreNotInitialized(@NonNull Context context,

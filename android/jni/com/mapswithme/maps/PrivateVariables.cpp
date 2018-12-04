@@ -1,8 +1,10 @@
 #include "private.h"
 
+#include "android/jni/com/mapswithme/core/jni_helper.hpp"
+
 #include <jni.h>
+
 #include <string>
-#include <android/jni/com/mapswithme/core/jni_helper.hpp>
 
 extern "C"
 {
