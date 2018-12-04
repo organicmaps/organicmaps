@@ -542,7 +542,9 @@ typename AStarAlgorithm<Graph>::Result AStarAlgorithm<Graph>::FindPathBidirectio
       auto const pW = cur->ConsistentHeuristic(stateW.vertex);
       auto const reducedWeight = weight + pW - pV;
 
-      CHECK_GREATER_OR_EQUAL(reducedWeight, -kEpsilon, ("Invariant violated."));
+      CHECK_GREATER_OR_EQUAL(reducedWeight, -kEpsilon,
+                             ("Invariant violated for:", "v =", stateV.vertex, "w =", stateW.vertex));
+
       auto const newReducedDist = stateV.distance + std::max(reducedWeight, kZeroDistance);
 
       auto const fullLength = weight + stateV.distance + cur->pS - pV;

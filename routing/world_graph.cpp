@@ -2,11 +2,9 @@
 
 namespace routing
 {
-using namespace std;
-
-void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)
+void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges)
 {
-  vector<Segment> twins;
+  std::vector<Segment> twins;
   GetTwinsInner(segment, isOutgoing, twins);
 
   if (GetMode() == Mode::LeapsOnly)
@@ -38,7 +36,7 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
   SetMode(prevMode);
 }
 
-string DebugPrint(WorldGraph::Mode mode)
+std::string DebugPrint(WorldGraph::Mode mode)
 {
   switch (mode)
   {
@@ -46,7 +44,7 @@ string DebugPrint(WorldGraph::Mode mode)
   case WorldGraph::Mode::NoLeaps: return "NoLeaps";
   case WorldGraph::Mode::SingleMwm: return "SingleMwm";
   }
-  ASSERT(false, ("Unknown mode:", static_cast<size_t>(mode)));
-  return "Unknown mode";
+
+  UNREACHABLE();
 }
 }  // namespace routing
