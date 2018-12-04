@@ -14,6 +14,7 @@
 
 class Subscription: ISubscription {
   public static let productIds = MWMPurchaseManager.productIds()
+  public static let legacyProductIds = MWMPurchaseManager.legacyProductIds()
   private static let periodMap: [String: SubscriptionPeriod] = [productIds[0]: .week,
                                                                 productIds[1]: .month,
                                                                 productIds[2]: .year]

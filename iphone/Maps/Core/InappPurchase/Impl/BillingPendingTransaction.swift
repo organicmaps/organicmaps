@@ -12,7 +12,8 @@ final class BillingPendingTransaction: NSObject, IBillingPendingTransaction {
 
   var status: TransactionStatus {
     let routeTransactions = SKPaymentQueue.default().transactions.filter {
-      !Subscription.productIds.contains($0.payment.productIdentifier)
+      !Subscription.legacyProductIds.contains($0.payment.productIdentifier) &&
+        !Subscription.productIds.contains($0.payment.productIdentifier)
     }
 
     if routeTransactions.count > 1 {

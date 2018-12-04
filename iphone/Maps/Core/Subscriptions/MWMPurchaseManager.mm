@@ -32,6 +32,16 @@
            @(ADS_REMOVAL_YEARLY_PRODUCT_ID)];
 }
 
++ (NSArray *)legacyProductIds
+{
+  auto pidVec = std::vector<std::string>(ADS_REMOVAL_NOT_USED_LIST);
+  NSMutableArray *result = [NSMutableArray array];
+  for (auto const & s : pidVec)
+    [result addObject:@(s.c_str())];
+  
+  return [result copy];
+}
+
 + (MWMPurchaseManager *)sharedManager
 {
   static MWMPurchaseManager *instance;

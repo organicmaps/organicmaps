@@ -18,6 +18,7 @@ typedef void (^StartTransactionCallback)(BOOL success, NSString * serverId);
 + (NSString *)adsRemovalServerId;
 + (NSString *)adsRemovalVendorId;
 + (NSArray<NSString *> *)productIds;
++ (NSArray<NSString *> *)legacyProductIds;
 + (MWMPurchaseManager *)sharedManager;
 
 - (void)validateReceipt:(NSString *)serverId
