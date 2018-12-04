@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.mapswithme.maps.purchase.FailedPurchaseChecker;
 import com.mapswithme.maps.purchase.PurchaseController;
 import com.mapswithme.maps.purchase.PurchaseFactory;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.HttpClient;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -36,6 +38,9 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     implements TargetFragmentCallback
@@ -293,7 +298,9 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
       UiUtils.show(mProgressView);
       UiUtils.hide(mRetryBtn);
-      mWebView.loadUrl(getCatalogUrlOrThrow());
+      String token = Framework.nativeGetAccessToken();
+      mWebView.loadUrl(getCatalogUrlOrThrow(), TextUtils.isEmpty(token) ? Collections.emptyMap()
+                                                                        : makeHeaders(token));
       UserActionsLogger.logBookmarksCatalogShownEvent();
     }
 
@@ -302,5 +309,13 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     {
       mDelegate.authorize(() -> mFailedPurchaseController.validateExistingPurchases());
     }
+  }
+
+  @NonNull
+  private static Map<String, String> makeHeaders(@NonNull String token)
+  {
+    Map<String, String> headers = new HashMap<>();
+    headers.put(HttpClient.HEADER_AUTHORIZATION, HttpClient.HEADER_BEARER_PREFFIX + token);
+    return headers;
   }
 }
