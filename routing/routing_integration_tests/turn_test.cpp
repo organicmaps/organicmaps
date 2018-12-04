@@ -707,7 +707,8 @@ UNIT_TEST(AustriaBrixentalStrasseTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 UNIT_TEST(RussiaMoscowLeningradkaToMKADTest)
