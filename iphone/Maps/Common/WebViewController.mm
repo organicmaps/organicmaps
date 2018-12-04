@@ -100,6 +100,9 @@
       {
         auto request = [NSMutableURLRequest requestWithURL:self.m_url];
         [request setValue:@(GetPlatform().GetAppUserAgent().Get().c_str()) forHTTPHeaderField:@"User-Agent"];
+        auto authHeader = [NSString stringWithFormat:@"Bearer %@",
+                           @(GetFramework().GetUser().GetAccessToken().c_str())];
+        [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
         [self.webView loadRequest:request];
       }
     }
