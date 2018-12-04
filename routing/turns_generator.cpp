@@ -38,8 +38,13 @@ double constexpr kNotSoCloseMaxDistMeters = 30.0;
 /// and about highway classes of possible ways from the turn.
 struct TurnHighwayClasses
 {
-  ftypes::HighwayClass m_minClassForTheRoute = ftypes::HighwayClass::Error;
-  ftypes::HighwayClass m_maxClassForPossibleTurns = ftypes::HighwayClass::Error;
+  // When a route goes through a turn there's an ingoing and outgoing segments.
+  // |m_smallestRouteRoadClass| is equal to the less important road between ingoing and outgoing
+  // segments.
+  ftypes::HighwayClass m_smallestRouteRoadClass = ftypes::HighwayClass::Error;
+  // Let's consider all possible ways from the turn except for the way along the route.
+  // |m_biggestPossibleTurnRoadClass| should be equal to the class of the biggest road.
+  ftypes::HighwayClass m_biggestPossibleTurnRoadClass = ftypes::HighwayClass::Error;
 };
 
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
@@ -120,34 +125,40 @@ bool GetTurnHighwayClasses(TurnCandidates const & possibleTurns, TurnInfo const 
   if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
     return true;
 
-  turnHighwayClasses.m_maxClassForPossibleTurns = ftypes::HighwayClass::Error;
+  turnHighwayClasses.m_biggestPossibleTurnRoadClass = ftypes::HighwayClass::Count;
   for (auto const & t : possibleTurns.candidates)
   {
     if (t.m_segment == firstOutgoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.m_highwayClass;
-    if (static_cast<int>(highwayClass) > static_cast<int>(turnHighwayClasses.m_maxClassForPossibleTurns))
-      turnHighwayClasses.m_maxClassForPossibleTurns = highwayClass;
+    // Note. The bigger road the less HighwayClass value.
+    if (static_cast<int>(highwayClass) < static_cast<int>(turnHighwayClasses.m_biggestPossibleTurnRoadClass))
+      turnHighwayClasses.m_biggestPossibleTurnRoadClass = highwayClass;
   }
-  if (turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Error)
+  if (turnHighwayClasses.m_biggestPossibleTurnRoadClass == ftypes::HighwayClass::Error)
   {
     ASSERT_GREATER(possibleTurns.candidates.size(), 1, ("No turn candidates or there's only one turn candidate."));
     ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
   }
-  if (turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Undefined)
+
+  if (turnHighwayClasses.m_biggestPossibleTurnRoadClass == ftypes::HighwayClass::Undefined)
     return false; // Fake edges have HighwayClass::Undefined.
 
-  turnHighwayClasses.m_minClassForTheRoute =
-      static_cast<ftypes::HighwayClass>(min(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
+  if (turnHighwayClasses.m_biggestPossibleTurnRoadClass == ftypes::HighwayClass::Count)
+    return false; // No outgoing segments except for the route.
+
+  // Note. The bigger road the less HighwayClass value.
+  turnHighwayClasses.m_smallestRouteRoadClass =
+      static_cast<ftypes::HighwayClass>(max(static_cast<int>(turnInfo.m_ingoing.m_highwayClass),
                                             static_cast<int>(turnInfo.m_outgoing.m_highwayClass)));
 
-  if (turnHighwayClasses.m_minClassForTheRoute == ftypes::HighwayClass::Error)
+  if (turnHighwayClasses.m_smallestRouteRoadClass == ftypes::HighwayClass::Error)
   {
     ASSERT(false, ("The route contains undefined HighwayClass."));
     return false;
   }
-  if (turnHighwayClasses.m_minClassForTheRoute == ftypes::HighwayClass::Undefined)
+  if (turnHighwayClasses.m_smallestRouteRoadClass == ftypes::HighwayClass::Undefined)
     return false; // Fake edges have HighwayClass::Undefined.
 
   return true;
@@ -175,10 +186,10 @@ bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const
     return false;
 
   int const diff =
-      static_cast<int>(turnHighwayClasses.m_maxClassForPossibleTurns) - static_cast<int>(turnHighwayClasses.m_minClassForTheRoute);
+      static_cast<int>(turnHighwayClasses.m_biggestPossibleTurnRoadClass) - static_cast<int>(turnHighwayClasses.m_smallestRouteRoadClass);
   if (diff >= kMaxHighwayClassDiff ||
       (diff >= kMaxHighwayClassDiffForGoStraight && carDirection == CarDirection::GoStraight) ||
-      (diff >= kMaxHighwayClassDiffForService && turnHighwayClasses.m_maxClassForPossibleTurns == ftypes::HighwayClass::Service))
+      (diff >= kMaxHighwayClassDiffForService && turnHighwayClasses.m_biggestPossibleTurnRoadClass == ftypes::HighwayClass::Service))
   {
     // The turn shall be removed if the route goes near small roads.
     return false;
