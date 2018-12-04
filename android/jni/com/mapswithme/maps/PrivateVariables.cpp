@@ -1,6 +1,8 @@
 #include "private.h"
 
 #include <jni.h>
+#include <string>
+#include <android/jni/com/mapswithme/core/jni_helper.hpp>
 
 extern "C"
 {
@@ -86,6 +88,13 @@ extern "C"
   Java_com_mapswithme_maps_PrivateVariables_adsRemovalWeeklyProductId(JNIEnv * env, jclass clazz)
   {
     return env->NewStringUTF(ADS_REMOVAL_WEEKLY_PRODUCT_ID);
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_adsRemovalNotUsedList(JNIEnv * env, jclass clazz)
+  {
+    std::vector<std::string> items = ADS_REMOVAL_NOT_USED_LIST;
+    return jni::ToJavaStringArray(env, items);
   }
 
   JNIEXPORT jstring JNICALL

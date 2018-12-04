@@ -40,6 +40,18 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
     mProductType = productType;
   }
 
+  @NonNull
+  protected String getProductType()
+  {
+    return mProductType;
+  }
+
+  @Nullable
+  protected PlayStoreBillingCallback getCallback()
+  {
+    return mCallback;
+  }
+
   @Override
   public void initialize(@NonNull Activity context)
   {
@@ -66,13 +78,19 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   }
 
   @Override
+  public void queryExistingPurchases()
+  {
+    executeBillingRequest(new QueryExistingPurchases(getClientOrThrow(), mProductType, mCallback));
+  }
+
+  @Override
   public void consumePurchase(@NonNull String purchaseToken)
   {
     executeBillingRequest(new ConsumePurchaseRequest(getClientOrThrow(), mProductType, mCallback,
                                                      purchaseToken));
   }
 
-  private void executeBillingRequest(@NonNull BillingRequest request)
+  protected void executeBillingRequest(@NonNull BillingRequest request)
   {
     switch (mConnection.getState())
     {
@@ -119,12 +137,6 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   }
 
   @Override
-  public void queryExistingPurchases()
-  {
-    executeBillingRequest(new QueryExistingPurchases(getClientOrThrow(), mProductType, mCallback));
-  }
-
-  @Override
   public void addCallback(@NonNull PlayStoreBillingCallback callback)
   {
     mCallback = callback;
@@ -165,7 +177,7 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   }
 
   @NonNull
-  private BillingClient getClientOrThrow()
+  protected BillingClient getClientOrThrow()
   {
     if (mBillingClient == null)
       throw new IllegalStateException("Manager must be initialized! Call 'initialize' method first.");

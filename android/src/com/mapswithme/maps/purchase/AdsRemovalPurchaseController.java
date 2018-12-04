@@ -52,28 +52,30 @@ class AdsRemovalPurchaseController extends AbstractPurchaseController<Validation
     {
       LOGGER.i(TAG, "Validation status of 'ads removal': " + status);
       if (status == ValidationStatus.VERIFIED)
-        Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName.INAPP_PURCHASE_VALIDATION_SUCCESS,
+        Statistics.INSTANCE.trackPurchaseEvent(Statistics.EventName
+                                                   .INAPP_PURCHASE_VALIDATION_SUCCESS,
                                                PrivateVariables.adsRemovalServerId());
       else
-        Statistics.INSTANCE.trackPurchaseValidationError(PrivateVariables.adsRemovalServerId(), status);
+        Statistics.INSTANCE.trackPurchaseValidationError(PrivateVariables.adsRemovalServerId(),
+                                                         status);
 
-      final boolean activateSubscription = status != ValidationStatus.NOT_VERIFIED;
+      final boolean shouldActivateSubscription = status != ValidationStatus.NOT_VERIFIED;
       final boolean hasActiveSubscription = Framework.nativeHasActiveRemoveAdsSubscription();
-      if (!hasActiveSubscription && activateSubscription)
+      if (!hasActiveSubscription && shouldActivateSubscription)
       {
         LOGGER.i(TAG, "Ads removal subscription activated");
         Statistics.INSTANCE.trackPurchaseProductDelivered(PrivateVariables.adsRemovalServerId(),
                                                           PrivateVariables.adsRemovalVendor());
       }
-      else if (hasActiveSubscription && !activateSubscription)
+      else if (hasActiveSubscription && !shouldActivateSubscription)
       {
         LOGGER.i(TAG, "Ads removal subscription deactivated");
       }
 
-      Framework.nativeSetActiveRemoveAdsSubscription(activateSubscription);
+      Framework.nativeSetActiveRemoveAdsSubscription(shouldActivateSubscription);
 
       if (getUiCallback() != null)
-        getUiCallback().onValidationFinish(activateSubscription);
+        getUiCallback().onValidationFinish(shouldActivateSubscription);
     }
   }
 

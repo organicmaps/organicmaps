@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.PurchaseValidationObservable;
+import com.mapswithme.util.Utils;
 
 public class PurchaseFactory
 {
@@ -20,14 +21,15 @@ public class PurchaseFactory
       @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
-        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
+        = new SubscriptionPlayStoreBillingManager(BillingClient.SkuType.SUBS);
     PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
     String monthlyProduct = PrivateVariables.adsRemovalMonthlyProductId();
     String weeklyProduct = PrivateVariables.adsRemovalWeeklyProductId();
-    return new AdsRemovalPurchaseController(validator, billingManager, yearlyProduct,
-                                            monthlyProduct, weeklyProduct);
+    String[] productIds = Utils.concatArrays(PrivateVariables.adsRemovalNotUsedList(),
+                                             yearlyProduct, monthlyProduct, weeklyProduct);
+    return new AdsRemovalPurchaseController(validator, billingManager, productIds);
   }
 
   @NonNull
