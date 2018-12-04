@@ -42,8 +42,9 @@ struct TurnHighwayClasses
   // |m_smallestRouteRoadClass| is equal to the less important road between ingoing and outgoing
   // segments.
   ftypes::HighwayClass m_smallestRouteRoadClass = ftypes::HighwayClass::Error;
-  // Let's consider all possible ways from the turn except for the way along the route.
-  // |m_biggestPossibleTurnRoadClass| should be equal to the class of the biggest road.
+  // Let's consider all possible ways from the turn except for the way along the route and
+  // the way which let us to make a U-turn by going along the ingoing segment.
+  // |m_biggestPossibleTurnRoadClass| should be equal to the class of the biggest road of such roads.
   ftypes::HighwayClass m_biggestPossibleTurnRoadClass = ftypes::HighwayClass::Error;
 };
 
@@ -125,10 +126,18 @@ bool GetTurnHighwayClasses(TurnCandidates const & possibleTurns, TurnInfo const 
   if (!turnInfo.m_outgoing.m_segmentRange.GetFirstSegment(numMwmIds, firstOutgoingSegment))
     return true;
 
+  Segment inversedLastIngoingSegment;
+  if (!turnInfo.m_ingoing.m_segmentRange.GetLastSegment(numMwmIds, inversedLastIngoingSegment))
+    return true;
+  inversedLastIngoingSegment.Inverse();
+
   turnHighwayClasses.m_biggestPossibleTurnRoadClass = ftypes::HighwayClass::Count;
   for (auto const & t : possibleTurns.candidates)
   {
-    if (t.m_segment == firstOutgoingSegment)
+    // Let's consider all outgoing segments except for
+    // (1) route outgoing segment
+    // (2) a U-turn segment (inversedLastIngoingSegment)
+    if (t.m_segment == firstOutgoingSegment || t.m_segment == inversedLastIngoingSegment)
       continue;
     ftypes::HighwayClass const highwayClass = t.m_highwayClass;
     // Note. The bigger road the less HighwayClass value.

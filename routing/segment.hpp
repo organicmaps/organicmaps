@@ -74,6 +74,8 @@ public:
            m_mwmId == seg.m_mwmId && m_forward != seg.m_forward;
   }
 
+  void Inverse() { m_forward = !m_forward; }
+
   bool IsRealSegment() const
   {
     return m_mwmId != kFakeNumMwmId && !FakeFeatureIds::IsTransitFeature(m_featureId);
