@@ -77,47 +77,6 @@ bool CrossMwmGraph::IsTransition(Segment const & s, bool isOutgoing)
                                              : false;
 }
 
-void CrossMwmGraph::FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType & ft,
-                                  m2::PointD const & point,
-                                  map<NumMwmId, ClosestSegment> & minDistSegs,
-                                  vector<Segment> & twins)
-{
-  if (!ft.GetID().IsValid())
-    return;
-
-  if (ft.GetID().m_mwmId.GetInfo()->GetType() != MwmInfo::COUNTRY)
-    return;
-
-  NumMwmId const numMwmId =
-      m_numMwmIds->GetId(ft.GetID().m_mwmId.GetInfo()->GetLocalFile().GetCountryFile());
-  if (numMwmId == sMwmId)
-    return;
-
-  if (!m_vehicleModelFactory->GetVehicleModelForCountry(ft.GetID().GetMwmName())->IsRoad(ft))
-    return;
-
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-  vector<Segment> twinCandidates;
-  GetTwinCandidates(ft, !isOutgoing, twinCandidates);
-  for (Segment const & tc : twinCandidates)
-  {
-    TransitionPoints const twinPoints = GetTransitionPoints(tc, !isOutgoing);
-    for (m2::PointD const & tp : twinPoints)
-    {
-      double const distM = MercatorBounds::DistanceOnEarth(point, tp);
-      ClosestSegment & closestSegment = minDistSegs[numMwmId];
-      double constexpr kEpsMeters = 2.0;
-      if (base::AlmostEqualAbs(distM, 0.0, kEpsMeters))
-      {
-        twins.push_back(tc);
-        closestSegment.m_exactMatchFound = true;
-        continue;
-      }
-      closestSegment.Update(distM, tc);
-    }
-  }
-}
-
 void CrossMwmGraph::GetAllLoadedNeighbors(NumMwmId numMwmId,
                                           vector<NumMwmId> & neighbors,
                                           bool & allNeighborsHaveCrossMwmSection)
@@ -186,36 +145,10 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
   }
   else
   {
-    // Note. The code below looks for twins based on geometry index. This code works for
-    // any combination mwms with different cross mwm sections.
-    // It's possible to implement a faster version for two special cases:
-    // * all neighboring mwms have cross_mwm section
-    // * all neighboring mwms have osrm cross mwm sections
-    TransitionPoints const points = GetTransitionPoints(s, isOutgoing);
-    for (m2::PointD const & p : points)
-    {
-      // Node. The map below is necessary because twin segments could belong to several mwm.
-      // It happens when a segment crosses more than one feature.
-      map<NumMwmId, ClosestSegment> minDistSegs;
-      auto const findBestTwins = [&](FeatureType & ft) {
-        FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
-      };
-
-      m_dataSource.ForEachInRect(
-        findBestTwins, MercatorBounds::RectByCenterXYAndSizeInMeters(p, kTransitionEqualityDistM),
-        scales::GetUpperScale());
-
-      for (auto const & kv : minDistSegs)
-      {
-        if (kv.second.m_exactMatchFound)
-          continue;
-        if (kv.second.m_bestDistM == kInvalidDistance)
-          continue;
-        twins.push_back(kv.second.m_bestSeg);
-      }
-    }
-
-    base::SortUnique(twins);
+    // TODO (@gmoryes)
+    //  May be we should add ErrorCode about "NeedUpdateMaps" and return it here.
+    //  but until we haven't it, lets do nothing.
+    return;
   }
 
   for (Segment const & t : twins)
@@ -243,17 +176,6 @@ void CrossMwmGraph::Clear()
 {
   m_crossMwmIndexGraph.Clear();
   m_crossMwmTransitGraph.Clear();
-}
-
-TransitionPoints CrossMwmGraph::GetTransitionPoints(Segment const & s, bool isOutgoing)
-{
-  CHECK(!TransitGraph::IsTransitSegment(s),
-        ("Geometry index based twins search is not supported for transit."));
-
-  if (CrossMwmSectionExists(s.GetMwmId()))
-    m_crossMwmIndexGraph.GetTransitionPoints(s, isOutgoing);
-
-  return TransitionPoints(); // No transition points.
 }
 
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,

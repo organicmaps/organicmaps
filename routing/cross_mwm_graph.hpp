@@ -109,12 +109,6 @@ private:
     bool m_exactMatchFound;
   };
 
-  /// \returns points of |s|. |s| should be a transition segment of mwm with an index graph cross-mwm section.
-  /// \param s is a transition segment of type |isOutgoing|.
-  /// \note the result of the method is returned by value because the size of the vector is usually
-  /// one or very small.
-  TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing);
-
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;
   MwmStatus GetCrossMwmStatus(NumMwmId numMwmId) const;
   MwmStatus GetTransitCrossMwmStatus(NumMwmId numMwmId) const;
@@ -123,20 +117,6 @@ private:
 
   /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
   void GetTwinCandidates(FeatureType & ft, bool isOutgoing, std::vector<Segment> & twinCandidates);
-
-  /// \brief Fills structure |twins| or for feature |ft| if |ft| contains transition segment(s).
-  /// \param sMwmId mwm id of a segment which twins are looked for
-  /// \param ft feature which could contain twin segments
-  /// \param point point of a segment which twins are looked for
-  /// \param minDistSegs is used to keep the best twin candidate
-  /// \param twins is filled with twins if there're twins (one or more) that have a point which is
-  ///        very near or equal to |point|.
-  /// \note If the method finds twin segment with a point which is very close to |point| the twin segment is
-  /// added to |twins| anyway. If there's no such segment in mwm it tries find the closet one and adds it
-  /// to |minDistSegs|.
-  void FindBestTwins(NumMwmId sMwmId, bool isOutgoing, FeatureType & ft, m2::PointD const & point,
-                     std::map<NumMwmId, ClosestSegment> & minDistSegs,
-                     std::vector<Segment> & twins);
 
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section

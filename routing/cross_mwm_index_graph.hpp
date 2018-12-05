@@ -136,14 +136,6 @@ public:
 
   void Clear() { m_connectors.clear(); }
 
-  TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing)
-  {
-    auto const & connector = GetCrossMwmConnectorWithTransitions(s.GetMwmId());
-    // In case of transition segments of index graph cross-mwm section the front point of segment
-    // is used as a point which corresponds to the segment.
-    return TransitionPoints({connector.GetPoint(s, true /* front */)});
-  }
-
   bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
 
   CrossMwmConnector<CrossMwmId> const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
