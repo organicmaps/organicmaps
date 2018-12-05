@@ -4,6 +4,7 @@
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
@@ -82,6 +83,10 @@ public:
   {
     descriptions::DescriptionsCollection descriptionList;
     auto fn = [&](FeatureType & f, uint32_t featureId) {
+      auto const & needWikiUrl = ftypes::WikiChecker::Instance();
+      if (!needWikiUrl(f))
+        return;
+
       descriptions::FeatureDescription description;
       auto const ret = GetFeatureDescription(f, featureId, description);
       CHECK_GREATER_OR_EQUAL(ret, 0, ());
