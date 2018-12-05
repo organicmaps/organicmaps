@@ -30,6 +30,7 @@ public:
 
   void SetGpuName(std::string const & gpuName);
   void SetApiVersion(dp::ApiVersion apiVersion);
+  void SetResolution(m2::PointU const & resolution);
 
 #ifdef RENDER_STATISTIC
   struct RenderStatistic
@@ -135,6 +136,7 @@ private:
   DrapeMeasurer() = default;
 
   dp::ApiVersion m_apiVersion = dp::ApiVersion::Invalid;
+  m2::PointU m_resolution;
   std::string m_gpuName;
   bool m_isEnabled = false;
 

@@ -105,6 +105,8 @@ void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
                            {"device", GetPlatform().DeviceModel()},
                            {"gpu", m_gpuName},
                            {"api", DebugPrint(m_apiVersion)},
+                           {"width", strings::to_string(m_resolution.x)},
+                           {"height", strings::to_string(m_resolution.y)},
                            {"minFrameTime", strings::to_string(minMs)},
                            {"maxFrameTime", strings::to_string(maxMs)},
                            {"avgFrameTime", strings::to_string(avgMs)},
@@ -122,6 +124,11 @@ void DrapeMeasurer::Stop(bool forceProcessRealtimeStats /* = false */ )
 void DrapeMeasurer::SetApiVersion(dp::ApiVersion apiVersion)
 {
   m_apiVersion = apiVersion;
+}
+
+void DrapeMeasurer::SetResolution(m2::PointU const & resolution)
+{
+  m_resolution = resolution;
 }
 
 void DrapeMeasurer::SetGpuName(std::string const & gpuName)
@@ -286,7 +293,7 @@ void DrapeMeasurer::AfterRenderFrame(bool isActiveFrame, m2::PointD const & view
     m_realtimeMaxFrameRenderTime = std::max(m_realtimeMaxFrameRenderTime, frameTime);
 
     auto const frameTimeMs = duration_cast<milliseconds>(frameTime).count();
-    if (frameTimeMs <= 30)
+    if (frameTimeMs > 30)
       ++m_realtimeSlowFramesCount;
 
     ++m_realtimeTotalFramesCount;

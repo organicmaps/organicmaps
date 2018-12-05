@@ -2249,6 +2249,8 @@ void FrontendRenderer::Routine::Do()
 
 #ifndef DRAPE_MEASURER_BENCHMARK
   DrapeMeasurer::Instance().SetApiVersion(m_renderer.m_apiVersion);
+  DrapeMeasurer::Instance().SetResolution(m2::PointU(m_renderer.m_viewport.GetWidth(),
+                                                     m_renderer.m_viewport.GetHeight()));
   DrapeMeasurer::Instance().SetGpuName(m_renderer.m_context->GetRendererName());
   DrapeMeasurer::Instance().Start();
 #endif
