@@ -2,6 +2,7 @@
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
@@ -50,8 +51,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:tint="?accentColorSelector"
-            android:src="@drawable/ic_globe"
+            app:tint="?accentColorSelector"
+            app:srcCompat="@drawable/ic_globe"
             android:layout_marginTop="@dimen/margin_half_double_plus"
             android:layout_marginBottom="@dimen/margin_half_double_plus"
             android:layout_marginStart="@dimen/margin_base"
@@ -197,15 +198,15 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="?attr/cardBackground">
-          <ImageView
+          <android.support.v7.widget.AppCompatImageView
             android:id="@+id/get_direct_link_image"
             android:layout_width="@dimen/sharing_options_img_size"
             android:layout_height="@dimen/sharing_options_img_size"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:tint="?accentColorSelector"
-            android:src="@drawable/ic_link"
+            app:tint="?accentColorSelector"
+            app:srcCompat="@drawable/ic_link"
             android:layout_marginTop="@dimen/margin_half_double_plus"
             android:layout_marginBottom="@dimen/margin_half_double_plus"
             android:layout_marginStart="@dimen/margin_base"
