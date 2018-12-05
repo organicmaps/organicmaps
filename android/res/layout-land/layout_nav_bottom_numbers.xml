@@ -14,7 +14,7 @@
   tools:ignore="RtlSymmetry">
   <!-- Speed -->
   <LinearLayout
-    android:id="@+id/speed_frame"
+    android:id="@+id/speed_view_container"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:minWidth="@dimen/nav_numbers_side_min_width"
@@ -23,7 +23,8 @@
     android:paddingRight="@dimen/nav_numbers_margin"
     android:paddingTop="@dimen/margin_eighth"
     android:gravity="center_horizontal"
-    tools:background="#20FF0000">
+    android:background="@drawable/speed_cams_bg"
+    tools:background="@drawable/speed_cams_bg">
     <TextView
       android:id="@+id/speed_value"
       android:layout_width="wrap_content"
@@ -31,7 +32,6 @@
       android:singleLine="true"
       android:textAppearance="@style/MwmTextAppearance.RoutingNumber.Navigation"
       tools:text="999"/>
-
     <TextView
       android:id="@+id/speed_dimen"
       android:layout_width="wrap_content"

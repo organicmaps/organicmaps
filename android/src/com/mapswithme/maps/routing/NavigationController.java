@@ -73,6 +73,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   @NonNull
   private final SearchWheel mSearchWheel;
+  private final View mSpeedViewContainer;
 
   private boolean mShowTimeLeft = true;
 
@@ -112,6 +113,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     UiUtils.extendViewMarginWithStatusBar(turnFrame);
 
     // Bottom frame
+    mSpeedViewContainer = mBottomFrame.findViewById(R.id.speed_view_container);
     mSpeedValue = (TextView) mBottomFrame.findViewById(R.id.speed_value);
     mSpeedUnits = (TextView) mBottomFrame.findViewById(R.id.speed_dimen);
     mTimeHourValue = (TextView) mBottomFrame.findViewById(R.id.time_hour_value);
@@ -241,22 +243,33 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     else
       updateVehicle(info);
 
-    boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
-    UiUtils.showIf(hasStreet, mStreetFrame);
-    if (!TextUtils.isEmpty(info.nextStreet))
-      mNextStreet.setText(info.nextStreet);
-
-    final Location last = LocationHelper.INSTANCE.getLastKnownLocation();
-    if (last != null)
-    {
-      Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
-      mSpeedValue.setText(speedAndUnits.first);
-      mSpeedUnits.setText(speedAndUnits.second);
-    }
+    updateStreetView(info);
+    updateSpeedView(info);
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget);
     mDistanceUnits.setText(info.targetUnits);
     mRouteProgress.setProgress((int) info.completionPercent);
+  }
+
+  private void updateStreetView(@NonNull RoutingInfo info)
+  {
+    boolean hasStreet = !TextUtils.isEmpty(info.nextStreet);
+    UiUtils.showIf(hasStreet, mStreetFrame);
+    if (!TextUtils.isEmpty(info.nextStreet))
+      mNextStreet.setText(info.nextStreet);
+  }
+
+  private void updateSpeedView(@NonNull RoutingInfo info)
+  {
+    final Location last = LocationHelper.INSTANCE.getLastKnownLocation();
+    if (last == null)
+      return;
+
+    Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+
+    mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedValue.setText(speedAndUnits.first);
+    mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
   }
 
   private void updateTime(int seconds)

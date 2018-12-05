@@ -1109,23 +1109,10 @@ Java_com_mapswithme_maps_Framework_nativeSetSpeedCamManagerMode(JNIEnv * env, jc
     static_cast<routing::SpeedCameraManagerMode>(mode));
 }
 
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeShouldPlayWarningSignal(JNIEnv * env, jclass)
-{
-  return frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
-}
-
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetSpeedCamManagerMode(JNIEnv * env, jclass)
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetSpeedCamManager().GetMode());
-}
-
-JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_Framework_nativeIsSpeedLimitExceeded(JNIEnv * env, jclass)
-{
-  auto const & rm = frm()->GetRoutingManager();
-  return rm.IsRoutingActive() ? rm.IsSpeedLimitExceeded() : false;
 }
 
 JNIEXPORT jobject JNICALL
@@ -1148,7 +1135,7 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
                                                "(Ljava/lang/String;Ljava/lang/String;"
                                                "Ljava/lang/String;Ljava/lang/String;"
                                                "Ljava/lang/String;Ljava/lang/String;DIIIDDII"
-                                               "[Lcom/mapswithme/maps/routing/SingleLaneInfo;)V");
+                                               "[Lcom/mapswithme/maps/routing/SingleLaneInfo;ZZ)V");
 
   vector<location::FollowingInfo::SingleLaneInfoClient> const & lanes = info.m_lanes;
   jobjectArray jLanes = nullptr;
@@ -1173,12 +1160,16 @@ Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jcl
     }
   }
 
+  auto const & rm = frm()->GetRoutingManager();
+  auto const isSpeedLimitExceeded = rm.IsRoutingActive() ? rm.IsSpeedLimitExceeded() : false;
+  auto const shouldPlaySignal = frm()->GetRoutingManager().GetSpeedCamManager().ShouldPlayBeepSignal();
   jobject const result = env->NewObject(
       klass, ctorRouteInfoID, jni::ToJavaString(env, info.m_distToTarget),
       jni::ToJavaString(env, info.m_targetUnitsSuffix), jni::ToJavaString(env, info.m_distToTurn),
       jni::ToJavaString(env, info.m_turnUnitsSuffix), jni::ToJavaString(env, info.m_sourceName),
       jni::ToJavaString(env, info.m_displayedStreetName), info.m_completionPercent, info.m_turn, info.m_nextTurn, info.m_pedestrianTurn,
-      info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes);
+      info.m_pedestrianDirectionPos.lat, info.m_pedestrianDirectionPos.lon, info.m_exitNum, info.m_time, jLanes,
+      static_cast<jboolean>(isSpeedLimitExceeded), static_cast<jboolean>(shouldPlaySignal));
   ASSERT(result, (jni::DescribeException()));
   return result;
 }

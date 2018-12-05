@@ -371,7 +371,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode oldCamMode,
                                          @NonNull SpeedCameraMode newCamMode)
   {
-
+    Framework.setSpeedCamerasMode(newCamMode);
   }
 
   @Override
@@ -979,7 +979,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     }
   }
 
-  enum SpeedCameraMode
+  public enum SpeedCameraMode
   {
     AUTO,
     ALWAYS,

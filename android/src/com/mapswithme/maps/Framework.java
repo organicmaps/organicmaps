@@ -26,6 +26,7 @@ import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
 import com.mapswithme.maps.search.FilterUtils;
+import com.mapswithme.maps.settings.SettingsPrefsFragment;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -238,6 +239,11 @@ public class Framework
   public static void disableAdProvider(@NonNull Banner.Type type)
   {
     nativeDisableAdProvider(type.ordinal(), Banner.Place.DEFAULT.ordinal());
+  }
+
+  public static void setSpeedCamerasMode(@NonNull SettingsPrefsFragment.SpeedCameraMode mode)
+  {
+    nativeSetSpeedCamManagerMode(mode.ordinal());
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -517,4 +523,6 @@ public class Framework
   @Nullable
   public static native MapObject nativeGetMapObject(
       @NonNull NotificationCandidate.MapObject mapObject);
+
+  private static native void nativeSetSpeedCamManagerMode(int mode);
 }
