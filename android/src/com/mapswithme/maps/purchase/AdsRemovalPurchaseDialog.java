@@ -467,7 +467,7 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     P1W;
 
     @Nullable
-    public static Period getInstance(@Nullable String subscriptionPeriod)
+    static Period getInstance(@Nullable String subscriptionPeriod)
     {
       for (Period each : values())
       {

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
+import com.mapswithme.util.CrashlyticsUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,9 +49,17 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
       return;
     }
 
-    if (skuDetails == null || skuDetails.isEmpty() || hasIncorrectSkuDetails(skuDetails))
+    if (skuDetails == null || skuDetails.isEmpty())
     {
       LOGGER.w(TAG, "Purchase details not found");
+      if (getCallback() != null)
+        getCallback().onPurchaseDetailsFailure();
+      return;
+    }
+
+    if (hasIncorrectSkuDetails(skuDetails))
+    {
+      LOGGER.w(TAG, "Purchase details incorrect");
       if (getCallback() != null)
         getCallback().onPurchaseDetailsFailure();
       return;
@@ -61,12 +70,17 @@ class QueryProductDetailsRequest extends PlayStoreBillingRequest<PlayStoreBillin
       getCallback().onPurchaseDetailsLoaded(skuDetails);
   }
 
-  private boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
+  private static boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
   {
     for (SkuDetails each : skuDetails)
     {
       if (AdsRemovalPurchaseDialog.Period.getInstance(each.getSubscriptionPeriod()) == null)
+      {
+        String msg = "Unsupported subscription period: '" + each.getSubscriptionPeriod() + "'";
+        CrashlyticsUtils.logException(new IllegalStateException(msg));
+        LOGGER.e(TAG, msg);
         return true;
+      }
     }
     return false;
   }

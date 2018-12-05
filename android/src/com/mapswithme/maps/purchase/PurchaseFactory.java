@@ -21,7 +21,7 @@ public class PurchaseFactory
       @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
-        = new SubscriptionPlayStoreBillingManager(BillingClient.SkuType.SUBS);
+        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
     PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();

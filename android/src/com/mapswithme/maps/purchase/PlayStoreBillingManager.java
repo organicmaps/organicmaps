@@ -40,18 +40,6 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
     mProductType = productType;
   }
 
-  @NonNull
-  protected String getProductType()
-  {
-    return mProductType;
-  }
-
-  @Nullable
-  protected PlayStoreBillingCallback getCallback()
-  {
-    return mCallback;
-  }
-
   @Override
   public void initialize(@NonNull Activity context)
   {
@@ -90,7 +78,7 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
                                                      purchaseToken));
   }
 
-  protected void executeBillingRequest(@NonNull BillingRequest request)
+  private void executeBillingRequest(@NonNull BillingRequest request)
   {
     switch (mConnection.getState())
     {
@@ -177,7 +165,7 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   }
 
   @NonNull
-  protected BillingClient getClientOrThrow()
+  private BillingClient getClientOrThrow()
   {
     if (mBillingClient == null)
       throw new IllegalStateException("Manager must be initialized! Call 'initialize' method first.");

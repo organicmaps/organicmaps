@@ -684,7 +684,8 @@ public class Utils
     }
   }
 
-  public static <T> T[] concatArrays(T[] a, T... b)
+  @NonNull
+  public static <T> T[] concatArrays(@Nullable T[] a, T... b)
   {
     if (a == null || a.length == 0)
       return b;
