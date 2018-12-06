@@ -24,15 +24,15 @@ using MaxspeedFactor = VehicleModel::MaxspeedFactor;
 // Speed of road features located inside and outside cities and towns polygons in km per hour.
 //                                                      in city            out city
 InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(117.8),  SpeedKMpH(123.4), MaxspeedFactor(1.0));
-InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(82.0),   SpeedKMpH(81.2),  MaxspeedFactor(0.7));
+InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(82.0),   SpeedKMpH(81.2),  MaxspeedFactor(0.85));
 InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(83.4),   SpeedKMpH(100.2), MaxspeedFactor(1.0));
-InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(73.0),   SpeedKMpH(77.2),  MaxspeedFactor(0.7));
+InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(73.0),   SpeedKMpH(77.2),  MaxspeedFactor(0.85));
 InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(63.1),   SpeedKMpH(75.2),  MaxspeedFactor(0.95));
-InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(66.5),   SpeedKMpH(64.8),  MaxspeedFactor(0.65));
+InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(66.5),   SpeedKMpH(64.8),  MaxspeedFactor(0.8));
 InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(52.8),   SpeedKMpH(60.3),  MaxspeedFactor(0.9));
-InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(50.2),   SpeedKMpH(60.0),  MaxspeedFactor(0.6));
+InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(50.2),   SpeedKMpH(60.0),  MaxspeedFactor(0.75));
 InOutCitySpeedKMpH const             kSpeedTertiaryKMpH(SpeedKMpH(45.5),   SpeedKMpH(50.5),  MaxspeedFactor(0.85));
-InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0),  MaxspeedFactor(0.55));
+InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0),  MaxspeedFactor(0.7));
 InOutCitySpeedKMpH const          kSpeedResidentialKMpH(SpeedKMpH(20.0),   SpeedKMpH(25.0),  MaxspeedFactor(0.75));
 InOutCitySpeedKMpH const         kSpeedUnclassifiedKMpH(SpeedKMpH(51.3),   SpeedKMpH(66.0),  MaxspeedFactor(0.8));
 InOutCitySpeedKMpH const              kSpeedServiceKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0),  MaxspeedFactor(0.8));
