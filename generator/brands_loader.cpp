@@ -33,7 +33,7 @@ void ParseFeatureToBrand(json_t * root, string const & field, GeoObjectId::Type 
   json_t * value;
   json_object_foreach(arr, key, value)
   {
-    result.push_back({});
+    result.push_back(pair<GeoObjectId, uint32_t>());
     uint64_t id;
     if (!strings::to_uint64(key, id))
       MYTHROW(ParsingError, ("Incorrect OSM id:", key));
