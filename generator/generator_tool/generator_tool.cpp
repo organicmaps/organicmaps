@@ -276,7 +276,7 @@ int GeneratorToolMain(int argc, char ** argv)
       FLAGS_make_city_roads || FLAGS_generate_maxspeed || FLAGS_generate_traffic_keys ||
       FLAGS_transit_path != "" || FLAGS_ugc_data != "" || FLAGS_popular_places_data != "" ||
       FLAGS_generate_geo_objects_features || FLAGS_geo_objects_key_value != "" ||
-      FLAGS_dump_wikipedia_urls != "")
+      FLAGS_dump_wikipedia_urls != "" || FLAGS_wikipedia_pages != "")
   {
     classificator::Load();
   }
