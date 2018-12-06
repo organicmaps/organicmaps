@@ -14,6 +14,7 @@ namespace
 {
 using InOutCitySpeedKMpH = VehicleModel::InOutCitySpeedKMpH;
 using SpeedKMpH = VehicleModel::SpeedKMpH;
+using MaxspeedFactor = VehicleModel::MaxspeedFactor;
 
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -31,30 +32,30 @@ using SpeedKMpH = VehicleModel::SpeedKMpH;
 // not marked as "foot=no" in OSM.
 
 // Speed of road features located inside and outside cities and towns polygons in km per hour.
-//                                       in city         out city
-InOutCitySpeedKMpH const kSpeedTrunkKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0));
-InOutCitySpeedKMpH const kSpeedTrunkLinkKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0));
-InOutCitySpeedKMpH const kSpeedPrimaryKMpH(SpeedKMpH(2.0), SpeedKMpH(2.0));
-InOutCitySpeedKMpH const kSpeedPrimaryLinkKMpH(SpeedKMpH(2.0), SpeedKMpH(2.0));
-InOutCitySpeedKMpH const kSpeedSecondaryKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0));
-InOutCitySpeedKMpH const kSpeedSecondaryLinkKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0));
-InOutCitySpeedKMpH const kSpeedTertiaryKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
-InOutCitySpeedKMpH const kSpeedTertiaryLinkKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
-InOutCitySpeedKMpH const kSpeedServiceKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedUnclassifiedKMpH(SpeedKMpH(4.5), SpeedKMpH(4.5));
-InOutCitySpeedKMpH const kSpeedRoadKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
-InOutCitySpeedKMpH const kSpeedTrackKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedPathKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedBridlewayKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0));
-InOutCitySpeedKMpH const kSpeedCyclewayKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
-InOutCitySpeedKMpH const kSpeedResidentialKMpH(SpeedKMpH(4.5), SpeedKMpH(4.5));
-InOutCitySpeedKMpH const kSpeedLivingStreetKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedStepsKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0));
-InOutCitySpeedKMpH const kSpeedPedestrianKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedFootwayKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedPlatformKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0));
-InOutCitySpeedKMpH const kSpeedPierKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0));
-InOutCitySpeedKMpH const kSpeedFerryKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0));
+//                                       in city         out city        maxspeed factor is not used
+InOutCitySpeedKMpH const kSpeedTrunkKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedTrunkLinkKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPrimaryKMpH(SpeedKMpH(2.0), SpeedKMpH(2.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPrimaryLinkKMpH(SpeedKMpH(2.0), SpeedKMpH(2.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedSecondaryKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedSecondaryLinkKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedTertiaryKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedTertiaryLinkKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedServiceKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedUnclassifiedKMpH(SpeedKMpH(4.5), SpeedKMpH(4.5), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedRoadKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedTrackKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPathKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedBridlewayKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedCyclewayKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedResidentialKMpH(SpeedKMpH(4.5), SpeedKMpH(4.5), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedLivingStreetKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedStepsKMpH(SpeedKMpH(3.0), SpeedKMpH(3.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPedestrianKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedFootwayKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPlatformKMpH(SpeedKMpH(5.0), SpeedKMpH(5.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedPierKMpH(SpeedKMpH(4.0), SpeedKMpH(4.0), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH const kSpeedFerryKMpH(SpeedKMpH(1.0), SpeedKMpH(1.0), MaxspeedFactor(1.0));
 
 double constexpr kSpeedOffroadKMpH = 3.0;
 
@@ -296,6 +297,11 @@ PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimit
   : VehicleModel(classif(), speedLimits, g_pedestrianSurface)
 {
   Init();
+}
+
+SpeedKMpH PedestrianModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
+{
+  return VehicleModel::GetSpeedWihtoutMaxspeed(f, speedParams);
 }
 
 double PedestrianModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }

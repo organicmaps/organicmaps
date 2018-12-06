@@ -8,6 +8,7 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <limits>
 #include <sstream>
 
 using namespace routing;
@@ -24,7 +25,10 @@ WeightAndETA Pick(WeightAndETA const & lhs, WeightAndETA const & rhs)
 VehicleModel::InOutCitySpeedKMpH Max(VehicleModel::InOutCitySpeedKMpH const & lhs,
                                      VehicleModel::InOutCitySpeedKMpH const & rhs)
 {
-  return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity)};
+  using MaxspeedFactor = VehicleModel::MaxspeedFactor;
+  return {Pick<max>(lhs.m_inCity, rhs.m_inCity), Pick<max>(lhs.m_outCity, rhs.m_outCity),
+          MaxspeedFactor(min(lhs.m_maxspeedFactor.m_weight, rhs.m_maxspeedFactor.m_weight),
+                         min(lhs.m_maxspeedFactor.m_eta, rhs.m_maxspeedFactor.m_eta))};
 }
 }  // namespace
 
@@ -49,7 +53,7 @@ VehicleModel::RoadLimits::RoadLimits(VehicleModel::InOutCitySpeedKMpH const & sp
 
 VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                            SurfaceInitList const & featureTypeSurface)
-  : m_modelMaxSpeed({}, {}), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
+  : m_modelMaxSpeed({}, {}, MaxspeedFactor(1.0)), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
 {
   CHECK_EQUAL(m_surfaceFactors.size(), 4,
               ("If you want to change the size of the container please take into account that it's "
@@ -96,7 +100,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetSpeed(FeatureType & f, SpeedParams cons
   if (restriction == RoadAvailability::Available)
     return speedParams.m_inCity ? m_modelMaxSpeed.m_inCity : m_modelMaxSpeed.m_outCity;
   if (restriction != RoadAvailability::NotAvailable && HasRoadType(types))
-    return GetMinTypeSpeed(types, speedParams.m_inCity);
+    return GetTypeSpeed(types, speedParams);
 
   return {};
 }
@@ -106,25 +110,48 @@ double VehicleModel::GetMaxWeightSpeed() const
   return max(m_modelMaxSpeed.m_inCity.m_weight, m_modelMaxSpeed.m_outCity.m_weight);
 }
 
-VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types, bool inCity) const
+VehicleModel::SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & types,
+                                                   SpeedParams const & speedParams) const
 {
-  double const maxSpeedWeight = inCity ? m_modelMaxSpeed.m_inCity.m_weight : m_modelMaxSpeed.m_outCity.m_weight;
-  double const maxEtaWeight = inCity ? m_modelMaxSpeed.m_inCity.m_eta : m_modelMaxSpeed.m_outCity.m_eta;
+  double const maxSpeedWeight =
+      speedParams.m_inCity ? m_modelMaxSpeed.m_inCity.m_weight : m_modelMaxSpeed.m_outCity.m_weight;
+  double const maxEtaWeight =
+      speedParams.m_inCity ? m_modelMaxSpeed.m_inCity.m_eta : m_modelMaxSpeed.m_outCity.m_eta;
+
+  // Note. If a highway type is not found and |maxspeed| is set, |maxspeed| in kms per hour
+  // should be returned. That means |maxspeedFactor| should be 1.0.
+  MaxspeedFactor maxspeedFactor(1.0);
   VehicleModel::SpeedKMpH speed{maxSpeedWeight * 2.0, maxEtaWeight * 2.0};
-  // Decreasing speed factor based on road surface (cover).
-  VehicleModel::SpeedFactor factor;
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
     auto const itHighway = m_highwayTypes.find(type);
     if (itHighway != m_highwayTypes.cend())
-      speed = Pick<min>(speed, itHighway->second.GetSpeed(inCity));
+    {
+      speed = itHighway->second.GetSpeed(speedParams.m_inCity);
+      maxspeedFactor = itHighway->second.GetMaxspeedFactor();
+      break;
+    }
+  }
 
+  if (speedParams.m_maxspeed.IsValid())
+  {
+    double const maxspeedKmPH =
+        static_cast<double>(speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward));
+    auto const weightSpeedKmPH =
+        min(static_cast<double>(maxspeedFactor.m_weight * maxspeedKmPH), GetMaxWeightSpeed());
+    return SpeedKMpH(weightSpeedKmPH, maxspeedFactor.m_eta * maxspeedKmPH);
+  }
+
+  // Decreasing speed factor based on road surface (cover).
+  VehicleModel::SpeedFactor factor;
+  for (uint32_t t : types)
+  {
     auto const addRoadInfoIter = FindRoadType(t);
     if (addRoadInfoIter != m_addRoadTypes.cend())
     {
       speed = Pick<min>(
-          speed, inCity ? addRoadInfoIter->m_speed.m_inCity : addRoadInfoIter->m_speed.m_outCity);
+          speed, speedParams.m_inCity ? addRoadInfoIter->m_speed.m_inCity : addRoadInfoIter->m_speed.m_outCity);
     }
 
     auto const itFactor = find_if(m_surfaceFactors.cbegin(), m_surfaceFactors.cend(),
@@ -146,6 +173,13 @@ VehicleModel::SpeedKMpH VehicleModel::GetMinTypeSpeed(feature::TypesHolder const
     ret.m_eta = speed.m_eta * factor.m_eta;
 
   return ret;
+}
+
+VehicleModel::SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f,
+                                                              SpeedParams const & speedParams) const
+{
+  SpeedParams const withoutMaxspeed(speedParams.m_forward, speedParams.m_inCity, Maxspeed());
+  return VehicleModel::GetSpeed(f, withoutMaxspeed);
 }
 
 bool VehicleModel::IsOneWay(FeatureType & f) const
