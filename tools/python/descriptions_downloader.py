@@ -1,14 +1,15 @@
-import os
-import re
 import argparse
 import functools
-import logging
 import itertools
+import logging
+import os
 import urllib.parse
-import wikipediaapi
-import htmlmin
 from multiprocessing.pool import ThreadPool
+
+import htmlmin
+import wikipediaapi
 from bs4 import BeautifulSoup
+
 """
 This script downloads Wikipedia pages for different languages.
 """
@@ -22,7 +23,6 @@ BAD_SECTIONS = {
     "en": ["External links", "Sources", "See also", "Bibliography", "Further reading"],
     "ru": ["Литература", "Ссылки", "См. также"],
     "es": ["Vínculos de interés", "Véase también", "Enlaces externos"]
-
 }
 
 
@@ -32,12 +32,14 @@ def remove_bad_sections(soup, lang):
 
     it = iter(soup.find_all())
     current = next(it, None)
+    current_header_level = None
     while current is not None:
         if current.name in HEADERS and current.text.strip() in BAD_SECTIONS[lang]:
+            current_header_level = current.name
             current.extract()
             current = next(it, None)
             while current is not None:
-                if current.name in HEADERS:
+                if current.name == current_header_level:
                     break
                 current.extract()
                 current = next(it, None)
@@ -52,6 +54,9 @@ def remove_empty_sections(soup):
         if prev is not None and x.name in HEADERS and prev.name in HEADERS:
             prev.extract()
         prev = x
+
+    if prev is not None and prev.name in HEADERS:
+        prev.extract()
     return soup
 
 
@@ -95,9 +100,9 @@ def download(directory, url):
     text = page.text
     page_size = len(text)
     if page_size:
+        os.makedirs(directory, exist_ok=True)
         text = beautify_page(text, lang)
         log.info(f"Save to {path} {lang} {page_name} {page_size}.")
-        os.makedirs(directory, exist_ok=True)
         with open(path, "w") as file:
             file.write(text)
     else:
