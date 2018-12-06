@@ -40,7 +40,7 @@
       <!-- Speed -->
       <TextView
         android:id="@+id/speed_dimen"
-        android:layout_below="@+id/speed_value"
+        android:layout_below="@id/speed_value"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

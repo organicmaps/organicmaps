@@ -73,6 +73,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   @NonNull
   private final SearchWheel mSearchWheel;
+  @NonNull
   private final View mSpeedViewContainer;
 
   private boolean mShowTimeLeft = true;
