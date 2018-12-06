@@ -28,22 +28,20 @@ UNIT_TEST(RussiaMoscowNagatinoUturnTurnTest)
   integration::TestRouteLength(route, 248.0);
 }
 
-// @TODO This test was broken after using maxspeed tag value always if it's available.
-// It should be fixed by using maxspeed taking into account highway class.
 // Secondary should be preferred against residential.
-//UNIT_TEST(StPetersburgSideRoadPenaltyTest)
-//{
-//  TRouteResult const routeResult =
-//      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-//                                  MercatorBounds::FromLatLon(59.85157, 30.28033), {0., 0.},
-//                                  MercatorBounds::FromLatLon(59.84268, 30.27589));
-//
-//  Route const & route = *routeResult.first;
-//  RouterResultCode const result = routeResult.second;
-//  TEST_EQUAL(result, RouterResultCode::NoError, ());
-//
-//  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
-//}
+UNIT_TEST(StPetersburgSideRoadPenaltyTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(59.85157, 30.28033), {0., 0.},
+                                  MercatorBounds::FromLatLon(59.84268, 30.27589));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+}
 
 UNIT_TEST(RussiaMoscowLenigradskiy39UturnTurnTest)
 {
