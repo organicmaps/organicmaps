@@ -7,18 +7,31 @@
 
 #include <string>
 
+namespace
+{
+std::string GetLocalizedStringByUtil(std::string const & methodName, std::string const & str)
+{
+  JNIEnv * env = jni::GetEnv();
+  static auto const getLocalizedString = jni::GetStaticMethodID(
+      env, g_utilsClazz, methodName.c_str(), "(Ljava/lang/String;)Ljava/lang/String;");
+
+  jni::TScopedLocalRef strRef(env, jni::ToJavaString(env, str));
+  auto localizedString =
+      env->CallStaticObjectMethod(g_utilsClazz, getLocalizedString, strRef.get());
+
+  return jni::ToNativeString(env, static_cast<jstring>(localizedString));
+}
+}  // namespace
+
 namespace platform
 {
 std::string GetLocalizedTypeName(std::string const & type)
 {
-  JNIEnv * env = jni::GetEnv();
-  static auto const getLocalizedFeatureType = jni::GetStaticMethodID(
-      env, g_utilsClazz, "getLocalizedFeatureType", "(Ljava/lang/String;)Ljava/lang/String;");
+  return GetLocalizedStringByUtil("getLocalizedFeatureType", type);
+}
 
-  jni::TScopedLocalRef typeRef(env, jni::ToJavaString(env, type));
-  auto localizedFeatureType =
-      env->CallStaticObjectMethod(g_utilsClazz, getLocalizedFeatureType, typeRef.get());
-
-  return jni::ToNativeString(env, static_cast<jstring>(localizedFeatureType));
+std::string GetLocalizedBrandName(std::string const & brand)
+{
+  return GetLocalizedStringByUtil("getLocalizedBrand", brand);
 }
 }  // namespace platform

@@ -6,8 +6,11 @@
 
 #include "search/result.hpp"
 
+#include "indexer/classificator.hpp"
+
 #include "geometry/mercator.hpp"
 
+#include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 
 #include "defines.hpp"
@@ -77,14 +80,22 @@ bool PopularityHasHigherPriority(bool hasPosition, double distanceInMeters)
   self.priceOffset.priority = isHotOffer ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 
   NSUInteger const starsCount = result.GetStarsCount();
-  NSString * cuisine = @(result.GetCuisine().c_str());
+  NSString * cuisine = @(result.GetCuisine().c_str()).capitalizedString;
   NSString * airportIata = @(result.GetAirportIata().c_str());
+  NSString * brand  = @"";
+  if (!result.GetBrand().empty())
+    brand = @(platform::GetLocalizedBrandName(result.GetBrand()).c_str());
+
   if (starsCount > 0)
     [self setInfoRating:starsCount];
-  else if (cuisine.length > 0)
-    [self setInfoText:cuisine.capitalizedString];
   else if (airportIata.length > 0)
     [self setInfoText:airportIata];
+  else if (brand.length > 0 && cuisine.length > 0)
+    [self setInfoText:[NSString stringWithFormat:@"%@ • %@", brand, cuisine]];
+  else if (brand.length > 0)
+    [self setInfoText:brand];
+  else if (cuisine.length > 0)
+    [self setInfoText:cuisine];
   else
     [self clearInfo];
 

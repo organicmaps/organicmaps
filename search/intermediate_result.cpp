@@ -209,6 +209,7 @@ void ProcessMetadata(FeatureType & ft, Result::Metadata & meta)
   }
 
   meta.m_airportIata = src.Get(feature::Metadata::FMD_AIRPORT_IATA);
+  meta.m_brand = src.Get(feature::Metadata::FMD_BRAND);
 
   string const openHours = src.Get(feature::Metadata::FMD_OPEN_HOURS);
   if (!openHours.empty())

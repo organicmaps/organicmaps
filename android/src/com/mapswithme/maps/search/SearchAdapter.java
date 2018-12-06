@@ -245,13 +245,20 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
           tail.append(colorizeString(s, rs.getColor(R.color.base_green)));
         }
       }
-      else if (!TextUtils.isEmpty(result.description.cuisine))
-      {
-        tail.append(" • " + result.description.cuisine);
-      }
       else if (!TextUtils.isEmpty(result.description.airportIata))
       {
         tail.append(" • " + result.description.airportIata);
+      }
+      else
+      {
+        if (!TextUtils.isEmpty(result.description.brand))
+        {
+          tail.append(" • " + Utils.getLocalizedBrand(mFrame.getContext(), result.description.brand));
+        }
+        if (!TextUtils.isEmpty(result.description.cuisine))
+        {
+          tail.append(" • " + result.description.cuisine);
+        }
       }
 
       res.append(tail);

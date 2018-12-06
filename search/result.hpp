@@ -48,6 +48,9 @@ public:
     // Valid only if not empty, used for airport iata codes.
     std::string m_airportIata;
 
+    // Valid only if not empty, used for brand name.
+    std::string m_brand;
+
     // Following fields are used for hotels only.
     int m_hotelPricing = 0;
     std::string m_hotelApproximatePricing;
@@ -84,6 +87,7 @@ public:
   std::string const & GetAddress() const { return m_address; }
   std::string const & GetCuisine() const { return m_metadata.m_cuisine; }
   std::string const & GetAirportIata() const { return m_metadata.m_airportIata; }
+  std::string const & GetBrand() const { return m_metadata.m_brand; }
   float GetHotelRating() const { return m_metadata.m_hotelRating; }
   std::string const & GetHotelApproximatePricing() const
   {

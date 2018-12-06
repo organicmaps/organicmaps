@@ -742,13 +742,8 @@ public class Utils
   }
 
   @NonNull
-  public static String getLocalizedFeatureType(@NonNull Context context, @Nullable String type)
+  private static String getLocalizedFeatureByKey(@NonNull Context context, @NonNull String key)
   {
-    if (TextUtils.isEmpty(type))
-      return "";
-
-    String key = "type." + type.replace('-', '.');
-
     @StringRes
     int id = getStringIdByKey(context, key);
 
@@ -758,10 +753,30 @@ public class Utils
     }
     catch (Resources.NotFoundException e)
     {
-      LOGGER.e(TAG, "Failed to get localized string for type '" + type + "'", e);
+      LOGGER.e(TAG, "Failed to get localized string for key '" + key + "'", e);
     }
 
-    return type;
+    return key;
+  }
+
+  @NonNull
+  public static String getLocalizedFeatureType(@NonNull Context context, @Nullable String type)
+  {
+    if (TextUtils.isEmpty(type))
+      return "";
+
+    String key = "type." + type.replace('-', '.');
+    return getLocalizedFeatureByKey(context, key);
+  }
+
+  @NonNull
+  public static String getLocalizedBrand(@NonNull Context context, @Nullable String brand)
+  {
+    if (TextUtils.isEmpty(brand))
+      return "";
+
+    String key = "brand." + brand;
+    return getLocalizedFeatureByKey(context, key);
   }
 
   // Called from JNI.

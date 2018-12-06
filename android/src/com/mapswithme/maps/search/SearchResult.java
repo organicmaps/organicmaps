@@ -29,6 +29,7 @@ public class SearchResult implements SearchData, PopularityProvider
     public final String region;
     public final String distance;
     public final String cuisine;
+    public final String brand;
     public final String airportIata;
     public final String pricing;
     public final float rating;
@@ -37,14 +38,15 @@ public class SearchResult implements SearchData, PopularityProvider
     public final boolean hasPopularityHigherPriority;
 
     public Description(FeatureId featureId, String featureType, String region, String distance,
-                       String cuisine, String airportIata, String pricing, float rating, int stars,
-                       int openNow, boolean hasPopularityHigherPriority)
+                       String cuisine, String brand, String airportIata, String pricing,
+                       float rating, int stars, int openNow, boolean hasPopularityHigherPriority)
     {
       this.featureId = featureId;
       this.featureType = featureType;
       this.region = region;
       this.distance = distance;
       this.cuisine = cuisine;
+      this.brand = brand;
       this.airportIata = airportIata;
       this.pricing = pricing;
       this.rating = rating;
