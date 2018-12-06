@@ -1381,6 +1381,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mAdsRemovalPurchaseController.destroy();
     if (mBookmarkPurchaseController != null)
       mBookmarkPurchaseController.destroy();
+    if (mNavigationController != null)
+      mNavigationController.destroy();
   }
 
   @Override
@@ -2294,7 +2296,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (mNavigationController != null)
       mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
 
-    TtsPlayer.INSTANCE.playTurnNotifications();
+    TtsPlayer.INSTANCE.playTurnNotifications(getApplicationContext());
   }
 
   @Override

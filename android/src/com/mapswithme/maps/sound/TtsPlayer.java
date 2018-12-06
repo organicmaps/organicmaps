@@ -14,6 +14,7 @@ import java.util.Locale;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -161,6 +162,10 @@ public enum TtsPlayer
     });
   }
 
+  public boolean isSpeaking() {
+    return mTts != null && mTts.isSpeaking();
+  }
+
   private static boolean isReady()
   {
     return (INSTANCE.mTts != null && !INSTANCE.mUnavailable && !INSTANCE.mInitializing);
@@ -181,8 +186,10 @@ public enum TtsPlayer
       }
   }
 
-  public void playTurnNotifications()
+  public void playTurnNotifications(@NonNull Context context)
   {
+    if (MediaPlayerWrapper.from(context).isPlaying())
+      return;
     // It's necessary to call Framework.nativeGenerateTurnNotifications() even if TtsPlayer is invalid.
     final String[] turnNotifications = Framework.nativeGenerateNotifications();
 

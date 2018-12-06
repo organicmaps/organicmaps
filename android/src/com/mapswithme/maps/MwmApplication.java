@@ -23,6 +23,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.scheduling.ConnectivityJobScheduler;
 import com.mapswithme.maps.scheduling.ConnectivityListener;
@@ -74,6 +75,9 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private PurchaseValidationObservable mPurchaseValidationObservable;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private MediaPlayerWrapper mPlayer;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -160,6 +164,7 @@ public class MwmApplication extends Application
     mConnectivityListener.listen();
 
     mPurchaseValidationObservable = new PurchaseValidationObservable();
+    mPlayer = new MediaPlayerWrapper(this);
   }
 
   private void initNotificationChannels()
@@ -334,6 +339,12 @@ public class MwmApplication extends Application
   public ConnectivityListener getConnectivityListener()
   {
     return mConnectivityListener;
+  }
+
+  @NonNull
+  public MediaPlayerWrapper getMediaPlayer()
+  {
+    return mPlayer;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,

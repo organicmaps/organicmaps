@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MediaPlayerWrapper;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
@@ -442,5 +443,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
                                               RoutingController.get().isPlanning());
         break;
     }
+  }
+
+  public void destroy()
+  {
+    MediaPlayerWrapper.from(mBottomFrame.getContext()).release();
   }
 }
