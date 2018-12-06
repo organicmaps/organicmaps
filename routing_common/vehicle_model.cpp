@@ -8,7 +8,6 @@
 #include "base/math.hpp"
 
 #include <algorithm>
-#include <limits>
 #include <sstream>
 
 using namespace routing;
