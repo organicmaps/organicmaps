@@ -40,6 +40,9 @@ inline std::string JoinPath(std::string const & file) { return file; }
 template <typename... Args>
 std::string JoinPath(std::string const & folder, Args &&... args)
 {
+  if (folder.empty())
+    return JoinPath(std::forward<Args>(args)...);
+
   return AddSlashIfNeeded(folder) + JoinPath(std::forward<Args>(args)...);
 }
 }  // namespace base

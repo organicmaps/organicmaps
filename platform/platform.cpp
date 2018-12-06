@@ -294,8 +294,9 @@ bool Platform::MkDirChecked(string const & dirName)
 // static
 bool Platform::MkDirRecursively(string const & dirName)
 {
-  auto const tokens = strings::Tokenize(dirName, base::GetNativeSeparator().c_str());
-  string path = base::GetNativeSeparator();
+  auto const sep = base::GetNativeSeparator();
+  string path = strings::StartsWith(dirName, sep) ? sep : "";
+  auto const tokens = strings::Tokenize(dirName, sep.c_str());
   for (auto const & t : tokens)
   {
     path = base::JoinPath(path, t);
