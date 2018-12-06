@@ -126,7 +126,6 @@ set(
   transit_info.hpp
   transit_world_graph.cpp
   transit_world_graph.hpp
-  transition_points.hpp
   turn_candidate.hpp
   turns.cpp
   turns.hpp

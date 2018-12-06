@@ -98,25 +98,11 @@ public:
   }
 
 private:
-  struct ClosestSegment
-  {
-    ClosestSegment();
-    ClosestSegment(double minDistM, Segment const & bestSeg, bool exactMatchFound);
-    void Update(double distM, Segment const & bestSeg);
-
-    double m_bestDistM;
-    Segment m_bestSeg;
-    bool m_exactMatchFound;
-  };
-
   MwmStatus GetMwmStatus(NumMwmId numMwmId, std::string const & sectionName) const;
   MwmStatus GetCrossMwmStatus(NumMwmId numMwmId) const;
   MwmStatus GetTransitCrossMwmStatus(NumMwmId numMwmId) const;
   bool CrossMwmSectionExists(NumMwmId numMwmId) const;
   bool TransitCrossMwmSectionExists(NumMwmId numMwmId) const;
-
-  /// \brief Fills |twins| with transition segments of feature |ft| of type |isOutgoing|.
-  void GetTwinCandidates(FeatureType & ft, bool isOutgoing, std::vector<Segment> & twinCandidates);
 
   /// \brief Fills |neighbors| with number mwm id of all loaded neighbors of |numMwmId| and
   /// sets |allNeighborsHaveCrossMwmSection| to true if all loaded neighbors have cross mwm section
