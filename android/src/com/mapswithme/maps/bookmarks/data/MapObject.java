@@ -69,6 +69,8 @@ public class MapObject implements Parcelable, PopularityProvider
   private final boolean mCanBeReviewed;
   @NonNull
   private final Popularity mPopularity;
+  @NonNull
+  private final String mDescription;
   @Nullable
   private ArrayList<UGC.Rating> mRatings;
   @Nullable
@@ -84,12 +86,12 @@ public class MapObject implements Parcelable, PopularityProvider
                    boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
                    boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                    @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
-                   @NonNull Popularity popularity)
+                   @NonNull Popularity popularity, @NonNull String description)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC,
-         canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity);
+         canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity, description);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -100,7 +102,8 @@ public class MapObject implements Parcelable, PopularityProvider
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
                    @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType,
-                   @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity)
+                   @PriceFilterView.PriceDef int priceRate, @NonNull Popularity popularity,
+                   @NonNull String description)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -120,6 +123,7 @@ public class MapObject implements Parcelable, PopularityProvider
     mCanBeRated = canBeRated;
     mCanBeReviewed = canBeReviewed;
     mPopularity = popularity;
+    mDescription = description;
     if (banners != null)
       mBanners = new ArrayList<>(Arrays.asList(banners));
     if (taxiTypes != null)
@@ -159,7 +163,9 @@ public class MapObject implements Parcelable, PopularityProvider
          null, // mRatings
          source.readParcelable(HotelsFilter.HotelType.class.getClassLoader()), // mHotelType
          source.readInt(), // mPriceRate
-         source.readParcelable(Popularity.class.getClassLoader()));
+         source.readParcelable(Popularity.class.getClassLoader()),
+         source.readString()
+        );
 
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
@@ -175,7 +181,7 @@ public class MapObject implements Parcelable, PopularityProvider
                          null, "", null, null, false /* isExtendedView */,
                          false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
                          null /* ratings */, null /* mHotelType */,
-                         PriceFilterView.UNDEFINED, Popularity.defaultInstance());
+                         PriceFilterView.UNDEFINED, Popularity.defaultInstance(), "");
   }
 
   @Nullable
@@ -268,6 +274,12 @@ public class MapObject implements Parcelable, PopularityProvider
   public String getAddress()
   {
     return mAddress;
+  }
+
+  @NonNull
+  public String getDescription()
+  {
+    return mDescription;
   }
 
   @NonNull
@@ -455,6 +467,7 @@ public class MapObject implements Parcelable, PopularityProvider
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
     dest.writeTypedList(mRatings);
+    dest.writeString(mDescription);
   }
 
   @Override

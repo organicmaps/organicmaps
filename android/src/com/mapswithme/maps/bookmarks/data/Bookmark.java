@@ -34,11 +34,12 @@ public class Bookmark extends MapObject
                   boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
                   @Nullable HotelsFilter.HotelType hotelType, @PriceFilterView.PriceDef int priceRate,
-                  @NonNull Popularity popularity)
+                  @NonNull Popularity popularity, @NonNull String description)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
-          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate, popularity);
+          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType, priceRate,
+          popularity, description);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

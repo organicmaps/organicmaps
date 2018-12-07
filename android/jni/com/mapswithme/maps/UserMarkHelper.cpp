@@ -77,7 +77,8 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
                         string const & bookingSearchUrl, jobject const & localAdInfo,
                         jobject const & routingPointInfo, bool isExtendedView, bool shouldShowUGC,
                         bool canBeRated, bool canBeReviewed, jobjectArray jratings,
-                        jobject const & hotelType, int priceRate, jobject const & popularity)
+                        jobject const & hotelType, int priceRate, jobject const & popularity,
+                        string const & description)
 {
   // public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
   //                  @Nullable String secondaryTitle, String subtitle, String address,
@@ -95,7 +96,8 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
       "String;[Lcom/mapswithme/maps/ads/Banner;[ILjava/lang/String;"
       "Lcom/mapswithme/maps/ads/LocalAdInfo;"
       "Lcom/mapswithme/maps/routing/RoutePointInfo;ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
-      "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;ILcom/mapswithme/maps/search/Popularity;)V");
+      "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;ILcom/mapswithme/maps/search/Popularity;"
+      "Ljava/lang/String;)V");
 
   //public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
   static jmethodID const featureCtorId =
@@ -111,13 +113,14 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
   jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, address));
   jni::TScopedLocalRef jApiId(env, jni::ToJavaString(env, apiId));
   jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, bookingSearchUrl));
+  jni::TScopedLocalRef jDescription(env, jni::ToJavaString(env, description));
   jobject mapObject =
       env->NewObject(g_mapObjectClazz, ctorId, jFeatureId.get(), mapObjectType, jTitle.get(),
                      jSecondaryTitle.get(), jSubtitle.get(), jAddress.get(), lat, lon, jApiId.get(),
                      jbanners, jTaxiTypes, jBookingSearchUrl.get(), localAdInfo, routingPointInfo,
                      static_cast<jboolean>(isExtendedView), static_cast<jboolean>(shouldShowUGC),
                      static_cast<jboolean>(canBeRated), static_cast<jboolean>(canBeReviewed),
-                     jratings, hotelType, priceRate, popularity);
+                     jratings, hotelType, priceRate, popularity, jDescription.get());
 
   InjectMetadata(env, g_mapObjectClazz, mapObject, metadata);
   return mapObject;
@@ -155,7 +158,8 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     //                 boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
     //                 @Nullable HotelsFilter.HotelType hotelType,
     //                 @PriceFilterView.PriceDef int priceRate,
-    //                 @NotNull com.mapswithme.maps.search.Popularity entity)
+    //                 @NotNull com.mapswithme.maps.search.Popularity entity
+    //                 @NotNull String desc)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
                               "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;JJLjava/lang/String;"
@@ -165,7 +169,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                               "Lcom/mapswithme/maps/routing/RoutePointInfo;"
                               "ZZZZ[Lcom/mapswithme/maps/ugc/UGC$Rating;"
                               "Lcom/mapswithme/maps/search/HotelsFilter$HotelType;"
-                              "ILcom/mapswithme/maps/search/Popularity;)V");
+                              "ILcom/mapswithme/maps/search/Popularity;Ljava/lang/String;)V");
     // public FeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex)
     static jmethodID const featureCtorId =
         jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
@@ -180,7 +184,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
     jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));
     jni::TScopedLocalRef jAddress(env, jni::ToJavaString(env, info.GetAddress()));
-
+    jni::TScopedLocalRef jDescription(env, jni::ToJavaString(env, info.GetDescription()));
     jni::TScopedLocalRef jBookingSearchUrl(env, jni::ToJavaString(env, info.GetBookingSearchUrl()));
     jobject mapObject = env->NewObject(
         g_bookmarkClazz, ctorId, jFeatureId.get(), static_cast<jlong>(categoryId),
@@ -188,7 +192,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         jAddress.get(), jbanners.get(), jTaxiTypes.get(), jBookingSearchUrl.get(),
         localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(), info.ShouldShowUGC(),
         info.CanBeRated(), info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
-        popularity.get());
+        popularity.get(), jDescription.get());
 
     if (info.IsFeature())
       InjectMetadata(env, g_mapObjectClazz, mapObject, info.GetMetadata());
@@ -207,7 +211,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
                            info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
                            info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(),
                            info.CanBeReviewed(), jratings.get(), hotelType.get(), priceRate,
-                           popularity.get());
+                           popularity.get(), info.GetDescription());
   }
 
   if (info.HasApiUrl())
@@ -218,7 +222,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
         info.GetAddress(), info.GetMetadata(), info.GetApiUrl(), jbanners.get(), jTaxiTypes.get(),
         info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(), info.IsPreviewExtended(),
         info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(), jratings.get(),
-        hotelType.get(), priceRate, popularity.get());
+        hotelType.get(), priceRate, popularity.get(), info.GetDescription());
   }
 
   return CreateMapObject(
@@ -227,7 +231,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
       info.GetAddress(), info.IsFeature() ? info.GetMetadata() : Metadata(), "", jbanners.get(),
       jTaxiTypes.get(), info.GetBookingSearchUrl(), localAdInfo.get(), routingPointInfo.get(),
       info.IsPreviewExtended(), info.ShouldShowUGC(), info.CanBeRated(), info.CanBeReviewed(),
-      jratings.get(), hotelType.get(), priceRate, popularity.get());
+      jratings.get(), hotelType.get(), priceRate, popularity.get(), info.GetDescription());
 }
 
 jobjectArray ToBannersArray(JNIEnv * env, vector<ads::Banner> const & banners)

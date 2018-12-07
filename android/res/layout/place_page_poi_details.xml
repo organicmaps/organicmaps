@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/poi_description_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:visibility="visible"
+  tools:visibility="visible">
+
+  <TextView
+    android:id="@+id/poi_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_base"
+    android:maxLength="2000"
+    android:textAppearance="@style/MwmTextAppearance.Body1"/>
+
+  <TextView
+    android:id="@+id/more_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="start|bottom"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:gravity="start|top"
+    android:textColor="?attr/colorAccent"
+    android:text="@string/category_desc_more"
+    android:background="@android:color/transparent"/>
+  <include
+    layout="@layout/divider_horizontal"/>
+</LinearLayout>

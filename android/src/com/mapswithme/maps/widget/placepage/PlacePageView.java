@@ -3,6 +3,7 @@ package com.mapswithme.maps.widget.placepage;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -46,6 +48,8 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.DefaultAdTracker;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.PlaceDescriptionActivity;
+import com.mapswithme.maps.bookmarks.PlaceDescriptionFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -108,6 +112,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
@@ -213,6 +218,18 @@ public class PlacePageView extends RelativeLayout
   private ImageView mIvSponsoredLogo;
   @Nullable
   private View mBookmarkButtonFrame;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mPlaceDescriptionContainer;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private TextView mPlaceDescriptionView;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mPlaceDescriptionMoreBtn;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -683,6 +700,24 @@ public class PlacePageView extends RelativeLayout
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
     Viator.setViatorListener(this);
+    initPlaceDescriptionView();
+  }
+
+  private void initPlaceDescriptionView()
+  {
+    mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
+    mPlaceDescriptionView = findViewById(R.id.poi_description);
+    mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
+    mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescScreen());
+  }
+
+  private void showDescScreen()
+  {
+    Context context = mPlaceDescriptionContainer.getContext();
+    String descArgs = Objects.requireNonNull(mMapObject).getDescription();
+    Intent intent = new Intent(context, PlaceDescriptionActivity.class)
+        .putExtra(PlaceDescriptionFragment.EXTRA_DESCRIPTION, descArgs);
+    context.startActivity(intent);
   }
 
   private void initEditMapObjectBtn()
@@ -1331,7 +1366,7 @@ public class PlacePageView extends RelativeLayout
     refreshDetails(mapObject);
 
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
-
+    hidePlaceDescription();
     switch (mapObject.getMapObjectType())
     {
       case MapObject.BOOKMARK:
@@ -1345,6 +1380,7 @@ public class PlacePageView extends RelativeLayout
         refreshDistanceToObject(mapObject, loc);
         hideBookmarkDetails();
         setButtons(mapObject, false, true);
+        setPlaceDescription(mapObject);
         break;
       case MapObject.API_POINT:
         refreshDistanceToObject(mapObject, loc);
@@ -1367,6 +1403,18 @@ public class PlacePageView extends RelativeLayout
         mPreview.requestLayout();
       }
     });
+  }
+
+  private void hidePlaceDescription()
+  {
+    mPlaceDescriptionContainer.setVisibility(GONE);
+  }
+
+  private void setPlaceDescription(@NonNull MapObject mapObject)
+  {
+    boolean hasDesc = !TextUtils.isEmpty(mapObject.getDescription());
+    mPlaceDescriptionContainer.setVisibility(hasDesc ? VISIBLE : GONE);
+    mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
   }
 
   private void colorizeSubtitle()
@@ -1679,7 +1727,7 @@ public class PlacePageView extends RelativeLayout
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, "text/html; charset=utf-8", null);
+      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML_CHARSET_UTF_8, null);
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }
