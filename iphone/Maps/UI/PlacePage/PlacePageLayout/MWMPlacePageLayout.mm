@@ -1,5 +1,6 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMBookmarkCell.h"
+#import "MWMPlaceDescriptionCell.h"
 #import "MWMOpeningHoursLayoutHelper.h"
 #import "MWMPPPreviewLayoutHelper.h"
 #import "MWMPPReviewCell.h"
@@ -89,6 +90,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 {
   auto tv = self.placePageView.tableView;
   [tv registerWithCellClass:[MWMPlacePageButtonCell class]];
+  [tv registerWithCellClass:[MWMPlaceDescriptionCell class]];
   [tv registerWithCellClass:[MWMBookmarkCell class]];
   [tv registerWithCellClass:[MWMPPHotelDescriptionCell class]];
   [tv registerWithCellClass:[MWMPPHotelCarouselCell class]];
@@ -285,6 +287,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   switch (data.sections[section])
   {
   case Sections::Bookmark: return 1;
+  case Sections::Description: return 1;
   case Sections::Preview: return data.previewRows.size();
   case Sections::SpecialProjects: return data.specialProjectRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
@@ -315,6 +318,13 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::Preview:
   {
     return [self.previewLayoutHelper cellForRowAtIndexPath:indexPath withData:data];
+    }
+    case Sections::Description:
+    {
+      Class cls = [MWMPlaceDescriptionCell class];
+      auto c = (MWMPlaceDescriptionCell *)([tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
+      [c configureWithDescription:data.placeDescription delegate:delegate];
+      return c;
     }
     case Sections::Bookmark:
     {

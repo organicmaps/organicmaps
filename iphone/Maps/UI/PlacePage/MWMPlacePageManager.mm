@@ -477,6 +477,11 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
     [self.ownerViewController openBookmarkEditorWithData:data];
 }
 
+- (void)showPlaceDescription:(NSString *)htmlString
+{
+  [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
+}
+
 - (void)book:(BOOL)isDescription
 {
   auto data = self.data;

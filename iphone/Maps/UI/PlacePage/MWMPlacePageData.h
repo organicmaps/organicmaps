@@ -40,6 +40,7 @@ class Info;
 enum class Sections
 {
   Preview,
+  Description,
   Bookmark,
   HotelPhotos,
   HotelDescription,
@@ -172,6 +173,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 // Regular
 - (NSString *)title;
 - (NSString *)subtitle;
+- (NSString *)placeDescription;
 - (place_page::OpeningHours)schedule;
 - (NSString *)address;
 

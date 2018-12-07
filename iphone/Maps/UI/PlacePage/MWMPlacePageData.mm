@@ -89,6 +89,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   m_sections.push_back(Sections::Preview);
   [self fillPreviewSection];
 
+  if ([[self placeDescription] length] && ![[self bookmarkDescription] length])
+    m_sections.push_back(Sections::Description);
+  
   // It's bookmark.
   if (m_info.IsBookmark())
     m_sections.push_back(Sections::Bookmark);
@@ -545,6 +548,15 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (FeatureID const &)featureId { return m_info.GetID(); }
 - (NSString *)title { return @(m_info.GetTitle().c_str()); }
 - (NSString *)subtitle { return @(m_info.GetSubtitle().c_str()); }
+- (NSString *)placeDescription
+{
+  NSString * descr = @(m_info.GetDescription().c_str());
+  if (descr.length > 0)
+    descr = [NSString stringWithFormat:@"<html><body>%@</body></html>", descr];
+
+  return descr;
+}
+
 - (place_page::OpeningHours)schedule;
 {
   using type = place_page::OpeningHours;

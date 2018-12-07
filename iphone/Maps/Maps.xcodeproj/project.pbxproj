@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
 		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */; };
+		33010DB321B7E14700925411 /* MWMPlaceDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33010DB221B7E14700925411 /* MWMPlaceDescriptionCell.xib */; };
 		33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33046831219C57180041F3A8 /* CategorySettingsViewController.swift */; };
 		33046836219C5A4E0041F3A8 /* CategorySettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */; };
 		331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */; };
+		331922AF21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 331922AE21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm */; };
 		3358607E217632A2006D11F2 /* BookmarksSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */; };
 		33603C85219F0F6300B11FFE /* SharingPropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */; };
 		33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */; };
@@ -806,9 +808,12 @@
 		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
+		33010DB221B7E14700925411 /* MWMPlaceDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMPlaceDescriptionCell.xib; sourceTree = "<group>"; };
 		33046831219C57180041F3A8 /* CategorySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySettingsViewController.swift; sourceTree = "<group>"; };
 		33046835219C5A4E0041F3A8 /* CategorySettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategorySettings.storyboard; sourceTree = "<group>"; };
 		331630D02191D74B00BB91A9 /* TagSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSectionHeaderView.swift; sourceTree = "<group>"; };
+		331922AD21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlaceDescriptionCell.h; sourceTree = "<group>"; };
+		331922AE21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlaceDescriptionCell.mm; sourceTree = "<group>"; };
 		3358607D217632A2006D11F2 /* BookmarksSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksSharingViewController.swift; sourceTree = "<group>"; };
 		33603C84219F0F6300B11FFE /* SharingPropertiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingPropertiesViewController.swift; sourceTree = "<group>"; };
 		33B19C64218B46C100B323A7 /* SharingTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTagsViewController.swift; sourceTree = "<group>"; };
@@ -2210,6 +2215,16 @@
 				4598438921394D7700F8CAB2 /* shaders_metal.metallib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		33010DB121B7E0E000925411 /* DescriptionCell */ = {
+			isa = PBXGroup;
+			children = (
+				33010DB221B7E14700925411 /* MWMPlaceDescriptionCell.xib */,
+				331922AD21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.h */,
+				331922AE21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm */,
+			);
+			path = DescriptionCell;
 			sourceTree = "<group>";
 		};
 		33046837219C605E0041F3A8 /* Category settings */ = {
@@ -4057,6 +4072,7 @@
 		F6E2FCA81E097B9F0083EBEC /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				33010DB121B7E0E000925411 /* DescriptionCell */,
 				F68224981E5B0FE100BC1C18 /* BookingCells */,
 				F6E2FCA91E097B9F0083EBEC /* BookmarkCell */,
 				F6E2FCAF1E097B9F0083EBEC /* ButtonCell */,
@@ -4752,6 +4768,7 @@
 				34AB66681FC5AA330078E451 /* TransportTransitPedestrian.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
 				470A89FF2134517600D72FBF /* BookmarksTutorialBlur.xib in Resources */,
+				33010DB321B7E14700925411 /* MWMPlaceDescriptionCell.xib in Resources */,
 				4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */,
 				F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
@@ -5276,6 +5293,7 @@
 				340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,
 				47800D1D20BEEE2E00072F42 /* TermsOfUseController.swift in Sources */,
+				331922AF21BAD29900D4AAC5 /* MWMPlaceDescriptionCell.mm in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
 				33B19C65218B46C100B323A7 /* SharingTagsViewController.swift in Sources */,
@@ -5468,6 +5486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
@@ -5485,6 +5504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;
@@ -5502,6 +5522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = MetalContextFactory.mm;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=macosx*]" = MetalContextFactory.mm;

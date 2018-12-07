@@ -24,6 +24,7 @@
 - (void)openEditor;
 - (void)openHotelFacilities;
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
+- (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString;
 - (void)showUGCAuth;
 - (void)showBookmarksLoadedAlert:(UInt64)categoryId;
 - (void)openCatalogAnimated:(BOOL)animated;

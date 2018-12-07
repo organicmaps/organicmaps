@@ -422,6 +422,14 @@ BOOL gIsFirstMyPositionMode = YES;
   [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
 }
 
+- (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString
+{
+  WebViewController * descriptionViewController =
+  [[WebViewController alloc] initWithHtml:htmlString baseUrl:nil title:L(@"place_description_title")];
+  descriptionViewController.openInSafari = YES;
+  [self.navigationController pushViewController:descriptionViewController animated:YES];
+}
+
 - (void)showUGCAuth
 {
   [Statistics logEvent:kStatUGCReviewAuthShown];

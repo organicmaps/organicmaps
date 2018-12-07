@@ -30,4 +30,6 @@ typedef UIView * _Nullable (^MWMPlacePageButtonsDismissBlock)(NSInteger);
 
 - (void)openReviews:(id<MWMReviewsViewModelProtocol> _Nonnull)reviewsViewModel;
 
+- (void)showPlaceDescription:(NSString * _Nonnull)htmlString;
+
 @end
