@@ -397,6 +397,11 @@
 		4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788738D20EE30B300F6826B /* LayersViewController.swift */; };
 		4788739020EE30B300F6826B /* LayersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788738E20EE30B300F6826B /* LayersViewController.xib */; };
 		4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788739120EE326400F6826B /* VerticallyAlignedButton.swift */; };
+		47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEC21B696C20094CCAD /* GeoTracker.swift */; };
+		47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */; };
+		47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */; };
+		47B06DFE21B965950094CCAD /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DFD21B965950094CCAD /* Geo.swift */; };
+		47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */; };
 		47B505542136B0C2009CBB55 /* DiscoveryTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */; };
 		47B505552136B0CF009CBB55 /* SearchTutorialBlur.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */; };
 		47C7F9732191E15A00C2760C /* InAppBilling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7F9722191E15A00C2760C /* InAppBilling.swift */; };
@@ -1426,6 +1431,14 @@
 		4788738D20EE30B300F6826B /* LayersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayersViewController.swift; sourceTree = "<group>"; };
 		4788738E20EE30B300F6826B /* LayersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayersViewController.xib; sourceTree = "<group>"; };
 		4788739120EE326400F6826B /* VerticallyAlignedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedButton.swift; sourceTree = "<group>"; };
+		47B06DEC21B696C20094CCAD /* GeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTracker.swift; sourceTree = "<group>"; };
+		47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMGeoTrackerCore.h; sourceTree = "<group>"; };
+		47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMGeoTrackerCore.mm; sourceTree = "<group>"; };
+		47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IGeoTracker.swift; sourceTree = "<group>"; };
+		47B06DFA21B960080094CCAD /* IMWMGeoTrackerCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMGeoTrackerCore.h; sourceTree = "<group>"; };
+		47B06DFB21B960CE0094CCAD /* IMWMGeoTrackerZone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMGeoTrackerZone.h; sourceTree = "<group>"; };
+		47B06DFD21B965950094CCAD /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
+		47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoZoneTracker.swift; sourceTree = "<group>"; };
 		47B505522136AB41009CBB55 /* DiscoveryTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryTutorialBlur.xib; sourceTree = "<group>"; };
 		47B505532136AD69009CBB55 /* SearchTutorialBlur.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTutorialBlur.xib; sourceTree = "<group>"; };
 		47C7F9722191E15A00C2760C /* InAppBilling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppBilling.swift; sourceTree = "<group>"; };
@@ -2377,6 +2390,7 @@
 		340475291E081A4600C92850 /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				47B06DEB21B6962D0094CCAD /* GeoTracker */,
 				3404752A1E081A4600C92850 /* MWMLocationHelpers.h */,
 				3404752B1E081A4600C92850 /* MWMLocationManager.h */,
 				3404752C1E081A4600C92850 /* MWMLocationManager.mm */,
@@ -3397,6 +3411,29 @@
 				474C9F622141896800369009 /* MWMEye.mm */,
 			);
 			path = Metrics;
+			sourceTree = "<group>";
+		};
+		47B06DEB21B6962D0094CCAD /* GeoTracker */ = {
+			isa = PBXGroup;
+			children = (
+				47B06DFD21B965950094CCAD /* Geo.swift */,
+				47B06DFC21B965450094CCAD /* Impl */,
+				47B06DF821B95F5E0094CCAD /* IGeoTracker.swift */,
+				47B06DFB21B960CE0094CCAD /* IMWMGeoTrackerZone.h */,
+				47B06DFA21B960080094CCAD /* IMWMGeoTrackerCore.h */,
+			);
+			path = GeoTracker;
+			sourceTree = "<group>";
+		};
+		47B06DFC21B965450094CCAD /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				47B06DEC21B696C20094CCAD /* GeoTracker.swift */,
+				47B06DFF21BAAC270094CCAD /* GeoZoneTracker.swift */,
+				47B06DEE21B697230094CCAD /* MWMGeoTrackerCore.h */,
+				47B06DEF21B697230094CCAD /* MWMGeoTrackerCore.mm */,
+			);
+			path = Impl;
 			sourceTree = "<group>";
 		};
 		47E3C7232111E2F8008B3B27 /* Modal */ = {
@@ -4865,6 +4902,7 @@
 				34D3AFF61E37A36A004100F9 /* UICollectionView+Cells.swift in Sources */,
 				473464A7218B0BC000D6AF5B /* MWMPurchaseValidation.mm in Sources */,
 				4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */,
+				47B06DFE21B965950094CCAD /* Geo.swift in Sources */,
 				6741A9A91BF340DE002C974C /* MWMDefaultAlert.mm in Sources */,
 				340708781F2B5D6C00029ECC /* DimBackground.swift in Sources */,
 				3490D2DF1CE9DD2500D0B838 /* MWMSideButtons.mm in Sources */,
@@ -5061,6 +5099,7 @@
 				4788738F20EE30B300F6826B /* LayersViewController.swift in Sources */,
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,
 				3472B5E1200F86C800DC6CD5 /* MWMEditorHelper.mm in Sources */,
+				47B06DF021B697230094CCAD /* MWMGeoTrackerCore.mm in Sources */,
 				F6E2FE3D1E097BA00083EBEC /* MWMMigrationViewController.mm in Sources */,
 				F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */,
 				4719A643219CB61D009F9AA7 /* BillingPendingTransaction.swift in Sources */,
@@ -5151,6 +5190,7 @@
 				3454D7BC1E07F045004AF2AD /* CLLocation+Mercator.mm in Sources */,
 				47E3C7272111E5A8008B3B27 /* AlertPresentationController.swift in Sources */,
 				F6E2FF4E1E097BA00083EBEC /* MWMAboutController.mm in Sources */,
+				47B06DF921B95F5E0094CCAD /* IGeoTracker.swift in Sources */,
 				34F407381E9E1AFF00E57AC0 /* FacebookBanner.swift in Sources */,
 				34F5E0D41E3F254800B1C415 /* UIView+Hierarchy.swift in Sources */,
 				33BCDF8B218C976D00EF5B74 /* TagsCollectionViewLayout.swift in Sources */,
@@ -5268,6 +5308,7 @@
 				34E50DD81F6FCAB1008EED49 /* UGCSummaryRatingCell.swift in Sources */,
 				6741AA281BF340DE002C974C /* MWMAlert.mm in Sources */,
 				F6E2FF571E097BA00083EBEC /* MWMMobileInternetViewController.mm in Sources */,
+				47B06E0021BAAC270094CCAD /* GeoZoneTracker.swift in Sources */,
 				3404F4952028A1B80090E401 /* BMCPermissionsCell.swift in Sources */,
 				340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */,
 				34AB66261FC5AA330078E451 /* RouteManagerDimView.swift in Sources */,
@@ -5282,6 +5323,7 @@
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,
 				F6E2FD9E1E097BA00083EBEC /* MWMEditBookmarkController.mm in Sources */,
+				47B06DED21B696C20094CCAD /* GeoTracker.swift in Sources */,
 				349FC54B1F680DAE00968C9F /* ExpandableTextViewSettings.swift in Sources */,
 				F6E2FE0A1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.mm in Sources */,
 				3454D7DA1E07F045004AF2AD /* UILabel+RuntimeAttributes.mm in Sources */,

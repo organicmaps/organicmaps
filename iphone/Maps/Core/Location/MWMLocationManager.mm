@@ -1,11 +1,13 @@
 #import "MWMLocationManager.h"
 #import <Pushwoosh/PushNotificationManager.h>
 #import "MWMAlertViewController.h"
+#import "MWMGeoTrackerCore.h"
 #import "MWMLocationObserver.h"
 #import "MWMLocationPredictor.h"
 #import "MWMRouter.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
+#import "SwiftBridge.h"
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
@@ -156,6 +158,7 @@ void setPermissionRequested()
 @property(nonatomic) Observers * observers;
 @property(nonatomic) MWMLocationFrameworkUpdate frameworkUpdateMode;
 @property(nonatomic) location::TLocationSource locationSource;
+@property(nonatomic) id<IGeoTracker> geoTracker;
 
 @end
 
@@ -177,7 +180,10 @@ void setPermissionRequested()
 {
   self = [super init];
   if (self)
+  {
     _observers = [Observers weakObjectsHashTable];
+    _geoTracker = [Geo geoTracker];
+  }
   return self;
 }
 
@@ -489,12 +495,13 @@ void setPermissionRequested()
 
 - (BOOL)start
 {
-  auto const doStart = ^{
+  MWMVoidBlock doStart = ^{
     LOG(LINFO, ("startUpdatingLocation"));
     CLLocationManager * locationManager = self.locationManager;
-    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
-      [locationManager requestWhenInUseAuthorization];
+    if ([locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+      [locationManager requestAlwaysAuthorization];
     [locationManager startUpdatingLocation];
+    [self.geoTracker startTracking];
     setPermissionRequested();
     if ([CLLocationManager headingAvailable])
       [locationManager startUpdatingHeading];
