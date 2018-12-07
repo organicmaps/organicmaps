@@ -177,12 +177,12 @@ public:
     AdditionalRoadTags() = default;
 
     AdditionalRoadTags(std::initializer_list<char const *> const & hwtag,
-                       InOutCitySpeedKMpH const & speed) noexcept
-      : m_hwtag(hwtag), m_speed(speed)
+                       InOutCitySpeedKMpH const & speed)
+      : m_hwtag(hwtag.begin(), hwtag.end()), m_speed(speed)
     {
     }
 
-    std::initializer_list<char const *> m_hwtag;
+    std::vector<std::string> m_hwtag;
     InOutCitySpeedKMpH m_speed;
   };
 
