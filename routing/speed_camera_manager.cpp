@@ -51,7 +51,7 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
     distFromCurrentPosAndClosestCam = m_closestCamera.m_distFromBeginMeters - passedDistanceMeters;
     if (distFromCurrentPosAndClosestCam < -kInfluenceZoneMeters)
       m_closestCamera.Invalidate();
-    else
+    else if (!m_closestCamera.NoSpeed())
       m_speedLimitExceeded = IsSpeedHigh(distFromCurrentPosAndClosestCam, info.m_speedMpS, m_closestCamera);
   }
 
