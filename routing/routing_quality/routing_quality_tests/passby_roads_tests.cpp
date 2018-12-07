@@ -40,7 +40,7 @@ UNIT_TEST(RoutingQuality_BelarusBobruisk)
        ());
 }
 
-UNIT_TEST(RoutingQuality_RussiaStPiterburg)
+UNIT_TEST(RoutingQuality_RussiaStPetersburg)
 {
   TEST(CheckCarRoute({60.08634, 30.10277} /* start */, {59.94584, 30.57703} /* finish */,
                      {{{60.03478, 30.44084}}} /* reference point */),

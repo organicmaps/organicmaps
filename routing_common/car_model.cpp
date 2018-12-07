@@ -14,6 +14,7 @@ namespace
 {
 using InOutCitySpeedKMpH = VehicleModel::InOutCitySpeedKMpH;
 using SpeedKMpH = VehicleModel::SpeedKMpH;
+using MaxspeedFactor = VehicleModel::MaxspeedFactor;
 
 // See model specifics in different countries here:
 //   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
@@ -21,28 +22,28 @@ using SpeedKMpH = VehicleModel::SpeedKMpH;
 // See road types here:
 //   https://wiki.openstreetmap.org/wiki/Key:highway
 // Speed of road features located inside and outside cities and towns polygons in km per hour.
-//                                                      in city            out city
-InOutCitySpeedKMpH const             kSpeedMotorwayKMpH(SpeedKMpH(117.8), SpeedKMpH(123.4));
-InOutCitySpeedKMpH const         kSpeedMotorwayLinkKMpH(SpeedKMpH(82.0),   SpeedKMpH(81.2));
-InOutCitySpeedKMpH const                kSpeedTrunkKMpH(SpeedKMpH(83.4),   SpeedKMpH(100.2));
-InOutCitySpeedKMpH const            kSpeedTrunkLinkKMpH(SpeedKMpH(73.0),   SpeedKMpH(77.2));
-InOutCitySpeedKMpH const              kSpeedPrimaryKMpH(SpeedKMpH(63.1),   SpeedKMpH(75.2));
-InOutCitySpeedKMpH const          kSpeedPrimaryLinkKMpH(SpeedKMpH(66.5),   SpeedKMpH(64.8));
-InOutCitySpeedKMpH const            kSpeedSecondaryKMpH(SpeedKMpH(52.8),   SpeedKMpH(60.3));
-InOutCitySpeedKMpH const        kSpeedSecondaryLinkKMpH(SpeedKMpH(50.2),   SpeedKMpH(60.0));
-InOutCitySpeedKMpH const             kSpeedTertiaryKMpH(SpeedKMpH(45.5),   SpeedKMpH(50.5));
-InOutCitySpeedKMpH const         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0));
-InOutCitySpeedKMpH const          kSpeedResidentialKMpH(SpeedKMpH(20.0),   SpeedKMpH(25.0));
-InOutCitySpeedKMpH const         kSpeedUnclassifiedKMpH(SpeedKMpH(51.3),   SpeedKMpH(66.0));
-InOutCitySpeedKMpH const              kSpeedServiceKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0));
-InOutCitySpeedKMpH const         kSpeedLivingStreetKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
-InOutCitySpeedKMpH const                 kSpeedRoadKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
-InOutCitySpeedKMpH const                kSpeedTrackKMpH(SpeedKMpH(5.0),    SpeedKMpH(5.0));
-InOutCitySpeedKMpH const        kSpeedFerryMotorcarKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
-InOutCitySpeedKMpH const kSpeedFerryMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
-InOutCitySpeedKMpH const  kSpeedRailMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
-InOutCitySpeedKMpH const         kSpeedShuttleTrainKMpH(SpeedKMpH(25.0),   SpeedKMpH(25.0));
-InOutCitySpeedKMpH const                 kSpeedPierKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0));
+//                                                          in city            out city
+InOutCitySpeedKMpH constexpr             kSpeedMotorwayKMpH(SpeedKMpH(117.8),  SpeedKMpH(123.4), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH constexpr         kSpeedMotorwayLinkKMpH(SpeedKMpH(82.0),   SpeedKMpH(81.2),  MaxspeedFactor(0.85));
+InOutCitySpeedKMpH constexpr                kSpeedTrunkKMpH(SpeedKMpH(83.4),   SpeedKMpH(100.2), MaxspeedFactor(1.0));
+InOutCitySpeedKMpH constexpr            kSpeedTrunkLinkKMpH(SpeedKMpH(73.0),   SpeedKMpH(77.2),  MaxspeedFactor(0.85));
+InOutCitySpeedKMpH constexpr              kSpeedPrimaryKMpH(SpeedKMpH(63.1),   SpeedKMpH(75.2),  MaxspeedFactor(0.95));
+InOutCitySpeedKMpH constexpr          kSpeedPrimaryLinkKMpH(SpeedKMpH(66.5),   SpeedKMpH(64.8),  MaxspeedFactor(0.8));
+InOutCitySpeedKMpH constexpr            kSpeedSecondaryKMpH(SpeedKMpH(52.8),   SpeedKMpH(60.3),  MaxspeedFactor(0.9));
+InOutCitySpeedKMpH constexpr        kSpeedSecondaryLinkKMpH(SpeedKMpH(50.2),   SpeedKMpH(60.0),  MaxspeedFactor(0.75));
+InOutCitySpeedKMpH constexpr             kSpeedTertiaryKMpH(SpeedKMpH(45.5),   SpeedKMpH(50.5),  MaxspeedFactor(0.85));
+InOutCitySpeedKMpH constexpr         kSpeedTertiaryLinkKMpH(SpeedKMpH(25.0),   SpeedKMpH(30.0),  MaxspeedFactor(0.7));
+InOutCitySpeedKMpH constexpr          kSpeedResidentialKMpH(SpeedKMpH(20.0),   SpeedKMpH(25.0),  MaxspeedFactor(0.75));
+InOutCitySpeedKMpH constexpr         kSpeedUnclassifiedKMpH(SpeedKMpH(51.3),   SpeedKMpH(66.0),  MaxspeedFactor(0.8));
+InOutCitySpeedKMpH constexpr              kSpeedServiceKMpH(SpeedKMpH(15.0),   SpeedKMpH(15.0),  MaxspeedFactor(0.8));
+InOutCitySpeedKMpH constexpr         kSpeedLivingStreetKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.75));
+InOutCitySpeedKMpH constexpr                 kSpeedRoadKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.3));
+InOutCitySpeedKMpH constexpr                kSpeedTrackKMpH(SpeedKMpH(5.0),    SpeedKMpH(5.0),   MaxspeedFactor(0.3));
+InOutCitySpeedKMpH constexpr        kSpeedFerryMotorcarKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.9));
+InOutCitySpeedKMpH constexpr kSpeedFerryMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.9));
+InOutCitySpeedKMpH constexpr  kSpeedRailMotorcarVehicleKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.9));
+InOutCitySpeedKMpH constexpr         kSpeedShuttleTrainKMpH(SpeedKMpH(25.0),   SpeedKMpH(25.0),  MaxspeedFactor(0.9));
+InOutCitySpeedKMpH constexpr                 kSpeedPierKMpH(SpeedKMpH(10.0),   SpeedKMpH(10.0),  MaxspeedFactor(0.9));
 
 double constexpr kSpeedOffroadKMpH = 10.0;
 
@@ -230,19 +231,6 @@ CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
   : VehicleModel(classif(), roadLimits, g_carSurface)
 {
   InitAdditionalRoadTypes();
-}
-
-SpeedKMpH CarModel::GetSpeed(FeatureType & f, SpeedParams const & speedParams) const
-{
-  if (!speedParams.m_maxspeed.IsValid())
-    return VehicleModel::GetSpeed(f, speedParams);
-
-  // Note. It's the first rough attempt using maxspeed tag value for speed calculation.
-  // It's used as a feature speed if it's valid and less then some value.
-  // @TODO maxspeed tag value should be used more sophisticated.
-  uint16_t const maxspeedBasedSpeedKmPH = speedParams.m_maxspeed.GetSpeedKmPH(speedParams.m_forward);
-  auto const speedKmPH = min(static_cast<double>(maxspeedBasedSpeedKmPH), GetMaxWeightSpeed());
-  return {speedKmPH /* weight */, speedKmPH /* eta */};
 }
 
 double CarModel::GetOffroadSpeed() const { return kSpeedOffroadKMpH; }
