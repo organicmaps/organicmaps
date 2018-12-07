@@ -177,8 +177,7 @@ VehicleModel::SpeedKMpH VehicleModel::GetTypeSpeed(feature::TypesHolder const & 
 VehicleModel::SpeedKMpH VehicleModel::GetSpeedWihtoutMaxspeed(FeatureType & f,
                                                               SpeedParams const & speedParams) const
 {
-  SpeedParams const withoutMaxspeed(speedParams.m_forward, speedParams.m_inCity, Maxspeed());
-  return VehicleModel::GetSpeed(f, withoutMaxspeed);
+  return VehicleModel::GetSpeed(f, {speedParams.m_forward, speedParams.m_inCity, Maxspeed()});
 }
 
 bool VehicleModel::IsOneWay(FeatureType & f) const

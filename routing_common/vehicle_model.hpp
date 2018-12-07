@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 class Classificator;
@@ -21,8 +22,8 @@ namespace routing
 /// \brief Params for calculation of an approximate speed on a feature.
 struct SpeedParams
 {
-  SpeedParams(bool forward, bool inCity, Maxspeed const & maxspeed)
-    : m_forward(forward), m_inCity(inCity), m_maxspeed(maxspeed)
+  SpeedParams(bool forward, bool inCity, Maxspeed maxspeed)
+    : m_forward(forward), m_inCity(inCity), m_maxspeed(std::move(maxspeed))
   {
   }
 
