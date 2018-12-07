@@ -45,9 +45,9 @@ public:
   /// Speeds which are used for edge weight and ETA estimations.
   struct SpeedKMpH
   {
-    SpeedKMpH() = default;
-    explicit SpeedKMpH(double weight) noexcept : m_weight(weight), m_eta(weight) {}
-    SpeedKMpH(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
+    constexpr SpeedKMpH() = default;
+    constexpr explicit SpeedKMpH(double weight) noexcept : m_weight(weight), m_eta(weight) {}
+    constexpr SpeedKMpH(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
 
     bool operator==(SpeedKMpH const & rhs) const
     {
@@ -65,8 +65,8 @@ public:
   /// Both should be in range [0.0, 1.0].
   struct MaxspeedFactor
   {
-    explicit MaxspeedFactor(double weight) noexcept : m_weight(weight), m_eta(weight) {}
-    explicit MaxspeedFactor(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
+    constexpr explicit MaxspeedFactor(double weight) noexcept : m_weight(weight), m_eta(weight) {}
+    constexpr explicit MaxspeedFactor(double weight, double eta) noexcept : m_weight(weight), m_eta(eta) {}
 
     bool operator==(MaxspeedFactor const & rhs) const { return m_weight == rhs.m_weight && m_eta == rhs.m_eta; }
 
@@ -76,8 +76,8 @@ public:
 
   struct InOutCitySpeedKMpH
   {
-    InOutCitySpeedKMpH(SpeedKMpH const & inCity, SpeedKMpH const & outCity,
-                       MaxspeedFactor const & maxspeedFactor) noexcept
+    constexpr InOutCitySpeedKMpH(SpeedKMpH const & inCity, SpeedKMpH const & outCity,
+                                 MaxspeedFactor const & maxspeedFactor) noexcept
       : m_inCity(inCity), m_outCity(outCity), m_maxspeedFactor(maxspeedFactor)
     {
     }
