@@ -162,7 +162,8 @@ public enum TtsPlayer
     });
   }
 
-  public boolean isSpeaking() {
+  public boolean isSpeaking()
+  {
     return mTts != null && mTts.isSpeaking();
   }
 

@@ -74,7 +74,7 @@ public class MediaPlayerWrapper
     mCompletionListener = null;
   }
 
-  public void playback(@RawRes int streamResId,
+  private void playback(@RawRes int streamResId,
                        @Nullable MediaPlayer.OnCompletionListener completionListener)
   {
     if (isCurrentSoundStream(streamResId) && mPlayer == null)
@@ -122,7 +122,7 @@ public class MediaPlayerWrapper
     @NonNull
     private final MediaPlayerWrapper mWrapper;
 
-    public InitPlayerTask(@NonNull MediaPlayerWrapper wrapper)
+    InitPlayerTask(@NonNull MediaPlayerWrapper wrapper)
     {
       mWrapper = wrapper;
     }
@@ -130,6 +130,8 @@ public class MediaPlayerWrapper
     @Override
     protected InitializationResult doInBackground(Integer... params)
     {
+      if (params.length == 0)
+        throw new IllegalArgumentException("Params not found");
       int resId = params[0];
       MediaPlayer player = MediaPlayer.create(mWrapper.getApp(), resId);
       return new InitializationResult(player, resId);
@@ -168,5 +170,4 @@ public class MediaPlayerWrapper
       return mPlayer;
     }
   }
-
 }
