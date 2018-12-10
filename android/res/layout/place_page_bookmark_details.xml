@@ -24,7 +24,7 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textAppearance="?android:attr/textAppearance"
     tools:text="Long, long text Long, long text Long, long text Long, long text Long, long text Long, long text "/>
 
   <TextView
