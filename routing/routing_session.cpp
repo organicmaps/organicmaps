@@ -303,11 +303,9 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
                                                         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude));
     if (base::AlmostEqualAbs(dist, m_lastDistance, kRunawayDistanceSensitivityMeters))
       return m_state;
-    if (dist > m_lastDistance)
-    {
-      ++m_moveAwayCounter;
-      m_lastDistance = dist;
-    }
+
+    ++m_moveAwayCounter;
+    m_lastDistance = dist;
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {

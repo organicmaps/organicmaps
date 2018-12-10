@@ -130,7 +130,9 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteBuilding)
   TEST_EQUAL(counter, 1, ());
 }
 
-UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
+// Test on route rebuilding when current position moving from the route. Each next position
+// is farther from the route then previous one.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingAway)
 {
   location::GpsInfo info;
   FrozenDataSource dataSource;
@@ -179,6 +181,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
   });
   TEST(oppositeTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
 
+  // Going away from route to set rebuilding flag.
   TimedSignal checkTimedSignal;
   GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignal, &info, this]() {
     info.m_longitude = 0.;
@@ -192,7 +195,53 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuilding)
     TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
     checkTimedSignal.Signal();
   });
-  TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
+  TEST(checkTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),
+       ("Route was not rebuilt."));
+}
+
+// Test on route rebuilding when current position moving to the route starting far from the route.
+// Each next position is closer to the route then previous one but is not covered by route matching passage.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingMovingToRoute)
+{
+  location::GpsInfo info;
+  FrozenDataSource dataSource;
+  size_t counter = 0;
+
+  TimedSignal alongTimedSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&alongTimedSignal, this, &counter]() {
+    InitRoutingSession();
+    Route masterRoute("dummy", kTestRoute.begin(), kTestRoute.end(), 0 /* route id */);
+    FillSubroutesInfo(masterRoute);
+
+    unique_ptr<DummyRouter> router =
+        make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
+    m_session->SetRouter(move(router), nullptr);
+
+    m_session->SetRoutingCallbacks(
+        [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
+        nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */,
+        nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
+  });
+  TEST(alongTimedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(counter, 1, ());
+
+  // Going starting far from the route and moving to the route but rebuild flag still is set.
+  TimedSignal checkTimedSignalAway;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&checkTimedSignalAway, &info, this]() {
+    info.m_longitude = 0.0;
+    info.m_latitude = 0.0;
+    RoutingSession::State code = RoutingSession::State::RoutingNotActive;
+    for (size_t i = 0; i < 8; ++i)
+    {
+      code = m_session->OnLocationPositionChanged(info);
+      info.m_latitude += 0.1;
+    }
+    TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
+    checkTimedSignalAway.Signal();
+  });
+  TEST(checkTimedSignalAway.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration),
+       ("Route was not rebuilt."));
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteFlagPersistence)
