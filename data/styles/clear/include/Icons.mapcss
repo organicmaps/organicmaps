@@ -341,10 +341,8 @@ node[railway=tram_stop],
 area[railway=tram_stop],
 node[historic=monument],
 area[historic=monument],
-node[historic=memorial][memorial=sculpture],
-area[historic=memorial][memorial=sculpture],
-node[historic=memorial][memorial=statue],
-area[historic=memorial][memorial=statue],
+node[historic=memorial],
+area[historic=memorial],
 node|z17-[tourism=artwork][artwork_type=sculpture],
 area|z17-[tourism=artwork][artwork_type=sculpture]
 {z-index: 2800;}
@@ -1123,10 +1121,8 @@ area|z14-[tourism=theme_park],
 node|z14-[amenity=community_centre],
 area|z14-[amenity=community_centre],
 node|z14-[tourism=viewpoint],
-node|z15-[historic=memorial][memorial=sculpture],
-area|z15-[historic=memorial][memorial=sculpture],
-node|z15-[historic=memorial][memorial=statue],
-area|z15-[historic=memorial][memorial=statue],
+node|z15-[historic=memorial],
+area|z15-[historic=memorial],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
@@ -1181,18 +1177,24 @@ area|z13-14[historic=monument]
 {icon-image: monument-s.svg;text-offset: 1;icon-min-distance: 12;}
 node|z15[historic=monument],
 area|z15[historic=monument],
-node|z15[historic=memorial][memorial=sculpture],
-area|z15[historic=memorial][memorial=sculpture],
-node|z15[historic=memorial][memorial=statue],
-area|z15[historic=memorial][memorial=statue]
+node|z15[historic=memorial],
+area|z15[historic=memorial],
 {icon-image: monument-m.svg;icon-min-distance: 24;}
 node|z16-[historic=monument],
 area|z16-[historic=monument],
-node|z16-[historic=memorial][memorial=sculpture],
-area|z16-[historic=memorial][memorial=sculpture],
-node|z16-[historic=memorial][memorial=statue],
-area|z16-[historic=memorial][memorial=statue]
+node|z16-[historic=memorial],
+area|z16-[historic=memorial],
 {icon-image: monument-m.svg;icon-min-distance: 12;}
+
+node|z15-[historic=memorial][memorial=plaque],
+area|z15-[historic=memorial][memorial=plaque],
+{icon-image: zero-icon.svg;text: none;}
+node|z16[historic=memorial][memorial=plaque],
+area|z16[historic=memorial][memorial=plaque],
+{icon-image: zero-icon.svg;text: none;}
+node|z17[historic=memorial][memorial=plaque],
+area|z17[historic=memorial][memorial=plaque]
+{icon-image: zero-icon.svg;text: none;}
 node|z18-[historic=memorial][memorial=plaque],
 area|z18-[historic=memorial][memorial=plaque]
 {icon-image: monument-m.svg;icon-min-distance: 12;}
