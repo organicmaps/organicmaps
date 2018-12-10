@@ -1011,3 +1011,18 @@ UNIT_TEST(RussiaMoscowTTKNoGoStraightTurnTest)
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
 }
+
+UNIT_TEST(RussiaMoscowLeninskyProsp2Test)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.80376, 37.52048), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.80442, 37.51802));
+
+  Route const & route = *routeResult.first;
+  RouterResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
+}
