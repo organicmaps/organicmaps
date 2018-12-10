@@ -542,7 +542,7 @@ UNIT_TEST(RussiaMoscowSvobodaStTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightLeft);
 }
 
 UNIT_TEST(RussiaTiinskTest)
@@ -766,7 +766,7 @@ UNIT_TEST(NetherlandsBarneveldTest)
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 UNIT_TEST(GermanyRaunheimAirportTest)
