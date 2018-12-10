@@ -33,7 +33,7 @@ string ExactMatchingRule::ToString() const
   return os.str();
 }
 
-AlternativesMatchingRule::AlternativesMatchingRule(initializer_list<shared_ptr<MatchingRule>> rules)
+AlternativesMatchingRule::AlternativesMatchingRule(vector<shared_ptr<MatchingRule>> && rules)
   : m_rules(move(rules))
 {
 }

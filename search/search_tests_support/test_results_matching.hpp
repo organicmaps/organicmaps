@@ -52,7 +52,7 @@ private:
 class AlternativesMatchingRule : public MatchingRule
 {
 public:
-  AlternativesMatchingRule(std::initializer_list<std::shared_ptr<MatchingRule>> rules);
+  AlternativesMatchingRule(std::vector<std::shared_ptr<MatchingRule>> && rules);
 
   // MatchingRule overrides:
   bool Matches(FeatureType & feature) const override;
@@ -68,10 +68,10 @@ std::shared_ptr<MatchingRule> ExactMatch(TArgs &&... args)
   return std::make_shared<ExactMatchingRule>(forward<TArgs>(args)...);
 }
 
-template <typename... TArgs>
-std::shared_ptr<MatchingRule> AlternativesMatch(TArgs &&... args)
+inline std::shared_ptr<MatchingRule> AlternativesMatch(
+    std::vector<std::shared_ptr<MatchingRule>> && rules)
 {
-  return std::make_shared<AlternativesMatchingRule>(std::forward<TArgs>(args)...);
+  return std::make_shared<AlternativesMatchingRule>(std::move(rules));
 }
 
 bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
