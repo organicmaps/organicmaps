@@ -462,12 +462,12 @@ public class MapObject implements Parcelable, PopularityProvider
     dest.writeParcelable(mHotelType, 0);
     dest.writeInt(mPriceRate);
     dest.writeParcelable(mPopularity, 0);
+    dest.writeString(mDescription);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
     dest.writeTypedList(mRatings);
-    dest.writeString(mDescription);
   }
 
   @Override

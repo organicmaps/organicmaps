@@ -32,7 +32,7 @@
         tools:visibility="gone"/>
 
       <include
-        layout="@layout/place_page_poi_details"
+        layout="@layout/place_page_description_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_half"

@@ -17,19 +17,16 @@ import java.util.Objects;
 public class PlaceDescriptionFragment extends BaseMwmFragment
 {
   public static final String EXTRA_DESCRIPTION = "description";
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private WebView mWebView;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private String mDesc;
+  private String mDescription;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mDesc = Objects.requireNonNull(getArguments().getString(EXTRA_DESCRIPTION));
+    mDescription = Objects.requireNonNull(getArguments().getString(EXTRA_DESCRIPTION));
   }
 
   @Nullable
@@ -38,9 +35,9 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_place_description, container, false);
-    mWebView = root.findViewById(R.id.webview);
-    mWebView.loadData(mDesc, Utils.TEXT_HTML_CHARSET_UTF_8, null);
-    mWebView.setVerticalScrollBarEnabled(true);
+    WebView webView = root.findViewById(R.id.webview);
+    webView.loadData(mDescription, Utils.TEXT_HTML, Utils.UTF_8);
+    webView.setVerticalScrollBarEnabled(true);
     return root;
   }
 

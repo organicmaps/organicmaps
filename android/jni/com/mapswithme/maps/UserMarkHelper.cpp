@@ -159,7 +159,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
     //                 @Nullable HotelsFilter.HotelType hotelType,
     //                 @PriceFilterView.PriceDef int priceRate,
     //                 @NotNull com.mapswithme.maps.search.Popularity entity
-    //                 @NotNull String desc)
+    //                 @NotNull String description)
     static jmethodID const ctorId =
         jni::GetConstructorID(env, g_bookmarkClazz,
                               "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;JJLjava/lang/String;"

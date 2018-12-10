@@ -708,15 +708,15 @@ public class PlacePageView extends RelativeLayout
     mPlaceDescriptionContainer = findViewById(R.id.poi_description_container);
     mPlaceDescriptionView = findViewById(R.id.poi_description);
     mPlaceDescriptionMoreBtn = findViewById(R.id.more_btn);
-    mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescScreen());
+    mPlaceDescriptionMoreBtn.setOnClickListener(v -> showDescriptionScreen());
   }
 
-  private void showDescScreen()
+  private void showDescriptionScreen()
   {
     Context context = mPlaceDescriptionContainer.getContext();
-    String descArgs = Objects.requireNonNull(mMapObject).getDescription();
+    String description = Objects.requireNonNull(mMapObject).getDescription();
     Intent intent = new Intent(context, PlaceDescriptionActivity.class)
-        .putExtra(PlaceDescriptionFragment.EXTRA_DESCRIPTION, descArgs);
+        .putExtra(PlaceDescriptionFragment.EXTRA_DESCRIPTION, description);
     context.startActivity(intent);
   }
 
@@ -1366,7 +1366,6 @@ public class PlacePageView extends RelativeLayout
     refreshDetails(mapObject);
 
     final Location loc = LocationHelper.INSTANCE.getSavedLocation();
-    hidePlaceDescription();
     switch (mapObject.getMapObjectType())
     {
       case MapObject.BOOKMARK:
@@ -1405,15 +1404,10 @@ public class PlacePageView extends RelativeLayout
     });
   }
 
-  private void hidePlaceDescription()
-  {
-    mPlaceDescriptionContainer.setVisibility(GONE);
-  }
-
   private void setPlaceDescription(@NonNull MapObject mapObject)
   {
-    boolean hasDesc = !TextUtils.isEmpty(mapObject.getDescription());
-    mPlaceDescriptionContainer.setVisibility(hasDesc ? VISIBLE : GONE);
+    boolean isDescriptionAbsent = TextUtils.isEmpty(mapObject.getDescription());
+    UiUtils.hideIf(isDescriptionAbsent, mPlaceDescriptionContainer);
     mPlaceDescriptionView.setText(Html.fromHtml(mapObject.getDescription()));
   }
 
@@ -1545,6 +1539,7 @@ public class PlacePageView extends RelativeLayout
                      || UiUtils.isVisible(mAddPlace), mEditTopSpace);
       refreshLocalAdInfo(mapObject);
     }
+    setPlaceDescription(mapObject);
   }
 
   private void refreshHotelDetailViews()
@@ -1727,7 +1722,7 @@ public class PlacePageView extends RelativeLayout
 
     if (StringUtils.nativeIsHtml(notes))
     {
-      mWvBookmarkNote.loadData(notes, Utils.TEXT_HTML_CHARSET_UTF_8, null);
+      mWvBookmarkNote.loadData(notes, "text/html; charset=utf-8", null);
       UiUtils.show(mWvBookmarkNote);
       UiUtils.hide(mTvBookmarkNote);
     }

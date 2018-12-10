@@ -57,7 +57,8 @@ public class Utils
 {
   @StringRes
   public static final int INVALID_ID = 0;
-  public static final String TEXT_HTML_CHARSET_UTF_8 = "text/html; charset=utf-8";
+  public static final String UTF_8 = "utf-8";
+  public static final String TEXT_HTML = "text/html;";
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = "Utils";
 

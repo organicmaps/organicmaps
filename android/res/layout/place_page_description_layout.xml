@@ -19,7 +19,7 @@
     android:layout_marginStart="@dimen/margin_base"
     android:layout_marginTop="@dimen/margin_base"
     android:maxLength="2000"
-    android:textAppearance="@style/MwmTextAppearance.Body1"/>
+    android:textAppearance="?android:attr/textAppearanceLarge"/>
 
   <TextView
     android:id="@+id/more_btn"
@@ -30,7 +30,7 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginRight="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
-    android:textAppearance="@style/MwmTextAppearance.Body1"
+    android:textAppearance="?android:attr/textAppearanceLarge"
     android:gravity="start|top"
     android:textColor="?attr/colorAccent"
     android:text="@string/category_desc_more"
