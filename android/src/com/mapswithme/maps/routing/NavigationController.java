@@ -1,8 +1,11 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -81,6 +84,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   private double mNorth;
 
+  @NonNull
+  private final MediaPlayer.OnCompletionListener mSpeedCamSignalCompletionListener;
+
   public NavigationController(Activity activity)
   {
     mFrame = activity.findViewById(R.id.navigation_frame);
@@ -135,6 +141,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
                                                   R.drawable.ic_menu_bookmarks));
     bookmarkButton.setOnClickListener(this);
+    Application app = (Application) bookmarkButton.getContext().getApplicationContext();
+    mSpeedCamSignalCompletionListener = new CameraWarningSignalCompletionListener(app);
   }
 
   public void onResume()
@@ -251,6 +259,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     mDistanceValue.setText(info.distToTarget);
     mDistanceUnits.setText(info.targetUnits);
     mRouteProgress.setProgress((int) info.completionPercent);
+    playbackSpeedCamWarning(info);
   }
 
   private void updateStreetView(@NonNull RoutingInfo info)
@@ -272,6 +281,16 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
     mSpeedUnits.setText(speedAndUnits.second);
     mSpeedValue.setText(speedAndUnits.first);
     mSpeedViewContainer.setActivated(info.isSpeedLimitExceeded());
+  }
+
+  private void playbackSpeedCamWarning(@NonNull RoutingInfo info)
+  {
+    if (!info.shouldPlayWarningSignal() || TtsPlayer.INSTANCE.isSpeaking())
+      return;
+
+    Context context = mBottomFrame.getContext();
+    MediaPlayerWrapper player = MediaPlayerWrapper.from(context);
+    player.playbackSpeedCamsWarningSignal(mSpeedCamSignalCompletionListener);
   }
 
   private void updateTime(int seconds)
@@ -448,5 +467,22 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
   public void destroy()
   {
     MediaPlayerWrapper.from(mBottomFrame.getContext()).release();
+  }
+
+  private static class CameraWarningSignalCompletionListener implements MediaPlayer.OnCompletionListener
+  {
+    @NonNull
+    private final Application mApp;
+
+    CameraWarningSignalCompletionListener(@NonNull Application app)
+    {
+      mApp = app;
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp)
+    {
+      TtsPlayer.INSTANCE.playTurnNotifications(mApp);
+    }
   }
 }
