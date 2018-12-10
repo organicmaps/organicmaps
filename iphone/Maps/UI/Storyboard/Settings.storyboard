@@ -1995,7 +1995,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection id="vIv-h0-cIZ">
+                            <tableViewSection footerTitle="Auto - Warn about speedcams if there is a risk of exceeding the speed limit" id="vIv-h0-cIZ">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSelectableCell" id="XIR-dX-Iyu" customClass="SettingsTableViewSelectableCell" customModule="maps_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>

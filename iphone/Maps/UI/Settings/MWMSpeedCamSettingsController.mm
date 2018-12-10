@@ -73,4 +73,15 @@ using namespace routing;
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - UITableViewDataSource
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  switch (section)
+  {
+    case 0: return L(@"speedcams_notice_message");
+    default: return nil;
+  }
+}
+
 @end
