@@ -533,8 +533,11 @@ void Ranker::UpdateResults(bool lastUpdate)
   size_t i = 0;
   for (; i < m_tentativeResults.size(); ++i)
   {
-    if (!lastUpdate && i >= m_params.m_batchSize && !m_params.m_viewportSearch)
+    if (!lastUpdate && i >= m_params.m_batchSize && !m_params.m_viewportSearch &&
+        !m_params.m_categorialRequest)
+    {
       break;
+    }
 
     if (!lastUpdate)
       BailIfCancelled();

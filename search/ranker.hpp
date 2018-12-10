@@ -56,6 +56,7 @@ public:
     bool m_needAddress = false;
     bool m_needHighlighting = false;
     bool m_viewportSearch = false;
+    bool m_categorialRequest = false;
 
     std::string m_query;
     QueryTokens m_tokens;
