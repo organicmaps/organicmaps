@@ -487,6 +487,7 @@ CGFloat const kPinDiameter = 18.0f;
                                                   style:UIAlertActionStyleCancel
                                                 handler:nil]];
 
+  actionSheet.popoverPresentationController.barButtonItem = self.moreItem;
   [self presentViewController:actionSheet animated:YES completion:nil];
   [Statistics logEvent:kStatBookmarksListItemSettings withParameters:@{kStatOption : kStatMore}];
 }
