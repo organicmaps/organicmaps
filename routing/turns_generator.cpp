@@ -509,6 +509,23 @@ bool GetPrevInSegmentRoutePoint(RoutePointIndex const & index, RoutePointIndex &
   nextIndex = {index.m_segmentIndex, index.m_pathIndex - 1};
   return true;
 }
+
+/*!
+ * \brief Corrects |turn.m_turn| if |turn.m_turn == CarDirection::GoStraight| and there're only
+ * two ways out from this junction. In that case the other way (the way which is not covered by
+ * the route) is checked. If the other way is "go straight" or "slight turn", turn.m_turn is set
+ * to |turnToSet|.
+ */
+void GoStraightCorrection(TurnCandidate const & notRouteCandidate, CarDirection turnToSet,
+                          TurnItem & turn)
+{
+  CHECK_EQUAL(turn.m_turn, CarDirection::GoStraight, ());
+
+  if (!IsGoStraightOrSlightTurn(IntermediateDirection(notRouteCandidate.m_angle)))
+    return;
+
+  turn.m_turn = turnToSet;
+}
 }  // namespace
 
 namespace routing
@@ -991,7 +1008,26 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   {
     if (!hasMultiTurns)
       turn.m_turn = CarDirection::None;
-    return;
+
+    // Note. If the turn direction is |CarDirection::GoStraight| and there's only one extra way out
+    // from the junction the direction may be corrected in some cases.
+    if (nodes.candidates.size() == 2)
+    {
+      if (nodes.candidates.front().m_segment == firstOutgoingSeg)
+      {
+        // The route goes along the leftmost candidate.
+        GoStraightCorrection(nodes.candidates.back(), CarDirection::TurnSlightLeft, turn);
+      }
+      else if (nodes.candidates.back().m_segment == firstOutgoingSeg)
+      {
+        // The route goes along the rightmost candidate.
+        GoStraightCorrection(nodes.candidates.front(), CarDirection::TurnSlightRight, turn);
+      }
+      else
+      {
+        CHECK(false, ("There are 2 turn candidates and route goes somewhere else."));
+      }
+    }
   }
 }
 
