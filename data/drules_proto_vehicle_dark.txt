@@ -18384,49 +18384,25 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "monument-m"
+      name: "zero-icon"
       priority: 16790
       min_distance: 24
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-        offset_y: 1
-      }
-      priority: 15790
     }
   }
   element {
     scale: 16
     symbol {
-      name: "monument-m"
+      name: "zero-icon"
       priority: 16790
       min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-        offset_y: 1
-      }
-      priority: 15790
     }
   }
   element {
     scale: 17
     symbol {
-      name: "monument-m"
+      name: "zero-icon"
       priority: 16790
       min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-        offset_y: 1
-      }
-      priority: 15790
     }
   }
   element {
@@ -18436,14 +18412,6 @@ cont {
       priority: 16790
       min_distance: 12
     }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-        offset_y: 1
-      }
-      priority: 15790
-    }
   }
   element {
     scale: 19
@@ -18451,14 +18419,6 @@ cont {
       name: "monument-m"
       priority: 16790
       min_distance: 12
-    }
-    caption {
-      primary {
-        height: 10
-        color: 6710886
-        offset_y: 1
-      }
-      priority: 15790
     }
   }
 }

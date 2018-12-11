@@ -30257,7 +30257,7 @@ cont {
     scale: 15
     symbol {
       name: "monument-m"
-      priority: 16790
+      priority: 16556
       min_distance: 24
     }
     caption {
@@ -30265,56 +30265,77 @@ cont {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 15790
+      priority: 15556
     }
   }
   element {
     scale: 16
     symbol {
       name: "monument-m"
-      priority: 16790
-      min_distance: 24
+      priority: 16556
+      min_distance: 12
     }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 15790
+      priority: 15556
     }
   }
   element {
     scale: 17
     symbol {
       name: "monument-m"
-      priority: 16790
-      min_distance: 24
+      priority: 16556
+      min_distance: 12
     }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 15790
+      priority: 15556
     }
   }
   element {
     scale: 18
     symbol {
       name: "monument-m"
-      priority: 16790
-      min_distance: 24
+      priority: 16556
+      min_distance: 12
     }
     caption {
       primary {
         height: 10
         color: 4473924
         offset_y: 1
+        is_optional: true
       }
-      priority: 15790
+      priority: 15556
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
     }
   }
 }
@@ -30323,24 +30344,24 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "monument-m"
-      priority: 16917
-      min_distance: 12
+      name: "zero-icon"
+      priority: 16556
+      min_distance: 24
     }
   }
   element {
     scale: 16
     symbol {
-      name: "monument-m"
-      priority: 16917
+      name: "zero-icon"
+      priority: 16556
       min_distance: 12
     }
   }
   element {
     scale: 17
     symbol {
-      name: "monument-m"
-      priority: 16917
+      name: "zero-icon"
+      priority: 16556
       min_distance: 12
     }
   }

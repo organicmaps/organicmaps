@@ -29948,7 +29948,119 @@ cont {
   }
 }
 cont {
+  name: "historic-memorial"
+  element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16556
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+        is_optional: true
+      }
+      priority: 15556
+    }
+  }
+}
+cont {
   name: "historic-memorial-plaque"
+  element {
+    scale: 15
+    symbol {
+      name: "zero-icon"
+      priority: 16556
+      min_distance: 24
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "zero-icon"
+      priority: 16556
+      min_distance: 12
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "zero-icon"
+      priority: 16556
+      min_distance: 12
+    }
+  }
   element {
     scale: 18
     symbol {
