@@ -290,7 +290,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
     Context context = mBottomFrame.getContext();
     MediaPlayerWrapper player = MediaPlayerWrapper.from(context);
-    player.playbackSpeedCamsWarningSignal(mSpeedCamSignalCompletionListener);
+    player.playback(R.raw.speed_cams_beep, mSpeedCamSignalCompletionListener);
   }
 
   private void updateTime(int seconds)

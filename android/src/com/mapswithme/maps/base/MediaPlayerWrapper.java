@@ -74,7 +74,7 @@ public class MediaPlayerWrapper
     mCompletionListener = null;
   }
 
-  private void playback(@RawRes int streamResId,
+  public void playback(@RawRes int streamResId,
                        @Nullable MediaPlayer.OnCompletionListener completionListener)
   {
     if (isCurrentSoundStream(streamResId) && mPlayer == null)
@@ -103,11 +103,6 @@ public class MediaPlayerWrapper
   public boolean isPlaying()
   {
     return mPlayer != null && mPlayer.isPlaying();
-  }
-
-  public void playbackSpeedCamsWarningSignal(@Nullable MediaPlayer.OnCompletionListener completionListener)
-  {
-    playback(R.raw.speed_cams_beep, completionListener);
   }
 
   @NonNull
