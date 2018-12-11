@@ -115,8 +115,9 @@ private:
   static double constexpr kShowCameraDistanceM = 1000.0;
 
   // Additional time for user about make a decision about slow down.
-  // Get from: https://en.wikipedia.org/wiki/Braking_distance
-  static double constexpr kTimeForDecision = 2.0;
+  // From |https://en.wikipedia.org/wiki/Braking_distance| it's equal 2 seconds on average.
+  // But in order to make VoiceNotification earlier, we make it more than 2 seconds.
+  static double constexpr kTimeForDecision = 6.0;
 
   // Distance that we use for look ahead to search camera on the route.
   static double constexpr kLookAheadDistanceMeters = 2000.0;
@@ -127,7 +128,7 @@ private:
   // With this constant we calculate the distance for beep signal.
   // If beep signal happend, it must be before |kBeepSignalTime| seconds
   // of entering to the camera influence zone - |kInfluenceZoneMeters|.
-  static double constexpr kBeepSignalTime = 1.0;
+  static double constexpr kBeepSignalTime = 2.0;
 
   // Number of notifications for different types.
   static uint32_t constexpr kVoiceNotificationNumber = 1;
@@ -173,4 +174,6 @@ private:
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
+
+std::string DebugPrint(SpeedCameraManager::Interval interval);
 }  // namespace routing

@@ -184,8 +184,9 @@ public:
 
   bool IsSpeedLimitExceeded() const { return m_speedCameraManager.IsSpeedLimitExceeded(); }
   SpeedCameraManager & GetSpeedCamManager() { return m_speedCameraManager; }
+  SpeedCameraManager const & GetSpeedCamManager() const { return m_speedCameraManager; }
 
-  std::shared_ptr<Route> GetRouteForTests() { return m_route; }
+  std::shared_ptr<Route> GetRouteForTests() const { return m_route; }
 
 private:
   struct DoReadyCallback

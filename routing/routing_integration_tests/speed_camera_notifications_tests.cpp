@@ -88,7 +88,7 @@ bool CheckBeepSignal(RoutingSession & routingSession)
   return routingSession.GetSpeedCamManager().ShouldPlayBeepSignal();
 }
 
-bool CheckZone(RoutingSession & routingSession, double speedKmPH, SpeedCameraManager::Interval interval)
+SpeedCameraManager::Interval CheckZone(RoutingSession const & routingSession, double speedKmPH)
 {
   SpeedCameraOnRoute const & closestCamera = routingSession.GetSpeedCamManager().GetClosestCamForTests();
   CHECK(closestCamera.IsValid(), ("No speed camera found."));
@@ -97,7 +97,7 @@ bool CheckZone(RoutingSession & routingSession, double speedKmPH, SpeedCameraMan
   double const passedDist = routingSession.GetRouteForTests()->GetCurrentDistanceFromBeginMeters();
   double const distToCamera = closestCamera.m_distFromBeginMeters - passedDist;
 
-  return interval == SpeedCameraManager::GetIntervalByDistToCam(distToCamera, speedMpS);
+  return SpeedCameraManager::GetIntervalByDistToCam(distToCamera, speedMpS);
 }
 
 bool NoCameraFound(RoutingSession & routingSession)
@@ -123,7 +123,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_1)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.68126, 37.53551}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::ImpactZone), ());
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::ImpactZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
@@ -147,7 +147,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_2)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.74505, 37.61384}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::ImpactZone), ());
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::ImpactZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
@@ -181,7 +181,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_3)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.76589, 37.58999}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::BeepSignalZone), ());
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
@@ -215,7 +215,7 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_4)
     {
       double const speedKmPH = 100.0;
       ChangePosition({55.65671, 37.53236}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::ImpactZone), ());
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::ImpactZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
@@ -248,8 +248,8 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_5)
     // Exceed speed limit before beep zone.
     {
       double const speedKmPH = 100.0;
-      ChangePosition({55.7660589, 37.5907827}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::VoiceNotificationZone), ());
+      ChangePosition({55.76605, 37.59078}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
@@ -273,26 +273,17 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_6)
     // Exceed speed limit before beep zone.
     {
       double const speedKmPH = 100.0;
-      ChangePosition({55.7660589, 37.5907827}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::VoiceNotificationZone), ());
+      ChangePosition({55.76605, 37.59078}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
-      TEST(!CheckBeepSignal(routingSession), ());
-    }
-
-    // Need intermediate ChangePosition to calculate passedDistance correctly.
-    {
-      double const speedKmPH = 100.0;
-      ChangePosition({55.7656051, 37.5901564}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::VoiceNotificationZone), ());
-      TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
 
     // Exceed speed limit in beep zone.
     {
       double const speedKmPH = 100.0;
-      ChangePosition({55.7654092, 37.5898876}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::BeepSignalZone), ());
+      ChangePosition({55.76560, 37.59015}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
@@ -317,29 +308,40 @@ UNIT_TEST(SpeedCameraNotification_AutoAlwaysMode_7)
     // Exceed speed limit before beep zone.
     {
       double const speedKmPH = 100.0;
-      ChangePosition({55.7659465, 37.590631}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::VoiceNotificationZone), ());
+      ChangePosition({55.76655, 37.59146}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
 
-    // Need intermediate ChangePosition to calculate passedDistance correctly.
+    // Intermediate Move for correct calculating of passedDistance.
     {
-      double const speedKmPH = 60.0;
-      ChangePosition({55.7657867, 37.5904073}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::VoiceNotificationZone), ());
+      double const speedKmPH = 40.0;
+      ChangePosition({55.76602, 37.59074}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
 
-    // No exceed speed limit in beep zone.
+    // Intermediate Move for correct calculating of passedDistance.
     {
       double const speedKmPH = 40.0;
-      ChangePosition({55.7656548, 37.5902138}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::BeepSignalZone), ());
+      ChangePosition({55.76559, 37.59016}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::VoiceNotificationZone, ());
+      TEST(!CheckVoiceNotification(routingSession), ());
+      TEST(!CheckBeepSignal(routingSession), ());
+    }
+
+    // No exceed speed limit in beep zone, but we did VoiceNotification earlier,
+    // so now we make BeedSignal.
+    {
+      double const speedKmPH = 40.0;
+      ChangePosition({55.76527, 37.58970}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::BeepSignalZone, ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(CheckBeepSignal(routingSession), ());
     }
+
   }
 }
 
@@ -359,8 +361,8 @@ UNIT_TEST(SpeedCameraNotification_AlwaysMode_1)
 
     {
       double const speedKmPH = 40.0;
-      ChangePosition({55.7647619, 37.5890578}, speedKmPH, routingSession);
-      TEST(CheckZone(routingSession, speedKmPH, SpeedCameraManager::Interval::ImpactZone), ());
+      ChangePosition({55.76476, 37.58905}, speedKmPH, routingSession);
+      TEST_EQUAL(CheckZone(routingSession, speedKmPH), SpeedCameraManager::Interval::ImpactZone, ());
       TEST(CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
     }
@@ -383,7 +385,7 @@ UNIT_TEST(SpeedCameraNotification_AutoMode_1)
 
     {
       double const speedKmPH = 40.0;
-      ChangePosition({55.7647619, 37.5890578}, speedKmPH, routingSession);
+      ChangePosition({55.76476, 37.58905}, speedKmPH, routingSession);
       TEST(NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
@@ -402,7 +404,7 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
 
     {
       double const speedKmPH = 100.0;
-      ChangePosition({55.7647619, 37.5890578}, speedKmPH, routingSession);
+      ChangePosition({55.76476, 37.58905}, speedKmPH, routingSession);
       TEST(!NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
@@ -410,7 +412,7 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
 
     {
       double const speedKmPH = 200.0;
-      ChangePosition({55.7644126, 37.5886567}, speedKmPH, routingSession);
+      ChangePosition({55.76441, 37.58865}, speedKmPH, routingSession);
       TEST(!NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());
@@ -418,7 +420,7 @@ UNIT_TEST(SpeedCameraNotification_NeverMode_1)
 
     {
       double const speedKmPH = 300.0;
-      ChangePosition({55.7633558, 37.587675}, speedKmPH, routingSession);
+      ChangePosition({55.76335, 37.58767}, speedKmPH, routingSession);
       TEST(!NoCameraFound(routingSession), ());
       TEST(!CheckVoiceNotification(routingSession), ());
       TEST(!CheckBeepSignal(routingSession), ());

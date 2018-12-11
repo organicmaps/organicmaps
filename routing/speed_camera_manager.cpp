@@ -354,4 +354,15 @@ void SpeedCameraManager::SetMode(SpeedCameraManagerMode mode)
   m_mode = mode;
   settings::Set(kSpeedCamModeKey, static_cast<int>(mode));
 }
+
+std::string DebugPrint(SpeedCameraManager::Interval interval)
+{
+  switch (interval)
+  {
+  case SpeedCameraManager::Interval::BeepSignalZone: return "BeepSignalZone";
+  case SpeedCameraManager::Interval::VoiceNotificationZone: return "VoiceNotificationZone";
+  case SpeedCameraManager::Interval::ImpactZone: return "ImpactZone";
+  }
+  UNREACHABLE();
+}
 }  // namespace routing
