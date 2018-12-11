@@ -31,6 +31,8 @@ repositories {
   maven {
     url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
+  maven { url 'https://dl.bintray.com/google/flexbox-layout/' }
+  maven { url 'https://dl.bintray.com/google/exoplayer/' }
 }
 
 apply plugin: 'com.android.application'
