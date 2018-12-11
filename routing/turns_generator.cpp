@@ -1010,23 +1010,25 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
       turn.m_turn = CarDirection::None;
 
     // Note. If the turn direction is |CarDirection::GoStraight| and there's only one extra way out
-    // from the junction the direction may be corrected in some cases.
-    if (nodes.candidates.size() == 2)
+    // from the junction the direction may be corrected in some cases. So two turn candidates
+    // (one for the route and an extra one) require special processing.
+    if (nodes.candidates.size() != 2)
+      return;
+
+    if (nodes.candidates.front().m_segment == firstOutgoingSeg)
     {
-      if (nodes.candidates.front().m_segment == firstOutgoingSeg)
-      {
-        // The route goes along the leftmost candidate.
-        GoStraightCorrection(nodes.candidates.back(), CarDirection::TurnSlightLeft, turn);
-      }
-      else if (nodes.candidates.back().m_segment == firstOutgoingSeg)
-      {
-        // The route goes along the rightmost candidate.
-        GoStraightCorrection(nodes.candidates.front(), CarDirection::TurnSlightRight, turn);
-      }
-      // Note. It's possible that |firstOutgoingSeg| is not contained in |nodes.candidates|.
-      // It may happened if |firstOutgoingSeg| and candidates in |nodes.candidates| are
-      // from different mwms.
+      // The route goes along the leftmost candidate.
+      GoStraightCorrection(nodes.candidates.back(), CarDirection::TurnSlightLeft, turn);
     }
+    else if (nodes.candidates.back().m_segment == firstOutgoingSeg)
+    {
+      // The route goes along the rightmost candidate.
+      GoStraightCorrection(nodes.candidates.front(), CarDirection::TurnSlightRight, turn);
+    }
+    // Note. It's possible that |firstOutgoingSeg| is not contained in |nodes.candidates|.
+    // It may happened if |firstOutgoingSeg| and candidates in |nodes.candidates| are
+    // from different mwms.
+
   }
 }
 
