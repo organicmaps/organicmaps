@@ -1023,10 +1023,9 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
         // The route goes along the rightmost candidate.
         GoStraightCorrection(nodes.candidates.front(), CarDirection::TurnSlightRight, turn);
       }
-      else
-      {
-        CHECK(false, ("There are 2 turn candidates and route goes somewhere else."));
-      }
+      // Note. It's possible that |firstOutgoingSeg| is not contained in |nodes.candidates|.
+      // It may happened if |firstOutgoingSeg| and candidates in |nodes.candidates| are
+      // from different mwms.
     }
   }
 }
