@@ -46,6 +46,7 @@ protected:
     Unknown
   };
 
+  TestFeature();
   TestFeature(std::string const & name, std::string const & lang);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
   TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name,

@@ -78,17 +78,18 @@ public:
 
   DescriptionsCollectionBuilder(std::string const & wikipediaDir, std::string const & mwmFile);
 
-  template <template <typename> class ForEachFromDatAdapter>
+  template <typename Ft, template <typename> class ForEachFromDatAdapter>
   descriptions::DescriptionsCollection MakeDescriptions()
   {
     descriptions::DescriptionsCollection descriptionList;
-    auto fn = [&](FeatureType & f, uint32_t featureId) {
-      auto const & needWikiUrl = ftypes::WikiChecker::Instance();
-      if (!needWikiUrl(f))
+    auto fn = [&](Ft & f, uint32_t featureId) {
+      auto const & wikiChecker = ftypes::WikiChecker::Instance();
+      if (!wikiChecker.NeedFeature(f))
         return;
 
       descriptions::FeatureDescription description;
-      auto const ret = GetFeatureDescription(f, featureId, description);
+      auto const wikiUrl = f.GetMetadata().GetWikiURL();
+      auto const ret = GetFeatureDescription(wikiUrl, featureId, description);
       CHECK_GREATER_OR_EQUAL(ret, 0, ());
       if (ret == 0)
         return;
@@ -109,7 +110,7 @@ private:
   static size_t FillStringFromFile(std::string const & fullPath, int8_t code,
                                    StringUtf8Multilang & str);
   boost::optional<size_t> FindPageAndFill(std::string wikipediaUrl, StringUtf8Multilang & str);
-  size_t GetFeatureDescription(FeatureType & f, uint32_t featureId,
+  size_t GetFeatureDescription(std::string const & wikiUrl, uint32_t featureId,
                                descriptions::FeatureDescription & description);
 
   DescriptionsCollectionBuilderStat m_stat;
@@ -117,13 +118,13 @@ private:
   std::string m_mwmFile;
 };
 
-template <template <typename> class ForEachFromDatAdapter = ForEachFromDatAdapt>
+template <typename Ft, template <typename> class ForEachFromDatAdapter = ForEachFromDatAdapt>
 struct DescriptionsSectionBuilder
 {
   static void Build(std::string const & wikipediaDir, std::string const & mwmFile)
   {
     DescriptionsCollectionBuilder descriptionsCollectionBuilder(wikipediaDir, mwmFile);
-    auto descriptionList = descriptionsCollectionBuilder.MakeDescriptions<ForEachFromDatAdapter>();
+    auto descriptionList = descriptionsCollectionBuilder.MakeDescriptions<Ft, ForEachFromDatAdapter>();
 
     auto const & stat = descriptionsCollectionBuilder.GetStat();
     auto const size = stat.GetSize();

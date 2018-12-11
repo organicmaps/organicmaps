@@ -108,10 +108,9 @@ boost::optional<size_t> DescriptionsCollectionBuilder::FindPageAndFill(std::stri
   return size;
 }
 
-size_t DescriptionsCollectionBuilder::GetFeatureDescription(FeatureType & f, uint32_t featureId,
+size_t DescriptionsCollectionBuilder::GetFeatureDescription(std::string const & wikiUrl, uint32_t featureId,
                                                             descriptions::FeatureDescription & description)
 {
-  auto const wikiUrl = f.GetMetadata().GetWikiURL();
   if (wikiUrl.empty())
     return 0;
 
@@ -126,6 +125,6 @@ size_t DescriptionsCollectionBuilder::GetFeatureDescription(FeatureType & f, uin
 
 void BuildDescriptionsSection(std::string const & wikipediaDir, std::string const & mwmFile)
 {
-  DescriptionsSectionBuilder<>::Build(wikipediaDir, mwmFile);
+  DescriptionsSectionBuilder<FeatureType>::Build(wikipediaDir, mwmFile);
 }
 }  // namespace generator

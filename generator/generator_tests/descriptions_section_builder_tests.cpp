@@ -1,16 +1,22 @@
 #include "testing/testing.hpp"
 
 #include "generator/descriptions_section_builder.hpp"
+#include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/osm2meta.hpp"
 
 #include "descriptions/serdes.hpp"
 
+#include "indexer/classificator_loader.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_mwm.hpp"
 
 #include "coding/file_name_utils.hpp"
+
+#include "base/assert.hpp"
 
 #include <algorithm>
 #include <fstream>
@@ -23,6 +29,31 @@
 #include <vector>
 
 using namespace generator;
+
+namespace
+{
+class Feature : public tests_support::TestFeature
+{
+public:
+  Feature() = default;
+
+  void SetMetadata(feature::Metadata const & metadata) { m_metadata = metadata; }
+  void SetTypes(std::vector<uint32_t> const & types) { m_types = types; }
+
+  template <typename ToDo>
+  void ForEachType(ToDo && f)
+  {
+    for (auto const & type : m_types)
+      f(type);
+  }
+
+  // TestFeature overrides:
+  std::string ToString() const override { return m_name; }
+
+private:
+  std::vector<uint32_t> m_types;
+};
+}  // namespace
 
 namespace generator_tests
 {
@@ -55,6 +86,8 @@ public:
         stream << d.second;
       }
     }
+
+    classificator::Load();
   }
 
   ~TestDescriptionSectionBuilder()
@@ -65,7 +98,7 @@ public:
   void MakeDescriptions() const
   {
     DescriptionsCollectionBuilder b(m_wikiDir, kMwmFile);
-    auto const descriptionList = b.MakeDescriptions<ForEachFromDatMockAdapt>();
+    auto const descriptionList = b.MakeDescriptions<Feature, ForEachFromDatMockAdapt>();
     auto const  & stat = b.GetStat();
     TEST_EQUAL(GetTestDataPages(), descriptionList.size(), ());
     TEST_EQUAL(GetTestDataPages(), stat.GetPages(), ());
@@ -118,8 +151,8 @@ public:
     auto const & first = kWikiData.front();
     std::string const lang = "en";
     auto const langIndex = StringUtf8Multilang::GetLangIndex(lang);
-    auto const fullPath = base::JoinPath(DescriptionsCollectionBuilder::MakePath(m_wikiDir, first.m_url),
-                                         (lang + ".html"));
+    auto const path = DescriptionsCollectionBuilder::MakePath(m_wikiDir, first.m_url);
+    auto const fullPath = base::JoinPath(path, (lang + ".html"));
     StringUtf8Multilang str;
     // This is a private function and should take the right path fullPath.
     auto const size = DescriptionsCollectionBuilder::FillStringFromFile(fullPath, langIndex, str);
@@ -136,9 +169,10 @@ public:
     CHECK(!kWikiData.empty(), ());
     auto const & first = kWikiData.front();
     auto const featureId = 0;
-    auto ft = MakeFeatureType(first.m_url);
+    auto ft = MakeFeature(first.m_url);
     descriptions::FeatureDescription description;
-    auto const size = b.GetFeatureDescription(ft, featureId, description);
+    auto const wikiUrl = ft.GetMetadata().GetWikiURL();
+    auto const size = b.GetFeatureDescription(wikiUrl, featureId, description);
 
     TEST_EQUAL(size, GetPageSize(first.m_pages), ());
     CHECK_NOT_EQUAL(size, 0, ());
@@ -152,9 +186,8 @@ public:
     using namespace platform::tests_support;
     auto const testMwm = kMwmFile + DATA_FILE_EXTENSION;
     ScopedMwm testScopedMwm(testMwm);
-    DescriptionsSectionBuilder<ForEachFromDatMockAdapt>::Build(m_wikiDir,
-                                                               testScopedMwm.GetFullPath());
-
+    DescriptionsSectionBuilder<Feature, ForEachFromDatMockAdapt>::Build(m_wikiDir,
+                                                                        testScopedMwm.GetFullPath());
     FilesContainerR container(testScopedMwm.GetFullPath());
     TEST(container.IsExist(DESCRIPTIONS_FILE_TAG), ());
 
@@ -183,7 +216,7 @@ private:
   {
     for (size_t i = 0; i < kWikiData.size(); ++i)
     {
-      auto ft = MakeFeatureType(kWikiData[i].m_url);
+      auto ft = MakeFeature(kWikiData[i].m_url);
       toDo(ft, static_cast<uint32_t>(i));
     }
   }
@@ -256,14 +289,20 @@ private:
     });
   }
 
-  static FeatureType MakeFeatureType(std::string const & url)
+  static Feature MakeFeature(std::string const & url)
   {
     FeatureParams params;
     MetadataTagProcessor p(params);
     feature::Metadata & md = params.GetMetadata();
     p("wikipedia", url);
-    FeatureType ft;
+    Feature ft;
     ft.SetMetadata(md);
+
+    auto const & wikiChecker = ftypes::WikiChecker::Instance();
+    CHECK(!wikiChecker.kTypesForWiki.empty(), ());
+    auto const itFirst = std::begin(wikiChecker.kTypesForWiki);
+    auto const type = classif().GetTypeByPath({itFirst->first, itFirst->second});
+    ft.SetTypes({type});
     return ft;
   }
 

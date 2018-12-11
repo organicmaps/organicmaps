@@ -170,6 +170,17 @@ public:
    static std::set<std::pair<std::string, std::string>> const kTypesForWiki;
 
    DECLARE_CHECKER_INSTANCE(WikiChecker);
+
+   template <typename Ft>
+   bool NeedFeature(Ft & feature) const
+   {
+     bool need = true;
+     feature.ForEachType([&](uint32_t type) {
+       if (need && !IsMatched(type))
+         need = false;
+     });
+     return need;
+   }
 };
 
 class IsPlaceChecker : public BaseChecker

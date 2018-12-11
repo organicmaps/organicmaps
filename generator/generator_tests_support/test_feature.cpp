@@ -38,6 +38,12 @@ uint64_t GenUniqueId()
 }  // namespace
 
 // TestFeature -------------------------------------------------------------------------------------
+TestFeature::TestFeature()
+  : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_name(""), m_lang("")
+{
+  Init();
+}
+
 TestFeature::TestFeature(string const & name, string const & lang)
   : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_name(name), m_lang(lang)
 {
