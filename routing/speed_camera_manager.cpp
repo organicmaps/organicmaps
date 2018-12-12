@@ -2,6 +2,8 @@
 
 #include "routing/speed_camera.hpp"
 
+#include "3party/Alohalytics/src/alohalytics.h"
+
 namespace routing
 {
 std::string const SpeedCameraManager::kSpeedCamModeKey = "speed_cam_mode";
@@ -81,8 +83,12 @@ void SpeedCameraManager::OnLocationPositionChanged(location::GpsInfo const & inf
       PassCameraToUI(closestSpeedCam);
   }
 
-  if (m_closestCamera.IsValid())
-    SetNotificationFlags(passedDistanceMeters, info.m_speedMpS, m_closestCamera);
+  if (m_closestCamera.IsValid() &&
+      SetNotificationFlags(passedDistanceMeters, info.m_speedMpS, m_closestCamera))
+  {
+    // If some notifications available now.
+    SendNotificationStat(passedDistanceMeters, info.m_speedMpS, m_closestCamera);
+  }
 
   // Step 3. Check UI camera (stop or not stop to highlight it).
   if (!m_currentHighlightedCamera.IsValid())
@@ -105,7 +111,7 @@ void SpeedCameraManager::GenerateNotifications(std::vector<std::string> & notifi
   if (!Enable())
     return;
 
-  if (m_makeVoiceSignal && m_voiceSignalCounter < kVoiceNotificationNumber)
+  if (VoiceSignalAvailable())
   {
     notifications.emplace_back(m_notificationManager.GenerateSpeedCameraText());
     m_makeVoiceSignal = false;
@@ -120,7 +126,7 @@ bool SpeedCameraManager::ShouldPlayBeepSignal()
   if (!Enable())
     return false;
 
-  if (m_makeBeepSignal && m_beepSignalCounter < kBeepSignalNumber)
+  if (BeepSignalAvailable())
   {
     m_makeBeepSignal = false;
     ++m_beepSignalCounter;
@@ -137,17 +143,21 @@ void SpeedCameraManager::ResetNotifications()
   m_speedLimitExceeded = false;
   m_beepSignalCounter = 0;
   m_voiceSignalCounter = 0;
+  m_hasEnteredTheZone = false;
 }
 
 void SpeedCameraManager::Reset()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  ResetNotifications();
+
+  m_speedCamClearCallback();
+
   m_closestCamera.Invalidate();
   m_currentHighlightedCamera.Invalidate();
+
   m_firstNotCheckedSpeedCameraIndex = 1;
-  ResetNotifications();
-  m_speedCamClearCallback();
   m_cachedSpeedCameras = std::queue<SpeedCameraOnRoute>();
 }
 
@@ -157,6 +167,21 @@ bool SpeedCameraManager::IsSpeedLimitExceeded() const
     return false;
 
   return m_speedLimitExceeded;
+}
+
+std::string SpeedCameraManagerModeForStat(SpeedCameraManagerMode mode)
+{
+  CHECK_NOT_EQUAL(mode, SpeedCameraManagerMode::MaxValue, ());
+
+  switch(mode)
+  {
+  case SpeedCameraManagerMode::Always: return "1";
+  case SpeedCameraManagerMode::Auto: return "0";
+  case SpeedCameraManagerMode::Never: return "-1";
+  case SpeedCameraManagerMode::MaxValue: return "-2";
+  }
+
+  UNREACHABLE();
 }
 
 void SpeedCameraManager::FindCamerasOnRouteAndCache(double passedDistanceMeters)
@@ -245,11 +270,11 @@ bool SpeedCameraManager::IsSpeedHigh(double distanceToCameraMeters, double speed
   return distToDangerousZone < distanceNeedsToSlowDown + kDistanceEpsilonMeters;
 }
 
-void SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, double speedMpS,
+bool SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, double speedMpS,
                                               SpeedCameraOnRoute const & camera)
 {
   if (!Enable())
-    return;
+    return false;
 
   auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
 
@@ -258,10 +283,12 @@ void SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
   {
   case Interval::ImpactZone:
   {
+    SendEnterZoneStat(distToCameraMeters, speedMpS, camera);
+
     if (IsSpeedHigh(distToCameraMeters, speedMpS, camera))
     {
       m_makeBeepSignal = true;
-      return;
+      return true;
     }
 
     // If we did voice notification, and didn't beep signal in |BeepSignalZone|, let's do it now.
@@ -270,16 +297,16 @@ void SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
         m_mode == SpeedCameraManagerMode::Auto)
     {
       m_makeBeepSignal = true;
-      return;
+      return true;
     }
 
     if (m_mode == SpeedCameraManagerMode::Always)
     {
       m_makeVoiceSignal = true;
-      return;
+      return true;
     }
 
-    return;
+    return false;
   }
   case Interval::BeepSignalZone:
   {
@@ -287,17 +314,17 @@ void SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
     if (IsSpeedHigh(distToCameraMeters, speedMpS, camera))
     {
       m_makeBeepSignal = true;
-      return;
+      return true;
     }
 
     // If we did voice notification, we should do "beep" signal before |ImpactZone|.
     if (m_voiceSignalCounter > 0)
     {
       m_makeBeepSignal = true;
-      return;
+      return true;
     }
 
-    return;
+    return false;
   }
   case Interval::VoiceNotificationZone:
   {
@@ -306,10 +333,10 @@ void SpeedCameraManager::SetNotificationFlags(double passedDistanceMeters, doubl
     if (IsSpeedHigh(distToCameraMeters, speedMpS, camera))
     {
       m_makeVoiceSignal = true;
-      return;
+      return true;
     }
 
-    return;
+    return false;
   }
   }
 
@@ -346,6 +373,44 @@ bool SpeedCameraManager::NeedChangeHighlightedCamera(double distToCameraMeters,
   }
 
   return false;
+}
+
+void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, double speedMpS,
+                                              SpeedCameraOnRoute const & camera)
+{
+  // Send stat about notification only when we are going to pronounce it.
+  if (!BeepSignalAvailable() && !VoiceSignalAvailable())
+    return;
+
+  auto const distToCameraMeters = camera.m_distFromBeginMeters - passedDistanceMeters;
+
+  ASSERT(m_makeBeepSignal != m_makeVoiceSignal, ("In each moment of time only one flag should be up."));
+  alohalytics::TStringMap params = {{"type", m_makeBeepSignal ? "beep" : "voice"},
+                                    {"distance", strings::to_string(distToCameraMeters)},
+                                    {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))}};
+
+  alohalytics::LogEvent("SpeedCameras_alert", params);
+}
+
+void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double speedMpS,
+                                           SpeedCameraOnRoute const & camera)
+{
+  if (m_hasEnteredTheZone)
+    return;
+  m_hasEnteredTheZone = true;
+
+  auto const latlon = MercatorBounds::ToLatLon(camera.m_position);
+  std::string lat = strings::to_string(latlon.lat);
+  std::string lon = strings::to_string(latlon.lon);
+
+  alohalytics::TStringMap params = {
+    {"distance", strings::to_string(distToCameraMeters)},
+    {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))},
+    {"speedlimit", camera.NoSpeed() ? "0" : strings::to_string(camera.m_maxSpeedKmH)},
+    {"coord", "(" + lat + "," + lon + ")"}
+  };
+
+  alohalytics::LogEvent("SpeedCameras_enter_zone", params);
 }
 
 void SpeedCameraManager::SetMode(SpeedCameraManagerMode mode)
