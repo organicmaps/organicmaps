@@ -363,6 +363,24 @@ std::string DebugPrint(SpeedCameraManager::Interval interval)
   case SpeedCameraManager::Interval::VoiceNotificationZone: return "VoiceNotificationZone";
   case SpeedCameraManager::Interval::ImpactZone: return "ImpactZone";
   }
+  
+  UNREACHABLE();
+}
+
+std::string DebugPrint(SpeedCameraManagerMode mode)
+{
+  switch (mode)
+  {
+  case SpeedCameraManagerMode::Auto:
+    return "auto";
+  case SpeedCameraManagerMode::Always:
+    return "always";
+  case SpeedCameraManagerMode::Never:
+    return "never";
+  case SpeedCameraManagerMode::MaxValue:
+    return "max_value";
+  }
+
   UNREACHABLE();
 }
 }  // namespace routing
