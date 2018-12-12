@@ -3249,7 +3249,8 @@
     en = boundary-administrative-suburb
 
   [type.boundary.national_park]
-    en = boundary-national_park
+    en = National Park
+    ru = Национальный Парк
 
   [type.building]
     en = Building
@@ -10909,7 +10910,8 @@
     en = leisure-marina
 
   [type.leisure.nature_reserve]
-    en = leisure-nature_reserve
+    en = Nature Reserve
+    ru = Заповедник
 
   [type.leisure.park]
     en = Park
@@ -11810,7 +11812,8 @@
     fa = ساحل
 
   [type.natural.cape]
-    en = natural-cape
+    en = Cape
+    ru = Мыс
 
   [type.natural.cave_entrance]
     en = Cave Entrance
@@ -11855,7 +11858,8 @@
     ru = Гейзер
 
   [type.natural.glacier]
-    en = natural-glacier
+    en = Glacier
+    ru = Ледник
 
   [type.natural.grassland]
     en = natural-grassland
