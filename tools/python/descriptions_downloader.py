@@ -15,15 +15,37 @@ This script downloads Wikipedia pages for different languages.
 """
 log = logging.getLogger(__name__)
 
-WORKERS = 16
-CHUNK_SIZE = 64
+WORKERS = 80
+CHUNK_SIZE = 128
 
 HEADERS = {f"h{x}" for x in range(1,7)}
 BAD_SECTIONS = {
     "en": ["External links", "Sources", "See also", "Bibliography", "Further reading"],
-    "ru": ["Литература", "Ссылки", "См. также"],
+    "ru": ["Литература", "Ссылки", "См. также", "Библиография", "Примечания"],
     "es": ["Vínculos de interés", "Véase también", "Enlaces externos"]
 }
+
+
+def read_popularity(path):
+    """
+    :param path: a path of popularity file. A file contains '<id>,<rank>' rows.
+    :return: a set of popularity object ids
+    """
+    ids = set()
+    for line in open(path):
+        try:
+            ident = int(line.split(",", maxsplit=1)[0])
+        except (AttributeError, IndexError):
+            continue
+        ids.add(ident)
+    return ids
+
+
+def should_download_wikipage(popularity_set):
+    @functools.wraps(popularity_set)
+    def wrapped(ident):
+        return popularity_set is None or ident in popularity_set
+    return wrapped
 
 
 def remove_bad_sections(soup, lang):
@@ -48,25 +70,12 @@ def remove_bad_sections(soup, lang):
     return soup
 
 
-def remove_empty_sections(soup):
-    prev = None
-    for x in soup.find_all():
-        if prev is not None and x.name in HEADERS and prev.name in HEADERS:
-            prev.extract()
-        prev = x
-
-    if prev is not None and prev.name in HEADERS:
-        prev.extract()
-    return soup
-
-
 def beautify_page(html, lang):
     soup = BeautifulSoup(html, "html")
     for x in soup.find_all():
         if len(x.text.strip()) == 0:
             x.extract()
 
-    soup = remove_empty_sections(soup)
     soup = remove_bad_sections(soup, lang)
     html = str(soup.prettify())
     html = htmlmin.minify(html, remove_empty_space=True)
@@ -143,15 +152,21 @@ def download_all(path, url, langs):
         download(path, lang[1])
 
 
-def worker(output_dir, langs):
+def worker(output_dir, checker, langs):
     @functools.wraps(worker)
     def wrapped(line):
+        if not line.strip():
+            return
+
         try:
-            url = line.rsplit("\t", maxsplit=1)[-1]
+            (mwm_path, ident, url) = line.split("\t")
+            ident = int(ident)
+            if not checker(ident):
+                return
+            url = url.strip()
         except (AttributeError, IndexError):
             log.exception(f"{line} is incorrect.")
             return
-        url = url.strip()
         parsed = urllib.parse.urlparse(url)
         path = os.path.join(output_dir, parsed.netloc, parsed.path[1:])
         download_all(path, url, langs)
@@ -162,6 +177,10 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Download wiki pages.")
     parser.add_argument("--o", metavar="PATH", type=str,
                         help="Output dir for saving pages")
+    parser.add_argument("--p", metavar="PATH", type=str,
+                        help="File with popular object ids for which we "
+                             "download wikipedia data. If not given, download "
+                             "for all objects.")
     parser.add_argument('--i', metavar="PATH", type=str, required=True,
                         help="Input file with wikipedia url.")
     parser.add_argument('--langs', metavar="LANGS", type=str, nargs='+',
@@ -177,13 +196,17 @@ def main():
     args = parse_args()
     input_file = args.i
     output_dir = args.o
+    popularity_file = args.p
     langs = list(itertools.chain.from_iterable(args.langs))
     os.makedirs(output_dir, exist_ok=True)
-
+    popularity_set = read_popularity(popularity_file) if popularity_file else None
+    if popularity_set:
+        log.info(f"Popularity set size: {len(popularity_set)}.")
+    checker = should_download_wikipage(popularity_set)
     with open(input_file) as file:
         _ = file.readline()
         pool = ThreadPool(processes=WORKERS)
-        pool.map(worker(output_dir, langs), file, CHUNK_SIZE)
+        pool.map(worker(output_dir, checker, langs), file, CHUNK_SIZE)
         pool.close()
         pool.join()
 
