@@ -26,6 +26,24 @@ BAD_SECTIONS = {
 }
 
 
+def read_popularity(path):
+    ids = set()
+    for line in open(path):
+        try:
+            ident = int(line.split(",", maxsplit=1)[0])
+        except (AttributeError, IndexError):
+            continue
+        ids.add(ident)
+    return ids
+
+
+def popularity_checker(popularity_set):
+    @functools.wraps(worker)
+    def wrapped(ident):
+        return False if popularity_set is None else ident in popularity_set
+    return wrapped
+
+
 def remove_bad_sections(soup, lang):
     if lang not in BAD_SECTIONS:
         return soup
@@ -143,17 +161,21 @@ def download_all(path, url, langs):
         download(path, lang[1])
 
 
-def worker(output_dir, langs):
+def worker(output_dir, checker, langs):
     @functools.wraps(worker)
     def wrapped(line):
+        if not line.strip():
+            return
+
         try:
-            url = line.rsplit("\t", maxsplit=1)[-1].strip()
-            if not url:
+            splitted = line.rsplit("\t")
+            ident = int(splitted[1].strip())
+            if checker(ident):
                 return
+            url = splitted[-1].strip()
         except (AttributeError, IndexError):
             log.exception(f"{line} is incorrect.")
             return
-        url = url.strip()
         parsed = urllib.parse.urlparse(url)
         path = os.path.join(output_dir, parsed.netloc, parsed.path[1:])
         download_all(path, url, langs)
@@ -164,6 +186,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Download wiki pages.")
     parser.add_argument("--o", metavar="PATH", type=str,
                         help="Output dir for saving pages")
+    parser.add_argument("--p", metavar="PATH", type=str,
+                        help="Input popularity file.")
     parser.add_argument('--i', metavar="PATH", type=str, required=True,
                         help="Input file with wikipedia url.")
     parser.add_argument('--langs', metavar="LANGS", type=str, nargs='+',
@@ -179,13 +203,17 @@ def main():
     args = parse_args()
     input_file = args.i
     output_dir = args.o
+    popularity_file = args.p
     langs = list(itertools.chain.from_iterable(args.langs))
     os.makedirs(output_dir, exist_ok=True)
-
+    popularity_set = read_popularity(popularity_file) if popularity_file else None
+    if popularity_set:
+        log.info(f"Popularity set size: {len(popularity_set)}.")
+    checker = popularity_checker(popularity_set)
     with open(input_file) as file:
         _ = file.readline()
         pool = ThreadPool(processes=WORKERS)
-        pool.map(worker(output_dir, langs), file, CHUNK_SIZE)
+        pool.map(worker(output_dir, checker, langs), file, CHUNK_SIZE)
         pool.close()
         pool.join()
 
