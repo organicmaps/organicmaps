@@ -81,9 +81,9 @@ public:
   void OnLocationPositionChanged(location::GpsInfo const & info);
 
   // See comments in |enum class Interval|
-  /// \brief |GenerateNotifications| about |VoiceNotificationZone|
+  /// \brief |GenerateNotifications| about |Interval::VoiceNotificationZone|.
   void GenerateNotifications(std::vector<std::string> & notifications);
-  /// \bried |ShouldPlayBeepSignal| about |BeepSignalZone|
+  /// \brief |ShouldPlayBeepSignal| about |Interval::BeepSignalZone|.
   bool ShouldPlayBeepSignal();
 
   void ResetNotifications();
