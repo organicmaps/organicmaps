@@ -176,4 +176,5 @@ private:
 };
 
 std::string DebugPrint(SpeedCameraManager::Interval interval);
+std::string DebugPrint(SpeedCameraManagerMode mode);
 }  // namespace routing

@@ -355,6 +355,7 @@ static NSString * const kStatSendEmail = @"Send email";
 static NSString * const kStatSettings = @"settings";
 static NSString * const kStatSettingsBookmarksSyncToggle = @"Settings_BookmarksSync_toggle";
 static NSString * const kStatSettingsOpenSection = @"Settings open section";
+static NSString * const kStatSettingsSpeedCameras = @"Settings Speed_cameras";
 static NSString * const kStatShare = @"Share";
 static NSString * const kStatShareMyLocation = @"share_my_location";
 static NSString * const kStatSharingLinkSuccess = @"Bookmarks_SharingLink_success";

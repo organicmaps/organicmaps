@@ -1,4 +1,5 @@
 #import "MWMSpeedCamSettingsController.h"
+#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -54,13 +55,18 @@ using namespace routing;
 
   _selectedCell.accessoryType = UITableViewCellAccessoryNone;
   auto & scm = GetFramework().GetRoutingManager().GetSpeedCamManager();
+  auto mode = SpeedCameraManagerMode::MaxValue;
   if (selectedCell == self.autoCell)
-    scm.SetMode(SpeedCameraManagerMode::Auto);
+    mode = SpeedCameraManagerMode::Auto;
   else if (selectedCell == self.alwaysCell)
-    scm.SetMode(SpeedCameraManagerMode::Always);
+    mode = SpeedCameraManagerMode::Always;
   else
-    scm.SetMode(SpeedCameraManagerMode::Never);
+    mode = SpeedCameraManagerMode::Never;
 
+  CHECK_NOT_EQUAL(mode, SpeedCameraManagerMode::MaxValue, ());
+  scm.SetMode(mode);
+  [Statistics logEvent:kStatSettingsSpeedCameras
+        withParameters:@{kStatValue : @(DebugPrint(mode).c_str())}];
   selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
   _selectedCell = selectedCell;
 }
@@ -79,8 +85,8 @@ using namespace routing;
 {
   switch (section)
   {
-    case 0: return L(@"speedcams_notice_message");
-    default: return nil;
+  case 0: return L(@"speedcams_notice_message");
+  default: return nil;
   }
 }
 
