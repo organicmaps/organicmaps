@@ -11,7 +11,7 @@ namespace downloader { class IHttpThreadCallback; }
 #import "../iphone/Maps/Classes/DownloadIndicatorProtocol.h"
 #endif
 
-@interface HttpThread : NSObject
+@interface HttpThreadImpl : NSObject
 
 - (instancetype)initWithURL:(string const &)url callback:(downloader::IHttpThreadCallback &)cb
                    begRange:(int64_t)beg endRange:(int64_t)end expectedSize:(int64_t)size postBody:(string const &)pb;

@@ -10,7 +10,7 @@
 
 #define TIMEOUT_IN_SECONDS 60.0
 
-@interface HttpThread ()<NSURLSessionDataDelegate>
+@interface HttpThreadImpl ()<NSURLSessionDataDelegate>
 {
   downloader::IHttpThreadCallback * m_callback;
   NSURLSessionDataTask * m_dataTask;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation HttpThread
+@implementation HttpThreadImpl
 
 #ifdef OMIM_OS_IPHONE
 static id<DownloadIndicatorProtocol> downloadIndicator = nil;
@@ -66,8 +66,9 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   m_expectedSize = size;
   
   NSMutableURLRequest * request =
-  [NSMutableURLRequest requestWithURL:static_cast<NSURL *>([NSURL URLWithString:@(url.c_str())])
-                          cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:TIMEOUT_IN_SECONDS];
+  [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@(url.c_str())]
+                          cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                      timeoutInterval:TIMEOUT_IN_SECONDS];
   
   // use Range header only if we don't download whole file from start
   if (!(beg == 0 && end < 0))
@@ -178,7 +179,7 @@ didReceiveResponse:(NSURLResponse *)response
     else if (m_expectedSize > 0)
     {
       // get full file expected size from Content-Range header
-      int64_t sizeOnServer = [HttpThread getContentRange:[(NSHTTPURLResponse *)response allHeaderFields]];
+      int64_t sizeOnServer = [HttpThreadImpl getContentRange:[(NSHTTPURLResponse *)response allHeaderFields]];
       // if it's absent, use Content-Length instead
       if (sizeOnServer < 0)
         sizeOnServer = [response expectedContentLength];
@@ -232,25 +233,34 @@ didCompleteWithError:(NSError *)error
 
 @end
 
+class HttpThread
+{
+public:
+  HttpThread(HttpThreadImpl * request)
+    : m_request(request)
+  {}
+
+  HttpThreadImpl * m_request;
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////
 namespace downloader
 {
-  HttpThread * CreateNativeHttpThread(string const & url,
-                                      downloader::IHttpThreadCallback & cb,
-                                      int64_t beg,
-                                      int64_t end,
-                                      int64_t size,
-                                      string const & pb)
-  {
-    HttpThread * request = [[HttpThread alloc] initWithURL:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
-    CFRetain(reinterpret_cast<void *>(request));
-    return request;
-  }
-  
-  void DeleteNativeHttpThread(HttpThread * request)
-  {
-    [request cancel];
-    CFRelease(reinterpret_cast<void *>(request));
-  }
-  
+HttpThread * CreateNativeHttpThread(string const & url,
+                                    downloader::IHttpThreadCallback & cb,
+                                    int64_t beg,
+                                    int64_t end,
+                                    int64_t size,
+                                    string const & pb)
+{
+  HttpThreadImpl * request = [[HttpThreadImpl alloc] initWithURL:url callback:cb begRange:beg endRange:end expectedSize:size postBody:pb];
+  return new HttpThread(request);
+}
+
+void DeleteNativeHttpThread(HttpThread * request)
+{
+  [request->m_request cancel];
+  delete request;
+}
+
 } // namespace downloader

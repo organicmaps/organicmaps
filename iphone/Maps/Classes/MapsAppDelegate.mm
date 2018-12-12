@@ -335,7 +335,7 @@ using namespace osm_auth_ios;
 
 - (void)commonInit
 {
-  [HttpThread setDownloadIndicatorProtocol:self];
+  [HttpThreadImpl setDownloadIndicatorProtocol:self];
   InitLocalizedStrings();
   GetFramework().SetupMeasurementSystem();
   [MWMFrameworkListener addObserver:self];
@@ -365,7 +365,7 @@ using namespace osm_auth_ios;
   // To make sure id is created, ConfigCrashTrackers must be called after Statistics initialization.
   ConfigCrashTrackers();
 
-  [HttpThread setDownloadIndicatorProtocol:self];
+  [HttpThreadImpl setDownloadIndicatorProtocol:self];
 
   InitLocalizedStrings();
   [MWMThemeManager invalidate];
