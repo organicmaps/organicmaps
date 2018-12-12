@@ -5,7 +5,7 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/geo_object_id.hpp"
 

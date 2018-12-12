@@ -1,4 +1,4 @@
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "defines.hpp"
 
@@ -202,12 +202,12 @@ bool StringUtf8Multilang::GetString(int8_t lang, string & utf8s) const
 
 bool StringUtf8Multilang::HasString(int8_t lang) const
 {
-  for(size_t i = 0; i < m_s.size(); i = GetNextIndex(i))
+  for (size_t i = 0; i < m_s.size(); i = GetNextIndex(i))
   {
     if ((m_s[i] & 0x3F) == lang)
       return true;
   }
-  
+
   return false;
 }
 

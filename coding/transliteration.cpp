@@ -1,5 +1,6 @@
 #include "coding/transliteration.hpp"
-#include "coding/multilang_utf8_string.hpp"
+
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -9,8 +10,6 @@
 #include "3party/icu/common/unicode/utypes.h"
 #include "3party/icu/i18n/unicode/translit.h"
 #include "3party/icu/i18n/unicode/utrans.h"
-
-#include "std/unique_ptr.hpp"
 
 #include <cstring>
 #include <mutex>
@@ -58,7 +57,7 @@ void Transliteration::Init(std::string const & icuDataDir)
     if (strlen(lang.m_transliteratorId) == 0 || m_transliterators.count(lang.m_transliteratorId) != 0)
       continue;
 
-    m_transliterators.emplace(lang.m_transliteratorId, make_unique<TransliteratorInfo>());
+    m_transliterators.emplace(lang.m_transliteratorId, std::make_unique<TransliteratorInfo>());
   }
 }
 

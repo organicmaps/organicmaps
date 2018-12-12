@@ -27,7 +27,7 @@
 
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/mwm_traits.hpp"

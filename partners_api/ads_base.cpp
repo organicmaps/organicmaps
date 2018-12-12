@@ -3,7 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <algorithm>
 

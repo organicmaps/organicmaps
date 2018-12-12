@@ -9,7 +9,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

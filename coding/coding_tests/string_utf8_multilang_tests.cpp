@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/control_flow.hpp"
 
@@ -121,11 +121,12 @@ UNIT_TEST(MultilangString_Unique)
 UNIT_TEST(MultilangString_LangNames)
 {
   // It is important to compare the contents of the strings, and not just pointers
-  TEST_EQUAL(string("Беларуская"), StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
+  TEST_EQUAL(string("Беларуская"),
+             StringUtf8Multilang::GetLangNameByCode(StringUtf8Multilang::GetLangIndex("be")), ());
 
   auto const & langs = StringUtf8Multilang::GetSupportedLanguages();
-  // Using size_t workaround, because our logging/testing macroses do not support passing POD types by value,
-  // only by reference. And our constant is a constexpr.
+  // Using size_t workaround, because our logging/testing macroses do not support passing POD types
+  // by value, only by reference. And our constant is a constexpr.
   TEST_EQUAL(langs.size(), size_t(StringUtf8Multilang::kMaxSupportedLanguages), ());
   auto const international = StringUtf8Multilang::GetLangIndex("int_name");
   TEST_EQUAL(langs[international].m_code, string("int_name"), ());
@@ -137,11 +138,11 @@ UNIT_TEST(MultilangString_HasString)
   s.AddString(0, "xxx");
   s.AddString(18, "yyy");
   s.AddString(63, "zzz");
-  
+
   TEST(s.HasString(0), ());
   TEST(s.HasString(18), ());
   TEST(s.HasString(63), ());
-  
+
   TEST(!s.HasString(1), ());
   TEST(!s.HasString(32), ());
 }

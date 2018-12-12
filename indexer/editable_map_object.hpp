@@ -8,7 +8,7 @@
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <cstdint>
 #include <string>

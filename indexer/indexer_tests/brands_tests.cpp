@@ -2,8 +2,8 @@
 
 #include "indexer/brands_holder.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <memory>
 #include <set>

@@ -486,9 +486,9 @@
 			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/mem_file_writer_test.cpp</locationURI>
 		</link>
 		<link>
-			<name>src/Tests/coding/multilang_utf8_string_test.cpp</name>
+			<name>src/Tests/coding/string_utf8_multilang_tests.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/multilang_utf8_string_test.cpp</locationURI>
+			<locationURI>PARENT-2-ECLIPSE_HOME/GitHub/omim/coding/coding_tests/string_utf8_multilang_tests.cpp</locationURI>
 		</link>
 		<link>
 			<name>src/Tests/coding/png_decoder_test.cpp</name>

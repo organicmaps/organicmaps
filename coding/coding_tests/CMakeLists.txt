@@ -23,7 +23,6 @@ set(
   huffman_test.cpp
   mem_file_reader_test.cpp
   mem_file_writer_test.cpp
-  multilang_utf8_string_test.cpp
   png_decoder_test.cpp
   point_coding_tests.cpp
   reader_cache_test.cpp
@@ -31,6 +30,7 @@ set(
   reader_test.hpp
   reader_writer_ops_test.cpp
   simple_dense_coding_test.cpp
+  string_utf8_multilang_tests.cpp
   succinct_mapper_test.cpp
   test_polylines.cpp
   test_polylines.hpp

@@ -5,7 +5,7 @@
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"

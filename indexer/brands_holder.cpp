@@ -4,9 +4,9 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
 #include "coding/reader_streambuf.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/logging.hpp"
 

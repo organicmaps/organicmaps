@@ -42,6 +42,24 @@ void ReadString(TSource & src, std::string & s)
 }
 }  // namespace utils
 
+// A class to store strings in multiple languages.
+// May be used e.g. to store several translations of a feature's name.
+//
+// The coding scheme is as follows:
+// * Pairs of the form (|lang|, |s|) are stored. |s| is a string in the UTF-8
+//   encoding and |lang| is one of the 64 supported languages (see the list in the cpp file).
+//
+// * Each pair is represented by a byte encoding the lang followed by the
+//   UTF-8 bytes of the string. Then, all such representations are concatenated
+//   into a single std::string.
+//   The language code is encoded with 6 bits that are prepended with "10", i.e.
+//   10xx xxxx. In the UTF-8 encoding that would be a continuation byte, so
+//   if you start reading the string and such a byte appears out of nowhere in
+//   a place where a continuation byte is not expected you may be sure
+//   that the string for the current language has ended and you've reached the
+//   string for the next language. Note that this breaks the self-synchronization property.
+//
+// * The order of the stored strings is not specified. Any language may come first.
 class StringUtf8Multilang
 {
 public:

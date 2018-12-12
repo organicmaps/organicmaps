@@ -5,8 +5,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"

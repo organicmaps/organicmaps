@@ -25,7 +25,7 @@
 
 #include "storage/country_info_getter.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "platform/preferred_languages.hpp"
 

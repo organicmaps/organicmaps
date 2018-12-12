@@ -6,7 +6,7 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/mercator.hpp"
 

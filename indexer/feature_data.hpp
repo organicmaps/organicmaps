@@ -5,8 +5,8 @@
 
 #include "geometry/point2d.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/value_opt_string.hpp"
 
 #include <algorithm>

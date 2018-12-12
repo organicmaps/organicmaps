@@ -26,8 +26,9 @@ public:
     struct Name
     {
       std::string m_name;
-      /// This language/locale code is completely different from our built-in langs in multilang_utf8_string.cpp
-      /// and is only used for mapping user's input language to our values in categories.txt file
+      /// This language/locale code is completely different from our built-in langs in
+      /// string_utf8_multilang.cpp and is only used for mapping user's input language to our values
+      /// in categories.txt file
       int8_t m_locale;
       uint8_t m_prefixLengthToSuggest;
     };

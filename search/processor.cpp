@@ -39,8 +39,8 @@
 #include "platform/preferred_languages.hpp"
 
 #include "coding/compressed_bit_vector.hpp"
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader_wrapper.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"

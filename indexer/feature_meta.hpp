@@ -1,7 +1,7 @@
 #pragma once
 
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include <algorithm>
 #include <map>

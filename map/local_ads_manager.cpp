@@ -21,8 +21,8 @@
 #include "platform/settings.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/point_coding.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/url_encode.hpp"
 
 #include "base/url_helpers.hpp"

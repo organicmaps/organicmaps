@@ -20,8 +20,8 @@
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/multilang_utf8_string.hpp"
 #include "coding/sha1.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 

@@ -47,7 +47,7 @@ class OsmIdCode:
 
 
 class MWM:
-    # coding/multilang_utf8_string.cpp
+    # coding/string_utf8_multilang.cpp
     languages = ["default",
                  "en", "ja", "fr", "ko_rm", "ar", "de", "int_name", "ru", "sv", "zh", "fi", "be", "ka", "ko",
                  "he", "nl", "ga", "ja_rm", "el", "it", "es", "zh_pinyin", "th", "cy", "sr", "uk", "ca", "hu",

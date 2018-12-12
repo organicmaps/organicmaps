@@ -6,7 +6,7 @@
 #include "storage/index.hpp"
 #include "storage/storage.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 TaxiDelegate::TaxiDelegate(storage::Storage const & st, storage::CountryInfoGetter const & ig,
                            search::CityFinder & cf)

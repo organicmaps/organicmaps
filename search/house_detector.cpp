@@ -9,7 +9,7 @@
 
 #include "platform/platform.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "geometry/angles.hpp"
 #include "geometry/parametrized_segment.hpp"

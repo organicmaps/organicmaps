@@ -5,7 +5,7 @@
 #include "indexer/feature_decl.hpp"
 
 #include "coding/dd_vector.hpp"
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/text_storage.hpp"
 
 #include "base/assert.hpp"

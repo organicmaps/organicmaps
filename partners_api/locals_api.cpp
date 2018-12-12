@@ -4,7 +4,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 #include "coding/url_encode.hpp"
 
 #include "base/logging.hpp"

@@ -13,7 +13,7 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
 
-#include "coding/multilang_utf8_string.hpp"
+#include "coding/string_utf8_multilang.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
