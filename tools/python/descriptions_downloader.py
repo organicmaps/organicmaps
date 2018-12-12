@@ -15,13 +15,13 @@ This script downloads Wikipedia pages for different languages.
 """
 log = logging.getLogger(__name__)
 
-WORKERS = 16
-CHUNK_SIZE = 64
+WORKERS = 80
+CHUNK_SIZE = 128
 
 HEADERS = {f"h{x}" for x in range(1,7)}
 BAD_SECTIONS = {
     "en": ["External links", "Sources", "See also", "Bibliography", "Further reading"],
-    "ru": ["Литература", "Ссылки", "См. также"],
+    "ru": ["Литература", "Ссылки", "См. также", "Библиография", "Примечания"],
     "es": ["Vínculos de interés", "Véase también", "Enlaces externos"]
 }
 
@@ -51,7 +51,7 @@ def remove_bad_sections(soup, lang):
 def remove_empty_sections(soup):
     prev = None
     for x in soup.find_all():
-        if prev is not None and x.name in HEADERS and prev.name in HEADERS:
+        if prev is not None and x.name in HEADERS and prev.name == x.name:
             prev.extract()
         prev = x
 
@@ -147,7 +147,9 @@ def worker(output_dir, langs):
     @functools.wraps(worker)
     def wrapped(line):
         try:
-            url = line.rsplit("\t", maxsplit=1)[-1]
+            url = line.rsplit("\t", maxsplit=1)[-1].strip()
+            if not url:
+                return
         except (AttributeError, IndexError):
             log.exception(f"{line} is incorrect.")
             return
