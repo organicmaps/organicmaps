@@ -1626,6 +1626,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.stile">Перелаз</string>
 	<string name="type.barrier.toll_booth">Пункт оплаты</string>
+	<string name="type.boundary.national_park">Национальный Парк</string>
 	<string name="type.building">Здание</string>
 	<string name="type.building.address">Здание</string>
 	<string name="type.building.garage">Гараж</string>
@@ -1865,6 +1866,7 @@
 	<string name="type.leisure.fitness_station">Спортивные снаряды</string>
 	<string name="type.leisure.garden">Сад</string>
 	<string name="type.leisure.golf_course">Площадка для гольфа</string>
+	<string name="type.leisure.nature_reserve">Заповедник</string>
 	<string name="type.leisure.park">Парк</string>
 	<string name="type.leisure.park.no.access">Парк</string>
 	<string name="type.leisure.park.permissive">Парк</string>
@@ -1893,8 +1895,10 @@
 	<string name="type.military.bunker">Бункер</string>
 	<string name="type.natural.bay">Залив</string>
 	<string name="type.natural.beach">Пляж</string>
+	<string name="type.natural.cape">Мыс</string>
 	<string name="type.natural.cave_entrance">Пещера</string>
 	<string name="type.natural.geyser">Гейзер</string>
+	<string name="type.natural.glacier">Ледник</string>
 	<string name="type.natural.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.pond">Пруд</string>

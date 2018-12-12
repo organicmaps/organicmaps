@@ -2958,7 +2958,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "boundary-national_park";
+"type.boundary.national_park" = "National Park";
 
 "type.building" = "Bâtiment";
 
@@ -3590,7 +3590,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "leisure-nature_reserve";
+"type.leisure.nature_reserve" = "Nature Reserve";
 
 "type.leisure.park" = "Parc";
 
@@ -3698,7 +3698,7 @@
 
 "type.natural.beach" = "Plage";
 
-"type.natural.cape" = "natural-cape";
+"type.natural.cape" = "Cape";
 
 "type.natural.cave_entrance" = "Entrée de la cave";
 
@@ -3708,7 +3708,7 @@
 
 "type.natural.geyser" = "Geyser";
 
-"type.natural.glacier" = "natural-glacier";
+"type.natural.glacier" = "Glacier";
 
 "type.natural.grassland" = "natural-grassland";
 
