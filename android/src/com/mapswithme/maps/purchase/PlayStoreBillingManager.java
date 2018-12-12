@@ -29,15 +29,19 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   @NonNull
   @BillingClient.SkuType
   private final String mProductType;
+  @NonNull
+  private final SkuDetailsValidationStrategy mSkuDetailsValidationStrategy;
   @SuppressWarnings({ "NullableProblems" })
   @NonNull
   private BillingConnection mConnection;
   @NonNull
   private final List<BillingRequest> mPendingRequests = new ArrayList<>();
   
-  PlayStoreBillingManager(@NonNull @BillingClient.SkuType String productType)
+  PlayStoreBillingManager(@NonNull @BillingClient.SkuType String productType,
+                          @NonNull SkuDetailsValidationStrategy strategy)
   {
     mProductType = productType;
+    mSkuDetailsValidationStrategy = strategy;
   }
 
   @Override
@@ -62,7 +66,8 @@ class PlayStoreBillingManager implements BillingManager<PlayStoreBillingCallback
   public void queryProductDetails(@NonNull List<String> productIds)
   {
     executeBillingRequest(new QueryProductDetailsRequest(getClientOrThrow(), mProductType,
-                                                         mCallback, productIds));
+                                                         mCallback, productIds,
+                                                         mSkuDetailsValidationStrategy));
   }
 
   @Override
