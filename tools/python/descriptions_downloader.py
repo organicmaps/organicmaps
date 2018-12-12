@@ -27,6 +27,10 @@ BAD_SECTIONS = {
 
 
 def read_popularity(path):
+    """
+    :param path: a path of popularity file. A file contains '<id>,<rank>' rows.
+    :return: a set of popularity object ids
+    """
     ids = set()
     for line in open(path):
         try:
@@ -37,10 +41,10 @@ def read_popularity(path):
     return ids
 
 
-def popularity_checker(popularity_set):
-    @functools.wraps(worker)
+def should_download_wikipage(popularity_set):
+    @functools.wraps(popularity_set)
     def wrapped(ident):
-        return False if popularity_set is None else ident in popularity_set
+        return popularity_set is None or ident in popularity_set
     return wrapped
 
 
@@ -66,25 +70,12 @@ def remove_bad_sections(soup, lang):
     return soup
 
 
-def remove_empty_sections(soup):
-    prev = None
-    for x in soup.find_all():
-        if prev is not None and x.name in HEADERS and prev.name == x.name:
-            prev.extract()
-        prev = x
-
-    if prev is not None and prev.name in HEADERS:
-        prev.extract()
-    return soup
-
-
 def beautify_page(html, lang):
     soup = BeautifulSoup(html, "html")
     for x in soup.find_all():
         if len(x.text.strip()) == 0:
             x.extract()
 
-    soup = remove_empty_sections(soup)
     soup = remove_bad_sections(soup, lang)
     html = str(soup.prettify())
     html = htmlmin.minify(html, remove_empty_space=True)
@@ -168,11 +159,11 @@ def worker(output_dir, checker, langs):
             return
 
         try:
-            splitted = line.rsplit("\t")
-            ident = int(splitted[1].strip())
-            if checker(ident):
+            (mwm_path, ident, url) = line.split("\t")
+            ident = int(ident)
+            if not checker(ident):
                 return
-            url = splitted[-1].strip()
+            url = url.strip()
         except (AttributeError, IndexError):
             log.exception(f"{line} is incorrect.")
             return
@@ -187,7 +178,9 @@ def parse_args():
     parser.add_argument("--o", metavar="PATH", type=str,
                         help="Output dir for saving pages")
     parser.add_argument("--p", metavar="PATH", type=str,
-                        help="Input popularity file.")
+                        help="File with popular object ids for which we "
+                             "download wikipedia data. If not given, download "
+                             "for all objects.")
     parser.add_argument('--i', metavar="PATH", type=str, required=True,
                         help="Input file with wikipedia url.")
     parser.add_argument('--langs', metavar="LANGS", type=str, nargs='+',
@@ -209,7 +202,7 @@ def main():
     popularity_set = read_popularity(popularity_file) if popularity_file else None
     if popularity_set:
         log.info(f"Popularity set size: {len(popularity_set)}.")
-    checker = popularity_checker(popularity_set)
+    checker = should_download_wikipage(popularity_set)
     with open(input_file) as file:
         _ = file.readline()
         pool = ThreadPool(processes=WORKERS)
