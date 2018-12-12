@@ -368,7 +368,7 @@ private:
       return false;
 
     // todo(@t.yan): adjust
-    uint8_t const kPopularityThreshold = 20;
+    uint8_t const kPopularityThreshold = 11;
     if (it->second < kPopularityThreshold)
       return false;
 
