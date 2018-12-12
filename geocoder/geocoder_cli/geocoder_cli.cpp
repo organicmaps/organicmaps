@@ -1,6 +1,7 @@
 #include "geocoder/geocoder.hpp"
 #include "geocoder/result.hpp"
 
+#include "base/internal/message.hpp"
 #include "base/string_utils.hpp"
 
 #include <fstream>
@@ -17,7 +18,7 @@ DEFINE_string(hierarchy_path, "", "Path to the hierarchy file for the geocoder")
 DEFINE_string(queries_path, "", "Path to the file with queries");
 DEFINE_int32(top, 5, "Number of top results to show for every query, -1 to show all results");
 
-void PrintResults(vector<Result> const & results)
+void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
 {
   cout << "Found results: " << results.size() << endl;
   if (results.empty())
@@ -27,7 +28,11 @@ void PrintResults(vector<Result> const & results)
   {
     if (FLAGS_top >= 0 && i >= FLAGS_top)
       break;
-    cout << "  " << DebugPrint(results[i]) << endl;
+    Hierarchy::Entry const * e = hierarchy.GetEntryForOsmId(results[i].m_osmId);
+    cout << "  " << DebugPrint(results[i]);
+    if (e != nullptr)
+      cout << " " << DebugPrint(e->m_address);
+    cout << endl;
   }
 }
 
@@ -48,7 +53,7 @@ void ProcessQueriesFromFile(string const & path)
 
     cout << s << endl;
     geocoder.ProcessQuery(s, results);
-    PrintResults(results);
+    PrintResults(geocoder.GetHierarchy(), results);
     cout << endl;
   }
 }
@@ -67,7 +72,7 @@ void ProcessQueriesFromCommandLine()
     if (query == "q" || query == ":q" || query == "quit")
       break;
     geocoder.ProcessQuery(query, results);
-    PrintResults(results);
+    PrintResults(geocoder.GetHierarchy(), results);
   }
 }
 

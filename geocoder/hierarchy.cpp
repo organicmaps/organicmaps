@@ -9,6 +9,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <utility>
 
@@ -149,6 +150,12 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     m_entriesStorage.emplace_back(move(entry));
   }
 
+  if (stats.m_numLoaded % kLogBatch != 0)
+    LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
+
+  LOG(LINFO, ("Sorting entries..."));
+  sort(m_entriesStorage.begin(), m_entriesStorage.end());
+
   LOG(LINFO, ("Indexing entries..."));
   IndexEntries();
   LOG(LINFO, ("Indexing houses..."));
@@ -173,6 +180,20 @@ vector<Hierarchy::Entry *> const * const Hierarchy::GetEntries(Tokens const & to
     return {};
 
   return &it->second;
+}
+
+Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & osmId) const
+{
+  auto const cmp = [](Hierarchy::Entry const & e, base::GeoObjectId const & id) {
+    return e.m_osmId < id;
+  };
+
+  auto it = lower_bound(m_entriesStorage.begin(), m_entriesStorage.end(), osmId, cmp);
+
+  if (it == m_entriesStorage.end() || it->m_osmId != osmId)
+    return nullptr;
+
+  return &(*it);
 }
 
 void Hierarchy::IndexEntries()
@@ -203,6 +224,9 @@ void Hierarchy::IndexEntries()
     if (numIndexed % kLogBatch == 0)
       LOG(LINFO, ("Indexed", numIndexed, "entries"));
   }
+
+  if (numIndexed % kLogBatch != 0)
+    LOG(LINFO, ("Indexed", numIndexed, "entries"));
 }
 
 void Hierarchy::IndexStreet(Entry & e)
@@ -245,5 +269,8 @@ void Hierarchy::IndexHouses()
     if (numIndexed % kLogBatch == 0)
       LOG(LINFO, ("Indexed", numIndexed, "houses"));
   }
+
+  if (numIndexed % kLogBatch != 0)
+    LOG(LINFO, ("Indexed", numIndexed, "houses"));
 }
 }  // namespace geocoder

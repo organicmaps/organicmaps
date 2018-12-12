@@ -59,6 +59,8 @@ public:
     // Checks whether this entry is a parent of |e|.
     bool IsParentTo(Entry const & e) const;
 
+    bool operator<(Entry const & rhs) const { return m_osmId < rhs.m_osmId; }
+
     base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
 
     // Original name of the entry. Useful for debugging.
@@ -85,6 +87,8 @@ public:
   //      prototype stage and may be too slow. Proper indexing should
   //      be implemented to perform this type of queries.
   std::vector<Entry *> const * const GetEntries(Tokens const & tokens) const;
+
+  Entry const * GetEntryForOsmId(base::GeoObjectId const & osmId) const;
 
 private:
   // Adds address information of entries to the index.
