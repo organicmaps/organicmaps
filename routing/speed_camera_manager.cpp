@@ -395,19 +395,18 @@ void SpeedCameraManager::SendNotificationStat(double passedDistanceMeters, doubl
 void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double speedMpS,
                                            SpeedCameraOnRoute const & camera)
 {
+  using strings::to_string;
+
   if (m_hasEnteredTheZone)
     return;
   m_hasEnteredTheZone = true;
 
   auto const latlon = MercatorBounds::ToLatLon(camera.m_position);
-  std::string lat = strings::to_string(latlon.lat);
-  std::string lon = strings::to_string(latlon.lon);
-
   alohalytics::TStringMap params = {
-    {"distance", strings::to_string(distToCameraMeters)},
-    {"speed", strings::to_string(measurement_utils::MpsToKmph(speedMpS))},
-    {"speedlimit", camera.NoSpeed() ? "0" : strings::to_string(camera.m_maxSpeedKmH)},
-    {"coord", "(" + lat + "," + lon + ")"}
+    {"distance", to_string(distToCameraMeters)},
+    {"speed", to_string(measurement_utils::MpsToKmph(speedMpS))},
+    {"speedlimit", camera.NoSpeed() ? "0" : to_string(camera.m_maxSpeedKmH)},
+    {"coord", "(" + to_string(latlon.lat) + "," + to_string(latlon.lon) + ")"}
   };
 
   alohalytics::LogEvent("SpeedCameras_enter_zone", params);
