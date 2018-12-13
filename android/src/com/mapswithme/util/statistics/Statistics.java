@@ -246,6 +246,9 @@ public enum Statistics
 
     public static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
     public static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
+    public static final String PLACEPAGE_DESCRIPTION_VIEW_ALL = "Placepage_Description_View_all";
+    public static final String PLACEPAGE_DESCRIPTION_MORE = "Placepage_Description_more";
+    public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
@@ -448,6 +451,7 @@ public enum Statistics
     public static final String OPTION = "option";
     public static final String TRACKS = "tracks";
     public static final String POINTS = "points";
+    public static final String SOURCE = "source";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
@@ -493,7 +497,7 @@ public enum Statistics
     static final String BATTERY = "battery";
     static final String CHARGING = "charging";
     static final String NETWORK = "network";
-    static final String VALUE = "value";
+    public static final String VALUE = "value";
     static final String METHOD = "method";
     static final String MODE = "mode";
     static final String OBJECT_LAT = "object_lat";
@@ -527,6 +531,7 @@ public enum Statistics
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
     public static final String COPY_LINK = "copy_link";
+    public static final String WIKI = "wikipedia.ru";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";

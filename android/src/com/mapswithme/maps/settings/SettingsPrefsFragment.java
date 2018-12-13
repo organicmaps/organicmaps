@@ -371,6 +371,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void onSpeedCamerasPrefChanged(@NonNull SpeedCameraMode oldCamMode,
                                          @NonNull SpeedCameraMode newCamMode)
   {
+    Statistics.ParameterBuilder params = new Statistics
+        .ParameterBuilder()
+        .add(Statistics.EventParam.VALUE, newCamMode.name().toLowerCase());
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.SETTINGS_SPEED_CAMS, params);
     Framework.setSpeedCamerasMode(newCamMode);
   }
 

@@ -713,6 +713,9 @@ public class PlacePageView extends RelativeLayout
 
   private void showDescriptionScreen()
   {
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_MORE,
+                                   new Statistics.ParameterBuilder().add(Statistics.EventParam.SOURCE,
+                                                                         Statistics.ParamValue.WIKI));
     Context context = mPlaceDescriptionContainer.getContext();
     String description = Objects.requireNonNull(mMapObject).getDescription();
     Intent intent = new Intent(context, PlaceDescriptionActivity.class)
