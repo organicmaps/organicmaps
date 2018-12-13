@@ -71,7 +71,8 @@ void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
   m_router = make_unique<AsyncRouter>(routingStatisticsFn, pointCheckCallback);
 
   alohalytics::TStringMap params = {
-    {"speed_cameras", SpeedCameraManagerModeForStat(m_speedCameraManager.GetMode())}
+    {"speed_cameras", SpeedCameraManagerModeForStat(m_speedCameraManager.GetMode())},
+    {"voice_notification_enabled", m_turnNotificationsMgr.IsEnabled() ? "1" : "0"}
   };
   alohalytics::LogEvent("OnRoutingInit", params);
 }
