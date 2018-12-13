@@ -23,6 +23,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.dialog.AlertDialogCallback;
+import com.mapswithme.util.CrashlyticsUtils;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -397,11 +398,32 @@ public class AdsRemovalPurchaseDialog extends BaseMwmDialogFragment
     @Override
     public void onProductDetailsLoaded(@NonNull List<SkuDetails> details)
     {
+      if (hasIncorrectSkuDetails(details))
+      {
+        activateStateSafely(AdsRemovalPaymentState.PRODUCT_DETAILS_FAILURE);
+        return;
+      }
+
       if (getUiObject() == null)
         mPendingDetails = Collections.unmodifiableList(details);
       else
         getUiObject().handleProductDetails(details);
       activateStateSafely(AdsRemovalPaymentState.PRICE_SELECTION);
+    }
+
+    private static boolean hasIncorrectSkuDetails(@NonNull List<SkuDetails> skuDetails)
+    {
+      for (SkuDetails each : skuDetails)
+      {
+        if (AdsRemovalPurchaseDialog.Period.getInstance(each.getSubscriptionPeriod()) == null)
+        {
+          String msg = "Unsupported subscription period: '" + each.getSubscriptionPeriod() + "'";
+          CrashlyticsUtils.logException(new IllegalStateException(msg));
+          LOGGER.e(TAG, msg);
+          return true;
+        }
+      }
+      return false;
     }
 
     @Override
