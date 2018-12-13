@@ -40,8 +40,8 @@ class Info;
 enum class Sections
 {
   Preview,
-  Description,
   Bookmark,
+  Description,
   HotelPhotos,
   HotelDescription,
   HotelFacilities,
