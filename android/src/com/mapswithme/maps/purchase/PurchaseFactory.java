@@ -21,8 +21,7 @@ public class PurchaseFactory
       @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
-        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS,
-                                      new SubscriptionSkuDetailsValidationStrategy());
+        = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
     PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
@@ -38,8 +37,7 @@ public class PurchaseFactory
       @NonNull Context context, @Nullable String productId, @Nullable String serverId)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
-        = new PlayStoreBillingManager(BillingClient.SkuType.INAPP,
-                                      new DefaultSkuDetailsValidationStrategy());
+        = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
     PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new BookmarkPurchaseController(validator, billingManager, productId, serverId);
@@ -57,8 +55,7 @@ public class PurchaseFactory
       @NonNull Context context)
   {
     BillingManager<PlayStoreBillingCallback> billingManager
-      = new PlayStoreBillingManager(BillingClient.SkuType.INAPP,
-                                    new DefaultSkuDetailsValidationStrategy());
+      = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
     PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new FailedBookmarkPurchaseController(validator, billingManager);
