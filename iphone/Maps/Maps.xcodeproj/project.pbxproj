@@ -379,6 +379,7 @@
 		4719A647219CBD7F009F9AA7 /* IBillingPendingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */; };
 		4719A64E21A30C3B009F9AA7 /* PaidRouteStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */; };
 		471BBD942130390F00EB17C9 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BBD932130390F00EB17C9 /* TutorialViewController.swift */; };
+		4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */; };
 		472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F462146BCD30020E412 /* SubscriptionManager.swift */; };
 		472E3F4A2146C4CD0020E412 /* MWMPurchaseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */; };
 		472E3F4C2147D5700020E412 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472E3F4B2147D5700020E412 /* Subscription.swift */; };
@@ -1411,6 +1412,7 @@
 		4719A646219CBD7F009F9AA7 /* IBillingPendingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBillingPendingTransaction.swift; sourceTree = "<group>"; };
 		4719A64D21A30C3B009F9AA7 /* PaidRouteStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidRouteStatistics.swift; sourceTree = "<group>"; };
 		471BBD932130390F00EB17C9 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageDescriptionViewController.swift; sourceTree = "<group>"; };
 		472E3F462146BCD30020E412 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		472E3F482146C4CD0020E412 /* MWMPurchaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPurchaseManager.h; sourceTree = "<group>"; };
 		472E3F492146C4CD0020E412 /* MWMPurchaseManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPurchaseManager.mm; sourceTree = "<group>"; };
@@ -4019,6 +4021,7 @@
 				F6E2FC9B1E097B9F0083EBEC /* MWMPlacePageProtocol.h */,
 				4716EACA21B01C270029B886 /* MWMUGCReviewSource.h */,
 				F6E2FC9C1E097B9F0083EBEC /* PlacePageLayout */,
+				4726254821C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift */,
 			);
 			path = PlacePage;
 			sourceTree = "<group>";
@@ -5264,6 +5267,7 @@
 				34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */,
 				34D3B02A1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.mm in Sources */,
 				33C558E3217F6CF100299E70 /* UploadActionCell.swift in Sources */,
+				4726254921C27D4B00C7BAAD /* PlacePageDescriptionViewController.swift in Sources */,
 				347E039A1FAC5F1D00426032 /* UIWindow+InputLanguage.swift in Sources */,
 				340475711E081A4600C92850 /* MWMSettings.mm in Sources */,
 				33046832219C57180041F3A8 /* CategorySettingsViewController.swift in Sources */,

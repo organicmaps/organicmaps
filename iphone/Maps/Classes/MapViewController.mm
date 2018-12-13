@@ -424,8 +424,9 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)openFullPlaceDescriptionWithHtml:(NSString *)htmlString
 {
+  [Statistics logEvent:kStatPlacePageDescriptionMore];
   WebViewController * descriptionViewController =
-  [[WebViewController alloc] initWithHtml:htmlString baseUrl:nil title:L(@"place_description_title")];
+  [[PlacePageDescriptionViewController alloc] initWithHtml:htmlString baseUrl:nil title:L(@"place_description_title")];
   descriptionViewController.openInSafari = YES;
   [self.navigationController pushViewController:descriptionViewController animated:YES];
 }

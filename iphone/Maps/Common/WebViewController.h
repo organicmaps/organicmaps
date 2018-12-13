@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic) NSString * _Nullable m_htmlText;
 // Set to YES if external browser should be launched
 @property (nonatomic) BOOL openInSafari;
+@property (nonatomic, readonly) WKWebView * webView;
 
 - (instancetype _Nullable)initWithUrl:(NSURL *)url title:( NSString * _Nullable)title;
 - (instancetype _Nullable)initWithHtml:(NSString *)htmlText
