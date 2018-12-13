@@ -11,6 +11,7 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.maps.widget.WebViewCompat;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -37,10 +38,11 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_place_description, container, false);
-    WebView webView = root.findViewById(R.id.webview);
+    WebViewCompat webView = root.findViewById(R.id.webview);
     webView.loadData(mDescription, Utils.TEXT_HTML, Utils.UTF_8);
     webView.setVerticalScrollBarEnabled(true);
     webView.setWebViewClient(new PlaceDescriptionClient());
+    webView.setOnScrollChangedListener(new ContentBottomBorderDetector());
     return root;
   }
 
@@ -49,8 +51,23 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_VIEW_ALL);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK);
       return super.shouldOverrideUrlLoading(view, url);
+    }
+  }
+
+  private static class ContentBottomBorderDetector implements WebViewCompat.OnScrollChangedListener
+  {
+    @Override
+    public void onScroll(@NonNull WebViewCompat webViewCompat, int l, int t, int oldl, int oldt)
+    {
+      int contentHeight = (int) Math.floor(webViewCompat.getContentHeight() *
+                                           webViewCompat.getScale());
+      if (contentHeight - webViewCompat.getScrollY() == webViewCompat.getHeight())
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_VIEW_ALL,
+                                       new Statistics.ParameterBuilder().add(
+                                           Statistics.EventParam.SOURCE,
+                                           Statistics.ParamValue.WIKI));
     }
   }
 }

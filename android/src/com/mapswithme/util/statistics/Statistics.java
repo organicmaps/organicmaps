@@ -248,6 +248,7 @@ public enum Statistics
     public static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
     public static final String PLACEPAGE_DESCRIPTION_VIEW_ALL = "Placepage_Description_View_all";
     public static final String PLACEPAGE_DESCRIPTION_MORE = "Placepage_Description_more";
+    public static final String PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK = "Placepage_Description_Outbound_click";
     public static final String SETTINGS_SPEED_CAMS = "Settings. Speed_cameras";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
