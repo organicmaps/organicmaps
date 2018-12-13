@@ -28,9 +28,8 @@ void PrintResults(Hierarchy const & hierarchy, vector<Result> const & results)
   {
     if (FLAGS_top >= 0 && i >= FLAGS_top)
       break;
-    Hierarchy::Entry const * e = hierarchy.GetEntryForOsmId(results[i].m_osmId);
     cout << "  " << DebugPrint(results[i]);
-    if (e != nullptr)
+    if (auto const && e = hierarchy.GetEntryForOsmId(results[i].m_osmId))
       cout << " " << DebugPrint(e->m_address);
     cout << endl;
   }
