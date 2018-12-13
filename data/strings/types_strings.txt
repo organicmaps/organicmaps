@@ -3249,8 +3249,38 @@
     en = boundary-administrative-suburb
 
   [type.boundary.national_park]
-    en = National Park
-    ru = Национальный Парк
+    en = National park
+    ru = Национальный парк
+    ar = منتزه وطني
+    cs = Národní park
+    da = National park
+    nl = Nationaal park
+    fi = Kansallispuisto
+    fr = Parc national
+    de = Naturschutzpark
+    hu = Nemzeti park
+    id = Taman Nasional
+    it = Parco nazionale
+    ja = 国立公園
+    ko = 국립 공원
+    nb = Nasonalpark
+    pl = Park narodowy
+    pt = Parque nacional
+    pt-BR = Parque nacional
+    ro = Parcul național
+    es = Parque nacional
+    es-MX = Parque nacional
+    sv = Nationalpark
+    th = อุทยานแห่งชาติ
+    tr = Ulusal park
+    uk = Національний парк
+    vi = Công viên quốc gia
+    el = Εθνικό πάρκο
+    sk = Národný park
+    sw = Hifadhi ya taifa
+    zh-Hans = 国家公园
+    zh-Hant = 國家公園
+    fa = پارک ملی
 
   [type.building]
     en = Building
@@ -10910,8 +10940,37 @@
     en = leisure-marina
 
   [type.leisure.nature_reserve]
-    en = Nature Reserve
+    en = Reserve
     ru = Заповедник
+    ar = محمية
+    cs = Rezervace
+    da = Reservat
+    nl = Reserve
+    fi = Luonnonsuojelualue
+    fr = Réserve naturelle
+    de = Naturschutzgebiet
+    hu = Védett terület
+    id = Cagar Alam
+    it = Riserva
+    ja = 自然保護区
+    ko = 천연보호구역
+    nb = Reservat
+    pl = Rezerwat przyrody
+    pt = Reserva natural
+    pt-BR = Reserva Florestal
+    ro = Rezervație naturală
+    es = Territorio reservado
+    es-MX = Reserva
+    sv = Naturreservat
+    th = เขตอนุรักษ์ธรรมชาติ
+    tr = Doğal koruma alanı
+    uk = Заповідник
+    vi = Giữ chỗ
+    el = Φυσικό απόθεμα
+    sk = Rezervácia
+    sw = Hifadhi
+    zh-Hans = 野生动物园
+    zh-Hant = 自然保護區
 
   [type.leisure.park]
     en = Park
@@ -11814,6 +11873,36 @@
   [type.natural.cape]
     en = Cape
     ru = Мыс
+    ar = رأس
+    cs = Mys
+    da = Tange
+    nl = Kaap
+    fi = Niemeke
+    fr = Cap
+    de = Kap
+    hu = Hegytető
+    id = Tanjung
+    it = Capo
+    ja = 岬
+    ko = 곶
+    nb = Kapp
+    pl = Przylądek
+    pt = Cabo
+    pt-BR = Cabo
+    ro = Mantie
+    es = Cabo
+    es-MX = Cabo
+    sv = Udde
+    th = พื้นที่ยื่นเข้าไปในน้ำ
+    tr = Burun
+    uk = Мис
+    vi = Áo choàng
+    el = Ακρωτήρι
+    sk = Mys
+    sw = Rasi
+    zh-Hans = 海角
+    zh-Hant = 海角
+    fa = دماغه
 
   [type.natural.cave_entrance]
     en = Cave Entrance
@@ -11856,10 +11945,70 @@
   [type.natural.geyser]
     en = Geyser
     ru = Гейзер
+    ar = نبع ماء حار
+    cs = Gejzír
+    da = Gejser
+    nl = Geiser
+    fi = Geysir
+    fr = Geyser
+    de = Geysir
+    hu = Gejzír
+    id = Geiser
+    it = Geyser
+    ja = 間欠泉
+    ko = 온천
+    nb = Gaysir
+    pl = Gejzer
+    pt = Geiser
+    pt-BR = Gêiser
+    ro = Gheizer
+    es = Geiser
+    es-MX = Géiser
+    sv = Gejser
+    th = นำ้พุร้อน
+    tr = Gayzer
+    uk = Гейзер
+    vi = Suối nước nóng
+    el = Θερμοπίδακας
+    sk = Gejzír
+    sw = Chemchem ya maji moto
+    zh-Hans = 间歇泉
+    zh-Hant = 間歇泉
+    fa = چشمه آب گرم
 
   [type.natural.glacier]
     en = Glacier
     ru = Ледник
+    ar = كتلة جليدية
+    cs = Ledovec
+    da = Gletsjer
+    nl = Gletsjer
+    fi = Jäätikkö
+    fr = Glacier
+    de = Gletscher
+    hu = Gleccser
+    id = Gletser
+    it = Ghiacciaio
+    ja = 氷河
+    ko = 빙하
+    nb = Isbre
+    pl = Lodowiec
+    pt = Glaciar
+    pt-BR = Geleira
+    ro = Ghețar
+    es = Glaciar
+    es-MX = Glaciar
+    sv = Glaciär
+    th = ธารน้ำแข็ง
+    tr = Buzul
+    uk = Льодовик
+    vi = Sông băng
+    el = Παγετώνας
+    sk = Ľadovec
+    sw = Mto barafu
+    zh-Hans = 冰川
+    zh-Hant = 冰川
+    fa = یخچال طبیعی
 
   [type.natural.grassland]
     en = natural-grassland
