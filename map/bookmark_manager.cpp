@@ -2290,18 +2290,16 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
     CHECK(fileData != nullptr, ());
 
     auto cat = GetBmCategory(categoryId);
-    if (!originalFileExists || originalFileUnmodified ||
-        (cat != nullptr && cat->GetServerId() == fileData->m_serverId))
+
+    if (cat != nullptr && (!originalFileExists || originalFileUnmodified || cat->GetServerId() == fileData->m_serverId))
     {
-      // Update bookmarks category.
+      // Update just the bookmarks category properties in case when the category was unmodified or the category from the
+      // catalog was changed after the start of the uploading.
       {
         auto session = GetEditSession();
-        if (cat != nullptr)
-        {
-          cat->SetServerId(fileData->m_serverId);
-          cat->SetAccessRules(fileData->m_categoryData.m_accessRules);
-          cat->SetAuthor(fileData->m_categoryData.m_authorName, fileData->m_categoryData.m_authorId);
-        }
+        cat->SetServerId(fileData->m_serverId);
+        cat->SetAccessRules(fileData->m_categoryData.m_accessRules);
+        cat->SetAuthor(fileData->m_categoryData.m_authorName, fileData->m_categoryData.m_authorId);
       }
 
       if (cat->GetID() == m_lastEditedGroupId)
@@ -2326,11 +2324,11 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
     CreateCategories(std::move(collection), true /* autoSave */);
 
     kml::MarkGroupId newCategoryId = categoryId;
-    for (auto const & cat : m_categories)
+    for (auto const & category : m_categories)
     {
-      if (cat.second->GetServerId() == serverId)
+      if (category.second->GetServerId() == serverId)
       {
-        newCategoryId = cat.first;
+        newCategoryId = category.first;
         break;
       }
     }
