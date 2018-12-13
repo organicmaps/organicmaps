@@ -452,7 +452,7 @@ public enum Statistics
     public static final String OPTION = "option";
     public static final String TRACKS = "tracks";
     public static final String POINTS = "points";
-    public static final String SOURCE = "source";
+    public static final String URL = "url";
     static final String CATEGORY = "category";
     public static final String TAB = "tab";
     static final String COUNT = "Count";
@@ -532,7 +532,6 @@ public enum Statistics
     public static final String PUBLIC = "public";
     public static final String PRIVATE = "private";
     public static final String COPY_LINK = "copy_link";
-    public static final String WIKI = "wikipedia.ru";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";
