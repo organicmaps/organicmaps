@@ -1410,6 +1410,11 @@ kml::MarkGroupId BookmarkManager::CheckAndCreateDefaultCategory()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & cat : m_categories)
   {
+    if (IsEditableCategory(cat.first) && !IsCategoryFromCatalog(cat.first))
+      return cat.first;
+  }
+  for (auto const & cat : m_categories)
+  {
     if (IsEditableCategory(cat.first))
       return cat.first;
   }
@@ -2298,6 +2303,9 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
           cat->SetAuthor(fileData->m_categoryData.m_authorName, fileData->m_categoryData.m_authorId);
         }
       }
+
+      if (cat->GetID() == m_lastEditedGroupId)
+        SetLastEditedBmCategory(CheckAndCreateDefaultCategory());
 
       if (m_onCatalogUploadFinishedHandler)
         m_onCatalogUploadFinishedHandler(result, {}, categoryId, categoryId);
