@@ -41,7 +41,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * voiceInstructionsCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * speedCamsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
@@ -186,43 +185,8 @@ extern NSString * const kAlohalyticsTapEventKey;
                                   title:L(@"pref_map_auto_zoom")
                                    isOn:GetFramework().LoadAutoZoom()];
 
-  NSString * voiceInstructions = nil;
-  if ([MWMTextToSpeech isTTSEnabled])
-  {
-    NSString * savedLanguage = [MWMTextToSpeech savedLanguage];
-    if (savedLanguage.length != 0)
-    {
-      string const savedLanguageTwine = locale_translator::bcp47ToTwineLanguage(savedLanguage);
-      voiceInstructions = @(tts::translatedTwine(savedLanguageTwine).c_str());
-    }
-  }
-  else
-  {
-    voiceInstructions = L(@"duration_disabled");
-  }
-  [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:voiceInstructions];
-
-  using namespace routing;
-
-  NSString * info = nil;
-  switch (f.GetRoutingManager().GetSpeedCamManager().GetMode())
-  {
-  case SpeedCameraManagerMode::Auto:
-    info = L(@"speedcam_option_auto");
-    break;
-  case SpeedCameraManagerMode::Always:
-    info = L(@"speedcam_option_always");
-    break;
-  case SpeedCameraManagerMode::Never:
-    info = L(@"speedcam_option_never");
-    break;
-  case SpeedCameraManagerMode::MaxValue:
-    CHECK(false, ("Unexpected mode SpeedCameraManagerMode::MaxValue."));
-    break;
-  }
-
-  CHECK(info, ("Speed camera warning mode can't be empty"));
-  [self.speedCamsCell configWithTitle:L(@"speedcams_alert_title") info:info];
+  NSString * ttsEnabledString = [MWMTextToSpeech isTTSEnabled] ? L(@"on") : L(@"off");
+  [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_enable_title") info:ttsEnabledString];
 }
 
 - (void)configInfoSection
@@ -366,11 +330,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatEventName(kStatSettings, kStatTTS)
           withParameters:@{kStatAction : kStatChangeLanguage}];
     [self performSegueWithIdentifier:@"SettingsToTTSSegue" sender:nil];
-  }
-  else if (cell == self.speedCamsCell)
-  {
-    // TODO: Log some event here
-    [self performSegueWithIdentifier:@"SettingsToSpeedCamsSegue" sender:nil];
   }
   else if (cell == self.helpCell)
   {

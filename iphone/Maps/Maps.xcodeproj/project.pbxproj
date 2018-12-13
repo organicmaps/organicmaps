@@ -583,7 +583,6 @@
 		F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */ = {isa = PBXBuildFile; fileRef = F642D1221F0F9D1D005E3C25 /* ugc_types.csv */; };
 		F64D9CA01C899C350063FA30 /* MWMEditorViralAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */; };
 		F64D9CA31C899C760063FA30 /* MWMEditorViralAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */; };
-		F64EC41B219EFDC20059DC7C /* MWMSpeedCamSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F64EC41A219EFDC20059DC7C /* MWMSpeedCamSettingsController.mm */; };
 		F653CE0E1C6DEB2E00A453F1 /* MWMDropDown.xib in Resources */ = {isa = PBXBuildFile; fileRef = F652B2E91C6DE8E500D20C8C /* MWMDropDown.xib */; };
 		F653CE121C6DEC8E00A453F1 /* MWMDropDown.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE101C6DEB5A00A453F1 /* MWMDropDown.mm */; };
 		F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE151C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm */; };
@@ -1624,8 +1623,6 @@
 		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F64D9CA11C899C760063FA30 /* MWMEditorViralAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMEditorViralAlert.xib; sourceTree = "<group>"; };
-		F64EC419219EFDC20059DC7C /* MWMSpeedCamSettingsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMSpeedCamSettingsController.h; sourceTree = "<group>"; };
-		F64EC41A219EFDC20059DC7C /* MWMSpeedCamSettingsController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSpeedCamSettingsController.mm; sourceTree = "<group>"; };
 		F64F19811AB81A00006EAF7E /* MWMAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMAlertViewController.h; sourceTree = "<group>"; };
 		F64F19821AB81A00006EAF7E /* MWMAlertViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMAlertViewController.mm; sourceTree = "<group>"; };
 		F64F19831AB81A00006EAF7E /* MWMAlertViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMAlertViewController.xib; sourceTree = "<group>"; };
@@ -4330,8 +4327,6 @@
 				F6E2FD491E097BA00083EBEC /* MWMTTSLanguageViewController.mm */,
 				F6E2FD4A1E097BA00083EBEC /* MWMTTSSettingsViewController.h */,
 				F6E2FD4B1E097BA00083EBEC /* MWMTTSSettingsViewController.mm */,
-				F64EC419219EFDC20059DC7C /* MWMSpeedCamSettingsController.h */,
-				F64EC41A219EFDC20059DC7C /* MWMSpeedCamSettingsController.mm */,
 				F6E2FD4C1E097BA00083EBEC /* MWMUnitsController.h */,
 				F6E2FD4D1E097BA00083EBEC /* MWMUnitsController.mm */,
 			);
@@ -5191,7 +5186,6 @@
 				33F8BA4A2199AA1300ECA8EE /* MWMTagGroup+Convenience.mm in Sources */,
 				3488B0131E9D0AEC0068AFD8 /* AdBanner.swift in Sources */,
 				3404755F1E081A4600C92850 /* MWMLocationPredictor.mm in Sources */,
-				F64EC41B219EFDC20059DC7C /* MWMSpeedCamSettingsController.mm in Sources */,
 				F6E2FE041E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.mm in Sources */,
 				F6E2FE671E097BA00083EBEC /* MWMPlacePageButtonCell.mm in Sources */,
 				472E3F472146BCD30020E412 /* SubscriptionManager.swift in Sources */,

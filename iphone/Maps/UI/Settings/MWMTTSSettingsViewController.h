@@ -1,10 +1,13 @@
 #import "MWMTableViewController.h"
 
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <string>
+#include <vector>
+#include <utility>
 
 @interface MWMTTSSettingsViewController : MWMTableViewController
 
-- (void)setAdditionalTTSLanguage:(pair<string, string> const &)l;
+- (void)setAdditionalTTSLanguage:(std::pair<std::string, std::string> const &)l;
+
+- (std::vector<std::pair<std::string, std::string>> const &)languages;
 
 @end
