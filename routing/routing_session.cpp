@@ -72,7 +72,7 @@ void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
 
   alohalytics::TStringMap params = {
     {"speed_cameras", SpeedCameraManagerModeForStat(m_speedCameraManager.GetMode())},
-    {"voice_notification_enabled", m_turnNotificationsMgr.IsEnabled() ? "1" : "0"}
+    {"voice_enabled", m_turnNotificationsMgr.IsEnabled() ? "1" : "0"}
   };
   alohalytics::LogEvent("OnRoutingInit", params);
 }

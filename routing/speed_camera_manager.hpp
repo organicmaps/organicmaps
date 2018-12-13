@@ -148,6 +148,7 @@ private:
 
   bool BeepSignalAvailable() const { return m_makeBeepSignal && m_beepSignalCounter < kBeepSignalNumber; }
   bool VoiceSignalAvailable() const { return m_makeVoiceSignal && m_voiceSignalCounter < kVoiceNotificationNumber; }
+  
 private:
   SpeedCameraOnRoute m_closestCamera;
   uint32_t m_beepSignalCounter;
