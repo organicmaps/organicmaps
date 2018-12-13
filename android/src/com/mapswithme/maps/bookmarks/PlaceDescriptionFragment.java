@@ -49,7 +49,11 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_VIEW_ALL);
+      Statistics.ParameterBuilder params = new Statistics.ParameterBuilder().add(Statistics
+                                                                                     .EventParam
+                                                                                     .URL, url);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.PLACEPAGE_DESCRIPTION_OUTBOUND_CLICK,
+                                     params);
       return super.shouldOverrideUrlLoading(view, url);
     }
   }
