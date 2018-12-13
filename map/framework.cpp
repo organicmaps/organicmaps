@@ -2553,7 +2553,7 @@ bool Framework::LoadMetalAllowed()
   bool allowed;
   if (settings::Get(kMetalAllowed, allowed))
     return allowed;
-  return false;
+  return true;
 }
 
 void Framework::SaveMetalAllowed(bool allowed)
