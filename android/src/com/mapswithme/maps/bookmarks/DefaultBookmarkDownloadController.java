@@ -155,7 +155,7 @@ class DefaultBookmarkDownloadController implements BookmarkDownloadController,
     private final static String SERVER_ID = "id";
     private final static String PRODUCT_ID = "tier";
     private final static String NAME = "name";
-    private final static String IMG_URL = "img_url";
+    private final static String IMG_URL = "img";
     private final static String AUTHOR_NAME = "author_name";
 
     @NonNull
