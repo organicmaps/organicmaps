@@ -289,9 +289,9 @@
     <item name="filterPropertyTextColor">@color/filter_date_property_color_night</item>
     <item name="adsRemovalOptionsBg">@drawable/bg_ads_removal_options_night</item>
     <item name="adsRemovalOptionsDivider">@color/white_8</item>
-    <item name="android:textAppearance">@style/TextAppearance.Inverse</item>
-    <item name="android:textAppearanceSmall">@style/TextAppearance.Small.Inverse</item>
-    <item name="android:textAppearanceMedium">@style/TextAppearance.Medium.Inverse</item>
-    <item name="android:textAppearanceLarge">@style/TextAppearance.Large.Inverse</item>
+    <item name="android:textAppearance">@style/TextAppearance</item>
+    <item name="android:textAppearanceSmall">@style/TextAppearance.Small</item>
+    <item name="android:textAppearanceMedium">@style/TextAppearance.Medium</item>
+    <item name="android:textAppearanceLarge">@style/TextAppearance.Large</item>
   </style>
 </resources>
