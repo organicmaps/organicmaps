@@ -113,6 +113,10 @@ final class CatalogWebViewController: WebViewController {
     handlePendingTransactions { decisionHandler($0) }
   }
 
+  override func shouldAddAccessToken() -> Bool {
+    return true
+  }
+
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
