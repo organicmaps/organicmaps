@@ -127,7 +127,8 @@ UNIT_TEST(MultilangString_LangNames)
   auto const & langs = StringUtf8Multilang::GetSupportedLanguages();
   // Using size_t workaround, because our logging/testing macroses do not support passing POD types
   // by value, only by reference. And our constant is a constexpr.
-  TEST_EQUAL(langs.size(), size_t(StringUtf8Multilang::kMaxSupportedLanguages), ());
+  TEST_LESS_OR_EQUAL(langs.size(), static_cast<size_t>(StringUtf8Multilang::kMaxSupportedLanguages),
+                     ());
   auto const international = StringUtf8Multilang::GetLangIndex("int_name");
   TEST_EQUAL(langs[international].m_code, string("int_name"), ());
 }

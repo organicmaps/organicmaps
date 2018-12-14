@@ -460,3 +460,24 @@ inline bool operator>(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> cons
 {
   return v2 < v1;
 }
+
+namespace std
+{
+template <typename T, size_t N>
+typename buffer_vector<T, N>::iterator begin(buffer_vector<T, N> & v)
+{
+  return v.begin();
+}
+
+template <typename T, size_t N>
+typename buffer_vector<T, N>::const_iterator begin(buffer_vector<T, N> const & v)
+{
+  return v.begin();
+}
+
+template <typename T, size_t N>
+typename buffer_vector<T, N>::const_iterator end(buffer_vector<T, N> const & v)
+{
+  return v.end();
+}
+}  // namespace std

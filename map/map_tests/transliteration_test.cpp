@@ -36,7 +36,6 @@ UNIT_TEST(Transliteration_CompareSamples)
   TestTransliteration(translit, "uk", "Українська", "Ukrayinska");
   TestTransliteration(translit, "fa", "فارسی", "farsy");
   TestTransliteration(translit, "hy", "Հայերէն", "Hayeren");
-  TestTransliteration(translit, "kn", "ಕನ್ನಡ", "kannada");
   TestTransliteration(translit, "am", "አማርኛ", "amarinya");
   TestTransliteration(translit, "ja_kana", "カタカナ", "katakana");
   TestTransliteration(translit, "bg", "Български", "Bulgarski");

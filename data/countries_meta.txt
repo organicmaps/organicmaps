@@ -315,7 +315,7 @@
 },
 "India": {
  "driving": "l",
- "languages": ["hi", "mr", "en", "gu", "ta", "te", "bn", "as", "kn", "ml", "pa"]
+ "languages": ["hi", "mr", "en", "gu", "ta", "te", "bn", "as", "ml", "pa"]
 },
 "India_Kerala": {
  "driving": "l",
@@ -434,7 +434,7 @@
  "languages": ["lt"]
 },
 "Luxembourg": {
- "languages": ["fr", "lb", "de", "en"]
+ "languages": ["fr", "de", "en"]
 },
 "Macedonia": {
  "languages": ["mk"]
@@ -729,7 +729,7 @@
  "languages": ["nl"]
 },
 "Netherlands_Friesland": {
- "languages": ["nl", "fy"]
+ "languages": ["nl"]
 },
 "Togo": {
  "languages": ["fr"]

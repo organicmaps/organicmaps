@@ -5,9 +5,9 @@
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 #include "base/control_flow.hpp"
 
-#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -80,8 +80,9 @@ public:
   /// How many languages we support on indexing stage. See full list in cpp file.
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.
   static int8_t constexpr kMaxSupportedLanguages = 64;
+  static char constexpr kReservedLang[] = "reserved";
 
-  using Languages = std::array<Lang, kMaxSupportedLanguages>;
+  using Languages = buffer_vector<Lang, kMaxSupportedLanguages>;
 
   static Languages const & GetSupportedLanguages();
 
@@ -118,8 +119,12 @@ public:
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (wrapper((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
-        return;
+      int8_t const code = m_s[i] & 0x3F;
+      if (GetLangByCode(code) != kReservedLang &&
+          wrapper(code, m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
+      {
+        break;
+      }
       i = next;
     }
   }

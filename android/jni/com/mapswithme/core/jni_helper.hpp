@@ -4,13 +4,16 @@
 
 #include "ScopedLocalRef.hpp"
 
+#include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 
 #include "geometry/point2d.hpp"
 
+#include <iterator>
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 extern jclass g_mapObjectClazz;
 extern jclass g_featureIdClazz;
@@ -89,7 +92,8 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TIt begin, TIt end, size_t 
 template<typename TContainer, typename TToJavaFn>
 jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TToJavaFn && toJavaFn)
 {
-  return ToJavaArray(env, clazz, begin(src), end(src), src.size(), std::forward<TToJavaFn>(toJavaFn));
+  return ToJavaArray(env, clazz, std::begin(src), std::end(src), src.size(),
+                     std::forward<TToJavaFn>(toJavaFn));
 }
 
 jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src);
