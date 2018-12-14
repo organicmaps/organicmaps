@@ -22,6 +22,9 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Використання геолокації у фоновому режимі потрібно для ефективної роботи програми та персоналізації рекомендацій";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Визначення місцезнаходження у фоновому режимі необхідно для повноцінного користування додатком. Воно використовується під час руху по маршруту та для збереження шляху, що було нещодавно пройдено.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */

@@ -22,6 +22,9 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Definovanie aktuálnej pozície na pozadí je nevyhnutné pre efektívne používanie aplikácie a osobných odporúčaní";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Definovanie súčasnej polohy na pozadí je potrebné pre plnú funkčnosť appky. Využíva sa to najmä v možnostiach nasledovania trasy či uloženia Vašej nedávnej cesty.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */

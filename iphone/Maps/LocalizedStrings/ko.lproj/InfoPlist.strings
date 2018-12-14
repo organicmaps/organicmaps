@@ -22,6 +22,9 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "백그라운드(배경)에서 현재 장소를 정의하는 것은 어플리케이션의 효과적인 사용과 개인을 위한 추천을 위해 필수적입니다";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "백그라운드에서 현재 위치를 정의하는 것은 완전히 앱의 기능을 즐길 수 있도록 해줍니다. 이는 주로 경로를 따르고 최근 여행 경로를 저장하는 옵션에 사용됩니다.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */

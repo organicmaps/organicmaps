@@ -22,6 +22,9 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Het definiëren van de huidige locatie op de achtergrond is noodzakelijk voor het effectieve gebruik van toepassing en persoonlijke aanbevelingen";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Het op de achtergrond vaststellen van de huidige locatie is noodzakelijk om volledig gebruik te maken van de functionaliteit van de app. Dit wordt voornamelijk gebruikt bij de opties voor het volgen van de route en het opslaan van je recent afgelegde pad.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */

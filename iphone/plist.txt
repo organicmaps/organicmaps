@@ -138,6 +138,41 @@
     zh-Hans = 路线
 
 [[gps strings]]
+  [NSLocationAlwaysAndWhenInUseUsageDescription]
+    comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
+    en = Defining your current location in the background is necessary for the effective use of application and personal recommendations
+    ru = Использование геолокации в фоне нужно для эффективной работы приложения и персонализации рекомендаций
+    ar = من الضروري تحديد الموقع الحالي في الخلفية للاستخدام الفعال للتطبيق والتوصيات الشخصية
+    cs = Zapnutí určení polohy na pozadí je nutné pro efektivní fungování aplikace a personalizace doporučení
+    da = At definere nuværende lokation i baggrunden er nødvendig for effektiv anvendelse af applikationen og personlige anbefalinger
+    nl = Het definiëren van de huidige locatie op de achtergrond is noodzakelijk voor het effectieve gebruik van toepassing en persoonlijke aanbevelingen
+    fi = Paikannuksen käyttö taustalla on välttämätöntä sovelluksen tehokkaan toiminnan ja suositusten personoimiseksi
+    fr = L'utilisation de la géolocalisation en mode de fond est nécessaire au bon fonctionnement de l'application et à la personnalisation des recommandations
+    de = Die Hintergrund-Geolokation ist für effektives Funktionieren der App und Personalisierung der Empfehlungen erforderlich
+    hu = A jelenlegi helyzet háttérben történő meghatározására szükség van az alkalmazás hatékony használata és a személyre szabott ajánlatok megjelenítése érdekében
+    id = Menentukan lokasi saat ini pada latar belakang adalah hal yang diperlukan untuk penggunaan aplikasi yang lebih efektif serta untuk rekomendasi personal
+    it = Abilitare la localizzazione in background per ottimizzare e personalizzare l'uso dell'App
+    ja = バックグランドでの現在地の特定が、アプリの効果的な利用と個人的なお勧めをするために必要です
+    ko = 백그라운드(배경)에서 현재 장소를 정의하는 것은 어플리케이션의 효과적인 사용과 개인을 위한 추천을 위해 필수적입니다
+    nb = Å finne nåværende plassering i bakgrunnen er nødvendig for effektiv bruk av applikasjon og personlige anbefalinger
+    pl = Zastosowanie geolokalizacji w tle jest niezbędne w celu efektywnej pracy aplikacji i personalizacji, dotyczącej personalizacji
+    pt = Geolocalização em segundo plano necessário para o funcionamento eficaz da aplicação e a personalização das recomendações
+    pt-BR = Definindo localidade atual no plano de fundo é necessário para o uso efetivo do aplicativo e recomendações pessoais
+    ro = Utilizarea localizării în fundal este necesară pentru funcționarea eficientă a aplicației și a personalizării recomandărilor
+    es = El uso de la geolocalización en el fondo, es necesario para el funcionamiento eficaz de la aplicación y la personalización de las recomendaciones
+    es-MX = Es necesario permitir los servicios de localización en segundo plano para el uso eficaz de la aplicación y para las recomendaciones personales
+    sv = Användning av geolokalisering i bakgrunden behövs för appens effektiva funktion och personifiering av rekommendationer
+    th = การกำหนดตำแหน่งปัจจุบันในพื้นหลังเป็นสิ่งจำเป็นสำหรับการใช้แอพพลิเคชัน และคำแนะนำส่วนบุคคลให้มีประสิทธิภาพ
+    tr = Geçerli konumun arka planda tanımlanması, uygulamanın etkili kullanımı ve kişisel öneriler için gereklidir
+    uk = Використання геолокації у фоновому режимі потрібно для ефективної роботи програми та персоналізації рекомендацій
+    vi = Xác định vị trí hiện tại trong nền là cần thiết để sử dụng hiệu quả các đề xuất cá nhân và ứng dụng
+    el = Η χρήση της γεωγραφικής κατανομής στο παρασκήνιο είναι απαραίτητη για την αποτελεσματική λειτουργία της εφαρμογής και την εξατομίκευση των συστάσεων
+    sk = Definovanie aktuálnej pozície na pozadí je nevyhnutné pre efektívne používanie aplikácie a osobných odporúčaní
+    sw = Kufafanua eneo la sasa katika picha ni muhimu kwa matumizi mazuri ya programu-tumizi na mapendekezo binafsi
+    zh-Hans = 在后台使用地理定位对于应用程序的有效运行和建议的个性化是必要的
+    zh-Hant = 在後台使用地理定位對於應用程序的有效運行和建議的個性化是必要的
+    fa = تعریف مکان فعلی در پس زمینه برای استفاده موثر از برنامه ها و توصیه های شخصی ضروری است
+
   [NSLocationAlwaysUsageDescription]
     comment = Needed to explain why we always require access to GPS coordinates, and not only when the app is active.
     en = Defining current location in the background is necessary to fully enjoy the functionality of the app. It is mainly used in the options of following the route and saving your recent travelled path. 

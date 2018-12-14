@@ -22,6 +22,9 @@
 /********** gps strings **********/
 
 /* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Die Hintergrund-Geolokation ist für effektives Funktionieren der App und Personalisierung der Empfehlungen erforderlich";
+
+/* Needed to explain why we always require access to GPS coordinates, and not only when the app is active. */
 "NSLocationAlwaysUsageDescription" = "Das Bestimmen des aktuellen Standortes im Hintergrund ist erforderlich, um den vollen Funktionsumfang der App zu genießen. Dies wird hauptsächlich dafür genutzt, der Route zu folgen und, um Ihren bereits bestrittenen Weg zu speichern.";
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
