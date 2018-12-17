@@ -49,4 +49,26 @@ public class GeoFenceFeature
   {
     return longitude;
   }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    GeoFenceFeature that = (GeoFenceFeature) o;
+
+    if (mwmVersion != that.mwmVersion) return false;
+    if (featureIndex != that.featureIndex) return false;
+    return countryId.equals(that.countryId);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int result = (int) (mwmVersion ^ (mwmVersion >>> 32));
+    result = 31 * result + countryId.hashCode();
+    result = 31 * result + featureIndex;
+    return result;
+  }
 }

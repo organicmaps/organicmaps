@@ -19,6 +19,7 @@ public class JobIdMap
     MAP.put(TrackRecorderWakeService.class, calcIdentifier(MAP.size()));
     MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));
     MAP.put(WorkerService.class, calcIdentifier(MAP.size()));
+    MAP.put(GeofenceTransitionsIntentService.class, calcIdentifier(MAP.size()));
   }
 
   private static final int ID_BASIC = 1070;
