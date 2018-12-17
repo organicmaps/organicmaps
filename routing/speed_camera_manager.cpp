@@ -1,7 +1,6 @@
 #include "routing/speed_camera_manager.hpp"
 
 #include "routing/speed_camera.hpp"
-#include "speed_camera_manager.hpp"
 
 namespace routing
 {
