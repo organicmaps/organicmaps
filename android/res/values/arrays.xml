@@ -3,21 +3,29 @@
 
   <!-- What's new -->
   <integer-array name="news_images">
-    <item>@drawable/img_whatsnew_route</item>
-    <item>@drawable/img_whatsnew_webeditor</item>
+    <item>@drawable/img_whatsnew_paid_routes</item>
+    <item>@drawable/img_whatsnew_standard_routes</item>
+    <item>@drawable/img_whatsnew_city_overview</item>
+    <item>@drawable/img_whatsnew_pro_guides</item>
   </integer-array>
 
   <string-array name="news_title_keys">
-    <item>whats_new_ugc_routes_title</item>
-    <item>whats_new_webeditor_title</item>
+    <item>whatsnew_paid_routes_title</item>
+    <item>whatsnew_standard_routes_title</item>
+    <item>whatsnew_city_overview_title</item>
+    <item>whatsnew_pro_guides_title</item>
   </string-array>
 
   <string-array name="news_messages_1">
-    <item>@string/whats_new_ugc_routes_subtitle</item>
-    <item>@string/whats_new_ugc_routes_message2</item>
+    <item>@string/whatsnew_paid_routes_message</item>
+    <item>@string/whatsnew_standard_routes_message</item>
+    <item>@string/whatsnew_city_overview_message</item>
+    <item>@string/whatsnew_pro_guides_message</item>
   </string-array>
 
   <string-array name="news_messages_2">
+    <item/>
+    <item/>
     <item/>
     <item/>
   </string-array>
@@ -25,9 +33,13 @@
   <string-array name="news_button_labels">
     <item/>
     <item/>
+    <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_button_links">
+    <item/>
+    <item/>
     <item/>
     <item/>
   </string-array>
@@ -35,9 +47,13 @@
   <string-array name="news_switch_titles">
     <item/>
     <item/>
+    <item/>
+    <item/>
   </string-array>
 
   <string-array name="news_switch_subtitles">
+    <item/>
+    <item/>
     <item/>
     <item/>
   </string-array>
