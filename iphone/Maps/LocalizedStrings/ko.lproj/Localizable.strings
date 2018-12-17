@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "묘사를 적으세요 (글자 혹은 html)";
 
-"not_shared" = "공유하지 않음";
+"not_shared" = "개인";
 
 "direct_link_progress_text" = "당신의 파일을 업로드 중…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "리뷰를 남겨서 여행자들을 도와주세요!";
 
-"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "전방에 카메라";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다";
 
 "warning_speedcams_subtitle" = "여행하시는 나라의 운전 법규를 준수하시길 바랍니다.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "당신의 지나온 길들을 이야기로 바꿔보세요";
 
 "whats_new_ugc_routes_message2" = "웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.";
+
+"whatsnew_standard_routes_title" = "표준 루트";
+
+"whatsnew_standard_routes_message" = "흥미로운 곳들의 기본 내용과 간략한 묘사, 하지만 풍부한 경험들!";
+
+"whatsnew_city_overview_title" = "도시 개관";
+
+"whatsnew_city_overview_message" = "도시 지도에 200여개의 흥미로운 지점: 모든 여행자들이 유용함과 재미를 발견 할 수 있습니다!";
+
+"whatsnew_pro_guides_title" = "전문가 루트";
+
+"whatsnew_pro_guides_message" = "장소에 대한 자세한 묘사와 통행 거리, 시간 계산 능력이 매우 철저합니다";
+
+"whatsnew_paid_routes_title" = "더 새로운 경험들!";
+
+"whatsnew_paid_routes_message" = "무료 루트뿐만 아니라, 3개의 유료 루트 카테고리들도 우리의 카탈로그에 추가했습니다 700개 이상의 새로운 루트들!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "국립 공원";
 
 "type.building" = "건물";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "천연보호구역";
 
 "type.leisure.park" = "공원";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "바닷가";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "곶";
 
 "type.natural.cave_entrance" = "동굴입구";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "온천";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "빙하";
 
 "type.natural.grassland" = "natural-grassland";
 

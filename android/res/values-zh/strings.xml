@@ -1417,7 +1417,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>注意:&lt;/b>继续，即表示您接受&lt;a href="%s">许可协议&lt;/a></string>
 	<string name="ugc_route_edit_list_name">指南名称</string>
 	<string name="ugc_route_edit_description_hint">请添加说明(文字或html)</string>
-	<string name="not_shared">個人</string>
+	<string name="not_shared">个人</string>
 	<string name="direct_link_progress_text">正在上传您的文件......</string>
 	<string name="direct_link_success">链接已创建</string>
 	<string name="edit_guide_title">请在线编辑您的旅行指南</string>
@@ -1459,9 +1459,8 @@
 	<string name="notification_channel_downloader">加载地图</string>
 	<string name="notification_leave_review_title">%s - 您在这里怎么样？</string>
 	<string name="notification_leave_review_content">请发表评论并帮助游客！</string>
-	<string name="share_bookmarks_email_body_link">您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行：http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行!\n\n下载程序：http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">在摄像头前</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">当速度限制超过%d km / h时，导航会通知您的摄像机</string>
 	<string name="warning_speedcams_subtitle">请不要忘记阅读旅行国的道路规则。</string>
 	<string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告</string>
@@ -1469,6 +1468,14 @@
 	<string name="whats_new_ugc_routes_subtitle">保存有印象的地点、用书签创建路线，并在MAPS.ME目录中和大家分享。</string>
 	<string name="whats_new_webeditor_title">把路线变成故事</string>
 	<string name="whats_new_ugc_routes_message2">在网页编辑工具里添加照片和详细的故事。</string>
+	<string name="whatsnew_standard_routes_title">标准路线</string>
+	<string name="whatsnew_standard_routes_message">主要的景点组合、简介，感触满满！</string>
+	<string name="whatsnew_city_overview_title">环城游览</string>
+	<string name="whatsnew_city_overview_message">城市地图上最多200个点：对旅行者来说是最有用也是最有趣的！</string>
+	<string name="whatsnew_pro_guides_title">专业路线</string>
+	<string name="whatsnew_pro_guides_message">高水平的细节，地点的详细描述以及计算步行距离和时间的能力</string>
+	<string name="whatsnew_paid_routes_title">更多新体验！</string>
+	<string name="whatsnew_paid_routes_message">除了免费路线，我们还为目录添加了3类付费指南。超过700条新路线！</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>
@@ -1572,6 +1579,7 @@
 	<string name="type.barrier.lift_gate">水栅门</string>
 	<string name="type.barrier.stile">台阶</string>
 	<string name="type.barrier.toll_booth">收费亭</string>
+	<string name="type.boundary.national_park">国家公园</string>
 	<string name="type.building">建筑</string>
 	<string name="type.building.address">建筑</string>
 	<string name="type.building.garage">车库</string>
@@ -1809,6 +1817,7 @@
 	<string name="type.leisure.fitness_station">健身驿站</string>
 	<string name="type.leisure.garden">花园</string>
 	<string name="type.leisure.golf_course">高尔夫球场</string>
+	<string name="type.leisure.nature_reserve">野生动物园</string>
 	<string name="type.leisure.park">公园</string>
 	<string name="type.leisure.park.no.access">公园</string>
 	<string name="type.leisure.park.permissive">公园</string>
@@ -1836,7 +1845,10 @@
 	<string name="type.man_made.windmill">风车</string>
 	<string name="type.military.bunker">地堡</string>
 	<string name="type.natural.beach">海滩</string>
+	<string name="type.natural.cape">海角</string>
 	<string name="type.natural.cave_entrance">山洞入口</string>
+	<string name="type.natural.geyser">间歇泉</string>
+	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.lake">湖</string>
 	<string name="type.natural.peak">峰</string>
 	<string name="type.natural.pond">池塘</string>

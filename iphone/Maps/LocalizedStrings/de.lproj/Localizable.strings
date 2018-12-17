@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Fügen Sie die Beschreibung hinzu (Text oder html)";
 
-"not_shared" = "Privat";
+"not_shared" = "Persönlich";
 
 "direct_link_progress_text" = "Ihre Datei wird geladen…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!";
 
-"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise!\n\nApp downloaden: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kamera vorne";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren";
 
 "warning_speedcams_subtitle" = "Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Verwandeln Sie Ihre Routen in Geschichten";
 
 "whats_new_ugc_routes_message2" = "Fügen Sie Fotos und ausführliche Geschichten im Web-Editor hinzu.";
+
+"whatsnew_standard_routes_title" = "Standardrouten";
+
+"whatsnew_standard_routes_message" = "Hauptorte, Kurzbeschreibungen, aber viele Eindrücke!";
+
+"whatsnew_city_overview_title" = "Stadtübersicht";
+
+"whatsnew_city_overview_message" = "Bis zu 200 Orte auf dem Stadtplan: das Nützlichste und Interessanteste für den Reisenden!";
+
+"whatsnew_pro_guides_title" = "Profirouten";
+
+"whatsnew_pro_guides_message" = "Hohes Detaillierungsniveau, detaillierte Ortsbeschreibung und Möglichkeit die Entfernung und die Ausflugszeit zu berechnen";
+
+"whatsnew_paid_routes_title" = "Mehr neue Eindrücke!";
+
+"whatsnew_paid_routes_message" = "Zusätzlich zu den kostenfreien Routen haben wir 3 Kategorien kostenpflichtiger Reiseführer zum Katalog hinzugefügt. Über 700 neue Routen!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Naturschutzpark";
 
 "type.building" = "Gebäude";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Naturschutzgebiet";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Kap";
 
 "type.natural.cave_entrance" = "Höhleneingang";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geysir";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Gletscher";
 
 "type.natural.grassland" = "natural-grassland";
 

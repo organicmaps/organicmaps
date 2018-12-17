@@ -1463,9 +1463,8 @@
 	<string name="notification_channel_downloader">加載地圖</string>
 	<string name="notification_leave_review_title">%s - 您在這裡怎麼樣?</string>
 	<string name="notification_leave_review_content">請發表評論並幫助旅客！</string>
-	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行：http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行!\n\n下載應用程序：http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">在攝像頭前</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">當速度限制超過%d km / h時，導航會通知您的攝像機</string>
 	<string name="warning_speedcams_subtitle">請不要忘記閱讀旅行國的道路規則。</string>
 	<string name="speedcams_notice_message">自動 - 如果存在超出速度限制的風險，則對速度攝像頭髮出警告\n總是 - 始終提醒攝像頭\n從不 - 永遠不會對攝像頭發出警告</string>
@@ -1473,6 +1472,14 @@
 	<string name="whats_new_ugc_routes_subtitle">保存有印象的地点、用书签创建路线，并在MAPS.ME目录中和大家分享。</string>
 	<string name="whats_new_webeditor_title">把路线变成故事</string>
 	<string name="whats_new_ugc_routes_message2">在网页编辑工具里添加照片和详细的故事。</string>
+	<string name="whatsnew_standard_routes_title">標準路線</string>
+	<string name="whatsnew_standard_routes_message">主要景點組合，簡要描述，感觸滿滿！</string>
+	<string name="whatsnew_city_overview_title">環城旅遊</string>
+	<string name="whatsnew_city_overview_message">城市地圖上最多200個點：對旅行者來說最有用也是最有趣的！</string>
+	<string name="whatsnew_pro_guides_title">專業路線</string>
+	<string name="whatsnew_pro_guides_message">高水平的細節，地點的詳細描述以及計算步行距離和時間的能力</string>
+	<string name="whatsnew_paid_routes_title">更多新體驗！</string>
+	<string name="whatsnew_paid_routes_message">除了免費路線，我們還為目錄添加了3類付費指南。超過700條新路線！</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>
@@ -1576,6 +1583,7 @@
 	<string name="type.barrier.lift_gate">遮斷機</string>
 	<string name="type.barrier.stile">梯磴</string>
 	<string name="type.barrier.toll_booth">收費站</string>
+	<string name="type.boundary.national_park">國家公園</string>
 	<string name="type.building">建築物</string>
 	<string name="type.building.address">建築物</string>
 	<string name="type.building.garage">車庫</string>
@@ -1813,6 +1821,7 @@
 	<string name="type.leisure.fitness_station">健身房</string>
 	<string name="type.leisure.garden">花園</string>
 	<string name="type.leisure.golf_course">高爾夫球場</string>
+	<string name="type.leisure.nature_reserve">自然保護區</string>
 	<string name="type.leisure.park">公園</string>
 	<string name="type.leisure.park.no.access">公園</string>
 	<string name="type.leisure.park.permissive">公園</string>
@@ -1841,7 +1850,10 @@
 	<string name="type.military.bunker">地堡</string>
 	<string name="type.natural.bay">海灣</string>
 	<string name="type.natural.beach">海灘</string>
+	<string name="type.natural.cape">海角</string>
 	<string name="type.natural.cave_entrance">洞穴入口</string>
+	<string name="type.natural.geyser">間歇泉</string>
+	<string name="type.natural.glacier">冰川</string>
 	<string name="type.natural.lake">湖泊</string>
 	<string name="type.natural.peak">山峰</string>
 	<string name="type.natural.pond">潭</string>

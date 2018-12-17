@@ -1476,7 +1476,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>PLEASE NOTE:&lt;/b> by proceeding, you accept the &lt;a href="%s">license agreement&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Guide name</string>
 	<string name="ugc_route_edit_description_hint">Type a description (text or html)</string>
-	<string name="not_shared">Not shared</string>
+	<string name="not_shared">Private</string>
 	<string name="direct_link_progress_text">Uploading your file…</string>
 	<string name="direct_link_success">The link has been created</string>
 	<string name="edit_guide_title">Edit your guide online</string>
@@ -1518,9 +1518,8 @@
 	<string name="notification_channel_downloader">Map downloader</string>
 	<string name="notification_leave_review_title">%s - how was it?</string>
 	<string name="notification_leave_review_content">Help travellers by leaving a review!</string>
-	<string name="share_bookmarks_email_body_link">Hello!\n\nHere is the link where you can download your bookmarks: %s. Open the list via MAPS.ME and enjoy your trip: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in MAPS.ME and enjoy your trip!\n\nGet application: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Camera ahead</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigator will warn you about cameras when you exceed the speed limit of %d km/h</string>
 	<string name="warning_speedcams_subtitle">Please mind driving regulations of the country you are travelling to.</string>
 	<string name="speedcams_notice_message">Auto - Warn about speedcams if there is a risk of exceeding the speed limit\nAlways - Always warn about speedcams\nNever - Never warn about speedcams</string>
@@ -1528,6 +1527,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Save memorable places, create routes from bookmarks and share them with everyone using MAPS.ME catalogue.</string>
 	<string name="whats_new_webeditor_title">Turn your routes into stories</string>
 	<string name="whats_new_ugc_routes_message2">Add photos and detailed stories in the web-editor.</string>
+	<string name="whatsnew_standard_routes_title">Standard routes</string>
+	<string name="whatsnew_standard_routes_message">A basic set of points of interest and brief descriptions but a lot of experiences!</string>
+	<string name="whatsnew_city_overview_title">City overview</string>
+	<string name="whatsnew_city_overview_message">Up to 200 points of interest on the city map: everything travellers may find useful and interesting!</string>
+	<string name="whatsnew_pro_guides_title">Professional routes</string>
+	<string name="whatsnew_pro_guides_message">Very thorough, with detailed descriptions of places and the ability to calculate trip distance and time</string>
+	<string name="whatsnew_paid_routes_title">More new experiences!</string>
+	<string name="whatsnew_paid_routes_message">In addition to the free routes, we have added 3 paid route categories to our catalog. Over 700 new routes!</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
@@ -1686,7 +1693,7 @@
 	<string name="type.boundary.administrative.region">boundary-administrative-region</string>
 	<string name="type.boundary.administrative.state">boundary-administrative-state</string>
 	<string name="type.boundary.administrative.suburb">boundary-administrative-suburb</string>
-	<string name="type.boundary.national_park">National Park</string>
+	<string name="type.boundary.national_park">National park</string>
 	<string name="type.building">Building</string>
 	<string name="type.building.address">Building</string>
 	<string name="type.building.garage">Garage</string>
@@ -2002,7 +2009,7 @@
 	<string name="type.leisure.ice_rink">leisure-ice_rink</string>
 	<string name="type.leisure.landscape_reserve">leisure-landscape_reserve</string>
 	<string name="type.leisure.marina">leisure-marina</string>
-	<string name="type.leisure.nature_reserve">Nature Reserve</string>
+	<string name="type.leisure.nature_reserve">Reserve</string>
 	<string name="type.leisure.park">Park</string>
 	<string name="type.leisure.park.no.access">Park</string>
 	<string name="type.leisure.park.permissive">Park</string>

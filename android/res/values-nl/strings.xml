@@ -1413,7 +1413,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>GELIEVE TE NOTEREN:&lt;/b> door verder te gaan, accepteert u de &lt;a href="%s">licentieovereenkomst&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Naam van de gids</string>
 	<string name="ugc_route_edit_description_hint">Maak een beschrijving aan (tekst of html)</string>
-	<string name="not_shared">Niet gedeeld</string>
+	<string name="not_shared">Privé</string>
 	<string name="direct_link_progress_text">Uw bestand aan het uploaden…</string>
 	<string name="direct_link_success">De link is aangemaakt</string>
 	<string name="edit_guide_title">Bewerk uw gids op internet</string>
@@ -1455,9 +1455,8 @@
 	<string name="notification_channel_downloader">Kaart downloader</string>
 	<string name="notification_leave_review_title">%s - hoe vond u het?</string>
 	<string name="notification_leave_review_content">Help reizigers door een beoordeling achter te laten!</string>
-	<string name="share_bookmarks_email_body_link">Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis!\n\nHaal de applicatie op: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Camera in zicht</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigator waarschuwt u over camera\'s wanneer u de maximumsnelheid van %d km/h overschrijdt</string>
 	<string name="warning_speedcams_subtitle">Let op de rijvoorschriften van het land waar u naartoe reist.</string>
 	<string name="speedcams_notice_message">Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen</string>
@@ -1465,6 +1464,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Bewaar gedenkwaardige plaatsen, maak routes met behulp van bladwijzers en deel ze met iedereen in de MAPS.ME-catalogus.</string>
 	<string name="whats_new_webeditor_title">Maak verhalen van je routes</string>
 	<string name="whats_new_ugc_routes_message2">Voeg foto\'s en gedetailleerde verhalen toe in de webbewerker.</string>
+	<string name="whatsnew_standard_routes_title">Standaard routes</string>
+	<string name="whatsnew_standard_routes_message">Basisset van interessante punten en korte beschrijvingen, maar veel ervaringen!</string>
+	<string name="whatsnew_city_overview_title">Stadsoverzicht</string>
+	<string name="whatsnew_city_overview_message">Tot 200 bezienswaardigheden op de stadsmap: alles wat reizigers nuttig en interessant kunnen vinden!</string>
+	<string name="whatsnew_pro_guides_title">Professionele routes</string>
+	<string name="whatsnew_pro_guides_message">Zeer grondig, met gedetailleerde beschrijvingen van plaatsen en de mogelijkheid om reisafstand en -tijd te berekenen</string>
+	<string name="whatsnew_paid_routes_title">Nog nieuwe ervaringen!</string>
+	<string name="whatsnew_paid_routes_message">Bovenop de gratis routes, hebben we 3 betalende routes toegevoegd aan onze catalogus. Meer dan 700 routes!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>
@@ -1559,6 +1566,7 @@
 	<string name="type.barrier.lift_gate">Slagboom</string>
 	<string name="type.barrier.stile">Tourniquet</string>
 	<string name="type.barrier.toll_booth">Tolhokje</string>
+	<string name="type.boundary.national_park">Nationaal park</string>
 	<string name="type.building">Gebouw</string>
 	<string name="type.building.address">Gebouw</string>
 	<string name="type.building.has_parts">Gebouw</string>
@@ -1789,6 +1797,7 @@
 	<string name="type.leisure.fitness_station">Fitness-Station</string>
 	<string name="type.leisure.garden">Tuin</string>
 	<string name="type.leisure.golf_course">Golfbaan</string>
+	<string name="type.leisure.nature_reserve">Reserve</string>
 	<string name="type.leisure.pitch">Sportveld</string>
 	<string name="type.leisure.pitch.tennis">Sportveld</string>
 	<string name="type.leisure.playground">Speeltuin</string>
@@ -1810,7 +1819,10 @@
 	<string name="type.man_made.windmill">Windmolen</string>
 	<string name="type.natural.bay">Baai</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.cape">Kaap</string>
 	<string name="type.natural.cave_entrance">Grotingang</string>
+	<string name="type.natural.geyser">Geiser</string>
+	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.lake">Meer</string>
 	<string name="type.natural.peak">Top</string>
 	<string name="type.natural.pond">Plas</string>

@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Aggiungere la descrizione (testo o html)";
 
-"not_shared" = "Privato";
+"not_shared" = "Personale";
 
 "direct_link_progress_text" = "Il file si sta caricando…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Lascia una recensione ed aiuta altri viaggiatori!";
 
-"share_bookmarks_email_body_link" = "Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio!\n\nScaricare l'App: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Autovelox in prossimità";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o";
 
 "warning_speedcams_subtitle" = "Ricorda di informarti sul Codice della Strada del paese che visiti.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Trasforma i tuoi percorsi in storie";
 
 "whats_new_ugc_routes_message2" = "Aggiungi foto e storie dettagliate nell'editor web.";
+
+"whatsnew_standard_routes_title" = "Itinerari standard";
+
+"whatsnew_standard_routes_message" = "Punti d'interesse principali con una breve descrizione. Divertimento garantito!";
+
+"whatsnew_city_overview_title" = "Visita della città";
+
+"whatsnew_city_overview_message" = "Fino a 200 attrazioni sulla mappa della città: tutto utile ed interessante per chi viaggia!";
+
+"whatsnew_pro_guides_title" = "Itinerari professionali";
+
+"whatsnew_pro_guides_message" = "Gli itinerari più precisi con una descrizione dettagliata. Possibilità di calcolare la distanza e i tempi di percorrenza";
+
+"whatsnew_paid_routes_title" = "Nuove emozioni da scoprire!";
+
+"whatsnew_paid_routes_message" = "Ora, insieme ai percorsi gratuiti, nel catalogo troverete anche guide a pagamento suddivise in 3 categorie. Più di 700 itinerari nuovi!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Parco nazionale";
 
 "type.building" = "Edificio";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Riserva";
 
 "type.leisure.park" = "Parco";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Spiaggia";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Capo";
 
 "type.natural.cave_entrance" = "Ingresso grotta";
 
@@ -3708,7 +3723,7 @@
 
 "type.natural.geyser" = "Geyser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Ghiacciaio";
 
 "type.natural.grassland" = "natural-grassland";
 

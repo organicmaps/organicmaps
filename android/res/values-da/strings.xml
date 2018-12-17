@@ -1417,7 +1417,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>BEMÆRK:&lt;/b> ved at fortsætte her, accepterer du &lt;a href="%s">licensaftalen&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Guidenavn</string>
 	<string name="ugc_route_edit_description_hint">Lav en beskrivelse (tekst eller html)</string>
-	<string name="not_shared">Ikke delt</string>
+	<string name="not_shared">Privat</string>
 	<string name="direct_link_progress_text">Uploader din fil…</string>
 	<string name="direct_link_success">Linket er blevet oprettet</string>
 	<string name="edit_guide_title">Rediger din guide på web</string>
@@ -1459,9 +1459,8 @@
 	<string name="notification_channel_downloader">Korthenter</string>
 	<string name="notification_leave_review_title">%s - hvordan var det?</string>
 	<string name="notification_leave_review_content">Hjælp rejsende ved at skrive en anmeldelse!</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen!\n\nHent applikation: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera foran dig</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>
@@ -1469,6 +1468,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Gem mindeværdige steder, lav ruter ved hjælp af bogmærker og del dem med alle i MAPS.ME kataloget.</string>
 	<string name="whats_new_webeditor_title">Lav dine ruter om til historier</string>
 	<string name="whats_new_ugc_routes_message2">Tilføj fotos og detaljerede historier i webredaktøren.</string>
+	<string name="whatsnew_standard_routes_title">Standard ruter</string>
+	<string name="whatsnew_standard_routes_message">Basis sæt af interesse punkter og korte beskrivelser; men en masse oplevelser!</string>
+	<string name="whatsnew_city_overview_title">Oversigt over by</string>
+	<string name="whatsnew_city_overview_message">Op til 200 interesse points på kortet over byen: alt rejsende kan finde nyttig og interessant!</string>
+	<string name="whatsnew_pro_guides_title">Professionel ruter</string>
+	<string name="whatsnew_pro_guides_message">Meget grundig, med detaljerede beskrivelser af steder og evnen til at beregne turens afstand og tid</string>
+	<string name="whatsnew_paid_routes_title">Flere nye oplevelser!</string>
+	<string name="whatsnew_paid_routes_message">Udover de gratis ruter har vi tilføjet 3 betalte rutekategorier til vores katalog. Over 700 nye ruter!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>
@@ -1563,6 +1570,7 @@
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Gærdebro</string>
 	<string name="type.barrier.toll_booth">Betalingsstation</string>
+	<string name="type.boundary.national_park">National park</string>
 	<string name="type.building">Bygning</string>
 	<string name="type.building.address">Bygning</string>
 	<string name="type.building.has_parts">Bygning</string>
@@ -1796,6 +1804,7 @@
 	<string name="type.leisure.fitness_station">Fitness-station</string>
 	<string name="type.leisure.garden">Have</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.nature_reserve">Reservat</string>
 	<string name="type.leisure.pitch">Sportsplads</string>
 	<string name="type.leisure.pitch.tennis">Sportsplads</string>
 	<string name="type.leisure.playground">Legeplads</string>
@@ -1817,7 +1826,10 @@
 	<string name="type.man_made.windmill">Vindmølle</string>
 	<string name="type.natural.bay">Bugt</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.cape">Tange</string>
 	<string name="type.natural.cave_entrance">Huleindgang</string>
+	<string name="type.natural.geyser">Gejser</string>
+	<string name="type.natural.glacier">Gletsjer</string>
 	<string name="type.natural.lake">Sø</string>
 	<string name="type.natural.peak">Bjerg</string>
 	<string name="type.natural.pond">Dam</string>

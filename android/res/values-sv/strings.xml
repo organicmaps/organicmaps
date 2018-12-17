@@ -1459,9 +1459,8 @@
 	<string name="notification_channel_downloader">Kartladdning</string>
 	<string name="notification_leave_review_title">%s - hur mår du här?</string>
 	<string name="notification_leave_review_content">Lämna en recension och hjälp resenärer!</string>
-	<string name="share_bookmarks_email_body_link">Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan!\n\nLadda ner appen: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera framför</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h</string>
 	<string name="warning_speedcams_subtitle">Glöm inte att bekanta sig med trafikregler i landet av resan.</string>
 	<string name="speedcams_notice_message">Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror</string>
@@ -1469,6 +1468,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Spara minnesvärda platser, skapa rutter genom att använda bokmärken och dela dem med alla i MAPS:ME katalogen.</string>
 	<string name="whats_new_webeditor_title">Gör dina rutter till berättelser</string>
 	<string name="whats_new_ugc_routes_message2">Lägg till fotografier och detaljerade berättelser i webeditorn.</string>
+	<string name="whatsnew_standard_routes_title">Standardrutter</string>
+	<string name="whatsnew_standard_routes_message">Grundläggande uppsättning punkter, korta beskrivningar, men många intryck!</string>
+	<string name="whatsnew_city_overview_title">Stadsöversikt</string>
+	<string name="whatsnew_city_overview_message">Upp till 200 punkter på stadskartan: allt som är det mest nyttiga och intressanta för en resenär!</string>
+	<string name="whatsnew_pro_guides_title">Professionella rutter</string>
+	<string name="whatsnew_pro_guides_message">Hög detaljeringsnivå, detaljbeskrivningar av platser och en möjlighet att beräkna avstånd och tid för en vandring</string>
+	<string name="whatsnew_paid_routes_title">Mer positiva intryck!</string>
+	<string name="whatsnew_paid_routes_message">Förutom gratis rutter har vi lagt 3 kategorier av betalade vägvisare till katalogen. Mer än 700 nya rutter!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>
@@ -1568,6 +1575,7 @@
 	<string name="type.barrier.lift_gate">Bom</string>
 	<string name="type.barrier.stile">Stätta</string>
 	<string name="type.barrier.toll_booth">Tullhus</string>
+	<string name="type.boundary.national_park">Nationalpark</string>
 	<string name="type.building">Byggnad</string>
 	<string name="type.building.address">Byggnad</string>
 	<string name="type.building.has_parts">Byggnad</string>
@@ -1800,6 +1808,7 @@
 	<string name="type.leisure.fitness_station">Fitnesstation</string>
 	<string name="type.leisure.garden">Trädgård</string>
 	<string name="type.leisure.golf_course">Golfbana</string>
+	<string name="type.leisure.nature_reserve">Naturreservat</string>
 	<string name="type.leisure.pitch">Idrottsplats</string>
 	<string name="type.leisure.pitch.tennis">Idrottsplats</string>
 	<string name="type.leisure.playground">Lekplats</string>
@@ -1823,7 +1832,10 @@
 	<string name="type.man_made.windmill">Väderkvarn</string>
 	<string name="type.natural.bay">Bukt</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.cape">Udde</string>
 	<string name="type.natural.cave_entrance">Grottöppning</string>
+	<string name="type.natural.geyser">Gejser</string>
+	<string name="type.natural.glacier">Glaciär</string>
 	<string name="type.natural.lake">Sjö</string>
 	<string name="type.natural.peak">Bergstopp</string>
 	<string name="type.natural.pond">Damm</string>

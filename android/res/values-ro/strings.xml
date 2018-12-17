@@ -1451,9 +1451,8 @@
 	<string name="notification_channel_downloader">Încărcarea hărților</string>
 	<string name="notification_leave_review_title">%s - cum vă place aici?</string>
 	<string name="notification_leave_review_content">Lăsați comentariile dvs. și ajutați alți călători!</string>
-	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Cameră frontală</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.</string>
 	<string name="speedcams_notice_message">Auto - De avertizat despre camerele video de înregistrare a vitezei, dacă există riscul depășirii limitei de viteză\nMereu - De avertizat întotdeauna despre camerele video\nNiciodată - De nu avertizat niciodată despre camerele video</string>
@@ -1461,6 +1460,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Salvați locurile memorabile, creați rute cu ajutorul marcajelor și distribuiți-le tuturor în catalogul MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Transformați-vă rutele în povești</string>
 	<string name="whats_new_ugc_routes_message2">Adăugați fotografii și povești detaliate în editorul web.</string>
+	<string name="whatsnew_standard_routes_title">Trasee standarte</string>
+	<string name="whatsnew_standard_routes_message">Setul principal de puncte, descrieri scurte, dar o mulțime de impresii!</string>
+	<string name="whatsnew_city_overview_title">Prezentarea orașului</string>
+	<string name="whatsnew_city_overview_message">Până la 200 de puncte pe harta orașului: toate cele mai utile și interesante pentru călător!</string>
+	<string name="whatsnew_pro_guides_title">Trasee profesionale</string>
+	<string name="whatsnew_pro_guides_message">Nivel înalt de detalii, descrieri detaliate ale locurilor și posibilitatea de a calcula distanța și timpul de mers pe jos</string>
+	<string name="whatsnew_paid_routes_title">Mai multe experiențe noi!</string>
+	<string name="whatsnew_paid_routes_message">Pe lângă rutele gratuite, în catalogul nostru am adăugat 3 categorii de rute plătite. Peste 700 de rute noi!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>
@@ -1555,6 +1562,7 @@
 	<string name="type.barrier.lift_gate">Barieră cu braț</string>
 	<string name="type.barrier.stile">Barieră</string>
 	<string name="type.barrier.toll_booth">Cabină de taxare</string>
+	<string name="type.boundary.national_park">Parcul național</string>
 	<string name="type.building">Clădire</string>
 	<string name="type.building.address">Clădire</string>
 	<string name="type.building.garage">Garaj</string>
@@ -1787,6 +1795,7 @@
 	<string name="type.leisure.fitness_station">Sală de fitness</string>
 	<string name="type.leisure.garden">Sit arheologic</string>
 	<string name="type.leisure.golf_course">Teren de golf</string>
+	<string name="type.leisure.nature_reserve">Rezervație naturală</string>
 	<string name="type.leisure.park">Parc</string>
 	<string name="type.leisure.park.no.access">Parc</string>
 	<string name="type.leisure.park.permissive">Parc</string>
@@ -1815,7 +1824,10 @@
 	<string name="type.military.bunker">Buncăr</string>
 	<string name="type.natural.bay">Golf</string>
 	<string name="type.natural.beach">Plajă</string>
+	<string name="type.natural.cape">Mantie</string>
 	<string name="type.natural.cave_entrance">Intrare peșteră</string>
+	<string name="type.natural.geyser">Gheizer</string>
+	<string name="type.natural.glacier">Ghețar</string>
 	<string name="type.natural.lake">Lac</string>
 	<string name="type.natural.peak">Munte</string>
 	<string name="type.natural.pond">Heleșteu</string>

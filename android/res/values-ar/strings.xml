@@ -1418,7 +1418,7 @@
 	<string name="ugc_routes_user_agreement">&lt;a href="%s"> اتفاقية الترخيص&lt;/a>من خلال المتابعة ، فإنك تقبل &lt;b> الرجاء ملاحظة:&lt;/b></string>
 	<string name="ugc_route_edit_list_name">اسم الدليل</string>
 	<string name="ugc_route_edit_description_hint">اكتب وصفًا (نص أو html)</string>
-	<string name="not_shared">غير مشارك</string>
+	<string name="not_shared">خاص</string>
 	<string name="direct_link_progress_text">جارٍ تحميل ملفك…</string>
 	<string name="direct_link_success">لقد تم إنشاء الرابط</string>
 	<string name="edit_guide_title">قم بتحرير دليلك على الويب</string>
@@ -1460,9 +1460,8 @@
 	<string name="notification_channel_downloader">محمل الخريطة</string>
 	<string name="notification_leave_review_title">- كيف كان ذلك؟%s</string>
 	<string name="notification_leave_review_content">مساعدة المسافرين من خلال ترك رأي!</string>
-	<string name="share_bookmarks_email_body_link">مرحبًا!\n\nهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">مرحبًا!\n\nللوصول إلى التطبيق: http://maps.me/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك!\n\n</string>
 	<string name="camera_ahead_voiceover">الكاميرا أمامك</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س</string>
 	<string name="warning_speedcams_subtitle">يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.</string>
 	<string name="speedcams_notice_message">السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة</string>
@@ -1470,6 +1469,14 @@
 	<string name="whats_new_ugc_routes_subtitle">يمكنك حفظ الأماكن التي لا تنسى وإنشاء مسارات باستخدام الإشارات المرجعية ومشاركتها مع الجميع في كتالوج MAPS.ME</string>
 	<string name="whats_new_webeditor_title">حوّل مساراتك إلى قصص</string>
 	<string name="whats_new_ugc_routes_message2">أضفْ صور وقصص مفصلة في محرر الويب</string>
+	<string name="whatsnew_standard_routes_title">المسارات القياسية</string>
+	<string name="whatsnew_standard_routes_message">مجموعة أساسية من النقاط المثيرة للاهتمام وأوصاف مختصرة مع الكثير من التجارب!</string>
+	<string name="whatsnew_city_overview_title">نظرة عامة على المدينة</string>
+	<string name="whatsnew_city_overview_message">ما يصل إلى 200 نقطة هامة على خريطة المدينة: كل ما قد يجده المسافرون مفيدًا ومثيرًا للاهتمام!</string>
+	<string name="whatsnew_pro_guides_title">المسارات المحترفة</string>
+	<string name="whatsnew_pro_guides_message">شامل جدا ، مع وصف مفصل للأماكن والقدرة على حساب مسافة الرحلة والوقت</string>
+	<string name="whatsnew_paid_routes_title">المزيد من الخبرات الجديدة!</string>
+	<string name="whatsnew_paid_routes_message">بالإضافة إلى الطرقات المجانية ، قمنا بإضافة 3 فئات للمسارات المدفوعة إلى الكتالوج الخاص بنا. أكثر من 700 طريق جديد!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>
@@ -1573,6 +1580,7 @@
 	<string name="type.barrier.lift_gate">حاجز بوابة</string>
 	<string name="type.barrier.stile">ممر عبور</string>
 	<string name="type.barrier.toll_booth">كشك رسوم عبور</string>
+	<string name="type.boundary.national_park">منتزه وطني</string>
 	<string name="type.building">مبنى</string>
 	<string name="type.building.address">مبنى</string>
 	<string name="type.building.garage">جراج</string>
@@ -1810,6 +1818,7 @@
 	<string name="type.leisure.fitness_station">مركز لياقة</string>
 	<string name="type.leisure.garden">بستان</string>
 	<string name="type.leisure.golf_course">ملعب جولف</string>
+	<string name="type.leisure.nature_reserve">محمية</string>
 	<string name="type.leisure.park">حديقة</string>
 	<string name="type.leisure.park.no.access">حديقة</string>
 	<string name="type.leisure.park.permissive">حديقة</string>
@@ -1838,7 +1847,10 @@
 	<string name="type.military.bunker">مأوى</string>
 	<string name="type.natural.bay">خليج</string>
 	<string name="type.natural.beach">شاطئ</string>
+	<string name="type.natural.cape">رأس</string>
 	<string name="type.natural.cave_entrance">مدخل كهف</string>
+	<string name="type.natural.geyser">نبع ماء حار</string>
+	<string name="type.natural.glacier">كتلة جليدية</string>
 	<string name="type.natural.lake">بحيرة</string>
 	<string name="type.natural.peak">قمة</string>
 	<string name="type.natural.pond">بركة</string>

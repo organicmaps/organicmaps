@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Leírás hozzáadása (szöveg vagy html)";
 
-"not_shared" = "Személyes";
+"not_shared" = "Privát";
 
 "direct_link_progress_text" = "Betöltjük az Ön fájlát…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Írja meg a véleményét és segítsen a kirándulóknak!";
 
-"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kamera elöl";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra";
 
 "warning_speedcams_subtitle" = "Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Alakítsd át az útvonalaidat történetekké";
 
 "whats_new_ugc_routes_message2" = "Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.";
+
+"whatsnew_standard_routes_title" = "Normál útvonalak";
+
+"whatsnew_standard_routes_message" = "A látnivalók alapvető gyűjteménye és rövid leírásuk, de sok-sok tapasztalat!";
+
+"whatsnew_city_overview_title" = "Város áttekintése";
+
+"whatsnew_city_overview_message" = "Akár 200 érdekesség a város térképén: minden, amit az utazók hasznosnak vagy érdekesnek találhatnak!";
+
+"whatsnew_pro_guides_title" = "Profi útvonalak";
+
+"whatsnew_pro_guides_message" = "A helyek nagyon alapos és részletes leírása és lehetőség az utazás távolságának és idejének kiszámítására";
+
+"whatsnew_paid_routes_title" = "Új tapasztalatok!";
+
+"whatsnew_paid_routes_message" = "Az ingyenes útvonalakon felül 3 fizetős útvonalkategóriát is hozzáadtunk a katalógusunkhoz. Több mint 700 új útvonal!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Nemzeti park";
 
 "type.building" = "Épület";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Védett terület";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Hegytető";
 
 "type.natural.cave_entrance" = "Barlangbejárat";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gejzír";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Gleccser";
 
 "type.natural.grassland" = "natural-grassland";
 

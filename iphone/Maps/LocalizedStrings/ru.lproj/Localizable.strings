@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Оставьте отзыв и помогите путешественникам!";
 
-"share_bookmarks_email_body_link" = "Здравствуйте!\n\nВаши метки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой!\n\nСкачать приложение: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Впереди камера";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч";
 
 "warning_speedcams_subtitle" = "Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Превращай маршруты в истории";
 
 "whats_new_ugc_routes_message2" = "Добавляй фото и подробные рассказы в веб-редакторе.";
+
+"whatsnew_standard_routes_title" = "Стандартные маршруты";
+
+"whatsnew_standard_routes_message" = "Основной набор точек, краткие описания, но много впечатлений!";
+
+"whatsnew_city_overview_title" = "Обзор города";
+
+"whatsnew_city_overview_message" = "До 200 точек на карте города: все самое полезное и интересное для путешественника!";
+
+"whatsnew_pro_guides_title" = "Профессиональные маршруты";
+
+"whatsnew_pro_guides_message" = "Высокий уровень детализации, подробные описания мест и возможность рассчитать расстояние и время прогулки";
+
+"whatsnew_paid_routes_title" = "Больше новых впечатлений!";
+
+"whatsnew_paid_routes_message" = "В дополнение к бесплатным маршрутам мы добавили в каталог 3 категории платных путеводителей. Более 700 новых маршрутов!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "Национальный Парк";
+"type.boundary.national_park" = "Национальный парк";
 
 "type.building" = "Здание";
 

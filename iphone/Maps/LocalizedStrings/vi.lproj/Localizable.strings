@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Đánh vào một mô tả (văn bản hoặc html)";
 
-"not_shared" = "Không chia sẻ";
+"not_shared" = "Riêng tư";
 
 "direct_link_progress_text" = "Đang tải tập tin của bạn…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Giúp khách du lịch bằng cách để lại đánh giá!";
 
-"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Máy ảnh phía trước";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h";
 
 "warning_speedcams_subtitle" = "Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Biến tuyến đường của bạn thành câu chuyện";
 
 "whats_new_ugc_routes_message2" = "Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.";
+
+"whatsnew_standard_routes_title" = "Các tuyến đường chuẩn";
+
+"whatsnew_standard_routes_message" = "Các điểm ưa thích cơ bản và mô tả ngắn gọn nhưng rất nhiều trải nghiệm!";
+
+"whatsnew_city_overview_title" = "Tổng quan thành phố";
+
+"whatsnew_city_overview_message" = "Lên đến 200 điểm ưa thích trên bản đồ thành phố: mọi thứ du khách có thể sẽ cảm giác hữu ích và thú vị!";
+
+"whatsnew_pro_guides_title" = "Các tuyến đườn Chuyên nghiệp";
+
+"whatsnew_pro_guides_message" = "Rất kỹ lưỡng, với các mô tả chi tiết về địa điểm và khả năng tính toán khoảng cách và thời gian chuyến đi";
+
+"whatsnew_paid_routes_title" = "Thêm nhiều trải nghiệm mới!";
+
+"whatsnew_paid_routes_message" = "Ngoài các tuyến đường miễn phí, chúng tôi đã thêm 3 danh mục tuyến đường có trả tiền vào danh mục của mình. Hơn 700 tuyến đường mới!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Công viên quốc gia";
 
 "type.building" = "Tòa nhà";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Giữ chỗ";
 
 "type.leisure.park" = "Công viên";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Bãi biển";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Áo choàng";
 
 "type.natural.cave_entrance" = "Cửa Hang";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Suối nước nóng";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Sông băng";
 
 "type.natural.grassland" = "natural-grassland";
 

@@ -1409,7 +1409,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>VUI LÒNG LƯU Ý:&lt;/b> với việc bắt đầu, bạn đã đồng ý với &lt;a href="%s">thỏa thuận cấp phép&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Hướng dẫn tên</string>
 	<string name="ugc_route_edit_description_hint">Đánh vào một mô tả (văn bản hoặc html)</string>
-	<string name="not_shared">Không chia sẻ</string>
+	<string name="not_shared">Riêng tư</string>
 	<string name="direct_link_progress_text">Đang tải tập tin của bạn…</string>
 	<string name="direct_link_success">Liên kết đã được tạo</string>
 	<string name="edit_guide_title">Chỉnh sửa hướng dẫn của bạn trên trang web</string>
@@ -1451,9 +1451,8 @@
 	<string name="notification_channel_downloader">Trình tải xuống bản đồ</string>
 	<string name="notification_leave_review_title">%s - nó như thế nào?</string>
 	<string name="notification_leave_review_content">Giúp khách du lịch bằng cách để lại đánh giá!</string>
-	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Máy ảnh phía trước</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h</string>
 	<string name="warning_speedcams_subtitle">Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.</string>
 	<string name="speedcams_notice_message">Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams</string>
@@ -1461,6 +1460,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Lưu các địa điểm đáng nhớ, tạo tuyến đường bằng cách sử dụng chỉ mục và chia sẻ chúng với mọi người trong danh mục MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Biến tuyến đường của bạn thành câu chuyện</string>
 	<string name="whats_new_ugc_routes_message2">Thêm ảnh và câu chuyện chi tiết trong trình chỉnh sửa web.</string>
+	<string name="whatsnew_standard_routes_title">Các tuyến đường chuẩn</string>
+	<string name="whatsnew_standard_routes_message">Các điểm ưa thích cơ bản và mô tả ngắn gọn nhưng rất nhiều trải nghiệm!</string>
+	<string name="whatsnew_city_overview_title">Tổng quan thành phố</string>
+	<string name="whatsnew_city_overview_message">Lên đến 200 điểm ưa thích trên bản đồ thành phố: mọi thứ du khách có thể sẽ cảm giác hữu ích và thú vị!</string>
+	<string name="whatsnew_pro_guides_title">Các tuyến đườn Chuyên nghiệp</string>
+	<string name="whatsnew_pro_guides_message">Rất kỹ lưỡng, với các mô tả chi tiết về địa điểm và khả năng tính toán khoảng cách và thời gian chuyến đi</string>
+	<string name="whatsnew_paid_routes_title">Thêm nhiều trải nghiệm mới!</string>
+	<string name="whatsnew_paid_routes_message">Ngoài các tuyến đường miễn phí, chúng tôi đã thêm 3 danh mục tuyến đường có trả tiền vào danh mục của mình. Hơn 700 tuyến đường mới!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>
@@ -1562,6 +1569,7 @@
 	<string name="type.barrier.lift_gate">Thanh Chắn</string>
 	<string name="type.barrier.stile">Trụ chắn</string>
 	<string name="type.barrier.toll_booth">Quầy Soát Vé</string>
+	<string name="type.boundary.national_park">Công viên quốc gia</string>
 	<string name="type.building">Tòa nhà</string>
 	<string name="type.building.address">Tòa nhà</string>
 	<string name="type.building.garage">Gara</string>
@@ -1797,6 +1805,7 @@
 	<string name="type.leisure.fitness_station">Trạm tập thể hình</string>
 	<string name="type.leisure.garden">Điểm khảo cổ</string>
 	<string name="type.leisure.golf_course">Sân gôn</string>
+	<string name="type.leisure.nature_reserve">Giữ chỗ</string>
 	<string name="type.leisure.park">Công viên</string>
 	<string name="type.leisure.park.no.access">Công viên</string>
 	<string name="type.leisure.park.permissive">Công viên</string>
@@ -1825,7 +1834,10 @@
 	<string name="type.military.bunker">Boongke</string>
 	<string name="type.natural.bay">Vịnh</string>
 	<string name="type.natural.beach">Bãi biển</string>
+	<string name="type.natural.cape">Áo choàng</string>
 	<string name="type.natural.cave_entrance">Cửa Hang</string>
+	<string name="type.natural.geyser">Suối nước nóng</string>
+	<string name="type.natural.glacier">Sông băng</string>
 	<string name="type.natural.lake">Hồ</string>
 	<string name="type.natural.peak">Đỉnh</string>
 	<string name="type.natural.pond">Ao</string>

@@ -1412,7 +1412,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>ATTENZIONE!&lt;/b> Andando avanti accettate &lt;a href="%s">il contratto di licenza&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Nome della Guida</string>
 	<string name="ugc_route_edit_description_hint">Aggiungere la descrizione (testo o html)</string>
-	<string name="not_shared">Privato</string>
+	<string name="not_shared">Personale</string>
 	<string name="direct_link_progress_text">Il file si sta caricando…</string>
 	<string name="direct_link_success">Il link è stato creato</string>
 	<string name="edit_guide_title">Modificare la tua guida online</string>
@@ -1454,9 +1454,8 @@
 	<string name="notification_channel_downloader">Caricamento mappe</string>
 	<string name="notification_leave_review_title">%s - ti piace quì?</string>
 	<string name="notification_leave_review_content">Lascia una recensione ed aiuta altri viaggiatori!</string>
-	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio!\n\nScaricare l\'App: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Autovelox in prossimità</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
 	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
 	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>
@@ -1464,6 +1463,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Salva luoghi memorabili, crea itinerari utilizzando i segnalibri e condividili con tutti nel catalogo MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Trasforma i tuoi percorsi in storie</string>
 	<string name="whats_new_ugc_routes_message2">Aggiungi foto e storie dettagliate nell\'editor web.</string>
+	<string name="whatsnew_standard_routes_title">Itinerari standard</string>
+	<string name="whatsnew_standard_routes_message">Punti d\'interesse principali con una breve descrizione. Divertimento garantito!</string>
+	<string name="whatsnew_city_overview_title">Visita della città</string>
+	<string name="whatsnew_city_overview_message">Fino a 200 attrazioni sulla mappa della città: tutto utile ed interessante per chi viaggia!</string>
+	<string name="whatsnew_pro_guides_title">Itinerari professionali</string>
+	<string name="whatsnew_pro_guides_message">Gli itinerari più precisi con una descrizione dettagliata. Possibilità di calcolare la distanza e i tempi di percorrenza</string>
+	<string name="whatsnew_paid_routes_title">Nuove emozioni da scoprire!</string>
+	<string name="whatsnew_paid_routes_message">Ora, insieme ai percorsi gratuiti, nel catalogo troverete anche guide a pagamento suddivise in 3 categorie. Più di 700 itinerari nuovi!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>
@@ -1560,6 +1567,7 @@
 	<string name="type.barrier.lift_gate">Barriera ferroviaria</string>
 	<string name="type.barrier.stile">Scaletta per recinzioni</string>
 	<string name="type.barrier.toll_booth">Casello di pedaggio</string>
+	<string name="type.boundary.national_park">Parco nazionale</string>
 	<string name="type.building">Edificio</string>
 	<string name="type.building.address">Edificio</string>
 	<string name="type.building.has_parts">Edificio</string>
@@ -1793,6 +1801,7 @@
 	<string name="type.leisure.fitness_station">Centro fitness</string>
 	<string name="type.leisure.garden">Giardino</string>
 	<string name="type.leisure.golf_course">Campo da golf</string>
+	<string name="type.leisure.nature_reserve">Riserva</string>
 	<string name="type.leisure.park">Parco</string>
 	<string name="type.leisure.park.no.access">Parco</string>
 	<string name="type.leisure.park.permissive">Parco</string>
@@ -1819,7 +1828,10 @@
 	<string name="type.man_made.windmill">Mulino a vento</string>
 	<string name="type.natural.bay">Baia</string>
 	<string name="type.natural.beach">Spiaggia</string>
+	<string name="type.natural.cape">Capo</string>
 	<string name="type.natural.cave_entrance">Ingresso grotta</string>
+	<string name="type.natural.geyser">Geyser</string>
+	<string name="type.natural.glacier">Ghiacciaio</string>
 	<string name="type.natural.lake">Lago</string>
 	<string name="type.natural.peak">Monte</string>
 	<string name="type.natural.pond">Stagno</string>

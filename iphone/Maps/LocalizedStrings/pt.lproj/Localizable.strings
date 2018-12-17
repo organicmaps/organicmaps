@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Adicionar uma descrição (texto ou html)";
 
-"not_shared" = "Privado";
+"not_shared" = "Personal";
 
 "direct_link_progress_text" = "A carregar o seu arquivo…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Deixe um comentário e ajude os viajantes!";
 
-"share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando MAPS.ME e desfrute do passeio: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando MAPS.ME e desfrute do passeio!\n\nBaixar aplicação: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Câmera à frente";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h";
 
 "warning_speedcams_subtitle" = "Não esqueça de ler as regras da estrada no país de viagem.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Transforma os percursos em história";
 
 "whats_new_ugc_routes_message2" = "Adicione fotos e descrições detalhadas no editor da web.";
+
+"whatsnew_standard_routes_title" = "Percursos gerais";
+
+"whatsnew_standard_routes_message" = "O conjunto principal de pontos, descrições são breves, mas impressões completas!";
+
+"whatsnew_city_overview_title" = "Visão total da cidade";
+
+"whatsnew_city_overview_message" = "Até 200 pontos no mapa da cidade: tudo o mais útil e interessante para um viajante!";
+
+"whatsnew_pro_guides_title" = "Percursos profissionais";
+
+"whatsnew_pro_guides_message" = "Detalhamento de alto nível, descrições completas de locais e a possibilidade de calcular a distância e o tempo do passeio";
+
+"whatsnew_paid_routes_title" = "Mais impressões novas!";
+
+"whatsnew_paid_routes_message" = "Adicionamos no catálogo 3 categorias das guias de viagem pagos além dos percursos gratuitos. Mais de 700 percursos novos!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Parque nacional";
 
 "type.building" = "Edifício";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Reserva natural";
 
 "type.leisure.park" = "Parque";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Praia";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Entrada de caverna";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geiser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Glaciar";
 
 "type.natural.grassland" = "natural-grassland";
 

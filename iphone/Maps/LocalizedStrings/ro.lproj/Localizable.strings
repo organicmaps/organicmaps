@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Lăsați comentariile dvs. și ajutați alți călători!";
 
-"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Cameră frontală";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
 
 "warning_speedcams_subtitle" = "Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Transformați-vă rutele în povești";
 
 "whats_new_ugc_routes_message2" = "Adăugați fotografii și povești detaliate în editorul web.";
+
+"whatsnew_standard_routes_title" = "Trasee standarte";
+
+"whatsnew_standard_routes_message" = "Setul principal de puncte, descrieri scurte, dar o mulțime de impresii!";
+
+"whatsnew_city_overview_title" = "Prezentarea orașului";
+
+"whatsnew_city_overview_message" = "Până la 200 de puncte pe harta orașului: toate cele mai utile și interesante pentru călător!";
+
+"whatsnew_pro_guides_title" = "Trasee profesionale";
+
+"whatsnew_pro_guides_message" = "Nivel înalt de detalii, descrieri detaliate ale locurilor și posibilitatea de a calcula distanța și timpul de mers pe jos";
+
+"whatsnew_paid_routes_title" = "Mai multe experiențe noi!";
+
+"whatsnew_paid_routes_message" = "Pe lângă rutele gratuite, în catalogul nostru am adăugat 3 categorii de rute plătite. Peste 700 de rute noi!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Parcul național";
 
 "type.building" = "Clădire";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Rezervație naturală";
 
 "type.leisure.park" = "Parc";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Plajă";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Mantie";
 
 "type.natural.cave_entrance" = "Intrare peșteră";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gheizer";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Ghețar";
 
 "type.natural.grassland" = "natural-grassland";
 

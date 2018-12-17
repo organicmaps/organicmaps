@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Zostaw recenzję i pomóż podróżującym!";
 
-"share_bookmarks_email_body_link" = "Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą!\n\nPobierz aplikację: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kamera z przodu";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h";
 
 "warning_speedcams_subtitle" = "Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Przeistaczaj trasy w historii";
 
 "whats_new_ugc_routes_message2" = "Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.";
+
+"whatsnew_standard_routes_title" = "Trasy standardowe";
+
+"whatsnew_standard_routes_message" = "Główny zbiór punktów, krótkie opisy, oraz bardzo dużo nowych wrażeń!";
+
+"whatsnew_city_overview_title" = "Przegląd miasta";
+
+"whatsnew_city_overview_message" = "Do 200 punktów na mapie miasta: wszystko, co najbardziej przydatne i ciekawe dla podróżnika!";
+
+"whatsnew_pro_guides_title" = "Profesjonalne trasy";
+
+"whatsnew_pro_guides_message" = "Wysoki poziom detalizacji, szczegółowe opisy miejsc i możliwość obliczenia odległości i czasu spaceru";
+
+"whatsnew_paid_routes_title" = "Więcej nowych wrażeń!";
+
+"whatsnew_paid_routes_message" = "Do bezpłatnych tras jako dodatek do katalogu dodaliśmy 3 kategorie płatnych przewodników. Ponad 700 nowych tras!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Park narodowy";
 
 "type.building" = "Budynek";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Rezerwat przyrody";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Plaża";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Przylądek";
 
 "type.natural.cave_entrance" = "Wejście do jaskini";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gejzer";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Lodowiec";
 
 "type.natural.grassland" = "natural-grassland";
 

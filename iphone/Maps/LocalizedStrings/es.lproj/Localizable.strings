@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Agregue una descripción (texto o html)";
 
-"not_shared" = "Privado";
+"not_shared" = "Personal";
 
 "direct_link_progress_text" = "Cargando su archivo…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "¡Deje un comentario y ayude a otros viajeros!";
 
-"share_bookmarks_email_body_link" = "Hola!\n\nSus etiquetas se pueden descargar desde el enlace: %s. Abra la lista con la ayuda de MAPS.ME y disfrute del viaje: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hola!\n\nSus etiquetas se pueden descargar desde el enlace: %s. Abra la lista con la ayuda de MAPS.ME y disfrute del viaje!\n\nDescargar la aplicación: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Cámara adelante";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "El navegador le notificará de las cámaras cuando se exceda el límite de velocidad en %d km/h";
 
 "warning_speedcams_subtitle" = "No de olvide de leer las reglas de carretera en el país de viaje.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Convierte tus rutas en historias";
 
 "whats_new_ugc_routes_message2" = "Añade fotos e historias detalladas en el editor web.";
+
+"whatsnew_standard_routes_title" = "Rutas estándar";
+
+"whatsnew_standard_routes_message" = "Un conjunto básico de puntos, descripciones breves, ¡pero muchas impresiones!";
+
+"whatsnew_city_overview_title" = "Una vista a la ciudad";
+
+"whatsnew_city_overview_message" = "Hasta 200 puntos en el mapa de la ciudad: ¡todo lo más útil e interesante para el viajero!";
+
+"whatsnew_pro_guides_title" = "Rutas profesionales";
+
+"whatsnew_pro_guides_message" = "Alto nivel de detalle, descripciones minuciosas de lugares y capacidad para calcular la distancia y el tiempo en camino";
+
+"whatsnew_paid_routes_title" = "¡Más experiencias nuevas!";
+
+"whatsnew_paid_routes_message" = "Además de las rutas gratuitas, agregamos al catálogo 3 categorías de guías con pago. ¡Más de 700 rutas nuevas!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Parque nacional";
 
 "type.building" = "Edificio";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Territorio reservado";
 
 "type.leisure.park" = "Parque";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Playa";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Cabo";
 
 "type.natural.cave_entrance" = "Entrada a la cueva";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geiser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Glaciar";
 
 "type.natural.grassland" = "natural-grassland";
 

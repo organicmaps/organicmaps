@@ -1460,9 +1460,8 @@
 	<string name="notification_channel_downloader">Завантаження мап</string>
 	<string name="notification_leave_review_title">%s - як вам тут?</string>
 	<string name="notification_leave_review_content">Залиште відгук та допоможіть мандрівникам!</string>
-	<string name="share_bookmarks_email_body_link">Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою MAPS.ME та насолоджуйтесь подорожжю: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Вітаємо!\n\nВаші мітки можна завантажити за посиланням: %s. Відкривайте список за допомогою MAPS.ME та насолоджуйтесь подорожжю!\n\nЗавантажити додаток: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Попереду камера</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Навігатор вас попередить про камери при перевищенні швидкісного режиму на %d км/г</string>
 	<string name="warning_speedcams_subtitle">Не забудьте ознайомитися з правилами дорожнього руху у країні подорожі.</string>
 	<string name="speedcams_notice_message">Авто - Попереджати про камери швидкості, якщо є ризик перевищення швидкісного ліміту\nЗавжди - Завжди попереджати про камери\nНіколи - Ніколи не попереджати про камери</string>
@@ -1470,6 +1469,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Зберігай пам\'ятні місця, створюй маршрути, використовуючи закладки, та ділись ними з усіма в каталозі MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Перетворюй свої маршрути у історії</string>
 	<string name="whats_new_ugc_routes_message2">Додавай фото та детальні історії у веб-редакторі.</string>
+	<string name="whatsnew_standard_routes_title">Стандартні маршрути</string>
+	<string name="whatsnew_standard_routes_message">Основний набір точок, короткі описи, але багато вражень!</string>
+	<string name="whatsnew_city_overview_title">Огляд міста</string>
+	<string name="whatsnew_city_overview_message">До 200 точок на карті міста: все найкорисніше та цікаве для мандрівника!</string>
+	<string name="whatsnew_pro_guides_title">Професійні маршрути</string>
+	<string name="whatsnew_pro_guides_message">Високий рівень деталізації, докладні описи місць, а також можливість розрахувати відстань і час прогулянки</string>
+	<string name="whatsnew_paid_routes_title">Більше нових вражень!</string>
+	<string name="whatsnew_paid_routes_message">На додаток до безкоштовних маршрутів ми додали в каталог 3 категорії платних путівників. Більше 700 нових маршрутів!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>
@@ -1573,6 +1580,7 @@
 	<string name="type.barrier.lift_gate">Шлагбаум</string>
 	<string name="type.barrier.stile">Перелаз</string>
 	<string name="type.barrier.toll_booth">Пункт оплати</string>
+	<string name="type.boundary.national_park">Національний парк</string>
 	<string name="type.building">Будівля</string>
 	<string name="type.building.address">Будівля</string>
 	<string name="type.building.garage">Гараж</string>
@@ -1810,6 +1818,7 @@
 	<string name="type.leisure.fitness_station">Фітнес-зал</string>
 	<string name="type.leisure.garden">Садок</string>
 	<string name="type.leisure.golf_course">Майданчик для гольфу</string>
+	<string name="type.leisure.nature_reserve">Заповідник</string>
 	<string name="type.leisure.park">Парк</string>
 	<string name="type.leisure.park.no.access">Парк</string>
 	<string name="type.leisure.park.permissive">Парк</string>
@@ -1838,7 +1847,10 @@
 	<string name="type.military.bunker">Бункер</string>
 	<string name="type.natural.bay">Затока</string>
 	<string name="type.natural.beach">Пляж</string>
+	<string name="type.natural.cape">Мис</string>
 	<string name="type.natural.cave_entrance">Печера</string>
+	<string name="type.natural.geyser">Гейзер</string>
+	<string name="type.natural.glacier">Льодовик</string>
 	<string name="type.natural.lake">Озеро</string>
 	<string name="type.natural.peak">Гора</string>
 	<string name="type.natural.pond">Ставок</string>

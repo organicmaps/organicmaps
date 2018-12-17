@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "اكتب وصفًا (نص أو html)";
 
-"not_shared" = "غير مشارك";
+"not_shared" = "خاص";
 
 "direct_link_progress_text" = "جارٍ تحميل ملفك…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "مساعدة المسافرين من خلال ترك رأي!";
 
-"share_bookmarks_email_body_link" = "مرحبًا!\n\nهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "مرحبًا!\n\nللوصول إلى التطبيق: http://maps.me/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك!\n\n";
 
 "camera_ahead_voiceover" = "الكاميرا أمامك";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س";
 
 "warning_speedcams_subtitle" = "يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "حوّل مساراتك إلى قصص";
 
 "whats_new_ugc_routes_message2" = "أضفْ صور وقصص مفصلة في محرر الويب";
+
+"whatsnew_standard_routes_title" = "المسارات القياسية";
+
+"whatsnew_standard_routes_message" = "مجموعة أساسية من النقاط المثيرة للاهتمام وأوصاف مختصرة مع الكثير من التجارب!";
+
+"whatsnew_city_overview_title" = "نظرة عامة على المدينة";
+
+"whatsnew_city_overview_message" = "ما يصل إلى 200 نقطة هامة على خريطة المدينة: كل ما قد يجده المسافرون مفيدًا ومثيرًا للاهتمام!";
+
+"whatsnew_pro_guides_title" = "المسارات المحترفة";
+
+"whatsnew_pro_guides_message" = "شامل جدا ، مع وصف مفصل للأماكن والقدرة على حساب مسافة الرحلة والوقت";
+
+"whatsnew_paid_routes_title" = "المزيد من الخبرات الجديدة!";
+
+"whatsnew_paid_routes_message" = "بالإضافة إلى الطرقات المجانية ، قمنا بإضافة 3 فئات للمسارات المدفوعة إلى الكتالوج الخاص بنا. أكثر من 700 طريق جديد!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "منتزه وطني";
 
 "type.building" = "مبنى";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "محمية";
 
 "type.leisure.park" = "حديقة";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "شاطئ";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "رأس";
 
 "type.natural.cave_entrance" = "مدخل كهف";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "نبع ماء حار";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "كتلة جليدية";
 
 "type.natural.grassland" = "natural-grassland";
 

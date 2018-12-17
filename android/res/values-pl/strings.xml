@@ -1459,9 +1459,8 @@
 	<string name="notification_channel_downloader">Pobieranie map</string>
 	<string name="notification_leave_review_title">%s - jak Tobie tu?</string>
 	<string name="notification_leave_review_content">Zostaw recenzję i pomóż podróżującym!</string>
-	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą!\n\nPobierz aplikację: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera z przodu</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
 	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>
@@ -1469,6 +1468,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Zapisuj zapamiętane miejsca, twórz trasy ze znaczników i udostępniaj je wszystkim w katalogu MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Przeistaczaj trasy w historii</string>
 	<string name="whats_new_ugc_routes_message2">Dodaj zdjęcia i szczegółowe historie w edytorze stron internetowych.</string>
+	<string name="whatsnew_standard_routes_title">Trasy standardowe</string>
+	<string name="whatsnew_standard_routes_message">Główny zbiór punktów, krótkie opisy, oraz bardzo dużo nowych wrażeń!</string>
+	<string name="whatsnew_city_overview_title">Przegląd miasta</string>
+	<string name="whatsnew_city_overview_message">Do 200 punktów na mapie miasta: wszystko, co najbardziej przydatne i ciekawe dla podróżnika!</string>
+	<string name="whatsnew_pro_guides_title">Profesjonalne trasy</string>
+	<string name="whatsnew_pro_guides_message">Wysoki poziom detalizacji, szczegółowe opisy miejsc i możliwość obliczenia odległości i czasu spaceru</string>
+	<string name="whatsnew_paid_routes_title">Więcej nowych wrażeń!</string>
+	<string name="whatsnew_paid_routes_message">Do bezpłatnych tras jako dodatek do katalogu dodaliśmy 3 kategorie płatnych przewodników. Ponad 700 nowych tras!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>
@@ -1555,6 +1562,7 @@
 	<string name="type.barrier.lift_gate">Szlaban</string>
 	<string name="type.barrier.stile">Przełaz</string>
 	<string name="type.barrier.toll_booth">Kasa</string>
+	<string name="type.boundary.national_park">Park narodowy</string>
 	<string name="type.building">Budynek</string>
 	<string name="type.building.address">Budynek</string>
 	<string name="type.building.garage">Warsztat samochodowy</string>
@@ -1780,6 +1788,7 @@
 	<string name="type.leisure.fitness_station">Stacja fitness</string>
 	<string name="type.leisure.garden">Ogród</string>
 	<string name="type.leisure.golf_course">Kurs golfowy</string>
+	<string name="type.leisure.nature_reserve">Rezerwat przyrody</string>
 	<string name="type.leisure.pitch">Boisko sportowe</string>
 	<string name="type.leisure.pitch.tennis">Boisko sportowe</string>
 	<string name="type.leisure.playground">Plac zabaw</string>
@@ -1803,7 +1812,10 @@
 	<string name="type.military.bunker">Bunkier</string>
 	<string name="type.natural.bay">Zatoka</string>
 	<string name="type.natural.beach">Plaża</string>
+	<string name="type.natural.cape">Przylądek</string>
 	<string name="type.natural.cave_entrance">Wejście do jaskini</string>
+	<string name="type.natural.geyser">Gejzer</string>
+	<string name="type.natural.glacier">Lodowiec</string>
 	<string name="type.natural.lake">Jezioro</string>
 	<string name="type.natural.peak">Góra</string>
 	<string name="type.natural.pond">Źródło</string>

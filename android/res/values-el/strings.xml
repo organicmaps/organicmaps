@@ -1177,7 +1177,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>ΣΗΜΕΙΩΣΗ:&lt;/b> συνεχίζοντας, δέχεστε &lt;a href="%s">τη συμφωνία άδειας&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Όνομα οδηγού</string>
 	<string name="ugc_route_edit_description_hint">Πληκτρολογήστε μια περιγραφή (κείμενο ή html)</string>
-	<string name="not_shared">Μη κοινοποιημένο</string>
+	<string name="not_shared">Προσωπικός</string>
 	<string name="direct_link_progress_text">Ανεβάζουμε το αρχείο σας…</string>
 	<string name="direct_link_success">Ο σύνδεσμος δημιουργήθηκε</string>
 	<string name="edit_guide_title">Επεξεργαστείτε τον οδηγό σας στο δίκτυο</string>
@@ -1217,12 +1217,19 @@
 	<string name="notification_channel_downloader">Κατέβασμα χαρτών</string>
 	<string name="notification_leave_review_title">%s- πώς ήταν?</string>
 	<string name="notification_leave_review_content">Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!</string>
-	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Κάμερα παρακάτω</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
 	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
 	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>
+	<string name="whatsnew_standard_routes_title">Τυπικές διαδρομές</string>
+	<string name="whatsnew_standard_routes_message">Ένα βασικό σύνολο των σημείων, σύντομες περιγραφές, αλλά πολλές εντυπώσεις!</string>
+	<string name="whatsnew_city_overview_title">Περιήγηση στα αξιοθέατα της πόλης</string>
+	<string name="whatsnew_city_overview_message">Μέχρι 200 σημεία στον χάρτη της πόλης: ότι πιο χρήσιμο και ενδιαφέρον για τον ταξιδιώτη!</string>
+	<string name="whatsnew_pro_guides_title">Επαγγελματικές διαδρομές</string>
+	<string name="whatsnew_pro_guides_message">Υψηλό επίπεδο λεπτομέρειας, αναλυτικές περιγραφές τοποθεσιών και δυνατότητα υπολογισμού της απόστασης και του χρόνου της βόλτας</string>
+	<string name="whatsnew_paid_routes_title">Περισσότερες νέες εμπειρίες!</string>
+	<string name="whatsnew_paid_routes_message">Εκτός από τις δωρεάν διαδρομές έχουμε προσθέσει στον κατάλογο και 3 κατηγορίες ταξιδιωτικών οδηγών επί πληρωμή. Περισσότερες από 700 νέες διαδρομές!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Σταθμός αερομεταφοράς</string>
@@ -1325,6 +1332,7 @@
 	<string name="type.barrier.lift_gate">Ανυψούμενη μπάρα</string>
 	<string name="type.barrier.stile">Τουρνικέ</string>
 	<string name="type.barrier.toll_booth">Σταθμός διοδίων</string>
+	<string name="type.boundary.national_park">Εθνικό πάρκο</string>
 	<string name="type.building">Κτίριο</string>
 	<string name="type.building.address">Κτίριο</string>
 	<string name="type.building.garage">Γκαράζ</string>
@@ -1562,6 +1570,7 @@
 	<string name="type.leisure.fitness_station">Γυμναστήριο</string>
 	<string name="type.leisure.garden">Κήπος αναψυχής</string>
 	<string name="type.leisure.golf_course">Γήπεδο γκολφ</string>
+	<string name="type.leisure.nature_reserve">Φυσικό απόθεμα</string>
 	<string name="type.leisure.park">Πάρκο</string>
 	<string name="type.leisure.park.no.access">Πάρκο</string>
 	<string name="type.leisure.park.permissive">Πάρκο</string>
@@ -1590,7 +1599,10 @@
 	<string name="type.military.bunker">Στρατιωτική αποθήκη</string>
 	<string name="type.natural.bay">Κόλπος</string>
 	<string name="type.natural.beach">Παραλία</string>
+	<string name="type.natural.cape">Ακρωτήρι</string>
 	<string name="type.natural.cave_entrance">Είσοδος σπηλαίου</string>
+	<string name="type.natural.geyser">Θερμοπίδακας</string>
+	<string name="type.natural.glacier">Παγετώνας</string>
 	<string name="type.natural.lake">Λίμνη</string>
 	<string name="type.natural.peak">Κορυφή</string>
 	<string name="type.natural.pond">Δεξαμενή</string>

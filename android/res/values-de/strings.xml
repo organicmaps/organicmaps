@@ -1427,7 +1427,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>WICHTIG:&lt;/b> wenn Sie fortsetzen, stimmen Sie &lt;a href="%s">der Lizenzvereinbarung zu&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Reiseführer Name</string>
 	<string name="ugc_route_edit_description_hint">Fügen Sie die Beschreibung hinzu (Text oder html)</string>
-	<string name="not_shared">Privat</string>
+	<string name="not_shared">Persönlich</string>
 	<string name="direct_link_progress_text">Ihre Datei wird geladen…</string>
 	<string name="direct_link_success">Link erstellt</string>
 	<string name="edit_guide_title">Bearbeiten Sie Ihr Reiseführer online</string>
@@ -1469,9 +1469,8 @@
 	<string name="notification_channel_downloader">Karten werden geladen</string>
 	<string name="notification_leave_review_title">%s - Gefällt es Ihnen hier?</string>
 	<string name="notification_leave_review_content">Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!</string>
-	<string name="share_bookmarks_email_body_link">Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise!\n\nApp downloaden: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera vorne</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren</string>
 	<string name="warning_speedcams_subtitle">Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.</string>
 	<string name="speedcams_notice_message">Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren</string>
@@ -1479,6 +1478,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Speichern Sie unvergessliche Orte, erstellen Sie Routen mithilfe von Lesezeichen und teilen Sie sie mit allen im MAPS.ME-Katalog.</string>
 	<string name="whats_new_webeditor_title">Verwandeln Sie Ihre Routen in Geschichten</string>
 	<string name="whats_new_ugc_routes_message2">Fügen Sie Fotos und ausführliche Geschichten im Web-Editor hinzu.</string>
+	<string name="whatsnew_standard_routes_title">Standardrouten</string>
+	<string name="whatsnew_standard_routes_message">Hauptorte, Kurzbeschreibungen, aber viele Eindrücke!</string>
+	<string name="whatsnew_city_overview_title">Stadtübersicht</string>
+	<string name="whatsnew_city_overview_message">Bis zu 200 Orte auf dem Stadtplan: das Nützlichste und Interessanteste für den Reisenden!</string>
+	<string name="whatsnew_pro_guides_title">Profirouten</string>
+	<string name="whatsnew_pro_guides_message">Hohes Detaillierungsniveau, detaillierte Ortsbeschreibung und Möglichkeit die Entfernung und die Ausflugszeit zu berechnen</string>
+	<string name="whatsnew_paid_routes_title">Mehr neue Eindrücke!</string>
+	<string name="whatsnew_paid_routes_message">Zusätzlich zu den kostenfreien Routen haben wir 3 Kategorien kostenpflichtiger Reiseführer zum Katalog hinzugefügt. Über 700 neue Routen!</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>
@@ -1576,6 +1583,7 @@
 	<string name="type.barrier.lift_gate">Schranke</string>
 	<string name="type.barrier.stile">Zaunübertritt</string>
 	<string name="type.barrier.toll_booth">Mautstelle</string>
+	<string name="type.boundary.national_park">Naturschutzpark</string>
 	<string name="type.building">Gebäude</string>
 	<string name="type.building.address">Gebäude</string>
 	<string name="type.building.has_parts">Gebäude</string>
@@ -1810,6 +1818,7 @@
 	<string name="type.leisure.fitness_station">Fitnessstation</string>
 	<string name="type.leisure.garden">Garten</string>
 	<string name="type.leisure.golf_course">Golfplatz</string>
+	<string name="type.leisure.nature_reserve">Naturschutzgebiet</string>
 	<string name="type.leisure.pitch">Sportplatz</string>
 	<string name="type.leisure.pitch.tennis">Sportplatz</string>
 	<string name="type.leisure.playground">Spielplatz</string>
@@ -1831,7 +1840,10 @@
 	<string name="type.man_made.windmill">Windmühle</string>
 	<string name="type.natural.bay">Bucht</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.cape">Kap</string>
 	<string name="type.natural.cave_entrance">Höhleneingang</string>
+	<string name="type.natural.geyser">Geysir</string>
+	<string name="type.natural.glacier">Gletscher</string>
 	<string name="type.natural.lake">See</string>
 	<string name="type.natural.peak">Berg</string>
 	<string name="type.natural.pond">Teich</string>

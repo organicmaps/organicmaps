@@ -1418,7 +1418,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>LÜTFEN DİKKATE:&lt;/b> devam ederek &lt;a href="%s">lisans sözleşmesini&lt;/a> kabul edersiniz</string>
 	<string name="ugc_route_edit_list_name">Kılavuz adı</string>
 	<string name="ugc_route_edit_description_hint">Bir açıklama yazın (metin veya html)</string>
-	<string name="not_shared">Paylaşılmadı</string>
+	<string name="not_shared">Şahsi</string>
 	<string name="direct_link_progress_text">Dosyanız yükleniyor…</string>
 	<string name="direct_link_success">Bağlantı oluşturuldu</string>
 	<string name="edit_guide_title">Kılavuzunuzu web üzerinde düzenleyin</string>
@@ -1460,9 +1460,8 @@
 	<string name="notification_channel_downloader">Harita indiricisi</string>
 	<string name="notification_leave_review_title">%s - nasıldı?</string>
 	<string name="notification_leave_review_content">Yorum bırakarak gezginlere yardım edin!</string>
-	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">İleride kamera var</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
 	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
 	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>
@@ -1470,6 +1469,14 @@
 	<string name="whats_new_ugc_routes_subtitle">nutulmaz mekanları kaydedin, sayfa işaretleri kullanarak rotalar oluşturun ve bunları MAPS.ME kataloğundaki herkesle paylaşın.</string>
 	<string name="whats_new_webeditor_title">Rotalarınızı hikayelere dönüştürün</string>
 	<string name="whats_new_ugc_routes_message2">Web editöre fotoğraflar ve detaylı hikayeler ekleyin.</string>
+	<string name="whatsnew_standard_routes_title">Standart rotalar</string>
+	<string name="whatsnew_standard_routes_message">Temel ilgi noktaları ve kısa açıklamalar kümesi fakat fazla deneyim!</string>
+	<string name="whatsnew_city_overview_title">Şehre genel bakış</string>
+	<string name="whatsnew_city_overview_message">Şehir haritasında 200\'e kadar ilgi noktası: Gezginlerin yararlı ve ilginç bulabileceği her şey var!</string>
+	<string name="whatsnew_pro_guides_title">Profesyonel rotalar</string>
+	<string name="whatsnew_pro_guides_message">Yerlerin ayrıntılı açıklamaları ve yolculuk mesafesini ve zamanını hesaplama becerisi ile çok ayrıntılı</string>
+	<string name="whatsnew_paid_routes_title">Daha fazla yeni deneyimler!</string>
+	<string name="whatsnew_paid_routes_message">Ücretsiz rotalara ek olarak, kataloğumuza 3 ücretli rota kategorisi ekledik. 700\'den fazla yeni rota!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>
@@ -1569,6 +1576,7 @@
 	<string name="type.barrier.lift_gate">Barrière levante</string>
 	<string name="type.barrier.stile">Échalier</string>
 	<string name="type.barrier.toll_booth">Poste de péage</string>
+	<string name="type.boundary.national_park">Ulusal park</string>
 	<string name="type.building">Bina</string>
 	<string name="type.building.address">Bina</string>
 	<string name="type.building.has_parts">Bina</string>
@@ -1803,6 +1811,7 @@
 	<string name="type.leisure.fitness_station">Fitness Salonu</string>
 	<string name="type.leisure.garden">Bahçe</string>
 	<string name="type.leisure.golf_course">Golf sahası</string>
+	<string name="type.leisure.nature_reserve">Doğal koruma alanı</string>
 	<string name="type.leisure.pitch">Spor sahası</string>
 	<string name="type.leisure.pitch.tennis">Spor sahası</string>
 	<string name="type.leisure.playground">Oyun alanı</string>
@@ -1825,7 +1834,10 @@
 	<string name="type.man_made.windmill">Moulin</string>
 	<string name="type.natural.bay">Koy</string>
 	<string name="type.natural.beach">Plaj</string>
+	<string name="type.natural.cape">Burun</string>
 	<string name="type.natural.cave_entrance">Entrée de la cave</string>
+	<string name="type.natural.geyser">Gayzer</string>
+	<string name="type.natural.glacier">Buzul</string>
 	<string name="type.natural.lake">Göl</string>
 	<string name="type.natural.peak">Zirve</string>
 	<string name="type.natural.pond">Gölet</string>

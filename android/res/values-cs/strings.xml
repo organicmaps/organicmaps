@@ -1421,7 +1421,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>UPOZORNĚNÍ:&lt;/b> pokračováním souhlasíte s &lt;a href="%s">licenční smlouvou&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Název průvodce</string>
 	<string name="ugc_route_edit_description_hint">Přidejte popis (text nebo html)</string>
-	<string name="not_shared">Osobní</string>
+	<string name="not_shared">Osobní účet</string>
 	<string name="direct_link_progress_text">Váš soubor se nahrává…</string>
 	<string name="direct_link_success">Odkaz byl vytvořen</string>
 	<string name="edit_guide_title">Upravujte váš průvodce online</string>
@@ -1463,9 +1463,8 @@
 	<string name="notification_channel_downloader">Nahrávání map</string>
 	<string name="notification_leave_review_title">%s - jak se vám tady líbí?</string>
 	<string name="notification_leave_review_content">Okomentujte místo a pomozte cestovatelům!</string>
-	<string name="share_bookmarks_email_body_link">Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty!\n\nStáhnout aplikaci: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Radar vpředu</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary</string>
 	<string name="warning_speedcams_subtitle">Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary</string>
@@ -1473,6 +1472,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Uložte si nezapomenutelná místa, vytvořte trasy pomocí záložek a sdílejte je se všemi v katalogu MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Proměňte své trasy v příběhy</string>
 	<string name="whats_new_ugc_routes_message2">Přidejte fotky a detailní příběhy ve webovém editoru.</string>
+	<string name="whatsnew_standard_routes_title">Standardní trasy</string>
+	<string name="whatsnew_standard_routes_message">Základní sada míst, krátké popisy, ale mnoho zážitků!</string>
+	<string name="whatsnew_city_overview_title">Prohlídka města</string>
+	<string name="whatsnew_city_overview_message">Do 200 míst na mapě města: To nejužitečnější a nejzajímavější pro cestovatele!</string>
+	<string name="whatsnew_pro_guides_title">Profesionální trasy</string>
+	<string name="whatsnew_pro_guides_message">Velmi detailní, podrobné popisy míst a možností, jak spočítat vzdálenost a dobu procházky</string>
+	<string name="whatsnew_paid_routes_title">Více nových zážitků!</string>
+	<string name="whatsnew_paid_routes_message">K trasám zdarma jsme do katalogu navíc přidali 3 kategorie zpoplatněných průvodců. Více než 700 nových tras!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>
@@ -1572,6 +1579,7 @@
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Sloupek</string>
 	<string name="type.barrier.toll_booth">Mýtné</string>
+	<string name="type.boundary.national_park">Národní park</string>
 	<string name="type.building">Stavba</string>
 	<string name="type.building.address">Stavba</string>
 	<string name="type.building.garage">Garáž</string>
@@ -1809,6 +1817,7 @@
 	<string name="type.leisure.fitness_station">Posilovna</string>
 	<string name="type.leisure.garden">Zahrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.nature_reserve">Rezervace</string>
 	<string name="type.leisure.pitch">Sportovní hřiště</string>
 	<string name="type.leisure.pitch.tennis">Sportovní hřiště</string>
 	<string name="type.leisure.playground">Hřiště</string>
@@ -1832,7 +1841,10 @@
 	<string name="type.military.bunker">Bunkr</string>
 	<string name="type.natural.bay">Záliv</string>
 	<string name="type.natural.beach">Pláž</string>
+	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Vchod do jeskyně</string>
+	<string name="type.natural.geyser">Gejzír</string>
+	<string name="type.natural.glacier">Ledovec</string>
 	<string name="type.natural.lake">Jezero</string>
 	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.pond">Rybník</string>

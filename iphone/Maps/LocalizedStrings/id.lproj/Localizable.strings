@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Ketikkan deskripsi (teks atau html)";
 
-"not_shared" = "Tidak dibagikan";
+"not_shared" = "Pribadi";
 
 "direct_link_progress_text" = "Mengunggah file Anda…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Bantu para pelancong dengan meninggalkan ulasan!";
 
-"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Diawasi kamera";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam";
 
 "warning_speedcams_subtitle" = "Harap perhatikan aturan berkendara di negara tempat Anda bepergian.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Ubah rute Anda menjadi cerita";
 
 "whats_new_ugc_routes_message2" = "Tambahkan foto dan kisah detail di editor web.";
+
+"whatsnew_standard_routes_title" = "Rute Standar";
+
+"whatsnew_standard_routes_message" = "Kumpulan dasar berisi lokasi-lokasi menarik berikut deskripsi singkat namun penuh dengan pengalaman!";
+
+"whatsnew_city_overview_title" = "Ringkasan Kota";
+
+"whatsnew_city_overview_message" = "Hingga 200 lokasi menarik dalam peta kota: semua yang diperlukan dan berguna bagi para wisatawan!";
+
+"whatsnew_pro_guides_title" = "Rute Profesional";
+
+"whatsnew_pro_guides_message" = "Sangat mendalam, disertai dengan deskripsi terperinci mengenai tempat dan memiliki kemampuan untuk menghitung jarak serta waktu perjalanan";
+
+"whatsnew_paid_routes_title" = "Lebih banyak pengalaman baru!";
+
+"whatsnew_paid_routes_message" = "Sebagai tambahan untuk rute-rute gratis, kami juga telah menambahkan 3 kategori rute berbayar ke dalam katalog kami. Lebih dari 700 rute baru!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Taman Nasional";
 
 "type.building" = "Gedung";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Cagar Alam";
 
 "type.leisure.park" = "Taman";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Pantai";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Tanjung";
 
 "type.natural.cave_entrance" = "Mulut gua";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geiser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Gletser";
 
 "type.natural.grassland" = "natural-grassland";
 

@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Lag en beskrivelse (text or html)";
 
-"not_shared" = "Ikke delt";
+"not_shared" = "Privat";
 
 "direct_link_progress_text" = "Laster opp filen din…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Hjelp andre ved å legge igjen en anmeldelse.";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via MAPS.ME og nyt reisen: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nHer er lenken der du kan laste ned bokmerkene dine: %s. Åpne listen via MAPS.ME og nyt reisen!\n\nFå tak i app: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kommer til kamera";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigatøren vil advare deg om kameraer når du overskrider fartsgrensen på %d km/t";
 
 "warning_speedcams_subtitle" = "Vær oppmerksom på kjøreregler for landet du reiser til.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Gjør rutene dine om til historier";
 
 "whats_new_ugc_routes_message2" = "Legg til bilder og detaljerte historier med redigeringsprogrammet for nettsider.";
+
+"whatsnew_standard_routes_title" = "Standard reiseruter";
+
+"whatsnew_standard_routes_message" = "Grunnleggende sett med interessante steder og korte beskrivelser, men mange opplevelser!";
+
+"whatsnew_city_overview_title" = "Byoversikt";
+
+"whatsnew_city_overview_message" = "Opptil 200 steder av interesse på bykartet: Alt som reisende kan finne nyttig og interessant!";
+
+"whatsnew_pro_guides_title" = "Profesjonelle reiseruter";
+
+"whatsnew_pro_guides_message" = "Veldig grundig, med detaljerte beskrivelser av steder og muligheten til å beregne turavstand og tid";
+
+"whatsnew_paid_routes_title" = "Flere nye opplevelser!";
+
+"whatsnew_paid_routes_message" = "I tillegg til de tur-rutene som er gratis, har vi lagt til 3 tur-rute kategorier som kan kjøpes i vår katalog. Over 700 nye turer!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Nasonalpark";
 
 "type.building" = "Bygning";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Reservat";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Kapp";
 
 "type.natural.cave_entrance" = "Grotteåpning";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gaysir";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Isbre";
 
 "type.natural.grassland" = "natural-grassland";
 

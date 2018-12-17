@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Lämna en recension och hjälp resenärer!";
 
-"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan!\n\nLadda ner appen: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kamera framför";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
 
 "warning_speedcams_subtitle" = "Glöm inte att bekanta sig med trafikregler i landet av resan.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Gör dina rutter till berättelser";
 
 "whats_new_ugc_routes_message2" = "Lägg till fotografier och detaljerade berättelser i webeditorn.";
+
+"whatsnew_standard_routes_title" = "Standardrutter";
+
+"whatsnew_standard_routes_message" = "Grundläggande uppsättning punkter, korta beskrivningar, men många intryck!";
+
+"whatsnew_city_overview_title" = "Stadsöversikt";
+
+"whatsnew_city_overview_message" = "Upp till 200 punkter på stadskartan: allt som är det mest nyttiga och intressanta för en resenär!";
+
+"whatsnew_pro_guides_title" = "Professionella rutter";
+
+"whatsnew_pro_guides_message" = "Hög detaljeringsnivå, detaljbeskrivningar av platser och en möjlighet att beräkna avstånd och tid för en vandring";
+
+"whatsnew_paid_routes_title" = "Mer positiva intryck!";
+
+"whatsnew_paid_routes_message" = "Förutom gratis rutter har vi lagt 3 kategorier av betalade vägvisare till katalogen. Mer än 700 nya rutter!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Nationalpark";
 
 "type.building" = "Byggnad";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Naturreservat";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Udde";
 
 "type.natural.cave_entrance" = "Grottöppning";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gejser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Glaciär";
 
 "type.natural.grassland" = "natural-grassland";
 

@@ -1455,9 +1455,8 @@
 	<string name="notification_channel_downloader">Karttojen lataaminen</string>
 	<string name="notification_leave_review_title">%s - miten on täällä?</string>
 	<string name="notification_leave_review_content">Kirjoita arvostelu ja auta matkustajia!</string>
-	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Edessä on kamera</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t</string>
 	<string name="warning_speedcams_subtitle">Muista tutustua matkustusmaan liikennesääntöihin.</string>
 	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>
@@ -1465,6 +1464,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Tallenna ikimuistoiset paikat, luo reittejä kirjainmerkkien avulla ja jaa ne kaikkien kanssa MAPS.ME-luettelossa.</string>
 	<string name="whats_new_webeditor_title">Muuta reittisi tarinoiksi</string>
 	<string name="whats_new_ugc_routes_message2">Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.</string>
+	<string name="whatsnew_standard_routes_title">Vakioreitit</string>
+	<string name="whatsnew_standard_routes_message">Pääpisteet, lyhyitä kuvauksia, mutta paljon vaikutelmia!</string>
+	<string name="whatsnew_city_overview_title">Kaupunkikuvaus</string>
+	<string name="whatsnew_city_overview_message">Jopa 200 pistettä kaupungin kartalla: kaikki, josta matkustaja hyötyy ja kiinnostuu!</string>
+	<string name="whatsnew_pro_guides_title">Ammattilaisen reitit</string>
+	<string name="whatsnew_pro_guides_message">Korkeat yksityiskohdat, yksityiskohtaiset paikkojen kuvaukset ja mahdollisuus laskea kävelymatkan pituus ja aika</string>
+	<string name="whatsnew_paid_routes_title">Enemmän uusia elämyksiä!</string>
+	<string name="whatsnew_paid_routes_message">Ilmaisten reittien lisäksi nyt 3 kategoriaa maksullisia matkaoppaita lisätty luetteloon. Yli 700 uusia reittejä!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>
@@ -1566,6 +1573,7 @@
 	<string name="type.barrier.lift_gate">Puomi</string>
 	<string name="type.barrier.stile">Portaat</string>
 	<string name="type.barrier.toll_booth">Tietulliasema</string>
+	<string name="type.boundary.national_park">Kansallispuisto</string>
 	<string name="type.building">Rakennus</string>
 	<string name="type.building.address">Rakennus</string>
 	<string name="type.building.garage">Autotalli</string>
@@ -1803,6 +1811,7 @@
 	<string name="type.leisure.fitness_station">Kuntokeskus</string>
 	<string name="type.leisure.garden">Puutarha</string>
 	<string name="type.leisure.golf_course">Golf-rata</string>
+	<string name="type.leisure.nature_reserve">Luonnonsuojelualue</string>
 	<string name="type.leisure.park">Puisto</string>
 	<string name="type.leisure.park.no.access">Puisto</string>
 	<string name="type.leisure.park.permissive">Puisto</string>
@@ -1830,7 +1839,10 @@
 	<string name="type.military.bunker">Bunkkeri</string>
 	<string name="type.natural.bay">Lahti</string>
 	<string name="type.natural.beach">Ranta</string>
+	<string name="type.natural.cape">Niemeke</string>
 	<string name="type.natural.cave_entrance">Luolan sisäänkäynti</string>
+	<string name="type.natural.geyser">Geysir</string>
+	<string name="type.natural.glacier">Jäätikkö</string>
 	<string name="type.natural.lake">Järvi</string>
 	<string name="type.natural.peak">Huippu</string>
 	<string name="type.natural.pond">Lampi</string>

@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "请添加说明(文字或html)";
 
-"not_shared" = "個人";
+"not_shared" = "个人";
 
 "direct_link_progress_text" = "正在上传您的文件......";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "请发表评论并帮助游客！";
 
-"share_bookmarks_email_body_link" = "您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行：http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行!\n\n下载程序：http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "在摄像头前";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "当速度限制超过%d km / h时，导航会通知您的摄像机";
 
 "warning_speedcams_subtitle" = "请不要忘记阅读旅行国的道路规则。";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "把路线变成故事";
 
 "whats_new_ugc_routes_message2" = "在网页编辑工具里添加照片和详细的故事。";
+
+"whatsnew_standard_routes_title" = "标准路线";
+
+"whatsnew_standard_routes_message" = "主要的景点组合、简介，感触满满！";
+
+"whatsnew_city_overview_title" = "环城游览";
+
+"whatsnew_city_overview_message" = "城市地图上最多200个点：对旅行者来说是最有用也是最有趣的！";
+
+"whatsnew_pro_guides_title" = "专业路线";
+
+"whatsnew_pro_guides_message" = "高水平的细节，地点的详细描述以及计算步行距离和时间的能力";
+
+"whatsnew_paid_routes_title" = "更多新体验！";
+
+"whatsnew_paid_routes_message" = "除了免费路线，我们还为目录添加了3类付费指南。超过700条新路线！";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "国家公园";
 
 "type.building" = "建筑";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "野生动物园";
 
 "type.leisure.park" = "公园";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "海滩";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "海角";
 
 "type.natural.cave_entrance" = "山洞入口";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "间歇泉";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "冰川";
 
 "type.natural.grassland" = "natural-grassland";
 

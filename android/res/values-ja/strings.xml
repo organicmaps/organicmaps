@@ -1411,7 +1411,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>ご注意ください:&lt;/b> この先へ進む事で &lt;a href="%s">利用許諾&lt;/a>に同意する事になります</string>
 	<string name="ugc_route_edit_list_name">ガイド名</string>
 	<string name="ugc_route_edit_description_hint">説明(テキストまたはhtml)を記入してください</string>
-	<string name="not_shared">共有されていません</string>
+	<string name="not_shared">個人</string>
 	<string name="direct_link_progress_text">あなたのファイルをアップロードしています…</string>
 	<string name="direct_link_success">リンクが作成されました</string>
 	<string name="edit_guide_title">ガイドをウェブ上で編集</string>
@@ -1453,9 +1453,8 @@
 	<string name="notification_channel_downloader">マップダウンローダー</string>
 	<string name="notification_leave_review_title">%s - はいかがでしたか?</string>
 	<string name="notification_leave_review_content">レビューを残して旅行者を助けましょう！</string>
-	<string name="share_bookmarks_email_body_link">こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">この先にある自動速度違反取締装置</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します</string>
 	<string name="warning_speedcams_subtitle">旅行先の国の道路交通法を考慮してください。</string>
 	<string name="speedcams_notice_message">自動－速度制限超過の危険性がある場合には、自動速度違反取締装置について警告します\n常時－自動速度違反取締装置について常に警告します\n無効－自動速度違反取締装置を警告しません</string>
@@ -1463,6 +1462,14 @@
 	<string name="whats_new_ugc_routes_subtitle">記憶に残る場所を保存して、ブックマークでルートを作成し MAPS.MEカタログを利用するすべての人達と共有しましょう。</string>
 	<string name="whats_new_webeditor_title">ルートをストーリーに変えましょう</string>
 	<string name="whats_new_ugc_routes_message2">ウェブエディタで写真と詳細なストーリーを追加しましょう。</string>
+	<string name="whatsnew_standard_routes_title">標準的ルート</string>
+	<string name="whatsnew_standard_routes_message">基本的な一連の関心地点(POI)と簡潔な説明ですが、多くの体験があり余す！</string>
+	<string name="whatsnew_city_overview_title">街の概要</string>
+	<string name="whatsnew_city_overview_message">街の地図上の最大200の関心地点(POI)：すべて旅行者にとって有用で興味深いものです！</string>
+	<string name="whatsnew_pro_guides_title">プロフェッショナルルート</string>
+	<string name="whatsnew_pro_guides_message">非常に綿密で詳細な場所の説明と、移動距離および時間の計算能力</string>
+	<string name="whatsnew_paid_routes_title">さらなある新たな体験！</string>
+	<string name="whatsnew_paid_routes_message">無料のルートに加え、カタログに3つの有料のルートを追加しました。700を超える新たなルート！</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>
@@ -1565,6 +1572,7 @@
 	<string name="type.barrier.lift_gate">ブームバリア</string>
 	<string name="type.barrier.stile">回転扉</string>
 	<string name="type.barrier.toll_booth">料金所</string>
+	<string name="type.boundary.national_park">国立公園</string>
 	<string name="type.building">建物</string>
 	<string name="type.building.address">建物</string>
 	<string name="type.building.garage">車庫</string>
@@ -1804,6 +1812,7 @@
 	<string name="type.leisure.fitness_station">フィットネスステーション</string>
 	<string name="type.leisure.garden">庭園</string>
 	<string name="type.leisure.golf_course">ゴルフコース</string>
+	<string name="type.leisure.nature_reserve">自然保護区</string>
 	<string name="type.leisure.park">公園</string>
 	<string name="type.leisure.park.no.access">公園</string>
 	<string name="type.leisure.park.permissive">公園</string>
@@ -1832,7 +1841,10 @@
 	<string name="type.military.bunker">掩蔽壕</string>
 	<string name="type.natural.bay">港湾</string>
 	<string name="type.natural.beach">ビーチ</string>
+	<string name="type.natural.cape">岬</string>
 	<string name="type.natural.cave_entrance">洞穴入口</string>
+	<string name="type.natural.geyser">間欠泉</string>
+	<string name="type.natural.glacier">氷河</string>
 	<string name="type.natural.lake">湖</string>
 	<string name="type.natural.peak">山頂</string>
 	<string name="type.natural.pond">池</string>

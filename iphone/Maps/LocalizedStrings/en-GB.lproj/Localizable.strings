@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Type a description (text or html)";
 
-"not_shared" = "Not shared";
+"not_shared" = "Private";
 
 "direct_link_progress_text" = "Uploading your file…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Help travellers by leaving a review!";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHere is the link where you can download your bookmarks: %s. Open the list via MAPS.ME and enjoy your trip: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in MAPS.ME and enjoy your trip!\n\nGet application: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Camera ahead";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigator will warn you about cameras when you exceed the speed limit of %d km/h";
 
 "warning_speedcams_subtitle" = "Please mind driving regulations of the country you are travelling to.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Turn your routes into stories";
 
 "whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
+
+"whatsnew_standard_routes_title" = "Standard routes";
+
+"whatsnew_standard_routes_message" = "A basic set of points of interest and brief descriptions but a lot of experiences!";
+
+"whatsnew_city_overview_title" = "City overview";
+
+"whatsnew_city_overview_message" = "Up to 200 points of interest on the city map: everything travellers may find useful and interesting!";
+
+"whatsnew_pro_guides_title" = "Professional routes";
+
+"whatsnew_pro_guides_message" = "Very thorough, with detailed descriptions of places and the ability to calculate trip distance and time";
+
+"whatsnew_paid_routes_title" = "More new experiences!";
+
+"whatsnew_paid_routes_message" = "In addition to the free routes, we have added 3 paid route categories to our catalog. Over 700 new routes!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "National park";
 
 "type.building" = "Building";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Reserve";
 
 "type.leisure.park" = "Park";
 

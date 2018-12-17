@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "請發表評論並幫助旅客！";
 
-"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行：http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行!\n\n下載應用程序：http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "在攝像頭前";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
 
 "warning_speedcams_subtitle" = "請不要忘記閱讀旅行國的道路規則。";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "把路线变成故事";
 
 "whats_new_ugc_routes_message2" = "在网页编辑工具里添加照片和详细的故事。";
+
+"whatsnew_standard_routes_title" = "標準路線";
+
+"whatsnew_standard_routes_message" = "主要景點組合，簡要描述，感觸滿滿！";
+
+"whatsnew_city_overview_title" = "環城旅遊";
+
+"whatsnew_city_overview_message" = "城市地圖上最多200個點：對旅行者來說最有用也是最有趣的！";
+
+"whatsnew_pro_guides_title" = "專業路線";
+
+"whatsnew_pro_guides_message" = "高水平的細節，地點的詳細描述以及計算步行距離和時間的能力";
+
+"whatsnew_paid_routes_title" = "更多新體驗！";
+
+"whatsnew_paid_routes_message" = "除了免費路線，我們還為目錄添加了3類付費指南。超過700條新路線！";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "國家公園";
 
 "type.building" = "建築物";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "自然保護區";
 
 "type.leisure.park" = "公園";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "海灘";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "海角";
 
 "type.natural.cave_entrance" = "洞穴入口";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "間歇泉";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "冰川";
 
 "type.natural.grassland" = "natural-grassland";
 

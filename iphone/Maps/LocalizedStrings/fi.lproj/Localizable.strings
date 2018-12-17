@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Kirjoita arvostelu ja auta matkustajia!";
 
-"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Edessä on kamera";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 
 "warning_speedcams_subtitle" = "Muista tutustua matkustusmaan liikennesääntöihin.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Muuta reittisi tarinoiksi";
 
 "whats_new_ugc_routes_message2" = "Lisää verkkoeditorin avulla kuvia ja yksityiskohtaisia ​​tarinoita.";
+
+"whatsnew_standard_routes_title" = "Vakioreitit";
+
+"whatsnew_standard_routes_message" = "Pääpisteet, lyhyitä kuvauksia, mutta paljon vaikutelmia!";
+
+"whatsnew_city_overview_title" = "Kaupunkikuvaus";
+
+"whatsnew_city_overview_message" = "Jopa 200 pistettä kaupungin kartalla: kaikki, josta matkustaja hyötyy ja kiinnostuu!";
+
+"whatsnew_pro_guides_title" = "Ammattilaisen reitit";
+
+"whatsnew_pro_guides_message" = "Korkeat yksityiskohdat, yksityiskohtaiset paikkojen kuvaukset ja mahdollisuus laskea kävelymatkan pituus ja aika";
+
+"whatsnew_paid_routes_title" = "Enemmän uusia elämyksiä!";
+
+"whatsnew_paid_routes_message" = "Ilmaisten reittien lisäksi nyt 3 kategoriaa maksullisia matkaoppaita lisätty luetteloon. Yli 700 uusia reittejä!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Kansallispuisto";
 
 "type.building" = "Rakennus";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Luonnonsuojelualue";
 
 "type.leisure.park" = "Puisto";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Ranta";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Niemeke";
 
 "type.natural.cave_entrance" = "Luolan sisäänkäynti";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geysir";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Jäätikkö";
 
 "type.natural.grassland" = "natural-grassland";
 

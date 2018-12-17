@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Maak een beschrijving aan (tekst of html)";
 
-"not_shared" = "Niet gedeeld";
+"not_shared" = "Privé";
 
 "direct_link_progress_text" = "Uw bestand aan het uploaden…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Help reizigers door een beoordeling achter te laten!";
 
-"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis!\n\nHaal de applicatie op: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Camera in zicht";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
 
 "warning_speedcams_subtitle" = "Let op de rijvoorschriften van het land waar u naartoe reist.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Maak verhalen van je routes";
 
 "whats_new_ugc_routes_message2" = "Voeg foto's en gedetailleerde verhalen toe in de webbewerker.";
+
+"whatsnew_standard_routes_title" = "Standaard routes";
+
+"whatsnew_standard_routes_message" = "Basisset van interessante punten en korte beschrijvingen, maar veel ervaringen!";
+
+"whatsnew_city_overview_title" = "Stadsoverzicht";
+
+"whatsnew_city_overview_message" = "Tot 200 bezienswaardigheden op de stadsmap: alles wat reizigers nuttig en interessant kunnen vinden!";
+
+"whatsnew_pro_guides_title" = "Professionele routes";
+
+"whatsnew_pro_guides_message" = "Zeer grondig, met gedetailleerde beschrijvingen van plaatsen en de mogelijkheid om reisafstand en -tijd te berekenen";
+
+"whatsnew_paid_routes_title" = "Nog nieuwe ervaringen!";
+
+"whatsnew_paid_routes_message" = "Bovenop de gratis routes, hebben we 3 betalende routes toegevoegd aan onze catalogus. Meer dan 700 routes!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Nationaal park";
 
 "type.building" = "Gebouw";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Reserve";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Strand";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Kaap";
 
 "type.natural.cave_entrance" = "Grotingang";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Geiser";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Gletsjer";
 
 "type.natural.grassland" = "natural-grassland";
 

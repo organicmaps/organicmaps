@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Tapez une description (texte ou html)";
 
-"not_shared" = "Non partagé";
+"not_shared" = "Personnel";
 
 "direct_link_progress_text" = "Télécharger votre fichier…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Aidez les voyageurs en leur laissant un avis !";
 
-"share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage : http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage !\n\nInstaller l'application : http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Caméra devant";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h";
 
 "warning_speedcams_subtitle" = "Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Transformez vos itinéraires en histoires";
 
 "whats_new_ugc_routes_message2" = "Ajoutez des photos et des histoires détaillées dans l'éditeur web.";
+
+"whatsnew_standard_routes_title" = "Itinéraires standard";
+
+"whatsnew_standard_routes_message" = "Les géolocalisations de base, les brèves descriptions, mais beaucoup d'impressions!";
+
+"whatsnew_city_overview_title" = "Vue d'ensemble de la ville";
+
+"whatsnew_city_overview_message" = "Jusqu'à 200 points sur le plan de la ville : uniquement le plus utile et intéressant pour le voyageur !";
+
+"whatsnew_pro_guides_title" = "Itinéraires professionnels";
+
+"whatsnew_pro_guides_message" = "Le haut niveau de détail, des descriptions détaillées des lieux et la possibilité de calculer la distance et le temps de la promenade";
+
+"whatsnew_paid_routes_title" = "Plus de nouvelles impressions!";
+
+"whatsnew_paid_routes_message" = "En plus des itinéraires gratuits, nous avons ajouté au catalogue 3 catégories de guides payants. Plus de 700 nouvelles routes!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Parc national";
 
 "type.building" = "Bâtiment";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Réserve naturelle";
 
 "type.leisure.park" = "Parc";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Plage";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Cap";
 
 "type.natural.cave_entrance" = "Entrée de la cave";
 

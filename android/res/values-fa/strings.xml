@@ -1363,7 +1363,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>لطفا توجه داشته باشید:&lt;b/> با ادامه، شما موافقت خود با &lt;a href="%s">مجوز توافقنامه، را اعلام نموده اید&lt;a/></string>
 	<string name="ugc_route_edit_list_name">نام راهنما</string>
 	<string name="ugc_route_edit_description_hint">یک توضیح (متن یا html) تایپ نمایید</string>
-	<string name="not_shared">به اشتراک گذاشته نشده است</string>
+	<string name="not_shared">خصوصی</string>
 	<string name="direct_link_progress_text">در حال بارگذاری فایل شما…</string>
 	<string name="direct_link_success">لینک ایجاد شده است</string>
 	<string name="edit_guide_title">راهنمای خود را در وب ویرایش کنید</string>
@@ -1404,12 +1404,19 @@
 	<string name="notification_channel_downloader">دانلود کننده نقشه</string>
 	<string name="notification_leave_review_title">- چگونه بود؟%s</string>
 	<string name="notification_leave_review_content">با بیان نظر خود به مسافران کمک نمایید!</string>
-	<string name="share_bookmarks_email_body_link">سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">به دوربین نزدیک می شوید</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">هدایتگر هنگامی که از محدوده سرعت %d کیلومتر بر ساعت تجاوز نمایید، در مورد دوربین هشدار می دهد</string>
 	<string name="warning_speedcams_subtitle">لطفا قوانین رانندگی کشوری که به آن سفر می کنید، را رعایت کنید.</string>
 	<string name="speedcams_notice_message">خودکار- در صورتی که خطر تجاوز از سرعت مجاز وجود داشت، نسبت به دوربین های کنترل سرعت هشدار دهد\nهمیشه-همیشه درباره دوربین های کنترل سرعت هشدار دهد\nهرگز-هرگز درباره دوربین های کنترل سرعت هشدار ندهد</string>
+	<string name="whatsnew_standard_routes_title">مسیرهای استاندارد</string>
+	<string name="whatsnew_standard_routes_message">مجموعه ای اولیه از نقاط مورد علاقه و توضیحات مختصر، اما همراه با تجربیات فراوان!</string>
+	<string name="whatsnew_city_overview_title">نمای کلی شهر</string>
+	<string name="whatsnew_city_overview_message">تا 200 نقطه مورد علاقه در نقشه شهر: تمامی آنچه برای مسافران می تواند مفید و جالب باشد!</string>
+	<string name="whatsnew_pro_guides_title">مسیرهای حرفه ای</string>
+	<string name="whatsnew_pro_guides_message">بسیار دقیق، با توضیحات مفصلی از مکان ها و توانایی محاسبه فاصله و زمان سفر</string>
+	<string name="whatsnew_paid_routes_title">تجارب جدید بیشتر!</string>
+	<string name="whatsnew_paid_routes_message">علاوه بر مسیرهای رایگان، سه دسته مسیر پولی نیز به فهرست ما افزوده شده است. بیش از ۷۰۰ مسیر جدید!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aeroway.aerodrome">فرودگاه</string>
@@ -1508,6 +1515,7 @@
 	<string name="type.barrier.lift_gate">اسانسور</string>
 	<string name="type.barrier.stile">پلکان</string>
 	<string name="type.barrier.toll_booth">گیشه عوارضی</string>
+	<string name="type.boundary.national_park">پارک ملی</string>
 	<string name="type.building">ساختمان</string>
 	<string name="type.building.address">ساختمان</string>
 	<string name="type.building.garage">گاراژ</string>
@@ -1685,7 +1693,10 @@
 	<string name="type.military.bunker">پناهگاه</string>
 	<string name="type.natural.bay">خلیج</string>
 	<string name="type.natural.beach">ساحل</string>
+	<string name="type.natural.cape">دماغه</string>
 	<string name="type.natural.cave_entrance">ورودی غار</string>
+	<string name="type.natural.geyser">چشمه آب گرم</string>
+	<string name="type.natural.glacier">یخچال طبیعی</string>
 	<string name="type.natural.lake">دریاچه</string>
 	<string name="type.natural.peak">قله</string>
 	<string name="type.natural.pond">تالاب</string>

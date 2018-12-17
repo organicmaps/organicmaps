@@ -1417,7 +1417,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>POZNÁMKA:&lt;/b> pokračovaním akceptujte &lt;a href="%s">licenčnú zmluvu&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Názov sprievodcu</string>
 	<string name="ugc_route_edit_description_hint">Zadajte popis (text alebo html)</string>
-	<string name="not_shared">Nezdieľané</string>
+	<string name="not_shared">Súkromné</string>
 	<string name="direct_link_progress_text">Nahrávanie váľho súboru…</string>
 	<string name="direct_link_success">Odkaz bol vytvorený</string>
 	<string name="edit_guide_title">Upravte vášho sprievodcu na webe</string>
@@ -1459,9 +1459,8 @@
 	<string name="notification_channel_downloader">Sťahovač máp</string>
 	<string name="notification_leave_review_title">%s - aké to bolo?</string>
 	<string name="notification_leave_review_content">Pomôžte cestujúcim tým, že zanecháte recenziu!</string>
-	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet!\n\nZískajte aplikáciu: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera vpredu</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>
@@ -1469,6 +1468,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Uložte si nezabudnuteľné miesta, vytvorte trasy pomocou záložiek a zdieľajte ich so všetkými v katalógu MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Premeňte svoje trasy na príbehy</string>
 	<string name="whats_new_ugc_routes_message2">Pridajte fotografie a podrobné príbehy do webového editora.</string>
+	<string name="whatsnew_standard_routes_title">Štandardné trasy</string>
+	<string name="whatsnew_standard_routes_message">Základný súbor bodov záujmu a stručné popisy, ale veľa zážitkov!</string>
+	<string name="whatsnew_city_overview_title">Prehľad mesta</string>
+	<string name="whatsnew_city_overview_message">Až 200 bodov záujmu na mape mesta: všetko, čo cestujúci môžu považovať za užitočné a zaujímavé!</string>
+	<string name="whatsnew_pro_guides_title">Profesionálne trasy</string>
+	<string name="whatsnew_pro_guides_message">Veľmi dôkladné, s podrobnými popismi miest a s možnosťou vypočítať vzdialenosť a čas cesty</string>
+	<string name="whatsnew_paid_routes_title">Viac nových zážitkov!</string>
+	<string name="whatsnew_paid_routes_message">Okrem bezplatných trás sme do nášho katalógu pridali tri platené kategórie trás. Viac ako 700 nových trás!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>
@@ -1570,6 +1577,7 @@
 	<string name="type.barrier.lift_gate">Závora</string>
 	<string name="type.barrier.stile">Turniket</string>
 	<string name="type.barrier.toll_booth">Mýtne</string>
+	<string name="type.boundary.national_park">Národný park</string>
 	<string name="type.building">Budova</string>
 	<string name="type.building.address">Budova</string>
 	<string name="type.building.garage">Garáž</string>
@@ -1805,6 +1813,7 @@
 	<string name="type.leisure.fitness_station">Fitness</string>
 	<string name="type.leisure.garden">Záhrada</string>
 	<string name="type.leisure.golf_course">Golf</string>
+	<string name="type.leisure.nature_reserve">Rezervácia</string>
 	<string name="type.leisure.pitch">Športovisko</string>
 	<string name="type.leisure.pitch.tennis">Športovisko</string>
 	<string name="type.leisure.playground">Ihrisko</string>
@@ -1826,7 +1835,10 @@
 	<string name="type.man_made.water_well">Studňa</string>
 	<string name="type.man_made.windmill">Veterný mlyn</string>
 	<string name="type.natural.bay">Záliv</string>
+	<string name="type.natural.cape">Mys</string>
 	<string name="type.natural.cave_entrance">Vstup do jaskyne</string>
+	<string name="type.natural.geyser">Gejzír</string>
+	<string name="type.natural.glacier">Ľadovec</string>
 	<string name="type.natural.lake">Jazero</string>
 	<string name="type.natural.peak">Hora</string>
 	<string name="type.natural.pond">Rybník</string>

@@ -1408,7 +1408,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>알고 계세요:&lt;/b> 진행하면, 당신은 &lt;a href="%s">라이센스에 동의&lt;/a>하는 것입니다.</string>
 	<string name="ugc_route_edit_list_name">가이드 이름</string>
 	<string name="ugc_route_edit_description_hint">묘사를 적으세요 (글자 혹은 html)</string>
-	<string name="not_shared">공유하지 않음</string>
+	<string name="not_shared">개인</string>
 	<string name="direct_link_progress_text">당신의 파일을 업로드 중…</string>
 	<string name="direct_link_success">링크가 만들어졌습니다</string>
 	<string name="edit_guide_title">웹에서 당신의 가이드 수정하기</string>
@@ -1450,9 +1450,8 @@
 	<string name="notification_channel_downloader">맵 다운로더</string>
 	<string name="notification_leave_review_title">%s - 어떠셨나요?</string>
 	<string name="notification_leave_review_content">리뷰를 남겨서 여행자들을 도와주세요!</string>
-	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">전방에 카메라</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다</string>
 	<string name="warning_speedcams_subtitle">여행하시는 나라의 운전 법규를 준수하시길 바랍니다.</string>
 	<string name="speedcams_notice_message">자동 - 속도 제한 초과 위험이 있을때 스피드캠에 대해 경고하기\n항상 - 스피드캠에 대해 항상 경고하기\n절대 아님 - 스피드캠에 대해 경고하지 않기</string>
@@ -1460,6 +1459,14 @@
 	<string name="whats_new_ugc_routes_subtitle">잊지 못할 장소들을 저장하고 즐겨찾기를 사용해 길을 만들어 MAPS.ME의 모두와 나눠보세요.</string>
 	<string name="whats_new_webeditor_title">당신의 지나온 길들을 이야기로 바꿔보세요</string>
 	<string name="whats_new_ugc_routes_message2">웹 에디터 안에서 사진들과 자세한 이야기들을 추가해보세요.</string>
+	<string name="whatsnew_standard_routes_title">표준 루트</string>
+	<string name="whatsnew_standard_routes_message">흥미로운 곳들의 기본 내용과 간략한 묘사, 하지만 풍부한 경험들!</string>
+	<string name="whatsnew_city_overview_title">도시 개관</string>
+	<string name="whatsnew_city_overview_message">도시 지도에 200여개의 흥미로운 지점: 모든 여행자들이 유용함과 재미를 발견 할 수 있습니다!</string>
+	<string name="whatsnew_pro_guides_title">전문가 루트</string>
+	<string name="whatsnew_pro_guides_message">장소에 대한 자세한 묘사와 통행 거리, 시간 계산 능력이 매우 철저합니다</string>
+	<string name="whatsnew_paid_routes_title">더 새로운 경험들!</string>
+	<string name="whatsnew_paid_routes_message">무료 루트뿐만 아니라, 3개의 유료 루트 카테고리들도 우리의 카탈로그에 추가했습니다 700개 이상의 새로운 루트들!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>
@@ -1562,6 +1569,7 @@
 	<string name="type.barrier.lift_gate">차량차단기</string>
 	<string name="type.barrier.stile">디딤대</string>
 	<string name="type.barrier.toll_booth">톨게이트</string>
+	<string name="type.boundary.national_park">국립 공원</string>
 	<string name="type.building">건물</string>
 	<string name="type.building.address">건물</string>
 	<string name="type.building.garage">정비소</string>
@@ -1798,6 +1806,7 @@
 	<string name="type.leisure.fitness_station">피트니스 센터</string>
 	<string name="type.leisure.garden">정원</string>
 	<string name="type.leisure.golf_course">골프장</string>
+	<string name="type.leisure.nature_reserve">천연보호구역</string>
 	<string name="type.leisure.park">공원</string>
 	<string name="type.leisure.park.no.access">공원</string>
 	<string name="type.leisure.park.permissive">공원</string>
@@ -1826,7 +1835,10 @@
 	<string name="type.military.bunker">벙커</string>
 	<string name="type.natural.bay">만</string>
 	<string name="type.natural.beach">바닷가</string>
+	<string name="type.natural.cape">곶</string>
 	<string name="type.natural.cave_entrance">동굴입구</string>
+	<string name="type.natural.geyser">온천</string>
+	<string name="type.natural.glacier">빙하</string>
 	<string name="type.natural.lake">호수</string>
 	<string name="type.natural.peak">피크</string>
 	<string name="type.natural.pond">연못이</string>

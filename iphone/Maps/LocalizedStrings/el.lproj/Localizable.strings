@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Πληκτρολογήστε μια περιγραφή (κείμενο ή html)";
 
-"not_shared" = "Μη κοινοποιημένο";
+"not_shared" = "Προσωπικός";
 
 "direct_link_progress_text" = "Ανεβάζουμε το αρχείο σας…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!";
 
-"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Κάμερα παρακάτω";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h";
 
 "warning_speedcams_subtitle" = "Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Turn your routes into stories";
 
 "whats_new_ugc_routes_message2" = "Add photos and detailed stories in the web-editor.";
+
+"whatsnew_standard_routes_title" = "Τυπικές διαδρομές";
+
+"whatsnew_standard_routes_message" = "Ένα βασικό σύνολο των σημείων, σύντομες περιγραφές, αλλά πολλές εντυπώσεις!";
+
+"whatsnew_city_overview_title" = "Περιήγηση στα αξιοθέατα της πόλης";
+
+"whatsnew_city_overview_message" = "Μέχρι 200 σημεία στον χάρτη της πόλης: ότι πιο χρήσιμο και ενδιαφέρον για τον ταξιδιώτη!";
+
+"whatsnew_pro_guides_title" = "Επαγγελματικές διαδρομές";
+
+"whatsnew_pro_guides_message" = "Υψηλό επίπεδο λεπτομέρειας, αναλυτικές περιγραφές τοποθεσιών και δυνατότητα υπολογισμού της απόστασης και του χρόνου της βόλτας";
+
+"whatsnew_paid_routes_title" = "Περισσότερες νέες εμπειρίες!";
+
+"whatsnew_paid_routes_message" = "Εκτός από τις δωρεάν διαδρομές έχουμε προσθέσει στον κατάλογο και 3 κατηγορίες ταξιδιωτικών οδηγών επί πληρωμή. Περισσότερες από 700 νέες διαδρομές!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Εθνικό πάρκο";
 
 "type.building" = "Κτίριο";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Φυσικό απόθεμα";
 
 "type.leisure.park" = "Πάρκο";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Παραλία";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Ακρωτήρι";
 
 "type.natural.cave_entrance" = "Είσοδος σπηλαίου";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Θερμοπίδακας";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Παγετώνας";
 
 "type.natural.grassland" = "natural-grassland";
 

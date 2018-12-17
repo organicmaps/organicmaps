@@ -1413,7 +1413,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>FIGYELEM:&lt;/b> folytatva, Ön elfogadja &lt;a href="%s">licensz szerződést&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Az útikalauz megnevezése</string>
 	<string name="ugc_route_edit_description_hint">Leírás hozzáadása (szöveg vagy html)</string>
-	<string name="not_shared">Személyes</string>
+	<string name="not_shared">Privát</string>
 	<string name="direct_link_progress_text">Betöltjük az Ön fájlát…</string>
 	<string name="direct_link_success">A hivatkozás létre van hozva</string>
 	<string name="edit_guide_title">Szerkessze az útikalauzát online</string>
@@ -1455,9 +1455,8 @@
 	<string name="notification_channel_downloader">Kártyák letöltése</string>
 	<string name="notification_leave_review_title">%s - hogy érzi itt magát?</string>
 	<string name="notification_leave_review_content">Írja meg a véleményét és segítsen a kirándulóknak!</string>
-	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Kamera elöl</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra</string>
 	<string name="warning_speedcams_subtitle">Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.</string>
 	<string name="speedcams_notice_message">Autó - Figyelmeztetés a sebesség kamerákról, ha van kockázat a sebesség korlátozás megsértéséről\nMindig - Mindig figyelmeztet a kamerákról\nSoha - Soha ne figyelmezet a kamerákról</string>
@@ -1465,6 +1464,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Ments el emlékezetes helyeket, hozz létre útvonalakat könyvjelzők segítségével és oszd meg őket mindenkivel a MAPS.ME katalógusban.</string>
 	<string name="whats_new_webeditor_title">Alakítsd át az útvonalaidat történetekké</string>
 	<string name="whats_new_ugc_routes_message2">Adj hozzá fényképeket és részletes történeteket a webes szerkesztőben.</string>
+	<string name="whatsnew_standard_routes_title">Normál útvonalak</string>
+	<string name="whatsnew_standard_routes_message">A látnivalók alapvető gyűjteménye és rövid leírásuk, de sok-sok tapasztalat!</string>
+	<string name="whatsnew_city_overview_title">Város áttekintése</string>
+	<string name="whatsnew_city_overview_message">Akár 200 érdekesség a város térképén: minden, amit az utazók hasznosnak vagy érdekesnek találhatnak!</string>
+	<string name="whatsnew_pro_guides_title">Profi útvonalak</string>
+	<string name="whatsnew_pro_guides_message">A helyek nagyon alapos és részletes leírása és lehetőség az utazás távolságának és idejének kiszámítására</string>
+	<string name="whatsnew_paid_routes_title">Új tapasztalatok!</string>
+	<string name="whatsnew_paid_routes_message">Az ingyenes útvonalakon felül 3 fizetős útvonalkategóriát is hozzáadtunk a katalógusunkhoz. Több mint 700 új útvonal!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Felvonóállomás</string>
@@ -1566,6 +1573,7 @@
 	<string name="type.barrier.lift_gate">Sorompó</string>
 	<string name="type.barrier.stile">Átjáró</string>
 	<string name="type.barrier.toll_booth">Díjfizető kapu</string>
+	<string name="type.boundary.national_park">Nemzeti park</string>
 	<string name="type.building">Épület</string>
 	<string name="type.building.address">Épület</string>
 	<string name="type.building.garage">Garázs</string>
@@ -1801,6 +1809,7 @@
 	<string name="type.leisure.fitness_station">Fitness állomás</string>
 	<string name="type.leisure.garden">Kert</string>
 	<string name="type.leisure.golf_course">Golfpálya</string>
+	<string name="type.leisure.nature_reserve">Védett terület</string>
 	<string name="type.leisure.pitch">Sportpálya</string>
 	<string name="type.leisure.pitch.tennis">Sportpálya</string>
 	<string name="type.leisure.playground">Játszótér</string>
@@ -1824,7 +1833,10 @@
 	<string name="type.man_made.windmill">Szélmalom</string>
 	<string name="type.natural.bay">Öböl</string>
 	<string name="type.natural.beach">Strand</string>
+	<string name="type.natural.cape">Hegytető</string>
 	<string name="type.natural.cave_entrance">Barlangbejárat</string>
+	<string name="type.natural.geyser">Gejzír</string>
+	<string name="type.natural.glacier">Gleccser</string>
 	<string name="type.natural.lake">Tó</string>
 	<string name="type.natural.peak">Csúcs</string>
 	<string name="type.natural.pond">Tavacska</string>

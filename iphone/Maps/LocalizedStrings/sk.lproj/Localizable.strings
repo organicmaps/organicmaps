@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Zadajte popis (text alebo html)";
 
-"not_shared" = "Nezdieľané";
+"not_shared" = "Súkromné";
 
 "direct_link_progress_text" = "Nahrávanie váľho súboru…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Pomôžte cestujúcim tým, že zanecháte recenziu!";
 
-"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet!\n\nZískajte aplikáciu: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "Kamera vpredu";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h";
 
 "warning_speedcams_subtitle" = "Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Premeňte svoje trasy na príbehy";
 
 "whats_new_ugc_routes_message2" = "Pridajte fotografie a podrobné príbehy do webového editora.";
+
+"whatsnew_standard_routes_title" = "Štandardné trasy";
+
+"whatsnew_standard_routes_message" = "Základný súbor bodov záujmu a stručné popisy, ale veľa zážitkov!";
+
+"whatsnew_city_overview_title" = "Prehľad mesta";
+
+"whatsnew_city_overview_message" = "Až 200 bodov záujmu na mape mesta: všetko, čo cestujúci môžu považovať za užitočné a zaujímavé!";
+
+"whatsnew_pro_guides_title" = "Profesionálne trasy";
+
+"whatsnew_pro_guides_message" = "Veľmi dôkladné, s podrobnými popismi miest a s možnosťou vypočítať vzdialenosť a čas cesty";
+
+"whatsnew_paid_routes_title" = "Viac nových zážitkov!";
+
+"whatsnew_paid_routes_message" = "Okrem bezplatných trás sme do nášho katalógu pridali tri platené kategórie trás. Viac ako 700 nových trás!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Národný park";
 
 "type.building" = "Budova";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Rezervácia";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Beach";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Mys";
 
 "type.natural.cave_entrance" = "Vstup do jaskyne";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gejzír";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Ľadovec";
 
 "type.natural.grassland" = "natural-grassland";
 

@@ -1412,7 +1412,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>PERHATIAN:&lt;/b> dengan melanjutkan, Anda menerima &lt;a href="%s">perjanjian lisensi&lt;/a></string>
 	<string name="ugc_route_edit_list_name">Nama panduan</string>
 	<string name="ugc_route_edit_description_hint">Ketikkan deskripsi (teks atau html)</string>
-	<string name="not_shared">Tidak dibagikan</string>
+	<string name="not_shared">Pribadi</string>
 	<string name="direct_link_progress_text">Mengunggah file Anda…</string>
 	<string name="direct_link_success">Tautan telah dibuat</string>
 	<string name="edit_guide_title">Edit panduan Anda di web</string>
@@ -1454,9 +1454,8 @@
 	<string name="notification_channel_downloader">Pengunduh peta</string>
 	<string name="notification_leave_review_title">%s - bagaimana?</string>
 	<string name="notification_leave_review_content">Bantu para pelancong dengan meninggalkan ulasan!</string>
-	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">Diawasi kamera</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam</string>
 	<string name="warning_speedcams_subtitle">Harap perhatikan aturan berkendara di negara tempat Anda bepergian.</string>
 	<string name="speedcams_notice_message">Auto - Peringatkan tentang kamera kecepatan saat terdapat risiko melebihi batas kecepatan\nSelalu - Selalu peringatkan tentang kamera kecepatan\nTidak pernah - Jangan pernah peringatkan tentang kamera kecepatan</string>
@@ -1464,6 +1463,14 @@
 	<string name="whats_new_ugc_routes_subtitle">Simpan tempat-tempat penuh kenangan, buat rute menggunakan markah dan bagikan kepada semua orang di katalog MAPS.ME.</string>
 	<string name="whats_new_webeditor_title">Ubah rute Anda menjadi cerita</string>
 	<string name="whats_new_ugc_routes_message2">Tambahkan foto dan kisah detail di editor web.</string>
+	<string name="whatsnew_standard_routes_title">Rute Standar</string>
+	<string name="whatsnew_standard_routes_message">Kumpulan dasar berisi lokasi-lokasi menarik berikut deskripsi singkat namun penuh dengan pengalaman!</string>
+	<string name="whatsnew_city_overview_title">Ringkasan Kota</string>
+	<string name="whatsnew_city_overview_message">Hingga 200 lokasi menarik dalam peta kota: semua yang diperlukan dan berguna bagi para wisatawan!</string>
+	<string name="whatsnew_pro_guides_title">Rute Profesional</string>
+	<string name="whatsnew_pro_guides_message">Sangat mendalam, disertai dengan deskripsi terperinci mengenai tempat dan memiliki kemampuan untuk menghitung jarak serta waktu perjalanan</string>
+	<string name="whatsnew_paid_routes_title">Lebih banyak pengalaman baru!</string>
+	<string name="whatsnew_paid_routes_message">Sebagai tambahan untuk rute-rute gratis, kami juga telah menambahkan 3 kategori rute berbayar ke dalam katalog kami. Lebih dari 700 rute baru!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stasiun kereta gantung</string>
@@ -1561,6 +1568,7 @@
 	<string name="type.barrier.lift_gate">Polisi tidur</string>
 	<string name="type.barrier.stile">Undakan</string>
 	<string name="type.barrier.toll_booth">Gerbang tol</string>
+	<string name="type.boundary.national_park">Taman Nasional</string>
 	<string name="type.building">Gedung</string>
 	<string name="type.building.address">Gedung</string>
 	<string name="type.building.garage">Garasi</string>
@@ -1795,6 +1803,7 @@
 	<string name="type.leisure.fitness_station">Stasiun Kebugaran</string>
 	<string name="type.leisure.garden">Situs arkeologi</string>
 	<string name="type.leisure.golf_course">Lapangan golf</string>
+	<string name="type.leisure.nature_reserve">Cagar Alam</string>
 	<string name="type.leisure.park">Taman</string>
 	<string name="type.leisure.park.no.access">Taman</string>
 	<string name="type.leisure.park.permissive">Taman</string>
@@ -1821,7 +1830,10 @@
 	<string name="type.man_made.windmill">Kincir angin</string>
 	<string name="type.natural.bay">Teluk</string>
 	<string name="type.natural.beach">Pantai</string>
+	<string name="type.natural.cape">Tanjung</string>
 	<string name="type.natural.cave_entrance">Mulut gua</string>
+	<string name="type.natural.geyser">Geiser</string>
+	<string name="type.natural.glacier">Gletser</string>
 	<string name="type.natural.lake">Danau</string>
 	<string name="type.natural.peak">Puncak</string>
 	<string name="type.natural.pond">Kolam</string>

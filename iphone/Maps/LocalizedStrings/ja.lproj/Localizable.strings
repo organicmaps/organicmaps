@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "説明(テキストまたはhtml)を記入してください";
 
-"not_shared" = "共有されていません";
+"not_shared" = "個人";
 
 "direct_link_progress_text" = "あなたのファイルをアップロードしています…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "レビューを残して旅行者を助けましょう！";
 
-"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "この先にある自動速度違反取締装置";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 
 "warning_speedcams_subtitle" = "旅行先の国の道路交通法を考慮してください。";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "ルートをストーリーに変えましょう";
 
 "whats_new_ugc_routes_message2" = "ウェブエディタで写真と詳細なストーリーを追加しましょう。";
+
+"whatsnew_standard_routes_title" = "標準的ルート";
+
+"whatsnew_standard_routes_message" = "基本的な一連の関心地点(POI)と簡潔な説明ですが、多くの体験があり余す！";
+
+"whatsnew_city_overview_title" = "街の概要";
+
+"whatsnew_city_overview_message" = "街の地図上の最大200の関心地点(POI)：すべて旅行者にとって有用で興味深いものです！";
+
+"whatsnew_pro_guides_title" = "プロフェッショナルルート";
+
+"whatsnew_pro_guides_message" = "非常に綿密で詳細な場所の説明と、移動距離および時間の計算能力";
+
+"whatsnew_paid_routes_title" = "さらなある新たな体験！";
+
+"whatsnew_paid_routes_message" = "無料のルートに加え、カタログに3つの有料のルートを追加しました。700を超える新たなルート！";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "国立公園";
 
 "type.building" = "建物";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "自然保護区";
 
 "type.leisure.park" = "公園";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "ビーチ";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "岬";
 
 "type.natural.cave_entrance" = "洞穴入口";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "間欠泉";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "氷河";
 
 "type.natural.grassland" = "natural-grassland";
 

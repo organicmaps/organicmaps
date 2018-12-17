@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "พิมพ์รายละเอียด (ข้อความหรือ html)";
 
-"not_shared" = "ไม่แชร์";
+"not_shared" = "ส่วนตัว";
 
 "direct_link_progress_text" = "กำลังอัพโหลดไฟล์ของคุณ…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "ช่วยนักเดินทางโดยการทิ้งรีวิว!";
 
-"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "มีกล้องอยู่ข้างหน้า";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม";
 
 "warning_speedcams_subtitle" = "โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "เปลี่ยนการเดินทางต่าง ๆ ของคุณให้กลายเป็นเรื่องราว";
 
 "whats_new_ugc_routes_message2" = "เพิ่มรูปภาพและเรื่องราวอย่างละเอียดลงในโปรแกรมสำหรับเขียนเว็บ";
+
+"whatsnew_standard_routes_title" = "เส้นทางมาตรฐาน";
+
+"whatsnew_standard_routes_message" = "ชุดพื้นฐานของสถานที่ที่น่าสนใจ และคำอธิบายสั้น ๆ แต่มีประสบการณ์มากมาย!";
+
+"whatsnew_city_overview_title" = "ภาพรวมของเมือง";
+
+"whatsnew_city_overview_message" = "สถานที่ที่น่าสนใจมากถึง 200 แห่ง บนแผนที่เมือง: ทุกสิ่งที่นักท่องเที่ยวอาจพบว่ามีประโยชน์ และน่าสนใจ!";
+
+"whatsnew_pro_guides_title" = "เส้นทางอย่างมืออาชีพ";
+
+"whatsnew_pro_guides_message" = "มีความละเอียดมาก พร้อมรายละเอียดของสถานที่ และความสามารถในการคำนวณระยะทาง และเวลาในการเดินทาง";
+
+"whatsnew_paid_routes_title" = "ประสบการณ์ใหม่ ๆ ที่มากขึ้น!";
+
+"whatsnew_paid_routes_message" = "นอกเหนือจากเส้นทางที่ไม่เสียค่าใช้จ่ายแล้ว เราได้เพิ่มหมวดหมู่เส้นทางที่ต้องชำระเงิน 3 ประเภทลงในแคตตาล็อกของเรา มีเส้นทางใหม่มากกว่า 700 เส้นทาง!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "อุทยานแห่งชาติ";
 
 "type.building" = "อาคาร";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "เขตอนุรักษ์ธรรมชาติ";
 
 "type.leisure.park" = "สวนสาธารณะ";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "ชายหาด";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "พื้นที่ยื่นเข้าไปในน้ำ";
 
 "type.natural.cave_entrance" = "ทางเข้าถ้ำ";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "นำ้พุร้อน";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "ธารน้ำแข็ง";
 
 "type.natural.grassland" = "natural-grassland";
 

@@ -1418,7 +1418,7 @@
 	<string name="ugc_routes_user_agreement">&lt;b>หมายเหตุ:&lt;/b> ด้วยการทำขั้นตอนดังกล่าว หมายความว่าคุณยอมรับ &lt;a href="%s">ข้อตกลงการอนุญาตใช้สิทธิ์&lt;/a></string>
 	<string name="ugc_route_edit_list_name">ชื่อของไกด์</string>
 	<string name="ugc_route_edit_description_hint">พิมพ์รายละเอียด (ข้อความหรือ html)</string>
-	<string name="not_shared">ไม่แชร์</string>
+	<string name="not_shared">ส่วนตัว</string>
 	<string name="direct_link_progress_text">กำลังอัพโหลดไฟล์ของคุณ…</string>
 	<string name="direct_link_success">ลิงค์ถูกสร้างแล้ว</string>
 	<string name="edit_guide_title">แก้ไขไกด์ของคุณบนเว็บ</string>
@@ -1460,9 +1460,8 @@
 	<string name="notification_channel_downloader">ตัวดาวน์โหลดแผนที่</string>
 	<string name="notification_leave_review_title">%s - มันเป็นอย่างไร</string>
 	<string name="notification_leave_review_content">ช่วยนักเดินทางโดยการทิ้งรีวิว!</string>
-	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ: http://maps.me/get?kmz</string>
+	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: http://maps.me/get?kmz</string>
 	<string name="camera_ahead_voiceover">มีกล้องอยู่ข้างหน้า</string>
-	<!-- FIXME next release 12.18 -->
 	<string name="warning_speedcams_title">เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม</string>
 	<string name="warning_speedcams_subtitle">โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป</string>
 	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>
@@ -1470,6 +1469,14 @@
 	<string name="whats_new_ugc_routes_subtitle">บันทึกสถานที่ที่น่าจดจำ สร้างสรรค์การเดินทางต่าง ๆโดยใช้บุ๊กมาร์ก และแบ่งปันกับทุกคนในแคตตาล็อก MAPS.ME</string>
 	<string name="whats_new_webeditor_title">เปลี่ยนการเดินทางต่าง ๆ ของคุณให้กลายเป็นเรื่องราว</string>
 	<string name="whats_new_ugc_routes_message2">เพิ่มรูปภาพและเรื่องราวอย่างละเอียดลงในโปรแกรมสำหรับเขียนเว็บ</string>
+	<string name="whatsnew_standard_routes_title">เส้นทางมาตรฐาน</string>
+	<string name="whatsnew_standard_routes_message">ชุดพื้นฐานของสถานที่ที่น่าสนใจ และคำอธิบายสั้น ๆ แต่มีประสบการณ์มากมาย!</string>
+	<string name="whatsnew_city_overview_title">ภาพรวมของเมือง</string>
+	<string name="whatsnew_city_overview_message">สถานที่ที่น่าสนใจมากถึง 200 แห่ง บนแผนที่เมือง: ทุกสิ่งที่นักท่องเที่ยวอาจพบว่ามีประโยชน์ และน่าสนใจ!</string>
+	<string name="whatsnew_pro_guides_title">เส้นทางอย่างมืออาชีพ</string>
+	<string name="whatsnew_pro_guides_message">มีความละเอียดมาก พร้อมรายละเอียดของสถานที่ และความสามารถในการคำนวณระยะทาง และเวลาในการเดินทาง</string>
+	<string name="whatsnew_paid_routes_title">ประสบการณ์ใหม่ ๆ ที่มากขึ้น!</string>
+	<string name="whatsnew_paid_routes_message">นอกเหนือจากเส้นทางที่ไม่เสียค่าใช้จ่ายแล้ว เราได้เพิ่มหมวดหมู่เส้นทางที่ต้องชำระเงิน 3 ประเภทลงในแคตตาล็อกของเรา มีเส้นทางใหม่มากกว่า 700 เส้นทาง!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>
@@ -1573,6 +1580,7 @@
 	<string name="type.barrier.lift_gate">ไม้กั้น</string>
 	<string name="type.barrier.stile">บันไดข้าม</string>
 	<string name="type.barrier.toll_booth">ด่านเก็บเงิน</string>
+	<string name="type.boundary.national_park">อุทยานแห่งชาติ</string>
 	<string name="type.building">อาคาร</string>
 	<string name="type.building.address">อาคาร</string>
 	<string name="type.building.garage">อาคารจอดรถ</string>
@@ -1810,6 +1818,7 @@
 	<string name="type.leisure.fitness_station">ศูนย์ฟิตเนส</string>
 	<string name="type.leisure.garden">สวน</string>
 	<string name="type.leisure.golf_course">สนามกอล์ฟ</string>
+	<string name="type.leisure.nature_reserve">เขตอนุรักษ์ธรรมชาติ</string>
 	<string name="type.leisure.park">สวนสาธารณะ</string>
 	<string name="type.leisure.park.no.access">สวนสาธารณะ</string>
 	<string name="type.leisure.park.permissive">สวนสาธารณะ</string>
@@ -1838,7 +1847,10 @@
 	<string name="type.military.bunker">บังเกอร์</string>
 	<string name="type.natural.bay">อ่าว</string>
 	<string name="type.natural.beach">ชายหาด</string>
+	<string name="type.natural.cape">พื้นที่ยื่นเข้าไปในน้ำ</string>
 	<string name="type.natural.cave_entrance">ทางเข้าถ้ำ</string>
+	<string name="type.natural.geyser">นำ้พุร้อน</string>
+	<string name="type.natural.glacier">ธารน้ำแข็ง</string>
 	<string name="type.natural.lake">ทะเลสาบ</string>
 	<string name="type.natural.peak">จุดสูงสุด</string>
 	<string name="type.natural.pond">บ่อ</string>

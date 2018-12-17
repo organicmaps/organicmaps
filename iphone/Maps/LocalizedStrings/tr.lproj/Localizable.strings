@@ -2542,7 +2542,7 @@
 
 "ugc_route_edit_description_hint" = "Bir açıklama yazın (metin veya html)";
 
-"not_shared" = "Paylaşılmadı";
+"not_shared" = "Şahsi";
 
 "direct_link_progress_text" = "Dosyanız yükleniyor…";
 
@@ -2625,11 +2625,10 @@
 
 "notification_leave_review_content" = "Yorum bırakarak gezginlere yardım edin!";
 
-"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın: http://maps.me/get?kmz";
+"share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz";
 
 "camera_ahead_voiceover" = "İleride kamera var";
 
-/* FIXME next release 12.18 */
 "warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
 
 "warning_speedcams_subtitle" = "Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.";
@@ -2643,6 +2642,22 @@
 "whats_new_webeditor_title" = "Rotalarınızı hikayelere dönüştürün";
 
 "whats_new_ugc_routes_message2" = "Web editöre fotoğraflar ve detaylı hikayeler ekleyin.";
+
+"whatsnew_standard_routes_title" = "Standart rotalar";
+
+"whatsnew_standard_routes_message" = "Temel ilgi noktaları ve kısa açıklamalar kümesi fakat fazla deneyim!";
+
+"whatsnew_city_overview_title" = "Şehre genel bakış";
+
+"whatsnew_city_overview_message" = "Şehir haritasında 200'e kadar ilgi noktası: Gezginlerin yararlı ve ilginç bulabileceği her şey var!";
+
+"whatsnew_pro_guides_title" = "Profesyonel rotalar";
+
+"whatsnew_pro_guides_message" = "Yerlerin ayrıntılı açıklamaları ve yolculuk mesafesini ve zamanını hesaplama becerisi ile çok ayrıntılı";
+
+"whatsnew_paid_routes_title" = "Daha fazla yeni deneyimler!";
+
+"whatsnew_paid_routes_message" = "Ücretsiz rotalara ek olarak, kataloğumuza 3 ücretli rota kategorisi ekledik. 700'den fazla yeni rota!";
 
 
 /**********  Partners  **********/
@@ -2958,7 +2973,7 @@
 
 "type.boundary.administrative.suburb" = "boundary-administrative-suburb";
 
-"type.boundary.national_park" = "National Park";
+"type.boundary.national_park" = "Ulusal park";
 
 "type.building" = "Bina";
 
@@ -3590,7 +3605,7 @@
 
 "type.leisure.marina" = "leisure-marina";
 
-"type.leisure.nature_reserve" = "Nature Reserve";
+"type.leisure.nature_reserve" = "Doğal koruma alanı";
 
 "type.leisure.park" = "Park";
 
@@ -3698,7 +3713,7 @@
 
 "type.natural.beach" = "Plaj";
 
-"type.natural.cape" = "Cape";
+"type.natural.cape" = "Burun";
 
 "type.natural.cave_entrance" = "Entrée de la cave";
 
@@ -3706,9 +3721,9 @@
 
 "type.natural.coastline" = "natural-coastline";
 
-"type.natural.geyser" = "Geyser";
+"type.natural.geyser" = "Gayzer";
 
-"type.natural.glacier" = "Glacier";
+"type.natural.glacier" = "Buzul";
 
 "type.natural.grassland" = "natural-grassland";
 
