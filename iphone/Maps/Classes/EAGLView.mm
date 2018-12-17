@@ -48,11 +48,14 @@ double getExactDPI(double contentScaleFactor)
     return apiVersion;
   
 #ifdef OMIM_METAL_AVAILABLE
-  if (GetFramework().LoadMetalAllowed())
+  if (@available(iOS 10.0, *))
   {
-    id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
-    if (tempDevice)
-      apiVersion = dp::ApiVersion::Metal;
+    if (GetFramework().LoadMetalAllowed())
+    {
+      id<MTLDevice> tempDevice = MTLCreateSystemDefaultDevice();
+      if (tempDevice)
+        apiVersion = dp::ApiVersion::Metal;
+    }
   }
 #endif
   
