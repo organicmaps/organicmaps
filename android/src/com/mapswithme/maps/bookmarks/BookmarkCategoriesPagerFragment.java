@@ -58,6 +58,13 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     mDelegate.onSaveInstanceState(outState);
   }
 
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    mDelegate.onActivityResult(requestCode, resultCode, data);
+  }
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

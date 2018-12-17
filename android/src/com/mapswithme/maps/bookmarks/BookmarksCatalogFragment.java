@@ -168,6 +168,13 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   }
 
   @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    super.onActivityResult(requestCode, resultCode, data);
+    mDelegate.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
   public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
     mDelegate.onTargetFragmentResult(resultCode, data);
