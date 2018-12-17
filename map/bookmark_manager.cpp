@@ -2319,6 +2319,7 @@ void BookmarkManager::UploadToCatalog(kml::MarkGroupId categoryId, kml::AccessRu
     auto fileDataPtr = std::make_unique<kml::FileData>();
     auto const serverId = fileData->m_serverId;
     *fileDataPtr = std::move(*fileData);
+    ResetIds(*fileDataPtr);
     KMLDataCollection collection;
     collection.emplace_back(std::make_pair("", std::move(fileDataPtr)));
     CreateCategories(std::move(collection), true /* autoSave */);
