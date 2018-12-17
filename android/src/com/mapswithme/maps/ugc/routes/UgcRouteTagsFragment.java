@@ -221,6 +221,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
                                                                 false);
     mRecycler.setLayoutManager(layoutManager);
     mRecycler.setAdapter(compositeAdapter);
+    ActivityCompat.invalidateOptionsMenu(getActivity());
   }
 
   @NonNull
