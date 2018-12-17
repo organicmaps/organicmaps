@@ -310,7 +310,9 @@ id<MTLRenderPipelineState> MetalBaseContext::GetPipelineState(ref_ptr<GpuProgram
   CHECK(m_currentCommandEncoder != nil, ("Probably encoding commands were called before ApplyFramebuffer."));
   
   id<MTLTexture> colorTexture = m_renderPassDescriptor.colorAttachments[0].texture;
-  CHECK(colorTexture != nil, ());
+  // It can be nil in the case when Metal drawable is absent (e.g. finish rendering in background).
+  if (colorTexture == nil)
+    return nil;
   
   id<MTLTexture> depthTexture = m_renderPassDescriptor.depthAttachment.texture;
   MTLPixelFormat depthStencilFormat = (depthTexture != nil) ? depthTexture.pixelFormat : MTLPixelFormatInvalid;
