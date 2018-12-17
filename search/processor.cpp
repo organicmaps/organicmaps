@@ -257,9 +257,6 @@ void Processor::SetQuery(string const & query)
 
   RemoveStopWordsIfNeeded(m_tokens, m_prefix);
 
-  // Assign tokens and prefix to scorer.
-  m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
-
   // Get preferred types to show in results.
   m_preferredTypes.clear();
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
@@ -276,6 +273,9 @@ void Processor::SetQuery(string const & query)
       m_isCategorialRequest = true;
       m_preferredTypes = ftypes::IsEatChecker::Instance().GetTypes();
     }
+
+    // Assign tokens and prefix to scorer.
+    m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
   }
 
   if (!m_isCategorialRequest)

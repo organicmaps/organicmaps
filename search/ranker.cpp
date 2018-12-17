@@ -302,41 +302,48 @@ class RankerResultMaker
     info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
+    info.m_categorialRequest = m_params.IsCategorialRequest();
+    info.m_hasName = ft.HasName();
 
-    auto const nameScores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
-
-    auto nameScore = nameScores.m_nameScore;
-    auto errorsMade = nameScores.m_errorsMade;
-
-    if (info.m_type != Model::TYPE_STREET &&
-        preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
+    // We do not compare result name and request for categorial requests.
+    if (!m_params.IsCategorialRequest())
     {
-      auto const & mwmId = ft.GetID().m_mwmId;
-      FeatureType street;
-      if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
+      auto const nameScores =
+          GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+
+      auto nameScore = nameScores.m_nameScore;
+      auto errorsMade = nameScores.m_errorsMade;
+
+      if (info.m_type != Model::TYPE_STREET &&
+          preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
       {
-        auto const type = Model::TYPE_STREET;
-        auto const & range = preInfo.m_tokenRange[type];
-        auto const nameScores = GetNameScores(street, m_params, range, type);
+        auto const & mwmId = ft.GetID().m_mwmId;
+        FeatureType street;
+        if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
+        {
+          auto const type = Model::TYPE_STREET;
+          auto const & range = preInfo.m_tokenRange[type];
+          auto const nameScores = GetNameScores(street, m_params, range, type);
 
-        nameScore = min(nameScore, nameScores.m_nameScore);
-        errorsMade += nameScores.m_errorsMade;
+          nameScore = min(nameScore, nameScores.m_nameScore);
+          errorsMade += nameScores.m_errorsMade;
+        }
       }
-    }
 
-    if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
-    {
-      FeatureType city;
-      if (LoadFeature(preInfo.m_cityId, city))
+      if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
       {
-        auto const type = Model::TYPE_CITY;
-        auto const & range = preInfo.m_tokenRange[type];
-        errorsMade += GetErrorsMade(city, m_params, range, type);
+        FeatureType city;
+        if (LoadFeature(preInfo.m_cityId, city))
+        {
+          auto const type = Model::TYPE_CITY;
+          auto const & range = preInfo.m_tokenRange[type];
+          errorsMade += GetErrorsMade(city, m_params, range, type);
+        }
       }
-    }
 
-    info.m_nameScore = nameScore;
-    info.m_errorsMade = errorsMade;
+      info.m_nameScore = nameScore;
+      info.m_errorsMade = errorsMade;
+    }
 
     CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
                                         TokenSlice(m_params, preInfo.InnermostTokenRange()),

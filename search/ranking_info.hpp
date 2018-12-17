@@ -48,6 +48,12 @@ struct RankingInfo
   // tokens are categorial ones.
   bool m_falseCats = false;
 
+  // True iff the request is categorial.
+  bool m_categorialRequest = false;
+
+  // True iff the feature has a name.
+  bool m_hasName = false;
+
   static void PrintCSVHeader(std::ostream & os);
 
   void ToCSV(std::ostream & os) const;

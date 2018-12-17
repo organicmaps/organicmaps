@@ -20,7 +20,8 @@ MAX_POPULARITY = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
-FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'FalseCats', 'ErrorsMade', 'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'FalseCats', 'ErrorsMade', 'AllTokensUsed',
+            'CategorialRequest', 'HasName'] + NAME_SCORES + SEARCH_TYPES
 
 BOOTSTRAP_ITERATIONS = 10000
 

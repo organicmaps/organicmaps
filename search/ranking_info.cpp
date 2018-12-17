@@ -19,6 +19,7 @@ double constexpr kPopularity = 0.0500000;
 double constexpr kFalseCats = -0.3691859;
 double constexpr kErrorsMade = -0.0579812;
 double constexpr kAllTokensUsed = 0.0000000;
+double constexpr kHasName = 0.5;
 double constexpr kNameScore[NameScore::NAME_SCORE_COUNT] = {
   -0.7245815 /* Zero */,
   0.1853727 /* Substring */,
@@ -41,6 +42,7 @@ static_assert(kDistanceToPivot <= 0, "");
 static_assert(kRank >= 0, "");
 static_assert(kPopularity >= 0, "");
 static_assert(kErrorsMade <= 0, "");
+static_assert(kHasName >= 0, "");
 
 double TransformDistance(double distance)
 {
@@ -68,6 +70,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
 string DebugPrint(RankingInfo const & info)
 {
   ostringstream os;
+  os << boolalpha;
   os << "RankingInfo [";
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
@@ -77,7 +80,9 @@ string DebugPrint(RankingInfo const & info)
   os << "m_type:" << DebugPrint(info.m_type) << ",";
   os << "m_pureCats:" << info.m_pureCats << ",";
   os << "m_falseCats:" << info.m_falseCats << ",";
-  os << "m_allTokensUsed:" << boolalpha << info.m_allTokensUsed;
+  os << "m_allTokensUsed:" << info.m_allTokensUsed;
+  os << "m_categorialRequest:" << info.m_categorialRequest;
+  os << "m_hasName:" << info.m_hasName;
   os << "]";
   return os.str();
 }
@@ -93,7 +98,9 @@ void RankingInfo::ToCSV(ostream & os) const
   os << DebugPrint(m_type) << ",";
   os << m_pureCats << ",";
   os << m_falseCats << ",";
-  os << (m_allTokensUsed ? 1 : 0);
+  os << (m_allTokensUsed ? 1 : 0) << ",";
+  os << (m_categorialRequest ? 1 : 0) << ",";
+  os << (m_hasName ? 1 : 0);
 }
 
 double RankingInfo::GetLinearModelRank() const
@@ -122,11 +129,18 @@ double RankingInfo::GetLinearModelRank() const
   result += kDistanceToPivot * distanceToPivot;
   result += kRank * rank;
   result += kPopularity * popularity;
-  result += kNameScore[nameScore];
-  result += kErrorsMade * GetErrorsMade();
-  result += kType[m_type];
   result += m_falseCats * kFalseCats;
-  result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+  if (!m_categorialRequest)
+  {
+    result += kType[m_type];
+    result += kNameScore[nameScore];
+    result += kErrorsMade * GetErrorsMade();
+    result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+  }
+  else
+  {
+    result += m_hasName * kHasName;
+  }
   return result;
 }
 
