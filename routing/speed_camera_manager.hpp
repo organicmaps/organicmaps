@@ -121,7 +121,7 @@ private:
   static double constexpr kLookAheadDistanceMeters = 2000.0;
 
   static double constexpr kDistanceEpsilonMeters = 10.0;
-  static double constexpr kDistToReduceSpeedBeforeUnknownCameraM = 50.0;
+  static double constexpr kDistToReduceSpeedBeforeUnknownCameraM = 150.0;
   static double constexpr kInfluenceZoneMeters = 450.0;  // Influence zone of speed camera.
   // With this constant we calculate the distance for beep signal.
   // If beep signal happend, it must be before |kBeepSignalTime| seconds
