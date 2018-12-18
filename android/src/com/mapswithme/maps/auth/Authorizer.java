@@ -62,7 +62,12 @@ public class Authorizer implements AuthorizationListener
     }
 
     String name = SocialAuthDialogFragment.class.getName();
-    DialogFragment fragment = (DialogFragment) Fragment.instantiate(mFragment.getContext(), name);
+    DialogFragment fragment = (DialogFragment) mFragment.getChildFragmentManager()
+                                                        .findFragmentByTag(name);
+    if (fragment != null)
+      return;
+
+    fragment = (DialogFragment) Fragment.instantiate(mFragment.getContext(), name);
     // A communication with the SocialAuthDialogFragment is implemented via getParentFragment method
     // because of 'setTargetFragment' paradigm doesn't survive the activity configuration change
     // due to this issue https://issuetracker.google.com/issues/36969568
