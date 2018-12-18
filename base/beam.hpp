@@ -5,7 +5,7 @@
 
 #include <vector>
 
-namespace geocoder
+namespace base
 {
 // A data structure to perform the beam search with.
 // Maintains a list of (Key, Value) pairs sorted in the decreasing
@@ -52,10 +52,17 @@ public:
     m_entries.insert(it, e);
   }
 
+  // template <typename Fn>
+  // void ForEachEntry(Fn && fn) const
+  // {
+  //   for (Entry const & e : m_entries)
+  //     fn(e.m_key, e.m_value);
+  // }
+
   std::vector<Entry> const & GetEntries() const { return m_entries; }
 
 private:
   size_t m_capacity;
   std::vector<Entry> m_entries;
 };
-}  // namespace geocoder
+}  // namespace base

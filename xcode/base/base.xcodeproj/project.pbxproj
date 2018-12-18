@@ -35,6 +35,8 @@
 		3917FA6B211E010400937DF4 /* small_set_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67E40EC71E4DC0D500A6D200 /* small_set_test.cpp */; };
 		395FEB3521492F350036395C /* stl_helpers_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 395FEB3321492F320036395C /* stl_helpers_tests.cpp */; };
 		39BC0FD01FD057FA00B6C276 /* control_flow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39BC0FCF1FD057F900B6C276 /* control_flow.hpp */; };
+		39F1E52F21C961A900D961DC /* beam.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F1E52E21C961A800D961DC /* beam.hpp */; };
+		39F1E53121C961B800D961DC /* beam_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F1E53021C961B800D961DC /* beam_tests.cpp */; };
 		39FD271E1CC65AD000AFF551 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD27011CC65A2800AFF551 /* testingmain.cpp */; };
 		39FD271F1CC65AD000AFF551 /* assert_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26C81CC65A0E00AFF551 /* assert_test.cpp */; };
 		39FD27201CC65AD000AFF551 /* bits_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39FD26CA1CC65A0E00AFF551 /* bits_test.cpp */; };
@@ -170,6 +172,8 @@
 		39BC0FCF1FD057F900B6C276 /* control_flow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = control_flow.hpp; sourceTree = "<group>"; };
 		39BC707420F55B6700A6EC20 /* clustering_map_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clustering_map_tests.cpp; sourceTree = "<group>"; };
 		39BC707520F55B6700A6EC20 /* bwt_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bwt_tests.cpp; sourceTree = "<group>"; };
+		39F1E52E21C961A800D961DC /* beam.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = beam.hpp; sourceTree = "<group>"; };
+		39F1E53021C961B800D961DC /* beam_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = beam_tests.cpp; sourceTree = "<group>"; };
 		39F995DE20F55B8A0034F977 /* worker_thread_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = worker_thread_tests.cpp; sourceTree = "<group>"; };
 		39F995DF20F55B8A0034F977 /* move_to_front_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = move_to_front_tests.cpp; sourceTree = "<group>"; };
 		39F995E120F55B8A0034F977 /* suffix_array_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = suffix_array_tests.cpp; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 		39FD26C71CC659D200AFF551 /* base_tests */ = {
 			isa = PBXGroup;
 			children = (
+				39F1E53021C961B800D961DC /* beam_tests.cpp */,
 				395FEB3321492F320036395C /* stl_helpers_tests.cpp */,
 				3917FA60211E00F100937DF4 /* geo_object_id_tests.cpp */,
 				39F995DF20F55B8A0034F977 /* move_to_front_tests.cpp */,
@@ -383,6 +388,7 @@
 		675341791A3F57BF00A0A8C3 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				39F1E52E21C961A800D961DC /* beam.hpp */,
 				3D1BE645212D775500ACD94A /* atomic_shared_ptr.hpp */,
 				3917FA5E211E00C300937DF4 /* suffix_array.hpp */,
 				3917FA5A211E00BA00937DF4 /* pprof.cpp */,
@@ -553,6 +559,7 @@
 				3D78157B1F3D89EC0068B6AC /* waiter.hpp in Headers */,
 				675341CC1A3F57E400A0A8C3 /* assert.hpp in Headers */,
 				675341E01A3F57E400A0A8C3 /* logging.hpp in Headers */,
+				39F1E52F21C961A900D961DC /* beam.hpp in Headers */,
 				675341FB1A3F57E400A0A8C3 /* stats.hpp in Headers */,
 				675341DE1A3F57E400A0A8C3 /* limited_priority_queue.hpp in Headers */,
 				675341FE1A3F57E400A0A8C3 /* stl_iterator.hpp in Headers */,
@@ -675,6 +682,7 @@
 				3446C67D1DDCAA4900146687 /* uni_string_dfa_test.cpp in Sources */,
 				3917FA68211E010400937DF4 /* clustering_map_tests.cpp in Sources */,
 				3917FA65211E010400937DF4 /* visitor_tests.cpp in Sources */,
+				39F1E53121C961B800D961DC /* beam_tests.cpp in Sources */,
 				3917FA66211E010400937DF4 /* worker_thread_tests.cpp in Sources */,
 				3917FA6A211E010400937DF4 /* control_flow_tests.cpp in Sources */,
 				39FD27321CC65AD000AFF551 /* string_format_test.cpp in Sources */,

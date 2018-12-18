@@ -1,11 +1,11 @@
 #pragma once
 
-#include "geocoder/beam.hpp"
 #include "geocoder/hierarchy.hpp"
 #include "geocoder/index.hpp"
 #include "geocoder/result.hpp"
 #include "geocoder/types.hpp"
 
+#include "base/beam.hpp"
 #include "base/geo_object_id.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -113,7 +113,7 @@ public:
 
     // The highest value of certainty for a fixed amount of
     // the most relevant retrieved osm ids.
-    Beam<BeamKey, double> m_beam;
+    base::Beam<BeamKey, double> m_beam;
 
     std::vector<Layer> m_layers;
   };

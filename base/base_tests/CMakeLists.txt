@@ -5,6 +5,7 @@ add_definitions(-DOMIM_UNIT_TEST_DISABLE_PLATFORM_INIT)
 set(
   SRC
   assert_test.cpp
+  beam_tests.cpp
   bits_test.cpp
   buffer_vector_test.cpp
   bwt_tests.cpp

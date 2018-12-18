@@ -7,6 +7,7 @@ set(
   atomic_shared_ptr.hpp
   base.cpp
   base.hpp
+  beam.hpp
   bits.hpp
   buffer_vector.hpp
   bwt.cpp
