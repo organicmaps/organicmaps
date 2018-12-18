@@ -16,6 +16,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.bumptech.glide.Glide;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
+import com.mapswithme.maps.PurchaseOperationObservable;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.base.Detachable;
@@ -165,7 +166,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   public void onStart()
   {
     super.onStart();
-    Framework.nativeStartPurchaseTransactionListener(mPurchaseCallback);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(getContext());
+    observable.addTransactionObserver(mPurchaseCallback);
     mPurchaseController.addCallback(mPurchaseCallback);
     mPurchaseCallback.attach(this);
   }
@@ -174,7 +176,8 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   public void onStop()
   {
     super.onStop();
-    Framework.nativeStartPurchaseTransactionListener(null);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(getContext());
+    observable.removeTransactionObserver(mPurchaseCallback);
     mPurchaseController.removeCallback();
     mPurchaseCallback.detach();
   }
@@ -286,7 +289,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
 
   private static class BookmarkPurchaseCallback
       extends StatefulPurchaseCallback<BookmarkPaymentState, BookmarkPaymentFragment>
-      implements PurchaseCallback, Detachable<BookmarkPaymentFragment>, Framework.StartTransactionListener
+      implements PurchaseCallback, Detachable<BookmarkPaymentFragment>, CoreStartTransactionObserver
   {
     @Nullable
     private List<SkuDetails> mPendingDetails;

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.PurchaseValidationObservable;
+import com.mapswithme.maps.PurchaseOperationObservable;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -17,11 +17,11 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   @Nullable
   private ValidationCallback mCallback;
   @NonNull
-  private final PurchaseValidationObservable mValidationObservable;
+  private final PurchaseOperationObservable mOperationObservable;
 
-  DefaultPurchaseValidator(@NonNull PurchaseValidationObservable validationObservable)
+  DefaultPurchaseValidator(@NonNull PurchaseOperationObservable validationObservable)
   {
-    mValidationObservable = validationObservable;
+    mOperationObservable = validationObservable;
   }
 
   @Override
@@ -29,7 +29,7 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
                        @NonNull String purchaseData)
   {
     String orderId = PurchaseUtils.parseOrderId(purchaseData);
-    mValidationObservable.addObserver(orderId, this);
+    mOperationObservable.addValidationObserver(orderId, this);
     String encodedPurchaseData = Base64.encodeToString(purchaseData.getBytes(), Base64.DEFAULT);
     Framework.nativeValidatePurchase(serverId == null ? "" : serverId, vendor, encodedPurchaseData);
   }
@@ -52,7 +52,7 @@ class DefaultPurchaseValidator implements PurchaseValidator<ValidationCallback>,
   {
     LOGGER.i(TAG, "Validation code: " + status);
     String orderId = PurchaseUtils.parseOrderId(purchaseData);
-    mValidationObservable.removeObserver(orderId);
+    mOperationObservable.removeValidationObserver(orderId);
     if (mCallback != null)
       mCallback.onValidate(purchaseData, status);
   }

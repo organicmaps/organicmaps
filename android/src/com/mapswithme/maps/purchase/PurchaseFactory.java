@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.android.billingclient.api.BillingClient;
 import com.mapswithme.maps.PrivateVariables;
-import com.mapswithme.maps.PurchaseValidationObservable;
+import com.mapswithme.maps.PurchaseOperationObservable;
 import com.mapswithme.util.Utils;
 
 public class PurchaseFactory
@@ -22,7 +22,7 @@ public class PurchaseFactory
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.SUBS);
-    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     String yearlyProduct = PrivateVariables.adsRemovalYearlyProductId();
     String monthlyProduct = PrivateVariables.adsRemovalMonthlyProductId();
@@ -38,7 +38,7 @@ public class PurchaseFactory
   {
     BillingManager<PlayStoreBillingCallback> billingManager
         = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
-    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new BookmarkPurchaseController(validator, billingManager, productId, serverId);
   }
@@ -56,7 +56,7 @@ public class PurchaseFactory
   {
     BillingManager<PlayStoreBillingCallback> billingManager
       = new PlayStoreBillingManager(BillingClient.SkuType.INAPP);
-    PurchaseValidationObservable observable = PurchaseValidationObservable.from(context);
+    PurchaseOperationObservable observable = PurchaseOperationObservable.from(context);
     PurchaseValidator<ValidationCallback> validator = new DefaultPurchaseValidator(observable);
     return new FailedBookmarkPurchaseController(validator, billingManager);
   }
