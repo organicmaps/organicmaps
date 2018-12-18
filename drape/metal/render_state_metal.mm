@@ -24,7 +24,7 @@ void ApplyPipelineStateForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuPro
 {
   ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
   id<MTLRenderPipelineState> state = metalContext->GetPipelineState(std::move(program), blendingEnabled);
-  [metalContext->GetCommandEncoder() setRenderPipelineState:state];
+  metalContext->ApplyPipelineState(state);
 }
   
 void ApplyTexturesForMetal(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program,

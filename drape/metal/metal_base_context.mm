@@ -365,6 +365,7 @@ void MetalBaseContext::FinishCurrentEncoding()
   [m_currentCommandEncoder popDebugGroup];
   [m_currentCommandEncoder endEncoding];
   m_currentCommandEncoder = nil;
+  m_lastPipelineState = nil;
 }
   
 void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearColor,
@@ -373,6 +374,18 @@ void MetalBaseContext::SetSystemPrograms(drape_ptr<GpuProgram> && programClearCo
 {
   m_cleaner.Init(make_ref(this), std::move(programClearColor), std::move(programClearDepth),
                  std::move(programClearColorAndDepth));
+}
+  
+void MetalBaseContext::ApplyPipelineState(id<MTLRenderPipelineState> state)
+{
+  m_lastPipelineState = state;
+  if (state != nil)
+    [GetCommandEncoder() setRenderPipelineState:state];
+}
+  
+bool MetalBaseContext::HasAppliedPipelineState() const
+{
+  return m_lastPipelineState != nil;
 }
   
 void MetalBaseContext::DebugSynchronizeWithCPU()

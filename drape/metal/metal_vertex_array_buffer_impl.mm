@@ -37,6 +37,9 @@ public:
                    IndicesRange const & range) override
   {
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
+    if (!metalContext->HasAppliedPipelineState())
+      return;
+    
     id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
     
     uint32_t bufferIndex = 0;

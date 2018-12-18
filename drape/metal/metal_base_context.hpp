@@ -65,6 +65,9 @@ public:
                          drape_ptr<GpuProgram> && programClearDepth,
                          drape_ptr<GpuProgram> && programClearColorAndDepth);
   
+  void ApplyPipelineState(id<MTLRenderPipelineState> state);
+  bool HasAppliedPipelineState() const;
+  
 protected:
   void RecreateDepthTexture(m2::PointU const & screenSize);
   void RequestFrameDrawable();
@@ -84,6 +87,7 @@ protected:
   id<CAMetalDrawable> m_frameDrawable;
   id<MTLCommandBuffer> m_frameCommandBuffer;
   id<MTLRenderCommandEncoder> m_currentCommandEncoder;
+  id<MTLRenderPipelineState> m_lastPipelineState;
   
   MetalCleaner m_cleaner;
   

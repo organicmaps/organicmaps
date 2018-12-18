@@ -57,10 +57,13 @@ void MetalCleaner::RenderQuad(ref_ptr<MetalBaseContext> metalContext, id<MTLRend
                               ref_ptr<GpuProgram> program)
 {
   id<MTLRenderPipelineState> pipelineState = metalContext->GetPipelineState(program, false /* blendingEnabled */);
-  [encoder setRenderPipelineState:pipelineState];
-  
-  [encoder setVertexBuffer:m_buffer offset:0 atIndex:0];
-  [encoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
+  if (pipelineState != nil)
+  {
+    [encoder setRenderPipelineState:pipelineState];
+    
+    [encoder setVertexBuffer:m_buffer offset:0 atIndex:0];
+    [encoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
+  }
 }
   
 void MetalCleaner::ClearDepth(ref_ptr<MetalBaseContext> context, id<MTLRenderCommandEncoder> encoder)
