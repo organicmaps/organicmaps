@@ -62,6 +62,15 @@ enum BookmarkPaymentState
         void activate(@NonNull BookmarkPaymentFragment fragment)
         {
           hideProgress(fragment);
+          fragment.launchBillingFlow();
+        }
+      },
+  PAYMENT_IN_PROGRESS
+      {
+        @Override
+        void activate(@NonNull BookmarkPaymentFragment fragment)
+        {
+          // Do nothing by default.
         }
       },
   PAYMENT_FAILURE

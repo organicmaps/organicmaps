@@ -158,6 +158,7 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
   void launchBillingFlow()
   {
     mPurchaseController.launchPurchaseFlow(mPaymentData.getProductId());
+    activateState(BookmarkPaymentState.PAYMENT_IN_PROGRESS);
   }
 
   @Override
@@ -309,8 +310,6 @@ public class BookmarkPaymentFragment extends BaseMwmFragment
       }
 
       activateStateSafely(BookmarkPaymentState.TRANSACTION_STARTED);
-      if (getUiObject() != null)
-        getUiObject().launchBillingFlow();
     }
 
     @Override
