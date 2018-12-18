@@ -85,15 +85,15 @@ public:
   void DrawPrimitives(ref_ptr<dp::GraphicsContext> context, uint32_t verticesCount) override
   {
     ref_ptr<dp::metal::MetalBaseContext> metalContext = context;
-    if (metalContext->HasAppliedPipelineState())
-    {
-      id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
-      for (size_t i = 0; i < m_geometryBuffers.size(); i++)
-        [encoder setVertexBuffer:m_geometryBuffers[i] offset:0 atIndex:i];
-      
-      [encoder drawPrimitives:GetPrimitiveType(m_mesh->m_drawPrimitive) vertexStart:0
-                  vertexCount:verticesCount];
-    }
+    if (!metalContext->HasAppliedPipelineState())
+      return;
+    
+    id<MTLRenderCommandEncoder> encoder = metalContext->GetCommandEncoder();
+    for (size_t i = 0; i < m_geometryBuffers.size(); i++)
+      [encoder setVertexBuffer:m_geometryBuffers[i] offset:0 atIndex:i];
+    
+    [encoder drawPrimitives:GetPrimitiveType(m_mesh->m_drawPrimitive) vertexStart:0
+                vertexCount:verticesCount];
   }
   
 private:
