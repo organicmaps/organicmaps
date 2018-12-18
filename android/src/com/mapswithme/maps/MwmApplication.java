@@ -19,6 +19,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
+import com.mapswithme.maps.location.GeofenceRegistry;
+import com.mapswithme.maps.location.GeofenceRegistryImpl;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.maplayer.subway.SubwayManager;
@@ -78,6 +80,9 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private MediaPlayerWrapper mPlayer;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private GeofenceRegistry mGeofenceRegistry;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -165,6 +170,7 @@ public class MwmApplication extends Application
 
     mPurchaseValidationObservable = new PurchaseValidationObservable();
     mPlayer = new MediaPlayerWrapper(this);
+    mGeofenceRegistry = new GeofenceRegistryImpl(this);
   }
 
   private void initNotificationChannels()
@@ -345,6 +351,12 @@ public class MwmApplication extends Application
   public MediaPlayerWrapper getMediaPlayer()
   {
     return mPlayer;
+  }
+
+  @NonNull
+  public GeofenceRegistry getGeofenceRegistry()
+  {
+    return mGeofenceRegistry;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,

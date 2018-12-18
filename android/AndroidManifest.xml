@@ -568,20 +568,14 @@
         android:name="com.pushwoosh.location.GeoLocationService"/>
     <service android:name="com.mapswithme.util.push.GcmInstanceIDListenerService"/>
     <service android:name="com.mapswithme.util.push.GcmMessageHandlerService"/>
-
-
-    <receiver android:name="com.mapswithme.maps.GeofenceReceiver"
-
-              android:enabled="true"
-              android:exported="true">
-      <intent-filter >
-        <action android:name="com.aol.android.geofence.ACTION_RECEIVE_GEOFENCE"/>
-      </intent-filter>
-    </receiver>
     <service
       android:name="com.mapswithme.maps.scheduling.GeofenceTransitionsIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"
       android:exported="true"/>
+    <receiver android:name="com.mapswithme.maps.GeofenceReceiver"
+              android:enabled="true"
+              android:exported="true">
+    </receiver>
     <!-- Catches app upgraded intent -->
     <receiver android:name=".background.UpgradeReceiver">
       <intent-filter>

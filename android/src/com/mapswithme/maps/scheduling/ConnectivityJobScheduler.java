@@ -89,7 +89,7 @@ public class ConnectivityJobScheduler implements ConnectivityListener
           .Builder(jobId, component)
           .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
           .setPersisted(true)
-          .setMinimumLatency(1000 * 60 * 60)
+          .setMinimumLatency(TimeUnit.HOURS.toMillis(SCHEDULE_PERIOD_IN_HOURS))
           .build();
       mJobScheduler.schedule(jobInfo);
     }

@@ -3,14 +3,12 @@ package com.mapswithme.maps;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -31,12 +29,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.location.Geofence;
-import com.google.android.gms.location.GeofencingClient;
-import com.google.android.gms.location.GeofencingRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.mapswithme.maps.Framework.MapObjectListener;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.ads.LikesManager;
@@ -74,7 +66,6 @@ import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.geofence.GeoFenceFeature;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.maplayer.MapLayerCompositeController;
@@ -96,7 +87,6 @@ import com.mapswithme.maps.routing.RoutingBottomMenuListener;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.routing.RoutingPlanFragment;
 import com.mapswithme.maps.routing.RoutingPlanInplaceController;
-import com.mapswithme.maps.scheduling.GeofenceTransitionsIntentService;
 import com.mapswithme.maps.search.BookingFilterParams;
 import com.mapswithme.maps.search.FilterActivity;
 import com.mapswithme.maps.search.FloatingSearchToolbarController;
@@ -144,11 +134,9 @@ import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
-import java.util.concurrent.TimeUnit;
 
 public class MwmActivity extends BaseMwmFragmentActivity
                       implements MapObjectListener,
@@ -609,65 +597,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     initTips();
-    GeofencingClient geofencingClient = LocationServices.getGeofencingClient(this);
-
-    Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
-    if (lastKnownLocation == null)
-      return;
-    List<GeoFenceFeature> adsFeatures = LightFramework.getLocalAdsFeatures(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 50 * 1000, 20);
-    List<Geofence> geofences = new ArrayList<>();
-    Geofence geofence = new Geofence.Builder()
-        // Set the request ID of the geofence. This is a string to identify this
-        // geofence.
-
-        .setRequestId(String.valueOf(System.currentTimeMillis()))
-        .setCircularRegion(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 100)
-        .setExpirationDuration(Geofence.NEVER_EXPIRE)
-        .setLoiteringDelay(5000)
-        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
-        .build();
-
-    geofences.add(geofence);
-    for (GeoFenceFeature each : adsFeatures)
-    {
-
-
-    }
-    GeofencingRequest geofencingRequest = getGeofencingRequest(geofences);
-
-    geofencingClient.addGeofences(geofencingRequest, getGeofencePendingIntent()).addOnSuccessListener(new OnSuccessListener<Void>()
-
-
-    {
-      @Override
-      public void onSuccess(Void aVoid)
-      {
-
-      }
-    }).addOnFailureListener(new OnFailureListener()
-    {
-      @Override
-      public void onFailure(@NonNull Exception e)
-      {
-
-      }
-    });
-  }
-  private PendingIntent getGeofencePendingIntent() {
-    // Reuse the PendingIntent if we already have it.
-    PendingIntent mGeofencePendingIntent = null;
-    Intent intent = new Intent(this, GeofenceTransitionsIntentService.class);
-    // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
-    // addGeofences() and removeGeofences().
-    mGeofencePendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    return mGeofencePendingIntent;
-  }
-
-  private GeofencingRequest getGeofencingRequest(List<Geofence> mGeofenceList) {
-    GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-    builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL);
-    builder.addGeofences(mGeofenceList);
-    return builder.build();
   }
 
   private void initViews()
