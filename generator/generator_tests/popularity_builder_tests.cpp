@@ -15,6 +15,7 @@
 #include "base/scope_guard.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <iterator>
 #include <map>
 #include <string>
@@ -134,6 +135,7 @@ public:
     auto const nameToNode = GetPlacesMap(geomPlaces);
     auto const m = PopularityBuilder::GetAreaMap(geomPlaces);
     auto const tree = PopularityBuilder::MakeTree4d(geomPlaces);
+
     {
       auto const t = PopularityBuilder::FindPopularityGeomPlaceParent(nameToNode.at("1_2")->GetData(), m, tree);
       TEST(t, ());
@@ -221,7 +223,7 @@ public:
     TEST_EQUAL(nameToNode.at("1_3")->GetParent(), nameToNode.at("1"), ());
   }
 
-  void MakeNodes() const
+  static void MakeNodes()
   {
     std::vector<FeatureBuilder1> v = FilterArea(m_testSet);
     auto const nodes = PopularityBuilder::MakeNodes(v);
@@ -233,7 +235,10 @@ public:
   void Build() const
   {
     auto const filename = GetFileName();
-    auto const testSet = AddTypes(m_testSet);
+    auto const type = m_cl.GetTypeByPath({"tourism", "museum"});
+    auto const typeName = m_cl.GetReadableObjectName(type);
+    auto const testSet = AddTypes(m_testSet, {type});
+
     {
       feature::FeaturesCollector collector(filename);
       for (auto const & feature : testSet)
@@ -251,7 +256,6 @@ public:
       Platform::RemoveFileIfExists(filename);
     });
 
-    auto const typeName = m_cl.GetReadableObjectName(m_cl.GetTypeByPath({"tourism", "museum"}));
     TEST_EQUAL(lines.size(), testSet.size(), ());
     TEST(!m.at("1").m_parent, ());
     TEST_EQUAL(m.at("1").m_type,  typeName, ());
@@ -278,6 +282,7 @@ private:
   {
     std::vector<FeatureBuilder1> v;
     v.reserve(5);
+
     {
       FeatureBuilder1 feature;
       feature.AddOsmId(base::GeoObjectId(1));
@@ -291,7 +296,6 @@ private:
       feature.AddName("default", "1");
       v.push_back(feature);
     }
-
 
     {
       FeatureBuilder1 feature;
@@ -381,10 +385,13 @@ private:
     return nodes;
   }
 
-  static std::vector<FeatureBuilder1> AddTypes(std::vector<FeatureBuilder1> v)
+  static std::vector<FeatureBuilder1> AddTypes(std::vector<FeatureBuilder1> v, std::vector<uint32_t> const & types)
   {
     for (auto & feature : v)
-      feature.AddType(m_cl.GetTypeByPath({"tourism", "museum"}));
+    {
+      for (auto const & type : types)
+        feature.AddType(type);
+    }
 
     return v;
   }
