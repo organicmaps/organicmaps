@@ -405,13 +405,23 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType & ft) const
 IsPopularityPlaceChecker::IsPopularityPlaceChecker()
 {
   vector<pair<string, string>> const popularityPlaceTypes = {
+
     {"amenity", "bar"},
+    {"amenity", "biergarten"},
     {"amenity", "cafe"},
+    {"amenity", "cinema"},
     {"amenity", "fast_food"},
+    {"amenity", "fountain"},
     {"amenity", "pub"},
     {"amenity", "restaurant"},
     {"amenity", "place_of_worship"},
     {"amenity", "grave_yard"},
+    {"amenity", "theatre"},
+    {"amenity", "nightclub"},
+    {"amenity", "marketplace"},
+    {"amenity", "casino"},
+    {"amenity", "townhall"},
+    {"highway", "pedestrian"},
     {"historic", "archaeological_site"},
     {"historic", "castle"},
     {"historic", "memorial"},
@@ -420,11 +430,6 @@ IsPopularityPlaceChecker::IsPopularityPlaceChecker()
     {"historic", "ruins"},
     {"historic", "ship"},
     {"historic", "tomb"},
-    {"shop", "bakery"},
-    {"shop", "bicycle"},
-    {"shop", "department_store"},
-    {"shop", "outdoor"},
-    {"shop", "ticket"},
     {"tourism", "artwork"},
     {"tourism", "attraction"},
     {"tourism", "museum"},
@@ -432,11 +437,15 @@ IsPopularityPlaceChecker::IsPopularityPlaceChecker()
     {"tourism", "viewpoint"},
     {"tourism", "zoo"},
     {"tourism", "theme_park"},
+    {"leisure", "garden"},
     {"leisure", "park"},
     {"leisure", "water_park"},
     {"landuse", "cemetery"},
-    {"highway", "pedestrian"},
-    {"man_made", "lighthouse"}
+    {"man_made", "lighthouse"},
+    {"natural", "geyser"},
+    {"natural", "peak"},
+    {"shop", "bakery"},
+    {"waterway", "waterfall"}
   };
 
   Classificator const & c = classif();
