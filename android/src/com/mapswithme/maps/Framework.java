@@ -347,6 +347,8 @@ public class Framework
   @Nullable
   public static native String[] nativeGenerateNotifications();
 
+  private static native void nativeSetSpeedCamManagerMode(int mode);
+
   public static native void nativeSetRoutingListener(RoutingListener listener);
 
   public static native void nativeSetRouteProgressListener(RoutingProgressListener listener);
@@ -524,5 +526,7 @@ public class Framework
   public static native MapObject nativeGetMapObject(
       @NonNull NotificationCandidate.MapObject mapObject);
 
-  private static native void nativeSetSpeedCamManagerMode(int mode);
+  public static native void nativeOnBatteryLevelChanged(int level);
+  public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
+  public static native void nativeSetPowerManagerConfig(int configType);
 }

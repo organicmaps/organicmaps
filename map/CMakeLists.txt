@@ -87,6 +87,8 @@ set(
   notifications/notification_queue_storage.hpp
   place_page_info.cpp
   place_page_info.hpp
+  power_manager/power_manager.cpp
+  power_manager/power_manager.hpp
   purchase.cpp
   purchase.hpp
   reachable_by_taxi_checker.cpp

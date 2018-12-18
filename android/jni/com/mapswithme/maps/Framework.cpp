@@ -41,10 +41,12 @@
 #include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/sunrise_sunset.hpp"
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <utility>
@@ -101,6 +103,7 @@ Framework::Framework()
 {
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
   m_work.GetTransitManager().SetStateListener(bind(&Framework::TransitSchemeStateChanged, this, _1));
+  m_work.GetPowerManager().Subscribe(this);
 }
 
 void Framework::OnLocationError(int errorCode)
@@ -591,6 +594,12 @@ void Framework::EnableDownloadOn3g()
 {
   m_work.GetDownloadingPolicy().EnableCellularDownload(true);
 }
+
+void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
+{
+  m_work.DisableAdProvider(type, place);
+}
+
 uint64_t Framework::RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
                                         ms::LatLon const & to,
                                         taxi::SuccessCallback const & onSuccess,
@@ -672,9 +681,16 @@ void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double l
   m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
 
-void Framework::DisableAdProvider(ads::Banner::Type const type, ads::Banner::Place const place)
+void Framework::OnFacilityStateChanged(PowerManager::Facility const facility, bool state)
 {
-  m_work.DisableAdProvider(type, place);
+  // Dummy
+  // TODO: provide information for UI Properties.
+}
+
+void Framework::OnConfigChanged(PowerManager::Config const actualConfig)
+{
+  // Dummy
+  // TODO: provide information for UI Properties.
 }
 }  // namespace android
 
@@ -1949,5 +1965,28 @@ Java_com_mapswithme_maps_Framework_nativeGetMapObject(JNIEnv * env, jclass,
     return usermark_helper::CreateMapObject(env, info);
 
   return nullptr;
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeOnBatteryLevelChanged(JNIEnv *, jclass, jint level)
+{
+  CHECK_GREATER_OR_EQUAL(level, 0, ());
+  CHECK_LESS_OR_EQUAL(level, 100, ());
+
+  frm()->GetPowerManager().OnBatteryLevelChanged(static_cast<uint8_t>(level));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclass,
+                                                                 jint facilityType, jboolean state)
+{
+  frm()->GetPowerManager().SetFacility(static_cast<PowerManager::Facility>(facilityType),
+                                              static_cast<bool>(state));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetPowerManagerConfig(JNIEnv *, jclass, jint configType)
+{
+  frm()->GetPowerManager().SetConfig(static_cast<PowerManager::Config>(configType));
 }
 }  // extern "C"

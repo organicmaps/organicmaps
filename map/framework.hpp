@@ -12,6 +12,7 @@
 #include "map/mwm_url.hpp"
 #include "map/notifications/notification_manager.hpp"
 #include "map/place_page_info.hpp"
+#include "map/power_manager/power_manager.hpp"
 #include "map/purchase.hpp"
 #include "map/routing_manager.hpp"
 #include "map/routing_mark.hpp"
@@ -143,7 +144,8 @@ struct FrameworkParams
 class Framework : public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
                   public TipsApi::Delegate,
-                  public notifications::NotificationManager::Delegate
+                  public notifications::NotificationManager::Delegate,
+                  public PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
 
@@ -911,6 +913,7 @@ private:
   std::unique_ptr<Purchase> m_purchase;
   TipsApi m_tipsApi;
   notifications::NotificationManager m_notificationManager;
+  PowerManager m_powerManager;
 
 public:
   TipsApi const & GetTipsApi() const;
@@ -920,4 +923,9 @@ public:
   double GetLastBackgroundTime() const override;
 
   bool MakePlacePageInfo(eye::MapObject const & mapObject, place_page::Info & info) const;
+
+  PowerManager & GetPowerManager() { return m_powerManager; }
+
+  // PowerManager::Subscriber override.
+  void OnFacilityStateChanged(PowerManager::Facility const facility, bool state) override;
 };
