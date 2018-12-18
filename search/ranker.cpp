@@ -540,7 +540,15 @@ void Ranker::UpdateResults(bool lastUpdate)
     }
 
     if (!lastUpdate)
+    {
       BailIfCancelled();
+
+      // For categorial requests, it is usual that several batches arrive
+      // in the first call to UpdateResults(). Emit them as soon as they are available
+      // to improve responsiveness.
+      if (count % m_params.m_batchSize == 0)
+        m_emitter.Emit();
+    }
 
     auto const & rankerResult = m_tentativeResults[i];
 
