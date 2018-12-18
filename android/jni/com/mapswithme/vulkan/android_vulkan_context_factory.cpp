@@ -1,0 +1,324 @@
+#include "android_vulkan_context_factory.hpp"
+
+#include "com/mapswithme/platform/Platform.hpp"
+
+#include "drape/vulkan/vulkan_utils.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/macros.hpp"
+#include "base/src_point.hpp"
+
+#include <vector>
+
+namespace android
+{
+namespace
+{
+char const * kInstanceExtensions[] = {"VK_KHR_surface", "VK_KHR_android_surface"};
+char const * kDeviceExtensions[] = {"VK_KHR_swapchain"};
+
+class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
+{
+public:
+  DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
+                    VkDevice device)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device)
+  {}
+};
+
+class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
+{
+public:
+  UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
+                      VkDevice device)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device)
+  {}
+
+  void Present() override {}
+  void MakeCurrent() override {}
+  void Resize(int w, int h) override {}
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override {}
+  void Init(dp::ApiVersion apiVersion) override
+  {
+    CHECK_EQUAL(apiVersion, dp::ApiVersion::Vulkan, ());
+  }
+
+  void SetClearColor(dp::Color const & color) override {}
+  void Clear(uint32_t clearBits, uint32_t storeBits) override {}
+  void Flush() override {}
+  void SetDepthTestEnabled(bool enabled) override {}
+  void SetDepthTestFunction(dp::TestFunction depthFunction) override {}
+  void SetStencilTestEnabled(bool enabled) override {}
+  void SetStencilFunction(dp::StencilFace face,
+                          dp::TestFunction stencilFunction) override {}
+  void SetStencilActions(dp::StencilFace face,
+                         dp::StencilAction stencilFailAction,
+                         dp::StencilAction depthFailAction,
+                         dp::StencilAction passAction) override {}
+};
+}  // namespace
+
+AndroidVulkanContextFactory::AndroidVulkanContextFactory()
+{
+  if (InitVulkan() == 0)
+  {
+    LOG(LDEBUG, ("Vulkan error: Could not initialize Vulkan library"));
+    return;
+  }
+
+  VkApplicationInfo appInfo;
+  appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+  appInfo.pNext = nullptr;
+  appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 0);
+  // Vulkan is available since the following version of the app.
+  appInfo.applicationVersion = VK_MAKE_VERSION(9, 0, 0);
+  appInfo.engineVersion = VK_MAKE_VERSION(9, 0, 0);
+  appInfo.pApplicationName = "MAPS.ME";
+  appInfo.pEngineName = "Drape Engine";
+
+  VkInstanceCreateInfo instanceCreateInfo;
+  instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+  instanceCreateInfo.pNext = nullptr;
+  instanceCreateInfo.pApplicationInfo = &appInfo;
+  instanceCreateInfo.enabledExtensionCount = ARRAY_SIZE(kInstanceExtensions);
+  instanceCreateInfo.ppEnabledExtensionNames = kInstanceExtensions;
+  instanceCreateInfo.enabledLayerCount = 0;
+  instanceCreateInfo.ppEnabledLayerNames = nullptr;
+
+  VkResult statusCode;
+  statusCode = vkCreateInstance(&instanceCreateInfo, nullptr, &m_vulkanInstance);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkCreateInstance finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return;
+  }
+
+  uint32_t gpuCount = 0;
+  statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, nullptr);
+  if (statusCode != VK_SUCCESS || gpuCount == 0)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkEnumeratePhysicalDevices finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return;
+  }
+
+  VkPhysicalDevice tmpGpus[gpuCount];
+  statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, tmpGpus);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkEnumeratePhysicalDevices finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return;
+  }
+  m_gpu = tmpGpus[0];
+
+  uint32_t queueFamilyCount;
+  vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount, nullptr);
+  if (queueFamilyCount == 0)
+  {
+    LOG(LDEBUG, ("Vulkan error: Any queue family wasn't found"));
+    return;
+  }
+
+  std::vector<VkQueueFamilyProperties> queueFamilyProperties(queueFamilyCount);
+  vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount,
+                                           queueFamilyProperties.data());
+
+  uint32_t queueFamilyIndex = 0;
+  for (; queueFamilyIndex < queueFamilyCount; ++queueFamilyIndex)
+  {
+    if (queueFamilyProperties[queueFamilyIndex].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+      break;
+  }
+  if (queueFamilyIndex == queueFamilyCount)
+  {
+    LOG(LDEBUG, ("Vulkan error: Any queue family with VK_QUEUE_GRAPHICS_BIT wasn't found"));
+    return;
+  }
+
+  float priorities[] = {1.0f};
+  VkDeviceQueueCreateInfo queueCreateInfo;
+  queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+  queueCreateInfo.pNext = nullptr;
+  queueCreateInfo.flags = 0;
+  queueCreateInfo.queueCount = 1;
+  queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
+  queueCreateInfo.pQueuePriorities = priorities;
+
+  VkDeviceCreateInfo deviceCreateInfo;
+  deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+  deviceCreateInfo.pNext = nullptr;
+  deviceCreateInfo.queueCreateInfoCount = 1;
+  deviceCreateInfo.pQueueCreateInfos = &queueCreateInfo;
+  deviceCreateInfo.enabledLayerCount = 0;
+  deviceCreateInfo.ppEnabledLayerNames = nullptr;
+  deviceCreateInfo.enabledExtensionCount = ARRAY_SIZE(kDeviceExtensions);
+  deviceCreateInfo.ppEnabledExtensionNames = kDeviceExtensions;
+  deviceCreateInfo.pEnabledFeatures = nullptr;
+
+  statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkCreateDevice finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return;
+  }
+
+  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, m_device);
+  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, m_device);
+}
+
+AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
+{
+  if (m_device != nullptr)
+    vkDestroyDevice(m_device, nullptr);
+
+  if (m_vulkanInstance != nullptr)
+    vkDestroyInstance(m_vulkanInstance, nullptr);
+}
+
+void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
+{
+  if (!jsurface)
+  {
+    LOG(LINFO, ("Vulkan error: Java surface is not found"));
+    return;
+  }
+
+  m_nativeWindow = ANativeWindow_fromSurface(env, jsurface);
+  if (!m_nativeWindow)
+  {
+    LOG(LINFO, ("Vulkan error: Can't get native window from Java surface"));
+    return;
+  }
+
+  VkAndroidSurfaceCreateInfoKHR createInfo;
+  createInfo.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
+  createInfo.pNext = nullptr;
+  createInfo.flags = 0;
+  createInfo.window = m_nativeWindow;
+
+  VkResult statusCode;
+  statusCode = vkCreateAndroidSurfaceKHR(m_vulkanInstance, &createInfo, nullptr,
+                                         &m_surface);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkCreateAndroidSurfaceKHR finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return;
+  }
+
+  if (!QuerySurfaceSize())
+    return;
+
+  if (m_drawContext)
+    m_drawContext->SetSurface(m_surface);
+
+  m_windowSurfaceValid = true;
+}
+
+bool AndroidVulkanContextFactory::QuerySurfaceSize()
+{
+  VkSurfaceCapabilitiesKHR surfaceCapabilities;
+  auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface,
+                                                              &surfaceCapabilities);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG(LDEBUG, ("Vulkan error: vkGetPhysicalDeviceSurfaceCapabilitiesKHR finished with code",
+                 dp::vulkan::GetVulkanResultString(statusCode)));
+    return false;
+  }
+
+  m_surfaceWidth = static_cast<int>(surfaceCapabilities.currentExtent.width);
+  m_surfaceHeight = static_cast<int>(surfaceCapabilities.currentExtent.height);
+  return true;
+}
+
+void AndroidVulkanContextFactory::ResetSurface()
+{
+  if (m_drawContext)
+    m_drawContext->ResetSurface();
+
+  if (m_windowSurfaceValid)
+  {
+    ASSERT(m_vulkanInstance != nullptr,());
+    vkDestroySurfaceKHR(m_vulkanInstance, m_surface, nullptr);
+    m_surface = 0;
+
+    ANativeWindow_release(m_nativeWindow);
+    m_nativeWindow = nullptr;
+
+    m_windowSurfaceValid = false;
+  }
+}
+
+bool AndroidVulkanContextFactory::IsVulkanSupported() const
+{
+  return m_vulkanInstance != nullptr && m_gpu != nullptr && m_device != nullptr;
+}
+
+bool AndroidVulkanContextFactory::IsValid() const
+{
+  return IsVulkanSupported() && m_windowSurfaceValid;
+}
+
+int AndroidVulkanContextFactory::GetWidth() const
+{
+  ASSERT(IsValid(), ());
+  return m_surfaceWidth;
+}
+
+int AndroidVulkanContextFactory::GetHeight() const
+{
+  ASSERT(IsValid(), ());
+  return m_surfaceHeight;
+}
+
+void AndroidVulkanContextFactory::UpdateSurfaceSize(int w, int h)
+{
+  ASSERT(IsValid(), ());
+  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
+      (m_surfaceHeight != w && m_surfaceHeight != h))
+  {
+    LOG(LINFO, ("Surface size changed and must be re-queried."));
+    if (!QuerySurfaceSize())
+    {
+      m_surfaceWidth = w;
+      m_surfaceHeight = h;
+    }
+  }
+  else
+  {
+    m_surfaceWidth = w;
+    m_surfaceHeight = h;
+  }
+}
+
+dp::GraphicsContext * AndroidVulkanContextFactory::GetDrawContext()
+{
+  return m_drawContext.get();
+}
+
+dp::GraphicsContext * AndroidVulkanContextFactory::GetResourcesUploadContext()
+{
+  return m_uploadContext.get();
+}
+
+bool AndroidVulkanContextFactory::IsDrawContextCreated() const
+{
+  return m_drawContext != nullptr;
+}
+
+bool AndroidVulkanContextFactory::IsUploadContextCreated() const
+{
+  return m_uploadContext != nullptr;
+}
+
+void AndroidVulkanContextFactory::SetPresentAvailable(bool available)
+{
+  if (m_drawContext)
+    m_drawContext->SetPresentAvailable(available);
+}
+}  // namespace android

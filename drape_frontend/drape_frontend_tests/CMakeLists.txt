@@ -32,6 +32,7 @@ omim_link_libraries(
   stb_image
   sdf_image
   icu
+  vulkan_wrapper
   ${LIBZ}
 )
 

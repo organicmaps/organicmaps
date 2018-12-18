@@ -101,6 +101,7 @@ omim_link_libraries(
   opening_hours
   stb_image
   sdf_image
+  vulkan_wrapper
   ${Qt5Gui_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}

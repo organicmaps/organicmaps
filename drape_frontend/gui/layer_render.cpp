@@ -390,6 +390,7 @@ m2::PointF LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context,
     case dp::ApiVersion::OpenGLES2: apiLabel = "GL2"; break;
     case dp::ApiVersion::OpenGLES3: apiLabel = "GL3"; break;
     case dp::ApiVersion::Metal: apiLabel = "M"; break;
+    case dp::ApiVersion::Vulkan: apiLabel = "V"; break;
     case dp::ApiVersion::Invalid: CHECK(false, ("Invalid API version.")); break;
     }
     return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel);

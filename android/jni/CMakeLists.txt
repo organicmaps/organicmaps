@@ -13,6 +13,8 @@ include_directories(
   ${OMIM_ROOT}/3party/icu/i18n
   ${OMIM_ROOT}/3party/stb_image
   ${OMIM_ROOT}/3party/sdf_image
+  ${OMIM_ROOT}/3party/Vulkan-Headers/include
+  ${OMIM_ROOT}/3party/vulkan_wrapper
   ${OMIM_ROOT}/android/jni
 )
 
@@ -89,6 +91,8 @@ set(
   com/mapswithme/util/NetworkPolicy.cpp
   com/mapswithme/util/StringUtils.cpp
   com/mapswithme/util/statistics/PushwooshHelper.cpp
+  com/mapswithme/vulkan/android_vulkan_context_factory.cpp
+  com/mapswithme/vulkan/android_vulkan_context_factory.hpp
 )
 
 omim_add_library(mapswithme SHARED ${SRC})
@@ -142,4 +146,5 @@ target_link_libraries(
   sdf_image
   icu
   agg
+  vulkan_wrapper
 )

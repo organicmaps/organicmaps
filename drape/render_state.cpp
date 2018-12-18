@@ -223,6 +223,10 @@ void TextureState::ApplyTextures(ref_ptr<GraphicsContext> context, RenderState c
     ApplyTexturesForMetal(context, program, state);
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
   else
   {
     CHECK(false, ("Unsupported API version."));
@@ -248,6 +252,10 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     ApplyPipelineStateForMetal(context, program, state.GetBlending().m_isEnabled);
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
   else
   {
     state.GetBlending().Apply(context, program);
@@ -264,6 +272,10 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     ApplyDepthStencilStateForMetal(context);
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
 
   // Metal does not support line width.
   if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
@@ -271,5 +283,7 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
     GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
   }
+
+  //TODO(@rokuz, @darina): Check if Vulkan support line width.
 }
 }  // namespace dp

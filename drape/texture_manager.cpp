@@ -269,7 +269,7 @@ bool TextureManager::UpdateDynamicTextures(ref_ptr<dp::GraphicsContext> context)
       return m_uploadTimer.ElapsedSeconds() < kUploadTimeoutInSeconds;
     }
 
-    if (apiVersion == dp::ApiVersion::Metal)
+    if (apiVersion == dp::ApiVersion::Metal || apiVersion == dp::ApiVersion::Vulkan)
       return false;
 
     CHECK(false, ("Unsupported API version."));

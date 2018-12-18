@@ -211,6 +211,10 @@ void VertexArrayBuffer::Build(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgr
       m_impl = CreateImplForMetal(make_ref(this));
 #endif
     }
+    else if (apiVersion == dp::ApiVersion::Vulkan)
+    {
+      //TODO(@rokuz, @darina): Implement.
+    }
     else
     {
       CHECK(false, ("Unsupported API version."));

@@ -48,6 +48,10 @@ void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target t
     }
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
   else
   {
     CHECK(false, ("Unsupported API version."));

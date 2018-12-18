@@ -54,11 +54,14 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
     LOG(LINFO, ("NVidia Tegra device detected."));
 
   // Metal does not support thick lines.
-  if (context->GetApiVersion() != dp::ApiVersion::Metal)
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
     m_maxLineWidth = std::max(1, GLFunctions::glGetMaxLineWidth());
     LOG(LINFO, ("Max line width =", m_maxLineWidth));
   }
+
+  //TODO(@rokuz, @darina): Check if Vulkan support line width.
 
   // Set up default antialiasing value.
   // Turn off AA for a while by energy-saving issues.

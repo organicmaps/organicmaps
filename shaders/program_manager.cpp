@@ -26,6 +26,10 @@ void ProgramManager::Init(ref_ptr<dp::GraphicsContext> context)
     InitForMetal(context);
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
   else
   {
     CHECK(false, ("Unsupported API version."));

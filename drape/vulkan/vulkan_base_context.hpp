@@ -5,6 +5,11 @@
 
 #include "geometry/point2d.hpp"
 
+#include <vulkan_wrapper.h>
+#include <vulkan/vulkan.h>
+
+#include <boost/optional.hpp>
+
 #include <cstdint>
 
 namespace dp
@@ -14,8 +19,9 @@ namespace vulkan
 class VulkanBaseContext : public dp::GraphicsContext
 {
 public:
-  VulkanBaseContext(m2::PointU const & screenSize);
-  
+  VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
+                    VkDevice device);
+
   void Present() override {}
   void MakeCurrent() override {}
   void DoneCurrent() override {}
@@ -25,8 +31,8 @@ public:
   void ApplyFramebuffer(std::string const & framebufferLabel) override {}
   void Init(ApiVersion apiVersion) override {}
   ApiVersion GetApiVersion() const override { return dp::ApiVersion::Vulkan; }
-  std::string GetRendererName() const override { return ""; }
-  std::string GetRendererVersion() const override { return ""; }
+  std::string GetRendererName() const override;
+  std::string GetRendererVersion() const override;
 
   void DebugSynchronizeWithCPU() override {}
   void PushDebugLabel(std::string const & label) override {}
@@ -44,7 +50,19 @@ public:
                          StencilAction depthFailAction, StencilAction passAction) override {}
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
 
+  void SetSurface(VkSurfaceKHR surface);
+  void ResetSurface();
+
 protected:
+  VkInstance const m_vulkanInstance;
+  VkPhysicalDevice const m_gpu;
+  VkDevice const m_device;
+
+  VkPhysicalDeviceProperties m_gpuProperties;
+
+  boost::optional<VkSurfaceKHR> m_surface;
+  m2::PointU m_maxTextureSize;
+
   uint32_t m_stencilReferenceValue = 1;
 };
 }  // namespace vulkan

@@ -56,6 +56,7 @@ omim_link_libraries(
   gmock
   stb_image
   sdf_image
+  vulkan_wrapper
   ${Qt5Core_LIBRARIES}
   ${Qt5Gui_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}

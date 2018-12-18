@@ -9,6 +9,8 @@ include_directories(
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/icu/common
   ${OMIM_ROOT}/3party/icu/i18n
+  ${OMIM_ROOT}/3party/Vulkan-Headers/include
+  ${OMIM_ROOT}/3party/vulkan_wrapper
 )
 
 set(
@@ -148,8 +150,10 @@ endif()
 
 append(
   SRC
-  vulkan/vulkan_base_context.hpp
   vulkan/vulkan_base_context.cpp
+  vulkan/vulkan_base_context.hpp
+  vulkan/vulkan_utils.cpp
+  vulkan/vulkan_utils.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})

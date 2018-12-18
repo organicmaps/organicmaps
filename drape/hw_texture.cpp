@@ -263,6 +263,13 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
     return nullptr;
   }
 
+  if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+    CHECK(false, ());
+    return nullptr;
+  }
+
   if (apiVersion == dp::ApiVersion::OpenGLES3)
     return make_unique_dp<OpenGLHWTextureAllocator>();
 
@@ -276,12 +283,20 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
 ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> context)
 {
   CHECK(context != nullptr, ());
-  if (context->GetApiVersion() == dp::ApiVersion::Metal)
+  auto const apiVersion = context->GetApiVersion();
+  if (apiVersion == dp::ApiVersion::Metal)
   {
 #if defined(OMIM_METAL_AVAILABLE)
     return GetDefaultMetalAllocator();
 #endif
     CHECK(false, ("Metal rendering is supported now only on iOS."));
+    return nullptr;
+  }
+
+  if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+    CHECK(false, ());
     return nullptr;
   }
 

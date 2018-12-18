@@ -75,6 +75,7 @@ omim_link_libraries(
   stats_client
   stb_image
   succinct
+  vulkan_wrapper
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )

@@ -60,6 +60,7 @@ omim_link_libraries(
   oauthcpp
   stb_image
   sdf_image
+  vulkan_wrapper
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}

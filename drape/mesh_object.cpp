@@ -157,6 +157,11 @@ MeshObject::MeshObject(ref_ptr<dp::GraphicsContext> context, DrawPrimitive drawP
     InitForMetal();
 #endif
   }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+    CHECK(false, ());
+  }
   CHECK(m_impl != nullptr, ());
 }
 

@@ -79,6 +79,7 @@ omim_link_libraries(
   succinct
   tess2
   stats_client
+  vulkan_wrapper
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}
