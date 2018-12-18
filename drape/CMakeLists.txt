@@ -146,6 +146,12 @@ append(
 )
 endif()
 
+append(
+  SRC
+  vulkan/vulkan_base_context.hpp
+  vulkan/vulkan_base_context.cpp
+)
+
 omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
 
 omim_add_test_subdirectory(drape_tests)

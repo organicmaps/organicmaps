@@ -21,7 +21,8 @@ enum class ApiVersion
   Invalid = -1,
   OpenGLES2 = 0,
   OpenGLES3,
-  Metal
+  Metal,
+  Vulkan
 };
 
 enum Anchor
@@ -95,6 +96,7 @@ inline std::string DebugPrint(dp::ApiVersion apiVersion)
   case dp::ApiVersion::OpenGLES2: return "OpenGLES2";
   case dp::ApiVersion::OpenGLES3: return "OpenGLES3";
   case dp::ApiVersion::Metal: return "Metal";
+  case dp::ApiVersion::Vulkan: return "Vulkan";
   }
   return "Unknown";
 }

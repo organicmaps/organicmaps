@@ -16,3 +16,6 @@
 [submodule "tools/twine"]
 	path = tools/twine
 	url = https://github.com/mapsme/twine.git
+[submodule "3party/Vulkan-Headers"]
+	path = 3party/Vulkan-Headers
+	url = git@github.com:KhronosGroup/Vulkan-Headers.git
