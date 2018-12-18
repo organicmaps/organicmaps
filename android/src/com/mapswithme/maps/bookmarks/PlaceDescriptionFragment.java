@@ -19,6 +19,7 @@ import java.util.Objects;
 public class PlaceDescriptionFragment extends BaseMwmFragment
 {
   public static final String EXTRA_DESCRIPTION = "description";
+  private static final String SOURCE_SUFFIX = "<p><b>wikipedia.org</b></p>";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -38,7 +39,7 @@ public class PlaceDescriptionFragment extends BaseMwmFragment
   {
     View root = inflater.inflate(R.layout.fragment_place_description, container, false);
     WebView webView = root.findViewById(R.id.webview);
-    webView.loadData(mDescription, Utils.TEXT_HTML, Utils.UTF_8);
+    webView.loadData(mDescription + SOURCE_SUFFIX, Utils.TEXT_HTML, Utils.UTF_8);
     webView.setVerticalScrollBarEnabled(true);
     webView.setWebViewClient(new PlaceDescriptionClient());
     return root;
