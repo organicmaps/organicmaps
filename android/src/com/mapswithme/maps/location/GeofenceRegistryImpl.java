@@ -9,8 +9,8 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mapswithme.maps.GeofenceReceiver;
 import com.mapswithme.maps.LightFramework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.geofence.GeoFenceFeature;
 import com.mapswithme.util.PermissionsUtils;
 
@@ -70,6 +70,8 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     checkThread();
     checkPermission();
 
+    if (mGeofences.isEmpty())
+      return;
     Iterator<GeofenceAndFeature> iterator = mGeofences.iterator();
     List<String> expiredGeofences = new ArrayList<>();
     while (iterator.hasNext())
@@ -140,6 +142,13 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
       geofences.add(each.getGeofence());
     }
     return geofences;
+  }
+
+  @NonNull
+  public static GeofenceRegistry from(@NonNull Application application)
+  {
+    MwmApplication app = (MwmApplication) application;
+    return app.getGeofenceRegistry();
   }
 
   private static class GeofenceAndFeature

@@ -1,12 +1,15 @@
 package com.mapswithme.maps.location;
 
+import android.location.Location;
+import android.support.annotation.NonNull;
+
 public class GeofenceLocation
 {
   private final double mLat;
   private final double mLon;
-  private final int mRadiusInMeters;
+  private final float mRadiusInMeters;
 
-  public GeofenceLocation(double lat, double lon, int radiusInMeters)
+  private GeofenceLocation(double lat, double lon, float radiusInMeters)
   {
     mLat = lat;
     mLon = lon;
@@ -34,8 +37,14 @@ public class GeofenceLocation
     return mLon;
   }
 
-  public int getRadiusInMeters()
+  public float getRadiusInMeters()
   {
     return mRadiusInMeters;
+  }
+
+  @NonNull
+  public static GeofenceLocation from(@NonNull Location location)
+  {
+    return new GeofenceLocation(location.getLatitude(), location.getLongitude(), location.getAccuracy());
   }
 }

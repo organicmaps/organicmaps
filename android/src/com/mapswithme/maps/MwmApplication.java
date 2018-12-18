@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
+import com.mapswithme.maps.location.GeofenceLocation;
 import com.mapswithme.maps.location.GeofenceRegistry;
 import com.mapswithme.maps.location.GeofenceRegistryImpl;
 import com.mapswithme.maps.location.LocationHelper;
@@ -69,8 +71,9 @@ public class MwmApplication extends Application
   private ConnectivityListener mConnectivityListener;
   @NonNull
   private final MapManager.StorageCallback mStorageCallbacks = new StorageCallbackImpl();
+  @SuppressWarnings("NullableProblems")
   @NonNull
-  private final AppBackgroundTracker.OnTransitionListener mBackgroundListener = new TransitionListener();
+  private AppBackgroundTracker.OnTransitionListener mBackgroundListener;
   @SuppressWarnings("NullableProblems")
   @NonNull
   private ExternalLibrariesMediator mMediator;
@@ -150,6 +153,7 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
+    mBackgroundListener = new TransitionListener(this);
     LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
     mLogger.d(TAG, "Application is created");
@@ -400,6 +404,14 @@ public class MwmApplication extends Application
 
   private static class TransitionListener implements AppBackgroundTracker.OnTransitionListener
   {
+    @NonNull
+    private final MwmApplication mApplication;
+
+    TransitionListener(@NonNull MwmApplication application)
+    {
+      mApplication = application;
+    }
+
     @Override
     public void onTransit(boolean foreground)
     {
@@ -408,6 +420,13 @@ public class MwmApplication extends Application
         Log.i(TAG, "The app goes to background. All logs are going to be zipped.");
         LoggerFactory.INSTANCE.zipLogs(null);
       }
+
+      Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
+      if (lastKnownLocation == null)
+        return;
+      GeofenceRegistry geofenceRegistry = mApplication.getGeofenceRegistry();
+      geofenceRegistry.invalidateGeofences();
+      geofenceRegistry.registryGeofences(GeofenceLocation.from(lastKnownLocation));
     }
   }
 }

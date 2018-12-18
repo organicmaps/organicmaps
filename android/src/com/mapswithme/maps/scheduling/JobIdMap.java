@@ -3,6 +3,7 @@ package com.mapswithme.maps.scheduling;
 import com.mapswithme.maps.background.NotificationService;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.SystemDownloadCompletedService;
+import com.mapswithme.maps.location.GeofenceTransitionsIntentService;
 import com.mapswithme.maps.location.TrackRecorderWakeService;
 import com.mapswithme.util.Utils;
 

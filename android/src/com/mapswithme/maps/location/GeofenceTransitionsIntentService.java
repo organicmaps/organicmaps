@@ -1,5 +1,6 @@
-package com.mapswithme.maps.scheduling;
+package com.mapswithme.maps.location;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -10,8 +11,7 @@ import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.mapswithme.maps.LightFramework;
-import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.scheduling.JobIdMap;
 
 public class GeofenceTransitionsIntentService extends JobIntentService
 {
@@ -28,7 +28,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER
         || transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
     {
-      mMainThreadHandler.post(new GeofencingEventTask(geofencingEvent));
+      mMainThreadHandler.post(new GeofencingEventTask(getApplication(), geofencingEvent));
 //      LightFramework.nativeLogLocalAdsEvent(1, /* myPlaceLat */, /* myPlaceLon */, /* locationProviderAccuracy */, , , );
     }
   }
@@ -41,10 +41,13 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   private static class GeofencingEventTask implements Runnable
   {
     @NonNull
+    private final Application mApplication;
+    @NonNull
     private final GeofencingEvent mGeofencingEvent;
 
-    GeofencingEventTask(@NonNull GeofencingEvent geofencingEvent)
+    GeofencingEventTask(@NonNull Application application, @NonNull GeofencingEvent geofencingEvent)
     {
+      mApplication = application;
       mGeofencingEvent = geofencingEvent;
     }
 
@@ -52,8 +55,16 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     public void run()
     {
       Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
-      double accuracy = lastKnownLocation == null ? mGeofencingEvent.getTriggeringLocation().getAccuracy()
-                                                  : lastKnownLocation.getAccuracy();
+      Location currentLocation = lastKnownLocation == null ? mGeofencingEvent.getTriggeringLocation()
+                                                           : lastKnownLocation;
+
+      GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(mApplication);
+      if (mGeofencingEvent.getGeofenceTransition() == Geofence.GEOFENCE_TRANSITION_EXIT)
+      {
+        geofenceRegistry.invalidateGeofences();
+        geofenceRegistry.registryGeofences(GeofenceLocation.from(currentLocation));
+
+      }
     }
   }
 }
