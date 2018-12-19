@@ -27,7 +27,12 @@ std::string VulkanBaseContext::GetRendererName() const
 std::string VulkanBaseContext::GetRendererVersion() const
 {
   std::ostringstream ss;
-  ss << "API:" << m_gpuProperties.apiVersion << "/Driver:" << m_gpuProperties.driverVersion;
+  ss << "API:" << VK_VERSION_MAJOR(m_gpuProperties.apiVersion) << "."
+     << VK_VERSION_MINOR(m_gpuProperties.apiVersion) << "."
+     << VK_VERSION_PATCH(m_gpuProperties.apiVersion)
+     << "/Driver:" << VK_VERSION_MAJOR(m_gpuProperties.driverVersion) << "."
+     << VK_VERSION_MINOR(m_gpuProperties.driverVersion) << "."
+     << VK_VERSION_PATCH(m_gpuProperties.driverVersion);
   return ss.str();
 }
 
@@ -36,13 +41,16 @@ void VulkanBaseContext::SetStencilReferenceValue(uint32_t stencilReferenceValue)
   m_stencilReferenceValue = stencilReferenceValue;
 }
 
-void VulkanBaseContext::SetSurface(VkSurfaceKHR surface)
+void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat,
+                                   int width, int height)
 {
   m_surface = surface;
+  //TODO: initialize swapchains, image views and so on.
 }
 
 void VulkanBaseContext::ResetSurface()
 {
+  //TODO: reset swapchains, image views and so on.
   m_surface.reset();
 }
 }  // namespace vulkan

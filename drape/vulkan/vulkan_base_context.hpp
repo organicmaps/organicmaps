@@ -50,7 +50,7 @@ public:
                          StencilAction depthFailAction, StencilAction passAction) override {}
   void SetStencilReferenceValue(uint32_t stencilReferenceValue) override;
 
-  void SetSurface(VkSurfaceKHR surface);
+  void SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat, int width, int height);
   void ResetSurface();
 
 protected:

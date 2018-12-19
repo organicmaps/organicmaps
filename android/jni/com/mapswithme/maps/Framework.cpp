@@ -241,7 +241,7 @@ bool Framework::IsDrapeEngineCreated()
 void Framework::Resize(int w, int h)
 {
   if (m_vulkanContextFactory)
-    static_cast<AndroidVulkanContextFactory *>(m_vulkanContextFactory.get())->UpdateSurfaceSize(w, h);
+    CastFactory(m_vulkanContextFactory)->UpdateSurfaceSize(w, h);
   else
     m_oglContextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize(w, h);
   m_work.OnSize(w, h);
@@ -270,14 +270,20 @@ void Framework::DetachSurface(bool destroyContext)
     m_work.EnterBackground();
     m_work.OnDestroyGLContext();
   }
-  m_work.SetRenderingDisabled(destroyContext);
 
   if (m_vulkanContextFactory)
   {
+    // With Vulkan we don't need to recreate all graphics resources,
+    // we have to destroy only resources bound with surface (swapchains,
+    // image views, framebuffers and command buffers). All these resources will be
+    // destroyed in ResetSurface().
+    m_work.SetRenderingDisabled(false /* destroyContext */);
+
     CastFactory(m_vulkanContextFactory)->ResetSurface();
   }
   else
   {
+    m_work.SetRenderingDisabled(destroyContext);
     auto factory = m_oglContextFactory->CastFactory<AndroidOGLContextFactory>();
     factory->ResetSurface();
   }
@@ -320,7 +326,7 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
   if (m_vulkanContextFactory)
   {
     m_vulkanContextFactory->SetPresentAvailable(true);
-    m_work.SetRenderingEnabled(make_ref(m_vulkanContextFactory));
+    m_work.SetRenderingEnabled();
   }
   else
   {

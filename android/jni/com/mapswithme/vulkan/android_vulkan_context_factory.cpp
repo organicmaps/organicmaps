@@ -63,7 +63,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
 {
   if (InitVulkan() == 0)
   {
-    LOG(LDEBUG, ("Vulkan error: Could not initialize Vulkan library"));
+    LOG_ERROR_VK("Could not initialize Vulkan library.");
     return;
   }
 
@@ -90,8 +90,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   statusCode = vkCreateInstance(&instanceCreateInfo, nullptr, &m_vulkanInstance);
   if (statusCode != VK_SUCCESS)
   {
-    LOG(LDEBUG, ("Vulkan error: vkCreateInstance finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkCreateInstance, statusCode);
     return;
   }
 
@@ -99,8 +98,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, nullptr);
   if (statusCode != VK_SUCCESS || gpuCount == 0)
   {
-    LOG(LDEBUG, ("Vulkan error: vkEnumeratePhysicalDevices finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkEnumeratePhysicalDevices, statusCode);
     return;
   }
 
@@ -108,8 +106,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   statusCode = vkEnumeratePhysicalDevices(m_vulkanInstance, &gpuCount, tmpGpus);
   if (statusCode != VK_SUCCESS)
   {
-    LOG(LDEBUG, ("Vulkan error: vkEnumeratePhysicalDevices finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkEnumeratePhysicalDevices, statusCode);
     return;
   }
   m_gpu = tmpGpus[0];
@@ -118,7 +115,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount, nullptr);
   if (queueFamilyCount == 0)
   {
-    LOG(LDEBUG, ("Vulkan error: Any queue family wasn't found"));
+    LOG_ERROR_VK("Any queue family wasn't found.");
     return;
   }
 
@@ -134,7 +131,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   }
   if (queueFamilyIndex == queueFamilyCount)
   {
-    LOG(LDEBUG, ("Vulkan error: Any queue family with VK_QUEUE_GRAPHICS_BIT wasn't found"));
+    LOG_ERROR_VK("Any queue family with VK_QUEUE_GRAPHICS_BIT wasn't found.");
     return;
   }
 
@@ -161,8 +158,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
   if (statusCode != VK_SUCCESS)
   {
-    LOG(LDEBUG, ("Vulkan error: vkCreateDevice finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkCreateDevice, statusCode);
     return;
   }
 
@@ -183,14 +179,14 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
 {
   if (!jsurface)
   {
-    LOG(LINFO, ("Vulkan error: Java surface is not found"));
+    LOG_ERROR_VK("Java surface is not found.");
     return;
   }
 
   m_nativeWindow = ANativeWindow_fromSurface(env, jsurface);
   if (!m_nativeWindow)
   {
-    LOG(LINFO, ("Vulkan error: Can't get native window from Java surface"));
+    LOG_ERROR_VK("Can't get native window from Java surface.");
     return;
   }
 
@@ -205,8 +201,7 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
                                          &m_surface);
   if (statusCode != VK_SUCCESS)
   {
-    LOG(LDEBUG, ("Vulkan error: vkCreateAndroidSurfaceKHR finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkCreateAndroidSurfaceKHR, statusCode);
     return;
   }
 
@@ -214,7 +209,10 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
     return;
 
   if (m_drawContext)
-    m_drawContext->SetSurface(m_surface);
+  {
+    m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceWidth,
+                              m_surfaceHeight);
+  }
 
   m_windowSurfaceValid = true;
 }
@@ -226,11 +224,45 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
                                                               &surfaceCapabilities);
   if (statusCode != VK_SUCCESS)
   {
-    LOG(LDEBUG, ("Vulkan error: vkGetPhysicalDeviceSurfaceCapabilitiesKHR finished with code",
-                 dp::vulkan::GetVulkanResultString(statusCode)));
+    LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceCapabilitiesKHR, statusCode);
     return false;
   }
 
+  uint32_t formatCount = 0;
+  statusCode = vkGetPhysicalDeviceSurfaceFormatsKHR(m_gpu, m_surface, &formatCount, nullptr);
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceFormatsKHR, statusCode);
+    return false;
+  }
+
+  std::vector<VkSurfaceFormatKHR> formats(formatCount);
+  statusCode = vkGetPhysicalDeviceSurfaceFormatsKHR(m_gpu, m_surface, &formatCount, formats.data());
+  if (statusCode != VK_SUCCESS)
+  {
+    LOG_ERROR_VK_CALL(vkGetPhysicalDeviceSurfaceFormatsKHR, statusCode);
+    return false;
+  }
+
+  uint32_t chosenFormat;
+  for (chosenFormat = 0; chosenFormat < formatCount; chosenFormat++)
+  {
+    if (formats[chosenFormat].format == VK_FORMAT_R8G8B8A8_UNORM)
+      break;
+  }
+  if (chosenFormat == formatCount)
+  {
+    LOG_ERROR_VK("Any supported surface format wasn't found.");
+    return false;
+  }
+
+  if (!(surfaceCapabilities.supportedCompositeAlpha | VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
+  {
+    LOG_ERROR_VK("Alpha channel is not supported.");
+    return false;
+  }
+
+  m_surfaceFormat = formats[chosenFormat].format;
   m_surfaceWidth = static_cast<int>(surfaceCapabilities.currentExtent.width);
   m_surfaceHeight = static_cast<int>(surfaceCapabilities.currentExtent.height);
   return true;
