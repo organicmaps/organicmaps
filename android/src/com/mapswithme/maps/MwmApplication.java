@@ -420,13 +420,6 @@ public class MwmApplication extends Application
         Log.i(TAG, "The app goes to background. All logs are going to be zipped.");
         LoggerFactory.INSTANCE.zipLogs(null);
       }
-
-      Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
-      if (lastKnownLocation == null)
-        return;
-      GeofenceRegistry geofenceRegistry = mApplication.getGeofenceRegistry();
-      geofenceRegistry.invalidateGeofences();
-      geofenceRegistry.registryGeofences(GeofenceLocation.from(lastKnownLocation));
     }
   }
 }
