@@ -48,7 +48,7 @@ private:
   ANativeWindow * m_nativeWindow = nullptr;
   bool m_windowSurfaceValid = false;
   VkSurfaceKHR m_surface = 0;
-  VkFormat m_surfaceFormat;
+  VkFormat m_surfaceFormat = VK_FORMAT_UNDEFINED;
   int m_surfaceWidth = 0;
   int m_surfaceHeight = 0;
 };

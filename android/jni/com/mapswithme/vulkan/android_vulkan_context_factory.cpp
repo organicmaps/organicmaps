@@ -256,7 +256,7 @@ bool AndroidVulkanContextFactory::QuerySurfaceSize()
     return false;
   }
 
-  if (!(surfaceCapabilities.supportedCompositeAlpha | VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
+  if (!(surfaceCapabilities.supportedCompositeAlpha & VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR))
   {
     LOG_ERROR_VK("Alpha channel is not supported.");
     return false;
