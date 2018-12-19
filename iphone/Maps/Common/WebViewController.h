@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)shouldAddAccessToken;
 - (void)forward;
 - (void)back;
+- (NSString *)configuredHtmlWithText:(NSString *)htmlText;
 
 @end
 

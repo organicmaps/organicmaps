@@ -31,15 +31,20 @@
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
-    auto html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
-                                                    withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
-    html = [html stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
-    _m_htmlText = html;
+    _m_htmlText = [self configuredHtmlWithText:htmlText];
     _m_url = url;
     if (title)
       self.navigationItem.title = title;
   }
   return self;
+}
+
+- (NSString *)configuredHtmlWithText:(NSString *)htmlText
+{
+  auto html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
+                                                  withString:@"<body><font face=\"helvetica\" size=\"14pt\">"];
+  html = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
+  return html;
 }
 
 - (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success

@@ -10,6 +10,12 @@ final class PlacePageDescriptionViewController: WebViewController {
       Statistics.logEvent(kStatPlacePageDescriptionViewAll)
     }
   }
+  
+  override func configuredHtml(withText htmlText: String) -> String {
+    var html = htmlText.replacingOccurrences(of: "<body>", with: "<body><font face=\"helvetica\" size=\"14pt\">")
+    html = html.replacingOccurrences(of: "</body>", with: "<p><b>wikipedia.org</b></p></font></body>")
+    return html
+  }
 
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
