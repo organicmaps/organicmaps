@@ -15,7 +15,7 @@
 class TipsApi
 {
 public:
-  using Duration = std::chrono::duration<uint64_t>;
+  using Duration = std::chrono::hours;
   using Condition = std::function<bool(eye::Info const & info)>;
   using Conditions = std::array<Condition, static_cast<size_t>(eye::Tip::Type::Count)>;
 

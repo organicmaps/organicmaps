@@ -21,7 +21,7 @@ auto constexpr kShowAnyTipPeriod = std::chrono::hours(24) * 3;
 auto constexpr kShowSameTipPeriod = std::chrono::hours(24) * 30;
 // Every current trigger for a tips screen can be activated at the start of the application by
 // default and if the app was inactive more then 12 hours.
-auto constexpr kShowTipAfterCollapsingPeriod = std::chrono::seconds(12 * 60 * 60);
+auto constexpr kShowTipAfterCollapsingPeriod = std::chrono::hours(12);
 // If a user clicks on the action areas (highlighted or blue button)
 // the appropriate screen will never be shown again.
 size_t constexpr kActionClicksCountToDisable = 1;
