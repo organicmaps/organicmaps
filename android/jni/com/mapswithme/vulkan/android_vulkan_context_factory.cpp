@@ -2,6 +2,7 @@
 
 #include "com/mapswithme/platform/Platform.hpp"
 
+#include "drape/drape_diagnostics.hpp"
 #include "drape/vulkan/vulkan_utils.hpp"
 
 #include "base/assert.hpp"
@@ -15,9 +16,6 @@ namespace android
 {
 namespace
 {
-char const * kInstanceExtensions[] = {"VK_KHR_surface", "VK_KHR_android_surface"};
-char const * kDeviceExtensions[] = {"VK_KHR_swapchain"};
-
 class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
@@ -67,7 +65,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
     return;
   }
 
-  VkApplicationInfo appInfo;
+  VkApplicationInfo appInfo = {};
   appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
   appInfo.pNext = nullptr;
   appInfo.apiVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -77,14 +75,20 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   appInfo.pApplicationName = "MAPS.ME";
   appInfo.pEngineName = "Drape Engine";
 
-  VkInstanceCreateInfo instanceCreateInfo;
+  bool enableDiagnostics = false;
+#ifdef ENABLE_VULKAN_DIAGNOSTICS
+  enableDiagnostics = true;
+#endif
+  m_layers = make_unique_dp<dp::vulkan::Layers>(enableDiagnostics);
+
+  VkInstanceCreateInfo instanceCreateInfo = {};
   instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
   instanceCreateInfo.pNext = nullptr;
   instanceCreateInfo.pApplicationInfo = &appInfo;
-  instanceCreateInfo.enabledExtensionCount = ARRAY_SIZE(kInstanceExtensions);
-  instanceCreateInfo.ppEnabledExtensionNames = kInstanceExtensions;
-  instanceCreateInfo.enabledLayerCount = 0;
-  instanceCreateInfo.ppEnabledLayerNames = nullptr;
+  instanceCreateInfo.enabledExtensionCount = m_layers->GetInstanceExtensionsCount();
+  instanceCreateInfo.ppEnabledExtensionNames = m_layers->GetInstanceExtensions();
+  instanceCreateInfo.enabledLayerCount = m_layers->GetInstanceLayersCount();
+  instanceCreateInfo.ppEnabledLayerNames = m_layers->GetInstanceLayers();
 
   VkResult statusCode;
   statusCode = vkCreateInstance(&instanceCreateInfo, nullptr, &m_vulkanInstance);
@@ -135,8 +139,11 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
     return;
   }
 
+  if (!m_layers->Initialize(m_vulkanInstance, m_gpu))
+    return;
+
   float priorities[] = {1.0f};
-  VkDeviceQueueCreateInfo queueCreateInfo;
+  VkDeviceQueueCreateInfo queueCreateInfo = {};
   queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
   queueCreateInfo.pNext = nullptr;
   queueCreateInfo.flags = 0;
@@ -144,15 +151,15 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
   queueCreateInfo.pQueuePriorities = priorities;
 
-  VkDeviceCreateInfo deviceCreateInfo;
+  VkDeviceCreateInfo deviceCreateInfo = {};
   deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
   deviceCreateInfo.pNext = nullptr;
   deviceCreateInfo.queueCreateInfoCount = 1;
   deviceCreateInfo.pQueueCreateInfos = &queueCreateInfo;
-  deviceCreateInfo.enabledLayerCount = 0;
-  deviceCreateInfo.ppEnabledLayerNames = nullptr;
-  deviceCreateInfo.enabledExtensionCount = ARRAY_SIZE(kDeviceExtensions);
-  deviceCreateInfo.ppEnabledExtensionNames = kDeviceExtensions;
+  deviceCreateInfo.enabledLayerCount = m_layers->GetDeviceLayersCount();
+  deviceCreateInfo.ppEnabledLayerNames = m_layers->GetDeviceLayers();
+  deviceCreateInfo.enabledExtensionCount = m_layers->GetDeviceExtensionsCount();
+  deviceCreateInfo.ppEnabledExtensionNames = m_layers->GetDeviceExtensions();
   deviceCreateInfo.pEnabledFeatures = nullptr;
 
   statusCode = vkCreateDevice(m_gpu, &deviceCreateInfo, nullptr, &m_device);
@@ -168,6 +175,8 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
 {
+  m_layers->Uninitialize(m_vulkanInstance);
+
   if (m_device != nullptr)
     vkDestroyDevice(m_device, nullptr);
 
@@ -190,7 +199,7 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
     return;
   }
 
-  VkAndroidSurfaceCreateInfoKHR createInfo;
+  VkAndroidSurfaceCreateInfoKHR createInfo = {};
   createInfo.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
   createInfo.pNext = nullptr;
   createInfo.flags = 0;
@@ -219,7 +228,7 @@ void AndroidVulkanContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
 
 bool AndroidVulkanContextFactory::QuerySurfaceSize()
 {
-  VkSurfaceCapabilitiesKHR surfaceCapabilities;
+  VkSurfaceCapabilitiesKHR surfaceCapabilities = {};
   auto statusCode = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_gpu, m_surface,
                                                               &surfaceCapabilities);
   if (statusCode != VK_SUCCESS)

@@ -25,3 +25,5 @@
 //#define TRACK_GLYPH_USAGE
 
 #endif
+
+#define ENABLE_VULKAN_DIAGNOSTICS

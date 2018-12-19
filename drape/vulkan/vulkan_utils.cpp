@@ -1,5 +1,7 @@
 #include "drape/vulkan/vulkan_utils.hpp"
 
+#include "base/assert.hpp"
+
 namespace dp
 {
 namespace vulkan
@@ -13,7 +15,7 @@ std::string GetVulkanResultString(VkResult result)
   case VK_TIMEOUT: return "VK_TIMEOUT";
   case VK_EVENT_SET: return "VK_EVENT_SET";
   case VK_EVENT_RESET: return "VK_EVENT_RESET";
-  case VK_INCOMPLETE: return "VK_INCOMPLETE/VK_RESULT_END_RANGE";
+  case VK_INCOMPLETE: return "VK_INCOMPLETE";
   case VK_ERROR_OUT_OF_HOST_MEMORY: return "VK_ERROR_OUT_OF_HOST_MEMORY";
   case VK_ERROR_OUT_OF_DEVICE_MEMORY: return "VK_ERROR_OUT_OF_DEVICE_MEMORY";
   case VK_ERROR_INITIALIZATION_FAILED: return "VK_ERROR_INITIALIZATION_FAILED";
@@ -25,7 +27,7 @@ std::string GetVulkanResultString(VkResult result)
   case VK_ERROR_INCOMPATIBLE_DRIVER: return "VK_ERROR_INCOMPATIBLE_DRIVER";
   case VK_ERROR_TOO_MANY_OBJECTS: return "VK_ERROR_TOO_MANY_OBJECTS";
   case VK_ERROR_FORMAT_NOT_SUPPORTED: return "VK_ERROR_FORMAT_NOT_SUPPORTED";
-  case VK_ERROR_FRAGMENTED_POOL: return "VK_ERROR_FRAGMENTED_POOL/VK_RESULT_BEGIN_RANGE";
+  case VK_ERROR_FRAGMENTED_POOL: return "VK_ERROR_FRAGMENTED_POOL";
   case VK_ERROR_SURFACE_LOST_KHR: return "VK_ERROR_SURFACE_LOST_KHR";
   case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR: return "VK_ERROR_NATIVE_WINDOW_IN_USE_KHR";
   case VK_SUBOPTIMAL_KHR: return "VK_SUBOPTIMAL_KHR";
@@ -42,6 +44,7 @@ std::string GetVulkanResultString(VkResult result)
   case VK_RESULT_RANGE_SIZE: return "VK_RESULT_RANGE_SIZE";
   case VK_RESULT_MAX_ENUM: return "VK_RESULT_MAX_ENUM";
   }
+  UNREACHABLE();
   return "Unknown result";
 }
 }  // namespace vulkan

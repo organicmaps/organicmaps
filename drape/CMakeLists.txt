@@ -152,6 +152,8 @@ append(
   SRC
   vulkan/vulkan_base_context.cpp
   vulkan/vulkan_base_context.hpp
+  vulkan/vulkan_layers.cpp
+  vulkan/vulkan_layers.hpp
   vulkan/vulkan_utils.cpp
   vulkan/vulkan_utils.hpp
 )

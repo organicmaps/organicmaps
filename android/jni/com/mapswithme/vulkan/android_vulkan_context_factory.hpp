@@ -4,6 +4,7 @@
 
 #include "drape/graphics_context_factory.hpp"
 #include "drape/vulkan/vulkan_base_context.hpp"
+#include "drape/vulkan/vulkan_layers.hpp"
 #include "drape/pointers.hpp"
 
 #include <vulkan_wrapper.h>
@@ -40,6 +41,7 @@ private:
   bool QuerySurfaceSize();
 
   VkInstance m_vulkanInstance = nullptr;
+  drape_ptr<dp::vulkan::Layers> m_layers;
   VkPhysicalDevice m_gpu = nullptr;
   VkDevice m_device = nullptr;
   drape_ptr<dp::vulkan::VulkanBaseContext> m_drawContext;
