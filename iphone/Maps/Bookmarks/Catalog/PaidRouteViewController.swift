@@ -46,14 +46,7 @@ class PaidRouteViewController: MWMViewController {
     routeTitleLabel.text = name
     routeAuthorLabel.text = author
     if let url = imageUrl {
-      previewImageView.af_setImage(withURL: url,
-                                   placeholderImage: nil,
-                                   filter: nil,
-                                   progress: nil,
-                                   progressQueue: DispatchQueue.main,
-                                   imageTransition: .crossDissolve(kDefaultAnimationDuration),
-                                   runImageTransitionIfCached: true,
-                                   completion: nil)
+      previewImageView.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     }
 
     purchase.requestStoreProduct { [weak self] (product, error) in

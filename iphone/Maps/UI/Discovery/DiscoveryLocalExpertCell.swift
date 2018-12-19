@@ -38,7 +38,8 @@ final class DiscoveryLocalExpertCell: UICollectionViewCell {
                     currency: String,
                     tap: @escaping Tap) {
     if avatarURL.count > 0, let url = URL(string: avatarURL) {
-      avatar.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "img_localsdefault"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
+      avatar.image = #imageLiteral(resourceName: "img_localsdefault")
+      avatar.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     } else {
       avatar.image = #imageLiteral(resourceName: "img_localsdefault")
     }

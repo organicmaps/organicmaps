@@ -1,5 +1,3 @@
-import AlamofireImage
-
 final class GalleryCell: UICollectionViewCell {
   typealias Model = GalleryItemModel
 
@@ -7,11 +5,11 @@ final class GalleryCell: UICollectionViewCell {
 
   var model: Model! {
     didSet {
-      imageView.af_setImage(withURL: model.imageURL, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+      imageView.wi_setImage(with: model.imageURL, transitionDuration: kDefaultAnimationDuration)
     }
   }
 
   override func prepareForReuse() {
-    imageView.af_cancelImageRequest()
+    imageView.wi_cancelImageRequest()
   }
 }

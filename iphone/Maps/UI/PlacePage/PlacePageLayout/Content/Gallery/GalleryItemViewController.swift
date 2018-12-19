@@ -1,5 +1,3 @@
-import AlamofireImage
-
 @objc(MWMGalleryItemViewController)
 final class GalleryItemViewController: MWMViewController {
   typealias Model = GalleryItemModel
@@ -28,8 +26,7 @@ final class GalleryItemViewController: MWMViewController {
     imageView = UIImageView(frame: scrollView.bounds)
     imageView.contentMode = .scaleAspectFit
     scrollView.addSubview(imageView)
-    imageView.af_setImage(withURL: model.imageURL,
-                          imageTransition: .crossDissolve(kDefaultAnimationDuration))
+    imageView.wi_setImage(with: model.imageURL, transitionDuration: kDefaultAnimationDuration)
   }
 
   override func viewDidLayoutSubviews() {

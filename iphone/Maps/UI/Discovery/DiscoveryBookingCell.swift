@@ -60,7 +60,8 @@ final class DiscoveryBookingCell: UICollectionViewCell {
   private func setAvatar(_ avatarURL: String?) {
     guard let avatarURL = avatarURL else { return }
     if !avatarURL.isEmpty, let url = URL(string: avatarURL) {
-      avatar.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "img_localsdefault"), imageTransition: .crossDissolve(kDefaultAnimationDuration))
+      avatar.image = #imageLiteral(resourceName: "img_localsdefault")
+      avatar.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     } else {
       avatar.image = #imageLiteral(resourceName: "img_localsdefault")
     }

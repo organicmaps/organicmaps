@@ -1,6 +1,4 @@
-github "Alamofire/Alamofire"
-github "Alamofire/AlamofireImage"
-github "AppsFlyerSDK/AppsFlyerFramework"
-github "facebook/Facebook-SDK-Swift"
-github "Pushwoosh/pushwoosh-ios-sdk"
-github "skywinder/ActionSheetPicker-3.0"
+github "AppsFlyerSDK/AppsFlyerFramework" == 4.8.9
+github "facebook/Facebook-SDK-Swift" == 0.4.0
+github "Pushwoosh/pushwoosh-ios-sdk" == 5.9.0
+github "skywinder/ActionSheetPicker-3.0" == 2.3.0

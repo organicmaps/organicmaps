@@ -3,7 +3,7 @@ final class CarouselElement: UICollectionViewCell {
   @IBOutlet private var dimMask: [UIView]!
 
   func config(with url: URL, isLastCell: Bool) {
-    image.af_setImage(withURL: url, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+    image.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     dimMask.forEach { $0.isHidden = !isLastCell }
   }
 }

@@ -1,4 +1,3 @@
-import AlamofireImage
 import UIKit
 
 final class PhotoScalingView: UIScrollView {
@@ -56,15 +55,14 @@ final class PhotoScalingView: UIScrollView {
   private func updateImage(_ photo: GalleryItemModel?) {
     guard let photo = photo else { return }
     imageView.transform = CGAffineTransform.identity
-    imageView.af_setImage(withURL: photo.imageURL,
-                          imageTransition: .crossDissolve(kDefaultAnimationDuration),
-                          completion: { [weak self] response in
-                            guard let s = self else { return }
-                            s.contentSize = response.value?.size ?? CGSize.zero
-                            s.imageView.frame = CGRect(origin: CGPoint.zero, size: s.contentSize)
-                            s.updateZoomScale()
-                            s.centerScrollViewContents()
-    })
+    imageView.wi_setImage(with: photo.imageURL,
+                          transitionDuration: kDefaultAnimationDuration) { [weak self] (image, error) in
+      guard let s = self else { return }
+      s.contentSize = image?.size ?? CGSize.zero
+      s.imageView.frame = CGRect(origin: CGPoint.zero, size: s.contentSize)
+      s.updateZoomScale()
+      s.centerScrollViewContents()
+    }
   }
 
   private func updateZoomScale() {

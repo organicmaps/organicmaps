@@ -74,6 +74,7 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
+#import "UIImageView+WebImage.h"
 #import "UIViewController+Navigation.h"
 #import "WebViewController.h"
 #import "MWMCatalogCategory.h"

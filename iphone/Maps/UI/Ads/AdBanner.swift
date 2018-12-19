@@ -1,4 +1,3 @@
-import AlamofireImage
 import FBAudienceNetwork
 
 @objc(MWMAdBannerState)
@@ -111,7 +110,7 @@ final class AdBanner: UITableViewCell {
   @objc weak var mpNativeAd: MPNativeAd?
 
   override func prepareForReuse() {
-    adIconImageView.af_cancelImageRequest()
+    adIconImageView.wi_cancelImageRequest()
   }
 
   private var nativeAd: Banner? {
@@ -248,7 +247,7 @@ final class AdBanner: UITableViewCell {
                                                   indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = ad.text
     if let url = URL(string: ad.iconURL) {
-      adIconImageView.af_setImage(withURL: url)
+      adIconImageView.wi_setImage(with: url)
     }
   }
 
