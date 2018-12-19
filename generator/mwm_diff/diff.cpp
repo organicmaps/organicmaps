@@ -64,7 +64,14 @@ bool ApplyDiffVersion0(FileReader & oldReader, FileWriter & newWriter,
   vector<uint8_t> diffBuf;
   inflate(deflatedDiff.data(), deflatedDiff.size(), back_inserter(diffBuf));
 
-  MemReader diffMemReader(diffBuf.data(), diffBuf.size());
+  // Our bsdiff assumes that both the old mwm and the diff files are correct and
+  // does no checks when using its readers.
+  // Yet sometimes we observe corrupted files in the logs, and to avoid
+  // crashes from such files the exception-throwing version of MemReader is used here.
+  // |oldReader| is a FileReader so it throws exceptions too but we
+  // are more confident in the uncorrupted status of the old file because
+  // its checksum is compared to the one stored in the diff file.
+  MemReaderWithExceptions diffMemReader(diffBuf.data(), diffBuf.size());
 
   auto status = bsdiff::ApplyBinaryPatch(oldReader, newWriter, diffMemReader);
 

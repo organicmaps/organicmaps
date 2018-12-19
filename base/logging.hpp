@@ -41,27 +41,34 @@ LogMessageFn SetLogMessageFn(LogMessageFn fn);
 void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, std::string const & msg);
 void LogMessageTests(LogLevel level, SrcPoint const & srcPoint, std::string const & msg);
 
-/// Scope Guard to temporarily suppress specific log level, for example, in unit tests:
-/// ...
-/// {
-///   LogLevelSuppressor onlyLERRORAndLCriticalLogsAreEnabled;
-///   TEST(SomeFunctionWhichHasDebugOrInfoOrWarningLogs(), ());
-/// }
+// Scope guard to temporarily suppress a specific log level and all lower ones.
+//
+// For example, in unit tests:
+// {
+//   // Only LERROR and LCRITICAL log messages will be printed.
+//   ScopedLogLevelChanger defaultChanger;
+//   // Call a function that has LDEBUG/LINFO/LWARNING logs that you want to suppress.
+//   TEST(func(), ());
+// }
 struct ScopedLogLevelChanger
 {
-  LogLevel m_old = g_LogLevel;
   ScopedLogLevelChanger(LogLevel temporaryLogLevel = LERROR) { g_LogLevel = temporaryLogLevel; }
+
   ~ScopedLogLevelChanger() { g_LogLevel = m_old; }
+
+  LogLevel m_old = g_LogLevel;
 };
 
 struct ScopedLogAbortLevelChanger
 {
-  LogLevel m_old = g_LogAbortLevel;
   ScopedLogAbortLevelChanger(LogLevel temporaryLogAbortLevel = LCRITICAL)
   {
     g_LogAbortLevel = temporaryLogAbortLevel;
   }
+
   ~ScopedLogAbortLevelChanger() { g_LogAbortLevel = m_old; }
+
+  LogLevel m_old = g_LogAbortLevel;
 };
 }  // namespace base
 

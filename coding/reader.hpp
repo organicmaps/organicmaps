@@ -1,9 +1,11 @@
 #pragma once
+
 #include "coding/endianness.hpp"
 
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/cstring.hpp"
 #include "std/shared_array.hpp"
 #include "std/shared_ptr.hpp"
@@ -27,6 +29,10 @@ public:
   virtual unique_ptr<Reader> CreateSubReader(uint64_t pos, uint64_t size) const = 0;
 
   void ReadAsString(string & s) const;
+
+  // Reads the contents of this Reader to a vector of 8-bit bytes.
+  // Similar to ReadAsString but makes no assumptions about the char type.
+  vector<uint8_t> Contents() const;
 
   static bool IsEqual(string const & name1, string const & name2);
 };
