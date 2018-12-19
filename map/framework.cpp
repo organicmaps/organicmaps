@@ -2954,15 +2954,6 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSou
                FeatureType & ft, osm::EditableMapObject & emo)
 {
   auto const & editor = osm::Editor::Instance();
-
-  if (editor.GetFeatureStatus(emo.GetID()) == FeatureStatus::Created)
-  {
-    string street;
-    VERIFY(editor.GetEditedFeatureStreet(emo.GetID(), street), ("Feature is in editor."));
-    emo.SetStreet({street, ""});
-    return;
-  }
-
   // Get exact feature's street address (if any) from mwm,
   // together with all nearby streets.
   auto const streets = coder.GetNearbyFeatureStreets(ft);
@@ -2993,7 +2984,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSou
 
       emo.SetStreet(ls);
 
-      // A street that a feature belongs to should alwas be in the first place in the list.
+      // A street that a feature belongs to should always be in the first place in the list.
       auto it =
           find_if(begin(localizedStreets), end(localizedStreets), [&ls](osm::LocalizedStreet const & rs)
                   {

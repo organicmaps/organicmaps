@@ -4,6 +4,7 @@
 
 #include "indexer/data_source.hpp"
 
+#include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -258,6 +259,9 @@ ReverseGeocoder::Building ReverseGeocoder::FromFeature(FeatureType & ft, double 
 
 bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid, uint32_t & streetIndex)
 {
+  if (feature::FakeFeatureIds::IsEditorCreatedFeature(fid.m_index))
+    return false;
+
   if (!m_table || m_handle.GetId() != fid.m_mwmId)
   {
     m_handle = m_dataSource.GetMwmHandleById(fid.m_mwmId);
