@@ -46,6 +46,8 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     List<GeoFenceFeature> features = LightFramework.getLocalAdsFeatures(
         location.getLat(), location.getLon(), location.getRadiusInMeters()/* from system  location provider accuracy */, GEOFENCE_MAX_COUNT);
 
+    if (features.isEmpty())
+      return;
     for (GeoFenceFeature each : features)
     {
       Geofence geofence = new Geofence.Builder()
