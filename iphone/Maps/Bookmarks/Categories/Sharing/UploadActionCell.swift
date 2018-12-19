@@ -1,5 +1,5 @@
 protocol UploadActionCellDelegate: AnyObject {
-  func cellDidPressShareButton(_ cell: UploadActionCell)
+  func cellDidPressShareButton(_ cell: UploadActionCell, senderView: UIView)
 }
 
 enum UploadActionCellState: String {
@@ -60,6 +60,6 @@ final class UploadActionCell: MWMTableViewCell {
   
   @IBAction func shareButtonPressed(_ sender: Any) {
     assert(cellState == .completed, "Share button can only be pressed while the cell is in .completed state")
-    delegate?.cellDidPressShareButton(self)
+    delegate?.cellDidPressShareButton(self, senderView: shareButton)
   }
 }

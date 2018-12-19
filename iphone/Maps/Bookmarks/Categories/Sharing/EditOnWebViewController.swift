@@ -35,7 +35,7 @@ final class EditOnWebViewController: MWMViewController {
         self.delegate?.editOnWebViewControllerDidFinish(self)
       }
     }
-    shareController?.present(inParentViewController: self, anchorView: nil)
+    shareController?.present(inParentViewController: self, anchorView: sendMeLinkButton)
   }
   
   @IBAction func cancelButtonPressed(_ sender: Any) {

@@ -299,7 +299,7 @@ extension BookmarksSharingViewController: UITextViewDelegate {
 }
 
 extension BookmarksSharingViewController: UploadActionCellDelegate {
-  func cellDidPressShareButton(_ cell: UploadActionCell) {
+  func cellDidPressShareButton(_ cell: UploadActionCell, senderView: UIView) {
     guard let url = categoryUrl else {
       assert(false, "must provide guide url")
       return
@@ -313,7 +313,7 @@ extension BookmarksSharingViewController: UploadActionCellDelegate {
         Statistics.logEvent(kStatSharingLinkSuccess, withParameters: [kStatFrom : kStatSharingOptions])
       }
     }
-    shareController?.present(inParentViewController: self, anchorView: nil)
+    shareController?.present(inParentViewController: self, anchorView: senderView)
   }
 }
 

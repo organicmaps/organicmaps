@@ -76,17 +76,6 @@ class DownloadedBookmarksViewController: MWMViewController {
     }
   }
 
-  private func shareCategory(at index: Int) {
-    let category = dataSource.category(at: index)
-    guard let url = MWMBookmarksManager.shared().sharingUrl(forCategoryId: category.categoryId) else {
-      assertionFailure()
-      return
-    }
-    let message = L("share_bookmarks_email_body")
-    let shareController = MWMActivityViewController.share(for: url, message: message)
-    shareController?.present(inParentViewController: self, anchorView: nil)
-  }
-
   private func deleteCategory(at index: Int) {
     guard index >= 0 && index < dataSource.categoriesCount else {
       assertionFailure()
@@ -159,12 +148,6 @@ extension DownloadedBookmarksViewController: CatalogCategoryCellDelegate {
         self.setCategoryVisible(!category.visible, at: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
       }))
-
-      // TODO: uncomment once the correct deeplink generation is implemented
-//      let share = L("share").capitalized
-//      actionSheet.addAction(UIAlertAction(title: share, style: .default, handler: { _ in
-//        self.shareCategory(at: indexPath.row)
-//      }))
 
       let delete = L("delete").capitalized
       let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { _ in
