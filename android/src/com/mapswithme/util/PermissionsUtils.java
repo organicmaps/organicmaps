@@ -50,7 +50,7 @@ public final class PermissionsUtils
 
   public static boolean isLocationGranted(@NonNull Context context)
   {
-    return checkPermissions(context).isExternalStorageGranted();
+    return checkPermissions(context).isLocationGranted();
   }
 
   /**

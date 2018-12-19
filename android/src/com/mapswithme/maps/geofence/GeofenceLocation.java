@@ -1,4 +1,4 @@
-package com.mapswithme.maps.location;
+package com.mapswithme.maps.geofence;
 
 import android.location.Location;
 import android.support.annotation.NonNull;

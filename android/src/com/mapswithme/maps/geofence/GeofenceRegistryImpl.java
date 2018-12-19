@@ -1,4 +1,4 @@
-package com.mapswithme.maps.location;
+package com.mapswithme.maps.geofence;
 
 import android.app.Application;
 import android.app.PendingIntent;
@@ -11,8 +11,9 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.geofence.GeoFenceFeature;
+import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.concurrency.UiThread;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,7 +22,7 @@ import java.util.List;
 public class GeofenceRegistryImpl implements GeofenceRegistry
 {
   private static final int GEOFENCE_MAX_COUNT = 100;
-  private static final float PREFERRED_GEOFENCE_RADIUS = 125.0f;
+  private static final float PREFERRED_GEOFENCE_RADIUS = 100.0f;
 
   @NonNull
   private final Application mApplication;
@@ -38,7 +39,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   }
 
   @Override
-  public void registryGeofences(@NonNull GeofenceLocation location)
+  public void registerGeofences(@NonNull GeofenceLocation location) throws LocationPermissionNotGrantedException
   {
     checkThread();
     checkPermission();
@@ -67,18 +68,16 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   }
 
   @Override
-  public void invalidateGeofences()
+  public void unregisterGeofences() throws LocationPermissionNotGrantedException
   {
     checkThread();
     checkPermission();
 
     if (mGeofences.isEmpty())
       return;
-    Iterator<GeofenceAndFeature> iterator = mGeofences.iterator();
     List<String> expiredGeofences = new ArrayList<>();
-    while (iterator.hasNext())
+    for (GeofenceAndFeature current: mGeofences)
     {
-      GeofenceAndFeature current = iterator.next();
       String requestId = current.getGeofence().getRequestId();
       expiredGeofences.add(requestId);
     }
@@ -107,17 +106,15 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
 
   }
 
-  private void checkPermission()
+  private void checkPermission() throws LocationPermissionNotGrantedException
   {
     if (!PermissionsUtils.isLocationGranted(mApplication))
-      throw new UnsupportedOperationException("Geofence registry required android.Manifest" +
-                                              ".permission\n" +
-                                              "        .ACCESS_FINE_LOCATION");
+      throw new LocationPermissionNotGrantedException();
   }
 
   private static void checkThread()
   {
-    if (!com.mapswithme.util.concurrency.UiThread.isUiThread())
+    if (!UiThread.isUiThread())
       throw new IllegalStateException("Must be call from Ui thread");
   }
 

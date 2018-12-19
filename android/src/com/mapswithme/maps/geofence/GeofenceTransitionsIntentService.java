@@ -1,4 +1,4 @@
-package com.mapswithme.maps.location;
+package com.mapswithme.maps.geofence;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,10 +11,18 @@ import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.maps.scheduling.JobIdMap;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class GeofenceTransitionsIntentService extends JobIntentService
 {
+  private static final Logger LOG = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+
+  private static final String TAG = GeofenceTransitionsIntentService.class.getSimpleName();
+
   @NonNull
   private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
 
@@ -61,9 +69,15 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(mApplication);
       if (mGeofencingEvent.getGeofenceTransition() == Geofence.GEOFENCE_TRANSITION_EXIT)
       {
-        geofenceRegistry.invalidateGeofences();
-        geofenceRegistry.registryGeofences(GeofenceLocation.from(currentLocation));
-
+        try
+        {
+          geofenceRegistry.unregisterGeofences();
+          geofenceRegistry.registerGeofences(GeofenceLocation.from(currentLocation));
+        }
+        catch (LocationPermissionNotGrantedException e)
+        {
+          LOG.d(TAG, "Location permission not granted!", e);
+        }
       }
     }
   }
