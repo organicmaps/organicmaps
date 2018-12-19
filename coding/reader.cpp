@@ -10,7 +10,7 @@ void Reader::ReadAsString(string & s) const
   Read(0, &s[0], sz);
 }
 
-vector<uint8_t> Reader::Contents() const
+vector<uint8_t> Reader::ReadAsBytes() const
 {
   vector<uint8_t> contents;
   contents.resize(Size());

@@ -32,7 +32,7 @@ public:
 
   // Reads the contents of this Reader to a vector of 8-bit bytes.
   // Similar to ReadAsString but makes no assumptions about the char type.
-  vector<uint8_t> Contents() const;
+  vector<uint8_t> ReadAsBytes() const;
 
   static bool IsEqual(string const & name1, string const & name2);
 };

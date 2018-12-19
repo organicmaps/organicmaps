@@ -49,7 +49,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Alter the old mwm slightly.
-    vector<uint8_t> oldMwmContents = FileReader(oldMwmPath).Contents();
+    vector<uint8_t> oldMwmContents = FileReader(oldMwmPath).ReadAsBytes();
     size_t const sz = oldMwmContents.size();
     for (size_t i = 3 * sz / 10; i < 4 * sz / 10; i++)
       oldMwmContents[i] += static_cast<uint8_t>(i);
@@ -65,7 +65,7 @@ UNIT_TEST(IncrementalUpdates_Smoke)
 
   {
     // Corrupt the diff file contents.
-    vector<uint8_t> diffContents = FileReader(diffPath).Contents();
+    vector<uint8_t> diffContents = FileReader(diffPath).ReadAsBytes();
 
     // Leave the version bits intact.
     for (size_t i = 4; i < diffContents.size(); i += 2)
