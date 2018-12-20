@@ -181,7 +181,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(51.09276, 1.11369), {0., 0.},
-        MercatorBounds::FromLatLon(50.93227, 1.82725), 60498.);
+        MercatorBounds::FromLatLon(50.93227, 1.82725), 64753.0);
   }
 
   UNIT_TEST(RussiaMoscowStartAtTwowayFeatureTest)
