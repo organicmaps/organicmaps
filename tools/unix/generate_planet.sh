@@ -578,7 +578,7 @@ if [ "$MODE" == "descriptions" ]; then
   LANGS="en ru es"
 
   "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" --dump_wikipedia_urls="$URLS_PATH" 2>> $LOG
-  $PYTHON36 $DESCRIPTIONS_DOWNLOADER --i "$URLS_PATH" --o "$WIKI_PAGES_PATH" --langs "$LANGS" 2>> $LOG
+  $PYTHON36 $DESCRIPTIONS_DOWNLOADER --i "$URLS_PATH" --o "$WIKI_PAGES_PATH" --langs $LANGS 2>> $LOG
 
   for file in "$TARGET"/*.mwm; do
     if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
