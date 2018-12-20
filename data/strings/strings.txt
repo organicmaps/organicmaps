@@ -37415,3 +37415,31 @@
     zh-Hant = 除了免費路線，我們還為目錄添加了3類付費指南。超過700條新路線！
     fa = علاوه بر مسیرهای رایگان، سه دسته مسیر پولی نیز به فهرست ما افزوده شده است. بیش از ۷۰۰ مسیر جدید!
 
+  [whats_new_ugc_routes_title_android_only]
+    en = Easy to share your impressions
+    ru = Делиться впечатлениями просто
+    ar = من السهل مشاركة انطباعاتك
+    cs = Sdílet své dojmy je jednoduché
+    da = Det er nemt at dele dine indtryk
+    nl = Het is eenvoudig om je indrukken te delen
+    fi = Voit helposti jakaa kokemuksiasi
+    fr = Il est facile de partager vos impressions
+    de = Es ist einfach, Ihre Eindrücke zu teilen
+    hu = Könnyű megosztani a benyomásaidat
+    id = Mudah untuk membagikan kesan Anda
+    it = È facile condividere le tue impressioni
+    ja = 印象を共有するのは簡単です
+    ko = 당신의 감동을 공유하기 좋습니다
+    nb = Del inntrykkene dine med andre, enkelt
+    pl = Chce się podzielić wrażeniami? To proste!
+    pt = É fácil compartilhar as impressões
+    ro = Este ușor să vă împărtășiți impresiile
+    es = Compartir tus impresiones es fácil
+    sv = Det är lätt att dela dina intryck
+    th = แบ่งปันความประทับใจของคุณได้ง่าย ๆ
+    tr = İzlenimlerinizi paylaşmak çok kolay
+    uk = Ділитись враженнями легко
+    vi = Rất dễ để chia sẻ những sự ấn tượng của bạn
+    zh-Hans = 分享您的印象很容易
+    zh-Hant = 分享您的印象很容易
+    sk = Je ľahké podeliť sa o vaše dojmy
