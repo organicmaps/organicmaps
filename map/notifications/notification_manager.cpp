@@ -172,8 +172,12 @@ boost::optional<NotificationCandidate> NotificationManager::GetNotification()
 void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)
 {
   CHECK(m_delegate.GetUGCApi(), ());
+  CHECK_GREATER(poi.GetEvents().size(), 0, ());
 
   auto const bestType = classif().GetTypeByReadableObjectName(poi.GetBestType());
+
+  if (poi.GetEvents().back().m_type == eye::MapObject::Event::Type::UgcSaved)
+    return ProcessUgcRateCandidates(poi);
 
   m_delegate.GetUGCApi()->HasUGCForPlace(bestType, poi.GetPos(), [this, poi] (bool result)
   {
