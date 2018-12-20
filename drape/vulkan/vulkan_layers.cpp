@@ -131,7 +131,7 @@ std::string GetReportObjectTypeString(VkDebugReportObjectTypeEXT objectType)
   return {};
 }
 
-bool HasLayerOrExtension(char const * name, std::vector<char const *> const & collection)
+bool IsContained(char const * name, std::vector<char const *> const & collection)
 {
   return collection.end() != std::find_if(collection.begin(), collection.end(),
                                           [name](char const * v) { return strcmp(name, v) == 0; });
@@ -144,36 +144,23 @@ VkBool32 VKAPI_PTR DebugReportCallbackImpl(VkDebugReportFlagsEXT flags,
                                            const char * pLayerPrefix, const char * pMessage,
                                            void * pUserData)
 {
-  if (flags & VK_DEBUG_REPORT_INFORMATION_BIT_EXT)
+  auto logLevel = base::LogLevel::LINFO;
+  if ((flags & VK_DEBUG_REPORT_WARNING_BIT_EXT) ||
+      (flags & VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT))
   {
-    LOG(LINFO, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
-                "] [OBJ:", object, "LOC:", location, "]:", pMessage));
+    logLevel = base::LogLevel::LWARNING;
+  }
+  else if (flags & VK_DEBUG_REPORT_ERROR_BIT_EXT)
+  {
+    logLevel = base::LogLevel::LERROR;
+  }
+  else if (flags & VK_DEBUG_REPORT_DEBUG_BIT_EXT)
+  {
+    logLevel = base::LogLevel::LDEBUG;
   }
 
-  if (flags & VK_DEBUG_REPORT_WARNING_BIT_EXT)
-  {
-    LOG(LWARNING, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
-                   "] [OBJ:", object, "LOC:", location, "]:", pMessage));
-  }
-
-  if (flags & VK_DEBUG_REPORT_ERROR_BIT_EXT)
-  {
-    LOG(LERROR, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
+  LOG(logLevel, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
                  "] [OBJ:", object, "LOC:", location, "]:", pMessage));
-  }
-
-  if (flags & VK_DEBUG_REPORT_DEBUG_BIT_EXT)
-  {
-    LOG(LDEBUG, ("Vulkan Diagnostics [", pLayerPrefix, "] [", GetReportObjectTypeString(objectType),
-                 "] [OBJ:", object, "LOC:", location, "]:", pMessage));
-  }
-
-  if (flags & VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT)
-  {
-    LOG(LWARNING, ("Vulkan Diagnostics (Performance) [", pLayerPrefix, "] [",
-                   GetReportObjectTypeString(objectType), "] [OBJ:", object, "LOC:", location,
-                   "]:", pMessage));
-  }
 
   return VK_FALSE;
 }
@@ -265,7 +252,7 @@ Layers::Layers(bool enableDiagnostics)
   for (auto ext : m_instanceExtensions)
     LOG(LDEBUG, ("Vulkan instance extension prepared", ext));
 
-  if (m_enableDiagnostics && !HasLayerOrExtension(kDebugReportExtension, m_instanceExtensions))
+  if (m_enableDiagnostics && !IsContained(kDebugReportExtension, m_instanceExtensions))
     LOG(LWARNING, ("Vulkan diagnostics in not available on this device."));
 }
 
@@ -383,16 +370,19 @@ bool Layers::Initialize(VkInstance instance, VkPhysicalDevice physicalDevice)
   for (auto ext : m_deviceExtensions)
     LOG(LDEBUG, ("Vulkan device extension prepared", ext));
 
-  if (m_enableDiagnostics && HasLayerOrExtension(kDebugReportExtension, m_instanceExtensions))
+  if (m_enableDiagnostics && IsContained(kDebugReportExtension, m_instanceExtensions))
   {
     if (m_vkCreateDebugReportCallbackEXT == nullptr)
     {
       m_vkCreateDebugReportCallbackEXT =
-        (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugReportCallbackEXT");
+        (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(instance,
+        "vkCreateDebugReportCallbackEXT");
       m_vkDestroyDebugReportCallbackEXT =
-        (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugReportCallbackEXT");
+        (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance,
+        "vkDestroyDebugReportCallbackEXT");
       m_vkDebugReportMessageEXT =
-        (PFN_vkDebugReportMessageEXT)vkGetInstanceProcAddr(instance, "vkDebugReportMessageEXT");
+        (PFN_vkDebugReportMessageEXT)vkGetInstanceProcAddr(instance,
+        "vkDebugReportMessageEXT");
     }
 
     if (m_vkCreateDebugReportCallbackEXT == nullptr)
@@ -404,9 +394,11 @@ bool Layers::Initialize(VkInstance instance, VkPhysicalDevice physicalDevice)
     VkDebugReportCallbackCreateInfoEXT dbgInfo = {};
     dbgInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT;
     dbgInfo.pNext = nullptr;
-    dbgInfo.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT |
+    dbgInfo.flags = VK_DEBUG_REPORT_INFORMATION_BIT_EXT |
+                    VK_DEBUG_REPORT_WARNING_BIT_EXT |
                     VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT |
-                    VK_DEBUG_REPORT_ERROR_BIT_EXT;
+                    VK_DEBUG_REPORT_ERROR_BIT_EXT |
+                    VK_DEBUG_REPORT_DEBUG_BIT_EXT;
     dbgInfo.pfnCallback = DebugReportCallbackImpl;
     dbgInfo.pUserData = nullptr;
     statusCode = m_vkCreateDebugReportCallbackEXT(instance, &dbgInfo, nullptr,
