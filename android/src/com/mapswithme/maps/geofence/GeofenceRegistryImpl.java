@@ -14,15 +14,21 @@ import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GeofenceRegistryImpl implements GeofenceRegistry
 {
   private static final int GEOFENCE_MAX_COUNT = 100;
+  private static final int GEOFENCE_TTL_IN_DAYS = 3;
   private static final float PREFERRED_GEOFENCE_RADIUS = 100.0f;
+
+  private static final Logger LOG = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = GeofenceRegistryImpl.class.getSimpleName();
 
   @NonNull
   private final Application mApplication;
@@ -45,7 +51,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     checkPermission();
 
     List<GeoFenceFeature> features = LightFramework.getLocalAdsFeatures(
-        location.getLat(), location.getLon(), location.getRadiusInMeters()/* from system  location provider accuracy */, GEOFENCE_MAX_COUNT);
+        location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);
 
     if (features.isEmpty())
       return;
@@ -54,7 +60,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
       Geofence geofence = new Geofence.Builder()
           .setRequestId(each.getId())
           .setCircularRegion(each.getLatitude(), each.getLongitude(), PREFERRED_GEOFENCE_RADIUS)
-          .setExpirationDuration(Geofence.NEVER_EXPIRE)
+          .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
           .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER
                               | Geofence.GEOFENCE_TRANSITION_EXIT)
           .build();
@@ -72,38 +78,43 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   {
     checkThread();
     checkPermission();
-
-    if (mGeofences.isEmpty())
-      return;
-    List<String> expiredGeofences = new ArrayList<>();
-    for (GeofenceAndFeature current: mGeofences)
-    {
-      String requestId = current.getGeofence().getRequestId();
-      expiredGeofences.add(requestId);
-    }
-    mGeofencingClient.removeGeofences(expiredGeofences)
+    mGeofencingClient.removeGeofences(makeGeofencePendingIntent())
                      .addOnSuccessListener(params -> onRemoveFailed())
                      .addOnSuccessListener(params -> onRemoveSucceeded());
   }
 
+  @NonNull
+  @Override
+  public GeoFenceFeature getFeatureByGeofence(@NonNull Geofence geofence)
+  {
+    checkThread();
+    for (GeofenceAndFeature each : mGeofences)
+    {
+      if (each.getGeofence().getRequestId().equals(geofence.getRequestId()))
+        return each.getFeature();
+
+    }
+    throw new IllegalArgumentException("Geofence not found");
+  }
+
   private void onAddSucceeded()
   {
-
+    LOG.d(TAG, "onAddSucceeded");
   }
 
   private void onAddFailed()
   {
-
+    LOG.d(TAG, "onAddFailed");
   }
 
   private void onRemoveSucceeded()
   {
-
+    LOG.d(TAG, "onRemoveSucceeded");
   }
 
   private void onRemoveFailed()
   {
-
+    LOG.d(TAG, "onRemoveFailed");
   }
 
   private void checkPermission() throws LocationPermissionNotGrantedException
@@ -129,7 +140,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   private GeofencingRequest makeGeofencingRequest()
   {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
+    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                   .addGeofences(collectGeofences())
                   .build();
   }

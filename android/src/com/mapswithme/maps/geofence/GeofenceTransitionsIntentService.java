@@ -11,17 +11,29 @@ import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.mapswithme.maps.LightFramework;
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.maps.scheduling.JobIdMap;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 public class GeofenceTransitionsIntentService extends JobIntentService
 {
   private static final Logger LOG = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-
   private static final String TAG = GeofenceTransitionsIntentService.class.getSimpleName();
+  public static final int LOCATION_PROBES_MAX_COUNT = 10;
+  public static final int TIMEOUT_IN_MINUTS = 1;
 
   @NonNull
   private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
@@ -31,19 +43,71 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
     if (geofencingEvent.hasError())
-    {
-      String errorMessage = "Error code = " + geofencingEvent.getErrorCode();
-      LOG.e(TAG, errorMessage);
-      return;
-    }
+      onError(geofencingEvent);
+    else
+      onSuccess(geofencingEvent);
+  }
+
+  private void onSuccess(@NonNull GeofencingEvent geofencingEvent)
+  {
     int transitionType = geofencingEvent.getGeofenceTransition();
-    if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER
-        || transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
+
+    if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
+      onGeofenceEnter(geofencingEvent);
+    else if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
+      onGeofenceExit(geofencingEvent);
+  }
+
+  private void onGeofenceExit(@NonNull GeofencingEvent geofencingEvent)
+  {
+    GeofenceLocation geofenceLocation = GeofenceLocation.from(geofencingEvent.getTriggeringLocation());
+    mMainThreadHandler.post(new GeofencingEventExitTask(getApplication(), geofenceLocation));
+  }
+
+  private void onGeofenceEnter(@NonNull GeofencingEvent geofencingEvent)
+  {
+    makeLocationProbesBlocking(geofencingEvent);
+  }
+
+  private void makeLocationProbesBlocking(@NonNull GeofencingEvent geofencingEvent)
+  {
+    for (int i = 0; i < LOCATION_PROBES_MAX_COUNT; i++)
     {
-      mMainThreadHandler.post(new GeofencingEventTask(getApplication(), geofencingEvent));
-//      LightFramework.nativeLogLocalAdsEvent(1, /* myPlaceLat */, /* myPlaceLon */, /*
-// locationProviderAccuracy */, , , );
+      try
+      {
+        makeSingleLocationProbOrThrow(geofencingEvent);
+      }
+      catch (InterruptedException| ExecutionException | TimeoutException e)
+      {
+        LOG.d(TAG, "error", e);
+      }
     }
+  }
+
+  @NonNull
+  private ExecutorService getExecutor()
+  {
+    MwmApplication app = (MwmApplication) getApplication();
+    return app.getGeofenceProbesExecutor();
+  }
+
+  private void makeSingleLocationProbOrThrow(GeofencingEvent geofencingEvent) throws
+                                                                              InterruptedException, ExecutionException, TimeoutException
+  {
+    getExecutor().submit(new InfinityTask()).get(TIMEOUT_IN_MINUTS, TimeUnit.MINUTES);
+    GeofenceLocation geofenceLocation = GeofenceLocation.from(geofencingEvent.getTriggeringLocation());
+    List<Geofence> geofences = Collections.unmodifiableList(geofencingEvent.getTriggeringGeofences());
+    CheckLocationTask locationTask = new CheckLocationTask(
+        getApplication(),
+        geofences,
+        geofenceLocation);
+    mMainThreadHandler.post(locationTask);
+  }
+
+  private void onError(@NonNull GeofencingEvent geofencingEvent)
+  {
+    String errorMessage = "Error code = " + geofencingEvent.getErrorCode();
+    LOG.e(TAG, errorMessage);
   }
 
   public static void enqueueWork(@NonNull Context context, @NonNull Intent intent)
@@ -52,40 +116,104 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     enqueueWork(context, GeofenceTransitionsIntentService.class, id, intent);
   }
 
-  private static class GeofencingEventTask implements Runnable
+  private static class InfinityTask implements Callable<Object>
+  {
+    private static final int LATCH_COUNT = 1;
+
+    @Override
+    public Object call() throws Exception
+    {
+      CountDownLatch latch = new CountDownLatch(LATCH_COUNT);
+      latch.await();
+      return null;
+    }
+  }
+
+  private static class CheckLocationTask extends AbstractGeofenceTask
   {
     @NonNull
-    private final Application mApplication;
-    @NonNull
-    private final GeofencingEvent mGeofencingEvent;
+    private final List<Geofence> mGeofences;
 
-    GeofencingEventTask(@NonNull Application application, @NonNull GeofencingEvent geofencingEvent)
+    CheckLocationTask(@NonNull Application application, @NonNull List<Geofence> geofences,
+                      @NonNull GeofenceLocation triggeringLocation)
     {
-      mApplication = application;
-      mGeofencingEvent = geofencingEvent;
+      super(application, triggeringLocation);
+      mGeofences = geofences;
     }
 
     @Override
     public void run()
     {
-      Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
-      Location currentLocation = lastKnownLocation == null ? mGeofencingEvent
-          .getTriggeringLocation()
-                                                           : lastKnownLocation;
+      requestLocationCheck();
+    }
 
-      GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(mApplication);
-      if (mGeofencingEvent.getGeofenceTransition() == Geofence.GEOFENCE_TRANSITION_EXIT)
+    private void requestLocationCheck()
+    {
+      GeofenceLocation geofenceLocation = getGeofenceLocation();
+      if (!getApplication().arePlatformAndCoreInitialized())
+        getApplication().initCore();
+
+      GeofenceRegistry registry = GeofenceRegistryImpl.from(getApplication());
+      for (Geofence each : mGeofences)
       {
-        try
-        {
-          geofenceRegistry.unregisterGeofences();
-          geofenceRegistry.registerGeofences(GeofenceLocation.from(currentLocation));
-        }
-        catch (LocationPermissionNotGrantedException e)
-        {
-          LOG.d(TAG, "Location permission not granted!", e);
-        }
+        GeoFenceFeature geoFenceFeature = registry.getFeatureByGeofence(each);
+        LightFramework.logLocalAdsEvent(geofenceLocation, geoFenceFeature);
       }
+    }
+  }
+
+  private class GeofencingEventExitTask extends AbstractGeofenceTask
+  {
+    GeofencingEventExitTask(@NonNull Application application,
+                            @NonNull GeofenceLocation location)
+    {
+      super(application, location);
+    }
+
+    @Override
+    public void run()
+    {
+      GeofenceLocation location = getGeofenceLocation();
+      GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(getApplication());
+
+      try
+      {
+        geofenceRegistry.unregisterGeofences();
+        geofenceRegistry.registerGeofences(location);
+      }
+      catch (LocationPermissionNotGrantedException e)
+      {
+        LOG.d(TAG, "Location permission not granted!", e);
+      }
+    }
+  }
+
+  private static abstract class AbstractGeofenceTask implements Runnable
+  {
+    @NonNull
+    private final MwmApplication mApplication;
+    @NonNull
+    private final GeofenceLocation mGeofenceLocation;
+
+    AbstractGeofenceTask(@NonNull Application application,
+                         @NonNull GeofenceLocation location)
+    {
+      mApplication = (MwmApplication)application;
+      mGeofenceLocation = location;
+    }
+
+    @NonNull
+    protected MwmApplication getApplication()
+    {
+      return mApplication;
+    }
+
+    @NonNull
+    protected GeofenceLocation getGeofenceLocation()
+    {
+      Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
+      return lastKnownLocation == null ? mGeofenceLocation
+                                       : GeofenceLocation.from(lastKnownLocation);
     }
   }
 }
