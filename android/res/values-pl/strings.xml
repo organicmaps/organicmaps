@@ -1475,6 +1475,7 @@
 	<string name="whatsnew_pro_guides_message">Wysoki poziom detalizacji, szczegółowe opisy miejsc i możliwość obliczenia odległości i czasu spaceru</string>
 	<string name="whatsnew_paid_routes_title">Więcej nowych wrażeń!</string>
 	<string name="whatsnew_paid_routes_message">Do bezpłatnych tras jako dodatek do katalogu dodaliśmy 3 kategorie płatnych przewodników. Ponad 700 nowych tras!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Chce się podzielić wrażeniami? To proste!</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stacja kolejki linowej</string>

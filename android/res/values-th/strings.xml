@@ -1476,6 +1476,7 @@
 	<string name="whatsnew_pro_guides_message">มีความละเอียดมาก พร้อมรายละเอียดของสถานที่ และความสามารถในการคำนวณระยะทาง และเวลาในการเดินทาง</string>
 	<string name="whatsnew_paid_routes_title">ประสบการณ์ใหม่ ๆ ที่มากขึ้น!</string>
 	<string name="whatsnew_paid_routes_message">นอกเหนือจากเส้นทางที่ไม่เสียค่าใช้จ่ายแล้ว เราได้เพิ่มหมวดหมู่เส้นทางที่ต้องชำระเงิน 3 ประเภทลงในแคตตาล็อกของเรา มีเส้นทางใหม่มากกว่า 700 เส้นทาง!</string>
+	<string name="whats_new_ugc_routes_title_android_only">แบ่งปันความประทับใจของคุณได้ง่าย ๆ</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">สถานีกระเช้าลอยฟ้า</string>

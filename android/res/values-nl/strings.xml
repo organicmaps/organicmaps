@@ -1471,6 +1471,7 @@
 	<string name="whatsnew_pro_guides_message">Zeer grondig, met gedetailleerde beschrijvingen van plaatsen en de mogelijkheid om reisafstand en -tijd te berekenen</string>
 	<string name="whatsnew_paid_routes_title">Nog nieuwe ervaringen!</string>
 	<string name="whatsnew_paid_routes_message">Bovenop de gratis routes, hebben we 3 betalende routes toegevoegd aan onze catalogus. Meer dan 700 routes!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Het is eenvoudig om je indrukken te delen</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelwagenstation</string>

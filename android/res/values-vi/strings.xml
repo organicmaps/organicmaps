@@ -1467,6 +1467,7 @@
 	<string name="whatsnew_pro_guides_message">Rất kỹ lưỡng, với các mô tả chi tiết về địa điểm và khả năng tính toán khoảng cách và thời gian chuyến đi</string>
 	<string name="whatsnew_paid_routes_title">Thêm nhiều trải nghiệm mới!</string>
 	<string name="whatsnew_paid_routes_message">Ngoài các tuyến đường miễn phí, chúng tôi đã thêm 3 danh mục tuyến đường có trả tiền vào danh mục của mình. Hơn 700 tuyến đường mới!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Rất dễ để chia sẻ những sự ấn tượng của bạn</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Trạm Cáp Treo</string>

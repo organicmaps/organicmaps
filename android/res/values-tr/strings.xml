@@ -1476,6 +1476,7 @@
 	<string name="whatsnew_pro_guides_message">Yerlerin ayrıntılı açıklamaları ve yolculuk mesafesini ve zamanını hesaplama becerisi ile çok ayrıntılı</string>
 	<string name="whatsnew_paid_routes_title">Daha fazla yeni deneyimler!</string>
 	<string name="whatsnew_paid_routes_message">Ücretsiz rotalara ek olarak, kataloğumuza 3 ücretli rota kategorisi ekledik. 700\'den fazla yeni rota!</string>
+	<string name="whats_new_ugc_routes_title_android_only">İzlenimlerinizi paylaşmak çok kolay</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

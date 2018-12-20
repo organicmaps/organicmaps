@@ -1475,6 +1475,7 @@
 	<string name="whatsnew_pro_guides_message">Veľmi dôkladné, s podrobnými popismi miest a s možnosťou vypočítať vzdialenosť a čas cesty</string>
 	<string name="whatsnew_paid_routes_title">Viac nových zážitkov!</string>
 	<string name="whatsnew_paid_routes_message">Okrem bezplatných trás sme do nášho katalógu pridali tri platené kategórie trás. Viac ako 700 nových trás!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Je ľahké podeliť sa o vaše dojmy</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Lanovka</string>

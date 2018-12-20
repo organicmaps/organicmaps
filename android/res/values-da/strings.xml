@@ -1475,6 +1475,7 @@
 	<string name="whatsnew_pro_guides_message">Meget grundig, med detaljerede beskrivelser af steder og evnen til at beregne turens afstand og tid</string>
 	<string name="whatsnew_paid_routes_title">Flere nye oplevelser!</string>
 	<string name="whatsnew_paid_routes_message">Udover de gratis ruter har vi tilføjet 3 betalte rutekategorier til vores katalog. Over 700 nye ruter!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Det er nemt at dele dine indtryk</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestation</string>

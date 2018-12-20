@@ -1485,6 +1485,7 @@
 	<string name="whatsnew_pro_guides_message">Le haut niveau de détail, des descriptions détaillées des lieux et la possibilité de calculer la distance et le temps de la promenade</string>
 	<string name="whatsnew_paid_routes_title">Plus de nouvelles impressions!</string>
 	<string name="whatsnew_paid_routes_message">En plus des itinéraires gratuits, nous avons ajouté au catalogue 3 catégories de guides payants. Plus de 700 nouvelles routes!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Il est facile de partager vos impressions</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Remontées mécaniques</string>

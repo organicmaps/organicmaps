@@ -1368,6 +1368,7 @@
 	<string name="whatsnew_pro_guides_message">Veldig grundig, med detaljerte beskrivelser av steder og muligheten til å beregne turavstand og tid</string>
 	<string name="whatsnew_paid_routes_title">Flere nye opplevelser!</string>
 	<string name="whatsnew_paid_routes_message">I tillegg til de tur-rutene som er gratis, har vi lagt til 3 tur-rute kategorier som kan kjøpes i vår katalog. Over 700 nye turer!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Del inntrykkene dine med andre, enkelt</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Kabelbanestasjon</string>

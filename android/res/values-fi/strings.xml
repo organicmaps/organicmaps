@@ -1471,6 +1471,7 @@
 	<string name="whatsnew_pro_guides_message">Korkeat yksityiskohdat, yksityiskohtaiset paikkojen kuvaukset ja mahdollisuus laskea kävelymatkan pituus ja aika</string>
 	<string name="whatsnew_paid_routes_title">Enemmän uusia elämyksiä!</string>
 	<string name="whatsnew_paid_routes_message">Ilmaisten reittien lisäksi nyt 3 kategoriaa maksullisia matkaoppaita lisätty luetteloon. Yli 700 uusia reittejä!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Voit helposti jakaa kokemuksiasi</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Köysirata-asema</string>

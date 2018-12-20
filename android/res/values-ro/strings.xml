@@ -1467,6 +1467,7 @@
 	<string name="whatsnew_pro_guides_message">Nivel înalt de detalii, descrieri detaliate ale locurilor și posibilitatea de a calcula distanța și timpul de mers pe jos</string>
 	<string name="whatsnew_paid_routes_title">Mai multe experiențe noi!</string>
 	<string name="whatsnew_paid_routes_message">Pe lângă rutele gratuite, în catalogul nostru am adăugat 3 categorii de rute plătite. Peste 700 de rute noi!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Este ușor să vă împărtășiți impresiile</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stație de teleferic</string>

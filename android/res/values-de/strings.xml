@@ -1485,6 +1485,7 @@
 	<string name="whatsnew_pro_guides_message">Hohes Detaillierungsniveau, detaillierte Ortsbeschreibung und Möglichkeit die Entfernung und die Ausflugszeit zu berechnen</string>
 	<string name="whatsnew_paid_routes_title">Mehr neue Eindrücke!</string>
 	<string name="whatsnew_paid_routes_message">Zusätzlich zu den kostenfreien Routen haben wir 3 Kategorien kostenpflichtiger Reiseführer zum Katalog hinzugefügt. Über 700 neue Routen!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Es ist einfach, Ihre Eindrücke zu teilen</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner2_action">Rabatt</string>

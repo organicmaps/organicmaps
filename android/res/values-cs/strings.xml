@@ -1479,6 +1479,7 @@
 	<string name="whatsnew_pro_guides_message">Velmi detailní, podrobné popisy míst a možností, jak spočítat vzdálenost a dobu procházky</string>
 	<string name="whatsnew_paid_routes_title">Více nových zážitků!</string>
 	<string name="whatsnew_paid_routes_message">K trasám zdarma jsme do katalogu navíc přidali 3 kategorie zpoplatněných průvodců. Více než 700 nových tras!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Sdílet své dojmy je jednoduché</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stanice lanové dráhy</string>

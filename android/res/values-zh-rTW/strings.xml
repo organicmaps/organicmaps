@@ -1479,6 +1479,7 @@
 	<string name="whatsnew_pro_guides_message">高水平的細節，地點的詳細描述以及計算步行距離和時間的能力</string>
 	<string name="whatsnew_paid_routes_title">更多新體驗！</string>
 	<string name="whatsnew_paid_routes_message">除了免費路線，我們還為目錄添加了3類付費指南。超過700條新路線！</string>
+	<string name="whats_new_ugc_routes_title_android_only">分享您的印象很容易</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">纜車站</string>

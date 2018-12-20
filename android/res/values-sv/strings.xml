@@ -1475,6 +1475,7 @@
 	<string name="whatsnew_pro_guides_message">Hög detaljeringsnivå, detaljbeskrivningar av platser och en möjlighet att beräkna avstånd och tid för en vandring</string>
 	<string name="whatsnew_paid_routes_title">Mer positiva intryck!</string>
 	<string name="whatsnew_paid_routes_message">Förutom gratis rutter har vi lagt 3 kategorier av betalade vägvisare till katalogen. Mer än 700 nya rutter!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Det är lätt att dela dina intryck</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Linbanestation</string>

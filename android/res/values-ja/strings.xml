@@ -1469,6 +1469,7 @@
 	<string name="whatsnew_pro_guides_message">非常に綿密で詳細な場所の説明と、移動距離および時間の計算能力</string>
 	<string name="whatsnew_paid_routes_title">さらなある新たな体験！</string>
 	<string name="whatsnew_paid_routes_message">無料のルートに加え、カタログに3つの有料のルートを追加しました。700を超える新たなルート！</string>
+	<string name="whats_new_ugc_routes_title_android_only">印象を共有するのは簡単です</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">ケーブルカー駅</string>

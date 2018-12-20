@@ -1476,6 +1476,7 @@
 	<string name="whatsnew_pro_guides_message">شامل جدا ، مع وصف مفصل للأماكن والقدرة على حساب مسافة الرحلة والوقت</string>
 	<string name="whatsnew_paid_routes_title">المزيد من الخبرات الجديدة!</string>
 	<string name="whatsnew_paid_routes_message">بالإضافة إلى الطرقات المجانية ، قمنا بإضافة 3 فئات للمسارات المدفوعة إلى الكتالوج الخاص بنا. أكثر من 700 طريق جديد!</string>
+	<string name="whats_new_ugc_routes_title_android_only">من السهل مشاركة انطباعاتك</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">محطة تلفريك</string>

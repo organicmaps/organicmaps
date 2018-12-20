@@ -1475,6 +1475,7 @@
 	<string name="whatsnew_pro_guides_message">高水平的细节，地点的详细描述以及计算步行距离和时间的能力</string>
 	<string name="whatsnew_paid_routes_title">更多新体验！</string>
 	<string name="whatsnew_paid_routes_message">除了免费路线，我们还为目录添加了3类付费指南。超过700条新路线！</string>
+	<string name="whats_new_ugc_routes_title_android_only">分享您的印象很容易</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">缆车车站</string>

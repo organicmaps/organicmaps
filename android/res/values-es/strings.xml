@@ -1464,6 +1464,7 @@
 	<string name="whatsnew_pro_guides_message">Alto nivel de detalle, descripciones minuciosas de lugares y capacidad para calcular la distancia y el tiempo en camino</string>
 	<string name="whatsnew_paid_routes_title">¡Más experiencias nuevas!</string>
 	<string name="whatsnew_paid_routes_message">Además de las rutas gratuitas, agregamos al catálogo 3 categorías de guías con pago. ¡Más de 700 rutas nuevas!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Compartir tus impresiones es fácil</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Estación de teleférico</string>

@@ -1470,6 +1470,7 @@
 	<string name="whatsnew_pro_guides_message">Gli itinerari più precisi con una descrizione dettagliata. Possibilità di calcolare la distanza e i tempi di percorrenza</string>
 	<string name="whatsnew_paid_routes_title">Nuove emozioni da scoprire!</string>
 	<string name="whatsnew_paid_routes_message">Ora, insieme ai percorsi gratuiti, nel catalogo troverete anche guide a pagamento suddivise in 3 categorie. Più di 700 itinerari nuovi!</string>
+	<string name="whats_new_ugc_routes_title_android_only">È facile condividere le tue impressioni</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Stazione di rifornimento per auto elettriche</string>

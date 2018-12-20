@@ -1466,6 +1466,7 @@
 	<string name="whatsnew_pro_guides_message">장소에 대한 자세한 묘사와 통행 거리, 시간 계산 능력이 매우 철저합니다</string>
 	<string name="whatsnew_paid_routes_title">더 새로운 경험들!</string>
 	<string name="whatsnew_paid_routes_message">무료 루트뿐만 아니라, 3개의 유료 루트 카테고리들도 우리의 카탈로그에 추가했습니다 700개 이상의 새로운 루트들!</string>
+	<string name="whats_new_ugc_routes_title_android_only">당신의 감동을 공유하기 좋습니다</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">케이블카 역</string>

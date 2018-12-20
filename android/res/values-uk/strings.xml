@@ -1476,6 +1476,7 @@
 	<string name="whatsnew_pro_guides_message">Високий рівень деталізації, докладні описи місць, а також можливість розрахувати відстань і час прогулянки</string>
 	<string name="whatsnew_paid_routes_title">Більше нових вражень!</string>
 	<string name="whatsnew_paid_routes_message">На додаток до безкоштовних маршрутів ми додали в каталог 3 категорії платних путівників. Більше 700 нових маршрутів!</string>
+	<string name="whats_new_ugc_routes_title_android_only">Ділитись враженнями легко</string>
 
 	<!-- SECTION: Types -->
 	<string name="type.aerialway.station">Канатна дорога</string>
