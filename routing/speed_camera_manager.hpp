@@ -134,13 +134,15 @@ private:
 
   void FindCamerasOnRouteAndCache(double passedDistanceMeters);
 
-  void PassCameraToUI(SpeedCameraOnRoute const & camera);
+  void PassClosestCameraToUI();
 
   bool SetNotificationFlags(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
   bool IsSpeedHigh(double distanceToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera) const;
-  bool NeedUpdateClosestCamera(double distanceToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera);
-  bool NeedChangeHighlightedCamera(double distToCameraMeters, bool needUpdateClosestCamera) const;
+
+  /// \brief Returns true if we should change |m_closestCamera| to |nextCamera|. False otherwise.
+  bool NeedToUpdateClosestCamera(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & nextCamera);
   bool IsHighlightedCameraExpired(double distToCameraMeters) const;
+  bool IsCameraCloseEnough(double distToCameraMeters) const;
 
   /// \brief Send stat to aloha.
   void SendNotificationStat(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
@@ -167,9 +169,6 @@ private:
 
   // Queue of speedCams, that we have found, but they are too far, to make warning about them.
   std::queue<SpeedCameraOnRoute> m_cachedSpeedCameras;
-
-  // Info about camera, that is highlighted now.
-  SpeedCameraOnRoute m_currentHighlightedCamera;
 
   size_t m_firstNotCheckedSpeedCameraIndex;
   std::weak_ptr<Route> m_route;
