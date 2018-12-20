@@ -6,13 +6,14 @@ uniform mat4 u_modelView;
 uniform mat4 u_projection;
 uniform mat4 u_pivotTransform;
 
-varying vec3 v_radius;
 #ifdef ENABLE_VTF
 uniform sampler2D u_colorTex;
 varying LOW_P vec4 v_color;
 #else
 varying vec2 v_colorTexCoords;
 #endif
+
+varying vec3 v_radius;
 
 void main()
 {

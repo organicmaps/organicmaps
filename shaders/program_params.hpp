@@ -46,11 +46,7 @@ private:
     } \
   }
 
-#if defined(OMIM_METAL_AVAILABLE)
 #define ALIGNMENT __attribute__ ((aligned(16)))
-#else
-#define ALIGNMENT
-#endif
 
 struct MapProgramParams
 {

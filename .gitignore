@@ -27,6 +27,7 @@ data/patterns_design.txt
 data/route_points.dat
 data/bookmarks/
 data/bookmarks_backup/
+data/vulkan_shaders/debug/*
 
 # Compiled Python
 *.pyc

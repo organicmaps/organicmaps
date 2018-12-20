@@ -1,5 +1,3 @@
-varying vec2 v_halfLength;
-
 uniform float u_opacity;
 #ifdef ENABLE_VTF
 varying LOW_P vec4 v_color;
@@ -7,6 +5,8 @@ varying LOW_P vec4 v_color;
 uniform sampler2D u_colorTex;
 varying vec2 v_colorTexCoord;
 #endif
+
+varying vec2 v_halfLength;
 
 const float aaPixelsCount = 2.5;
 

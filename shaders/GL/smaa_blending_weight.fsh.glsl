@@ -140,7 +140,8 @@ void main()
 
     // We want the distances to be in pixel units (doing this here allow to
     // better interleave arithmetic and memory accesses).
-    d = abs(SMAARound(u_framebufferMetrics.zz * d - v_coords.zz));
+    vec2 zz = u_framebufferMetrics.zz;
+    d = abs(SMAARound(zz * d - v_coords.zz));
 
     // SMAAArea below needs a sqrt, as the areas texture is compressed
     // quadratically.
@@ -172,7 +173,8 @@ void main()
     d.y = coords.z;
 
     // We want the distances to be in pixel units.
-    d = abs(SMAARound(u_framebufferMetrics.ww * d - v_coords.ww));
+    vec2 ww = u_framebufferMetrics.ww;
+    d = abs(SMAARound(ww * d - v_coords.ww));
 
     // SMAAArea below needs a sqrt, as the areas texture is compressed
     // quadratically.

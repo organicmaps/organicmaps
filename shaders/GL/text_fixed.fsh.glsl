@@ -1,11 +1,11 @@
-varying vec2 v_maskTexCoord;
-
 #ifdef ENABLE_VTF
 varying LOW_P vec4 v_color;
 #else
 varying vec2 v_colorTexCoord;
 uniform sampler2D u_colorTex;
 #endif
+
+varying vec2 v_maskTexCoord;
 
 uniform sampler2D u_maskTex;
 uniform float u_opacity;
