@@ -37,11 +37,13 @@ public class GeofenceTransitionsIntentService extends JobIntentService
         || transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
     {
       mMainThreadHandler.post(new GeofencingEventTask(getApplication(), geofencingEvent));
-//      LightFramework.nativeLogLocalAdsEvent(1, /* myPlaceLat */, /* myPlaceLon */, /* locationProviderAccuracy */, , , );
+//      LightFramework.nativeLogLocalAdsEvent(1, /* myPlaceLat */, /* myPlaceLon */, /*
+// locationProviderAccuracy */, , , );
     }
   }
 
-  public static void enqueueWork(@NonNull Context context, @NonNull Intent intent) {
+  public static void enqueueWork(@NonNull Context context, @NonNull Intent intent)
+  {
     int id = JobIdMap.getId(GeofenceTransitionsIntentService.class);
     enqueueWork(context, GeofenceTransitionsIntentService.class, id, intent);
   }
@@ -63,7 +65,8 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     public void run()
     {
       Location lastKnownLocation = LocationHelper.INSTANCE.getLastKnownLocation();
-      Location currentLocation = lastKnownLocation == null ? mGeofencingEvent.getTriggeringLocation()
+      Location currentLocation = lastKnownLocation == null ? mGeofencingEvent
+          .getTriggeringLocation()
                                                            : lastKnownLocation;
 
       GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(mApplication);
