@@ -1461,7 +1461,6 @@
 	<string name="notification_leave_review_title">%s - nasıldı?</string>
 	<string name="notification_leave_review_content">Yorum bırakarak gezginlere yardım edin!</string>
 	<string name="share_bookmarks_email_body_link">Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">İleride kamera var</string>
 	<string name="warning_speedcams_title">%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak</string>
 	<string name="warning_speedcams_subtitle">Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.</string>
 	<string name="speedcams_notice_message">Otomatik - Hız sınırını aşma riski varsa hız kameraları hakkında uyar\nHer zaman - Hız kameraları hakkında her zaman uyar\nAsla - Hız kameraları hakkında hiçbir zaman uyarma</string>

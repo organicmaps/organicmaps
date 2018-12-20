@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hola!\n\nSus etiquetas se pueden descargar desde el enlace: %s. Abra la lista con la ayuda de MAPS.ME y disfrute del viaje!\n\nDescargar la aplicación: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Cámara adelante";
-
 "warning_speedcams_title" = "El navegador le notificará de las cámaras cuando se exceda el límite de velocidad en %d km/h";
 
 "warning_speedcams_subtitle" = "No de olvide de leer las reglas de carretera en el país de viaje.";

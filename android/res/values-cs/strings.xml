@@ -1464,7 +1464,6 @@
 	<string name="notification_leave_review_title">%s - jak se vám tady líbí?</string>
 	<string name="notification_leave_review_content">Okomentujte místo a pomozte cestovatelům!</string>
 	<string name="share_bookmarks_email_body_link">Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty!\n\nStáhnout aplikaci: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Radar vpředu</string>
 	<string name="warning_speedcams_title">Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary</string>
 	<string name="warning_speedcams_subtitle">Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozorňovat na rychlostní radary, pokud hrozí riziko překročení rychlosti\nVždy - Vždy upozorňovat na rychlostní radary\nNikdy - Nikdy neupozorňovat na rychlostní radary</string>

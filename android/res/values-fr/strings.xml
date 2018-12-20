@@ -1470,7 +1470,6 @@
 	<string name="notification_leave_review_title">%s - c\'était comment ?</string>
 	<string name="notification_leave_review_content">Aidez les voyageurs en leur laissant un avis !</string>
 	<string name="share_bookmarks_email_body_link">Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage !\n\nInstaller l\'application : http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Caméra devant</string>
 	<string name="warning_speedcams_title">Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h</string>
 	<string name="warning_speedcams_subtitle">Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.</string>
 	<string name="speedcams_notice_message">Auto - Alerte sur les radars en cas de risque de dépassement de la limite de vitesse\nToujours - Toujours avertir des radars\nJamais - Jamais avertir à propos des radars</string>

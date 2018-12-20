@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Edessä on kamera";
-
 "warning_speedcams_title" = "Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t";
 
 "warning_speedcams_subtitle" = "Muista tutustua matkustusmaan liikennesääntöihin.";

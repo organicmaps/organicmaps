@@ -1456,7 +1456,6 @@
 	<string name="notification_leave_review_title">%s - hoe vond u het?</string>
 	<string name="notification_leave_review_content">Help reizigers door een beoordeling achter te laten!</string>
 	<string name="share_bookmarks_email_body_link">Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis!\n\nHaal de applicatie op: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Camera in zicht</string>
 	<string name="warning_speedcams_title">Navigator waarschuwt u over camera\'s wanneer u de maximumsnelheid van %d km/h overschrijdt</string>
 	<string name="warning_speedcams_subtitle">Let op de rijvoorschriften van het land waar u naartoe reist.</string>
 	<string name="speedcams_notice_message">Auto - Waarschuw voor speedcams als er een risico bestaat dat de snelheidslimiet wordt overschreden\nAltijd - Waarschuw altijd voor flitspalen\nNooit - Waarschuw nooit over flitspalen</string>

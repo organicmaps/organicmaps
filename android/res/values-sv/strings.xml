@@ -1460,7 +1460,6 @@
 	<string name="notification_leave_review_title">%s - hur mår du här?</string>
 	<string name="notification_leave_review_content">Lämna en recension och hjälp resenärer!</string>
 	<string name="share_bookmarks_email_body_link">Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan!\n\nLadda ner appen: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Kamera framför</string>
 	<string name="warning_speedcams_title">Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h</string>
 	<string name="warning_speedcams_subtitle">Glöm inte att bekanta sig med trafikregler i landet av resan.</string>
 	<string name="speedcams_notice_message">Auto - Varna om fartkameror om det finns risk att överskrida hastighetsgränsen\nAlltid - Varna alltid om kameror\nAldrig - Varna aldrig om kameror</string>

@@ -1461,7 +1461,6 @@
 	<string name="notification_leave_review_title">%s - มันเป็นอย่างไร</string>
 	<string name="notification_leave_review_content">ช่วยนักเดินทางโดยการทิ้งรีวิว!</string>
 	<string name="share_bookmarks_email_body_link">สวัสดี!\n\nนี่คือลิงค์ที่คุณสามารถดาวน์โหลดบุ๊คมาร์คของคุณ: %s เปิดรายการผ่าน MAPS.ME และเพลิดเพลินไปกับการเดินทางของคุณ!\n\nรับแอพพลิเคชัน: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">มีกล้องอยู่ข้างหน้า</string>
 	<string name="warning_speedcams_title">เนวิเกเตอร์จะเตือนคุณเกี่ยวกับกล้องถ่ายรูปเมื่อคุณขับเร็วเกินกำหนดโดยอยู่ที่ %d กม./ชม</string>
 	<string name="warning_speedcams_subtitle">โปรดปฏิบัติตามกฎหมายการขับขี่รถยนต์ของประเทศที่คุณกำลังเดินทางไป</string>
 	<string name="speedcams_notice_message">อัตโนมัติ - เตือนเกี่ยวกับกล้องตรวจจับความเร็วหากมีความเป็นได้ว่าจะขับเร็วเกิดกำหนด\nทุกครั้ง - เตือนเกี่ยวกับกล้องตรวจจับความเร็วเสมอ\nไม่ต้องเตือน - ไม่เคยเตือนเกี่ยวกับกล้องตรวจจับความเร็ว</string>

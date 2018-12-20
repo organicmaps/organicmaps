@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą!\n\nPobierz aplikację: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Kamera z przodu";
-
 "warning_speedcams_title" = "Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h";
 
 "warning_speedcams_subtitle" = "Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.";

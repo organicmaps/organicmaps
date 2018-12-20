@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行!\n\n下載應用程序：http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "在攝像頭前";
-
 "warning_speedcams_title" = "當速度限制超過%d km / h時，導航會通知您的攝像機";
 
 "warning_speedcams_subtitle" = "請不要忘記閱讀旅行國的道路規則。";

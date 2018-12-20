@@ -1461,7 +1461,6 @@
 	<string name="notification_leave_review_title">- كيف كان ذلك؟%s</string>
 	<string name="notification_leave_review_content">مساعدة المسافرين من خلال ترك رأي!</string>
 	<string name="share_bookmarks_email_body_link">مرحبًا!\n\nللوصول إلى التطبيق: http://maps.me/get?kmzهذا هو الرابط الذي يمكنك من خلاله تنزيل إشاراتك المرجعية: %s. افتح القائمة عبر MAPS.ME واستمتع برحلتك!\n\n</string>
-	<string name="camera_ahead_voiceover">الكاميرا أمامك</string>
 	<string name="warning_speedcams_title">سوف يحذرك المستكشف من الكاميرات عندما تتجاوز الحد الأقصى للسرعة %d كم / س</string>
 	<string name="warning_speedcams_subtitle">يرجى مراعاة قواعد القيادة في البلد الذي تنوي السفر إليه.</string>
 	<string name="speedcams_notice_message">السيارات- تحذير على الرادارات إذا كان هناك خطر تجاوز الحد الأقصى للسرعة\nدائما - احذر دائما من كاميرات السرعة\nمطلقا - أبدا تحذير من كاميرات السرعة</string>

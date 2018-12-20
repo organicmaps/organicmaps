@@ -1455,7 +1455,6 @@
 	<string name="notification_leave_review_title">%s - ti piace quì?</string>
 	<string name="notification_leave_review_content">Lascia una recensione ed aiuta altri viaggiatori!</string>
 	<string name="share_bookmarks_email_body_link">Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio!\n\nScaricare l\'App: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Autovelox in prossimità</string>
 	<string name="warning_speedcams_title">Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o</string>
 	<string name="warning_speedcams_subtitle">Ricorda di informarti sul Codice della Strada del paese che visiti.</string>
 	<string name="speedcams_notice_message">Auto - Avvisare di autovelox in caso di rischio eccesso velocità\nSempre - avvisare sempre di autovelox\nMai - Non avvisare mai di autovelox</string>

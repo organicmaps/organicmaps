@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "안녕하세요!\n\n여기 즐겨찾기들을 다운로드 받을 수 있는 링크입니다: %s. MAPS.ME 를 통해 리스트를 열고 당신의 여행을 즐기세요!\n\n어플리케이션을 받으세요: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "전방에 카메라";
-
 "warning_speedcams_title" = "네비게이터가 %d km/h의 속도 제한을 초과시 카메라에 대해 경고 할 것입니다";
 
 "warning_speedcams_subtitle" = "여행하시는 나라의 운전 법규를 준수하시길 바랍니다.";

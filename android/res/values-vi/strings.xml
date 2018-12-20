@@ -1452,7 +1452,6 @@
 	<string name="notification_leave_review_title">%s - nó như thế nào?</string>
 	<string name="notification_leave_review_content">Giúp khách du lịch bằng cách để lại đánh giá!</string>
 	<string name="share_bookmarks_email_body_link">Xin chào!\n\nĐây là liên kết nơi bạn có thể tải xuống dấu trang của mình: %s. Mở danh sách qua MAPS.ME và tận hưởng chuyến đi của bạn!\n\nNhận đơn đăng ký: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Máy ảnh phía trước</string>
 	<string name="warning_speedcams_title">Thanh điều hướng sẽ cảnh báo bạn về máy ảnh khi bạn vượt quá giới hạn tốc độ %d km/h</string>
 	<string name="warning_speedcams_subtitle">Hãy nhớ lái xe quy định của đất nước bạn đang đi du lịch đến.</string>
 	<string name="speedcams_notice_message">Tự động - Cảnh báo về speedcam nếu có nguy cơ vượt quá giới hạn tốc độ\nLuôn luôn - Luôn cảnh báo về speedcams\nKhông bao giờ - Không bao giờ cảnh báo về speedcams</string>

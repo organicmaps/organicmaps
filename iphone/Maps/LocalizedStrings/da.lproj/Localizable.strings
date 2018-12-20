@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen!\n\nHent applikation: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Kamera foran dig";
-
 "warning_speedcams_title" = "Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t";
 
 "warning_speedcams_subtitle" = "Vær opmærksom på færdselsreglerne i det land, du rejser til.";

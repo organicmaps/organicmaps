@@ -1460,7 +1460,6 @@
 	<string name="notification_leave_review_title">%s - aké to bolo?</string>
 	<string name="notification_leave_review_content">Pomôžte cestujúcim tým, že zanecháte recenziu!</string>
 	<string name="share_bookmarks_email_body_link">Dobrý deň!\n\nTu je odkaz, kde si môžete stiahnuť svoje záložky: %s. Otvorte zoznam prostredníctvom služby MAPS.ME a užite si výlet!\n\nZískajte aplikáciu: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Kamera vpredu</string>
 	<string name="warning_speedcams_title">Navigátor vás upozorní na kamery, keď prekročíte rýchlostný limit %d km/h</string>
 	<string name="warning_speedcams_subtitle">Dodržujte pravidlá cestnej premávky v krajine, do ktorej cestujete.</string>
 	<string name="speedcams_notice_message">Automaticky - Upozornenie na rýchlostné kamery, ak existuje riziko prekročenia rýchlostného limitu\nVždy - Vždy upozorniť na rýchlostné kamery\nNikdy - Nikdy neupozorňovať na rýchlostné kamery</string>

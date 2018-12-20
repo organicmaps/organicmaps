@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hello!\n\nHere is the link where you can download bookmarks: %s. Open the list in MAPS.ME and enjoy your trip!\n\nGet application: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Camera ahead";
-
 "warning_speedcams_title" = "Navigator will warn you about cameras when you exceed the speed limit of %d km/h";
 
 "warning_speedcams_subtitle" = "Please mind driving regulations of the country you are travelling to.";

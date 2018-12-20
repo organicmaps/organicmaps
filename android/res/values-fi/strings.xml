@@ -1456,7 +1456,6 @@
 	<string name="notification_leave_review_title">%s - miten on täällä?</string>
 	<string name="notification_leave_review_content">Kirjoita arvostelu ja auta matkustajia!</string>
 	<string name="share_bookmarks_email_body_link">Hei!\n\nMerkkinne voi ladata linkistä: %s. Avaa luettelo MAPS.ME: llä ja nauti matkasta!\n\nLataa sovellus: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Edessä on kamera</string>
 	<string name="warning_speedcams_title">Navigaattori ilmoittaa sinulle kameroista, kun nopeusraja ylittyy %d km/t</string>
 	<string name="warning_speedcams_subtitle">Muista tutustua matkustusmaan liikennesääntöihin.</string>
 	<string name="speedcams_notice_message">Auto - Varoita nopeuskameroista, jos tuntuu siltä, että nopeusrajan ylitys on mahdollista\nAina - Varoita kameroista aina\nEi koskaan - älä koskaan varoita kameroista</string>

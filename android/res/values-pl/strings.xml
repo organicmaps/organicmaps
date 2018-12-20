@@ -1460,7 +1460,6 @@
 	<string name="notification_leave_review_title">%s - jak Tobie tu?</string>
 	<string name="notification_leave_review_content">Zostaw recenzję i pomóż podróżującym!</string>
 	<string name="share_bookmarks_email_body_link">Witaj!\n\nTwoje znaczniki można pobrać, używając link: %s. Otwórz listę, używając MAPS.ME i ciesz się podrożą!\n\nPobierz aplikację: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Kamera z przodu</string>
 	<string name="warning_speedcams_title">Nawigator powiadomi Cibie o kamerach, gdy przekrocz prędkość na %d km/h</string>
 	<string name="warning_speedcams_subtitle">Nie zapomnij zapoznać się z zasadami ruchu drogowego w kraju podróży.</string>
 	<string name="speedcams_notice_message">Auto – Ostrzegać o kamerach, jeśli istnieje ryzyko przekroczenia ograniczenia prędkości\nZawsze – Zawsze ostrzegaj o kamerach\nNigdy – Nigdy nie ostrzegaj o kamerach</string>

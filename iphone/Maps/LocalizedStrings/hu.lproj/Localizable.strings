@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Üdvözlöm!\n\nA jeleit le lehet tölteni ezzel a linkkel: %s. Nyíssa meg a listát MAPS.ME segítségével és élvezze az utazását!\n\nAlkalmazás letöltése: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Kamera elöl";
-
 "warning_speedcams_title" = "Navigátor értesít a kamerákról sebességkorlátozás megsértésénél %d km/óra-ra";
 
 "warning_speedcams_subtitle" = "Ne felejtse el megismerkedni a cél ország közlekedési szabályaival.";

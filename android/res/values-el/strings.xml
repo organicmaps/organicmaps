@@ -1218,7 +1218,6 @@
 	<string name="notification_leave_review_title">%s- πώς ήταν?</string>
 	<string name="notification_leave_review_content">Βοηθήστε ταξιδιώτες αφήνοντας μια κριτική!</string>
 	<string name="share_bookmarks_email_body_link">Γεια!\n\nΕδώ είναι ο σύνδεσμος που μπορείς να κατεβάσεις τους σελιδοδείκτες σου: %s. Ανοίξτε τη λίστα μέσω MAPS.ME και απολαύστε το ταξίδι σας!\n\nΚατεβάστε την εφαρμογή: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Κάμερα παρακάτω</string>
 	<string name="warning_speedcams_title">Ο πλοηγός θα σας ειδοποιεί για κάμερες όταν υπερβαίνετε το όριο ταχύτητας των %d km/h</string>
 	<string name="warning_speedcams_subtitle">Παρακαλώ να προσέχετε τους κανόνες οδήγησης της χώρας στην οποία ταξιδεύετε.</string>
 	<string name="speedcams_notice_message">Αυτόματο- Να ειδοποιούμαι για κάμερες αν υπάρχει κίνδυνος να υπερβώ το όριο ταχύτητας\nΠάντα- Πάντα να ειδοποιούμαι για κάμερες\nΠοτέ- Ποτέ να μην ειδοποιούμαι για κάμερες</string>

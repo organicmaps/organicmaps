@@ -1460,7 +1460,6 @@
 	<string name="notification_leave_review_title">%s - 您在这里怎么样？</string>
 	<string name="notification_leave_review_content">请发表评论并帮助游客！</string>
 	<string name="share_bookmarks_email_body_link">您好！\n\n您的标签可以从链接下载：%s.使用MAPS.ME打开列表并享受旅行!\n\n下载程序：http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">在摄像头前</string>
 	<string name="warning_speedcams_title">当速度限制超过%d km / h时，导航会通知您的摄像机</string>
 	<string name="warning_speedcams_subtitle">请不要忘记阅读旅行国的道路规则。</string>
 	<string name="speedcams_notice_message">自动 - 如果存在超出速度限制的风险，则对速度摄像头发出警告\n总是 - 始终提醒摄像头\n从不 - 永远不会对摄像头发出警告</string>

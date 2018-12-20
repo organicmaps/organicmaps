@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hej!\n\nDina etiketter kan laddas ner från länken: %s. Öppna listan med hjälp av MAPS.ME och njut av resan!\n\nLadda ner appen: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Kamera framför";
-
 "warning_speedcams_title" = "Navigatören ska meddela dig om kameror när hastighetsgränsen överskrids med %d km/h";
 
 "warning_speedcams_subtitle" = "Glöm inte att bekanta sig med trafikregler i landet av resan.";

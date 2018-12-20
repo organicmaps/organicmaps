@@ -1507,7 +1507,6 @@
 	<string name="notification_leave_review_title">%s - как вам здесь?</string>
 	<string name="notification_leave_review_content">Оставьте отзыв и помогите путешественникам!</string>
 	<string name="share_bookmarks_email_body_link">Здравствуйте!\n\nМетки можно скачать по ссылке: %s. Открывайте список с помощью MAPS.ME и наслаждайтесь поездкой!\n\nСкачать приложение: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Впереди камера</string>
 	<string name="warning_speedcams_title">Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч</string>
 	<string name="warning_speedcams_subtitle">Не забудьте ознакомиться с правилами дорожного движения в стране путешествия.</string>
 	<string name="speedcams_notice_message">Авто - Предупреждать о камерах скорости, если есть риск превышения скоростного лимита\nВсегда - Всегда предупреждать о камерах\nНикогда - Никогда не предупреждать о камерах</string>

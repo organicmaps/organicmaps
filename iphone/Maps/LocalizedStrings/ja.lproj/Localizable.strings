@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "こんにちは!\n\nこれはあなたのブックマークをダウンロードできるリンクです:%s。MAPS.MEを通じてリストを開いて旅をお楽しみください!\n\nアプリの入手: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "この先にある自動速度違反取締装置";
-
 "warning_speedcams_title" = "%d km/hの速度制限を超えているときナビゲーターが自動速度違反取締装置について警告します";
 
 "warning_speedcams_subtitle" = "旅行先の国の道路交通法を考慮してください。";

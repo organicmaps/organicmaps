@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Halo!\n\nBerikut tautan untuk mengunduh bookmark Anda: %s. Buka daftar melalui MAPS.ME dan nikmati perjalanan Anda!\n\nDapatkan aplikasi: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Diawasi kamera";
-
 "warning_speedcams_title" = "Navigator akan memberi Anda peringatan tentang adanya kamera saat Anda melebihi batas kecepatan %d km/jam";
 
 "warning_speedcams_subtitle" = "Harap perhatikan aturan berkendara di negara tempat Anda bepergian.";

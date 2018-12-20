@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Bună ziua!\n\nEtichetele dvs. le puteți descărca de pe linki-ul: %s. Deschideți lista cu ajutorul MAPS.ME și primiți plăcere de la călătorie!\n\nDescărcați aplicația: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Cameră frontală";
-
 "warning_speedcams_title" = "Navigatorul o să avertizeze despre camerele video în cazul depășirii limitei de viteză cu %d km/h";
 
 "warning_speedcams_subtitle" = "Nu uitați să faceți cunoștință cu regulele de circulație în țara unde călătoriți.";

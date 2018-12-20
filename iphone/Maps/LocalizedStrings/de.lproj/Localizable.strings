@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise!\n\nApp downloaden: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Kamera vorne";
-
 "warning_speedcams_title" = "Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren";
 
 "warning_speedcams_subtitle" = "Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.";

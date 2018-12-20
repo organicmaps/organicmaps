@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Hello!\n\nHier is de link waar u uw bladwijzers kunt downloaden: %s. Open de lijst via MAPS.ME en geniet van uw reis!\n\nHaal de applicatie op: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Camera in zicht";
-
 "warning_speedcams_title" = "Navigator waarschuwt u over camera's wanneer u de maximumsnelheid van %d km/h overschrijdt";
 
 "warning_speedcams_subtitle" = "Let op de rijvoorschriften van het land waar u naartoe reist.";

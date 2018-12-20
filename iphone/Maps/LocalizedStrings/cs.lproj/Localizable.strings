@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Dobrý den!\n\nVaše značky můžete stáhnout zde: %s. Otevírejte seznam s pomocí MAPS.ME a užívejte si cesty!\n\nStáhnout aplikaci: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Radar vpředu";
-
 "warning_speedcams_title" = "Navigátor vás při překročení rychlosti o %d km/h upozorní na všechny radary";
 
 "warning_speedcams_subtitle" = "Nezapomeňte se seznámit s dopravními předpisy země, do které cestujete.";

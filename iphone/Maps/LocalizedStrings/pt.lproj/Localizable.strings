@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Olá!\n\nSeus rótulos podem ser baixado aqui: %s. Abra a lista usando MAPS.ME e desfrute do passeio!\n\nBaixar aplicação: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Câmera à frente";
-
 "warning_speedcams_title" = "O navegador irá notificá-lo sobre as câmeras quando o limite de velocidade for excedido em %d km/h";
 
 "warning_speedcams_subtitle" = "Não esqueça de ler as regras da estrada no país de viagem.";

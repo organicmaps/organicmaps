@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Bonjour !\n\nVoici le lien où vous pouvez télécharger vos signets : %s. Ouvrez la liste via MAPS.ME et profitez de votre voyage !\n\nInstaller l'application : http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Caméra devant";
-
 "warning_speedcams_title" = "Navigator vous avertira des caméras lorsque vous dépassez la limite de vitesse de %d km/h";
 
 "warning_speedcams_subtitle" = "Veuillez respecter les réglementations de conduite du pays dans lequel vous vous rendez.";

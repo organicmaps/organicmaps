@@ -1460,7 +1460,6 @@
 	<string name="notification_leave_review_title">%s - hvordan var det?</string>
 	<string name="notification_leave_review_content">Hjælp rejsende ved at skrive en anmeldelse!</string>
 	<string name="share_bookmarks_email_body_link">Hej!\n\nHer er et link, hvor du kan hente dine bogmærker: %s. Åben listen via MAPS.ME og nyd turen!\n\nHent applikation: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Kamera foran dig</string>
 	<string name="warning_speedcams_title">Navigator advarer dig om kameraer, når du overskrider hastighedsgrænsen på %d km/t</string>
 	<string name="warning_speedcams_subtitle">Vær opmærksom på færdselsreglerne i det land, du rejser til.</string>
 	<string name="speedcams_notice_message">Auto - Advar om fartkameraer, hvis der er en risiko for, at hastighedsgrænsen overskrides\nAltid - Advar altid om fartkameraer\nAldrig - Advar aldrig om fartkameraer</string>

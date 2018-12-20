@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Ciao,\n\npuoi scaricare i tag dal seguente link: %s. Aprire elenco tramite MAPS.ME e godersi viaggio!\n\nScaricare l'App: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "Autovelox in prossimità";
-
 "warning_speedcams_title" = "Il navigatore avvisa della presenza della telecamere in caso di eccesso velocità di %d km/o";
 
 "warning_speedcams_subtitle" = "Ricorda di informarti sul Codice della Strada del paese che visiti.";

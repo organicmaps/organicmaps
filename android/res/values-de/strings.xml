@@ -1470,7 +1470,6 @@
 	<string name="notification_leave_review_title">%s - Gefällt es Ihnen hier?</string>
 	<string name="notification_leave_review_content">Hinterlassen Sie Ihr Feedback und helfen Sie den Reisenden!</string>
 	<string name="share_bookmarks_email_body_link">Guten Tag!\n\nIhre Markierungen stehen unter folgendem Link zum Download bereit: %s. Öffnen Sie die Liste mit MAPS.ME und genießen Sie die Reise!\n\nApp downloaden: http://maps.me/get?kmz</string>
-	<string name="camera_ahead_voiceover">Kamera vorne</string>
 	<string name="warning_speedcams_title">Der Navigator wird Sie über Geschwindigkeitskameras bei Geschwindigkeitsüberschreitung von %d km/h informieren</string>
 	<string name="warning_speedcams_subtitle">Vergessen Sie nicht sich mit den Verkehrsregeln im Reisezielland vertraut zu machen.</string>
 	<string name="speedcams_notice_message">Auto - Über Geschwindigkeitskameras bei Risiko einer Geschwindigkeitsüberschreitung informieren\nImmer - Immer über Geschwindigkeitskameras informieren\nNiemals - Nie über Geschwindigkeitskameras informieren</string>

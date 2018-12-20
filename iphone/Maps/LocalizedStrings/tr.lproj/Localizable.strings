@@ -2627,8 +2627,6 @@
 
 "share_bookmarks_email_body_link" = "Merhaba!\n\nİşte yer işaretlerinizi indirebileceğiniz bağlantı: %s. MAPS.ME ile listeyi açın ve yolculuğunuzun tadını çıkarın!\n\nUygulamayı indir: http://maps.me/get?kmz";
 
-"camera_ahead_voiceover" = "İleride kamera var";
-
 "warning_speedcams_title" = "%d km/sa hız limitini aştığınızda navigasyon, kameralar hakkında sizi uyaracak";
 
 "warning_speedcams_subtitle" = "Lütfen bulunduğunuz ülkenin trafik kurallarına dikkat edin.";
