@@ -2113,5 +2113,35 @@
     uk = Через дві милі
 
   [unknown_camera]
-    en = Speed camera ahead
+    en = Camera ahead
     ru = Впереди камера
+    ar = الكاميرا أمامك
+    cs = Radar vpředu
+    da = Kamera foran dig
+    nl = Camera in zicht
+    fi = Edessä on kamera
+    fr = Caméra devant
+    de = Kamera vorne
+    hu = Kamera elöl
+    id = Diawasi kamera
+    it = Autovelox in prossimità
+    ja = この先にある自動速度違反取締装置
+    ko = 전방에 카메라
+    nb = Kommer til kamera
+    pl = Kamera z przodu
+    pt = Câmera à frente
+    pt-BR = Radar à frente
+    ro = Cameră frontală
+    es = Cámara adelante
+    es-MX = Cámara próxima
+    sv = Kamera framför
+    th = มีกล้องอยู่ข้างหน้า
+    tr = İleride kamera var
+    uk = Попереду камера
+    vi = Máy ảnh phía trước
+    el = Κάμερα παρακάτω
+    sk = Kamera vpredu
+    sw = Kamera Mbele
+    zh-Hans = 在摄像头前
+    zh-Hant = 在攝像頭前
+    fa = به دوربین نزدیک می شوید

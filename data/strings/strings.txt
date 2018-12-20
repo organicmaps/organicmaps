@@ -36917,40 +36917,6 @@
     zh-Hant = 您好！\n\n您的標籤可以從鏈接下載：%s.使用MAPS.ME打開列表並享受旅行!\n\n下載應用程序：http://maps.me/get?kmz
     fa = سلام!\n\nاین لینکی است که شما می توانید نشان شده های خود را از آن دانلود نمایید: %s. لیست را از طریق MAPS.ME باز کرده و از سفر خود لذت ببرید!\n\nدریافت برنامه: http://maps.me/get?kmz
 
-  [camera_ahead_voiceover]
-    en = Camera ahead
-    ru = Впереди камера
-    ar = الكاميرا أمامك
-    cs = Radar vpředu
-    da = Kamera foran dig
-    nl = Camera in zicht
-    fi = Edessä on kamera
-    fr = Caméra devant
-    de = Kamera vorne
-    hu = Kamera elöl
-    id = Diawasi kamera
-    it = Autovelox in prossimità
-    ja = この先にある自動速度違反取締装置
-    ko = 전방에 카메라
-    nb = Kommer til kamera
-    pl = Kamera z przodu
-    pt = Câmera à frente
-    pt-BR = Radar à frente
-    ro = Cameră frontală
-    es = Cámara adelante
-    es-MX = Cámara próxima
-    sv = Kamera framför
-    th = มีกล้องอยู่ข้างหน้า
-    tr = İleride kamera var
-    uk = Попереду камера
-    vi = Máy ảnh phía trước
-    el = Κάμερα παρακάτω
-    sk = Kamera vpredu
-    sw = Kamera Mbele
-    zh-Hans = 在摄像头前
-    zh-Hant = 在攝像頭前
-    fa = به دوربین نزدیک می شوید
-
   [warning_speedcams_title]
     en = Navigator will warn you about cameras when you exceed the speed limit of %d km/h
     ru = Навигатор оповестит вас о камерах при превышении скоростного лимита на %d км/ч
