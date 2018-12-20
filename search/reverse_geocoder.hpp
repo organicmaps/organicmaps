@@ -13,6 +13,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 class FeatureType;
 class DataSource;
 
@@ -64,8 +66,10 @@ public:
     }
   };
 
-  static size_t GetMatchedStreetIndex(strings::UniString const & keyName,
-                                      std::vector<Street> const & streets);
+  /// Returns a feature id of street from |streets| whose name best matches |keyName|
+  /// or empty value if the match was not found.
+  static boost::optional<uint32_t> GetMatchedStreetIndex(strings::UniString const & keyName,
+                                                         std::vector<Street> const & streets);
 
   struct Address
   {
@@ -112,7 +116,8 @@ private:
   {
   public:
     explicit HouseTable(DataSource const & dataSource) : m_dataSource(dataSource) {}
-    bool Get(FeatureID const & fid, uint32_t & streetIndex);
+    bool Get(FeatureID const & fid, HouseToStreetTable::StreetIdType & type,
+             uint32_t & streetIndex);
 
   private:
     DataSource const & m_dataSource;

@@ -34,6 +34,9 @@ public:
     // details.
     Fixed3BitsDDVector,
 
+    // Elias-Fano based map from feature id to corresponding street feature id.
+    EliasFanoMap,
+
     // The format of relation is unknown. Most likely, an error has occured.
     Unknown
   };

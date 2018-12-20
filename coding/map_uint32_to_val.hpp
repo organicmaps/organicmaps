@@ -183,6 +183,7 @@ public:
   // Loads MapUint32ToValue instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // MapUint32ToValue can't be loaded.
+  // It's guaranteed that |readBlockCallback| will not be called for empty block.
   static std::unique_ptr<MapUint32ToValue> Load(Reader & reader,
                                                 ReadBlockCallback const & readBlockCallback)
   {
@@ -278,6 +279,7 @@ public:
     m_ids.push_back(id);
   }
 
+  // It's guaranteed that |writeBlockCallback| will not be called for empty block.
   void Freeze(Writer & writer, WriteBlockCallback const & writeBlockCallback) const
   {
     typename Map::Header header;
@@ -306,6 +308,7 @@ public:
         offsets.push_back(static_cast<uint32_t>(variables.size()));
 
         auto const endOffset = min(i + Map::kBlockSize, m_values.size());
+        CHECK_GREATER(endOffset, i, ());
         writeBlockCallback(writer, m_values.cbegin() + i, m_values.cbegin() + endOffset);
       }
     }

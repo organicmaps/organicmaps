@@ -18,7 +18,13 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
 {
   if (GetFormat() < version::Format::v7)
     return HouseToStreetTableFormat::Unknown;
-  return HouseToStreetTableFormat::Fixed3BitsDDVector;
+
+  // todo: (@t.yan) adjust after production maps generation.
+  uint32_t constexpr kLastVersionWithFixed3BitsDDVector = 181219;
+  if (GetVersion() <= kLastVersionWithFixed3BitsDDVector)
+    return HouseToStreetTableFormat::Fixed3BitsDDVector;
+
+  return HouseToStreetTableFormat::EliasFanoMap;
 }
 
 bool MwmTraits::HasOffsetsTable() const { return GetFormat() >= version::Format::v6; }
@@ -55,6 +61,8 @@ string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
   {
   case MwmTraits::HouseToStreetTableFormat::Fixed3BitsDDVector:
     return "Fixed3BitsDDVector";
+  case MwmTraits::HouseToStreetTableFormat::EliasFanoMap:
+    return "EliasFanoMap";
   case MwmTraits::HouseToStreetTableFormat::Unknown:
     return "Unknown";
   }

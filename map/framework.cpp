@@ -2956,7 +2956,6 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
 void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSource,
                FeatureType & ft, osm::EditableMapObject & emo)
 {
-  auto const & editor = osm::Editor::Instance();
   // Get exact feature's street address (if any) from mwm,
   // together with all nearby streets.
   vector<search::ReverseGeocoder::Street> streets;

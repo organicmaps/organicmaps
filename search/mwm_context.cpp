@@ -40,14 +40,4 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
   }
   UNREACHABLE();
 }
-
-bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)
-{
-  if (!m_houseToStreetTable)
-  {
-    m_houseToStreetTable = HouseToStreetTable::Load(m_value);
-    ASSERT(m_houseToStreetTable, ());
-  }
-  return m_houseToStreetTable->Get(houseId, streetId);
-}
 }  // namespace search

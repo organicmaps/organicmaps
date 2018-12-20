@@ -73,8 +73,6 @@ public:
   // Returns false if feature was deleted by user.
   WARN_UNUSED_RESULT bool GetFeature(uint32_t index, FeatureType & ft) const;
 
-  WARN_UNUSED_RESULT bool GetStreetIndex(uint32_t houseId, uint32_t & streetId);
-
   WARN_UNUSED_RESULT inline bool GetCenter(uint32_t index, m2::PointD & center)
   {
     return m_centers.Get(index, center);
@@ -104,7 +102,6 @@ private:
 
   FeaturesVector m_vector;
   ScaleIndex<ModelReaderPtr> m_index;
-  unique_ptr<HouseToStreetTable> m_houseToStreetTable;
   LazyCentersTable m_centers;
 
   DISALLOW_COPY_AND_MOVE(MwmContext);

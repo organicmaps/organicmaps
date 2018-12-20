@@ -26,11 +26,12 @@
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
-#include "coding/fixed_bits_ddvector.hpp"
+#include "coding/map_uint32_to_val.hpp"
 #include "coding/reader_writer_ops.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_helpers.hpp"
@@ -343,7 +344,6 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const & streetName,
                     uint32_t & result)
 {
-  size_t streetIndex = 0;
   strings::UniString const street = search::GetStreetNameAsKey(streetName);
 
   bool const hasStreet = !street.empty();
@@ -356,10 +356,11 @@ bool GetStreetIndex(search::MwmContext & ctx, uint32_t featureID, string const &
     vector<TStreet> streets;
     search::ReverseGeocoder::GetNearbyStreets(ctx, feature::GetCenter(ft), streets);
 
-    streetIndex = search::ReverseGeocoder::GetMatchedStreetIndex(street, streets);
-    if (streetIndex < streets.size())
+    auto const res = search::ReverseGeocoder::GetMatchedStreetIndex(street, streets);
+
+    if (res)
     {
-      result = base::checked_cast<uint32_t>(streetIndex);
+      result = *res;
       return true;
     }
   }
@@ -393,7 +394,6 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
   vector<unique_ptr<search::MwmContext>> contexts(threadsCount);
 
   uint32_t address = 0, missing = 0;
-  map<size_t, size_t> bounds;
 
   uint32_t const kEmptyResult = uint32_t(-1);
   vector<uint32_t> results(featuresCount, kEmptyResult);
@@ -417,7 +417,6 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
       if (found)
       {
         results[i] = streetIndex;
-        ++bounds[streetIndex];
         ++address;
       }
       else if (streetIndex > 0)
@@ -443,23 +442,42 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer, uint32_t th
 
   // Flush results to disk.
   {
-    FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
-    for (auto i : results)
+    // Code corresponds to the HouseToStreetTable decoding.
+    MapUint32ToValueBuilder<uint32_t> builder;
+    uint32_t houseToStreetCount = 0;
+    for (size_t i = 0; i < results.size(); ++i)
     {
-      if (i == kEmptyResult)
-        building2Street.PushBackUndefined();
-      else
-        building2Street.PushBack(i);
+      if (results[i] != kEmptyResult)
+      {
+        builder.Put(base::asserted_cast<uint32_t>(i), results[i]);
+        ++houseToStreetCount;
+      }
     }
 
-    LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));
+    // Each street id is encoded as delta from some prediction.
+    // First street id in the block encoded as VarUint, all other street ids in the block
+    // encoded as VarInt delta from previous id.
+    auto const writeBlockCallback = [&](Writer & w, vector<uint32_t>::const_iterator begin,
+                                        vector<uint32_t>::const_iterator end) {
+      CHECK(begin != end, ("MapUint32ToValueBuilder should guarantee begin != end."));
+      WriteVarUint(w, *begin);
+      auto prevIt = begin;
+      for (auto it = begin + 1; it != end; ++it)
+      {
+        int32_t const delta = base::asserted_cast<int32_t>(*it) - *prevIt;
+        WriteVarInt(w, delta);
+        prevIt = it;
+      }
+    };
+    builder.Freeze(writer, writeBlockCallback);
+
+    LOG(LINFO, ("Address: BuildingToStreet entries count:", houseToStreetCount));
   }
 
   double matchedPercent = 100;
   if (address > 0)
     matchedPercent = 100.0 * (1.0 - static_cast<double>(missing) / static_cast<double>(address));
   LOG(LINFO, ("Address: Matched percent", matchedPercent));
-  LOG(LINFO, ("Address: Upper bounds", bounds));
 }
 }  // namespace
 
