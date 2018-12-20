@@ -195,20 +195,20 @@ class WikiChecker : public BaseChecker
 {
   WikiChecker();
 public:
-   static std::set<std::pair<std::string, std::string>> const kTypesForWiki;
+  static std::set<std::pair<std::string, std::string>> const kTypesForWiki;
 
-   DECLARE_CHECKER_INSTANCE(WikiChecker);
+  DECLARE_CHECKER_INSTANCE(WikiChecker);
 
-   template <typename Ft>
-   bool NeedFeature(Ft & feature) const
-   {
-     bool need = false;
-     feature.ForEachType([&](uint32_t type) {
-       if (!need && IsMatched(type))
-         need = true;
-     });
-     return need;
-   }
+  template <typename Ft>
+  bool NeedFeature(Ft & feature) const
+  {
+    bool need = false;
+    feature.ForEachType([&](uint32_t type) {
+      if (!need && IsMatched(type))
+        need = true;
+    });
+    return need;
+  }
 };
 
 class IsPlaceChecker : public BaseChecker
