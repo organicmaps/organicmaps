@@ -119,13 +119,15 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   }
 
   @NonNull
-  private PendingIntent makeGeofencePendingIntent() {
+  private PendingIntent makeGeofencePendingIntent()
+  {
     Intent intent = new Intent(mApplication, GeofenceReceiver.class);
     return PendingIntent.getBroadcast(mApplication, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   @NonNull
-  private GeofencingRequest makeGeofencingRequest() {
+  private GeofencingRequest makeGeofencingRequest()
+  {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
     return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
                   .addGeofences(collectGeofences())

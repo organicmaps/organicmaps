@@ -31,7 +31,11 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
     if (geofencingEvent.hasError())
+    {
+      String errorMessage = "Error code = " + geofencingEvent.getErrorCode();
+      LOG.e(TAG, errorMessage);
       return;
+    }
     int transitionType = geofencingEvent.getGeofenceTransition();
     if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER
         || transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
