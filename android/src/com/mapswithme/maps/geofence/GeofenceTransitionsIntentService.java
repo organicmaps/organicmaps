@@ -6,37 +6,29 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.maps.scheduling.JobIdMap;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 public class GeofenceTransitionsIntentService extends JobIntentService
 {
   private static final Logger LOG = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = GeofenceTransitionsIntentService.class.getSimpleName();
-  public static final int LOCATION_PROBES_MAX_COUNT = 10;
-  public static final int TIMEOUT_IN_MINUTS = 10;
+  private static final int LOCATION_PROBES_MAX_COUNT = 10;
 
   @NonNull
   private final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
@@ -44,6 +36,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   @Override
   protected void onHandleWork(@NonNull Intent intent)
   {
+    LOG.d(TAG, "onHandleWork");
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
     if (geofencingEvent.hasError())
       onError(geofencingEvent);
@@ -69,48 +62,41 @@ public class GeofenceTransitionsIntentService extends JobIntentService
 
   private void onGeofenceEnter(@NonNull GeofencingEvent geofencingEvent)
   {
-    makeLocationProbesBlocking(geofencingEvent);
+    makeLocationProbesBlockingSafely(geofencingEvent);
   }
 
-  private void makeLocationProbesBlocking(@NonNull GeofencingEvent geofencingEvent)
+  private void makeLocationProbesBlockingSafely(@NonNull GeofencingEvent geofencingEvent)
   {
-    for (int i = 0; i < 1; i++)
+    try
     {
-      try
-      {
-        makeSingleLocationProbOrThrow(geofencingEvent);
-      }
-      catch (InterruptedException| ExecutionException | TimeoutException e)
-      {
-        LOG.d(TAG, "error", e);
-      }
+      makeLocationProbesBlocking(geofencingEvent);
+    }
+    catch (InterruptedException e)
+    {
+      LOG.e(TAG, "error", e);
     }
   }
 
-  @NonNull
-  private ExecutorService getExecutor()
+  private void makeLocationProbesBlocking(@NonNull GeofencingEvent event) throws
+                                                                          InterruptedException
   {
-    MwmApplication app = (MwmApplication) getApplication();
-    return app.getGeofenceProbesExecutor();
+    CountDownLatch latch = new CountDownLatch(LOCATION_PROBES_MAX_COUNT);
+    for (int i = 0; i < LOCATION_PROBES_MAX_COUNT; i++)
+    {
+      makeSingleLocationProbe(event, i);
+    }
+    latch.await(LOCATION_PROBES_MAX_COUNT, TimeUnit.MINUTES);
   }
 
-  private void makeSingleLocationProbOrThrow(GeofencingEvent geofencingEvent) throws
-                                                                              InterruptedException, ExecutionException, TimeoutException
+  private void makeSingleLocationProbe(@NonNull GeofencingEvent event, int timeoutInMinutes)
   {
-//    getExecutor().submit(new InfinityTask()).get(TIMEOUT_IN_MINUTS, TimeUnit.MINUTES);
-    CountDownLatch countDownLatch = new CountDownLatch(10);
-    InfinityTask infinityTask = new InfinityTask(countDownLatch);
-    for (int i = 0; i < 10; i++)
-    {
-      GeofenceLocation geofenceLocation = GeofenceLocation.from(geofencingEvent.getTriggeringLocation());
-      List<Geofence> geofences = Collections.unmodifiableList(geofencingEvent.getTriggeringGeofences());
-      CheckLocationTask locationTask = new CheckLocationTask(
-          getApplication(),
-          geofences,
-          geofenceLocation, infinityTask);
-      mMainThreadHandler.postDelayed(locationTask, i * 1000 * 20);
-    }
-    countDownLatch.await();
+    GeofenceLocation geofenceLocation = GeofenceLocation.from(event.getTriggeringLocation());
+    List<Geofence> geofences = Collections.unmodifiableList(event.getTriggeringGeofences());
+    CheckLocationTask locationTask = new CheckLocationTask(
+        getApplication(),
+        geofences,
+        geofenceLocation);
+    mMainThreadHandler.postDelayed(locationTask, TimeUnit.MINUTES.toMillis(timeoutInMinutes));
   }
 
   private void onError(@NonNull GeofencingEvent geofencingEvent)
@@ -125,37 +111,16 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     enqueueWork(context, GeofenceTransitionsIntentService.class, id, intent);
   }
 
-  private static class InfinityTask implements Callable<Object>
-  {
-    private static final int LATCH_COUNT = 1;
-    private final CountDownLatch mCountDownLatch;
-
-    public InfinityTask(CountDownLatch countDownLatch)
-    {
-
-      mCountDownLatch = countDownLatch;
-    }
-
-    @Override
-    public Object call() throws Exception
-    {
-      mCountDownLatch.countDown();
-      return null;
-    }
-  }
-
   private static class CheckLocationTask extends AbstractGeofenceTask
   {
     @NonNull
     private final List<Geofence> mGeofences;
-    private final InfinityTask mInfinityTask;
 
     CheckLocationTask(@NonNull Application application, @NonNull List<Geofence> geofences,
-                      @NonNull GeofenceLocation triggeringLocation, InfinityTask infinityTask)
+                      @NonNull GeofenceLocation triggeringLocation)
     {
       super(application, triggeringLocation);
       mGeofences = geofences;
-      mInfinityTask = infinityTask;
     }
 
     @Override
@@ -166,22 +131,18 @@ public class GeofenceTransitionsIntentService extends JobIntentService
 
     private void requestLocationCheck()
     {
+      LOG.d(TAG, "Geofences = " + Arrays.toString(mGeofences.toArray()));
 
-      String errorMessage = "Geo = " + Arrays.toString(mGeofences.toArray());
-      LOG.e(TAG, errorMessage);
-
-      GeofenceLocation geofenceLocation = getGeofenceLocation();
       if (!getApplication().arePlatformAndCoreInitialized())
         getApplication().initCore();
 
+      GeofenceLocation geofenceLocation = getGeofenceLocation();
       GeofenceRegistry registry = GeofenceRegistryImpl.from(getApplication());
       for (Geofence each : mGeofences)
       {
         //GeoFenceFeature geoFenceFeature = registry.getFeatureByGeofence(each);
 //        LightFramework.logLocalAdsEvent(geofenceLocation, geoFenceFeature);
       }
-
-      getApplication().getGeofenceProbesExecutor().submit(mInfinityTask);
     }
   }
 

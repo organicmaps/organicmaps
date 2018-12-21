@@ -3,7 +3,6 @@ package com.mapswithme.maps.scheduling;
 import com.mapswithme.maps.background.NotificationService;
 import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.SystemDownloadCompletedService;
-import com.mapswithme.maps.geofence.CheckGeofenceEnterService;
 import com.mapswithme.maps.geofence.GeofenceTransitionsIntentService;
 import com.mapswithme.maps.location.TrackRecorderWakeService;
 import com.mapswithme.util.Utils;
@@ -22,7 +21,6 @@ public class JobIdMap
     MAP.put(SystemDownloadCompletedService.class, calcIdentifier(MAP.size()));
     MAP.put(WorkerService.class, calcIdentifier(MAP.size()));
     MAP.put(GeofenceTransitionsIntentService.class, calcIdentifier(MAP.size()));
-    MAP.put(CheckGeofenceEnterService.class, calcIdentifier(MAP.size()));
   }
 
   private static final int ID_BASIC = 1070;

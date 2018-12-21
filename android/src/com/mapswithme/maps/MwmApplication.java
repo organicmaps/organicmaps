@@ -87,9 +87,6 @@ public class MwmApplication extends Application
   @SuppressWarnings("NullableProblems")
   @NonNull
   private GeofenceRegistry mGeofenceRegistry;
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private ExecutorService mGeofenceExecutor;
 
   @NonNull
   public SubwayManager getSubwayManager()
@@ -179,7 +176,6 @@ public class MwmApplication extends Application
     mPurchaseOperationObservable = new PurchaseOperationObservable();
     mPlayer = new MediaPlayerWrapper(this);
     mGeofenceRegistry = new GeofenceRegistryImpl(this);
-    mGeofenceExecutor = Executors.newSingleThreadExecutor();
   }
 
   private void initNotificationChannels()
@@ -366,12 +362,6 @@ public class MwmApplication extends Application
   public GeofenceRegistry getGeofenceRegistry()
   {
     return mGeofenceRegistry;
-  }
-
-  @NonNull
-  public ExecutorService getGeofenceProbesExecutor()
-  {
-    return mGeofenceExecutor;
   }
 
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
