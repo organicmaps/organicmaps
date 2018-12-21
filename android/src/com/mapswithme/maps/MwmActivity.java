@@ -1232,12 +1232,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     HotelsFilter filter = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER);
     BookingFilterParams params = intent.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
-    if (mFilterController != null)
+    if (mFilterController != null && (filter != null || params != null))
     {
-      mFilterController.show(filter != null || params != null
-                             || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()), true);
+      mFilterController.updateFilterButtonVisibility(true);
+      mFilterController.show(!TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()), true);
       mFilterController.setFilterAndParams(filter, params);
-      return filter != null || params != null;
+      return true;
     }
 
     return false;
