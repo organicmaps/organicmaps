@@ -6,7 +6,7 @@
     android:title="@string/search_show_on_map"/>
   <item
     android:id="@+id/share"
-    android:title="@string/share"
+    android:title="@string/export_file"
     android:icon="@drawable/ic_share"/>
   <item
     android:id="@+id/delete"
