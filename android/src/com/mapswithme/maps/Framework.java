@@ -513,8 +513,6 @@ public class Framework
 
   public static native int nativeGetCurrentTipsApi();
 
-  private static native void nativeTipsShown(int tipType, int event);
-
   private static native void nativeDisableAdProvider(int provider, int bannerPlace);
 
   public static native void nativeBindUser(@NonNull UserBindingListener listener);
@@ -528,5 +526,5 @@ public class Framework
 
   public static native void nativeOnBatteryLevelChanged(int level);
   public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
-  public static native void nativeSetPowerManagerConfig(int configType);
+  public static native void nativeSetPowerManagerScheme(int schemeType);
 }

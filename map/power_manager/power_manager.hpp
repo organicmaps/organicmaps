@@ -16,7 +16,7 @@ public:
   // Note: do not use Facility::Count in external code, this value for internal use only.
   enum class Facility : uint8_t
   {
-    ThreeDimensionalBuildings,
+    Buildings3d,
     TrackRecord,
 
     Count
@@ -24,7 +24,7 @@ public:
 
   using FacilitiesState = std::array<bool, static_cast<size_t>(Facility::Count)>;
 
-  enum class Config : uint8_t
+  enum class Scheme : uint8_t
   {
     None,
     Normal,
@@ -37,17 +37,16 @@ public:
   public:
     virtual ~Subscriber() = default;
 
-    virtual void OnFacilityStateChanged(Facility const facility, bool state) {}
-
-    virtual void OnConfigChanged(Config const actualConfig) {}
+    virtual void OnPowerFacilityChanged(Facility const facility, bool enabled) {}
+    virtual void OnPowerSchemeChanged(Scheme const actualScheme) {}
   };
 
   void Load();
-  void SetFacility(Facility const facility, bool state);
-  void SetConfig(Config const config);
-  bool GetFacility(Facility const facility) const;
+  void SetFacility(Facility const facility, bool enabled);
+  void SetScheme(Scheme const scheme);
+  bool IsFacilityEnabled(Facility const facility) const;
   FacilitiesState const & GetFacilities() const;
-  Config const & GetConfig() const;
+  Scheme const & GetScheme() const;
 
   void OnBatteryLevelChanged(uint8_t level);
 
@@ -55,22 +54,22 @@ public:
   void UnsubscribeAll();
 
 private:
-  struct Data
+  struct Config
   {
-    DECLARE_VISITOR(visitor(m_facilities, "current_state"), visitor(m_config, "config"));
+    DECLARE_VISITOR(visitor(m_facilities, "current_state"), visitor(m_scheme, "scheme"));
 
-    FacilitiesState m_facilities = {true, true};
-    Config m_config = Config::Normal;
+    FacilitiesState m_facilities = {{true, true}};
+    Scheme m_scheme = Scheme::Normal;
   };
 
-  // Returns true when config was changed.
-  bool BalanceConfig();
+  // Returns true when scheme was changed.
+  bool BalanceScheme();
   bool Save();
 
   std::vector<Subscriber *> m_subscribers;
 
-  Data m_data;
+  Config m_config;
 };
 
 std::string DebugPrint(PowerManager::Facility const facility);
-std::string DebugPrint(PowerManager::Config const config);
+std::string DebugPrint(PowerManager::Scheme const scheme);

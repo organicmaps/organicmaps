@@ -145,7 +145,7 @@ class Framework : public SearchAPI::Delegate,
                   public RoutingManager::Delegate,
                   public TipsApi::Delegate,
                   public notifications::NotificationManager::Delegate,
-                  public PowerManager::Subscriber
+                  private PowerManager::Subscriber
 {
   DISALLOW_COPY(Framework);
 
@@ -927,5 +927,5 @@ public:
   PowerManager & GetPowerManager() { return m_powerManager; }
 
   // PowerManager::Subscriber override.
-  void OnFacilityStateChanged(PowerManager::Facility const facility, bool state) override;
+  void OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled) override;
 };

@@ -681,13 +681,13 @@ void Framework::LogLocalAdsEvent(local_ads::EventType type, double lat, double l
   m_work.GetLocalAdsManager().GetStatistics().RegisterEvent(std::move(event));
 }
 
-void Framework::OnFacilityStateChanged(PowerManager::Facility const facility, bool state)
+void Framework::OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled)
 {
   // Dummy
   // TODO: provide information for UI Properties.
 }
 
-void Framework::OnConfigChanged(PowerManager::Config const actualConfig)
+void Framework::OnPowerSchemeChanged(PowerManager::Scheme const actualScheme)
 {
   // Dummy
   // TODO: provide information for UI Properties.
@@ -1981,12 +1981,12 @@ Java_com_mapswithme_maps_Framework_nativeSetPowerManagerFacility(JNIEnv *, jclas
                                                                  jint facilityType, jboolean state)
 {
   frm()->GetPowerManager().SetFacility(static_cast<PowerManager::Facility>(facilityType),
-                                              static_cast<bool>(state));
+                                       static_cast<bool>(state));
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_Framework_nativeSetPowerManagerConfig(JNIEnv *, jclass, jint configType)
+Java_com_mapswithme_maps_Framework_nativeSetPowerManagerScheme(JNIEnv *, jclass, jint schemeType)
 {
-  frm()->GetPowerManager().SetConfig(static_cast<PowerManager::Config>(configType));
+  frm()->GetPowerManager().SetScheme(static_cast<PowerManager::Scheme>(schemeType));
 }
 }  // extern "C"

@@ -13,24 +13,24 @@ struct SubscriberForTesting : public PowerManager::Subscriber
 {
 public:
   // PowerManager::Subscriber overrides:
-  void OnFacilityStateChanged(PowerManager::Facility const facility, bool state) override
+  void OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled) override
   {
-    m_onFacilityEvents.push_back({facility, state});
+    m_onFacilityEvents.push_back({facility, enabled});
   }
 
-  void OnConfigChanged(PowerManager::Config const actualConfig) override
+  void OnPowerSchemeChanged(PowerManager::Scheme const actualConfig) override
   {
-    m_onConfigEvents.push_back(actualConfig);
+    m_onShemeEvents.push_back(actualConfig);
   }
 
-  struct facilityState
+  struct FacilityState
   {
     PowerManager::Facility m_facility;
     bool m_state;
   };
 
-  std::vector<facilityState> m_onFacilityEvents;
-  std::vector<PowerManager::Config> m_onConfigEvents;
+  std::vector<FacilityState> m_onFacilityEvents;
+  std::vector<PowerManager::Scheme> m_onShemeEvents;
 };
 
 UNIT_TEST(PowerManager_SetFacility)
@@ -41,33 +41,33 @@ UNIT_TEST(PowerManager_SetFacility)
 
   manager.Subscribe(&subscriber);
 
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::ThreeDimensionalBuildings), true, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), true, ());
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::Normal, ());
-  manager.SetFacility(PowerManager::Facility::ThreeDimensionalBuildings, false);
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::ThreeDimensionalBuildings), false, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), true, ());
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::None, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
+  manager.SetFacility(PowerManager::Facility::Buildings3d, false);
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), false, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::None, ());
 
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 1, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::ThreeDimensionalBuildings, ());
+             PowerManager::Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents[0], PowerManager::Config::None, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::None, ());
 
   subscriber.m_onFacilityEvents.clear();
-  subscriber.m_onConfigEvents.clear();
+  subscriber.m_onShemeEvents.clear();
 
   manager.SetFacility(PowerManager::Facility::TrackRecord, false);
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), false, ());
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::Economy, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), false, ());
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Economy, ());
 
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 1, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, PowerManager::Facility::TrackRecord, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents[0], PowerManager::Config::Economy, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Economy, ());
 }
 
 UNIT_TEST(PowerManager_SetConfig)
@@ -78,36 +78,36 @@ UNIT_TEST(PowerManager_SetConfig)
 
   manager.Subscribe(&subscriber);
 
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::Normal, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::ThreeDimensionalBuildings), true, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), true, ());
-  manager.SetConfig(PowerManager::Config::Economy);
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::Economy, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::ThreeDimensionalBuildings), false, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), false, ());
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
+  manager.SetScheme(PowerManager::Scheme::Economy);
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Economy, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), false, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), false, ());
 
-  TEST_EQUAL(subscriber.m_onConfigEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents[0], PowerManager::Config::Economy, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Economy, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 2, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::ThreeDimensionalBuildings, ());
+             PowerManager::Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, PowerManager::Facility::TrackRecord, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, false, ());
 
   subscriber.m_onFacilityEvents.clear();
-  subscriber.m_onConfigEvents.clear();
+  subscriber.m_onShemeEvents.clear();
 
-  manager.SetConfig(PowerManager::Config::Normal);
-  TEST_EQUAL(manager.GetConfig(), PowerManager::Config::Normal, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::ThreeDimensionalBuildings), true, ());
-  TEST_EQUAL(manager.GetFacility(PowerManager::Facility::TrackRecord), true, ());
+  manager.SetScheme(PowerManager::Scheme::Normal);
+  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
+  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
 
-  TEST_EQUAL(subscriber.m_onConfigEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onConfigEvents[0], PowerManager::Config::Normal, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Normal, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 2, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::ThreeDimensionalBuildings, ());
+             PowerManager::Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, true, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, PowerManager::Facility::TrackRecord, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, true, ());

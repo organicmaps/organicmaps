@@ -223,8 +223,8 @@ namespace android
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 
     // PowerManager::Subscriber overrides:
-    void OnFacilityStateChanged(PowerManager::Facility const facility, bool state) override;
-    void OnConfigChanged(PowerManager::Config const actualConfig) override;
+    void OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled) override;
+    void OnPowerSchemeChanged(PowerManager::Scheme const actualScheme) override;
   };
 }
 

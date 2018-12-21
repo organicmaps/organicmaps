@@ -15,40 +15,52 @@
 
 namespace
 {
-std::unordered_map<PowerManager::Config, PowerManager::FacilitiesState> const kConfigToState =
+using Subscribers = std::vector<PowerManager::Subscriber *>;
+
+std::unordered_map<PowerManager::Scheme, PowerManager::FacilitiesState> const kSchemeToState =
 {
-  {PowerManager::Config::Normal, {{true, true}}},
-  {PowerManager::Config::Economy, {{false, false}}}
+  {PowerManager::Scheme::Normal, {{true, true}}},
+  {PowerManager::Scheme::Economy, {{false, false}}}
 };
 
 std::string GetFilePath()
 {
   return base::JoinPath(GetPlatform().SettingsDir(), "power_manager_config");
 }
+
+void NotifySubscribers(Subscribers & subscribers, PowerManager::Scheme const scheme)
+{
+  for (auto & subscriber : subscribers)
+    subscriber->OnPowerSchemeChanged(scheme);
+}
+
+void NotifySubscribers(Subscribers & subscribers, PowerManager::Facility const facility,
+                       bool enabled)
+{
+  for (auto & subscriber : subscribers)
+    subscriber->OnPowerFacilityChanged(facility, enabled);
+}
 }  // namespace
 
 void PowerManager::Load()
 {
-  Data result;
   try
   {
     FileReader reader(GetFilePath());
     NonOwningReaderSource source(reader);
 
     coding::DeserializerJson des(source);
+    Config result;
     des(result);
 
-    m_data = result;
-    for (size_t i = 0; i < m_data.m_facilities.size(); ++i)
+    m_config = result;
+    for (size_t i = 0; i < m_config.m_facilities.size(); ++i)
     {
-      CHECK_NOT_EQUAL(static_cast<Facility>(i), Facility::Count, ());
-
-      for (auto & subscriber : m_subscribers)
-        subscriber->OnFacilityStateChanged(static_cast<Facility>(i), m_data.m_facilities[i]);
+      NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
     }
 
-    for (auto & subscriber : m_subscribers)
-      subscriber->OnConfigChanged(m_data.m_config);
+    NotifySubscribers(m_subscribers, m_config.m_scheme);
+    return;
   }
   catch (base::Json::Exception & ex)
   {
@@ -60,86 +72,80 @@ void PowerManager::Load()
   }
 
   // Reset to default state.
-  m_data = {};
+  m_config = {};
 }
 
-void PowerManager::SetFacility(Facility const facility, bool state)
+void PowerManager::SetFacility(Facility const facility, bool enabled)
 {
   CHECK_NOT_EQUAL(facility, Facility::Count, ());
 
-  if (m_data.m_facilities[static_cast<size_t>(facility)] == state)
+  if (m_config.m_facilities[static_cast<size_t>(facility)] == enabled)
     return;
 
-  m_data.m_facilities[static_cast<size_t>(facility)] = state;
+  m_config.m_facilities[static_cast<size_t>(facility)] = enabled;
 
-  bool isConfigChanged = BalanceConfig();
+  auto const isSchemeChanged = BalanceScheme();
 
   if (!Save())
     return;
 
-  for (auto & subscriber : m_subscribers)
-    subscriber->OnFacilityStateChanged(facility, state);
+  NotifySubscribers(m_subscribers, facility, enabled);
 
-  if (isConfigChanged)
-  {
-    for (auto & subscriber : m_subscribers)
-      subscriber->OnConfigChanged(m_data.m_config);
-  }
+  if (isSchemeChanged)
+    NotifySubscribers(m_subscribers, m_config.m_scheme);
 }
 
-void PowerManager::SetConfig(Config const config)
+void PowerManager::SetScheme(Scheme const scheme)
 {
-  if (m_data.m_config == config)
+  if (m_config.m_scheme == scheme)
     return;
 
-  m_data.m_config = config;
+  m_config.m_scheme = scheme;
 
-  if (m_data.m_config == Config::None || m_data.m_config == Config::Auto)
+  if (m_config.m_scheme == Scheme::None || m_config.m_scheme == Scheme::Auto)
     return;
 
-  auto actualState = kConfigToState.at(config);
+  auto actualState = kSchemeToState.at(scheme);
 
-  if (m_data.m_facilities == actualState)
+  if (m_config.m_facilities == actualState)
     return;
 
-  std::swap(m_data.m_facilities, actualState);
+  std::swap(m_config.m_facilities, actualState);
 
   if (!Save())
     return;
 
-  for (auto & subscriber : m_subscribers)
-    subscriber->OnConfigChanged(m_data.m_config);
+  NotifySubscribers(m_subscribers, m_config.m_scheme);
 
   for (size_t i = 0; i < actualState.size(); ++i)
   {
-    if (m_data.m_facilities[i] != actualState[i])
-    {
-      for (auto & subscriber : m_subscribers)
-        subscriber->OnFacilityStateChanged(static_cast<Facility>(i), m_data.m_facilities[i]);
-    }
+    if (m_config.m_facilities[i] != actualState[i])
+      NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
   }
 }
 
-bool PowerManager::GetFacility(Facility const facility) const
+bool PowerManager::IsFacilityEnabled(Facility const facility) const
 {
   CHECK_NOT_EQUAL(facility, Facility::Count, ());
 
-  return m_data.m_facilities[static_cast<size_t>(facility)];
+  return m_config.m_facilities[static_cast<size_t>(facility)];
 }
 
 PowerManager::FacilitiesState const & PowerManager::GetFacilities() const
 {
-  return m_data.m_facilities;
+  return m_config.m_facilities;
 }
 
-PowerManager::Config const & PowerManager::GetConfig() const
+PowerManager::Scheme const & PowerManager::GetScheme() const
 {
-  return m_data.m_config;
+  return m_config.m_scheme;
 }
 
 void PowerManager::OnBatteryLevelChanged(uint8_t level)
 {
-  if (m_data.m_config != Config::Auto)
+  CHECK_LESS_OR_EQUAL(level, 100, ());
+
+  if (m_config.m_scheme != Scheme::Auto)
     return;
 
   // TODO.
@@ -156,27 +162,27 @@ void PowerManager::UnsubscribeAll()
   m_subscribers.clear();
 }
 
-bool PowerManager::BalanceConfig()
+bool PowerManager::BalanceScheme()
 {
   bool found = false;
-  Config actualConfig = m_data.m_config;
-  for (auto const & item : kConfigToState)
+  Scheme actualScheme = m_config.m_scheme;
+  for (auto const & item : kSchemeToState)
   {
-    if (item.second == m_data.m_facilities)
+    if (item.second == m_config.m_facilities)
     {
-      actualConfig = item.first;
+      actualScheme = item.first;
       found = true;
       break;
     }
   }
 
   if (!found)
-    actualConfig = Config::None;
+    actualScheme = Scheme::None;
 
-  if (m_data.m_config == actualConfig)
+  if (m_config.m_scheme == actualScheme)
     return false;
 
-  m_data.m_config = actualConfig;
+  m_config.m_scheme = actualScheme;
   return true;
 }
 
@@ -188,7 +194,7 @@ bool PowerManager::Save()
     {
       FileWriter writer(fileName);
       coding::SerializerJson<FileWriter> ser(writer);
-      ser(m_data);
+      ser(m_config);
       return true;
     }
     catch (base::Json::Exception & ex)
@@ -215,19 +221,19 @@ std::string DebugPrint(PowerManager::Facility const facility)
 {
   switch (facility)
   {
-  case PowerManager::Facility::ThreeDimensionalBuildings: return "ThreeDimensionalBuildings";
+  case PowerManager::Facility::Buildings3d: return "Buildings3d";
   case PowerManager::Facility::TrackRecord: return "TrackRecord";
   case PowerManager::Facility::Count: return "Count";
   }
 }
 
-std::string DebugPrint(PowerManager::Config const config)
+std::string DebugPrint(PowerManager::Scheme const scheme)
 {
-  switch (config)
+  switch (scheme)
   {
-  case PowerManager::Config::None: return "None";
-  case PowerManager::Config::Normal: return "Normal";
-  case PowerManager::Config::Economy: return "Economy";
-  case PowerManager::Config::Auto: return "Auto";
+  case PowerManager::Scheme::None: return "None";
+  case PowerManager::Scheme::Normal: return "Normal";
+  case PowerManager::Scheme::Economy: return "Economy";
+  case PowerManager::Scheme::Auto: return "Auto";
   }
 }
