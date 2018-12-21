@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.google.android.gms.location.Geofence;
+
 public class FeatureId implements Parcelable
 {
   public static final Creator<FeatureId> CREATOR = new Creator<FeatureId>()
@@ -113,5 +115,12 @@ public class FeatureId implements Parcelable
   public String toString()
   {
     return mMwmName + ":" + mMwmVersion + ":" + mFeatureIndex;
+  }
+
+  @NonNull
+  public static FeatureId from(@NonNull Geofence geofence)
+  {
+    String requestId = geofence.getRequestId();
+    return fromString(requestId);
   }
 }

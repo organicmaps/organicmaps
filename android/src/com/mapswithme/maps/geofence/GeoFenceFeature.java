@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.bookmarks.data.FeatureId;
+
 /**
  * Represents CampaignFeature from core.
  */
@@ -75,9 +77,9 @@ public class GeoFenceFeature implements Parcelable
   }
 
   @NonNull
-  public String getId()
+  public FeatureId getId()
   {
-    return String.valueOf(hashCode());
+    return new FeatureId(countryId, mwmVersion, featureIndex);
   }
 
   @Override

@@ -9,7 +9,6 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.util.PermissionsUtils;
@@ -18,6 +17,7 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -48,30 +48,30 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     checkThread();
     checkPermission();
 
-    List<GeoFenceFeature> features = LightFramework.getLocalAdsFeatures(
-        location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);
+    List<GeoFenceFeature> features = Arrays.asList(new GeoFenceFeature(1, "a", 2, location.getLat(), location.getLon()));/*LightFramework.getLocalAdsFeatures(
+        location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);*/
 
     if (features.isEmpty())
       return;
-
     List<Geofence> geofences = new ArrayList<>();
     for (GeoFenceFeature each : features)
     {
       Geofence geofence = new Geofence.Builder()
-          .setRequestId(each.getId())
+          .setRequestId(each.getId().toString())
           .setCircularRegion(each.getLatitude(), each.getLongitude(), PREFERRED_GEOFENCE_RADIUS)
           .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
-          .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER
-                              | Geofence.GEOFENCE_TRANSITION_EXIT)
+          .setLoiteringDelay(1)
+          .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
           .build();
-      geofences.add(geofence);
+     geofences.add(geofence);
     }
 
     GeofencingRequest geofencingRequest = makeGeofencingRequest(geofences);
-    PendingIntent intent = makeGeofencePendingIntent(features);
+    PendingIntent intent = makeGeofencePendingIntent();
     mGeofencingClient.addGeofences(geofencingRequest, intent)
                      .addOnSuccessListener(params -> onAddSucceeded())
                      .addOnFailureListener(params -> onAddFailed());
+
   }
 
   @Override
@@ -79,16 +79,9 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   {
     checkThread();
     checkPermission();
-    mGeofencingClient.removeGeofences(makeGeofenceCleanUpPendingIntent())
+    mGeofencingClient.removeGeofences(makeGeofencePendingIntent())
                      .addOnSuccessListener(params -> onRemoveFailed())
                      .addOnSuccessListener(params -> onRemoveSucceeded());
-  }
-
-  @NonNull
-  private PendingIntent makeGeofenceCleanUpPendingIntent()
-  {
-    Intent intent = new Intent(mApplication, GeofenceReceiver.class);
-    return makeGeofencePendingIntent(intent);
   }
 
   private void onAddSucceeded()
@@ -124,15 +117,9 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   }
 
   @NonNull
-  private PendingIntent makeGeofencePendingIntent(@NonNull List<GeoFenceFeature> features)
+  private PendingIntent makeGeofencePendingIntent()
   {
     Intent intent = new Intent(mApplication, GeofenceReceiver.class);
-    intent.putParcelableArrayListExtra(GEOFENCE_FEATURES_EXTRA, new ArrayList<GeoFenceFeature>(features));
-    return makeGeofencePendingIntent(intent);
-  }
-
-  private PendingIntent makeGeofencePendingIntent(@NonNull Intent intent)
-  {
     return PendingIntent.getBroadcast(mApplication, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
@@ -140,7 +127,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   private GeofencingRequest makeGeofencingRequest(@NonNull List<Geofence> geofences)
   {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
                   .addGeofences(geofences)
                   .build();
   }

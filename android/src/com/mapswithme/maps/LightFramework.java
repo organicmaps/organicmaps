@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.background.NotificationCandidate;
+import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.geofence.GeoFenceFeature;
 import com.mapswithme.maps.geofence.GeofenceLocation;
 
@@ -31,13 +32,12 @@ public class LightFramework
   }
 
   public static void logLocalAdsEvent(@NonNull GeofenceLocation location,
-                                      @NonNull GeoFenceFeature feature)
+                                      @NonNull FeatureId feature)
   {
     nativeLogLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_VISIT.ordinal(),
                            location.getLat(), location.getLon(),
-                           /* FIXME */
                            (int) location.getRadiusInMeters(), feature.getMwmVersion(),
-                           feature.getCountryId(), feature.getFeatureIndex());
+                           feature.getMwmName(), feature.getFeatureIndex());
   }
 
   private static native void nativeLogLocalAdsEvent(int type, double lat, double lon,
