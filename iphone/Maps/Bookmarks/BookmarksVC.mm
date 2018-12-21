@@ -488,7 +488,9 @@ CGFloat const kPinDiameter = 18.0f;
                                                 handler:nil]];
 
   actionSheet.popoverPresentationController.barButtonItem = self.moreItem;
-  [self presentViewController:actionSheet animated:YES completion:nil];
+  [self presentViewController:actionSheet animated:YES completion:^{
+    actionSheet.popoverPresentationController.passthroughViews = nil;
+  }];
   [Statistics logEvent:kStatBookmarksListItemSettings withParameters:@{kStatOption : kStatMore}];
 }
 
