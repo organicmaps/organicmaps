@@ -76,17 +76,6 @@ public class Framework
   public static final int DO_AFTER_UPDATE_MIGRATE = 3;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({LOCAL_ADS_EVENT_SHOW_POINT, LOCAL_ADS_EVENT_OPEN_INFO, LOCAL_ADS_EVENT_CLICKED_PHONE,
-           LOCAL_ADS_EVENT_CLICKED_WEBSITE, LOCAL_ADS_EVENT_VISIT})
-  public @interface LocalAdsEventType {}
-
-  public static final int LOCAL_ADS_EVENT_SHOW_POINT = 0;
-  public static final int LOCAL_ADS_EVENT_OPEN_INFO = 1;
-  public static final int LOCAL_ADS_EVENT_CLICKED_PHONE = 2;
-  public static final int LOCAL_ADS_EVENT_CLICKED_WEBSITE = 3;
-  public static final int LOCAL_ADS_EVENT_VISIT = 4;
-
-  @Retention(RetentionPolicy.SOURCE)
   @IntDef({ROUTE_REBUILD_AFTER_POINTS_LOADING})
   public @interface RouteRecommendationType {}
 
@@ -203,7 +192,7 @@ public class Framework
     return Bitmap.createBitmap(altitudeChartBits, width, height, Bitmap.Config.ARGB_8888);
   }
 
-  public static void logLocalAdsEvent(@Framework.LocalAdsEventType int type,
+  public static void logLocalAdsEvent(@NonNull LocalAdsEventType type,
                                       @NonNull MapObject mapObject)
   {
     LocalAdInfo info = mapObject.getLocalAdInfo();
@@ -214,7 +203,7 @@ public class Framework
     double lat = location != null ? location.getLatitude() : 0;
     double lon = location != null ? location.getLongitude() : 0;
     int accuracy = location != null ? (int) location.getAccuracy() : 0;
-    nativeLogLocalAdsEvent(type, lat, lon, accuracy);
+    nativeLogLocalAdsEvent(type.ordinal(), lat, lon, accuracy);
   }
 
   @FilterUtils.RatingDef
@@ -449,7 +438,7 @@ public class Framework
   // Navigation.
   public static native boolean nativeIsRouteFinished();
 
-  private static native void nativeLogLocalAdsEvent(@LocalAdsEventType int eventType,
+  private static native void nativeLogLocalAdsEvent(int eventType,
                                                    double lat, double lon, int accuracy);
 
   public static native void nativeRunFirstLaunchAnimation();
@@ -527,4 +516,13 @@ public class Framework
   public static native void nativeOnBatteryLevelChanged(int level);
   public static native void nativeSetPowerManagerFacility(int facilityType, boolean state);
   public static native void nativeSetPowerManagerScheme(int schemeType);
+
+  public enum LocalAdsEventType
+  {
+    LOCAL_ADS_EVENT_SHOW_POINT,
+    LOCAL_ADS_EVENT_OPEN_INFO,
+    LOCAL_ADS_EVENT_CLICKED_PHONE,
+    LOCAL_ADS_EVENT_CLICKED_WEBSITE,
+    LOCAL_ADS_EVENT_VISIT
+  }
 }

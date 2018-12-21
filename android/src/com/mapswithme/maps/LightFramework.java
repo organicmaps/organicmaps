@@ -33,7 +33,8 @@ public class LightFramework
   public static void logLocalAdsEvent(@NonNull GeofenceLocation location,
                                       @NonNull GeoFenceFeature feature)
   {
-    nativeLogLocalAdsEvent(1, location.getLat(), location.getLon(),
+    nativeLogLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_VISIT.ordinal(),
+                           location.getLat(), location.getLon(),
                            /* FIXME */
                            (int) location.getRadiusInMeters(), feature.getMwmVersion(),
                            feature.getCountryId(), feature.getFeatureIndex());

@@ -1505,7 +1505,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         if (object != null)
         {
           mPlacePage.setState(object.isExtendedView() ? State.DETAILS : State.PREVIEW);
-          Framework.logLocalAdsEvent(Framework.LOCAL_ADS_EVENT_OPEN_INFO, object);
+          Framework.logLocalAdsEvent(Framework.LocalAdsEventType.LOCAL_ADS_EVENT_OPEN_INFO, object);
         }
       }
       mPlacePageRestored = false;

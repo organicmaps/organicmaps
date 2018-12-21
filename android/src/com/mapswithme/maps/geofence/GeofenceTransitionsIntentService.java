@@ -48,9 +48,9 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     int transitionType = geofencingEvent.getGeofenceTransition();
 
-    if (transitionType == Geofence.GEOFENCE_TRANSITION_DWELL)
+    if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
       onGeofenceEnter(geofencingEvent);
-    else if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
+    else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
       onGeofenceExit(geofencingEvent);
   }
 
@@ -124,7 +124,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
 
     @Override
-    public void run()
+    public void runInternal()
     {
       requestLocationCheck();
     }
@@ -132,9 +132,6 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     private void requestLocationCheck()
     {
       LOG.d(TAG, "Geofences = " + Arrays.toString(mGeofences.toArray()));
-
-      if (!getApplication().arePlatformAndCoreInitialized())
-        getApplication().initCore();
 
       GeofenceLocation geofenceLocation = getGeofenceLocation();
       GeofenceRegistry registry = GeofenceRegistryImpl.from(getApplication());
@@ -155,7 +152,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
 
     @Override
-    public void run()
+    public void runInternal()
     {
       GeofenceLocation location = getGeofenceLocation();
       GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(getApplication());
@@ -167,7 +164,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       }
       catch (LocationPermissionNotGrantedException e)
       {
-        LOG.d(TAG, "Location permission not granted!", e);
+        LOG.e(TAG, "Location permission not granted!", e);
       }
     }
   }
@@ -185,6 +182,17 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       mApplication = (MwmApplication)application;
       mGeofenceLocation = location;
     }
+
+    @Override
+    public void run()
+    {
+      if (!getApplication().arePlatformAndCoreInitialized())
+        getApplication().initCore();
+
+      runInternal();
+    }
+
+    protected abstract void runInternal();
 
     @NonNull
     protected MwmApplication getApplication()
