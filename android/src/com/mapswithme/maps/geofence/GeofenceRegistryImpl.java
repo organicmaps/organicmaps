@@ -9,6 +9,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
+import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
 import com.mapswithme.util.PermissionsUtils;
@@ -23,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 public class GeofenceRegistryImpl implements GeofenceRegistry
 {
-  public static final String GEOFENCE_FEATURES_EXTRA = "geofence_features";
   private static final int GEOFENCE_MAX_COUNT = 100;
   private static final int GEOFENCE_TTL_IN_DAYS = 3;
   private static final float PREFERRED_GEOFENCE_RADIUS = 100.0f;
@@ -48,9 +48,10 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
     checkThread();
     checkPermission();
 
-    List<GeoFenceFeature> features = Arrays.asList(new GeoFenceFeature(1, "a", 2, location.getLat(), location.getLon()));/*LightFramework.getLocalAdsFeatures(
-        location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);*/
+    List<GeoFenceFeature> features = LightFramework.getLocalAdsFeatures(
+        location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);
 
+    LOG.d(TAG, "GeoFenceFeatures = " + Arrays.toString(features.toArray()));
     if (features.isEmpty())
       return;
     List<Geofence> geofences = new ArrayList<>();
@@ -60,8 +61,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
           .setRequestId(each.getId().toString())
           .setCircularRegion(each.getLatitude(), each.getLongitude(), PREFERRED_GEOFENCE_RADIUS)
           .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
-          .setLoiteringDelay(1)
-          .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
+          .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)
           .build();
      geofences.add(geofence);
     }
@@ -127,7 +127,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   private GeofencingRequest makeGeofencingRequest(@NonNull List<Geofence> geofences)
   {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
+    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                   .addGeofences(geofences)
                   .build();
   }

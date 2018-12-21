@@ -50,7 +50,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     int transitionType = geofencingEvent.getGeofenceTransition();
 
-    if (transitionType == Geofence.GEOFENCE_TRANSITION_DWELL)
+    if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
       onGeofenceEnter(geofencingEvent);
     else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
       onGeofenceExit(geofencingEvent);
