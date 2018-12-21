@@ -15,6 +15,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <boost/optional.hpp>
@@ -73,4 +74,9 @@ private:
   std::unique_ptr<Statistics> m_localAdsStatistics;
   std::unique_ptr<lightweight::NotificationManager> m_notificationManager;
 };
+
+std::string FeatureParamsToString(int64_t mwmVersion, std::string const & countryId, uint32_t featureIndex);
+
+bool FeatureParamsFromString(std::string const & str, int64_t & mwmVersion, std::string & countryId,
+                             uint32_t & featureIndex);
 }  // namespace lightweight

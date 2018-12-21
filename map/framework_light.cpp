@@ -1,5 +1,15 @@
 #include "map/framework_light.hpp"
 
+#include "base/stl_helpers.hpp"
+#include "base/string_utils.hpp"
+
+#include <sstream>
+
+namespace
+{
+char const * kDelimiter = "|";
+}  // namespace
+
 namespace lightweight
 {
 Framework::Framework(RequestTypeMask request) : m_request(request)
@@ -108,5 +118,38 @@ Statistics * Framework::GetLocalAdsStatistics()
 boost::optional<notifications::NotificationCandidate> Framework::GetNotification() const
 {
   return m_notificationManager->GetNotification();
+}
+
+std::string FeatureParamsToString(int64_t mwmVersion, std::string const & countryId, uint32_t featureIndex)
+{
+  std::ostringstream stream;
+  stream << mwmVersion << kDelimiter << countryId << kDelimiter << featureIndex;
+  return stream.str();
+}
+
+bool FeatureParamsFromString(std::string const & str, int64_t & mwmVersion, std::string & countryId,
+                             uint32_t & featureIndex)
+{
+  std::vector<std::string> tokens;
+  strings::Tokenize(str, kDelimiter, base::MakeBackInsertFunctor(tokens));
+  if (tokens.size() != 3)
+    return false;
+
+  int64_t tmpMwmVersion;
+  if (!strings::to_int64(tokens[0], tmpMwmVersion))
+    return false;
+
+  unsigned int tmpFeatureIndex;
+  if (!strings::to_uint(tokens[2], tmpFeatureIndex))
+    return false;
+
+  if (tokens[1].empty())
+    return false;
+
+  mwmVersion = tmpMwmVersion;
+  countryId = tokens[1];
+  featureIndex = tmpFeatureIndex;
+
+  return true;
 }
 }  // namespace lightweight
