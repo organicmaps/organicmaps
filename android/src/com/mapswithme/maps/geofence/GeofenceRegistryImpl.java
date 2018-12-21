@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class GeofenceRegistryImpl implements GeofenceRegistry
 {
+  public static final String GEOFENCE_FEATURES_EXTRA = "geofence_features";
   private static final int GEOFENCE_MAX_COUNT = 100;
   private static final int GEOFENCE_TTL_IN_DAYS = 3;
   private static final float PREFERRED_GEOFENCE_RADIUS = 100.0f;
@@ -33,13 +34,10 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   @NonNull
   private final Application mApplication;
   @NonNull
-  private final List<GeofenceAndFeature> mGeofences;
-  @NonNull
   private final GeofencingClient mGeofencingClient;
 
   public GeofenceRegistryImpl(@NonNull Application application)
   {
-    mGeofences = new ArrayList<>();
     mApplication = application;
     mGeofencingClient = LocationServices.getGeofencingClient(mApplication);
   }
@@ -55,6 +53,8 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
 
     if (features.isEmpty())
       return;
+
+    List<Geofence> geofences = new ArrayList<>();
     for (GeoFenceFeature each : features)
     {
       Geofence geofence = new Geofence.Builder()
@@ -64,10 +64,11 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
           .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER
                               | Geofence.GEOFENCE_TRANSITION_EXIT)
           .build();
-      mGeofences.add(new GeofenceAndFeature(geofence, each));
+      geofences.add(geofence);
     }
-    GeofencingRequest geofencingRequest = makeGeofencingRequest();
-    PendingIntent intent = makeGeofencePendingIntent();
+
+    GeofencingRequest geofencingRequest = makeGeofencingRequest(geofences);
+    PendingIntent intent = makeGeofencePendingIntent(features);
     mGeofencingClient.addGeofences(geofencingRequest, intent)
                      .addOnSuccessListener(params -> onAddSucceeded())
                      .addOnFailureListener(params -> onAddFailed());
@@ -78,23 +79,16 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   {
     checkThread();
     checkPermission();
-    mGeofencingClient.removeGeofences(makeGeofencePendingIntent())
+    mGeofencingClient.removeGeofences(makeGeofenceCleanUpPendingIntent())
                      .addOnSuccessListener(params -> onRemoveFailed())
                      .addOnSuccessListener(params -> onRemoveSucceeded());
   }
 
   @NonNull
-  @Override
-  public GeoFenceFeature getFeatureByGeofence(@NonNull Geofence geofence)
+  private PendingIntent makeGeofenceCleanUpPendingIntent()
   {
-    checkThread();
-    for (GeofenceAndFeature each : mGeofences)
-    {
-      if (each.getGeofence().getRequestId().equals(geofence.getRequestId()))
-        return each.getFeature();
-
-    }
-    throw new IllegalArgumentException("Geofence not found");
+    Intent intent = new Intent(mApplication, GeofenceReceiver.class);
+    return makeGeofencePendingIntent(intent);
   }
 
   private void onAddSucceeded()
@@ -130,30 +124,25 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   }
 
   @NonNull
-  private PendingIntent makeGeofencePendingIntent()
+  private PendingIntent makeGeofencePendingIntent(@NonNull List<GeoFenceFeature> features)
   {
     Intent intent = new Intent(mApplication, GeofenceReceiver.class);
+    intent.putParcelableArrayListExtra(GEOFENCE_FEATURES_EXTRA, new ArrayList<GeoFenceFeature>(features));
+    return makeGeofencePendingIntent(intent);
+  }
+
+  private PendingIntent makeGeofencePendingIntent(@NonNull Intent intent)
+  {
     return PendingIntent.getBroadcast(mApplication, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
   }
 
   @NonNull
-  private GeofencingRequest makeGeofencingRequest()
+  private GeofencingRequest makeGeofencingRequest(@NonNull List<Geofence> geofences)
   {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
     return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
-                  .addGeofences(collectGeofences())
+                  .addGeofences(geofences)
                   .build();
-  }
-
-  @NonNull
-  private List<Geofence> collectGeofences()
-  {
-    List<Geofence> geofences = new ArrayList<>();
-    for (GeofenceAndFeature each : mGeofences)
-    {
-      geofences.add(each.getGeofence());
-    }
-    return geofences;
   }
 
   @NonNull
@@ -161,31 +150,5 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   {
     MwmApplication app = (MwmApplication) application;
     return app.getGeofenceRegistry();
-  }
-
-  private static class GeofenceAndFeature
-  {
-    @NonNull
-    private final Geofence mGeofence;
-    @NonNull
-    private final GeoFenceFeature mFeature;
-
-    private GeofenceAndFeature(@NonNull Geofence geofence, @NonNull GeoFenceFeature feature)
-    {
-      mGeofence = geofence;
-      mFeature = feature;
-    }
-
-    @NonNull
-    public Geofence getGeofence()
-    {
-      return mGeofence;
-    }
-
-    @NonNull
-    public GeoFenceFeature getFeature()
-    {
-      return mFeature;
-    }
   }
 }

@@ -119,4 +119,17 @@ public class GeoFenceFeature implements Parcelable
       return new GeoFenceFeature[size];
     }
   };
+
+  @Override
+  public String toString()
+  {
+    final StringBuilder sb = new StringBuilder("GeoFenceFeature{");
+    sb.append("mwmVersion=").append(mwmVersion);
+    sb.append(", countryId='").append(countryId).append('\'');
+    sb.append(", featureIndex=").append(featureIndex);
+    sb.append(", latitude=").append(latitude);
+    sb.append(", longitude=").append(longitude);
+    sb.append('}');
+    return sb.toString();
+  }
 }

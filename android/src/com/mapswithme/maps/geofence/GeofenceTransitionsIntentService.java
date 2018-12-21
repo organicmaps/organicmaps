@@ -7,10 +7,13 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.JobIntentService;
+import android.text.TextUtils;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.LocationPermissionNotGrantedException;
@@ -38,18 +41,21 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     LOG.d(TAG, "onHandleWork");
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
+    List<GeoFenceFeature> features = Collections.unmodifiableList(
+        intent.getParcelableArrayListExtra(GeofenceRegistryImpl.GEOFENCE_FEATURES_EXTRA));
     if (geofencingEvent.hasError())
       onError(geofencingEvent);
     else
-      onSuccess(geofencingEvent);
+      onSuccess(geofencingEvent, features);
   }
 
-  private void onSuccess(@NonNull GeofencingEvent geofencingEvent)
+  private void onSuccess(@NonNull GeofencingEvent geofencingEvent,
+                         @NonNull List<GeoFenceFeature> features)
   {
     int transitionType = geofencingEvent.getGeofenceTransition();
 
     if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
-      onGeofenceEnter(geofencingEvent);
+      onGeofenceEnter(geofencingEvent, features);
     else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)
       onGeofenceExit(geofencingEvent);
   }
@@ -60,16 +66,18 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     mMainThreadHandler.post(new GeofencingEventExitTask(getApplication(), geofenceLocation));
   }
 
-  private void onGeofenceEnter(@NonNull GeofencingEvent geofencingEvent)
+  private void onGeofenceEnter(@NonNull GeofencingEvent geofencingEvent,
+                               @NonNull List<GeoFenceFeature> features)
   {
-    makeLocationProbesBlockingSafely(geofencingEvent);
+    makeLocationProbesBlockingSafely(geofencingEvent, features);
   }
 
-  private void makeLocationProbesBlockingSafely(@NonNull GeofencingEvent geofencingEvent)
+  private void makeLocationProbesBlockingSafely(@NonNull GeofencingEvent geofencingEvent,
+                                                @NonNull List<GeoFenceFeature> features)
   {
     try
     {
-      makeLocationProbesBlocking(geofencingEvent);
+      makeLocationProbesBlocking(geofencingEvent, features);
     }
     catch (InterruptedException e)
     {
@@ -77,25 +85,27 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
   }
 
-  private void makeLocationProbesBlocking(@NonNull GeofencingEvent event) throws
-                                                                          InterruptedException
+  private void makeLocationProbesBlocking(@NonNull GeofencingEvent event,
+                                          @NonNull List<GeoFenceFeature> features) throws
+                                                                                   InterruptedException
   {
     CountDownLatch latch = new CountDownLatch(LOCATION_PROBES_MAX_COUNT);
     for (int i = 0; i < LOCATION_PROBES_MAX_COUNT; i++)
     {
-      makeSingleLocationProbe(event, i);
+      makeSingleLocationProbe(event, i, features);
     }
     latch.await(LOCATION_PROBES_MAX_COUNT, TimeUnit.MINUTES);
   }
 
-  private void makeSingleLocationProbe(@NonNull GeofencingEvent event, int timeoutInMinutes)
+  private void makeSingleLocationProbe(@NonNull GeofencingEvent event, int timeoutInMinutes,
+                                       @NonNull List<GeoFenceFeature> features)
   {
     GeofenceLocation geofenceLocation = GeofenceLocation.from(event.getTriggeringLocation());
     List<Geofence> geofences = Collections.unmodifiableList(event.getTriggeringGeofences());
     CheckLocationTask locationTask = new CheckLocationTask(
         getApplication(),
         geofences,
-        geofenceLocation);
+        geofenceLocation, features);
     mMainThreadHandler.postDelayed(locationTask, TimeUnit.MINUTES.toMillis(timeoutInMinutes));
   }
 
@@ -115,12 +125,15 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     @NonNull
     private final List<Geofence> mGeofences;
+    @NonNull
+    private final List<GeoFenceFeature> mFeatures;
 
     CheckLocationTask(@NonNull Application application, @NonNull List<Geofence> geofences,
-                      @NonNull GeofenceLocation triggeringLocation)
+                      @NonNull GeofenceLocation triggeringLocation, @NonNull List<GeoFenceFeature> features)
     {
       super(application, triggeringLocation);
       mGeofences = geofences;
+      mFeatures = features;
     }
 
     @Override
@@ -134,12 +147,26 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       LOG.d(TAG, "Geofences = " + Arrays.toString(mGeofences.toArray()));
 
       GeofenceLocation geofenceLocation = getGeofenceLocation();
-      GeofenceRegistry registry = GeofenceRegistryImpl.from(getApplication());
       for (Geofence each : mGeofences)
       {
-        //GeoFenceFeature geoFenceFeature = registry.getFeatureByGeofence(each);
-//        LightFramework.logLocalAdsEvent(geofenceLocation, geoFenceFeature);
+        GeoFenceFeature feature = getFeatureByGeofence(each);
+        LOG.d(TAG, "Feature " + feature + " for geofence = " + each);
+        if (feature != null)
+          LightFramework.logLocalAdsEvent(geofenceLocation, feature);
       }
+    }
+
+    @Nullable
+    private GeoFenceFeature getFeatureByGeofence(@NonNull Geofence geofence)
+    {
+      for (GeoFenceFeature each : mFeatures)
+      {
+        if (TextUtils.equals(String.valueOf(each.hashCode()), geofence.getRequestId()))
+        {
+          return each;
+        }
+      }
+      return null;
     }
   }
 
@@ -186,8 +213,10 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     @Override
     public void run()
     {
-      if (!getApplication().arePlatformAndCoreInitialized())
-        getApplication().initCore();
+
+      /* FIXME */
+      /*      if (!getApplication().arePlatformAndCoreInitialized())
+        getApplication().initCore();*/
 
       runInternal();
     }
