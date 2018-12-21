@@ -52,20 +52,22 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
 
     List<GeoFenceFeature> features = LightFramework.getLocalAdsFeatures(
         location.getLat(), location.getLon(), location.getRadiusInMeters(), GEOFENCE_MAX_COUNT);
+/*
 
     if (features.isEmpty())
-      return;
+      return;*/
     for (GeoFenceFeature each : features)
     {
-      Geofence geofence = new Geofence.Builder()
-          .setRequestId(each.getId())
-          .setCircularRegion(each.getLatitude(), each.getLongitude(), PREFERRED_GEOFENCE_RADIUS)
-          .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
-          .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER
-                              | Geofence.GEOFENCE_TRANSITION_EXIT)
-          .build();
-      mGeofences.add(new GeofenceAndFeature(geofence, each));
+
     }
+    Geofence geofence = new Geofence.Builder()
+        .setRequestId(String.valueOf(System.currentTimeMillis()))
+        .setCircularRegion(location.getLat(), location.getLon(), PREFERRED_GEOFENCE_RADIUS)
+        .setExpirationDuration(TimeUnit.DAYS.toMillis(GEOFENCE_TTL_IN_DAYS))
+        .setLoiteringDelay(1000)
+        .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_DWELL)
+        .build();
+    mGeofences.add(new GeofenceAndFeature(geofence, null));
     GeofencingRequest geofencingRequest = makeGeofencingRequest();
     PendingIntent intent = makeGeofencePendingIntent();
     mGeofencingClient.addGeofences(geofencingRequest, intent)
@@ -140,7 +142,7 @@ public class GeofenceRegistryImpl implements GeofenceRegistry
   private GeofencingRequest makeGeofencingRequest()
   {
     GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
-    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
+    return builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL)
                   .addGeofences(collectGeofences())
                   .build();
   }
