@@ -49,6 +49,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   private void onSuccess(@NonNull GeofencingEvent geofencingEvent)
   {
     int transitionType = geofencingEvent.getGeofenceTransition();
+    LOG.d(TAG, "transitionType = " + transitionType);
 
     if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
       onGeofenceEnter(geofencingEvent);
@@ -80,7 +81,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   }
 
   private void makeLocationProbesBlocking(@NonNull GeofencingEvent event) throws
-                                                                                   InterruptedException
+                                                                          InterruptedException
   {
     CountDownLatch latch = new CountDownLatch(LOCATION_PROBES_MAX_COUNT);
     for (int i = 0; i < LOCATION_PROBES_MAX_COUNT; i++)
@@ -126,7 +127,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
 
     @Override
-    public void runInternal()
+    public void run()
     {
       requestLocationCheck();
     }
@@ -153,11 +154,11 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
 
     @Override
-    public void runInternal()
+    public void run()
     {
       GeofenceLocation location = getGeofenceLocation();
       GeofenceRegistry geofenceRegistry = GeofenceRegistryImpl.from(getApplication());
-
+      LOG.d(TAG, "Exit event for location = " + location);
       try
       {
         geofenceRegistry.unregisterGeofences();
@@ -183,19 +184,6 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       mApplication = (MwmApplication)application;
       mGeofenceLocation = location;
     }
-
-    @Override
-    public void run()
-    {
-
-      /* FIXME */
-      /*      if (!getApplication().arePlatformAndCoreInitialized())
-        getApplication().initCore();*/
-
-      runInternal();
-    }
-
-    protected abstract void runInternal();
 
     @NonNull
     protected MwmApplication getApplication()
