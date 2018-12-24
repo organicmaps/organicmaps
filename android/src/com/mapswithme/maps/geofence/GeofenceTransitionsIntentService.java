@@ -38,7 +38,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   @Override
   protected void onHandleWork(@NonNull Intent intent)
   {
-    LOG.d(TAG, "onHandleWork");
+    LOG.d(TAG, "onHandleWork. Intent = " + intent);
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);;
     if (geofencingEvent.hasError())
       onError(geofencingEvent);
@@ -76,7 +76,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
     catch (InterruptedException e)
     {
-      LOG.e(TAG, "error", e);
+      LOG.e(TAG, "Failed to make location probe for '" + geofencingEvent + "\'", e);
     }
   }
 
@@ -112,6 +112,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
   {
     int id = JobIdMap.getId(GeofenceTransitionsIntentService.class);
     enqueueWork(context, GeofenceTransitionsIntentService.class, id, intent);
+    LOG.d(TAG, "Service was enqueued");
   }
 
   private static class CheckLocationTask extends AbstractGeofenceTask
@@ -139,7 +140,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
       GeofenceLocation geofenceLocation = getGeofenceLocation();
       for (Geofence each : mGeofences)
       {
-        FeatureId feature = FeatureId.from(each);
+        FeatureId feature = Factory.from(each);
         LightFramework.logLocalAdsEvent(geofenceLocation, feature);
       }
     }

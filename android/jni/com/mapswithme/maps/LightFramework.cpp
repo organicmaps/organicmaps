@@ -23,6 +23,17 @@ Java_com_mapswithme_maps_LightFramework_nativeGetNumberUnsentUGC(JNIEnv * env, j
   return static_cast<jint>(framework.GetNumberOfUnsentUGC());
 }
 
+jobject CreateFeatureId(JNIEnv * env, CampaignFeature const & data)
+{
+  static jmethodID const featureCtorId =
+    jni::GetConstructorID(env, g_featureIdClazz, "(Ljava/lang/String;JI)V");
+
+  jni::TScopedLocalRef const countryId(env, jni::ToJavaString(env, data.m_countryId));
+  return env->NewObject(g_featureIdClazz, featureCtorId, countryId.get(),
+                        static_cast<jlong>(data.m_mwmVersion),
+                        static_cast<jint>(data.m_featureIndex));
+}
+
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, jclass clazz,
                                                                   jdouble lat, jdouble lon,
@@ -34,19 +45,17 @@ Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, 
 
   static jclass const geoFenceFeatureClazz =
           jni::GetGlobalClassRef(env, "com/mapswithme/maps/geofence/GeoFenceFeature");
-  // Java signature : GeoFenceFeature(long mwmVersion, String countryId, int featureIndex,
+  // Java signature : GeoFenceFeature(FeatureId featureId,
   //                                  double latitude, double longitude)
   static jmethodID const geoFenceFeatureConstructor =
-          jni::GetConstructorID(env, geoFenceFeatureClazz, "(JLjava/lang/String;IDD)V");
+          jni::GetConstructorID(env, geoFenceFeatureClazz, "(Lcom/mapswithme/maps/bookmarks/data/FeatureId;DD)V");
 
   return jni::ToJavaArray(env, geoFenceFeatureClazz, features, [&](JNIEnv * jEnv,
                                                                    CampaignFeature const & data)
   {
-      jni::TScopedLocalRef const countryId(env, jni::ToJavaString(env, data.m_countryId));
+      jni::TScopedLocalRef const featureId(env, CreateFeatureId(env, data));
       return env->NewObject(geoFenceFeatureClazz, geoFenceFeatureConstructor,
-                            static_cast<jlong>(data.m_mwmVersion),
-                            countryId.get(),
-                            static_cast<jint>(data.m_featureIndex),
+                            featureId.get(),
                             static_cast<jdouble>(data.m_lat),
                             static_cast<jdouble>(data.m_lon));
   });

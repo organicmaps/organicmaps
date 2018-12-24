@@ -116,11 +116,4 @@ public class FeatureId implements Parcelable
   {
     return mMwmName + ":" + mMwmVersion + ":" + mFeatureIndex;
   }
-
-  @NonNull
-  public static FeatureId from(@NonNull Geofence geofence)
-  {
-    String requestId = geofence.getRequestId();
-    return fromString(requestId);
-  }
 }

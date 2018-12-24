@@ -154,9 +154,9 @@ public class MwmApplication extends Application
   public void onCreate()
   {
     super.onCreate();
-    mBackgroundListener = new AppBaseTransitionListener(this);
     LoggerFactory.INSTANCE.initialize(this);
     mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+    mBackgroundListener = new AppBaseTransitionListener(this);
     getLogger().d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
     mMediator = new ExternalLibrariesMediator(this);

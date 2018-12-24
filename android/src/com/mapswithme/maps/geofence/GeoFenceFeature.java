@@ -11,37 +11,16 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
  */
 public class GeoFenceFeature implements Parcelable
 {
-  private final long mwmVersion;
   @NonNull
-  private final String countryId;
-  private final int featureIndex;
+  private final FeatureId mFeatureId;
   private final double latitude;
   private final double longitude;
 
-  public GeoFenceFeature(long mwmVersion, @NonNull String countryId, int featureIndex,
-                         double latitude, double longitude)
+  public GeoFenceFeature(@NonNull FeatureId featureId, double latitude, double longitude)
   {
-    this.mwmVersion = mwmVersion;
-    this.countryId = countryId;
-    this.featureIndex = featureIndex;
+    mFeatureId = featureId;
     this.latitude = latitude;
     this.longitude = longitude;
-  }
-
-  public long getMwmVersion()
-  {
-    return mwmVersion;
-  }
-
-  @NonNull
-  public String getCountryId()
-  {
-    return countryId;
-  }
-
-  public int getFeatureIndex()
-  {
-    return featureIndex;
   }
 
   public double getLatitude()
@@ -54,32 +33,10 @@ public class GeoFenceFeature implements Parcelable
     return longitude;
   }
 
-  @Override
-  public boolean equals(Object o)
-  {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    GeoFenceFeature that = (GeoFenceFeature) o;
-
-    if (mwmVersion != that.mwmVersion) return false;
-    if (featureIndex != that.featureIndex) return false;
-    return countryId.equals(that.countryId);
-  }
-
-  @Override
-  public int hashCode()
-  {
-    int result = (int) (mwmVersion ^ (mwmVersion >>> 32));
-    result = 31 * result + countryId.hashCode();
-    result = 31 * result + featureIndex;
-    return result;
-  }
-
   @NonNull
   public FeatureId getId()
   {
-    return new FeatureId(countryId, mwmVersion, featureIndex);
+    return mFeatureId;
   }
 
   @Override
@@ -91,18 +48,14 @@ public class GeoFenceFeature implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeLong(this.mwmVersion);
-    dest.writeString(this.countryId);
-    dest.writeInt(this.featureIndex);
+    dest.writeParcelable(this.mFeatureId, flags);
     dest.writeDouble(this.latitude);
     dest.writeDouble(this.longitude);
   }
 
   protected GeoFenceFeature(Parcel in)
   {
-    this.mwmVersion = in.readLong();
-    this.countryId = in.readString();
-    this.featureIndex = in.readInt();
+    this.mFeatureId = in.readParcelable(FeatureId.class.getClassLoader());
     this.latitude = in.readDouble();
     this.longitude = in.readDouble();
   }
@@ -126,12 +79,27 @@ public class GeoFenceFeature implements Parcelable
   public String toString()
   {
     final StringBuilder sb = new StringBuilder("GeoFenceFeature{");
-    sb.append("mwmVersion=").append(mwmVersion);
-    sb.append(", countryId='").append(countryId).append('\'');
-    sb.append(", featureIndex=").append(featureIndex);
+    sb.append("mFeatureId=").append(mFeatureId);
     sb.append(", latitude=").append(latitude);
     sb.append(", longitude=").append(longitude);
     sb.append('}');
     return sb.toString();
+  }
+
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    GeoFenceFeature that = (GeoFenceFeature) o;
+
+    return mFeatureId.equals(that.mFeatureId);
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return mFeatureId.hashCode();
   }
 }
