@@ -2,6 +2,7 @@
 
 #include "geocoder/beam.hpp"
 #include "geocoder/hierarchy.hpp"
+#include "geocoder/index.hpp"
 #include "geocoder/result.hpp"
 #include "geocoder/types.hpp"
 
@@ -123,6 +124,8 @@ public:
 
   Hierarchy const & GetHierarchy() const;
 
+  Index const & GetIndex() const;
+
 private:
   void Go(Context & ctx, Type type) const;
 
@@ -132,5 +135,7 @@ private:
                         Layer & curLayer) const;
 
   Hierarchy m_hierarchy;
+
+  Index m_index;
 };
 }  // namespace geocoder

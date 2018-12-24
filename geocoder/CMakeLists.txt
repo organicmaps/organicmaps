@@ -9,6 +9,8 @@ set(
   geocoder.hpp
   hierarchy.cpp
   hierarchy.hpp
+  index.cpp
+  index.hpp
   result.cpp
   result.hpp
   types.cpp

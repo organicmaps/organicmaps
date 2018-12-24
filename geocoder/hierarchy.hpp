@@ -8,8 +8,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
 #include "3party/jansson/myjansson.hpp"
@@ -29,6 +27,9 @@ public:
 
     // Number of entries with unreadable base::GeoObjectIds.
     uint64_t m_badOsmIds = 0;
+
+    // Number of base::GeoObjectsIds that occur as keys in at least two entries.
+    uint64_t m_duplicateOsmIds = 0;
 
     // Number of entries with duplicate subfields in the address field.
     uint64_t m_duplicateAddresses = 0;
@@ -72,37 +73,15 @@ public:
 
     // The address fields of this entry, one per Type.
     std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
-
-    // List of houses that belong to the street that is desribed by this entry.
-    // Only valid if |m_type| is Type::Street.
-    std::vector<Entry const *> m_buildingsOnStreet;
   };
 
   explicit Hierarchy(std::string const & pathToJsonHierarchy);
 
-  // Returns a pointer to entries whose names exactly match |tokens|
-  // (the order matters) or nullptr if there are no such entries.
-  //
-  // todo This method (and the whole class, in fact) is in the
-  //      prototype stage and may be too slow. Proper indexing should
-  //      be implemented to perform this type of queries.
-  std::vector<Entry *> const * const GetEntries(Tokens const & tokens) const;
+  std::vector<Entry> const & GetEntries() const;
 
   Entry const * GetEntryForOsmId(base::GeoObjectId const & osmId) const;
 
 private:
-  // Adds address information of entries to the index.
-  void IndexEntries();
-
-  // Adds the street |e| to the index, with and without synonyms
-  // of the word "street".
-  void IndexStreet(Entry & e);
-
-  // Fills |m_buildingsOnStreet| field for all street entries.
-  void IndexHouses();
-
-  std::unordered_map<std::string, std::vector<Entry *>> m_entriesByTokens;
-
-  std::vector<Entry> m_entriesStorage;
+  std::vector<Entry> m_entries;
 };
 }  // namespace geocoder

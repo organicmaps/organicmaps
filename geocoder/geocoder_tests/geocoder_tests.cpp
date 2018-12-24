@@ -72,7 +72,7 @@ UNIT_TEST(Geocoder_Hierarchy)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  auto entries = geocoder.GetHierarchy().GetEntries({("florencia")});
+  auto entries = geocoder.GetIndex().GetEntries({("florencia")});
 
   TEST(entries, ());
   TEST_EQUAL(entries->size(), 1, ());

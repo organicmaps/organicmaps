@@ -2,7 +2,6 @@
 
 #include "indexer/search_string_utils.hpp"
 
-#include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
@@ -19,11 +18,6 @@ namespace
 {
 // Information will be logged for every |kLogBatch| entries.
 size_t const kLogBatch = 100000;
-
-string MakeIndexKey(geocoder::Tokens const & tokens)
-{
-  return strings::JoinStrings(tokens, " ");
-}
 }  // namespace
 
 namespace geocoder
@@ -123,7 +117,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     if (line.empty())
       continue;
 
-    auto i = line.find(' ');
+    auto const i = line.find(' ');
     int64_t encodedId;
     if (i == string::npos || !strings::to_any(line.substr(0, i), encodedId))
     {
@@ -147,24 +141,39 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     if (stats.m_numLoaded % kLogBatch == 0)
       LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
 
-    m_entriesStorage.emplace_back(move(entry));
+    m_entries.emplace_back(move(entry));
   }
 
   if (stats.m_numLoaded % kLogBatch != 0)
     LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
 
   LOG(LINFO, ("Sorting entries..."));
-  sort(m_entriesStorage.begin(), m_entriesStorage.end());
+  sort(m_entries.begin(), m_entries.end());
 
-  LOG(LINFO, ("Indexing entries..."));
-  IndexEntries();
-  LOG(LINFO, ("Indexing houses..."));
-  IndexHouses();
+  {
+    size_t i = 0;
+    while (i < m_entries.size())
+    {
+      size_t j = i + 1;
+      while (j < m_entries.size() && m_entries[i].m_osmId == m_entries[j].m_osmId)
+        ++j;
+      if (j != i + 1)
+      {
+        ++stats.m_duplicateOsmIds;
+        // todo Remove the cast when the hierarchies no longer contain negative keys.
+        LOG(LDEBUG,
+            ("Duplicate osm id:", static_cast<int64_t>(m_entries[i].m_osmId.GetEncodedId()), "(",
+             m_entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
+      }
+      i = j;
+    }
+  }
 
   LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
-  LOG(LINFO, ("Entries indexed:", stats.m_numLoaded));
+  LOG(LINFO, ("Entries loaded:", stats.m_numLoaded));
   LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
   LOG(LINFO, ("Unreadable base::GeoObjectIds:", stats.m_badOsmIds));
+  LOG(LINFO, ("Duplicate base::GeoObjectIds:", stats.m_duplicateOsmIds));
   LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
   LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
   LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
@@ -173,13 +182,9 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   LOG(LINFO, ("(End of stats.)"));
 }
 
-vector<Hierarchy::Entry *> const * const Hierarchy::GetEntries(Tokens const & tokens) const
+vector<Hierarchy::Entry> const & Hierarchy::GetEntries() const
 {
-  auto it = m_entriesByTokens.find(MakeIndexKey(tokens));
-  if (it == m_entriesByTokens.end())
-    return {};
-
-  return &it->second;
+  return m_entries;
 }
 
 Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & osmId) const
@@ -188,89 +193,11 @@ Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & o
     return e.m_osmId < id;
   };
 
-  auto it = lower_bound(m_entriesStorage.begin(), m_entriesStorage.end(), osmId, cmp);
+  auto const it = lower_bound(m_entries.begin(), m_entries.end(), osmId, cmp);
 
-  if (it == m_entriesStorage.end() || it->m_osmId != osmId)
+  if (it == m_entries.end() || it->m_osmId != osmId)
     return nullptr;
 
   return &(*it);
-}
-
-void Hierarchy::IndexEntries()
-{
-  size_t numIndexed = 0;
-  for (Entry & e : m_entriesStorage)
-  {
-    // The entry is indexed only by its address.
-    // todo(@m) Index it by name too.
-    if (e.m_type == Type::Count)
-      continue;
-
-    if (e.m_type == Type::Street)
-    {
-      IndexStreet(e);
-    }
-    else
-    {
-      size_t const t = static_cast<size_t>(e.m_type);
-      m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
-    }
-
-    // Index every token but do not index prefixes.
-    // for (auto const & tok : entry.m_address[t])
-    // 	m_entriesByTokens[{tok}].emplace_back(entry);
-
-    ++numIndexed;
-    if (numIndexed % kLogBatch == 0)
-      LOG(LINFO, ("Indexed", numIndexed, "entries"));
-  }
-
-  if (numIndexed % kLogBatch != 0)
-    LOG(LINFO, ("Indexed", numIndexed, "entries"));
-}
-
-void Hierarchy::IndexStreet(Entry & e)
-{
-  CHECK_EQUAL(e.m_type, Type::Street, ());
-  size_t const t = static_cast<size_t>(e.m_type);
-  m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
-
-  for (size_t i = 0; i < e.m_address[t].size(); ++i)
-  {
-    if (!search::IsStreetSynonym(strings::MakeUniString(e.m_address[t][i])))
-      continue;
-    auto addr = e.m_address[t];
-    addr.erase(addr.begin() + i);
-    m_entriesByTokens[MakeIndexKey(addr)].emplace_back(&e);
-  }
-}
-
-void Hierarchy::IndexHouses()
-{
-  size_t numIndexed = 0;
-  for (auto const & be : m_entriesStorage)
-  {
-    if (be.m_type != Type::Building)
-      continue;
-
-    size_t const t = static_cast<size_t>(Type::Street);
-
-    auto const * streetCandidates = GetEntries(be.m_address[t]);
-    if (streetCandidates == nullptr)
-      continue;
-
-    for (auto & se : *streetCandidates)
-    {
-      if (se->IsParentTo(be))
-        se->m_buildingsOnStreet.emplace_back(&be);
-    }
-
-    ++numIndexed;
-    if (numIndexed % kLogBatch == 0)
-      LOG(LINFO, ("Indexed", numIndexed, "houses"));
-  }
-
-  if (numIndexed % kLogBatch != 0)
-    LOG(LINFO, ("Indexed", numIndexed, "houses"));
 }
 }  // namespace geocoder

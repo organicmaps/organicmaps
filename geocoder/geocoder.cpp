@@ -209,7 +209,10 @@ vector<Geocoder::Layer> & Geocoder::Context::GetLayers() { return m_layers; }
 vector<Geocoder::Layer> const & Geocoder::Context::GetLayers() const { return m_layers; }
 
 // Geocoder ----------------------------------------------------------------------------------------
-Geocoder::Geocoder(string const & pathToJsonHierarchy) : m_hierarchy(pathToJsonHierarchy) {}
+Geocoder::Geocoder(string const & pathToJsonHierarchy)
+  : m_hierarchy(pathToJsonHierarchy), m_index(m_hierarchy)
+{
+}
 
 void Geocoder::ProcessQuery(string const & query, vector<Result> & results) const
 {
@@ -226,6 +229,8 @@ void Geocoder::ProcessQuery(string const & query, vector<Result> & results) cons
 }
 
 Hierarchy const & Geocoder::GetHierarchy() const { return m_hierarchy; }
+
+Index const & Geocoder::GetIndex() const { return m_index; }
 
 void Geocoder::Go(Context & ctx, Type type) const
 {
@@ -313,7 +318,10 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
 
   for (auto const & se : layer.m_entries)
   {
-    for (auto const & be : se->m_buildingsOnStreet)
+    auto const * buildings = m_index.GetBuildingsOnStreet(se->m_osmId);
+    if (buildings == nullptr)
+      continue;
+    for (auto const & be : *buildings)
     {
       auto const bt = static_cast<size_t>(Type::Building);
       auto const & realHN = MakeHouseNumber(be->m_address[bt]);
@@ -326,7 +334,7 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
 void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
                                 Layer & curLayer) const
 {
-  auto const * entries = m_hierarchy.GetEntries(subquery);
+  auto const * entries = m_index.GetEntries(subquery);
   if (!entries || entries->empty())
     return;
 
