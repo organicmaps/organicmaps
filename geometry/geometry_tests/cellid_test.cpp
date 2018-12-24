@@ -2,19 +2,21 @@
 
 #include "geometry/cellid.hpp"
 
+#include "base/logging.hpp"
+
 #include <algorithm>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-UNIT_TEST(CellID_Parent)
+UNIT_TEST(CellId_Parent)
 {
   TEST_EQUAL(m2::CellId<3>("1").Parent(), m2::CellId<3>(""), ());
   TEST_EQUAL(m2::CellId<4>("032").Parent(), m2::CellId<4>("03"), ());
 }
 
-UNIT_TEST(CellID_AncestorAtLevel)
+UNIT_TEST(CellId_AncestorAtLevel)
 {
   TEST_EQUAL(m2::CellId<3>("1").AncestorAtLevel(0), m2::CellId<3>(""), ());
   TEST_EQUAL(m2::CellId<4>("032").AncestorAtLevel(2), m2::CellId<4>("03"), ());
@@ -150,7 +152,7 @@ UNIT_TEST(CellId_SubTreeSize)
   TEST_EQUAL(m2::CellId<3>("").SubTreeSize(3), 21, ());
 }
 
-UNIT_TEST(CellID_LessQueueOrder)
+UNIT_TEST(CellId_LessQueueOrder)
 {
   vector<string> v;
   v.push_back("0");
@@ -163,7 +165,7 @@ UNIT_TEST(CellID_LessQueueOrder)
   vector<string> e = v;
   do
   {
-    vector<m2::CellId<4> > tst, exp;
+    vector<m2::CellId<4>> tst, exp;
     for (size_t i = 0; i < v.size(); ++i)
     {
       tst.push_back(m2::CellId<4>(e[i]));
@@ -174,7 +176,7 @@ UNIT_TEST(CellID_LessQueueOrder)
   } while (next_permutation(e.begin(), e.end()));
 }
 
-UNIT_TEST(CellID_LessStackOrder)
+UNIT_TEST(CellId_LessStackOrder)
 {
   vector<string> v;
   v.push_back("0");
@@ -187,7 +189,7 @@ UNIT_TEST(CellID_LessStackOrder)
   vector<string> e = v;
   do
   {
-    vector<m2::CellId<4> > tst, exp;
+    vector<m2::CellId<4>> tst, exp;
     for (size_t i = 0; i < v.size(); ++i)
     {
       tst.push_back(m2::CellId<4>(e[i]));
@@ -198,12 +200,55 @@ UNIT_TEST(CellID_LessStackOrder)
   } while (next_permutation(e.begin(), e.end()));
 }
 
-UNIT_TEST(CellID_IsStringValid)
+UNIT_TEST(CellId_IsStringValid)
 {
-  typedef m2::CellId<9> TId;
-  TEST( TId::IsCellId("0123132"), () );
-  TEST( TId::IsCellId(""), () );
-  TEST( !TId::IsCellId("-1332"), () );
-  TEST( !TId::IsCellId("023."), () );
-  TEST( !TId::IsCellId("121832"), () );
+  using Id = m2::CellId<9>;
+  TEST(Id::IsCellId("0123132"), ());
+  TEST(Id::IsCellId(""), ());
+  TEST(!Id::IsCellId("-1332"), ());
+  TEST(!Id::IsCellId("023."), ());
+  TEST(!Id::IsCellId("121832"), ());
+}
+
+UNIT_TEST(CellId_ToAndFromInt64ZOrder)
+{
+  int const kMaxDepth = 4;
+  using Id = m2::CellId<kMaxDepth>;
+  for (int depth = 1; depth <= kMaxDepth; ++depth)
+  {
+    uint64_t const treeSize = ((uint64_t{1} << (2 * depth)) - 1) / 3;
+    LOG(LINFO, ("Depth =", depth, " TreeSize =", treeSize));
+    for (uint64_t id = 1; id <= treeSize; ++id)
+    {
+      auto const cell = Id::FromInt64ZOrder(id, depth);
+      TEST_EQUAL(id, cell.ToInt64ZOrder(depth), ());
+    }
+  }
+
+  vector<string> const atDepth3 = {
+    "",
+    "0",
+    "00",
+    "01",
+    "02",
+    "03",
+    "1",
+    "10",
+    "11",
+    "12",
+    "13",
+    "2",
+    "20",
+    "21",
+    "22",
+    "23",
+    "3",
+    "30",
+    "31",
+    "32",
+    "33",
+  };
+
+  for (uint64_t id = 1; id <= atDepth3.size(); ++id)
+    TEST_EQUAL(Id::FromInt64(id, 3), Id(atDepth3[id - 1]), ());
 }
