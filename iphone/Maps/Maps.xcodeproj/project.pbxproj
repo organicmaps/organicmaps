@@ -427,6 +427,7 @@
 		47E6CB0B2178BA3600EA102B /* SearchBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E6CB092178BA3600EA102B /* SearchBannerCell.swift */; };
 		47E6CB0C2178BA3600EA102B /* SearchBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */; };
 		47EF05B321504D8F00EAC269 /* RemoveAdsPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */; };
+		47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F67D1421CAB21B0069754E /* MWMImageCoder.m */; };
 		47F86CFF20C936FC00FEE291 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86CFE20C936FC00FEE291 /* TabView.swift */; };
 		47F86D0120C93D8D00FEE291 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F86D0020C93D8D00FEE291 /* TabViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
@@ -1468,6 +1469,9 @@
 		47E6CB0A2178BA3600EA102B /* SearchBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBannerCell.xib; sourceTree = "<group>"; };
 		47EF05B221504D8F00EAC269 /* RemoveAdsPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveAdsPresentationController.swift; sourceTree = "<group>"; };
 		47F67D0F21CA8F800069754E /* IMWMWebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMWebImage.h; sourceTree = "<group>"; };
+		47F67D1321CAB21B0069754E /* MWMImageCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMImageCoder.h; sourceTree = "<group>"; };
+		47F67D1421CAB21B0069754E /* MWMImageCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMImageCoder.m; sourceTree = "<group>"; };
+		47F67D1621CAB50B0069754E /* IMWMImageCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMWMImageCoder.h; sourceTree = "<group>"; };
 		47F86CFE20C936FC00FEE291 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		47F86D0020C93D8D00FEE291 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
@@ -3432,6 +3436,9 @@
 				47B9065021C7FA3F0079C85E /* NSString+MD5.m */,
 				47B9064E21C7FA3E0079C85E /* UIImageView+WebImage.h */,
 				47B9064F21C7FA3E0079C85E /* UIImageView+WebImage.m */,
+				47F67D1621CAB50B0069754E /* IMWMImageCoder.h */,
+				47F67D1321CAB21B0069754E /* MWMImageCoder.h */,
+				47F67D1421CAB21B0069754E /* MWMImageCoder.m */,
 			);
 			path = WebImage;
 			sourceTree = "<group>";
@@ -5215,6 +5222,7 @@
 				34AB661A1FC5AA330078E451 /* MWMTaxiCollectionLayout.mm in Sources */,
 				345C2F8A1F86361B009DB8B4 /* MWMUGCViewModel.mm in Sources */,
 				33F8BA4E2199AB9500ECA8EE /* TagsDataSource.swift in Sources */,
+				47F67D1521CAB21B0069754E /* MWMImageCoder.m in Sources */,
 				34AB66861FC5AA330078E451 /* MWMNavigationInfoView.mm in Sources */,
 				34C9BD051C6DB693000DC38D /* MWMViewController.mm in Sources */,
 				331630D12191D74B00BB91A9 /* TagSectionHeaderView.swift in Sources */,

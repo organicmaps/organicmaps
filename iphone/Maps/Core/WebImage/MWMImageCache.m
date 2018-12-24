@@ -9,18 +9,21 @@ static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
 @property (nonatomic, copy) NSString *cacheDirPath;
 @property (nonatomic, strong) dispatch_queue_t diskQueue;
 @property (nonatomic, strong) NSFileManager *fileManager;
+@property (nonatomic, strong) id<IMWMImageCoder> imageCoder;
 
 @end
 
 @implementation MWMImageCache
 
-- (instancetype)init {
+- (instancetype)initWithImageCoder:(id<IMWMImageCoder>)imageCoder {
   self = [super init];
   if (self) {
     _cache = [[NSCache alloc] init];
     _cacheDirPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"images"];
     _diskQueue = dispatch_queue_create("mapsme.imageCache.disk", DISPATCH_QUEUE_SERIAL);
     _fileManager = [NSFileManager defaultManager];
+    _imageCoder = imageCoder;
+
     [_fileManager createDirectoryAtPath:_cacheDirPath
             withIntermediateDirectories:YES
                              attributes:nil
@@ -33,23 +36,24 @@ static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
 - (void)imageForKey:(NSString *)imageKey completion:(void (^)(UIImage *image, NSError *error))completion {
   UIImage *image = [self.cache objectForKey:imageKey];
   if (image) {
-    completion(image, nil); // TODO: add error
+    completion(image, nil);
   } else {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       NSString *path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.md5String];
       __block NSData *imageData = nil;
+      __block NSError *error = nil;
       dispatch_sync(self.diskQueue, ^{
-        imageData = [NSData dataWithContentsOfFile:path];
+        imageData = [NSData dataWithContentsOfFile:path options:0 error:&error];
       });
       UIImage *image = nil;
       if (imageData) {
-        image = [UIImage imageWithData:imageData];
+        image = [self.imageCoder imageWithData:imageData];
         if (image) {
           [self.cache setObject:image forKey:imageKey];
         }
       }
       dispatch_async(dispatch_get_main_queue(), ^{
-        completion(image, nil); // TODO: add error
+        completion(image, error);
       });
     });
   }
@@ -58,7 +62,7 @@ static NSTimeInterval kCleanupTimeInterval = 30 * 24 * 60 * 60;
 - (void)setImage:(UIImage *)image forKey:(NSString *)imageKey {
   [self.cache setObject:image forKey:imageKey];
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.9);
+    NSData *imageData = [self.imageCoder dataFromImage:image];
     if (imageData) {
       NSString *path = [self.cacheDirPath stringByAppendingPathComponent:imageKey.md5String];
       dispatch_sync(self.diskQueue, ^{

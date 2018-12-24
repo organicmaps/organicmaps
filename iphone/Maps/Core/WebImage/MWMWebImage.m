@@ -1,5 +1,6 @@
 #import "MWMWebImage.h"
 #import "MWMImageCache.h"
+#import "MWMImageCoder.h"
 
 @interface MWMWebImageTask : NSObject <IMWMImageTask>
 
@@ -21,6 +22,7 @@
 
 @property (nonatomic, strong) NSURLSession *urlSession;
 @property (nonatomic, strong) id<IMWMImageCache> imageCache;
+@property (nonatomic, strong) id<IMWMImageCoder> imageCoder;
 
 @end
 
@@ -30,18 +32,22 @@
   static MWMWebImage *instanse;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    instanse = [[self alloc] initWithImageCahce:[MWMImageCache new]];
+    MWMImageCoder *coder = [MWMImageCoder new];
+    instanse = [[self alloc] initWithImageCahce:[[MWMImageCache alloc] initWithImageCoder:coder]
+                                     imageCoder:coder];
   });
   return instanse;
 }
 
-- (instancetype)initWithImageCahce:(id<IMWMImageCache>)imageCache {
+- (instancetype)initWithImageCahce:(id<IMWMImageCache>)imageCache
+                        imageCoder:(id<IMWMImageCoder>)imageCoder {
   self = [super init];
   if (self) {
     _urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                                                 delegate:self
                                            delegateQueue:nil];
     _imageCache = imageCache;
+    _imageCoder = imageCoder;
   }
   return self;
 }
@@ -62,7 +68,7 @@
                       completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                         UIImage *image = nil;
                         if (data) {
-                          image = [UIImage imageWithData:data];
+                          image = [self.imageCoder imageWithData:data];
                           if (image) {
                             [self.imageCache setImage:image forKey:cacheKey];
                           }
@@ -70,7 +76,7 @@
 
                         dispatch_async(dispatch_get_main_queue(), ^{
                           if (!imageTask.cancelled) {
-                            completion(image, error); //TODO: replace error with generic error
+                            completion(image, error);
                           }
                         });
                       }];

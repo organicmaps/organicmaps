@@ -7,7 +7,7 @@
 - (NSString *)md5String {
   NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
   if (data.length == 0) {
-    return nil;
+    return @"";
   }
 
   unsigned char buf[CC_MD5_DIGEST_LENGTH];
