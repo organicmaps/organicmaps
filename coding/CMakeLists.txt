@@ -87,8 +87,6 @@ set(
   var_record_reader.hpp
   var_serial_vector.hpp
   varint.hpp
-#    varint_vector.cpp
-#    varint_vector.hpp
   write_to_sink.hpp
   writer.hpp
   zip_creator.cpp

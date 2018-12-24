@@ -40,7 +40,6 @@ set(
   var_record_reader_test.cpp
   var_serial_vector_test.cpp
   varint_test.cpp
-  #varint_vector_test.cpp
   writer_test.cpp
   zip_creator_test.cpp
   zip_reader_test.cpp
