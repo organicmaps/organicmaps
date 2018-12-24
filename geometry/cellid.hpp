@@ -269,13 +269,12 @@ public:
     ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v), TreeSizeForDepth(depth), ());
     uint64_t bits = 0;
     int level = 0;
-    --v;
-    while (v > 0)
+    while (v > 1)
     {
       bits <<= 2;
       ++level;
-      int64_t subtreeSize = static_cast<int64_t>(TreeSizeForDepth(depth - level));
-      for (--v; v >= subtreeSize; v -= subtreeSize)
+      uint64_t const subtreeSize = TreeSizeForDepth(depth - level);
+      for (--v; v > subtreeSize; v -= subtreeSize)
         ++bits;
     }
     return CellId(bits, level);
