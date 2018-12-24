@@ -1,5 +1,4 @@
 #pragma once
-#include "coding/diff_patch_common.hpp"
 
 #include "base/assert.hpp"
 #include "base/base.hpp"
@@ -11,6 +10,12 @@
 
 namespace diff
 {
+enum Operation
+{
+  OPERATION_COPY = 0,
+  OPERATION_DELETE = 1,
+  OPERATION_INSERT = 2,
+};
 
 template <class PatchWriterT, typename SizeT = uint64_t> class PatchCoder
 {
@@ -18,27 +23,27 @@ public:
   typedef SizeT size_type;
 
   explicit PatchCoder(PatchWriterT & patchWriter)
-    : m_LastOperation(COPY), m_LastOpCode(0), m_PatchWriter(patchWriter)
+    : m_LastOperation(OPERATION_COPY), m_LastOpCode(0), m_PatchWriter(patchWriter)
   {
   }
 
   void Delete(size_type n)
   {
     if (n != 0)
-      Op(DELETE, n);
+      Op(OPERATION_DELETE, n);
   }
 
   void Copy(size_type n)
   {
     if (n != 0)
-      Op(COPY, n);
+      Op(OPERATION_COPY, n);
   }
 
   template <typename TIter> void Insert(TIter it, size_type n)
   {
     if (n != 0)
     {
-      Op(INSERT, n);
+      Op(OPERATION_INSERT, n);
       m_PatchWriter.WriteData(it, n);
     }
   }
@@ -66,7 +71,7 @@ private:
     if (m_LastOpCode != 0)
       m_PatchWriter.WriteOperation(m_LastOpCode);
     else
-      CHECK_EQUAL(m_LastOperation, COPY, ());  // "We were just initialized."
+      CHECK_EQUAL(m_LastOperation, OPERATION_COPY, ());  // "We were just initialized."
   }
 
   Operation m_LastOperation;
@@ -211,5 +216,4 @@ private:
   HasherT m_Hasher;
   size_t m_BlockSize;
 };
-
-}
+}  // namespace diff

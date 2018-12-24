@@ -8,7 +8,6 @@
 #include "../../../../base/logging.hpp"
 #include "../../../../base/scope_guard.hpp"
 
-#include "../../../../coding/matrix_traversal.hpp"
 #include "../../../../coding/internal/file_data.hpp"
 
 #include "../../../../routing/osrm_data_facade.hpp"
@@ -18,6 +17,15 @@
 #include "../../../succinct/gamma_vector.hpp"
 #include "../../../succinct/rs_bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
+
+namespace
+{
+template <typename T>
+T TraverseMatrixInRowOrder(T n, T i, T j, bool is_back)
+{
+  return (i * n + j) * 2 + (is_back ? 1 : 0);
+}
+}  // namespace
 
 namespace  mapsme
 {

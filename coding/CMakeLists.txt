@@ -18,8 +18,6 @@ set(
   buffer_reader.hpp
   bwt_coder.hpp
   byte_stream.hpp
-  coder.hpp
-  coder_util.hpp
   compressed_bit_vector.cpp
   compressed_bit_vector.hpp
   constants.hpp
@@ -27,7 +25,6 @@ set(
   csv_reader.hpp
   dd_vector.hpp
   diff.hpp
-  diff_patch_common.hpp
   elias_coder.hpp
   endianness.hpp
   file_container.cpp
@@ -50,14 +47,12 @@ set(
   internal/file_data.cpp
   internal/file_data.hpp
   internal/xmlparser.hpp
-  matrix_traversal.hpp
   memory_region.hpp
   mmap_reader.cpp
   mmap_reader.hpp
   parse_xml.hpp
   point_coding.cpp
   point_coding.hpp
-  polymorph_reader.hpp
   read_write_utils.hpp
   reader.cpp
   reader.hpp
@@ -92,7 +87,6 @@ set(
   var_record_reader.hpp
   var_serial_vector.hpp
   varint.hpp
-  varint_misc.hpp
 #    varint_vector.cpp
 #    varint_vector.hpp
   write_to_sink.hpp
