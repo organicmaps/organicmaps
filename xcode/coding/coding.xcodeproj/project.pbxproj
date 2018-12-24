@@ -47,6 +47,8 @@
 		3D489BC31D3D21AE0052AA38 /* elias_coder_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D489BB71D3D217E0052AA38 /* elias_coder_test.cpp */; };
 		3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF1F1F8F55740081202C /* csv_reader.hpp */; };
 		3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF201F8F55740081202C /* csv_reader.cpp */; };
+		402E9A9321D0DBD9002D3CF4 /* map_uint32_to_val.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 402E9A9221D0DBD9002D3CF4 /* map_uint32_to_val.hpp */; };
+		4098EA6321D12088005612FF /* map_uint32_to_val_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4098EA6221D12088005612FF /* map_uint32_to_val_tests.cpp */; };
 		454523B4202AEB21009275C1 /* serdes_json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523B3202AEB21009275C1 /* serdes_json.hpp */; };
 		4563B061205909290057556D /* serdes_binary_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4563B05E205909280057556D /* serdes_binary_header.hpp */; };
 		4563B062205909290057556D /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4563B05F205909280057556D /* sha1.cpp */; };
@@ -201,6 +203,8 @@
 		3D489BBA1D3D217E0052AA38 /* succinct_mapper_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = succinct_mapper_test.cpp; sourceTree = "<group>"; };
 		3D74EF1F1F8F55740081202C /* csv_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_reader.hpp; sourceTree = "<group>"; };
 		3D74EF201F8F55740081202C /* csv_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader.cpp; sourceTree = "<group>"; };
+		402E9A9221D0DBD9002D3CF4 /* map_uint32_to_val.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = map_uint32_to_val.hpp; sourceTree = "<group>"; };
+		4098EA6221D12088005612FF /* map_uint32_to_val_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_uint32_to_val_tests.cpp; sourceTree = "<group>"; };
 		454523B3202AEB21009275C1 /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
 		4563B05E205909280057556D /* serdes_binary_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_binary_header.hpp; sourceTree = "<group>"; };
 		4563B05F205909280057556D /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
@@ -339,6 +343,7 @@
 		394916901BAC3A5F002A8C4F /* coding_tests */ = {
 			isa = PBXGroup;
 			children = (
+				4098EA6221D12088005612FF /* map_uint32_to_val_tests.cpp */,
 				3973743321C17F160003807A /* string_utf8_multilang_tests.cpp */,
 				39C3C0BE21A431BF003B4712 /* point_coding_tests.cpp */,
 				39F376CB207D329F0058E8E0 /* geometry_coding_test.cpp */,
@@ -447,6 +452,7 @@
 				39B2B97E1FB4693B00AB85A1 /* elias_coder.hpp */,
 				675342421A3F588B00A0A8C3 /* endianness.hpp */,
 				675342431A3F588B00A0A8C3 /* file_container.cpp */,
+				402E9A9221D0DBD9002D3CF4 /* map_uint32_to_val.hpp */,
 				675342441A3F588B00A0A8C3 /* file_container.hpp */,
 				675342451A3F588B00A0A8C3 /* file_name_utils.cpp */,
 				675342461A3F588B00A0A8C3 /* file_name_utils.hpp */,
@@ -546,6 +552,7 @@
 				675342AF1A3F588C00A0A8C3 /* mmap_reader.hpp in Headers */,
 				4563B061205909290057556D /* serdes_binary_header.hpp in Headers */,
 				675342B81A3F588C00A0A8C3 /* reader_wrapper.hpp in Headers */,
+				402E9A9321D0DBD9002D3CF4 /* map_uint32_to_val.hpp in Headers */,
 				675342961A3F588C00A0A8C3 /* dd_vector.hpp in Headers */,
 				675342C91A3F588C00A0A8C3 /* var_record_reader.hpp in Headers */,
 				675342991A3F588C00A0A8C3 /* endianness.hpp in Headers */,
@@ -736,6 +743,7 @@
 				670D04BF1B0BA92D0013A7AC /* file_data.cpp in Sources */,
 				39C3C0BD21A43061003B4712 /* point_coding.cpp in Sources */,
 				675342B91A3F588C00A0A8C3 /* reader_writer_ops.cpp in Sources */,
+				4098EA6321D12088005612FF /* map_uint32_to_val_tests.cpp in Sources */,
 				39F376C6207D327B0058E8E0 /* geometry_coding.cpp in Sources */,
 				675E889C1DB7B0D000F8EBDA /* traffic.cpp in Sources */,
 				675342AE1A3F588C00A0A8C3 /* mmap_reader.cpp in Sources */,

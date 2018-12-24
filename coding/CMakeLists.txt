@@ -47,6 +47,7 @@ set(
   internal/file_data.cpp
   internal/file_data.hpp
   internal/xmlparser.hpp
+  map_uint32_to_val.hpp
   memory_region.hpp
   mmap_reader.cpp
   mmap_reader.hpp

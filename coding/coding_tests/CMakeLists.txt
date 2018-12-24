@@ -19,6 +19,7 @@ set(
   geometry_coding_test.cpp
   hex_test.cpp
   huffman_test.cpp
+  map_uint32_to_val_tests.cpp
   mem_file_reader_test.cpp
   mem_file_writer_test.cpp
   png_decoder_test.cpp
