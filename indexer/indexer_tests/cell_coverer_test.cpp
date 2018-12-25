@@ -45,3 +45,16 @@ UNIT_TEST(ArtificialCoverRect)
   TEST_EQUAL(cells[2].ToString(), "21", ());
   TEST_EQUAL(cells[3].ToString(), "30", ());
 }
+
+UNIT_TEST(MaxDepthCoverSpiral)
+{
+  using TestBounds = Bounds<0, 0, 8, 8>;
+
+  auto cells = vector<m2::CellId<3>>{};
+
+  CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, 2, cells);
+
+  TEST_EQUAL(cells.size(), 1, ());
+  TEST_EQUAL(cells[0].Level(), 1, ());
+}
+
