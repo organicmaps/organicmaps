@@ -150,6 +150,10 @@ void BaseRenderer::CheckRenderingEnabled()
         context->SetRenderingEnabled(true);
       }
     }
+
+    if (needCreateContext)
+      DisableMessageFiltering();
+
     // notify initiator-thread about rendering enabling
     // m_renderingEnablingCompletionHandler will be setup before awakening of this thread
     Notify();
@@ -157,10 +161,7 @@ void BaseRenderer::CheckRenderingEnabled()
     OnRenderingEnabled();
 
     if (needCreateContext)
-    {
-      DisableMessageFiltering();
       OnContextCreate();
-    }
   }
 }
 
