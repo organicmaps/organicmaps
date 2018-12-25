@@ -58,14 +58,17 @@ public:
     m_entries.insert(it, e);
   }
 
-  // template <typename Fn>
-  // void ForEachEntry(Fn && fn) const
-  // {
-  //   for (Entry const & e : m_entries)
-  //     fn(e.m_key, e.m_value);
-  // }
+  // Calls |fn| for all entries currently held in the beam.
+  // The order of calls is not specified.
+  template <typename Fn>
+  void ForEachEntry(Fn && fn) const
+  {
+    for (Entry const & e : m_entries)
+      fn(e.m_key, e.m_value);
+  }
 
-  // todo(@m) Specify whether the entries are supposed to be sorted.
+  // Returns all entries currently held in the beam.
+  // The order of returned entries is not specified.
   std::vector<Entry> const & GetEntries() const { return m_entries; }
 
 private:
@@ -73,6 +76,8 @@ private:
   std::vector<Entry> m_entries;
 };
 
+// A data structure to perform the beam search with.
+// Maintains a binary heap of (Key, Value) pairs.
 template <typename TKey, typename TValue>
 class HeapBeam
 {
@@ -122,13 +127,17 @@ public:
     std::push_heap(m_entries.begin(), m_entries.begin() + m_size);
   }
 
-  // template <typename Fn>
-  // void ForEachEntry(Fn && fn) const
-  // {
-  //   for (Entry const & e : m_entries)
-  //     fn(e.m_key, e.m_value);
-  // }
+  // Calls |fn| for all entries currently held in the beam.
+  // The order of calls is not specified.
+  template <typename Fn>
+  void ForEachEntry(Fn && fn) const
+  {
+    for (Entry const & e : m_entries)
+      fn(e.m_key, e.m_value);
+  }
 
+  // Returns all entries currently held in the beam.
+  // The order of returned entries is not specified.
   std::vector<Entry> const & GetEntries() const { return m_entries; }
 
 private:

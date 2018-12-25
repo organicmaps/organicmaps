@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -17,10 +18,10 @@ using namespace std;
 namespace
 {
 template <template <typename, typename> class Beam>
-void Smoke(string const & beamType)
+void Smoke()
 {
-  size_t const kCapacity = 100;
-  size_t const kTotal = 1000;
+  size_t const kCapacity = 10;
+  size_t const kTotal = 100;
 
   CHECK_LESS_OR_EQUAL(kCapacity, kTotal, ());
 
@@ -41,10 +42,46 @@ void Smoke(string const & beamType)
   sort(actual.rbegin(), actual.rend());
   CHECK_EQUAL(expected, actual, ());
 }
+
+template <template <typename, typename> class Beam>
+void Benchmark(string const & beamType, uint64_t const numResets, size_t const capacity,
+               uint64_t const numEvents)
+{
+  base::Timer timer;
+  SCOPE_GUARD(timerGuard,
+              [&] { LOG(LINFO, ("type:", beamType, "\ttime passed:", timer.ElapsedSeconds())); });
+
+  CHECK_LESS_OR_EQUAL(capacity, numEvents, ());
+
+  mt19937 rng(0);
+  uniform_real_distribution<double> dis(0.0, 1.0);
+  for (uint64_t wave = 0; wave <= numResets; ++wave)
+  {
+    Beam<uint64_t, double> beam(capacity);
+
+    uint64_t const begin = wave * numEvents / (numResets + 1);
+    uint64_t const end = (wave + 1) * numEvents / (numResets + 1);
+    for (uint64_t i = begin; i < end; ++i)
+      beam.Add(i, dis(rng));
+  }
+}
 }  // namespace
 
 UNIT_TEST(Beam_Smoke)
 {
-  Smoke<base::Beam>("Vector-based");
-  Smoke<base::HeapBeam>("Heap-based");
+  Smoke<base::Beam>();
+  Smoke<base::HeapBeam>();
+}
+
+UNIT_TEST(Beam_Benchmark)
+{
+  size_t const kCapacity = 100;
+  uint64_t const kNumEvents = 1000000;
+
+  for (uint64_t numResets = 0; numResets < 1000; numResets += 200)
+  {
+    LOG(LINFO, ("Resets =", numResets, "Capacity =", kCapacity, "Total events =", kNumEvents));
+    Benchmark<base::Beam>("Vector-based", numResets, kCapacity, kNumEvents);
+    Benchmark<base::HeapBeam>("Heap-based", numResets, kCapacity, kNumEvents);
+  }
 }
