@@ -50,11 +50,14 @@ UNIT_TEST(MaxDepthCoverSpiral)
 {
   using TestBounds = Bounds<0, 0, 8, 8>;
 
-  auto cells = vector<m2::CellId<3>>{};
+  for (auto depthMax = 1; depthMax <= 3; ++depthMax)
+  {
+    auto cells = vector<m2::CellId<3>>{};
 
-  CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, 2, cells);
+    CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, depthMax, cells);
 
-  TEST_EQUAL(cells.size(), 1, ());
-  TEST_EQUAL(cells[0].Level(), 1, ());
+    TEST_EQUAL(cells.size(), 1, ());
+    TEST_EQUAL(cells[0].Level(), depthMax - 1, ());
+  }
 }
 
