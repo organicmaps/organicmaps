@@ -229,13 +229,12 @@ namespace
       return false;
 
     static uint32_t const internet = classif().GetTypeByPath({"internet_access"});
-    static uint32_t const sponsored = classif().GetTypeByPath({"sponsored"});
 
     if ((g == GEOM_LINE || g == GEOM_UNDEFINED) && HasRoutingExceptionType(type))
       return true;
 
     ftype::TruncValue(type, 1);
-    if (g != GEOM_LINE && (sponsored == type || internet == type))
+    if (g != GEOM_LINE && type == internet)
       return true;
 
     return false;
@@ -256,6 +255,7 @@ namespace
     static uint32_t const psurface = classif().GetTypeByPath({"psurface"});
     static uint32_t const wheelchair = classif().GetTypeByPath({"wheelchair"});
     static uint32_t const cuisine = classif().GetTypeByPath({"cuisine"});
+    static uint32_t const sponsored = classif().GetTypeByPath({"sponsored"});
     // Reserved for custom event processing, e.g. fc2018.
     // static uint32_t const event = classif().GetTypeByPath({"event" });
 
@@ -268,17 +268,20 @@ namespace
     ftype::TruncValue(type, 1);
     if (g == GEOM_LINE || g == GEOM_UNDEFINED)
     {
-      if (hwtag == type || psurface == type)
+      if (type == hwtag || type == psurface)
         return true;
     }
 
-    if (wheelchair == type && typeLength == 2)
+    if (type == wheelchair && typeLength == 2)
       return true;
 
-    if (cuisine == type)
+    if (type == cuisine)
       return true;
 
-    // Reserved for custom event processing, i.e. fc2018.
+    if (g != GEOM_LINE && type == sponsored)
+      return true;
+
+    // Reserved for custom event processing, e.g. fc2018.
     // if (event == type)
     //   return true;
 
