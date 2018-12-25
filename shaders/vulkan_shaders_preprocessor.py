@@ -3,6 +3,7 @@ import re
 import sys
 from subprocess import Popen, PIPE
 from shutil import copyfile
+import json
 
 VERTEX_SHADER_EXT = '.vsh.glsl'
 FRAG_SHADER_EXT = '.fsh.glsl'
@@ -58,8 +59,8 @@ def read_index_file(file_path, programs_order):
             index += 1
 
     gpu_programs_cache = dict()
-    for v in gpu_programs.values():
-        gpu_programs_cache[v[2]] = (v[0], v[1])
+    for (k, v) in gpu_programs.items():
+        gpu_programs_cache[v[2]] = (v[0], v[1], k)
 
     return gpu_programs_cache
 
@@ -80,7 +81,6 @@ def read_programs_file(file_path):
                 name = line_parts[0].strip()
                 if name and name != 'ProgramsCount':
                     gpu_programs.append(name)
-
     return gpu_programs
 
 
@@ -280,7 +280,7 @@ def get_size_of_attributes_block(lines_before_main):
 
 
 def generate_spirv_compatible_glsl_shader(output_file, shader_file, shader_dir, shaders_library,
-                                          program_params, layout_counters):
+                                          program_params, layout_counters, reflection_dict):
     output_file.write('#version 310 es\n')
     output_file.write('precision highp float;\n')
     output_file.write('#define LOW_P lowp\n')
@@ -320,14 +320,27 @@ def generate_spirv_compatible_glsl_shader(output_file, shader_file, shader_dir, 
                 output_file.write('layout (location = 0) out vec4 v_FragColor;\n')
 
             # Write uniforms block.
-            write_uniform_block(output_file, program_params)
+            uniforms_index = 'vs_uni';
+            if is_fragment_shader:
+                uniforms_index = 'fs_uni'
+            if layout_counters[UNIFORMS] > 0:
+                write_uniform_block(output_file, program_params)
+                reflection_dict[uniforms_index] = 0
+            else:
+                reflection_dict[uniforms_index] = -1
 
             # Write samplers.
+            sample_index = 'tex'
             samplers_offset = layout_counters[SAMPLERS][0]
             if layout_counters[UNIFORMS] > 0 and samplers_offset == 0:
                 samplers_offset = 1
             for idx, s in enumerate(layout_counters[SAMPLERS][1]):
                 output_file.write('layout (binding = {0}) {1}\n'.format(samplers_offset + idx, s))
+                sampler = {'name': s[s.find('u_'):-1], 'idx': samplers_offset + idx}
+                if not sample_index in reflection_dict:
+                    reflection_dict[sample_index] = [sampler]
+                else:
+                    reflection_dict[sample_index].append(sampler)
             layout_counters[SAMPLERS][0] = samplers_offset + len(layout_counters[SAMPLERS][1])
             layout_counters[SAMPLERS][1] = []
 
@@ -366,11 +379,11 @@ def execute_external(options):
 
 # Generate SPIR-V shader from GLSL source.
 def generate_shader(shader, shader_dir, generation_dir, shaders_library, program_name, program_params,
-                    layout_counters, output_name, glslc_path):
+                    layout_counters, output_name, reflection_dict, glslc_path):
     output_path = os.path.join(generation_dir, output_name)
     with open(output_path, 'w') as file:
         generate_spirv_compatible_glsl_shader(file, shader, shader_dir, shaders_library,
-                                              program_params, layout_counters)
+                                              program_params, layout_counters, reflection_dict)
     try:
         execute_external([glslc_path, '-c', output_path, '-o', output_path + '.spv', '-std=310es', '--target-env=vulkan'])
         if debug_output:
@@ -427,6 +440,7 @@ if __name__ == '__main__':
     program_params = read_program_params_file(os.path.join(shader_dir, '..', program_params_file_name))
     gpu_programs_cache = read_index_file(os.path.join(shader_dir, index_file_name), programs_order)
     shaders_library = read_shaders_lib_file(os.path.join(shader_dir, shaders_lib_file))
+    reflection = []
     for (k, v) in gpu_programs_cache.items():
         if not k in program_params:
             print('Program params were not found for the shader ' + k)
@@ -435,7 +449,11 @@ if __name__ == '__main__':
             print('Varyings must be in the same order in VS and FS. Shaders: {0}, {1} / Program: {2}.'.format(v[0], v[1], k))
             exit(1)
         layout_counters = {IN: 0, OUT: 0, UNIFORMS: 0, SAMPLERS: [0, list()]}
+        reflection_dict = {'prg': v[2], 'info': dict()}
         generate_shader(v[0], shader_dir, generation_dir, shaders_library, k, program_params[k], layout_counters,
-                        k + VERTEX_SHADER_EXT_OUT, glslc_path)
+                        k + VERTEX_SHADER_EXT_OUT, reflection_dict['info'], glslc_path)
         generate_shader(v[1], shader_dir, generation_dir, shaders_library, k, program_params[k], layout_counters,
-                        k + FRAG_SHADER_EXT_OUT, glslc_path)
+                        k + FRAG_SHADER_EXT_OUT, reflection_dict['info'], glslc_path)
+        reflection.append(reflection_dict)
+    with open(os.path.join(generation_dir, 'reflection.json'), 'w') as reflection_file:
+        reflection_file.write(json.dumps(reflection))

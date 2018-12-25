@@ -53,6 +53,8 @@ public:
   void SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat, int width, int height);
   void ResetSurface();
 
+  VkDevice GetDevice() const { return m_device; }
+
 protected:
   VkInstance const m_vulkanInstance;
   VkPhysicalDevice const m_gpu;

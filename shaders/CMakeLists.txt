@@ -12,6 +12,9 @@ execute_process(
 
 include_directories(
   ${OMIM_ROOT}/3party/glm
+  ${OMIM_ROOT}/3party/jansson/src
+  ${OMIM_ROOT}/3party/Vulkan-Headers/include
+  ${OMIM_ROOT}/3party/vulkan_wrapper
 )
 
 set(
@@ -29,6 +32,10 @@ set(
   program_params.hpp
   program_pool.hpp
   programs.hpp
+  vulkan_program_params.cpp
+  vulkan_program_params.hpp
+  vulkan_program_pool.cpp
+  vulkan_program_pool.hpp
 )
 
 if (PLATFORM_IPHONE)

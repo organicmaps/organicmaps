@@ -27,6 +27,7 @@ public:
 
 private:
   void InitForOpenGL(ref_ptr<dp::GraphicsContext> context);
+  void InitForVulkan(ref_ptr<dp::GraphicsContext> context);
 
 #if defined(OMIM_METAL_AVAILABLE)
   // Definition of this method is in a .mm-file.

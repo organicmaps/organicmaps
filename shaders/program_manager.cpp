@@ -1,8 +1,11 @@
 #include "shaders/program_manager.hpp"
 #include "shaders/gl_program_pool.hpp"
+#include "shaders/vulkan_program_params.hpp"
+#include "shaders/vulkan_program_pool.hpp"
 
 #include "drape/gl_functions.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/vulkan/vulkan_base_context.hpp"
 
 #include "base/logging.hpp"
 
@@ -28,7 +31,7 @@ void ProgramManager::Init(ref_ptr<dp::GraphicsContext> context)
   }
   else if (apiVersion == dp::ApiVersion::Vulkan)
   {
-    //TODO(@rokuz, @darina): Implement.
+    InitForVulkan(context);
   }
   else
   {
@@ -62,6 +65,14 @@ void ProgramManager::InitForOpenGL(ref_ptr<dp::GraphicsContext> context)
   pool->SetDefines(globalDefines);
   
   m_paramsSetter = make_unique_dp<GLProgramParamsSetter>();
+}
+
+void ProgramManager::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
+{
+  ASSERT(dynamic_cast<dp::vulkan::VulkanBaseContext *>(context.get()) != nullptr, ());
+  ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+  m_pool = make_unique_dp<vulkan::VulkanProgramPool>(vulkanContext->GetDevice());
+  m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>();
 }
 
 ref_ptr<dp::GpuProgram> ProgramManager::GetProgram(Program program)

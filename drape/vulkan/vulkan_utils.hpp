@@ -20,3 +20,10 @@ extern std::string GetVulkanResultString(VkResult result);
                dp::vulkan::GetVulkanResultString(statusCode)));
 
 #define LOG_ERROR_VK(message) LOG(LDEBUG, ("Vulkan error:", message));
+
+#define CHECK_VK_CALL(method) \
+  do { \
+    VkResult const statusCode = method; \
+    CHECK(statusCode == VK_SUCCESS, ("Vulkan error:", #method, "finished with code", \
+                                     dp::vulkan::GetVulkanResultString(statusCode))); \
+  } while (false)

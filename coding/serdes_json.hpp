@@ -240,6 +240,8 @@ public:
   void operator()(uint8_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
   void operator()(uint32_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
   void operator()(uint64_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
+  void operator()(int8_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
+  void operator()(int32_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
   void operator()(int64_t & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
   void operator()(double & d, char const * name = nullptr) { FromJsonObjectOrValue(d, name); }
   void operator()(std::string & s, char const * name = nullptr) { FromJsonObjectOrValue(s, name); }
