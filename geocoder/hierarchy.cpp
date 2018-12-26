@@ -18,6 +18,27 @@ namespace
 {
 // Information will be logged for every |kLogBatch| entries.
 size_t const kLogBatch = 100000;
+
+void CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
+                          geocoder::Hierarchy::ParsingStats & stats)
+{
+  size_t i = 0;
+  while (i < entries.size())
+  {
+    size_t j = i + 1;
+    while (j < entries.size() && entries[i].m_osmId == entries[j].m_osmId)
+      ++j;
+    if (j != i + 1)
+    {
+      ++stats.m_duplicateOsmIds;
+      // todo Remove the cast when the hierarchies no longer contain negative keys.
+      LOG(LDEBUG,
+          ("Duplicate osm id:", static_cast<int64_t>(entries[i].m_osmId.GetEncodedId()), "(",
+           entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
+    }
+    i = j;
+  }
+}
 }  // namespace
 
 namespace geocoder
@@ -150,24 +171,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   LOG(LINFO, ("Sorting entries..."));
   sort(m_entries.begin(), m_entries.end());
 
-  {
-    size_t i = 0;
-    while (i < m_entries.size())
-    {
-      size_t j = i + 1;
-      while (j < m_entries.size() && m_entries[i].m_osmId == m_entries[j].m_osmId)
-        ++j;
-      if (j != i + 1)
-      {
-        ++stats.m_duplicateOsmIds;
-        // todo Remove the cast when the hierarchies no longer contain negative keys.
-        LOG(LDEBUG,
-            ("Duplicate osm id:", static_cast<int64_t>(m_entries[i].m_osmId.GetEncodedId()), "(",
-             m_entries[i].m_osmId, ")", "occurs as a key in", j - i, "key-value entries."));
-      }
-      i = j;
-    }
-  }
+  CheckDuplicateOsmIds(m_entries, stats);
 
   LOG(LINFO, ("Finished reading and indexing the hierarchy. Stats:"));
   LOG(LINFO, ("Entries loaded:", stats.m_numLoaded));
