@@ -216,9 +216,9 @@ UNIT_TEST(CellId_ToAndFromInt64ZOrder)
   using Id = m2::CellId<kMaxDepth>;
   for (int depth = 1; depth <= kMaxDepth; ++depth)
   {
-    uint64_t const treeSize = ((uint64_t{1} << (2 * depth)) - 1) / 3;
+    int64_t const treeSize = ((int64_t{1} << (2 * depth)) - 1) / 3;
     LOG(LINFO, ("Depth =", depth, " TreeSize =", treeSize));
-    for (uint64_t id = 1; id <= treeSize; ++id)
+    for (int64_t id = 1; id <= treeSize; ++id)
     {
       auto const cell = Id::FromInt64ZOrder(id, depth);
       TEST_EQUAL(id, cell.ToInt64ZOrder(depth), ());

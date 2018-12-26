@@ -274,7 +274,7 @@ public:
       bits <<= 2;
       ++level;
       uint64_t const subtreeSize = TreeSizeForDepth(depth - level);
-      for (--v; v > subtreeSize; v -= subtreeSize)
+      for (--v; static_cast<uint64_t>(v) > subtreeSize; v -= subtreeSize)
         ++bits;
     }
     return CellId(bits, level);

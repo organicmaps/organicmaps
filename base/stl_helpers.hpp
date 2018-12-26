@@ -25,7 +25,7 @@ struct Less;
 template <typename T, typename C>
 struct Less<true, T, C>
 {
-  Less(T(C::*p)) : m_p(p) {}
+  Less(T C::* p) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p < rhs.*m_p; }
 
@@ -34,7 +34,7 @@ struct Less<true, T, C>
     return lhs->*m_p < rhs->*m_p;
   }
 
-  T(C::*m_p);
+  T C::* m_p;
 };
 
 template <typename T, typename C>
@@ -58,7 +58,7 @@ struct Equals;
 template <typename T, typename C>
 struct Equals<true, T, C>
 {
-  Equals(T(C::*p)) : m_p(p) {}
+  Equals(T C::* p) : m_p(p) {}
 
   bool operator()(C const & lhs, C const & rhs) const { return lhs.*m_p == rhs.*m_p; }
 
@@ -67,7 +67,7 @@ struct Equals<true, T, C>
     return lhs->*m_p == rhs->*m_p;
   }
 
-  T(C::*m_p);
+  T C::* m_p;
 };
 
 template <typename T, typename C>
@@ -135,7 +135,7 @@ void EraseIf(Cont & c, Fn && fn)
 // ints by second component, it's enough to call LessBy(&pair<int,
 // int>::second).
 template <typename T, typename C>
-impl::Less<true, T, C> LessBy(T(C::*p))
+impl::Less<true, T, C> LessBy(T C::* p)
 {
   return impl::Less<true, T, C>(p);
 }
@@ -147,7 +147,7 @@ impl::Less<false, T, C> LessBy(T (C::*p)() const)
 }
 
 template <typename T, typename C>
-impl::Equals<true, T, C> EqualsBy(T(C::*p))
+impl::Equals<true, T, C> EqualsBy(T C::* p)
 {
   return impl::Equals<true, T, C>(p);
 }
