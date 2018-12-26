@@ -49,8 +49,7 @@ bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats 
   try
   {
     base::Json root(jsonStr.c_str());
-    DeserializeFromJSONImpl(root.get(), jsonStr, stats);
-    return true;
+    return DeserializeFromJSONImpl(root.get(), jsonStr, stats);
   }
   catch (base::Json::Exception const & e)
   {
@@ -60,7 +59,7 @@ bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats 
 }
 
 // todo(@m) Factor out to geojson.hpp? Add geojson to myjansson?
-void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr,
+bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr,
                                                ParsingStats & stats)
 {
   if (!json_is_object(root))
@@ -77,8 +76,21 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   {
     Type const type = static_cast<Type>(i);
     string const & levelKey = ToString(type);
+    auto* levelJson = base::GetJSONOptionalField(address, levelKey);
+    if (!levelJson)
+      continue;
+
+    if (json_is_null(levelJson))
+    {
+      // Ignore buildings with out full address.
+      if (Type::Building == type)
+        return false;
+
+      continue;
+    }
+
     string levelValue;
-    FromJSONObjectOptionalField(address, levelKey, levelValue);
+    FromJSON(levelJson, levelValue);
     if (levelValue.empty())
       continue;
 
@@ -113,6 +125,8 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   {
     ++stats.m_mismatchedNames;
   }
+
+  return true;
 }
 
 bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const

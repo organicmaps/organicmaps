@@ -54,7 +54,7 @@ public:
   {
     bool DeserializeFromJSON(std::string const & jsonStr, ParsingStats & stats);
 
-    void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
+    bool DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
                                  ParsingStats & stats);
 
     // Checks whether this entry is a parent of |e|.
