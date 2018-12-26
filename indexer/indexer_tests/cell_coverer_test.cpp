@@ -60,4 +60,3 @@ UNIT_TEST(MaxDepthCoverSpiral)
     TEST_EQUAL(cells[0].Level(), depthMax - 1, ());
   }
 }
-

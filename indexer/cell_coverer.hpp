@@ -125,7 +125,7 @@ void CoverSpiral(m2::RectD rect, int maxDepth, std::vector<CellId> & result)
   CHECK(rect.IsValid(), ());
 
   auto centralCell = Converter::ToCellId(rect.Center().x, rect.Center().y);
-  auto levelMax = maxDepth - 1;
+  auto const levelMax = maxDepth - 1;
   while (levelMax < centralCell.Level() && centralCell.Level() > 0)
     centralCell = centralCell.Parent();
 
