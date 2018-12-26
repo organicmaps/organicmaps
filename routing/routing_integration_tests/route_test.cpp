@@ -383,4 +383,20 @@ namespace
     RouterResultCode const result = routeResult.second;
     TEST_EQUAL(result, RouterResultCode::NoError, ());
   }
+
+  // Test on roads with tag maxspeed=none.
+  UNIT_TEST(GermanyBerlinMunichTimeTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(52.51172, 13.39468), {0., 0.},
+                                    MercatorBounds::FromLatLon(48.13294, 11.60352));
+
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
+
+    CHECK(routeResult.first, ());
+    Route const & route = *routeResult.first;
+    integration::TestRouteTime(route, 17704.3);
+  }
 }  // namespace
