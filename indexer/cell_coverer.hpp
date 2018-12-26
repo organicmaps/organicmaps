@@ -34,6 +34,7 @@ inline size_t SplitRectCell(CellId const & id, m2::RectD const & rect,
   return index;
 }
 
+// Covers rect with cells starting from |maxDepth| - 1 level.
 template <typename Bounds, typename CellId>
 inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, std::vector<CellId> & result)
 {
@@ -104,7 +105,7 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxDepth, std::vect
   }
 }
 
-// Covers rect with cells using spiral order starting from the rect center.
+// Covers rect with cells using spiral order starting from the rect center cell of |maxDepth| - 1 level.
 template <typename Bounds, typename CellId>
 void CoverSpiral(m2::RectD rect, int maxDepth, std::vector<CellId> & result)
 {
