@@ -46,7 +46,7 @@ uint16_t Maxspeed::GetSpeedInUnits(bool forward) const
 
 uint16_t Maxspeed::GetSpeedKmPH(bool forward) const
 {
-  uint16_t constexpr kNoneSpeedLimitKmPH = 1000;
+  uint16_t constexpr kNoneSpeedLimitKmPH = 150;
   uint16_t constexpr kWalkSpeedLimitKmPH = 6;
 
   auto speedInUnits = GetSpeedInUnits(forward);
