@@ -1,14 +1,11 @@
-@objc(MWMSearchBannerCellDelegate)
 protocol SearchBannerCellDelegate: AnyObject {
   func cellDidPressAction(_ cell: SearchBannerCell);
   func cellDidPressClose(_ cell: SearchBannerCell);
 }
 
-@objc(MWMSearchBannerCell)
 class SearchBannerCell: MWMTableViewCell {
-
   @IBOutlet var taxiImageView: UIImageView!
-  @objc weak var delegate: SearchBannerCellDelegate?
+  weak var delegate: SearchBannerCellDelegate?
 
   override func awakeFromNib() {
     super.awakeFromNib()

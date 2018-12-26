@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMSearchManager">
             <connections>
@@ -24,20 +18,16 @@
                 <outlet property="changeModeViewHeight" destination="RoV-rx-XeQ" id="CwN-02-N5r"/>
                 <outlet property="contentView" destination="u9y-bx-NGd" id="A03-AI-DbY"/>
                 <outlet property="filterButton" destination="hzG-6h-WLq" id="GuU-HC-7iC"/>
-                <outlet property="scrollIndicator" destination="G6M-wl-tUg" id="1Nv-0J-Oaa"/>
-                <outlet property="scrollIndicatorOffset" destination="pXP-hL-DL3" id="pKG-un-cWZ"/>
                 <outlet property="searchBarView" destination="HcT-Cg-vp3" id="2V7-yP-Zef"/>
                 <outlet property="searchTextField" destination="hna-zw-Zor" id="IK9-Wx-pk8"/>
                 <outlet property="tabBarView" destination="Smx-UL-Mcd" id="yDV-Kv-Lui"/>
                 <outlet property="tabBarViewHeight" destination="JxX-35-uQe" id="O94-IB-u3E"/>
-                <outletCollection property="tabButtons" destination="yHM-kd-o0T" id="UV5-50-cQR"/>
-                <outletCollection property="tabButtons" destination="YT7-kp-bFI" id="RY3-K3-Vim"/>
                 <outletCollection property="topViews" destination="HcT-Cg-vp3" id="d2H-tu-zIE"/>
                 <outletCollection property="topViews" destination="j3Y-13-kVB" id="s8E-zl-SfH"/>
                 <outletCollection property="topViews" destination="u9y-bx-NGd" id="mAw-CD-QQV"/>
             </connections>
         </placeholder>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HcT-Cg-vp3" customClass="SearchBar" customModule="maps_me" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lb-Vi-0oJ" userLabel="StatusBarBackground">
@@ -122,7 +112,7 @@
             <point key="canvasLocation" x="236" y="-242"/>
         </view>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView" propertyAccessControl="all">
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3Y-13-kVB" userLabel="ActionBar" customClass="SolidTouchView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Smx-UL-Mcd" userLabel="TabBar">
@@ -135,75 +125,19 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-ua-eqD">
-                            <rect key="frame" x="0.0" y="60" width="320" height="1"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="GFH-AC-bsP"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yHM-kd-o0T" userLabel="History" customClass="MWMSearchTabButtonsView">
-                            <rect key="frame" x="0.0" y="0.0" width="160" height="60"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_history_tab"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="history"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="Rfz-3u-nB0"/>
-                            </connections>
-                        </view>
-                        <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YT7-kp-bFI" userLabel="Categories" customClass="MWMSearchTabButtonsView">
-                            <rect key="frame" x="160" y="0.0" width="160" height="60"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="categories"/>
-                                <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="ic_category_tab"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="HFa-nc-cL3"/>
-                            </connections>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6M-wl-tUg" userLabel="ScrollIndicator">
-                            <rect key="frame" x="0.0" y="60" width="160" height="4"/>
-                            <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="4" id="k6i-ll-1hB"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
-                            </userDefinedRuntimeAttributes>
-                        </view>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="yHM-kd-o0T" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="3j1-jw-8LX"/>
-                        <constraint firstItem="YT7-kp-bFI" firstAttribute="leading" secondItem="yHM-kd-o0T" secondAttribute="trailing" id="CPz-Zq-Upl"/>
-                        <constraint firstItem="yHM-kd-o0T" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" id="CiG-5j-NML"/>
-                        <constraint firstItem="G6M-wl-tUg" firstAttribute="top" secondItem="yHM-kd-o0T" secondAttribute="bottom" id="F8A-7M-DZD"/>
-                        <constraint firstAttribute="trailing" secondItem="YT7-kp-bFI" secondAttribute="trailing" id="FaM-kd-VGc"/>
-                        <constraint firstItem="7yu-ua-eqD" firstAttribute="leading" secondItem="yHM-kd-o0T" secondAttribute="leading" id="GE0-Wi-8y1"/>
                         <constraint firstAttribute="height" priority="750" constant="64" id="JxX-35-uQe">
                             <variation key="heightClass=compact" constant="44"/>
                         </constraint>
-                        <constraint firstItem="G6M-wl-tUg" firstAttribute="top" secondItem="YT7-kp-bFI" secondAttribute="bottom" id="PJH-Uk-AKu"/>
-                        <constraint firstItem="yHM-kd-o0T" firstAttribute="width" secondItem="G6M-wl-tUg" secondAttribute="width" id="Sh9-x5-DW0"/>
                         <constraint firstItem="gPn-bf-cPr" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="UER-Ty-xhx"/>
-                        <constraint firstItem="YT7-kp-bFI" firstAttribute="width" secondItem="yHM-kd-o0T" secondAttribute="width" id="UIr-Jy-xTu"/>
-                        <constraint firstItem="7yu-ua-eqD" firstAttribute="trailing" secondItem="YT7-kp-bFI" secondAttribute="trailing" id="YyU-3Q-pip"/>
                         <constraint firstItem="gPn-bf-cPr" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" constant="-100" id="b86-tJ-SqB">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
-                        <constraint firstItem="YT7-kp-bFI" firstAttribute="top" secondItem="Smx-UL-Mcd" secondAttribute="top" id="fBe-s6-zJz"/>
-                        <constraint firstItem="7yu-ua-eqD" firstAttribute="top" secondItem="yHM-kd-o0T" secondAttribute="bottom" id="jhl-6C-8xD"/>
-                        <constraint firstItem="G6M-wl-tUg" firstAttribute="leading" secondItem="Smx-UL-Mcd" secondAttribute="leading" id="pXP-hL-DL3"/>
                         <constraint firstAttribute="trailing" secondItem="gPn-bf-cPr" secondAttribute="trailing" constant="-100" id="pkz-a1-2QA">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
-                        <constraint firstAttribute="bottom" secondItem="G6M-wl-tUg" secondAttribute="bottom" id="v8p-Lf-3HF"/>
                         <constraint firstAttribute="bottom" secondItem="gPn-bf-cPr" secondAttribute="bottom" constant="-100" id="y3i-4D-GKo">
                             <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                         </constraint>
@@ -347,7 +281,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="236" y="-58"/>
         </view>
-        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView" propertyAccessControl="all">
+        <view contentMode="scaleToFill" id="u9y-bx-NGd" userLabel="Content" customClass="MWMSearchContentView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="402"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -381,8 +315,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_category_tab" width="28" height="28"/>
         <image name="ic_clear_filters" width="36" height="36"/>
-        <image name="ic_history_tab" width="28" height="28"/>
     </resources>
 </document>

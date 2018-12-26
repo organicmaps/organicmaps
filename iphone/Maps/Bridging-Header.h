@@ -58,6 +58,7 @@
 #import "MWMRouterTransitStepInfo.h"
 #import "MWMSearchItemType.h"
 #import "MWMSearchNoResults.h"
+#import "MWMSearchFrameworkHelper.h"
 #import "MWMSettings.h"
 #import "MWMSideButtons.h"
 #import "MWMTableViewCell.h"
