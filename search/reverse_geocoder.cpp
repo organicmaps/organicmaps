@@ -13,8 +13,10 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/function.hpp"
-#include "std/limits.hpp"
+#include <functional>
+#include <limits>
+
+using namespace std;
 
 namespace search
 {
