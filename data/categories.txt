@@ -9261,11 +9261,6 @@ es:^Parque de atracciones
 fi:^Huvipuisto
 pt:^Parque de diversão
 
-sponsored-holiday
-en:^Christmas or New Year Celebrations
-ru:^Празднование Рождества или Нового года
-el:^Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
-
 boundary-national_park|@tourism
 en:National Park
 ru:Национальный парк
