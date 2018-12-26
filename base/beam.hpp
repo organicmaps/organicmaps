@@ -4,7 +4,6 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
-#include <utility>
 #include <vector>
 
 namespace base
@@ -42,20 +41,21 @@ public:
     if (PREDICT_FALSE(m_capacity == 0))
       return;
 
-    Entry const e(key, value);
-    auto it = std::lower_bound(m_entries.begin(), m_entries.end(), e);
+    auto const cmp = [&](Entry const & e, Value const & v) { return e.m_value > v; };
+
+    auto it = std::lower_bound(m_entries.begin(), m_entries.end(), value, cmp);
 
     if (it == m_entries.end())
     {
       if (m_entries.size() < m_capacity)
-        m_entries.emplace_back(e);
+        m_entries.emplace_back(key, value);
       return;
     }
 
     if (m_entries.size() == m_capacity)
       m_entries.pop_back();
 
-    m_entries.insert(it, e);
+    m_entries.insert(it, Entry(key, value));
   }
 
   // Calls |fn| for all entries currently held in the beam.
@@ -109,21 +109,20 @@ public:
     if (PREDICT_FALSE(m_capacity == 0))
       return;
 
-    Entry const e(key, value);
     if (PREDICT_FALSE(m_size < m_capacity))
     {
+      m_entries.emplace_back(key, value);
       ++m_size;
-      m_entries.emplace_back(e);
       std::push_heap(m_entries.begin(), m_entries.begin() + m_size);
       return;
     }
 
     ASSERT_GREATER(m_size, 0, ());
-    if (m_entries.front() < e)
+    if (value < m_entries.front().m_value)
       return;
 
     std::pop_heap(m_entries.begin(), m_entries.begin() + m_size);
-    m_entries[m_size - 1] = std::move(e);
+    m_entries[m_size - 1] = Entry(key, value);
     std::push_heap(m_entries.begin(), m_entries.begin() + m_size);
   }
 
