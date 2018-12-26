@@ -383,6 +383,7 @@ void AsyncRouter::CalculateRoute()
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
+    LOG(LDEBUG, ("ETA:", route->GetTotalTimeSec(), "sec."));
   }
   catch (RootException const & e)
   {
