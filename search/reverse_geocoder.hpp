@@ -92,6 +92,9 @@ public:
   std::string GetFeatureStreetName(FeatureType & ft) const;
   /// Same with GetFeatureStreetName but gets street from mwm only (not editor).
   std::string GetOriginalFeatureStreetName(FeatureType & ft) const;
+  /// For |houseId| with street information sets |streetId| to FeatureID of street corresponding to
+  /// |houseId| and returns true. Returs false otherwise.
+  bool GetStreetByHouse(FeatureID const & houseId, FeatureID & streetId) const;
 
   /// @return The nearest exact address where building has house number and valid street match.
   void GetNearbyAddress(m2::PointD const & center, Address & addr) const;

@@ -112,10 +112,18 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
   if (!houseFeature.GetID().IsValid() && !GetByIndex(houseId, houseFeature))
     return kInvalidId;
 
-  // Get nearby streets and calculate the resulting index.
-  auto const & streets = GetNearbyStreets(houseId, houseFeature);
   uint32_t & result = entry.first;
   result = kInvalidId;
+
+  FeatureID streetId;
+  if (!edited && m_reverseGeocoder.GetStreetByHouse(houseFeature.GetID(), streetId))
+  {
+    result = streetId.m_index;
+    return result;
+  }
+
+  // Get nearby streets and calculate the resulting index.
+  auto const & streets = GetNearbyStreets(houseId, houseFeature);
 
   if (edited)
   {
@@ -124,21 +132,15 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
                                return st.m_name == streetName;
                              });
     if (ret != streets.end())
+    {
       result = ret->m_id.m_index;
-  }
-  else
-  {
-    uint32_t index;
-    if (m_context->GetStreetIndex(houseId, index) && index < streets.size())
-      result = streets[index].m_id.m_index;
+      return result;
+    }
   }
 
   // If there is no saved street for feature, assume that it's a nearest street if it's too close.
-  if (result == kInvalidId && !streets.empty() &&
-      streets[0].m_distanceMeters < kMaxApproxStreetDistanceM)
-  {
+  if (!streets.empty() && streets[0].m_distanceMeters < kMaxApproxStreetDistanceM)
     result = streets[0].m_id.m_index;
-  }
 
   return result;
 }
