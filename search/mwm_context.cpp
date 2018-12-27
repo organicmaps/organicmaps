@@ -41,16 +41,6 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
   UNREACHABLE();
 }
 
-bool MwmContext::GetOriginalFeature(uint32_t index, FeatureType & ft) const
-{
-  if (feature::FakeFeatureIds::IsEditorCreatedFeature(index))
-    return false;
-
-  m_vector.GetByIndex(index, ft);
-  ft.SetID(FeatureID(GetId(), index));
-  return true;
-}
-
 bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)
 {
   if (!m_houseToStreetTable)
