@@ -76,7 +76,7 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   {
     Type const type = static_cast<Type>(i);
     string const & levelKey = ToString(type);
-    auto* levelJson = base::GetJSONOptionalField(address, levelKey);
+    auto const * levelJson = base::GetJSONOptionalField(address, levelKey);
     if (!levelJson)
       continue;
 
