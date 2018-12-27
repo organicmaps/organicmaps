@@ -78,7 +78,7 @@ void CoverViewportAndAppendLowerLevels(m2::RectD const & r, int cellDepth, Inter
 {
   std::vector<m2::CellId<DEPTH_LEVELS>> ids;
   ids.reserve(SPLIT_RECT_CELLS_COUNT);
-  CoverRect<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(r, SPLIT_RECT_CELLS_COUNT, cellDepth, ids);
+  CoverRectByCells<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(r, SPLIT_RECT_CELLS_COUNT, cellDepth - 1, ids);
 
   Intervals intervals;
   for (auto const & id : ids)
@@ -153,7 +153,7 @@ public:
       case Spiral:
       {
         std::vector<m2::CellId<DEPTH_LEVELS>> ids;
-        CoverSpiral<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth, ids);
+        CoverSpiralByCells<MercatorBounds, m2::CellId<DEPTH_LEVELS>>(m_rect, cellDepth - 1, ids);
 
         std::set<Interval> uniqueIds;
         auto insertInterval = [this, ind, &uniqueIds](Interval const & interval) {
