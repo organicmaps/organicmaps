@@ -127,9 +127,6 @@ void CoverSpiral(m2::RectD rect, int maxLevel, std::vector<CellId> & result)
   while (maxLevel < centralCell.Level() && centralCell.Level() > 0)
     centralCell = centralCell.Parent();
 
-  if (maxLevel < centralCell.Level())
-    return;
-
   result.push_back(centralCell);
 
   // Area around CentralCell will be covered with surrounding cells.
