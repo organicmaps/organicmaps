@@ -36,7 +36,7 @@ inline size_t SplitRectCell(CellId const & id, m2::RectD const & rect,
 
 // Covers |rect| with at most |cellsCount| cells that have levels equal to or less than |maxLevel|.
 template <typename Bounds, typename CellId>
-inline void CoverRectByCells(m2::RectD rect, size_t cellsCount, int maxLevel, std::vector<CellId> & result)
+inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxLevel, std::vector<CellId> & result)
 {
   ASSERT(result.empty(), ());
   {
@@ -105,7 +105,7 @@ inline void CoverRectByCells(m2::RectD rect, size_t cellsCount, int maxLevel, st
 
 // Covers |rect| with cells using spiral order starting from the rect center cell of |maxLevel|.
 template <typename Bounds, typename CellId>
-void CoverSpiralByCells(m2::RectD rect, int maxLevel, std::vector<CellId> & result)
+void CoverSpiral(m2::RectD rect, int maxLevel, std::vector<CellId> & result)
 {
   using Converter = CellIdConverter<Bounds, CellId>;
 

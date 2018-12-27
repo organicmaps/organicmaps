@@ -18,10 +18,10 @@ UNIT_TEST(CellIdToStringRecode)
   TEST_EQUAL(CellIdT::FromString(kTest).ToString(), kTest, ());
 }
 
-UNIT_TEST(GoldenCoverRectByCells)
+UNIT_TEST(GoldenCoverRect)
 {
   vector<CellIdT> cells;
-  CoverRectByCells<OrthoBounds>({27.43, 53.83, 27.70, 53.96}, 4, RectId::DEPTH_LEVELS - 1, cells);
+  CoverRect<OrthoBounds>({27.43, 53.83, 27.70, 53.96}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
 
@@ -31,12 +31,12 @@ UNIT_TEST(GoldenCoverRectByCells)
   TEST_EQUAL(cells[3].ToString(), "32012211303", ());
 }
 
-UNIT_TEST(ArtificialCoverRectByCells)
+UNIT_TEST(ArtificialCoverRect)
 {
   typedef Bounds<0, 0, 16, 16> TestBounds;
 
   vector<CellIdT> cells;
-  CoverRectByCells<TestBounds>({5, 5, 11, 11}, 4, RectId::DEPTH_LEVELS - 1, cells);
+  CoverRect<TestBounds>({5, 5, 11, 11}, 4, RectId::DEPTH_LEVELS - 1, cells);
 
   TEST_EQUAL(cells.size(), 4, ());
 
@@ -46,7 +46,7 @@ UNIT_TEST(ArtificialCoverRectByCells)
   TEST_EQUAL(cells[3].ToString(), "30", ());
 }
 
-UNIT_TEST(MaxDepthCoverSpiralByCells)
+UNIT_TEST(MaxDepthCoverSpiral)
 {
   using TestBounds = Bounds<0, 0, 8, 8>;
 
@@ -54,9 +54,9 @@ UNIT_TEST(MaxDepthCoverSpiralByCells)
   {
     auto cells = vector<m2::CellId<3>>{};
 
-    CoverSpiralByCells<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, levelMax, cells);
+    CoverSpiral<TestBounds, m2::CellId<3>>({2.1, 4.1, 2.1, 4.1}, levelMax, cells);
 
     TEST_EQUAL(cells.size(), 1, ());
-    TEST_EQUAL(cells[0].Level(), depthMax - 1, ());
+    TEST_EQUAL(cells[0].Level(), levelMax - 1, ());
   }
 }
