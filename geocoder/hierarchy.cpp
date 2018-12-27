@@ -76,18 +76,12 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   {
     Type const type = static_cast<Type>(i);
     string const & levelKey = ToString(type);
-    auto const * levelJson = base::GetJSONOptionalField(address, levelKey);
+    auto * levelJson = base::GetJSONOptionalField(address, levelKey);
     if (!levelJson)
       continue;
 
     if (json_is_null(levelJson))
-    {
-      // Ignore buildings with out full address.
-      if (Type::Building == type)
         return false;
-
-      continue;
-    }
 
     string levelValue;
     FromJSON(levelJson, levelValue);
