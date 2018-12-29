@@ -1729,6 +1729,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static class OpenUrlTask implements MapTask
   {
     private static final long serialVersionUID = 1L;
+    private static final int SEARCH_IN_VIEWPORT_ZOOM = 16;
     private final String mUrl;
 
     public OpenUrlTask(String url)
@@ -1762,6 +1763,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
         return true;
       case ParsedUrlMwmRequest.RESULT_SEARCH:
         final ParsedSearchRequest request = Framework.nativeGetParsedSearchRequest();
+        if (request.mIsSearchOnMap)
+        {
+          Framework.nativeStopLocationFollow();
+          Framework.nativeSetViewportCenter(request.mLat, request.mLon, SEARCH_IN_VIEWPORT_ZOOM);
+        }
         SearchActivity.start(target, request.mQuery, request.mLocale, request.mIsSearchOnMap,
                              null, null);
         return true;

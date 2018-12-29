@@ -248,8 +248,6 @@ protected:
 
   void ClearAllCaches();
 
-  void StopLocationFollow();
-
   void OnViewportChanged(ScreenBase const & screen);
 
   void InitTransliteration();
@@ -627,6 +625,8 @@ public:
   void GetTouchRect(m2::PointD const & center, uint32_t pxRadius, m2::AnyRectD & rect);
 
   void SetViewportListener(TViewportChanged const & fn);
+
+  void StopLocationFollow();
 
   /// Resize event from window.
   void OnSize(int w, int h);

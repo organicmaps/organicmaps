@@ -39,6 +39,10 @@
 #include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
 
+#include "geometry/mercator.hpp"
+
+#include "base/assert.hpp"
+
 #include "private.h"
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -58,6 +62,8 @@ NSString * const kUDLastShareRequstDate = @"LastShareRequestDate";
 NSString * const kUDAutoNightModeOff = @"AutoNightModeOff";
 NSString * const kIOSIDFA = @"IFA";
 NSString * const kBundleVersion = @"BundleVersion";
+
+auto const kSearchInViewportZoom = 16;
 
 /// Adds needed localized strings to C++ code
 /// @TODO Refactor localization mechanism to make it simpler
@@ -263,9 +269,17 @@ using namespace osm_auth_ios;
       auto locale = @(request.m_locale.c_str());
 
       if (request.m_isSearchOnMap)
+      {
+        ASSERT([self isDrapeEngineCreated], ());
+        f.StopLocationFollow();
+        auto const center = MercatorBounds::FromLatLon(request.m_centerLat, request.m_centerLon);
+        f.SetViewportCenter(center, kSearchInViewportZoom);
         [manager searchTextOnMap:query forInputLocale:locale];
+      }
       else
+      {
         [manager searchText:query forInputLocale:locale];
+      }
 
       break;
     }
