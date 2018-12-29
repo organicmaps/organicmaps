@@ -8,68 +8,57 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstddef>
+
 using namespace std;
 
 namespace
 {
-// Information will be logged for every |kLogBatch| entries.
+// Information will be logged for every |kLogBatch| docs.
 size_t const kLogBatch = 100000;
-
-string MakeIndexKey(geocoder::Tokens const & tokens) { return strings::JoinStrings(tokens, " "); }
 }  // namespace
 
 namespace geocoder
 {
-Index::Index(Hierarchy const & hierarchy) : m_entries(hierarchy.GetEntries())
+Index::Index(Hierarchy const & hierarchy) : m_docs(hierarchy.GetEntries())
 {
-  LOG(LINFO, ("Indexing entries..."));
+  LOG(LINFO, ("Indexing hierarchy entries..."));
   AddEntries();
   LOG(LINFO, ("Indexing houses..."));
-  AddHouses();
+  AddHouses(hierarchy);
 }
 
-vector<Index::EntryPtr> const * const Index::GetEntries(Tokens const & tokens) const
+Index::Doc const & Index::GetDoc(DocId const id) const
 {
-  auto const it = m_entriesByTokens.find(MakeIndexKey(tokens));
-  if (it == m_entriesByTokens.end())
-    return {};
-
-  return &it->second;
+  ASSERT_LESS(static_cast<size_t>(id), m_docs.size(), ());
+  return m_docs[static_cast<size_t>(id)];
 }
 
-vector<Index::EntryPtr> const * const Index::GetBuildingsOnStreet(
-    base::GeoObjectId const & osmId) const
+string Index::MakeIndexKey(Tokens const & tokens) const
 {
-  auto const it = m_buildingsOnStreet.find(osmId);
-  if (it == m_buildingsOnStreet.end())
-    return {};
-
-  return &it->second;
+  return strings::JoinStrings(tokens, " ");
 }
 
 void Index::AddEntries()
 {
   size_t numIndexed = 0;
-  for (auto const & e : m_entries)
+  for (DocId docId = 0; docId < static_cast<DocId>(m_docs.size()); ++docId)
   {
-    // The entry is indexed only by its address.
+    auto const & doc = m_docs[static_cast<size_t>(docId)];
+    // The doc is indexed only by its address.
     // todo(@m) Index it by name too.
-    if (e.m_type == Type::Count)
+    if (doc.m_type == Type::Count)
       continue;
 
-    if (e.m_type == Type::Street)
+    if (doc.m_type == Type::Street)
     {
-      AddStreet(e);
+      AddStreet(docId, doc);
     }
     else
     {
-      size_t const t = static_cast<size_t>(e.m_type);
-      m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
+      size_t const t = static_cast<size_t>(doc.m_type);
+      m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
     }
-
-    // Index every token but do not index prefixes.
-    // for (auto const & tok : entry.m_address[t])
-    // 	m_entriesByTokens[{tok}].emplace_back(entry);
 
     ++numIndexed;
     if (numIndexed % kLogBatch == 0)
@@ -80,45 +69,45 @@ void Index::AddEntries()
     LOG(LINFO, ("Indexed", numIndexed, "entries"));
 }
 
-void Index::AddStreet(Hierarchy::Entry const & e)
+void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
 {
-  CHECK_EQUAL(e.m_type, Type::Street, ());
-  size_t const t = static_cast<size_t>(e.m_type);
-  m_entriesByTokens[MakeIndexKey(e.m_address[t])].emplace_back(&e);
+  CHECK_EQUAL(doc.m_type, Type::Street, ());
+  size_t const t = static_cast<size_t>(doc.m_type);
+  m_docIdsByTokens[MakeIndexKey(doc.m_address[t])].emplace_back(docId);
 
-  for (size_t i = 0; i < e.m_address[t].size(); ++i)
+  for (size_t i = 0; i < doc.m_address[t].size(); ++i)
   {
-    if (!search::IsStreetSynonym(strings::MakeUniString(e.m_address[t][i])))
+    if (!search::IsStreetSynonym(strings::MakeUniString(doc.m_address[t][i])))
       continue;
-    auto addr = e.m_address[t];
+    auto addr = doc.m_address[t];
     addr.erase(addr.begin() + i);
-    m_entriesByTokens[MakeIndexKey(addr)].emplace_back(&e);
+    m_docIdsByTokens[MakeIndexKey(addr)].emplace_back(docId);
   }
 }
 
-void Index::AddHouses()
+void Index::AddHouses(Hierarchy const & hierarchy)
 {
   size_t numIndexed = 0;
-  for (auto & be : m_entries)
+  for (DocId docId = 0; docId < static_cast<DocId>(hierarchy.GetEntries().size()); ++docId)
   {
-    if (be.m_type != Type::Building)
+    auto const & buildingDoc = GetDoc(docId);
+
+    if (buildingDoc.m_type != Type::Building)
       continue;
 
     size_t const t = static_cast<size_t>(Type::Street);
 
-    auto const * streetCandidates = GetEntries(be.m_address[t]);
-    if (streetCandidates == nullptr)
-      continue;
+    ForEachDocId(buildingDoc.m_address[t], [&](DocId const & streetCandidate) {
+      auto const & streetDoc = GetDoc(streetCandidate);
+      if (hierarchy.IsParent(streetDoc, buildingDoc))
+      {
+        m_buildingsOnStreet[streetCandidate].emplace_back(docId);
 
-    for (auto & se : *streetCandidates)
-    {
-      if (se->IsParentTo(be))
-        m_buildingsOnStreet[se->m_osmId].emplace_back(&be);
-    }
-
-    ++numIndexed;
-    if (numIndexed % kLogBatch == 0)
-      LOG(LINFO, ("Indexed", numIndexed, "houses"));
+        ++numIndexed;
+        if (numIndexed % kLogBatch == 0)
+          LOG(LINFO, ("Indexed", numIndexed, "houses"));
+      }
+    });
   }
 
   if (numIndexed % kLogBatch != 0)

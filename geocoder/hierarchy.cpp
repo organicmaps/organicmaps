@@ -127,16 +127,6 @@ bool Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
   return true;
 }
 
-bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
-{
-  for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
-  {
-    if (!m_address[i].empty() && m_address[i] != e.m_address[i])
-      return false;
-  }
-  return true;
-}
-
 // Hierarchy ---------------------------------------------------------------------------------------
 Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
 {
@@ -215,5 +205,15 @@ Hierarchy::Entry const * Hierarchy::GetEntryForOsmId(base::GeoObjectId const & o
     return nullptr;
 
   return &(*it);
+}
+
+bool Hierarchy::IsParent(Hierarchy::Entry const & pe, Hierarchy::Entry const & e) const
+{
+  for (size_t i = 0; i < static_cast<size_t>(geocoder::Type::Count); ++i)
+  {
+    if (!pe.m_address[i].empty() && pe.m_address[i] != e.m_address[i])
+      return false;
+  }
+  return true;
 }
 }  // namespace geocoder

@@ -73,22 +73,6 @@ geocoder::Type NextType(geocoder::Type type)
   return static_cast<geocoder::Type>(t + 1);
 }
 
-bool HasParent(vector<geocoder::Geocoder::Layer> const & layers,
-               geocoder::Hierarchy::Entry const & e)
-{
-  CHECK(!layers.empty(), ());
-  auto const & layer = layers.back();
-  for (auto const * pe : layer.m_entries)
-  {
-    // Note that the relationship is somewhat inverted: every ancestor
-    // is stored in the address but the nodes have no information
-    // about their children.
-    if (pe->IsParentTo(e))
-      return true;
-  }
-  return false;
-}
-
 strings::UniString MakeHouseNumber(geocoder::Tokens const & tokens)
 {
   return strings::MakeUniString(strings::JoinStrings(tokens, " "));
@@ -285,8 +269,11 @@ void Geocoder::Go(Context & ctx, Type type) const
           allTypes.push_back(t);
       }
 
-      for (auto const * e : curLayer.m_entries)
-        ctx.AddResult(e->m_osmId, certainty, type, move(allTypes), ctx.AllTokensUsed());
+      for (auto const & docId : curLayer.m_entries)
+      {
+        ctx.AddResult(m_index.GetDoc(docId).m_osmId, certainty, type, move(allTypes),
+                      ctx.AllTokensUsed());
+      }
 
       ctx.GetLayers().emplace_back(move(curLayer));
       SCOPE_GUARD(pop, [&] { ctx.GetLayers().pop_back(); });
@@ -316,36 +303,43 @@ void Geocoder::FillBuildingsLayer(Context & ctx, Tokens const & subquery, Layer 
   // let's stay on the safer side and set the house number bit.
   ctx.SetHouseNumberBit();
 
-  for (auto const & se : layer.m_entries)
+  for (auto const & streetDocId : layer.m_entries)
   {
-    auto const * buildings = m_index.GetBuildingsOnStreet(se->m_osmId);
-    if (buildings == nullptr)
-      continue;
-    for (auto const & be : *buildings)
-    {
+    m_index.ForEachBuildingOnStreet(streetDocId, [&](Index::DocId const & buildingDocId) {
+      auto const & bld = m_index.GetDoc(buildingDocId);
       auto const bt = static_cast<size_t>(Type::Building);
-      auto const & realHN = MakeHouseNumber(be->m_address[bt]);
+      auto const & realHN = MakeHouseNumber(bld.m_address[bt]);
       if (search::house_numbers::HouseNumbersMatch(realHN, subqueryHN, false /* queryIsPrefix */))
-        curLayer.m_entries.emplace_back(be);
-    }
+        curLayer.m_entries.emplace_back(buildingDocId);
+    });
   }
 }
 
 void Geocoder::FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
                                 Layer & curLayer) const
 {
-  auto const * entries = m_index.GetEntries(subquery);
-  if (!entries || entries->empty())
-    return;
+  m_index.ForEachDocId(subquery, [&](Index::DocId const & docId) {
+    auto const & d = m_index.GetDoc(docId);
+    if (d.m_type != type)
+      return;
 
-  for (auto const * e : *entries)
+    if (ctx.GetLayers().empty() || HasParent(ctx.GetLayers(), d))
+      curLayer.m_entries.emplace_back(docId);
+  });
+}
+
+bool Geocoder::HasParent(vector<Geocoder::Layer> const & layers, Hierarchy::Entry const & e) const
+{
+  CHECK(!layers.empty(), ());
+  auto const & layer = layers.back();
+  for (auto const & docId : layer.m_entries)
   {
-    CHECK(e, ());
-    if (e->m_type != type)
-      continue;
-
-    if (ctx.GetLayers().empty() || HasParent(ctx.GetLayers(), *e))
-      curLayer.m_entries.emplace_back(e);
+    // Note that the relationship is somewhat inverted: every ancestor
+    // is stored in the address but the nodes have no information
+    // about their children.
+    if (m_hierarchy.IsParent(m_index.GetDoc(docId), e))
+      return true;
   }
+  return false;
 }
 }  // namespace geocoder

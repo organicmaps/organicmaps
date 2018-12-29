@@ -42,7 +42,7 @@ public:
   struct Layer
   {
     Type m_type = Type::Count;
-    std::vector<Hierarchy::Entry const *> m_entries;
+    std::vector<Index::DocId> m_entries;
   };
 
   // This class is very similar to the one we use in search/.
@@ -133,6 +133,10 @@ private:
 
   void FillRegularLayer(Context const & ctx, Type type, Tokens const & subquery,
                         Layer & curLayer) const;
+
+  // Returns whether any of the paths through |layers| can be extended
+  // by appending |e|.
+  bool HasParent(std::vector<Geocoder::Layer> const & layers, Hierarchy::Entry const & e) const;
 
   Hierarchy m_hierarchy;
 

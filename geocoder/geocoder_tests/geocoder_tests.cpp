@@ -72,15 +72,15 @@ UNIT_TEST(Geocoder_Hierarchy)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  auto entries = geocoder.GetIndex().GetEntries({("florencia")});
+  vector<Hierarchy::Entry> entries;
+  geocoder.GetIndex().ForEachDocId({("florencia")}, [&](Index::DocId const & docId) {
+    entries.emplace_back(geocoder.GetIndex().GetDoc(docId));
+  });
 
-  TEST(entries, ());
-  TEST_EQUAL(entries->size(), 1, ());
-  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
-  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"),
-             ());
-  TEST_EQUAL((*entries)[0]->m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"),
-             ());
+  TEST_EQUAL(entries.size(), 1, ());
+  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
+  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"), ());
+  TEST_EQUAL(entries[0].m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"), ());
 }
 
 UNIT_TEST(Geocoder_OnlyBuildings)

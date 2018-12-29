@@ -57,9 +57,6 @@ public:
     bool DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
                                  ParsingStats & stats);
 
-    // Checks whether this entry is a parent of |e|.
-    bool IsParentTo(Entry const & e) const;
-
     bool operator<(Entry const & rhs) const { return m_osmId < rhs.m_osmId; }
 
     base::GeoObjectId m_osmId = base::GeoObjectId(base::GeoObjectId::kInvalid);
@@ -80,6 +77,9 @@ public:
   std::vector<Entry> const & GetEntries() const;
 
   Entry const * GetEntryForOsmId(base::GeoObjectId const & osmId) const;
+
+  // Checks whether |pe| is a parent of |e|.
+  bool IsParent(Entry const & pe, Entry const & e) const;
 
 private:
   std::vector<Entry> m_entries;
