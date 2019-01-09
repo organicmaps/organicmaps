@@ -1,4 +1,5 @@
 #!/bin/bash
+exit 0
 
 MONTHS_BEFORE_EXPIRATION_TO_BREAK="3"
 PRIVATE_H=$1
