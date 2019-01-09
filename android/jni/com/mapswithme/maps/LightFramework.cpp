@@ -34,6 +34,18 @@ jobject CreateFeatureId(JNIEnv * env, CampaignFeature const & data)
                         static_cast<jint>(data.m_featureIndex));
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass clazz,
+                                                            jstring mwmName, jlong mwmVersion,
+                                                            jint featureIndex)
+{
+  auto const featureId = FeatureParamsToString(
+    static_cast<uint64_t>(mwmVersion), jni::ToNativeString(env, mwmName),
+    static_cast<uint32_t>(featureIndex));
+
+  return static_cast<jstring>(jni::ToJavaString(env, featureId));
+}
+
 JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_LightFramework_nativeGetLocalAdsFeatures(JNIEnv * env, jclass clazz,
                                                                   jdouble lat, jdouble lon,

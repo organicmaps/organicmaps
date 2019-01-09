@@ -21,6 +21,10 @@ public class LightFramework
                                                                    double radiusInMeters,
                                                                    int maxCount);
   @NonNull
+  private static native String nativeMakeFeatureId(@NonNull String mwmName, long mwmVersion,
+                                                   int featureIndex);
+
+  @NonNull
   public static List<GeoFenceFeature> getLocalAdsFeatures(double lat, double lon,
                                                           double radiusInMeters,
                                                           int maxCount)
@@ -45,4 +49,9 @@ public class LightFramework
                                                     @NonNull String countryId, int featureIndex);
   @Nullable
   public static native NotificationCandidate nativeGetNotification();
+
+  @NonNull
+  public static String makeFeatureId(@NonNull String mwmName, long mwmVersion, int featureIndex) {
+    return LightFramework.nativeMakeFeatureId(mwmName, mwmVersion, featureIndex);
+  }
 }

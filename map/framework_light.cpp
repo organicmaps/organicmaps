@@ -7,7 +7,7 @@
 
 namespace
 {
-char const * kDelimiter = "|";
+char const * kDelimiter = ":";
 }  // namespace
 
 namespace lightweight
