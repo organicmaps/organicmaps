@@ -210,6 +210,9 @@ using Observers = NSHashTable<Observer>;
 
 - (void)stateError
 {
+  if (_state == MWMNavigationDashboardStateReady)
+    return;
+  
   NSAssert(_state == MWMNavigationDashboardStatePlanning, @"Invalid state change (error)");
   auto routePreview = self.routePreview;
   [routePreview router:[MWMRouter type] setState:MWMCircularProgressStateFailed];
