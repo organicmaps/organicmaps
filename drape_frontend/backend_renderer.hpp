@@ -78,6 +78,8 @@ private:
   void RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool needResetOldGui);
   void RecacheChoosePositionMark();
   void RecacheMapShapes();
+  
+  void RenderFrame();
 
 #ifdef RENDER_DEBUG_INFO_LABELS
   void RecacheDebugLabels();

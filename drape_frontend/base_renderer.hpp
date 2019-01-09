@@ -15,6 +15,16 @@
 #include <memory>
 #include <mutex>
 
+#if defined(OMIM_METAL_AVAILABLE)
+namespace dp
+{
+extern void RenderFrameMediator(std::function<void()> && renderFrameFunction);
+}  // namespace dp
+#define RENDER_FRAME(renderFunction) dp::RenderFrameMediator([this]{ renderFunction; });
+#else
+#define RENDER_FRAME(renderFunction) renderFunction;
+#endif
+
 namespace df
 {
 class BaseRenderer : public MessageAcceptor

@@ -643,13 +643,17 @@ void BackendRenderer::Routine::Do()
   m_renderer.OnContextCreate();
   while (!IsCancelled())
   {
-    CHECK(m_renderer.m_context != nullptr, ());
-    if (m_renderer.m_context->Validate())
-      m_renderer.ProcessSingleMessage();
+    RENDER_FRAME(m_renderer.RenderFrame());
     m_renderer.CheckRenderingEnabled();
   }
-
   m_renderer.ReleaseResources();
+}
+  
+void BackendRenderer::RenderFrame()
+{
+  CHECK(m_context != nullptr, ());
+  if (m_context->Validate())
+    ProcessSingleMessage();
 }
 
 void BackendRenderer::InitContextDependentResources()
