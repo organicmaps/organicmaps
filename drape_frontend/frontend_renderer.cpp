@@ -1648,10 +1648,6 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
 #endif
 
-#ifndef DRAPE_MEASURER_BENCHMARK
-  drapeMeasurerGuard.SetProperties(isActiveFrameForScene, modelView.GetOrg());
-#endif
-
   RenderScene(modelView, isActiveFrameForScene);
 
   auto const hasForceUpdate = m_forceUpdateScene || m_forceUpdateUserMarks;
@@ -1689,6 +1685,7 @@ void FrontendRenderer::RenderFrame()
     m_frameData.m_forceFullRedrawNextFrame = true;
     m_frameData.m_timer.Reset();
     m_frameData.m_inactiveFramesCounter = 0;
+    isActiveFrameForScene = false;
   }
   else
   {
@@ -1722,6 +1719,10 @@ void FrontendRenderer::RenderFrame()
   m_frameData.m_frameTime = m_frameData.m_timer.ElapsedSeconds();
   scaleFpsHelper.SetFrameTime(m_frameData.m_frameTime,
     m_frameData.m_inactiveFramesCounter + 1 < FrameData::kMaxInactiveFrames);
+
+#ifndef DRAPE_MEASURER_BENCHMARK
+  drapeMeasurerGuard.SetProperties(isActiveFrameForScene, modelView.GetOrg());
+#endif
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
