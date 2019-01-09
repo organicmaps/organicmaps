@@ -60,7 +60,6 @@
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
 #include "partners_api/taxi_engine.hpp"
-#include "partners_api/viator_api.hpp"
 
 #include "metrics/eye_info.hpp"
 
@@ -218,7 +217,6 @@ protected:
   SearchMarks m_searchMarks;
 
   unique_ptr<booking::Api> m_bookingApi = make_unique<booking::Api>();
-  unique_ptr<viator::Api> m_viatorApi = make_unique<viator::Api>();
   unique_ptr<locals::Api> m_localsApi = make_unique<locals::Api>();
 
   df::DrapeApi m_drapeApi;
@@ -263,7 +261,6 @@ public:
   /// Get access to booking api helpers
   booking::Api * GetBookingApi(platform::NetworkPolicy const & policy);
   booking::Api const * GetBookingApi(platform::NetworkPolicy const & policy) const;
-  viator::Api * GetViatorApi(platform::NetworkPolicy const & policy);
   taxi::Engine * GetTaxiEngine(platform::NetworkPolicy const & policy);
   locals::Api * GetLocalsApi(platform::NetworkPolicy const & policy);
   // NotificationManager::Delegate override.
@@ -808,7 +805,6 @@ public:
 
   discovery::Manager::Params GetDiscoveryParams(discovery::ClientParams && clientParams) const;
 
-  std::string GetDiscoveryViatorUrl() const;
   std::string GetDiscoveryLocalExpertsUrl() const;
 
 private:
@@ -879,9 +875,6 @@ private:
 
   void SetPlacePageLocation(place_page::Info & info);
 
-  /// Find feature with viator near point, provided in |info|, and inject viator data into |info|.
-  void InjectViator(place_page::Info & info);
-
   void FillLocalExperts(FeatureType & ft, place_page::Info & info) const;
 
   void FillDescription(FeatureType & ft, place_page::Info & info) const;
@@ -902,7 +895,7 @@ public:
   booking::AvailabilityParams GetLastBookingAvailabilityParams() const;
 
 private:
-  // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
+  // m_discoveryManager must be bellow m_searchApi, m_localsApi
   unique_ptr<discovery::Manager> m_discoveryManager;
 
 public:

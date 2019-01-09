@@ -9,7 +9,6 @@ namespace discovery
 {
 enum class ItemType
 {
-  Viator,
   Attractions,
   Cafes,
   Hotels,

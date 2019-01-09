@@ -423,7 +423,6 @@ static NSString * const kStatUserInterrupted = @"user_interrupted";
 static NSString * const kStatValue = @"Value";
 static NSString * const kStatVehicle = @"Vehicle";
 static NSString * const kStatVendor = @"vendor";
-static NSString * const kStatViator = @"Viator.com";
 static NSString * const kStatViewOnMap = @"view_on_map";
 static NSString * const kStatVisible = @"Visible";
 static NSString * const kStatWhatsNew = @"What's New";

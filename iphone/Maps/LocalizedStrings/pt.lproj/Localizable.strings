@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 empresas de aluguer de automóveis em mais de 49.000 locais de aluguer de automóveis.";
 
-"banner_viator_title" = "Pesquisa de turismo online";
-
-"banner_viator_message" = "Procurar em mais de 50.000 visitas em todo o mundo.";
-
 /* december */
 "whatsnew_traffic" = "Dados de tráfego em 36 países";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Pontos de caminho (waypoints) no Roteamento";
 
 "whatsnew_waypoints_message" = "Toque nos locais para adicionar pontos de caminho à sua rota.";
-
-"whatsnew_viator_title" = "Reservar um passeio";
-
-"whatsnew_viator_message" = "Escolha passeios populares em cidades turísticas em todo o mundo.";
 
 "whatsnew_driving_style_title" = "Novo estilo de mapa para a condução";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Permissão de localização da aplicação não autorizada";
 
-"place_page_viator_title" = "Atrações e passeios";
-
 "button_use" = "Utilizar";
 
 "planning_route_manage_route" = "Gerir rota";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Escolher um ponto de partida";
 
 "choose_destination" = "Escolher um destino";
-
-"preloader_viator_title" = "Descubrir as excursões e atividades incomuns";
-
-"preloader_viator_message" = "Tours, atividades, passeios e muito mais";
 
 "preloader_viator_button" = "Saiba Mais";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Comer e beber";
 
 "discovery_button_subtitle_local_guides" = "Guias locais";
-
-"discovery_button_viator_offline_title" = "Descobrir excursões e atividades incomuns";
-
-"discovery_button_viator_offline_message" = "Excursões, coisas para fazer, passeios turísticos e muito mais.";
 
 "discovery_button_viator_error_title" = "Erro no carregamento de dados";
 

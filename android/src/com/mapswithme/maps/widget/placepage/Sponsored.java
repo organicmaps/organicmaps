@@ -25,12 +25,11 @@ public final class Sponsored
   public static final int TYPE_NONE = 0;
   public static final int TYPE_BOOKING = 1;
   public static final int TYPE_OPENTABLE = 2;
-  public static final int TYPE_VIATOR = 3;
   public static final int TYPE_PARTNER = 4;
   public static final int TYPE_HOLIDAY = 5;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_VIATOR, TYPE_PARTNER, TYPE_HOLIDAY })
+  @IntDef({ TYPE_NONE, TYPE_BOOKING, TYPE_OPENTABLE, TYPE_PARTNER, TYPE_HOLIDAY })
   public @interface SponsoredType {}
 
   static class FacilityType

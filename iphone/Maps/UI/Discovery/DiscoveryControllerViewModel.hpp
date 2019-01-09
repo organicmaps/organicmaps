@@ -4,7 +4,6 @@
 #include "map/search_product_info.hpp"
 
 #include "partners_api/locals_api.hpp"
-#include "partners_api/viator_api.hpp"
 
 #include "search/result.hpp"
 
@@ -38,25 +37,17 @@ public:
     }
   }
 
-  void SetViator(std::vector<viator::Product> const & viator) { m_viator = viator; }
   void SetExperts(std::vector<locals::LocalExpert> const & experts) { m_experts = experts; }
 
   size_t GetItemsCount(ItemType const type) const
   {
     switch (type)
     {
-    case ItemType::Viator: return m_viator.size();
     case ItemType::Attractions: return m_attractions.m_results.GetCount();
     case ItemType::Cafes: return m_cafes.m_results.GetCount();
     case ItemType::Hotels: return m_hotels.m_results.GetCount();
     case ItemType::LocalExperts: return m_experts.size();
     }
-  }
-
-  viator::Product const & GetViatorAt(size_t const index) const
-  {
-    CHECK_LESS(index, m_viator.size(), ("Incorrect viator index:", index));
-    return m_viator[index];
   }
 
   search::Result const & GetAttractionAt(size_t const index) const
@@ -128,7 +119,6 @@ private:
   UISearchResults m_attractions;
   UISearchResults m_cafes;
   UISearchResults m_hotels;
-  std::vector<viator::Product> m_viator;
   std::vector<locals::LocalExpert> m_experts;
 };
 }  // namespace discovery

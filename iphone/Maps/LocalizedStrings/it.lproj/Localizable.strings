@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 società di autonoleggio in oltre 49.000 località.";
 
-"banner_viator_title" = "Ricerca viaggi online";
-
-"banner_viator_message" = "Ricerca di oltre 50.000 viaggi organizzati in tutto il mondo.";
-
 /* december */
 "whatsnew_traffic" = "Dati sul traffico in 36 Paesi";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Waypoint di percorso";
 
 "whatsnew_waypoints_message" = "Tocca i luoghi e aggiungi waypoint al tuo percorso.";
-
-"whatsnew_viator_title" = "Prenota un tour";
-
-"whatsnew_viator_message" = "Scegli i migliori tour nelle città turistiche di tutto il mondo.";
 
 "whatsnew_driving_style_title" = "Nuovo stile di mappa per la guida";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Autorizzazione a posizione app negata";
 
-"place_page_viator_title" = "Attrazioni e tour";
-
 "button_use" = "Usa";
 
 "planning_route_manage_route" = "Gestisci percorso";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Scegli un punto di partenza";
 
 "choose_destination" = "Scegli una destinazione";
-
-"preloader_viator_title" = "Scopri tour e attività insolite";
-
-"preloader_viator_message" = "Tour, attività, turismo e altro";
 
 "preloader_viator_button" = "Ulteriori informazioni";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Bere e mangiare";
 
 "discovery_button_subtitle_local_guides" = "Guide locali";
-
-"discovery_button_viator_offline_title" = "Scopri tour e cose da fare insolite";
-
-"discovery_button_viator_offline_message" = "Tour, cose da fare, giri turistici e altro.";
 
 "discovery_button_viator_error_title" = "Errore nel caricamento dei dati";
 

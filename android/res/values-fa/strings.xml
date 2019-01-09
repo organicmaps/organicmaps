@@ -977,8 +977,6 @@
 	<string name="banner_geerbest_message">جستجوی سریع در بیش از 50،000 مورد با قیمت پایین.</string>
 	<string name="banner_rentalcars_title">اجاره اتومبیل ها آنلاین</string>
 	<string name="banner_rentalcars_message">شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.</string>
-	<string name="banner_viator_title">جستجوی آنلاین تور</string>
-	<string name="banner_viator_message">جستجو در بیش از 50،000 تور در سراسر جهان.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">اطلاعات ترافیکی در 36 کشور</string>
 	<!-- december -->
@@ -1020,8 +1018,6 @@
 	<string name="whatsnew_smaller_mwm_message">نقشه ها نیاز به ذخیره سازی 20٪ کمتر دارند.</string>
 	<string name="whatsnew_waypoints_title">مسیرهای مسیریابی</string>
 	<string name="whatsnew_waypoints_message">مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.</string>
-	<string name="whatsnew_viator_title">رزرو تور</string>
-	<string name="whatsnew_viator_message">تورهای محبوب را در شهرهای توریستی در سراسر جهان انتخاب کنید.</string>
 	<string name="whatsnew_driving_style_title">نقشه جدید برای رانندگی</string>
 	<string name="whatsnew_driving_style_message">حالت ناوبری خودرو برای استفاده آسان تر شد.</string>
 	<string name="more_on_bookingcom">بیشتر در Booking.com</string>
@@ -1078,7 +1074,6 @@
 	<string name="settings_card_memory">کارت حافظه</string>
 	<string name="settings_storage_available">%s موجود</string>
 	<string name="toast_location_permission_denied">مجوز مکان برنامه صادر نشد</string>
-	<string name="place_page_viator_title">جاذبه ها و تورها</string>
 	<string name="button_use">استفاده</string>
 	<string name="planning_route_manage_route">مدیریت مسیر</string>
 	<string name="button_plan">برنامه</string>
@@ -1093,8 +1088,6 @@
 	<string name="add_my_position">موقعیت من را اضافه کنید</string>
 	<string name="choose_start_point">نقطه شروع را انتخاب کنید</string>
 	<string name="choose_destination">یک مقصد را انتخاب کنید</string>
-	<string name="preloader_viator_title">تور و فعالیت های غیر معمول را کشف کنید</string>
-	<string name="preloader_viator_message">تور، فعالیت ها، گشت و گذار و ...</string>
 	<string name="preloader_viator_button">بیشتر بدانید</string>
 	<string name="whats_new_title_route">مسیرهای دوچرخه و مسیرهای پیاده روی بهبود یافته است</string>
 	<string name="whats_new_message_route">ما خطاهایی را برطرف کردیم، محاسبه مسیر چندین بار سریعتر  شده و ایستگاه‌های بین راهی اضافه شد</string>
@@ -1150,8 +1143,6 @@
 	<string name="discovery_button_subtitle_attractions">جاذبه ها</string>
 	<string name="discovery_button_subtitle_eat_and_drink">خوردن و آشامیدن</string>
 	<string name="discovery_button_subtitle_local_guides">راهنماهای محلی</string>
-	<string name="discovery_button_viator_offline_title">تورها را پیدا کنید و چیزهای غیر معمول را انجام دهید</string>
-	<string name="discovery_button_viator_offline_message">تور، چیزهایی که باید انجام شود، تورهای گشت و گذار و بیشتر.</string>
 	<string name="discovery_button_viator_error_title">خطای بارگذاری داده</string>
 	<string name="discovery_button_404_error_title">یافت نشد</string>
 	<string name="discovery_button_404_error_message">متأسفیم، ما چیزی جالب در اطراف پیدا نکردیم.</string>

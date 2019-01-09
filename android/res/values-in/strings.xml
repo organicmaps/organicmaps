@@ -1026,8 +1026,6 @@
 	<string name="banner_geerbest_message">Cari cepat di antara lebih dari 50.000 barang berharga murah.</string>
 	<string name="banner_rentalcars_title">Penyewaan mobil online</string>
 	<string name="banner_rentalcars_message">800 perusahaan penyewaan mobil di lebih dari 49.000 lokasi penyewaan mobil.</string>
-	<string name="banner_viator_title">Pencarian wisata online</string>
-	<string name="banner_viator_message">Cari di antara lebih dari 50.000 wisata di seluruh dunia.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Data Lalu Lintas di 36 Negara</string>
 	<!-- december -->
@@ -1069,8 +1067,6 @@
 	<string name="whatsnew_smaller_mwm_message">Peta memerlukan pengurangan penyimpanan hingga 20%.</string>
 	<string name="whatsnew_waypoints_title">Titik Koordinat dalam Pembuatan Rute</string>
 	<string name="whatsnew_waypoints_message">Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.</string>
-	<string name="whatsnew_viator_title">Pesan tur</string>
-	<string name="whatsnew_viator_message">Pilih wisata populer di kota-kota wisata seluruh dunia.</string>
 	<string name="whatsnew_driving_style_title">Model Peta Baru untuk Berkendara</string>
 	<string name="whatsnew_driving_style_message">Mode navigasi mobil menjadi semakin mudah digunakan.</string>
 	<string name="more_on_bookingcom">Selengkapnya di Booking.com</string>
@@ -1127,7 +1123,6 @@
 	<string name="settings_card_memory">Memori kartu</string>
 	<string name="settings_storage_available">%s tersedia</string>
 	<string name="toast_location_permission_denied">Izin lokasi aplikasi ditolak</string>
-	<string name="place_page_viator_title">Objek wisata dan tur</string>
 	<string name="button_use">Gunakan</string>
 	<string name="planning_route_manage_route">Kelola rute</string>
 	<string name="button_plan">Rencana</string>
@@ -1142,8 +1137,6 @@
 	<string name="add_my_position">Tambahkan posisi saya</string>
 	<string name="choose_start_point">Pilih titik awal</string>
 	<string name="choose_destination">Pilih destinasi</string>
-	<string name="preloader_viator_title">Temukan wisata dan kegiatan yang unik</string>
-	<string name="preloader_viator_message">Wisata, kegiatan, tamasya, dan lain-lain</string>
 	<string name="preloader_viator_button">Pelajari selengkapnya</string>
 	<string name="whats_new_title_route">Rute sepeda dan pejalan kaki sudah diperbagus</string>
 	<string name="whats_new_message_route">Kami sudah memperbaiki kesalahan, membuat pembangunan rute menjadi berkali-kali lipat lebih cepat, dan menambahkan sejumlah perhentian antara</string>
@@ -1199,8 +1192,6 @@
 	<string name="discovery_button_subtitle_attractions">Atraksi</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Makan dan minum</string>
 	<string name="discovery_button_subtitle_local_guides">Panduan Lokal</string>
-	<string name="discovery_button_viator_offline_title">Temukan wisata dan hal unik yang akan dilakukan</string>
-	<string name="discovery_button_viator_offline_message">Wisata, hal yang akan dilakukan, wisata pemandangan, dan lain sebagainya.</string>
 	<string name="discovery_button_viator_error_title">Ada kesalahan saat memuat data</string>
 	<string name="discovery_button_other_error_message">Ada kesalahan saat memuat data</string>
 	<string name="discovery_button_other_loading_message">Data sedang dimuat</string>

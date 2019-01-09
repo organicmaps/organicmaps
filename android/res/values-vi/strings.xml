@@ -1027,8 +1027,6 @@
 	<string name="banner_geerbest_message">Tìm kiếm nhanh hơn 50.000 sản phẩm ở mức giá thấp.</string>
 	<string name="banner_rentalcars_title">Thuê ô tô trực tuyến</string>
 	<string name="banner_rentalcars_message">800 công ty thuê ô tô ở hơn 49.000 địa điểm thuê ô tô.</string>
-	<string name="banner_viator_title">Tìm kiếm tour trực tuyến</string>
-	<string name="banner_viator_message">Tìm hơn 50.000 trên toàn thế giới.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dữ liệu Giao thông tại 36 Quốc gia</string>
 	<!-- december -->
@@ -1070,8 +1068,6 @@
 	<string name="whatsnew_smaller_mwm_message">Giảm đến 20% kích cỡ của các bản đồ.</string>
 	<string name="whatsnew_waypoints_title">Điểm tọa độ trong Lộ trình</string>
 	<string name="whatsnew_waypoints_message">Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.</string>
-	<string name="whatsnew_viator_title">Đặt tour du lịch</string>
-	<string name="whatsnew_viator_message">Chọn các tour phổ biến trong các thành phố du lịch trên toàn thế giới.</string>
 	<string name="whatsnew_driving_style_title">Phong cách Bản đồ Mới cho Lái xe</string>
 	<string name="whatsnew_driving_style_message">Chế độ điều hướng ô tô dễ sử dụng hơn.</string>
 	<string name="more_on_bookingcom">Xem thêm trên Booking.com</string>
@@ -1128,7 +1124,6 @@
 	<string name="settings_card_memory">Bộ nhớ thẻ</string>
 	<string name="settings_storage_available">%s trống</string>
 	<string name="toast_location_permission_denied">Quyền định vị của ứng dụng bị từ chối</string>
-	<string name="place_page_viator_title">Các điểm tham quan và du lịch</string>
 	<string name="button_use">Sử dụng</string>
 	<string name="planning_route_manage_route">Quản lý lộ trình</string>
 	<string name="button_plan">Kế hoạch</string>
@@ -1143,8 +1138,6 @@
 	<string name="add_my_position">Thêm vị trí của tôi</string>
 	<string name="choose_start_point">Chọn một điểm bắt đầu</string>
 	<string name="choose_destination">Chọn một điểm đến</string>
-	<string name="preloader_viator_title">Khám phá các tour và hoạt động khác lạ</string>
-	<string name="preloader_viator_message">Tour, hoạt động, ngắm cảnh, v.v…</string>
 	<string name="preloader_viator_button">Tìm hiểu thêm</string>
 	<string name="whats_new_title_route">Các lộ trình đạp xe đạp và lộ trình đi bộ đã được cải thiện</string>
 	<string name="whats_new_message_route">Chúng tôi đã khắc phục các lỗi, giúp cải thiện thời gian xây dựng lộ trình nhanh hơn một vài lần, và bổ sung các điểm dừng trung gian</string>
@@ -1200,8 +1193,6 @@
 	<string name="discovery_button_subtitle_attractions">Thắng cảnh</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Ăn uống</string>
 	<string name="discovery_button_subtitle_local_guides">Hướng dẫn Địa phương</string>
-	<string name="discovery_button_viator_offline_title">Khám phá các tour du lịch và những điều lạ bạn có thể làm</string>
-	<string name="discovery_button_viator_offline_message">Tour du lịch, việc có thể làm, tour ngắm cảnh và nhiều hơn thế nữa.</string>
 	<string name="discovery_button_viator_error_title">Lỗi tải dữ liệu</string>
 	<string name="discovery_button_other_error_message">Lỗi tải dữ liệu</string>
 	<string name="discovery_button_other_loading_message">Dữ liệu đang tải</string>

@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 biludlejningsselskaber på mere end 49.000 steder.";
 
-"banner_viator_title" = "Online rejsesøgning";
-
-"banner_viator_message" = "Søg blandt mere end 50.000 rejser over hele verden.";
-
 /* december */
 "whatsnew_traffic" = "Trafikdata i 36 lande";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Vejpunkter i ruteføring";
 
 "whatsnew_waypoints_message" = "Tryk på positioner for at føje vejsteder til din rute.";
-
-"whatsnew_viator_title" = "Bestil en tur";
-
-"whatsnew_viator_message" = "Vælg populære ture i turistbyer over hele verden.";
 
 "whatsnew_driving_style_title" = "Nyt kortformat til kørsel";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "App-position tilladelse nægtet";
 
-"place_page_viator_title" = "Seværdigheder og ture";
-
 "button_use" = "Brug";
 
 "planning_route_manage_route" = "Administrer rute";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Vælg et udgangspunkt";
 
 "choose_destination" = "Vælg en destination";
-
-"preloader_viator_title" = "Find ture og usædvanlige aktiviteter";
-
-"preloader_viator_message" = "Ture, aktiviteter, sightseeing med mere";
 
 "preloader_viator_button" = "Flere oplysninger";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Spise og drikke";
 
 "discovery_button_subtitle_local_guides" = "Lokale guider";
-
-"discovery_button_viator_offline_title" = "Find ture og nye oplevelser";
-
-"discovery_button_viator_offline_message" = "Ture, oplevelser, sightseeing med mere.";
 
 "discovery_button_viator_error_title" = "Fejl ved indlæsning af data";
 

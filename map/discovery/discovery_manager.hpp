@@ -10,7 +10,6 @@
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
-#include "partners_api/viator_api.hpp"
 
 #include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
@@ -35,13 +34,12 @@ class Manager final
 public:
   struct APIs
   {
-    APIs(SearchAPI & search, viator::Api const & viator, locals::Api & locals)
-      : m_search(search), m_viator(viator), m_locals(locals)
+    APIs(SearchAPI & search, locals::Api & locals)
+      : m_search(search), m_locals(locals)
     {
     }
 
     SearchAPI & m_search;
-    viator::Api const & m_viator;
     locals::Api & m_locals;
   };
 
@@ -73,44 +71,6 @@ public:
     {
       switch (type)
       {
-      case ItemType::Viator:
-      {
-        std::string const sponsoredId = GetCityViatorId(params.m_viewportCenter);
-        if (sponsoredId.empty())
-        {
-          GetPlatform().RunTask(Platform::Thread::Gui,
-                                [requestId, onResult] {
-                                    onResult(requestId, std::vector<viator::Product>());
-                                });
-          break;
-        }
-
-        if (m_cachedViator.first == sponsoredId)
-        {
-          GetPlatform().RunTask(Platform::Thread::Gui, [this, requestId, onResult] {
-            onResult(requestId, m_cachedViator.second);
-          });
-          break;
-        }
-
-        m_viatorApi.GetTop5Products(
-            sponsoredId, params.m_curency,
-            [this, requestId, sponsoredId, onResult, onError](std::string const & destId,
-                                                     std::vector<viator::Product> const & products) {
-              CHECK_THREAD_CHECKER(m_threadChecker, ());
-              if (destId == sponsoredId)
-              {
-                if (products.empty())
-                {
-                  onError(requestId, ItemType::Viator);
-                  return;
-                }
-                m_cachedViator = std::make_pair(sponsoredId, products);
-                onResult(requestId, products);
-              }
-            });
-        break;
-      }
       case ItemType::Attractions: // fallthrough
       case ItemType::Cafes:
       case ItemType::Hotels:
@@ -156,23 +116,16 @@ public:
     return requestId;
   }
 
-  std::string GetViatorUrl(m2::PointD const & point) const;
   std::string GetLocalExpertsUrl(m2::PointD const & point) const;
 
 private:
   static DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
-  std::string GetCityViatorId(m2::PointD const & point) const;
 
   DataSource const & m_dataSource;
   search::CityFinder & m_cityFinder;
   SearchAPI & m_searchApi;
-  viator::Api const & m_viatorApi;
   locals::Api & m_localsApi;
   uint32_t m_requestCounter = 0;
   ThreadChecker m_threadChecker;
-
-  // We save last succeed viator result for the nearest city and rewrite it when the nearest city
-  // was changed.
-  std::pair<std::string, std::vector<viator::Product>> m_cachedViator;
 };
 }  // namespace discovery

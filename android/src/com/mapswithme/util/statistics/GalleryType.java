@@ -4,15 +4,6 @@ import android.support.annotation.NonNull;
 
 public enum GalleryType
 {
-  VIATOR
-      {
-        @NonNull
-        @Override
-        public String getProvider()
-        {
-          return Statistics.ParamValue.VIATOR;
-        }
-      },
   LOCAL_EXPERTS
       {
         @NonNull

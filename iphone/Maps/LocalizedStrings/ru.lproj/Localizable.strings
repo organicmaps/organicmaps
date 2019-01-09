@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 прокатных компаний в более чем 49 тысячах пунктах проката.";
 
-"banner_viator_title" = "Онлайн-поиск экскурсий";
-
-"banner_viator_message" = "Поиск по более чем 50 тысячам экскурсий по всему миру.";
-
 /* december */
 "whatsnew_traffic" = "Пробки в 36 странах мира";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Маршруты с промежуточными точками";
 
 "whatsnew_waypoints_message" = "Нажмите на объекты, чтобы включить их в маршрут.";
-
-"whatsnew_viator_title" = "Забронируйте экскурсию";
-
-"whatsnew_viator_message" = "Выбирайте популярные экскурсии в туристических городах мира.";
 
 "whatsnew_driving_style_title" = "Новый автомобильный стиль карт";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Определение местоположения запрещено";
 
-"place_page_viator_title" = "Экскурсии и достопримечательности";
-
 "button_use" = "Использовать";
 
 "planning_route_manage_route" = "Изменить маршрут";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Выберите начало маршрута";
 
 "choose_destination" = "Выберите конец маршрута";
-
-"preloader_viator_title" = "Откройте для себя экскурсии и необычные туры";
-
-"preloader_viator_message" = "Туры, достопримечательности, экскурсии и многое другое";
 
 "preloader_viator_button" = "Посмотреть";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Перекусить";
 
 "discovery_button_subtitle_local_guides" = "Местные гиды";
-
-"discovery_button_viator_offline_title" = "Откройте для себя туры и необычные активности";
-
-"discovery_button_viator_offline_message" = "Туры, активности, достопримечательности и многое другое";
 
 "discovery_button_viator_error_title" = "Ошибка загрузки данных";
 

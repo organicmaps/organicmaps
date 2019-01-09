@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。";
 
-"banner_viator_title" = "オンラインツアー検索";
-
-"banner_viator_message" = "世界中から 50,000 件を超えるツアーを検索してください。";
-
 /* december */
 "whatsnew_traffic" = "36か国の交通データ";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "ルート上の経由地";
 
 "whatsnew_waypoints_message" = "場所をタップしてルートに経由地を追加します。";
-
-"whatsnew_viator_title" = "ツアーの予約";
-
-"whatsnew_viator_message" = "世界中の観光都市で人気のツアーを選択してください。";
 
 "whatsnew_driving_style_title" = "運転用の新しい地図のスタイル";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "アプリの位置情報へのアクセスが拒否されました";
 
-"place_page_viator_title" = "観光地およびツアー";
-
 "button_use" = "使う";
 
 "planning_route_manage_route" = "ルートを管理";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "出発地点を選択";
 
 "choose_destination" = "目的地を選択";
-
-"preloader_viator_title" = "旅行や通常ではないアクティビティを検知します";
-
-"preloader_viator_message" = "旅行、アクティビティ、観光など";
 
 "preloader_viator_button" = "詳細情報";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "飲食";
 
 "discovery_button_subtitle_local_guides" = "地元のガイド";
-
-"discovery_button_viator_offline_title" = "旅行や変わった活動を探します";
-
-"discovery_button_viator_offline_message" = "ツアー、活動、観光ツアーなど。";
 
 "discovery_button_viator_error_title" = "データの読み込みエラー";
 

@@ -1027,8 +1027,6 @@
 	<string name="banner_geerbest_message">Onmiddellijk zoeken tussen meer dan 50.000 artikelen aan lage prijzen.</string>
 	<string name="banner_rentalcars_title">Online auto\'s huren</string>
 	<string name="banner_rentalcars_message">800 autoverhuurbedrijven in meer dan 49.000 locaties voor autoverhuur.</string>
-	<string name="banner_viator_title">Online tours zoeken</string>
-	<string name="banner_viator_message">Zoek in meer dan 50.000 tours over de hele wereld.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Verkeersgegevens in 36 Landen</string>
 	<!-- december -->
@@ -1070,8 +1068,6 @@
 	<string name="whatsnew_smaller_mwm_message">Kaarten vereisen tot 20% minder opslagruimte.</string>
 	<string name="whatsnew_waypoints_title">Tussenstops in Route</string>
 	<string name="whatsnew_waypoints_message">Tap op plaatsen om tussenstops toe te voegen aan uw route.</string>
-	<string name="whatsnew_viator_title">Boek een tour</string>
-	<string name="whatsnew_viator_message">Kies populaire tours in toeristische steden over de hele wereld.</string>
 	<string name="whatsnew_driving_style_title">Nieuwe Kaartstijl voor het Rijden</string>
 	<string name="whatsnew_driving_style_message">Modus autonavigatie is eenvoudiger te gebruiken.</string>
 	<string name="more_on_bookingcom">Meer op Booking.com</string>
@@ -1128,7 +1124,6 @@
 	<string name="settings_card_memory">Kaartgeheugen</string>
 	<string name="settings_storage_available">%s beschikbaar</string>
 	<string name="toast_location_permission_denied">App toelating locatie geweigerd</string>
-	<string name="place_page_viator_title">Attracties en tours</string>
 	<string name="button_use">Gebruiken</string>
 	<string name="planning_route_manage_route">Route beheren</string>
 	<string name="button_plan">Plannen</string>
@@ -1143,8 +1138,6 @@
 	<string name="add_my_position">Voeg mijn positie toe</string>
 	<string name="choose_start_point">Kies een vertrekpunt</string>
 	<string name="choose_destination">Kies een bestemming</string>
-	<string name="preloader_viator_title">Ontdek tours en ongewone activiteiten</string>
-	<string name="preloader_viator_message">Tours, activiteiten, bezienswaardigheden en meer</string>
 	<string name="preloader_viator_button">Meer leren</string>
 	<string name="whats_new_title_route">Fietsroutes en wandelroutes zijn verbeterd</string>
 	<string name="whats_new_message_route">We hebben fouten hersteld, het bouwen van routes meermaals versneld, en tussenstops toegevoegd</string>
@@ -1200,8 +1193,6 @@
 	<string name="discovery_button_subtitle_attractions">Attracties</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Eten en drinken</string>
 	<string name="discovery_button_subtitle_local_guides">Lokale Gidsen</string>
-	<string name="discovery_button_viator_offline_title">Ontdek tours en ongewone activiteiten</string>
-	<string name="discovery_button_viator_offline_message">Rondleidingen, activiteiten, excursies en meer.</string>
 	<string name="discovery_button_viator_error_title">Fout bij laden gegevens</string>
 	<string name="discovery_button_other_error_message">Fout bij laden gegevens</string>
 	<string name="discovery_button_other_loading_message">Gegevens worden geladen</string>

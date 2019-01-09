@@ -18,7 +18,6 @@ EmitterPlanet::EmitterPlanet(feature::GenerateInfo const & info) :
   m_failOnCoasts(info.m_failOnCoasts),
   m_bookingDataset(info.m_bookingDatafileName),
   m_opentableDataset(info.m_opentableDatafileName),
-  m_viatorDataset(info.m_viatorDatafileName),
   m_boundariesTable(info.m_boundariesTable)
 {
   if (!info.m_brandsFilename.empty() && !info.m_brandsTranslationsFilename.empty())
@@ -67,16 +66,6 @@ void EmitterPlanet::operator()(FeatureBuilder1 & fb)
   // The first object which perform action terminates the cahin.
   if (type != ftype::GetEmptyValue() && !fb.GetName().empty())
   {
-    auto const viatorObjId = m_viatorDataset.FindMatchingObjectId(fb);
-    if (viatorObjId != ViatorCity::InvalidObjectId())
-    {
-      m_viatorDataset.PreprocessMatchedOsmObject(viatorObjId, fb, [this, viatorObjId](FeatureBuilder1 & fb)
-      {
-        m_skippedElements << "VIATOR\t" << DebugPrint(fb.GetMostGenericOsmId())
-                          << '\t' << viatorObjId.Get() << endl;
-      });
-    }
-
     Place const place(fb, type);
     UnionEqualPlacesIds(place);
     m_places.ReplaceEqualInRect(

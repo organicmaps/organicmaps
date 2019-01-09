@@ -1030,8 +1030,6 @@
 	<string name="banner_geerbest_message">Okamžité vyhľadávanie vo viac ako 50 000 druhoch tovaru za nízke ceny.</string>
 	<string name="banner_rentalcars_title">Prenájom auta online</string>
 	<string name="banner_rentalcars_message">800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.</string>
-	<string name="banner_viator_title">Online vyhľadávanie zájazdov</string>
-	<string name="banner_viator_message">Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dopravné informácie v 36 krajinách</string>
 	<!-- december -->
@@ -1073,8 +1071,6 @@
 	<string name="whatsnew_smaller_mwm_message">Mapy Maps vyžadujú až o 20% menej ukladacieho priestoru.</string>
 	<string name="whatsnew_waypoints_title">Trasovanie cez určené body</string>
 	<string name="whatsnew_waypoints_message">Ťuknite na miesta, ak chcete do trasy pridať body.</string>
-	<string name="whatsnew_viator_title">Rezervovať prehliadku</string>
-	<string name="whatsnew_viator_message">Vyberte si obľúbené prehliadky po turistických mestách po celom svete.</string>
 	<string name="whatsnew_driving_style_title">Nový štýl máp pre jazdu</string>
 	<string name="whatsnew_driving_style_message">Režim navigácie v aute sa zjednodušil.</string>
 	<string name="more_on_bookingcom">Viac na Booking.com</string>
@@ -1131,7 +1127,6 @@
 	<string name="settings_card_memory">Pamäť na karte</string>
 	<string name="settings_storage_available">K dispozícii %s</string>
 	<string name="toast_location_permission_denied">Zamietnutý prístup aplikácie k lokalite</string>
-	<string name="place_page_viator_title">Atrakcie a prehliadky</string>
 	<string name="button_use">Použiť</string>
 	<string name="planning_route_manage_route">Spravovať trasu</string>
 	<string name="button_plan">Naplánovať</string>
@@ -1146,8 +1141,6 @@
 	<string name="add_my_position">Pridať moju polohu</string>
 	<string name="choose_start_point">Vyberte počiatočný bod</string>
 	<string name="choose_destination">Vyberte cieľ</string>
-	<string name="preloader_viator_title">Objavte výlety a nezvyčajné aktivity</string>
-	<string name="preloader_viator_message">Výlety, aktivity, prehliadky a ďalšie</string>
 	<string name="preloader_viator_button">Zistiť viac</string>
 	<string name="whats_new_title_route">Vylepšili sme cyklotrasy a pešie trasy</string>
 	<string name="whats_new_message_route">Opravili sme chyby, niekoľkonásobne sme zrýchlili zostavovanie trasy a pridali sme zastávky na trase</string>
@@ -1203,8 +1196,6 @@
 	<string name="discovery_button_subtitle_attractions">Atrakcie</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Jedlo a pitie</string>
 	<string name="discovery_button_subtitle_local_guides">Miestni sprievodcovia</string>
-	<string name="discovery_button_viator_offline_title">Objavte výlety a nezvyčajné aktivity</string>
-	<string name="discovery_button_viator_offline_message">Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.</string>
 	<string name="discovery_button_viator_error_title">Chyba pri načítaní dat</string>
 	<string name="discovery_button_other_error_message">Chyba pri načítaní dat</string>
 	<string name="discovery_button_other_loading_message">Prebieha načítanie dát</string>

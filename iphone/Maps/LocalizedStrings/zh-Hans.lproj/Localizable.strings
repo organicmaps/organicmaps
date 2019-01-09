@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 家租车公司，超过 49,000 个租车网点。";
 
-"banner_viator_title" = "在线导游搜索";
-
-"banner_viator_message" = "搜索全世界范围内的 50,000 多位导游。";
-
 /* december */
 "whatsnew_traffic" = "36 个国家/地区的交通数据";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "在路线中添加路径点";
 
 "whatsnew_waypoints_message" = "点按地点即可向您的路线添加路径点。";
-
-"whatsnew_viator_title" = "预订游览";
-
-"whatsnew_viator_message" = "选择全世界旅游城市的热门游览。";
 
 "whatsnew_driving_style_title" = "新的驾驶地图样式";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "应用已拒绝地点获取权限";
 
-"place_page_viator_title" = "景点和游览";
-
 "button_use" = "使用";
 
 "planning_route_manage_route" = "管理路线";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "选择起点";
 
 "choose_destination" = "选择终点";
-
-"preloader_viator_title" = "探索行程和特殊活动";
-
-"preloader_viator_message" = "行程、活动、观光，等等";
 
 "preloader_viator_button" = "了解更多";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "餐饮";
 
 "discovery_button_subtitle_local_guides" = "本地指南";
-
-"discovery_button_viator_offline_title" = "探索行程和特殊活动";
-
-"discovery_button_viator_offline_message" = "旅行、活动、观光，等等。";
 
 "discovery_button_viator_error_title" = "加载数据时出错";
 

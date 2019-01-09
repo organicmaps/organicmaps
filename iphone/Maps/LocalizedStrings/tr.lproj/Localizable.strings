@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "49.000'den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.";
 
-"banner_viator_title" = "Çevrimiçi tur arama";
-
-"banner_viator_message" = "Dünyanın her yerinden 50.000'den fazla tur içinden arama yapın.";
-
 /* december */
 "whatsnew_traffic" = "36 Ülkeden Trafik Verileri";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Güzergâhtaki Yol Noktaları";
 
 "whatsnew_waypoints_message" = "Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.";
-
-"whatsnew_viator_title" = "Tur rezervasyonu";
-
-"whatsnew_viator_message" = "Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.";
 
 "whatsnew_driving_style_title" = "Sürüş İçin Yeni Harita Stili";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Uygulamanın konum bilgilerine erişim isteği reddedildi";
 
-"place_page_viator_title" = "Geziler ve turlar";
-
 "button_use" = "Kullan";
 
 "planning_route_manage_route" = "Güzergâhı yönet";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Bir başlangıç noktası seçin";
 
 "choose_destination" = "Bir hedef seçin";
-
-"preloader_viator_title" = "Turları ve sıra dışı etkinlikleri keşfedin";
-
-"preloader_viator_message" = "Turlar, etkinlikler, geziler ve çok daha fazlası";
 
 "preloader_viator_button" = "Daha fazla bilgi edinin";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Yeme-içme";
 
 "discovery_button_subtitle_local_guides" = "Yerel Rehberler";
-
-"discovery_button_viator_offline_title" = "Turları ve sıra dışı şeyleri keşfedin";
-
-"discovery_button_viator_offline_message" = "Turlar, etkinlikler, şehir gezileri ve daha fazlası.";
 
 "discovery_button_viator_error_title" = "Veri yükleme hatası";
 

@@ -18,7 +18,6 @@
 #include "map/search_product_info.hpp"
 
 #include "partners_api/locals_api.hpp"
-#include "partners_api/viator_api.hpp"
 
 #include "search/result.hpp"
 
@@ -51,14 +50,6 @@ struct Callback
     m_refreshSection(type);
   }
 
-  void operator()(uint32_t const requestId, vector<viator::Product> const & products) const
-  {
-    CHECK(m_setViatorProducts, ());
-    CHECK(m_refreshSection, ());
-    m_setViatorProducts(products);
-    m_refreshSection(ItemType::Viator);
-  }
-
   void operator()(uint32_t const requestId, vector<locals::LocalExpert> const & experts) const
   {
     CHECK(m_setLocalExperts, ());
@@ -70,12 +61,10 @@ struct Callback
   using SetSearchResults =
       function<void(search::Results const & res, vector<search::ProductInfo> const & productInfo,
                     m2::PointD const & viewportCenter, ItemType const type)>;
-  using SetViatorProducts = function<void(vector<viator::Product> const & viator)>;
   using SetLocalExperts = function<void(vector<locals::LocalExpert> const & experts)>;
   using RefreshSection = function<void(ItemType const type)>;
 
   SetSearchResults m_setSearchResults;
-  SetViatorProducts m_setViatorProducts;
   SetLocalExperts m_setLocalExperts;
   RefreshSection m_refreshSection;
 };
@@ -112,7 +101,6 @@ struct Callback
     cb.m_setLocalExperts = bind(&DiscoveryControllerViewModel::SetExperts, &m_model, _1);
     cb.m_setSearchResults =
         bind(&DiscoveryControllerViewModel::SetSearchResults, &m_model, _1, _2, _3, _4);
-    cb.m_setViatorProducts = bind(&DiscoveryControllerViewModel::SetViator, &m_model, _1);
     cb.m_refreshSection = [self](ItemType const type) { [self.tableManager reloadItem:type]; };
   }
   return self;
@@ -158,12 +146,6 @@ struct Callback
   MWMEyeDiscoveryEvent eyeEvent;
   switch (type)
   {
-  case ItemType::Viator:
-    [self openUrl:[NSURL URLWithString:@(m_model.GetViatorAt(index).m_pageUrl.c_str())]];
-    dest = kStatExternal;
-    CHECK(false, ("Not reachable"));
-    return;
-    break;
   case ItemType::LocalExperts:
     if (index == m_model.GetItemsCount(type))
     {
@@ -280,7 +262,6 @@ struct Callback
   case ItemType::Attractions: getRoutePointInfo(m_model.GetAttractionAt(index)); break;
   case ItemType::Cafes: getRoutePointInfo(m_model.GetCafeAt(index)); break;
   case ItemType::Hotels: getRoutePointInfo(m_model.GetHotelAt(index)); break;
-  case ItemType::Viator:
   case ItemType::LocalExperts:
     CHECK(false, ("Attempt to route to item with type:", static_cast<int>(type)));
     break;
@@ -306,22 +287,11 @@ struct Callback
 
 - (void)openURLForItem:(discovery::ItemType const)type
 {
-  CHECK(type == ItemType::Viator || type == ItemType::LocalExperts,
+  CHECK(type == ItemType::LocalExperts,
         ("Attempt to open url for item with type:", static_cast<int>(type)));
   auto & f = GetFramework();
-  auto const url =
-      type == ItemType::Viator ? f.GetDiscoveryViatorUrl() : f.GetDiscoveryLocalExpertsUrl();
-
+  auto const url = f.GetDiscoveryLocalExpertsUrl();
   [self openUrl:[NSURL URLWithString:@(url.c_str())]];
-}
-
-- (void)tapOnLogo:(discovery::ItemType const)type
-{
-  CHECK(type == ItemType::Viator,
-        ("Attempt to open url for item with type:", static_cast<int>(type)));
-  [Statistics logEvent:kStatPlacepageSponsoredLogoSelected
-        withParameters:@{kStatProvider: StatProvider(type), kStatPlacement: kStatDiscovery}];
-  [self openURLForItem:type];
 }
 
 @end

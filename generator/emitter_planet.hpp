@@ -9,7 +9,6 @@
 #include "generator/opentable_dataset.hpp"
 #include "generator/place.hpp"
 #include "generator/polygonizer.hpp"
-#include "generator/viator_dataset.hpp"
 #include "generator/world_map_generator.hpp"
 
 #include "indexer/feature_data.hpp"
@@ -67,7 +66,6 @@ private:
   bool m_failOnCoasts;
   BookingDataset m_bookingDataset;
   OpentableDataset m_opentableDataset;
-  ViatorDataset m_viatorDataset;
   std::unordered_map<base::GeoObjectId, std::string> m_brands;
   shared_ptr<OsmIdToBoundariesTable> m_boundariesTable;
   /// Used to prepare a list of cities to serve as a list of nodes

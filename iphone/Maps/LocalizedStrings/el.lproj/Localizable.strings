@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.";
 
-"banner_viator_title" = "Αναζήτηση οργανωμένων εκδρομών online";
-
-"banner_viator_message" = "Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.";
-
 /* december */
 "whatsnew_traffic" = "Πληροφορίες για την κίνηση σε 36 χώρες";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Ενδιάμεσα σημεία στη διαδρομή";
 
 "whatsnew_waypoints_message" = "Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.";
-
-"whatsnew_viator_title" = "Κάντε κράτηση σε μια ξενάγηση";
-
-"whatsnew_viator_message" = "Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.";
 
 "whatsnew_driving_style_title" = "Νέο στυλ χάρτη για την οδήγηση";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας";
 
-"place_page_viator_title" = "Αξιοθέατα και περιηγήσεις";
-
 "button_use" = "Χρήση";
 
 "planning_route_manage_route" = "Διαχείριση διαδρομής";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Επιλέξτε αφετηρία";
 
 "choose_destination" = "Επιλέξτε προορισμό";
-
-"preloader_viator_title" = "Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες";
-
-"preloader_viator_message" = "Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα";
 
 "preloader_viator_button" = "Μάθετε περισσότερα";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Φαγητό και ποτό";
 
 "discovery_button_subtitle_local_guides" = "Τοπικοί οδηγοί";
-
-"discovery_button_viator_offline_title" = "Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες";
-
-"discovery_button_viator_offline_message" = "Εκδρομές, πράγματα να κάνετε, περιηγήσεις στα αξιοθέατα και πολλά άλλα.";
 
 "discovery_button_viator_error_title" = "Σφάλμα κατά τη φόρτωση δεδομένων";
 

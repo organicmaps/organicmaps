@@ -205,11 +205,6 @@ namespace android
     taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
                                         std::string const & productId, ms::LatLon const & from,
                                         ms::LatLon const & to);
-
-    void RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,
-                               std::string const & currency,
-                               viator::GetTop5ProductsCallback const & callback);
-
     void RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback);
     void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc);
     void UploadUGC();

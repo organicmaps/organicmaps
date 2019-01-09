@@ -1025,8 +1025,6 @@
 	<string name="banner_geerbest_message">Hurtigsøk blant over 50 000 varer til lave priser.</string>
 	<string name="banner_rentalcars_title">Leie av bil online</string>
 	<string name="banner_rentalcars_message">800 leiebilfirmaer på over 49 000 steder.</string>
-	<string name="banner_viator_title">Søk etter omvisninger med guide online</string>
-	<string name="banner_viator_message">Søk blant over 50 000 omvisninger verden over.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikkdata i 36 land</string>
 	<!-- december -->
@@ -1068,8 +1066,6 @@
 	<string name="whatsnew_smaller_mwm_message">Kartene trenger opptil 20 % mindre lagringsplass.</string>
 	<string name="whatsnew_waypoints_title">Rutepunkter</string>
 	<string name="whatsnew_waypoints_message">Trykk på steder for å legge til rutepunkter.</string>
-	<string name="whatsnew_viator_title">Bestill omvisning</string>
-	<string name="whatsnew_viator_message">Velg populære omvisninger i turistbyer over hele verden.</string>
 	<string name="whatsnew_driving_style_title">Ny kartstil for bruk under kjøring</string>
 	<string name="whatsnew_driving_style_message">Modusen for bilnavigering er blitt enklere å bruke.</string>
 	<string name="more_on_bookingcom">Mer på Booking.com</string>
@@ -1126,7 +1122,6 @@
 	<string name="settings_card_memory">Minnekort</string>
 	<string name="settings_storage_available">%s tilgjengelig</string>
 	<string name="toast_location_permission_denied">App-plasseringstillatelse avvist</string>
-	<string name="place_page_viator_title">Attraksjoner og omvisninger</string>
 	<string name="button_use">Bruk</string>
 	<string name="planning_route_manage_route">Administrere rute</string>
 	<string name="button_plan">Planlegge</string>
@@ -1141,8 +1136,6 @@
 	<string name="add_my_position">Legg til min posisjon</string>
 	<string name="choose_start_point">Velg startpunkt</string>
 	<string name="choose_destination">Velg destinasjon</string>
-	<string name="preloader_viator_title">Finn omvisninger og aktiviteter utenom det vanlige</string>
-	<string name="preloader_viator_message">Omvisninger, aktiviteter, sightseeing og mye mer</string>
 	<string name="preloader_viator_button">Finn ut mer</string>
 	<string name="whats_new_title_route">Ruter for syklister og fotgjengere er blitt forbedret</string>
 	<string name="whats_new_message_route">Vi har rettet opp i feil, gjort ruteplanlegging mye kjappere og ordnet for muligheten til å legge til mellomstopp</string>
@@ -1198,8 +1191,6 @@
 	<string name="discovery_button_subtitle_attractions">Attraksjoner</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Spise og drikke</string>
 	<string name="discovery_button_subtitle_local_guides">Lokale guider</string>
-	<string name="discovery_button_viator_offline_title">Finn omvisninger og ting å gjøre utenom det vanlige</string>
-	<string name="discovery_button_viator_offline_message">Omvisninger, ting å gjøre, sightseeingturer og mer.</string>
 	<string name="discovery_button_viator_error_title">En feil oppstod under datalasting</string>
 	<string name="discovery_button_other_error_message">En feil oppstod under datalasting</string>
 	<string name="discovery_button_other_loading_message">Data lastes</string>

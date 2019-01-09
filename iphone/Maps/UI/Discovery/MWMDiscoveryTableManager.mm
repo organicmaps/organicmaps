@@ -8,7 +8,6 @@
 #include "map/place_page_info.hpp"
 
 #include "partners_api/locals_api.hpp"
-#include "partners_api/viator_api.hpp"
 
 #include "search/result.hpp"
 
@@ -35,7 +34,6 @@ NSString * StatProvider(ItemType const type)
 {
   switch (type)
   {
-  case ItemType::Viator: return kStatViator;
   case ItemType::LocalExperts: return kStatLocalsProvider;
   case ItemType::Attractions: return kStatSearchAttractions;
   case ItemType::Cafes: return kStatSearchRestaurants;
@@ -139,13 +137,13 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
         withParameters:@{
           kStatProvider: StatProvider(type),
           kStatPlacement: kStatDiscovery,
-          kStatState: self.isOnline ? kStatOnline : kStatOffline
+          kStatState: self.hasOnlineSections ? kStatOnline : kStatOffline
         }];
 }
 
 - (void)errorAtItem:(ItemType const)type
 {
-  CHECK(type == ItemType::Viator || type == ItemType::LocalExperts,
+  CHECK(type == ItemType::LocalExperts,
         ("Error on item with type:", static_cast<int>(type)));
   m_loadingTypes.erase(remove(m_loadingTypes.begin(), m_loadingTypes.end(), type),
                        m_loadingTypes.end());
@@ -161,7 +159,10 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 
 #pragma mark - Private
 
-- (BOOL)isOnline { return find(m_types.begin(), m_types.end(), ItemType::Viator) != m_types.end(); }
+- (BOOL)hasOnlineSections
+{
+  return find(m_types.begin(), m_types.end(), ItemType::LocalExperts) != m_types.end();
+}
 
 - (void)removeItem:(ItemType const)type
 {
@@ -186,7 +187,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   [tv registerWithCellClass:[MWMDiscoverySpinnerCell class]];
   [tv registerWithCellClass:[MWMDiscoveryOnlineTemplateCell class]];
   [tv registerWithCellClass:[MWMDiscoverySearchCollectionHolderCell class]];
-  [tv registerWithCellClass:[MWMDiscoveryViatorCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryLocalExpertCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryBookingCollectionHolderCell class]];
   [tv registerWithCellClass:[MWMDiscoveryNoResultsCell class]];
@@ -217,22 +217,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   collection.delegate = self;
   collection.dataSource = self;
   collection.itemType = type;
-  return cell;
-}
-
-- (MWMDiscoveryViatorCollectionHolderCell *)viatorCollectionHolderCell:(NSIndexPath *)indexPath
-{
-  Class cls = [MWMDiscoveryViatorCollectionHolderCell class];
-  auto cell = static_cast<MWMDiscoveryViatorCollectionHolderCell *>(
-      [self.tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  auto collection = static_cast<MWMDiscoveryCollectionView *>(cell.collectionView);
-  [cell configWithTap:^{
-    [self.delegate tapOnLogo:ItemType::Viator];
-  }];
-
-  collection.delegate = self;
-  collection.dataSource = self;
-  collection.itemType = ItemType::Viator;
   return cell;
 }
 
@@ -289,7 +273,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 
   switch (type)
   {
-  case ItemType::Viator:
   case ItemType::LocalExperts:
   {
     if (isLoading || isFailed)
@@ -297,16 +280,14 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
       Class cls = [MWMDiscoveryOnlineTemplateCell class];
       auto cell = static_cast<MWMDiscoveryOnlineTemplateCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-      [cell configWithType:type == ItemType::Viator ? MWMDiscoveryOnlineTemplateTypeViator :
-                                                      MWMDiscoveryOnlineTemplateTypeLocals
+      [cell configWithType:MWMDiscoveryOnlineTemplateTypeLocals
                needSpinner:isLoading
                        tap:^{
                          [self.delegate openURLForItem:type];
                        }];
       return cell;
     }
-    return type == ItemType::Viator ? [self viatorCollectionHolderCell:indexPath]
-                                    : [self localExpertsCollectionHolderCell:indexPath];
+    return [self localExpertsCollectionHolderCell:indexPath];
   }
   case ItemType::Attractions:
   case ItemType::Cafes:
@@ -343,11 +324,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
      numberOfItemsInSection:(NSInteger)section
 {
   auto const count = self.model().GetItemsCount(collectionView.itemType);
-  auto type = collectionView.itemType;
-  if (type != ItemType::Viator)
-    return count > 0 ? count + 1 : 0;
-
-  return count;
+  return count > 0 ? count + 1 : 0;
 }
 
 - (UICollectionViewCell *)collectionView:(MWMDiscoveryCollectionView *)collectionView
@@ -393,28 +370,6 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                       tap:^{
                         [self.delegate routeToItem:type atIndex:indexPath.row];
                       }];
-    return cell;
-  }
-  case ItemType::Viator:
-  {
-    Class cls = [MWMViatorElement class];
-    auto cell = static_cast<MWMViatorElement *>(
-        [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-    auto const & v = model.GetViatorAt(indexPath.row);
-    auto imageURL = [NSURL URLWithString:@(v.m_photoUrl.c_str())];
-    auto pageURL = [NSURL URLWithString:@(v.m_pageUrl.c_str())];
-
-    tie(ratingValue, ratingType) = FormattedRating(v.m_rating);
-
-    auto viatorModel = [[MWMViatorItemModel alloc]
-        initWithImageURL:imageURL
-                 pageURL:pageURL
-                   title:@(v.m_title.c_str())
-         ratingFormatted:ratingValue
-              ratingType:ratingType
-                duration:@(v.m_duration.c_str())
-                   price:@(v.m_priceFormatted.c_str())];
-    cell.model = viatorModel;
     return cell;
   }
   case ItemType::LocalExperts:

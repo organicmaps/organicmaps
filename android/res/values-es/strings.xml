@@ -1020,8 +1020,6 @@
 	<string name="banner_geerbest_message">Búsqueda instantánea de más de 50 000 artículos a precios bajos.</string>
 	<string name="banner_rentalcars_title">Alquiler de coches en línea</string>
 	<string name="banner_rentalcars_message">800 compañías de alquiler de coches en más de 49 000 localidades.</string>
-	<string name="banner_viator_title">Reserva de visitas guiadas en línea</string>
-	<string name="banner_viator_message">Más de 50 000 visitas guiadas por todo el mundo.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Datos del tráfico en 36 países</string>
 	<!-- december -->
@@ -1063,8 +1061,6 @@
 	<string name="whatsnew_smaller_mwm_message">Los mapas requieren un 20% menos de espacio de almacenamiento.</string>
 	<string name="whatsnew_waypoints_title">Puntos de referencia en las rutas</string>
 	<string name="whatsnew_waypoints_message">Pulse sobre los lugares para añadir puntos de referencia a su ruta.</string>
-	<string name="whatsnew_viator_title">Reservar una visita guiada</string>
-	<string name="whatsnew_viator_message">Elija visitas guiadas populares por ciudades turísticas en cualquier parte del mundo.</string>
 	<string name="whatsnew_driving_style_title">Nuevo estilo de mapa para la conducción</string>
 	<string name="whatsnew_driving_style_message">Modo de navegación más fácil de usar.</string>
 	<string name="more_on_bookingcom">Más información en Booking.com</string>
@@ -1121,7 +1117,6 @@
 	<string name="settings_card_memory">Tarjeta de memoria</string>
 	<string name="settings_storage_available">%s disponible</string>
 	<string name="toast_location_permission_denied">A la aplicación se le ha denegado el permiso de acceso a la ubicación</string>
-	<string name="place_page_viator_title">Lugar de interés y visitas guiadas</string>
 	<string name="button_use">Utilizar</string>
 	<string name="planning_route_manage_route">Administrar ruta</string>
 	<string name="button_plan">Planificar</string>
@@ -1136,8 +1131,6 @@
 	<string name="add_my_position">Añadir mi posición</string>
 	<string name="choose_start_point">Elegir un punto de partida</string>
 	<string name="choose_destination">Elegir un destino</string>
-	<string name="preloader_viator_title">Descubrir tours y actividades extraordinarias</string>
-	<string name="preloader_viator_message">Tours, actividades, excursiones y más</string>
 	<string name="preloader_viator_button">Más información</string>
 	<string name="whats_new_title_route">Las rutas en bicicleta y a pie han sido mejoradas</string>
 	<string name="whats_new_message_route">Hemos corregido errores, hemos agilizado mucho la creación de rutas y hemos añadido paradas intermedias</string>
@@ -1193,8 +1186,6 @@
 	<string name="discovery_button_subtitle_attractions">Atracciones</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Comida y bebida</string>
 	<string name="discovery_button_subtitle_local_guides">Guías locales</string>
-	<string name="discovery_button_viator_offline_title">Descubrir visitas guiadas y actividades inusuales</string>
-	<string name="discovery_button_viator_offline_message">Visitas guiadas, cosas que hacer, atracciones turísticas y mucho más.</string>
 	<string name="discovery_button_viator_error_title">De produjo un error al cargar datos</string>
 	<string name="discovery_button_other_error_message">De produjo un error al cargar datos</string>
 	<string name="discovery_button_other_loading_message">Cargando datos</string>

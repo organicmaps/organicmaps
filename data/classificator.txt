@@ -956,7 +956,6 @@ world  +
             raileurope  -
             rentalcars  -
             tutu  -
-            viator  -
             {}
         booking  -
         holiday  -
@@ -981,7 +980,6 @@ world  +
         partner7  -
         partner8  -
         partner9  -
-        viator  -
         {}
     sport  +
         american_football  -

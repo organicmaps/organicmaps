@@ -57,7 +57,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 @property(nonatomic) MWMOpeningHoursLayoutHelper * openingHoursLayoutHelper;
 
 @property(weak, nonatomic) MWMPlacePageTaxiCell * taxiCell;
-@property(weak, nonatomic) MWMPPViatorCarouselCell * viatorCell;
 
 @property(nonatomic) BOOL buttonsSectionEnabled;
 
@@ -94,7 +93,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   [tv registerWithCellClass:[MWMBookmarkCell class]];
   [tv registerWithCellClass:[MWMPPHotelDescriptionCell class]];
   [tv registerWithCellClass:[MWMPPHotelCarouselCell class]];
-  [tv registerWithCellClass:[MWMPPViatorCarouselCell class]];
   [tv registerWithCellClass:[MWMPPReviewHeaderCell class]];
   [tv registerWithCellClass:[MWMPPReviewCell class]];
   [tv registerWithCellClass:[MWMPPFacilityCell class]];
@@ -119,7 +117,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
 
   dispatch_async(dispatch_get_main_queue(), ^{
     [data fillOnlineBookingSections];
-    [data fillOnlineViatorSection];
   });
 }
 
@@ -289,7 +286,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   case Sections::Bookmark: return 1;
   case Sections::Description: return 1;
   case Sections::Preview: return data.previewRows.size();
-  case Sections::SpecialProjects: return data.specialProjectRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
   case Sections::Ad: return data.adRows.size();
   case Sections::Buttons: return data.buttonsRows.size();
@@ -424,21 +420,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       // Hotel description button is always enabled.
       c.enabled = self.buttonsSectionEnabled || (row == ButtonsRows::HotelDescription);
       return c;
-    }
-    case Sections::SpecialProjects:
-    {
-      switch (data.specialProjectRows[indexPath.row])
-      {
-      case SpecialProject::Viator:
-      {
-        Class cls = [MWMPPViatorCarouselCell class];
-        auto c = static_cast<MWMPPViatorCarouselCell *>(
-            [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-        [c configWith:data.viatorItems delegate:delegate];
-        self.viatorCell = c;
-        return c;
-      }
-      }
     }
     case Sections::HotelPhotos:
     {
@@ -644,19 +625,6 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     }
     [Statistics logEvent:kStatPlacepageTaxiShow
           withParameters:@{kStatProvider: provider, kStatPlacement: kStatPlacePage}];
-  });
-
-  checkCell(self.viatorCell, ^{
-    self.viatorCell = nil;
-    
-    auto viatorItems = data.viatorItems;
-    if (viatorItems.count == 0)
-    {
-      NSAssert(NO, @"Viator is shown but items are empty.");
-      return;
-    }
-    [Statistics logEvent:kStatPlacepageSponsoredShow
-          withParameters:@{kStatProvider: kStatViator, kStatPlacement: kStatPlacePage}];
   });
 }
 

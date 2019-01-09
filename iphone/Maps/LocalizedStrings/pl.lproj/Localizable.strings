@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 wypożyczalni samochodów w ponad 49.000 miejscowościach.";
 
-"banner_viator_title" = "Wyszukiwanie podróży online";
-
-"banner_viator_message" = "Szukaj spośród 50.000 podróży na całym świecie.";
-
 /* december */
 "whatsnew_traffic" = "Dane o ruchu w 36 krajach";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Punkty nawigacyjne w trasowaniu";
 
 "whatsnew_waypoints_message" = "Naciśnij punkt nawigacyjny, aby dodać go do trasy.";
-
-"whatsnew_viator_title" = "Zarezerwuj wycieczkę";
-
-"whatsnew_viator_message" = "Wybieraj popularne wycieczki w turystycznych miastach z całego świata.";
 
 "whatsnew_driving_style_title" = "Nowy styl mapy dla jazdy";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Odmowa dla aplikacji uprawnień do lokalizacji";
 
-"place_page_viator_title" = "Atrakcje i wycieczki";
-
 "button_use" = "Użyj";
 
 "planning_route_manage_route" = "Zarządzaj trasą";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Wybierz punkty początkowy";
 
 "choose_destination" = "Wybierz punkt docelowy";
-
-"preloader_viator_title" = "Odkrywaj wycieczki i nietypowe aktywności";
-
-"preloader_viator_message" = "Turyści, aktywności, zwiedzanie i wiele innych";
 
 "preloader_viator_button" = "Dowiedz się więcej";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Jedzenie i picie";
 
 "discovery_button_subtitle_local_guides" = "Przewodniki po okolicy";
-
-"discovery_button_viator_offline_title" = "Odkrywaj wycieczki i nietypowe atrakcje";
-
-"discovery_button_viator_offline_message" = "Wycieczki, atrakcje, zwiedzanie i wiele innych.";
 
 "discovery_button_viator_error_title" = "Błąd wczytywania danych";
 

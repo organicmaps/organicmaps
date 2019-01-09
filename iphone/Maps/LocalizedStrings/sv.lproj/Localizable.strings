@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 biluthyrningsföretag på mer än 49000 biluthyrningsplatser.";
 
-"banner_viator_title" = "Sökning efter turer online";
-
-"banner_viator_message" = "Sök bland mer än 50000 turer över hela världen.";
-
 /* december */
 "whatsnew_traffic" = "Trafikdata i 36 länder";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Vägpunkter i ruttning";
 
 "whatsnew_waypoints_message" = "Tryck på platser för att lägga till vägpunkter till din rutt.";
-
-"whatsnew_viator_title" = "Boka en tur";
-
-"whatsnew_viator_message" = "Välj populära turer i turiststäder över hela världen.";
 
 "whatsnew_driving_style_title" = "En ny kartstil när du kör";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Behörighet till appens plats nekades";
 
-"place_page_viator_title" = "Attraktioner och turer";
-
 "button_use" = "Använd";
 
 "planning_route_manage_route" = "Hantera rutt";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Välj en startpunkt";
 
 "choose_destination" = "Välj en destination";
-
-"preloader_viator_title" = "Upptäck turer och ovanliga aktiviteter";
-
-"preloader_viator_message" = "Turer, aktiviteter, sightseeing med mera";
 
 "preloader_viator_button" = "Läs mer";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Äta och dricka";
 
 "discovery_button_subtitle_local_guides" = "Lokala guider";
-
-"discovery_button_viator_offline_title" = "Upptäck turer och ovanliga saker att göra";
-
-"discovery_button_viator_offline_message" = "Turer, saker att göra, sightseeing-turer med mera.";
 
 "discovery_button_viator_error_title" = "Det gick inte att ladda data";
 

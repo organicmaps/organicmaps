@@ -1054,8 +1054,6 @@
 	<string name="banner_geerbest_message">Instant search in over 50,000 items at low prices.</string>
 	<string name="banner_rentalcars_title">Renting cars online</string>
 	<string name="banner_rentalcars_message">800 car rental companies in more than 49,000 car rental locations.</string>
-	<string name="banner_viator_title">Online tour search</string>
-	<string name="banner_viator_message">Search in over 50,000 tours all over the world.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Traffic Data in 36 Countries</string>
 	<!-- december -->
@@ -1102,8 +1100,6 @@
 	<string name="whatsnew_smaller_mwm_message">Maps require up to 20% less storage.</string>
 	<string name="whatsnew_waypoints_title">Waypoints in Routing</string>
 	<string name="whatsnew_waypoints_message">Tap places to add waypoints to your route.</string>
-	<string name="whatsnew_viator_title">Book a tour</string>
-	<string name="whatsnew_viator_message">Choose popular tours in tourist cities all over the world.</string>
 	<string name="whatsnew_driving_style_title">New Map Style for Driving</string>
 	<string name="whatsnew_driving_style_message">Car navigation mode got easier to use.</string>
 	<string name="more_on_bookingcom">More on Booking.com</string>
@@ -1162,7 +1158,6 @@
 	<string name="settings_card_memory">Card memory</string>
 	<string name="settings_storage_available">%s available</string>
 	<string name="toast_location_permission_denied">App location permission denied</string>
-	<string name="place_page_viator_title">Attractions and Tours</string>
 	<string name="button_use">Use</string>
 	<string name="planning_route_manage_route">Manage Route</string>
 	<string name="button_plan">Plan</string>
@@ -1185,8 +1180,6 @@
 	<string name="add_my_position">Add my position</string>
 	<string name="choose_start_point">Choose a starting point</string>
 	<string name="choose_destination">Choose a destination</string>
-	<string name="preloader_viator_title">Discover tours and unusual activities</string>
-	<string name="preloader_viator_message">Tours, activities, sightseeing and more</string>
 	<string name="preloader_viator_button">Learn more</string>
 	<string name="whats_new_title_route">Bicycle routes and pedestrian routes were improved</string>
 	<string name="whats_new_message_route">We fixed errors, made route building several times faster, and added intermediate stops</string>
@@ -1243,8 +1236,6 @@
 	<string name="discovery_button_subtitle_attractions">Attractions</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Eat and drink</string>
 	<string name="discovery_button_subtitle_local_guides">Local Guides</string>
-	<string name="discovery_button_viator_offline_title">Discover tours and unusual things to do</string>
-	<string name="discovery_button_viator_offline_message">Tours, things to do, sightseeing tours and more.</string>
 	<string name="discovery_button_viator_error_title">Error loading data</string>
 	<string name="discovery_button_other_error_message">Error loading data</string>
 	<string name="discovery_button_other_loading_message">Data is loading</string>

@@ -21,7 +21,6 @@
 #include "generator/world_map_generator.hpp"
 #include "generator/booking_dataset.hpp"
 #include "generator/opentable_dataset.hpp"
-#include "generator/viator_dataset.hpp"
 
 #include "indexer/city_boundary.hpp"
 #include "indexer/classificator.hpp"

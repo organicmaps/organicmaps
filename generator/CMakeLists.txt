@@ -180,8 +180,6 @@ set(SRC
   unpack_mwm.hpp
   utils.cpp
   utils.hpp
-  viator_dataset.cpp
-  viator_dataset.hpp
   ways_merger.hpp
   ways_merger.cpp
   wiki_url_dumper.cpp

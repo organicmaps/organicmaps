@@ -1033,8 +1033,6 @@
 	<string name="banner_geerbest_message">การค้นหาทันทีในกว่า 50,000 รายการในราคาที่ต่ำ</string>
 	<string name="banner_rentalcars_title">การเช่ารถออนไลน์</string>
 	<string name="banner_rentalcars_message">800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง</string>
-	<string name="banner_viator_title">การค้นหาทัวร์ออนไลน์</string>
-	<string name="banner_viator_message">ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">ข้อมูลการจราจรใน 36 ประเทศ</string>
 	<!-- december -->
@@ -1076,8 +1074,6 @@
 	<string name="whatsnew_smaller_mwm_message">แผนที่ใช้พื้นที่เก็บน้อยลง 20%</string>
 	<string name="whatsnew_waypoints_title">จุดกำหนดในเส้นทาง</string>
 	<string name="whatsnew_waypoints_message">แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ</string>
-	<string name="whatsnew_viator_title">จองทัวร์</string>
-	<string name="whatsnew_viator_message">เลือกทัวร์ยอดนิยมในเมืองท่องเที่ยวทั่วโลก</string>
 	<string name="whatsnew_driving_style_title">แผนที่รูปแบบใหม่สำหรับการขับขี่</string>
 	<string name="whatsnew_driving_style_message">โหมดการนำทางรถยนต์ใช้งานได้ง่ายยิ่งขึ้น</string>
 	<string name="more_on_bookingcom">เพิ่มเติมบน Booking.com</string>
@@ -1134,7 +1130,6 @@
 	<string name="settings_card_memory">หน่วยความจำการ์ด</string>
 	<string name="settings_storage_available">เหลือให้ใช้ได้ %s</string>
 	<string name="toast_location_permission_denied">สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ</string>
-	<string name="place_page_viator_title">สถานที่ท่องเที่ยวและทัวร์</string>
 	<string name="button_use">ใช้</string>
 	<string name="planning_route_manage_route">จัดการเส้นทาง</string>
 	<string name="button_plan">วางแผน</string>
@@ -1149,8 +1144,6 @@
 	<string name="add_my_position">เพิ่มตำแหน่งของฉัน</string>
 	<string name="choose_start_point">เลือกจุดเริ่มต้น</string>
 	<string name="choose_destination">เลือกปลายทาง</string>
-	<string name="preloader_viator_title">ค้นพบทัวร์และกิจกรรมที่แหวกแนว</string>
-	<string name="preloader_viator_message">ทัวร์ กิจกรรม การชมทิวทัศน์ และอื่น ๆ</string>
 	<string name="preloader_viator_button">เรียนรู้เพิ่มเติม</string>
 	<string name="whats_new_title_route">เส้นทางจักรยานและเส้นทางเดินเท้าได้รับการปรับปรุงยิ่งขึ้น</string>
 	<string name="whats_new_message_route">เราได้แก้ไขข้อผิดพลาด ทำให้การสร้างเส้นทางรวดเร็วขึ้นอีกหลายเท่า และเพิ่มจุดแวะพักระหว่างทาง</string>
@@ -1206,8 +1199,6 @@
 	<string name="discovery_button_subtitle_attractions">สถานที่ท่องเที่ยว</string>
 	<string name="discovery_button_subtitle_eat_and_drink">กินและดื่ม</string>
 	<string name="discovery_button_subtitle_local_guides">มัคคุเทศก์ท้องถิ่น</string>
-	<string name="discovery_button_viator_offline_title">ค้นหาทัวร์และเรื่องแหวกแนวที่จะทำ</string>
-	<string name="discovery_button_viator_offline_message">ทัวร์ สิ่งที่จะทำ ทัวร์ชมทิวทัศน์ และอื่น ๆ</string>
 	<string name="discovery_button_viator_error_title">ข้อผิดพลาดในการโหลดข้อมูล</string>
 	<string name="discovery_button_other_error_message">ข้อผิดพลาดในการโหลดข้อมูล</string>
 	<string name="discovery_button_other_loading_message">กำลังโหลดข้อมูล</string>

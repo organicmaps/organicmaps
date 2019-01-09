@@ -44,7 +44,6 @@ enum class SponsoredType
   None,
   Booking,
   Opentable,
-  Viator,
   Partner,
   Holiday
 };
@@ -152,7 +151,7 @@ public:
   std::string const & GetSponsoredReviewUrl() const { return m_sponsoredReviewUrl; }
   void SetSponsoredType(SponsoredType type) { m_sponsoredType = type; }
   SponsoredType GetSponsoredType() const { return m_sponsoredType; }
-  bool IsPreviewExtended() const { return m_sponsoredType == SponsoredType::Viator; }
+  bool IsPreviewExtended() const { return false; }
 
   /// Partners
   int GetPartnerIndex() const { return m_partnerIndex; }

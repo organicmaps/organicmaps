@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 perusahaan penyewaan mobil di lebih dari 49.000 lokasi penyewaan mobil.";
 
-"banner_viator_title" = "Pencarian wisata online";
-
-"banner_viator_message" = "Cari di antara lebih dari 50.000 wisata di seluruh dunia.";
-
 /* december */
 "whatsnew_traffic" = "Data Lalu Lintas di 36 Negara";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Titik Koordinat dalam Pembuatan Rute";
 
 "whatsnew_waypoints_message" = "Ketuk tempat untuk menambahkan titik acuan koordinat ke rute Anda.";
-
-"whatsnew_viator_title" = "Pesan tur";
-
-"whatsnew_viator_message" = "Pilih wisata populer di kota-kota wisata seluruh dunia.";
 
 "whatsnew_driving_style_title" = "Model Peta Baru untuk Berkendara";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Izin lokasi aplikasi ditolak";
 
-"place_page_viator_title" = "Objek wisata dan tur";
-
 "button_use" = "Gunakan";
 
 "planning_route_manage_route" = "Kelola rute";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Pilih titik awal";
 
 "choose_destination" = "Pilih destinasi";
-
-"preloader_viator_title" = "Temukan wisata dan kegiatan yang unik";
-
-"preloader_viator_message" = "Wisata, kegiatan, tamasya, dan lain-lain";
 
 "preloader_viator_button" = "Pelajari selengkapnya";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Makan dan minum";
 
 "discovery_button_subtitle_local_guides" = "Panduan Lokal";
-
-"discovery_button_viator_offline_title" = "Temukan wisata dan hal unik yang akan dilakukan";
-
-"discovery_button_viator_offline_message" = "Wisata, hal yang akan dilakukan, wisata pemandangan, dan lain sebagainya.";
 
 "discovery_button_viator_error_title" = "Ada kesalahan saat memuat data";
 

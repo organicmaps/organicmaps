@@ -9,8 +9,6 @@ import com.mapswithme.util.UiUtils;
 
 public enum ItemType
 {
-  VIATOR,
-
   ATTRACTIONS(R.string.tourism,
               DiscoveryUserEvent.MORE_ATTRACTIONS_CLICKED,
               DiscoveryUserEvent.ATTRACTIONS_CLICKED)

@@ -255,9 +255,7 @@ void RegisterEventIfPossible(eye::MapObject::Event::Type const type, place_page:
   if (!data)
     return;
   NSMutableDictionary * parameters = [@{} mutableCopy];
-  if (data.isViator)
-    parameters[kStatProvider] = kStatViator;
-  else if (data.isBooking)
+  if (data.isBooking)
     parameters[kStatProvider] = kStatBooking;
   else if (data.isPartner)
     parameters[kStatProvider] = data.partnerName;

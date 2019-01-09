@@ -791,8 +791,6 @@
 	<string name="banner_geerbest_message">Άμεση αναζήτηση σε περισσότερα από 50.000 αντικείμενα σε χαμηλές τιμές.</string>
 	<string name="banner_rentalcars_title">Ενοικίαση αυτοκινήτων online</string>
 	<string name="banner_rentalcars_message">800 εταιρείες ενοικίασης αυτοκινήτων σε περισσότερες από 49.000 τοποθεσίες.</string>
-	<string name="banner_viator_title">Αναζήτηση οργανωμένων εκδρομών online</string>
-	<string name="banner_viator_message">Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Πληροφορίες για την κίνηση σε 36 χώρες</string>
 	<!-- december -->
@@ -834,8 +832,6 @@
 	<string name="whatsnew_smaller_mwm_message">Οι χάρτες απαιτούν 20% λιγότερο αποθηκευτικό χώρο.</string>
 	<string name="whatsnew_waypoints_title">Ενδιάμεσα σημεία στη διαδρομή</string>
 	<string name="whatsnew_waypoints_message">Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.</string>
-	<string name="whatsnew_viator_title">Κάντε κράτηση σε μια ξενάγηση</string>
-	<string name="whatsnew_viator_message">Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.</string>
 	<string name="whatsnew_driving_style_title">Νέο στυλ χάρτη για την οδήγηση</string>
 	<string name="whatsnew_driving_style_message">Ευκολότερη λειτουργία πλοήγησης αυτοκινήτου.</string>
 	<string name="more_on_bookingcom">Περισσότερα στο Booking.com</string>
@@ -892,7 +888,6 @@
 	<string name="settings_card_memory">Κάρτα μνήμης</string>
 	<string name="settings_storage_available">%s διαθέσιμα</string>
 	<string name="toast_location_permission_denied">Άρνηση πρόσβασης εφαρμογής στον εντοπισμό τοποθεσίας</string>
-	<string name="place_page_viator_title">Αξιοθέατα και περιηγήσεις</string>
 	<string name="button_use">Χρήση</string>
 	<string name="planning_route_manage_route">Διαχείριση διαδρομής</string>
 	<string name="button_plan">Σχέδιο</string>
@@ -907,8 +902,6 @@
 	<string name="add_my_position">Πρόσθεσε τη θέση μου</string>
 	<string name="choose_start_point">Επιλέξτε αφετηρία</string>
 	<string name="choose_destination">Επιλέξτε προορισμό</string>
-	<string name="preloader_viator_title">Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες</string>
-	<string name="preloader_viator_message">Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα</string>
 	<string name="preloader_viator_button">Μάθετε περισσότερα</string>
 	<string name="whats_new_title_route">Βελτιωμένες διαδρομές ποδηλάτων και πεζών</string>
 	<string name="whats_new_message_route">Επιδιορθώσαμε σφάλματα, κάναμε την δημιουργία διαδρομής αρκετές φορές γρηγορότερη, και προσθέσαμε ενδιάμεσες στάσεις</string>
@@ -964,8 +957,6 @@
 	<string name="discovery_button_subtitle_attractions">Αξιοθέατα</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Φαγητό και ποτό</string>
 	<string name="discovery_button_subtitle_local_guides">Τοπικοί οδηγοί</string>
-	<string name="discovery_button_viator_offline_title">Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες</string>
-	<string name="discovery_button_viator_offline_message">Εκδρομές, πράγματα να κάνετε, περιηγήσεις στα αξιοθέατα και πολλά άλλα.</string>
 	<string name="discovery_button_viator_error_title">Σφάλμα κατά τη φόρτωση δεδομένων</string>
 	<string name="discovery_button_other_error_message">Σφάλμα κατά τη φόρτωση δεδομένων</string>
 	<string name="discovery_button_other_loading_message">Φόρτωση δεδομένων</string>

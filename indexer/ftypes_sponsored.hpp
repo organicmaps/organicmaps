@@ -20,7 +20,6 @@ protected:
 // Checkers.
 SPONSORED_CHECKER(IsBookingChecker, "booking");
 SPONSORED_CHECKER(IsOpentableChecker, "opentable");
-SPONSORED_CHECKER(IsViatorChecker, "viator");
 SPONSORED_CHECKER(IsHolidayChecker, "holiday");
 
 #undef SPONSORED_CHECKER

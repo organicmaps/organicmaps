@@ -1023,8 +1023,6 @@
 	<string name="banner_geerbest_message">저렴한 가격의 50,000개 이상 품목에서 즉시 검색.</string>
 	<string name="banner_rentalcars_title">온라인 자동차 렌트</string>
 	<string name="banner_rentalcars_message">800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점</string>
-	<string name="banner_viator_title">온라인 투어 검색</string>
-	<string name="banner_viator_message">전 세계 50,000개 이상의 투어에서 검색하세요.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36개국의 교통 데이터</string>
 	<!-- december -->
@@ -1066,8 +1064,6 @@
 	<string name="whatsnew_smaller_mwm_message">지도가 저장소를 최대 20% 적게 필요로 합니다.</string>
 	<string name="whatsnew_waypoints_title">경로의 중간 지점</string>
 	<string name="whatsnew_waypoints_message">경로에 중간 지점을 추가할 위치를 탭하세요.</string>
-	<string name="whatsnew_viator_title">투어 예약</string>
-	<string name="whatsnew_viator_message">전 세계 관광 도시에서 인기 투어를 선택하세요.</string>
 	<string name="whatsnew_driving_style_title">운전을 위한 새로운 지도 스타일</string>
 	<string name="whatsnew_driving_style_message">자동차 네비게이션 모드 사용이 더욱 쉬워졌습니다.</string>
 	<string name="more_on_bookingcom">Booking.com의 추가 정보</string>
@@ -1124,7 +1120,6 @@
 	<string name="settings_card_memory">카드 메모리</string>
 	<string name="settings_storage_available">%s 사용 가능</string>
 	<string name="toast_location_permission_denied">앱 위치 권한 거부됨</string>
-	<string name="place_page_viator_title">관광 명소 및 투어</string>
 	<string name="button_use">사용</string>
 	<string name="planning_route_manage_route">경로 관리</string>
 	<string name="button_plan">계획</string>
@@ -1139,8 +1134,6 @@
 	<string name="add_my_position">내 위치 추가</string>
 	<string name="choose_start_point">시작 지점 선택</string>
 	<string name="choose_destination">목적지 선택</string>
-	<string name="preloader_viator_title">투어와 특별한 활동 알아보기</string>
-	<string name="preloader_viator_message">투어, 활동, 관광 등</string>
 	<string name="preloader_viator_button">자세히 알아보기</string>
 	<string name="whats_new_title_route">자전거 경로 및 보행자 경로가 개선되었습니다.</string>
 	<string name="whats_new_message_route">오류를 수정하고, 경로 탐색 속도를 몇 배 더 빠르게 개선하고, 중간 정지 지점을 추가했습니다.</string>
@@ -1196,8 +1189,6 @@
 	<string name="discovery_button_subtitle_attractions">관광명소</string>
 	<string name="discovery_button_subtitle_eat_and_drink">음식과 음료</string>
 	<string name="discovery_button_subtitle_local_guides">지역 가이드</string>
-	<string name="discovery_button_viator_offline_title">투어 그리고 기억에 남을 일 알아보기</string>
-	<string name="discovery_button_viator_offline_message">투어, 할 일, 관광 투어 등.</string>
 	<string name="discovery_button_viator_error_title">데이터 로드 중에 오류 발생</string>
 	<string name="discovery_button_other_error_message">데이터 로드 중에 오류 발생</string>
 	<string name="discovery_button_other_loading_message">데이터를 로드하는 중입니다.</string>

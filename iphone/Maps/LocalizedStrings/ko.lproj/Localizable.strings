@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800개의 자동차 렌트 회사와 49,000곳 이상의 자동차 렌트 지점";
 
-"banner_viator_title" = "온라인 투어 검색";
-
-"banner_viator_message" = "전 세계 50,000개 이상의 투어에서 검색하세요.";
-
 /* december */
 "whatsnew_traffic" = "36개국의 교통 데이터";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "경로의 중간 지점";
 
 "whatsnew_waypoints_message" = "경로에 중간 지점을 추가할 위치를 탭하세요.";
-
-"whatsnew_viator_title" = "투어 예약";
-
-"whatsnew_viator_message" = "전 세계 관광 도시에서 인기 투어를 선택하세요.";
 
 "whatsnew_driving_style_title" = "운전을 위한 새로운 지도 스타일";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "앱 위치 권한 거부됨";
 
-"place_page_viator_title" = "관광 명소 및 투어";
-
 "button_use" = "사용";
 
 "planning_route_manage_route" = "경로 관리";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "시작 지점 선택";
 
 "choose_destination" = "목적지 선택";
-
-"preloader_viator_title" = "투어와 특별한 활동 알아보기";
-
-"preloader_viator_message" = "투어, 활동, 관광 등";
 
 "preloader_viator_button" = "자세히 알아보기";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "음식과 음료";
 
 "discovery_button_subtitle_local_guides" = "지역 가이드";
-
-"discovery_button_viator_offline_title" = "투어 그리고 기억에 남을 일 알아보기";
-
-"discovery_button_viator_offline_message" = "투어, 할 일, 관광 투어 등.";
 
 "discovery_button_viator_error_title" = "데이터 로드 중에 오류 발생";
 

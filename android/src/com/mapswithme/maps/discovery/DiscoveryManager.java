@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.search.SearchResult;
-import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -37,7 +36,6 @@ enum DiscoveryManager
   private void onResultReceived(final @NonNull SearchResult[] results,
                                 final @DiscoveryParams.ItemType int typeIndex)
   {
-
     if (typeIndex >= ItemType.values().length)
     {
       throw new AssertionError("Unsupported discovery item type " +
@@ -53,13 +51,6 @@ enum DiscoveryManager
                                       @NonNull SearchResult[] results)
   {
     type.onResultReceived(callback, results);
-  }
-
-  // Called from JNI.
-  @MainThread
-  private void onViatorProductsReceived(@NonNull final ViatorProduct[] products)
-  {
-    throw new UnsupportedOperationException("Viator is not supported!");
   }
 
   // Called from JNI.
@@ -116,9 +107,6 @@ enum DiscoveryManager
   }
 
   public static native void nativeDiscover(@NonNull DiscoveryParams params);
-
-  @NonNull
-  public static native String nativeGetViatorUrl();
 
   @NonNull
   public static native String nativeGetLocalExpertsUrl();

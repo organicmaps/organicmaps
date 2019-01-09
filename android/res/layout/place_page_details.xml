@@ -13,8 +13,6 @@
 
     <include layout="@layout/place_page_fat_shadow"/>
 
-    <include layout="@layout/place_page_sponsored_gallery"/>
-
     <include
       layout="@layout/divider_horizontal"/>
 

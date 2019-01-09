@@ -1,6 +1,5 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/discovery/Locals.hpp"
-#include "com/mapswithme/maps/viator/Viator.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/maps/SearchEngine.hpp"
 
@@ -24,7 +23,6 @@ namespace
 jclass g_discoveryManagerClass = nullptr;
 jfieldID g_discoveryManagerInstanceField;
 jmethodID g_onResultReceivedMethod;
-jmethodID g_onViatorProductsReceivedMethod;
 jmethodID g_onLocalExpertsReceivedMethod;
 jmethodID g_onErrorMethod;
 uint32_t g_lastRequestId = 0;
@@ -44,10 +42,6 @@ void PrepareClassRefs(JNIEnv * env)
 
   g_onResultReceivedMethod = jni::GetMethodID(env, discoveryManagerInstance, "onResultReceived",
                                               "([Lcom/mapswithme/maps/search/SearchResult;I)V");
-
-  g_onViatorProductsReceivedMethod = jni::GetMethodID(env, discoveryManagerInstance,
-                                                      "onViatorProductsReceived",
-                                                      "([Lcom/mapswithme/maps/viator/ViatorProduct;)V");
 
   g_onLocalExpertsReceivedMethod = jni::GetMethodID(env, discoveryManagerInstance,
                                                     "onLocalExpertsReceived",
@@ -76,23 +70,6 @@ struct DiscoveryCallback
                                                                  g_discoveryManagerInstanceField);
     env->CallVoidMethod(discoveryManagerInstance, g_onResultReceivedMethod,
                         jResults.get(), static_cast<jint>(type));
-
-    jni::HandleJavaException(env);
-  }
-
-  void operator()(uint32_t const requestId, std::vector<viator::Product> const & products) const
-  {
-    if (g_lastRequestId != requestId)
-      return;
-
-    ASSERT(g_discoveryManagerClass != nullptr, ());
-    JNIEnv * env = jni::GetEnv();
-
-    jni::TScopedLocalObjectArrayRef jProducts(env, ToViatorProductsArray(products));
-    jobject discoveryManagerInstance = env->GetStaticObjectField(g_discoveryManagerClass,
-                                                                 g_discoveryManagerInstanceField);
-    env->CallVoidMethod(discoveryManagerInstance, g_onViatorProductsReceivedMethod,
-                        jProducts.get());
 
     jni::HandleJavaException(env);
   }
@@ -181,12 +158,6 @@ Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeDiscover(JNIEnv * env,
 
   g_lastRequestId = g_framework->NativeFramework()->Discover(std::move(p), DiscoveryCallback(),
                                                              std::bind(&OnDiscoveryError, _1, _2));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_discovery_DiscoveryManager_nativeGetViatorUrl(JNIEnv * env, jclass)
-{
-  return jni::ToJavaString(env, g_framework->NativeFramework()->GetDiscoveryViatorUrl());
 }
 
 JNIEXPORT jstring JNICALL

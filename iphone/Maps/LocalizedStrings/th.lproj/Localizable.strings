@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 บริษัทเช่ารถในสถานเช่ารถมากกว่า 49,000 แห่ง";
 
-"banner_viator_title" = "การค้นหาทัวร์ออนไลน์";
-
-"banner_viator_message" = "ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก";
-
 /* december */
 "whatsnew_traffic" = "ข้อมูลการจราจรใน 36 ประเทศ";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "จุดกำหนดในเส้นทาง";
 
 "whatsnew_waypoints_message" = "แตะสถานที่เพื่อเพิ่มจุดกำหนดเข้าไปยังเส้นทางของคุณ";
-
-"whatsnew_viator_title" = "จองทัวร์";
-
-"whatsnew_viator_message" = "เลือกทัวร์ยอดนิยมในเมืองท่องเที่ยวทั่วโลก";
 
 "whatsnew_driving_style_title" = "แผนที่รูปแบบใหม่สำหรับการขับขี่";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "สิทธิ์ตำแหน่งที่ตั้งของแอปถูกปฏิเสธ";
 
-"place_page_viator_title" = "สถานที่ท่องเที่ยวและทัวร์";
-
 "button_use" = "ใช้";
 
 "planning_route_manage_route" = "จัดการเส้นทาง";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "เลือกจุดเริ่มต้น";
 
 "choose_destination" = "เลือกปลายทาง";
-
-"preloader_viator_title" = "ค้นพบทัวร์และกิจกรรมที่แหวกแนว";
-
-"preloader_viator_message" = "ทัวร์ กิจกรรม การชมทิวทัศน์ และอื่น ๆ";
 
 "preloader_viator_button" = "เรียนรู้เพิ่มเติม";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "กินและดื่ม";
 
 "discovery_button_subtitle_local_guides" = "มัคคุเทศก์ท้องถิ่น";
-
-"discovery_button_viator_offline_title" = "ค้นหาทัวร์และเรื่องแหวกแนวที่จะทำ";
-
-"discovery_button_viator_offline_message" = "ทัวร์ สิ่งที่จะทำ ทัวร์ชมทิวทัศน์ และอื่น ๆ";
 
 "discovery_button_viator_error_title" = "ข้อผิดพลาดในการโหลดข้อมูล";
 

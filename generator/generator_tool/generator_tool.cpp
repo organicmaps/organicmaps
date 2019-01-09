@@ -149,7 +149,6 @@ DEFINE_bool(generate_maxspeed, false, "Generate section with maxspeed of road fe
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
-DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
 DEFINE_string(ugc_data, "", "Input UGC source database file name.");
 
@@ -249,7 +248,6 @@ int GeneratorToolMain(int argc, char ** argv)
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
-  genInfo.m_viatorDatafileName = FLAGS_viator_data;
   genInfo.m_popularPlacesFilename = FLAGS_popular_places_data;
   genInfo.m_brandsFilename = FLAGS_brands_data;
   genInfo.m_brandsTranslationsFilename = FLAGS_brands_translations_data;

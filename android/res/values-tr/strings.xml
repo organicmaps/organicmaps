@@ -1033,8 +1033,6 @@
 	<string name="banner_geerbest_message">En uygun fiyatlarla 50.000\'den fazla ürün için hızlı arama yapın.</string>
 	<string name="banner_rentalcars_title">Çevrimiçi araba kiralama</string>
 	<string name="banner_rentalcars_message">49.000\'den fazla araç kiralama bölgesinde yer alan 800 araç kiralama şirketi.</string>
-	<string name="banner_viator_title">Çevrimiçi tur arama</string>
-	<string name="banner_viator_message">Dünyanın her yerinden 50.000\'den fazla tur içinden arama yapın.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 Ülkeden Trafik Verileri</string>
 	<!-- december -->
@@ -1076,8 +1074,6 @@
 	<string name="whatsnew_smaller_mwm_message">Artık haritalar %20\'ye kadar daha az depolama alanı gerektiriyor.</string>
 	<string name="whatsnew_waypoints_title">Güzergâhtaki Yol Noktaları</string>
 	<string name="whatsnew_waypoints_message">Güzergâhınıza yol noktası olarak eklemek istediğiniz yerlere dokunun.</string>
-	<string name="whatsnew_viator_title">Tur rezervasyonu</string>
-	<string name="whatsnew_viator_message">Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.</string>
 	<string name="whatsnew_driving_style_title">Sürüş İçin Yeni Harita Stili</string>
 	<string name="whatsnew_driving_style_message">Araç navigasyon modunu kullanmak şimdi çok daha kolay.</string>
 	<string name="more_on_bookingcom">Booking.com hakkında daha fazla</string>
@@ -1134,7 +1130,6 @@
 	<string name="settings_card_memory">Kart belleği</string>
 	<string name="settings_storage_available">%s kullanılabilir</string>
 	<string name="toast_location_permission_denied">Uygulamanın konum bilgilerine erişim isteği reddedildi</string>
-	<string name="place_page_viator_title">Geziler ve turlar</string>
 	<string name="button_use">Kullan</string>
 	<string name="planning_route_manage_route">Güzergâhı yönet</string>
 	<string name="button_plan">Plan</string>
@@ -1149,8 +1144,6 @@
 	<string name="add_my_position">Konumumu ekle</string>
 	<string name="choose_start_point">Bir başlangıç noktası seçin</string>
 	<string name="choose_destination">Bir hedef seçin</string>
-	<string name="preloader_viator_title">Turları ve sıra dışı etkinlikleri keşfedin</string>
-	<string name="preloader_viator_message">Turlar, etkinlikler, geziler ve çok daha fazlası</string>
 	<string name="preloader_viator_button">Daha fazla bilgi edinin</string>
 	<string name="whats_new_title_route">Bisiklet ve yaya güzergahları iyileştirildi</string>
 	<string name="whats_new_message_route">Hataları düzelttik, güzergah oluşturmayı daha hızlı hale getirdik ve ara duraklar ekledik</string>
@@ -1206,8 +1199,6 @@
 	<string name="discovery_button_subtitle_attractions">Cazibe Merkezleri</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Yeme-içme</string>
 	<string name="discovery_button_subtitle_local_guides">Yerel Rehberler</string>
-	<string name="discovery_button_viator_offline_title">Turları ve sıra dışı şeyleri keşfedin</string>
-	<string name="discovery_button_viator_offline_message">Turlar, etkinlikler, şehir gezileri ve daha fazlası.</string>
 	<string name="discovery_button_viator_error_title">Veri yükleme hatası</string>
 	<string name="discovery_button_other_error_message">Veri yükleme hatası</string>
 	<string name="discovery_button_other_loading_message">Veriler yükleniyor</string>

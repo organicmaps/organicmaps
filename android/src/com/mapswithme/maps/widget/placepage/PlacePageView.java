@@ -55,7 +55,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
-import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -66,10 +65,6 @@ import com.mapswithme.maps.editor.data.Timetable;
 import com.mapswithme.maps.gallery.FullScreenGalleryActivity;
 import com.mapswithme.maps.gallery.GalleryActivity;
 import com.mapswithme.maps.gallery.Image;
-import com.mapswithme.maps.gallery.ItemSelectedListener;
-import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
-import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
@@ -79,8 +74,6 @@ import com.mapswithme.maps.search.Popularity;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
-import com.mapswithme.maps.viator.Viator;
-import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.maps.widget.ArrowView;
 import com.mapswithme.maps.widget.BaseShadowController;
 import com.mapswithme.maps.widget.LineCountTextView;
@@ -102,8 +95,6 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.statistics.AlohaHelper;
-import com.mapswithme.util.statistics.GalleryPlacement;
-import com.mapswithme.util.statistics.GalleryType;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -115,8 +106,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
-import static com.mapswithme.util.statistics.Destination.EXTERNAL;
-import static com.mapswithme.util.statistics.GalleryPlacement.PLACEPAGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_DESCRIPTION_LAND;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_FACILITIES;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_GALLERY_OPEN;
@@ -135,8 +124,7 @@ public class PlacePageView extends RelativeLayout
                NearbyAdapter.OnItemClickListener,
                BottomPlacePageAnimationController.OnBannerOpenListener,
                EditBookmarkFragment.EditBookmarkListener,
-               BannerController.BannerListener,
-               Viator.ViatorListener
+               BannerController.BannerListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = PlacePageView.class.getSimpleName();
@@ -212,10 +200,6 @@ public class PlacePageView extends RelativeLayout
   private TextView mHotelRating;
   private TextView mHotelRatingBase;
   private View mHotelMore;
-  private View mSponsoredGalleryView;
-  private RecyclerView mRvSponsoredProducts;
-  private TextView mTvSponsoredTitle;
-  private ImageView mIvSponsoredLogo;
   @Nullable
   private View mBookmarkButtonFrame;
 
@@ -263,8 +247,6 @@ public class PlacePageView extends RelativeLayout
   private final NearbyAdapter mNearbyAdapter = new NearbyAdapter(this);
   @NonNull
   private final ReviewAdapter mReviewAdapter = new ReviewAdapter();
-  @NonNull
-  private final ItemSelectedListener<Items.Item> mDefaultGalleryItemListener;
 
   // Downloader`s stuff
   private DownloaderStatusIcon mDownloaderIcon;
@@ -371,7 +353,6 @@ public class PlacePageView extends RelativeLayout
   {
     super(context, attrs);
     Activity activity = (Activity) context;
-    mDefaultGalleryItemListener = new BaseItemSelectedListener<>(activity, ItemType.VIATOR);
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
@@ -382,8 +363,7 @@ public class PlacePageView extends RelativeLayout
 
   public boolean isHorizontalScrollAreaTouched(@NonNull MotionEvent event)
   {
-    return UiUtils.isViewTouched(event, mHotelGallery)
-           || UiUtils.isViewTouched(event, mRvSponsoredProducts);
+    return UiUtils.isViewTouched(event, mHotelGallery);
   }
 
   public void onActivityResume()
@@ -503,8 +483,6 @@ public class PlacePageView extends RelativeLayout
     initHotelGalleryView();
     initHotelNearbyView();
     initHotelRatingView();
-
-    initSponsoredGalleryView();
 
     mUgcController = new UGCController(this);
 
@@ -699,7 +677,7 @@ public class PlacePageView extends RelativeLayout
 
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
-    Viator.setViatorListener(this);
+
     initPlaceDescriptionView();
   }
 
@@ -920,72 +898,6 @@ public class PlacePageView extends RelativeLayout
   {
     if (mUgcController != null)
       mUgcController.clear();
-  }
-
-  @Override
-  public void onViatorProductsReceived(@NonNull String destId, final @NonNull ViatorProduct[] products)
-  {
-    if (mSponsored != null)
-      updateViatorView(products, mSponsored.getUrl());
-  }
-
-  private void initSponsoredGalleryView()
-  {
-    mSponsoredGalleryView = findViewById(R.id.ll__place_sponsored_gallery);
-    mTvSponsoredTitle = mSponsoredGalleryView.findViewById(R.id.tv__sponsored_title);
-    mIvSponsoredLogo = mSponsoredGalleryView.findViewById(R.id.btn__sponsored_logo);
-    mRvSponsoredProducts = mSponsoredGalleryView.findViewById(R.id.rv__sponsored_products);
-    mRvSponsoredProducts.setLayoutManager(new LinearLayoutManager(getContext(),
-                                                                  LinearLayoutManager.HORIZONTAL,
-                                                                  false));
-    mRvSponsoredProducts.addItemDecoration(
-        ItemDecoratorFactory.createSponsoredGalleryDecorator(getContext(), LinearLayoutManager.HORIZONTAL));
-    mIvSponsoredLogo.setOnClickListener(this);
-  }
-
-  private void updateViatorView(@NonNull final ViatorProduct[] products,
-                                @NonNull final String cityUrl)
-  {
-    if (products.length == 0)
-    {
-      mRvSponsoredProducts.setAdapter(Factory.createViatorErrorAdapter(cityUrl,
-                                                                       mDefaultGalleryItemListener));
-      Statistics.INSTANCE.trackGalleryError(GalleryType.VIATOR, GalleryPlacement.PLACEPAGE,
-                                            Statistics.ParamValue.NO_PRODUCTS);
-    }
-    else
-    {
-      ItemSelectedListener<Items.ViatorItem> listener =
-          createSponsoredProductItemListener(GalleryType.VIATOR, ItemType.VIATOR);
-
-      com.mapswithme.maps.gallery.GalleryAdapter adapter =
-          Factory.createViatorAdapter(products, cityUrl, listener, GalleryPlacement.PLACEPAGE);
-
-      mRvSponsoredProducts.setAdapter(adapter);
-    }
-  }
-
-  private void updateGallerySponsoredLogo(@Sponsored.SponsoredType int type)
-  {
-    if (type != Sponsored.TYPE_VIATOR)
-      throw new AssertionError("Unsupported type: " + type);
-
-    int logoAttr = R.attr.viatorLogo;
-    TypedArray array = getActivity().getTheme().obtainStyledAttributes(new int[] {logoAttr});
-    int attributeResourceId = array.getResourceId(0 /* index */, 0 /* defValue */);
-    Drawable drawable = getResources().getDrawable(attributeResourceId);
-    array.recycle();
-    mIvSponsoredLogo.setImageDrawable(drawable);
-  }
-
-  private void updateGallerySponsoredTitle(@Sponsored.SponsoredType int type)
-  {
-    mTvSponsoredTitle.setText(R.string.place_page_viator_title);
-  }
-
-  private void clearSponsoredGalleryViews()
-  {
-    mRvSponsoredProducts.swapAdapter(null /* adapter */ , false);
   }
 
   @Override
@@ -1275,7 +1187,6 @@ public class PlacePageView extends RelativeLayout
     if (mMapObject != null)
     {
       clearHotelViews();
-      clearSponsoredGalleryViews();
       clearUGCViews();
       processSponsored(policy);
       initEditMapObjectBtn();
@@ -1303,34 +1214,11 @@ public class PlacePageView extends RelativeLayout
     if (mSponsored.getId() == null || TextUtils.isEmpty(currencyCode))
       return;
 
-    if (mSponsored.getType() == Sponsored.TYPE_BOOKING)
-    {
-      Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
-      Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
-      return;
-    }
-
-    boolean isViator = mSponsored.getType() == Sponsored.TYPE_VIATOR;
-
-    if (!isViator)
+    if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
       return;
 
-    updateGallerySponsoredLogo(mSponsored.getType());
-    updateGallerySponsoredTitle(mSponsored.getType());
-    UiUtils.show(mSponsoredGalleryView);
-
-    boolean hasInCache = Viator.hasCache(mSponsored.getId());
-    final String url = !TextUtils.isEmpty(mSponsored.getUrl()) ? mSponsored.getUrl()
-                                                               : mSponsored.getDescriptionUrl();
-    if (!ConnectionState.isConnected() && !hasInCache)
-    {
-      updateViatorView(new ViatorProduct[]{}, url);
-      return;
-    }
-
-    mRvSponsoredProducts.setAdapter(Factory.createViatorLoadingAdapter(url,
-                                                                       mDefaultGalleryItemListener));
-    Viator.requestViatorProducts(policy, mSponsored.getId(), currencyCode);
+    Sponsored.requestPrice(mSponsored.getId(), currencyCode, policy);
+    Sponsored.requestInfo(mSponsored, Locale.getDefault().toString(), policy);
   }
 
   private boolean isNetworkNeeded()
@@ -1550,12 +1438,10 @@ public class PlacePageView extends RelativeLayout
     if (mSponsored == null)
     {
       hideHotelDetailViews();
-      UiUtils.hide(mSponsoredGalleryView);
       return;
     }
 
     boolean isConnected = ConnectionState.isConnected();
-    UiUtils.showIf(isConnected, mSponsoredGalleryView);
     if (isConnected)
       showHotelDetailViews();
     else
@@ -1569,9 +1455,6 @@ public class PlacePageView extends RelativeLayout
 
     if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
       hideHotelDetailViews();
-
-    if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
-      UiUtils.hide(mSponsoredGalleryView);
   }
 
   private void showTaxiOffer(@NonNull MapObject mapObject)
@@ -2018,19 +1901,6 @@ public class PlacePageView extends RelativeLayout
           }
         }
         break;
-      case R.id.btn__sponsored_logo:
-        if (mSponsored == null)
-          break;
-
-        String url = !TextUtils.isEmpty(mSponsored.getUrl()) ? mSponsored.getUrl()
-                                                             : mSponsored.getDescriptionUrl();
-        if (!TextUtils.isEmpty(url))
-        {
-          Utils.openUrl(getContext(), url);
-          Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_LOGO_SELECTED,
-              GalleryType.VIATOR, GalleryPlacement.PLACEPAGE);
-        }
-        break;
       case R.id.search_hotels_btn:
         if (mMapObject == null)
           break;
@@ -2290,28 +2160,6 @@ public class PlacePageView extends RelativeLayout
       mPreview.setPadding(mPreview.getPaddingLeft(), mPreview.getPaddingTop(),
                           getPaddingRight(), mMarginBase);
     }
-  }
-
-  private <I extends Items.Item> ItemSelectedListener<I> createSponsoredProductItemListener(@NonNull GalleryType type,
-                                                                                            @NonNull ItemType itemType)
-  {
-    return new BaseItemSelectedListener<I>(getActivity(), itemType)
-    {
-      @Override
-      public void onItemSelected(@NonNull I item, int position)
-      {
-        super.onItemSelected(item, position);
-        Statistics.INSTANCE.trackGalleryProductItemSelected(type, PLACEPAGE, position, EXTERNAL);
-      }
-
-      @Override
-      public void onMoreItemSelected(@NonNull I item)
-      {
-        super.onMoreItemSelected(item);
-        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,
-                                              PLACEPAGE);
-      }
-    };
   }
 
   private class EditBookmarkClickListener implements OnClickListener

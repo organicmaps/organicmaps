@@ -35,7 +35,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 @property(copy, nonatomic) NSString * cachedMinPrice;
 @property(nonatomic) id<MWMBanner> nativeAd;
 @property(copy, nonatomic) NSArray<MWMGalleryItemModel *> * photos;
-@property(copy, nonatomic) NSArray<MWMViatorItemModel *> * viatorItems;
 @property(nonatomic) NSNumberFormatter * currencyFormatter;
 @property(nonatomic, readwrite) MWMUGCViewModel * ugc;
 @property(nonatomic) NSInteger bookingDiscount;
@@ -49,7 +48,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   std::vector<Sections> m_sections;
   std::vector<PreviewRows> m_previewRows;
-  std::vector<SpecialProject> m_specialProjectRows;
   std::vector<MetainfoRows> m_metainfoRows;
   std::vector<AdRows> m_adRows;
   std::vector<ButtonsRows> m_buttonsRows;
@@ -253,7 +251,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   m_previewRows.push_back(PreviewRows::Space);
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
 
-  if (network_policy::CanUseNetwork() && m_info.HasBanner() && ![self isViator])
+  if (network_policy::CanUseNetwork() && m_info.HasBanner())
   {
     __weak auto wSelf = self;
     [[MWMBannersCache cache]
@@ -340,69 +338,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   if (m_info.ShouldShowAddBusiness())
     m_buttonsRows.push_back(ButtonsRows::AddBusiness);
-}
-
-- (void)insertSpecialProjectsSectionWithProject:(SpecialProject)project
-{
-  auto const begin = m_sections.begin();
-  auto const end = m_sections.end();
-
-  if (std::find(begin, end, Sections::SpecialProjects) != end)
-    return;
-
-  m_sections.insert(find(begin, end, Sections::Preview) + 1, Sections::SpecialProjects);
-  m_specialProjectRows.emplace_back(project);
-
-  self.sectionsAreReadyCallback({1, 1}, self, YES);
-}
-
-- (void)fillOnlineViatorSection
-{
-  if (!self.isViator)
-    return;
-
-  network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
-    auto api = GetFramework().GetViatorApi(canUseNetwork);
-    if (!api)
-      return;
-
-    std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
-    std::string const viatorId = [self sponsoredId].UTF8String;
-
-    __weak auto wSelf = self;
-    api->GetTop5Products(
-        viatorId, currency, [wSelf, viatorId](std::string const & destId,
-                                              std::vector<viator::Product> const & products) {
-          __strong auto self = wSelf;
-          if (!self || viatorId != destId)
-            return;
-          NSMutableArray<MWMViatorItemModel *> * items = [@[] mutableCopy];
-          for (auto const & p : products)
-          {
-            auto imageURL = [NSURL URLWithString:@(p.m_photoUrl.c_str())];
-            auto pageURL = [NSURL URLWithString:@(p.m_pageUrl.c_str())];
-            if (!pageURL)
-              continue;
-            std::string const ratingFormatted = rating::GetRatingFormatted(p.m_rating);
-            auto const ratingValue = rating::GetImpress(p.m_rating);
-            auto item = [[MWMViatorItemModel alloc]
-                initWithImageURL:imageURL
-                         pageURL:pageURL
-                           title:@(p.m_title.c_str())
-                 ratingFormatted:@(ratingFormatted.c_str())
-                      ratingType:static_cast<MWMRatingSummaryViewValueType>(ratingValue)
-                        duration:@(p.m_duration.c_str())
-                           price:@(p.m_priceFormatted.c_str())];
-            [items addObject:item];
-          }
-
-          dispatch_async(dispatch_get_main_queue(), [items, self] {
-            self.viatorItems = items;
-
-            [self insertSpecialProjectsSectionWithProject:SpecialProject::Viator];
-          });
-        });
-  });
 }
 
 - (float)ratingRawValue
@@ -798,10 +733,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (NSString *)apiURL { return @(m_info.GetApiUrl().c_str()); }
 - (std::vector<Sections> const &)sections { return m_sections; }
 - (std::vector<PreviewRows> const &)previewRows { return m_previewRows; }
-- (std::vector<place_page::SpecialProject> const &)specialProjectRows
-{
-  return m_specialProjectRows;
-}
 - (std::vector<MetainfoRows> const &)metainfoRows { return m_metainfoRows; }
 - (std::vector<MetainfoRows> &)mutableMetainfoRows { return m_metainfoRows; }
 - (std::vector<AdRows> const &)adRows { return m_adRows; }
@@ -841,7 +772,6 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isApi { return m_info.HasApiUrl(); }
 - (BOOL)isBooking { return m_info.GetSponsoredType() == SponsoredType::Booking; }
 - (BOOL)isOpentable { return m_info.GetSponsoredType() == SponsoredType::Opentable; }
-- (BOOL)isViator { return m_info.GetSponsoredType() == SponsoredType::Viator; }
 - (BOOL)isPartner { return m_info.GetSponsoredType() == SponsoredType::Partner; }
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }

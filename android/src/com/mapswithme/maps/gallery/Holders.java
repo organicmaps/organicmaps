@@ -29,58 +29,8 @@ import com.mapswithme.util.Utils;
 
 import java.util.List;
 
-import static com.mapswithme.maps.gallery.Items.ViatorItem;
-
 public class Holders
 {
-  public static final class ViatorProductViewHolder
-      extends BaseViewHolder<ViatorItem>
-  {
-    @NonNull
-    ImageView mImage;
-    @NonNull
-    TextView mDuration;
-    @NonNull
-    RatingView mRating;
-    @NonNull
-    TextView mPrice;
-
-    @NonNull
-    Context mContext;
-
-    public ViatorProductViewHolder(@NonNull View itemView, @NonNull List<ViatorItem> items,
-                                   @NonNull GalleryAdapter<?, ViatorItem> adapter)
-    {
-      super(itemView, items, adapter);
-      mContext = itemView.getContext();
-      mImage = (ImageView) itemView.findViewById(R.id.iv__image);
-      mDuration = (TextView) itemView.findViewById(R.id.tv__duration);
-      mRating = (RatingView) itemView.findViewById(R.id.ratingView);
-      mPrice = (TextView) itemView.findViewById(R.id.tv__price);
-    }
-
-    @Override
-    public void bind(@NonNull ViatorItem item)
-    {
-      super.bind(item);
-
-      if (item.mPhotoUrl != null)
-      {
-        Glide.with(mContext)
-             .load(item.mPhotoUrl)
-             .centerCrop()
-             .into(mImage);
-      }
-
-      UiUtils.setTextAndHideIfEmpty(mDuration, item.mDuration);
-      UiUtils.setTextAndHideIfEmpty(mPrice, mContext.getString(R.string.place_page_starting_from,
-                                                               item.mPrice));
-      float rating = (float) item.mRating;
-      Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
-      mRating.setRating(impress, String.valueOf(rating));
-    }
-  }
-
   public static class GenericMoreHolder<T extends RegularAdapterStrategy.Item>
       extends BaseViewHolder<T>
   {

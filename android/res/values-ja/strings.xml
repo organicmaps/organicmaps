@@ -1026,8 +1026,6 @@
 	<string name="banner_geerbest_message">低価格で 50,000 件を超えるアイテムを素早く検索。</string>
 	<string name="banner_rentalcars_title">オンラインでレンタカーを予約</string>
 	<string name="banner_rentalcars_message">800 社のレンタカー会社による 49,000 カ所を超えるレンタカー店舗をご利用いただけます。</string>
-	<string name="banner_viator_title">オンラインツアー検索</string>
-	<string name="banner_viator_message">世界中から 50,000 件を超えるツアーを検索してください。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36か国の交通データ</string>
 	<!-- december -->
@@ -1069,8 +1067,6 @@
 	<string name="whatsnew_smaller_mwm_message">地図が必要とするストレージ容量が最大で 20% 少なくなりました。</string>
 	<string name="whatsnew_waypoints_title">ルート上の経由地</string>
 	<string name="whatsnew_waypoints_message">場所をタップしてルートに経由地を追加します。</string>
-	<string name="whatsnew_viator_title">ツアーの予約</string>
-	<string name="whatsnew_viator_message">世界中の観光都市で人気のツアーを選択してください。</string>
 	<string name="whatsnew_driving_style_title">運転用の新しい地図のスタイル</string>
 	<string name="whatsnew_driving_style_message">カーナビゲーションモードの使用がより簡単になりました。</string>
 	<string name="more_on_bookingcom">さらに Booking.com で表示</string>
@@ -1127,7 +1123,6 @@
 	<string name="settings_card_memory">カードのメモリ</string>
 	<string name="settings_storage_available">%s 使用可能</string>
 	<string name="toast_location_permission_denied">アプリの位置情報へのアクセスが拒否されました</string>
-	<string name="place_page_viator_title">観光地およびツアー</string>
 	<string name="button_use">使う</string>
 	<string name="planning_route_manage_route">ルートを管理</string>
 	<string name="button_plan">計画する</string>
@@ -1142,8 +1137,6 @@
 	<string name="add_my_position">自分の場所を追加</string>
 	<string name="choose_start_point">出発地点を選択</string>
 	<string name="choose_destination">目的地を選択</string>
-	<string name="preloader_viator_title">旅行や通常ではないアクティビティを検知します</string>
-	<string name="preloader_viator_message">旅行、アクティビティ、観光など</string>
 	<string name="preloader_viator_button">詳細情報</string>
 	<string name="whats_new_title_route">自転車と歩行者用のルートが改良されました</string>
 	<string name="whats_new_message_route">エラーの修正を行い、ルート探索速度を数倍に改善し、中間停止地点を追加しました。</string>
@@ -1199,8 +1192,6 @@
 	<string name="discovery_button_subtitle_attractions">観光地</string>
 	<string name="discovery_button_subtitle_eat_and_drink">飲食</string>
 	<string name="discovery_button_subtitle_local_guides">地元のガイド</string>
-	<string name="discovery_button_viator_offline_title">旅行や変わった活動を探します</string>
-	<string name="discovery_button_viator_offline_message">ツアー、活動、観光ツアーなど。</string>
 	<string name="discovery_button_viator_error_title">データの読み込みエラー</string>
 	<string name="discovery_button_other_error_message">データの読み込みエラー</string>
 	<string name="discovery_button_other_loading_message">データを読み込み中です</string>

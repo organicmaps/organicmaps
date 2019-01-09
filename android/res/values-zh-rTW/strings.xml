@@ -1037,8 +1037,6 @@
 	<string name="banner_geerbest_message">立即搜尋超過 50,000 樣低價品項。</string>
 	<string name="banner_rentalcars_title">線上租車</string>
 	<string name="banner_rentalcars_message">營運 49,000 多個租車地點的 800 家租車公司。</string>
-	<string name="banner_viator_title">線上行程搜尋</string>
-	<string name="banner_viator_message">搜尋全世界 50,000 多個行程。</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">36 個國家的交通資料</string>
 	<!-- december -->
@@ -1080,8 +1078,6 @@
 	<string name="whatsnew_smaller_mwm_message">Maps 所需存儲空間減少 20%。</string>
 	<string name="whatsnew_waypoints_title">在路線中新增路徑點</string>
 	<string name="whatsnew_waypoints_message">點按地點，即可向您的路線新增路徑點。</string>
-	<string name="whatsnew_viator_title">預訂行程</string>
-	<string name="whatsnew_viator_message">選擇全世界旅遊城市的熱門行程。</string>
 	<string name="whatsnew_driving_style_title">新的駕駛地圖模式</string>
 	<string name="whatsnew_driving_style_message">汽車導航模式更好用。</string>
 	<string name="more_on_bookingcom">Booking.com 上的更多資訊</string>
@@ -1138,7 +1134,6 @@
 	<string name="settings_card_memory">卡記憶體</string>
 	<string name="settings_storage_available">%s 可用</string>
 	<string name="toast_location_permission_denied">應用程式地點存取權限被拒絕</string>
-	<string name="place_page_viator_title">景點和行程</string>
 	<string name="button_use">使用</string>
 	<string name="planning_route_manage_route">管理路線</string>
 	<string name="button_plan">計畫</string>
@@ -1153,8 +1148,6 @@
 	<string name="add_my_position">新增我的位置</string>
 	<string name="choose_start_point">選擇起點</string>
 	<string name="choose_destination">選擇目的地</string>
-	<string name="preloader_viator_title">探索行程與特殊活動</string>
-	<string name="preloader_viator_message">行程、活動、觀光等等</string>
 	<string name="preloader_viator_button">進一步了解</string>
 	<string name="whats_new_title_route">改善自行車路線與行人路線</string>
 	<string name="whats_new_message_route">我們修正了錯誤，讓路線產生的速度加快好幾倍，並新增了中途點</string>
@@ -1210,8 +1203,6 @@
 	<string name="discovery_button_subtitle_attractions">景點</string>
 	<string name="discovery_button_subtitle_eat_and_drink">餐飲</string>
 	<string name="discovery_button_subtitle_local_guides">本地指南</string>
-	<string name="discovery_button_viator_offline_title">探索行程與特殊活動</string>
-	<string name="discovery_button_viator_offline_message">旅行、活動、觀光及其他。</string>
 	<string name="discovery_button_viator_error_title">載入數據時，發生錯誤</string>
 	<string name="discovery_button_other_error_message">載入數據時，發生錯誤</string>
 	<string name="discovery_button_other_loading_message">正在載入數據</string>

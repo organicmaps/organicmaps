@@ -14,46 +14,6 @@ import static com.mapswithme.util.Constants.Rating.RATING_INCORRECT_VALUE;
 
 public class Items
 {
-  public static class ViatorItem extends RegularAdapterStrategy.Item
-  {
-    @Nullable
-    final String mPhotoUrl;
-    @Nullable
-    final String mDuration;
-    final double mRating;
-    @Nullable
-    final String mPrice;
-
-    public ViatorItem(@Nullable String photoUrl, @NonNull String title,
-                      @Nullable String duration, double rating, @Nullable String price,
-                      @NonNull String url)
-    {
-      super(TYPE_PRODUCT, title, url, null);
-      mPhotoUrl = photoUrl;
-      mDuration = duration;
-      mRating = rating;
-      mPrice = price;
-    }
-
-    ViatorItem(@Constants.ViewType int type, @NonNull String title, @Nullable String url)
-    {
-      super(type, title, url, null);
-      mPhotoUrl = null;
-      mDuration = null;
-      mRating = -1;
-      mPrice = null;
-    }
-  }
-
-  public static class ViatorMoreItem extends ViatorItem
-  {
-
-    public ViatorMoreItem(@Nullable String url)
-    {
-      super(TYPE_MORE, MwmApplication.get().getString(R.string.placepage_more_button), url);
-    }
-  }
-
   public static class LocalExpertItem extends RegularAdapterStrategy.Item
   {
     @Nullable

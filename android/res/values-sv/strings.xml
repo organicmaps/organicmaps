@@ -1031,8 +1031,6 @@
 	<string name="banner_geerbest_message">Snabbsökning i över 50000 föremål till låga priser.</string>
 	<string name="banner_rentalcars_title">Biluthyrning online</string>
 	<string name="banner_rentalcars_message">800 biluthyrningsföretag på mer än 49000 biluthyrningsplatser.</string>
-	<string name="banner_viator_title">Sökning efter turer online</string>
-	<string name="banner_viator_message">Sök bland mer än 50000 turer över hela världen.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Trafikdata i 36 länder</string>
 	<!-- december -->
@@ -1074,8 +1072,6 @@
 	<string name="whatsnew_smaller_mwm_message">Kartor kräver upp till 20 % mindre lagringsutrymme.</string>
 	<string name="whatsnew_waypoints_title">Vägpunkter i ruttning</string>
 	<string name="whatsnew_waypoints_message">Tryck på platser för att lägga till vägpunkter till din rutt.</string>
-	<string name="whatsnew_viator_title">Boka en tur</string>
-	<string name="whatsnew_viator_message">Välj populära turer i turiststäder över hela världen.</string>
 	<string name="whatsnew_driving_style_title">En ny kartstil när du kör</string>
 	<string name="whatsnew_driving_style_message">Bilens navigeringsläge är lättare att använda.</string>
 	<string name="more_on_bookingcom">Mer på Booking.com</string>
@@ -1132,7 +1128,6 @@
 	<string name="settings_card_memory">Kortets minne</string>
 	<string name="settings_storage_available">%s tillgängligt</string>
 	<string name="toast_location_permission_denied">Behörighet till appens plats nekades</string>
-	<string name="place_page_viator_title">Attraktioner och turer</string>
 	<string name="button_use">Använd</string>
 	<string name="planning_route_manage_route">Hantera rutt</string>
 	<string name="button_plan">Planera</string>
@@ -1147,8 +1142,6 @@
 	<string name="add_my_position">Lägg till min position</string>
 	<string name="choose_start_point">Välj en startpunkt</string>
 	<string name="choose_destination">Välj en destination</string>
-	<string name="preloader_viator_title">Upptäck turer och ovanliga aktiviteter</string>
-	<string name="preloader_viator_message">Turer, aktiviteter, sightseeing med mera</string>
 	<string name="preloader_viator_button">Läs mer</string>
 	<string name="whats_new_title_route">Cykelturer och gångvägar har förbättrats</string>
 	<string name="whats_new_message_route">Vi har fixat problem, gjort det mycket lättare att skapa rutter och lagt till mellanliggande punkter</string>
@@ -1204,8 +1197,6 @@
 	<string name="discovery_button_subtitle_attractions">Attraktioner</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Äta och dricka</string>
 	<string name="discovery_button_subtitle_local_guides">Lokala guider</string>
-	<string name="discovery_button_viator_offline_title">Upptäck turer och ovanliga saker att göra</string>
-	<string name="discovery_button_viator_offline_message">Turer, saker att göra, sightseeing-turer med mera.</string>
 	<string name="discovery_button_viator_error_title">Det gick inte att ladda data</string>
 	<string name="discovery_button_other_error_message">Det gick inte att ladda data</string>
 	<string name="discovery_button_other_loading_message">Laddar data</string>

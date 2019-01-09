@@ -1,6 +1,5 @@
 package com.mapswithme.maps.discovery;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +26,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
-import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
 import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.gallery.impl.LoggableItemSelectedListener;
 import com.mapswithme.maps.metrics.UserActionsLogger;
@@ -413,20 +411,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements Discove
                                               DISCOVERY);
       }
     };
-  }
-
-  private static class ViatorOfflineSelectedListener extends BaseItemSelectedListener<Items.Item>
-  {
-    private ViatorOfflineSelectedListener(@NonNull Activity context)
-    {
-      super(context, ItemType.VIATOR);
-    }
-
-    @Override
-    public void onActionButtonSelected(@NonNull Items.Item item, int position)
-    {
-      Utils.showSystemSettings(getContext());
-    }
   }
 
   private static class SearchBasedListener extends LoggableItemSelectedListener<Items.SearchItem>

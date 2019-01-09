@@ -1027,8 +1027,6 @@
 	<string name="banner_geerbest_message">Több mint 50.000 cikk azonnali keresése alacsony áron.</string>
 	<string name="banner_rentalcars_title">Autóbérlés az interneten</string>
 	<string name="banner_rentalcars_message">800 autókölcsönző cég több mint 49.000 autókölcsönzési helyszínen.</string>
-	<string name="banner_viator_title">Utazások keresése az interneten</string>
-	<string name="banner_viator_message">Több mint 50.000 utazás keresése a világ minden táján.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Forgalmi adatok 36 országban</string>
 	<!-- december -->
@@ -1070,8 +1068,6 @@
 	<string name="whatsnew_smaller_mwm_message">A térképek 20 %-kal kevesebb tárolóterületet igényelnek.</string>
 	<string name="whatsnew_waypoints_title">Iránypontok az útvonaltervezésben</string>
 	<string name="whatsnew_waypoints_message">Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.</string>
-	<string name="whatsnew_viator_title">Foglaljon helyet egy utazásra</string>
-	<string name="whatsnew_viator_message">Válasszon népszerű városnéző utakat a világ minden táján.</string>
 	<string name="whatsnew_driving_style_title">Új térképstílus vezetéshez</string>
 	<string name="whatsnew_driving_style_message">Az autós navigáció üzemmód használata egyszerűbb lett.</string>
 	<string name="more_on_bookingcom">Továbbiak a Booking.com-on</string>
@@ -1128,7 +1124,6 @@
 	<string name="settings_card_memory">Memóriakártya</string>
 	<string name="settings_storage_available">%s rendelkezésre áll</string>
 	<string name="toast_location_permission_denied">Alkalmazás helymeghatározási engedélye megtagadva</string>
-	<string name="place_page_viator_title">Látványosságok és kirándulások</string>
 	<string name="button_use">Használat</string>
 	<string name="planning_route_manage_route">Útvonal kezelése</string>
 	<string name="button_plan">Terv</string>
@@ -1143,8 +1138,6 @@
 	<string name="add_my_position">Add hozzá saját pozíciómat</string>
 	<string name="choose_start_point">Válasszon egy kiindulási pontot</string>
 	<string name="choose_destination">Válassza ki a célt</string>
-	<string name="preloader_viator_title">Fedezze fel a túrákat és a szokatlan tevékenységeket</string>
-	<string name="preloader_viator_message">Túrák, tevékenységek, városnézés, és sok egyéb</string>
 	<string name="preloader_viator_button">Tudjon meg többet</string>
 	<string name="whats_new_title_route">A kerékpáros és gyalogos útvonalakat is tovább javítottuk</string>
 	<string name="whats_new_message_route">Kijavítottuk a hibákat, töredékére csökkentettük az útvonalak felépítéséhez szükséges időt, közbülső megállókat építettünk be</string>
@@ -1200,8 +1193,6 @@
 	<string name="discovery_button_subtitle_attractions">Látnivalók</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Enni és inni</string>
 	<string name="discovery_button_subtitle_local_guides">Helyi idegenvezetők</string>
-	<string name="discovery_button_viator_offline_title">Fedezze fel a túrákat és a szokatlan tevékenységeket</string>
-	<string name="discovery_button_viator_offline_message">Kirándulások, teendők, városnéző túrák és egyebek.</string>
 	<string name="discovery_button_viator_error_title">Hiba az adatok betöltésekor</string>
 	<string name="discovery_button_other_error_message">Hiba az adatok betöltésekor</string>
 	<string name="discovery_button_other_loading_message">Adatok betöltése</string>

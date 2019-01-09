@@ -1031,8 +1031,6 @@
 	<string name="banner_geerbest_message">Миттєвий пошук по більш ніж 50 000 виробів за зниженими цінами.</string>
 	<string name="banner_rentalcars_title">Онлайн-оренда автомобілів</string>
 	<string name="banner_rentalcars_message">800 компаній з прокату автомобілів та понад 49 000 агентів.</string>
-	<string name="banner_viator_title">Онлайн-пошук турів</string>
-	<string name="banner_viator_message">Вибір з понад 50 000 турів у різних куточках світу.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Дані про трафік у 36 країнах</string>
 	<!-- december -->
@@ -1074,8 +1072,6 @@
 	<string name="whatsnew_smaller_mwm_message">Тепер карти займають на 20% менше дискового простору.</string>
 	<string name="whatsnew_waypoints_title">Точки маршруту</string>
 	<string name="whatsnew_waypoints_message">Додавання точок до маршруту одним дотиком.</string>
-	<string name="whatsnew_viator_title">Забронювати екскурсію</string>
-	<string name="whatsnew_viator_message">На ваш вибір — популярні екскурсії в різних куточках світу.</string>
 	<string name="whatsnew_driving_style_title">Новий дизайн карт для водіїв</string>
 	<string name="whatsnew_driving_style_message">Режим навігації став ще простішим.</string>
 	<string name="more_on_bookingcom">Більше на Booking.com</string>
@@ -1132,7 +1128,6 @@
 	<string name="settings_card_memory">Карта пам\'яті</string>
 	<string name="settings_storage_available">Доступно: %s</string>
 	<string name="toast_location_permission_denied">Відмовлено у доступі до функції визначення геолокації</string>
-	<string name="place_page_viator_title">Визначні пам\'ятки та екскурсії</string>
 	<string name="button_use">Використовувати</string>
 	<string name="planning_route_manage_route">Редагування маршруту</string>
 	<string name="button_plan">Прокласти маршрут</string>
@@ -1147,8 +1142,6 @@
 	<string name="add_my_position">Додати моє розташування</string>
 	<string name="choose_start_point">Вибрати відправну точку</string>
 	<string name="choose_destination">Вибрати пункт призначення</string>
-	<string name="preloader_viator_title">Екскурсії та цікаві ідеї</string>
-	<string name="preloader_viator_message">Екскурсії, розваги, відвідування пам\'яток і багато іншого</string>
 	<string name="preloader_viator_button">Докладніше</string>
 	<string name="whats_new_title_route">Вдосконалено велосипедні та пішохідні маршрути</string>
 	<string name="whats_new_message_route">Виправлено помилки, скорочено час прокладання маршруту, додано проміжні зупинки</string>
@@ -1204,8 +1197,6 @@
 	<string name="discovery_button_subtitle_attractions">Пам’ятки</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Їжа та напої</string>
 	<string name="discovery_button_subtitle_local_guides">Місцеві гіди</string>
-	<string name="discovery_button_viator_offline_title">Екскурсії та цікаві ідеї</string>
-	<string name="discovery_button_viator_offline_message">Тури, цікаві ідеї, екскурсії та багато іншого.</string>
 	<string name="discovery_button_viator_error_title">Помилка завантаження даних</string>
 	<string name="discovery_button_other_error_message">Помилка завантаження даних</string>
 	<string name="discovery_button_other_loading_message">Завантаження даних</string>

@@ -1,6 +1,5 @@
 @objc(MWMDiscoveryOnlineTemplateType)
 enum DiscoveryOnlineTemplateType: Int {
-  case viator
   case locals
 }
 
@@ -27,9 +26,6 @@ final class DiscoveryOnlineTemplateCell: MWMTableViewCell {
 
   @objc func config(type: DiscoveryOnlineTemplateType, needSpinner: Bool, tap: @escaping Tap) {
     switch type {
-      case .viator:
-        title.text = L("preloader_viator_title")
-        subtitle.text = L("preloader_viator_message")
       case .locals:
         title.text = needSpinner ? L("discovery_button_other_loading_message") :
                                    L("discovery_button_other_error_message")

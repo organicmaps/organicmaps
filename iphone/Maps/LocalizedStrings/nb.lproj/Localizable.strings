@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 leiebilfirmaer på over 49 000 steder.";
 
-"banner_viator_title" = "Søk etter omvisninger med guide online";
-
-"banner_viator_message" = "Søk blant over 50 000 omvisninger verden over.";
-
 /* december */
 "whatsnew_traffic" = "Trafikkdata i 36 land";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Rutepunkter";
 
 "whatsnew_waypoints_message" = "Trykk på steder for å legge til rutepunkter.";
-
-"whatsnew_viator_title" = "Bestill omvisning";
-
-"whatsnew_viator_message" = "Velg populære omvisninger i turistbyer over hele verden.";
 
 "whatsnew_driving_style_title" = "Ny kartstil for bruk under kjøring";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "App-plasseringstillatelse avvist";
 
-"place_page_viator_title" = "Attraksjoner og omvisninger";
-
 "button_use" = "Bruk";
 
 "planning_route_manage_route" = "Administrere rute";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Velg startpunkt";
 
 "choose_destination" = "Velg destinasjon";
-
-"preloader_viator_title" = "Finn omvisninger og aktiviteter utenom det vanlige";
-
-"preloader_viator_message" = "Omvisninger, aktiviteter, sightseeing og mye mer";
 
 "preloader_viator_button" = "Finn ut mer";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Spise og drikke";
 
 "discovery_button_subtitle_local_guides" = "Lokale guider";
-
-"discovery_button_viator_offline_title" = "Finn omvisninger og ting å gjøre utenom det vanlige";
-
-"discovery_button_viator_offline_message" = "Omvisninger, ting å gjøre, sightseeingturer og mer.";
 
 "discovery_button_viator_error_title" = "En feil oppstod under datalasting";
 

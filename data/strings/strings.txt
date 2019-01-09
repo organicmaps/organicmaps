@@ -23538,68 +23538,6 @@
     sk = 800 spoločností prenajímajúcich vozidlá vo viac ako 49 000 prevádzkach.
     fa =  شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.
 
-  [banner_viator_title]
-    en = Online tour search
-    ru = Онлайн-поиск экскурсий
-    ar = بحث عن الرحلات على الإنترنت
-    cs = Online vyhledávání zájezdů
-    da = Online rejsesøgning
-    nl = Online tours zoeken
-    fi = Kierrosten haku verkossa
-    fr = Recherche d'excursions en ligne
-    de = Online-Toursuche
-    hu = Utazások keresése az interneten
-    id = Pencarian wisata online
-    it = Ricerca viaggi online
-    ja = オンラインツアー検索
-    ko = 온라인 투어 검색
-    nb = Søk etter omvisninger med guide online
-    pl = Wyszukiwanie podróży online
-    pt = Pesquisa de turismo online
-    ro = Căutare excursii online
-    es = Reserva de visitas guiadas en línea
-    sv = Sökning efter turer online
-    th = การค้นหาทัวร์ออนไลน์
-    tr = Çevrimiçi tur arama
-    uk = Онлайн-пошук турів
-    vi = Tìm kiếm tour trực tuyến
-    zh-Hans = 在线导游搜索
-    zh-Hant = 線上行程搜尋
-    el = Αναζήτηση οργανωμένων εκδρομών online
-    sk = Online vyhľadávanie zájazdov
-    fa = جستجوی آنلاین تور
-
-  [banner_viator_message]
-    en = Search in over 50,000 tours all over the world.
-    ru = Поиск по более чем 50 тысячам экскурсий по всему миру.
-    ar = بحث في أكثر من 50000 رحلة في كافة أنحاء العالم.
-    cs = Hledejte ve více než 50 000 zájezdů po celém světě.
-    da = Søg blandt mere end 50.000 rejser over hele verden.
-    nl = Zoek in meer dan 50.000 tours over de hele wereld.
-    fi = Hae yli 50 000 kierroksesta ympäri maailmaa.
-    fr = Recherchez parmi plus 50.000 excursions partout dans le monde.
-    de = Suche bei über 50.000 Touren auf der ganzen Welt.
-    hu = Több mint 50.000 utazás keresése a világ minden táján.
-    id = Cari di antara lebih dari 50.000 wisata di seluruh dunia.
-    it = Ricerca di oltre 50.000 viaggi organizzati in tutto il mondo.
-    ja = 世界中から 50,000 件を超えるツアーを検索してください。
-    ko = 전 세계 50,000개 이상의 투어에서 검색하세요.
-    nb = Søk blant over 50 000 omvisninger verden over.
-    pl = Szukaj spośród 50.000 podróży na całym świecie.
-    pt = Procurar em mais de 50.000 visitas em todo o mundo.
-    ro = Căutați în peste 50.000 de excursii din întreaga lume.
-    es = Más de 50 000 visitas guiadas por todo el mundo.
-    sv = Sök bland mer än 50000 turer över hela världen.
-    th = ค้นหาในทัวร์มากกว่า 50,000 แห่งทั่วโลก
-    tr = Dünyanın her yerinden 50.000'den fazla tur içinden arama yapın.
-    uk = Вибір з понад 50 000 турів у різних куточках світу.
-    vi = Tìm hơn 50.000 trên toàn thế giới.
-    zh-Hans = 搜索全世界范围内的 50,000 多位导游。
-    zh-Hant = 搜尋全世界 50,000 多個行程。
-    el = Αναζήτηση σε περισσότερες από 50.000 εκδρομές σε όλο τον κόσμο.
-    sk = Vyhľadávanie vo viac ako 50 000 zájazdoch po celom svete.
-    fa = جستجو در بیش از 50،000 تور در سراسر جهان.
-
   [whatsnew_traffic]
     comment = december
     en = Traffic Data in 36 Countries
@@ -24488,70 +24426,6 @@
     el = Πατήστε στα μέρη για να προσθέσετε ενδιάμεσα σημεία στη διαδρομή σας.
     sk = Ťuknite na miesta, ak chcete do trasy pridať body.
     fa = مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.
-
-  [whatsnew_viator_title]
-    en = Book a tour
-    ru = Забронируйте экскурсию
-    ar = حجز جولة
-    cs = Objednat výlet
-    da = Bestil en tur
-    nl = Boek een tour
-    fi = Varaa kierros
-    fr = Réserver une excursion
-    de = Tour buchen
-    hu = Foglaljon helyet egy utazásra
-    id = Pesan tur
-    it = Prenota un tour
-    ja = ツアーの予約
-    ko = 투어 예약
-    nb = Bestill omvisning
-    pl = Zarezerwuj wycieczkę
-    pt = Reservar um passeio
-    ro = Rezervați un tur
-    es = Reservar una visita guiada
-    sv = Boka en tur
-    th = จองทัวร์
-    tr = Tur rezervasyonu
-    uk = Забронювати екскурсію
-    vi = Đặt tour du lịch
-    zh-Hans = 预订游览
-    zh-Hant = 預訂行程
-    el = Κάντε κράτηση σε μια ξενάγηση
-    sk = Rezervovať prehliadku
-    sw = Hifadhi nafasi ya kutalii
-    fa = رزرو تور
-
-  [whatsnew_viator_message]
-    en = Choose popular tours in tourist cities all over the world.
-    ru = Выбирайте популярные экскурсии в туристических городах мира.
-    ar = اختر جولات شائعة في المدن السياحية في كافة أنحاء العالم.
-    cs = Vyberte si oblíbené výlety v turistických městech po celém světě.
-    da = Vælg populære ture i turistbyer over hele verden.
-    nl = Kies populaire tours in toeristische steden over de hele wereld.
-    fi = Valitse suosittuja kierroksia turistikaupungeissa ympäri maailman.
-    fr = Choisissez des excursions populaires dans les villes touristiques du monde entier.
-    de = Wählen Sie beliebte Touren in Touristenstädten auf der ganzen Welt.
-    hu = Válasszon népszerű városnéző utakat a világ minden táján.
-    id = Pilih wisata populer di kota-kota wisata seluruh dunia.
-    it = Scegli i migliori tour nelle città turistiche di tutto il mondo.
-    ja = 世界中の観光都市で人気のツアーを選択してください。
-    ko = 전 세계 관광 도시에서 인기 투어를 선택하세요.
-    nb = Velg populære omvisninger i turistbyer over hele verden.
-    pl = Wybieraj popularne wycieczki w turystycznych miastach z całego świata.
-    pt = Escolha passeios populares em cidades turísticas em todo o mundo.
-    ro = Selectați dintre tururile populare din orașe turistice din întreaga lume.
-    es = Elija visitas guiadas populares por ciudades turísticas en cualquier parte del mundo.
-    sv = Välj populära turer i turiststäder över hela världen.
-    th = เลือกทัวร์ยอดนิยมในเมืองท่องเที่ยวทั่วโลก
-    tr = Dünyanın dört bir yanındaki turistik şehirleri kapsayan popüler turları seçin.
-    uk = На ваш вибір — популярні екскурсії в різних куточках світу.
-    vi = Chọn các tour phổ biến trong các thành phố du lịch trên toàn thế giới.
-    zh-Hans = 选择全世界旅游城市的热门游览。
-    zh-Hant = 選擇全世界旅遊城市的熱門行程。
-    el = Επιλέξτε δημοφιλείς ξεναγήσεις σε τουριστικές πόλεις σε όλο τον κόσμο.
-    sk = Vyberte si obľúbené prehliadky po turistických mestách po celom svete.
-    sw = Chagua utalii maarufu katika miji ya kitalii kote ulimwenguni.
-    fa = تورهای محبوب را در شهرهای توریستی در سراسر جهان انتخاب کنید.
 
   [whatsnew_driving_style_title]
     en = New Map Style for Driving
@@ -26270,38 +26144,6 @@
     sw = Ruhusu ya programu-tumizi kufikia maeneo imekataliwa
     fa = مجوز مکان برنامه صادر نشد
 
-  [place_page_viator_title]
-    en = Attractions and Tours
-    ru = Экскурсии и достопримечательности
-    ar = معالم الجذب والجولات
-    cs = Atrakce a výlety
-    da = Seværdigheder og ture
-    nl = Attracties en tours
-    fi = Nähtävyydet ja kierrokset
-    fr = Attractions et visites
-    de = Attraktionen und Touren
-    hu = Látványosságok és kirándulások
-    id = Objek wisata dan tur
-    it = Attrazioni e tour
-    ja = 観光地およびツアー
-    ko = 관광 명소 및 투어
-    nb = Attraksjoner og omvisninger
-    pl = Atrakcje i wycieczki
-    pt = Atrações e passeios
-    ro = Atracții și tururi
-    es = Lugar de interés y visitas guiadas
-    sv = Attraktioner och turer
-    th = สถานที่ท่องเที่ยวและทัวร์
-    tr = Geziler ve turlar
-    uk = Визначні пам'ятки та екскурсії
-    vi = Các điểm tham quan và du lịch
-    zh-Hans = 景点和游览
-    zh-Hant = 景點和行程
-    el = Αξιοθέατα και περιηγήσεις
-    sk = Atrakcie a prehliadky
-    sw = Vivutio na utalii
-    fa = جاذبه ها و تورها
-
   [button_use]
     en = Use
     ru = Использовать
@@ -26769,70 +26611,6 @@
     sk = Vyberte cieľ
     sw = Chagua eneo unakoelekea
     fa = یک مقصد را انتخاب کنید
-
-  [preloader_viator_title]
-    en = Discover tours and unusual activities
-    ru = Откройте для себя экскурсии и необычные туры
-    ar = اكتشاف الجولات والأنشطة غير المعتادة
-    cs = Objevte výlety a neobvyklé aktivity
-    da = Find ture og usædvanlige aktiviteter
-    nl = Ontdek tours en ongewone activiteiten
-    fi = Tutustu kierroksiin ja epätavallisiin aktiviteetteihin
-    fr = Découvrez les excursions et les activités insolites
-    de = Entdecken Sie Touren und ungewöhnliche Aktivitäten
-    hu = Fedezze fel a túrákat és a szokatlan tevékenységeket
-    id = Temukan wisata dan kegiatan yang unik
-    it = Scopri tour e attività insolite
-    ja = 旅行や通常ではないアクティビティを検知します
-    ko = 투어와 특별한 활동 알아보기
-    nb = Finn omvisninger og aktiviteter utenom det vanlige
-    pl = Odkrywaj wycieczki i nietypowe aktywności
-    pt = Descubrir as excursões e atividades incomuns
-    ro = Descoperă tururi și activități neobișnuite
-    es = Descubrir tours y actividades extraordinarias
-    sv = Upptäck turer och ovanliga aktiviteter
-    th = ค้นพบทัวร์และกิจกรรมที่แหวกแนว
-    tr = Turları ve sıra dışı etkinlikleri keşfedin
-    uk = Екскурсії та цікаві ідеї
-    vi = Khám phá các tour và hoạt động khác lạ
-    zh-Hans = 探索行程和特殊活动
-    zh-Hant = 探索行程與特殊活動
-    el = Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες
-    sk = Objavte výlety a nezvyčajné aktivity
-    sw = Gundua safari za utalii na shughuli zisizo za kawaida
-    fa = تور و فعالیت های غیر معمول را کشف کنید
-
-  [preloader_viator_message]
-    en = Tours, activities, sightseeing and more
-    ru = Туры, достопримечательности, экскурсии и многое другое
-    ar = الجولات والأنشطة ومشاهدة المعالم وغيره
-    cs = Výlety, aktivity, památky a více
-    da = Ture, aktiviteter, sightseeing med mere
-    nl = Tours, activiteiten, bezienswaardigheden en meer
-    fi = Kierroksia, aktiviteetteja, nähtävyyksien katselua ja muuta
-    fr = Excursions, activités, visites et plus
-    de = Touren, Aktivitäten, Sehenswürdigkeiten und mehr
-    hu = Túrák, tevékenységek, városnézés, és sok egyéb
-    id = Wisata, kegiatan, tamasya, dan lain-lain
-    it = Tour, attività, turismo e altro
-    ja = 旅行、アクティビティ、観光など
-    ko = 투어, 활동, 관광 등
-    nb = Omvisninger, aktiviteter, sightseeing og mye mer
-    pl = Turyści, aktywności, zwiedzanie i wiele innych
-    pt = Tours, atividades, passeios e muito mais
-    ro = Tururi, activități, obiective turistice și multe altele
-    es = Tours, actividades, excursiones y más
-    sv = Turer, aktiviteter, sightseeing med mera
-    th = ทัวร์ กิจกรรม การชมทิวทัศน์ และอื่น ๆ
-    tr = Turlar, etkinlikler, geziler ve çok daha fazlası
-    uk = Екскурсії, розваги, відвідування пам'яток і багато іншого
-    vi = Tour, hoạt động, ngắm cảnh, v.v…
-    zh-Hans = 行程、活动、观光，等等
-    zh-Hant = 行程、活動、觀光等等
-    el = Περιηγήσεις, δραστηριότητες, αξιοθέατα και πολλά άλλα
-    sk = Výlety, aktivity, prehliadky a ďalšie
-    sw = Utalii, shughuli, kutazama maeneo ya kuvutia na mengi zaidi
-    fa = تور، فعالیت ها، گشت و گذار و ...
 
   [preloader_viator_button]
     en = Learn more
@@ -28566,74 +28344,6 @@
     sk = Miestni sprievodcovia
     sw = Miongozo ya ndani
     fa = راهنماهای محلی
-
-  [discovery_button_viator_offline_title]
-    en = Discover tours and unusual things to do
-    ru = Откройте для себя туры и необычные активности
-    ar = اكتشف الجولات والأشياء غير العادية التي يمكن القيام بها
-    cs = Objevte výlety a neobvyklé aktivity
-    da = Find ture og nye oplevelser
-    nl = Ontdek tours en ongewone activiteiten
-    fi = Tutustu kierroksiin ja epätavallisiin aktiviteetteihin
-    fr = Découvrez les visites et les activités insolites
-    de = Entdecken Sie Touren und ungewöhnliche Aktivitäten
-    hu = Fedezze fel a túrákat és a szokatlan tevékenységeket
-    id = Temukan wisata dan hal unik yang akan dilakukan
-    it = Scopri tour e cose da fare insolite
-    ja = 旅行や変わった活動を探します
-    ko = 투어 그리고 기억에 남을 일 알아보기
-    pl = Odkrywaj wycieczki i nietypowe atrakcje
-    pt = Descobrir excursões e atividades incomuns
-    ro = Descoperă tururi și activități neobișnuite
-    es = Descubrir visitas guiadas y actividades inusuales
-    sv = Upptäck turer och ovanliga saker att göra
-    th = ค้นหาทัวร์และเรื่องแหวกแนวที่จะทำ
-    tr = Turları ve sıra dışı şeyleri keşfedin
-    uk = Екскурсії та цікаві ідеї
-    vi = Khám phá các tour du lịch và những điều lạ bạn có thể làm
-    zh-Hans = 探索行程和特殊活动
-    zh-Hant = 探索行程與特殊活動
-    el = Ανακαλύψτε περιηγήσεις και ασυνήθιστες δραστηριότητες
-    es_MX = Descubrir visitas guiadas y actividades diferentes
-    nb = Finn omvisninger og ting å gjøre utenom det vanlige
-    pt-BR = Descobrir excursões e atividades incomuns
-    sk = Objavte výlety a nezvyčajné aktivity
-    sw = Gundua safari za utalii na mambo ya kufanya yasiyo ya kawaida
-    fa = تورها را پیدا کنید و چیزهای غیر معمول را انجام دهید
-
-  [discovery_button_viator_offline_message]
-    en = Tours, things to do, sightseeing tours and more.
-    ru = Туры, активности, достопримечательности и многое другое
-    ar = جولات وأشياء يمكن القيام بها وجولات مشاهدة المعالم وغيره.
-    cs = Výlety, aktivity, vyhlídkové jízdy a další.
-    da = Ture, oplevelser, sightseeing med mere.
-    nl = Rondleidingen, activiteiten, excursies en meer.
-    fi = Kierroksia, tekemistä, kiertoajeluita ja muuta.
-    fr = Visites, activités, excursions et bien plus encore.
-    de = Touren, Aktivitäten, Besichtigungen und mehr.
-    hu = Kirándulások, teendők, városnéző túrák és egyebek.
-    id = Wisata, hal yang akan dilakukan, wisata pemandangan, dan lain sebagainya.
-    it = Tour, cose da fare, giri turistici e altro.
-    ja = ツアー、活動、観光ツアーなど。
-    ko = 투어, 할 일, 관광 투어 등.
-    pl = Wycieczki, atrakcje, zwiedzanie i wiele innych.
-    pt = Excursões, coisas para fazer, passeios turísticos e muito mais.
-    ro = Tururi, activități, panorame și multe altele.
-    es = Visitas guiadas, cosas que hacer, atracciones turísticas y mucho más.
-    sv = Turer, saker att göra, sightseeing-turer med mera.
-    th = ทัวร์ สิ่งที่จะทำ ทัวร์ชมทิวทัศน์ และอื่น ๆ
-    tr = Turlar, etkinlikler, şehir gezileri ve daha fazlası.
-    uk = Тури, цікаві ідеї, екскурсії та багато іншого.
-    vi = Tour du lịch, việc có thể làm, tour ngắm cảnh và nhiều hơn thế nữa.
-    zh-Hans = 旅行、活动、观光，等等。
-    zh-Hant = 旅行、活動、觀光及其他。
-    el = Εκδρομές, πράγματα να κάνετε, περιηγήσεις στα αξιοθέατα και πολλά άλλα.
-    es_MX = Visitas guiadas, cosas que hacer, atracciones turísticas y mucho más.
-    nb = Omvisninger, ting å gjøre, sightseeingturer og mer.
-    pt-BR = Excursões, atividades, passeios turísticos e muito mais.
-    sk = Zájazdy, voľnočasové aktivity, okružné jazdy a ďalšie.
-    sw = Utalii, mambo ya kufanya, utalii wa kutazama maeneo ya kuvutia na mengi zaidi.
-    fa = تور، چیزهایی که باید انجام شود، تورهای گشت و گذار و بیشتر.
 
   [discovery_button_viator_error_title]
     en = Error loading data

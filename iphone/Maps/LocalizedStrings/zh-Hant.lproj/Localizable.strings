@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "營運 49,000 多個租車地點的 800 家租車公司。";
 
-"banner_viator_title" = "線上行程搜尋";
-
-"banner_viator_message" = "搜尋全世界 50,000 多個行程。";
-
 /* december */
 "whatsnew_traffic" = "36 個國家的交通資料";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "在路線中新增路徑點";
 
 "whatsnew_waypoints_message" = "點按地點，即可向您的路線新增路徑點。";
-
-"whatsnew_viator_title" = "預訂行程";
-
-"whatsnew_viator_message" = "選擇全世界旅遊城市的熱門行程。";
 
 "whatsnew_driving_style_title" = "新的駕駛地圖模式";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "應用程式地點存取權限被拒絕";
 
-"place_page_viator_title" = "景點和行程";
-
 "button_use" = "使用";
 
 "planning_route_manage_route" = "管理路線";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "選擇起點";
 
 "choose_destination" = "選擇目的地";
-
-"preloader_viator_title" = "探索行程與特殊活動";
-
-"preloader_viator_message" = "行程、活動、觀光等等";
 
 "preloader_viator_button" = "進一步了解";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "餐飲";
 
 "discovery_button_subtitle_local_guides" = "本地指南";
-
-"discovery_button_viator_offline_title" = "探索行程與特殊活動";
-
-"discovery_button_viator_offline_message" = "旅行、活動、觀光及其他。";
 
 "discovery_button_viator_error_title" = "載入數據時，發生錯誤";
 

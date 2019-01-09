@@ -113,7 +113,6 @@
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more</item>
     <item name="luggageLogo">@drawable/logo_luggagehero_light</item>
-    <item name="viatorLogo">@drawable/ic_logo_viator_light</item>
 
     <item name="ratingButtonBackground">@drawable/bg_rating_button</item>
 
@@ -261,7 +260,6 @@
 
     <item name="sponsoredGalleryMore">@drawable/ic_sponsored_gallery_more_night</item>
     <item name="luggageLogo">@drawable/logo_luggagehero_dark</item>
-    <item name="viatorLogo">@drawable/ic_logo_viator_dark</item>
 
     <item name="ratingButtonBackground">@drawable/bg_rating_button_night</item>
 

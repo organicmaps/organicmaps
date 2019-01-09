@@ -1034,8 +1034,6 @@
 	<string name="banner_geerbest_message">Rychlé hledání ve více než 50 000 položkách za nízké ceny.</string>
 	<string name="banner_rentalcars_title">Pronájem auta online</string>
 	<string name="banner_rentalcars_message">800 autopůjčoven na více než 49 000 místech.</string>
-	<string name="banner_viator_title">Online vyhledávání zájezdů</string>
-	<string name="banner_viator_message">Hledejte ve více než 50 000 zájezdů po celém světě.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Údaje o provozu ve 36 zemích</string>
 	<!-- december -->
@@ -1077,8 +1075,6 @@
 	<string name="whatsnew_smaller_mwm_message">Mapy vyžadují až o 20 % méně místa.</string>
 	<string name="whatsnew_waypoints_title">Body průjezdu na trase</string>
 	<string name="whatsnew_waypoints_message">Klepněte na místo a přidejte bod průjezdu.</string>
-	<string name="whatsnew_viator_title">Objednat výlet</string>
-	<string name="whatsnew_viator_message">Vyberte si oblíbené výlety v turistických městech po celém světě.</string>
 	<string name="whatsnew_driving_style_title">Nový styl mapy pro vozidla</string>
 	<string name="whatsnew_driving_style_message">Navigační režim pro auto ještě snadnější.</string>
 	<string name="more_on_bookingcom">Více na Booking.com</string>
@@ -1135,7 +1131,6 @@
 	<string name="settings_card_memory">Paměťovou kartu</string>
 	<string name="settings_storage_available">%s k dispozici</string>
 	<string name="toast_location_permission_denied">Povolení k určení polohy bylo zamítnuto</string>
-	<string name="place_page_viator_title">Atrakce a výlety</string>
 	<string name="button_use">Použít</string>
 	<string name="planning_route_manage_route">Spravovat trasu</string>
 	<string name="button_plan">Naplánovat</string>
@@ -1150,8 +1145,6 @@
 	<string name="add_my_position">Přidat moji polohu</string>
 	<string name="choose_start_point">Vybrat počáteční bod</string>
 	<string name="choose_destination">Vybrat cílové místo</string>
-	<string name="preloader_viator_title">Objevte výlety a neobvyklé aktivity</string>
-	<string name="preloader_viator_message">Výlety, aktivity, památky a více</string>
 	<string name="preloader_viator_button">Zjistit více</string>
 	<string name="whats_new_title_route">Byly vylepšeny cyklostezky a pěší trasy</string>
 	<string name="whats_new_message_route">Opravili jsme chyby, několikanásobně jsme zrychlili vypočítávání trasy a přidali jsme možnost nastavení průjezdního bodu</string>
@@ -1207,8 +1200,6 @@
 	<string name="discovery_button_subtitle_attractions">Atrakce</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Jídlo a pití</string>
 	<string name="discovery_button_subtitle_local_guides">Místní průvodci</string>
-	<string name="discovery_button_viator_offline_title">Objevte výlety a neobvyklé aktivity</string>
-	<string name="discovery_button_viator_offline_message">Výlety, aktivity, vyhlídkové jízdy a další.</string>
 	<string name="discovery_button_viator_error_title">Chyba při načítání dat</string>
 	<string name="discovery_button_other_error_message">Chyba při načítání dat</string>
 	<string name="discovery_button_other_loading_message">Probíhá načítání dat</string>

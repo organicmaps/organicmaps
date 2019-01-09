@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 autókölcsönző cég több mint 49.000 autókölcsönzési helyszínen.";
 
-"banner_viator_title" = "Utazások keresése az interneten";
-
-"banner_viator_message" = "Több mint 50.000 utazás keresése a világ minden táján.";
-
 /* december */
 "whatsnew_traffic" = "Forgalmi adatok 36 országban";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Iránypontok az útvonaltervezésben";
 
 "whatsnew_waypoints_message" = "Érintsen meg helyeket iránypontok hozzáadásához az útvonatervhez.";
-
-"whatsnew_viator_title" = "Foglaljon helyet egy utazásra";
-
-"whatsnew_viator_message" = "Válasszon népszerű városnéző utakat a világ minden táján.";
 
 "whatsnew_driving_style_title" = "Új térképstílus vezetéshez";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Alkalmazás helymeghatározási engedélye megtagadva";
 
-"place_page_viator_title" = "Látványosságok és kirándulások";
-
 "button_use" = "Használat";
 
 "planning_route_manage_route" = "Útvonal kezelése";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Válasszon egy kiindulási pontot";
 
 "choose_destination" = "Válassza ki a célt";
-
-"preloader_viator_title" = "Fedezze fel a túrákat és a szokatlan tevékenységeket";
-
-"preloader_viator_message" = "Túrák, tevékenységek, városnézés, és sok egyéb";
 
 "preloader_viator_button" = "Tudjon meg többet";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Enni és inni";
 
 "discovery_button_subtitle_local_guides" = "Helyi idegenvezetők";
-
-"discovery_button_viator_offline_title" = "Fedezze fel a túrákat és a szokatlan tevékenységeket";
-
-"discovery_button_viator_offline_message" = "Kirándulások, teendők, városnéző túrák és egyebek.";
 
 "discovery_button_viator_error_title" = "Hiba az adatok betöltésekor";
 

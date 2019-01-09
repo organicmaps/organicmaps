@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 autonvuokrausyritystä yli 49 000 autonvuokrauskohteessa.";
 
-"banner_viator_title" = "Kierrosten haku verkossa";
-
-"banner_viator_message" = "Hae yli 50 000 kierroksesta ympäri maailmaa.";
-
 /* december */
 "whatsnew_traffic" = "Liikennetiedot 36 maassa";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Reittipisteet reitillä";
 
 "whatsnew_waypoints_message" = "Lisää reittiisi reittipisteitä napauttamalla paikkoja.";
-
-"whatsnew_viator_title" = "Varaa kierros";
-
-"whatsnew_viator_message" = "Valitse suosittuja kierroksia turistikaupungeissa ympäri maailman.";
 
 "whatsnew_driving_style_title" = "Uusi karttatyyli ajettaessa";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Sovelluksen sijainnin käyttöoikeus evättiin";
 
-"place_page_viator_title" = "Nähtävyydet ja kierrokset";
-
 "button_use" = "Käytä";
 
 "planning_route_manage_route" = "Hallitse reittiä";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Valitse aloituspiste";
 
 "choose_destination" = "Valitse kohde";
-
-"preloader_viator_title" = "Tutustu kierroksiin ja epätavallisiin aktiviteetteihin";
-
-"preloader_viator_message" = "Kierroksia, aktiviteetteja, nähtävyyksien katselua ja muuta";
 
 "preloader_viator_button" = "Lisätietoja";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Syötävää ja juotavaa";
 
 "discovery_button_subtitle_local_guides" = "Paikalliset oppaat";
-
-"discovery_button_viator_offline_title" = "Tutustu kierroksiin ja epätavallisiin aktiviteetteihin";
-
-"discovery_button_viator_offline_message" = "Kierroksia, tekemistä, kiertoajeluita ja muuta.";
 
 "discovery_button_viator_error_title" = "Virhe ladattaessa tietoja";
 

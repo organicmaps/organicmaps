@@ -46,7 +46,6 @@ enum class Sections
   HotelDescription,
   HotelFacilities,
   HotelReviews,
-  SpecialProjects,
   Metainfo,
   Ad,
   Buttons,
@@ -92,11 +91,6 @@ enum class HotelReviewsRow
   ShowMore
 };
 
-enum class SpecialProject
-{
-  Viator
-};
-
 enum class MetainfoRows
 {
   OpeningHours,
@@ -139,7 +133,6 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 }  // namespace place_page
 
 @class MWMGalleryItemModel;
-@class MWMViatorItemModel;
 @class MWMUGCViewModel;
 @class MWMUGCReviewModel;
 @class MWMUGCRatingValueType;
@@ -206,10 +199,6 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (ftraits::UGCRatingCategories)ugcRatingCategories;
 - (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel;
 
-// Viator
-- (void)fillOnlineViatorSection;
-- (NSArray<MWMViatorItemModel *> *)viatorItems;
-
 // Route points
 - (RouteMarkType)routeMarkType;
 - (size_t)intermediateIndex;
@@ -244,7 +233,6 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (std::vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
 - (std::vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
 - (std::vector<place_page::MetainfoRows> const &)metainfoRows;
-- (std::vector<place_page::SpecialProject> const &)specialProjectRows;
 - (std::vector<place_page::AdRows> const &)adRows;
 - (std::vector<place_page::ButtonsRows> const &)buttonsRows;
 
@@ -257,7 +245,6 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (BOOL)isApi;
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
-- (BOOL)isViator;
 - (BOOL)isPartner;
 - (BOOL)isHolidayObject;
 - (BOOL)isBookingSearch;

@@ -27,7 +27,6 @@ set(
   com/mapswithme/maps/discovery/Locals.hpp
   com/mapswithme/maps/Framework.hpp
   com/mapswithme/maps/SearchEngine.hpp
-  com/mapswithme/maps/viator/Viator.hpp
   com/mapswithme/opengl/android_gl_utils.hpp
   com/mapswithme/opengl/androidoglcontext.hpp
   com/mapswithme/opengl/androidoglcontextfactory.hpp
@@ -68,7 +67,6 @@ set(
   com/mapswithme/maps/subway/SubwayManager.cpp
   com/mapswithme/maps/ugc/UGC.cpp
   com/mapswithme/maps/UserMarkHelper.cpp
-  com/mapswithme/maps/viator/Viator.cpp
   com/mapswithme/opengl/android_gl_utils.cpp
   com/mapswithme/opengl/androidoglcontext.cpp
   com/mapswithme/opengl/androidoglcontextfactory.cpp

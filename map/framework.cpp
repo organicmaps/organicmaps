@@ -606,15 +606,6 @@ booking::Api const * Framework::GetBookingApi(platform::NetworkPolicy const & po
   return nullptr;
 }
 
-viator::Api * Framework::GetViatorApi(platform::NetworkPolicy const & policy)
-{
-  ASSERT(m_viatorApi, ());
-  if (policy.CanUse())
-    return m_viatorApi.get();
-
-  return nullptr;
-}
-
 taxi::Engine * Framework::GetTaxiEngine(platform::NetworkPolicy const & policy)
 {
   ASSERT(m_taxiEngine, ());
@@ -1464,7 +1455,7 @@ void Framework::InitDiscoveryManager()
   CHECK(m_searchAPI.get(), ("InitDiscoveryManager() must be called after InitSearchApi()"));
   CHECK(m_cityFinder.get(), ("InitDiscoveryManager() must be called after InitCityFinder()"));
 
-  discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_viatorApi.get(), *m_localsApi.get());
+  discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_localsApi.get());
   m_discoveryManager =
       make_unique<discovery::Manager>(m_model.GetDataSource(), *m_cityFinder.get(), apis);
 }
@@ -2713,11 +2704,6 @@ discovery::Manager::Params Framework::GetDiscoveryParams(
   return p;
 }
 
-std::string Framework::GetDiscoveryViatorUrl() const
-{
-  return m_discoveryManager->GetViatorUrl(GetDiscoveryViewportCenter());
-}
-
 std::string Framework::GetDiscoveryLocalExpertsUrl() const
 {
   return m_discoveryManager->GetLocalExpertsUrl(GetDiscoveryViewportCenter());
@@ -3624,42 +3610,6 @@ void Framework::SetPlacePageLocation(place_page::Info & info)
     GetStorage().GetTopmostNodesFor(info.GetCountryId(), countries);
     info.SetTopmostCountryIds(move(countries));
   }
-}
-
-void Framework::InjectViator(place_page::Info & info)
-{
-  auto needToInject = GetDrawScale() <= scales::GetUpperWorldScale() && !info.IsSponsored() &&
-                      !info.GetCountryId().empty() &&
-                      GetStorage().IsNodeDownloaded(info.GetCountryId()) &&
-                      ftypes::IsCityChecker::Instance()(info.GetTypes());
-
-  if (!needToInject)
-    return;
-
-  auto const & country = GetStorage().CountryByCountryId(info.GetCountryId());
-  auto const mwmId = m_model.GetDataSource().GetMwmIdByCountryFile(country.GetFile());
-
-  if (!mwmId.IsAlive() || !mwmId.GetInfo()->IsRegistered())
-    return;
-
-  auto const point = MercatorBounds::FromLatLon(info.GetLatLon());
-  // 3 meters - empirically calculated search radius.
-  static double constexpr kSearchRadiusM = 3.0;
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, kSearchRadiusM);
-
-  m_model.GetDataSource().ForEachInRectForMWM(
-      [&info](FeatureType & ft) {
-        if (ft.GetFeatureType() != feature::EGeomType::GEOM_POINT || info.IsSponsored() ||
-            !ftypes::IsViatorChecker::Instance()(ft))
-        {
-          return;
-        }
-
-        info.SetSponsoredType(place_page::SponsoredType::Viator);
-        auto const & sponsoredId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-        info.SetSponsoredDescriptionUrl(viator::Api::GetCityUrl(sponsoredId));
-      },
-      rect, scales::GetUpperScale(), mwmId);
 }
 
 void Framework::FillLocalExperts(FeatureType & ft, place_page::Info & info) const

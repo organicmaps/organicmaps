@@ -1048,8 +1048,6 @@
 	<string name="banner_geerbest_message">Мгновенный поиск по более чем 50 тысячам товаров по низким ценам.</string>
 	<string name="banner_rentalcars_title">Прокат автомобилей онлайн</string>
 	<string name="banner_rentalcars_message">800 прокатных компаний в более чем 49 тысячах пунктах проката.</string>
-	<string name="banner_viator_title">Онлайн-поиск экскурсий</string>
-	<string name="banner_viator_message">Поиск по более чем 50 тысячам экскурсий по всему миру.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Пробки в 36 странах мира</string>
 	<!-- december -->
@@ -1091,8 +1089,6 @@
 	<string name="whatsnew_smaller_mwm_message">Занимают на 20% меньше места на телефоне.</string>
 	<string name="whatsnew_waypoints_title">Маршруты с промежуточными точками</string>
 	<string name="whatsnew_waypoints_message">Нажмите на объекты, чтобы включить их в маршрут.</string>
-	<string name="whatsnew_viator_title">Забронируйте экскурсию</string>
-	<string name="whatsnew_viator_message">Выбирайте популярные экскурсии в туристических городах мира.</string>
 	<string name="whatsnew_driving_style_title">Новый автомобильный стиль карт</string>
 	<string name="whatsnew_driving_style_message">Режим автомобильной навигации стал удобнее.</string>
 	<string name="more_on_bookingcom">Больше на Booking.com</string>
@@ -1150,7 +1146,6 @@
 	<string name="settings_card_memory">Карта памяти</string>
 	<string name="settings_storage_available">%s доступно</string>
 	<string name="toast_location_permission_denied">Определение местоположения запрещено</string>
-	<string name="place_page_viator_title">Экскурсии и достопримечательности</string>
 	<string name="button_use">Использовать</string>
 	<string name="planning_route_manage_route">Изменить маршрут</string>
 	<string name="button_plan">Построить</string>
@@ -1173,8 +1168,6 @@
 	<string name="add_my_position">Добавить мое местоположение</string>
 	<string name="choose_start_point">Выберите начало маршрута</string>
 	<string name="choose_destination">Выберите конец маршрута</string>
-	<string name="preloader_viator_title">Откройте для себя экскурсии и необычные туры</string>
-	<string name="preloader_viator_message">Туры, достопримечательности, экскурсии и многое другое</string>
 	<string name="preloader_viator_button">Посмотреть</string>
 	<string name="whats_new_title_route">Вело- и пешеходные маршруты стали лучше</string>
 	<string name="whats_new_message_route">Исправили ошибки, ускорили построение маршрутов в несколько раз, а также добавили промежуточные остановки</string>
@@ -1231,8 +1224,6 @@
 	<string name="discovery_button_subtitle_attractions">Достопримечательности</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Перекусить</string>
 	<string name="discovery_button_subtitle_local_guides">Местные гиды</string>
-	<string name="discovery_button_viator_offline_title">Откройте для себя туры и необычные активности</string>
-	<string name="discovery_button_viator_offline_message">Туры, активности, достопримечательности и многое другое</string>
 	<string name="discovery_button_viator_error_title">Ошибка загрузки данных</string>
 	<string name="discovery_button_other_error_message">Ошибка загрузки данных</string>
 	<string name="discovery_button_other_loading_message">Данные загружаются</string>

@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "شرکت کرایه ماشین در بیش از 49،000 مکان اجاره ماشین.";
 
-"banner_viator_title" = "جستجوی آنلاین تور";
-
-"banner_viator_message" = "جستجو در بیش از 50،000 تور در سراسر جهان.";
-
 /* december */
 "whatsnew_traffic" = "اطلاعات ترافیکی در 36 کشور";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "مسیرهای مسیریابی";
 
 "whatsnew_waypoints_message" = "مکان ها را برای افزودن ایستگاه های راه به مسیر خود ضربه بزنید.";
-
-"whatsnew_viator_title" = "رزرو تور";
-
-"whatsnew_viator_message" = "تورهای محبوب را در شهرهای توریستی در سراسر جهان انتخاب کنید.";
 
 "whatsnew_driving_style_title" = "نقشه جدید برای رانندگی";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "مجوز مکان برنامه صادر نشد";
 
-"place_page_viator_title" = "جاذبه ها و تورها";
-
 "button_use" = "استفاده";
 
 "planning_route_manage_route" = "مدیریت مسیر";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "نقطه شروع را انتخاب کنید";
 
 "choose_destination" = "یک مقصد را انتخاب کنید";
-
-"preloader_viator_title" = "تور و فعالیت های غیر معمول را کشف کنید";
-
-"preloader_viator_message" = "تور، فعالیت ها، گشت و گذار و ...";
 
 "preloader_viator_button" = "بیشتر بدانید";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "خوردن و آشامیدن";
 
 "discovery_button_subtitle_local_guides" = "راهنماهای محلی";
-
-"discovery_button_viator_offline_title" = "تورها را پیدا کنید و چیزهای غیر معمول را انجام دهید";
-
-"discovery_button_viator_offline_message" = "تور، چیزهایی که باید انجام شود، تورهای گشت و گذار و بیشتر.";
 
 "discovery_button_viator_error_title" = "خطای بارگذاری داده";
 

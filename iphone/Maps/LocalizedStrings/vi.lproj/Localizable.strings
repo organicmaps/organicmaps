@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 công ty thuê ô tô ở hơn 49.000 địa điểm thuê ô tô.";
 
-"banner_viator_title" = "Tìm kiếm tour trực tuyến";
-
-"banner_viator_message" = "Tìm hơn 50.000 trên toàn thế giới.";
-
 /* december */
 "whatsnew_traffic" = "Dữ liệu Giao thông tại 36 Quốc gia";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Điểm tọa độ trong Lộ trình";
 
 "whatsnew_waypoints_message" = "Chạm vào các điểm để thêm điểm tọa độ vào lộ trình của bạn.";
-
-"whatsnew_viator_title" = "Đặt tour du lịch";
-
-"whatsnew_viator_message" = "Chọn các tour phổ biến trong các thành phố du lịch trên toàn thế giới.";
 
 "whatsnew_driving_style_title" = "Phong cách Bản đồ Mới cho Lái xe";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Quyền định vị của ứng dụng bị từ chối";
 
-"place_page_viator_title" = "Các điểm tham quan và du lịch";
-
 "button_use" = "Sử dụng";
 
 "planning_route_manage_route" = "Quản lý lộ trình";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Chọn một điểm bắt đầu";
 
 "choose_destination" = "Chọn một điểm đến";
-
-"preloader_viator_title" = "Khám phá các tour và hoạt động khác lạ";
-
-"preloader_viator_message" = "Tour, hoạt động, ngắm cảnh, v.v…";
 
 "preloader_viator_button" = "Tìm hiểu thêm";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Ăn uống";
 
 "discovery_button_subtitle_local_guides" = "Hướng dẫn Địa phương";
-
-"discovery_button_viator_offline_title" = "Khám phá các tour du lịch và những điều lạ bạn có thể làm";
-
-"discovery_button_viator_offline_message" = "Tour du lịch, việc có thể làm, tour ngắm cảnh và nhiều hơn thế nữa.";
 
 "discovery_button_viator_error_title" = "Lỗi tải dữ liệu";
 

@@ -1033,8 +1033,6 @@
 	<string name="banner_geerbest_message">بحث سريع في أكثر من 50000 صنف بأسعار منخفضة.</string>
 	<string name="banner_rentalcars_title">إيجار السيارات على الإنترنت</string>
 	<string name="banner_rentalcars_message">800 شركة تأجير سيارات في أكثر من 49000 مكان لتأجير السيارات.</string>
-	<string name="banner_viator_title">بحث عن الرحلات على الإنترنت</string>
-	<string name="banner_viator_message">بحث في أكثر من 50000 رحلة في كافة أنحاء العالم.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">البيانات المرورية في 36 دولة</string>
 	<!-- december -->
@@ -1076,8 +1074,6 @@
 	<string name="whatsnew_smaller_mwm_message">الخرائط تتطلب مساحة تخزين أقل بمقدار 20%.</string>
 	<string name="whatsnew_waypoints_title">نقاط الطريق في المسار</string>
 	<string name="whatsnew_waypoints_message">المس الأماكن لإضافة نقاط طريق إلى المسار.</string>
-	<string name="whatsnew_viator_title">حجز جولة</string>
-	<string name="whatsnew_viator_message">اختر جولات شائعة في المدن السياحية في كافة أنحاء العالم.</string>
 	<string name="whatsnew_driving_style_title">نمط خريطة جديد للقيادة</string>
 	<string name="whatsnew_driving_style_message">وضع التنقل بالسيارة أصبح سهل الاستخدام.</string>
 	<string name="more_on_bookingcom">المزيد عن Booking.com</string>
@@ -1134,7 +1130,6 @@
 	<string name="settings_card_memory">بطاقة الذاكرة</string>
 	<string name="settings_storage_available">%s متوفر</string>
 	<string name="toast_location_permission_denied">تم رفض إذن الموقع للتطبيق</string>
-	<string name="place_page_viator_title">معالم الجذب والجولات</string>
 	<string name="button_use">استخدام</string>
 	<string name="planning_route_manage_route">إدارة المسار</string>
 	<string name="button_plan">خطة</string>
@@ -1149,8 +1144,6 @@
 	<string name="add_my_position">إضافة موضعي</string>
 	<string name="choose_start_point">اختيار نقطة البداية</string>
 	<string name="choose_destination">اختيار الوجهة</string>
-	<string name="preloader_viator_title">اكتشاف الجولات والأنشطة غير المعتادة</string>
-	<string name="preloader_viator_message">الجولات والأنشطة ومشاهدة المعالم وغيره</string>
 	<string name="preloader_viator_button">تعلم المزيد</string>
 	<string name="whats_new_title_route">تم تحسين مسارات السيارات ومسارات المشاه</string>
 	<string name="whats_new_message_route">قمنا بتصحيح الأخطاء وجعلنا عملية بناء المسارات أسرع عدة مرات، وأضفنا نقاط توقف وسيطة</string>
@@ -1206,8 +1199,6 @@
 	<string name="discovery_button_subtitle_attractions">معالم الجذب</string>
 	<string name="discovery_button_subtitle_eat_and_drink">تناول المأكولات والمشروبات</string>
 	<string name="discovery_button_subtitle_local_guides">أدلة محلية</string>
-	<string name="discovery_button_viator_offline_title">اكتشف الجولات والأشياء غير العادية التي يمكن القيام بها</string>
-	<string name="discovery_button_viator_offline_message">جولات وأشياء يمكن القيام بها وجولات مشاهدة المعالم وغيره.</string>
 	<string name="discovery_button_viator_error_title">خطأ في تحميل البيانات</string>
 	<string name="discovery_button_other_error_message">خطأ في تحميل البيانات</string>
 	<string name="discovery_button_other_loading_message">يجري تحميل البيانات</string>

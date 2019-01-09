@@ -1023,8 +1023,6 @@
 	<string name="banner_geerbest_message">Căutare instantanee printre peste 50.000 de articole la prețuri mici.</string>
 	<string name="banner_rentalcars_title">Închiriere mașini online</string>
 	<string name="banner_rentalcars_message">800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.</string>
-	<string name="banner_viator_title">Căutare excursii online</string>
-	<string name="banner_viator_message">Căutați în peste 50.000 de excursii din întreaga lume.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Date privind traficul în 36 de țări</string>
 	<!-- december -->
@@ -1066,8 +1064,6 @@
 	<string name="whatsnew_smaller_mwm_message">Hărţile necesită cu 20% mai puțin spațiu de stocare.</string>
 	<string name="whatsnew_waypoints_title">Puncte de schimbare a direcției de pe traseu</string>
 	<string name="whatsnew_waypoints_message">Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.</string>
-	<string name="whatsnew_viator_title">Rezervați un tur</string>
-	<string name="whatsnew_viator_message">Selectați dintre tururile populare din orașe turistice din întreaga lume.</string>
 	<string name="whatsnew_driving_style_title">Un nou stil de hartă pentru condus</string>
 	<string name="whatsnew_driving_style_message">Modul de navigare din mașină este acum mai ușor de utilizat.</string>
 	<string name="more_on_bookingcom">Mai multe pe Booking.com</string>
@@ -1124,7 +1120,6 @@
 	<string name="settings_card_memory">Card</string>
 	<string name="settings_storage_available">%s disponibil</string>
 	<string name="toast_location_permission_denied">Permisiune de accesare a locației respinsă</string>
-	<string name="place_page_viator_title">Atracții și tururi</string>
 	<string name="button_use">Utilizare</string>
 	<string name="planning_route_manage_route">Administrare traseu</string>
 	<string name="button_plan">Planificare</string>
@@ -1139,8 +1134,6 @@
 	<string name="add_my_position">Adaugă poziția mea</string>
 	<string name="choose_start_point">Alege un punct de plecare</string>
 	<string name="choose_destination">Alege o destinație</string>
-	<string name="preloader_viator_title">Descoperă tururi și activități neobișnuite</string>
-	<string name="preloader_viator_message">Tururi, activități, obiective turistice și multe altele</string>
 	<string name="preloader_viator_button">Află mai multe</string>
 	<string name="whats_new_title_route">Au fost îmbunătățite traseele de biciclete și de pietoni</string>
 	<string name="whats_new_message_route">Am remediat erorile, am făcut crearea traseelor mai rapidă și am adăugat opriri intermediare</string>
@@ -1196,8 +1189,6 @@
 	<string name="discovery_button_subtitle_attractions">Atracții</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Restaurante și baruri</string>
 	<string name="discovery_button_subtitle_local_guides">Ghizi locali</string>
-	<string name="discovery_button_viator_offline_title">Descoperă tururi și activități neobișnuite</string>
-	<string name="discovery_button_viator_offline_message">Tururi, activități, panorame și multe altele.</string>
 	<string name="discovery_button_viator_error_title">Eroare la încărcarea datelor</string>
 	<string name="discovery_button_other_error_message">Eroare la încărcarea datelor</string>
 	<string name="discovery_button_other_loading_message">Datele se încarcă</string>

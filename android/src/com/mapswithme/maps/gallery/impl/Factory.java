@@ -8,7 +8,6 @@ import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.search.SearchResult;
-import com.mapswithme.maps.viator.ViatorProduct;
 import com.mapswithme.util.statistics.GalleryPlacement;
 import com.mapswithme.util.statistics.GalleryState;
 import com.mapswithme.util.statistics.GalleryType;
@@ -17,44 +16,9 @@ import com.mapswithme.util.statistics.Statistics;
 import static com.mapswithme.util.statistics.GalleryState.OFFLINE;
 import static com.mapswithme.util.statistics.GalleryState.ONLINE;
 import static com.mapswithme.util.statistics.GalleryType.LOCAL_EXPERTS;
-import static com.mapswithme.util.statistics.GalleryType.VIATOR;
 
 public class Factory
 {
-  @NonNull
-  public static GalleryAdapter createViatorLoadingAdapter(
-      @Nullable String cityUrl, @Nullable ItemSelectedListener<Items.Item> listener)
-  {
-    return new GalleryAdapter<>(new ViatorLoadingAdapterStrategy(cityUrl), listener);
-  }
-
-  @NonNull
-  public static GalleryAdapter createViatorOfflineAdapter
-      (@Nullable ItemSelectedListener<Items.Item> listener, @NonNull GalleryPlacement placement)
-  {
-    Statistics.INSTANCE.trackGalleryShown(VIATOR, OFFLINE, placement);
-    return new GalleryAdapter<>(new ViatorOfflineAdapterStrategy(null), listener);
-  }
-
-  @NonNull
-  public static GalleryAdapter createViatorErrorAdapter(@Nullable String url,
-                                                        @Nullable ItemSelectedListener<Items.Item>
-                                                            listener)
-  {
-    return new GalleryAdapter<>(new ViatorErrorAdapterStrategy(url), listener);
-  }
-
-  @NonNull
-  public static GalleryAdapter createViatorAdapter(@NonNull ViatorProduct[] products,
-                                                   @Nullable String cityUrl,
-                                                   @Nullable ItemSelectedListener<Items.ViatorItem>
-                                                         listener,
-                                                   @NonNull GalleryPlacement placement)
-  {
-    trackProductGalleryShownOrError(products, VIATOR, ONLINE, placement);
-    return new GalleryAdapter<>(new ViatorAdapterStrategy(products, cityUrl), listener);
-  }
-
   @NonNull
   public static GalleryAdapter createSearchBasedAdapter(@NonNull SearchResult[] results,
                                                         @Nullable ItemSelectedListener<Items

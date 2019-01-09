@@ -1782,10 +1782,6 @@
 
 "banner_rentalcars_message" = "800 de firme care închiriază mașini în peste 49.000 de locații de închiriere mașini.";
 
-"banner_viator_title" = "Căutare excursii online";
-
-"banner_viator_message" = "Căutați în peste 50.000 de excursii din întreaga lume.";
-
 /* december */
 "whatsnew_traffic" = "Date privind traficul în 36 de țări";
 
@@ -1860,10 +1856,6 @@
 "whatsnew_waypoints_title" = "Puncte de schimbare a direcției de pe traseu";
 
 "whatsnew_waypoints_message" = "Atingeți locații pentru a adăuga puncte de schimbare a direcției pe traseu.";
-
-"whatsnew_viator_title" = "Rezervați un tur";
-
-"whatsnew_viator_message" = "Selectați dintre tururile populare din orașe turistice din întreaga lume.";
 
 "whatsnew_driving_style_title" = "Un nou stil de hartă pentru condus";
 
@@ -1977,8 +1969,6 @@
 
 "toast_location_permission_denied" = "Permisiune de accesare a locației respinsă";
 
-"place_page_viator_title" = "Atracții și tururi";
-
 "button_use" = "Utilizare";
 
 "planning_route_manage_route" = "Administrare traseu";
@@ -2018,10 +2008,6 @@
 "choose_start_point" = "Alege un punct de plecare";
 
 "choose_destination" = "Alege o destinație";
-
-"preloader_viator_title" = "Descoperă tururi și activități neobișnuite";
-
-"preloader_viator_message" = "Tururi, activități, obiective turistice și multe altele";
 
 "preloader_viator_button" = "Află mai multe";
 
@@ -2126,10 +2112,6 @@
 "discovery_button_subtitle_eat_and_drink" = "Restaurante și baruri";
 
 "discovery_button_subtitle_local_guides" = "Ghizi locali";
-
-"discovery_button_viator_offline_title" = "Descoperă tururi și activități neobișnuite";
-
-"discovery_button_viator_offline_message" = "Tururi, activități, panorame și multe altele.";
 
 "discovery_button_viator_error_title" = "Eroare la încărcarea datelor";
 

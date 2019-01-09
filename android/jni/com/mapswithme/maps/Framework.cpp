@@ -623,17 +623,6 @@ taxi::RideRequestLinks Framework::GetTaxiLinks(JNIEnv * env, jobject policy, tax
   return taxiEngine->GetRideRequestLinks(type, productId, from, to);
 }
 
-void Framework::RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,
-                                      std::string const & currency,
-                                      viator::GetTop5ProductsCallback const & callback)
-{
-  auto const viatorApi = m_work.GetViatorApi(ToNativeNetworkPolicy(env, policy));
-  if (!viatorApi)
-    return;
-
-  viatorApi->GetTop5Products(destId, currency, callback);
-}
-
 void Framework::RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback)
 {
   m_work.GetUGC(fid, ugcCallback);

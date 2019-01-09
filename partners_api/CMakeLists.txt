@@ -50,8 +50,6 @@ set(
   uber_api.hpp
   utils.cpp
   utils.hpp
-  viator_api.cpp
-  viator_api.hpp
   yandex_api.cpp
   yandex_api.hpp
 )

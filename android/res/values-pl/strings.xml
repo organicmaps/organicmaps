@@ -1030,8 +1030,6 @@
 	<string name="banner_geerbest_message">Natychmiastowe wyszukiwanie ponad 50.000 towarów w niskich cenach.</string>
 	<string name="banner_rentalcars_title">Wynajem samochodów online</string>
 	<string name="banner_rentalcars_message">800 wypożyczalni samochodów w ponad 49.000 miejscowościach.</string>
-	<string name="banner_viator_title">Wyszukiwanie podróży online</string>
-	<string name="banner_viator_message">Szukaj spośród 50.000 podróży na całym świecie.</string>
 	<!-- december -->
 	<string name="whatsnew_traffic">Dane o ruchu w 36 krajach</string>
 	<!-- december -->
@@ -1073,8 +1071,6 @@
 	<string name="whatsnew_smaller_mwm_message">Mapy wymagają o 20% mniej pamięci.</string>
 	<string name="whatsnew_waypoints_title">Punkty nawigacyjne w trasowaniu</string>
 	<string name="whatsnew_waypoints_message">Naciśnij punkt nawigacyjny, aby dodać go do trasy.</string>
-	<string name="whatsnew_viator_title">Zarezerwuj wycieczkę</string>
-	<string name="whatsnew_viator_message">Wybieraj popularne wycieczki w turystycznych miastach z całego świata.</string>
 	<string name="whatsnew_driving_style_title">Nowy styl mapy dla jazdy</string>
 	<string name="whatsnew_driving_style_message">Uproszczono tryb nawigacji pojazdu.</string>
 	<string name="more_on_bookingcom">Więcej na Booking.com</string>
@@ -1131,7 +1127,6 @@
 	<string name="settings_card_memory">Pamięć na karcie</string>
 	<string name="settings_storage_available">dostępne %s</string>
 	<string name="toast_location_permission_denied">Odmowa dla aplikacji uprawnień do lokalizacji</string>
-	<string name="place_page_viator_title">Atrakcje i wycieczki</string>
 	<string name="button_use">Użyj</string>
 	<string name="planning_route_manage_route">Zarządzaj trasą</string>
 	<string name="button_plan">Zaplanuj</string>
@@ -1146,8 +1141,6 @@
 	<string name="add_my_position">Dodaj moją pozycję</string>
 	<string name="choose_start_point">Wybierz punkty początkowy</string>
 	<string name="choose_destination">Wybierz punkt docelowy</string>
-	<string name="preloader_viator_title">Odkrywaj wycieczki i nietypowe aktywności</string>
-	<string name="preloader_viator_message">Turyści, aktywności, zwiedzanie i wiele innych</string>
 	<string name="preloader_viator_button">Dowiedz się więcej</string>
 	<string name="whats_new_title_route">Poprawione trasy rowerowe i piesze</string>
 	<string name="whats_new_message_route">Naprawione błędy, wielokrotnie szybsze budowanie tras, dodane postoje</string>
@@ -1203,8 +1196,6 @@
 	<string name="discovery_button_subtitle_attractions">Atrakcje</string>
 	<string name="discovery_button_subtitle_eat_and_drink">Jedzenie i picie</string>
 	<string name="discovery_button_subtitle_local_guides">Przewodniki po okolicy</string>
-	<string name="discovery_button_viator_offline_title">Odkrywaj wycieczki i nietypowe atrakcje</string>
-	<string name="discovery_button_viator_offline_message">Wycieczki, atrakcje, zwiedzanie i wiele innych.</string>
 	<string name="discovery_button_viator_error_title">Błąd wczytywania danych</string>
 	<string name="discovery_button_other_error_message">Błąd wczytywania danych</string>
 	<string name="discovery_button_other_loading_message">Wczytywanie danych</string>

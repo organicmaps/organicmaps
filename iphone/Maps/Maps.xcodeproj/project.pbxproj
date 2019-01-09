@@ -269,7 +269,6 @@
 		34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6231C2D551900FE1BEC /* MWMInputValidatorFactory.mm */; };
 		34ABA6291C2D567B00FE1BEC /* MWMInputLoginValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA6271C2D567B00FE1BEC /* MWMInputLoginValidator.mm */; };
 		34ABA62D1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62B1C2D57D500FE1BEC /* MWMInputPasswordValidator.mm */; };
-		34AC8FBB1EFBAD1900E7F910 /* ViatorElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */; };
 		34AC8FD11EFC02C000E7F910 /* MWMRoutePoint.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FC71EFC01F500E7F910 /* MWMRoutePoint.mm */; };
 		34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */; };
 		34B1104C1FC8474D0010F76F /* CoreActionSheetPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B1104A1FC843420010F76F /* CoreActionSheetPicker.framework */; };
@@ -335,10 +334,6 @@
 		34E776141F14B17F003040B3 /* AvailableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E776121F14B17F003040B3 /* AvailableArea.swift */; };
 		34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E7761D1F14DB48003040B3 /* PlacePageArea.swift */; };
 		34E776331F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */; };
-		34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */; };
-		34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */; };
-		34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EE25A41EFA6AD400F870AB /* ViatorElement.xib */; };
-		34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EE25A81EFA726400F870AB /* ViatorItemModel.swift */; };
 		34EF94291C05A6F30050B714 /* MWMSegue.mm in Sources */ = {isa = PBXBuildFile; fileRef = F607C18D1C047FDC00B53A87 /* MWMSegue.mm */; };
 		34F1ADD31F6BC09E001CE79D /* PPPReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F1ADD11F6BC09E001CE79D /* PPPReview.swift */; };
 		34F4072C1E9E1AFF00E57AC0 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F4071D1E9E1AFF00E57AC0 /* Banner.swift */; };
@@ -619,7 +614,6 @@
 		F69CE8DA1E5C5088002B5881 /* PPHotelCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69CE8D81E5C5088002B5881 /* PPHotelCarouselCell.xib */; };
 		F69CE8DE1E5C51AB002B5881 /* CarouselElement.xib in Resources */ = {isa = PBXBuildFile; fileRef = F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */; };
 		F6A2184A1CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */; };
-		F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */; };
 		F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD1D1F1CA412920047B8E8 /* MWMOsmAuthAlert.mm */; };
 		F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6C16A671F9626B2000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
@@ -1197,7 +1191,6 @@
 		34ABA62E1C2D58F300FE1BEC /* MWMInputEmailValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMInputEmailValidator.h; sourceTree = "<group>"; };
 		34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMInputEmailValidator.mm; sourceTree = "<group>"; };
 		34AC7F901F06538B0050DE2B /* MWMPlacePageTaxiProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageTaxiProvider.h; sourceTree = "<group>"; };
-		34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViatorElement.swift; sourceTree = "<group>"; };
 		34AC8FC71EFC01F500E7F910 /* MWMRoutePoint.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutePoint.mm; sourceTree = "<group>"; };
 		34AC8FC81EFC01F500E7F910 /* MWMRoutePoint+CPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWMRoutePoint+CPP.h"; sourceTree = "<group>"; };
 		34AC8FD91EFC062400E7F910 /* UILabel+NumberOfVisibleLines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+NumberOfVisibleLines.swift"; sourceTree = "<group>"; };
@@ -1290,10 +1283,6 @@
 		34E7761D1F14DB48003040B3 /* PlacePageArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePageArea.swift; sourceTree = "<group>"; };
 		34E776301F15FAC2003040B3 /* MWMPlacePageManagerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMPlacePageManagerHelper.h; sourceTree = "<group>"; };
 		34E776311F15FAC2003040B3 /* MWMPlacePageManagerHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMPlacePageManagerHelper.mm; sourceTree = "<group>"; };
-		34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPViatorCarouselCell.swift; sourceTree = "<group>"; };
-		34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPViatorCarouselCell.xib; sourceTree = "<group>"; };
-		34EE25A41EFA6AD400F870AB /* ViatorElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViatorElement.xib; sourceTree = "<group>"; };
-		34EE25A81EFA726400F870AB /* ViatorItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViatorItemModel.swift; sourceTree = "<group>"; };
 		34F1ADD11F6BC09E001CE79D /* PPPReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPReview.swift; sourceTree = "<group>"; };
 		34F4071D1E9E1AFF00E57AC0 /* Banner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
 		34F4071E1E9E1AFF00E57AC0 /* BannersCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannersCache.swift; sourceTree = "<group>"; };
@@ -1687,7 +1676,6 @@
 		F69CE8DC1E5C51AB002B5881 /* CarouselElement.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarouselElement.xib; sourceTree = "<group>"; };
 		F6A218471CA3F26800BE2CC6 /* MWMEditorViralActivityItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralActivityItem.h; sourceTree = "<group>"; };
 		F6A218481CA3F26800BE2CC6 /* MWMEditorViralActivityItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMEditorViralActivityItem.mm; sourceTree = "<group>"; };
-		F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryViatorCollectionHolderCell.xib; sourceTree = "<group>"; };
 		F6BBF2C41B4FFB72000CF8E2 /* MWMLocationAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMLocationAlert.h; sourceTree = "<group>"; };
 		F6BBF2C51B4FFB72000CF8E2 /* MWMLocationAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMLocationAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6BBF2C71B4FFB8C000CF8E2 /* MWMLocationAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMLocationAlert.xib; sourceTree = "<group>"; };
@@ -3235,18 +3223,6 @@
 			path = AvailableArea;
 			sourceTree = "<group>";
 		};
-		34EE259B1EFA681000F870AB /* ViatorCells */ = {
-			isa = PBXGroup;
-			children = (
-				34EE259C1EFA682D00F870AB /* PPViatorCarouselCell.swift */,
-				34EE25A01EFA68BC00F870AB /* PPViatorCarouselCell.xib */,
-				34AC8FB91EFBAD1900E7F910 /* ViatorElement.swift */,
-				34EE25A41EFA6AD400F870AB /* ViatorElement.xib */,
-				34EE25A81EFA726400F870AB /* ViatorItemModel.swift */,
-			);
-			path = ViatorCells;
-			sourceTree = "<group>";
-		};
 		34F4071C1E9E1AFF00E57AC0 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
@@ -4063,7 +4039,6 @@
 				F6E2FCC11E097B9F0083EBEC /* RegularCell */,
 				F6E2FCC61E097B9F0083EBEC /* TaxiCell */,
 				F68BDF181EF80DCC0009BB81 /* UGC */,
-				34EE259B1EFA681000F870AB /* ViatorCells */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -4328,7 +4303,6 @@
 				F603E05C1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib */,
 				F5BD246A7E6BE8CD8600EDD9 /* DiscoverySpinnerCell.swift */,
 				F61757E71FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib */,
-				F6A806511FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib */,
 				F6E407CD1FC45EF5001F7821 /* MWMDiscoveryController.h */,
 				F6E407CE1FC45EF5001F7821 /* MWMDiscoveryController.mm */,
 				F6E407D21FC4722F001F7821 /* MWMDiscoveryController.xib */,
@@ -4556,7 +4530,6 @@
 				4560F585213D53C100CC736C /* shaders_metal.metallib in Resources */,
 				F642D1231F0F9D1D005E3C25 /* ugc_types.csv in Resources */,
 				34E50DFB1F6FCC96008EED49 /* UGCReviewCell.xib in Resources */,
-				34EE25A21EFA68BC00F870AB /* PPViatorCarouselCell.xib in Resources */,
 				3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */,
 				6741A9531BF340DE002C974C /* 01_dejavusans.ttf in Resources */,
 				6741A9541BF340DE002C974C /* 02_droidsans-fallback.ttf in Resources */,
@@ -4614,7 +4587,6 @@
 				6741A9881BF340DE002C974C /* MWMAPIBarView.xib in Resources */,
 				F6E2FE641E097BA00083EBEC /* MWMBookmarkCell.xib in Resources */,
 				B366130B20D5E2E000E7DC3E /* CatalogCategoryCell.xib in Resources */,
-				34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				F6E2FD951E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				F6E2FD9B1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
 				4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */,
@@ -4681,7 +4653,6 @@
 				33BCD61621777A7400CA30B4 /* BookmarksSharingFlow.storyboard in Resources */,
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
-				F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
 				3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */,
 				F6E2FE0D1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE161E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
@@ -4935,7 +4906,6 @@
 				349D1ABC1E2D05EF004A2006 /* SearchBar.swift in Sources */,
 				F6E2FD7A1E097BA00083EBEC /* MWMMapDownloaderDefaultDataSource.mm in Sources */,
 				34E50DF81F6FCC96008EED49 /* UGCReviewCell.swift in Sources */,
-				34AC8FBB1EFBAD1900E7F910 /* ViatorElement.swift in Sources */,
 				F6E2FF3F1E097BA00083EBEC /* MWMSearchTableViewController.mm in Sources */,
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
 				F69739DC1FD6ECCE00FDA07D /* DiscoveryLocalExpertCell.swift in Sources */,
@@ -5265,7 +5235,6 @@
 				F69CE8D61E5C49B4002B5881 /* PPHotelCarouselCell.swift in Sources */,
 				F6FEA82E1C58F108007223CC /* MWMButton.mm in Sources */,
 				3445324E1F714FD70059FBCC /* UGCAddReviewController.swift in Sources */,
-				34EE259E1EFA682D00F870AB /* PPViatorCarouselCell.swift in Sources */,
 				34B924431DC8A29C0008D971 /* MWMMailViewController.mm in Sources */,
 				340475651E081A4600C92850 /* MWMRouter.mm in Sources */,
 				47E3C72F2111F472008B3B27 /* CoverVerticalModalTransitioning.swift in Sources */,
@@ -5289,7 +5258,6 @@
 				4788739220EE326500F6826B /* VerticallyAlignedButton.swift in Sources */,
 				3444DFDE1F18A5AF00E73099 /* SideButtonsArea.swift in Sources */,
 				3451F4EE1F026DAF00A981F2 /* PlacePageTaxiCell.swift in Sources */,
-				34EE25AA1EFA726400F870AB /* ViatorItemModel.swift in Sources */,
 				3404F48E2028966C0090E401 /* BMCViewModel.swift in Sources */,
 				3467CEB6202C6FA900D3C670 /* BMCNotificationsCell.swift in Sources */,
 				34B846A32029DFEB0081ECCD /* BMCPermissionsHeader.swift in Sources */,

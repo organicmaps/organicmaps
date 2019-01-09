@@ -47,7 +47,6 @@ struct GenerateInfo
 
   std::string m_bookingDatafileName;
   std::string m_opentableDatafileName;
-  std::string m_viatorDatafileName;
 
   std::string m_brandsFilename;
   std::string m_brandsTranslationsFilename;
