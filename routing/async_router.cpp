@@ -425,9 +425,9 @@ void AsyncRouter::CalculateRoute()
   vector<string> absent;
   if (absentFetcher && needFetchAbsent)
     absentFetcher->GetAbsentCountries(absent);
-  absent.insert(absent.end(), route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
 
-  if (!absent.empty() && code == RouterResultCode::NoError)
+  absent.insert(absent.end(), route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
+  if (!absent.empty())
     code = RouterResultCode::NeedMoreMaps;
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
