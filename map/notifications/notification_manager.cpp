@@ -16,7 +16,7 @@ using namespace notifications;
 namespace
 {
 auto constexpr kCandidatesExpirePeriod = std::chrono::hours(24 * 30);
-auto constexpr kPeriodBetweenNotifications = std::chrono::hours(24 * 7);
+auto constexpr kPeriodBetweenNotifications = std::chrono::hours(24);
 auto constexpr kMinTimeSinceLastEventForUgcRate = std::chrono::hours(24);
 
 double constexpr kMinDistanceToTriggerUgcRateInMeters = 50000.0;  // 50 km
