@@ -1143,6 +1143,7 @@ sponsored|banner|deliveryclub
 sponsored|banner|tutu
 sponsored|banner|geerbest_uk
 sponsored|banner|rentalcars
+mapswithme
 sponsored|banner|geerbest_de
 sponsored|banner|geerbest_fr
 sponsored|banner|raileurope
@@ -1152,6 +1153,7 @@ tourism|gallery
 historic|fort
 shop|coffee
 shop|tea
+mapswithme
 mapswithme
 hwtag|toll
 amenity|arts_centre
