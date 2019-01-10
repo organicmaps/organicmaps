@@ -113,6 +113,6 @@ public class FeatureId implements Parcelable
   @Override
   public String toString()
   {
-    return LightFramework.makeFeatureId(mMwmName, mMwmVersion, mFeatureIndex);
+    return LightFramework.nativeMakeFeatureId(mMwmName, mMwmVersion, mFeatureIndex);
   }
 }

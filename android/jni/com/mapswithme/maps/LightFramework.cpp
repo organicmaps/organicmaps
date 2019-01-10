@@ -40,10 +40,10 @@ Java_com_mapswithme_maps_LightFramework_nativeMakeFeatureId(JNIEnv * env, jclass
                                                             jint featureIndex)
 {
   auto const featureId = FeatureParamsToString(
-    static_cast<uint64_t>(mwmVersion), jni::ToNativeString(env, mwmName),
+    static_cast<int64_t>(mwmVersion), jni::ToNativeString(env, mwmName),
     static_cast<uint32_t>(featureIndex));
 
-  return static_cast<jstring>(jni::ToJavaString(env, featureId));
+  return jni::ToJavaString(env, featureId);
 }
 
 JNIEXPORT jobjectArray JNICALL
