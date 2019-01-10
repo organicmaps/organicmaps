@@ -22,8 +22,8 @@ namespace vulkan
 {
 namespace
 {
-std::string const kShadersDir = "vulkan_shaders/";
-std::string const kShadersReflecton = kShadersDir + "reflection.json";
+std::string const kShadersDir = "vulkan_shaders";
+std::string const kShadersReflecton = "reflection.json";
 
 std::vector<uint32_t> ReadShaderFile(std::string const & filename)
 {
@@ -118,18 +118,16 @@ VkShaderModule LoadShaderModule(VkDevice device, std::string const & filename)
 VulkanProgramPool::VulkanProgramPool(VkDevice device)
   : m_device(device)
 {
-  auto reflection = ReadReflectionFile(kShadersReflecton);
+  auto reflection = ReadReflectionFile(base::JoinPath(kShadersDir, kShadersReflecton));
   CHECK_EQUAL(reflection.size(), static_cast<size_t>(Program::ProgramsCount), ());
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
   {
     auto const programName = DebugPrint(static_cast<Program>(i));
-    auto const shaderPath = kShadersDir + programName;
-
     m_programs[i] = make_unique_dp<dp::vulkan::VulkanGpuProgram>(
       programName,
       std::move(reflection[i]),
-      LoadShaderModule(device, shaderPath + ".vert.spv"),
-      LoadShaderModule(device, shaderPath + ".frag.spv"));
+      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
+      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
   }
 
   ProgramParams::Init();
