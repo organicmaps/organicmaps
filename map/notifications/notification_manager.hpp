@@ -30,6 +30,7 @@ public:
   void TrimExpired();
 
   boost::optional<NotificationCandidate> GetNotification();
+  size_t GetCandidatesCount() const;
 
   // eye::Subscriber overrides:
   void OnMapObjectEvent(eye::MapObject const & poi) override;

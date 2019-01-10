@@ -556,6 +556,10 @@ Framework::Framework(FrameworkParams const & params)
 
   m_notificationManager.Load();
   m_notificationManager.TrimExpired();
+
+  alohalytics::Stats::Instance().LogEvent("UGC_ReviewNotification_queue",
+    {{"unshown", std::to_string(m_notificationManager.GetCandidatesCount())}});
+
   eye::Eye::Instance().TrimExpired();
   eye::Eye::Instance().Subscribe(&m_notificationManager);
 

@@ -169,6 +169,11 @@ boost::optional<NotificationCandidate> NotificationManager::GetNotification()
   return *it;
 }
 
+size_t NotificationManager::GetCandidatesCount() const
+{
+  return m_queue.m_candidates.size();
+}
+
 void NotificationManager::OnMapObjectEvent(eye::MapObject const & poi)
 {
   CHECK(m_delegate.GetUGCApi(), ());
