@@ -20,6 +20,7 @@ set(
   routing_test_tools.hpp
   speed_camera_notifications_tests.cpp
   street_names_test.cpp
+  transit_route_test.cpp
   turn_test.cpp
 )
 

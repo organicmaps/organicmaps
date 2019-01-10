@@ -29,11 +29,10 @@
 
 #include "base/math.hpp"
 
-#include "std/functional.hpp"
-#include "std/limits.hpp"
-
 #include "private.h"
 
+#include <functional>
+#include <limits>
 #include <memory>
 #include <sys/resource.h>
 
@@ -341,6 +340,60 @@ void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPo
          ("Can't find ", mwmName));
     foundMwms.insert(mwmName);
   }
+
   TEST_EQUAL(expected.size(), foundMwms.size(), ());
+}
+
+bool IsSubwayExists(Route const & route)
+{
+  auto const & routeSegments = route.GetRouteSegments();
+
+  bool intoSubway = false;
+  bool wasSubway = false;
+
+  for (auto const & routeSegment : routeSegments)
+  {
+    if (!routeSegment.HasTransitInfo())
+    {
+      intoSubway = false;
+      continue;
+    }
+
+    switch (routeSegment.GetTransitInfo().GetType())
+    {
+    case TransitInfo::Type::Gate:
+    {
+      if (intoSubway)
+      {
+        // Out from subway
+        intoSubway = false;
+        wasSubway = true;
+      }
+      else
+      {
+        // Enter into subway
+        intoSubway = true;
+      }
+      break;
+    }
+    case TransitInfo::Type::Edge:
+    case TransitInfo::Type::Transfer:
+      break;
+    }
+  }
+
+  return wasSubway;
+}
+
+void CheckSubwayAbsent(Route const & route)
+{
+  bool wasSubway = IsSubwayExists(route);
+  TEST(!wasSubway, ("Find subway subpath into route."));
+}
+
+void CheckSubwayExistence(Route const & route)
+{
+  bool wasSubway = IsSubwayExists(route);
+  TEST(wasSubway, ("Can not find subway subpath into route."));
 }
 }  // namespace

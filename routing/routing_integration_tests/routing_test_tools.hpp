@@ -9,12 +9,11 @@
 
 #include "platform/local_country_file.hpp"
 
-#include "std/set.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <memory>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 /*
  * These tests are developed to simplify routing integration tests writing.
@@ -130,6 +129,9 @@ void CalculateRouteAndTestRouteLength(IRouterComponents const & routerComponents
                                       m2::PointD const & startDirection,
                                       m2::PointD const & finalPoint, double expectedRouteMeters,
                                       double relativeError = 0.07);
+
+void CheckSubwayExistence(Route const & route);
+void CheckSubwayAbsent(Route const & route);
 
 class TestTurn
 {
