@@ -76,7 +76,7 @@ public class GeofenceTransitionsIntentService extends JobIntentService
     }
     catch (InterruptedException e)
     {
-      LOG.e(TAG, "Failed to make location probe for '" + geofencingEvent + "\'", e);
+      LOG.e(TAG, "Failed to make location probe for '" + geofencingEvent + "'", e);
     }
   }
 
