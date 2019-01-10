@@ -85,12 +85,6 @@ void Texture::SetFilter(TextureFilter filter)
 }
 
 // static
-uint32_t Texture::GetMaxTextureSize()
-{
-  return static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
-}
-
-// static
 bool Texture::IsPowerOfTwo(uint32_t width, uint32_t height)
 {
   return glm::isPowerOfTwo(static_cast<int>(width)) && glm::isPowerOfTwo(static_cast<int>(height));

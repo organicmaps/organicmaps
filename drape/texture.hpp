@@ -72,7 +72,6 @@ public:
   
   ref_ptr<HWTexture> GetHardwareTexture() const;
 
-  static uint32_t GetMaxTextureSize();
   static bool IsPowerOfTwo(uint32_t width, uint32_t height);
 
 protected:

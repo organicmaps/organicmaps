@@ -54,6 +54,7 @@ public:
   void ResetSurface();
 
   VkDevice GetDevice() const { return m_device; }
+  VkPhysicalDeviceProperties const & GetGpuProperties() const { return m_gpuProperties; }
 
 protected:
   VkInstance const m_vulkanInstance;
@@ -63,7 +64,6 @@ protected:
   VkPhysicalDeviceProperties m_gpuProperties;
 
   boost::optional<VkSurfaceKHR> m_surface;
-  m2::PointU m_maxTextureSize;
 
   uint32_t m_stencilReferenceValue = 1;
 };

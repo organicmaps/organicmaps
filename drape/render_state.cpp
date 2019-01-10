@@ -283,7 +283,9 @@ void ApplyState(ref_ptr<GraphicsContext> context, ref_ptr<GpuProgram> program, R
     ASSERT_GREATER_OR_EQUAL(state.GetLineWidth(), 0, ());
     GLFunctions::glLineWidth(static_cast<uint32_t>(state.GetLineWidth()));
   }
-
-  //TODO(@rokuz, @darina): Check if Vulkan support line width.
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    //TODO(@rokuz, @darina): Implement.
+  }
 }
 }  // namespace dp

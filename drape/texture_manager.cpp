@@ -5,6 +5,7 @@
 #include "drape/stipple_pen_resource.hpp"
 #include "drape/texture_of_colors.hpp"
 #include "drape/gl_functions.hpp"
+#include "drape/support_manager.hpp"
 #include "drape/utils/glyph_usage_tracker.hpp"
 
 #include "platform/platform.hpp"
@@ -477,17 +478,10 @@ void TextureManager::Init(ref_ptr<dp::GraphicsContext> context, Params const & p
   m_resPostfix = params.m_resPostfix;
   m_textureAllocator = CreateAllocator(context);
 
+  m_maxTextureSize = std::min(kMaxTextureSize, dp::SupportManager::Instance().GetMaxTextureSize());
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
-  {
-    m_maxTextureSize = std::min(kMaxTextureSize,
-                                static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize)));
     GLFunctions::glPixelStore(gl_const::GLUnpackAlignment, 1);
-  }
-  else
-  {
-    m_maxTextureSize = kMaxTextureSize;
-  }
 
   // Initialize symbols.
   for (size_t i = 0; i < ARRAY_SIZE(kSymbolTextures); ++i)

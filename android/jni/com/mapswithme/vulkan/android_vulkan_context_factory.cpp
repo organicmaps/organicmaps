@@ -178,7 +178,10 @@ AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
   m_layers->Uninitialize(m_vulkanInstance);
 
   if (m_device != nullptr)
+  {
+    vkDeviceWaitIdle(m_device);
     vkDestroyDevice(m_device, nullptr);
+  }
 
   if (m_vulkanInstance != nullptr)
     vkDestroyInstance(m_vulkanInstance, nullptr);

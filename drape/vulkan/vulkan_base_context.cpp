@@ -50,6 +50,8 @@ void VulkanBaseContext::SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat,
 
 void VulkanBaseContext::ResetSurface()
 {
+  vkDeviceWaitIdle(m_device);
+
   //TODO: reset swapchains, image views and so on.
   m_surface.reset();
 }

@@ -1,5 +1,6 @@
 #include "drape/support_manager.hpp"
 #include "drape/gl_functions.hpp"
+#include "drape/vulkan/vulkan_base_context.hpp"
 
 #include "platform/settings.hpp"
 
@@ -19,17 +20,15 @@ char const * kSupportedAntialiasing = "Antialiasing";
 
 void SupportManager::Init(ref_ptr<GraphicsContext> context)
 {
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (m_isInitialized)
+    return;
+
   std::string const renderer = context->GetRendererName();
   std::string const version = context->GetRendererVersion();
   LOG(LINFO, ("Renderer =", renderer, "| Api =", context->GetApiVersion(), "| Version =", version));
 
-  // On Android the engine may be recreated. Here we guarantee that GPU info is sent once per session.
-  static bool gpuInfoSent = false;
-  if (!gpuInfoSent)
-  {
-    alohalytics::Stats::Instance().LogEvent("GPU", renderer);
-    gpuInfoSent = true;
-  }
+  alohalytics::Stats::Instance().LogEvent("GPU", renderer);
 
   m_isSamsungGoogleNexus = (renderer == "PowerVR SGX 540" && version.find("GOOGLENEXUS.ED945322") != string::npos);
   if (m_isSamsungGoogleNexus)
@@ -53,15 +52,26 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
   if (m_isTegra)
     LOG(LINFO, ("NVidia Tegra device detected."));
 
-  // Metal does not support thick lines.
   auto const apiVersion = context->GetApiVersion();
   if (apiVersion == dp::ApiVersion::OpenGLES2 || apiVersion == dp::ApiVersion::OpenGLES3)
   {
-    m_maxLineWidth = std::max(1, GLFunctions::glGetMaxLineWidth());
-    LOG(LINFO, ("Max line width =", m_maxLineWidth));
+    m_maxLineWidth = static_cast<float>(std::max(1, GLFunctions::glGetMaxLineWidth()));
+    m_maxTextureSize = static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
   }
-
-  //TODO(@rokuz, @darina): Check if Vulkan support line width.
+  else if (apiVersion == dp::ApiVersion::Metal)
+  {
+    // Metal does not support thick lines.
+    m_maxLineWidth = 1.0f;
+    m_maxTextureSize = 4096;
+  }
+  else if (apiVersion == dp::ApiVersion::Vulkan)
+  {
+    ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
+    auto const & props = vulkanContext->GetGpuProperties();
+    m_maxLineWidth = std::max(props.limits.lineWidthRange[0], props.limits.lineWidthRange[1]);
+    m_maxTextureSize = vulkanContext->GetGpuProperties().limits.maxImageDimension2D;
+  }
+  LOG(LINFO, ("Max line width =", m_maxLineWidth,"| Max texture size =", m_maxTextureSize));
 
   // Set up default antialiasing value.
   // Turn off AA for a while by energy-saving issues.
@@ -78,6 +88,8 @@ void SupportManager::Init(ref_ptr<GraphicsContext> context)
 //#endif
 //    settings::Set(kSupportedAntialiasing, m_isAntialiasingEnabledByDefault);
 //  }
+
+  m_isInitialized = true;
 }
 
 SupportManager & SupportManager::Instance()

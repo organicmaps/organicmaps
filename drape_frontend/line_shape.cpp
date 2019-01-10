@@ -472,7 +472,7 @@ bool LineShape::CanBeSimplified(int & lineWidth) const
   if (m_params.m_zoomLevel > 0 && m_params.m_zoomLevel <= scales::GetUpperCountryScale())
     return false;
 
-  static float width = std::min(2.5f, static_cast<float>(dp::SupportManager::Instance().GetMaxLineWidth()));
+  static float width = std::min(2.5f, dp::SupportManager::Instance().GetMaxLineWidth());
   if (m_params.m_width <= width)
   {
     lineWidth = std::max(1, static_cast<int>(m_params.m_width));

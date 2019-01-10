@@ -13,6 +13,7 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "drape/support_manager.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "indexer/scales.hpp"
@@ -616,6 +617,7 @@ void BackendRenderer::OnContextCreate()
   m_contextFactory->WaitForInitialization(m_context.get());
   m_context->MakeCurrent();
   m_context->Init(m_apiVersion);
+  dp::SupportManager::Instance().Init(m_context);
 
   //TODO(@rokuz, @darina): TEMPORARY
   return;
