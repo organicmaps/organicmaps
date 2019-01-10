@@ -25,7 +25,7 @@ Index::Index(Hierarchy const & hierarchy) : m_docs(hierarchy.GetEntries())
   LOG(LINFO, ("Indexing hierarchy entries..."));
   AddEntries();
   LOG(LINFO, ("Indexing houses..."));
-  AddHouses(hierarchy);
+  AddHouses();
 }
 
 Index::Doc const & Index::GetDoc(DocId const id) const
@@ -34,7 +34,8 @@ Index::Doc const & Index::GetDoc(DocId const id) const
   return m_docs[static_cast<size_t>(id)];
 }
 
-string Index::MakeIndexKey(Tokens const & tokens) const
+// static
+string Index::MakeIndexKey(Tokens const & tokens)
 {
   return strings::JoinStrings(tokens, " ");
 }
@@ -85,10 +86,10 @@ void Index::AddStreet(DocId const & docId, Index::Doc const & doc)
   }
 }
 
-void Index::AddHouses(Hierarchy const & hierarchy)
+void Index::AddHouses()
 {
   size_t numIndexed = 0;
-  for (DocId docId = 0; docId < static_cast<DocId>(hierarchy.GetEntries().size()); ++docId)
+  for (DocId docId = 0; docId < static_cast<DocId>(m_docs.size()); ++docId)
   {
     auto const & buildingDoc = GetDoc(docId);
 
@@ -99,7 +100,7 @@ void Index::AddHouses(Hierarchy const & hierarchy)
 
     ForEachDocId(buildingDoc.m_address[t], [&](DocId const & streetCandidate) {
       auto const & streetDoc = GetDoc(streetCandidate);
-      if (hierarchy.IsParent(streetDoc, buildingDoc))
+      if (streetDoc.IsParentTo(buildingDoc))
       {
         m_buildingsOnStreet[streetCandidate].emplace_back(docId);
 

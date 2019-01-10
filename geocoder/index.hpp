@@ -14,11 +14,11 @@ namespace geocoder
 class Index
 {
 public:
+  using Doc = Hierarchy::Entry;
+
   // Number of the entry in the list of all hierarchy entries
   // that the index was constructed from.
-  using DocId = uint32_t;
-
-  using Doc = Hierarchy::Entry;
+  using DocId = std::vector<Doc>::size_type;
 
   explicit Index(Hierarchy const & hierarchy);
 
@@ -56,7 +56,7 @@ public:
 private:
   // Converts |tokens| to a single UTF-8 string that can be used
   // as a key in the |m_docIdsByTokens| map.
-  std::string MakeIndexKey(Tokens const & tokens) const;
+  static std::string MakeIndexKey(Tokens const & tokens);
 
   // Adds address information of |m_docs| to the index.
   void AddEntries();
@@ -66,7 +66,7 @@ private:
   void AddStreet(DocId const & docId, Doc const & e);
 
   // Fills the |m_buildingsOnStreet| field.
-  void AddHouses(Hierarchy const & hierarchy);
+  void AddHouses();
 
   std::vector<Doc> const & m_docs;
 

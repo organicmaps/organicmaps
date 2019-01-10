@@ -337,7 +337,7 @@ bool Geocoder::HasParent(vector<Geocoder::Layer> const & layers, Hierarchy::Entr
     // Note that the relationship is somewhat inverted: every ancestor
     // is stored in the address but the nodes have no information
     // about their children.
-    if (m_hierarchy.IsParent(m_index.GetDoc(docId), e))
+    if (m_index.GetDoc(docId).IsParentTo(e))
       return true;
   }
   return false;
