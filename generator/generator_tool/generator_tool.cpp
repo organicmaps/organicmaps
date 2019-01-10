@@ -671,9 +671,14 @@ int main(int argc, char ** argv)
   {
     return GeneratorToolMain(argc, argv);
   }
-  catch (std::fstream::failure const & e)
+  catch (RootException const & e)
   {
-    LOG(LERROR, ("Unhandled exception:", e.what()));
+    LOG(LERROR, ("Unhandled core exception:", e.Msg()));
+    return EXIT_FAILURE;
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LERROR, ("Unhandled std exception:", e.what()));
     return EXIT_FAILURE;
   }
   catch (...)
