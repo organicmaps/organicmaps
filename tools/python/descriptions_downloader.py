@@ -1,12 +1,16 @@
 import argparse
 import functools
 import itertools
+import json
 import logging
 import os
+import random
+import time
 import urllib.parse
 from multiprocessing.pool import ThreadPool
 
 import htmlmin
+import requests
 import wikipediaapi
 from bs4 import BeautifulSoup
 
@@ -15,8 +19,10 @@ This script downloads Wikipedia pages for different languages.
 """
 log = logging.getLogger(__name__)
 
-WORKERS = 10
+WORKERS = 80
 CHUNK_SIZE = 128
+REQUEST_ATTEMPTS = 32
+ATTEMPTS_PAUSE_MS = 4000
 
 HEADERS = {f"h{x}" for x in range(1,7)}
 BAD_SECTIONS = {
@@ -26,12 +32,36 @@ BAD_SECTIONS = {
 }
 
 
-class ParseError(Exception):
-     def __init__(self, value):
-         self.value = value
+class MyException(Exception):
+    def __init__(self, value):
+        self.value = value
 
-     def __str__(self):
-         return repr(self.value)
+    def __str__(self):
+        return repr(self.value)
+
+
+class ParseError(MyException):
+    pass
+
+
+class GettingError(MyException):
+    pass
+
+
+def try_get(obj, prop):
+    attempts = REQUEST_ATTEMPTS
+    while attempts != 0:
+        try:
+            return getattr(obj, prop)
+        except (requests.exceptions.ConnectionError,
+                requests.exceptions.ReadTimeout,
+                json.decoder.JSONDecodeError):
+            time.sleep(random.uniform(0.0, 1.0 / 1000.0 * ATTEMPTS_PAUSE_MS))
+            attempts -= 1
+        except KeyError:
+            raise GettingError(f"Getting {prop} field failed. {prop} not found.")
+
+    raise GettingError(f"Getting {prop} field failed. Attempts are spent.")
 
 
 def read_popularity(path):
@@ -124,8 +154,8 @@ def download(directory, url):
         return None
     page = get_wiki_page(lang, page_name)
     try:
-        text = page.text
-    except KeyError:
+        text = try_get(page, "text")
+    except GettingError:
         log.exception(f"Error: page is not downloaded {page_name}.")
         return None
     page_size = len(text)
@@ -145,11 +175,11 @@ def get_wiki_langs(url):
     page = get_wiki_page(lang, page_name)
     curr_lang = [(lang, url), ]
     try:
-        langlinks = page.langlinks
+        langlinks = try_get(page, "langlinks")
         return list(zip(langlinks.keys(),
                         [link.fullurl for link in langlinks.values()])) + curr_lang
-    except KeyError as e:
-        log.warning(f"No languages for {url} ({e}).")
+    except GettingError as e:
+        log.warning(f"Error: no languages for {url} ({e}).")
         return curr_lang
 
 
