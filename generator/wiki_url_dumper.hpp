@@ -13,7 +13,7 @@ public:
 
   static void DumpOne(std::string const & path, std::ostream & stream);
 
-  void Dump() const;
+  void Dump(size_t cpuCount) const;
 
 private:
   std::string m_path;

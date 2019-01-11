@@ -434,7 +434,7 @@ int GeneratorToolMain(int argc, char ** argv)
     auto const tmpPath = base::JoinPath(genInfo.m_intermediateDir, "tmp");
     auto const datFiles = platform_helpers::GetFullDataTmpFilePaths(tmpPath);
     WikiUrlDumper wikiUrlDumper(FLAGS_dump_wikipedia_urls, datFiles);
-    wikiUrlDumper.Dump();
+    wikiUrlDumper.Dump(threadsCount);
   }
 
   // Enumerate over all dat files that were created.
