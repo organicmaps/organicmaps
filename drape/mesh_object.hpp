@@ -20,6 +20,11 @@ namespace metal
 class MetalMeshObjectImpl;
 }  // namespace metal
 
+namespace vulkan
+{
+class VulkanMeshObjectImpl;
+}  // namespace vulkan
+
 // This class implements a simple mesh object which does not use an index buffer.
 // Use this class only for simple geometry.
 class MeshObject
@@ -27,6 +32,7 @@ class MeshObject
   friend class MeshObjectImpl;
   friend class GLMeshObjectImpl;
   friend class metal::MetalMeshObjectImpl;
+  friend class vulkan::VulkanMeshObjectImpl;
 
 public:
   enum class DrawPrimitive: uint8_t
@@ -100,6 +106,7 @@ private:
   };
 
   void InitForOpenGL();
+  void InitForVulkan();
 
 #if defined(OMIM_METAL_AVAILABLE)
   // Definition of this method is in a .mm-file.

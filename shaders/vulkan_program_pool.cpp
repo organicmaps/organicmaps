@@ -115,9 +115,11 @@ VkShaderModule LoadShaderModule(VkDevice device, std::string const & filename)
 }
 }  // namespace
 
-VulkanProgramPool::VulkanProgramPool(VkDevice device)
-  : m_device(device)
+VulkanProgramPool::VulkanProgramPool(dp::vulkan::DeviceHolderPtr deviceHolder)
+  : m_deviceHolder(deviceHolder)
 {
+  auto devicePtr = m_deviceHolder.lock();
+  CHECK(devicePtr != nullptr, ());
   auto reflection = ReadReflectionFile(base::JoinPath(kShadersDir, kShadersReflecton));
   CHECK_EQUAL(reflection.size(), static_cast<size_t>(Program::ProgramsCount), ());
   for (size_t i = 0; i < static_cast<size_t>(Program::ProgramsCount); ++i)
@@ -126,8 +128,8 @@ VulkanProgramPool::VulkanProgramPool(VkDevice device)
     m_programs[i] = make_unique_dp<dp::vulkan::VulkanGpuProgram>(
       programName,
       std::move(reflection[i]),
-      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
-      LoadShaderModule(device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
+      LoadShaderModule(devicePtr->m_device, base::JoinPath(kShadersDir, programName + ".vert.spv")),
+      LoadShaderModule(devicePtr->m_device, base::JoinPath(kShadersDir, programName + ".frag.spv")));
   }
 
   ProgramParams::Init();
@@ -137,12 +139,15 @@ VulkanProgramPool::~VulkanProgramPool()
 {
   ProgramParams::Destroy();
 
+  auto devicePtr = m_deviceHolder.lock();
+  CHECK(devicePtr != nullptr, ());
+
   for (auto & p : m_programs)
   {
     if (p != nullptr)
     {
-      vkDestroyShaderModule(m_device, p->GetVertexShader(), nullptr);
-      vkDestroyShaderModule(m_device, p->GetFragmentShader(), nullptr);
+      vkDestroyShaderModule(devicePtr->m_device, p->GetVertexShader(), nullptr);
+      vkDestroyShaderModule(devicePtr->m_device, p->GetFragmentShader(), nullptr);
     }
   }
 }

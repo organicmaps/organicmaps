@@ -11,11 +11,13 @@ namespace dp
 namespace vulkan
 {
 VulkanBaseContext::VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                                     VkDevice device)
+                                     VkDevice device, uint32_t renderingQueueFamilyIndex)
   : m_vulkanInstance(vulkanInstance)
   , m_gpu(gpu)
   , m_device(device)
+  , m_renderingQueueFamilyIndex(renderingQueueFamilyIndex)
 {
+  m_deviceHolder = std::make_shared<DeviceHolder>(m_device);
   vkGetPhysicalDeviceProperties(m_gpu, &m_gpuProperties);
 }
 

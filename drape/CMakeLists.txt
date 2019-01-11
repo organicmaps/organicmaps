@@ -152,9 +152,14 @@ append(
   SRC
   vulkan/vulkan_base_context.cpp
   vulkan/vulkan_base_context.hpp
+  vulkan/vulkan_device_holder.hpp
   vulkan/vulkan_gpu_program.hpp
   vulkan/vulkan_layers.cpp
   vulkan/vulkan_layers.hpp
+  vulkan/vulkan_memory_manager.cpp
+  vulkan/vulkan_memory_manager.hpp
+  vulkan/vulkan_mesh_object_impl.cpp
+  vulkan/vulkan_mesh_object_impl.hpp
   vulkan/vulkan_utils.cpp
   vulkan/vulkan_utils.hpp
 )

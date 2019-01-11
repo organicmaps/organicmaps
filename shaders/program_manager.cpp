@@ -71,7 +71,7 @@ void ProgramManager::InitForVulkan(ref_ptr<dp::GraphicsContext> context)
 {
   ASSERT(dynamic_cast<dp::vulkan::VulkanBaseContext *>(context.get()) != nullptr, ());
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
-  m_pool = make_unique_dp<vulkan::VulkanProgramPool>(vulkanContext->GetDevice());
+  m_pool = make_unique_dp<vulkan::VulkanProgramPool>(vulkanContext->GetDeviceHolder());
   m_paramsSetter = make_unique_dp<vulkan::VulkanProgramParamsSetter>();
 }
 

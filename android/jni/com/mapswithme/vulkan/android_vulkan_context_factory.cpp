@@ -20,8 +20,8 @@ class DrawVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   DrawVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                    VkDevice device)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device)
+                    VkDevice device, uint32_t renderingQueueFamilyIndex)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device, renderingQueueFamilyIndex)
   {}
 };
 
@@ -29,8 +29,8 @@ class UploadVulkanContext : public dp::vulkan::VulkanBaseContext
 {
 public:
   UploadVulkanContext(VkInstance vulkanInstance, VkPhysicalDevice gpu,
-                      VkDevice device)
-    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device)
+                      VkDevice device, uint32_t renderingQueueFamilyIndex)
+    : dp::vulkan::VulkanBaseContext(vulkanInstance, gpu, device, renderingQueueFamilyIndex)
   {}
 
   void Present() override {}
@@ -127,13 +127,13 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   vkGetPhysicalDeviceQueueFamilyProperties(m_gpu, &queueFamilyCount,
                                            queueFamilyProperties.data());
 
-  uint32_t queueFamilyIndex = 0;
-  for (; queueFamilyIndex < queueFamilyCount; ++queueFamilyIndex)
+  uint32_t renderingQueueFamilyIndex = 0;
+  for (; renderingQueueFamilyIndex < queueFamilyCount; ++renderingQueueFamilyIndex)
   {
-    if (queueFamilyProperties[queueFamilyIndex].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+    if (queueFamilyProperties[renderingQueueFamilyIndex].queueFlags & VK_QUEUE_GRAPHICS_BIT)
       break;
   }
-  if (queueFamilyIndex == queueFamilyCount)
+  if (renderingQueueFamilyIndex == queueFamilyCount)
   {
     LOG_ERROR_VK("Any queue family with VK_QUEUE_GRAPHICS_BIT wasn't found.");
     return;
@@ -169,8 +169,10 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
     return;
   }
 
-  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, m_device);
-  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, m_device);
+  m_drawContext = make_unique_dp<DrawVulkanContext>(m_vulkanInstance, m_gpu, m_device,
+                                                    renderingQueueFamilyIndex);
+  m_uploadContext = make_unique_dp<UploadVulkanContext>(m_vulkanInstance, m_gpu, m_device,
+                                                        renderingQueueFamilyIndex);
 }
 
 AndroidVulkanContextFactory::~AndroidVulkanContextFactory()
