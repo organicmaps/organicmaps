@@ -347,9 +347,7 @@ void TestOnlineCrosses(ms::LatLon const & startPoint, ms::LatLon const & finalPo
 bool IsSubwayExists(Route const & route)
 {
   auto const & routeSegments = route.GetRouteSegments();
-
   bool intoSubway = false;
-  bool wasSubway = false;
 
   for (auto const & routeSegment : routeSegments)
   {
@@ -359,30 +357,16 @@ bool IsSubwayExists(Route const & route)
       continue;
     }
 
-    switch (routeSegment.GetTransitInfo().GetType())
-    {
-    case TransitInfo::Type::Gate:
-    {
-      if (intoSubway)
-      {
-        // Out from subway
-        intoSubway = false;
-        wasSubway = true;
-      }
-      else
-      {
-        // Enter into subway
-        intoSubway = true;
-      }
-      break;
-    }
-    case TransitInfo::Type::Edge:
-    case TransitInfo::Type::Transfer:
-      break;
-    }
+    if (routeSegment.GetTransitInfo().GetType() != TransitInfo::Type::Gate)
+      continue;
+
+    if (intoSubway)
+      return true;
+
+    intoSubway = true;
   }
 
-  return wasSubway;
+  return false;
 }
 
 void CheckSubwayAbsent(Route const & route)
