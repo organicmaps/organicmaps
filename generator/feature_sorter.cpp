@@ -138,7 +138,7 @@ public:
   uint32_t operator()(FeatureBuilder2 & fb)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
-    [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
+                          [this](int i) -> FileWriter & { return *m_trgFile[i]; }, fb, m_header);
 
     bool const isLine = fb.IsLine();
     bool const isArea = fb.IsArea();
