@@ -204,10 +204,10 @@ public:
    {
      bool need = true;
      feature.ForEachType([&](uint32_t type) {
-       if (need && !IsMatched(type))
+       if (need && IsMatched(type))
          need = false;
      });
-     return need;
+     return !need;
    }
 };
 
