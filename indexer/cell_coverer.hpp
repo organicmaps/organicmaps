@@ -54,6 +54,7 @@ inline void CoverRect(m2::RectD rect, size_t cellsCount, int maxLevel, std::vect
       cellQueue;
   cellQueue.push(commonCell);
 
+  CHECK_GREATER_OR_EQUAL(maxLevel, 0, ());
   while (!cellQueue.empty() && cellQueue.size() + result.size() < cellsCount)
   {
     auto id = cellQueue.top();
@@ -123,6 +124,7 @@ void CoverSpiral(m2::RectD rect, int maxLevel, std::vector<CellId> & result)
     return;
   CHECK(rect.IsValid(), ());
 
+  CHECK_GREATER_OR_EQUAL(maxLevel, 0, ());
   auto centralCell = Converter::ToCellId(rect.Center().x, rect.Center().y);
   while (maxLevel < centralCell.Level() && centralCell.Level() > 0)
     centralCell = centralCell.Parent();
