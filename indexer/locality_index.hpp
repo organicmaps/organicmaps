@@ -12,11 +12,17 @@
 
 #include "base/geo_object_id.hpp"
 
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/hashed_index.hpp>
+#include <boost/multi_index/member.hpp>
+#include <boost/multi_index/ordered_index.hpp>
+
 #include <cstdint>
 #include <functional>
 #include <memory>
 #include <set>
 #include <string>
+#include <utility>
 
 #include "defines.hpp"
 
@@ -30,6 +36,7 @@ class LocalityIndex
 {
 public:
   using ProcessObject = std::function<void(base::GeoObjectId const &)>;
+  using ProcessClosestObject = std::function<void(base::GeoObjectId const &, double distance)>;
 
   LocalityIndex() = default;
   explicit LocalityIndex(Reader const & reader)
@@ -59,24 +66,13 @@ public:
   // and stop after |sizeHint| objects have been processed. For stability, if an object from
   // an index cell has been processed, all other objects from this cell will be processed too,
   // thus probably overflowing the |sizeHint| limit.
-  void ForClosestToPoint(ProcessObject const & processObject, m2::PointD const & center,
+  void ForClosestToPoint(ProcessClosestObject const & processObject, m2::PointD const & center,
                          double radiusM, uint32_t sizeHint) const
   {
     auto const rect =
         MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
     covering::CoveringGetter cov(rect, covering::CoveringMode::Spiral);
     covering::Intervals const & intervals = cov.Get<DEPTH_LEVELS>(scales::GetUpperScale());
-
-    std::set<uint64_t> objects;
-    auto processAll = [&objects, &processObject](uint64_t storedId) {
-      if (objects.insert(storedId).second)
-        processObject(LocalityObject::FromStoredId(storedId));
-    };
-
-    auto process = [&](uint64_t storedId) {
-      if (objects.size() < sizeHint)
-        processAll(storedId);
-    };
 
     CHECK_EQUAL(intervals.begin()->first, intervals.begin()->second - 1, ());
     auto cellDepth = covering::GetCodingDepth<DEPTH_LEVELS>(scales::GetUpperScale());
@@ -88,6 +84,41 @@ public:
       bestCell = bestCell.Parent();
     }
 
+    struct ResultItem
+    {
+      uint64_t m_ObjectId;
+      double m_Distance;
+    };
+    using namespace boost::multi_index;
+    auto result = multi_index_container<ResultItem,
+                      indexed_by<hashed_unique<member<ResultItem, uint64_t, &ResultItem::m_ObjectId>>,
+                                 ordered_non_unique<member<ResultItem, double, &ResultItem::m_Distance>>>>{};
+
+    auto processAll = [&result, &bestCells, cellDepth, &center](int64_t cellNumber, uint64_t storedId) {
+      auto distance = 0.0;
+      if (bestCells.find(cellNumber) == bestCells.end())
+      {
+        using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+
+        auto cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
+        auto cellCenter = Converter::FromCellId(cell);
+        distance = MercatorBounds::DistanceOnEarth(center, cellCenter);
+      }
+
+      auto objectId = LocalityObject::FromStoredId(storedId).GetEncodedId();
+      auto resultInsert = result.insert({objectId, distance});
+      if (resultInsert.second)
+        return;
+      auto const & object = *resultInsert.first;
+      if (distance < object.m_Distance)
+        result.replace(resultInsert.first, {objectId, distance});
+    };
+
+    auto process = [&](int64_t cellNumber, uint64_t storedId) {
+      if (result.size() < sizeHint)
+        processAll(cellNumber, storedId);
+    };
+
     for (auto const & i : intervals)
     {
       if (bestCells.find(i.first) != bestCells.end())
@@ -97,10 +128,13 @@ public:
       else
       {
         m_intervalIndex->ForEach(process, i.first, i.second);
-        if (objects.size() >= sizeHint)
+        if (result.size() >= sizeHint)
           return;
       }
     }
+
+    for (auto const & object : result.template get<1>())
+      processObject(base::GeoObjectId(object.m_ObjectId), object.m_Distance);
   }
 
 private:

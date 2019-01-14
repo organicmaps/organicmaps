@@ -66,15 +66,14 @@ public:
         end = KeyEnd();
       --end;  // end is inclusive in ForEachImpl().
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
-                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels]);
+                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels], 0);
     }
   }
 
 private:
-
   template <typename F>
   void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
-                   uint32_t const offset, uint32_t const size) const
+                   uint32_t const offset, uint32_t const size, uint64_t keyBase) const
   {
     buffer_vector<uint8_t, 1024> data;
     data.resize_no_init(size);
@@ -93,19 +92,19 @@ private:
         break;
       value += ReadVarInt<int64_t>(src);
       if (key >= beg)
-        f(value);
+        Invoke(f, keyBase + key, value, 0);
     }
   }
 
   template <typename F>
   void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level,
-                   uint32_t offset, uint32_t size) const
+                   uint32_t offset, uint32_t size, uint64_t nodeKey) const
   {
     offset += m_LevelOffsets[level];
 
     if (level == 0)
     {
-      ForEachLeaf(f, beg, end, offset, size);
+      ForEachLeaf(f, beg, end, offset, size, nodeKey);
       return;
     }
 
@@ -139,7 +138,7 @@ private:
           {
             uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
             uint64_t const end1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
-            ForEachNode(f, beg1, end1, level - 1, childOffset, childSize);
+            ForEachNode(f, beg1, end1, level - 1, childOffset, childSize, nodeKey + (uint64_t{i} << skipBits));
           }
           childOffset += childSize;
         }
@@ -161,11 +160,22 @@ private:
         {
           uint64_t const beg1 = (i == beg0) ? (beg & levelBytesFF) : 0;
           uint64_t const end1 = (i == end0) ? (end & levelBytesFF) : levelBytesFF;
-          ForEachNode(f, beg1, end1, level - 1, childOffset, childSize);
+          ForEachNode(f, beg1, end1, level - 1, childOffset, childSize, nodeKey + (uint64_t{i} << skipBits));
         }
         childOffset += childSize;
       }
     }
+  }
+
+  template <typename F, typename = decltype(std::declval<F>()(uint64_t{0}, uint64_t{0}))>
+  static void Invoke(F const & f, uint64_t key, uint64_t storedId, int)
+  {
+    f(key, storedId);
+  }
+  template <typename F>
+  static void Invoke(F const & f, uint64_t key, uint64_t storedId, ...)
+  {
+    f(storedId);
   }
 
   ReaderT m_Reader;
