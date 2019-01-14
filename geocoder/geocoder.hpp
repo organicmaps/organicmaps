@@ -118,7 +118,7 @@ public:
     std::vector<Layer> m_layers;
   };
 
-  explicit Geocoder(std::string const & pathToJsonHierarchy);
+  explicit Geocoder(std::string const & pathToJsonHierarchy, std::size_t readerCount = 4);
 
   void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
 

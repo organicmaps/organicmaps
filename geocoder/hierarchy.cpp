@@ -1,5 +1,7 @@
 #include "geocoder/hierarchy.hpp"
 
+#include "geocoder/hierarchy_reader.hpp"
+
 #include "indexer/search_string_utils.hpp"
 
 #include "base/exception.hpp"
@@ -9,16 +11,12 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
-#include <fstream>
 #include <utility>
 
 using namespace std;
 
 namespace
 {
-// Information will be logged for every |kLogBatch| entries.
-size_t const kLogBatch = 100000;
-
 void CheckDuplicateOsmIds(vector<geocoder::Hierarchy::Entry> const & entries,
                           geocoder::Hierarchy::ParsingStats & stats)
 {
@@ -138,50 +136,12 @@ bool Hierarchy::Entry::IsParentTo(Hierarchy::Entry const & e) const
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
-Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
+Hierarchy::Hierarchy(string const & pathToJsonHierarchy, size_t readerCount)
 {
-  ifstream ifs(pathToJsonHierarchy);
-  string line;
   ParsingStats stats;
 
-  LOG(LINFO, ("Reading entries..."));
-  while (getline(ifs, line))
-  {
-    if (line.empty())
-      continue;
-
-    auto const i = line.find(' ');
-    int64_t encodedId;
-    if (i == string::npos || !strings::to_any(line.substr(0, i), encodedId))
-    {
-      LOG(LWARNING, ("Cannot read osm id. Line:", line));
-      ++stats.m_badOsmIds;
-      continue;
-    }
-    line = line.substr(i + 1);
-
-    Entry entry;
-    // todo(@m) We should really write uints as uints.
-    entry.m_osmId = base::GeoObjectId(static_cast<uint64_t>(encodedId));
-
-    if (!entry.DeserializeFromJSON(line, stats))
-      continue;
-
-    if (entry.m_type == Type::Count)
-      continue;
-
-    ++stats.m_numLoaded;
-    if (stats.m_numLoaded % kLogBatch == 0)
-      LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
-
-    m_entries.emplace_back(move(entry));
-  }
-
-  if (stats.m_numLoaded % kLogBatch != 0)
-    LOG(LINFO, ("Read", stats.m_numLoaded, "entries"));
-
-  LOG(LINFO, ("Sorting entries..."));
-  sort(m_entries.begin(), m_entries.end());
+  HierarchyReader reader{pathToJsonHierarchy};
+  m_entries = reader.ReadEntries(readerCount, stats);
 
   CheckDuplicateOsmIds(m_entries, stats);
 
