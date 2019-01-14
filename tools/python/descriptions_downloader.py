@@ -61,7 +61,8 @@ def try_get(obj, prop):
         except KeyError:
             raise GettingError(f"Getting {prop} field failed. {prop} not found.")
 
-    raise GettingError(f"Getting {prop} field failed. Attempts are spent.")
+    raise GettingError(f"Getting {prop} field failed. "
+                       f"All {REQUEST_ATTEMPTS} attempts are spent")
 
 
 def read_popularity(path):

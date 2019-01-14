@@ -202,12 +202,12 @@ public:
    template <typename Ft>
    bool NeedFeature(Ft & feature) const
    {
-     bool need = true;
+     bool need = false;
      feature.ForEachType([&](uint32_t type) {
-       if (need && IsMatched(type))
-         need = false;
+       if (!need && IsMatched(type))
+         need = true;
      });
-     return !need;
+     return need;
    }
 };
 
