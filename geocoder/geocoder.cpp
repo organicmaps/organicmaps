@@ -260,10 +260,11 @@ void Geocoder::Go(Context & ctx, Type type) const
       vector<Type> allTypes;
       for (size_t tokId = 0; tokId < ctx.GetNumTokens(); ++tokId)
       {
-        if (search::IsStreetSynonym(strings::MakeUniString(ctx.GetToken(tokId))))
+        auto const t = ctx.GetTokenType(tokId);
+
+        if (t == Type::Street && search::IsStreetSynonym(strings::MakeUniString(ctx.GetToken(tokId))))
           continue;
 
-        auto const t = ctx.GetTokenType(tokId);
         certainty += GetWeight(t);
         if (t != Type::Count)
           allTypes.push_back(t);
