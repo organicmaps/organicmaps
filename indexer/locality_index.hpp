@@ -86,7 +86,6 @@ public:
     {
       bestCells.insert(bestCell.ToInt64(cellDepth));
       bestCell = bestCell.Parent();
-      --cellDepth;
     }
 
     for (auto const & i : intervals)
