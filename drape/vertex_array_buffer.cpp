@@ -118,8 +118,10 @@ private:
 };
 }  // namespace
 
-VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize)
+VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize,
+                                     uint64_t batcherHash)
   : m_dataBufferSize(dataBufferSize)
+  , m_batcherHash(batcherHash)
 {
   m_indexBuffer = make_unique_dp<IndexBuffer>(indexBufferSize);
 
@@ -148,13 +150,13 @@ void VertexArrayBuffer::PreflushImpl(ref_ptr<GraphicsContext> context)
 
   // Buffers are ready, so moving them from CPU to GPU.
   for (auto & buffer : m_staticBuffers)
-    buffer.second->MoveToGPU(context, GPUBuffer::ElementBuffer);
+    buffer.second->MoveToGPU(context, GPUBuffer::ElementBuffer, m_batcherHash);
 
   for (auto & buffer : m_dynamicBuffers)
-    buffer.second->MoveToGPU(context, GPUBuffer::ElementBuffer);
+    buffer.second->MoveToGPU(context, GPUBuffer::ElementBuffer, m_batcherHash);
 
   ASSERT(m_indexBuffer != nullptr, ());
-  m_indexBuffer->MoveToGPU(context, GPUBuffer::IndexBuffer);
+  m_indexBuffer->MoveToGPU(context, GPUBuffer::IndexBuffer, m_batcherHash);
 
   // Preflush can be called on BR, where impl is not initialized.
   // For Metal rendering this code has no meaning.
@@ -361,7 +363,7 @@ void VertexArrayBuffer::ApplyMutation(ref_ptr<GraphicsContext> context,
     if (indexMutator->GetCapacity() > m_indexBuffer->GetBuffer()->GetCapacity())
     {
       m_indexBuffer = make_unique_dp<IndexBuffer>(indexMutator->GetCapacity());
-      m_indexBuffer->MoveToGPU(context, GPUBuffer::IndexBuffer);
+      m_indexBuffer->MoveToGPU(context, GPUBuffer::IndexBuffer, m_batcherHash);
     }
     m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
   }

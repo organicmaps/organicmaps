@@ -53,6 +53,7 @@ set(
   backend_renderer.hpp
   base_renderer.cpp
   base_renderer.hpp
+  batcher_bucket.hpp
   batchers_pool.hpp
   circles_pack_shape.cpp
   circles_pack_shape.hpp

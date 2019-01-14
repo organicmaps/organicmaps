@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/ruler.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
@@ -224,6 +225,7 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, m2::PointF & size,
 
   {
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+    batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
     batcher.InsertTriangleStrip(context, state, make_ref(&provider),
                                 make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler,

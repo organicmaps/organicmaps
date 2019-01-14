@@ -70,6 +70,8 @@ public:
   void EndSession(ref_ptr<GraphicsContext> context);
   void ResetSession();
 
+  void SetBatcherHash(uint64_t batcherHash);
+
   void SetFeatureMinZoom(int minZoom);
 
 private:
@@ -86,13 +88,15 @@ private:
   void FinalizeBucket(ref_ptr<GraphicsContext> context, RenderState const & state);
   void Flush(ref_ptr<GraphicsContext> context);
 
+  uint32_t const m_indexBufferSize;
+  uint32_t const m_vertexBufferSize;
+
+  uint64_t m_batcherHash = 0;
+
   TFlushFn m_flushInterface;
 
   using TBuckets = std::map<RenderState, drape_ptr<RenderBucket>>;
   TBuckets m_buckets;
-
-  uint32_t m_indexBufferSize;
-  uint32_t m_vertexBufferSize;
 
   int m_featureMinZoom = 0;
 };

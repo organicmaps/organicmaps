@@ -5,6 +5,7 @@
 
 #include "drape_frontend/animation/opacity_animation.hpp"
 #include "drape_frontend/animation/value_mapping.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 
 #include "base/timer.hpp"
 
@@ -95,6 +96,7 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(ref_ptr<dp::GraphicsContext> conte
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);
+  batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
   dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertListOfStrip(context, result.m_state, make_ref(&provider),
                             std::move(handle), dp::Batcher::VertexPerQuad);

@@ -1,4 +1,5 @@
 #include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -157,6 +158,7 @@ void CirclesPackShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Te
   dynamicVertexData.resize(data.m_pointsCount * kVerticesInPoint);
 
   dp::Batcher batcher(data.m_pointsCount * kIndicesInPoint, data.m_pointsCount * kVerticesInPoint);
+  batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Overlay));
   dp::SessionGuard guard(context, batcher,
                          [&data](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
   {

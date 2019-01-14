@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/compass.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 
 #include "shaders/programs.hpp"
@@ -137,6 +138,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(ref_ptr<dp::GraphicsContext> context,
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+  batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
   dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 

@@ -1,5 +1,6 @@
 #include "drape/utils/gpu_mem_tracker.hpp"
 
+#include <iomanip>
 #include <sstream>
 
 namespace dp
@@ -11,12 +12,19 @@ std::string GPUMemTracker::GPUMemorySnapshot::ToString() const
   ss << " Summary Used = " << m_summaryUsedInMb << "Mb\n";
   ss << " Tags registered = " << m_tagStats.size() << "\n";
 
-  for (auto const it : m_tagStats)
+  for (auto const & it : m_tagStats)
   {
     ss << " Tag = " << it.first << " \n";
     ss << "   Object count = " << it.second.m_objectsCount << "\n";
     ss << "   Allocated    = " << it.second.m_alocatedInMb << "Mb\n";
     ss << "   Used         = " << it.second.m_usedInMb << "Mb\n";
+  }
+
+  ss << " Average allocations by hashes:\n";
+  for (auto const & it : m_averageAllocations)
+  {
+    ss << "   " << std::hex << it.first;
+    ss << " : " << std::dec << it.second.GetAverage() << " bytes\n";
   }
 
   return ss.str();
@@ -44,6 +52,7 @@ GPUMemTracker::GPUMemorySnapshot GPUMemTracker::GetMemorySnapshot()
       memStat.m_summaryAllocatedInMb += it.second.first;
       memStat.m_summaryUsedInMb += it.second.second;
     }
+    memStat.m_averageAllocations = m_averageAllocations;
   }
 
   auto constexpr kByteToMb = static_cast<float>(1024 * 1024);
@@ -76,5 +85,15 @@ void GPUMemTracker::RemoveDeallocated(std::string const & tag, uint32_t id)
 {
   std::lock_guard<std::mutex> g(m_mutex);
   m_memTracker.erase(make_pair(tag, id));
+}
+
+void GPUMemTracker::TrackAverageAllocation(uint64_t hash, uint64_t size)
+{
+  uint32_t constexpr kBucketMask = 0x7;
+
+  std::lock_guard<std::mutex> g(m_mutex);
+  auto & allocation = m_averageAllocations[hash & kBucketMask];
+  allocation.m_totalSizeInBytes += size;
+  allocation.m_count++;
 }
 }  // namespace dp

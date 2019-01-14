@@ -45,7 +45,7 @@ class VertexArrayBuffer
 {
   friend class metal::MetalVertexArrayBufferImpl;
 public:
-  VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
+  VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize, uint64_t batcherHash);
   ~VertexArrayBuffer();
 
   // This method must be called on a reading thread, before VAO will be transferred to the render thread.
@@ -95,6 +95,7 @@ private:
   drape_ptr<VertexArrayBufferImpl> CreateImplForMetal(ref_ptr<VertexArrayBuffer> buffer);
 
   uint32_t const m_dataBufferSize;
+  uint64_t const m_batcherHash;
 
   drape_ptr<VertexArrayBufferImpl> m_impl;
   BuffersMap m_staticBuffers;

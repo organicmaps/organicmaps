@@ -2235,6 +2235,9 @@ void FrontendRenderer::Routine::Do()
   {
     LOG(LINFO, ("framesOverall =", m_renderer.m_frameData.m_framesOverall,
                 "framesFast =", m_renderer.m_frameData.m_framesFast));
+#ifdef TRACK_GPU_MEM
+    LOG(LINFO, (dp::GPUMemTracker::Inst().GetMemorySnapshot().ToString()));
+#endif
   });
 #endif
 

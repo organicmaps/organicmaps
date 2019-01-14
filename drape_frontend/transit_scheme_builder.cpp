@@ -1,5 +1,6 @@
 #include "transit_scheme_builder.hpp"
 
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape_helper.hpp"
@@ -545,6 +546,7 @@ void TransitSchemeBuilder::GenerateShapes(ref_ptr<dp::GraphicsContext> context, 
 
   uint32_t const kBatchSize = 65000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
+  batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Transit));
   {
     dp::SessionGuard guard(context, batcher, [this, &mwmId, &scheme](dp::RenderState const & state,
                                                                      drape_ptr<dp::RenderBucket> && b)
@@ -609,6 +611,7 @@ void TransitSchemeBuilder::GenerateStops(ref_ptr<dp::GraphicsContext> context, M
 
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
+  batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Transit));
   {
     dp::SessionGuard guard(context, batcher, flusher);
 

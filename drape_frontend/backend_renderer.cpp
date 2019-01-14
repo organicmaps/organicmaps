@@ -232,6 +232,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         CHECK(m_context != nullptr, ());
         ref_ptr<dp::Batcher> batcher = m_batchersPool->GetBatcher(tileKey);
+        batcher->SetBatcherHash(tileKey.GetHashValue(BatcherBucket::Default));
 #if defined(DRAPE_MEASURER_BENCHMARK) && defined(GENERATING_STATISTIC)
         DrapeMeasurer::Instance().StartShapesGeneration();
 #endif

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape/buffer_base.hpp"
+#include "drape/drape_diagnostics.hpp"
 #include "drape/pointers.hpp"
 
 namespace dp
@@ -16,7 +17,8 @@ public:
     IndexBuffer
   };
 
-  GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity);
+  GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity,
+            uint64_t batcherHash);
   ~GPUBuffer() override;
 
   void UploadData(void const * data, uint32_t elementCount);
@@ -34,6 +36,9 @@ private:
   Target m_t;
   uint32_t m_bufferID;
   uint32_t m_mappingOffset;
+#ifdef TRACK_GPU_MEM
+  uint64_t m_batcherHash;
+#endif
 
 #ifdef DEBUG
   bool m_isMapped;

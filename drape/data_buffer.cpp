@@ -14,7 +14,8 @@ ref_ptr<DataBufferBase> DataBuffer::GetBuffer() const
   return make_ref(m_impl);
 }
 
-void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target)
+void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target,
+                           uint64_t batcherHash)
 {
   // If currentSize is 0 buffer hasn't been filled on preparation stage, let it be filled further.
   uint32_t const currentSize = m_impl->GetCurrentSize();
@@ -25,12 +26,12 @@ void DataBuffer::MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target t
     if (currentSize != 0)
     {
       m_impl = make_unique_dp<GpuBufferImpl>(target, m_impl->Data(), m_impl->GetElementSize(),
-                                             currentSize);
+                                             currentSize, batcherHash);
     }
     else
     {
       m_impl = make_unique_dp<GpuBufferImpl>(target, nullptr, m_impl->GetElementSize(),
-                                             m_impl->GetAvailableSize());
+                                             m_impl->GetAvailableSize(), batcherHash);
     }
   }
   else if (apiVersion == dp::ApiVersion::Metal)

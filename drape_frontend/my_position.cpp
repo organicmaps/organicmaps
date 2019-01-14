@@ -1,4 +1,5 @@
 #include "drape_frontend/my_position.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -180,6 +181,7 @@ void MyPosition::CacheAccuracySector(ref_ptr<dp::GraphicsContext> context,
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher,
       [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {
@@ -235,6 +237,7 @@ void MyPosition::CachePointPosition(ref_ptr<dp::GraphicsContext> context, ref_pt
   EMyPositionPart partIndices[kSymbolsCount] = { MyPositionPoint };
   {
     dp::Batcher batcher(kSymbolsCount * dp::Batcher::IndexPerQuad, kSymbolsCount * dp::Batcher::VertexPerQuad);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher,
       [this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && b)
     {

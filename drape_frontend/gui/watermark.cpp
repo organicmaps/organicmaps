@@ -1,5 +1,6 @@
 #include "drape_frontend/gui/watermark.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 
 #include "shaders/programs.hpp"
 
@@ -112,6 +113,7 @@ drape_ptr<ShapeRenderer> Watermark::Draw(ref_ptr<dp::GraphicsContext> context, m
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+  batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
   dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 

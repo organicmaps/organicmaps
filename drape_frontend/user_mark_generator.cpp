@@ -230,6 +230,7 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 
   uint32_t constexpr kMaxSize = 65000;
   dp::Batcher batcher(kMaxSize, kMaxSize);
+  batcher.SetBatcherHash(tileKey.GetHashValue(BatcherBucket::UserMark));
   TUserMarksRenderData renderData;
   {
     dp::SessionGuard guard(context, batcher, [&tileKey, &renderData](dp::RenderState const & state,

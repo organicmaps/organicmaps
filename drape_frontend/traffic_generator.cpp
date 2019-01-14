@@ -182,6 +182,7 @@ void TrafficGenerator::GenerateSegmentsGeometry(ref_ptr<dp::GraphicsContext> con
     TrafficSegmentGeometry const & g = geomPair.second;
     ref_ptr<dp::Batcher> batcher =
       m_batchersPool->GetBatcher(TrafficBatcherKey(mwmId, tileKey, g.m_roadClass));
+    batcher->SetBatcherHash(tileKey.GetHashValue(BatcherBucket::Traffic));
 
     auto const finalDepth = kRoadClassDepths[static_cast<size_t>(g.m_roadClass)] +
                             static_cast<float>(coloringIt->second);

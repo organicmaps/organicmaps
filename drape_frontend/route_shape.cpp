@@ -1,4 +1,5 @@
 #include "drape_frontend/route_shape.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
@@ -608,6 +609,7 @@ drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(ref_ptr<dp::Graphics
   {
     uint32_t const kBatchSize = 200;
     dp::Batcher batcher(kBatchSize, kBatchSize);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Routing));
     dp::SessionGuard guard(context, batcher, [&markersData](dp::RenderState const & state,
                                                             drape_ptr<dp::RenderBucket> &&b)
     {
@@ -634,6 +636,7 @@ void RouteShape::BatchGeometry(ref_ptr<dp::GraphicsContext> context, dp::RenderS
 
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
+  batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Routing));
   dp::SessionGuard guard(context, batcher, [&property](dp::RenderState const & state,
                                                        drape_ptr<dp::RenderBucket> && b)
   {

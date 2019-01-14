@@ -11,6 +11,17 @@
 
 namespace df
 {
+namespace
+{
+uint64_t constexpr GetMask(uint32_t bitsCount)
+{
+  uint64_t r = 0;
+  for (auto i = 0; i < bitsCount; ++i)
+    r |= (static_cast<uint64_t>(1) << i);
+  return r;
+}
+}  // namespace
+
 TileKey::TileKey()
   : m_x(-1), m_y(-1),
     m_zoomLevel(-1),
@@ -94,6 +105,45 @@ m2::RectD TileKey::GetGlobalRect(bool clipByDataMaxZoom) const
 m2::PointI TileKey::GetTileCoords() const
 {
   return m2::PointI(m_x, m_y);
+}
+
+uint64_t TileKey::GetHashValue(BatcherBucket bucket) const
+{
+  // Format (from most significant to least):
+  // 8 bit - generation mod 2^8;
+  // 8 bit - user marks generation mod 2^8;
+  // 5 bit - zoom level;
+  // 20 bit - y;
+  // 20 bit - x;
+  // 3 bit - bucket.
+
+  uint32_t constexpr kCoordsBits = 20;
+  uint32_t constexpr kZoomBits = 5;
+  uint32_t constexpr kGenerationBits = 8;
+  uint32_t constexpr kBucketBits = 3;
+  uint32_t constexpr kCoordsOffset = 1 << (kCoordsBits - 1);
+  uint64_t constexpr kCoordsMask = GetMask(kCoordsBits);
+  uint64_t constexpr kZoomMask = GetMask(kZoomBits);
+  uint64_t constexpr kBucketMask = GetMask(kBucketBits);
+  uint64_t constexpr kGenerationMod = 1 << kGenerationBits;
+
+  auto const x = static_cast<uint64_t>(m_x + kCoordsOffset) & kCoordsMask;
+  CHECK_LESS_OR_EQUAL(x, 1 << kCoordsBits, ());
+
+  auto const y = static_cast<uint64_t>(m_y + kCoordsOffset) & kCoordsMask;
+  CHECK_LESS_OR_EQUAL(y, 1 << kCoordsBits, ());
+
+  auto const zoom = static_cast<uint64_t>(m_zoomLevel) & kZoomMask;
+  CHECK_LESS_OR_EQUAL(zoom, 1 << kZoomBits, ());
+
+  auto const umg = static_cast<uint64_t>(m_userMarksGeneration % kGenerationMod);
+  auto const g = static_cast<uint64_t>(m_generation % kGenerationMod);
+
+  auto const hash = x | (y << kCoordsBits) | (zoom << (2 * kCoordsBits)) |
+                    (umg << (2 * kCoordsBits + kZoomBits)) |
+                    (g << (2 * kCoordsBits + kZoomBits + kGenerationBits));
+
+  return (hash << kBucketBits) | (static_cast<uint64_t>(bucket) & kBucketMask);
 }
 
 math::Matrix<float, 4, 4> TileKey::GetTileBasedModelView(ScreenBase const & screen) const

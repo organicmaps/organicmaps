@@ -222,6 +222,11 @@ void Batcher::SetFeatureMinZoom(int minZoom)
     bucket.second->SetFeatureMinZoom(m_featureMinZoom);
 }
 
+void Batcher::SetBatcherHash(uint64_t batcherHash)
+{
+  m_batcherHash = batcherHash;
+}
+
 void Batcher::ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWrapper> wrapper)
 {
   RenderState const & state = wrapper->GetState();
@@ -233,11 +238,13 @@ void Batcher::ChangeBuffer(ref_ptr<GraphicsContext> context, ref_ptr<CallbacksWr
 
 ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(state);
+  auto const it = m_buckets.find(state);
   if (it != m_buckets.end())
     return make_ref(it->second);
 
-  drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize, m_vertexBufferSize);
+  drape_ptr<VertexArrayBuffer> vao = make_unique_dp<VertexArrayBuffer>(m_indexBufferSize,
+                                                                       m_vertexBufferSize,
+                                                                       m_batcherHash);
   drape_ptr<RenderBucket> buffer = make_unique_dp<RenderBucket>(std::move(vao));
   ref_ptr<RenderBucket> result = make_ref(buffer);
   result->SetFeatureMinZoom(m_featureMinZoom);
@@ -249,7 +256,7 @@ ref_ptr<RenderBucket> Batcher::GetBucket(RenderState const & state)
 
 void Batcher::FinalizeBucket(ref_ptr<GraphicsContext> context, RenderState const & state)
 {
-  TBuckets::iterator it = m_buckets.find(state);
+  auto const it = m_buckets.find(state);
   ASSERT(it != m_buckets.end(), ("Have no bucket for finalize with given state"));
   drape_ptr<RenderBucket> bucket = std::move(it->second);
   m_buckets.erase(state);

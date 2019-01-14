@@ -17,6 +17,7 @@ OverlayBatcher::OverlayBatcher(TileKey const & key)
   int const kAverageRenderDataCount = 5;
   m_data.reserve(kAverageRenderDataCount);
 
+  m_batcher.SetBatcherHash(key.GetHashValue(BatcherBucket::Overlay));
   m_batcher.StartSession([this, key](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
   {
     FlushGeometry(key, state, std::move(bucket));

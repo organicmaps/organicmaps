@@ -1,6 +1,8 @@
 #include "drape_frontend/gui/choose_position_mark.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 
+#include "drape_frontend/batcher_bucket.hpp"
+
 #include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
@@ -89,6 +91,7 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::GraphicsContext> c
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
+  batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
   dp::SessionGuard guard(context, batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertTriangleStrip(context, state, make_ref(&provider), std::move(handle));
 

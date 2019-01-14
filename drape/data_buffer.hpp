@@ -32,7 +32,7 @@ public:
   DataBuffer(uint8_t elementSize, uint32_t capacity);
 
   ref_ptr<DataBufferBase> GetBuffer() const;
-  void MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target);
+  void MoveToGPU(ref_ptr<GraphicsContext> context, GPUBuffer::Target target, uint64_t batcherHash);
 
 private:
   // Definition of this method is in a .mm-file.

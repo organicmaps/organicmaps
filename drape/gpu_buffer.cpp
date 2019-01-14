@@ -27,14 +27,19 @@ glConst glTarget(GPUBuffer::Target t)
 }
 }  // namespace
 
-GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity)
+GPUBuffer::GPUBuffer(Target t, void const * data, uint8_t elementSize, uint32_t capacity,
+                     uint64_t batcherHash)
   : TBase(elementSize, capacity)
   , m_t(t)
   , m_mappingOffset(0)
+#ifdef TRACK_GPU_MEM
+  , m_batcherHash(batcherHash)
+#endif
 #ifdef DEBUG
   , m_isMapped(false)
 #endif
 {
+  UNUSED_VALUE(batcherHash);
   m_bufferID = GLFunctions::glGenBuffer();
   Resize(data, capacity);
 }
@@ -160,7 +165,9 @@ void GPUBuffer::Resize(void const * data, uint32_t elementCount)
 #if defined(TRACK_GPU_MEM)
   dp::GPUMemTracker & memTracker = dp::GPUMemTracker::Inst();
   memTracker.RemoveDeallocated("VBO", m_bufferID);
-  memTracker.AddAllocated("VBO", m_bufferID, GetCapacity() * GetElementSize());
+  auto const sizeInBytes = GetCapacity() * GetElementSize();
+  memTracker.AddAllocated("VBO", m_bufferID, sizeInBytes);
+  memTracker.TrackAverageAllocation(m_batcherHash, sizeInBytes);
   if (data != nullptr)
     dp::GPUMemTracker::Inst().SetUsed("VBO", m_bufferID, GetCurrentSize() * GetElementSize());
 #endif

@@ -1,4 +1,5 @@
 #include "drape_frontend/drape_api_builder.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
 #include "drape_frontend/line_shape.hpp"
@@ -51,6 +52,7 @@ void DrapeApiBuilder::BuildLines(ref_ptr<dp::GraphicsContext> context,
       rect.Add(p);
 
     dp::Batcher batcher(kMaxSize, kMaxSize);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     auto property = make_unique_dp<DrapeApiRenderProperty>();
     property->m_center = rect.Center();
     {

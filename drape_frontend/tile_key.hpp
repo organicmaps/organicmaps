@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/batcher_bucket.hpp"
+
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
@@ -31,6 +33,8 @@ struct TileKey
   math::Matrix<float, 4, 4> GetTileBasedModelView(ScreenBase const & screen) const;
 
   m2::PointI GetTileCoords() const;
+
+  uint64_t GetHashValue(BatcherBucket bucket) const;
 
   int m_x;
   int m_y;

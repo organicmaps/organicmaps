@@ -1,4 +1,5 @@
 #include "drape_frontend/selection_shape.hpp"
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/shape_view_params.hpp"
@@ -89,6 +90,7 @@ SelectionShape::SelectionShape(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp:
 
   {
     dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
+    batcher.SetBatcherHash(static_cast<uint64_t>(BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, [this](dp::RenderState const & state,
                                                     drape_ptr<dp::RenderBucket> && b)
     {

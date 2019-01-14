@@ -32,7 +32,7 @@ UNIT_TEST(CreateDestroyDataBufferTest)
   EXPECTGL(glDeleteBuffer(1));
 
   std::unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));
-  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
 
 UNIT_TEST(CreateDestroyIndexBufferTest)
@@ -47,7 +47,7 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
   EXPECTGL(glDeleteBuffer(1));
 
   std::unique_ptr<DataBuffer> buffer(new IndexBuffer(100));
-  buffer->MoveToGPU(make_ref(&context), GPUBuffer::IndexBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::IndexBuffer, 0);
 }
 
 UNIT_TEST(UploadDataTest)
@@ -68,7 +68,7 @@ UNIT_TEST(UploadDataTest)
   EXPECTGL(glDeleteBuffer(1));
 
   buffer->GetBuffer()->UploadData(data, 100);
-  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }
 
 UNIT_TEST(ParticalUploadDataTest)
@@ -108,5 +108,5 @@ UNIT_TEST(ParticalUploadDataTest)
   TEST_EQUAL(buffer->GetBuffer()->GetAvailableSize(), 0, ());
   TEST_EQUAL(buffer->GetBuffer()->GetCurrentSize(), 100, ());
 
-  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer);
+  buffer->MoveToGPU(make_ref(&context), GPUBuffer::ElementBuffer, 0);
 }

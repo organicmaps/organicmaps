@@ -1,5 +1,6 @@
 #include "drape_frontend/gui/gui_text.hpp"
 
+#include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "shaders/programs.hpp"
@@ -580,6 +581,7 @@ m2::PointF MutableLabelDrawer::Draw(ref_ptr<dp::GraphicsContext> context, Params
 
   {
     dp::Batcher batcher(indexCount, vertexCount);
+    batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, flushFn);
     batcher.InsertListOfStrip(context, staticData.m_state, make_ref(&provider),
                               move(handle), dp::Batcher::VertexPerQuad);
