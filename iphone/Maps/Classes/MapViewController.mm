@@ -23,6 +23,8 @@
 
 #include "drape_frontend/user_event_stream.hpp"
 
+#include "geometry/mercator.hpp"
+
 #import <Crashlytics/Crashlytics.h>
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
@@ -745,10 +747,20 @@ BOOL gIsFirstMyPositionMode = YES;
   return _downloadDialog;
 }
 
-- (void)setPlacePageTopBound:(CGFloat)bound;
+- (void)setPlacePageTopBound:(CGFloat)bound
 {
   self.visibleAreaBottom.constant = bound;
   self.sideButtonsAreaBottom.constant = bound;
+}
+
++ (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomLevel
+{
+  Framework & f = GetFramework();
+  
+  f.StopLocationFollow();
+  
+  auto const center = MercatorBounds::FromLatLon(lat, lon);
+  f.SetViewportCenter(center, zoomLevel);
 }
 
 @end

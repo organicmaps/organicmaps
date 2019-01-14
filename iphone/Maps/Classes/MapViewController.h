@@ -34,6 +34,8 @@
 - (void)showRemoveAds;
 - (void)setPlacePageTopBound:(CGFloat)bound;
 
++ (void)setViewport:(double)lat lon:(double)lon zoomLevel:(int)zoomlevel;
+
 - (void)initialize;
 
 @property(nonatomic, readonly) MWMMapViewControlsManager * controlsManager;

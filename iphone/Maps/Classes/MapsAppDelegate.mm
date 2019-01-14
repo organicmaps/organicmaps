@@ -39,8 +39,6 @@
 #include "platform/http_thread_apple.h"
 #include "platform/local_country_file_utils.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/assert.hpp"
 
 #include "private.h"
@@ -271,9 +269,9 @@ using namespace osm_auth_ios;
       if (request.m_isSearchOnMap)
       {
         ASSERT([self isDrapeEngineCreated], ());
-        f.StopLocationFollow();
-        auto const center = MercatorBounds::FromLatLon(request.m_centerLat, request.m_centerLon);
-        f.SetViewportCenter(center, kSearchInViewportZoom);
+        [MapViewController setViewport:request.m_centerLat
+                                   lon:request.m_centerLon
+                             zoomLevel:kSearchInViewportZoom];
         [manager searchTextOnMap:query forInputLocale:locale];
       }
       else
