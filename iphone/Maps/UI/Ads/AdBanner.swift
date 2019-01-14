@@ -110,7 +110,9 @@ final class AdBanner: UITableViewCell {
   @objc weak var mpNativeAd: MPNativeAd?
 
   override func prepareForReuse() {
+    super.prepareForReuse()
     adIconImageView.wi_cancelImageRequest()
+    adIconImageView.image = nil;
   }
 
   private var nativeAd: Banner? {

@@ -26,16 +26,13 @@ static char kAssociatedObjectKey;
       [UIView transitionWithView:self
                         duration:duration
                          options:UIViewAnimationOptionTransitionCrossDissolve
-                      animations:^{
-                        self.image = image;
-                      }
-                      completion:^(BOOL finished) {
-                        if (completion) { completion(image, nil); }
-                      }];
+                      animations:^{ self.image = image; }
+                      completion:nil];
     } else {
       self.image = image;
-      if (completion) { completion(image, nil); }
     }
+                                                              
+    if (completion) { completion(image, nil); }
   }];
   objc_setAssociatedObject(self, &kAssociatedObjectKey, task, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }

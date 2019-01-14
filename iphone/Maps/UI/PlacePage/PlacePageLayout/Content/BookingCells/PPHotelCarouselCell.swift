@@ -6,6 +6,11 @@ final class CarouselElement: UICollectionViewCell {
     image.wi_setImage(with: url, transitionDuration: kDefaultAnimationDuration)
     dimMask.forEach { $0.isHidden = !isLastCell }
   }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    image.image = nil;
+  }
 }
 
 @objc(MWMPPHotelCarouselCell)

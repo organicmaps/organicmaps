@@ -10,6 +10,8 @@ final class GalleryCell: UICollectionViewCell {
   }
 
   override func prepareForReuse() {
+    super.prepareForReuse()
     imageView.wi_cancelImageRequest()
+    imageView.image = nil;
   }
 }
