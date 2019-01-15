@@ -222,7 +222,7 @@ using Observers = NSHashTable<Observer>;
 - (void)updateTopController
 {
   UIViewController * selfTopVC = self.topController;
-  if ([selfTopVC isEqual:self.navigationController.topViewController])
+  if (!selfTopVC || [selfTopVC isEqual:self.navigationController.topViewController])
     return;
   NSMutableArray * viewControllers = [self.navigationController.viewControllers mutableCopy];
   viewControllers[0] = selfTopVC;
@@ -369,8 +369,7 @@ using Observers = NSHashTable<Observer>;
 {
   if (!_navigationController)
   {
-    _navigationController =
-        [[UINavigationController alloc] initWithRootViewController:self.topController];
+    _navigationController = [[UINavigationController alloc] init];
     [self.contentView addSubview:_navigationController.view];
     _navigationController.navigationBarHidden = YES;
   }
@@ -383,7 +382,7 @@ using Observers = NSHashTable<Observer>;
   self.noMapsController = nil;
   switch (self.state)
   {
-    case MWMSearchManagerStateHidden: return self.navigationController.topViewController;
+    case MWMSearchManagerStateHidden: return nil;
     case MWMSearchManagerStateDefault:
     {
       if (GetFramework().GetStorage().HaveDownloadedCountries()) {
