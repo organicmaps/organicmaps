@@ -25,7 +25,8 @@ auto HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
   -> vector<Entry>
 {
   LOG(LINFO, ("Reading entries..."));
-        
+
+  readerCount = max(readerCount, size_t{8});
   vector<multimap<base::GeoObjectId, Entry>> taskEntries(readerCount);
   vector<thread> tasks{};
   for (size_t t = 0; t < readerCount; ++t)
