@@ -171,13 +171,13 @@ private:
   }
 
   template <typename F, typename = decltype(std::declval<F>()(uint64_t{0}, uint64_t{0}))>
-  static void Invoke(F const & f, uint64_t key, uint64_t storedId, int /* best candidate (overload) */)
+  static void Invoke(F const & f, uint64_t key, Value storedId, int /* best candidate (overload) */)
   {
     f(key, storedId);
   }
 
   template <typename F>
-  static void Invoke(F const & f, uint64_t key, uint64_t storedId, ... /* default candidate (overload )*/)
+  static void Invoke(F const & f, uint64_t key, Value storedId, ... /* default candidate (overload )*/)
   {
     f(storedId);
   }
