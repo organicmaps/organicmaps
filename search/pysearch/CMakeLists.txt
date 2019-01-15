@@ -14,8 +14,8 @@ omim_link_libraries(
   search_tests_support
   search
   storage
-  indexer
   editor
+  indexer
   geometry
   platform
   mwm_diff
