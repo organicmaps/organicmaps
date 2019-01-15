@@ -6,8 +6,8 @@
 
 using namespace std;
 
-namespace geocoder {
-
+namespace geocoder
+{
 namespace
 {
 // Information will be logged for every |kLogBatch| entries.
@@ -18,7 +18,7 @@ HierarchyReader::HierarchyReader(string const & pathToJsonHierarchy) :
   m_fileStm{pathToJsonHierarchy}
 {
   if (!m_fileStm)
-    throw runtime_error("failed to open file " + pathToJsonHierarchy);
+    MYTHROW(OpenException, ("Failed to open file", pathToJsonHierarchy));
 }
 
 auto HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
@@ -26,9 +26,9 @@ auto HierarchyReader::ReadEntries(size_t readerCount, ParsingStats & stats)
 {
   LOG(LINFO, ("Reading entries..."));
         
-  auto taskEntries = vector<multimap<base::GeoObjectId, Entry>>(readerCount);
-  auto tasks = vector<thread>{};
-  for (auto t = size_t{0}; t < readerCount; ++t)
+  vector<multimap<base::GeoObjectId, Entry>> taskEntries(readerCount);
+  vector<thread> tasks{};
+  for (size_t t = 0; t < readerCount; ++t)
     tasks.emplace_back(&HierarchyReader::ReadEntryMap, this, ref(taskEntries[t]), ref(stats));
 
   for (auto & reader : tasks)
@@ -44,7 +44,7 @@ auto HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & 
 {
   auto entries = vector<Entry>{};
 
-  auto size = size_t{0};
+  size_t size{0};
   for (auto const & map : entryParts)
     size += map.size();
 
@@ -56,9 +56,12 @@ auto HierarchyReader::UnionEntries(vector<multimap<base::GeoObjectId, Entry>> & 
   {
     auto minPart = min_element(entryParts.begin(), entryParts.end());
 
-    entries.emplace_back(std::move(minPart->begin()->second));
-    
-    minPart->erase(minPart->begin());
+    if (minPart->size())
+    {
+      entries.emplace_back(std::move(minPart->begin()->second));
+      minPart->erase(minPart->begin());
+    }
+
     if (minPart->empty())
       entryParts.erase(minPart);
   }

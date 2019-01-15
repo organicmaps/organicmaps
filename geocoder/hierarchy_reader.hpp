@@ -2,6 +2,8 @@
 
 #include "geocoder/hierarchy.hpp"
 
+#include "base/exception.hpp"
+
 #include <fstream>
 #include <map>
 #include <mutex>
@@ -9,12 +11,13 @@
 
 namespace geocoder
 {
-
 class HierarchyReader
 {
 public:
   using Entry = Hierarchy::Entry;
   using ParsingStats = Hierarchy::ParsingStats;
+
+  DECLARE_EXCEPTION(OpenException, RootException);
 
   HierarchyReader(std::string const & pathToJsonHierarchy);
 
@@ -27,5 +30,4 @@ private:
   std::ifstream m_fileStm;
   std::mutex m_mutex;
 };
-
 } // namespace geocoder
