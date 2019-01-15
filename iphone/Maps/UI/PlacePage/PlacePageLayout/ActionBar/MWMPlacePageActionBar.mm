@@ -130,7 +130,7 @@
   for (auto const buttonType : m_visibleButtons)
   {
     auto const isSelected = (buttonType == EButton::Bookmark ? [data isBookmark] : NO);
-    auto const isDisabled = (buttonType == EButton::Bookmark && data.isBookmarkFromCatalog);
+    auto const isDisabled = (buttonType == EButton::Bookmark && [data isBookmark] && !data.isBookmarkEditable);
     auto button = [MWMActionBarButton buttonWithDelegate:self
                                               buttonType:buttonType
                                             partnerIndex:partnerIndex

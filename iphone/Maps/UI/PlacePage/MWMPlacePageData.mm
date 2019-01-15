@@ -695,9 +695,9 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.GetBookmarkCategoryId();
 }
 
-- (BOOL)isBookmarkFromCatalog
+- (BOOL)isBookmarkEditable
 {
-  return self.isBookmark && [[MWMBookmarksManager sharedManager] isCategoryFromCatalog:self.bookmarkCategoryId];
+  return self.isBookmark && [[MWMBookmarksManager sharedManager] isCategoryEditable:self.bookmarkCategoryId];
 }
 
 #pragma mark - Local Ads

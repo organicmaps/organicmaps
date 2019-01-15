@@ -219,7 +219,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSString *)bookmarkCategory;
 - (kml::MarkId)bookmarkId;
 - (kml::MarkGroupId)bookmarkCategoryId;
-- (BOOL)isBookmarkFromCatalog;
+- (BOOL)isBookmarkEditable;
 
 // Local Ads
 - (NSString *)localAdsURL;

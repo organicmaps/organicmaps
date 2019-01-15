@@ -331,7 +331,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
         updateCellDelegate:self
       editBookmarkDelegate:delegate
                     isHTML:data.isHTMLDescription
-                isEditable:!data.isBookmarkFromCatalog];
+                isEditable:data.isBookmarkEditable];
       return c;
     }
     case Sections::Metainfo:

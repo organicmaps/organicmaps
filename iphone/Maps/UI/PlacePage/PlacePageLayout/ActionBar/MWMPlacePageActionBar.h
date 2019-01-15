@@ -5,7 +5,7 @@
 @protocol MWMActionBarSharedData<NSObject>
 
 - (BOOL)isBookmark;
-- (BOOL)isBookmarkFromCatalog;
+- (BOOL)isBookmarkEditable;
 - (BOOL)isOpentable;
 - (BOOL)isPartner;
 - (BOOL)isBooking;
