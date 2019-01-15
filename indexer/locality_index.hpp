@@ -12,11 +12,6 @@
 
 #include "base/geo_object_id.hpp"
 
-#include <boost/multi_index_container.hpp>
-#include <boost/multi_index/hashed_index.hpp>
-#include <boost/multi_index/member.hpp>
-#include <boost/multi_index/ordered_index.hpp>
-
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -36,7 +31,7 @@ class LocalityIndex
 {
 public:
   using ProcessObject = std::function<void(base::GeoObjectId const &)>;
-  using ProcessClosestObject = std::function<void(base::GeoObjectId const &, double distance)>;
+  using ProcessClosestObject = std::function<void(base::GeoObjectId const & objectId, double closenessWeight)>;
 
   LocalityIndex() = default;
   explicit LocalityIndex(Reader const & reader)
@@ -66,6 +61,8 @@ public:
   // and stop after |sizeHint| objects have been processed. For stability, if an object from
   // an index cell has been processed, all other objects from this cell will be processed too,
   // thus probably overflowing the |sizeHint| limit.
+  // |processObject| gets object id in the first argument |objectId| and closeness weight
+  // in the seсond argument |closenessWeight| (closeness weight in the range (0.0, 1.0]).
   void ForClosestToPoint(ProcessClosestObject const & processObject, m2::PointD const & center,
                          double radiusM, uint32_t sizeHint) const
   {
@@ -84,38 +81,34 @@ public:
       bestCell = bestCell.Parent();
     }
 
-    struct ResultItem
+    std::map<uint64_t, double> objectWeights{};
+
+    auto cellRelativeWeight = [&bestCells, cellDepth, center] (int64_t cellNumber)
     {
-      uint64_t m_ObjectId;
-      double m_Distance;
+      if (bestCells.find(cellNumber) != bestCells.end())
+        return 1.0;
+
+      using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+
+      auto const cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
+      auto const cellCenter = Converter::FromCellId(cell);
+      auto const ratingDistance = MercatorBounds::DistanceOnEarth(center, cellCenter);
+
+      double minCellX, minCellY, maxCellX, maxCellY;
+      Converter::GetCellBounds(cell, minCellX, minCellY, maxCellX, maxCellY);
+      auto const distanceError = (maxCellX - minCellX) / 2;
+
+      return 1 / (ratingDistance + distanceError);
     };
-    using namespace boost::multi_index;
-    auto result = multi_index_container<ResultItem,
-                      indexed_by<hashed_unique<member<ResultItem, uint64_t, &ResultItem::m_ObjectId>>,
-                                 ordered_non_unique<member<ResultItem, double, &ResultItem::m_Distance>>>>{};
 
-    auto processAll = [&result, &bestCells, cellDepth, &center](int64_t cellNumber, uint64_t storedId) {
-      auto distance = 0.0;
-      if (bestCells.find(cellNumber) == bestCells.end())
-      {
-        using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
-
-        auto cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
-        auto cellCenter = Converter::FromCellId(cell);
-        distance = MercatorBounds::DistanceOnEarth(center, cellCenter);
-      }
-
-      auto objectId = LocalityObject::FromStoredId(storedId).GetEncodedId();
-      auto resultInsert = result.insert({objectId, distance});
-      if (resultInsert.second)
-        return;
-      auto const & object = *resultInsert.first;
-      if (distance < object.m_Distance)
-        result.replace(resultInsert.first, {objectId, distance});
+    auto processAll = [&] (int64_t cellNumber, uint64_t storedId) {
+      auto const objectId = LocalityObject::FromStoredId(storedId).GetEncodedId();
+      auto & objectWeight = objectWeights[objectId];
+      objectWeight = max(objectWeight, cellRelativeWeight(cellNumber));
     };
 
     auto process = [&](int64_t cellNumber, uint64_t storedId) {
-      if (result.size() < sizeHint)
+      if (objectWeights.size() < sizeHint)
         processAll(cellNumber, storedId);
     };
 
@@ -128,13 +121,15 @@ public:
       else
       {
         m_intervalIndex->ForEach(process, i.first, i.second);
-        if (result.size() >= sizeHint)
+        if (objectWeights.size() >= sizeHint)
           return;
       }
     }
 
-    for (auto const & object : result.template get<1>())
-      processObject(base::GeoObjectId(object.m_ObjectId), object.m_Distance);
+    std::vector<std::pair<uint64_t, double>> result(objectWeights.begin(), objectWeights.end());
+    std::sort(result.begin(), result.end(), [] (auto && l, auto && r) { return l.second > r.second;});
+    for (auto const & object : result)
+      processObject(base::GeoObjectId(object.first), object.second);
   }
 
 private:

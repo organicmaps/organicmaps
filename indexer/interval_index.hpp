@@ -66,7 +66,8 @@ public:
         end = KeyEnd();
       --end;  // end is inclusive in ForEachImpl().
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
-                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels], 0);
+                  m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels],
+                  0 /* started nodeKey */);
     }
   }
 
@@ -92,7 +93,7 @@ private:
         break;
       value += ReadVarInt<int64_t>(src);
       if (key >= beg)
-        Invoke(f, keyBase + key, value, 0);
+        Invoke(f, keyBase + key, value, 0 /* fake argument for invocation choice of |f| */);
     }
   }
 
@@ -168,12 +169,13 @@ private:
   }
 
   template <typename F, typename = decltype(std::declval<F>()(uint64_t{0}, uint64_t{0}))>
-  static void Invoke(F const & f, uint64_t key, uint64_t storedId, int)
+  static void Invoke(F const & f, uint64_t key, uint64_t storedId, int /* best candidate (overload) */)
   {
     f(key, storedId);
   }
+
   template <typename F>
-  static void Invoke(F const & f, uint64_t key, uint64_t storedId, ...)
+  static void Invoke(F const & f, uint64_t key, uint64_t storedId, ... /* default candidate (overload )*/)
   {
     f(storedId);
   }
