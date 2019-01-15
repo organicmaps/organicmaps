@@ -163,6 +163,7 @@ if (NOT Boost_FOUND)
 endif()
 
 if (PYBINDINGS)
+  add_subdirectory(pyhelpers)
   if (PYTHON_VERSION VERSION_GREATER 3.0)
     set(_Boost_PYTHON3_HEADERS "boost/python.hpp")
     if (NOT DEFINED BOOST_PYTHON_LIBNAME)

@@ -8,6 +8,8 @@
 #pragma clang diagnostic ignored "-Wunused-local-typedef"
 #endif
 
+#include "pyhelpers/module_version.hpp"
+
 #include <boost/python.hpp>
 
 #if defined(__clang__)
@@ -20,6 +22,7 @@ using namespace std;
 BOOST_PYTHON_MODULE(pymwm_diff)
 {
   using namespace boost::python;
+  scope().attr("__version__") = PYBINDINGS_VERSION;
 
   def("make_diff", generator::mwm_diff::MakeDiff);
   def("apply_diff", generator::mwm_diff::ApplyDiff);

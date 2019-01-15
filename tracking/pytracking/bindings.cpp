@@ -2,6 +2,7 @@
 
 #include "coding/traffic.hpp"
 
+#include "pyhelpers/module_version.hpp"
 #include "pyhelpers/pair.hpp"
 #include "pyhelpers/vector_uint8.hpp"
 
@@ -12,6 +13,8 @@
 BOOST_PYTHON_MODULE(pytracking)
 {
   using namespace boost::python;
+  scope().attr("__version__") = PYBINDINGS_VERSION;
+
   using tracking::Protocol;
 
   // Register the to-python converters.

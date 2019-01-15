@@ -29,6 +29,7 @@
 #pragma clang diagnostic ignored "-Wunused-local-typedef"
 #endif
 
+#include "pyhelpers/module_version.hpp"
 #include "pyhelpers/vector_uint8.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
 
@@ -642,6 +643,7 @@ std::string IndexToClassificatorType(uint32_t index)
 
 BOOST_PYTHON_MODULE(pykmlib)
 {
+  scope().attr("__version__") = PYBINDINGS_VERSION;
   register_exception_translator<std::runtime_error>(&TranslateRuntimeError);
   TimestampConverter();
   LatLonConverter();

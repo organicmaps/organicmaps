@@ -5,6 +5,8 @@ set(
   bindings.cpp
 )
 
+include_directories(${CMAKE_BINARY_DIR})
+
 omim_add_library(${PROJECT_NAME} MODULE ${SRC})
 
 omim_link_libraries(

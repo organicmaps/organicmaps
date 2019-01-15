@@ -15,6 +15,7 @@
 #include "std/string.hpp"
 #include "std/vector.hpp"
 
+#include "pyhelpers/module_version.hpp"
 #include "pyhelpers/vector_list_conversion.hpp"
 #include "pyhelpers/vector_uint8.hpp"
 
@@ -162,6 +163,7 @@ void LoadClassificator(string const & classifPath)
 BOOST_PYTHON_MODULE(pytraffic)
 {
   using namespace boost::python;
+  scope().attr("__version__") = PYBINDINGS_VERSION;
 
   // Register the to-python converters.
   to_python_converter<vector<uint8_t>, vector_uint8t_to_str>();

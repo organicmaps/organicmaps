@@ -20,6 +20,8 @@
 
 #include "base/assert.hpp"
 
+#include "pyhelpers/module_version.hpp"
+
 #include <boost/python.hpp>
 
 #include <iomanip>
@@ -266,6 +268,7 @@ struct SearchEngineProxy
 BOOST_PYTHON_MODULE(pysearch)
 {
   using namespace boost::python;
+  scope().attr("__version__") = PYBINDINGS_VERSION;
 
   def("init", &Init);
 
