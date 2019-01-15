@@ -14,11 +14,6 @@ PRIVATE_NETWORK_CONFIG="$BASE_PATH/android/res/xml/network_security_config.xml"
 SAVED_PRIVATE_REPO_FILE="$BASE_PATH/.private_repository_url"
 TMP_REPO_DIR="$BASE_PATH/.tmp.private.repo"
 
-if [ "$(git rev-parse --show-toplevel)" != "$(pwd -P)" ]; then
-  echo "Please run this script from the root repository folder."
-  exit 1
-fi
-
 if [ -f "$SAVED_PRIVATE_REPO_FILE" ]; then
   PRIVATE_REPO=`cat "$SAVED_PRIVATE_REPO_FILE"`
   echo "Using stored private repository URL: $PRIVATE_REPO"
