@@ -1,37 +1,67 @@
 #include "testing/testing.hpp"
 
-#include "map/power_manager/power_manager.hpp"
+#include "map/power_management/power_manager.hpp"
+#include "map/power_management/power_management_schemas.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include <functional>
 #include <vector>
 
+using namespace power_management;
+
+namespace
+{
 using namespace platform::tests_support;
 
 struct SubscriberForTesting : public PowerManager::Subscriber
 {
 public:
   // PowerManager::Subscriber overrides:
-  void OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled) override
+  void OnPowerFacilityChanged(Facility const facility, bool enabled) override
   {
     m_onFacilityEvents.push_back({facility, enabled});
   }
 
-  void OnPowerSchemeChanged(PowerManager::Scheme const actualConfig) override
+  void OnPowerSchemeChanged(Scheme const actualConfig) override
   {
     m_onShemeEvents.push_back(actualConfig);
   }
 
   struct FacilityState
   {
-    PowerManager::Facility m_facility;
+    Facility m_facility;
     bool m_state;
   };
 
   std::vector<FacilityState> m_onFacilityEvents;
-  std::vector<PowerManager::Scheme> m_onShemeEvents;
+  std::vector<Scheme> m_onShemeEvents;
 };
+
+void TestIsAllFacilitiesInState(PowerManager const & manager, bool state)
+{
+  auto const count = static_cast<size_t>(Facility::Count);
+  for (size_t i = 0; i < count; ++i)
+  {
+    TEST_EQUAL(manager.IsFacilityEnabled(static_cast<Facility>(i)), state, ());
+  }
+}
+
+void TestAllFacilitiesEnabledExcept(PowerManager const & manager,
+                                    std::vector<Facility> const & disabledFacilities)
+{
+  auto const count = static_cast<size_t>(Facility::Count);
+  for (size_t i = 0; i < count; ++i)
+  {
+    auto const facility = static_cast<Facility>(i);
+    auto const it = std::find(disabledFacilities.cbegin(), disabledFacilities.cend(), facility);
+
+    if (it == disabledFacilities.cend())
+      TEST(manager.IsFacilityEnabled(facility), ());
+    else
+      TEST(!manager.IsFacilityEnabled(facility), ());
+  }
+}
 
 UNIT_TEST(PowerManager_SetFacility)
 {
@@ -41,33 +71,29 @@ UNIT_TEST(PowerManager_SetFacility)
 
   manager.Subscribe(&subscriber);
 
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
-  manager.SetFacility(PowerManager::Facility::Buildings3d, false);
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), false, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::None, ());
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
+  manager.SetFacility(Facility::Buildings3d, false);
+  TestAllFacilitiesEnabledExcept(manager, {Facility::Buildings3d});
+  TEST_EQUAL(manager.GetScheme(), Scheme::None, ());
 
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::Buildings3d, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::None, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::None, ());
 
   subscriber.m_onFacilityEvents.clear();
   subscriber.m_onShemeEvents.clear();
 
-  manager.SetFacility(PowerManager::Facility::TrackRecord, false);
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), false, ());
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Economy, ());
+  manager.SetFacility(Facility::MapDownloader, false);
+  TestAllFacilitiesEnabledExcept(manager, {Facility::Buildings3d, Facility::MapDownloader});
+  TEST_EQUAL(manager.GetScheme(), Scheme::None, ());
 
   TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, PowerManager::Facility::TrackRecord, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::MapDownloader, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Economy, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
 }
 
 UNIT_TEST(PowerManager_SetConfig)
@@ -78,37 +104,172 @@ UNIT_TEST(PowerManager_SetConfig)
 
   manager.Subscribe(&subscriber);
 
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
-  manager.SetScheme(PowerManager::Scheme::Economy);
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Economy, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), false, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), false, ());
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
+  manager.SetScheme(Scheme::EconomyMaximum);
+  TEST_EQUAL(manager.GetScheme(), Scheme::EconomyMaximum, ());
+  TestAllFacilitiesEnabledExcept(manager, {Facility::Buildings3d,
+                                           Facility::PerspectiveView,
+                                           Facility::TrackRecording,
+                                           Facility::TrafficJams,
+                                           Facility::GpsTrackingForTraffic,
+                                           Facility::OsmEditsUploading,
+                                           Facility::UgcUploading,
+                                           Facility::BookmarkCloudUploading});
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Economy, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 2, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::Buildings3d, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::EconomyMaximum, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 8, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, PowerManager::Facility::TrackRecord, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::PerspectiveView, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_facility, Facility::TrackRecording, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_facility, Facility::TrafficJams, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::GpsTrackingForTraffic, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::OsmEditsUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_facility, Facility::UgcUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[7].m_facility, Facility::BookmarkCloudUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[7].m_state, false, ());
 
   subscriber.m_onFacilityEvents.clear();
   subscriber.m_onShemeEvents.clear();
 
-  manager.SetScheme(PowerManager::Scheme::Normal);
-  TEST_EQUAL(manager.GetScheme(), PowerManager::Scheme::Normal, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::Buildings3d), true, ());
-  TEST_EQUAL(manager.IsFacilityEnabled(PowerManager::Facility::TrackRecord), true, ());
+  manager.SetScheme(Scheme::EconomyMedium);
+  TEST_EQUAL(manager.GetScheme(), Scheme::EconomyMedium, ());
+
+  TestAllFacilitiesEnabledExcept(manager,
+                                 {Facility::PerspectiveView, Facility::BookmarkCloudUploading});
 
   TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
-  TEST_EQUAL(subscriber.m_onShemeEvents[0], PowerManager::Scheme::Normal, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 2, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility,
-             PowerManager::Facility::Buildings3d, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::EconomyMedium, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 6, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::Buildings3d, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, true, ());
-  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, PowerManager::Facility::TrackRecord, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::TrackRecording, ());
   TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, true, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_facility, Facility::TrafficJams, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_state, true, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_facility, Facility::GpsTrackingForTraffic, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, true, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::OsmEditsUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, true, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::UgcUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, true, ());
 }
+
+UNIT_TEST(PowerManager_OnBatteryLevelChanged)
+{
+  ScopedFile sf("power_manager_config", ScopedFile::Mode::DoNotCreate);
+  PowerManager manager;
+  SubscriberForTesting subscriber;
+
+  manager.Subscribe(&subscriber);
+
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
+
+  manager.OnBatteryLevelChanged(50);
+
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
+
+  manager.OnBatteryLevelChanged(10);
+
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Normal, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
+
+  manager.SetScheme(Scheme::Auto);
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 1, ());
+  TEST_EQUAL(subscriber.m_onShemeEvents[0], Scheme::Auto, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
+
+  subscriber.m_onShemeEvents.clear();
+  subscriber.m_onFacilityEvents.clear();
+
+  manager.OnBatteryLevelChanged(50);
+
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 0, ());
+
+  manager.OnBatteryLevelChanged(28);
+
+  TestAllFacilitiesEnabledExcept(manager, {Facility::PerspectiveView,
+                                           Facility::GpsTrackingForTraffic,
+                                           Facility::BookmarkCloudUploading,
+                                           Facility::MapDownloader,
+                                           Facility::StatisticsUploading});
+  TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 5, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::PerspectiveView, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::GpsTrackingForTraffic, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_facility, Facility::BookmarkCloudUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_facility, Facility::MapDownloader, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::StatisticsUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
+
+  subscriber.m_onShemeEvents.clear();
+  subscriber.m_onFacilityEvents.clear();
+
+  manager.OnBatteryLevelChanged(10);
+
+  TestIsAllFacilitiesInState(manager, false);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 7, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_facility, Facility::Buildings3d, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[0].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_facility, Facility::TrackRecording, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[1].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_facility, Facility::TrafficJams, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[2].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_facility, Facility::OsmEditsUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[3].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_facility, Facility::UgcUploading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[4].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_facility, Facility::LocalAdsDataDownloading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[5].m_state, false, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_facility, Facility::AdsDownloading, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents[6].m_state, false, ());
+
+  subscriber.m_onShemeEvents.clear();
+  subscriber.m_onFacilityEvents.clear();
+
+  manager.OnBatteryLevelChanged(100);
+
+  TestIsAllFacilitiesInState(manager, true);
+  TEST_EQUAL(manager.GetScheme(), Scheme::Auto, ());
+
+  TEST_EQUAL(subscriber.m_onShemeEvents.size(), 0, ());
+  TEST_EQUAL(subscriber.m_onFacilityEvents.size(), 12, ());
+
+  auto const & facilityEvents = subscriber.m_onFacilityEvents;
+  for (size_t i = 0; i < facilityEvents.size(); ++i)
+  {
+    TEST_EQUAL(facilityEvents[i].m_facility, static_cast<Facility>(i), ());
+    TEST_EQUAL(subscriber.m_onFacilityEvents[i].m_state, true, ());
+  }
+}
+}  // namespace

@@ -3774,7 +3774,7 @@ booking::AvailabilityParams Framework::GetLastBookingAvailabilityParams() const
   return m_bookingAvailabilityParams;
 }
 
-void Framework::OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled)
+void Framework::OnPowerFacilityChanged(power_management::Facility const facility, bool enabled)
 {
   // Dummy.
   // TODO: process facilities which do not have switch in UI.

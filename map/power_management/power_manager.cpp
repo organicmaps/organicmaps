@@ -1,4 +1,4 @@
-#include "map/power_manager/power_manager.hpp"
+#include "map/power_management/power_manager.hpp"
 
 #include "platform/platform.hpp"
 
@@ -11,37 +11,32 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <unordered_map>
+using namespace power_management;
 
 namespace
 {
 using Subscribers = std::vector<PowerManager::Subscriber *>;
-
-std::unordered_map<PowerManager::Scheme, PowerManager::FacilitiesState> const kSchemeToState =
-{
-  {PowerManager::Scheme::Normal, {{true, true}}},
-  {PowerManager::Scheme::Economy, {{false, false}}}
-};
 
 std::string GetFilePath()
 {
   return base::JoinPath(GetPlatform().SettingsDir(), "power_manager_config");
 }
 
-void NotifySubscribers(Subscribers & subscribers, PowerManager::Scheme const scheme)
+void NotifySubscribers(Subscribers & subscribers, Scheme const scheme)
 {
   for (auto & subscriber : subscribers)
     subscriber->OnPowerSchemeChanged(scheme);
 }
 
-void NotifySubscribers(Subscribers & subscribers, PowerManager::Facility const facility,
-                       bool enabled)
+void NotifySubscribers(Subscribers & subscribers, Facility const facility, bool enabled)
 {
   for (auto & subscriber : subscribers)
     subscriber->OnPowerFacilityChanged(facility, enabled);
 }
 }  // namespace
 
+namespace power_management
+{
 void PowerManager::Load()
 {
   try
@@ -84,7 +79,8 @@ void PowerManager::SetFacility(Facility const facility, bool enabled)
 
   m_config.m_facilities[static_cast<size_t>(facility)] = enabled;
 
-  auto const isSchemeChanged = BalanceScheme();
+  auto const isSchemeChanged = m_config.m_scheme != Scheme::None;
+  m_config.m_scheme = Scheme::None;
 
   if (!Save())
     return;
@@ -103,9 +99,12 @@ void PowerManager::SetScheme(Scheme const scheme)
   m_config.m_scheme = scheme;
 
   if (m_config.m_scheme == Scheme::None || m_config.m_scheme == Scheme::Auto)
+  {
+    NotifySubscribers(m_subscribers, m_config.m_scheme);
     return;
+  }
 
-  auto actualState = kSchemeToState.at(scheme);
+  auto actualState = GetFacilitiesState(scheme);
 
   if (m_config.m_facilities == actualState)
     return;
@@ -131,12 +130,12 @@ bool PowerManager::IsFacilityEnabled(Facility const facility) const
   return m_config.m_facilities[static_cast<size_t>(facility)];
 }
 
-PowerManager::FacilitiesState const & PowerManager::GetFacilities() const
+FacilitiesState const & PowerManager::GetFacilities() const
 {
   return m_config.m_facilities;
 }
 
-PowerManager::Scheme const & PowerManager::GetScheme() const
+Scheme const & PowerManager::GetScheme() const
 {
   return m_config.m_scheme;
 }
@@ -148,7 +147,27 @@ void PowerManager::OnBatteryLevelChanged(uint8_t level)
   if (m_config.m_scheme != Scheme::Auto)
     return;
 
-  // TODO.
+  AutoScheme actualScheme = AutoScheme::Normal;
+  if (level < 20)
+    actualScheme = AutoScheme::EconomyMaximum;
+  else if (level < 30)
+    actualScheme = AutoScheme::EconomyMedium;
+
+  auto actualState = GetFacilitiesState(actualScheme);
+
+  if (m_config.m_facilities == actualState)
+    return;
+
+  std::swap(m_config.m_facilities, actualState);
+
+  if (!Save())
+    return;
+
+  for (size_t i = 0; i < actualState.size(); ++i)
+  {
+    if (m_config.m_facilities[i] != actualState[i])
+      NotifySubscribers(m_subscribers, static_cast<Facility>(i), m_config.m_facilities[i]);
+  }
 }
 
 void PowerManager::Subscribe(Subscriber * subscriber)
@@ -160,30 +179,6 @@ void PowerManager::Subscribe(Subscriber * subscriber)
 void PowerManager::UnsubscribeAll()
 {
   m_subscribers.clear();
-}
-
-bool PowerManager::BalanceScheme()
-{
-  bool found = false;
-  Scheme actualScheme = m_config.m_scheme;
-  for (auto const & item : kSchemeToState)
-  {
-    if (item.second == m_config.m_facilities)
-    {
-      actualScheme = item.first;
-      found = true;
-      break;
-    }
-  }
-
-  if (!found)
-    actualScheme = Scheme::None;
-
-  if (m_config.m_scheme == actualScheme)
-    return false;
-
-  m_config.m_scheme = actualScheme;
-  return true;
 }
 
 bool PowerManager::Save()
@@ -216,24 +211,4 @@ bool PowerManager::Save()
   Load();
   return false;
 }
-
-std::string DebugPrint(PowerManager::Facility const facility)
-{
-  switch (facility)
-  {
-  case PowerManager::Facility::Buildings3d: return "Buildings3d";
-  case PowerManager::Facility::TrackRecord: return "TrackRecord";
-  case PowerManager::Facility::Count: return "Count";
-  }
-}
-
-std::string DebugPrint(PowerManager::Scheme const scheme)
-{
-  switch (scheme)
-  {
-  case PowerManager::Scheme::None: return "None";
-  case PowerManager::Scheme::Normal: return "Normal";
-  case PowerManager::Scheme::Economy: return "Economy";
-  case PowerManager::Scheme::Auto: return "Auto";
-  }
-}
+}  // namespace power_management

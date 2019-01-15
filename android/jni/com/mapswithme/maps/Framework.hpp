@@ -4,7 +4,7 @@
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
-#include "map/power_manager/power_manager.hpp"
+#include "map/power_management/power_manager.hpp"
 
 #include "ugc/api.hpp"
 
@@ -49,7 +49,7 @@ struct BlockParams;
 
 namespace android
 {
-  class Framework : private PowerManager::Subscriber
+  class Framework : private power_management::PowerManager::Subscriber
   {
   private:
     drape_ptr<dp::ThreadSafeFactory> m_contextFactory;
@@ -218,8 +218,8 @@ namespace android
     void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
 
     // PowerManager::Subscriber overrides:
-    void OnPowerFacilityChanged(PowerManager::Facility const facility, bool enabled) override;
-    void OnPowerSchemeChanged(PowerManager::Scheme const actualScheme) override;
+    void OnPowerFacilityChanged(power_management::Facility const facility, bool enabled) override;
+    void OnPowerSchemeChanged(power_management::Scheme const actualScheme) override;
   };
 }
 
