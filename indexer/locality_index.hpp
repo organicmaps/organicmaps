@@ -31,7 +31,7 @@ class LocalityIndex
 {
 public:
   using ProcessObject = std::function<void(base::GeoObjectId const &)>;
-  using ProcessClosestObject = std::function<void(base::GeoObjectId const & objectId, double closenessWeight)>;
+  using ProcessCloseObject = std::function<void(base::GeoObjectId const & objectId, double closenessWeight)>;
 
   LocalityIndex() = default;
   explicit LocalityIndex(Reader const & reader)
@@ -63,7 +63,7 @@ public:
   // thus probably overflowing the |sizeHint| limit.
   // |processObject| gets object id in the first argument |objectId| and closeness weight
   // in the seсond argument |closenessWeight| (closeness weight in the range (0.0, 1.0]).
-  void ForClosestToPoint(ProcessClosestObject const & processObject, m2::PointD const & center,
+  void ForClosestToPoint(ProcessCloseObject const & processObject, m2::PointD const & center,
                          double radiusM, uint32_t sizeHint) const
   {
     auto const rect =
