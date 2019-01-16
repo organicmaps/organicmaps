@@ -2642,25 +2642,25 @@
 "whats_new_ugc_routes_title_android_only" = "Det er nemt at dele dine indtryk";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_title" = "power managment";
+"power_management_title" = "power management";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_settings" = "power managment settings";
+"power_management_settings" = "power management settings";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_description" = "when automatic mode is selected...";
+"power_management_description" = "when automatic mode is selected...";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_setting_never" = "never";
+"power_management_setting_never" = "never";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_setting_auto" = "auto";
+"power_management_setting_auto" = "auto";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_setting_medium" = "medium";
+"power_management_setting_medium" = "medium";
 
 /* FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png */
-"power_managment_setting_high" = "high";
+"power_management_setting_high" = "high";
 
 
 /**********  Partners  **********/
