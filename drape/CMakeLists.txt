@@ -149,21 +149,25 @@ append(
 endif()
 
 append(
-  SRC
-  vulkan/vulkan_base_context.cpp
-  vulkan/vulkan_base_context.hpp
-  vulkan/vulkan_device_holder.hpp
-  vulkan/vulkan_gpu_program.hpp
-  vulkan/vulkan_layers.cpp
-  vulkan/vulkan_layers.hpp
-  vulkan/vulkan_memory_manager.cpp
-  vulkan/vulkan_memory_manager.hpp
-  vulkan/vulkan_mesh_object_impl.cpp
-  vulkan/vulkan_mesh_object_impl.hpp
-  vulkan/vulkan_utils.cpp
-  vulkan/vulkan_utils.hpp
+  VULKAN_SRC
+  ${DRAPE_ROOT}/vulkan/vulkan_base_context.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_base_context.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_device_holder.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_gpu_buffer_impl.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_gpu_program.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_layers.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_layers.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_memory_manager.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_memory_manager.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_mesh_object_impl.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_texture.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_texture.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_utils.cpp
+  ${DRAPE_ROOT}/vulkan/vulkan_utils.hpp
+  ${DRAPE_ROOT}/vulkan/vulkan_vertex_array_buffer_impl.cpp
 )
 
-omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
+omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC} ${VULKAN_SRC})
 
 omim_add_test_subdirectory(drape_tests)

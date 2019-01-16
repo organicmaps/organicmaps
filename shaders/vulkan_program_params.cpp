@@ -16,6 +16,7 @@ void ApplyBytes(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::GpuProgram> pr
   ref_ptr<dp::vulkan::VulkanBaseContext> vulkanContext = context;
   ref_ptr<dp::vulkan::VulkanGpuProgram> p = program;
   //TODO(@rokuz, @darina): Implement.
+  CHECK(false, ());
 }
 }  // namespace
   

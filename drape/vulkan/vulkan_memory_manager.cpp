@@ -1,4 +1,4 @@
-#pragma "drape/vulkan/vulkan_memory_manager.cpp"
+#include "drape/vulkan/vulkan_memory_manager.hpp"
 
 namespace dp
 {

@@ -41,9 +41,15 @@ namespace metal
 class MetalVertexArrayBufferImpl;
 }  // namespace metal
 
+namespace vulkan
+{
+class VulkanVertexArrayBufferImpl;
+}  // namespace vulkan
+
 class VertexArrayBuffer
 {
   friend class metal::MetalVertexArrayBufferImpl;
+  friend class vulkan::VulkanVertexArrayBufferImpl;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize, uint64_t batcherHash);
   ~VertexArrayBuffer();
@@ -93,6 +99,9 @@ private:
 
   // Definition of this method is in a .mm-file.
   drape_ptr<VertexArrayBufferImpl> CreateImplForMetal(ref_ptr<VertexArrayBuffer> buffer);
+
+  // Definition of this method is in a separate .cpp-file.
+  drape_ptr<VertexArrayBufferImpl> CreateImplForVulkan(ref_ptr<VertexArrayBuffer> buffer);
 
   uint32_t const m_dataBufferSize;
   uint64_t const m_batcherHash;

@@ -38,6 +38,11 @@ private:
   // Definition of this method is in a .mm-file.
   drape_ptr<DataBufferBase> CreateImplForMetal(ref_ptr<GraphicsContext> context, void const * data,
                                                uint8_t elementSize, uint32_t capacity);
+
+  // Definition of this method is in a separate .cpp-file.
+  drape_ptr<DataBufferBase> CreateImplForVulkan(ref_ptr<GraphicsContext> context, void const * data,
+                                                uint8_t elementSize, uint32_t capacity,
+                                                uint64_t batcherHash);
   
   drape_ptr<DataBufferBase> m_impl;
 };

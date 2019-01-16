@@ -39,7 +39,7 @@ void * MetalGPUBuffer::Map(uint32_t elementOffset, uint32_t elementCount)
 }
 
 void MetalGPUBuffer::UpdateData(void * gpuPtr, void const * data,
-                uint32_t elementOffset, uint32_t elementCount)
+                                uint32_t elementOffset, uint32_t elementCount)
 {
   uint32_t const elementSize = GetElementSize();
   uint32_t const byteOffset = elementOffset * elementSize;

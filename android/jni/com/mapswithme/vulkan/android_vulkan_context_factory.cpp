@@ -148,7 +148,7 @@ AndroidVulkanContextFactory::AndroidVulkanContextFactory()
   queueCreateInfo.pNext = nullptr;
   queueCreateInfo.flags = 0;
   queueCreateInfo.queueCount = 1;
-  queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
+  queueCreateInfo.queueFamilyIndex = renderingQueueFamilyIndex;
   queueCreateInfo.pQueuePriorities = priorities;
 
   VkDeviceCreateInfo deviceCreateInfo = {};

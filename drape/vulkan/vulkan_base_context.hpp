@@ -54,6 +54,8 @@ public:
   void SetSurface(VkSurfaceKHR surface, VkFormat surfaceFormat, int width, int height);
   void ResetSurface();
 
+  VkPhysicalDevice const GetPhysicalDevice() const { return m_gpu; }
+
   VkDevice GetDevice() const { return m_device; }
   DeviceHolderPtr GetDeviceHolder() const { return m_deviceHolder; }
 

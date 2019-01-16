@@ -7,8 +7,6 @@
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "drape/vulkan/vulkan_mesh_object_impl.hpp"
-
 namespace
 {
 glConst GetGLDrawPrimitive(dp::MeshObject::DrawPrimitive drawPrimitive)
@@ -174,11 +172,6 @@ MeshObject::~MeshObject()
 void MeshObject::InitForOpenGL()
 {
   m_impl = make_unique_dp<GLMeshObjectImpl>(make_ref(this));
-}
-
-void MeshObject::InitForVulkan()
-{
-  m_impl = make_unique_dp<vulkan::VulkanMeshObjectImpl>(make_ref(this));
 }
 
 void MeshObject::SetBuffer(uint32_t bufferInd, std::vector<float> && vertices, uint32_t stride)

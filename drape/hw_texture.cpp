@@ -20,6 +20,9 @@ extern drape_ptr<dp::HWTextureAllocator> CreateMetalAllocator();
 extern ref_ptr<dp::HWTextureAllocator> GetDefaultMetalAllocator();
 #endif
 
+extern drape_ptr<dp::HWTextureAllocator> CreateVulkanAllocator();
+extern ref_ptr<dp::HWTextureAllocator> GetDefaultVulkanAllocator();
+
 namespace dp
 {
 void UnpackFormat(ref_ptr<dp::GraphicsContext> context, TextureFormat format,
@@ -264,11 +267,7 @@ drape_ptr<HWTextureAllocator> CreateAllocator(ref_ptr<dp::GraphicsContext> conte
   }
 
   if (apiVersion == dp::ApiVersion::Vulkan)
-  {
-    //TODO(@rokuz, @darina): Implement.
-    CHECK(false, ());
-    return nullptr;
-  }
+    return CreateVulkanAllocator();
 
   if (apiVersion == dp::ApiVersion::OpenGLES3)
     return make_unique_dp<OpenGLHWTextureAllocator>();
@@ -294,11 +293,7 @@ ref_ptr<HWTextureAllocator> GetDefaultAllocator(ref_ptr<dp::GraphicsContext> con
   }
 
   if (apiVersion == dp::ApiVersion::Vulkan)
-  {
-    //TODO(@rokuz, @darina): Implement.
-    CHECK(false, ());
-    return nullptr;
-  }
+    return GetDefaultVulkanAllocator();
 
   static OpenGLHWTextureAllocator s_allocator;
   return make_ref<HWTextureAllocator>(&s_allocator);
