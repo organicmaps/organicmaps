@@ -477,6 +477,13 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   auto const type = kTypes[indexPath.row];
   auto str = [NSString stringWithFormat:kHotelTypePattern, @(ftypes::IsHotelChecker::GetHotelTypeTag(type))];
   cell.tagName.text = L(str);
+  
+  //we need to do this because of bug - ios 12 doesnt apply layout to cells until scrolling
+  if (@available(iOS 12.0, *))
+  {
+    [cell layoutIfNeeded];
+  }
+  
   auto const selected = m_selectedTypes.find(type) != m_selectedTypes.end();
   cell.selected = selected;
   if (selected)

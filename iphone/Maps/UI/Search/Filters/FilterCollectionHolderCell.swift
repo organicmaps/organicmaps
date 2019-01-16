@@ -25,6 +25,7 @@ final class FilterCollectionHolderCell: MWMTableViewCell {
     self.tableView = tableView
     layout()
     collectionView.allowsMultipleSelection = true
+    collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     collectionView.reloadData()
   }
 

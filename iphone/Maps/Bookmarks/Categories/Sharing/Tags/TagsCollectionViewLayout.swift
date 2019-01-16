@@ -17,10 +17,10 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
     return CGSize(width: contentWidth, height: contentHeight)
   }
   
-  var itemHeight: CGFloat = 50
-  var itemWidth: CGFloat = 50
-  var lineSpacing: CGFloat = 10
-  var elementsSpacing: CGFloat = 10
+  @IBInspectable var itemHeight: CGFloat = 50
+  @IBInspectable var itemWidth: CGFloat = 50
+  @IBInspectable var lineSpacing: CGFloat = 10
+  @IBInspectable var elementsSpacing: CGFloat = 10
 
   override func prepare() {
     super.prepare()
@@ -35,17 +35,21 @@ final class TagsCollectionViewLayout: UICollectionViewLayout {
     var lastItemHeight: CGFloat = 0
     
     for section in 0 ..< collectionView.numberOfSections {
+      xOffset = 0
       yOffset += (section == 0) ? 0 : lastItemHeight + 2 * lineSpacing
+      
       let indexPath = IndexPath(item: 0, section: section)
       
-      let headerSize = headersCache[indexPath]?.size ?? CGSize(width: contentWidth, height: itemHeight)
-      let frame = CGRect(x: 0, y: yOffset, width: headerSize.width, height: headerSize.height)
-      let attr = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
-      attr.frame = frame
-      headersCache[indexPath] = attr
-      
-      yOffset += headerSize.height + lineSpacing
-      xOffset = 0
+      if collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader,
+                                          at: indexPath) != nil {
+        let headerSize = headersCache[indexPath]?.size ?? CGSize(width: contentWidth, height: itemHeight)
+        let frame = CGRect(x: 0, y: yOffset, width: headerSize.width, height: headerSize.height)
+        let attr = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
+        attr.frame = frame
+        headersCache[indexPath] = attr
+        
+        yOffset += headerSize.height + lineSpacing
+      }
       
       for item in 0 ..< collectionView.numberOfItems(inSection: section) {
         let indexPath = IndexPath(item: item, section: section)
