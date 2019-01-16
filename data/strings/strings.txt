@@ -37153,3 +37153,31 @@
     zh-Hans = 分享您的印象很容易
     zh-Hant = 分享您的印象很容易
     sk = Je ľahké podeliť sa o vaše dojmy
+
+  [power_managment_title]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = power managment
+
+  [power_managment_settings]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = power managment settings
+
+  [power_managment_description]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = when automatic mode is selected...
+
+  [power_managment_setting_never]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = never
+
+  [power_managment_setting_auto]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = auto
+
+  [power_managment_setting_medium]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = medium
+
+  [power_managment_setting_high]
+    comment = FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png
+    en = high
