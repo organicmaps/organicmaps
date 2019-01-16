@@ -51,6 +51,7 @@ set(
   observer_list.hpp
   pprof.cpp
   pprof.hpp
+  primitive_thread_pool.hpp
   random.cpp
   random.hpp
   range_iterator.hpp
@@ -83,6 +84,7 @@ set(
   thread_checker.hpp
   thread_pool.cpp
   thread_pool.hpp
+  thread_utils.hpp
   threaded_container.cpp
   threaded_container.hpp
   threaded_list.hpp
