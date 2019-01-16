@@ -66,6 +66,8 @@ public:
   void ForClosestToPoint(ProcessCloseObject const & processObject, m2::PointD const & center,
                          double radiusM, uint32_t sizeHint) const
   {
+    using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
+
     auto const rect =
         MercatorBounds::RectByCenterXYAndSizeInMeters(center, radiusM);
     covering::CoveringGetter cov(rect, covering::CoveringMode::Spiral);
@@ -83,22 +85,25 @@ public:
 
     std::map<uint64_t, double> objectWeights{};
 
-    auto cellRelativeWeight = [&bestCells, cellDepth, center] (int64_t cellNumber)
-    {
+    auto const centralCell = Converter::ToCellId(center.x, center.y);
+    auto const centralCellXY = centralCell.XY();
+
+    auto chebyshevDistance = [centralCellXY] (auto && cellXY) {
+      auto abs = [](auto && a, auto && b) { return a > b ? a - b : b - a; };
+      auto const distanceX = abs(centralCellXY.first, cellXY.first);
+      auto const distanceY = abs(centralCellXY.second, cellXY.second);
+      return std::max(distanceX, distanceY);
+    };
+
+    auto cellRelativeWeight = [&] (int64_t cellNumber) {
       if (bestCells.find(cellNumber) != bestCells.end())
         return 1.0;
 
-      using Converter = CellIdConverter<MercatorBounds, m2::CellId<DEPTH_LEVELS>>;
-
       auto const cell = m2::CellId<DEPTH_LEVELS>::FromInt64(cellNumber, cellDepth);
-      auto const cellCenter = Converter::FromCellId(cell);
-      auto const ratingDistance = MercatorBounds::DistanceOnEarth(center, cellCenter);
+      auto const distance = chebyshevDistance(cell.XY());
+      CHECK_GREATER(distance, 0, ());
 
-      double minCellX, minCellY, maxCellX, maxCellY;
-      Converter::GetCellBounds(cell, minCellX, minCellY, maxCellX, maxCellY);
-      auto const distanceError = (maxCellX - minCellX) / 2;
-
-      return 1 / (ratingDistance + distanceError);
+      return 1.0 / distance;
     };
 
     auto processAll = [&] (int64_t cellNumber, uint64_t storedId) {
