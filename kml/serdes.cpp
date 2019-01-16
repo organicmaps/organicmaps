@@ -817,6 +817,8 @@ void KmlParser::CharData(std::string value)
           m_data.m_categoryData.m_accessRules = AccessRules::Paid;
         else if (value == "Public")
           m_data.m_categoryData.m_accessRules = AccessRules::Public;
+        else if (value == "AuthorOnly")
+          m_data.m_categoryData.m_accessRules = AccessRules::AuthorOnly;
       }
       else if (currTag == "mwm:imageUrl")
       {

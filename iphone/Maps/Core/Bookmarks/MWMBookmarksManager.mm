@@ -322,6 +322,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       return MWMCategoryAccessStatusPrivate;
     case kml::AccessRules::P2P:
     case kml::AccessRules::Paid:
+    case kml::AccessRules::AuthorOnly:
     case kml::AccessRules::Count:
       return MWMCategoryAccessStatusOther;
   }

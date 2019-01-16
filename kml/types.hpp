@@ -55,6 +55,7 @@ enum class AccessRules : uint8_t
   DirectLink,
   P2P,
   Paid,
+  AuthorOnly,
 
   Count
 };
@@ -64,10 +65,11 @@ inline std::string DebugPrint(AccessRules accessRules)
   switch (accessRules)
   {
   case AccessRules::Local: return "Local";
+  case AccessRules::Public: return "Public";
   case AccessRules::DirectLink: return "DirectLink";
   case AccessRules::P2P: return "P2P";
   case AccessRules::Paid: return "Paid";
-  case AccessRules::Public: return "Public";
+  case AccessRules::AuthorOnly: return "AuthorOnly";
   case AccessRules::Count: return {};
   }
   UNREACHABLE();
