@@ -1527,19 +1527,19 @@
 	<string name="whatsnew_paid_routes_message">In addition to the free routes, we have added 3 paid route categories to our catalog. Over 700 new routes!</string>
 	<string name="whats_new_ugc_routes_title_android_only">Easy to share your impressions</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_title">power managment</string>
+	<string name="power_management_title">power management</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_settings">power managment settings</string>
+	<string name="power_management_settings">power management settings</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_description">when automatic mode is selected...</string>
+	<string name="power_management_description">when automatic mode is selected...</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_setting_never">never</string>
+	<string name="power_management_setting_never">never</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_setting_auto">auto</string>
+	<string name="power_management_setting_auto">auto</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_setting_medium">medium</string>
+	<string name="power_management_setting_medium">medium</string>
 	<!-- FIXME. https://confluence.mail.ru/display/MAPSME/Energy+saving?preview=/110152893/184394356/image2019-1-15_18-55-54.png -->
-	<string name="power_managment_setting_high">high</string>
+	<string name="power_management_setting_high">high</string>
 
 	<!-- SECTION:  Partners  -->
 	<string name="sponsored_partner1_action">Outlets</string>
