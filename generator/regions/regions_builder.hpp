@@ -27,8 +27,8 @@ public:
 
   explicit RegionsBuilder(Regions && regions,
                           std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
-                          int cpuCount = -1);
-  explicit RegionsBuilder(Regions && regions, int cpuCount = -1);
+                          size_t cpuCount = 1);
+  explicit RegionsBuilder(Regions && regions, size_t cpuCount = 1);
 
   Regions const & GetCountries() const;
   StringsList GetCountryNames() const;
@@ -42,8 +42,7 @@ private:
 
   std::unique_ptr<ToStringPolicyInterface> m_toStringPolicy;
   Regions m_countries;
-  Regions m_regions;
-  int m_cpuCount;
+  size_t m_cpuCount;
 };
 }  // namespace regions
 }  // namespace generator

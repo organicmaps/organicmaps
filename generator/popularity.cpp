@@ -11,14 +11,13 @@
 
 #include "base/assert.hpp"
 #include "base/geo_object_id.hpp"
+#include "base/primitive_thread_pool.hpp"
 
 #include <algorithm>
 #include <functional>
 #include <fstream>
 #include <limits>
 #include <memory>
-
-#include "3party/ThreadPool/ThreadPool.h"
 
 namespace generator
 {
@@ -269,11 +268,11 @@ std::vector<PopularityLine> BuildPopularitySrcFromAllData(std::vector<std::strin
 {
   CHECK_GREATER(cpuCount, 0, ());
 
-  ThreadPool threadPool(cpuCount);
+  threads::PrimitiveThreadPool threadPool(cpuCount);
   std::vector<std::future<std::vector<PopularityLine>>> futures;
   for (auto const & filename : dataFilenames)
   {
-    auto result = threadPool.enqueue(
+    auto result = threadPool.Submit(
                     static_cast<std::vector<PopularityLine>(*)(std::string const &)>(BuildPopularitySrcFromData),
                     filename);
     futures.emplace_back(std::move(result));

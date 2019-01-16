@@ -1,6 +1,7 @@
 #include "generator/regions/regions_builder.hpp"
 
 #include "base/assert.hpp"
+#include "base/primitive_thread_pool.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -11,8 +12,6 @@
 #include <queue>
 #include <thread>
 #include <unordered_set>
-
-#include "3party/ThreadPool/ThreadPool.h"
 
 namespace generator
 {
@@ -32,7 +31,7 @@ Node::Ptr ShrinkToFit(Node::Ptr p)
 
 RegionsBuilder::RegionsBuilder(Regions && regions,
                                std::unique_ptr<ToStringPolicyInterface> toStringPolicy,
-                               int cpuCount)
+                               size_t cpuCount)
   : m_toStringPolicy(std::move(toStringPolicy))
   , m_regions(std::move(regions))
   , m_cpuCount(cpuCount)
@@ -48,7 +47,7 @@ RegionsBuilder::RegionsBuilder(Regions && regions,
   std::sort(std::begin(m_countries), std::end(m_countries), cmp);
 }
 
-RegionsBuilder::RegionsBuilder(Regions && regions, int cpuCount)
+RegionsBuilder::RegionsBuilder(Regions && regions, size_t cpuCount)
   : RegionsBuilder(std::move(regions), std::make_unique<JsonPolicy>(), cpuCount) {}
 
 RegionsBuilder::Regions const & RegionsBuilder::GetCountries() const
