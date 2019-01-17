@@ -132,48 +132,6 @@
               android:layout_marginRight="@dimen/margin_base"
               android:layout_marginEnd="@dimen/margin_base"/>
           </LinearLayout>
-          <LinearLayout
-            android:id="@+id/edit_on_web_btn"
-            android:orientation="vertical"
-            android:layout_below="@id/upload_and_publish_desc_container"
-            android:background="?selectableItemBackground"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <include
-              android:id="@+id/upload_and_publish_desc_container_divider"
-              android:layout_height="@dimen/divider_height"
-              android:layout_width="match_parent"
-              layout="@layout/list_divider"/>
-            <LinearLayout
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:minHeight="@dimen/height_block_base"
-              android:paddingTop="@dimen/margin_half_plus"
-              android:paddingBottom="@dimen/margin_half_plus"
-              android:layout_marginStart="@dimen/margin_base"
-              android:layout_marginLeft="@dimen/margin_base"
-              android:layout_marginEnd="@dimen/margin_base"
-              android:layout_marginRight="@dimen/margin_base"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-              <ImageView
-                android:layout_width="@dimen/sharing_options_img_size"
-                android:layout_height="@dimen/sharing_options_img_size"
-                android:tint="?colorAccent"
-                android:src="@drawable/ic_edit"/>
-              <TextView
-                android:text="@string/edit_on_web"
-                android:textAppearance="?android:attr/textAppearance"
-                android:layout_marginLeft="@dimen/margin_double_plus"
-                android:layout_marginStart="@dimen/margin_double_plus"
-                android:textColor="?colorAccent"
-                android:textAllCaps="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/robotoMedium"
-                tools:targetApi="jelly_bean"/>
-            </LinearLayout>
-          </LinearLayout>
         </RelativeLayout>
       </LinearLayout>
       <include layout="@layout/list_divider"/>
@@ -278,6 +236,44 @@
               android:paddingBottom="@dimen/margin_half_double_plus"/>
           </LinearLayout>
         </RelativeLayout>
+        <include layout="@layout/list_divider"/>
+      </LinearLayout>
+      <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--FIXME text id-->
+        <TextView
+          android:minHeight="@dimen/height_block_base"
+          android:gravity="center_vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/edit_on_web"
+          android:paddingStart="@dimen/margin_base"
+          android:paddingRight="@dimen/margin_base"
+          android:paddingEnd="@dimen/margin_base"
+          android:paddingLeft="@dimen/margin_base"/>
+        <include layout="@layout/list_divider"/>
+        <LinearLayout
+          android:id="@+id/edit_on_web_btn_container"
+          android:orientation="vertical"
+          android:padding="@dimen/margin_base"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/cardBackground">
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_and_publish_desc"/>
+          <Button
+            android:id="@+id/edit_on_web_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_base"
+            style="@style/MwmWidget.Button.Primary"
+            android:text="@string/edit_on_web"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+        </LinearLayout>
         <include layout="@layout/list_divider"/>
       </LinearLayout>
     </LinearLayout>

@@ -21,8 +21,13 @@ public class TagsResFactory
   public static StateListDrawable makeSelector(@NonNull Context context, int color)
   {
     StateListDrawable drawable = new StateListDrawable();
-    drawable.addState(new int[] { android.R.attr.state_selected }, makeSelectedDrawable(color));
-    drawable.addState(new int[] {}, makeDefaultDrawable(context, color));
+    drawable.addState(new int[] { android.R.attr.state_selected, android.R.attr.state_enabled },
+                      makeSelectedDrawable(color));
+    drawable.addState(new int[] { -android.R.attr.state_selected, android.R.attr.state_enabled },
+                      makeDefaultDrawable(context, color));
+    drawable.addState(new int[] { -android.R.attr.state_selected, -android.R.attr.state_enabled },
+                      /* FIXME */
+                      makeDefaultDrawable(context, Color.BLACK));
     return drawable;
   }
 
@@ -43,12 +48,14 @@ public class TagsResFactory
   {
     return new ColorStateList(
         new int[][] {
-            new int[] { android.R.attr.state_selected },
-            new int[] {}
-        },
+            new int[] { android.R.attr.state_selected, android.R.attr.state_enabled },
+            new int[] { -android.R.attr.state_selected, android.R.attr.state_enabled },
+            new int[] { -android.R.attr.state_selected, -android.R.attr.state_enabled } },
         new int[] {
             context.getResources().getColor(android.R.color.white),
-            color
+            color,
+            /* FIXME */
+            Color.GRAY
         }
     );
   }

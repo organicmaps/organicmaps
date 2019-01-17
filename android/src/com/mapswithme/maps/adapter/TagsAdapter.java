@@ -34,12 +34,17 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
   @NonNull
   private final List<CatalogTag> mTags;
 
+  @NonNull
+  private final TagsCompositeAdapter.SelectionPolicy mSelectionPolicy;
+
   TagsAdapter(@NonNull OnItemClickListener<TagViewHolder> listener, @NonNull SelectionState state,
-              @NonNull List<CatalogTag> tags)
+              @NonNull List<CatalogTag> tags,
+              @NonNull TagsCompositeAdapter.SelectionPolicy selectionPolicy)
   {
     mListener = new ClickListenerWrapper(listener);
     mState = state;
     mTags = tags;
+    mSelectionPolicy = selectionPolicy;
     setHasStableIds(true);
   }
 
@@ -61,14 +66,24 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
   public void onBindViewHolder(TagViewHolder holder, int position)
   {
     CatalogTag tag = mTags.get(position);
-    holder.itemView.setSelected(mState.contains(tag));
+    boolean isTagSelected = mState.contains(tag);
+    holder.itemView.setSelected(isTagSelected);
     holder.mTag = tag;
     Context context = holder.itemView.getContext();
+    holder.mText.setText(tag.getLocalizedName());
+    boolean isEnabled = hasTagsFreeSpace() || isTagSelected;
+    holder.itemView.setEnabled(isEnabled);
     StateListDrawable selector = TagsResFactory.makeSelector(context, tag.getColor());
     holder.itemView.setBackgroundDrawable(selector);
     ColorStateList color = TagsResFactory.makeColor(context, tag.getColor());
     holder.mText.setTextColor(color);
-    holder.mText.setText(tag.getLocalizedName());
+    holder.mText.setSelected(isTagSelected);
+    holder.mText.setEnabled(isEnabled);
+  }
+
+  private boolean hasTagsFreeSpace()
+  {
+    return mSelectionPolicy.isTagsSelectionAllowed();
   }
 
   @Override

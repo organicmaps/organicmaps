@@ -50,9 +50,11 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   private static final int REQ_CODE_ERROR_BROKEN_FILE_DIALOG = 104;
   private static final int REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG = 105;
   private static final int REQ_CODE_ERROR_COMMON = 106;
+  private static final int REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS = 107;
   private static final String BUNDLE_CURRENT_MODE = "current_mode";
   private static final String UPLOADING_PROGRESS_DIALOG_TAG = "uploading_progress_dialog";
   private static final String NO_NETWORK_CONNECTION_DIALOG_TAG = "no_network_connection_dialog";
+  private static final String NOT_ENOUGH_BOOKMARKS_DIALOG_TAG = "not_enough_bookmarks_dialog";
   private static final String ERROR_BROKEN_FILE_DIALOG_TAG = "error_broken_file_dialog";
   private static final String ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG = "error_edited_on_web_dialog";
   private static final String ERROR_COMMON_DIALOG_TAG = "error_common_dialog";
@@ -143,7 +145,7 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
   {
     boolean isPublished = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_PUBLIC;
     UiUtils.hideIf(isPublished, mUploadAndPublishText, mGetDirectLinkContainer);
-    UiUtils.showIf(isPublished, mPublishingCompletedStatusContainer, mEditOnWebBtn);
+    UiUtils.showIf(isPublished, mPublishingCompletedStatusContainer);
     mPublishCategoryImage.setSelected(!isPublished);
 
     boolean isLinkSuccessFormed = mCategory.getAccessRules() == BookmarkCategory.AccessRules.ACCESS_RULES_DIRECT_LINK;
@@ -447,9 +449,9 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void showCommonErrorDialog()
   {
-    showErrorDialog(R.string.upload_error_toast,
-                    REQ_CODE_ERROR_COMMON,
-                    ERROR_COMMON_DIALOG_TAG);
+    showUploadErrorDialog(R.string.upload_error_toast,
+                          REQ_CODE_ERROR_COMMON,
+                          ERROR_COMMON_DIALOG_TAG);
   }
 
   private void onUploadSuccess()
@@ -477,23 +479,36 @@ public class UgcSharingOptionsFragment extends BaseMwmAuthorizationFragment impl
 
   private void showErrorEditedOnWebDialog()
   {
-    showErrorDialog(R.string.unable_upload_error_subtitle_edited,
-                    REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG,
-                    ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
+    showUploadErrorDialog(R.string.unable_upload_error_subtitle_edited,
+                          REQ_CODE_ERROR_EDITED_ON_WEB_DIALOG,
+                          ERROR_EDITED_ON_WEB_DIALOG_REQ_TAG);
   }
 
 
   private void showErrorBrokenFileDialog()
   {
-    showErrorDialog(R.string.unable_upload_error_subtitle_broken,
-                    REQ_CODE_ERROR_BROKEN_FILE_DIALOG,
-                    ERROR_BROKEN_FILE_DIALOG_TAG);
+    showUploadErrorDialog(R.string.unable_upload_error_subtitle_broken,
+                          REQ_CODE_ERROR_BROKEN_FILE_DIALOG,
+                          ERROR_BROKEN_FILE_DIALOG_TAG);
   }
 
-  private void showErrorDialog(@StringRes int subtitle, int reqCode, @NonNull String tag)
+  private void showUploadErrorDialog(@StringRes int subtitle, int reqCode, @NonNull String tag)
+  {
+    showErrorDialog(R.string.unable_upload_errorr_title, subtitle, reqCode, tag);
+  }
+
+  private void showNotEnoughBookmarksDialog()
+  {
+    /* FIXME */
+    showErrorDialog(R.string.not_enough_memory, R.string.not_enough_memory,
+                    REQ_CODE_ERROR_NOT_ENOUGH_BOOKMARKS, NOT_ENOUGH_BOOKMARKS_DIALOG_TAG);
+  }
+
+  private void showErrorDialog(@StringRes int title, @StringRes int subtitle, int reqCode,
+                               @NonNull String tag)
   {
     AlertDialog dialog = new AlertDialog.Builder()
-        .setTitleId(R.string.unable_upload_errorr_title)
+        .setTitleId(title)
         .setMessageId(subtitle)
         .setPositiveBtnId(R.string.ok)
         .setReqCode(reqCode)
