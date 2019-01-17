@@ -78,6 +78,7 @@ public:
   std::vector<std::string> GetDownloadingNames() const;
 
   std::string GetDownloadUrl(std::string const & serverId) const;
+  std::string GetWebEditorUrl(std::string const & serverId, std::string const & language) const;
   std::string GetFrontendUrl() const;
 
   void RequestTagGroups(std::string const & language, TagGroupsCallback && callback) const;

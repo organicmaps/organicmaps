@@ -859,6 +859,15 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDownload
 }
 
 JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetWebEditorUrl(
+        JNIEnv * env, jobject, jstring serverId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return ToJavaString(env, bm.GetCatalog().GetWebEditorUrl(ToNativeString(env, serverId),
+                                                           languages::GetCurrentNorm()));
+}
+
+JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontendUrl(
         JNIEnv * env, jobject)
 {

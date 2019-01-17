@@ -620,6 +620,12 @@ public enum BookmarkManager
   }
 
   @NonNull
+  public String getWebEditorUrl(@NonNull String serverId)
+  {
+    return nativeGetWebEditorUrl(serverId);
+  }
+
+  @NonNull
   public String getCatalogFrontendUrl()
   {
     return nativeGetCatalogFrontendUrl();
@@ -764,6 +770,9 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogDownloadUrl(@NonNull String serverId);
+
+  @NonNull
+  private static native String nativeGetWebEditorUrl(@NonNull String serverId);
 
   @NonNull
   private static native String nativeGetCatalogFrontendUrl();

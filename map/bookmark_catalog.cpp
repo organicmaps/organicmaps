@@ -63,6 +63,13 @@ std::string BuildUploadUrl()
   return kCatalogFrontendServer + "storage/upload";
 }
 
+std::string BuildWebEditorUrl(std::string const & serverId, std::string const & language)
+{
+  if (kCatalogDownloadServer.empty())
+    return {};
+  return kCatalogDownloadServer + "webeditor/" + language + "/edit/" + serverId;
+}
+
 struct SubtagData
 {
   std::string m_name;
@@ -268,6 +275,12 @@ std::string BookmarkCatalog::GetDownloadUrl(std::string const & serverId) const
   return BuildCatalogDownloadUrl(serverId);
 }
 
+std::string BookmarkCatalog::GetWebEditorUrl(std::string const & serverId,
+                                             std::string const & language) const
+{
+  return BuildWebEditorUrl(serverId, language);
+}
+
 std::string BookmarkCatalog::GetFrontendUrl() const
 {
   return kCatalogFrontendServer + languages::GetCurrentNorm() + "/v2/mobilefront/";
@@ -428,13 +441,12 @@ void BookmarkCatalog::Upload(UploadData uploadData, std::string const & accessTo
     return;
   }
 
-  if (fileData->m_categoryData.m_accessRules == kml::AccessRules::Public &&
-      uploadData.m_accessRules != kml::AccessRules::Public)
+  if (!fileData->m_categoryData.m_authorId.empty() &&
+      fileData->m_categoryData.m_authorId != uploadData.m_userId)
   {
     if (uploadErrorCallback)
     {
-      uploadErrorCallback(UploadResult::AccessError, "Could not upload public bookmarks with " +
-                                                     DebugPrint(uploadData.m_accessRules) + " access.");
+      uploadErrorCallback(UploadResult::AccessError, "Could not upload not own bookmarks.");
     }
     return;
   }
