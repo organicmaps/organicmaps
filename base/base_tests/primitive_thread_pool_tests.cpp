@@ -1,12 +1,13 @@
 #include "testing/testing.hpp"
 
+#include "base/primitive_thread_pool.hpp"
+
+#include <atomic>
 #include <chrono>
 #include <future>
 #include <mutex>
 #include <thread>
 #include <vector>
-
-#include "base/primitive_thread_pool.hpp"
 
 namespace
 {
@@ -17,16 +18,14 @@ UNIT_TEST(PrimitiveThreadPool_SomeThreads)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
-    size_t threadCount = 4;
-    size_t counter = 0;
+    size_t const threadCount = 4;
+    std::atomic<size_t> counter{0};
     {
-      std::mutex mutex;
       threads::PrimitiveThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
           std::this_thread::sleep_for(std::chrono::milliseconds(1));
-          std::lock_guard<std::mutex> lock(mutex);
           ++counter;
         });
       }
@@ -40,16 +39,14 @@ UNIT_TEST(PrimitiveThreadPool_OneThread)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
-    size_t threadCount = 1;
-    size_t counter = 0;
+    size_t const threadCount = 1;
+    std::atomic<size_t> counter{0};
     {
-      std::mutex mutex;
       threads::PrimitiveThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
           std::this_thread::sleep_for(std::chrono::milliseconds(1));
-          std::lock_guard<std::mutex> lock(mutex);
           ++counter;
         });
       }
@@ -66,15 +63,13 @@ UNIT_TEST(PrimitiveThreadPool_ManyThread)
     size_t threadCount = std::thread::hardware_concurrency();
     CHECK_NOT_EQUAL(threadCount, 0, ());
     threadCount *= 2;
-    size_t counter = 0;
+    std::atomic<size_t> counter{0};
     {
-      std::mutex mutex;
       threads::PrimitiveThreadPool threadPool(threadCount);
       for (size_t i = 0; i < threadCount; ++i)
       {
         threadPool.Submit([&]() {
           std::this_thread::sleep_for(std::chrono::milliseconds(1));
-          std::lock_guard<std::mutex> lock(mutex);
           ++counter;
         });
       }
@@ -88,7 +83,7 @@ UNIT_TEST(PrimitiveThreadPool_ReturnValue)
 {
   for (size_t t = 0; t < kTimes; ++t)
   {
-    size_t threadCount = 4;
+    size_t const threadCount = 4;
     threads::PrimitiveThreadPool threadPool(threadCount);
     std::vector<std::future<size_t>> futures;
     for (size_t i = 0; i < threadCount; ++i)
@@ -111,15 +106,13 @@ UNIT_TEST(PrimitiveThreadPool_ManyTasks)
   for (size_t t = 0; t < kTimes; ++t)
   {
     size_t taskCount = 11;
-    size_t counter = 0;
+    std::atomic<size_t> counter{0};
     {
-      std::mutex mutex;
       threads::PrimitiveThreadPool threadPool(4);
       for (size_t i = 0; i < taskCount; ++i)
       {
         threadPool.Submit([&]() {
           std::this_thread::sleep_for(std::chrono::milliseconds(1));
-          std::lock_guard<std::mutex> lock(mutex);
           ++counter;
         });
       }
