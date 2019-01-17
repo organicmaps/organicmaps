@@ -47,6 +47,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
   private static final String BUNDLE_SELECTED_TAGS = "bundle_saved_tags";
   private static final String ERROR_LOADING_DIALOG_TAG = "error_loading_dialog";
   private static final int ERROR_LOADING_DIALOG_REQ_CODE = 205;
+  private static final int TAGS_LIMIT = 1;
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -201,7 +202,7 @@ public class UgcRouteTagsFragment extends BaseMwmFragment implements BookmarkMan
       showErrorLoadingDialog();
       return;
     }
-    installTags(tagsGroups, 1);
+    installTags(tagsGroups, TAGS_LIMIT);
   }
 
   @Override

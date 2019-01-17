@@ -71,7 +71,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
     holder.mTag = tag;
     Context context = holder.itemView.getContext();
     holder.mText.setText(tag.getLocalizedName());
-    boolean isEnabled = hasTagsFreeSpace() || isTagSelected;
+    boolean isEnabled = mSelectionPolicy.isTagsSelectionAllowed() || isTagSelected;
     holder.itemView.setEnabled(isEnabled);
     StateListDrawable selector = TagsResFactory.makeSelector(context, tag.getColor());
     holder.itemView.setBackgroundDrawable(selector);
@@ -79,11 +79,6 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
     holder.mText.setTextColor(color);
     holder.mText.setSelected(isTagSelected);
     holder.mText.setEnabled(isEnabled);
-  }
-
-  private boolean hasTagsFreeSpace()
-  {
-    return mSelectionPolicy.isTagsSelectionAllowed();
   }
 
   @Override
