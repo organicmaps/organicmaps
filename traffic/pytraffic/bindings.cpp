@@ -145,7 +145,7 @@ vector<uint8_t> GenerateTrafficValuesFromList(boost::python::list const & keys,
   vector<traffic::TrafficInfo::RoadSegmentId> keysVec =
       python_list_to_std_vector<traffic::TrafficInfo::RoadSegmentId>(keys);
 
-  return GenerateTrafficValues(keysVec, segmentMappingDict, true /* useTempBlock */);
+  return GenerateTrafficValues(keysVec, segmentMappingDict, 1 /* useTempBlock */);
 }
 
 vector<uint8_t> GenerateTrafficValuesFromBinary(vector<uint8_t> const & keysBlob,
