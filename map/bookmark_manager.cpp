@@ -1694,7 +1694,11 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   {
     auto * group = GetBmCategory(groupId);
 
-    if (group->IsCategoryFromCatalog() && !::IsMyCategory(m_user, group->GetCategoryData()))
+    // Here we save file in the private directory only if the file is from the catalog,
+    // the file doesn't belong to the user and the file is not previously saved in the main bookmarks
+    // directory.
+    if (group->IsCategoryFromCatalog() && !::IsMyCategory(m_user, group->GetCategoryData()) &&
+        !GetPlatform().IsFileExistsByFullPath(group->GetFileName()))
     {
       auto const privateFileDir = GetPrivateBookmarksDirectory();
       if (!GetPlatform().IsFileExistsByFullPath(privateFileDir) &&
